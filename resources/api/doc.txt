@@ -1,0 +1,7 @@
+//verb, what, description, return, parameters
+#file, page
+get, PageCount, "Returns the number of pages in the document", int, void
+get, DefaultPageSize, "Returns a tuple with the document's page dimensions measured in the document's current units. See UNIT_<type> constants and getPageMargins()", tuple, void
+get, DefaultPageMargins, "Returns the document page margins as a (top left right bottom) tuple in the document's current units. See UNIT_<type> constants and getPageSize()", tuple, void
+set, EditMode, "If an image or text frame is selected set Edit mode", bool, void
+set, NormalMode, "Set Normal mode", bool, void

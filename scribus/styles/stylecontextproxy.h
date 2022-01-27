@@ -18,24 +18,24 @@
 #define STYLECONTEXTPROXY_H
 
 #include <cassert>
+#include <QList>
 #include <QString>
 #include "scfonts.h"
 #include "scribusapi.h"
 #include "sccolor.h"
 #include "styles/stylecontext.h"
-#include <QList>
 
 
 /** This class turns a style into a new stylecontext:
 *  it maps the empty name "" to the given default style and uses
 *  the style's context to resolve all other names.
 */
-class StyleContextProxy: public StyleContext 
+class SCRIBUS_API StyleContextProxy: public StyleContext 
 {
 public:
-	const Style* resolve(const QString& name) const;
+	const BaseStyle* resolve(const QString& name) const;
 	
-	StyleContextProxy(const Style* style) 
+	StyleContextProxy(const BaseStyle* style)
 		: StyleContext(), m_default(style) {
 		}
 	
@@ -50,9 +50,9 @@ public:
 		return *this;
 	}
 	
-	const Style* defaultStyle() const { return m_default; }
+	const BaseStyle* defaultStyle() const { return m_default; }
 	
-	void setDefaultStyle(const Style* def) { 
+	void setDefaultStyle(const BaseStyle* def) {
 		assert(def);
 		m_default = def; 
 		invalidate();
@@ -72,7 +72,7 @@ public:
 	}
 	
 private:
-		const Style* m_default;
+		const BaseStyle* m_default;
 };
 
 #endif

@@ -20,17 +20,19 @@ class SxwDialog : public QDialog
 public:
 	SxwDialog(bool update, bool prefix, bool pack);
 	~SxwDialog();
+
 	bool shouldUpdate();
 	bool usePrefix();
 	bool askAgain();
 	bool packStyles();
+
 private:
-	QCheckBox* updateCheck;
-	QCheckBox* prefixCheck;
-	QCheckBox* doNotAskCheck;
-	QCheckBox* packCheck;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
+	QCheckBox* updateCheck { nullptr };
+	QCheckBox* prefixCheck { nullptr };
+	QCheckBox* doNotAskCheck { nullptr };
+	QCheckBox* packCheck { nullptr };
+	QPushButton* okButton { nullptr };
+	QPushButton* cancelButton { nullptr };
 };
 
 #endif // CSVDIA_H

@@ -13,7 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include <QSet>
 
 #include "scribusapi.h"
-#include "hyphen.h"
+#include "third_party/hyphen/hyphen.h"
+
 class ScribusDoc;
 class ScribusMainWindow;
 class PageItem;
@@ -41,38 +42,31 @@ public:
 	\date
 	\author Franz Schmid
 	*/
-	~Hyphenator();
+	~Hyphenator() override;
 	
 private:
 
-	/*! Embeded reference to the \see ScribusDoc filled by \a dok */
-	ScribusDoc *doc;
+	/*! Embedded reference to the \see ScribusDoc filled by \a dok */
+	ScribusDoc *m_doc;
 	/*! Reference to the hyphen dictionary structure. */
-	HyphenDict *hdict;
-	/*! Flag - if is the dictionary without errors etc. If is it 'false'
-		hyphen aborted. */
-	bool useAble;
+	HyphenDict *m_hdict;
 	/*! Qt text codec which handles local characters. */
-	QTextCodec *codec;
+	QTextCodec *m_codec;
+	/*! Language in use */
+	QString m_language;
+
+	/*! Flag - if user set auto hyphen processing.*/
+	bool m_automatic;
 
 	/*!
-		\brief Loads dictionary and fills parameters like \a useAble, \a codec, \a hdict.
+		\brief Loads dictionary and fills parameters like \a m_codec, \a m_hdict.
 	 \date
 	 \author Franz Schmid
-	 \param name is the name of specified language - filename.
+	 \param name is the name of specified language.
 	 */
-	void NewDict(const QString& name);
+	bool loadDict(const QString& name);
 	
 public:
-	/*! There are languages having rule not to hyphen word shorter than
-		MinWordLen */
-	int MinWordLen;
-	/*! Maximum number of hyphenations allowed following each other */
-	int HyCount;
-	/*! Language in use */
-	QString Language;
-	/*! Flag - if user set auto hyphen processing.*/
-	bool Automatic;
 	/*! Flag - obsolete? */
 	bool AutoCheck;
 	QHash<QString, QString> rememberedWords;
@@ -84,12 +78,12 @@ public slots:
 	\brief Writes actual hyphen configuration into \a doc object.
 	\date
 	\author Franz Schmid
-	\param Wordlen lenght of the word.
+	\param Wordlen length of the word.
 	\param Autom is automatic flag.
 	\param ACheck AutoCheck flag.
 	\param Num HyCount
 	*/
-	void slotNewSettings(int Wordlen, bool Autom, bool ACheck, int Num);
+	void slotNewSettings(bool Autom, bool ACheck);
 	/*! 
 	\brief Make hyphenation when user edits text in text frame manually.
 	If is everything set correctly and textframe selected language fits the

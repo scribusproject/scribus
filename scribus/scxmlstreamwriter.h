@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
+#include <QByteArray>
 #include <QString>
 #include <QXmlStreamWriter>
 
@@ -16,6 +17,7 @@ class SCRIBUS_API ScXmlStreamWriter : public QXmlStreamWriter
 {
 public:
 	ScXmlStreamWriter(void) : QXmlStreamWriter() {}
+	ScXmlStreamWriter(QByteArray* array) : QXmlStreamWriter(array) {}
 	ScXmlStreamWriter(QIODevice* device) : QXmlStreamWriter(device) {}
 	ScXmlStreamWriter(QString*   string) : QXmlStreamWriter(string) {}
 	void writeAttribute(const QString & name, const QString & value) { QXmlStreamWriter::writeAttribute(name, value); }

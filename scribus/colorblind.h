@@ -36,7 +36,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
 #include "scribusapi.h"
@@ -63,14 +63,14 @@ public:
 	/*! \brief QColor like constructors. Setup the RGB parts, then init().
 	\param c QColor object
 	 */
-	VisionDefectColor(QColor c);
+	VisionDefectColor(const QColor& c);
 
 	/*! \brief Default constructors. Setup the RGB parts to default values, then init().
 	 */
 	VisionDefectColor();
 
 	/*! \brief Actual defect type. One of the 'defectMode' */
-	int deficiency;
+	int deficiency {0};
 
 	/*! \brief Perform conversion itself.
 	Gama removing, RGB2LSM, matrix operation for selected deficiency,
@@ -83,7 +83,7 @@ public:
 	\retval QColor converted color
 	Gama removing, RGB2LSM, matrix operation for selected deficiency,
 	LSM2RGB, gama applying. */
-	QColor convertDefect(QColor c, int d);
+	QColor convertDefect(const QColor& c, int d);
 
 	/*! \brief Return the color parts
 	\retval uint red part
@@ -104,24 +104,30 @@ public:
 
 private:
 	/*! \brief Convert matrix */
-	double rgb2lms[9];
+	double m_rgb2lms[9] {0.0};
 	/*! \brief Convert matrix */
-	double lms2rgb[9];
+	double m_lms2rgb[9] {0.0};
 	/*! \brief Gamma matrix */
-	double gammaRGB[3];
+	double m_gammaRGB[3] {0.0};
 
 	/*! \brief cross products with transform matrixes for actual defect */
-	double a1, b1, c1;
+	double m_a1 {0.0};
+	double m_b1 {0.0};
+	double m_c1 {0.0};
 	/*! \brief cross products with transform matrixes for actual defect */
-	double a2, b2, c2;
+	double m_a2 {0.0};
+	double m_b2 {0.0};
+	double m_c2 {0.0};
 	/*! \brief Inflection border line */
-	double inflection;
+	double m_inflection {0.0};
 
 	/*! \brief Internal RGB color parts */
-	double red, green, blue;
+	double m_red {0.0};
+	double m_green {0.0};
+	double m_blue {0.0};
 
 	/*! \brief original color */
-	QColor originalColor;
+	QColor m_originalColor;
 
 	/*! \brief Initialization of the internal values. rgb2lms, lms2rgb etc.
 	For most modern Cathode-Ray Tube monitors (CRTs), the following
@@ -145,7 +151,7 @@ private:
 	*/
 	void init();
 
-	/*! \brief This function performs initialisations that are dependant
+	/*! \brief This function performs initialisations that are dependent
 	on the type of color deficiency (see defectMode). */
 	void setupDefect();
 

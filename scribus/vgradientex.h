@@ -19,26 +19,27 @@ for which a new license (GPL+exception) is in place.
  
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
 */
 
 #ifndef __VGRADIENTEX_H__
 #define __VGRADIENTEX_H__
 
 #include <QList>
-#include <QMatrix>
+#include <QTransform>
 
 #include "fpoint.h"
 #include "sccolor.h"
 #include "scribusapi.h"
+
 class ScribusDoc;
 class VGradient;
 
 class SCRIBUS_API VColorStopEx
 {
 public:
-	VColorStopEx( double r, double m, ScColor c, double o, QString n, int s )
+	VColorStopEx(double r, double m, ScColor c, double o, QString n, int s)
 	{
 		rampPoint = r;
 		midPoint = m; 
@@ -48,7 +49,7 @@ public:
 		shade = s;
 	};
 	
-	VColorStopEx( const VColorStopEx& colorStop )
+	VColorStopEx(const VColorStopEx& colorStop)
 	{
 		rampPoint = colorStop.rampPoint;
 		midPoint = colorStop.midPoint;
@@ -69,13 +70,15 @@ public:
 	double opacity;
 	int shade;
 	QString name;
-	friend inline bool operator== ( VColorStopEx& s1, VColorStopEx& s2 )
-	{ return s1.rampPoint == s2.rampPoint; };
-}
-; // VColorStopEx
+
+	friend inline bool operator== (const VColorStopEx& s1, const VColorStopEx& s2)
+	{
+		return s1.rampPoint == s2.rampPoint;
+	};
+};
 
 // comparison function for use with stable_sort
-bool compareStopsEx( const VColorStopEx* item1, const VColorStopEx* item2 );
+bool compareStopsEx(const VColorStopEx* item1, const VColorStopEx* item2);
 
 class SCRIBUS_API VGradientEx
 {
@@ -84,65 +87,68 @@ class SCRIBUS_API VGradientEx
 public:
 	enum Type
 	{
-	    linear = 0,
-	    radial = 1,
-	    conic  = 2
+		linear = 0,
+		radial = 1,
+		fourcolor  = 2,
+		diamond = 3,
+		mesh = 4,
+		freemesh = 5
 	};
 
 	enum RepeatMethod
 	{
-	    none    = 0,
-	    reflect = 1,
-	    repeat  = 2
+		none    = 0,
+		reflect = 1,
+		repeat  = 2,
+		pad     = 3
 	};
 
-	VGradientEx( VGradientEx::Type type = linear );
-	VGradientEx( const VGradientEx& gradient );
-	VGradientEx( const VGradient& gradient, ScribusDoc& doc );
+	VGradientEx(VGradientEx::Type type = linear);
+	VGradientEx(const VGradientEx& gradient);
+	VGradientEx(const VGradient& gradient, ScribusDoc& doc);
 	~VGradientEx();
 
 	VGradientEx& operator=(const VGradientEx& gradient);
 
 	VGradientEx::Type type() const { return m_type; }
-	void setType( VGradientEx::Type type ) { m_type = type; }
+	void setType(VGradientEx::Type type) { m_type = type; }
 
 	VGradientEx::RepeatMethod repeatMethod() const { return m_repeatMethod; }
-	void setRepeatMethod( VGradientEx::RepeatMethod repeatMethod ) { m_repeatMethod = repeatMethod; }
+	void setRepeatMethod(VGradientEx::RepeatMethod repeatMethod) { m_repeatMethod = repeatMethod; }
 
-	const QList<VColorStopEx*> colorStops() const;
-	void addStop( const VColorStopEx& colorStop );
-	void addStop( const ScColor &color, double rampPoint, double midPoint, double opa, QString name = "", int shade = 100 );
-	void removeStop( VColorStopEx& colorStop );
-	void removeStop( uint n );
+	const QList<VColorStopEx*>& colorStops() const;
+	void addStop(const VColorStopEx& colorStop);
+	void addStop(const ScColor &color, double rampPoint, double midPoint, double opa, const QString& name = QString(), int shade = 100);
+	void removeStop(VColorStopEx& colorStop);
+	void removeStop(int n);
 	void clearStops();
-	uint Stops() { return m_colorStops.count(); }
+	int stops() const { return m_colorStops.count(); }
 
 	FPoint origin() const { return m_origin; }
-	void setOrigin( const FPoint &origin ) { m_origin = origin; }
+	void setOrigin(const FPoint &origin) { m_origin = origin; }
 
 	FPoint focalPoint() const { return m_focalPoint; }
-	void setFocalPoint( const FPoint &focalPoint ) { m_focalPoint = focalPoint; }
+	void setFocalPoint(const FPoint &focalPoint) { m_focalPoint = focalPoint; }
 
 	FPoint vector() const { return m_vector; }
-	void setVector( const FPoint &vector ) { m_vector = vector; }
+	void setVector(const FPoint &vector) { m_vector = vector; }
 
-	void transform( const QMatrix& m );
+	void transform(const QTransform& m);
 
 protected:
-	QList<VColorStopEx*>        m_colorStops;
+	QList<VColorStopEx*> m_colorStops;
 
-	int  compareItems( const VColorStopEx* item1, const VColorStopEx* item2 ) const;
-	void inSort( VColorStopEx* d );
+	int  compareItems(const VColorStopEx* item1, const VColorStopEx* item2) const;
+	void inSort(VColorStopEx* d);
 
 private:
-	VGradientEx::Type         m_type			: 2;
-	VGradientEx::RepeatMethod m_repeatMethod	: 2;
+	VGradientEx::Type m_type;
+	VGradientEx::RepeatMethod m_repeatMethod : 3;
 
 	// coordinates:
 	FPoint m_origin;
 	FPoint m_focalPoint;
 	FPoint m_vector;
-}
-; // VGradientEx
+};
 
 #endif /* __VGRADIENT_H__ */

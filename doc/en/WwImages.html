@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Working with Images</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Working with Images</h2>
+<p>Your first impulse on adding images to your document may be to simply load an image file into it. However, Scribus works in a frame-based environment, so that all content is contained within a frame or box which defines the boundaries of that content. Your first step, then, is to create an Image Frame, after which you will then load an image file into that frame.</p>
+<p>See <a href="WwFrames.html">Working with Frames</a>
+to learn about Image Frame frame creation and manipulation. Note that
+the image frame shows as a red border with small square handles at the
+corners and at the midpoints of each side. Diagonals in black are drawn
+to indicate that it is an image frame. Note that these small square
+handles disappear when the frame is locked.</p>
+<p>The quickest way to load an image into the frame is to right-click on the frame, and select <b>Get Image</b> from the Context Menu. Pressing Ctrl+I or menu <i>File &gt; Import &gt; Get Image</i>
+  will also work. A file dialog will appear, showing the image types that Scribus can import, which include bitmap formats like TIFF, PNG and JPG, as well as vector/mixed vector-bitmap formats PS (PostScript), EPS (Encapsulated PostScript) and PDF, which will be converted to bitmaps.</p>
+
+<p>A new feature in image loading is the ability to create a stack of images, in other words, select a number of images. To do this, hold down <i>Ctrl</i> while selecting one image after another. If you change your mind, click again to unselect your choice.</p><p>You can even choose images from another directory by navigating with the dialog. As long as you don't click <i>OK</i>, you will continue to add to your stack of images. When you get back to the canvas, you must have created image frames already to utilize your stack. At this point, just click-click-click from one frame to the next to empty your stack of images. If you click a frame that already has an image, it will be replaced.</p>
+    <p>Notice how you create a particular order to your list of images.</p>
+<table width="100%"><tr><td align="center"> <img src="images/loadimages.png"></td></tr>
+</table>
+<p>After import the image may only partly show, depending on your default settings in Preferences. We&rsquo;ll see below
+in <i>Properties: Image</i> how to adjust scaling and positioning of the image in the frame, but for now, you might just right-click on the image, then from the Context Menu that pops up, select <i>Image > Adjust Image to Frame</i> to show how quickly you can size the image to your frame.</p>
+<p><i>Descriptions, advantages and disadvantages of various file formats will be discussed elsewhere, in <a href="importbitmap1.html"><b>Importing Bitmap Files</b>.</a></i></p>
+<h3>The Context Menu</h3>
+<table cellpadding="3"><tbody><tr>
+<td><p>Right-click on the empty frame to show its Context Menu as seen to the right. An empty frame will not show all these choices. There have been a number of changes, mostly rearrangements, as of version 1.5.3.</p>
+<ul>
+<li><b>Info</b> gives a short list of information about the image, its
+name, the PPI (pixels per inch) of the original and as shown in
+Scribus, its colorspace, and whether it is set to print (and export to
+  PDF).</li>
+<li><b>Content</b> has submenu items.</li>
+<ul><li><b>Get Image</b> allows for importing an image, as indicated above. This will be the only choice if the frame is empty.</li>
+  <li><b>Copy</b> means to copy the contents, not the entire frame.</li>
+  <li><b>Clear</b> clears the contents of the frame.</li></ul>
+<li><b>Preview Settings</b> This allows to image to be visible or not,
+and if visible, the resolution can be selected. Lower resolution or not
+showing images will speed up screen refreshes if this is sluggish. <b>Full Resolution</b> can only be as high as your monitor supports. These settings do not affect printing your image or exporting to PDF.</li>
+<li><b>Image</b> has submenu items, as shown here.</li>
+<ul><li><b>Image Effects</b> (also Ctrl + E) provide for a number of
+editing types, like blurring or changing contrast and brightness. These
+edits happen in a nondestructive way, i.e., the source file is not
+altered.</li>
+  <li><b>Edit Image</b> starts your image editor as set in the File-&gt;Preferences-&gt;External Tools and loads the image.</li>
+  <li><b>Embed Image</b> is now an option, which will put the image data in your Scribus file.</li>
+  <li><b>More Info...</b> shows additional information from the file such as the camera and camera settings.</li>
+<li><b>Update Image</b> reloads the image. Would be used if you have edited the source file. See Edit Image below.</li>
+  <li><b>Adjust Frame to Image</b> enlarges or shrinks the width and height of your frame to fit the image at its current resolution.</li>
+<li><b>Adjust Image to Frame</b> adjusts the image to the frame. Image will remain proportional if this is checked in Image tab of Properties.</li></ul>
+<li><b>Locking</b> has submenu items.</li>
+<ul><li><b>Is Locked</b> locks the frame&rsquo;s position, size, and content.</li>
+<li><b>Size is Locked</b> locks only the size. Frame and image can otherwise be moved and edited.</li></ul>
+<li><b>Send to</b> has submenu items.</li>
+<ul><li>Choices here are <b>Scrapbook</b>, <b>Patterns</b>, and <b>Inline Items</b> but will not be covered here, except to say that these allow for saving content to be shared among documents.</li></ul>
+<li><b>Send to Layer</b> (not shown) will appear if your document has more than one layer, to allow moving the frame to a different layer.</li>
+<li><b>Level</b> has submenu items. Just as in the X,Y,Z tab of Properties, you can <b>Raise</b> or <b>Lower</b> a level, or <b>Raise to Top</b> or <b>Lower to Bottom</b>.</li>
+<li><b>Convert to</b> gives you the following sub-choices:</li>
+<ul><li><b>Polygon</b>, converts to a polygon, with apparent loss of your image, recoverable with Convert to Image Frame.</li>
+<li><b>Text Frame</b> converts to that kind of frame, in which case
+your image becomes invisible, but will be restored if you convert back
+to an image frame. You cannot show text and an image together, except
+where text is incorporated in an image. Use a superimposed text frame
+  to apply text over an image.</li>
+<li><b>Symbol</b>, which is new to 1.5.3 versions, allows its reuse as is, or as a <b>Pattern</b>. From the menu, <i>Windows > Symbols</i> brings up the Symbols palette.
+</ul>
+<li><b>Attributes</b> will not be discussed here.</li>
+<li><b>Edit</b> has submenu items.</li>
+<ul><li><b>Cut</b>, <b>Copy</b>, and <b>Delete</b> are covered in Working with Frames. Note that these apply to the entire frame.</li>
+  <li><b>Undo</b> will be available for any recent undoable change.</li>
+<li><b>Redo</b> will also be available, if applicable.</li></ul>
+<li><b>Properties</b> brings up or hides the Properties Palette</li>
+</ul>
+</td>
+<td valign="top"><img src="images/context_image.png" alt="Image Context Menu" align="right"></td>
+</tr>
+</tbody></table>
+<h3>Image Properties</h3>
+<table cellpadding="3"><tbody><tr>
+
+<td valign="top"><p>We now have moved Image Properties to its own dockable palette. What you see here is what has been removed from Properties. In the top section, we see <b>X-Pos</b>, <b>Y-Pos</b>, and <b>Rotation</b>. These refer to the position of the image <i>inside</i> the frame. For example, <b>X-Pos</b> is the relative position of the image itself compared to the upper left corner of the frame. Similarly, <b>Rotation</b> applies to the rotation of the image <i>relative</i> to the frame.</p>
+<p>When an Image is first loaded, the default is for it to have Free
+Scaling or as is set in <i>File&nbsp;&gt; Preferences/Document Setup&nbsp;&gt; Tools&nbsp;&gt; Image</i>.</p>
+<p>Under Free Scaling the spinboxes are:
+</p><ul>
+<li><b>X-Pos</b> and <b>Y-Pos</b> - Relative position of the left upper corner of the image to the left upper corner of the frame.</li>
+<li><b>X-Scale</b> and <b>Y-Scale</b> - Magnification of the image, compared to its native DPI.</li>
+<li><b>Actual X-DPI</b> and <b>Actual Y-DPI</b> - These of course are
+inversely related to magnification. Your monitor will still likely be
+showing the image at no better than 72 or 96 PPI, but this setting refers to the
+final resolution to be exported to the PDF.</li>
+</ul>
+<p>In many cases, we may have a more or less set frame size we wish to squeeze an entire image into, in which case choosing <b>To Frame Size</b> (or <b>Adjust Image to Frame</b> from the Context Menu) makes sense. Without checking <b>Proportional</b>,
+the image is simply stretched to fit the frame and may be quite
+distorted. You should find the combination of scaling to frame size
+(proportional) and then <b>Adjust Frame to Image</b> from the Context Menu very useful for making a frame exactly the right size for your image.
+</p><p>The <strong>PDF Compression</strong> section tells us that you can now specify per-frame values.</p>
+<p>The <strong>Image Effects</strong> button brings up its dialog, which allows you to apply some selected imaging manipulation, such as adjusting Brightness or Contrast, Blurring, and so on. </p></td>
+<td valign="top"><img src="images/Image_Properties.png" alt="Image Properties Palette"></td>
+</tr>
+<tr><td align="right"><img src="images/Image_warning.png"></td>
+<td valign="top"><p>If you see this warning triangle in the lower right corner of your frame, it indicates that the image resolution is below 144 DPI, or whatever you have set as your minimum value in the Preflight Verifier settings in <i>File > Preferences</i> or <i>File > Document Settings</i>. This is strictly a warning.</p></td></tr>
+</tbody>
+</table>
+<h3>Edit Contents Mode</h3>
+<p>Enter Edit Contents mode by clicking the icon on the toolbar, or pressing <b>E</b> from the keyboard. Go back to Select Item mode by pressing <b>Esc</b>, or clicking outside, then inside the frame. You will need to have checked <b>Free Scaling</b> in order for this to be operational.</p>
+<p>With image frames, Edit Contents mode allows you to click-drag with
+the mouse to shift the image relative to the frame, i.e., the same as
+adjusting the X-Pos and Y-Pos in the Image tab.</p>
+</body>
+</html>

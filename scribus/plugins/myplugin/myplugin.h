@@ -23,12 +23,12 @@ class PLUGIN_API MyPlugin : public ScActionPlugin
 		MyPlugin();
 		virtual ~MyPlugin();
 		//! \brief main method to run the plug
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+		virtual bool run(ScribusDoc* doc, QString target = QString());
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
+		void addToMainWindowMenu(ScribusMainWindow *) override {};
 
 		// Special features (none)
 };

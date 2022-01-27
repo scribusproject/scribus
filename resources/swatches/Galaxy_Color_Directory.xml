@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS>
+    <COLOR NAME="Black" RGB="#966432"/>
+    <COLOR NAME="Yellow" CMYK="#0000ff00"/>
+    <COLOR NAME="Lemonade" CMYK="#001acc00"/>
+    <COLOR NAME="Desert Sand" CMYK="#00334d66"/>
+    <COLOR NAME="Cantaloupe" CMYK="#00409900"/>
+    <COLOR NAME="Orange Yellow" CMYK="#0040ff00"/>
+    <COLOR NAME="Red Yellow" CMYK="#0040ff00"/>
+    <COLOR NAME="Tangerine" CMYK="#0047cc00"/>
+    <COLOR NAME="Tan" CMYK="#004d994d"/>
+    <COLOR NAME="Grapefruit" CMYK="#00669900"/>
+    <COLOR NAME="Peach" CMYK="#00739900"/>
+    <COLOR NAME="Orange" CMYK="#0073ff00"/>
+    <COLOR NAME="Pink" CMYK="#00800d00"/>
+    <COLOR NAME="Amber" CMYK="#0080e600"/>
+    <COLOR NAME="Vermilion" CMYK="#0080ff1f"/>
+    <COLOR NAME="Salmon" CMYK="#00998700"/>
+    <COLOR NAME="Orange Red" CMYK="#00b2ff00"/>
+    <COLOR NAME="Carnation" CMYK="#00bf5400"/>
+    <COLOR NAME="Apple" CMYK="#00ccbf00"/>
+    <COLOR NAME="Red Orange" CMYK="#00e6bf00"/>
+    <COLOR NAME="Cherry Red" CMYK="#00e6ff00"/>
+    <COLOR NAME="Carmine" CMYK="#00f25400"/>
+    <COLOR NAME="Magenta" CMYK="#00ff0000"/>
+    <COLOR NAME="Crimson" CMYK="#00ff4014"/>
+    <COLOR NAME="Scarlet" CMYK="#00ff800d"/>
+    <COLOR NAME="Ruby" CMYK="#00ffb226"/>
+    <COLOR NAME="Soviet Red" CMYK="#00ffbf00"/>
+    <COLOR NAME="Coral" CMYK="#00ffff00"/>
+    <COLOR NAME="Banana" CMYK="#0d1a9900"/>
+    <COLOR NAME="Gold" CMYK="#0d33ff00"/>
+    <COLOR NAME="Putty" CMYK="#1a0f0f38"/>
+    <COLOR NAME="Natural" CMYK="#2e171759"/>
+    <COLOR NAME="Yellow Green" CMYK="#3300ff00"/>
+    <COLOR NAME="Brown" CMYK="#3380cc80"/>
+    <COLOR NAME="Orchid" CMYK="#338c0000"/>
+    <COLOR NAME="Red Rose" CMYK="#33ffff00"/>
+    <COLOR NAME="Mauve" CMYK="#40ff0000"/>
+    <COLOR NAME="Violet Red" CMYK="#40ff4000"/>
+    <COLOR NAME="Blue Grey" CMYK="#664d331a"/>
+    <COLOR NAME="Charcoal Grey" CMYK="#664d4d80"/>
+    <COLOR NAME="Rusty Brown" CMYK="#66b2ff00"/>
+    <COLOR NAME="Lime Green" CMYK="#7300ff00"/>
+    <COLOR NAME="Moss" CMYK="#7326a600"/>
+    <COLOR NAME="Violet" CMYK="#73e60000"/>
+    <COLOR NAME="Timber" CMYK="#80add440"/>
+    <COLOR NAME="Ocean Green" CMYK="#99006600"/>
+    <COLOR NAME="Kelly Green" CMYK="#9900ff66"/>
+    <COLOR NAME="Simple Green" CMYK="#9e00ff00"/>
+    <COLOR NAME="Twilight Blue" CMYK="#b28c0000"/>
+    <COLOR NAME="Grass Green" CMYK="#bf0dff00"/>
+    <COLOR NAME="Violet Blue" CMYK="#bfe60000"/>
+    <COLOR NAME="Sapphire" CMYK="#ccff0026"/>
+    <COLOR NAME="Blue Sky" CMYK="#d90d0000"/>
+    <COLOR NAME="Purple" CMYK="#d9ff0000"/>
+    <COLOR NAME="Pine" CMYK="#db33db1a"/>
+    <COLOR NAME="Jade" CMYK="#e61a3366"/>
+    <COLOR NAME="Ocean Blue" CMYK="#e68c471a"/>
+    <COLOR NAME="Cyan" CMYK="#ff000000"/>
+    <COLOR NAME="Teal" CMYK="#ff004000"/>
+    <COLOR NAME="Viridian" CMYK="#ff005980"/>
+    <COLOR NAME="Emerald" CMYK="#ff008040"/>
+    <COLOR NAME="Chartreuse" CMYK="#ff008080"/>
+    <COLOR NAME="Vegetable Green" CMYK="#ff00ff00"/>
+    <COLOR NAME="Green Apple" CMYK="#ff33ff00"/>
+    <COLOR NAME="Perfect Sky" CMYK="#ff400000"/>
+    <COLOR NAME="Azure" CMYK="#ff40004d"/>
+    <COLOR NAME="Aqua" CMYK="#ff401a00"/>
+    <COLOR NAME="Blue Green" CMYK="#ff59b200"/>
+    <COLOR NAME="Royal Blue" CMYK="#ff660052"/>
+    <COLOR NAME="Navy Blue" CMYK="#ff660066"/>
+    <COLOR NAME="Turquoise" CMYK="#ff662600"/>
+    <COLOR NAME="Official Blue" CMYK="#ff800000"/>
+    <COLOR NAME="Ultramarine" CMYK="#ff800000"/>
+    <COLOR NAME="Corporate Blue" CMYK="#ff800040"/>
+    <COLOR NAME="Forest Green" CMYK="#ff80ff00"/>
+    <COLOR NAME="Cobalt" CMYK="#ff990052"/>
+    <COLOR NAME="Midnight Blue" CMYK="#ffb20066"/>
+    <COLOR NAME="Indigo" CMYK="#ffbf0000"/>
+    <COLOR NAME="Blueberry" CMYK="#ffe61a00"/>
+    <COLOR NAME="Black" CMYK="#000000ff"/>
+    <COLOR NAME="Registration" CMYK="#ffffffff" Register="1"/>
+    <COLOR NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>

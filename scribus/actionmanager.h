@@ -38,6 +38,7 @@ class QEvent;
 #include "scribusapi.h"
 #include "scraction.h"
 
+class IconManager;
 class ScribusDoc;
 class ScribusMainWindow;
 class ScribusQApp;
@@ -53,22 +54,24 @@ class SCRIBUS_API ActionManager : public QObject
 	friend class StoryEditor;
 	public:
 		ActionManager ( QObject * parent );
-		~ActionManager();
+		~ActionManager() override;
 		
 		virtual void changeEvent(QEvent *e);
 		
 		void init(ScribusMainWindow *);
+		bool compareKeySeqToShortcut(const QKeySequence& ks, const QString& actionName);
+		bool compareKeySeqToShortcut(int k, Qt::KeyboardModifiers km, const QString& actionName);
 		static void createDefaultShortcuts();
-		static QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;};
+		static QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;}
 		static void createDefaultMenus();
 		static void createDefaultMenuNames();
 		static void createDefaultNonMenuActions();
 		static void createDefaultNonMenuNames();
-		static QVector< QPair<QString, QStringList> >* defaultMenuNames() {return &defMenuNames;};
-		static QVector< QPair<QString, QStringList> >* defaultNonMenuNames() {return &defNonMenuNames;};
+		static QVector< QPair<QString, QStringList> >* defaultMenuNames() {return &defMenuNames;}
+		static QVector< QPair<QString, QStringList> >* defaultNonMenuNames() {return &defNonMenuNames;}
 		static QString defaultMenuNameEntryTranslated(const QString& index);
-		static QVector< QPair<QString, QStringList> >* defaultMenus() {return &defMenus;};
-		static QVector< QPair<QString, QStringList> >* defaultNonMenuActions() {return &defNonMenuActions;};
+		static QVector< QPair<QString, QStringList> >* defaultMenus() {return &defMenus;}
+		static QVector< QPair<QString, QStringList> >* defaultNonMenuActions() {return &defNonMenuActions;}
 		void createActions();
 		void disconnectModeActions();
 		void connectModeActions();
@@ -80,21 +83,22 @@ class SCRIBUS_API ActionManager : public QObject
 		void connectNewSelectionActions(ScribusView *,ScribusDoc *);
 		void saveActionShortcutsPreEditMode();
 		void restoreActionShortcutsPostEditMode();
-		void enableActionStringList(QMap<QString, QPointer<ScrAction> > *actionMap, QStringList *list, bool enabled, bool checkingUnicode=false, const QString& fontName=QString::null);
-		void enableUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
+		void enableActionStringList(QMap<QString, QPointer<ScrAction> > *actionMap, QStringList *list, bool enabled, bool checkingUnicode=false, const QString& fontName=QString());
+		void enableUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString());
 		void setPDFActions(ScribusView *);
 		
 	public slots:
 		void languageChange();
-		void handleMultipleSelections(bool isMultiple);
+		void handleMultipleSelections();
 		
-	protected:
+	private:
 		void initFileMenuActions();
 		void initEditMenuActions();
 		void initStyleMenuActions();
 		void initItemMenuActions();
 		void initInsertMenuActions();
 		void initPageMenuActions();
+		void initTableMenuActions();
 		void initViewMenuActions();
 		void initToolsMenuActions();
 		void initExtrasMenuActions();
@@ -103,19 +107,20 @@ class SCRIBUS_API ActionManager : public QObject
 		void initHelpMenuActions();
 		static void initUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList);
 		void initSpecialActions();
+		static void setActionTooltips(QMap<QString, QPointer<ScrAction> > *actionMap);
 		static void languageChangeUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap);
 		void languageChangeActions();
 		static QKeySequence defaultKey(const QString &actionName);
 	
 		QPixmap noIcon;
-		ScribusMainWindow *mainWindow;
-		ScribusQApp *ScQApp;
-		UndoManager *undoManager;
-		QMap<QString, QPointer<ScrAction> > *scrActions;
-		QMultiHash<QString, QActionGroup*> *scrActionGroups;
-		QStringList *modeActionNames;
-		QStringList *nonEditActionNames;
-		QStringList *unicodeCharActionNames;
+		ScribusMainWindow *mainWindow {nullptr};
+		UndoManager *undoManager {nullptr};
+		IconManager& im;
+		QMap<QString, QPointer<ScrAction> > *scrActions {nullptr};
+		QMultiHash<QString, QActionGroup*> *scrActionGroups {nullptr};
+		QStringList *modeActionNames {nullptr};
+		QStringList *nonEditActionNames {nullptr};
+		QStringList *unicodeCharActionNames {nullptr};
 		static QMap<QString, QKeySequence> defKeys;
 		static QVector< QPair<QString, QStringList> > defMenuNames;
 		static QVector< QPair<QString, QStringList> > defMenus;

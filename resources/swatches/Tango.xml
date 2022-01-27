@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="tango" >
+ <COLOR Spot="0" RGB="#eeeeec" Register="0" NAME=" Aluminum 1" />
+ <COLOR Spot="0" RGB="#d3d7cf" Register="0" NAME=" Aluminum 2" />
+ <COLOR Spot="0" RGB="#babdb6" Register="0" NAME=" Aluminum 3" />
+ <COLOR Spot="0" RGB="#888a85" Register="0" NAME=" Aluminum 4" />
+ <COLOR Spot="0" RGB="#555753" Register="0" NAME=" Aluminum 5" />
+ <COLOR Spot="0" RGB="#2e3436" Register="0" NAME=" Aluminum 6" />
+ <COLOR Spot="0" RGB="#bfceea" Register="0" NAME=" Blue 1" />
+ <COLOR Spot="0" RGB="#4374b7" Register="0" NAME=" Blue 2" />
+ <COLOR Spot="0" RGB="#214184" Register="0" NAME=" Blue 3" />
+ <COLOR Spot="0" RGB="#102548" Register="0" NAME=" Blue 4" />
+ <COLOR Spot="0" RGB="#fce94f" Register="0" NAME=" Butter 1" />
+ <COLOR Spot="0" RGB="#edd400" Register="0" NAME=" Butter 2" />
+ <COLOR Spot="0" RGB="#c4a000" Register="0" NAME=" Butter 3" />
+ <COLOR Spot="0" RGB="#e0e4e1" Register="0" NAME=" CC Green 1" />
+ <COLOR Spot="0" RGB="#abb8af" Register="0" NAME=" CC Green 2" />
+ <COLOR Spot="0" RGB="#43594a" Register="0" NAME=" CC Green 3" />
+ <COLOR Spot="0" RGB="#2a372f" Register="0" NAME=" CC Green 4" />
+ <COLOR Spot="0" RGB="#8ae234" Register="0" NAME=" Chameleon 1" />
+ <COLOR Spot="0" RGB="#73d216" Register="0" NAME=" Chameleon 2" />
+ <COLOR Spot="0" RGB="#4e9a06" Register="0" NAME=" Chameleon 3" />
+ <COLOR Spot="0" RGB="#e9b96e" Register="0" NAME=" Chocolate 1" />
+ <COLOR Spot="0" RGB="#c17d11" Register="0" NAME=" Chocolate 2" />
+ <COLOR Spot="0" RGB="#8f5902" Register="0" NAME=" Chocolate 3" />
+ <COLOR Spot="0" RGB="#ededee" Register="0" NAME=" Gray 1" />
+ <COLOR Spot="0" RGB="#dcddde" Register="0" NAME=" Gray 2" />
+ <COLOR Spot="0" RGB="#a7a9ac" Register="0" NAME=" Gray 3" />
+ <COLOR Spot="0" RGB="#636466" Register="0" NAME=" Gray 4" />
+ <COLOR Spot="0" RGB="#393839" Register="0" NAME=" Gray 5" />
+ <COLOR Spot="0" RGB="#121513" Register="0" NAME=" Gray 6" />
+ <COLOR Spot="0" RGB="#e4eba0" Register="0" NAME=" Green 1" />
+ <COLOR Spot="0" RGB="#98c807" Register="0" NAME=" Green 2" />
+ <COLOR Spot="0" RGB="#627d0f" Register="0" NAME=" Green 3" />
+ <COLOR Spot="0" RGB="#3d5024" Register="0" NAME=" Green 4" />
+ <COLOR Spot="0" RGB="#f7b2cc" Register="0" NAME=" Magenta 1" />
+ <COLOR Spot="0" RGB="#b62b6e" Register="0" NAME=" Magenta 2" />
+ <COLOR Spot="0" RGB="#7b1b53" Register="0" NAME=" Magenta 3" />
+ <COLOR Spot="0" RGB="#4f1035" Register="0" NAME=" Magenta 4" />
+ <COLOR Spot="0" RGB="#fcaf3e" Register="0" NAME=" Orange 1" />
+ <COLOR Spot="0" RGB="#f57900" Register="0" NAME=" Orange 2" />
+ <COLOR Spot="0" RGB="#ce5c00" Register="0" NAME=" Orange 3" />
+ <COLOR Spot="0" RGB="#543d03" Register="0" NAME=" Orange 4" />
+ <COLOR Spot="0" RGB="#ad7fa8" Register="0" NAME=" Plum 1" />
+ <COLOR Spot="0" RGB="#75507b" Register="0" NAME=" Plum 2" />
+ <COLOR Spot="0" RGB="#5c3566" Register="0" NAME=" Plum 3" />
+ <COLOR Spot="0" RGB="#d6b4d6" Register="0" NAME=" Purple 1" />
+ <COLOR Spot="0" RGB="#9628c6" Register="0" NAME=" Purple 2" />
+ <COLOR Spot="0" RGB="#662978" Register="0" NAME=" Purple 3" />
+ <COLOR Spot="0" RGB="#42194f" Register="0" NAME=" Purple 4" />
+ <COLOR Spot="0" RGB="#fab499" Register="0" NAME=" Red 1" />
+ <COLOR Spot="0" RGB="#d13814" Register="0" NAME=" Red 2" />
+ <COLOR Spot="0" RGB="#912b10" Register="0" NAME=" Red 3" />
+ <COLOR Spot="0" RGB="#5a1c0e" Register="0" NAME=" Red 4" />
+ <COLOR Spot="0" RGB="#ebe0b2" Register="0" NAME=" Sand 1" />
+ <COLOR Spot="0" RGB="#b1a24a" Register="0" NAME=" Sand 2" />
+ <COLOR Spot="0" RGB="#6d6118" Register="0" NAME=" Sand 3" />
+ <COLOR Spot="0" RGB="#44411f" Register="0" NAME=" Sand 4" />
+ <COLOR Spot="0" RGB="#ef2929" Register="0" NAME=" Scarlet Red 1" />
+ <COLOR Spot="0" RGB="#cc0000" Register="0" NAME=" Scarlet Red 2" />
+ <COLOR Spot="0" RGB="#a40000" Register="0" NAME=" Scarlet Red 3" />
+ <COLOR Spot="0" RGB="#729fcf" Register="0" NAME=" Sky Blue 1" />
+ <COLOR Spot="0" RGB="#3465a4" Register="0" NAME=" Sky Blue 2" />
+ <COLOR Spot="0" RGB="#204a87" Register="0" NAME=" Sky Blue 3" />
+ <COLOR Spot="0" RGB="#fff3a2" Register="0" NAME=" Yellow 1" />
+ <COLOR Spot="0" RGB="#edd812" Register="0" NAME=" Yellow 2" />
+ <COLOR Spot="0" RGB="#b09a11" Register="0" NAME=" Yellow 3" />
+ <COLOR Spot="0" RGB="#4e4917" Register="0" NAME=" Yellow 4" />
+</SCRIBUSCOLORS>
+
+<!-- Retrieved from http://wiki.creativecommons.org/Colors. License: CC Attribution 3.0: http://creativecommons.org/licenses/by/3.0/ -->

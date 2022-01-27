@@ -21,9 +21,10 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
+#include <QDebug>
 #include <QFile>
 #include <QFileInfo>
 #include <QString>
@@ -32,51 +33,45 @@ for which a new license (GPL+exception) is in place.
 #include "prefsreader.h"
 #include "prefstable.h"
 
-PrefsFile::PrefsFile()
-{
-	prefsFilePath = "";
-	ioEnabled = false;
-}
-
 PrefsFile::PrefsFile(const QString& pFilePath, bool write)
+         : m_prefsFilePath(pFilePath),
+           m_ioEnabled(write)
 {
-	prefsFilePath = pFilePath;
-	ioEnabled = write;
-	if (ioEnabled)
+	if (m_ioEnabled)
 		canWrite();
 	load();
 }
 
 bool PrefsFile::hasContext(const QString& contextName) const
 {
-	return contexts.contains(contextName);
+	return m_contexts.contains(contextName);
 }
 
 PrefsContext* PrefsFile::getContext(const QString& contextName, bool persistent)
 {
-	if (!contexts.contains(contextName))
-		contexts[contextName] = new PrefsContext(contextName, persistent);
-	return contexts[contextName];
+	if (!m_contexts.contains(contextName))
+		m_contexts[contextName] = new PrefsContext(contextName, persistent);
+	return m_contexts[contextName];
 }
 
 PrefsContext* PrefsFile::getPluginContext(const QString& contextName, bool persistent)
 {
-	if (!pluginContexts.contains(contextName))
-		pluginContexts[contextName] = new PrefsContext(contextName, persistent);
-	return pluginContexts[contextName];
+	if (!m_pluginContexts.contains(contextName))
+		m_pluginContexts[contextName] = new PrefsContext(contextName, persistent);
+	return m_pluginContexts[contextName];
 }
 
 PrefsContext* PrefsFile::getUserPrefsContext(const QString& contextName, bool persistent)
 {
-	if (!userprefsContexts.contains(contextName))
-		userprefsContexts[contextName] = new PrefsContext(contextName, persistent);
-	return userprefsContexts[contextName];
+	if (!m_userprefsContexts.contains(contextName))
+		m_userprefsContexts[contextName] = new PrefsContext(contextName, persistent);
+	return m_userprefsContexts[contextName];
 }
 
 void PrefsFile::load()
 {
-	PrefsReader handler(&contexts, &pluginContexts);
-	QFile rc(prefsFilePath);
+	PrefsReader handler(&m_contexts, &m_pluginContexts);
+	QFile rc(m_prefsFilePath);
 	QXmlInputSource  source(&rc);
 	QXmlSimpleReader reader;
 	reader.setContentHandler(&handler);
@@ -85,74 +80,73 @@ void PrefsFile::load()
 
 void PrefsFile::write()
 {
-	if ((!ioEnabled) || ((contexts.size() == 0) && (pluginContexts.size() == 0)))
+	if ((!m_ioEnabled) || ((m_contexts.empty()) && (m_pluginContexts.empty())))
 		return; // No prefs file path set -> can't write or no prefs to write
-	QFile* prefsXML = new QFile(prefsFilePath);
-	if (prefsXML->open(QIODevice::WriteOnly))
-	{
-		QTextStream stream(prefsXML);
-		stream.setCodec("UTF-8");
-		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-		stream << "<preferences>\n";
-		if (contexts.size() > 0)
-		{
-			stream << "\t<level name=\"application\">\n";
-			writeContexts(&contexts, stream);
-			stream << "\t</level>\n";
-		}
-		if (userprefsContexts.size() > 0)
-		{
-			stream << "\t<level name=\"plugin\">\n";
-			writeContexts(&userprefsContexts, stream);
-			stream << "\t</level>\n";
-		}
-		if (pluginContexts.size() > 0)
-		{
-			stream << "\t<level name=\"plugin\">\n";
-			writeContexts(&pluginContexts, stream);
-			stream << "\t</level>\n";
-		}
-		stream << "</preferences>\n";
 
-		prefsXML->close();
+	QFile prefsXML(m_prefsFilePath);
+	if (!prefsXML.open(QIODevice::WriteOnly))
+		return;
+
+	QTextStream stream(&prefsXML);
+	stream.setCodec("UTF-8");
+	stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+	stream << "<preferences>\n";
+	if (!m_contexts.empty())
+	{
+		stream << "\t<level name=\"application\">\n";
+		writeContexts(&m_contexts, stream);
+		stream << "\t</level>\n";
 	}
-	delete prefsXML;
+	if (!m_userprefsContexts.empty())
+	{
+		stream << "\t<level name=\"plugin\">\n";
+		writeContexts(&m_userprefsContexts, stream);
+		stream << "\t</level>\n";
+	}
+	if (!m_pluginContexts.empty())
+	{
+		stream << "\t<level name=\"plugin\">\n";
+		writeContexts(&m_pluginContexts, stream);
+		stream << "\t</level>\n";
+	}
+	stream << "</preferences>\n";
+
+	prefsXML.close();
 }
 
-void PrefsFile::writeContexts(ContextMap* contextMap, QTextStream& stream)
+void PrefsFile::writeContexts(const ContextMap* contextMap, QTextStream& stream)
 {
-	ContextMap::Iterator it;
-	for (it = contextMap->begin(); it != contextMap->end(); ++it)
+	for (auto it = contextMap->begin(); it != contextMap->end(); ++it)
 	{
-		if ((it.value()->isPersistent()) && (!it.value()->isEmpty()))
+		const PrefsContext* prefsContext = it.value();
+		if (!prefsContext->isPersistent() || prefsContext->isEmpty())
+			continue;
+
+		stream << "\t\t<context name=\"" + replaceIllegalChars(it.key()) + "\">\n";
+
+		for (auto it2 = prefsContext->values.begin(); it2 != prefsContext->values.end(); ++it2)
 		{
-			stream << "\t\t<context name=\"" + replaceIllegalChars(it.key()) + "\">\n";
-			AttributeMap::Iterator it2;
-			PrefsContext* tmpCon = it.value();
-			for (it2 = tmpCon->values.begin(); it2 != tmpCon->values.end(); ++it2)
-			{
-				stream << "\t\t\t<attribute key=\"" + replaceIllegalChars(it2.key()) + "\" ";
-				stream << "value=\""  + replaceIllegalChars(it2.value()) + "\"/>\n";
-			}
-			TableMap::Iterator it3;
-			for (it3 = tmpCon->tables.begin(); it3 != tmpCon->tables.end(); ++it3)
-			{
-				stream << "\t\t\t<table name=\"" + replaceIllegalChars(it3.key()) + "\">\n";
-				PrefsTable* t = it3.value();
-				for (int i = 0; i < t->height(); ++i)
-				{
-					stream << QString("\t\t\t\t<row index=\"%1\">\n").arg(i);
-					for (int j = 0; j < t->width(); ++j)
-					{
-						stream << QString("\t\t\t\t\t<col index=\"%1\">").arg(j);
-						stream << replaceIllegalChars(t->get(i, j, "__NOT__SET__")) << "</col>\n";
-					}
-					stream << "\t\t\t\t</row>\n";
-				}
-				stream << "\t\t\t</table>\n";
-			}
-			stream << "\t\t</context>\n";
+			stream << "\t\t\t<attribute key=\"" + replaceIllegalChars(it2.key()) + "\" ";
+			stream << "value=\""  + replaceIllegalChars(it2.value()) + "\"/>\n";
 		}
+
+		for (auto it3 = prefsContext->tables.begin(); it3 != prefsContext->tables.end(); ++it3)
+		{
+			stream << "\t\t\t<table name=\"" + replaceIllegalChars(it3.key()) + "\">\n";
+			PrefsTable* t = it3.value();
+			for (int i = 0; i < t->height(); ++i)
+			{
+				stream << QString("\t\t\t\t<row index=\"%1\">\n").arg(i);
+				for (int j = 0; j < t->width(); ++j)
+				{
+					stream << QString("\t\t\t\t\t<col index=\"%1\">").arg(j);
+					stream << replaceIllegalChars(t->get(i, j, "__NOT__SET__")) << "</col>\n";
+				}
+				stream << "\t\t\t\t</row>\n";
+			}
+			stream << "\t\t\t</table>\n";
+		}
+		stream << "\t\t</context>\n";
 	}
 }
 
@@ -169,26 +163,25 @@ QString PrefsFile::replaceIllegalChars(const QString& text)
 
 void PrefsFile::canWrite()
 {
-	if (ioEnabled)
+	if (!m_ioEnabled)
+		return;
+	QFile f(m_prefsFilePath);
+	QFileInfo fi(f);
+	if (fi.exists())
+		m_ioEnabled = fi.isWritable();
+	else
 	{
-		QFile f(prefsFilePath);
-		QFileInfo fi(f);
-		if (fi.exists())
-			ioEnabled = fi.isWritable();
-		else
-		{
-			QFile f2(prefsFilePath.left(prefsFilePath.lastIndexOf("/")));
-			QFileInfo fi2(f2);
-			ioEnabled = fi2.isWritable();
-		}
+		QFile f2(m_prefsFilePath.left(m_prefsFilePath.lastIndexOf("/")));
+		QFileInfo fi2(f2);
+		m_ioEnabled = fi2.isWritable();
 	}
 }
 
 PrefsFile::~PrefsFile()
 {
 	ContextMap::Iterator it;
-	for (it = contexts.begin(); it != contexts.end(); ++it)
+	for (it = m_contexts.begin(); it != m_contexts.end(); ++it)
 		delete it.value();
-	for (it = pluginContexts.begin(); it != pluginContexts.end(); ++it)
+	for (it = m_pluginContexts.begin(); it != m_pluginContexts.end(); ++it)
 		delete it.value();
 }

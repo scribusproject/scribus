@@ -1,0 +1,439 @@
+namespace impl = "http://www.scribus.info/RelaxNG/implementation"
+
+grammar {
+		[
+		impl:template="SimpleSettings"
+		impl:name="PageItem_base"
+		impl:datatype="PageItem" 
+		]
+        PageItemDef = (
+                        [ impl:name="inlineCharID" ]
+                        attribute InID { xsd:double }?,
+                        [ impl:name="Xpos" ]
+                        attribute XPOS { xsd:double }?,
+                        [ impl:name="Ypos" ]
+                        attribute YPOS { xsd:double }?,
+
+                        [impl:name="OwnPage"]
+                        attribute OwnPage { xsd:int },
+                        [impl:type="ignore"]
+                        attribute ItemID { xsd:string },
+                        [ impl:name="m_ItemType" impl:getter="" impl:setter="" impl:type="ignore"]
+                        attribute PTYPE { xsd:int },
+                        [ impl:name="Width" ]
+                        attribute WIDTH { xsd:double },
+                        [ impl:name="Height" ]
+                        attribute HEIGHT { xsd:double },
+                        [impl:name="RadRect" impl:getter="cornerRadius" impl:setter="setCornerRadius"]
+			attribute RADRECT { xsd:double }?,
+                        [ impl:name="FrameType" impl:getter="frameType" impl:setter="setFrameType"]
+                        attribute FRTYPE { xsd:int },
+                        [impl:name="ClipEdited"]
+                        attribute CLIPEDIT { xsd:boolean },
+                        [impl:type="ignore"]
+			attribute GRTYP { xsd:int },
+                        [impl:type="ignore"]
+			attribute GRTYPS { xsd:int },
+                        [impl:name="Rot" impl:getter="rotation" impl:setter=""]
+                        attribute ROT { xsd:double },
+                        attribute PRINTABLE { xsd:int },
+                        attribute FLIPPEDH { xsd:int },
+                        attribute FLIPPEDV { xsd:int },
+                        [impl:name = "m_lineWidth" impl:setter="" impl:getter=""]
+                        attribute PWIDTH { xsd:double },
+                        [ impl:name="fillColorVal" ]
+                        attribute PCOLOR { xsd:string },
+                        [impl:name="fillShadeVal" impl:getter="fillShade" impl:setter="setFillShade"]
+                        attribute SHADE { xsd:double },
+			
+                        [ impl:name="lineColorVal" ]
+                        attribute PCOLOR2 { xsd:string },
+			
+                        [ impl:name="lineShadeVal" impl:getter="lineShade" impl:setter="setLineShade"]
+                        attribute SHADE2 { xsd:double },
+                        [ impl:name="NamedLStyle" ]
+			attribute NAMEDLST { xsd:string },
+                        # the type is Qt::PenStyle
+                        [ impl:name="PLineArt" impl:datatype="Qt::PenStyle" ]
+                        attribute PLINEART {xsd:string},
+                        [ impl:name="PLineEnd" impl:datatype="Qt::PenCapStyle" ]
+                        attribute PLINEEND {xsd:string},
+                        [ impl:name="PLineJoin" impl:datatype="Qt::PenJoinStyle"]
+                        attribute PLINEJOIN {xsd:string},
+			
+                        [ impl:name="polyCorners" ]
+                        attribute POLYC { xsd:int },
+                        [ impl:name="polyFactor" ]
+                        attribute POLYF { xsd:double },
+                        [ impl:name="polyRotation"]
+                        attribute POLYR { xsd:double },
+                        [ impl:name="polyInnerRot"]
+                        attribute POLYIR { xsd:double },
+                        [ impl:name="polyCurvature"]
+                        attribute POLYCUR { xsd:double },
+                        [ impl:name="polyOuterCurvature"]
+                        attribute POLYOCUR { xsd:double },
+                        [ impl:name="polyUseFactor"]
+                        attribute POLYS { xsd:int },
+			
+                        [ impl:name="arcHeight" ]
+                        attribute arcHeight { xsd:double },
+                        [ impl:name="arcWidth" ]
+                        attribute arcWidth { xsd:double },
+                        [ impl:name="arcStartAngle" ]
+                        attribute arcStartAngle { xsd:double },
+                        [ impl:name="arcSweepAngle" ]
+                        attribute arcSweepAngle { xsd:double },
+
+
+                        [ impl:name="spiralStartAngle" ]
+                        attribute spiralStartAngle { xsd:double },
+                        [ impl:name="spiralEndAngle" ]
+                        attribute spiralEndAngle { xsd:double },
+                        [ impl:name="spiralFactor" ]
+                        attribute spiralFactor { xsd:double },
+
+                        [impl:name="textFlowModeVal" impl:getter="textFlowMode" impl:setter="setTextFlowMode" impl:type="ignore"]
+                        attribute TEXTFLOWMODE { xsd:int },
+			
+                        [ impl:name="LocalScX" impl:getter="imageXScale" impl:setter="setImageXScale"]
+                        attribute LOCALSCX { xsd:double },
+                        [ impl:name="LocalScY" impl:getter="imageYScale" impl:setter="setImageYScale"]
+                        attribute LOCALSCY { xsd:double },
+                        [ impl:name="LocalX" impl:getter="imageXOffset" impl:setter="setImageXOffset"]
+                        attribute LOCALX { xsd:double },
+                        [ impl:name="LocalY" impl:getter="imageYOffset" impl:setter="setImageYOffset"]
+                        attribute LOCALY { xsd:double },
+                        [ impl:name="LocalRot" impl:getter="imageRotation" impl:setter="setImageRotation"]
+                        attribute LOCALROT { xsd:double },
+                        [impl:name="PicArt" impl:getter="imageShown" impl:setter="setImageShown"]
+                        attribute PICART { xsd:boolean },
+                        [impl:name="ScaleType"]
+                        attribute SCALETYPE { xsd:boolean },
+                        [impl:name="AspectRatio"]
+                        attribute RATIO { xsd:boolean },
+                        #[ impl:name="LocalRot" ]
+                        [impl:type="ignore"]
+                        attribute TXTFILL { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTSTROKE { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTSTRSH { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTFILLSH { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTSCALE { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTSCALEV { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTBASE { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTSHX { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTSHY { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTOUT { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTULP { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTULW { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTSTP { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTSTW { xsd:string },
+                        [impl:type="ignore"]
+			attribute TXTKERN { xsd:string },
+                        [impl:type="ignore"]
+                        attribute wordTrack { xsd:string },
+                        [impl:type="ignore"]
+			attribute MinwordTrack { xsd:string },
+                        [impl:type="ignore"]
+			attribute MinGlyphShrink { xsd:string },
+                        [impl:type="ignore"]
+			attribute MaxGlyphExtend { xsd:string },
+                        [impl:type="ignore"]
+			attribute OpticalMargins { xsd:string },
+                        [impl:type="ignore"]
+			attribute HyphenationMode { xsd:string },
+                        [impl:type="ignore"]
+			attribute leftMargin { xsd:string },
+                        [impl:type="ignore"]
+			attribute rightMargin { xsd:string },
+                        [impl:type="ignore"]
+			attribute firstIndent { xsd:string },
+                        [impl:type="ignore"]
+			attribute LINESP { xsd:string },
+                        [impl:type="ignore"]
+			attribute LINESPMode { xsd:string },
+                        [impl:type="ignore"]
+			attribute KeepLinesStart { xsd:string },
+                        [impl:type="ignore"]
+			attribute KeepLinesEnd { xsd:string },
+                        [impl:type="ignore"]
+			attribute KeepWithNext { xsd:string },
+                        [impl:type="ignore"]
+			attribute KeepTogether { xsd:string },
+                        [impl:type="ignore"]
+			attribute IFONT { xsd:string },
+                        [impl:type="ignore"]
+			attribute ISIZE { xsd:string },
+                        [impl:type="ignore"]
+			attribute LANGUAGE { xsd:string },
+			
+                        [ impl:name="Cols" impl:getter="columns" impl:setter="setColumns" impl:type="ignore"]
+                        attribute COLUMNS { xsd:int },
+                        [ impl:name="ColGap" impl:getter="columnGap" impl:setter="" impl:type="ignore"]
+                        attribute COLGAP { xsd:double },
+                        [ impl:name="isAutoText" impl:type="ignore"]
+                        attribute AUTOTEXT { xsd:boolean },
+                        [ impl:name="Extra" impl:type="ignore"]
+                        attribute EXTRA { xsd:double },
+                        [ impl:name="TExtra" impl:type="ignore"]
+                        attribute TEXTRA { xsd:double },
+                        [ impl:name="BExtra" impl:type="ignore"]
+                        attribute BEXTRA { xsd:double },
+                        [ impl:name="RExtra" impl:type="ignore"]
+                        attribute REXTRA { xsd:double },
+                        [impl:type="ignore"]
+			attribute FLOP { xsd:string },
+                        [ impl:name="PoShow" impl:type="ignore"]
+                        attribute PLTSHOW { xsd:boolean },
+                        [ impl:name="BaseOffs" impl:type="ignore"]
+                        attribute BASEOF { xsd:double },
+                        [ impl:name="textPathType" impl:type="ignore"]
+                        attribute textPathType { xsd:int },
+                        [ impl:name="textPathFlipped" impl:type="ignore"]
+                        attribute textPathFlipped { xsd:int },
+
+                        [impl:name="actualPageNumber" impl:type="ignore"]
+                        attribute Pagenumber { xsd:int },
+                        [impl:name="Pfile"]
+                        attribute PFILE { xsd:string },
+                        [impl:name="Pfile2"]
+                        attribute PFILE2 { xsd:string },
+                        [impl:name="Pfile3"]
+			attribute PFILE3 { xsd:string },
+                        [ impl:name="IProfile" ]
+                        attribute PRFILE { xsd:string },
+                        [ impl:name="EmProfile" ]
+			attribute EPROF { xsd:string },
+                        [impl:type="ignore"]
+                        attribute IRENDER { xsd:string },
+
+                        [impl:type="ignore"]
+			attribute EMBEDDED { xsd:string },
+                        [ impl:name="CompressionMethodIndex"]
+                        attribute COMPRESSIONMETHOD { xsd:int },
+                        [ impl:name="CompressionQualityIndex" ]
+                        attribute COMPRESSIONQUALITY { xsd:int },
+			
+
+                        attribute LOCK { xsd:int },
+                        attribute LOCKR { xsd:int },
+                        [impl:type="ignore"]
+			attribute REVERS { xsd:string },
+                        [ impl:name="fillTransparencyVal" impl:getter="fillTransparency" impl:setter="setFillTransparency"]
+                        attribute TransValue { xsd:double },
+                        [ impl:name="lineTransparencyVal" impl:getter="lineTransparency" impl:setter="setLineTransparency"]
+                        attribute TransValueS { xsd:double },
+                        [ impl:name="fillBlendmodeVal" impl:getter="fillBlendmode" impl:setter="setFillBlendmode"]
+                        attribute TransBlend { xsd:int },
+                        [ impl:name="lineBlendmodeVal" impl:getter="lineBlendmode" impl:setter="setLineBlendmode"]
+                        attribute TransBlendS { xsd:int },
+
+                        [impl:name="PoLine" impl:datatype="FPointArray"]
+                        attribute PoLine { xsd:string },
+                        [impl:name="ContourLine" impl:datatype="FPointArray"]
+                        attribute ContourLine { xsd:string },
+
+                        [impl:name="groupWidth"]
+                        attribute groupWidth { xsd:double },
+                        [impl:name="groupHeight"]
+                        attribute groupHeight { xsd:double },
+
+			
+                        [ impl:name="m_startArrowIndex" impl:type="ignore"]
+                        attribute startArrowIndex { xsd:int },
+                        [ impl:name="m_endArrowIndex" impl:type="ignore"]
+                        attribute endArrowIndex { xsd:int },
+                        [ impl:name="m_startArrowScale" impl:type="ignore"]
+                        attribute startArrowScale { xsd:int },
+                        [ impl:name="m_endArrowScale" impl:type="ignore"]
+                        attribute endArrowScale { xsd:int },
+
+
+                        attribute OnMasterPage { xsd:string }?,
+                        attribute ImageClip { xsd:string }?,
+                        attribute ImageRes { xsd:string }?,
+                        attribute isInLine { xsd:string }?,
+                        attribute fillRule { xsd:string }?,
+                        attribute doOverPrint { xsd:string }?,
+
+                        GDef,
+
+			attribute PSTYLE { xsd:int }?,
+			attribute ALIGN { xsd:int }?,
+                        [impl:name="LayerID"]
+			attribute LAYER { xsd:int }?,
+			attribute BOOKMARK { xsd:int }?,
+			
+			# a qhash or -1
+			attribute NEXTITEM { xsd:int }?,
+			attribute BACKITEM { xsd:int }?,
+			
+			attribute isWeldItem { xsd:int }?,
+			attribute WeldSource { xsd:int }?,
+
+                        [impl:name="Annotation"
+                        impl:template="SimpleSettings"
+                        impl:datatype="Annotation" ]
+                        element annotation{
+                        attribute ANNOTATION { xsd:string },
+                        [ impl:name="type" impl:initial="0" impl:getter="Type"]
+                        attribute ANTYPE { xsd:int },
+                        [ impl:name="action" impl:initial="" impl:getter="Action" ]
+                        attribute ANACTION { xsd:string },
+                        [ impl:name="e_act" impl:initial="" impl:getter="E_act"]
+                        attribute ANEACT { xsd:string },
+                        [ impl:name="x_act" impl:initial="" impl:getter="X_act"]
+                        attribute ANXACT { xsd:string },
+                        [ impl:name="d_act" impl:initial="" impl:getter="D_act"]
+                        attribute ANDACT { xsd:string },
+                        [ impl:name="fo_act" impl:initial="" impl:getter="Fo_act"]
+                        attribute ANFOACT { xsd:string },
+                        [ impl:name="bl_act" impl:initial="" impl:getter="Bl_act"]
+                        attribute ANBLACT { xsd:string },
+                        [ impl:name="k_act" impl:initial="" impl:getter="K_act"]
+                        attribute ANKACT { xsd:string },
+                        [ impl:name="f_act" impl:initial="" impl:getter="F_act"]
+                        attribute ANFACT { xsd:string },
+                        [ impl:name="v_act" impl:initial="" impl:getter="V_act"]
+                        attribute ANVACT { xsd:string },
+                        [ impl:name="c_act" impl:initial="" impl:getter="C_act"]
+                        attribute ANCACT { xsd:string },
+
+                        [ impl:name="m_extern" impl:initial="" impl:getter="Extern" impl:setter="setExtern"]
+                        attribute ANXTERN { xsd:string },
+
+                        [ impl:name="ziel" impl:initial="0" impl:getter="Ziel"]
+                        attribute ANZIEL { xsd:int },
+                        [ impl:name="actionType" impl:initial="0" impl:getter="ActionType"]
+                        attribute ANACTYP { xsd:int },
+                        [ impl:name="toolTip" impl:initial="" impl:getter="ToolTip"]
+                        attribute ANTOOLTIP { xsd:string },
+                        [ impl:name="bwid" impl:initial="1" impl:getter="Bwid"]
+                        attribute ANBWID { xsd:int },
+                        [ impl:name="bsty" impl:initial="0" impl:getter="Bsty"]
+                        attribute ANBSTY { xsd:int },
+                        [ impl:name="feed" impl:initial="1" impl:getter="Feed"]
+                        attribute ANFEED { xsd:int },
+                        [ impl:name="flag" impl:initial="0" impl:getter="Flag"]
+                        attribute ANFLAG { xsd:int },
+                        [ impl:name="font" impl:initial="4" impl:getter="Font"]
+                        attribute ANFONT { xsd:int },
+                        [ impl:name="format" impl:initial="0" impl:getter="Format"]
+                        attribute ANFORMAT { xsd:int },
+                        [ impl:name="rollOver" impl:initial="" impl:getter="RollOver"]
+                        attribute ANROLL { xsd:string },
+                        [ impl:name="down" impl:initial="" impl:getter="Down"]
+                        attribute ANDOWN { xsd:string },
+                        [ impl:name="vis" impl:initial="0" impl:getter="Vis"]
+                        attribute ANVIS { xsd:int },
+                        [ impl:name="maxChar" impl:initial="-1" impl:getter="MaxChar"]
+                        attribute ANMC { xsd:int },
+                        [ impl:name="isChk" impl:initial="false" impl:getter="IsChk"]
+                        attribute ANCHK { xsd:boolean },
+                        [ impl:name="aAact" impl:initial="false" impl:getter="AAact"]
+                        attribute ANAA { xsd:boolean },
+                        [ impl:name="chkStil" impl:initial="0" impl:getter="ChkStil"]
+                        attribute ANCHKS { xsd:int },
+                        [ impl:name="bColor" impl:initial="" impl:getter="borderColor" impl:setter="setBorderColor"]
+                        attribute ANBCOL { xsd:string },
+                        [ impl:name="m_HTML" impl:getter="HTML" impl:setter="setHTML"]
+                        attribute ANHTML { xsd:int },
+                        [ impl:name="useIcons" impl:initial="false" impl:getter="UseIcons"]
+                        attribute ANICON { xsd:boolean },
+                        [ impl:name="iPlace" impl:initial="1" impl:getter="IPlace"]
+                        attribute ANPLACE { xsd:int },
+                        [ impl:name="scaleW" impl:initial="0" impl:getter="ScaleW"]
+                        attribute ANSCALE { xsd:int },
+                        [impl:type="ignore"]
+                        attribute ANNAME { xsd:string }
+                        },
+			
+                        [impl:datatype="ScImageEffectList"
+                        impl:template="SimpleSettings"
+                        impl:type="ignore"]
+			element ImageEffect {
+                            [impl:name="effectCode"]
+			    attribute Code { xsd:int }?,
+                            [ impl:name="effectParametrs" ]
+                            attribute Param { xsd:string }?
+                        }*,
+
+                         [impl:datatype="QMap<int, ImageLoadRequest>"
+                         impl:template="SimpleSettings"
+                         impl:type="ignore"]
+			
+                        element PSDLayer {
+			    attribute Layer { xsd:int },
+			    attribute Visible { xsd:int },
+			    attribute useMask { xsd:int },
+			    attribute Opacity { xsd:int },
+                            attribute Blend { xsd:int }
+			    			    
+                        }*,
+			
+                        [impl:type="ignore"]
+			element Tabs {
+			    attribute Type { xsd:int },
+			    attribute Pos { xsd:int },
+			    attribute Fill { xsd:int }
+                        }*,
+			
+                        [impl:datatype="StoryText" impl:template="SimpleSettings" impl:type="ignore"]
+                        element ITEXT {
+                            attribute CH { xsd:string }
+                        },
+			
+				
+			[ impl:type = "ignore" ]
+                        element LATEX {
+                            PageItemLatexFrameDef
+                        }?,
+                        [ impl:datatype="ObjAttrVector" impl:type="struct" ]
+                        element PageItemAttribute {
+                                ItemAttributeDef
+						}*,
+			
+                        [impl:datatype = "QList<weldingInfo>" impl:template="SimpleSettings"
+                        impl:type="ignore"]
+			element WeldEntry {
+			    attribute Target { xsd:int },
+			    attribute WX { xsd:int },
+                            attribute WY { xsd:int }
+			    
+			}
+
+		)
+		   
+		[
+		impl:template="SimpleSettings" 
+		impl:name="PageItem_LatexFrame_base" 
+		impl:datatype="PageItem_LatexFrame"
+		]
+		PageItemLatexFrameDef = (
+            attribute ConfigFile { xsd:string },
+            [impl:name="m_dpi"]
+            attribute DPI { xsd:int },
+            attribute USE_PREAMBLE { xsd:boolean },
+            [impl:template="SimpleSettings" impl:datatype="QMap<string,string>"]
+            element Property {
+                attribute name { xsd:string },
+                attribute value { xsd:string }
+
+            }*,
+            text
+		)
+
+}

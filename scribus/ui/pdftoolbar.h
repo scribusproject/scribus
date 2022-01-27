@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #define PDFTOOLBAR_H
 
 #include "scribusapi.h"
-#include "sctoolbar.h"
+#include "ui/sctoolbar.h"
 
 class ScribusMainWindow;
 

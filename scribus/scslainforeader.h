@@ -16,14 +16,14 @@ protected:
 	QString m_author;
 	QString m_format;
 
-	void resetFileInfos(void);
+	void resetFileInfos();
 
 public:
-	ScSlaInfoReader(void) {};
+	ScSlaInfoReader() {};
 
-	const QString& title(void)  { return m_title; }
-	const QString& author(void) { return m_author; }
-	const QString& format(void) { return m_format; }
+	const QString& title()  { return m_title; }
+	const QString& author() { return m_author; }
+	const QString& format() { return m_format; }
 
 	bool readInfos(const QString& fileName);
 };

@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef CMSERRORHANDLING_H
 #define CMSERRORHANDLING_H
 
-#include <setjmp.h>
+#include <csetjmp>
 
 /*!
 \brief Jump buffer used by cmsErrorHandler, must be set with the setjmp() function

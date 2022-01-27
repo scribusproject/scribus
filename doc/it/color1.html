@@ -1,0 +1,89 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Gestire e modificare i colori</title>
+</head>
+<body>
+<h3>Gestire e modificare i colori (1)</h3>
+<table border="1" align="center">
+  <tbody>
+    <tr>
+      <td><i><b>Attenzione: l'argomento di questa pagina non &egrave; la gestione del colore, ma la modifica e la gestione dei colori di <a href="WwFill.html">riempimento</a>. La gestione del colore &egrave; descritta nell'apposito <a href="cms.html">capitolo</a>.</b></i></td>
+    </tr>
+  </tbody>
+</table>
+<p>In Scribus esistono diversi modi di creare, importare e gestire i colori e le raccolte di colori. Inoltre Scribus comprende uno strumento avanzato, la  <a href="colorwheel.html">mappa cromatica</a>, che aiuta a creare armonie di colore e anche a verificarne gli effetti per persone con disturbi della percezione dei colori.</p>
+<h3>Perch&eacute; usare le raccolte di colori?</h3>
+<p>La risposta a questa domanda &egrave; strettamente legata alla risposta a una domanda pi&ugrave; fondamentale, e cio&egrave;: &ldquo;Che cos'&egrave; un colore?&rdquo; Il fatto &egrave; che non esiste una risposta semplice a questa domanda, poich&eacute; il concetto di &ldquo;colore&rdquo; pu&ograve; essere definito in centinaia di modi, ad esempio come una combinazione di lunghezze d'onda, come una combinazione di valori di colore nell'ambito di un certo &ldquo;modello di colore&rdquo;, come una categoria in una struttura concettuale basata su regole estetiche, ecc. Di conseguenza, nel corso del tempo sono stati sviluppati molti diversi &ldquo;modelli di colore&rdquo;, molti dei quali sono divenuti parte di una disciplina detta &ldquo;scienza del colore&rdquo;, una scienza che &egrave; in effetti una &ldquo;meta-scienza&rdquo;, poich&eacute; utilizza contributi da molte altre discipline diverse, come la fisica, le neuroscienze, la biologia, la matematica, l'ingegneria, e persino l'arte, l'artigianato o la letteratura. Il &ldquo;colore&rdquo; &egrave; effettivamente uno dei pochi casi in cui artisti come Johann Wolfgang von Goethe o Albert Henry Munsell hanno dato contributi significativi al progresso scientifico.</p>
+<p>Gli utenti di programmi di grafica come Scribus non dovrebbero essere costretti ad imparare tutti i dettagli della scienza del colore, anche se un po' di conoscenze teoriche non possono certo nuocere. Ma, a un livello di base, sapere dell'esistenza dei problemi e degli aspetti a cui abbiamo accennato prima &egrave; certamente d'aiuto quando si lavora con i colori, e la vignetta qui sotto pu&ograve; essere un primo passo per capire di quali problemi si tratta:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/colrs-caricature.png" title="Nomi dei colori &ndash; si ringrazia http://www.thedoghousediaries.com per l'immagine" alt="Nomi dei colori &ndash; Si ringrazia http://www.thedoghousediaries.com per l'immagine" /></td></tr></table><br>
+<p>Come spesso accade con le vignette ben riuscite, dietro c'&egrave; qualcosa di vero e di importante; in questo caso la vignetta mostra che la capacit&agrave; di differenziare e classificare i colori &egrave; molto variabile e i colori possono essere altamente soggettivi. Immaginate due persone, una nella colonna &ldquo;Girls&rdquo;, l'altra in quella &ldquo;Boys&rdquo;, che parlano al telefono della scelta dei colori per un certo progetto: sar&agrave; una discussione quasi impossibile, poich&eacute; sia i nomi dei colori (soggettivi) sia la percezione del colore sono molto diverse tra i due interlocutori. Quindi l'uso di raccolte di colori predefinite &egrave; un modo di <b><i>comunicare</i></b> e scambiarsi informazioni sui colori senza riferirsi a un modello di colore soggettivo n&eacute; a una conoscenza approfondita della scienza del colore, e l'utilizzo di nomi significativi entro un dato insieme di colori pu&ograve; facilitare ancor di pi&ugrave; questa comunicazione.</p>
+<p>La creazione di insiemi di colori, inoltre, aiuta i fornitori o i progetti a definire un insieme limitato di colori di cui &egrave; consentito l'uso, il che aiuta a mantenere l'uniformit&agrave; visuale in pubblicazioni diverse.</p>
+<p>Da un punto di vista pratico, i colori compresi in una raccolta di colori o quelli creati dall'utente (e quindi aggiunti a una raccolta esistente) sono i soli che possono essere utilizzati per il testo, gli sfondi e le sfumature in un certo documento.</p>
+
+<h4>I colori nelle raccolte colori di Scribus</h4>
+<p>Scribus comprende un'ampia serie di pi&ugrave; di 150 utili insiemi di colori, detti anche &ldquo;raccolte di colori&rdquo;. Queste raccolte hanno diversi scopi e utilizzi, la maggior parte dei quali sono spiegati in un'apposita <a href="color3.html">pagina</a>. Le raccolte sono pi&ugrave; o meno ricche, dalla &ldquo;Scribus Basic&rdquo; che contiene solo alcuni colori primari RGB e CMYK, alla &ldquo;Scribus X11&rdquo;, che comprende un gran numero di colori (RGB).</p><br>
+<table border="1" align="center">
+  <tbody>
+    <tr>
+      <td><i><b>Notate che la &ldquo;Scribus X11&rdquo; era la raccolta colori predefinita nelle versioni meno recenti di  Scribus, ma a partire dalla versione 1.3.6 la raccolta predefinita &egrave; la &ldquo;Scribus Basic&rdquo;</i></b>.</td>
+</tr>
+  </tbody>
+</table>
+<br>
+<p>Le raccolte di colori in Scribus possono contenere quattro diversi tipi di colore, per ciascuno dei quali &egrave; usato un diverso indicatore visuale nelle finestre di dialogo:</p>
+
+<table border="0">
+	<col width=2*>
+	<col width=2*>
+	<col width=auto>
+  <tbody>
+    <tr valign=top>
+      <td><img src="images/rgb.png"></td>
+      <td> </td>
+      <td><b>colori RGB</b>: questi colori sono definiti nel modello colore RGB. Ciascun colore &egrave; descritto per mezzo dei tre colori primari Rosso, Verde e Blu.</td>
+    </tr>
+    <tr valign=top>
+      <td><img src="images/cmyk.png" align="top"></td>
+      <td></td>
+      <td><b>colori CMYK</b>: questi colori sono definiti nel modello colore CMYK. Ciascun colore &egrave; descritto per mezzo dei colori dei quattro inchiostri tipicamente usati nella stampa a colori: ciano, magenta, giallo e nero (in inglese, Cyan, Magenta, Yellow e Key (=Black)).</td>
+    </tr>
+    <tr valign=top>
+      <td><img src="images/spot.png"></td>
+      <td></td>
+      <td><b>colori spot</b>: sono detti anche colori a tinta piatta, colori speciali, colori dichiarati. Anche se un colore spot pu&ograve; essere definito per mezzo dei modelli colore RGB o CMYK, il suo scopo principale &egrave; quello di essere indicato per mezzo di un <i>nome</i> in un file PDF o PostScript. Il nome identifica un determinato colore appartenente a un catalogo o a un campionario realmente esistente, e una tipografia pu&ograve; miscelare o acquistare un inchiostro speciale esattamente corrispondente al colore del campionario. Ciascun colore spot richiede un'apposita lastra per la stampa, e questo spiega perch&eacute; i colori spot dovrebbero essere usati con cautela, visto che il loro uso rende la stampa pi&ugrave; costosa. Un caso tipico di utilizzo di un colore spot &egrave; per riprodurre una tinta particolare che caratterizza il logo di un'azienda. Il punto rosso accanto all'icona di un modello di colore indica che un certo colore &egrave; un colore spot.</td>
+    </tr>
+    <tr valign=top>
+      <td><img src="images/register.png"></td>
+	<td></td>
+      <td><b>colore di registrazione</b>: questo &egrave; un &ldquo;colore&rdquo; speciale utilizzato per i segni di registrazione. &Egrave; usato dai tipografi per controllare se la stampa a quattro colori &egrave; stata eseguita correttamente. &Egrave; mostrato come colore CYMK, ma consiste di tanti colori quante sono le separazioni, uno per ciascuna lastra. Ciascuna raccolta colori pu&ograve; contenere un solo colore di registrazione, che &egrave; indicato da un'icona a forma di bersaglio.</td>
+      <td></td>
+    </tr>
+    <tr valign=top>
+      <td><img src="images/alert.png"></td>
+	<td></td>
+      <td>Se lavorate con la <a href="cms.html">gestione del colore</a> attiva, alcuni o tutti i colori di una raccolta possono essere &ldquo;fuori gamma,&rdquo; cio&egrave;, a seconda del particolare profilo ICC scelto, un certo colore non pu&ograve; essere &ldquo;tradotto&rdquo; da un modello colore a un altro, e pu&ograve; verificarsi uno scostamento del colore; in tal caso un segno triangolare di allarme compare accanto al colore interessato.</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h4>Modificare i colori e le raccolte di colori</h4>
+<p>Quando create e salvate un nuovo documento, tutti i colori presenti nella finestra di dialogo <i>Modifica > Colori</i> sono salvati nel documento. Questo &egrave; un particolare importante, perch&eacute; significa che qualunque modifica a una raccolta colori influenza soltanto il documento corrente. La selezione o la creazione di una nuova raccolta predefinita sar&agrave; spiegata nella <a href="color2.html">pagina successiva</a>.</p>
+<p>Scegliendo <i>Modifica > Colori</i> dalla barra dei men&ugrave; per la prima volta con un nuovo documento aperto, si apre la seguente finestra di dialogo:</p><br>
+
+<table width="100%"><tr><td align="center"><img src="images/editcols1.png"/></td></tr></table><br>
+<p>A sinistra &egrave; mostrato l'elenco dei colori nella raccolta colori predefinita selezionata, che &egrave; la &ldquo;Scribus Basic&rdquo;. L'elenco contiene per ciascun colore l'anteprima, l'indicatore del modello di colore e dei colori speciali (colori spot e di registrazione), e infine il nome del colore. Se la gestione del colore &egrave; attiva, potrebbe essere presente un indicatore di allarme tra l'anteprima e l'icona del modello di colore, e ci&ograve; indica che il colore &egrave; fuori gamma.</p>
+<p>A destra sono presenti diversi pulsanti per la modifica della raccolta colori: il primo &egrave; &ldquo;Importa&rdquo;. Quando lo si preme, si apre una finestra di dialogo per la selezione di un file da cui importare i colori. L'importazione pu&ograve; avvenire da un file di Scribus oppure da una raccolta colori in uno dei seguenti formati: <b>Encapsulated PostScript (EPS)</b>, <b>PostScript (PS)</b>, <b>Adobe Illustrator (AI)</b>, <b>OpenDocument Color Palettes (SOC)</b> o <b>GIMP Color Palettes (GPL)</b>. L'importazione di una raccolta di colori <i><b>non</b></i> sostituisce i colori esistenti; i colori importati sono aggiunti a quelli gi&agrave; presenti nella raccolta:</p>
+<table width="100%"><tr><td align="center"><img src="images/editcols1a.png"/></td></tr></table><br>
+<p>Potete anche creare un nuovo colore e aggiungerlo alla raccolta esistente facendo clic sul pulsante &ldquo;Nuovo&rdquo;. Questo apre la finestra per la creazione e la modifica dei colori:</p>
+<table width="100%"><tr><td align="center"><img src="images/editcols2.png"/></td></tr></table><br>
+<p>Qui potete inserire un nome per il nuovo colore e selezionare un modello colore (tra &ldquo;CMYK&rdquo;, &ldquo;RGB&rdquo; e &ldquo;RGB per il web&rdquo;, anche se quest'ultimo &egrave; ormai quasi irrilevante, anche per documenti PDF da pubblicare in rete). In basso a destra sono presenti tre o quattro (a seconda del modello di colore scelto) cursori scorrevoli che servono a modificare i valori dei colori base; naturalmente potete anche inserire direttamente i valori numerici. Il men&ugrave; a discesa nella parte alta della finestra mostra la voce &ldquo;Mappa di colori HSV&rdquo;, che permette di creare un colore facendo clic in un certo punto nel riquadro colorato al di sotto. &ldquo;HSV&rdquo; &egrave; un'abbreviazione per &ldquo;Hue, Saturation, Value&rdquo; (&ldquo;colore, saturazione, luminosità&rdquo;), che &egrave; un altro modo di descrivere i colori nel modello RGB. Il men&ugrave; a discesa permette anche di selezionare un colore da una delle raccolte colori installate.</p>
+<p>Per usare le opzioni &ldquo;Modifica&rdquo; e &ldquo;Duplica&rdquo; dovete prima selezionare un colore nell'elenco. La finestra di dialogo che si apre &egrave; identica a quella per i nuovi colori.</p>
+<p>L'eliminazione di un colore dall'elenco pu&ograve; essere rischiosa, poich&eacute; il colore eliminato potrebbe essere stato applicato a qualche elemento o testo presente nel documento. Quindi Scribus chieder&agrave; di scegliere un colore che sostituir&agrave; quello eliminato, una procedura che &egrave; simile a <i>Modifica > Sostituisci colori</i>, ed &egrave; spiegata nella pagina sull'<a href="importhints2.html">importazione di disegni vettoriali</a>:</p><br>
+<table width="100%"><tr><td align="center"><img src="images/editcols3.png"/></td></tr></table><br>
+<p>L'ultima opzione &egrave; &ldquo;Elimina inutilizzati&rdquo;, e anch'essa &egrave; spiegata nella pagina sull'importazione di disegni vettoriali.</p>
+<p>Quando fate clic sul pulsante &ldquo;OK&rdquo;, le modifiche all'elenco dei colori vengono salvate nel documento; premendo &ldquo;Annulla&rdquo; l'elenco rester&agrave; invariato.</p>
+</body>
+</html>

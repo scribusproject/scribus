@@ -42,21 +42,25 @@ class SCRIBUS_API Navigator : public QLabel
 	Q_OBJECT
 
 public: 
-	Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QString fn = "");
-	~Navigator() {};
-	void mouseMoveEvent(QMouseEvent *m);
-	void mousePressEvent(QMouseEvent *m);
-	void mouseReleaseEvent(QMouseEvent *m);
-	void paintEvent(QPaintEvent *e);
+	Navigator(QWidget *parent, int size, int pageNr, ScribusView* view, const QString& fn = "");
+	~Navigator() override {};
+
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void paintEvent(QPaintEvent *e) override;
 	void drawMark(int x, int y);
-	bool SetSeite(int Seite, int Size, QString fn = "");
+	bool setPage(int pageNr, int size, const QString& fn = QString());
+
 	int Xp;
 	int Yp;
-	int Breite;
-	int Hoehe;
-	ScribusView* view;
+	int Width;
+	int Height;
 	QPixmap pmx;
-	
+
+private:
+	ScribusView* m_view;
+
 signals:
 	void Coords(double x, double y);
 };

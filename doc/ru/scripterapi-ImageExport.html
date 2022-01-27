@@ -1,0 +1,63 @@
+<html dir="ltr">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Python: class ImageExport</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Python: class ImageExport</h2>
+<p> <a name="ImageExport">class <strong>ImageExport</strong></a>(object) </p>
+<hr>
+
+<h2>Image export</h2>
+<p>Class ImageExport() provides the bitmap graphics exporting for Python scripting as you know it from Export/Save as Image menu. See related class PDFfile() and procedure savePageAsEPS().</p>
+<p>Например:<br> <code> i = ImageExport()<br> i.type = &#39;PNG&#39; # select one from i.allTypes list<br> i.scale = 200 # I want to have 200%<br> i.name = &#39;/home/subik/test.png&#39;<br> i.save()<br> </code> </p>
+<p>Last two lines should be replaced with: <code>i.saveAs(&#39;/home/subik/test.png&#39;)</code></p>
+
+<hr>
+
+<p>Methods defined here</p>
+<dl>
+	<dt><strong>__init__(...)</strong></dt>
+	<dd><p>x.__init__(...) initializes x; see x.__class__.__doc__ for signature</p></dd>
+
+	<dt><strong>save(...)</strong></dt>
+	<dd>save() -&gt; boolean <p>Saves image under previously set &#39;name&#39;.</p></dd>
+
+	<dt><strong>saveAs(...)</strong></dt>
+	<dd>saveAs(&#39;filename&#39;) -&gt; boolean <p>Saves image as &#39;filename&#39;.</p></dd>
+</dl>
+
+<hr>
+
+<p>Data and other attributes defined here</p>
+<dl>
+	<dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;</dt>
+	<dd><p>T.__new__(S, ...) -&gt; a new object with type S, a subtype of T</p></dd>
+
+	<dt><strong>allTypes</strong> = &lt;attribute &#39;allTypes&#39; of &#39;ImageExport&#39; objects&gt;</dt>
+	<dd><p>Available types. Read only list of strings.</p></dd>
+
+	<dt><strong>dpi</strong> = &lt;member &#39;dpi&#39; of &#39;ImageExport&#39; objects&gt;</dt>
+	<dd><p>This value will be used for export as DPI. Read/write integer.</p></dd>
+
+	<dt><strong>name</strong> = &lt;attribute &#39;name&#39; of &#39;ImageExport&#39; objects&gt;</dt>
+	<dd><p>Filename of the image. With or without path. Read/write string.</p></dd>
+
+	<dt><strong>quality</strong> = &lt;member &#39;quality&#39; of &#39;ImageExport&#39; objects&gt;</dt>
+	<dd><p>Quality/compression: minimum 1 (poor), maximum 100 (qaulity). Read/write integer.</p></dd>
+
+	<dt><strong>scale</strong> = &lt;member &#39;scale&#39; of &#39;ImageExport&#39; objects&gt;</dt>
+	<dd><p>This is the scaling of the image. 100 = 100% etc. Read/write integer.</p></dd>
+	
+	<dt><strong>transparentBkgnd</strong> = &lt;member &#39;transparentBkgnd&#39; of &#39;ImageExport&#39; objects&gt;</dt>
+	<dd><p>This value determines if background is drawn as transparent or not. Read/write integer.</p></dd>
+
+	<dt><strong>type</strong> = &lt;attribute &#39;type&#39; of &#39;ImageExport&#39; objects&gt;</dt>
+	<dd><p>Bitmap type. See allTypes list for more info. Read/write string.</p></dd>
+</dl>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<qt>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Scribus – Zkratky a předložky</title>
+
+<h1 class="title">Scribus – Zkratky a předložky</h1>
+<p>Short Words for Scribus</p>
+<p class="copyright">Copyright © 2004 Petr Vaněk</p>
+<p>Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the section entitled "GNU Free Documentation License".</p>
+
+<h2>K čemu to je…</h2>
+<p>Zkratky a předložky je modul DTP programu Scribus, který vkládá speciální mezery za předložky a specifikované zkratky a.j.</p>
+<p>Každá typografie požaduje specifické formátování různých slov, resp. jejich povolenou pozici na konci řádku, popřípadě mezislovní mezeru. Pravidla České typografie hovoří jasnou řečí: jednohláskové neslabičné předložky <em>K, k, S, s, V, v, Z, z,</em> slabičné <em>O, o, U, u</em> a spojky <em>I, i, A,</em> nesmějí být na konci řádky (více viz. např. typo.cz). Existuje také celá řada fyzikálních jednotek titulů nebo vojenských a akademických hodností, které mají být také ošetřeny.</p>
+<p>Scribus umožňuje vkládat nezlomitelnou mezeru pouze manuálně, což velice zdržuje a ve velkých objemech textů nevyhnutelně vede k těžko dohledatelným chybám. Podle pro systém T<sub>e</sub>X určeného programu <code>vlna</code>, páně Olšáka, jsem napsal modul, který automatizuje zdlouhavou a nezáživnou robotu.</p>
+
+<h2>Jak to pracuje…</h2>
+<p>Obrázek textového rámce dokumentu obsahuje neošetřený text. Chybný zlom textu je zvýrazněný červenou barvou.</p>
+<p><b>Ukázka textu před aplikací</b></p>
+<img src="before_short_words.png" alt="Ukázka textu před aplikací" />
+<p>Stejný text po spuštění Zkratek a předložek. Text je lámán před předložkou – pomocí tzv. nezlomitelné mezery.</p>
+<p><b>Ukázka textu po aplikaci</b></p>
+<img src="after_short_words.png" alt="Ukázka textu po aplikaci" />
+
+<h2>Jak to spustím…</h2>
+<p>Jestliže máte modul úspěšně nainstalován, spustíte jej z menu <code>Extra</code> položkou <code>Předložky a zkratky (nezlomitelná mezera)...</code>. Následné okno aplikace vám nabídne:</p>
+<p><b>Spuštění Zkratek a předložek</b></p>
+<img src="menu.png" alt="Spuštění Zkratek a předložek" />
+<p><b>Dialogové okno aplikace</b></p>
+<img src="dialog.png" alt="Dialogové okno aplikace" />
+
+<dl>
+<dt>Vybrané rámce</dt>
+	<dd><p>Zpracuje text pouze ve vybraných textových rámcích.</p></dd>
+<dt>Aktuální stránka</dt>
+	<dd><p>Zpracuje text všech textových rámů strany, na které uživatel právě pracuje.</p></dd>
+<dt>Celý dokument</dt>
+	<dd><p>Zpracuje text všech textových rámů dokumentu.</p></dd>
+<dt>Nahradit původní nastavení uživatelským</dt>
+	<dd><p>Jestliže máte vytvořený vlastní soubor s konfigurací modulu, můžete zvolit, zda vaše nastavení přepíše standardní nastavení nebo se k němu připojí. Nastavení provedete v:  <code>~/.scribus/scribus-short-words.rc</tt>.</p></dd>
+</dl>
+
+<h2>Instalace</h2>
+<p>Nejjednodušší instalace modulu je pochopitelně pomocí balíčkovacího systému vaší distribuce. Prohlédněte si web aplikace Scribus (http://www.scribus.net), zda tam nejsou připravené balíky právě pro vás (např. Fedora, SuSE, Gentoo, Mandrake, or PLD.</p>
+<p>Jestliže nenajdete odpovídající balíček (nebo z jakéhokoli jiného důvodu), zkuste si modul přeložit ze zdrojových kódů – a to klasicky:</p>
+<pre>
+#./configure
+# make
+# make install
+</pre>
+<p>V některých případech je potřeba zadat jinou cestu k souborům Scribusu. To provedete při <code>./configure --prefix=/path/to/scribus/previously/installed</code>. Implicitní prefix je <code>/usr/local</code>, kam bývají obvykle instalovány dodatečné aplikace. Na svém Gentoo používám <code>./configure --prefix=/usr</code>, abych splnil podmínky Scribus ebuildu.</p>
+<p>Jestliže se během překladu objeví nějaká chyba, prostudujte nejdříve, jaké je třeba nainstalovat potřebné knihovny. Poté se třeba zeptejte v emailové konferenci.</p>
+
+<h2>Konfigurace</h2>
+<p>Modul Zkratky a předložky používá globální konfigurační soubor <code>scribus-short-words.rc</code>, který obvykle bývá v adresáři <code>/usr/local/lib/scribus/plugins</code>. Skutečné umístění závisí na tom, kam je ve vaší distribuci instalován <code>Scribus</code>. Konfigurační soubor nepotřebuje složitý popis. Ve zkratce – soubor obsahuje seznam(y) zkratek, předložek a dalších slov, uvozených nebo následovaných mezerou oddělených čárkou. Pozice mezery ukazuje, kam bude vložena nedělitelná mezera. Každý seznam musí začínat kódem jazyka, kterému je určen a končit čárkou. Např. Česká a Anglická konfigurace:</p>
+<pre>
+#  English stuff START here
+en=Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
+en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
+
+#  Czech short words START here
+## hanging conjunctions
+cs=K ,k ,S ,s ,V ,v ,Z ,z ,O ,o ,U ,u ,I ,i ,A ,
+## physics and math
+cs= kg, g, m, cm, mm, l, hl, s, %,
+</pre>
+<p>Jestliže chcete používat vlastní nastavení, např. nový jazyk, vytvořte si ve vašem skrytém adresáři programu <code>Scribus</code> soubor <code>scribus-short-words.rc</code>, tedy celou cestou <code>~/.scribus/scribus-short-words.rc</code> a v okně modulu poté zvolte, zda chcete nové nastavení připojit nebo jím staré přepsat.</p>
+
+<h3>Důležité</h3>
+<p>Uvítám každou relevantní připomínku k nastavení nebo funkci programu.</p>
+
+<h2>Short Words for Scribus Copyright</h2>
+<p>Short Words for Scribus Copyright 2003, 2004 Petr Vaněk, &lt;petr@yarpen.cz&gt;</p>
+<p>This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.</p><p>You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+
+</qt>

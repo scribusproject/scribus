@@ -19,21 +19,21 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QStringList>
 
-#include "util_icon.h"
+#include "iconmanager.h"
 
-CsvDialog::CsvDialog() : QDialog(0)
+CsvDialog::CsvDialog() : QDialog(nullptr)
 {
 	setModal(true);
 	setWindowTitle( tr("CSV Importer Options"));
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(QIcon(IconManager::instance().loadIcon("AppIcon.png")));
 
 	QBoxLayout* layout = new QVBoxLayout(this);
-	layout->setMargin(0);
-	layout->setSpacing(0);
+	layout->setContentsMargins(9, 9, 9, 9);
+	layout->setSpacing(6);
 
 	QBoxLayout* flayout = new QHBoxLayout;
-	flayout->setMargin(5);
-	flayout->setSpacing(5);
+	flayout->setContentsMargins(0, 0, 0, 0);
+	flayout->setSpacing(6);
 	QLabel* fdlabel = new QLabel( tr("Field delimiter:"), this);
 	fdlabel->setMinimumWidth(120);
 	flayout->addWidget(fdlabel,1);
@@ -48,8 +48,8 @@ CsvDialog::CsvDialog() : QDialog(0)
 	layout->addLayout(flayout);
 
 	QBoxLayout* vlayout = new QHBoxLayout;
-	vlayout->setMargin(5);
-	vlayout->setSpacing(5);
+	vlayout->setContentsMargins(0, 0, 0, 0);
+	vlayout->setSpacing(6);
 	QLabel* vdlabel = new QLabel( tr("Value delimiter:"), this);
 	vdlabel->setMinimumWidth(120);
 	vlayout->addWidget(vdlabel,1);
@@ -63,15 +63,15 @@ CsvDialog::CsvDialog() : QDialog(0)
 	layout->addLayout(vlayout);
 
 	QBoxLayout* hlayout = new QHBoxLayout;
-	hlayout->setMargin(5);
-	hlayout->setSpacing(5);
+	hlayout->setContentsMargins(0, 0, 0, 0);
+	hlayout->setSpacing(6);
 	headerCheck = new QCheckBox( tr("First row is a header"), this);
 	hlayout->addWidget(headerCheck);
 	layout->addLayout(hlayout);
 
 	QBoxLayout* blayout = new QHBoxLayout;
-	blayout->setMargin(5);
-	blayout->setSpacing(5);
+	blayout->setContentsMargins(0, 0, 0, 0);
+	blayout->setSpacing(6);
 	blayout->addStretch(10);
 	okButton = new QPushButton( tr("OK"), this);
 	blayout->addWidget(okButton);

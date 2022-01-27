@@ -41,7 +41,7 @@ GNU General Public License for more details.
 name
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 """
 
 # Craig Bradney, Scribus Team
@@ -54,12 +54,12 @@ try:
     from scribus import *
     
 except ImportError:
-    print "This script only runs from within Scribus."
+    print ("This script only runs from within Scribus.")
     sys.exit(1)
 try:
     from PIL import Image
 except ImportError:
-    print "Unable to import the Python Imaging Library module."
+    messageBox("PIL","Unable to import the Python Imaging Library module.",ICON_WARNING,BUTTON_OK)
     sys.exit(1)
     
 def main():
@@ -77,8 +77,8 @@ def main():
 
 # for images taller than they are wide we want to limit height of frame to 80% of page height
     if (Hoehe > pageY * 0.8):
-	Hoehe = pageY * 0.8
-	Breite = Hoehe * xsize/ysize
+        Hoehe = pageY * 0.8
+        Breite = Hoehe * xsize/ysize
 
     ImageFrame = createImage(pageX/2 - Breite/2, pageY/2 - Hoehe/2, Breite, Hoehe)
     loadImage(ImageFileName, ImageFrame)
@@ -88,7 +88,7 @@ def main():
 
     
 if __name__ == '__main__':
-    if haveDoc():
+    if haveDoc() > 0:
         main()
     else:
-        messageBox("Image Import", "You need to have a document open <i>before</i> you can run this script succesfully.", ICON_INFORMATION)
+        messageBox("Image Import", "You need to have a document open <i>before</i> you can run this script successfully.", ICON_INFORMATION)

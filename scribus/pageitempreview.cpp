@@ -47,7 +47,7 @@ void PageItemPreview::run()
 {
 	QMutexLocker locker(&m_mutex);
 	
-	m_image = m_pageitem->DrawObj_toImage();
+	m_image = m_pageitem->DrawObj_toImage(100);
 	m_completed = true;
 	
 }

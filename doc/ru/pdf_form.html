@@ -1,0 +1,64 @@
+<html dir="ltr">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Создание первой веб-формы PDF при помощи Scribus</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Формы PDF</h2>
+<p><i>Выражаем огромную благодарность Maciej Hanski, который любезно перевёл оригинальный файл с польского на английский. Содержание этой страницы лицензируется в соответствии с лицензией свободной документации GNU.</i></p>
+<!--<p>The sample files, <code>scribusformphp.tar.gz</code>, a tarball of a php file and a sample doc, are available from http://docs.scribus.net</a></p>-->
+
+<p>Одним из преимуществ Scribus является возможность создавать PDF-формы со встроенными сценариями JavaScript (как описано в <a href="http://www.adobe.com/devnet/acrobat/javascript.html">справочнике Adobe JavaScript</a>).</p>
+
+<p>Создать новую форму с помощью Scribus довольно просто. Сначала нажмите значок &#171;Создать&#187; на панели инструментов или выберите <i>Создать</i> в разделе меню <i>Файл</i>.</p>
+
+<p>Затем включите сетку (<i>Страница &gt; Привязка к сетке</i>) и сделайте её видимой (<i>Вид &gt; Сетка и направляющие &gt; Показывать сетку</i>). Это поможет вам правильно разместить поля формы на странице. Далее, создайте несколько <a href="WwText.html">текстовых блоков</a> для использования из в качестве описаний полей.</p>
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht1.png"></td></tr></table>
+
+<p>Теперь можно добавлять элементы формы. Инструменты для работы с элементами формы доступны на панели инструментов:</p>
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht2.png"></td></tr></table>
+
+<p>Чтобы добавить текстовое поле PDF, нажмите на вторую кнопку слева и создайте текстовый блок. В этом примере формы вам понадобится одно текстовое поле PDF для каждой записи: &#171;Имя&#187;, &#171;Улица/Номер дома&#187; и &#171;Почтовый индекс/Город&#187;. Для создания кнопки PDF используйте значок кнопки в левой части панели инструментов.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht3.png"></td></tr></table>
+
+<p>Как вы можете видеть на снимке экрана выше, у всех элементов формы PDF для обозначения границ используются <i>синие</i> линии. Для изменения свойств поля PDF-формы щёлкните по полю правой кнопкой мыши и выберите &#171;Параметры PDF &gt; Свойства поля&#187;:</p>
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht4.png"></td></tr></table>
+
+<p>Диалоговое окно &#171;Свойства поля&#187; в основном не требует пояснений, а подробно объяснить все параметры здесь невозможно. Для целей этого введения важно назначить уникальное имя каждому текстовому полю PDF и установить тип поля в значение &#171;Текстовое поле&#187;. Имя важно, так как оно может использоваться внешними сценариями для обработки данных формы, например, если вы используете свою форму для отправки данных на сайт. Вы также можете позволить Scribus проверять правильность данных, вводимых пользователями PDF, например, если поле требует числового значения. Если ограниченные параметры проверки программы Scribus недостаточны для ваших целей, вы можете использовать JavaScript для создания более сложных.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht5.png"></td></tr></table>
+
+<p>Чтобы отправить введённые данные из вашего средства просмотра PDF, вам нужно добавить в вашу форму кнопку &#171;Отправить&#187;. Создайте кнопку способом, описанным выше, и откройте диалоговое окно свойств поля из контекстного меню:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht6.png"></td></tr></table>
+
+<p>Обратите внимание, что вкладка &#171;Действие&#187; даёт гораздо больше вариантов выбора, нежели простая &#171;Отправка&#187; действий, как вы можете видеть в выпадающем списке &#171;Тип&#187;.</p>
+
+<p>При экспорте формы в PDF рекомендуется выбрать как минимум формат версии PDF 1.4 в диалоговом окне экспорта в PDF.</p>
+
+
+<!--<p>The result of our work can be downloaded from http://docs.scribus.net and tested. In order to submit the form we must open it from within a browser, Netscape 4.* or Mozilla are the safe choices (check the Mozilla plug-ins to see, if the Acrobat Reader plug-in is enabled. If not, you have to symlink it into the Mozilla's plug-in directory. In my particular case, the Mozilla's plug-in directory is  <strong>/usr/lib/mozilla-1.3/plug-in</strong>, and the plug-in to be symlinked into it is <strong>/usr/local/Acrobat5/Browsers/intellinux/nppdf.so</strong>).</p>
+
+<p><strong>My very own impression:</strong> Scribus as a tool for working with PDF forms seems to be more comfortable in use than Adobe Acrobat 5.0 (the only version, I've worked with). It's a lot easier to layout documents with Scribus, since Acrobat only allows you to edit existing documents, but not to create a new document from  scratch. Scribus provides us with the full control over the final results and allows us much more freedom in changing the document's layout. More over, Scribus files can be edited even with a simple text editor, since its file format is entirely XML
+based.</p>-->
+<p>Maciej Hanski, октябрь 2003 года<br> Обновлено Christoph Sch&#228;fer, сентябрь 2011 года </p>
+
+
+<h4>Полезные ссылки на тему PDF/JavaScript</h4>
+<ul>
+	<li><a href="http://www.planetpdf.com/mainpage.asp?WebPageID=229" target="_blank">Planet PDF</a></li>
+	<li><a href="http://www.adobe.com/devnet/acrobat/javascript.html" target="_blank">Acrobat JavaScript Object Specification</a></li>
+</ul>
+
+<h4>Полезные ссылки на тему CGI/PHP</h4>
+<ul>
+	<li><a href="http://www.cgi101.com/book/ch4/text.html">http://www.cgi101.com/book/ch4/text.html</a></li>
+	<li><a href="http://www.cgi101.com/book/ch4/post-cgi.html">http://www.cgi101.com/book/ch4/post-cgi.html</a></li>
+</ul>
+
+</body>
+</html>

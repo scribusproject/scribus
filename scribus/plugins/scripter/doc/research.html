@@ -1,0 +1,794 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html class="pageview"> 
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+
+
+/* default css */
+
+table {
+  font-size: 1em;
+  line-height: inherit;
+}
+
+
+tr {
+  
+  text-align: left;
+  
+}
+
+
+div, address, ol, ul, li, option, select { 
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+p {
+  margin: 0px;
+}
+
+body {
+  margin: 6px;
+  padding: 0px;
+  font-family: Verdana, sans-serif;
+  font-size: 10pt;
+  background-color: #ffffff;
+}
+
+
+img {
+  -moz-force-broken-image-icon: 1;
+}
+
+@media screen {
+  html.pageview {
+    background-color: #f3f3f3 !important;
+  }
+
+  
+    
+  body { 
+    min-height: 1100px; 
+  }
+  * html body { 
+    height: 1100px; 
+  }
+  .pageview body {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 2px solid #bbb;
+    border-bottom: 2px solid #bbb;
+    width: 648px !important;
+    margin: 15px auto 25px;
+    padding: 40px 50px; 
+  }
+  /* IE6 */
+  * html.pageview body {
+    overflow-x: auto;
+  }
+  /* Prevent repaint errors when scrolling in Safari. This "Star-7" css hack
+     targets Safari 3.1, but not WebKit nightlies and presumably Safari 4.
+     That's OK because this bug is fixed in WebKit nightlies/Safari 4 :-). */
+  html*#wys_frame::before {
+    content: '\A0';
+    position: fixed;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 0;
+  }
+  
+  
+
+  
+
+}
+
+h6 { font-size: 10pt }
+h5 { font-size: 11pt }
+h4 { font-size: 12pt }
+h3 { font-size: 13pt }
+h2 { font-size: 14pt }
+h1 { font-size: 16pt }
+
+blockquote {padding: 10px; border: 1px #DDD dashed }
+
+a img {border: 0}
+
+.pb {height: 1px}
+
+div.google_header, div.google_footer {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+
+/* Table of contents */
+.editor div.writely-toc {
+  background-color: #f3f3f3;
+  border: 1px solid #ccc;
+}
+.writely-toc > ol {
+  padding-left: 3em;
+  font-weight: bold;
+}
+ol.writely-toc-subheading {
+  padding-left: 1em;
+  font-weight: normal;
+}
+/* IE6 only */
+* html writely-toc ol {
+  list-style-position: inside;
+}
+.writely-toc-none {
+  list-style-type: none;
+}
+.writely-toc-decimal {
+  list-style-type: decimal;
+}
+.writely-toc-upper-alpha {
+  list-style-type: upper-alpha;
+}
+.writely-toc-lower-alpha {
+  list-style-type: lower-alpha;
+}
+.writely-toc-upper-roman {
+  list-style-type: upper-roman;
+}
+.writely-toc-lower-roman {
+  list-style-type: lower-roman;
+}
+.writely-toc-disc {
+  list-style-type: disc;
+}
+
+/* end default css */
+
+
+  /* default print css */
+  
+  @media print {
+    body { 
+      padding: 0; 
+      margin: 0; 
+    }
+
+    div.google_header, div.google_footer {
+      display: block;
+      min-height: 0;
+      border: none;
+    }
+
+    div.google_header {
+      flow: static(header);
+    }
+
+    /* used to insert page numbers */
+    div.google_header::before, div.google_footer::before {
+      position: absolute;
+      top: 0;
+    }
+
+    div.google_footer {
+      flow: static(footer);
+    }
+
+    /* always consider this element at the start of the doc */
+    div#google_footer {
+      flow: static(footer, start);
+    }
+
+    span.google_pagenumber {
+      content: counter(page);
+    }
+
+    span.google_pagecount {
+      content: counter(pages);
+    }
+
+    /* Table of contents */
+    #WritelyTableOfContents a::after {
+      content: leader('.') target-counter(attr(href), page);
+    }
+
+    #WritelyTableOfContents a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+
+  @page {
+    @top {
+      content: flow(header);
+    }
+    @bottom {
+      content: flow(footer);
+    }
+  }
+  /* end default print css */
+ 
+
+/* custom css */
+
+
+/* end custom css */
+
+
+
+  /* ui edited css */
+  
+  body {
+    font-family: Verdana;
+    
+    font-size: 10.0pt;
+    line-height: normal;
+    background-color: #ffffff;
+  }
+  /* end ui edited css */
+
+
+
+/* editor CSS */
+.editor a:visited {color: #551A8B}
+.editor table.zeroBorder {border: 1px dotted gray}
+.editor table.zeroBorder td {border: 1px dotted gray}
+.editor table.zeroBorder th {border: 1px dotted gray}
+
+
+.editor div.google_header, .editor div.google_footer {
+  border: 2px #DDDDDD dashed;
+  position: static;
+  width: 100%;
+  min-height: 2em;
+}
+
+.editor .misspell {background-color: yellow}
+
+
+.editor .pb {
+  border-top: 1px dashed #C0C0C0; 
+  border-bottom: 1px dashed #C0C0C0
+}
+.editor .writely-comment {
+  font-size: 9pt; 
+  line-height: 1.4; 
+  padding: 1px; 
+  border: 1px dashed #C0C0C0
+}
+
+
+/* end editor CSS */
+</style>
+
+
+<base target="_top">
+
+</head>
+
+<body
+    
+    revision="ddggcjfj_16ccjdxrcp:5">
+
+    
+    
+<p align=center class=western id=bl2.4 style=MARGIN-BOTTOM:0pt>
+  <font face="Verdana, sans-serif" id=bl2.5><font id=bl2.6 size=4 style=FONT-SIZE:16pt>Some
+  Research for ScripterNG</font></font>
+</p>
+<p class=western id=bl2.7 style=MARGIN-BOTTOM:0pt>
+  <br id=bl2.8>
+</p>
+<h2 class=western id=bl2.9>
+  Evaluation of current Scripter
+</h2>
+<h3 class=western id=bl2.10>
+  Written by hand
+</h3>
+<p class=western id=bl2.11>
+  This makes maintenance and extension hard if one does not know what
+  PyArg_ParseTuple&amp;friends mean. Besides this approach is very error-prone.
+</p>
+<h3 class=western id=bl2.12>
+  Imperative API – mostly
+</h3>
+<p class=western id=bl2.13>
+  The plug-in exposes mainly functions to Python. Normally it would make sense
+  that each object on the Scribus canvas is represented by a Python object.
+  Instead the API works with (unique) names as handles which have to be passed
+  as arguments to functions to access and manipulate particular canvas objects.
+  There are also inconsequences, e.g there is an object for PDF export which
+  indeed should better be a function with keyword arguments.
+</p>
+<p class=western id=bl2.14>
+  On the other hand there are good reasons for a simple imperative API. This
+  enables even beginners quick success without having to learn about
+  object-oriented programming. Therefore a new API should not use objects
+  exessively. The use of advanced techniques like factory classes should be
+  avoided.
+</p>
+<h3 class=western id=bl2.15>
+  Stateless API
+</h3>
+<p class=western id=bl2.16>
+  If a script is called, it first has to investigate the current state, if it
+  can run and how. This work should not be needed. Imagine there is a sane
+  script which resizes a selected text box and appends “lorem ipsum..”. It has
+  to do the following
+</p>
+<ul id=bl2.17>
+  <li id=bl2.18>
+    <p class=western id=bl2.19 style=MARGIN-BOTTOM:0pt>
+      <font id=bl2.20 size=2 style=FONT-SIZE:9pt>look if a document is open,
+      else exit with a meaningful message</font>
+    </p>
+  </li>
+  <li id=bl2.21>
+    <p class=western id=bl2.22 style=MARGIN-BOTTOM:0pt>
+      <font id=bl2.23 size=2 style=FONT-SIZE:9pt>look if a object is selected
+      and if it is a text object, else exit with a meaningful message</font>
+    </p>
+  </li>
+  <li id=bl2.24>
+    <p class=western id=bl2.25 style=MARGIN-BOTTOM:0pt>
+      <font id=bl2.26 size=2 style=FONT-SIZE:9pt>save current measurement
+      unit</font>
+    </p>
+  </li>
+  <li id=bl2.27>
+    <p class=western id=bl2.28 style=MARGIN-BOTTOM:0pt>
+      <font id=bl2.29 size=2 style=FONT-SIZE:9pt>set own measurement unit</font>
+    </p>
+  </li>
+  <li id=bl2.30>
+    <p class=western id=bl2.31 style=MARGIN-BOTTOM:0pt>
+      <font id=bl2.32 size=2 style=FONT-SIZE:9pt>resize text box</font>
+    </p>
+  </li>
+  <li id=bl2.33>
+    <p class=western id=bl2.34 style=MARGIN-BOTTOM:0pt>
+      <font id=bl2.35 size=2 style=FONT-SIZE:9pt>append text</font>
+    </p>
+  </li>
+  <li id=bl2.36>
+    <p class=western id=bl2.37 style=MARGIN-BOTTOM:0pt>
+      <font id=bl2.38 size=2 style=FONT-SIZE:9pt>restore old measurement
+      unit</font>
+    </p>
+    <p class=western id=bl2.39>
+      Wouldn't it be better if a script could specify in its meta-data that it
+      relies on a selected text object? Otherwise the menu entry of the script
+      should be disabled.
+    </p>
+  </li>
+</ul>
+<h3 class=western id=bl2.40>
+  Problems with measurement units
+</h3>
+<p class=western id=bl2.41>
+  As the previous example showed a script always has to lookup and change the
+  measurement units. This makes the code unnecessarily complicated. Besides,
+  understanding the complete script code requires to find the last setUnit-call
+  to know which unit is set. A better approach would be to use one defined
+  internal unit plus some helper functions for conversion.
+</p>
+<h3 class=western id=bl2.42>
+  Integration
+</h3>
+<p class=western id=bl2.43>
+  Currently to call scripts you have to browse them by filename in a standard
+  open-file-dialog. There is no title or description and scripts are not ordered
+  by any category. If you want to repeat a script, you have to find the file
+  again in the open-file-dialog. This makes working with scripts hard and the
+  typical user will probably not know what functionality is available via
+  scripts. A better way would be a script menu similar to the effects menu in
+  Inkscape
+  (<a href=http://www.ekips.org/comp/inkscape/inx/InkexEffects.png id=bl2.44>http://www.ekips.org/comp/inkscape/inx/InkexEffects.png</a>).
+  Scripts also cannot have keyboard shortcuts.
+</p>
+<h3 class=western id=bl2.45>
+  Missing features
+</h3>
+<p class=western id=bl2.46>
+  Not everything that is possible in Scribus is also possible in Scripter. These
+  limitations become noticeable sooner or later while writing scripts. This
+  should be changed little by little.
+</p>
+<h2 class=western id=bl2.47>
+</h2>
+<h2 class=western id=bl2.48 style=page-break-before:always>
+  Missing in current Scripter
+</h2>
+<ul id=bl2.49>
+  <li id=bl2.50>
+    <p class=western id=bl2.51>
+      hooks into menus, toolbars and context menus
+    </p>
+  </li>
+  <li id=bl2.52>
+    <p class=western id=bl2.53>
+      call gettext-importer plug-in
+    </p>
+  </li>
+  <li id=bl2.54>
+    <p class=western id=bl2.55>
+      access and change configuration
+    </p>
+  </li>
+  <li id=bl2.56>
+    <p class=western id=bl2.57>
+      callbacks to events (signals)
+    </p>
+  </li>
+  <li id=bl2.58>
+    <p class=western id=bl2.59>
+      more functions to work with styles and text
+    </p>
+  </li>
+  <li id=bl2.60>
+    <p class=western id=bl2.61>
+      trigger actions
+    </p>
+  </li>
+  <li id=bl2.62>
+    <p class=western id=bl2.63>
+      support for i18n – currently scripts only speak English
+    </p>
+  </li>
+</ul>
+<p class=western id=bl2.64 style=MARGIN-BOTTOM:0pt>
+  <br id=bl2.65>
+</p>
+<h2 class=western id=bl2.66>
+</h2>
+<h2 class=western id=bl2.67>
+  Evaluation of scripting in other applications
+</h2>
+<p class=western id=bl2.68>
+  It is always good to look beyond one's own nose so we can learn from other
+  people's experiences. I selected some of the major applications which all
+  support scripting.
+</p>
+<h3 class=western id=bl2.69>
+  Firefox
+</h3>
+<p class=western id=bl2.70>
+  The core of the web browser including the rendering engine is programmed in
+  C/C++. Nearly everything else is programmed in JavaScript. Support for Python
+  is planned
+  (<a href=http://wiki.mozilla.org/Gecko_1.9_Roadmap#Python_for_XUL id=bl2.71>http://wiki.mozilla.org/Gecko_1.9_Roadmap#Python_for_XUL</a>).
+  The whole user interface can be completely modified with JavaScript and a
+  XML-user interface description language (XUL).
+</p>
+<ul id=bl2.72>
+  <li id=bl2.73>
+    <p class=western id=bl2.74>
+      Screenshots of add-on manager:
+      <a href=http://wiki.mozilla.org/Firefox:Add-ons_Manager_UI_interim_rev2 id=bl2.75>http://wiki.mozilla.org/Firefox:Add-ons_Manager_UI_interim_rev2</a>
+    </p>
+  </li>
+  <li id=bl2.76>
+    <p class=western id=bl2.77>
+      Add-on repository:
+      <a href=http://addons.mozilla.org/ id=bl2.78>http://addons.mozilla.org</a>
+    </p>
+  </li>
+</ul>
+<h3 class=western id=bl2.79>
+  OpenOffice.org
+</h3>
+<p class=western id=bl2.80>
+  OOo can be extended with a VisualBasic-like language, Java and Python. With
+  the upcoming release they plan to improve extension support to a level similar
+  to Firefox. The OOo component model exposes a lot of the functionality to
+  scripts. Unfortunately this is also a problem because the API is q uite
+  complex and you have to spend a lot of time to learn and to understand it
+  completely.
+</p>
+<ul id=bl2.81>
+  <li id=bl2.82>
+    <p class=western id=bl2.83>
+      Screenshot of extension manager:
+      <a href=http://www.teamir8.com/pictures/extmng.jpg id=bl2.84>http://www.teamir8.com/pictures/extmng.jpg</a>
+    </p>
+  </li>
+  <li id=bl2.85>
+    <p class=western id=bl2.86>
+      Extensions-repository:
+      <a href=http://extensions.services.openoffice.org/ id=bl2.87>http://extensions.services.openoffice.org/</a>
+    </p>
+  </li>
+</ul>
+<h3 class=western id=bl2.88>
+  Blender
+</h3>
+<p class=western id=bl2.89>
+  This popular 3D modeler can be extended and automated with Python. It has a
+  nice object-oriented API which reflects the objects you see in Blender.
+</p>
+<ul id=bl2.90>
+  <li id=bl2.91>
+    <p class=western id=bl2.92>
+      Script-Repository:
+      <a href=http://www.blender.org/download/python-scripts/ id=bl2.93>http://www.blender.org/download/python-scripts/</a>
+    </p>
+  </li>
+  <li id=bl2.94>
+    <p class=western id=bl2.95>
+      Python-API:
+      <a href=http://www.blender.org/documentation/244PythonDoc/API_intro-module.html id=bl2.96>http://www.blender.org/documentation/244PythonDoc/API_intro-module.html</a>
+    </p>
+  </li>
+</ul>
+<h3 class=western id=bl2.97>
+  Gimp
+</h3>
+<p class=western id=bl2.98>
+  Plug-ins and scripts in Gimp are external programs. They can be programmed in
+  C, Scheme (Script-Fu, similar to Lisp in Emacs), Python and Perl.
+</p>
+<ul id=bl2.99>
+  <li id=bl2.100>
+    <p class=western id=bl2.101>
+      Scripting manual:
+      <a href=http://docs.gimp.org/en/gimp-scripting.html id=bl2.102>http://docs.gimp.org/en/gimp-scripting.html</a>
+    </p>
+  </li>
+  <li id=bl2.103>
+    <p class=western id=bl2.104>
+      Gimp Plugin Registry:
+      <a href=http://registry.gimp.org/list_content id=bl2.105>http://registry.gimp.org/list_content</a>
+    </p>
+    <p class=western id=bl2.106>
+    </p>
+  </li>
+</ul>
+<h3 class=western id=bl2.107>
+  Inkscape
+</h3>
+<p class=western id=bl2.108>
+  Inkscape can use any language for scripting because it works the Unix-way by
+  using pipes which manipulate the SVG document. But most scripts and extensions
+  seem to use Python, Perl or Bash. For Python there is a helper module called
+  inkex which helps to create extensions. For each script there is a .inx-file
+  in XML-format which describes the extension (dependencies, menu name,
+  category, etc.).
+</p>
+<p class=western id=bl2.109>
+  This approach could also be very interesting for Scribus.
+</p>
+<h3 class=western id=bl2.110>
+  KOffice
+</h3>
+<p class=western id=bl2.111>
+  Krita, KWord, and KSpread contain scripting plug-ins which support Ruby,
+  JavaScript and Python.
+</p>
+<p class=western id=bl2.112>
+  Python scripts can use PyQt to create integral GUI elements like dockwidgets.
+</p>
+<ul id=bl2.113>
+  <li id=bl2.114>
+    <p class=western id=bl2.115>
+      <a href=http://techbase.kde.org/Development/Tutorials/KSpread_Scripting id=bl2.116>http://techbase.kde.org/Development/Tutorials/KSpread_Scripting</a>
+    </p>
+  </li>
+  <li id=bl2.117>
+    <p class=western id=bl2.118>
+      <a href=http://techbase.kde.org/index.php?title=Development/Tutorials/KWord_Scripting id=bl2.119>http://techbase.kde.org/index.php?title=Development/Tutorials/KWord_Scripting</a>
+    </p>
+  </li>
+  <li id=bl2.120>
+    <p class=western id=bl2.121>
+      <a href=http://techbase.kde.org/index.php?title=Development/Tutorials/Krita_Scripting id=bl2.122>http://techbase.kde.org/index.php?title=Development/Tutorials/Krita_Scripting</a>
+    </p>
+  </li>
+</ul>
+<h3 class=western id=bl2.123>
+  Quantum GIS
+</h3>
+<p class=western id=bl2.124>
+  Quantum GIS has a totally different target group, because it is a geographical
+  application. But is interesting for this evaluation because it also uses the
+  Qt framework and strongly incorporates scripting. The QGIS code looks very
+  clean. Hence is is possible to wrap the API nearly automatically. Python
+  plug-ins can be installed from online repositories at runtime with a plug-in
+  installer. Is is also possible to write complete applications in Python which
+  use QGIS as a library.
+</p>
+<p class=western id=bl2.125>
+  In Scribus there come up questions regularly if one can use Scribus as an
+  engine for PDF creation. This would be possible if the Scribus core could be
+  used as a library from Python as well. But unfortunately we are still far away
+  from the realization of this idea.
+</p>
+<p class=western id=bl2.126 style=MARGIN-BOTTOM:0pt>
+  <br id=bl2.127>
+</p>
+<p class=western id=bl2.128 style=MARGIN-BOTTOM:0pt>
+  <br id=bl2.129>
+</p>
+<h2 class=western id=bl2.130>
+  Evaluation of scripting technologies
+</h2>
+<h3 class=western id=bl2.131>
+  Completely written by hand: Python C-API (Scribus)
+</h3>
+<p class=western id=bl2.132>
+  This will probably result in the fastest bindings. But they are not fast to
+  write. The code is very verbose because parameters need to be parsed and
+  converted, references have to be counted and errors have to be handled
+  correctly.
+</p>
+<h3 class=western id=bl2.133>
+  Bindings generators: swig, boost, sip (QGIS)
+</h3>
+<p class=western id=bl2.134>
+  Ideally you only have to copy the header files. Then the program would
+  generate the calls to the Python API. But some data structures or return types
+  are not supported in Python and so you have to write some additional code for
+  these cases. Besides every program has its flaws. Swig is not good for C++,
+  boost is hard to debug and sip has a sparse documentation. But sip is the best
+  tool if you want to use Qt because it handles Qt's special features like
+  signals/slots.
+</p>
+<h3 class=western id=bl2.135>
+  Binding languages: Pyrex/Cython
+</h3>
+<p class=western id=bl2.136>
+  You still have to write bindings but in a more friendly language which looks
+  mostly like Python and contains everything to write bindings. This is a nice
+  idea but I see no real advantage for Scribus.
+</p>
+<h3 class=western id=bl2.137>
+  Dynamic invocation: ctypes, dl-module
+</h3>
+<p class=western id=bl2.138>
+  Unfortunately this only works great with C libraries but not for C++ because
+  there is no common ABI (application binary interface).
+</p>
+<h3 class=western id=bl2.139>
+  Component models: UNO (OpenOffice), XPCOM (Firefox), Corba
+</h3>
+<p class=western id=bl2.140>
+  This is the “enterprise-solution” to the scripting problem. Methods are
+  defined in a IDL (interface description language) and are compiled with a
+  separate idl-compiler. For most projects this is totally overkill, requires a
+  strong software architecture and discipline. Distributed objects across the
+  network might be a cool feature but are normally not needed.
+</p>
+<h3 class=western id=bl2.141>
+  Qt specific: Kross (KOffice), Smoke, PythonQt
+</h3>
+<p class=western id=bl2.142>
+  The Qt meta-object-compiler (moc) generates code with meta-data which make it
+  possible to query and call properties, slots and signals at runtime. With this
+  concept no additional binding-code is needed for a scripting language to work
+  with any Qt object.<br id=bl2.143>
+  <br id=bl2.144>
+  <br id=bl2.145>
+</p>
+<p class=western id=bl2.146 style=MARGIN-BOTTOM:0pt>
+  <br id=bl2.147>
+</p>
+<p class=western id=bl2.148 style=MARGIN-BOTTOM:0pt>
+  <br id=bl2.149>
+</p>
+<h2 class=western id=bl2.150>
+  Ideas which could be done with ScripterNG
+</h2>
+<ul id=bl2.151>
+  <li id=bl2.152>
+    <p class=western id=bl2.153>
+      OpenClipArt (perhaps also Flickr etc) browser as a dockwidget with ability
+      to import media into current document
+    </p>
+  </li>
+  <li id=bl2.154>
+    <p class=western id=bl2.155>
+      create optimized PDF for the web
+      (<a href=http://wiki.scribus.net/index.php/Web_optimised_PDF id=bl2.156>http://wiki.scribus.net/index.php/Web_optimised_PDF</a>)
+    </p>
+  </li>
+  <li id=bl2.157>
+    <p class=western id=bl2.158>
+      simple IRC dockwidget for live-help and collaboration
+    </p>
+  </li>
+  <li id=bl2.159>
+    <p class=western id=bl2.160>
+      mailmerge
+      (<a href=http://www.assembla.com/wiki/show/scribusmailmerge id=bl2.161>http://www.assembla.com/wiki/show/scribusmailmerge</a>)
+    </p>
+  </li>
+  <li id=bl2.162>
+    <p class=western id=bl2.163>
+      import anything by converting foreign media formats to known formats like
+      HTML, ODT or SVG and then call the SVG-/gettext-importer plug-in: RTF
+      (unrtf, pyrtf), DOC (antiword), MathML (SVGMath,
+      <a href=http://www.grigoriev.ru/svgmath/ id=bl2.164>http://www.grigoriev.ru/svgmath/</a>),
+      vector-formats (Uniconvertor)
+    </p>
+  </li>
+  <li id=bl2.165>
+    <p class=western id=bl2.166>
+      import using OpenOffice.org-filters via UNO-bridge (requires running OOo):
+      <a href=http://websvn.kde.org/trunk/koffice/kword/plugins/scripting/scripts/oouno.py?view=markup id=bl2.167>http://websvn.kde.org/trunk/koffice/kword/plugins/scripting/scripts/oouno.py?view=markup</a>
+    </p>
+  </li>
+  <li id=bl2.168>
+    <p class=western id=bl2.169>
+      import scanned images (Sane on Unix with Python Imaging Library)
+    </p>
+  </li>
+  <li id=bl2.170>
+    <p class=western id=bl2.171>
+      script editor
+    </p>
+  </li>
+  <li id=bl2.172>
+    <p class=western id=bl2.173>
+      script debugger
+    </p>
+  </li>
+  <li id=bl2.174>
+    <p class=western id=bl2.175>
+      ghns-client (get hot new stuff) for templates
+      (<a href=http://www.kde-files.org/index.php?xcontentmode=642 id=bl2.176>http://www.kde-files.org/index.php?xcontentmode=642</a>)
+    </p>
+  </li>
+  <li id=bl2.177>
+    <p class=western id=bl2.178>
+      fullscreen feature
+    </p>
+  </li>
+  <li id=bl2.179>
+    <p class=western id=bl2.180>
+      connect to a database or CMS
+    </p>
+  </li>
+  <li id=bl2.181>
+    <p class=western id=bl2.182>
+      alternative spell checker using PyEnchant
+    </p>
+  </li>
+  <li id=bl2.183>
+    <p class=western id=bl2.184>
+      import plots from gnuplot
+    </p>
+  </li>
+  <li id=bl2.185>
+    <p class=western id=bl2.186>
+      import CSV (or Excel via antixls
+      <font face="Times New Roman, serif" id=bl2.187>-&gt;</font> CSV) into
+      table
+    </p>
+  </li>
+  <li id=bl2.188>
+    <p class=western id=bl2.189>
+      calendar wizard
+    </p>
+  </li>
+  <li id=bl2.190>
+    <p class=western id=bl2.191>
+      advanced search&amp;replace with regular expressions
+    </p>
+  </li>
+  <li id=bl2.192>
+    <p class=western id=bl2.193>
+      an alternative story editor in fullscreen format
+    </p>
+  </li>
+  <li id=bl2.194>
+    <p class=western id=bl2.195>
+      and of course a paper clip assistant ;)
+    </p>
+  </li>
+</ul>

@@ -25,12 +25,12 @@ ScPlugin* fontpreview_getPlugin()
 
 void fontpreview_freePlugin(ScPlugin* plugin)
 {
-	FontPreviewPlugin* plug = dynamic_cast<FontPreviewPlugin*>(plugin);
+	FontPreviewPlugin* plug = qobject_cast<FontPreviewPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
 
-FontPreviewPlugin::FontPreviewPlugin() : ScActionPlugin()
+FontPreviewPlugin::FontPreviewPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -49,11 +49,12 @@ void FontPreviewPlugin::languageChange()
 	m_actionInfo.text = tr("&Font Preview...");
 	// Menu
 	m_actionInfo.menu = "Extras";
+	m_actionInfo.menuAfterName = "itemUpdateMarks";
 	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString FontPreviewPlugin::fullTrName() const
+QString FontPreviewPlugin::fullTrName() const
 {
 	return QObject::tr("Font Preview");
 }
@@ -81,15 +82,15 @@ void FontPreviewPlugin::deleteAboutData(const AboutData* about) const
 /**
 Create dialog and insert font into Style menu when user accepts.
 */
-bool FontPreviewPlugin::run(ScribusDoc* doc, QString target)
+bool FontPreviewPlugin::run(ScribusDoc* doc, const QString& target)
 {
-	ScribusMainWindow* scmw=(doc==0)?ScCore->primaryMainWindow():doc->scMW();
+	ScribusMainWindow* scmw=(doc==nullptr)?ScCore->primaryMainWindow():doc->scMW();
 	return run(scmw, doc, target);
 }
 
-bool FontPreviewPlugin::run(QWidget* parent, ScribusDoc* doc, QString target)
+bool FontPreviewPlugin::run(QWidget* parent, ScribusDoc* doc, const QString& target)
 {
-	if (doc==NULL)
+	if (doc==nullptr)
 		return false;
 	// I don't know how many fonts user has...
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
@@ -99,7 +100,7 @@ bool FontPreviewPlugin::run(QWidget* parent, ScribusDoc* doc, QString target)
 	if (dlg->exec() == QDialog::Accepted)
 	{
 		if  (target.isEmpty())
-			doc->scMW()->SetNewFont(dlg->getCurrentFont());
+			doc->itemSelection_SetFont(dlg->getCurrentFont());
 		else
 			m_runResult = dlg->getCurrentFont();
 	}

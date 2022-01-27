@@ -19,81 +19,76 @@
 #include <QApplication>
 #include <QCursor>
 #include <QDropEvent>
-#include <QEvent>
-#include <QMouseEvent>
 #include <QPoint>
 #include <QRect>
 #include <QDebug>
 
+#include "appmodes.h"
 #include "canvas.h"
 #include "fpoint.h"
 #include "fpointarray.h"
-#include "pageselector.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "selection.h"
+#include "ui/pageselector.h"
+#include "ui/scrspinbox.h"
 #include "undomanager.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
 
-CanvasMode_ObjImport::CanvasMode_ObjImport(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
+
+CanvasMode_ObjImport::CanvasMode_ObjImport(ScribusView* view) :
+	CanvasMode(view)
 {
-	Mxp = Myp = -1;
-	m_mimeData = NULL;
-	m_trSettings = NULL;
 }
 
-CanvasMode_ObjImport::~CanvasMode_ObjImport(void)
+CanvasMode_ObjImport::~CanvasMode_ObjImport()
 {
-	if (m_mimeData)
-		delete m_mimeData;
-	if (m_trSettings)
-		delete m_trSettings;
+	delete m_mimeData;
+	delete m_trSettings;
 }
 
 void CanvasMode_ObjImport::setMimeData(QMimeData* mimeData)
 {
-	if (m_mimeData)
-		delete m_mimeData;
+	delete m_mimeData;
 	m_mimeData = mimeData;
 }
 
 void CanvasMode_ObjImport:: setTransactionSettings(TransactionSettings* settings)
 {
-	if (m_trSettings)
-		delete m_trSettings;
+	delete m_trSettings;
 	m_trSettings = settings;
 }
 
 void CanvasMode_ObjImport::drawControls(QPainter* p)
 {
 //	qDebug() << "CanvasMode_ObjImport::drawControls";
-	drawSelection(p);
+	drawSelection(p, false);
 }
 
-void CanvasMode_ObjImport::enterEvent(QEvent *)
+void CanvasMode_ObjImport::enterEvent(QEvent *e)
 {
 	if (m_mimeData)
 	{
 		setModeCursor();
 		return;
 	}
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 void CanvasMode_ObjImport::leaveEvent(QEvent *e)
 {
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 
 void CanvasMode_ObjImport::activate(bool fromGesture)
 {
 //	qDebug() << "CanvasMode_ObjImport::activate" << fromGesture;
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -101,11 +96,10 @@ void CanvasMode_ObjImport::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	Mxp = Myp = -1;
+	m_Mxp = m_Myp = -1;
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }
@@ -113,9 +107,21 @@ void CanvasMode_ObjImport::activate(bool fromGesture)
 void CanvasMode_ObjImport::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_ObjImport::deactivate" << forGesture;
-	setMimeData(NULL);
-	setTransactionSettings(NULL);
-	m_view->redrawMarker->hide();
+	setMimeData(nullptr);
+	setTransactionSettings(nullptr);
+	m_view->setRedrawMarkerShown(false);
+
+	CanvasMode::deactivate(forGesture);
+}
+
+void CanvasMode_ObjImport::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_ObjImport::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
 }
 
 void CanvasMode_ObjImport::mouseDoubleClickEvent(QMouseEvent *m)
@@ -128,8 +134,6 @@ void CanvasMode_ObjImport::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_ObjImport::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
 	m->accept();
 
 	if (commonMouseMove(m))
@@ -142,7 +146,6 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 // 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 
-	double Rxp = 0, Ryp = 0;
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
@@ -152,47 +155,52 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 //	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x();
-	Myp = mousePointDoc.y();
-	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
-	Mxp = qRound(Rxp);
-	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
-	Myp = qRound(Ryp);
-	if (m->button() == Qt::MidButton)
+	m_Mxp = mousePointDoc.x();
+	m_Myp = mousePointDoc.y();
+	double Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
+	m_Mxp = qRound(Rxp);
+	double Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
+	m_Myp = qRound(Ryp);
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)
 			m_view->DrawNew();
 		return;
 	}
-	if ((m->button() == Qt::LeftButton) && m_mimeData)
-	{
-		UndoTransaction* undoTransaction = NULL;
-		if (m_trSettings && UndoManager::undoEnabled())
-		{
-			undoTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(*m_trSettings));
-		}
-		// Creating QDragEnterEvent outside of Qt is not recommended per docs :S
-		QPoint dropPos = m_view->widget()->mapFromGlobal(m->globalPos());
-		QDropEvent dropEvent(dropPos, Qt::CopyAction|Qt::MoveAction, m_mimeData, m->buttons(), m->modifiers());
-		m_view->contentsDropEvent(&dropEvent);
-		// Commit undo transaction if necessary
-		if (undoTransaction)
-		{
-			undoTransaction->commit();
-			delete undoTransaction;
-		}
-		// Return to normal mode
-		m_view->requestMode(modeNormal);
-	}
 }
 
 void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
+	if ((m->button() == Qt::LeftButton) && m_mimeData)
+	{
+		UndoTransaction undoTransaction;
+		if (m_trSettings && UndoManager::undoEnabled())
+		{
+			undoTransaction = UndoManager::instance()->beginTransaction(*m_trSettings);
+		}
+		// Creating QDragEnterEvent outside of Qt is not recommended per docs :S
+		QPoint dropPos = m_view->widget()->mapFromGlobal(m->globalPos());
+		const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+		QDropEvent dropEvent(dropPos, Qt::CopyAction|Qt::MoveAction, m_mimeData, m->buttons(), m->modifiers());
+		m_view->contentsDropEvent(&dropEvent);
+		if (m_doc->m_Selection->count() > 0)
+		{
+			double gx, gy, gh, gw;
+			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+			m_doc->moveGroup(mousePointDoc.x() - gx, mousePointDoc.y() -gy);
+		}
+		// Commit undo transaction if necessary
+		if (undoTransaction)
+		{
+			undoTransaction.commit();
+		}
+		// Return to normal mode
+		m_view->requestMode(modeNormal);
+	}
 //	m_view->stopDragTimer();
 	
 	m_canvas->setRenderModeUseBuffer(false);
@@ -201,10 +209,11 @@ void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
-	m_view->zoomSpinBox->clearFocus();
-	m_view->pageSelector->clearFocus();
+	//Make sure the Zoom spinbox and page selector don't have focus if we click on the canvas
+	m_view->m_ScMW->zoomSpinBox->clearFocus();
+	m_view->m_ScMW->pageSelector->clearFocus();
 }
+
 
 
 

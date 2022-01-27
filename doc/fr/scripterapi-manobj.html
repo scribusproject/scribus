@@ -1,0 +1,170 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Manipuler les objets</title>
+</head>
+<body>
+<h2>Manipuler les objets</h2>
+
+<dl>
+
+<dt><a name="-combinePolygons"><strong>combinePolygons()</strong></a></dt>
+<dd><code>combinePolygons()</code>
+<p>Combine deux polygones ou plus.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
+
+<dt><a name="-copyObject"><strong>copyObject</strong>(...)</a></dt>
+<dd><code>copyObject(["nom"]) -&gt; chaîne</code>
+<p>Effectue une copie de l'objet sélectionné vers le presse-papiers ou du premier objet dans la sélection si "nom" n'est pas spécifié.</p>
+<p>Obsolète. Veuillez utiliser copyObjects() en lieu et place.</p></dd>
+
+<dt><a name="-copyObjects"><strong>copyObjects</strong>(...)</a></dt>
+<dd><code>copyObjects(noms)</code>
+<p>Effectue une copie des objets spécifiés vers le presse-papiers ou de la sélection courante si aucun nom d'objet n'est spécifié.</p>
+<p>Le nom des objets à copier peut être spécifié sous forme d'une chaîne de caractères afin de copier un seul objet ou d'une liste de chaînes afin de copier plusieurs objets à la fois.</p></dd>
+
+<dt><a name="-duplicateObject"><strong>duplicateObject</strong>(...)</a></dt>
+<dd><code>duplicateObject(["nom"]) -&gt; chaîne</code>
+<p>Crée une copie de l'objet spécifié ou du premier objet dans la sélection si "nom" n'est pas spécifié.</p>
+<p>Retourne le nom de l'objet nouvellement créé.</p>
+<p>Obsolète. Veuillez utiliser duplicateObjects() en lieu et place.</p></dd>
+
+<dt><a name="-duplicateObjects"><strong>duplicateObjects</strong>(...)</a></dt>
+<dd><code>duplicateObjects(noms) -&gt; list</code>
+<p>Crée une copie des objets spécifiés ou de la sélection courante si aucun nom d'objet n'est spécifié.</p>
+<p>Le nom des objets à dupliquer peut être spécifié sous forme d'une chaîne de caractères afin de dupliquer un seul objet ou d'une liste de chaînes afin de dupliquer plusieurs objets à la fois.</p>
+<p>Retourne une liste des noms des objets nouvellement créés.</p></dd>
+
+<dt><a name="-getCharacterStyle"><strong>getCharacterStyle</strong></a>(...)</dt>
+<dd><code>getCharacterStyle(["nom"])  -&gt; chaîne</code>
+<p>Retourne le nom du style de caractère appliqué à l'objet "nom". Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p> 
+<p>Si l'objet courant possède une sélection de texte, le nom retourné est celui du style appliqué au début de la sélection. Sinon le nom retourné est celui du style de caractère appliqué par défaut.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
+
+<dt><a name="-getParagraphStyle"><strong>getParagraphStyle</strong></a>(...)</dt>
+<dd><code>getParagraphStyle(["nom"])  -&gt; chaîne</code>
+<p>Retourne le nom du style de paragraphe appliqué à l'objet "nom". Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p> 
+<p>Si l'objet courant possède une sélection de texte, le nom retourné est celui du style appliqué au début de la sélection. Sinon le nom retourné est celui du style appliqué par défaut.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
+
+<dt><a name="-getStyle"><strong>getStyle</strong></a>(...)</dt>
+<dd><code>getStyle(["nom"])  -&gt; chaîne</code>
+<p>Obsolète. Veuillez utiliser getParagraphStyle() en lieu et place.</p></dd>
+
+<dt><a name="-getTextFlowMode"><strong>getTextFlowMode</strong></a>(...)</dt>
+<dd><code>getTextFlowMode(["nom"]) -&gt; entier</code>
+<p>Return le mode d'habillage du texte appliqué à l'objet "nom" sous forme d'un entier. Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p>
+<p>La fonction retournera une des valeurs suivantes:
+<ul>
+	<li>0 : l'habillage du texte est désactivé</li>
+	<li>1 : l'habillage du texte suit la forme du cadre</li>
+	<li>2 : l'habillage du texte suit la bounding box du cadre</li>
+	<li>3 : l'habillage du texte suit la ligne de contour du cadre</li>
+	<li>4 : l'habillage du texte suit le tracé de découpage de l'image</li>
+</ul>
+</p></dd>
+
+<dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
+<dd><code>groupObjects(liste)  -&gt; chaîne</code>
+<p>Groupe les objets énumérés dans "liste". La "liste" doit contenir les noms des objets à grouper. 
+Si la "liste" n'est pas fournie, les éléments sélectionnés sont
+utilisés. Retourne le nom du groupe créé pour utilisation ultérieure.</p></dd>
+
+<dt><a name="-isLocked"><strong>isLocked</strong></a>(...)</dt>
+<dd><code>isLocked(["nom"]) -&gt; booléen</code>
+<p>Retourne la valeur True si l'objet "nom" est verrouillé.  Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-lockObject"><strong>lockObject</strong></a>(...)</dt>
+<dd><code>lockObject(["nom"]) -&gt; booléen</code>
+<p>Verrouille l'objet "nom" s'il est déverrouillé, ou le déverrouille s'il y a lieu. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. 
+Retourne la valeur True si verrouillé.</p></dd>
+
+<dt><a name="-moveObject"><strong>moveObject</strong></a>(...)</dt>
+<dd><code>moveObject(dx, dy [, "nom"])</code>
+<p>Déplace l'objet "nom" de dx et dy par rapport à sa position courante. Les
+distances sont exprimées dans les unités de mesure du document (voir
+les constantes UNIT). Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. Si l'objet "nom" appartient à un groupe, tout le groupe est déplacé.</p></dd>
+
+<dt><a name="-moveObjectAbs"><strong>moveObjectAbs</strong></a>(...)</dt>
+<dd><code>moveObjectAbs(x, y [, "nom"])</code>
+<p>Déplace l'objet "nom" à une nouvelle position. Les coordonnées sont exprimées dans les unités de mesure du document (voir les constantes UNIT).  Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. Si l'objet "nom" appartient à un groupe, tout le groupe est déplacé.</p></dd>
+
+<dt><a name="-pasteObject"><strong>pasteObject</strong>(...)</a></dt>
+<dd><code>pasteObject() -&gt; chaîne</code>
+<p>Colle un objet depuis le presse-papier. Cette fonction doit être utilisée uniquement suivant un appel à la fonction <em>copyObject(...)</em>, sans quoi le presse-papier ne contiendra probablement aucune donnée susceptible d'être collée.</p>
+<p>Retourne les noms des objets nouvellement créés sous forme d'une chaîne séparés par des virgules.</p>
+<p>Obsolète. Veuillez utiliser pasteObjects() en lieu et place.</p></dd>
+
+<dt><a name="-pasteObjects"><strong>pasteObjects</strong>(...)</a></dt>
+<dd><code>pasteObjects() -&gt; list</code>
+<p>Colle des objets depuis le presse-papier. Cette fonction doit être utilisée uniquement suivant un appel à la fonction <em>copyObjects(...)</em>, sans quoi le presse-papier ne contiendra probablement aucune donnée susceptible d'être collée.</p>
+<p>Retourne le nom des objets nouvellement créés sous forme d'une liste.</p></dd>
+
+<dt><a name="-rotateObject"><strong>rotateObject</strong></a>(...)</dt>
+<dd><code>rotateObject(rot [, "nom"])</code>
+<p>Fait pivoter l'objet "nom" de la valeur "rot" en degrés relatifs. La rotation est activée par le sommet sélectionné comme point de rotation - par défaut, le sommet en haut à gauche est le point de rotation zéro. Les valeurs positives signifient une rotation dans le sens des aiguilles d'une montre, lorsque le point de rotation par défaut est utilisé. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-rotateObjectAbs"><strong>rotateObjectAbs</strong></a>(...)</dt>
+<dd><code>rotateObjectAbs(rot [, "nom"])</code>
+<p>&Eacute;tablit la rotation de l'objet "nom" à "rot". Des valeurs positives signifient une rotation dans le sens des aiguilles d'une montre. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-scaleGroup"><strong>scaleGroup</strong></a>(...)</dt>
+<dd><code>scaleGroup(facteur [,"nom"])</code>
+<p>Redimensionne le groupe auquel l'objet "nom" appartient. Les valeurs supérieures à 1 agrandissent le groupe, les valeurs inférieures à 1 rendent le groupe plus petit, par exemple une valeur de 0.5 redimensionne le groupe à 50 % de sa taille originale, tandis qu'une valeur de 1.5 redimensionne le groupe à 150 % de sa taille originale. La valeur de "facteur" doit &ecirc;tre supérieure à 0. Si le "nom" n'est pas fourni, l'élément sélectionné courant est utilisé.</p>
+<p>Peut générer ValueError si le facteur de redimensionnement n'est pas valide.</p></dd>
+
+<dt><a name="-setCharacterStyle"><strong>setCharacterStyle</strong></a>(...)</dt>
+<dd><code>setCharacterStyle("style" [, "nom"])</code>
+<p>Applique le "style" de caractère spécifié à l'objet "nom".</p>
+<p>Si le nom d'objet "nom" n'est pas spécifié, le style est appliqué à la sélection d'objets courante.</p>
+<p>Si de multiples objets sont sélectionnés ou si l'objet sélectionné ne comporte aucune sélection de texte, le style est appliqué aux objets sélectionnés. Dans le cas contraire, le style est appliqué à la sélection de texte courante.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si l'objet cible n'est pas un cadre de texte.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le nom de style spécifié n'appartient pas au document courant.</p></dd>
+
+<dt><a name="-setParagraphStyle"><strong>setParagraphStyle</strong></a>(...)</dt>
+<dd><code>setParagraphStyle("style" [, "nom"])</code>
+<p>Applique le "style" de paragraphe  spécifié à l'objet "nom".</p>
+<p>Si le nom d'objet "nom" n'est pas spécifié, le style est appliqué à la sélection d'objets courante.</p>
+<p>Si de multiples objets sont sélectionnés ou si l'objet sélectionné ne comporte aucune sélection de texte, le style est appliqué aux objets sélectionnés. Dans le cas contraire, le style est appliqué à la sélection de texte courante.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si l'objet cible n'est pas un cadre de texte.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le nom de style spécifié n'appartient pas au document courant.</p></dd>
+
+<dt><a name="-setScaleFrameToImage"><strong>setScaleFrameToImage</strong></a>(...)</dt>
+<dd><code>setScaleFrameToImage([nom])</code>
+<p>Redimensionne l'objet "nom" aux dimensions de l'image. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé</p>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
+
+<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
+<dd><code>setScaleImageToFrame(redimAuCadre, proportionnel=None, nom=&lt;selection&gt;)</code>
+<p>&Eacute;tablit le mode de redimensionnement par rapport au cadre d'image sélectionné, ou spécifié dans 'redimAuCadre'. 
+Si 'proportionnel' est spécifié, établit le redimensionnement en maintenant des proportions fixes. 'redimAuCadre' et 'proportionnel' sont booléens.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
+
+<dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
+<dd><code>setStyle("style" [, "nom"])</code>
+<p>Obsolète. Veuillez utiliser setParagraphStyle() en lieu et place.</p></dd>
+
+<dt><a name="-setTextFlowMode"><strong>setTextFlowMode</strong></a>(...)</dt>
+<dd><code>setTextFlowMode("nom" [, etat])</code>
+<p>Active ou désactive l'habillage du texte pour l'objet "nom".</p>
+<p>Appelé avec les paramètres chaîne "nom" et l'entier optionnel "état" (0 &lt;= "état" &lt;= 3).
+Paramétrer "état" à la valeur 0 désactivera l'habillage du texte. Paramétrer "état" à la valeur 1 habillera le texte selon le cadre de l'objet.
+Paramétrer "état" à la valeur 2 habillera le texte selon la bounding box de l'objet. Paramétrer "état" à la valeur 3 habillera le texte selon la ligne de contourde l'objet.
+Si l'argument"état" n'est pas passé, cette fonctionnalité change de valeur (activée si inactive ou désactivée si active).</p></dd>
+
+<dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
+<dd><code>sizeObject(largeur, hauteur [, "nom"])</code>
+<p>Redimensionne l'objet "nom" à la largeur et à la hauteur données. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-unGroupObjects"><strong>unGroupObjects</strong></a>(...)</dt>
+<dd><code>unGroupObjects("nom")</code>
+<p>Détruit le groupe auquel appartient l'objet "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-textFlowMode"><strong>textFlowMode</strong></a>(...)</dt>
+<dd><code>textFlowMode("nom" [, etat])</code>
+<p>Obsolète. Veuillez utiliser setTextFlowMode() en lieu et place.</p></dd>
+
+</dl>
+</body>
+</html>
+ 

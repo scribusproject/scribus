@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>GSview and Scribus</title>
+
+  
+</head><body>
+<h2>GSview*</h2>
+
+<p>One important thing to note is that <a href="http://pages.cs.wisc.edu/%7Eghost/gsview/index.htm">GSview</a> <span style="font-style: italic;">must not be confused</span> with <strong style="font-weight: normal;">ghostview, gv and their derivatives!</strong>
+Although Adobe Reader® is often a better pure viewer for PDFs, GSview
+should be regarded as one of the most essential tools to have when
+using
+Scribus. GSview has some extremely useful functions. For those
+unfamiliar with the program, it provides an easy to use “front end” to
+Ghostscript, as well as <code>pstoedit</code> for converting bitmaps
+into vector files or vice versa. For those coming from a traditional
+DTP background in the Mac/Windows world, it also
+provides some of the functionality of Acrobat Distiller.<br>
+</p>
+
+<p>You should always use the latest version, at least 4.7. (GSview
+migrated from the
+Windows world, where it has been excellent since the 4.x versions.)</p>
+
+<p>For use with Scribus, GSview has the following features:</p>
+
+<ul>
+
+  <li>With the help of <a href="http://pstoedit.net">pstoedit</a>, you
+can convert bitmap images or PDF content back into SVG and other
+scalable vector file formats.</li>
+  <li>The ability to preview, convert and add previews (TIFF
+recommended) for raw EPS (Encapsulated PostScript files).</li>
+  <li>The ability to extract text from a PDF.</li>
+  <li>The ability to preview, convert and add previews for raw
+PostScript files.</li>
+  <li>An easy-to-use front end to Ghostscript’s less well known
+features such as image conversion and re-sampling. There are other
+features in
+Ghostscript, including: converting between TIFF formats, changing the
+color depth of a TIFF, JPEG or the color space of an image.</li>
+</ul>
+
+<p>One example where GSview is extremely useful with Scribus is
+troubleshooting or fixing EPS files that do not display correctly
+within
+Scribus. Although many applications can generate EPS files, some add
+their own quirks into the EPS, which can cause problems when used in
+other programs (like Scribus).</p>
+
+<p>So, if you find difficulty with an EPS you wish to use in
+Scribus, open the EPS in GSview. Then, use the key command <strong>M</strong>
+to display messages from Ghostscript. The messages can indicate
+problems which cause display or printing errors. You can also use the <strong>epswrite</strong>
+“device” to re-save the EPS, which can help to strip out or fix issues
+with an EPS.</p>
+
+<p>You can also <em>rasterize</em> an EPS image, by converting it to
+PNG
+or TIFF and then resize, adjust colors etc with an image program like
+GIMP or Krita.<br>
+</p>
+
+<p> Note that GSview uses the <code>libgs.so</code> shared library to
+access Ghostscript. Not all Linux distributions ship this, so the hints
+for compiling Ghostscript with a paralell install really apply here. </p>
+
+<h4>Getting Gsview:</h4>
+
+<p>GSview is available for most Linux distributions, at least the major
+ones. Otherwise you can build GSview by following
+the instructions provided in the <a href="http://pages.cs.wisc.edu/%7Eghost/">source package</a>. For
+Windows and OS/2 and eComStation you can download&nbsp;<a href="http://pages.cs.wisc.edu/%7Eghost/gsview/get49.htm">conventional
+installers</a> .
+Unfortunately, there is no current version for Mac OS X available. </p>
+
+<p>A special note to users of OpenSUSE 11.3: The required GTK&nbsp;1
+libraries are no longer available for this Linux distribution, but you
+can use the <a href="http://download.opensuse.org/repositories/GNOME:/GNOME1/openSUSE_11.2/i586/">versions
+compiled for 11.2</a>. You need to install the gtk-1.20 and glib
+packages (if you want to build GSview yourself, you also need the
+respective devel RPMs), as well as the <a href="http://download.opensuse.org/repositories/GNOME:/GNOME1/openSUSE_11.2/noarch/gtk-lang-1.2.10-1093.1.noarch.rpm">lang
+package</a>.<br>
+</p>
+
+<p>Now, for advanced hints with GSview and Ghostscript, see: <a href="toolbox7.html">Advanced Ghostscript and GSview Hints</a></p>
+
+<p>*) <span style="font-style: italic;">Parts of this section are
+thanks to Russell Lang, author and maintainer of GSview, epstool and
+Ghostscript for his hints and patiently answering questions about
+GSview and Ghostscript.</span></p>
+
+</body></html>

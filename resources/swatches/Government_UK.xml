@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS>
+    <COLOR NAME="Purple" RGB="#2e358b" Spot="0"/>
+    <COLOR NAME="Mauve" RGB="#6f72af" Spot="0"/>
+    <COLOR NAME="Fuschia" RGB="#912b88" Spot="0"/>
+    <COLOR NAME="Pink" RGB="#d53880" Spot="0"/>
+    <COLOR NAME="Baby Pink" RGB="#f499be" Spot="0"/>
+    <COLOR NAME="Red" RGB="#b10e1e" Spot="0"/>
+    <COLOR NAME="Mellow Red" RGB="#df3034" Spot="0"/>
+    <COLOR NAME="Orange" RGB="#f47738" Spot="0"/>
+    <COLOR NAME="Brown" RGB="#b58840" Spot="0"/>
+    <COLOR NAME="Yellow" RGB="#ffbf47" Spot="0"/>
+    <COLOR NAME="Grass Green" RGB="#85994b" Spot="0"/>
+    <COLOR NAME="Green" RGB="#006435" Spot="0"/>
+    <COLOR NAME="Turquoise" RGB="#28a197" Spot="0"/>
+    <COLOR NAME="Light Blue" RGB="#2b8cc4" Spot="0"/>
+    <COLOR NAME="Treasury" RGB="#c03024" Spot="0"/>
+    <COLOR NAME="Cabinet Office" RGB="#0078ba" Spot="0"/>
+    <COLOR NAME="Department for Education" RGB="#f6823e" Spot="0"/>
+    <COLOR NAME="Department of Transport" RGB="#007162" Spot="0"/>
+    <COLOR NAME="Home Office" RGB="#804292" Spot="0"/>
+    <COLOR NAME="Department for Health (NHS)" RGB="#00ae9f" Spot="0"/>
+    <COLOR NAME="Ministry of Justice" RGB="#231f20" Spot="0"/>
+    <COLOR NAME="Ministry of Defence" RGB="#5d2a44" Spot="0"/>
+    <COLOR NAME="Foreign and Commonwealth Office" RGB="#00569e" Spot="0"/>
+    <COLOR NAME="Department for Communities and Local Government" RGB="#4a338c" Spot="0"/>
+    <COLOR NAME="Department for Energy and Climate Change" RGB="#78c059" Spot="0"/>
+    <COLOR NAME="Department for Culture, Media and Sport" RGB="#ee1089" Spot="0"/>
+    <COLOR NAME="Department for Environment Food and Rural Affairs" RGB="#8a8c30" Spot="0"/>
+    <COLOR NAME="Department for Work and Pensions" RGB="#16bcb8" Spot="0"/>
+    <COLOR NAME="Department for Business, Innovation and Skills" RGB="#3a6f8c" Spot="0"/>
+    <COLOR NAME="Department for International Development" RGB="#729ecd" Spot="0"/>
+    <COLOR NAME="Grey 1" RGB="#6F777B" Spot="0"/>
+    <COLOR NAME="Grey 2" RGB="#BFC1C3" Spot="0"/>
+    <COLOR NAME="Grey 3" RGB="#DEE0E2" Spot="0"/>
+    <COLOR NAME="Grey 4" RGB="#F8F8F8" Spot="0"/>
+    <COLOR NAME="HM Government" RGB="#0076c0" Spot="0"/>
+    <COLOR NAME="Government Equalities Office" RGB="#9325b2" Spot="0"/>
+    <COLOR NAME="Attorney General's Office" RGB="#9f1888" Spot="0"/>
+    <COLOR NAME="Scotland Office" RGB="#002663" Spot="0"/>
+    <COLOR NAME="Wales Office" RGB="#a33038" Spot="0"/>
+    <COLOR NAME="Black" CMYK="#000000ff"/>
+    <COLOR NAME="Registration" CMYK="#ffffffff" Register="1"/>
+    <COLOR NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>
+<!-- Sources: https://www.gov.uk/service-manual/design-and-content/resources/colour-palettes.html and http://alphagov.github.com/design/gov.uk.colours/ Licence: Open Government Licence (http://www.nationalarchives.gov.uk/doc/open-government-licence/) -->

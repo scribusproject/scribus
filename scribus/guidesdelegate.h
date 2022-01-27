@@ -22,7 +22,7 @@ class GuidesDelegate : public QItemDelegate
 	Q_OBJECT
 
 	public:
-		GuidesDelegate(QObject *parent = 0);
+		GuidesDelegate(QObject *parent = nullptr);
 
 // implemented in inheritance
 // 		QWidget *createEditor(QWidget *parent,
@@ -44,7 +44,7 @@ class GuidesDelegate : public QItemDelegate
 
 	// protected due const in createEditor
 	protected:
-		ScribusDoc *m_doc;
+		ScribusDoc *m_doc {nullptr};
 };
 
 
@@ -56,7 +56,7 @@ class GuidesHDelegate : public GuidesDelegate
 	Q_OBJECT
 
 	public:
-		GuidesHDelegate(QObject *parent = 0);
+		GuidesHDelegate(QObject *parent = nullptr);
 
 		QWidget *createEditor(QWidget *parent,
 							  const QStyleOptionViewItem &option,
@@ -72,7 +72,7 @@ class GuidesVDelegate : public GuidesDelegate
 	Q_OBJECT
 
 	public:
-		GuidesVDelegate(QObject *parent = 0);
+		GuidesVDelegate(QObject *parent = nullptr);
 
 		QWidget *createEditor(QWidget *parent,
 							  const QStyleOptionViewItem &option,

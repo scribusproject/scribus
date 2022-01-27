@@ -1,0 +1,378 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Predefined Constants</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Predefined Constants</h2>
+
+<p>There are some Constants defined to help using the Commands: </p>
+
+<h4>Scribus Version:</h4>
+	<p>The script interface provides two variables containing the current Scribus version in the <code>scribus</code> module. Scripts can use these variables to check that they're running under the version of Scribus they expect, and to report information about incompatibilities to the user. These two variables, <code>scribus_version</code> and <code>scribus_version_info</code>, were added in 1.2.1 and 1.3.0svn and will not be present in earlier versions. If you need to, you can check for their presence with <code>hasattr(scribus, 'scribus_version')</code>.</p>
+	<p><code>scribus_version</code> contains the current Scribus version as a string. It will usually look like <code>'1.2.1svn'</code> or <code>'1.3.0'</code>, for example, but is not guaranteed to always follow that format. This variable is useful when you need to display the version to the user, for example when reporting an incompatibility. Do not parse or compare this variable, that is what <code>scribus_version_info</code> is for.</p>
+	<p><code>scribus_version_info</code> is a tuple similar to the <code>sys.version_info</code> tuple provided by Python. It is a tuple of the form (majorversion, minorversion, patchlevel, extraversion, build) for example, 1.2.1svn will have <code>(1,2,1,'svn',0)</code> and 1.3.2 will have <code>(1,3,2,'',0)</code> . These tuples are ideal for checking for minimum versions, etc, because Python compares tuples element-by-element, left-to-right. For example:</p>
+<pre>
+if scribus.scribus_version_info[:3] &lt; (1,2,2):
+    messageBox("Scribus - Python script",
+        "This script requires Scribus 1.2.2 or newer. "+"You're running %s." % scribus.scribus_version, scribus.ICON_CRITICAL)
+    sys.exit()
+</pre>
+<p><em>Note that if you are using this style of import statement:</em></p>
+<pre>import scribus</pre>
+<p>you will need to add a prefix to these predefined constants, for example, <strong>scribus.ICON_CRITICAL</strong>.</p>
+
+
+<h4>Unit Enumeration Constants: </h4>
+<table><tr><td>
+<dl>
+	<dt>UNIT_POINTS</dt>
+	<dd>Measurement Unit Point = 0</dd>
+	<dt>UNIT_MILLIMETERS</dt>
+	<dd>Measurement Unit Millimeter = 1</dd>
+	<dt>UNIT_INCHES</dt>
+	<dd>Measurement Unit Inch = 2</dd>
+	<dt>UNIT_PICAS</dt>
+	<dd>Measurement Unit Pica = 3</dd>
+</dl>
+</td></tr></table>
+
+<h4>Unit Conversion Constants</h4>
+
+<p>These conversion factors can be used to convert units to and from points.
+Thus, to convert inches to points, you can simply write 'value/inch', to
+convert points to inches you write 'value*inch', and to convert inches to mm
+you write 'value*mm/inch' .</p>
+
+<table><tr><td>
+<dl>
+	<dt>pt</dt>
+	<dd>points in 1 pt</dd>
+	<dt>inch</dt>
+	<dd>inches in 1 pt</dt>
+	<dt>p</dt>
+	<dd>pica in 1 pt</dd>
+	<dt>cm<dt>
+	<dd>centimetres in 1 pt</dd>
+	<dt>mm</dt>
+	<dd>millimetres in 1 pt</dd>
+	<dt>...</dt>
+	<dd>Other constants will be provided if the Scribus core knows about them.</dd>
+</dl>
+</td></tr></table>
+
+<h4>Page Orientation Definitions: </h4>
+<table><tr><td>
+<dl>
+	<dt>PORTRAIT</dt>
+	<dd>Page orientation Portrait = 0</dd>
+	<dt>LANDSCAPE</dt>
+	<dd>Page orientation Landscape = 1</dd>
+</dl>
+</td></tr></table>
+
+<h4>Definitions for Page Formats: </h4>
+<p>If you are using these, it's important to understand that these constants are simply tuples of these specific numbers. There are now two sets of these constants for A and B series of paper formats.</p>
+<p>The original set, such as PAPER_A4, is used when a document is created with points units. Now you can also use the similarly named PAPER_A4_MM when you are using millimeters as the page units. As before, they must be used with the appropriate constant, either UNIT_POINTS or UNIT_MILLIMETERS. What you can then do, for example, is use them to create a document in points, then switch the units of the document with the setUnit() command.</p>
+<table><tr>
+<td>
+<dl>
+	<dt>PAPER_A0</dt>
+	<dd>Paper format A0 = 2380 x 3368 Points</dd>
+	<dt>PAPER_A1</dt>
+	<dd>Paper format A1 = 1684 x 2380 Points</dd>
+	<dt>PAPER_A2</dt>
+	<dd>Paper format A2 = 1190 x 1684 Points</dd>
+	<dt>PAPER_A3</dt>
+	<dd>Paper format A3 = 842 x 1190 Points</dd>
+	<dt>PAPER_A4</dt>
+	<dd>Paper format A4 = 595 x 842 Points</dd>
+	<dt>PAPER_A5</dt>
+	<dd>Paper format A5 = 421 x 595 Points</dd>
+	<dt>PAPER_A6</dt>
+	<dd>Paper format A6 = 297 x 421 Points</dd>
+	<dt>PAPER_A7</dt>
+	<dd>Paper format A7 = 210 x 297 Points</dd>
+	<dt>PAPER_A8</dt>
+	<dd>Paper format A8 = 148 x 210 Points</dd>
+	<dt>PAPER_A9</dt>
+	<dd>Paper format A9 = 105 x 148 Points</dd></dl></td>
+<td>
+<dl>
+	<dt>PAPER_A0_MM</dt>
+	<dd>Paper format A0 = 841 x 1189 Millimeters</dd>
+	<dt>PAPER_A1_MM</dt>
+	<dd>Paper format A1 = 594 x 841 Millimeters</dd>
+	<dt>PAPER_A2_MM</dt>
+	<dd>Paper format A2 = 420 x 594 Millimeters</dd>
+	<dt>PAPER_A3_MM</dt>
+	<dd>Paper format A3 = 297 x 420 Millimeters</dd>
+	<dt>PAPER_A4_MM</dt>
+	<dd>Paper format A4 = 210 x 297 Millimeters</dd>
+	<dt>PAPER_A5_MM</dt>
+	<dd>Paper format A5 = 148 x 210 Millimeters</dd>
+	<dt>PAPER_A6_MM</dt>
+	<dd>Paper format A6 = 105 x 148 Millimeters</dd>
+	<dt>PAPER_A7_MM</dt>
+	<dd>Paper format A7 = 74 x 105 Millimeters</dd>
+	<dt>PAPER_A8_MM</dt>
+	<dd>Paper format A8 = 52 x 74 Millimeters</dd>
+	<dt>PAPER_A9_MM</dt>
+	<dd>Paper format A9 = 37 x 52 Millimeters</dd></dl></td></tr>
+<tr><td>
+<dl>
+	<dt>PAPER_B0</dt>
+	<dd>Paper format B0 = 2836 x 4008 Points</dd>
+	<dt>PAPER_B1</dt>
+	<dd>Paper format B1 = 2004 x 2836 Points</dd>
+	<dt>PAPER_B2</dt>
+	<dd>Paper format B2 = 1418 x 2004 Points</dd>
+	<dt>PAPER_B3</dt>
+	<dd>Paper format B3 = 1002 x 1418 Points</dd>
+	<dt>PAPER_B4</dt>
+	<dd>Paper format B4 = 709 x 1002 Points</dd>
+	<dt>PAPER_B5</dt>
+	<dd>Paper format B5 = 501 x 709 Points</dd>
+	<dt>PAPER_B6</dt>
+	<dd>Paper format B6 = 355 x 501 Points</dd>
+	<dt>PAPER_B7</dt>
+	<dd>Paper format B7 = 250 x 355 Points</dd>
+	<dt>PAPER_B8</dt>
+	<dd>Paper format B8 = 178 x 250 Points</dd>
+	<dt>PAPER_B9</dt>
+	<dd>Paper format B9 = 125 x 178 Points</dd>
+	<dt>PAPER_B10</dt>
+	<dd>Paper format B10 = 89 x 125 Points</dd></dl></td>
+<td>
+<dl>
+	<dt>PAPER_B0_MM</dt>
+	<dd>Paper format B0 = 1000 x 1414 Millimeters</dd>
+	<dt>PAPER_B1_MM</dt>
+	<dd>Paper format B1 = 707 x 1000 Millimeters</dd>
+	<dt>PAPER_B2_MM</dt>
+	<dd>Paper format B2 = 500 x 707 Millimeters</dd>
+	<dt>PAPER_B3_MM</dt>
+	<dd>Paper format B3 = 353 x 500 Millimeters</dd>
+	<dt>PAPER_B4_MM</dt>
+	<dd>Paper format B4 = 250 x 353 Millimeters</dd>
+	<dt>PAPER_B5_MM</dt>
+	<dd>Paper format B5 = 176 x 250 Millimeters</dd>
+	<dt>PAPER_B6_MM</dt>
+	<dd>Paper format B6 = 125 x 176 Millimeters</dd>
+	<dt>PAPER_B7_MM</dt>
+	<dd>Paper format B7 = 88 x 125 Millimeters</dd>
+	<dt>PAPER_B8_MM</dt>
+	<dd>Paper format B8 = 62 x 88 Millimeters</dd>
+	<dt>PAPER_B9_MM</dt>
+	<dd>Paper format B9 = 44 x 62 Millimeters</dd>
+	<dt>PAPER_B10_MM</dt>
+	<dd>Paper format B10 = 31 x 44 Millimeters</dd></dl></td></tr>
+<tr><td>
+<dl>
+	<dt>PAPER_C5E</dt>
+	<dd>Paper format C5E = 462 x 649 Points</dd>
+	<dt>PAPER_COMM10E</dt>
+	<dd>Paper format Comm10E = 298 x 683 Points</dd>
+	<dt>PAPER_DLE</dt>
+	<dd>Paper format DLE = 312 x 624 Points</dd>
+	<dt>PAPER_EXECUTIVE</dt>
+	<dd>Paper format Executive = 542 x 720 Points</dd>
+	<dt>PAPER_FOLIO</dt>
+	<dd>Paper format Folio = 595 x 935 Points</dd>
+	<dt>PAPER_LEDGER</dt>
+	<dd>Paper format Ledger = 1224 x 792 Points</dd>
+	<dt>PAPER_LEGAL</dt>
+	<dd>Paper format Legal = 612 x 1008 Points</dd>
+	<dt>PAPER_LETTER</dt>
+	<dd>Paper format Letter = 612 x 792 Points</dd>
+	<dt>PAPER_TABLOID</dt>
+	<dd>Paper format Tabloid = 792 x 1224 Points</dd>
+</dl></td></tr>
+</table>
+
+<h4>Definitions for Document Layout:</h4>
+<table><tr><td>
+<dl>
+	<dt>FACINGPAGES</dt>
+	<dd>Layout with facing Pages.</dd>
+	<dt>NOFACINGPAGES</dt>
+	<dd>Normal Layout of the Document.</dd>
+	<dt>FIRSTPAGELEFT</dt>
+	<dd>The first Page of the Document is a left Page.</dd>
+	<dt>FIRSTPAGERIGHT</dt>
+	<dd>The first Page of the Document is a right Page.</dd>
+</dl>
+</td></tr></table>
+
+<h4>Definitions for page item types:</h4>
+<table><tr><td>
+<dl>
+	<dt>ITEM_ITEMTYPE1</dt>
+	<dd>Legacy type, do not use, just here for completeness.</dd>
+	<dt>ITEM_IMAGEFRAME</dt>
+	<dt>ITEM_ITEMTYPE3</dt>
+	<dd>Legacy type, do not use, just here for completeness.</dd>
+	<dt>ITEM_TEXTFRAME</dt>
+	<dt>ITEM_LINE</dt>
+	<dt>ITEM_POLYGON</dt>
+	<dt>ITEM_POLYLINE</dt>
+	<dt>ITEM_PATHTEXT</dt>
+	<dt>ITEM_LATEXFRAME</dt>
+	<dt>ITEM_OSGFRAME</dt>
+	<dt>ITEM_SYMBOL</dt>
+	<dt>ITEM_GROUP</dt>
+	<dt>ITEM_REGULARPOLYGON</dt>
+	<dt>ITEM_ARC</dt>
+	<dt>ITEM_SPIRAL</dt>
+	<dt>ITEM_TABLE</dt>
+	<dt>ITEM_NOTEFRAME</dt>
+	<dt>ITEM_MULTIPLE</dt>
+</dl>
+</td></tr></table>
+
+<h4>Alignment Definitions: </h4>
+<table><tr><td>
+<dl>
+	<dt>ALIGN_LEFT</dt>
+	<dd>Text is aligned to the Left.</dd>
+	<dt>ALIGN_CENTERED</dt>
+	<dd>The Text is centered in the Textframe.</dd>
+	<dt>ALIGN_RIGHT</dt>
+	<dd>The Text is aligned to the Right Side of the Textframe</dd>
+	<dt>ALIGN_FORCED</dt>
+	<dd>The Text has forced Alignment</dd>
+  	<dt>ALIGN_BLOCK</dt>
+	<dd>The Text has block Alignment</dd>
+</dl>
+</td></tr></table>
+
+<h4>Vertical alignment Definitions: </h4>
+<table><tr><td>
+<dl>
+	<dt>ALIGNV_TOP</dt>
+	<dd>Text is aligned vertically to the top.</dd>
+	<dt>ALIGNV_CENTERED</dt>
+	<dd>Text is aligned vertically to the center.</dd>
+	<dt>ALIGNV_BOTTOM</dt>
+	<dd>Text is aligned vertically to the bottom.</dd>
+</dl>
+</td></tr></table>
+
+<h4>First line offset Definitions: </h4>
+<table><tr><td>
+<dl>
+	<dt>FLOP_REALGLYPHHEIGHT</dt>
+	<dd>First line offset is determined according to the maximum height of glyphs in the line.</dd>
+	<dt>FLOP_FONTASCENT</dt>
+	<dd>First line offset is determined according to font ascent.</dd>
+	<dt>FLOP_LINESPACING</dt>
+	<dd>First line offset is determined according to current linespacing.</dd>
+	<dt>FLOP_BASELINEGRID</dt>
+	<dd>First line offset is determined according to the baseline grid.</dd>
+</dl>
+</td></tr></table>
+
+<h4>Line related Definitions: </h4>
+<table><tr><td>
+<dl>
+    <dt>LINE_DASH</dt>
+    <dt>LINE_DASHDOT</dt>
+    <dt>LINE_DASHDOTDOT</dt>
+    <dt>LINE_DOT</dt>
+    <dt>LINE_SOLID</dt>
+    <dt><p/></dt>
+    <dt>JOIN_BEVEL</dt>
+    <dt>JOIN_MITTER</dt>
+    <dt>JOIN_ROUND</dt>
+    <dt><p/></dt>
+    <dt>CAP_FLAT</dt>
+    <dt>CAP_ROUND</dt>
+    <dt>CAP_SQUARE</dt>
+</dl>
+</td></tr></table>
+
+<h4>Colorspace Definitions: </h4>
+<table><tr><td>
+<dl>
+	<dt>CSPACE_UNDEFINED</dt>
+	<dt>CSPACE_RGB</dt>
+	<dt>CSPACE_CMYK</dt>
+	<dt>CSPACE_GRAY</dt>
+	<dt>CSPACE_DUOTONE</dt>
+	<dt>CSPACE_MONOCHROME</dt>
+</dl>
+</td></tr></table>
+
+<h4>Fill related Definitions: </h4>
+<table><tr><td>
+<dl>
+	<dt>FILL_NOG</dt>
+    <dd>No gradient, plain color</dd>
+	<dt>FILL_HORIZONTALG</dt>
+	<dt>FILL_VERTICALG</dt>
+	<dt>FILL_DIAGONALG</dt>
+	<dt>FILL_CROSSDIAGONALG</dt>
+	<dt>FILL_RADIALG</dt>
+</dl>
+</td></tr></table>
+
+<h4>Dialog Buttons</h4>
+<p>
+<table>
+<tr><td><strong>Button Type</strong></td><td><strong>Return Value</strong></td></tr>
+<tr>    <td>BUTTON_ABORT</td><td>262144</td></tr>
+<tr>    <td>BUTTON_CANCEL</td><td>4194304</td></tr>
+    <tr><td>BUTTON_IGNORE</td><td>1048576</td></tr>
+    <tr><td>BUTTON_NO</td><td>65536</td></tr>
+    <tr><td>BUTTON_NONE</td><td>N/A</td></tr>
+    <tr><td>BUTTON_OK</td><td>1024</td></tr>
+    <tr><td>BUTTON_RETRY</td><td>524288</td></tr>
+    <tr><td>BUTTON_YES</td><td>16384</td></tr>
+</table></p>
+
+<p>There is also a hierarchy of buttons in terms of how they appear in the dialogs, with this ordering, left to right:</p>
+<p>BUTTON_YES, BUTTON_NO, BUTTON_OK, BUTTON_RETRY, BUTTON_IGNORE, BUTTON_ABORT, BUTTON_CANCEL</p>
+<p>For example, even if you assign CANCEL to button1, RETRY to button2, and YES to button3, they will appear YES, RETRY, and CANCEL left to right in the dialog.</p>
+
+<h4>Dialog Icons</h4>
+<table><tr><td>
+<dl>
+    <dt>ICON_CRITICAL</dt>
+    <dt>ICON_INFORMATION</dt>
+    <dt>ICON_NONE</dt>
+    <dt>ICON_WARNING</dt>
+</dl>
+</td></tr></table>
+
+<h4>Tab alignment</h4>
+<table><tr><td>
+<dl>
+	<dt>TAB_LEFT</dt>
+	<dt>TAB_RIGHT</dt>
+	<dt>TAB_PERIOD</dt>
+	<dt>TAB_COMMA</dt>
+	<dt>TAB_CENTER</dt>
+</dl>
+</td></tr></table>
+
+<h4>Print languages</h4>
+<table><tr><td>
+<dl>
+	<dt>PRNLANG_POSTSCRIPT1</dt>
+	<dd>Postscript Level 1 (requires Ghostscript)</dd>
+	<dt>PRNLANG_POSTSCRIPT2</dt>
+	<dd>Postscript Level 2 (requires Ghostscript)</dd>
+	<dt>PRNLANG_POSTSCRIPT3</dt>
+	<dd>Postscript Level 3</dd>
+	<dt>PRNLANG_WINDOWSGDI</dt>
+	<dd>Windows GDI (available on Microsoft Windows only)</dd>
+	<dt>PRNLANG_PDF</dt>
+	<dd>Adobe PDF (available only on MacOS and *nix systems)</dd>
+</dl>
+</td></tr></table>
+
+</body>
+</html>

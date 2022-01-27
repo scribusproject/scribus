@@ -24,34 +24,32 @@
 #include <QRect>
 #include <QDebug>
 
+#include "appmodes.h"
 #include "canvas.h"
-#include "contextmenu.h"
 #include "fpoint.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "selectionrubberband.h"
+#include "ui/contextmenu.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
 
 
 CanvasMode_CopyProperties::CanvasMode_CopyProperties(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
-	frameResizeHandle = -1;
 }
 
 inline bool CanvasMode_CopyProperties::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_CopyProperties::drawControls(QPainter* p)
 {
-	commonDrawControls(p);
+	commonDrawControls(p, false);
 }
 
 void CanvasMode_CopyProperties::enterEvent(QEvent *)
@@ -64,14 +62,14 @@ void CanvasMode_CopyProperties::enterEvent(QEvent *)
 
 void CanvasMode_CopyProperties::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 
 void CanvasMode_CopyProperties::activate(bool fromGesture)
 {
 //	qDebug() << "CanvasMode_CopyProperties::activate" << fromGesture;
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -85,7 +83,6 @@ void CanvasMode_CopyProperties::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }
@@ -93,7 +90,18 @@ void CanvasMode_CopyProperties::activate(bool fromGesture)
 void CanvasMode_CopyProperties::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_CopyProperties::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
+	CanvasMode::deactivate(forGesture);
+}
+
+void CanvasMode_CopyProperties::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_CopyProperties::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
 }
 
 void CanvasMode_CopyProperties::mouseDoubleClickEvent(QMouseEvent *m)
@@ -104,7 +112,6 @@ void CanvasMode_CopyProperties::mouseDoubleClickEvent(QMouseEvent *m)
 //	m_view->stopDragTimer();
 }
 
-
 void CanvasMode_CopyProperties::mouseMoveEvent(QMouseEvent *m)
 {
 	m->accept();
@@ -114,8 +121,7 @@ void CanvasMode_CopyProperties::mouseMoveEvent(QMouseEvent *m)
 	{
 		QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
 		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-		if (!m_view->redrawMarker->isVisible())
-			m_view->redrawMarker->show();
+		m_view->setRedrawMarkerShown(true);
 		m_view->HaveSelRect = true;
 		return;
 	}
@@ -127,8 +133,6 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 // 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 
-	double Rxp = 0, Ryp = 0;
-	PageItem *currItem;
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
@@ -139,11 +143,11 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	m_view->registerMousePress(m->globalPos());
 	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
+	double Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
 	Mxp = qRound(Rxp);
-	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
+	double Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
 	Myp = qRound(Ryp);
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)
@@ -153,15 +157,14 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	if (m->button() != Qt::LeftButton)
 		return;
 	SeleItem(m);
+	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
-		currItem->ColGap = m_doc->ElemToLink->ColGap;
-		currItem->Cols = m_doc->ElemToLink->Cols;
-		currItem->BottomLine = m_doc->ElemToLink->BottomLine;
-		currItem->TopLine = m_doc->ElemToLink->TopLine;
-		currItem->LeftLine = m_doc->ElemToLink->LeftLine;
-		currItem->RightLine = m_doc->ElemToLink->RightLine;
+		double sx, sy, ex, ey, r, skx, sky, fx, fy, ss, sk, sp;
+		currItem->m_columnGap = m_doc->ElemToLink->m_columnGap;
+		currItem->m_columns = m_doc->ElemToLink->m_columns;
 		currItem->setTextToFrameDist(m_doc->ElemToLink->textToFrameDistLeft(), m_doc->ElemToLink->textToFrameDistRight(), m_doc->ElemToLink->textToFrameDistTop(), m_doc->ElemToLink->textToFrameDistBottom());
+		// Stroke Properties
 		currItem->setLineStyle(m_doc->ElemToLink->lineStyle());
 		currItem->setLineWidth(m_doc->ElemToLink->lineWidth());
 		currItem->setLineTransparency(m_doc->ElemToLink->lineTransparency());
@@ -172,9 +175,34 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 		currItem->setCustomLineStyle(m_doc->ElemToLink->customLineStyle());
 		currItem->setEndArrowIndex(m_doc->ElemToLink->endArrowIndex());
 		currItem->setStartArrowIndex(m_doc->ElemToLink->startArrowIndex());
+		currItem->setEndArrowScale(m_doc->ElemToLink->endArrowScale());
+		currItem->setStartArrowScale(m_doc->ElemToLink->startArrowScale());
+		// Fill Properties
 		currItem->setFillColor(m_doc->ElemToLink->fillColor());
 		currItem->setFillShade(m_doc->ElemToLink->fillShade());
 		currItem->setFillTransparency(m_doc->ElemToLink->fillTransparency());
+		// Gradient Properties
+		currItem->fill_gradient = m_doc->ElemToLink->fill_gradient;
+		currItem->setGradient(m_doc->ElemToLink->gradient());
+		m_doc->ElemToLink->gradientVector(sx, sy, ex, ey, fx, fy, ss, sk);
+		currItem->setGradientVector(sx, sy, ex, ey, fx, fy, ss, sk);
+		// Pattern Properties
+		currItem->setPattern(m_doc->ElemToLink->pattern());
+		m_doc->ElemToLink->patternTransform(sx, sy, ex, ey, r, skx, sky);
+		currItem->setPatternTransform(sx, sy, ex, ey, r, skx, sky);
+		currItem->setStrokePattern(m_doc->ElemToLink->strokePattern());
+		m_doc->ElemToLink->strokePatternTransform(sx, sy, ex, ey, r, skx, sky, sp);
+		currItem->setStrokePatternTransform(sx, sy, ex, ey, r, skx, sky, sp);
+		currItem->setStrokePatternToPath(m_doc->ElemToLink->isStrokePatternToPath());
+		// Set Gradient type after all properties
+		currItem->setGradientType(m_doc->ElemToLink->gradientType());
+
+		currItem->stroke_gradient = m_doc->ElemToLink->stroke_gradient;
+		currItem->setStrokeGradient(m_doc->ElemToLink->strokeGradient());
+		m_doc->ElemToLink->strokeGradientVector(sx, sy, ex, ey, fx, fy, ss, sk);
+		currItem->setStrokeGradientVector(sx, sy, ex, ey, fx, fy, ss, sk);
+		currItem->setStrokeGradientType(m_doc->ElemToLink->strokeGradientType());
+		// Update Item
 		m_doc->ElemToLink = currItem;
 		currItem->update();
 //		emit DocChanged();
@@ -182,15 +210,16 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	}
 	else
 	{
-		m_doc->ElemToLink = NULL;
+		m_doc->ElemToLink = nullptr;
 		m_view->requestMode(submodePaintingDone);
+		m_view->canvasMode()->mousePressEvent(m);
 	}
 }
 
 void CanvasMode_CopyProperties::mouseReleaseEvent(QMouseEvent *m)
 {
 #ifdef GESTURE_FRAME_PREVIEW
-        clearPixmapCache();
+	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	PageItem *currItem;
@@ -216,7 +245,6 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
 	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
-//	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	m_doc->nodeEdit.deselect();
@@ -226,16 +254,16 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 		int docPageCount = static_cast<int>(m_doc->Pages->count() - 1);
 		MarginStruct pageBleeds;
 		bool drawBleed = false;
-		if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesSettings.showBleed)
+		if (!m_doc->bleeds()->isNull() && m_doc->guidesPrefs().showBleed)
 			drawBleed = true;
 		for (int a = docPageCount; a > -1; a--)
 		{
 			if (drawBleed)
 				m_doc->getBleeds(a, pageBleeds);
-			int x = static_cast<int>(m_doc->Pages->at(a)->xOffset() - pageBleeds.Left);
-			int y = static_cast<int>(m_doc->Pages->at(a)->yOffset() - pageBleeds.Top);
-			int w = static_cast<int>(m_doc->Pages->at(a)->width() + pageBleeds.Left + pageBleeds.Right);
-			int h = static_cast<int>(m_doc->Pages->at(a)->height() + pageBleeds.Bottom + pageBleeds.Top);
+			int x = static_cast<int>(m_doc->Pages->at(a)->xOffset() - pageBleeds.left());
+			int y = static_cast<int>(m_doc->Pages->at(a)->yOffset() - pageBleeds.top());
+			int w = static_cast<int>(m_doc->Pages->at(a)->width() + pageBleeds.left() + pageBleeds.right());
+			int h = static_cast<int>(m_doc->Pages->at(a)->height() + pageBleeds.bottom() + pageBleeds.top());
 			if (QRect(x, y, w, h).contains(MxpS, MypS))
 			{
 				pgNum = static_cast<int>(a);
@@ -261,15 +289,14 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 		{
 			if (m_doc->currentPageNumber() != pgNum)
 			{
-				m_doc->setCurrentPage(m_doc->Pages->at(unsigned(pgNum)));
-				m_view->setMenTxt(unsigned(pgNum));
+				m_doc->setCurrentPage(m_doc->Pages->at(pgNum));
+				m_view->m_ScMW->slotSetCurrentPage(pgNum);
 				m_view->DrawNew();
 			}
 		}
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
-	
-	currItem = NULL;
+	currItem = nullptr;
 	if ((m->modifiers() & SELECT_BENEATH) != 0)
 	{
 		for (int i=0; i < m_doc->m_Selection->count(); ++i)
@@ -277,48 +304,16 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 			if (m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), m_doc->m_Selection->itemAt(i)) >= 0)
 			{
 				currItem = m_doc->m_Selection->itemAt(i);
-//				qDebug() << "select item: found BENEATH" << currItem << "groups" << currItem->Groups.count();
-				if (currItem->Groups.count() > 0)
-				{
-					m_doc->m_Selection->delaySignalsOn();
-					for (int ga=0; ga<m_doc->Items->count(); ++ga)
-					{
-						PageItem* item = m_doc->Items->at(ga);
-						if (item->Groups.count() != 0)
-						{
-							if (item->Groups.top() == currItem->Groups.top())
-							{
-								if (m_doc->m_Selection->findItem(item) >= 0)
-								{
-									m_doc->m_Selection->removeItem(item);
-								}
-							}
-						}
-					}
-					m_doc->m_Selection->delaySignalsOff();
-				}
-				else
-				{
-					m_doc->m_Selection->removeItem(currItem);
-				}
+				m_doc->m_Selection->removeItem(currItem);
 				break;
 			}
-//			else
-//				qDebug() << "select item: not BENEATH" << QPointF(mousePointDoc.x(),mousePointDoc.y()) 
-//					<< m_doc->m_Selection->itemAt(i)->getTransform() 
-//					<< m_doc->m_Selection->itemAt(i)->getBoundingRect();
 		}
 	}
 	else if ( (m->modifiers() & SELECT_MULTIPLE) == Qt::NoModifier || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames) )
 	{
-		m_view->Deselect(false);
+		m_view->deselectItems(false);
 	}
-	
-//	qDebug() << "select item: beneath" << (m->modifiers() & SELECT_BENEATH) << currItem 
-//		<< "multi" << (m->modifiers() & SELECT_MULTIPLE)
-//		<< "current sel" << m_doc->m_Selection->count();
 	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
-//	qDebug() << "item under cursor: " << currItem;
 	if (currItem)
 	{
 		m_doc->m_Selection->delaySignalsOn();
@@ -332,32 +327,10 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 			//then clear and select the new item
 			if ((m->modifiers() == SELECT_BENEATH) && m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) >= 0)
 				m_doc->m_Selection->clear();
-			//CB: #7186: This was prependItem, does not seem to need to be anymore with current select code
 			m_doc->m_Selection->addItem(currItem);
-			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroupControl))
+			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroup()))
 			{
 				currItem->isSingleSel = true;
-			}
-			else if (currItem->Groups.count() > 0)
-			{
-				for (int ga=0; ga<m_doc->Items->count(); ++ga)
-				{
-					PageItem* item = m_doc->Items->at(ga);
-					if (item->Groups.count() != 0)
-					{
-						if (item->Groups.top() == currItem->Groups.top())
-						{
-							if (item->ItemNr != currItem->ItemNr)
-							{
-								if (m_doc->m_Selection->findItem(item) == -1)
-								{
-									m_doc->m_Selection->addItem(item, true);
-								}
-							}
-							item->isSingleSel = false;
-						}
-					}
-				}
 			}
 		}
 
@@ -370,39 +343,33 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 				PageItem *bb = m_doc->m_Selection->itemAt(aa);
 				bb->update();
 			}
-			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			//					emit ItemPos(x, y);
-			//					emit ItemGeom(w, h);
 			m_view->getGroupRectScreen(&x, &y, &w, &h);
-			//					m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-			//					emit HaveSel(currItem->itemType());
 		}
 		if (m_doc->m_Selection->count() == 1)
 		{
 			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 			if ((frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
-				qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+				m_view->setCursor(QCursor(Qt::SizeAllCursor));
 		}
 		else
 		{
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			m_view->setCursor(QCursor(Qt::SizeAllCursor));
 			m_canvas->m_viewMode.operItemResizing = false;
 		}
 		return true;
 	}
-	//m_doc->m_Selection->setIsGUISelection(true);
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
-		m_view->Deselect(true);
+		m_view->deselectItems(true);
 	return false;
 }
 
-void CanvasMode_CopyProperties::createContextMenu(PageItem* currItem, double mx, double my)
+void CanvasMode_CopyProperties::createContextMenu(PageItem* /*currItem*/, double mx, double my)
 {
-	ContextMenu* cmen=NULL;
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	ContextMenu* cmen=nullptr;
+	m_view->setCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
 	Mxp = mx;
 	Myp = my;

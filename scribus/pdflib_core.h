@@ -12,29 +12,38 @@ for which a new license (GPL+exception) is in place.
 #include <QDataStream>
 #include <QPixmap>
 #include <QList>
+#include <QStack>
 #include <string>
 #include <vector>
 
-class QString;
-class QRect;
 class QImage;
+class QRect;
+class QString;
+class QTextCodec;
 class PageItem;
 class BookMItem;
-class BookMView;
+class BookmarkView;
 class ScribusDoc;
-class Page;
+class ScPage;
 class PDFOptions;
 class PrefsContext;
 class MultiProgressDialog;
+class ScLayer;
 class ScText;
 
+#include "pdfoptions.h"
+#include "pdfstructs.h"
 #include "scribusstructs.h"
 #include "scimagestructs.h"
+#include "tableborder.h"
 
 #ifdef HAVE_PODOFO
 #include <podofo/podofo.h>
 #endif
 
+#include "pdfwriter.h"
+
+class PdfPainter;
 
 /**
  * PDFLibCore provides Scribus's implementation of PDF export functionality.
@@ -42,7 +51,7 @@ class ScText;
  * This is not public API and is not exported in Scribus's symbol table on supporting
  * platforms. Do not include this header, use pdflib.h instead. Including this header
  * from anywhere except pdflib.cpp may cause linker errors and other problems,
- * and is totally pointless since all the interfaces that are publically
+ * and is totally pointless since all the interfaces that are publicly
  * visible are presented by PDFlib anyway.
  *
  *@author Franz Schmid
@@ -52,240 +61,239 @@ class PDFLibCore : public QObject
 {
 	Q_OBJECT
 
+friend class PdfPainter;
+
 public:
 	explicit PDFLibCore(ScribusDoc & docu);
+	explicit PDFLibCore(ScribusDoc & docu, const PDFOptions& options);
 	~PDFLibCore();
-	bool doExport(const QString& fn, const QString& nam, int Components,
-				  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs);
 
-	const QString& errorMessage(void) const;
-	bool  exportAborted(void) const;
+	bool doExport(const QString& fn, const std::vector<int> & pageNs, const QMap<int, QImage> & thumbs);
+
+	const QString& errorMessage() const;
+	bool  exportAborted() const;
 
 private:
 	struct ShIm
 	{
-		int ResNum;
-		int Width;
-		int Height;
-		double reso;
-		double sxa;
-		double sya;
-		double xa;
-		double ya;
-		double origXsc;
-		double origYsc;
+		PdfId ResNum = 0;
+		int   Width = 0;
+		int   Height = 0;
+		int   Page = 0;
+		double reso = 1.0;
+		double sxa = 0;
+		double sya = 0;
+		double xa = 0;
+		double ya = 0;
+		double origXsc = 1.0;
+		double origYsc = 1.0;
+		bool isBitmapFromGS = false;
+		bool isEmbeddedPDF  = false;
 		QMap<int, ImageLoadRequest> RequestProps;
 	};
+
+	bool PDF_IsPDFX() const;
+	bool PDF_IsPDFX(const PDFVersion& ver) const;
+
+	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& DocFonts, BookmarkView* vi);
+	void PDF_Begin_Catalog();
+	void PDF_Begin_MetadataAndEncrypt();
+	QMap<QString, QMap<uint, QString> >
+	     PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& DocFonts);
+	void PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& usedFonts);
+	void PDF_WriteStandardFonts();
+	PdfFont PDF_WriteType3Font(const QByteArray& name, ScFace& face, const QMap<uint, QString>& usedGlyphs);
+	PdfFont PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs);
 	
-	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi);
-	void PDF_Begin_Page(const Page* pag, QPixmap pm = 0);
+	QByteArray PDF_GenerateSubsetTag(const QByteArray& fontName, const QList<uint>& usedGlyphs);
+	PdfId PDF_WriteFontDescriptor(const QByteArray& fontName, ScFace& face, ScFace::FontFormat fformat, PdfId embeddedFontObject);
+	PdfFont PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs);
+	PdfFont PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs);
+	PdfFont PDF_WriteOpenTypeSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs);
+	PdfFont PDF_EncodeSimpleFont(const QByteArray& fontname, ScFace& face,  const QByteArray& baseFont, const QByteArray& subtype, bool isEmbedded, PdfId fontDes, const QMap<uint, QString>& usedGlyphs);
+	PdfFont PDF_EncodeCidFont(const QByteArray& fontname, ScFace& face, const QByteArray& baseFont, PdfId fontDes, const QMap<uint, QString>& usedGlyphs, const QMap<uint, uint>& glyphmap);
+	PdfFont PDF_EncodeFormFont(const QByteArray& fontname, ScFace& face,  const QByteArray& baseFont, const QByteArray& subtype, PdfId fontDes);
+	PdfId PDF_EmbedFontObject(const QString& fontName, ScFace &face);
+	PdfId PDF_EmbedFontObject(const QByteArray& font, const QByteArray& subtype);
+	PdfId PDF_EmbedType1AsciiFontObject(const QByteArray& fontData);
+	PdfId PDF_EmbedType1BinaryFontObject(const QByteArray& fontData);
+
+	void PDF_Begin_Colors();
+	void PDF_Begin_Layers();
+	
+	void PDF_Begin_Page(const ScPage* pag, const QImage& thumb);
 	void PDF_End_Page();
-	bool PDF_TemplatePage(const Page* pag, bool clip = false);
-	bool PDF_ProcessPage(const Page* pag, uint PNr, bool clip = false);
-	bool PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
+	bool PDF_TemplatePage(const ScPage* pag, bool clip = false);
+	bool PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip = false);
+	bool PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* page, uint PNr);
+	bool PDF_ProcessPageElements(const ScLayer& layer, const ScPage* page, uint PNr);
+	
+	bool PDF_End_Doc(const QString& outputProfilePath = QString());
+	void PDF_End_Bookmarks();
+	void PDF_End_Resources();
+	void PDF_End_Outlines();
+	void PDF_End_PageTree();
+	void PDF_End_NamedDests();
+	void PDF_End_FormObjects();
+	void PDF_End_JavaScripts();
+	void PDF_End_Articles();
+	void PDF_End_Layers();
+	bool PDF_End_OutputProfile(const QString& profilePath);
+	void PDF_End_Metadata();
+	bool PDF_End_XRefAndTrailer();
 	bool closeAndCleanup();
 
 	void PDF_Error(const QString& errorMsg);
-	void PDF_Error_WriteFailure(void);
+	void PDF_Error_WriteFailure();
 	void PDF_Error_ImageLoadFailure(const QString& fileName);
 	void PDF_Error_ImageWriteFailure(const QString& fileName);
 	void PDF_Error_MaskLoadFailure(const QString& fileName);
-	void PDF_Error_InsufficientMemory(void);
+	void PDF_Error_InsufficientMemory();
 
-	QByteArray EncodeUTF16(const QString &in);
-	QString    EncStream(const QString & in, int ObjNum);
-	QString    EncString(const QString & in, int ObjNum);
-	QString    EncStringUTF16(const QString & in, int ObjNum);
+	QByteArray EncStream(const QByteArray & in, PdfId ObjNum);
+	QByteArray EncString(const QByteArray & in, PdfId ObjNum);
+	QByteArray EncStringUTF16(const QString & in, PdfId ObjNum);
 
-	bool       EncodeArrayToStream(const QByteArray& in, int ObjNum);
+	bool       EncodeArrayToStream(const QByteArray& in, PdfId ObjNum);
 
-	int     WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray, bool precal);
-	int     WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, bool cmyk, bool gray, bool sameFile, bool precal);
-	int     WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray, bool precal);
+	int     WriteImageToStream(ScImage& image, PdfId ObjNum, ColorSpaceEnum format, bool precal);
+	int     WriteJPEGImageToStream(ScImage& image, const QString& fn, PdfId ObjNum, int quality, ColorSpaceEnum format, bool sameFile, bool precal);
+	int     WriteFlateImageToStream(ScImage& image, PdfId ObjNum, ColorSpaceEnum format, bool precal);
 
-	void    CalcOwnerKey(const QString & Owner, const QString & User);
-	void    CalcUserKey(const QString & User, int Permission);
-	QString FitKey(const QString & pass);
+//	void    CalcOwnerKey(const QString & Owner, const QString & User);
+//	void    CalcUserKey(const QString & User, int Permission);
+//	QString FitKey(const QString & pass);
 
-	QString setStrokeMulti(struct SingleLine *sl);
-	QString SetClipPathArray(FPointArray *ite, bool poly = true);
-	QString SetClipPathImage(PageItem *ite);
-	QString SetClipPath(PageItem *ite, bool poly = true);
-	QString SetColor(const QString& farbe, double Shade);
-	QString SetColor(const ScColor& farbe, double Shade);
-	QString SetGradientColor(const QString& farbe, double Shade);
-	QString putColor(const QString& color, double Shade, bool fill);
-	QString putColorUncached(const QString& color, int Shade, bool fill);
-	QString Write_TransparencyGroup(double trans, int blend, QString &data);
-	QString setTextSt(PageItem *ite, uint PNr, const Page* pag);
-	bool    setTextCh(PageItem *ite, uint PNr, double x, double y, uint d,  QString &tmp, QString &tmp2, const ScText * hl, const ParagraphStyle& pstyle, const Page* pag);
+	QByteArray SetClipPath(const PageItem *ite, bool poly = true);
+	QByteArray SetClipPathArray(const FPointArray *ite, bool poly = true);
+	QByteArray SetClipPathImage(const PageItem *ite);
 
-	// Provide a couple of PutDoc implementations to ease transition away from
-	// QString abuse and to provide fast paths for constant strings.
-	void PutDoc(const QString & in) { outStream.writeRawData(in.toLatin1(), in.length()); }
-	void PutDoc(const QByteArray & in) { outStream.writeRawData(in, in.size()); }
-	void PutDoc(const char* in) { outStream.writeRawData(in, strlen(in)); }
-	void PutDoc(const std::string & in) { outStream.writeRawData(in.c_str(), in.length()); }
-
-	void       PutPage(const QString & in) { Content += in; }
-	void       StartObj(int nr);
-	uint       newObject() { return ObjCounter++; }
-	uint       WritePDFStream(const QString& cc);
-	uint       WritePDFString(const QString& cc);
-	void       writeXObject(uint objNr, QString dictionary, QByteArray stream);
-	uint       writeObject(QString type, QString dictionary);
-	uint       writeGState(QString dictionary) { return writeObject("/ExtGState", dictionary); }
-	uint       writeActions(const Annotation&, uint annotationObj);
-//	QString    PDFEncode(const QString & in);
-	QByteArray ComputeMD5(const QString& in);
-	QByteArray ComputeRC4Key(int ObjNum);
+	QByteArray SetImagePathAndClip(PageItem *item);
+	QByteArray SetPathAndClip(PageItem *item);
+	QByteArray SetPathAndClip(PageItem *item, bool fillRule);
 	
-	bool    PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag, uint PNr, bool embedded = false, bool pattern = false);
-	QString PDF_ProcessTableItem(PageItem* ite, const Page* pag);
-	QString drawArrow(PageItem *ite, QMatrix &arrowTrans, int arrowIndex);
+	QByteArray setStrokeMulti(const SingleLine *sl);
+	QByteArray SetColor(const QString& farbe, double Shade);
+	QByteArray SetColor(const ScColor& farbe, double Shade);
+	QByteArray SetGradientColor(const QString& farbe, double Shade);
+	QByteArray putColor(const QString& color, double Shade, bool fill);
+	QByteArray putColorUncached(const QString& color, int Shade, bool fill);
+    QByteArray Write_FormXObject(QByteArray &data, PageItem *controlItem = 0);
+	QByteArray Write_TransparencyGroup(double trans, int blend, QByteArray &data, PageItem *controlItem = 0);
+	QByteArray setTextSt(PageItem *ite, uint PNr, const ScPage* pag);
+	void    getBleeds(const ScPage* page, double &left, double &right);
+	void    getBleeds(const ScPage* page, double &left, double &right, double &bottom, double& top);
+
+//	// Provide a couple of PutDoc implementations to ease transition away from
+//	// QString abuse and to provide fast paths for constant strings.
+//	void PutDoc(const QString & in) { outStream.writeRawData(in.toLatin1(), in.length()); }
+//	void PutDoc(const QByteArray & in) { outStream.writeRawData(in, in.size()); }
+//	void PutDoc(const char* in) { outStream.writeRawData(in, strlen(in)); }
+//	void PutDoc(const std::string & in) { outStream.writeRawData(in.c_str(), in.length()); }
+
+	void       PutPage(const QByteArray & in) { Content += in; }
+//	uint       newObject() { return ObjCounter++; }
+	uint       WritePDFStream(const QByteArray& cc);
+	uint       WritePDFStream(const QByteArray& cc, PdfId objId);
+	uint       WritePDFString(const QString& cc);
+	uint       WritePDFString(const QString& cc, PdfId objId);
+	void       writeXObject(uint objNr, const QByteArray& dictionary, const QByteArray& stream);
+	uint       writeObject(const QByteArray& type, const QByteArray& dictionary);
+	uint       writeGState(QByteArray dictionary) { return writeObject("/ExtGState", dictionary); }
+	uint       writeActions(const Annotation&, uint annotationObj);
+
+	QByteArray PDF_PutSoftShadow(PageItem* ite);
+	bool    PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage* pag, uint PNr, bool embedded = false, bool pattern = false);
 	void    PDF_Bookmark(PageItem *currItem, double ypos);
-	bool    PDF_Gradient(QString& output, PageItem *currItem);
-	QString PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, QList<double> Trans, const QStringList& Colors, QStringList colorNames, QList<int> colorShades);
-	QString PDF_TransparenzFill(PageItem *currItem);
-	QString PDF_TransparenzStroke(PageItem *currItem);
-	bool    PDF_Annotation(PageItem *ite, uint PNr);
-	void    PDF_Form(const QString& im);
-	void    PDF_xForm(uint objNr, double w, double h, QString im);
-	bool    PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN = false, const QString& Profil = "", bool Embedded = false, int Intent = 1, QString* output = NULL);
-	bool    PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, int Intent, ShIm& imgInfo, QString* output = NULL);
+	bool	PDF_HatchFill(QByteArray& output, PageItem *currItem);
+	bool    PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, int kind = 0, bool forArrow = false);
+	bool    PDF_MeshGradientFill(QByteArray& output, PageItem *currItem);
+	bool	PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c);
+	bool    PDF_DiamondGradientFill(QByteArray& output, PageItem *currItem);
+	bool    PDF_TensorGradientFill(QByteArray& output, PageItem *currItem);
+	bool    PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, bool stroke = false, bool forArrow = false);
+	QByteArray PDF_TransparenzFill(PageItem *currItem);
+	QByteArray PDF_TransparenzStroke(PageItem *currItem);
+#ifdef HAVE_OSG
+	bool    PDF_3DAnnotation(PageItem *ite, uint PNr);
+#endif
+	void    PDF_RadioButtonGroups();
+	uint    PDF_RadioButton(PageItem *ite, uint parent, const QString& parentName);
+	bool    PDF_Annotation(PageItem *ite);
+	void    PDF_Form(const QByteArray& im);
+	void    PDF_xForm(uint objNr, double w, double h, const QByteArray& im);
+	bool    PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN = false, const QString& Profil = "", bool Embedded = false, eRenderIntent Intent = Intent_Relative_Colorimetric, QByteArray* output = nullptr);
+	bool    PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, ShIm& imgInfo, bool &fatalError);
 #if HAVE_PODOFO
 	void copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QMap<PoDoFo::PdfReference, uint>& importedObjects);
 	void copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::PdfReference>& referencedObjects, QMap<PoDoFo::PdfReference, uint>& importedObjects);
 #endif
-		
-	int bytesWritten() { return Spool.pos(); }
 
+	quint32 encode32dVal(double val) const;
+	quint16 encode16dVal(double val) const;
+	void    encodeColor(QDataStream &vs, const QString& colName, int colShade, const QStringList &spotColorSet, bool spotMode);
+
+	QByteArray drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);
+	QByteArray createBorderAppearance(PageItem *ite);
+	QByteArray paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors);
+	QByteArray handleBrushPattern(PageItem* ite, QPainterPath &path, const ScPage* pag, uint PNr);
+
+	void generateXMP(const QString& timeStamp);
+//	int bytesWritten() { return Spool.pos(); }
+
+	PdfCatalog Catalog;
+	PdfPageData pageData;
+	PdfPageTree PageTree;
+	PdfOutlines Outlines;
+	Pdf::Writer writer;
+	QString baseDir;
 	
-	QString Content;
+	QByteArray Content;
 	QString ErrorMessage;
 	ScribusDoc & doc;
-	const Page * ActPageP;
+	const ScPage * ActPageP { nullptr };
 	const PDFOptions & Options;
-	BookMView* Bvie;
-	QFile Spool;
-	int Dokument;
-	struct Dest
-	{
-		QString Name;
-		int Seite;
-		QString Act;
-	};
-	struct Cata
-	{
-		int Outlines;
-		int PageTree;
-		int Dest;
-	}
-	Catalog;
-	struct PagT
-	{
-		QList<int> Kids;
-		int Count;
-	}
-	PageTree;
-	struct PagL
-	{
-		int ObjNum;
-		int Thumb;
-		QMap<QString,int> XObjects;
-		QMap<QString,int> ImgObjects;
-		QMap<QString,int> FObjects;
-		QList<int> AObjects;
-		QList<int> FormObjects;
-	}
-	Seite;
-	struct OutL
-	{
-		int First;
-		int Last;
-		int Count;
-	}
-	Outlines;
-	struct Bead
-	{
-		int Parent;
-		int Next;
-		int Prev;
-		int Page;
-		QRect Recht;
-	};
-	struct ICCD
-	{
-		int ResNum;
-		int components;
-		QString ResName;
-		QString ICCArray;
-	};
-	struct OCGInfo
-	{
-		int ObjNum;
-		bool visible;
-		QString Name;
-	};
-	struct SpotC
-	{
-		int ResNum;
-		QString ResName;
-	};
-	struct gData
-	{
-		int ResNumG;
-		int ResNumX;
-		QString ResNamG;
-		QString ResNamX;
-		QString data;
-	};
+	BookmarkView* Bvie { nullptr };
+	//int Dokument;
 	QMap<QString,ShIm> SharedImages;
-	QList<uint> XRef;
-	QList<Dest> NamedDest;
-	QList<int> Threads;
-	QList<Bead> Beads;
-	QList<int> CalcFields;
-	QMap<QString,int> Patterns;
-	QMap<QString,int> Shadings;
-	QMap<QString,int> Transpar;
-	QMap<QString,ICCD> ICCProfiles;
-	QHash<QString, OCGInfo> OCGEntries;
-	int ObjCounter;
-	QString ResNam;
-	int ResCount;
-	QString NDnam;
-	QString Datum;
-	int NDnum;
-	QMap<QString, QString> UsedFontsP;
-	QMap<QString, QString> UsedFontsF;
-	QByteArray KeyGen;
-	QByteArray OwnerKey;
-	QByteArray UserKey;
-	QByteArray FileID;
-	QByteArray EncryKey;
-	int Encrypt;
-	int KeyLen;
-	QString HTName;
-	bool BookMinUse;
+	QList<PdfDest> NamedDest;
+	QList<PdfId> CalcFields;
+	Pdf::ResourceMap Patterns;
+	Pdf::ResourceMap Shadings;
+	Pdf::ResourceMap Transpar;
+	QMap<QString,PdfICCD> ICCProfiles;
+	QHash<QString, PdfOCGInfo> OCGEntries;
+	QTextCodec* ucs2Codec { nullptr };
+	QByteArray ResNam { "RE" };
+	int ResCount { 0 };
+	QByteArray NDnam { "LI" };
+	QByteArray Datum;
+	int NDnum { 0 };
+	QMap<QString, PdfFont> UsedFontsP;
+	QMap<QString, PdfFont> UsedFontsF;
+	QByteArray HTName;
+	bool BookMinUse { false };
 	ColorList colorsToUse;
-	QMap<QString, SpotC> spotMap;
-	QMap<QString, SpotC> spotMapReg;
-	QString spotNam;
-	int spotCount;
-	int inPattern;
-	QDataStream outStream;
+	QMap<QString, PdfSpotC> spotMap;
+	QMap<QString, PdfSpotC> spotMapReg;
+	QByteArray spotNam { "Spot" };
+	int spotCount { 0 };
+	int inPattern { 0 };
 	QMap<QString, QString> StdFonts;
-	MultiProgressDialog* progressDialog;
-	bool abortExport;
+	MultiProgressDialog* progressDialog { nullptr };
+	bool abortExport { false };
 	bool usingGUI;
-	double bleedDisplacementX;
-	double bleedDisplacementY;
-	QMap<QString, QMap<uint, uint> > Type3Fonts;
-	
+	double bleedDisplacementX { 0.0 };
+	double bleedDisplacementY { 0.0 };
+	QByteArray xmpPacket;
+	QStack<QPointF> groupStackPos;
+	QStack<QPointF> patternStackPos;
+
 protected slots:
 	void cancelRequested();
 };
 
 #endif
+
+
 

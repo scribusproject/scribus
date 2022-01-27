@@ -28,14 +28,14 @@ namespace desaxe {
 class Action_body
 {
 protected:
-	Action_body() :                     dig(NULL)  {}
-	virtual ~Action_body()                         {}
-	virtual void begin(const Xml_string&, Xml_attr) {} 
-                                               
-	virtual void end(const Xml_string&)             {}
-	virtual void chars(const Xml_string&)           {}
+	Action_body() {}
+	virtual ~Action_body() {}
+	virtual void begin(const Xml_string&, Xml_attr) {}                       
+	virtual void end(const Xml_string&) {}
+	virtual void chars(const Xml_string&) {}
+	virtual void reset() {}
 
-	Digester* dig;
+	Digester* dig {nullptr};
 private:
 	int refs;
 	friend class Action;
@@ -52,7 +52,7 @@ private:
  *   XML attributes or XML text to store this data in other objects. This is usually
  *   done in the end() method.
  *   Warning: end() methods are called in reverse order. This is to ensure that they
- *   see exactly the same stack content as their corresponging begin() method.
+ *   see exactly the same stack content as their corresponding begin() method.
  *   This is the handle class which delegates to the body
  */
 class Action
@@ -88,6 +88,11 @@ public:
 		return *this;
 	}
 
+	virtual void reset()
+	{
+		body->reset();
+	}
+
 protected:
 	Action(Action_body* body_)
 	{
@@ -95,10 +100,10 @@ protected:
 		body->refs = 1;
 	}
 
+	Action_body* body;
+
 private:
 	Action();  // not defined
-	
-	Action_body* body;
 };
 
 

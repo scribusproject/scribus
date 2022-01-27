@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS>
+    <COLOR NAME="Black" CMYK="#000000ff"/>
+    <COLOR NAME="580 nm" CMYK="#0000ff00"/>
+    <COLOR NAME="620 nm" CMYK="#0080ff00"/>
+    <COLOR NAME="380 nm" CMYK="#00ff0000"/>
+    <COLOR NAME="700 nm" CMYK="#00ffff00"/>
+    <COLOR NAME="550 nm" CMYK="#8000ff00"/>
+    <COLOR NAME="425 nm" CMYK="#80ff0000"/>
+    <COLOR NAME="470 nm" CMYK="#ff000000"/>
+    <COLOR NAME="475 nm" CMYK="#ff008000"/>
+    <COLOR NAME="500 nm" CMYK="#ff00ff00"/>
+    <COLOR NAME="460 nm" CMYK="#ff800000"/>
+    <COLOR NAME="450 nm" CMYK="#ffff0000"/>
+    <COLOR NAME="Registration" CMYK="#ffffffff" Register="1"/>
+    <COLOR NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>

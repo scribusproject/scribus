@@ -27,42 +27,58 @@ for which a new license (GPL+exception) is in place.
 
 #include <QString>
 #include <QStringList>
+#include "langdef.h"
 #include "scribusapi.h"
 
 typedef std::pair<QString, QString> langPair;
 
-
-
 class SCRIBUS_API LanguageManager
 {
-	static LanguageManager* m_instance;
-	LanguageManager() {};
+	LanguageManager() = default;
 	~LanguageManager();
+
 	void init(bool generateInstalledList = true);
 	
 public:
 	static LanguageManager* instance();
+	static void deleteInstance();
+
+	void languageChange();
+	QStringList languageList(bool getTranslated=true);
 	
-	const QString getLangFromAbbrev(QString, bool getTranslated=true);
-	const QString getAbbrevFromLang(QString, bool getFromTranslated=true, bool useInstalled=true);
-	const QString getLangFromTransLang(QString lang);
-	const QString getTransLangFromLang(QString lang);
-	void fillInstalledStringList(QStringList *stringListToFill, bool addDefaults);
+	QString getLangFromAbbrev(QString, bool getTranslated=true);
+	QString getAbbrevFromLang(const QString&, bool useInstalled=true);
+	QString getLangFromTransLang(const QString& transLang);
+	QString getTransLangFromLang(const QString& lang);
+	QString getShortAbbrevFromAbbrev(QString langAbbrev);
+	QString getShortAbbrevFromAbbrevDecomposition(const QString& langAbbrev);
+	QString getAlternativeAbbrevfromAbbrev(const QString& langAbbrev);
+	QStringList   getAbbrevDecomposition(const QString& langAbbrev);
+	void fillInstalledStringList(QStringList *stringListToFill);
+	void fillInstalledGUIStringList(QStringList *stringListToFill);
+	void fillInstalledHyphStringList(QStringList *stringListToFill);
+	void fillInstalledSpellStringList(QStringList *stringListToFill);
 	void printInstalledList();
-	QString numericSequence(QString seq);
+	QString numericSequence(const QString& seq);
+	bool findSpellingDictionaries(QStringList& sl);
+	void findSpellingDictionarySets(QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap);
+	bool findHyphDictionaries(QStringList& sl);
+	void findHyphDictionarySets(QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap);
 	
-	void addHyphLang(const QString& lang, const QString& filename);
-	const QString getHyphFilename(const QString& lang, bool langIsAbbreviated = true);
-	const QStringList hyphLangs();
+	QString getHyphFilename(const QString& langAbbrev);
+	int langTableIndex(const QString& abbrev);
+
+	bool isAvailableTranslation(QString langAbbrev);
 
 private:
-	QMap<QString, langPair > langList;
-	QMap<QString, QString> installedLangList;
-	QMap<QString, QString> hyphLangList; // <lang abbreviated, dict filename>
+	static LanguageManager* m_instance;
+
+	QList <LangDef> m_langTable;
 
 	void generateLangList();
-	void generateInstalledLangList();
-	
+	void generateInstalledGUILangList();
+	void generateInstalledHyphLangList();
+	void generateInstalledSpellLangList();
 };
 
 #endif

@@ -1,0 +1,36 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Avviare Scribus dalla riga di comando</title>
+</head>
+<body>
+<h4>Avviare Scribus dalla riga di comando</h4>
+<p>Come ogni altro programma, Scribus pu&ograve; essere avviato dalla riga di comando. Di seguito sono elencate le opzioni della riga di comando per Linux/UNIX (compreso Mac OS X). Su altri sistemi operativi &egrave; possibile che i parametri debbano essere usati in modo diverso.</p>
+
+<p>
+<ul>
+<li><code>-l, --lang xx</code><br>
+Avvia Scribus nella lingua <code>xx</code>, senza tener conto delle impostazioni di localizzazione del sistema. La lingua &egrave; specificata con gli stessi codici di lingua POSIX che sono usati nelle variabili d'ambiente <code>LANG</code> e <code>LC_ALL</code>. Ad esempio, l'inglese pu&ograve; essere selezionato con &lsquo;en&rsquo; (inglese generico), &lsquo;en_GB&rsquo; (inglese - Gran Bretagna), &lsquo;en_US&rsquo; (inglese - Stati Uniti), ecc. Analogamente, l'italiano pu&ograve; essere selezionato con &lsquo;it&rsquo; (italiano generico), &lsquo;it_IT&rsquo; (italiano - Italia) o &lsquo;it_CH&rsquo; (italiano - Svizzera).</li>
+<li><code>-la, --langs-available</code><br>
+Visualizza l'elenco delle lingue per cui esiste la traduzione dell'interfaccia utente. Per usare una certa lingua, avviare Scribus con il comando <code>scribus -l xx</code> dove <code>xx</code> &egrave; il codice breve della lingua desiderata.</li>
+<li><code>-v, --version</code><br>
+Visualizza il numero di versione di Scribus ed esce.</li>
+<li><code>-f, --file</code><br>
+Apre il file indicato. &Egrave; possibile passare direttamente al comando il nome del file, omettendo l'opzione -f, ma se il nome del file inizia con un trattino (<code>-</code>) se ne dovranno usare due (<code>--</code>). Esempio: <code>scribus -- -myfile.sla</code>.</li>
+<li><code>-h, --help</code><br>
+Visualizza brevi informazioni sull'utilizzo del comando.</li>
+<li><code>-fi, --font-info </code><br>
+Visualizza un elenco dei file dei caratteri caricati durante l'avvio di Scribus. Questo pu&ograve; essere utile per individuare glifi mancanti nei tipi di carattere, oppure file di carattere che potrebbero essere danneggiati.</li>
+<li><code>-pi, --profile-info</code><br>
+Visualizza un elenco di profili colore che Scribus &egrave; in grado di utilizzare. Questo pu&ograve; essere utile per individuare profili colore mancanti o danneggiati.</li>
+<li><code>-ns, --no-splash</code><br>
+Impedisce (solo per l'avvio corrente) la visualizzazione della schermata introduttiva durante l'avvio di Scribus.</li>
+<li><code>-nns, --never-splash</code><br>
+Impedisce (per l'avvio corrente e per tutti i successivi) la visualizzazione della schermata introduttiva durante l'avvio di Scribus. Crea un file vuoto chiamato .neversplash in <code>~/.scribus</code>.</li>
+<li><code>-sb, --swap-buttons</code><br>
+Usa l'ordinamento dei pulsanti da destra a sinistra nelle finestre di dialogo (ad esempio Annulla/No/S&igrave; invece di S&igrave;/No/Annulla)</li>
+<li><code>-u, --upgradecheck</code> <br>
+Preleva un file dal server di Scribus con informazioni sulle ultime versioni disponibili.</li>
+</ul>
+</body>
+</html>

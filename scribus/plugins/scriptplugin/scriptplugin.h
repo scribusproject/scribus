@@ -10,13 +10,13 @@ for which a new license (GPL+exception) is in place.
 #include "cmdvar.h"
 #include "scplugin.h"
 #include "pluginapi.h"
-//Added by qt3to4:
+
+#include <QByteArray>
 #include <QPixmap>
 
 class QString;
 class QPixmap;
 class QWidget;
-class PrefsPanel;
 
 class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
 {
@@ -25,18 +25,18 @@ class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
 	public:
 		// Standard plugin implementation
 		ScriptPlugin();
-		virtual ~ScriptPlugin();
-		virtual bool initPlugin();
-		virtual bool cleanupPlugin();
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
-										 QString& caption, QPixmap& icon);
-		virtual void addToMainWindowMenu(ScribusMainWindow *);
+		~ScriptPlugin() override;
+		bool initPlugin() override;
+		bool cleanupPlugin() override;
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
+		bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel) override;
+		void addToMainWindowMenu(ScribusMainWindow *) override;
 
 		// Special features (none)
+		QByteArray pythonHome;
 };
 
 extern "C" PLUGIN_API int scriptplugin_getPluginAPIVersion();

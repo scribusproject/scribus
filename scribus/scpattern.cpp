@@ -24,26 +24,29 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 #include "scpattern.h"
+#include "scpainter.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
 #include "scribusdoc.h"
 #include "commonstrings.h"
 
-ScPattern::ScPattern()
+ScPattern::ScPattern(ScribusDoc* theDoc)
+         : doc(theDoc)
 {
-	items.clear();
-	pattern = QImage();
-	scaleX = 1.0;
-	scaleY = 1.0;
-	width = 0.0;
-	height = 0.0;
-	xoffset = 0.0;
-	yoffset = 0.0;
-};
 
-void ScPattern::setDoc(ScribusDoc *doc)
+}
+
+ScPattern::~ScPattern()
 {
-	m_doc = doc;
+//	while (!items.isEmpty())
+//	{
+//		delete items.takeFirst();
+//	}
+}
+
+void ScPattern::setDoc(ScribusDoc *theDoc)
+{
+	doc = theDoc;
 }
 
 QImage* ScPattern::getPattern()
@@ -51,11 +54,13 @@ QImage* ScPattern::getPattern()
 	return &pattern;
 }
 
-void ScPattern::setPattern(QString name)
+void ScPattern::setPattern(const QString& filename)
 {
 	items.clear();
-	PageItem* newItem = new PageItem_ImageFrame(m_doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-	if (newItem->loadImage(name, false, 72, false))
+	doc->setLoading(true);
+
+	PageItem* newItem = new PageItem_ImageFrame(doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+	if (newItem->loadImage(filename, false, 72, false))
 	{
 		pattern = newItem->pixm.qImage().copy();
 		scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
@@ -72,5 +77,41 @@ void ScPattern::setPattern(QString name)
 		items.append(newItem);
 	}
 	else
+	{
 		pattern = QImage();
+		delete newItem;
+	}
+
+	doc->setLoading(false);
+}
+
+void ScPattern::createPreview()
+{
+	double sc = 500.0 / qMax(width, height);
+
+	bool savedFlag = doc->guidesPrefs().framesShown;
+	bool savedDoDrawing = doc->DoDrawing;
+	doc->guidesPrefs().framesShown = false;
+	doc->DoDrawing = true;
+
+	pattern = QImage(qRound(width * sc), qRound(height * sc), QImage::Format_ARGB32_Premultiplied);
+	pattern.fill( qRgba(0, 0, 0, 0) );
+	ScPainter *painter = new ScPainter(&pattern, pattern.width(), pattern.height(), 1, 0);
+	painter->setZoomFactor(sc);
+	for (int i = 0; i < items.count(); ++i)
+	{
+		PageItem* embedded = items.at(i);
+		painter->save();
+		painter->translate(embedded->gXpos, embedded->gYpos);
+		embedded->isEmbedded = true;
+		embedded->invalid = true;
+		embedded->DrawObj(painter, QRectF());
+		embedded->isEmbedded = false;
+		painter->restore();
+	}
+	painter->end();
+	delete painter;
+
+	doc->DoDrawing = savedDoDrawing;
+	doc->guidesPrefs().framesShown = savedFlag;
 }

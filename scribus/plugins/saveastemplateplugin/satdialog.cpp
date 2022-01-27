@@ -10,37 +10,64 @@ for which a new license (GPL+exception) is in place.
 #include "satdialog.h"
 #include "scribusapi.h"
 
-#include <QXmlDefaultHandler>
-#include <QXmlSimpleReader>
+#include <QDir>
+#include <QXmlStreamReader>
 
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scpaths.h"
 #include "scribuscore.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
-class CategoriesReader : public QXmlDefaultHandler
+class CategoriesReader
 {
 public:
-	QStringList categories;
-	virtual bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs)
+	CategoriesReader() = default;
+
+	const QStringList& categories() { return m_categories; }
+
+	bool parse(const QString& fileName)
 	{
-		if (name == QLatin1String("template"))
+		m_categories.clear();
+
+		QFile qFile(fileName);
+		if (!qFile.open(QFile::ReadOnly))
+			return false;
+
+		QXmlStreamReader sReader(&qFile);
+		QXmlStreamReader::TokenType tagType;
+		QStringRef tagName;
+
+		while (!sReader.atEnd() && !sReader.hasError())
 		{
-			QString cat = attrs.value(QLatin1String("category"));
-			if (!categories.contains(cat))
-				categories.append(cat);
+			tagType = sReader.readNext();
+			if (tagType != QXmlStreamReader::StartElement)
+				continue;
+
+			tagName = sReader.name();
+			if (tagName != "template")
+				continue;
+
+			QXmlStreamAttributes attrs = sReader.attributes();
+			QString cat = attrs.value(QLatin1String("category")).toString();
+			if (!m_categories.contains(cat))
+				m_categories.append(cat);
 		}
-		return true;
-	};
+		qFile.close();
+
+		return (m_categories.count() > 0);
+	}
+
+private:
+	QStringList m_categories;
 };
 
-satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent)
+SATDialog::SATDialog(QWidget* parent, const QString& tmplName, int pageW, int pageH) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
 	setWindowTitle( tr("Save as Template"));
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	readPrefs();
 	
 	nameEdit->setText(tmplName);
@@ -53,7 +80,7 @@ satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 	connect(detailButton, SIGNAL(stateChanged(int)), this, SLOT(detailClicked(int)));
 }
 
-void satdialog::detailClicked(int state)
+void SATDialog::detailClicked(int state)
 {
 	isFullDetail = state == Qt::Checked;
 
@@ -73,9 +100,9 @@ void satdialog::detailClicked(int state)
 	emailEdit->setVisible(isFullDetail);
 }
 
-void satdialog::readPrefs()
+void SATDialog::readPrefs()
 {
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("satemplate");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("satemplate");
 	author = prefs->get("author", "");
 	email = prefs->get("email", "");
 	isFullDetail = prefs->getBool("isFullDetail", false);
@@ -83,14 +110,14 @@ void satdialog::readPrefs()
 	detailButton->setCheckState(isFullDetail ? Qt::Checked : Qt::Unchecked);
 }
 
-void satdialog::writePrefs()
+void SATDialog::writePrefs()
 {
 	prefs->set("author", authorEdit->text());
 	prefs->set("email", emailEdit->text());
 	prefs->set("isFullDetail", isFullDetail);
 }
 
-QString satdialog::findTemplateXml(QString dir)
+QString SATDialog::findTemplateXml(const QString& dir)
 {
 	QString lang = ScCore->getGuiLanguage();
 	QString tmp = dir + "/template." + lang + ".xml";
@@ -106,8 +133,10 @@ QString satdialog::findTemplateXml(QString dir)
 	return dir + "/template.xml";	
 }
 
-void satdialog::addCategories(const QString& dir)
+void SATDialog::addCategories(const QString& dir)
 {
+	if(dir.isEmpty())
+		return;
 	// Read categories from the dir itself
 	QString tmplFile = findTemplateXml(dir);
 	if (QFile::exists(tmplFile))
@@ -117,82 +146,74 @@ void satdialog::addCategories(const QString& dir)
 	QDir tmpldir(dir);
 	if (tmpldir.exists())
 	{
-		tmpldir.setFilter(QDir::Dirs);
+		tmpldir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
 		QStringList dirs = tmpldir.entryList();
 		for (int i = 0; i < dirs.size(); ++i)
 		{
-			if ((dirs[i] != ".") && (dirs[i] != "..")) 
-			{
-				tmplFile = findTemplateXml(dir + "/" + dirs[i]);
-				if (QFile::exists(tmplFile))
-					readCategories(tmplFile);
-			}
+			tmplFile = findTemplateXml(dir + "/" + dirs[i]);
+			if (QFile::exists(tmplFile))
+				readCategories(tmplFile);
 		}
 	}
 }
 
-void satdialog::readCategories(const QString& fileName)
+void SATDialog::readCategories(const QString& fileName)
 {
-	QFile file(fileName);
 	CategoriesReader catReader;
-	QXmlInputSource  xmlSource(&file);
-	QXmlSimpleReader reader;
-	reader.setContentHandler(&catReader);
-	reader.parse(&xmlSource);
-	QStringList& categories = catReader.categories;
+	if (!catReader.parse(fileName))
+		return;
+
+	const QStringList& categories = catReader.categories();
 	for (int i = 0; i < categories.count(); ++i)
 	{
-		QString category = categories.at(i);
+		const QString& category = categories.at(i);
 		if (!category.isEmpty() && !cats.contains(category))
 			cats.insert(category, category);
 	}
 }
 
-void satdialog::setupCategories() 
+void SATDialog::setupCategories()
 {
 	// en will be used in template.xml and it will be then replaced with the lang when used for users
 	// to get the categories in their language.
-	cats.insert(QString("Newsletters"), QObject::tr("Newsletters"));
+	cats.insert(QString("Advertisements"), QObject::tr("Advertisements"));
+	cats.insert(QString("Announcements") , QObject::tr("Announcements"));
 	cats.insert(QString("Brochures")  , QObject::tr("Brochures"));
-	cats.insert(QString("Catalogs")   , QObject::tr("Catalogs"));
-	cats.insert(QString("Flyers")     , QObject::tr("Flyers"));
-	cats.insert(QString("Signs")      , QObject::tr("Signs"));
-	cats.insert(QString("Cards")      , QObject::tr("Cards"));
-	cats.insert(QString("Letterheads"), QObject::tr("Letterheads"));
-	cats.insert(QString("Envelopes")  , QObject::tr("Envelopes"));
 	cats.insert(QString("Business Cards"), QObject::tr("Business Cards"));
 	cats.insert(QString("Calendars")  , QObject::tr("Calendars"));
-	cats.insert(QString("Advertisements"), QObject::tr("Advertisements"));
+	cats.insert(QString("Cards")      , QObject::tr("Cards"));
+	cats.insert(QString("Catalogs")   , QObject::tr("Catalogs"));
+	cats.insert(QString("Envelopes")  , QObject::tr("Envelopes"));
+	cats.insert(QString("Flyers")     , QObject::tr("Flyers"));
+	cats.insert(QString("Grids")      , QObject::tr("Grids"));
+	cats.insert(QString("Folds")      , QObject::tr("Folds"));
 	cats.insert(QString("Labels")     , QObject::tr("Labels"));
+	cats.insert(QString("Letterheads"), QObject::tr("Letterheads"));
+	cats.insert(QString("Magazines")  , QObject::tr("Magazines"));
+	cats.insert(QString("Media Cases")  , QObject::tr("Media Cases"));
 	cats.insert(QString("Menus")      , QObject::tr("Menus"));
-	cats.insert(QString("Programs")   , QObject::tr("Programs"));
+	cats.insert(QString("Newsletters"), QObject::tr("Newsletters"));
+	cats.insert(QString("Own Templates"), QObject::tr("Own Templates"));
 	cats.insert(QString("PDF Forms")  , QObject::tr("PDF Forms"));
 	cats.insert(QString("PDF Presentations") , QObject::tr("PDF Presentations"));
-	cats.insert(QString("Magazines")  , QObject::tr("Magazines"));
 	cats.insert(QString("Posters")    , QObject::tr("Posters"));
-	cats.insert(QString("Announcements") , QObject::tr("Announcements"));
+	cats.insert(QString("Programs")   , QObject::tr("Programs"));
+	cats.insert(QString("Signs")      , QObject::tr("Signs"));
 	cats.insert(QString("Text Documents"), QObject::tr("Text Documents"));
-	cats.insert(QString("Folds")        , QObject::tr("Folds"));
-	cats.insert(QString("Media Cases")  , QObject::tr("Media Cases"));
-	cats.insert(QString("Own Templates"), QObject::tr("Own Templates"));
+	
+	addCategories(ScPaths::instance().applicationDataDir() + "/templates");
+	addCategories(ScPaths::instance().templateDir());
+	addCategories(ScPaths::instance().userTemplateDir(true));
 
-	QString scribusHome  = ScPaths::getApplicationDataDir();
-	QString scribusShare = ScPaths::instance().templateDir();
-	
-	addCategories(scribusHome + "/templates");
-	addCategories(scribusShare); 
-	
-	QStringList list;
-	QMap<QString, QString>::ConstIterator it;
-	for (it = cats.constBegin(); it != cats.constEnd(); ++it)
-		list.append(it.value());
+	QStringList list = cats.values();
+	list.removeDuplicates();
 	list.sort();
 	catsCombo->addItem("");
 	catsCombo->addItems(list);
 	catsCombo->setEditable(true);
 }
 
-void satdialog::setupPageSize(int w, int h)
+void SATDialog::setupPageSize(int w, int h)
 {
 	QString sizelist[] = 
 		{"2380x3368", "1684x2380", "1190x1684", "842x1190", "595x842", "421x595", "297x421", "210x297", "148x210",
@@ -238,7 +259,7 @@ void satdialog::setupPageSize(int w, int h)
 	psizeEdit->setText(psize + orient);
 }
 
-satdialog::~satdialog()
+SATDialog::~SATDialog()
 {
 	writePrefs();
 }

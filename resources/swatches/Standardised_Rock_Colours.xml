@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Standardised Rock Colours" >
+ <COLOR Spot="0" RGB="#EBDDDD" Register="0" NAME="Grayish Orange Pink" />
+ <COLOR Spot="0" RGB="#9E8B85" Register="0" NAME="Pale Red" />
+ <COLOR Spot="0" RGB="#94563D" Register="0" NAME="Moderate Reddish Brown" />
+ <COLOR Spot="0" RGB="#453D3B" Register="0" NAME="Blackish Red" />
+ <COLOR Spot="0" RGB="#DDDDC5" Register="0" NAME="Very Pale Orange" />
+ <COLOR Spot="0" RGB="#F0C99E" Register="0" NAME="Moderate Orange Pink" />
+ <COLOR Spot="0" RGB="#6E664C" Register="0" NAME="Dark Yellowish Brown" />
+ <COLOR Spot="0" RGB="#443C3A" Register="0" NAME="Dusky Brown" />
+ <COLOR Spot="0" RGB="#D1D19D" Register="0" NAME="Grayish Yellow" />
+ <COLOR Spot="0" RGB="#ACB66F" Register="0" NAME="Moderate Greenish Yellow" />
+ <COLOR Spot="0" RGB="#636E4C" Register="0" NAME="Grayish Olive" />
+ <COLOR Spot="0" RGB="#4A5141" Register="0" NAME="Olive Gray" />
+ <COLOR Spot="0" RGB="#AFD1D0" Register="0" NAME="Very Pale Green" />
+ <COLOR Spot="0" RGB="#76A77A" Register="0" NAME="Moderate Yellowish Green" />
+ <COLOR Spot="0" RGB="#6A765E" Register="0" NAME="Dusky Yellow Green" />
+ <COLOR Spot="0" RGB="#405A51" Register="0" NAME="Dusky Green" />
+ <COLOR Spot="0" RGB="#60A2B0" Register="0" NAME="Light Blue Green" />
+ <COLOR Spot="0" RGB="#3A4E57" Register="0" NAME="Dusky Blue Green" />
+ <COLOR Spot="0" RGB="#D5CAD0" Register="0" NAME="Pale Pink" />
+ <COLOR Spot="0" RGB="#615E69" Register="0" NAME="Grayish Purple" />
+ <COLOR Spot="0" RGB="#4B434E" Register="0" NAME="Very Dusky Red Purple" />
+</SCRIBUSCOLORS>
+<!--Based on http://www.geocities.com/eocene1/Color.html; Copyright has expired -->

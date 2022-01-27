@@ -12,21 +12,18 @@ for which a new license (GPL+exception) is in place.
 #include <QFont>
 #include <QList>
 #include <QMap>
+#include <QVector>
+#include <QPair>
 #include <QString>
 #include <QStringList>
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_OUTLINE_H
-#include FT_GLYPH_H
-
-FT_Error ftIOFunc( FT_Stream fts, unsigned long offset, unsigned char* buffer, unsigned long count);
 
 #include "fonts/scface.h"
 #include "fpointarray.h"
 #include "scconfig.h"
 #include "scribusapi.h"
 
+/* Forward declaration so we don't have to include all of Freetype. */
+typedef struct FT_LibraryRec_  *FT_Library;
 
 class ScribusDoc;
 
@@ -42,57 +39,67 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 {
 	public:
 		SCFonts();
-		~SCFonts();
+		~SCFonts() = default;
+
 		void updateFontMap();
-		void GetFonts(QString pf, bool showFontInfo=false);
-		void AddScalableFonts(const QString& path, QString DocName = "");
+		void getFonts(const QString& pf, bool showFontInfo=false);
+		ScFace loadScalableFont(const QString &filename);
+		void addScalableFonts(const QString& path, const QString& DocName = "");
+
 		/// Returns a font with that name; creates a replacement font if not found
-		const ScFace& findFont(const QString& fontName, ScribusDoc* doc = NULL);
+		const ScFace& findFont(const QString& fontName, ScribusDoc* doc = nullptr);
+		const ScFace& findFont(const QString& fontFamily, const QString& fontStyle, ScribusDoc* doc = nullptr);
 		/// Returns a map of pairs (scName, replacementName). Using this map for replaceFonts() will make substitutions permanent
-		QMap<QString,QString> getSubstitutions(const QList<QString> skip = QList<QString>()) const;
+		QMap<QString,QString> getSubstitutions(const QList<QString>& skip = QList<QString>()) const;
 		/// Changes replacement fonts to point to new real fonts. For all keys 'nam' in 'substitutes', findFont(name).isReplacement() must be true
-		void setSubstitutions(const QMap<QString,QString>& substitutes, ScribusDoc* doc = NULL);
-		void removeFont(QString name);
+		void setSubstitutions(const QMap<QString,QString>& substitutes, ScribusDoc* doc = nullptr);
+		void removeFont(const QString& name);
+		/// Write checked fonts file
+		void writeFontCache();
+
 		/// maps family name to face variants
 		QMap<QString, QStringList> fontMap;
+		QMap<QString, QString> rejectedFonts;
+
 	private:
-		void ReadCacheList(QString pf);
-		void WriteCacheList(QString pf);
-		void AddPath(QString p);
-		bool AddScalableFont(QString filename, FT_Library &library, QString DocName);
-		void AddUserPath(QString pf);
+		void readFontCache(const QString& pf);
+		void writeFontCache(const QString& pf);
+		void addPath(QString p);
+		bool addScalableFont(const QString& filename, FT_Library &library, const QString& DocName);
+		void addRejectedFont(const QString& fontPath, const QString& message);
+		void addUserPath(const QString& pf);
 #ifdef HAVE_FONTCONFIG
-		void AddFontconfigFonts();
-#else
-#ifndef Q_OS_MAC
-		void AddXFontServerPath();
-		void AddXFontPath();
+		void addFontconfigFonts();
+#elif defined(Q_OS_WIN32)
+		void addRegistryFonts();
+		void addType1RegistryFonts();
 #endif
-#endif
-		QStringList FontPath;
-		QString ExtraPath;
+		QStringList m_fontPaths;
+
 		struct testCache
 		{
 			bool isOK;
 			bool isChecked;
 			QDateTime lastMod;
 		};
-		QMap<QString, testCache> checkedFonts;
+		QMap<QString, testCache> m_checkedFonts;
+
 	protected:
-		bool showFontInformation;
+		bool m_showFontInfo { false };
 };
 
 struct SCFontsIterator
 {
-	SCFontsIterator(SCFonts& fonts): it(fonts.begin()), end_it(fonts.end()) 
+	SCFontsIterator(SCFonts& fonts): m_it(fonts.begin()), m_end_it(fonts.end())
 	{}
-	ScFace& current()          { return *it; }
-	QString currentKey() const { return it.key(); }
-	bool hasNext()       const { return it != end_it; }
-	ScFace& next()             { ++it; return current(); }
+	ScFace& current()          { return *m_it; }
+	QString currentKey() const { return m_it.key(); }
+	bool hasNext()       const { return m_it != m_end_it; }
+	ScFace& next()             { ++m_it; return current(); }
 
 private:
-	QMap<QString,ScFace>::Iterator it, end_it;
+	QMap<QString, ScFace>::Iterator m_it;
+	QMap<QString, ScFace>::Iterator m_end_it;
 };
 
 #endif

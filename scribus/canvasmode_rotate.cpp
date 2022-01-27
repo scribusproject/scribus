@@ -19,40 +19,39 @@
 #include <QPainter>
 #include <QTimer>
 
+#include "appmodes.h"
 #include "canvas.h"
-#include "contextmenu.h"
 #include "fpoint.h"
+#include "iconmanager.h"
 #include "pageitem.h"
-#include "pageselector.h"
 #include "prefsmanager.h"
+#include "ui/propertiespalette.h"
+#include "ui/propertiespalette_xyz.h"
+#include "ui/basepointwidget.h"
+#include "scribus.h"
+#include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "ui/contextmenu.h"
+#include "ui/pageselector.h"
+#include "ui/scrspinbox.h"
 #include "undomanager.h"
-#include "util_icon.h"
 #include "util_math.h"
 
 CanvasMode_Rotate::CanvasMode_Rotate(ScribusView* view) : CanvasMode(view)
 {
 	m_canvasPressCoord.setXY(-1.0, -1.0);
-	m_oldRotMode   = 0;
-	m_oldRotCenter = FPoint(0.0, 0.0);
-	m_angleConstrained = false;
-	m_inItemRotation = false;
-
-	m_rotMode    = 0;
-	m_rotCenter  = FPoint(0.0, 0.0);
-	m_startAngle = 0.0;
 }
 
 inline bool CanvasMode_Rotate::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_Rotate::drawControls(QPainter* p)
 {
-	drawSelection(p);
+	drawSelection(p, true);
 	if (m_inItemRotation)
 	{
 		drawItemOutlines(p);
@@ -93,10 +92,10 @@ void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& 
 	double newAngle = xy2Deg(m_canvasCurrCoord.x() - m_rotCenter.x(), m_canvasCurrCoord.y() - m_rotCenter.y());
 	if (m_angleConstrained)
 	{
-		newAngle = constrainAngle(newAngle, m_doc->toolSettings.constrain);
-		/*double oldAngle = constrainAngle(m_startAngle, m_doc->toolSettings.constrain);
+		newAngle = constrainAngle(newAngle, m_doc->opToolPrefs().constrain);
+		/*double oldAngle = constrainAngle(m_startAngle, m_doc->opToolPrefs.constrain);
 		newAngle = m_doc->m_Selection->isMultipleSelection() ? (newAngle - oldAngle) : newAngle;*/
-		m_view->oldW = constrainAngle(m_view->oldW, m_doc->toolSettings.constrain);
+		m_view->oldW = constrainAngle(m_view->oldW, m_doc->opToolPrefs().constrain);
 		newAngle = m_doc->m_Selection->isMultipleSelection() ? (newAngle - m_view->oldW) : newAngle;
 	}
 	else if (m_doc->m_Selection->isMultipleSelection())
@@ -105,7 +104,7 @@ void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& 
 		newAngle = item->rotation() - (m_startAngle - newAngle);
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
-		QMatrix ma;
+		QTransform ma;
 		ma.translate(m_rotCenter.x(), m_rotCenter.y());
 		ma.scale(1, 1);
 		ma.rotate(newAngle);
@@ -116,7 +115,7 @@ void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& 
 	else if (m_rotMode != 0)
 	{
 		FPoint n(0,0);
-		QMatrix ma;
+		QTransform ma;
 		ma.translate(item->xPos(), item->yPos());
 		ma.scale(1, 1);
 		ma.rotate(item->rotation());
@@ -149,10 +148,17 @@ void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& 
 		pos.setXY(item->xPos(), item->yPos());
 		rotation = newAngle;
 	}
+
+	while (rotation < 0)
+		rotation += 360.0;
+	while (rotation > 360)
+		rotation -= 360.0;
 }
 
 void CanvasMode_Rotate::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->leaveDrag = false;
@@ -165,18 +171,18 @@ void CanvasMode_Rotate::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }
 
-void CanvasMode_Rotate::deactivate(bool)
+void CanvasMode_Rotate::deactivate(bool forGesture)
 {
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 	m_inItemRotation = false;
+	CanvasMode::deactivate(forGesture);
 }
 
-void CanvasMode_Rotate::enterEvent(QEvent *)
+void CanvasMode_Rotate::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{
@@ -184,10 +190,8 @@ void CanvasMode_Rotate::enterEvent(QEvent *)
 	}
 }
 
-void CanvasMode_Rotate::leaveEvent(QEvent *)
+void CanvasMode_Rotate::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
@@ -195,26 +199,21 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m_canvasPressCoord = mousePointDoc;
 	
-	double Rxp = 0,  Ryp = 0;
-	double Rxpd = 0, Rypd = 0;
-	PageItem *currItem;
 	m_canvas->PaintSizeRect(QRect());
-	QRect tx;
-	QMatrix pm;
+//	QRect tx;
+	QTransform pm;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_view->HaveSelRect = false;
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
-	Rxp  = m_doc->ApplyGridF(m_canvasPressCoord).x();
-	Rxpd = m_canvasPressCoord.x() - Rxp;
+	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
+	double Rxp = m_doc->ApplyGridF(m_canvasPressCoord).x();
 	m_canvasPressCoord.setX( qRound(Rxp) );
-	Ryp  = m_doc->ApplyGridF(m_canvasPressCoord).y();
-	Rypd = m_canvasPressCoord.y()  - Ryp;
+	double Ryp = m_doc->ApplyGridF(m_canvasPressCoord).y();
 	m_canvasPressCoord.setY( qRound(Ryp) );
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)
@@ -223,10 +222,11 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	}
 	if (m->button() != Qt::LeftButton)
 		return;
+	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
 		m_inItemRotation = true;
-		m_oldRotMode   = m_rotMode   = m_doc->RotMode;
+		m_oldRotMode   = m_rotMode   = m_doc->rotationMode();
 		m_oldRotCenter = m_rotCenter = m_view->RCenter;
 		if (m_doc->m_Selection->isMultipleSelection())
 		{
@@ -237,13 +237,13 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 			if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 			{
 				m_rotMode   = 2;
-				m_rotCenter = FPoint(gxR+gwR/2.0, gyR+ghR/2.0);
-				if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
+				m_rotCenter = FPoint(gxR + gwR / 2.0, gyR + ghR / 2.0);
+				if (QRect(static_cast<int>(gx + gw) - 6, static_cast<int>(gy + gh) - 6, 6, 6).intersects(mpo))
 				{
 					m_rotCenter = FPoint(gxR, gyR);
 					m_rotMode   = 0;
 				}
-				m_doc->RotMode  = m_rotMode;
+				m_doc->setRotationMode(m_rotMode);
 				m_view->RCenter = m_rotCenter;
 			}
 			m_startAngle = xy2Deg(mousePointDoc.x() - m_view->RCenter.x(), mousePointDoc.y() - m_view->RCenter.y());
@@ -251,10 +251,10 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 		}
 		else
 		{
-			QMatrix mat;
+			QTransform mat;
 			m_canvas->Transform(currItem, mat);
 			m_rotMode   = 2;
-			m_rotCenter = FPoint(currItem->width()/2, currItem->height()/2, 0, 0, currItem->rotation(), 1, 1, false);
+			m_rotCenter = FPoint(currItem->width() / 2, currItem->height() / 2, 0, 0, currItem->rotation(), 1, 1, false);
 //			if (!currItem->asLine())
 //			{
 				if (QRegion(mat.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo))
@@ -264,23 +264,23 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 						m_rotCenter = FPoint(currItem->width(), currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
 						m_rotMode   = 4;
 					}
-					else if (mat.mapRect(QRect(static_cast<int>(currItem->width())-6, 0, 6, 6)).intersects(mpo))
+					else if (mat.mapRect(QRect(static_cast<int>(currItem->width()) - 6, 0, 6, 6)).intersects(mpo))
 					{
 						m_rotCenter = FPoint(0, currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
 						m_rotMode   = 3;
 					}
-					else if (mat.mapRect(QRect(static_cast<int>(currItem->width())-6, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
+					else if (mat.mapRect(QRect(static_cast<int>(currItem->width()) - 6, static_cast<int>(currItem->height()) - 6, 6, 6)).intersects(mpo))
 					{
 						m_rotCenter = FPoint(0, 0);
 						m_rotMode   = 0;
 					}
-					else if (mat.mapRect(QRect(0, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
+					else if (mat.mapRect(QRect(0, static_cast<int>(currItem->height()) - 6, 6, 6)).intersects(mpo))
 					{
 						m_rotCenter = FPoint(currItem->width(), 0, 0, 0, currItem->rotation(), 1, 1, false);
 						m_rotMode   = 1;
 					}	
 				}
-				m_doc->RotMode  = m_rotMode;
+				m_doc->setRotationMode(m_rotMode);
 				m_view->RCenter = m_rotCenter;
 //			}
 			m_view->RCenter = m_rotCenter = FPoint(currItem->xPos()+ m_view->RCenter.x(), currItem->yPos()+ m_view->RCenter.y()); //?????
@@ -292,7 +292,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 {
 #ifdef GESTURE_FRAME_PREVIEW
-        clearPixmapCache();
+	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	PageItem *currItem;
@@ -315,37 +315,33 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 		{
 			m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
 		}
-		double newW = xy2Deg(mousePointDoc.x()-m_view->RCenter.x(), mousePointDoc.y()-m_view->RCenter.y()); //xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
+		double angle = 0;
+		double newW  = xy2Deg(mousePointDoc.x() - m_view->RCenter.x(), mousePointDoc.y() - m_view->RCenter.y()); //xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
 		if (m->modifiers() & Qt::ControlModifier)
 		{
-			newW=constrainAngle(newW, m_doc->toolSettings.constrain);
-			m_view->oldW=constrainAngle(m_view->oldW, m_doc->toolSettings.constrain);
+			newW = constrainAngle(newW, m_doc->opToolPrefs().constrain);
+			m_view->oldW = constrainAngle(m_view->oldW, m_doc->opToolPrefs().constrain);
 			//RotateGroup uses MoveBy so its pretty hard to constrain the result
-			if (m_doc->m_Selection->isMultipleSelection())
-				m_doc->rotateGroup(newW-m_view->oldW, m_view->RCenter);
-			else
-				m_doc->RotateItem(newW, currItem->ItemNr);
+			angle = m_doc->m_Selection->isMultipleSelection() ? (newW - m_view->oldW) : newW;
 		}
 		else
 		{
-			if (m_doc->m_Selection->isMultipleSelection())
-				m_doc->rotateGroup(newW - m_view->oldW, m_view->RCenter);
-			else
-				m_doc->RotateItem(currItem->rotation() - (m_view->oldW - newW), currItem->ItemNr);
+			angle = m_doc->m_Selection->isMultipleSelection() ? (newW - m_view->oldW) : (currItem->rotation() - (m_view->oldW - newW));
 		}
+		m_doc->itemSelection_Rotate(angle);
 		m_view->oldW = newW;
 		m_canvas->setRenderModeUseBuffer(false);
 		if (!m_doc->m_Selection->isMultipleSelection())
 		{
 			m_doc->setRedrawBounding(currItem);
 			currItem->OwnPage = m_doc->OnPage(currItem);
-			if (currItem->asLine())
+			if (currItem->isLine())
 				m_view->updateContents();
 		}
 	}
-	m_doc->RotMode  = m_oldRotMode;
+	m_doc->setRotationMode(m_oldRotMode);
 	m_view->RCenter = m_oldRotCenter;
-	if (!PrefsManager::instance()->appPrefs.stickyTools)
+	if (!PrefsManager::instance().appPrefs.uiPrefs.stickyTools)
 		m_view->requestMode(modeNormal);
 	else
 	{
@@ -356,10 +352,9 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (m_doc->m_Selection->count() > 1)
 		{
-			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+			m_view->updateContents(QRect(static_cast<int>(x - 5), static_cast<int>(y - 5), static_cast<int>(w + 10), static_cast<int>(h + 10)));
 		}
 		// Handled normally automatically by Selection in sendSignals()
 		/*else
@@ -376,9 +371,9 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 	}
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		m_doc->m_Selection->itemAt(i)->checkChanges(true);
-	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
-	m_view->zoomSpinBox->clearFocus();
-	m_view->pageSelector->clearFocus();
+	//Make sure the Zoom spinbox and page selector don't have focus if we click on the canvas
+	m_view->m_ScMW->zoomSpinBox->clearFocus();
+	m_view->m_ScMW->pageSelector->clearFocus();
 }
 
 void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
@@ -387,19 +382,19 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 	m_canvasCurrCoord  = mousePointDoc;
 	m_angleConstrained = false;
 	
-	double newX, newY;
 	PageItem *currItem;
-	QRect tx;
 	m->accept();
 
 	if (GetItem(&currItem))
 	{
-		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 		m_angleConstrained = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed)
 		{
 			m_canvas->repaint();
+			double itemRotation;
+			FPoint itemPos;
+			getNewItemPosition(currItem, itemPos, itemRotation);
+			m_canvas->displayRotHUD(m->globalPos(), itemRotation);
 		}
 		if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 		{
@@ -407,19 +402,11 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 			{
 				double gx, gy, gh, gw;
 				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
+				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), QRectF(gx, gy, gw, gh));
 				if (how >= 0)
-				{
-					if (how > 0)
-					{
-						setResizeCursor(how);
-					}
-					qApp->changeOverrideCursor(QCursor(loadIcon("Rotieren2.png")));
-				}
+					m_view->setCursor(IconManager::instance().loadCursor("Rotieren2.png"));
 				else
-				{
 					setModeCursor();
-				}
 				return;
 			}
 			for (int a = 0; a < m_doc->m_Selection->count(); ++a)
@@ -427,22 +414,14 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 				currItem = m_doc->m_Selection->itemAt(a);
 				if (currItem->locked())
 					break;
-				QMatrix p;
+				QTransform p;
 				m_canvas->Transform(currItem, p);
-				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
-				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo)))
+				QRect mpo = QRect(m->x() - m_doc->guidesPrefs().grabRadius, m->y() - m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius * 2, m_doc->guidesPrefs().grabRadius * 2);
+				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width() + 6), static_cast<int>(currItem->height() + 6))))).contains(mpo)))
 				{
-					tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
+					QRect tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
-					{
-						qApp->changeOverrideCursor(QCursor(loadIcon("Rotieren2.png")));
-						if (!currItem->sizeLocked())
-							m_view->HandleCurs(currItem, mpo);
-					}
-				}
-				else
-				{
-//					setModeCursor();
+						m_view->setCursor(IconManager::instance().loadCursor("Rotieren2.png"));
 				}
 			}
 		}
@@ -451,25 +430,124 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 	{
 		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
-			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 			QPoint startP = m_canvas->canvasToGlobal(m_canvasPressCoord);
-			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-			if (!m_view->redrawMarker->isVisible())
-				m_view->redrawMarker->show();
+			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
+			m_view->setRedrawMarkerShown(true);
 			m_view->HaveSelRect = true;
-			return;
 		}
 	}
 }
 
+void CanvasMode_Rotate::keyPressEvent(QKeyEvent *e)
+{
+	if (e->isAutoRepeat())
+		return;
+
+	if (e->key() == Qt::Key_Escape)
+	{
+		// Go back to normal mode.
+		m_view->requestMode(modeNormal);
+		return;
+	}
+
+	if (m_doc->m_Selection->isMultipleSelection())
+	{
+		double gx, gy, gh, gw;
+		m_oldRotMode   = m_rotMode   = m_doc->rotationMode();
+		m_oldRotCenter = m_rotCenter = m_view->RCenter;
+		m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
+		m_rotMode   = m_doc->rotationMode();
+		m_rotCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+		if (m_rotMode == 0)
+			m_rotCenter = FPoint(gx, gy);
+		else if (m_rotMode == 1)
+			m_rotCenter = FPoint(gx + gw, gy);
+		else if (m_rotMode == 3)
+			m_rotCenter = FPoint(gx, gy + gh);
+		else if (m_rotMode == 4)
+			m_rotCenter = FPoint(gx + gw, gy + gh);
+	}
+}
+
+void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
+{
+	if (e->key() == Qt::Key_Up)
+	{
+		auto id = m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->checkedId();
+		id = id > 0 ? id - 1 : 4;
+		m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->setCheckedId(id);
+		m_doc->setRotationMode(id);
+		return;
+	}
+	if (e->key() == Qt::Key_Down)
+	{
+		auto id = m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->checkedId();
+		id = (id + 1) % 5;
+		m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->setCheckedId(id);
+		m_doc->setRotationMode(id);
+		return;
+	}
+
+	double increment = 0.0;
+	if (e->key() == Qt::Key_Left)
+		increment = 1.0;
+	if (e->key() == Qt::Key_Right)
+		increment = -1.0;
+	if (e->modifiers() & Qt::ControlModifier)
+		increment *= 10;
+	if (e->modifiers() & Qt::ShiftModifier)
+		increment /= 10;
+
+	if (increment == 0.0)
+		return;
+	PageItem *currItem;
+	if (GetItem(&currItem))
+	{
+		if (!m_view->groupTransactionStarted())
+			m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
+
+		if (m_doc->m_Selection->isMultipleSelection())
+		{
+			m_doc->setRotationMode(m_rotMode);
+			m_view->RCenter = m_rotCenter;
+		}
+		if (m_doc->m_Selection->isMultipleSelection())
+			m_doc->rotateGroup(increment, m_view->RCenter);
+		else
+			m_doc->itemSelection_Rotate(currItem->rotation() + increment);
+		m_canvas->setRenderModeUseBuffer(false);
+		if (m_doc->m_Selection->isMultipleSelection())
+		{
+			double x, y, w, h;
+			m_doc->setRotationMode(m_oldRotMode);
+			m_view->RCenter = m_oldRotCenter;
+			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+			m_view->updateContents(QRect(static_cast<int>(x - 5), static_cast<int>(y - 5), static_cast<int>(w + 10), static_cast<int>(h + 10)));
+		}
+		else
+		{
+			m_doc->setRedrawBounding(currItem);
+			currItem->OwnPage = m_doc->OnPage(currItem);
+			if (currItem->isLine())
+				m_view->updateContents();
+		}
+	}
+	if (m_view->groupTransactionStarted())
+	{
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+			m_doc->m_Selection->itemAt(i)->checkChanges(true);
+		m_view->endGroupTransaction();
+	}
+	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+		m_doc->m_Selection->itemAt(i)->checkChanges(true);
+}
+
 void CanvasMode_Rotate::createContextMenu(PageItem* currItem, double mx, double my)
 {
-	ContextMenu* cmen=NULL;
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	ContextMenu* cmen = nullptr;
 	m_view->setObjectUndoMode();
 	m_canvasPressCoord.setXY(mx, my);
-	if(currItem!=NULL)
+	if (currItem != nullptr)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_view->m_ScMW, m_doc);
 	else
 		cmen = new ContextMenu(m_view->m_ScMW, m_doc, mx, my);
@@ -479,28 +557,3 @@ void CanvasMode_Rotate::createContextMenu(PageItem* currItem, double mx, double 
 	delete cmen;
 }
 
-// void CanvasMode_Rotate::setResizeCursor(int how)
-// {
-// 	switch (how)
-// 	{
-// 		case 1:
-// 		case 2:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
-// 			break;
-// 		case 3:
-// 		case 4:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
-// 			break;
-// 		case 5:
-// 		case 8:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeVerCursor));
-// 			break;
-// 		case 6:
-// 		case 7:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-// 			break;
-// 		default:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-// 			break;
-// 	}
-// }

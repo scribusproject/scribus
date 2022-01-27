@@ -1,0 +1,56 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title> Top <strike>Ten</strike>Twelve Hints - Tips and Tricks to make better documents faster in Scribus</title>
+</head>
+<body>
+<h2>Top <strike>Ten</strike> Twelve Hints - Tips and Tricks to make better documents faster in Scribus</h2>
+
+<p>These are our top ten hints for using Scribus, in (some sort of) order:</p>
+
+<ul>
+<li><strong>Get the latest Adobe Reader&#174; installed.</strong><br /> Without this, is it impossible to open PDFs from Scribus and see all the features Scribus can create within a PDF. Plus, it renders PDF better than most any other viewer. In the future more documentation for Scribus will be in PDF format, optimized for display in Adobe Reader. <a href="toolbox1.html">More details..</a></li>
+<li><strong>Tool Tips</strong><br />When, you are unsure of a function, <strong>use tool tips</strong>. While it is not 100% complete, a great many of the GUI functions have extensive tool tips to guide you about each option for a given function, especially more complex ones. To enable tool tips, make sure <strong>Help &#062; Tooltips </strong>is checked. Then hover your mouse over the check box or GUI option.</li>
+<li><strong>Use guides</strong><br /> to help visually align things in your document. Guides are invisible rulers you can place on the canvas to align different text boxes, as well as centering objects. In almost every document, I create a vertical guide to split the page in two. Then you can use this guide to center objects much easier.</li>
+<li><strong>Use the "nudge" tool.</strong> Select an object and then use the arrow keys to move object a tiny bit at a time - .01 in, or .01 mm. Shift and Ctrl + Shift + Arrow will change the distance per 'nudge'</li>
+<li><strong>Save Paper</strong> - Instead of printing a proof, export a low res PDF and open in Acrobat Reader. A properly setup PDF will display on the screen with a great deal of fidelity to the printed page.</li>
+<li><strong>Use PNG</strong>, in place of jpeg or gif. PNG is a much more versatile image format and it usually prints much better at the same resolution. Most importantly, it uses lossless compression and compresses some types of images really well. Lastly, the<a href="toolbox4.html"> GIMP</a>, which most users have as their primary bitmap editor, does a superb job of handling PNG, as well as compressing them very well.</li>
+<li><strong>Get a good Ghostscript</strong>- The newest 8.5x versions are <strong>much better </strong>at helping Scribus import EPS and generating high quality print previews. Versions 8.5x+ allows the best print previews in Scribus as they enable proper transparency and CMYK previewing.</li>
+<li><strong><a href="fonts2.html">Get good fonts</a></strong> - By good fonts, we mean high quality Type 1 or TrueType fonts from foundries like Adobe Bitstream and Monotype. Luckily, the available MS Web fonts are also pretty reliable in PostScript printing. A good source of fonts is the collection of Bitstream fonts included with most versions of Corel Draw. We know people who have used these fonts for years and can't remember a font problem with these fonts. Most disks have the same font in Type and TrueType versions. Some Adobe applications, like Pagemaker or InDesign include a small collection of useful high quality Type 1 fonts. This will make printing and PDF creation much more reliable.</li>
+<li><strong><a href="pagetemplate1.html">Master Pages</a></strong> can be big time saver. Anytime you have common elements on several pages, add those elements to a template. This also avoids accidently moving or deleting objects.</li>
+<li><strong>Backup your Preferences</strong> - This is more important for users of CVS versions of Scribus. Occasionally - <strong>much less</strong> common now, a program crash caused by a bad image etc., can corrupt your preferences. So, to get a good replacement setup, close Scribus and rename the hidden <code>.scribus</code> folder in your home directory to <code>.scribusbak</code>. Reopen Scribus with no document open and change every setting as you wish and then close Scribus. Now copy the whole directory somewhere else. Then, if you have weird behavior in Scribus, the first thing to do is copy the good <code>.scribus</code> directory over the current one and restart. This is also important if, you have lots of custom keyboard shortcuts.</li>
+<li><strong>A cool trick</strong> for precision adjustments. This may or may not work on your workstation, depending on how your wheel mouse is configured. You can use the mouse wheel with the spin boxes instead of clicking the arrows. For small steps, look carefully at the dialog below where I have put the cursor to the far right.Then spin the mouse wheel up and down to adjust the measurement or setting. This adjusts 10ths of a unit. For larger adjustments, put the cursor to the left side. For extra slow and precise adjustments 100th of a unit, Hold Crtl + Shift keys while moving the wheel mouse up and down. <br /><br /><br />
+<table width="100%"><tr><td align="center"><img src="images/spinbox1.png" title="Place the cursor as indicated by the arrow" alt="Place the cursor as indicated by the arrow" /></td></tr></table><br />
+</li>
+
+<li><strong>Let Scribus do the math for you.</strong> 
+Almost every spinbox where you enter values with measurements can magically do math. You can mix and match units as well. Special units are: <em>pageheight, pagewidth, height, width</em></li></ul>
+<br />
+<table bgcolor="#d3d3d3" align="center" summary="* indicates only works when points are the unit" rules="rows" frame="border" cellpadding="5" cellspacing="5" width="85%">
+  <caption>Some Example Calculations</caption>
+  <tbody valign="middle" align="left">
+    <tr>
+      <td>8.5in/3</td>
+      <td>divide 8.5 inches by 3</td>
+    </tr>
+    <tr>
+      <td>pagewidth/4</td>
+      <td>divide the page width by 4 *This only works with points.</td>
+    </tr>
+    <tr>
+      <td>width*2</td>
+      <td>double the width of the selected object</td>
+    </tr>
+    <tr>
+      <td>5in+2p</td>
+      <td>add 2 picas to 5 inches</td>
+    </tr>
+  </tbody>
+</table>
+<br />
+<ul>
+<li><strong>Bonus</strong> - subscribe to the Scribus mailing list. You can get this in digest form daily. The list is active, polite and newbies and experts alike are welcome. Do not be shy to ask questions, Linux gurus might be new to DTP and vice versa. <a href="http://lists.scribus.info/mailman/listinfo/scribus">Scribus Mailing List Info</a> If you have tips you would like to share post them to the list. We will ensure they are considered and credited properly.</li>	
+<li><strong>Extra Bonus</strong> - How to ask questions and file bug reports/issues on the mailing list? First, in newer versions go to <strong>Help > About </strong> and include the build info. <a href="menuhelp.html">More details</a> Then, look in the <a href="http://lists.scribus.info/pipermail/scribus/">mailing list archives</a> or on the <a href="http://bugs.scribus.net">Bug Tracker</a>, you might find your answer there. Then, make sure you add relevant details like which distribution, version of Scribus, versions of relevant packages or libraries. e.g. version of X-org if you have video or font issues. This helps the developers and other knowledgable users to respond quicker and more accurately. <strong>Note:</strong> If you are using a CVS version of Scribus, please also include the build date.</li>
+</ul>
+</body>
+</html>

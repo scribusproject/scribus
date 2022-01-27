@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+ 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>GSview</title>
+
+ 
+</head><body>
+<h2>GSview*</h2>
+
+<p>&Egrave; importante notare che <a href="http://pages.cs.wisc.edu/%7Eghost/gsview/index.htm">GSview</a> <b>non deve essere confuso</b> con <strong style="font-weight: normal;">ghostview, gv e i loro derivati!</strong> Anche se Adobe Reader spesso &egrave; migliore come visualizzatore puro per documenti PDF, GSview dovrebbe essere considerato uno degli strumenti essenziali per l'uso con Scribus. GSview comprende alcune funzioni estremamente utili. Per coloro che non conoscono il programma, diciamo che fornisce un'interfaccia di facile uso per <a href="toolbox5.html">Ghostscript</a> e per <code>pstoedit</code>, per la conversione di file bitmap in file vettoriali e viceversa. Per coloro che hanno un'esperienza di DTP tradizionale in ambiente Mac/Windows, fornisce anche alcune delle funzionalit&agrave; di Adobe Acrobat.<br>
+</p>
+
+<p>Dovreste sempre usare la versione pi&ugrave; recente, almeno la 4.7. (GSview fu originariamente sviluppato in ambiente  Windows, e ha raggiunto una qualit&agrave; eccellente fin dalle versioni 4.x.)</p>
+
+<p>Per l'uso con Scribus, GSview offre le seguenti funzionalit&agrave;:</p>
+
+<ul>
+
+  <li>con l'aiuto di <a href="http://pstoedit.net">pstoedit</a>, potete convertire immagini bitmap o documenti PDF in file SVG e altri <a href="importhints.html">formati vettoriali</a>;</li>
+  <li>la capacit&agrave; di visualizzare in anteprima, convertire e aggiungere anteprime (consigliato per il TIFF) a file  PostScript ed <a href="importhints1.html">EPS (Encapsulated PostScript)</a>;</li>
+  <li>la capacit&agrave; di estrarre testo da file PDF, EPS e PostScript;</li>
+  <li>una facile interfaccia per le caratteristiche meno note di Ghostscript come la conversione e il ricampionamento di immagini;</li>
+<li>altre caratteristiche sono: la conversione tra formati TIFF, la modifica della profondit&agrave; di colore di un file TIFF o JPEG o dello spazio colore di un'immagine.</li>
+</ul>
+
+<table width="90%"><tr><td align="center"><img src="images/tb-gsview.png"></td></tr></table>
+
+<p>Un esempio di una situazione in cui GSview &egrave; molto utile con Scribus &egrave; l'individuazione e la correzione di errori presenti in file EPS che non vengono visualizzati correttamente in Scribus. Molte applicazioni sono in grado di generare file EPS, ma alcune vi aggiungono delle caratteristiche insolite che possono causare problemi quando questi file sono utilizzati in altri programmi (come Scribus).</p>
+
+<p>Quindi, se incontrate difficolt&agrave; con un file EPS che desiderate utilizzare in Scribus, apritelo in GSview. Poi usate il comando da tastiera <strong>M</strong> per visualizzare i messaggi emessi da Ghostscript: questi messaggi possono indicare i problemi che causano errori di visualizzazione o stampa. Potete inoltre usare la &lsquo;periferica&rsquo; <strong>epswrite</strong> da GSview per salvare nuovamente l'EPS, operazione che pu&ograve; aiutare a eliminare o correggere errori in un file EPS.</p>
+
+<p>Potete anche <em>rasterizzare</em> un'immagine EPS, convertendola in PNG o TIFF e poi ridimensionarla, correggere i colori, e cos&igrave; via, con programmi di grafica come <a href="toolbox4.html">GIMP</a> o <a href="toolbox15.html">Krita</a>.<br>
+</p>
+
+<p>GSview utilizza la libreria condivisa <code>libgs.so</code> per accedere a Ghostscript. Non tutte le distribuzioni Linux la comprendono; in queste situazioni dovreste seguire i consigli per compilare Ghostscript con un'installazione parallela.</p>
+
+<h4>Procurarsi GSview:</h4>
+
+<p>GSview &egrave; disponibile per la maggior parte delle distribuzioni Linux, almeno per le maggiori. Altrimenti potete compilarlo seguendo le istruzioni contenute nel <a href="http://pages.cs.wisc.edu/%7Eghost/">pacchetto del codice sorgente</a>. Per Windows, OS/2 ed eComStation potete scaricare <a href="http://pages.cs.wisc.edu/%7Eghost/gsview/index.htm">i normali programmi di installazione</a>. Purtroppo non &egrave; disponibile alcuna versione attuale per Mac OS X.</p>
+
+<p><i>Una nota speciale per gli utenti di OpenSUSE</i>: a partire dalla versione 11.3, le librerie GTK&nbsp;1, che sono necessarie, non sono pi&ugrave; disponibili per questa distribuzione, ma potete servirvi delle <a href="http://download.opensuse.org/repositories/GNOME:/GNOME1/openSUSE_Factory">versioni che si trovano nel repository OpenSUSE Factory</a>. Dovete installare i pacchetti gtk-1.20 e glib (e se volete compilare direttamente GSview,  anche i rispettivi pacchetti RPM devel), e inoltre il pacchetto linguistico che si trova nella directory &ldquo;noarch&rdquo;.<br>
+</p>
+
+<p>Per suggerimenti avanzati su GSview e Ghostscript, vedere <a href="toolbox7.html">Ghostscript avanzato &amp; GSView</a>.</p>
+
+<p>*) <span style="font-style: italic;">Per il contenuto di questa pagina ringraziamo Russell Lang, autore e sviluppatore di GSview, epstool e Ghostscript, per i suggerimenti e le pazienti risposte ai quesiti su GSview e Ghostscript.</span></p>
+
+</body></html> 

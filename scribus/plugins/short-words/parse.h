@@ -15,8 +15,8 @@ class PageItem;
 
 /*! \brief This is the Scribus Short Words plugin main mechanism.
 
-It walks trough the user specified objects and apply the spaces.
-This code is based on the Scribus-Vlna plug in rewritten for
+It walks through the user specified objects and applies the spaces.
+This code is based on the Scribus-Vlna plugin rewritten for
 international use.
 
 \author Petr Vanek <petr@yarpen.cz> with contributors.
@@ -42,7 +42,7 @@ public:
 	description in the code of this method.
 	\param aFrame pointer to the existing text frame */
 	void parseItem(PageItem *aFrame);
-	/*! \brief selcted frames on the page */
+	/*! \brief selected frames on the page */
 	void parseSelection(ScribusDoc* doc);
 	/*! \brief one page - using actual page */
 	void parsePage(ScribusDoc* doc);

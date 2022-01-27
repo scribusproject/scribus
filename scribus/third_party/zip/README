@@ -1,0 +1,93 @@
+The *.cpp and *.h files in this archive are 
+Copyright (C) 2007-2012 Angius Fabrizio (hippydream@42cows.org)
+
+You may use, distribute and copy the files under the terms of
+GNU General Public License version 2 (see the file LICENSE.GPL for details)
+
+-------------------------------------------------------------------------
+
+Website: http://osdab.42cows.org/
+Google Code project page: http://code.google.com/p/osdab
+
+**************** ******* ******************************************************
+
+detailed description
+--------------------
+Meet a couple of pure-Qt/C++ classes capable of handling PKZIP 2.0 compatible 
+zip archives. 
+
+This is not a "port" of some other existing implementation, everything has been 
+written from scratch (althought some code was actually inspired by existing 
+public domain projects) and it's all pure C++/Qt. Please note that this is not 
+a complete stand-alone library, it's just a bunch of classes. You will have to 
+add them to your project and modify them to best fit your needs. 
+
+It supports basic features like file extraction and compression (with optional 
+password encryption) and archive comments. There are methods to extract single 
+files or the whole archive and methods to compress the contents of a whole 
+directory. Nevertheless, it should be quite trivial to add other features. 
+The public API only has a few methods because this is what I was looking for. 
+This does not mean you can't write a few more lines of code (it really shouldn't 
+take more than a few lines!) to add more features. 
+
+The classes are great if you only need to use the PKZIP format for loading/saving 
+your application's data. Just remember that you will need to customize a few 
+parts of the code, i.e. to add your own password retrieval method. 
+
+zlib is used for actual compression and decompression.
+
+Please refer to the example application's main.cpp file or to the class comments 
+in the source files for details and more usage examples.
+
+features
+--------
+- Pure C++/Qt based, clean & oo implementation. 
+- Retrieve archive contents information before extracting any file. 
+- Fast (but less robust with corrupt archives) parsing of the ZIP file format. 
+- Traditional PKWARE password encryption (strong encryption as introduced by PKZip 
+  versions 5.0 and later is NOT available). 
+- Support for archive comments.
+- Optional namespace and shared lib support (see below)
+- Time zone support (see below)
+
+missing features and restrictions
+---------------------------------
+- Needs to be modified to fit into an existing project (i.e.: you might need to 
+  add your own password handling routine). 
+- Weak support of corrupted archives (althought some files could be extracted 
+  even if the archive is corrupted). 
+- No support for filesystem specific features like unix symbolic links. 
+- No support for spanned archives. 
+- No support for strong encryption or features introduced after PKZIP 
+  version 2.0 (see the PKWARE specs for details).
+
+requirements
+------------
+Qt version 4.0.x or later
+zlib library
+
+namespace support
+-----------------
+If you need the classes to be inside a namespace, simply define OSDAB_NAMESPACE 
+in the project file. The classes will then be in a Osdab::Zip namespace.
+
+building as a shared library (.DLL / .so / .dylib)
+--------------------------------------------------
+There are two ways to achieve this. The easiest and cleanest way is to
+edit the zipglobal.h file and remove the "#ifndef OSDAB_ZIP_LIB" block.
+The other way consists in #defining OSDAB_ZIP_LIB in both the project
+you create for the shared zip library and in the projects linking the library.
+An example in the "Example.SharedLib" directory contains such a sample build.
+
+time zones
+----------
+Time zone support is implemented only on Windows and Unix compatible systems.
+It can be disabled by defining OSDAB_ZIP_NO_UTC in the project file.
+The currentUtcOffset() method in zipglobal.cpp is where the current UTC offset
+is calculated. Qt has no proper time zone support (Qt 4.7.x) so the code 
+relies on gmtime and localtime.
+
+
+**************** ******* ******************************************************
+BEFORE SENDING ANY EMAILS, CHECK OUT THE WEBSITE: http://osdab.42cows.org/
+**************** ******* ******************************************************

@@ -1,0 +1,53 @@
+Website: http://osdab.42cows.org/
+Google Code project page: http://code.google.com/p/osdab
+
+2013-06-23 - Replace QString::from|toAscii() with QString::from|toLatin1().
+2012-09-06 - Use data type defined in zlib/zconf.h for CRC table pointer;
+  silently attempt to create missing output directories (thanks to Paul Tarr 
+  for the bug reports).
+2012-04-04 - Fixed encryption routine on certain platforms (e.g. GNU Linux/GCC x64)
+  (thanks to anunakin for the bug report).
+2012-01-31 - Regression: fixed setting of compression level flag in local zip 
+  entry (thanks again to Anton Rekshinsky for the bug report).
+2012-01-29 - Fixed writing of files with no compression
+  (thanks to Anton Rekshinsky for the bug report);
+  added UnZip::verifyArchive();
+  added -v command line flag to sample application.
+2012-01-08 - Implemented Zip::IgnoreRoot flag; added addFile() and addFiles()
+  convenience methods;
+  added Zip::CheckForDuplicates and Zip::SkipBadFiles flags;
+  added (very) minor improvements.
+2011-06-25 - Bug entry #2 - checking of "version needed to extract" flag 
+  (thanks to Dominik for reporting)
+2011-06-25 - Fix compile errors on GCC/Linux.
+2011-03-27 - Added support for namespace; 
+  added support for shared library builds;
+  added basic support for time zones; 
+  no longer take ownership of QIODevices (MAJOR API CHANGE!);
+  unzip will update last modified time on win32 and posix compliant OS;
+  code clean up.
+2010-07-08 - Bug fix: extractFile() was permanently updating the compressed file 
+  size in the zip entry in case of an encrypted entry. Thanks to Serge 
+  Kolokolkin for finding and reporting the exact bug.
+2008-09-07 - Bug fix: end of central directory was sometimes not being found when 
+  the archive had a comment.
+2007-02-01 - New IgnorePaths compression option and two more 
+  "addDirectoryContents()" convenience methods to use this option.
+2007-01-28 - Major changes:
+ - Bug fix: there was a big problem with directory names.
+ - API changes: the Zip::addDirectory() method is now easier to use.
+   The password can now be set using a setPassword() method and a new flag 
+   allows to preserve absolute paths.
+ - Added an "encrypted" flag to the Unzip::ZipEntry struct.
+ - Removed QObject inheritance. Internationalization is now achieved through 
+   QCoreApplication::translate().
+2006-11-30 - A good part of the UnZip class has been rewritten. Zip entries with 
+  a Data Descriptor (like OpenOffice files) are now correctly parsed; some minor 
+  API changes and bug fixes; new features: comments, zip entry list, skip paths 
+  unzip option
+2006-11-24 - Bug fix. An additional directory was being created for some files 
+  in the root directory
+2006-10-23 - Minor API changes; QIODevice support added; better binary 
+  compatibility; "long long" issue with older compilers solved
+2006-06-09 - Minor API changes
+2005-10-03 - First public release

@@ -24,8 +24,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef FILETOOLBAR_H
 #define FILETOOLBAR_H
 
+#include <QString>
+#include <QMap>
+#include <QPointer>
 #include "scribusapi.h"
-#include "sctoolbar.h"
+#include "ui/sctoolbar.h"
 
 class ScribusMainWindow;
 
@@ -33,9 +36,14 @@ class SCRIBUS_API FileToolBar : public ScToolBar
 {
 	Q_OBJECT
 
-public:
-	FileToolBar(ScribusMainWindow* parent);
-	~FileToolBar() {};
+	public:
+		FileToolBar(ScribusMainWindow* p);
+		~FileToolBar() { delete fileOpenButtonMenu; };
+		void rebuildRecentFileMenu();
+
+	protected:
+		ScribusMainWindow* parent;
+		QMenu* fileOpenButtonMenu;
 };
 
 #endif

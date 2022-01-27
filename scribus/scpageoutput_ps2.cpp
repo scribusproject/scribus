@@ -8,12 +8,13 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 
 #include "commonstrings.h"
-#include "fonts/scfontmetrics.h"
+//#include "fonts/scfontmetrics.h"
 #include "pageitem.h"
 #include "scimage.h"
+#include "scpage.h"
 #include "scpageoutput_ps2.h"
 #include "scpainterex_ps2.h"
-#include "scribus.h"
+
 #include "util.h"
 
 ScPageOutput_Ps2::ScPageOutput_Ps2(QIODevice* dev, ScribusDoc* doc, int pageIndex, ScPs2OutputParams& options)
@@ -35,7 +36,7 @@ void ScPageOutput_Ps2::initStream(QIODevice* dev)
 	m_stream.setDevice(m_device);
 }
 
-void ScPageOutput_Ps2::begin(void)
+void ScPageOutput_Ps2::begin()
 {
 	m_stream << QString("%%Page: %1 %2\n").arg(m_pageIndex).arg(m_pageIndex);
 	m_stream << QString("/saveobj save def \n");
@@ -48,7 +49,7 @@ void ScPageOutput_Ps2::begin(void)
 	}
 }
 
-void ScPageOutput_Ps2::drawPage(Page* page)
+void ScPageOutput_Ps2::drawPage(ScPage* page)
 {
 	// Get page position
 	int clipx = static_cast<int>(page->xOffset());
@@ -64,13 +65,13 @@ void ScPageOutput_Ps2::drawPage(Page* page)
 	double dy = -clipy * scaley;
 	if (  m_options.mirrorH ) dx += clipw;
 	if ( !m_options.mirrorV ) dy += cliph;
-	QMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
+	QTransform matrix( scalex, 0.0, 0.0, scaley, dx, dy );
 	painter.setWorldMatrix( matrix );
 	// Draw page
 	ScPageOutput::drawPage(page, &painter);
 }
 
-void ScPageOutput_Ps2::end(void)
+void ScPageOutput_Ps2::end()
 {
 	m_stream << "%%PageTrailer\n";
 	m_stream << "saveobj restore\n";

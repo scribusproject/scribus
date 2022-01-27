@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="OpenSUSE">
+  <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff"/>
+ <COLOR RGB="#fcb11c" NAME="Orange Light" />
+ <COLOR RGB="#ffff66" NAME="Butter Light" />
+ <COLOR RGB="#91d007" NAME="Lemon Light" />
+ <COLOR RGB="#d4c4ff" NAME="Plum Light" />
+ <COLOR RGB="#5080ff" NAME="Sky Light" />
+ <COLOR RGB="#babdb6" NAME="Dust Light" />
+ <COLOR RGB="#ff4d4d" NAME="Blood Light" />
+ <COLOR RGB="#e35302" NAME="Orange" />
+ <COLOR RGB="#b2b247" NAME="Butter" />
+ <COLOR RGB="#217808" NAME="Lemon" />
+ <COLOR RGB="#4d4466" NAME="Plum" />
+ <COLOR RGB="#000074" NAME="Sky" />
+ <COLOR RGB="#2e3436" NAME="Dust" />
+ <COLOR RGB="#8c0000" NAME="Blood" />
+ <COLOR RGB="#73ba25" NAME="SUSE Green" />
+ <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>

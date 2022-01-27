@@ -10,6 +10,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <QString>
 #include <QMap>
+#include <QMarginsF>
+#include <QSizeF>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -19,8 +21,12 @@ class QStringList;
 class SCRIBUS_API PrinterUtil
 {
 	public:
-		PrinterUtil() {};
-		~PrinterUtil() {};
+		PrinterUtil() = default;
+		~PrinterUtil() = default;
+
+		static void getDefaultPrintOptions(PrintOptions& options, const MarginStruct& docBleeds);
+
+		QString static getDefaultPrinterName();
 		QStringList static getPrinterNames();
 
 #if defined(_WIN32)
@@ -35,7 +41,7 @@ class SCRIBUS_API PrinterUtil
 		 * @param devModeA an array which will store the DEVMODE structure with printer settings
 		 * @return true if default settings were successfully retrieved.
 		 */
-		static bool getDefaultSettings( QString printerName, QByteArray& devModeA );
+		static bool getDefaultSettings(QString printerName, QByteArray& devModeA);
 		/**
 		 * @brief Initialize print options dialog box settings (Windows only) 
 		 *
@@ -47,7 +53,7 @@ class SCRIBUS_API PrinterUtil
 		 * @param devModeA an array storing the DEVMODE structure for the specified printer
 		 * @return true if default settings were successfully retrieved.
 		 */
-		static bool initDeviceSettings( QString printerName, QByteArray& devModeA );
+		static bool initDeviceSettings(QString printerName, QByteArray& devModeA);
 #endif
 		/**
 		 * @brief Get the 4 minimum page margins for a certain paper size on the given printer
@@ -60,26 +66,26 @@ class SCRIBUS_API PrinterUtil
 		 * @param m_ptsRightMargin the page's right margin in points
 		\retval bool true on success
 		 */
-		static bool getPrinterMarginValues( const QString& printerName, const QString& pageSize, double& ptsTopMargin, double& m_ptsBottomMargin, double& m_ptsLeftMargin, double& m_ptsRightMargin);
+		static bool getPrinterMarginValues(const QString& printerName, const QSizeF& pageSize, QMarginsF& margins);
 		/**
 		 * @brief Get default print engine for a specific printer
 		 * @param printerName the printer name
 		 * @param toFile if file printing is planned
 		 */
-		static PrintEngine getDefaultPrintEngine(const QString& printerName, bool toFile);
+		static PrintLanguage getDefaultPrintLanguage(const QString& printerName, bool toFile);
 		/**
 		 * @brief Get print engines supported by a specific printer
 		 * @param printerName the printer name
 		 * @param toFile if file printing is planned
 		 */
-		static PrintEngineMap getPrintEngineSupport(const QString& printerName, bool toFile);
+		static PrintLanguageMap getPrintLanguageSupport(const QString& printerName, bool toFile);
 		/**
 		 * @brief Check if a print engine is supported by a specific printer
 		 * @param printerName the printer name
 		 * @param engine the print engine for which support is to be checked
 		 * @param toFile if file printing is planned
 		 */
-		static bool checkPrintEngineSupport(const QString& printerName, PrintEngine engine, bool toFile);
+		static bool checkPrintLanguageSupport(const QString& printerName, PrintLanguage engine, bool toFile);
 		/**
 		 * @brief Check if a specified printer supports postscript input
 		 *
@@ -91,7 +97,17 @@ class SCRIBUS_API PrinterUtil
 		 * @return true is printer support postscript, false otherwise.
 		 *
 		 */
-		static bool isPostscriptPrinter( QString printerName );
+		static bool isPostscriptPrinter(const QString& printerName);
+		/**
+		 * @brief Check if a specified printer supports PDF input
+		 *
+		 * On Windows, the function always return false
+		 *
+		 * @param printerName the printer name
+		 * @return true is printer support PDF, false otherwise.
+		 *
+		 */
+		static bool supportsPDF(const QString& printerName);
 };
 
 #endif // DRUCK_H

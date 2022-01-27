@@ -20,15 +20,6 @@ class ScribusDoc;
 /*! \brief Provides sample "text frame" as pixmap.
 You can create a pixmap with standard Scribus text frame
 here. It can be used as a kind of preview.
-It needs at least one existing ScribusDoc - so there
-is one created if ScWM->doc is null (then it's destroyed
-of course).
-SampleItem creates 2 temporary colors in scribus document -
-Black and white - to be sure to display B/W preview correctly
-every time. These color are renoved in descructor. Or used
-cleanupTemporary() method.
-\warning Be sure there will be called destructor or cleanupTemporary()
-at the end of work with it!
 \author Petr Vanek <petr@yarpen.cz>
 */
 class SCRIBUS_API SampleItem : QObject
@@ -36,65 +27,70 @@ class SCRIBUS_API SampleItem : QObject
 	Q_OBJECT
 
 	public:
-		SampleItem(ScribusDoc* doc);
+		SampleItem();
 		~SampleItem();
+
+		/*! \brief Set device pixel ratio */
+		void setDevicePixelRatio(double ratio) { m_devicePixelRatio = ratio; }
 
 		/*! \brief Set sample text.
 		\param aText QString to set. */
-		void setText(QString aText);
+		void setText(const QString& aText);
 		/*! \brief Use lorem ipsum generator as text source.
 		\param para count of the LI paragraphs */
 		void setLoremIpsum(int para);
-		/*! \brief Set backgroud color of the pixmap.
+		/*! \brief Set background color of the pixmap.
 		\param c a QColor */
-		void setBgColor(QColor c);
+		void setBgColor(const QColor& c);
 		void setBgShade(int c);
-		/*! \brief Set color management for backgroud color of the pixmap.
+		/*! \brief Set color management for background color of the pixmap.
 		\param enable if color management should be enabled */
-		void setBgColorMngt(bool enable);
+		void setBgColorMgmt(bool enable);
 		/*! \brief Set Text color of the pixmap.
 		\param c a QColor */
-		void setTxColor(QColor c);
+		void setTxColor(const QColor& c);
 		void setTxShade(int c);
 
 		/*! \brief Set whole Scribus paragraph style in one.
 		\param aStyle Paragraph style to set.*/
 		void setStyle(const ParagraphStyle& aStyle);
-		/*! \brief Folowing methods set only one style characteristic */
-		void setLineSpaMode(int lineSpaMode);
-		void setLineSpa(double lineSpa);
+		/*! \brief Following methods set only one style characteristic */
+		void setLineSpacingMode(int lineSpaMode);
+		void setLineSpacing(double lineSpa);
 		void setTextAlignment(int textAlignment);
-		void setIndent(double indent);
+		void setLeftMargin(double indent);
 		void setRightMargin(double indent);
-		void setFirst(double first);
+		void setFirstIndent(double first);
 		void setGapBefore(double gapBefore);
 		void setGapAfter(double gapAfter);
-		void setFont(QString font);
+		void setFont(const QString& font);
 		/*! \brief Set size of the font.
 		\param fontSize fontSize * 10.0 usually
 		\param autoLineSpa if true - use automatic line spacing computing */
 		void setFontSize(int fontSize, bool autoLineSpa=false);
 		//void setTabValues(QValueList<PageItem::TabRecord> tabValues);
 		void setDrop(bool drop);
-		void setDropLin(int dropLin);
-		void setDropDist(double dropDist);
+		void setBullet(bool bul);
+		void setNum(bool num);
+		void setDropCapLines(int dropLin);
+		void setParEffectDist(double dropDist);
 		void setFontEffect(int fontEffect);
-		void setFColor(QString fColor);
-		void setFShade(int fShade);
-		void setSColor(QString sColor);
-		void setSShade(int sShade);
-		void setBaseAdj(bool baseAdj);
-		void setTxtShadowX(int txtShadowX);
-		void setTxtShadowY(int txtShadowY);
-		void setTxtOutline(int txtOutline);
-		void setTxtUnderPos(int txtUnderPos);
-		void setTxtUnderWidth(int txtUnderWidth);
-		void setTxtStrikePos(int txtStrikePos);
-		void setTxtStrikeWidth(int txtStrikeWidth);
-		void setScaleH(int scaleH);
-		void setScaleV(int scaleV);
-		void setBaseOff(int baseOff);
-		void setKernVal(int kernVal);
+		void setTxtFillColor(const QString& fColor);
+		void setTxtFillShade(double fShade);
+		void setTxtStrokeColor(const QString& sColor);
+		void setTxtStrokeShade(double sShade);
+		void setTxtShadowX(double txtShadowX);
+		void setTxtShadowY(double txtShadowY);
+		void setTxtOutlineWidth(double txtOutline);
+		void setTxtUnderlineOffset(double txtUnderPos);
+		void setTxtUnderlineWidth(double txtUnderWidth);
+		void setTxtStrikethruOffset(double txtStrikePos);
+		void setTxtStrikethruWidth(double txtStrikeWidth);
+		void setScaleH(double scaleH);
+		void setScaleV(double scaleV);
+		void setBaselineOffset(double baseOff);
+		void setKernVal(double kernVal);
+		void setWordTracking(double wordTracking);
 
 		/*! \brief Get the sample.
 		\param width W of the sample
@@ -102,20 +98,19 @@ class SCRIBUS_API SampleItem : QObject
 		\retval QPixmap rendered image
 		*/
 		QPixmap getSample(int width, int height);
-		/*! \brief Remove the tmp issues. */
-		void cleanupTemporary();
 
 	private:
 		//! \brief Text to be rendered
-		QString text;
+		QString m_text;
 		//! \brief Internal temporary paragraph style
-		ParagraphStyle tmpStyle;
+		ParagraphStyle m_tmpStyle;
 		/*! \brief Reference to a document.
 		Existing or created one */
-		ScribusDoc *m_Doc;
+		ScribusDoc* m_Doc { nullptr };
 		//! \brief Is the doc created used only? true = used
-		bool used;
-		int bgShade;
+		int m_bgShade { 100 };
+		//! \brief Device pixel ratio
+		double m_devicePixelRatio { 1.0 };
 };
 
 #endif

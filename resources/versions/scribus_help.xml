@@ -1,0 +1,6 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<scribus>
+	<help type="scribusofficial" filetype="zip" language="en" URL="http://services.scribus.net/help" description="Scribus Official Help Files (English)" files="scribus-helpfiles-152-en.zip" license="COPYING-EN" version="1.0" />
+	<help type="scribusofficial" filetype="zip" language="de" URL="http://services.scribus.net/help" description="Scribus Official Help Files (German)" files="scribus-helpfiles-152-de.zip" license="COPYING-DE" version="1.0" />
+</scribus>
+

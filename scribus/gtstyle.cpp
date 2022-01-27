@@ -21,12 +21,12 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "gtstyle.h"
 
-gtStyle::gtStyle(QString name)
+gtStyle::gtStyle(const QString& name)
 {
 	this->name = name;
 }
@@ -37,7 +37,7 @@ gtStyle::gtStyle(const gtStyle& s)
 	font = gtFont(s.font);
 }
 
-void gtStyle::setFont(gtFont newFont)
+void gtStyle::setFont(const gtFont& newFont)
 {
 	font = newFont;
 }
@@ -52,17 +52,14 @@ QString gtStyle::getName()
 	return name;
 }
 
-void gtStyle::setName(QString newName)
+void gtStyle::setName(const QString& newName)
 {
 	name = newName;
 }
 
-QString gtStyle::target()
+QString gtStyle::target() const
 {
 	return QString("character");
 }
 
-gtStyle::~gtStyle()
-{
-
-}
+gtStyle::~gtStyle() = default;

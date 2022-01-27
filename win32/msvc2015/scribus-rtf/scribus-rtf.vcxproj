@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\AbstractRtfOutput.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\AuthorPcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\CategoryPcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\ColorTableDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\CommentPcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\CompanyPcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\controlword.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\Destination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\DocumentCommentPcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\DocumentDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\FontTableDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\GeneratorPcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\HLinkBasePcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\IgnoredDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\InfoCreatedTimeDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\InfoDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\InfoPrintedTimeDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\InfoRevisedTimeDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\InfoTimeDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\KeywordsPcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\ManagerPcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\OperatorPcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\PcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\PictDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\rtfreader.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\sladocumentrtfoutput.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\StyleSheetDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\SubjectPcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\TitlePcdataDestination.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\Token.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\Tokenizer.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\rtf-qt\UserPropsDestination.cpp" />
+    <ClCompile Include="scribus-rtf-pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\AbstractRtfOutput.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\AuthorPcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\CategoryPcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\ColorTableDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\CommentPcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\CompanyPcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\controlword.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\Destination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\DocumentCommentPcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\DocumentDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\FontTableDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\FontTableEntry.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\GeneratorPcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\HLinkBasePcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\IgnoredDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\InfoCreatedTimeDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\InfoDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\InfoPrintedTimeDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\InfoRevisedTimeDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\InfoTimeDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\KeywordsPcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\ManagerPcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\OperatorPcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\PcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\PictDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\RtfGroupState.h" />
+    <ClInclude Include="scribus-rtf-pch.h" />
+    <moc Include="..\..\..\scribus\third_party\rtf-qt\rtfreader.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\sladocumentrtfoutput.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\StyleSheetDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\StyleSheetTableEntry.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\SubjectPcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\TitlePcdataDestination.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\Token.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\Tokenizer.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\rtf-qt\UserPropsDestination.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\scribus\third_party\rtf-qt\CMakeLists.txt" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8E82EC40-9A9F-4545-8811-C257E5229099}</ProjectGuid>
+    <RootNamespace>scribusrtf</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="..\Scribus-build-rules.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.60610.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
+    <TargetName>scribus-rtf</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
+    <TargetName>scribus-rtf</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
+    <TargetName>scribus-rtf</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
+    <TargetName>scribus-rtf</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\msvc2015;..\..\..\scribus;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(FREETYPE_INCLUDE_DIR);$(ICU_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_USE_MATH_DEFINES;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeaderFile>.\scribus-rtf-pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>.\scribus-rtf-pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\msvc2015;..\..\..\scribus;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(FREETYPE_INCLUDE_DIR);$(ICU_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_USE_MATH_DEFINES;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeaderFile>.\scribus-rtf-pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>.\scribus-rtf-pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..\..\msvc2015;..\..\..\scribus;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(FREETYPE_INCLUDE_DIR);$(ICU_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_USE_MATH_DEFINES;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeaderFile>.\scribus-rtf-pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>.\scribus-rtf-pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..\..\msvc2015;..\..\..\scribus;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(FREETYPE_INCLUDE_DIR);$(ICU_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_USE_MATH_DEFINES;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeaderFile>.\scribus-rtf-pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>.\scribus-rtf-pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Lib />
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\Scribus-build-rules.targets" />
+  </ImportGroup>
+</Project>

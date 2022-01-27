@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorwheel.h"
 #include "cwdialog.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 
 int colorwheel_getPluginAPIVersion()
 {
@@ -16,26 +17,26 @@ int colorwheel_getPluginAPIVersion()
 
 ScPlugin* colorwheel_getPlugin()
 {
-	ColorWheelPlugin* plug = new ColorWheelPlugin();
+	auto* plug = new ColorWheelPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
 
 void colorwheel_freePlugin(ScPlugin* plugin)
 {
-	ColorWheelPlugin* plug = dynamic_cast<ColorWheelPlugin*>(plugin);
+	auto* plug = qobject_cast<ColorWheelPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
 
-ColorWheelPlugin::ColorWheelPlugin() : ScActionPlugin()
+ColorWheelPlugin::ColorWheelPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
 	languageChange();
 }
 
-ColorWheelPlugin::~ColorWheelPlugin() {};
+ColorWheelPlugin::~ColorWheelPlugin() = default;
 
 void ColorWheelPlugin::languageChange()
 {
@@ -47,11 +48,12 @@ void ColorWheelPlugin::languageChange()
 	m_actionInfo.text = tr("&Color Wheel...");
 	// Menu
 	m_actionInfo.menu = "Extras";
+	m_actionInfo.menuAfterName = "extrasManageImages";
 	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString ColorWheelPlugin::fullTrName() const
+QString ColorWheelPlugin::fullTrName() const
 {
 	return QObject::tr("Color Wheel");
 }
@@ -77,21 +79,21 @@ void ColorWheelPlugin::deleteAboutData(const AboutData* about) const
 }
 
 /** Create dialog. Everything else is handled in separated classes. */
-bool ColorWheelPlugin::run(ScribusDoc* doc, QString target)
+bool ColorWheelPlugin::run(ScribusDoc* doc, const QString& target)
 {
 	Q_ASSERT(target.isNull());
-	ScribusDoc* currDoc=doc;
-	if (currDoc==0)
-		currDoc=ScCore->primaryMainWindow()->doc;
-	if (currDoc==0)
+	ScribusDoc* currDoc = doc;
+	if (currDoc == nullptr)
+		currDoc = ScCore->primaryMainWindow()->doc;
+	if (currDoc == nullptr)
 		return false;
-	CWDialog *dlg = new CWDialog(currDoc->scMW(), currDoc, "dlg", true, 0);
+
+	auto *dlg = new CWDialog(currDoc->scMW(), currDoc, "dlg", true);
 	if (dlg)
 	{
 		dlg->exec();
 		delete dlg;
 		return true;
 	}
-	else
-		return false;
+	return false;
 }

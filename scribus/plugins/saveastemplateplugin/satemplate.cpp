@@ -10,9 +10,12 @@ for which a new license (GPL+exception) is in place.
 #include "satemplate.h"
 #include "satdialog.h"
 
+#include "api/api_application.h"
 #include "scpaths.h"
+#include "ui/scmessagebox.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 
@@ -30,12 +33,12 @@ ScPlugin* saveastemplateplugin_getPlugin()
 
 void saveastemplateplugin_freePlugin(ScPlugin* plugin)
 {
-	SaveAsTemplatePlugin* plug = dynamic_cast<SaveAsTemplatePlugin*>(plugin);
+	SaveAsTemplatePlugin* plug = qobject_cast<SaveAsTemplatePlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
 
-SaveAsTemplatePlugin::SaveAsTemplatePlugin() : ScActionPlugin()
+SaveAsTemplatePlugin::SaveAsTemplatePlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -56,12 +59,12 @@ void SaveAsTemplatePlugin::languageChange()
 	m_actionInfo.keySequence = "Ctrl+Alt+S";
 	// Menu
 	m_actionInfo.menu = "File";
-	m_actionInfo.menuAfterName = "SaveAs";
+	m_actionInfo.menuAfterName = "fileSaveAs";
 	m_actionInfo.enabledOnStartup = true;
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString SaveAsTemplatePlugin::fullTrName() const
+QString SaveAsTemplatePlugin::fullTrName() const
 {
 	return QObject::tr("Save As Template");
 }
@@ -87,7 +90,7 @@ void SaveAsTemplatePlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool SaveAsTemplatePlugin::run(ScribusDoc* doc, QString target)
+bool SaveAsTemplatePlugin::run(ScribusDoc* doc, const QString& target)
 /*{
 	Q_ASSERT(target.isEmpty());
 	Sat = new MenuSAT();
@@ -103,75 +106,77 @@ bool SaveAsTemplatePlugin::run(ScribusDoc* doc, QString target)
  	if ( m_Doc )
 	{
 		Q_ASSERT(target.isEmpty());
-		Sat = new MenuSAT();
+		MenuSAT* Sat = new MenuSAT();
 		Sat->RunSATPlug(m_Doc);
 		delete Sat;
-		Sat = 0;
+		Sat = nullptr;
 	}
 	return true;
 }
 void MenuSAT::RunSATPlug(ScribusDoc* doc)
 {
-	QDir templates(ScPaths::getApplicationDataDir());
+	QDir templates(ScPaths::applicationDataDir());
 	if (!templates.exists("templates"))
 	{
 		templates.mkdir("templates");
 	}
 	QString currentPath(QDir::currentPath());
-	QString currentFile(doc->DocName);
+	QString currentFile(doc->documentFileName());
 	bool hasName = doc->hasName;
 	bool isModified = doc->isModified();
-	QString userTemplatesDir = PrefsManager::instance()->appPrefs.documentTemplatesDir;
-	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	QString userTemplatesDir = ScPaths::instance().userTemplateDir(true);
+	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString oldCollect = dirs->get("collect", ".");
-	QString templatesDir = ".";
 	if (userTemplatesDir.isEmpty())
-		templatesDir = ScPaths::getApplicationDataDir() + "templates";
-	else
 	{
-		if (userTemplatesDir.right(1) == "/")
-			userTemplatesDir = userTemplatesDir.left(userTemplatesDir.length() - 1);
-		templatesDir = userTemplatesDir;
+		ScMessageBox::warning(doc->scMW(), QObject::tr("No User Template Location Defined"), "<qt>" +
+										QObject::tr("You have not configured where to save document templates.<br>Please go to the Paths section in the Scribus application Preferences to set a location.") + "</qt>",
+										QMessageBox::Ok,	// GUI default
+										QMessageBox::Ok);	// batch default
+		return;
 	}
-	dirs->set("collect", templatesDir);
-	if (doc->scMW()->Collect().isEmpty())
+
+	if (userTemplatesDir.right(1) == "/")
+		userTemplatesDir.chop(1);
+
+	dirs->set("collect", userTemplatesDir);
+	if (doc->scMW()->fileCollect().isEmpty())
 		return;
 	if (oldCollect != ".")
 		dirs->set("collect", oldCollect);
-	QString docPath = doc->DocName;
+	QString docPath = doc->documentFileName();
 	QString docDir = docPath.left(docPath.lastIndexOf('/'));
 	QString docName = docPath.right(docPath.length() - docPath.lastIndexOf('/') - 1);
 	docName = docName.left(docName.lastIndexOf(".s"));
 
-	if (currentFile !=  doc->DocName)
+	if (currentFile == doc->documentFileName())
+		return;
+	SATDialog* satdia = new SATDialog(doc->scMW(),docName,
+									  static_cast<int>(doc->pageWidth() + 0.5),
+									  static_cast<int>(doc->pageHeight() + 0.5));
+	if (satdia->exec())
 	{
-		satdialog* satdia = new satdialog(doc->scMW(),docName,
-                                          static_cast<int>(doc->pageWidth + 0.5),
-                                          static_cast<int>(doc->pageHeight + 0.5));
-		if (satdia->exec())
-		{
-			sat* s = new sat(doc, satdia, docPath.right(docPath.length() - docPath.lastIndexOf('/') - 1),docDir);
-			s->createImages();
-			s->createTmplXml();
-			delete s;
-		}
-		// Restore the state that was before ScMW->Collect()
-		doc->DocName = currentFile;
-		doc->hasName = hasName;
-		doc->setModified(isModified);
-		QString newCaption=currentFile;
-		if (isModified)
-			newCaption.append('*');
-		doc->scMW()->updateActiveWindowCaption(newCaption);
-		doc->scMW()->removeRecent(docPath);
-		QDir::setCurrent(currentPath);
-		delete satdia;
+		sat* s = new sat(doc, satdia, docPath.right(docPath.length() - docPath.lastIndexOf('/') - 1),docDir);
+		s->createImages();
+		s->createTmplXml();
+		delete s;
 	}
+	// Restore the state that was before ScMW->Collect()
+	doc->setDocumentFileName(currentFile);
+	doc->hasName = hasName;
+	doc->setModified(isModified);
+	QString newCaption=currentFile;
+	if (isModified)
+		newCaption.append('*');
+	doc->scMW()->updateActiveWindowCaption(newCaption);
+	doc->scMW()->removeRecent(docPath);
+	QDir::setCurrent(currentPath);
+	delete satdia;
 }
 
 // --------------------- CLASS sat ------------------------------------------------//
 
-sat::sat(ScribusDoc* doc, satdialog* satdia, QString fileName, QString tmplDir)
+sat::sat(ScribusDoc* doc, SATDialog* satdia, const QString& fileName, const QString& tmplDir)
 {
 	lang = ScCore->getGuiLanguage();
 	m_Doc = doc;
@@ -208,8 +213,8 @@ void sat::createImages()
 {
 	QString tnsmallName = dia->nameEdit->text() + "tn.png";
 	QString tnlargeName = dia->nameEdit->text() + ".png";
-	double pageh = m_Doc->pageHeight;
-	double pagew = m_Doc->pageWidth;
+	double pageh = m_Doc->pageHeight();
+	double pagew = m_Doc->pageWidth();
 	int pageSizeSmall = 0;
 	int pageSizeLarge = 0;
 	if (pageh > pagew)
@@ -283,7 +288,7 @@ QString sat::getTemplateTag()
 	QString usage = QString(dia->usageEdit->toPlainText());
 	replaceIllegalChars(usage);
 	tag += "\t\t<usage>"+usage+"</usage>\n";
-	QString scribus_version = QString(VERSION);
+	QString scribus_version(ScribusAPI::getVersion());
 	replaceIllegalChars(scribus_version);
 	tag += "\t\t<scribus_version>" + scribus_version + "</scribus_version>\n";
 	QString date = QString(now.toString(Qt::ISODate));
@@ -314,7 +319,7 @@ void sat::replaceIllegalChars(QString& s)
 	s.replace("\'", "&apos;");
 }
 
-QString sat::findTemplateXml(QString dir)
+QString sat::findTemplateXml(const QString& dir)
 {
 	QString tmp = dir + "/template." + lang + ".xml";
 	if (QFile(tmp).exists())

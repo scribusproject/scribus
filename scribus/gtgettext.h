@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef GTGETTEXT_H
@@ -57,6 +57,7 @@ struct ImportSetup {
 	int importer;					// Which importer was selected?
 	QString filename;				// What filename is to be loaded?
 	bool textOnly;					// Do we import as text only?
+	bool prefixNames;				// Prefix Style names with item name;
 	QString encoding;				// File encoding
 };
 
@@ -66,25 +67,26 @@ struct ImportSetup {
 class SCRIBUS_API gtGetText
 {
 private:
-	std::vector<ImporterData> importers;		// Vector of the loaded importers
-	QMap<QString, ImporterData*> importerMap; 	// QMap of the supported extensions to their relevant importers entry for easy access
+	std::vector<ImporterData> m_importers;		// Vector of the loaded importers
+	QMap<QString, ImporterData*> m_importerMap; 	// QMap of the supported extensions to their relevant importers entry for easy access
 	void loadImporterPlugins();					// Find the available plugins based on the environment, validate they load, and 
 												// create quick lookup mappings.
 	void CallDLL(const ImporterData& idata, const QString& filePath,
-	             const QString& encoding, bool textOnly, bool append, PageItem* importItem);
+				 const QString& encoding, bool textOnly, bool append, bool prefix, PageItem* importItem);
 												// Loads, validates, and executes the Importer code.
-	bool DLLName(QString name, QString *ffName, QStringList *fileEndings);
+	bool DLLName(const QString& name, QString *ffName, QStringList *fileEndings);
 												// Loads the "DLL", validates the importer is good, populates the passed parameters with 
 												// the plugin information.
 	void createMap();							// Create the importer Qmap.
-	gtDialogs* dias;							// File Selection Dialog pointer.
-	QStringList ilist;							// List of supported importers, used with dialogs
+	gtDialogs* m_dias;							// File Selection Dialog pointer.
+	QStringList m_ilist;							// List of supported importers, used with dialogs
 	ScribusDoc* m_Doc;							// Which document are we working with.
 public:
 	gtGetText(ScribusDoc* doc);					// Constructor
 	~gtGetText();								// Destructor
+	QStringList getSupportedTypes();			// get all Fileextensions we support
 	ImportSetup run();							// Creates the dialog for the user to import a file based on the supported file formats.
-	void launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding, bool append, PageItem* target=0);
+	void launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding, bool append, bool prefix, PageItem* target=nullptr);
 												// Look at the results of the file selection dialog and figure out if you need to use an importer.
 												// Prompt the user if the importer to use isn't obvious.
 };

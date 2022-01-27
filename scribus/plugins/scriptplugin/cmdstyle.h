@@ -40,6 +40,12 @@ hasdropcap [optional] -> specifies if there are caps (1 = yes, 0 = no)\n\n\
 dropcaplines [optional] -> height (in lines) of the caps if used\n\n\
 dropcapoffset [optional] -> offset of the caps if used\n\n\
 \"charstyle\" [optional] -> char style to use\n\n\
+\"bullet\" [optional] -> string to use as bullet\n\n\
+\"tabs\" [optional] -> a list containing tab definitions\n\n\
+-> a tab is defined as a tuple with the following format (position,type,fillchar)\"\n\n\
+-> position [required] -> float value for the position\n\n\
+-> type [optional] -> left: 0 [default], right: 1, period: 2, comma: 3, center: 4\n\n\
+-> fillchar [optional] -> the char to fill the space; default is none\n\n\
 "));
 /*! 02.01.2007 - 05.01.2007 : Joachim Neu : Create a paragraph style.
   		Special thanks go to avox for helping me! */
@@ -54,7 +60,7 @@ Creates a character style. This function takes the following keyword parameters:
 \"name\" [required] -> name of the char style to create\n\n\
 \"font\" [optional] -> name of the font to use\n\n\
 fontsize [optional] -> font size to set (double)\n\n\
-\"features\" [optional] -> nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):\n\n\
+\"features\" [optional] -> nearer typographic details can be defined by a string that might contain the following phrases comma-separated (without spaces!):\n\n\
 -> inherit\n\n\
 -> bold\n\n\
 -> italic\n\n\
@@ -81,6 +87,75 @@ tracking [optional] -> tracking of the text\n\n\
 /*! 03.01.2007 - 05.01.2007 : Joachim Neu : Create a char style. 
   		Special thanks go to avox for helping me! */
 PyObject *scribus_createcharstyle(PyObject * /* self */, PyObject* args, PyObject* keywords);
+
+/* LINE STYLES */
+
+/*! docstring */
+PyDoc_STRVAR(scribus_createcustomlinestyle__doc__,
+QT_TR_NOOP("createCustomLineStyle(styleName, style)\n\n\
+Creates the custom line style 'styleName'.\n\n\
+styleName -> name of the custom line style to create\n\n\
+This function takes list of dictionary\n\
+as parameter for \"style\". Each dictionary represent\n\
+one subline within style. Dictionary can have those keys:\n\n\
+\tColor [optional] -> name of the color to use (string)\n\n\
+\tDash [optional] -> type of line to use (integer)\n\n\
+\tLineEnd [optional] -> type of LineEnd to use (integer)\n\n\
+\tLineJoin [optional] -> type of LineJoin to use (integer)\n\n\
+\tShade [optional] -> opacity of line (integer)\n\n\
+\tWidth [optional] -> width of line (double)\n\
+"));
+PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getparagraphstyles__doc__,
+QT_TR_NOOP("getParagraphStyles() -> list\n\
+\n\
+Return a list of the names of all paragraph styles in the current document.\n\
+"));
+
+PyDoc_STRVAR(scribus_getallstyles__doc__,
+QT_TR_NOOP("getAllStyles() -> list\n\
+\n\
+Deprecated. Use getParagraphStyles() instead.\n\
+"));
+/**
+ Craig Ringer, 2004-09-09
+ Enumerate all known paragraph styles
+*/
+PyObject *scribus_getparagraphstyles(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getcharstyles__doc__,
+QT_TR_NOOP("getCharStyles() -> list\n\
+\n\
+Return a list of the names of all character styles in the current document.\n\
+"));
+PyObject *scribus_getcharstyles(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getlinestyles__doc__,
+QT_TR_NOOP("getLineStyles() -> list\n\
+\n\
+Return a list of the names of all line styles in the current document.\n\
+"));
+PyObject *scribus_getlinestyles(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getcellstyles__doc__,
+QT_TR_NOOP("getCellStyles() -> list\n\
+\n\
+Return a list of the names of all cell styles in the current document.\n\
+"));
+PyObject *scribus_getcellstyles(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_gettablestyles__doc__,
+QT_TR_NOOP("getTableStyles() -> list\n\
+\n\
+Return a list of the names of all table styles in the current document.\n\
+"));
+PyObject *scribus_gettablestyles(PyObject * /*self*/);
 
 #endif
 

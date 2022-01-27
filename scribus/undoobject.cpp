@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "undoobject.h"
@@ -35,15 +35,14 @@ UndoObject::UndoObject()
 {
 	m_id = m_nextId;
 	++m_nextId;
-	m_uname = "";
-	m_upixmap = NULL;
+	m_upixmap = nullptr;
 }
 
 UndoObject::UndoObject(const UndoObject& other)
-		  : m_objectPtr(this)
+	: m_objectPtr(this)
 {
-	m_id      = other.m_id;
-	m_uname   = other.m_uname;
+	m_id = other.m_id;
+	m_uname = other.m_uname;
 	m_upixmap = other.m_upixmap;
 }
 
@@ -66,17 +65,17 @@ ulong UndoObject::getUId() const
 	return m_id;
 }
 
-QString UndoObject::getUName()
+QString UndoObject::getUName() const
 {
 	return m_uname;	
 }
 
-void UndoObject::setUName(QString newUName)
+void UndoObject::setUName(const QString& newUName)
 {
 	m_uname = newUName;
 }
 
-QPixmap* UndoObject::getUPixmap()
+QPixmap* UndoObject::getUPixmap() const
 {
 	return m_upixmap;
 }
@@ -86,7 +85,14 @@ void UndoObject::setUPixmap(QPixmap *newUPixmap)
 	m_upixmap = newUPixmap;
 }
 
-const ScGuardedPtr<UndoObject>& UndoObject::undoObjectPtr()
+const ScGuardedPtr<UndoObject>& UndoObject::undoObjectPtr() const
 {
 	return m_objectPtr;
+}
+
+int UndoObject::undoStateCount() const
+{
+	if (m_objectPtr.refCount() > 1)
+		return m_objectPtr.refCount() - 1;
+	return 0;
 }

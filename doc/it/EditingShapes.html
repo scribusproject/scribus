@@ -1,0 +1,95 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Modificare forme</title>
+</head>
+
+<h2>Modificare forme</h2>
+Molti degli oggetti che possono essere inseriti in un documento di Scribus sono disegni vettoriali, e come tali possono essere modificati. Anche se il titolo di questa pagina sembra riferirsi alle forme geometriche che possono essere facilmente create con l'apposito comando, gli stessi procedimenti possono essere applicati a tutti i seguenti oggetti:
+<ul>
+<li>forme;</li>
+<li>poligoni;</li>
+<li>cornici (di ogni tipo);</li>
+<li>linee di contorno;</li>
+<li>curve di B&eacute;zier;</li>
+<li>linee a mano libera;</li>
+<li>contorni creati a partire da glifi di testo;</li>
+<li>disegni vettoriali importati, come quelli in formato EPS e SVG.</li>
+</ul>
+Come forse gi&agrave; sapete o ricordate, quando tenete presente la capacit&agrave; di convertire un oggetto da un tipo a un altro, scoprirete che c'&egrave; una grande flessibilit&agrave; in ci&ograve; che potete fare. Guardate i tre esempi mostrati qui sotto: nel primo abbiamo modificato la forma di una cornice di testo, nel secondo abbiamo preso un glifo di grandi dimensioni, l'abbiamo convertito in contorno e poi in cornice immagine, e nel terzo abbiamo creato un poligono e l'abbiamo convertito in cornice di testo. Lo stato dell'oggetto dopo le operazioni di conversione determina le possibilit&agrave; di modificarlo: cos&igrave; la grande B pu&ograve; essere modificata come qualunque altra cornice immagine, e il testo contenuto nel poligono pu&ograve; essere modificato nell'editor interno.
+<table cellpadding=3><tr>
+<td><img src="images/edit_shapes.png" ALT="Edit examples" ALIGN=left></td></tr>
+</table>
+
+<h3>Propriet&agrave;: Forma</h3>
+<table cellpadding=3><tr>
+<td>Qui a destra &egrave; mostrata la scheda Forma nel pannello Propriet&agrave;, o pi&ugrave; precisamente la sua parte pi&ugrave; importante. Iniziamo con l'esaminare la voce <b>Angoli arrotondati</b>, poich&eacute; &egrave; una modifica di tipo semplice, che fa ci&ograve; che il nome dice. La casella di controllo &egrave; attiva, e questo ci dice che l'oggetto a cui si riferisce &egrave; una cornice &ldquo;normale&rdquo; (di testo, immagine, rendering) oppure &egrave; la forma rettangolare (non il poligono a 4 lati). Il valore nella casella &egrave; il raggio dell'angolo, e potete aumentarlo finch&eacute; due angoli arrotondati adiacenti si incontrano: se ad esempio iniziate con un quadrato, finirete con un cerchio. Un rettangolo assumer&agrave; l'aspetto di una capsula con lati appiattiti ed estremit&agrave; arrotondate. Quest'operazione si pu&ograve; applicare allo stesso modo a cornici di testo o immagine.</td>
+<td rowspan=2><img src="images/prop_shape.png" ALT="Properties: Shape" ALIGN=right></td>
+</tr>
+<tr><td><img src="images/round_rectangle.png" ALT="Rounded rectangle" ALIGN=left></td></tr>
+</table>
+<table cellpadding=3><tr>
+<td>Un'altra facile operazione di modifica si pu&ograve; eseguire dall'icona con la freccia verso il basso, vicino al pulsante <b>Modifica</b>. Il men&ugrave; a discesa che si apre &egrave; lo stesso, ben noto, dell'icona Inserisci forma sulla barra degli strumenti, ma in questo caso il risultato &egrave; una trasformazione, non la creazione di una nuova forma. Quindi, se volessimo, potremmo convertire la nostra capsula in un Tux accovacciato e obeso.
+<p>Questo si pu&ograve; fare anche con cornici di testo e di altro tipo, anche se una cornice di testo a forma di Tux sar&agrave; probabilmente di scarsa utilit&agrave;.
+</td>
+<td><img src="images/squat_tux.png" ALIGN=left></td></tr>
+</table>
+<h3>Il pulsante Modifica</h3>
+<table cellpadding="3"><tr>
+<td align=center width=200><img src="images/shape_edit.png"></td>
+<td>Passiamo ora al &ldquo;piatto forte&rdquo;, e cio&egrave; alla modifica di una forma o cornice per mezzo dei suoi nodi e punti di controllo. Quando premete il pulsante <b>Modifica</b> nella scheda Forma, si apre la finestra di dialogo <b>Nodi</b> mostrata a destra e la forma si trasforma in qualcosa di simile a ci&ograve; che vedete qui a sinistra, con quei cerchietti di colore blu e magenta.
+<p>Una cosa da notare subito &egrave; che in genere dove c'&egrave; un angolo sono visibili soltanto i nodi blu, ma dove c'&egrave; una curva si vedono anche i punti di controllo color magenta, che sporgono dal nodo come antenne. In realt&agrave; tutti i nodi hanno dei punti di controllo, ma quando si trovano nella stessa posizione del nodo non sono visibili.</td>
+<td rowspan=3 valign=middle><img src="images/nodes_edit.png"></td>
+</tr>
+<tr><td></td><td><img src="images/node_edit_close.png" ALIGN=right></td>
+</tr>
+<tr><td colspan=2>Per descrivere l'uso della finestra di dialogo per la modifica delle forme, usiamo la numerazione mostrata qui sopra per indicare i vari pulsanti che vi si trovano. 
+<p>Quando la finestra viene aperta, il pulsante <b>1</b> &egrave; selezionato, e questo vi permette di spostare i nodi blu con il mouse. Oltre a spostare nodi singoli, potete fare clic e trascinare una porzione di linea compresa tra due nodi, e spostarla insieme ai suoi nodi. La porzione di linea trascinata mantiene la sua misura, forma e orientamento; sono i segmenti adiacenti ad essere adattati allo spostamento. 
+<p>Se premete il pulsante <b>5</b> potete spostare i punti di controllo color magenta. Quando fate clic su un nodo o punto di controllo, esso diventa rosso, e a questo punto, oltre a spostarlo col mouse, le caselle di controllo <b>Pos X</b> e <b>Pos Y</b> si attivano e indicano la posizione del punto selezionato. Se <b>Coordinate assolute</b> <b><i>non</i></b> &egrave; contrassegnato, i valori sono relativi all'angolo superiore sinistro del &ldquo;riquadro di delimitazione&rdquo; della forma o della cornice (<i>vedi Che cos'&egrave; il riquadro di delimitazione? pi&ugrave; avanti</i>). Ricordiamo che tutte le modifiche fatte possono essere annullate con <b>Ctrl-Z</b> se cambiate idea.
+<p>Il pulsante <b>2</b> permette di aggiungere nodi; i nuovi nodi devono trovarsi in qualche punto lungo il bordo della forma. Il pulsante <b>3</b> elimina i nodi su cui fate clic dopo averlo selezionato. Il suggerimento del pulsante <b>4</b> dice <i>Azzera punti di controllo</i>, ma non &egrave; chiaro come renderlo attivo.
+<p>Il pulsante <b>6</b>, una volta premuto, permette di spostare in modo indipendente ciascun punto di controllo. Se viene premuto il pulsante <b>7</b>, i due punti di controllo di un certo nodo si dispongono su lati opposti del nodo e a uguali distanze, non appena uno di essi viene spostato. Questo tende a far s&igrave; che la linea che attraversa il nodo sia una curva uniforme e priva di spigoli. Quando un punto di controllo &egrave; selezionato, il pulsante <b>8</b> &egrave; attivo e se viene premuto, il punto di controllo viene riportato nella posizione del suo nodo.
+<p>Il pulsante <b>9</b> apre la curva o forma, spezzandone il contorno. Premete il pulsante e poi fate clic su un punto del contorno a scelta: sembrer&agrave; che sia stato creato un nodo, come accade premendo il pulsante <b>2</b>, ma in realt&agrave; ne sono stati creati due, e se ne spostate uno vedrete che il contorno &egrave; stato spezzato. Il pulsante <b>10</b> esegue l'operazione contraria, unendo gli estremi liberi di una curva o forma spezzata (<i>e pu&ograve; anche essere usato per ottenere una figura chiusa a partire da una curva di B&eacute;zier</i>).
+<p>I pulsanti non numerati della terza riga (dopo il <b>10</b>) ribaltano la forma in senso orizzontale e verticale rispettivamente.</td>
+</tr></table>
+<h3>Distorsione</h3>
+<table cellpadding=3><tr>
+<td>I pulsanti nella prima riga al di sotto di quelle numerate eseguono le operazioni di distorsione. Ciascun clic su un pulsante distorce la forma di un piccolo ammontare. Qui vediamo i risultati della distorsione usando i quattro pulsanti in ordine da sinistra a destra, dove ciascuno &egrave; stato premuto 10 volte. All'inizio il lato superiore di tutte le quattro forme aveva la stessa posizione Y.</td>
+<td><img src="images/skewing.png" ALT="Skewing Example"></td>
+</tr></table>
+<h3>Rotazione, allargamento, riduzione</h3>
+Sotto le quattro file di pulsanti si trovano tre caselle di controllo affiancate a sinistra da pulsanti. Le loro funzioni sono piuttosto intuitive, e i due pulsanti svolgono azioni opposte, per la rotazione, e per due modi di allargare o restringere: uno in base a percentuale e l'altro in base a un valore in punti. Ciascun clic su un pulsante provoca una modifica di ammontare pari a quello indicato nella casella di controllo.
+<p>
+<h3>Che cos'&egrave; il riquadro di delimitazione?</h3>
+<table cellpadding=3><tr>
+<td><img src="images/boundingbox.png" ALIGN=left></td>
+<td><img src="images/boundingbox1.png" ALIGN=left></td>
+<td>Il <i>riquadro di delimitazione</i> &egrave; lo spazio rettangolare che definisce i confini di una forma e tutti i suoi componenti descrittivi. Vediamo questo concetto illustrato nella prima immagine a sinistra, che evidenzia che il riquadro di delimitazione &egrave; molto pi&ugrave; grande della forma vera e propria. Quando passiamo alla modalit&agrave; modifica, come mostrato nell'immagine accanto, vediamo che il riquadro di delimitazione comprende sempre tutti i punti di controllo della forma.
+<p>C'&egrave; una limitazione per i valori di <b>Pos X</b> e <b>Pos Y</b>, che non possono diminuire a meno di 0,0 quando sono riferiti al riquadro di delimitazione, quindi con le caselle di controllo non sar&agrave; possibile spostare nodi o punti di controllo a coordinate minori di questo valore. Tuttavia essi possono essere spostati con il mouse e l'angolo superiore sinistro del riquadro di delimitazione sar&agrave; allora riposizionato. Una soluzione alternativa pu&ograve; essere l'uso di <b>Coordinate assolute</b>, poich&eacute; i loro valori possono essere anche negativi.
+<p><b>Intorno al riquadro di delimitazione</b> &egrave; una delle possibilit&agrave; per il flusso del testo intorno alle cornici, come si vede nell'immagine della scheda Forma.
+</td>
+</tr></table>
+<br clear=all>
+<h3>E infine: che cos'&egrave; la linea di contorno?</h3>
+O forse dovremmo dire: a che serve? La linea di contorno non &egrave; mai visibile, tranne in questa modalit&agrave; di modifica. Immaginiamo di avere una cornice o forma non rettangolare, e di voler far scorrere il testo intorno a essa, ma senza seguire il contorno della cornice o della forma. Anche se &egrave; una forma e ha un riquadro di delimitazione, quest'ultimo potrebbe non essere ci&ograve; che vogliamo; quindi possiamo usare una linea di contorno per far fluire il testo intorno a essa nel modo che vogliamo. Mentre si modifica la linea di contorno, il flusso del testo si adatta alle modifiche, e questo rende pi&ugrave; facile ottenere l'aspetto desiderato.
+<table cellpadding=3><tr>
+<td><img src="images/frame_shape_flow.png" ALIGN=left></td>
+<td><img src="images/contourline_flow.png" ALIGN=left></td>
+</tr></table>
+<p>La linea di contorno non &egrave; considerata parte dei componenti dell'immagine, quindi i suoi nodi e punti di controllo possono trovarsi anche fuori dal riquadro di delimitazione.
+<h3>Combinare poligoni</h3>
+Quest'operazione si applica sia ai poligoni che alle forme e a poligoni e forme insieme. L'idea &egrave; quella di combinare due o pi&ugrave; forme che si trovano a quote diverse per ottenerne una sola.
+<table cellpadding=3><tr>
+<td><img src="images/combine_polygons.png"></td>
+<td><img src="images/combine_polygons1.png"></td>
+<td><img src="images/combine_polygons3.png"></td>
+</tr></table>
+Le immagini qui sopra mostrano la situazione iniziale, con una forma sovrapposta a un poligono, e la forma &egrave; dotata di trasparenza. Nell'immagine centrale selezioniamo i due oggetti facendo clic e trascinando il mouse intorno a entrambi, poi selezioniamo <b>Elemento > Combina poligoni</b> nel men&ugrave; principale, e il risultato &egrave; quello dell'immagine a destra. Con questo metodo i colori derivano dall'oggetto inferiore.
+<table><tr>
+<td><img src="images/combine_polygons2.png"></td>
+<td><img src="images/combine_polygons4.png"></td>
+<td><img src="images/combine_polygons5.png"></td>
+</tr></table>
+Nell'immagine qui sopra a sinistra, abbiamo selezionato le forme tenendo premuto il tasto Maiusc e facendo clic prima sulla forma a croce, e poi abbiamo combinato le due forme; in questo modo, anche combinando pi&ugrave; di due forme, i colori derivano dal primo oggetto su cui si &egrave; fatto clic. L'immagine centrale mostra che il poligono combinato ha conservato la trasparenza. A destra vediamo i risultati di <b>Elemento > Dividi poligono</b>. &Egrave; sconsigliato annullare l'operazione di combinazione di poligoni, poich&eacute; i risultati possono essere imprevedibili, e in certi casi potrebbero anche causare una chiusura inattesa del programma.
+<p>Un altro particolare da notare &egrave; che nelle immagini dell'ultima fila, la combinazione pi&ugrave; a sinistra usa una <b>regola di riempimento pari-dispari</b> e quella centrale usa una regola <b>non zero</b>. La scelta tra le due regole di riempimento si trova nella scheda Forma e <i>si applica dopo aver combinato i poligoni</i>.
+</body>
+</html>

@@ -1,0 +1,63 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Come creare il vostro primo formulario PDF per il web con Scribus</title>
+</head>
+<body>
+<h2>Formulari PDF</h2>
+<i>Ringraziamo Maciej Hanski, che ha tradotto il file originale dal polacco all'inglese. Il contenuto di questa pagina &egrave; disponibile secondo la Free Documentation Licence.</i></p>
+<!--<p>The sample files, <code>scribusformphp.tar.gz</code>, a tarball of a php file and a sample doc, are available from http://docs.scribus.net</a></p>-->
+
+<p>Uno dei vantaggi offerti da Scribus &egrave; la possibilit&agrave; di creare formulari PDF con script JavaScript incorporati (come descritto nella <a href="http://www.adobe.com/devnet/acrobat/javascript.html">Adobe JavaScript Reference</a>).</p>
+
+<p>&Egrave; semplice creare un formulario con Scribus. Cominciate col creare un nuovo documento facendo clic sull'apposita icona, oppure con <i>File &gt; Nuovo</i> nel men&ugrave; principale.</p>
+
+<p>Poi attivate la griglia (<i>Pagina &gt; Aggancia alla griglia</i>) e rendetela visibile (<i>Vista &gt; Mostra griglia</i>). Questo vi aiuter&agrave; a posizionare correttamente i campi del formulario nella pagina. Poi create le <a href="WwText.html">cornici di testo</a> che conterranno le descrizioni del campi.</p>
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht1.png" /></td></tr></table>
+
+<div>Ora potete iniziare ad inserire gli elementi del formulario. Gli strumenti per i formulari si trovano nella barra degli strumenti principale:
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht2.png" /></td></tr></table>
+
+Per aggiungere un campo di testo PDF, fate clic sul secondo pulsante da sinistra e create una cornice di testo. In questo formulario d'esempio, serve un campo di testo PDF per ciascuna voce: &ldquo;Name,&rdquo; &ldquo;Street/No&rdquo; e &ldquo;ZIP Code/Town.&rdquo;. Per creare un pulsante PDF, usate il pulsante a sinistra nella barra degli strumenti.
+
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht3.png" /></td></tr></table>
+
+<p>Come potete vedere dalla schermata qui sopra, in tutti i campi del formulario PDF il bordo della cornice &egrave; in colore <i>blu</i>. Per modificare le propriet&agrave; di un campo, fate clic col tasto destro e selezionate  &ldquo;Opzioni PDF &gt; Propriet&agrave; campo&rdquo;:</p>
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht4.png" /></td></tr></table>
+
+<p>Nella finestra di dialogo &ldquo;Propriet&agrave; campo&rdquo; la maggior parte degli elementi hanno significato evidente, e qui non &egrave; possibile spiegare tutte le opzioni in dettaglio. Per lo scopo di questa introduzione &egrave; importante che assegniate un nome unico a ciascun campo di testo PDF e che il tipo del campo sia &ldquo;Campo di testo.&rdquo; Il nome &egrave; importante, perch&eacute; pu&ograve; essere utilizzato da script esterni che elaborano i dati inseriti nel formulario, ad esempio se esso &egrave; utilizzato per inviare i dati a un sito. Potete anche fare in modo che sia Scribus a validare la correttezza dei dati inseriti dall'utente del PDF, ad esempio se un campo richiede un valore numerico. Le possibilit&agrave; di validazione di Scribus sono limitate, e se non sono sufficienti al vostro scopo potete servirvi del JavaScript per crearne di pi&ugrave; sofisticate.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht5.png" /></td></tr></table>
+
+<p>Per inviare dal vostro visualizzatore PDF i dati inseriti, dovete aggiungere un pulsante &ldquo;Invia&rdquo; al formulario. Create un pulsante come spiegato sopra e aprite la finestra di dialogo delle propriet&agrave; del campo dal men&ugrave; contestuale:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht6.png" /></td></tr></table>
+
+<p>Osservate che la scheda &ldquo;Azioni&rdquo; contiene molte pi&ugrave; azioni, oltre a &ldquo;Invia modulo&rdquo;, come potete vedere nel men&ugrave; a discesa &ldquo;Tipo.&rdquo;</p>
+
+<p>Quando esportate il formulario in PDF, &egrave; consigliabile scegliere almeno la versione PDF 1.4 nella finestra di esportazione PDF.</p>
+
+<!--<p>The result of our work can be downloaded from http://docs.scribus.net and tested. In order to submit the form we must open it from within a browser, Netscape 4.* or Mozilla are the safe choices (check the Mozilla plug-ins to see, if the Acrobat Reader plug-in is enabled. If not, you have to symlink it into the Mozilla's plug-in directory. In my particular case, the Mozilla's plug-in directory is  <strong>/usr/lib/mozilla-1.3/plug-in</strong>, and the plug-in to be symlinked into it is <strong>/usr/local/Acrobat5/Browsers/intellinux/nppdf.so</strong>).</p>
+
+<p><strong>My very own impression:</strong> Scribus as a tool for working with PDF forms seems to be more comfortable in use than Adobe Acrobat 5.0 (the only version, I've worked with). It's a lot easier to layout documents with Scribus, since Acrobat only allows you to edit existing documents, but not to create a new document from  scratch. Scribus provides us with the full control over the final results and allows us much more freedom in changing the document's layout. More over, Scribus files can be edited even with a simple text editor, since its file format is entirely XML
+based.</p>-->
+<p>Autore: Maciej Hanski, ottobre 2003<br />
+Aggiornato da Christoph Sch&auml;fer, settembre 2011
+</p>
+
+
+<h4>Alcuni utili link su PDF/JavaScript</h4>
+<ul>
+        <li><a href="http://www.planetpdf.com/developer/article.asp?ContentID=6575" target="_blank">Planet PDF</a></li>
+        <li><a href="http://www.adobe.com/devnet/acrobat/javascript.html" target="_blank">JavaScript for Acrobat</a></li>
+</ul>
+
+<h4>Alcuni utili link su CGI/PHP</h4>
+<ul>
+        <li><a href="http://www.cgi101.com/book/ch4/text.html">http://www.cgi101.com/book/ch4/text.html</a></li>
+        <li><a href="http://www.cgi101.com/book/ch4/post-cgi.html">http://www.cgi101.com/book/ch4/post-cgi.html</a></li>
+        <!--<li><a href="http://www.mkaz.com/reference/php/setup_linux.html">http://www.mkaz.com/reference/php/setup_linux.html</a></li>-->
+</ul>
+
+</body>
+</html>

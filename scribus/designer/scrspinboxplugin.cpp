@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QtPlugin>
 #include "scrspinboxplugin.h"
-#include "../scrspinbox.h"
+#include "../ui/scrspinbox.h"
 
 
 ScrSpinBoxPlugin::ScrSpinBoxPlugin(QObject* parent)

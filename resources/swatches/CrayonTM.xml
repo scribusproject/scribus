@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Crayon (TM)" >
+ <COLOR Spot="0" RGB="#EFDECD" Register="0" NAME="Almond" />
+ <COLOR Spot="0" RGB="#CD9575" Register="0" NAME="Antique Brass" />
+ <COLOR Spot="0" RGB="#FDD9B5" Register="0" NAME="Apricot" />
+ <COLOR Spot="0" RGB="#78DBE2" Register="0" NAME="Aquamarine" />
+ <COLOR Spot="0" RGB="#87A96B" Register="0" NAME="Asparagus" />
+ <COLOR Spot="0" RGB="#FFA474" Register="0" NAME="Atomic Tangerine" />
+ <COLOR Spot="0" RGB="#FAE7B5" Register="0" NAME="Banana Mania" />
+ <COLOR Spot="0" RGB="#9F8170" Register="0" NAME="Beaver" />
+ <COLOR Spot="0" RGB="#FD7C6E" Register="0" NAME="Bittersweet" />
+ <COLOR Spot="0" RGB="#000000" Register="0" NAME="Black" />
+ <COLOR Spot="0" RGB="#ACE5EE" Register="0" NAME="Blizzard Blue" />
+ <COLOR Spot="0" RGB="#1F75FE" Register="0" NAME="Blue" />
+ <COLOR Spot="0" RGB="#A2A2D0" Register="0" NAME="Blue Bell" />
+ <COLOR Spot="0" RGB="#6699CC" Register="0" NAME="Blue Gray" />
+ <COLOR Spot="0" RGB="#0D98BA" Register="0" NAME="Blue Green" />
+ <COLOR Spot="0" RGB="#7366BD" Register="0" NAME="Blue Violet" />
+ <COLOR Spot="0" RGB="#DE5D83" Register="0" NAME="Blush" />
+ <COLOR Spot="0" RGB="#CB4154" Register="0" NAME="Brick Red" />
+ <COLOR Spot="0" RGB="#B4674D" Register="0" NAME="Brown" />
+ <COLOR Spot="0" RGB="#FF7F49" Register="0" NAME="Burnt Orange" />
+ <COLOR Spot="0" RGB="#EA7E5D" Register="0" NAME="Burnt Sienna" />
+ <COLOR Spot="0" RGB="#B0B7C6" Register="0" NAME="Cadet Blue" />
+ <COLOR Spot="0" RGB="#FFFF99" Register="0" NAME="Canary" />
+ <COLOR Spot="0" RGB="#1CD3A2" Register="0" NAME="Caribbean Green" />
+ <COLOR Spot="0" RGB="#FFAACC" Register="0" NAME="Carnation Pink" />
+ <COLOR Spot="0" RGB="#DD4492" Register="0" NAME="Cerise" />
+ <COLOR Spot="0" RGB="#1DACD6" Register="0" NAME="Cerulean" />
+ <COLOR Spot="0" RGB="#BC5D58" Register="0" NAME="Chestnut" />
+ <COLOR Spot="0" RGB="#DD9475" Register="0" NAME="Copper" />
+ <COLOR Spot="0" RGB="#9ACEEB" Register="0" NAME="Cornflower" />
+ <COLOR Spot="0" RGB="#FFBCD9" Register="0" NAME="Cotton Candy" />
+ <COLOR Spot="0" RGB="#FDDB6D" Register="0" NAME="Dandelion" />
+ <COLOR Spot="0" RGB="#2B6CC4" Register="0" NAME="Denim" />
+ <COLOR Spot="0" RGB="#EFCDB8" Register="0" NAME="Desert Sand" />
+ <COLOR Spot="0" RGB="#6E5160" Register="0" NAME="Eggplant" />
+ <COLOR Spot="0" RGB="#CEFF1D" Register="0" NAME="Electric Lime" />
+ <COLOR Spot="0" RGB="#71BC78" Register="0" NAME="Fern" />
+ <COLOR Spot="0" RGB="#6DAE81" Register="0" NAME="Forest Green" />
+ <COLOR Spot="0" RGB="#C364C5" Register="0" NAME="Fuchsia" />
+ <COLOR Spot="0" RGB="#CC6666" Register="0" NAME="Fuzzy Wuzzy" />
+ <COLOR Spot="0" RGB="#E7C697" Register="0" NAME="Gold" />
+ <COLOR Spot="0" RGB="#FCD975" Register="0" NAME="Goldenrod" />
+ <COLOR Spot="0" RGB="#A8E4A0" Register="0" NAME="Granny Smith Apple" />
+ <COLOR Spot="0" RGB="#95918C" Register="0" NAME="Gray" />
+ <COLOR Spot="0" RGB="#1CAC78" Register="0" NAME="Green" />
+ <COLOR Spot="0" RGB="#1164B4" Register="0" NAME="Green Blue" />
+ <COLOR Spot="0" RGB="#F0E891" Register="0" NAME="Green Yellow" />
+ <COLOR Spot="0" RGB="#F8173E" Register="0" NAME="Hot Magenta" />
+ <COLOR Spot="0" RGB="#B2EC5D" Register="0" NAME="Inchworm" />
+ <COLOR Spot="0" RGB="#5D76CB" Register="0" NAME="Indigo" />
+ <COLOR Spot="0" RGB="#CA3767" Register="0" NAME="Jazzberry Jam" />
+ <COLOR Spot="0" RGB="#3BB08F" Register="0" NAME="Jungle Green" />
+ <COLOR Spot="0" RGB="#FEFE22" Register="0" NAME="Laser Lemon" />
+ <COLOR Spot="0" RGB="#FCB4D5" Register="0" NAME="Lavender" />
+ <COLOR Spot="0" RGB="#FFF44F" Register="0" NAME="Lemon Yellow" />
+ <COLOR Spot="0" RGB="#FFBD88" Register="0" NAME="Macaroni and Cheese" />
+ <COLOR Spot="0" RGB="#F664AF" Register="0" NAME="Magenta" />
+ <COLOR Spot="0" RGB="#AAF0D1" Register="0" NAME="Magic Mint" />
+ <COLOR Spot="0" RGB="#CD4A4C" Register="0" NAME="Mahogany" />
+ <COLOR Spot="0" RGB="#EDD19C" Register="0" NAME="Maize" />
+ <COLOR Spot="0" RGB="#979AAA" Register="0" NAME="Manatee" />
+ <COLOR Spot="0" RGB="#FF8243" Register="0" NAME="Mango Tango" />
+ <COLOR Spot="0" RGB="#C8385A" Register="0" NAME="Maroon" />
+ <COLOR Spot="0" RGB="#EF98AA" Register="0" NAME="Mauvelous" />
+ <COLOR Spot="0" RGB="#FDBCB4" Register="0" NAME="Melon" />
+ <COLOR Spot="0" RGB="#1A4876" Register="0" NAME="Midnight Blue" />
+ <COLOR Spot="0" RGB="#30BA8F" Register="0" NAME="Mountain Meadow" />
+ <COLOR Spot="0" RGB="#C54B8C" Register="0" NAME="Mulberry" />
+ <COLOR Spot="0" RGB="#1974D2" Register="0" NAME="Navy Blue" />
+ <COLOR Spot="0" RGB="#FFA343" Register="0" NAME="Neon Carrot" />
+ <COLOR Spot="0" RGB="#BAB86C" Register="0" NAME="Olive Green" />
+ <COLOR Spot="0" RGB="#FF7538" Register="0" NAME="Orange" />
+ <COLOR Spot="0" RGB="#FF2B2B" Register="0" NAME="Orange Red" />
+ <COLOR Spot="0" RGB="#F8D568" Register="0" NAME="Orange Yellow" />
+ <COLOR Spot="0" RGB="#E6A8D7" Register="0" NAME="Orchid" />
+ <COLOR Spot="0" RGB="#414A4C" Register="0" NAME="Outer Space" />
+ <COLOR Spot="0" RGB="#FF6E4A" Register="0" NAME="Outrageous Orange" />
+ <COLOR Spot="0" RGB="#1CA9C9" Register="0" NAME="Pacific Blue" />
+ <COLOR Spot="0" RGB="#FFCFAB" Register="0" NAME="Peach" />
+ <COLOR Spot="0" RGB="#C5D0E6" Register="0" NAME="Periwinkle" />
+ <COLOR Spot="0" RGB="#FDDDE6" Register="0" NAME="Piggy Pink" />
+ <COLOR Spot="0" RGB="#158078" Register="0" NAME="Pine Green" />
+ <COLOR Spot="0" RGB="#FC74FD" Register="0" NAME="Pink Flamingo" />
+ <COLOR Spot="0" RGB="#F78FA7" Register="0" NAME="Pink Sherbert" />
+ <COLOR Spot="0" RGB="#8E4585" Register="0" NAME="Plum" />
+ <COLOR Spot="0" RGB="#7442C8" Register="0" NAME="Purple Heart" />
+ <COLOR Spot="0" RGB="#9D81BA" Register="0" NAME="Purple Mountain's Majesty" />
+ <COLOR Spot="0" RGB="#FF00CC" Register="0" NAME="Purple Pizzazz" />
+ <COLOR Spot="0" RGB="#FF496C" Register="0" NAME="Radical Red" />
+ <COLOR Spot="0" RGB="#D68A59" Register="0" NAME="Raw Sienna" />
+ <COLOR Spot="0" RGB="#714B23" Register="0" NAME="Raw Umber" />
+ <COLOR Spot="0" RGB="#FF48D0" Register="0" NAME="Razzle Dazzle Rose" />
+ <COLOR Spot="0" RGB="#E3256B" Register="0" NAME="Razzmatazz" />
+ <COLOR Spot="0" RGB="#EE204D" Register="0" NAME="Red" />
+ <COLOR Spot="0" RGB="#FF5349" Register="0" NAME="Red Orange" />
+ <COLOR Spot="0" RGB="#C0448F" Register="0" NAME="Red Violet" />
+ <COLOR Spot="0" RGB="#1FCECB" Register="0" NAME="Robin's Egg Blue" />
+ <COLOR Spot="0" RGB="#7851A9" Register="0" NAME="Royal Purple" />
+ <COLOR Spot="0" RGB="#FF9BAA" Register="0" NAME="Salmon" />
+ <COLOR Spot="0" RGB="#FC2847" Register="0" NAME="Scarlet" />
+ <COLOR Spot="0" RGB="#76FF7A" Register="0" NAME="Screamin' Green" />
+ <COLOR Spot="0" RGB="#9FE2BF" Register="0" NAME="Sea Green" />
+ <COLOR Spot="0" RGB="#A5694F" Register="0" NAME="Sepia" />
+ <COLOR Spot="0" RGB="#8A795D" Register="0" NAME="Shadow" />
+ <COLOR Spot="0" RGB="#45CEA2" Register="0" NAME="Shamrock" />
+ <COLOR Spot="0" RGB="#FB7EFD" Register="0" NAME="Shocking Pink" />
+ <COLOR Spot="0" RGB="#CDC5C2" Register="0" NAME="Silver" />
+ <COLOR Spot="0" RGB="#80DAEB" Register="0" NAME="Sky Blue" />
+ <COLOR Spot="0" RGB="#ECEABE" Register="0" NAME="Spring Green" />
+ <COLOR Spot="0" RGB="#FFCF48" Register="0" NAME="Sunglow" />
+ <COLOR Spot="0" RGB="#FD5E53" Register="0" NAME="Sunset Orange" />
+ <COLOR Spot="0" RGB="#FAA76C" Register="0" NAME="Tan" />
+ <COLOR Spot="0" RGB="#18A7B5" Register="0" NAME="Teal Blue" />
+ <COLOR Spot="0" RGB="#EBC7DF" Register="0" NAME="Thistle" />
+ <COLOR Spot="0" RGB="#DBD7D2" Register="0" NAME="Tickle Me Pink" />
+ <COLOR Spot="0" RGB="#FFF44F" Register="0" NAME="Timberwolf" />
+ <COLOR Spot="0" RGB="#17806D" Register="0" NAME="Tropical Rain Forest" />
+ <COLOR Spot="0" RGB="#DEAA88" Register="0" NAME="Tumbleweed" />
+ <COLOR Spot="0" RGB="#77DDE7" Register="0" NAME="Turquoise Blue" />
+ <COLOR Spot="0" RGB="#FFFF66" Register="0" NAME="Unmellow Yellow" />
+ <COLOR Spot="0" RGB="#C5D0E6" Register="0" NAME="Periwinkle" />
+ <COLOR Spot="0" RGB="#926EAE" Register="0" NAME="Violet (Purple)" />
+ <COLOR Spot="0" RGB="#324AB2" Register="0" NAME="Violet Blue" />
+ <COLOR Spot="0" RGB="#F75394" Register="0" NAME="Violet Red" />
+ <COLOR Spot="0" RGB="#FFA089" Register="0" NAME="Vivid Tangerine" />
+ <COLOR Spot="0" RGB="#8F509D" Register="0" NAME="Vivid Violet" />
+ <COLOR Spot="0" RGB="#FFFFFF" Register="0" NAME="White" />
+ <COLOR Spot="0" RGB="#A2ADD0" Register="0" NAME="Wild Blue Yonder" />
+ <COLOR Spot="0" RGB="#FF43A4" Register="0" NAME="Wild Strawberry" />
+ <COLOR Spot="0" RGB="#FC6C85" Register="0" NAME="Wild Watermelon" />
+ <COLOR Spot="0" RGB="#CDA4DE" Register="0" NAME="Wisteria" />
+ <COLOR Spot="0" RGB="#FCE883" Register="0" NAME="Yellow" />
+ <COLOR Spot="0" RGB="#C5E384" Register="0" NAME="Yellow Green" />
+ <COLOR Spot="0" RGB="#FFAE42" Register="0" NAME="Yellow Orange" />
+</SCRIBUSCOLORS>
+
+<!--Retrieved from http://en.wikipedia.org/wiki/List_of_Crayola_colors. License: CC-Share alike (http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License) -->
+

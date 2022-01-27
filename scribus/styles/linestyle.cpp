@@ -15,13 +15,12 @@
 #include "linestyle.h"
 #include "desaxe/saxiohelper.h"
 #include "desaxe/simple_actions.h"
-#include "prefsmanager.h"
 #include "util_math.h"
 
 
 void LineStyle::applyLineStyle(const LineStyle & other)
 {
-	Style::applyStyle(other);
+	BaseStyle::applyStyle(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if (! other.inh_##attr_NAME) \
 		set##attr_NAME(other.m_##attr_NAME);
@@ -33,7 +32,7 @@ void LineStyle::applyLineStyle(const LineStyle & other)
 void LineStyle::eraseLineStyle(const LineStyle & other)
 {
 	other.validate();
-	Style::eraseStyle(other);
+	BaseStyle::eraseStyle(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if (!inh_##attr_NAME && m_##attr_NAME == other.m_##attr_NAME) \
 		reset##attr_NAME();
@@ -41,7 +40,7 @@ void LineStyle::eraseLineStyle(const LineStyle & other)
 #undef ATTRDEF
 }
 
-bool LineStyle::equiv(const Style & other) const
+bool LineStyle::equiv(const BaseStyle & other) const
 {
 	other.validate();
 	const LineStyle * oth = dynamic_cast<const LineStyle*> ( & other );
@@ -62,8 +61,7 @@ QString LineStyle::displayName() const
 		return name();
 //	else if ( inheritsAll() )
 //		return parent()->displayName();
-	else 
-		return parentStyle()->displayName() + "+";
+	return parentStyle()->displayName() + "+";
 }
 
 
@@ -101,7 +99,7 @@ QString LineStyle::asString() const
 
 void LineStyle::update(const StyleContext* context)
 {
-	Style::update(context);
+	BaseStyle::update(context);
 	const LineStyle * oth = dynamic_cast<const LineStyle*> ( parentStyle() );
 	if (oth) {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -129,7 +127,7 @@ void LineStyle::getNamedResources(ResourceCollection& lists) const
 	QList<LineStyle>::const_iterator it, itend = m_Sublines.constEnd();
 
 	lists.collectColor(color());
-	for (const Style* sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
+	for (const BaseStyle* sty = parentStyle(); sty != nullptr; sty = sty->parentStyle())
 		lists.collectLineStyle(sty->name());
 	for (it = m_Sublines.begin(); it != itend; ++it)
 		(*it).getNamedResources(lists);
@@ -197,7 +195,7 @@ static QString toXMLString(const Sublist & )
 void LineStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr att;
-	Style::saxxAttributes(att);
+	BaseStyle::saxxAttributes(att);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if (!inh_##attr_NAME && strcmp(# attr_NAME, "Sublines") != 0 ) \
 		att.insert(# attr_NAME, toXMLString(m_##attr_NAME));
@@ -250,19 +248,19 @@ using namespace desaxe;
 
 const Xml_string LineStyle::saxxDefaultElem("linestyle");
 
-void LineStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, Xml_string elemtag)
+void LineStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, const Xml_string& elemtag)
 {
 	Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
 	ruleset.addRule(stylePrefix, Factory<LineStyle>());
 	ruleset.addRule(stylePrefix, IdRef<LineStyle>());
-	Style::desaxeRules<LineStyle>(prefixPattern, ruleset, elemtag);
+	BaseStyle::desaxeRules<LineStyle>(prefixPattern, ruleset, elemtag);
 
-//  "**" doesnt work yet - av
+//  "**" doesn't work yet - av
 //	Xml_string stylePrefixRec(Digester::concat(stylePrefix, "**"));
 	const Xml_string& stylePrefixRec(stylePrefix);
 	Xml_string subPrefix(Digester::concat(stylePrefixRec, "subline"));
 	ruleset.addRule(subPrefix, Factory<LineStyle>());
-	Style::desaxeRules<LineStyle>(stylePrefixRec, ruleset, "subline");
+	BaseStyle::desaxeRules<LineStyle>(stylePrefixRec, ruleset, "subline");
 	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if ( strcmp(# attr_NAME, "Sublines") != 0 ) { \

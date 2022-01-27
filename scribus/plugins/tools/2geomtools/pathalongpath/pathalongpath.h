@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License      *
 *   along with this program; if not, write to the                          *
 *   Free Software Foundation, Inc.,                                        *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
 #ifndef PATHALONGPATH_H
@@ -31,16 +31,20 @@ for which a new license (GPL+exception) is in place.
 #include "scplugin.h"
 #include "selection.h"
 
-#include "../lib2geom/sbasis.h"
-#include "../lib2geom/sbasis-geometric.h"
-#include "../lib2geom/bezier-to-sbasis.h"
-#include "../lib2geom/sbasis-to-bezier.h"
-#include "../lib2geom/d2.h"
-#include "../lib2geom/piecewise.h"
-#include "../lib2geom/utils.h"
-#include "../lib2geom/path.h"
-#include "../lib2geom/sbasis-2d.h"
-#include "../lib2geom/scribushelper.h"
+#if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
+#define _USE_MATH_DEFINES
+#endif
+
+#include "third_party/lib2geom/d2.h"
+#include "third_party/lib2geom/piecewise.h"
+#include "third_party/lib2geom/sbasis.h"
+#include "third_party/lib2geom/sbasis-geometric.h"
+#include "third_party/lib2geom/bezier-to-sbasis.h"
+#include "third_party/lib2geom/sbasis-to-bezier.h"
+#include "third_party/lib2geom/utils.h"
+#include "third_party/lib2geom/path.h"
+#include "third_party/lib2geom/sbasis-2d.h"
+#include "third_party/lib2geom/scribushelper.h"
 #include <vector>
 using namespace Geom;
 
@@ -56,13 +60,13 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		PathAlongPathPlugin();
 		virtual ~PathAlongPathPlugin();
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
-		bool handleSelection(ScribusDoc* doc, int SelectedType);
+		bool run(ScribusDoc* doc, const QString& target = QString()) override;
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
+		void addToMainWindowMenu(ScribusMainWindow *) override {};
+		bool handleSelection(ScribusDoc* doc, int SelectedType) override;
 	private:
 		void setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, int rotate);
 		FPointArray doEffect_pwd2 (Geom::Piecewise<Geom::D2<Geom::SBasis> > & pattern);
@@ -73,10 +77,10 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		double originalRot;
 		double originalXPos;
 		double originalYPos;
-		ScribusDoc* currDoc;
+		ScribusDoc* m_doc;
 		bool firstUpdate;
-		Piecewise<D2<SBasis> > uskeleton;
-		Piecewise<D2<SBasis> > n;
+		Geom::Piecewise<Geom::D2<Geom::SBasis> > uskeleton;
+		Geom::Piecewise<Geom::D2<Geom::SBasis> > n;
 		double m_scaling;
 		int nbCopies;
 		double pattWidth;
@@ -84,14 +88,20 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		double m_offsetY;
 		double m_gapval;
 		int m_rotate;
-		Interval pattBnds;
-		Interval pattBndsY;
+		Geom::Interval pattBnds;
+		Geom::Interval pattBndsY;
 		int selOffs;
 		int selCount;
 		QList<FPointArray> originalPathG;
 		QList<double> originalRotG;
 		QList<double> originalXPosG;
 		QList<double> originalYPosG;
+		QList<double> originalXPosGi;
+		QList<double> originalYPosGi;
+		QList<double> originalWidthG;
+		QList<double> originalHeightG;
+		QList<double> originalWidth;
+		QList<double> originalHeight;
 		QList<PageItem *> patternItemG;
 	private slots:
 		void updateEffectG(int effectType, double offset, double offsetY, double gap, int rotate);

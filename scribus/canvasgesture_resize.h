@@ -24,6 +24,7 @@
 #include "canvas.h"
 #include "canvasgesture.h"
 #include "canvasmode.h"
+#include "undotransaction.h"
 
 class QDragEnterEvent;
 class QDragMoveEvent;
@@ -36,7 +37,6 @@ class QKeyEvent;
 class QPainter;
 class QRubberBand;
 class PageItem;
-class UndoTransaction;
 
 /**
   This class realizes resizing of selected items on behalf of its parent mode.
@@ -46,42 +46,49 @@ class UndoTransaction;
  */
 class SCRIBUS_API ResizeGesture : public CanvasGesture
 {
-public:
-	ResizeGesture (CanvasMode* parent);
-	
-	/**
+	public:
+		explicit ResizeGesture (CanvasMode* parent);
+		~ResizeGesture() override = default;
+
+		/**
 		Prepares the gesture for resizing the selection
 	 */
-	void prepare(Canvas::FrameHandle framehandle = Canvas::SOUTHEAST);
-	void clear();
-	
-	virtual void drawControls(QPainter* p);
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	/**
+		void prepare(Canvas::FrameHandle framehandle = Canvas::SOUTHEAST);
+		void clear();
+
+		void drawControls(QPainter* p) override;
+		void activate(bool) override;
+		void deactivate(bool) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+		/**
 	  This method only sets the m_handle field.
-	  If the correct value is set by prepare() (default = SOUTHEAST), 
+	  If the correct value is set by prepare() (default = SOUTHEAST),
 	  it's not necessary to call this method.
 	 */
-	virtual void mousePressEvent(QMouseEvent *m);
-	
-	Canvas::FrameHandle frameHandle() const { return m_handle; }
-	
-private:
-	void adjustBounds(QMouseEvent *m);
-	void doResize(bool scaleContent);
-	Canvas::FrameHandle m_handle;
-	double m_rotation;
-	double m_origRatio;
-	QRectF m_bounds;
-	QRectF m_origBounds;
-	UndoTransaction* m_transactionStarted;
-	double m_extraWidth;
-	double m_extraHeight;
-	double m_extraX;
-	double m_extraY;
+		void mousePressEvent(QMouseEvent *m) override;
+
+		Canvas::FrameHandle frameHandle() const { return m_handle; }
+
+	private:
+		void adjustBounds(QMouseEvent *m);
+		void doResize(bool scaleContent);
+
+		FPoint applyGrid(const FPoint& docPoint);
+		FPoint applyGuides(const FPoint& docPoint);
+
+		Canvas::FrameHandle m_handle {Canvas::INSIDE};
+		QPoint m_mousePressPoint;
+		QRectF m_bounds;
+		QRectF m_mousePressBounds;
+		QRectF m_origBounds;
+		UndoTransaction m_transaction;
+		double m_extraHeight {0.0};
+		double m_extraWidth {0.0};
+		double m_extraX {0.0};
+		double m_extraY {0.0};
+		double m_origRatio {1.0};
+		double m_rotation {0.0};
 };
 
 

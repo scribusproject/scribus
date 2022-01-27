@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scdocoutput.h"
 
 class ScribusDoc;
-class Page;
+class ScPage;
 
 class SCRIBUS_API ScDocOutput_Ps2 : public ScDocOutput
 {
@@ -40,16 +40,15 @@ protected:
 
 	QRect   m_clip;
 
-	virtual void begin(void);
-	virtual void end(void);
+	bool begin() override;
+	void end() override;
 
-	virtual ScPageOutput* createPageOutputComponent(int pageIndex);
+	ScPageOutput* createPageOutputComponent(int pageIndex) override;
 
-	void closeTransforms(void);
-	bool initializeCmsTransforms(void);
+	bool initializeCmsTransforms();
 
 public:
-	ScDocOutput_Ps2(ScribusDoc* doc, QString fileName, std::vector<int>& pageNumbers, QRect& clip, ScPs2OutputParams& options);
+	ScDocOutput_Ps2(ScribusDoc* doc, const QString& fileName, std::vector<int>& pageNumbers, QRect& clip, ScPs2OutputParams& options);
 	~ScDocOutput_Ps2();
 
 	void setAuthor(const QString& author) { m_author = author; }

@@ -21,12 +21,14 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License      *
 *   along with this program; if not, write to the                          *
 *   Free Software Foundation, Inc.,                                        *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
 #include "lenseffects.h"
 #include "lensdialog.h"
 #include "scribuscore.h"
+#include "selection.h"
+#include "scribusview.h"
 
 int lenseffects_getPluginAPIVersion()
 {
@@ -42,12 +44,12 @@ ScPlugin* lenseffects_getPlugin()
 
 void lenseffects_freePlugin(ScPlugin* plugin)
 {
-	LensEffectsPlugin* plug = dynamic_cast<LensEffectsPlugin*>(plugin);
+	LensEffectsPlugin* plug = qobject_cast<LensEffectsPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
 
-LensEffectsPlugin::LensEffectsPlugin() : ScActionPlugin()
+LensEffectsPlugin::LensEffectsPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -74,10 +76,14 @@ void LensEffectsPlugin::languageChange()
 	m_actionInfo.notSuitableFor.append(PageItem::ImageFrame);
 	m_actionInfo.notSuitableFor.append(PageItem::PathText);
 	m_actionInfo.notSuitableFor.append(PageItem::LatexFrame);
+	m_actionInfo.notSuitableFor.append(PageItem::Symbol);
+	m_actionInfo.notSuitableFor.append(PageItem::RegularPolygon);
+	m_actionInfo.notSuitableFor.append(PageItem::Arc);
+	m_actionInfo.notSuitableFor.append(PageItem::Spiral);
 	m_actionInfo.needsNumObjects = 3;
 }
 
-const QString LensEffectsPlugin::fullTrName() const
+QString LensEffectsPlugin::fullTrName() const
 {
 	return QObject::tr("Lens Effects");
 }
@@ -102,10 +108,10 @@ void LensEffectsPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool LensEffectsPlugin::run(ScribusDoc* doc, QString)
+bool LensEffectsPlugin::run(ScribusDoc* doc, const QString&)
 {
 	ScribusDoc* currDoc = doc;
-	if (currDoc == 0)
+	if (currDoc == nullptr)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	if (currDoc->m_Selection->count() > 0)
 	{
@@ -114,23 +120,44 @@ bool LensEffectsPlugin::run(ScribusDoc* doc, QString)
 		{
 			for (int a = 0; a < dia->origPathItem.count(); a++)
 			{
-				PageItem *currItem = currDoc->m_Selection->itemAt(a);
+				PageItem *currItem = dia->origPageItem[a];
 				if (currItem->itemType() == PageItem::Line)
 					continue;
 				QPainterPath path = dia->origPathItem[a]->path();
 				FPointArray points;
 				points.fromQPainterPath(path);
 				currItem->PoLine = points;
-				currItem->Frame = false;
 				currItem->ClipEdited = true;
 				currItem->FrameType = 3;
-				currDoc->AdjustItemSize(currItem);
+				double oW = currItem->width();
+				double oH = currItem->height();
+				currDoc->adjustItemSize(currItem, true);
 				currItem->OldB2 = currItem->width();
 				currItem->OldH2 = currItem->height();
+				if (currItem->isGroup())
+				{
+					currItem->groupWidth = currItem->groupWidth * (currItem->OldB2 / oW);
+					currItem->groupHeight = currItem->groupHeight * (currItem->OldH2 / oH);
+				}
 				currItem->updateClip();
+				if (currItem->isGroup())
+				{
+					currDoc->resizeGroupToContents(currItem);
+					currItem->SetRectFrame();
+				}
 				currItem->ContourLine = currItem->PoLine.copy();
 			}
+			if (currDoc->m_Selection->count() > 0)
+			{
+				PageItem *m_patternItem = currDoc->m_Selection->itemAt(0);
+				if (m_patternItem->isGroup())
+				{
+					currDoc->resizeGroupToContents(m_patternItem);
+					m_patternItem->SetRectFrame();
+				}
+			}
 			currDoc->changed();
+			currDoc->view()->DrawNew();
 		}
 		delete dia;
 	}

@@ -15,6 +15,7 @@ the Free Software Foundation; either version 2 of the License, or
 #define PCONSOLE_H
 
 #include <QLabel>
+#include <QMainWindow>
 #include <QSyntaxHighlighter>
 #include "ui_pconsole.h"
 
@@ -29,7 +30,7 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 	Q_OBJECT
 
 	public:
-		PythonConsole( QWidget* parent = 0);
+		PythonConsole( QWidget* parent = nullptr);
 		~PythonConsole();
 		
 		void setFonts();
@@ -40,8 +41,7 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 		//! \brief File name for saving the contents
 		QString filename;
 
-		//! \brief Close event for turning the action off
-		void closeEvent(QCloseEvent *);
+		void updateSyntaxHighlighter();
 
 	public slots:
 		//! menu operations
@@ -52,7 +52,7 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 		virtual void slot_saveAs();
 		virtual void slot_saveOutput();
 		virtual void slot_quit();
-		/*! \brief Slot processed after user change cursor postion in "programmer's editor".
+		/*! \brief Slot processed after user change cursor position in "programmer's editor".
 		*/
 		virtual void commandEdit_cursorPositionChanged();
 
@@ -73,6 +73,11 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 		QLabel * cursorLabel;
 		QString cursorTemplate;
 
+		//! \brief Process change event
+		void changeEvent(QEvent *e) override;
+		//! \brief Close event for turning the action off
+		void closeEvent(QCloseEvent *) override;
+
 	protected slots:
 		virtual void languageChange();
 		void documentChanged(bool state);
@@ -86,7 +91,7 @@ class SyntaxColors
 {
 	public:
 		SyntaxColors();
-		~SyntaxColors();
+
 		QColor errorColor;
 		QColor commentColor;
 		QColor keywordColor;
@@ -94,10 +99,13 @@ class SyntaxColors
 		QColor numberColor;
 		QColor stringColor;
 		QColor textColor;
+
+		void saveToPrefs();
+
 	private:
 		/*! \brief Converts QColor into #rrggbb string.
 		\param color a QColor to convert. */
-		QString qcolor2named(QColor color);
+		QString qcolor2named(const QColor& color);
 };
 
 /*! \brief Simple syntax highlighting for Scripter (QTextEdit).
@@ -109,11 +117,12 @@ TODO: colors of the higlited texts. User should set the colors in the
 */
 class SyntaxHighlighter : public QSyntaxHighlighter
 {
+	Q_OBJECT
 	public:
 		SyntaxHighlighter(QTextEdit *textEdit);
 
 	protected:
-		void highlightBlock(const QString &text);
+		virtual void highlightBlock(const QString &text);
 
 		struct HighlightingRule
 		{

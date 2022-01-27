@@ -21,16 +21,26 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License      *
 *   along with this program; if not, write to the                          *
 *   Free Software Foundation, Inc.,                                        *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
-#include "pathstroker.h"
-#include "pageitem_polygon.h"
-#include "commonstrings.h"
-#include "scribuscore.h"
-#include "scribusstructs.h"
-#include "util.h"
+#if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
+#define _USE_MATH_DEFINES
+#endif
+#include <cmath>
 #include <QPainterPathStroker>
+
+#include "pathstroker.h"
+
+#include "appmodes.h"
+#include "commonstrings.h"
+#include "pageitem_polygon.h"
+#include "scribuscore.h"
+#include "scribusdoc.h"
+#include "selection.h"
+#include "util.h"
+
+
 
 int pathstroker_getPluginAPIVersion()
 {
@@ -46,12 +56,12 @@ ScPlugin* pathstroker_getPlugin()
 
 void pathstroker_freePlugin(ScPlugin* plugin)
 {
-	PathStrokerPlugin* plug = dynamic_cast<PathStrokerPlugin*>(plugin);
+	PathStrokerPlugin* plug = qobject_cast<PathStrokerPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
 
-PathStrokerPlugin::PathStrokerPlugin() : ScActionPlugin()
+PathStrokerPlugin::PathStrokerPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -78,11 +88,15 @@ void PathStrokerPlugin::languageChange()
 	m_actionInfo.notSuitableFor.append(PageItem::ImageFrame);
 	m_actionInfo.notSuitableFor.append(PageItem::PathText);
 	m_actionInfo.notSuitableFor.append(PageItem::LatexFrame);
+	m_actionInfo.notSuitableFor.append(PageItem::Symbol);
+	m_actionInfo.notSuitableFor.append(PageItem::RegularPolygon);
+	m_actionInfo.notSuitableFor.append(PageItem::Arc);
+	m_actionInfo.notSuitableFor.append(PageItem::Spiral);
 	m_actionInfo.forAppMode.append(modeNormal);
 	m_actionInfo.needsNumObjects = 1;
 }
 
-const QString PathStrokerPlugin::fullTrName() const
+QString PathStrokerPlugin::fullTrName() const
 {
 	return QObject::tr("PathStroker");
 }
@@ -107,10 +121,10 @@ void PathStrokerPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
+bool PathStrokerPlugin::run(ScribusDoc* doc, const QString&)
 {
 	ScribusDoc* currDoc = doc;
-	if (currDoc == 0)
+	if (currDoc == nullptr)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	if (currDoc->m_Selection->count() > 0)
 	{
@@ -135,20 +149,21 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 				stroke.setDashPattern(m_array);
 			}
 			stroke.setWidth(currItem->lineWidth());
-			QPainterPath result = stroke.createStroke(pp);
+			QPainterPath result = stroke.createStroke(pp).simplified();
 			if (currItem->startArrowIndex() != 0)
 			{
 				FPoint Start = currItem->PoLine.point(0);
-				for (uint xx = 1; xx < currItem->PoLine.size(); xx += 2)
+				for (int xx = 1; xx < currItem->PoLine.size(); xx += 2)
 				{
 					FPoint Vector = currItem->PoLine.point(xx);
 					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-						QMatrix arrowTrans;
-						FPointArray arrow = currDoc->arrowStyles.at(currItem->startArrowIndex()-1).points.copy();
+						QTransform arrowTrans;
+						FPointArray arrow = currDoc->arrowStyles().at(currItem->startArrowIndex()-1).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
+						arrowTrans.scale(currItem->startArrowScale() / 100.0, currItem->startArrowScale() / 100.0);
 						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
 						arrow.map(arrowTrans);
 						result.addPath(arrow.toQPainterPath(true));
@@ -165,10 +180,11 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-						QMatrix arrowTrans;
-						FPointArray arrow = currDoc->arrowStyles.at(currItem->endArrowIndex()-1).points.copy();
+						QTransform arrowTrans;
+						FPointArray arrow = currDoc->arrowStyles().at(currItem->endArrowIndex()-1).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
+						arrowTrans.scale(currItem->endArrowScale() / 100.0, currItem->endArrowScale() / 100.0);
 						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
 						arrow.map(arrowTrans);
 						result.addPath(arrow.toQPainterPath(true));
@@ -187,21 +203,20 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 			FPointArray points;
 			points.fromQPainterPath(result);
 			newItem->PoLine = points;
-			newItem->Frame = false;
 			newItem->ClipEdited = true;
 			newItem->FrameType = 3;
-			currDoc->AdjustItemSize(newItem);
+			currDoc->adjustItemSize(newItem);
 			newItem->OldB2 = newItem->width();
 			newItem->OldH2 = newItem->height();
 			newItem->updateClip();
 			newItem->ContourLine = newItem->PoLine.copy();
-			newItem->setFillEvenOdd(true);
+			newItem->setFillEvenOdd(false);
 			currDoc->m_Selection->addItem(newItem);
 		}
 		else
 		{
 			currDoc->m_Selection->clear();
-			multiLine ml = currDoc->MLineStyles[currItem->NamedLStyle];
+			multiLine ml = currDoc->docLineStyles[currItem->NamedLStyle];
 			bool first = true;
 			for (int it = ml.size()-1; it > -1; it--)
 			{
@@ -218,7 +233,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						stroke.setDashPattern(m_array);
 					}
 					stroke.setWidth(ml[it].Width);
-					QPainterPath result = stroke.createStroke(pp);
+					QPainterPath result = stroke.createStroke(pp).simplified();
 					PageItem* newItem;
 					if (first)
 					{
@@ -231,7 +246,6 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						currDoc->Items->append(newItem);
 					}
 					first = false;
-					newItem->ItemNr = currDoc->Items->count()-1;
 					newItem->setLineStyle(Qt::SolidLine);
 					newItem->setFillColor(ml[it].Color);
 					newItem->setFillShade(ml[it].Shade);
@@ -242,36 +256,35 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 					FPointArray points;
 					points.fromQPainterPath(result);
 					newItem->PoLine = points;
-					newItem->Frame = false;
 					newItem->ClipEdited = true;
 					newItem->FrameType = 3;
-					currDoc->AdjustItemSize(newItem);
+					currDoc->adjustItemSize(newItem);
 					newItem->OldB2 = newItem->width();
 					newItem->OldH2 = newItem->height();
 					newItem->updateClip();
 					newItem->ContourLine = newItem->PoLine.copy();
-					newItem->setFillEvenOdd(true);
+					newItem->setFillEvenOdd(false);
 					currDoc->m_Selection->addItem(newItem);
 				}
 			}
 			if (currItem->startArrowIndex() != 0)
 			{
 				FPoint Start = currItem->PoLine.point(0);
-				for (uint xx = 1; xx < currItem->PoLine.size(); xx += 2)
+				for (int xx = 1; xx < currItem->PoLine.size(); xx += 2)
 				{
 					FPoint Vector = currItem->PoLine.point(xx);
 					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-						QMatrix arrowTrans;
-						FPointArray arrow = currDoc->arrowStyles.at(currItem->startArrowIndex()-1).points.copy();
+						QTransform arrowTrans;
+						FPointArray arrow = currDoc->arrowStyles().at(currItem->startArrowIndex()-1).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
+						arrowTrans.scale(currItem->startArrowScale() / 100.0, currItem->startArrowScale() / 100.0);
 						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
 						arrow.map(arrowTrans);
 						PageItem* newItem = new PageItem_Polygon(*currItem);
 						currDoc->Items->append(newItem);
-						newItem->ItemNr = currDoc->Items->count()-1;
 						newItem->setLineWidth(0);
 						newItem->setLineStyle(Qt::SolidLine);
 						newItem->setCustomLineStyle("");
@@ -280,10 +293,9 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						newItem->setFillTransparency(newItem->lineTransparency());
 						newItem->setFillBlendmode(newItem->lineBlendmode());
 						newItem->PoLine = arrow;
-						newItem->Frame = false;
 						newItem->ClipEdited = true;
 						newItem->FrameType = 3;
-						currDoc->AdjustItemSize(newItem);
+						currDoc->adjustItemSize(newItem);
 						newItem->OldB2 = newItem->width();
 						newItem->OldH2 = newItem->height();
 						newItem->updateClip();
@@ -303,15 +315,15 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-						QMatrix arrowTrans;
-						FPointArray arrow = currDoc->arrowStyles.at(currItem->endArrowIndex()-1).points.copy();
+						QTransform arrowTrans;
+						FPointArray arrow = currDoc->arrowStyles().at(currItem->endArrowIndex()-1).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
+						arrowTrans.scale(currItem->endArrowScale() / 100.0, currItem->endArrowScale() / 100.0);
 						arrowTrans.scale(currItem->lineWidth(), currItem->lineWidth());
 						arrow.map(arrowTrans);
 						PageItem* newItem = new PageItem_Polygon(*currItem);
 						currDoc->Items->append(newItem);
-						newItem->ItemNr = currDoc->Items->count()-1;
 						newItem->setLineWidth(0);
 						newItem->setLineStyle(Qt::SolidLine);
 						newItem->setCustomLineStyle("");
@@ -320,10 +332,9 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						newItem->setFillTransparency(newItem->lineTransparency());
 						newItem->setFillBlendmode(newItem->lineBlendmode());
 						newItem->PoLine = arrow;
-						newItem->Frame = false;
 						newItem->ClipEdited = true;
 						newItem->FrameType = 3;
-						currDoc->AdjustItemSize(newItem);
+						currDoc->adjustItemSize(newItem);
 						newItem->OldB2 = newItem->width();
 						newItem->OldH2 = newItem->height();
 						newItem->updateClip();

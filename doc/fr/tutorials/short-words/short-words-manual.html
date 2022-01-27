@@ -1,0 +1,70 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Short Words pour Scribus</title>
+</head>
+<body>
+
+<h1>Short Words pour Scribus</h1>
+<p>Copyright  2004 Petr Van&#283;k, Maciej Hanski</p>
+
+<p>Permission vous est donnée de copier, distribuer et/ou modifier ce document selon les termes de la Licence GNU Free Documentation License, Version 1.2 ou ultérieure publiée par la Free Software Foundation, sans sections inaltérables, sans texte de première page de couverture, et sans texte de dernière page de couverture. Une copie de cette Licence est incluse dans la section appelée GNU Free Documentation License de ce document.
+</p>
+
+<h2>A quoi sert Short Words </h2>
+<span class="application">Short Words pour Scribus</span> est un greffon spécial permettant d'ajouter des espace insécables avant ou après certains mots courts ou abbréviations.</p><p>Ces mots courts et abbréviations sont spécifiques à chaque langue et à ses règles de typographie; par exemple les standards tchèques, polonais et slovaques interdisent de laisser des mots d'une seule lettre à la fin d'une ligne si celle-ci contient plus de 25 caractères. Les symboles de mesures posent le même problème, et pour des raisons évidentes, des espaces insécables doivent placées entre l'unité de mesure et le nombre la précédent. On trouve également de nombreuses appellations académiques ou encore militaires qui ne doivent pas être séparées de leur propriétaire. </p><p>
+Bien que l'équipe de Scribus ne puisse pas prendre en compte chacun de ces standards nationaux, l'un des développeurs principaux de Scribus,  Petr Van&#283;k, a décidé de fournir aux utilisateurs de Scribus un greffon facile à personnaliser pour s'adapter aux besoins de chacun : Short Words
+</p>
+
+<h2 class="title">Comment ça marche ?</h2>
+
+<p>La capture d'écran suivante montre un texte contenant un mot court avant l'insertion d'espaces insécables.</p><div class="figure"><a name="id2430087"></a><p class="title"><b>Figure 2.1. Exemple de texte avant le traitement par Short Words</b></p><div class="mediaobject"><img src="before_short_words.png" alt="Exemple de texte avant le traitement par Short Words"></div></div><p>Le même texte après l'ajout des espaces insécables. Le mot Mr. entouré en rouge est passé à la ligne suivante, car l'espace normale entre Mr. et Justice a été remplacée par une espace insécable. </p><div class="figure"><a name="id2428689"></a><p class="title"><b>Figure 2.2. Le même texte après le traitement par Short Words</b></p><div class="mediaobject"><img src="after_short_words.png" alt="Le même texte après le traitement par Short Words"></div></div></div>
+
+<h2 class="title">Comment utiliser Short Words</h2>
+
+<p>Si vous avez correctement installé le greffon, allez dans le menu <span class="guimenu">Extra</span>
+et sélectionnez l'option <span class="guimenu">Espaces insécables...</span> :</p><div class="figure"><a name="id2428734"></a><p class="title"><b>Figure 3.1. Exécution de Short Words pour Scribus</b></p><div class="mediaobject"><img src="menu.png" alt="Exécution de Short Words pour Scribus"></div></div><div class="figure"><a name="id2428755"></a><p class="title"><b>Figure 3.2. Fenêtre de dialogue Short Words</b></p><div class="mediaobject"><img src="dialog.png" alt="Fenêtre de dialogue Short Words"></div></div><div class="variablelist"><dl><dt><span class="term">Cadres sélectionnés </span></dt><dd><p>Applique les espaces insécables aux cadres de texte sélectionnés.</p></dd><dt><span class="term">Page active</span></dt><dd><p>Applique les espaces insécables à tous les cadres de la page courante.</p></dd><dt><span class="term">Tous les objets</span></dt><dd><p>Applique les espaces insécables à<span class="emphasis"><em>tout le document</em></span></p></dd></dl></div><div class="variablelist"><dl><dt><span class="term">Remplacer la configuration par défaut par une configuration personnalisée</span></dt><dd><p>Lorsque le fichier de configuration propre à l'utilisateur existe, il est possible de choisir de l'ajouter à la configuration par défaut en laissant la case non cochée. Il est également possible de remplacer la configuration par défaut par celle de l'utilisateur en cochant cette même case. </p></dd></dl></div></div><div class="chapter" lang="fr"><div class="titlepage">
+
+<h2 class="title"> Installation</h2>
+
+<p>La meilleure façon d'installer ce greffon est de vérifier sur le <a href="http://www.scribus.net" target="_top">site de Scribus </a> si des paquets sont disponibles pour votre distribution favorite comme Fedora, SuSE, Gentoo, Mandrake, ou PLD.</p><p>Si aucun paquet n'est disponible pour votre distribution, le greffon peut être compilé à partir des sources, en trois étapes :</p><pre class="programlisting">#./configure
+# make
+# make install
+...
+</pre><p>Vous pouvez spécifier <tt class="filename">./configure --prefix=/chemin/vers/scribus/précédemment/installé</tt>. Le préfixe par défaut est <tt class="filename">/usr/local</tt> c'est à dire le chemin par défaut où est installé <span class="application">Scribus</span> à partir des sources. Sur sa Gentoo, l'auteur utilise <tt class="filename">./configure --prefix=/usr</tt> pour correspondre à son ebuild.</p><p>Si la compilation du greffon échouait, vérifiez avant tout que vous avez toutes les <a href="http://ahnews.music.salford.ac.uk/scribus/documentation/index-2.html#ss2.2" target="_top">bibliothèques requises</a>.</p></div><div class="chapter" lang="fr"><div class="titlepage">
+
+<h2 class="title">Configuration</h2>
+<p><span class="application">Short Words pour Scribus</span> fournit un fichier de configuration global, <tt class="filename">scribus-short-words.rc</tt>, qui se trouve par défaut dans le répertoire <tt class="filename">/usr/local/lib/scribus/plugins</tt> (le répertoire dépend de l'endroit où vous ou votre distribution avez installé Scribus). Ce fichier de configuration est de compréhension aisée, puisqu'il contient une liste de mots courts ou abbréviations pour une langue donnée, séparés par des virgules et chacun précédé ou suivi d'un espace. La position de l'espace, avant ou après le mot indique au greffon où doit se placer l'espace insécable. Chaque ligne du fichier de configuration débute par la langue à laquelle correspondent les mots sur le reste de la ligne, par exemple en pour l'anglais, cs pour le tchèque ou fr pour le français :
+</p><pre class="programlisting">
+#  English stuff START here
+en=Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
+en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
+
+#  Czech short words START here
+## hanging conjunctions
+cs=K ,k ,S ,s ,V ,v ,Z ,z ,O ,o ,U ,u ,I ,i ,A ,
+## physics and math
+cs= kg, g, m, cm, mm, l, hl, s, %,
+
+#  French short words START here
+fr=Dr. ,Dr ,M. ,M ,Mr ,Mr. ,Mme. ,Mme ,Mlle. ,Mlle , MM ,MM. ,
+## physics and math
+fr= kg, g, km, m, cm, mm, l, hl, s, %, Â°,
+
+
+</pre><p>Si vous souhaitez utiliser votre propre liste de mots, par exemple pour une nouvelle langue, créez votre fichier de configuration avec votre liste de mots, et enregistrez ce fichier en le nommant <tt class="filename">scribus-short-words.rc</tt> et en le plaçant dans le répertoire  <tt class="filename">~/.scribus</tt>. <span class="emphasis"><em>Vous pouvez ensuite choisir d'ajouter votre configuration à celle par défaut ou simplement de remplacer cette dernière pour n'utiliser que votre configuration personnelle.</em></span></p><div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Important</h3>L'auteur, Petr Van&#283;k, n'a de cesse d'étendre le fichier de configuration global pour satisfaire les besoins du plus grand nombre; par conséquent, n'hésitez pas à l'informer sur les abbréviations et autres mots courts spécifiques à votre langue. </div></div><div class="chapter" lang="fr"><div class="titlepage">
+
+<h2 class="title">Short Words Copyright</h2>
+<p>Short Words for Scribus Copyright 2003, 2004 Petr Van&#283;k,
+<tt class="email">&lt;<a href="mailto:petr@yarpen.cz">petr@yarpen.cz</a>&gt;</tt></p><p>This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.</p><p>You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+</body>
+</html>

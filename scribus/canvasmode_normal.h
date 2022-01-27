@@ -15,8 +15,8 @@
 
 
 
-#ifndef CANVAS_MODE_NORMAL_H
-#define CANVAS_MODE_NORMAL_H
+#ifndef CANVASMODE_NORMAL_H
+#define CANVASMODE_NORMAL_H
 
 #include <QObject>
 #include <QTime>
@@ -39,21 +39,43 @@ class CanvasMode_Normal :  public CanvasMode
 	Q_OBJECT
 	
 public:
-	CanvasMode_Normal(ScribusView* view);
+	explicit CanvasMode_Normal(ScribusView* view);
+	~CanvasMode_Normal() override = default;
 
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
 	
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseDoubleClickEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter* p);
+	void activate(bool) override;
+	void deactivate(bool) override;
+
+	void keyPressEvent(QKeyEvent *e) override;
+	void keyReleaseEvent(QKeyEvent *e) override;
+
+	void mouseDoubleClickEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void drawControls(QPainter* p) override;
 
 private:
+	const unsigned SELECT_IN_GROUP { Qt::AltModifier }; // Qt::MetaModifier;
+	const unsigned SELECT_MULTIPLE { Qt::ShiftModifier };
+	const unsigned SELECT_BENEATH{ Qt::ControlModifier };
+
 	inline bool GetItem(PageItem** pi);
+	void handleCheckBoxPress(PageItem* currItem);
+	void handlePushButtonPress(PageItem* currItem);
+	void handleRadioButtonPress(PageItem* currItem);
+	void handleCheckBoxRelease(PageItem* currItem);
+	void handlePushButtonRelease(PageItem* currItem);
+	void handleRadioButtonRelease(PageItem* currItem);
+	void handleJavaAction(PageItem* currItem, int event);
+	void handleNamedAction(PageItem* currItem);
+	void handleLinkAnnotation(PageItem* currItem);
+	void handleFocusOut(PageItem* currItem);
+	void handleFocusIn(PageItem* currItem);
+	void handleMouseLeave(PageItem* currItem);
+	void handleMouseEnter(PageItem* currItem);
 	bool SeleItem(QMouseEvent *m);
 	void createContextMenu(PageItem *currItem, double mx, double my);
 
@@ -62,16 +84,16 @@ private:
 	FPoint m_mouseSavedPoint;
 	FPoint m_objectDeltaPos;
 
-	bool shiftSelItems;
-	bool MoveGX, MoveGY;
-	int  frameResizeHandle;
-	int  dragConstrainInitPtX, dragConstrainInitPtY;
-	int  GxM, GyM;
-	ScribusMainWindow* m_ScMW;
-	ResizeGesture* resizeGesture;
-	LineMove* lineMoveGesture;
-	RulerGesture* guideMoveGesture;
-	bool m_lastPosWasOverGuide;
+	LineMove* m_lineMoveGesture {nullptr};
+	PageItem* m_hoveredItem {nullptr};
+	ResizeGesture* m_resizeGesture {nullptr};
+	RulerGesture* m_guideMoveGesture {nullptr};
+	ScribusMainWindow* m_ScMW {nullptr};
+	bool m_lastPosWasOverGuide {false};
+	bool m_shiftSelItems {false};
+	int m_dragConstrainInitPtX {0};
+	int m_dragConstrainInitPtY {0};
+	int m_frameResizeHandle {-1};
 
 public slots:
 	void importToPage();

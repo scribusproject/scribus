@@ -9,10 +9,13 @@ for which a new license (GPL+exception) is in place.
 
 #include <memory>
 
+#include <QAbstractItemDelegate>
 #include <QApplication>
 #include <QDebug>
 #include <QPainter>
 #include <QPixmap>
+#include <QScopedPointer>
+#include <QStyleOptionViewItem>
 #include <QVariant>
 
 #include "scguardedptr.h"
@@ -20,39 +23,33 @@ for which a new license (GPL+exception) is in place.
 
 class QVariant;
 
-class ScListBoxDelegate
-{
-public:
-	virtual QString text(const QVariant&) const = 0;
-	virtual ~ScListBoxDelegate() {};
-};
-
 template<unsigned int pixWidth, unsigned int pixHeight>
-class ScListBoxPixmap : public QAbstractItemDelegate, public ScListBoxDelegate
+class ScListBoxPixmap : public QAbstractItemDelegate
 {
 public:
 	ScListBoxPixmap(void);
-	virtual QSize sizeHint (const QStyleOptionViewItem & option, const QModelIndex & index ) const;
-	virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
+
+	virtual QString text(const QVariant&) const = 0;
+
+	// Functions reimplemented from QAbstractItemDelegate
+	QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const override;
+	void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override;
+
 protected:
-	static std::auto_ptr<QPixmap> pmap;
+	static QScopedPointer<QPixmap> pmap;
 	// The drawPixmap function must not modify pixmap size
 	virtual void redraw(const QVariant&) const = 0;
 };
 
 template<unsigned int pixWidth, unsigned int pixHeight> 
-std::auto_ptr<QPixmap> ScListBoxPixmap<pixWidth, pixHeight>::pmap;
-
+QScopedPointer<QPixmap> ScListBoxPixmap<pixWidth, pixHeight>::pmap;
 
 template<unsigned int pixWidth, unsigned int pixHeight>
 ScListBoxPixmap<pixWidth, pixHeight>::ScListBoxPixmap(void) : QAbstractItemDelegate()
 {
-	if (!pmap.get())
-	{
-		pmap.reset( new QPixmap(pixWidth, pixHeight) );
-	}
-};
-
+	if (pmap.isNull())
+		pmap.reset(new QPixmap(pixWidth, pixHeight));
+}
 
 template<unsigned int pixWidth, unsigned int pixHeight>
 QSize ScListBoxPixmap<pixWidth, pixHeight>::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const
@@ -60,55 +57,56 @@ QSize ScListBoxPixmap<pixWidth, pixHeight>::sizeHint(const QStyleOptionViewItem 
 	int h,w;
 	QFontMetrics metrics(option.font);
 	const QVariant data(index.data(Qt::DisplayRole));
-	if ( text(data).isEmpty() )
+	
+	QString textData = text(data);
+	if (textData.isEmpty())
 	{
 		h = pmap->height();
 		w = pmap->width() + 6;
 	}
 	else
 	{
-		h = qMax( pmap->height(), metrics.lineSpacing() + 2 );
-		w = pmap->width() + metrics.width(text(data)) + 6;
+		h = qMax(pmap->height(), metrics.lineSpacing() + 2);
+		w = pmap->width() + metrics.horizontalAdvance(textData) + 6;
 	}
-    return QSize(qMax(w, QApplication::globalStrut().width()), qMax( h, QApplication::globalStrut().height()));
-};
 
+	return QSize(qMax(w, 0), qMax(h, 0));
+}
 
 template<unsigned int pixWidth, unsigned int pixHeight>
 void ScListBoxPixmap<pixWidth, pixHeight>::paint(QPainter * qpainter, const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
-	int yPos;
-	
 	const QVariant data(index.data(Qt::UserRole));
 	redraw(data);
 	
-	int itemHeight = sizeHint( option, index ).height();
+	int itemHeight = sizeHint(option, index).height();
 
 	if (option.state & QStyle::State_Selected)
 		qpainter->fillRect(option.rect, option.palette.highlight());
 		
-    qpainter->save();
+	qpainter->save();
 	qpainter->setRenderHint(QPainter::Antialiasing, true);
 	qpainter->setPen(Qt::NoPen);
 
-	if ( !pmap->isNull() ) {
-		yPos = ( itemHeight - pmap->height() ) / 2;
-		qpainter->drawPixmap( option.rect.x() + 3, option.rect.y() + yPos, *pmap);
-    }
-	if (option.state & QStyle::State_Selected)
-		qpainter->setBrush(option.palette.highlightedText());
-	else
-		qpainter->setBrush(QBrush(Qt::black));
-	qpainter->setPen(Qt::black);
-	
-	QString txt = index.data(Qt::DisplayRole).toString();
+	if (!pmap->isNull())
+	{
+		int yPos = (itemHeight - pmap->height()) / 2;
+		qpainter->drawPixmap(option.rect.x() + 3, option.rect.y() + yPos, *pmap);
+	}
 
-    if ( !txt.isEmpty() ) {
+	if (option.state & QStyle::State_Selected)
+		qpainter->setPen(QPen(option.palette.highlightedText(), 0));
+	else
+		qpainter->setPen(QPen(option.palette.text(), 0));
+	
+	QString txt(index.data(Qt::DisplayRole).toString());
+	if (!txt.isEmpty())
+	{
 		QFontMetrics fm = qpainter->fontMetrics();
-		yPos = ( ( itemHeight - fm.height() ) / 2 ) + fm.ascent();
-		qpainter->drawText( option.rect.x() + pmap->width() + 5, option.rect.y() + yPos, txt );
-    }
-    qpainter->restore();
-};
+		int yPos = (itemHeight - fm.height()) / 2 + fm.ascent();
+		qpainter->drawText(option.rect.x() + pmap->width() + 5, option.rect.y() + yPos, txt);
+	}
+	qpainter->restore();
+}
 
 #endif

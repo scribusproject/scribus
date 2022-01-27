@@ -1,0 +1,284 @@
+<editorsettings description="Gnuplot" icon="gnuplot.png">
+	<executable command="gnuplot" />
+	<imagefile extension=".png"/>
+	<highlighter>
+		<rule name="commands" regex="^\s*(bind|call|cd|clear|exit|fit|help|history|if|load|lower|pause|plot|print|pwd|quit|raise|replot|reread|reset|save|set|shell|show|splot|system|test|undefine|unset|update)\b" bold="true"/>
+		<rule name="set" regex="^\s*set\s+(angles|arrow|autoscale|bars|bmargin|border|boxwidth|cbdata|cbdtics|cblabel|cbmtics|cbrange|cbtics|clabel|clip|cntrparam|colorbox|contour|datafile|date_specifiers|decimalsign|dgrid3d|dummy|encoding|fit|fontpath|format|grid|hidden3d|historysize|isosamples|key|label|lmargin|loadpath|locale|log|logscale|macros|mapping|margin|missing|mouse|multiplot|mx2tics|mxtics|my2tics|mytics|mztics|object|offsets|origin|output|palette|parametric|pm3d|pointsize|polar|print|rmargin|rrange|samples|size|style|surface|table|term|terminal|termoption|tics|ticscale|ticslevel|time_specifiers|timefmt|timestamp|title|tmargin|trange|urange|view|vrange|x2data|x2dtics|x2label|x2mtics|x2range|x2tics|x2zeroaxis|xdata|xdtics|xlabel|xmtics|xrange|xtics|xyplane|xzeroaxis|y2data|y2dtics|y2label|y2mtics|y2range|y2tics|y2zeroaxis|ydata|ydtics|ylabel|ymtics|yrange|ytics|yzeroaxis|zdata|zdtics|zero|zeroaxis|zlabel|zmtics|zrange|ztics|zzeroaxis)\b" bold="true"/>
+		<rule name="functions" regex="[^a-zA-Z0-9](abs|acos|acosh|arg|asin|asinh|atan|atan2|atanh|besj0|besj1|besy0|besy1|ceil|column|cos|cosh|defined|erf|erfc|exists|exp|floor|gamma|gprintf|ibeta|igamma|imag|int|inverf|invnorm|lambertw|lgamma|log|log10|norm|rand|random|real|sgn|sin|sinh|sprintf|sqrt|strcol|strftime|stringcolumn|strlen|strptime|strstrt|substr|system|tan|tanh|timecolumn|tm_hour|tm_mday|tm_min|tm_mon|tm_sec|tm_wday|tm_yday|tm_year|valid|word|words)[^a-zA-Z0-9]" color="blue" />
+		<rule name="variables" regex="[^a-zA-Z0-9](x|y|z)[^a-zA-Z0-9]" italic="true" />
+		<rule name="strings" regex="&quot;.+&quot;" color="red" minimal="true"/>
+	</highlighter>
+	<empty-frame-text>
+		plot sin(x), (cos(x))**2
+	</empty-frame-text>
+	<preamble>
+		set terminal png transparent enhanced size $scribus_realwidth_px$,$scribus_realheight_px$
+		set output '$scribus_file$.png'
+		set xrange [$scribus_xmin$:$scribus_xmax$]
+		set yrange [$scribus_ymin$:$scribus_ymax$]
+		set title "$scribus_title$"
+		set xlabel "$scribus_xlabel$"
+		set ylabel "$scribus_ylabel$"
+		$scribus_grid$ $scribus_gridlayer$
+		$scribus_zeroaxis$
+	</preamble>
+	<postamble></postamble>
+	<tab type="settings">
+		<title><i18n>
+			<en>Ranges</en>
+			<cs>Rozsahy</cs>
+			<de>Bereiche</de>
+			<fr>Rangées</fr>
+			<hr>Rasponi</hr>
+			<pl>Zakresy</pl>
+			<ru>Диапазоны</ru>
+			<hu>Tartomány</hu>
+			<es>Rangos</es>
+			<it>Intervalli</it>
+		</i18n></title>
+		<comment><i18n>
+			<en>Enter asterisk (*) for autoscale!</en>
+			<cs>Vložte hvězdičku (*) pro automatický rozsah stupnice!</cs>
+			<de>Stern (*) für automatische Skalierung eingeben!</de>
+			<fr>Entrez une astérisque (*) pour ajuster automatiquement !</fr>
+			<hr>Za automatsko skaliranje unesi asterisk (*)!</hr>
+			<pl>Wpisz asterisk (*) dla automatycznego skalowania!</pl>
+			<ru>Enter asterisk (*) for autoscale!</ru>
+			<hu>Automatikus méretezés csillaggal (*)</hu>
+			<es>Escribir asterisco (*) para escalado automático</es>
+			<it>Inserisci un asterisco (*) per la scalatura automatica!</it>
+		</i18n></comment>
+		<spinbox name="xmin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
+			<en>X Min:</en>
+			<cs>X Min:</cs>
+			<hr>X min.:</hr>
+			<pl>Min X:</pl>
+			<ru>Минимум по X:</ru>
+			<es>X mín.</es>
+			<it>X Min:</it>
+		</i18n></spinbox>
+		<spinbox name="xmax" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
+			<en>X Max:</en>
+			<cs>X Max:</cs>
+			<hr>X maks.:</hr>
+			<pl>Maks. X:</pl>
+			<ru>Максимум по X:</ru>
+			<es>X máx.</es>
+			<it>X Max:</it>
+		</i18n></spinbox>
+		<spinbox name="ymin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
+			<en>Y Min:</en>
+			<cs>Y Min:</cs>
+			<hr>Y min.:</hr>
+			<pl>Min Y:</pl>
+			<ru>Минимум по Y:</ru>
+			<es>Y mín.</es>
+			<it>Y Min:</it>
+		</i18n></spinbox>
+		<spinbox name="ymax" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
+			<en>Y Max:</en>
+			<cs>Y Max:</cs>
+			<hr>Y maks.:</hr>
+			<pl>Maks. Y:</pl>
+			<es>Y máx.</es>
+			<ru>Максимум по Y:</ru>
+			<it>Y Max:</it>
+		</i18n></spinbox>
+	</tab>
+	<tab type="settings">
+		<title><i18n>
+			<en>Labels</en>
+			<cs>Popisky</cs>
+			<de>Beschriftungen</de>
+			<fr>Étiquettes</fr>
+			<hr>Oznake</hr>
+			<pl>Etykiety</pl>
+			<ru>Метки</ru>
+			<hu>Címkék</hu>
+			<es>Etiquetas</es>
+			<it>Didascalie</it>
+		</i18n></title>
+		<text name="title" type="short" default=""><i18n>
+			<en>Title:</en>
+			<cs>Název:</cs>
+			<de>Titel:</de>
+			<fr>Titre :</fr>
+			<hr>Naslov:</hr>
+			<pl>Tytuł:</pl>
+			<ru>Название:</ru>
+			<hu>Cím</hu>
+			<es>Título:</es>
+			<it>Titolo:</it>
+		</i18n></text>
+		<text name="xlabel" type="short" default=""><i18n>
+			<en>X-Label:</en>
+			<cs>Název osy X:</cs>
+			<de>X-Beschriftung:</de>
+			<hr>X oznaka:</hr>
+			<ru>Метка оси X:</ru>
+			<hu>X címke</hu>
+			<es>Etiqueta X</es>
+			<it>Asse X:</it>
+		</i18n></text>
+		<text name="ylabel" type="short" default=""><i18n>
+			<en>Y-Label:</en>
+			<cs>Název osy Y:</cs>
+			<de>Y-Beschriftung:</de>
+			<hr>Y oznaka:</hr>
+			<ru>Метка оси Y:</ru>
+			<hu>Y címke</hu>
+			<es>Etiqueta Y</es>
+			<it>Asse Y:</it>
+		</i18n></text>
+		<list name="grid" default="#">
+			<title><i18n>
+				<en>Grid:</en>
+				<cs>Mřížka:</cs>
+				<de>Gitter:</de>
+				<fr>Grille :</fr>
+				<hr>Mreža:</hr>
+				<pl>Siatka:</pl>
+				<ru>Сетка:</ru>
+				<hu>Rács</hu>
+				<es>Rejilla</es>
+				<it>Griglia:</it>
+			</i18n></title>
+			<option value="#"><i18n>
+				<en>No Grid</en>
+				<cs>Žádná mřížka</cs>
+				<de>Kein Gitter</de>
+				<fr>Pas de Grille</fr>
+				<hr>Bez mreže</hr>
+				<pl>Bez siatki</pl>
+				<ru>Без сетки</ru>
+				<hu>Rács nélkül</hu>
+				<es>Sin rejilla</es>
+				<it>Nessuna griglia</it>
+			</i18n></option>
+			<option value="set grid xtics ytics"><i18n>
+				<en>Major ticks only</en>
+				<cs>Pouze hlavní mřížky</cs>
+				<de>Nur Hauptstriche</de>
+				<fr>Seulement les coches majeures</fr>
+				<hr>Samo glavne linije</hr>
+				<pl>Tylko główne linie</pl>
+				<ru>Только основные линии</ru>
+				<hu>Csak fővonalak</hu>
+				<es>Sólo puntos mayores</es>
+				<it>Solo punti maggiori</it>
+			</i18n></option>
+			<option value="set grid xtics ytics mxtics mytics"><i18n>
+				<en>Major and minor ticks</en>
+				<cs>Hlavní i vedlejší mřížky</cs>
+				<de>Alle Stiche</de>
+				<fr>Coches majeures et mineures</fr>
+				<hr>Glavne i sporedne linije</hr>
+				<pl>Wszystkie linie</pl>
+				<ru>Основные и вторичные линии</ru>
+				<hu>Fő- és alvonalak is</hu>
+				<es>Puntos mayores y menores</es>
+				<it>Punti maggiori e minori</it>
+			</i18n></option>
+		</list>
+		<list name="gridlayer" default="back">
+			<title><i18n>
+				<en>Grid layer:</en>
+				<cs>Vrstva mřížky:</cs>
+				<de>Gitterebene:</de>
+				<fr>Niveau de la grille :</fr>
+				<hr>Sloj mreže:</hr>
+				<pl>Warstwa siatki:</pl>
+				<ru>Слой сетки:</ru>
+				<hu>Rács réteg</hu>
+				<es>Capa de rejilla</es>
+				<it>Posizione griglia:</it>
+			</i18n></title>
+			<option value="back"><i18n>
+				<en>Back</en>
+				<cs>Na pozadí</cs>
+				<de>Hinten</de>
+				<fr>Arrière</fr>
+				<hr>Stražnji</hr>
+				<pl>Na spodzie</pl>
+				<ru>Позади</ru>
+				<hu>Alul</hu>
+				<es>Atrás</es>
+				<it>Sfondo</it>
+			</i18n></option>
+			<option value="front"><i18n>
+				<en>Front</en>
+				<cs>V popředí</cs>
+				<de>Vorne</de>
+				<fr>A l'avant</fr>
+				<hr>Prednji</hr>
+				<pl>Na wierzchu</pl>
+				<ru>Впереди</ru>
+				<hu>Felül</hu>
+				<es>Frente</es>
+				<it>Primo piano</it>
+			</i18n></option>
+		</list>
+		<list name="zeroaxis" default="">
+			<title><i18n>
+				<en>Zero axis:</en>
+				<cs>Nulová osa:</cs>
+				<de>Null-Achse:</de>
+				<fr>Axe Zero :</fr>
+				<hr>Ishodište:</hr>
+				<pl>Oś zerowa:</pl>
+				<ru>Начало координат:</ru>
+				<hu>Nulla tengely</hu>
+				<es>Eje cero</es>
+				<it>Asse zero:</it>
+			</i18n></title>
+			<option value=""><i18n>
+				<en>None</en>
+				<cs>Žádná</cs>
+				<de>Keine</de>
+				<fr>Aucun</fr>
+				<hr>Bez</hr>
+				<pl>Brak</pl>
+				<ru>Нет</ru>
+				<hu>Nincs</hu>
+				<es>Ninguno</es>
+				<it>Nessuno</it>
+			</i18n></option>
+			<option value="set xzeroaxis"><i18n>
+				<en>X axis</en>
+				<cs>Osa X</cs>
+				<de>X-Achse</de>
+				<fr>Axe des X</fr>
+				<hr>Os X</hr>
+				<pl>Oś X</pl>
+				<ru>Для оси X</ru>
+				<hu>X tengely</hu>
+				<es>Eje X</es>
+				<it>Asse X</it>
+			</i18n></option>
+			<option value="set yzeroaxis"><i18n>
+				<en>Y axis</en>
+				<cs>Osa Y</cs>
+				<de>Y-Achse</de>
+				<fr>Axe des Y</fr>
+				<hr>Os Y</hr>
+				<pl>Oś Y</pl>
+				<ru>Для оси Y</ru>
+				<hu>Y tengely</hu>
+				<es>Eje Y</es>
+				<it>Asse Y</it>
+			</i18n></option>
+			<option value="set zeroaxis"><i18n>
+				<en>Both</en>
+				<cs>Obě</cs>
+				<de>Beide</de>
+				<fr>Les deux</fr>
+				<hr>Obje</hr>
+				<pl>Obie</pl>
+				<ru>Для обеих осей</ru>
+				<hu>Mindkettő</hu>
+				<es>Ambos</es>
+				<it>Entrambi</it>
+			</i18n></option>
+		</list>
+	</tab>
+</editorsettings>

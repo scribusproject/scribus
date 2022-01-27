@@ -21,17 +21,19 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef UNDOGUI_H
 #define UNDOGUI_H
 
 #include <QListWidgetItem>
+#include <QPushButton>
+
 #include "scribusapi.h"
 #include "undoobject.h"
 #include "undostate.h"
-#include "scrpalettebase.h"
+#include "ui/scdockpalette.h"
 
 class QEvent;
 class QMenu;
@@ -54,7 +56,7 @@ class QCheckBox;
  * @author Riku Leino  tsoots@gmail.com
  * @date December 2004
  */
-class SCRIBUS_API UndoGui : public ScrPaletteBase
+class SCRIBUS_API UndoGui : public ScDockPalette
 {
 	Q_OBJECT
 
@@ -65,13 +67,16 @@ public:
 	 * @param name Name of the object
 	 * @param f widget flags
 	 */
-	UndoGui(QWidget* parent = 0, const char* name = "UndoGui", Qt::WFlags f = 0);
+	UndoGui(QWidget* parent = nullptr, const char* name = "UndoGui", Qt::WindowFlags f = Qt::WindowFlags());
 
 	/** @brief Destroys the widget */
-	virtual ~UndoGui() {};
+	virtual ~UndoGui() {}
 
 	/** @brief Empties the undo stack representation. */
 	virtual void clear() = 0;
+
+	/** @brief Sets GUI strings on language change */
+	void languageChange();
 	
 public slots:
 	/**
@@ -149,33 +154,33 @@ private:
 	static const uint MENU_HEIGHT = 5;
 	std::vector<QString> undoItems;
 	std::vector<QString> redoItems;
-	/* BnF buttons
-	QToolButton* undoButton;
-	QToolButton* redoButton;
-	*/
-	QMenu* undoMenu;
-	QMenu* redoMenu;
+
+	QMenu* undoMenu { nullptr };
+	QMenu* redoMenu { nullptr };
+
 	void updateUndoMenu();
 	void updateRedoMenu();
+
 public:
 	/** @brief Creates a new UndoWidget instance. */
-	UndoWidget(QWidget* parent = 0, const char* name = 0);
+	UndoWidget(QWidget* parent = nullptr, const char* name = 0);
 
 	/** @brief Destroys the widget */
-	virtual ~UndoWidget();
+	virtual ~UndoWidget() = default;
 
 	/** @brief Empties the undo stack for this widget. */
-	void clear();
+	void clear() override;
 	/**
 	 * @brief Update the scrActions
 	 */
-	virtual void updateUndoActions();
+	void updateUndoActions() override;
 		
 private slots:
 	void undoClicked();
 	void redoClicked();
 	void undoMenuClicked(QAction *id);
 	void redoMenuClicked(QAction *id);
+
 public slots:
 	/**
 	 * @brief Insert a new undo item.
@@ -186,14 +191,14 @@ public slots:
 	 * @param target Target of the undo action
 	 * @param state State describing the action
 	 */
-	void insertUndoItem(UndoObject* target, UndoState* state);
+	void insertUndoItem(UndoObject* target, UndoState* state) override;
 
 	/**
 	 * @brief Insert a new redo item.
 	 * @param target Target of the redo action
 	 * @param state State describing the action
 	 */
-	void insertRedoItem(UndoObject* target, UndoState* state);
+	void insertRedoItem(UndoObject* target, UndoState* state) override;
 
 	/**
 	 * @brief Update undo stack representation with number of steps.
@@ -203,7 +208,7 @@ public slots:
 	 * representation.
 	 * @param steps Number of steps to take
 	 */
-	void updateUndo(int steps);
+	void updateUndo(int steps) override;
 
 	/**
 	 * @brief Update redo stack representation with number of steps.
@@ -213,13 +218,14 @@ public slots:
 	 * representation.
 	 * @param steps Number of steps to take
 	 */
-	void updateRedo(int steps);
+	void updateRedo(int steps) override;
 	
 	/** @brief Clear the redo action items. */
-	void clearRedo();
+	void clearRedo() override;
 	
 	/** @brief Remove the last (oldest) item from the undo stack representation. */
-	void popBack();
+	void popBack() override;
+
 signals:
 	/** 
 	 * @brief Emitted when undo is requested.
@@ -255,15 +261,39 @@ class SCRIBUS_API UndoPalette : public UndoGui
 {
 	Q_OBJECT
 
+public:
+	/** 
+	 * @brief Creates a new UndoPalette instance.
+	 * 
+	 * Creates a new UndoPalette instance. After creation of an UndoPalette it must
+	 * be registered to the UndoManager with UndoManager's registerGui() method.
+	 */
+	UndoPalette(QWidget* parent = nullptr, const char* name = 0);
+
+	/** @brief Destroys the widget */
+	~UndoPalette() = default;
+
+	/** @brief Empties the undo stack for this widget. */
+	void clear() override;
+	/**
+	 * @brief Update the scrActions
+	 */
+	void updateUndoActions() override;
+
+protected:
+	void changeEvent(QEvent *e) override;
+
 private:
-	int currentSelection;
-	int redoItems;
-	QListWidget* undoList;
-	QCheckBox* objectBox;
-	QPushButton* undoButton;
-	QPushButton* redoButton;
+	QWidget* container { nullptr };
+	int currentSelection { 0 };
+	int redoItems { 0 };
+	QListWidget* undoList { nullptr };
+	QCheckBox* objectBox { nullptr };
+	QPushButton* undoButton { nullptr };
+	QPushButton* redoButton { nullptr };
 	QKeySequence initialUndoKS;
 	QKeySequence initialRedoKS;
+
 	void updateList();
 	void removeRedoItems();
 	
@@ -274,20 +304,21 @@ private:
 	{
 	private:
 		/** @brief An icon for the undo target */
-		QPixmap *targetpixmap;
+		QPixmap *m_targetPixmap { nullptr };
 		/** @brief An icon for the undo state (action) */
-		QPixmap *actionpixmap;
+		QPixmap *m_actionPixmap { nullptr };
 		/** @brief Name of the target of the state (action) */
-		QString target;
+		QString m_target;
 		/** @brief Undo action's name */
-		QString action;
+		QString m_action;
 		/** @brief Description of the action */
-		QString description;
+		QString m_description;
 		/** @brief Does this item describe an undo action if false it's a redo action */
-		bool isUndoAction_;
+		bool m_isUndoAction { true };
+
 	public:
 		/** @brief Create an empty UndoItem object */
-		UndoItem();
+		UndoItem() = default;
 		/**
 		 * @brief Create a copy of <code>another</code> UndoItem instance.
 		 * @param another UndoItem instance to copy
@@ -311,46 +342,16 @@ private:
                  QPixmap *targetPixmap,
                  QPixmap *actionPixmap,
 		         bool isUndoAction,
-	             QListWidget * parent = 0);
-		~UndoItem();
-		/*void paint(QPainter *painter);
-		int height(const QListWidget*) const;
-		int width(const QListWidget*) const;*/
-		QString getDescription();
-		bool isUndoAction();
+				 QListWidget* parent = nullptr);
+		~UndoItem() = default;
+
+		QString getDescription() const;
+
+		bool isUndoAction() const;
 		void setUndoAction(bool isUndo);
 	};
 	
 /******************************************************************************/
-
-private slots:
-	void undoClicked();
-	void redoClicked();
-	void undoListClicked(int i);
-	void showToolTip(QListWidgetItem *i);
-	void removeToolTip();
-	void objectCheckBoxClicked(bool on);
-
-public:
-	/** 
-	 * @brief Creates a new UndoPalette instance.
-	 * 
-	 * Creates a new UndoPalette instance. After creation of an UndoPalette it must
-	 * be registered to the UndoManager with UndoManager's registerGui() method.
-	 */
-	UndoPalette(QWidget* parent = 0, const char* name = 0);
-
-	/** @brief Destroys the widget */
-	~UndoPalette();
-	
-	virtual void changeEvent(QEvent *e);
-
-	/** @brief Empties the undo stack for this widget. */
-	void clear();
-	/**
-	 * @brief Update the scrActions
-	 */
-	virtual void updateUndoActions();
 	
 public slots:
 	/** @brief Sets GUI strings on language change */
@@ -365,14 +366,14 @@ public slots:
 	 * @param target Target of the undo action
 	 * @param state State describing the action
 	 */
-	void insertUndoItem(UndoObject* target, UndoState* state);
+	void insertUndoItem(UndoObject* target, UndoState* state) override;
 
 	/**
 	 * @brief Insert a new redo item.
 	 * @param target Target of the redo action
 	 * @param state State describing the action
 	 */
-	void insertRedoItem(UndoObject* target, UndoState* state);
+	void insertRedoItem(UndoObject* target, UndoState* state) override;
 
 	/**
 	 * @brief Update undo stack representation with number of steps.
@@ -382,7 +383,7 @@ public slots:
 	 * representation.
 	 * @param steps Number of steps to take
 	 */
-	void updateUndo(int steps);
+	void updateUndo(int steps) override;
 
 	/**
 	 * @brief Update redo stack representation with number of steps.
@@ -392,19 +393,26 @@ public slots:
 	 * representation.
 	 * @param steps Number of steps to take
 	 */
-	void updateRedo(int steps);
+	void updateRedo(int steps) override;
 
 	/** @brief Clear the redo action items. */
-	void clearRedo();
+	void clearRedo() override;
 	
 	/** @brief Remove the last (oldest) item from the undo stack representation. */
-	void popBack();
+	void popBack() override;
 
-	/** @brief Recieve prefsChanged() signal to update shortcuts. */
+	/** @brief Receive prefsChanged() signal to update shortcuts. */
 	void updateFromPrefs();
 
-signals:
+private slots:
+	void undoClicked();
+	void redoClicked();
+	void undoListClicked(int i);
+	void showToolTip(QListWidgetItem *i);
+	void removeToolTip();
+	void objectCheckBoxClicked(bool on);
 
+signals:
 	/**
 	 * @brief Emitted when undo behaviour should be changed from global undo
 	 * @brief to object specific undo and other way around.

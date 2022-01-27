@@ -5,7 +5,7 @@ You can verify them with:
 
 gpg --verify ./tarball.sig ./tarball.tar.bz2
 
-While we also note md5sums and shasums, gpg --verify are more secure and reliable.
+While we also note md5sums and sha256sums, gpg --verify are more secure and reliable.
 
 * The font sampler script, requires tkinter to run properly and optionally 
 python-imaging to enable print previews. Please consider adding these as 
@@ -21,7 +21,7 @@ part of the main package. Please consider adding:
 
 to ensure these old packages are removed on upgrade.
 
-* Currently, the full en documentation is included in the tarball, Please
+* Currently, the full multi-linugual documentation is included in the tarball, Please
 note it is licensed differently from the application source. We may decide to 
 distribute them separately. In any case, a monolithic scribus application
 plus docs package should also obsolete all prior docs packages.
@@ -41,11 +41,11 @@ Recommended Spec File Description:
 -----------------------------------------------------------------------------
 %description
 Scribus is an desktop open source page layout program with the aim of producing
-commerical grade output in PDF and Postscript, primarily, though not exclusively
-for Linux. Scirbus runs natively on  BSD, Linux, OS/2, Solaris, and Win32.
+commercial grade output in PDF and Postscript, primarily, though not exclusively
+for Linux. Scribus runs natively on  BSD, Linux, OS/2, Solaris, and Win32.
 -----------------------------------------------------------------------------
 
-Recommended Spec File Summary: Scribus - Open Source Page Layout
+Recommended Spec File Summary: Scribus - Open Source Desktop Publishing
 
 Please remove all references to proprietary applications.
 
@@ -56,7 +56,7 @@ We are still missing some locales, but in our testing it works properly.
 We have IANA approval for our mime type.
 
 An example command to install and refresh the mime database in a spec file 
-(distro specfic macros might vary):
+(distro specific macros might vary):
 
 %install
 
@@ -76,14 +76,14 @@ umask 022
 =============================================================================
 
 We do appreciate the effort in maintaining packagers make for Scribus. 
-Please file issues or enhancement requests at http://bugs.scribus.net
+Please file issues or enhancement requests at https://bugs.scribus.net
 
 Detailed notes on exact library requirements are detailed in the BUILDING file with the source tarball.
 
-There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net
+There is a lively on-line community, both on IRC @ #scribus on libera.chat
 and the mailing list. Mailing list info can be found at: 
-http://nashi.altmuehlnet.de/mailman/listinfo/scribus
+https://lists.scribus.net/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell
-in April 2009
+in November 2016

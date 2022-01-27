@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="OpenOffice.org CMYK">
+ <COLOR CMYK="#000000ff" NAME="Black" />
+ <COLOR CMYK="#ffff0000" NAME="Blue" />
+ <COLOR CMYK="#71990066" NAME="Blue 1" />
+ <COLOR CMYK="#71b80047" NAME="Blue 2" />
+ <COLOR CMYK="#b9dc0023" NAME="Blue 3" />
+ <COLOR CMYK="#b9b90023" NAME="Blue 4" />
+ <COLOR CMYK="#ffb80000" NAME="Blue 5" />
+ <COLOR CMYK="#ff660000" NAME="Blue 6" />
+ <COLOR CMYK="#ff470000" NAME="Blue 7" />
+ <COLOR CMYK="#66330000" NAME="Blue 8" />
+ <COLOR CMYK="#19190000" NAME="Blue gray" />
+ <COLOR CMYK="#00663366" NAME="Bordeaux" />
+ <COLOR CMYK="#0000807f" NAME="Brown" />
+ <COLOR CMYK="#00334cb3" NAME="Brown 1" />
+ <COLOR CMYK="#00336699" NAME="Brown 2" />
+ <COLOR CMYK="#0034677f" NAME="Brown 3" />
+ <COLOR CMYK="#00336666" NAME="Brown 4" />
+ <COLOR CMYK="#ff000000" NAME="Cyan" />
+ <COLOR CMYK="#00660099" NAME="Dark violet" />
+ <COLOR CMYK="#0000007f" NAME="Gray" />
+ <COLOR CMYK="#00000019" NAME="Gray 10%" />
+ <COLOR CMYK="#00000033" NAME="Gray 20%" />
+ <COLOR CMYK="#0000004c" NAME="Gray 30%" />
+ <COLOR CMYK="#00000066" NAME="Gray 40%" />
+ <COLOR CMYK="#00000099" NAME="Gray 60%" />
+ <COLOR CMYK="#000000b3" NAME="Gray 70%" />
+ <COLOR CMYK="#000000cc" NAME="Gray 80%" />
+ <COLOR CMYK="#ff00ff00" NAME="Green" />
+ <COLOR CMYK="#29005ea1" NAME="Green 1" />
+ <COLOR CMYK="#29005f7a" NAME="Green 2" />
+ <COLOR CMYK="#29005f59" NAME="Green 3" />
+ <COLOR CMYK="#29005f42" NAME="Green 4" />
+ <COLOR CMYK="#ae00ae51" NAME="Green 5" />
+ <COLOR CMYK="#99006633" NAME="Green 6" />
+ <COLOR CMYK="#ae00ae14" NAME="Green 7" />
+ <COLOR CMYK="#dc00dc00" NAME="Green 8" />
+ <COLOR CMYK="#ffff0000" NAME="Light blue" />
+ <COLOR CMYK="#ff000000" NAME="Light cyan" />
+ <COLOR CMYK="#0000003f" NAME="Light gray" />
+ <COLOR CMYK="#ff00ff00" NAME="Light green" />
+ <COLOR CMYK="#00ff0000" NAME="Light magenta" />
+ <COLOR CMYK="#00ffff00" NAME="Light red" />
+ <COLOR CMYK="#00ff0000" NAME="Magenta" />
+ <COLOR CMYK="#0094296b" NAME="Magenta 1" />
+ <COLOR CMYK="#004d296b" NAME="Magenta 2" />
+ <COLOR CMYK="#004d006b" NAME="Magenta 3" />
+ <COLOR CMYK="#33660033" NAME="Magenta 4" />
+ <COLOR CMYK="#294d006b" NAME="Magenta 5" />
+ <COLOR CMYK="#2971006b" NAME="Magenta 6" />
+ <COLOR CMYK="#2994006b" NAME="Magenta 7" />
+ <COLOR CMYK="#48950059" NAME="Magenta 8" />
+ <COLOR CMYK="#00669933" NAME="Orange 1" />
+ <COLOR CMYK="#0099cc00" NAME="Orange 2" />
+ <COLOR CMYK="#00669900" NAME="Orange 3" />
+ <COLOR CMYK="#00336600" NAME="Orange 4" />
+ <COLOR CMYK="#33000000" NAME="Pale green" />
+ <COLOR CMYK="#00003300" NAME="Pale yellow" />
+ <COLOR CMYK="#00ffff00" NAME="Red" />
+ <COLOR CMYK="#00cc9900" NAME="Red 1" />
+ <COLOR CMYK="#00b9dc23" NAME="Red 2" />
+ <COLOR CMYK="#0071b847" NAME="Red 3" />
+ <COLOR CMYK="#00cccc00" NAME="Red 4" />
+ <COLOR CMYK="#008aae14" NAME="Red 5" />
+ <COLOR CMYK="#00717147" NAME="Red 6" />
+ <COLOR CMYK="#00b87147" NAME="Red 7" />
+ <COLOR CMYK="#00714d66" NAME="Red 8" />
+ <COLOR CMYK="#007f7f00" NAME="Salmon" />
+ <COLOR CMYK="#cc660033" NAME="Sea blue" />
+ <COLOR CMYK="#33330099" NAME="Sun 1" />
+ <COLOR CMYK="#33330066" NAME="Sun 2" />
+ <COLOR CMYK="#33330033" NAME="Sun 3" />
+ <COLOR CMYK="#33330000" NAME="Sun 4" />
+ <COLOR CMYK="#8000007f" NAME="Turquoise" />
+ <COLOR CMYK="#ff230000" NAME="Turquoise 1" />
+ <COLOR CMYK="#cc000033" NAME="Turquoise 2" />
+ <COLOR CMYK="#b9240023" NAME="Turquoise 3" />
+ <COLOR CMYK="#71000047" NAME="Turquoise 4" />
+ <COLOR CMYK="#7000005c" NAME="Turquoise 5" />
+ <COLOR CMYK="#71000075" NAME="Turquoise 6" />
+ <COLOR CMYK="#6b000094" NAME="Turquoise 7" />
+ <COLOR CMYK="#4a0000b5" NAME="Turquoise 8" />
+ <COLOR CMYK="#66660000" NAME="Violet" />
+ <COLOR CMYK="#00000000" NAME="White" />
+ <COLOR CMYK="#0000ff00" NAME="Yellow" />
+ <COLOR CMYK="#1900ff00" NAME="Yellow 1" />
+ <COLOR CMYK="#00006600" NAME="Yellow 2" />
+ <COLOR CMYK="#00009900" NAME="Yellow 3" />
+ <COLOR CMYK="#00009a19" NAME="Yellow 4" />
+ <COLOR CMYK="#0000cc33" NAME="Yellow 5" />
+ <COLOR CMYK="#0000b34c" NAME="Yellow 6" />
+ <COLOR CMYK="#0000677f" NAME="Yellow 7" />
+ <COLOR CMYK="#00006699" NAME="Yellow 8" />
+</SCRIBUSCOLORS>

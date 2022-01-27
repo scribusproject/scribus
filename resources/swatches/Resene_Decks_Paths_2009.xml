@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Resene TCS - Decks Paths Driveways (2009)">
+ <COLOR RGB="#928a6d" NAME="Resene Abanakee Y67-035-088" Spot="1" />
+ <COLOR RGB="#67592e" NAME="Resene Abel Tasman Y47-061-084" Spot="1" />
+ <COLOR RGB="#372528" NAME="Resene Aubergine BR28-018-018" Spot="1" />
+ <COLOR RGB="#493028" NAME="Resene Baked Earth BR32-037-043" Spot="1" />
+ <COLOR RGB="#726756" NAME="Resene Beaten Track BR55-026-075" Spot="1" />
+ <COLOR RGB="#2a313f" NAME="Resene Blueprint B28-023-266" Spot="1" />
+ <COLOR RGB="#7c817c" NAME="Resene Boulder N61-006-148" Spot="1" />
+ <COLOR RGB="#c6ae83" NAME="Resene Canterbury Clay BR78-045-078" Spot="1" />
+ <COLOR RGB="#5b5d56" NAME="Resene Chicago N49-005-116" Spot="1" />
+ <COLOR RGB="#242a2e" NAME="Resene Cinder N28-008-243" Spot="1" />
+ <COLOR RGB="#c0b093" NAME="Resene Coral BR78-031-078" Spot="1" />
+ <COLOR RGB="#999b95" NAME="Resene Delta N69-004-123" Spot="1" />
+ <COLOR RGB="#322c2b" NAME="Resene Diesel N30-006-032" Spot="1" />
+ <COLOR RGB="#452924" NAME="Resene Digeridoo R31-030-033" Spot="1" />
+ <COLOR RGB="#4a4237" NAME="Resene Double Mondo BR38-014-074" Spot="1" />
+ <COLOR RGB="#8a8984" NAME="Resene Eighth Masala N63-004-075" Spot="1" />
+ <COLOR RGB="#2d2f28" NAME="Resene Eternity G30-008-118" Spot="1" />
+ <COLOR RGB="#672e2b" NAME="Resene Fahrenheit R38-068-033" Spot="1" />
+ <COLOR RGB="#a4613a" NAME="Resene Footloose O57-105-058" Spot="1" />
+ <COLOR RGB="#3d3d2e" NAME="Resene Grasslands G34-021-095" Spot="1" />
+ <COLOR RGB="#9fa3a7" NAME="Resene Grey Chateau N73-006-251" Spot="1" />
+ <COLOR RGB="#7a7c76" NAME="Resene Gunsmoke N60-005-127" Spot="1" />
+ <COLOR RGB="#515664" NAME="Resene Haast Shale B45-019-268" Spot="1" />
+ <COLOR RGB="#b1ab95" NAME="Resene Half Grey Olive Y74-021-087" Spot="1" />
+ <COLOR RGB="#726459" NAME="Resene Half Oilskin BR52-017-061" Spot="1" />
+ <COLOR RGB="#3b2b2c" NAME="Resene Havana BR30-016-026" Spot="1" />
+ <COLOR RGB="#33332d" NAME="Resene Helter Skelter G29-009-099" Spot="1" />
+ <COLOR RGB="#232732" NAME="Resene Indian Ink B26-017-270" Spot="1" />
+ <COLOR RGB="#23352d" NAME="Resene Ivy Green G31-020-167" Spot="1" />
+ <COLOR RGB="#51535d" NAME="Resene Jimmy Dean B45-013-277" Spot="1" />
+ <COLOR RGB="#c0934a" NAME="Resene Kowhai Y60-092-075" Spot="1" />
+ <COLOR RGB="#555759" NAME="Resene Landscape Grey N46-005-253" Spot="1" />
+ <COLOR RGB="#51535d" NAME="Resene Lemon Grass G70-019-106" Spot="1" />
+ <COLOR RGB="#3d312d" NAME="Resene Marbaroda BR29-019-044" Spot="1" />
+ <COLOR RGB="#21263a" NAME="Resene Midnight Express B31-030-276" Spot="1" />
+ <COLOR RGB="#412f28" NAME="Resene Nala BR29-028-044" Spot="1" />
+ <COLOR RGB="#a39a87" NAME="Resene Napa Y70-020-082" Spot="1" />
+ <COLOR RGB="#252525" NAME="Resene Nero N25-001-046" Spot="1" />
+ <COLOR RGB="#afaca0" NAME="Resene Off Piste G76-011-096" Spot="1" />
+ <COLOR RGB="#2e3e34" NAME="Resene Petanque G32-023-161" Spot="1" />
+ <COLOR RGB="#b7a077" NAME="Resene Piha Sand BR71-048-077" Spot="1" />
+ <COLOR RGB="#dcd1b5" NAME="Resene Pompeii Y86-028-085" Spot="1" />
+ <COLOR RGB="#7b745e" NAME="Resene Quarry Stone Y58-027-086" Spot="1" />
+ <COLOR RGB="#433831" NAME="Resene Rangitoto Rock BR33-017-053" Spot="1" />
+ <COLOR RGB="#5f312a" NAME="Resene Red Sienna R34-061-038" Spot="1" />
+ <COLOR RGB="#798488" NAME="Resene Regent Grey B62-011-233" Spot="1" />
+ <COLOR RGB="#4b4842" NAME="Resene Relic N39-008-075" Spot="1" />
+ <COLOR RGB="#786d5f" NAME="Resene Sandstone BR56-018-073" Spot="1" />
+ <COLOR RGB="#7e3c2d" NAME="Resene Scorched Clay O42-091-042" Spot="1" />
+ <COLOR RGB="#26272c" NAME="Resene Shadowland N25-007-279" Spot="1" />
+ <COLOR RGB="#61666b" NAME="Resene Shuttle Grey B52-008-257" Spot="1" />
+ <COLOR RGB="#acaea9" NAME="Resene Silver Chalice N76-003-139" Spot="1" />
+ <COLOR RGB="#c5baa0" NAME="Resene Sisal Y80-027-081" Spot="1" />
+ <COLOR RGB="#4b433b" NAME="Resene Space Shuttle BR39-015-069" Spot="1" />
+ <COLOR RGB="#827a71" NAME="Resene Stonehenge BR61-012-073" Spot="1" />
+ <COLOR RGB="#807661" NAME="Resene Stonewall Y59-023-083" Spot="1" />
+ <COLOR RGB="#bfb5a2" NAME="Resene Tea Y81-019-081" Spot="1" />
+ <COLOR RGB="#6c6d68" NAME="Resene Traffic N54-006-109" Spot="1" />
+ <COLOR RGB="#a4977a" NAME="Resene Triple Akaroa Y69-029-083" Spot="1" />
+ <COLOR RGB="#757878" NAME="Resene Trojan N59-004-237" Spot="1" />
+ <COLOR RGB="#46494e" NAME="Resene Tuna N39-008-260" Spot="1" />
+ <COLOR RGB="#ad6242" NAME="Resene Tuscany O58-086-050" Spot="1" />
+ <COLOR RGB="#626746" NAME="Resene Woodland G51-034-107" Spot="1" />
+ <COLOR RGB="#554545" NAME="Resene Woody Brown BR42-013-021" Spot="1" />
+</SCRIBUSCOLORS>

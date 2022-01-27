@@ -1,0 +1,78 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Configuration Files</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Configuration Files</h2>
+
+
+<p>It's possible that you might never need to know where these are, but there are some situations where it's useful to know where this information is saved. What we're talking about on this page is the configuration settings that you might make in Preferences, as well as where your templates, dictionaries, and so on are saved.</p>
+
+<p>In the 1.5.x versions of Scribus, these locations have changed, at least in Linux. Even before the change, different operating systems had different schemes.</p>
+
+<h3>Linux</h3>
+<p>There are two places where you can look for these files when you are using Linux. The first is in your home directory, something like <i>/home/username</i>, which we'll abbreviate as $HOME. There are directories which are normally hidden from view, so if you are using a file manager you may have to select a setting such as <i>Show Hidden Files</i>. What you want to locate is <i>$HOME/.config/scribus/</i>. Inside this directory, you should find the following:</p>
+<ul>
+<li>checkfonts150.xml &ndash; this is where your font selections are stored. Although you may have a large number of fonts on your computer, you may choose to only have some of these be usable in Scribus. This could be edited by hand, but typically you would choose these in Preferences.</li>
+<li>prefs150.xml &ndash; here are a large number of settings that are saved when you close Scribus, and include things such as the geometry and placement of the main window, and various dialogs you might have brought up at some time. It will also note whether, for example, you had Edit Colors open when you closed Scribus, so that the next time you start Scribus it will be opened again.</li>
+<li>scribus150.rc &ndash; this file contains a number of settings, some of which come from Preferences, but other things too, such as which recent files you have opened, your keyboard shortcuts, various PDF export settings, and your font settings. Though it has this <i>.rc</i> extension, you can see that this is structured as an XML file.</li>
+<li>scribusshapes.xml &ndash; </li>
+<li>tmp.ps &ndash; </li>
+</ul>
+<p>Some working directories are located in <i>$HOME/.local/share/scribus/</i>:</p>
+  <ul>
+    <li>cache &ndash; this is the image cache</li>
+    <li>charpalette.ucp &ndash; character palette file</li>
+    <li>dicts &ndash; spelling dictionaries which were loaded with Scribus</li>
+      <li>doc &ndash; bookmarks and browsing history</li>
+      <li>downloads &ndash; a temporary holding space for downloads &ndash; could then go to fonts if it's a font, for example</li>
+      <li>fonts &ndash; location for fonts when they are saved from Scribus</li>
+      <li>palettes &ndash; user-created palettes</li>
+      <li>plugins &ndash; any files needed for various plugins</li>
+      <li>scrapbook &ndash; the internal scrapbook directories</li>
+      <li>scribus-short-words.rc  &ndash; user-specified short-words list to prevent line breaks</li>
+      <li>temp &ndash; temporary storage</li>
+  </ul>
+  
+<p>Another location for files and settings is in <i>/usr/share/scribus/</i>, where you will find:</p>
+<ul>
+  
+<li>dicts &ndash; your hyphenation dictionaries are stored in this directory.</li>
+<li>dtd &ndash; here is a file which lists the various PDF export options, and which require specific values to be set.</li>
+<li>editorconfig &ndash; these files relate to the various options for using render frames.</li>
+<li>icons &ndash; various icons used in Scribus are here, with some having different versions according to the icon size setting.</li>
+<li>keysets &ndash; keyboard shortcut settings are here.</li>
+<li>loremipsum &ndash; located here is the standard lorem ipsum, but also versions for various languages. You can find instructions on creating your own kind under <i>For Developers</i> in this manual.</li>
+<li>plugins &ndash; here are some files used by the Barcode Generator and Short Words.</li>
+<li>profiles &ndash; this is where ICC profiles can be stored. There are some information files also in this directory.</li>
+<li>samples &ndash; this is something of a secret location for some sample Python scripts. You would need to navigate to this directory to find them.</li>
+<li>scripts &ndash; here are scripts also, though at least some of these might be out of date versions of those officially included.</li>
+<li>swatches &ndash; these are the various XML files for the color palettes in Scribus.</li>
+<li>templates &ndash; the templates which you find from the menu and included with Scribus are located here.</li>
+<li>translations &ndash; the various translations of text for Scribus, used in the application for menus and other information are stored here.</li>
+<li>unicodenameslist.txt &ndash; this is a VERY extensive list of Unicode characters, and what they represent.</li>
+</ul>
+<h3>Windows</h3>
+<p>In Windows, the equivalent of <i>$HOME/.config/scribus/</i> is <i>C:\Users\username\AppData\Roaming\Scribus\</i>. Note that <i>AppData</i> is a somewhat hidden directory, in that it will not automatically show up if you select <i>C:\Users\username\</i>. You will also find there:</p>
+<ul>
+  <li>doc &ndash; not the documentation, but only any bookmarks you have made, plus browsing history</li>
+  <li>palette &ndash; this is presumably custom palettes</li>
+  <li>plugins &ndash; this is empty</li>
+  <li>scrapbook &ndash; this is the location for the Main directory for the Scrapbook</li>
+  <li>swatches &ndash; presumably any custom swatches</li>
+  </ul>
+<p>The equivalent of <i>/usr/share/scribus/</i> is in <i>C:\Program Files\ScribusVersion\share\</i>. There are some additional directories for poppler and python also included.</p>
+<h3>OSX</h3>
+<p>There are 3 locations to find these various directories and files in OSX:</p>
+<ul>
+  <li><i>/Users/username/Library/<i></li>
+  <li><i>Preferences/Scribus/</i></li>
+  <li><i>Application Support/Scribus/</i></li>
+</ul>
+
+</body>
+</html>

@@ -9,26 +9,28 @@ for which a new license (GPL+exception) is in place.
 
 #include <QObject>
 
+#include "scribusapi.h"
+
 class  ScribusDoc;
 struct PrintOptions;
 
-class ScPrintEngine : public QObject
+class SCRIBUS_API ScPrintEngine : public QObject
 {
 	Q_OBJECT
 
-protected:
-
-	bool    m_abort;
-	QString m_errorMessage;
-
-	ScPrintEngine() { m_abort = false; }
-
 public:
+	ScPrintEngine(ScribusDoc& doc) : m_doc(doc) {}
 	virtual ~ScPrintEngine() {}
-	virtual bool print(ScribusDoc& doc, PrintOptions& options) = 0;
+
+	virtual bool print(PrintOptions& options) = 0;
 	virtual const QString& errorMessage(void) { return m_errorMessage; }
 
 public slots:
 	void cancelRequested(void) { m_abort = true; }
+
+protected:
+	ScribusDoc& m_doc;
+	bool    m_abort { false };
+	QString m_errorMessage;
 };
 #endif

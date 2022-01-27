@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 /***************************************************************************
 *                                                                         *
-*   ScMW program is free software; you can redistribute it and/or modify  *
+*   Scribus program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
 *   the Free Software Foundation; either version 2 of the License, or     *
 *   (at your option) any later version.                                   *
@@ -46,22 +46,38 @@ QString CommonStrings::trNoKey     = "";
 QString CommonStrings::customPageSize = "";
 QString CommonStrings::trCustomPageSize = "";
 
-QString CommonStrings::itemType_TextFrame  = "";
-QString CommonStrings::itemType_ImageFrame = "";
-QString CommonStrings::itemType_Line       = "";
-QString CommonStrings::itemType_Polygon    = "";
-QString CommonStrings::itemType_Polyline   = "";
-QString CommonStrings::itemType_PathText   = "";
-QString CommonStrings::itemType_LatexFrame = "";
-QString CommonStrings::itemType_Multiple   = "";
+QString CommonStrings::itemType_TextFrame		= "";
+QString CommonStrings::itemType_ImageFrame		= "";
+QString CommonStrings::itemType_Line			= "";
+QString CommonStrings::itemType_Polygon			= "";
+QString CommonStrings::itemType_Polyline		= "";
+QString CommonStrings::itemType_PathText		= "";
+QString CommonStrings::itemType_LatexFrame		= "";
+QString CommonStrings::itemType_OSGFrame		= "";
+QString CommonStrings::itemType_Symbol			= "";
+QString CommonStrings::itemType_Group			= "";
+QString CommonStrings::itemType_RegularPolygon	= "";
+QString CommonStrings::itemType_Arc				= "";
+QString CommonStrings::itemType_Spiral			= "";
+QString CommonStrings::itemType_Table			= "";
+QString CommonStrings::itemType_Multiple		= "";
 
-QString CommonStrings::itemSubType_PDF_PushButton;
-QString CommonStrings::itemSubType_PDF_TextField;
-QString CommonStrings::itemSubType_PDF_CheckBox;
-QString CommonStrings::itemSubType_PDF_ComboBox;
-QString CommonStrings::itemSubType_PDF_ListBox;
-QString CommonStrings::itemSubType_PDF_TextAnnotation;
-QString CommonStrings::itemSubType_PDF_LinkAnnotation;
+QString CommonStrings::itemSubType_PDF_PushButton		= "";
+QString CommonStrings::itemSubType_PDF_RadioButton		= "";
+QString CommonStrings::itemSubType_PDF_TextField		= "";
+QString CommonStrings::itemSubType_PDF_CheckBox			= "";
+QString CommonStrings::itemSubType_PDF_ComboBox			= "";
+QString CommonStrings::itemSubType_PDF_ListBox			= "";
+QString CommonStrings::itemSubType_PDF_TextAnnotation	= "";
+QString CommonStrings::itemSubType_PDF_LinkAnnotation	= "";
+QString CommonStrings::itemName_PushButton				= "";
+QString CommonStrings::itemName_RadioButton				= "";
+QString CommonStrings::itemName_TextField				= "";
+QString CommonStrings::itemName_CheckBox				= "";
+QString CommonStrings::itemName_ComboBox				= "";
+QString CommonStrings::itemName_ListBox					= "";
+QString CommonStrings::itemName_TextAnnotation			= "";
+QString CommonStrings::itemName_LinkAnnotation			= "";
 
 
 QString CommonStrings::pageSet1    = "";
@@ -102,9 +118,13 @@ QString CommonStrings::trPenStyle_DashDotDotLine = "";
 QString CommonStrings::DefaultParagraphStyle     ="";
 QString CommonStrings::DefaultCharacterStyle     ="";
 QString CommonStrings::DefaultLineStyle          ="";
+QString CommonStrings::DefaultTableStyle         ="";
+QString CommonStrings::DefaultCellStyle          ="";
 QString CommonStrings::trDefaultParagraphStyle   ="";
 QString CommonStrings::trDefaultCharacterStyle   ="";
 QString CommonStrings::trDefaultLineStyle        ="";
+QString CommonStrings::trDefaultTableStyle       ="";
+QString CommonStrings::trDefaultCellStyle        ="";
 
 
 QString CommonStrings::monday="", CommonStrings::tuesday="", CommonStrings::wednesday="";
@@ -118,6 +138,7 @@ QString CommonStrings::trRGB       = "";
 QString CommonStrings::trCMYK      = "";
 QString CommonStrings::trGrayscale = "";
 QString CommonStrings::trDuotone   = "";
+QString CommonStrings::trMonochrome = "";
 QString CommonStrings::trUnknownCS = "";
 
 QString CommonStrings::trVisionNormal         = "";
@@ -140,18 +161,25 @@ QString CommonStrings::trMaxWordTracking   = "";
 QString CommonStrings::trMinGlyphExtension = "";
 QString CommonStrings::trMaxGlyphExtension = "";
 
+QString CommonStrings::File         = "";
+QString CommonStrings::trFile       = "";
 QString CommonStrings::PostScript   = "";
 QString CommonStrings::trPostScript = "";
+QString CommonStrings::PDF          = "";
+QString CommonStrings::trPDF        = "";
 QString CommonStrings::PDF_1_3      = "";
 QString CommonStrings::PDF_1_4      = "";
 QString CommonStrings::PDF_1_5      = "";
+QString CommonStrings::PDF_1_6      = "";
+QString CommonStrings::PDF_X1a		= "";
 QString CommonStrings::PDF_X3       = "";
+QString CommonStrings::PDF_X4		= "";
 
 QString CommonStrings::PostScript1   = "";
 QString CommonStrings::trPostScript1 = "";
 QString CommonStrings::PostScript2   = "";
 QString CommonStrings::trPostScript2 = "";
-QString CommonStrings::PostScript3    = "";
+QString CommonStrings::PostScript3   = "";
 QString CommonStrings::trPostScript3 = "";
 QString CommonStrings::WindowsGDI    = "";
 QString CommonStrings::trWindowsGDI  = "";
@@ -162,12 +190,19 @@ QString CommonStrings::trStrIN = "";
 QString CommonStrings::trStrP  = "";
 QString CommonStrings::trStrCM = "";
 QString CommonStrings::trStrC  = "";
+QString CommonStrings::trStrPX = "";
 QString CommonStrings::strPT   = "";
 QString CommonStrings::strMM   = "";
 QString CommonStrings::strIN   = "";
 QString CommonStrings::strP    = "";
 QString CommonStrings::strCM   = "";
 QString CommonStrings::strC    = "";
+QString CommonStrings::strPX   = "";
+
+QString CommonStrings::controlModifier = "";
+QString CommonStrings::altModifier     = "";
+QString CommonStrings::shiftModifier   = "";
+QString CommonStrings::metaModifier    = "";
 
 CommonStrings::CommonStrings()
 {
@@ -263,33 +298,49 @@ void CommonStrings::languageChange()
 	CommonStrings::trNo       = tr("No");
 	CommonStrings::trYesKey   = tr("&Yes");
 	CommonStrings::trNoKey    = tr("&No");
-	
-	CommonStrings::itemType_TextFrame  = tr("Text Frame");
-	CommonStrings::itemType_ImageFrame = tr("Image Frame");
-	CommonStrings::itemType_Line       = tr("Line");
-	CommonStrings::itemType_Polygon    = tr("Polygon");
-	CommonStrings::itemType_Polyline   = tr("Polyline");
-	CommonStrings::itemType_PathText   = tr("Text on a Path");
-	CommonStrings::itemType_LatexFrame = tr("Render Frame");
-	CommonStrings::itemType_Multiple   = tr("Multiple", "Multiple frame types");
-	CommonStrings::itemSubType_PDF_PushButton     = tr("PDF Push Button");
-	CommonStrings::itemSubType_PDF_TextField      = tr("PDF Text Field");
-	CommonStrings::itemSubType_PDF_CheckBox       = tr("PDF Check Box");
-	CommonStrings::itemSubType_PDF_ComboBox       = tr("PDF Combo Box");
-	CommonStrings::itemSubType_PDF_ListBox        = tr("PDF List Box");
-	CommonStrings::itemSubType_PDF_TextAnnotation = tr("PDF Text Annotation");
-	CommonStrings::itemSubType_PDF_LinkAnnotation = tr("PDF Link Annotation");
 
-	
+	CommonStrings::itemType_TextFrame		= tr("Text Frame");
+	CommonStrings::itemType_ImageFrame		= tr("Image Frame");
+	CommonStrings::itemType_Line			= tr("Line");
+	CommonStrings::itemType_Polygon			= tr("Polygon");
+	CommonStrings::itemType_Polyline		= tr("Polyline");
+	CommonStrings::itemType_PathText		= tr("Text on a Path");
+	CommonStrings::itemType_LatexFrame		= tr("Render Frame");
+	CommonStrings::itemType_OSGFrame		= tr("PDF 3D Annotation");
+	CommonStrings::itemType_Symbol			= tr("Symbol");
+	CommonStrings::itemType_Group			= tr("Group");
+	CommonStrings::itemType_RegularPolygon	= tr("Regular Polygon");
+	CommonStrings::itemType_Arc				= tr("Arc");
+	CommonStrings::itemType_Spiral			= tr("Spiral");
+	CommonStrings::itemType_Table			= tr("Table");
+	CommonStrings::itemType_Multiple		= tr("Multiple", "Multiple frame types");
+	CommonStrings::itemSubType_PDF_PushButton		= tr("PDF Push Button");
+	CommonStrings::itemSubType_PDF_RadioButton		= tr("PDF Radio Button");
+	CommonStrings::itemSubType_PDF_TextField		= tr("PDF Text Field");
+	CommonStrings::itemSubType_PDF_CheckBox			= tr("PDF Check Box");
+	CommonStrings::itemSubType_PDF_ComboBox			= tr("PDF Combo Box");
+	CommonStrings::itemSubType_PDF_ListBox			= tr("PDF List Box");
+	CommonStrings::itemSubType_PDF_TextAnnotation	= tr("PDF Text Annotation");
+	CommonStrings::itemSubType_PDF_LinkAnnotation	= tr("PDF Link Annotation");
+	CommonStrings::itemName_PushButton				= tr("Button");
+	CommonStrings::itemName_RadioButton				= tr("RadioButton");
+	CommonStrings::itemName_TextField				= tr("Textfield");
+	CommonStrings::itemName_CheckBox				= tr("Checkbox");
+	CommonStrings::itemName_ComboBox				= tr("Combobox");
+	CommonStrings::itemName_ListBox					= tr("Listbox");
+	CommonStrings::itemName_TextAnnotation			= tr("TextAnnot");
+	CommonStrings::itemName_LinkAnnotation			= tr("Link");
+
+
 	CommonStrings::customPageSize = "Custom";
 	CommonStrings::trCustomPageSize = tr( "Custom", "CommonStrings, custom page size" );
 
 	CommonStrings::pageSet1    = "Single Page";
-	CommonStrings::pageSet2    = "Double Sided";
+	CommonStrings::pageSet2    = "Facing Pages";
 	CommonStrings::pageSet3    = "3-Fold";
 	CommonStrings::pageSet4    = "4-Fold";
 	CommonStrings::trPageSet1  = tr( "Single Page" );
-	CommonStrings::trPageSet2  = tr( "Double Sided" );
+	CommonStrings::trPageSet2  = tr( "Facing Pages" );
 	CommonStrings::trPageSet3  = tr( "3-Fold" );
 	CommonStrings::trPageSet4  = tr( "4-Fold" );
 
@@ -303,7 +354,7 @@ void CommonStrings::languageChange()
 	CommonStrings::trPageLocMiddleLeft  = tr( "Middle Left", "Middle Left page location" );
 	CommonStrings::trPageLocMiddleRight = tr( "Middle Right", "Middle Right page location" );
 	CommonStrings::trPageLocRight       = tr( "Right Page", "Right page location" );
-	
+
 	CommonStrings::masterPageNormal         = "Normal";
 	CommonStrings::trMasterPageNormal       = tr( "Normal", "Default single master page" );
 	CommonStrings::masterPageNormalLeft     = "Normal Left";
@@ -312,21 +363,25 @@ void CommonStrings::languageChange()
 	CommonStrings::trMasterPageNormalMiddle = tr( "Normal Middle", "Default middle master page" );
 	CommonStrings::masterPageNormalRight    = "Normal Right";
 	CommonStrings::trMasterPageNormalRight  = tr( "Normal Right", "Default right master page" );
-	
+
 	CommonStrings::trPenStyle_SolidLine      = tr("Solid Line");
 	CommonStrings::trPenStyle_DashedLine     = tr("Dashed Line");
 	CommonStrings::trPenStyle_DottedLine     = tr("Dotted Line");
 	CommonStrings::trPenStyle_DashDotLine    = tr("Dash Dot Line");
 	CommonStrings::trPenStyle_DashDotDotLine = tr("Dash Dot Dot Line");
-	
+
 	CommonStrings::DefaultParagraphStyle     = "Default Paragraph Style";
 	CommonStrings::DefaultCharacterStyle     = "Default Character Style";
 	CommonStrings::DefaultLineStyle          = "Default Line Style";
+	CommonStrings::DefaultTableStyle         = "Default Table Style";
+	CommonStrings::DefaultCellStyle          = "Default Cell Style";
 	CommonStrings::trDefaultParagraphStyle   = tr("Default Paragraph Style");
 	CommonStrings::trDefaultCharacterStyle   = tr("Default Character Style");
 	CommonStrings::trDefaultLineStyle        = tr("Default Line Style");
+	CommonStrings::trDefaultTableStyle       = tr("Default Table Style");
+	CommonStrings::trDefaultCellStyle        = tr("Default Cell Style");
 
-	
+
 	CommonStrings::monday    = tr("Monday");
 	CommonStrings::tuesday   = tr("Tuesday");
 	CommonStrings::wednesday = tr("Wednesday");
@@ -351,38 +406,46 @@ void CommonStrings::languageChange()
 	CommonStrings::trCMYK      = tr("CMYK", "Colorspace");
 	CommonStrings::trGrayscale = tr("Grayscale", "Colorspace");
 	CommonStrings::trDuotone   = tr("Duotone", "Colorspace");
+	CommonStrings::trMonochrome= tr("Monochrome", "Colorspace");
 	CommonStrings::trUnknownCS = tr("Unknown", "Colorspace (Unknown)");
-	
+
 	CommonStrings::trVisionNormal         = tr("Normal Vision", "Color Blindness - Normal Vision");
 	CommonStrings::trVisionProtanopia     = tr("Protanopia (Red)", "Color Blindness - Red Color Blind");
 	CommonStrings::trVisionDeuteranopia   = tr("Deuteranopia (Green)", "Color Blindness - Greed Color Blind");
 	CommonStrings::trVisionTritanopia     = tr("Tritanopia (Blue)", "Color Blindness - Blue Color Blind");
 	CommonStrings::trVisionFullColorBlind = tr("Full Color Blindness", "Color Blindness - Full Color Blindness");
-	
+
 	CommonStrings::trCustomTabFill = tr("Custom: ","Custom Tab Fill Option");
-	
+
 	CommonStrings::trOpticalMarginsNone            = tr("None", "Optical Margin Setting");
 	CommonStrings::trOpticalMarginsLeftProtruding  = tr("Left Protruding", "Optical Margin Setting");
 	CommonStrings::trOpticalMarginsRightProtruding = tr("Right Protruding", "Optical Margin Setting");
 	CommonStrings::trOpticalMarginsLeftHangPunct   = tr("Left Hanging Punctuation", "Optical Margin Setting");
 	CommonStrings::trOpticalMarginsRightHangPunct  = tr("Right Hanging Punctuation", "Optical Margin Setting");
 	CommonStrings::trOpticalMarginsDefault         = tr("Default", "Optical Margin Setting");
-	
+
 	//Paragraph Style Word Tracking
 	CommonStrings::trMinWordTracking = tr("Min. Word Tracking");
 	CommonStrings::trMaxWordTracking = tr("Max. Word Tracking");
-	
+
 	//Paragraph Style Glyph Extension
 	CommonStrings::trMinGlyphExtension = tr("Min. Glyph Extension");
 	CommonStrings::trMaxGlyphExtension = tr("Max. Glyph Extension");
 
 	//PostScript & PDF Types etc
+	CommonStrings::File         = "File";
+	CommonStrings::trFile       = tr("File");
 	CommonStrings::PostScript   = "PostScript";
 	CommonStrings::trPostScript = tr("PostScript");
+	CommonStrings::PDF          = "PDF";
+	CommonStrings::trPDF        = tr("PDF");
 	CommonStrings::PDF_1_3      = "PDF 1.3";
 	CommonStrings::PDF_1_4      = "PDF 1.4";
 	CommonStrings::PDF_1_5      = "PDF 1.5";
+	CommonStrings::PDF_1_6      = "PDF 1.6";
+	CommonStrings::PDF_X1a      = "PDF/X-1a";
 	CommonStrings::PDF_X3       = "PDF/X-3";
+	CommonStrings::PDF_X4       = "PDF/X-4";
 
 	CommonStrings::PostScript1   = "PostScript Level 1";
 	CommonStrings::trPostScript1 = tr( "PostScript Level 1" );
@@ -392,20 +455,40 @@ void CommonStrings::languageChange()
 	CommonStrings::trPostScript3 = tr( "PostScript Level 3" );
 	CommonStrings::WindowsGDI    = "Windows GDI";
 	CommonStrings::trWindowsGDI  = tr( "Windows GDI" );
-	
+
 	//Units
-	CommonStrings::trStrPT=unitGetStrFromIndex(SC_PT);
-	CommonStrings::trStrMM=unitGetStrFromIndex(SC_MM);
-	CommonStrings::trStrIN=unitGetStrFromIndex(SC_IN);
-	CommonStrings::trStrP =unitGetStrFromIndex(SC_P);
-	CommonStrings::trStrCM=unitGetStrFromIndex(SC_CM);
-	CommonStrings::trStrC =unitGetStrFromIndex(SC_C);
-	CommonStrings::strPT=unitGetUntranslatedStrFromIndex(SC_PT);
-	CommonStrings::strMM=unitGetUntranslatedStrFromIndex(SC_MM);
-	CommonStrings::strIN=unitGetUntranslatedStrFromIndex(SC_IN);
-	CommonStrings::strP =unitGetUntranslatedStrFromIndex(SC_P);
-	CommonStrings::strCM=unitGetUntranslatedStrFromIndex(SC_CM);
-	CommonStrings::strC =unitGetUntranslatedStrFromIndex(SC_C);
+	CommonStrings::trStrPT = unitGetStrFromIndex(SC_PT);
+	CommonStrings::trStrMM = unitGetStrFromIndex(SC_MM);
+	CommonStrings::trStrIN = unitGetStrFromIndex(SC_IN);
+	CommonStrings::trStrP  = unitGetStrFromIndex(SC_P);
+	CommonStrings::trStrCM = unitGetStrFromIndex(SC_CM);
+	CommonStrings::trStrC  = unitGetStrFromIndex(SC_C);
+	CommonStrings::trStrPX = tr("px");
+	CommonStrings::strPT = unitGetUntranslatedStrFromIndex(SC_PT);
+	CommonStrings::strMM = unitGetUntranslatedStrFromIndex(SC_MM);
+	CommonStrings::strIN = unitGetUntranslatedStrFromIndex(SC_IN);
+	CommonStrings::strP  = unitGetUntranslatedStrFromIndex(SC_P);
+	CommonStrings::strCM = unitGetUntranslatedStrFromIndex(SC_CM);
+	CommonStrings::strC  = unitGetUntranslatedStrFromIndex(SC_C);
+	CommonStrings::strPX = "px";
+
+	//Keyboard Modifiers
+	CommonStrings::altModifier=tr("Alt");
+	CommonStrings::shiftModifier=tr("Shift");
+
+#ifdef Q_OS_MAC
+	CommonStrings::controlModifier=tr("Cmd");
+	CommonStrings::metaModifier=tr("Ctrl");
+#endif
+#ifdef Q_OS_WIN32
+	CommonStrings::controlModifier=tr("Ctrl");
+	CommonStrings::metaModifier=tr("Windows");
+#endif
+#if !defined(Q_OS_WIN32) && !defined(Q_OS_MAC)
+	CommonStrings::controlModifier=tr("Ctrl");
+	CommonStrings::metaModifier=tr("Meta");
+#endif
+
 }
 
 const QString & CommonStrings::translatePenStyleName( Qt::PenStyle ps )
@@ -422,4 +505,5 @@ const QString & CommonStrings::translatePenStyleName( Qt::PenStyle ps )
 	//if (ps == Qt::SolidLine)
 	return trPenStyle_SolidLine;
 }
+
 

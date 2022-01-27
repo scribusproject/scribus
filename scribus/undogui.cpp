@@ -21,76 +21,55 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
+#include <QCheckBox>
 #include <QDebug>
 #include <QEvent>
+#include <QPainter>
 #include <QPushButton>
-#include <QCheckBox>
 #include <QVBoxLayout>
 
-#include "undogui.h"
+#include "iconmanager.h"
 #include "prefsmanager.h"
-#include "scribuscore.h"
-#include "menumanager.h"
 #include "scraction.h"
-#include "util_icon.h"
+#include "scribuscore.h"
+#include "ui/scmwmenumanager.h"
+#include "undogui.h"
 
-UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WFlags f) : ScrPaletteBase(parent, name, f)
+
+UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WindowFlags f) : ScDockPalette(parent, name, f)
 {
+	languageChange();
+}
 
+void UndoGui::languageChange()
+{
+	setWindowTitle( tr("Action History"));
 }
 
 /*** UndoWidget ***************************************************************/
 
-UndoWidget::UndoWidget(QWidget* parent, const char* name)
-: UndoGui(parent, name)
+UndoWidget::UndoWidget(QWidget* parent, const char* name) : UndoGui(parent, name)
 {
-	/* BnF standard toolbar buttons
-	QHBoxLayout* layout = new QHBoxLayout(this, 0, 0, "layout");
+	auto &actions = ScCore->primaryMainWindow()->scrActions;
+	auto menuManager = ScCore->primaryMainWindow()->scrMenuMgr;
 
-
-	undoButton = new QToolButton(this, "undoButton");
-	undoButton->setIconSet(loadIcon("u_undo.png"));
-	undoButton->setUsesTextLabel(false);
-	undoButton->setToolTip(tr("Undo"));
-	layout->addWidget(undoButton);
-	undoMenu = new QPopupMenu(undoButton, "undoMenu");
-	undoButton->setPopup(undoMenu);
-	undoButton->setPopupDelay(0);
-	undoButton->setAutoRaise(true);
-
-	redoButton = new QToolButton(this, "redoButton");
-	redoButton->setIconSet(loadIcon("u_redo.png"));
-	redoButton->setUsesTextLabel(false);
-	redoButton->setToolTip(tr("Redo"));
-	layout->addWidget(redoButton);
-	redoMenu = new QPopupMenu(redoButton, "redoMenu");
-	redoButton->setPopup(redoMenu);
-	redoButton->setPopupDelay(0);
-	redoButton->setAutoRaise(true);
-	*/
 	//Scribus action based toolbar button construction
-	parent->addAction(ScCore->primaryMainWindow()->scrActions["editUndoAction"]);
-	parent->addAction(ScCore->primaryMainWindow()->scrActions["editRedoAction"]);
-	ScCore->primaryMainWindow()->scrMenuMgr->createMenu("undoButtonMenu", "undoButtonMenu");
-	ScCore->primaryMainWindow()->scrMenuMgr->createMenu("redoButtonMenu", "redoButtonMenu");
-	undoMenu=ScCore->primaryMainWindow()->scrMenuMgr->getLocalPopupMenu("undoButtonMenu");
-	redoMenu=ScCore->primaryMainWindow()->scrMenuMgr->getLocalPopupMenu("redoButtonMenu");
-	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("undoButtonMenu", ScCore->primaryMainWindow()->scrActions["editUndoAction"]);
-	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("redoButton/*Menu*/", ScCore->primaryMainWindow()->scrActions["editRedoAction"]);
+	parent->addAction(actions["editUndoAction"]);
+	parent->addAction(actions["editRedoAction"]);
 
-	parent->addAction(ScCore->primaryMainWindow()->scrActions["editCut"]);
-	parent->addAction(ScCore->primaryMainWindow()->scrActions["editCopy"]);
-	parent->addAction(ScCore->primaryMainWindow()->scrActions["editPaste"]);
-	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("EditPasteRecent", ScCore->primaryMainWindow()->scrActions["editPaste"]);
+	menuManager->createMenu("undoButtonMenu", "undoButtonMenu");
+	menuManager->createMenu("redoButtonMenu", "redoButtonMenu");
+	undoMenu = menuManager->undoMenu();
+	redoMenu = menuManager->redoMenu();
 
-	/* BnF Undo buttons
-	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
-	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
-	*/
-	connect(undoMenu, SIGNAL(triggered(QAction *)), this, SLOT(undoMenuClicked(QAction *)));
-	connect(redoMenu, SIGNAL(triggered(QAction *)), this, SLOT(redoMenuClicked(QAction *)));
+	parent->addAction(actions["editCut"]);
+	parent->addAction(actions["editCopy"]);
+	parent->addAction(actions["editPaste"]);
+
+	connect(undoMenu, SIGNAL(triggered(QAction*)), this, SLOT(undoMenuClicked(QAction*)));
+	connect(redoMenu, SIGNAL(triggered(QAction*)), this, SLOT(redoMenuClicked(QAction*)));
 }
 
 void UndoWidget::clear()
@@ -99,25 +78,21 @@ void UndoWidget::clear()
 	undoItems.clear();
 	//Scribus disable
 	ScCore->primaryMainWindow()->scrActions["editUndoAction"]->setEnabled(false);
-	// BnF disable
-	//undoButton->setEnabled(false);
 	redoMenu->clear();
 	redoItems.clear();
 	//Scribus disable;
 	ScCore->primaryMainWindow()->scrActions["editRedoAction"]->setEnabled(false);
-	// BnF disable
-	//redoButton->setEnabled(false);
 }
 
 void UndoWidget::undoClicked()
 {
-	if (undoItems.size() > 0)
+	if (!undoItems.empty())
 		emit undo(1);
 }
 
 void UndoWidget::redoClicked()
 {
-	if (redoItems.size() > 0)
+	if (!redoItems.empty())
 		emit redo(1);
 }
 
@@ -135,8 +110,7 @@ void UndoWidget::redoMenuClicked(QAction *id)
 
 void UndoWidget::insertUndoItem(UndoObject* target, UndoState* state)
 {
-	undoItems.insert(undoItems.begin(), QString( tr("%1: %2", "undo target: action (f.e. Text frame: Resize)"))
-                                        .arg(target->getUName()).arg(state->getName()));
+	undoItems.insert(undoItems.begin(), QString( tr("%1: %2", "undo target: action (f.e. Text frame: Resize)")).arg(target->getUName(), state->getName()));
 	clearRedo();
 	updateUndoMenu();
 	updateRedoMenu();
@@ -144,8 +118,7 @@ void UndoWidget::insertUndoItem(UndoObject* target, UndoState* state)
 
 void UndoWidget::insertRedoItem(UndoObject* target, UndoState* state)
 {
-	redoItems.push_back(QString( tr("%1: %2", "undo target: action (f.e. Text frame: Resize)"))
-                        .arg(target->getUName()).arg(state->getName()));
+	redoItems.push_back(QString( tr("%1: %2", "undo target: action (f.e. Text frame: Resize)")).arg(target->getUName(), state->getName()));
 	updateRedoMenu();
 	updateUndoMenu();
 }
@@ -161,10 +134,6 @@ void UndoWidget::updateUndoMenu()
 	undoMenu->clear();
 	for (uint i = 0; i < MENU_HEIGHT && i < undoItems.size(); ++i)
 		undoMenu->addAction(undoItems[i]);
-	//BnF
-	//undoButton->setEnabled(undoMenu->count() != 0);
-	//SCribus
-	//ScMW->scrActions["editUndoAction"]->setEnabled(undoMenu->count() != 0);
 	updateUndoActions();
 }
 
@@ -173,10 +142,6 @@ void UndoWidget::updateRedoMenu()
 	redoMenu->clear();
 	for (uint i = 0; i < MENU_HEIGHT && i < redoItems.size(); ++i)
 		redoMenu->addAction(redoItems[i]);
-	//BnF
-	//redoButton->setEnabled(redoMenu->count() != 0);
-	//Scribus
-	//ScMW->scrActions["editRedoAction"]->setEnabled(redoMenu->count() != 0);
 	updateUndoActions();
 }
 
@@ -210,61 +175,53 @@ void UndoWidget::updateRedo(int steps)
 
 void UndoWidget::popBack()
 {
-	if (undoItems.size() > 0)
+	if (!undoItems.empty())
 	{
 		undoItems.erase(undoItems.end() - 1);
 		updateUndoMenu();
 	}
 }
 
-UndoWidget::~UndoWidget()
-{
-
-}
-
 /*** UndoPalette **************************************************************/
 
-UndoPalette::UndoPalette(QWidget* parent, const char* name)
-: UndoGui(parent, name)
+UndoPalette::UndoPalette(QWidget* parent, const char* name) : UndoGui(parent, name)
 {
-	currentSelection = 0;
-	redoItems = 0;
-	QVBoxLayout* layout = new QVBoxLayout(this);
-	layout->setMargin(5);
-	layout->setSpacing(5);
+	setObjectName(QString::fromLocal8Bit(name));
+	setMinimumSize( QSize(220, 240) );
+	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+
+	container = new QWidget(this);
+	QVBoxLayout* layout = new QVBoxLayout(container);
+	layout->setContentsMargins(3, 3, 3, 3);
+	layout->setSpacing(3);
 	objectBox = new QCheckBox(this);
 	layout->addWidget(objectBox);
-// 	objectBox->setEnabled(false);
 
 	undoList = new QListWidget(this);
-// 	undoList->setMultiSelection(false);
-// 	undoList->setSelectionMode(QListWidget::Single);
 	undoList->setSelectionMode(QAbstractItemView::SingleSelection);
 	undoList->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 	layout->addWidget(undoList);
 
 	QHBoxLayout* buttonLayout = new QHBoxLayout;
-	buttonLayout->setMargin(0);
-	buttonLayout->setSpacing(5);
-	undoButton = new QPushButton(loadIcon("16/edit-undo.png"), "", this);
+	buttonLayout->setContentsMargins(0, 0, 0, 0);
+	buttonLayout->setSpacing(6);
+	undoButton = new QPushButton(IconManager::instance().loadPixmap("16/edit-undo.png"), "", this);
 	buttonLayout->addWidget(undoButton);
-	redoButton = new QPushButton(loadIcon("16/edit-redo.png"), "", this);
+	redoButton = new QPushButton(IconManager::instance().loadPixmap("16/edit-redo.png"), "", this);
 	buttonLayout->addWidget(redoButton);
 	//Save the translated key sequence - hopefully we get the translated one here!
 	initialUndoKS = undoButton->shortcut();
 	initialRedoKS = redoButton->shortcut();
 	layout->addLayout(buttonLayout);
+	setWidget(container);
 
 	updateFromPrefs();
 	languageChange();
-	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(updateFromPrefs()));
+	connect(&PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(updateFromPrefs()));
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
-// 	connect(undoList, SIGNAL(highlighted(int)), this, SLOT(undoListClicked(int)));
 	connect(undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
-// 	connect(undoList, SIGNAL(onItem(Q3ListBoxItem*)), this, SLOT(showToolTip(Q3ListBoxItem*)));
 	connect(undoList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(showToolTip(QListWidgetItem*)));
-// 	connect(undoList, SIGNAL(onViewport()), this, SLOT(removeToolTip()));
 	connect(undoList, SIGNAL(viewportEntered()), this, SLOT(removeToolTip()));
 	connect(objectBox, SIGNAL(toggled(bool)), this, SLOT(objectCheckBoxClicked(bool)));
 	connect(ScCore->primaryMainWindow()->scrActions["editActionMode"], SIGNAL(toggled(bool)),
@@ -275,37 +232,32 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 
 void UndoPalette::clear()
 {
-// 	qDebug() << "UndoPalette::clear start";
 	disconnect(undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
 	undoList->clear();
 	undoList->addItem( tr("Initial State"));
 	undoButton->setEnabled(false);
 	redoButton->setEnabled(false);
 	connect(undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
-// 	qDebug() << "UndoPalette::clear end";
 }
 
 void UndoPalette::updateFromPrefs()
 {
-// 	qDebug() << "UndoPalette::updateFromPrefs start";
 	undoButton->setShortcut(ScCore->primaryMainWindow()->scrActions["editUndoAction"]->shortcut());
 	redoButton->setShortcut(ScCore->primaryMainWindow()->scrActions["editRedoAction"]->shortcut());
-// 	qDebug() << "UndoPalette::updateFromPrefs end";
 }
 
 void UndoPalette::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
-	{
 		languageChange();
-	}
 	else
-		QWidget::changeEvent(e);
+		UndoGui::changeEvent(e);
 }
 
 void UndoPalette::languageChange()
 {
-	setWindowTitle( tr("Action History"));
+	UndoGui::languageChange();
+
 	objectBox->setText( tr("Show Selected Object Only"));
 	undoButton->setText( tr("&Undo"));
 	redoButton->setText( tr("&Redo"));
@@ -317,23 +269,18 @@ void UndoPalette::languageChange()
 
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 {
-// 	qDebug() << "UndoPalette::insertUndoItem start";
 	clearRedo();
 	undoList->addItem(new UndoItem(target->getUName(), state->getName(),
                          state->getDescription(), target->getUPixmap(),
                          state->getPixmap(), true));
 	currentSelection = undoList->count() - 1;
 	updateList();
-// 	qDebug() << "UndoPalette::insertUndoItem end";
 }
 
 void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
 {
-// 	qDebug() << "UndoPalette::insertRedoItem start";
 	if (undoList->count() == 1)
 	{
-// 		qDebug() << "UndoPalette::insertRedoItem undoList->count == 1";
-// 		undoList->setSelected(0, true);
 		undoList->setCurrentItem(undoList->item(0));
 		currentSelection = 0;
 	}
@@ -341,63 +288,49 @@ void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
                          state->getDescription(), target->getUPixmap(),
                          state->getPixmap(), false));
 	updateList();
-// 	qDebug() << "UndoPalette::insertRedoItem end";
 }
 
 void UndoPalette::updateUndo(int steps)
 {
-// 	qDebug() << "UndoPalette::updateUndo start";
 	if (undoList->row(undoList->currentItem()) == currentSelection)
 	{
 		currentSelection -= steps;
 		updateList();
 	}
-// 	qDebug() << "UndoPalette::updateUndo end";
 }
 
 void UndoPalette::updateRedo(int steps)
 {
-// 	qDebug() << "UndoPalette::updateRedo start";
 	if (undoList->row(undoList->currentItem()) == currentSelection)
 	{
 		currentSelection += steps;
 		updateList();
 	}
-// 	qDebug() << "UndoPalette::updateRedo end";
 }
 
 void UndoPalette::popBack()
 {
-// 	qDebug() << "UndoPalette::popBack start";
 	if (undoList->count() > 1)
 	{
-// 		undoList->removeItem(0);
 		delete undoList->takeItem(0);
 		currentSelection = undoList->count() - 1;
 	}
-// 	qDebug() << "UndoPalette::popBack end";
 }
 
 void UndoPalette::updateList()
 {
-// 	qDebug() << "UndoPalette::updateList start";
-// 	undoList->setCurrentItem(currentSelection);
 	undoList->setCurrentRow(currentSelection);
-// 	undoList->setSelected(currentSelection, true);
 	redoButton->setEnabled(currentSelection < undoList->count() - 1);
 	undoButton->setEnabled(currentSelection > 0);
-// 	if (!undoList->item(currentSelection)->isVisible()) //itemVisible(currentSelection))
-// 		undoList->setBottomItem(currentSelection);
 	undoList->scrollToItem(undoList->item(currentSelection));
 	for (int i = 0; i < undoList->count(); ++i)
 	{
-		UndoItem *item = dynamic_cast<UndoItem*>(undoList->item(i));
+		auto *item = dynamic_cast<UndoItem*>(undoList->item(i));
 		if (!item)
 			continue;
 
 		item->setUndoAction(currentSelection >= i);
 	}
-// 	qDebug() << "UndoPalette::updateList end";
 }
 
 void UndoPalette::updateUndoActions()
@@ -408,28 +341,22 @@ void UndoPalette::updateUndoActions()
 
 void UndoPalette::clearRedo()
 {
-// 	qDebug() << "UndoPalette::clearRedo start";
 	for (int i = (undoList->count() - 1); i > currentSelection; --i)
-// 		undoList->removeItem(i);
 		delete undoList->takeItem(i);
-// 	qDebug() << "UndoPalette::clearRedo end";
 }
 
 void UndoPalette::undoClicked()
 {
-// 	qDebug() << "UndoPalette::undoClicked emitted";
 	emit undo(1);
 }
 
 void UndoPalette::redoClicked()
 {
-// 	qDebug() << "UndoPalette::redoClicked emitted";
 	emit redo(1);
 }
 
 void UndoPalette::undoListClicked(int i)
 {
-// 	qDebug() << "UndoPalette::undoListClicked start";
 	if (i == currentSelection || (i == 0 && undoList->count() == 1))
 		return;
 	if (i > currentSelection)
@@ -438,20 +365,16 @@ void UndoPalette::undoListClicked(int i)
 		emit undo(currentSelection - i);
 	currentSelection = i;
 	updateList();
-// 	qDebug() << "UndoPalette::undoListClicked end";
 }
 
 void UndoPalette::objectCheckBoxClicked(bool on)
 {
-// 	qDebug() << "UndoPalette::objectCheckBoxClicked start";
 	emit objectMode(on);
-// 	qDebug() << "UndoPalette::objectCheckBoxClicked end";
 }
 
 void UndoPalette::showToolTip(QListWidgetItem *i)
 {
-// 	qDebug() << "UndoPalette::showToolTip start";
-	UndoItem *item = dynamic_cast<UndoItem*>(i);
+	auto *item = dynamic_cast<UndoItem*>(i);
 	if (item)
 	{
 		QString tip = item->getDescription();
@@ -460,41 +383,24 @@ void UndoPalette::showToolTip(QListWidgetItem *i)
 	}
 	else
 		removeToolTip();
-// 	qDebug() << "UndoPalette::showToolTip end";
 }
 
 void UndoPalette::removeToolTip()
 {
-// 	qDebug() << "UndoPalette::removeToolTip start";
 	undoList->setToolTip("");
-// 	qDebug() << "UndoPalette::removeToolTip end";
-}
-
-UndoPalette::~UndoPalette()
-{
-
 }
 
 /*** UndoPalette::UndoItem ****************************************************/
 
-UndoPalette::UndoItem::UndoItem() : QListWidgetItem()
+UndoPalette::UndoItem::UndoItem(const UndoItem &another)
+	: m_targetPixmap(another.m_targetPixmap),
+	  m_actionPixmap(another.m_actionPixmap),
+	  m_target(another.m_target),
+	  m_action(another.m_action),
+	  m_description(another.m_description),
+	  m_isUndoAction(another.m_isUndoAction)
 {
-	target = "";
-	action = "";
-	description = "";
-	targetpixmap = NULL;
-	actionpixmap = NULL;
-	isUndoAction_ = true;
-}
 
-UndoPalette::UndoItem::UndoItem(const UndoItem &another) : QListWidgetItem()
-{
-	target = another.target;
-	action = another.action;
-	description = another.description;
-	targetpixmap = another.targetpixmap;
-	actionpixmap = another.actionpixmap;
-	isUndoAction_ = another.isUndoAction_;
 }
 
 UndoPalette::UndoItem::UndoItem(const QString &targetName,
@@ -506,106 +412,51 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
                                 QListWidget * parent
 							   )
 	: QListWidgetItem(parent),
-	targetpixmap(targetPixmap),
-	actionpixmap(actionPixmap),
-	target(targetName),
-	action(actionName),
-	description(actionDescription),
-	isUndoAction_(isUndoAction)
+	m_targetPixmap(targetPixmap),
+	m_actionPixmap(actionPixmap),
+	m_target(targetName),
+	m_action(actionName),
+	m_description(actionDescription),
+	m_isUndoAction(isUndoAction)
 {
 	/*TODO: 16x16 is hardcoded, because images automatically scaled by QIcon are no longer recognizable 
 	would be better to have the icons designed for 16x16*/
-	if (!targetPixmap) {
-		if (actionPixmap) {
-			setIcon(actionPixmap->scaled(16,16));
-		}
-	} else {
-		QPixmap pixmap = targetPixmap->scaled(16,16);
-		if (actionPixmap) {
+	if (targetPixmap)
+	{
+		QPixmap pixmap;
+		if (!targetPixmap->isNull())
+			pixmap = targetPixmap->scaled(16, 16);
+		if (actionPixmap && !actionPixmap->isNull())
+		{
 			QPainter p;
 			p.begin(&pixmap);
-			p.drawPixmap(0,0, actionPixmap->scaled(16,16));
+			p.drawPixmap(0,0, actionPixmap->scaled(16, 16));
 			p.end();
 		}
 		setIcon(pixmap);
 	}
-	setText(QString("%1 - %2\n%3").arg(targetName).arg(actionName).arg(actionDescription));
-}
-
-//void UndoPalette::UndoItem::paint(QPainter *painter)
-//{
-// 	if (targetpixmap)
-// 		painter->drawPixmap(5, 5, *targetpixmap);
-// 	if (actionpixmap)
-// 		painter->drawPixmap(5, 5, *actionpixmap);
-// 	QPen  p = QPen(painter->pen());
-// 	QFont f = QFont(painter->font());
-// 	painter->setFont(f);
-// 	if (isUndoAction_)
-// 	{
-// 		p.setColor(QColor("black"));
-// 		f.setItalic(false);
-// 	}
-// 	else
-// 	{
-// 		p.setColor(QColor("darkGray"));
-// 		f.setItalic(true);
-// 	}
-// 	painter->setPen(p);
-// 	painter->setFont(f);
-// 	painter->drawText(32, QFontMetrics(f).height(), target);
-// 	painter->drawText(32, (2 * QFontMetrics(painter->font()).height()), action);
-//}
-
-/*
-int UndoPalette::UndoItem::height(const QListWidget *lb) const
-{
-	if (lb)
+	else
 	{
-		int fontHeight = 2 * QFontMetrics(lb->font()).lineSpacing() + 2;
-		if (actionpixmap)
-			return fontHeight > (10 + actionpixmap->height()) ?
-                   fontHeight : (10 + actionpixmap->height());
-		else if (targetpixmap)
-			return fontHeight > (10 + targetpixmap->height()) ?
-                   fontHeight : (10 + targetpixmap->height());
-		else
-			return fontHeight;
+		if (actionPixmap && !actionPixmap->isNull())
+			setIcon(actionPixmap->scaled(16, 16));
 	}
-	else
-		return 0;
+	setText(tr("%1 - %2\n%3").arg(targetName, actionName, actionDescription));
 }
 
-int UndoPalette::UndoItem::width(const QListWidget *lb) const
+QString UndoPalette::UndoItem::getDescription() const
 {
-	if (lb)
-		return target.length() > action.length() ?
-               39 + QFontMetrics(lb->font()).width(target) :
-               39 + QFontMetrics(lb->font()).width(action);
-	else
-		return 0;
-}
-*/
-
-QString UndoPalette::UndoItem::getDescription()
-{
-  return description;
+  return m_description;
 }
 
-bool UndoPalette::UndoItem::isUndoAction()
+bool UndoPalette::UndoItem::isUndoAction() const
 {
-	return isUndoAction_;
+	return m_isUndoAction;
 }
 
 void UndoPalette::UndoItem::setUndoAction(bool isUndo)
 {
-	isUndoAction_ = isUndo;
+	m_isUndoAction = isUndo;
 	QFont f = font();
-	f.setItalic(!isUndoAction_);
+	f.setItalic(!m_isUndoAction);
 	setFont(f);
-}
-
-UndoPalette::UndoItem::~UndoItem()
-{
-
 }

@@ -5,69 +5,56 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "cmsettings.h"
-#include "scclocale.h"
-#include "scimage.h"
-#include "scribus.h"
-#include "scpaths.h"
-#include "scribuscore.h"
-#include "scimgdataloader_gimp.h"
-#include "scimgdataloader_jpeg.h"
-#include "scimgdataloader_ps.h"
-#include "scimgdataloader_psd.h"
-#include "scimgdataloader_pdf.h"
-#include "scimgdataloader_qt.h"
-#include "scimgdataloader_tiff.h"
-#include "sctextstream.h"
-#include <QMessageBox>
-#include <QList>
-#include <QByteArray>
 #include <cassert>
 #include <cmath>
 #include <cstdlib>
 #include <memory>
-#include <setjmp.h>
-#include CMS_INC
-#include "util_cms.h"
+#include <csetjmp>
+
+#include <QByteArray>
+#include <QFile>
+#include <QImageReader>
+#include <QMessageBox>
+#include <QList>
+#include <QScopedPointer>
+
+#include "cmsettings.h"
 #include "commonstrings.h"
 #include "exif.h"
-#include "util_ghostscript.h"
 #include "rawimage.h"
+#include "scclocale.h"
 #include "sccolorengine.h"
+#include "scimagecacheproxy.h"
+#include "scstreamfilter.h"
+#include "scimage.h"
+#include "scpaths.h"
+#include "scribuscore.h"
+#include "scstreamfilter_jpeg.h"
+#include "sctextstream.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
-#include "scstreamfilter.h"
+#include "util_ghostscript.h"
 
-extern "C"
-{
-#define XMD_H           // shut JPEGlib up
-#if defined(Q_OS_UNIXWARE)
-#  define HAVE_BOOLEAN  // libjpeg under Unixware seems to need this
+#include "imagedataloaders/scimgdataloader_gimp.h"
+#ifdef GMAGICK_FOUND
+#include "imagedataloaders/scimgdataloader_gmagick.h"
 #endif
-#include <jpeglib.h>
-#include <jerror.h>
-#undef HAVE_STDLIB_H
-#ifdef const
-#  undef const          // remove crazy C hackery in jconfig.h
-#endif
-}
+#include "imagedataloaders/scimgdataloader_jpeg.h"
+#include "imagedataloaders/scimgdataloader_ora.h"
+#include "imagedataloaders/scimgdataloader_kra.h"
+#include "imagedataloaders/scimgdataloader_pict.h"
+#include "imagedataloaders/scimgdataloader_pdf.h"
+#include "imagedataloaders/scimgdataloader_pgf.h"
+#include "imagedataloaders/scimgdataloader_png.h"
+#include "imagedataloaders/scimgdataloader_ps.h"
+#include "imagedataloaders/scimgdataloader_psd.h"
+#include "imagedataloaders/scimgdataloader_qt.h"
+#include "imagedataloaders/scimgdataloader_tiff.h"
+#include "imagedataloaders/scimgdataloader_wpg.h"
+
 
 using namespace std;
-
-typedef struct my_error_mgr
-{
-	struct jpeg_error_mgr pub;            /* "public" fields */
-	jmp_buf setjmp_buffer;  /* for return to caller */
-}
-*my_error_ptr;
-
-static void my_error_exit (j_common_ptr cinfo)
-{
-	my_error_ptr myerr = (my_error_ptr) cinfo->err;
-	(*cinfo->err->output_message) (cinfo);
-	longjmp (myerr->setjmp_buffer, 1);
-}
 
 ScImage::ScImage(const QImage & image) : QImage(image)
 {
@@ -82,7 +69,7 @@ ScImage::ScImage(const ScImage & image) : QImage(image.copy())
 }
 
 
-ScImage::ScImage() : QImage()
+ScImage::ScImage()
 {
 	initialize();
 }
@@ -102,9 +89,9 @@ QImage* ScImage::qImagePtr()
 	return this;
 }
 
-QImage ScImage::scaled(int h, int w, Qt::AspectRatioMode mode, Qt::TransformationMode transformMode) const
+QImage ScImage::scaled(int w, int h, Qt::AspectRatioMode mode, Qt::TransformationMode transformMode) const
 {
-	return QImage::scaled(h, w, mode, transformMode);
+	return QImage::scaled(w, h, mode, transformMode);
 }
 
 
@@ -122,12 +109,14 @@ void ScImage::initialize()
 	imgInfo.lowResScale = 1.0;
 	imgInfo.PDSpathData.clear();
 	imgInfo.RequestProps.clear();
-	imgInfo.clipPath = "";
-	imgInfo.usedPath = "";
+	imgInfo.clipPath.clear();
+	imgInfo.usedPath.clear();
+	imgInfo.profileName.clear();
+	imgInfo.embeddedProfileName.clear();
 	imgInfo.layerInfo.clear();
 	imgInfo.duotoneColors.clear();
-	imgInfo.exifInfo.cameraName = "";
-	imgInfo.exifInfo.cameraVendor = "";
+	imgInfo.exifInfo.cameraName.clear();
+	imgInfo.exifInfo.cameraVendor.clear();
 	imgInfo.exifInfo.thumbnail = QImage();
 	imgInfo.BBoxX = 0;
 	imgInfo.BBoxH = 0;
@@ -139,259 +128,251 @@ ScImage::~ScImage()
 
 void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& colors, bool cmyk)
 {
+	if (effectsList.count() <= 0)
+		return;
 	ScribusDoc* doc = colors.document();
-	if (effectsList.count() != 0)
+
+	for (int i = 0; i < effectsList.count(); ++i)
 	{
-		for (int a = 0; a < effectsList.count(); ++a)
+		const ImageEffect& effect = effectsList.at(i);
+		if (effect.effectCode == ImageEffect::EF_INVERT)
+			invert(cmyk);
+		if (effect.effectCode == ImageEffect::EF_GRAYSCALE)
+			toGrayscale(cmyk);
+		if (effect.effectCode == ImageEffect::EF_COLORIZE)
 		{
-			if (effectsList.at(a).effectCode == EF_INVERT)
-				invert(cmyk);
-			if (effectsList.at(a).effectCode == EF_GRAYSCALE)
-				toGrayscale(cmyk);
-			if (effectsList.at(a).effectCode == EF_COLORIZE)
+			QString tmpstr = effect.effectParameters;
+			QString col = CommonStrings::None;
+			int shading = 100;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+		//	fp >> col;
+			col = fp.readLine();
+			fp >> shading;
+			colorize(doc, colors[col], shading, cmyk);
+		}
+		if (effect.effectCode == ImageEffect::EF_BRIGHTNESS)
+		{
+			QString tmpstr = effect.effectParameters;
+			int brightnessValue = 0;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> brightnessValue;
+			brightness(brightnessValue, cmyk);
+		}
+		if (effect.effectCode == ImageEffect::EF_CONTRAST)
+		{
+			QString tmpstr = effect.effectParameters;
+			int contrastValue = 0;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> contrastValue;
+			contrast(contrastValue, cmyk);
+		}
+		if (effect.effectCode == ImageEffect::EF_SHARPEN)
+		{
+			QString tmpstr = effect.effectParameters;
+			double radius, sigma;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> radius;
+			fp >> sigma;
+			sharpen(radius, sigma);
+		}
+		if (effect.effectCode == ImageEffect::EF_BLUR)
+		{
+			QString tmpstr = effect.effectParameters;
+			double radius, sigma;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> radius;
+			fp >> sigma;
+			blur(static_cast<int>(radius));
+		}
+		if (effect.effectCode == ImageEffect::EF_SOLARIZE)
+		{
+			QString tmpstr = effect.effectParameters;
+			double sigma;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> sigma;
+			solarize(sigma, cmyk);
+		}
+		if (effect.effectCode == ImageEffect::EF_DUOTONE)
+		{
+			QString tmpstr = effect.effectParameters;
+			QString col1 = CommonStrings::None;
+			int shading1 = 100;
+			QString col2 = CommonStrings::None;
+			int shading2 = 100;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			col1 = fp.readLine();
+			col2 = fp.readLine();
+			fp >> shading1;
+			fp >> shading2;
+			int numVals;
+			double xval, yval;
+			FPointArray curve1;
+			curve1.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				QString col = CommonStrings::None;
-				int shading = 100;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-			//	fp >> col;
-				col = fp.readLine();
-				fp >> shading;
-				colorize(doc, colors[col], shading, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve1.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_BRIGHTNESS)
+			int lin1;
+			fp >> lin1;
+			FPointArray curve2;
+			curve2.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				int brightnessValue = 0;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> brightnessValue;
-				brightness(brightnessValue, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve2.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_CONTRAST)
+			int lin2;
+			fp >> lin2;
+			duotone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, cmyk);
+		}
+		if (effect.effectCode == ImageEffect::EF_TRITONE)
+		{
+			QString tmpstr = effect.effectParameters;
+			QString col1 = CommonStrings::None;
+			QString col2 = CommonStrings::None;
+			QString col3 = CommonStrings::None;
+			int shading1 = 100;
+			int shading2 = 100;
+			int shading3 = 100;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			col1 = fp.readLine();
+			col2 = fp.readLine();
+			col3 = fp.readLine();
+			fp >> shading1;
+			fp >> shading2;
+			fp >> shading3;
+			int numVals;
+			double xval, yval;
+			FPointArray curve1;
+			curve1.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				int contrastValue = 0;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> contrastValue;
-				contrast(contrastValue, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve1.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_SHARPEN)
+			int lin1;
+			fp >> lin1;
+			FPointArray curve2;
+			curve2.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				double radius, sigma;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> radius;
-				fp >> sigma;
-				sharpen(radius, sigma);
+				fp >> xval;
+				fp >> yval;
+				curve2.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_BLUR)
+			int lin2;
+			fp >> lin2;
+			FPointArray curve3;
+			curve3.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				double radius, sigma;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> radius;
-				fp >> sigma;
-				blur(static_cast<int>(radius));
+				fp >> xval;
+				fp >> yval;
+				curve3.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_SOLARIZE)
+			int lin3;
+			fp >> lin3;
+			tritone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, colors[col3], shading3, curve3, lin3, cmyk);
+		}
+		if (effect.effectCode == ImageEffect::EF_QUADTONE)
+		{
+			QString tmpstr = effect.effectParameters;
+			QString col1 = CommonStrings::None;
+			QString col2 = CommonStrings::None;
+			QString col3 = CommonStrings::None;
+			QString col4 = CommonStrings::None;
+			int shading1 = 100;
+			int shading2 = 100;
+			int shading3 = 100;
+			int shading4 = 100;
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			col1 = fp.readLine();
+			col2 = fp.readLine();
+			col3 = fp.readLine();
+			col4 = fp.readLine();
+			fp >> shading1;
+			fp >> shading2;
+			fp >> shading3;
+			fp >> shading4;
+			int numVals;
+			double xval, yval;
+			FPointArray curve1;
+			curve1.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				double sigma;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> sigma;
-				solarize(sigma, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve1.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_DUOTONE)
+			int lin1;
+			fp >> lin1;
+			FPointArray curve2;
+			curve2.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				QString col1 = CommonStrings::None;
-				int shading1 = 100;
-				QString col2 = CommonStrings::None;
-				int shading2 = 100;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				col1 = fp.readLine();
-				col2 = fp.readLine();
-				fp >> shading1;
-				fp >> shading2;
-				int numVals;
-				double xval, yval;
-				FPointArray curve1;
-				curve1.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve1.addPoint(xval, yval);
-				}
-				int lin1;
-				fp >> lin1;
-				FPointArray curve2;
-				curve2.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve2.addPoint(xval, yval);
-				}
-				int lin2;
-				fp >> lin2;
-				duotone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve2.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_TRITONE)
+			int lin2;
+			fp >> lin2;
+			FPointArray curve3;
+			curve3.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				QString col1 = CommonStrings::None;
-				QString col2 = CommonStrings::None;
-				QString col3 = CommonStrings::None;
-				int shading1 = 100;
-				int shading2 = 100;
-				int shading3 = 100;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				col1 = fp.readLine();
-				col2 = fp.readLine();
-				col3 = fp.readLine();
-				fp >> shading1;
-				fp >> shading2;
-				fp >> shading3;
-				int numVals;
-				double xval, yval;
-				FPointArray curve1;
-				curve1.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve1.addPoint(xval, yval);
-				}
-				int lin1;
-				fp >> lin1;
-				FPointArray curve2;
-				curve2.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve2.addPoint(xval, yval);
-				}
-				int lin2;
-				fp >> lin2;
-				FPointArray curve3;
-				curve3.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve3.addPoint(xval, yval);
-				}
-				int lin3;
-				fp >> lin3;
-				tritone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, colors[col3], shading3, curve3, lin3, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve3.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_QUADTONE)
+			int lin3;
+			fp >> lin3;
+			FPointArray curve4;
+			curve4.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				QString col1 = CommonStrings::None;
-				QString col2 = CommonStrings::None;
-				QString col3 = CommonStrings::None;
-				QString col4 = CommonStrings::None;
-				int shading1 = 100;
-				int shading2 = 100;
-				int shading3 = 100;
-				int shading4 = 100;
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				col1 = fp.readLine();
-				col2 = fp.readLine();
-				col3 = fp.readLine();
-				col4 = fp.readLine();
-				fp >> shading1;
-				fp >> shading2;
-				fp >> shading3;
-				fp >> shading4;
-				int numVals;
-				double xval, yval;
-				FPointArray curve1;
-				curve1.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve1.addPoint(xval, yval);
-				}
-				int lin1;
-				fp >> lin1;
-				FPointArray curve2;
-				curve2.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve2.addPoint(xval, yval);
-				}
-				int lin2;
-				fp >> lin2;
-				FPointArray curve3;
-				curve3.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve3.addPoint(xval, yval);
-				}
-				int lin3;
-				fp >> lin3;
-				FPointArray curve4;
-				curve4.resize(0);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve4.addPoint(xval, yval);
-				}
-				int lin4;
-				fp >> lin4;
-				quadtone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, colors[col3], shading3, curve3, lin3, colors[col4], shading4, curve4, lin4, cmyk);
+				fp >> xval;
+				fp >> yval;
+				curve4.addPoint(xval, yval);
 			}
-			if (effectsList.at(a).effectCode == EF_GRADUATE)
+			int lin4;
+			fp >> lin4;
+			quadtone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, colors[col3], shading3, curve3, lin3, colors[col4], shading4, curve4, lin4, cmyk);
+		}
+		if (effect.effectCode == ImageEffect::EF_GRADUATE)
+		{
+			QString tmpstr = effect.effectParameters;
+			int numVals;
+			double xval, yval;
+			FPointArray curve;
+			curve.resize(0);
+			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
 			{
-				QString tmpstr = effectsList.at(a).effectParameters;
-				int numVals;
-				double xval, yval;
-				FPointArray curve;
-				curve.resize(0);
-				ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
-				fp >> numVals;
-				for (int nv = 0; nv < numVals; nv++)
-				{
-					fp >> xval;
-					fp >> yval;
-					curve.addPoint(xval, yval);
-				}
-				int lin;
-				fp >> lin;
-				doGraduate(curve, cmyk, lin);
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
 			}
+			int lin;
+			fp >> lin;
+			doGraduate(curve, cmyk, lin);
 		}
 	}
 }
-/*
-void ScImage::liberateMemory(void **memory)
-{
-	assert(memory != (void **)NULL);
-	if(*memory == (void *)NULL)
-		return;
-	free(*memory);
-	*memory=(void *) NULL;
-}
-*/
+
 void ScImage::solarize(double factor, bool cmyk)
 {
 	QVector<int> curveTable(256);
@@ -406,304 +387,316 @@ void ScImage::solarize(double factor, bool cmyk)
 // Stack Blur Algorithm by Mario Klingemann <mario@quasimondo.com>
 void ScImage::blur(int radius)
 {
-    if (radius < 1) {
-        return;
-    }
+	if (radius < 1) {
+		return;
+	}
 
-    QRgb *pix = (QRgb*)bits();
-    int w   = width();
-    int h   = height();
-    int wm  = w-1;
-    int hm  = h-1;
-    int wh  = w*h;
-    int div = radius+radius+1;
+	QRgb *pix = (QRgb*) bits();
+	int w   = width();
+	int h   = height();
+	int wm  = w - 1;
+	int hm  = h - 1;
+	int wh  = w * h;
+	int div = radius + radius + 1;
 
-    int *r = new int[wh];
-    int *g = new int[wh];
-    int *b = new int[wh];
-    int *a = new int[wh];
-    int rsum, gsum, bsum, asum, x, y, i, yp, yi, yw;
-    QRgb p;
-    int *vmin = new int[qMax(w,h)];
+	int *r = new int[wh];
+	int *g = new int[wh];
+	int *b = new int[wh];
+	int *a = new int[wh];
+	int rsum, gsum, bsum, asum, x, y, i, yp, yi, yw;
+	QRgb p;
+	int *vmin = new int[qMax(w, h)];
 
-    int divsum = (div+1)>>1;
-    divsum *= divsum;
-    int *dv = new int[256*divsum];
-    for (i=0; i < 256*divsum; ++i) {
-        dv[i] = (i/divsum);
-    }
+	int divsum = (div + 1) >> 1;
+	divsum *= divsum;
+	int *dv = new int[256*divsum];
+	for (i = 0; i < 256 * divsum; ++i) {
+		dv[i] = (i / divsum);
+	}
 
-    yw = yi = 0;
+	yw = yi = 0;
 
-    int **stack = new int*[div];
-    for(int i = 0; i < div; ++i) {
-        stack[i] = new int[4];
-    }
+	int **stack = new int*[div];
+	for (int i = 0; i < div; ++i) {
+		stack[i] = new int[4];
+	}
 
+	int stackpointer;
+	int stackstart;
+	int *sir;
+	int rbs;
+	int r1 = radius + 1;
+	int routsum, goutsum, boutsum, aoutsum;
+	int rinsum, ginsum, binsum, ainsum;
 
-    int stackpointer;
-    int stackstart;
-    int *sir;
-    int rbs;
-    int r1 = radius+1;
-    int routsum, goutsum, boutsum, aoutsum;
-    int rinsum, ginsum, binsum, ainsum;
+	for (y = 0; y < h; ++y)
+	{
+		rinsum = ginsum = binsum = ainsum
+			= routsum = goutsum = boutsum = aoutsum
+			= rsum = gsum = bsum = asum = 0;
+		for (i = -radius; i <= radius; ++i)
+		{
+			p = pix[yi + qMin(wm, qMax(i, 0))];
+			sir = stack[i + radius];
+			sir[0] = qRed(p);
+			sir[1] = qGreen(p);
+			sir[2] = qBlue(p);
+			sir[3] = qAlpha(p);
 
-    for (y = 0; y < h; ++y){
-        rinsum = ginsum = binsum = ainsum
-               = routsum = goutsum = boutsum = aoutsum
-               = rsum = gsum = bsum = asum = 0;
-        for(i =- radius; i <= radius; ++i) {
-            p = pix[yi+qMin(wm,qMax(i,0))];
-            sir = stack[i+radius];
-            sir[0] = qRed(p);
-            sir[1] = qGreen(p);
-            sir[2] = qBlue(p);
-            sir[3] = qAlpha(p);
-            
-            rbs = r1-abs(i);
-            rsum += sir[0]*rbs;
-            gsum += sir[1]*rbs;
-            bsum += sir[2]*rbs;
-            asum += sir[3]*rbs;
-            
-            if (i > 0){
-                rinsum += sir[0];
-                ginsum += sir[1];
-                binsum += sir[2];
-                ainsum += sir[3];
-            } else {
-                routsum += sir[0];
-                goutsum += sir[1];
-                boutsum += sir[2];
-                aoutsum += sir[3];
-            }
-        }
-        stackpointer = radius;
+			rbs = r1 - abs(i);
+			rsum += sir[0] * rbs;
+			gsum += sir[1] * rbs;
+			bsum += sir[2] * rbs;
+			asum += sir[3] * rbs;
 
-        for (x=0; x < w; ++x) {
+			if (i > 0)
+			{
+				rinsum += sir[0];
+				ginsum += sir[1];
+				binsum += sir[2];
+				ainsum += sir[3];
+			}
+			else
+			{
+				routsum += sir[0];
+				goutsum += sir[1];
+				boutsum += sir[2];
+				aoutsum += sir[3];
+			}
+		}
+		stackpointer = radius;
 
-            r[yi] = dv[rsum];
-            g[yi] = dv[gsum];
-            b[yi] = dv[bsum];
-            a[yi] = dv[asum];
+		for (x=0; x < w; ++x)
+		{
+			r[yi] = dv[rsum];
+			g[yi] = dv[gsum];
+			b[yi] = dv[bsum];
+			a[yi] = dv[asum];
 
-            rsum -= routsum;
-            gsum -= goutsum;
-            bsum -= boutsum;
-            asum -= aoutsum;
+			rsum -= routsum;
+			gsum -= goutsum;
+			bsum -= boutsum;
+			asum -= aoutsum;
 
-            stackstart = stackpointer-radius+div;
-            sir = stack[stackstart%div];
+			stackstart = stackpointer - radius + div;
+			sir = stack[stackstart % div];
 
-            routsum -= sir[0];
-            goutsum -= sir[1];
-            boutsum -= sir[2];
-            aoutsum -= sir[3];
+			routsum -= sir[0];
+			goutsum -= sir[1];
+			boutsum -= sir[2];
+			aoutsum -= sir[3];
 
-            if (y == 0) {
-                vmin[x] = qMin(x+radius+1,wm);
-            }
-            p = pix[yw+vmin[x]];
+			if (y == 0)
+			{
+				vmin[x] = qMin(x + radius + 1, wm);
+			}
+			p = pix[yw + vmin[x]];
 
-            sir[0] = qRed(p);
-            sir[1] = qGreen(p);
-            sir[2] = qBlue(p);
-            sir[3] = qAlpha(p);
+			sir[0] = qRed(p);
+			sir[1] = qGreen(p);
+			sir[2] = qBlue(p);
+			sir[3] = qAlpha(p);
 
-            rinsum += sir[0];
-            ginsum += sir[1];
-            binsum += sir[2];
-            ainsum += sir[3];
+			rinsum += sir[0];
+			ginsum += sir[1];
+			binsum += sir[2];
+			ainsum += sir[3];
 
-            rsum += rinsum;
-            gsum += ginsum;
-            bsum += binsum;
-            asum += ainsum;
+			rsum += rinsum;
+			gsum += ginsum;
+			bsum += binsum;
+			asum += ainsum;
 
-            stackpointer = (stackpointer+1)%div;
-            sir = stack[(stackpointer)%div];
+			stackpointer = (stackpointer+1)%div;
+			sir = stack[(stackpointer)%div];
 
-            routsum += sir[0];
-            goutsum += sir[1];
-            boutsum += sir[2];
-            aoutsum += sir[3];
+			routsum += sir[0];
+			goutsum += sir[1];
+			boutsum += sir[2];
+			aoutsum += sir[3];
 
-            rinsum -= sir[0];
-            ginsum -= sir[1];
-            binsum -= sir[2];
-            ainsum -= sir[3];
+			rinsum -= sir[0];
+			ginsum -= sir[1];
+			binsum -= sir[2];
+			ainsum -= sir[3];
 
-            ++yi;
-        }
-        yw += w;
-    }
-    for (x=0; x < w; ++x){
-        rinsum = ginsum = binsum = ainsum 
-               = routsum = goutsum = boutsum = aoutsum 
-               = rsum = gsum = bsum = asum = 0;
-        
-        yp =- radius * w;
-        
-        for(i=-radius; i <= radius; ++i) {
-            yi=qMax(0,yp)+x;
+			++yi;
+		}
+		yw += w;
+	}
+	for (x=0; x < w; ++x)
+	{
+		rinsum = ginsum = binsum = ainsum
+			= routsum = goutsum = boutsum = aoutsum
+			= rsum = gsum = bsum = asum = 0;
 
-            sir = stack[i+radius];
+		yp =- radius * w;
 
-            sir[0] = r[yi];
-            sir[1] = g[yi];
-            sir[2] = b[yi];
-            sir[3] = a[yi];
+		for (i=-radius; i <= radius; ++i)
+		{
+			yi = qMax(0, yp) + x;
 
-            rbs = r1-abs(i);
+			sir = stack[i + radius];
 
-            rsum += r[yi]*rbs;
-            gsum += g[yi]*rbs;
-            bsum += b[yi]*rbs;
-            asum += a[yi]*rbs;
+			sir[0] = r[yi];
+			sir[1] = g[yi];
+			sir[2] = b[yi];
+			sir[3] = a[yi];
 
-            if (i > 0) {
-                rinsum += sir[0];
-                ginsum += sir[1];
-                binsum += sir[2];
-                ainsum += sir[3];
-            } else {
-                routsum += sir[0];
-                goutsum += sir[1];
-                boutsum += sir[2];
-                aoutsum += sir[3];
-            }
+			rbs = r1 - abs(i);
 
-            if (i < hm){
-                yp += w;
-            }
-        }
+			rsum += r[yi]*rbs;
+			gsum += g[yi]*rbs;
+			bsum += b[yi]*rbs;
+			asum += a[yi]*rbs;
 
-        yi = x;
-        stackpointer = radius;
+			if (i > 0)
+			{
+				rinsum += sir[0];
+				ginsum += sir[1];
+				binsum += sir[2];
+				ainsum += sir[3];
+			}
+			else
+			{
+				routsum += sir[0];
+				goutsum += sir[1];
+				boutsum += sir[2];
+				aoutsum += sir[3];
+			}
 
-        for (y=0; y < h; ++y){
-            pix[yi] = qRgba(dv[rsum], dv[gsum], dv[bsum], dv[asum]);
+			if (i < hm)
+			{
+				yp += w;
+			}
+		}
 
-            rsum -= routsum;
-            gsum -= goutsum;
-            bsum -= boutsum;
-            asum -= aoutsum;
+		yi = x;
+		stackpointer = radius;
 
-            stackstart = stackpointer-radius+div;
-            sir = stack[stackstart%div];
+		for (y=0; y < h; ++y)
+		{
+			pix[yi] = qRgba(dv[rsum], dv[gsum], dv[bsum], dv[asum]);
 
-            routsum -= sir[0];
-            goutsum -= sir[1];
-            boutsum -= sir[2];
-            aoutsum -= sir[3];
+			rsum -= routsum;
+			gsum -= goutsum;
+			bsum -= boutsum;
+			asum -= aoutsum;
 
-            if (x==0){
-                vmin[y] = qMin(y+r1,hm)*w;
-            }
-            p = x+vmin[y];
+			stackstart = stackpointer-radius+div;
+			sir = stack[stackstart%div];
 
-            sir[0] = r[p];
-            sir[1] = g[p];
-            sir[2] = b[p];
-            sir[3] = a[p];
+			routsum -= sir[0];
+			goutsum -= sir[1];
+			boutsum -= sir[2];
+			aoutsum -= sir[3];
 
-            rinsum += sir[0];
-            ginsum += sir[1];
-            binsum += sir[2];
-            ainsum += sir[3];
+			if (x==0)
+			{
+				vmin[y] = qMin(y + r1,hm)*w;
+			}
+			p = x + vmin[y];
 
-            rsum += rinsum;
-            gsum += ginsum;
-            bsum += binsum;
-            asum += ainsum;
+			sir[0] = r[p];
+			sir[1] = g[p];
+			sir[2] = b[p];
+			sir[3] = a[p];
 
-            stackpointer = (stackpointer+1)%div;
-            sir = stack[stackpointer];
+			rinsum += sir[0];
+			ginsum += sir[1];
+			binsum += sir[2];
+			ainsum += sir[3];
 
-            routsum += sir[0];
-            goutsum += sir[1];
-            boutsum += sir[2];
-            aoutsum += sir[3];
+			rsum += rinsum;
+			gsum += ginsum;
+			bsum += binsum;
+			asum += ainsum;
 
-            rinsum -= sir[0];
-            ginsum -= sir[1];
-            binsum -= sir[2];
-            ainsum -= sir[3];
+			stackpointer = (stackpointer + 1) % div;
+			sir = stack[stackpointer];
 
-            yi += w;
-        }
-    }
-    delete [] r;
-    delete [] g;
-    delete [] b;
-    delete [] a;
-    delete [] vmin;
-    delete [] dv;
+			routsum += sir[0];
+			goutsum += sir[1];
+			boutsum += sir[2];
+			aoutsum += sir[3];
 
-    for(int i = 0; i < div; ++i) {
-        delete [] stack[i];
-    }
-    delete [] stack;
+			rinsum -= sir[0];
+			ginsum -= sir[1];
+			binsum -= sir[2];
+			ainsum -= sir[3];
+
+			yi += w;
+		}
+	}
+	delete [] r;
+	delete [] g;
+	delete [] b;
+	delete [] a;
+	delete [] vmin;
+	delete [] dv;
+
+	for (int i = 0; i < div; ++i)
+	{
+		delete [] stack[i];
+	}
+	delete [] stack;
 }
 
 bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double *kernel)
 {
-	long widthk;
 	double red, green, blue, alpha;
-	double normalize, *normal_kernel;
-	register const double *k;
-	register unsigned int *q;
+	const double *k;
+	unsigned int *q;
 	int x, y, mx, my, sx, sy;
 	long i;
 	int mcx, mcy;
-	widthk = order;
-	if((widthk % 2) == 0)
-		return(false);
-	normal_kernel = (double *)malloc(widthk*widthk*sizeof(double));
-	if(!normal_kernel)
-		return(false);
+	long widthk = order;
+	if ((widthk % 2) == 0)
+		return false;
+	double *normal_kernel = (double *)malloc(widthk*widthk*sizeof(double));
+	if (!normal_kernel)
+		return false;
 	*dest = QImage(width(), height(), QImage::Format_ARGB32);
-	normalize=0.0;
-	for(i=0; i < (widthk*widthk); i++)
+	double normalize = 0.0;
+	for (i=0; i < (widthk * widthk); i++)
 		normalize += kernel[i];
-	if(fabs(normalize) <= 1.0e-12)
-		normalize=1.0;
-	normalize=1.0/normalize;
-	for(i=0; i < (widthk*widthk); i++)
+	if (fabs(normalize) <= 1.0e-12)
+		normalize = 1.0;
+	normalize = 1.0 / normalize;
+	for (i = 0; i < (widthk * widthk); i++)
 		normal_kernel[i] = normalize*kernel[i];
-	for(y=0; y < dest->height(); ++y)
+	for (y = 0; y < dest->height(); ++y)
 	{
-		sy = y-(widthk/2);
-		q = (unsigned int *)dest->scanLine(y);
-		for(x=0; x < dest->width(); ++x)
+		sy = y - (widthk / 2);
+		q = (unsigned int *) dest->scanLine(y);
+		for (x = 0; x < dest->width(); ++x)
 		{
 			k = normal_kernel;
 			red = green = blue = alpha = 0;
-			sy = y-(widthk/2);
-			for(mcy=0; mcy < widthk; ++mcy, ++sy)
+			sy = y - (widthk / 2);
+			for (mcy = 0; mcy < widthk; ++mcy, ++sy)
 			{
-				my = sy < 0 ? 0 : sy > height()-1 ? height()-1 : sy;
-				sx = x+(-widthk/2);
-				for(mcx=0; mcx < widthk; ++mcx, ++sx)
+				my = sy < 0 ? 0 : sy > height() - 1 ? height() - 1 : sy;
+				sx = x + (-widthk / 2);
+				for (mcx=0; mcx < widthk; ++mcx, ++sx)
 				{
 					mx = sx < 0 ? 0 : sx > width()-1 ? width()-1 : sx;
 					int px = pixel(mx, my);
-					red += (*k)*(qRed(px)*257);
-					green += (*k)*(qGreen(px)*257);
-					blue += (*k)*(qBlue(px)*257);
-					alpha += (*k)*(qAlpha(px)*257);
+					red += (*k)*(qRed(px) * 257);
+					green += (*k)*(qGreen(px) * 257);
+					blue += (*k)*(qBlue(px) * 257);
+					alpha += (*k)*(qAlpha(px) * 257);
 					++k;
 				}
 			}
-			red = red < 0 ? 0 : red > 65535 ? 65535 : red+0.5;
-			green = green < 0 ? 0 : green > 65535 ? 65535 : green+0.5;
-			blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue+0.5;
-			alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha+0.5;
-			*q++ = qRgba((unsigned char)(red/257UL),
-			             (unsigned char)(green/257UL),
-			             (unsigned char)(blue/257UL),
-			             (unsigned char)(alpha/257UL));
+			red = red < 0 ? 0 : red > 65535 ? 65535 : red + 0.5;
+			green = green < 0 ? 0 : green > 65535 ? 65535 : green + 0.5;
+			blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue + 0.5;
+			alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha + 0.5;
+			*q++ = qRgba((unsigned char)(red / 257UL),
+			             (unsigned char)(green / 257UL),
+			             (unsigned char)(blue / 257UL),
+			             (unsigned char)(alpha / 257UL));
 		}
 	}
 	free(normal_kernel);
@@ -714,66 +707,65 @@ int ScImage::getOptimalKernelWidth(double radius, double sigma)
 {
 	double normalize, value;
 	long width;
-	register long u;
+	long u;
 	assert(sigma != 0.0);
-	if(radius > 0.0)
-		return((int)(2.0*ceil(radius)+1.0));
-	for(width=5; ;)
+	if (radius > 0.0)
+		return((int)(2.0 * ceil(radius) + 1.0));
+	for (width = 5; ;)
 	{
-		normalize=0.0;
-		for(u=(-width/2); u <= (width/2); u++)
-			normalize+=exp(-((double) u*u)/(2.0*sigma*sigma))/(2.50662827463100024161235523934010416269302368164062*sigma);
-		u=width/2;
-		value=exp(-((double) u*u)/(2.0*sigma*sigma))/(2.50662827463100024161235523934010416269302368164062*sigma)/normalize;
-		if((long)(65535*value) <= 0)
+		normalize = 0.0;
+		for (u= (-width / 2); u <= (width / 2); u++)
+			normalize += exp(-((double) u * u) / (2.0 * sigma * sigma)) / (2.50662827463100024161235523934010416269302368164062 * sigma);
+		u = width / 2;
+		value = exp(-((double) u*u) / (2.0 * sigma * sigma)) / (2.50662827463100024161235523934010416269302368164062 * sigma) / normalize;
+		if ((long)(65535 * value) <= 0)
 			break;
-		width+=2;
+		width += 2;
 	}
-	return((int)width-2);
+	return ((int) width - 2);
 }
 
 void ScImage::sharpen(double radius, double sigma)
 {
 	double alpha, normalize, *kernel;
 	int widthk;
-	register long i, u, v;
+	long i, u, v;
 	QImage dest;
-	if(sigma == 0.0)
+	if (sigma == 0.0)
 		return;
 	widthk = getOptimalKernelWidth(radius, sigma);
-	if(width() < widthk)
+	if ((widthk <= 0) || (width() < widthk))
 		return;
-	kernel = (double *)malloc(widthk*widthk*sizeof(double));
-	if(!kernel)
+	kernel = (double *) malloc(widthk * widthk * sizeof(double));
+	if (!kernel)
 		return;
 	i = 0;
-	normalize=0.0;
-	for (v=(-widthk/2); v <= (widthk/2); v++)
+	normalize = 0.0;
+	for (v= (-widthk / 2); v <= (widthk / 2); v++)
 	{
-		for (u=(-widthk/2); u <= (widthk/2); u++)
+		for (u= (-widthk / 2); u <= (widthk / 2); u++)
 		{
-			alpha=exp(-((double) u*u+v*v)/(2.0*sigma*sigma));
-			kernel[i]=alpha/(2.0*3.14159265358979323846264338327950288419716939937510*sigma*sigma);
-			normalize+=kernel[i];
+			alpha = exp(-((double) u * u + v * v) / (2.0 * sigma * sigma));
+			kernel[i] = alpha / (2.0 * 3.14159265358979323846264338327950288419716939937510 * sigma * sigma);
+			normalize += kernel[i];
 			i++;
 		}
 	}
-	kernel[i/2]=(-2.0)*normalize;
+	kernel[i / 2] = (-2.0) * normalize;
 	convolveImage(&dest, widthk, kernel);
 	free(kernel);
-//	liberateMemory((void **) &kernel);
-	for( int yi=0; yi < dest.height(); ++yi )
+
+	for (int yi = 0; yi < dest.height(); ++yi)
 	{
-		QRgb *s = (QRgb*)(dest.scanLine( yi ));
-		QRgb *d = (QRgb*)(scanLine( yi ));
-		for(int xi=0; xi < dest.width(); ++xi )
+		QRgb *s = (QRgb*) dest.scanLine(yi);
+		QRgb *d = (QRgb*) scanLine(yi);
+		for (int xi = 0; xi < dest.width(); ++xi)
 		{
 			(*d) = (*s);
 			s++;
 			d++;
 		}
 	}
-	return;
 }
 
 void ScImage::contrast(int contrastValue, bool cmyk)
@@ -820,10 +812,10 @@ void ScImage::applyCurve(const QVector<int>& curveTable, bool cmyk)
 	QRgb r;
 	int c, m, y, k;
 	unsigned char *p;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
 			r = *s;
 			if (cmyk)
@@ -872,10 +864,10 @@ void ScImage::colorize(ScribusDoc* doc, ScColor color, int shade, bool cmyk)
 		ScColorEngine::getShadeColorRGB(color, doc, rgbCol, shade);
 		rgbCol.getValues(cc, cm, cy);
 	}
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
 		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi = 0; xi < w; ++xi)
 		{
 			r = *s;
 			if (cmyk)
@@ -921,12 +913,12 @@ void ScImage::duotone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 	{
 		curveTable2[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve2, x / 255.0, lin2) * 255)));
 	}
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi=0; xi < w; ++xi)
 		{
-			QRgb r=*s;
+			QRgb r = *s;
 			if (cmyk)
 				cb = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
 			else
@@ -939,7 +931,7 @@ void ScImage::duotone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 			m1n = qMin((m1 * curveTable2[(int)cb]) >> 8, 255);
 			y1n = qMin((y1 * curveTable2[(int)cb]) >> 8, 255);
 			k1n = qMin((k1 * curveTable2[(int)cb]) >> 8, 255);
-			ScColor col = ScColor(qMin(cn+c1n, 255), qMin(mn+m1n, 255), qMin(yn+y1n, 255), qMin(kn+k1n, 255));
+			ScColor col = ScColor(qMin(cn + c1n, 255), qMin(mn + m1n, 255), qMin(yn + y1n, 255), qMin(kn + k1n, 255));
 			if (cmyk)
 				col.getCMYK(&cn, &mn, &yn, &kn);
 			else
@@ -953,7 +945,7 @@ void ScImage::duotone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 	}
 }
 
-void ScImage::tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, FPointArray curve3, bool lin3, bool cmyk)
+void ScImage::tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, const FPointArray& curve3, bool lin3, bool cmyk)
 {
 	int h = height();
 	int w = width();
@@ -985,12 +977,12 @@ void ScImage::tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 	{
 		curveTable3[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve2, x / 255.0, lin3) * 255)));
 	}
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi = 0; xi < w; ++xi)
 		{
-			QRgb r=*s;
+			QRgb r = *s;
 			if (cmyk)
 				cb = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
 			else
@@ -1061,12 +1053,12 @@ void ScImage::quadtone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray 
 	{
 		curveTable4[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve4, x / 255.0, lin4) * 255)));
 	}
-	for( int yi=0; yi < h; ++yi )
+	for (int yi=0; yi < h; ++yi)
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi = 0; xi < w; ++xi)
 		{
-			QRgb r=*s;
+			QRgb r = *s;
 			if (cmyk)
 				cb = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
 			else
@@ -1108,10 +1100,10 @@ void ScImage::invert(bool cmyk)
 	unsigned char *p;
 	QRgb * s;
 	unsigned char c, m, y, k;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
 		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi = 0; xi < w; ++xi)
 		{
 			if (cmyk)
 			{
@@ -1139,10 +1131,10 @@ void ScImage::toGrayscale(bool cmyk)
 	int k;
 	QRgb * s;
 	QRgb r;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
 		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi = 0; xi < w; ++xi)
 		{
 			r = *s;
 			if (cmyk)
@@ -1180,148 +1172,87 @@ void ScImage::swapRGBA()
 	}
 }
 
-void ScImage::createLowRes(double scale)
+bool ScImage::createLowRes(double scale)
 {
 	int w = qRound(width() / scale);
 	int h = qRound(height() / scale);
+	if (w >= width() && h >= height())  // don't do unnecessary scaling
+		return false;
 	QImage tmp = scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	if (tmp.format() != QImage::Format_ARGB32)
 		tmp = tmp.convertToFormat(QImage::Format_ARGB32);
 	QImage::operator=(tmp);
-}
-
-bool ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
-{
-	struct jpeg_compress_struct cinfo;
-	struct my_error_mgr         jerr;
-	FILE     *outfile;
-	JSAMPROW row_pointer[1];
-	row_pointer[0] = 0;
-	cinfo.err = jpeg_std_error (&jerr.pub);
-	jerr.pub.error_exit = my_error_exit;
-	outfile = NULL;
-	if (setjmp (jerr.setjmp_buffer))
-	{
-		jpeg_destroy_compress (&cinfo);
-		if (outfile)
-			fclose (outfile);
-		return false;
-	}
-	jpeg_create_compress (&cinfo);
-	if ((outfile = fopen (fn.toLocal8Bit(), "wb")) == NULL)
-		return false;
-	jpeg_stdio_dest (&cinfo, outfile);
-	cinfo.image_width  = width();
-	cinfo.image_height = height();
-	if (isCMYK)
-	{
-		cinfo.in_color_space = JCS_CMYK;
-		cinfo.input_components = 4;
-	}
-	else
-	{
-		if (isGray)
-		{
-			cinfo.in_color_space = JCS_GRAYSCALE;
-			cinfo.input_components = 1;
-		}
-		else
-		{
-			cinfo.in_color_space = JCS_RGB;
-			cinfo.input_components = 3;
-		}
-	}
-	jpeg_set_defaults (&cinfo);
-	int qual[] = { 95, 85, 75, 50, 25 };  // These are the JPEG Quality settings 100 means best, 0 .. don't discuss
-	jpeg_set_quality (&cinfo, qual[Quality], true);
-	jpeg_start_compress (&cinfo, true);
-	row_pointer[0] = new uchar[cinfo.image_width*cinfo.input_components];
-	int w = cinfo.image_width;
-	while (cinfo.next_scanline < cinfo.image_height)
-	{
-		uchar *row = row_pointer[0];
-		if (isCMYK)
-		{
-			QRgb* rgba = (QRgb*)scanLine(cinfo.next_scanline);
-			for (int i=0; i<w; ++i)
-			{
-				*row++ = qRed(*rgba);
-				*row++ = qGreen(*rgba);
-				*row++ = qBlue(*rgba);
-				*row++ = qAlpha(*rgba);
-				++rgba;
-			}
-		}
-		else
-		{
-			if (isGray)
-			{
-				QRgb* rgba = (QRgb*)scanLine(cinfo.next_scanline);
-				for (int i=0; i<w; ++i)
-				{
-					*row++ = qRed(*rgba);
-					++rgba;
-				}
-			}
-			else
-			{
-				QRgb* rgb = (QRgb*)scanLine(cinfo.next_scanline);
-				for (int i=0; i<w; i++)
-				{
-					*row++ = qRed(*rgb);
-					*row++ = qGreen(*rgb);
-					*row++ = qBlue(*rgb);
-					++rgb;
-				}
-			}
-		}
-		jpeg_write_scanlines (&cinfo, row_pointer, 1);
-	}
-	jpeg_finish_compress (&cinfo);
-	fclose (outfile);
-	jpeg_destroy_compress (&cinfo);
-	delete [] row_pointer[0];
 	return true;
 }
 
-QByteArray ScImage::ImageToArray()
+bool ScImage::convert2JPG(const QString& fn, int Quality, bool isCMYK, bool isGray)
+{
+	QFile file(fn);
+	if (!file.open(QIODevice::WriteOnly))
+		return false;
+
+	bool success = false;
+	ScJpegEncodeFilter::Color imgColor = ScJpegEncodeFilter::GRAY;
+	if (isCMYK)
+		imgColor = ScJpegEncodeFilter::CMYK;
+	else if (!isGray)
+		imgColor = ScJpegEncodeFilter::RGB;
+	int qual[] = { 95, 85, 75, 50, 25 };  // These are the JPEG Quality settings 100 means best, 0 .. don't discuss
+	QDataStream dataStream(&file);
+	ScJpegEncodeFilter jpegFilter(&dataStream, width(), height(), imgColor);
+	jpegFilter.setQuality(qual[Quality]);
+	if (jpegFilter.openFilter())
+	{
+		if (isCMYK)
+			success = writeCMYKDataToFilter(&jpegFilter);
+		else if (isGray)
+			success = writeGrayDataToFilter(&jpegFilter, true);
+		else
+			success = writeRGBDataToFilter(&jpegFilter);
+		success &= jpegFilter.closeFilter();
+	}
+	file.close();
+
+	return success;
+}
+
+QByteArray ScImage::ImageToArray() const
 {
 	int i = 0;
 	int h = height();
 	int w = width();
 	unsigned char u;
-	QRgb *s;
-	QRgb r;
+	const QRgb *rgb;
 	QByteArray imgArray(3 * h * w, ' ');
 	if (imgArray.isNull())
 		return imgArray;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
-		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		rgb = (QRgb*) this->constScanLine(yi);
+		for (int xi = 0; xi < w; ++xi)
 		{
-			r = *s++;
-			u=qRed(r);
+			u = qRed(*rgb);
 			imgArray[i++] = u;
-			u=qGreen(r);
+			u = qGreen(*rgb);
 			imgArray[i++] = u;
-			u=qBlue(r);
+			u = qBlue(*rgb);
 			imgArray[i++] = u;
+			++rgb;
 		}
 	}
 	return imgArray;
 }
 
-void ScImage::convertToGray(void)
+void ScImage::convertToGray()
 {
 	int k;
 	int h = height();
 	int w = width();
 	QRgb *s, r;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
 		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		for (int xi = 0; xi < w; ++xi)
 		{
 			r = *s;
 			k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
@@ -1330,9 +1261,10 @@ void ScImage::convertToGray(void)
 	}
 }
 
-bool ScImage::writeRGBDataToFilter(ScStreamFilter* filter)
+bool ScImage::writeRGBDataToFilter(ScStreamFilter* filter) const
 {
-	QRgb r, *s;
+	QRgb r;
+	const QRgb *s;
 	QByteArray buffer;
 	bool success = true;
 	int  h = height();
@@ -1343,10 +1275,10 @@ bool ScImage::writeRGBDataToFilter(ScStreamFilter* filter)
 	buffer.resize(bufferSize + 16);
 	if (buffer.isNull()) // Memory allocation failure
 		return false;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
-		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		s = (const QRgb*) constScanLine(yi);
+		for (int xi = 0; xi < w; ++xi)
 		{
 			r = *s++;
 			buffer[pending++] = static_cast<unsigned char>(qRed(r));
@@ -1364,9 +1296,10 @@ bool ScImage::writeRGBDataToFilter(ScStreamFilter* filter)
 	return success;
 }
 
-bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter, bool precal)
+bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter, bool precal) const
 {
-	QRgb r, *s;
+	QRgb r;
+	const QRgb *s;
 	QByteArray buffer;
 	bool success = true;
 	int  h = height();
@@ -1377,12 +1310,12 @@ bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter, bool precal)
 	buffer.resize(bufferSize + 16);
 	if (buffer.isNull()) // Memory allocation failure
 		return false;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
-		s = (QRgb*)(scanLine( yi ));
+		s = (const QRgb*) constScanLine(yi);
 		if (precal) // image data is already grayscale, no need for weighted conversion
 		{
-			for( int xi=0; xi < w; ++xi )
+			for (int xi = 0; xi < w; ++xi)
 			{
 				r = *s;
 				k = qRed(r);
@@ -1392,7 +1325,7 @@ bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter, bool precal)
 		}
 		else
 		{
-			for( int xi=0; xi < w; ++xi )
+			for (int xi = 0; xi < w; ++xi)
 			{
 				r = *s;
 				k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
@@ -1411,9 +1344,55 @@ bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter, bool precal)
 	return success;
 }
 
-bool ScImage::writeCMYKDataToFilter(ScStreamFilter* filter)
+bool ScImage::writeMonochromeDataToFilter(ScStreamFilter* filter, bool fromCmyk) const
 {
-	QRgb r, *s;
+	const QRgb *s;
+	QByteArray buffer;
+	bool success = true;
+	int  h = height();
+	int  w = width();
+	int  byteCount = 0;
+	int  bufferSize = (w + 7) / 8 * h;
+	int  value;
+	const unsigned char threshold = 127;
+	buffer.resize(bufferSize);
+	if (buffer.isNull()) // Memory allocation failure
+		return false;
+	for (int yi = 0; yi < h; ++yi)
+	{
+		char curByte = 0;
+		int bitCount = 0;
+		s = (const QRgb*) constScanLine(yi);
+		for (int xi = 0; xi < w; ++xi)
+		{
+			curByte <<= 1;
+			value = fromCmyk ? (255 - qAlpha(*s)) : qRed(*s);
+			if (value > threshold) // In monochrome images all elements have the same value.
+				curByte |= 1;
+			++bitCount;
+			if (bitCount == 8)
+			{
+				buffer[byteCount++] = curByte;
+				curByte = 0;
+				bitCount = 0;
+			}
+			++s;
+		}
+		// End of line is aligned to byte.
+		if (bitCount > 0) {
+			curByte <<=  8-bitCount;
+			buffer[byteCount++] = curByte;
+		}
+	}
+	assert(byteCount == bufferSize);
+	success = filter->writeData(buffer.constData(), byteCount);
+	return success;
+}
+
+bool ScImage::writeCMYKDataToFilter(ScStreamFilter* filter) const
+{
+	QRgb r;
+	const QRgb *s;
 	QByteArray buffer;
 	bool success = true;
 	int  h = height();
@@ -1424,10 +1403,10 @@ bool ScImage::writeCMYKDataToFilter(ScStreamFilter* filter)
 	buffer.resize(bufferSize + 16);
 	if (buffer.isNull()) // Memory allocation failure
 		return false;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
-		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		s = (const QRgb*) constScanLine(yi);
+		for (int xi = 0; xi < w; ++xi)
 		{
 			r = *s++;
 			buffer[pending++] = static_cast<unsigned char> (qRed(r));
@@ -1446,9 +1425,10 @@ bool ScImage::writeCMYKDataToFilter(ScStreamFilter* filter)
 	return success;
 }
 
-bool ScImage::writePSImageToFilter(ScStreamFilter* filter, int pl)
+bool ScImage::writePSImageToFilter(ScStreamFilter* filter, int pl) const
 {
-	QRgb r, *s;
+	QRgb r;
+	const QRgb *s;
 	QByteArray buffer;
 	bool success = true;
 	int  c, m, y, k;
@@ -1460,10 +1440,10 @@ bool ScImage::writePSImageToFilter(ScStreamFilter* filter, int pl)
 	buffer.resize(bufferSize + 16);
 	if (buffer.isNull()) // Memory allocation failure
 		return false;
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
-		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		s = (const QRgb*) constScanLine(yi);
+		for (int xi = 0; xi < w; ++xi)
 		{
 			r = *s++;
 			c = qRed(r);
@@ -1502,9 +1482,10 @@ bool ScImage::writePSImageToFilter(ScStreamFilter* filter, int pl)
 	return success;
 }
 
-bool ScImage::writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl)
+bool ScImage::writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl) const
 {
-	QRgb r, *s;
+	QRgb r;
+	const QRgb *s;
 	QByteArray buffer;
 	bool success = true;
 	int  c, m, y, k;
@@ -1519,10 +1500,10 @@ bool ScImage::writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mas
 	if (buffer.isNull()) // Check for memory allocation failure
 		return false;
 	unsigned char* maskData = (unsigned char*) mask.constData();
-	for( int yi=0; yi < h; ++yi )
+	for (int yi = 0; yi < h; ++yi)
 	{
-		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
+		s = (const QRgb*) constScanLine(yi);
+		for (int xi = 0; xi < w; ++xi)
 		{
 			r = *s++;
 			c = qRed(r);
@@ -1565,22 +1546,272 @@ bool ScImage::writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mas
 
 void ScImage::scaleImage(int nwidth, int nheight)
 {
+	int depth = this->depth();
+	if (depth == 32)
+	{
+		scaleImage32bpp(nwidth, nheight);
+		return;
+	}
+	scaleImageGeneric(nwidth, nheight);
+}
+
+void ScImage::scaleImage32bpp(int nwidth, int nheight)
+{
 	QImage dst(nwidth, nheight, QImage::Format_ARGB32);
-	QRgb* xelrow = 0;
-	QRgb* tempxelrow = 0;
-	register QRgb* xP;
-	register QRgb* nxP;
+	QRgb* xelrow = nullptr;
+	QRgb* tempxelrow = nullptr;
+	QRgb* xP = nullptr;
+	QRgb* nxP = nullptr;
 	int rows, cols, rowsread, newrows, newcols;
-	register int row, col, needtoreadrow;
+	int row, col, needtoreadrow;
 	const uchar maxval = 255;
 	double xscale, yscale;
 	long sxscale, syscale;
-	register long fracrowtofill, fracrowleft;
-	long* as;
-	long* rs;
-	long* gs;
-	long* bs;
+	long fracrowtofill, fracrowleft;
+	long* as = nullptr;
+	long* rs = nullptr;
+	long* gs = nullptr;
+	long* bs = nullptr;
 	int rowswritten = 0;
+
+	int depth = this->depth();
+	if (depth != 32)
+	{
+		QImage::operator=(QImage::scaled(nwidth, nheight, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+		return;
+	}
+
+	cols = width();
+	rows = height();
+	newcols = dst.width();
+	newrows = dst.height();
+	long SCALE;
+	long HALFSCALE;
+	if (cols > 4096)
+	{
+		SCALE = 4096;
+		HALFSCALE = 2048;
+	}
+	else
+	{
+		int fac = 4096;
+		while ((cols * fac) > 4096)
+		{
+			fac /= 2;
+		}
+		SCALE = fac * cols;
+		HALFSCALE = fac * cols / 2;
+	}
+	xscale = (double) newcols / (double) cols;
+	yscale = (double) newrows / (double) rows;
+	sxscale = (long) (xscale * SCALE);
+	syscale = (long) (yscale * SCALE);
+	if ( newrows != rows )	/* shortcut Y scaling if possible */
+		tempxelrow = new QRgb[cols];
+	as = new long[cols];
+	rs = new long[cols];
+	gs = new long[cols];
+	bs = new long[cols];
+	rowsread = 0;
+	fracrowleft = syscale;
+	needtoreadrow = 1;
+	for (col = 0; col < cols; ++col)
+		rs[col] = gs[col] =  as[col] = bs[col] = HALFSCALE;
+	fracrowtofill = SCALE;
+	for (row = 0; row < newrows; ++row)
+	{
+		if ( newrows == rows )
+			tempxelrow = xelrow = (QRgb*) scanLine(rowsread++);
+		else
+		{
+			while ( fracrowleft < fracrowtofill )
+			{
+				if ( needtoreadrow && rowsread < rows )
+					xelrow = (QRgb*) scanLine(rowsread++);
+				for ( col = 0, xP = xelrow; col < cols; ++col, ++xP )
+				{
+					as[col] += fracrowleft * qAlpha( *xP );
+					rs[col] += fracrowleft * qRed( *xP );
+					gs[col] += fracrowleft * qGreen( *xP );
+					bs[col] += fracrowleft * qBlue( *xP );
+				}
+				fracrowtofill -= fracrowleft;
+				fracrowleft = syscale;
+				needtoreadrow = 1;
+			}
+			if (needtoreadrow && rowsread < rows)
+			{
+				xelrow = (QRgb*) scanLine(rowsread++);
+				needtoreadrow = 0;
+			}
+			long a = 0;
+			for (col = 0, xP = xelrow, nxP = tempxelrow; col < cols; ++col, ++xP, ++nxP)
+			{
+				long r, g, b;
+				a = as[col] + fracrowtofill * qAlpha( *xP );
+				r = rs[col] + fracrowtofill * qRed( *xP );
+				g = gs[col] + fracrowtofill * qGreen( *xP );
+				b = bs[col] + fracrowtofill * qBlue( *xP );
+				r /= SCALE;
+				if (r > maxval)
+					r = maxval;
+				g /= SCALE;
+				if (g > maxval)
+					g = maxval;
+				b /= SCALE;
+				if (b > maxval)
+					b = maxval;
+				a /= SCALE;
+				if (a > maxval)
+					a = maxval;
+				*nxP = qRgba((int) r, (int) g, (int) b , (int) a);
+				rs[col] = as[col] = gs[col] = bs[col] = HALFSCALE;
+			}
+			fracrowleft -= fracrowtofill;
+			if (fracrowleft == 0)
+			{
+				fracrowleft = syscale;
+				needtoreadrow = 1;
+			}
+			fracrowtofill = SCALE;
+		}
+		if (newcols == cols)
+			memcpy(dst.scanLine(rowswritten++), tempxelrow, newcols*4);
+		else
+		{
+			long a, r, g, b;
+			long fraccoltofill, fraccolleft = 0;
+			int needcol;
+			nxP = (QRgb*) dst.scanLine(rowswritten++);
+			QRgb *nxPEnd = nxP + newcols;
+			fraccoltofill = SCALE;
+			a = r = g = b = HALFSCALE;
+			needcol = 0;
+			for (col = 0, xP = tempxelrow; col < cols; ++col, ++xP)
+			{
+				fraccolleft = sxscale;
+				while (fraccolleft >= fraccoltofill)
+				{
+					if (needcol)
+					{
+						++nxP;
+						a = r = g = b = HALFSCALE;
+					}
+					a += fraccoltofill * qAlpha(*xP);
+					r += fraccoltofill * qRed(*xP);
+					g += fraccoltofill * qGreen(*xP);
+					b += fraccoltofill * qBlue(*xP);
+					r /= SCALE;
+					if (r > maxval)
+						r = maxval;
+					g /= SCALE;
+					if (g > maxval)
+						g = maxval;
+					b /= SCALE;
+					if (b > maxval)
+						b = maxval;
+					a /= SCALE;
+					if (a > maxval)
+						a = maxval;
+					*nxP = qRgba((int) r, (int) g, (int) b, (int) a);
+					fraccolleft -= fraccoltofill;
+					fraccoltofill = SCALE;
+					needcol = 1;
+				}
+				if (fraccolleft > 0)
+				{
+					if (needcol)
+					{
+						++nxP;
+						a = r = g = b = HALFSCALE;
+						needcol = 0;
+					}
+					a += fraccolleft * qAlpha(*xP);
+					r += fraccolleft * qRed(*xP);
+					g += fraccolleft * qGreen(*xP);
+					b += fraccolleft * qBlue(*xP);
+					fraccoltofill -= fraccolleft;
+				}
+			}
+			if (fraccoltofill > 0)
+			{
+				--xP;
+				a += fraccoltofill * qAlpha(*xP);
+				r += fraccoltofill * qRed(*xP);
+				g += fraccoltofill * qGreen(*xP);
+				b += fraccoltofill * qBlue(*xP);
+			}
+			if (nxP < nxPEnd)
+			{
+				r /= SCALE;
+				if (r > maxval)
+					r = maxval;
+				g /= SCALE;
+				if (g > maxval)
+					g = maxval;
+				b /= SCALE;
+				if (b > maxval)
+					b = maxval;
+				a /= SCALE;
+				if (a > maxval)
+					a = maxval;
+				*nxP = qRgba((int) r, (int) g, (int) b, (int) a);
+				while (++nxP != nxPEnd)
+					nxP[0] = nxP[-1];
+			}
+		}
+	}
+	if (newrows != rows && tempxelrow) // Robust, tempxelrow might be 0 1 day
+		delete [] tempxelrow;
+	delete [] as;
+	delete [] rs;
+	delete [] gs;
+	delete [] bs;
+	QImage::operator=(QImage(nwidth, nheight, QImage::Format_ARGB32));
+	for (int yi = 0; yi < dst.height(); ++yi)
+	{
+		QRgb *s = (QRgb*) dst.scanLine(yi);
+		QRgb *d = (QRgb*) scanLine(yi);
+		for (int xi = 0; xi < dst.width(); ++xi)
+		{
+			(*d) = (*s);
+			s++;
+			d++;
+		}
+	}
+}
+
+void ScImage::scaleImageGeneric(int nwidth, int nheight)
+{
+	unsigned char* xelrow = nullptr;
+	unsigned char* tempxelrow = nullptr;
+	unsigned char* xP;
+	unsigned char* nxP;
+	int rows, cols, rowsread, newrows, newcols;
+	int row, col, needtoreadrow;
+	const uchar maxval = 255;
+	double xscale, yscale;
+	long sxscale, syscale;
+	long fracrowtofill, fracrowleft;
+	long* ps;
+	int rowswritten = 0;
+
+	int depth = this->depth();
+	Format imgFormat = this->format();
+	bool execScaled = (depth == 1 || depth == 4 || depth == 16);
+	execScaled |= (imgFormat == QImage::Format_ARGB8565_Premultiplied);
+	execScaled |= (imgFormat == QImage::Format_RGB666);
+	execScaled |= (imgFormat == QImage::Format_ARGB6666_Premultiplied);
+	execScaled |= (imgFormat == QImage::Format_ARGB8555_Premultiplied);
+	if (execScaled)
+	{
+		QImage::operator=(QImage::scaled(nwidth, nheight, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+		return;
+	}
+
+	QImage dst(nwidth, nheight, this->format());
+	int nChannels = this->depth() / 8;
+
 	cols = width();
 	rows = height();
 	newcols = dst.width();
@@ -1606,221 +1837,225 @@ void ScImage::scaleImage(int nwidth, int nheight)
 	yscale = (double) newrows / (double) rows;
 	sxscale = (long)(xscale * SCALE);
 	syscale = (long)(yscale * SCALE);
-	if ( newrows != rows )	/* shortcut Y scaling if possible */
-		tempxelrow = new QRgb[cols];
-	as = new long[cols];
-	rs = new long[cols];
-	gs = new long[cols];
-	bs = new long[cols];
-	rowsread = 0;
-	fracrowleft = syscale;
-	needtoreadrow = 1;
-	for ( col = 0; col < cols; ++col )
-		rs[col] = gs[col] =  as[col] = bs[col] = HALFSCALE;
-	fracrowtofill = SCALE;
-	for ( row = 0; row < newrows; ++row )
+	if (newrows != rows)	/* shortcut Y scaling if possible */
+		tempxelrow = new unsigned char[cols * nChannels];
+	ps = new long[cols];
+
+	for (int chIndex = 0; chIndex < nChannels; ++chIndex)
 	{
-		if ( newrows == rows )
-			tempxelrow = xelrow = (QRgb*)scanLine(rowsread++);
-		else
+		xelrow = nullptr;
+		rowsread = rowswritten = 0;
+		fracrowleft = syscale;
+		needtoreadrow = 1;
+		for (col = 0; col < cols; ++col)
+			ps[col] = HALFSCALE;
+		fracrowtofill = SCALE;
+		for (row = 0; row < newrows; ++row)
 		{
-			while ( fracrowleft < fracrowtofill )
+			if (newrows == rows)
+				tempxelrow = xelrow = scanLine(rowsread++);
+			else
 			{
-				if ( needtoreadrow && rowsread < rows )
-					xelrow = (QRgb*)scanLine(rowsread++);
-				for ( col = 0, xP = xelrow; col < cols; ++col, ++xP )
+				while (fracrowleft < fracrowtofill)
 				{
-					as[col] += fracrowleft * qAlpha( *xP );
-					rs[col] += fracrowleft * qRed( *xP );
-					gs[col] += fracrowleft * qGreen( *xP );
-					bs[col] += fracrowleft * qBlue( *xP );
+					if (needtoreadrow && rowsread < rows)
+						xelrow = scanLine(rowsread++);
+					for (col = 0, xP = xelrow + chIndex; col < cols; ++col, xP += nChannels)
+						ps[col] += fracrowleft * (*xP);
+					fracrowtofill -= fracrowleft;
+					fracrowleft = syscale;
+					needtoreadrow = 1;
 				}
-				fracrowtofill -= fracrowleft;
-				fracrowleft = syscale;
-				needtoreadrow = 1;
-			}
-			if ( needtoreadrow && rowsread < rows )
-			{
-				xelrow = (QRgb*)scanLine(rowsread++);
-				needtoreadrow = 0;
-			}
-			register long a=0;
-			for ( col = 0, xP = xelrow, nxP = tempxelrow; col < cols; ++col, ++xP, ++nxP )
-			{
-				register long r, g, b;
-				a = as[col] + fracrowtofill * qAlpha( *xP );
-				r = rs[col] + fracrowtofill * qRed( *xP );
-				g = gs[col] + fracrowtofill * qGreen( *xP );
-				b = bs[col] + fracrowtofill * qBlue( *xP );
-				r /= SCALE;
-				if ( r > maxval ) r = maxval;
-				g /= SCALE;
-				if ( g > maxval ) g = maxval;
-				b /= SCALE;
-				if ( b > maxval ) b = maxval;
-				a /= SCALE;
-				if ( a > maxval ) a = maxval;
-				*nxP = qRgba( (int)r, (int)g, (int)b , (int)a);
-				rs[col] = as[col] = gs[col] = bs[col] = HALFSCALE;
-			}
-			fracrowleft -= fracrowtofill;
-			if ( fracrowleft == 0 )
-			{
-				fracrowleft = syscale;
-				needtoreadrow = 1;
-			}
-			fracrowtofill = SCALE;
-		}
-		if ( newcols == cols )
-			memcpy(dst.scanLine(rowswritten++), tempxelrow, newcols*4);
-		else
-		{
-			register long a, r, g, b;
-			register long fraccoltofill, fraccolleft = 0;
-			register int needcol;
-			nxP = (QRgb*)dst.scanLine(rowswritten++);
-			fraccoltofill = SCALE;
-			a = r = g = b = HALFSCALE;
-			needcol = 0;
-			for ( col = 0, xP = tempxelrow; col < cols; ++col, ++xP )
-			{
-				fraccolleft = sxscale;
-				while ( fraccolleft >= fraccoltofill )
+				if (needtoreadrow && rowsread < rows)
 				{
-					if ( needcol )
+					xelrow = scanLine(rowsread++);
+					needtoreadrow = 0;
+				}
+				long p = 0;
+				xP  = xelrow + chIndex;
+				nxP = tempxelrow + chIndex;
+				for (col = 0; col < cols; ++col, xP += nChannels, nxP += nChannels)
+				{
+					p = ps[col] + fracrowtofill * (*xP);
+					p /= SCALE;
+					if (p > maxval)
+						p = maxval;
+					*nxP = (unsigned char) p;
+					ps[col] = HALFSCALE;
+				}
+				fracrowleft -= fracrowtofill;
+				if (fracrowleft == 0)
+				{
+					fracrowleft = syscale;
+					needtoreadrow = 1;
+				}
+				fracrowtofill = SCALE;
+			}
+			if (newcols == cols)
+			{
+				memcpy(dst.scanLine(rowswritten++), tempxelrow, newcols * nChannels);
+			}
+			else
+			{
+				long p;
+				long fraccoltofill, fraccolleft = 0;
+				int needcol;
+				nxP = dst.scanLine(rowswritten++) + chIndex;
+				unsigned char *nxPEnd = nxP + newcols * nChannels;
+				fraccoltofill = SCALE;
+				p = HALFSCALE;
+				needcol = 0;
+				for (col = 0, xP = tempxelrow + chIndex; col < cols; ++col, xP += nChannels)
+				{
+					fraccolleft = sxscale;
+					while (fraccolleft >= fraccoltofill)
 					{
-						++nxP;
-						a = r = g = b = HALFSCALE;
+						if (needcol)
+						{
+							nxP += nChannels;
+							p = HALFSCALE;
+						}
+						p += fraccoltofill * (*xP);
+						p /= SCALE;
+						if (p > maxval)
+							p = maxval;
+						*nxP = (unsigned char) p;
+						fraccolleft -= fraccoltofill;
+						fraccoltofill = SCALE;
+						needcol = 1;
 					}
-					a += fraccoltofill * qAlpha( *xP );
-					r += fraccoltofill * qRed( *xP );
-					g += fraccoltofill * qGreen( *xP );
-					b += fraccoltofill * qBlue( *xP );
-					r /= SCALE;
-					if ( r > maxval ) r = maxval;
-					g /= SCALE;
-					if ( g > maxval ) g = maxval;
-					b /= SCALE;
-					if ( b > maxval ) b = maxval;
-					a /= SCALE;
-					if ( a > maxval ) a = maxval;
-					*nxP = qRgba( (int)r, (int)g, (int)b, (int)a );
-					fraccolleft -= fraccoltofill;
-					fraccoltofill = SCALE;
-					needcol = 1;
-				}
-				if ( fraccolleft > 0 )
-				{
-					if ( needcol )
+					if (fraccolleft > 0)
 					{
-						++nxP;
-						a = r = g = b = HALFSCALE;
-						needcol = 0;
+						if (needcol)
+						{
+							nxP += nChannels;
+							p = HALFSCALE;
+							needcol = 0;
+						}
+						p += fraccolleft * (*xP);
+						fraccoltofill -= fraccolleft;
 					}
-					a += fraccolleft * qAlpha( *xP );
-					r += fraccolleft * qRed( *xP );
-					g += fraccolleft * qGreen( *xP );
-					b += fraccolleft * qBlue( *xP );
-					fraccoltofill -= fraccolleft;
 				}
-			}
-			if ( fraccoltofill > 0 )
-			{
-				--xP;
-				a += fraccolleft * qAlpha( *xP );
-				r += fraccoltofill * qRed( *xP );
-				g += fraccoltofill * qGreen( *xP );
-				b += fraccoltofill * qBlue( *xP );
-			}
-			if ( ! needcol )
-			{
-				r /= SCALE;
-				if ( r > maxval ) r = maxval;
-				g /= SCALE;
-				if ( g > maxval ) g = maxval;
-				b /= SCALE;
-				if ( b > maxval ) b = maxval;
-				a /= SCALE;
-				if ( a > maxval ) a = maxval;
-				*nxP = qRgba( (int)r, (int)g, (int)b, (int)a );
+				if (fraccoltofill > 0)
+				{
+					xP -= nChannels;
+					p += fraccoltofill * (*xP);
+				}
+				if (nxP < nxPEnd)
+				{
+					p /= SCALE;
+					if (p > maxval)
+						p = maxval;
+					*nxP = (unsigned char) p;
+					while ((nxP += nChannels) != nxPEnd)
+						nxP[0] = nxP[-nChannels];
+				}
 			}
 		}
 	}
-	if ( newrows != rows && tempxelrow )// Robust, tempxelrow might be 0 1 day
+	if (newrows != rows && tempxelrow)// Robust, tempxelrow might be 0 1 day
 		delete [] tempxelrow;
-	if ( as )				// Avoid purify complaint
-		delete [] as;
-	if ( rs )				// Robust, rs might be 0 one day
-		delete [] rs;
-	if ( gs )				// Robust, gs might be 0 one day
-		delete [] gs;
-	if ( bs )				// Robust, bs might be 0 one day
-		delete [] bs;
-	QImage::operator=(QImage(nwidth, nheight, QImage::Format_ARGB32));
-	for( int yi=0; yi < dst.height(); ++yi )
+	delete [] ps;
+
+	int scanWidth = dst.width() * nChannels;
+	QImage::operator=(QImage(nwidth, nheight, this->format()));
+	for (int yi = 0; yi < dst.height(); ++yi)
 	{
-		QRgb *s = (QRgb*)(dst.scanLine( yi ));
-		QRgb *d = (QRgb*)(scanLine( yi ));
-		for(int xi=0; xi < dst.width(); ++xi )
-		{
-			(*d) = (*s);
-			s++;
-			d++;
-		}
+		uchar *s = dst.scanLine(yi);
+		uchar *d = scanLine(yi);
+		memcpy(d, s, scanWidth);
 	}
-	return;
 }
 
-bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
+bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
 {
 	bool gotAlpha = false;
-	ScImgDataLoader* pDataLoader = NULL;
+	QScopedPointer<ScImgDataLoader> pDataLoader;
 	imgInfo.valid = false;
-	imgInfo.clipPath = "";
+	imgInfo.clipPath.clear();
 	imgInfo.PDSpathData.clear();
 	imgInfo.layerInfo.clear();
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return false;
 	alpha.resize(0);
-	QString tmp, BBox, tmp2;
 	QString ext = fi.suffix().toLower();
+	QString ext2 = getImageType(fn);
+	if (ext.isEmpty() || (!ext2.isEmpty() && (ext2 != ext)))
+		ext = ext2;
+	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
+	QStringList fmtImg;
+	for (int i = 0; i < fmtList.count(); i++)
+	{
+		fmtImg.append( QString(fmtList[i].toLower()) );
+	}
 	if (extensionIndicatesJPEG(ext))
 		return true;
 	if (extensionIndicatesPDF(ext))
 	{
-		pDataLoader = new ScImgDataLoader_PDF();
+		pDataLoader.reset( new ScImgDataLoader_PDF() );
 	}
 	else if (extensionIndicatesEPSorPS(ext))
 	{
-		pDataLoader = new ScImgDataLoader_PS();
+		pDataLoader.reset( new ScImgDataLoader_PS() );
 	}
-	else if (extensionIndicatesTIFF(ext))
+	else if (extensionIndicatesPNG(ext))
 	{
-		pDataLoader = new ScImgDataLoader_TIFF();
-		if	(pDataLoader)
+		pDataLoader.reset( new ScImgDataLoader_PNG() );
+		if	(pDataLoader.data())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
 	else if (extensionIndicatesPSD(ext))
 	{
-		pDataLoader = new ScImgDataLoader_PSD();
-		if	(pDataLoader)
+		pDataLoader.reset( new ScImgDataLoader_PSD() );
+		if	(pDataLoader.data())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
+	else if (extensionIndicatesTIFF(ext))
+	{
+		pDataLoader.reset( new ScImgDataLoader_TIFF() );
+		if	(pDataLoader.data())
+			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
+	else if (ext == "ora")
+	{
+		pDataLoader.reset( new ScImgDataLoader_ORA() );
+		if	(pDataLoader.data())
+			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
+	else if (ext == "kra")
+	{
+		pDataLoader.reset( new ScImgDataLoader_KRA() );
+		if	(pDataLoader.data())
+			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
+	else if (ext == "pat")
+		pDataLoader.reset( new ScImgDataLoader_GIMP() );
+	else if (ext == "pgf")
+		pDataLoader.reset( new ScImgDataLoader_PGF() );
+	else if ((ext == "pct") || (ext == "pic") || (ext == "pict"))
+		pDataLoader.reset( new ScImgDataLoader_PICT() );
+	else if (ext == "wpg")
+		pDataLoader.reset( new ScImgDataLoader_WPG() );
+#ifdef GMAGICK_FOUND
+#warning "Compiling with GraphicsMagick support!"
+	else if (fmtImg.contains(ext))
+		pDataLoader.reset( new ScImgDataLoader_QT() );
 	else
-		pDataLoader = new ScImgDataLoader_QT();
+		pDataLoader.reset( new ScImgDataLoader_GMagick() );
+#else
+	else
+		pDataLoader.reset( new ScImgDataLoader_QT() );
+#endif
 
-	if	(pDataLoader)
+	if (pDataLoader.data())
 	{
 		bool hasAlpha    = false;
 		bool alphaLoaded = pDataLoader->preloadAlphaChannel(fn, page, gsRes, hasAlpha);
 		if (!alphaLoaded || !hasAlpha)
-		{
-			delete pDataLoader;
 			return alphaLoaded;
-		}
 		QImage rImage;
-		if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+		if (pDataLoader->useRawImage() || extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 		{
 			if (pDataLoader->imageInfoRecord().valid)
 			{
@@ -1833,10 +2068,7 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 		else
 			rImage = pDataLoader->image();
 		if (rImage.isNull())
-		{
-			delete pDataLoader;
 			return false;
-		}
 		if ((scaleXSize != 0) && (scaleYSize != 0) && (scaleXSize != rImage.width() || scaleYSize != rImage.height()))
 			rImage = rImage.scaled(scaleXSize, scaleYSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		int i = 0, w2;
@@ -1849,10 +2081,10 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 			alpha.resize(hm * wm);
 			if (alpha.size() > 0) // 
 			{
-				for( int yi=0; yi < hm; ++yi )
+				for (int yi = 0; yi < hm; ++yi)
 				{
-					s = (QRgb*)(rImage.scanLine( yi ));
-					for( int xi=0; xi < wm; ++xi )
+					s = (QRgb*) rImage.scanLine(yi);
+					for (int xi = 0; xi < wm; ++xi)
 					{
 						r = *s++;
 						u = qAlpha(r);
@@ -1875,20 +2107,19 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 			alpha.resize(hm * w2);
 			if (alpha.size() > 0)
 			{
-				for( int yi=0; yi < hm; ++yi )
+				for (int yi = 0; yi < hm; ++yi)
 				{
 					s = iMask.scanLine( yi );
-					for( int xi=0; xi < w2; ++xi )
+					for (int xi = 0; xi < w2; ++xi)
 					{
-						u = *(s+xi);
-						if(PDF) u = ~u;
+						u = *(s + xi);
+						if (PDF) u = ~u;
 						alpha[i++] = u;
 					}
 				}
 				gotAlpha = true;
 			}
 		}
-		delete pDataLoader;
 	}
 	return gotAlpha;
 }
@@ -1897,106 +2128,212 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 {
 	Q_ASSERT(profile);
 	Q_ASSERT(components);
-	ScImgDataLoader* pDataLoader = NULL;
-	cmsHPROFILE prof = 0;
+	ScColorProfile prof;
+	ScImgDataLoader* pDataLoader = nullptr;
 
 	profile->resize(0);
 	*components = 0;
-	QFileInfo fi = QFileInfo(fn);
+
+	QFileInfo fi(fn);
 	if (!fi.exists())
 		return;
+
 	QString ext = fi.suffix().toLower();
+	QString ext2 = getImageType(fn);
+	if (ext.isEmpty() || (!ext2.isEmpty() && (ext2 != ext)))
+		ext = ext2;
+
+	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
+	QStringList fmtImg;
+	for (int i = 0; i < fmtList.count(); i++)
+		fmtImg.append( QString(fmtList[i].toLower()) );
 
 	if (extensionIndicatesPSD(ext))
 		pDataLoader = new ScImgDataLoader_PSD();
 	else if (extensionIndicatesEPSorPS(ext))
 		pDataLoader = new ScImgDataLoader_PS();
-	else if (extensionIndicatesTIFF(ext))
-		pDataLoader = new ScImgDataLoader_TIFF();
 	else if (extensionIndicatesJPEG(ext))
 		pDataLoader = new ScImgDataLoader_JPEG();
+	else if (extensionIndicatesPNG(ext))
+		pDataLoader = new ScImgDataLoader_PNG();
+	else if (extensionIndicatesTIFF(ext))
+		pDataLoader = new ScImgDataLoader_TIFF();
+#ifdef GMAGICK_FOUND
+	else if (fmtImg.contains(ext))
+		pDataLoader = new ScImgDataLoader_QT();
+	else
+		pDataLoader = new ScImgDataLoader_GMagick();
+#else
+	else
+		pDataLoader = new ScImgDataLoader_QT();
+#endif
 
-	if	(pDataLoader)
+	if (pDataLoader)
 	{
 		pDataLoader->loadEmbeddedProfile(fn, page);
 		QByteArray embeddedProfile = pDataLoader->embeddedProfile();
-		if	(embeddedProfile.size())
+		if	(!embeddedProfile.isEmpty())
 		{
-			prof = cmsOpenProfileFromMem(embeddedProfile.data(), embeddedProfile.size());
+			prof = ScCore->defaultEngine.openProfileFromMem(embeddedProfile);
 			if (prof)
 			{
-				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigRgbData)
+				if (prof.colorSpace() == ColorSpace_Rgb)
 					*components = 3;
-				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
+				if (prof.colorSpace() == ColorSpace_Cmyk)
 					*components = 4;
-				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigGrayData)
+				if (prof.colorSpace() == ColorSpace_Gray)
 					*components = 1;
 				*profile = embeddedProfile;
 			}
-			cmsCloseProfile(prof);
 		}
 		delete pDataLoader;
 	}
 }
 
-bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSettings,
-						  bool useEmbedded, bool useProf, RequestType requestType,
-						  int gsRes, bool *realCMYK, bool showMsg)
+void ScImage::addProfileToCacheModifiers(ScImageCacheProxy & cache, const QString & prefix, const ScColorProfile & profile) const
 {
-	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof 3 : RawData, 4: Thumbnail
+	if (profile)
+	{
+		cache.addModifier(prefix + "ProfileDescription", profile.productDescription());
+		QString hash = profile.dataHash();
+		if (!hash.isEmpty())
+			cache.addModifier(prefix + "ProfileHash", hash);
+	}
+}
+
+bool ScImage::loadPicture(ScImageCacheProxy & cache, bool & fromCache, int page, const CMSettings& cmSettings,
+						  RequestType requestType, int gsRes, bool *realCMYK, bool showMsg)
+{
+	if (cache.enabled())
+	{
+		ScColorMgmtEngine engine(cmSettings.doc() ? cmSettings.doc()->colorEngine : ScCore->defaultEngine);
+		cache.addModifier("cmEngineID", QString::number(engine.engineID()));
+		cache.addModifier("cmEngineDescription", engine.description());
+		cache.addModifier("useEmbeddedProfile", QString::number(static_cast<int>(cmSettings.useEmbeddedProfile())));
+		cache.addModifier("softProofingAllowed", QString::number(static_cast<int>(cmSettings.softProofingAllowed())));
+		cache.addModifier("requestType", QString::number(static_cast<int>(requestType)));
+		cache.addModifier("gsRes", QString::number(gsRes));
+		cache.addModifier("useColorManagement", QString::number(static_cast<int>(cmSettings.useColorManagement())));
+		cache.addModifier("doSoftProofing", QString::number(static_cast<int>(cmSettings.doSoftProofing())));
+		cache.addModifier("doGamutCheck", QString::number(static_cast<int>(cmSettings.doGamutCheck())));
+		cache.addModifier("useBlackPoint", QString::number(static_cast<int>(cmSettings.useBlackPoint())));
+		cache.addModifier("imageRenderingIntent", QString::number(static_cast<int>(cmSettings.imageRenderingIntent())));
+		addProfileToCacheModifiers(cache, "monitor", cmSettings.monitorProfile());
+		addProfileToCacheModifiers(cache, "printer", cmSettings.printerProfile());
+
+		fromCache = imgInfo.lowResType != 0 && cache.canUseCachedImage() && cache.load(*this) && imgInfo.deserialize(cache);
+
+		if (fromCache)
+		{
+			cache.touch();
+			return true;
+		}
+	}
+	else
+		fromCache = false;
+
+	return loadPicture(cache.getFilename(), page, cmSettings, requestType, gsRes, realCMYK, showMsg);
+}
+
+bool ScImage::saveCache(ScImageCacheProxy & cache)
+{
+	return cache.enabled() && imgInfo.serialize(cache) && cache.save(*this);
+}
+
+bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSettings,
+						  RequestType requestType, int gsRes, bool *realCMYK, bool showMsg)
+{
+	// requestType - 0: CMYK, 1: RGB, 3 : RawData, 4: Thumbnail
 	// gsRes - is the resolution that ghostscript will render at
 	bool isCMYK = false;
 	bool ret = false;
-	bool inputProfisEmbedded = false;
-	bool stdProof = false;
-	if (realCMYK != 0)
+//	bool inputProfIsEmbedded = false;
+	if (realCMYK != nullptr)
 		*realCMYK = false;
 	bool bilevel = false;
-//	short resolutionunit = 0;
 	RequestType reqType = requestType;
-	cmsHTRANSFORM xform = 0;
-	cmsHPROFILE inputProf = 0;
 	int cmsFlags = 0;
 	int cmsProofFlags = 0;
-	auto_ptr<ScImgDataLoader> pDataLoader;
-	QFileInfo fi = QFileInfo(fn);
+
+	QString profileName;
+	bool hasEmbeddedProfile = false;
+	ScColorTransform xform;
+	ScColorProfile inputProf;
+
+	QFileInfo fi(fn);
 	if (!fi.exists())
 		return ret;
 	QString ext = fi.suffix().toLower();
-	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
-	QChar tc;
-	QString profileName = "";
-	bool hasEmbeddedProfile = false;
-//	bool found = false;
 
-	if (ext.isEmpty())
-		ext = getImageType(fn);
+	QStringList fmtImg;
+	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
+	for (int i = 0; i < fmtList.count(); i++)
+		fmtImg.append( QString(fmtList[i].toLower()) );
 
+	// Do some basic checks when requestType is OutputProfile
+	if (requestType == OutputProfile)
+	{
+		if (!cmSettings.useColorManagement())
+			return false;
+		ScColorProfile prof = cmSettings.outputProfile();
+		if (prof.isNull())
+			return false;
+		eColorSpaceType cspace = prof.colorSpace();
+		if (cspace != ColorSpace_Rgb && cspace != ColorSpace_Cmyk)
+			return false;
+	}
+	QString ext2 = getImageType(fn);
+	if (ext.isEmpty() || (!ext2.isEmpty() && (ext2 != ext)))
+		ext = ext2;
+
+	QScopedPointer<ScImgDataLoader> pDataLoader;
 	if (extensionIndicatesPDF(ext))
-	{
 		pDataLoader.reset( new ScImgDataLoader_PDF() );
-	}
 	else if (extensionIndicatesEPSorPS(ext))
-	{
 		pDataLoader.reset( new ScImgDataLoader_PS() );
-	}
-	else if (extensionIndicatesTIFF(ext))
-	{
-		pDataLoader.reset( new ScImgDataLoader_TIFF() );
-	}
+	else if (extensionIndicatesJPEG(ext))
+		pDataLoader.reset( new ScImgDataLoader_JPEG() );
+	else if (extensionIndicatesPNG(ext))
+		pDataLoader.reset( new ScImgDataLoader_PNG() );
 	else if (extensionIndicatesPSD(ext))
 	{
 		pDataLoader.reset( new ScImgDataLoader_PSD() );
 		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
-	else if (extensionIndicatesJPEG(ext))
-		pDataLoader.reset( new ScImgDataLoader_JPEG() );
+	else if (extensionIndicatesTIFF(ext))
+		pDataLoader.reset( new ScImgDataLoader_TIFF() );
 	else if (ext == "pat")
 		pDataLoader.reset( new ScImgDataLoader_GIMP() );
+	else if (ext == "pgf")
+		pDataLoader.reset( new ScImgDataLoader_PGF() );
+	else if ((ext == "pct") || (ext == "pic") || (ext == "pict"))
+		pDataLoader.reset( new ScImgDataLoader_PICT() );
+	else if (ext == "wpg")
+		pDataLoader.reset( new ScImgDataLoader_WPG() );
+	else if (ext == "ora")
+	{
+		pDataLoader.reset( new ScImgDataLoader_ORA() );
+		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
+	else if (ext == "kra")
+	{
+		pDataLoader.reset( new ScImgDataLoader_KRA() );
+		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
+#ifdef GMAGICK_FOUND
+	else if (fmtImg.contains(ext))
+		pDataLoader.reset( new ScImgDataLoader_QT() );
+	else
+	{
+		pDataLoader.reset( new ScImgDataLoader_GMagick() );
+		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
+#else
 	else
 		pDataLoader.reset( new ScImgDataLoader_QT() );
+#endif
 
-	if	(pDataLoader->loadPicture(fn, page, gsRes, (requestType == Thumbnail)))
+	if (pDataLoader->loadPicture(fn, page, gsRes, (requestType == Thumbnail)))
 	{
 		QImage::operator=(pDataLoader->image());
 		imgInfo = pDataLoader->imageInfoRecord();
@@ -2010,7 +2347,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		if (imgInfo.colorspace == ColorSpaceCMYK)
 		{
 			isCMYK = true;
-			if(realCMYK)
+			if (realCMYK)
 				*realCMYK = true;
 		}
 		else if (imgInfo.colorspace == ColorSpaceGray)
@@ -2021,7 +2358,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	{
 		if	(ScCore->usingGUI() && pDataLoader->issuedErrorMsg() && showMsg)
 		{
-			QMessageBox::critical(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage(), 1, 0, 0);
+			ScMessageBox::critical(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage());
 		}
 		else if (pDataLoader->issuedErrorMsg())
 		{
@@ -2031,120 +2368,128 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		return false;
 	}
 
-	if (!(extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext)))
+	if (!(extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())) //TODO: Unsure about this one!
 	{
 		if (isNull())
 			return  ret;
 	}
 
 	QByteArray embeddedProfile = pDataLoader->embeddedProfile();
-	if (cmSettings.useColorManagement() && useProf)
+	if (cmSettings.useColorManagement())
 	{
-		if ((embeddedProfile.size() > 0 ) && (useEmbedded))
+		if ((embeddedProfile.size() > 0 ) && (cmSettings.useEmbeddedProfile()))
 		{
-			inputProf = cmsOpenProfileFromMem(embeddedProfile.data(), embeddedProfile.size());
-			inputProfisEmbedded = true;
+			inputProf = cmSettings.doc()->colorEngine.openProfileFromMem(embeddedProfile);
+		//	inputProfIsEmbedded = true;
 		}
 		else
 		{
-			QByteArray profilePath;
+			QString profilePath;
 			//CB If this is null, customfiledialog/picsearch/ScPreview might be sending it
-			Q_ASSERT(cmSettings.doc()!=0);
+			Q_ASSERT(cmSettings.doc()!=nullptr);
 			if (isCMYK)
 			{
-				if (ScCore->InputProfilesCMYK.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile))
+				if (ScCore->InputProfilesCMYK.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->cmsSettings().DefaultImageCMYKProfile))
 				{
 					imgInfo.profileName = cmSettings.profileName();
-					inputProfisEmbedded = true;
-					profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName].toLocal8Bit();
-					inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
+				//	inputProfIsEmbedded = true;
+					profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName];
+					inputProf =  cmSettings.doc()->colorEngine.openProfileFromFile(profilePath);
 				}
 				else
 				{
 					inputProf = cmSettings.doc()->DocInputImageCMYKProf;
-					imgInfo.profileName = cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile;
-					inputProfisEmbedded = false;
+					imgInfo.profileName = cmSettings.doc()->cmsSettings().DefaultImageCMYKProfile;
+				//	inputProfIsEmbedded = false;
 				}
+			}
+			else if (bilevel && (reqType == CMYKData))
+				inputProf = nullptr; // Workaround to map directly gray to K channel
+			else if (ScCore->InputProfiles.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->cmsSettings().DefaultImageRGBProfile))
+			{
+				imgInfo.profileName = cmSettings.profileName();
+				profilePath = ScCore->InputProfiles[imgInfo.profileName];
+			//	inputProfIsEmbedded = true;
+				inputProf = cmSettings.doc()->colorEngine.openProfileFromFile(profilePath);
 			}
 			else
 			{
-				if (ScCore->InputProfiles.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->CMSSettings.DefaultImageRGBProfile))
-				{
-					imgInfo.profileName = cmSettings.profileName();
-					profilePath = ScCore->InputProfiles[imgInfo.profileName].toLocal8Bit();
-					inputProfisEmbedded = true;
-					inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
-				}
-				else
-				{
-					inputProf = cmSettings.doc()->DocInputImageRGBProf;
-					imgInfo.profileName = cmSettings.doc()->CMSSettings.DefaultImageRGBProfile;
-					inputProfisEmbedded = false;
-				}
+				inputProf = cmSettings.doc()->DocInputImageRGBProf;
+				imgInfo.profileName = cmSettings.doc()->cmsSettings().DefaultImageRGBProfile;
+			//	inputProfIsEmbedded = false;
 			}
 		}
 	}
-	else if ((useProf && embeddedProfile.size() > 0) && (useEmbedded))
+	else if ((cmSettings.useColorManagement() && embeddedProfile.size() > 0) && (cmSettings.useEmbeddedProfile()))
 	{
-		inputProf = cmsOpenProfileFromMem(embeddedProfile.data(), embeddedProfile.size());
-		inputProfisEmbedded = true;
+		inputProf = cmSettings.doc()->colorEngine.openProfileFromMem(embeddedProfile);
+	//	inputProfIsEmbedded = true;
 	}
-	else if (useProf && isCMYK)
+	else if (cmSettings.colorManagementAllowed() && isCMYK)
 		inputProf = ScCore->defaultCMYKProfile;
-	else if (useProf)
+	else if (cmSettings.colorManagementAllowed() && bilevel && (reqType == CMYKData))
+		inputProf = nullptr; // Workaround to map directly gray to K channel
+	else if (cmSettings.colorManagementAllowed())
 		inputProf = ScCore->defaultRGBProfile;
-	cmsHPROFILE screenProf  = cmSettings.monitorProfile() ? cmSettings.monitorProfile() : ScCore->defaultRGBProfile;
-	cmsHPROFILE printerProf = cmSettings.printerProfile() ? cmSettings.printerProfile() : ScCore->defaultCMYKProfile;
-	if (useProf && inputProf && screenProf && printerProf)
+	ScColorProfile screenProf  = cmSettings.monitorProfile() ? cmSettings.monitorProfile() : ScCore->defaultRGBProfile;
+	ScColorProfile printerProf = cmSettings.printerProfile() ? cmSettings.printerProfile() : ScCore->defaultCMYKProfile;
+	if (cmSettings.colorManagementAllowed() && inputProf && screenProf && printerProf)
 	{
-		bool  isPsdTiff = (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext));
-		DWORD SC_TYPE_YMCK_8 = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));
-		DWORD inputProfFormat = TYPE_BGRA_8;
-		DWORD outputProfFormat = SC_TYPE_YMCK_8;
-		int inputProfColorSpace = static_cast<int>(cmsGetColorSpace(inputProf));
-		if ( inputProfColorSpace == icSigRgbData )
-			inputProfFormat = isPsdTiff ? TYPE_RGBA_8 : TYPE_BGRA_8; // Later make tiff and psd loader use TYPE_BGRA_8
-		else if (( inputProfColorSpace == icSigCmykData ) && isPsdTiff)
-		{
-			if (pDataLoader->r_image.channels() == 5)
-				inputProfFormat = (COLORSPACE_SH(PT_CMYK)|EXTRA_SH(1)|CHANNELS_SH(4)|BYTES_SH(1));
-			else
-				inputProfFormat = TYPE_CMYK_8;
-		}
-		else if ( inputProfColorSpace == icSigCmykData )
-			inputProfFormat = SC_TYPE_YMCK_8;
-		else if ( inputProfColorSpace == icSigGrayData )
-			inputProfFormat = TYPE_GRAY_8;
-		int outputProfColorSpace = static_cast<int>(cmsGetColorSpace(printerProf));
-		if ( outputProfColorSpace == icSigRgbData )
-			outputProfFormat = TYPE_BGRA_8;
-		else if ( outputProfColorSpace == icSigCmykData )
-			outputProfFormat = SC_TYPE_YMCK_8;
+		ScColorMgmtEngine engine(cmSettings.doc() ? cmSettings.doc()->colorEngine : ScCore->defaultEngine);
+		eColorFormat inputProfFormat  = pDataLoader->pixelFormat();
+		eColorFormat outputProfFormat = Format_YMCK_8;
+		eColorSpaceType inputProfColorSpace  = inputProf.colorSpace();
+		eColorSpaceType outputProfColorSpace = printerProf.colorSpace();
+		if (inputProfColorSpace == ColorSpace_Gray)
+			inputProfFormat  = Format_GRAY_8; // Grayscale is still a bit tricky
+		if (outputProfColorSpace == ColorSpace_Rgb)
+			outputProfFormat = Format_BGRA_8;
+		else if (outputProfColorSpace == ColorSpace_Cmyk)
+			outputProfFormat = Format_YMCK_8;
+		ScColorSpace inputCSpace  = engine.createColorSpace(inputProf, inputProfFormat);
+		ScColorSpace screenCSpace = engine.createColorSpace(screenProf, Format_BGRA_8);
+		ScColorSpace outputCSpace;
 		if (cmSettings.useColorManagement() && cmSettings.doSoftProofing())
 		{
-			cmsProofFlags |= cmsFLAGS_SOFTPROOFING;
+			cmsProofFlags |= Ctf_Softproofing;
 			if (cmSettings.doGamutCheck())
 			{
-				cmsProofFlags |= cmsFLAGS_GAMUTCHECK;
+				cmsProofFlags |= Ctf_GamutCheck;
 			}
 		}
 		if (!cmSettings.useColorManagement() || cmSettings.useBlackPoint())
-			cmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+			cmsFlags |= Ctf_BlackPointCompensation;
 		switch (reqType)
 		{
 		case CMYKData: // CMYK
 //			if ((!isCMYK && (outputProfColorSpace == icSigCmykData)) || (isCMYK && (outputProfColorSpace == icSigRgbData)) )
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, printerProf, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
-			if (outputProfColorSpace != icSigCmykData )
+				xform = inputCSpace.createTransform(printerProf, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
+			if (outputProfColorSpace != ColorSpace_Cmyk )
 				*realCMYK = isCMYK = false;
+			outputCSpace = engine.createColorSpace(printerProf, outputProfFormat);
 			break;
 		case Thumbnail:
 		case RGBData: // RGB
-			if (isCMYK)
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, screenProf, TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
+			if (cmSettings.useColorManagement() && cmSettings.doSoftProofing())
+			{
+				if ((imgInfo.profileName == cmSettings.defaultImageRGBProfile()) || (imgInfo.profileName == cmSettings.defaultImageCMYKProfile()))
+				{
+					if (isCMYK && (inputProfFormat == Format_CMYK_8))
+						xform = cmSettings.cmykImageProofingTransform();
+					else if (inputProfFormat == Format_BGRA_8)
+						xform = cmSettings.rgbImageProofingTransform();
+				}
+				if (!xform)
+				{
+					xform = inputCSpace.createProofingTransform(screenCSpace, printerProf,
+				                     cmSettings.intent(), Intent_Relative_Colorimetric, cmsFlags | cmsProofFlags);
+				}
+			}
+			else if (cmSettings.softProofingAllowed() || isCMYK)
+				xform = inputCSpace.createTransform(screenCSpace, cmSettings.intent(), cmsFlags);
 			else
 			{
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+				if (pDataLoader->useRawImage())
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
@@ -2156,33 +2501,12 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
 			}
-			break;
-		case RGBProof: // RGB Proof
-			{
-				if (cmSettings.useColorManagement() && cmSettings.doSoftProofing())
-				{
-					if ((imgInfo.profileName == cmSettings.defaultImageRGBProfile()) || (imgInfo.profileName == cmSettings.defaultImageCMYKProfile()))
-					{
-						if (isCMYK)
-							xform = cmSettings.cmykImageProofingTransform();
-						else
-							xform = cmSettings.rgbImageProofingTransform();
-						cmsChangeBuffersFormat(xform, inputProfFormat, TYPE_BGRA_8);
-						stdProof = true;
-					}
-					else
-						xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
-					                     screenProf, TYPE_BGRA_8, printerProf,
-					                     cmSettings.intent(), INTENT_RELATIVE_COLORIMETRIC, cmsFlags | cmsProofFlags);
-				}
-				else
-					xform = scCmsCreateTransform(inputProf, inputProfFormat, screenProf, 
-										 TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
-			}
+			outputProfColorSpace = ColorSpace_Rgb;
+			outputCSpace = screenCSpace;
 			break;
 		case RawData: // no Conversion just raw Data
-			xform = 0;
-			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+			xform = nullptr;
+			if (pDataLoader->useRawImage())
 			{
 				QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
 				profileName = imgInfo.profileName;
@@ -2194,10 +2518,23 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				// imgInfo = pDataLoader->imageInfoRecord();
 			}
 			break;
+		case OutputProfile: // CMYK
+			ScColorProfile outputProfile = cmSettings.outputProfile();
+			outputProfColorSpace = outputProfile.colorSpace();
+			if ( outputProfColorSpace == ColorSpace_Rgb )
+				outputProfFormat = Format_BGRA_8;
+			else if ( outputProfColorSpace == ColorSpace_Cmyk )
+				outputProfFormat = Format_YMCK_8;
+			xform = inputCSpace.createTransform(outputProfile, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
+			isCMYK = (outputProfColorSpace == ColorSpace_Cmyk);
+			if (realCMYK)
+				*realCMYK = isCMYK;
+			outputCSpace = engine.createColorSpace(outputProfile, outputProfFormat);
+			break;
 		}
-		if (xform)
+		if (xform && outputCSpace)
 		{
-			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+			if (pDataLoader->useRawImage())
 			{
 				QImage::operator=(QImage(pDataLoader->r_image.width(), pDataLoader->r_image.height(), QImage::Format_ARGB32));
 				profileName = imgInfo.profileName;
@@ -2208,30 +2545,29 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				// JG : this line overwrite image profile info and should not be needed here!!!!
 				// imgInfo = pDataLoader->imageInfoRecord();
 			}
-			LPBYTE ptr2 = NULL;
+			uchar* ptr2 = nullptr;
 			for (int i = 0; i < height(); i++)
 			{
-				LPBYTE ptr = scanLine(i);
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
-					ptr2 = pDataLoader->r_image.scanLine(i);
-				if ( inputProfFormat == TYPE_GRAY_8 && (reqType != CMYKData) )
+				uchar* ptr = scanLine(i);
+				ptr2 = pDataLoader->useRawImage() ? pDataLoader->r_image.scanLine(i) : nullptr;
+				if ((inputProfFormat == Format_GRAY_8) && (outputProfColorSpace != ColorSpace_Cmyk))
 				{
 					unsigned char* ucs = ptr2 ? (ptr2 + 1) : (ptr + 1);
 					unsigned char* uc = new unsigned char[width()];
-					for( int uci = 0; uci < width(); ++uci )
+					for (int uci = 0; uci < width(); ++uci)
 					{
 						uc[uci] = *ucs;
 						ucs += 4;
 					}
-					cmsDoTransform(xform, uc, ptr, width());
+					xform.apply(uc, ptr, width());
 					delete[] uc;
 				}
-				else if ( inputProfFormat == TYPE_GRAY_8 && (reqType == CMYKData) )
+				else if ((inputProfFormat == Format_GRAY_8) && (outputProfColorSpace == ColorSpace_Cmyk))
 				{
 					unsigned char  value;
 					unsigned char* ucs = ptr2 ? ptr2 : ptr;
 					unsigned char* uc  = ptr;
-					for( int uci = 0; uci < width(); ++uci, uc += 4 )
+					for (int uci = 0; uci < width(); ++uci, uc += 4)
 					{
 						value = 255 - *(ucs + 1);
 						uc[0] = uc[1] = uc[2] = 0;
@@ -2241,30 +2577,12 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				}
 				else
 				{
-					if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
-					{
-						cmsDoTransform(xform, ptr2, ptr, width());
-					}
-					else
-						cmsDoTransform(xform, ptr, ptr, width());
+					inputCSpace.convert(outputCSpace, (eRenderIntent) 0, 0, ptr2 ? ptr2 : ptr, ptr, width(), &xform);
 				}
-				// if transforming from CMYK to RGB, flatten the alpha channel
-				// which will still contain the black channel
-				if (!(extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext)))
-				{
-					QRgb alphaFF = qRgba(0,0,0,255);
-					QRgb *p;
-					if (isCMYK && reqType != CMYKData && !bilevel)
-					{
-						p = (QRgb *) ptr;
-						for (int j = 0; j < width(); j++, p++)
-							*p |= alphaFF;
-					}
-				}
-				else
+				if (pDataLoader->useRawImage())
 				{
 					// This might fix Bug #6328, please test.
-					if (reqType != CMYKData && bilevel)
+					/*if (outputProfColorSpace != ColorSpace_Cmyk && bilevel)
 					{
 						QRgb alphaFF;
 						QRgb *p;
@@ -2275,42 +2593,26 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 							*p |= alphaFF;
 							ptr2 += 4;
 						}
-					}
-					if (reqType != CMYKData && !bilevel)
+					}*/
+					// FIXME not valid if input or output colorspace are not 8bit / channels
+					if (inputCSpace.hasAlphaChannel() && outputCSpace.hasAlphaChannel())
 					{
-						if (pDataLoader->r_image.channels() == 5)
+						uint inputAlphaI  = inputCSpace.alphaIndex();
+						uint outputAlphaI = outputCSpace.alphaIndex();
+						uint inputBytes   = inputCSpace.bytesPerChannel()  * inputCSpace.numChannels();
+						uint outputBytes  = outputCSpace.bytesPerChannel() * outputCSpace.numChannels();
+						uchar* in  = ptr2 + inputAlphaI  * inputCSpace.bytesPerChannel();
+						uchar* out = ptr  + outputAlphaI * outputCSpace.bytesPerChannel();
+						for (int j = 0; j < width(); ++j)
 						{
-							QRgb *p = (QRgb *) ptr;
-							for (int j = 0; j < width(); j++, p++)
-							{
-								*p = qRgba(qRed(*p), qGreen(*p), qBlue(*p), ptr2[4]);
-								ptr2 += 5;
-							}
-						}
-						else
-						{
-							QRgb *p = (QRgb *) ptr;
-							for (int j = 0; j < width(); j++, p++)
-							{
-								if (isCMYK)
-									*p = qRgba(qRed(*p), qGreen(*p), qBlue(*p), 255);
-								else
-									*p = qRgba(qRed(*p), qGreen(*p), qBlue(*p), ptr2[3]);
-								ptr2 += 4;
-							}
+							*out = *in;
+							in  += inputBytes;
+							out += outputBytes;
 						}
 					}
 				}
 			}
-			if (!stdProof && !ScCore->IsDefaultTransform(xform))
-				cmsDeleteTransform (xform);
 		}
-		if ((inputProf) && (inputProfisEmbedded) && !ScCore->IsDefaultProfile(inputProf))
-			cmsCloseProfile(inputProf);
-		if (isCMYK)
-			cmsChangeBuffersFormat(cmSettings.cmykImageProofingTransform(), TYPE_CMYK_8, TYPE_RGBA_8);
-		else
-			cmsChangeBuffersFormat(cmSettings.rgbImageProofingTransform(), TYPE_RGBA_8, TYPE_RGBA_8);
 	}
 	else
 	{
@@ -2319,7 +2621,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		case CMYKData:
 			if (!isCMYK)
 			{
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
@@ -2347,7 +2649,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			}
 			else
 			{
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
 					profileName = imgInfo.profileName;
@@ -2361,11 +2663,10 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			}
 			break;
 		case RGBData:
-		case RGBProof:
 		case Thumbnail:
 			if (isCMYK)
 			{
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(true));
 					profileName = imgInfo.profileName;
@@ -2396,7 +2697,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			}
 			else
 			{
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
 				{
 					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
@@ -2410,17 +2711,19 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			}
 			break;
 		case RawData:
-				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
-				{
-					QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
-					profileName = imgInfo.profileName;
-					hasEmbeddedProfile = imgInfo.isEmbedded;
-					imgInfo = pDataLoader->imageInfoRecord();
-					imgInfo.profileName = profileName;
-					imgInfo.isEmbedded = hasEmbeddedProfile;
-					// JG : this line overwrite image profile info and should not be needed here!!!!
-					// imgInfo = pDataLoader->imageInfoRecord();
-				}
+			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext) || pDataLoader->useRawImage())
+			{
+				QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
+				profileName = imgInfo.profileName;
+				hasEmbeddedProfile = imgInfo.isEmbedded;
+				imgInfo = pDataLoader->imageInfoRecord();
+				imgInfo.profileName = profileName;
+				imgInfo.isEmbedded = hasEmbeddedProfile;
+				// JG : this line overwrite image profile info and should not be needed here!!!!
+				// imgInfo = pDataLoader->imageInfoRecord();
+			}
+			break;
+		default:	// just to silence compiler
 			break;
 		}
 	}
@@ -2428,18 +2731,35 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 //		setAlphaBuffer(false);
 	setDotsPerMeterX (qMax(2834, (int) (imgInfo.xres / 0.0254)));
 	setDotsPerMeterY (qMax(2834, (int) (imgInfo.yres / 0.0254)));
-	if (imgInfo.isEmbedded && useEmbedded)
-		imgInfo.isEmbedded = true;
-	else
-		imgInfo.isEmbedded = false;
+	imgInfo.isEmbedded &= cmSettings.useEmbeddedProfile();
 	if	(ScCore->usingGUI() && pDataLoader->issuedWarningMsg() && showMsg)
 	{
-		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage(), 1, 0, 0);
+		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage());
 	}
-	else if (pDataLoader->issuedErrorMsg())
+	else if (pDataLoader->issuedWarningMsg())
 	{
 		QString msg = pDataLoader->getMessage();
 		qWarning("%s", msg.toLocal8Bit().data() );
 	}
 	return true;
+}
+
+bool ScImage::hasSmoothAlpha() const
+{
+	int h = height();
+	int w = width();
+	QSet<int> alpha;
+	const QRgb *s;
+	for (int yi = 0; yi < h; ++yi)
+	{
+		s = (const QRgb*) constScanLine(yi);
+		for (int xi = 0; xi < w; ++xi)
+		{
+			alpha.insert(qAlpha(*s));
+			if (alpha.count() > 2)
+				return true;
+			s++;
+		}
+	}
+	return (alpha.count() > 2);
 }

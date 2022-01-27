@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 /***************************************************************************
 *                                                                         *
-*   ScMW program is free software; you can redistribute it and/or modify  *
+*   Scribus program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
 *   the Free Software Foundation; either version 2 of the License, or     *
 *   (at your option) any later version.                                   *
@@ -24,18 +24,27 @@ for which a new license (GPL+exception) is in place.
 #ifndef DOCUMENTCHECKER_H
 #define DOCUMENTCHECKER_H
 
+#include <QString>
+
 #include "scribusapi.h"
+#include "prefsstructs.h"
+
 class ScribusDoc;
 
 /*! \brief It create a error/warning list for CheckDocument GUI class.
-All errors and/or warnings are stored in errorCodes (inheritted QMap
+All errors and/or warnings are stored in errorCodes (inherited QMap
 see scribusstructs.h) and parsed into tree view in CheckDocument widgets.
 */
 class SCRIBUS_API DocumentChecker
 {
 	public:
+
 		//! Check the passed document for errors, return true on error found
 		static bool checkDocument(ScribusDoc *currDoc);
+		static bool checkDocument(ScribusDoc *currDoc, const QString& checkerProfile);
+		static void checkPages(ScribusDoc *currDoc, const CheckerPrefs& checkerSettings);
+		static void checkLayers(ScribusDoc *currDoc, const CheckerPrefs& checkerSettings);
+		static void checkItems(ScribusDoc *currDoc, const CheckerPrefs& checkerSettings);
 };
 
 #endif

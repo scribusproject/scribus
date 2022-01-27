@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="NBS/ISCC" >
+ <COLOR Spot="0" RGB="#FF7E93" Register="0" NAME="Vivid Pink" />
+ <COLOR Spot="0" RGB="#FD7B7C" Register="0" NAME="Strong Pink" />
+ <COLOR Spot="0" RGB="#F3545E" Register="0" NAME="Deep Pink" />
+ <COLOR Spot="0" RGB="#FFBCAD" Register="0" NAME="Light Pink" />
+ <COLOR Spot="0" RGB="#EE9086" Register="0" NAME="Moderate Pink" />
+ <COLOR Spot="0" RGB="#C76864" Register="0" NAME="Dark Pink" />
+ <COLOR Spot="0" RGB="#FFCBBB" Register="0" NAME="Pale Pink" />
+ <COLOR Spot="0" RGB="#CF9B8F" Register="0" NAME="Grayish Pink" />
+ <COLOR Spot="0" RGB="#F9DBC8" Register="0" NAME="Pinkish White" />
+ <COLOR Spot="0" RGB="#C8A696" Register="0" NAME="Pinkish Gray" />
+ <COLOR Spot="0" RGB="#C10020" Register="0" NAME="Vivid Red" />
+ <COLOR Spot="0" RGB="#BF2233" Register="0" NAME="Strong Red" />
+ <COLOR Spot="0" RGB="#7B001C" Register="0" NAME="Deep Red" />
+ <COLOR Spot="0" RGB="#4F0014" Register="0" NAME="Very Deep Red" />
+ <COLOR Spot="0" RGB="#AB343A" Register="0" NAME="Moderate Red" />
+ <COLOR Spot="0" RGB="#681C23" Register="0" NAME="Dark Red" />
+ <COLOR Spot="0" RGB="#320A18" Register="0" NAME="Very Dark Red" />
+ <COLOR Spot="0" RGB="#B17267" Register="0" NAME="Light Grayish Red" />
+ <COLOR Spot="0" RGB="#8C4743" Register="0" NAME="Grayish Red" />
+ <COLOR Spot="0" RGB="#482A2A" Register="0" NAME="Dark Grayish Red" />
+ <COLOR Spot="0" RGB="#1F0E11" Register="0" NAME="Blackish Red" />
+ <COLOR Spot="0" RGB="#8B6C62" Register="0" NAME="Reddish Gray" />
+ <COLOR Spot="0" RGB="#523C36" Register="0" NAME="Dark Reddish Gray" />
+ <COLOR Spot="0" RGB="#1E1112" Register="0" NAME="Reddish Black" />
+ <COLOR Spot="0" RGB="#FF845C" Register="0" NAME="Vivid Yellowish Pink" />
+ <COLOR Spot="0" RGB="#FF7A5C" Register="0" NAME="Strong Yellowish Pink" />
+ <COLOR Spot="0" RGB="#F64A46" Register="0" NAME="Deep Yellowish Pink" />
+ <COLOR Spot="0" RGB="#FFB28B" Register="0" NAME="Light Yellowish Pink" />
+ <COLOR Spot="0" RGB="#EE9374" Register="0" NAME="Moderate Yellowish Pink" />
+ <COLOR Spot="0" RGB="#CC6C5C" Register="0" NAME="Dark Yellowish Pink" />
+ <COLOR Spot="0" RGB="#FFC8A8" Register="0" NAME="Pale Yellowish Pink" />
+ <COLOR Spot="0" RGB="#D39B85" Register="0" NAME="Grayish Yellowish Pink" />
+ <COLOR Spot="0" RGB="#CD9A7B" Register="0" NAME="Brownish Pink" />
+ <COLOR Spot="0" RGB="#F13A13" Register="0" NAME="Vivid Reddish Orange" />
+ <COLOR Spot="0" RGB="#FFB961" Register="0" NAME="Strong Reddish Orange" />
+ <COLOR Spot="0" RGB="#A91D11" Register="0" NAME="Deep Reddish Orange" />
+ <COLOR Spot="0" RGB="#D35339" Register="0" NAME="Moderate Reddish Orange" />
+ <COLOR Spot="0" RGB="#9B2F1F" Register="0" NAME="Dark Reddish Orange" />
+ <COLOR Spot="0" RGB="#B85D43" Register="0" NAME="Grayish Reddish Orange" />
+ <COLOR Spot="0" RGB="#7F180D" Register="0" NAME="Strong Reddish Brown" />
+ <COLOR Spot="0" RGB="#490005" Register="0" NAME="Deep Reddish Brown" />
+ <COLOR Spot="0" RGB="#AA6651" Register="0" NAME="Light Reddish Brown" />
+ <COLOR Spot="0" RGB="#712F26" Register="0" NAME="Moderate Reddish Brown" />
+ <COLOR Spot="0" RGB="#321011" Register="0" NAME="Dark Reddish Brown" />
+ <COLOR Spot="0" RGB="#966A57" Register="0" NAME="Light Grayish Reddish Brown" />
+ <COLOR Spot="0" RGB="#5E3830" Register="0" NAME="Grayish Reddish Brown" />
+ <COLOR Spot="0" RGB="#371F1C" Register="0" NAME="Dark Grayish Reddish Brown" />
+ <COLOR Spot="0" RGB="#FF6800" Register="0" NAME="Vivid Orange" />
+ <COLOR Spot="0" RGB="#FFB841" Register="0" NAME="Brilliant Orange" />
+ <COLOR Spot="0" RGB="#FF6F1A" Register="0" NAME="Strong Orange" />
+ <COLOR Spot="0" RGB="#C34D0A" Register="0" NAME="Deep Orange" />
+ <COLOR Spot="0" RGB="#FFA161" Register="0" NAME="Light Orange" />
+ <COLOR Spot="0" RGB="#E8793E" Register="0" NAME="Moderate Orange" />
+ <COLOR Spot="0" RGB="#B15124" Register="0" NAME="Brownish Orange" />
+ <COLOR Spot="0" RGB="#753313" Register="0" NAME="Strong Brown" />
+ <COLOR Spot="0" RGB="#4D220E" Register="0" NAME="Deep Brown" />
+ <COLOR Spot="0" RGB="#A86540" Register="0" NAME="Light Brown" />
+ <COLOR Spot="0" RGB="#673923" Register="0" NAME="Moderate Brown" />
+ <COLOR Spot="0" RGB="#35170C" Register="0" NAME="Dark Brown" />
+ <COLOR Spot="0" RGB="#946B54" Register="0" NAME="Light Grayish Brown" />
+ <COLOR Spot="0" RGB="#5A3D30" Register="0" NAME="Grayish Brown" />
+ <COLOR Spot="0" RGB="#32221A" Register="0" NAME="Dark Grayish Brown" />
+ <COLOR Spot="0" RGB="#8B6D5C" Register="0" NAME="Light Brownish Gray" />
+ <COLOR Spot="0" RGB="#503D33" Register="0" NAME="Brownish Gray" />
+ <COLOR Spot="0" RGB="#140F0B" Register="0" NAME="Brownish Black" />
+ <COLOR Spot="0" RGB="#FF8E00" Register="0" NAME="Vivid Orange Yellow" />
+ <COLOR Spot="0" RGB="#FFB02E" Register="0" NAME="Brilliant Orange Yellow" />
+ <COLOR Spot="0" RGB="#FF8E0D" Register="0" NAME="Strong Orange Yellow" />
+ <COLOR Spot="0" RGB="#D76E00" Register="0" NAME="Deep Orange Yellow" />
+ <COLOR Spot="0" RGB="#FFB961" Register="0" NAME="Light Orange Yellow" />
+ <COLOR Spot="0" RGB="#F7943C" Register="0" NAME="Moderate Orange Yellow" />
+ <COLOR Spot="0" RGB="#C37629" Register="0" NAME="Dark Orange Yellow" />
+ <COLOR Spot="0" RGB="#FFCA86" Register="0" NAME="Pale Orange Yellow" />
+ <COLOR Spot="0" RGB="#95500C" Register="0" NAME="Strong Yellowish Brown" />
+ <COLOR Spot="0" RGB="#593315" Register="0" NAME="Deep Yellowish Brown" />
+ <COLOR Spot="0" RGB="#BB8B54" Register="0" NAME="Light Yellowish Brown" />
+ <COLOR Spot="0" RGB="#7D512D" Register="0" NAME="Moderate Yellowish Brown" />
+ <COLOR Spot="0" RGB="#3F2512" Register="0" NAME="Dark Yellowish Brown" />
+ <COLOR Spot="0" RGB="#B48764" Register="0" NAME="Light Grayish Yellowish Brown" />
+ <COLOR Spot="0" RGB="#785840" Register="0" NAME="Grayish Yellowish Brown" />
+ <COLOR Spot="0" RGB="#3D2B1F" Register="0" NAME="Dark Grayish Yellowish Brown" />
+ <COLOR Spot="0" RGB="#FFB300" Register="0" NAME="Vivid Yellow" />
+ <COLOR Spot="0" RGB="#FFCF40" Register="0" NAME="Brilliant Yellow" />
+ <COLOR Spot="0" RGB="#E59E1F" Register="0" NAME="Strong Yellow" />
+ <COLOR Spot="0" RGB="#B57900" Register="0" NAME="Deep Yellow" />
+ <COLOR Spot="0" RGB="#FFD35F" Register="0" NAME="Light Yellow" />
+ <COLOR Spot="0" RGB="#D79D41" Register="0" NAME="Moderate Yellow" />
+ <COLOR Spot="0" RGB="#B07D2B" Register="0" NAME="Dark Yellow" />
+ <COLOR Spot="0" RGB="#FFDB8B" Register="0" NAME="Pale Yellow" />
+ <COLOR Spot="0" RGB="#CEA262" Register="0" NAME="Grayish Yellow" />
+ <COLOR Spot="0" RGB="#A47C45" Register="0" NAME="Dark Grayish Yellow" />
+ <COLOR Spot="0" RGB="#FFE2B7" Register="0" NAME="Yellowish White" />
+ <COLOR Spot="0" RGB="#CAA885" Register="0" NAME="Yellowish Gray" />
+ <COLOR Spot="0" RGB="#945D0B" Register="0" NAME="Light Olive Brown" />
+ <COLOR Spot="0" RGB="#B17267" Register="0" NAME="Light Grayish Red" />
+ <COLOR Spot="0" RGB="#64400F" Register="0" NAME="Moderate Olive Brown" />
+ <COLOR Spot="0" RGB="#302112" Register="0" NAME="Dark Olive Brown" />
+ <COLOR Spot="0" RGB="#F4C800" Register="0" NAME="Vivid Greenish Yellow" />
+ <COLOR Spot="0" RGB="#FFDC33" Register="0" NAME="Brilliant Greenish Yellow" />
+ <COLOR Spot="0" RGB="#CCA817" Register="0" NAME="Strong Greenish Yellow" />
+ <COLOR Spot="0" RGB="#9F8200" Register="0" NAME="Deep Greenish Yellow" />
+ <COLOR Spot="0" RGB="#FFDE5A" Register="0" NAME="Light Greenish Yellow" />
+ <COLOR Spot="0" RGB="#C4A43D" Register="0" NAME="Moderate Greenish Yellow" />
+ <COLOR Spot="0" RGB="#9B8127" Register="0" NAME="Dark Greenish Yellow" />
+ <COLOR Spot="0" RGB="#FFDF84" Register="0" NAME="Pale Greenish Yellow" />
+ <COLOR Spot="0" RGB="#C4A55F" Register="0" NAME="Grayish Greenish Yellow" />
+ <COLOR Spot="0" RGB="#846A20" Register="0" NAME="Light Olive" />
+ <COLOR Spot="0" RGB="#5E490F" Register="0" NAME="Moderate Olive" />
+ <COLOR Spot="0" RGB="#362C12" Register="0" NAME="Dark Olive" />
+ <COLOR Spot="0" RGB="#8B734B" Register="0" NAME="Light Grayish Olive" />
+ <COLOR Spot="0" RGB="#52442C" Register="0" NAME="Grayish Olive" />
+ <COLOR Spot="0" RGB="#2B2517" Register="0" NAME="Dark Grayish Olive" />
+ <COLOR Spot="0" RGB="#887359" Register="0" NAME="Light Olive Gray" />
+ <COLOR Spot="0" RGB="#4D4234" Register="0" NAME="Olive Gray" />
+ <COLOR Spot="0" RGB="#121910" Register="0" NAME="Olive Black" />
+ <COLOR Spot="0" RGB="#93AA00" Register="0" NAME="Vivid Yellowish Green" />
+ <COLOR Spot="0" RGB="#CED23A" Register="0" NAME="Brilliant Yellow Green" />
+ <COLOR Spot="0" RGB="#7F8F18" Register="0" NAME="Strong Yellow Green" />
+ <COLOR Spot="0" RGB="#425E17" Register="0" NAME="Deep Yellow Green" />
+ <COLOR Spot="0" RGB="#DCD36A" Register="0" NAME="Light Yellow Green" />
+ <COLOR Spot="0" RGB="#8B8940" Register="0" NAME="Moderate Yellow Green" />
+ <COLOR Spot="0" RGB="#F0D698" Register="0" NAME="Pale Yellowish Green" />
+ <COLOR Spot="0" RGB="#90845B" Register="0" NAME="Grayish Yellowish Green" />
+ <COLOR Spot="0" RGB="#0A4500" Register="0" NAME="Strong Olive Green" />
+ <COLOR Spot="0" RGB="#142300" Register="0" NAME="Deep Olive Green" />
+ <COLOR Spot="0" RGB="#CF9B8F" Register="0" NAME="Grayish Pink" />
+ <COLOR Spot="0" RGB="#434B1B" Register="0" NAME="Moderate Olive Green" />
+ <COLOR Spot="0" RGB="#232C16" Register="0" NAME="Dark Olive Green" />
+ <COLOR Spot="0" RGB="#48442D" Register="0" NAME="Grayish Olive Green" />
+ <COLOR Spot="0" RGB="#27261A" Register="0" NAME="Dark Grayish Olive Green" />
+ <COLOR Spot="0" RGB="#379931" Register="0" NAME="Vivid Yellowish Green" />
+ <COLOR Spot="0" RGB="#8CCB5E" Register="0" NAME="Brilliant Yellowish Green" />
+ <COLOR Spot="0" RGB="#478430" Register="0" NAME="Strong Yellowish Green" />
+ <COLOR Spot="0" RGB="#00541F" Register="0" NAME="Deep Yellowish Green" />
+ <COLOR Spot="0" RGB="#002800" Register="0" NAME="Very Deep Yellowish Green" />
+ <COLOR Spot="0" RGB="#C6DF90" Register="0" NAME="Very Light Yellowish Green" />
+ <COLOR Spot="0" RGB="#007BA7" Register="0" NAME="Light Yellowish Green" />
+ <COLOR Spot="0" RGB="#657F4B" Register="0" NAME="Moderate Yellowish Green" />
+ <COLOR Spot="0" RGB="#304B26" Register="0" NAME="Dark Yellowish Green" />
+ <COLOR Spot="0" RGB="#132712" Register="0" NAME="Very Dark Yellowish Green" />
+ <COLOR Spot="0" RGB="#007D34" Register="0" NAME="Vivid Green" />
+ <COLOR Spot="0" RGB="#47A76A" Register="0" NAME="Brilliant Green" />
+ <COLOR Spot="0" RGB="#006B3C" Register="0" NAME="Strong Green" />
+ <COLOR Spot="0" RGB="#004524" Register="0" NAME="Deep Green" />
+ <COLOR Spot="0" RGB="#98C793" Register="0" NAME="Very Light Green" />
+ <COLOR Spot="0" RGB="#719B6E" Register="0" NAME="Light Green" />
+ <COLOR Spot="0" RGB="#386646" Register="0" NAME="Moderate Green" />
+ <COLOR Spot="0" RGB="#203A27" Register="0" NAME="Dark Green" />
+ <COLOR Spot="0" RGB="#16251C" Register="0" NAME="Very Dark Green" />
+ <COLOR Spot="0" RGB="#D8DEBA" Register="0" NAME="Very Pale Green" />
+ <COLOR Spot="0" RGB="#8D917A" Register="0" NAME="Pale Green" />
+ <COLOR Spot="0" RGB="#575E4E" Register="0" NAME="Grayish Green" />
+ <COLOR Spot="0" RGB="#313830" Register="0" NAME="Dark Greenish Yellowish Green" />
+ <COLOR Spot="0" RGB="#141613" Register="0" NAME="Blackish Green" />
+ <COLOR Spot="0" RGB="#F5E6CB" Register="0" NAME="Greenish White" />
+ <COLOR Spot="0" RGB="#BAAF96" Register="0" NAME="Light Greenish Gray" />
+ <COLOR Spot="0" RGB="#7A7666" Register="0" NAME="Greenish Gray" />
+ <COLOR Spot="0" RGB="#45433B" Register="0" NAME="Dark Greenish Gray" />
+ <COLOR Spot="0" RGB="#181513" Register="0" NAME="Greenish Black" />
+ <COLOR Spot="0" RGB="#00836E" Register="0" NAME="Vivid Bluish Green" />
+ <COLOR Spot="0" RGB="#009B76" Register="0" NAME="Brilliant Bluish Green" />
+ <COLOR Spot="0" RGB="#006D5B" Register="0" NAME="Strong Bluish Green" />
+ <COLOR Spot="0" RGB="#00382B" Register="0" NAME="Deep Bluish Green" />
+ <COLOR Spot="0" RGB="#A0D6B4" Register="0" NAME="Very Light Bluish Green" />
+ <COLOR Spot="0" RGB="#669E85" Register="0" NAME="Light Bluish Green" />
+ <COLOR Spot="0" RGB="#2F6556" Register="0" NAME="Moderate Bluish Green" />
+ <COLOR Spot="0" RGB="#013A33" Register="0" NAME="Dark Bluish Green" />
+ <COLOR Spot="0" RGB="#001D18" Register="0" NAME="Very Dark Bluish Green" />
+ <COLOR Spot="0" RGB="#007BA7" Register="0" NAME="Vivid Greenish Blue" />
+ <COLOR Spot="0" RGB="#2A8D9C" Register="0" NAME="Brilliant Greenish Blue" />
+ <COLOR Spot="0" RGB="#00677E" Register="0" NAME="Strong Greenish Blue" />
+ <COLOR Spot="0" RGB="#007BA7" Register="0" NAME="Deep Greenish Blue" />
+ <COLOR Spot="0" RGB="#A3C6C0" Register="0" NAME="Very Light Greenish Blue" />
+ <COLOR Spot="0" RGB="#649A9E" Register="0" NAME="Light Greenish Blue" />
+ <COLOR Spot="0" RGB="#30626B" Register="0" NAME="Moderate Greenish Blue" />
+ <COLOR Spot="0" RGB="#003841" Register="0" NAME="Dark Greenish Blue" />
+ <COLOR Spot="0" RGB="#022027" Register="0" NAME="Very Dark Greenish Blue" />
+ <COLOR Spot="0" RGB="#007CAD" Register="0" NAME="Vivid Blue" />
+ <COLOR Spot="0" RGB="#4285B4" Register="0" NAME="Brilliant Blue" />
+ <COLOR Spot="0" RGB="#00538A" Register="0" NAME="Strong Blue" />
+ <COLOR Spot="0" RGB="#002F55" Register="0" NAME="Deep Blue" />
+ <COLOR Spot="0" RGB="#A6BDD7" Register="0" NAME="Very Light Blue" />
+ <COLOR Spot="0" RGB="#6C92AF" Register="0" NAME="Light Blue" />
+ <COLOR Spot="0" RGB="#395778" Register="0" NAME="Moderate Blue" />
+ <COLOR Spot="0" RGB="#002137" Register="0" NAME="Dark Blue" />
+ <COLOR Spot="0" RGB="#C1CACA" Register="0" NAME="Very Pale Blue" />
+ <COLOR Spot="0" RGB="#919192" Register="0" NAME="Pale Blue" />
+ <COLOR Spot="0" RGB="#4A545C" Register="0" NAME="Grayish Blue" />
+ <COLOR Spot="0" RGB="#2C3337" Register="0" NAME="Dark Grayish Blue" />
+ <COLOR Spot="0" RGB="#161A1E" Register="0" NAME="Blackish Blue" />
+ <COLOR Spot="0" RGB="#F9DFCF" Register="0" NAME="Bluish White" />
+ <COLOR Spot="0" RGB="#BEADA1" Register="0" NAME="Light Bluish Gray" />
+ <COLOR Spot="0" RGB="#7D746D" Register="0" NAME="Bluish Gray" />
+ <COLOR Spot="0" RGB="#464544" Register="0" NAME="Dark Bluish Gray" />
+ <COLOR Spot="0" RGB="#151719" Register="0" NAME="Bluish Black" />
+ <COLOR Spot="0" RGB="#20155E" Register="0" NAME="Very Purplish Blue" />
+ <COLOR Spot="0" RGB="#62639B" Register="0" NAME="Brilliant Purplish Blue" />
+ <COLOR Spot="0" RGB="#474389" Register="0" NAME="Strong Purplish Blue" />
+ <COLOR Spot="0" RGB="#1A153F" Register="0" NAME="Deep Purplish Blue" />
+ <COLOR Spot="0" RGB="#FFB28B" Register="0" NAME="Light Yellowish Pink" />
+ <COLOR Spot="0" RGB="#BAACC7" Register="0" NAME="Very Light Purplish Blue" />
+ <COLOR Spot="0" RGB="#837DA2" Register="0" NAME="Light Purplish Blue" />
+ <COLOR Spot="0" RGB="#423C63" Register="0" NAME="Moderate Purplish Blue" />
+ <COLOR Spot="0" RGB="#1A162A" Register="0" NAME="Dark Purplish Blue" />
+ <COLOR Spot="0" RGB="#CBBAC5" Register="0" NAME="Very Pale Purplish Blue" />
+ <COLOR Spot="0" RGB="#8A7F8E" Register="0" NAME="Pale Purplish Blue" />
+ <COLOR Spot="0" RGB="#413D51" Register="0" NAME="Grayish Purplish Blue" />
+ <COLOR Spot="0" RGB="#884BAE" Register="0" NAME="Vivid Violet" />
+ <COLOR Spot="0" RGB="#755D9A" Register="0" NAME="Brilliant Violet" />
+ <COLOR Spot="0" RGB="#53377A" Register="0" NAME="Strong Violet" />
+ <COLOR Spot="0" RGB="#240935" Register="0" NAME="Deep Violet" />
+ <COLOR Spot="0" RGB="#EEBEF1" Register="0" NAME="Very Light Violet" />
+ <COLOR Spot="0" RGB="#876C99" Register="0" NAME="Light Violet" />
+ <COLOR Spot="0" RGB="#543964" Register="0" NAME="Moderate Violet" />
+ <COLOR Spot="0" RGB="#D8B1BF" Register="0" NAME="Very Pale Violet" />
+ <COLOR Spot="0" RGB="#321011" Register="0" NAME="Dark Reddish Brown" />
+ <COLOR Spot="0" RGB="#957B8D" Register="0" NAME="Pale Violet" />
+ <COLOR Spot="0" RGB="#46394B" Register="0" NAME="Grayish Violet" />
+ <COLOR Spot="0" RGB="#943391" Register="0" NAME="Vivid Purple" />
+ <COLOR Spot="0" RGB="#DD80CC" Register="0" NAME="Brilliant Purple" />
+ <COLOR Spot="0" RGB="#803E75" Register="0" NAME="Strong Purple" />
+ <COLOR Spot="0" RGB="#531A50" Register="0" NAME="Deep Purple" />
+ <COLOR Spot="0" RGB="#320B35" Register="0" NAME="Very Deep Purple" />
+ <COLOR Spot="0" RGB="#E3A9BE" Register="0" NAME="Very Light Purple" />
+ <COLOR Spot="0" RGB="#BA7FA2" Register="0" NAME="Light Purple" />
+ <COLOR Spot="0" RGB="#7F4870" Register="0" NAME="Moderate Purple" />
+ <COLOR Spot="0" RGB="#472A3F" Register="0" NAME="Dark Purple" />
+ <COLOR Spot="0" RGB="#230D21" Register="0" NAME="Very Dark Purple" />
+ <COLOR Spot="0" RGB="#E6BBC1" Register="0" NAME="Very Pale Purple" />
+ <COLOR Spot="0" RGB="#AE848B" Register="0" NAME="Pale Purple" />
+ <COLOR Spot="0" RGB="#72525C" Register="0" NAME="Grayish Purple" />
+ <COLOR Spot="0" RGB="#452D35" Register="0" NAME="Dark Grayish Purple" />
+ <COLOR Spot="0" RGB="#1D1018" Register="0" NAME="Blackish Purple" />
+ <COLOR Spot="0" RGB="#FADBC8" Register="0" NAME="Purplish White" />
+ <COLOR Spot="0" RGB="#C8A99E" Register="0" NAME="Light Purplish Gray" />
+ <COLOR Spot="0" RGB="#88706B" Register="0" NAME="Purplish Gray" />
+ <COLOR Spot="0" RGB="#564042" Register="0" NAME="Dark Purplish Gray" />
+ <COLOR Spot="0" RGB="#1B1116" Register="0" NAME="Purplish Black" />
+ <COLOR Spot="0" RGB="#7E0059" Register="0" NAME="Vivid Reddish Purple" />
+ <COLOR Spot="0" RGB="#9A366B" Register="0" NAME="Strong Reddish Purple" />
+ <COLOR Spot="0" RGB="#641349" Register="0" NAME="Deep Reddish Purple" />
+ <COLOR Spot="0" RGB="#482A2A" Register="0" NAME="Dark Grayish Purple" />
+ <COLOR Spot="0" RGB="#470736" Register="0" NAME="Very Deep Reddish Purple" />
+ <COLOR Spot="0" RGB="#BB6C8A" Register="0" NAME="Light Reddish Purple" />
+ <COLOR Spot="0" RGB="#8C4566" Register="0" NAME="Moderate Reddish Purple" />
+ <COLOR Spot="0" RGB="#4F273A" Register="0" NAME="Dark Reddish Purple" />
+ <COLOR Spot="0" RGB="#270A1F" Register="0" NAME="Very Dark Reddish Purple" />
+ <COLOR Spot="0" RGB="#AC7580" Register="0" NAME="Pale Reddish Purple" />
+ <COLOR Spot="0" RGB="#7D4D5D" Register="0" NAME="Grayish Reddish Purple" />
+ <COLOR Spot="0" RGB="#FF97BB" Register="0" NAME="Brilliant Purplish Pink" />
+ <COLOR Spot="0" RGB="#F6768E" Register="0" NAME="Strong Purplish Pink" />
+ <COLOR Spot="0" RGB="#EB5284" Register="0" NAME="Deep Purplish Pink" />
+ <COLOR Spot="0" RGB="#FFA8AF" Register="0" NAME="Light Purplish Pink" />
+ <COLOR Spot="0" RGB="#E28090" Register="0" NAME="Moderate Purplish Pink" />
+ <COLOR Spot="0" RGB="#CD9A7B" Register="0" NAME="Brownish Pink" />
+ <COLOR Spot="0" RGB="#C76574" Register="0" NAME="Dark Purplish Pink" />
+ <COLOR Spot="0" RGB="#FDBDBA" Register="0" NAME="Pale Purplish Pink" />
+ <COLOR Spot="0" RGB="#CC9293" Register="0" NAME="Grayish Purplish Pink" />
+ <COLOR Spot="0" RGB="#D35339" Register="0" NAME="Moderate Reddish Orange" />
+ <COLOR Spot="0" RGB="#D5265B" Register="0" NAME="Vivid Purplish Red" />
+ <COLOR Spot="0" RGB="#B32851" Register="0" NAME="Strong Purplish Red" />
+ <COLOR Spot="0" RGB="#7F180D" Register="0" NAME="Strong Reddish Brown" />
+ <COLOR Spot="0" RGB="#6F0035" Register="0" NAME="Deep Purplish Red" />
+ <COLOR Spot="0" RGB="#470027" Register="0" NAME="Very Deep Purplish Red" />
+ <COLOR Spot="0" RGB="#A73853" Register="0" NAME="Moderate Purplish Red" />
+ <COLOR Spot="0" RGB="#5B1E31" Register="0" NAME="Dark Purplish Red" />
+ <COLOR Spot="0" RGB="#28071A" Register="0" NAME="Very Dark Purplish Red" />
+ <COLOR Spot="0" RGB="#B27070" Register="0" NAME="Light Grayish Purplish Red" />
+ <COLOR Spot="0" RGB="#8C4852" Register="0" NAME="Grayish Purplish Red" />
+ <COLOR Spot="0" RGB="#FFC9D7" Register="0" NAME="White" />
+ <COLOR Spot="0" RGB="#C2A894" Register="0" NAME="Light Gray" />
+ <COLOR Spot="0" RGB="#817066" Register="0" NAME="Medium Gray" />
+ <COLOR Spot="0" RGB="#49423D" Register="0" NAME="Dark Gray" />
+ <COLOR Spot="0" RGB="#131313" Register="0" NAME="Black_" />
+</SCRIBUSCOLORS>
+
+<!--Retrieved from http://www.anthus.com/Colors/Cent.html. The colour names have been published in Kenneth L. Kelly and Deanne B. Judd, Color: Universal Language and Dictionary of Names, National Bureau of Standards, Spec. Publ. 440, Dec. 1976. The Hex values are the result of the application of the Munsell colour model, which has been published in 1905. A slightly modified version of this colour set is available under a BSD-style license from http://tx4.us/nbs-iscc.htm.-->

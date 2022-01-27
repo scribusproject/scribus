@@ -28,6 +28,7 @@ scribusview.h  -  description
 //#include <QDebug>
 #include <QPolygon>
 #include <QRect>
+#include <QRectF>
 #include <QWidget>
 
 #include "scribusapi.h"
@@ -38,38 +39,32 @@ scribusview.h  -  description
 #include "pageitempointer.h"
 
 
-class Page;
+class ScPage;
 class PageItem;
+class ScLayer;
 class ScPainter;
 class ScribusDoc;
 class ScribusView;
 
 struct CanvasViewMode
 {
-	void init();
-	
-	double scale;
-
-	bool previewMode;
-	bool viewAsPreview;
-	int previewVisual;
-
-	bool m_MouseButtonPressed;
-	bool operItemMoving;
-	bool operItemResizing;
-	bool operItemResizeInEditMode;
-	bool operItemSelecting;
-	bool operTextSelecting;
-	QPolygon redrawPolygon;
 	QList<PageItemPointer> linkedFramesToShow;
-	
+	QPolygon redrawPolygon;
+	bool m_MouseButtonPressed {false};
+	bool operItemMoving {false};
+	bool operItemResizing {false};
+	bool operItemSelecting {false};
+	bool operTextSelecting {false};
+	bool previewMode {false};
+	bool viewAsPreview {false};
 	/** if true, selected objects will not be drawn by drawContents() */
-	bool drawSelectedItemsWithControls;
+	bool drawSelectedItemsWithControls {false};
 	/** if true, drawContents() will draw framelinks even if View->Show Framelinks is false */
-	bool drawFramelinksWithContents;
-	
+	bool drawFramelinksWithContents {false};
 	// used for buffering:
-	bool forceRedraw;
+	bool forceRedraw {false};
+	double scale {1};
+	int previewVisual {-1};
 };
 
 QDataStream &operator<<(QDataStream & ds, const CanvasViewMode & vm);
@@ -81,19 +76,26 @@ class SCRIBUS_API Canvas : public QWidget
 	Q_OBJECT
 	
 public:	
-	static const uint moveWithFullOutlinesThreshold = 21;
-	static const uint moveWithBoxesOnlyThreshold = 41;
+	static const int moveWithFullOutlinesThreshold = 21;
+	static const int moveWithBoxesOnlyThreshold = 41;
 
 	Canvas(ScribusDoc* doc, ScribusView* parent);
 	
 	friend class ScribusView; // for now...
 	friend class CanvasMode;
-	friend class LegacyMode;
 	friend class CanvasMode_CopyProperties;
 	friend class CanvasMode_Edit;
+	friend class CanvasMode_EditArc;
 	friend class CanvasMode_EditGradient;
+	friend class CanvasMode_EditMeshGradient;
+	friend class CanvasMode_EditMeshPatch;
+	friend class CanvasMode_EditWeldPoint;
+	friend class CanvasMode_EditPolygon;
+	friend class CanvasMode_EditSpiral;
+	friend class CanvasMode_EditTable;
 	friend class CanvasMode_EyeDropper;
 	friend class CanvasMode_FrameLinks;
+	friend class CanvasMode_ImageImport;
 	friend class CanvasMode_Magnifier;
 	friend class CanvasMode_NodeEdit;
 	friend class CanvasMode_ObjImport;
@@ -101,11 +103,12 @@ public:
 	friend class CanvasMode_Normal;
 	friend class CanvasMode_Rotate;
 	friend class FreehandMode;
+	friend class CalligraphicMode;
 	
-	/* Dont rely on these codes!
-	 * 283
-	 * 7 6
-	 * 451
+	/* Don't rely on these codes!
+	 * 2 8 3
+	 * 7   6
+	 * 4 5 1
 	 * But always OUTSIDE < 0, INSIDE >= 0 and any specific handle > 0.
 	 */
 	enum FrameHandle { 
@@ -140,36 +143,40 @@ public:
 	void setRenderModeUseBuffer(bool use) { m_renderMode = (use ? RENDER_BUFFERED : RENDER_NORMAL) ; }
 
 	double scale() const { return m_viewMode.scale; }
-	void setScale(double scale) { if (m_viewMode.scale != scale) { m_viewMode.scale = scale; clearBuffers(); update(); } }
-	QPoint canvasToLocal(FPoint p) const;
-	QPoint canvasToGlobal(FPoint p) const;
+	void setScale(double scale);
+	QPoint canvasToLocal(const FPoint& p) const;
+	QPoint canvasToGlobal(const FPoint& p) const;
 	QPoint canvasToLocal(QPointF p) const;
 	QPoint canvasToGlobal(QPointF p) const;
-	QRect canvasToLocal(QRectF p) const;
-	QRect canvasToGlobal(QRectF p) const;
+	QRect canvasToLocal(const QRectF& p) const;
+	QRectF canvasToLocalF(const QRectF& p) const;
+	QRect canvasToGlobal(const QRectF& p) const;
 	FPoint localToCanvas(QPoint p) const;
 //	FPoint localToCanvas(QPointF p) const;
 	FPoint globalToCanvas(QPoint p) const;
 //	FPoint globalToCanvas(QPointF p) const;
 	QRectF globalToCanvas(QRect p) const;
 //	QRectF globalToCanvas(QRectF p) const;
-	bool hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const;
+	bool hitsCanvasPoint(QPoint globalPoint, const FPoint& canvasPoint) const;
 	bool hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const;
-	QRect exposedRect()const;
+	bool hitsCanvasPoint(const FPoint& globalPoint, const QPointF& canvasPoint) const;
+	QRect exposedRect() const;
+	bool cursorOverTextFrameControl(QPoint globalPos, PageItem* frame);
+	bool cursorOverFrameControl(QPoint globalPos, const QRectF& targetRect, PageItem* frame);
 	/** Returns the framehandle or INSIDE if the position falls into the frame. */
-	FrameHandle frameHitTest(QPointF canvasPoint, PageItem* frame) const;
-	FrameHandle frameHitTest(QPointF point, QRectF frame) const;
+	FrameHandle frameHitTest(QPointF canvasPoint, PageItem* item) const;
+	FrameHandle frameHitTest(QPointF canvasPoint, const QRectF& frame) const;
 	/**
-		Returns the item under the cursor or NULL if none found.
+		Returns the item under the cursor or nullptr if none found.
 	 Does *not* change the selection.
 	 If itemAbove is given, it will look for an item under itemAbove, allowing select under.
 	 The flag 'allowInGroup' controls if single items within a group or only whole groups are considered.
 	 The flag 'allowMasterItems' controls if items from a masterpage are considered.
 	 (this flag is ignored in masterpage mode, since all items are masterpage items then).
 	 */
-	PageItem* itemUnderCursor(QPoint globalPos, PageItem* itemAbove=NULL, bool allowInGroup=false, bool allowMasterItems=false) const;
-	
-	PageItem* itemUnderItem(PageItem* item) const;
+	PageItem* itemUnderCursor(QPoint globalPos, PageItem* itemAbove=nullptr, bool allowInGroup=false, bool allowMasterItems=false) const;
+	PageItem* itemInGroup(PageItem* group, const QRectF& mouseArea) const;
+	PageItem* itemUnderItem(PageItem* item, int& index) const;
 	
 	const QPolygon& redrawPolygon() const { return m_viewMode.redrawPolygon; }
 	QPolygon& newRedrawPolygon() 
@@ -177,30 +184,52 @@ public:
 		m_viewMode.redrawPolygon.clear();
 		return m_viewMode.redrawPolygon;
 	}
+	void setForcedRedraw(bool on) { m_viewMode.forceRedraw = on; }
+	bool isForcedRedraw() const { return m_viewMode.forceRedraw; }
 	void setPreviewMode(bool on) { m_viewMode.previewMode = on; }
 	bool isPreviewMode() const { return m_viewMode.previewMode || m_viewMode.viewAsPreview; }
 	bool usePreviewVisual() const { return m_viewMode.viewAsPreview && m_viewMode.previewVisual != 0; }
 	int previewVisual() const { return m_viewMode.previewVisual; }
-	void setPreviewVisual(int mode) { m_viewMode.previewVisual = qMax(0, mode); m_viewMode.viewAsPreview = (mode >= 0); }
+	void setPreviewVisual(int mode);
 	
-	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);
-	void DrawPageItems(ScPainter *painter, QRect clip);
-	virtual void paintEvent ( QPaintEvent * p );
+	void DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, QRect clip);
+	//notesFramesPass determine if notes frames are drawn or not
+	void DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool notesFramesPass);
+	void paintEvent ( QPaintEvent * p ) override;
 	void displayXYHUD(QPoint m);
 	void displayCorrectedXYHUD(QPoint m, double x, double y);
 	void displayCorrectedSingleHUD(QPoint m, double val, bool isX);
 	void displayXYHUD(QPoint m, double x, double y);
 	void displaySizeHUD(QPoint m, double x, double y, bool isLine = false);
-	
+	void displayRotHUD(QPoint m, double rot);
+	void displayRealRotHUD(QPoint m, double rot);
+	/**
+	 * Displays a tooltip of the format <code>{label}: {N} {unit}</code> where <code>N</code> is
+	 * @a value converted to the current document unit and <code>unit</code> the current document
+	 * unit. The tooltip will be displayed nearby the global point @a point.
+	 */
+		void displayDoubleHUD(QPoint point, const QString& label, double value);
+
 	void setupEditHRuler(PageItem * item, bool forceAndReset = false);
 	
 private:
-	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
+	void DrawPageBorderSub(ScPainter *p, ScPage *page);
+	void DrawPageBorder(ScPainter *p, const QRectF& clip, bool master = false);
+	void DrawPageMarginsGridSub(ScPainter *p, ScPage *page);
+	void DrawPageMargins(ScPainter *p, const QRectF& clip, bool master = false);
+	void DrawPageBaselineGridSub(ScPainter *p, ScPage *page);
+	void DrawPageBaselineGrid(ScPainter *p, const QRectF& clip, bool master = false);
+	void DrawPageGridSub(ScPainter *p, ScPage *page, const QRectF& clip);
+	void DrawPageGrid(ScPainter *p, const QRectF& clip, bool master = false);
+	void DrawPageGuidesSub(ScPainter *p, ScPage *page);
+	void DrawPageGuides(ScPainter *p, const QRectF& clip, bool master = false);
+	void DrawPageIndicatorSub(ScPainter *p, ScPage *page);
+	void DrawPageIndicator(ScPainter *p, const QRectF& clip, bool master = false);
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
-	void PaintSizeRect(QRect neu);
-	void PaintSizeRect(QPolygon neu);
+	void PaintSizeRect(QRect newRect);
+	void PaintSizeRect(QPolygon newRect);
 	void Transform(PageItem *currItem, QPainter *p);
-	void Transform(PageItem *currItem, QMatrix& m);
+	void Transform(PageItem *currItem, QTransform& m);
 	void TransformM(PageItem *currItem, QPainter *p);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
 
@@ -216,18 +245,21 @@ private:
 	void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);
 	void drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, int clipw, int cliph);
 	void drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy, int clipw, int cliph);
-	void drawGuides(ScPainter* painter, int clipx, int clipy, int clipw, int cliph);
 	void drawFrameLinks(ScPainter* painter);
 	void drawControls(QPainter* p);
 	void drawControlsMovingItemsRect(QPainter* pp);
-//	void drawControlsHighlightRect(QPainter* pp);
-	void drawControlsGradientVectors(QPainter* psx, PageItem *currItem);
 	void drawControlsBezierCurve(QPainter* pp, PageItem* currItem);
 	void drawControlsMeasurementLine(QPainter* pp);
 	void drawControlsDrawLine(QPainter* pp);
 	void drawControlsFreehandLine(QPainter* pp);
+	void getLinkedFrames(PageItem* currItem);
 	void getClipPathForPages(FPointArray* PoLine);
 	void calculateFrameLinkPoints(PageItem* pi1, PageItem* pi2, FPoint& start, FPoint& end);
+
+	// create a potentially hidpi pixmap
+	QPixmap createPixmap(double w, double h);
+	// draw a potentially hidpi pixmap
+	void drawPixmap(QPainter &painter, double x, double y, const QPixmap &pixmap, double sx, double sy, double sw, double sh);
 		
 private:
 	ScribusDoc* m_doc;
@@ -235,14 +267,15 @@ private:
 	CanvasViewMode m_viewMode;
 	
 	RenderMode m_renderMode;
-	/*QImage*/QPixmap m_buffer;
-	QRect m_bufferRect;
+	QPixmap m_buffer;
+	QRect   m_bufferRect;
 	QPixmap m_selectionBuffer;
-	QRect m_selectionRect;
-	FPoint m_oldMinCanvasCoordinate;
+	QRect   m_selectionRect;
+	QPoint  m_oldMinCanvasCoordinate;
 };
 
 
 #endif
+
 
 

@@ -5,7 +5,11 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "csvim.h"
+#include "gtwriter.h"
+#include "gtparagraphstyle.h"
+#include "gtframestyle.h"
 #include "scribusstructs.h"
+#include "util.h"
 
 QString FileFormatName()
 {
@@ -17,13 +21,12 @@ QStringList FileExtensions()
     return QStringList("csv");
 }
 
-void GetText(QString filename, QString encoding, bool /* textOnly */, gtWriter *writer)
+void GetText(const QString& filename, const QString& encoding, bool /* textOnly */, gtWriter *writer)
 {
 	CsvDialog* csvdia = new CsvDialog();
 	if (csvdia->exec())
 	{
-		CsvIm *cim = new CsvIm(filename, encoding, writer, csvdia->getFDelim(), csvdia->getVDelim(),
-                               csvdia->hasHeader(), csvdia->useVDelim());
+		CsvIm *cim = new CsvIm(filename, encoding, writer, csvdia->getFDelim(), csvdia->getVDelim(), csvdia->hasHeader(), csvdia->useVDelim());
 		cim->write();
 		delete cim;
 	}
@@ -32,21 +35,16 @@ void GetText(QString filename, QString encoding, bool /* textOnly */, gtWriter *
 
 /******* Class CsvIm **************************************************************/
 
-CsvIm::CsvIm(const QString& fname, const QString& enc, gtWriter *w, 
-             const QString& fdelim, const QString& vdelim, bool header, bool usevdelim)
+CsvIm::CsvIm(const QString& fname, const QString& enc, gtWriter *w,
+			 const QString& fdelim, const QString& vdelim, bool hasheader, bool usevdelim) :
+	fieldDelimiter(fdelim),
+	valueDelimiter(vdelim),
+	hasHeader(hasheader),
+	useVDelim(usevdelim),
+	filename(fname),
+	encoding(enc),
+	writer(w)
 {
-	fieldDelimiter = fdelim;
-	valueDelimiter = vdelim;
-	hasHeader = header;
-	useVDelim = usevdelim;
-	filename = fname;
-	encoding = enc;
-	writer = w;
-	header = "";
-	data = "";
-	rowNumber = 0;
-	colIndex = 0;
-	colCount = 0;
 	setupPStyles();
 	loadFile();
 	setupTabulators();
@@ -54,20 +52,17 @@ CsvIm::CsvIm(const QString& fname, const QString& enc, gtWriter *w,
 
 void CsvIm::setupPStyles()
 {
-	pstyleData = new gtParagraphStyle(*(writer->getDefaultStyle()));
+	pstyleData = new gtParagraphStyle(writer->getDefaultStyle()->asGtParagraphStyle());
 	pstyleData->setName(writer->getFrameName() + "-" + QObject::tr("CSV_data"));
-	if (hasHeader)
-	{
-		pstyleHeader = new gtParagraphStyle(*pstyleData);
-		pstyleHeader->setName(writer->getFrameName() + "-" + QObject::tr("CSV_header"));
-		pstyleHeader->setSpaceBelow(7.0);
-		int size = pstyleData->getFont()->getSize();
-		size += 10;
-		pstyleHeader->getFont()->setSize(size);
-		pstyleHeader->getFont()->setWeight(BOLD);
-	}
-	else
-		pstyleHeader = NULL;
+	if (!hasHeader)
+		return;
+	pstyleHeader = new gtParagraphStyle(*pstyleData);
+	pstyleHeader->setName(writer->getFrameName() + "-" + QObject::tr("CSV_header"));
+	pstyleHeader->setSpaceBelow(7.0);
+	int size = pstyleData->getFont()->getSize();
+	size += 10;
+	pstyleHeader->getFont()->setSize(size);
+	pstyleHeader->getFont()->setWeight(BOLD);
 }
 
 void CsvIm::setFieldDelimiter(const QString& fdelim)
@@ -89,6 +84,7 @@ void CsvIm::write()
 void CsvIm::loadFile()
 {
 	QString text = "";
+	/*
 	QFile f(filename);
 	QFileInfo fi(f);
 	if (!fi.exists())
@@ -102,8 +98,13 @@ void CsvIm::loadFile()
 			text += QChar(bb[posi]);
 	}
 	text = toUnicode(text);
-	QStringList lines = text.split("\n", QString::SkipEmptyParts);
-	uint i;
+	*/
+	QByteArray rawText;
+	if (loadRawText(filename, rawText))
+		text = toUnicode(rawText);
+
+	QStringList lines = text.split("\n", Qt::SkipEmptyParts);
+	uint i=0;
 	if (hasHeader)
 	{
 		colIndex = 0;
@@ -113,8 +114,6 @@ void CsvIm::loadFile()
 		i = 1;
 		++rowNumber;
 	}
-	else
-		i = 0;
 	for (int i2 = i; i2 < lines.size(); ++i2)
 	{
 		colIndex = 0;
@@ -124,13 +123,16 @@ void CsvIm::loadFile()
 		if (colCount < colIndex)
 			colCount = colIndex;
 	}
+	if (data.startsWith("\t"))
+		data.remove(0,1);
+	data.replace("\n\t","\n");
 }
 
 void CsvIm::parseLine(const QString& line, bool isHeader)
 {
 	if ((line.indexOf(valueDelimiter) < 0) || (!useVDelim))
 	{
-		QStringList l = line.split(fieldDelimiter, QString::SkipEmptyParts);
+		QStringList l = line.split(fieldDelimiter, Qt::SkipEmptyParts);
 		for (int i = 0; i < l.size(); ++i)
 		{
 			++colIndex;
@@ -142,7 +144,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 		}
 		return; // line done
 	}
-	
+
 	int vdIndexStart = line.indexOf(valueDelimiter);
 	int vdIndexEnd   = line.indexOf(valueDelimiter, vdIndexStart + 1);
 	if (vdIndexEnd < 0)
@@ -151,12 +153,12 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 			header += "\t" + line;
 		else
 			data += "\t" + line;
-		return; // error in line, no closing valuedelimiter could be found	
+		return; // error in line, no closing valuedelimiter could be found
 	}
-	
+
 	int fdIndex = line.indexOf(fieldDelimiter, vdIndexEnd + 1);
 	QString tmpCol = "";
-	
+
 	if (fdIndex < 0)
 	{
 		if (vdIndexEnd < 0)
@@ -177,7 +179,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 		++colIndex;
 		return; // no more field delimiters left
 	}
-	
+
 	if (fdIndex < vdIndexStart)
 	{
 		tmpCol = line.mid(0, fdIndex);
@@ -214,7 +216,7 @@ void CsvIm::setupTabulators()
 		curValue += addition;
 	}
 }
-
+/*
 QString CsvIm::toUnicode(const QString& text)
 {
 	QTextCodec *codec;
@@ -224,6 +226,17 @@ QString CsvIm::toUnicode(const QString& text)
 		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
 	QString dec = codec->toUnicode(text.toLocal8Bit());
 	return dec;
+}
+*/
+QString CsvIm::toUnicode(const QByteArray& rawText)
+{
+	QTextCodec *codec;
+	if (encoding.isEmpty())
+		codec = QTextCodec::codecForLocale();
+	else
+		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
+	QString unistr = codec->toUnicode(rawText);
+	return unistr;
 }
 
 CsvIm::~CsvIm()

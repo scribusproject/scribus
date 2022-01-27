@@ -26,10 +26,10 @@ class CharTableView : public QTableView
 	Q_OBJECT
 
 public:
-	CharTableView(QWidget * parent = 0);
+	CharTableView(QWidget * parent = nullptr);
 
 signals:
-	void selectChar(uint);
+	void selectChar(uint, QString);
 	//! \brief When user press the DELETE/BACKSPACE key
 	void delChar();
 
@@ -41,27 +41,27 @@ public slots:
 	//! \brief Calculate height of the last row to fit image size
 	void resizeLastRow();
 
-protected:
+private:
 	//! \brief Magnify dialog reference
-	CharZoom* zoom;
+	CharZoom* zoom {nullptr};
 
-	QAction * deleteAct;
-	QMenu * actionMenu;
+	QAction* deleteAct;
+	QMenu* actionMenu;
 
-	CharTableModel * model();
-	void hideEvent(QHideEvent *);
-	void keyPressEvent(QKeyEvent *k);
-	void mouseReleaseEvent(QMouseEvent *m);
-	void mousePressEvent(QMouseEvent* e);
-	void mouseMoveEvent(QMouseEvent* e);
+	CharTableModel* model();
+	void hideEvent(QHideEvent *event) override;
+	void keyPressEvent(QKeyEvent *event) override;
+	void mouseReleaseEvent(QMouseEvent *event) override;
+	void mousePressEvent(QMouseEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
 
 	//! \brief Map current QModelIndex into CharClassDef index/position
-	int currenCharactersIndex();
+	int currentCharactersIndex();
 
 	void hideZoomedChar();
 
 	//! \brief Used for computing the items' pixmap size in the model.
-	void resizeEvent(QResizeEvent *e);
+	void resizeEvent(QResizeEvent *e) override;
 
 private slots:
 	void removeCharacter();

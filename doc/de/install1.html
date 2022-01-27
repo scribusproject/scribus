@@ -1,0 +1,37 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Zugang zum Scribus-Quellcode</title>
+</head>
+<body>
+<h2>Zugang zum Scribus-Quellcode</h2>
+<p>Sie k&ouml;nnen gepackte Archive mit der letzten ver&ouml;ffentlichten Scribus-Version bei <a href="http://sourceforge.net/projects/scribus/files/"> Sourceforge</a> herunterladen.</p>
+
+<p>Dank <a href="http://Anduin.net">Anduin.net</a> gibt es auch ein anonymes SVN-Repositorium, das st&uuml;ndlich aktualisiert wird. Die Verwendung dieses Codes wird nur jenen empfohlen, die immer auf dem allerletzten Stand sein wollen und dabei auch Instabilit&auml;ten nicht scheuen.</p>
+
+<p><strong>Der Scribus-1.4-Zweig</strong>. Dieser Zweig enth&auml;lt den Code f&uuml;r die aktuell stabile Version (1.4.x).</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+svn co svn://scribus.info/Scribus/branches/Version135
+</pre>
+oder, wenn die SVN-Ports durch eine Firewall geschlossen sind:
+<pre>
+svn co http://scribus.info/svn/Scribus/branches/Version135
+</pre>
+</td></tr></table></blockquote>
+
+<p><strong>Scribus 1.5svn &ndash; der experimentelle Zweig</strong>. Dieser Zweig enth&auml;lt den Code f&uuml;r die experimentelle Version (1.5svn). Dieser Code kann hochgradig instabil sein, nicht funktionieren oder sich nicht einmal kompilieren lassen!</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+svn co svn://scribus.info/Scribus/trunk
+</pre>
+oder, wenn die SVN-Ports durch eine Firewall geschlossen sind:
+<pre>
+svn co http://scribus.info/svn/Scribus/trunk
+</pre>
+</td></tr></table></blockquote>
+
+<p>Sobald Sie den Quellcode haben, k&ouml;nnen Sie mit den <a href="install4.html">CMake-Anweisungen</a> fortfahren.</p>
+
+</body>
+</html>

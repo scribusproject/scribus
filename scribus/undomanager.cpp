@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "undomanager.h"
@@ -39,68 +39,47 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "undogui.h"
 #include "undostack.h"
-#include "util_icon.h"
+#include "undotransaction.h"
 
-
-/**************************************************************************************/
-
-/**
-  This struct is use instead of std::pair<TransactionObject*, TransactionState*> now.
-  Just data, no methods.
-*/
-struct TransactionData : public Transaction::TransactionStateBase
-{
-	int stackLevel;
-	UndoManager* UM;
-	UndoObject* transactionObject;  // will be DummyUndoObject
-	TransactionState* transactionState;
-};
-
-
-/**************************************************************************************/
-
-
-
-UndoManager* UndoManager::instance_          = 0;
-bool         UndoManager::undoEnabled_       = true;
-int          UndoManager::undoEnabledCounter_ = 0;
+UndoManager* UndoManager::m_instance          = nullptr;
+bool         UndoManager::m_undoEnabled       = true;
+int          UndoManager::m_undoEnabledCounter = 0;
 
 UndoManager* UndoManager::instance()
 {
-	if (instance_ == 0)
-		instance_ = new UndoManager();
+	if (m_instance == nullptr)
+		m_instance = new UndoManager();
 
-	return instance_;
+	return m_instance;
 }
 
 void UndoManager::setUndoEnabled(bool isEnabled)
 {
-	if (isEnabled && undoEnabledCounter_ == 0)
+	if (isEnabled && m_undoEnabledCounter == 0)
 		return; // nothing to do undo is already enabled.
-	else if (isEnabled && undoEnabledCounter_ > 0)
-		--undoEnabledCounter_;
+	if (isEnabled && m_undoEnabledCounter > 0)
+		--m_undoEnabledCounter;
 	else if (!isEnabled)
-		++undoEnabledCounter_;
+		++m_undoEnabledCounter;
 
-	undoEnabled_ = undoEnabledCounter_ == 0;
-	if (undoEnabled_)
+	m_undoEnabled = m_undoEnabledCounter == 0;
+	if (m_undoEnabled)
 		connectGuis();
-	else if (undoEnabledCounter_ == 1)
+	else if (m_undoEnabledCounter == 1)
 		disconnectGuis(); // disconnect only once when setUndoEnabled(false) has been called
-		                  // no need to call again if next setUndoEnabled() call will also be false.
+	// no need to call again if next setUndoEnabled() call will also be false.
 }
 
 bool UndoManager::undoEnabled()
 {
-	return undoEnabled_;
+	return m_undoEnabled;
 }
 
 UndoManager::UndoManager()
 {
-	currentUndoObjectId_ = -1;
 	if (!UndoManager::IGuides)
 		initIcons();
-	prefs_ = PrefsManager::instance()->prefsFile->getContext("undo");
+	prefs_ = PrefsManager::instance().prefsFile->getContext("undo");
 	languageChange();
 	setUndoEnabled(prefs_->getBool("enabled", true));
 }
@@ -117,175 +96,48 @@ UndoTransaction UndoManager::beginTransaction(const QString &targetName,
 											  const QString &description,
 											  QPixmap *actionPixmap)
 {
-	if (!undoEnabled_)
-		return UndoTransaction(NULL);
+	if (!m_undoEnabled)
+		return UndoTransaction(nullptr);
 	
 	/** @brief Dummy object for storing transaction target's name */
-	UndoObject* transactionTarget_ = new DummyUndoObject();
-	TransactionState* transactionState_ = new TransactionState();
-	transactionTarget_->setUName(targetName); // Name which will be in action history
+	UndoObject* transactionTarget = new DummyUndoObject();
+	TransactionState* transactionState = new TransactionState();
+	transactionTarget->setUName(targetName); // Name which will be in action history
 	if (targetPixmap)
-		transactionTarget_->setUPixmap(targetPixmap);
+		transactionTarget->setUPixmap(targetPixmap);
 	if (name.length() > 0)          // if left to 0 length action will be fetched from the
-		transactionState_->setName(name); // last added UndoState in this transaction
+		transactionState->setName(name); // last added UndoState in this transaction
 	if (description.length() > 0)
-		transactionState_->setDescription(description); // tool tip for action history
+		transactionState->setDescription(description); // tool tip for action history
 	if (actionPixmap)
-		transactionState_->setPixmap(actionPixmap); // for action history
+		transactionState->setPixmap(actionPixmap); // for action history
 
 	// Holds the state and data of this transaction:
-	TransactionData *transaction = new TransactionData();
-	transaction->transactionObject = transactionTarget_;
-	transaction->transactionState = transactionState_;
-	transaction->stackLevel = transactions_.size();
+	auto *transaction = new TransactionData();
+	transaction->transactionObject = transactionTarget;
+	transaction->transactionState = transactionState;
+	transaction->stackLevel = m_transactions.size();
 	transaction->UM = this;
 	
-	transactions_.push_back(transaction);
+	m_transactions.push_back(transaction);
 	
 //	qDebug() << "UndoManager::beginTransaction" << targetName << name << transaction;
 	return UndoTransaction(transaction);
 }
 
-UndoTransaction::UndoTransaction(TransactionData* data) : Transaction(data) 
-{};
-
-UndoTransaction::~UndoTransaction() 
+bool UndoManager::isTransactionMode() const
 {
-	if (m_data)
-	{
-		UndoTransaction::cancel(); // no virtual calls in destructor
-		delete m_data; 
-		m_data = 0;
-	}
-}
-
-bool UndoTransaction::cancel()
-{
-	if (!m_data)
-		return false;
-	
-	TransactionData* data = static_cast<TransactionData*>(m_data);
-	UndoManager* UM = data->UM;
-	int stackLevel = data->stackLevel;
-
-	switch (m_data->m_status)
-	{
-		case Transaction::STATE_OPEN:
-		case Transaction::STATE_WILLFAIL:
-//			qDebug() << "UndoManager::cancelTransaction" << data << data->transactionObject->getUName() << data->transactionState->getName() << stackLevel;
-			data->m_status = Transaction::STATE_FAILED;
-			delete data->transactionObject;
-			data->transactionObject = 0;
-			delete data->transactionState;
-			data->transactionState = 0;
-			//brutal for now:
-			assert (stackLevel + 1 == signed(UM->transactions_.size()));
-			if (stackLevel < signed(UM->transactions_.size()))
-			{
-				UM->transactions_.erase(UM->transactions_.begin() + stackLevel);
-			}
-			return true;
-		default:
-			// do nothing;
-//			qDebug() << "UndoManager::cancelTransaction ** already closed **";
-			return false;
-	}
-}
-
-bool UndoTransaction::commit(const QString &targetName,
-							 QPixmap *targetPixmap,
-							 const QString &name,
-							 const QString &description,
-							 QPixmap *actionPixmap)
-{
-	if (m_data && m_data->m_status == Transaction::STATE_OPEN)
-	{
-		TransactionData* data = static_cast<TransactionData*>(m_data);
-		if (targetName.length() > 0)
-			data->transactionObject->setUName(targetName);
-		if (targetPixmap)
-			data->transactionObject->setUPixmap(targetPixmap);
-		if (name.length() > 0)
-			data->transactionState->setName(name);
-		if (description.length() > 0)
-			data->transactionState->setDescription(description);
-		if (actionPixmap)
-			data->transactionState->setPixmap(actionPixmap);
-	}
-	return commit();
-}
-				
-	
-bool UndoTransaction::commit()
-{
-	if (!m_data)
-		return false;
-	TransactionData* data = static_cast<TransactionData*>(m_data);
-	UndoManager* UM = data->UM;
-	int stackLevel = data->stackLevel;
-
-	if (!UM->undoEnabled_)
-	{
-		cancel();
-		return false;
-	}
-	
-	UndoObject *tmpu = UM->transactions_.at(stackLevel)->transactionObject;
-	TransactionState *tmps = UM->transactions_.at(stackLevel)->transactionState;
-	
-	switch (m_data->m_status)
-	{
-		case Transaction::STATE_OPEN:
-//			qDebug() << "UndoManager::commitTransaction" << data << data->transactionObject->getUName() << data->transactionState->getName() << stackLevel;
-			m_data->m_status = Transaction::STATE_COMMITTED;
-
-			// brutal for now:
-			assert (stackLevel + 1 == signed(UM->transactions_.size()));
-			
-			if (stackLevel < signed(UM->transactions_.size()))
-			{
-				UM->transactions_.erase(UM->transactions_.begin() + stackLevel);
-			}
-				
-			if (tmps->sizet() > 0) // are there any actions inside the commited transaction
-			{
-				if (tmps->getName().isEmpty())
-					tmps->useActionName();
-				UM->action(tmpu, tmps);
-			} // if not just delete objects
-			else
-			{
-				delete tmpu;
-				tmpu = 0;
-				delete tmps;
-				tmps = 0;
-			}
-			return true;
-			break;
-		case STATE_WILLFAIL:
-			return cancel();
-			break;
-		default:
-//			qDebug() << "UndoManager::commitTransaction ** already closed **";
-			// nothing
-			break;
-	}
-	return false;
-}
-
-bool UndoManager::isTransactionMode()
-{
-	return transactions_.size() > 0;
+	return !m_transactions.empty();
 }
 
 void UndoManager::registerGui(UndoGui* gui)
 {
-	if (gui == 0)
+	if (gui == nullptr)
 		return;
 
 	setUndoEnabled(false);
 	setState(gui);
-	undoGuis_.push_back(gui);
+	m_undoGuis.push_back(gui);
 	setUndoEnabled(true);
 }
 
@@ -293,33 +145,35 @@ void UndoManager::setState(UndoGui* gui, int uid)
 {
 	gui->clear();
 
-	if ( stacks_[currentDoc_].size() == 0 )
+	if ( m_stacks[m_currentDoc].size() == 0 )
 		return;
 
-	StateList::iterator itstartU = stacks_[currentDoc_].undoActions_.begin(); // undo actions
-	StateList::iterator itendU   = stacks_[currentDoc_].undoActions_.end();
+	UndoStack& currentStack = m_stacks[m_currentDoc];
 
-	StateList::iterator itstartR = stacks_[currentDoc_].redoActions_.begin(); // redo actions
-	StateList::iterator itendR   = stacks_[currentDoc_].redoActions_.end();
+	StateList::iterator itstartU = currentStack.m_undoActions_.begin(); // undo actions
+	StateList::iterator itendU   = currentStack.m_undoActions_.end();
+
+	StateList::iterator itstartR = currentStack.m_redoActions_.begin(); // redo actions
+	StateList::iterator itendR   = currentStack.m_redoActions_.end();
 
 	if (uid > -1)
 	{ // find the range from where actions are added when in obj. spec. mode
 		StateList::iterator it2;
-		for (it2 = stacks_[currentDoc_].undoActions_.begin();
-		     it2 != stacks_[currentDoc_].undoActions_.end(); ++it2)
+		for (it2  = currentStack.m_undoActions_.begin();
+			 it2 != currentStack.m_undoActions_.end(); ++it2)
 		{
 			UndoState*  tmp  = *it2;
 			TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
 			if (ts && !ts->containsOnly(uid))
 			{
-				if (it2 != stacks_[currentDoc_].undoActions_.begin())
+				if (it2 != currentStack.m_undoActions_.begin())
 					itendU = --it2;
 				break;
 			}
 		}
 		StateList::iterator it3;
-		for (it3 = stacks_[currentDoc_].redoActions_.begin();
-		     it3 != stacks_[currentDoc_].redoActions_.end(); ++it3)
+		for (it3  = currentStack.m_redoActions_.begin();
+			 it3 != currentStack.m_redoActions_.end(); ++it3)
 		{
 			UndoState*  tmp  = *it3;
 			TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
@@ -331,9 +185,9 @@ void UndoManager::setState(UndoGui* gui, int uid)
 		}
 	}
 
-	if (stacks_[currentDoc_].undoItems() > 0)
+	if (currentStack.undoItems() > 0)
 	{
-		if (itendU == stacks_[currentDoc_].undoActions_.end())
+		if (itendU == currentStack.m_undoActions_.end())
 			--itendU;
 		for (; itendU >= itstartU; --itendU) // insert undo actions
 		{
@@ -347,7 +201,7 @@ void UndoManager::setState(UndoGui* gui, int uid)
 		}
 	}
 
-	if (stacks_[currentDoc_].redoItems() > 0)
+	if (currentStack.redoItems() > 0)
 	{
 		if (itendR > itstartR)
 			--itendR;
@@ -366,14 +220,13 @@ void UndoManager::setState(UndoGui* gui, int uid)
 
 void UndoManager::connectGuis()
 {
-	for (uint i = 0; i < undoGuis_.size(); ++i)
+	for (uint i = 0; i < m_undoGuis.size(); ++i)
 	{
-		UndoGui *gui = undoGuis_[i];
+		UndoGui *gui = m_undoGuis[i];
 
 		connect(gui, SIGNAL(undo(int)), this, SLOT(undo(int)));
 		connect(gui, SIGNAL(redo(int)), this, SLOT(redo(int)));
-		connect(this, SIGNAL(newAction(UndoObject*, UndoState*)),
-                gui, SLOT(insertUndoItem(UndoObject*, UndoState*)));
+		connect(this, SIGNAL(newAction(UndoObject*,UndoState*)), gui, SLOT(insertUndoItem(UndoObject*,UndoState*)));
 		connect(this, SIGNAL(popBack()), gui, SLOT(popBack()));
 		connect(this, SIGNAL(undoSignal(int)), gui, SLOT(updateUndo(int)));
 		connect(this, SIGNAL(redoSignal(int)), gui, SLOT(updateRedo(int)));
@@ -385,9 +238,9 @@ void UndoManager::connectGuis()
 
 void UndoManager::disconnectGuis()
 {
-	for (uint i = 0; i < undoGuis_.size(); ++i)
+	for (uint i = 0; i < m_undoGuis.size(); ++i)
 	{
-		UndoGui *gui = undoGuis_[i];
+		UndoGui *gui = m_undoGuis[i];
 
 		disconnect(gui, SIGNAL(undo(int)), this, SLOT(undo(int)));
 		disconnect(gui, SIGNAL(redo(int)), this, SLOT(redo(int)));
@@ -403,11 +256,11 @@ void UndoManager::disconnectGuis()
 
 void UndoManager::removeGui(UndoGui* gui)
 {
-	std::vector<UndoGui*>::iterator it = undoGuis_.begin();
-	while(it != undoGuis_.end())
+	std::vector<UndoGui*>::iterator it = m_undoGuis.begin();
+	while (it != m_undoGuis.end())
 	{
 		if (*it == gui)
-			it = undoGuis_.erase(it);
+			it = m_undoGuis.erase(it);
 		else  
 			++it;
 	}
@@ -416,72 +269,74 @@ void UndoManager::removeGui(UndoGui* gui)
 
 void UndoManager::switchStack(const QString& stackName)
 {
-	if (stackName == currentDoc_)
+	if (stackName == m_currentDoc)
 		return; // already current stack
-	currentDoc_ = stackName;
-	if (!stacks_.contains(currentDoc_))
-		stacks_[currentDoc_] = UndoStack();
+	m_currentDoc = stackName;
+	if (!m_stacks.contains(m_currentDoc))
+		m_stacks[m_currentDoc] = UndoStack();
 
-	stacks_[currentDoc_].setMaxSize(prefs_->getInt("historylength", 20));
-	for (uint i = 0; i < undoGuis_.size(); ++i)
-		setState(undoGuis_[i]);
+	m_stacks[m_currentDoc].setMaxSize(prefs_->getInt("historylength", 100));
+	for (size_t i = 0; i < m_undoGuis.size(); ++i)
+		setState(m_undoGuis[i]);
 
 	setTexts();
 }
 
 void UndoManager::renameStack(const QString& newName)
 {
-	if (currentDoc_ == newName)
+	if (m_currentDoc == newName)
 		return;
 
-	if (stacks_[currentDoc_].size() == 0) {
-		currentDoc_ = newName;
+	if (m_stacks[m_currentDoc].size() == 0)
+	{
+		m_currentDoc = newName;
 		return;
 	}
 	
-	UndoStack tmp(stacks_[currentDoc_]);
-	stacks_.remove(currentDoc_);
-	stacks_[newName] = tmp;
-	currentDoc_ = newName;
+	UndoStack tmp(m_stacks[m_currentDoc]);
+	m_stacks.remove(m_currentDoc);
+	m_stacks[newName] = tmp;
+	m_currentDoc = newName;
 }
 
 void UndoManager::removeStack(const QString& stackName)
 {
-	if (stacks_.contains(stackName))
+	auto stackIt = m_stacks.find(stackName);
+	if (stackIt == m_stacks.end())
+		return;
+
+	stackIt->clear();
+	m_stacks.remove(stackName);
+	if (m_currentDoc == stackName)
 	{
-		stacks_[stackName].clear();
-		stacks_.remove(stackName);
-		if (currentDoc_ == stackName)
-		{
-			for (uint i = 0; i < undoGuis_.size(); ++i)
-				undoGuis_[i]->clear();
-			currentDoc_ = "__no_name__";
-		}
+		for (size_t i = 0; i < m_undoGuis.size(); ++i)
+			m_undoGuis[i]->clear();
+		m_currentDoc = "__no_name__";
 	}
 }
 
 void UndoManager::clearStack()
 {
-	stacks_[currentDoc_].clear();
-	for (uint i = 0; i < undoGuis_.size(); ++i)
+	m_stacks[m_currentDoc].clear();
+	for (size_t i = 0; i < m_undoGuis.size(); ++i)
 	{
-		undoGuis_[i]->clear();
-		setState(undoGuis_[i]);
+		m_undoGuis[i]->clear();
+		setState(m_undoGuis[i]);
 	}
 }
 
 void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPixmap)
 {
-	QPixmap *oldIcon = 0;
+	QPixmap *oldIcon = nullptr;
 	if (targetPixmap)
 	{
 		oldIcon = target->getUPixmap();
 		target->setUPixmap(targetPixmap);
 	}
 
-	if (!undoEnabled_) // if so flush down the state
+	if (!m_undoEnabled) // if so flush down the state
 	{
-		TransactionState *ts = dynamic_cast<TransactionState*>(state);
+		auto *ts = dynamic_cast<TransactionState*>(state);
 		if (ts) // flush the TransactionObject too
 			delete target;
 		delete state;
@@ -489,7 +344,7 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 	}
 
 	if (!isTransactionMode() &&
-        (currentUndoObjectId_ == -1 || currentUndoObjectId_ == static_cast<long>(target->getUId())))
+		(m_currentUndoObjectId == -1 || m_currentUndoObjectId == static_cast<long>(target->getUId())))
 	{
 //		qDebug() << "UndoManager: new Action" << state->getName() << "for" << currentUndoObjectId_;
 		emit newAction(target, state); // send action to the guis
@@ -501,13 +356,14 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 	if (isTransactionMode())
 	{
 //		qDebug() << "UndoManager: Action stored for transaction:" << transactions_.back() << target->getUName() << state->getName();
-		transactions_.back()->transactionState->pushBack(target, state);
+		m_transactions.back()->transactionState->pushBack(target, state);
 	}
 	else
 	{
 //		qDebug() << "UndoManager: Action executed:" << target->getUName() << state->getName();
 		state->setUndoObject(target);
-		stacks_[currentDoc_].action(state);
+		if (m_stacks[m_currentDoc].action(state))
+			emit popBack();
 	}
 	if (targetPixmap)
 		target->setUPixmap(oldIcon);
@@ -525,14 +381,20 @@ void UndoManager::action(UndoObject* target, UndoState* state,
 	target->setUName(oldName);
 }
 
+UndoState* UndoManager::getLastUndo()
+{
+	UndoState* state = m_stacks[m_currentDoc].getNextUndo(Um::GLOBAL_UNDO_MODE);
+	return state;
+}
+
 void UndoManager::undo(int steps)
 {
-	if (!undoEnabled_)
+	if (!m_undoEnabled)
 		return;
 
 	emit undoRedoBegin();
 	setUndoEnabled(false);
-	stacks_[currentDoc_].undo(steps, currentUndoObjectId_);
+	m_stacks[m_currentDoc].undo(steps, m_currentUndoObjectId);
 	setUndoEnabled(true);
 	emit undoSignal(steps);
 	emit undoRedoDone();
@@ -541,42 +403,48 @@ void UndoManager::undo(int steps)
 
 void UndoManager::redo(int steps)
 {
-	if (!undoEnabled_)
+	if (!m_undoEnabled)
 		return;
 
 	emit undoRedoBegin();
 	setUndoEnabled(false);
-	stacks_[currentDoc_].redo(steps, currentUndoObjectId_);
+	m_stacks[m_currentDoc].redo(steps, m_currentUndoObjectId);
 	setUndoEnabled(true);
 	emit redoSignal(steps);
 	emit undoRedoDone();
 	setTexts();
 }
 
-bool UndoManager::hasUndoActions(int )
+bool UndoManager::hasUndoActions(int ) const
 {
 	// TODO Needs to fixed for object specific mode
-	return stacks_[currentDoc_].undoItems() > 0;
+	auto currentStackIt = m_stacks.constFind(m_currentDoc);
+	if (currentStackIt != m_stacks.constEnd())
+		return (currentStackIt->undoItems() > 0);
+	return false;
 }
 
-bool UndoManager::hasRedoActions(int )
+bool UndoManager::hasRedoActions(int ) const
 {
 	// TODO Needs to be fixed for object specific mode
-	return stacks_[currentDoc_].redoItems() > 0;
+	auto currentStackIt = m_stacks.constFind(m_currentDoc);
+	if (currentStackIt != m_stacks.constEnd())
+		return (currentStackIt->redoItems() > 0);
+	return false;
 }
 
 void UndoManager::showObject(int uid)
 {
-	if (currentUndoObjectId_ == uid)
+	if (m_currentUndoObjectId == uid)
 		return;
 	setUndoEnabled(false);
-	currentUndoObjectId_ = uid;
-	for (uint i = 0; i < undoGuis_.size(); ++i)
+	m_currentUndoObjectId = uid;
+	for (uint i = 0; i < m_undoGuis.size(); ++i)
 	{
 		if (uid == -2)
-			undoGuis_[i]->clear();
+			m_undoGuis[i]->clear();
 		else
-			setState(undoGuis_[i], currentUndoObjectId_);
+			setState(m_undoGuis[i], m_currentUndoObjectId);
 	}
 	setUndoEnabled(true);
 	setTexts();
@@ -584,13 +452,25 @@ void UndoManager::showObject(int uid)
 
 UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 {
-	UndoObject *tmp = 0;
-	TransactionState* transaction_ = NULL;
-	if (transactions_.size() > 0)
-		transaction_ = transactions_.at(transactions_.size()-1)->transactionState;
-	for (uint i = 0; i < stacks_[currentDoc_].undoActions_.size(); ++i)
+	UndoObject *tmp = nullptr;
+	TransactionState* transaction_ = nullptr;
+	if (!m_transactions.empty())
+		transaction_ = m_transactions.at(m_transactions.size()-1)->transactionState;
+	for (uint i = 0; i < m_stacks[m_currentDoc].m_undoActions_.size(); ++i)
 	{
-		UndoState *tmpState = stacks_[currentDoc_].undoActions_[i];
+		UndoState *tmpState = m_stacks[m_currentDoc].m_undoActions_[i];
+		TransactionState *ts = dynamic_cast<TransactionState*>(tmpState);
+		if (ts)
+			tmp = ts->replace(uid, newUndoObject);
+		else if (tmpState->undoObject() && tmpState->undoObject()->getUId() == uid)
+		{
+			tmp = tmpState->undoObject();
+			tmpState->setUndoObject(newUndoObject);
+		}
+	}
+	for (uint i = 0; i < m_stacks[m_currentDoc].m_redoActions_.size(); ++i)
+	{
+		UndoState *tmpState = m_stacks[m_currentDoc].m_redoActions_[i];
 		TransactionState *ts = dynamic_cast<TransactionState*>(tmpState);
 		if (ts)
 			tmp = ts->replace(uid, newUndoObject);
@@ -609,8 +489,8 @@ void UndoManager::setHistoryLength(int steps)
 {
 	if (steps >= 0)
 	{
-		stacks_[currentDoc_].setMaxSize(static_cast<uint>(steps));
-		prefs_->set("historylength", stacks_[currentDoc_].maxSize());
+		m_stacks[m_currentDoc].setMaxSize(static_cast<uint>(steps));
+		prefs_->set("historylength", m_stacks[m_currentDoc].maxSize());
 	}
 }
 
@@ -618,7 +498,7 @@ void UndoManager::setAllHistoryLengths(int steps)
 {
 	if (steps >= 0)
 	{
-		for (StackMap::Iterator it = stacks_.begin(); it != stacks_.end(); ++it )
+		for (StackMap::Iterator it = m_stacks.begin(); it != m_stacks.end(); ++it )
 		{
 			it.value().setMaxSize(static_cast<uint>(steps));
 		}
@@ -626,194 +506,69 @@ void UndoManager::setAllHistoryLengths(int steps)
 	}
 }
 
-int UndoManager::getHistoryLength()
+int UndoManager::getHistoryLength() const
 {
-	if (stacks_.size() > 0 && stacks_[currentDoc_].redoItems() > 0)
-		return -1;
-	return static_cast<int>(stacks_[currentDoc_].maxSize());
+	auto currentStackIt = m_stacks.constFind(m_currentDoc);
+	if ((currentStackIt != m_stacks.constEnd()) && (currentStackIt->redoItems() <= 0))
+		return static_cast<int>(currentStackIt->maxSize());
+	return -1;
 }
 
-bool UndoManager::isGlobalMode()
+bool UndoManager::isGlobalMode() const
 {
-	return currentUndoObjectId_ == -1;
+	return m_currentUndoObjectId == -1;
 }
 
 void UndoManager::setTexts()
 {
-	if (stacks_[currentDoc_].undoItems() > 0)
-	{
-		UndoState *state = stacks_[currentDoc_].getNextUndo(currentUndoObjectId_);
-		if (state)
-			ScCore->primaryMainWindow()->scrActions["editUndoAction"]->setTexts(QString(Um::MenuUndo).arg(state->getName()));
-		else
-			ScCore->primaryMainWindow()->scrActions["editUndoAction"]->setTexts(Um::MenuUndoEmpty);
-	}
-	else
-		ScCore->primaryMainWindow()->scrActions["editUndoAction"]->setTexts(Um::MenuUndoEmpty);
+	ScribusMainWindow* scMW = ScCore->primaryMainWindow();
+	UndoStack& currentStack = m_stacks[m_currentDoc];
 
-	if (stacks_[currentDoc_].redoItems() > 0)
+	if (currentStack.undoItems() > 0)
 	{
-		UndoState *state = stacks_[currentDoc_].getNextRedo(currentUndoObjectId_);
+		const UndoState *state = currentStack.getNextUndo(m_currentUndoObjectId);
 		if (state)
-			ScCore->primaryMainWindow()->scrActions["editRedoAction"]->setTexts(QString(Um::MenuRedo).arg(state->getName()));
+			scMW->scrActions["editUndoAction"]->setTexts(QString(Um::MenuUndo).arg(state->getName()));
 		else
-			ScCore->primaryMainWindow()->scrActions["editRedoAction"]->setTexts(Um::MenuRedoEmpty);
+			scMW->scrActions["editUndoAction"]->setTexts(Um::MenuUndoEmpty);
 	}
 	else
-		ScCore->primaryMainWindow()->scrActions["editRedoAction"]->setTexts(Um::MenuRedoEmpty);
+		scMW->scrActions["editUndoAction"]->setTexts(Um::MenuUndoEmpty);
+
+	if (currentStack.redoItems() > 0)
+	{
+		const UndoState *state = currentStack.getNextRedo(m_currentUndoObjectId);
+		if (state)
+			scMW->scrActions["editRedoAction"]->setTexts(QString(Um::MenuRedo).arg(state->getName()));
+		else
+			scMW->scrActions["editRedoAction"]->setTexts(Um::MenuRedoEmpty);
+	}
+	else
+		scMW->scrActions["editRedoAction"]->setTexts(Um::MenuRedoEmpty);
 }
 
 void UndoManager::deleteInstance()
 {
-	if (instance_)
-		delete instance_;
-	instance_ = 0;
+	delete m_instance;
+	m_instance = nullptr;
 }
 
 UndoManager::~UndoManager()
 {
 	StackMap::iterator it;
-	for (it = stacks_.begin(); it != stacks_.end(); ++it)
+	for (it = m_stacks.begin(); it != m_stacks.end(); ++it)
 	{
-		for (uint i = 0; i < (*it).size(); ++i)
-		{
-			(*it).clear();
-		}
+		for (uint i = 0; i < it->size(); ++i)
+			it->clear();
 	}
-	stacks_.clear();
-}
-
-/*** TransactionState *****************************************************/
-
-TransactionState::TransactionState() : UndoState("")
-{
-	size_ = 0;
-}
-
-UndoState* TransactionState::at(int index)
-{
-	if (index >= 0 && static_cast<uint>(index) < sizet())
-		return states_[index];
-	else
-		return 0;
-}
-
-bool TransactionState::contains(int uid) const
-{
-	for (uint i = 0; i < states_.size(); ++i)
-	{
-		if (states_[i]->undoObject()->getUId() == static_cast<uint>(uid))
-			return true;
-	}
-	return false;
-}
-
-bool TransactionState::containsOnly(int uid) const
-{
-	for (uint i = 0; i < states_.size(); ++i)
-	{
-		if (states_[i]->undoObject()->getUId() != static_cast<uint>(uid))
-			return false;
-	}
-	return true;
-}
-
-void TransactionState::pushBack(UndoObject *target, UndoState *state)
-{
-	if (target && state)
-	{
-		state->setUndoObject(target);
-		states_.push_back(state);
-		++size_;
-	}
-}
-
-uint TransactionState::sizet()
-{
-	return size_;
-}
-
-void TransactionState::useActionName()
-{
-	if (size_ > 0)
-		setName(states_[size_ - 1]->getName());
-}
-
-UndoObject* TransactionState::replace(ulong uid, UndoObject *newUndoObject)
-{
-	UndoObject *tmp = 0;
-	for (uint i = 0; i < states_.size(); ++i)
-	{
-		TransactionState *ts = dynamic_cast<TransactionState*>(states_[i]);
-		if (ts) // are we having a transaction_inside a transaction
-			ts->replace(uid, newUndoObject);
-		else if (states_[i]->undoObject() && states_[i]->undoObject()->getUId() == uid)
-		{
-			tmp = states_[i]->undoObject();
-			states_[i]->setUndoObject(newUndoObject);
-		}
-	}
-	return tmp;
-}
-
-void TransactionState::undo() // undo all attached states
-{
-	for (int i = sizet() - 1; i > -1; --i)
-	{
-		if ((sizet() - 1) == 0)
-			at(i)->transactionCode = 0;
-		else
-		{
-			if (i == static_cast<int>(sizet() - 1))
-				at(i)->transactionCode = 1;
-			else if (i == 0)
-				at(i)->transactionCode = 2;
-			else
-				at(i)->transactionCode = 3;
-		}
-		if (transactionCode != 0)
-			at(i)->transactionCode = transactionCode;
-		at(i)->undo();
-	}
-}
-
-void TransactionState::redo() // redo all attached states
-{
-	for (uint i = 0; i < sizet(); ++i)
-	{
-		if ((sizet() - 1) == 0)
-			at(i)->transactionCode = 0;
-		else
-		{
-			if (i == 0)
-				at(i)->transactionCode = 1;
-			else if (i == static_cast<int>(sizet() - 1))
-				at(i)->transactionCode = 2;
-			else
-				at(i)->transactionCode = 3;
-		}
-		if (transactionCode != 0)
-			at(i)->transactionCode = transactionCode;
-		at(i)->redo();
-	}
-}
-
-TransactionState::~TransactionState()
-{
-	for (uint i = 0; i < states_.size(); ++i)
-	{
-		if (states_[i])
-		{
-			delete states_[i];
-			states_[i] = 0;
-		}
-	}
+	m_stacks.clear();
 }
 
 /*************************************************************************************/
 
 void UndoManager::languageChange()
 {
+	UndoManager::ConnectPath        = tr("Connect path");
 	UndoManager::AddVGuide          = tr("Add vertical guide");
 	UndoManager::AddHGuide          = tr("Add horizontal guide");
 	UndoManager::DelVGuide          = tr("Remove vertical guide");
@@ -824,7 +579,18 @@ void UndoManager::languageChange()
 	UndoManager::MoveHGuide         = tr("Move horizontal guide");
 	UndoManager::LockGuides         = tr("Lock guides");
 	UndoManager::UnlockGuides       = tr("Unlock guides");
+	UndoManager::Overprint          = tr("Change overprint");
+	UndoManager::BlendMode          = tr("Change blend mode");
+	UndoManager::ActionPDF          = tr("Change action PDF");
 	UndoManager::Move               = tr("Move");
+	UndoManager::NewMasterPage      = tr("Add master page");
+	UndoManager::DelMasterPage      = tr("Del master page");
+	UndoManager::ImportMasterPage   = tr("Import master page");
+	UndoManager::DuplicateMasterPage= tr("Duplicate master page");
+	UndoManager::ApplyMasterPage    = tr("Apply Master Page");
+	UndoManager::RenameMasterPage   = tr("Rename Master Page");
+	UndoManager::UniteItem          = tr("Combine Polygons");
+	UndoManager::SplitItem          = tr("Split Polygons");
 	UndoManager::Resize             = tr("Resize");
 	UndoManager::Rotate             = tr("Rotate");
 	UndoManager::MoveFromTo         = tr("X1: %1, Y1: %2, %3\nX2: %4, Y2: %5, %6");
@@ -837,6 +603,10 @@ void UndoManager::languageChange()
 	UndoManager::Group              = tr("Group");
 	UndoManager::SelectionGroup     = tr("Selection/Group");
 	UndoManager::Create             = tr("Create");
+	UndoManager::LevelUp            = tr("Level up");
+	UndoManager::LevelDown          = tr("Level down");
+	UndoManager::LevelTop           = tr("Send to front");
+	UndoManager::LevelBottom        = tr("Send to bottom");
 	UndoManager::CreateTo           = tr("X: %1, Y: %2\nW: %3, H: %4");
 	UndoManager::AlignDistribute    = tr("Align/Distribute");
 	UndoManager::ItemsInvolved      = tr("Items involved");
@@ -850,8 +620,10 @@ void UndoManager::languageChange()
 	UndoManager::FlipH              = tr("Flip horizontally");
 	UndoManager::FlipV              = tr("Flip vertically");
 	UndoManager::Lock               = tr("Lock");
+	UndoManager::ResTyp             = tr("Change image resolution");
 	UndoManager::UnLock             = tr("Unlock");
 	UndoManager::SizeLock           = tr("Lock size");
+	UndoManager::GradTypeMask       = tr("Set mask gradient type");
 	UndoManager::SizeUnLock         = tr("Unlock size");
 	UndoManager::EnablePrint        = tr("Enable Item Printing");
 	UndoManager::DisablePrint       = tr("Disable Item Printing");
@@ -859,9 +631,9 @@ void UndoManager::languageChange()
 	UndoManager::Delete             = tr("Delete");
 	UndoManager::Rename             = tr("Rename");
 	UndoManager::FromTo             = tr("From %1\nto %2");
-	UndoManager::ApplyMasterPage    = tr("Apply Master Page");
 	UndoManager::Paste              = tr("Paste");
 	UndoManager::Cut                = tr("Cut");
+	UndoManager::RoundCorner        = tr("Change round corner");
 	UndoManager::Transparency       = tr("Set fill color transparency");
 	UndoManager::LineTransparency   = tr("Set line color transparency");
 	UndoManager::LineStyle          = tr("Set line style");
@@ -876,10 +648,38 @@ void UndoManager::languageChange()
 	UndoManager::StartAndEndArrow   = tr("Set start and end arrows");
 	UndoManager::CreateTable        = tr("Create table");
 	UndoManager::RowsCols           = tr("Rows: %1, Cols: %2");
+	UndoManager::CellBorders        = tr("Set cell borders");
+	UndoManager::CellFillColor      = tr("Set cell fill color");
+	UndoManager::CellFillShade      = tr("Set cell fill shade");
+	UndoManager::CellStyle          = tr("Set cell style");
+	UndoManager::TableFillColor     = tr("Set table fill color");
+	UndoManager::TableFillColorRst  = tr("Reset table fill color");
+	UndoManager::TableFillShade     = tr("Set table fill shade");
+	UndoManager::TableFillShadeRst  = tr("Reset table fill shade");
+	UndoManager::TableBorders       = tr("Set table borders");
+	UndoManager::TableLeftBorder    = tr("Set table left border");
+	UndoManager::TableLeftBorderRst = tr("Reset table left border");
+	UndoManager::TableRightBorder   = tr("Set table right border");
+	UndoManager::TableRightBorderRst = tr("Reset table right border");
+	UndoManager::TableBottomBorder  = tr("Set table bottom border");
+	UndoManager::TableBottomBorderRst  = tr("Reset table bottom border");
+	UndoManager::TableTopBorder     = tr("Set table top border");
+	UndoManager::TableTopBorderRst  = tr("Reset table top border");
+	UndoManager::TableStyle         = tr("Set table style");
+	UndoManager::TableRowHeight     = tr("Set height of table row");
+	UndoManager::TableColumnWidth   = tr("Set width of table column");
 	UndoManager::SetFont            = tr("Set font");
 	UndoManager::SetFontSize        = tr("Set font size");
+	UndoManager::StartArrowScale    = tr("Set start arrow scale");
+	UndoManager::EndArrowScale      = tr("Set end arrow scale");
+	UndoManager::SetFontSize        = tr("Set font size");
 	UndoManager::SetFontWidth       = tr("Set font width");
-	UndoManager::SetFontHeight       = tr("Set font height");
+	UndoManager::SetFontHeight      = tr("Set font height");
+	UndoManager::GradType           = tr("Change fill gradient type");
+	UndoManager::GradVal            = tr("Change fill gradient values");
+	UndoManager::GradValStroke      = tr("Change stroke gradient values");
+	UndoManager::GradCol            = tr("Change gradient color");
+	UndoManager::GradTypeStroke     = tr("Change stroke gradient type");
 	UndoManager::SetFontFill        = tr("Set font fill color");
 	UndoManager::SetFontStroke      = tr("Set font stroke color");
 	UndoManager::SetFontFillShade   = tr("Set font fill color shade");
@@ -892,32 +692,65 @@ void UndoManager::languageChange()
 	UndoManager::SetFontEffect      = tr("Set font effect");
 	UndoManager::ImageFrame         = tr("Image frame");
 	UndoManager::TextFrame          = tr("Text frame");
+	UndoManager::Layer              = tr("Layer");
 	UndoManager::LatexFrame         = tr("Render frame");
 	UndoManager::Polygon            = tr("Polygon");
+	UndoManager::EditPolygon        = tr("Edit polygon");
+	UndoManager::EditArc            = tr("Edit arc");
+	UndoManager::EditSpiral         = tr("Edit spiral");
 	UndoManager::BezierCurve        = tr("Bezier curve");
 	UndoManager::Polyline           = tr("Polyline");
 	UndoManager::PathText           = tr("Text on a Path");
 	UndoManager::ConvertTo          = tr("Convert to");
-	UndoManager::ImportSVG          = tr("Import SVG image");
-	UndoManager::ImportEPS          = tr("Import EPS image");
-	UndoManager::ImportBarcode      = tr("Import Barcode");
-	UndoManager::ImportOOoDraw      = tr("Import OpenOffice.org Draw image");
 	UndoManager::ImportAI           = tr("Import AI drawing");
-	UndoManager::ImportXfig         = tr("Import XFig drawing");
+	UndoManager::ImportApplePages   = tr("Import Apple Pages document");
+	UndoManager::ImportBarcode      = tr("Import Barcode");
+	UndoManager::ImportCDR          = tr("Import CorelDraw drawing");
+	UndoManager::ImportCGM          = tr("Import CGM drawing");
+	UndoManager::ImportCVG          = tr("Import Calamus CVG drawing");
+	UndoManager::ImportDRW          = tr("Import Micrografx Draw drawing");
+	UndoManager::ImportEMF          = tr("Import EMF drawing");
+	UndoManager::ImportEPS          = tr("Import EPS image");
+	UndoManager::ImportFreehand     = tr("Import FreeHand document");
+	UndoManager::ImportIDML         = tr("Import IDML document");
+	UndoManager::ImportOOoDraw      = tr("Import OpenOffice.org Draw image");
+	UndoManager::ImportPageMaker    = tr("Import PageMaker document");
+	UndoManager::ImportPDF          = tr("Import PDF document");
+	UndoManager::ImportPict         = tr("Import Macintosh Pict drawing");
+	UndoManager::ImportPublisher    = tr("Import MS Publisher document");
+	UndoManager::ImportQXP          = tr("Import QuarkXPress document");
+	UndoManager::ImportShape        = tr("Import Shape drawing");
+	UndoManager::ImportSML          = tr("Import Kivio stencil");
+	UndoManager::ImportSVG          = tr("Import SVG image");
+	UndoManager::ImportSVM          = tr("Import SVM image");
+	UndoManager::ImportUniconv      = tr("Import Uniconvertor image");
+	UndoManager::ImportViva         = tr("Import Viva Designer document");
+	UndoManager::ImportVSD          = tr("Import Visio document");
 	UndoManager::ImportWMF          = tr("Import WMF drawing");
+	UndoManager::ImportWPG          = tr("Import WordPerfect graphic");
+	UndoManager::ImportXara         = tr("Import Xara image");
+	UndoManager::ImportXfig         = tr("Import XFig drawing");
+	UndoManager::ImportXPS          = tr("Import XPS document");
+	UndoManager::ImportZMF          = tr("Import Zoner Draw image");
+	UndoManager::Columns            = tr("Change columns");
+	UndoManager::ColumnsGap         = tr("Change columns gap");
+	UndoManager::TextFrameDist      = tr("Change text to frame distance");
 	UndoManager::ScratchSpace       = tr("Scratch space");
-	//UndoManager::TextFlow           = tr("Text flows around the frame");
 	UndoManager::ObjectFrame        = tr("Text flows around the frame");
 	UndoManager::BoundingBox        = tr("Text flows around bounding box");
 	UndoManager::ContourLine        = tr("Text flows around contour line");
-	UndoManager::ImageClip        = tr("Text flows around image clipping path");
+	UndoManager::ImageClip          = tr("Text flows around image clipping path");
 	UndoManager::NoTextFlow         = tr("No text flow");
 	UndoManager::NoObjectFrame      = tr("No object frame");
 	UndoManager::NoBoundingBox      = tr("No bounding box");
 	UndoManager::NoContourLine      = tr("No contour line");
+	UndoManager::ShowImage          = tr("Show image");
 	UndoManager::PageNmbr           = tr("Page %1");
 	UndoManager::ImageScaling       = tr("Set image scaling");
 	UndoManager::FrameSize          = tr("Frame size");
+	UndoManager::MeshGradient       = tr("Create mesh gradient");
+	UndoManager::ChangeMeshGradient = tr("Change mesh gradient");
+	UndoManager::Mode               = tr("Change Mode");
 	UndoManager::FreeScaling        = tr("Free scaling");
 	UndoManager::KeepRatio          = tr("Keep aspect ratio");
 	UndoManager::BreakRatio         = tr("Break aspect ratio");
@@ -927,22 +760,51 @@ void UndoManager::languageChange()
 	UndoManager::ResetContourLine   = tr("Reset contour line");
 	UndoManager::AddPage            = tr("Add page");
 	UndoManager::AddPages           = tr("Add pages");
+	UndoManager::ReplaceText        = tr("Replace text");
+	UndoManager::FirstLineOffset    = tr("Change First Line Offset");
+	UndoManager::DeleteText         = tr("Delete text");
+	UndoManager::InsertText         = tr("Insert text");
+	UndoManager::AppendText         = tr("Append text");
+	UndoManager::ImportText         = tr("Import text");
+	UndoManager::ClearText          = tr("Clear text");
+	UndoManager::TruncateText       = tr("Truncate text");
+	UndoManager::AddLoremIpsum      = tr("Add Lorem Ipsum");
+	UndoManager::InsertMark         = tr("Insert mark");
+	UndoManager::InsertNote         = tr("Insert note");
+	UndoManager::EditMark           = tr("Edit mark");
+	UndoManager::DeleteMark         = tr("Delete mark");
+	UndoManager::DeleteNote         = tr("Delete note");
+	UndoManager::NewNotesStyle      = tr("Add note style");
+	UndoManager::EditNotesStyle     = tr("Edit note style");
+	UndoManager::DeleteNotesStyle   = tr("Delete note style");
+	UndoManager::DeleteNotesStyle   = tr("Delete note style");
 	UndoManager::DeletePage         = tr("Delete page");
 	UndoManager::DeletePages        = tr("Delete pages");
+	UndoManager::ChangePageProps    = tr("Change page properties");
 	UndoManager::AddLayer           = tr("Add layer");
-	UndoManager::DuplicateLayer	= tr("Duplicate layer %1");
+	UndoManager::DuplicateLayer     = tr("Duplicate layer %1");
 	UndoManager::DeleteLayer        = tr("Delete layer");
 	UndoManager::RenameLayer        = tr("Rename layer");
 	UndoManager::RaiseLayer         = tr("Raise layer");
+	UndoManager::GradPos            = tr("Change gradient position");
 	UndoManager::LowerLayer         = tr("Lower layer");
 	UndoManager::SendToLayer        = tr("Send to layer");
 	UndoManager::PrintLayer         = tr("Enable printing of layer");
 	UndoManager::DoNotPrintLayer    = tr("Disable printing of layer");
 	UndoManager::SetLayerName       = tr("Change name of the layer");
+	UndoManager::FlowLayer          = tr("Enable text flow around for lower layers");
+	UndoManager::DisableFlowLayer   = tr("Disable text flow around for lower layers");
+	UndoManager::SetLayerBlendMode  = tr("Set layer blend mode");
+	UndoManager::SetLayerTransparency=tr("Set layer opacity");
+	UndoManager::SetLayerLocked     = tr("Lock layer");
+	UndoManager::SetLayerUnlocked   = tr("Unlock layer");
 	UndoManager::GetImage           = tr("Get image");
 	UndoManager::ChangeFormula      = tr("Change formula");
+	UndoManager::Duplicate          = tr("Duplicate");
 	UndoManager::MultipleDuplicate  = tr("Multiple duplicate");
+	UndoManager::RemoveMeshPatch    = tr("Remove mesh patch");
 	UndoManager::ApplyTextStyle     = tr("Apply text style");
+	UndoManager::RemoveTextStyle    = tr("Remove text style");
 	UndoManager::MenuUndo           = tr("&Undo: %1", "f.e. Undo: Move");
 	UndoManager::MenuUndoEmpty      = tr("&Undo");
 	UndoManager::MenuRedo           = tr("&Redo: %1", "f.e. Redo: Move");
@@ -954,10 +816,29 @@ void UndoManager::languageChange()
 	UndoManager::InsertFrame        = tr("Insert frame");
 	UndoManager::AdjustFrameToImage = tr("Adjust frame to the image size");
 	UndoManager::RemoveAllGuides    = tr("Remove all guides");
-	UndoManager::RemoveAllPageGuides = tr("Remove page guides");
+	UndoManager::RemoveAllPageGuides= tr("Remove page guides");
 	UndoManager::Copy               = tr("Copy");
 	UndoManager::CopyPage           = tr("Copy page");
+	UndoManager::MovePage           = tr("Move page");
+	UndoManager::SwapPage           = tr("Swap page");
+	UndoManager::ImportPage         = tr("Import page");
 	UndoManager::ToOutlines         = tr("Convert to outlines");
+	UndoManager::LinkTextFrame      = tr("Link text frame");
+	UndoManager::UnlinkTextFrame    = tr("Unlink text frame");
+	UndoManager::ClearImage         = tr("Clear image frame content");
+	UndoManager::PathOperation      = tr("Path Operation");
+	UndoManager::ChangePageAttrs    = tr("Change Page Attributes");
+	UndoManager::Transform          = tr("Transform");
+	UndoManager::WeldItems          = tr("Weld Items");
+	UndoManager::UnweldItems        = tr("Unweld Items");
+	UndoManager::SoftShadow         = tr("Drop Shadow");
+	UndoManager::SoftShadowColor    = tr("Drop Shadow Color");
+	UndoManager::SoftShadowShade    = tr("Drop Shadow Shade");
+	UndoManager::SoftShadowBlurRadius= tr("Drop Shadow Blur Radius");
+	UndoManager::SoftShadowXOffset  = tr("Drop Shadow X Offset");
+	UndoManager::SoftShadowYOffset  = tr("Drop Shadow Y Offset");
+	UndoManager::SoftShadowOpacity  = tr("Drop Shadow Opacity");
+	UndoManager::SoftShadowBlendMode= tr("Drop Shadow Blend Mode");
 }
 
 void UndoManager::initIcons()
@@ -968,7 +849,7 @@ void UndoManager::initIcons()
 	UndoManager::IImageFrame      = new QPixmap(iconDir + "16/insert-image.png");
 	UndoManager::ITextFrame       = new QPixmap(iconDir + "16/insert-text-frame.png");
 	UndoManager::ILatexFrame      = new QPixmap(iconDir + "16/insert-latex.png");
-	UndoManager::ILine            = new QPixmap(iconDir + "Stift.xpm");
+	UndoManager::ILine            = new QPixmap(iconDir + "stift.png");
 	UndoManager::IPolygon         = new QPixmap(iconDir + "16/draw-polygon.png");
 	UndoManager::IPolyline        = new QPixmap(iconDir + "16/draw-bezier-curves.png");
 // 	UndoManager::IPathText        = new QPixmap(iconDir + "?";
@@ -997,12 +878,13 @@ void UndoManager::initIcons()
 	UndoManager::IArrow           = new QPixmap(iconDir + "u_arrow.png");
 	UndoManager::ITable           = new QPixmap(iconDir + "frame_table.png");
 	UndoManager::IFont            = new QPixmap(iconDir + "u_font.png");
+	UndoManager::IAI              = new QPixmap(iconDir + "u_eps.png"); // using the icon for EPS for now
+	UndoManager::IEPS             = new QPixmap(iconDir + "u_eps.png");
 	UndoManager::IImportOOoDraw   = new QPixmap(iconDir + "ooo_draw.png");
 	UndoManager::ISVG             = new QPixmap(iconDir + "u_svg.png");
-	UndoManager::IEPS             = new QPixmap(iconDir + "u_eps.png");
-	UndoManager::IAI              = new QPixmap(iconDir + "u_eps.png"); // using the icon for EPS for now
-	UndoManager::IXFIG            = new QPixmap(iconDir + "u_eps.png"); // using the icon for EPS for now
+	UndoManager::IUniconv         = new QPixmap(iconDir + "u_svg.png"); // using the icon for SVG for now
 	UndoManager::IWMF             = new QPixmap(iconDir + "u_eps.png"); // using the icon for EPS for now
+	UndoManager::IXFIG            = new QPixmap(iconDir + "u_eps.png"); // using the icon for EPS for now
 	UndoManager::IImageScaling    = new QPixmap(iconDir + "u_scale_image.png");
 	UndoManager::IBorder          = new QPixmap(iconDir + "u_shape.png");
 	UndoManager::IDocument        = new QPixmap(iconDir + "16/document-new.png");
@@ -1013,22 +895,46 @@ void UndoManager::initIcons()
 // 	UndoManager::IGetImage        = new QPixmap(iconDir + "u_get_image.png");
 	UndoManager::IMultipleDuplicate = new QPixmap(iconDir + "u_multiple.png");
 }
+QString UndoManager::ConnectPath        = "";
 QString UndoManager::AddVGuide          = "";
 QString UndoManager::AddHGuide          = "";
 QString UndoManager::DelVGuide          = "";
 QString UndoManager::DelHGuide          = "";
 QString UndoManager::DelVAGuide         = "";
 QString UndoManager::DelHAGuide         = "";
+QString UndoManager::Mode               = "";
 QString UndoManager::MoveVGuide         = "";
 QString UndoManager::MoveHGuide         = "";
+QString UndoManager::UniteItem          = "";
+QString UndoManager::SplitItem          = "";
 QString UndoManager::LockGuides         = "";
 QString UndoManager::UnlockGuides       = "";
+QString UndoManager::Overprint          = "";
+QString UndoManager::BlendMode          = "";
+QString UndoManager::ActionPDF          = "";
 QString UndoManager::Move               = "";
+QString UndoManager::NewMasterPage      = "";
+QString UndoManager::GradType           = "";
+QString UndoManager::GradPos            = "";
+QString UndoManager::GradVal            = "";
+QString UndoManager::GradValStroke      = "";
+QString UndoManager::GradCol            = "";
+QString UndoManager::GradTypeStroke     = "";
+QString UndoManager::ImportMasterPage   = "";
+QString UndoManager::DuplicateMasterPage= "";
+QString UndoManager::DelMasterPage      = "";
+QString UndoManager::ApplyMasterPage    = "";
+QString UndoManager::RenameMasterPage   = "";
 QString UndoManager::Resize             = "";
 QString UndoManager::Rotate             = "";
 QString UndoManager::MoveFromTo         = "";
 QString UndoManager::ImageOffset        = "";
 QString UndoManager::ImageScale         = "";
+QString UndoManager::ResTyp             = "";
+QString UndoManager::ShowImage          = "";
+QString UndoManager::RemoveMeshPatch    = "";
+QString UndoManager::StartArrowScale    = "";
+QString UndoManager::EndArrowScale      = "";
 QString UndoManager::ImageOffsetFromTo  = "";
 QString UndoManager::ImageScaleFromTo   = "";
 QString UndoManager::ResizeFromTo       = "";
@@ -1036,12 +942,14 @@ QString UndoManager::Selection          = "";
 QString UndoManager::Group              = "";
 QString UndoManager::SelectionGroup     = "";
 QString UndoManager::Create             = "";
+QString UndoManager::RoundCorner        = "";
 QString UndoManager::CreateTo           = "";
 QString UndoManager::AlignDistribute    = "";
 QString UndoManager::ItemsInvolved      = "";
 QString UndoManager::ItemsInvolved2     = "";
-uint    UndoManager::ItemsInvolvedLimit = 20;
+int     UndoManager::ItemsInvolvedLimit = 20;
 QString UndoManager::Cancel             = "";
+QString UndoManager::TextFrameDist      = "";
 QString UndoManager::SetFill            = "";
 QString UndoManager::ColorFromTo        = "";
 QString UndoManager::SetShade           = "";
@@ -1050,6 +958,10 @@ QString UndoManager::SetLineShade       = "";
 QString UndoManager::FlipH              = "";
 QString UndoManager::FlipV              = "";
 QString UndoManager::Lock               = "";
+QString UndoManager::LevelUp            = "";
+QString UndoManager::LevelTop           = "";
+QString UndoManager::LevelBottom        = "";
+QString UndoManager::LevelDown          = "";
 QString UndoManager::UnLock             = "";
 QString UndoManager::SizeLock           = "";
 QString UndoManager::SizeUnLock         = "";
@@ -1059,12 +971,12 @@ QString UndoManager::Ungroup            = "";
 QString UndoManager::Delete             = "";
 QString UndoManager::Rename             = "";
 QString UndoManager::FromTo             = "";
-QString UndoManager::ApplyMasterPage    = "";
 QString UndoManager::Paste              = "";
 QString UndoManager::Cut                = "";
 QString UndoManager::Transparency       = "";
 QString UndoManager::LineTransparency   = "";
 QString UndoManager::LineStyle          = "";
+QString UndoManager::FirstLineOffset    = "";
 QString UndoManager::LineEnd            = "";
 QString UndoManager::LineJoin           = "";
 QString UndoManager::LineWidth          = "";
@@ -1076,6 +988,26 @@ QString UndoManager::EndArrow           = "";
 QString UndoManager::StartAndEndArrow   = "";
 QString UndoManager::CreateTable        = "";
 QString UndoManager::RowsCols           = "";
+QString UndoManager::CellBorders        = "";
+QString UndoManager::CellFillColor      = "";
+QString UndoManager::CellFillShade      = "";
+QString UndoManager::CellStyle          = "";
+QString UndoManager::TableFillColor     = "";
+QString UndoManager::TableFillColorRst  = "";
+QString UndoManager::TableFillShade     = "";
+QString UndoManager::TableFillShadeRst  = "";
+QString UndoManager::TableBorders       = "";
+QString UndoManager::TableLeftBorder    = "";
+QString UndoManager::TableLeftBorderRst = "";
+QString UndoManager::TableRightBorder   = "";
+QString UndoManager::TableRightBorderRst = "";
+QString UndoManager::TableBottomBorder  = "";
+QString UndoManager::TableBottomBorderRst  = "";
+QString UndoManager::TableTopBorder     = "";
+QString UndoManager::TableTopBorderRst  = "";
+QString UndoManager::TableStyle         = "";
+QString UndoManager::TableRowHeight     = "";
+QString UndoManager::TableColumnWidth   = "";
 QString UndoManager::SetFont            = "";
 QString UndoManager::SetFontSize        = "";
 QString UndoManager::SetFontWidth       = "";
@@ -1092,25 +1024,53 @@ QString UndoManager::AlignText          = "";
 QString UndoManager::SetFontEffect      = "";
 QString UndoManager::ImageFrame         = "";
 QString UndoManager::TextFrame          = "";
+QString UndoManager::Layer              = "";
 QString UndoManager::LatexFrame         = "";
 QString UndoManager::Polygon            = "";
+QString UndoManager::EditPolygon        = "";
+QString UndoManager::EditArc            = "";
+QString UndoManager::EditSpiral         = "";
 QString UndoManager::BezierCurve        = "";
 QString UndoManager::Polyline           = "";
 QString UndoManager::PathText           = "";
 QString UndoManager::ConvertTo          = "";
-QString UndoManager::ImportSVG          = "";
-QString UndoManager::ImportEPS          = "";
-QString UndoManager::ImportBarcode      = "";
-QString UndoManager::ImportOOoDraw      = "";
 QString UndoManager::ImportAI           = "";
-QString UndoManager::ImportXfig         = "";
+QString UndoManager::ImportApplePages   = "";
+QString UndoManager::ImportBarcode      = "";
+QString UndoManager::ImportCDR          = "";
+QString UndoManager::ImportCGM          = "";
+QString UndoManager::ImportCVG          = "";
+QString UndoManager::ImportDRW          = "";
+QString UndoManager::ImportEMF          = "";
+QString UndoManager::ImportEPS          = "";
+QString UndoManager::ImportFreehand     = "";
+QString UndoManager::ImportIDML         = "";
+QString UndoManager::ImportOOoDraw      = "";
+QString UndoManager::ImportPageMaker    = "";
+QString UndoManager::ImportPDF          = "";
+QString UndoManager::ImportPict         = "";
+QString UndoManager::ImportPublisher    = "";
+QString UndoManager::ImportQXP          = "";
+QString UndoManager::ImportShape        = "";
+QString UndoManager::ImportSML          = "";
+QString UndoManager::ImportSVG          = "";
+QString UndoManager::ImportSVM          = "";
+QString UndoManager::ImportUniconv      = "";
+QString UndoManager::ImportViva         = "";
+QString UndoManager::ImportVSD          = "";
 QString UndoManager::ImportWMF          = "";
+QString UndoManager::ImportWPG          = "";
+QString UndoManager::ImportXara         = "";
+QString UndoManager::ImportXfig         = "";
+QString UndoManager::ImportXPS          = "";
+QString UndoManager::ImportZMF          = "";
 QString UndoManager::ScratchSpace       = "";
-//QString UndoManager::TextFlow           = "";
 QString UndoManager::ObjectFrame        = "";
 QString UndoManager::BoundingBox        = "";
+QString UndoManager::MeshGradient       = "";
+QString UndoManager::ChangeMeshGradient = "";
 QString UndoManager::ContourLine        = "";
-QString UndoManager::ImageClip        = "";
+QString UndoManager::ImageClip          = "";
 QString UndoManager::NoTextFlow         = "";
 QString UndoManager::NoObjectFrame      = "";
 QString UndoManager::NoBoundingBox      = "";
@@ -1125,12 +1085,30 @@ QString UndoManager::EditContourLine    = "";
 QString UndoManager::EditShape          = "";
 QString UndoManager::ChangeShapeType    = "";
 QString UndoManager::ResetContourLine   = "";
+QString UndoManager::GradTypeMask       = "";
 QString UndoManager::AddPage            = "";
 QString UndoManager::AddPages           = "";
+QString UndoManager::DeleteText         = "";
+QString UndoManager::AppendText         = "";
+QString UndoManager::ImportText         = "";
+QString UndoManager::ClearText          = "";
+QString UndoManager::TruncateText       = "";
+QString UndoManager::ReplaceText        = "";
+QString UndoManager::InsertText         = "";
+QString UndoManager::AddLoremIpsum      = "";
+QString UndoManager::EditMark           = "";
+QString UndoManager::InsertMark         = "";
+QString UndoManager::DeleteMark         = "";
+QString UndoManager::InsertNote         = "";
+QString UndoManager::DeleteNote         = "";
+QString UndoManager::NewNotesStyle      = "";
+QString UndoManager::EditNotesStyle     = "";
+QString UndoManager::DeleteNotesStyle   = "";
 QString UndoManager::DeletePage         = "";
 QString UndoManager::DeletePages        = "";
+QString UndoManager::ChangePageProps    = "";
 QString UndoManager::AddLayer           = "";
-QString UndoManager::DuplicateLayer	= "";
+QString UndoManager::DuplicateLayer     = "";
 QString UndoManager::DeleteLayer        = "";
 QString UndoManager::RenameLayer        = "";
 QString UndoManager::RaiseLayer         = "";
@@ -1139,76 +1117,108 @@ QString UndoManager::SendToLayer        = "";
 QString UndoManager::PrintLayer         = "";
 QString UndoManager::DoNotPrintLayer    = "";
 QString UndoManager::SetLayerName       = "";
+QString UndoManager::FlowLayer          = "";
+QString UndoManager::DisableFlowLayer   = "";
+QString UndoManager::SetLayerBlendMode  = "";
+QString UndoManager::SetLayerTransparency="";
+QString UndoManager::SetLayerLocked     = "";
+QString UndoManager::SetLayerUnlocked   = "";
 QString UndoManager::GetImage           = "";
 QString UndoManager::ChangeFormula      = "";
+QString UndoManager::Duplicate          = "";
 QString UndoManager::MultipleDuplicate  = "";
 QString UndoManager::ApplyTextStyle     = "";
+QString UndoManager::RemoveTextStyle    = "";
 QString UndoManager::MenuUndo           = "";
 QString UndoManager::MenuUndoEmpty      = "";
 QString UndoManager::MenuRedo           = "";
 QString UndoManager::MenuRedoEmpty      = "";
 QString UndoManager::EditContour        = "";
+QString UndoManager::Columns            = "";
+QString UndoManager::ColumnsGap         = "";
 QString UndoManager::ResetControlPoint  = "";
 QString UndoManager::ResetControlPoints = "";
 QString UndoManager::ImageEffects       = "";
 QString UndoManager::InsertFrame        = "";
 QString UndoManager::AdjustFrameToImage = "";
 QString UndoManager::RemoveAllGuides    = "";
-QString UndoManager::RemoveAllPageGuides = "";
+QString UndoManager::RemoveAllPageGuides= "";
 QString UndoManager::Copy               = "";
 QString UndoManager::CopyPage           = "";
+QString UndoManager::ImportPage         = "";
+QString UndoManager::MovePage           = "";
+QString UndoManager::SwapPage           = "";
 QString UndoManager::ToOutlines         = "";
+QString UndoManager::LinkTextFrame      = "";
+QString UndoManager::UnlinkTextFrame    = "";
+QString UndoManager::ClearImage         = "";
+QString UndoManager::PathOperation      = "";
+QString UndoManager::ChangePageAttrs    = "";
+QString UndoManager::Transform          = "";
+QString UndoManager::WeldItems          = "";
+QString UndoManager::UnweldItems        = "";
+QString UndoManager::SoftShadow         = "";
+QString UndoManager::SoftShadowColor    = "";
+QString UndoManager::SoftShadowShade    = "";
+QString UndoManager::SoftShadowBlurRadius="";
+QString UndoManager::SoftShadowXOffset  = "";
+QString UndoManager::SoftShadowYOffset  = "";
+QString UndoManager::SoftShadowOpacity  = "";
+QString UndoManager::SoftShadowBlendMode= "";
+QString UndoManager::SoftShadowErase    = "";
+QString UndoManager::SoftShadowObjectTrans = "";
 
 /*** Icons for UndoObjects *******************************************/
-QPixmap *UndoManager::IImageFrame      = 0;
-QPixmap *UndoManager::ITextFrame       = 0;
-QPixmap *UndoManager::ILatexFrame      = 0;
-QPixmap *UndoManager::ILine            = 0;
-QPixmap *UndoManager::IPolygon         = 0;
-QPixmap *UndoManager::IPolyline        = 0;
-QPixmap *UndoManager::IPathText        = 0;
-QPixmap *UndoManager::IGroup           = 0;
-QPixmap *UndoManager::ITable           = 0;
+QPixmap *UndoManager::IImageFrame      = nullptr;
+QPixmap *UndoManager::ITextFrame       = nullptr;
+QPixmap *UndoManager::ILatexFrame      = nullptr;
+QPixmap *UndoManager::ILine            = nullptr;
+QPixmap *UndoManager::IPolygon         = nullptr;
+QPixmap *UndoManager::IPolyline        = nullptr;
+QPixmap *UndoManager::IPathText        = nullptr;
+QPixmap *UndoManager::IGroup           = nullptr;
+QPixmap *UndoManager::ITable           = nullptr;
 /*** Icons for actions ***********************************************/
-QPixmap *UndoManager::IMove            = 0;
-QPixmap *UndoManager::IResize          = 0;
-QPixmap *UndoManager::IRotate          = 0;
-QPixmap *UndoManager::IGuides          = 0;
-QPixmap *UndoManager::ILockGuides      = 0;
-QPixmap *UndoManager::IAlignDistribute = 0;
-QPixmap *UndoManager::IFill            = 0;
-QPixmap *UndoManager::IShade           = 0;
-QPixmap *UndoManager::IFlipH           = 0;
-QPixmap *UndoManager::IFlipV           = 0;
-QPixmap *UndoManager::ILock            = 0;
-QPixmap *UndoManager::IUnLock          = 0;
-QPixmap *UndoManager::IEnablePrint     = 0;
-QPixmap *UndoManager::IDisablePrint    = 0;
-QPixmap *UndoManager::IDelete          = 0;
-QPixmap *UndoManager::ICreate          = 0;
-QPixmap *UndoManager::IPaste           = 0;
-QPixmap *UndoManager::ICut             = 0;
-QPixmap *UndoManager::ITransparency    = 0;
-QPixmap *UndoManager::ILineStyle       = 0;
-QPixmap *UndoManager::IArrow           = 0;
-QPixmap *UndoManager::IFont            = 0;
-QPixmap *UndoManager::ISVG             = 0;
-QPixmap *UndoManager::IEPS             = 0;
-QPixmap *UndoManager::IAI              = 0;
-QPixmap *UndoManager::IXFIG            = 0;
-QPixmap *UndoManager::IWMF             = 0;
-QPixmap *UndoManager::IImportOOoDraw   = 0;
-QPixmap *UndoManager::IImageScaling    = 0;
-QPixmap *UndoManager::IBorder          = 0;
-QPixmap *UndoManager::IDocument        = 0;
-QPixmap *UndoManager::ILayer           = 0;
-QPixmap *UndoManager::ILayerAction     = 0;
-QPixmap *UndoManager::IUp              = 0;
-QPixmap *UndoManager::IDown            = 0;
-QPixmap *UndoManager::IPrint           = 0;
-QPixmap *UndoManager::IGetImage        = 0;
-QPixmap *UndoManager::IChangeFormula   = 0;
-QPixmap *UndoManager::IMultipleDuplicate = 0;
+QPixmap *UndoManager::IMove            = nullptr;
+QPixmap *UndoManager::IResize          = nullptr;
+QPixmap *UndoManager::IRotate          = nullptr;
+QPixmap *UndoManager::IGuides          = nullptr;
+QPixmap *UndoManager::ILockGuides      = nullptr;
+QPixmap *UndoManager::IAlignDistribute = nullptr;
+QPixmap *UndoManager::IFill            = nullptr;
+QPixmap *UndoManager::IShade           = nullptr;
+QPixmap *UndoManager::IFlipH           = nullptr;
+QPixmap *UndoManager::IFlipV           = nullptr;
+QPixmap *UndoManager::ILock            = nullptr;
+QPixmap *UndoManager::IUnLock          = nullptr;
+QPixmap *UndoManager::IEnablePrint     = nullptr;
+QPixmap *UndoManager::IDisablePrint    = nullptr;
+QPixmap *UndoManager::IDelete          = nullptr;
+QPixmap *UndoManager::ICreate          = nullptr;
+QPixmap *UndoManager::IPaste           = nullptr;
+QPixmap *UndoManager::ICut             = nullptr;
+QPixmap *UndoManager::ITransparency    = nullptr;
+QPixmap *UndoManager::ILineStyle       = nullptr;
+QPixmap *UndoManager::IArrow           = nullptr;
+QPixmap *UndoManager::IFont            = nullptr;
+QPixmap *UndoManager::ISVG             = nullptr;
+QPixmap *UndoManager::IUniconv         = nullptr;
+QPixmap *UndoManager::IAI              = nullptr;
+QPixmap *UndoManager::IEPS             = nullptr;
+QPixmap *UndoManager::IImportOOoDraw   = nullptr;
+QPixmap *UndoManager::IWMF             = nullptr;
+QPixmap *UndoManager::IXFIG            = nullptr;
+QPixmap *UndoManager::IImageScaling    = nullptr;
+QPixmap *UndoManager::IBorder          = nullptr;
+QPixmap *UndoManager::IDocument        = nullptr;
+QPixmap *UndoManager::ILayer           = nullptr;
+QPixmap *UndoManager::ILayerAction     = nullptr;
+QPixmap *UndoManager::IUp              = nullptr;
+QPixmap *UndoManager::IDown            = nullptr;
+QPixmap *UndoManager::IPrint           = nullptr;
+QPixmap *UndoManager::IGetImage        = nullptr;
+QPixmap *UndoManager::IChangeFormula   = nullptr;
+QPixmap *UndoManager::IMultipleDuplicate = nullptr;
 
 
 

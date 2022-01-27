@@ -6,25 +6,28 @@ for which a new license (GPL+exception) is in place.
 */
 #include "tffilter.h"
 
-#include <QHBoxLayout>
-#include <QFrame>
-#include <QPixmap>
-#include <QLabel>
-#include <QVBoxLayout>
 #include <QBoxLayout>
+#include <QCheckBox>
 #include <QComboBox>
+#include <QFrame>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPixmap>
 #include <QPushButton>
 #include <QToolTip>
-#include <QCheckBox>
+#include <QVBoxLayout>
+
 #include "scribusapi.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util.h"
 
 tfFilter::tfFilter(QWidget *parent, const char *name,
-                   int action, QString regExp, QString replace, QString pstyleName,
+				   int action, const QString& regExp, const QString& replace, const QString& pstyleName,
                    int less, int more, int style, bool match, bool enabled, bool regexp)
                    : QWidget(parent)
 {
@@ -40,7 +43,7 @@ tfFilter::tfFilter(QWidget *parent, const char *name,
 		fourthCombo->setCurrentIndex(style);
 		if (style == STARTS_WITH)
 		{
-			setCurrentComboItem(fifthCombo, regExp);
+			fifthCombo->setEditText(regExp);
 			fifthRegexpCheck->setChecked(regexp);
 			if (match)
 				sixthCombo->setCurrentIndex(0);
@@ -50,24 +53,24 @@ tfFilter::tfFilter(QWidget *parent, const char *name,
 		else if (style == LESS_THAN)
 		{
 			if (less > 0)
-				setCurrentComboItem(fifthCombo, QString("%1").arg(less));
+				fifthCombo->setEditText(QString("%1").arg(less));
 		}
 		else if (style == MORE_THAN)
 		{
 			if (more > 0)
-				setCurrentComboItem(fifthCombo, QString("%1").arg(more));
+				fifthCombo->setEditText(QString("%1").arg(more));
 		}
 	}
 	else if (action == REMOVE) 
 	{
-		setCurrentComboItem(secondCombo, regExp);
+		secondCombo->setEditText(regExp);
 		secondRegexpCheck->setChecked(regexp);
 	}
 	else if (action == REPLACE)
 	{
-		setCurrentComboItem(secondCombo, regExp);
+		secondCombo->setEditText(regExp);
 		secondRegexpCheck->setChecked(regexp);
-		setCurrentComboItem(thirdCombo, replace);
+		thirdCombo->setEditText(replace);
 	}
 	enableCheck->setChecked(enabled);
 	enableToggled(enabled);
@@ -81,49 +84,48 @@ tfFilter::tfFilter(QWidget *parent, const char *name) : QWidget(parent)
 
 void tfFilter::createWidget()
 {
-	firstCombo = NULL;
-	firstLabel = NULL;
-	secondCombo = NULL;
-	secondLabel = NULL;
-	thirdCombo = NULL;
-	thirdLabel = NULL;
-	fourthCombo = NULL;
-	fourthLabel = NULL;
-	fifthCombo = NULL;
-	fifthLabel = NULL;
-	sixthCombo = NULL;
-	secondRegexpCheck = NULL;
-// 	thirdRegexpCheck = NULL;
-	fifthRegexpCheck = NULL;
+	firstCombo = nullptr;
+	firstLabel = nullptr;
+	secondCombo = nullptr;
+	secondLabel = nullptr;
+	thirdCombo = nullptr;
+	thirdLabel = nullptr;
+	fourthCombo = nullptr;
+	fourthLabel = nullptr;
+	fifthCombo = nullptr;
+	fifthLabel = nullptr;
+	sixthCombo = nullptr;
+	secondRegexpCheck = nullptr;
+// 	thirdRegexpCheck = nullptr;
+	fifthRegexpCheck = nullptr;
 
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("TextFilter");
 	history = prefs->getTable("history");
 
 	QHBoxLayout *layout = new QHBoxLayout(this);
-	layout->setMargin(0);
-	layout->setSpacing(0);
+	layout->setContentsMargins(0, 0, 0, 0);
+	layout->setSpacing(6);
 
 	enableCheck = new QCheckBox(this);
-	enableCheck->setMaximumSize(QSize(25,25));
 	enableCheck->setMinimumSize(QSize(25,25));
 	enableCheck->setChecked(true);
 	enableCheck->setToolTip( tr("Disable or enable this filter row"));
-	layout->addWidget(enableCheck);
+	layout->addWidget(enableCheck, 0, Qt::AlignTop);
 
 	actionFrame = new QFrame(this);
-	layout->addWidget(actionFrame);
+	layout->addWidget(actionFrame, 0, Qt::AlignTop);
 
 	QBoxLayout* layout2 = new QVBoxLayout(actionFrame);
-	layout2->setMargin(0);
-	layout2->setSpacing(0);
+	layout2->setContentsMargins(0, 0, 0, 0);
+	layout2->setSpacing(6);
 	alayout = new QHBoxLayout();
-	alayout->setMargin(0);
-	alayout->setSpacing(0);
+	alayout->setContentsMargins(0, 0, 0, 0);
+	alayout->setSpacing(6);
 	layout2->addLayout(alayout);
 	layout2->addSpacing(4);
 	blayout = new QHBoxLayout();
-	blayout->setSpacing(0);
-	blayout->setMargin(0);
+	blayout->setSpacing(6);
+	blayout->setContentsMargins(0, 0, 0, 0);
 	layout2->addLayout(blayout);
 
 	currentAction = REMOVE;
@@ -132,16 +134,16 @@ void tfFilter::createWidget()
 // 	layout->addStretch(10);
 
 	layout->addSpacing(20);
-	removeButton = new QPushButton(loadIcon("22/list-remove.png"), 0, this);
+	removeButton = new QPushButton(IconManager::instance().loadIcon("22/list-remove.png"), nullptr, this);
 	removeButton->setToolTip( tr("Remove this filter row"));
 	removeButton->setMaximumSize(QSize(25,25));
 	removeButton->setMinimumSize(QSize(25,25));
-	layout->addWidget(removeButton);
-	addButton = new QPushButton(loadIcon("22/list-add.png"), 0, this);
+	layout->addWidget(removeButton, 0, Qt::AlignTop);
+	addButton = new QPushButton(IconManager::instance().loadIcon("22/list-add.png"), nullptr, this);
 	addButton->setToolTip( tr("Add a new filter row"));
 	addButton->setMaximumSize(QSize(25,25));
 	addButton->setMinimumSize(QSize(25,25));
-	layout->addWidget(addButton);
+	layout->addWidget(addButton, 0, Qt::AlignTop);
 
 	connect(enableCheck, SIGNAL(toggled(bool)), this, SLOT(enableToggled(bool)));
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addClick()));
@@ -172,6 +174,7 @@ void tfFilter::firstChanged(int index)
 {
 	currentAction = index;
 	getSecondCombo();
+	emit actionChanged(this);
 }
 
 void tfFilter::secondChanged(int)
@@ -544,8 +547,7 @@ int tfFilter::getLessThan()
 	int i = text.toInt(&ok);
 	if (ok)
 		return i;
-	else
-		return -1;
+	return -1;
 }
 
 int tfFilter::getStyle()

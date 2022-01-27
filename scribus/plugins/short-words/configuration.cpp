@@ -4,11 +4,11 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-/* This is the Scribus Short Words configuratin implementation.
+/* This is the Scribus Short Words configuration implementation.
 There will be interface for the future Scribus central plugin
 config center. maybe :)
 
-This code is based on the Scribus-Vlna plug in rewritten for
+This code is based on the Scribus-Vlna plugin rewritten for
 international use.
 
 2004 Petr Vanek <petr@yarpen.cz>
@@ -34,12 +34,12 @@ or documentation
 
 SWConfig::SWConfig()
 {
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("short-words");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("short-words");
 	action = prefs->getUInt("action", 0);
 	//userConfig = prefs->getUInt("userConfig", 0);
 	//editor = prefs->get("editor", "");
 	useStyle = prefs->getBool("useStyle", true);
-	currentLanguage = prefs->getInt("currentLanguage", 0);
+	currentLanguage = prefs->get("currentLanguage", "en");
 }
 
 void SWConfig::saveConfig()
@@ -51,30 +51,30 @@ void SWConfig::saveConfig()
 	prefs->set("currentLanguage", currentLanguage);
 }
 
-QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
+QStringList SWConfig::getShortWordsFromFile(const QString& lang, const QString& filename)
 {
-	// all shorts for one language
-	QString shorts = "";
-	// one line in cfg. file
-	QString aRow;
-	// cfg (doesn't) exists for the selected language indicator
-	bool success = false;
 	// path to the cfg. file
-	QFile f;
-
-	f.setFileName(filename);
+	QFile f(filename);
 	if (!f.exists())
 	{
 		qDebug("Short Words config file not found");
 		return QStringList();
 	}
+
+	// all shorts for one language
+	QString shorts;
+	// one line in cfg. file
+	QString aRow;
+	// cfg (doesn't) exists for the selected language indicator
+	bool success = false;
+
 	if (f.open(QIODevice::ReadOnly))
 	{
 		QTextStream t(&f);
 		while (!t.atEnd())
 		{
 			aRow = t.readLine();
-			if (aRow.left(2) == lang)
+			if (aRow.left(2) == lang.left(2))
 			{
 				success = true;
 				shorts += aRow.remove(0, 3);
@@ -83,53 +83,38 @@ QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
 		f.close();
 	}
 	if (success)
-		return shorts.split(",", QString::SkipEmptyParts);
+		return shorts.split(",", Qt::SkipEmptyParts);
 	return QStringList();
 }
 
-QStringList SWConfig::getShortWords(QString lang)
+QStringList SWConfig::getShortWords(const QString& lang)
 {
-	//QStringList allShorts;
 	if (QFile::exists(RC_PATH_USR))
 		return getShortWordsFromFile(lang, RC_PATH_USR);
 	return getShortWordsFromFile(lang, RC_PATH);
-	/*if (userConfig && QFile::exists(RC_PATH_USR))
-		return getShortWordsFromFile(lang, RC_PATH_USR);
-	if (!userConfig && QFile::exists(RC_PATH_USR))
-		allShorts = getShortWordsFromFile(lang, RC_PATH_USR);
-	return allShorts + getShortWordsFromFile(lang, RC_PATH);*/
 }
 
-QStringList SWConfig::getAvailableLanguagesFromFile(QString filename)
+QStringList SWConfig::getAvailableLanguageCodes(const QString& filename)
 {
-	QStringList langs;
-	QStringList nations;
-	QString aRow;
-
 	QFile f(filename);
-	if (f.open(QIODevice::ReadOnly))
-	{
-		QTextStream t(&f);
-		while (!t.atEnd())
-		{
-			aRow = t.readLine();
-			if (aRow.left(1) != "#" && aRow.length() != 0 && aRow.left(1) != " " && !langs.contains(aRow.left(2)))
-			{
-				nations.append(getLangFromCode(aRow.left(2)));
-				langs.append(aRow.left(2));
-			}
-		}
-		f.close();
-	}
-	else
-	{
+	if (!f.open(QIODevice::ReadOnly))
 		return QStringList();
+
+	QTextStream t(&f);
+	QStringList nations;
+	QString aRow, code;
+	while (!t.atEnd())
+	{
+		aRow = t.readLine();
+		code = aRow.left(2);
+		if (aRow.left(1) != "#" && aRow.length() != 0 && aRow.left(1) != " " && !nations.contains(code))
+		{
+			nations.append(code);
+		}
 	}
-// 	if (filename == RC_PATH_USR)
-// 		return QObject::tr("Custom (optional) configuration: ", "short words plugin") + " " + nations.join(", ");
-// 	if (filename == RC_PATH)
-// 		return QObject::tr("Standard configuration: ", "short words plugin") + " " + nations.join(", ");
-	return nations; //.join(", "); // save return only
+	f.close();
+
+	return nations;
 }
 
 QStringList SWConfig::getAvailableLanguagesList()
@@ -137,36 +122,38 @@ QStringList SWConfig::getAvailableLanguagesList()
 	QStringList allConfig;
 	
 	if (QFile::exists(RC_PATH_USR))
-		allConfig << getAvailableLanguagesFromFile(RC_PATH_USR);
+		allConfig = getAvailableLanguageCodes(RC_PATH_USR);
 	else
-		allConfig << getAvailableLanguagesFromFile(RC_PATH);
+		allConfig = getAvailableLanguageCodes(RC_PATH);
 	return allConfig;
 }
 
 QString SWConfig::getAvailableLanguages()
 {
-	QStringList allConfig;
+	QStringList allCodes, allConfig;
+	allCodes = getAvailableLanguageCodes(RC_PATH);
 	allConfig << QObject::tr("Standard configuration: ", "short words plugin") << "<p>";
-	allConfig << getAvailableLanguagesFromFile(RC_PATH).join(", ");
+	allConfig << getLanguageStringsFromCodes(allCodes).join(", ");
 	if (QFile::exists(RC_PATH_USR))
 	{
+		allCodes = getAvailableLanguageCodes(RC_PATH_USR);
 		allConfig << "<p>" << QObject::tr("Custom (optional) configuration: ", "short words plugin") << "<p>";
-		allConfig << getAvailableLanguagesFromFile(RC_PATH_USR).join(", ");
+		allConfig << getLanguageStringsFromCodes(allCodes).join(", ");
 	}
-	return  allConfig.join("");
+	return allConfig.join("");
 }
 
-QString SWConfig::getLangCodeFromHyph(QString hyphenCode)
+QStringList SWConfig::getLanguageStringsFromCodes(const QStringList& codes)
 {
-	hyphenCode.remove(0, 5);
-	return hyphenCode.remove(2, 10);
-}
+	QStringList languages;
 
-QString SWConfig::getLangFromCode(QString code)
-{
-	QMap<QString,QString>::Iterator it;
-	QString lang;
-// 	LanguageManager langmgr;
-// 	langmgr.init(false);
-	return LanguageManager::instance()->getLangFromAbbrev(code, true);
+	for (int i = 0; i < codes.count(); ++i)
+	{
+		const QString& code = codes.at(i);
+		QString lang = LanguageManager::instance()->getLangFromAbbrev(code, true);
+		if (lang.length() > 0)
+			languages.append(lang);
+	}
+
+	return languages;
 }

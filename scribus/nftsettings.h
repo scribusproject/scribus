@@ -12,28 +12,28 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 #include <vector>
-#include <QString>
+
 #include <QDir>
 #include <QFile>
+#include <QString>
+
 #include "nfttemplate.h"
 #include "nftrcreader.h"
  
-class nftsettings {
+class nftsettings
+{
 private:
-	QString scribusShare;
-	QString scribusUserHome;
-	QString userTemplateDir;
-	QString nftHomeDir;
 	QString lang;
-	nftrcreader* handler;
-	QXmlSimpleReader* reader;
+
 	void read();
-	void addTemplates(QString dir);
-	QString findTemplateXml(QString dir);
+	void addTemplates(nftrcreader& reader, const QString& dir);
+	QString findTemplateXml(const QString& dir);
+
 public:
-	std::vector<nfttemplate*> templates;
-	nftsettings(QString guilang, QString templateDir);
+	nftsettings(const QString& guilang);
 	~nftsettings();
+
+	std::vector<nfttemplate*> templates;
 };
 
 #endif // NFTSETTINGS_H

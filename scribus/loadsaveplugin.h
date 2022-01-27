@@ -18,11 +18,10 @@ for which a new license (GPL+exception) is in place.
 
 class FileFormat;
 //TODO REmove includes one day
-//class ScribusDoc;
-//class ScribusView;
+class ScribusView;
 #include "scfonts.h"
 #include "scribusdoc.h"
-#include "scribusview.h"
+#include "undomanager.h"
 
 /*!
  * @brief Superclass for all file import/export/load/save plugins
@@ -42,35 +41,58 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 
 		enum loadFlags
 		{
-			lfCreateDoc = 1,
-			lfUseCurrentPage = 2,
-			lfInsertPage = 4,
-			lfInteractive = 8,
-			lfScripted = 16
+			lfCreateDoc       =   1,
+			lfUseCurrentPage  =   2,
+			lfInsertPage      =   4,
+			lfInteractive     =   8,
+			lfScripted        =  16,
+			lfKeepColors      =  32,
+			lfKeepGradients   =  64,
+			lfKeepPatterns    = 128,
+			lfCreateThumbnail = 256,
+			lfLoadAsPattern   = 512,
+			lfNoDialogs       = 1024
 		};
 
 		// Static functions:
 
+		// Return a list of file extensions
+		static QStringList getExtensionsForColors(const int id = 47);
+		// Return a list of file extensions
+		static QStringList getExtensionsForImport(const int id = 47);
+		// Return a list of file extensions
+		static QStringList getExtensionsForPreview(const int id = 47);
+
 		// Return a list of format descriptions suitable for use with
 		// QFileDialog.  You can convert it to QString form with
 		// fileDialogSaveFilter().join(";;")
-		static const QStringList fileDialogLoadFilter();
+		static QStringList fileDialogLoadFilter();
 
 		// Same deal but for save
-		static const QStringList fileDialogSaveFilter();
+		static QStringList fileDialogSaveFilter();
 
 		// Get the highest priority format of a given id, or 0 if
 		// not found / not available.
 		static const FileFormat * getFormatById(const int id);
+		static FileFormat * getFormatByID(int id);
+		static FileFormat* getFormatByExt(const QString& ext);
 
+		virtual bool loadElements(const QString& data, const QString&, int, double, double, bool);
 		// Non-static members implemented by plugins:
 		//
 		// Load the requested format from the specified path.
 		// Default implementation always reports failure.
 		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
+		virtual bool loadPalette(const QString & fileName);
 
 		// Save the requested format to the requested path.
 		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
+		virtual bool savePalette(const QString & fileName);
+		virtual QString saveElements(double, double, double, double, Selection*, QByteArray &prevData);
+
+		// Save requested item story
+		virtual bool loadStory(const QByteArray& data, StoryText& story, PageItem* item);
+		virtual bool saveStory(StoryText& story, PageItem* item, QByteArray& data);
 
 		// Return last file saved, this may be the last fileName argument passed to saveFile(),
 		// a temporary file name or an empty string if last call to saveFile() could not create
@@ -82,42 +104,56 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// It need not verify a file, just confirm that it looks like a supported
 		// file type (eg "XML doc with root element SCRIBUSXML and version 1.3.1").
 		// All plugins must implement this method.
-		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const = 0;
-		
+		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString()) const = 0;
+
+		// Examine if the passed palette data to see whether it appears to be loadable with this plugin
+		virtual bool paletteSupported(QIODevice* file, const QString & fileName=QString()) const { return false; }
+
+		// Examine if the passed story data to see whether it appears to be loadable with this plugin
+		virtual bool storySupported(const QByteArray& storyData) const { return false; }
+
 		// Return a list of all formats supported by all currently loaded and
 		// active plugins. This list is sorted in a very specific order:
 		// First, by descending order of `id', then descending order of priority.
 		static const QList<FileFormat> & supportedFormats();
-		
+
 		virtual void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts);
 		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);
-		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null);
+		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString());
 		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
 		virtual bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
-		virtual bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
+		virtual bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty);
 		virtual bool readColors(const QString& fileName, ColorList & colors);
 		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
-		
+		virtual QImage readThumbnail(const QString& fileName);
+
 	protected:
 
 		/// Check a loadFlags combination
 		virtual bool checkFlags(int flags);
 
 		/// Register the passed format so it can be used by the app
-		void registerFormat(const FileFormat & fmt);
+		void registerFormat(FileFormat & fmt);
 
 		/// Unregister the format with format ID `id' that references by the calling plugin.
 		void unregisterFormat(unsigned int id);
 
 		/// Unregister all formats owned by the calling plugin
 		void unregisterAll();
-		
-		ScribusDoc*        m_Doc;
-		ScribusView*       m_View; //For 1.2.x loader at the moment
-		ScribusMainWindow* m_ScMW; //For plugins when required
-		QProgressBar*      m_mwProgressBar;
-		SCFonts*           m_AvailableFonts;
+
+		// Set standard message for file read errors
+		virtual void setFileReadError();
+
+		// Set standard message for dom style errors with line and column
+		virtual void setDomParsingError(const QString& msg, int line, int column);
+
+		ScribusDoc*        m_Doc { nullptr };
+		ScribusView*       m_View { nullptr }; //For 1.2.x loader at the moment
+		ScribusMainWindow* m_ScMW { nullptr }; //For plugins when required
+		QProgressBar*      m_mwProgressBar { nullptr };
+		SCFonts*           m_AvailableFonts { nullptr };
 		QString            m_lastSavedFile;
+		UndoManager * const undoManager { nullptr };
 
 	private:
 		// A list of all supported formats. This is maintained by plugins
@@ -127,7 +163,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		static QList<FileFormat> formats;
 
 		// Return an iterator referencing the first format structure named `name'.
-		// If specified, only return formats implmented by `plug'.
+		// If specified, only return formats implemented by `plug'.
 		// If `start' is specified, start searching at this iterator rather than the
 		// start of the list.
 		// The end iterator is returned if no match was found.
@@ -138,7 +174,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		static QList<FileFormat>::iterator findFormat(unsigned int id,
 				LoadSavePlugin* plug = 0,
 				QList<FileFormat>::iterator it = formats.begin());
-				
+
 		static QList<FileFormat>::iterator findFormat(const QString& extension,
 				LoadSavePlugin* plug = 0,
 				QList<FileFormat>::iterator it = formats.begin());
@@ -166,24 +202,38 @@ class SCRIBUS_API FileFormat
 {
 	public:
 		// Default ctor to make QValueList happy
-		FileFormat() : load(false), save(false), plug(0) {}
+		FileFormat();
 		// Standard ctor that sets up a valid FileFormat
-		FileFormat(LoadSavePlugin * plug) : load(false), save(false), plug(plug) {}
+		FileFormat(LoadSavePlugin * plug);
+
+		bool loadElements(const QString & data, const QString& fileDir, int toLayer, double Xp_in, double Yp_in, bool loc) const;
+
 		// Load a file with this format
 		bool loadFile(const QString & fileName, int flags, int index = 0) const;
+		bool loadPalette(const QString & fileName) const;
+
 		// Save a file with this format
 		bool saveFile(const QString & fileName) const;
+		bool savePalette(const QString & fileName) const;
+		QString saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData) const;
+
+		// Save item story with this format
+		bool loadStory(const QByteArray& data, StoryText& story, PageItem* item) const;
+		bool saveStory(StoryText& story, PageItem* item, QByteArray& data) const;
+
 		// Get last saved file
-		QString lastSavedFile(void) const;
-		
+		QString lastSavedFile() const;
+
 		void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const;
 		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces) const;
-		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null) const;
+		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString()) const;
 		bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) const;
 		bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles) const;
-		bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty) const;
+		bool readLineStyles(const QString& fileName, QHash<QString,multiLine> *Sty) const;
 		bool readColors(const QString& fileName, ColorList & colors) const;
 		bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames) const;
+		QImage readThumbnail(const QString& fileName) const;
+
 		//
 		// Data members
 		//
@@ -194,31 +244,38 @@ class SCRIBUS_API FileFormat
 		// priorities to control what order they're tried in when a user
 		// tries to open a file).
 		// Note that dialog box options are sorted in descending `id' order.
-		uint formatId;
+		uint formatId { 0 };
 		// The human-readable, translated name of this file format.
 		QString trName;
 		// A filter in the format used by QFileDialog that should be used to
 		// select for this format.
 		QString filter;
 		// Regexp to match filenames for this format
-		QRegExp nameMatch;
+	//	QRegExp nameMatch;
 		// MIME type(s) that should be matched by this format.
 		QStringList mimeTypes;
+		// Extension list supported by format
+		QStringList fileExtensions;
 		// Can we load it?
-		bool load;
+		bool load { false };
 		// Can we save it?
-		bool save;
+		bool save { false };
+		// Do we support thumbnails
+		bool thumb { false };
+		// Can we load colors?
+		bool colorReading { false };
+		//Native Scribus format (for putting at the top of the file loader lists)
+		bool nativeScribus { false };
 		// Priority of this format from 0 (lowest, tried last) to
 		// 255 (highest, tried first). 64-128 recommended in general.
 		// Priority controls the order options are displayed in when a file
 		// of a given type is selected in a dialog, and controls the order
 		// loaders are tried in when multiple plugins support the same file
 		// type.
-		unsigned short int priority;
+		unsigned short int priority { 0 };
 		// For convenience, a pointer back to the plugin to use to open
 		// this format.
-		LoadSavePlugin * plug;
-//		LoadSavePlugin * const plug;
+		LoadSavePlugin * plug { nullptr };
 };
 
 

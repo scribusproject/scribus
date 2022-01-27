@@ -9,11 +9,33 @@ for which a new license (GPL+exception) is in place.
 
 PDFOptions::VerifyResults PDFOptions::verify()
 {
-	return verify(static_cast<QString*>(NULL));
+	return verify(static_cast<QString*>(nullptr));
 }
 
 PDFOptions::VerifyResults PDFOptions::verify(QString* /*problemDescription*/)
 {
 	// TODO: implement this method
 	return Verify_NoError;
+}
+
+bool PDFOptions::exportsLayers() const
+{
+	if (Version.supportsOCGs())
+		return useLayers;
+	return false;
+}
+
+bool PDFOptions::supportsEmbeddedOpenTypeFonts() const
+{
+	return Version.supportsEmbeddedOpenTypeFonts();
+}
+
+bool PDFOptions::supportsOCGs() const
+{
+	return Version.supportsOCGs();
+}
+
+bool PDFOptions::supportsTransparency() const
+{
+	return Version.supportsTransparency();
 }

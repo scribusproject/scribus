@@ -1,0 +1,61 @@
+<html dir="ltr">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Примечания по импорту HTML в Scribus</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Примечания по импорту HTML в Scribus</h2>
+
+<p>В Scribus имеется модуль импорта HTML, который может импортировать чистый, правильно формированный HTML-код и сохранять большую часть разметки и форматирования, при условии, что форматирование или стиль взято из простой <strong>разметки HTML</strong>, а не из таблиц стилей CSS. Поддержка CSS будет добавлена в будущем.</p>
+<h4>Итак, в каком именно виде поддерживается HTML и как всё это работает?</h4>
+<p>При импорте модуль импорта создаст стили абзацев, соответствующие разметке HTML. Полужирный, курсивный и моноширинный текст и выравнивание также поддерживаются. Ниже приведён список поддерживаемых видов HTML-разметки — как верхний, так и нижний регистр тегов. </p>
+<ul>
+<li>body, div, a — Текст должен находиться между тегами &lt;body&gt;.</li>
+<li>p и br — Соответствуют разрыву абзаца и строки.</li>
+<li>H1-H4 — Соответствует размеру заголовков (от 1 до 4).</li>
+<li>ol, ul, li — Соответствуют упорядоченным или неупорядоченным спискам.</li>
+<li>pre и code — Соответствуют предварительно отформатированному тексту и фрагментам исходного кода. Они будут преобразованы в текст при помощи моноширинного шрифта Courier.</li>
+<li>Сетевые ссылки преобразуются в текст с выделением их синим цветом, аналогично тому, как это происходит в большинстве веб-браузеров по умолчанию.</li>
+<li>b, u, i, em, strong, sub, sup, del, u — Теги форматирования текста, преобразующие стиль текста соответствующим образом. Обратите внимание на то, что ваш шрифт по умолчанию в Scribus должен содержать все эти варианты стилей. </li>
+</ul>
+<p>Итак, приведённый ниже фрагмент HTML-кода создаст стили абзацев в Scribus.</p>
+<pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
+&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;H1 Text&lt;/h1&gt;
+&lt;h2&gt;H2 Text&lt;/h2&gt;
+&lt;h3&gt;H3 Text&lt;/h3&gt;
+&lt;h4&gt;H4 Text&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Ordered List Item 1  &lt;/li&gt;
+&lt;li&gt;Ordered List Item 2  &lt;/li&gt;
+ &lt;/ol&gt;
+ &lt;ul&gt;
+&lt;li&gt;Un-Ordered List Item 1  &lt;/li&gt;
+ &lt;li&gt;Un-Ordered List Item 2  &lt;/li&gt;
+ &lt;/ul&gt;
+ &lt;code&gt;code listings&lt;/code&gt;
+ &lt;p&gt;&lt;b&gt;Bold Paragraph Style&lt;/b&gt;&lt;/p&gt;
+ &lt;p&gt;&lt;i&gt;Italic Paragraph Style&lt;/i&gt;&lt;/p&gt;
+ &lt;p align=&quot;center&quot;&gt;Centered Text&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p>Ниже показаны стили, импортированные из вышеупомянутого файла. </p>
+<table width="100%"><tr><td align="center"><img src="images/htmlstyle.png" alt="Стили HTML, импортированные в Scribus" title="Стили HTML, импортированные в Scribus "></td></tr></table>
+<p>Ниже приведен импортированный текст, отображаемый на холсте:</p>
+<table width="100%"><tr><td align="center"><img src="images/htmlimport.png" alt="Разметка HTML, импортированная в Scribus" title="Разметка HTML, импортированная в Scribus "></td></tr></table>
+<p>Не все приложения экспортируют HTML с точным соответствием спецификациям W3C. Вы можете использовать программу HTML Tidy для улучшения внешнего вида и исправления HTML-текста, который вам необходимо импортировать. Узнать подробнее можно здесь: <a href=" http://w3c.org"> http://w3c.org</a> <hr> <p>Смотрите также:</p> <ul>
+<li><a href="WwStyles.html">Работа со стилями</a></li>
+</ul> </p>
+</body>
+</html>

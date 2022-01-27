@@ -1,0 +1,94 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Creating and Destroying Objects</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Commands for Images &amp; Vectors</h2>
+
+<dl>
+<dt><a name="-createImage"><strong>createImage</strong></a>(...)</dt>
+<dd><code>createImage(x, y, width, height, ["name"]) -&gt; string</code>
+<p>Creates a new image frame on the current page and returns its name. The coordinates are given in the current measurement units of the document. "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</p></dd>
+
+<dt><a name="-deleteObject"><strong>deleteObject</strong></a>(...)</dt>
+<dd><code>deleteObject(["name"])</code>
+<p>Deletes the item with the name "name". If "name" is not given the currently selected item is deleted.</p></dd>
+
+<dt><a name="-loadImage"><strong>loadImage</strong></a>(...)</dt>
+<dd><code>loadImage("filename" [, "name"])</code>
+<p>Loads the picture "picture" into the image frame "name". If "name" is not given the currently selected item is used.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd></dt>
+
+<dt><a name="-getImageFile"><strong>getImageFile</strong></a>(...)</dt>
+<dd><code>getImageFile(["name"]) -&gt; string</code>
+<p>Returns the filename for the image in the image frame. If "name" is not given the currently selected item is used.</p></dd>
+ 
+<dt><a name="-setScaleFrameToImage"><strong>setScaleFrameToImage</strong></a>(...)</dt>
+<dd><code>setScaleFrameToImage([name])</code>
+<p>Set frame size on the selected or specified image frame to image size.</p>
+<p>May raise WrongFrameTypeError.</p></dd>
+
+<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
+<dd><code>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)</code>
+<p>Sets the scale to frame on the selected or specified image frame to `scaletoframe'. If `proportional' is specified, set fixed aspect ratio scaling to `proportional'. Both `scaletoframe' and `proportional' are boolean.</p>
+<p>May raise WrongFrameTypeError.</p></dd>
+
+<dt><a name="-getImageScale"><strong>getImageScale</strong></a>(...)</dt>
+<dd><code>getImageScale(["name"]) -&gt; (x,y)</code>
+<p>Returns a (x, y) tuple containing the scaling values of the image frame "name".  If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setImageScale"><strong>setImageScale</strong></a>(...)</dt>
+<dd><code>setImageScale(x, y [, "name"])</code>
+<p>Sets the scaling factors of the picture in the image frame "name". If "name" is not given the currently selected item is used. A number of 1 means 100 %. Scaling factors are equal to the values shown on properties palette.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd>
+
+<dt><a name="-getImageOffset"><strong>getImageOffset</strong></a>(...)</dt>
+<dd><code>getImageOffset(["name"]) -&gt; (x,y)</code>
+<p>Returns a (x, y) tuple containing the offset values in point unit of the image frame "name".  If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setImageOffset"><strong>setImageOffset</strong></a>(...)</dt>
+<dd><code>setImageOffset(x, y [, "name"])</code>
+<p>Sets the position of the picture in the image frame "name". If "name" is not given the currently selected item is used. The specified offset values are equal to the values shown on properties palette when point unit is used.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd>
+
+<dt><a name="-placeEPS"><strong>placeEPS</strong>(...)</a></dt>
+<dd><code></code>
+<p>placeEPS("filename", x, y) Places the EPS "filename" onto the current
+page, x and y specify the coordinate of the topleft corner of the EPS
+placed on the page If loading was successful, the selection contains
+the imported EPS</p></dd>
+
+<dt><a name="-placeODG"><strong>placeODG</strong>(...)</a></dt>
+<dd><code></code>
+<p>placeODG("filename", x, y) Places the ODG "filename" onto the current
+page, x and y specify the coordinate of the topleft corner of the ODG
+placed on the page If loading was successful, the selection contains
+the imported ODG</p></dd>
+
+<dt><a name="-placeSVG"><strong>placeSVG</strong>(...)</a></dt>
+<dd><code></code>
+<p>placeSVG("filename", x, y) Places the SVG "filename" onto the current
+page, x and y specify the coordinate of the topleft corner of the SVG
+placed on the page If loading was successful, the selection contains
+the imported SVG</p></dd>
+
+<dt><a name="-placeSXD"><strong>placeSXD</strong>(...)</a></dt>
+<dd><code></code>
+<p>placeSXD("filename", x, y) Places the SXD "filename" onto the current
+page, x and y specify the coordinate of the topleft corner of the SXD
+placed on the page If loading was successful, the selection contains
+the imported SXD</p></dd>
+
+<dt><a name="-savePageAsEPS"><strong>savePageAsEPS</strong></a>(...)</dt>
+<dd><code>savePageAsEPS("name")</code>
+<p>Saves the current page as an EPS to the file "name".</p>
+<p>May raise ScribusError if the save failed.</p></dd>
+
+</dl>
+</body>
+</html>

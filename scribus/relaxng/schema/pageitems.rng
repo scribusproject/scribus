@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:impl="http://www.scribus.info/RelaxNG/implementation" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="PageItemDef" impl:template="SimpleSettings" impl:name="PageItem_base" impl:datatype="PageItem">
+    <optional>
+      <attribute name="InID" impl:name="inlineCharID">
+        <data type="double"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="XPOS" impl:name="Xpos">
+        <data type="double"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="YPOS" impl:name="Ypos">
+        <data type="double"/>
+      </attribute>
+    </optional>
+    <attribute name="OwnPage" impl:name="OwnPage">
+      <data type="int"/>
+    </attribute>
+    <attribute name="ItemID" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="PTYPE" impl:name="m_ItemType" impl:getter="" impl:setter="" impl:type="ignore">
+      <data type="int"/>
+    </attribute>
+    <attribute name="WIDTH" impl:name="Width">
+      <data type="double"/>
+    </attribute>
+    <attribute name="HEIGHT" impl:name="Height">
+      <data type="double"/>
+    </attribute>
+    <optional>
+      <attribute name="RADRECT" impl:name="RadRect" impl:getter="cornerRadius" impl:setter="setCornerRadius">
+        <data type="double"/>
+      </attribute>
+    </optional>
+    <attribute name="FRTYPE" impl:name="FrameType" impl:getter="frameType" impl:setter="setFrameType">
+      <data type="int"/>
+    </attribute>
+    <attribute name="CLIPEDIT" impl:name="ClipEdited">
+      <data type="boolean"/>
+    </attribute>
+    <attribute name="GRTYP" impl:type="ignore">
+      <data type="int"/>
+    </attribute>
+    <attribute name="GRTYPS" impl:type="ignore">
+      <data type="int"/>
+    </attribute>
+    <attribute name="ROT" impl:name="Rot" impl:getter="rotation" impl:setter="">
+      <data type="double"/>
+    </attribute>
+    <attribute name="PRINTABLE">
+      <data type="int"/>
+    </attribute>
+    <attribute name="FLIPPEDH">
+      <data type="int"/>
+    </attribute>
+    <attribute name="FLIPPEDV">
+      <data type="int"/>
+    </attribute>
+    <attribute name="PWIDTH" impl:name="m_lineWidth" impl:setter="" impl:getter="">
+      <data type="double"/>
+    </attribute>
+    <attribute name="PCOLOR" impl:name="fillColorVal">
+      <data type="string"/>
+    </attribute>
+    <attribute name="SHADE" impl:name="fillShadeVal" impl:getter="fillShade" impl:setter="setFillShade">
+      <data type="double"/>
+    </attribute>
+    <attribute name="PCOLOR2" impl:name="lineColorVal">
+      <data type="string"/>
+    </attribute>
+    <attribute name="SHADE2" impl:name="lineShadeVal" impl:getter="lineShade" impl:setter="setLineShade">
+      <data type="double"/>
+    </attribute>
+    <attribute name="NAMEDLST" impl:name="NamedLStyle">
+      <data type="string"/>
+    </attribute>
+    <!-- the type is Qt::PenStyle -->
+    <attribute name="PLINEART" impl:name="PLineArt" impl:datatype="Qt::PenStyle">
+      <data type="string"/>
+    </attribute>
+    <attribute name="PLINEEND" impl:name="PLineEnd" impl:datatype="Qt::PenCapStyle">
+      <data type="string"/>
+    </attribute>
+    <attribute name="PLINEJOIN" impl:name="PLineJoin" impl:datatype="Qt::PenJoinStyle">
+      <data type="string"/>
+    </attribute>
+    <attribute name="POLYC" impl:name="polyCorners">
+      <data type="int"/>
+    </attribute>
+    <attribute name="POLYF" impl:name="polyFactor">
+      <data type="double"/>
+    </attribute>
+    <attribute name="POLYR" impl:name="polyRotation">
+      <data type="double"/>
+    </attribute>
+    <attribute name="POLYIR" impl:name="polyInnerRot">
+      <data type="double"/>
+    </attribute>
+    <attribute name="POLYCUR" impl:name="polyCurvature">
+      <data type="double"/>
+    </attribute>
+    <attribute name="POLYOCUR" impl:name="polyOuterCurvature">
+      <data type="double"/>
+    </attribute>
+    <attribute name="POLYS" impl:name="polyUseFactor">
+      <data type="int"/>
+    </attribute>
+    <attribute name="arcHeight" impl:name="arcHeight">
+      <data type="double"/>
+    </attribute>
+    <attribute name="arcWidth" impl:name="arcWidth">
+      <data type="double"/>
+    </attribute>
+    <attribute name="arcStartAngle" impl:name="arcStartAngle">
+      <data type="double"/>
+    </attribute>
+    <attribute name="arcSweepAngle" impl:name="arcSweepAngle">
+      <data type="double"/>
+    </attribute>
+    <attribute name="spiralStartAngle" impl:name="spiralStartAngle">
+      <data type="double"/>
+    </attribute>
+    <attribute name="spiralEndAngle" impl:name="spiralEndAngle">
+      <data type="double"/>
+    </attribute>
+    <attribute name="spiralFactor" impl:name="spiralFactor">
+      <data type="double"/>
+    </attribute>
+    <attribute name="TEXTFLOWMODE" impl:name="textFlowModeVal" impl:getter="textFlowMode" impl:setter="setTextFlowMode" impl:type="ignore">
+      <data type="int"/>
+    </attribute>
+    <attribute name="LOCALSCX" impl:name="LocalScX" impl:getter="imageXScale" impl:setter="setImageXScale">
+      <data type="double"/>
+    </attribute>
+    <attribute name="LOCALSCY" impl:name="LocalScY" impl:getter="imageYScale" impl:setter="setImageYScale">
+      <data type="double"/>
+    </attribute>
+    <attribute name="LOCALX" impl:name="LocalX" impl:getter="imageXOffset" impl:setter="setImageXOffset">
+      <data type="double"/>
+    </attribute>
+    <attribute name="LOCALY" impl:name="LocalY" impl:getter="imageYOffset" impl:setter="setImageYOffset">
+      <data type="double"/>
+    </attribute>
+    <attribute name="LOCALROT" impl:name="LocalRot" impl:getter="imageRotation" impl:setter="setImageRotation">
+      <data type="double"/>
+    </attribute>
+    <attribute name="PICART" impl:name="PicArt" impl:getter="imageShown" impl:setter="setImageShown">
+      <data type="boolean"/>
+    </attribute>
+    <attribute name="SCALETYPE" impl:name="ScaleType">
+      <data type="boolean"/>
+    </attribute>
+    <attribute name="RATIO" impl:name="AspectRatio">
+      <data type="boolean"/>
+    </attribute>
+    <!-- [ impl:name="LocalRot" ] -->
+    <attribute name="TXTFILL" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTSTROKE" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTSTRSH" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTFILLSH" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTSCALE" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTSCALEV" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTBASE" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTSHX" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTSHY" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTOUT" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTULP" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTULW" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTSTP" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTSTW" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TXTKERN" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="wordTrack" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="MinwordTrack" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="MinGlyphShrink" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="MaxGlyphExtend" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="OpticalMargins" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="HyphenationMode" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="leftMargin" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="rightMargin" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="firstIndent" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="LINESP" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="LINESPMode" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="KeepLinesStart" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="KeepLinesEnd" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="KeepWithNext" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="KeepTogether" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="IFONT" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="ISIZE" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="LANGUAGE" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="COLUMNS" impl:name="Cols" impl:getter="columns" impl:setter="setColumns" impl:type="ignore">
+      <data type="int"/>
+    </attribute>
+    <attribute name="COLGAP" impl:name="ColGap" impl:getter="columnGap" impl:setter="" impl:type="ignore">
+      <data type="double"/>
+    </attribute>
+    <attribute name="AUTOTEXT" impl:name="isAutoText" impl:type="ignore">
+      <data type="boolean"/>
+    </attribute>
+    <attribute name="EXTRA" impl:name="Extra" impl:type="ignore">
+      <data type="double"/>
+    </attribute>
+    <attribute name="TEXTRA" impl:name="TExtra" impl:type="ignore">
+      <data type="double"/>
+    </attribute>
+    <attribute name="BEXTRA" impl:name="BExtra" impl:type="ignore">
+      <data type="double"/>
+    </attribute>
+    <attribute name="REXTRA" impl:name="RExtra" impl:type="ignore">
+      <data type="double"/>
+    </attribute>
+    <attribute name="FLOP" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="PLTSHOW" impl:name="PoShow" impl:type="ignore">
+      <data type="boolean"/>
+    </attribute>
+    <attribute name="BASEOF" impl:name="BaseOffs" impl:type="ignore">
+      <data type="double"/>
+    </attribute>
+    <attribute name="textPathType" impl:name="textPathType" impl:type="ignore">
+      <data type="int"/>
+    </attribute>
+    <attribute name="textPathFlipped" impl:name="textPathFlipped" impl:type="ignore">
+      <data type="int"/>
+    </attribute>
+    <attribute name="Pagenumber" impl:name="actualPageNumber" impl:type="ignore">
+      <data type="int"/>
+    </attribute>
+    <attribute name="PFILE" impl:name="Pfile">
+      <data type="string"/>
+    </attribute>
+    <attribute name="PFILE2" impl:name="Pfile2">
+      <data type="string"/>
+    </attribute>
+    <attribute name="PFILE3" impl:name="Pfile3">
+      <data type="string"/>
+    </attribute>
+    <attribute name="PRFILE" impl:name="IProfile">
+      <data type="string"/>
+    </attribute>
+    <attribute name="EPROF" impl:name="EmProfile">
+      <data type="string"/>
+    </attribute>
+    <attribute name="IRENDER" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="EMBEDDED" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="COMPRESSIONMETHOD" impl:name="CompressionMethodIndex">
+      <data type="int"/>
+    </attribute>
+    <attribute name="COMPRESSIONQUALITY" impl:name="CompressionQualityIndex">
+      <data type="int"/>
+    </attribute>
+    <attribute name="LOCK">
+      <data type="int"/>
+    </attribute>
+    <attribute name="LOCKR">
+      <data type="int"/>
+    </attribute>
+    <attribute name="REVERS" impl:type="ignore">
+      <data type="string"/>
+    </attribute>
+    <attribute name="TransValue" impl:name="fillTransparencyVal" impl:getter="fillTransparency" impl:setter="setFillTransparency">
+      <data type="double"/>
+    </attribute>
+    <attribute name="TransValueS" impl:name="lineTransparencyVal" impl:getter="lineTransparency" impl:setter="setLineTransparency">
+      <data type="double"/>
+    </attribute>
+    <attribute name="TransBlend" impl:name="fillBlendmodeVal" impl:getter="fillBlendmode" impl:setter="setFillBlendmode">
+      <data type="int"/>
+    </attribute>
+    <attribute name="TransBlendS" impl:name="lineBlendmodeVal" impl:getter="lineBlendmode" impl:setter="setLineBlendmode">
+      <data type="int"/>
+    </attribute>
+    <attribute name="PoLine" impl:name="PoLine" impl:datatype="FPointArray">
+      <data type="string"/>
+    </attribute>
+    <attribute name="ContourLine" impl:name="ContourLine" impl:datatype="FPointArray">
+      <data type="string"/>
+    </attribute>
+    <attribute name="groupWidth" impl:name="groupWidth">
+      <data type="double"/>
+    </attribute>
+    <attribute name="groupHeight" impl:name="groupHeight">
+      <data type="double"/>
+    </attribute>
+    <attribute name="startArrowIndex" impl:name="m_startArrowIndex" impl:type="ignore">
+      <data type="int"/>
+    </attribute>
+    <attribute name="endArrowIndex" impl:name="m_endArrowIndex" impl:type="ignore">
+      <data type="int"/>
+    </attribute>
+    <attribute name="startArrowScale" impl:name="m_startArrowScale" impl:type="ignore">
+      <data type="int"/>
+    </attribute>
+    <attribute name="endArrowScale" impl:name="m_endArrowScale" impl:type="ignore">
+      <data type="int"/>
+    </attribute>
+    <optional>
+      <attribute name="OnMasterPage">
+        <data type="string"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="ImageClip">
+        <data type="string"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="ImageRes">
+        <data type="string"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="isInLine">
+        <data type="string"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fillRule">
+        <data type="string"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="doOverPrint">
+        <data type="string"/>
+      </attribute>
+    </optional>
+    <ref name="GDef"/>
+    <optional>
+      <attribute name="PSTYLE">
+        <data type="int"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="ALIGN">
+        <data type="int"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="LAYER" impl:name="LayerID">
+        <data type="int"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="BOOKMARK">
+        <data type="int"/>
+      </attribute>
+    </optional>
+    <optional>
+      <!-- a qhash or -1 -->
+      <attribute name="NEXTITEM">
+        <data type="int"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="BACKITEM">
+        <data type="int"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="isWeldItem">
+        <data type="int"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="WeldSource">
+        <data type="int"/>
+      </attribute>
+    </optional>
+    <element name="annotation" impl:name="Annotation" impl:template="SimpleSettings" impl:datatype="Annotation">
+      <attribute name="ANNOTATION">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANTYPE" impl:name="type" impl:initial="0" impl:getter="Type">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANACTION" impl:name="action" impl:initial="" impl:getter="Action">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANEACT" impl:name="e_act" impl:initial="" impl:getter="E_act">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANXACT" impl:name="x_act" impl:initial="" impl:getter="X_act">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANDACT" impl:name="d_act" impl:initial="" impl:getter="D_act">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANFOACT" impl:name="fo_act" impl:initial="" impl:getter="Fo_act">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANBLACT" impl:name="bl_act" impl:initial="" impl:getter="Bl_act">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANKACT" impl:name="k_act" impl:initial="" impl:getter="K_act">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANFACT" impl:name="f_act" impl:initial="" impl:getter="F_act">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANVACT" impl:name="v_act" impl:initial="" impl:getter="V_act">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANCACT" impl:name="c_act" impl:initial="" impl:getter="C_act">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANXTERN" impl:name="m_extern" impl:initial="" impl:getter="Extern" impl:setter="setExtern">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANZIEL" impl:name="ziel" impl:initial="0" impl:getter="Ziel">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANACTYP" impl:name="actionType" impl:initial="0" impl:getter="ActionType">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANTOOLTIP" impl:name="toolTip" impl:initial="" impl:getter="ToolTip">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANBWID" impl:name="bwid" impl:initial="1" impl:getter="Bwid">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANBSTY" impl:name="bsty" impl:initial="0" impl:getter="Bsty">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANFEED" impl:name="feed" impl:initial="1" impl:getter="Feed">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANFLAG" impl:name="flag" impl:initial="0" impl:getter="Flag">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANFONT" impl:name="font" impl:initial="4" impl:getter="Font">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANFORMAT" impl:name="format" impl:initial="0" impl:getter="Format">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANROLL" impl:name="rollOver" impl:initial="" impl:getter="RollOver">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANDOWN" impl:name="down" impl:initial="" impl:getter="Down">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANVIS" impl:name="vis" impl:initial="0" impl:getter="Vis">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANMC" impl:name="maxChar" impl:initial="-1" impl:getter="MaxChar">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANCHK" impl:name="isChk" impl:initial="false" impl:getter="IsChk">
+        <data type="boolean"/>
+      </attribute>
+      <attribute name="ANAA" impl:name="aAact" impl:initial="false" impl:getter="AAact">
+        <data type="boolean"/>
+      </attribute>
+      <attribute name="ANCHKS" impl:name="chkStil" impl:initial="0" impl:getter="ChkStil">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANBCOL" impl:name="bColor" impl:initial="" impl:getter="borderColor" impl:setter="setBorderColor">
+        <data type="string"/>
+      </attribute>
+      <attribute name="ANHTML" impl:name="m_HTML" impl:getter="HTML" impl:setter="setHTML">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANICON" impl:name="useIcons" impl:initial="false" impl:getter="UseIcons">
+        <data type="boolean"/>
+      </attribute>
+      <attribute name="ANPLACE" impl:name="iPlace" impl:initial="1" impl:getter="IPlace">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANSCALE" impl:name="scaleW" impl:initial="0" impl:getter="ScaleW">
+        <data type="int"/>
+      </attribute>
+      <attribute name="ANNAME" impl:type="ignore">
+        <data type="string"/>
+      </attribute>
+    </element>
+    <zeroOrMore>
+      <element name="ImageEffect" impl:datatype="ScImageEffectList" impl:template="SimpleSettings" impl:type="ignore">
+        <optional>
+          <attribute name="Code" impl:name="effectCode">
+            <data type="int"/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="Param" impl:name="effectParametrs">
+            <data type="string"/>
+          </attribute>
+        </optional>
+      </element>
+    </zeroOrMore>
+    <zeroOrMore>
+      <element name="PSDLayer" impl:datatype="QMap&lt;int, ImageLoadRequest&gt;" impl:template="SimpleSettings" impl:type="ignore">
+        <attribute name="Layer">
+          <data type="int"/>
+        </attribute>
+        <attribute name="Visible">
+          <data type="int"/>
+        </attribute>
+        <attribute name="useMask">
+          <data type="int"/>
+        </attribute>
+        <attribute name="Opacity">
+          <data type="int"/>
+        </attribute>
+        <attribute name="Blend">
+          <data type="int"/>
+        </attribute>
+      </element>
+    </zeroOrMore>
+    <zeroOrMore>
+      <element name="Tabs" impl:type="ignore">
+        <attribute name="Type">
+          <data type="int"/>
+        </attribute>
+        <attribute name="Pos">
+          <data type="int"/>
+        </attribute>
+        <attribute name="Fill">
+          <data type="int"/>
+        </attribute>
+      </element>
+    </zeroOrMore>
+    <element name="ITEXT" impl:datatype="StoryText" impl:template="SimpleSettings" impl:type="ignore">
+      <attribute name="CH">
+        <data type="string"/>
+      </attribute>
+    </element>
+    <optional>
+      <element name="LATEX" impl:type="ignore">
+        <ref name="PageItemLatexFrameDef"/>
+      </element>
+    </optional>
+    <zeroOrMore>
+      <element name="PageItemAttribute" impl:datatype="ObjAttrVector" impl:type="struct">
+        <ref name="ItemAttributeDef"/>
+      </element>
+    </zeroOrMore>
+    <element name="WeldEntry" impl:datatype="QList&lt;weldingInfo&gt;" impl:template="SimpleSettings" impl:type="ignore">
+      <attribute name="Target">
+        <data type="int"/>
+      </attribute>
+      <attribute name="WX">
+        <data type="int"/>
+      </attribute>
+      <attribute name="WY">
+        <data type="int"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="PageItemLatexFrameDef" impl:template="SimpleSettings" impl:name="PageItem_LatexFrame_base" impl:datatype="PageItem_LatexFrame">
+    <attribute name="ConfigFile">
+      <data type="string"/>
+    </attribute>
+    <attribute name="DPI" impl:name="m_dpi">
+      <data type="int"/>
+    </attribute>
+    <attribute name="USE_PREAMBLE">
+      <data type="boolean"/>
+    </attribute>
+    <zeroOrMore>
+      <element name="Property" impl:template="SimpleSettings" impl:datatype="QMap&lt;string,string&gt;">
+        <attribute name="name">
+          <data type="string"/>
+        </attribute>
+        <attribute name="value">
+          <data type="string"/>
+        </attribute>
+      </element>
+    </zeroOrMore>
+    <text/>
+  </define>
+</grammar>

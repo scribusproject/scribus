@@ -19,11 +19,13 @@
 #include <QPainter>
 #include <QPen>
 
+#include "appmodes.h"
 #include "canvas.h"
-#include "measurements.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "ui/measurements.h"
 #include "util_math.h"
+
 
 MeasurementsMode::MeasurementsMode(ScribusView* view) : CanvasMode(view), m_start(0,0), m_current(0,0)
 {
@@ -31,19 +33,15 @@ MeasurementsMode::MeasurementsMode(ScribusView* view) : CanvasMode(view), m_star
 	m_palette->startup();
 	m_palette->hide();
 	connect( m_palette, SIGNAL(paletteShown(bool)), this, SLOT(setActive(bool)));
-	m_active = false;
-	m_startDoc = FPoint(0,0);
-	m_currentDoc = FPoint(0,0);
 }
 
-void MeasurementsMode::enterEvent(QEvent *)
+void MeasurementsMode::enterEvent(QEvent *e)
 {
-	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+	m_view->setCursor(QCursor(Qt::CrossCursor));
 }
 
-void MeasurementsMode::leaveEvent(QEvent *)
+void MeasurementsMode::leaveEvent(QEvent *e)
 {
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 void MeasurementsMode::setActive(bool active)
@@ -53,14 +51,16 @@ void MeasurementsMode::setActive(bool active)
 }
 
 
-void MeasurementsMode::activate(bool)
+void MeasurementsMode::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
 	m_palette->show();
 }
 
-void MeasurementsMode::deactivate(bool)
+void MeasurementsMode::deactivate(bool forGesture)
 {
 	m_palette->hide();
+	CanvasMode::deactivate(forGesture);
 }
 
 void MeasurementsMode::drawControls(QPainter* p)
@@ -71,6 +71,16 @@ void MeasurementsMode::drawControls(QPainter* p)
 	p->setPen(QPen(Qt::black, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 	p->drawLine(m_start, m_current);
 	p->restore();
+}
+
+void MeasurementsMode::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void MeasurementsMode::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
 }
 
 void MeasurementsMode::mouseReleaseEvent(QMouseEvent *m)

@@ -21,24 +21,28 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License     *
 *   along with this program; if not, write to the                         *
 *   Free Software Foundation, Inc.,                                       *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
 ***************************************************************************/
 
 #include "meshdistortiondialog.h"
 
-#include <QPainterPath>
 #include <QGraphicsItem>
+#include <QGraphicsSceneHoverEvent>
+#include <QGraphicsSceneMouseEvent>
+#include <QPainterPath>
+#include <QStyleOptionGraphicsItem>
 
 #include "commonstrings.h"
 #include "fpointarray.h"
+#include "iconmanager.h"
 #include "pageitem.h"
+#include "pageitem_group.h"
 #include "sccolorengine.h"
 #include "scpattern.h"
 #include "selection.h"
-#include "util_icon.h"
 #include "util_math.h"
 
-NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent) : QGraphicsEllipseItem(geom)
+NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog* parent) : QGraphicsEllipseItem(geom)
 {
 	dialog = parent;
 	handle = num;
@@ -46,23 +50,23 @@ NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent) : QGraph
 	setPen(QPen(Qt::red, 2.0));
 	setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 	setZValue(9999999);
-	setAcceptsHoverEvents(true);
+	acceptHoverEvents();
 	mouseMoving = false;
 	mousePressed = false;
 }
 
-void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget* widget)
 {
 	Q_UNUSED(widget);
-	if (option->state & QStyle::State_Selected)
+	if (item->state & QStyle::State_Selected)
 	{
 		painter->setBrush(Qt::red);
-		painter->setPen(QPen(Qt::red, qMax(0.1, 1.0 / option->levelOfDetail)));
+		painter->setPen(QPen(Qt::red, qMax(0.1, 1.0 / item->levelOfDetail)));
 	}
 	else
 	{
 		painter->setBrush(Qt::NoBrush);
-		painter->setPen(QPen(Qt::red, qMax(0.2, 2.0 / option->levelOfDetail)));
+		painter->setPen(QPen(Qt::red, qMax(0.2, 2.0 / item->levelOfDetail)));
 	}
 	painter->drawEllipse(rect());
 }
@@ -120,158 +124,17 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
-	buttonZoomOut->setIcon(QIcon(loadIcon("16/zoom-out.png")));
-	buttonZoomIn->setIcon(QIcon(loadIcon("16/zoom-in.png")));
+	setWindowIcon(QIcon(IconManager::instance().loadIcon("AppIcon.png")));
+	buttonZoomOut->setIcon(QIcon(IconManager::instance().loadIcon("16/zoom-out.png")));
+	buttonZoomIn->setIcon(QIcon(IconManager::instance().loadIcon("16/zoom-in.png")));
 	m_doc = doc;
-	PageItem *currItem;
-	double gx, gy, gh, gw;
-	doc->m_Selection->setGroupRect();
-	doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-	uint selectedItemCount = doc->m_Selection->count();
-	w4 = qMax(gw, gh) / 2.0;
-	w2 = qMax(gw, gh);
-	ww = qMax(gw, gh) * 2.0;
-	QStack<PageItem*> groupStack;
-	QStack<QGraphicsPathItem*> groupStack2;
-	QStack<PageItem*> groupStack3;
-	groupStack2.push(0);
-	for (uint i = 0; i < selectedItemCount; ++i)
-	{
-		currItem = doc->m_Selection->itemAt(i);
-		FPointArray path = currItem->PoLine;
-		deltaX = ((w2 - gw) / 2.0) + w4;
-		deltaY = ((w2 - gh) / 2.0) + w4;
-		QPainterPath pp;
-		if (currItem->itemType() == PageItem::PolyLine)
-			pp = path.toQPainterPath(false);
-		else
-			pp = path.toQPainterPath(true);
-		QGraphicsPathItem* pItem = new QGraphicsPathItem(pp, groupStack2.top());
-		if (groupStack2.top() == 0)
-		{
-			scene.addItem(pItem);
-			pItem->setPos(currItem->xPos() - gx + deltaX, currItem->yPos() - gy + deltaY);
-			pItem->rotate(currItem->rotation());
-		}
-		else
-		{
-			PageItem* parent = groupStack3.top();
-			QMatrix mm;
-			mm.rotate(-parent->rotation());
-			mm.translate(-parent->xPos(), -parent->yPos());
-			pItem->setPos(mm.map(QPointF(currItem->xPos(), currItem->yPos())));
-		}
-		QPainterPath pathO = pp;
-		QMatrix mmO;
-		mmO.translate(-w4, -w4);
-		pathO = pItem->mapToScene(pathO);
-		pathO = mmO.map(pathO);
-		Geom::Piecewise<D2<Geom::SBasis> >  path_a_pw;
-		if (currItem->itemType() == PageItem::PolyLine)
-			path_a_pw = QPainterPath2Piecewise(pathO, false);
-		else
-			path_a_pw = QPainterPath2Piecewise(pathO, true);
-		origPath.append(path_a_pw);
-		pItem->setZValue(i);
-		origPathItem.append(pItem);
-		if (((currItem->fillColor() == CommonStrings::None) && (currItem->GrType == 0)) || (currItem->controlsGroup()))
-			pItem->setBrush(Qt::NoBrush);
-		else
-		{
-			if (currItem->GrType != 0)
-			{
-				if (currItem->GrType != 8)
-				{
-					QGradient pat;
-					double x1 = currItem->GrStartX;
-					double y1 = currItem->GrStartY;
-					double x2 = currItem->GrEndX;
-					double y2 = currItem->GrEndY;
-					switch (currItem->GrType)
-					{
-						case 1:
-						case 2:
-						case 3:
-						case 4:
-						case 6:
-							pat = QLinearGradient(x1, y1,  x2, y2);
-							break;
-						case 5:
-						case 7:
-							pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
-							break;
-					}
-					QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
-					QColor qStopColor;
-					for( int offset = 0 ; offset < colorStops.count() ; offset++ )
-					{
-						qStopColor = colorStops[ offset ]->color;
-						int h, s, v, sneu, vneu;
-						int shad = colorStops[offset]->shade;
-						qStopColor.getHsv(&h, &s, &v);
-						sneu = s * shad / 100;
-						vneu = 255 - ((255 - v) * shad / 100);
-						qStopColor.setHsv(h, sneu, vneu);
-						qStopColor.setAlphaF(colorStops[offset]->opacity);
-						pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
-					}
-					pItem->setBrush(pat);
-				}
-				else if ((currItem->GrType == 8) && (!currItem->pattern().isEmpty()) && (doc->docPatterns.contains(currItem->pattern())))
-				{
-					double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-					currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
-					QMatrix qmatrix;
-					qmatrix.translate(patternOffsetX, patternOffsetY);
-					qmatrix.rotate(patternRotation);
-					qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
-					QImage pat = *doc->docPatterns[currItem->pattern()].getPattern();
-					QBrush brush = QBrush(pat);
-					brush.setMatrix(qmatrix);
-					pItem->setBrush(brush);
-				}
-			}
-			else
-			{
-				QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->fillColor()], doc, currItem->fillShade());
-				paint.setAlphaF(1.0 - currItem->fillTransparency());
-				pItem->setBrush(paint);
-			}
-		}
-		if ((currItem->lineColor() == CommonStrings::None) || (currItem->controlsGroup()))
-			pItem->setPen(Qt::NoPen);
-		else
-		{
-			QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade());
-			paint.setAlphaF(1.0 - currItem->lineTransparency());
-			pItem->setPen(QPen(paint, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
-		}
-		if (currItem->controlsGroup())
-		{
-			groupStack.push(currItem->groupsLastItem);
-			groupStack2.push(pItem);
-			groupStack3.push(currItem);
-			pItem->setFlags(QGraphicsItem::ItemClipsChildrenToShape);
-		}
-		if (groupStack.count() != 0)
-		{
-			while (currItem == groupStack.top())
-			{
-				groupStack3.pop();
-				groupStack2.pop();
-				groupStack.pop();
-				if (groupStack.count() == 0)
-					break;
-			}
-		}
-	}
+	addItemsToScene(doc->m_Selection, doc, nullptr, nullptr);
 	for(unsigned dim = 0; dim < 2; dim++)
 	{
 		sb2[dim].us = 2;
 		sb2[dim].vs = 2;
 		const int depth = sb2[dim].us*sb2[dim].vs;
-		sb2[dim].resize(depth, Linear2d(0));
+		sb2[dim].resize(depth, Geom::Linear2d(0));
 	}
 	handles.resize(sb2[0].vs*sb2[0].us*4);
 	origHandles.resize(sb2[0].vs*sb2[0].us*4);
@@ -308,7 +171,7 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 						if(vi == 0 && ui == 0)
 							base = Geom::Point(w4, w4);
 						double dl = dot((handles[corner+4*i] - base), dir)/dot(dir,dir);
-						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0f,((int)(ui+vi)));
+						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0F,((int)(ui+vi)));
 					}
 				}
 			}
@@ -336,6 +199,214 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 	connect(buttonZoomIn, SIGNAL(clicked()), this, SLOT(doZoomIn()));
 	connect(buttonZoomOut, SIGNAL(clicked()), this, SLOT(doZoomOut()));
 	connect(resetButton, SIGNAL(clicked()), this, SLOT(doReset()));
+}
+
+void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGraphicsPathItem* parentItem, PageItem* parent)
+{
+	PageItem *currItem;
+	double gx, gy, gh, gw;
+	itemSelection->setGroupRect();
+	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
+	uint selectedItemCount = itemSelection->count();
+	if (parentItem == nullptr)
+	{
+		w4 = qMax(gw, gh) / 2.0;
+		w2 = qMax(gw, gh);
+		ww = qMax(gw, gh) * 2.0;
+	}
+	for (uint i = 0; i < selectedItemCount; ++i)
+	{
+		currItem = itemSelection->itemAt(i);
+		if (currItem->isGroup())
+			currItem->asGroupFrame()->adjustXYPosition();
+		FPointArray path = currItem->PoLine;
+		deltaX = ((w2 - gw) / 2.0) + w4;
+		deltaY = ((w2 - gh) / 2.0) + w4;
+		QPainterPath pp;
+		if (currItem->itemType() == PageItem::PolyLine)
+			pp = path.toQPainterPath(false);
+		else
+			pp = path.toQPainterPath(true);
+		QGraphicsPathItem* pItem = new QGraphicsPathItem(pp, parentItem);
+		if (parentItem == nullptr)
+		{
+			scene.addItem(pItem);
+			pItem->setPos(currItem->xPos() - gx + deltaX, currItem->yPos() - gy + deltaY);
+			pItem->setRotation(currItem->rotation());
+		}
+		else
+		{
+		//	QTransform mm;
+		//	mm.rotate(-parent->rotation());
+		//	mm.translate(-parent->xPos(), -parent->yPos());
+		//	pItem->setPos(mm.map(QPointF(currItem->xPos(), currItem->yPos())));
+			pItem->setPos(QPointF(currItem->gXpos, currItem->gYpos));
+			pItem->setRotation(currItem->rotation());
+		}
+		QPainterPath pathO = pp;
+		QTransform mmO;
+		mmO.translate(-w4, -w4);
+		pathO = pItem->mapToScene(pathO);
+		pathO = mmO.map(pathO);
+		Geom::Piecewise<Geom::D2<Geom::SBasis> >  path_a_pw;
+		if (currItem->itemType() == PageItem::PolyLine)
+			path_a_pw = QPainterPath2Piecewise(pathO, false);
+		else
+			path_a_pw = QPainterPath2Piecewise(pathO, true);
+		origPath.append(path_a_pw);
+		pItem->setZValue(i);
+		origPathItem.append(pItem);
+		origPageItem.append(currItem);
+		if (((currItem->fillColor() == CommonStrings::None) && (currItem->GrType == 0)) || (currItem->isGroup()))
+			pItem->setBrush(Qt::NoBrush);
+		else
+		{
+			if (currItem->GrType != 0)
+			{
+				if (currItem->GrType != Gradient_Pattern)
+				{
+					QGradient pat;
+					double x1 = currItem->GrStartX;
+					double y1 = currItem->GrStartY;
+					double x2 = currItem->GrEndX;
+					double y2 = currItem->GrEndY;
+					switch (currItem->GrType)
+					{
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 6:
+							pat = QLinearGradient(x1, y1,  x2, y2);
+							break;
+						case 5:
+						case 7:
+							pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
+							break;
+					}
+					QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
+					QColor qStopColor;
+					for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+					{
+						qStopColor = colorStops[ offset ]->color;
+						int h, s, v, sneu, vneu;
+						int shad = colorStops[offset]->shade;
+						qStopColor.getHsv(&h, &s, &v);
+						sneu = s * shad / 100;
+						vneu = 255 - ((255 - v) * shad / 100);
+						qStopColor.setHsv(h, sneu, vneu);
+						qStopColor.setAlphaF(colorStops[offset]->opacity);
+						pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+					}
+					pItem->setBrush(pat);
+				}
+				else if ((currItem->GrType == Gradient_Pattern) && (!currItem->pattern().isEmpty()) && (doc->docPatterns.contains(currItem->pattern())))
+				{
+					double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+					currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+					QTransform qmatrix;
+					qmatrix.translate(patternOffsetX, patternOffsetY);
+					qmatrix.rotate(patternRotation);
+					qmatrix.shear(patternSkewX, patternSkewY);
+					qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
+					bool mirrorX, mirrorY;
+					currItem->patternFlip(mirrorX, mirrorY);
+					if (mirrorX)
+						qmatrix.scale(-1, 1);
+					if (mirrorY)
+						qmatrix.scale(1, -1);
+					QImage pat = *doc->docPatterns[currItem->pattern()].getPattern();
+					QBrush brush = QBrush(pat);
+					brush.setTransform(qmatrix);
+					pItem->setBrush(brush);
+				}
+			}
+			else
+			{
+				QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->fillColor()], doc, currItem->fillShade());
+				paint.setAlphaF(1.0 - currItem->fillTransparency());
+				pItem->setBrush(paint);
+			}
+		}
+		if (currItem->isGroup())
+			pItem->setPen(Qt::NoPen);
+		else if (currItem->NamedLStyle.isEmpty())
+		{
+			if ((!currItem->strokePattern().isEmpty()) && (doc->docPatterns.contains(currItem->strokePattern())))
+			{
+				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
+				currItem->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
+				QTransform qmatrix;
+				qmatrix.translate(-currItem->lineWidth() / 2.0, -currItem->lineWidth() / 2.0);
+				qmatrix.translate(patternOffsetX, patternOffsetY);
+				qmatrix.rotate(patternRotation);
+				qmatrix.shear(patternSkewX, patternSkewY);
+				qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
+				bool mirrorX, mirrorY;
+				currItem->strokePatternFlip(mirrorX, mirrorY);
+				if (mirrorX)
+					qmatrix.scale(-1, 1);
+				if (mirrorY)
+					qmatrix.scale(1, -1);
+				QImage pat = *doc->docPatterns[currItem->strokePattern()].getPattern();
+				QBrush brush = QBrush(pat);
+				brush.setTransform(qmatrix);
+				pItem->setPen(QPen(brush, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+			}
+			else if (currItem->GrTypeStroke > 0)
+			{
+				QGradient pat;
+				double x1 = currItem->GrStrokeStartX;
+				double y1 = currItem->GrStrokeStartY;
+				double x2 = currItem->GrStrokeEndX;
+				double y2 = currItem->GrStrokeEndY;
+				if (currItem->GrTypeStroke == Gradient_Linear)
+					pat = QLinearGradient(x1, y1,  x2, y2);
+				else
+					pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
+				QList<VColorStop*> colorStops = currItem->stroke_gradient.colorStops();
+				QColor qStopColor;
+				for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+				{
+					qStopColor = colorStops[ offset ]->color;
+					int h, s, v, sneu, vneu;
+					int shad = colorStops[offset]->shade;
+					qStopColor.getHsv(&h, &s, &v);
+					sneu = s * shad / 100;
+					vneu = 255 - ((255 - v) * shad / 100);
+					qStopColor.setHsv(h, sneu, vneu);
+					qStopColor.setAlphaF(colorStops[offset]->opacity);
+					pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+				}
+				pItem->setPen(QPen(pat, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+			}
+			else if (currItem->lineColor() != CommonStrings::None)
+			{
+				QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade());
+				paint.setAlphaF(1.0 - currItem->lineTransparency());
+				pItem->setPen(QPen(paint, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+			}
+		}
+		else
+		{
+			if (currItem->lineColor() != CommonStrings::None)
+			{
+				QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade());
+				paint.setAlphaF(1.0 - currItem->lineTransparency());
+				pItem->setPen(QPen(paint, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+			}
+		}
+		if (currItem->isGroup())
+		{
+			pItem->setFlags(QGraphicsItem::ItemClipsChildrenToShape);
+			Selection tmpSelection(this, false);
+			for (int a = 0; a < currItem->groupItemList.count(); a++)
+			{
+				tmpSelection.addItem(currItem->groupItemList.at(a));
+			}
+			addItemsToScene(&tmpSelection, doc, pItem, currItem);
+		}
+	}
 }
 
 void MeshDistortionDialog::showEvent(QShowEvent *e)
@@ -387,7 +458,7 @@ void MeshDistortionDialog::doReset()
 
 void MeshDistortionDialog::adjustHandles()
 {
-	double sc = previewLabel->matrix().m11();
+	double sc = previewLabel->transform().m11();
 	for(int n = 0; n < nodeItems.count(); n++)
 	{
 		double x = handles[n][Geom::X];
@@ -424,7 +495,7 @@ void MeshDistortionDialog::updateMesh(bool gridOnly)
 						if(vi == 0 && ui == 0)
 							base = Geom::Point(w4, w4);
 						double dl = dot((handles[corner+4*i] - base), dir)/dot(dir,dir);
-						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0f,((int)(ui+vi)));
+						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0F,((int)(ui+vi)));
 					}
 				}
 			}
@@ -437,16 +508,16 @@ void MeshDistortionDialog::updateMesh(bool gridOnly)
 		for (int a = 0; a < origPathItem.count(); a++)
 		{
 			QGraphicsPathItem* pItem = origPathItem[a];
-			Geom::Piecewise<D2<Geom::SBasis> >  path_a_pw = origPath[a];
-			Piecewise<D2<SBasis> > output;
+			Geom::Piecewise<Geom::D2<Geom::SBasis> >  path_a_pw = origPath[a];
+			Geom::Piecewise<Geom::D2<Geom::SBasis> > output;
 			for(unsigned i = 0; i < path_a_pw.size(); i++)
 			{
-				D2<SBasis> B = path_a_pw[i];
+				Geom::D2<Geom::SBasis> B = path_a_pw[i];
 				B *= (2./ww);
-				D2<SBasis> tB = compose_each(sb2, B);
+				Geom::D2<Geom::SBasis> tB = Geom::compose_each(sb2, B);
 				B = B*(ww/2.0) + Geom::Point(w4, w4);
 				tB = tB*(ww/2.0) + Geom::Point(w4, w4);
-				output.concat(Piecewise<D2<SBasis> >(tB));
+				output.concat(Geom::Piecewise<Geom::D2<Geom::SBasis> >(tB));
 			}
 			QPainterPath pathP;
 			Piecewise2QPainterPath(&pathP, output);
@@ -466,19 +537,26 @@ void MeshDistortionDialog::updateAndExit()
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	for (int a = 0; a < origPathItem.count(); a++)
 	{
-		Geom::Piecewise<D2<Geom::SBasis> >  path_a_pw;
+		Geom::Piecewise<Geom::D2<Geom::SBasis> >  path_a_pw;
 		QGraphicsPathItem* pItem = origPathItem[a];
 		QPainterPath path = pItem->path();
 		FPointArray outputPath;
 		outputPath.fromQPainterPath(path);
-		PageItem *currItem = m_doc->m_Selection->itemAt(a);
+		PageItem *currItem = origPageItem[a];
 		currItem->PoLine = outputPath;
-		currItem->Frame = false;
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
-		m_doc->AdjustItemSize(currItem);
+		double oW = currItem->width();
+		double oH = currItem->height();
+		m_doc->adjustItemSize(currItem, true);
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
+		if (currItem->isGroup())
+		{
+			currItem->groupWidth = currItem->groupWidth * (currItem->OldB2 / oW);
+			currItem->groupHeight = currItem->groupHeight * (currItem->OldH2 / oH);
+			currItem->SetRectFrame();
+		}
 		currItem->updateClip();
 		currItem->ContourLine = currItem->PoLine.copy();
 	}

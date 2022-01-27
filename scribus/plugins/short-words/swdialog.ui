@@ -14,10 +14,22 @@
    <string>Short Words</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
    <item row="0" column="0">
     <widget class="QGroupBox" name="buttonGroup">
      <property name="title">
-      <string>Apply Unbreakable Space On:</string>
+      <string>Apply Unbreakable Space To:</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">

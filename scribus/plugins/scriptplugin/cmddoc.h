@@ -36,7 +36,7 @@ predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,\n\
 UNIT_PICAS, UNIT_POINTS.\n\
 \n\
 pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,\n\
-PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and\n\
+PAGE_2 is for facing pages documents, PAGE_3 is for 3 pages fold and\n\
 PAGE_4 is 4-fold.\n\
 \n\
 firstPageOrder = What is position of first page in the document.\n\
@@ -111,9 +111,9 @@ PyObject *scribus_closedoc(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_havedoc__doc__,
-QT_TR_NOOP("haveDoc() -> bool\n\
+QT_TR_NOOP("haveDoc() -> int\n\
 \n\
-Returns true if there is a document open.\n\
+Returns the quantity of open documents: 0 if none are opened.\n\
 "));
 /** Checks if is a document opened. */
 PyObject *scribus_havedoc(PyObject * /*self*/);
@@ -142,6 +142,24 @@ If the save fails, there is currently no way to tell.\n\
 PyObject *scribus_savedoc(PyObject * /*self*/);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_revertdoc__doc__,
+QT_TR_NOOP("revertDoc()\n\
+\n\
+Revert the current document to its last saved state.\n\
+"));
+PyObject *scribus_revertdoc(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getdocname__doc__,
+QT_TR_NOOP("getDocName() -> string\n\
+\n\
+Returns the name the document was saved under.\n\
+If the document was not saved before the name is empty.\n\
+"));
+/** Saves active document with given name */
+PyObject *scribus_getdocname(PyObject * /*self*/);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_savedocas__doc__,
 QT_TR_NOOP("saveDocAs(\"name\")\n\
 \n\
@@ -164,15 +182,47 @@ strings.\n\
 PyObject *scribus_setinfo(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getinfo__doc__,
+QT_TR_NOOP("getInfo() -> \"author\", \"info\", \"description\"\n\
+\n\
+Gets the document information. \"Author\", \"Info\", \"Description\" are\n\
+strings.\n\
+"));
+/** Gets document infos - author, title and description */
+PyObject *scribus_getinfo(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setbleeds__doc__,
+QT_TR_NOOP("setBleeds(lr, rr, tr, br)\n\
+\n\
+Sets the bleeds of the document. Left(lr), Right(rr), Top(tr) and Bottom(br)\n\
+bleeds are given in the measurement units of the document - see UNIT_<type>\n\
+constants.\n\
+"));
+/** Sets document bleeds - left, right, top and bottom. */
+PyObject *scribus_setbleeds(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setmargins__doc__,
 QT_TR_NOOP("setMargins(lr, rr, tr, br)\n\
 \n\
-Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) and Qt::DockBottom(br)\n\
+Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)\n\
 margins are given in the measurement units of the document - see UNIT_<type>\n\
 constants.\n\
 "));
 /** Sets document margins - left, right, top and bottom. */
 PyObject *scribus_setmargins(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setbaseline__doc__,
+QT_TR_NOOP("setBaseLine(grid, offset)\n\
+\n\
+Sets the base line settings of the document, grid spacing(grid), grid offset(offset).\n\
+Values are given in the measurement units of the document - see UNIT_<type>\n\
+constants.\n\
+"));
+/** Sets document baseline settings - grid and offset. */
+PyObject *scribus_setbaseline(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setunit__doc__,
@@ -256,5 +306,23 @@ Delete the named master page.\n\
 "));
 PyObject* scribus_deletemasterpage(PyObject* self, PyObject* args);
 
+PyDoc_STRVAR(scribus_getmasterpage__doc__,
+QT_TR_NOOP("getMasterPage(pageNr)\n\
+\n\
+Returns the name of master page applied to page \"nr\".\n\
+\n\
+May raise IndexError if the page number is out of range.\n\
+"));
+/*! Get Master Page Name */
+PyObject *scribus_getmasterpage(PyObject * /*self*/, PyObject* args);
+
+PyDoc_STRVAR(scribus_applymasterpage__doc__,
+QT_TR_NOOP("applyMasterPage(masterPageName, pageNumber)\n\
+\n\
+Apply master page masterPageName on page pageNumber.\n\
+"));
+PyObject* scribus_applymasterpage(PyObject* self, PyObject* args);
+
 #endif
+
 

@@ -20,12 +20,6 @@
 
 #include <QPoint>
 
-#include "scribusapi.h"
-#include "canvas.h"
-#include "canvasgesture.h"
-#include "canvasmode.h"
-#include "scribusview.h"
-
 class QCursor;
 class QDragEnterEvent;
 class QDragMoveEvent;
@@ -36,59 +30,71 @@ class QInputMethodEvent;
 class QMouseEvent;
 class QKeyEvent;
 class QPainter;
+
+#include "scribusapi.h"
+#include "canvas.h"
+#include "canvasgesture.h"
+#include "canvasmode.h"
+#include "fpoint.h"
+
 class ScribusMainWindow;
+class ScribusView;
 
 /**
   This class realizes the moving of guides and the moving of the ruler origin
  */
 class SCRIBUS_API RulerGesture : public CanvasGesture
 {
-	Q_OBJECT
-public:
-	enum Mode { HORIZONTAL, VERTICAL, ORIGIN };
-	RulerGesture (ScribusView* view, Mode mode) : 
-		CanvasGesture(view), m_ScMW(m_view->m_ScMW), m_mode(mode), m_haveGuide(false), m_haveCursor(false), m_xy(0,0) {};
+		Q_OBJECT
+	public:
+		enum Mode { HORIZONTAL, VERTICAL, ORIGIN };
+		RulerGesture (ScribusView* view, Mode mode);
+		~RulerGesture() override = default;
 
-	/**
+		/**
 		Prepares the gesture for 'mode' without using an existing guide. If 'mode' is HORIZONTAL
 		or VERTICAL, a new guide will be created when the mouse is moved over a page.
 	 */
-	void prepare(Mode mode);
-	void clear();
-	
-	virtual void drawControls(QPainter* p);
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	/**
+		void prepare(Mode mode);
+		void clear();
+
+		void drawControls(QPainter* p) override;
+		void activate(bool) override;
+		void deactivate(bool) override;
+		void keyPressEvent(QKeyEvent* event) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+		/**
 	  This method should be called when the mousebutton is pressed.
 	  If there's a moveable guide near this position, it prepares the gesture for moving this guide.
 	 */
-	virtual void mousePressEvent(QMouseEvent *m);
-	
-	Mode getMode() { return m_mode; }
-	/**
+		void mousePressEvent(QMouseEvent *m) override;
+
+		Mode getMode() { return m_mode; }
+		/**
 		Use this to test if there's a moveable guide near this position.
 		It prepares the gesture for moving this guide.
 	 */
-	bool mouseHitsGuide(FPoint mousePointDoc);
-	/**
+		bool mouseHitsGuide(const FPoint& mousePointDoc);
+		/**
 	  It tests for a guide near position, that guide being moveable or not.
 	  If the test results in success, emits guideInfo;
 	*/
-	void mouseSelectGuide(QMouseEvent *m);
-private:
-	ScribusMainWindow* m_ScMW;
-	Mode m_mode;
-	bool m_haveGuide;
-	int m_page;
-	double m_guide;
-	bool m_haveCursor;
-	QCursor m_cursor;
-	QPoint m_xy;
-	void movePoint(QMouseEvent *m);
-	
+		void mouseSelectGuide(QMouseEvent *m);
+	private:
+		FPoint m_mousePoint;
+		Mode m_mode;
+		QCursor m_cursor;
+		QPoint m_xy;
+		ScribusMainWindow* m_ScMW {nullptr};
+		bool m_haveCursor {false};
+		bool m_haveGuide {false};
+		double m_currentGuide {0.0};
+		double m_guide {0.0};
+		int m_page {0};
+
+		void movePoint(QMouseEvent *m, bool mouseRelease);
+
 	signals:
 		void guideInfo(int /*direction*/, qreal /*position*/);
 };

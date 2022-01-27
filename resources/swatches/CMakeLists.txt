@@ -1,0 +1,16 @@
+include_directories(
+"${CMAKE_SOURCE_DIR}/scribus"
+)
+
+file( GLOB EPS_PALETTES *.eps )
+file( GLOB GIMP_STYLE_PALETTES *.gpl )
+file( GLOB RTF_LICENSES *.rtf )
+file( GLOB SBZ_PALETTES *.sbz )
+file( GLOB XML_PALETTES *.xml )
+
+#Avoid CMakeLists.txt
+set(TXT_LICENSES "${CMAKE_CURRENT_SOURCE_DIR}/COPYING_RESENE.txt" "${CMAKE_CURRENT_SOURCE_DIR}/Japanese_Traditional_README.txt")
+
+install(FILES ${GIMP_STYLE_PALETTES} ${XML_PALETTES} ${EPS_PALETTES} ${RTF_LICENSES} ${TXT_LICENSES} ${SBZ_PALETTES}
+ DESTINATION ${SHAREDIR}swatches
+)

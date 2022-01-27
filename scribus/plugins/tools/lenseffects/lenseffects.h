@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License      *
 *   along with this program; if not, write to the                          *
 *   Free Software Foundation, Inc.,                                        *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
 #ifndef LENSEFFECS_H
@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "pluginapi.h"
 #include "scplugin.h"
-#include "selection.h"
 
 /** \brief This is a simple "Lens Effects" plugin for Scribus 1.3 and later.
 \author Franz Schmid
@@ -43,12 +42,12 @@ class PLUGIN_API LensEffectsPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		LensEffectsPlugin();
 		virtual ~LensEffectsPlugin();
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+		bool run(ScribusDoc* doc, const QString& target = QString()) override;
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
+		void addToMainWindowMenu(ScribusMainWindow *) override {};
 
 		// Special features (none)
 };

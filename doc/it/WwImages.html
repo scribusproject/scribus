@@ -1,0 +1,73 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Lavorare con le immagini</title>
+</head>
+
+<body>
+<h2>Lavorare con le immagini</h2>
+
+La creazione e la manipolazione delle cornici immagine sono spiegate in <a href="WwFrames.html">Lavorare con le cornici</a>. Una cornice immagine, quando &egrave; selezionata, appare con un bordo rosso con piccole maniglie quadrate agli angoli e a met&agrave; di ciascun lato; si noti che le maniglie scompaiono quando la cornice &egrave; bloccata. La cornice contiene due diagonali nere che si incrociano al centro: questa &egrave; una caratteristica che distingue le cornici immagine da quelle di altro tipo.
+
+<p>Il modo pi&ugrave; rapido di caricare un'immagine nella cornice consiste nel fare clic col tasto destro sulla cornice e selezionare <b>Carica immagine</b> nel men&ugrave; contestuale. Quest'operazione pu&ograve; essere eseguita anche premendo Ctrl + I oppure dal men&ugrave; <i>File &gt; Importa &gt; Carica immagine</i>. In tutti e tre i casi, si apre una finestra di dialogo per la scelta del file da caricare: vengono mostrati i tipi di file che Scribus &egrave; in grado di importare, e cio&egrave; i formati bitmap TIFF, PNG, JPG, GIF e XPM, il formato vettoriale PS (PostScript) e i file PSD, EPS e PDF, che saranno convertiti in bitmap. Dopo l'importazione l'immagine potrebbe essere visibile solo in parte: nel paragrafo <i>Propriet&agrave;: immagine</i> pi&ugrave; sotto vedremo come regolare la scalatura e la posizione dell'immagine all'interno della cornice.
+</p>
+
+<h3>Il men&ugrave; contestuale</h3>
+<table cellpadding=3><tr>
+<td>Fate clic col tasto destro del mouse su una cornice immagine per visualizzare il men&ugrave; contestuale. Se la cornice &egrave; vuota, non tutte le voci saranno presenti.
+<ul>
+<li><b>Informazioni</b>: fornisce brevi notizie sull'immagine: nome del file, risoluzione in PPI (pixels per inch, o pixel per pollice) dell'originale e dell'immagine cos&igrave; com'&egrave; mostrata in Scribus, spazio colore e inoltre se la stampa &egrave; abilitata o no (il che vale anche per l'inclusione o meno della cornice nel PDF esportato).</li>
+<li><b>Annulla</b>: annulla l'ultima operazione eseguita sulla cornice, che dovrebbe essere indicata. Se almeno un'operazione &egrave; stata annullata, sar&agrave; presente anche l'opzione <b>Ripristina</b>.</li>
+<li><b>Carica immagine</b>: permette l'importazione di un'immagine, come spiegato sopra.</li>
+<li><b>Adatta cornice all'immagine</b>: allarga o restringe le dimensioni della cornice per adattarla all'immagine alla sua risoluzione corrente.</li>
+<li><b>Adatta immagine alla cornice</b>: adatta l'immagine alla cornice. Le proporzioni dell'immagine vengono conservate se l'apposita opzione &egrave; contrassegnata nella scheda Immagine del pannello Propriet&agrave;.</li>
+<li><b>Aggiorna immagine</b>: ricarica l'immagine. Potrebbe essere utile se il file originale &egrave; stato modificato. Vedi anche Modifica immagine, poco sotto.</li>
+<li><b>Configurazione anteprima</b>: apre un sottomen&ugrave; in cui si pu&ograve; scegliere se l'immagine &egrave; visibile o no, e se visibile permette di scegliere la risoluzione. Se l'aggiornamento del monitor vi appare lento, scegliete la visualizzazione in bassa risoluzione oppure disattivate la visualizzazione dell'immagine per renderlo pi&ugrave; veloce. La visualizzazione in <b>alta risoluzione</b> non pu&ograve; superare la massima risoluzione permessa dal monitor. Tutte queste impostazioni non influenzano la stampa dell'immagine n&eacute; l'esportazione in PDF.</li>
+<li><b>Effetti immagine</b> (apribile anche con Ctrl + E): d&agrave; la possibilit&agrave; di applicare una serie di effetti all'immagine, come la sfocatura o la modifica di contrasto e luminosit&agrave;. Gli effetti sono applicati in modo non distruttivo, cio&egrave; il file originale dell'immagine non viene modificato.</li>
+<li><b>Modifica immagine</b>: avvia il vostro programma per modificare le immagini (quello impostato in File &gt; Preferenze &gt; Strumenti esterni) e vi carica l'immagine.</li>
+<li><b>Attributi</b>: &egrave; un'opzione avanzata di cui non parleremo qui.</li>
+<li><b>Bloccato</b>: se contrassegnata, blocca tutte le caratteristiche della cornice (posizione, dimensioni, contenuto).</li>
+<li><b>Dimensione bloccata</b>: se &egrave; contrassegnata blocca soltanto le dimensioni della cornice. La cornice e l'immagine possono essere comunque spostate e modificate.</li>
+<li><b>Invia alla biblioteca</b> e <b>Invia ai motivi</b> non saranno descritte qui; diremo solo che permettono di salvare dei contenuti che possono essere riutilizzati in altri documenti.</li>
+<li><b>Quota</b>: permette di spostare la cornice a una quota superiore o inferiore sul livello corrente. Se il vostro documento ha pi&ugrave; di un livello, &egrave; presente anche una voce <b>Invia al livello</b> che permette di spostare la cornice da un livello all'altro.</li>
+<li><b>Converti in</b>: apre un sottomen&ugrave; con le seguenti scelte:
+<ul><li><b>Poligono</b>: Converte in poligono, con apparente perdita dell'immagine presente nella cornice, che si pu&ograve; recuperare convertendolo di nuovo in cornice immagine.</li>
+<li><b>Cornice di testo</b>: converte in quel tipo di cornice, nel qual caso l'immagine diventa invisibile, ma viene ripristinata se la cornice di testo viene ri-convertita in cornice immagine. Non &egrave; possibile mostrare testo e immagini nella stessa cornice, tranne che quando il testo &egrave; incorporato in un'immagine. Per inserire del testo sopra un'immagine, usate una cornice di testo posizionata sopra l'immagine.</li>
+</ul>
+<li><b>Taglia</b>, <b>Copia</b>, e <b>Elimina</b> sono descritte nella pagina Lavorare con le cornici.</li>
+<li><b>Contenuto &gt; Pulisci</b>: &egrave; presente soltanto quando la cornice ha del contenuto, e vi sar&agrave; chiesta conferma prima di eseguire l'operazione. C'&egrave; anche una voce <b>Contenuto &gt; Copia</b> che permette di copiare soltanto il contenuto della cornice, invece che l'intera cornice <i>con</i> il suo contenuto.</li>
+<li><b>Propriet&agrave;</b>: apre o chiude il pannello Propriet&agrave;.</li>
+</ul>
+</td>
+<td><img src="images/context_image.png" ALT="Menù contestuale immagine" ALIGN=right></td>
+</tr>
+</table>
+<h3>Propriet&agrave;: Immagine</h3>
+<table cellpadding=3><tr>
+<td>Quando un'immagine viene caricata, per impostazione predefinita sar&agrave; visualizzata con scala libera o in base all'impostazione in <i>File &gt; Preferenze &gt; Strumenti &gt; Immagini</i>.
+
+<p>Sotto Scala libera vi sono le seguenti caselle di controllo:
+<ul>
+<li><b>Pos X</b> e <b>Pos Y</b>: posizione dell'angolo superiore sinistro dell'immagine rispetto all'angolo superiore sinistro della cornice.</li>
+<li><b>Scala X</b> e <b>Scala Y</b>: ingrandimento o riduzione dell'immagine, rispetto alle sue dimensioni originali.</li>
+<li><b>Risoluzione orizzontale attuale</b> e <b>Risoluzione verticale attuale</b>: esse naturalmente sono inversamente proporzionali all'ingrandimento o riduzione. Il monitor potrebbe mostrare l'immagine a una risoluzione inferiore, ma i valori inseriti qui sono quelli della risoluzione a cui l'immagine sar&agrave; esportata nel PDF.</li>
+</ul>
+<p>In molti casi potremmo avere una cornice di dimensioni fisse in cui vogliamo far entrare un'intera immagine, e lo possiamo fare con <b>Adatta alla cornice</b> (o <b>Adatta immagine alla cornice</b> dal men&ugrave; contestuale. Se non contrassegniamo l'opzione <b>Proporzionale</b>, l'immagine &egrave; forzata ad allargarsi o restringersi fino ad avere le stesse dimensioni della cornice e potrebbe essere distorta. Un utile modo per dare alla cornice le dimensioni adatte per l'immagine contenuta consiste nella scalatura (proporzionale) alle dimensioni della cornice e poi nell'applicare <b>Adatta cornice all'immagine</b> dal men&ugrave; contestuale.
+<p></td>
+<td><img src="images/Image_Properties.png" ALT="Proprietà: Immagine"></td>
+</tr>
+</table>
+<h3>Modalit&agrave; modifica contenuto</h3>
+Potete entrare in modalit&agrave; modifica contenuto facendo clic sull'apposita icona nella barra degli strumenti, oppure premendo <b>E</b> da tastiera. Potete tornare alla modalit&agrave; Seleziona elemento premendo <b>Esc</b>, oppure facendo clic fuori e poi di nuovo dentro la cornice. La modalit&agrave; Modifica contenuto funziona solo quando l'opzione <b>Scala libera</b> &egrave; attiva.
+<p>Nelle cornici immagine la modalit&agrave; Modifica contenuto permette di spostare l'immagine all'interno della cornice facendo clic e trascinandola con il mouse, che equivale a modificare le posizioni X e Y nella scheda Immagine.</p>
+<hr>
+<p>Vedi anche:
+<ul>
+<li><a href="WwFrames.html">Lavorare con le cornici</a></li>
+<li><a href="importhints.html">Importare contenuto in Scribus</a></li>
+<li><a href="importhints1.html">Importare file EPS</a></li>
+<li><a href="psd.html">Importare file PSD</a></li>
+</ul>
+</p>
+</body>
+</html>

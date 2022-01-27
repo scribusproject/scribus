@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <QObject>
 #include <QPointer>
+#include <QRectF>
 
 #include "pageitem.h"
 #include "scribusapi.h"
@@ -73,10 +74,17 @@ class SCRIBUS_API Selection : public QObject
 		 * @brief Add an item to the selection. 
 		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
 		 * @param item Item to add
-		 * @param ignoreGUI Dont connect Item To GUI even if this is a GUI selection
+		 * @param ignoreGUI Don't connect Item To GUI even if this is a GUI selection
 		 * @return If the item was added
 		 */
 		bool addItem(PageItem *item, bool ignoreGUI=false);
+		/**
+		 * @brief Add items to the selection. 
+		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
+		 * @param item Item to add
+		 * @return If any item was added
+		 */
+		bool addItems(QList<PageItem *> items);
 		/**
 		 * @brief Prepend an item to the selection. 
 		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
@@ -84,18 +92,19 @@ class SCRIBUS_API Selection : public QObject
 		 * @param doEmit call emitAllToGUI()
 		 * @return If the item was added
 		 */
-		bool prependItem(PageItem *item, bool doEmit=true);
+		bool prependItem(PageItem *item);
 
 		bool containsItem(PageItem *item) const { return m_SelList.contains(item); }
-		/**
-		 * \brief Unused
-		 */
-		bool addGroup();
+
 		/**
 		 * \brief Remove an item from list
 		 * @param item page item
 		 */
 		bool removeItem(PageItem *item);
+		/**
+		 * \brief Remove items from specified layer
+		 */
+		bool removeItemsOfLayer(int layedID);
 		/**
 		 * \brief Remove the first item from the list
 		 * @return If the remove was successful
@@ -105,6 +114,12 @@ class SCRIBUS_API Selection : public QObject
 		 * \brief Unused
 		 */
 		bool removeGroup();
+
+		/**
+		 * Replace item in selection by another
+		 */
+		void replaceItem(PageItem* oldItem, PageItem* newItem);
+
 		/**
 		 * \brief Remove an item from list listNumber and return a pointer to it
 		 * @param itemIndex Index of the item in the list
@@ -124,7 +139,7 @@ class SCRIBUS_API Selection : public QObject
 		/**
 		 * \brief Check if the selection is empty.
 		 */
-		bool isEmpty() const { return m_SelList.count()==0; }
+		bool isEmpty() const { return m_SelList.count() == 0; }
 		/**
 		 * \brief Clear a list
 		 */
@@ -134,48 +149,64 @@ class SCRIBUS_API Selection : public QObject
 		 * @param item PageItem reference
 		 */
 		bool primarySelectionIs(const PageItem* item) const { return (!m_SelList.isEmpty() && (item==m_SelList.first())); }
+		const SelectionList& selectionList() const {return m_SelList;}
 		PageItem *itemAt(int index=0) { return itemAt_(index); }
 		const PageItem *itemAt(int index=0) const { return const_cast<Selection*>(this)->itemAt_(index); }
+		QList<PageItem*> items() const;
 		QStringList getSelectedItemsByName() const;
-		bool isMultipleSelection() const { return m_hasGroupSelection; }
+		bool isMultipleSelection() const { return (m_SelList.count() > 1); }
 		bool isGUISelection() const { return m_isGUISelection; }
 		double width() const;
 		double height() const;
 		//set the group rectangle properties
 		void setGroupRect();
 		void getGroupRect(double *x, double *y, double *w, double *h);
+		QRectF getGroupRect();
 		void getVisualGroupRect(double *x, double *y, double *w, double *h);
+		QRectF getVisualGroupRect();
+		//!\brief Test if selection contains object of specified item type
+		bool containsItemType(PageItem::ItemType type) const;
 		//!\brief Test to see if all items in the selection are the same typedef
 		bool itemsAreSameType() const;
+		//!\brief Test to see if all items in the selection are on same page
+		bool itemsAreOnSamePage() const;
 
-		bool signalsDelayed(void);
-		void delaySignalsOn(void);
-		void delaySignalsOff(void);
+		/**
+		 * \brief get the layer ID of items in the selection
+		 * @return the layer ID or -1 if items do not belong to the same layer
+		 */
+		int objectsLayer() const;
+
+		/**
+		 * \brief detect if selected object have all same parent (doc or group)
+		 * @return true if objects share same parent, false otherwise
+		 */
+		bool objectsHaveSameParent() const;
+
+		bool signalsDelayed();
+		void delaySignalsOn();
+		void delaySignalsOff();
 		
 	protected:
 		PageItem *itemAt_(int index=0);
 		SelectionList m_SelList;
-		bool m_hasGroupSelection;
 		bool m_isGUISelection;
-		double groupX;
-		double groupY;
-		double groupW;
-		double groupH;
+		double m_groupX;
+		double m_groupY;
+		double m_groupW;
+		double m_groupH;
 		
-		double visualGX;
-		double visualGY;
-		double visualGW;
-		double visualGH;
+		double m_visualGX;
+		double m_visualGY;
+		double m_visualGW;
+		double m_visualGH;
 
 		int  m_delaySignals;
 		bool m_sigSelectionChanged;
-		bool m_sigSelectionIsMultiple;
 
 		void sendSignals(bool guiConnect = true);
 		
 	signals:
-		void selectionIsMultiple(bool);
-		void empty();
 		void selectionChanged();
 };
 

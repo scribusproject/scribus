@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 QString FileFormatName()
 {
-    return QObject::tr("Text Filters");
+	return QObject::tr("Text Filters");
 }
 
 QStringList FileExtensions()
@@ -31,7 +31,7 @@ QStringList FileExtensions()
 	return QStringList();
 }
 
-void GetText(QString filename, QString encoding, bool, gtWriter *writer)
+void GetText(const QString& filename, const QString& encoding, bool, gtWriter *writer)
 {
 	TextFilter* tf = new TextFilter(filename, encoding, writer);
 	delete tf;
@@ -45,7 +45,7 @@ TextFilter::TextFilter(const QString& fname, const QString& enc, gtWriter* w)
 	encoding = enc;
 	writer = w;
 	writer->setOverridePStyleFont(false);
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("TextFilter");
 	tfDia* tfdia = new tfDia();
 	if (tfdia->exec())
 	{
@@ -121,20 +121,20 @@ void TextFilter::write()
 			}
 		}
 	}
-	if (pstyles.size() == 0)
+	if (pstyles.empty())
 		writer->append(text);
 	else
 	{
-		QStringList list = text.split("\n", QString::KeepEmptyParts);
-		gtParagraphStyle *useStyle = NULL;
+		QStringList list = text.split("\n", Qt::KeepEmptyParts);
+		gtParagraphStyle *useStyle = nullptr;
 		for (int i = 0; i < static_cast<int>(list.size()); ++i)
 		{
 			QString tmpText(list[i]);
 			QString tmpText2(tmpText);
-			tmpText2.simplified();
+			tmpText2 = tmpText2.simplified();
 			int numberOfWords = tmpText2.count(" ");
 			++numberOfWords;
-			useStyle = NULL;
+			useStyle = nullptr;
 			for (int j = 0; j < static_cast<int>(filters->size()); ++j)
 			{
 				if ((*filters)[j]->isEnabled())

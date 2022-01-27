@@ -1,0 +1,58 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>PDF/X-3</title>
+</head>
+<body>
+<h2>PDF/X-3</h2>
+<p>La capacit&agrave; di esportare in formato PDF/X-3 &egrave; stata una tappa molto importante nello sviluppo di Scribus. Lo ha reso la prima applicazione di impaginazione in grado di gestire questo esigente, ma aperto, standard ISO (ISO 15930-3:2002).</p>
+<p>La creazione di documenti PDF &ldquo;pronti per la stampa&rdquo; commerciale &egrave; sempre stata esposta a molti errori, specialmente per gli utenti privi di familiarit&agrave; con le sottigliezze del PostScript, della &ldquo;distillazione&rdquo; di PDF e con le variabili capacit&agrave; delle macchine per la creazione di lastre tipografiche o per la stampa digitale. C'&egrave; molto di vero nel detto &ldquo;&Egrave; difficile creare un buon PDF, ma &egrave; facilissimo fare pasticci&rdquo;. L'uso pi&ugrave; comune della famiglia di applicazioni Adobe Acrobat Distiller per la creazione di PDF, tipicamente richiede la conoscenza almeno parziale dei quasi cento diversi parametri di Distiller.</p>
+<p>Nei paesi europei, le idee alla base del PDF/X sono state accolte prima e pi&ugrave; ampiamente rispetto al Nord America. Lo stimolo allo sviluppo di questi standard &egrave; venuto principalmente da aziende svizzere e tedesche, molte delle quali sono leader mondiali nelle tecnologie per la stampa e il trattamento delle immagini digitali.</p>
+<p>La creazione del PDF/X &egrave;, in parte, un tentativo di mettere a disposizione di utenti e creatori uno strumento non proprietario per valutare se i file sono adatti alla stampa professionale o allo scambio con agenzie di servizi. Essenzialmente, i file PDF/X, da una parte permettono di utilizzare soltanto un certo sottoinsieme delle capacit&agrave; del formato PDF, e dall'altra rendono obbligatorio l'utilizzo di certe altre.</p>
+<p>Scribus offre agli utenti la possibilit&agrave; di creare facilmente file PDF che rispettano al 100&nbsp;% lo standard X-3. Con l'uso avveduto delle opzioni PDF, gli utenti possono essere certi che i loro file saranno conformi agli standard al 100&nbsp;%.</p>
+<p>Prima di esportare in PDF/X-3, controllate che i file che create possano essere utilizzati dalla vostra tipografia o agenzia di servizi. Non tutti sono attrezzati per utilizzare la tecnologia PDF/X.</p>
+
+<h3>Quando dovrei usare il PDF/X-3?</h3>
+<p>Quando volete ottenere una riproduzione del colore <strong>molto</strong> precisa <strong>e</strong> la vostra tipografia accetta (o richiede esplicitamente) file PDF/X-3. Se la vostra tipografia non &egrave; in grado di utilizzare questo formato, &egrave; probabile che nel prodotto finale i colori risultino alterati, rischio che &egrave; molto minore con file PDF di tipo pi&ugrave; tradizionale.</p>
+
+<h3>Il PDF/X-3 e la gestione del colore</h3>
+<p>Il principale beneficio del PDF/X-3 &egrave; che tipicamente il colore viene convertito in modo pi&ugrave; accurato dal modello RGB al modello CMYK utilizzato dalla macchina tipografica. Si ottiene una maggiore accuratezza perch&eacute; si mantiene il colore RGB fino a uno stadio avanzato del processo di stampa, e la conversione da RGB a CMYK viene eseguita dal RIP della macchina tipografica stessa, <b>e inoltre</b> perch&eacute; l'uso dei profili colore &egrave; obbligatorio. Poich&eacute; il RIP conosce in dettaglio l'esatta gamma di colore della macchina, lo si considera in grado di offrire, nella maggior parte dei casi, una conversione accurata. Il PDF/X-3 non impedisce di utilizzare immagini CMYK, ma &egrave; ideale per conservare i colori RGB il pi&ugrave; a lungo possibile nel processo.</p>
+<p>Un problema da considerare &egrave; quale profilo colore utilizzare. Vi sono due strategie: la prima &egrave; quella di ottenere dalla tipografia il profilo ICC adatto per il particolare tipo di carta che sar&agrave; impiegato. La seconda consiste nel servirsi di uno standard per la stampa ben conosciuto, come SWOP, ECI o altri. L'uso del PDF/X-3 rende necessaria la collaborazione della tipografia, ma pu&ograve; realmente migliorare la corrispondenza dei colori nella stampa. Come sempre, una breve visita alla vostra tipografia <strong>prima di iniziare il lavoro</strong> &egrave; fortemente consigliata. Se non ottenete risposte, provate con un'altra. La stampa &egrave; un settore competitivo, e quasi sempre &egrave; possibile trovare delle alternative.</p>
+
+<h3>Guida rapida alla creazione di un PDF/X-3</h3>
+<p>Nelle <a href="settings1.html">Impostazioni documento</a> controllate che la gestione del colore sia attivata e che siano stati selezionati i corretti profili colore. La situazione ideale &egrave; che il profilo colore per la stampa corrisponda a una condizione di stampa definita da uno standard ISO, o che esso sia fornito dalla vostra tipografia. Se la gestione del colore non &egrave; attiva, non &egrave; possibile esportare in PDF/X-3. Poi selezionate <i>File&nbsp;&#062; Esporta&nbsp;&hellip;&#062; Salva come PDF&nbsp;&hellip;</i>, oppure fate clic sull'icona PDF nella barra degli strumenti.</p>
+<p>Si apre questo pannello, in cui dovete selezionare &ldquo;PDF/X-3&rdquo; dal men&ugrave; a discesa &ldquo;Compatibilit&agrave;&rdquo; come mostrato qui sotto. Le impostazioni predefinite cambieranno automaticamente.</p>
+<table width="100%"><tr><td align="center"><img src="images/pdfx3-1.png" alt="Scheda Generale nella finestra di creazione PDF" /></td></tr></table>
+<p>Poi passate alla scheda &ldquo;Colore&rdquo;, come mostrato qui sotto:</p>
+<table width="100%"><tr><td align="center"><img src="images/pdfxcolor.png" alt="Scheda Colore nella finestra di creazione PDF" /></td></tr></table>
+<p>Notate che nella scheda &ldquo;Colore&rdquo; la scelta della destinazione del documento &egrave; disattivata. Il motivo &egrave; che quando si utilizza il PDF/X-3, la conversione allo spazio colore della macchina tipografica si presume che avvenga il pi&ugrave; tardi possibile, e ci&ograve; significa che la conversione sar&agrave; eseguita dalla tipografia, e non da voi.</p>
+<p>Poi selezionate la scheda &ldquo;Pre-Stampa&rdquo;, come mostrato sotto:</p>
+<table width="100%"><tr><td align="center"><img src="images/pdfxintent.png" alt="PDF Create Dialog PDF/X-3 Tab" /></td></tr></table>
+<p>Questa &egrave; la fase in cui inserite nel PDF la condizione di stampa desiderata, che &egrave; definita dal profilo colore ICC. Questa &egrave; probabilmente la scelta pi&ugrave; importante per quanto riguarda i profili colore, perch&eacute; influenza il colore nel corso dell'intero processo. Potete anche inserire una breve nota sul documento, che potrebbe essere utile in seguito. <strong>Questo campo non pu&ograve; restare vuoto, poich&eacute; &egrave; richiesto dalle specifiche tecniche PDF/X-3. Se questo campo &egrave; vuoto, Scribus disabilita il pulsante &ldquo;Salva&rdquo;.</strong> Potete anche aggiungere altri elementi per la prestampa, come barre di colore o segni per la stampa, ma dovreste farlo soltanto se la vostra tipografia li richiede.<p>
+<p>Nota: a causa dei rigorosi requisiti del PDF/X-3, alcune caratteristiche del formato PDF sono disabilitate, tra cui la crittografia e gli effetti di presentazione; tutti i caratteri sono automaticamente incorporati o inseriti come sottoinsieme. Per lo stesso motivo, le annotazioni e le trasparenze non vengono esportate.</p>
+
+<h3>Che differenze vi sono tra le versioni del PDF-X?</h3>
+<ul>
+<li><b>PDF/X-1a</b>: ha i seguenti requisiti: lo spazio colore deve essere CMYK/scala di grigi, tutti i caratteri devono essere incorporati, e le impostazioni salvate nel PDF devono indicare se il trapping &egrave; gi&agrave; stato applicato oppure no. Questo &egrave; un po' come il passaggio del testimone in una staffetta, e non vi &egrave; certezza sul risultato finale. Il PDF/X-1a &egrave; ampiamente utilizzato in Nord America. La capacit&agrave; di creare documenti in PDF/X-1a sar&agrave; aggiunta in una prossima versione di Scribus, ed &egrave; gi&agrave; in fase di collaudo.</li>
+<li><b>PDF/X-2</b>: &egrave; uno standard meno rigido, ma rende necessario un maggior coordinamento tra il fornitore e il destinatario del file. Non &egrave; obbligatorio incorporare i caratteri, ed &egrave; possibile utilizzare la OPI (Open Pre-Press Interface). Il PDF/X-2 inoltre permette di utilizzare spazi colore indipendenti dal particolare dispositivo, come il CIE&nbsp;L*a*b*. Le tipografie commerciali che accettano questo formato sono molto rare.</li>
+<li><b>PDF/X-3</b>: &egrave; basato sul PDF 1.3, e richiede che i profili colore ICC siano inseriti nel PDF. In questo modo nel PDF possono essere usati i colori RGB, poich&eacute; essi saranno convertiti in CMYK in base ai profili ICC nella fase pi&ugrave; avanzata possibile del processo di stampa.</li>
+<li><b>PDF/X-4</b>: &egrave; basato sul PDF 1.4 e permette di utilizzare la trasparenza, che &egrave; una delle pi&ugrave; importanti caratteristiche di questa versione, in un file PDF/X. Le versioni del PDF/X precedenti alla X-4 non consentono di utilizzare la trasparenza. La capacit&agrave; di creare documenti in PDF/X-4 sar&agrave; aggiunta in una prossima versione di Scribus, ed &egrave; gi&agrave; in fase di collaudo.</li>
+<li><b>PDF/X-5</b>: &egrave; basato sul PDF 1.5 e permette l'uso di livelli PDF nei file PDF/X. La capacit&agrave; di creare documenti in PDF/X-5 sar&agrave; aggiunta in una futura versione di Scribus.</li>
+</ul>
+
+<h3>Come posso accertarmi che i file PDF generati da Scribus siano davvero conformi alle specifiche PDF/X-3?</h3>
+<ol>
+<!--<li>La <a href="http://www.callassoftware.com/callas/doku.php/it:products">Callas Software</a> offre un plugin gratuito PDF Inspektor per Adobe Acrobat. Esso controlla il PDF e produce un'analisi dettagliata su tutti gli aspetti del file PDF, compese le meta informazioni e un elenco dettagliato delle immagini e degli altri oggetti PDF.</li>-->
+<li>Alcuni software specialistici per il formato PDF, tra cui Enfocus PitStop Pro e pdfToolbox della Callas Software, sono in grado di eseguire una dettagliata verifica preliminare sui file PDF. Anche Acrobat Professional &egrave; in grado di analizzare e verificare i file PDF/X.</li>
+<li>Un'altra possibilit&agrave; &egrave; la <a href="http://www.altonatestsuite.com">Altona Suite</a>.</li>
+</ol>
+
+<h3>Siti sul PDF/X:</h3>
+<p><a href="http://pdfx.info">http://pdfx.info</a> (inglese)</p>
+<!--<p><a href="http://www.ipa.org/PDFS/pdfxguide.zip">http://www.ipa.org/PDFS/pdfxguide.zip</a></p>-->
+<!--<p><a href="http://www.pdf-x.com/downloads/pdf/application_notes_pdfx3.pdf">http://www.pdf-x.com/downloads/pdf/application_notes_pdfx3.pdf</a></p>-->
+<p><a href="http://www.pdfx-ready.ch">http://www.pdfx-ready.ch</a> (tedesco)</p>
+<p><a href="http://boscarol.com/pages/printbuyer/pdfx.html">http://boscarol.com/pages/printbuyer/pdfx.html</a> (italiano)</p> 
+<p><a href="http://www.certifiedpdf.net/resources/standards_pdfforprint_it.php">http://www.certifiedpdf.net/resources/standards_pdfforprint_it.php</a> (italiano)</p>
+</body>
+</html>

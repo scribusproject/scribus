@@ -1,0 +1,130 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Setting Object Properties</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Setting Object Properties</h2>
+
+<dl>
+
+<dt><a name="-loadImage"><strong>loadImage</strong></a>(...)</dt>
+<dd><code>loadImage("filename" [, "name"])</code>
+<p>Loads the picture "picture" into the image frame "name". If "name" is not given the currently selected item is used.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd></dt>
+
+<dt><a name="-outlineText"><strong>outlineText</strong></a>(...)</dt>
+<dd><code>outlineText(["name"])</code>
+<p>Convert the text frame "name" to outlines. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-scaleImage"><strong>scaleImage</strong></a>(...)</dt>
+<dd><code>scaleImage(x, y [, "name"])</code>
+<p><b>Do not use this command since it no longer works. Use setImageScale instead.</b></p></dd>
+
+<dt><a name="-setCornerRadius"><strong>setCornerRadius</strong></a>(...)</dt>
+<dd><code>setCornerRadius(radius, ["name"])</code>
+<p>Sets the corner radius of the object "name". The radius is expressed in points regardless of page units, and must be an integer. If "name" is not given the currently selected item is used.</p> 
+<p>May raise ValueError if the corner radius is negative.</p></dd>
+
+<dt><a name="-setCustomLineStyle"><strong>setCustomLineStyle</strong></a>(...)</dt>
+<dd><code>setCustomLineStyle(styleName, ["name"])</code>
+<p>Sets the custom line style of the object "name" to "styleName". Argument "styleName" is the name of line style as seen in Style Manager. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setFillBlendmode"><strong>setFillBlendmode</strong>(...)</a></dt>
+<dd><code>setFillBlendmode(blendmode, ["name"])</code>
+<p>Sets the fill blendmode of the object "name" to blendmode. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setFillColor"><strong>setFillColor</strong></a>(...)</dt>
+<dd><code>setFillColor("color", ["name"])</code>
+<p>Sets the fill color of the object "name" to the color "color". "color" is the name of one of the defined colors. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setFillShade"><strong>setFillShade</strong></a>(...)</dt>
+<dd><code>setFillShade(shade, ["name"])</code>
+<p>Sets the shading of the fill color of the object "name" to "shade". "shade" must be an integer value in the range from 0 (lightest) to 100 (full Color intensity). If "name" is not given the currently selected Item is used.<p>
+<p>May raise ValueError if the fill shade is out of bounds.</p></dd>
+
+<dt><a name="-setFillTransparency"><strong>setFillTransparency</strong>(...)</a></dt>
+<dd><code>setFillTransparency(transparency, ["name"])</code>
+<p>Sets the fill transparency of the object "name". If "name" is not given the currently selected item is used.</p>
+<p>In spite of this command's wording, the "transparency" value is actually a decimal corresponding to the <strong>opacity</strong>, so for example, 0.9 = 90% opacity, 0.2 = 20% opacity.</p></dd>
+
+<dt><a name="-setGradientFill"><strong>setGradientFill</strong></a>(...)</dt>
+<dd><code>setGradientFill(type, "color1", shade1, "color2", shade2, ["name"])</code>
+<p>Sets the gradient fill of the object "name" to type. Color descriptions are the same as for <a href="#-setFillColor">setFillColor</a>() and <a href="#-setFillShade">setFillShade</a>(). See the constants for available types (FILL_&lt;type&gt;).</p></dd>
+
+<dt><a name="-setGradientStop"><strong>setGradientStop</strong></a>(...)</dt>
+<dd><code>setGradientStop("color", shade, opacity, ramppoint, ["name"])</code>
+<p>Set or add a gradient stop to the gradient fill of the object \"name\" at position ramppoint. Color descriptions are the same as for <a href="#-setFillColor">setFillColor</a>() and <a href="#-setFillShade">setFillShade</a>(). setGradientFill() must have been called previously for the gradient fill to be visible.</p></dd>
+
+<dt><a name="-setImageScale"><strong>setImageScale</strong></a>(...)</dt>
+<dd><code>setImageScale(x, y [, "name"])</code>
+<p>Sets the scaling factors of the picture in the image frame "name". If "name" is not given the currently selected item is used. A number of 1 means 100 %. Scaling factors are equal to the values shown on properties palette.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd>
+
+<dt><a name="-setImageOffset"><strong>setImageOffset</strong></a>(...)</dt>
+<dd><code>setImageOffset(x, y [, "name"])</code>
+<p>Sets the position of the picture in the image frame "name". If "name" is not given the currently selected item is used. The specified offset values are equal to the values shown on properties palette when point unit is used.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd>
+
+<dt><a name="-setItemName"><strong>setItemName</strong></a>(...)</dt>
+<dd><code>setItemName(newName, [, "name"])</code>
+<p>Sets the name of the object "name" to "newName" and returns the name applied. If "name" is not given the currently selected item is used.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the object doesn't exist.</p></dd>
+
+<dt><a name="-setLineBlendmode"><strong>setLineBlendmode</strong>(...)</a></dt>
+<dd><code>setLineBlendmode(blendmode, ["name"])</code>
+<p>Sets the line blendmode of the object "name" to blendmode is the name of one of the defined colors. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setLineCap"><strong>setLineCap</strong></a>(...)</dt>
+<dd><code>setLineCap(captype, ["name"])</code>
+<p>Sets the line cap style of the object "name" to the style "cap". If "name" is not given the currently selected item is used.</p>
+<p>The value "cap" must be taken amongst predefined constants CAP_&lt;type&gt;: CAP_FLAT, CAP_ROUND, or CAP_SQUARE.</p></dd>
+
+<dt><a name="-setLineColor"><strong>setLineColor</strong></a>(...)</dt>
+<dd><code>setLineColor("color", ["name"])</code>
+<p>Sets the line color of the object "name" to the color "color". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setLineJoin"><strong>setLineJoin</strong></a>(...)</dt>
+<dd><code>setLineJoin(join, ["name"])</code>
+<p>Sets the line join style of the object "name" to the style "join". If "name" is not given the currently selected item is used.</p>
+<p>The value "join" must be taken amongst predefined constants JOIN_&lt;type&gt;: JOIN_BEVEL, JOIN_MITTER or JOIN_ROUND.</p></dd>
+
+<dt><a name="-setLineShade"><strong>setLineShade</strong></a>(...)</dt>
+<dd><code>setLineShade(shade, ["name"])</code>
+<p>Sets the shading of the line color of the object "name" to "shade". "shade" must be an integer value in the range from 0 (lightest) to 100 (full color intensity). If "name" is not given the currently selected item is used.</p>
+<p>May raise ValueError if the line shade is out of bounds.</p></dd>
+
+<dt><a name="-setLineStyle"><strong>setLineStyle</strong></a>(...)</dt>
+<dd><code>setLineStyle(style, ["name"])</code>
+<p>Sets the line style of the object "name" to the style "style". If "name" is not given the currently selected item is used.</p>
+<p>There are predefined constants for "style" - LINE_&lt;style&gt;.</p></dd>
+
+<dt><a name="-setLineTransparency"><strong>setLineTransparency</strong>(...)</a></dt>
+<dd><code>setLineTransparency(transparency, ["name"])</code>
+<p>Sets the line transparency of the object "name". If "name" is not given the currently selected item is used. In spite of this command's wording, the "transparency" value is actually a decimal corresponding to the <strong>opacity</strong>, so for example, 0.9 = 90% opacity, 0.2 = 20% opacity.</p></dd>
+
+<dt><a name="-setLineWidth"><strong>setLineWidth</strong></a>(...)</dt>
+<dd><code>setLineWidth(width, ["name"])</code>
+<p>Sets line width of the object "name" to "width". "width" must be in the range from 0.0 to 12.0 inclusive, and is measured in points. If "name" is not given the currently selected item is used.</p> 
+<p>May raise ValueError if the line width is out of bounds.</p></dd>
+
+<dt><a name="-setMultiLine"><strong>setMultiLine</strong></a>(...)</dt>
+<dd><code>setMultiLine("namedStyle", ["name"])</code>
+<p>Sets the line style of the object "name" to the named style "namedStyle". If "name" is not given the currently selected item is used.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the line style doesn't exist.</p></dd>
+
+<dt><a name="-setObjectAttributes"><strong>setObjectAttributes</strong></a>(...)</dt>
+<dd><code>setObjectAttributes(attributes, ["name"])</code>
+<p>Sets attributes of the object "name". If "name" is not given the currently selected item is used.</p>
+<p>attributes is a list of dictionary. Each dictionary must have those keys: Name, Type, Value, Parameter, Relationship, RelationshipTo, AutoAddTo. All values must be strings.</p></dd>
+
+<dt><a name="-traceText"><strong>traceText</strong></a>(...)</dt>
+<dd><code>traceText(["name"])</code>
+<p>Deprecated, use outlineText() instead.</p></dd>
+
+</dl>
+</body>
+</html>

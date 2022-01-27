@@ -20,9 +20,9 @@
 #include "actions.h"
 
 namespace desaxe {
-	
+
 typedef std::pair<Xml_string, Action> rule_t;
-	
+
 typedef unsigned short token_t;
 typedef std::vector<token_t> path_t;
 enum special_token { EMPTY = 0, START = 1, ANY = 2, REPEAT = 3 } ;
@@ -33,8 +33,8 @@ struct DFA_State
 {
 	unsigned int ID;
 	std::vector<rule_t> rules;
-	
-	DFA_State() : rules() {}
+
+	DFA_State() : ID(0) {}
 };
 
 typedef DFA_State* dfa_state_t;
@@ -68,7 +68,7 @@ public:
 private:
 	/// user sets these rules
 	std::vector<rule_t> rules;
-	
+
 	/// rule patterns get broken into tokens:
 	std::map<Xml_string, token_t> tokens;
 	/// lists the accepting (NFA) states for each rule (same sequence as rules)
@@ -81,7 +81,7 @@ private:
 	/// assigns a unique token to each string
 	token_t createToken(const Xml_string& tok);
 	void makeTokens();
-	
+
 	/// creates a nondeterministic automaton as base for the DFA
 	automata::NFA<nfa_state_t, token_t>* createNFA();
 
@@ -92,53 +92,63 @@ private:
 };
 
 
-Digester::Digester() : objects(), storage(), errors() 
+Digester::Digester()
 { 
-	state = new RuleState();
-	result_.ptr = NULL;
-	result_.type = "";
+	m_state = new RuleState();
+	m_result_.ptr = nullptr;
+	m_result_.type = "";
 }
 
 
 Digester::~Digester() {
-	delete state;
-	deletePatches(patches);
+	delete m_state;
+	deletePatches(m_patches);
 }
 
 
 Digester& Digester::operator=(const Digester& other)
 {
-	delete state;
-	state = new RuleState(*other.state);
-	objects = other.objects;
-	storage = other.storage;
-	result_ = other.result_;
-	errors = other.errors;
+	if (&other == this)
+		return *this;
+	delete m_state;
+	m_state = new RuleState(*other.m_state);
+	m_objects = other.m_objects;
+	m_storage = other.m_storage;
+	m_result_ = other.m_result_;
+	m_errors = other.m_errors;
 	return *this;
 }
 
 
 int Digester::nrOfErrors() const
 {
-	return errors.size();
+	return m_errors.size();
 }
 
-const Xml_string Digester::getError(int i) const
+const Xml_string& Digester::getError(int i) const
 {
-	return errors[i];
+	return m_errors[i];
 }
 
 
 void Digester::addRule(const Xml_string& pattern, Action action)
 {
 	action.setDigester(this);
-	state->addRule(pattern, action);
+	m_state->addRule(pattern, action);
 }
 
+void Digester::reset()
+{
+	m_objects.clear();
+	m_storage.clear();
+	m_result_.ptr = nullptr;
+	m_result_.type = "";
+	m_errors.clear();
+}
 
 void Digester::beginDoc()
 {
-	state->reset();
+	m_state->reset();
 #ifdef DESAXE_DEBUG	
 	state->dump();
 #endif
@@ -150,13 +160,13 @@ void Digester::endDoc()
 
 void Digester::begin(const Xml_string& tag, Xml_attr attr)
 {
-	state->open(tag);
-	const std::vector<rule_t>& rules (state->rulesForCurrentState());
+	m_state->open(tag);
+	const std::vector<rule_t>& rules (m_state->rulesForCurrentState());
 	std::vector<rule_t>::const_iterator it;
 	for(it=rules.begin(); it!=rules.end(); ++it)
 	{
 #ifdef DESAXE_DEBUG
-		std::cerr << "B " << it->first << " " << typeid(it->second).name() << "\n";
+		std::cerr << "B " << it->first.toStdString() << " " << typeid(it->second).name() << "\n";
 #endif
 		const_cast<Action&>(it->second).begin(tag, attr);
 	}
@@ -164,26 +174,26 @@ void Digester::begin(const Xml_string& tag, Xml_attr attr)
 
 void Digester::end(const Xml_string& tag)
 {
-	const std::vector<rule_t>& rules (state->rulesForCurrentState());
+	const std::vector<rule_t>& rules (m_state->rulesForCurrentState());
 	std::vector<rule_t>::const_reverse_iterator it;
 	for(it=rules.rbegin(); it!=rules.rend(); ++it)
 	{
 #ifdef DESAXE_DEBUG
-		std::cerr << "E " << it->first << " " << typeid(it->second).name() << "\n";
+		std::cerr << "E " << it->first.toStdString() << " " << typeid(it->second).name() << "\n";
 #endif
 		const_cast<Action&>(it->second).end(tag);
 	}
-	state->close();
+	m_state->close();
 }
 
 void Digester::chars(const Xml_string& text)
 {
-	const std::vector<rule_t>& rules (state->rulesForCurrentState());
+	const std::vector<rule_t>& rules (m_state->rulesForCurrentState());
 	std::vector<rule_t>::const_iterator it;
 	for(it=rules.begin(); it!=rules.end(); ++it)
 	{
 #ifdef DESAXE_DEBUG
-		std::cerr << "C " << it->first << " " << typeid(it->second).name() << "\n";
+		std::cerr << "C " << it->first.toStdString() << " " << typeid(it->second).name() << "\n";
 #endif
 		const_cast<Action&>(it->second).chars(text);
 	}
@@ -192,24 +202,24 @@ void Digester::chars(const Xml_string& text)
 
 Xml_string Digester::concat(const Xml_string& pattern1, const Xml_string& pattern2)
 {
-	if (pattern1 == "")
+	if (pattern1.isEmpty())
 		return pattern2;
-	else if (pattern2 == "")
+	if (pattern2.isEmpty())
 		return pattern1;
-	else if ( (pattern1[pattern1.length()-1] != '/') && (pattern2[0] != '/') )
+	if ( (pattern1[pattern1.length()-1] != '/') && (pattern2[0] != '/') )
 		// insert "/" as separator
 		return pattern1 + "/" + pattern2;
-	else if ( (pattern1[pattern1.length()-1]=='/') || (pattern2[0]=='/') )
+	if ( (pattern1[pattern1.length()-1]=='/') || (pattern2[0]=='/') )
 		return pattern1 + pattern2;
-	else // cut off one "/"
-		return pattern1 + QString::fromStdString(std::string(static_cast<const std::string&>(pattern2.toStdString()), 1, std::string::npos));
+	// cut off one "/"
+	return pattern1 + QString::fromStdString(std::string(static_cast<const std::string&>(pattern2.toStdString()), 1, std::string::npos));
 }
 
 
-RuleState::RuleState() : rules(), dfa(NULL), stateStack(), valid(false)
+RuleState::RuleState() : dfa(nullptr), valid(false)
 {}
 
-RuleState::RuleState(const RuleState& other) : rules(other.rules), dfa(NULL), stateStack(), valid(false)
+RuleState::RuleState(const RuleState& other) : rules(other.rules), dfa(nullptr), valid(false)
 {}
 
 RuleState::~RuleState()
@@ -217,13 +227,11 @@ RuleState::~RuleState()
 	if (dfa) 
 	{
 		std::set<dfa_state_t> morituri(dfa->states());
-		for (std::set<dfa_state_t>::iterator i=morituri.begin(); i != morituri.end(); ++i) {
+		for (auto i = morituri.begin(); i != morituri.end(); ++i)
 			delete *i;
-		}
 		delete dfa;
 	}
 }
-
 
 void RuleState::addRule(const Xml_string& pattern, Action action)
 {
@@ -235,6 +243,9 @@ void RuleState::addRule(const Xml_string& pattern, Action action)
 inline
 void RuleState::reset()
 {
+	std::vector<rule_t>::iterator it;
+	for (it = rules.begin(); it != rules.end(); ++it)
+		it->second.reset();
 	stateStack.clear();
 	if (!valid)
 		compileDFA();
@@ -279,7 +290,7 @@ inline
 void RuleState::open(const Xml_string& tag)
 {
 	dfa_state_t nstate = dfa->next(stateStack.back(), tokens[tag]);
-	assert(nstate != NULL);
+	assert(nstate != nullptr);
 #ifdef DESAXE_DEBUG
 	std::cerr << "to state " << nstate->ID << "\n"; 	
 #endif
@@ -341,12 +352,12 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 	
 	prefix[0] = EMPTY;
 	nfa_states[prefix] = EMPTY;
-	
+
 	std::set<nfa_state_t> deflt;
 	deflt.insert(EMPTY);
-	
+
 	NFA<nfa_state_t, token_t> *nfa = new NFA<nfa_state_t, token_t>(START, deflt);
-	
+
 	nfa->addState(EMPTY);
 	nfa->addInput(ANY);
 	nfa->addTransition(EMPTY, ANY, EMPTY);
@@ -357,7 +368,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 		const unsigned int len = currPattern.length();
 		int pos;
 		nfa_state_t lastState;
-		
+
 		// determine if this is a start pattern
 		prefix.resize(1);
 		if (currPattern[0] == '/') {
@@ -370,14 +381,14 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 			pos = 0;
 			lastState = EMPTY;
 		}
-		
+
 //		std::cerr << "looking at pattern: " << currPattern << "\n";
 		// for all prefixes
 		do {
 			std::string::size_type pos2 = currPattern.find('/', pos);
 			if (pos2 == std::string::npos)
 				pos2 = len;
-			
+
 			std::string diff(currPattern.substr(pos, pos2-pos));
 			token_t tok = createToken(fromSTLString(diff));
 //			std::cerr << pos << "-" << pos2 << "\t: " << diff << " = " << tok << "\n";
@@ -389,7 +400,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 				pos = pos2 + 1;
 				continue;
 			}
-			
+
 			prefix.push_back(tok);
 			// create new state if necessary
 			nfa_state_t nstate;
@@ -422,7 +433,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 				for (st = tr->second.begin(); st != tr->second.end(); ++st)
 					nfa->addTransition(*it, tr->first, *st);
 		}
-		
+
 		// ANY transitions
 		const std::set<token_t>& inputs(nfa->inputs());
 		std::set<token_t>::const_iterator tok;

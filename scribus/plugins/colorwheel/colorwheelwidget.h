@@ -76,7 +76,7 @@ class ColorWheel : public QLabel
 		\retval QString Translated method name. */
 		QString getTypeDescription(MethodType aType);
 
-		/** \brief Get sample color from specifid angle.
+		/** \brief Get sample color from specific angle.
 		\param angle Angle of the color in the wheel. An angle for transformation counting.
 		E.g. base angle is 30, param is 90 - transformation is 120.
 		There is easy "convert 665485 into 0-359 interval" algorithm too.
@@ -105,7 +105,7 @@ class ColorWheel : public QLabel
 		ColorMap colorMap;
 
 		/** \brief Angle diff between colorMap and painted wheel itself.
-		QMatrix wheel and colorMap have different start points.
+		QTransform wheel and colorMap have different start points.
 		It's taken from Qt. */
 		int angleShift;
 
@@ -183,7 +183,7 @@ class ColorWheel : public QLabel
 		/** \brief Display user selection - selected colors.
 		Chosen colors are marked via bullets on the border of
 		the wheel.
-		\param angle angle of the drawed mark
+		\param angle angle of the drawn mark
 		\param base Draw it highlighted if it is base color
 		\param clear Draw point with white = clear it from painter
 		*/

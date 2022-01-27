@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "mypluginimpl.h"
 #include "scribusdoc.h"
+#include "ui/scmessagebox.h"
 
 #include <QString>
 #include <QMessageBox>
@@ -18,7 +19,7 @@ MyPluginImpl::MyPluginImpl() : QObject(0)
 bool MyPluginImpl::run(const QString & target, ScribusDoc* doc)
 {
 	// Do the bulk of your work here
-	QMessageBox::information(
+	ScMessageBox::information(
 			(QWidget*)doc->scMW(),
 			tr("Scribus - My Plugin"),
 			tr("The plugin worked!"),

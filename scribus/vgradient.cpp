@@ -19,12 +19,12 @@ for which a new license (GPL+exception) is in place.
  
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
 */
 
+#include <algorithm>
 #include <QMutableListIterator>
-#include <QtAlgorithms>
 
 #include "vgradient.h"
 
@@ -33,7 +33,7 @@ bool compareStops(const VColorStop* item1, const VColorStop* item2 )
 {
 	double r1 = item1->rampPoint;
 	double r2 = item2->rampPoint;
-	return ( r1 < r2 ? true : false );
+	return (r1 < r2);
 }
 
 int VGradient::compareItems(const VColorStop* item1, const VColorStop* item2 ) const
@@ -41,14 +41,13 @@ int VGradient::compareItems(const VColorStop* item1, const VColorStop* item2 ) c
 	double r1 = item1->rampPoint;
 	double r2 = item2->rampPoint;
 
-	return ( r1 == r2 ? 0 : r1 < r2 ? -1 : 1 );
-} // VGradient::VColorStopList::compareItems
+	return (r1 == r2 ? 0 : r1 < r2 ? -1 : 1);
+}
 
-
-void VGradient::inSort( VColorStop* d )
+void VGradient::inSort(VColorStop* d)
 {
 	int index = 0;
-	register VColorStop *n = m_colorStops.value(index);
+	VColorStop *n = m_colorStops.value(index);
 	while (n && compareItems(n,d) <= 0)
 	{
 		++index;
@@ -57,44 +56,46 @@ void VGradient::inSort( VColorStop* d )
 	m_colorStops.insert( qMin(index, m_colorStops.size()), d );
 }
 
-VGradient::VGradient( VGradientType type ) : m_type( type )
+VGradient::VGradient(VGradientType type) : m_type( type )
 {
 	// set up dummy gradient
 	QColor color;
 
-	color = QColor(255,0,0);
+	color = QColor(255, 0, 0);
 	addStop( color, 0.0, 0.5, 1.0 );
 
-	color = QColor(255,255,0);
+	color = QColor(255, 255, 0);
 	addStop( color, 1.0, 0.5, 1.0 );
 
 	setOrigin( FPoint( 0, 0 ) );
 	setVector( FPoint( 0, 50 ) );
-	setRepeatMethod( VGradient::reflect );
+	setRepeatMethod( VGradient::pad );
 }
 
-VGradient::VGradient( const VGradient& gradient )
+VGradient::VGradient(const VGradient& gradient)
 {
 	m_origin		= gradient.m_origin;
 	m_focalPoint	= gradient.m_focalPoint;
 	m_vector		= gradient.m_vector;
 	m_type			= gradient.m_type;
 	m_repeatMethod	= gradient.m_repeatMethod;
+
 	clearStops();
+
 	QList<VColorStop*> cs = gradient.colorStops();
-	qStableSort(cs.begin(), cs.end(), compareStops);
-	for( int i = 0; i < cs.count(); ++i)
-		m_colorStops.append( new VColorStop( *cs[i] ) );
-} // VGradient::VGradient
+	std::stable_sort(cs.begin(), cs.end(), compareStops);
+	for (int i = 0; i < cs.count(); ++i)
+		m_colorStops.append( new VColorStop(*cs[i]) );
+}
 
 VGradient::~VGradient()
 {
 	clearStops();
 }
 
-VGradient& VGradient::operator=( const VGradient& gradient )
+VGradient& VGradient::operator=(const VGradient& gradient)
 {
-	if ( this == &gradient )
+	if (this == &gradient)
 		return *this;
 
 	m_origin		= gradient.m_origin;
@@ -104,33 +105,64 @@ VGradient& VGradient::operator=( const VGradient& gradient )
 	m_repeatMethod	= gradient.m_repeatMethod;
 
 	clearStops();
+
 	QList<VColorStop*> cs = gradient.colorStops();
-	qStableSort(cs.begin(), cs.end(), compareStops);
-	for( int i = 0; i < cs.count(); ++i )
+	std::stable_sort(cs.begin(), cs.end(), compareStops);
+	for (int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStop( *cs[i] ) );
 	return *this;
-} // VGradient::operator=
+}
+
+bool VGradient::operator==(const VGradient &gradient) const 
+{
+	if (m_colorStops.count() != gradient.stops())
+		return false;
+	const QList<VColorStop*>& cs = gradient.colorStops();
+
+	bool retVal = true;
+	for (int i = 0; i < m_colorStops.count(); ++i)
+	{
+		if (m_colorStops.at(i)->rampPoint != cs.at(i)->rampPoint)
+		{
+			retVal = false;
+			break;
+		}
+		if (m_colorStops.at(i)->opacity != cs.at(i)->opacity)
+		{
+			retVal = false;
+			break;
+		}
+		if (m_colorStops.at(i)->name != cs.at(i)->name)
+		{
+			retVal = false;
+			break;
+		}
+		if (m_colorStops.at(i)->shade != cs.at(i)->shade)
+		{
+			retVal = false;
+			break;
+		}
+	}
+	return retVal;
+}
 
 const QList<VColorStop*>& VGradient::colorStops() const
 {
 	return m_colorStops;
-} // VGradient::colorStops()
+}
 
-void
-VGradient::clearStops()
+void VGradient::clearStops()
 {
 	while (!m_colorStops.isEmpty())
 		delete m_colorStops.takeFirst();
 }
 
-void
-VGradient::addStop( const VColorStop& colorStop )
+void VGradient::addStop(const VColorStop& colorStop)
 {
 	inSort( new VColorStop( colorStop ) );
-} // VGradient::addStop
+}
 
-void
-VGradient::addStop( const QColor &color, double rampPoint, double midPoint, double opa, QString name, int shade )
+void VGradient::addStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name, int shade)
 {
 	// Clamping between 0.0 and 1.0
 	rampPoint = qMax( 0.0, rampPoint );
@@ -142,8 +174,7 @@ VGradient::addStop( const QColor &color, double rampPoint, double midPoint, doub
 	inSort( new VColorStop( rampPoint, midPoint, color, opa, name, shade ) );
 }
 
-void 
-VGradient::setStop( const QColor &color, double rampPoint, double midPoint, double opa, QString name, int shade )
+void  VGradient::setStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name, int shade)
 {
 	for (int i = 0; i < m_colorStops.count(); ++i)
 	{
@@ -156,20 +187,21 @@ VGradient::setStop( const QColor &color, double rampPoint, double midPoint, doub
 	addStop(color, rampPoint, midPoint, opa, name, shade);
 }
 
-void VGradient::removeStop( VColorStop& colorstop )
+void VGradient::removeStop(VColorStop& colorstop)
 {
 	int n = m_colorStops.indexOf(&colorstop);
-	delete m_colorStops.takeAt(n);
+	if (n >= 0)
+		delete m_colorStops.takeAt(n);
 }
 
-void VGradient::removeStop( uint n )
+void VGradient::removeStop(int n)
 {
 	delete m_colorStops.takeAt(n);
 }
 
-void VGradient::filterStops(void)
+void VGradient::filterStops()
 {
-	VColorStop* colorStop = NULL;
+	VColorStop* colorStop = nullptr;
 	bool zeroFound = false;
 	QMutableListIterator<VColorStop*> i(m_colorStops);
 	i.toBack();
@@ -199,7 +231,7 @@ void VGradient::filterStops(void)
 	}
 }
 
-void VGradient::transform( const QMatrix &m )
+void VGradient::transform( const QTransform &m )
 {
 	double mx, my;
 	mx = m.m11() * m_origin.x() + m.m21() * m_origin.y() + m.dx();

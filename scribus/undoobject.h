@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef UNDOOBJECT_H
@@ -69,7 +69,7 @@ public:
 	 * @brief Creates a new UndoObject instance with the name <code>objectName</code>
 	 * @param objectName Name of the UndoObject
 	 */
-	UndoObject(const QString &objectName, QPixmap *objectIcon = 0);
+	UndoObject(const QString &objectName, QPixmap *objectIcon = nullptr);
 
 	/** @brief Destroys the object. */
 	virtual ~UndoObject();
@@ -78,19 +78,19 @@ public:
 	 * @brief Returns the name of the UndoObject.
 	 * @return the name of the UndoObject
 	 */
-	virtual QString getUName();
+	virtual QString getUName() const;
 
 	/**
 	 * @brief Set the name of the UndoObject
 	 * @param newUName New name for the UndoObject
 	 */
-	virtual void setUName(QString newUName);
+	virtual void setUName(const QString& newUName);
 
 	/**
 	 * @brief Returns the pixmap connected to this object.
 	 * @return pixmap connected to this object
 	 */
-	virtual QPixmap* getUPixmap();
+	virtual QPixmap* getUPixmap() const;
 
 	/**
 	 * @brief Set the pixmap for this object.
@@ -107,7 +107,12 @@ public:
 	/**
 	 * @brief Returns a guarded pointer
 	 */
-	const ScGuardedPtr<UndoObject>& undoObjectPtr();
+	const ScGuardedPtr<UndoObject>& undoObjectPtr() const;
+
+	/**
+	 * @brief Check if current object is owned by some undo state
+	 */
+	int undoStateCount() const;
 
 	/**
 	 * @brief Method used when an undo/redo is requested.
@@ -119,6 +124,7 @@ public:
 	 * @param isUndo If true undo is wanted else if false redo.
 	 */
 	virtual void restore(UndoState* state, bool isUndo) = 0;
+
 private:
 	/** @brief id number to be used with the next UndoObject */
 	static ulong m_nextId;
@@ -139,7 +145,7 @@ private:
 	 * When used together with an UndoAction that has an image is this image
 	 * drawn first then the action image is drawn on top of this.
 	 */
-	QPixmap *m_upixmap;
+	QPixmap *m_upixmap {nullptr};
 
 	/**
 	 * @brief Guarded pointer

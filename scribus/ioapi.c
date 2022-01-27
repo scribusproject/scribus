@@ -72,20 +72,19 @@ voidpf ZCALLBACK fopen_file_func (opaque, filename, mode)
    const char* filename;
    int mode;
 {
-    FILE* file = NULL;
-    const char* mode_fopen = NULL;
-    if ((mode & ZLIB_FILEFUNC_MODE_READWRITEFILTER)==ZLIB_FILEFUNC_MODE_READ)
-        mode_fopen = "rb";
-    else
-    if (mode & ZLIB_FILEFUNC_MODE_EXISTING)
-        mode_fopen = "r+b";
-    else
-    if (mode & ZLIB_FILEFUNC_MODE_CREATE)
-        mode_fopen = "wb";
-
-    if ((filename!=NULL) && (mode_fopen != NULL))
-        file = fopen(filename, mode_fopen);
-    return file;
+	FILE* file = NULL;
+	const char* mode_fopen = NULL;
+	if ((mode & ZLIB_FILEFUNC_MODE_READWRITEFILTER)==ZLIB_FILEFUNC_MODE_READ)
+		mode_fopen = "rb";
+	else
+		if (mode & ZLIB_FILEFUNC_MODE_EXISTING)
+			mode_fopen = "r+b";
+		else
+			if (mode & ZLIB_FILEFUNC_MODE_CREATE)
+				mode_fopen = "wb";
+	if ((filename!=NULL) && (mode_fopen != NULL))
+		file = fopen(filename, mode_fopen);
+	return file;
 }
 
 

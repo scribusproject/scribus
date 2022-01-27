@@ -8,9 +8,9 @@ try:
     # Do so _after_ the 'import scribus' and only import the names you need, such
     # as commonly used constants.
     import scribus
-except ImportError,err:
-    print "This Python script is written for the Scribus scripting interface."
-    print "It can only be run from within Scribus."
+except ImportError as err:
+    print ("This Python script is written for the Scribus scripting interface.")
+    print ("It can only be run from within Scribus.")
     sys.exit(1)
 
 #########################

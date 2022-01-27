@@ -1,0 +1,47 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Color Management Setup</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Color Management Setup</h2>
+<p><strong>Getting good previews from color management depends on at least the following steps from the user:</strong></p>
+<ul>
+<li>It really helps to ease up on the &ldquo;eye candy.&rdquo; Yes, KDE, Gnome, or Mac&nbsp;OS&nbsp;X have gorgeous looking desktops, but if color accuracy matters, plain and simple is your best choice &ndash; no animation, no fancy graphics. For the most accurate color calibration, set your desktop to a neutral grey or light color with no gradients or fancy backgrounds. This will help your eye to better judge color balance for images. The same applies for other graphics programs. What we are striving for is to mimic the the way mixed inks look on paper <i>as accurately as possible</i>. </li>
+
+<li><i>Calibrating</i> means setting the monitor to a known state. Most monitors are set to a default to color temperature of 9300k or Kelvin, which is often too &ldquo;cold&rdquo; or &ldquo;bluish&rdquo; for accurate color work. <a href="http://www.color.org/">www.color.org</a> has a multitude of color specifications for your reference. Most color standards are set to 5000k light temperature or &ldquo;illuminant.&rdquo; For your monitor, 6500k is probably a good choice as a starting point for adjusting your monitor, because it more closely mimics natural sunlight. At first, your eyes will think your monitor has a &ldquo;yellowish&rdquo; cast, but they will soon adjust, especially if the brightness and contrast are set properly.</li>
+
+<li>Printer profiles are highly dependent on the media chosen. Newsprint and un-coated stocks are grayer in appearance, so these profiles will have a narrower &ldquo;gamut&rdquo; or color range. They cannot produce the super vivid colors and saturation of coated stock or glossy photographic papers. A single printer could easily have a dozen or more profiles, based just on differences in the paper color and ink absorbency.</li>
+</ul>
+
+<h4>So, how do I get the right profiles for my hardware?</h4>
+
+<p>Some profiles are &ldquo;generic&rdquo; and can be downloaded from the device manufacturer. This type of profile is generated from a sampling of units by a manufacturer. A growing number of monitors, scanners and certain printer vendors will include this in the software bundled with the device. While these &ldquo;canned&rdquo; profiles are rarely a perfect match, this is a good first place to start, especially if you can&rsquo;t afford expensive calibration hardware. Go to the vendor&rsquo;s website and see if there a profile available for your device. For monitor color profiles you can also use the <a href="http://icc.opensuse.org/">Taxi</a> database, a service provided by the OpenSUSE project.</p>
+
+<!--We need to add an overview over FLOSS tools for all platforms in a new version of this file-->
+
+<p>The most precise way to profile a monitor is with a electronic profiling device, which is basically a very special type of camera that measures color. The software sends known reference colors to the monitor which then reads the output to the profiling device and creates a profile. Not so long ago, Linux drivers for common colorimeters weren&rsquo;t available, but thanks to the enthusiasm of Open Source color management experts, most devices can be used at least on Linux, Mac&nbsp;OS&nbsp;X and Windows these days. The Open Source drivers can also be compiled on UNIX platforms, while support for Haiku, OS/2 and eComStation is unlikely.</p>
+
+<h4>Scribus Color Management Settings</h4>
+<p>The color management settings are available via <a href="settings1.html">the Preferences/the Document Setup</a>. Remember that you need at least 1 RGB and 1 CMYK profile installed to activate color management. Also note that editing, saving and closing the file with color management on will slow down Scribus, since littleCMS must read and perform the corrections between the profiles:</p>
+<table width="100%"><tr><td align="center"><img src="images/cmsmodify1.png" align="center" title="Color Management Preferences" alt="Color Management Preferences"/></td></tr></table>
+
+<p>&ldquo;System Profiles:&rdquo; These 6 drop down boxes show the available profiles on your system. Note that you have to set the profiles for images (i.e., bitmap images) and solid colors separately. You also have to select separate profiles for the RGB and CMYK color spaces. With respect to the &ldquo;Printer&rdquo; profile, please be aware that Scribus currently only supports profiles for commercial printing devices/workflows. <b>A profile for your desk-jet printer won&rsquo;t work with Scribus and will not be available in the list of profiles.</b></p>
+
+<!--<p>Solid colors can be described within <strong>RGB</strong> (red green blue) or <strong>CMYK</strong> (cyan,magenta,yellow and K for black - these colors represent the four inks used in process printing or in color ink jets). In this case, we are using some basic RGB colors, which will be later "soft proofed" in the CMYK color space of the printer, which will be a commercial process known as US <a  href="./lcms/swop.html">SWOP</a>on coated paper to ensure rich and vibrant colors.</p>
+
+<p>It is handy to give your device profiles some sort of short hand way of naming. For example the D226500mon.icm monitor profile is a custom profile created with <A href="http://lprof.sf.net" id="LProf" onclick="LProf">LProf</A> with 2.2 gamma and 6500k temperature. The D is for daylight. Ambient light also affects your perception of color, sometimes radically with certain types of artificial light. The Sony 17 name comes from the description when the monitor profile was created with Qmonitorprofiler from littlecms.</p>-->
+<p>The second part of the dialog deals with Rendering Intents, which will be explained in the <a href="cms3.html">next section</a>.</p>
+<p>At the bottom of the color management settings you can see a check mark called &ldquo;Simulate Printer on the Screen.&rdquo; This tells Scribus and littleCMS to simulate the colors your chosen printer can reproduce according to the selected printer profile.</p>
+<p>The check mark for &ldquo;Mark Colors out of Gamut&rdquo; will mark areas in your document with a green warning color, because the colors in these areas might not print accurately, based on the printer profile you have chosen. Typically, when colors are shown out of gamut, they will print darker, lighter or have a color shift when printing:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/cms-gamut1.png"/></td><td align="center"><img src="images/cms-gamut2.png"/></td></tr>
+    <tr><td><div align="center"><i>Display of a drawing with gamut warning switched off (left) and gamut warning switched on (right)</i></div></td></tr>
+</table>
+<p>The last option, &ldquo;Use Black Point Compensation,&rdquo; is a way to help rendering shadows within color pictures. Experimentation is needed to see if it improves your pictures.</p>
+
+</body>
+</html>

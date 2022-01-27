@@ -1,0 +1,58 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Color Management with Scribus</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Color Management with Scribus</h2>
+<h3>Overview</h3>
+
+<p>The objective of a color management system is to reduce the differences between the on-screen colors and final printing, as well as showing colors which are &ldquo;out of gamut,&rdquo; i.e., beyond the color range of your selected printer. The caveat is that you need a profile of the printer and one for your monitor which is reasonably accurate. The whole concept, the options and descriptions can be quite confusing to new users. Without prior knowledge of the terminology, it is <strong>very</strong> easy to choose the wrong settings. This can often make images look worse on screen or print, or both. Then, the first time user simply says &ldquo;enough!&rdquo; &ndash; and disables color management.</p>
+
+<p>In a word <strong>don&rsquo;t</strong>. Once you understand some basic concepts and know your final print destination, you will be able to predict and control more reliably how your document will look when printed. This is especially helpful when you will be sending files for later reproduction with four color printing.</p>
+
+<p>The steps to making color management work reliably (what you see on screen is what will be printed):</p>
+
+<ol>
+	<li>Learn a little bit about color management concepts and terminology. There are many good books and websites about color management. (See, for example, <a href="http://www.poynton.com">here</a>.)</li>
+	<li>Get profiles set up properly. The most important is getting a good accurate monitor profile. The <a href="toolbox14.html">Lprof profiler</a> does an excellent job at creating monitor profiles. <i>Without a properly created monitor profile, enabling color management will give you unsatisfactory results in printing and inaccurate previews on screen.</i> </li>
+	<li>Embed the color profiles properly in image editing applications. Nowadays, not only closed source graphics software supports color management, but also all major Open Source programs, like GIMP, Krita, digiKam, Inkscape, or sK1.</li>
+</ol>
+
+<p>The color management system within Scribus is currently designed for enabling color managed &ldquo;soft proofs&rdquo; of your documents. Scribus can also show &ldquo;out of gamut&rdquo; warnings for colors which may not be accurately reproduced by a commercial printing device, as most printers have a narrower range of printable colors (CMYK), when compared to most monitors (RGB). It does not embed or alter the profiles embedded in your images. (Some image formats, like EPS, JPEG, PNG or TIFF, can have an ICM or ICC profile embedded.)</p>
+
+<table width="100%"><tr><td align="center"><img src="images/rgb-cmyk.png"/></td></tr>
+    <tr><td><div align="center"><p><strong><em>The RGB model (left) has a much wider range of<br /> colors (gamut) than the CMYK model (right).</em></strong></p></td></tr></table>
+
+<p><strong>What are color or device profiles?</strong></p>
+
+<p><strong>ICC</strong> or <strong>ICM</strong> profiles are a special type of file which describes the color characteristic of a device like a scanner, monitor or printer &ndash; basically any device which can create, display or manipulate the color of a digital image, hence the name <b>device profiles</b>.</p>
+<p>There are also color profiles which are known as <strong>device independent</strong> or <strong>working space</strong> profiles. These special files can be thought of as &ldquo;translators&rdquo; who convert color data from one type of color profile to another.</p>
+<p>An ICC or ICM file is a set of tables that contain the mathematical values by which devices measure and describe color. Fortunately, these profiles follow an <a href="http://www.color.org ">open and international standard</a> and work the same way on Mac&nbsp;OS&nbsp;X, OS/2, eCS, Windows, Linux or UNIX.</p>
+
+
+<h3>Activating Color Management</h3>
+<p>For color management to function properly you need the following to be installed to be active and usable:</p>
+<ul>
+<li>The littleCMS library. This is standard with builds for Mac&nbsp;OS&nbsp;X, OS/2, eComStation, Haiku and Windows and a dependency on Linux and UNIX.</li>
+<li>You need at least 1 RGB and 1 CMYK profile. Scribus  provides two basic profiles to ensure that color management can be enabled immediately after installation.  In practical terms, you need more: one sRGB profile for most RGB colors and one for each color device; one for your monitor which should be created with a monitor profiling tool; several CMYK profiles for commercial printing. <br>Some CMYK profiles are known as &ldquo;press-standards,&rdquo; in that they represent standardized commercial printing conditions used in Europe, Japan and North America. There are several websites that provide reliable ICC profiles for download. One standard set in the industry is &ldquo;Adobe ICC Profiles,&rdquo; as these are shipped with Adobe applications. You can download them from <a href="http://www.adobe.com/support/downloads/iccprofiles">Adobe&rsquo;s website</a>. A set of profiles that has been found to be of excellent quality is the one from <a href="http://www.basiccolor.de">basICColor GmbH</a>, a German company specialized in color management. The profiles, which are covered by a CC license, can be downloaded <a href="http://www.colormanagement.org">here</a>.</li>
+<li>A more recent development on the Linux desktop is the implementation of color management almost everywhere, at least where it makes sense. As a result, not only bitmap editing, vector drawing or DTP programs started to use color management, but also web browsers or simple image viewers. Thus, many modern Linux distributions provide a lot of high-quality ICC profile sets as additional packagages for easy installation via your package manager, among them the Adobe ICC and basICColor profiles mentioned above. Due to the licensing policy of some distributions you may have to add or activate the &ldquo;non-free&rdquo; repository, or whatever the name for non-(L)GPL/BSD packages for your distribution is.</li>
+</ul>
+
+<h3>Locations for Color Profiles</h3>
+<ul>
+<li><b>Linux/UNIX:</b> <code>/usr/share/color/icc</code> (system) and <code>/home/username/.color/icc</code> (user).</li>
+<li><b>Mac OS X:</b> <code>/Library/ColorSync/Profiles</code>.</li>
+<li><b>Windows:</b>: <code>C:\WINNT\system32\spool\drivers\color</code> (Windows 2000) and <code>C:\Windows\system32\spool\drivers\color</code> (Windows XP, Vista, 7).<br />
+<i>On 64-bit Windows systems, some 32-bit programs may not find the profiles in the <code>system32</code> directory because they are searching for them under <code>C:\Windows\SysWOW64</code>, which is a folder that contains files needed for compatibility of 32-bit programs (This is not a typo: the folder with a &ldquo;32&rdquo; in its name is for 64-bit files, the one with &ldquo;64&rdquo; in it is for 32-bit files!). If you are running a 32-bit program on a 64-bit version of Windows and your color profiles aren&rsquo;t available, you should also copy them to <code>C:\Windows\SysWOW64\spool\drivers\color</code></i>.</li>
+<li><b>OS/2 and eComStation:</b> <code>X:\scribus-directory\lib\scribus\profiles</code>. <br>
+<i>There is no system-wide color management available on OS/2 and eComStation, so every program that uses color management, like Scribus or GIMP, needs the profiles in its own directory. However, it&rsquo;s possible to create a single directory that comprises all profiles and then set this directory as an additional source for profiles, e.g.</i> <code>X:\ICC</code>. <i>In Scribus you can add this path in the &ldquo;General&rdquo; tab of the <a href="settings1.html#1">Preferences</a>.</i></li>
+<li><b>Haiku:</b> <code>/boot/apps/Scribus/share/scribus/profiles</code>.</li>
+</ul>
+
+<br />
+</body>
+</html>

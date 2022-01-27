@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS>
+    <COLOR NAME="Black" CMYK="#000000ff"/>
+    <COLOR NAME="2,000 K" CMYK="#00b2b200"/>
+    <COLOR NAME="1,000 K" CMYK="#00ffff00"/>
+    <COLOR NAME="4,000 K" CMYK="#05003b00"/>
+    <COLOR NAME="7,000 K" CMYK="#0d000500"/>
+    <COLOR NAME="3,000 K" CMYK="#0d00d900"/>
+    <COLOR NAME="8,000 K" CMYK="#38000d00"/>
+    <COLOR NAME="9,000 K" CMYK="#4f001200"/>
+    <COLOR NAME="10,000 K" CMYK="#5c001700"/>
+    <COLOR NAME="20,000 K" CMYK="#99400000"/>
+    <COLOR NAME="30,000 K" CMYK="#a85e0000"/>
+    <COLOR NAME="40,000 K" CMYK="#b06b0000"/>
+    <COLOR NAME="50,000 K" CMYK="#b5730000"/>
+    <COLOR NAME="0 K" CMYK="#ffffff00"/>
+    <COLOR NAME="Registration" CMYK="#ffffffff" Register="1"/>
+    <COLOR NAME="6,000 K" CMYK="#00000000"/>
+    <COLOR NAME="5,000 K" CMYK="#00000000"/>
+    <COLOR NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>

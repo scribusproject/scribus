@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Oxygen">
+ <COLOR NAME="Black" CMYK="#000000ff"/>
+ <COLOR RGB="#382509" NAME="wood brown6" />
+ <COLOR RGB="#57401e" NAME="wood brown5" />
+ <COLOR RGB="#75511a" NAME="wood brown4" />
+ <COLOR RGB="#8f6b32" NAME="wood brown3" />
+ <COLOR RGB="#b3925d" NAME="wood brown2" />
+ <COLOR RGB="#debc85" NAME="wood brown1" />
+ <COLOR RGB="#9c0f0f" NAME="brick red6" />
+ <COLOR RGB="#bf0303" NAME="brick red5" />
+ <COLOR RGB="#e20800" NAME="brick red4" />
+ <COLOR RGB="#e85752" NAME="brick red3" />
+ <COLOR RGB="#f08682" NAME="brick red2" />
+ <COLOR RGB="#f9ccca" NAME="brick red1" />
+ <COLOR RGB="#9c0f56" NAME="raspberry pink6" />
+ <COLOR RGB="#bf0361" NAME="raspberry pink5" />
+ <COLOR RGB="#e20071" NAME="raspberry pink4" />
+ <COLOR RGB="#e85290" NAME="raspberry pink3" />
+ <COLOR RGB="#f082b0" NAME="raspberry pink2" />
+ <COLOR RGB="#f9cade" NAME="raspberry pink1" />
+ <COLOR RGB="#6a0056" NAME="burgundy purple6" />
+ <COLOR RGB="#85026c" NAME="burgundy purple5" />
+ <COLOR RGB="#a02786" NAME="burgundy purple4" />
+ <COLOR RGB="#b14f9a" NAME="burgundy purple3" />
+ <COLOR RGB="#c173b0" NAME="burgundy purple2" />
+ <COLOR RGB="#e8b7d7" NAME="burgundy purple1" />
+ <COLOR RGB="#1d0a55" NAME="grape violet6" />
+ <COLOR RGB="#34176e" NAME="grape violet5" />
+ <COLOR RGB="#462886" NAME="grape violet4" />
+ <COLOR RGB="#644a9b" NAME="grape violet3" />
+ <COLOR RGB="#8e79a5" NAME="grape violet2" />
+ <COLOR RGB="#c3b4da" NAME="grape violet1" />
+ <COLOR RGB="#00316e" NAME="skyblue6" />
+ <COLOR RGB="#00438a" NAME="skyblue5" />
+ <COLOR RGB="#0057ae" NAME="skyblue4" />
+ <COLOR RGB="#2c72c7" NAME="skyblue3" />
+ <COLOR RGB="#6193cf" NAME="skyblue2" />
+ <COLOR RGB="#a4c0e4" NAME="skyblue1" />
+ <COLOR RGB="#00484d" NAME="sea blue6" />
+ <COLOR RGB="#006066" NAME="sea blue5" />
+ <COLOR RGB="#007880" NAME="sea blue4" />
+ <COLOR RGB="#00a7b3" NAME="sea blue3" />
+ <COLOR RGB="#00c4cc" NAME="sea blue2" />
+ <COLOR RGB="#a8dde0" NAME="sea blue1" />
+ <COLOR RGB="#00583f" NAME="emerald green6" />
+ <COLOR RGB="#00734d" NAME="emerald green5" />
+ <COLOR RGB="#009966" NAME="emerald green4" />
+ <COLOR RGB="#00b377" NAME="emerald green3" />
+ <COLOR RGB="#00cc88" NAME="emerald green2" />
+ <COLOR RGB="#99dcc6" NAME="emerald green1" />
+ <COLOR RGB="#006e29" NAME="forest green6" />
+ <COLOR RGB="#00892c" NAME="forest green5" />
+ <COLOR RGB="#37a42c" NAME="forest green4" />
+ <COLOR RGB="#77b753" NAME="forest green3" />
+ <COLOR RGB="#b1d28f" NAME="forest green2" />
+ <COLOR RGB="#d8e8c2" NAME="forest green1" />
+ <COLOR RGB="#e3ad00" NAME="sun yellow6" />
+ <COLOR RGB="#f3c300" NAME="sun yellow5" />
+ <COLOR RGB="#ffdd00" NAME="sun yellow4" />
+ <COLOR RGB="#ffeb55" NAME="sun yellow3" />
+ <COLOR RGB="#fff299" NAME="sun yellow2" />
+ <COLOR RGB="#fff6c8" NAME="sun yellow1" />
+ <COLOR RGB="#ac4311" NAME="hot orange6" />
+ <COLOR RGB="#cf4913" NAME="hot orange5" />
+ <COLOR RGB="#eb7331" NAME="hot orange4" />
+ <COLOR RGB="#f29b68" NAME="hot orange3" />
+ <COLOR RGB="#f2bb88" NAME="hot orange2" />
+ <COLOR RGB="#ffd9b0" NAME="hot orange1" />
+ <COLOR RGB="#2e3436" NAME="aluminum gray6" />
+ <COLOR RGB="#555753" NAME="aluminum gray5" />
+ <COLOR RGB="#888a85" NAME="aluminum gray4" />
+ <COLOR RGB="#babdb6" NAME="aluminum gray3" />
+ <COLOR RGB="#d3d7cf" NAME="aluminum gray2" />
+ <COLOR RGB="#eeeeec" NAME="aluminum gray1" />
+ <COLOR RGB="#4d2600" NAME="brown orange6" />
+ <COLOR RGB="#803f00" NAME="brown orange5" />
+ <COLOR RGB="#bf5e00" NAME="brown orange4" />
+ <COLOR RGB="#ff7e00" NAME="brown orange3" />
+ <COLOR RGB="#ffbf80" NAME="brown orange2" />
+ <COLOR RGB="#ffdfbf" NAME="brown orange1" />
+ <COLOR RGB="#590000" NAME="red6" />
+ <COLOR RGB="#8c0000" NAME="red5" />
+ <COLOR RGB="#bf0000" NAME="red4" />
+ <COLOR RGB="#ff0000" NAME="red3" />
+ <COLOR RGB="#ff8080" NAME="red2" />
+ <COLOR RGB="#ffbfbf" NAME="red1" />
+ <COLOR RGB="#730055" NAME="pink6" />
+ <COLOR RGB="#a3007b" NAME="pink5" />
+ <COLOR RGB="#cc009a" NAME="pink4" />
+ <COLOR RGB="#ff00bf" NAME="pink3" />
+ <COLOR RGB="#ff80df" NAME="pink2" />
+ <COLOR RGB="#ffbff0" NAME="pink1" />
+ <COLOR RGB="#2c0059" NAME="purple6" />
+ <COLOR RGB="#400080" NAME="purple5" />
+ <COLOR RGB="#5a00b3" NAME="purple4" />
+ <COLOR RGB="#8000ff" NAME="purple3" />
+ <COLOR RGB="#c080ff" NAME="purple2" />
+ <COLOR RGB="#dfbfff" NAME="purple1" />
+ <COLOR RGB="#000080" NAME="blue6" />
+ <COLOR RGB="#0000bf" NAME="blue5" />
+ <COLOR RGB="#0000ff" NAME="blue4" />
+ <COLOR RGB="#0066ff" NAME="blue3" />
+ <COLOR RGB="#80b3ff" NAME="blue2" />
+ <COLOR RGB="#bfd9ff" NAME="blue1" />
+ <COLOR RGB="#004d00" NAME="green6" />
+ <COLOR RGB="#008c00" NAME="green5" />
+ <COLOR RGB="#00bf00" NAME="green4" />
+ <COLOR RGB="#00ff00" NAME="green3" />
+ <COLOR RGB="#80ff80" NAME="green2" />
+ <COLOR RGB="#bfffbf" NAME="green1" />
+ <COLOR RGB="#638000" NAME="lime6" />
+ <COLOR RGB="#8bb300" NAME="lime5" />
+ <COLOR RGB="#bff500" NAME="lime4" />
+ <COLOR RGB="#e5ff00" NAME="lime3" />
+ <COLOR RGB="#f0ff80" NAME="lime2" />
+ <COLOR RGB="#f8ffbf" NAME="lime1" />
+ <COLOR RGB="#ffaa00" NAME="yellow6" />
+ <COLOR RGB="#ffbf00" NAME="yellow5" />
+ <COLOR RGB="#ffd500" NAME="yellow4" />
+ <COLOR RGB="#ffff00" NAME="yellow3" />
+ <COLOR RGB="#ffff99" NAME="yellow2" />
+ <COLOR RGB="#ffffbf" NAME="yellow1" />
+ <COLOR RGB="#323232" NAME="gray6" />
+ <COLOR RGB="#555555" NAME="gray5" />
+ <COLOR RGB="#888888" NAME="gray4" />
+ <COLOR RGB="#bbbbbb" NAME="gray3" />
+ <COLOR RGB="#dddddd" NAME="gray2" />
+ <COLOR RGB="#eeeeee" NAME="gray1" />
+ <COLOR NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>
+<!--Copyright the Oxygen Icon Project. License: GNU Library General Public License http://www.gnu.org/licenses/lgpl.html per http://www.oxygen-icons.org-->

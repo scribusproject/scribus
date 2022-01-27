@@ -8,15 +8,6 @@ for which a new license (GPL+exception) is in place.
 #include <QTimer>
 #include "deferredtask.h"
 
-enum FileSearchStatus
-{
-	Status_NotStarted,
-	Status_Running,
-	Status_Cancelled,
-	Status_Failed,
-	Status_Finished,
-};
-
 DeferredTask::DeferredTask(QObject* parent) : QObject(parent)
 {
 	init();
@@ -30,7 +21,7 @@ DeferredTask::~DeferredTask()
 void DeferredTask::init()
 {
 	m_status = Status_NotStarted,
-	m_lastError = QString::null;
+	m_lastError.clear();
 	// Build the timer we'll use to access the event loop
 	m_timer = new QTimer(this);
 	Q_CHECK_PTR(m_timer);

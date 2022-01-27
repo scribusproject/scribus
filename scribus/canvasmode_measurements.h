@@ -35,17 +35,20 @@ class MeasurementsMode : public CanvasMode
 	Q_OBJECT
 	
 public:
-	MeasurementsMode(ScribusView* view);
+	explicit MeasurementsMode(ScribusView* view);
+	~MeasurementsMode() override = default;
 
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
 	
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter* p);
+	void activate(bool) override;
+	void deactivate(bool) override;
+	void keyPressEvent(QKeyEvent *e) override;
+	void keyReleaseEvent(QKeyEvent *e) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void drawControls(QPainter* p) override;
 
 public slots:
 	void setActive(bool);
@@ -53,12 +56,12 @@ public slots:
 private:
 	void adjustPoint(QPoint point);
 	void showValues();
-	bool m_active;
+	bool m_active {false};
 	QPoint m_start;
 	QPoint m_current;
 	FPoint m_startDoc;
 	FPoint m_currentDoc;
-	Measurements* m_palette;
+	Measurements* m_palette {nullptr};
 };
 
 

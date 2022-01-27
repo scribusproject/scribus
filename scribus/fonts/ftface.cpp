@@ -1,18 +1,26 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 
 #include "fonts/ftface.h"
 
+#include FT_CID_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
+#include FT_TRUETYPE_IDS_H
 
 #include <QObject>
 #include <QFile>
 
 #include "scfonts.h"
-#include "util.h"
+#include "util_debug.h"
 #include "fonts/scfontmetrics.h"
 
 // static:
-FT_Library FtFace::library = NULL;
+FT_Library FtFace::m_library = nullptr;
 
 /*****
    ScFace lifecycle:  unchecked -> loaded -> glyphs checked
@@ -21,20 +29,18 @@ FT_Library FtFace::library = NULL;
    usable() == ! broken
    embeddable() == glyphs_checked
    
-   canRender(unicode) -> CharMap cache? -> loadChar/Glyph -> !broken
+   loadChar/Glyph -> !broken
    Glyphs:  width    status
-            -1000    unkown
+            -1000    unknown
             -2000    broken
             >= 0     ok, outline valid
    CharMap:  unicode -> glyph index
-             uint[256][256]
+             gid_type[256][256]
    unicode ignores: < 32, ...
    unicode emulate: spaces, hyphen, ligatures?, diacritics?
  *****/
 
-FtFace::FtFace(QString fam, QString sty, QString vari, QString scname, 
-			   QString psname, QString path, int face) 
-: ScFaceData(), m_face(NULL)
+FtFace::FtFace(const QString& fam, const QString& sty, const QString& vari, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features)
 {
 	family = fam;
 	style = sty;
@@ -43,28 +49,31 @@ FtFace::FtFace(QString fam, QString sty, QString vari, QString scname,
 	psName = psname;
 	fontFile = path;
 	faceIndex = face;
-	if (!library) {
-		if (FT_Init_FreeType( &library ))
+	fontFeatures = features;
+	if (!m_library)
+		if (FT_Init_FreeType( &m_library ))
 			sDebug(QObject::tr("Freetype2 library not available"));
-	}
 }
 
 
-FtFace::~FtFace() {
+FtFace::~FtFace()
+{
 	unload();
 }
 
 
-FT_Face FtFace::ftFace() const {
-	if (!m_face) {
-		if (FT_New_Face( library, QFile::encodeName(fontFile), faceIndex, & m_face )) {
+FT_Face FtFace::ftFace() const
+{
+	if (!m_face)
+	{
+		if (FT_New_Face( m_library, QFile::encodeName(fontFile), faceIndex, & m_face ))
+		{
 			status = ScFace::BROKEN;
-			m_face = NULL;
+			m_face = nullptr;
 			sDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex));
 		}
-		else {
+		else
 			load();
-		}
 	}
 	return m_face;
 }
@@ -74,17 +83,23 @@ void FtFace::load() const
 	ScFaceData::load();
 
 	if (!m_face) {
-		if (FT_New_Face( library, QFile::encodeName(fontFile), faceIndex, & m_face )) {
+		if (FT_New_Face( m_library, QFile::encodeName(fontFile), faceIndex, & m_face ))
+		{
 			status = ScFace::BROKEN;
-			m_face = NULL;
+			m_face = nullptr;
 			sDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex));
 			return;
 		}
 	}
-	
+
+	FT_Bool isCID = false;
+	FT_Get_CID_Is_Internally_CID_Keyed(m_face, &isCID);
+
+	const_cast<FtFace*>(this)->isCIDFont = isCID;
 	const_cast<FtFace*>(this)->isStroked = false;
+	const_cast<FtFace*>(this)->hasGlyphNames = FT_HAS_GLYPH_NAMES(m_face);
+
 	m_encoding = 0;
-	
 	m_uniEM = static_cast<qreal>(m_face->units_per_EM);
 
 	m_descent = m_face->descender / m_uniEM;
@@ -105,11 +120,17 @@ void FtFace::load() const
 	m_strikeoutPos = m_ascent / 3;
 	m_strokeWidth = m_face->underline_thickness / m_uniEM;
 	const_cast<FtFace*>(this)->isFixedPitch = m_face->face_flags & 4;
-	Ascent = QString::number(m_face->ascender);
-	CapHeight = QString::number(m_face->height);
-	Descender = QString::number(m_face->descender);
-	FontBBox = QString::number(m_face->bbox.xMin)+" "+QString::number(m_face->bbox.yMin)+" "+QString::number(m_face->bbox.xMax)+" "+QString::number(m_face->bbox.yMax);
-	ItalicAngle = "0";
+	m_pdfAscent    = QString::number(m_face->ascender / m_uniEM * 1000);
+	m_pdfCapHeight = QString::number(m_face->height / m_uniEM * 1000);
+	m_pdfDescender = QString::number(m_face->descender / m_uniEM * 1000);
+	m_pdfFontBBox  = QString::number(m_face->bbox.xMin / m_uniEM * 1000) + " " + 
+	            QString::number(m_face->bbox.yMin / m_uniEM * 1000) + " " +
+	            QString::number(m_face->bbox.xMax / m_uniEM * 1000) + " " + 
+	            QString::number(m_face->bbox.yMax / m_uniEM * 1000);
+	m_italicAngle  = "0";
+
+	m_isItalic = (m_face->style_flags == 1 || m_face->style_flags == 3);
+	m_isBold   = (m_face->style_flags == 2 || m_face->style_flags == 3);
 
 //FIXME:	FT_Set_Charmap(m_face, m_face->charmaps[m_encoding]);
 	setBestEncoding(m_face);
@@ -119,7 +140,7 @@ void FtFace::load() const
 	int goodGlyph = 0;
 	int invalidGlyph = 0;
 	bool error;
-	
+
 	while ( gindex != 0 )
 	{
 		error = FT_Load_Glyph( m_face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
@@ -130,10 +151,10 @@ void FtFace::load() const
 			charcode = FT_Get_Next_Char( m_face, charcode, &gindex );
 			continue;
 		}
-		
+
 		if (gindex > maxGlyph)
 			const_cast<FtFace*>(this)->maxGlyph = gindex;
-		
+
 		++goodGlyph;
 		if (m_face->glyph->format == FT_GLYPH_FORMAT_PLOTTER)
 			const_cast<FtFace*>(this)->isStroked = true;
@@ -149,27 +170,37 @@ void FtFace::unload() const
 {
 	if (m_face) {
 		FT_Done_Face( m_face );
-		m_face = NULL;
+		m_face = nullptr;
 	}
 	// clear caches
 	ScFaceData::unload();
 }
 
 
-uint FtFace::char2CMap(QChar ch) const
+ScFace::gid_type FtFace::char2CMap(uint ch) const
 {
 	// FIXME use cMap cache
 	FT_Face face = ftFace();
-	uint gl = FT_Get_Char_Index(face, ch.unicode());
+	ScFace::gid_type gl = FT_Get_Char_Index(face, ch);
 	return gl;
 }
 
+ScFace::cid_type FtFace::glyphIndexToCID(ScFace::gid_type index) const
+{
+	FT_Face face = ftFace();
 
-void FtFace::loadGlyph(uint gl) const
+	ScFace::cid_type cid = 0;
+	FT_Error err = FT_Get_CID_From_Glyph_Index(face, index, &cid);
+	if (err)
+		cid = index;
+	return cid;
+}
+
+void FtFace::loadGlyph(ScFace::gid_type gl) const
 {
 	if (m_glyphWidth.contains(gl))
 		return;
-	
+
 	ScFace::GlyphData GRec;
 	FT_Face face = ftFace();
 	if (FT_Load_Glyph( face, gl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP ))
@@ -177,7 +208,8 @@ void FtFace::loadGlyph(uint gl) const
 		sDebug(QObject::tr("Font %1 has broken glyph %2").arg(fontFile).arg(gl));
 		m_glyphWidth[gl] = 1;
 	}
-	else {
+	else
+	{
 		qreal ww = qreal(face->glyph->metrics.horiAdvance) / m_uniEM;
 		qreal w  = (face->glyph->metrics.width + qAbs(qreal(face->glyph->metrics.horiBearingX))) / m_uniEM;
 		GRec.bbox_width = qMax(w, ww);
@@ -213,33 +245,8 @@ void FtFace::loadGlyph(uint gl) const
 }
 
 
-qreal FtFace::glyphKerning(uint gl, uint gl2, qreal size) const
-{
-	FT_Vector  delta;
-	FT_Face    face = ftFace();
-	qreal result = 0;
-	/****
-		Ok, this looks like a regression between Freetype 2.1.9 -> 2.1.10.
-		Ignoring the value of FT_HAS_KERNING for now -- AV
-		****/
-	if (true || FT_HAS_KERNING(face) )
-	{
-		FT_Error error = FT_Get_Kerning(face, gl, gl2, FT_KERNING_UNSCALED, &delta);
-		if (error) {
-			sDebug(QString("Error %2 when accessing kerning pair for font %1").arg(scName).arg(error));
-		}
-		else {
-			result = delta.x / m_uniEM * size;
-		}
-	}
-	else {
-		sDebug(QString("Font %1 has no kerning pairs (according to Freetype)").arg(scName));
-	}
-	return result;
-}
-
 /*
-GlyphMetrics FtFace::glyphBBox (uint gl, qreal sz) const
+GlyphMetrics FtFace::glyphBBox (gid_type gl, qreal sz) const
 {
 	FT_Face    face = ftFace();
 	GlyphMetrics result;
@@ -263,47 +270,159 @@ GlyphMetrics FtFace::glyphBBox (uint gl, qreal sz) const
 /// copied from Freetype's FT_Stream_ReadAt()
 FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, unsigned long count)
 {
-    FT_Error  error = FT_Err_Ok;
-    FT_ULong  read_bytes;
-	
-    if ( pos >= stream->size )
-    {
+	FT_Error  error = FT_Err_Ok;
+	FT_ULong  read_bytes;
+
+	if ( pos >= stream->size )
+	{
 		qDebug( "ftIOFunc: invalid i/o; pos = 0x%lx, size = 0x%lx\n", pos, stream->size );
-		
+
 		return FT_Err_Invalid_Stream_Operation;
-    }
-	
-    if ( stream->read )
+	}
+
+	if ( stream->read )
 		read_bytes = stream->read( stream, pos, buffer, count );
-    else
-    {
+	else
+	{
 		read_bytes = stream->size - pos;
 		if ( read_bytes > count )
 			read_bytes = count;
-		
+
 		memcpy( buffer, stream->base + pos, read_bytes );
-    }
-	
-    stream->pos = pos + read_bytes;
-	
-    if ( read_bytes < count )
-    {
+	}
+
+	stream->pos = pos + read_bytes;
+
+	if ( read_bytes < count )
+	{
 		qDebug( "ftIOFunc: invalid read; expected %lu bytes, got %lu\n", count, read_bytes );
-		
+
 		error = FT_Err_Invalid_Stream_Operation;
-    }
-	
-    return error;
+	}
+
+	return error;
 }
 
-
-bool FtFace::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
+QString FtFace::adobeGlyphName(FT_ULong charcode)
 {
-	return GlyNames(ftFace(), GList);
+	return ::adobeGlyphName(charcode);
 }
 
 
-void FtFace::RawData(QByteArray & bb) const
+bool FtFace::hasMicrosoftUnicodeCmap(FT_Face face)
+{
+	return (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE && face->charmap->platform_id == TT_PLATFORM_MICROSOFT);
+}
+
+
+bool FtFace::glyphNames(ScFace::FaceEncoding& glyphList) const
+{
+	char buf[50];
+	FT_ULong  charcode;
+	FT_UInt gindex = 0;
+
+	FT_Face face = ftFace();
+	if (!face)
+		return false;
+	
+	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
+	
+//	qDebug() << "reading metrics for" << face->family_name << face->style_name;
+	charcode = FT_Get_First_Char(face, &gindex);
+	while (gindex != 0)
+	{
+		bool notfound = true;
+		if (hasPSNames)
+			notfound = FT_Get_Glyph_Name(face, gindex, &buf, 50);
+
+		// just in case FT gives empty string or ".notdef"
+		// no valid glyphname except ".notdef" starts with '.'		
+//		qDebug() << "\t" << gindex << " '" << charcode << "' --> '" << (notfound? "notfound" : buf) << "'";
+		ScFace::GlyphEncoding glEncoding;
+		glEncoding.charcode = charcode;
+		if (notfound || buf[0] == '\0' || buf[0] == '.')
+			glEncoding.glyphName = adobeGlyphName(charcode);
+		else
+			glEncoding.glyphName = QString(reinterpret_cast<char*>(buf));
+		glEncoding.toUnicode = QString::asprintf("%04lX", charcode);
+		glyphList.insert(gindex, glEncoding);
+
+		charcode = FT_Get_Next_Char(face, charcode, &gindex);
+	}
+
+	if (!hasPSNames)
+		return true;
+
+	// Let's see if we can find some more...
+	int maxSlot1 = face->num_glyphs;
+	for (int gindex = 1; gindex < maxSlot1; ++gindex)
+	{
+		if (glyphList.contains(gindex))
+			continue;
+		if (FT_Get_Glyph_Name(face, gindex, &buf, 50))
+			continue;
+		QString glyphName(reinterpret_cast<char*>(buf));
+
+		charcode = 0;
+		for (auto gli = glyphList.cbegin(); gli != glyphList.cend(); ++gli)
+		{
+			const ScFace::GlyphEncoding& glEncoding = gli.value();
+			if (glyphName == glEncoding.glyphName)
+			{
+				charcode = glEncoding.charcode;
+				break;
+			}
+		}
+//		qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
+		ScFace::GlyphEncoding glEncoding;
+		glEncoding.charcode  = static_cast<ScFace::ucs4_type>(charcode);
+		glEncoding.glyphName = glyphName;
+		glEncoding.toUnicode = QString::asprintf("%04lX", charcode);
+		if ((charcode == 0) && glyphName.startsWith("uni"))
+		{
+			QString uniHexStr = uniGlyphNameToUnicode(glyphName);
+			if (uniHexStr.length() > 0)
+				glEncoding.toUnicode = uniHexStr;
+		}
+		glyphList.insert(gindex, glEncoding);
+	}
+
+	return true;
+}
+
+QString FtFace::uniGlyphNameToUnicode(const QString& glyphName) const
+{
+	if (!glyphName.startsWith("uni"))
+		return QString();
+	if (glyphName.length() < 7)
+		return QString();
+
+	QString uniStr = glyphName.mid(3);
+	int firstDot = uniStr.indexOf('.');
+	if (firstDot >= 0)
+		uniStr = uniStr.left(firstDot);
+
+	bool isHexString = true;
+	if ((uniStr.length() <= 0) || (uniStr.length() % 4 != 0))
+		return QString();
+
+	int len = uniStr.length();
+	for (int i = 0; i < len; ++i)
+	{
+		int uni = uniStr[i].unicode();
+		isHexString &= (uni >= '0' && uni <= '9') ||
+			           (uni >= 'a' && uni <= 'f') ||
+			           (uni >= 'A' && uni <= 'F');
+		if (!isHexString)
+			break;
+	}
+
+	if (!isHexString)
+		return QString();
+	return uniStr.toUpper();
+}
+
+void FtFace::rawData(QByteArray & bb) const
 {
 	FT_Stream fts = ftFace()->stream;
 	bb.resize(fts->size);
@@ -314,13 +433,6 @@ void FtFace::RawData(QByteArray & bb) const
 		bb.resize(0);
 		status = qMax(status, ScFace::BROKENGLYPHS);
 	}
-/*	
-//	 if (showFontInformation)
-	 {
-		 QFile f(fontFile);
-		 qDebug(QObject::tr("RawData for Font %1(%2): size=%3 filesize=%4").arg(fontFile).arg(faceIndex).arg(bb.size()).arg(f.size()));
-	 }
-*/	 
 }
 
 

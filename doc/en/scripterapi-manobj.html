@@ -1,0 +1,164 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Manipulating Objects</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Manipulating Objects</h2>
+
+<dl>
+
+<dt><a name="-combinePolygons"><strong>combinePolygons()</strong></a></dt>
+<dd><code>combinePolygons()</code>
+<p>Combines two or more selected polygons.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
+
+<dt><a name="-copyObject"><strong>copyObject</strong>(...)</a></dt>
+<dd><code>copyObject(["name"]) -&gt; string</code>
+<p>Copies the specified object or first item of selection if "name" is not given.</p>
+<p>Deprecated. Use copyObjects() instead.</p></dd>
+
+<dt><a name="-copyObjects"><strong>copyObjects</strong>(...)</a></dt>
+<dd><code>copyObjects(names)</code>
+<p>Copies the specified objects or the current object selection if no item names are given.</p>
+<p>The names of objects to copy can be provided as a string to copy a single object or as a list of strings to copy several objects at once.</p></dd>
+
+<dt><a name="-duplicateObject"><strong>duplicateObject</strong>(...)</a></dt>
+<dd><code>duplicateObject(["name"]) -&gt; string</code>
+<p>Creates a duplicate of the specified object or of first item of selection if "name" is not given.</p>
+<p>Returns name of new object.</p>
+<p>Deprecated. Use duplicateObjects() instead.</p></dd>
+
+<dt><a name="-duplicateObjects"><strong>duplicateObjects</strong>(...)</a></dt>
+<dd><code>duplicateObjects(names) -&gt; list</code>
+<p>Creates a duplicate of the specified objects or of the current selection if no names are given.</p>
+<p>The names of objects to duplicate can be provided as a string to duplicate a single object or as a list of strings to duplicate several objects at once.</p>
+<p>Returns a list of the names of the newly created objects.</p></dd>
+
+<dt><a name="-getCharacterStyle"><strong>getCharacterStyle</strong></a>(...)</dt>
+<dd><code>getCharacterStyle(["name"])</code>
+<p>Return name of character style applied to object named "name". If "name" is not given, the currently selected object is used.</p>
+<p>If current object has a text selection, the name of style applied to start of selection is returned. Otherwise the name of the item default character style is returned.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if target frame is not a text frame.</p></dd>
+
+<dt><a name="-getParagraphStyle"><strong>getParagraphStyle</strong></a>(...)</dt>
+<dd><code>getParagraphStyle(["name"])</code>
+<p>Return name of paragraph style applied to object named "name". If "name" is not given, the currently selected object is used.</p>
+<p>If current object has a text selection, the name of style applied to start of selection is returned. Otherwise the name of the item default style is returned.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if target frame is not a text frame.</p></dd>
+
+<dt><a name="-getStyle"><strong>getStyle</strong></a>(...)</dt>
+<dd><code>getStyle(["name"])</code>
+<p>Deprecated. Use getParagraphStyle() instead.</p></dd>
+
+<dt><a name="-getTextFlowMode"><strong>getTextFlowMode</strong></a>(...)</dt>
+<dd><code>getTextFlowMode(["name"]) -&gt; integer</code>
+<p>Return the current text flow mode used by item "name" as an integer. If "name" is not given, the currently selected object is used.</p>
+<p>The function will return one of the following value:
+<ul>
+	<li>0 : text flow around frame is disabled</li>
+	<li>1 : text flow around frame shape</li>
+	<li>2 : text flow around frame bounding box</li>
+	<li>3 : text flow around frame contour line</li>
+	<li>4 : text flow around image clip path</li>
+</ul>
+</p></dd>
+
+<dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
+<dd><code>groupObjects(list)</code>
+<p>Groups the objects named in "list" together. "list" must contain the names of the objects to be grouped. If "list" is not given the currently selected items are used.</p></dd>
+
+<dt><a name="-isLocked"><strong>isLocked</strong></a>(...)</dt>
+<dd><code>isLocked(["name"]) -&gt; bool</code>
+<p>Returns true if is the object "name" locked.  If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-lockObject"><strong>lockObject</strong></a>(...)</dt>
+<dd><code>lockObject(["name"]) -&gt; bool</code>
+<p>Locks the object "name" if it's unlocked or unlock it if it's locked. If "name" is not given the currently selected item is used. Returns true if locked.</p></dd>
+
+<dt><a name="-moveObject"><strong>moveObject</strong></a>(...)</dt>
+<dd><code>moveObject(dx, dy [, "name"])</code>
+<p>Moves the object "name" by dx and dy relative to its current position. The distances are expressed in the current measurement unit of the document (see UNIT constants). If "name" is not given the currently selected item is used. If the object "name" belongs to a group, the whole group is moved.</p>
+<p>If what you wish to do is to move an object to a different page or layer, it may be more efficient to do the sequence <em>copyObject(...)</em>, followed by <em>pasteObject(...)</em>, and then finally <em>deleteObject(...)</em> to delete the original.</p></dd>
+
+<dt><a name="-moveObjectAbs"><strong>moveObjectAbs</strong></a>(...)</dt>
+<dd><code>moveObjectAbs(x, y [, "name"])</code>
+<p>Moves the object "name" to a new location. The coordinates are expressed in the current measurement unit of the document (see UNIT constants).  If "name" is not given the currently selected item is used. If the object "name" belongs to a group, the whole group is moved.</p></dd>
+
+<dt><a name="-pasteObject"><strong>pasteObject</strong>(...)</a></dt>
+<dd><code>pasteObject() -&gt; string</code>
+<p>Pastes an object from the clipboard. This will be used only or most sensibly following <em>copyObject(...)</em>, since otherwise there will likely be nothing in the clipboard to paste.</p>
+<p>Returns the names of the newly created object in a comma separated string.</p>
+<p>Deprecated. Use pasteObjects() instead.</p></dd>
+
+<dt><a name="-pasteObjects"><strong>pasteObjects</strong>(...)</a></dt>
+<dd><code>pasteObjects() -&gt; list</code>
+<p>Pastes the content of clipboard to canvas. This will be used only or most sensibly following <em>copyObjects(...)</em>, since otherwise there will likely be nothing in the clipboard to paste.</p>
+<p>Returns the names of the newly created object in a list.</p></dd>
+
+<dt><a name="-rotateObject"><strong>rotateObject</strong></a>(...)</dt>
+<dd><code>rotateObject(rot [, "name"])</code>
+<p>Rotates the object "name" by "rot" degrees relatively. The object is rotated by the vertex that is currently selected as the rotation point - by default, the top left vertext at zero rotation. Positive values mean counter clockwise rotation when the default rotation point is used. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-rotateObjectAbs"><strong>rotateObjectAbs</strong></a>(...)</dt>
+<dd><code>rotateObjectAbs(rot [, "name"])</code>
+<p>Sets the rotation of the object "name" to "rot". Positive values mean counter clockwise rotation. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-scaleGroup"><strong>scaleGroup</strong></a>(...)</dt>
+<dd><code>scaleGroup(factor [,"name"])</code>
+<p>Scales the group the object "name" belongs to. Values greater than 1 enlarge the group, values smaller than 1 make the group smaller e.g a value of 0.5 scales the group to 50 % of its original size, a value of 1.5 scales the group to 150 % of its original size.  The value for "factor" must be greater than 0. If "name" is not given the currently selected item is used.</p>
+<p>May raise ValueError if an invalid scale factor is passed.</p></dd>
+
+<dt><a name="-setCharacterStyle"><strong>setCharacterStyle</strong></a>(...)</dt>
+<dd><code>setCharacterStyle("style" [, "name"])</code>
+<p>Apply the named character "style" to the object named "name".</p>
+<p>If object name is not provided, style is applied on current object selection.</p>
+<p>If multiple objects are selected or if selected object has no text selection, style is applied on selected object(s). Otherwise style is applied to the current text selection.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not a text frame.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if specified style name does not exist in current document.</p></dd>
+
+<dt><a name="-setParagraphStyle"><strong>setParagraphStyle</strong></a>(...)</dt>
+<dd><code>setParagraphStyle("style" [, "name"])</code>
+<p>Apply the named paragraph "style" to the object named "name".</p>
+<p>If object name is not provided, style is applied on current object selection.</p>
+<p>If multiple objects are selected or if selected object has no text selection, style is applied on selected object(s). Otherwise style is applied to the current text selection.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not a text frame.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if specified style name does not exist in current document.</p></dd>
+
+<dt><a name="-setScaleFrameToImage"><strong>setScaleFrameToImage</strong></a>(...)</dt>
+<dd><code>setScaleFrameToImage([name])</code>
+<p>Set frame size on the selected or specified image frame to image size.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
+
+<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
+<dd><code>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)</code>
+<p>Sets the scale to frame on the selected or specified image frame to `scaletoframe'. If `proportional' is specified, set fixed aspect ratio scaling to `proportional'. Both `scaletoframe' and `proportional' are boolean.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
+
+<dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
+<dd><code>setStyle("style" [, "name"])</code>
+<p>Deprecated. Use setParagraphStyle() instead.</p></dd>
+
+<dt><a name="-setTextFlowMode"><strong>setTextFlowMode</strong>(...)</a></dt>
+<dd><code>setTextFlowMode("name" [, state])</code>
+<p>Enables/disables "Text Flows Around Frame" feature for object "name".</p>
+<p>Called with parameters string name and optional int "state" (0 &lt;= state &lt;= 3). Setting "state" to 0 will disable text flow. Setting "state" to 1 will make text flow around object frame. Setting "state" to 2 will make text flow around bounding box. Setting "state" to 3 will make text flow around contour line. If "state" is not passed, text flow is toggled.</p></dd>
+
+<dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
+<dd><code>sizeObject(width, height [, "name"])</code>
+<p>Resizes the object "name" to the given width and height. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-unGroupObjects"><strong>unGroupObjects</strong></a>(...)</dt>
+<dd><code>unGroupObjects("name")</code>
+<p>Destructs the group the object "name" belongs to. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-textFlowMode"><strong>textFlowMode</strong>(...)</a></dt>
+<dd><code>textFlowMode("name" [, state])</code>
+<p>Deprecated. Use setTextFlowMode() instead.</p></dd>
+
+</dl>
+</body>
+</html>

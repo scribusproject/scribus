@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License      *
 *   along with this program; if not, write to the                          *
 *   Free Software Foundation, Inc.,                                        *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
 #ifndef LENSDIALOG_H
@@ -33,19 +33,22 @@ for which a new license (GPL+exception) is in place.
 #include <QGraphicsItem>
 #include <QGraphicsRectItem>
 #include <QGraphicsPathItem>
-#include <QGraphicsSceneMouseEvent>
-#include <QGraphicsSceneHoverEvent>
+
 #include "ui_lensdialogbase.h"
 #include "pluginapi.h"
 #include "scribusdoc.h"
-#include "scribus.h"
+
 class LensDialog;
+class QGraphicsSceneHoverEvent;
+class QGraphicsSceneMouseEvent;
+class QStyleOptionGraphicsItem;
 
 class PLUGIN_API LensItem : public QGraphicsRectItem
 {
 public:
 	LensItem(QRectF geom, LensDialog *parent);
-	~LensItem() {};
+	~LensItem() = default;
+	
 	void setStrength(double s);
 	void updateEffect();
 	QPainterPath lensDeform(const QPainterPath &source, const QPointF &offset, double m_radius, double s);
@@ -54,6 +57,7 @@ public:
 	double scaling;
 	int handle;
 	QPointF mousePoint;
+
 protected:
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 	void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -72,11 +76,14 @@ class PLUGIN_API LensDialog : public QDialog, Ui::LensDialogBase
 public:
 	LensDialog(QWidget* parent, ScribusDoc *doc);
 	~LensDialog() {};
+	
+	void addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGraphicsPathItem* parentItem, PageItem* parent);
 	void lensSelected(LensItem *item);
 	void setLensPositionValues(QPointF p);
 	QGraphicsScene scene;
 	QList<QPainterPath> origPath;
 	QList<QGraphicsPathItem*> origPathItem;
+	QList<PageItem*> origPageItem;
 	QList<LensItem*> lensList;
 	int currentLens;
 	bool isFirst;

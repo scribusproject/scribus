@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef GTWRITER_H
@@ -29,10 +29,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "gtaction.h"
-#include "gtfont.h"
-#include "gtframestyle.h"
-#include "gtparagraphstyle.h"
-#include "gtstyle.h"
 
 class PageItem;
 
@@ -42,9 +38,9 @@ class PageItem;
 class SCRIBUS_API gtWriter 
 {
 public:
-// 	gtWriter(bool append);
 	gtWriter(bool append, PageItem *pageitem);
 	~gtWriter();
+
 	gtFrameStyle* getDefaultStyle();
 	void setFrameStyle(gtFrameStyle *fStyle);
 	void setParagraphStyle(gtParagraphStyle *pStyle);
@@ -64,10 +60,13 @@ public:
 	void setUpdateParagraphStyles(bool newUPS);
 	bool getOverridePStyleFont();
 	void setOverridePStyleFont(bool newOPSF);
+	bool inNote {false};
+	bool inNoteBody {false};
+
 private:
-	gtAction *action;
-	gtFrameStyle* defaultStyle;
-	gtStyle* currentStyle;
+	gtAction *m_action {nullptr};
+	gtFrameStyle* m_defaultStyle {nullptr};
+	gtStyle* m_currentStyle {nullptr};
 
 /* 
    Frame style is the default style for text. Styles will be used in order so
@@ -75,11 +74,10 @@ private:
    style if no paragraph style is found frame style will be used. Last set 
    frame style will be left to the default style for the text frame.
 */
-	gtFrameStyle* frameStyle;
-	gtStyle* paragraphStyle;
-	gtStyle* characterStyle;
-	bool errorSet;
-	bool shouldAppend;
+	gtFrameStyle* m_frameStyle {nullptr};
+	gtStyle* m_paragraphStyle {nullptr};
+	gtStyle* m_characterStyle {nullptr};
+	bool m_errorSet {false};
 	void setDefaultStyle();
 };
 

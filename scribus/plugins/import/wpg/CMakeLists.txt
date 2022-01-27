@@ -1,0 +1,24 @@
+include_directories(
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/scribus
+	${SCRIBUS_AUTOGEN_INCLUDE_PATH}
+)
+
+set(IMPORTWPG_PLUGIN_SOURCES
+	importwpg.cpp
+	importwpgplugin.cpp
+)
+set(SCRIBUS_IMPORTWPG_PLUGIN "importwpg")
+
+add_library(${SCRIBUS_IMPORTWPG_PLUGIN} MODULE ${IMPORTWPG_PLUGIN_SOURCES})
+target_link_libraries(${SCRIBUS_IMPORTWPG_PLUGIN} ${EXE_NAME} ${SCRIBUS_WPG_LIB})
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_IMPORTWPG_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
+install(TARGETS ${SCRIBUS_IMPORTWPG_PLUGIN}
+	LIBRARY
+	DESTINATION ${PLUGINDIR}
+	PERMISSIONS ${PLUGIN_PERMISSIONS}
+)
+add_dependencies(Plugins ${SCRIBUS_IMPORTWPG_PLUGIN})

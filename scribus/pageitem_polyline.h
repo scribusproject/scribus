@@ -35,17 +35,22 @@ class SCRIBUS_API PageItem_PolyLine : public PageItem
 	Q_OBJECT
 
 public:
-	PageItem_PolyLine(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
+	PageItem_PolyLine(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 	PageItem_PolyLine(const PageItem & p) : PageItem(p) {}
 	~PageItem_PolyLine() {};
 	
-	virtual PageItem_PolyLine * asPolyLine() { return this; }
+	PageItem_PolyLine * asPolyLine() override { return this; }
+	bool isPolyLine() const override { return true; }
 	
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription();
+	void applicableActions(QStringList& actionList) override;
+	QString infoDescription() const override;
+
+	void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
+	void getOldBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
+	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
 
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e, double sc);
+	void DrawObj_Item(ScPainter *p, const QRectF& e) override;
 
 };
 

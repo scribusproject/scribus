@@ -25,16 +25,16 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QMenu>
 #include <QPixmap>
+#include <QToolButton>
 
 #include "modetoolbar.h"
 
 #include "autoformbuttongroup.h"
-#include "menumanager.h"
 #include "polyprops.h"
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-#include "util.h"
+#include "scrspinbox.h"
 
 ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "Tools", parent, Qt::Vertical)
 {
@@ -49,30 +49,52 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsInsertTextFrame"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertImageFrame"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertRenderFrame"]);
-	this->addAction(m_ScMW->scrActions["toolsInsertTableFrame"]);
+	this->addAction(m_ScMW->scrActions["toolsInsertTable"]);
 	
 	this->addAction(m_ScMW->scrActions["toolsInsertShape"]);
-//	insertShapeButtonMenu = new QMenu();
-	Rechteck = new AutoformButtonGroup( NULL );
-//	insertShapeButtonAct = new QWidgetAction( this );
-//	insertShapeButtonAct->setDefaultWidget(Rechteck);
-//	insertShapeButtonMenu->addAction(insertShapeButtonAct);
-//	m_ScMW->scrActions["toolsInsertShape"]->setMenu(insertShapeButtonMenu);
-	m_ScMW->scrActions["toolsInsertShape"]->setMenu(Rechteck);
+	autoFormButtonGroup = new AutoformButtonGroup( nullptr );
+	m_ScMW->scrActions["toolsInsertShape"]->setMenu(autoFormButtonGroup);
 	QToolButton* tb = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertShape"]));
-	tb->setPopupMode(QToolButton::MenuButtonPopup);
-	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(0,16)));
+	tb->setPopupMode(QToolButton::DelayedPopup);
+	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(autoFormButtonGroup->getIconPixmap(0,16)));
 
 	this->addAction(m_ScMW->scrActions["toolsInsertPolygon"]);
 	insertPolygonButtonMenu = new QMenu();
 	idInsertPolygonButtonMenu = insertPolygonButtonMenu->addAction( "Properties...", this, SLOT(GetPolyProps()));
 	m_ScMW->scrActions["toolsInsertPolygon"]->setMenu(insertPolygonButtonMenu);
 	QToolButton* tb2 = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertPolygon"]));
-	tb2->setPopupMode(QToolButton::MenuButtonPopup);
-		
+	tb2->setPopupMode(QToolButton::DelayedPopup);
+
+	this->addAction(m_ScMW->scrActions["toolsInsertArc"]);
+	this->addAction(m_ScMW->scrActions["toolsInsertSpiral"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertLine"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertBezier"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertFreehandLine"]);
+
+	propWidget = new QWidget();
+	group1Layout = new QGridLayout( propWidget );
+	group1Layout->setSpacing(3);
+	group1Layout->setContentsMargins(3, 3, 3, 3);
+	group1Layout->setAlignment( Qt::AlignTop );
+	Angle = new ScrSpinBox( -180, 180, propWidget, 6 );
+	Angle->setValue( 0 );
+	AngleTxt = new QLabel( tr("Angle:"), propWidget );
+	group1Layout->addWidget( Angle, 0, 1 );
+	group1Layout->addWidget( AngleTxt, 0 , 0 );
+	PWidth = new ScrSpinBox( 0, 100, propWidget, 0 );
+	PWidth->setValue( 10 );
+	PWidthTxt = new QLabel( tr("Width:"), propWidget );
+	group1Layout->addWidget( PWidth, 1, 1 );
+	group1Layout->addWidget( PWidthTxt, 1 , 0 );
+	calPop = new QMenu();
+	calValAct = new QWidgetAction(this);
+	calValAct->setDefaultWidget(propWidget);
+	calPop->addAction(calValAct);
+	this->addAction(m_ScMW->scrActions["toolsInsertCalligraphicLine"]);
+	m_ScMW->scrActions["toolsInsertCalligraphicLine"]->setMenu(calPop);
+	QToolButton* tb3 = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertCalligraphicLine"]));
+	tb3->setPopupMode(QToolButton::DelayedPopup);
+
 	this->addAction(m_ScMW->scrActions["toolsRotate"]);
 	this->addAction(m_ScMW->scrActions["toolsZoom"]);
 	this->addAction(m_ScMW->scrActions["toolsEditContents"]);
@@ -84,21 +106,37 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsEyeDropper"]);
 
 	languageChange();
-	connect(Rechteck, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(SelShape(int, int, qreal *)));
+	connect(autoFormButtonGroup, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(SelShape(int, int, qreal *)));
+	connect(Angle, SIGNAL(valueChanged(double)), this, SLOT(newCalValues()));
+	connect(PWidth, SIGNAL(valueChanged(double)), this, SLOT(newCalValues()));
+}
+
+ModeToolBar::~ModeToolBar()
+{
+	delete calValAct;
+	delete calPop;
+}
+
+void ModeToolBar::newCalValues()
+{
+	m_ScMW->doc->itemToolPrefs().calligraphicPenAngle = Angle->value();
+	m_ScMW->doc->itemToolPrefs().calligraphicPenWidth = PWidth->value();
 }
 
 void ModeToolBar::GetPolyProps()
 {
-	PolygonProps* dia = new PolygonProps(this, m_ScMW->doc->toolSettings.polyC, m_ScMW->doc->toolSettings.polyFd, m_ScMW->doc->toolSettings.polyF, m_ScMW->doc->toolSettings.polyS, m_ScMW->doc->toolSettings.polyR, m_ScMW->doc->toolSettings.polyCurvature);
+	PolygonProps* dia = new PolygonProps(m_ScMW, m_ScMW->doc->itemToolPrefs().polyCorners, m_ScMW->doc->itemToolPrefs().polyFactor, m_ScMW->doc->itemToolPrefs().polyUseFactor, m_ScMW->doc->itemToolPrefs().polyRotation, m_ScMW->doc->itemToolPrefs().polyCurvature, m_ScMW->doc->itemToolPrefs().polyInnerRot, m_ScMW->doc->itemToolPrefs().polyOuterCurvature);
 	if (dia->exec())
-		dia->getValues(&m_ScMW->doc->toolSettings.polyC, &m_ScMW->doc->toolSettings.polyFd, &m_ScMW->doc->toolSettings.polyF, &m_ScMW->doc->toolSettings.polyS, &m_ScMW->doc->toolSettings.polyR, &m_ScMW->doc->toolSettings.polyCurvature);
+	{
+		dia->getValues(&m_ScMW->doc->itemToolPrefs().polyCorners, &m_ScMW->doc->itemToolPrefs().polyFactor, &m_ScMW->doc->itemToolPrefs().polyUseFactor, &m_ScMW->doc->itemToolPrefs().polyRotation, &m_ScMW->doc->itemToolPrefs().polyCurvature, &m_ScMW->doc->itemToolPrefs().polyInnerRot, &m_ScMW->doc->itemToolPrefs().polyOuterCurvature);
+		m_ScMW->scrActions["toolsInsertPolygon"]->trigger();
+	}
 	delete dia;
 }
 
 void ModeToolBar::SelShape(int s, int c, qreal *vals)
 {
-	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(s,16)));
-//	insertShapeButtonMenu->hide();
+	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(autoFormButtonGroup->getIconPixmap(s,16)));
 	SubMode = s;
 	ValCount = c;
 	ShapeVals = vals;
@@ -116,8 +154,16 @@ void ModeToolBar::changeEvent(QEvent *e)
 		QWidget::changeEvent(e);
 }
 
+void ModeToolBar::setDoc(ScribusDoc* doc)
+{
+	Angle->setValue(doc->itemToolPrefs().calligraphicPenAngle);
+	PWidth->setValue(doc->itemToolPrefs().calligraphicPenWidth);
+}
+
 void ModeToolBar::languageChange()
 {
+	AngleTxt->setText(tr("Angle:"));
+	PWidthTxt->setText(tr("Width:"));
 	idInsertPolygonButtonMenu->setText( tr("Properties..."));
 	ScToolBar::languageChange();
 }

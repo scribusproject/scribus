@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 class ScribusDoc;
 class ScribusMainWindow;
 class DeferredTask;
-class PrefsPanel;
+class Prefs_Pane;
 
 /**
  * \brief Abstract super class for all Scribus plug-ins
@@ -42,7 +42,7 @@ class PrefsPanel;
  * and maintain as little state as possible. Most functionality should be
  * implemented in a private subclass that is not exposed in the header of the
  * scplugin subclass defined by the plugin. That helps keep the plugin's
- * implementation separate from its inteface to Scribus.
+ * implementation separate from its interface to Scribus.
  *
  * Note that the two subclases ScActionPlugin and ScPersistentPlugin, defined
  * below, create two quite different kinds of plugins. One is for import/export
@@ -143,7 +143,7 @@ class SCRIBUS_API ScPlugin : public QObject
 		 * The results of testing the value of this can not be guaranteed,
 		 * as its value may change depending on locale and change at runtime.
 		 */
-		virtual const QString fullTrName() const = 0;
+		virtual QString fullTrName() const = 0;
 
 		/**
 		 * \brief Create and return a prefs UI panel for the plugin.
@@ -156,7 +156,7 @@ class SCRIBUS_API ScPlugin : public QObject
 		 * the widget will be added to or a child of it, otherwise the panel
 		 * won't be deleted correctly when the dialog is.
 		 *
-		 * See prefspanel.h for info on implementing the panel.
+		 * See prefs_pane.h for info on implementing the panel.
 		 *
 		 * This method must return false (the default) if the plugin does
 		 * not provide a prefs panel. If true is returned, caption, panel,
@@ -170,14 +170,13 @@ class SCRIBUS_API ScPlugin : public QObject
 		 *
 		 * By default, returns 0 to indicate no prefs UI.
 		*/
-		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
-										 QString& caption, QPixmap& icon);
+		virtual bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel);
 
 		/*! @brief Return descriptive information about the plug-in
 		 *
 		 * Returns a structure containing descriptive information about the
 		 * plug-in. This information is used in places like the Help->About
-		 * Plug-ins menu item. The stucture MUST be deleted using
+		 * Plug-ins menu item. The structure MUST be deleted using
 		 * deleteAboutData(AboutData* about) when finished with.
 		 *
 		 * Every plugin MUST reimplement getAboutData(...) and deleteAboutData(...).
@@ -195,6 +194,12 @@ class SCRIBUS_API ScPlugin : public QObject
 		 * may change depending on locale, and may change at runtime.
 		 */
 		const QString & lastError() const;
+
+		//! \brief Returns if lastError message is not empty
+		bool hasLastError() const;
+
+		//! \brief Clear last error message
+		void clearLastError();
 
 		/*! @brief Update all user-visible text to reflect current UI language
 		 *
@@ -253,17 +258,18 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 
 		// Information about actions, to be returned by actionInfo()
 		struct ActionInfo {
-			QString name;  // name of action
-			QString text;  // text to display to user
+			QString name;					// name of action
+			QString text;					// text to display to user
+			QString helpText;				// help text for ToolTips and StatusTips
 			QString keySequence;
 			QString menu;
 			QString menuAfterName;
 			QString parentMenu;
 			QString subMenuName;
-			QString toolbar;			// Name of the ToolBar the action is to be inserted, if that toolbar doesn't exits it will be created
-			QString toolBarName;		// translateable ToolBar title
-			QPixmap icon1;
-			QPixmap icon2;
+			QString toolbar;				// Name of the ToolBar the action is to be inserted, if that toolbar doesn't exits it will be created
+			QString toolBarName;			// translateable ToolBar title
+			QString iconPath1;
+			QString iconPath2;
 			QList<int> notSuitableFor;		// a list of PageItem type values which the plugin can *not* handle
 			QList<int> forAppMode;			// a list of AppMode values for which the plugin will be active, an empty list indicates that the plugin is always active
 			int needsNumObjects;			// plugin needs this number of selected Objects. -1 = needs no Object, num > 2 any number of Objects is allowed
@@ -271,7 +277,11 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 			QList<int> secondObjectType;	// when needsNumObjects is 2 this list contains the Object Types of the second object on the selection
 											// -1 indicates that any kind of object is possible. Otherwise the selection must contain the 2 Object Types
 											// for the Plugin Action to be enabled
-			bool enabledOnStartup;
+			bool enabledOnStartup {false};
+			bool enabledForStoryEditor {false};
+			QString seMenu;
+			QString seParentMenu;
+			QString seKeySequence;
 		};
 
 		// Return an ActionInfo instance to the caller
@@ -290,6 +300,19 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		virtual bool handleSelection(ScribusDoc* doc, int SelectedType = -1);
 
 	public slots:
+		/**
+		 * @brief Deactivates the plugin for unloading / program quit
+		 *
+		 * This method will be called when the plug-in is about to be unloaded,
+		 * or if the plug-in manager has been asked to disable the plug-in.
+		 * This method will never be called unless initPlugin has been called
+		 * first, but there is no guarantee the plugin will actually be
+		 * unloaded after this is called, or before initPlugin is called again.
+		 *
+		 * @returns bool True for success.
+		 */
+		virtual bool cleanupPlugin() { return false; }
+
 		/**
 		 * @brief Run the plug-in's main action.
 		 *
@@ -316,7 +339,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 * @returns bool True for success.
 		 *
 		 */
-		virtual bool run(ScribusDoc* doc, QString target = QString::null) = 0;
+		virtual bool run(ScribusDoc* doc, const QString& target = QString()) = 0;
 
 		/**
 		 * @brief Run the plug-in's main action.
@@ -325,7 +348,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 * a parent widget reference. It's useful e.g. when you need to
 		 * open a dialog on a specific parent one.
 		 */
-		virtual bool run(QWidget* parent, ScribusDoc* doc, QString target = QString::null);
+		virtual bool run(QWidget* parent, ScribusDoc* doc, const QString& target = QString());
 
 		/**
 		 * @brief Run the plugin on a QIODevice
@@ -379,12 +402,12 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 *   A caller is not required to do this, but with the current (August
 		 *   2005) core code it's the only way to operate safely. This is
 		 *   likely to change in future and you should avoid relying on it if
-		 *   at all posssible.
+		 *   at all possible.
 		 *
 		 * If this method is used, the plugin must not be unloaded until all
 		 * DeferredTask instances have been deleted.
 		 */
-		virtual DeferredTask* runAsync(QString target = QString::null);
+		virtual DeferredTask* runAsync(const QString& target = QString());
 
 		/**
 		 * @brief Run the plugin asynchronously
@@ -396,7 +419,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		virtual DeferredTask* runAsync(QIODevice* target);
 
 		// Compat kludge ... we store a QString result from any successful
-		// run(...) call in m_runResult and let callers retrive it here.
+		// run(...) call in m_runResult and let callers retrieve it here.
 		// DO NOT USE THIS INTERFACE FOR NEW PLUG-INS; you should
 		// dynamic_cast<> to the plugin type then call a plug-in specific
 		// method instead.
@@ -408,7 +431,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		ActionInfo m_actionInfo;
 		// Obsolete - see runResult()
 		QString m_runResult;
-		ScribusDoc* m_Doc;
+		ScribusDoc* m_Doc {nullptr};
 };
 
 /**
@@ -489,7 +512,7 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 //
 // The API version is currently simply incremented with each incompatible
 // change. Future versions may introduce a minor/major scheme if necessary.
-#define PLUGIN_API_VERSION 0x00000008
+#define PLUGIN_API_VERSION 0x00000107
 
 
 #endif

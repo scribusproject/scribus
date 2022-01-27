@@ -71,7 +71,7 @@ private:
 void dummyDoc(desaxe::Digester& dig)
 {
 	dig.reset();
-	
+
 	Xml_attr attr;
 	dig.begin("doc", attr);
 	attr["level"] = "1";
@@ -90,9 +90,9 @@ void dummyDoc(desaxe::Digester& dig)
 	attr["test"] = "bingo";
 	dig.begin("elem", attr);
 	dig.chars("delta ");
-			 attr["level"] = "3";
-	         dig.begin("elem", attr);
-	            dig.chars("echo ");
+		attr["level"] = "3";
+		dig.begin("elem", attr);
+				dig.chars("echo ");
 				dig.end("elem");
 				dig.chars("foxtrott ");	
 				dig.end("elem");
@@ -109,7 +109,7 @@ void dummyDoc(desaxe::Digester& dig)
 				dig.end("elem");
 				dig.chars("kilo ");
 				dig.end("doc");
-}				
+}
 
 bool loadRawText(const QString & filename, QByteArray & buf)
 {
@@ -137,20 +137,20 @@ bool loadRawText(const QString & filename, QByteArray & buf)
 int main(int argc, char** argv)
 {
 	using namespace desaxe;
-	
+
 	Digester dig;
 	Action fac = FactoryWithName<ELEM>();
 	Action s_attr = SetAttributes<ELEM>( & ELEM::setAttribute );
 	Action res = Result<ELEM>();
 	Action set  = SetterP<ELEM, ELEM>( & ELEM::addElem );
 	Action txt = AddText<ELEM>( & ELEM::addText );
-	
+
 	dig.addRule("*",fac);
 	dig.addRule("*",s_attr);
 	dig.addRule("*",txt);
 	dig.addRule("/*",res);
 	dig.addRule("*/*", set);
-	
+
 	if (argc < 2) {
 		dummyDoc(dig);
 		dig.result<ELEM>()->print();

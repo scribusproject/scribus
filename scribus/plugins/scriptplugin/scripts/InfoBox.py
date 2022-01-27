@@ -14,28 +14,42 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
-#  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # 
 # ****************************************************************************
 
 
 """
+
 (C) 2005 by Thomas R. Koll, <tomk32@gmx.de>, http://verlag.tomk32.de
-(c) 2008 modifications, additional features by Gregory Pittman
+
+(c) 2008, 2010, 2012, 2018, 2019 modifications, additional features, and no need for PIL
+
+by Gregory Pittman
 
 A simple script for exact placement of a frame (infobox)
 over the current textbox, asking the user for the width
 of the infobox and in which column to place it.
+
 Some enhancements:
+
 * You can now create a text frame or an image frame, and also load
 an image.
-* More than one infobox can be added to a text frame
-* Height and Y-Pos of top of infobox can be specified
-* Works with any page unit - pts, mm, in, and picas
+
+* More than one infobox can be added to a text frame by repeatedly running
+  the script (ie, no name conflicts occur).
+
+* Height and Y-Pos of top of infobox can be specified.
+
+* Works with any page unit - pts, mm, in, and picas, cm, and even ciceros.
+
 * Infobox has Text Flows Around Frame activated, also
-  Scale Image to Frame for images
+  Scale Image to Frame for images.
+
+* If you load an image with the script, an exactly correct frame height is made.
 
 USAGE
+
 Select a textframe, start the script and have phun
 Default name for the infobox is 'infobox' + name_of_selected_frame,
 but this can be changed.
@@ -46,13 +60,8 @@ but this can be changed.
 try:
     import scribus
 except ImportError:
-    print "Unable to import the 'scribus' module. This script will only run within"
-    print "the Python interpreter embedded in Scribus. Try Script->Execute Script."
-    sys.exit(1)
-try:
-    from PIL import Image
-except ImportError:
-    print "Unable to import the Python Imaging Library module."
+    print ("Unable to import the 'scribus' module. This script will only run within")
+    print ("the Python interpreter embedded in Scribus. Try Script->Execute Script.")
     sys.exit(1)
 
 def main(argv):
@@ -107,20 +116,30 @@ def main(argv):
                                          str(o_cols) + ')?','1')
             column_pos = int(column_pos) - 1 
     if (o_cols == 1):
-	columns_width = 1
+        columns_width = 1
     new_height = 0
-    while (new_height == 0):
+    while (new_height <= 0):
         new_height = scribus.valueDialog('Height','Your frame height is '+ str(o_height) +
                                                  unitlabel +'. How tall\n do you want your ' +
-                                                 'infobox to be in '+ unitlabel +'?\n If you load an image, height will be\n calculated, so the value here does not\n matter.', str(o_height))
+                                                 'infobox to be in '+ unitlabel +'?\n If you load an image with the script, height will be\n calculated, so the value here will not\n matter in that case.', str(o_height))
+        if (not new_height) :
+            sys.exit(0)
+        new_height = float(new_height)
     new_top = -1
     while (new_top < 0):
         new_top = scribus.valueDialog('Y-Pos','The top of your infobox is currently\n'+ str(top) +
                                                  unitlabel +'. Where do you want \n' +
                                                  'the top to be in '+ unitlabel +'?', str(top))
+        if (not new_top) :
+            sys.exit(0)
+        new_top = float(new_top)
     framename = scribus.valueDialog('Name of Frame','Name your frame or use this default name',"infobox" + str(boxcount) + textbox)
+    if (not framename) :
+        sys.exit(0)
     frametype = 'text'
     frametype = scribus.valueDialog('Frame Type','Change to anything other\n than "text" for image frame.\nEnter "imageL" to also load an image',frametype)
+    if (not frametype) :
+        sys.exit(0)
     new_width = columns_width * o_colwidth + (columns_width-1) * o_gap
     new_left = left + ((column_pos) * o_colwidth) + ((column_pos) * o_gap)
     if (frametype == 'text'):
@@ -130,16 +149,20 @@ def main(argv):
         scribus.textFlowMode(new_textbox, 1)
     else:
         if (frametype == 'imageL'):
-	    imageload = scribus.fileDialog('Load image','Images(*.jpg *.png *.tif *.JPG *.PNG *.jpeg *.JPEG *.TIF)',haspreview=1)
-            im = Image.open(imageload)
-            xsize, ysize = im.size
-	    new_height = float(ysize)/float(xsize)*new_width
-	    new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
-	    scribus.loadImage(imageload, new_image)
+            imageload = scribus.fileDialog('Load image','Images(*.jpg *.png *.tif *.JPG *.PNG *.jpeg *.JPEG *.TIF)',haspreview=1)
+            new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
+            scribus.textFlowMode(new_image, 1)
+            scribus.loadImage(imageload, new_image)
+            scribus.setScaleImageToFrame(1,0,new_image)
+            currwidth, currheight = scribus.getSize(new_image)
+            Xscale, Yscale = scribus.getImageScale(new_image)
+            if (Xscale != Yscale):
+                scribus.sizeObject(currwidth, currheight*Xscale/Yscale, new_image)
+            scribus.setScaleImageToFrame(1,1,new_image)
         else:
-	    new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
-        scribus.textFlowMode(new_image, 1)
-        scribus.setScaleImageToFrame(scaletoframe=1, proportional=1, name=new_image)
+            new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
+            scribus.textFlowMode(new_image, 1)
+            scribus.setScaleImageToFrame(1,1,new_image)
 if __name__ == '__main__':
     # This script makes no sense without a document open
     if not scribus.haveDoc():

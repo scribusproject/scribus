@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef PREFSREADER_H
@@ -39,21 +39,23 @@ for which a new license (GPL+exception) is in place.
 
 class SCRIBUS_API PrefsReader : public QXmlDefaultHandler
 {
-private:
-	ContextMap* aContexts;
-	ContextMap* pContexts;
-	PrefsContext* currentContext;
-	PrefsTable* currentTable;
-	bool inApp;
-	int rowIndex;
-	int colIndex;
-	bool inTable;
 public:
 	PrefsReader(ContextMap *appContexts, ContextMap *pluginContexts);
-	~PrefsReader();
+	~PrefsReader() override = default;
+
 	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
 	bool characters (const QString& ch); 
 	bool endElement(const QString&, const QString&, const QString &name);
+
+private:
+	ContextMap* m_aContexts { nullptr };
+	ContextMap* m_pContexts { nullptr };
+	PrefsContext* m_currentContext { nullptr };
+	PrefsTable* m_currentTable { nullptr };
+	bool m_inApp { false };
+	bool m_inTable { false };
+	int m_rowIndex { 0 };
+	int m_colIndex { 0 };
 };
 
 #endif

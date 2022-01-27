@@ -1,0 +1,39 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Drop Shadows</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Drop Shadows</h2>
+<p>A new feature as of the 1.5.x versions of Scribus is Drop Shadows. Formerly, the only way to achieve what we might call true drop shadows was to export your image or text as graphics to a program such as Gimp, manipulate it there, then import to Scribus.</p>
+<p>There has been a shadow effect for text, which basically amounts to a duplicate of the glyph, offset slightly, with an assignable color and saturation. In this example, the color was Black with a saturation set to 30%.</p>
+<table width=80%><tr>
+<td><img src="images/dropshadows1.png" ALT="Example of shadow text" ALIGN="center"></td>
+    <td align="left"><p>Notice the sharp edges of the shadow, and unfortunately, this is your only choice with this method.<p></td></tr>
+</table>
+    
+<h2>The new method</h2>
+
+<table width=100% cellpadding=10><tr>
+<td><img src="images/dropshadows3.png" ALIGN=right></td>
+    <td><p>In the Properties palette, you now find a new tab for Drop Shadows, used on objects such as frames.</p>
+        <p>Here is the section of Properties for Drop Shadow. This is a composite image to show all the possible settings. On your system, you may need to scroll to find them all. The settings are pretty straightforward. Use the checkboxes as needed, and click on the values to then be able to adjust them.</p>
+        <p>Note that if you click <b>Inherit Object Transparency</b>, any setting in <b>Opacity</b> is overridden.</p></td></tr>
+<tr><td><img src="images/dropshadows4.png"></td>
+<td><p>Here is an example used for text. Notice that the glyphs have the shadows, not the frame, since stroke and fill colors are both None. In cases where you have a fill and/or stroke color assigned for the frame, you will then see a shadow for the frame itself. If the frame has a fill color, then you will not see shadowing of the individual glyphs.</p></td></tr>
+<tr><td><img src="images/dropshadows5.png"></td>
+<td VALIGN=middle><p>This is just an example to show usage of drop shadow in a text frame superimposed on an image frame with drop shadow.</p></td>
+</tr>
+<tr><td><img src="images/dropshadows6.png" ALIGN=right></td>
+<td VALIGN=middle><p>Here is usage with a shape, on the left a color has only been assigned for the stroke, on the right both stroke and fill.</p></td>
+</tr>
+<tr><td><img src="images/dropshadows7.png" ALIGN=right></td>
+<td VALIGN=middle><p>Wait a minute! Didn't I just say this can't be done? I didn't say it couldn't be done, but here we use a trick.</p>
+<p>The trick is to make a duplicate of the original frame with the same X,Y coordinates. Using the copy that is <strong>underneath</strong>, set its frame to have a stroke of Black and a fill of White. So now you see the shadows of the glyphs on top of the white background of the frame in back, which is producing the frame shadow.</p>
+<p>Remember, to alternate between selecting frames in a stack, hold down <strong>Ctrl</strong> while clicking on them. An alternative method would be to work on the frame on top, then push its level underneath the other as needed.</p></td>
+</tr></table>
+</body>
+</html>

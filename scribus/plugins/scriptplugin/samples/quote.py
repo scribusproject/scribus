@@ -8,7 +8,7 @@ import sys
 try:
     from scribus import *
 except ImportError:
-    print "This script only runs from within Scribus."
+    print ("This script only runs from within Scribus.")
     sys.exit(1)
 
 import re
@@ -23,7 +23,7 @@ QUOTE_END = u""
 def quote(textobj):
     quoted_re = re.compile('"[^"]*"')
     try:
-        text = getText(textobj)
+        text = getFrameText(textobj)
     except WrongFrameTypeError:
         messageBox("quote.py", "Cannot quote text in a non-text frame", ICON_INFORMATION);
         sys.exit(1)

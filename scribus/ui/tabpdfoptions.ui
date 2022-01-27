@@ -1,0 +1,1642 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TabPDFOptions</class>
+ <widget class="QTabWidget" name="TabPDFOptions">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>657</width>
+    <height>549</height>
+   </rect>
+  </property>
+  <property name="currentIndex">
+   <number>0</number>
+  </property>
+  <widget class="QWidget" name="tabGeneral">
+   <attribute name="title">
+    <string>&amp;General</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="leftMargin">
+     <number>9</number>
+    </property>
+    <property name="topMargin">
+     <number>9</number>
+    </property>
+    <property name="rightMargin">
+     <number>9</number>
+    </property>
+    <property name="bottomMargin">
+     <number>9</number>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QGroupBox" name="RangeGroup">
+        <property name="title">
+         <string>Export Range</string>
+        </property>
+        <layout class="QVBoxLayout" name="rangeGroupLayout">
+         <item>
+          <widget class="QRadioButton" name="AllPages">
+           <property name="text">
+            <string>&amp;All Pages</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="1" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QLineEdit" name="PageNr"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pageNrButton"/>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="0">
+            <widget class="QRadioButton" name="OnlySome">
+             <property name="text">
+              <string>C&amp;hoose Pages</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="rotationLabel">
+             <property name="text">
+              <string>&amp;Rotation:</string>
+             </property>
+             <property name="buddy">
+              <cstring>RotateDeg</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="RotateDeg">
+             <property name="editable">
+              <bool>false</bool>
+             </property>
+             <item>
+              <property name="text">
+               <string>0 °</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>90 °</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>180 °</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>270 °</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QToolButton" name="MirrorH">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="MirrorV">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="ClipMarg">
+           <property name="text">
+            <string>Clip to Printer Margins</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="title">
+         <string>File Options</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+        <layout class="QGridLayout" name="fileOptionsLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Compatibilit&amp;y:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="buddy">
+            <cstring>PDFVersionCombo</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" colspan="2">
+          <widget class="PdfVersionCombo" name="PDFVersionCombo">
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>&amp;Binding:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="buddy">
+            <cstring>ComboBind</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" colspan="2">
+          <widget class="QComboBox" name="ComboBind">
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+           <item>
+            <property name="text">
+             <string>Left Margin</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Right Margin</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="2" column="0" colspan="3">
+          <widget class="QCheckBox" name="CheckBox1">
+           <property name="text">
+            <string>Generate &amp;Thumbnails</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1" alignment="Qt::AlignLeft">
+          <widget class="QSpinBox" name="Resolution">
+           <property name="suffix">
+            <string> dpi</string>
+           </property>
+           <property name="minimum">
+            <number>35</number>
+           </property>
+           <property name="maximum">
+            <number>4000</number>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0" colspan="3">
+          <widget class="QCheckBox" name="CheckBM">
+           <property name="text">
+            <string>&amp;Include Bookmarks</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="3">
+          <widget class="QCheckBox" name="Article">
+           <property name="text">
+            <string>Save &amp;Linked Text Frames as PDF Articles</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0" colspan="3">
+          <widget class="QCheckBox" name="useLayers">
+           <property name="text">
+            <string>Include La&amp;yers</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>&amp;Resolution for EPS Graphics:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="buddy">
+            <cstring>Resolution</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0" colspan="3">
+          <widget class="QCheckBox" name="EmbedPDF">
+           <property name="text">
+            <string>Embed PDF &amp;&amp; EPS files (EXPERIMENTAL)</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="Compression">
+      <property name="text">
+       <string>Com&amp;press Text and Vector Graphics</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Image Quality Settings</string>
+      </property>
+      <layout class="QGridLayout" name="imageQualityLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Compression Metho&amp;d:</string>
+         </property>
+         <property name="buddy">
+          <cstring>CMethod</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="CMethod">
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>Automatic</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Lossy - JPEG</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Lossless - Zip</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>None</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Compression &amp;Quality:</string>
+         </property>
+         <property name="buddy">
+          <cstring>CQuality</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="CQuality">
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>Maximum</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>High</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Medium</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Low</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Minimum</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="2" column="1" alignment="Qt::AlignLeft">
+        <widget class="QSpinBox" name="ValC">
+         <property name="suffix">
+          <string> dpi</string>
+         </property>
+         <property name="minimum">
+          <number>35</number>
+         </property>
+         <property name="maximum">
+          <number>4000</number>
+         </property>
+         <property name="value">
+          <number>72</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QCheckBox" name="DSColor">
+         <property name="text">
+          <string>Maximum Image Resolution:</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_6">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="tabFonts">
+   <attribute name="title">
+    <string>&amp;Fonts</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QGroupBox" name="groupFont">
+      <property name="title">
+       <string>Embedding</string>
+      </property>
+      <layout class="QVBoxLayout" name="groupFontLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Embedding Mode:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="FontEmbeddingCombo" name="fontEmbeddingCombo"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>Fonts to embed:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="EmbedList"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="EmbedFonts">
+             <property name="text">
+              <string>&amp;Embed all</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="ToSubset">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="FromSubset">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>Fonts to subset:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="SubsetList"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="SubsetFonts">
+             <property name="text">
+              <string>&amp;Subset all</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="tabPresentation">
+   <attribute name="title">
+    <string>E&amp;xtras</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="0">
+     <widget class="QCheckBox" name="CheckBox10">
+      <property name="text">
+       <string>Enable &amp;Presentation Effects</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QListWidget" name="Pages"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QCheckBox" name="PagePrev">
+      <property name="text">
+       <string>Show Page Pre&amp;views</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QGroupBox" name="Effects">
+      <property name="title">
+       <string>Effects</string>
+      </property>
+      <layout class="QGridLayout" name="effectsLayout">
+       <item row="5" column="1">
+        <widget class="QComboBox" name="EDirection_2_2">
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>Left to Right</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Top to Bottom</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Bottom to Top</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Right to Left</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Top-left to Bottom-Right</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_15">
+         <property name="text">
+          <string>D&amp;irection:</string>
+         </property>
+         <property name="buddy">
+          <cstring>EDirection_2_2</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>&amp;Moving Lines:</string>
+         </property>
+         <property name="buddy">
+          <cstring>EDirection</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QComboBox" name="EDirection">
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>Horizontal</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Vertical</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QComboBox" name="EffectType">
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>No Effect</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Blinds</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Box</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Dissolve</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Glitter</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Split</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Wipe</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>F&amp;rom the:</string>
+         </property>
+         <property name="buddy">
+          <cstring>EDirection_2</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="EDirection_2">
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>Inside</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Outside</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Effec&amp;t Duration:</string>
+         </property>
+         <property name="buddy">
+          <cstring>EffectTime</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Effect T&amp;ype:</string>
+         </property>
+         <property name="buddy">
+          <cstring>EffectType</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>&amp;Display Duration:</string>
+         </property>
+         <property name="buddy">
+          <cstring>PageTime</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QSpinBox" name="EffectTime">
+         <property name="suffix">
+          <string> sec</string>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>3600</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="PageTime">
+         <property name="suffix">
+          <string> sec</string>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>3600</number>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="2">
+        <widget class="QPushButton" name="EonAllPg">
+         <property name="text">
+          <string>&amp;Apply Effect to all Pages</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="tabSpecial">
+   <attribute name="title">
+    <string>Viewer</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout_7">
+    <item>
+     <widget class="QGroupBox" name="groupDisplay">
+      <property name="title">
+       <string>Display Settings</string>
+      </property>
+      <layout class="QVBoxLayout" name="groupDisplayLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QGroupBox" name="pageLayout">
+           <property name="title">
+            <string>Document Layout</string>
+           </property>
+           <layout class="QVBoxLayout" name="pageLayoutLayout">
+            <item>
+             <widget class="QRadioButton" name="singlePage">
+              <property name="text">
+               <string>Single Page</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="continuousPages">
+              <property name="text">
+               <string>Continuous</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="facingPagesLeft">
+              <property name="text">
+               <string>Facing Page Left</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="facingPagesRight">
+              <property name="text">
+               <string>Facing Page Right</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupNavigation">
+           <property name="title">
+            <string>Visual Appearance</string>
+           </property>
+           <layout class="QVBoxLayout" name="groupNavigationLayout">
+            <item>
+             <widget class="QRadioButton" name="useViewDefault">
+              <property name="text">
+               <string>Use Viewers Defaults</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="useFullScreen">
+              <property name="text">
+               <string>Use Full Screen Mode</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="useBookmarks">
+              <property name="text">
+               <string>Display Bookmarks Tab</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="useThumbnails">
+              <property name="text">
+               <string>Display Thumbnails</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="useLayers2">
+              <property name="text">
+               <string>Display Layers Tab</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="hideToolBar">
+              <property name="text">
+               <string>Hide Viewers Toolbar</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="hideMenuBar">
+              <property name="text">
+               <string>Hide Viewers Menubar</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="fitWindow">
+              <property name="text">
+               <string>Zoom Pages to fit Viewer Window</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupJava">
+         <property name="title">
+          <string>Special Actions</string>
+         </property>
+         <layout class="QHBoxLayout" name="groupJavaLayout">
+          <item>
+           <widget class="QLabel" name="actionLabel">
+            <property name="text">
+             <string>Javascript to be executed
+when PDF document is opened:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="actionCombo">
+            <property name="editable">
+             <bool>false</bool>
+            </property>
+            <item>
+             <property name="text">
+              <string>No Script</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="tabSecurity">
+   <attribute name="title">
+    <string>S&amp;ecurity</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout_9">
+    <item>
+     <widget class="QCheckBox" name="Encry">
+      <property name="text">
+       <string>&amp;Use Encryption</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupPass">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>Passwords</string>
+      </property>
+      <layout class="QGridLayout" name="groupPassLayout">
+       <item row="1" column="0">
+        <widget class="QLabel" name="TextSec2">
+         <property name="text">
+          <string>&amp;User:</string>
+         </property>
+         <property name="buddy">
+          <cstring>PassUser</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="TextSec1">
+         <property name="text">
+          <string>&amp;Owner:</string>
+         </property>
+         <property name="buddy">
+          <cstring>PassOwner</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="PassOwner">
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="PassUser">
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupSecSet">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>Settings</string>
+      </property>
+      <layout class="QVBoxLayout" name="groupSecSetLayout">
+       <item>
+        <widget class="QCheckBox" name="PrintSec">
+         <property name="text">
+          <string>Allow &amp;Printing the Document</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="ModifySec">
+         <property name="text">
+          <string>Allow &amp;Changing the Document</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="CopySec">
+         <property name="text">
+          <string>Allow Cop&amp;ying Text and Graphics</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="AddSec">
+         <property name="text">
+          <string>Allow Adding &amp;Annotations and Fields</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="tabColor">
+   <attribute name="title">
+    <string>C&amp;olor</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="tabColorLayout">
+    <item>
+     <widget class="QGroupBox" name="ColorGroup">
+      <property name="title">
+       <string>General</string>
+      </property>
+      <layout class="QHBoxLayout" name="colorGroupLayout">
+       <item>
+        <widget class="QLabel" name="label_16">
+         <property name="text">
+          <string>Output &amp;Intended For:</string>
+         </property>
+         <property name="buddy">
+          <cstring>OutCombo</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="OutCombo">
+         <item>
+          <property name="text">
+           <string>Screen / Web</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Printer</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Grayscale</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="useSpot">
+      <property name="text">
+       <string>Convert Spot Colors to Process Colors</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="UseLPI">
+      <property name="text">
+       <string>&amp;Use Custom Rendering Settings</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="LPIgroup">
+      <property name="title">
+       <string>Rendering Settings</string>
+      </property>
+      <layout class="QGridLayout" name="lpiGroupLayout">
+       <item row="0" column="0">
+        <widget class="QComboBox" name="LPIcolor"/>
+       </item>
+       <item row="0" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>Fre&amp;quency:</string>
+           </property>
+           <property name="buddy">
+            <cstring>LPIfreq</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="LPIfreq">
+           <property name="minimum">
+            <number>10</number>
+           </property>
+           <property name="maximum">
+            <number>1000</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <widget class="QLabel" name="label_18">
+           <property name="text">
+            <string>&amp;Angle:</string>
+           </property>
+           <property name="buddy">
+            <cstring>LPIangle</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="LPIangle">
+           <property name="suffix">
+            <string> °</string>
+           </property>
+           <property name="minimum">
+            <number>-180</number>
+           </property>
+           <property name="maximum">
+            <number>180</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <item>
+          <widget class="QLabel" name="label_19">
+           <property name="text">
+            <string>S&amp;pot Function:</string>
+           </property>
+           <property name="buddy">
+            <cstring>LPIfunc</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="LPIfunc">
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+           <item>
+            <property name="text">
+             <string>Simple Dot</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Line</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Round</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Ellipse</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="solidsProfileGroup">
+      <property name="title">
+       <string>Solid Colors:</string>
+      </property>
+      <layout class="QGridLayout" name="solidColorsGroupLayout">
+       <item row="1" column="0">
+        <widget class="QLabel" name="solidsProfileLabel">
+         <property name="text">
+          <string>Profile:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="EmbedProfs">
+         <property name="text">
+          <string>Use Color Profile</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="solidsIntentLabel">
+         <property name="text">
+          <string>Rendering Intent:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QComboBox" name="SolidPr"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QComboBox" name="IntendS">
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>Perceptual</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Relative Colorimetric</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Saturation</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Absolute Colorimetric</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="imageProfileGroup">
+      <property name="title">
+       <string>Images:</string>
+      </property>
+      <layout class="QGridLayout" name="imageProfileGroupLayout">
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="EmbedProfs2">
+         <property name="text">
+          <string>Use Color Profile</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="imageProfileLabel">
+         <property name="text">
+          <string>Profile:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="imageIntentLabel">
+         <property name="text">
+          <string>Rendering Intent:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QCheckBox" name="NoEmbedded">
+         <property name="text">
+          <string>Do not use embedded color profiles</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QComboBox" name="ImageP"/>
+       </item>
+       <item row="3" column="1">
+        <widget class="QComboBox" name="IntendI">
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>Perceptual</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Relative Colorimetric</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Saturation</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Absolute Colorimetric</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="tabPDFX">
+   <attribute name="title">
+    <string>Pre-Press</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="tabPDFXLayout">
+    <item>
+     <widget class="QGroupBox" name="MarkGroup">
+      <property name="title">
+       <string>Printer Marks</string>
+      </property>
+      <layout class="QGridLayout" name="markGroupLayout">
+       <item row="3" column="0">
+        <widget class="QCheckBox" name="colorMarks">
+         <property name="text">
+          <string>Color Bars</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QCheckBox" name="registrationMarks">
+         <property name="text">
+          <string>Registration Marks</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QCheckBox" name="bleedMarks">
+         <property name="text">
+          <string>Bleed Marks</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="cropMarks">
+         <property name="text">
+          <string>Crop Marks</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QLabel" name="label_25">
+           <property name="text">
+            <string>Offset:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ScrSpinBox" name="markOffset"/>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QLabel" name="label_24">
+           <property name="text">
+            <string>Length:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ScrSpinBox" name="markLength"/>
+         </item>
+        </layout>
+       </item>
+       <item row="0" column="1">
+        <widget class="QCheckBox" name="docInfoMarks">
+         <property name="text">
+          <string>Page Information</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="BleedGroup">
+      <property name="title">
+       <string>Bleed Settings</string>
+      </property>
+      <layout class="QGridLayout" name="bleedGroupLayout">
+       <item row="1" column="0">
+        <widget class="QLabel" name="bleedTopLabel">
+         <property name="text">
+          <string>Top:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="ScrSpinBox" name="BleedTop"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="bleedBottomLabel">
+         <property name="text">
+          <string>Bottom:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="ScrSpinBox" name="BleedBottom"/>
+       </item>
+       <item row="2" column="3">
+        <widget class="ScrSpinBox" name="BleedRight"/>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="bleedLeftLabel">
+         <property name="text">
+          <string>Left:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="ScrSpinBox" name="BleedLeft"/>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="bleedRightLabel">
+         <property name="text">
+          <string>Right:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="docBleeds">
+         <property name="text">
+          <string>Use Document Bleeds</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="X3Group">
+      <property name="title">
+       <string>PDF/X Output Intent</string>
+      </property>
+      <layout class="QGridLayout" name="X3GroupLayout">
+       <item row="0" column="1">
+        <widget class="QComboBox" name="PrintProfC">
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_30">
+         <property name="text">
+          <string>Output &amp;Profile:</string>
+         </property>
+         <property name="buddy">
+          <cstring>PrintProfC</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_31">
+         <property name="text">
+          <string>&amp;Info String:</string>
+         </property>
+         <property name="buddy">
+          <cstring>InfoString</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="InfoString"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FontEmbeddingCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/fontembeddingcombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PdfVersionCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/pdfversioncombo.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>AllPages</tabstop>
+  <tabstop>OnlySome</tabstop>
+  <tabstop>PageNr</tabstop>
+  <tabstop>pageNrButton</tabstop>
+  <tabstop>RotateDeg</tabstop>
+  <tabstop>MirrorH</tabstop>
+  <tabstop>MirrorV</tabstop>
+  <tabstop>ClipMarg</tabstop>
+  <tabstop>PDFVersionCombo</tabstop>
+  <tabstop>ComboBind</tabstop>
+  <tabstop>CheckBox1</tabstop>
+  <tabstop>Article</tabstop>
+  <tabstop>CheckBM</tabstop>
+  <tabstop>useLayers</tabstop>
+  <tabstop>Resolution</tabstop>
+  <tabstop>EmbedPDF</tabstop>
+  <tabstop>Compression</tabstop>
+  <tabstop>CMethod</tabstop>
+  <tabstop>CQuality</tabstop>
+  <tabstop>DSColor</tabstop>
+  <tabstop>ValC</tabstop>
+  <tabstop>fontEmbeddingCombo</tabstop>
+  <tabstop>EmbedList</tabstop>
+  <tabstop>SubsetList</tabstop>
+  <tabstop>ToSubset</tabstop>
+  <tabstop>FromSubset</tabstop>
+  <tabstop>EmbedFonts</tabstop>
+  <tabstop>SubsetFonts</tabstop>
+  <tabstop>CheckBox10</tabstop>
+  <tabstop>Pages</tabstop>
+  <tabstop>PageTime</tabstop>
+  <tabstop>EffectTime</tabstop>
+  <tabstop>EffectType</tabstop>
+  <tabstop>EDirection</tabstop>
+  <tabstop>EDirection_2</tabstop>
+  <tabstop>EDirection_2_2</tabstop>
+  <tabstop>EonAllPg</tabstop>
+  <tabstop>PagePrev</tabstop>
+  <tabstop>singlePage</tabstop>
+  <tabstop>continuousPages</tabstop>
+  <tabstop>facingPagesLeft</tabstop>
+  <tabstop>facingPagesRight</tabstop>
+  <tabstop>useViewDefault</tabstop>
+  <tabstop>useFullScreen</tabstop>
+  <tabstop>useBookmarks</tabstop>
+  <tabstop>useThumbnails</tabstop>
+  <tabstop>useLayers2</tabstop>
+  <tabstop>hideToolBar</tabstop>
+  <tabstop>hideMenuBar</tabstop>
+  <tabstop>fitWindow</tabstop>
+  <tabstop>actionCombo</tabstop>
+  <tabstop>Encry</tabstop>
+  <tabstop>PassOwner</tabstop>
+  <tabstop>PassUser</tabstop>
+  <tabstop>PrintSec</tabstop>
+  <tabstop>ModifySec</tabstop>
+  <tabstop>CopySec</tabstop>
+  <tabstop>AddSec</tabstop>
+  <tabstop>OutCombo</tabstop>
+  <tabstop>useSpot</tabstop>
+  <tabstop>UseLPI</tabstop>
+  <tabstop>LPIcolor</tabstop>
+  <tabstop>LPIfreq</tabstop>
+  <tabstop>LPIangle</tabstop>
+  <tabstop>LPIfunc</tabstop>
+  <tabstop>EmbedProfs</tabstop>
+  <tabstop>SolidPr</tabstop>
+  <tabstop>IntendS</tabstop>
+  <tabstop>EmbedProfs2</tabstop>
+  <tabstop>NoEmbedded</tabstop>
+  <tabstop>ImageP</tabstop>
+  <tabstop>IntendI</tabstop>
+  <tabstop>cropMarks</tabstop>
+  <tabstop>bleedMarks</tabstop>
+  <tabstop>registrationMarks</tabstop>
+  <tabstop>colorMarks</tabstop>
+  <tabstop>docInfoMarks</tabstop>
+  <tabstop>markLength</tabstop>
+  <tabstop>markOffset</tabstop>
+  <tabstop>docBleeds</tabstop>
+  <tabstop>BleedTop</tabstop>
+  <tabstop>BleedBottom</tabstop>
+  <tabstop>BleedLeft</tabstop>
+  <tabstop>BleedRight</tabstop>
+  <tabstop>PrintProfC</tabstop>
+  <tabstop>InfoString</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

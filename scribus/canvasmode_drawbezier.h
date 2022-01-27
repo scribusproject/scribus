@@ -31,38 +31,34 @@ class UndoTransaction;
 */
 class BezierMode : public CanvasMode
 {
-public:
-	BezierMode(ScribusView* view);
+	public:
+		explicit BezierMode(ScribusView* view);
+		~BezierMode() override = default;
 
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
-	
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseDoubleClickEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter* p);
+		void enterEvent(QEvent *e) override;
+		void leaveEvent(QEvent *e) override;
+
+		void activate(bool) override;
+		void deactivate(bool) override;
+		void keyPressEvent(QKeyEvent *e) override;
+		void keyReleaseEvent(QKeyEvent *e) override;
+		void mouseDoubleClickEvent(QMouseEvent *m) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+		void mousePressEvent(QMouseEvent *m) override;
+		void drawControls(QPainter* p) override;
 		
-private:
-	inline bool GetItem(PageItem** pi); 
+	private:
+		inline bool GetItem(PageItem** pi);
 
-	void finalizeItem(PageItem* item);
-	void selectPage(QMouseEvent *m);
+		void finalizeItem(PageItem* item);
+		void selectPage(QMouseEvent *m);
 
-	UndoTransaction* m_createTransaction;
-	int Cp, oldCp;
-	bool inItemCreation, shiftSelItems, FirstPoly;
-	bool m_MouseButtonPressed;
-	int frameResizeHandle;
-	int RotMode;
-	int dragConstrainInitPtX, dragConstrainInitPtY;
-	double Mxp, Myp, Dxp, Dyp;
-	int GxM, GyM;
-	double SeRx, SeRy;
-	bool MoveGX, MoveGY;
-	FPointArray RecordP;
+		bool m_inItemCreation {false};
+		bool m_firstPoly {false};
+		bool m_mouseButtonPressed {false};
+		double m_xp {-1.0};
+		double m_yp {-1.0};
 };
 
 

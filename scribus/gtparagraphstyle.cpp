@@ -21,13 +21,14 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "gtparagraphstyle.h"
 #include "scribusstructs.h"
 
-gtParagraphStyle::gtParagraphStyle(QString name) : gtStyle(name) 
+gtParagraphStyle::gtParagraphStyle(const QString& name) :
+	gtStyle(name)
 {
 	init();
 }
@@ -42,7 +43,15 @@ gtParagraphStyle::gtParagraphStyle(const gtParagraphStyle& p) : gtStyle(p)
 	spaceAbove      = p.spaceAbove;
 	spaceBelow      = p.spaceBelow;
 	dropCap         = p.dropCap;
+	m_bullet          = p.m_bullet;
+	m_bulletStr       = p.m_bulletStr;
 	dropCapHeight   = p.dropCapHeight;
+	m_numeration      = p.m_numeration;
+	m_numFormat       = p.m_numFormat;
+	m_numLevel        = p.m_numLevel;
+	m_numStart        = p.m_numStart;
+	m_numPrefix       = p.m_numPrefix;
+	m_numSuffix       = p.m_numSuffix;
 	adjToBaseline   = p.adjToBaseline;
 	autoLineSpacing = p.autoLineSpacing;
 	isVisible       = p.isVisible;
@@ -65,23 +74,31 @@ void gtParagraphStyle::init()
 	spaceBelow      = 0;
 	dropCap         = false;
 	dropCapHeight   = 2;
+	m_bullet          = false;
+	m_bulletStr       = QString(QChar(0x2022));
+	m_numeration      = false;
+	m_numFormat       = 0;
+	m_numLevel        = 0;
+	m_numStart        = 1;
+	m_numPrefix.clear();
+	m_numSuffix.clear();
 	adjToBaseline   = false;
 	autoLineSpacing = false;
 	isVisible       = true;
 	flags           = 0;
 }
 
-QString gtParagraphStyle::target()
+QString gtParagraphStyle::target() const
 {
 	return QString("paragraph");
 }
 
-int gtParagraphStyle::getFlags()
+int gtParagraphStyle::getFlags() const
 {
 	return flags;
 }
 
-bool gtParagraphStyle::isDefaultStyle()
+bool gtParagraphStyle::isDefaultStyle() const
 {
 	return defaultStyle;
 }
@@ -91,7 +108,7 @@ void gtParagraphStyle::setDefaultStyle(bool defStyle)
 	defaultStyle = defStyle;
 }
 
-double gtParagraphStyle::getLineSpacing()
+double gtParagraphStyle::getLineSpacing() const
 {
 	return lineSpacing;
 }
@@ -102,7 +119,7 @@ void gtParagraphStyle::setLineSpacing(double newLineSpacing)
 	flags |= lineSpacingWasSet;
 }
 
-bool gtParagraphStyle::getAutoLineSpacing()
+bool gtParagraphStyle::getAutoLineSpacing() const
 {
 	return autoLineSpacing;
 }
@@ -113,7 +130,7 @@ void gtParagraphStyle::setAutoLineSpacing(bool newALS)
 	flags |= autoLineSpacingWasSet;
 }
 
-int gtParagraphStyle::getAlignment()
+int gtParagraphStyle::getAlignment() const
 {
 	return alignment;
 }
@@ -133,7 +150,7 @@ void gtParagraphStyle::setAlignment(int newAlignment)
 	}
 }
 
-double gtParagraphStyle::getIndent()
+double gtParagraphStyle::getIndent() const
 {
 	return indent;
 }
@@ -144,7 +161,7 @@ void gtParagraphStyle::setIndent(double newIndent)
 	flags |= indentWasSet;
 }
 
-double gtParagraphStyle::getFirstLineIndent()
+double gtParagraphStyle::getFirstLineIndent() const
 {
 	return firstLineIndent;
 }
@@ -155,7 +172,7 @@ void gtParagraphStyle::setFirstLineIndent(double newFirstLineIndent)
 	flags |= firstIndentWasSet;
 }
 
-double gtParagraphStyle::getSpaceAbove()
+double gtParagraphStyle::getSpaceAbove() const
 {
 	return spaceAbove;
 }
@@ -166,7 +183,7 @@ void gtParagraphStyle::setSpaceAbove(double newSpaceAbove)
 	flags |= spaceAboveWasSet;
 }
 
-double gtParagraphStyle::getSpaceBelow()
+double gtParagraphStyle::getSpaceBelow() const
 {
 	return spaceBelow;
 }
@@ -177,9 +194,9 @@ void gtParagraphStyle::setSpaceBelow(double newSpaceBelow)
 	flags |= spaceBelowWasSet;
 }
 
-QList<ParagraphStyle::TabRecord>* gtParagraphStyle::getTabValues()
+const QList<ParagraphStyle::TabRecord>& gtParagraphStyle::getTabValues() const
 {
-	return &tabValues;
+	return tabValues;
 }
 
 void gtParagraphStyle::setTabValue(double newTabValue, TabType ttype)
@@ -192,7 +209,7 @@ void gtParagraphStyle::setTabValue(double newTabValue, TabType ttype)
 	flags |= tabValueWasSet;
 }
 
-bool gtParagraphStyle::hasDropCap()
+bool gtParagraphStyle::hasDropCap() const
 {
 	return dropCap;
 }
@@ -210,7 +227,7 @@ void gtParagraphStyle::setDropCap(int newHeight)
 	flags |= dropCapHeightWasSet;
 }
 
-int gtParagraphStyle::getDropCapHeight()
+int gtParagraphStyle::getDropCapHeight() const
 {
 	return dropCapHeight;
 }
@@ -221,7 +238,71 @@ void   gtParagraphStyle::setDropCapHeight(int newHeight)
 	flags |= dropCapHeightWasSet;
 }
 
-bool gtParagraphStyle::isAdjToBaseline()
+bool gtParagraphStyle::hasBullet() const
+{
+	return m_bullet;
+}
+
+QString  gtParagraphStyle::getBullet() const
+{
+	return m_bulletStr;
+}
+
+void gtParagraphStyle::setBullet(bool newBullet, const QString& str)
+{
+	m_bullet = newBullet;
+	if (str != "")
+		m_bulletStr = str;
+	else
+		m_bulletStr = QString(QChar(0x2022));
+	flags |= bulletWasSet;
+}
+
+bool gtParagraphStyle::hasNum() const
+{
+	return m_numeration;
+}
+
+void gtParagraphStyle::setNum(bool newNum, int format, int level, int start, const QString& prefix, const QString& suffix)
+{
+	m_numeration = newNum;
+	if (newNum)
+	{
+		m_numFormat = format;
+		m_numLevel = level;
+		m_numStart = start;
+		m_numPrefix = prefix;
+		m_numSuffix = suffix;
+	}
+	flags |= numWasSet;
+}
+
+int gtParagraphStyle::getNumLevel() const
+{
+	return m_numLevel;
+}
+
+int gtParagraphStyle::getNumFormat() const
+{
+	return m_numFormat;
+}
+
+int gtParagraphStyle::getNumStart() const
+{
+	return m_numStart;
+}
+
+QString gtParagraphStyle::getNumPrefix() const
+{
+	return m_numPrefix;
+}
+
+QString gtParagraphStyle::getNumSuffix() const
+{
+	return m_numSuffix;
+}
+
+bool gtParagraphStyle::isAdjToBaseline() const
 {
 	return adjToBaseline;
 }
@@ -235,9 +316,4 @@ void gtParagraphStyle::setAdjToBaseline(bool newAdjToBaseline)
 void gtParagraphStyle::getStyle(gtStyle* style)
 {
 	*style = gtStyle(*this);
-}
-
-gtParagraphStyle::~gtParagraphStyle()
-{
-
 }

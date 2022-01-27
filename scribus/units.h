@@ -50,14 +50,14 @@ enum scUnit {
 
 double SCRIBUS_API unitGetRatioFromIndex(const int index);
 int SCRIBUS_API unitGetBaseFromIndex(const int index);
-const QString SCRIBUS_API unitGetStrFromIndex(const int index);
-const QString SCRIBUS_API unitGetUntranslatedStrFromIndex(const int index);
-const QString SCRIBUS_API unitGetSuffixFromIndex(const int index);
+QString SCRIBUS_API unitGetStrFromIndex(const int index);
+QString SCRIBUS_API unitGetUntranslatedStrFromIndex(const int index);
+QString SCRIBUS_API unitGetSuffixFromIndex(const int index);
 int SCRIBUS_API unitGetDecimalsFromIndex(const int index);
 int SCRIBUS_API unitGetPrecisionFromIndex(const int index);
 double SCRIBUS_API unitValueFromString(const QString& value);
 scUnit SCRIBUS_API unitIndexFromString(const QString& value);
-const QStringList SCRIBUS_API unitGetTextUnitList();
+QStringList SCRIBUS_API unitGetTextUnitList();
 int SCRIBUS_API unitGetMaxIndex();
 double SCRIBUS_API mm2pts(double mm);
 double SCRIBUS_API in2pts(double in);
@@ -69,7 +69,7 @@ double SCRIBUS_API pts2in(double pts);
 double SCRIBUS_API pts2p(double pts);
 double SCRIBUS_API pts2cm(double pts);
 double SCRIBUS_API pts2c(double pts);
-double SCRIBUS_API pts2value(double Val, int unit);
+double SCRIBUS_API pts2value(double unitValue, int unit);
 double SCRIBUS_API value2pts(double unitValue, int unit);
 double SCRIBUS_API value2value(double unitValue, int primaryUnit, int secondaryUnit);
 QString SCRIBUS_API value2String(double unitValue, int unitIndex, bool round2Precision, bool appendSuffix);

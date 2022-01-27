@@ -25,16 +25,16 @@ for which a new license (GPL+exception) is in place.
 #include <prefstable.h>
 
 #include "commonstrings.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util.h"
 
-tfDia::tfDia() : QDialog()
+tfDia::tfDia()
 {
 	setModal(true);
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(QIcon(IconManager::instance().loadIcon("AppIcon.png")));
 	setWindowTitle( tr("Create filter"));
 	setMinimumWidth(524);
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("TextFilter");
 
 	//Get last window geometry values
 	int vleft   = qMax(0, prefs->getInt("x", 10));
@@ -47,15 +47,14 @@ tfDia::tfDia() : QDialog()
 	int vheight = qMax(300, prefs->getInt("height", 300));
 	// Check values against current available space
 	QRect scr = QApplication::desktop()->availableGeometry(this);
-	QSize gStrut = QApplication::globalStrut();
 	if ( vleft >= scr.width() )
 		vleft = 0;
 	if ( vtop >= scr.height() )
 		vtop = 64;
 	if ( vwidth >= scr.width() )
-		vwidth = qMax( gStrut.width(), scr.width() - vleft );
+		vwidth = qMax( 0, scr.width() - vleft );
 	if ( vheight >= scr.height() )
-		vheight = qMax( gStrut.height(), scr.height() - vtop );
+		vheight = qMax( 0, scr.height() - vtop );
 
 	setGeometry(vleft, vtop, vwidth, vheight);
    	createLayout();
@@ -68,12 +67,12 @@ void tfDia::createLayout()
 	currentIndex = 0;
 	
 	layout = new QVBoxLayout(this);
-	layout->setMargin(0);
-	layout->setSpacing(0);
+	layout->setContentsMargins(9, 9, 9, 9);
+	layout->setSpacing(6);
 
 	QBoxLayout* layout1 = new QHBoxLayout;
-	layout1->setMargin(5);
-	layout1->setSpacing(5);
+	layout1->setContentsMargins(0, 0, 0, 0);
+	layout1->setSpacing(6);
 	clearButton = new QPushButton( tr("C&lear"), this);
 	layout1->addWidget(clearButton);
 	layout1->addStretch(10);
@@ -97,8 +96,8 @@ void tfDia::createLayout()
 	layout->addLayout(layout1);
 
 	QBoxLayout* flayout = new QHBoxLayout;
-	flayout->setMargin(0);
-	flayout->setSpacing(0);
+	flayout->setContentsMargins(0, 0, 0, 0);
+	flayout->setSpacing(6);
 	QFrame* f = new QFrame(this);
 	f->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 	flayout->addWidget(f);
@@ -107,8 +106,8 @@ void tfDia::createLayout()
 	
 	qsv = new QScrollArea(this);
 	QVBoxLayout *a1layout = new QVBoxLayout;
-	a1layout->setMargin(5);
-	a1layout->setSpacing(12);
+	a1layout->setContentsMargins(0, 0, 0, 0);
+	a1layout->setSpacing(6);
 	vbox = new QFrame(this);
 	vbox->setFixedWidth(qsv->viewport()->width());
 	qsv->viewport()->resize(width() - 12, vbox->height());
@@ -117,23 +116,23 @@ void tfDia::createLayout()
 	layout->addLayout(a1layout);
 	
 	alayout = new QVBoxLayout(vbox);
-	alayout->setMargin(5);
-	alayout->setSpacing(12);
+	alayout->setContentsMargins(9, 9, 9, 9);
+	alayout->setSpacing(6);
 	
 	createFilter(prefs->getTable("tf_lastUsed"));
 	filters[0]->setRemovable((filters.size() >= 2));
 	
 	QBoxLayout* flayout2 = new QHBoxLayout;
-	flayout2->setMargin(0);
-	flayout2->setSpacing(0);
+	flayout2->setContentsMargins(0, 0, 0, 0);
+	flayout2->setSpacing(6);
 	QFrame* f2 = new QFrame(this);
 	f2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 	flayout2->addWidget(f2);
 	layout->addLayout(flayout2);
 
 	QBoxLayout* layout2 = new QHBoxLayout;
-	layout2->setMargin(5);
-	layout2->setSpacing(5);
+	layout2->setContentsMargins(0, 0, 0, 0);
+	layout2->setSpacing(6);
 	saveEdit = new QLineEdit(this);
 	saveEdit->setToolTip( tr("Give a name to this filter for saving"));
 	layout2->addWidget(saveEdit, 10);
@@ -161,7 +160,7 @@ void tfDia::createLayout()
 void tfDia::createFilterRow(tfFilter* after)
 {
 	tfFilter* tmp = new tfFilter(vbox, "tfFilter");
-	if (after == NULL)
+	if (after == nullptr)
 	{
 		filters.push_back(tmp);
 		alayout->addWidget(tmp);
@@ -189,6 +188,7 @@ void tfDia::createFilterRow(tfFilter* after)
 	else if (filters.size() == 1)
 		filters[0]->setRemovable(false);
 
+	connect(tmp, SIGNAL(actionChanged(tfFilter*)), this, SLOT(adjustVBoxSize()));
 	connect(tmp, SIGNAL(addClicked(tfFilter*)), this, SLOT(createFilterRow(tfFilter*)));
 	connect(tmp, SIGNAL(removeClicked(tfFilter*)), SLOT(removeRow(tfFilter*)));
 }
@@ -196,7 +196,7 @@ void tfDia::createFilterRow(tfFilter* after)
 void tfDia::createFilter(PrefsTable* table)
 {
 	if (table->width() != 10)
-		createFilterRow(NULL);
+		createFilterRow(nullptr);
 	else
 	{
 		for (uint i = 0; i < static_cast<uint>(table->height()); ++i)
@@ -218,6 +218,7 @@ void tfDia::createFilter(PrefsTable* table)
 			vbox->adjustSize();
 			if (filters.size() == 2)
 				filters[0]->setRemovable(true);
+			connect(tmp, SIGNAL(actionChanged(tfFilter*)), this, SLOT(adjustVBoxSize()));
 			connect(tmp, SIGNAL(addClicked(tfFilter*)), this, SLOT(createFilterRow(tfFilter*)));
 			connect(tmp, SIGNAL(removeClicked(tfFilter*)), this, SLOT(removeRow(tfFilter*)));
 		}
@@ -240,8 +241,14 @@ void tfDia::removeRow(tfFilter* tff)
 			++it;
 		}
 	}
+	vbox->adjustSize();
 	if (filters.size() == 1)
 		filters[0]->setRemovable(false);
+}
+
+void tfDia::adjustVBoxSize()
+{
+	vbox->adjustSize();
 }
 
 void tfDia::saveTextChanged(const QString& text)
@@ -252,7 +259,7 @@ void tfDia::saveTextChanged(const QString& text)
 void tfDia::clearClicked()
 {
 	clear();
-	createFilterRow(NULL);
+	createFilterRow(nullptr);
 }
 
 void tfDia::clear()

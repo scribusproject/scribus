@@ -12,7 +12,7 @@ this version 2008.02.28
 This program is free software; you can redistribute it and/or modify
 it under the terms of the  GPL, v2 (GNU General Public License as published by
 the Free Software Foundation, version 2 of the License), or any later version.
-See the Scribus Copyright page in the Help Browser for further informaton 
+See the Scribus Copyright page in the Help Browser for further information 
 about GPL, v2.
 
 SYNOPSIS
@@ -63,7 +63,7 @@ def exportText(textfile):
     output_file.writelines(T)
     output_file.close()
     endmessage = textfile + ' was created'
-    scribus.messageBox("Finished", endmessage,icon=0,button1=1)
+    scribus.messageBox("Finished", endmessage, scribus.ICON_NONE, scribus.BUTTON_OK)
 
 
 if scribus.haveDoc():
@@ -73,9 +73,9 @@ if scribus.haveDoc():
         if textfile == '':
             raise Exception
         exportText(textfile)
-    except Exception, e:
-        print e
+    except Exception as e:
+        print (e)
 
 else:
     scribus.messageBox('Export Error', 'You need a Document open, and a frame selected.', \
-                       icon=0, button1=1)
+                       scribus.ICON_NONE, scribus.BUTTON_OK)

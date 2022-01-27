@@ -30,7 +30,7 @@ public:
 	/*! \brief Create Font Preview window,
 	\param fontName Optional name of the font to init/select on start.
 	*/
-	FontPreview(QString fontName = QString::null, QWidget* parent = 0, ScribusDoc* doc=0);
+	FontPreview(const QString& fontName = QString(), QWidget* parent = nullptr, ScribusDoc* doc=nullptr);
 	~FontPreview();
 
 	/*! \brief Get the current selected font name.
@@ -44,26 +44,28 @@ protected:
 	QPixmap psFont;
 	QPixmap okIcon;
 	//! \brief Default "blue quartz" text
-	QString defaultStr;
+	QString m_defaultStr;
 	/** \brief Configuration structure */
-	PrefsContext* prefs;
+	PrefsContext* m_prefs { nullptr };
 	/*! \brief window size */
-	uint xsize;
-	uint ysize;
+	uint m_xsize { 640 };
+	uint m_ysize { 480 };
+
+	ScribusDoc* m_Doc { nullptr };
 
 	//! \brief Sample text frame to render the preview
-	SampleItem *sampleItem;
+	SampleItem *m_sampleItem { nullptr };
 
 	//! \brief Store fonts in the Qt4 MVC model part.
-	FontListModel * fontModel;
+	FontListModel * m_fontModel { nullptr };
 
 	/*! \brief A model for searching in the font set.
 	see searchEdit_textChanged() for more. */
-	QSortFilterProxyModel * proxyModel;
+	QSortFilterProxyModel * m_proxyModel { nullptr };
 
 	/*! \brief Create a pixmap sample with font preview.
 	With GUI oprions. */
- 	void paintSample();
+	void paintSample();
 
 	/*! \brief Check if is there any item in list to prevent crashes.
 	It allows not to paint the sample if there could be memory leak.
@@ -74,12 +76,10 @@ protected:
 	void showEvent(QShowEvent * event);
 	void resizeEvent(QResizeEvent * event);
 
-	ScribusDoc* m_Doc;
-
 protected slots:
 	/*! \brief Sets the strings of the subwidgets using the current
 	language. */
-	virtual void languageChange();
+	void languageChange();
 
 	/** \brief Called after each text change.
 	It calls paintSample().

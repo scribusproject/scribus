@@ -1,0 +1,28 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Search and Replace</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Search and Replace</h2>
+<p>In most text editors, we expect to have a function that finds and then gives the option of replace some text. In Scribus, not only can you do that, but much more.
+  <h3>Bringing up the dialog</h3>
+  
+  <table cellpadding="3px"><tr>
+      <td valign="top"><p>There are two conditions in which Search/Replace becomes available, one is when you are in Edit Contents mode in a text frame, and the other is in Story Editor. In the former situation, select from the menu <b>Edit > Search/Replace</b> (Ctrl+F is the shortcut). In Story Editor it will be in its menu, and the keyboard shortcut works there as well.</p></td></tr>
+<tr>      <td align="left"><img src="images/searchreplace.png"></td</tr>
+<tr><td><p>The dialog which you see here may look rather imposing, but it's actually quite straightforward once you check out its features. In this very simple example above, we have decided only to look for the text &ldquo;orient&rdquo;, with the option to replace with &ldquo;Asia&rdquo;. Furthermore, the boxes checked at the bottom say that we only want to find &ldquo;orient&rdquo; as a complete word (&ldquo;oriental&rdquo; would not match), and we will ignore case (&ldquo;Orient&rdquo; will also match).</p>
+	<p>Your search can be even more interesting when you begin to add other parameters. Not only can you search for these particular letters in sequence, you might restrict your search to only that word in a particular typeface or font size or color, and so on down all of these choices &ndash; they all can be chosen. This is quite powerful, since what you may be interested in doing is not changing the text at all, but just changing its character style or color. Beyond that, searching for any particular text is optional, since you might just search for all the text in small caps or in some color or style.</p>
+	<p>After there is some match you can then decide to <b>Replace</b> or just <b>Replace All</b>, or skip to the next match by clicking <b>Search</b>. If there are no further matches, a pop-up dialog appears saying, <i>Search finished</i>. Given the size of this dialog, one tricky aspect is repositioning so that you can see the match highlighted.
+	  </p></td>
+						</tr></table>
+  <h3>An unfortunate aspect, and its workaround</h3>
+<p>There is a limitation in this process, and that is in text entry. You can only directly enter characters from the keyboard, which might include spaces, but not a non-printing character like a carriage return. Since the keyboard shortcut for entering Unicode characters does not work here, this is not possible, nor other special glyphs. If you have some system settings for entering special characters from the keyboard, this should work as expected.</p>
+<p>For example, it may be helpful to use a Compose key for this purpose. Once you set this up on your system, many characters not represented on your keyboard may be entered. For example, let's assume you have set up the left Win key as your Compose key. To enter é from the keyboard, type Left-Win, then ', then e. Most accented characters are intuitive, but there are online resources to help with more unusual characters.</p>
+<p>Another workaround for these situations is that before you open this dialog, you copy the sequence of special characters you need, for example highlighting them and then pressing Ctrl+C. Now open the dialog and paste, Ctrl+V. You won't see a carriage return in the text field, but it will be there and look like a space. Printing characters should however show up. If you want different special glyphs in Search and Replace, you should be able to figure out some method to accomplish this, but remember that Search/Replace saves your last entries even if they weren't used. Also worth mentioning is that as long as you haven't closed Scribus, the settings carry over from one document to the next.
+  </p>
+</body>
+</html>

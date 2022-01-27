@@ -1,0 +1,127 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>PDF Annotations</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>PDF Annotations</h2>
+
+<dl>
+
+
+<dt><a name="-createPdfAnnotation"><strong>createPdfAnnotation</strong></a>(...)</dt>
+<dd><code>createPdfAnnotation(type, x, y, w, h, ["name"]) -&gt; string</code>
+<p>Creates a new PDF Annotation frame. "type" refers to the kind of PDF annotation with the following key: 
+	<ul style="list-style-type:none">
+		<li>0 - PDFBUTTON</li>
+		<li>1 - PDFRADIOBUTTON</li>
+		<li>2 - PDFTEXTFIELD</li>
+		<li>3 - PDFCHECKBOX</li>
+		<li>4 - PDFCOMBOBOX</li>
+		<li>5 - PDFLISTBOX</li>
+		<li>6 - PDFTEXTANNOTATION</li>
+		<li>7 - PDFLINKANNOTATION</li>
+		<li>8 - PDF3DANNOTATION.</li>
+	</ul>
+</p>
+<p><strong>x</strong> and <strong>y</strong> are the upper left coordinates for the frame, having <strong>w</strong> width and <strong>h</strong> height. If "name" is not given Scribus will create one for you.</p>
+<p>On systems without OSG installed a runtime error will be raised. May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used. </p></dd>
+
+<dt><a name="-getJSActionScript"><strong>getJSActionScript</strong></a>(...)</dt>
+<dd><code>getJSActionScript(which, ["name"]) -&gt; string</code>
+<p>Gets the JavaScript action script for a particular event</p>
+<p>This functions accepts following arguments:
+	<ul>
+		<li><strong>which</strong> is an integer in range 0-9 describing the kind of event:</li>
+		<ul style="list-style-type:none">
+			<li>0 - Mouse Up</li>
+			<li>1 - Mouse Down</li>
+			<li>2 - Mouse Enter</li>
+			<li>3 - Mouse Exit</li>
+			<li>4 - Focus In</li>
+			<li>5 - Focus Out</li>
+			<li>6 - Selection Change</li>
+			<li>7 - Field Format</li>
+			<li>8 - Field Validate</li>
+			<li>9 - Field Calculate</li>
+		</ul>
+		<li><strong>name</strong> is the object name. If "name" is not provided, the currently selected item will be used.</li>
+	</ul>
+</p>
+<p>Returns a string if object's action type is Javascript, NONE otherwise.</p>
+<p>Page item must be an annotation or an error will be raised. May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that doesn't exist.</p></dd>
+
+<dt><a name="-isAnnotated"><strong>isAnnotated</strong></a>(...)</dt>
+<dd><code>isAnnotated(["name"], ["deannotate=False"]) -&gt; tuple</code>
+<p>Queries whether the named or selected object is a PDF annotation. Returns NONE if it is not. If deannotate=True is included, turns off PDF annotation flag and returns NONE. If frame is annotation, first value of tuple is type, and second is any additional information obtainable.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if object is not a text frame.</p></dd>
+
+<dt><a name="-setFileAnnotation"><strong>setFileAnnotation</strong></a>(...)</dt>
+<dd><code>setFileAnnotation(path, page, x, y, ["name"], ["absolute=True"])</code>
+<p>Converts a text frame to a PDF link annotation to a file. <strong>path</strong> is the absolute or relative path to the file. <strong>page</strong> is the page in the document to link to, and <strong>x</strong> and <strong>y</strong> are the page coordinates. The currently selected frame will be converted unless another name is given. The default value for <strong>absolute</strong> is True, which means the path is absolute; if set to False the path is relative. </p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that doesn't exist. May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if object is not a text frame.</p></dd>
+
+<dt><a name="-setJSActionScript"><strong>setJSActionScript</strong></a>(...)</dt>
+<dd><code>setJSActionScript(which, script, ["name"]) -&gt; string</code>
+<p>Sets the JavaScript action for a particular event and returns NONE.</p>
+<p>Also sets the annotation's action to JavaScript.</p>
+<p>This functions accepts following arguments:
+	<ul>
+		<li><strong>which</strong> is an integer in range 0-9 describing the kind of event:</li>
+		<ul style="list-style-type:none">
+			<li>0 - Mouse Up</li>
+			<li>1 - Mouse Down</li>
+			<li>2 - Mouse Enter</li>
+			<li>3 - Mouse Exit</li>
+			<li>4 - Focus In</li>
+			<li>5 - Focus Out</li>
+			<li>6 - Selection Change</li>
+			<li>7 - Field Format</li>
+			<li>8 - Field Validate</li>
+			<li>9 - Field Calculate</li>
+		</ul>
+		<li><strong>script</strong> is the JavaScript to set to the action</li>
+		<li><strong>name</strong> is the object name. If "name" is not provided, the currently selected item will be used.</li>
+	</ul>
+</p>
+<p>Page item must be an annotation or an error will be raised. May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that doesn't exist.</p></dd>
+
+
+<dt><a name="-setLinkAnnotation"><strong>setLinkAnnotation</strong></a>(...)</dt>
+<dd><code>setLinkAnnotation(page, x, y, ["name"])</code>
+<p>Converts a text frame to a PDF link annotation to a page in the current document. <strong>page</strong> is the page in the document to link to, and must be in the range of pages, starting with 1. <strong>x</strong> and <strong>y</strong> are the page coordinates. The currently selected frame will be converted unless another name is given.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that doesn't exist. May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if object is not a text frame.</p></dd>
+
+<dt><a name="-setTextAnnotation"><strong>setTextAnnotation</strong></a>(...)</dt>
+<dd><code>setTextAnnotation(icon, isopen, ["name"])</code>
+<p>Converts a text frame to a text annotation. Function accepts following arguments:
+	<ul>
+		<li><strong>icon</strong> is a number in range 0-8 with the following key:</li>
+		<ul style="list-style-type:none">
+			<li>0 = Note</li>
+			<li>1 = Comment</li>
+			<li>2 = Key</li>
+			<li>3 = Help</li>
+			<li>4 = NewParagraph</li>
+			<li>5 = Paragraph</li>
+			<li>6 = Insert</li>
+			<li>7 = Cross</li>
+			<li>8 = Circle</li>
+		</ul>
+		<li><strong>isopen</strong> is either True or False.</li>
+	</ul>
+</p>
+<p>The currently selected frame will be converted unless another name is given.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that doesn't exist. May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if object is not a text frame.</p></dd>
+
+<dt><a name="-setURIAnnotation"><strong>setURIAnnotation</strong></a>(...)</dt>
+<dd><code>setURIAnnotation(uri, ["name"])</code>
+<p>Converts a text frame to a PDF URI link annotation. <strong>uri</strong> is the uri to link to. The currently selected frame will be converted unless another name is given.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that doesn't exist. May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if object is not a text frame.</p></dd>
+
+</dl>
+</body>
+</html>

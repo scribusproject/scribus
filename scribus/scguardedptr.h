@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define SCGUARDEDPTR_H
 
 #include "scribusapi.h"
-#include "assert.h"
+#include "cassert"
 /*
 A replacement for QPointer
 Does not rely on QObject, and provides faster destructor
@@ -17,54 +17,56 @@ Does not rely on QObject, and provides faster destructor
 template<typename T>
 class ScGuardedPtrData
 {
-public:
+	public:
+		int refs {0};
+		T* pointer {nullptr};
 
-	int refs;
-	T* pointer;
-
-	ScGuardedPtrData(void) { pointer = NULL; refs = 0; }
-	ScGuardedPtrData(T* ptr) { pointer = ptr; refs = 0; }
+		ScGuardedPtrData(void) { }
+		ScGuardedPtrData(T* ptr) { pointer = ptr; }
 };
 
 template<typename T>
 class ScGuardedPtr
 {
-protected:
-	ScGuardedPtrData<T> *data;
-public:
-	ScGuardedPtr(void);
-	ScGuardedPtr(T* ptr);
-	ScGuardedPtr(const ScGuardedPtr& gPtr);
-	~ScGuardedPtr();
+	protected:
+		ScGuardedPtrData<T>* data {nullptr};
+	public:
+		ScGuardedPtr();
+		ScGuardedPtr(T* ptr);
+		ScGuardedPtr(const ScGuardedPtr& gPtr);
+		~ScGuardedPtr();
 
-	ScGuardedPtr& operator=(const ScGuardedPtr& gPtr);
-	bool operator==( const ScGuardedPtr<T> &p ) const { return (T*)(*this) == (T*) p;}
-	bool operator!= ( const ScGuardedPtr<T>& p ) const { return !( *this == p ); }
+		ScGuardedPtr& operator=(const ScGuardedPtr& gPtr);
+		bool operator==( const ScGuardedPtr<T> &p ) const { return (T*)(*this) == (T*) p;}
+		bool operator!= ( const ScGuardedPtr<T>& p ) const { return !( *this == p ); }
 
-	T* operator->() const { return (T*)(data ? data->pointer : 0); }
-	T& operator*() const { return *((T*)(data ? data->pointer : 0)); }
-	operator T*() const { return (T*)(data ? data->pointer : 0); }
+		bool isNull() const;
 
-	void deref(void);
+		T* operator->() const { return (T*)(data ? data->pointer : nullptr); }
+		T& operator*() const { return *((T*)(data ? data->pointer : 0)); }
+		operator T*() const { return (T*)(data ? data->pointer : nullptr); }
+
+		int refCount() const;
+		void deref(void);
 };
 
 template<typename T>
 class ScGuardedObject : public ScGuardedPtr<T>
 {
-public:
-	ScGuardedObject(T* ptr);
-	ScGuardedObject(const ScGuardedObject& gPtr);
-	~ScGuardedObject();
+	public:
+		ScGuardedObject(T* ptr);
+		ScGuardedObject(const ScGuardedObject& gPtr);
+		~ScGuardedObject();
 
-	ScGuardedObject& operator=(const ScGuardedObject& gPtr);
-	bool operator==( const ScGuardedObject<T> &p ) const { return (T*)(*this) == (T*) p;}
-	bool operator!= ( const ScGuardedObject<T>& p ) const { return !( *this == p ); }
+		ScGuardedObject& operator=(const ScGuardedObject& gPtr);
+		bool operator==( const ScGuardedObject<T> &p ) const { return (T*)(*this) == (T*) p;}
+		bool operator!= ( const ScGuardedObject<T>& p ) const { return !( *this == p ); }
 
-	void nullify(void);
+		void nullify();
 };
 
 template<typename T>
-ScGuardedPtr<T>::ScGuardedPtr(void)
+ScGuardedPtr<T>::ScGuardedPtr()
 {
 	data = new ScGuardedPtrData<T>();
 	++(data->refs);
@@ -104,12 +106,28 @@ ScGuardedPtr<T>& ScGuardedPtr<T>::operator=(const ScGuardedPtr& other)
 };
 
 template<typename T>
-void ScGuardedPtr<T>::deref(void)
+bool ScGuardedPtr<T>::isNull() const
+{
+	if (data)
+		return (data->pointer == nullptr);
+	return true;
+};
+
+template<typename T>
+int ScGuardedPtr<T>::refCount() const
+{
+	if (data)
+		return data->refs;
+	return 0;
+};
+
+template<typename T>
+void ScGuardedPtr<T>::deref()
 {
 	if (data && --(data->refs) == 0)
 	{
 		delete data;
-		data = NULL;
+		data = nullptr;
 	}
 };
 
@@ -121,7 +139,7 @@ ScGuardedObject<T>::ScGuardedObject(T* ptr) : ScGuardedPtr<T>(ptr)
 template<typename T>
 ScGuardedObject<T>::ScGuardedObject(const ScGuardedObject& other)
 {
-	this->data=NULL;
+	this->data = nullptr;
 	// Must never be used
 	assert(false);
 };
@@ -135,10 +153,10 @@ ScGuardedObject<T>& ScGuardedObject<T>::operator=(const ScGuardedObject& other)
 };
 
 template<typename T>
-void ScGuardedObject<T>::nullify(void)
+void ScGuardedObject<T>::nullify()
 {
 	if (this->data)
-		this->data->pointer = NULL;
+		this->data->pointer = nullptr;
 };
 
 template<typename T>

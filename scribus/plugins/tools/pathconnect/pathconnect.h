@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License      *
 *   along with this program; if not, write to the                          *
 *   Free Software Foundation, Inc.,                                        *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
 #ifndef PATHCONNECT_H
@@ -30,9 +30,9 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "pluginapi.h"
 #include "scplugin.h"
-#include "selection.h"
 #include "scribuscore.h"
-#include "scribusdoc.h"
+
+class ScribusDoc;
 
 /** \brief This is a simple "Path Connect" plugin for Scribus 1.3 and later.
 \author Franz Schmid
@@ -46,25 +46,27 @@ class PLUGIN_API PathConnectPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		PathConnectPlugin();
 		virtual ~PathConnectPlugin();
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+		bool run(ScribusDoc* doc, const QString& target = QString()) override;
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
+		void addToMainWindowMenu(ScribusMainWindow *) override {};
 
 		// Special features (none)
 	private:
 		FPointArray computePath(int pointOne, int pointTwo, int mode, FPointArray &p1, FPointArray &p2);
 		FPointArray reversePath(FPointArray &path);
-		PageItem *Item1;
-		PageItem *Item2;
+
+		PageItem* m_item1 {nullptr};
+		PageItem* m_item2 {nullptr};
+		ScribusDoc* m_doc {nullptr};
 		FPointArray originalPath1;
 		FPointArray originalPath2;
-		double originalXPos;
-		double originalYPos;
-		ScribusDoc* currDoc;
-		bool firstUpdate;
+		double originalXPos {0.0};
+		double originalYPos {0.0};
+		bool firstUpdate {false};
+
 	private slots:
 		void updateEffect(int effectType, int pointOne, int pointTwo, int mode);
 };

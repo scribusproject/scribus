@@ -1,0 +1,29 @@
+include_directories(
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/scribus
+	${SCRIBUS_AUTOGEN_INCLUDE_PATH}
+)
+
+set(EXPORTSVG_PLUGIN_SOURCES
+	svgexplugin.cpp
+)
+
+set(SCRIBUS_EXPORTSVG_PLUGIN "svgexplugin")
+
+add_library(${SCRIBUS_EXPORTSVG_PLUGIN} MODULE ${EXPORTSVG_PLUGIN_SOURCES})
+
+target_link_libraries(${SCRIBUS_EXPORTSVG_PLUGIN} ${EXE_NAME})
+
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_EXPORTSVG_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
+install(TARGETS ${SCRIBUS_EXPORTSVG_PLUGIN}
+	LIBRARY
+	DESTINATION ${PLUGINDIR}
+	PERMISSIONS ${PLUGIN_PERMISSIONS}
+)
+
+add_dependencies(Plugins ${SCRIBUS_EXPORTSVG_PLUGIN})
+
+# set_target_properties(${SCRIBUS_FONTPREVIEW_PLUGIN} PROPERTIES VERSION "0.0.0")

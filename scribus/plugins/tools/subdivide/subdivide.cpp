@@ -21,12 +21,14 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License      *
 *   along with this program; if not, write to the                          *
 *   Free Software Foundation, Inc.,                                        *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
 #include "subdivide.h"
 #include "scribuscore.h"
-#include "scribusstructs.h"
+#include "scribusdoc.h"
+#include "appmodes.h"
+#include "selection.h"
 
 int subdivide_getPluginAPIVersion()
 {
@@ -42,12 +44,12 @@ ScPlugin* subdivide_getPlugin()
 
 void subdivide_freePlugin(ScPlugin* plugin)
 {
-	SubdividePlugin* plug = dynamic_cast<SubdividePlugin*>(plugin);
+	SubdividePlugin* plug = qobject_cast<SubdividePlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
 
-SubdividePlugin::SubdividePlugin() : ScActionPlugin()
+SubdividePlugin::SubdividePlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -64,17 +66,19 @@ void SubdividePlugin::languageChange()
 	m_actionInfo.name = "Subdivide";
 	// Action text for menu, including accel
 	m_actionInfo.text = tr("Subdivide Path");
+	m_actionInfo.helpText = tr("Subdivide a path by inserting new Nodes.");
 	// Menu
 	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.parentMenu = "Item";
 	m_actionInfo.subMenuName = tr("Path Tools");
 	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
+	m_actionInfo.notSuitableFor.append(PageItem::Symbol);
 	m_actionInfo.forAppMode.append(modeEditClip);
 	m_actionInfo.needsNumObjects = 1;
 }
 
-const QString SubdividePlugin::fullTrName() const
+QString SubdividePlugin::fullTrName() const
 {
 	return QObject::tr("Subdivide");
 }
@@ -99,10 +103,10 @@ void SubdividePlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool SubdividePlugin::run(ScribusDoc* doc, QString)
+bool SubdividePlugin::run(ScribusDoc* doc, const QString&)
 {
 	ScribusDoc* currDoc = doc;
-	if (currDoc == 0)
+	if (currDoc == nullptr)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	double nearT = 0.5;
 	uint docSelectionCount = currDoc->m_Selection->count();
@@ -112,12 +116,12 @@ bool SubdividePlugin::run(ScribusDoc* doc, QString)
 		{
 			FPointArray points;
 			PageItem *currItem = currDoc->m_Selection->itemAt(aa);
-			if (currDoc->nodeEdit.isContourLine)
+			if (currDoc->nodeEdit.isContourLine())
 			{
 				uint psize = currItem->ContourLine.size();
 				for (uint a = 0; a < psize-3; a += 4)
 				{
-					if (currItem->ContourLine.point(a).x() > 900000)
+					if (currItem->ContourLine.isMarker(a))
 					{
 						points.setMarker();
 						continue;
@@ -161,7 +165,7 @@ bool SubdividePlugin::run(ScribusDoc* doc, QString)
 				uint psize = currItem->PoLine.size();
 				for (uint a = 0; a < psize-3; a += 4)
 				{
-					if (currItem->PoLine.point(a).x() > 900000)
+					if (currItem->PoLine.isMarker(a))
 					{
 						points.setMarker();
 						continue;
@@ -199,10 +203,9 @@ bool SubdividePlugin::run(ScribusDoc* doc, QString)
 					}
 				}
 				currItem->PoLine = points;
-				currItem->Frame = false;
 				currItem->ClipEdited = true;
 				currItem->FrameType = 3;
-				currDoc->AdjustItemSize(currItem);
+				currDoc->adjustItemSize(currItem);
 				currItem->OldB2 = currItem->width();
 				currItem->OldH2 = currItem->height();
 				currItem->updateClip();

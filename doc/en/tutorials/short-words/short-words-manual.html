@@ -1,0 +1,90 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Short Words for Scribus</title>
+</head>
+<body>
+<head>
+<body>
+
+<h1>Short Words for Scribus</h1>
+
+<p>Copyright © 2004 Petr Van&#283;k, Maciej Hanski</p>
+<p>Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the section entitled "GNU Free Documentation License".</p>
+
+<h2>What is Short Words meant for</h2>
+<p>Short Words for Scribus is a special plug-in for adding non-breaking spaces before or after so called short words.</p>
+<p>These short words are specific to every national typography,  e.g. according to Czech, Polish, and Slovak typographical standards it is not allowed to leave one letter conjunctions at line ends, if the line contains more than 25 signs. A common issue are measure and weight units, where for obvious reasons non-breaking spaces should be put in-between the preceding numbers and the units. Last but not least, there are plenty of abbreviated academic degrees, military ranks etc, which should not be separated from their owners.</p>
+<p>Although Scribus team cannot individually address every one of these national standards, one of the Scribus core team developers, Petr Van&#283;k, decided to provide Scribus users with a plug-in, that can be easily customized to meet their specific needs.</p>
+
+<h2>How it works</h2>
+<p>The screen shot below shows a sample text containing a short word before applying non-breaking spaces.</p>
+<p><b>Text sample before executing Short Words</b></p>
+<img src="before_short_words.png" alt="Text sample before executing Short Words" />
+<p>The same text after applying non-breaking spaces. The red encircled word Mr jumped to the next line, because the normal space between Mr and Justice has been replaced by a non-breaking space.</p>
+<p><b>Text sample after executing Short Words</b></p>
+<img src="after_short_words.png" alt="Text sample after executing Short Words" />
+
+<h2>How to execute Short Words</h2>
+<p>If you successfully installed the plug-in, go to the <code>Extras</code> menu and choose the <code>Short Words...</code> option:</p>
+<p><b>Calling Short Words for Scribus</b></p>
+<img src="menu.png" alt="Calling Short Words for Scribus" />
+<p><b>Short Words dialog window</b></p>
+<img src="dialog.png" alt="Short Words dialog window" />
+
+<dl>
+<dt>Selected frames</dt>
+	<dd><p>Apply non-breaking spaces to selected text frames.</p></dd>
+<dt>Active page</dt>
+	<dd><p>Apply non-breaking spaces to all frames of the current page.</p></dd>
+<dt><p>All items</p></dt>
+	<dd><p>Apply non-breaking spaces to the <em>whole document</em>.</p></dd>
+<dt>Replace defaults by user config</dt>
+	<dd><p>When the user config file exists you can choose if you want to append your config to the global configuration by unchecked button. You can replace predefined values by yours with checked button too.</p></dd>
+</dl>
+
+<h2>Installation</h2>
+<p>The easiest way of installing the plug-in is to check on the Scribus site (http://www.scribus.net), if there are installation packages available for your favourite distribution, e.g. Fedora, SuSE, Gentoo, Mandrake, or PLD.</p>
+<p>Should there be no suitable package for you, try to build the plug-in from source, which in most cases is the matter of the following three statements:</p>
+<pre>
+#./configure
+# make
+# make install
+</pre>
+<p>You can specify <code>./configure --prefix=/path/to/scribus/previously/installed</code>. The default prefix is <code>/usr/local</code> which is the default target when you've installed Scribus from source. On my Gentoo, I  use <code>./configure --prefix=/usr</code> to fit my ebuild.</p>
+<p>If you fail to build the plug-in, check first, if you have all the required libraries</a>.</p>
+
+<h2>Configuration</h2>
+<p>Short Words for Scribus provides a system wide configuration file <code>scribus-short-words.rc</code>, which is usually located in the <code>/usr/local/lib/scribus/plugins</code> directory (the actual directory depends on where you or your distribution installed Scribus). This configuration file is self explanatory, basically it contains a list of short words for a given language, preceded or followed by a space and separated by commas. The position of the space, before or after a short word, indicates to the plug-in, where the non-breaking space should be put. Every line with configuration settings has to start with the language it is meant for, e.g. en for English or cs for Czech:
+</p>
+<pre>
+#  English stuff START here
+en=Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
+en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
+
+#  Czech short words START here
+## hanging conjunctions
+cs=K ,k ,S ,s ,V ,v ,Z ,z ,O ,o ,U ,u ,I ,i ,A ,
+## physics and math
+cs= kg, g, m, cm, mm, l, hl, s, %,
+</pre>
+<p>If you want to use self defined short words, e.g. for a new language, create your own configuration file with your own short words, and save the file as <code>scribus-short-words.rc</code> in the <code>~/.scribus</code> directory. <em>You can choose the plugin appends your configuration into the system one or just to replace and use it only itself.</em></p>
+
+<h3 class="title">Important</h3>
+<p>The author is eager to extend the global configuration file to meet your needs, let him know about the short words and standards specific to your language.</p>
+
+<h2 class="title">Short Words Copyright</h2>
+<p>Short Words for Scribus Copyright 2003, 2004 Petr Van&#283;k, &lt;<a href="mailto:petr@yarpen.cz">petr@yarpen.cz</a>&gt;</p>
+<p>This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.</p><p>You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+include_directories(
+${CMAKE_SOURCE_DIR}
+${CMAKE_SOURCE_DIR}/scribus
+)
+
+set(IMPORTIDML_PLUGIN_MOC_CLASSES
+importidml.h
+importidmlimpl.h
+docpreference.h
+)
+
+set(IMPORTIDML_PLUGIN_SOURCES
+importidml.cpp
+importidmlimpl.cpp
+docpreference.cpp
+)
+
+set(SCRIBUS_IMPORTIDML_PLUGIN "importidml")
+
+QT5_WRAP_CPP(IMPORTIDML_PLUGIN_MOC_SOURCES ${IMPORTIDML_PLUGIN_MOC_CLASSES})
+
+add_library(${SCRIBUS_IMPORTIDML_PLUGIN} MODULE ${IMPORTIDML_PLUGIN_SOURCES} ${IMPORTIDML_PLUGIN_MOC_SOURCES})
+
+target_link_libraries(${SCRIBUS_IMPORTIDML_PLUGIN} ${EXE_NAME})
+
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_IMPORTIDML_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
+install(TARGETS ${SCRIBUS_IMPORTIDML_PLUGIN}
+  LIBRARY
+  DESTINATION ${PLUGINDIR}
+  PERMISSIONS ${PLUGIN_PERMISSIONS}
+)
+
+add_dependencies(Plugins ${SCRIBUS_IMPORTIDML_PLUGIN})
+
+# set_target_properties(${SCRIBUS_FONTPREVIEW_PLUGIN} PROPERTIES VERSION "0.0.0")

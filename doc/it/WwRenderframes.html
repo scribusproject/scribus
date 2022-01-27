@@ -1,0 +1,132 @@
+<body>
+<head><TITLE>Lavorare con le cornici rendering</TITLE></head>
+<body>
+<h1>Introduzione</h1>
+<p>A partire dalla versione 1.3.5, Scribus contiene una nuova, potente caratteristica, detta &ldquo;cornice rendering&rdquo;. Inizialmente era intesa come un mezzo per inserire formule nei documenti di Scribus; ma il suo inventore, Hermann Kraus, l'ha resa capace di creare dall'interno di Scribus quasi ogni tipo di composizione speciale, come formule, notazione musicale, notazione scacchistica. Il &ldquo;trucco&rdquo; con cui Scribus riesce a farlo consiste nell'usare altri programmi in sottofondo, importando il loro output in un'apposita cornice detta <b>cornice rendering</b>.</p>
+<p>Questa caratteristica &egrave; assai versatile, ma non dovete dimenticare che per utilizzarla dovete conoscere il linguaggio di marcatura o i comandi richiesti da un particolare programma. Questi linguaggi e comandi esulano dall'ambito della documentazione di Scribus.</p>
+<h1>Creare una cornice rendering</h1>
+<p>Per creare una cornice rendering, fate clic sull'icona Cornice Rendering nella barra degli strumenti, oppure usate <i>Inserisci &gt; Cornice rendering</i>, oppure premete D sulla tastiera:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf2.png"/></td></tr></table>
+<p>Il cursore si trasforma nel simbolo di disegno cornice con una L all'interno:</p>
+<table width="100%"><tr><td align="center"><img src="images/DrawLatexFrame.png"/></td></tr></table>
+<p><br><br>
+</p>
+<p>Il passo successivo consiste nel fare clic e trascinare il mouse per tracciare la cornice, proprio come per una cornice di testo. Per impostazione predefinita, Scribus mostra un messaggio di benvenuto, indicante almeno che la configurazione per LaTeX &egrave; corretta. Qui sotto &egrave; mostrato l'output fornito da LaTeX, rappresentato in Scribus. Il messaggio di benvenuto appare nella lingua dell'interfaccia utente selezionata in <i>File &gt; Preferenze</i>; se non esiste una traduzione, sar&agrave; mostrata la versione inglese:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf3.png"/></td></tr></table>
+<p>La schermata qui sopra ha la risoluzione predefinita di 72 DPI, che ovviamente &egrave; troppo bassa per la stampa. La risoluzione pu&ograve; essere modificata facilmente, come spiegheremo pi&ugrave; avanti.</p>
+<h1>L'editor della cornice rendering</h1>
+<p>Se fate clic col tasto destro su una cornice rendering, il men&ugrave; contestuale comprende una voce &ldquo;Modifica origine:&rdquo;</p>
+<table width="100%"><tr><td align="center"><img src="images/rf4.png"/></td></tr></table>
+<p>quando la selezionate, si apre il &ldquo;cuore&rdquo; della cornice rendering, l'editor:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf5.png"/></td></tr></table>
+<p>In Scribus 1.3.5 e successivi, l'editor &egrave; preconfigurato per utilizzare LaTeX, Lilypond, gnuplot, dot/GraphViz e POV-Ray.</p>
+<p>A sinistra vi &egrave; un campo denominato &ldquo;Inserisci codice&rdquo;: qui potete inserire il codice per l'output che volete ottenere dal programma esterno. Per i programmi preconfigurati Scribus comprende dei frammenti di codice che vi permetteranno di verificare se essi sono installati e configurati correttamente. Come potete vedere, l'editor esegue anche l'evidenziazione della sintassi.</p>
+<p>Il pulsante &ldquo;Aggiorna&rdquo; sotto il campo di testo aggiorna il contenuto della cornice rendering, e vi permette di controllare il risultato dei cambiamenti fatti al codice sorgente senza chiudere l'editor. &ldquo;Annulla&rdquo; annulla gli eventuali cambiamenti fatti. Tenete presente che, una volta iniziato a creare e modificare il testo, non &egrave; possibile cambiare il programma esterno usato per interpretarlo; quindi, ad esempio, se avete iniziato a lavorare su del codice sorgente LaTeX, non potete passare a Lilypond.</p>
+<p>La parte destra della finestra contiene una serie di schede. Non tutte sono presenti per ciascuno dei programmi preconfigurati, e per alcuni di essi l'editor mostra soltanto la scheda &ldquo;Opzioni&rdquo;.</p>
+<p>Nella scheda &ldquo;Opzioni&rdquo; la prima voce &egrave; &ldquo;Risoluzione&rdquo;. La sua impostazione predefinita &egrave; &ldquo;Automatico&rdquo;, che equivale a 72 DPI come spiegato sopra. Potete facilmente inserire un valore pi&ugrave; adatto alla stampa.</p>
+<p>&ldquo;Programma&rdquo; mostra l'elenco dei programmi esterni utilizzabili. L'editor elenca tutti i programmi configurati in <i>File &gt; Preferenze &gt; Strumenti esterni</i>.</p>
+<p>Se contrassegnate &ldquo;Utilizza preambolo&rdquo; l'editor utilizzer&agrave; automaticamente il preambolo e il postambolo come indicato nei file XML di configurazione. Vedi sotto per altri dettagli.</p>
+<p>&ldquo;Messaggi del programma&rdquo; mostra i messaggi che il programma esterno visualizzerebbe sulla linea di comando. Sono &ldquo;intercettati&rdquo; da Scribus, proprio come l'output del programma esterno, e possono essere utili per individuare le cause di eventuali errori se l'interpretazione del codice sorgente non riesce.</p>
+<p>Con il pulsante &ldquo;Lancia editor esterno&rdquo; Scribus avvia l'editor esterno indicato in <i>File &gt; Preferenze</i>, e &ldquo;Termina programma&rdquo; lo arresta. Questo pu&ograve; essere utile se il programma esterno incontra un errore nel codice che ne provoca il malfunzionamento o la chiusura inattesa.</p>
+<h1>Programmi preconfigurati</h1>
+<h2>LaTeX</h2>
+<table width="100%"><tr><td align="center"><img src="images/rf6.png"/></td></tr></table>
+<p>La prima scheda per LaTeX &egrave; &ldquo;Caratteri/Intestazioni&rdquo;. Nel men&ugrave; a discesa superiore potete scegliere il tipo di carattere usato in una cornice rendering basata su LaTeX. Per impostazione predefinita l'elenco contiene solo quattro tipi di carattere, ma potete facilmente aggiungerne altri modificando il file XML di configurazione di LaTeX: basta che aggiungiate un altro tipo di carattere sotto <code>&lt;list name=&quot;font&quot; default=&quot;&quot;&gt;</code> nel file. Fate attenzione al fatto che l'elenco dei caratteri in LaTeX (e in molti altri programmi che usano un linguaggio di marcatura) &egrave; completamente diverso da quello dei caratteri disponibili in Scribus e in altri programmi, poich&eacute; LaTeX usa i propri caratteri, e necessita di essere configurato per poter usare i caratteri Type&nbsp;1, TrueType e OpenType che trovate in programmi come Scribus o OpenOffice.org. Per maggiori informazioni sulla configurazione dei caratteri in LaTeX leggete la <a href="http://www.latex-project.org/guides/fntguide.pdf">LaTeX Font Selection Guide (PDF)</a>.</p>
+<p>Il men&ugrave; a discesa sottostante permette di modificare la dimensione predefinita del carattere. Se siete abituati a LaTeX, saprete gi&agrave; che questa &egrave; l'impostazione per il carattere base; le altre dimensioni necessarie, ad esempio per apici e pedici, sono determinate da LaTeX. Noterete anche che l'editor elenca solo alcune possibili dimensioni per il carattere base. Potete aggiungere facilmente altre dimensioni in <code>&lt;list name=&quot;fontsize&quot; default=&quot;11pt&quot;&gt;</code> nel file XML di configurazione di LaTeX. Poich&eacute; non vi sono quasi limiti alle possibilit&agrave; di configurazione per un file LaTeX, apprezzerete la possibilit&agrave; di selezionare diversi file XML di configurazione in <i>File &gt; Preferenze &gt; Strumenti esterni</i>.</p>
+<p>Il campo di testo &ldquo;Intestazioni aggiuntive&rdquo; permette di inserire intestazioni aggiuntive nel preambolo del codice LaTeX, che saranno salvate nel file .sla di Scribus.</p>
+<p>Seguono alcune schede con simboli e caratteri che possono essere creati da LaTeX:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf7.png"/></td></tr></table>
+<p>Per inserire un certo simbolo nel codice LaTeX, potete selezionarlo e fare clic su &ldquo;Inserisci simbolo&rdquo; oppure fare doppio  clic sull'icona nel relativo campo.</p>
+<p>Potete trovare maggiori informazioni su LaTeX nel <a href="http://www.latex-project.org/">sito ufficiale</a>.</p>
+
+<h2>Lilypond</h2>
+
+<table width="100%"><tr><td align="center"><img src="images/lilyp.png"/></td></tr></table>
+
+Per Lilypond non sono disponibili opzioni aggiuntive.
+<p>Per maggiori informazioni su Lilypond visitate il <a href="http://lilypond.org/web/">sito ufficiale</a>.</p>
+
+<h2>gnuplot</h2>
+
+<table width="100%"><tr><td align="center"><img src="images/plot1.png"/></td></tr></table>
+<br></br>
+Per gnuplot sono disponibili solo alcune opzioni di base. In <i>Intervalli</i> potete inserire i valori minimi e massimi per gli assi X e Y. L'impostazione predefinita &egrave; un asterisco, che far&agrave; in modo che gnuplot determini i valori automaticamente in base a quelli impostati nel codice.
+<br></br>
+<table width="100%"><tr><td align="center"><img src="images/plot2.png"/></td></tr></table>
+<br></br>
+La scheda <i>Didascalie</i> contiene alcune impostazioni riguardanti l'aspetto del grafico:
+
+<ul>
+<li><i>Titolo</i> crea un titolo per il grafico, che sar&agrave; posizionato nella parte superiore dell'immagine generata.</li>
+<li><i>Didascalia X</i> e <i>Didascalia Y</i> creano didascalie per gli assi X e Y.</li>
+<li><i>Griglia</i> e <i>Posizione griglia</i> funzionano in modo simile alle impostazioni per guide e griglie di Scribus, con la differenza che la griglia sar&agrave; inserita e visualizzata nell'immagine generata. Potete scegliere di non visualizzare la griglia, di visualizzare solo la griglia principale (&ldquo;Solo suddivisioni principali&rdquo;) o di visualizzare le griglie principale e secondaria (&ldquo;Suddivisioni principali e secondarie&rdquo;). E, come in Scribus, potete scegliere se la griglia sar&agrave; visualizzata sullo sfondo o in primo piano.</li>
+<li><i>Asse zero</i> crea una linea punteggiata che indica l'asse X, l'asse Y, o entrambi. Se la griglia &egrave; visualizzata, non &egrave; necessario impostare anche la visualizzazione di uno o entrambi gli assi, poich&eacute; la griglia e gli assi hanno lo stesso colore. Se volete usare diversi stili di linea per la griglia e gli assi dovete farlo nel codice. Analogamente, per aggiungere l'asse Z dovete modificare il codice sorgente del grafico.</li>
+</ul>
+
+<p>Per maggiori informazioni su gnuplot visitate il <a href="http://www.gnuplot.info/">sito ufficiale</a>.</p>
+
+<h2>dot/Graphviz</h2>
+
+Per dot/Graphviz non sono disponibili opzioni aggiuntive.
+
+<p>Per maggiori informazioni su dot/Graphviz visitate il <a href="http://www.graphviz.org/">sito ufficiale di Graphviz</a>.</p>
+
+<h2>POV-Ray</h2>
+
+<table width="100%"><tr><td align="center"><img src="images/povray.png"/></td></tr></table>
+<br></br>
+<p>L'editor contiene soltanto una scheda con le opzioni per i file POV-Ray, che ha il titolo &ldquo;Opzioni di visualizzazione&rdquo;:"</p>
+<ul>
+<li><i>Qualit&agrave;</i> elenca gli stessi sette livelli di qualit&agrave; utilizzabili nell'interfaccia a linea di comando di POV-Ray, e l'editor utilizza lo stesso livello predefinito (&ldquo;Calcola effetti atmosferici e radiosit&agrave;&rdquo;). I livelli di qualit&agrave; sono elencati in ordine crescente, con &ldquo;Mostra soltanto colori veloci&rdquo; che fornisce la qualit&agrave; pi&ugrave; bassa.</li>
+<li>L'<i>antialiasing</i> &egrave; una tecnica per &ldquo;ammorbidire&rdquo; i bordi in un'immagine visualizzata. Pu&ograve; migliorare la qualit&agrave; di un'immagine in modo eccezionale, ma pu&ograve; anche aumentare molto il tempo necessario per generare l'immagine. Le opzioni <i>Soglia antialiasing</i> e <i>Profondit&agrave; antialiasing</i> sono spiegate in dettaglio nella documentazione di POV-Ray, ma i valori predefiniti dovrebbero essere adatti nella maggior parte dei casi.</li></ul>
+
+<p>Per maggiori informazioni su POV-Ray visitate il <a href="http://www.povray.org/">sito ufficiale</a>.</p>
+
+<h1>Visualizzazione</h1>
+<p>Quando siete soddisfatti del codice che avete creato, premete il pulsante &ldquo;OK&rdquo;.</p>
+<p>Se avete fatto qualche errore, e il programma esterno non riesce a interpretare il vostro codice, Scribus visualizza un messaggio di errore:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf8.png"/></td></tr></table>
+<p><br><br>
+</p>
+<p>Una grande X blu e un messaggio di errore nella cornice rendering indicano che non &egrave; stato possibile visualizzare alcun contenuto:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf-error2.png"/></td></tr></table>
+<h2>Alcune precisazioni</h2>
+<p>Se osservate il men&ugrave; contestuale delle cornici rendering, avrete l'impressione che si tratti di cornici immagine. In un certo senso &egrave; cos&igrave;, poich&eacute; potete modificare le impostazioni di anteprima o aggiornare il contenuto. Ma c'&egrave; un'importante differenza: come detto prima, il codice da interpretare per creare il contenuto della cornice &egrave; salvato all'interno di un file di Scribus, e il contenuto rappresentato &egrave; sempre creato al momento. Quando aprite un file di Scribus che contiene una cornice rendering, Scribus lancia il particolare programma esterno che &egrave; necessario per creare l'immagine e crea un file immagine temporaneo che viene poi caricato nella cornice. Ecco perch&eacute; le cornici rendering non compaiono in <i>Utilit&agrave; &gt; Gestione immagini</i>.</p>
+<p>Questo modo di funzionare ha alcune conseguenze importanti. Un file di Scribus contenente immagini pu&ograve; essere spostato su un altro computer usando il comando <i>File &gt;Raggruppa per l'output</i> e copiando l'archivio cos&igrave; prodotto sull'altra macchina. Ma se il documento contiene una cornice rendering, anche il <i>software</i> necessario per la cornice rendering deve essere presente sull'altra macchina. Inoltre, questo potrebbe non funzionare se i sistemi operativi sono diversi, perch&eacute; le opzioni della linea di comando potrebbero essere diverse.</p>
+<p>Un'altra limitazione consiste nel fatto che gli effetti immagine non sono applicabili alle cornici rendering.</p>
+
+<h1>Configurazione</h1>
+<p>Perch&eacute; le cornici rendering funzionino, i programmi necessari devono essere installati sul vostro computer. Scribus &egrave; preconfigurato per cinque programmi, e cio&egrave; LaTeX, Lilypond, gnuplot, dot/Graphviz e POV-Ray. Su Linux il vostro gestore di pacchetti pu&ograve; provvedere all'installazione del software e di eventuali dipendenze. Su altre piattaforme pu&ograve; essere necessario installare i singoli programmi e modificare i loro file di configurazione.</p>
+<p>Le opzioni di configurazione per le cornici rendering si trovano in <i>File &gt; Preferenze &gt; Strumenti esterni</i>, nella parte inferiore della finestra:</p>
+<table width="100%"><tr><td align="center"><img src="images/rf1.png"/></td></tr></table>
+
+<p>In &ldquo;Configurazioni&rdquo;, Scribus mostra i file di configurazione predefiniti. Ciascun programma utilizzabile dall'interno di Scribus ha bisogno di un apposito file di configurazione. Per aggiungere un nuovo programma da utilizzare con le cornici rendering dovete creare un file XML che contenga le impostazioni necessarie. Qui sotto mostriamo un file di configurazione di gnuplot, abbreviato e commentato, che pu&ograve; servire da esempio:</p>
+
+<p><code>&lt;editorsettings description="Gnuplot" icon="gnuplot.png"&gt;</code> Questa riga contiene la descrizione del programma e l'icona che viene mostrata nel men&ugrave; a discesa dell'editor della cornice rendering. L'icona deve essere salvata nella stessa directory del file XML, e pu&ograve; essere in formato PNG, XPM o SVG.</p>
+<p><code>&lt;executable command="gnuplot"&gt;</code> Questa &egrave; la chiamata del programma da linea di comando. &Egrave; possibile usare soltanto software che pu&ograve; funzionare da linea di comando; inoltre il programma deve essere in grado di fornire l'output in uno dei formati PNG, PDF o EPS. Per impostazione predefinita Scribus usa le opzioni della linea di comando per sistemi Linux/UNIX.</p>
+<p><code>&lt;imagefile extension=".png"/&gt;</code> Questa impostazione &egrave; usata dall'editor e contiene il formato di file generato dal programma esterno.</p>
+<p><code>&lt;highlighter&gt; &lt;/highlighter&gt;</code> Questa parte interessa principalmente ai programmatori, e permette la creazione di schemi personalizzati di evidenziazione della sintassi usando espressioni regolari.</p>
+<p><code>&lt;empty-frame-text&gt;</code> Qui potete inserire un testo campione nel linguaggio di marcatura del programma che volete usare, ad esempio:</p>
+<p><code>plot sin(x), (cos(x))**2</code></p>
+</p><code>&lt;preamble&gt;</code> Se il linguaggio di marcatura che volete usare richiede un preambolo, potete inserirlo qui. Non sar&agrave; mostrato nell'editor.</p>
+<p><code>&lt;postamble&gt;</code> Se il linguaggio di marcatura che volete usare richiede un postambolo, potete inserirlo qui. Non sar&agrave; mostrato nell'editor.</p>
+<p><code>&lt;tab type="settings"&gt;</code> Qui possono essere inserite le traduzioni per le stringhe della GUI esistenti; possono essere aggiunte anche nuove schede o altri elementi dell'interfaccia utente per mezzo di semplici voci in XML, ad esempio:</p>
+<p><code>&lt;title&gt;&lt;i18n&gt;</code>
+<p6><code>
+<ul>
+<li>&lt;en&gt;Ranges&lt;/en&gt;
+<li>&lt;de&gt;Bereiche&lt;/de&gt;
+<li>&lt;fr&gt;Rang&eacute;es&lt;/fr&gt;
+<li>&lt;pl&gt;Zakresy&lt;/pl&gt;
+<li>&lt;ru&gt;&#1044;&#1080;&#1072;&#1087;&#1072;&#1079;&#1086;&#1085;&#1099;&lt;/ru&gt;
+</ul></code></p6>
+
+<p>Per aggiungere un nuovo file di configurazione, premete il pulsante &ldquo;Aggiungi&rdquo;; si apre una finestra di dialogo in cui dovrete selezionare il file e premere &ldquo;Apri&rdquo;. Il file sar&agrave; aggiunto alla configurazione delle cornici rendering.</p>
+<p>Spostando le voci dei file XML di configurazione pi&ugrave; in alto o pi&ugrave; in basso, potete cambiare l'ordine delle voci nel men&ugrave; a discesa dell'editor. Se volete usare un diverso file XML di configurazione per un certo linguaggio di marcatura (ad esempio, se avete bisogno di un altro preambolo predefinito per cornici LaTeX in un certo progetto), potete cambiare il percorso verso il file alternativo facendo clic su &ldquo;Cambia comando&rdquo; oppure aggiungere il file alternativo con un nome opportuno come &ldquo;MyLaTeX&rdquo;.</p>
+<br>Se preferite usare un altro editor per il vostro codice, ad esempio se non potete fare a meno di Emacs o vi, o se la finestra dell'editor &egrave; semplicemente troppo piccola per voi, potete imporre a Scribus di usare un editor diverso, come vi o Kate: basta inserire il percorso all'eseguibile nel campo &ldquo;Editor esterno&rdquo;. L'editor esterno non disattiva quello della cornice rendering: appena salvate il codice dall'editor esterno, Scribus &ldquo;intercetta&rdquo; i dati e visualizza l'output nella cornice, oppure mostra i messaggi di errore nel campo &ldquo;Messaggi del programma&rdquo;. L'intercettazione dei dati implica inoltre che qualunque cambiamento al codice viene salvato soltanto nel file di Scribus. Se non avete indicato alcun editor esterno in <i>Preferenze &gt; Strumenti Esterni</i>, Scribus mostrer&agrave; un messaggio di errore:</p>
+<br></br>
+<table width="100%"><tr><td align="center"><img src="images/rf-error3.png"/></td></tr></table>
+<br></br>
+<p>Inoltre, avete la possibilit&agrave; di iniziare con una cornice vuota. Contrassegnando l'opzione &ldquo;Forza DPI&rdquo;, Scribus visualizza l'output di tutte le cornici rendering con la risoluzione impostata nella casella di controllo a destra. La risoluzione predefinita &egrave; impostata a 72 DPI per motivi di efficienza, ma se intendete creare un documento destinato alla stampa professionale, vi servir&agrave; una risoluzione maggiore.</p>
+</body>
+</html>

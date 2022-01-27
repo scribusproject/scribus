@@ -21,14 +21,17 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License      *
 *   along with this program; if not, write to the                          *
 *   Free Software Foundation, Inc.,                                        *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
 #include "pathcut.h"
 #include "scribuscore.h"
-#include "scribusstructs.h"
+#include "scribusdoc.h"
+#include "appmodes.h"
+#include "selection.h"
+#include "ui/scmessagebox.h"
 #include "util.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include <QPainterPathStroker>
 #include <QMessageBox>
 
@@ -46,12 +49,12 @@ ScPlugin* pathcut_getPlugin()
 
 void pathcut_freePlugin(ScPlugin* plugin)
 {
-	PathCutPlugin* plug = dynamic_cast<PathCutPlugin*>(plugin);
+	PathCutPlugin* plug = qobject_cast<PathCutPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
 
-PathCutPlugin::PathCutPlugin() : ScActionPlugin()
+PathCutPlugin::PathCutPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -68,9 +71,10 @@ void PathCutPlugin::languageChange()
 	m_actionInfo.name = "PathCutter";
 	// Action text for menu, including accel
 	m_actionInfo.text = tr("Cut Polygon");
+	m_actionInfo.helpText = tr("Cuts a Polygon with a Path.");
 	// Menu
-	m_actionInfo.icon1 = loadIcon("transform-crop-and-resize.png");
-	m_actionInfo.icon2 = loadIcon("transform-crop-and-resize.png");
+	m_actionInfo.iconPath1 = "22/transform-crop-and-resize.png";
+	m_actionInfo.iconPath2 = "22/transform-crop-and-resize.png";
 	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.parentMenu = "Item";
 	m_actionInfo.subMenuName = tr("Path Tools");
@@ -80,13 +84,17 @@ void PathCutPlugin::languageChange()
 	m_actionInfo.notSuitableFor.append(PageItem::ImageFrame);
 	m_actionInfo.notSuitableFor.append(PageItem::PathText);
 	m_actionInfo.notSuitableFor.append(PageItem::LatexFrame);
+	m_actionInfo.notSuitableFor.append(PageItem::Symbol);
+	m_actionInfo.notSuitableFor.append(PageItem::RegularPolygon);
+	m_actionInfo.notSuitableFor.append(PageItem::Arc);
+	m_actionInfo.notSuitableFor.append(PageItem::Spiral);
 	m_actionInfo.forAppMode.append(modeNormal);
 	m_actionInfo.needsNumObjects = 2;
 	m_actionInfo.firstObjectType.append(PageItem::PolyLine);
 	m_actionInfo.secondObjectType.append(PageItem::Polygon);
 }
 
-const QString PathCutPlugin::fullTrName() const
+QString PathCutPlugin::fullTrName() const
 {
 	return QObject::tr("PathCutter");
 }
@@ -111,16 +119,10 @@ void PathCutPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool PathCutPlugin::run(ScribusDoc* doc, QString)
+bool PathCutPlugin::run(ScribusDoc* doc, const QString&)
 {
-	QString vers = QString(qVersion()).left(5);
-	if (vers < "4.3.3")
-	{
-		QMessageBox::information(doc->scMW(), tr("Qt Version too old"), tr("This plugin requires at least version 4.3.3 of the Qt library"));
-		return true;
-	}
 	ScribusDoc* currDoc = doc;
-	if (currDoc == 0)
+	if (currDoc == nullptr)
 		currDoc = ScCore->primaryMainWindow()->doc;
 	if (currDoc->m_Selection->count() > 1)
 	{
@@ -135,36 +137,35 @@ bool PathCutPlugin::run(ScribusDoc* doc, QString)
 		QPainterPathStroker stroke;
 		stroke.setWidth(Item1->lineWidth());
 		QPainterPath cutter = stroke.createStroke(path.toQPainterPath(false));
-		QMatrix ms;
+		QTransform ms;
 		ms.translate(Item1->xPos() - Item2->xPos(), Item1->yPos() - Item2->yPos());
 		ms.rotate(Item1->rotation());
 		cutter = ms.map(cutter);
 		path.map(ms);
 		FPoint start = path.point(0);
 		FPoint end = path.point(path.size()-2);
-		QMatrix mm;
+		QTransform mm;
 		mm.rotate(Item2->rotation());
 		QPainterPath objekt = mm.map(Item2->PoLine.toQPainterPath(true));
 		if ((objekt.contains(QPointF(start.x(), start.y()))) || (objekt.contains(QPointF(end.x(), end.y()))))
 		{
-			QMessageBox::information(doc->scMW(), tr("Error"), tr("The cutting line must cross the polygon and\nboth end points must lie outside of the polygon"));
+			ScMessageBox::information(doc->scMW(), tr("Error"), tr("The cutting line must cross the polygon and\nboth end points must lie outside of the polygon"));
 			return true;
 		}
 		QPainterPath result = objekt.subtracted(cutter);
 		FPointArray points;
 		points.fromQPainterPath(result);
 		Item2->PoLine = points;
-		Item2->Frame = false;
 		Item2->ClipEdited = true;
 		Item2->FrameType = 3;
-		currDoc->AdjustItemSize(Item2);
+		currDoc->adjustItemSize(Item2);
 		Item2->OldB2 = Item2->width();
 		Item2->OldH2 = Item2->height();
 		Item2->updateClip();
 		Item2->ContourLine = Item2->PoLine.copy();
-		currDoc->m_Selection->clear();
-		currDoc->m_Selection->addItem(Item1);
-		currDoc->itemSelection_DeleteItem();
+//		currDoc->m_Selection->clear();
+//		currDoc->m_Selection->addItem(Item1);
+//		currDoc->itemSelection_DeleteItem();
 		currDoc->m_Selection->clear();
 		currDoc->m_Selection->addItem(Item2);
 		currDoc->itemSelection_SplitItems();

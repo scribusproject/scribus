@@ -1,0 +1,23 @@
+//verb, what, description, return, parameters
+#file, color
+create, ColorCMYK, "Create a new color with CMYK values. Use integers for each channel (0-255)", bool, string name, int c, int m, int y, int k
+create, ColorCMYKFloat, "Create a new color with CMYK values. Use decimals for each channel (0.0-1.0)", bool, string name, double c, double m, double y, double k
+create, ColorLAB, "Create a new color with Lab values. Use decimals for each channel (0.0-1.0)", bool, string name, double l, double a, double b
+create, ColorRGB, "Create a new color with RGB values. Use integers for each channel (0-255)", bool, string name, int r, int g, int b
+create, ColorRGBFloat, "Create a new color with CMYK values. Use decimals for each channel (0.0-1.0)", bool, string name, double r, double g, double b
+delete, Color, "Delete color from list by its name", bool, string name
+get, ColorCMYK, "Get a color by its name in CMYK format", tuple, string name
+get, ColorCMYKFloat, "Get a color by its name in CMYK format. Decimals will be returned for each channel (0.0-1.0)", tuple, string name
+get, ColorLAB, "Get a color by its name in Lab format", tuple, string name
+get, ColorRGB, "Get a color by its name in RGB format", tuple, string name
+get, ColorRGBFloat, "Get a color by its name in RGB format. Decimals will be returned for each channel (0.0-1.0)", tuple, string name
+get, ColorNames, "Get the list of color names in this document", list, void
+is, SpotColor, "Check if a named color is a spot color", void, string name
+replace, Color, "Replace one named color by another", bool, string name, string name
+set, ColorCMYK, "Set the color values to specified CMYK values", tuple, string name
+set, ColorCMYKFloat, "Set the color values to specified CMYK decimal values (0.0-1.0)", tuple, string name
+set, ColorLAB, "Set the color values to specified Lab values", tuple, string name
+set, ColorRGB, "Set the color values to specified RGB values", tuple, string name
+set, ColorRGBFloat, "Set the color values to specified RGB decimal values (0.0-1.0)", tuple, string name
+set, SpotColor, "Set a named color to be a spot color", bool, string name
+exists, Color, "Check if a named color exists", bool, string name

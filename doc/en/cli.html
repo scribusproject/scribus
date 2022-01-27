@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Scribus Command Line Reference</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h4>Scribus Command Line Reference</h4>
+<p>Just like any other program, Scribus can be launched from the command line. Here are the command line options for Linux/UNIX (including Mac OS X). On other operating systems the parameters may have to be used differently.</p>
+
+<br />
+<ul>
+<li><code>-f, --file</code><br />
+Opens the specified file. It&rsquo;s possible to simply pass the file name as an unqualified argument instead of using this, though if the name begins with a dash (<code>-</code>) you will need to use <code>--</code>, e.g., <code>scribus -- -myfile.sla</code>.</li>
+<li><code>-fi, --font-info </code><br />
+Shows the font file listing as Scribus starts. This can be used for diagnosing missing glyphs within fonts or possibly broken font files.</li>
+<li><code>-h, --help</code><br />
+Prints a brief usage summary.</li>
+<li><code>-l, --lang xx</code><br />
+Overrides the system locale and runs Scribus in language <code>xx</code>. The language is specified with the same POSIX language codes that are used in the <code>LANG</code> and <code>LC_ALL</code> environment variables. For example, English can be selected with &lsquo;en&rsquo; (generic English), &lsquo;en_GB&rsquo; (British English), &lsquo;en_US&rsquo; (American english), etc. Similarly, reformed German can be selected with &lsquo;de&rsquo; or &lsquo;de_DE&rsquo;, traditional German with &lsquo;de_1901&rsquo;, and Swiss German with &lsquo;de_CH&rsquo;.</li>
+<li><code>-la, --langs-available</code><br />
+Prints a list of languages for which user interface translations are available. To use that language run Scribus as <code>scribus -l xx</code> where <code>xx</code> is the short language code.</li>
+<li><code>-nns, --never-splash</code><br />
+Stops the showing of the splashscreen on startup. Writes an empty file called .neversplash in <code>~/.scribus</code>.</li>
+<li><code>-ns, --no-splash</code><br />
+Suppresses display of the splash screen during Scribus start-up.</li>
+<li><code>-pi, --profile-info</code><br />
+Shows the color profiles listing which Scribus can use. This can be used for diagnosing missing or broken color profiles.</li>
+<li><code>-pr, --prefs &lt;filename&gt;</code><br />
+Use filename as path for user given preferences. <i>See the notes below for further information.</i></li>
+<li><code>-py, --python-script &lt;script&gt: [arguments ...]</code><br />
+Run script in Python [with optional arguments]. <strong>This must be the last option used.</strong></li>
+<li><code>-sb, --swap-buttons</code><br />
+Uses right to left dialog button ordering (e.g. Cancel/No/Yes instead of Yes/No/Cancel)</li>
+<li><code>-u, --upgradecheck</code> <br />
+Downloads a file from our scribus server indicating the latest available versions.</li>
+<li><code>-v, --version</code><br />
+Prints the Scribus version number and exits.</li>
+</ul>
+<strong>Notes:</strong>
+<p>As of version 1.5.3, there has been a change in the location of various preferences and user data.</p>
+<p>Previously, these were all stored in a directory <strong>.scribus</strong>, where you would find <i>charpalette.ucp, checkfonts.xml, prefs140.xml, scribus140.rc, scribusshapes.xml,</i> and <i>scribus-short-words.rc</i>, plus the directories <i>downloads, palettes, plugins, scrapbook, swatches,</i> and <i>temp.</i></p>
+<p>With 1.5.3, <i>checkfonts.xml, prefs150.xml, scribus150.rc,</i> and <i>scribusshapes.xml</i> are now found in the <strong>.config/scribus</strong> directory.<br />
+In the directory <strong>.local/share/scribus</strong>, you will now find <i>charpalette.ucp, scribus-short-words.rc,</i> and the directories <i>cache, doc, palettes, plugins, scrapbook,</i> and <i>temp</i></p>
+</body>
+</html>

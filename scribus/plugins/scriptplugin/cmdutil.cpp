@@ -4,14 +4,19 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "cmdutil.h"
-#include "units.h"
-#include "page.h"
-#include "scribuscore.h"
-#include "selection.h"
 
-ScribusMainWindow* Carrier;
-ScribusDoc* doc;
+#include "cmdutil.h"
+#include "prefsmanager.h"
+#include "resourcecollection.h"
+#include "scpage.h"
+#include "scribuscore.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
+#include "selection.h"
+#include "tableborder.h"
+#include "units.h"
+
+#include <QMap>
 
 /// Convert a value in points to a value in the current document units
 double PointToValue(double Val)
@@ -25,7 +30,7 @@ double ValueToPoint(double Val)
 	return value2pts(Val, ScCore->primaryMainWindow()->doc->unitIndex());
 }
 
-/// Convert an X co-ordinate part in page units to a document co-ordinate
+/// Convert an X coordinate part in page units to a document coordinate
 /// in system units.
 double pageUnitXToDocX(double pageUnitX)
 {
@@ -38,9 +43,9 @@ double docUnitXToPageX(double pageUnitX)
 	return PointToValue(pageUnitX - ScCore->primaryMainWindow()->doc->currentPage()->xOffset());
 }
 
-/// Convert a Y co-ordinate part in page units to a document co-ordinate
-/// in system units. The document co-ordinates have their origin somewere
-/// up and left of the first page, where page co-ordinates have their
+/// Convert a Y coordinate part in page units to a document coordinate
+/// in system units. The document coordinates have their origin somewhere
+/// up and left of the first page, where page coordinates have their
 /// origin on the top left of the current page.
 double pageUnitYToDocY(double pageUnitY)
 {
@@ -52,116 +57,75 @@ double docUnitYToPageY(double pageUnitY)
 	return PointToValue(pageUnitY - ScCore->primaryMainWindow()->doc->currentPage()->yOffset());
 }
 
-int GetItem(QString Name)
+PageItem *GetItem(const QString& name)
 {
-	if (!Name.isEmpty())
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	if (!name.isEmpty())
 	{
-		for (int a = 0; a < ScCore->primaryMainWindow()->doc->Items->count(); a++)
+		for (int i = 0; i < currentDoc->Items->count(); ++i)
 		{
-			if (ScCore->primaryMainWindow()->doc->Items->at(a)->itemName() == Name)
-				return static_cast<int>(a);
+			if (currentDoc->Items->at(i)->itemName() == name)
+				return currentDoc->Items->at(i);
 		}
 	}
 	else
 	{
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
-			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0)->ItemNr;
+		if (currentDoc->m_Selection->count() != 0)
+			return currentDoc->m_Selection->itemAt(0);
 	}
-	return -1;
+	return nullptr;
 }
 
-void ReplaceColor(QString col, QString rep)
+void ReplaceColor(const QString& col, const QString& rep)
 {
-	QColor tmpc;
-	for (int c = 0; c < ScCore->primaryMainWindow()->doc->Items->count(); c++)
-	{
-		PageItem *ite = ScCore->primaryMainWindow()->doc->Items->at(c);
-		if (ite->itemType() == PageItem::TextFrame)
-		{
-			for (int d = 0; d < ite->itemText.length(); d++)
-			{
-				//FIXME:NLS  that should work on runs
-				if (col == ite->itemText.charStyle(d).fillColor())
-					ite->itemText.item(d)->setFillColor(rep);
-				if (col == ite->itemText.charStyle(d).strokeColor())
-					ite->itemText.item(d)->setStrokeColor(rep);
-			}
-		}
-		if (col == ite->fillColor())
-			ite->setFillColor(rep);
-		if (col == ite->lineColor())
-			ite->setLineColor(rep);
-		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-		{
-			if (col == cstops.at(cst)->name)
-			{
-				ite->SetQColor(&tmpc, rep, cstops.at(cst)->shade);
-				cstops.at(cst)->color = tmpc;
-				cstops.at(cst)->name = rep;
-			}
-		}
-	}
-	for (int c = 0; c < ScCore->primaryMainWindow()->doc->MasterItems.count(); c++)
-	{
-		PageItem *ite = ScCore->primaryMainWindow()->doc->MasterItems.at(c);
-		if (ite->itemType() == PageItem::TextFrame)
-		{
-			for (int d = 0; d < ite->itemText.length(); d++)
-			{
-				//FIXME: NLS this should work on runs
-				if (col == ite->itemText.charStyle(d).fillColor())
-					ite->itemText.item(d)->setFillColor(rep);
-				if (col == ite->itemText.charStyle(d).strokeColor())
-					ite->itemText.item(d)->setStrokeColor(rep);
-			}
-		}
-		if (col == ite->fillColor())
-			ite->setFillColor(rep);
-		if (col == ite->lineColor())
-			ite->setLineColor(rep);
-		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
-		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-		{
-			if (col == cstops.at(cst)->name)
-			{
-				ite->SetQColor(&tmpc, rep, cstops.at(cst)->shade);
-				cstops.at(cst)->color = tmpc;
-				cstops.at(cst)->name = rep;
-			}
-		}
-	}
+	QMap<QString, QString> colorMap;
+	colorMap.insert(col, rep);
+
+	ResourceCollection colorRsc;
+	colorRsc.mapColor(col, rep);
+
+	if (!ScCore->primaryMainWindow()->HaveDoc)
+		return;
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+
+	// Update tools colors
+	PrefsManager::replaceToolColors(doc->itemToolPrefs(), colorRsc.colors());
+	// Update objects and styles colors
+	doc->replaceNamedResources(colorRsc);
+	// Temporary code until LineStyle is effectively used
+	doc->replaceLineStyleColors(colorMap);
 }
 
 /* 04/07/10 returns selection if is not name specified  pv  */
-PageItem* GetUniqueItem(QString name)
+PageItem* GetUniqueItem(const QString& name)
 {
-	if (name.length()==0)
+	if (name.length() == 0)
+	{
 		if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
 			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
-		else
-		{
-			PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection").toLocal8Bit().constData());
-			return NULL;
-		}
-	else
-		return getPageItemByName(name);
+		PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection").toLocal8Bit().constData());
+		return nullptr;
+	}
+	return getPageItemByName(name);
 }
 
-PageItem* getPageItemByName(QString name)
+PageItem* getPageItemByName(const QString& name)
 {
 	if (name.length() == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
-	for (int j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	for (int i = 0; i < currentDoc->Items->count(); ++i)
 	{
-		if (name==ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
-			return ScCore->primaryMainWindow()->doc->Items->at(j);
-	} // for items
+		if (name == currentDoc->Items->at(i)->itemName())
+			return currentDoc->Items->at(i);
+	}
+
 	PyErr_SetString(NoValidObjectError, QString("Object not found").toLocal8Bit().constData());
-	return NULL;
+	return nullptr;
 }
 
 
@@ -170,15 +134,17 @@ PageItem* getPageItemByName(QString name)
  * if it does exist. Returns false if there is no such object, or
  * if the empty string ("") is passed.
  */
-bool ItemExists(QString name)
+bool ItemExists(const QString& name)
 {
 	if (name.length() == 0)
 		return false;
-	for (int j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	for (int i = 0; i < currentDoc->Items->count(); ++i)
 	{
-		if (name==ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
+		if (name == currentDoc->Items->at(i)->itemName())
 			return true;
-	} // for items
+	}
 	return false;
 }
 
@@ -191,12 +157,23 @@ bool ItemExists(QString name)
  */
 bool checkHaveDocument()
 {
-    if (ScCore->primaryMainWindow()->HaveDoc)
-        return true;
-    // Caller is required to check for false return from this function
-    // and return NULL.
-    PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document").toLocal8Bit().constData());
-    return false;
+	if (ScCore->primaryMainWindow()->HaveDoc)
+		return true;
+	// Caller is required to check for false return from this function
+	// and return nullptr.
+	PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document").toLocal8Bit().constData());
+	return false;
+}
+
+bool checkValidPageNumber(int page)
+{
+	const int numPages = ScCore->primaryMainWindow()->doc->Pages->count();
+	if (page < 0 || page >= numPages)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("%1 is not a valid page number.", "python error").arg(page).toLocal8Bit().constData());
+		return false;
+	}
+	return true;
 }
 
 QStringList getSelectedItemsByName()
@@ -211,21 +188,85 @@ QStringList getSelectedItemsByName()
 	return ScCore->primaryMainWindow()->doc->m_Selection->getSelectedItemsByName();
 }
 
-bool setSelectedItemsByName(QStringList& itemNames)
+bool setSelectedItemsByName(const QStringList& itemNames)
 {
-	ScCore->primaryMainWindow()->view->Deselect();
+	ScribusDoc* currentDoc =  ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+
+	currentView->deselectItems();
+
 	// For each named item
-	for (QStringList::Iterator it = itemNames.begin() ; it != itemNames.end() ; it++)
+	for (auto it = itemNames.begin() ; it != itemNames.end() ; it++)
 	{
 		// Search for the named item
-		PageItem* item = 0;
-		for (int j = 0; j < ScCore->primaryMainWindow()->doc->Items->count(); j++)
-			if (*it == ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
-				item = ScCore->primaryMainWindow()->doc->Items->at(j);
+		PageItem* item = nullptr;
+		for (int j = 0; j < currentDoc->Items->count(); j++)
+		{
+			if (*it == currentDoc->Items->at(j)->itemName())
+				item = currentDoc->Items->at(j);
+		}
 		if (!item)
 			return false;
-		// and select it
-		ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+		// And select it
+		currentView->selectItem(item);
 	}
 	return true;
 }
+
+TableBorder parseBorder(PyObject* borderLines, bool* ok)
+{
+	TableBorder border;
+
+	if (!PyList_Check(borderLines))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Expected a list of border lines", "python error").toLocal8Bit().constData());
+		*ok = false;
+		return border;
+	}
+
+	// Get the sequence of border lines.
+	PyObject* borderLinesList = PySequence_List(borderLines);
+	if (borderLinesList == nullptr)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Expected a list of border lines", "python error").toLocal8Bit().constData());
+		*ok = false;
+		return border;
+	}
+
+	// Parse each tuple describing a border line and append it to the border.
+	int nBorderLines = PyList_Size(borderLinesList);
+	for (int i = 0; i < nBorderLines; ++i)
+	{
+		double width = 0.0;
+		double shade = 100.0;
+		int style;
+		char* color;
+		PyObject* props = PyList_GET_ITEM(borderLinesList, i);
+		if (!PyArg_ParseTuple(props, "dies|d", &width, &style, "utf-8", &color, &shade))
+		{
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Border lines are specified as (width,style,color,shade) tuples", "python error").toLocal8Bit().constData());
+			*ok = false;
+			return border;
+		}
+		if (width <= 0.0)
+		{
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Border line width must be > 0.0", "python error").toLocal8Bit().constData());
+			*ok = false;
+			return border;
+		}
+		border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), QString::fromUtf8(color), shade));
+	}
+	Py_DECREF(borderLinesList);
+
+	*ok = true;
+	return border;
+}
+
+QString PyUnicode_asQString(PyObject* arg)
+{
+	const char* utf8Str = PyUnicode_AsUTF8(arg);
+	if (!utf8Str)
+		return QString();
+	return QString::fromUtf8(utf8Str);
+}
+

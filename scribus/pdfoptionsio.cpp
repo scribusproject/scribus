@@ -16,8 +16,6 @@ for which a new license (GPL+exception) is in place.
 const int PDFOptionsIO::formatVersion = 1300;
 
 PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
-	m_doc(),
-	m_root(),
 	m_includePasswords(false),
 	m_error()
 {
@@ -28,7 +26,7 @@ PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
 // because we don't want to clobber the output file until we know the
 // data has been generated ok, and we can't avoid clobbering the file
 // to create a QTextStream().
-bool PDFOptionsIO::writeTo(QString outFileName, bool includePasswords)
+bool PDFOptionsIO::writeTo(const QString& outFileName, bool includePasswords)
 {
 	m_includePasswords = includePasswords;
 	QString xml(buildXMLString());
@@ -45,7 +43,7 @@ bool PDFOptionsIO::writeTo(QString outFileName, bool includePasswords)
 	ts.setCodec("UTF-8");
 	ts << xml;
 	m_includePasswords = false; // just to be paranoid
-	m_error = QString::null;
+	m_error.clear();
 	return true;
 }
 
@@ -64,7 +62,7 @@ bool PDFOptionsIO::writeTo(QIODevice& outDevice, bool includePasswords)
 	ts.setCodec("UTF-8");
 	ts << xml;
 	m_includePasswords = false; // just to be paranoid
-	m_error = QString::null;
+	m_error.clear();
 	return true;
 }
 
@@ -78,7 +76,7 @@ QString PDFOptionsIO::buildXMLString()
 	if (vr != PDFOptions::Verify_NoError)
 	{
 		m_error = QObject::tr("Verification of settings failed: %1").arg(vrfyError);
-		return QString::null;
+		return QString();
 	}
 	// Build the document. Initial implementation uses QDom.
 	m_doc = QDomDocument();
@@ -113,8 +111,14 @@ void PDFOptionsIO::buildSettings()
 	QString pdfVersString;
 	switch (m_opts->Version)
 	{
-		case PDFOptions::PDFVersion_X3:
+		case PDFVersion::PDF_X1a:
+			pdfVersString = "X1a";
+			break;
+		case PDFVersion::PDF_X3:
 			pdfVersString = "X3";
+			break;
+		case PDFVersion::PDF_X4:
+			pdfVersString = "X4";
 			break;
 		default:
 			pdfVersString = QString::number(m_opts->Version);
@@ -123,13 +127,27 @@ void PDFOptionsIO::buildSettings()
 	addElem(m_root, "pdfVersion", pdfVersString);
 	addElem(m_root, "resolution", m_opts->Resolution);
 	addElem(m_root, "binding", m_opts->Binding);
+	QString embeddingModeString;
+	switch (m_opts->FontEmbedding)
+	{
+		case PDFOptions::OutlineFonts:
+			embeddingModeString = "OutlineFonts";
+			break;
+		case PDFOptions::DontEmbed:
+			embeddingModeString = "DontEmbed";
+			break;
+		default:
+			embeddingModeString = "EmbedFonts";
+			break;
+	}
+	addElem(m_root, "fontEmbedding", embeddingModeString);
 	addList(m_root, "embedFonts", m_opts->EmbedList);
 	addList(m_root, "subsetFonts", m_opts->SubsetList);
 	addElem(m_root, "mirrorH", m_opts->MirrorH);
 	addElem(m_root, "mirrorV", m_opts->MirrorV);
 	addElem(m_root, "rotateDegrees", m_opts->RotateDeg);
 	addElem(m_root, "presentMode", m_opts->PresentMode);
-	addPresentationData();
+	// addPresentationData();
 	addElem(m_root, "filename", m_opts->fileName);
 	addElem(m_root, "isGrayscale", m_opts->isGrayscale);
 	addElem(m_root, "useRGB", m_opts->UseRGB);
@@ -147,10 +165,10 @@ void PDFOptionsIO::buildSettings()
 	addElem(m_root, "printProf", m_opts->PrintProf);
 	addElem(m_root, "info", m_opts->Info);
 	addElem(m_root, "intent", m_opts->Intent);
-	addElem(m_root, "bleedTop", m_opts->bleeds.Top);
-	addElem(m_root, "bleedLeft", m_opts->bleeds.Left);
-	addElem(m_root, "bleedRight", m_opts->bleeds.Right);
-	addElem(m_root, "bleedBottom", m_opts->bleeds.Bottom);
+	addElem(m_root, "bleedTop", m_opts->bleeds.top());
+	addElem(m_root, "bleedLeft", m_opts->bleeds.left());
+	addElem(m_root, "bleedRight", m_opts->bleeds.right());
+	addElem(m_root, "bleedBottom", m_opts->bleeds.bottom());
 	addElem(m_root, "encrypt", m_opts->Encrypt);
 	addElem(m_root, "passOwner", m_includePasswords ? m_opts->PassOwner : "");
 	addElem(m_root, "passUser", m_includePasswords ? m_opts->PassUser : "");
@@ -160,28 +178,28 @@ void PDFOptionsIO::buildSettings()
 // Convenience functions to add a single-attribute element
 // of a particular type to the tree at a given point.
 
-void PDFOptionsIO::addElem(QDomElement& addTo, QString name, bool value)
+void PDFOptionsIO::addElem(QDomElement& addTo, const QString& name, bool value)
 {
 	QDomElement elem = m_doc.createElement(name);
 	elem.setAttribute("value", value ? "true" : "false" );
 	addTo.appendChild(elem);
 }
 
-void PDFOptionsIO::addElem(QDomElement& addTo, QString name, QString value)
+void PDFOptionsIO::addElem(QDomElement& addTo, const QString& name, const QString& value)
 {
 	QDomElement elem = m_doc.createElement(name);
 	elem.setAttribute("value",value);
 	addTo.appendChild(elem);
 }
 
-void PDFOptionsIO::addElem(QDomElement& addTo, QString name, int value)
+void PDFOptionsIO::addElem(QDomElement& addTo, const QString& name, int value)
 {
 	QDomElement elem = m_doc.createElement(name);
 	elem.setAttribute("value",value);
 	addTo.appendChild(elem);
 }
 
-void PDFOptionsIO::addElem(QDomElement& addTo, QString name, double value)
+void PDFOptionsIO::addElem(QDomElement& addTo, const QString& name, double value)
 {
 	QDomElement elem = m_doc.createElement(name);
 	elem.setAttribute("value",value);
@@ -190,7 +208,7 @@ void PDFOptionsIO::addElem(QDomElement& addTo, QString name, double value)
 
 // Save a QValueList<String> or QStringList as a list of
 // <item value=""> elements
-void PDFOptionsIO::addList(QDomElement& addTo, QString name, QList<QString>& value)
+void PDFOptionsIO::addList(QDomElement& addTo, const QString& name, QList<QString>& value)
 {
 	// List base element has no attributes, only children
 	QDomElement listbase = m_doc.createElement(name);
@@ -220,7 +238,7 @@ void PDFOptionsIO::addPresentationData()
 	//   </presentationSettingsEntry>
 	//   ...
 	// </presentationSettings>
-	QDomElement presentationSettings = m_doc.createElement("presentationSettings");
+/*	QDomElement presentationSettings = m_doc.createElement("presentationSettings");
 	m_root.appendChild(presentationSettings);
 	QList<PDFPresentationData>::iterator it;
 	for (it = m_opts->PresentVals.begin(); it != m_opts->PresentVals.end(); ++it)
@@ -235,7 +253,7 @@ void PDFOptionsIO::addPresentationData()
 		addElem(psEntry, "dm", (*it).Dm);
 		addElem(psEntry, "m", (*it).M);
 		addElem(psEntry, "di", (*it).Di);
-	}
+	}*/
 }
 
 // Save PDFOptions::LPISettings
@@ -273,7 +291,7 @@ void PDFOptionsIO::addLPISettings()
 }
 
 // overload of bool readFrom(QTextStream& inStream)
-bool PDFOptionsIO::readFrom(QString inFileName)
+bool PDFOptionsIO::readFrom(const QString& inFileName)
 {
 	QFile f(inFileName);
 	if (!f.open(QIODevice::ReadOnly))
@@ -293,7 +311,7 @@ bool PDFOptionsIO::readFrom(QIODevice& inDevice)
 	int errorLine, errorColumn;
 	if (!m_doc.setContent(&inDevice, &domError, &errorLine, &errorColumn))
 	{
-		m_error = QObject::tr("Unable to read settings XML:")
+		m_error = QObject::tr("Unable to read settings XML: %1")
 			.arg(QObject::tr("%1 (line %2 col %3)", "Load PDF settings")
 				.arg(domError).arg(errorLine).arg(errorColumn)
 			);
@@ -302,7 +320,7 @@ bool PDFOptionsIO::readFrom(QIODevice& inDevice)
 	if (!readSettings())
 		// m_error should already be set
 		return false;
-	m_error = QString::null;
+	m_error.clear();
 	return true;
 }
 
@@ -339,10 +357,13 @@ bool PDFOptionsIO::readSettings()
 		return false;
 	if (!readElem(m_root, "embedPDF", &m_opts->embedPDF))
 		m_opts->embedPDF = false;
-	readPDFVersion();
+	if (!readPDFVersion())
+		return false;
 	if (!readElem(m_root, "resolution", &m_opts->Resolution))
 		return false;
 	if (!readElem(m_root, "binding", &m_opts->Binding))
+		return false;
+	if (!readPDFFontEmbeddingMode())
 		return false;
 	if (!readList(m_root, "embedFonts", &m_opts->EmbedList))
 		return false;
@@ -356,8 +377,8 @@ bool PDFOptionsIO::readSettings()
 		return false;
 	if (!readElem(m_root, "presentMode", &m_opts->PresentMode))
 		return false;
-	if (!readPresentationData())
-		return false;
+	// if (!readPresentationData())
+	// 	return false;
 	if (!readElem(m_root, "filename", &m_opts->fileName))
 		return false;
 	if (!readElem(m_root, "isGrayscale", &m_opts->isGrayscale))
@@ -392,14 +413,22 @@ bool PDFOptionsIO::readSettings()
 		return false;
 	if (!readElem(m_root, "intent", &m_opts->Intent))
 		return false;
-	if (!readElem(m_root, "bleedTop", &m_opts->bleeds.Top))
+	double d=0.0;
+	if (!readElem(m_root, "bleedTop", &d))
 		return false;
-	if (!readElem(m_root, "bleedLeft", &m_opts->bleeds.Left))
+	m_opts->bleeds.setTop(d);
+	d=0.0;
+	if (!readElem(m_root, "bleedLeft", &d))
 		return false;
-	if (!readElem(m_root, "bleedRight", &m_opts->bleeds.Right))
+	m_opts->bleeds.setLeft(d);
+	d=0.0;
+	if (!readElem(m_root, "bleedBottom", &d))
 		return false;
-	if (!readElem(m_root, "bleedBottom", &m_opts->bleeds.Bottom))
+	m_opts->bleeds.setBottom(d);
+	d=0.0;
+	if (!readElem(m_root, "bleedRight", &d))
 		return false;
+	m_opts->bleeds.setRight(d);
 	if (!readElem(m_root, "encrypt", &m_opts->Encrypt))
 		return false;
 	if (!readElem(m_root, "passOwner", &m_opts->PassOwner))
@@ -416,41 +445,80 @@ bool PDFOptionsIO::readPDFVersion()
 	QString pdfVersString;
 	if (!readElem(m_root, "pdfVersion", &pdfVersString))
 		return false;
+	if (pdfVersString == "X1a")
+	{
+		m_opts->Version = PDFVersion::PDF_X1a;
+		return true;
+	}
 	if (pdfVersString == "X3")
 	{
-		m_opts->Version = PDFOptions::PDFVersion_X3;
+		m_opts->Version = PDFVersion::PDF_X3;
 		return true;
 	}
-	else if (pdfVersString == "13")
+	if (pdfVersString == "X4")
 	{
-		m_opts->Version = PDFOptions::PDFVersion_13;
+		m_opts->Version = PDFVersion::PDF_X4;
 		return true;
 	}
-	else if (pdfVersString == "14")
+	if (pdfVersString == "13")
 	{
-		m_opts->Version = PDFOptions::PDFVersion_14;
+		m_opts->Version = PDFVersion::PDF_13;
 		return true;
 	}
-	else if (pdfVersString == "15")
+	if (pdfVersString == "14")
 	{
-		m_opts->Version = PDFOptions::PDFVersion_15;
+		m_opts->Version = PDFVersion::PDF_14;
 		return true;
 	}
-	else
+	if (pdfVersString == "15")
 	{
-		m_error = QObject::tr("Unable to read settings XML:")
-			.arg(QObject::tr("<pdfVersion> invalid", "Load PDF settings"));
+		m_opts->Version = PDFVersion::PDF_15;
+		return true;
+	}
+	if (pdfVersString == "16")
+	{
+		m_opts->Version = PDFVersion::PDF_16;
+		return true;
+	}
+	m_error = QObject::tr("Unable to read settings XML: %1").arg(QObject::tr("<pdfVersion> invalid", "Load PDF settings"));
+	return false;
+}
+
+bool PDFOptionsIO::readPDFFontEmbeddingMode()
+{
+	QString embeddingMode;
+	if (!readElem(m_root, "fontEmbedding", &embeddingMode))
 		return false;
+
+	if (embeddingMode == "EmbedFonts")
+	{
+		m_opts->FontEmbedding = PDFOptions::EmbedFonts;
+		return true;
 	}
+	if (embeddingMode == "OutlineFonts")
+	{
+		m_opts->FontEmbedding = PDFOptions::OutlineFonts;
+		return true;
+	}
+	if (embeddingMode == "DontEmbed")
+	{
+		m_opts->FontEmbedding = PDFOptions::DontEmbed;
+		return true;
+	}
+
+	m_opts->FontEmbedding = PDFOptions::EmbedFonts;
+	m_error = QObject::tr("Unable to read settings XML: %1")
+			.arg(QObject::tr("<fontEmbedding> invalid", "Load PDF settings"));
+	return false;
 }
 
 // returns a null node on failure
-QDomNode PDFOptionsIO::getUniqueNode(QDomElement& parent, QString name)
+QDomNode PDFOptionsIO::getUniqueNode(QDomElement& parent, const QString& name)
 {
 	QDomNodeList nodes = parent.elementsByTagName(name);
 	if (nodes.count() != 1)
 	{
-		m_error = QObject::tr("Unable to read settings XML:")
+		m_error = QObject::tr("Unable to read settings XML: %1")
 			.arg(QObject::tr("found %1 <%2> nodes, need 1.", "Load PDF settings")
 				.arg(nodes.count()).arg(name)
 			);
@@ -461,19 +529,19 @@ QDomNode PDFOptionsIO::getUniqueNode(QDomElement& parent, QString name)
 
 // Return the node as a QDomElement iff it is a QDomElement with
 // a `value' attribute; otherwise return a null element.
-QDomElement PDFOptionsIO::getValueElement(QDomNode& node, QString name, bool isValue)
+QDomElement PDFOptionsIO::getValueElement(QDomNode& node, const QString& name, bool isValue)
 {
 	if (node.isNull())
 	{
-		m_error = QObject::tr("Unable to read settings XML:")
-			.arg(QObject::tr("unexpected null <%2> node", "Load PDF settings")
+		m_error = QObject::tr("Unable to read settings XML: %1")
+			.arg(QObject::tr("unexpected null <%1> node", "Load PDF settings")
 				.arg(name)
 			);
 		return QDomNode().toElement();
 	}
 	if (!node.isElement())
 	{
-		m_error = QObject::tr("Unable to read settings XML:")
+		m_error = QObject::tr("Unable to read settings XML: %1")
 			.arg(QObject::tr("node <%1> not an element", "Load PDF settings")
 				.arg(name)
 			);
@@ -482,9 +550,9 @@ QDomElement PDFOptionsIO::getValueElement(QDomNode& node, QString name, bool isV
 	QDomElement elem = node.toElement();
 	if (elem.tagName() != name)
 	{
-		m_error = QObject::tr("Unable to read settings XML:")
+		m_error = QObject::tr("Unable to read settings XML: %1")
 			.arg(QString("Internal error: element named <%1> not expected <%2>")
-					.arg(elem.tagName()).arg(name)
+					.arg(elem.tagName(), name)
 			);
 		return QDomNode().toElement();
 	}
@@ -493,7 +561,7 @@ QDomElement PDFOptionsIO::getValueElement(QDomNode& node, QString name, bool isV
 		// We need to check that it has a `value' attribute
 		if (!elem.hasAttribute("value"))
 		{
-			m_error = QObject::tr("Unable to read settings XML:")
+			m_error = QObject::tr("Unable to read settings XML: %1")
 				.arg(QObject::tr("element <%1> lacks `value' attribute", "Load PDF settings")
 					.arg(name)
 				);
@@ -503,7 +571,7 @@ QDomElement PDFOptionsIO::getValueElement(QDomNode& node, QString name, bool isV
 	return elem;
 }
 
-bool PDFOptionsIO::readElem(QDomElement& parent, QString name, bool* value)
+bool PDFOptionsIO::readElem(QDomElement& parent, const QString& name, bool* value)
 {
 	QDomNode node = getUniqueNode(parent, name);
 	QDomElement elem = getValueElement(node, name);
@@ -515,22 +583,16 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, bool* value)
 		(*value) = true;
 		return true;
 	}
-	else if (elementText == "false")
+	if (elementText == "false")
 	{
 		(*value) = false;
 		return true;
 	}
-	else
-	{
-		m_error = QObject::tr("Unable to read settings XML:")
-			.arg(QObject::tr("element <%1> value must be `true' or `false'", "Load PDF settings")
-				.arg(name)
-			);
-		return false;
-	}
+	m_error = QObject::tr("Unable to read settings XML: %1").arg(QObject::tr("element <%1> value must be `true' or `false'", "Load PDF settings").arg(name));
+	return false;
 }
 
-bool PDFOptionsIO::readElem(QDomElement& parent, QString name, int* value)
+bool PDFOptionsIO::readElem(QDomElement& parent, const QString& name, int* value)
 {
 	QDomNode node = getUniqueNode(parent, name);
 	QDomElement elem = getValueElement(node, name);
@@ -540,10 +602,15 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, int* value)
 	int result = elem.attribute("value").toInt(&ok);
 	if (ok)
 		(*value) = result;
+	else
+	{
+		m_error = QObject::tr("Unable to read settings XML: %1").arg(QObject::tr("element <%1> value must be an integer", "Load PDF settings").arg(name));
+		return false;
+	}
 	return ok;
 }
 
-bool PDFOptionsIO::readElem(QDomElement& parent, QString name, double* value)
+bool PDFOptionsIO::readElem(QDomElement& parent, const QString& name, double* value)
 {
 	QDomNode node = getUniqueNode(parent, name);
 	QDomElement elem = getValueElement(node, name);
@@ -553,10 +620,15 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, double* value)
 	double result = ScCLocale::toDoubleC(elem.attribute("value"), &ok);
 	if (ok)
 		(*value) = result;
+	else
+	{
+		m_error = QObject::tr("Unable to read settings XML: %1").arg(QObject::tr("element <%1> value must be a double", "Load PDF settings").arg(name));
+		return false;
+	}
 	return ok;
 }
 
-bool PDFOptionsIO::readElem(QDomElement& parent, QString name, QString* value)
+bool PDFOptionsIO::readElem(QDomElement& parent, const QString& name, QString* value)
 {
 	QDomNode node = getUniqueNode(parent, name);
 	QDomElement elem = getValueElement(node, name);
@@ -570,7 +642,7 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, QString* value)
 }
 
 // Read a stringlist saved as a list of child <item value=""> elements
-bool PDFOptionsIO::readList(QDomElement& parent, QString name, QList<QString>* value)
+bool PDFOptionsIO::readList(QDomElement& parent, const QString& name, QList<QString>* value)
 {
 	QDomNode basenode = getUniqueNode(parent, name);
 	QDomElement listbase = getValueElement(basenode, name, false);
@@ -612,7 +684,7 @@ bool PDFOptionsIO::readPresentationData()
 	QList<PDFPresentationData> pList;
 	for (QDomNode node = pSettings.firstChild(); !node.isNull(); node = node.nextSibling())
 	{
-		QDomElement elem = getValueElement(basenode, "presentationSettingsEntry", false);
+		QDomElement elem = getValueElement(node, "presentationSettingsEntry", false);
 		if (elem.isNull())
 			return false;
 		PDFPresentationData pres;
@@ -654,13 +726,13 @@ bool PDFOptionsIO::readLPISettings()
 	QMap<QString,LPIData> lpiMap;
 	for (QDomNode node = lpiSettings.firstChild(); !node.isNull(); node = node.nextSibling())
 	{
-		QDomElement elem = getValueElement(basenode, "lpiSettingsEntry", false);
+		QDomElement elem = getValueElement(node, "lpiSettingsEntry", false);
 		if (elem.isNull())
 			return false;
 		QString name (elem.attribute("name"));
 		if (name.isNull())
 		{
-			m_error = QObject::tr("Unable to read settings XML:")
+			m_error = QObject::tr("Unable to read settings XML: %1")
 				.arg(QObject::tr("element <lpiSettingsEntry> lacks `name' attribute", "Load PDF settings")
 					.arg(name)
 				);

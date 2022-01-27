@@ -1,0 +1,126 @@
+.TH scribus "1" "Aktualisiert am 1. oktober 2007"
+.SH NAME
+scribus - ein plattformübergreifendes Desktop-Publishing-Programm
+.SH ÜBERSICHT
+scribus [-h|--help] [-v|--version] [-l|--lang] [-la|--langs-available] [-f|--file|--] [Dateiname]
+.SH BESCHREIBUNG
+Scribus ist ein quelloffenes Desktop-Publishing-Programm. Es bietet echte WYSIWYG-Bearbeitung, einen ausgezeichneten PDF-Export und zahlreiche andere Ein- und Ausgabemöglichkeiten.
+
+Bitte lesen Sie die Scribus-Dokumentation auf
+.I http://docs.scribus.net/
+oder die Online-Hilfe des Programms für ausführlichere und aktuellere Informationen.
+
+Diese Manpage bietet nur Zusammenfassungen einiger Aspekte der Programmbenutzung. Ihr Hauptzweck ist es, Ihnen das Auffinden der vollständigen Dokumentation zu erleichtern.
+.SH OPTIONEN
+Die vorhandenen Optionen erhalten Sie beim Programmaufruf. Geben Sie
+.B scribus --help
+ein, um die Optionen aufzulisten.
+
+.TP
+.B -l, --lang xx
+Ignoriert die eingestellte Systemsprache und startet Scribus in der Sprache xx. Die Sprache wird mit denselben POSIX-Sprachcodes angegeben, die in den LANG- und LC_ALL-Umgebungsvariablen verwendet werden. Englisch kann beispielsweise mit "en" (Englisch allgemein), "en_GB" (britisches Englisch) oder "en_US" (amerikanisches Englisch) ausgewählt werden. Deutsch wird mit "de" oder "de_DE" aufgerufen.
+.TP
+.B -la, --langs-available
+Gibt eine Liste der verfügbaren Übersetzungen aus. Um diese Sprache zu benutzen, starten Sie Scribus mit "scribus -l xx", wobei xx für den Sprachcode steht, oder ändern Sie die Umgebungsvariablen, wie weiter unten beschrieben.
+.TP
+.B -v, --version
+Gibt die Versionsnummer von Scribus aus.
+.TP
+.B -f, --file
+Öffnet die angegebene Datei. Es ist auch möglich, statt dessen einfach den Dateinamen ohne diesen Parameter anzugeben. Wenn der Dateiname jedoch mit einem - beginnt, werden Sie -- verwenden müssen, etwa: "scribus -- -meinedatei.sla'.
+.TP
+.B -h, --help
+Gibt diese kurze Übersicht aus.
+.TP
+.B -fi, --font-info 
+Zeigt die Liste der während des Programmstarts geladenen Schriften an. Auf diese Weise können fehlende Zeichen in Schriften oder möglicherweise fehlerhafte Schriftdateien  identifiziert werden.
+.TP
+.B -pi, --profile-info
+Zeigt eine Liste der Farbprofile, die von Scribus genutzt werden können. Diese Option kann genutzt werden, um fehlende oder fehlerhafte Farbprofile zu untersuchen.
+.B -ns, --no-splash
+Unterdrückt die Anzeige des Scribus-Splash-Screens beim Programmstart.
+.TP
+.B -nns, --never-splash     
+Unterdrückt die Anzeige des Scribus-Splash-Screens beim Programmstart dauerhaft, indem eine leere Datei namens .neversplash im Verzeichnis ~/.scribus gespeichert wird.
+.TP
+.B -sb, --swap-buttons
+Verwendet eine umgekehrte Anordnung von Buttons in einigen Dialogen (z.B Cancel/No/Yes statt Yes/No/Cancel)
+.TP
+.B -u, --upgradecheck
+Lädt eine Datei vom Scribus-Server herunter, die Informationen über die neueste Programmversion enthält.
+.SH UMGEBUNG
+Scribus verwendet die gesetzten Umgebungsvariablen. Die zugrundeliegenden Bibliotheken wie Qt oder Programme, die Scribus verwendet, können andere Einstellungen verwenden.
+.I http://docs.scribus.net/
+und die mitgelieferte Dokumentation können weitere Umgebungsvariablen erwähnen, die von Scribus und den verwendeten Programmen bzw. Bibliotheken verwendet werden.
+.TP
+.B LC_ALL, LC_MESSAGES, LANG
+POSIX-Umgebungsvariablen. Siehe
+.I locale(1).
+Scribus benutzt diese drei Umgebungsvariablen in der angegebenen Reihenfolge, um die Sprache (inklusive der Sprache der Benutzeroberfläche) zu bestimmen. Falls diese Variablen nicht gesetzt sind, verwendet Scribus die Spracheinstellungen der zugrundeliegenden Qt-Bibliothek.
+.TP
+.B PATH
+Scribus sucht in den 
+.B PATH
+-Daten nach externen Programmen. Dies wird für Sie vor allem von Bedeutung sein, wenn Sie mehrere Versionen von gs(1) installiert haben. Sie können einen absoluten Pfad zur richtigen Version von gs(1) in den "Allgemeinen Einstellungen" eintragen und Scribus so
+.B PATH
+ignorieren lassen.
+.PP
+Einige wichtige Unmgebungsvariablen aus anderen Programmen sind hier aus praktischen Erwägungen zusammengefaßt. Ziehen Sie aber auf jeden Fall die Originaldokumentation des jeweiligen Programms zu Rate, wenn es ein Problem gibt.
+.TP
+.B GS_FONTPATH
+Der Ghostscript-Pfad für Schriften. Beeinflußt den Suchpfad von Ghostscript, das Scribus für einige Postscript-Operationen verwendet. Fügen Sie weitere Verzeichnisse, die Schriften enthalten, zu dieser Liste hinzu, um Ghostscript das Auffinden von Schriften zu ermöglichen, die sich nicht in Standardverzeichnissen befinden. Siehe gs(1) und die HTML-Dokumentation von Ghostscript für weitere Informationen.
+.TP
+.B GS_LIB
+Pfad für Ghostscript-Bibliotheken. Ghostscript sucht darin nach Fontmap-Dateien. Wie bei
+.B GS_FONTPATH
+handelt es sich dabei um eine Liste der Verzeichnisse, die Schriften enthalten. Normalerweise werden Sie
+.B GS_FONTPATH
+bevorzugen, auch wenn das Erstellen einer Fontmap-Datei und die Verwendung von
+.B GS_LIB
+einen Geschwindigkeitsvorteil bringen kann, wenn Sie
+.I sehr viele
+Schriften installiert haben. Siehe gs(1) und die HTML-Dokumentation von Ghostscript für weitere Informationen.
+.SH DATEIEN
+.TP
+.B $HOME/.scribus/
+Die benutzerspezifischen Daten werden unter $HOME/.scribus/ gespeichert. Die meisten anderen Pfade sind in Scribus unter "Allgemeine Einstellungen" konfigurierbar. Die Benutzereinstellungen werden für 1.2.x und 1.3.x getrennt gespeichert.
+
+.B $HOME/.scribus/scribus13.rc:
+Die Datei, welche die Scribus-Einstellungen enthält und in einem eigenen XML-Schema gespeichert ist. Sie könnte zukünftig zugunsten eines neuen Formats abgeschafft werden.
+
+.B $HOME/.scribus/prefs13.xml:
+Die Scribus-1.3.x, 1.3.4- und 1.3.5-Einstellungen werden getrennt von den 1.2.x-Einstellungen gespeichert.
+.TP
+.B $HOME/.fonts/
+.TP
+.B $HOME/.fonts.conf
+.TP
+.B /etc/fonts
+Fontconfig, die Programmbibliothek, die Scribus verwendet, um Schriften zu finden, wird normalerweise durch Dateien in/etc/fonts, vor allem /etc/fonts/fonts.conf und /etc/fonts/local.conf konfiguriert. Sie könnte auch Konfigurationsdateien in $HOME/.fonts.conf und Schriften in $HOME/.fonts/ verwenden. Siehe fonts.conf(5) und die fontconfig-Dokumentation für weitere Informationen. Beachten Sie, daß Scribus auch seinen internen Schriftenpfad benutzen kann, um weitere Schriften zu verwenden. Siehe dazu der Dialog "Allgemeine Einstellungen" und die Scribus-Hilfe.
+.SH SIEHE AUCH
+Die Scribus-Dokumentationsseite http://docs.scribus.net/ und die Homepage http://www.scribus.net/
+
+gs(1), die Ghostscript-HTML-Dokumentation und http://www.ghostscript.com/
+
+.PP
+Die Qt-Bibliothek - http://www.trolltech.com/
+
+fonts-conf(5) für weitere Informationen über die Konfiguration von FontConfig
+.SH PARTNERPROJEKTE
+
+inkscape(1) - http://inkscape.org/
+
+OpenClipArt - http://openclipart.org/
+
+Fontmatrix - http://fontmatrix.be/
+
+Weitere Partnerprojekte können auf http://www.scribus.net/ aufgeführt sein.
+
+
+.SH BUGS
+.I
+http://bugs.scribus.net/
+ist der Scribus-Bugtracker, der zum Verfolgen von Fehlerberichten und Erweiterungswünschen dient.
+.B Falls Sie einen Fehlerbericht oder einen Erweiterungswunsch eintragen möchten, durchsuchen Sie bitte erst die Datenbank des Bugtrackers.
+.SH AUTHORS
+Bitte beachten Sie den "Über Scribus"-Eintrag im Hilfemenü, um eine Liste der Autoren, Übersetzer und Mitwirkenden zu erhalten.

@@ -21,34 +21,34 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include "pageitem_polygon.h"
+
 #include <cmath>
 #include <cassert>
 
-#include "page.h"
+#include "scconfig.h"
+
 #include "pageitem.h"
-#include "pageitem_polygon.h"
 #include "prefsmanager.h"
+#include "scpage.h"
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scraction.h"
-#include "scribus.h"
+
 #include "scribusstructs.h"
 #include "scribusdoc.h"
-
 #include "undomanager.h"
 #include "undostate.h"
-#include "scconfig.h"
-
 #include "util.h"
 
 using namespace std;
 
-PageItem_Polygon::PageItem_Polygon(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
+PageItem_Polygon::PageItem_Polygon(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
 	: PageItem(pa, PageItem::Polygon, x, y, w, h, w2, fill, outline)
 {
 }
 
-void PageItem_Polygon::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
+void PageItem_Polygon::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 {
 	if (!m_Doc->RePos)
 	{
@@ -57,26 +57,6 @@ void PageItem_Polygon::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 	}
 }
 
-/*
-bool PageItem_Polygon::createContextMenu(QMenu *menu, int step)
-{
-	QMap<QString, QPointer<ScrAction> > actions = doc()->scMW()->scrActions;
-	
-	if (menu == 0) return false;
-	switch(step) {
-		case 30:
-			menu->addSeparator();
-			menu->addAction(actions["itemConvertToBezierCurve"]);
-			menu->addAction(actions["itemConvertToImageFrame"]);
-			menu->addAction(actions["itemConvertToTextFrame"]);
-		break;
-		default:
-			return false;
-	}
-	return true;
-}
-*/
-
 void PageItem_Polygon::applicableActions(QStringList & actionList)
 {
 	actionList << "itemConvertToBezierCurve";
@@ -84,7 +64,7 @@ void PageItem_Polygon::applicableActions(QStringList & actionList)
 	actionList << "itemConvertToTextFrame";
 }
 
-QString PageItem_Polygon::infoDescription()
+QString PageItem_Polygon::infoDescription() const
 {
 	return QString();
 }

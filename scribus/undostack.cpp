@@ -21,199 +21,219 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "undomanager.h"
 #include "undoobject.h"
 #include "undostack.h"
 
-UndoStack::UndoStack(int maxSize) : maxSize_(maxSize)
+UndoStack::UndoStack(int maxSize) : m_maxSize_(maxSize)
 {
 
 }
 
 bool UndoStack::action(UndoState *state)
 {
-    redoActions_.clear();
-    undoActions_.insert(undoActions_.begin(), state);
-    bool needsPopping = checkSize(); // only store maxSize_ amount of actions
+	m_redoActions_.clear();
+	m_undoActions_.insert(m_undoActions_.begin(), state);
+	bool needsPopping = checkSize(); // only store maxSize_ amount of actions
 
-    return needsPopping;
+	return needsPopping;
 }
 
 bool UndoStack::undo(uint steps, int objectId)
 {
-	for (uint i = 0; i < steps && !undoActions_.empty(); ++i) {
-		UndoState *tmpUndoState = 0;
+	for (uint i = 0; i < steps && !m_undoActions_.empty(); ++i)
+	{
+		UndoState *tmpUndoState = nullptr;
 		if (objectId == Um::GLOBAL_UNDO_MODE)
 		{
-			tmpUndoState = undoActions_[0];
-			undoActions_.erase(undoActions_.begin());
+			tmpUndoState = m_undoActions_[0];
+			m_undoActions_.erase(m_undoActions_.begin());
 		}
 		else
 		{ // object specific mode (search the correct state)
 			StateList::iterator it;
-			for (it = undoActions_.begin(); it != undoActions_.end(); ++it)
+			for (it = m_undoActions_.begin(); it != m_undoActions_.end(); ++it)
 			{
 				UndoObject *tmp = (*it)->undoObject();
 				if (tmp && tmp->getUId() == static_cast<ulong>(objectId))
 				{
 					tmpUndoState = *it;
-					undoActions_.erase(it);
+					m_undoActions_.erase(it);
 					break;
+				}
+				if((*it)->isTransaction())
+				{
+					TransactionState *ts = dynamic_cast<TransactionState*>(*it);
+					if(ts && ts->containsOnly(objectId))
+					{
+						tmpUndoState = *it;
+						m_undoActions_.erase(it);
+						break;
+					}
 				}
 			}
 		}
-
-		redoActions_.insert(redoActions_.begin(), tmpUndoState); // push to the redo actions
-		tmpUndoState->undo();
+		if (tmpUndoState)
+		{
+			m_redoActions_.insert(m_redoActions_.begin(), tmpUndoState); // push to the redo actions
+			tmpUndoState->undo();
+		}
 	}
-
 	return true;
 }
 
 bool UndoStack::redo(uint steps, int objectId)
 {
-	for (uint i = 0; i < steps && !redoActions_.empty(); ++i) {
-		UndoState *tmpRedoState = 0;
+	for (uint i = 0; i < steps && !m_redoActions_.empty(); ++i)
+	{
+		UndoState *tmpRedoState = nullptr;
 		if (objectId == Um::GLOBAL_UNDO_MODE)
 		{
-			tmpRedoState = redoActions_[0];
-			redoActions_.erase(redoActions_.begin());
+			tmpRedoState = m_redoActions_[0];
+			m_redoActions_.erase(m_redoActions_.begin());
 		}
 		else
 		{ // object specific mode (search the correct state)
 			StateList::iterator it;
-			for (it = redoActions_.begin(); it != redoActions_.end(); ++it)
+			for (it = m_redoActions_.begin(); it != m_redoActions_.end(); ++it)
 			{
 				UndoObject *tmp = (*it)->undoObject();
 				if (tmp && tmp->getUId() == static_cast<ulong>(objectId))
 				{
 					tmpRedoState = *it;
-					redoActions_.erase(it);
+					m_redoActions_.erase(it);
 					break;
+				}
+				if((*it)->isTransaction())
+				{
+					TransactionState *ts = dynamic_cast<TransactionState*>(*it);
+					if(ts && ts->containsOnly(objectId))
+					{
+						tmpRedoState = *it;
+						m_redoActions_.erase(it);
+						break;
+					}
 				}
 			}
 		}
-		
-		undoActions_.insert(undoActions_.begin(), tmpRedoState); // push to the undo actions
-		tmpRedoState->redo();
+		if (tmpRedoState)
+		{
+			m_undoActions_.insert(m_undoActions_.begin(), tmpRedoState); // push to the undo actions
+			tmpRedoState->redo();
+		}
 	}
-	
 	return true;
 }
 
 uint UndoStack::size() const
 {
-    return undoActions_.size() + redoActions_.size();
+	return m_undoActions_.size() + m_redoActions_.size();
 }
 
 uint UndoStack::undoItems() const
 {
-    return undoActions_.size();
+	return m_undoActions_.size();
 }
 
 uint UndoStack::redoItems() const
 {
-    return redoActions_.size();
+	return m_redoActions_.size();
 }
 
 uint  UndoStack::maxSize() const
 {
-    return maxSize_;
+	return m_maxSize_;
 }
 
 void UndoStack::setMaxSize(uint maxSize)
 {
-    maxSize_ = maxSize;
-    checkSize(); // we may need to remove actions
+	m_maxSize_ = maxSize;
+	checkSize(); // we may need to remove actions
 }
 
-bool UndoStack::checkSize() {
-    if (maxSize_ == 0) // 0 marks for infinite stack size
-        return false;
+bool UndoStack::checkSize()
+{
+	if (m_maxSize_ == 0) // 0 marks for infinite stack size
+		return false;
 
-    bool needsPopping = size () > maxSize_;
+	bool needsPopping = size () > m_maxSize_;
 
-    while (size() > maxSize_) {
-        if (redoActions_.size() > 0) // clear redo actions first
-            redoActions_.pop_back();
-        else
-            undoActions_.pop_back();
-    }
+	while (size() > m_maxSize_)
+	{
+		if (!m_redoActions_.empty()) // clear redo actions first
+			m_redoActions_.pop_back();
+		else
+			m_undoActions_.pop_back();
+	}
 
-    return needsPopping;
+	return needsPopping;
 }
 
 void UndoStack::clear()
 {
-	for (uint i = 0; i < undoActions_.size(); ++i)
-		delete undoActions_[i];
-	for (uint i = 0; i < redoActions_.size(); ++i)
-		delete redoActions_[i];
-	undoActions_.clear();
-	redoActions_.clear();
+	for (size_t i = 0; i < m_undoActions_.size(); ++i)
+		delete m_undoActions_[i];
+	for (size_t i = 0; i < m_redoActions_.size(); ++i)
+		delete m_redoActions_[i];
+	m_undoActions_.clear();
+	m_redoActions_.clear();
 }
 
 UndoState* UndoStack::getNextUndo(int objectId)
 {
-	UndoState *state = 0;
-	if (!undoActions_.empty())
+	if (m_undoActions_.empty())
+		return nullptr;
+
+	if (objectId == Um::GLOBAL_UNDO_MODE)
+		return m_undoActions_[0];
+	
+	UndoState *state = nullptr;
+	for (auto it = m_undoActions_.begin(); it != m_undoActions_.end(); ++it)
 	{
-		if (objectId == Um::GLOBAL_UNDO_MODE)
-			state = undoActions_[0];
-		else
+		UndoState*  tmp  = *it;
+		TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
+		if ((tmp && tmp->undoObject() &&
+				tmp->undoObject()->getUId() == static_cast<ulong>(objectId)) || (ts && ts->containsOnly(objectId)))
 		{
-			StateList::iterator it;
-			for (it = undoActions_.begin(); it != undoActions_.end(); ++it)
-			{
-				UndoState*  tmp  = *it;
-				TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
-				if (ts && ts->contains(objectId))
-					break;
-				else if (!ts && tmp->undoObject() && 
-				         tmp->undoObject()->getUId() == static_cast<ulong>(objectId))
-				{
-					state = tmp;
-					break;
-				}
-			}
+			state = tmp;
+			break;
 		}
+		if (ts && ts->contains(objectId))
+			break;
 	}
 	return state;
 }
 
 UndoState* UndoStack::getNextRedo(int objectId)
 {
-	UndoState *state = 0;
-	if (!redoActions_.empty())
+	if (m_redoActions_.empty())
+		return nullptr;
+
+	if (objectId == Um::GLOBAL_UNDO_MODE)
+		return m_redoActions_[0];
+	
+	UndoState *state = nullptr;
+	for (auto it = m_redoActions_.begin(); it != m_redoActions_.end(); ++it)
 	{
-		if (objectId == Um::GLOBAL_UNDO_MODE)
-			state = redoActions_[0];
-		else
+		UndoState*  tmp  = *it;
+		TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
+		if ((tmp && tmp->undoObject() &&
+				tmp->undoObject()->getUId() == static_cast<ulong>(objectId)) || (ts && ts->containsOnly(objectId)))
 		{
-			StateList::iterator it;
-			for (it = redoActions_.begin(); it != redoActions_.end(); ++it)
-			{
-				UndoState*  tmp  = *it;
-				TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
-				if (ts && ts->contains(objectId))
-					break;
-				else if (!ts && tmp->undoObject() && 
-				         tmp->undoObject()->getUId() == static_cast<ulong>(objectId))
-				{
-					state = tmp;
-					break;
-				}
-			}
+			state = tmp;
+			break;
 		}
+		if (ts && ts->contains(objectId))
+			break;
 	}
 	return state;
 }
 
 UndoStack::~UndoStack()
 {
-    // no dynamically allocated memory
+	// no dynamically allocated memory
 }
 

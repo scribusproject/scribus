@@ -35,30 +35,35 @@ struct PageSizeInfo
 	int pageUnitIndex;
 };
 
-typedef QMap<QString, PageSizeInfo > PageSizeInfoMap;
+typedef QMap<QString, PageSizeInfo> PageSizeInfoMap;
 
 class SCRIBUS_API PageSize
 {
 public:
-	PageSize(const QString);
+	PageSize(const QString&);
 	PageSize(const double, const double);
-		
+	PageSize& operator=(const PageSize& other);
+	void init(const QString&);
 	QString name() const { return m_pageSizeName; }
 	QString nameTR() const { return m_trPageSizeName; }
 	double width() const { return m_width; }
 	double height() const { return m_height; }
-	double originalWidth() const { return m_width*unitGetRatioFromIndex(m_pageUnitIndex); }
-	double originalHeight() const { return m_height*unitGetRatioFromIndex(m_pageUnitIndex); }
+	double originalWidth() const { return m_width * unitGetRatioFromIndex(m_pageUnitIndex); }
+	double originalHeight() const { return m_height * unitGetRatioFromIndex(m_pageUnitIndex); }
+	QString originalUnit() const { return unitGetSuffixFromIndex(m_pageUnitIndex); }
 	QStringList sizeList() const;
 	QStringList sizeTRList() const;
+	QStringList activeSizeList() const;
+	QStringList activeSizeTRList() const;
 	void generateSizeList();
-	void printSizeList();
+	void printSizeList() const;
+	QStringList untransPageSizeList(const QStringList &transList);
 
 private:
-	QMap<QString, PageSizeInfo > pageSizeList;
-	double m_width;
-	double m_height;
-	int m_pageUnitIndex;
+	PageSizeInfoMap m_pageSizeList;
+	double m_width { 0.0 };
+	double m_height { 0.0 };
+	int m_pageUnitIndex { -1 };
 	QString m_pageSizeName;
 	QString m_trPageSizeName;
 };

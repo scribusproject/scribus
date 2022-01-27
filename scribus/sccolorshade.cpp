@@ -24,38 +24,45 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorshade.h"
 #include "sccolorengine.h"
 
-ScColorShade::ScColorShade(void)
+ScColorShade::ScColorShade()
 {
 	color.setColor( 0, 0, 0, 0 );
-	shade = 100;
 }
 
 ScColorShade::ScColorShade( const QColor& c, int level )
+	        : color(c.red(), c.green(), c.blue()),
+	          shade(level)
 {
-	color = ScColor(c.red(), c.green(), c.blue());
-	shade = level;
+
 }
 
 ScColorShade::ScColorShade( const ScColor& c, int level )
+	        : color(c),
+	          shade(level)
 {
-	color = c;
-	shade = level;
+
 }
 
-ScColor ScColorShade::getShadedColor(void)
+ScColor ScColorShade::getShadedColor() const
 {
 	ScColor value;
-	if( color.getColorModel() == colorModelRGB )
+	if (color.getColorModel() == colorModelRGB)
 	{
-		RGBColor rgb;
-		ScColorEngine::getShadeColorRGB(color, NULL, rgb, shade);
-		value.setColorRGB( rgb.r, rgb.g, rgb.b );
+		RGBColorF rgb;
+		ScColorEngine::getShadeColorRGB(color, nullptr, rgb, shade);
+		value.setRgbColorF(rgb.r, rgb.g, rgb.b);
 	}
-	else
+	else if (color.getColorModel() == colorModelCMYK)
 	{
-		CMYKColor cmyk;
-		ScColorEngine::getShadeColorCMYK(color, NULL, cmyk, shade);
-		value.setColor( cmyk.c, cmyk.m, cmyk.y, cmyk.k );
+		CMYKColorF cmyk;
+		ScColorEngine::getShadeColorCMYK(color, nullptr, cmyk, shade);
+		value.setColorF(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
+	}
+	else if (color.getColorModel() == colorModelLab)
+	{
+		double L, a, b;
+		color.getLab(&L, &a, &b);
+		value.setLabColor(L * (shade / 100.0), a, b);
 	}
 	return value;
 }

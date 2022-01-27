@@ -1,0 +1,135 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Commandes relatives aux pages</title>
+</head>
+<body>
+<h2>Commandes relatives aux pages</h2>
+
+<dl>
+
+<dt><a name="-applyMasterPage"><strong>applyMasterPage</strong>(...)</a></dt>
+<dd><code>applyMasterPage(nomGabarit, pageNr)</code>
+<p>Applique le gabarit "nomGabarit" à la page donnée. Vous trouverez des exemples d'utilisation sur le wiki.</a>.</p></dd>
+
+<dt><a name="-closeMasterPage"><strong>closeMasterPage</strong>(...)</a></dt>
+<dd><code>closeMasterPage()</code>
+<p>Termine l'édition du gabarit actif et retourne à l'édition des pages standards. 
+L'édition d'un gabarit est initiée avec la fonction <a href="#-editMasterPage">editMasterPage()</a>.</p></dd>
+
+<dt><a name="-createMasterPage"><strong>createMasterPage</strong>(...)</a></dt>
+<dd><code>createMasterPage(nomGabarit)</code>
+<p>Crée un nouveau gabarit nommé "nomGabarit". L'édition d'un gabarit est initiée avec la fonction <a href="#-editMasterPage">editMasterPage()</a>.</p></dd>
+
+<dt><a name="-currentPage"><strong>currentPage</strong></a>(...)</dt>
+<dd><code>currentPage() -&gt; nombre entier</code>
+<p>Retourne le numéro de la page de travail courante. Les numéros de page sont incrémentés à partir de 1, peu importe le premier numéro de page affiché dans votre document. </p></dd>
+
+<dt><a name="-deleteMasterPage"><strong>deleteMasterPage</strong>(...)</a></dt>
+<dd><code>deleteMasterPage(nomGabarit)</code>
+<p>Supprime le gabarit avec le nom spécifié.</p></dd>
+	
+<dt><a name="-deletePage"><strong>deletePage</strong></a>(...)</dt>
+<dd><code>deletePage(nr)</code>
+<p>Supprime la page donnée. Inopérant si le document contient seulement une page. Les numéros de page sont incrémentés à partir de 1,peu importe le premier numéro de page affiché dans votre document.</p>
+<p>Peut générer IndexError si le numéro de page est hors limites</p></dd>
+
+<dt><a name="-editMasterPage"><strong>editMasterPage</strong>(...)</a></dt>
+<dd><code>editMasterPage(nomGabarit)</code>
+<p>Active l'édition des gabarits et ouvre le gabarit avec le nom spécifié.
+Lorsque l'édition du gabarit est achevée, appelez la fonction <a href="#-closeMasterPage">closeMasterPage()</a>.</p></dd>
+
+<dt><a name="-getAllObjects"><strong>getAllObjects</strong></a>(...)</dt>
+<dd><code>getAllObjects([type, page, "calque"]) -&gt; liste</code>
+<p>Retourne une liste contenant les noms de tous les objets du type spécifié et situés sur la page et/ou le calque spécifiés.</p>
+<p>Cette fonction accepte les paramètres nommés suivants:
+<ul>
+<li>type (optionel) : entier correspondant au type des objets retournés, par défaut tous les types d'objets sont retournés. Vous pouvez utiliser une des constantes ITEMTYPE_*.</li>
+<li>page (optionel) : indice de la page où sont situés les objets retournés, par défault la page courante. L'indice de page est situé entre 0 et nombre de pages - 1.</li>
+<li>"layer" (optionel) : nom du calque où sont situés les objets retournés, par défault la fonction retourne les objets situés sur tous les calques.</li>
+</ul></p>
+<p>Peut générer ValueError if l'indice du page ou le nom du calque sont invalides.</p></dd>
+
+<dt><a name="-getHGuides"><strong>getHGuides</strong></a>(...)</dt>
+<dd><code>getHGuides() -&gt; liste</code>
+<p>Retourne une liste contenant les positions des guides horizontaux. Les valeurs sont dans les unités courantes du document - voir les constantes UNIT_&lt;type&gt;.</p></dd>
+
+<dt><a name="-getMasterPage"><strong>getMasterPage</strong>(...)</a></dt>
+<dd><code>getMasterPage(nr) -&gt; chaîne</code>
+<p>Retourne le nom du gabarit appliqué à la page "nr".</p>
+<p>Peut générer IndexError si le numéro de page est hors limites.</p></dd>
+
+<dt><a name="-getPageType"><strong>getPageType</strong>(...)</a></dt>
+<dd><code>getPageType() -&gt; entier</code>
+<p>Retourne le type de page : 0 indique une page gauche, 1 une page centrale et 2 une page droite</p></dd>
+
+<dt><a name="-getPageItems"><strong>getPageItems</strong></a>(...)</dt>
+<dd><code>getPageItems() -&gt; liste</code>
+<p>Retourne une liste de vecteurs contenant les éléments de la page courante. Le vecteur est le suivant : (nom, objetType, ordre) par exemple [('Texte1', 4, 0), ('Image1', 2, 1)] signifie que l'objet nommé 'Texte1' est un cadre de texte (type 4) et est le premier dans la page...</p></dd>
+
+<dt><a name="-getPageMargins"><strong>getPageMargins</strong></a>(...)</dt>
+<dd><code>getPageMargins()</code>
+<p>Retourne les marges de page du document comme un vecteur (haut, gauche, droite, bas) dans les unités courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageSize">getPageSize</a>().</p></dd>
+
+<dt><a name="-getPageNMargins"><strong>getPageNMargins</strong></a>(...)</dt>
+<dd><code>getPageNMargins(nr)</code>
+<p>Retourne les marges d'une page donnée comme un vecteur (haut, gauche, droite, bas) dans les unités courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageSize">getPageSize</a>().</p></dd>
+
+<dt><a name="-getPageSize"><strong>getPageSize</strong></a>(...)</dt>
+<dd><code>getPageSize() -&gt; vecteur</code>
+<p>Retourne un vecteur avec les dimensions de page du document mesurées dans les unités courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+
+<dt><a name="-getPageNSize"><strong>getPageNSize</strong></a>(...)</dt>
+<dd><code>getPageNSize(nr) -&gt; vecteur</code>
+<p>Retourne un vecteur avec les dimensions d'une page donnée mesurées dans les unités courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+
+<dt><a name="-getVGuides"><strong>getVGuides</strong></a>(...)</dt>
+<dd><code>getVGuides()</code>
+<p>Voir <a href="#-getHGuides">getHGuides</a>.</p></dd>
+
+<dt><a name="-gotoPage"><strong>gotoPage</strong></a>(...)</dt>
+<dd><code>gotoPage(nr)</code>
+<p>Déplace à la page "nr" (c'est-à-dire, la page courante devient "nr"). Notez que gotoPage ne change pas (actuellement) la page affichée dans la vue de l'utilisateur; il établit simplement la page sur laquelle les commandes du script agiront.</p>
+<p>Peut générer IndexError si le numéro de page est hors limites.</p></dd>
+	
+<dt><a name="-newPage"><strong>newPage</strong></a>(...)</dt>
+<dd><code>newPage(lieu [,"modele"])</code>
+<p>Crée une nouvelle page. Si "lieu" est à -1, la nouvelle page est ajoutée à la fin du document, sinon la nouvelle page est insérée avant "lieu". Les numéros de page sont incrémentés à partir de 1, peu importe le premier numéro de page affiché dans votre document. Le param&egrave;tre optionnel "mod&egrave;le" spécifie le nom du gabarit pour la nouvelle page.</p>
+<p>Peut générer IndexError si le numéro de page est hors limites</p></dd>
+	
+<dt><a name="-pageCount"><strong>pageCount</strong></a>(...)</dt>
+<dd><code>pageCount() -&gt; entier</code>
+<p>Retourne le nombre de pages dans le document.</p></dd>
+
+<dt><a name="-pageDimension"><strong>pageDimension</strong></a>(...)</dt>
+<dd><code>getPageSize() -&gt; vecteur</code>
+<p>Alias. Retourne un vecteur avec les dimensions de page du document mesurées dans les unités courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+	
+<dt><a name="-redrawAll"><strong>redrawAll</strong></a>(...)</dt>
+<dd><code>redrawAll()</code>
+<p>Redessine toutes les pages.</p></dd>
+
+<dt><a name="-savePageAsEPS"><strong>savePageAsEPS</strong></a>(...)</dt>
+<dd><code>savePageAsEPS("nom")</code>
+<p>Enregistre la page courante comme EPS dans le fichier "nom".</p>
+<p>Peut générer ScribusError si l'enregistrement échoue.</p></dd>
+
+<dt><a name="-setHGuides"><strong>setHGuides</strong></a>(...)</dt>
+<dd><code>setHGuides(liste)</code>
+<p>&Eacute;tablit les guides horizontaux. Le param&egrave;tre d'entrée doit &ecirc;tre une liste de positions de guide mesurées dans le unités courantes du document - voir les constantes UNIT_&lt;type&gt;.</p>
+<p>Exemple : <a href="#-setHGuides">setHGuides</a>(<a href="#-getHGuides">getHGuides</a>() + [200.0, 210.0] # ajoute de nouveaux guides sans en perdre aucun<br>
+<a href="#-setHGuides">setHGuides</a>([90,250]) # remplace la totalité des guides courants</p></dd>
+         
+<dt><a name="-setRedraw"><strong>setRedraw</strong></a>(...)</dt>
+<dd><code>setRedraw(bool)</code>
+<p>Désactive le rafra&icirc;chissement d'écran quand "bool = False", sinon le rafra&icirc;chissement est activé. Ce changement persistera
+m&ecirc;me apr&egrave;s l'exécution du script, donc assurez-vous d'appeler <a href="#-setRedraw">setRedraw</a>(True) dans une clause "finally:" au début de votre script.</p></dd>
+
+<dt><a name="-setVGuides"><strong>setVGuides</strong></a>(...)</dt>
+<dd><code>setVGuides()</code>
+<p>Voir <a href="#-setHGuides">setHGuides</a>.</p></dd>
+
+</dl>
+</body>
+</html>
+ 

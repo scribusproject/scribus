@@ -22,7 +22,8 @@
 class ResourceCollection;
 
 enum StyleFlagValue {
-	ScStyle_Default       = 0,
+    ScStyle_None          = 0,
+    ScStyle_Default       = 0,
     ScStyle_Superscript   = 1,
     ScStyle_Subscript     = 2,
     ScStyle_Outline       = 4,
@@ -30,16 +31,18 @@ enum StyleFlagValue {
     ScStyle_Strikethrough = 16,
     ScStyle_AllCaps       = 32,
     ScStyle_SmallCaps     = 64,
-    ScStyle_HyphenationPossible=128, //Hyphenation possible here (Smart Hyphen)
+    ScStyle_HyphenationPossible=128, //Hyphenation possible here (Soft Hyphen)
     ScStyle_Shadowed      = 256,
     ScStyle_UnderlineWords= 512,
-    ScStyle_Reserved01    = 1024, //free, not used in the moment
-    ScStyle_DropCap       = 2048,
-    ScStyle_SuppressSpace = 4096,//internal use in PageItem (Suppresses spaces when in Block alignment)
-    ScStyle_SmartHyphenVisible=8192, //Smart Hyphen visible at line end
-    ScStyle_StartOfLine   = 16384,
+	xScStyle_Reserved01    = 1024, //free, not used in the moment
+	xScStyle_DropCap       = 2048,
+	xScStyle_SuppressSpace = 4096,//internal use in PageItem (Suppresses spaces when in Block alignment)
+	xScStyle_SoftHyphenVisible=8192, //Soft Hyphen visible at line end
+	xScStyle_StartOfLine   = 16384,
 	ScStyle_UserStyles    = 1919, // == 1024 + 512 + 256 + 64 + 32 + 16 + 8 + 4 + 2 + 1
-	ScStyle_None          = 65535
+	ScStyle_NonUserStyles = 30848, // == 128 + 2048 + 4096 + 8192 + 16384
+	ScStyle_RunBreakingStyles = 99,   // == 1 + 2 + 32 + 64
+    ScStyle_All           = 65535
 };
 
 class SCRIBUS_API StyleFlag
@@ -55,7 +58,7 @@ public:
 	operator StyleFlagValue() const { return value; }
 
 	QStringList featureList() const; 
-	
+
 	StyleFlag& operator=  (StyleFlagValue val) { value = val; return *this;}
 	StyleFlag& operator&= (const StyleFlag& right);
 	StyleFlag& operator|= (const StyleFlag& right);
@@ -66,6 +69,7 @@ public:
 	StyleFlag  operator^  (int right);
 	StyleFlag  operator~  ();
 
+	bool equivForShaping(const StyleFlag& right) const;
 	bool operator== (const StyleFlag& right) const;
 	bool operator== (const StyleFlagValue right) const;
 	bool operator== (int right) const;
@@ -73,7 +77,7 @@ public:
 	bool operator!= (const StyleFlagValue right) const;
 };
 
-class SCRIBUS_API CharStyle : public Style {
+class SCRIBUS_API CharStyle : public BaseStyle {
 public:
 
 	static const QString INHERIT;
@@ -89,36 +93,36 @@ public:
 	static const QString ALLCAPS;
 	static const QString SMALLCAPS;
 
-    CharStyle() : Style() {
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	CharStyle() : BaseStyle() {
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 		m_##attr_NAME = attr_DEFAULT; \
 		inh_##attr_NAME = true;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 		m_isDefaultStyle=false;
-    };
+	}
 	
-    CharStyle(const ScFace& font, int size, StyleFlag style = ScStyle_Default) : Style() {
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	CharStyle(const ScFace& font, int size, StyleFlag style = ScStyle_Default) : BaseStyle() {
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 		m_##attr_NAME = attr_DEFAULT; \
 		inh_##attr_NAME = true;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 		m_isDefaultStyle=false;
 		setFont(font);
-        setFontSize(size);
+		setFontSize(size);
 		setEffects(style);
-    };
+	}
 	
 	CharStyle(const CharStyle & other);
 	
 	CharStyle & operator=(const CharStyle & other);
 	
 	static const Xml_string saxxDefaultElem;
-	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
+	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, const Xml_string& elemtag = saxxDefaultElem);
 	
 	virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
-	virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
+	virtual void saxx(SaxHandler& handler) const { saxx(handler, saxxDefaultElem); }
 	
 
 	void getNamedResources(ResourceCollection& lists) const;
@@ -132,8 +136,9 @@ public:
 		Used for font effects */
 	void updateFeatures();
 	
-	bool equiv(const Style& other) const;	
-	
+	bool equiv(const BaseStyle& other) const;
+	bool equivForShaping(const CharStyle &other) const;
+
 	void applyCharStyle(const CharStyle & other);
 	void eraseCharStyle(const CharStyle & other);
 	void setStyle(const CharStyle & other);
@@ -143,40 +148,40 @@ public:
 	QString asString() const;
 	
 	/** This property will be evaluated at runtime and is not stored. See 'updateFeatures()' */
-	const StyleFlag effects() const { validate(); return m_Effects; }
+	const StyleFlag& effects() const { validate(); return m_Effects; }
 	void setEffects(StyleFlag flags) { m_Effects = flags; }
 	
 	
 	/** getter: validates and returns the attribute's value */
 	
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	attr_TYPE attr_GETTER() const { validate(); return m_##attr_NAME; }
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
+	const attr_TYPE &attr_GETTER() const { validate(); return m_##attr_NAME; }
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	
 	/** setter: sets the attribute's value and clears inherited flag */
 	
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	void set##attr_NAME(attr_TYPE v) { m_##attr_NAME = v; inh_##attr_NAME = false; }
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	
 	/** setter: resets the attribute's value and sets inherited flag */
 	
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	void reset##attr_NAME() { m_##attr_NAME = attr_DEFAULT; inh_##attr_NAME = true; }
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	
 	/** isInherited: returns true if the attribute is inherited */
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	bool isInh##attr_NAME() const { return inh_##attr_NAME; }
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	
 	
 	/** isDefined: returns true if the attribute is defined in this style or any parent */
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	bool isDef##attr_NAME() const { \
 		if ( !inh_##attr_NAME ) return true; \
 		const CharStyle * par = dynamic_cast<const CharStyle*>(parentStyle()); \
@@ -185,7 +190,6 @@ public:
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	
-	
 private:
 
 	void runFeatures(const QStringList& featurelist, const CharStyle* parent);
@@ -193,7 +197,7 @@ private:
 	StyleFlag m_Effects;
 	// member declarations:
 		
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	attr_TYPE m_##attr_NAME; \
 	bool inh_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
@@ -203,27 +207,25 @@ private:
 
 inline CharStyle & CharStyle::operator=(const CharStyle & other)
 {
-	static_cast<Style&>(*this) = static_cast<const Style&>(other);
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	static_cast<BaseStyle&>(*this) = static_cast<const BaseStyle&>(other);
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	m_Effects = other.m_Effects;
-//	m_context = NULL;
 	m_contextversion = -1;
 	return *this;
 }
 
-inline CharStyle::CharStyle(const CharStyle & other) : Style(other) 
+inline CharStyle::CharStyle(const CharStyle & other) : BaseStyle(other)
 {
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	m_Effects = other.m_Effects;
-//	m_context = NULL;
 	m_contextversion = -1;
 }
 

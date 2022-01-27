@@ -24,26 +24,37 @@ class QVBoxLayout;
 class tfDia : public QDialog
 {
 	Q_OBJECT
+
+public:
+	tfDia();
+	~tfDia();
+
+	std::vector<tfFilter*> filters;
+
 private:
-	PrefsContext* prefs;
-	QBoxLayout* layout;
-	QBoxLayout* alayout;
-	QComboBox* filtersCombo;
-	QLineEdit* saveEdit;
-	QPushButton* clearButton;
-	QPushButton* deleteButton;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
-	QString currentFilter;
-	QScrollArea* qsv;
-	QFrame* vbox;
-	int currentIndex;
+	PrefsContext* prefs { nullptr };
+	QBoxLayout* layout { nullptr };
+	QBoxLayout* alayout { nullptr };
+	QComboBox* filtersCombo { nullptr };
+	QLineEdit* saveEdit { nullptr };
+	QPushButton* clearButton { nullptr };
+	QPushButton* deleteButton { nullptr };
+	QPushButton* okButton { nullptr };
+	QPushButton* cancelButton { nullptr };
+	QScrollArea* qsv { nullptr };
+	QFrame* vbox { nullptr };
+	
+	QString currentFilter { "tf_lastUsed" };
+	int currentIndex { 0 };
+
 	void clear();
 	void createLayout();
 	void createFilter(PrefsTable* table);
 	void writeFilterRow(PrefsTable* table, int row, tfFilter* filter);
 	void storeLastFilter();
+
 private slots:
+	void adjustVBoxSize();
 	void saveTextChanged(const QString& text);
 	void createFilterRow(tfFilter* after);
 	void removeRow(tfFilter* tff);
@@ -53,10 +64,6 @@ private slots:
 	void deleteClicked();
 	void loadFilter(const QString& name);
 	void resizeEvent(QResizeEvent* e);
-public:
-	std::vector<tfFilter*> filters;
-	tfDia();
-	~tfDia();
 };
 
 #endif // TFDIA_H

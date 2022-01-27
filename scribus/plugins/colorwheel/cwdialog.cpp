@@ -5,28 +5,32 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include <QHeaderView>
-
-#include "cmykfw.h"
-#include "colorblind.h"
-#include "colorlistbox.h"
-#include "commonstrings.h"
 #include "cwdialog.h"
+
+#include <QHeaderView>
+#include <QMessageBox>
+
+#include "colorblind.h"
+#include "commonstrings.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "propertiespalette.h"
 #include "sccolorengine.h"
+#include "scribus.h"
+#include "ui/cmykfw.h"
+#include "ui/colorlistbox.h"
+#include "ui/contentpalette.h"
+#include "ui/propertiespalette.h"
 #include "util_color.h"
 
 
-CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal, Qt::WFlags fl)
-	: QDialog (parent, fl),
+
+CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal)
+	: QDialog (parent),
 	  m_Doc(doc)
 {
 	setupUi(this);
 	setObjectName(name);
 	setModal(modal);
-	int h, s, v;
 	ScColor color;
 	QString colorName;
 	connectSlots(false);
@@ -44,11 +48,13 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	defectCombo->addItem(CommonStrings::trVisionTritanopia);
 	defectCombo->addItem(CommonStrings::trVisionFullColorBlind);
 	// document colors
-	documentColorList->updateBox(m_Doc->PageColors, ColorListBox::fancyPixmap);
+	documentColorList->setPixmapType(ColorListBox::fancyPixmap);
+	documentColorList->setColors(m_Doc->PageColors, false);
 	// preferences
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
+	prefs = PrefsManager::instance().prefsFile->getPluginContext("colorwheel");
 	typeCombo->setCurrentIndex(prefs->getInt("cw_type", 0));
 	angleSpin->setValue(prefs->getInt("cw_angle", 15));
+	colorList->setPixmapType(ColorListBox::fancyPixmap);
 	colorWheel->currentDoc = m_Doc;
 	colorWheel->angle = angleSpin->value();
 	colorWheel->baseAngle = prefs->getInt("cw_baseangle", 0);
@@ -61,10 +67,11 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 		if (!colorName.isEmpty() && m_Doc->PageColors.contains(colorName))
 			color = m_Doc->PageColors[colorName];
 		else
-			color.setColorRGB(0, 0, 0); //Trigger use of defaults
+			color.setRgbColor(0, 0, 0); //Trigger use of defaults
 	}
 	// Handle achromatic colors
 	QColor rgb = ScColorEngine::getRGBColor(color, m_Doc);
+	int h, s, v;
 	rgb.getHsv(&h, &s, &v);
 	if (h == -1)
 	{   // Reset to defaults
@@ -76,9 +83,9 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	else if (colorspaceTab->currentWidget() == tabDocument)
 	{
 		colorWheel->actualColor = color;
-		QList<QListWidgetItem*> results = documentColorList->findItems(colorName, Qt::MatchFixedString|Qt::MatchCaseSensitive);
+		QStringList results = documentColorList->findColors(colorName, Qt::MatchFixedString|Qt::MatchCaseSensitive);
 		if (results.count() > 0)
-			documentColorList->setCurrentItem(results[0]);
+			documentColorList->setCurrentColor(results[0]);
 	}
 	else
 		colorWheel->actualColor = color;
@@ -88,16 +95,15 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	previewLabel->resize(prefs->getInt("cw_samplex", 300), prefs->getInt("cw_sampley", 100));
 		
 	// setup
-	currentColorTable->horizontalHeader()->hide();
 	colorspaceTab_currentChanged(colorspaceTab->currentIndex());
 
 	// signals and slots that cannot be in ui file
 	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)),
 			this, SLOT(colorWheel_clicked(int, const QPoint&)));
-	connect(documentColorList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)),
-			this, SLOT(documentColorList_currentChanged(QListWidgetItem *)));
-	connect(colorList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)),
-			this, SLOT(colorList_currentChanged(QListWidgetItem *)));
+	connect(documentColorList, SIGNAL(currentTextChanged(const QString &)),
+			this, SLOT(documentColorList_currentChanged(const QString &)));
+	connect(colorList, SIGNAL(currentTextChanged(const QString &)),
+			this, SLOT(colorList_currentChanged(const QString &)));
 	connect(angleSpin, SIGNAL(valueChanged(int)),
 			this, SLOT(angleSpin_valueChanged(int)));
 	connect(colorspaceTab, SIGNAL(currentChanged(int)),
@@ -158,9 +164,9 @@ void CWDialog::connectSlots(bool conn)
 	}
 }
 
-void CWDialog::documentColorList_currentChanged(QListWidgetItem *item)
+void CWDialog::documentColorList_currentChanged(const QString& itemText)
 {
-	if (!item)
+	if (itemText.isEmpty())
 		return;
 	ScColor c(m_Doc->PageColors[documentColorList->currentColor()]);
 	colorWheel->currentColorSpace = c.getColorModel();
@@ -176,12 +182,9 @@ void CWDialog::colorspaceTab_currentChanged(int index)
 		colorWheel->currentColorSpace = colorModelRGB;
 	if (tab == tabDocument)
 	{
-		if (!documentColorList->currentItem())
-		{
-			documentColorList->setCurrentItem(documentColorList->item(0));
-			documentColorList->item(0)->setSelected(true);
-		}
-		documentColorList_currentChanged(documentColorList->currentItem());
+		if (!documentColorList->hasSelection())
+			documentColorList->setCurrentRow(0);
+		documentColorList_currentChanged(documentColorList->currentColor());
 	}
 	processColors(typeCombo->currentIndex(), true);
 }
@@ -229,7 +232,7 @@ void CWDialog::processColors(int index, bool updateSpins)
 		setupHSVComponent(colorWheel->actualColor);
 	}
 	updateNamedLabels();
-	QList<QListWidgetItem*> results = colorList->findItems(colorWheel->trBaseColor, Qt::MatchFixedString|Qt::MatchCaseSensitive);
+	QStringList results = colorList->findColors(colorWheel->trBaseColor, Qt::MatchFixedString|Qt::MatchCaseSensitive);
 	if (results.count() > 0)
 		colorList_currentChanged(results[0]);
 	colorWheel->update(); // force paint event
@@ -252,7 +255,8 @@ void CWDialog::setPreview()
 	int y = previewLabel->height();
 	QList<ScColor> cols = colorWheel->colorList.values();
 	int xstep = x / cols.count();
-	QPixmap pm = QPixmap(x, y);
+	QPixmap pm = QPixmap(x * devicePixelRatioF(), y * devicePixelRatioF());
+	pm.setDevicePixelRatio(devicePixelRatioF());
 	QPainter *p = new QPainter(&pm);
 	QFontMetrics fm = p->fontMetrics();
 
@@ -294,16 +298,17 @@ QColor CWDialog::computeDefect(QColor c)
 void CWDialog::fillColorList()
 {
 	int ix = colorList->currentRow();
-	colorList->updateBox(colorWheel->colorList, ColorListBox::fancyPixmap);
-	QList<QListWidgetItem*> results = colorList->findItems(colorWheel->trBaseColor, Qt::MatchFixedString|Qt::MatchCaseSensitive);
+	colorList->updateBox(colorWheel->colorList);
+	QStringList results = colorList->findColors(colorWheel->trBaseColor, Qt::MatchFixedString|Qt::MatchCaseSensitive);
 	if (results.count() > 0)
 	{
-		QListWidgetItem *item = results[0];
-		int row = colorList->row(item);
+		QString itemColor = results[0];
+		int row = colorList->row(itemColor);
 		if (row > 0)
 		{
-			colorList->takeItem(row);
-			colorList->insertItem(0, item);
+			ScColor color = colorWheel->colorList.value(itemColor);
+			colorList->removeItem(row);
+			colorList->insertItem(0, color, itemColor);
 		}
 	}
 	colorList->setCurrentRow(ix > colorList->count() ? 0 : ix);
@@ -334,11 +339,12 @@ void CWDialog::addButton_clicked()
 	status += "<p>" + tr("Now opening the color manager.") + "</p></qt>";
 	if (err)
 	{
-		QMessageBox::information(this, tr("Color Merging"), status);
-		m_Doc->scMW()->slotEditColors();
+		ScMessageBox::information(this, tr("Color Merging"), status);
+		m_Doc->scMW()->manageColorsAndFills();
 		return;
 	}
 	m_Doc->scMW()->propertiesPalette->updateColorList();
+	m_Doc->scMW()->contentPalette->updateColorList();
 	accept();
 }
 
@@ -349,6 +355,7 @@ void CWDialog::replaceButton_clicked()
 		m_Doc->PageColors[it.key()] = it.value();
 	}
 	m_Doc->scMW()->propertiesPalette->updateColorList();
+	m_Doc->scMW()->contentPalette->updateColorList();
 	accept();
 }
 
@@ -407,7 +414,7 @@ void CWDialog::vSpin_valueChanged( int )
 	setupColorComponents();
 }
 
-void CWDialog::setupRGBComponent(ScColor col)
+void CWDialog::setupRGBComponent(const ScColor& col)
 {
 	RGBColor rgb;
 	ScColorEngine::getRGBValues(col, m_Doc, rgb);
@@ -418,19 +425,19 @@ void CWDialog::setupRGBComponent(ScColor col)
 	connectSlots(true);
 }
 
-void CWDialog::setupCMYKComponent(ScColor col)
+void CWDialog::setupCMYKComponent(const ScColor& col)
 {
-	CMYKColor cmyk;
+	CMYKColorF cmyk;
 	ScColorEngine::getCMYKValues(col, m_Doc, cmyk);
 	connectSlots(false);
-	cSpin->setValue(qRound(cmyk.c / 2.55));
-	mSpin->setValue(qRound(cmyk.m / 2.55));
-	ySpin->setValue(qRound(cmyk.y / 2.55));
-	kSpin->setValue(qRound(cmyk.k / 2.55));
+	cSpin->setValue(qRound(cmyk.c * 100.0));
+	mSpin->setValue(qRound(cmyk.m * 100.0));
+	ySpin->setValue(qRound(cmyk.y * 100.0));
+	kSpin->setValue(qRound(cmyk.k * 100.0));
 	connectSlots(true);
 }
 
-void CWDialog::setupHSVComponent(ScColor col)
+void CWDialog::setupHSVComponent(const ScColor& col)
 {
 	int h, s, v;
 	QColor qc(ScColorEngine::getRGBColor(col, m_Doc));
@@ -482,7 +489,7 @@ void CWDialog::setupColorComponents()
 	else
 	{
 		colorList->clear();
-		QMessageBox::information(this, windowTitle(),
+		ScMessageBox::information(this, windowTitle(),
 								 "<qt>" + tr("Unable to find the requested color. "
 										 "You have probably selected black, gray or white. "
 										 "There is no way to process this color.") + "</qt>");
@@ -500,13 +507,13 @@ void CWDialog::updateNamedLabels()
 	hsvLabel2->setText(getHexHsv(colorWheel->actualColor));
 }
 
-void CWDialog::colorList_currentChanged(QListWidgetItem * item)
+void CWDialog::colorList_currentChanged(const QString& itemText)
 {
-	if (!item)
+	if (itemText.isEmpty())
 		return;
 
 	// if it's base color we do not need to recompute it again
-	if (item->text() == colorWheel->trBaseColor)
+	if (itemText == colorWheel->trBaseColor)
 	{
 		currentColorTable->setItem(0, 4, new QTableWidgetItem(cmykLabel->text()));
 		currentColorTable->setItem(1, 4, new QTableWidgetItem(rgbLabel->text()));
@@ -524,7 +531,7 @@ void CWDialog::colorList_currentChanged(QListWidgetItem * item)
 	}
 	else
 	{
-		ScColor col(colorWheel->colorList[item->text()]);
+		ScColor col(colorWheel->colorList[itemText]);
 		currentColorTable->setItem(0, 4, new QTableWidgetItem(col.nameCMYK(m_Doc)));
 		currentColorTable->setItem(1, 4, new QTableWidgetItem(col.nameRGB(m_Doc)));
 		currentColorTable->setItem(2, 4, new QTableWidgetItem(getHexHsv(col)));
@@ -548,10 +555,12 @@ void CWDialog::colorList_currentChanged(QListWidgetItem * item)
 		currentColorTable->setItem(2, 1, new QTableWidgetItem(num.setNum(s)));
 		currentColorTable->setItem(2, 2, new QTableWidgetItem(num.setNum(v)));
 	}
-	currentColorTable->resizeColumnsToContents();
+	int columnWidth = currentColorTable->fontMetrics().maxWidth() * 4;
+	for (int i = 0; i < 4 ; ++i)
+		currentColorTable->setColumnWidth(i, columnWidth);
 }
 
-QString CWDialog::getHexHsv(ScColor c)
+QString CWDialog::getHexHsv(const ScColor& c)
 {
 	int h, s, v;
 	QColor hsvCol(ScColorEngine::getRGBColor(c, m_Doc));

@@ -29,8 +29,8 @@ public:
 	ScRC4EncodeFilter(ScStreamFilter* filter, const char* key, unsigned int keyLen);
 	~ScRC4EncodeFilter();
 
-	virtual bool openFilter (void);
-	virtual bool closeFilter(void);
+	virtual bool openFilter ();
+	virtual bool closeFilter();
 
 	virtual bool writeData(const char* data, int dataLen);
 };

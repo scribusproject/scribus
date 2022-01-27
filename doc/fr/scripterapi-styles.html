@@ -1,0 +1,210 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Créer et manipuler les styles</title>
+</head>
+<body>
+<h2>Créer et manipuler les styles</h2>
+
+<dl>
+
+<dt><a name="-createCharStyle"><strong>createCharStyle</strong></a>(...)</dt>
+<dd><code>createCharStyle(...)</code>
+<p>Crée un style de caractère. Cette fonction accepte les paramètres nommés suivants:
+<ul>
+<li>"name" [requis] -> nom du style de caractère à créer (premier paramètre)</li>
+<li>"font" [optionnel] -> nom de la police de caractère à utiliser (second paramètre)</li>
+<li>fontsize [optionnel] -> taille de la police de caractère (3ème paramètre - nombre réel)</li>
+<li>"features" [optionnel] -> détails typographiques définis sous la forme d'une liste d'éléments séparés par des virgules (sans espaces!), pris parmis les éléments suivants (4ème paramètre - chaîne de caractère):
+<ul>
+	<li>inherit</li>
+	<li>bold</li>
+	<li>italic</li>
+	<li>underline</li>
+	<li>underlinewords</li>
+	<li>strike</li>
+	<li>superscript</li>
+	<li>subscript</li>
+	<li>outline</li>
+	<li>shadowed</li>
+	<li>allcaps</li>
+	<li>smallcaps</li>
+</ul>
+</li>
+<li>"fillcolor" [optionnel], fillshade [optionnel] -> définie la couleur et la teinte de fond (5ème paramètre: chaîne, 6ème paramètre: nombre réel 1.0 = 100%)</li>
+<li>"strokecolor" [optionnel], strokeshade [optionnel] -> définie la couleur et la teinte de filet (7ème paramètre: chaîne, 8ème paramètre: nombre réel 1.0 = 100%)</li>
+<li>baselineoffset [optionnel] -> décalage par rapport à la ligne de base(9ème paramètre)</li>
+<li>shadowxoffset [optionnel], shadowyoffset [optionnel] -> décalages de l'ombre portée si celle-ci est utilisée(10ème et 11ème paramètres)</li>
+<li>outlinewidth [optionnel] -> largeur du filet si celui-ci est utilisé (12ème paramètre)</li>
+<li>underlineoffset [optionnel], underlinewidth [optionnel] -> options de soulignement si utilisé (13ème et 14ème paramètres)</li>
+<li>strikethruoffset [optionnel], strikethruwidth [optionnel] -> options de barré si utilisé (15ème et 16ème paramètres)</li>
+<li>scaleh [optionnel], scalev [optionnel] -> échelle horizontale et verticale des caractères (17ème et 18ème paramètres - nombres réels, 1.0 = 100%)</li>
+<li>tracking [optionnel] -> valeur d'approche du texte(19ème paramètre - nombre réel, e.g. -50 = -5.0%)</li>
+<li>"language" [optionnel] -> code de language (20ème paramètre - chaîne de caractère: en = English)</li>
+<li>"fontfeatures" [optionnel] -> chaîne de caractère contenant une liste de fonctionnalités OpenType séparées par des virgules (21ème paramètre):
+<ul>
+    <li>Ligatures:
+        <ul>
+            <li>-liga: désactive les ligatures commmunes</li>
+            <li>-clig: désactive les ligatures contextuelles</li>
+            <li>+dlig: active les ligatures discrétionnaires</li>
+            <li>+hlig: active les ligatures historiques</li>
+        </ul>
+    </li>
+    <li>Position des caractères:
+        <ul>
+            <li>+subs: active les indices</li>
+            <li>+sups: active les exposants</li>
+            <li>+ordn: active les ordinaux</li>
+        </ul>
+    </li>
+    <li>Capitales:
+        <ul>
+            <li>+smcp: active les petites capitales</li>
+            <li>+c2sc: active les capitales en petites capitales</li>
+            <li>+pcap: active les petite caps</li>
+            <li>+c2pc: active les capitales en les petite caps</li>
+            <li>+unic: active l'écriture unicamérale</li>
+            <li>+titl: active le titrage</li>
+        </ul>
+    </li>
+    <li>Chiffres:
+        <ul>
+            <li>+lnum: active les chiffres alignés</li>
+            <li>+tnum: active les chiffres en style ancien</li>
+        </ul>
+    </li>
+    <li>Largeur des chiffres:
+        <ul>
+            <li>+pnum: active la largeur de chiffre proportionnelle</li>
+            <li>+tnum: active la largeur de chiffre tabulaire</li>
+        </ul>
+    </li>
+    <li>Fractions numériques:
+        <ul>
+            <li>+frac: active les fractions diagonales</li>
+            <li>+afrc: active les fractions empilées</li>
+        </ul>
+    </li>
+    <li>Zéro numérique:
+        <ul>
+            <li>+zero: active le zéro barré</li>
+        </ul>
+    </li>
+    <li>Jeux de styles:
+        <ul>
+            <li>+ss01: active le 1er jeu de style</li>
+            <li>...</li>
+            <li>+ss20: active le 20ème jeu de style</li>
+        </ul>
+    </li>
+</ul>
+</li>
+</ul>
+</p>
+<p>Tout atttribut de style non explicitement définie verra sa valeur héritée du style de caractère par défaut.</p>
+<p>Du fait du nombre important d'arguments de cette fonction, il est fortement conseillé d'utiliser la syntaxe par mots clés lors de son appel. Par example si vous souhaitez modifier uniquement la taille de police, n'appelez pas la fonction de la façon suivante:
+<ul style="list-style-type:none">
+    <li><code>newStyle = createCharStyle("Nouveau Style", "Arial Regular", 12)</code></li>
+</ul></p>
+<p>mais utilisez plutôt cette syntaxe à la place:
+<ul style="list-style-type:none">
+    <li><code>newStyle = createCharStyle("Nouveau Style", fontsize=12)</code></li>
+</ul>
+</p>
+<p>Pour plus de détails à ce sujet et notamment sur la façon de définir l'approche, veuillez consulter la page wiki <a href="https://wiki.scribus.net/canvas/Text_and_Text_Manipulation">Text and Text Manipulation</a>.</p>
+</dd>
+
+<dt><a name="-createCustomLineStyle"><strong>createCustomLineStyle</strong></a>(...)</dt>
+<dd><code>createCustomLineStyle(nomStyle, style)</code>
+<p>Crée le style de filet personnalisé 'nomStyle'.</p>
+<p>Cette fonction accepte une liste de dictonnaires en tant que paramètre du style. Chaque dictionnaire représente un sous-filet du style et accepte les clés suivantes:
+<ul>
+<li>Color [optionnel] -> nom de la couleur à utiliser (chaîne)</li>
+<li>Dash [optionnel] -> type de ligne à utiliser (entier)</li>
+<li>LineEnd [optionnel] -> type de fin de filet à utiliser  (entier)</li>
+<li>LineJoin [optionnel] -> type de jointure de filet à utiliser  (entier)</li>
+<li>Shade [optionnel] -> teinte de couleur (entier)</li>
+<li>Width [optionnel] -> largeur de filet (nombre réel entier)</li>
+</ul>
+</p>
+</dd>
+
+<dt><a name="-createParagraphStyle"><strong>createParagraphStyle</strong></a>(...)</dt>
+<dd><code>createParagraphStyle(...)</code>
+<p>Crée un style de paragraphe. Cette fonction accepte les paramètres nommés suivants:
+<ul>
+<li>"name" [requis] -> spécifie le nom de style de paragraphe</li>
+<li>linespacingmode [optionnel] -> specifie le mode d'interlignage. Les valeurs possibles sont:
+<ul>
+	<li>interlignage fixe: 0</li>
+	<li>interlignage automatique: 1</li>
+	<li>aligner le texte sur la grille: 2</li>
+</ul>
+</li>
+<li>linespacing [optionnel] -> spécifie la valeur d'interligne si l'interlignage fixe est utilisé</li>
+<li>alignment [optionnel] -> spécifie l'alignement des paragraphes
+<ul>
+	<li>gauche: 0</li>
+	<li>centre: 1</li>
+	<li>droit: 2</li>
+	<li>justifié: 3</li>
+	<li>étendu: 4</li>
+</ul>
+</li>
+<li>leftmargin [optionnel], rightmargin [optionnel] -> spécifie les marges gauches et droites</li>
+<li>gapbefore [optionnel], gapafter [optionnel] -> spécifie l'espacement avec le paragraphe précédent et le paragraphe suivant</li>
+<li>firstindent [optionnel] -> le décalage de la première ligne</li>
+<li>hasdropcap [optionnel] -> spécifie si les lettrines sont activées (1 = oui, 0 = non)</li>
+<li>dropcaplines [optionnel] -> la hauteur des lettrines en nombre de lignes si l'utilisation de lettrines est activée</li>
+<li>dropcapoffset [optionnel] -> décalage horizontal des lettrines si l'utilisation de lettrines est activée</li>
+<li>"charstyle" [optionnel] -> nom du style de caractère à utiliser</li>
+<li>"bullet" [optionnel] -> chaîne de caractère à utiliser pour les puces</li>
+<li>"tabs" [optional] -> a list of tab definitions
+<ul>
+    <li>un tab est défini par un triplet de valeur sous la forme suivante (position, type, fillchar)</li>
+    <li>position [requis] -> nombre réel représentant la position</li>
+    <li>type [optionnel] -> gauche: 0 [default], droit: 1, point: 2, virgule: 3, centré: 4</li>
+    <li>fillchar [optionnel] -> le caractère utilisé pour remplir l'espace occupé par le TAB, aucun par défaut.</li>
+</ul>
+</li>
+</ul>
+</p>
+<p>Si vous désirez omettre un certain nombre d'éléments, cette fonction n'acceptera pas de valeurs null, i.e., une série de virgule. Vous <i>devez</i> spécifier un paramètre entier pour chacun des paramètres omis. Par example, si vous désirez spécifier uniquement un nom de style de paragraphe et un nom de style de caractère, votre appel de fonction ressemblera à ceci:
+<ul style="list-style-type:none">
+    <li><code>scribus.createParagraphStyle("MyNewStyle",0,0,0,0,0,0,0,0,0,"MyCharStyle")</code></li>
+</ul></p>
+<p>Cependant, si vous désirez spécifier uniquement un nom de style et un mode d'interlignage, vous pouvez alors limiter le nombre d'argument passé dans votre appel de fonction:
+<ul style="list-style-type:none">
+    <li><code>scribus.createParagraphStyle("MyOtherNewStyle", 1)</code></li>
+</ul></p>
+</dd>
+
+<dt><a name="-getAllStyles"><strong>getAllStyles</strong></a>(...)</dt>
+<dd><tt>getAllStyles() -&gt; liste</tt>
+<p>Obsolète. Veuillez utiliser getParagraphStyles() en lieu et place.</p></dd>
+
+<dt><a name="-getCellStyles"><strong>getCellStyles</strong></a>(...)</dt>
+<dd><tt>getCellStyles() -&gt; liste</tt>
+<p>Retourne une liste des noms de l'ensemble des styles de cellule du document courant.</p></dd>
+
+<dt><a name="-getCharStyles"><strong>getCharStyles</strong></a>(...)</dt>
+<dd><tt>getCharStyles() -&gt; liste</tt>
+<p>Retourne une liste des noms de l'ensemble des styles de caractère du document courant.</p></dd>
+
+<dt><a name="-getLineStyles"><strong>getLineStyles</strong></a>(...)</dt>
+<dd><tt>getLineStyles() -&gt; liste</tt>
+<p>Retourne une liste des noms de l'ensemble des styles de filet du document courant.</p></dd>
+
+<dt><a name="-getParagraphStyles"><strong>getParagraphStyles</strong></a>(...)</dt>
+<dd><tt>getParagraphStyles() -&gt; liste</tt>
+<p>Retourne une liste des noms de l'ensemble des styles de paragraphe du document courant.</p></dd>
+
+<dt><a name="-getTableStyles"><strong>getTableStyles</strong></a>(...)</dt>
+<dd><tt>getTableStyles() -&gt; liste</tt>
+<p>Retourne une liste des noms de l'ensemble des styles de tableau du document courant.</p></dd>
+
+</dl>
+</body>
+</html>
+ 

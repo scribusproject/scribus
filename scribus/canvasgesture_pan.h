@@ -13,8 +13,8 @@
 *                                                                         *
 ***************************************************************************/
 
-#ifndef CANVAS_GESTURE_LINEMOVE_H
-#define CANVAS_GESTURE_LINEMOVE_H
+#ifndef CANVAS_GESTURE_PAN_H
+#define CANVAS_GESTURE_PAN_H
 
 #include "scribusapi.h"
 #include "canvasgesture.h"
@@ -25,22 +25,21 @@
 
 class SCRIBUS_API PanGesture : public CanvasGesture
 {
-public:
-	PanGesture (CanvasMode* parent);
-	~PanGesture() {}
-	
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
+	public:
+		explicit PanGesture (CanvasMode* parent);
+		~PanGesture() override = default;
 
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter*);
-	
-private:
-	bool    m_haveCursor;
-	QCursor m_cursor;
-	QPointF m_canvasRefPoint;
+		void activate(bool) override;
+		void deactivate(bool) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+
+		void mousePressEvent(QMouseEvent *m) override;
+		void drawControls(QPainter*) override;
+
+	private:
+		QCursor m_cursor;
+		QPointF m_canvasRefPoint;
 };
 
 #endif

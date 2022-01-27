@@ -1,0 +1,255 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Handling Text Frames</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Handling Text Frames</h2>
+
+<dl>
+
+<dt><a name="-dehyphenateText"><strong>dehyphenateText</strong></a>(...)</dt>
+<dd><code>dehyphenateText(["name"]) -&gt; bool</code>
+<p>Does dehyphenation on text frame "name". If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
+<dt><a name="-deleteText"><strong>deleteText</strong></a>(...)</dt>
+<dd><code>deleteText(["name"])</code>
+<p>Deletes any text in the text frame "name". If there is some text selected, only the selected text will be deleted. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getAllText"><strong>getAllText</strong></a>(...)</dt>
+<dd><code>getAllText(["name"]) -&gt; string</code>
+<p>Returns the text of the text frame "name" and of all text frames which are linked with this frame. If this textframe has some text selected, the selected text is returned. If "name" is not given the currently selected item is used.</p></dd></dt>
+
+<dt><a name="-getColumnGap"><strong>getColumnGap</strong></a>(...)</dt>
+<dd><code>getColumnGap(["name"]) -&gt; float</code>
+<p>Returns the column gap size of the text frame "name" expressed in points. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getColumns"><strong>getColumns</strong></a>(...)</dt>
+<dd><code>getColumns(["name"]) -&gt; integer</code>
+<p>Gets the number of columns of the text frame "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getFirstLineOffset"><strong>getFirstLineOffset</strong></a>(...)</dt>
+<dd><code>getFirstLineOffset(["name"]) -&gt; integer</code>
+<p>Gets the offset of the first line of text inside text frame "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getFirstLinkedFrame"><strong>getFirstLinkedFrame</strong></a>(...)</dt>
+<dd><code>getFirstLinkedFrame(["name"]) -&gt; string</code>
+<p>Return the first text frame in the chain. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getFont"><strong>getFont</strong></a>(...)</dt>
+<dd><code>getFont(["name"]) -&gt; string</code>
+<p>Returns the font name for the text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getFontSize"><strong>getFontSize</strong></a>(...)</dt>
+<dd><code>getFontSize(["name"]) -&gt; float</code>
+<p>Returns the font size in points for the text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getFrameText"><strong>getFrameText</strong></a>(...)</dt>
+<dd><code>getFrameText(["name"]) -&gt; string</code>
+<p>Returns the text visible in text frame "name". If this text frame has some text selected, the selected text is returned. If "name" is not given the currently selected item is used.</p>
+<p>This function returns only the text visible in specified frame. If you need to retrieve the text contained in a text chain, use <a href="#-getAllText">getAllText()</a> instead.</p>
+<p>As this function depends on text layout being up-to-date, you may need to call <a href="#-layoutText">layoutText()</a> or <a href="#-layoutTextChain">layoutTextChain()</a> before calling this function in order to get expected result.</p></dd>
+
+<dt><a name="-getLastLinkedFrame"><strong>getLastLinkedFrame</strong></a>(...)</dt>
+<dd><code>getLastLinkedFrame(["name"]) -&gt; string</code>
+<p>Return the last text frame in the chain. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getLineSpacing"><strong>getLineSpacing</strong></a>(...)</dt>
+<dd><code>getLineSpacing(["name"]) -&gt; float</code>
+<p>Returns the line spacing ("leading") of the text frame "name" expressed in points. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getNextLinkedFrame"><strong>getNextLinkedFrame</strong></a>(...)</dt>
+<dd><code>getNextLinkedFrame(["name"]) -&gt; string</code>
+<p>Return the next text frame in the chain or None if specified frame is the last frame in the chain. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getPrevLinkedFrame"><strong>getPrevLinkedFrame</strong></a>(...)</dt>
+<dd><code>getPrevLinkedFrame(["name"]) -&gt; string</code>
+<p>Return the previous text frame in the chain or None if specified frame is the first frame in the chain. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getText"><strong>getText</strong></a>(...)</dt>
+<dd><code>getText(["name"]) -&gt; string</code>
+<p>Deprecated. Use getFrameText() instead.</p></dd>
+
+<dt><a name="-getTextColor"><strong>getTextColor</strong></a>(...)</dt>
+<dd><code>getTextColor(["name"]) -&gt; string</code>
+<p>Returns the name of the text color used for text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
+<dt><a name="-getTextDistances"><strong>getTextDistances</strong></a>(...)</dt>
+<dd><code>getTextDistances(["name"]) -&gt; tuple</code>
+<p>Returns the text distances of the text frame "name" expressed in points. The
+distances are returned as a tuple like (left, right, top, bottom). If "name"
+is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getTextLength"><strong>getTextLength</strong></a>(...)</dt>
+<dd><code>getTextLength(["name"]) -&gt; integer</code>
+<p>Returns the length of the text in the text frame "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getTextLines"><strong>getTextLines</strong>(...)</a></dt>
+<dd><code>getTextLines(["name"]) -&gt; integer</code>
+<p>Returns the number of lines of text in text frame "name". If "name" is not given the currently selected item is used.</p>
+<p>As this function depends on text layout being up-to-date, you may need to call <a href="#-layoutText">layoutText()</a> or <a href="#-layoutTextChain">layoutTextChain()</a> before calling this function in order to get expected result.</p></dd>
+
+<dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
+<dd><code>getTextShade(["name"]) -&gt; integer</code>
+<p>Returns the shade of text color used for text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
+<dt><a name="-getTextVerticalAlignment"><strong>getTextVerticalAlignment</strong></a>(...)</dt>
+<dd><code>getTextVerticalAlignment(["name"]) -&gt; integer</code>
+<p>Gets the vertical alignment of text inside text frame "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-hyphenateText"><strong>hyphenateText</strong></a>(...)</dt>
+<dd><code>hyphenateText(["name"]) -&gt; bool</code>
+<p>Does hyphenation on text frame "name". If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
+<dt><a name="-insertHtmlText"><strong>insertHtmlText</strong></a>(...)</dt>
+<dd><code>insertHtmlText("text", ["name"])</code>
+<p>Inserts the text from "file" into the text frame "name". Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference). If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
+<dt><a name="-insertText"><strong>insertText</strong></a>(...)</dt>
+<dd><code>insertText("text", pos, ["name"])</code>
+<p>Inserts the text "text" at the position "pos" into the text frame "name". Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference) The first character has an index of 0. Inserting text at position -1 appends it to the frame. If "name" is not given the currently selected item is used.</p>
+<p>For performance reason, this function does not update text layout in any way. As a consequence, you may need to call <a href="#-layoutText">layoutText()</a>  or <a href="#-layoutTextChain">layoutTextChain()</a> at appropriate times after calling this function and before calling functions such as <a href="#-getFrameText">getFrameText()</a> or <a href="#-getTextLines">getTextLines()</a>.</p>
+<p>May throw IndexError for an insertion out of bounds.</p></dd>
+
+<dt><a name="-isPDFBookmark"><strong>isPDFBookmark</strong>(...)</a></dt>
+<dd><code>isPDFBookmark(["name"]) -&gt; bool</code>
+<p>Returns true if the text frame "name" is a PDF bookmark. If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
+<dt><a name="-layoutText"><strong>layoutText</strong></a>(...)</dt>
+<dd><code>layoutText(["name"])</code>
+<p>Relayout text in the text frame "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-layoutTextChain"><strong>layoutTextChain</strong></a>(...)</dt>
+<dd><code>layoutTextChain(["name"])</code>
+<p>Relayout the whole text chain whom the text frame "name" belongs. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
+<dd><code>linkTextFrames("fromname", "toname")</code>
+<p>Link two text frames. The frame named "fromname" is linked to the frame named "toname". The target frame must be an empty text frame and must not link to or be linked from any other frames already.</p>
+<p>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</p></dd>
+
+<dt><a name="-selectFrameText"><strong>selectFrameText</strong></a>(...)</dt>
+<dd><code>selectFrameText(start, count, ["name"])</code>
+<p>Selects "count" characters of text in the text frame "name" starting from the character "start". Character counting starts at 0. If "count" is zero, any text selection will be cleared. If "count" is -1, the selection will extend to the end of the frame. If "name" is not given the currently selected item is used.</p>
+<p>This function only acts on the text visible in the specified frame. If you need to work on the text contained in a text chain, use selectText() instead.</p>
+<p>As this function depends on text layout being up-to-date, you may need to call <a href="#-layoutText">layoutText()</a> or <a href="#-layoutTextChain">layoutTextChain()</a> before calling this function in order to get expected result.</p>
+<p>May throw IndexError if the selection is outside the bounds of the text.</p></dd>
+
+<dt><a name="-selectText"><strong>selectText</strong></a>(...)</dt>
+<dd><code>selectText(start, count, ["name"])</code>
+<p>Selects "count" characters of text in the text frame "name" starting from the character "start". Character counting starts at 0. If "count" is zero, any text selection will be cleared. If "name" is not given the currently selected item is used.</p>
+<p>May throw IndexError if the selection is outside the bounds of the text.</p>
+<p>There is no specific command to select all of the text in a frame. To accomplish this, you might create a function in your script which you would call with the name of the frame as follows:</p>
+<p><b>def SelectAllText(textframe):</b></p>
+    <p><b>&nbsp;&nbsp;&nbsp;&nbsp;texlen = scribus.getTextLength(textframe)</b></p>
+    <p><b>&nbsp;&nbsp;&nbsp;&nbsp;scribus.selectText(0,texlen,textframe)</b></p>
+    <p><b>&nbsp;&nbsp;&nbsp;&nbsp;return</b></p></dd>
+<dd><p>One of the reasons this is important is that, should you want to select a frame and then apply a Paragraph Style to the frame, you will find that a frame with multiple paragraphs will not have the style set for all of the text, only the last paragraph. Therefore, the solution is to select all the text of the frame, and then apply the style.</p></dd>
+
+<dt><a name="-setColumns"><strong>setColumns</strong></a>(...)</dt>
+<dd><code>setColumns(nr, ["name"])</code>
+<p>Sets the number of columns of the text frame "name" to the integer "nr". If "name" is not given the currently selected item is used.</p>
+<p>May throw ValueError if number of columns is not at least one.</p></dd>
+
+<dt><a name="-setColumnGap"><strong>setColumnGap</strong></a>(...)</dt>
+<dd><code>setColumnGap(size, ["name"])</code>
+<p>Sets the column gap of the text frame "name" to the value "size". If "name" is not given the currently selected item is used.</p>
+<p>May throw ValueError if the column gap is out of bounds (must be positive).</p></dd>
+
+<dt><a name="-setFirstLineOffset"><strong>setFirstLineOffset</strong></a>(...)</dt>
+<dd>
+<code>setFirstLineOffset(offset, ["name"])</code>
+<p>Sets the offset of the first line of text inside text frame "name" to the specified offset policy. If "name" is not given the currently selected item is used. "offset" should be one of the FLOP_* constants defined in this module - see dir(scribus).</p>
+<p>May throw ValueError for an invalid offset constant.</p>
+</dd>
+
+<dt><a name="-setFont"><strong>setFont</strong></a>(...)</dt>
+<dd><code>setFont("font", ["name"])</code>
+<p>Sets the font of the text frame "name" to "font". If there is some text selected only the selected text is changed.  If "name" is not given the currently selected item is used.</p>
+<p>May throw ValueError if the font cannot be found.</p></dd>
+
+<dt><a name="-setFontSize"><strong>setFontSize</strong></a>(...)</dt>
+<dd><code>setFontSize(size, ["name"])</code>
+<p>Sets the font size of the text frame "name" to "size". "size" is treated as a value in points. If there is some text selected only the selected text is changed. "size" must be in the range 1 to 512. If "name" is not given the currently selected item is used.</p>
+<p>May throw ValueError for a font size that's out of bounds.</p></dd>
+
+<dt><a name="-setLineSpacing"><strong>setLineSpacing</strong></a>(...)</dt>
+<dd><code>setLineSpacing(size, ["name"])</code>
+<p>Sets the line spacing ("leading") of the text frame "name" to "size". "size" is a value in points. If "name" is not given the currently selected item is used.</p>
+<p>May throw ValueError if the line spacing is out of bounds.</p></dd>
+
+<dt><a name="-setLineSpacingMode"><strong>setLineSpacingMode</strong></a>(...)</dt>
+<dd><code>setLineSpacingMode(mode, ["name"])</code>
+<p>Sets the line spacing mode of the text frame "name" to "mode". If "name" is not given the currently selected item is used. Mode values are the same as in createParagraphStyle.</p>
+<p>May throw ValueError if the line spacing mode is out of bounds.</p></dd>
+
+<dt><a name="-setPDFBookmark"><strong>setPDFBookmark</strong>(...)</a></dt>
+<dd><code>setPDFBookmark("toggle", ["name"])</code>
+<p>Sets whether (toggle = 1) the text frame "name" is a bookmark or not. If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
+<dt><a name="-setText"><strong>setText</strong></a>(...)</dt>
+<dd><code>setText("text", ["name"])</code>
+<p>Sets the text of the text frame "name" to the text of the string "text". Text must be UTF8 encoded - use e.g. unicode(text, 'iso-8859-2'). See the FAQ for more details. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextAlignment"><strong>setTextAlignment</strong></a>(...)</dt>
+<dd><code>setTextAlignment(align, ["name"])</code>
+<p>Sets the text alignment of the text frame "name" to the specified alignment. If "name" is not given the currently selected item is used. "align" should be one of the ALIGN_ constants defined in this module - see dir(scribus).</p>
+<p>May throw ValueError for an invalid alignment constant.</p></dd>
+
+<dt><a name="-setTextDistances"><strong>setTextDistances</strong></a>(...)</dt>
+<dd><code>setTextDistances(left, right, top, bottom, ["name"])</code>
+<p>Sets the text distances of the text frame "name" to the values "left"
+"right", "top" and "bottom". If "name" is not given the currently
+selected item is used.</p>
+<p>May throw ValueError if any of the distances are out of bounds (must be positive).</p></dd>
+
+<dt><a name="-setTextScalingH"><strong>setTextScalingH</strong></a>(...)</dt>
+<dd><code>setTextScalingH(scale, ["name"]))</code>
+<p>Sets the horizontal character scaling of the object "name" to "scale" in percent. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextScalingV"><strong>setTextScalingV</strong></a>(...)</dt>
+<dd><code>setTextScalingV(scale, ["name"]))</code>
+<p>Sets the vertical character scaling of the object "name" to "scale" in percent. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextColor"><strong>setTextColor</strong></a>(...)</dt>
+<dd><code>setTextColor("color", ["name"])</code>
+<p>Sets the text color of the text frame "name" to the color "color". If there is some text selected only the selected text is changed. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextShade"><strong>setTextShade</strong></a>(...)</dt>
+<dd><code>setTextShade(shade, ["name"])</code>
+<p>Sets the shading of the text color of the object "name" to "shade". If there is some text selected only the selected text is changed. "shade" must be an integer value in the range from 0 (lightest) to 100 (full color intensity). If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextStroke"><strong>setTextStroke</strong></a>(...)</dt>
+<dd><code>setTextStroke("color", ["name"])</code>
+<p>Set "color" of the text stroke. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextVerticalAlignment"><strong>setTextVerticalAlignment</strong></a>(...)</dt>
+<dd>
+<code>setTextVerticalAlignment(align, ["name"])</code>
+<p>Sets the vertical alignment of text inside text frame "name" to the specified alignment. If "name" is not given the currently selected item is used. "align" should be one of the ALIGNV_ constants defined in this module - see dir(scribus).</p>
+<p>May throw ValueError for an invalid alignment constant.</p>
+</dd>
+
+<dt><a name="-textOverflows"><strong>textOverflows</strong></a>(...)</dt>
+<dd><code>textOverflows(["name", nolinks]) -&gt; integer</code>
+<p>Returns 1 if there are overflowing characters in text frame "name", 0 if not. If nolinks is set to non zero value, it takes only one frame - it doesn't use text frame linking. Without this parameter it searches all linking chain.</p>
+<p>May raise WrongFrameTypeError if the target frame is not an text frame</p></dd>
+
+<dt><a name="-unlinkTextFrames"><strong>unlinkTextFrames</strong></a>(...)</dt>
+<dd><code>unlinkTextFrames("name")</code>
+<p>Remove the specified (named) object from the text frame flow/linkage. If the frame was in the middle of a chain, the previous and next frames will be connected, eg 'a-&gt;b-&gt;c' becomes 'a-&gt;c' when you <a href="#-unlinkTextFrames">unlinkTextFrames</a>(b)'</p>
+<p>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</p></dd>
+
+</dl>
+</body>
+</html>

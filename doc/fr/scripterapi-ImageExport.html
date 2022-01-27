@@ -1,0 +1,79 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Python : classe ImageExport</title>
+</head>
+
+<style>
+@import "manual.css";
+</style>
+
+<body>
+<h2>Python : classe ImageExport</h2>
+<p>
+<a name="ImageExport">class <strong>ImageExport</strong></a>(objet)
+</p>
+<hr />
+
+<h2>Exportation d'image</h2>
+<p>La classe ImageExport() fournit l'exportation de graphiques bitmap à l'écriture de scripts Python, telle que vous la connaissez à partir de la fonction Exporter/Enregistrer du menu Image. Voir
+la classe apparentée PDFfile() et la procédure savePageAsEPS().</p>
+<p>Exemple :<br/>
+<code>
+i = ImageExport()<br/>
+i.type = 'PNG' # sélectionner un parmi la liste i.allTypes<br/>
+i.scale = 200 # Je veux obtenir 200%<br/>
+i.name = '/home/subik/test.png'<br/>
+i.save()<br/>
+</code>
+</p>
+<p>Les deux dernières lignes pourraient être remplacées par ceci :
+<code>i.saveAs('/home/subik/test.png')</code></p>
+
+<hr />
+
+<p>Méthodes définies par la classe</p>
+<dl>
+	<dt><strong>__init__(...)</strong></strong></dt>
+	<dd><p>x.__init__(...) initialise x; voir x.__class__.__doc__ pour la signature</p></dd>
+
+	<dt><strong>save(...)</strong></dt>
+	<dd>save() -> booléen
+	<p>Enregistre l'image sous son nom courant 'nom'.</p></dd>
+
+	<dt><strong>saveAs(...)</strong></dt>
+	<dd>saveAs('nomFichier') -> booléen
+	<p>Enregistre l'image sous le nouveau nom "nomFichier".</p></dd>
+</dl>
+
+<hr />
+
+<p>Données et attributs définis par la classe</p>
+<dl>
+	<dt><strong>__new__</strong> = &lt;méthode intégrée __new__ de type objet&gt;/dt>
+	<dd><p>T.__new__(S, ...) -> un nouvel objet de type S, un sous-type de T</p></dd>
+
+	<dt><strong>allTypes</strong> = &lt;attribut 'allTypes' de la classe 'ImageExport'&gt;</dt>
+	<dd><p>Types disponibles. Liste de cha&icirc;nes en lecture seule.</p></dd>
+
+	<dt><strong>dpi</strong> = &lt;membre 'dpi' de la classe 'ImageExport'&gt;</dt>
+	<dd><p>Cette valeur sera utilisée en tant que résolution d'export de l'image. Nombre entier en lecture/écriture.</p></dd>
+
+	<dt><strong>name</strong> = &lt;attribut 'name' de la classe 'ImageExport'&gt;</dt>
+	<dd><p>Nom du fichier associé à l'image. Avec ou sans chemin. Cha&icirc;ne en lecture/écriture.</p></dd>
+
+	<dt><strong>quality</strong> = &lt;membre 'quality' de la classe 'ImageExport'&gt;</dt>
+	<dd><p>Qualité/compression: minimum 1 (médiocre), maximum 100 (qualité). Nombre entier en lecture/écriture.</p></dd>
+
+	<dt><strong>scale</strong> = &lt;membre 'scale' de la classe 'ImageExport'&gt;</dt>
+	<dd><p>Redimensionnement de l'image. 100 = 100% etc. Nombre entier en lecture/écriture.</p></dd>
+
+	<dt><strong>transparentBkgnd</strong> = &lt;membre 'transparentBkgnd' de la classe 'ImageExport'&gt;</dt>
+	<dd><p>Détermine si le fond de l'image est transparent ou non. Nombre entier en lecture/écriture.</p></dd>
+	
+	<dt><strong>type</strong> = &lt;attribut 'type' de la classe 'ImageExport'&gt;</dt>
+	<dd><p>Type bitmap. Voir la liste allTypes pour plus d'informations. Cha&icirc;ne en lecture/écriture.</p></dd>
+
+</body>
+</html>
+ 

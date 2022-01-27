@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 /***************************************************************************
 *                                                                         *
-*   ScMW program is free software; you can redistribute it and/or modify  *
+*   Scribus program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
 *   the Free Software Foundation; either version 2 of the License, or     *
 *   (at your option) any later version.                                   *
@@ -29,22 +29,23 @@ class SCRIBUS_API DocumentInformation
 {
 	public:
 		DocumentInformation();
-		~DocumentInformation() {};
-		const QString getAuthor();
-		const QString getComments();
-		const QString getContrib();
-		const QString getCover();
-		const QString getDate();
-		const QString getFormat();
-		const QString getIdent();
-		const QString getKeywords();
-		const QString getLangInfo();
-		const QString getPublisher();
-		const QString getRelation();
-		const QString getRights();
-		const QString getSource();
-		const QString getTitle();
-		const QString getType();
+		~DocumentInformation() = default;
+		const QString& author();
+		const QString& comments();
+		const QString& contrib();
+		const QString& cover();
+		const QString& date();
+		const QString& format();
+		const QString& ident();
+		const QString& keywords();
+		const QString& langInfo();
+		const QString& publisher();
+		const QString& relation();
+		const QString& rights();
+		const QString& source();
+		const QString& subject();
+		const QString& title();
+		const QString& type();
 		
 		void setAuthor(const QString &_author);
 		void setComments(const QString &_comments);
@@ -59,25 +60,27 @@ class SCRIBUS_API DocumentInformation
 		void setRelation(const QString &_relation);
 		void setRights(const QString &_rights);
 		void setSource(const QString &_source);
+		void setSubject(const QString &_subject);
 		void setTitle(const QString &_title);
 		void setType(const QString &_type);
 		
-	private:
-		QString author;
-		QString comments;
-		QString contrib;
-		QString cover;
-		QString date;
-		QString format;
-		QString ident;
-		QString keywords;
-		QString langInfo;
-		QString publisher;
-		QString relation;
-		QString rights;
-		QString source;
-		QString title;
-		QString type;
+	protected:
+		QString m_author;
+		QString m_comments;
+		QString m_contrib;
+		QString m_cover;
+		QString m_date;
+		QString m_format;
+		QString m_ident;
+		QString m_keywords;
+		QString m_langInfo;
+		QString m_publisher;
+		QString m_relation;
+		QString m_rights;
+		QString m_source;
+		QString m_subject;
+		QString m_title;
+		QString m_type;
 };
 
 #endif

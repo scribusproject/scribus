@@ -25,13 +25,8 @@ for which a new license (GPL+exception) is in place.
         #endif
     #endif
 #else
-    #ifdef HAVE_GCC_SYMBOL_VISIBILITY
-        #define PLUGIN_API __attribute__ ((visibility("default")))
-        #define PLUGIN_LOCAL __attribute__ ((visibility("hidden")))
-    #else
-        #define PLUGIN_API
-        #define PLUGIN_LOCAL
-    #endif
+    #define PLUGIN_API __attribute__ ((visibility("default")))
+    #define PLUGIN_LOCAL __attribute__ ((visibility("hidden")))
 #endif
 
 #endif

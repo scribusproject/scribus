@@ -1,0 +1,34 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>GIMP 2.x</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>GIMP 2.x</h2>
+
+<p>There is not much to say about the best image application for Linux. GIMP 2.x has too many improvements to list. </p>
+
+<p>However, setting up GIMP for print work with Scribus requires some adjustments to the defaults as shown below: </p>
+
+<ul>
+<li>Make sure you have the latest 2.4.x stable version. </li>
+<li>GIMP now can work with CMYK colors. While the color model internally is still RGB plus alpha channels, you can use CMYK measurements and CMYK color definitions. To supplement this, there is a third party plug-in called <a href="http://cue.yellowmagic.info/softwares/separate.html">separate+</a>, which can export CMYK TIFF, using a neat trick with alpha layers. The separate+ plug-in can also embed ICC profiles into the exported TIFF and create duotone TIFF.</li>
+<li>One of the really appreciated improvements is the text handling. GIMP 2.x uses <code>fontconfig</code>, so finding the fonts on your system is much less of an issue. Text can be kept in a separate layer to ease editing and correcting. In the 1.2.x versions certain type of handling were difficult, but there is little to complain about now. It is a pleasure to use the new text controls. In addition, there is also a separate freetype plug-in for GIMP, which allows you to manipulate type in the same means Scribus and Inkscape do. Recommended. You can find this on the ftp.gimp.org site.</li>
+<li>Most recent version of GIMP can export all paths as clipping paths in TIFF files and have much better support for clip paths in TIFF import as well. </li>
+<li>The way that pixels are adjusted (interpolated) in filters and effects are applied use Linear as the default. This is a good compromise for speed vs. accuracy.  <b>Lanczos should almost always be the default for print work</b>, but do expect many operations, (re-scaling, filter application) to run slower. Using Lanczos can make sometimes a dramatic difference in the perceived print quality of an image, so make sure GIMP is using it by default.</li>
+</ul>
+
+<table width="100%"><tr><td align="center"><img src="images/gimpoptions1.png" alt="Lanczos Interpolation" /></td></tr></table>
+
+<p>Like most image editors, GIMP's defaults are setup primarily for web site images, meaning waaaay too little resolution for print. So first thing, set the defaults to a <strong>minimum</strong> of 144 DPI in resolution. Remember using these higher resolutions will result in much larger size files, so you might also need to adjust maximum settings for memory usage as well in GIMP preferences. </p>
+
+<table width="100%"><tr><td align="center"><img src="images/gimpoptions3.png" alt="DPI Defaults"  /></td></tr></table>
+
+<p>The other notable addition is the beginnings of some very basic color managed "soft proofs" of your images. This is available via LittleCMS also used by Scribus. You can set this in the preferences. Where this will help you is to see how it will look when transformed into a CMYK color space when printed or exported as PDF. </p>
+
+<table width="100%"><tr><td align="center"><img src="images/gimpoptions2.png" alt="Color Management Settings" /></td></tr></table>
+</body>
+</html>

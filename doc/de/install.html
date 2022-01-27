@@ -1,0 +1,27 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Scribus installieren</title>
+</head>
+<body>
+<h2>Scribus installieren</h2>
+
+<p>Der Installationsproze&szlig; f&uuml;r Scribus h&auml;ngt vom verwendeten Betriebssystem bzw. der Distribution ab, aber diese Binsenweisheit gilt nat&uuml;rlich f&uuml;r die meisten Programme.</p>
+<p><b>Linux:</b> Unter Linux verwenden Sie am besten den Paketmanager Ihrer Distribution (z.B. Yum, YaST oder APT), denn auf diese Weise werden alle Abh&auml;ngigkeiten automatisch aufgel&ouml;st. Wenn es f&uuml;r Ihre Distribution keine fertigen Pakete gibt, k&ouml;nnen Sie entweder versuchen, ein RPM- oder DEB-Paket f&uuml;r eine andere Distribution mittels des <code>alien</code>-Befehls zu installieren, oder Sie k&ouml;nnen Scribus aus den Quellen <a href="install1.html">kompilieren</a>.</p>
+<b>PC-BSD:</b> Die PBI-Pakete für PC-BSD 9 und h&ouml;her sind meist einigerma&szlig;en aktuell. Zur Installation &ouml;ffnen Sie den Paketmanager <i>AppCafe</i> und geben im Suchfeld &raquo;Scribus&laquo; ein, woraufhin Ihnen das Scribus-Installationspaket angezeigt wird. Ein Klick auf &raquo;Installieren&laquo; installiert Scribus samt aller ben&ouml;tigter Abh&auml;ngigkeiten. Sie können ein PBI-Paket auch auf Ihre Festplatte herunterladen und den Installationsproze&szlig; mt einem Doppelklick auf die Datei starten.<i>Beachten Sie, da&szlig; PBI-Pakete die Abh&auml;ngigkeiten für jedes Programm separat enthalten, egal ob diese bereits auf Ihrem System vorhanden sind. Diese Pakete sind bei der Erstinstallation also sehr gro&szlig; (im Fall von Scribus &uuml;ber 250 MB), so da&szlig; Sie eine schnelle Internetverbindung ben&ouml;tigen.</i>
+<p><b>Andere UNIX-Systeme:</b> Pakete f&uuml;r Solaris, OpenIndiana oder eines der anderen BSD-Unices sind meist verf&uuml;gbar sein, aber unserer Erfahrung nach dauert es ein wenig, bis diese auf dem neuesten Stand sind. Deshalb ist es m&ouml;glich, da&szlig; Sie Scribus aus den Quellen kompilieren m&uuml;ssen.</p>
+<p><b>Mac OS X:</b> DMGs und pkg-Dateien f&uuml;r Mac&nbsp;OS&nbsp;X 10.5 und sp&auml;tere Versionen finden Sie auf unserer <a href="http://sourceforge.net/projects/scribus/files/">Sourceforge-Seite</a>. Wenn Sie eine &auml;ltere OS&nbsp;X-Version verwenden, k&ouml;nnen Sie versuchen, Scribus mit Fink zu installieren oder sich an das <a href="install5.html">Kompilieren</a> aus dem Quellcode wagen.</p>
+<p><b>Windows:</b> Die Installation unter Windows unterscheidet sich nicht von der anderer Windows-Programme: Es gibt eine einzige Installationsdatei mit der Endung *.exe, in der alles, was Sie brauchen, enthalten ist, mit Ausnahme von <a href="toolbox5.html">Ghostscript</a>. Weitere Informationen finden Sie <a href="readme-win32.html">hier</a>.</p>
+<p><b>OS/2 und eComStation:</b> Die OS/2-Portierung enth&auml;lt kein Installationsprogramm. Alle notwendigen Dateien sind in einem ZIP-Archiv enthalten, das Sie einfach nur entpacken m&uuml;ssen. Bevor Sie Scribus verwenden k&ouml;nnen, m&uuml;ssen Sie aber au&szlig;erdem einige weitere Abh&auml;ngigkeiten installieren. N&auml;here Informationen finden Sie <a href="readme-os2.html">hier</a>.</p>
+<p><b>Haiku:</b> Scribus f&uuml;r Haiku besteht aus einem ZIP-Archiv, das entpackt werden mu&szlig; und ein Installationsprogramm mit der Endung *.pkg enth&auml;lt. Weitere Informationen finden Sie <a href="readme-haiku.html">hier</a>.</p>
+
+<h2>Eine Bemerkung zu Upgrades</h2>
+
+<p>Im Gegensatz zu anderen Programmen bietet Scribus keinen Update-Mechanismus. Sobald eine neue Scribus-Version ver&ouml;ffentlicht worden ist, m&uuml;ssen Sie als Linux-Benutzer warten, bis Ihre Distribution aktualisierte Pakete in ihre Repositorien eingespeist hat. Wenn Sie Scribus unter Mac&nbsp;OS&nbsp;X, Windows, Haiku, OS/2 oder eComStation verwenden, m&uuml;ssen Sie warten, bis die Installationsprogramme, DMGs oder ZIP-Archive zum Herunterladen bereitstehen. Letzteres ist normalerweise unmittelbar nach der offiziellen Bekanntmachung einer neuen Version der Fall und gilt meist auch f&uuml;r alle gro&szlig;en Linux-Distributionen, jedenfalls soweit sie RPM- oder DEB-basiert sind. RPM-Pakete finden Sie beim <a href="http://download.opensuse.org/repositories/home:/mrdocs">OpenSUSE Build Service</a>, DEBs in unserem <a href="http://wiki.scribus.net/canvas/Debian">Debian-Repositorium</a>. Aktualisierte ZIP-Archive f&uuml;r Haiku, OS/2 und eComStation sind entweder zeitgleich mit der Ank&uuml;ndigung oder wenig sp&auml;ter verf&uuml;gbar.</p>
+
+<p>Obwohl Scribus keine automatischen Updates anbietet, k&ouml;nnen Sie aus Scribus heraus jederzeit &uuml;berpr&uuml;fen, ob es eine neue Version gibt. Verwenden Sie dazu <i>Hilfe > Suche nach Aktualisierungen</i>. Diese Funktion dient nur dazu, herauszufinden, ob eine neue Scribus-Version verf&uuml;gbar ist, aber sie wird <b>nichts</b> auf Ihrem Computer installieren.</p>
+<p>Wenn Sie darauf brennen, immer den allerneuesten Code mit allen Ver&auml;nderungen und Verbesserungen &ndash; sogar zwischen den offiziellen Ver&ouml;ffentlichungen &ndash; zu testen, k&ouml;nnen Sie diesen aus dem &ouml;ffentlichen <a href="install1.html">SVN-Repositorium</a> herunterladen und selbst kompilieren.</p>
+<br>
+<br>
+</body>
+</html>

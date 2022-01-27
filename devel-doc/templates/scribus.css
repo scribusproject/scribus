@@ -4,7 +4,7 @@
  */
 body {
     color: #000000;
-    background-color: #1e72a8;
+    /* background-color: #1e72a8; */
     padding: 0px;
     margin: 0px;
     font-family: Trebuchet, "Trebuchet MS", Tahoma, Verdana, Arial, Sans-Serif;
@@ -18,7 +18,7 @@ body {
 }
 
 .scheader {
-	background:url(../images/logo3m.png) repeat-x;
+	background:url(logo3m.png) repeat-x;
 	margin: 0px;
 	padding: 0px;
 	margin-bottom: 1em;
@@ -91,7 +91,7 @@ a.qindex, a.qindexHL {
 	font-size:12px;
 	font-weight:bold;
 	text-decoration: none;
-} 
+}
 a.qindex:hover, a.qindexHL:hover {
 	background: #cbb072;
 }
@@ -176,4 +176,3 @@ div.memitem {
     border-right: 0px;
     border-bottom: 0px;
 }
-

@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
 
 #include <QObject>
@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "gtmeasure.h"
 
-HTMLReader* HTMLReader::hreader = NULL;
+HTMLReader* HTMLReader::hreader = nullptr;
 bool HTMLReader::elemJustStarted = false;
 bool HTMLReader::elemJustFinished = false;
 
@@ -44,27 +44,8 @@ HTMLReader::HTMLReader(gtParagraphStyle *ps, gtWriter *w, bool textOnly)
 	defaultWeight = ps->getFont()->getWeight();
 	defaultSlant = ps->getFont()->getSlant();
 	initPStyles();
-	inH1 = false;
-	inH2 = false;
-	inH3 = false;
-	inA = false;
-	inCode = false;
-	inBody = false;
-	inPre = false;
-	inP = false;
-	inCenter = false;
+
 	writer = w;
-	href = "";
-	extLinks = "";
-	extIndex = 1;
-	listLevel = -1;
-	inOL = false;
-	wasInOL = false;
-	inUL = false;
-	wasInUL = false;
-	inLI = false;
-	addedLI = false;
-	lastCharWasSpace = false;
 	noFormatting = textOnly;
 	hreader = this;
 }
@@ -79,6 +60,18 @@ void HTMLReader::initPStyles()
 	pstyleli->setName("HTML_li_level-0");
 	listStyles.push_back(pstyleli);
 	nextItemNumbers.push_back(1);
+	pstyleh6 = new gtParagraphStyle(*pstyle);
+	pstyleh6->getFont()->setSize(pstyle->getFont()->getSize() + 2.5);
+	pstyleh6->getFont()->setWeight(BOLD);
+	pstyleh6->setSpaceAbove(2.5);
+	pstyleh6->setSpaceBelow(1.25);
+	pstyleh6->setName("HTML_h6");
+	pstyleh5 = new gtParagraphStyle(*pstyle);
+	pstyleh5->getFont()->setSize(pstyle->getFont()->getSize() + 5);
+	pstyleh5->getFont()->setWeight(BOLD);
+	pstyleh5->setSpaceAbove(5.0);
+	pstyleh5->setSpaceBelow(2.5);
+	pstyleh5->setName("HTML_h5");
 	pstyleh4 = new gtParagraphStyle(*pstyle);
 	pstyleh4->getFont()->setSize(pstyle->getFont()->getSize() + 10);
 	pstyleh4->getFont()->setWeight(BOLD);
@@ -118,16 +111,20 @@ void HTMLReader::startElement(void*, const xmlChar * fullname, const xmlChar ** 
 	elemJustStarted = true;
 	elemJustFinished = false;
 	QString name(QString((const char*) fullname).toLower());
-	QXmlAttributes attrs;
+	HTMLAttributesMap attrs;
 	if (atts)
 	{
-		for(const xmlChar** cur = atts; cur && *cur; cur += 2)
-			attrs.append(QString((char*)*cur), NULL, QString((char*)*cur), QString((char*)*(cur + 1)));
+		for (const xmlChar** cur = atts; cur && *cur; cur += 2)
+		{
+			QString attrName((char*)*cur);
+			QString attrValue((char*)*(cur + 1));
+			attrs[attrName] = attrValue;
+		}
 	}
-	hreader->startElement(NULL, NULL, name, attrs);
+	hreader->startElement(name, attrs);
 }
 
-bool HTMLReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs) 
+bool HTMLReader::startElement(const QString &name, const HTMLAttributesMap &attrs) 
 {
 	if (name == "p")
 		inP = true;
@@ -139,14 +136,10 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 	{
 		toggleEffect(UNDERLINE);
 		setBlueFont();
-		for (int i = 0; i < attrs.count(); i++)
-		{
-			if (attrs.localName(i) == "href")
-			{
-				href = attrs.value(i);
-			}
-			inA = true;
-		}
+		QString hRefVal = attrs.value("href");
+		if (!hRefVal.isEmpty())
+			href = hRefVal;
+		inA = true;
 	} 
 	else if (name == "ul")
 	{
@@ -182,6 +175,10 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 		inH3 = true;
 	else if (name == "h4")
 		inH4 = true;
+	else if (name == "h5")
+		inH5 = true;
+	else if (name == "h6")
+		inH6 = true;
 	else if ((name == "b") || (name == "strong"))
 		setBoldFont();
 	else if ((name == "i") || (name == "em"))
@@ -195,18 +192,22 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 	else if (name == "img")
 	{
 		QString imgline("(img,");
-		for (int i = 0; i < attrs.count(); i++)
+		QString srcValue = attrs.value("src");
+		if (!srcValue.isEmpty())
 		{
-			if (attrs.localName(i) == "src")
+			QString attrValue = srcValue;
+			if (attrValue.indexOf("data:image") < 0)
+				imgline +=  " src: " + attrValue;
+			else
 			{
-				imgline +=  " src: " + attrs.value(i);
-			}
-			if (attrs.localName(i) == "alt")
-			{
-				if (!attrs.value(i).isEmpty())
-					imgline += ", alt: " + attrs.value(i);
+				// TODO: correctly embed the image (just putting the source in the
+				// text frame crashes scribus for big images; ale/20120808)
+				imgline +=  " src: embedded image";
 			}
 		}
+		QString altValue = attrs.value("alt");
+		if (!altValue.isEmpty())
+			imgline += ", alt: " + altValue;
 		imgline += ")\n\n";
 		writer->append(imgline, pstyle);
 	}
@@ -235,28 +236,32 @@ bool HTMLReader::characters(const QString &ch)
 		// must be ignored, not exactly that, but better than nothing
 		if (elemJustStarted  || elemJustFinished)
 		{
-			while( !tmp.isEmpty() && (tmp[0] == '\r' || tmp[0] == '\n') )
+			while (!tmp.isEmpty() && (tmp[0] == '\r' || tmp[0] == '\n'))
 				tmp = tmp.right(tmp.length() - 1);
 			elemJustStarted = elemJustFinished = false;
 			if (tmp.isEmpty())
 				return true;
 		}
-		QString chl = tmp.left(1), chr = tmp.right(1);
+		QString chl(tmp.at(0));
+		QString chr(tmp.right(1));
 		bool fcis = (chl.length() > 0 && chl[0].isSpace());
 		bool lcis = (chr.length() > 0 && chr[0].isSpace());
 		if (inPre)
 		{
-			if (tmp.left(1) == "\n")
+			if (tmp.at(0) == "\n")
 				tmp = tmp.right(tmp.length() - 2);
 		}
 		else
 			tmp = tmp.simplified();
 
+		if (tmp.isEmpty())
+			return true;
+
 		if (!lastCharWasSpace)
 			if (fcis)
 				tmp = " " + tmp;
 
-		if (lcis)
+		if (lcis && !(fcis && tmp.length() <= 1))
 			tmp = tmp + " ";
 		lastCharWasSpace = lcis;
 		if ((inLI) && (!addedLI))
@@ -287,6 +292,10 @@ bool HTMLReader::characters(const QString &ch)
 			writer->append(tmp, pstyleh3);
 		else if (inH4)
 			writer->append(tmp, pstyleh4);
+		else if (inH5)
+			writer->append(tmp, pstyleh5);
+		else if (inH6)
+			writer->append(tmp, pstyleh6);
 		else if (inCenter)
 			writer->append(tmp, pstylec);
 		else if (inCode)
@@ -304,20 +313,22 @@ void HTMLReader::endElement(void*, const xmlChar * name)
 	elemJustStarted = false;
 	elemJustFinished = true;
 	QString nname(QString((const char*) name).toLower());
-	hreader->endElement(NULL, NULL, nname);
+	hreader->endElement(nname);
 }
 
-bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
+bool HTMLReader::endElement(const QString &name)
 {
 	if (name == "center")
 	{
 		inCenter = false;
+		lastCharWasSpace = true;
 		writer->append("\n");
 	}
 	else if (name == "p")
 	{
-		writer->append("\n");
 		inP = false;
+		lastCharWasSpace = true;
+		writer->append("\n");
 	}
 	else if (name == "a")
 	{
@@ -361,7 +372,10 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 		else
 			--listLevel;
 		if (listLevel == -1)
+		{
+			lastCharWasSpace = true;
 			writer->append("\n");
+		}
 	}
 	else if (name == "ol")
 	{
@@ -395,33 +409,53 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 			--listLevel;
 		}
 		if (listLevel == -1)
+		{
+			lastCharWasSpace = true;
 			writer->append("\n");
+		}
 	}
 	else if (name == "li")
 	{
 		inLI = false;
 		addedLI = false;
+		lastCharWasSpace = true;
 		writer->append("\n");
 	}
 	else if (name == "h1")
 	{
 		inH1 = false;
-		writer->append("\n");
+		lastCharWasSpace = true;
+		writer->append("\n", pstyleh1);
 	}
 	else if (name == "h2")
 	{
 		inH2 = false;
-		writer->append("\n");
+		lastCharWasSpace = true;
+		writer->append("\n", pstyleh2);
 	}
 	else if (name == "h3")
 	{
 		inH3 = false;
-		writer->append("\n");
+		lastCharWasSpace = true;
+		writer->append("\n", pstyleh3);
 	}
 	else if (name == "h4")
 	{
 		inH4 = false;
-		writer->append("\n");
+		lastCharWasSpace = true;
+		writer->append("\n", pstyleh4);
+	}
+	else if (name == "h5")
+	{
+		inH5 = false;
+		lastCharWasSpace = true;
+		writer->append("\n", pstyleh5);
+	}
+	else if (name == "h6")
+	{
+		inH6 = false;
+		lastCharWasSpace = true;
+		writer->append("\n", pstyleh6);
 	}
 	else if ((name == "b") || (name == "strong"))
 		unSetBoldFont();
@@ -434,6 +468,7 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 	else if (name == "pre")
 	{
 		inPre = false;
+		lastCharWasSpace = true;
 		writer->append("\n");
 	}
 	else if (name == "div")
@@ -459,6 +494,8 @@ void HTMLReader::toggleEffect(FontEffect e)
 	pstyleh2->getFont()->toggleEffect(e);
 	pstyleh3->getFont()->toggleEffect(e);
 	pstyleh4->getFont()->toggleEffect(e);
+	pstyleh5->getFont()->toggleEffect(e);
+	pstyleh6->getFont()->toggleEffect(e);
 	pstylecode->getFont()->toggleEffect(e);
 	pstylep->getFont()->toggleEffect(e);
 	pstylepre->getFont()->toggleEffect(e);
@@ -474,6 +511,8 @@ void HTMLReader::setItalicFont()
 	pstyleh2->getFont()->setSlant(ITALIC);
 	pstyleh3->getFont()->setSlant(ITALIC);
 	pstyleh4->getFont()->setSlant(ITALIC);
+	pstyleh5->getFont()->setSlant(ITALIC);
+	pstyleh6->getFont()->setSlant(ITALIC);
 	pstylecode->getFont()->setSlant(ITALIC);
 	pstylep->getFont()->setSlant(ITALIC);
 	pstylepre->getFont()->setSlant(ITALIC);
@@ -489,6 +528,8 @@ void HTMLReader::unsetItalicFont()
 	pstyleh2->getFont()->setSlant(defaultSlant);
 	pstyleh3->getFont()->setSlant(defaultSlant);
 	pstyleh4->getFont()->setSlant(defaultSlant);
+	pstyleh5->getFont()->setSlant(defaultSlant);
+	pstyleh6->getFont()->setSlant(defaultSlant);
 	pstylecode->getFont()->setSlant(defaultSlant);
 	pstylep->getFont()->setSlant(defaultSlant);
 	pstylepre->getFont()->setSlant(defaultSlant);
@@ -504,6 +545,8 @@ void HTMLReader::setBlueFont()
 	pstyleh2->getFont()->setColor("Blue");
 	pstyleh3->getFont()->setColor("Blue");
 	pstyleh4->getFont()->setColor("Blue");
+	pstyleh5->getFont()->setColor("Blue");
+	pstyleh6->getFont()->setColor("Blue");
 	pstylecode->getFont()->setColor("Blue");
 	pstylep->getFont()->setColor("Blue");
 	pstylepre->getFont()->setColor("Blue");
@@ -519,6 +562,8 @@ void HTMLReader::setDefaultColor()
 	pstyleh2->getFont()->setColor(defaultColor);
 	pstyleh3->getFont()->setColor(defaultColor);
 	pstyleh4->getFont()->setColor(defaultColor);
+	pstyleh5->getFont()->setColor(defaultColor);
+	pstyleh6->getFont()->setColor(defaultColor);
 	pstylecode->getFont()->setColor(defaultColor);
 	pstylep->getFont()->setColor(defaultColor);
 	pstylepre->getFont()->setColor(defaultColor);
@@ -546,16 +591,16 @@ void HTMLReader::unSetBoldFont()
 	pstylepre->getFont()->setWeight(defaultWeight);
 }
 
-void HTMLReader::parse(QString filename)
+void HTMLReader::parse(const QString& filename)
 {
 #if defined(_WIN32)
-	QString fname = QDir::convertSeparators(filename);
+	QString fname = QDir::toNativeSeparators(filename);
 	QByteArray fn = (QSysInfo::WindowsVersion & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
 #else
 	QByteArray fn(filename.toLocal8Bit());
 #endif
 	elemJustStarted = elemJustFinished = false;
-	htmlSAXParseFile(fn.data(), NULL, mySAXHandler, NULL);
+	htmlSAXParseFile(fn.data(), nullptr, mySAXHandler, nullptr);
 }
 
 void HTMLReader::createListStyle()
@@ -570,40 +615,40 @@ void HTMLReader::createListStyle()
 }
 
 htmlSAXHandler mySAXHandlerStruct = {
-	NULL, // internalSubset,
-	NULL, // isStandalone,
-	NULL, // hasInternalSubset,
-	NULL, // hasExternalSubset,
-	NULL, // resolveEntity,
-	NULL, // getEntity,
-	NULL, // entityDecl,
-	NULL, // notationDecl,
-	NULL, // attributeDecl,
-	NULL, // elementDecl,
-	NULL, // unparsedEntityDecl,
-	NULL, // setDocumentLocator,
-	NULL, // startDocument,
-	NULL, // endDocument,
+	nullptr, // internalSubset,
+	nullptr, // isStandalone,
+	nullptr, // hasInternalSubset,
+	nullptr, // hasExternalSubset,
+	nullptr, // resolveEntity,
+	nullptr, // getEntity,
+	nullptr, // entityDecl,
+	nullptr, // notationDecl,
+	nullptr, // attributeDecl,
+	nullptr, // elementDecl,
+	nullptr, // unparsedEntityDecl,
+	nullptr, // setDocumentLocator,
+	nullptr, // startDocument,
+	nullptr, // endDocument,
 	HTMLReader::startElement,
 	HTMLReader::endElement,
-	NULL, // reference,
+	nullptr, // reference,
 	HTMLReader::characters,
-	NULL, // ignorableWhitespace,
-	NULL, // processingInstruction,
-	NULL, // comment,
-	NULL, // warning,
-	NULL, // error,
-	NULL, // fatalError,
-	NULL, // getParameterEntity,
-	NULL, // cdata,
-	NULL,
+	nullptr, // ignorableWhitespace,
+	nullptr, // processingInstruction,
+	nullptr, // comment,
+	nullptr, // warning,
+	nullptr, // error,
+	nullptr, // fatalError,
+	nullptr, // getParameterEntity,
+	nullptr, // cdata,
+	nullptr,
 	1
 #ifdef HAVE_XML26
 	,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr
 #endif
 };
 
@@ -623,9 +668,11 @@ HTMLReader::~HTMLReader()
 	delete pstyleh2;
 	delete pstyleh3;
 	delete pstyleh4;
+	delete pstyleh5;
+	delete pstyleh6;
 	delete pstylecode;
 	delete pstylep;
 	delete pstylepre;
-	hreader = NULL;
+	hreader = nullptr;
 }
 

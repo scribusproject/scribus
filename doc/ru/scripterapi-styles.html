@@ -1,0 +1,212 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Creating and Manipulating Styles</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Creating and Manipulating Styles</h2>
+
+<dl>
+
+<dt><a name="-createCharStyle"><strong>createCharStyle</strong></a>(...)</dt>
+<dd><code>createCharStyle(...)</code>
+<p>Creates a character style. This function takes the following keyword parameters:
+<ul>
+<li>"name" [required] -> name of the char style to create (first parameter)</li>
+<li>"font" [optional] -> name of the font to use (second parameter)</li>
+<li>fontsize [optional] -> font size to set (double) (third parameter)</li>
+<li>"features" [optional] -> nearer typographic details can be defined by a string that might contain the following phrases comma-separated (without spaces!) (fourth parameter - a string):
+<ul>
+	<li>inherit</li>
+	<li>bold</li>
+	<li>italic</li>
+	<li>underline</li>
+	<li>underlinewords</li>
+	<li>strike</li>
+	<li>superscript</li>
+	<li>subscript</li>
+	<li>outline</li>
+	<li>shadowed</li>
+	<li>allcaps</li>
+	<li>smallcaps</li>
+</ul>
+</li>
+<li>"fillcolor" [optional], fillshade [optional] -> specify fill options (5th parameter: string, 6th parameter: a float 1.0 = 100%)</li>
+<li>"strokecolor" [optional], strokeshade [optional] -> specify stroke options (7th parameter: string, 8th parameter: a float 1.0 = 100%)</li>
+<li>baselineoffset [optional] -> offset of the baseline (ninth parameter)</li>
+<li>shadowxoffset [optional], shadowyoffset [optional] -> offset of the shadow if used (10th and 11th parameters)</li>
+<li>outlinewidth [optional] -> width of the outline if used (12th parameter)</li>
+<li>underlineoffset [optional], underlinewidth [optional] -> underline options if used (13th and 14th parameters)</li>
+<li>strikethruoffset [optional], strikethruwidth [optional] -> strikethru options if used (15th and 16th parameters)</li>
+<li>scaleh [optional], scalev [optional] -> scale of the chars (17th and 18th parameters - float values, 1.0 = 100%)</li>
+<li>tracking [optional] -> tracking of the text (19th parameter - number with odd math, e.g. -50 = -5.0%)</li>
+<li>"language" [optional] -> language code (20th parameter - a string en = English)</li>
+<li>"fontfeatures" [optional] -> a string that contains a comma-separated list of OpenType font features (21th parameter - a string):
+<ul>
+    <li>Ligatures:
+        <ul>
+            <li>-liga: disable common ligatures</li>
+            <li>-clig: disable contextual ligatures</li>
+            <li>+dlig: enable discretionary ligatures</li>
+            <li>+hlig: enable historical ligatures</li>
+        </ul>
+    </li>
+    <li>Script Position:
+        <ul>
+            <li>+subs: enable subscript</li>
+            <li>+sups: enable superscript</li>
+            <li>+ordn: enable ordinals</li>
+        </ul>
+    </li>
+    <li>Capitals:
+        <ul>
+            <li>+smcp: enable small capitals</li>
+            <li>+c2sc: enable small capitals from capitals</li>
+            <li>+pcap: enable petite capitals</li>
+            <li>+c2pc: enable petite capitals from capitals</li>
+            <li>+unic: enable unicase</li>
+            <li>+titl: enable titling</li>
+        </ul>
+    </li>
+    <li>Numerals:
+        <ul>
+            <li>+lnum: enable lining figures</li>
+            <li>+tnum: enable old style numerals</li>
+        </ul>
+    </li>
+    <li>Numeral Width:
+        <ul>
+            <li>+pnum: enable proportional figures</li>
+            <li>+tnum: enable tabular figures</li>
+        </ul>
+    </li>
+    <li>Numeral Fractions:
+        <ul>
+            <li>+frac: enable diagonal fractions</li>
+            <li>+afrc: enable stacked fractions</li>
+        </ul>
+    </li>
+    <li>Numeral zero:
+        <ul>
+            <li>+zero: enable slashed zero</li>
+        </ul>
+    </li>
+    <li>Style sets:
+        <ul>
+            <li>+ss01: enable 1st style set</li>
+            <li>...</li>
+            <li>+ss20: enable 20th style set</li>
+        </ul>
+    </li>
+</ul>
+</li>
+</ul>
+</p>
+<p>Any style attribute not explicitly defined will have its value inherited from default character style.</p>
+<p>Due to the important number of arguments of this function, it is strongly advised to use Python keyword syntax when calling this function. For example if a style needs to alter only font size, do not use this syntax:
+<ul style="list-style-type:none">
+    <li><code>newStyle = createCharStyle("New Style", "Arial Regular", 12)</code></li>
+</ul></p>
+<p>but use this syntax instead:
+<ul style="list-style-type:none">
+    <li><code>newStyle = createCharStyle("New Style", fontsize=12)</code></li>
+</ul>
+</p>
+<p>For some guidance on this showing in particular how to set tracking, see the wiki page <a href="https://wiki.scribus.net/canvas/Text_and_Text_Manipulation">Text and Text Manipulation</a>.</p>
+</dd>
+
+<dt><a name="-createCustomLineStyle"><strong>createCustomLineStyle</strong></a>(...)</dt>
+<dd><code>createCustomLineStyle(styleName, style)</code>
+<p>Creates the custom line style 'styleName'.</p>
+<p>This function takes list of dictionary as parameter for "style". Each dictionary represent one subline within style. Dictionary can have those keys:
+<ul>
+<li>Color [optional] -> name of the color to use (string)</li>
+<li>Dash [optional] -> type of line to use (integer)</li>
+<li>LineEnd [optional] -> type of LineEnd to use (integer)</li>
+<li>LineJoin [optional] -> type of LineJoin to use (integer)</li>
+<li>Shade [optional] -> opacity of line (integer)</li>
+<li>Width [optional] -> width of line (double)</li>
+</ul>
+</p>
+</dd>
+
+<dt><a name="-createParagraphStyle"><strong>createParagraphStyle</strong></a>(...)</dt>
+<dd><code>createParagraphStyle(...)</code>
+<p>Creates a paragraph style. This function takes the following keyword parameters:
+<ul>
+<li>"name" [required] -> specifies the name of the paragraphstyle to create</li>
+<li>linespacingmode [optional] -> specifies the linespacing mode; possible modes are:
+<ul>
+	<li>fixed linespacing: 0</li>
+	<li>automatic linespacing: 1</li>
+	<li>baseline grid linespacing: 2</li>
+</ul>
+</li>
+<li>linespacing [optional] -> specifies the linespacing if using fixed linespacing</li>
+<li>alignment [optional] -> specifies the alignment of the paragraph
+<ul>
+	<li>left: 0</li>
+	<li>center: 1</li>
+	<li>right: 2</li>
+	<li>justify: 3</li>
+	<li>extend: 4</li>
+</ul>
+</li>
+<li>leftmargin [optional], rightmargin [optional] -> specify the margin</li>
+<li>gapbefore [optional], gapafter [optional] -> specify the gaps to the heading and following paragraphs</li>
+<li>firstindent [optional] -> the indent of the first line</li>
+<li>hasdropcap [optional] -> specifies if there are caps (1 = yes, 0 = no)</li>
+<li>dropcaplines [optional] -> height (in lines) of the caps if used</li>
+<li>dropcapoffset [optional] -> offset of the caps if used</li>
+<li>"charstyle" [optional] -> char style to use</li>
+<li>"bullet" [optional] -> string to use as bullet</li>
+<li>"tabs" [optional] -> a list of tab definitions
+<ul>
+    <li>a tab is defined as a tuple with the following format (position,type,fillchar)</li>
+    <li>position [required] -> float value for the position</li>
+    <li>type [optional] -> left: 0 [default], right: 1, period: 2, comma: 3, center: 4</li>
+    <li>fillchar [optional] -> the char to fill the space; default is none</li>
+</ul>
+</li>
+</ul>
+</p>
+<p>If you wish to skip a number of settings, unfortunately, this command will not accept null values, i.e., a series of commas. You <i>must</i> put some integer value for each of the potential parameters. For example, imagine you wish to only specify a name for the Paragraph Style, and the Character Style. Your command should be something like:
+<ul style="list-style-type:none">
+    <li><code>scribus.createParagraphStyle("MyNewStyle", 0, 0, 0, 0, 0, 0, 0, 0, 0, "MyCharStyle"))</code></li>
+</ul></p>
+<p>On the other hand, if you only wanted to specify a name and linespacing mode, you can quit whenever after you finished with non-zero data:
+<ul style="list-style-type:none">
+    <li><code>scribus.createParagraphStyle("MyOtherNewStyle", 1)</code></li>
+</ul></p>
+</dd>
+
+<dt><a name="-getAllStyles"><strong>getAllStyles</strong></a>(...)</dt>
+<dd><code>getAllStyles() -&gt; list</code>
+<p>Deprecated, use getParagraphStyles() instead.</p></dd>
+
+<dt><a name="-getCellStyles"><strong>getCellStyles</strong></a>(...)</dt>
+<dd><code>getCellStyles() -&gt; list</code>
+<p>Return a list of the names of all cell styles in the current document.</p></dd>
+
+<dt><a name="-getCharStyles"><strong>getCharStyles</strong></a>(...)</dt>
+<dd><code>getCharStyles() -&gt; list</code>
+<p>Return a list of the names of all character styles in the current document.</p></dd>
+
+<dt><a name="-getLineStyles"><strong>getLineStyles</strong></a>(...)</dt>
+<dd><code>getLineStyles() -&gt; list</code>
+<p>Return a list of the names of all line styles in the current document.</p></dd>
+
+<dt><a name="-getParagraphStyles"><strong>getParagraphStyles</strong></a>(...)</dt>
+<dd><code>getParagraphStyles() -&gt; list</code>
+<p>Return a list of the names of all paragraph styles in the current document.</p></dd>
+
+<dt><a name="-getTableStyles"><strong>getTableStyles</strong></a>(...)</dt>
+<dd><code>getTableStyles() -&gt; list</code>
+<p>Return a list of the names of all table styles in the current document.</p></dd>
+
+</dl>
+</body>
+</html>

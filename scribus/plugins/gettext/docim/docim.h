@@ -10,13 +10,14 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include "pluginapi.h"
+#include <QBuffer>
 #include <QObject>
 #include <QStringList>
 
 class gtWriter;
 class QProcess;
 
-extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+extern "C" PLUGIN_API void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer);
 
 /*! \brief Returns the string with importer description.
 \retval QString a string or QString::null when the plugin should not be loaded.
@@ -28,21 +29,23 @@ extern "C" PLUGIN_API QStringList FileExtensions();
 class DocIm : public QObject
 {
 	Q_OBJECT
+
 public:
 	DocIm(const QString& fname, const QString& enc, bool textOnly, gtWriter *w);
 	~DocIm();
+
 	void write();
 	bool isRunning();
+
 private:
 	QString filename;
 	QString encoding;
-	QString text;
-	QString error;
-	gtWriter *writer;
-	QProcess *proc;
-	bool failed;
-	bool textOnly;
-	void toUnicode();
+	QBuffer textBuffer;
+	QBuffer errorBuffer;
+	gtWriter *writer { nullptr };
+	QProcess *proc { nullptr };
+	bool failed { false };
+	bool textOnly { false };
 };
 
 #endif // DOCIM_H

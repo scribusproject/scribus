@@ -21,113 +21,105 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "undostate.h"
 #include "undoobject.h"
 
 UndoState::UndoState(const QString& name, const QString& description, QPixmap* pixmap) :
-transactionCode(0),
-actionName_(name),
-actionDescription_(description),
-actionPixmap_(pixmap),
-undoObject_(0)
+	m_actionName(name),
+	m_actionDescription(description),
+	m_actionPixmap(pixmap),
+	m_undoObject(nullptr)
 {
 
 }
 
-QString UndoState::getName()
+const QString& UndoState::getName() const
 {
-	return actionName_;
+	return m_actionName;
 }
 
 void UndoState::setName(const QString &newName)
 {
-	actionName_ = newName;
+	m_actionName = newName;
 }
 
-QString UndoState::getDescription()
+const QString& UndoState::getDescription() const
 {
-	return actionDescription_;
+	return m_actionDescription;
 }
 
 void UndoState::setDescription(const QString &newDescription)
 {
-	actionDescription_ = newDescription;
+	m_actionDescription = newDescription;
 }
 
 QPixmap* UndoState::getPixmap()
 {
-	return actionPixmap_;
+	return m_actionPixmap;
 }
 
 void UndoState::setPixmap(QPixmap *pixmap)
 {
-	actionPixmap_ = pixmap;
+	m_actionPixmap = pixmap;
 }
 
 void UndoState::undo()
 {
-	if (undoObject_) // if !undoObject_ there's an error, hmmm
-		undoObject_->restore(this, true);
+	if (m_undoObject) // if !m_undoObject there's an error, hmmm
+		m_undoObject->restore(this, true);
 }
 
 void UndoState::redo()
 {
-	if (undoObject_)
-		undoObject_->restore(this, false);
+	if (m_undoObject)
+		m_undoObject->restore(this, false);
 }
 
 void UndoState::setUndoObject(UndoObject *object)
 {
-	undoObject_ = object->undoObjectPtr();
+	m_undoObject = object->undoObjectPtr();
 }
 
 UndoObject* UndoState::undoObject()
 {
-	return undoObject_;
-}
-
-UndoState::~UndoState()
-{
-
+	return m_undoObject;
 }
 
 /*** SimpleState **************************************************************/
 
 SimpleState::SimpleState(const QString& name, const QString& description, QPixmap* pixmap)
-: UndoState(name, description, pixmap)
+           : UndoState(name, description, pixmap)
 {
 
 }
 
-bool SimpleState::contains(const QString& key)
+bool SimpleState::contains(const QString& key) const
 {
-	return values_.contains(key);
+	return m_values.contains(key);
 }
 
-QVariant SimpleState::variant(const QString& key, const QVariant& def)
+QVariant SimpleState::variant(const QString& key, const QVariant& def) const
 {
-	QMap<QString, QVariant>::const_iterator it = values_.find(key);
-	if (it != values_.end())
+	QMap<QString, QVariant>::const_iterator it = m_values.constFind(key);
+	if (it != m_values.constEnd())
 		return it.value();
 
-	values_[key] = def;
 	return def;
 }
 
-QString SimpleState::get(const QString& key, const QString& def)
+QString SimpleState::get(const QString& key, const QString& def) const
 {
-	QMap<QString, QVariant>::const_iterator it = values_.find(key);
-	if (it != values_.end())
+	QMap<QString, QVariant>::const_iterator it = m_values.constFind(key);
+	if (it != m_values.constEnd())
 		return it.value().toString();
 
-	values_[key] = def;
 	return def;
 }
 
-int SimpleState::getInt(const QString& key, int def)
+bool SimpleState::getBool(const QString& key, bool def) const
 {
 	bool ok = false;
 	QVariant retVar = variant(key, QVariant(def));
@@ -137,7 +129,17 @@ int SimpleState::getInt(const QString& key, int def)
 	return ret;
 }
 
-uint SimpleState::getUInt(const QString& key, uint def)
+int SimpleState::getInt(const QString& key, int def) const
+{
+	bool ok = false;
+	QVariant retVar = variant(key, QVariant(def));
+	int ret = retVar.toInt(&ok);
+	if (!ok)
+		ret = def;
+	return ret;
+}
+
+uint SimpleState::getUInt(const QString& key, uint def) const
 {
 	bool ok = false;
 	QVariant retVar = variant(key, QVariant(def));
@@ -147,7 +149,7 @@ uint SimpleState::getUInt(const QString& key, uint def)
 	return ret;
 }
 
-double SimpleState::getDouble(const QString& key, double def)
+double SimpleState::getDouble(const QString& key, double def) const
 {
 	bool ok = false;
 	QVariant retVar = variant(key, QVariant(def));
@@ -157,43 +159,189 @@ double SimpleState::getDouble(const QString& key, double def)
 	return ret;
 }
 
-bool SimpleState::getBool(const QString& key, bool def)
+void* SimpleState::getVoidPtr(const QString& key, void* def) const
 {
-	bool ok = false;
-	QVariant retVar = variant(key, QVariant(def));
-	int ret = retVar.toInt(&ok);
-	if (!ok)
-		ret = def;
+	void* ret = nullptr;
+	QVariant retVar = variant(key, QVariant::fromValue(def));
+	if (retVar.canConvert<void*>())
+		ret = retVar.value<void*>();
 	return ret;
+}
+
+
+void SimpleState::set(const QString& key)
+{
+	m_values[key] = QVariant();
 }
 
 void SimpleState::set(const QString& key, const QString& value)
 {
-	values_[key] = QVariant(value);
-}
-
-void SimpleState::set(const QString& key, int value)
-{
-	values_[key] = QVariant(value);
-}
-
-void SimpleState::set(const QString& key, uint value)
-{
-	values_[key] = QVariant(value);
-}
-
-void SimpleState::set(const QString& key, double value)
-{
-	values_[key] = QVariant(value);
+	m_values[key] = QVariant(value);
 }
 
 void SimpleState::set(const QString& key, bool value)
 {
-	values_[key] = QVariant(value);
+	m_values[key] = QVariant(value);
 }
 
+void SimpleState::set(const QString& key, int value)
+{
+	m_values[key] = QVariant(value);
+}
 
-SimpleState::~SimpleState()
+void SimpleState::set(const QString& key, uint value)
+{
+	m_values[key] = QVariant(value);
+}
+
+void SimpleState::set(const QString& key, double value)
+{
+	m_values[key] = QVariant(value);
+}
+
+void SimpleState::set(const QString& key, void* ptr)
+{
+	m_values[key] = QVariant::fromValue<void*>(ptr);
+}
+
+/*** TransactionState *****************************************************/
+
+TransactionState::TransactionState() : UndoState(QString())
 {
 
+}
+
+UndoState* TransactionState::at(int index) const
+{
+	if (index >= 0 && static_cast<uint>(index) < sizet())
+		return m_states[index];
+	return nullptr;
+}
+
+UndoState* TransactionState::last() const
+{
+	if (!m_states.empty())
+		return m_states.at(m_size - 1);
+	return nullptr;
+}
+
+bool TransactionState::contains(int uid) const
+{
+	for (size_t i = 0; i < m_states.size(); ++i)
+	{
+		UndoObject* undoObject = m_states[i]->undoObject();
+		if (undoObject && undoObject->getUId() == static_cast<uint>(uid))
+			return true;
+	}
+	return false;
+}
+
+bool TransactionState::containsOnly(int uid) const
+{
+	for (size_t i = 0; i < m_states.size(); ++i)
+	{
+		UndoObject* undoObject = m_states[i]->undoObject();
+		if (undoObject && undoObject->getUId() != static_cast<uint>(uid))
+			return false;
+	}
+	return true;
+}
+
+void TransactionState::pushBack(UndoObject *target, UndoState *state)
+{
+	if (target && state)
+	{
+		state->setUndoObject(target);
+		m_states.push_back(state);
+		++m_size;
+	}
+}
+
+uint TransactionState::sizet() const
+{
+	return m_size;
+}
+
+void TransactionState::useActionName()
+{
+	if (m_size > 0)
+		setName(m_states[m_size - 1]->getName());
+}
+
+UndoObject* TransactionState::replace(ulong uid, UndoObject *newUndoObject)
+{
+	UndoObject *tmp = nullptr;
+	for (size_t i = 0; i < m_states.size(); ++i)
+	{
+		TransactionState *ts = dynamic_cast<TransactionState*>(m_states[i]);
+		if (ts) // are we having a transaction_inside a transaction
+			ts->replace(uid, newUndoObject);
+		else if (m_states[i]->undoObject() && m_states[i]->undoObject()->getUId() == uid)
+		{
+			tmp = m_states[i]->undoObject();
+			m_states[i]->setUndoObject(newUndoObject);
+		}
+	}
+	return tmp;
+}
+
+void TransactionState::undo() // undo all attached states
+{
+	for (int i = sizet() - 1; i > -1; --i)
+	{
+		if ((sizet() - 1) == 0)
+			at(i)->transactionCode = 0;
+		else
+		{
+			if (i == static_cast<int>(sizet() - 1))
+				at(i)->transactionCode = 1;
+			else if (i == 0)
+				at(i)->transactionCode = 2;
+			else
+				at(i)->transactionCode = 3;
+		}
+		if (transactionCode != 0)
+			at(i)->transactionCode = transactionCode;
+		at(i)->undo();
+	}
+}
+
+void TransactionState::redo() // redo all attached states
+{
+	for (uint i = 0; i < sizet(); ++i)
+	{
+		if ((sizet() - 1) == 0)
+			at(i)->transactionCode = 0;
+		else
+		{
+			if (i == 0)
+				at(i)->transactionCode = 1;
+			else if (i == static_cast<uint>(sizet() - 1))
+				at(i)->transactionCode = 2;
+			else
+				at(i)->transactionCode = 3;
+		}
+		if (transactionCode != 0)
+			at(i)->transactionCode = transactionCode;
+		at(i)->redo();
+	}
+}
+
+TransactionState::~TransactionState()
+{
+	for (size_t i = 0; i < m_states.size(); ++i)
+	{
+		if (m_states[i])
+		{
+			delete m_states[i];
+			m_states[i] = nullptr;
+		}
+	}
+}
+
+void* ScItemsState::getItem(const QString& itemname) const
+{
+	if (pointerMap.contains(itemname))
+		return pointerMap.value(itemname, nullptr);
+	return nullptr;
 }

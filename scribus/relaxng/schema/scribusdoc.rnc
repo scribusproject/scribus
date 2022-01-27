@@ -1,0 +1,207 @@
+namespace impl = "http://www.scribus.info/RelaxNG/implementation"
+
+[impl:import[impl:datatype="MarginStruct" impl:headerfile="scribusstructs.h"]
+ impl:import[impl:datatype="GuideManagerCore" impl:headerfile="guidemanagercore.h"]
+ impl:import[impl:datatype="ObjAttrVector" impl:headerfile="pagestructs.h"]
+ impl:import[impl:datatype="ScPage" impl:headerfile="scpage.h"]
+ impl:import[impl:datatype="PageItem" impl:headerfile="pageitem.h"]]
+
+
+grammar {
+	[
+	impl:template="SimpleSettings" 
+	impl:name="MarginStruct_base"
+	impl:datatype="MarginStruct"
+	]
+	MarginStructDef = (
+            [impl:initial = "0"]
+            attribute Bottom { xsd:decimal },
+            [impl:initial = "0"]
+            attribute Left { xsd:decimal },
+            [impl:initial = "0"]
+            attribute Right { xsd:decimal },
+            [impl:initial = "0"]
+            attribute Top { xsd:decimal }
+	)
+            
+        
+	[
+	impl:datatype="ScPage"
+	impl:name="ScPage_base"
+	impl:template="SimpleSettings"
+	]
+    PageDef = (
+		[impl:name="m_xOffset" impl:getter="xOffset" impl:setter="setXOffset"]
+	    attribute PageXPos { xsd:integer },
+		[impl:name="m_yOffset" impl:getter="yOffset" impl:setter="setYOffset"]
+		attribute PageYPos { xsd:integer },
+		[impl:name="m_width" impl:getter="width" impl:setter="setWidth"]
+	    attribute PageWidth { xsd:decimal },
+		[impl:name="m_height" impl:getter="height" impl:setter="setHeight"]
+	    attribute PageHeight { xsd:decimal },
+	    
+		[impl:name="m_pageNr" impl:getter="pageNr" impl:setter="setPageNr"]
+		attribute PageNum { xsd:integer },
+		[impl:name="m_pageName" impl:getter="pageName" impl:setter="setPageName"]
+	    attribute PageName { xsd:string },
+		[impl:name="MPageNam"]
+	    attribute MasterPageName { xsd:string },
+		[impl:name="m_pageSize"]
+		attribute PageSize { xsd:string },
+		[impl:name="m_orientation" impl:getter="orientation" impl:setter="setOrientation"]
+		attribute Orientation { xsd:int },
+		[impl:name="LeftPg"]
+		attribute Left { xsd:int },
+		[impl:name="marginPreset"]
+		attribute Preset { xsd:int },
+	    
+		[
+		impl:datatype = "MarginStruct" 
+		impl:name = "initialMargins" 
+		impl:type = "struct"
+		]
+	    element initialBorders { MarginStructDef },
+
+	    [
+		impl:datatype="GuideManagerCore" 
+		impl:name="GuideManagerCore_base" 
+		impl:template="SimpleSettings"
+		]
+	    element GuideManager {
+			attribute VerticalGuides { xsd:decimal },
+			attribute HorizontalGuides { xsd:decimal },
+			attribute AGHorizontalAutoGap { xsd:decimal },
+			attribute AGVerticalAutoGap { xsd:decimal },
+			attribute AGHorizontalAutoCount { xsd:decimal },
+			attribute AGVerticalAutoCount { xsd:decimal },
+			attribute AGHorizontalAutoRef { xsd:decimal },
+			attribute AGVeritcalAutoRef { xsd:decimal },
+			attribute AGSelection { xsd:decimal }
+	    }
+	)
+		
+	[
+	impl:name="ObjectAttribute" 
+	impl:template="SimpleSettings"
+	]
+	ItemAttributedef = (
+
+                attribute name { xsd:string },
+                attribute type { xsd:string },
+                attribute value { xsd:string },
+							  attribute parameter { xsd:string },
+                attribute relationship { xsd:string },
+                attribute relationshipto { xsd:string },
+                attribute autoaddto { xsd:string }
+
+	)
+	
+	GDef = (
+        attribute gXPOS { xsd:double },
+        attribute gYPOS { xsd:double },
+        attribute gWidth { xsd:double },
+        attribute gHeight { xsd:double }
+	)
+
+	TableBorderLineDef = (
+        attribute width { xsd:string }?,
+        attribute PenStyle { xsd:string }?,
+        attribute Color { xsd:string }?,
+        attribute Shade { xsd:string }?
+	)
+
+
+	include "pageitems.rnc"
+
+
+	start = element SCRIBUSNEWUTF8 { 
+			attribute Version { xsd:string } ,
+			[impl:template="SimpleSettings" 
+			 impl:name="ScribusDoc_base" 
+			 impl:datatype="ScribusDoc"]
+			 
+     
+            
+			element Document {
+                  ## paper format, eg. "letter" or "A4"
+                  [impl:datatype = "QString" impl:name = "pageSize"]
+                  attribute PageSize { xsd:string },
+                  attribute AutoSave { xsd:boolean }?,
+                  attribute AutoSaveTime { xsd:integer }?,
+                  [impl:name = "marginPreset"]
+                  attribute MarginPreset { xsd:integer },
+                  [impl:name = "pageHeight"]
+                  attribute PageHeight { xsd:decimal },
+                  [impl:name = "pageOrientation"]
+                  attribute PageOrientation { xsd:integer },
+                  [impl:name = "pagePositioning"]
+                  attribute PagePositioning { xsd:integer },
+                  [impl:name = "pageWidth"]
+                  attribute PageWidth { xsd:decimal },
+                  [impl:name = "saveCompressed"]
+                  attribute SaveCompressed { xsd:boolean },
+                  [impl:name = "docUnitIndex"]
+                  attribute UnitIndex { xsd:integer },
+                  (
+                  [impl:datatype = "MarginStruct" impl:name = "bleeds" impl:type = "struct"]
+                  element Bleed { MarginStructDef }? &
+                  [impl:datatype = "MarginStruct" impl:name = "margins" impl:type = "struct"]
+                  element Margin { MarginStructDef }),
+		  (
+		  
+		  [impl:name="MasterPages" impl:datatype="QList<ScPage*>" 
+	       impl:builder="ScPage;|PageNum|.toInt();PageName"]
+		  element MASTERPAGE {
+		    
+		      PageDef
+		  }*,
+		  
+
+		  [impl:name="DocPages" 
+		   impl:datatype="QList<ScPage*>"
+	       impl:builder="ScPage;|PageNum|.toInt();PageName"]
+		  element PAGE {
+	    
+		      PageDef
+		  }*
+                  ),
+
+                  [ impl:name="MasterItems" impl:datatype="QList<PageItem*>"
+	                impl:builder="PageItem;|PTYPE|.toInt();|FRTYPE|.toInt();|XPOS|.toDouble();|YPOS|.toDouble();|WIDTH|.toDouble();|HEIGHT|.toDouble();|PWIDTH|.toDouble();PCOLOR;PCOLOR2"]
+                  element MASTEROBJECT {
+
+                        PageItemDef
+                  }*,
+
+                  [ impl:name="DocItems" impl:datatype="QList<PageItem*>"
+	                impl:builder="PageItem;|PTYPE|.toInt();|FRTYPE|.toInt();|XPOS|.toDouble();|YPOS|.toDouble();|WIDTH|.toDouble();|HEIGHT|.toDouble();|PWIDTH|.toDouble();PCOLOR;PCOLOR2"]
+                  element PAGEOBJECT {
+
+                        PageItemDef
+                  }*,
+
+                  [ impl:name="FrameItems" impl:datatype="QList<PageItem*>"
+	                impl:builder="PageItem;|PTYPE|.toInt();|FRTYPE|.toInt();|XPOS|.toDouble();|YPOS|.toDouble();|WIDTH|.toDouble();|HEIGHT|.toDouble();|PWIDTH|.toDouble();PCOLOR;PCOLOR2"]
+                  element FRAMEOBJECT {
+
+                        PageItemDef
+                  }*,
+
+                  [ impl:datatype="QList<PageItem*>"  
+	                impl:builder="PageItem;|PTYPE|.toInt();|FRTYPE|.toInt();|XPOS|.toDouble();|YPOS|.toDouble();|WIDTH|.toDouble();|HEIGHT|.toDouble();|PWIDTH|.toDouble();PCOLOR;PCOLOR2"]
+                  element PatternITEM {
+
+                        PageItemDef
+                  }*,
+
+                  [ impl:datatype="QList<PageItem*>"  
+	                impl:builder="PageItem;|PTYPE|.toInt();|FRTYPE|.toInt();|XPOS|.toDouble();|YPOS|.toDouble();|WIDTH|.toDouble();|HEIGHT|.toDouble();|PWIDTH|.toDouble();PCOLOR;PCOLOR2"]
+                  element ITEM {
+
+                        PageItemDef
+                  }*
+
+	      }
+	}
+}
+

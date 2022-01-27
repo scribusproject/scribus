@@ -36,7 +36,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 """
 
 import sys
@@ -44,7 +44,7 @@ import sys
 try:
     from scribus import *
 except ImportError:
-    print "This script only runs from within Scribus."
+    print ("This script only runs from within Scribus.")
     sys.exit(1)
 
 from math import sqrt

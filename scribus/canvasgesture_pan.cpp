@@ -21,34 +21,23 @@
 #include "canvas.h"
 #include "scribusapp.h" // for qApp
 #include "scribusview.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 PanGesture::PanGesture (CanvasMode* parent) : CanvasGesture(parent)
 {
-	m_haveCursor = false;
 }
 
 void PanGesture::activate(bool fromGesture)
 {
-//	qDebug() << "PanGesture::activate" << flag;
-	m_haveCursor = (qApp->overrideCursor() != NULL);
-	if ( (!fromGesture) && qApp->overrideCursor())
-	{
-		m_haveCursor = true;
-		m_cursor = *(qApp->overrideCursor());
-	}
-	else
-	{
-		m_haveCursor = false;
-	}
-	qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+	CanvasGesture::activate(fromGesture);
+	m_cursor = m_view->cursor();
+	m_view->setCursor(IconManager::instance().loadCursor("handc.png"));
 }
 
-void PanGesture::deactivate(bool forgesture)
+void PanGesture::deactivate(bool forGesture)
 {
-//	qDebug() << "PanGesture::deactivate" << forgesture;
-	if (m_haveCursor)
-		qApp->changeOverrideCursor(m_cursor);
+	m_view->setCursor(m_cursor);
+	CanvasGesture::deactivate(forGesture);
 }
 
 void PanGesture::drawControls(QPainter* p)
@@ -71,7 +60,7 @@ void PanGesture::mouseMoveEvent(QMouseEvent* m)
 	m_view->scrollBy(dx, dy);
 }
 
-void PanGesture::mouseReleaseEvent(QMouseEvent* m)
+void PanGesture::mouseReleaseEvent(QMouseEvent* /*m*/)
 {
 	m_view->stopGesture();
 }

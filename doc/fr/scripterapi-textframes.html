@@ -1,0 +1,205 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Manipuler les cadres de texte</title>
+</head>
+<body>
+<h2>Manipuler les cadres de texte</h2>
+
+<dl>
+
+<dt><a name="-deleteText"><strong>deleteText</strong></a>(...)</dt>
+<dd><code>deleteText(["nom"])</code>
+<p>Supprime le texte dans le cadre de texte "nom". S'il y a du texte sélectionné, seul ce texte sera supprimé. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-getAllText"><strong>getAllText</strong></a>(...)</dt>
+<dd><code>getAllText(["nom"]) -&gt; chaîne</code>
+<p>Retourne le texte d'un cadre de texte "nom" et de tous les cadres de texte qui sont y liés. Si du texte est sélectionné dans ce cadre, il est retourné. 
+Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd></dt>
+
+<dt><a name="-getColumnGap"><strong>getColumnGap</strong></a>(...)</dt>
+<dd><code>getColumnGap(["nom"]) -&gt;
+réel</code>
+<p>Retourne la taille de la gouttière de colonne dans le cadre de texte "nom", exprimée en points. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-getColumns"><strong>getColumns</strong></a>(...)</dt>
+<dd><code>getColumns(["nom"]) -&gt; nombre entier</code>
+<p>Donne le nombre de colonnes du cadre de texte "nom". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-getFirstLineOffset"><strong>getFirstLineOffset</strong></a>(...)</dt>
+<dd><code>getFirstLineOffset(["nom"]) -&gt; nombre entier</code>
+<p>Retourne l'offset de la première ligne de texte à l'intérieur du cadre de texte "nom". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-getFirstLinkedFrame"><strong>getFirstLinkedFrame</strong></a>(...)</dt>
+<dd><code>getFirstLinkedFrame(["nom"]) -&gt; chaîne</code>
+<p>Retourne le premier cadre dans la chaîne de texte. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-getFont"><strong>getFont</strong></a>(...)</dt>
+<dd><code>getFont(["nom"]) -&gt; chaîne</code>
+<p>Retourne le nom de la police pour le cadre de texte "nom". Si ce cadre contient du texte sélectionné, la valeur assignée au premier caractère de la sélection est retournée. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-getFontSize"><strong>getFontSize</strong></a>(...)</dt>
+<dd><code>getFontSize(["nom"]) -&gt; réel</code>
+<p>Retourne la taille, en points, de la police du cadre de texte "nom". Si ce cadre contient du texte sélectionné, la valeur assignée au premier caractère de la sélection est retournée. 
+Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-getFrameText"><strong>getFrameText</strong></a>(...)</dt>
+<dd><code>getFrameText(["nom"]) -&gt; chaîne</code>
+<p>Retourne le texte visible dans le cadre de texte "nom". Si ce cadre de texte contient du texte sélectionné, celui-ci est retourné. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>Cette fonction retourne uniquement le texte visible dans le cadre spécifié. Si vous souhaitez obtenir le texte contenu dans une chaîne de texte, veuillez utiliser <a href="#-getAllText">getAllText()</a> en lieu et place.</p>
+<p>Comme cette fonction nécessite que la mise en page du texte soit à jour, il est possible que vous ayez besoin d'appeler <a href="#-layoutText">layoutText()</a> ou <a href="#-layoutTextChain">layoutTextChain()</a> au préalable afin d'obtenir le résultat attendu.</p></dd>
+
+<dt><a name="-getLastLinkedFrame"><strong>getLastLinkedFrame</strong></a>(...)</dt>
+<dd><code>getLastLinkedFrame(["name"]) -&gt; chaîne</code>
+<p>Retourne le dernier cadre dans la chaîne de texte. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-getLineSpacing"><strong>getLineSpacing</strong></a>(...)</dt>
+<dd><code>getLineSpacing(["nom"]) -&gt; réel</code>
+<p>Retourne l'espacement de ligne ("leading") du cadre de texte "nom", exprimé en points. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-getNextLinkedFrame"><strong>getNextLinkedFrame</strong></a>(...)</dt>
+<dd><code>getNextLinkedFrame(["nom"]) -&gt; chaîne</code>
+<p>Retourne le cadre suivant dans la chaîne de texte ou None si le cadre spécifié est le dernier dans la chaîne. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-getPrevLinkedFrame"><strong>getPrevLinkedFrame</strong></a>(...)</dt>
+<dd><code>getPrevLinkedFrame(["nom"]) -&gt; chaîne</code>
+<p>Retourne le cadre précédent dans la chaîne de texte ou None si le cadre spécifié est le premier dans la chaîne. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-getText"><strong>getText</strong></a>(...)</dt>
+<dd><code>getText(["nom"]) -&gt; chaîne</code>
+<p>Obsolète. Veuillez utiliser getFrameText() en lieu et place.</p></dd>
+
+<dt><a name="-getTextColor"><strong>getTextColor</strong></a>(...)</dt>
+<dd><code>getTextColor(["nom"]) -&gt; chaîne</code>
+<p>Retourne le nom de la couleur de texte définie pour l'objet "nom". Si ce cadre contient du texte sélectionné, la valeur assignée au premier caractère de la sélection est retournée. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Peut générer WrongFrameTypeError si le cadre cible n'est pas un cadre de texte.</p></dd>
+
+<dt><a name="-getTextLength"><strong>getTextLength</strong></a>(...)</dt>
+<dd><code>getTextLength(["nom"]) -&gt; nombre entier</code>
+<p>Retourne la longueur du texte dans le cadre de texte "nom". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-getTextLines"><strong>getTextLines</strong>(...)</a></dt>
+<dd><code>getTextLines(["nom"]) -&gt; integer</code>
+<p>Retourne le nombre de lignes de texte présenté dans le cadre de texte "nom". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>Comme cette fonction nécessite que la mise en page du texte soit à jour, il est possible que vous ayez besoin d'appeler <a href="#-layoutText">layoutText()</a> ou <a href="#-layoutTextChain">layoutTextChain()</a> au préalable afin d'obtenir le résultat attendu.</p></dd>
+
+<dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
+<dd><code>getTextShade(["nom"]) -&gt; nombre entier</code>
+<p>Retourne la valeur de la teinte de couleur définie pour le texte de l'objet "nom". Si ce cadre contient du texte sélectionné, la valeur assignée au premier caractère de la sélection est retournée. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Peut générer WrongFrameTypeError si le cadre cible n'est pas un cadre de texte.</p></dd>
+
+<dt><a name="-getTextVerticalAlignment"><strong>getTextVerticalAlignment</strong></a>(...)</dt>
+<dd><code>getTextVerticalAlignment(["nom"]) -&gt; nombre entier</code>
+<p>Retourne l'alignement vertical utilisé pour le texte &agrave; l'intérieur de l'objet "nom". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-insertText"><strong>insertText</strong></a>(...)</dt>
+<dd><code>insertText("texte", pos, ["nom"])</code>
+<p>Insère le "texte" &agrave; la position "pos" dans le cadre de texte. Le
+texte doit &ecirc;tre encodé en UTF (voir <a href="#-setText">setText</a>()
+comme référence). Le premier caractère a un index de 0.
+Insérer du texte &agrave; la position -1 l'ajoute &agrave; la fin du cadre. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Pour des raisons de performance, cette fonction ne réalise aucune mise à jour de la mise en page du texte. En conséquence il est possible que vous deviez appeler <a href="#-layoutText">layoutText()</a>  or <a href="#-layoutTextChain">layoutTextChain()</a> après avoir appelé cette fonction et lorsque vous le jugez nécessaire préalablement à l'appel de fonctions telles que <a href="#-getFrameText">getFrameText()</a> ou <a href="#-getTextLines">getTextLines()</a>.</p>
+<p>Peut générer IndexError dans le cas d'une insertion hors limites.</p></dd>
+
+<dt><a name="-layoutText"><strong>layoutText</strong></a>(...)</dt>
+<dd><code>layoutText(["nom"])</code>
+<p>Actualise la mise en page du texte dans le cadre de texte "nom". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-layoutText"><strong>layoutTextChain</strong></a>(...)</dt>
+<dd><code>layoutTextChain(["nom"])</code>
+<p>Actualise la mise en page du texte pour l'intégralité de la chaîne de texte à laquelle le cadre de texte "nom" appartient. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
+<dd><code>linkTextFrames("nomDepart", "nomArrivee")</code>
+<p>&Eacute;tablit un lien entre deux cadres de texte. Le cadre nommé "nomDepart" est lié au cadre "nomArrivee". Le cadre cible doit &ecirc;tre un cadre de texte vide et ne doit pas pointer vers d'autres cadres ni porter un lien provenant d'autres cadres.</p>
+<p>Peut générer <a href="#ScribusException">ScribusException</a> en cas d'infraction des règles de liens.</p></dd>
+
+
+<dt><a name="-selectFrameText"><strong>selectFrameText</strong></a>(...)</dt>
+<dd><code>selectFrameText(depart, compte, ["nom"])</code>
+<p>Sélectionne le nombre ("compte") de caractères de texte dans le cadre de texte "nom" en partant du caractère "départ". Le décompte des caractères commence &agrave; 0. Si "compte" est égal &agrave; zéro, tout le texte sera effacé. Si "compte" est égal à -1, la sélection s'étendra jusqu'au dernier charactère du cadre. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>Cette fonction agit uniquement sur le texte visible dans le cadre spécifié. Si vous avez besoin de travailler sur le texte contenu dans une chaîne de texte, veuillez utiliser selectText() à la place.</p>
+<p>Comme cette fonction nécessite que la mise en page du texte soit à jour, il est possible que vous ayez besoin d'appeler <a href="#-layoutText">layoutText()</a> ou <a href="#-layoutTextChain">layoutTextChain()</a> au préalable afin d'obtenir le résultat attendu.</p>
+<p>Peut générer IndexError si la sélection dépasse les limites du texte.</p></dd>
+
+<dt><a name="-selectText"><strong>selectText</strong></a>(...)</dt>
+<dd><code>selectText(depart, compte, ["nom"])</code>
+<p>Sélectionne le nombre ("compte") de caractères de texte dans le cadre de texte "nom" en partant du caractère "départ". Le décompte des caractères commence &agrave; 0. Si "compte" est égal &agrave; zéro, tout le texte sera effacé. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>Peut générer IndexError si la sélection dépasse les limites du texte.</p></dd>
+
+<dt><a name="-setColumns"><strong>setColumns</strong></a>(...)</dt>
+<dd><code>setColumns(nr, ["nom"])</code>
+<p>Définit le nombre de colonnes du cadre de texte "nom" &agrave; la valeur entière "nr". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Peut générer ValueError si le nombre de colonnes n'est pas au
+moins égal &agrave; un.</p></dd>
+
+<dt><a name="-setColumnGap"><strong>setColumnGap</strong></a>(...)</dt>
+<dd><code>setColumnGap(taille, ["nom"])</code>
+<p>Définit la gouttière de colonne du cadre de texte "nom" &agrave; la valeur "taille". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Peut générer ValueError si la gouttière de colonne est hors
+limites (elle doit &ecirc;tre positive).</p></dd>
+
+<dt><a name="-setFirstLineOffset"><strong>setFirstLineOffset</strong></a>(...)</dt>
+<dd><code>setFirstLineOffset(offset, ["nom"])</code>
+<p>Définit l'offset de la première ligne de texte du cadre de texte "nom" &agrave; la valeur spécifiée. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. La valeur "offset" doit &ecirc;tre une des constantes FLOP_* définies dans ce module - voir dir(scribus).</p>
+<p>Peut générer ValueError si la constante d'offset n'est pas valide.</p></dd>
+
+<dt><a name="-setFont"><strong>setFont</strong></a>(...)</dt>
+<dd><code>setFont("police", ["nom"])</code>
+<p>Assigne la police du cadre de texte "nom" &agrave; la "police". S'il y a du texte sélectionné, seul ce texte  sera modifié. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Peut générer ValueError si la police est introuvable.</p></dd>
+
+<dt><a name="-setFontSize"><strong>setFontSize</strong></a>(...)</dt>
+<dd><code>setFontSize(taille, ["nom"])</code>
+<p>Définit la taille de police du cadre de texte "nom" &agrave; la valeur "taille". La "taille" est traitée comme une valeur en points. S'il y a du texte sélectionné, seul ce texte  sera modifié. La "taille" doit &ecirc;tre réglée entre 1 et 512. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Peut générer ValueError pour une taille de police qui est hors limites.</p></dd>
+
+<dt><a name="-setLineSpacing"><strong>setLineSpacing</strong></a>(...)</dt>
+<dd><code>setLineSpacing(taille, ["nom"])</code>
+<p>Définit l'interlignage ("leading") du cadre de texte "nom" &agrave; la valeur "taille". La "taille" est une valeur en points. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Peut générer ValueError si l'interlignage est hors limites.</p></dd>
+
+<dt><a name="-setText"><strong>setText</strong></a>(...)</dt>
+<dd><code>setText("texte", ["nom"])</code>
+<p>Définit le contenu du cadre de texte "nom" &agrave; la chaîne "texte". Le texte doit &ecirc;tre encodé en UTF8 - utilisez par exemple unicode(texte, 'iso-8859-2'). 
+Voir les FAQ pour plus de détails. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-setTextAlignment"><strong>setTextAlignment</strong></a>(...)</dt>
+<dd><code>setTextAlignment(alignement, ["nom"])</code>
+<p>Définit l'alignement du contenu du cadre de texte "nom" &agrave; la valeur spécifiée. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. La valeur "alignement" doit &ecirc;tre une des constantes ALIGN_ définies dans ce module - voir dir(scribus).</p>
+<p>Peut générer ValueError si la constante d'alignement n'est pas valide.</p></dd>
+
+<dt><a name="-setTextColor"><strong>setTextColor</strong></a>(...)</dt>
+<dd><code>setTextColor("couleur", ["nom"])</code>
+<p>Définit la "couleur" du contenu du cadre de texte "nom". S'il y a du texte sélectionné, seul ce texte  sera modifié. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-setTextShade"><strong>setTextShade</strong></a>(...)</dt>
+<dd><code>setTextShade(teinte, ["nom"])</code>
+<p>Définit la valeur "teinte" de la couleur du texte de l'objet "nom". S'il y a du texte sélectionné, seul ce texte sera modifié. La valeur "teinte" doit &ecirc;tre un nombre entier compris entre 0 (p&acirc;le) et 100 (intensité maximale). Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-setTextStroke"><strong>setTextStroke</strong></a>(...)</dt>
+<dd><code>setTextStroke("couleur", ["nom"])</code>
+<p>Définit la "couleur" du contour des caractères. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-setTextVerticalAlignment"><strong>setTextVerticalAlignment</strong></a>(...)</dt>
+<dd><code>setTextVerticalAlignment(alignement, ["nom"])</code>
+<p>Définit l'alignement vertical du contenu du cadre de texte "nom" &agrave; la valeur spécifiée. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. La valeur "alignement" doit &ecirc;tre une des constantes ALIGNV_ définies dans ce module - voir dir(scribus).</p>
+<p>Peut générer ValueError si la constante d'alignement n'est pas valide.</p></dd>
+
+<dt><a name="-textOverflows"><strong>textOverflows</strong></a>(...)</dt>
+<dd><code>textOverflows(["nom", sansLiens]) -&gt; nombre entier</code>
+<p>Retourne 1 en cas de présence de caractères en surplus dans le
+cadre de texte "nom", 0 sinon. Si sansLiens est une valeur non nulle, il prend
+seulement un cadre - il n'utilise pas les liens de cadre. Sans
+ce paramètre, il cherche toute les chaînes liées.</p>
+<p>Peut générer WrongFrameTypeError si le cadre cible n'est pas un cadre de texte. </p></dd>
+
+<dt><a name="-unlinkTextFrames"><strong>unlinkTextFrames</strong></a>(...)</dt>
+<dd><code>unlinkTextFrames("nom")</code>
+<p>Retire l'objet désigné de la séquence de liens du cadre de texte. Si le cadre se trouvait au milieu d'une chaîne de liens, les cadres précédent et suivant seront connectés, par exemple 'a-&gt;b-&gt;c' devient 'a-&gt;c' lorsque vous déconnectez <a href="#-unlinkTextFrames">unlinkTextFrames</a>(b)'</p>
+<p>Peut générer <a href="#ScribusException">ScribusException</a> en cas d'infraction des règles de liens.</p></dd>
+
+</dl>
+</body>
+</html>
+ 

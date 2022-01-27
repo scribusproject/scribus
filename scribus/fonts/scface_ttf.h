@@ -9,23 +9,34 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "fonts/ftface.h"
+#include "fonts/sfnt.h"
+
 
 /*
 	Class ScFace_ttf
 	Subclass of ScFace, specifically for TrueType fonts.
-	Implements: RealName() and EmbedFont().
+	Implements: realName() and embedFont().
 */
 
 class SCRIBUS_API ScFace_ttf : public FtFace
 {
 public:
-	ScFace_ttf(QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face) 
-	: FtFace(fam, sty, alt, scname, psname, path, face )
-	{
-		formatCode = ScFace::SFNT;
-	}
-	bool EmbedFont(QString &str) const;
-	void RawData(QByteArray & bb) const;
+	ScFace_ttf (const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features);
+	~ScFace_ttf();
+
+	void load () const override;
+	void unload () const override;
+
+	bool embedFont(QByteArray &str) const override;
+	void rawData(QByteArray & bb) const override;
+	
+	bool glyphNames(ScFace::FaceEncoding& glyphList) const override;
+	bool hasNames() const override;
+	bool isSymbolic() const override;
+
+private:
+	mutable sfnt::PostTable m_checkPost;
+
 };
 
 #endif

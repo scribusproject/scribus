@@ -16,6 +16,7 @@ tr("Read: %1");
 tr("Write: %1");
 tr("File &name:");
 tr("File &type:");
+tr("Files of type:");
 tr("One directory up");
 tr("Cancel");
 tr("All Files (*)");
@@ -26,7 +27,11 @@ tr("Date");
 tr("Attributes");
 tr("OK");
 tr("Look &in:");
+tr("Look in:");
+tr("Recent Places");
 tr("Back");
+tr("Forward");
+tr("Parent Directory");
 tr("Create New Folder");
 tr("List View");
 tr("Detail View");
@@ -59,12 +64,15 @@ tr("the file");
 tr("the directory");
 tr("the symlink");
 tr("Delete %1");
+tr("Delete");
 tr("<qt>Are you sure you wish to delete %1 \"%2\"?</qt>");
+tr("Are you sure you want to delete '%1'?");
 CommonStrings::trYesKey;
 CommonStrings::trNoKey;
 tr("New Folder 1");
 tr("New Folder");
 tr("New Folder %1");
+tr("&New Folder");
 tr("Find Directory");
 tr("Directories");
 tr("Save");
@@ -77,22 +85,23 @@ tr("Directory:");
 QLineEdit::QLineEdit()
 {
 tr("Clear");
-tr("Select All");
 tr("&Undo");
 tr("&Redo");
 tr("Cu&t");
 tr("&Copy");
 tr("&Paste");
+tr("Delete");
+tr("Select All");
 }
 QTextEdit::QTextEdit()
 {
 tr("Clear");
-tr("Select All");
 tr("&Undo");
 tr("&Redo");
 tr("Cu&t");
 tr("&Copy");
 tr("&Paste");
+tr("Select All");
 }
 QMainWindow::QMainWindow()
 {
@@ -109,7 +118,7 @@ tr("Minimize");
 tr("Maximize");
 tr("Close");
 }
-QWorkspace::QWorkspace()
+QMdiArea::QMdiArea()
 {
 tr("&Restore");
 tr("&Move");
@@ -135,12 +144,13 @@ tr("&Green:");
 tr("Bl&ue:");
 tr("A&lpha channel:");
 tr("&Basic colors");
+tr("Pick Screen Color");
 tr("&Custom colors");
 tr("&Define Custom Colors >>");
 tr("OK");
 tr("Cancel");
 tr("&Add to Custom Colors");
-tr("Select color");
+tr("Select Color");
 }
 QFontDialog::QFontDialog()
 {

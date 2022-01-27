@@ -12,13 +12,6 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include "scribusapi.h"
-#include "text/nlsconfig.h"
-
-#ifdef NLS_CONFORMANCE
-#define NLS_PRIVATE private
-#else
-#define NLS_PRIVATE public
-#endif
 
 #include <QString>
 
@@ -28,8 +21,10 @@ for which a new license (GPL+exception) is in place.
 #include "styles/paragraphstyle.h"
 
 class PageItem;
+class Mark;
+class ScribusDoc;
 
-/* Struktur fuer Pageitem Text */
+/* Structure for Pageitem Text */
 
 
 /*
@@ -41,11 +36,81 @@ class PageItem;
  *
  */
 
+// from charstlye.h ScStyleFlags
+enum LayoutFlags {
+	ScLayout_None          = 0,
+	ScLayout_BulletNum     = 1 << 0, 	// marks list layout glyphs
+	ScLayout_FixedSpace    = 1 << 1, 	// marks a fixed space
+	ScLayout_ExpandingSpace= 1 << 2, 	// marks an expanding space
+	ScLayout_ImplicitSpace = 1 << 3, 	// marks an implicit space
+	ScLayout_TabLeaders    = 1 << 4, 	// marks a tab with fillchar
+	ScLayout_HyphenationPossible = 1 << 7, 	 // marks possible hyphenation point
+	ScLayout_DropCap       = 1 << 11,
+	ScLayout_SuppressSpace = 1 << 12,        // internal use in PageItem (Suppresses spaces when in Block alignment)
+	ScLayout_SoftHyphenVisible = 1 << 13,    // marks when a possible hyphenation point is used (st end of line)
+	ScLayout_StartOfLine      = 1 << 14,     // marks the start of line
+	ScLayout_Underlined       = 1 << 15,     // marks underlined glyphs
+	ScLayout_LineBoundary     = 1 << 16,     // marks possible line breaking point
+	ScLayout_RightToLeft      = 1 << 17,     // marks right-to-left glyph
+	ScLayout_SmallCap         = 1 << 18,     // marks small caps glyph
+	ScLayout_CJKFence         = 1 << 19,     // marks CJK fence glyph that needs spacing adjustment at start of line
+	ScLayout_NoBreakAfter     = 1 << 20,     // marks glyphs after which a line break cannot occur
+	ScLayout_NoBreakBefore    = 1 << 21,     // marks glyphs before which a line break cannot occur
+	ScLayout_JustificationTracking = 1 << 22, // marks place of tracking in justification (e.g. for Thai)
+	ScLayout_CJKLatinSpace    = 1 << 23      // marks place of space between CJK and latin letter
+};
+
+
+/**
+ * simple class to abstract from inline pageitems. You will need a ITextContext
+ * to get meaningful data about the InlineFrame, for other purposes it is opaque
+ */
+class SCRIBUS_API InlineFrame
+{
+	int m_object_id;
+public:
+	InlineFrame(int id) : m_object_id(id) {}
+	int getInlineCharID() const { return m_object_id; }
+	PageItem* getPageItem(ScribusDoc* doc) const;
+};
+
+
+/**
+ * Holds information about expansion points in a text source: pagenumber, counters, list bulllet, ...
+ */
+class SCRIBUS_API ExpansionPoint 
+{
+public:
+	enum ExpansionType {
+		Invalid,
+		PageNumber,
+		PageCount,
+		ListBullet,
+		ListCounter,
+		Note,	// foot or endnote number
+		Anchor,  // usually invisible	
+		PageRef,
+		Lookup, // generic lookup
+		SectionRef,
+		MarkCE // deprecated
+	} ;
+
+	ExpansionPoint(ExpansionType t) : m_type(t), m_name(), m_mark(0) {}
+	ExpansionPoint(ExpansionType t, QString name) : m_type(t), m_name(name), m_mark(0) {}
+	ExpansionPoint(Mark* mrk) : m_type(MarkCE), m_name(), m_mark(mrk) {}
+
+	ExpansionType getType() const { return m_type; }
+	QString getName() const { return m_name; }
+	Mark* getMark() const { return m_mark; }
+private:
+	ExpansionType m_type;
+	QString m_name;
+	Mark* m_mark;
+};
 
 
 /**
  * This struct stores a positioned glyph. This is the result of the layout process.
- * If a char gets translated to more than one glyph, a linked list is built.
  */
 struct SCRIBUS_API GlyphLayout {
 	float xadvance;
@@ -55,101 +120,56 @@ struct SCRIBUS_API GlyphLayout {
 	double scaleV;
 	double scaleH;
 	uint glyph;
-	GlyphLayout* more;
 	
 	GlyphLayout() : xadvance(0.0f), yadvance(0.0f), xoffset(0.0f), yoffset(0.0f),
-		scaleV(1.0), scaleH(1.0), glyph(0), more(NULL) 
+		scaleV(1.0), scaleH(1.0), glyph(0)
 	{ }
-	double wide() const 
-	{ 
-		double ret = 0; 
-		for(const GlyphLayout* p=this; p; p=p->more) 
-			ret += p->xadvance; 
-		return ret; 
-	}
-	GlyphLayout* last() 
-	{ 
-		if (more) 
-			return more->last();
-		else 
-			return this;
-	}
-	void shrink()
-	{
-		if (more) {
-			more->shrink();
-			delete more;
-			more = NULL;
-		}
-	}
-	void grow()
-	{
-		if (!more) {
-			more = new GlyphLayout();
-		}
-	}
-	
 };
 
-struct InlineFrameData;
-
-class SCRIBUS_API InlineFrame
-{
-public:
-	InlineFrame(PageItem* item);
-	InlineFrame(const InlineFrame& other);
-	InlineFrame& operator= (const InlineFrame& other);
-	virtual ~InlineFrame();
-	
-	bool hasItem();
-	bool isShared();
-	PageItem* getItem();
-	QList<PageItem*> getGroupedItems();
-private:
-	InlineFrameData* d;
-};
-
-
-#ifndef NLS_PROTO
 class SCRIBUS_API ScText : public CharStyle
 {
 public:
 	ParagraphStyle* parstyle; // only for parseps
-	GlyphLayout glyph;
-	float PtransX;
-	float PtransY;
-	float PRot;
-	float PDx;
-	InlineFrame embedded;
+	int embedded;
+	Mark* mark;
 	QChar ch;
-	ScText() : 
+	ScText() :
 		CharStyle(),
-		parstyle(NULL), glyph(), 
-		PtransX(0.0f), PtransY(0.0f), PRot(0.0f), PDx(0.0f), embedded(NULL), ch() {}
-	ScText(const ScText& other) : 
+		parstyle(nullptr),
+		embedded(0), mark(nullptr), ch() {}
+	ScText(const ScText& other) :
 		CharStyle(other),
-		parstyle(NULL), glyph(other.glyph), 
-		PtransX(other.PtransX), PtransY(other.PtransY), PRot(other.PRot), PDx(other.PDx), 
-		embedded(other.embedded), ch(other.ch)
+		parstyle(nullptr),
+		embedded(other.embedded), mark(nullptr), ch(other.ch)
 	{
 		if (other.parstyle)
 			parstyle = new ParagraphStyle(*other.parstyle);
+		if (other.mark)
+			setNewMark(other.mark);
 	}
 	~ScText();
+
+	bool hasObject(ScribusDoc *doc) const;
+	//returns true if given MRK is found, if MRK is nullptr then any mark returns true
+	bool hasMark(const Mark * mrk = nullptr) const;
+	QList<PageItem*> getGroupedItems(ScribusDoc *doc);
+	PageItem* getItem(ScribusDoc *doc);
+private:
+	void setNewMark(Mark* mrk);
 };
-#endif
 
 
 /** @brief First Line Offset Policy
- * Set wether the first line offset is based on max glyph height
+ * Set whether the first line offset is based on max glyph height
  * or some of predefined height.
  * I put a prefix because it could easily conflict 
  */
 enum FirstLineOffsetPolicy
 {
     FLOPRealGlyphHeight = 0, // Historical
-    FLOPFontAscent	= 1,
-    FLOPLineSpacing	= 2
+    FLOPFontAscent	 = 1,
+    FLOPLineSpacing  = 2,
+	FLOPBaselineGrid = 3
 };
 
 

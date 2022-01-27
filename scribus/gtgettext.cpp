@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "gtgettext.h"
@@ -30,17 +30,16 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "scribusdoc.h"
 #include "selection.h"
-#include "gtdialogs.h"
+#include "ui/gtdialogs.h"
 #include "gtwriter.h"
-//Added by qt3to4:
 #include <QPixmap>
-#include "util_icon.h"
 
 // Constructor
 gtGetText::gtGetText(ScribusDoc* doc)
 {
+	m_dias = nullptr;
 	// Attach to the active document
-	m_Doc=doc;
+	m_Doc = doc;
 	// Load the plugins array.
 	loadImporterPlugins();
 } // gtGetText::gtGetText(ScribusDoc* doc)
@@ -48,7 +47,7 @@ gtGetText::gtGetText(ScribusDoc* doc)
 // Look at the results of the file selection dialog and figure out if you need to use an importer.
 // Prompt the user if the importer to use isn't obvious.
 void gtGetText::launchImporter(int importer, const QString& filename, bool textOnly, 
-								const QString& encoding, bool append, PageItem* target)
+								const QString& encoding, bool append, bool prefix, PageItem* target)
 {
 	// Struct for the plugin info, we'll load this up from the array.
 	struct ImporterData ida;
@@ -62,29 +61,34 @@ void gtGetText::launchImporter(int importer, const QString& filename, bool textO
 		// Attempt to determine the importer based on the file's extension. 
 		// Create a Qstring with what could be an extension.
 		QString fend = filename.right(filename.length() - filename.lastIndexOf(".") - 1);
-		// Look for that extension in the importer Qmap. 
-		if (importerMap.find(fend) != importerMap.end())
+		QString fendL(fend.toLower());
+		// Look for that extension in the importer QMap. 
+		if (m_importerMap.find(fend) != m_importerMap.end())
 			// If the map is found, assign ida to the corresponding struct in the map.
-			ida = *importerMap[fend];
+			ida = *m_importerMap[fend];
+		// Otherwise, test for the lowercase version
+		else if (m_importerMap.find(fendL) != m_importerMap.end())
+			// If the map is found, assign ida to the corresponding struct in the map.
+			ida = *m_importerMap[fendL];
 		// Otherwise, try and ask the user.
 		else
 		{
 			// Create a new dialog
-			dias = new gtDialogs();
+			m_dias = new gtDialogs();
 			// Pop up the dialog asking the user to select the type from our list (ilist) of 
 			// importable file types. If one is not selected, set callImporter to false.
-			callImporter = dias->runImporterDialog(ilist);
+			callImporter = m_dias->runImporterDialog(filename, m_ilist);
 			// If we're gonna call an importer, we need to copy it's struct to ida.
 			if (callImporter)
-				ida = importers[dias->getImporter()];
+				ida = m_importers[m_dias->getImporter()];
 			// Destroy the diag
-			delete dias;
+			delete m_dias;
 		} // else - if (importerMap.find(fend) != importerMap.end())
 	}
 	else // If we know which importer to use
 	{
 		// Copy the importer's struct to ida.
-		ida = importers[importer];
+		ida = m_importers[importer];
 	}	// else - if (importer == -1)
 	
 	// Create a target text frame for the imported text and assign it to the parameter "target"
@@ -92,13 +96,13 @@ void gtGetText::launchImporter(int importer, const QString& filename, bool textO
 	
 	// If the targetframe is 0 ( no frame selected/created? ) then reassign it to the 
 	// (questionable interpretation here) first frame in the documentation.
-	if (targetFrame==0)
+	if (targetFrame==nullptr)
 		targetFrame=m_Doc->m_Selection->itemAt(0);
 
 	// If the targetframe is not zero, and we do need to call the importer, 
 	// Run the importer via "CallDLL" and pass it what it needs to know.
-	if (targetFrame!=0 && callImporter)
-		CallDLL(ida, filename, encoding, textOnly, append, targetFrame);
+	if (targetFrame!=nullptr && callImporter)
+		CallDLL(ida, filename, encoding, textOnly, append, prefix, targetFrame);
 }  //void gtGetText::launchImporter(int importer, const QString& filename, bool textOnly, 
    //						const QString& encoding, bool append, PageItem* target)
 
@@ -137,7 +141,7 @@ void gtGetText::loadImporterPlugins()
 				if (ida.soFilePath.left(1) != "/")
 					ida.soFilePath = "/" + ida.soFilePath;
 				// Add the plugin data to the end of the importer's vector.
-				importers.push_back(ida);
+				m_importers.push_back(ida);
 			}	// if (DLLName(d[dc], &ida.fileFormatName, &ida.fileEndings))
 		}  // for (uint dc = 0; dc < d.count(); ++dc)
 	}  // if ((d.exists()) && (d.count() != 0))
@@ -145,105 +149,141 @@ void gtGetText::loadImporterPlugins()
 	createMap();
 }  // void gtGetText::loadImporterPlugins()
 
+
+QStringList gtGetText::getSupportedTypes()
+{
+	QStringList result;
+	for (size_t i = 0; i < m_importers.size(); ++i)
+	{
+		const ImporterData& importerData = m_importers[i];
+		if (importerData.fileEndings.count() <= 0)
+			continue;
+		for (int j = 0; j < importerData.fileEndings.count(); ++j)
+			result.append(importerData.fileEndings[j].toLower());
+	}
+	return result;
+}
+
 // Creates the dialog for the user to import a file based on the supported file formats.
 ImportSetup gtGetText::run()
 {
 	// Initialize a filters list.
-	QString filters = "";
+	QString filters;
+
 	// Create a string for the "All supported files filter". Start with the label then loop through
 	// the importers vector and add all of the file extensions supported.
 	QString allSupported = QObject::tr("All Supported Formats") + " (";
 	// Loop through the importers vector.
-	for (uint i = 0; i < importers.size(); ++i)
+	for (size_t i = 0; i < m_importers.size(); ++i)
 	{
+		const ImporterData& importerData = m_importers[i];
 		// If there are any file extnsions declared by the importer
-		if (importers[i].fileEndings.count() != 0)
+		if (importerData.fileEndings.count() <= 0)
+			continue;
+		// Add the importer name to the filters list
+		filters += importerData.fileFormatName + " (";
+		// Loop though the extensions supported by the importer
+		for (int j = 0; j < importerData.fileEndings.count(); ++j)
 		{
-			// Add the importer name to the filters list
-			filters += importers[i].fileFormatName + " (";
-			// Loop though the extensions supported by the importer
-			for (int j = 0; j < importers[i].fileEndings.count(); ++j)
-			{
-				// Add the extension to both the filter and allSupported strings
-				filters += "*." + importers[i].fileEndings[j] + " ";
-				allSupported += "*." + importers[i].fileEndings[j] + " ";
-			}  // for (int j = 0; j < importers[i].fileEndings.count(); ++j)
-			// Trim the Qstring
-			filters = filters.trimmed();
-			// Append "entry of entry" information to the end of the filter.
-			filters += ");;";
-		}  // if (importers[i].fileEndings.count() != 0)
-	}  // for (uint i = 0; i < importers.size(); ++i)
+			// Add the extension to both the filter and allSupported strings
+			filters += "*." + importerData.fileEndings[j] + " ";
+			allSupported += "*." + importerData.fileEndings[j] + " ";
+		}
+		// Trim the Qstring
+		filters = filters.trimmed();
+		// Append "entry of entry" information to the end of the filter.
+		filters += ");;";
+	}
+
 	// Trim the allSupported QString and append "end of entry" data to the end of it.
 	allSupported = allSupported.trimmed();
 	allSupported += ");;";
+
 	// Prepend allSupported to the filters Qstring.
 	filters = allSupported + filters;
 	// Add an "all files" entry to the end of the filters QString
 	filters += QObject::tr("All Files (*)");
 	// Populate ilist with the file importer names.
-	for (uint i = 0;  i < importers.size(); ++i)
-		ilist.append(importers[i].fileFormatName);
+	for (size_t i = 0;  i < m_importers.size(); ++i)
+		m_ilist.append(m_importers[i].fileFormatName);
+
 	// Create a new dialog.
-	dias = new gtDialogs();
+	m_dias = new gtDialogs();
 	// Create a new ImportSetup struct
 	ImportSetup impsetup;
 	// INitialize runDialog to false
 	impsetup.runDialog=false;
 	// If we get a true back from the File selection Dialog ( which we send our filters and extensions lists )
-	if (dias->runFileDialog(filters, ilist))
+	if (m_dias->runFileDialog(filters, m_ilist))
 	{
 		// Set the runDialog to true
-		impsetup.runDialog=true;
+		impsetup.runDialog = true;
 		// Copy the other values for the struct from the dialog results
-		impsetup.encoding=dias->getEncoding();
-		impsetup.filename=dias->getFileName();
-		impsetup.importer=dias->getImporter();
-		impsetup.textOnly=dias->importTextOnly();
-// 		launchImporter(dias->getImporter(), dias->getFileName(),
-// 		               dias->importTextOnly(), dias->getEncoding(), append);
-	}  // if (dias->runFileDialog(filters, ilist))
+		impsetup.encoding = m_dias->getEncoding();
+		impsetup.filename = m_dias->getFileName();
+		impsetup.importer = m_dias->getImporter();
+		impsetup.textOnly = m_dias->importTextOnly();
+		impsetup.prefixNames = m_dias->prefixStyles();
+	}
 	// Destroy the dialog.
-	delete dias;
+	delete m_dias;
 	// Return the ImportSetup struct.
 	return impsetup;
 }  // ImportSetup gtGetText::run()
 
 // Loads, validates, and executes the Importer code.
 void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
-                        const QString& encoding, bool textOnly, bool append, PageItem* importItem)
+						const QString& encoding, bool textOnly, bool append, bool prefix, PageItem* importItem)
 {
 	// Pointer for the loaded plugin.
 	void* gtplugin;
 	// Type definition for GetText pointer in the function in question.
-	typedef void (*sdem)(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+	typedef void (*gt2ptr)(const QString& filename, const QString& encoding, bool textOnly, bool prefix, bool append, PageItem *textframe);
+	// Type definition for GetText pointer in the function in question.
+	typedef void (*sdem)(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer);
 	// The point to the above.
+	gt2ptr fp_GetText2;
 	sdem fp_GetText;
 	// Initialize Path to the "DLL"
-	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir()).arg(idata.soFilePath);
+	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir(), idata.soFilePath);
 	// Attempt to load the plugin, store the pointer in gtplugin
 	gtplugin = PluginManager::loadDLL(pluginFilePath);
-	// If gtplugin is NULL we failed to load the plugin. Report an error to the user and exit the method.
+	// If gtplugin is nullptr we failed to load the plugin. Report an error to the user and exit the method.
 	if (!gtplugin)
 	{
-		qWarning("Failed to load plugin %s", pluginFilePath.toAscii().constData());
+		qWarning("Failed to load plugin %s", pluginFilePath.toLatin1().constData());
 		return;
 	} // if (!gtplugin)
-	// Attempt to map the GetText method to to the pointer via the PluginManager. Store the result in fp_GetText.
-	fp_GetText = (sdem) PluginManager::resolveSym(gtplugin, "GetText");
-	// If fp_GetText is NULL, we could not find the symbol, report the error, unload the "DLL" and exit the method.
-	if (!fp_GetText)
+
+	fp_GetText2 = (gt2ptr) PluginManager::resolveSym(gtplugin,"GetText2");
+	if (fp_GetText2)
 	{
-		qWarning("Failed to get GetText() from %s", pluginFilePath.toAscii().constData());
-		PluginManager::unloadDLL(gtplugin);
-		return;
-	}  // if (!fp_GetText)
-	// Create a new writer object in "append"'s mode ( true or false ) attached to the importItem
-	gtWriter *w = new gtWriter(append, importItem);
-	// Execute the importer's "GetText" method.
-	(*fp_GetText)(filePath, encoding, textOnly, w);
-	// Destroy the writer
-	delete w;
+		if (!append)
+			importItem->itemText.clear();
+		// Execute the importer's "GetText2" method.
+		(*fp_GetText2)(filePath, encoding, textOnly, prefix, append, importItem);
+	}  // if (!fp_GetText2)        
+	else
+	{
+		// Attempt to map the old GetText method to to the pointer via the PluginManager. Store the result in fp_GetText.
+		fp_GetText = (sdem) PluginManager::resolveSym(gtplugin,"GetText");
+		// If fp_GetText is nullptr, we could not find the symbol,report the error, unload the "DLL" and exit the method.
+		if (fp_GetText)
+		{
+			// Create a new writer object in "append"'s mode (true or false ) attached to the importItem
+			gtWriter *w = new gtWriter(append, importItem);
+			// Execute the importer's "GetText" method.
+			(*fp_GetText)(filePath, encoding, textOnly, w);
+			// Destroy the writer
+			delete w;
+		}  // if (!fp_GetText)
+		else
+		{
+			qWarning("Failed to get GetText() from %s",pluginFilePath.toLatin1().constData());
+		}
+	}
+	// GetText is not quite up to date vs styles, clean char formatting already specified at paragraph level
+	importItem->itemText.fixLegacyFormatting();
 	// Unload the plugin.
 	PluginManager::unloadDLL(gtplugin);
 }  // void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
@@ -251,7 +291,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 
 // Loads the "DLL", validates the importer is good, populates the passed parameters with 
 // the plugin information.
-bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
+bool gtGetText::DLLName(const QString& name, QString *ffName, QStringList *fEndings)
 {
 	// Pointer to the plugin, once loaded
 	void* gtplugin;
@@ -264,32 +304,32 @@ bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
 	// The actual extensions supported object
 	sdem1 fp_FileExtensions;
 	// Initialise the plugin file path ( with filename )
-	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir()).arg(name);
+	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir(), name);
 	// Attempt to load the plugin.
 	gtplugin = PluginManager::loadDLL(pluginFilePath);
-	// if gtplugin is NULL we were unable to load the plugin. Return an error and exit the method.
+	// if gtplugin is nullptr we were unable to load the plugin. Return an error and exit the method.
 	if (!gtplugin)
 	{
-		qWarning("Failed to load plugin %s", pluginFilePath.toAscii().constData());
+		qWarning("Failed to load plugin %s", pluginFilePath.toLatin1().constData());
 		return false;
 	}
 	// Attempt to resolve the plugin symbol to the importer name (FileFormatName)
 	fp_FileFormatName = (sdem0) PluginManager::resolveSym( gtplugin, "FileFormatName");
-	// if fp_FileFormatName is NULL, we could not find the FileFormatName symbol. The plugin is incomplete.
+	// if fp_FileFormatName is nullptr, we could not find the FileFormatName symbol. The plugin is incomplete.
 	// Report an error, unload the plugin, and exit the method.
 	if (!fp_FileFormatName)
 	{
-		qWarning("Failed to get FileFormatName() from %s", pluginFilePath.toAscii().constData());
+		qWarning("Failed to get FileFormatName() from %s", pluginFilePath.toLatin1().constData());
 		PluginManager::unloadDLL(gtplugin);
 		return false;
 	}
 	// Attempt to resolve the plugin symbol to the list of supported file extensions.
 	fp_FileExtensions = (sdem1) PluginManager::resolveSym( gtplugin, "FileExtensions");
-	// if fp_FileExtensions is NULL, we could not find the FileExtensions symbol. The plugin is incomplete.
+	// if fp_FileExtensions is nullptr, we could not find the FileExtensions symbol. The plugin is incomplete.
 	// Report an error, unload the plugin, and exit the method.
 	if (!fp_FileExtensions)
 	{
-		qWarning("Failed to get FileExtensions() from %s", pluginFilePath.toAscii().constData());
+		qWarning("Failed to get FileExtensions() from %s", pluginFilePath.toLatin1().constData());
 		PluginManager::unloadDLL(gtplugin);
 		return false;
 	}
@@ -307,12 +347,12 @@ bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
 void gtGetText::createMap()
 {
 	// Loop through the importers Vector
-	for (uint i = 0; i < importers.size(); ++i)
+	for (uint i = 0; i < m_importers.size(); ++i)
 	{
 		// Loop through each file extension the importer uses/importers and create an individual 
 		// Qmap entry for it.
-		for (int j = 0; j < importers[i].fileEndings.count(); ++j)
-				importerMap.insert(importers[i].fileEndings[j], &importers[i]);
+		for (int j = 0; j < m_importers[i].fileEndings.count(); ++j)
+				m_importerMap.insert(m_importers[i].fileEndings[j], &m_importers[i]);
 	}  // for (uint i = 0; i < importers.size(); ++i)
 }  // void gtGetText::createMap()
 

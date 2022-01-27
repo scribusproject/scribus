@@ -10,13 +10,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scplugin.h"
-#include "customfdialog.h"
+#include "ui/customfdialog.h"
 
-class QString;
-class QCheckBox;
-class QStringList;
-class QDir;
-class QWidget;
+#include <QCheckBox>
+#include <QDir>
+#include <QString>
+#include <QStringList>
+#include <QWidget>
 
 /**
   @brief Super class for all text importer plugins.
@@ -30,12 +30,12 @@ class SCRIBUS_API ScGTPlugin : public ScPlugin
 	Q_OBJECT
 public:
 	ScGTPlugin();
-	~ScGTPlugin() {};
+	~ScGTPlugin() = default;
 
 	/**
-	  @brief Returns the file format's name that this plugin can import or QString::null
+	  @brief Returns the file format's name that this plugin can import or QString()
 	  @brief if this plugin doesn't handle files.
-	  @return file format's name or QString::null if this plugin doesn't handle files
+	  @return file format's name or QString() if this plugin doesn't handle files
 	 */
 	virtual QString fileFormatName() const = 0;
 
@@ -49,7 +49,7 @@ public:
 	/**
 	  @brief Run the plugin and import from the file <code>filename</code>
 
-	  This function is ment to be overriden by all file format plugins.
+	  This function is meant to be overridden by all file format plugins.
 	  Once the file decoding and text and style has been sorted out use the
 	  function forward() to pass the text and it's style forward to a text frame
 	  or to another plugin.
@@ -57,16 +57,16 @@ public:
 	  @param filename name of the file that is wanted to be imported
 	  @param encoding encoding as selected by a user in the import file dialog
 	 */
-	virtual void run(const QString &filename, const QString &encoding = QString::null) {};
+	virtual void run(const QString&filename, const QString&encoding = QString()) {};
 
 	/**
 	  @brief Run the plugin and do the magic with the <code>text</code> and
 	  @brief <code>style</code>.
 	
-	  This function is ment to be overriden by all text and style handler plugins.
+	  This function is meant to be overridden by all text and style handler plugins.
 	  @param text text to work with
 	 */
-	virtual void run(const QString &text /*, insert style stuff here */) {};
+	virtual void run(const QString&text /*, insert style stuff here */) {};
 
 };
 
@@ -94,9 +94,9 @@ public:
 	void run();
 
 private:
-	static ScGTPluginManager *instance_;
+	static ScGTPluginManager *m_instance;
 
-	QList<ScGTPlugin*> plugins_;
+	QList<ScGTPlugin*> m_plugins;
 
 	ScGTPluginManager();
 	~ScGTPluginManager();
@@ -113,18 +113,17 @@ private:
 class SCRIBUS_API ScGTFileDialog : public CustomFDialog {
 	Q_OBJECT
 public:
-	ScGTFileDialog(const QString & dirName,
-	               const QString & filters,
-	               QWidget * parent = 0, const char * name = 0);
+	ScGTFileDialog(const QString& dirName, const QString& filters,
+				QWidget* parent = nullptr, const char* name = nullptr);
 	~ScGTFileDialog();
 
 	bool showOptions() const;
 	bool append() const;
 
 private:
-	QWidget   *diaExtension_;
-	QCheckBox *showOptionsBox_;
-	QCheckBox *appendBox_;
+	QWidget   *m_diaExtension {nullptr};
+	QCheckBox *m_showOptionsBox {nullptr};
+	QCheckBox *m_appendBox {nullptr};
 	void customize();
 };
 

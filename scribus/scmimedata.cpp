@@ -19,11 +19,17 @@
 #include <QClipboard>
 #include <QMimeData>
 
+// Define to 1 if you need to debug data contained in ScElemMimeData.
+// This will have the effect of enabling the pasting of stored data
+// in any text editor. Leave defined to 0 otherwise as this may trigger
+// unwanted pasting of text in story editor (#15402). 
+#define DEBUG_SCELEMMIMEDATA 0
+
 const QString ScMimeData::ScribusElemMimeType     = "application/x-scribus-elem";
 const QString ScMimeData::ScribusFragmentMimeType = "application/x-scribus-fragment";
 const QString ScMimeData::ScribusTextMimeType     = "application/x-scribus-text";
 
-bool ScMimeData::clipboardHasScribusData(void)
+bool ScMimeData::clipboardHasScribusData()
 {
 	bool  hasData = false;
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
@@ -33,11 +39,15 @@ bool ScMimeData::clipboardHasScribusData(void)
 		hasData |= mimeData->hasFormat(ScMimeData::ScribusFragmentMimeType);
 		hasData |= mimeData->hasFormat(ScMimeData::ScribusTextMimeType);
 		hasData |= mimeData->hasText();
+		hasData |= mimeData->hasFormat("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\"");
+		hasData |= mimeData->hasFormat("image/svg+xml");
+		hasData |= mimeData->hasFormat("image/x-inkscape-svg");
+		hasData |= mimeData->hasFormat("application/vnd.oasis.opendocument.graphics");
 	}
 	return hasData;
 }
 
-bool ScMimeData::clipboardHasScribusElem(void)
+bool ScMimeData::clipboardHasScribusElem()
 {
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
 	if (mimeData)
@@ -45,7 +55,7 @@ bool ScMimeData::clipboardHasScribusElem(void)
 	return false;
 }
 
-bool ScMimeData::clipboardHasScribusFragment(void)
+bool ScMimeData::clipboardHasScribusFragment()
 {
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
 	if (mimeData)
@@ -53,7 +63,7 @@ bool ScMimeData::clipboardHasScribusFragment(void)
 	return false;
 }
 
-bool ScMimeData::clipboardHasScribusText(void)
+bool ScMimeData::clipboardHasScribusText()
 {
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
 	if (mimeData)
@@ -61,55 +71,119 @@ bool ScMimeData::clipboardHasScribusText(void)
 	return false;
 }
 
-QString ScMimeData::clipboardScribusElem(void)
+bool ScMimeData::clipboardHasPlainText()
 {
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
-	const ScElemMimeData* elemData = dynamic_cast<const ScElemMimeData*>(mimeData);
+	if (mimeData)
+		return mimeData->hasText();
+	return false;
+}
+
+bool ScMimeData::clipboardHasKnownData()
+{
+	bool  hasData = false;
+	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
+	if (mimeData)
+	{
+		hasData |= mimeData->hasFormat("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\"");
+		hasData |= mimeData->hasFormat("image/svg+xml");
+		hasData |= mimeData->hasFormat("image/x-inkscape-svg");
+		hasData |= mimeData->hasFormat("application/vnd.oasis.opendocument.graphics");
+	}
+	return hasData;
+}
+
+QString ScMimeData::clipboardKnownDataExt()
+{
+	QString ext;
+	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
+	if (mimeData)
+	{
+		if (mimeData->hasFormat("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\""))
+			ext = "svm";
+		else if (mimeData->hasFormat("image/svg+xml") || mimeData->hasFormat("image/x-inkscape-svg"))
+			ext = "svg";
+		else if (mimeData->hasFormat("application/vnd.oasis.opendocument.graphics"))
+			ext = "odg";
+	}
+	return ext;
+}
+
+QByteArray ScMimeData::clipboardKnownDataData()
+{
+	QByteArray data;
+	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
+	if (mimeData)
+	{
+		if (mimeData->hasFormat("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\""))
+			data = mimeData->data("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\"");
+		else if (mimeData->hasFormat("image/svg+xml"))
+			data = mimeData->data("image/svg+xml");
+		else if (mimeData->hasFormat("image/x-inkscape-svg"))
+			data = mimeData->data("image/x-inkscape-svg");
+		else if (mimeData->hasFormat("application/vnd.oasis.opendocument.graphics"))
+			data = mimeData->data("application/vnd.oasis.opendocument.graphics");
+	}
+	return data;
+}
+
+QString ScMimeData::clipboardScribusElem()
+{
+	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
+	const ScElemMimeData* elemData = qobject_cast<const ScElemMimeData*>(mimeData);
 	if (elemData)
 		return elemData->scribusElem();
 	QByteArray data = QApplication::clipboard()->mimeData()->data(ScribusElemMimeType);
 	return QString::fromUtf8(data.data(), data.size());
 }
 
-QByteArray ScMimeData::clipboardScribusFragment(void)
+QByteArray ScMimeData::clipboardScribusFragment()
 {
 	QByteArray data = QApplication::clipboard()->mimeData()->data(ScribusFragmentMimeType);
 	return data;
 }
 
-QByteArray ScMimeData::clipboardScribusText(void)
+QByteArray ScMimeData::clipboardScribusText()
 {
 	QByteArray data = QApplication::clipboard()->mimeData()->data(ScribusTextMimeType);
 	return data;
 }
 
-ScElemMimeData::ScElemMimeData(void) : QMimeData()
+ScElemMimeData::ScElemMimeData()
 {
-	m_formats << "application/x-scribus-elem" << "text/plain";
+	m_formats << ScMimeData::ScribusElemMimeType;
+#if DEBUG_SCELEMMIMEDATA
+	m_formats << "text/plain";
+#endif 
 }
 
 bool ScElemMimeData::hasFormat (const QString & mimeType) const
 {
-//	bool hasFmt = false;
 	if (mimeType == ScMimeData::ScribusElemMimeType)
 	{
-		if (!m_scribusElemData.isEmpty())
-		{
-			QString elemtag = "SCRIBUSELEM";
-			return (m_scribusElemData.lastIndexOf(elemtag, 50 + elemtag.length()) >= 0);
-		}
+		if (m_scribusElemData.isEmpty())
+			return false;
+		QString elemtag = "SCRIBUSELEM";
+		return (m_scribusElemData.lastIndexOf(elemtag, 50 + elemtag.length()) >= 0);
 	}
-	else if (mimeType == "text/plain")
-		return true;
+#if DEBUG_SCELEMMIMEDATA
+	if (mimeType == "text/plain")
+		return (!m_scribusElemData.isEmpty());
+#endif
 	return QMimeData::hasFormat(mimeType);
 }
 
 QVariant ScElemMimeData::retrieveData (const QString &mimeType, QVariant::Type type) const
 {
-	QVariant variant;
 	if (mimeType == ScMimeData::ScribusElemMimeType)
-		variant = QVariant(m_scribusElemData);
+	{
+		if (m_scribusElemData.isEmpty())
+			return QVariant();
+		return QVariant(m_scribusElemData);
+	}
+#if DEBUG_SCELEMMIMEDATA
 	if (mimeType == "text/plain")
-		variant = QVariant(m_scribusElemData);
-	return variant;
+		return QVariant(m_scribusElemData);
+#endif
+	return QVariant();
 }

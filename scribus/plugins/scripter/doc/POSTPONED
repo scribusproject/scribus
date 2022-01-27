@@ -1,0 +1,17 @@
+Some things will be realized differently at a later stage for different reasons:
+
+It was planned that there is a scripts-repository.
+ * The used Django web framework changed some APIs (admin, newforms)
+   which needs some porting. A stable API will be available with the 
+   1.0 release in September and it makes sense to wait for it.
+ * There has been scribusstuff.org announced which might be a better solution
+   or at least some collaboration might be possible (at least via
+   ghns-protocoll, see http://ghns.freedesktop.org/)
+
+To use the repository an integrated scripts browser was planned.
+ * It is unclear if the browser should access scribusstuff.org or an
+   own repository (with probably another protocol).
+ * Hacking with QTextBrowser proved to be a bad hack. Therefore I want
+   to use WebKit and its new network API but currently Scribus avoids a 
+   dependency on Qt >= 4.4. So I have to wait a little bit.
+

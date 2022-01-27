@@ -27,46 +27,44 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		// Standard plugin implementation
 		Scribus13Format();
 		virtual ~Scribus13Format();
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		//Not the same as readSLA. This one only reads max 4k of the file for speed.
-		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
 
-		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
-		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
+		//Not the same as readSLA. This one only reads max 4k of the file for speed.
+		bool fileSupported(QIODevice* file, const QString & fileName=QString()) const override;
+
+		bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0) override;
+		bool saveFile(const QString & fileName, const FileFormat & fmt) override { return false; };
+		void addToMainWindowMenu(ScribusMainWindow *) override {};
 
 		// Special features - .sla page extraction support
-		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null);
-		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
-		virtual bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
-		virtual bool readColors(const QString& fileName, ColorList & colors);
-		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
-		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);
+		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString()) override;
+		bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) override;
+		bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty) override;
+		bool readColors(const QString& fileName, ColorList & colors) override;
+		bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames) override;
+		void getReplacedFontData(bool & getNewReplacement, QMap<QString, QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces) override;
 
 	private:
 		void registerFormats();
 		//Scribus Doc vars, not plugin vars
 		void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo=false, bool VorLFound=false);
 		void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, ScribusDoc *doc);
-		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir, int pagenr = -2 /* currentPage*/);
+		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir, PageItem::ItemKind itemKind, int pagenr = -2 /* currentPage*/);
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
-		QString AskForFont(QString fStr, ScribusDoc *doc);
-		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
-		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, const QString& baseDir, QProgressBar *dia2, uint maxC, int master);
-		void SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat);
-		const ScFace& findFont(ScribusDoc *doc, const QString& fontname);
 		
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
-		int  itemCount;
-		bool newReplacement;
-		QMap<QString,QString> ReplacedFonts;
-		QMap<uint,QString> DoVorl;
-		uint VorlC;
+		QList<PageItem*> FrameItems;
+		int itemCount {0};
+		bool newReplacement {false};
+		QMap<QString, QString> ReplacedFonts;
+		QMap<uint, QString> DoVorl;
+		uint VorlC {0};
+		QList<PDFPresentationData> EffVal;
 };
 
 extern "C" PLUGIN_API int scribus13format_getPluginAPIVersion();

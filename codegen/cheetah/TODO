@@ -1,0 +1,253 @@
+NOTE: Please see http://bugs.cheetahtemplate.org
+	for future feature requests/bugs/TODO
+
+
+===============================================================================
+===============================================================================
+
+Desired for Cheetah 2.0
+=======================
+- Smart HTML filter that escapes all values except those individually marked as
+  preformatted, a la Kid/PTL/QPY. (MO)
+
+
+TODO Items (many are just ideas. This is not an official roadmap!)
+================================================================================
+
+- "cheetah test" problem: subcommands fail mysteriously on Windows.  Rewrite
+  to avoid using subcommands.  Instead, set sys.argv and call the appropriate
+  main() for each test.
+
+- Documentation: document #encoding.  Explain problems "cheetah test" if they
+  haven't been fixed yet.
+
+- There's a kludge in CheetahWrapper.py to abort with a helpful error message
+  if the user runs 'cheetah test' but doesn't have write permission in the
+  current directory.  The tests should instead put their temporary files
+  under the system tmp directory.
+
+- Reset the current filter to the default (or to the constructor's filter
+  if specified) at the beginning of each fill.  Currently, filter changes
+  leak from one fill to the next.
+
+- CheetahWrapper stuff: (MO)
+  * "cheetah preview [options] [FILES]"  print template-specific portion of main
+    method(s) to stdout, with line numbers based on the .py template module.  
+    Make a Template method to do the same thing, a la .generatedModuleCode().
+  * Refactor, make compile/fill/code routines callbacks using a bundle arg.
+  * If an input file ends in a dot, intelligently add the input extension if
+    not found.
+
+- Debugging tools.  See section below.
+
+- Provide a utility to list the names of all placeholders in the template.
+  Requested by Tracy Ruggles on Feb 21, 2003.
+   
+- 'errorCatcher None' to stop catching errors in the middle of a template.
+
+- Utils.WebInputMixin: factor out Cheetah-specific code so it can be used in
+  non-Cheetah applications.  Don't modify the searchList: have a Template
+  wrapper method do that.  Consider turning it into a function that does not
+  require 'self'.  Consider making Webware-specific code into plugins so that,
+  e.g., other cookie-handling methods can be grafted in.  Maybe use callback
+  classes like the planned rewrite for CheetahWrapper.  Low priority.  (MO)
+
+- Look through Zope Page Templates (TAL) for ideas to borrow.
+  http://www.zope.org/Documentation/Books/ZopeBook/current/AppendixC.stx
+  http://www.owlfish.com/software/simpleTAL/index.html
+
+Debugging Tools (Dump Tools)
+============================
+It would be nice to provide debugging tools for users who can't figure
+out why a certain placeholder value isn't found or is being overridden.  
+My idea is to define $dumpSearchList() and $dumpSearchListFlat() in
+Template, which would print a stanza in the output showing all searchList
+variables and their values.  $dumpSearchList would group by searchList
+element; $dumpSearchListFlat would combine all into a single
+alphabetical listing.
+        I made an experimental version but it printed only instance variables,
+not methods and not inherited attributes.  Also, it wouldn't print right
+using the usual pattern of write-to-custom-StringIO-object-and-return-
+the-.getvalue() and I couldn't figure out why.
+        The stanza should be set apart by a row of stars with the words
+"BEGIN/END SEARCH LIST DUMP".  Then for $dumpSearchList, precede each
+group with "*** searchList[i], type <element type>, 142 variables ***".
+        Because some elements like 'self' may have hundreds of inherited
+methods that would create a forest-through-trees situation for the user,
+we may need an option to supress the variable listing for elements with
+> 20 variables (just print the summary line instead). ?
+        The final version should be in Template so it has implicit
+access to the searchList and perhaps later to other variables (locals,
+globals, "#set global"s, builtins) too.  This is such a central
+debugging tool that you should not have to monopolize an #extends
+(the template's only #extends) to use it.  You could import it, however,
+if you pass in the searchList explicitly as an argument.  In that case,
+perhaps we can base it on a generic module for dumping variables/values.
+        Note that we cannot simply depend on str() and pprint, because
+we need to show instances as dictionaries.  Likewise, dir() and vars()
+may get us part of the distance, but only if they show methods and
+inherited attributes too.  
+        These functions should print only top-level variables, not
+the subelements of collections.  I.e, if the first searchList element
+is a dictionary, show its keys/values, but do not expand any 
+subvalues if they are dictionaries too, unless the display tool happens
+to default to that.
+
+#entry $func($arg1, $arg2="default", $**kw)
+===============================================================================
+Make a wrapper function in the .py template module that builds a searchList
+from its positional arguments, then instantiates and fills a template and
+returns the result.  The preceding example would create a function thus:
+        def func(arg1, arg2="default", searchList=None, **kw):
+                """Function docstring."""
+                sl = {'arg1': arg1, 'arg2': arg2}
+                if searchList is None:
+                        searchList = [sl]
+                elif type(searchList) == types.ListType:
+                        searchList.insert(0, sl)
+                else:
+                        raise TypeError("arg 'searchList'")
+                t = TheTemplate(searchList=searchList, **kw)
+                return str(t)
+##doc-entry: and #*doc-entry: comments are appended to the function docstring.
+        Finally, make this function accessible directly from the shell.
+If there are any non-option arguments on the command line, call the function
+instead of filling the template the normal way.  
+        This would perhaps make more sense as arguments to .respond().  But
+.respond() has that pesky 'trans' argument that mustn't be interfered with,
+and other programs may assume .respond() takes only one argument.  Also, 
+when called via str(), str() cannot take arguments.
+        
+#indent
+========================================================================
+The current indenter (which exists but is undocumented) is a kludge that has an
+indentation object, with implicit placeholder calls added at each line to
+generate the indentation, and #silent calls to adjust the object.  It should be
+reimplemented to generate code to call the indentation object directly.  Also,
+the user interface should be cleaned up, the implementation and Users' Guide
+synchronized, and test cases built.
+
+The desired implementation revolves around self._indenter, which knows the
+current indentation level (a non-negative integer), chars (the string output
+per level, default four spaces), and stack (the previous indentation levels).
+The .indent() method returns the indentation string currently appropriate.
+The desired interface for phase 1 (subject to change):
+  #indent strip    ; strip leading whitespace from input lines
+  #indent add      ; add indentation to output lines as appropriate
+  #indent on       ; do both
+  #indent off      ; do neither
+  #indent reset    ; set level to 0 and clear stack
+  #indent ++       ; increment level
+  #indent --       ; decrement level
+  #indent pop [EXPR]   ; revert to Nth previous level (default 1)
+                   ; if pop past end of stack, set level to 0 and
+                   ; clear stack.  All +/-/= operations push the old level
+                   ; onto the stack.
+  #indent debug    ; dump level, chars and stack to template output
+
+Possible extensions:
+  #indent =EXPR    ; set level to N  (likely to be added to phase 1)
+  #indent +EXPR    ; add N to level (not very necessary)
+  #indent -EXPR    ; subtract N from level (not very necessary)
+  #indent balance BOOL ; require all indent changes in a #def/#block to be
+                       ; popped before exiting the method.  (difficult to
+		       ; implement)
+  #indent implicitPop BOOL ; automatically pop indent changes within a 
+                       ; #def/block when that method exits.  (difficult to
+		       ; implement)
+  #indent ??       ; a 3-way switch that combines unbalanced, balanced and
+                   ; implicit pop.  (difficult to implement)
+  #indent ??       ; smart stripping: strip input indentation according to
+                   ; nested directive level; e.g., 
+                   ; 01: #if foo=1
+                   ; 02:     public int foo()
+                   ; 03:     {
+                   ; 04:       return FOO;
+                   ; 05:     }
+                   ; 06: #end if
+                   ; With smart stripping, line 4 would be indented and the
+                   ; others not.  With "on" or "strip" stripping, all lines
+                   ; 2-5 would be unindented.  With "off" stripping, 
+                   ; lines 2-5 would not be stripped.
+
+There should be one indentation object per Template instance, shared by
+methods and include files.
+
+
+Upload File
+========================================================================
+@@TR: This is way outside Cheetah's scope!
+
+A mixin method in Cheetah.Utils (for Template) that handles file uploads --
+these are too complicated for .webInput().  The method should do a "safe"
+file upload; e.g., http://us3.php.net/manual/en/features.file-upload.php ,
+within the limitations of Python's cgi module.  The user has the choice of
+three destinations for the file contents: (A) copied to a local
+path you specify, (B) placed in a namespace variable like .cgiImport()
+does, or (C) returned.  (B) parallels .webInput, but (A) will certainly be
+desirable situations where we just want to save the file, not read it into
+memory.  Reject files larger than a user-specified size or not in a list of
+user-approved MIME types.  Define appropriate exceptions for typical
+file-upload errors.  Method name .webUploadFileAsString?
+        One situation to support is when  form has a text(area) field
+related to a file-upload control on the same form, and the user has the choice
+of typing into the field or uploading a text file.  We need a method that
+updates the text field's value if there is an uploaded file, but not if there
+isn't.  This may be handled by the regular method(s) or may require a separate
+method.
+
+RPM Building
+============
+From: John Landahl <john@landahl.org>
+To: cheetahtemplate-discuss@lists.sourceforge.net
+Subject: [Cheetahtemplate-discuss] Building Cheetah RPMs
+Date: Wed, 05 Nov 2003 01:27:24 -0800
+
+If anyone is interested in building Cheetah RPMs, simply add the following
+lines to a file called MANIFEST.in in the Cheetah directory and you'll be
+able to use the "bdist_rpm" option to setup.py (i.e. "python setup.py
+bdist_rpm"):
+
+  include SetupTools.py
+  include SetupConfig.py
+  include bin/*
+
+Also, I've found that using /usr/lib/site-python for add-on Python
+packages is much more convenient than the default of
+/usr/lib/pythonX/site-packages, especially when jumping back and forth
+between 2.2 and 2.3.  If you'd like Cheetah in /usr/lib/site-python,
+createa a setup.cfg with the following contents:
+
+  [install]
+  install-lib = /usr/lib/site-python
+
+Of course if you do have version specific libraries they should stay in
+/usr/lib/pythonX/site-packages, but Cheetah seems happy in both 2.2 and
+2.3 and so is a good candidate for /usr/lib/site-python.
+
+
+User-defined directives
+=======================================================================
+IF we decide to support user-defined directives someday, consider Spyce's
+interface.  Spyce uses a base class which provides generic services to
+custom "active tags".
+http://spyce.sourceforge.net/doc-tag.html
+http://spyce.sourceforge.net/doc-tag_new.html
+
+
+Test Suite
+================================================================================
+- add cases that test the cheetah-compile script
+- add cases that test the integration with various webdev frameworks
+
+Examples
+================================================================================
+- create some non-html code generation examples
+  - SQL
+  - LaTeX
+  - form email
+- Template definitions in a database.  .py template modules in a 
+  database?  Caching template classes and/or instances extracted from
+  a database.
+- Pickled templates?
+

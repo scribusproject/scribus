@@ -24,62 +24,59 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCRIBUSVIEW_H
 #define SCRIBUSVIEW_H
 
-#include "styleoptions.h"
-
 #include <vector>
 // include files for QT
-#include <QScrollArea>
-#include <QLineEdit>
-#include <QScrollBar>
-#if OPTION_USE_QTOOLBUTTON
-    #include <QToolButton>
-#else
-    #include <QPushButton>
-#endif
-#include <QMap>
-#include <QMenu>
-#include <QLabel>
-#include <QComboBox>
-#include <QProgressDialog>
-#include <QSpinBox>
-#include <QCursor>
 #include <QDragLeaveEvent>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
+#include <QElapsedTimer>
+#include <QLabel>
+#include <QLineEdit>
+#include <QMap>
 #include <QMouseEvent>
+#include <QNativeGestureEvent>
 #include <QPaintEvent>
 #include <QPoint>
+#include <QPushButton>
 #include <QRect>
 #include <QRectF>
-#include <QTime>
+#include <QSize>
+#include <QStack>
+#include <QTimer>
+#include <QScrollArea>
+#include <QScrollBar>
 #include <QWheelEvent>
-#include <QRubberBand>
-#include <QList>
 
 class QEvent;
+class QMenu;
 class QMimeData;
 
 // application specific includes
+#include "fpoint.h"
 #include "observable.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
-#include "scrspinbox.h"
+#include "selectionrubberband.h"
+#include "ui/clockwidget.h"
+#include "undotransaction.h"
 
 class Canvas;
 class CanvasMode;
 class CanvasGesture;
 class Hruler;
 class Vruler;
-class Page;
+class ScPage;
 class RulerMover;
+class PageItem;
 class PageSelector;
+class ScribusDoc;
 class ScribusWin;
 class ScribusMainWindow;
+class ScrSpinBox;
+class Selection;
 class UndoManager;
-class UndoTransaction;
 class TransactionSettings;
-
 
 /**
  * This class provides an incomplete base for your application view.
@@ -93,137 +90,108 @@ public:
     ScribusView(QWidget* win=0, ScribusMainWindow* mw=0, ScribusDoc* doc=0);
     ~ScribusView();
 	
-	friend class LegacyMode;
 	friend class CanvasMode_CopyProperties;
 	friend class CanvasMode_Edit;
 	friend class CanvasMode_EditGradient;
+	friend class CanvasMode_EditMeshGradient;
+	friend class CanvasMode_EditMeshPatch;
+	friend class CanvasMode_EditTable;
+	friend class CanvasMode_EditWeldPoint;
+	friend class CanvasMode_EditPolygon;
+	friend class CanvasMode_EditArc;
+	friend class CanvasMode_EditSpiral;
 	friend class CanvasMode_FrameLinks;
+	friend class CanvasMode_ImageImport;
 	friend class CanvasMode_Magnifier;
 	friend class CanvasMode_NodeEdit;
 	friend class CanvasMode_Normal;
 	friend class CanvasMode_ObjImport;
 	friend class CanvasMode_Rotate;
+
+	struct ViewState
+	{
+		int currentPage { 0 };
+		int contentX { 0 };
+		int contentY { 0 };
+		double canvasScale { 1.0 };
+		FPoint minCanvasCoordinate;
+		FPoint maxCanvasCoordinate;
+	};
 	
 	void requestMode(int appMode);
 	void startGesture(CanvasGesture*);
 	void stopGesture();
 	
   /** Vergroesserungseingabefeld */
-	ScrSpinBox* zoomSpinBox; //zoom spinbox at bottom of view
-	PageSelector* pageSelector; //Page selector at bottom of view
 	RulerMover *rulerMover; //Widget between the two rulers for dragging the ruler origin
 	Hruler *horizRuler;
 	Vruler *vertRuler;
-#if OPTION_USE_QTOOLBUTTON
-	QToolButton *zoomDefaultToolbarButton;
-	QToolButton *zoomOutToolbarButton;
-	QToolButton *zoomInToolbarButton;
-	QToolButton *cmsToolbarButton;
-	QToolButton *previewToolbarButton;
-#else
-	QPushButton *zoomDefaultToolbarButton;
-	QPushButton *zoomOutToolbarButton;
-	QPushButton *zoomInToolbarButton;
-	QPushButton *cmsToolbarButton;
-	QPushButton *previewToolbarButton;
-#endif
-	QComboBox *layerMenu; //Menu for layers at bottom of view
-	QComboBox *unitSwitcher; //Menu for units at bottom of view
-	QComboBox *previewQualitySwitcher; //Menu for image preview quality
-	QComboBox *visualMenu;
+	ClockWidget *clockLabel;
+	QPushButton *endEditButton;
   /** Dokument zu dem die Seite gehoert */
-	ScribusDoc * const Doc;
+	ScribusDoc * const m_doc;
 	Canvas * const m_canvas;
-	CanvasMode* m_canvasMode; // might be a CanvasGesture
-	QMap<int,CanvasMode*> modeInstances;
+	CanvasMode* m_canvasMode; // might be a CanvasGesture FIXME make private
+	CanvasMode* canvasMode();
+	QMap<int, CanvasMode*> modeInstances;
 	ApplicationPrefs * const Prefs;
 	UndoManager * const undoManager;
 	ScribusMainWindow* m_ScMW;
-	double OldScale;
-	double dragX,dragY,dragW,dragH;
-	double oldW;
-	int RotMode;
-	int DrHY;
-	int DrVX;
-	bool HaveSelRect;
-	//bool GroupSel;
-	bool DraggedGroup;
-	bool DraggedGroupFirst;
-	bool MidButt;
-	bool updateOn;
-	bool FirstPoly;
-	bool Magnify;
+	double OldScale {0.0};
+	double dragX {0.0};
+	double dragY {0.0};
+	double dragW {0.0};
+	double dragH {0.0};
+	double oldW {-1.0};
+	int RotMode {0};
+	bool HaveSelRect {false};
+	bool DraggedGroup {false};
+	bool MidButt {false};
+	bool updateOn {true};
+	bool Magnify {false};
 	bool storedFramesShown;
 	bool storedShowControls;
-	int redrawMode;
-	int redrawCount;
-	PageItem *redrawItem;
-	QRubberBand *redrawMarker;
-	FPoint RCenter;
+	int editStrokeGradient;
+	bool m_AnnotChanged;
+	bool m_EditModeWasOn;
+	bool m_ChangedState;
+	SelectionRubberBand *redrawMarker;
+	FPoint RCenter { -1.0, -1.0 };
+	FPoint m_mousePointDoc;
 	void updatesOn(bool on);
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 	//does NOT create a page anymore.
-	Page* addPage(int nr, bool mov = true);
+	ScPage* addPage(int nr, bool mov = true);
 
 	void reformPages(bool moveObjects = true);
-	void updateLayerMenu();
+	void reformPagesView();
 	void showMasterPage(int nr);
 	void hideMasterPage();
-	QImage PageToPixmap(int Nr, int maxGr, bool drawFrame = true);
-	QImage MPageToPixmap(QString name, int maxGr, bool drawFrame = true);
-	void RecalcPicturesRes();
-	void rulerMove(QMouseEvent *m);
+	void showSymbolPage(const QString& symbolName);
+	void hideSymbolPage();
+	void showInlinePage(int id);
+	void hideInlinePage();
+
+	QImage PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground);
+	QImage MPageToPixmap(const QString& name, int maxGr, bool drawFrame = true);
+
 	/**
 	 * Called when the ruler origin is dragged
 	 * @param m mouse event
 	 */
 	void setNewRulerOrigin(QMouseEvent *m);
-//	void FromHRuler(QMouseEvent *m);
-//	void FromVRuler(QMouseEvent *m);
-//	void SetYGuide(QMouseEvent *m, int oldIndex);
-//	void SetXGuide(QMouseEvent *m, int oldIndex);
-// 	void getClosestGuides(double xin, double yin, double *xout, double *yout);
-// 	bool ApplyGuides(double *x, double *y);
-// 	void SnapToGuides(PageItem *currItem);
 	void getDragRectScreen(double *x, double *y, double *w, double *h);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
-//	void ToView(QPainter *p);
-//	void ToView(QMatrix& m);
-// 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
-//	void Reset1Control();
-//	void ResetControl();
-//	void MoveClipPoint(PageItem *currItem, FPoint np);
-// 	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
-// 	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
-//	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
-// 	void MoveRotated(PageItem *currItem, FPoint npv, bool fromMP = false);
-// 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false, bool constrainRotation=false);
-//	void RotateGroup(double win);
-//	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0);
-// 	void RotateItem(double win, int ite);
-// 	void RotateItem(double win, PageItem *currItem);
-// 	void AdjustItemSize(PageItem *currItem);
 	bool slotSetCurs(int x, int y);
-	void HandleCurs(PageItem *currItem, QRect mpo);
-//	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
-	bool GetItem(PageItem **b, int nr = -1);
-	void Deselect(bool prop = true);
-	void SelectItemNr(uint nr, bool draw = true, bool single = false);
-	void SelectItem(PageItem *pi, bool draw = true, bool single = false);
-//	void selectPage(QMouseEvent *m);
-//	bool SeleItem(QMouseEvent *m);
-//	void SetupDraw(int Nr);
-//	void SetupDrawNoResize(int nr);
-	void SetFrameRect();
-	void SetFrameRounded();
-	void SetFrameOval();
-	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false, bool noResize = true);
-//	void QueryFarben();
+	// \brief return a resize cursor if the mouse is on a handle.
+	Qt::CursorShape getResizeCursor(PageItem *currItem, QRect mpo, Qt::CursorShape cursorShape = Qt::ArrowCursor);
+	void deselectItems(bool prop = true);
+	void selectItemByNumber(int nr, bool draw = true, bool single = false);
+	void selectItem(PageItem *pi, bool draw = true, bool single = false);
 	void rememberOldZoomLocation(int mx=0, int my=0);
 	bool groupTransactionStarted() { return m_groupTransactions > 0; }
-//	void setGroupTransactionStarted(bool isOn);
 	void startGroupTransaction(const QString &actionName = "",
 							   const QString &description = "",
 							   QPixmap *actionPixmap = 0,
@@ -233,15 +201,15 @@ public:
 	void setScale(const double newScale);
 	double scale() const;
 
-	virtual void changed(QRectF re);
+	void changed(QRectF re, bool) override;
 
 	void updateCanvas(QRectF box = QRectF());
-	void updateCanvas(double x, double y, double width, double height) { updateCanvas(QRectF(x,y,width,height)); }
+	void updateCanvas(double x, double y, double width, double height) { updateCanvas(QRectF(x, y, width, height)); }
 	void setCanvasOrigin(double x, double y);
 	void setCanvasCenter(double x, double y);
-	void scrollCanvasBy(double deltaX, double deltaY);
 	FPoint canvasOrigin() const;
-	QRectF visibleCanvas() const;
+	QRectF visibleCanvasRect() const;
+	void setRedrawMarkerShown(bool shown);
 	
 private:
 	// legacy:
@@ -251,98 +219,85 @@ private:
 	void resizeContents(int w, int h);
 	QPoint contentsToViewport(QPoint p);
 	QPoint viewportToContents(QPoint p);
+
 public: // for now
 	int contentsX();
 	int contentsY();
 	int contentsWidth();
 	int contentsHeight();
+	int visibleWidth() { return viewport()->size().width(); };
+	int visibleHeight() { return viewport()->size().height(); };
+
+	void setCanvasPos(double x, double y);
+	void setCanvasCenterPos(double x, double y);
 	void setContentsPos(int x, int y);
-	int visibleWidth() { return viewport()->size().width(); } ;
-	int visibleHeight() { return viewport()->size().height(); } ;
-	void stopAllDrags();
+
 	void scrollBy(int x, int y);
+	void scrollCanvasBy(double deltaX, double deltaY);
+	void scrollContentsBy(int dx, int dy) override;
+
 	void zoom(double scale = 0.0);
 	void zoom(int canvasX, int canvasY, double scale, bool preservePoint);
 
+	void saveViewState();
+	void restoreViewState();
+	const ViewState& topViewState() const { return m_viewStates.top(); }
+
 public slots: // Public slots
+	void iconSetChange();
 	void languageChange();
-	void toggleCMS();
+	void toggleCMS(bool cmsOn);
 	void switchPreviewVisual(int vis);
-	void togglePreview();
+	void togglePreviewEdit(bool edit);
+	void togglePreview(bool inPreview);
 	void unitChange();
 	void setRulersShown(bool isShown);
-	void slotUpdateContents();
-	void slotUpdateContents(const QRect &r);
   /** Zooms in or out */
 	void slotZoom100();
   /** Zooms in */
-	void slotZoomIn(int mx=0,int my=0);
-	void slotZoomOut(int mx=0,int my=0);
+	void slotZoomIn(int mx = 0, int my = 0, bool preservePoint = false);
+	void slotZoomOut(int mx = 0, int my = 0, bool preservePoint = false);
   /** Redraws everything */
 	void DrawNew();
-	void setMenTxt(int Seite);
-	void setLayerMenuText(const QString &);
-	void GotoPa(int Seite);
-	void GotoLa(int l);
-	void GotoPage(int Seite);
+	void GotoPa(int pageNumber);
+	void GotoLayer(int l);
+	void GotoPage(int pageIndex);
 	void ChgUnit(int art);
 
-	/*! \brief Change canvas preview quality for image items.
-	Called by previewQualitySwitcher (signal).
-	See void ScribusDoc::allItems_ChangePreviewResolution(int id)
-	for changing itself
-	*/
-	void changePreviewQuality(int index);
-
-	void SetCPo(double x, double y);
-	void SetCCPo(double x, double y);
 	void editExtendedImageProperties();
-	//void RefreshItem(PageItem *currItem);
 	void RefreshGradient(PageItem *currItem, double dx = 8, double dy = 8);
-	void ToggleBookmark();
-	void ToggleAnnotation();
-// 	void sentToScrap();
-	void ToBack();
-	void ToFront();
-	void LowerItem();
-	void RaiseItem();
 	void ToPicFrame();
 	void ToPolyFrame();
 	void ToTextFrame();
 	void ToBezierFrame();
 	void ToPathText();
 	void FromPathText();
-// 	void UniteObj();
-// 	void SplitObj();
 	void Bezier2Poly();
 	void PasteToPage();
-//	void PasteRecentToPage(int id);
 	void TextToPath();
-	void adjustCMS();
-//	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
-	
+
+	//for linking frame after draw new frame
+private:
+	PageItem * firstFrame;
+
 private: // Private attributes
 	int m_previousMode;
 	QMenu *pmen3;
 	QMenu *pmenResolution;
-	QMenu *cmsAdjustMenu;
-	QAction *idCmsAdjustMenu;
 	QPoint m_pressLocation;
-	QTime m_moveTimer;
+	QElapsedTimer m_moveTimer;
 	QTimer *m_dragTimer;
 	bool m_dragTimerFired;
-	bool Ready;
-	int  oldX;
-	int  oldY;
-	int  m_groupTransactions;
-	int m_oldCanvasHeight;
-	int m_oldCanvasWidth;
-	UndoTransaction*  m_groupTransaction;
-	bool _isGlobalMode;
-//	bool forceRedraw;
-
-	double oldItemX;
-	double oldItemY;
+	bool m_ready {false};
+	int m_oldZoomX {0};
+	int m_oldZoomY {0};
+	QSize m_oldCanvasSize;
+	int m_groupTransactions {0};
+	UndoTransaction m_groupTransaction;
+	bool _isGlobalMode {true};
+	bool linkAfterDraw {false};
+	bool ImageAfterDraw {false};
+	QStack<ViewState> m_viewStates;
 
 private slots:
 	void setZoom();
@@ -352,18 +307,19 @@ private slots:
 	 * @param y 
 	 */
 	void setRulerPos(int x, int y);
-	void selectionChanged();
 	void setObjectUndoMode();
 	void setGlobalUndoMode();
 	void dragTimerTimeOut();
 
 public:
-	virtual void wheelEvent ( QWheelEvent *ev );
-	virtual void changeEvent(QEvent *e);
-
-	void keyPressEvent(QKeyEvent *k);
-	void keyReleaseEvent(QKeyEvent *k);
-
+	void wheelEvent(QWheelEvent *ev) override;
+	void changeEvent(QEvent *e) override;
+	void nativeGestureEvent(QNativeGestureEvent *e);
+	void keyPressEvent(QKeyEvent *k) override;
+	void keyReleaseEvent(QKeyEvent *k) override;
+	void inputMethodEvent(QInputMethodEvent * event) override;
+	QVariant inputMethodQuery(Qt::InputMethodQuery query) const override;
+	
 	inline void registerMousePress(QPoint p);
 	bool mousePressed();
 	void resetMousePressed();
@@ -375,14 +331,15 @@ public:
 	inline void stopDragTimer();
 	inline void resetDragTimer();
 	inline bool dragTimerElapsed();
+	void stopAllDrags();
 
-	bool handleObjectImport(QMimeData* mimeData, TransactionSettings* trSettings = NULL);
+	bool handleObjectImport(QMimeData* mimeData, TransactionSettings* trSettings = nullptr);
 
 protected: // Protected methods
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
-	virtual void resizeEvent ( QResizeEvent * event );
-	bool eventFilter(QObject *obj, QEvent *event);
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
+	void resizeEvent(QResizeEvent *event) override;
+	bool eventFilter(QObject *obj, QEvent *event) override;
 
 	// those appear to be gone from QScrollArea:
 	virtual void contentsDragEnterEvent(QDragEnterEvent *e);
@@ -391,73 +348,28 @@ protected: // Protected methods
 	virtual void contentsDropEvent(QDropEvent *e);
 	virtual void setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
 	virtual void setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
-	void scrollContentsBy(int dx, int dy);
 	
 	//The width of vertical ruler/height of horizontal ruler, set to 17 in scribusview.cpp
-	int m_vhRulerHW;
+	int m_vhRulerHW { 17 };
 
 signals:
-	void changeUN(int);
-	void changeLA(int);
-	void ItemPos(double, double);
-	void HaveSel(int);
-	void ItemGeom(double, double);
+	void unitChanged(int);
+	void layerChanged(int);
+	void HaveSel();
 	void DocChanged();
+	void ItemGeom();
 	void PolyOpen();
-	void PStatus(int, uint);
-	void SetAngle(double);
-	void SetSizeValue(double);
-	void SetLineArt(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle);
-	void SetLocalValues(double, double, double, double);
-//	void ItemFarben(QString, QString, int, int);
-//	void ItemGradient(int);
-//	void ItemTrans(double, double);
-//	void ItemBlend(int, int);
-	void ItemTextAttr(double);
-	void ItemTextUSval(double);
-	void ItemTextCols(int, double);
-	void SetDistValues(double, double, double, double);
-	void ItemTextAbs(int);
-	void ItemTextFont(const QString&);
-	void ItemTextSize(double);
-	void ItemTextSca(double);
-	void ItemTextScaV(double);
-	void ItemTextBase(double);
-	void ItemTextOutline(double);
-	void ItemTextShadow(double, double);
-	void ItemTextUnderline(double, double);
-	void ItemTextStrike(double, double);
-	void ItemTextFarben(QString, QString, double, double);
-	void ItemTextStil(int);
-	//void ItemRadius(double);
-	void HasTextSel();
-	void HasNoTextSel();
-	void MVals(double, double, double, double, double, double, int);
-	void PaintingDone();
-	void LoadPic();
-	void StatusPic();
-	void AppendText();
-	void DoGroup();
-	//void DoUnGroup();
-	void CutItem();
-	void CopyItem();
-	void Amode(int);
+	void ItemCharStyle(const CharStyle&);
+	void ItemTextAlign(int);
+	void ItemTextEffects(int);
 	void AddBM(PageItem *);
 	void DelBM(PageItem *);
 	void ChBMText(PageItem *);
-	void ToScrap(QString);
 	void LoadElem(QString, double, double, bool, bool, ScribusDoc *, ScribusView *);
-	void LevelChanged(uint);
 	void HavePoint(bool, bool);
 	void ClipPo(double, double);
-	void AnnotProps();
-	void EndNodeEdit();
-	void Hrule(int);
-	void Vrule(int);
-	//void EditGuides();
+	void PolyStatus(int, uint);
 	void MousePos(double, double);
-	void callGimp();
-	void signalGuideInformation(int, qreal);
 };
 
 
@@ -479,7 +391,7 @@ inline QPoint ScribusView::mousePressLocation()
 
 inline bool ScribusView::moveTimerElapsed()
 {
-	return (m_moveTimer.elapsed() > Prefs->moveTimeout);
+	return (m_moveTimer.elapsed() > Prefs->uiPrefs.mouseMoveTimeout);
 }
 
 
@@ -511,6 +423,11 @@ inline void ScribusView::resetDragTimer()
 inline bool ScribusView::dragTimerElapsed()
 {
 	return m_dragTimerFired;
+}
+
+inline CanvasMode* ScribusView::canvasMode()
+{
+	return m_canvasMode;
 }
 
 #endif

@@ -21,13 +21,14 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License      *
 *   along with this program; if not, write to the                          *
 *   Free Software Foundation, Inc.,                                        *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
 #include "meshdistortiondialog.h"
 #include "meshdistortion.h"
 #include "scribuscore.h"
-#include "scribusstructs.h"
+#include "scribusview.h"
+#include "appmodes.h"
 #include "util.h"
 #include "util_math.h"
 
@@ -50,8 +51,10 @@ void meshdistortion_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-MeshDistortionPlugin::MeshDistortionPlugin() : ScActionPlugin()
+MeshDistortionPlugin::MeshDistortionPlugin()
 {
+	m_doc = nullptr;
+	m_patternItem = nullptr;
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
 	languageChange();
@@ -78,10 +81,14 @@ void MeshDistortionPlugin::languageChange()
 	m_actionInfo.notSuitableFor.append(PageItem::ImageFrame);
 	m_actionInfo.notSuitableFor.append(PageItem::PathText);
 	m_actionInfo.notSuitableFor.append(PageItem::LatexFrame);
+	m_actionInfo.notSuitableFor.append(PageItem::Symbol);
+	m_actionInfo.notSuitableFor.append(PageItem::RegularPolygon);
+	m_actionInfo.notSuitableFor.append(PageItem::Arc);
+	m_actionInfo.notSuitableFor.append(PageItem::Spiral);
 	m_actionInfo.needsNumObjects = 3;
 }
 
-const QString MeshDistortionPlugin::fullTrName() const
+QString MeshDistortionPlugin::fullTrName() const
 {
 	return QObject::tr("MeshDistortion");
 }
@@ -106,20 +113,25 @@ void MeshDistortionPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool MeshDistortionPlugin::run(ScribusDoc* doc, QString)
+bool MeshDistortionPlugin::run(ScribusDoc* doc, const QString&)
 {
-	currDoc = doc;
-	if (currDoc == 0)
-		currDoc = ScCore->primaryMainWindow()->doc;
-	if (currDoc->m_Selection->count() > 0)
+	m_doc = doc;
+	if (m_doc == nullptr)
+		m_doc = ScCore->primaryMainWindow()->doc;
+	if (m_doc->m_Selection->count() > 0)
 	{
-		patternItem = currDoc->m_Selection->itemAt(0);
-		MeshDistortionDialog *dia = new MeshDistortionDialog(currDoc->scMW(), currDoc);
+		m_patternItem = m_doc->m_Selection->itemAt(0);
+		MeshDistortionDialog *dia = new MeshDistortionDialog(m_doc->scMW(), m_doc);
 		if (dia->exec())
 		{
 			dia->updateAndExit();
-			currDoc->changed();
-			currDoc->view()->DrawNew();
+			if (m_patternItem->isGroup())
+			{
+				m_doc->resizeGroupToContents(m_patternItem);
+				m_patternItem->SetRectFrame();
+			}
+			m_doc->changed();
+			m_doc->view()->DrawNew();
 		}
 		delete dia;
 	}

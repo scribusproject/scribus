@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 class QColor;
-class Page;
+class ScPage;
 class ScPainter;
 class UndoManager;
 class ScribusDoc;
@@ -37,8 +37,8 @@ class SCRIBUS_API GuideManagerCore
 {
 public:
 	GuideManagerCore();
-	GuideManagerCore(Page* parentPage);
-	~GuideManagerCore();
+	GuideManagerCore(ScPage* parentPage);
+	~GuideManagerCore() = default;
 
 	typedef enum {Standard, Auto} GuideType;
 
@@ -56,6 +56,9 @@ public:
 	double horizontal(uint ix, GuideType type);
 	double vertical(uint ix, GuideType type);
 
+	Guides getAutoHorizontals(ScPage* page = nullptr);
+	Guides getAutoVerticals(ScPage* page = nullptr);
+
 	void clearHorizontals(GuideType type);
 	void clearVerticals(GuideType type);
 
@@ -67,7 +70,7 @@ public:
 	int isMouseOnHorizontal(double low, double high, GuideType type);
 	int isMouseOnVertical(double low, double high, GuideType type);
 
-	void setPage(Page *p);
+	void setPage(ScPage *p);
 
 	QPair<double, double> topLeft(double x, double y);// const;
 	QPair<double, double> topRight(double x, double y);// const;
@@ -75,50 +78,53 @@ public:
 	QPair<double, double> bottomRight(double x, double y);// const;
 
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int horizontalAutoCount() { return m_horizontalAutoCount; };
+	int horizontalAutoCount() { return m_horizontalAutoCount; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setHorizontalAutoCount(int val) { m_horizontalAutoCount = val; };
+	void setHorizontalAutoCount(int val) { m_horizontalAutoCount = val; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int verticalAutoCount() { return m_verticalAutoCount; };
+	int verticalAutoCount() { return m_verticalAutoCount; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setVerticalAutoCount(int val) { m_verticalAutoCount = val; };
+	void setVerticalAutoCount(int val) { m_verticalAutoCount = val; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	double horizontalAutoGap(){ return m_horizontalAutoGap; };
+	double horizontalAutoGap(){ return m_horizontalAutoGap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	double verticalAutoGap(){return m_verticalAutoGap; };
+	double verticalAutoGap(){return m_verticalAutoGap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setHorizontalAutoGap(double gap){ m_horizontalAutoGap = gap; };
+	void setHorizontalAutoGap(double gap){ m_horizontalAutoGap = gap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setVerticalAutoGap(double gap){ m_verticalAutoGap = gap; };
+	void setVerticalAutoGap(double gap){ m_verticalAutoGap = gap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int horizontalAutoRefer() { return m_horizontalAutoRefer; };
+	int horizontalAutoRefer() { return m_horizontalAutoRefer; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setHorizontalAutoRefer(int val) { m_horizontalAutoRefer = val; };
+	void setHorizontalAutoRefer(int val) { m_horizontalAutoRefer = val; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int verticalAutoRefer() { return m_verticalAutoRefer; };
+	int verticalAutoRefer() { return m_verticalAutoRefer; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setVerticalAutoRefer(int val) { m_verticalAutoRefer = val; };
+	void setVerticalAutoRefer(int val) { m_verticalAutoRefer = val; }
 
 	/*! \brief Selection/group coordinates
 	It's used to simulate the original selection "freezed in time"
 	for parent page */
-	double gx, gy, gw, gh;
+	double gx {0.0};
+	double gy {0.0};
+	double gw {0.0};
+	double gh {0.0};
 
 
 private:
-	UndoManager * const undoManager;
-	Page* m_page;
-	Guides horizontalStdG;
-	Guides verticalStdG;
-	Guides horizontalAutoG;
-	Guides verticalAutoG;
+	UndoManager * const m_undoManager;
+	ScPage* m_page {nullptr};
+	Guides m_horizontalStdG;
+	Guides m_verticalStdG;
+	Guides m_horizontalAutoG;
+	Guides m_verticalAutoG;
 
-	double m_horizontalAutoGap;
-	double m_verticalAutoGap;
-	int m_horizontalAutoCount;
-	int m_verticalAutoCount;
-	int m_horizontalAutoRefer;
-	int m_verticalAutoRefer;
+	double m_horizontalAutoGap {0.0};
+	double m_verticalAutoGap {0.0};
+	int m_horizontalAutoCount {0};
+	int m_verticalAutoCount {0};
+	int m_horizontalAutoRefer {0};
+	int m_verticalAutoRefer {0};
 
 	double closestHorAbove(double y);// const;
 	double closestHorBelow(double y);// const;
@@ -127,15 +133,15 @@ private:
 };
 
 
-/*! \brief A separate clas for Guides IO operations in reading or closing
+/*! \brief A separate class for Guides IO operations in reading or closing
 the documents.
 \author Petr Vanek <petr@scribus.info>
 */
 class SCRIBUS_API GuideManagerIO
 {
 	public:
-		GuideManagerIO(){};
-		~GuideManagerIO(){};
+		GuideManagerIO() = default;
+		~GuideManagerIO() = default;
 
 		/*! \brief Read the guides from XML attribute (file opening).
 		It's statis method sou you can call it without instance initialized:
@@ -146,8 +152,8 @@ class SCRIBUS_API GuideManagerIO
 		\param useOldGuides A little bit hacking here. The guides were stored in a little mess
 		in the ancient times. So when is the obsolete XML attribute found in reading document
 		the old reading method is used. All guides are saved in new format then. */
-		static void readHorizontalGuides(const QString guideString,
-										 Page *page,
+		static void readHorizontalGuides(const QString& guideString,
+										 ScPage *page,
 										 GuideManagerCore::GuideType type,
 										 bool useOldGuides=false);
 
@@ -160,16 +166,16 @@ class SCRIBUS_API GuideManagerIO
 		\param useOldGuides A little bit hacking here. The guides were stored in a little mess
 		in the ancient times. So when is the obsolete XML attribute found in reading document
 		the old reading method is used. All guides are saved in new format then. */
-		static void readVerticalGuides(const QString guideString,
-									   Page *page,
+		static void readVerticalGuides(const QString& guideString,
+									   ScPage *page,
 									   GuideManagerCore::GuideType type,
 									   bool useOldGuides=false);
 
-		static QString writeHorizontalGuides(Page *page, GuideManagerCore::GuideType type);
-		static QString writeVerticalGuides(Page *page, GuideManagerCore::GuideType type);
+		static QString writeHorizontalGuides(ScPage *page, GuideManagerCore::GuideType type);
+		static QString writeVerticalGuides(ScPage *page, GuideManagerCore::GuideType type);
 
-		static void readSelection(const QString guideString, Page *page);
-		static QString writeSelection(Page *page);
+		static void readSelection(const QString& guideString, ScPage *page);
+		static QString writeSelection(ScPage *page);
 };
 
 #endif

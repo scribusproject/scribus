@@ -7,74 +7,56 @@ for which a new license (GPL+exception) is in place.
 /***************************************************************************
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
+
 #include "nftsettings.h"
+#include "prefsmanager.h"
 #include "scpaths.h"
 
-nftsettings::nftsettings(QString guilang, QString templateDir)
+nftsettings::nftsettings(const QString& guilang)
 {
 	lang = guilang;
-	scribusShare = ScPaths::instance().templateDir();
-	scribusUserHome = QDir::convertSeparators(ScPaths::getApplicationDataDir());
-	userTemplateDir = templateDir;
-	if (userTemplateDir.right(1) == "/")
-		userTemplateDir = userTemplateDir.left(userTemplateDir.length() - 1);
 	read();
 }
 
 void nftsettings::read()
 {
-	handler = new nftrcreader(&templates,scribusUserHome);
-	reader = new QXmlSimpleReader();
-	reader->setContentHandler(handler);
+	nftrcreader reader(&templates, QDir::toNativeSeparators(ScPaths::applicationDataDir()));
 
-	addTemplates(scribusShare);
-	addTemplates(scribusUserHome+"/templates");
-	if ((!userTemplateDir.isNull()) && (!userTemplateDir.isEmpty()))
-		addTemplates(userTemplateDir);
+	addTemplates(reader, ScPaths::instance().templateDir());
+	addTemplates(reader, ScPaths::instance().userTemplateDir(true));
 }
 
-void nftsettings::addTemplates(QString dir) // dir will be searched for a sub folder called templates
+void nftsettings::addTemplates(nftrcreader& reader, const QString& dir) // dir will be searched for a sub folder called templates
 {
+	if (dir.isEmpty())
+		return;
 	// Add templates from the dir itself
 	QString tmplFile = findTemplateXml(dir);
-	QFile* tmplxml = new QFile(QDir::convertSeparators(tmplFile));
-	handler->setSourceDir(dir);
-	handler->setSourceFile(tmplFile);
-	if (tmplxml->exists())
-	{
-		QXmlInputSource* source = new QXmlInputSource(tmplxml);
-		reader->parse(source);
-		delete source;
-	}
-	delete tmplxml;
-	
+	QString tmplFilePath = QDir::toNativeSeparators(tmplFile);
+	reader.setSourceDir(dir);
+	reader.setSourceFile(tmplFile);
+	if (QFile::exists(tmplFilePath))
+		reader.parse(tmplFilePath);
 	
 	// And from all the subdirectories. template.xml file is only searched one dir level deeper than the dir
 	QDir tmpldir(dir);
 	if (tmpldir.exists())
 	{
-		tmpldir.setFilter(QDir::Dirs);
+		tmpldir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
 		QStringList dirs = tmpldir.entryList();
 		for (int i = 0; i < dirs.size(); ++i)
 		{
-			if ((dirs[i] != ".") && (dirs[i] != "..")) {
-				tmplFile = findTemplateXml(dir + "/" + dirs[i]);
-				QFile* tmplxml = new QFile(QDir::convertSeparators(tmplFile));
-				handler->setSourceDir(dir+"/"+dirs[i]);
-				handler->setSourceFile(tmplFile);
-				if (tmplxml->exists())
-				{
-					QXmlInputSource* source = new QXmlInputSource(tmplxml);
-					reader->parse(source);
-					delete source;
-				}
-				delete tmplxml;
-			}
+			tmplFile = findTemplateXml(dir + "/" + dirs[i]);
+			tmplFilePath = QDir::toNativeSeparators(tmplFile);
+			reader.setSourceDir(dir+"/"+dirs[i]);
+			reader.setSourceFile(tmplFile);
+			if (QFile::exists(tmplFilePath))
+				reader.parse(tmplFilePath);
 		}
 	}
 }
 
-QString nftsettings::findTemplateXml(QString dir)
+QString nftsettings::findTemplateXml(const QString& dir)
 {
 	QString tmp = dir + "/template." + lang + ".xml";
 	if (QFile(tmp).exists())
@@ -91,11 +73,9 @@ QString nftsettings::findTemplateXml(QString dir)
 
 nftsettings::~ nftsettings()
 {
-	delete reader;
-	delete handler;
 	for (uint i = 0; i < templates.size(); ++i)
 	{
-		if (templates[i] != NULL)
+		if (templates[i] != nullptr)
 			delete templates[i];
 	}
 }

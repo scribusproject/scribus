@@ -1,0 +1,1195 @@
+/**
+* Scripter.dialogs.properties.objectName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.properties.modal
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.windowModality
+* Property
+* type is Qt::WindowModality 
+*/
+
+/**
+* Scripter.dialogs.properties.enabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.properties.geometry
+* Property
+* type is QRect 
+*/
+
+/**
+* Scripter.dialogs.properties.frameGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.normalGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.x
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.y
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.pos
+* Property
+* type is QPoint 
+*/
+
+/**
+* Scripter.dialogs.properties.frameSize
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.size
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.properties.width
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.height
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.rect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.childrenRect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.childrenRegion
+* Property
+* type is QRegion  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.sizePolicy
+* Property
+* type is QSizePolicy 
+*/
+
+/**
+* Scripter.dialogs.properties.minimumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.properties.maximumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.properties.minimumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.properties.minimumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.properties.maximumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.properties.maximumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.properties.sizeIncrement
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.properties.baseSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.properties.palette
+* Property
+* type is QPalette 
+*/
+
+/**
+* Scripter.dialogs.properties.font
+* Property
+* type is QFont 
+*/
+
+/**
+* Scripter.dialogs.properties.cursor
+* Property
+* type is QCursor 
+*/
+
+/**
+* Scripter.dialogs.properties.mouseTracking
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.properties.isActiveWindow
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.focusPolicy
+* Property
+* type is Qt::FocusPolicy 
+*/
+
+/**
+* Scripter.dialogs.properties.focus
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.contextMenuPolicy
+* Property
+* type is Qt::ContextMenuPolicy 
+*/
+
+/**
+* Scripter.dialogs.properties.updatesEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.properties.visible
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.properties.minimized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.maximized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.fullScreen
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.sizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.minimumSizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.properties.acceptDrops
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.properties.windowTitle
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.properties.windowIcon
+* Property
+* type is QIcon 
+*/
+
+/**
+* Scripter.dialogs.properties.windowIconText
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.properties.windowOpacity
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.dialogs.properties.windowModified
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.properties.toolTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.properties.statusTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.properties.whatsThis
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.properties.accessibleName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.properties.accessibleDescription
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.properties.layoutDirection
+* Property
+* type is Qt::LayoutDirection 
+*/
+
+/**
+* Scripter.dialogs.properties.autoFillBackground
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.properties.styleSheet
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.properties.locale
+* Property
+* type is QLocale 
+*/
+
+/**
+* Scripter.dialogs.properties.windowFilePath
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.properties.sizeGripEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.properties.modal
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.properties.destroyed(arg1)
+* arg1 is a QObject*
+*/
+
+/**
+* Scripter.dialogs.properties.destroyed()
+*/
+
+/**
+* Scripter.dialogs.properties.deleteLater()
+*/
+
+/**
+* Scripter.dialogs.properties._q_reregisterTimers(arg1)
+* arg1 is a void*
+*/
+
+/**
+* Scripter.dialogs.properties.customContextMenuRequested(pos)
+* pos is a QPoint
+*/
+
+/**
+* Scripter.dialogs.properties.setEnabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.setDisabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.setWindowModified(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.setWindowTitle(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.properties.setStyleSheet(styleSheet)
+* styleSheet is a QString
+*/
+
+/**
+* Scripter.dialogs.properties.setFocus()
+*/
+
+/**
+* Scripter.dialogs.properties.update()
+*/
+
+/**
+* Scripter.dialogs.properties.repaint()
+*/
+
+/**
+* Scripter.dialogs.properties.setVisible(visible)
+* visible is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.setHidden(hidden)
+* hidden is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.show()
+*/
+
+/**
+* Scripter.dialogs.properties.hide()
+*/
+
+/**
+* Scripter.dialogs.properties.setShown(shown)
+* shown is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.showMinimized()
+*/
+
+/**
+* Scripter.dialogs.properties.showMaximized()
+*/
+
+/**
+* Scripter.dialogs.properties.showFullScreen()
+*/
+
+/**
+* Scripter.dialogs.properties.showNormal()
+*/
+
+/**
+* Scripter.dialogs.properties.close()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.properties.raise()
+*/
+
+/**
+* Scripter.dialogs.properties.lower()
+*/
+
+/**
+* Scripter.dialogs.properties.updateMicroFocus()
+*/
+
+/**
+* Scripter.dialogs.properties._q_showIfNotHidden()
+*/
+
+/**
+* Scripter.dialogs.properties.finished(result)
+* result is a int
+*/
+
+/**
+* Scripter.dialogs.properties.accepted()
+*/
+
+/**
+* Scripter.dialogs.properties.rejected()
+*/
+
+/**
+* Scripter.dialogs.properties.exec()
+* returns int
+*/
+
+/**
+* Scripter.dialogs.properties.done(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.properties.accept()
+*/
+
+/**
+* Scripter.dialogs.properties.reject()
+*/
+
+/**
+* Scripter.dialogs.properties.showExtension(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.paletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.setPaletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.setFontSize()
+*/
+
+/**
+* Scripter.dialogs.properties.exec(newParent)
+* newParent is a QWidget*
+* returns int
+*/
+
+/**
+* Scripter.dialogs.properties.reject()
+*/
+
+/**
+* Scripter.dialogs.properties.DocChanged()
+*/
+
+/**
+* Scripter.dialogs.properties.NewParStyle(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.properties.NewAlignment(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.properties.NewEffects(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.properties.ShapeEdit()
+*/
+
+/**
+* Scripter.dialogs.properties.NewFont(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.properties.UpdtGui(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.properties.setMainWindow(mw)
+* mw is a ScribusMainWindow*
+*/
+
+/**
+* Scripter.dialogs.properties.languageChange()
+*/
+
+/**
+* Scripter.dialogs.properties.setDoc(d)
+* d is a ScribusDoc*
+*/
+
+/**
+* Scripter.dialogs.properties.unsetDoc()
+*/
+
+/**
+* Scripter.dialogs.properties.unsetItem()
+*/
+
+/**
+* Scripter.dialogs.properties.setMultipleSelection(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.NewSel(nr)
+* nr is a int
+*/
+
+/**
+* Scripter.dialogs.properties.SetCurItem(i)
+* i is a PageItem*
+*/
+
+/**
+* Scripter.dialogs.properties.unitChange()
+*/
+
+/**
+* Scripter.dialogs.properties.setLevel(l)
+* l is a uint
+*/
+
+/**
+* Scripter.dialogs.properties.setXY(x, y)
+* x is a double
+* y is a double
+*/
+
+/**
+* Scripter.dialogs.properties.setBH(x, y)
+* x is a double
+* y is a double
+*/
+
+/**
+* Scripter.dialogs.properties.setR(r)
+* r is a double
+*/
+
+/**
+* Scripter.dialogs.properties.setRR(r)
+* r is a double
+*/
+
+/**
+* Scripter.dialogs.properties.setCols(r, g)
+* r is a int
+* g is a double
+*/
+
+/**
+* Scripter.dialogs.properties.setLspMode(arg1)
+* arg1 is a QAction*
+*/
+
+/**
+* Scripter.dialogs.properties.setLsp(r)
+* r is a double
+*/
+
+/**
+* Scripter.dialogs.properties.setSize(s)
+* s is a double
+*/
+
+/**
+* Scripter.dialogs.properties.setFontFace(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.properties.setExtra(e)
+* e is a double
+*/
+
+/**
+* Scripter.dialogs.properties.setDvals(left, top, bottom, right)
+* left is a double
+* top is a double
+* bottom is a double
+* right is a double
+*/
+
+/**
+* Scripter.dialogs.properties.ChangeScaling()
+*/
+
+/**
+* Scripter.dialogs.properties.setLvalue(scx, scy, x, y)
+* scx is a double
+* scy is a double
+* x is a double
+* y is a double
+*/
+
+/**
+* Scripter.dialogs.properties.setSvalue(s)
+* s is a double
+*/
+
+/**
+* Scripter.dialogs.properties.setLIvalue(p, pc, pj)
+* p is a Qt::PenStyle
+* pc is a Qt::PenCapStyle
+* pj is a Qt::PenJoinStyle
+*/
+
+/**
+* Scripter.dialogs.properties.setFlop(arg1)
+* arg1 is a FirstLineOffsetPolicy
+*/
+
+/**
+* Scripter.dialogs.properties.updateStyle(newCurrent)
+* newCurrent is a ParagraphStyle
+*/
+
+/**
+* Scripter.dialogs.properties.setStil(s)
+* s is a int
+*/
+
+/**
+* Scripter.dialogs.properties.setAli(e)
+* e is a int
+*/
+
+/**
+* Scripter.dialogs.properties.setParStyle(name)
+* name is a QString
+*/
+
+/**
+* Scripter.dialogs.properties.setCharStyle(name)
+* name is a QString
+*/
+
+/**
+* Scripter.dialogs.properties.setOpticalMargins(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.properties.setMinWordTracking()
+*/
+
+/**
+* Scripter.dialogs.properties.setNormWordTracking()
+*/
+
+/**
+* Scripter.dialogs.properties.setMinGlyphExtension()
+*/
+
+/**
+* Scripter.dialogs.properties.setMaxGlyphExtension()
+*/
+
+/**
+* Scripter.dialogs.properties.setShadowOffs(x, y)
+* x is a double
+* y is a double
+*/
+
+/**
+* Scripter.dialogs.properties.setUnderline(p, w)
+* p is a double
+* w is a double
+*/
+
+/**
+* Scripter.dialogs.properties.newUnderline()
+*/
+
+/**
+* Scripter.dialogs.properties.setStrike(p, w)
+* p is a double
+* w is a double
+*/
+
+/**
+* Scripter.dialogs.properties.newStrike()
+*/
+
+/**
+* Scripter.dialogs.properties.setOutlineW(x)
+* x is a double
+*/
+
+/**
+* Scripter.dialogs.properties.newOutlineW()
+*/
+
+/**
+* Scripter.dialogs.properties.setTScale(e)
+* e is a double
+*/
+
+/**
+* Scripter.dialogs.properties.NewTScale()
+*/
+
+/**
+* Scripter.dialogs.properties.NewTScaleV()
+*/
+
+/**
+* Scripter.dialogs.properties.NewTBase()
+*/
+
+/**
+* Scripter.dialogs.properties.setTScaleV(e)
+* e is a double
+*/
+
+/**
+* Scripter.dialogs.properties.setTBase(e)
+* e is a double
+*/
+
+/**
+* Scripter.dialogs.properties.SetLineFormats(dd)
+* dd is a ScribusDoc*
+*/
+
+/**
+* Scripter.dialogs.properties.SetSTline(c)
+* c is a QListWidgetItem*
+*/
+
+/**
+* Scripter.dialogs.properties.NewTFont(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.properties.newTxtFill()
+*/
+
+/**
+* Scripter.dialogs.properties.newTxtStroke()
+*/
+
+/**
+* Scripter.dialogs.properties.setActShade()
+*/
+
+/**
+* Scripter.dialogs.properties.setActFarben(p, b, shp, shb)
+* p is a QString
+* b is a QString
+* shp is a double
+* shb is a double
+*/
+
+/**
+* Scripter.dialogs.properties.ManageTabs()
+*/
+
+/**
+* Scripter.dialogs.properties.setLocked(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.setSizeLocked(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.setPrintingEnabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.setFlippedH(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.setFlippedV(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.properties.endEdit2()
+*/
+
+/**
+* Scripter.dialogs.properties.SelTab(t)
+* t is a int
+*/
+
+/**
+* Scripter.dialogs.properties.NewX()
+*/
+
+/**
+* Scripter.dialogs.properties.NewY()
+*/
+
+/**
+* Scripter.dialogs.properties.NewW()
+*/
+
+/**
+* Scripter.dialogs.properties.NewH()
+*/
+
+/**
+* Scripter.dialogs.properties.NewRotation()
+*/
+
+/**
+* Scripter.dialogs.properties.NewCornerRadius()
+*/
+
+/**
+* Scripter.dialogs.properties.NewLineSpacing()
+*/
+
+/**
+* Scripter.dialogs.properties.HandleGapSwitch()
+*/
+
+/**
+* Scripter.dialogs.properties.NewCols()
+*/
+
+/**
+* Scripter.dialogs.properties.NewGap()
+*/
+
+/**
+* Scripter.dialogs.properties.NewSize()
+*/
+
+/**
+* Scripter.dialogs.properties.NewTracking()
+*/
+
+/**
+* Scripter.dialogs.properties.handleFlipH()
+*/
+
+/**
+* Scripter.dialogs.properties.handleFlipV()
+*/
+
+/**
+* Scripter.dialogs.properties.NewPage()
+*/
+
+/**
+* Scripter.dialogs.properties.ToggleKette()
+*/
+
+/**
+* Scripter.dialogs.properties.HChange()
+*/
+
+/**
+* Scripter.dialogs.properties.VChange()
+*/
+
+/**
+* Scripter.dialogs.properties.ToggleKetteD()
+*/
+
+/**
+* Scripter.dialogs.properties.HChangeD()
+*/
+
+/**
+* Scripter.dialogs.properties.VChangeD()
+*/
+
+/**
+* Scripter.dialogs.properties.NewLocalXY()
+*/
+
+/**
+* Scripter.dialogs.properties.NewLocalSC()
+*/
+
+/**
+* Scripter.dialogs.properties.NewLocalDpi()
+*/
+
+/**
+* Scripter.dialogs.properties.NewLineWidth()
+*/
+
+/**
+* Scripter.dialogs.properties.NewLineStyle()
+*/
+
+/**
+* Scripter.dialogs.properties.NewLineJoin()
+*/
+
+/**
+* Scripter.dialogs.properties.NewLineEnd()
+*/
+
+/**
+* Scripter.dialogs.properties.NewLineMode()
+*/
+
+/**
+* Scripter.dialogs.properties.NewAlignement(a)
+* a is a int
+*/
+
+/**
+* Scripter.dialogs.properties.setTypeStyle(s)
+* s is a int
+*/
+
+/**
+* Scripter.dialogs.properties.newShadowOffs()
+*/
+
+/**
+* Scripter.dialogs.properties.DoLower()
+*/
+
+/**
+* Scripter.dialogs.properties.DoRaise()
+*/
+
+/**
+* Scripter.dialogs.properties.DoFront()
+*/
+
+/**
+* Scripter.dialogs.properties.DoBack()
+*/
+
+/**
+* Scripter.dialogs.properties.NewRotMode(m)
+* m is a int
+*/
+
+/**
+* Scripter.dialogs.properties.DoFlow()
+*/
+
+/**
+* Scripter.dialogs.properties.MakeIrre(f, c, vals)
+* f is a int
+* c is a int
+* vals is a double*
+*/
+
+/**
+* Scripter.dialogs.properties.NewTDist()
+*/
+
+/**
+* Scripter.dialogs.properties.NewSpGradient(x1, y1, x2, y2)
+* x1 is a double
+* y1 is a double
+* x2 is a double
+* y2 is a double
+*/
+
+/**
+* Scripter.dialogs.properties.toggleGradientEdit()
+*/
+
+/**
+* Scripter.dialogs.properties.DoRevert()
+*/
+
+/**
+* Scripter.dialogs.properties.doClearCStyle()
+*/
+
+/**
+* Scripter.dialogs.properties.doClearPStyle()
+*/
+
+/**
+* Scripter.dialogs.properties.handleShapeEdit()
+*/
+
+/**
+* Scripter.dialogs.properties.handleShapeEdit2()
+*/
+
+/**
+* Scripter.dialogs.properties.handleImageEffects()
+*/
+
+/**
+* Scripter.dialogs.properties.handleExtImgProperties()
+*/
+
+/**
+* Scripter.dialogs.properties.handleLock()
+*/
+
+/**
+* Scripter.dialogs.properties.handleLockSize()
+*/
+
+/**
+* Scripter.dialogs.properties.handlePrint()
+*/
+
+/**
+* Scripter.dialogs.properties.handlePathType()
+*/
+
+/**
+* Scripter.dialogs.properties.handlePathFlip()
+*/
+
+/**
+* Scripter.dialogs.properties.handlePathLine()
+*/
+
+/**
+* Scripter.dialogs.properties.handlePathDist()
+*/
+
+/**
+* Scripter.dialogs.properties.handlePathOffs()
+*/
+
+/**
+* Scripter.dialogs.properties.handleFillRule()
+*/
+
+/**
+* Scripter.dialogs.properties.handleOverprint()
+*/
+
+/**
+* Scripter.dialogs.properties.ChangeProfile(prn)
+* prn is a QString
+*/
+
+/**
+* Scripter.dialogs.properties.ChangeIntent()
+*/
+
+/**
+* Scripter.dialogs.properties.NewName()
+*/
+
+/**
+* Scripter.dialogs.properties.NewLanguage()
+*/
+
+/**
+* Scripter.dialogs.properties.HandleTLines()
+*/
+
+/**
+* Scripter.dialogs.properties.setStartArrow(id)
+* id is a int
+*/
+
+/**
+* Scripter.dialogs.properties.setEndArrow(id)
+* id is a int
+*/
+
+/**
+* Scripter.dialogs.properties.setGroupTransparency(trans)
+* trans is a int
+*/
+
+/**
+* Scripter.dialogs.properties.setGroupBlending(blend)
+* blend is a int
+*/
+
+/**
+* Scripter.dialogs.properties.doGrouping()
+*/
+
+/**
+* Scripter.dialogs.properties.dashChange()
+*/
+
+/**
+* Scripter.dialogs.properties.flop(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.properties.spinboxStartUserAction()
+*/
+
+/**
+* Scripter.dialogs.properties.spinboxFinishUserAction()
+*/
+
+/**
+* Scripter.dialogs.properties.updateSpinBoxConstants()
+*/

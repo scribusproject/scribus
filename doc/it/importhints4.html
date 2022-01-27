@@ -1,0 +1,62 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Importare documenti HTML in Scribus</title>
+</head>
+<body>
+<h2>Importare documenti HTML in Scribus</h2>
+
+<p>Scribus &egrave; dotato di un importatore HTML in grado di importare HTML &ldquo;pulito&rdquo; e ben formato, mantenendo buona parte dell'impaginazione e della formattazione, purch&eacute; queste siano realizzate con HTML di base e <strong>con i marcatori HTML</strong>, non per mezzo di fogli di stile CSS. Scribus attualmente non &egrave; in grado di interpretare il CSS, ma questa capacit&agrave; sar&agrave; aggiunta in futuro.</p>
+<h4>Ma quali elementi HTML vengono importati, e come?</h4>
+<p>L'importatore crea degli stili di paragrafo corrispondenti alla struttura del documento definita dal codice HTML. Anche il testo grassetto, corsivo e a spaziatura costante viene riconosciuto. Ecco quali sono gli elementi HTML che vengono riconosciuti e importati (i marcatori possono essere sia in maiuscolo sia in minuscolo):</p>
+<ul>
+<li><code>body</code>, <code>div</code>, <code>a</code> - il testo deve essere compreso tra i marcatori &#060;body&#062;;</li>
+<li><code>p</code> e <code>br</code> - corrispondono a interruzioni di paragrafo e di riga;</li>
+<li>da <code>H1</code> a <code>H4</code> - corrispondono a intestazioni di dimensioni da 1 a 4;</li>
+<li><code>ol</code>, <code>ul</code>, <code>li</code> - corrispondono a liste ordinate o non ordinate;</li>
+<li><code>pre</code> e <code>code</code> - corrispondono al testo preformattato e al codice sorgente; vengono convertiti utilizzando il carattere Courier a spaziatura costante;</li>
+<li>i collegamenti a pagine web vengono convertiti in testo colorato in blu: sono quindi evidenziati nello stesso modo usato dalla maggior parte dei browser con le impostazioni predefinite;</li>
+<li><code>b</code>, <code>u</code>, <code>i</code>, <code>em</code>, <code>strong</code>, <code>sub</code>, <code>sup</code>, <code>del</code>, <code>u</code> - il testo formattato &egrave; convertito utilizzano i corrispondenti stili di carattere. Perch&eacute; questo funzioni, il carattere predefinito in Scribus deve comprendere tutte le varianti necessarie.</li>
+</ul>
+Come esempio, consideriamo il seguente documento HTML, e mostriamo come appare dopo l'importazione in Scribus e quali stili di paragrafo vengono creati.
+<pre>
+&#060;?xml version="1.0" encoding="utf-8"?&#062;
+&#060;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&#062;
+&#060;html xmlns="http://www.w3.org/1999/xhtml"&#062;
+&#060;head&#062;
+&#060;title&#062;&#060;/title&#062;
+&#060;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&#062;
+&#060;/head&#062;
+&#060;body&#062;
+&#060;h1&#062;Intestazione di primo livello (H1)&#060;/h1&#062;
+&#060;h2&#062;Intestazione di secondo livello (H2)&#060;/h2&#062;
+&#060;h3&#062;Intestazione di terzo livello (H3)&#060;/h3&#062;
+&#060;h4&#062;Intestazione di quarto livello (H4)&#060;/h4&#062;
+&#060;ol&#062;
+&#060;li&#062;Lista ordinata 1  &#060;/li&#062;
+&#060;li&#062;Lista ordinata 2  &#060;/li&#062;
+ &#060;/ol&#062;
+ &#060;ul&#062;
+&#060;li&#062;Lista non ordinata 1  &#060;/li&#062;
+ &#060;li&#062;Lista non ordinata 2  &#060;/li&#062;
+ &#060;/ul&#062;
+ &#060;code&#062;frammento di codice&#060;/code&#062;
+ &#060;p&#062;&#060;b&#062;Paragrafo con testo in grassetto&#060;/b&#062;&#060;/p&#062;
+ &#060;p&#062;&#060;i&#062;Paragrafo con testo in corsivo&#060;/i&#062;&#060;/p&#062;
+ &#060;p align="center"&#062;Testo centrato&#060;/p&#062;
+&#060;/body&#062;
+&#060;/html&#062;</pre>
+<p>Ecco gli stili generati con l'importazione del file:</p>
+<table width="100%"><tr><td align="center"><img src="images/htmlstyle.png" alt="Stili HTML importati in Scribus"  title="Stili HTML importati in Scribus" /></td></tr></table>
+<p>Ecco il testo importato, cos&igrave; come appare nello spazio di lavoro di Scribus:</p>
+<table width="100%"><tr><td align="center"><img src="images/htmlimport.png" alt="HTML importato in Scribus"  title="HTML importato in Scribus" /></td></tr></table>
+<p>Non tutte le applicazioni esportano l'HTML rispettando fedelmente le specifiche tecniche del W3C. Potete utilizzare il programma <code>htmltidy</code> per &ldquo;ripulire&rdquo; e rendere conforme alle specifiche il testo HTML che desiderate importare. Vedi: <a href=" http://w3c.org"> http://w3c.org</a>
+<hr />
+<p>Vedi anche:</p>
+<ul>
+<li><a href="WwStyles.html">Lavorare con gli stili</a></li>
+</ul>
+</p>
+</body>
+</html>

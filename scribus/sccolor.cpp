@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <assert.h>
+#include <cassert>
 
 #include "commonstrings.h"
 #include "sccolor.h"
@@ -29,73 +29,119 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusstructs.h"
 
-ScColor::ScColor(void)
+ScColor::ScColor()
 {
-//	Model = colorModelCMYK;
-//	CR = MG = YB = K = 0;
-	Model = colorModelRGB;
-	CR = 150;
-	MG = 100;
-	YB = 50;
-	K = 0;
-	Spot = false;
-	Regist = false;
+	m_values[0] = 0.6;
+	m_values[1] = 0.4;
+	m_values[2] = 0.2;
 }
 
 ScColor::ScColor(int c, int m, int y, int k)
 {
-	Spot = false;
-	Regist = false;
 	setColor(c, m, y, k);
 }
  
 ScColor::ScColor(int r, int g, int b)
 {
-	Spot = false;
-	Regist = false;
-	setColorRGB(r, g, b);
+	setRgbColor(r, g, b);
+}
+
+ScColor::ScColor(double l, double a, double b)
+	   : m_L_val(l),
+	     m_a_val(a),
+	     m_b_val(b),
+	     m_Model(colorModelLab)
+{
+	m_values[0] = 0.6;
+	m_values[1] = 0.4;
+	m_values[2] = 0.2;
 }
 
 bool ScColor::operator==(const ScColor& other) const
 {
-	if (Model != other.Model)
+	if (m_Model != other.m_Model)
 		return false;
-	if (Spot != other.Spot)
+	if (m_Spot != other.m_Spot)
 		return false;
-	if (Regist != other.Regist)
+	if (m_Regist != other.m_Regist)
 		return false;
-	if (Model == colorModelRGB)
+	if (m_Model == colorModelRGB)
 	{
-		return ((CR == other.CR) && (MG == other.MG) && (YB == other.YB));
+		return ((m_values[0] == other.m_values[0]) && (m_values[1] == other.m_values[1]) && (m_values[2] == other.m_values[2]));
 	}
-	if (Model == colorModelCMYK)
+	if (m_Model == colorModelCMYK)
 	{
-		return ((CR == other.CR) && (MG == other.MG) && (YB == other.YB) && (K == other.K));
+		return ((m_values[0] == other.m_values[0]) && (m_values[1] == other.m_values[1]) && (m_values[2] == other.m_values[2]) && (m_values[3] == other.m_values[3]));
 	}
 	return false;
 }
 
 void ScColor::setColor(int c, int m, int y, int k)
 {
-	CR = c;
-	MG = m;
-	YB = y;
-	K = k;
-	Model = colorModelCMYK;
+	m_values[0] = c / 255.0;
+	m_values[1] = m / 255.0;
+	m_values[2] = y / 255.0;
+	m_values[3] = k / 255.0;
+	m_Model = colorModelCMYK;
 }
 
-void ScColor::setColorRGB(int r, int g, int b)
+void ScColor::setColorF(double c, double m, double y, double k)
 {
-	CR = r;
-	MG = g;
-	YB = b;
-	Model = colorModelRGB;
+	m_values[0] = qMax(0.0, qMin(c, 1.0));
+	m_values[1] = qMax(0.0, qMin(m, 1.0));
+	m_values[2] = qMax(0.0, qMin(y, 1.0));
+	m_values[3] = qMax(0.0, qMin(k, 1.0));
+	m_Model = colorModelCMYK;
+}
+
+void ScColor::setCmykColor(int c, int m, int y, int k)
+{
+	m_values[0] = c / 255.0;
+	m_values[1] = m / 255.0;
+	m_values[2] = y / 255.0;
+	m_values[3] = k / 255.0;
+	m_Model = colorModelCMYK;
+}
+
+void ScColor::setCmykColorF(double c, double m, double y, double k)
+{
+	m_values[0] = qMax(0.0, qMin(c, 1.0));
+	m_values[1] = qMax(0.0, qMin(m, 1.0));
+	m_values[2] = qMax(0.0, qMin(y, 1.0));
+	m_values[3] = qMax(0.0, qMin(k, 1.0));
+	m_Model = colorModelCMYK;
+}
+
+void ScColor::setRgbColor(int r, int g, int b)
+{
+	m_values[0] = r / 255.0;
+	m_values[1] = g / 255.0;
+	m_values[2] = b / 255.0;
+	m_Model = colorModelRGB;
+}
+
+void ScColor::setRgbColorF(double r, double g, double b)
+{
+	m_values[0] = qMax(0.0, qMin(r, 1.0));
+	m_values[1] = qMax(0.0, qMin(g, 1.0));
+	m_values[2] = qMax(0.0, qMin(b, 1.0));
+	m_Model = colorModelRGB;
+}
+
+/** \brief Same as the Constructor but for an existing Color */
+void ScColor::setLabColor(double l, double a, double b)
+{
+	m_Model = colorModelLab;
+	m_L_val = l;
+	m_a_val = a;
+	m_b_val = b;
 }
 
 colorModel ScColor::getColorModel () const
 {
-	return Model;
+	return m_Model;
 }
 
 void ScColor::fromQColor(QColor color)
@@ -110,85 +156,148 @@ void ScColor::fromQColor(QColor color)
 	{
 		int r, g, b;
 		color.getRgb(&r, &g, &b);
-		setColorRGB(r, g, b);
+		setRgbColor(r, g, b);
 	}
+}
+
+void ScColor::getRawRGBColor(RGBColorF* rgb) const
+{
+	if (m_Model == colorModelRGB)
+	{
+		rgb->r = m_values[0];
+		rgb->g = m_values[1];
+		rgb->b = m_values[2];
+		return;
+	}
+
+	rgb->r = 1.0 - qMin(1.0, m_values[0] + m_values[3]);
+	rgb->g = 1.0 - qMin(1.0, m_values[1] + m_values[3]);
+	rgb->b = 1.0 - qMin(1.0, m_values[2] + m_values[3]);
 }
 
 void ScColor::getRawRGBColor(int *r, int *g, int *b) const
 {
-	if (Model == colorModelRGB)
+	if (m_Model == colorModelRGB)
 	{
-		*r = CR;
-		*g = MG;
-		*b = YB;
+		*r = qRound(m_values[0] * 255.0);
+		*g = qRound(m_values[1] * 255.0);
+		*b = qRound(m_values[2] * 255.0);
+		return;
 	}
-	else
-	{
-		*r = 255-qMin(255, CR + K);
-		*g = 255-qMin(255, MG + K);
-		*b = 255-qMin(255, YB + K);
-	}
+
+	double dR = 1.0 - qMin(1.0, m_values[0] + m_values[3]);
+	double dG = 1.0 - qMin(1.0, m_values[1] + m_values[3]);
+	double dB = 1.0 - qMin(1.0, m_values[2] + m_values[3]);
+	*r = qRound(dR * 255.0);
+	*g = qRound(dG * 255.0);
+	*b = qRound(dB * 255.0);
 }
 
 QColor ScColor::getRawRGBColor() const
 {
-	if (Model == colorModelRGB)
-		return QColor(CR, MG, YB);
-	return QColor(255-qMin(255, CR + K), 255-qMin(255, MG + K), 255 - qMin(255, YB + K));
+	if (m_Model == colorModelRGB)
+	{
+		double r = m_values[0];
+		double g = m_values[1];
+		double b = m_values[2];
+		return QColor::fromRgbF(r, g, b);
+	}
+
+	double dR = 1.0 - qMin(1.0, m_values[0] + m_values[3]);
+	double dG = 1.0 - qMin(1.0, m_values[1] + m_values[3]);
+	double dB = 1.0 - qMin(1.0, m_values[2] + m_values[3]);
+	return QColor::fromRgbF(dR, dG, dB);
 }
 
 void ScColor::getRGB(int *r, int *g, int *b) const
 {
-	if( Model != colorModelRGB )
+	if (m_Model != colorModelRGB)
 		qDebug("calling getRGB with a cmyk color");
-	*r = CR;
-	*g = MG;
-	*b = YB;
+	*r = qRound(m_values[0] * 255.0);
+	*g = qRound(m_values[1] * 255.0);
+	*b = qRound(m_values[2] * 255.0);
+}
+
+void ScColor::getRGB(double *r, double *g, double *b) const
+{
+	if (m_Model != colorModelRGB)
+		qDebug("calling getRGB with a cmyk color");
+	*r = m_values[0];
+	*g = m_values[1];
+	*b = m_values[2];
 }
 
 void ScColor::getCMYK(int *c, int *m, int *y, int *k) const
 {
-	if( Model != colorModelCMYK )
+	if (m_Model != colorModelCMYK)
 		qDebug("calling getCMYK with a rgb color");
-	*c = CR;
-	*m = MG;
-	*y = YB;
-	*k = K;
+	*c = qRound(m_values[0] * 255.0);
+	*m = qRound(m_values[1] * 255.0);
+	*y = qRound(m_values[2] * 255.0);
+	*k = qRound(m_values[3] * 255.0);
 }
 
-QString ScColor::name()
+void ScColor::getCMYK(double *c, double *m, double *y, double *k) const
 {
+	if (m_Model != colorModelCMYK)
+		qDebug("calling getCMYK with a rgb color");
+	*c = m_values[0];
+	*m = m_values[1];
+	*y = m_values[2];
+	*k = m_values[3];
+}
+
+void ScColor::getLab(double *L, double *a, double *b) const
+{
+	if (m_Model != colorModelLab)
+		qDebug("calling getLab with a non Lab color");
+	*L = m_L_val;
+	*a = m_a_val;
+	*b = m_b_val;
+}
+
+QString ScColor::name() const
+{
+	int value;
 	QString tmp, name="#";
-	switch (Model) 
+
+	switch (m_Model) 
 	{
 	case colorModelCMYK:
-		tmp.setNum(CR, 16);
+		value = qRound(m_values[0] * 255.0);
+		tmp.setNum(value, 16);
 		if (tmp.length() < 2)
 			tmp.insert(0, "0");
 		name += tmp;
-		tmp.setNum(MG, 16);
+		value = qRound(m_values[1] * 255.0);
+		tmp.setNum(value, 16);
 		if (tmp.length() < 2)
 			tmp.insert(0, "0");
 		name += tmp;
-		tmp.setNum(YB, 16);
+		value = qRound(m_values[2] * 255.0);
+		tmp.setNum(value, 16);
 		if (tmp.length() < 2)
 			tmp.insert(0, "0");
 		name += tmp;
-		tmp.setNum(K, 16);
+		value = qRound(m_values[3] * 255.0);
+		tmp.setNum(value, 16);
 		if (tmp.length() < 2)
 			tmp.insert(0, "0");
 		name += tmp;
 		break;
 	case colorModelRGB:
-		tmp.setNum(CR, 16);
+		value = qRound(m_values[0] * 255.0);
+		tmp.setNum(value, 16);
 		if (tmp.length() < 2)
 			tmp.insert(0, "0");
 		name += tmp;
-		tmp.setNum(MG, 16);
+		value = qRound(m_values[1] * 255.0);
+		tmp.setNum(value, 16);
 		if (tmp.length() < 2)
 			tmp.insert(0, "0");
 		name += tmp;
-		tmp.setNum(YB, 16);
+		value = qRound(m_values[2] * 255.0);
+		tmp.setNum(value, 16);
 		if (tmp.length() < 2)
 			tmp.insert(0, "0");
 		name += tmp;
@@ -199,9 +308,9 @@ QString ScColor::name()
 	return name;
 }
 
-QString ScColor::nameCMYK(const ScribusDoc* doc)
+QString ScColor::nameCMYK(const ScribusDoc* doc) const
 {
-	if ((Model != colorModelCMYK) && (!doc))
+	if ((m_Model != colorModelCMYK) && (!doc))
 		qDebug("calling nameCMYK with a rgb color");
 	CMYKColor cmyk;
 	int c, m, y, k;
@@ -228,9 +337,9 @@ QString ScColor::nameCMYK(const ScribusDoc* doc)
 	return name;
 }
 
-QString ScColor::nameRGB(const ScribusDoc* doc)
+QString ScColor::nameRGB(const ScribusDoc* doc) const
 {
-	if ((Model != colorModelRGB) && (!doc))
+	if ((m_Model != colorModelRGB) && (!doc))
 		qDebug("calling nameRGB with a cmyk color");
 	int r, g, b;
 	RGBColor rgb;
@@ -253,50 +362,56 @@ QString ScColor::nameRGB(const ScribusDoc* doc)
 	return name;
 }
 
-void ScColor::setNamedColor(QString name)
+void ScColor::setNamedColor(QString colorName)
 {
 	bool ok;
-	if (name.length () == 9)
+	if (colorName.length () == 9)
 	{
-		int c = name.mid(1,2).toInt(&ok, 16);
-		int m = name.mid(3,2).toInt(&ok, 16);
-		int y = name.mid(5,2).toInt(&ok, 16);
-		int k = name.mid(7,2).toInt(&ok, 16);
+		int c = colorName.midRef(1,2).toInt(&ok, 16);
+		int m = colorName.midRef(3,2).toInt(&ok, 16);
+		int y = colorName.midRef(5,2).toInt(&ok, 16);
+		int k = colorName.midRef(7,2).toInt(&ok, 16);
 		setColor(c, m, y, k);
 	}
-	else if (name.length () == 7)
+	else if (colorName.length () == 7)
 	{
-		int r = name.mid(1,2).toInt(&ok, 16);
-		int g = name.mid(3,2).toInt(&ok, 16);
-		int b = name.mid(5,2).toInt(&ok, 16);
-		setColorRGB(r, g, b);
+		int r = colorName.midRef(1,2).toInt(&ok, 16);
+		int g = colorName.midRef(3,2).toInt(&ok, 16);
+		int b = colorName.midRef(5,2).toInt(&ok, 16);
+		setRgbColor(r, g, b);
 	}
+}
+
+bool ScColor::isProcessColor() const
+{
+	return (!m_Regist && !m_Spot);
 }
 
 bool ScColor::isRegistrationColor() const
 {
-	return Regist;
+	return m_Regist;
 }
 
 void ScColor::setRegistrationColor(bool s)
 {
-	Regist = s;
+	m_Regist = s;
 }
 
 bool ScColor::isSpotColor() const
 {
-	return Spot;
+	return m_Spot;
 }
 
 void ScColor::setSpotColor(bool s)
 {
-	Spot = s;
+	m_Spot = s;
 }
 
-ColorList::ColorList(ScribusDoc* doc, bool retainDoc) : QMap<QString,ScColor>()
+ColorList::ColorList(ScribusDoc* doc, bool retainDoc)
+	     : m_doc(doc),
+	       m_retainDoc(retainDoc)
 {
-	m_doc = doc;
-	m_retainDoc = retainDoc;
+
 }
 
 void ColorList::setDocument(ScribusDoc* doc)
@@ -331,53 +446,118 @@ void ColorList::copyColors(const ColorList& colorList, bool overwrite)
 	addColors(colorList, overwrite);
 }
 
-ScribusDoc* ColorList::document(void)
+ScribusDoc* ColorList::document() const
 { 
 	return m_doc;
 }
 
-void ColorList::ensureBlackAndWhite(void)
+void ColorList::ensureDefaultColors()
 {
 	ensureBlack();
 	ensureWhite();
+	ensureRegistration();
 }
 
-void ColorList::ensureBlack(void)
+void ColorList::ensureBlack()
 {
-	bool addBlack = true;
 	ColorList::Iterator itb = find("Black");
-	if (itb != end())
+	if (itb == end())
 	{
-		ScColor& black = itb.value();
-		colorModel model = black.getColorModel();
-		if (model == colorModelCMYK)
-		{
-			int c, m, y, k;
-			black.getCMYK(&c, &m, &y, &k);
-			if (c == 0 && m == 0 && y == 0 && k == 255)
-				addBlack = false;
-		}
-	}
-	if (addBlack)
 		insert("Black", ScColor(0, 0, 0, 255));
+		return;
+	}
+
+	ScColor& black = itb.value();
+	colorModel model = black.getColorModel();
+	 if (model == colorModelRGB)
+	{
+		double r, g, b;
+		black.getRGB(&r, &g, &b);
+		if (r != 0.0 || g != 0.0 || b != 0.0)
+			black.setRgbColorF(0.0, 0.0, 0.0);
+	}
+	else if (model == colorModelCMYK)
+	{
+		double c, m, y, k;
+		black.getCMYK(&c, &m, &y, &k);
+		if (c != 0.0 || m != 0.0 || y != 0.0 || k != 1.0)
+			black.setCmykColorF(0.0, 0.0, 0.0, 1.0);
+	}
+	else if (model == colorModelLab)
+	{
+		double l, a, b;
+		black.getLab(&l, &a, &b);
+		if (l != 0.0 || a != 0.0 || b != 0.0)
+			black.setLabColor(0.0, 0.0, 0.0);
+	}
+	else
+	{
+		black.setCmykColorF(0.0, 0.0, 0.0, 1.0);
+	}
 }
 
-void ColorList::ensureWhite(void)
+void ColorList::ensureWhite()
 {
-	bool addWhite = true;
 	ColorList::Iterator itw = find("White");
-	if (itw != end())
+	if (itw == end())
 	{
-		ScColor& white = itw.value();
-		colorModel model = white.getColorModel();
-		if (model == colorModelCMYK)
+		insert("White", ScColor(0, 0, 0, 0));
+		return;
+	}
+
+	ScColor& white = itw.value();
+	colorModel model = white.getColorModel();
+	if (model == colorModelRGB)
+	{
+		double r, g, b;
+		white.getRGB(&r, &g, &b);
+		if (r != 1.0 || g != 1.0 || b != 1.0)
+			white.setRgbColorF(1.0, 1.0, 1.0);
+	}
+	else if (model == colorModelCMYK)
+	{
+		double c, m, y, k;
+		white.getCMYK(&c, &m, &y, &k);
+		if (c != 0.0 || m != 0.0 || y != 0.0 || k != 0.0)
+			white.setCmykColorF(0.0, 0.0, 0.0, 0.0);
+	}
+	else if (model == colorModelLab)
+	{
+		double l, a, b;
+		white.getLab(&l, &a, &b);
+		if (l != 100.0 || a != 0.0 || b != 0.0)
+			white.setLabColor(100.0, 0.0, 0.0);
+	}
+	else
+	{
+		white.setCmykColorF(0.0, 0.0, 0.0, 0.0);
+	}
+}
+
+void ColorList::ensureRegistration()
+{
+	ScColor cc(255, 255, 255, 255);
+	cc.setRegistrationColor(true);
+	insert("Registration", cc);
+}
+
+QString ColorList::tryAddColor(QString name, const ScColor& col)
+{
+	if (contains(name))
+		return name;
+	bool found = false;
+	QString ret = name;
+	ColorList::Iterator it;
+	for (it = begin(); it != end(); ++it)
+	{
+		if (it.value() == col)
 		{
-			int c, m, y, k;
-			white.getCMYK(&c, &m, &y, &k);
-			if (c == 0 && m == 0 && y == 0 && k == 0)
-				addWhite = false;
+			ret = it.key();
+			found = true;
+			break;
 		}
 	}
-	if (addWhite)
-		insert("White", ScColor(0, 0, 0, 0));
+	if (!found)
+		insert(name, col);
+	return ret;
 }

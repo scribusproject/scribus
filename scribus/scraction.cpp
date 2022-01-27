@@ -20,8 +20,13 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include <QMenu>
 #include <QIcon>
+#include <QSysInfo>
+#include <QVector>
+
+#include "iconmanager.h"
 #include "scraction.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 
 ScrAction::ScrAction( QObject * parent ) : QAction( parent )
@@ -29,152 +34,145 @@ ScrAction::ScrAction( QObject * parent ) : QAction( parent )
 	initScrAction();
 }
 
-ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * parent ) : QAction( menuText, parent )
+ScrAction::ScrAction(const QString & menuText, QKeySequence accel, QObject * parent ) : QAction(menuText, parent)
 {
 	setShortcut(accel);
 	initScrAction();
 }
 
-ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent, int extraInt, double extraDouble, QString extraQString ) : QAction( QIcon(icon16), menuText, parent )
+ScrAction::ScrAction(ActionType aType, const QString & menuText, QKeySequence accel, QObject * parent, QVariant d) : QAction(menuText, parent)
+{
+	setShortcut(accel);
+	initScrAction();
+	setData(d);
+
+	m_actionType = aType;
+	if (m_actionType != Normal)
+		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
+}
+
+ScrAction::ScrAction(ActionType aType, const QPixmap& icon16, const QPixmap& icon22, const QString & menuText, QKeySequence accel, QObject * parent, QVariant d)
+          : QAction(QIcon(icon16), menuText, parent)
 {
 	setShortcut(accel);
 	initScrAction();
 	icon().addPixmap(icon22, QIcon::Normal, QIcon::On);
-	_actionType=aType;
 
-	if (_actionType!=Normal)
+	m_actionType = aType;
+	setData(d);
+	if (m_actionType != Normal)
 		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
-	switch (_actionType)
-	{
-		case DataInt:
-			_dataInt=extraInt;
-			break;
-		case DataDouble:
-			_dataDouble=extraDouble;
-			break;
-		case DataQString:
-			_dataQString=extraQString;
-			break;
-		case RecentFile:
-			_dataQString=extraQString;
-			break;
-		case RecentPaste:
-			_dataQString=extraQString;
-			break;
-		case DLL:
-			pluginID=extraInt;
-			break;
-		case Window:
-			windowID=extraInt;
-			break;
-		case RecentScript:
-			break;
-		case UnicodeChar:
-			_dataInt=extraInt;
-			_dataQString=extraQString;
-			break;
-		case Layer:
-			layerID=extraInt;
-			break;
-		case Normal:
-		default:
-			break;
-	}
 }
 
-ScrAction::ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent ) : QAction( QIcon(icon16), menuText, parent )
+ScrAction::ScrAction(ActionType aType, const QString& icon16Path, const QString& icon22Path, const QString & menuText, QKeySequence accel, QObject * parent, QVariant d)
+         : QAction(menuText, parent), m_iconPath16(icon16Path), m_iconPath22(icon22Path)
+{
+	setShortcut(accel);
+	initScrAction();
+	loadIcon();
+
+	m_actionType = aType;
+	setData(d);
+	if (m_actionType != Normal)
+		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
+	if (!m_iconPath16.isEmpty() || !m_iconPath22.isEmpty())
+		connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(loadIcon()));
+}
+
+ScrAction::ScrAction(const QString& icon16Path, const QString& icon22Path, const QString & menuText, QKeySequence accel, QObject * parent )
+         : QAction(menuText, parent), m_iconPath16(icon16Path), m_iconPath22(icon22Path)
 {
 	setShortcut(accel);
 	setMenuRole(QAction::NoRole);
 	initScrAction();
-	icon().addPixmap(icon22, QIcon::Normal, QIcon::On);
+	loadIcon();
+	if (!m_iconPath16.isEmpty() || !m_iconPath22.isEmpty())
+		connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(loadIcon()));
 }
 
 
-ScrAction::ScrAction(QKeySequence accel, QObject * parent, int extraInt, QString extraQString) 
+ScrAction::ScrAction(QKeySequence accel, QObject * parent, QVariant d)
 	: QAction( QIcon(QPixmap()), "", parent )
 {
 	setShortcut(accel);
 	initScrAction();
 	icon().addPixmap(QPixmap(), QIcon::Normal, QIcon::On);
-	_actionType=UnicodeChar;
-
+	m_actionType = UnicodeChar;
+	setData(d);
 	connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
-	_dataInt=extraInt;
-	_dataQString=extraQString;
 }
+
 
 void ScrAction::initScrAction()
 {
-	_actionType=ScrAction::Normal;
-	menuIndex=-1;
-	savedKeySequence=QKeySequence("");
-	shortcutSaved=false;
-	fakeToggle=false;
-}
-
-ScrAction::~ScrAction()
-{
+	m_actionType = ScrAction::Normal;
+	m_menuIndex = -1;
+	m_popupMenuAddedTo = nullptr;
+	m_savedKeySequence = QKeySequence("");
+	m_shortcutSaved = false;
+	m_fakeToggle = false;
 }
 
 void ScrAction::triggeredToTriggeredData()
 {
-	if (_actionType==ScrAction::DataInt)
-		emit triggeredData(_dataInt);
-	if (_actionType==ScrAction::DataDouble)
-		emit triggeredData(_dataDouble);
-	if (_actionType==ScrAction::DataQString)
-		emit triggeredData(_dataQString);
-	if (_actionType==ScrAction::DLL)
-		emit triggeredData(pluginID);
-	if (_actionType==ScrAction::Window)
-		emit triggeredData(windowID);
-	if (_actionType==ScrAction::RecentFile)
-		emit triggeredData(_dataQString);
-	if (_actionType==ScrAction::RecentPaste)
-		emit triggeredData(_dataQString);
-	if (_actionType==ScrAction::RecentScript)
-		emit triggeredData(text());
-	if (_actionType==ScrAction::UnicodeChar)
-		emit triggeredUnicodeShortcut(_dataQString, _dataInt);
-	if (_actionType==ScrAction::Layer)
-		emit triggeredData(layerID);
-	if (_actionType==ScrAction::ActionDLL)
+	if (m_actionType == ScrAction::DataInt)
+		emit triggeredData(data().toInt());
+	if (m_actionType == ScrAction::DataDouble)
+		emit triggeredData(data().toDouble());
+	if (m_actionType == ScrAction::DataQString)
+		emit triggeredData(data().toString());
+	if (m_actionType == ScrAction::DLL)
+		qDebug()<<"if (_actionType==ScrAction::DLL): please fix in ScrAction::triggeredToTriggeredData()";
+//		emit triggeredData(pluginID);
+	if (m_actionType == ScrAction::Window)
+		emit triggeredData(data().toInt());
+	if (m_actionType == ScrAction::RecentFile)
+		emit triggeredData(data().toString());
+	if (m_actionType == ScrAction::RecentPaste)
+		emit triggeredData(data().toString());
+	if (m_actionType == ScrAction::RecentScript)
+		emit triggeredData(data().toString());
+	if (m_actionType == ScrAction::UnicodeChar)
+		emit triggeredUnicodeShortcut(data().toInt());
+	if (m_actionType == ScrAction::Layer)
+		emit triggeredData(data().toInt());
+	if (m_actionType == ScrAction::ActionDLL)
 		emit triggeredData(((ScribusMainWindow*)parent())->doc);
 }
 
 void ScrAction::toggledToToggledData(bool ison)
 {
-	if (isCheckable())
-	{
-		if (_actionType==ScrAction::DataInt)
-			emit toggledData(ison, _dataInt);
-		if (_actionType==ScrAction::DataDouble)
-			emit toggledData(ison, _dataDouble);
-		if (_actionType==ScrAction::DataQString)
-			emit toggledData(ison, _dataQString);
-		if (_actionType==ScrAction::DLL)
-			emit toggledData(ison, pluginID);
-		if (_actionType==ScrAction::Window)
-			emit toggledData(ison, windowID);
-		if (_actionType==ScrAction::RecentFile)
-			emit toggledData(ison, _dataQString);
-		if (_actionType==ScrAction::RecentPaste)
-			emit toggledData(ison, _dataQString);
-		if (_actionType==ScrAction::RecentScript)
-			emit toggledData(ison, text());
-		if (_actionType==ScrAction::Layer)
-			emit toggledData(ison, layerID);
-		// no toggle for UnicodeChar
-	}
+
+	if (!isCheckable())
+		return;
+	if (m_actionType == ScrAction::DataInt)
+		emit toggledData(ison, data().toInt());
+	if (m_actionType == ScrAction::DataDouble)
+		emit toggledData(ison, data().toDouble());
+	if (m_actionType == ScrAction::DataQString)
+		emit toggledData(ison, data().toString());
+	if (m_actionType == ScrAction::DLL)
+		qDebug()<<"if (_actionType==ScrAction::DLL): please fix in ScrAction::toggledToToggledData(bool ison)";
+	//			emit toggledData(ison, pluginID);
+	if (m_actionType == ScrAction::Window)
+		emit toggledData(ison, data().toInt());
+	if (m_actionType == ScrAction::RecentFile)
+		emit toggledData(ison, data().toString());
+	if (m_actionType == ScrAction::RecentPaste)
+		emit toggledData(ison, data().toString());
+	if (m_actionType == ScrAction::RecentScript)
+		emit toggledData(ison, text());
+	if (m_actionType == ScrAction::Layer)
+		emit toggledData(ison, data().toInt());
+	// no toggle for UnicodeChar
 }
 
-void ScrAction::addedTo ( int index, QMenu * menu )
+void ScrAction::addedTo(int index, QMenu * menu)
 {
-	if (menuIndex==-1) // Add the first time, not for secondary popups.
+	if (m_menuIndex == -1) // Add the first time, not for secondary popups.
 	{
-		menuIndex=index;
-		popupMenuAddedTo=menu;
+		m_menuIndex = index;
+		m_popupMenuAddedTo =menu;
 	}
 }
 
@@ -183,26 +181,44 @@ QString ScrAction::cleanMenuText()
 	return text().remove('&').remove("...");
 }
 
+void ScrAction::setToolTipFromTextAndShortcut()
+{
+	QString sct(shortcut().toString(QKeySequence::NativeText));
+	if (sct.isEmpty())
+		QAction::setToolTip("<qt>" + cleanMenuText() + "</qt>");
+	else
+		QAction::setToolTip("<qt>" + cleanMenuText() + " (" + sct + ")" + "</qt>");
+}
+
+void ScrAction::setStatusTextAndShortcut(const QString& statusText)
+{
+	QString sct(shortcut().toString(QKeySequence::NativeText));
+	if (sct.isEmpty())
+		QAction::setStatusTip(statusText);
+	else
+		QAction::setStatusTip(statusText + " (" + sct + ")");
+}
+
 int ScrAction::getMenuIndex() const
 {
-	return menuIndex;
+	return m_menuIndex;
 }
 
 bool ScrAction::isDLLAction() const
 {
-	return _actionType==ScrAction::DLL;
+	return m_actionType == ScrAction::DLL;
 }
 
 int ScrAction::dllID() const
 {
-	if (_actionType==ScrAction::DLL)
-		return pluginID;
+	if (m_actionType == ScrAction::DLL)
+		return data().toInt();
 	return -1;
 }
 
 void ScrAction::setToggleAction(bool isToggle, bool isFakeToggle)
 {
-	if (_actionType!=Normal)
+	if (m_actionType != Normal)
 	{
 		if (isToggle)
 			connect(this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
@@ -211,67 +227,91 @@ void ScrAction::setToggleAction(bool isToggle, bool isFakeToggle)
 	}
 	QAction::setCheckable(isToggle);
 	setChecked(isToggle); // set default state of the action's checkbox - PV
-	fakeToggle=isFakeToggle;
+	m_fakeToggle = isFakeToggle;
 	//if (fakeToggle)
 		//connect(this, toggled(bool), this, triggered());
 }
 
 void ScrAction::saveShortcut()
 {
-	if(!shortcutSaved)
+	if (!m_shortcutSaved)
 	{
-		savedKeySequence=shortcut();
+		m_savedKeySequence = shortcut();
 		setShortcut(QKeySequence(""));
-		shortcutSaved=true;
+		m_shortcutSaved = true;
 	}
 }
 
 void ScrAction::restoreShortcut()
 {
-	if (shortcutSaved)
+	if (m_shortcutSaved)
 	{
-		setShortcut(savedKeySequence);
-		savedKeySequence=QKeySequence("");
-		shortcutSaved=false;
+		setShortcut(m_savedKeySequence);
+		m_savedKeySequence=QKeySequence("");
+		m_shortcutSaved=false;
 	}
 }
 
 ScrAction::ActionType ScrAction::actionType()
 {
-	return _actionType;
+	return m_actionType;
 }
 
 int ScrAction::actionInt() const
 {
-	return _dataInt;
+	return data().toInt();
 }
 
 double ScrAction::actionDouble() const
 {
-	return _dataDouble;
+	return data().toDouble();
 }
 
 const QString ScrAction::actionQString()
 {
-	return _dataQString;
+	return data().toString();
 }
 
-void ScrAction::setTexts(const QString &newText, bool setTextToo)
+void ScrAction::setTexts(const QString &newText)//#9114, qt3-qt4 change of behaviour bug:, bool setTextToo)
 {
 	QAction::setText(newText);
-	if (setTextToo)
-		QAction::setText(cleanMenuText());
+//	if (setTextToo)
+	QAction::setIconText(cleanMenuText());
 }
 
 void ScrAction::toggle()
 {
 	QAction::toggle();
-	if (fakeToggle)
+	if (m_fakeToggle)
 		emit triggered();
 }
 
 void ScrAction::setActionQString(const QString &s)
 {
-	_dataQString=s;
+	setData(s);
 }
 
+void ScrAction::loadIcon()
+{
+	if (m_iconPath16.isEmpty() && m_iconPath22.isEmpty())
+		return;
+
+	IconManager& iconManager = IconManager::instance();
+	QIcon newIcon;
+
+	if (!m_iconPath16.isEmpty())
+	{
+		QPixmap pix = iconManager.loadPixmap(m_iconPath16);
+		if (!pix.isNull())
+			newIcon.addPixmap(pix, QIcon::Normal, QIcon::On);
+	}
+
+	if (!m_iconPath22.isEmpty())
+	{
+		QPixmap pix = iconManager.loadPixmap(m_iconPath22);
+		if (!pix.isNull())
+			newIcon.addPixmap(pix, QIcon::Normal, QIcon::On);
+	}
+
+	setIcon(newIcon);
+}

@@ -1,0 +1,44 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Commands for Master Pages</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Commands for Master Pages</h2>
+<p><i>Please see the comments at the bottom of the page.</i></p>
+<dl>
+<dt><a name="-masterPageNames"><strong>masterPageNames</strong>(...)</a></dt>
+<dd><code>masterPageNames()</code>
+<p>Returns a list of the names of all master pages in the document.</p></dd>
+
+<dt><a name="-applyMasterPage"><strong>applyMasterPage</strong>(...)</a></dt>
+<dd><code>applyMasterPage(Master Page name, page nr)</code>
+<p>Applies the named master page to the indicated page. Some examples of usage are on the wiki.</a>.</p></dd>
+
+<dt><a name="-closeMasterPage"><strong>closeMasterPage</strong>(...)</a></dt>
+<dd><code>closeMasterPage()</code>
+<p>Closes the currently active master page, if any, and returns editing
+to normal. Begin editing with <a href="#-editMasterPage">editMasterPage()</a>.</p></dd>
+
+<dt><a name="-createMasterPage"><strong>createMasterPage</strong>(...)</a></dt>
+<dd><code>createMasterPage(pageName)</code>
+<p>Creates a new master page named pageName. Begin editing with <a href="#-editMasterPage">editMasterPage()</a>.</p></dd>
+
+<dt><a name="-deleteMasterPage"><strong>deleteMasterPage</strong>(...)</a></dt>
+<dd><code>deleteMasterPage(pageName)</code>
+<p>Delete the named master page.</p></dd>
+
+<dt><a name="-editMasterPage"><strong>editMasterPage</strong>(...)</a></dt>
+<dd><code>editMasterPage(pageName)</code>
+<p>Enables master page editing and opens the named master page
+for editing. Finish editing with <a href="#-closeMasterPage">closeMasterPage()</a>.</p></dd>
+
+</dl>
+<p>It's important to consider how you may wish to approach working with Master Pages with Scripter. It's conceivable you may want to work with existing Master Pages, in which case you will need a list of them from <strong>masterPageNames()</strong>, after which you might present these to the user in a dialog so that one can be selected. It's more likely perhaps that you will be creating a Master Page, editing it, then applying it to one or more pages of the Document.</p>
+<p>With this latter method, you would first use <strong>createMasterPage()</strong>, then <strong>editMasterPage()</strong>. At this point you would proceed as if you were editing any page of the Document you are working on. Once finished, you must then <strong>closeMasterPage()</strong> to continue. <strong><i>Note that this command takes no arguments.</i></strong> You may then wish some time later to <strong>applyMasterPage()</strong> in whatever fashion you choose, necessarily being careful to only choose valid page numbers &ndash; recall that pages are numbered starting with <strong>1</strong>.</p>
+<p>If you need to continue to edit the Document in some other fashion, it is important to realize that you must select a page to work with, using the <strong>gotoPage()</strong> command.</p>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Fehlerberichte und W&uuml;nsche</title>
+</head>
+<body>
+<h2>Fehlerberichte und W&uuml;nsche</h2>
+<p>Erfolgreiche Softare-Entwicklung ist ohne ausgiebiges Testen fast unm&ouml;glich, und f&uuml;r Scribus trifft dies selbstverst&auml;ndlich ebenso zu. Testen bedeutet, das Programm zu benutzen, insbesondere die Entwicklerversionen. Wenn Fehler entdeckt worden sind, m&uuml;ssen sie den Entwicklern mitgeteilt werden, damit diese wissen, da&szlig; etwas nicht funktioniert oder wenigstens zu funktionieren scheint, wie es soll, so da&szlig; der Fehler behoben werden kann. Manchmal kann die Fehlerbehebung schlicht in einer Aktualisierung der Dokumentation bestehen. Dar&uuml;ber hinaus m&uuml;ssen die Entwickler nat&uuml;rlich wissen, welche Funktionen Anwender ben&ouml;tigen, und wenn eine bestimmte Funktion fehlt oder wenn jemand eine gro&szlig;artige Idee hat, sollte er es dem Scribus-Team mitteilen.</p>
+
+<p>Ob nun Fehlerbericht oder Wunsch, die Prozedur ist in allen F&auml;llen dieselbe. Es gibt eine spezielle Softwaregattung namens &raquo;Bug Tracking System&laquo;, die es Entwicklern erlaubt, Fehlerberichte und sogenannte &raquo;RFEs&laquo; (requests for enhancement) zu verfolgen und zu diskutieren. Das Scribus-Team hat sich f&uuml;r das <a href="http://www.mantisbt.org/">Mantis</a>-System entschieden. Wenn Sie also helfen wollen, Scribus zu verbessern oder unbedingt eine Funktion ben&ouml;tigen, sollten Sie lernen, wie man das System benutzt.</p>
+
+<h3>Ein Benutzerkonto erstellen</h3>
+
+<p>Besuchen Sie die <a href="http://bugs.scribus.net/signup_page.php">Anmeldungsseite</a>. Sie werden eine Seite sehen, die in etwa wie folgt aussieht:</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/Mantis_signup.png"/></td></tr></table>
+<br>
+<p>Geben Sie einen Benutzernamen, Ihre E-Mail-Adresse und die eingeblendeten Ziffern ein. Dann klicken Sie auf &raquo;Signup&laquo; und warten Sie, bis Ihr Nutzerkonto best&auml;tigt wurde und Sie ein Pa&szlig;wort per E-Mail erhalten haben. Sie k&ouml;nnen Ihre pers&ouml;nlichen Einstellungen jederzeit unter &raquo;My account&laquo; &auml;ndern, wenn Sie eingeloggt sind. Am besten nehmen Sie sich ein bi&szlig;chen Zeit, um sich mit den verschiedenen Optionen vertraut zu machen und zu entscheiden, ob Sie f&uuml;r Sie von Nutzen sind.</p>
+
+<h3>Bevor Sie einen Fehlerbericht einsenden</h3>
+<p>Wenn etwas nicht funktioniert wie erwartet, oder falls Sie glauben, Sie h&auml;tten die Idee des Jahrhunderts, fangen Sie bitte nicht gleich an, neue Eintr&auml;ge zu machen, denn es ist nicht auszuschlie&szlig;en, da&szlig; jemand schon &uuml;ber dasselbe Problem gestolpert ist oder dieselbe Idee hatte. Wir empfehlen, folgende f&uuml;nf Schritte zu beachten, um sicherzustellen, da&szlig; Ihr Eintrag nicht umgehend als &raquo;Duplicate&laquo; oder &raquo;No change required&laquo; geschlossen wird..</p>
+
+<ol>
+<li>Lesen Sie diese Online-Hilfe, st&ouml;bern Sie im <a href="http://wiki.scribus.net/index.php">Scribus Wiki</a>, oder kaufen Sie das offizielle Scribus-Handbuch. Es sind reichhaltige Informationen in verschiedenen Sprachen vorhanden, und vielleicht hat schon jemand seine Erfahrungen in einen Wiki-Artikel gegossen, oder das Scribus-Dokumentationsteam hat die Online-Hilfe schon entsprechend erweitert. </li>
+<li>Versuchen Sie wirklich, Scribus und das zugrundeliegende Konzept DTP zu verstehen. Scribus ist nicht schwer zu benutzen, aber es unterscheidet sich <a href="about2.html">gewaltig</a> von einem Textverarbeitungsprogramm.</li>
+<li>Melden Sie Ihr Problem versuchsweise erst einmal auf einer der <a href="mailing_lists.html">Mailinglisten</a>. Normalerweise werden Probleme dort schnell gekl&auml;rt, denn sehr oft ist ein vermuteter Fehler nur der Mangel an Erfahrung.</li>
+<li>Stellen Sie im <a href="irc.html">IRC</a> Fragen. Dieser eignet sich besonders f&uuml;r Unterst&uuml;tzung in &raquo;Echtzeit&laquo;.</li>
+<li>Wenn Ihre Fragen dann immer noch nicht beantwortet sind, k&ouml;nnen Sie in der Datenbank des Bugtrackers mit Hilfe von Stichw&ouml;rtern suchen. Wie Sie auf der Abbildung weiter unten sehen, k&ouml;nnen Sie ein Stichwort in das Feld &raquo;Search&laquo; eingeben. Klicken Sie anschlie&szlig;end &raquo;Apply&laquo;, und Mantis wird nach allen Eintr&auml;gen mit diesem Stichwort suchen. Wenn Sie das korrekte englische Wort nicht kennen, mag es helfen, die Scribus-Benutzeroberfl&auml;che kurzfristig auf Englisch umzustellen. Sie k&ouml;nnen aber auch das mehrsprachige <a href="http://wiki.scribus.net/index.php/Glossary_of_technical_terms_used_in_Scribus_and_its_translations">Glossar</a> benutzen.</li>
+</ol>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/Mantis_searching.png"/></td></tr></table>
+<br>
+</p><p>Sie werden bemerken, da&szlig; Mantis verschiedene Farben benutzt, um den Status eines Berichts anzuzeigen. Die Farben bedeuten im einzelnen:</p>
+<table class="width100" cellspacing="1"><tr><td class="small-caption" width="14%" bgcolor="#ffa0a0">Neu</td><td class="small-caption" width="14%" bgcolor="#ff50a8">Feedback</td><td class="small-caption" width="14%" bgcolor="#ffd850">Akzeptiert</td><td class="small-caption" width="14%" bgcolor="#ffffb0">Best&auml;tigt</td><td class="small-caption" width="14%" bgcolor="#c8c8ff">Zugewiesen</td><td class="small-caption" width="14%" bgcolor="#cceedd">Gel&ouml;st</td><td class="small-caption" width="14%" bgcolor="#e8e8e8">Geschlossen</td></tr></table>
+<br>
+
+<ul><li><i>New (Neu)</i>: Der Fehlerbericht/RFE wurde eingetragen, aber es ist noch keine Entscheidung &uuml;ber das weitere Vorgehen gefallen.</li>
+<li><i>Feedback</i>: Es wird eine R&uuml;ckmeldung entweder vom urspr&uuml;nglichen Eintr&auml;ger oder vom Verfasser eines Kommentars erwartet. Dies kommt h&auml;ufig vor, wenn sich ein Fehler nicht reproduzieren l&auml;&szlig;t oder der Fehlerbericht unverst&auml;ndlich ist.</li>
+<li><i>Acknowledged (Akzeptiert)</i>: Wenn das Team entschieden hat, da&szlig; ein Vorschlag es wert ist, zuk&uuml;nftig bei der Entwicklung ber&uuml;cksichtigt zu werden, erh&auml;lt der Eintrag den Status &raquo;Acknowledged.&laquo; Dies betrifft &uuml;berwiegend RFEs.</li>
+<li><i>Confirmed (Best&auml;tigt)</i>: Wenn ein Fehlerbericht von anderen reproduziert werden kann und sich der Fehler beheben l&auml;&szlig;t (d.h. wenn es ein Problem von Scribus ist), wird der Status zu &raquo;Confirmed&laquo; ge&auml;ndert. Dies betrifft &uuml;berwiegend Fehlermeldungen.</li>
+<li><i>Assigned (Zugewiesen)</i>: Der Fehlerbericht oder RFE wurde einem Entwickler zugewiesen, um den Fehler zu beheben oder die neue Funktion zu programmieren.</li>
+<li><i>Resolved (Gel&ouml;st)</i>: Der Fehler wurde behoben oder die neue Funktion hinzugef&uuml;gt. Es kann aber auch sein, da&szlig; sich der Fehler nicht beheben l&auml;&szlig;t, etwa wenn das Problem in einer externen Bibliothek liegt. Auch in diesem Fall erh&auml;lt der Eintrag den Status &raquo;Resolved&laquo;.</li>
+<li><i>Closed (Geschlossen)</i>: Das Ende der Lebensspanne eines Eintrages. Wenn alles geklappt hat, wird er geschlossen, und die furchterregende Zahl der W&uuml;nsche und Fehlerberichte ist ein wenig kleiner geworden.</li>
+</ul>
+<br>
+<h2>Einen Fehlerbericht einsenden</h2>
+<p>Um einen Eintrag zu t&auml;tigen, m&uuml;ssen Sie auf &raquo;Report Issue&laquo; in Ihrem Browser klicken. Ihnen wird jetzt eine gro&szlig;e Zahl von Feldern f&uuml;r Eintr&auml;ge pr&auml;sentiert:</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/Mantis_new_report1.png"/></td></tr></table>
+<br>
+<ul><li><i>Categories</i>: W&auml;hlen Sie eine Kategorie, von der Sie denken, da&szlig; ihr Eintrag dort am besten hineinpa&szlig;t. Sollten Sie keine finden, w&auml;hlen Sie &raquo;General&laquo;.</li>
+<li><i>Reproducibility</i>: Wenn Sie einen Fehler melden, k&ouml;nnen Sie ihn reproduzieren? Wie oft tritt er auf? W&auml;hlen Sie die passende H&auml;ufigkeit des Auftretens. RFEs haben immer den Wert &raquo;Always&laquo;, weil die Funktion fehlt, bis der Eintrag als gel&ouml;st gekennzeichnet ist.</li>
+<li><i>Select Profile</i>: In Ihren pers&ouml;nlichen Einstellungen k&ouml;nnen Sie Benutzerprofile f&uuml;r Ihre Berichte anlegen. Dies erweist sich besonders dann als n&uuml;tzlich, wenn Sie mehrere Betriebssysteme verwenden. Sie k&ouml;nnen so ein Profil f&uuml;r jedes Betriebssystem erzeugen, und wenn Sie einen Fehlerbericht einsenden, der sich nur auf ein bestimmtes System bezieht, w&auml;hlen Sie einfach das Profil, anstatt jedesmal alles per Hand einzugeben.</li>
+<li><i>Platform</i>: Hier sollten Sie die Hardware-Plattform angeben (z.B. x86, x86-64, PPC, SPARC).</li>
+<li><i>OS</i>: Ihr Betriebssystem (z.B. Linux, Windows, Mac &nbsp;OS&nbsp;X, OS/2, eCS).</li>
+<li><i>OS Version</i>: Z.B. Debian 3.1, OpenSUSE 11.2, Windows XP, OS&nbsp;X 10.5, eCS 1.2</li>
+<li><i>Product Version</i>: Es existieren mehrere Scribus-Versionen, z.Zt. der stabile (1.4.x) und der Entwicklerzeig (1.5). Geben Sie acht, da&szlig; Sie die richtige Version ausw&auml;hlen.</li>
+<li><i>Product Build</i>: Dies ist besonders wichtig, wenn Sie Scribus aus den <a href="install1.html">SVN-Quellen kompilieren</a> of Scribus. Beachten Sie, da&szlig; Sie das entscheidende Datum nicht in Scribus unter <i>Hilfe&nbsp;&gt; &Uuml;ber Scribus</i> finden werden, weil diese Datumsangabe nur unregelm&auml;&szlig;ig manuell aktualisiert wird. Das Datum, das z&auml;hlt, ist das, an dem Sie die SVN-Quellen zum letztenmal aktualisert haben. Es k&ouml;nnte sein, da&szlig; der Fehler bereits behoben ist, wenn Sie ihn melden. In diesem Fall werden Sie die Empfehlung erhalten, SVN erneut zu aktualiseren und die Angelegenheit nochmals zu &uuml;berpr&uuml;fen. <b>Bitte senden Sie keine Fehlerberichte f&uuml;r veraltete Versionen (d.h. Versionen vor 1.4.0) ein!</b></li>
+</ul>
+
+<p>Wenn Sie mit den Formalit&auml;ten fertig sind, k&ouml;nnen Sie endlich anfangen, Ihren Bericht zu schreiben:</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/Mantis_new_report2.png"/></td></tr></table>
+<br>
+
+<ul><li><i>Summary</i>: Eine kurze Beschreibung des Inhalts. Dies wird die &raquo;&Uuml;berschrift&laquo; des Berichts im Bugtracker sein, die andere zu sehen bekommen.</li>
+<li><i>Description</i>: Beschreiben Sie hier das Problem so genau, aber auch so knapp wie m&ouml;glich. <b>Bitte schreiben Sie hier auf keinen Fall Romane!</b> Es k&ouml;nnte auch hilfreich sein, Bildschirmschnapsch&uuml;sse hochzuladen (s.u.). Wenn Sie einen RFE eintragen, erg&auml;nzen Sie Ihre Beschreibung mit einem realistischen Anwendungsfall. Das Team braucht manchmal Beispiele, um zu verstehen, was genau Ihre Idee ist und wie die neue Funktion Anwendern dabei helfen kann, effektiver zu arbeiten. In anderen Worten: Beschreiben Sie nicht nur das <i>Was</i> und das <i>Wie</i>, sondern auch das <i>Warum</i>.</li>
+<li><i>Steps to reproduce</i>: Wenn Sie einen Fehler reproduzieren k&ouml;nnen, bitte schreiben Sie die Schritte auf, die zu dem Fehler f&uuml;hren, so da&szlig; andere versuchen k&ouml;nnen, den Fehler auf ihrem eigenen Rechner nachzuvollziehen.</li>
+<li><i>Additional information</i>: Wenn Sie meinen, da&szlig; weitere Informationen, z.B. eine Diskussion auf einer Mailingliste, n&uuml;tzlich seien, k&ouml;nnen Sie diese hier angeben. Auch die Ausgabe eines Debuggers k&ouml;nnen Sie an diese Stelle kopieren.</li>
+</ul>
+<p>Sie sind nun fast fertig, aber vielleicht m&ouml;chten Sie noch eine Datei hochladen, zum Beispiel einen Bildschirmschnappschu&szlig; oder eine Scribus-Datei. Klicken Sie in diesem Fall auf &raquo;Search&laquo; oder geben Sie den Pfad zu der Datei oder eine URL ein.</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/Mantis_new_report3.png"/></td></tr></table>
+<br>
+<p>Wenn Sie nicht m&ouml;chten, da&szlig; au&szlig;er den Entwicklern andere Ihren Bericht sehen, z.B. weil eine Beispieldatei vertrauliche Daten enth&auml;lt, k&ouml;nnen Sie dem Bericht Status &raquo;Private&laquo;. In diesem Fall wird nur eine Handvoll Menschen, n&auml;mlich die Entwickler, die Daten zu Gesicht bekommen.</p><p>Sobald alles zu Ihrer Zufriedenheit eingetragen ist, klicken Sie &raquo;Submit Report&laquo;. Das war&rsquo;s schon.</p>
+
+<h2>Personalisierte Ansicht</h2>
+<p>Wenn Sie eingeloggt sind, k&ouml;nnen Sie sich eine &uuml;bersichtlichere Ansicht des Bugtrackers anzeigen lassen. Klicken Sie dazu auf &raquo;My view&laquo;, und Mantis zeigt Ihnen eine besser strukturierte &Uuml;bersicht der zuletzt ge&auml;nderten Eintr&auml;ge:</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/Mantis_my_view.png"/></td></tr></table>
+<br>
+<ul><li><i>Linke Spalte</i>: Nicht zugewiesene Eintr&auml;ge, gel&ouml;ste Eintr&auml;ge und Eintr&auml;ge, die Sie beobachten.</li>
+<li><i>Rechte Spalte</i>: Ihre eigenen Berichte, alle Berichte, die zuletzt ge&auml;ndert wurden.</li>
+</ul>
+<br>
+</body>
+</html>

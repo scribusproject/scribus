@@ -23,6 +23,7 @@
 #include "scribusapi.h"
 #include "canvasgesture.h"
 #include "canvasmode.h"
+#include "undotransaction.h"
 
 class QDragEnterEvent;
 class QDragMoveEvent;
@@ -49,8 +50,8 @@ class PageItem_Line;
 class SCRIBUS_API LineMove : public CanvasGesture
 {
 public:
-	LineMove (CanvasMode* parent): CanvasGesture(parent), m_haveLineItem(false), m_bounds(0,0,0,0) {};
-	~LineMove() {}
+	explicit LineMove (CanvasMode* parent): CanvasGesture(parent), m_bounds(0,0,0,0) {}
+	~LineMove() override = default;
 	
 	/**
 		Prepare a LineMove without attached PageItem
@@ -64,19 +65,19 @@ public:
 	
 	void clear();
 	
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
+	void activate(bool) override;
+	void deactivate(bool) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
 	/**
 		prepares the LineMove for the the current selection. Sets 'haveLineItem'
 		to false if the current selection is not a single lineitem.
 	 */
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter*);
+	void mousePressEvent(QMouseEvent *m) override;
+	void drawControls(QPainter*) override;
 	
-	void setStartPoint(QPointF canvasStart);
-	void setEndPoint(QPointF canvasEnd);
+	void setStartPoint(QPointF p);
+	void setEndPoint(QPointF p);
 
 	QPointF startPoint() const { return m_bounds.topLeft(); }
 	QPointF endPoint() const { return m_bounds.bottomRight(); }
@@ -84,11 +85,14 @@ public:
 	bool haveLineItem() const { return m_haveLineItem; }
 	
 private:
-	bool m_haveLineItem;
-	bool m_useOriginAsEndpoint;
-	QRectF m_bounds;
-	PageItem* m_line;
-	void adjustBounds(QMouseEvent* m);
+	bool      m_haveLineItem {false};
+	bool      m_useOriginAsEndpoint {false};
+	QRectF    m_bounds;
+	QRectF    m_initialBounds;
+	PageItem* m_line {nullptr};
+	UndoTransaction m_transaction;
+
+	void adjustBounds(QMouseEvent* m, bool updateCanvas = true);
 	void doResize();
 	void setRotation(double rot);
 	double rotation() const;

@@ -1,35 +1,25 @@
-INCLUDE_DIRECTORIES(
-${CMAKE_SOURCE_DIR}
-${CMAKE_SOURCE_DIR}/scribus
-${FREETYPE_INCLUDE_DIRS}
+set(SCRIBUS_TEXT_MOC_CLASSES
+	text/storytext.h
 )
 
-
-SET(SCRIBUS_TEXT_MOC_CLASSES
-storytext.h
+set(SCRIBUS_TEXT_SOURCES
+	text/boxes.cpp
+	text/frect.cpp
+	text/fsize.cpp
+	text/glyphcluster.cpp
+	text/index.cpp
+	text/screenpainter.cpp
+	text/scrptrun.cpp
+	text/sctext_shared.cpp
+	text/scworditerator.cpp
+	text/shapedtext.cpp
+	text/shapedtextcache.cpp
+	text/shapedtextfeed.cpp
+	text/specialchars.cpp
+	text/storytext.cpp
+	text/textlayout.cpp
+	text/textlayoutpainter.cpp
+	text/textshaper.cpp
+	text/textcontext.cpp
 )
-
-SET(SCRIBUS_TEXT_LIB_SOURCES
-specialchars.cpp
-storytext.cpp
-sctext_shared.cpp
-fsize.cpp
-frect.cpp
-)
-
-
-# IF(QT4_WRAP_CPP)
-  QT4_WRAP_CPP(SCRIBUS_TEXT_MOC_SOURCES ${SCRIBUS_TEXT_MOC_CLASSES})
-# ENDIF(QT4_WRAP_CPP)
-
-
-
-SET(SCRIBUS_TEXT_LIB "scribus_text_lib")
-ADD_LIBRARY(${SCRIBUS_TEXT_LIB} STATIC ${SCRIBUS_TEXT_LIB_SOURCES} ${SCRIBUS_TEXT_MOC_SOURCES})
-# This is a convenience library that for linkage purposes is part of Scribus's
-# main API.
-SET_TARGET_PROPERTIES(${SCRIBUS_TEXT_LIB}
-  PROPERTIES
-  COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP
-  )
 

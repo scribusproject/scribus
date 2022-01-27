@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """ This is a simple 'Calendar creation wizard' for Scribus. It's a fully
-rewritten Calender.py from Scribus examples. Enjoy.
+rewritten Calendar.py from Scribus examples. Enjoy.
 
 DESCRIPTION & USAGE:
 This script needs Tkinter. It will create a GUI with available options
@@ -16,16 +16,19 @@ Steps to create:
     3) You will be prompted for new paragraph style which will be used
        in calendar text frames. It could be changed later.
 
-There are 2 types of calender supported:
+There are 2 types of calendar supported:
     1) Classic calendar with one month matrix per page. I suggest
        here PORTRAIT orientation.
-    2) Event calendar with one week per page with huge place for
-       human inputs. There should be LANDSCAPE imho.
+    2) Horizontal event calendar with one week per page with huge place
+       for human inputs. There should be LANDSCAPE imho.
+    3) Horizontal event calendar with one week per page with huge place
+       for human inputs. There should be LANDSCAPE imho.
 
 But everything works with both orientations well of course too.
 
-AUTHOR:
+AUTHORS:
     Petr Vanek <petr@scribus.info>
+    Bernhard Reiter <ockham@raz.or.at>
 
 LICENSE:
 This program is free software; you can redistribute it and/or modify
@@ -40,7 +43,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 """
 
@@ -51,16 +54,16 @@ import datetime
 try:
     from scribus import *
 except ImportError:
-    print "This Python script is written for the Scribus scripting interface."
-    print "It can only be run from within Scribus."
+    print ("This Python script is written for the Scribus scripting interface.")
+    print ("It can only be run from within Scribus.")
     sys.exit(1)
 
 try:
     # I wish PyQt installed everywhere :-/
-    from Tkinter import *
-    from tkFont import Font
+    from tkinter import *
+    from tkinter import font
 except ImportError:
-    print "This script requires Python's Tkinter properly installed."
+    print ("This script requires Python's Tkinter properly installed.")
     messageBox('Script failed',
                'This script requires Python\'s Tkinter properly installed.',
                ICON_CRITICAL)
@@ -89,6 +92,13 @@ localization = {
         'Červen', 'Červenec', 'Srpen', 'Září',
         'Říjen', 'Listopad', 'Prosinec'],
      ['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne']],
+# Croatian by daweed
+'Croatian' :
+    [['Siječanj', 'Veljača', 'Ožujak', 'Travanj', 'Svibanj',
+        'Lipanj', 'Srpanj', 'Kolovoz', 'Rujan',
+        'Listopad', 'Studeni', 'Prosinac'],
+     ['Ponedjeljak','Utorak','Srijeda','Četvrtak','Petak','Subota', 'Nedjelja']],
+
 'Dutch' :
     [['Januari', 'Februari', 'Maart', 'April',
       'Mei', 'Juni', 'Juli', 'Augustus', 'September',
@@ -120,11 +130,32 @@ localization = {
       'Mai', 'Juni', 'Juli', 'August', 'September',
       'Oktober', 'November', 'Dezember'],
      ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag']],
+'German (Austrian)' :
+    [[u'J\xe4nner', 'Feber', u'M\xe4rz', 'April',
+      'Mai', 'Juni', 'Juli', 'August', 'September',
+      'Oktober', 'November', 'Dezember'],
+     ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag']],
+# Greek added by vserghi
+'Greek' :
+    [['Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιος',
+      'Μάιος', 'Ιούνιος', 'Ιούλιος', 'Αύγουστος', 'Σεπτέμβριος',
+      'Οκτώβριος', 'Νοέμβριος', 'Δεκέμβριος'],
+     ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη','Παρασκευή','Σάββατο','Κυριακή']],
+# Hungarian by Gergely Szalay szalayg@gmail.com	      
+'Hungarian' :
+    [['Január', 'Február', 'Március', 'Április',
+       'Május', 'Június', 'Július', 'Augusztus', 'Szeptember',
+       'Október', 'November', 'December'],
+    ['Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat','Vasárnap']],
 'Italian' :
     [['Gennaio', 'Febbraio', 'Marzo', 'Aprile',
        'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre',
        'Ottobre', 'Novembre', 'Dicembre'],
-    [u'Luned\xec', u'Marted\xec', u'Mercoled\xec', u'Gioved\exc', u'Venerd\xec', 'Sabato', 'Domenica']],
+    [u'Luned\xec', u'Marted\xec', u'Mercoled\xec', u'Gioved\xec', u'Venerd\xec', 'Sabato', 'Domenica']],
+# Norwegian by Joacim Thomassen joacim@net.homelinux.org
+'Norwegian' :
+    [['Januar', 'Februar','Mars', 'April','Mai', 'Juni','Juli', 'August','September', 'Oktober', 'November', 'Desember'],
+     ['Mandag', 'Tirsdag','Onsdag', 'Torsdag','Fredag', 'Lørdag','Søndag']],
 # Polish by "Łukasz [DeeJay1] Jernaś" <deejay1@nsj.srem.pl>
 'Polish' :
     [['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj',
@@ -136,6 +167,12 @@ localization = {
       'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
       'Outubro', 'Novembro', 'Dezembro'],
      ['Segunda-feira', u'Ter\xe7a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', u'S\xe1bado', 'Domingo']],
+# Romanian by Costin Stroie <costinstroie@eridu.eu.org>
+'Romanian' :
+    [['Ianuarie', 'Februarie', 'Martie', 'Aprilie',
+      'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie',
+      'Octombrie', 'Noiembrie', 'Decembrie'],
+     ['Luni','Mar\xc8\x9bi','Miercuri','Joi','Vineri','S\xc3\xa2mb\xc4\x83t\xc4\x83', 'Duminic\xc4\x83']],
 'Russian' :
     [['Январь', 'Февраль', 'Март', 'Апрель',
       'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь',
@@ -167,16 +204,28 @@ from math import sqrt
 class ScCalendar:
     """ Parent class for all calendar types """
 
-    def __init__(self, year, months={}, dayOrder=[], firstDay=calendar.SUNDAY, drawSauce=True):
-        """ Setup base things """
+    def __init__(self, year, months=[], firstDay=calendar.SUNDAY, drawSauce=True, sepMonths='/', lang='English'):
+        """ Setup basic things """
         # params
         self.drawSauce = drawSauce # draw supplementary image?
         self.year = year
         self.months = months
-        self.dayOrder = dayOrder
+        self.lang = lang
+        # day order
+        self.dayOrder = localization[self.lang][1]
+        if firstDay == calendar.SUNDAY:
+            dl = self.dayOrder[:6]
+            dl.insert(0, self.dayOrder[6])
+            self.dayOrder = dl
+        self.mycal = calendar.Calendar(firstDay)
         self.layerImg = 'Calendar image'
         self.layerCal = 'Calendar'
-        self.pStyle = None # paragraph style
+        self.pStyleDate = "Date" # paragraph styles
+        self.pStyleWeekday = "Weekday"
+        self.pStyleMonth = "Month"
+        self.pStyleWeekNo = "WeekNo"
+        self.masterPage = "Weekdays"
+        self.sepMonths = sepMonths
         # settings
         self.firstPage = True # create only 2nd 3rd ... pages. No 1st one.
         calendar.setfirstweekday(firstDay)
@@ -190,9 +239,10 @@ class ScCalendar:
         self.pagex = page[0]
         self.pagey = page[1]
         marg = getPageMargins()
-        self.marginl = marg[0]
-        self.marginr = marg[1]
-        self.margint = marg[2]
+        # See http://docs.scribus.net/index.php?lang=en&page=scripterapi-page#-getPageMargins
+        self.margint = marg[0]
+        self.marginl = marg[1]
+        self.marginr = marg[2]
         self.marginb = marg[3]
         self.width = self.pagex - self.marginl - self.marginr
         self.height = self.pagey - self.margint - self.marginb
@@ -204,32 +254,35 @@ class ScCalendar:
     def applyTextToFrame(self, aText, aFrame):
         """ Insert the text with style. """
         setText(aText, aFrame)
-        setStyle(self.pStyle, aFrame)
+        setStyle(self.pStyleDate, aFrame)
 
     def createCalendar(self):
-        """ Walk throudh months dict and calls monthly sheet """
+        """ Walk through months dict and call monthly sheet """
         if not newDocDialog():
             return 'Create a new document first, please'
-        self.pStyle = newStyleDialog()
-        if  self.pStyle == None:
-            closeDoc()
-            return 'Create a default paragraph style, please'
+        createParagraphStyle(name=self.pStyleDate, alignment=ALIGN_RIGHT)
+        createParagraphStyle(name=self.pStyleWeekday, alignment=ALIGN_CENTERED)
+#        createParagraphStyle(name=self.pStyleWeekday, alignment=ALIGN_RIGHT) # original alignment
+        createParagraphStyle(name=self.pStyleMonth)
+        createParagraphStyle(name=self.pStyleWeekNo, alignment=ALIGN_RIGHT)
         originalUnit = getUnit()
         setUnit(UNIT_POINTS)
         self.setupDocVariables()
         if self.drawSauce:
             createLayer(self.layerImg)
         createLayer(self.layerCal)
+        self.setupMasterPage()
         run = 0
         for i in self.months:
             run += 1
             progressSet(run)
-            self.createMonthCalendar(i)
+            cal = self.mycal.monthdatescalendar(self.year, i + 1)
+            self.createMonthCalendar(i, cal)
         setUnit(originalUnit)
         return None
 
     def createLayout(self):
-        """ Create the page and optional bells and whistless around """
+        """ Create the page and optional bells and whistles around """
         self.createPage()
         if self.drawSauce:
             setActiveLayer(self.layerImg)
@@ -240,59 +293,99 @@ class ScCalendar:
         """ Wrapper to the new page with layers """
         if self.firstPage:
             self.firstPage = False
+            newPage(-1, self.masterPage) # create a new page using the masterPage
+            deletePage(1) # now it's safe to delete the first page
             gotoPage(1)
             return
-        newPage(-1)
-
+        newPage(-1, self.masterPage)
 
 class ScEventCalendar(ScCalendar):
+    """ Parent class for event
+        (horizontal event, vertical event) calendar types """
+
+    def __init__(self, year, months = [], firstDay = calendar.SUNDAY, drawSauce=True, sepMonths='/', lang='English'):
+        ScCalendar.__init__(self, year, months, firstDay, drawSauce, sepMonths, lang)
+
+    def printMonth(self, cal, month, week):
+        """ Print the month name(s) """
+        if week[6].day < 7:
+            if (week == cal[len(cal)-1]):
+                self.createHeader(localization[self.lang][0][month] + self.sepMonths + localization[self.lang][0][(month+1)%12])
+            elif ((month-1) not in self.months):
+                self.createHeader(localization[self.lang][0][(month-1)%12] + self.sepMonths + localization[self.lang][0][month])
+        else:
+            self.createHeader(localization[self.lang][0][month])
+
+    def createMonthCalendar(self, month, cal):
+        """ Draw one week calendar per page """
+        for week in cal:
+            # Avoid duplicate week around the turn of the months:
+            # Only include week:
+            # * If it's not the first week in a month, or, if it is:
+            # * If it starts on the first weekday
+            # * If the month before it isn't included
+            if (week != cal[0]) or (week[0].day == 1) or ((month-1) not in self.months):
+                self.createLayout()
+                self.printMonth(cal, month, week)
+                self.printWeekNo(week)
+
+                for day in week:
+                    self.printDay(day)
+
+class ScHorizontalEventCalendar(ScEventCalendar):
     """ One day = one row calendar. I suggest LANDSCAPE orientation.\
         One week per page."""
 
-    def __init__(self, year, months = {}, dayOrder = [], firstDay = calendar.SUNDAY, drawSauce=True):
-        ScCalendar.__init__(self, year, months, dayOrder, firstDay, drawSauce)
+    def __init__(self, year, months = [], firstDay = calendar.SUNDAY, drawSauce=True, sepMonths='/', lang='English'):
+        ScEventCalendar.__init__(self, year, months, firstDay, drawSauce, sepMonths, lang)
 
     def setupDocVariables(self):
         """ Compute base metrics here. Page layout is bordered by margins and
         virtually divided by golden mean 'cut' in the bottom. The calendar is
         in the bottom part - top is occupied with empty image frame. """
-        # gloden mean
+        # golden mean
         ScCalendar.setupDocVariables(self)
         self.gmean = self.width - self.goldenMean(self.width) + self.marginl
         # calendar size = gmean
         # rows and cols
         self.rowSize = self.height / 8
 
-    def createMonthCalendar(self, month):
-        cal = calendar.monthcalendar(self.year, month + 1)
-        for i in cal:
-            self.createLayout()
-            self.createHeader(self.months[month])
-            rowCnt = 1
-            for j in i: # days
-                cel = createText(self.gmean + self.marginl,
-                                 self.margint + rowCnt * self.rowSize,
-                                 self.width - self.gmean, self.rowSize)
-                rowCnt += 1
-                if j != 0:
-                    self.applyTextToFrame(str(j), cel)
+    def printWeekNo(self, week):
+        """ Dummy for now
+            (for this type of calendar - see ScVerticalEventCalendar) """
+        return
+
+    def printDay(self, j):
+        """ Print a given day """
+        cel = createText(self.gmean + self.marginl,
+                         self.margint + (1 + (j.weekday()-calendar.firstweekday())%7) * self.rowSize,
+                         self.width - self.gmean, self.rowSize)
+        setText(str(j.day), cel)
+        setStyle(self.pStyleDate, cel)
 
     def createHeader(self, monthName):
+        """ Draw calendar header: Month name """
         cel = createText(self.gmean + self.marginl, self.margint,
                             self.width - self.gmean, self.rowSize)
-        self.applyTextToFrame(monthName, cel)
+        setText(monthName, cel)
+        setStyle(self.pStyleMonth, cel)
 
     def createImage(self):
         """ Wrapper for everytime-the-same image frame. """
         if self.drawSauce:
             createImage(self.marginl, self.margint, self.gmean, self.height)
 
-class ScClassicCalendar(ScCalendar):
-    """ Calendar matrix creator itself. I suggest PORTRAIT orientation.
-        One month per page."""
+    def setupMasterPage(self):
+        """ Create a master page (not used for this type of calendar """
+        createMasterPage(self.masterPage)
+        closeMasterPage()
 
-    def __init__(self, year, months = {}, dayOrder = [], firstDay = calendar.SUNDAY, drawSauce=True):
-        ScCalendar.__init__(self, year, months, dayOrder, firstDay, drawSauce)
+class ScVerticalCalendar(ScCalendar):
+    """ Parent class for vertical
+        (classic, vertical event) calendar types """
+
+    def __init__(self, year, months = [], firstDay = calendar.SUNDAY, drawSauce=True, sepMonths='/', lang='English'):
+        ScCalendar.__init__(self, year, months, firstDay, drawSauce, sepMonths, lang)
 
     def setupDocVariables(self):
         """ Compute base metrics here. Page layout is bordered by margins and
@@ -307,35 +400,26 @@ class ScClassicCalendar(ScCalendar):
         self.rowSize = self.gmean / 8
         self.colSize = self.width / 7
 
-    def createMonthCalendar(self, month):
-        """ Draw one month calendar per page """
-        cal = calendar.monthcalendar(self.year, month + 1)
-        self.createLayout()
-        self.createHeader(self.months[month])
-        # weeks
-        rowCnt = 2
-        for i in cal:
-            colCnt = 0
-            for j in i: # days
-                cel = createText(self.marginl + colCnt * self.colSize,
-                                 self.calHeight + rowCnt * self.rowSize,
-                                 self.colSize, self.rowSize)
-                colCnt += 1
-                if j != 0:
-                    self.applyTextToFrame(str(j), cel)
-            rowCnt += 1
-
-    def createHeader(self, monthName):
-        """ Draw calendar header. Month name and days of the week """
-        header = createText(self.marginl, self.calHeight, self.width, self.rowSize)
-        self.applyTextToFrame(monthName, header)
-        colCnt = 0
-        for i in self.dayOrder:
-            cel = createText(self.marginl + colCnt * self.colSize,
+    def setupMasterPage(self):
+        """ Draw invariant calendar header: Days of the week """
+        createMasterPage(self.masterPage)
+        editMasterPage(self.masterPage)
+        setActiveLayer(self.layerCal)
+        rowCnt = 0
+        for j in self.dayOrder: # days
+            cel = createText(self.marginl + rowCnt*self.colSize,
                              self.calHeight + self.rowSize,
                              self.colSize, self.rowSize)
-            self.applyTextToFrame(i, cel)
-            colCnt += 1
+            setText(j, cel)
+            setStyle(self.pStyleWeekday, cel)
+            rowCnt+=1
+        closeMasterPage()
+
+    def createHeader(self, monthName):
+        """ Draw calendar header: Month name """
+        header = createText(self.marginl, self.calHeight, self.width, self.rowSize)
+        setText(monthName, header)
+        setStyle(self.pStyleMonth, header)
 
     def createImage(self):
         """ Wrapper for everytime-the-same image frame. """
@@ -343,6 +427,56 @@ class ScClassicCalendar(ScCalendar):
             createImage(self.marginl, self.margint,
                         self.width, self.calHeight - self.margint)
 
+class ScClassicCalendar(ScVerticalCalendar):
+    """ Calendar matrix creator itself. I suggest PORTRAIT orientation.
+        One month per page."""
+
+    def __init__(self, year, months = [], firstDay = calendar.SUNDAY, drawSauce=True, sepMonths='/', lang='English'):
+        ScVerticalCalendar.__init__(self, year, months, firstDay, drawSauce, sepMonths, lang)
+
+    def createMonthCalendar(self, month, cal):
+        """ Create a page and draw one month calendar on it """
+        self.createLayout()
+        self.createHeader(localization[self.lang][0][month])
+        rowCnt = 2
+        for week in cal:
+            colCnt = 0
+            for day in week:
+                cel = createText(self.marginl + colCnt * self.colSize,
+                                 self.calHeight + rowCnt * self.rowSize,
+                                 self.colSize, self.rowSize)
+                setLineColor("Black", cel)  # comment this out if you do not want border to cells
+                colCnt += 1
+                if day.month == month + 1:
+                    setText(str(day.day), cel)
+                    setStyle(self.pStyleDate, cel)
+            rowCnt += 1
+
+class ScVerticalEventCalendar(ScVerticalCalendar, ScEventCalendar):
+    """ One day = one column calendar. I suggest LANDSCAPE orientation.\
+        One week per page."""
+
+    def __init__(self, year, months = [], firstDay = calendar.SUNDAY, drawSauce=True, sepMonths='/', lang='English'):
+        ScVerticalCalendar.__init__(self, year, months, firstDay, drawSauce, sepMonths, lang)
+        ScEventCalendar.__init__(self, year, months, firstDay, drawSauce, sepMonths, lang)
+
+    def printDay(self, j):
+        """ Print a given day """
+        cel = createText(self.marginl + ((j.weekday()-calendar.firstweekday())%7)*self.colSize,
+                         self.calHeight + self.rowSize,
+                         self.colSize/5, self.rowSize)
+        setText(str(j.day), cel)
+        setStyle(self.pStyleDate, cel)
+
+    def printWeekNo(self, week):
+        """ Print the week number for the given week"""
+        weekCel = createText(self.marginl, self.calHeight, self.width, self.rowSize)
+        # Week number: of this week's Thursday.
+        # See http://docs.python.org/library/datetime.html#datetime.date.isocalendar
+        # Note that week calculation isn't perfectly universal yet:
+        # http://en.wikipedia.org/wiki/Week_number#Week_number
+        setText(str(week[(calendar.THURSDAY-calendar.firstweekday())%7].isocalendar()[1]), weekCel)
+        setStyle(self.pStyleWeekNo, weekCel)
 
 class TkCalendar(Frame):
     """ GUI interface for Scribus calendar wizard.
@@ -350,7 +484,7 @@ class TkCalendar(Frame):
 
     def __init__(self, master=None):
         """ Setup the dialog """
-        # refernce to the localization dictionary
+        # reference to the localization dictionary
         self.key = 'English'
         Frame.__init__(self, master)
         self.grid()
@@ -365,15 +499,15 @@ class TkCalendar(Frame):
         self.langLabel = Label(self, text='Select language:')
 
         self.langFrame = Frame(self)
-        self.langFrame.pack()
-        self.langScrollbar = Scrollbar(self.langFrame)
-        self.langScrollbar.pack(fill=Y, side=RIGHT)
+        self.langFrame.grid()
+        self.langScrollbar = Scrollbar(self.langFrame, orient=VERTICAL)
+        self.langScrollbar.grid(row=0, column=1, sticky=N+S)
         self.langListbox = Listbox(self.langFrame, selectmode=SINGLE, height=10, yscrollcommand=self.langScrollbar.set)
-        self.langListbox.pack(fill=X,side=LEFT)
+        self.langListbox.grid(row=0, column=0, sticky=N+S+E+W)
         self.langScrollbar.config(command=self.langListbox.yview)
 
         keys = localization.keys()
-        keys.sort()
+        sorted(keys)
         for i in keys:
             self.langListbox.insert(END, i)
         self.langButton = Button(self, text='Change language', command=self.languageChange)
@@ -381,7 +515,8 @@ class TkCalendar(Frame):
         self.typeLabel = Label(self, text='Calendar type')
         self.typeVar = IntVar()
         self.typeClRadio = Radiobutton(self, text='Classic', variable=self.typeVar, value=0)
-        self.typeEvRadio = Radiobutton(self, text='Event', variable=self.typeVar, value=1)
+        self.typeEvRadio = Radiobutton(self, text='Event (Horizontal)', variable=self.typeVar, value=1)
+        self.typeVERadio = Radiobutton(self, text='Event (Vertical)', variable=self.typeVar, value=2)
         # start of week
         self.weekStartsLabel = Label(self, text='Week begins with:')
         self.weekVar = IntVar()
@@ -401,6 +536,10 @@ class TkCalendar(Frame):
         self.imageLabel = Label(self, text='Draw Image Frame:')
         self.imageVar = IntVar()
         self.imageCheck = Checkbutton(self, variable=self.imageVar)
+        # Months separator
+        self.sepMonthsLabel = Label(self, text='Months separator:')
+        self.sepMonthsVar = StringVar()
+        self.sepMonthsEntry = Entry(self, textvariable=self.sepMonthsVar, width=4)
         # closing/running
         self.okButton = Button(self, text="OK", width=6, command=self.okButonn_pressed)
         self.cancelButton = Button(self, text="Cancel", command=self.quit)
@@ -408,6 +547,7 @@ class TkCalendar(Frame):
         self.weekMondayRadio.select()
         self.typeClRadio.select()
         self.yearVar.set(str(datetime.date(1, 1, 1).today().year))
+        self.sepMonthsVar.set('/')
         self.imageCheck.select()
         # make layout
         self.columnconfigure(0, pad=6)
@@ -424,6 +564,8 @@ class TkCalendar(Frame):
         currRow += 1
         self.typeEvRadio.grid(column=2, row=currRow, sticky=W)
         currRow += 1
+        self.typeVERadio.grid(column=2, row=currRow, sticky=W)
+        currRow += 1
         self.weekStartsLabel.grid(column=1, row=currRow, sticky=N+E)
         self.weekMondayRadio.grid(column=2, row=currRow, sticky=N+W)
         currRow += 1
@@ -438,6 +580,9 @@ class TkCalendar(Frame):
         self.imageLabel.grid(column=1, row=currRow, sticky=N+E)
         self.imageCheck.grid(column=2, row=currRow, sticky=N+W)
         self.langButton.grid(column=0, row=currRow)
+        currRow += 1
+        self.sepMonthsLabel.grid(column=1, row=currRow, sticky=N+E)
+        self.sepMonthsEntry.grid(column=2, row=currRow, sticky=N+W)
         currRow += 3
         self.rowconfigure(currRow, pad=6)
         self.okButton.grid(column=1, row=currRow, sticky=E)
@@ -487,15 +632,9 @@ class TkCalendar(Frame):
         if len(selMonths) == 0:
             self.statusVar.set('At least one month must be selected.')
             return
-        months = {}
+        months = []
         for i in selMonths:
-            months[int(i)] = self.monthListbox.get(i)
-        # day order
-        dayList = localization[self.key][1]
-        if self.weekVar.get() == calendar.SUNDAY:
-            dl = dayList[:6]
-            dl.insert(0, dayList[6])
-            dayList = dl
+            months.append(int(i))
         # draw images etc.
         if self.imageVar.get() == 0:
             draw = False
@@ -503,12 +642,14 @@ class TkCalendar(Frame):
             draw = True
         # create calendar (finally)
         if self.typeVar.get() == 0:
-            cal = ScClassicCalendar(year, months, dayList, self.weekVar.get(), draw)
+            cal = ScClassicCalendar(year, months, self.weekVar.get(), draw, self.sepMonthsVar.get(), self.key)
+        elif self.typeVar.get() == 1:
+            cal = ScHorizontalEventCalendar(year, months, self.weekVar.get(), draw, self.sepMonthsVar.get(), self.key)
         else:
-            cal = ScEventCalendar(year, months, dayList, self.weekVar.get(), draw)
+            cal = ScVerticalEventCalendar(year, months, self.weekVar.get(), draw, self.sepMonthsVar.get(), self.key)
         self.master.withdraw()
         err = cal.createCalendar()
-        if err != None:
+        if err is not None:
             self.master.deiconify()
             self.statusVar.set(err)
         else:
@@ -527,10 +668,11 @@ def main():
         app = TkCalendar(root)
         root.mainloop()
     finally:
-        if haveDoc():
+        if haveDoc() > 0:
             redrawAll()
         statusMessage('Done.')
         progressReset()
 
 if __name__ == '__main__':
     main()
+

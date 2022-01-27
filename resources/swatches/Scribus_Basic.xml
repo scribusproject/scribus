@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS>
+	<COLOR RGB="#ff0000"    NAME="Red" />
+	<COLOR RGB="#00ff00"    NAME="Green" />
+	<COLOR RGB="#0000ff"    NAME="Blue" />
+	<COLOR CMYK="#ff000000" NAME="Cyan" />
+	<COLOR CMYK="#00ff0000" NAME="Magenta" />
+	<COLOR CMYK="#0000ff00" NAME="Yellow" />
+	<COLOR CMYK="#000000ff" NAME="Black" />
+	<COLOR CMYK="#00000000" NAME="White" />
+	<COLOR CMYK="#996666ff" NAME="Rich Black" />
+	<COLOR CMYK="#00994cff" NAME="Warm Black" />
+	<COLOR CMYK="#990000ff" NAME="Cool Black" />
+	<COLOR CMYK="#ffffffff" NAME="Registration" Register="1" />
+</SCRIBUSCOLORS>

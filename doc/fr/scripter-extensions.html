@@ -1,0 +1,232 @@
+<html>
+<head>
+    	<title>Scripteur : scripts d'extension</title>
+</head>
+<body>
+</head>
+<body>
+
+<h2>Scripteur : scripts d'extension</h2>
+
+<p>Auteur : Craig Ringer</p>
+
+<p>L'extension Python de Scribus offre des caractéristiques additionnelles permettant de doter l'application de nouvelles fonctionnalités,plut&ocirc;t que d'automatiser des tâches. En particulier, il est possible d'utiliser des 'scripts d'extension' pour créer de nouvelles palettes et des fenêtres encastrables qui peuvent être utilisées comme si elles faisaient partie de Scribus.</p>
+
+<h3>Scripts d'extension</h3>
+
+<p>Les scripts d'extension ressemblent beaucoup aux scripts Python normaux de Scribus.
+Ils comportent quelques variantes pour pouvoir être
+lancés avec la caractéristique "script d'extension", qui leur donne
+accès au support PyQt et à d'autres caractéristiques spéciales du
+scripteur. Les différences les plus importantes entre les scripts normaux et les scripts d'extensions sont les suiantes :
+</p>
+
+<ul>
+
+	<li>Les scripts d'extension peuvent créer des objets Python qui continuent d'exister après la fin de l'exécution du script. Les objets continueront d'exister seulement s'ils sont référencés, la plupart du temps parce qu'ils sont associés à une entrée dans l'espace de noms global. Cela signifie que les fonctions Python peuvent être appelées par Scribus; par exemple : insertion PyQt ou encore fonction de rappel sur événement.</li>
+
+	<li>Les scripts d'extension peuvent créer du code qui fonctionne sans bloquer l'exécution de Scribus, vous pouvez donc créer des palettes flottantes qui sont présentes pendant que l'utilisateur travaille normalement avec Scribus (c'est-à-dire des palettes non modales).</li>
+
+	<li>PyQt fonctionne correctement dans les scripts d'extension, contrairement à son comportement avec les scripts normaux.</li>
+
+	<li>Les scripts d'extension peuvent effectuer des changements à l'environnement Python, lesquels affecteront les scripts consécutifs. Les modules importés par un script peuvent être vus par un autre script, les paramètres changés par l'un restent changés, etc. Conclusion : vous devez écrire vos scripts d'extension avec vigilance. En particulier, les noms globaux liés à un script d'extension peuvent être modifiés par un autre script, de telle sorte que l'objet associé à ces noms risque d'être libéré par l'interpréteur. En d'autes mots, avec les scripts d'extension, vous pouvez rencontrer des conflits et des interactions qui n'existent pas dans les scripts normaux.</li>
+
+</ul>
+
+<h4>Le volet technique</h4>
+
+<p>Les scripts normaux sont lancés dans un nouveau sous-interpréteur Python qui est utilisé exclusivement pour ce script et se trouve ensuite libéré. Cela signifie que, quels que soient les objets Python qu'ils créent ou les paramètres qu'ils modifient, ces changements sont automatiquement annulés lorsque le script se termine. Parce que Scribus prend soin de libérer votre script, vous n'avez pas à vous préoccuper de la mémoire ni
+des conflits avec d'autres scripts, etc., et vous pouvez vous concentrer sur l'écriture des instructions.</p>
+
+<p>Les scripts d'extension, par contre, s'exécutent dans un seul interpréteur Python qui démarre au chargement du module de gestion des extensions. Cet
+interpréteur continue à tourner jusqu'à ce que le script qui gère les extensions soit désactivé à la fermeture de Scribus. Quand Scribus exécute un script d'extension, il le charge dans l'interpréteur courant - un peu comme <code>execfile</code> charge un script Python dans un autre script Python. Ainsi, les scripts d'extension peuvent créer de nouveaux objets au cours de leur exécution puis terminer et redonner le contr&ocirc;le à Scribus sans que objets qu'ils ont créés ne soient détruits. Si un autre script s'exécute alors, il peut voir les objets créés par le premier script.</p>
+
+<p>Il y a plusieurs situations o&ugrave; il est utile de créer des objets Python qui subsistent après le script. Le cas le plus pertinent réside dans la programmation graphique avec PyQt, o&ugrave; les objets PyQt sont créés au démarrage du script et ne deviennent opérationnels que lorsque le script termine, retournant le contr&ocirc;le à la boucle événementielle de Scribus. Autres cas de figure : les macros, les événements de rappel et les temporisateurs, o&ugrave; Scribus doit pouvoir appeler le code Python. Vous pouvez réaliser ces fonctions dès maintenant avec PyQt, mais il n'existe pas encore de support direct pour les temporisateurs et les rappels dans Scribus.</p>
+
+<p>Voici quelques inconvénients des objets persistants après la fin du script.
+Les scripts interagissent parfois d'une manière imprévue par l'auteur, ce qui donne des résultats souvent intéressants mais cause aussi des bogues inattendus et étonnants. Les auteurs de scripts doivent par ailleurs considérer l'effet de leur code sur la consommation de la mémoire de Scribus.<p>
+
+<h4>Construire des ajouts graphiques dans Python </h4>
+
+<p>Construire de nouvelles palettes et dialogues dans PyQt constitue un moyen simple d'enrichir l'interface utilisateur de Scribus et de fournir des fonctionnalités supplémentaires pour les scripts avancés. Python
+est bien adapté aux entrées et sorties à partir de bases de données, de systèmes de gestion de contenu et d'autres référentiels externes; la capacité de bâtir des interfaces personnalisées à cette fin peut s'avérer très utile.</p>
+
+<p>Dans la plupart des cas, PyQt fonctionne de la même manière à l'intérieur de Scribus ou dans un interpréteur Python autonome. Il y a cependant des différences, et il est important de les comprendre.</p>
+
+<ul>
+
+    <li>Une instance de <code>QApplication</code> existe déjà, et le fait d'en créer une autre aura des conséquences indésirables. Au besoin, vous pouvez
+accéder à l'instance de <code>QApplication</code> en tant que <code>qt.qApp</code>. </li>
+
+    <li>Scribus exécute la boucle d'événements Qt. Le chargement de la boucle d'événements Qt dans PyQt empêchera probablement l'exécution de Scribus jusqu'à ce que votre code finisse de s'exécuter et peut provoquer d'autres comportements étranges. Les explications suivantes décrivent l'approche appropriée pour intégrer votre code à la boucle d'événements. En bref, il suffit de créer toutes vos instances, d'afficher vos fenêtres et de laisser votre script se terminer. Qt
+intégrera automatiquement vos fenêtres dans la boucle d'événements
+et tout "fonctionnera", même les insertions et les widgets Python. En général, tout ce que vous voulez conserver doit être mis dans l'espace de noms global (comme expliqué ci-dessus). </li>
+
+</ul>
+
+<h4>Les bases - Convertir Hello World</h4>
+
+<p>Le premier tutoriel est l'application classique Hello World. Pour montrer les différences entre PyQt et Scribus, nous convertirons le programme pour qu'il s'exécute dans Scribus. Voici l'original :</p>
+
+<pre>
+#!/usr/bin/env python
+import sys
+import qt
+
+a = qt.QApplication(sys.argv)
+
+hello = qt.QPushButton("Hello world!", None)
+hello.resize(100, 30)
+
+a.setMainWidget(hello)
+hello.show()
+sys.exit(a.exec_loop())
+</pre>
+
+<p>Premièrement, nous avons besoin de désactiver la création de <code>QApplication</code> puisque, dans Scribus, on trouve une instance de <code>QApplication</code> déjà active; rappelez-vous qu'une seule instance est permise par application. PyQt nous fournit l'accès à <code>QApplication</code>, créé préalablement par Scribus au démarrage en tant que <code>qt.qApp</code>. Donc, il suffit de remplacer :</p>
+
+<pre>
+a = qt.QApplication(sys.argv)
+</pre>
+
+<p>par</p>
+
+<pre>
+a = qt.qApp
+</pre>
+
+<p>et nous avons terminé la modification.</p>
+
+<p>Ensuite, nous devons empêcher le script d'essayer d'exécuter sa propre boucle d'événements. Comme Scribus possède une boucle d'événements, si le script démarre la sienne, l'application sera perturbée jusqu'à sa fermeture. Qt est assez futé pour associer toute fenêtre que vous créez à la boucle d'événements exsitante; il n'y a donc pas grand chose à faire. Pendant l'exécution du script, Scribus est sous le contr&ocirc;le de Python, de sorte qu'il nous suffit de réaliser notre installation (dans ce cas, il s'agit de créer une fenêtre simple et de l'afficher), pour ensuite <i>laisser notre script se terminer</i> plut&ocirc;t que de déclencher la boucle d'événements. Tous les scripts
+d'extension s'exécutent dans le même interpréteur Python, ce qui implique que les  objets créés par vos soins ne sont pas détruits à la fin de l'exécution. C'est un peu comme charger un module. Quand votre script se termine, Scribus prend le contr&ocirc;le et reprend l'exécution de la boucle d'événements de Qt. Comme
+vos fenêtres sont des widgets Qt, la boucle d'événements de Scribus les prend en charge, et elles deviennent une partie intégrante normale de Scribus. Quand une insertion Python est déclenchée ou qu'une fonction Python est appelée, PyQt se charge automatiquement de l'exécution de la fonction Python et passe ensuite la main à Scribus.</p>
+
+<p>Le seul hic de cette méthode est qu'à la fin de votre script, tous les objets créés dans une fonction ou un domaine local seront libérés par Python lorsque le domaine est abandonné (par exemple à la sortie de main()). Vous devez conserver une référence au niveau global pour éviter que ces éléments ne soient libérés. Le support pour PyQt dans Scribus est très récent et il n'y a pas encore de méthode clairement définie comme "correcte" d'accomplir cela. Les options incluent :</p>
+
+<ul>
+    <li>La création de tout ce que vous voulez conserver dans l'espace de noms global. Des précautions sont de mise si votre script s'exécute plusieurs fois.</li>
+
+    <li>Le stockage d'objets que vous voulez conserver dans un dictionnaire ou une classe dans l'espace de noms global. La plupart des problèmes sont identiques à ceux posés par le stockage d'objets directement en tant que noms globaux.</li>
+
+    <li>Insertion de votre script dans un module, pour que le script lancé par l'utilisateur importe simplement le module et exécute la fonction incluse. C'est l'approche que nous privilégions. Notez que le corps du module n'est pas rechargé à chaque importation;
+vous devez donc placer chaque fois le code à exécuter dans une fonction du module plut&ocirc;t que dans le niveau principal du module. Ou encore, vous pouvez vérifier si le module est déjà chargé, pour utiliser reload() au lieu de l'importer de nouveau.</li>
+</ul>
+
+<p>Pour l'instant, parce que ce script crée déjà tous les éléments au niveau global, nous allons procéder comme cela. Les scripts volumineux devraient être écrits comme des modules.</p>
+
+<p>&Eacute;tant donné que les
+objets dont nous avons besoin seront déjà présents lorsque le script se terminera, il nous suffit d'empêcher l'entrée dans la boucle d'événements. C'est facile - mettez simplement en commentaire la dernière ligne :</p>
+
+<pre>
+# sys.exit(a.exec_loop())
+</pre>
+
+<p>et nous avons presque terminé. Le script s'exécutera maintenant correctement, mais, à la fermeture, il aura un effet non désiré -l'interruption de Scribus. Ce n'est probablement pas ce que vous voulez. Voilà l'explication : normalement, une application Qt se termine lorsque son widget principal (fenêtre principale) se ferme. Nous
+appelons <code>qt.setMainWidget(...)</code> pour transformer notre nouvelle fenêtre en fenêtre principale; donc, à la fermeture, Scribus s'interrompt aussi. Pour empêcher cela, mettez simplement en commentaire <code>qt.setMainWidget</code>.</p>
+
+<p>Le nouveau script ressemble à ceci :</p>
+
+<pre>
+#!/usr/bin/env python
+import sys
+import qt
+
+a = qt.qApp
+
+hello = qt.QPushButton("Hello world!", None)
+hello.resize(100, 30)
+
+#a.setMainWidget(hello)
+hello.show()
+#sys.exit(a.exec_loop())
+</pre>
+
+<p>Vous trouverez le script déjà enregistré sous le nom <code>pyqt_tut1.py</code> dans le répertoire 'examples' du scripteur. Essayez de l'exécuter comme un script d'extension. Vous devriez obtenir un bouton 'hello world'. Notez que vous pouvez continuer à travailler dans Scribus comme à l'accoutumée;  lorsque vous fermez la fenêtre 'hello world', elle dispara&icirc;t élégamment, sans incidence sur Scribus.</p>
+
+<p>Si vous jetez un coup d'oeil à l'exemple de ce script tutoriel, vous remarquerez quelques ajouts. Ils sont accompagnés de commentaires explicatifs et ne seront donc pas explorés plus avant ici.</p>
+
+<h4>Amusons-nous avec les noms globaux et les interpréteurs partagés </h4>
+
+<p>Vous vous rappelez que j'ai mentionné plus t&ocirc;t certains 'problèmes' concernant le stockage d'objets à conserver au niveauglobal ? &Eacute;videmment, j'ai passé sous silence quelque chose que je ne voulais pas expliquer à ce moment. </p>
+
+<p>Le stockage d'objets en tant que noms globaux fonctionne bien... jusqu'à ce que l'utilisateur exécute votre script à nouveau, ou qu'il exécute un autre script qui reprend les mêmes noms.
+Python utilise le comptage de références : un objet continue d'exister tant qu'un ou plusieurs noms y font référence. Lorsqu'un nom global créé antérieurement est remplacé par un autre script ou par une autre exécution de votre script, il n'y a plus de référence à cet objet (peut-être une fenêtre que l'utilisateur continue d'utiliser). Python fait son travail scrupuleusement et supprime l'objet pour vous, sans savoir s'il est                                                                                                                                      encore affiché ou s'il s'agit d'un composant de votre fenêtre. Dans beaucoup de cas, une fenêtre dispara&icirc;t tout simplement, mais il peut y avoir des conséquences plus ennuyeuses. </p>
+
+<p>Essayez ceci. Exécutez le script 'hello world' (en utilisant "Load Extension Script..."). Puis, sans fermer la fenêtre "Hello world", exécutez le script à nouveau. La fenêtre originale devrait dispara&icirc;tre et être remplacée par la nouvelle.</p>
+
+<p>Aucune solution idéale n'est prévue pour ce problème, et tout dépend de ce que vous voulez faire exactement. J'aimerais donner des recommandations plus claires, mais chaque cas est différent. Si vous recontrez ce problème, entrez une description de votre projet sur la liste de diffusion de Scribus, et mes collègues ou moi-même vous fourniront quelques suggestions.</p>
+
+<p>La meilleure solution jusqu'à présent consiste à utiliser un script enveloppe pour exécuter votre script et de placer votre script réel dans un module. Le script enveloppe importe votre module et exécute une fonction du module pour afficher les fenêtres. Puisque le module est exécuté uniquement la première fois qu'il est importé, la(les) fenêtre(s) seront affichées si elles ne sont pas déjà visibles, mais ne seront pas perturbées si elles sont déjà affichées. Vous pouvez appeler reload() pour recharger le module si vous voulez vraiment le relancer, peut-être après l'exécution de code de nettoyage.</p>
+
+<p>Les suggestions appropriées sont bienvenues. N'hésitez pas à entrer vos questions et idées sur la liste de diffusion.</p>
+
+<h4>Autres astuces</h4>
+
+<p>Même si vous ne bâtissez pas une interface graphique personnalisée, il est possible d'utiliser les scripts d'extension. Par exemple, vous pouvez utiliser PyQt pour exécuter une fonction temporisée. Un autre usage pourrait être de vérifier l'existence de mises à jour d'un article dans une base de données et d'inviter l'utilisateur à actualiser son document avec le nouveau texte (ou à constater les différences). Vous
+trouverez un exemple très simple de mise en place d'un temporisateur
+avec PyQt dans le répertoire d'exemples, appelé <code>pyqt_timer.py</code>.</p>
+
+<p>Une autre idée, suggérée par un membre de la liste de
+diffusion, était d'écrire un serveur XML-RPC pour exposer le
+scripteur API à des programmes externes. Cette approche pourrait être réalisée à l'aide
+des classes PyQt pour la mise en réseau et la gestion des
+événements.</p>
+
+<h4>Autres sources d'information</h4>
+
+<p>Le présent document n'est pas un tutoriel PyQt ou Qt. Voici quelques
+sources d'information fiables sur Qt et PyQt :
+</p><ul>
+	<li>Le tutoriel et les exemples PyQt à partir de la documentation PyQt </li>
+	<li><a href="http://www.opendocs.org/pyqt/">Programmation graphique avec Python - &Eacute;dition Qt</a></li>
+	<li><a href="http://doc.trolltech.com/">Documentation Qt de TrollTech (C++)</a></li>
+	<li>Le
+<a href="http://www.digitalfanatics.org/projects/qt_tutorial/"> tutoriel Qt indépendant</a></li>
+	<li><a href="http://www.qtforum.org/">QtForum.org</a></li>
+</ul>
+
+<h3>Gérer correctement l'exécution hors Scribus </h3>
+
+<pre>
+Essayer ceci:
+    import scribus
+except ImportError:
+    print "Ce script peut seulement s'exécuter comme un script d'extension à partir de Scribus."
+    sys.exit(1)
+</pre>
+
+<p>Cette séquence essaie de charger l'interface de script de Scribus et, en cas
+d'échec, suppose que celle-ci ne peut s'exécuter sous Scribus. Veillez à placer ce message dans tous vos scripts pour ne pas
+dérouter les utilisateurs qui essaient de les exécuter avec
+l'interpréteur Python autonome. Essayez d'exécuter le script avec
+<code>python pyqt_tut1.py</code>, et notez comment il signale son échec avant de fermer. C'est
+beaucoup plus précis qu'une erreur d'importation ou qu'un comportement bizarre.</p>
+
+<h3>Questions sans réponse et caractéristiques manquantes </h3>
+
+<p>Le support pour étendre Scribus à partir de Python est
+encore en chantier. Plusieurs composants fonctionnent
+bien, mais il reste beaucoup à explorer.
+Les réactions, suggestions, requêtes, idées et offres d'aide
+seront grandement appréciées et peuvent être dirigées vers la
+liste de diffusion ou vers les auteurs du présent document. </p>
+
+<p>Notamment, il n'existe aucun support pour :
+</p><ul>
+	<li>L'utilisation de PyQt à partir de scripts normaux (par opposition aux scripts d'extension)</li>
+	<li>L'utilisation de PyGtk ou de wxPython</li>
+	<li>L'utilisation de threads (les threads PyQt peuvent
+fonctionner dans les limites du support des threads de Qt)</li>
+	<li>L'accrochage dans le menu activé par un clic droit (pas encore !)</li>
+	<li>L'appel de scripts par certains événements (développement envisagé) </li>
+	<li>La connexion facile et fiable dans les menus </li>
+	<li>L'extension des dialogues de Scribus </li>
+	<li>L'utilisation de widgets et de classes personnalisés </li>
+	<li>Toute approche consistant à passer le contr&ocirc;le à une boucle d'événements sans retour de données (fonctionne mais bloque Scribus).</li>
+</ul>
+
+<p>Certains de ces éléments ne sont pas encore implémentés, d'autres sont extrêmement difficiles à gérer; dans d'autres cas, nous sommes tout simplement dépourvus d'idées ou ne prévoyons pas d'essayer.</p>
+
+</body>
+
+</html>

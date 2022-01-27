@@ -18,12 +18,12 @@ class SCRIBUS_API CreateRange : public QDialog, Ui::CreateRange
 {
 	Q_OBJECT
 	public:
-		CreateRange(QString currText, int pageCount, QWidget* parent, Qt::WFlags fl=0);
+		CreateRange(const QString& currText, int pageCount, QWidget* parent);
 		~CreateRange();
 		void getCreateRangeData(CreateRangeData&);
 		
 	protected slots:
-		void selectRangeType(QWidget *);
+		void selectRangeType(int);
 		void basicAddToRange();
 		void basicDelFromRange();
 		void basicMoveUp();
@@ -33,12 +33,12 @@ class SCRIBUS_API CreateRange : public QDialog, Ui::CreateRange
 		void basicSelectRangeTypeEven();
 		void basicSelectRangeTypeOdd();
 		void basicSelectRangeType(int);
-		void advSpinChange(int);
+		void advSpinChange();
 		
 	protected:
-		int m_PageCount;
-		int m_RangeType;
-		int m_BasicRangeType;
+		int m_PageCount {0};
+		int m_RangeType {0};
+		int m_BasicRangeType {0};
 		QString m_PageString;
 };
 

@@ -21,33 +21,19 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "gtwriter.h"
-//#include "scfonts.h"
+#include "gtframestyle.h"
+
 #include "pageitem.h"
 #include "scribusstructs.h"
 
-// gtWriter::gtWriter(bool append)
-// {
-// 	action = new gtAction(append, ScMW->doc->m_Selection->itemAt(0));
-// 	errorSet = false;
-// 	action->setProgressInfo();
-// 	setDefaultStyle();
-// 	unsetCharacterStyle();
-// 	unsetParagraphStyle();
-// // 	if (!append)
-// // 		action->clearFrame();
-// // 	else
-// // 		this->append("\n");
-// }
-
 gtWriter::gtWriter(bool append, PageItem *pageitem)
 {
-	action = new gtAction(append, pageitem);
-	errorSet = false;
-	action->setProgressInfo();
+	m_action = new gtAction(append, pageitem);
+	m_action->setProgressInfo();
 	setDefaultStyle();
 	unsetCharacterStyle();
 	unsetParagraphStyle();
@@ -55,44 +41,44 @@ gtWriter::gtWriter(bool append, PageItem *pageitem)
 
 gtFrameStyle* gtWriter::getDefaultStyle()
 {
-	return frameStyle;
+	return m_frameStyle;
 }
 
 void gtWriter::setFrameStyle(gtFrameStyle *fStyle)
 {
-	frameStyle = fStyle;
-	action->applyFrameStyle(fStyle);
+	m_frameStyle = fStyle;
+	m_action->applyFrameStyle(fStyle);
 }
 
 void gtWriter::setParagraphStyle(gtParagraphStyle *pStyle)
 {
 	// @todo Start a new paragraph and add the style to the Paragraph Styles
-	paragraphStyle = pStyle;
+	m_paragraphStyle = pStyle;
 }
 
 void gtWriter::setCharacterStyle(gtStyle *cStyle)
 {
-	characterStyle = cStyle;
+	m_characterStyle = cStyle;
 }
 
 void gtWriter::unsetFrameStyle()
 {
-	frameStyle = defaultStyle;
+	m_frameStyle = m_defaultStyle;
 }
 
 void gtWriter::unsetParagraphStyle()
 {
-	paragraphStyle = NULL;
+	m_paragraphStyle = nullptr;
 }
 
 void gtWriter::unsetCharacterStyle()
 {
-	characterStyle = NULL;
+	m_characterStyle = nullptr;
 }
 
 double gtWriter::getPreferredLineSpacing(int fontSize)
 {
-	return action->getLineSpacing(fontSize);
+	return m_action->getLineSpacing(fontSize);
 }
 
 double gtWriter::getPreferredLineSpacing(double fontSize)
@@ -106,17 +92,19 @@ void gtWriter::append(const QString& text)
 		return;
 	if (text.length() == 0)
 		return;
-	if (characterStyle != NULL)
+	if (inNote && !inNoteBody)
+		return;
+	if (m_characterStyle != nullptr)
 	{
-		action->write(text, characterStyle);
+		m_action->write(text, m_characterStyle, inNote);
 	}
-	else if (paragraphStyle != NULL)
+	else if (m_paragraphStyle != nullptr)
 	{
-		action->write(text, paragraphStyle);
+		m_action->write(text, m_paragraphStyle, inNote);
 	}
 	else
 	{
-		action->write(text, frameStyle);
+		m_action->write(text, m_frameStyle, inNote);
 	}
 }
 
@@ -126,72 +114,76 @@ void gtWriter::appendUnstyled(const QString& text)
 		return;
 	if (text.length() == 0)
 		return;
-	action->writeUnstyled(text);
+	if (inNote && !inNoteBody)
+		return;
+	m_action->writeUnstyled(text, inNote);
 }
 
 double gtWriter::getFrameWidth()
 {
-	return action->getFrameWidth();
+	return m_action->getFrameWidth();
 }
 
 QString gtWriter::getFrameName()
 {
-	return action->getFrameName();
+	return m_action->getFrameName();
 }
 
 void gtWriter::append(const QString& text, gtStyle *style)
 {
-	if (style == NULL)
+	if (inNote && !inNoteBody)
+		return;
+	if (style == nullptr)
 	{
 		append(text);
 		return;
 	}
 
-	currentStyle = style;
-	action->write(text, style);
-	currentStyle = NULL;
+	m_currentStyle = style;
+	m_action->write(text, style, inNote);
+	m_currentStyle = nullptr;
 }
 
 void gtWriter::append(const QString& text, gtStyle *style, bool updatePStyle)
 {
-	bool ups = action->getUpdateParagraphStyles();
-	action->setUpdateParagraphStyles(updatePStyle);
+	bool ups = m_action->getUpdateParagraphStyles();
+	m_action->setUpdateParagraphStyles(updatePStyle);
 	append(text, style);
-	action->setUpdateParagraphStyles(ups);
+	m_action->setUpdateParagraphStyles(ups);
 }
 
 void gtWriter::setDefaultStyle()
 {
 	// @todo Get the style of the text frame we are appending to.
-	defaultStyle = new gtFrameStyle("Default style");
-	action->getFrameStyle(defaultStyle);
-	frameStyle = defaultStyle;
+	m_defaultStyle = new gtFrameStyle("Default style");
+	m_action->getFrameStyle(m_defaultStyle);
+	m_frameStyle = m_defaultStyle;
 }
 
 bool gtWriter::getUpdateParagraphStyles()
 {
-	return action->getUpdateParagraphStyles();
+	return m_action->getUpdateParagraphStyles();
 }
 
 void gtWriter::setUpdateParagraphStyles(bool newUPS)
 {
-	action->setUpdateParagraphStyles(newUPS);
+	m_action->setUpdateParagraphStyles(newUPS);
 }
 
 bool gtWriter::getOverridePStyleFont()
 {
-	return action->getOverridePStyleFont();
+	return m_action->getOverridePStyleFont();
 }
 
 void gtWriter::setOverridePStyleFont(bool newOPSF)
 {
-	action->setOverridePStyleFont(newOPSF);
+	m_action->setOverridePStyleFont(newOPSF);
 }
 
 gtWriter::~gtWriter()
 {
-	if (!errorSet)
-		action->setProgressInfoDone();
-	delete action;
-	delete defaultStyle;
+	if (!m_errorSet)
+		m_action->setProgressInfoDone();
+	delete m_action;
+	delete m_defaultStyle;
 }

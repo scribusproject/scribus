@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef UNDOSTACK_H
@@ -37,7 +37,7 @@ typedef std::vector<UndoState*> StateList;
 class SCRIBUS_API UndoStack
 {
 public:
-    explicit UndoStack(int maxSize = 20);
+	explicit UndoStack(int maxSize = 100);
     ~UndoStack();
 
     /* Used to push a new action to the stack. UndoState in the parameter will then
@@ -74,11 +74,11 @@ private:
     /* When an action happens it is pushed to the undoActions_ and the redoActions_
      * is cleared. When undo is requested action is popped from undoActions_ and
      * pushed to the redoActions_ (and vice versa). */
-    StateList undoActions_; /* stack would probably be enough for this but vector */
-    StateList redoActions_; /* will give more options in future */
+	StateList m_undoActions_; /* stack would probably be enough for this but vector */
+	StateList m_redoActions_; /* will give more options in future */
 
     /* maximum amount of actions stored, 0 for no limit */
-    uint maxSize_;
+	uint m_maxSize_;
 
     /* returns true if an action was popped from the stack */
     /* assures that we only hold the maxSize_ number of UndoStates */

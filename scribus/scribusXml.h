@@ -23,19 +23,16 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
-#include "selection.h"
 #include "styles/styleset.h"
 
-#include <QXmlStreamAttributes>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
 class PageItem;
 class PrefsManager;
-class ScribusView;
 class SCFonts;
 class ScribusDoc;
+class ScElemMimeData;
 class ScPattern;
 class ScXmlStreamWriter;
+class Selection;
 
 class SCRIBUS_API ScriXmlDoc
 {
@@ -50,51 +47,19 @@ public:
 	\param file filename of file to test
 	\retval bool true = Scribus format file, false : not Scribus
 	*/
-	bool    ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
-	bool    ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view);
-	bool    ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view, int toLayer);
-	QString WriteElem(ScribusDoc *doc, ScribusView *view, Selection *selection);
-
-	ColorList Farben;
-	StyleSet<ParagraphStyle> docParagraphStyles;
-	QList<Linked> LFrames;
-	QStringList MNames;
-	QMap<QString,QString> DoFonts;
-	QMap<QString,QString> ReplacedFonts;
-	QMap<uint,QString> DoVorl;
-	QList<ScFace> dummyScFaces;
-	uint VorlC;
-	bool newReplacement;
+	bool readElemHeader(const QString& file, bool isFile, double *x, double *y, double *w, double *h);
+	bool readElem(const QString& fileNameOrData, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc);
+	bool readElemToLayer(const QString& fileNameOrData, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, int toLayer);
 	
-protected:
-	PrefsManager* prefsManager;
+	static QString writeElem(ScribusDoc *doc, Selection *selection);
+	static ScElemMimeData* writeToMimeData(ScribusDoc *doc, Selection *selection);
 
-	bool	attrHasValue(const QXmlStreamAttributes& attrs, const char* attName);
-	bool	attrAsBool(const QXmlStreamAttributes& attrs, const char* attName, bool defVal = false);
-	int     attrAsInt (const QXmlStreamAttributes& attrs, const char* attName, int  defVal = 0);
-	double  attrAsDbl (const QXmlStreamAttributes& attrs, const char* attName, double defVal = 0.0);
-	QString attrAsString (const QXmlStreamAttributes& attrs, const char* attName, const QString& defVal);
-
-	void GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPasteBuffer *OB, const QString& baseDir, bool newVersion);
-	void GetItemText (const QXmlStreamAttributes& attrs, StoryText& story, ScribusDoc *doc, LastStyles* last, bool VorLFound, bool impo);
-	void GetStyle(QXmlStreamReader& reader, ParagraphStyle &vg, StyleSet<ParagraphStyle>* tempStyles, ScribusDoc* doc, bool fl);
-
-	void ReadPattern(QXmlStreamReader& reader, ScribusDoc* doc, ScribusView *view, const QString& fileName, int& GrMax, bool styleFound, bool newVersion);
-	void ReadLegacyCStyle (const QXmlStreamAttributes& attrs, CharStyle& style, ScribusDoc* doc);
-	void ReadCStyle (const QXmlStreamAttributes& attrs, CharStyle& style, ScribusDoc* doc);
-	void ReadPStyle (QXmlStreamReader& reader, ParagraphStyle &style, ScribusDoc* doc);
-
-	void SetItemProps(ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem* item, const QString& baseDir, bool newFormat);
-	void WriteObject (ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item, const QString& baseDir, QMap<int, int> &UsedMapped2Saved);
-	void WriteITEXTs (ScXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item);
-	void WriteLegacyCStyle (ScXmlStreamWriter& writer, const CharStyle& style);
-	void WriteCStyle (ScXmlStreamWriter& writer, const CharStyle& style);
-	void WritePStyle (ScXmlStreamWriter& writer, const ParagraphStyle& style, const QString& nodeName);
-	
-	QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
+private:
+	static QList<PageItem*> getItemsFromSelection(ScribusDoc *doc, Selection* selection);
 };
 
-#endif // _SCRIBUS_CONFIG_
+#endif
+
 
 
 

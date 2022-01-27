@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Ubuntu CMYK">
+ <COLOR NAME="Black" CMYK="#000000ff" Spot="0" Register="0"/>
+ <COLOR NAME="Cool Grey" CMYK="#705738c7" Spot="0" Register="0"/>
+ <COLOR NAME="Server Dark Aubergine" CMYK="#a8fa36d9" Spot="0" Register="0"/>
+ <COLOR NAME="Ubuntu Orange" CMYK="#00c9ff00" Spot="0" Register="0"/>
+ <COLOR NAME="Warm Grey" CMYK="#000d194a" Spot="0" Register="0"/>
+ <COLOR NAME="White" CMYK="#00000000" Spot="0" Register="0"/>
+</SCRIBUSCOLORS>

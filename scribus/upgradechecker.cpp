@@ -5,238 +5,222 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QApplication>
 #include <QDebug>
 #include <QDir>
 #include <QDomDocument>
-#include <QHttp>
+#include <QNetworkRequest>
 #include <QTextCodec>
 #include <QTextStream>
 #include <QWidget>
 
-#include <iostream>
+#include <chrono>
 #include <cstdlib>
+#include <iostream>
+#include <thread>
 
 #include "prefsmanager.h"
 #include "scpaths.h"
+#include "api/api_application.h"
 #include "scribuscore.h"
-#include "sctextbrowser.h"
 #include "upgradechecker.h"
 
-
-#ifdef _WIN32
-#include <windows.h>
-#define sleep(t) Sleep(t*1000)
-#endif
-
 UpgradeChecker::UpgradeChecker()
- : QObject()
 {
-	init();
-	writeToConsole=true;
+	m_stability = "unstablesvn";
+	m_isSVN = ScribusAPI::isSVN();
+	major = ScribusAPI::getVersionMajor();
+	minor = ScribusAPI::getVersionMinor();
+	m_patchLevel = ScribusAPI::getVersionPatch();
+	m_versionSuffix = ScribusAPI::getVersionSuffix().toLower().remove("svn").toInt();
+#if defined(Q_OS_MAC)
+	m_platform = "MacOSX";
+#elif defined(Q_OS_WIN32)
+	m_platform = "Win32";
+#else
+	m_platform = "X11";
+#endif
 }
 
 UpgradeChecker::~UpgradeChecker()
 {
-	if(getter)
-		delete getter;
 }
-
-void UpgradeChecker::init()
-{
-	errorReported=false;
-	userAbort=false;
-	message="";
-	getter=0;
-	updates.clear();
-	version=(VERSION);
-	stability="unstablesvn";
-	QString versionStripped=version.toLower();
-	isCVS=versionStripped.contains("svn");
-	if (isCVS)
-		versionStripped.remove("svn");
-	major=versionStripped.section('.',0,0).toInt();
-	minor=versionStripped.section('.',1,1).toInt();
-	revision1=versionStripped.section('.',2,2).toInt();
-	revision2=versionStripped.section('.',3,4).toInt();
-	#if defined(Q_OS_MAC)
-	platform="MacOSX";
-	#elif defined(Q_OS_WIN32)
-	platform="Win32";
-	#else
-	platform="X11";
-	#endif
-}
-
 
 void UpgradeChecker::fetch()
 {
 	QString filename("scribusversions.xml");
-	tempFile=ScPaths::getTempFileDir()+filename;
+	m_tempFile = ScPaths::tempFileDir()+filename;
 
-	fin=false;
-	
-	rcvdFile=new QFile(tempFile);
-	getter=new QHttp();
-	if (getter!=0 && rcvdFile!=0)
+	m_fin = false;
+
+	m_file = new QFile(m_tempFile);
+	m_networkManager = new QNetworkAccessManager(this);
+	if (m_networkManager != nullptr && m_file != nullptr)
 	{
-		connect(getter, SIGNAL(responseHeaderReceived(const QHttpResponseHeader &)), this, SLOT(responseHeaderReceived(const QHttpResponseHeader &)));
-		connect(getter, SIGNAL(requestFinished(int, bool)), this, SLOT(requestFinished(int, bool)));
-		connect(getter, SIGNAL(done(bool)), this, SLOT(done(bool)));
-		
 		outputText( tr("No data on your computer will be sent to an external location"));
 		qApp->processEvents();
-		if(rcvdFile->open(QIODevice::ReadWrite))
+		if (m_file->open(QIODevice::ReadWrite))
 		{
-			QString hostname("upgrade.scribus.net");
-			QString filepath("/"+filename);
-			outputText("<b>"+ tr("Attempting to get the Scribus version update file:")+"</b>");
-			outputText(QString("<b>http://%1%2</b>").arg(hostname).arg(filepath));
-			getter->setHost(hostname, QHttp::ConnectionModeHttp);
-			getterID=getter->get(filepath, rcvdFile);
-			
+			QString hostname("services.scribus.net");
+			QString filepath("/" + filename);
+			QUrl fileURL(QString("https://%1%2").arg(hostname, filepath));
+			outputText("<b>" + tr("Attempting to get the Scribus version update file:") + "</b>");
+			outputText(fileURL.toString());
+
+			QNetworkRequest networkRequest(fileURL);
+			m_networkReply = m_networkManager->get(networkRequest);
+			connect(m_networkReply, SIGNAL(finished()), SLOT(downloadFinished()));
+			connect(m_networkReply, SIGNAL(readyRead()), SLOT(downloadReadyRead()));
+
 			int waitCount=0;
-			while (!fin && waitCount<20)
+			while (!m_fin && waitCount<20)
 			{
-				sleep(1);
+				std::this_thread::sleep_for(std::chrono::seconds(1));
 				++waitCount;
-				if (writeToConsole)
+				if (m_writeToConsole)
 					std::cout << ". " << std::flush;
 				outputText( ".", true );
 				qApp->processEvents();
 			}
-			if (writeToConsole)
+			if (m_writeToConsole)
 				std::cout << std::endl;
-			if (waitCount>=20)
-			{
-				outputText("<b>"+ tr("Timed out when attempting to get update file.")+"</b>");
-				getter->abort();
-			}
-			rcvdFile->close();
+			if (waitCount >= 20)
+				outputText("<b>" + tr("Timed out when attempting to get update file.") + "</b>");
+			m_file->close();
 		}
-		rcvdFile->remove();
+		m_file->remove();
 	}
-	delete getter;
-	delete rcvdFile;
-	getter=0;
-	rcvdFile=0;
-	if (!userAbort)
-		outputText( tr("Finished") );
+	delete m_file;
+	m_file = nullptr;
+	outputText( tr("Finished") );
+	m_networkReply->deleteLater();
+	m_networkManager->deleteLater();
+}
+
+void UpgradeChecker::downloadFinished()
+{
+	if (m_networkReply->error())
+		outputText(QString("Failed: %1").arg(qPrintable(m_networkReply->errorString())));
+	else
+	{
+		m_file->reset();
+		process();
+		m_fin = true;
+		show(m_networkReply->error() != QNetworkReply::NoError);
+	}
+}
+
+void UpgradeChecker::downloadReadyRead()
+{
+	m_file->write(m_networkReply->readAll());
 }
 
 bool UpgradeChecker::process()
 {
-	if (!rcvdFile)
+	if (!m_file)
 		return false;
-	QTextStream ts(rcvdFile);
+	QTextStream ts(m_file);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
 	int eline;
 	int ecol;
-	QDomDocument doc( "scribusversions" );
+	QDomDocument doc("scribusversions");
 	QString data(ts.readAll());
-	if ( !doc.setContent( data, &errorMsg, &eline, &ecol )) 
+	if (!doc.setContent( data, &errorMsg, &eline, &ecol )) 
 	{
-		if (data.toLower().contains("404 not found"))
-			outputText("<b>"+ tr("File not found on server")+"</b>");
+		if (data.contains("404 not found", Qt::CaseInsensitive))
+			outputText("<b>" + tr("File not found on server") + "</b>");
 		else
-			outputText("<b>"+ tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(rcvdFile->fileName()).arg(errorMsg).arg(eline).arg(ecol)+"</b>");
+			outputText("<b>" + tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(m_file->fileName(), errorMsg).arg(eline).arg(ecol) + "</b>");
 		return false;
 	}
 	
 	QDomElement docElem = doc.documentElement();
-	QDomNode n = docElem.firstChild();
-	while( !n.isNull() ) {
+	for (QDomNode n = docElem.firstChild(); !n.isNull(); n = n.nextSibling())
+	{
 		QDomElement e = n.toElement();
-		if( !e.isNull() ) {
-			if (e.tagName()=="release")
+		if (e.isNull())
+			continue;
+		if (e.tagName() == "release")
+		{
+			if (!e.hasAttribute("stability") || !e.hasAttribute("platform") || !e.hasAttribute("version"))
+				continue;
+			if (e.attribute("platform") != m_platform)
+				continue;
+
+			bool newVersion = false;
+			QString verA(e.attribute("version"));
+			QString verAStripped = verA.toLower();
+			bool verIsCVS = verAStripped.contains("cvs");
+			if (verIsCVS)
+				verAStripped.remove("cvs");
+			uint verMajor = verAStripped.section('.', 0, 0).toInt();
+			uint verMinor = verAStripped.section('.', 1, 1).toInt();
+			uint verRevsion1 = verAStripped.section('.', 2, 2).toInt();
+			uint verRevsion2 = verAStripped.section('.', 3, 3).toInt();
+			//If we found a release when a user is running an old CVS version
+			if (verMajor == major && verMinor == minor && verRevsion1 == m_patchLevel && verRevsion2 == m_versionSuffix && m_isSVN && !verIsCVS && !m_updates.contains(verA))
+				newVersion = true;
+			else if (!(verMajor == major && verMinor == minor && verRevsion1 == m_patchLevel && verRevsion2 == m_versionSuffix))
 			{
-				if (e.hasAttribute("stability") && e.hasAttribute("platform") && e.hasAttribute("version"))
+				//If we found a version that is not the same as what we are running
+				if (((verMajor > major) ||
+					(verMajor == major && verMinor > minor) ||
+					(verMajor == major && verMinor == minor && verRevsion1 > m_patchLevel) ||
+					(verMajor == major && verMinor == minor && verRevsion1 == m_patchLevel && verRevsion2 > m_versionSuffix))
+					&& !m_updates.contains(verA))
 				{
-					if (e.attribute("platform")==platform)
-					{
-						bool newVersion = false;
-						QString verA(e.attribute("version"));
-						QString verAStripped=verA.toLower();
-						bool verIsCVS=verAStripped.contains("cvs");
-						if (verIsCVS)
-							verAStripped.remove("cvs");
-						uint verMajor=verAStripped.section('.',0,0).toInt();
-						uint verMinor=verAStripped.section('.',1,1).toInt();
-						uint verRevsion1=verAStripped.section('.',2,2).toInt();
-						uint verRevsion2=verAStripped.section('.',3,3).toInt();
-						//If we found a release whe a user is running an old CVS version
-						if (verMajor==major && verMinor==minor && verRevsion1==revision1 && verRevsion2==revision2 && isCVS && !verIsCVS && !updates.contains(verA))
-							newVersion = true;
-						else
-						//If we found a version that is not the same as what we are running
-						if (!(verMajor==major && verMinor==minor && verRevsion1==revision1 && verRevsion2==revision2))
-						{
-							if (
-								((verMajor>major) ||
-								(verMajor==major && verMinor>minor) ||
-								(verMajor==major && verMinor==minor && verRevsion1>revision1) ||
-								(verMajor==major && verMinor==minor && verRevsion1==revision1 && verRevsion2>revision2))
-								&& !updates.contains(verA)
-								)
-								newVersion = true;
-						}
-						if (newVersion)
-						{
-							QString ver = verA;
-							QString link = e.attribute("link", "");
-							if (!link.isEmpty())
-							{
-								QString linkStr = QString("<a href=\"%1\">%2</a>").arg(link).arg(link);
-								ver = QString("%1 : %2").arg(verA).arg(linkStr);
-							}
-							updates.append(ver);
-						}
-					}
+					newVersion = true;
 				}
 			}
-			else
-			if (e.tagName()=="message")
+			if (newVersion)
 			{
-				message+=e.text();
+				QString ver(verA);
+				QString link(e.attribute("link", ""));
+				if (!link.isEmpty())
+				{
+					QString linkStr = QString("<a href=\"%1\">%2</a>").arg(link, link);
+					ver = QString("%1 : %2").arg(verA, linkStr);
+				}
+				m_updates.append(ver);
 			}
 		}
-		n = n.nextSibling();
+		else if (e.tagName() == "message")
+		{
+			m_message += e.text();
+		}
 	}
 	return true;
 }
 
 QStringList UpgradeChecker::upgradeData( )
 {
-	return updates;
+	return m_updates;
 }
 
 void UpgradeChecker::show(bool error)
 {
 	outputText("<br/>");
-	if (userAbort)
-	{
-		outputText("<b>"+ tr("Operation canceled")+"</b>");
-		return;
-	}
 	if (error)
 	{
-		outputText("<b>"+ tr("An error occurred while looking for updates for Scribus, please check your internet connection.")+"</b>");
+		outputText("<b>" + tr("An error occurred while looking for updates for Scribus, please check your internet connection.") + "</b>");
 		return;
 	}
-	if (updates.isEmpty())
-		outputText("<b>"+ tr("No updates are available for your version of Scribus %1").arg(version)+"</b>");
+	if (m_updates.isEmpty())
+		outputText("<b>" + tr("No updates are available for your version of Scribus %1").arg(ScribusAPI::getVersion()) + "</b>");
 	else
 	{
-		outputText("<b>"+ tr("One or more updates for your version of Scribus (%1) are available:").arg(version)+"</b>");
+		outputText("<b>" + tr("One or more updates for your version of Scribus (%1) are available:").arg(ScribusAPI::getVersion()) + "</b>");
 		outputText( tr("This list may contain development/unstable versions."));
-		for ( QStringList::Iterator it = updates.begin(); it != updates.end(); ++it )
+		for ( QStringList::Iterator it = m_updates.begin(); it != m_updates.end(); ++it )
 			outputText(*it);
-		outputText("<b>"+ tr("Please visit www.scribus.net for details.")+"</b>");
+		outputText("<b>" + tr("Please visit www.scribus.net for details.") + "</b>");
+		outputText("<b>" + tr("If you have installed Scribus from a package management system, for example on a Linux-based operating system, your package manager may have this upgrade available.") + "</b>");
 	}
-	outputText(message);
+	outputText(m_message);
 }
 
-void UpgradeChecker::outputText(QString text, bool /*noLineFeed*/)
+void UpgradeChecker::outputText(const QString& text, bool /*noLineFeed*/)
 {
 	QString outText(text);
 	outText.remove("<b>");
@@ -248,77 +232,40 @@ void UpgradeChecker::outputText(QString text, bool /*noLineFeed*/)
 	qDebug() << outText.toLocal8Bit().data();
 }
 
-UpgradeCheckerGUI::UpgradeCheckerGUI(ScTextBrowser *tb) :
-	UpgradeChecker(),
-	outputWidget(tb)
+
+void UpgradeChecker::reportError(const QString& s)
 {
-	writeToConsole=false;
+	if (!m_errorReported)
+	{
+		outputText("<br/><b>"+ tr("Error: %1").arg(s)+"</b>");
+		m_errorReported=true;
+	}
+}
+
+UpgradeCheckerGUI::UpgradeCheckerGUI(QTextBrowser *tb) : UpgradeChecker()
+{
+	m_outputWidget=tb;
+	m_writeToConsole=false;
 }
 
 UpgradeCheckerGUI::~UpgradeCheckerGUI()
 {
 }
 
-void UpgradeCheckerGUI::outputText(QString text, bool noLineFeed)
+void UpgradeCheckerGUI::outputText(const QString& text, bool noLineFeed)
 {
-	ScTextBrowser* w=outputWidget;
-	if (w)
-	{
-		QString wText(w->toPlainText());
-		wText.replace("\n","<br>");
-		wText.remove("<qt>");
-		wText.remove("</qt>");
-		if (noLineFeed)
-			w->setText("<qt>"+wText+text+"</qt>");
-		else
-			w->setText("<qt>"+wText+text+"<br>"+"</qt>");
-	}	
+	QTextBrowser* w=m_outputWidget;
+	if (!w)
+		return;
+
+	QString wText(w->toPlainText());
+	wText.replace("\n","<br>");
+	wText.remove("<qt>");
+	wText.remove("</qt>");
+	if (noLineFeed)
+		w->setHtml("<qt>"+wText+text+"</qt>");
+	else
+		w->setHtml("<qt>"+wText+text+"<br>"+"</qt>");
 }
 
 
-void UpgradeChecker::responseHeaderReceived(const QHttpResponseHeader &responseHeader) 
-{
-	if (responseHeader.statusCode() != 200) 
-	{
-		reportError(responseHeader.reasonPhrase());
-		getter->abort();
-	} 
-}
-
-void UpgradeChecker::requestFinished(int id, bool error)
-{
-	if (error)
-		reportError(getter->errorString());
-}
-
-void UpgradeChecker::done(bool error)
-{
-	if (error) 
-		reportError(getter->errorString());
-	else 
-	{
-		if (rcvdFile)
-		{
-			rcvdFile->reset();
-			process();
-		}
-	}
-	fin=true;
-	show(error);
-}
-
-void UpgradeChecker::reportError(const QString& s)
-{
-	if (!errorReported)
-	{
-		outputText("<br/><b>"+ tr("Error: %1").arg(s)+"</b>");
-		errorReported=true;
-	}
-}
-
-void UpgradeChecker::abort()
-{
-	userAbort=true;
-	if (getter)
-		getter->abort();
-}

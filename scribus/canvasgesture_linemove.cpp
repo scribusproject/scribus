@@ -22,15 +22,19 @@
 
 #include "canvas.h"
 #include "pageitem_line.h"
-#include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "undomanager.h"
 #include "util_math.h"
-
 
 void LineMove::clear()
 {
 	m_haveLineItem = false;
+	if (m_transaction.isStarted())
+	{
+		m_transaction.cancel();
+		m_transaction.reset();
+	}
 }
 
 
@@ -44,7 +48,7 @@ void LineMove::prepare(QPointF start, QPointF end)
 
 void LineMove::prepare(PageItem_Line* line, bool useOriginAsEndpoint)
 {
-	m_haveLineItem = (line != NULL);
+	m_haveLineItem = (line != nullptr);
 	if (!m_haveLineItem)
 		return;
 	m_useOriginAsEndpoint = useOriginAsEndpoint;
@@ -66,8 +70,7 @@ double LineMove::rotation() const
 	double rot = xy2Deg(m_bounds.width(), m_bounds.height());
 	if (rot < 0.0)
 		return 360 + rot;
-	else
-		return rot;
+	return rot;
 }
 
 
@@ -95,17 +98,19 @@ void LineMove::setEndPoint(QPointF p)
 }
 
 
-void LineMove::activate(bool flag)
+void LineMove::activate(bool forGesture)
 {
-//	qDebug() << "LineMove::activate" << flag << m_bounds;	
+	CanvasGesture::activate(forGesture);
 }
 
 
 
-void LineMove::deactivate(bool flag)
+void LineMove::deactivate(bool forGesture)
 {
 //	qDebug() << "LineMove::deactivate" << flag;
-	m_haveLineItem = false;
+	if (!forGesture)
+		clear();
+	CanvasGesture::deactivate(forGesture);
 }
 
 
@@ -121,18 +126,69 @@ void LineMove::drawControls(QPainter* p)
 	p->restore();
 }
 
+void LineMove::mousePressEvent(QMouseEvent *m)
+{
+	PageItem_Line* line = m_doc->m_Selection->count() == 1 ? m_doc->m_Selection->itemAt(0)->asLine() : nullptr;
+	if (line)
+	{
+		bool hitsOrigin = m_canvas->hitsCanvasPoint(m->globalPos(), line->xyPos());
+		prepare(line, hitsOrigin);
+		// now we also know the line's endpoint:
+		bool hitsEnd = m_canvas->hitsCanvasPoint(m->globalPos(), endPoint());
+		m_haveLineItem = hitsOrigin || hitsEnd;
+	}
+	else
+	{
+		FPoint point = m_canvas->globalToCanvas(m->globalPos());
+		setStartPoint(QPointF(point.x(), point.y()));
+		setEndPoint(QPointF(point.x(), point.y()));
+		m_haveLineItem = false;
+	}
+	if (m_haveLineItem)
+	{
+		if (!m_transaction)
+		{
+			QString targetName = line->getUName();
+			QPixmap* targetIcon = line->getUPixmap();
+			m_transaction = Um::instance()->beginTransaction(targetName, targetIcon, Um::Resize, "", Um::IResize);
+		}	
+		adjustBounds(m, false);
+		m_initialBounds = m_bounds;
+		m->accept();
+	}
+}
 
+void LineMove::mouseMoveEvent(QMouseEvent *m)
+{
+	adjustBounds(m);
+	if (m_haveLineItem)
+	{
+		doResize();
+		double angle = rotation();
+		if (angle > 0)
+			angle = 360 - angle;
+		m_canvas->displaySizeHUD(m->globalPos(), length(), fabs(angle), true);
+	}
+	m->accept();
+	m_canvas->repaint();
+}
 
 void LineMove::mouseReleaseEvent(QMouseEvent *m)
 {
 	adjustBounds(m);
 	if (m_haveLineItem)
 	{
-		doResize();
+		if (m_bounds != m_initialBounds)
+			doResize();
 		m_doc->setRedrawBounding(m_line);
 		m_view->resetMousePressed();
 		m_line->checkChanges();
 		m_line->update();
+	}
+	if (m_transaction.isStarted())
+	{
+		m_transaction.commit();
+		m_transaction.reset();
 	}
 	m->accept();
 	m_canvas->update();
@@ -160,25 +216,7 @@ void LineMove::doResize()
 //	qDebug() << "LineMove::doresize" << m_line->xPos() << "," << m_line->yPos() << "@" << m_line->rotation() << m_line->width() << "x" << m_line->height();
 }
 
-
-void LineMove::mouseMoveEvent(QMouseEvent *m)
-{
-	adjustBounds(m);
-	if (m_haveLineItem)
-	{
-		doResize();
-		double angle = rotation();
-		if (angle > 0)
-			angle = 360 - angle;
-		m_canvas->displaySizeHUD(m->globalPos(), length(), fabs(angle), true);
-	}
-	m->accept();
-	m_canvas->repaint();
-}
-
-
-
-void LineMove::adjustBounds(QMouseEvent *m)
+void LineMove::adjustBounds(QMouseEvent *m, bool updateCanvas)
 {
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
@@ -186,44 +224,31 @@ void LineMove::adjustBounds(QMouseEvent *m)
 	double newX = mousePointDoc.x();
 	double newY = mousePointDoc.y();
 	
-	if (m_doc->useRaster)
+	if (m_doc->SnapGrid)
 	{
-		newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
-		newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+		newX = qRound(newX / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;
+		newY = qRound(newY / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;
 	}
-	m_bounds.setBottomRight(QPointF(newX, newY));
-//	qDebug() << "LineMove::adjustBounds" << m_bounds << rotation() << length() << m_bounds.bottomRight();
+	//<<#8099
+	FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));
+	double nx = np2.x();
+	double ny = np2.y();
+	m_doc->ApplyGuides(&nx, &ny);
+	m_doc->ApplyGuides(&nx, &ny,true);
+	newX = nx;
+	newY = ny;
+	//>>#8099
 
+	m_bounds.setBottomRight(QPointF(newX, newY));
 	//Constrain rotation angle, when the mouse is being dragged around for a new line
 	if (constrainRatio)
 	{
 		double newRot = rotation();
-		newRot = constrainAngle(newRot, m_doc->toolSettings.constrain);
+		newRot = constrainAngle(newRot, m_doc->opToolPrefs().constrain);
 		setRotation(newRot);
 	}
-	m_view->updateCanvas(m_bounds.normalized().adjusted(-10, -10, 20, 20));
-}
-
-
-
-void LineMove::mousePressEvent(QMouseEvent *m)
-{
-	PageItem_Line* line = m_doc->m_Selection->count() == 1 ? m_doc->m_Selection->itemAt(0)->asLine() : NULL;
-	if (line)
+	if (updateCanvas)
 	{
-		bool hitsOrigin = m_canvas->hitsCanvasPoint(m->globalPos(), line->xyPos());
-		prepare(line, hitsOrigin);
-		// now we also know the line's endpoint:
-		bool hitsEnd = m_canvas->hitsCanvasPoint(m->globalPos(), endPoint());
-		m_haveLineItem = hitsOrigin || hitsEnd;
+		m_view->updateCanvas(m_bounds.normalized().adjusted(-10, -10, 20, 20));
 	}
-	else
-	{
-		FPoint point = m_canvas->globalToCanvas(m->globalPos());
-		setStartPoint(QPointF(point.x(), point.y()));
-		setEndPoint(QPointF(point.x(), point.y()));
-		m_haveLineItem = false;
-	}
-	if (m_haveLineItem)
-		m->accept();
 }

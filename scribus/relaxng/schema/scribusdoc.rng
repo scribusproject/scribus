@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:impl="http://www.scribus.info/RelaxNG/implementation" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <impl:import impl:datatype="MarginStruct" impl:headerfile="scribusstructs.h"/>
+  <impl:import impl:datatype="GuideManagerCore" impl:headerfile="guidemanagercore.h"/>
+  <impl:import impl:datatype="ObjAttrVector" impl:headerfile="pagestructs.h"/>
+  <impl:import impl:datatype="ScPage" impl:headerfile="scpage.h"/>
+  <impl:import impl:datatype="PageItem" impl:headerfile="pageitem.h"/>
+  <define name="MarginStructDef" impl:template="SimpleSettings" impl:name="MarginStruct_base" impl:datatype="MarginStruct">
+    <attribute name="Bottom" impl:initial="0">
+      <data type="decimal"/>
+    </attribute>
+    <attribute name="Left" impl:initial="0">
+      <data type="decimal"/>
+    </attribute>
+    <attribute name="Right" impl:initial="0">
+      <data type="decimal"/>
+    </attribute>
+    <attribute name="Top" impl:initial="0">
+      <data type="decimal"/>
+    </attribute>
+  </define>
+  <define name="PageDef" impl:datatype="ScPage" impl:name="ScPage_base" impl:template="SimpleSettings">
+    <attribute name="PageXPos" impl:name="m_xOffset" impl:getter="xOffset" impl:setter="setXOffset">
+      <data type="integer"/>
+    </attribute>
+    <attribute name="PageYPos" impl:name="m_yOffset" impl:getter="yOffset" impl:setter="setYOffset">
+      <data type="integer"/>
+    </attribute>
+    <attribute name="PageWidth" impl:name="m_width" impl:getter="width" impl:setter="setWidth">
+      <data type="decimal"/>
+    </attribute>
+    <attribute name="PageHeight" impl:name="m_height" impl:getter="height" impl:setter="setHeight">
+      <data type="decimal"/>
+    </attribute>
+    <attribute name="PageNum" impl:name="m_pageNr" impl:getter="pageNr" impl:setter="setPageNr">
+      <data type="integer"/>
+    </attribute>
+    <attribute name="PageName" impl:name="m_pageName" impl:getter="pageName" impl:setter="setPageName">
+      <data type="string"/>
+    </attribute>
+    <attribute name="MasterPageName" impl:name="MPageNam">
+      <data type="string"/>
+    </attribute>
+    <attribute name="PageSize" impl:name="m_pageSize">
+      <data type="string"/>
+    </attribute>
+    <attribute name="Orientation" impl:name="m_orientation" impl:getter="orientation" impl:setter="setOrientation">
+      <data type="int"/>
+    </attribute>
+    <attribute name="Left" impl:name="LeftPg">
+      <data type="int"/>
+    </attribute>
+    <attribute name="Preset" impl:name="marginPreset">
+      <data type="int"/>
+    </attribute>
+    <element name="initialBorders" impl:datatype="MarginStruct" impl:name="initialMargins" impl:type="struct">
+      <ref name="MarginStructDef"/>
+    </element>
+    <element name="GuideManager" impl:datatype="GuideManagerCore" impl:name="GuideManagerCore_base" impl:template="SimpleSettings">
+      <attribute name="VerticalGuides">
+        <data type="decimal"/>
+      </attribute>
+      <attribute name="HorizontalGuides">
+        <data type="decimal"/>
+      </attribute>
+      <attribute name="AGHorizontalAutoGap">
+        <data type="decimal"/>
+      </attribute>
+      <attribute name="AGVerticalAutoGap">
+        <data type="decimal"/>
+      </attribute>
+      <attribute name="AGHorizontalAutoCount">
+        <data type="decimal"/>
+      </attribute>
+      <attribute name="AGVerticalAutoCount">
+        <data type="decimal"/>
+      </attribute>
+      <attribute name="AGHorizontalAutoRef">
+        <data type="decimal"/>
+      </attribute>
+      <attribute name="AGVeritcalAutoRef">
+        <data type="decimal"/>
+      </attribute>
+      <attribute name="AGSelection">
+        <data type="decimal"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="ItemAttributedef" impl:name="ObjectAttribute" impl:template="SimpleSettings">
+    <attribute name="name">
+      <data type="string"/>
+    </attribute>
+    <attribute name="type">
+      <data type="string"/>
+    </attribute>
+    <attribute name="value">
+      <data type="string"/>
+    </attribute>
+    <attribute name="parameter">
+      <data type="string"/>
+    </attribute>
+    <attribute name="relationship">
+      <data type="string"/>
+    </attribute>
+    <attribute name="relationshipto">
+      <data type="string"/>
+    </attribute>
+    <attribute name="autoaddto">
+      <data type="string"/>
+    </attribute>
+  </define>
+  <define name="GDef">
+    <attribute name="gXPOS">
+      <data type="double"/>
+    </attribute>
+    <attribute name="gYPOS">
+      <data type="double"/>
+    </attribute>
+    <attribute name="gWidth">
+      <data type="double"/>
+    </attribute>
+    <attribute name="gHeight">
+      <data type="double"/>
+    </attribute>
+  </define>
+  <define name="TableBorderLineDef">
+    <optional>
+      <attribute name="width">
+        <data type="string"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="PenStyle">
+        <data type="string"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="Color">
+        <data type="string"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="Shade">
+        <data type="string"/>
+      </attribute>
+    </optional>
+  </define>
+  <include href="pageitems.rng"/>
+  <start>
+    <element name="SCRIBUSNEWUTF8">
+      <attribute name="Version">
+        <data type="string"/>
+      </attribute>
+      <element name="Document" impl:template="SimpleSettings" impl:name="ScribusDoc_base" impl:datatype="ScribusDoc">
+        <attribute name="PageSize" impl:datatype="QString" impl:name="pageSize">
+          <a:documentation>paper format, eg. "letter" or "A4"</a:documentation>
+          <data type="string"/>
+        </attribute>
+        <optional>
+          <attribute name="AutoSave">
+            <data type="boolean"/>
+          </attribute>
+        </optional>
+        <optional>
+          <attribute name="AutoSaveTime">
+            <data type="integer"/>
+          </attribute>
+        </optional>
+        <attribute name="MarginPreset" impl:name="marginPreset">
+          <data type="integer"/>
+        </attribute>
+        <attribute name="PageHeight" impl:name="pageHeight">
+          <data type="decimal"/>
+        </attribute>
+        <attribute name="PageOrientation" impl:name="pageOrientation">
+          <data type="integer"/>
+        </attribute>
+        <attribute name="PagePositioning" impl:name="pagePositioning">
+          <data type="integer"/>
+        </attribute>
+        <attribute name="PageWidth" impl:name="pageWidth">
+          <data type="decimal"/>
+        </attribute>
+        <attribute name="SaveCompressed" impl:name="saveCompressed">
+          <data type="boolean"/>
+        </attribute>
+        <attribute name="UnitIndex" impl:name="docUnitIndex">
+          <data type="integer"/>
+        </attribute>
+        <interleave>
+          <optional>
+            <element name="Bleed" impl:datatype="MarginStruct" impl:name="bleeds" impl:type="struct">
+              <ref name="MarginStructDef"/>
+            </element>
+          </optional>
+          <element name="Margin" impl:datatype="MarginStruct" impl:name="margins" impl:type="struct">
+            <ref name="MarginStructDef"/>
+          </element>
+        </interleave>
+        <group>
+          <zeroOrMore>
+            <element name="MASTERPAGE" impl:name="MasterPages" impl:datatype="QList&lt;ScPage*&gt;" impl:builder="ScPage;|PageNum|.toInt();PageName">
+              <ref name="PageDef"/>
+            </element>
+          </zeroOrMore>
+          <zeroOrMore>
+            <element name="PAGE" impl:name="DocPages" impl:datatype="QList&lt;ScPage*&gt;" impl:builder="ScPage;|PageNum|.toInt();PageName">
+              <ref name="PageDef"/>
+            </element>
+          </zeroOrMore>
+        </group>
+        <zeroOrMore>
+          <element name="MASTEROBJECT" impl:name="MasterItems" impl:datatype="QList&lt;PageItem*&gt;" impl:builder="PageItem;|PTYPE|.toInt();|FRTYPE|.toInt();|XPOS|.toDouble();|YPOS|.toDouble();|WIDTH|.toDouble();|HEIGHT|.toDouble();|PWIDTH|.toDouble();PCOLOR;PCOLOR2">
+            <ref name="PageItemDef"/>
+          </element>
+        </zeroOrMore>
+        <zeroOrMore>
+          <element name="PAGEOBJECT" impl:name="DocItems" impl:datatype="QList&lt;PageItem*&gt;" impl:builder="PageItem;|PTYPE|.toInt();|FRTYPE|.toInt();|XPOS|.toDouble();|YPOS|.toDouble();|WIDTH|.toDouble();|HEIGHT|.toDouble();|PWIDTH|.toDouble();PCOLOR;PCOLOR2">
+            <ref name="PageItemDef"/>
+          </element>
+        </zeroOrMore>
+        <zeroOrMore>
+          <element name="FRAMEOBJECT" impl:name="FrameItems" impl:datatype="QList&lt;PageItem*&gt;" impl:builder="PageItem;|PTYPE|.toInt();|FRTYPE|.toInt();|XPOS|.toDouble();|YPOS|.toDouble();|WIDTH|.toDouble();|HEIGHT|.toDouble();|PWIDTH|.toDouble();PCOLOR;PCOLOR2">
+            <ref name="PageItemDef"/>
+          </element>
+        </zeroOrMore>
+        <zeroOrMore>
+          <element name="PatternITEM" impl:datatype="QList&lt;PageItem*&gt;" impl:builder="PageItem;|PTYPE|.toInt();|FRTYPE|.toInt();|XPOS|.toDouble();|YPOS|.toDouble();|WIDTH|.toDouble();|HEIGHT|.toDouble();|PWIDTH|.toDouble();PCOLOR;PCOLOR2">
+            <ref name="PageItemDef"/>
+          </element>
+        </zeroOrMore>
+        <zeroOrMore>
+          <element name="ITEM" impl:datatype="QList&lt;PageItem*&gt;" impl:builder="PageItem;|PTYPE|.toInt();|FRTYPE|.toInt();|XPOS|.toDouble();|YPOS|.toDouble();|WIDTH|.toDouble();|HEIGHT|.toDouble();|PWIDTH|.toDouble();PCOLOR;PCOLOR2">
+            <ref name="PageItemDef"/>
+          </element>
+        </zeroOrMore>
+      </element>
+    </element>
+  </start>
+</grammar>

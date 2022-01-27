@@ -1,0 +1,30 @@
+include_directories(
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/scribus
+	${SCRIBUS_AUTOGEN_INCLUDE_PATH}
+)
+
+set(IMPORTIDML_PLUGIN_SOURCES
+	importidml.cpp
+	importidmlplugin.cpp
+)
+
+set(SCRIBUS_IMPORTIDML_PLUGIN "importidml")
+
+
+
+add_library(${SCRIBUS_IMPORTIDML_PLUGIN} MODULE ${IMPORTIDML_PLUGIN_SOURCES})
+
+target_link_libraries(${SCRIBUS_IMPORTIDML_PLUGIN} ${EXE_NAME} ${SCRIBUS_ZIP_LIB})
+
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_IMPORTIDML_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
+install(TARGETS ${SCRIBUS_IMPORTIDML_PLUGIN}
+	LIBRARY
+	DESTINATION ${PLUGINDIR}
+	PERMISSIONS ${PLUGIN_PERMISSIONS}
+)
+
+add_dependencies(Plugins ${SCRIBUS_IMPORTIDML_PLUGIN})

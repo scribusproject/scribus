@@ -1,44 +1,64 @@
 Development Team:
 
 Franz Schmid Franz.Schmid@altmuehlnet.de
-Peter Linnell mrdocs@scribus.info
-Craig Bradney cbradney@zip.com.au
-Petr Vaněk petr@yarpen.cz
-Riku Leino riku@scribus.info
-Craig Ringer craig@postnewspapers.com.au
-Andreas Vox avox@arcor.de
+Peter Linnell 
+Craig Bradney mrb@scribus.info
+Andreas Vox andreas.vox@gmail.com
 Jean Ghali jghali@libertysurf.fr
 Oleksandr Moskalenko malex@tagancha.org
 Christoph Schäfer christoph@scribus.info
-Hermann Kraus herm@scribus.info
+Paul Smedley paul@smedley.info
+Petr Vaněk petr@yarpen.cz
+Riku Leino riku@scribus.info
 Pierre Marchand pierre@scribus.info
+Jain Basil Aliyas jainbasil@gmail.com
+Hermann Kraus herm@scribus.info
+Craig Ringer craig@postnewspapers.com.au
+
 
 Contributions from:
 
-Niyam Bhushan 
-Martin Costabel 
-Steve Callcott stotte@firstwish.co.uk
-Frank Everdij f.everdij@citg.tudelft.nl
-S. Hakim Hamdani hakimoto@eroteme.org
-Maciej Ha¿ski m.hanski@gmx.at
-Paul F. Johnson paul@all-the-johnsons.co.uk
-Marti Maria 
-Alexandre Prokoudine alexandre.prokoudine@gmail.com
-Alessandro Rimoldi http://ideale.ch/contact
 Alastair Robinson blackfive@fakenhamweb.co.uk
-Johannes Rüschel jo.rueschel@gmx.de
-Jean-Jacques Sarton jj.sarton@t-online.de
+Alessandro Rimoldi http://ideale.ch/contact
+Alexandre Prokoudine alexandre.prokoudine@gmail.com
+Cedric Gemy 
+Cezary Grabski czarek@oferuje.pl
+Christian Hitz christian@klarinett.li
 Christian Töpp mr-ct@gmx.de
+Christoph Bartoschek bartoschek@google.com
+David Tardon dtardon@redhat.com
 Eirik Øverby ltning@anduin.net
-Gora Mohanty  gora@srijan.in
-Kevin Young k.young@youngscomputing.com
 Elvis Stansvik elvstone@gmail.com
+Frank Everdij f.everdij@citg.tudelft.nl
+François Lanct&ocirc;t 
+Frederic Dubuy 
+Gora Mohanty gora@srijan.in
+Gord Caswell ve4jhj+scribus@gmail.com
+Gyuris Gellért jobel@ujevangelizacio.hu
+Howard White 
+Jean-Jacques Sarton jj.sarton@t-online.de
+Johannes Rüschel jo.rueschel@gmx.de
+Kevin Young k.young@youngscomputing.com
+Louis Desjardins 
+Lukasz Jernas 
+Maciej Hański m.hanski@gmx.at
+Marcus Holland-Moritz 
+Marti Maria 
+Martin Costabel 
 Michael Doubez michael.doubez@free.fr
+Niyam Bhushan 
+Paul F. Johnson paul@all-the-johnsons.co.uk
+S. Hakim Hamdani hakimoto@eroteme.org
+Steve Callcott stotte@firstwish.co.uk
 Tomas Mecir mecirt@gmail.com
+Volker Ribbert 
+Yves Ceccone 
+
 
 Mac OS&#174; X Aqua Port:
 
-Andreas Vox avox@arcor.de
+Andreas Vox andreas.vox@gmail.com
+Craig Bradney mrb@scribus.info
 
 
 OS/2&#174;/eComStation&#8482; Port:
@@ -51,25 +71,52 @@ Windows&#174; Port:
 Jean Ghali jghali@libertysurf.fr
 
 
+Haiku Port:
+
+Giovanni Mugnai musical777@gmail.com
+
+
+AppImage for Linux:
+
+Simon Peter 
+
+
+Refactoring text layout code, the new boxes model & CTL text layout, Oman House of Open Source Technology team:
+
+Anood Almuharbi anood.almuharbi@gmail.com
+Asma ALbahanta as.bahanta@gmail.com
+Dawood Albadi daawood.albadi@gmail.com
+Fahad Al-Saidi	fahad.alsaidi@gmail.com
+Ibrahim Alrashdi ibrahimalrashdi745@gmail.com
+Ibtisam Nasser ibtisammabsali@gmail.com
+Khaled Hosny khaledhosny@eglug.org
+Noseeba noseeba1@gmail.com
+Shamsa Hamed shamsahamed59@gmail.com
+Sheikha sheikha443@gmail.com
+
+
 Official Documentation:
 
-Peter Linnell mrdocs@scribus.info
-Craig Bradney cbradney@zip.com.au
-Frédéric Dubuy effediwhy@gmail.com
-Johannes Rüschel jo.rueschel@gmx.de
-Volker Ribbert volkerius@h3c.de
-Louis Desjardins louisdesjardins@videotron.ca
-
+Alessandro Levati 8av10s@tiscali.it
+Astankov Dimitry Alexandrovichu
+Christoph Schäfer christoph@scribus.info
+Craig Bradney mrb@scribus.info
+Gregory Pittman gpittman@iglou.com
+Oleksandr Moskalenko malex@tagancha.org
+Peter Linnell
+Petr Vaněk petr@yarpen.cz
 
 Other Documentation:
 
 Yves Ceccone yves@yeccoe.org
 Holger Reibold http://www.bomots.de/scribus/
 Thomas Zastrow post@thomas-zastrow.de
+Cedric Gemy 
 
 
 Splash Screen:
 
+Loes van Splunter loesvansplunter@hotmail.com
 Andy Fitzsimon andrew@fitzsimon.com.au
 
 
@@ -78,3 +125,7 @@ Tango Project Icons:
 Andreas Nilsson nisses.mail@home.se
 Jakub Steiner jimmac@ximian.com
 Antoine Cailliau antoinecailliau@gmail.com
+
+Scribus 1.5.1+ Icon Set:
+
+Dezso Markon dezso.markon@gmail.com

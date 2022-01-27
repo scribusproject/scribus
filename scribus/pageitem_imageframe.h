@@ -36,21 +36,22 @@ class SCRIBUS_API PageItem_ImageFrame : public PageItem
 	Q_OBJECT
 
 public:
-	PageItem_ImageFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
+	PageItem_ImageFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 	PageItem_ImageFrame(const PageItem & p) : PageItem(p) {}
-	~PageItem_ImageFrame() {};
+	~PageItem_ImageFrame();
 
-	virtual PageItem_ImageFrame * asImageFrame() { return this; }
-	virtual void handleModeEditKey(QKeyEvent *k, bool& keyRepeat);
-	virtual void clearContents();
+	PageItem_ImageFrame * asImageFrame() override { return this; }
+	bool isImageFrame() const override { return true; }
+
+	void handleModeEditKey(QKeyEvent *k, bool& keyRepeat) override;
+	void clearContents() override;
 	
-	virtual bool createInfoGroup(QFrame *, QGridLayout *);
-//	virtual bool createContextMenu(QMenu *, int);
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription();
+	bool createInfoGroup(QFrame *, QGridLayout *) override;
+	void applicableActions(QStringList& actionList) override;
+	QString infoDescription() const override;
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e, double sc);
+	void DrawObj_Item(ScPainter *p, const QRectF& e) override;
 
 };
 

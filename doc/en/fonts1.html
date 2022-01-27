@@ -1,0 +1,59 @@
+<head>
+<title>Scribus Font Tools (1)</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Scribus Font Tools (1)</h2>
+
+<p>Fonts are one of the major ingredients in Desktop Publishing. Hence, Scribus provides some powerful tools for managing and previewing fonts.</p>
+
+<h3>Font Management</h3>
+
+<p>The most important font tools are available via the <i>Document Setup</i> and <i>Preferences</i> dialogs (for the difference between both see the section about <a href="settings1.html">Configuring Scribus</a>) in the <i>Fonts</i> tab.</p>
+
+<p>Both dialogs look the same, which might be a bit confusing at first glance, as some options are probably grayed out. However, there is some logic behind the mechanisms, as you will see.</p>
+
+<h4>Managing Detected Fonts</h4>
+
+<p>The first tab (&ldquo;Available Fonts&rdquo;) initially shows the fonts detected by Scribus during its first launch. It depends on the operating system which directories or system settings will be searched for fonts (see below). If you open an existing document, Scribus will also search for font files in the document path, which is another word for the directory, in which your Scribus file is currently being stored.</p>
+
+<p>The &ldquo;Available Fonts&rdquo; tab consists of many columns, some of which only provide information about a font, while others allow for changing Scribus&rsquo;s handling of a font &ndash; either in an existing document or in every future document. Let&rsquo;s have a look at these rows one by one:
+<ul>
+<li><b>Font Name:</b> This is the name of the font as stored in the font file(s). Note that the name is often not identical with the name of the font file(s) itself/themselves.</li>
+<li><b>Use Font:</b> By default, Scribus makes all fonts it finds and accepts available. Since you may have installed many fonts, you can reduce their number in the Scribus font dialogs (e.g. the Properties Palette or the Style Manager) by unchecking them here.</li>
+<li><b>Font Family:</b> Many fonts, especially those used in professional typsetting, are part of a so-called font family. A typical &ldquo;family&rdquo; consists of different &ldquo;styles&rdquo; of fonts, e.g. Regular, Bold, Italic, Bold Italic. Some font families are even larger and contain Serif, Sans Serif, Semi Serif and &ldquo;Typwriter&rdquo; (i.e. fonts with a fixed glyph width) groups. This column shows the name of the font family.</li>
+<li><b>Style:</b> Here you can see the font style (e.g. Regular, Condensed, Semi Bold, Italic).</li>
+<li><b>Variant:</b> Some sophisticated (and very expensive) fonts provide one or more subcategories within a given &ldquo;style&rdquo;, e.g. different kinds of &ldquo;Regular&rdquo;, &ldquo;Italic&rdquo; etc. Those subcategories can be identified in this column.</li>
+<li><b>Type:</b> In this column Scribus shows the format of a given font: Postscript (Type 0, Type 1, Type 3, or CFF), TrueType (TTF) or OpenType (OTF). Note that Postscript fonts are always indicated as &ldquo;Type 1&rdquo;, independent of the actual format.</li>
+<li><b>Format:</b> This column shows the internal format of a font file (PFA, PFB, TYPE2, TYPE42, SFNT, TTCF, PFB_MAC, DFONT, HQX, or MACBIN), an information that&rsquo;s only important for font experts.</li>
+<li><b>Embed in Postscript:</b> If this option has been activated for a font, the font will be embedded in EPS and Postscript files created by Scribus.</li>
+<li><b>Subset:</b> Subsetting fonts means including only the glyphs in the font which are used in the document when exporting a Postscript or PDF file. This will create smaller files, at the expense of making it difficult to make minor edits in pre-press tools like PitStop. Unless you are sending a PDF to a commercial printer, you can subset fonts fairly reliably. This is especially important when you are trying to keep a downloadable PDF to the smallest size. It is important to note that for most OpenType and some TrueType fonts the &ldquo;Subset&rdquo; option is checked automatically, which means you cannot choose to embed the font in the PDF export dialog. The reason for this behavior is the size of those fonts, since the OTF and TTF file format specification allows for several thousand glyphs per file. Embedding those might result in huge PDF files, so disabling the embedding option is a built-in safety measure. If, for some reason, you want to embed a font in a PDF file anyway, you can simply uncheck the &ldquo;Subset&rdquo; option in this tab.</li>
+<li><b>Access:</b> Here you can see whether an available font has been installed in one of the operating system&rsquo;s font directories (&ldquo;System&rdquo;) or in either the user&rsquo;s home directory (Mac OS X, Linux, *BSD) or an additional font path (see below). In both cases the font access will be indicated as &ldquo;User&rdquo;.</li>
+<li><b>Used in Doc:</b> This column shows whether a font is being used in your currently open document (only available in the <i>Document Setup</i>).</li>
+<li><b>Path to Font File:</b> Here you can see where the font file is located.</li>
+</ul>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/fontpref3.png" alt="Available Fonts and Embedding Preferences" title="Available Fonts and Embedding Preferences"/></td></tr></table>
+
+<h4>Font Substitutions</h4>
+
+<p>When opening a Scribus document, Scribus runs a check to see if all fonts listed in a document are available. In case a given font is not available on your computer or a network directory, Scribus, upon opening the doc, will ask you to choose a substitution:</p>
+<table width="100%"><tr><td align="center"><img src="images/font-subst.png" alt="Font Substitution Step 1" title="Font Substitution Step 1" /></td></tr></table>
+<p>You can can later adjust or change your choice in the &ldquo;Font Substitutions&rdquo; tab. This allows you to change the original substitution pattern, either for the current document or all newly created documents.</p><br>
+
+<table width="100%"><tr><td align="center"><img src="images/fontpref2.png" alt="Font Substitution Step 2" title="Font Substitution Step 2" /></td></tr></table>
+
+
+<h4>Adding Additional Font Paths</h4>
+<p>One of the challenges in font management is the way different operating systems provide access to fonts and handle them internally. For example, Windows, OS/2, eComStation and Haiku use a single system-wide directory (Windows: <code>C:\Windows\Fonts</code>; OS/2 and eComStation: <code>C:\PSFONTS</code>, Haiku: <code>/system/data/fonts/</code>), while modern members of the UNIX family allow for the use of system-wide, as well as user-specific directories (Mac OS X: <code>/Library/Fonts</code> and <code>/Users/username/Library/Fonts</code>; Linux and *BSD: <code>/usr/share/fonts</code>, <code>/usr/local/share/fonts</code> and <code>/home/username/.fonts</code>). In the early days of Desktop Publishing this was a serious problem, as professional users had to work with hundreds or even thousands of fonts, while the hardware, as well as operating systems were unable to handle this amount of fonts. As a consequence, professionals had to work with a font manager, a software that helped to reduce the number of available fonts to a level that could be handled by operating systems and applications. To prevent a system crash, font managers also allowed to specify additional font paths, i.e. the use of font files that didn&rsquo;t have to be copied to the system&rsquo;s font folder(s).</p> 
+
+<p>While modern hardware, operating systems and applications can easily work with hundreds of installed fonts, the feature to specify additional font paths, which is available in Scribus itself, is still quite useful. For instance, many users don&rsquo;t want to install fonts that they only use occasionally, so when they have to use a certain font, they can copy it to any directory and add the path to the file(s) in the Scribus font manager.</p>
+
+<p>To set an additional font path. you have to use <i>File &#062; Preferences &#062; Fonts &#062; Additional Paths</i> <b>without</b> any document open (in the <i>Document Setup</i> this tab is always grayed out). Here you can add one or more additional paths, which are not part of your system&rsquo;s defaults:</p><br>
+
+<table width="100%"><tr><td align="center"><img src="images/fontpref1.png" alt="Adding additional font paths." title="Adding additional font paths."/></td></tr></table>
+
+</body>
+</html>

@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QPixmap>
 #include <QMenu>
+#include <QString>
+
 #include "scribusapi.h"
 class ScribusDoc;
 /**
@@ -35,7 +37,7 @@ class SCRIBUS_API ScrAction : public QAction
 	Q_OBJECT
 
 public:
-	typedef enum {Normal, DataInt, DataDouble, DataQString, RecentFile, DLL, Window, RecentScript, UnicodeChar, Layer, ActionDLL, RecentPaste } ActionType;
+	typedef enum {Normal, DataInt, DataDouble, DataQString, RecentFile, DLL, Window, RecentScript, UnicodeChar, Layer, ActionDLL, RecentPaste, ActionDLLSE } ActionType;
 	
 	/*!
 		\author Craig Bradney
@@ -43,7 +45,7 @@ public:
 		\brief Constructor from QAction, sets menuType to Normal
 		\param parent Parent object of this action
 	*/
-	ScrAction ( QObject *parent ) ;
+	ScrAction (QObject *parent) ;
 		
 	/*!
 		\author Craig Bradney
@@ -53,15 +55,15 @@ public:
 		\param accel Accelerator QKeySequence
 		\param parent Parent object of this action
 	*/
-	ScrAction( const QString &menuText, QKeySequence accel, QObject *parent );
+	ScrAction(const QString &menuText, QKeySequence accel, QObject *parent);
 		
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Constructor for an action that may require a specific menu type, such as a DLL menu
 		\param mType menuType, of Normal, RecentFile or DLL
-		\param icon16 Iconset for the action
-		\param icon22 Iconset for the action
+		\param icon16Path path of icon for the action
+		\param icon22Path path of icon for the action
 		\param menuText Text to be in the menus for this action
 		\param accel Accelerator QKeySequence
 		\param parent Parent of this action
@@ -69,19 +71,19 @@ public:
 		\param extraDouble extra double value
 		\param extraQString extra QString value
 	 */
-	ScrAction( ActionType mType, const QPixmap & icon16, const QPixmap & icon22,
-			   const QString &menuText, QKeySequence accel, QObject *parent,
-			   int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
+	ScrAction(ActionType aType, const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
+	ScrAction(ActionType aType, const QPixmap& icon16, const QPixmap& icon22, const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
+	ScrAction(ActionType aType, const QString& icon16Path, const QString& icon22Path, const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Constructor for a normal action. Stores iconset.
-		\param icon Iconset for the action
+		\param icon path of icon for the action
 		\param menuText Text to be in the menus for this action
 		\param accel Accelerator QKeySequence
 		\param parent Parent of this action
 	*/
-	ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject *parent );
+	ScrAction(const QString& icon16Path, const QString& icon22Path, const QString & menuText, QKeySequence accel, QObject *parent);
 	/*!
 	\author Craig Bradney
 	\date Mar 2008
@@ -91,8 +93,8 @@ public:
 	\param extraInt extra int value
 	\param extraQString extra QString value
 	 */
-	ScrAction( QKeySequence accel, QObject *parent, int extraInt, QString extraQString);
-	~ScrAction();
+	ScrAction(QKeySequence accel, QObject *parent, QVariant data = QVariant());
+	~ScrAction() = default;
 	
 	/*!
 		\author Craig Bradney
@@ -109,6 +111,9 @@ public:
 		\retval QString Stripped copy of the menu text
 	*/
 	QString cleanMenuText();
+
+	void setToolTipFromTextAndShortcut();
+	void setStatusTextAndShortcut(const QString& statusText);
 
 	/*!
 		\author Craig Bradney
@@ -132,8 +137,8 @@ public:
 	 *	\brief Connect the internal toggle connections. Fake toggle actions are toggle actions
 	 *         but we connect activated() only, eg itemLock. This means they can be setOn()
 	 *         to the status of an item's bool, eg isLocked(), without toggling anything.
-	 */		
-	void setToggleAction(bool isToggle, bool fakeToggle=false);
+	 */
+	void setToggleAction(bool isToggle, bool m_fakeToggle = false);
 	
 	/*!
 		\author Craig Bradney
@@ -164,36 +169,35 @@ public:
 	void setActionQString(const QString &);
 	
 	/*! \brief Set up text and menuText at the same time */
-	void setTexts(const QString &newText, bool setTextToo = true);
+	void setTexts(const QString &newText);//#9114, qt3-qt4 change of behaviour bug: , bool setTextToo = true);
 	
 public slots:
 	void toggle();
 	
 signals:
+	void triggeredData(QVariant);
 	void triggeredData(int);
 	void triggeredData(double);
 	void triggeredData(QString);
 	void triggeredData(ScribusDoc*);
+	void triggeredData(QWidget*, ScribusDoc*);
 	void toggledData(bool, int);
 	void toggledData(bool, double);
 	void toggledData(bool, QString);
-	void triggeredUnicodeShortcut(const QString&, int);
+	void triggeredUnicodeShortcut(int);
 	
 protected:
+	int m_menuIndex;
+	ActionType m_actionType;
+	QMenu *m_popupMenuAddedTo;
+	QKeySequence m_savedKeySequence;
+	bool m_shortcutSaved;
+	bool m_fakeToggle;
+
+	QString m_iconPath16;
+	QString m_iconPath22;
+
 	void initScrAction();
-	int menuIndex;
-	int pluginID;
-	int windowID;
-	int layerID;
-	int _dataInt;
-	double _dataDouble;
-	QString _dataQString;
-	ActionType _actionType;
-	QMenu *popupMenuAddedTo;
-	QKeySequence savedKeySequence;
-	bool shortcutSaved;
-	bool fakeToggle;
-	
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
@@ -201,9 +205,15 @@ protected:
 		\param index The saved index within the QPopupMenu
 		\param menu The menu we are adding this action to
 	*/
-	void addedTo( int index, QMenu * menu );
+	void addedTo(int index, QMenu* menu);
 				
 private slots:
+	/*!
+		\author Jean Ghali
+		\date Feb 2020
+		\brief Reload action icon following an icon set change for eg.
+	 */
+	void loadIcon();
 	/*!
 		\author Craig Bradney
 		\date Jan 2005

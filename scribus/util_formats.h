@@ -20,15 +20,17 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QStringList>
 #include "scribusapi.h"
+#include "scconfig.h"
 
 bool SCRIBUS_API extensionIndicatesEPS(const QString &ext);
 bool SCRIBUS_API extensionIndicatesEPSorPS(const QString &ext);
 bool SCRIBUS_API extensionIndicatesJPEG(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPDF(const QString &ext);
+bool SCRIBUS_API extensionIndicatesPNG(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPSD(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPattern(const QString &ext);
 bool SCRIBUS_API extensionIndicatesTIFF(const QString &ext);
-QString SCRIBUS_API getImageType(QString filename);
+QString SCRIBUS_API getImageType(const QString& filename);
 
 class SCRIBUS_API FormatsManager
 {
@@ -36,10 +38,14 @@ class SCRIBUS_API FormatsManager
 
 		enum ScImageFormatType
 		{
-			ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192,
-			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512,  // all Types suitable for Image Frames
-			VECTORIMAGES	= 1|64|1024|2048,  // All pure vector image types
-			RASTORIMAGES	= 2|4|8|32|512,  // All pure rastor image types
+            ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192|16384|32768|524288|1048576|2097152|4194304|8388608,
+#ifdef GMAGICK_FOUND
+            IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|32768|65536|1048576|2097152|4194304|8388608,  // all Types suitable for Image Frames
+#else
+            IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|32768|262144|524288|1048576|2097152|4194304|8388608,  // all Types suitable for Image Frames
+#endif
+			VECTORIMAGES	= 1|64|1024|2048|16384|32768|131072|262144|4194304,  // All pure vector image types
+            RASTORIMAGES	= 2|4|8|32|128|256|512|65536|524288|1048576|2097152|8388608,  // All pure rastor image types
 			EPS				= 1,      // Encapsulated PostScript
 			GIF				= 2,      // GIF files
 			JPEG			= 4,      // JPEG
@@ -51,9 +57,21 @@ class SCRIBUS_API FormatsManager
 			TIFF			= 256,    // TIFF
 			XPM				= 512,    // XPM files
 			WMF				= 1024,   // WMF files
-			SVG				= 2048,   // WMF files
+			SVG				= 2048,   // SVG files
 			AI				= 4096,   // Adobe Illustrator files
 			XFIG			= 8192,   // Xfig files
+			CVG				= 16384,  // Calamus Cvg files
+			WPG				= 32768,  // Word Perfect WPG files
+#ifdef GMAGICK_FOUND
+			GMAGICK			= 65536,  // GraphicsMagick
+#endif
+			UNICONV			= 131072, // UniConvertor
+			PCT				= 262144,  // Mac Pict
+			BMP				= 524288,  // BMP
+			PGF				= 1048576, // PGF
+			ORA				= 2097152, // ORA
+            QT				= 4194304, // Qt
+            KRA             = 8388608  // Krita
 		};
 	
 /*
@@ -85,7 +103,7 @@ class SCRIBUS_API FormatsManager
 		};
 */
 		FormatsManager();
-		~FormatsManager();
+		~FormatsManager() = default;
 
 	/**
 		 * @brief Returns a pointer to the FormatsManager instance
@@ -97,21 +115,21 @@ class SCRIBUS_API FormatsManager
 		 * Must be called when FormatsManager is no longer needed.
 	 */
 		static void deleteInstance();
-		void imageFormatSupported(const QString&);
+
 		//! Returns the name of a format, eg "Encapsulated PostScript"
-		QString nameOfFormat(int type);
+		QString nameOfFormat(int type) const;
 		
 		//! Returns the mimetypes of a format, eg "application/postscript"
-		QStringList mimetypeOfFormat(int type);
+		QStringList mimetypeOfFormat(int type) const;
 		
 		//! Returns in the form of "EPS (*.eps *.EPS *.epsf *.EPSF *.epsi *.EPSI)"
-		QString extensionsForFormat(int type);
+		QString extensionsForFormat(int type) const;
 		
 		//! Returns in the form of "*.eps *.epsf *.epsi" or "eps|epsf|epsi"
- 		QString extensionListForFormat(int type, int listType);
+ 		QString extensionListForFormat(int type, int listType) const;
 		
 		//! Returns in the form of "All Supported Formats (*.eps *.EPS *.epsf *.EPSF *.epsi *.EPSI);;EPS (*.eps *.EPS);;EPSI (*.epsf *.EPSF);;EPSI (*.epsi *.EPSI);;All Files (*)"
-		QString fileDialogFormatList(int type);
+		QString fileDialogFormatList(int type) const;
 		
 	protected:
 		QMap<int, QString> m_fmtNames;
@@ -121,8 +139,9 @@ class SCRIBUS_API FormatsManager
 		
 		QList<QByteArray> m_qtSupportedImageFormats;
 		QList<QByteArray> m_supportedImageFormats;
-		void updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats);
-		void fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly=false);
+
+		void updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats) const;
+		void fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly=false) const;
 		
 	private:
 	/**
@@ -131,7 +150,7 @@ class SCRIBUS_API FormatsManager
 	 * FormatsManager is singleton and the instance can be queried with the method
 	 * instance().
 	 */
-	static FormatsManager* _instance;
+	static FormatsManager* m_instance;
 };
 
 #endif

@@ -37,19 +37,24 @@ class ScribusView;
 
 class CanvasMode_FrameLinks :  public CanvasMode
 {
-public:
-	CanvasMode_FrameLinks(ScribusView* view);
+	Q_OBJECT
 
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+public:
+	explicit CanvasMode_FrameLinks(ScribusView* view);
+	~CanvasMode_FrameLinks() override = default;
+
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
 	
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseDoubleClickEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter* p);
+	void activate(bool) override;
+	void deactivate(bool) override;
+	void keyPressEvent(QKeyEvent *e) override;
+	void keyReleaseEvent(QKeyEvent *e) override;
+	void mouseDoubleClickEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void drawControls(QPainter* p) override;
 
 // protected:
 // 	void setResizeCursor(int);
@@ -60,11 +65,10 @@ private:
 	bool SeleItem(QMouseEvent *m);
 	void createContextMenu(PageItem *currItem, double mx, double my);
 
-	int    frameResizeHandle;
-	double Mxp, Myp, Dxp, Dyp;
-	double SeRx, SeRy;
-	ScribusMainWindow* m_ScMW;
-	int    m_oldAppMode;
+	int m_frameResizeHandle {-1};
+	double m_Mxp {-1.0};
+	double m_Myp {-1.0};
+	ScribusMainWindow* m_ScMW {nullptr};
 };
 
 

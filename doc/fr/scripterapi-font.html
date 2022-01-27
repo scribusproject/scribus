@@ -1,0 +1,29 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Commandes relatives aux polices</title>
+</head>
+<body>
+<h2>Commandes relatives aux polices</h2>
+
+<dl>
+
+<dt><a name="-getFontNames"><strong>getFontNames</strong></a>(...)</dt>
+<dd><code>getFontNames() -&gt; liste</code>
+<p>Retourne une liste contenant les noms de toutes les polices disponibles.</p></dd>
+	
+<dt><a name="-getXFontNames"><strong>getXFontNames</strong></a>(...)</dt>
+<dd><code>getXFontNames() -&gt; liste de vecteurs</code>
+<p>Retourne une information détaillée sur la police. C'est une liste de vecteurs contenant : [ (nom Scribus, Famille, nom réel, sous-ensemble (1|0), PS inclus (1|0), fichier de police), (...), ... ]</p></dd>
+	
+<dt><a name="-renderFont"><strong>renderFont</strong></a>(...)</dt>
+<dd><code>renderFont("nom", "nomFichier", "exemple", taille, format="PPM") -&gt; booléen</code>
+<p>Crée un aperçu image de la police "nom" avec le texte "exemple" et la taille "taille". 
+L'image est enregistrée dans "nomFichier". Retourne la valeur True si l'opération réussit. L'argument optionnel "format" spécifie le format de l'image à générer et supporte tout format admis par QPixmap.save(). Les formats courants sont PPM, JPEG, PNG et XPM.</p>
+<p>Peut générer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si la police spécifiée n'est pas trouvée.</p>
+<p>Peut générer ValueError si un "exemple" ou un "nomFichier" vide est passé.</p></dd>
+
+</dl>
+</body>
+</html>
+ 

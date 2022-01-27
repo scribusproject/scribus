@@ -1,0 +1,64 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Working with Layers</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h3>Working with Layers</h3>
+<p>You may know the concept of layers from drawing or image editing software. Layers can be used for many different purposes, for example for separating printable and non-printable items like grids, to create multiple-language versions of a document in a single file or simply to ease editing certain objects without affecting others.</p>
+<p>By default, a new document has only one layer, with the default name &ldquo;Background&rdquo;. Newly added objects will each be at their own Level on this layer, so you may have many <i>levels</i> on one <i>layer</i>. For many documents, only one layer will be necessary, but sometimes it may be desirable to work with more than one layer.</p>
+<p>To add a new layer, open the Layers dialog under <i>Windows > Layers</i> or press F6:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/layers1.png" title="The Layers Dialog" alt="The Layers Dialog" /></td></tr></table><br />
+<p>At first glance, the dialog looks simple, but it&rsquo;s very powerful. At the top you can set a blend mode and layer opacity.</p>
+<p>At the bottom of the dialog we have the basic layer management tools available, from left to right:
+<ul>
+<li>Adding a new layer</li>
+<li>Removing a selected layer</li>
+<li>Duplicating a selected layer, including its content</li>
+<li>Moving a selected layer one level up</li>
+<li>Moving a selected layer one level down</li>
+</ul>
+</p>
+<p>The major part of the dialog is occupied by the layer list, including various layer options. These are, from left to right:
+<ul>
+<li><b>Color of the layer indicator</b>: Each layer has a unique color that helps identifying objects on that layer. You can enable the color indicators for objects via <i>View > Show Layer Indicators</i>. To change this color, simply click on the color for the respective layer in the dialog. This will bring up a color selector, where you can either choose another color or create a new one.</li>
+<li><b>Layer visibility</b>: Here you can set a layer to visible or invisible. Visibility has no impact on printing, so be careful when you use this feature, as it can easily happen that invisible content will appear in your print or an exported PDF, simply because you forgot to disable printing as well.</li>
+<li><b>Layer printability</b>: This option corresponds to the previous, and you&rsquo;re advised to be equally cautious, since a visible layer may be set to not to print or export to PDF.</li>
+<li><b>Layer locking</b>: This option lets you lock all objects on layer, i.e. prevent them from being edited.</li>
+<li><b>Text flow for layer objects</b>: If enabled, this option will force text in frames on lower layers to flow around objects on the selected layer.</li>
+<li><b>Outline mode for layer objects</b>: This option comes in handily if you want to speed up the performance of Scribus, as all objects on a layer are only displayed in a &ldquo;wireframe&rdquo; mode. This is especially useful when a layer contains complex vector graphics.</li>
+<li><b>Layer name</b>: Every layer has a unique name, which is shown here. To change the name of a layer, double-click into the &ldquo;Name&rdquo; field and insert a new one.</li>
+</ul>
+</p>
+<h4>Switching between layers</h4>
+<p>There are two options to switch between layers. The first is to select a layer in the layer dialog, but it is a bit tedious to open a separate dialog each time you want to do nothing more than continue your work on another layer. Fortunately, the Status Bar at the bottom of the Scribus windows has a layer selector. It lists all layers in a document by name and also displays a layer&rsquo;s color.</p>
+<h4>Moving objects between layers</h4>
+<p>If you want to move an object from one layer to another, you can use &ldquo;Send to Layer&rdquo; from the Context Menu or the same command from the <i>Item</i> menu in the menu bar. The command is also available in the Context Menu of objects in the Document Outline.</p>
+<h4>Hints for working with layers</h4>
+<p>
+<ul>
+<li>Layers always exist for the whole document, not per page.</li>
+<li>To select all items on a layer, use <i>Edit > Advanced Select All</i> from the Menu Bar.</li>
+<li>If you’re deleting a layer with objects on it, you will be asked if the objects on it should be removed as well. If you negate, all objects on the deleted layer will be moved to the background layer.</li>
+<li>Scribus document layers must not be confused with layers in PSD files. Both are completely independent.</li>
+<li>Scribus supports layers in Adobe Illustrator (AI) files, but only if an AI file is being <i>opened</i> (<i>File > Open</i>). If you <i>import</i> a layered AI file (<i>File > Import > Get Vector File</i>), all AI layers will be merged into one.</li>
+<li>Layers are also supported in PDF version 1.5 and later, but so far, only Adobe Reader 7 and later versions can display layered PDFs correctly. Scribus can export PDF 1.5 files with layers, but you have to check the option &ldquo;Include Layers&rdquo; in the &ldquo;General&rdquo; tab of the PDF export dialog. Adobe Reader will then read the layer content correctly:</li><br>
+</ul>
+</p>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/layers2.png" title="The Layers Dialog" alt="The Layers Dialog" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><p><i>Layers and their settings in Adobe Reader (left) and Scribus (right)</i></p></div></td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

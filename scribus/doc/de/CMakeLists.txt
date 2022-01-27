@@ -1,7 +1,0 @@
-ADD_SUBDIRECTORY(images)
-#ADD_SUBDIRECTORY(tutorials)
-
-
-#Install our html files
-FILE( GLOB SCRIBUS_DOC_DE_FILES *.html *.xml )
-INSTALL(FILES ${SCRIBUS_DOC_DE_FILES} DESTINATION ${DOCDIR}de)

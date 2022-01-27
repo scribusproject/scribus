@@ -21,50 +21,49 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "prefstable.h"
 
-PrefsTable::PrefsTable(QString tableName)
+PrefsTable::PrefsTable(const QString& tableName)
+          : m_name(tableName)
 {
-	name = tableName;
-	rowCount = 0;
-	colCount = 0;
+
 }
 
-QString PrefsTable::getName()
+QString PrefsTable::getName() const
 {
-	return name;
+	return m_name;
 }
 
-int PrefsTable::height()
+int PrefsTable::height() const
 {
-	return rowCount;
+	return m_rowCount;
 }
 
-int PrefsTable::getRowCount()
+int PrefsTable::getRowCount() const
 {
-	return rowCount;
+	return m_rowCount;
 }
 
-int PrefsTable::width()
+int PrefsTable::width() const
 {
-	return colCount;
+	return m_colCount;
 }
 
-int PrefsTable::getColCount()
+int PrefsTable::getColCount() const
 {
-	return colCount;
+	return m_colCount;
 }
 
 QString PrefsTable::get(int row, int col, const QString& defValue)
 {
 	checkSize(row, col, defValue);
-	if ((*table[row])[col] == "__NOT__SET__")
-		table[row]->insert(table[row]->begin()+col, defValue);
+	if (m_table[row][col] == "__NOT__SET__")
+		m_table[row].insert(m_table[row].begin() + col, defValue);
 
-	return (*table[row])[col];
+	return (m_table[row][col]);
 }
 
 void PrefsTable::set(int row, int col, const char* value)
@@ -80,7 +79,7 @@ void PrefsTable::set(int row, int col, const std::string& value)
 void PrefsTable::set(int row, int col, const QString& value)
 {
 	checkSize(row, col, "__NOT__SET__");
-	table[row]->insert(table[row]->begin()+col, value);
+	m_table[row].insert(m_table[row].begin() + col, value);
 }
 
 int PrefsTable::getInt(int row, int col, int defValue)
@@ -152,7 +151,7 @@ int PrefsTable::find(int searchCol, const QString& what)
 	for (int i = 0; i < height(); ++i)
 	{
 		if ((get(i, searchCol, "__NOT__SET__") == what) &&
-		    (get(i, searchCol, "__NOT__SET__") != "__NOT__SET__"))
+			(get(i, searchCol, "__NOT__SET__") != "__NOT__SET__"))
 		{
 			rowi = i;
 			break;
@@ -167,13 +166,13 @@ void PrefsTable::removeRow(int colIndex, const QString& what)
 	if ((colIndex < 0) || (colIndex >= width()))
 		return;
 
-	Table::iterator it = table.begin();
+	Table::iterator it = m_table.begin();
 	for (int i = 0; i < height(); ++i)
 	{
 		if (get(i, colIndex, "__NOT__SET__") == what)
 		{
-			it = table.erase(it);
-			--rowCount;
+			it = m_table.erase(it);
+			--m_rowCount;
 		}
 		else {
 			++it;
@@ -181,7 +180,7 @@ void PrefsTable::removeRow(int colIndex, const QString& what)
 	}
 }
 
-void PrefsTable::checkSize(int rowIndex, int colIndex, QString defValue)
+void PrefsTable::checkSize(int rowIndex, int colIndex, const QString& defValue)
 {
 	checkHeight(rowIndex);
 	checkWidth(rowIndex, colIndex, defValue);
@@ -189,36 +188,32 @@ void PrefsTable::checkSize(int rowIndex, int colIndex, QString defValue)
 
 void PrefsTable::checkHeight(int rowIndex)
 {
-	if (rowCount < (rowIndex + 1))
+	if (m_rowCount < (rowIndex + 1))
 	{
-		for (int i = 0; i < ((rowIndex + 1) - rowCount); ++i)
-			table.push_back(new QStringList());
-		rowCount = rowIndex + 1;
+		for (int i = 0; i < ((rowIndex + 1) - m_rowCount); ++i)
+			m_table.push_back(QStringList());
+		m_rowCount = rowIndex + 1;
 	}
 }
 
-void PrefsTable::checkWidth(int rowIndex, int colIndex, QString defValue)
+void PrefsTable::checkWidth(int rowIndex, int colIndex, const QString& defValue)
 {
-	if (static_cast<int>(table[rowIndex]->size()) <= (colIndex + 1))
+	if (static_cast<int>(m_table[rowIndex].size()) <= (colIndex + 1))
 	{
-		for (int i = 0; i < ((colIndex + 1) - static_cast<int>(table[rowIndex]->size())); ++i)
+		for (int i = 0; i < ((colIndex + 1) - static_cast<int>(m_table[rowIndex].size())); ++i)
 		{
-			if (i == colIndex - static_cast<int>(table[rowIndex]->size()))
-				table[rowIndex]->push_back(defValue);
+			if (i == colIndex - static_cast<int>(m_table[rowIndex].size()))
+				m_table[rowIndex].push_back(defValue);
 			else
-				table[rowIndex]->push_back("__NOT__SET__");
+				m_table[rowIndex].push_back("__NOT__SET__");
 		}
-		colCount = colIndex + 1;
+		m_colCount = colIndex + 1;
 	}
 }
 
 void PrefsTable::clear()
 {
-	rowCount = 0;
-	colCount = 0;
-	table.clear();
-}
-
-PrefsTable::~PrefsTable()
-{
+	m_rowCount = 0;
+	m_colCount = 0;
+	m_table.clear();
 }

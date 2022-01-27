@@ -1,0 +1,30 @@
+//verb, what, description, return, parameters
+#file, page
+apply, MasterPage, "", void, void
+close, MasterPage, "", void, void
+copy, MasterPage, "", void, void
+copy, Page, "", void, void
+create, MasterPage, "", void, void
+create, Page, "Create a new page. If where is -1 the new page is appended to the document. Otherwise the new page is inserted before where. Page numbers are counted from 1 upwards no matter what the displayed first page number of your document is. The optional parameter masterpage specifies the name of the master page for the new page", bool, int where, string name
+delete, MasterPage, "", void, void
+delete, Page, "Deletes the given page. Does nothing if the document contains only one page. Page numbers are counted from 1 upwards, no matter what the displayed first page number is.", bool, int pageNumber
+edit, MasterPage, "", void, void
+get, CurrentPage, "Returns the number of the current working page. Page numbers are counted from 1 upwards, no matter what the displayed first page number of your document is.", int, void
+get, MasterPage, "", void, void
+get, MasterPageNames, "", void, void
+get, PageDimension, "Get the dimensions of a named page", tuple, string name
+get, PageItems, "Returns the page margins as a (top left right bottom) tuple in the document's current units. See UNIT_<type> constants and getPageSize()", tuple, int pageNumber
+get, PageMargins, "", void, void
+get, PageNMargins, "", void, void
+get, PageNSize, "", void, void
+get, PageSize, "Returns a tuple with page dimensions measured in the document's current units. See UNIT_<type> constants and getPageMargins()", tuple, void
+get, PageType, "Returns the type of the page: 0 means left page. 1 is a middle page and 2 is a right page", int, int pageNumber
+goto, Page, "", void, void
+import, Page, "", void, string fromDoc, tuple pageList, int create, int importWhere, int importWherePage
+save, PageAs, "", void, void
+save, PageAsEPS, "Saves the current page as an EPS to the file name", bool, string name
+get, PageHorizontalGuides, "", void, void
+get, PageVerticalGuides, "", void, void
+set, PageHorizontalGuides, "", void, void
+set, PageVerticalGuides, "", void, void
+

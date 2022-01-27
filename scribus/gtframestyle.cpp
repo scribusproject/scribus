@@ -21,23 +21,24 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "gtframestyle.h"
 #include "scribusstructs.h"
 
-gtFrameStyle::gtFrameStyle(QString name) : gtParagraphStyle(name) 
+gtFrameStyle::gtFrameStyle(const QString& name) :
+	gtParagraphStyle(name)
 {
 	init();
 }
 
 gtFrameStyle::gtFrameStyle(const gtFrameStyle& f) : gtParagraphStyle(f)
 {
-	columns    = f.columns;
-	columnsGap = f.columnsGap;
-	bgColor    = f.bgColor;
-	bgShade    = f.bgShade;
+	m_columns    = f.m_columns;
+	m_columnsGap = f.m_columnsGap;
+	m_bgColor    = f.m_bgColor;
+	m_bgShade    = f.m_bgShade;
 }
 
 gtFrameStyle::gtFrameStyle(const gtParagraphStyle& p) : gtParagraphStyle(p)
@@ -52,53 +53,53 @@ gtFrameStyle::gtFrameStyle(const gtStyle& s) : gtParagraphStyle(s)
 
 void gtFrameStyle::init()
 {
-	columns    = 1;
-	columnsGap = 0;
-	bgColor    = "White";
-	bgShade    = 100;
+	m_columns    = 1;
+	m_columnsGap = 0;
+	m_bgColor    = "White";
+	m_bgShade    = 100;
 }
 
-int gtFrameStyle::getColumns()
+int gtFrameStyle::getColumns() const
 {
-	return columns;
+	return m_columns;
 }
 
 void gtFrameStyle::setColumns(int newColumns)
 {
-	columns = newColumns;
+	m_columns = newColumns;
 }
 
-double gtFrameStyle::getColumnsGap()
+double gtFrameStyle::getColumnsGap() const
 {
-	return columnsGap;
+	return m_columnsGap;
 }
 
 void gtFrameStyle::setColumnsGap(double newColumnsGap)
 {
-	columnsGap = newColumnsGap;
+	m_columnsGap = newColumnsGap;
 }
 
-QString gtFrameStyle::getBgColor()
+QString gtFrameStyle::getBgColor() const
 {
-	return bgColor;
+	return m_bgColor;
 }
 
-void gtFrameStyle::setBgColor(QString newBgColor)
+void gtFrameStyle::setBgColor(const QString& newBgColor)
 {
-	bgColor = newBgColor;
+	m_bgColor = newBgColor;
 }
 
-int gtFrameStyle::getBgShade()
+int gtFrameStyle::getBgShade() const
 {
-	return bgShade;
+	return m_bgShade;
 }
 
 void gtFrameStyle::setBgShade(int newBgShade)
 {
-	bgShade = newBgShade;
+	m_bgShade = newBgShade;
 }
 
-QString gtFrameStyle::target()
+QString gtFrameStyle::target() const
 {
 	return QString("frame");
 }
@@ -106,9 +107,4 @@ QString gtFrameStyle::target()
 void gtFrameStyle::getParagraphStyle(gtParagraphStyle* pstyle)
 {
 	*pstyle = gtParagraphStyle(*this);
-}
-
-gtFrameStyle::~gtFrameStyle()
-{
-
 }

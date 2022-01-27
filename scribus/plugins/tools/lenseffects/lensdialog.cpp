@@ -21,16 +21,24 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License     *
 *   along with this program; if not, write to the                         *
 *   Free Software Foundation, Inc.,                                       *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
 ***************************************************************************/
 
 #include "lensdialog.h"
+
+#include <cmath>
+
+#include <QGraphicsSceneHoverEvent>
+#include <QGraphicsSceneMouseEvent>
 #include <QRadialGradient>
-#include "util_icon.h"
-#include "selection.h"
+#include <QStyleOptionGraphicsItem>
+
+#include "commonstrings.h"
+#include "iconmanager.h"
+#include "pageitem_group.h"
 #include "sccolorengine.h"
 #include "scpattern.h"
-#include "commonstrings.h"
+#include "selection.h"
 
 LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsRectItem(geom)
 {
@@ -43,34 +51,31 @@ LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsRectItem(geom)
 	radialGrad.setColorAt(0.0, QColor(255, 0, 0, 127));
 	radialGrad.setColorAt(0.1, QColor(255, 0, 0, 127));
 	radialGrad.setColorAt(1.0, QColor(255, 255, 255, 0));
-#if QT_VERSION  >= 0x040301
 	radialGrad.setCoordinateMode(QGradient::ObjectBoundingMode);
-#endif
 	setBrush(radialGrad);
 	setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-	setAcceptsHoverEvents(true);
+	acceptHoverEvents();
+
 }
 
-void LensItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void LensItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget)
 {
 	Q_UNUSED(widget);
-	painter->setPen(QPen(Qt::black, 1.0 / option->levelOfDetail));
+	painter->setPen(QPen(Qt::black, 1.0 / item->levelOfDetail));
 	QRadialGradient radialGrad(QPointF(0.5, 0.5), 1.0);
 	radialGrad.setColorAt(0.0, QColor(255, 0, 0, 127));
 	radialGrad.setColorAt(0.1, QColor(255, 0, 0, 127));
 	radialGrad.setColorAt(1.0, QColor(255, 255, 255, 0));
-#if QT_VERSION  >= 0x040301
 	radialGrad.setCoordinateMode(QGradient::ObjectBoundingMode);
-#endif
 	painter->setBrush(radialGrad);
 	painter->drawEllipse(rect().toRect());
-	if (option->state & QStyle::State_Selected)
+	if (item->state & QStyle::State_Selected)
 	{
-		scaling = option->levelOfDetail;
-		double siz = 6.0 / option->levelOfDetail;
+		scaling = item->levelOfDetail;
+		double siz = 6.0 / item->levelOfDetail;
 		QRectF br = boundingRect();
 		painter->setBrush(Qt::NoBrush);
-		painter->setPen(QPen(Qt::red, 1.0 / option->levelOfDetail, Qt::DotLine));
+		painter->setPen(QPen(Qt::red, 1.0 / item->levelOfDetail, Qt::DotLine));
 		painter->drawRect(br);
 		painter->setBrush(Qt::red);
 		painter->setPen(Qt::NoPen);
@@ -248,21 +253,39 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 	setupUi(this);
 	buttonRemove->setEnabled(false);
 	setModal(true);
-	buttonZoomOut->setIcon(QIcon(loadIcon("16/zoom-out.png")));
-	buttonZoomI->setIcon(QIcon(loadIcon("16/zoom-in.png")));
+	buttonZoomOut->setIcon(QIcon(IconManager::instance().loadIcon("16/zoom-out.png")));
+	buttonZoomI->setIcon(QIcon(IconManager::instance().loadIcon("16/zoom-in.png")));
+	addItemsToScene(doc->m_Selection, doc, nullptr, nullptr);
+	previewWidget->setRenderHint(QPainter::Antialiasing);
+	previewWidget->setScene(&scene);
+	isFirst = true;
+	addLens();
+	connect(spinXPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensX(double)));
+	connect(spinYPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensY(double)));
+	connect(spinRadius, SIGNAL(valueChanged(double)), this, SLOT(setNewLensRadius(double)));
+	connect(spinStrength, SIGNAL(valueChanged(double)), this, SLOT(setNewLensStrength(double)));
+	connect(buttonAdd, SIGNAL(clicked()), this, SLOT(addLens()));
+	connect(buttonRemove, SIGNAL(clicked()), this, SLOT(removeLens()));
+	connect(buttonMagnify, SIGNAL(toggled(bool)), this, SLOT(changeLens()));
+	connect(buttonZoomI, SIGNAL(clicked()), this, SLOT(doZoomIn()));
+	connect(buttonZoomOut, SIGNAL(clicked()), this, SLOT(doZoomOut()));
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	connect(&scene, SIGNAL(selectionChanged()), this, SLOT(selectionHasChanged()));
+}
 
+void LensDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGraphicsPathItem* parentItem, PageItem* parent)
+{
 	PageItem *currItem;
 	double gx, gy, gh, gw;
-	doc->m_Selection->setGroupRect();
-	doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-	uint selectedItemCount = doc->m_Selection->count();
-	QStack<PageItem*> groupStack;
-	QStack<QGraphicsPathItem*> groupStack2;
-	QStack<PageItem*> groupStack3;
-	groupStack2.push(0);
+	itemSelection->setGroupRect();
+	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
+	uint selectedItemCount = itemSelection->count();
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = doc->m_Selection->itemAt(i);
+		currItem = itemSelection->itemAt(i);
+		if (currItem->isGroup())
+			currItem->asGroupFrame()->adjustXYPosition();
 		FPointArray path = currItem->PoLine;
 		QPainterPath pp;
 		if (currItem->itemType() == PageItem::PolyLine)
@@ -270,30 +293,30 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 		else
 			pp = path.toQPainterPath(true);
 		origPath.append(pp);
-		QGraphicsPathItem* pItem = new QGraphicsPathItem(pp, groupStack2.top());
-		if (groupStack2.top() == 0)
+		QGraphicsPathItem* pItem = new QGraphicsPathItem(pp, parentItem);
+		if (parentItem == nullptr)
 		{
 			scene.addItem(pItem);
 			pItem->setPos(currItem->xPos() - gx, currItem->yPos() - gy);
-			pItem->rotate(currItem->rotation());
+			pItem->setRotation(currItem->rotation());
 		}
 		else
 		{
-			PageItem* parent = groupStack3.top();
-			QMatrix mm;
+			QTransform mm;
 			mm.rotate(-parent->rotation());
 			mm.translate(-parent->xPos(), -parent->yPos());
 			pItem->setPos(mm.map(QPointF(currItem->xPos(), currItem->yPos())));
 		}
 		pItem->setZValue(i);
 		origPathItem.append(pItem);
-		if (((currItem->fillColor() == CommonStrings::None) && (currItem->GrType == 0)) || (currItem->controlsGroup()))
+		origPageItem.append(currItem);
+		if (((currItem->fillColor() == CommonStrings::None) && (currItem->GrType == 0)) || (currItem->isGroup()))
 			pItem->setBrush(Qt::NoBrush);
 		else
 		{
 			if (currItem->GrType != 0)
 			{
-				if (currItem->GrType != 8)
+				if (currItem->GrType != Gradient_Pattern)
 				{
 					QGradient pat;
 					double x1 = currItem->GrStartX;
@@ -316,7 +339,7 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 					}
 					QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
 					QColor qStopColor;
-					for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+					for (int offset = 0 ; offset < colorStops.count() ; offset++)
 					{
 						qStopColor = colorStops[ offset ]->color;
 						int h, s, v, sneu, vneu;
@@ -330,17 +353,24 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 					}
 					pItem->setBrush(pat);
 				}
-				else if ((currItem->GrType == 8) && (!currItem->pattern().isEmpty()) && (doc->docPatterns.contains(currItem->pattern())))
+				else if ((currItem->GrType == Gradient_Pattern) && (!currItem->pattern().isEmpty()) && (doc->docPatterns.contains(currItem->pattern())))
 				{
-					double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-					currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
-					QMatrix qmatrix;
+					double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+					currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+					QTransform qmatrix;
 					qmatrix.translate(patternOffsetX, patternOffsetY);
 					qmatrix.rotate(patternRotation);
+					qmatrix.shear(patternSkewX, patternSkewY);
 					qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
+					bool mirrorX, mirrorY;
+					currItem->patternFlip(mirrorX, mirrorY);
+					if (mirrorX)
+						qmatrix.scale(-1, 1);
+					if (mirrorY)
+						qmatrix.scale(1, -1);
 					QImage pat = *doc->docPatterns[currItem->pattern()].getPattern();
 					QBrush brush = QBrush(pat);
-					brush.setMatrix(qmatrix);
+					brush.setTransform(qmatrix);
 					pItem->setBrush(brush);
 				}
 			}
@@ -351,50 +381,86 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 				pItem->setBrush(paint);
 			}
 		}
-		if ((currItem->lineColor() == CommonStrings::None) || (currItem->controlsGroup()))
+		if (currItem->isGroup())
 			pItem->setPen(Qt::NoPen);
+		else if (currItem->NamedLStyle.isEmpty())
+		{
+			if ((!currItem->strokePattern().isEmpty()) && (doc->docPatterns.contains(currItem->strokePattern())))
+			{
+				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
+				currItem->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
+				QTransform qmatrix;
+				qmatrix.translate(-currItem->lineWidth() / 2.0, -currItem->lineWidth() / 2.0);
+				qmatrix.translate(patternOffsetX, patternOffsetY);
+				qmatrix.rotate(patternRotation);
+				qmatrix.shear(patternSkewX, patternSkewY);
+				qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
+				bool mirrorX, mirrorY;
+				currItem->strokePatternFlip(mirrorX, mirrorY);
+				if (mirrorX)
+					qmatrix.scale(-1, 1);
+				if (mirrorY)
+					qmatrix.scale(1, -1);
+				QImage pat = *doc->docPatterns[currItem->strokePattern()].getPattern();
+				QBrush brush = QBrush(pat);
+				brush.setTransform(qmatrix);
+				pItem->setPen(QPen(brush, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+			}
+			else if (currItem->GrTypeStroke > 0)
+			{
+				QGradient pat;
+				double x1 = currItem->GrStrokeStartX;
+				double y1 = currItem->GrStrokeStartY;
+				double x2 = currItem->GrStrokeEndX;
+				double y2 = currItem->GrStrokeEndY;
+				if (currItem->GrTypeStroke == Gradient_Linear)
+					pat = QLinearGradient(x1, y1,  x2, y2);
+				else
+					pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
+				QList<VColorStop*> colorStops = currItem->stroke_gradient.colorStops();
+				QColor qStopColor;
+				for (int offset = 0 ; offset < colorStops.count() ; offset++)
+				{
+					qStopColor = colorStops[ offset ]->color;
+					int h, s, v, sneu, vneu;
+					int shad = colorStops[offset]->shade;
+					qStopColor.getHsv(&h, &s, &v);
+					sneu = s * shad / 100;
+					vneu = 255 - ((255 - v) * shad / 100);
+					qStopColor.setHsv(h, sneu, vneu);
+					qStopColor.setAlphaF(colorStops[offset]->opacity);
+					pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+				}
+				pItem->setPen(QPen(pat, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+			}
+			else if (currItem->lineColor() != CommonStrings::None)
+			{
+				QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade());
+				paint.setAlphaF(1.0 - currItem->lineTransparency());
+				pItem->setPen(QPen(paint, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+			}
+		}
 		else
 		{
-			QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade());
-			paint.setAlphaF(1.0 - currItem->lineTransparency());
-			pItem->setPen(QPen(paint, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
-		}
-		if (currItem->controlsGroup())
-		{
-			groupStack.push(currItem->groupsLastItem);
-			groupStack2.push(pItem);
-			groupStack3.push(currItem);
-			pItem->setFlags(QGraphicsItem::ItemClipsChildrenToShape);
-		}
-		if (groupStack.count() != 0)
-		{
-			while (currItem == groupStack.top())
+			if (currItem->lineColor() != CommonStrings::None)
 			{
-				groupStack3.pop();
-				groupStack2.pop();
-				groupStack.pop();
-				if (groupStack.count() == 0)
-					break;
+				QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade());
+				paint.setAlphaF(1.0 - currItem->lineTransparency());
+				pItem->setPen(QPen(paint, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
 			}
+		}
+		if (currItem->isGroup())
+		{
+			pItem->setFlags(QGraphicsItem::ItemClipsChildrenToShape);
+			Selection tmpSelection(this, false);
+			for (int a = 0; a < currItem->groupItemList.count(); a++)
+			{
+				tmpSelection.addItem(currItem->groupItemList.at(a));
+			}
+			addItemsToScene(&tmpSelection, doc, pItem, currItem);
 		}
 	}
 
-	previewWidget->setRenderHint(QPainter::Antialiasing);
-	previewWidget->setScene(&scene);
-	isFirst = true;
-	addLens();
-	connect(spinXPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensX(double)));
-	connect(spinYPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensY(double)));
-	connect(spinRadius, SIGNAL(valueChanged(double)), this, SLOT(setNewLensRadius(double)));
-	connect(spinStrength, SIGNAL(valueChanged(double)), this, SLOT(setNewLensStrength(double)));
-	connect(buttonAdd, SIGNAL(clicked()), this, SLOT(addLens()));
-	connect(buttonRemove, SIGNAL(clicked()), this, SLOT(removeLens()));
-	connect(buttonMagnify, SIGNAL(toggled(bool)), this, SLOT(changeLens()));
-	connect(buttonZoomI, SIGNAL(clicked()), this, SLOT(doZoomIn()));
-	connect(buttonZoomOut, SIGNAL(clicked()), this, SLOT(doZoomOut()));
-	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-	connect(&scene, SIGNAL(selectionChanged()), this, SLOT(selectionHasChanged()));
 }
 
 void LensDialog::showEvent(QShowEvent *e)

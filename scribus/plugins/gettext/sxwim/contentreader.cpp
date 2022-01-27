@@ -21,56 +21,38 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "contentreader.h"
+#include "gtparagraphstyle.h"
 
 #ifdef HAVE_XML
 
-#include <scribusstructs.h>
+#include "scribusstructs.h"
 #include <QByteArray>
 
-ContentReader* ContentReader::creader = NULL;
+ContentReader* ContentReader::creader = nullptr;
 
 extern xmlSAXHandlerPtr cSAXHandler;
 
-ContentReader::ContentReader(QString documentName, StyleReader *s, gtWriter *w, bool textOnly)
+ContentReader::ContentReader(const QString& documentName, StyleReader *s, gtWriter *w, bool textOnly)
 {
 	creader = this;
 	docname = documentName;
 	sreader = s;
 	writer  = w;
 	importTextOnly = textOnly;
-	defaultStyle = NULL;
-	currentStyle = NULL;
-	inList = false;
-	inNote = false;
-	inNoteBody = false;
-	isOrdered = false;
-	inSpan = false;
-	append    = 0;
-	listIndex = 0;
-	listLevel = 0;
-	currentList = "";
-	inT = false;
-	tName = "";
 }
 
-bool ContentReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs) 
+bool ContentReader::startElement(const QString &name, const SXWAttributesMap &attrs) 
 {
 	if ((name == "text:p") || (name == "text:h"))
 	{
 		++append;
-		QString name = "";
-		for (int i = 0; i < attrs.count(); ++i)
-		{
-			if (attrs.localName(i) == "text:style-name")
-			{
-				name = attrs.value(i);
-				styleNames.push_back(attrs.value(i));
-			}
-		}
+		QString name = attrs.value("text:style-name");
+		if (!name.isEmpty())
+			styleNames.push_back(name);
 		if (!inList)
 		{
 			pstyle = sreader->getStyle(name);
@@ -88,15 +70,11 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 	else if (name == "text:span")
 	{
 		inSpan = true;
-		QString styleName = "";
-		for (int i = 0; i < attrs.count(); ++i)
+		QString styleName = attrs.value("text:style-name");
+		if (!styleName.isEmpty())
 		{
-			if (attrs.localName(i) == "text:style-name")
-			{
-				currentStyle = sreader->getStyle(attrs.value(i));
-				styleName = attrs.value(i);
-				styleNames.push_back(styleName);
-			}
+			currentStyle = sreader->getStyle(styleName);
+			styleNames.push_back(styleName);
 		}
 		gtStyle *tmp = sreader->getStyle(getName());
 		if ((tmp->getName()).indexOf("default-style") != -1)
@@ -110,28 +88,24 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 		++listLevel;
 		if (static_cast<int>(listIndex2.size()) < listLevel)
 			listIndex2.push_back(0);
-		for (int i = 0; i < attrs.count(); ++i)
-		{
-			if (attrs.localName(i) == "text:style-name")
-				currentList = attrs.value(i);
-		}
+		QString styleName = attrs.value("text:style-name");
+		if (!styleName.isEmpty())
+			currentList = styleName;
 		currentStyle = sreader->getStyle(QString(currentList + "_%1").arg(listLevel));
 		styleNames.clear();
 		styleNames.push_back(QString(currentList + "_%1").arg(listLevel));
 		if (name == "text:ordered-list")
-		{
-			isOrdered = true;
 			isOrdered2.push_back(true);
-		}
 		else
-		{
-			isOrdered = false;
 			isOrdered2.push_back(false);
-		}
 	}
 	else if (name == "text:list-item")
 	{
-		if (isOrdered2[listLevel - 1])
+		bool isOrdered = false;
+		int levelIndex = listLevel - 1;
+		if (levelIndex >= 0 && levelIndex < static_cast<int>(isOrdered2.size()))
+			isOrdered = isOrdered2[listLevel - 1];
+		if (isOrdered)
 		{
 			++listIndex;
 			++listIndex2[listLevel - 1];
@@ -151,11 +125,12 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 	{
 		QString sname = "";
 		bool isTextStyle = false;
-		for (int i = 0; i < attrs.count(); ++i)
+		for (auto attr = attrs.cbegin(); attr != attrs.cend(); ++attr)
 		{
-			if (attrs.localName(i) == "style:name")
-				sname = attrs.value(i);
-			else if ((attrs.localName(i) == "style:family") && (attrs.value(i) == "text"))
+			QString attrName = attr.key();
+			if (attrName == "style:name")
+				sname = attr.value();
+			else if ((attrName == "style:family") && (attr.value() == "text"))
 				isTextStyle = true;
 		}
 		if (isTextStyle)
@@ -167,9 +142,9 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 	else if ((name == "style:properties") && (inT))
 	{
 		Properties p;
-		for (int i = 0; i < attrs.count(); ++i)
+		for (auto attr = attrs.cbegin(); attr != attrs.cend(); ++attr)
 		{
-			std::pair<QString, QString> pair(attrs.localName(i), attrs.value(i));
+			std::pair<QString, QString> pair(attr.key(), attr.value());
 			p.push_back(pair);
 		}
 		tmap[tName] = p;
@@ -177,15 +152,13 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 	else if (name == "text:s")
 	{
 		int count = 1;
-		for (int i = 0; i < attrs.count(); ++i)
+		QString textC = attrs.value("text:c");
+		if (!textC.isEmpty())
 		{
-			if (attrs.localName(i) == "text:c")
-			{
-				bool ok = false;
-				int tmpcount = (attrs.value(i)).toInt(&ok);
-				if (ok)
-					count = tmpcount;
-			}
+			bool ok = false;
+			int tmpcount = textC.toInt(&ok);
+			if (ok)
+				count = tmpcount;
 		}
 		for (int i = 0; i < count; ++i)
 			write(" ");
@@ -205,7 +178,7 @@ bool ContentReader::characters(const QString &ch)
 	return true;
 }
 
-bool ContentReader::endElement(const QString&, const QString&, const QString &name)
+bool ContentReader::endElement(const QString &name)
 {
 	if ((name == "text:p") || (name == "text:h"))
 	{
@@ -213,7 +186,7 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 		--append;
 		if (inList || inNote || inNoteBody)
 		{
-			if (styleNames.size() != 0)
+			if (!styleNames.empty())
 				styleNames.pop_back();
 		}
 		else
@@ -223,7 +196,7 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 	{
 		inSpan = false;
 		currentStyle = pstyle;
-		if (styleNames.size() != 0)
+		if (!styleNames.empty())
 			styleNames.pop_back();	
 		currentStyle = sreader->getStyle(getName());
 	}
@@ -272,11 +245,11 @@ void ContentReader::write(const QString& text)
 	lastStyle = currentStyle;
 }
 
-void ContentReader::parse(QString fileName)
+void ContentReader::parse(const QString& fileName)
 {
 	sreader->parse(fileName);
 #if defined(_WIN32)
-	QString fname = QDir::convertSeparators(fileName);
+	QString fname = QDir::toNativeSeparators(fileName);
 	QByteArray fn = (QSysInfo::WindowsVersion & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
 #else
 	QByteArray fn(fileName.toLocal8Bit());
@@ -285,40 +258,40 @@ void ContentReader::parse(QString fileName)
 }
 
 xmlSAXHandler cSAXHandlerStruct = {
-	NULL, // internalSubset,
-	NULL, // isStandalone,
-	NULL, // hasInternalSubset,
-	NULL, // hasExternalSubset,
-	NULL, // resolveEntity,
-	NULL, // getEntity,
-	NULL, // entityDecl,
-	NULL, // notationDecl,
-	NULL, // attributeDecl,
-	NULL, // elementDecl,
-	NULL, // unparsedEntityDecl,
-	NULL, // setDocumentLocator,
-	NULL, // startDocument,
-	NULL, // endDocument,
+	nullptr, // internalSubset,
+	nullptr, // isStandalone,
+	nullptr, // hasInternalSubset,
+	nullptr, // hasExternalSubset,
+	nullptr, // resolveEntity,
+	nullptr, // getEntity,
+	nullptr, // entityDecl,
+	nullptr, // notationDecl,
+	nullptr, // attributeDecl,
+	nullptr, // elementDecl,
+	nullptr, // unparsedEntityDecl,
+	nullptr, // setDocumentLocator,
+	nullptr, // startDocument,
+	nullptr, // endDocument,
 	ContentReader::startElement,
 	ContentReader::endElement,
-	NULL, // reference,
+	nullptr, // reference,
 	ContentReader::characters,
-	NULL, // ignorableWhitespace,
-	NULL, // processingInstruction,
-	NULL, // comment,
-	NULL, // warning,
-	NULL, // error,
-	NULL, // fatalError,
-	NULL, // getParameterEntity,
-	NULL, // cdata,
-	NULL,
+	nullptr, // ignorableWhitespace,
+	nullptr, // processingInstruction,
+	nullptr, // comment,
+	nullptr, // warning,
+	nullptr, // error,
+	nullptr, // fatalError,
+	nullptr, // getParameterEntity,
+	nullptr, // cdata,
+	nullptr,
 	1
 #ifdef HAVE_XML26
 	,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr
 #endif
 };
 
@@ -327,13 +300,14 @@ xmlSAXHandlerPtr cSAXHandler = &cSAXHandlerStruct;
 void ContentReader::startElement(void*, const xmlChar *fullname, const xmlChar ** atts)
 {
 	QString name(QString((const char*) fullname).toLower());
-	QXmlAttributes attrs;
-	if (atts)
+	SXWAttributesMap attrs;
+	for (const xmlChar** cur = atts; cur && *cur; cur += 2)
 	{
-		for(const xmlChar** cur = atts; cur && *cur; cur += 2)
-			attrs.append(QString((char*)*cur), NULL, QString((char*)*cur), QString((char*)*(cur + 1)));
+		QString attrName((char*)*cur);
+		QString attrValue((char*)*(cur + 1));
+		attrs[attrName] = attrValue;
 	}
-	creader->startElement(NULL, NULL, name, attrs);
+	creader->startElement(name, attrs);
 }
 
 void ContentReader::characters(void*, const xmlChar *ch, int len)
@@ -345,7 +319,7 @@ void ContentReader::characters(void*, const xmlChar *ch, int len)
 void ContentReader::endElement(void*, const xmlChar *name)
 {
 	QString nname(QString((const char*) name).toLower());
-	creader->endElement(NULL, NULL, nname);
+	creader->endElement(nname);
 }
 
 QString ContentReader::getName()
@@ -358,12 +332,13 @@ QString ContentReader::getName()
 
 void ContentReader::getStyle()
 {
-	gtStyle *style = NULL, *tmp = NULL;
-	if (styleNames.size() == 0)
+	gtStyle *style = nullptr;
+	gtStyle *tmp = nullptr;
+	if (styleNames.empty())
 		style = sreader->getStyle("default-style");
 	else
 		style = sreader->getStyle(styleNames[0]);
-	assert (style != NULL);
+	assert (style != nullptr);
 	gtParagraphStyle* par = dynamic_cast<gtParagraphStyle*>(style);
 	if (par)
 		tmp = new gtParagraphStyle(*par);
@@ -381,7 +356,7 @@ void ContentReader::getStyle()
 
 ContentReader::~ContentReader()
 {
-	creader = NULL;
+	creader = nullptr;
 	delete defaultStyle;
 }
 

@@ -19,35 +19,25 @@ for which a new license (GPL+exception) is in place.
 
 class SCRIBUS_API UrlLauncher : public QObject
 {
-	Q_OBJECT;
-	
+	Q_OBJECT
+
 	public:
-		UrlLauncher();
-		~UrlLauncher();
+		UrlLauncher(UrlLauncher const&) = delete;
+		void operator=(UrlLauncher const&) = delete;
 
 		/**
-		 * @brief Returns a pointer to the UrlLauncher instance
-		 * @return A pointer to the UrlLauncher instance
+		 * @brief Returns a reference to the UrlLauncher instance
+		 * @return A reference to the UrlLauncher instance
 		 */
-		static UrlLauncher* instance();
-		/**
-		 * @brief Deletes the UrlLauncher Instance
-		 * Must be called when UrlLauncher is no longer needed.
-		 */
-		static void deleteInstance();
-		
+		static UrlLauncher& instance();
+
 	public slots:
-		void launchUrlExt(const QString& link, QWidget *parent=0);
-		void launchUrlExt(const QUrl& link, QWidget *parent=0);
+		void launchUrlExt(const QString& link, QWidget *parent = nullptr);
+		void launchUrlExt(const QUrl& link, QWidget *parent = nullptr);
 
 	private:
-		/**
-		* @brief The only instance of UrlLauncher available.
-		*
-		* UrlLauncher is singleton and the instance can be queried with the method
-		* instance().
-		*/
-	static UrlLauncher* _instance;
+		UrlLauncher() = default;
+		~UrlLauncher() = default;
 };
 
 #endif

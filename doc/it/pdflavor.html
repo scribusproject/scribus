@@ -1,0 +1,45 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Varianti del formato PDF</title>
+</head>
+<body>
+<h2>Varianti del formato PDF</h2>
+
+<p>Se si considerano il numero delle &ldquo;varianti&rdquo; del formato PDF e le sue basi tecniche, si pu&ograve; essere tentati di definire il PDF come null'altro che un nome che accomuna un certo numero di diversi formati di file, tutti derivati da un altro formato detto PostScript. Qui non possiamo fornire una descrizione tecnica completa delle varie specifiche PDF e dei loro rapporti con il PostScript, ma alcune osservazioni possono essere d'aiuto per orientarvi nella giungla di versioni e varianti.</p>
+
+<h3>Il PDF e il PostScript</h3>
+<p>&Egrave; vero che il PDF &egrave; basato sul <a href="importhints1.html">PostScript</a>, ma bisogna precisare che il PDF, a differenza del PostScript, non &egrave; un linguaggio di programmazione. Il PDF e il PostScript descrivono le pagine e il loro contenuto servendosi della stessa tecnologia (detta &ldquo;Adobe imaging model&rdquo;), quindi la conversione del contenuto <i>visuale</i> tra i due formati funziona perfettamente. Tuttavia, le specifiche tecniche del PDF aggiungono altri livelli di contenuto che vanno oltre la mera rappresentazione di dati grafici su una pagina, come la possibilit&agrave; di introdurre elementi interattivi o di utilizzare script, che non sono presenti nel PostScript.</p>
+
+<h3>Che differenze vi sono tra le versioni PDF dalla 1.0 alla 1.7?</h3>
+
+<p>La risposta a questa domanda porta a molte altre domande, ma la cosa pi&ugrave; importante che dovete sapere &egrave; che una versione superiore non &egrave; necessariamente &ldquo;migliore&rdquo;, e che in certi casi pu&ograve; anche causare dei problemi.</p>
+<p>Ciascuna versione del formato PDF corrisponde a una nuova versione principale di Adobe Acrobat. Eccone una breve panoramica:</p>
+<ul>
+<li><b>PDF 1.0:</b> Acrobat 1.0. Obsoleto. Non gestito da Scribus.</li>
+<li><b>PDF 1.1:</b> Acrobat 2.0. Obsoleto. Non gestito da Scribus.</li>
+<li><b>PDF 1.2:</b> Acrobat 3.0. Obsoleto. Non gestito da Scribus.</li>
+<li><b>PDF 1.3:</b> Acrobat 4.0. La prima versione del PDF veramente dotata di tutte le caratteristiche necessarie per creare file &ldquo;pronti per la stampa&rdquo;, tra cui la gestione del colore, i profili ICC ecc. Inoltre comprende l'utilizzo di JavaScript, e capacit&agrave; interattive e multimediali. Questo standard &egrave; probabilmente il pi&ugrave; sicuro da utilizzare se non siete sicuri delle possibilit&agrave; del destinatario del file. Il PDF/X-3 e alcuni servizi di stampa commerciale sono basati sul PDF 1.3.</li>
+<li><b>PDF 1.4:</b> Acrobat 5.0. La principale differenza rilevante per gli utenti di Scribus &egrave; la capacit&agrave; di utilizzare la trasparenza e la trasparenza alfa. Questa differenza &egrave; importante, perch&eacute; un documento PDF con queste caratteristiche non pu&ograve; essere stampato ovunque. Per ottenere risultati corretti &egrave; necessario utilizzare un moderno RIP (&ldquo;raster image processor&rdquo;) commerciale, oppure certe stampanti PostScript livello 3. Inoltre, non tutte le stampanti PostScript livello 3 sono in grado di gestire la trasparenza. Le versioni pi&ugrave; recenti di Ghostscript sono in grado di gestire le caratteristiche avanzate del PDF 1.4 che Scribus pu&ograve; creare quando esporta in PDF. <i>Nota: spesso, il solo modo di stampare le caratteristiche di trasparenza visibili a schermo consiste nell'esportare in PDF 1.4 e stampare da Adobe Reader 5.x o successivo.</i></li>
+<li><b>PDF 1.5:</b> Acrobat 6.0. Miglioramenti alla gestione dei caratteri, capacit&agrave; di inserire veri e propri livelli nel PDF, maggiori caratteristiche di sicurezza e interattive, come la possibilit&agrave; di inserire commenti separati dal documento originale. Scribus 1.4 &egrave; in grado di gestire molte caratteristiche del PDF 1.5. Il PDF 1.5 permette di utilizzare opzioni di compressione pi&ugrave; sofisticate per le immagini in formato JPEG 2000 (ma Scribus non &egrave; ancora in grado di utilizzarle). Ha anche aggiunto la capacit&agrave; di base di incorporare file multimediali.</li>
+<li><b>PDF 1.6:</b> Acrobat 7.0. Perfezionamenti delle caratteristiche della versione 1.5, utilizzo pi&ugrave; ampio dell'infrastruttura a chiave pubblica (&ldquo;Public Key Infrastructure&rdquo;, PKIX) e firma digitale per il controllo del documento, oltre ad ampie possibilit&agrave; di aggiungere commenti per il lavoro di gruppo. Ha anche aggiunto la capacit&agrave; di base di incorporare oggetti tridimensionali. Per ci&ograve; che concerne Scribus, nulla di importante, tranne la pubblicazione di Adobe Reader 7.0 per Linux.</li>
+<li><b>PDF 1.7:</b> Acrobat 8.0. Perfezionamenti e miglioramenti per l'incorporazione di oggetti tridimensionali, funzioni interattive e di altro tipo, per lo pi&ugrave; non rilevanti per Scribus e/o la stampa commerciale.</li>
+</ul>
+
+<h3>E le altre versioni del PDF, come il PDF/X o il PDF/A?</h3>
+<p>Le capacit&agrave; del formato PDF continuano ad aumentare con ogni nuova versione, ma non tutte sono accettabili in ogni situazione. Quindi, degli appositi gruppi di lavoro presso l'Organizzazione Internazionale per la Standardizzazione (ISO) hanno definito dei sottoinsiemi delle caratteristiche del PDF per utilizzi diversi, tra cui il PDF/A o il PDF/X. Lo scopo del PDF/A &egrave; l'archiviazione e l'accessibilit&agrave; a lungo termine dei documenti, cio&egrave; il contenuto dei file PDF/A deve poter essere letto o estratto anche a distanza di anni, decenni, e forse secoli nel futuro. Naturalmente ci&ograve; &egrave; molto diverso dai file PDF creati per la stampa commerciale, il cui scopo principale &egrave; quello di contenere in modo affidabile dati visualmente importanti, come colori e testo accuratamente composto. Qui sotto &egrave; mostrata la finestra di dialogo per l'esportazione PDF in LibreOffice, un pacchetto di applicazioni che produce ogni genere di documenti da &ldquo;ufficio&rdquo; che non sono adatti per la stampa commerciale:</p>
+<table width="100%"><tr><td align="center"><img src="images/pdfx1a-lo.png" alt="Esportazione in PDF/X-1a in LibreOffice" title="Esportazione in PDF/X-1a in LibreOffice" /></td></tr></table>
+<p>Anche se vi sono delle somiglianze con Scribus per quanto riguarda le opzioni, vi sono anche delle importanti differenze, specialmente nella scheda &ldquo;Generale&rdquo;. Come potete vedere, la prima opzione qui &egrave; &ldquo;PDF/A-1a,&rdquo; che in Scribus non &egrave; presente, poich&eacute; la creazione di documenti per l'archiviazione a lungo termine non &egrave; tra i suoi scopi principali (per ora). Potete anche notare che la selezione del &ldquo;PDF/A-1a&rdquo; attiva o disattiva automaticamente alcune altre caratteristiche (&ldquo;PDF con tag&rdquo; e &ldquo;Incorpora i caratteri standard&rdquo; attive, &ldquo;Crea formulario PDF&rdquo; non attiva). In modo simile, Scribus attiva o disattiva certe opzioni di esportazione quando si sceglie <a href="pdfx3.html">PDF/X-3</a> come destinazione del documento.</p>
+<p>Oltre al PDF/A e al PDF/X, diversi altri sottoinsiemi del formato PDF sono in corso di sviluppo come standard internazionali, ad esempio il PDF/E per documenti per l'ingegneria (che comprende l'incorporazione di oggetti tridimensionali) o il PDF/UA (=&nbsp;&ldquo;universal access&rdquo;, accesso universale) per utenti con difetti visivi. Maggiori informazioni sono reperibili sul sito della <a href="http://www.aiim.org/">Association for Information and Image Management, International</a>.</p>
+
+<h3>Quale versione del PDF &egrave; la pi&ugrave; adatta per voi?</h3>
+
+<p>Quando decidete quale versione utilizzare per l'esportazione, dovreste considerare quanto segue:</p>
+<ul>
+<li><i>dove sar&agrave; stampato il vostro documento?</i> Se prevedete di far stampare i vostri file in tipografia, cercate sempre di chiederle informazioni prima di cominciare.</li>
+<li><i>il mio documento contiene delle trasparenze?</i> Vedete quanto detto sopra, e controllate che il resto delle vostre attrezzature e organizzazione di lavoro sia in grado di gestire il PDF 1.4 e versioni successive.</li>
+<li><i>sto esportando dei moduli PDF. Come posso sapere se i destinatari dei miei file saranno in grado di utilizzarli?</i> Sapete quale versione di Adobe Reader hanno i vostri utenti? Il modo pi&ugrave; sicuro consiste nell'usare il PDF 1.3 o 1.4.</li>
+<li><i>ho bisogno di livelli?</i> Soltanto il PDF 1.5 e successivi permette l'utilizzo dei livelli. Tenete presente che la maggior parte dei visualizzatori PDF open source sono in grado di gestire i livelli solo parzialmente.</li>
+</ul>
+</body>
+</html>

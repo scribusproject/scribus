@@ -24,92 +24,120 @@ copyright            : Scribus Team
 
 #include <QDebug>
 #include <QFile>
+#include <QFileInfo>
+#include <QDir>
 #include <QMessageBox>
 
 #include "prefsmanager.h"
 #include "scpaths.h"
-
+#include "ui/scmessagebox.h"
 
 LatexHighlighter::LatexHighlighter(QTextDocument *document)
 	: QSyntaxHighlighter(document)
 {
-	rules = 0;
+	m_rules = nullptr;
 }
 
 void LatexHighlighter::highlightBlock(const QString &text)
 {
-	if (!rules) return;
-	foreach (LatexHighlighterRule *rule, *rules) {
+	//This is required to fix a Qt incompatibility. See error message below for details.
+	static bool disable_highlighting = false;
+	if (disable_highlighting) return;
+
+	if (!m_rules) return;
+	foreach (LatexHighlighterRule *rule, *m_rules)
+	{
 		int index = text.indexOf(rule->regex);
 		while (index >= 0) {
 			int length;
-			if (rule->regex.numCaptures() == 0) {
+			if (rule->regex.captureCount() == 0)
+			{
 				length = rule->regex.matchedLength();
-			} else {
+			}
+			else
+			{
 				length = rule->regex.cap(1).length();
 				index = rule->regex.pos(1);
 			}
-			if (length == 0) {
+			if (length == 0)
+			{
 				qWarning() << "Highlighter pattern" << rule->regex.pattern() << "matched a zero length string. This would lead to an infinite loop. Aborting. Please fix this pattern!";
 				break;
 			}
 			setFormat(index, length, rule->format);
-			index = text.indexOf(rule->regex, index + length);
+			
+			int oldindex = index;
+			int offset = index + length;
+			index = text.indexOf(rule->regex, offset);
+			if (index >= 0 && (index == oldindex || index <= offset)) {
+				qWarning() << QObject::tr("Highlighter error: Invalid index returned by Qt's QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.") << "Additional debugging info: old index:" << oldindex << "new index:"<< index << "offset:" << offset;
+				disable_highlighting = true;
+				return;
+			}
 		}
 	}
+}
+
+QString LatexConfigParser::configBase()
+{
+	return ScPaths::instance().shareDir() + "/editorconfig/";
+}
+
+QString LatexConfigParser::absoluteFilename(QString fn)
+{
+	QFileInfo fi(fn);
+	if (!fi.exists())
+		return configBase() + fn;
+	return fn;
 }
 
 //TODO: Pass this information to LatexEditor, so the second parser can be removed
 bool LatexConfigParser::parseConfigFile(QString fn)
 {
-	QString base = ScPaths::instance().shareDir()+"/editorconfig/";
-	QFileInfo fi(fn);
-	if (!fi.exists()) {
-		fn = base + fn;
-	}
+	fn = absoluteFilename(fn);
 	m_error = "";
 	m_filename = fn;
 	QFile f(fn);
-	if (!f.open(QIODevice::ReadOnly)) {
-		QMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
+	if (!f.open(QIODevice::ReadOnly))
+	{
+		ScMessageBox::critical(nullptr, QObject::tr("Error"), "<qt>" +
 				QObject::tr("Opening the configfile %1 failed! %2").arg(
 						fn, f.errorString())
-				+ "</qt>", 1, 0, 0);
+				+ "</qt>");
 	}
 	xml.setDevice(&f);
 	
-	while (!xml.atEnd()) {
+	while (!xml.atEnd())
+	{
 		xml.readNext();
-		if (xml.isWhitespace() || xml.isComment() || xml.isStartDocument() || xml.isEndDocument()) continue;
-		if (xml.isStartElement() && xml.name() == "editorsettings") {
+		if (xml.isWhitespace() || xml.isComment() || xml.isStartDocument() || xml.isEndDocument())
+			continue;
+		if (xml.isStartElement() && xml.name() == "editorsettings")
+		{
 			m_description = xml.attributes().value("description").toString();
 			m_icon = xml.attributes().value("icon").toString();
-			if (m_description.isEmpty()) {
+			if (m_description.isEmpty())
 				m_description = fn;
-			}
 			parseElements();
-		} else {
-			formatError("Unexpected element at root level"+xml.name().toString()+", Token String: "+
-								 xml.tokenString());
 		}
+		else
+			formatError("Unexpected element at root level"+xml.name().toString()+", Token String: "+ xml.tokenString());
 	}
-	if (xml.hasError()) {
+	if (xml.hasError())
 		formatError(xml.errorString());
-	}
 	f.close();
-	if (!m_error.isEmpty()) {
-		return false;
-	}
-	return true;
+	return m_error.isEmpty();
 }
 
 void LatexConfigParser::parseElements()
 {
-	while (!xml.atEnd()) {
+	while (!xml.atEnd())
+	{
 		xml.readNext();
 		if (xml.isEndElement() && xml.name() == "editorsettings") break;
 		if (xml.isWhitespace() || xml.isComment() || xml.isEndElement()) continue;
-		if (!xml.isStartElement()) {
+		if (!xml.isStartElement())
+		{
 			formatError("Unexpected element in <editorsettings>"+xml.name().toString()+", Token String: "+
 								 xml.tokenString());
 			continue;
@@ -135,7 +163,7 @@ void LatexConfigParser::parseElements()
 	}
 }
 
-void LatexConfigParser::formatError(QString message)
+void LatexConfigParser::formatError(const QString& message)
 {
 	QString new_error = QString::number(xml.lineNumber()) + ":" + 
 			QString::number(xml.columnNumber()) + ":" + message;
@@ -145,24 +173,29 @@ void LatexConfigParser::formatError(QString message)
 
 bool LatexConfigParser::StrRefToBool(const QStringRef &str) const
 {
-	if (str == "1" || str == "true") return true;
-	if (str == "0" || str == "false" || str.isEmpty()) return false;
+	if (str == "1" || str == "true")
+		return true;
+	if (str == "0" || str == "false" || str.isEmpty())
+		return false;
 	qWarning() << "Invalid bool string:" << str.toString();
 	return false;
 }
 
 void LatexConfigParser::parseHighlighter()
 {
-	foreach (LatexHighlighterRule *rule, highlighterRules) {
+	foreach (LatexHighlighterRule *rule, highlighterRules)
 		delete rule;
-	}
 	highlighterRules.clear();
 	while (!xml.atEnd()) {
 		xml.readNext();
-		if (xml.isWhitespace() || xml.isComment()) continue;
-		if (xml.isEndElement() && xml.name() == "highlighter") break;
-		if (xml.isEndElement() && xml.name() == "rule") continue;
-		if (!xml.isStartElement() || xml.name() != "rule") {
+		if (xml.isWhitespace() || xml.isComment())
+			continue;
+		if (xml.isEndElement() && xml.name() == "highlighter")
+			break;
+		if (xml.isEndElement() && xml.name() == "rule")
+			continue;
+		if (!xml.isStartElement() || xml.name() != "rule")
+		{
 			formatError("Unexpected element in <highlighter>: "+
 				xml.name().toString()+", Token String: "+
 				xml.tokenString());
@@ -175,7 +208,8 @@ void LatexConfigParser::parseHighlighter()
 		bool minimal = StrRefToBool(xml.attributes().value("minimal"));
 		QString colorStr = xml.attributes().value("color").toString();
 		QColor color(colorStr);
-		if (!color.isValid()) {
+		if (!color.isValid())
+		{
 			color.fromRgb(0, 0, 0); //Black
 			if (!colorStr.isEmpty())
 				qWarning() << "Invalid color:" << colorStr;
@@ -183,9 +217,8 @@ void LatexConfigParser::parseHighlighter()
 		LatexHighlighterRule *newRule = new LatexHighlighterRule();
 		newRule->format.setForeground(color);
 		newRule->format.setFontItalic(italic);
-		if (bold) {
+		if (bold)
 			newRule->format.setFontWeight(QFont::Bold);
-		}
 		newRule->format.setFontUnderline(underline);
 		newRule->regex.setPattern(regex);
 		newRule->regex.setMinimal(minimal);
@@ -201,61 +234,65 @@ void LatexConfigParser::parseTab()
 	QString title = "";
 	QString name, text, default_value;
 	
-	while (!xml.atEnd()) {
+	while (!xml.atEnd())
+	{
 		xml.readNext();
 		if (xml.isWhitespace() || xml.isComment()) continue;
 		if (xml.isEndElement() && xml.name() == "tab") break;
-		if (!xml.isStartElement()) {
+		if (!xml.isStartElement())
+		{
 			formatError("Unexpected element in <tab>: "+xml.name().toString()+", Token String: "+
 								 xml.tokenString());
 			continue;
 		}
-		if (xml.name() == "title") {
-			if (!title.isEmpty()) {
+		if (xml.name() == "title")
+		{
+			if (!title.isEmpty())
 				formatError("Second <title> tag in <tab>");
-			}
 			title = xml.readI18nText();
-		} else if (xml.name() == "item") {
-			if (!itemstab) {
+		}
+		else if (xml.name() == "item")
+		{
+			if (!itemstab)
 				formatError("Found <item> in a 'settings'-tab!");
-			}
-			QString value = xml.attributes().value("value").toString();
-			QString img = xml.attributes().value("image").toString();
+//			QString value = xml.attributes().value("value").toString();
+//			QString img = xml.attributes().value("image").toString();
 			text = xml.readI18nText();
-		} else if (xml.name() == "comment" || xml.name() == "font" 
-						 || xml.name() == "spinbox" || xml.name() == "color" 
-								 || xml.name() == "text" || xml.name() == "list") {
+		}
+		else if (xml.name() == "comment" || xml.name() == "font"
+				|| xml.name() == "spinbox" || xml.name() == "color"
+				|| xml.name() == "text" || xml.name() == "list")
+		{
 			//TODO: Store this + attributes in a list
-							 QString tagname = xml.name().toString();
-							 name = xml.attributes().value("name").toString();
-							 default_value = xml.attributes().value("default").toString();
-							 if (xml.name() != "list") {
-								 text = xml.readI18nText();
-							 } else {
-								 ignoreList();
-							 }
-							 if (!name.isEmpty()) {
-								 if (properties.contains(name)) {
-									 formatError("Redeclared setting with name: " + name);
-								 } else {
-									 properties.insert(name, default_value);
-								 }
-							 }
-							 //TODO: qDebug() << "For future use:" << tagname << name << text << default_value;
-								 } else {
-									 formatError("Unexpected element in <tab>: " + xml.name().toString());
-								 }
+//			QString tagname = xml.name().toString();
+			name = xml.attributes().value("name").toString();
+			default_value = xml.attributes().value("default").toString();
+			if (xml.name() != "list")
+				text = xml.readI18nText();
+			else
+				ignoreList();
+			if (!name.isEmpty())
+			{
+				if (properties.contains(name))
+					formatError("Redeclared setting with name: " + name);
+				else
+					properties.insert(name, default_value);
+			}
+			//TODO: qDebug() << "For future use:" << tagname << name << text << default_value;
+		}
+		else
+			formatError("Unexpected element in <tab>: " + xml.name().toString());
 	}
 	
-	if (title.isEmpty()) {
+	if (title.isEmpty())
 		formatError("Tab ended here, but no title was found!");
-	}
 }
 
 void LatexConfigParser::ignoreList()
 {
 	//TODO: Quick hack to avoid real parsing
-	while (!xml.atEnd()) {
+	while (!xml.atEnd())
+	{
 		xml.readNext();
 		if (xml.isEndElement() && xml.name() == "list") break;
 	}
@@ -263,17 +300,17 @@ void LatexConfigParser::ignoreList()
 
 QString LatexConfigParser::executable() const
 {
-	QString command = PrefsManager::instance()->latexCommands()[m_filename];
-	if (command.isEmpty()) {
+	QFileInfo f(m_filename);
+	QString fileName=f.fileName();
+	QString command = PrefsManager::instance().latexCommands()[fileName];
+	if (command.isEmpty())
 		return m_executable;
-	} else {
-		return command;
-	}
+	return command;
 }
 
 QString I18nXmlStreamReader::readI18nText(bool unindent)
 {
-	QString language = PrefsManager::instance()->guiLanguage();
+	QString language = PrefsManager::instance().uiLanguage();
 	QString result;
 	int matchquality = 0;
 	bool i18n = false;
@@ -283,137 +320,167 @@ QString I18nXmlStreamReader::readI18nText(bool unindent)
 	while (!atEnd()) {
 		readNext();
 		if (isWhitespace() || isComment()) continue;
-		if (isStartElement() && name() == startTag) {
+		if (isStartElement() && name() == startTag)
+		{
 			raiseError("Invalid nested elements.");
 			return "Error";
 		}
-		if (isEndElement() && name() == startTag) {
-			if (!unindent) {
+		if (isEndElement() && name() == startTag)
+		{
+			if (!unindent)
 				return result.trimmed();
-			} else {
-				QStringList splitted = result.split("\n");
-				int i;
-				int minspaces = 0xffff;
-				/* NOTE: First line contains no leading whitespace so we start at 1 */
-				for (i = 1; i < splitted.size(); i++) {
-					if (splitted[i].trimmed().isEmpty()) continue;
-					int spaces;
-					QString tmp = splitted[i];
-					for (spaces = 0; spaces < tmp.length(); spaces++) {
-						if (!tmp[spaces].isSpace()) break;
-					}
-					if (spaces < minspaces) minspaces = spaces;
+			QStringList splitted = result.split("\n");
+			int i;
+			int minspaces = 0xffff;
+			/* NOTE: First line contains no leading whitespace so we start at 1 */
+			for (i = 1; i < splitted.size(); i++) {
+				if (splitted[i].trimmed().isEmpty()) continue;
+				int spaces;
+				QString tmp = splitted[i];
+				for (spaces = 0; spaces < tmp.length(); spaces++) {
+					if (!tmp[spaces].isSpace()) break;
 				}
-				for (i = 1; i < splitted.size(); i++) {
-					splitted[i] = splitted[i].mid(minspaces);
-				}
-				return splitted.join("\n").trimmed();
+				if (spaces < minspaces) minspaces = spaces;
 			}
+			for (i = 1; i < splitted.size(); i++) {
+				splitted[i] = splitted[i].mid(minspaces);
+			}
+			return splitted.join("\n").trimmed();
 		}
-		if (i18n) {
-			if (isEndElement()) {
-				if (name() == "i18n") {
+		if (i18n)
+		{
+			if (isEndElement())
+			{
+				if (name() == "i18n")
+				{
 					i18n = false;
-				} else {
+				}
+				else
+				{
 					raiseError("Invalid end element "+ name().toString());
 				}
 				continue;
 			}
-			if (!isStartElement()) {
+			if (!isStartElement())
+			{
 				raiseError("Unexpected data!");
 			}
-			if (name() == language) {
+			if (name() == language)
+			{
 				matchquality = 2; //Perfect match
 				result = readElementText();
-			} else if (language.startsWith(name().toString()) && matchquality <= 1) {
+			}
+			else if (language.startsWith(name().toString()) && matchquality <= 1)
+			{
 				matchquality = 1; //Only beginning part matches
 				result = readElementText();
-			} else if (result.isEmpty()) {
+			}
+			else if (result.isEmpty())
+			{
 				matchquality = 0;
 				result = readElementText();
-			} else {
+			}
+			else
+			{
 				readElementText(); //Ignore the text
 			}
-		} else {
-			if (isStartElement()) {
-				if (name() == "i18n") {
+		}
+		else
+		{
+			if (isStartElement())
+			{
+				if (name() == "i18n")
+				{
 					i18n = true;
 					continue;
-				} else {
-					raiseError("Tag " + name().toString() +
-							"found, but \"i18n\" or string data expected.");
-					continue;
 				}
-			} else if (isCharacters()) {
-				result = result + text().toString();
+				raiseError("Tag " + name().toString() + "found, but \"i18n\" or string data expected.");
+				continue;
 			}
+			if (isCharacters())
+				result = result + text().toString();
 		}
 	}
 	raiseError("Unexpected end of XML file");
 	return result;
 }
 
-LatexConfigCache* LatexConfigCache::_instance = 0;
+LatexConfigCache* LatexConfigCache::m_instance = nullptr;
 
 LatexConfigCache* LatexConfigCache::instance()
 {
-	if (!_instance) {
-		_instance = new LatexConfigCache();
-	}
-	return _instance;
+	if (!m_instance)
+		m_instance = new LatexConfigCache();
+	return m_instance;
 }
 
-LatexConfigParser* LatexConfigCache::parser(QString filename, bool warnOnError)
+LatexConfigParser* LatexConfigCache::parser(const QString& filename, bool warnOnError)
 {
-	if (parsers.contains(filename)) {
-		if (warnOnError && error[filename]) {
+	if (m_parsers.contains(filename))
+	{
+		if (warnOnError && m_error[filename])
+		{
 			//Recreate element as error might have been fixed.
-			delete parsers[filename];
+			delete m_parsers[filename];
 			createParser(filename, warnOnError);
 		}
-	} else {
-		createParser(filename, warnOnError);
 	}
-	return parsers[filename];
+	else
+		createParser(filename, warnOnError);
+	return m_parsers[filename];
 }
 
 
-void LatexConfigCache::createParser(QString filename, bool warnOnError)
+void LatexConfigCache::createParser(const QString& filename, bool warnOnError)
 {
 	LatexConfigParser *parser = new LatexConfigParser();
 	bool hasError = !parser->parseConfigFile(filename);
-	parsers[filename] = parser;
-	error[filename] = hasError;
-	if (hasError) {
-		QMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
+	m_parsers[filename] = parser;
+	m_error[filename] = hasError;
+	if (hasError)
+	{
+		ScMessageBox::critical(nullptr, QObject::tr("Error"), "<qt>" +
 				QObject::tr("Parsing the configfile %1 failed! Depending on the type of the error "
 						"render frames might not work correctly!\n%2").arg(
 						filename, parser->error())
-						+ "</qt>", 1, 0, 0);
+						+ "</qt>");
 	}
 }
 
-bool LatexConfigCache::hasError(QString filename)
+bool LatexConfigCache::hasError(const QString& filename)
 {
-	if (!error.contains(filename)) {
+	if (!m_error.contains(filename))
 		return true;
-	}
-	return error[filename];
+	return m_error[filename];
 }
 
 QStringList LatexConfigCache::defaultConfigs()
 {
-	QString base = ScPaths::instance().shareDir()+"/editorconfig/";
-	QDir dir(base);
+	QDir dir(LatexConfigParser::configBase());
 	QStringList files;
 	files = dir.entryList(QStringList("*.xml"));
 	files.sort();
 	int i;
-	for (i = 0; i < files.size(); i++) {
-		if (files[i].compare("sample.xml",Qt::CaseInsensitive)==0) {
+	for (i = 0; i < files.size(); i++)
+	{
+		if (files[i].compare("sample.xml",Qt::CaseInsensitive)==0)
+		{
 			files.removeAt(i);
 			i--;
 		}
 	}
 	return files;
+}
+
+QMap<QString, QString> LatexConfigCache::defaultCommands()
+{
+	QMap<QString, QString> configCmds;
+
+	const QStringList configFiles = PrefsManager::instance().latexConfigs();
+	for (const QString& configFile : configFiles)
+	{
+		LatexConfigParser *config = LatexConfigCache::instance()->parser(configFile);
+		configCmds.insert(configFile, config->executable());
+	}
+	return configCmds;
 }

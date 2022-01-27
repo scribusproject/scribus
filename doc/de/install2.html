@@ -1,0 +1,51 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Voraussetzungen</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Voraussetzungen</h2>
+<p>Die Programme, die Sie ben&ouml;tigen, um Scribus zu kompilieren, sind:</p>
+<ol>
+	<li><strong>F&uuml;r Scribus 1.5.x wird mindestens GCC 4.8+ ben&ouml;tigt und GCC 7+ dringend empfohlen</strong>. Wir empfehlen, jeweils die aktuelle GCC Version zu verwenden, da sich dadurch Performance-Vorteile ergeben k&ouml;nnen.</li>
+	<li>CMake 3.12+</li>
+	<li>GNU make</li>
+</ol>
+<p>Die Abh&auml;ngigkeiten zum Kompilieren und zur Verwendung von Scribus sind:</p>
+<ol>
+	<li>Qt 5.11.0+, sowohl die Laufzeit- als auch die Entwicklerbibliotheken.</li>
+	<li>Cairo 1.14.x. We empfehlen 1.16.0 oder h&ouml;her.</li>
+	<li>CUPS-devel &ndash; Scribus unterst&uuml;tzt die direkte Druckausgabe mit CUPS. (Linux/UNIX/Mac&nbsp;OS&nbsp;X).</li>
+	<li>fontconfig-devel &ndash; um das automatische Auffinden von Schriftdateien unter Linux, Mac&nbsp;OS&nbsp;X und UNIX zu erm&ouml;glichen. Nicht erforderlich unter Windows, OS/2 und eComStation.</li>
+	<li>Freetype2 2.1.7+. Wegen verschiedener Fehler in Freetype2 empfehlen wir, wenn m&ouml;glich, die Verwendung von Version 2.3.x</li>
+	<li>Ghostscript 9.0+ wird dringend empfohlen.</li>
+	<li>littleCMS &ndash; in einigen Distributionen auch lcms genannt. Das Minimum ist 2.1, aber wir empfehlen 2.9 oder h&ouml;her.</li>
+	<li>libjpeg</li>
+	<li>libtiff 3.6.0+</li>
+	<li>libxml2 2.6+.</li>
+	<li>Podofo 0.9 oder h&ouml;her &ndash; wird vom AI-Importfilter ben&ouml;tigt.</li>
+	<li>Python und Python-devel 3.3+. Python 3.2 wird nicht unterst&uuml;tzt.</li>
+	<li>Python-imaging f&uuml;r einige Funktionen des Scripters.</li>
+	<li>tkinter &ndash; f&uuml;r das &raquo;Font Sampler&laquo;- und das &raquo;Calendar Wizard&laquo;-Script.</li>
+	<li>openssl-devel (einige Linux-Distributionen, insbesondere OpenSUSE, erm&ouml;glichen SSL-Unterst&uuml;tzung f&uuml;r CUPS)</li>
+</ol>
+<h3>Optional:</h3>
+<ul>
+	<li>antiword &ndash; ben&ouml;tigt f&uuml;r dem Import von MS-Word-Dateien, ist aber unn&ouml;tig beim Kompilieren. Scribus wird ein installiertes Antiword sp&auml;ter automatisch finden.</li>
+	<li>Um <a href="WwRenderframes.html">Renderrahmen</a> verwenden zu k&ouml;nnen, ben&ouml;tigen Sie zus&auml;tzliche Programme wie LaTeX oder Lilypond.</li>
+</ul>
+<p>Scribus l&auml;uft in jeder Desktopumgebung und ben&ouml;tigt kein KDE, aber Drag&rsquo;n&rsquo;drop funktioniert nur in KDE.</p>
+<p>Falls das Farbmanagement nicht funktioniert, m&uuml;ssen Sie zus&auml;tzlich mindestens ein RGB- und ein CMYK-Profil installieren. Anderenfalls werden die Farbmanagement-Optionen ausgeblendet oder ausgegraut. Normalerweise installiert Scribus ein RGB- and ein CMYK-Profil, und zwar nur, um das Farbmanagement zu aktivieren, aber aufgrund ihrer Lizenzpolitik (v.a. Debian) befinden sich die Profile u.U. in einem separaten Paket. </p>
+<p>Unsere Tests legen nahe, die korrekten &#034;-march=&#034;-CXXFLAGS zu setzen, weil dies die Scribus-Performance erh&ouml;ht. Wenn Sie beispielsweise einen Duron- or Athlon-Prozessor einsetzen, ist <code>export CXXFLAGS=&#034;-march=athlon&#034;</code> von Nutzen. &Uuml;berpr&uuml;fen Sie, ob die von Ihnen verwendete Distribution diese Parameter f&uuml;r Sie setzt. Weitere Informationen erhalten Sie per:
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>man gcc</pre>
+</td></tr></table></blockquote></p>
+<p>Detaillierte Hinweise finden Sie in der Datei BUILDING, und Paketierer f&uuml;r Distributionen sollten einen Blick in die Datei PACKAGING werfen.</p>
+<h4>CMake verwenden</h4>
+<p>In Version 1.3.3.6 haben wir erstmals Unterst&uuml;tzung f&uuml;r CMake als Alternative zu den traditionellen Autotools angeboten. Wir waren damit so zufrieden, da&szlig; Scribus seit Version 1.3.5 nur noch dieses Build-System verwendet und die Autotools nicht mehr funktionieren. Siehe die <a href="install4.html">CMake-Anleitung</a>.</p>
+<br>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Commandes relatives au document</title>
+</head>
+<body>
+<h2>Commandes relatives au document</h2>
+
+<dl>
+
+<dt><a name="-closeDoc"><strong>closeDoc</strong></a>(...)</dt>
+<dd><code>closeDoc()</code>
+<p>Ferme le document courant sans invite de sauvegarde.</p>
+<p>Peut générer <a href="#NoDocOpenError">NoDocOpenError</a>
+s'il n'y a pas de document à fermer</p></dd>
+
+<dt><a name="-docChanged"><strong>docChanged</strong></a>(...)</dt>
+<dd><code>docChanged(booléen)</code>
+<p>Active/désactive l'icône Enregistrer dans la barre d'icônes de
+Scribus et dans l'élément de menu Enregistrer. Il est utile
+d'appeler cette procédure lorsque vous changez de document, parce
+que Scribus ne remarquera pas automatiquement un changement de
+document en utilisant un script.</p></dd>
+
+<dt><a name="-getDocName"><strong>getDocName</strong>(...)</dt>
+	<dd><code>getDocName() -&gt; string</code>
+	<p>Retourne le nom et le chemin d'accès du fichier courant</p>
+	</dd>
+</dt>
+
+<dt><a name="-getUnit"><strong>getUnit</strong></a>(...)</dt>
+<dd><code>getUnit() -&gt; nombre entier
+(constante d'unité de Scribus)</code>
+<p>Retourne les unités de mesure du document. La valeur retournée
+sera une des constantes UNIT_*: UNIT_INCHES,
+UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</p></dd>
+	
+<dt><a name="-haveDoc"><strong>haveDoc</strong></a>(...)</dt>
+<dd><code>haveDoc() -&gt; booléen</code>
+<p>Retourne la valeur true s'il y a un document ouvert.</p></dd>
+
+<dt><a name="-loadStylesFromFile"><strong>loadStylesFromFile</strong></a>(...)</dt>
+<dd><code>loadStylesFromFile("nomFichier")</code>
+<p>Charge des styles de paragraphe à partir du document Scribus
+"nomFichier" dans le document courant.</p></dd>
+
+<dt><a name="-masterPageNames"><strong>masterPageNames</strong>(...)</a></dt>
+<dd><code>masterPageNames()</code>
+<p>Retourne la liste des gabarits contenus dans le document.</p></dd>
+	
+<dt><a name="-newDoc"><strong>newDoc</strong></a>(...)</dt>
+<dd><code>newDoc(taille, marges, orientation, numeroPremierePage, unite, pagesRegard, premierePageGauche)
+-&gt; booléen</code>
+<p>Crée un nouveau document et retourne la valeur True si l'opération
+réussit. Les paramètres ont la signification suivante :</p>
+<ul>
+	<li>taille = un vecteur (largeur, hauteur) décrivant la taille du document. Vous pouvez utiliser des constantes prédéfinies nommées PAPER_&lt;paper_type&gt; c'est-à-dire PAPER_A4 etc.</li>
+	<li>marges = un vecteur (gauche, droite, haut, bas) décrivant les
+marges du document</li>
+	<li>orientation = l'orientation de la page - constantes PORTRAIT, LANDSCAPE</li>
+	<li>numeroPremierePage = est le numéro de la première page dans le
+document utilisé pour la numérotation. Même si habituellement vous
+choisirez la valeur 1, il est utile d'avoir de plus grands
+chiffres si vous créez un document en plusieurs parties.</li>
+	<li>unité = cette valeurs définit les unités de mesure utilisées par le document. Utilisez
+une constante prédéfinie pour cela, parmi les suivantes: UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</li>
+	<li>pagesRegard = FACINGPAGES, NOFACINGPAGES</li>
+	<li>premierPageGauche = FIRSTPAGELEFT, FIRSTPAGERIGHT</li>
+	</ul>
+<p>Les valeurs établies pour la largeur, la hauteur et les marges
+sont exprimées dans les unités choisies pour le document. Les constantes PAPER_* sont exprimées en points. Si
+votre document n'est pas défini en points, assurez-vous d'en tenir
+compte.</p>
+<p>exemple: <a href="#-newDoc">newDoc</a>(PAPER_A4, (10, 10, 20, 20),
+LANDSCAPE, 1, UNIT_POINTS, FACINGPAGES, FIRSTPAGERIGHT)</p></dd>
+
+<dt><a name="-openDoc"><strong>openDoc</strong></a>(...)</dt>
+<dd><code>openDoc("nom")</code>
+<p>Ouvre le document "nom".</p>
+<p>Peut générer ScribusError si le document ne peut pas être ouvert.</p></dd>
+
+<dt><a name="-placeEPS"><strong>placeEPS</strong>(...)</a></dt>
+<dd><code>placeEPS("nomFichier", x, y)</code>
+<p>Importe le fichier EPS "nomFichier" vers la page courante, x et y étant les coordonnées du bord supérieure gauche
+du fichier EPS une fois placé sur la page.</p>
+<p>Si l'opération se termine avec succès, la sélection contiendra le fichier EPS importé.</p></dd>
+
+<dt><a name="-placeODG"><strong>placeODG</strong>(...)</a></dt>
+<dd><code>placeODG("nomFichier", x, y)</code>
+<p>Importe le fichier ODG "nomFichier" vers la page courante, x et y étant les coordonnées du bord supérieure gauche
+du fichier ODG une fois placé sur la page.</p>
+<p>Si l'opération se termine avec succès, la sélection contiendra le fichier ODG importé.</p></dd>
+
+<dt><a name="-placeSVG"><strong>placeSVG</strong>(...)</a></dt>
+<dd><code>placeSVG("nomFichier", x, y)</code>
+<p>Importe le fichier SVG "nomFichier" vers la page courante, x et y étant les coordonnées du bord supérieure gauche
+du fichier SVG une fois placé sur la page.</p>
+<p>Si l'opération se termine avec succès, la sélection contiendra le fichier SVG importé.</p></dd>
+
+<dt><a name="-placeSXD"><strong>placeSXD</strong>(...)</a></dt>
+<dd><code>placeSXD("nomFichier", x, y)</code>
+<p>Importe le fichier SXD "nomFichier" vers la page courante, x et y étant les coordonnées du bord supérieure gauche
+du fichier SXD une fois placé sur la page.</p>
+<p>Si l'opération se termine avec succès, la sélection contiendra le fichier SXD importé.</p></dd>
+
+<dt><a name="-placeVectorFile"><strong>placeVectorFile</strong>(...)</a></dt>
+<dd><code>placeVectorFile("nomFichier", x, y)</code>
+<p>Importe le fichier vectoriel "nomFichier" vers la page courante, x et y étant les coordonnées du bord supérieure gauche
+du fichier vectoriel une fois placé sur la page.</p>
+<p>Si l'opération se termine avec succès, la sélection contiendra le fichier vectoriel importé.</p></dd>
+
+<dt><a name="-revertDoc"><strong>revertDoc</strong></a>(...)</dt>
+<dd><code>revertDoc()</code>
+<p>Restaure le document à l'état de sa dernière sauvergarde.</p></dd>
+
+<dt><a name="-saveDoc"><strong>saveDoc</strong></a>(...)</dt>
+<dd><code>saveDoc()</code>
+<p>Enregistre le document ouvert sous son nom courant, et retourne la valeur True si l'opération réussit. Si le document n'a pas déjà été enregistré, le système peut afficher le dialogue interactif Enregistrer sous.Si l'enregistrement échoue, il n'y a actuellement aucun moyen de le savoir.</p></dd>
+
+<dt><a name="-saveDocAs"><strong>saveDocAs</strong></a>(...)</dt>
+<dd><code>saveDocAs("nom")</code>
+<p>Enregistre le document courant sous le nouveau "nom" (qui peut être un chemin complet ou relatif).</p>
+<p>Peut générer ScribusError si l'enregistrement échoue.</p></dd>
+
+<dt><a name="-setBaseLine"><strong>setBaseLine</strong></a>(...)</dt>
+<dd><code>setBaseLine(grid, offset)</code>
+<p>Définit les valeurs de la ligne de base du document: espacement de la grille(grid), offset de la grille(offset). Les valeurs sont définies dans les unités de mesure du document - voir les constantes UNIT_&lt;type&gt;.</p></dd>
+
+<dt><a name="-setBleeds"><strong>setBleeds</strong></a>(...)</dt>
+<dd><code>setBleeds(lr, rr, tr, br)</code>
+<p>Définit les valeurs de fonds perdus du document. Les valeurs de fonds perdus à gauche (lr), à droite (rr), en haut (tr) et en bas (br) sont définies dans les unités de mesure du document - voir les constantes UNIT_&lt;type&gt;.</p></dd>
+
+<dt><a name="-setDocType"><strong>setDocType</strong></a>(...)</dt>
+<dd><code>setDocType(pagesRegard, premierePageGauche)</code>
+<p>Assigne le type de document. Pour obtenir des pages en regard, mettez le premier paramètre à FACINGPAGES; pour désactiver facingPages, utilisez NOFACINGPAGES à la place. Si vous voulez que la première page soit à gauche, mettez le deuxième paramètre à FIRSTPAGELEFT; pour une première page à droite, utilisez FIRSTPAGERIGHT.</p></dd>
+
+<dt><a name="-setInfo"><strong>setInfo</strong></a>(...)</dt>
+<dd><code>saveDocAs("auteur", "info",
+"description") -&gt; booléen</code>
+<p>&Eacute;tablit l'information relative au document. "Auteur", "Info",
+"Description" sont des cha&icirc;nes.</p></dd>
+	
+<dt><a name="-setMargins"><strong>setMargins</strong></a>(...)</dt>
+<dd><code>setMargins(lr, rr, tr, br)</code>
+<p>&Eacute;tablit les marges du document, les marges Gauche(lr), Droite(rr),
+Haut(tr) et Bas(br) sont indiquées dans les unités de mesure du
+document - voir les constantes UNIT_&lt;type&gt;.</p></dd>
+
+<dt><a name="-setUnit"><strong>setUnit</strong></a>(...)</dt>
+<dd><code>setUnit(type)</code>
+<p>Change l'unité de mesure du document. Les valeurs possibles de l'"unité" sont définies par les constantes UNIT_&lt;type&gt;.</p>
+<p>Peut générer ValueError si l'unité passée n'est pas valide.</p></dd>
+
+<dt><a name="-scrollDocument"><strong>scrollDocument</strong>(...)</a></dt>
+<dd><code>scrollDocument(x, y)</code>
+<p>Scrolle le document affiché dans la fenêtre active par les valeurs x and y.</p></dd>
+
+<dt><a name="-zoomDocument"><strong>zoomDocument</strong>(...)</a></dt>
+<dd><code>zoomDocument(double)</code>
+<p>Effectue un zoom du document affiché dans la fenêtre active. Les valeurs de zoom prennent des valeurs positives telles que 20.0, 100.0, etc. Vous pouvez utiliser la valeur spéciale -100.0 pour ajuster automatiquement la valeur de zoom.</p></dd>
+
+</dl>
+</body>
+</html>
+ 

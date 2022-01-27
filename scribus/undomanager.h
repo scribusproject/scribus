@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef UNDOMANAGER_H
@@ -30,20 +30,21 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 #include <utility>
 #include <QObject>
-#include <QPixmap>
 
 #include "scribusapi.h"
 #include "transaction.h"
 #include "undostate.h"
 #include "undoobject.h"
 #include "undostack.h"
+#include "undotransaction.h"
 
 class QString;
 class QPixmap;
 class UndoGui;
 class PrefsContext;
 
-struct TransactionData;
+class TransactionData;
+class UndoTransaction;
 
 /** @brief Key is the doc name, value is it's undo stack */
 typedef QMap<QString, UndoStack> StackMap;
@@ -51,105 +52,14 @@ typedef QMap<QString, UndoStack> StackMap;
 class SCRIBUS_API TransactionSettings
 {
 public:
-	QString  targetName;
-	QPixmap *targetPixmap;
-	QString  actionName;
-	QString  description;
-	QPixmap *actionPixmap;
+	QPixmap* actionPixmap {nullptr};
+	QPixmap* targetPixmap {nullptr};
+	QString actionName;
+	QString description;
+	QString targetName;
 
-	TransactionSettings(void) { targetPixmap = actionPixmap = NULL; }  
+	TransactionSettings(void) {}
 };
-
-/**
- * @brief TransactionState provides a container where multiple UndoStates can be stored
- * @brief as a single action which then appears in the attached <code>UndoGui</code>s.
- * @author Riku Leino riku@scribus.info
- * @date January 2005
- */
-class TransactionState : public UndoState
-{
-public:
-	/** @brief Creates a new TransactionState instance */
-	TransactionState();
-	/** @brief Destroys the TransactionState instance */
-	~TransactionState();
-	
-	/**
-	 * @brief Add a new <code>UndoState</code> object to the transaction.
-	 * @param state state to be added to the transaction
-	 */
-	void pushBack(UndoObject *target, UndoState *state);
-	/**
-	 * @brief Returns the count of the <code>UndoState</code> objects in this transaction.
-	 * @return count of the <code>UndoState</code> objects in this transaction
-	 */
-	uint sizet();
-	/** @brief Use the name from last action added to this <code>TransactionState</code> */
-	void useActionName();
-	/**
-	 * @brief Returns an <code>UndoState</code> object at <code>index</code>.
-	 * @param index index from where an <code>UndoState</code> object is returned.
-	 * If <code>index</code> is out of scope <code>NULL</code> will be rerturned.
-	 * @return <code>UndoState</code> object from <code>index</code> or <code>NULL</code>
-	 * if <code>index</code> is out of scope.
-	 */
-	UndoState* at(int index);
-	/**
-	 * @brief Returns true if this transaction contains UndoObject with the id <code>uid</code>
-	 * @brief otherwise returns false.
-	 * @return true if this transaction contains UndoObject with the ide <code>uid</code>
-	 * @return otherwise returns false.
-	 */
-	bool contains(int uid) const;
-	
-	/**
-	 * @brief Tells if this transaction contains only UndoObject with ID uid
-	 * 
-	 * If a transaction contains only single UndoObject it will be safe to include
-	 * it in the object specific undo.
-	 * @param uid UndoObject's id to look for
-	 * @return true if this transaction only contains actions of the UndoObject whose
-	 *         id is uid
-	 */
-	bool containsOnly(int uid) const;
-	/**
-	 * @brief Replace object with id uid with new UndoObject newUndoObject.
-	 * @param uid id of the object that is wanted to be replaced
-	 * @param newUndoObject object that is used for replacing
-	 * @return UndoObject which was replaced
-	 */
-	UndoObject* replace(ulong uid, UndoObject *newUndoObject);
-
-	/** @brief undo all UndoStates in this transaction */
-	void undo();
-	/** @brief redo all UndoStates in this transaction */
-	void redo();
-private:
-	/** @brief Number of undo states stored in this transaction */
-	uint size_;
-	/** @brief vector to keep the states in */
-	std::vector<UndoState*> states_;
-};
-
-
-
-/**
-    Class which handles Undo transactions. No data, just methods.
- */
-class UndoTransaction : public Transaction
-{
-public:
-	UndoTransaction(TransactionData* data);
-	virtual ~UndoTransaction();
-	virtual bool commit();
-	virtual bool cancel();
-	bool commit(const QString &targetName,
-				QPixmap *targetPixmap,
-				const QString &name = "",
-				const QString &description = "",
-				QPixmap *actionPixmap = 0);
-};
-
 
 /**
  * @brief UndoManager handles the undo stack.
@@ -218,7 +128,7 @@ public:
 	 * <code>UndoGui</code> widgets but stores all incoming <code>UndoState</code> objects into
 	 * the transaction container which after call to the method commit() will be sent
 	 * to the guis as a single undo action. Transaction can be named when starting it or
-	 * naming can be done when commiting it.
+	 * naming can be done when committing it.
 	 * @param targetName name for the target of this transaction (f.e. "Selection")
 	 * @param targetPixmap Icon for the target on which this transaction works.
 	 * this icon will be drawn first when the action is presented in Action History
@@ -233,11 +143,11 @@ public:
 	 * @param actionPixmap icon for the action performed by the transaction
 	 * @sa commit()
 	 */
-	UndoTransaction beginTransaction(const QString &targetName = "",
-									 QPixmap *targetPixmap = 0,
-									 const QString &actionName = "",
-									 const QString &description = "",
-									 QPixmap *actionPixmap = 0);
+	UndoTransaction beginTransaction(const QString &targetName = QString(),
+									 QPixmap *targetPixmap = nullptr,
+									 const QString &actionName = QString(),
+									 const QString &description = QString(),
+									 QPixmap *actionPixmap = nullptr);
 
 	UndoTransaction beginTransaction(const TransactionSettings& settings);
 	
@@ -250,8 +160,8 @@ public:
 	/*
 	 * @brief Commit the current transaction.
 	 *
-	 * Current transaction will be commited and <code>UndoManager</code> will be switched
-	 * to the normal mode. Commited transaction will be sent to the attached undo gui
+	 * Current transaction will be committed and <code>UndoManager</code> will be switched
+	 * to the normal mode. Committed transaction will be sent to the attached undo gui
 	 * widgets and it will show up there as a single undo action. Details used as a parameter
 	 * will be details shown in the gui widgets.
 	 * @param targetName name for the target of this transaction (f.e. "Selection")
@@ -273,7 +183,7 @@ public:
 	 * @brief Returns true if in transaction mode if not will return false.
 	 * @return bool true if in transaction mode if not will return false
 	 */
-	bool isTransactionMode();
+	bool isTransactionMode() const;
 	
 	/**
 	 * @brief Register an UndoGui to the UndoManager.
@@ -324,14 +234,14 @@ public:
 	 * or disabled depending on the status of the undo stack.
 	 * @return true if there are actions that can be undone otherwise returns false
 	 */
-	bool hasUndoActions(int uid = -1);
+	bool hasUndoActions(int uid = -1) const;
 	
 	/**
 	 * @brief Returns true if there are actions that can be redone otherwise returns false.
 	 * @return true if there are actions that can be redone otherwise returns false
 	 * @sa UndoManager::hasUndoActions()
 	 */
-	bool hasRedoActions(int uid = -1);
+	bool hasRedoActions(int uid = -1) const;
 	
 	/**
 	 * @brief Replace an UndoObject with the id uid with a new UndoObject new.
@@ -345,13 +255,15 @@ public:
 	 * @brief Returns the maximum length of the undostack.
 	 * @return the maximum length of the undostack
 	 */
-	int getHistoryLength();
+	int getHistoryLength() const;
 
 	/**
 	 * @brief Returns true if in global mode and false if in object specific mode.
 	 * @return true if in global mode and false if in object specific mode
 	 */
-	bool isGlobalMode();
+	bool isGlobalMode() const;
+
+	UndoState* getLastUndo();
 
 private:
 	/**
@@ -360,10 +272,10 @@ private:
 	 * UndoManager is singleton and the instance can be queried with the method
 	 * instance().
 	 */
-	static UndoManager* instance_;
+	static UndoManager* m_instance;
 
 	/** @brief Should undo states be stored or ignored */
-	static bool undoEnabled_;
+	static bool m_undoEnabled;
 
 	/**
 	 * @brief Tracks the state of _undoEnabled.
@@ -374,24 +286,24 @@ private:
 	 * calls this way guarantees that undo is not enabled accidentally calling
 	 * setUndoEnabled(true) even it has been set false before this false-true pair touched it.
 	 */
-	static int undoEnabledCounter_;
+	static int m_undoEnabledCounter;
 
-	PrefsContext *prefs_;
+	PrefsContext* prefs_ { nullptr };
 
 	/** @brief Doc to which the currently active stack belongs */
-	QString currentDoc_;
+	QString m_currentDoc;
 
 	/**
 	 * @brief Id number of the object for what the object specific undo is shown
 	 * @brief or -1 if global undo is used.
 	 */
-	int currentUndoObjectId_;
+	int m_currentUndoObjectId { -1 };
 
 	/**
 	 * @brief Stores the transactions which are currently started but not
-	 * @brief canceled or commited.
+	 * @brief canceled or committed.
 	 */
-	std::vector<TransactionData*> transactions_;
+	std::vector<TransactionData*> m_transactions;
 
 	/**
 	 * @brief UndoGuis attached to this UndoManager
@@ -399,14 +311,14 @@ private:
 	 * @sa UndoWidget
 	 * @sa UndoPalette
 	 */
-	std::vector<UndoGui*> undoGuis_;
+	std::vector<UndoGui*> m_undoGuis;
 
 	/**
 	 * @brief Undo stacks for all open document
 	 *
 	 * Whenever current stack is used it's referred with <code>stacks_[currentDoc_]</code>
 	 */
-	StackMap stacks_;
+	StackMap m_stacks;
 
 	/**
 	 * @brief Initializes the UndoGui.
@@ -440,6 +352,7 @@ public:
 	* Strings describing undo actions
 	*/
 	/*@{*/
+	static QString ConnectPath;
 	static QString AddVGuide;
 	static QString AddHGuide;
 	static QString DelVGuide;
@@ -448,11 +361,22 @@ public:
 	static QString DelHAGuide;
 	static QString MoveVGuide;
 	static QString MoveHGuide;
+	static QString UniteItem;
+	static QString Overprint;
+	static QString BlendMode;
+	static QString ActionPDF;
+	static QString SplitItem;
 	static QString RemoveAllGuides;
 	static QString RemoveAllPageGuides;
 	static QString LockGuides;
 	static QString UnlockGuides;
 	static QString Move;
+	static QString NewMasterPage;
+	static QString DelMasterPage;
+	static QString ImportMasterPage;
+	static QString DuplicateMasterPage;
+	static QString ApplyMasterPage;
+	static QString RenameMasterPage;
 	static QString Resize;
 	static QString Rotate;
 	static QString MoveFromTo;
@@ -469,7 +393,7 @@ public:
 	static QString AlignDistribute;
 	static QString ItemsInvolved;
 	static QString ItemsInvolved2;
-	static uint    ItemsInvolvedLimit;
+	static int     ItemsInvolvedLimit;
 	static QString Cancel;
 	static QString SetFill;
 	static QString ColorFromTo;
@@ -488,7 +412,7 @@ public:
 	static QString Delete;
 	static QString Rename;
 	static QString FromTo;
-	static QString ApplyMasterPage;
+	static QString Mode;
 	static QString Paste;
 	static QString Cut;
 	static QString Transparency;
@@ -505,6 +429,26 @@ public:
 	static QString StartAndEndArrow;
 	static QString CreateTable;
 	static QString RowsCols;
+	static QString CellBorders;
+	static QString CellFillColor;
+	static QString CellFillShade;
+	static QString CellStyle;
+	static QString TableFillColor;
+	static QString TableFillColorRst;
+	static QString TableFillShade;
+	static QString TableFillShadeRst;
+	static QString TableBorders;
+	static QString TableLeftBorder;
+	static QString TableLeftBorderRst;
+	static QString TableRightBorder;
+	static QString TableRightBorderRst;
+	static QString TableBottomBorder;
+	static QString TableBottomBorderRst;
+	static QString TableTopBorder;
+	static QString TableTopBorderRst;
+	static QString TableStyle;
+	static QString TableRowHeight;
+	static QString TableColumnWidth;
 	static QString SetFont;
 	static QString SetFontSize;
 	static QString SetFontWidth;
@@ -521,21 +465,50 @@ public:
 	static QString SetFontEffect;
 	static QString ImageFrame;
 	static QString TextFrame;
+	static QString Layer;
 	static QString LatexFrame;
+	static QString ResTyp;
 	static QString Polygon;
+	static QString EditPolygon;
+	static QString EditArc;
+	static QString EditSpiral;
 	static QString BezierCurve;
+	static QString ShowImage;
 	static QString Polyline;
 	static QString PathText;
 	static QString ConvertTo;
-	static QString ImportSVG;
-	static QString ImportEPS;
-	static QString ImportBarcode;
-	static QString ImportOOoDraw;
+	static QString RoundCorner;
 	static QString ImportAI;
-	static QString ImportXfig;
+	static QString ImportApplePages;
+	static QString ImportBarcode;
+	static QString ImportCDR;
+	static QString ImportCGM;
+	static QString ImportCVG;
+	static QString ImportDRW;
+	static QString ImportEMF;
+	static QString ImportEPS;
+	static QString ImportFreehand;
+	static QString ImportIDML;
+	static QString ImportOOoDraw;
+	static QString ImportPageMaker;
+	static QString ImportPDF;
+	static QString ImportPict;
+	static QString ImportPublisher;
+	static QString ImportQXP;
+	static QString ImportShape;
+	static QString ImportSML;
+	static QString ImportSVG;
+	static QString ImportSVM;
+	static QString ImportUniconv;
+	static QString ImportViva;
+	static QString ImportVSD;
 	static QString ImportWMF;
+	static QString ImportWPG;
+	static QString ImportXara;
+	static QString ImportXfig;
+	static QString ImportXPS;
+	static QString ImportZMF;
 	static QString ScratchSpace;
-	//static QString TextFlow;
 	static QString ObjectFrame;
 	static QString BoundingBox;
 	static QString ContourLine;
@@ -556,8 +529,26 @@ public:
 	static QString ResetContourLine;
 	static QString AddPage;
 	static QString AddPages;
+	static QString ReplaceText;
+	static QString FirstLineOffset;
+	static QString AppendText;
+	static QString ImportText;
+	static QString ClearText;
+	static QString TruncateText;
+	static QString AddLoremIpsum;
+	static QString DeleteText;
+	static QString InsertText;
+	static QString InsertMark;
+	static QString InsertNote;
+	static QString EditMark;
+	static QString DeleteMark;
+	static QString NewNotesStyle;
+	static QString EditNotesStyle;
+	static QString DeleteNotesStyle;
+	static QString DeleteNote;
 	static QString DeletePage;
 	static QString DeletePages;
+	static QString ChangePageProps;
 	static QString AddLayer;
 	static QString DuplicateLayer;
 	static QString DeleteLayer;
@@ -568,10 +559,34 @@ public:
 	static QString PrintLayer;
 	static QString DoNotPrintLayer;
 	static QString SetLayerName;
+	static QString FlowLayer;
+	static QString DisableFlowLayer;
+	static QString SetLayerBlendMode;
+	static QString SetLayerTransparency;
+	static QString MeshGradient;
+	static QString ChangeMeshGradient;
+	static QString SetLayerLocked;
+	static QString SetLayerUnlocked;
+	static QString RemoveMeshPatch;
+	static QString StartArrowScale;
+	static QString EndArrowScale;
 	static QString GetImage;
 	static QString ChangeFormula;
+	static QString GradType;
+	static QString GradTypeMask;
+	static QString GradPos;
+	static QString GradVal;
+	static QString GradValStroke;
+	static QString GradCol;
+	static QString GradTypeStroke;
 	static QString MultipleDuplicate;
+	static QString Duplicate;
+	static QString Transform;
 	static QString ApplyTextStyle;
+	static QString RemoveTextStyle;
+	static QString Columns;
+	static QString ColumnsGap;
+	static QString TextFrameDist;
 	static QString MenuUndo;
 	static QString MenuUndoEmpty;
 	static QString MenuRedo;
@@ -580,11 +595,35 @@ public:
 	static QString ResetControlPoint;
 	static QString ResetControlPoints;
 	static QString ImageEffects;
+	static QString LevelUp;
+	static QString LevelDown;
+	static QString LevelBottom;
+	static QString LevelTop;
 	static QString InsertFrame;
 	static QString AdjustFrameToImage;
 	static QString Copy;
 	static QString CopyPage;
+	static QString ChangePageAttrs;
+	static QString ImportPage;
+	static QString MovePage;
+	static QString SwapPage;
 	static QString ToOutlines;
+	static QString LinkTextFrame;
+	static QString UnlinkTextFrame;
+	static QString ClearImage;
+	static QString PathOperation;
+	static QString WeldItems;
+	static QString UnweldItems;
+	static QString SoftShadow;
+	static QString SoftShadowColor;
+	static QString SoftShadowShade;
+	static QString SoftShadowBlurRadius;
+	static QString SoftShadowXOffset;
+	static QString SoftShadowYOffset;
+	static QString SoftShadowOpacity;
+	static QString SoftShadowBlendMode;
+	static QString SoftShadowErase;
+	static QString SoftShadowObjectTrans;
 	/*@}*/
 
 	/**
@@ -626,12 +665,13 @@ public:
 	static QPixmap *IArrow;
 	static QPixmap *ITable;
 	static QPixmap *IFont;
-	static QPixmap *ISVG;
-	static QPixmap *IEPS;
 	static QPixmap *IAI;
-	static QPixmap *IXFIG;
-	static QPixmap *IWMF;
+	static QPixmap *IEPS;
 	static QPixmap *IImportOOoDraw;
+	static QPixmap *ISVG;
+	static QPixmap *IUniconv;
+	static QPixmap *IWMF;
+	static QPixmap *IXFIG;
 	static QPixmap *IImageScaling;
 	static QPixmap *IBorder;
 	static QPixmap *IDocument;
@@ -669,7 +709,7 @@ public slots:
 	 * @param state UndoSate describing the state (action).
 	 * @param targetPixmap Is used to override the default target icon in this action.
 	 */
-	void action(UndoObject* target, UndoState* state, QPixmap *targetPixmap = 0);
+	void action(UndoObject* target, UndoState* state, QPixmap *targetPixmap = nullptr);
 
 	/**
 	 * @brief Adds a new action to the undo stack.
@@ -684,7 +724,7 @@ public slots:
 	 * @param targetName Is used to override the default target name in this action.
 	 * @param targetPixmap Is used to override the default target icon in this action.
 	 */
-	void action(UndoObject* target, UndoState* state, const QString &targetName, QPixmap *targetPixmap = 0);
+	void action(UndoObject* target, UndoState* state, const QString &targetName, QPixmap *targetPixmap = nullptr);
 
 	/**
 	 * @brief Informs UndoManager to perform undo
@@ -782,5 +822,19 @@ signals:
 };
 
 typedef UndoManager Um;
+
+class SCRIBUS_API UndoBlocker
+{
+	public:
+		UndoBlocker()
+		{
+			UndoManager::instance()->setUndoEnabled(false);
+		}
+
+		~UndoBlocker()
+		{
+			UndoManager::instance()->setUndoEnabled(true);
+		}
+};
 
 #endif

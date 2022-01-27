@@ -1,0 +1,33 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>PDF/PostScript Tools</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>PDF/PostScript Tools</h2>
+<h3>PDF and PostScript Viewers</h3>
+<p>While <a href="toolbox1.html">Adobe Reader</a> is the most reliable PDF viewer, it is rightfully known as a resource hog, and it can&rsquo;t display anything but PDF files. For a quick preview of PDF files some people may prefer a faster viewing program, and while there are many alternative PDF viewers, only two of them are recommended by the Scribus Team:</p>
+<ul>
+<li><a href="http://okular.kde.org/">Okular</a> has become the default document viewer in KDE 4. In terms of PDF feature support, Okular is surprisingly close to Adobe Reader, although it cannot handle color-managed CMYK PDFs reliably yet. What makes Okular even more interesting than its PDF support is the long list of file formats that can be opened and converted: PDF, PostScript, EPS, DjVu, DVI, G3 Fax, as well as many image formats.</li>
+<li>Another reliable viewer and converter is GSview, whose features will be described in a <a href="toolbox6.html">separate chapter</a></li>
+</ul>
+<h4>PDF Viewers for Haiku</h4>
+<p>Adobe has never released a version of Acrobat/Adobe Reader for BeOS or Haiku. As an alternative you can use <a href="http://sourceforge.net/projects/bepdf/?source=directory">BePDF</a> or <a href="http://haikuware.com/directory/view-details/productivity/utilities/documentviewer">DocumentViewer</a>.</p>
+<h3>PDF Editors</h3>
+<p>PDF was and is designed as some kind of &ldquo;electronic paper&rdquo;, which means a PDF is not meant to be editable. But the more ubiquitous the PDF format became, the more use cases appeared, in which it made sense to edit &ldquo;non-editable&rdquo; files, e.g., last-minute corrections of spelling errors or the re-ordering of pages in a print workflow. The inventor of PDF, Adobe, took the lead and devoloped Acrobat, which is still the leading PDF editing program. However, since the PDF specification is open, others started to tinker as well, and today there are countless tools, closed source or open, that allow for editing PDF files. Below is a list of recommended FLOSS programs for PDF editing.</p>
+<ul>
+<li><a href="http://multivalent.sourceforge.net">Multivalent</a> and the <a href="http://www.accesspdf.com/pdftk">PDF Toolkit (pdftk)</a> are both Java-based commandline utilities with countless options to manipulate PDFs.</li>
+<li><a href="http://pdfedit.petricek.net/index_e.html">PDF Edit</a> is a collection of Qt scipts to manipulate PDFs, but the scripts are hidden behind a graphical user interface, so editing PDFs works in a WYSIWIG (&ldquo;What you see is what you get&rdquo;) mode. PDF Edit allows for many direct changes to the content of a PDF file, including changes to text or colors, as well as removing content. The program is based on Qt3, but as of this writing, the developers are working on a port to Qt4.</li>
+<li><a href="http://jpdftweak.sourceforge.net">jPDF Tweak</a>, a Java program, has rightfully been called a Swiss army knife for PDFs. It uses the highly reliable iText library for PDF editing.</li><br>
+<table width="100%"><tr><td align="center"><img src="images/tb-jpdf.png" alt="jPDF Tweak" title="jPDF Tweak" /></td></tr></table><br>
+<li><a href="http://www.pdfsam.org">PDF Split and Merge (PDF SaM)</a> is an even more powerful tool than jPDF Tweak and has a proven track record in pre-press environments. PDF SaM is rather a tool for professionals, whereas beginners will probably be overwhelmed by its many options. Like jPDF Tweak, PDF SaM is a Java program, but in contrast to all other Java programs in this list, the language of the graphical user interface can be changed. and there are many translations available.</li>
+<li><a href="http://www.quantumelephant.co.uk/bookbinder/bookbinder.html">Bookbinder</a> is a PDF editor for beginners and simple tasks. Its main purpose is to re-order (and re-scale, if necessary) pages in a PDF file for booklet printing and similar tasks. Bookbinder is also written in Java.</li><br>
+<table width="100%"><tr><td align="center"><img src="images/tb-bookbinder.png" alt="Bookbinder" title="Bookbinder" /></td></tr></table>
+<li>If you want to edit a PDF that comprises artwork, you can use <a href="toolbox4.html">GIMP</a>, <a href="toolbox15.html">Krita</a>, <a href="toolbox9.html">Inkscape</a> or <a href="toolbox18.html">Libre Office Draw</a>, depending on the content, as all of them can import PDFs and will let you edit the files.</li>
+<table width="100%"><tr><td align="center"><img src="images/tb-pdf-imp.png" alt="PDF import in Inkscape" title="PDF import in Inkscape" /></td></tr><tr><td><div align="center"><i>PDF import in Inkscape</i></div></td></tr></table>
+</ul>
+</body>
+</html>

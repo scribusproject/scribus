@@ -21,52 +21,53 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "prefscontext.h"
 #include "scclocale.h"
 
-PrefsContext::PrefsContext()
+PrefsContext::PrefsContext(const QString& contextName, bool persistent, bool plugin)
+            : m_name(contextName),
+              m_isPlugin(plugin),
+              m_isPersistent(persistent)
 {
-	name = "";
-	ispersistent = false;
-	isplugin = false;
+
 }
 
-PrefsContext::PrefsContext(QString contextName, bool persistent, bool plugin)
+PrefsContext::~PrefsContext()
 {
-	name = contextName;
-	ispersistent = persistent;
-	isplugin = plugin;
+	TableMap::Iterator it;
+	for (it = tables.begin(); it != tables.end(); ++it)
+		delete it.value();
 }
 
-QString PrefsContext::getName()
+QString PrefsContext::getName() const
 {
-	return name;
+	return m_name;
 }
 
-bool PrefsContext::isPersistent()
+bool PrefsContext::isPersistent() const
 {
-	return ispersistent;
+	return m_isPersistent;
 }
 
-bool PrefsContext::isPlugin()
+bool PrefsContext::isPlugin() const
 {
-	return isplugin;
+	return m_isPlugin;
 }
 
-bool PrefsContext::isEmpty()
+bool PrefsContext::isEmpty() const
 {
-	return (values.size() == 0 && tables.size() == 0);
+	return (values.empty() && tables.empty());
 }
 
-bool PrefsContext::contains(const QString& key)
+bool PrefsContext::contains(const QString& key) const
 {
 	return values.contains(key);
 }
 
-bool PrefsContext::containsTable(const QString& key)
+bool PrefsContext::containsTable(const QString& key) const
 {
 	return tables.contains(key);
 }
@@ -91,7 +92,7 @@ void PrefsContext::set(const QString& key, const std::string& value)
 
 void PrefsContext::set(const QString& key, const QString& value)
 {
-	values[key] = value;
+	values.insert(key, value);
 }
 
 int PrefsContext::getInt(const QString& key, int defValue)
@@ -174,11 +175,4 @@ PrefsTable* PrefsContext::getTable(const QString& name)
 void PrefsContext::removeTable(const QString& name)
 {
 	tables.remove(name);
-}
-
-PrefsContext::~PrefsContext()
-{
-	TableMap::Iterator it;
-	for (it = tables.begin(); it != tables.end(); ++it)
-		delete it.value();
 }

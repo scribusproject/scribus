@@ -1,0 +1,182 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Preferenze e impostazioni documento</title>
+</head>
+<body>
+<h2>Preferenze e impostazioni documento</h2>
+Nella barra dei men&ugrave;, sotto <em>File</em> sono presenti, tra le altre, le voci <strong>Impostazioni documento</strong> e <strong>Preferenze</strong>. Ciascuna di esse apre una finestra di dialogo utilizzabile per modificare varie impostazioni predefinite e altri aspetti del comportamento di Scribus:</p>
+<ul>
+<li><strong>Impostazioni documento</strong> si riferisce al documento attualmente aperto, e le modifiche apportate alle impostazioni vengono salvate insieme al documento stesso e applicate quando esso viene nuovamente aperto. Se nessun documento &egrave; aperto, nemmeno questa finestra di dialogo pu&ograve; essere aperta.</li>
+<li><strong>Preferenze</strong> modifica le impostazioni per tutti i documenti futuri, e pu&ograve; sempre essere aperta. Le spiegazioni seguenti si applicano principalmente alle <strong>Preferenze</strong>, ma quando necessario indicheremo le differenze che riguardano le <strong>Impostazioni documento</strong>.</li>
+</ul>
+<br>
+<table cellpadding="5">
+<tr><td width="200" valign="top"><ul>
+<li><a href="#1"><strong>Generale</strong></a></li>
+<li><a href="#2"><strong>Documento</strong></a></li>
+<li><a href="#3"><strong>Guide</strong></a></li>
+<li><a href="#4"><strong>Tipografico</strong></a></li>
+<li><a href="#5"><strong>Strumenti</strong></a></li>
+<li><a href="#6"><strong>Sillabazione</strong></a></li>
+<li><a href="#7"><strong>Font</strong></a></li>
+</ul></td>
+<td width="300" valign="top"><ul>
+</li>
+<li><a href="#9"><strong>Gestione colori</strong></a></li>
+<li><a href="#10"><strong>Esporta PDF</strong></a></li>
+<li><a href="#11"><strong>Attributi elementi documento</strong></a></li>
+<li><a href="#11"><strong>Sommario e indici</strong></a></li>
+<li><a href="#12"><strong>Tasti di scelta rapida</strong></a></li>
+<li><a href="#13"><strong>Biblioteca</strong></a></li>
+</ul></td>
+<td valign="top"><ul>
+<li><a href="#14"><strong>Visualizzazione</strong></a></li>
+<li><a href="#15"><strong>Strumenti esterni</strong></a></li>
+<li><a href="#16"><strong>Diversi</strong></a></li>
+<li><a href="#17"><strong>Estensioni</strong></a></li>
+<li><a href="#18"><strong>Parole brevi</strong></a></li>
+<li><a href="#19"><strong>Scripter</strong></a></li>
+<li><a href="#20"><strong>Informazioni documento</strong></a></li>
+</ul></td></tr>
+</table>
+<h3><a name="1"></a>Generale (non presente in Informazioni documento)</h3>
+<p>Scribus pu&ograve; essere avviato in molte <strong>lingue</strong>, ma di solito utilizza la lingua di sistema. Qui potete scegliere una lingua diversa; Scribus continuer&agrave; ad utilizzarla ogni volta che viene aperto, finch&eacute; non la modificate esplicitamente.</p>
+<p>Il <strong>tema</strong> utilizzato sar&agrave; quello di sistema se nessuno &egrave; selezionato; altrimenti le scelte disponibili dipendono dal sistema operativo e dai suoi temi (se presenti). Potete anche modificare le dimensioni del carattere dell'interfaccia utente. Le altre impostazioni hanno significato evidente, e qualche prova vi aiuter&agrave; a capirle.</p>
+<p>I diversi <strong>percorsi</strong> sono le posizioni predefinite che Scribus utilizza per le operazioni indicate. Il percorso per gli script &egrave; quello in cui Scribus li cerca quando si sceglie <em>Script &gt; Esegui Script</em> nel men&ugrave;.</p>
+<table width="90%"><tr><td align="center"><img src="images/prefs_general.png" align="center" alt="Preferenze: Generale" title="Preferenze generali" width="680"/></td></tr></table>
+<h3><a name="2"></a>Documento</h3>
+In Preferenze, le impostazioni di questa sezione sono quelle mostrate quando si crea un nuovo documento (<em>File &gt; Nuovo</em>). In Impostazioni documento, modificano le propriet&agrave; del documento corrente. La sezione <strong>Dimensione pagina</strong> dovrebbe essere facilmente comprensibile, con un'ampia scelta di misure standard tra cui scegliere, oltre alle dimensioni <em>Personalizzate</em>. Le opzioni sul <strong>Formato documento</strong> hanno suscitato un po' di confusione in alcuni utenti: indicano semplicemente la disposizione delle pagine sullo schermo, e ciascuna di esse avr&agrave; le dimensioni impostate. <em>Doppia facciata</em> &egrave; la disposizione che di solito si sceglie per libri o per documenti con impaginazione simile a quella di un libro, e il selettore per la <i>Prima pagina</i> in fondo permette di stabilire se la pagina iniziale sar&agrave; sinistra o destra. Questo aiuta anche a utilizzare una <a href="pagetemplate1.html">pagina mastro</a> adatta.
+<table width="90%"><tr><td align="center"><img src="images/prefs_document.png" align="center" alt="Impostazioni documento predefinite" title="Impostazioni documento predefinite"  width="680" /></td><td width="275"><img src="images/prefs_document1.png" width="250"><p>Nell'esempio qui sopra &egrave; mostrato l'effetto dell'impostazione a doppia facciata, con prima pagina destra (inoltre &egrave; stato impostato a due colonne). Se lo stampate su una stampante locale, le due pagine saranno stampate separatamente (ciascuna su un foglio).</td></tr></table>
+<p><strong>Formati predefiniti</strong>: sono utilizzabili per tutti i tipi di disposizione pagine, tranne la pagina singola. Essi sono alcuni classici modi di impostare i margini della pagina, e alcuni di essi sono basati su considerazioni matematiche relative alle dimensioni della pagina. L'immagine qui sotto mette a confronto questi formati (sono tutte pagine destre di una disposizione a doppia facciata).</p>
+<p><table cellpadding="3"><tr>
+<td align="center"><img src="images/prefs_gutenberg.png"><p>Gutenberg</td><td align="center"><img src="images/prefs_magazine.png"><p>Rivista</td><td align="center"><img src="images/prefs_fibonacci.png"><p>Fibonacci</td><td align="center"><img src="images/prefs_goldenmean.png"><p>Sezione aurea</td><td align="center"><img src="images/prefs_9parts.png"><p>Nove parti</td>
+</tr></table></p>
+<h3><a name="3"></a>Guide</h3>
+<p>Anche se questa sezione &egrave; chiamata <strong>Guide</strong>, comprende anche molte altre impostazioni di natura simile. Le guide possono essere mostrate sia sopra che sotto il contenuto del documento. <strong>Aggancio: Distanza di aggancio</strong> ha effetto quando sono attive una o entrambe le opzioni <em>Pagina &gt; Aggancia alla griglia</em> o <em>Pagina &gt; Aggancia alle guide</em>. <strong>Raggio d'aggancio</strong> indica la misura dello spazio virtuale per afferrare e trascinare le maniglie di una cornice. Come i suggerimenti dicono, per rendere effettivi i cambiamenti di queste impostazioni &egrave; necessario chiudere e riavviare Scribus.
+Oltre alle impostazioni di aggancio, qui sono presenti anche quelle per le distanze e i colori predefiniti. La <strong>griglia tipografica</strong> &egrave; l'insieme di guide orizzontali che costringe il testo contenuto in pi&ugrave; colonne ad allinearsi orizzontalmente, come mostrato sotto. Le impostazioni per le distanze per le linee di base si trovano negli stili di paragrafo, e nella sezione successiva, <strong>Tipografico</strong>.</p>
+
+<table width="90%"><tr><td align="center"><img src="images/prefs_guides.png" alt="Impostazioni per guide e griglie" align="middle" title="Impostazioni per guide e griglie" /></td></tr></table>
+<table width="80%"><tr><td valign="top">Per impostazione predefinita, le guide e i margini sono visibili, ma qui possono essere nascosti, o ne pu&ograve; essere modificato il colore. Per impostazione predefinita la <strong>griglia principale</strong> e la <strong>griglia minore</strong> non sono visibili; qui abbiamo cambiato i colori predefiniti in modo che nella schermata a destra siano evidenti le differenze: i bordi della pagina sono in rosso, i margini in blu, la griglia principale in verde chiaro, e la griglia secondaria in magenta chiaro.</p>
+<p>Infine, nella parte inferiore, si pu&ograve; attivare o disattivare la visualizzazione della griglia tipografica e regolare le sue impostazioni predefinite.
+<p>Altre informazioni sulla griglia tipografica si trovano in <a href="WwText.html#10">Lavorare con il testo</a>.</p></td>
+<td><img src="images/prefs_guides1.png"></td>
+</tr>
+</table>
+
+<h3><a name="4"></a>Tipografico</h3>
+<p>Qui si trovano le impostazioni predefinite per vari elementi tipografici: pedici, apici, interlinea automatica e scala del maiuscoletto.</p>
+<p>Inoltre pu&ograve; essere regolato il valore dell'interlinea automatica rispetto alla dimensione del carattere. <em>Si noti che il valore del 20% viene aggiunto allo spazio necessario per la successiva riga di testo, quindi la distanza tra due linee di base successive risulta pari al 120% della dimensione del carattere.</em></p>
+<p><table width="90%"><tr><td align="center"><img src="images/prefs_typog.png" align="center" alt="Preferenze: Tipografico"/></td></tr></table>
+
+<h3><a name="5"></a>Strumenti</h3>
+<p>Nella sezione Strumenti &egrave; possibile modificare le impostazioni predefinite per le cornici di testo e immagine, le forme, i poligoni e le linee. Inoltre vi sono le impostazioni per l'ingrandimento delle pagine e per la duplicazione e la rotazione degli oggetti.</p>
+
+<table width="100%">
+<tr><td align="center"><img src="images/prefs_tools.png" alt="Preferenze: strumenti"/></td>
+<td><img src="images/prefs_tools1.png"/></tr>
+<tr><td align="center"><img src="images/prefs_tools2.png" alt="Preferenze: strumenti"/></td>
+<td><img src="images/prefs_tools3.png"></tr>
+<tr><td align="center" colspan="2"><img src="images/prefs_tools4.png" alt="Preferenze: strumenti"/></td></tr>
+<tr><td align="center"><img src="images/prefs_tools5.png">
+<td align="center"><img src="images/prefs_tools6.png" alt="Preferenze: strumenti"/></td></tr>
+</table>
+
+<h3><a name="6"></a>Sillabazione</h3>
+<p>L'utilizzo della sillabazione &egrave; spiegato in <a href="hyphenator.html">questa pagina</a>.</p>
+
+<h3><a name="7"></a>Font</h3>
+<p>La corretta selezione e installazione dei tipi di carattere &egrave; uno degli aspetti pi&ugrave; importanti della configurazione di Scribus, e ampie informazioni in proposito sono contenute nell'apposita <a href="fonts1.html">sezione</a>. Se c'&egrave; una parte della documentazione che dovete assolutamente leggere, &egrave; questa.</p>
+
+<h3><a name="8"></a>Verifica preliminare</h3>
+La verifica preliminare (che controlla la presenza di eventuali errori) viene eseguita automaticamente quando si avvia l'esportazione in PDF, e si pu&ograve; anche lanciare manualmente dalla barra dei men&ugrave;. Qui si trovano le impostazioni predefinite per i vari elementi del documento che desiderate siano controllati. &Egrave; imprudente abilitare l'opzione <em>Ignora tutti gli errori</em>: un errore scoperto dopo che il documento &egrave; stato stampato in tipografia pu&ograve; rivelarsi costoso.
+<p><table width="90%"><tr><td align="center"><img src="images/prefs_preflight.png"></td></tr>
+</table>
+
+<h3><a name="9"></a>Gestione colori</h3>
+<p>Su quest'argomento vi sono estese spiegazioni in <a href="cms.html">Gestione del colore in Scribus</a> e <a href="moncal.html">Creare un profilo per il monitor con Littlecms</a>. 
+Gli utenti di Mac&nbsp;OS&nbsp;X e Windows possono utilizzare strumenti commerciali come Monaco's Color Tools o Eye-One, e Scribus ne pu&ograve; usufruire cos&igrave; come possono farlo altre applicazioni che utilizzano la gestione del colore.</p>
+<table width="90%"><tr><td align="center"><img src="images/prefs_colormgmt.png" alt="Preferenze: gestione colori" title="Preferenze: gestione colori" width="680" /></td></tr></table>
+<p><em>Nota: Se la gestione del colore non &egrave; attiva, l'esportazione nel formato PDF/X-3 non &egrave; possibile, e le preferenze per questo formato non sono modificabili.</em></p>
+
+<h3><a name="10"></a>Esporta PDF</h3>
+<p>Ricordate che le impostazioni presenti in questa sezione sono soltanto i valori predefiniti per l'esportazione in PDF. Quando lanciate l'importazione potrete cambiare i valori nella relativa finestra di dialogo. Potete trovare altre informazioni in <a href="pdfexport1.html">Esportazione PDF da Scribus</a> e <a href="pdfx3.html">PDF/X-3 e Scribus</a>.</p>
+
+<table width="90%" cellpadding="5"><tr><td align="center"><img src="images/prefs_pdfexport.png" alt="Preferenze: esporta PDF" title="Preferenze: esporta PDF" width="680"/></td></tr>
+<tr><td>Una novit&agrave; di Scribus 1.4.x &egrave; la capacit&agrave; di creare segni di pagina al vivo, indicatori di ritaglio, e altri segni per la stampa in tipografia quando si esegue l'esportazione in PDF. Le misure indicate per la pagina al vivo vengono sommate alle dimensioni della pagina impostate alla creazione del documento.
+<p>Osservate come appare questa sezione quando non vi sono profili ICC installati: l'opzione <strong>Destinazione output PDF/X-3</strong> non &egrave; attivata.</td></tr>
+<tr><td align="center"><img src="images/prefs_pdfexport1.png" alt="Preferenze: esporta PDF" title="Preferenze: esporta PDF"/></td></tr></table>
+
+<h3><a name="11"></a>Attributi elementi documento</h3>
+<p>Oltre a poter contenere informazioni aggiuntive su un certo elemento, gli attributi servono per la creazione di un sommario per il documento.</p>
+<h3>Sommario e indici</h3>
+<p>Le impostazioni in queste due sezioni si usano in modo coordinato tra loro. Uno degli utilizzi di queste caratteristiche &egrave; spiegato nel wiki di Scribus, nella pagina <a href="http://wiki.scribus.net/canvas/Creare_un_sommario">Creare un sommario</a>.</p>
+
+<h3><a name="12"></a>Tasti di scelta rapida</h3>
+
+<table width="90%"><tr><td align="center"><img src="images/prefs_keyboard.png" alt="Impostazione dei tasti di scelta rapida" title="Impostazione dei tasti di scelta rapida"/></td></tr></table>
+
+<p>Questa sezione elenca i tasti di scelta rapida utilizzabili in Scribus; le impostazioni sono modificabili e se ne possono aggiungere altre. Inoltre, dopo essere state personalizzate, possono essere esportate in un apposito file XML che pu&ograve; essere salvato separatamente e anche copiato su altre macchine. Questo file ha estensione predefinita <code>.ksxml</code>, ed &egrave; un file Unicode che non dovrebbe causare problemi quando viene spostato su piattaforme diverse, se non per il fatto che i Mac hanno un tasto meta per opzioni e comandi, mentre le tastiere per Linux e Windows sono identiche.</p>
+
+<h3><a name="13"></a>Biblioteca</h3>
+<p>Le biblioteche possono essere usate per raccogliere oggetti usati frequentemente, comprese immagini e file di testo. Gli oggetti possono essere inviati alla biblioteca dal men&ugrave; contestuale, oppure trascinati con il mouse sulla finestra della biblioteca, e da l&igrave; possono essere velocemente inseriti altrove. Una biblioteca pu&ograve; essere salvata insieme al file oppure separatamente dal documento, in modo da poter essere usata con pi&ugrave; documenti diversi. Le biblioteche salvate separatamente si trovano in file con estensione <code>.scs</code>. In questa sezione si pu&ograve; impostare la dimensione predefinita per le anteprime degli elementi nella finestra della biblioteca, e se la biblioteca deve essere salvata automaticamente quando viene modificata.</p>
+<h3><a name="14"></a>Visualizzazione (non tutte le opzioni sono disponibili in Impostazioni documento)</h3>
+<p>La maggior parte delle opzioni sono facilmente comprensibili. Potete usarle per regolare il livello di ingrandimento e la disposizione delle pagine nello spazio di lavoro, tenendo conto delle dimensioni dello schermo. Se avete molto spazio, potreste regolare la visualizzazione in modo che corrisponda esattamente alle dimensioni del documento. Ricordate che potete regolare le impostazioni di ingrandimento in <em>Strumenti &gt; Zoom</em>.</p>
+
+<table width="90%"><tr><td align="center"><img src="images/prefs_display.png" alt="Impostazioni di visualizzazione" title="Impostazioni di visualizzazione" /></td></tr></table>
+
+<p>La scheda Colori permette di personalizzare i colori utilizzati per i vari elementi mostrati sullo schermo, come margini, griglie e guide. In Impostazioni documento &egrave; disponibile solo l'opzione Colore di riempimento. &Egrave; opportuno precisare che il colore di riempimento riguarda solo l'<em>aspetto</em> dello sfondo del documento e non viene stampato n&eacute; esportato in PDF.</p>
+<h3><a name="15"></a>Strumenti esterni</h3>
+<p>Questa sezione permette di modificare le impostazioni predefinite per la posizione di Ghostscript e di altri programmi esterni. Se avete installato Ghostscript prima di Scribus, di solito esso viene rilevato automaticamente. Se ricevete un messaggio di errore che avverte che i file EPS non possono essere utilizzati, qui potete inserire la posizione corretta in cui Ghostscript &egrave; installato.</p>
+<h4>Ghostscript</h4>
+<p><strong>Linux, UNIX, OS/2, eComStation e Windows:</strong></p>
+<table width="90%"><tr><td align="center"><img src="images/prefs_exttools.png" alt="Impostazioni per gli strumenti esterni" title="Impostazioni per gli strumenti esterni" width="680" /></td></tr></table>
+<p>Questa schermata &egrave; stata creata su Linux e vale anche per altri sistemi UNIX. Vedete le pagine su <a href="readme-win32.html">Windows</a>, <a href="readme-os2.html">OS/2 ed eComStation</a> per informazioni specifiche su questi sistemi operativi. Altre informazioni su Ghostscript si trovano nella pagina <a href="toolbox7.html" title="Impostazioni avanzate di Ghostscript">Ghostscript avanzato.</a></p>
+<p><strong>Su MacOSX:</strong></p>
+<table width="100%"><tr><td align="center"><img src="images/prefs-mac-1.png" alt="Impostazioni per gli strumenti esterni" title="Impostazioni per gli strumenti esterni" /></td></tr></table>
+<p>Qui sopra sono mostrate le impostazioni consigliate, valide se avete installato correttamente il <a href="readme-macosx.html">framework Ghostscript</a>.</p>
+<h4>Altri strumenti esterni</h4>
+<p><strong>Strumento per l'elaborazione delle immagini</strong></p>
+<p>Non siete obbligati a usare Gimp per la modifica delle immagini; potete servirvi di qualunque editor di immagini come Krita, o perfino Photoshop. Tuttavia GIMP &egrave; impostato come applicazione predefinita, poich&eacute; &egrave; il pi&ugrave; diffuso software open source per la creazione e modifica di immagini.</p>
+<p><strong>Navigatore web</strong></p>
+<p>Qui potete indicare il percorso dell'eseguibile del browser che viene usato se fate clic su un link esterno nella guida in linea o un elemento esterno nel men&ugrave; <i>Aiuto</i>.</p>
+<p><strong>Cornici rendering</strong></p>
+<p>Vedi <a href="WwRenderframes.html">Lavorare con le cornici rendering</a>.</p>
+
+<h3><a name="16"></a>Diversi</h3>
+<table width="80%"><tr><td align="center"><img src="images/prefs_misc.png" title="Impostazioni diverse"></td></tr></table>
+<h3><a name="17"></a>Estensioni</h3>
+<p>Questa sezione mostra informazioni sulle estensioni che avete a disposizione, su come lanciarle e dove si trovano le rispettive librerie.
+
+<h3><a name="18"></a>Parole brevi</h3>
+<img src="images/prefs_shortwords.png">
+<p><i>Parole Brevi</i> &egrave; un plugin che vi aiuta ad aggiungere spazi protetti prima o dopo abbreviazioni come &ldquo;Sig.&rdquo; o unit&agrave; di misura come &ldquo;km&rdquo;. Spiegazioni dettagliate sulla configurazione e l'utilizzo si trovano nella pagina <a href="short-words.html">Parole brevi</a>.</p>
+
+<h3><a name="19"></a>Scripter</h3>
+Se il plugin <a href="scripter1.html">Scripter</a> &egrave; attivato all'avvio, non sar&agrave; necessario fare alcuna modifica qui per poter utilizzare gli script in Python distribuiti con Scribus.</p>
+<p>Le estensioni dello scripter sono moduli speciali per lo scripter o script che vengono caricati all'avvio per modificare le capacit&agrave; del plugin che esegue gli script Python all'interno di Scribus. I dettagli si trovano <a href="scripter-extensions.html">qui</a>. Nella scheda Console &egrave; possibile impostare i colori per l'evidenziazione della sintassi nella console dello scripter.</p>
+<h3><a name="20"></a>Informazioni documento (presente in Impostazioni documento ma non in Preferenze)</h3>
+Vedi la pagina sulle <a href="docinfo.html">informazioni documento</a>.
+<h4>Dove sono i file delle preferenze?</h4>
+<p>Le preferenze di Scribus sono salvate nella directory nascosta <code>.scribus</code>. La posizione di questa directory &egrave; la seguente:
+<ul>
+<li><strong>Linux/UNIX:</strong> <code>/home/nomeutente/.scribus</code></li>
+<li><strong>Mac OS X:</strong> <code>User/nomeutente/.scribus</code></li>
+<li><strong>OS/2 ed eComStation</strong>: <code>X:\SCRIBUS-1.4.x-OS2-date\scribus\.scribus</code></li>
+<li><strong>Windows:</strong> <code>C:\Documents and Settings\nomeutente\.scribus</code></li>
+</ul>
+La directory contiene i file <code>.scribus14.rc</code>, <code>scribusfont.rc</code> (in cui sono salvate le preferenze per i caratteri), e <code>prefs14.xml</code>. Questi file sono in formato XML e quindi sono leggibili e modificabili con qualunque editor di testo. Se Python &egrave; installato, ci sar&agrave; anche un file <code>scripter.rc</code> che elenca gli script usati di recente. Vi sono anche altre directory, con file di configurazione o cronologia. Se incontrate problemi, ma Scribus in precedenza funzionava, pu&ograve; essere una buona idea <strong>rinominare</strong> la directory <code>.scribus</code>, <strong>non</strong> cancellarla.</p>
+
+<hr>
+<p>Vedi anche:</p>
+<ul>
+<li><a href="fonts1.html">Impostazioni per i caratteri</a></li>
+<li><a href="hyphenator.html">Sillabazione</a></li>
+<li><a href="docinfo.html">Informazioni documento</a></li>
+<li><a href="short-words.html">Il plugin parole brevi</a></li>
+<li><a href="color2.html">Gestione dei colori</a></li>
+<li><a href="WwRenderframes.html">Lavorare con le cornici rendering</a></li>
+</ul>
+</p>
+</body>
+</html>

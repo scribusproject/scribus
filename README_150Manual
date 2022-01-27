@@ -1,0 +1,48 @@
+This README is strictly about changes to the online manual for Scribus Version 
+1.5.0svn.
+
+The English manual now uses CSS
+===============================
+
+Perhaps related to some changes in the helpbrowser, the appearance of the 
+manual changed in 1.5.0, with a larger Serif font, and no ability to adjust 
+this from the browser. After some experimentation, it was decided to start 
+using CSS to have better control over the appearance, as well as allow the user 
+to edit this appearance if desired.
+
+manual.css
+==========
+This is the name of the external CSS file, which you will find in doc/en in the 
+SVN download. 
+
+**********
+h1 {font-family:fontin,sans-serif; font-size:1.3em;}
+h2 {font-family:fontin,sans-serif; font-size:1.2em;}
+h3 {font-family:fontin,sans-serif; font-size:1.1em;}
+h4 {font-family:fontin,sans-serif; font-size:1em;}
+
+p, blockquote {font-family:dejavu sans,sans-serif; font-size:0.8em;}
+li {font-family:dejavu sans,sans-serif; font-size:0.8em;}
+code {font-size:1.1em;}
+dl {font-family:dejavu sans, sans-serif; font-size:1em;}
+pre {font-size:0.9em;}
+**********
+
+Using Fontin for headers is just a suggestion. It is an attractive, freely 
+available and usable font, but does not allow free distribution, so you must 
+obtain it on your own.
+
+How manual.css is used
+======================
+
+Inside the HTML files in doc/en, each HTML file has this after the <head> tags:
+
+<style>
+@import "manual.css";
+</style>
+
+This allows for simply editing the external stylesheet file to accomplish 
+widespread changes throughout the manual.
+
+If you delete manual.css from your end destination, the manual will revert to 
+the default font.

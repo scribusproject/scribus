@@ -33,7 +33,7 @@ class QInputMethodEvent;
 class QMouseEvent;
 class QKeyEvent;
 class QPainter;
-class QRubberBand;
+class SelectionRubberBand;
 
 /**
   This class realizes rectangle-select on behalf of its parent mode.
@@ -47,31 +47,33 @@ class QRubberBand;
  */
 class SCRIBUS_API RectSelect : public CanvasGesture
 {
-public:
-	RectSelect (CanvasMode* parent) : CanvasGesture(parent), m_start(0,0), m_rectangle(0) {};
-	
-	void prepare(QPoint globalStartPos);
-	void clear();
-	
-	virtual void enterEvent(QEvent * e);
-	virtual void leaveEvent(QEvent * e);
+	public:
+		explicit RectSelect (CanvasMode* parent) : CanvasGesture(parent), m_start(0,0), m_selectionRubberBand(nullptr) {};
+		~RectSelect() override = default;
 
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	/**
+		void prepare(QPoint globalStartPos);
+		void clear();
+
+		void enterEvent(QEvent * e) override;
+		void leaveEvent(QEvent * e) override;
+		void activate(bool) override;
+		void deactivate(bool) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+		/**
 		Prepares rectangle select for the position from 'm'
 	 */
-	virtual void mousePressEvent(QMouseEvent *m);
+		void mousePressEvent(QMouseEvent *m) override;
+		void drawControls(QPainter*) override;
 
-	QRectF result() const ;
-private:
-	void setStart(QPoint globalPos);
-	void setEnd(QPoint globalPos);
-	
-	QPoint m_start;
-	QRubberBand* m_rectangle;
+		QRectF result() const ;
+
+	private:
+		void setStart(QPoint globalPos);
+		void setEnd(QPoint globalPos);
+
+		QPoint m_start;
+		SelectionRubberBand* m_selectionRubberBand;
 };
 
 

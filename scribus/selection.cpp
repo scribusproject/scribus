@@ -18,34 +18,34 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 
+#include "sclimits.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include <QDebug>
 
-Selection::Selection(QObject* parent)
-	: QObject(parent),
-	m_hasGroupSelection(false),
+Selection::Selection(QObject* parent) :
+	QObject(parent),
 	m_isGUISelection(false),
 	m_delaySignals(0),
-	m_sigSelectionChanged(false),
-	m_sigSelectionIsMultiple(false)
+	m_sigSelectionChanged(false)
 {
+	m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
+	m_visualGX = m_visualGY = m_visualGW = m_visualGH = 0;
 }
 
-Selection::Selection(QObject* parent, bool guiSelection) 
-	: QObject(parent),
-	m_hasGroupSelection(false),
+Selection::Selection(QObject* parent, bool guiSelection) :
+	QObject(parent),
 	m_isGUISelection(guiSelection),
 	m_delaySignals(0),
-	m_sigSelectionChanged(false),
-	m_sigSelectionIsMultiple(false)
+	m_sigSelectionChanged(false)
 {
+	m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
+	m_visualGX = m_visualGY = m_visualGW = m_visualGH = 0;
 }
 
 Selection::Selection(const Selection& other) :
 	QObject(other.parent()),
 	m_SelList(other.m_SelList),
-	m_hasGroupSelection(other.m_hasGroupSelection),
 	// We do not copy m_isGUISelection as :
 	// 1) copy ctor is used for temporary selections
 	// 2) having two GUI selections for same doc should really be avoided
@@ -53,21 +53,28 @@ Selection::Selection(const Selection& other) :
 	// We do not copy m_delaySignals as that can potentially
 	// cause much trouble balancing delaySignalOff/On right
 	m_delaySignals(0), 
-	m_sigSelectionChanged(other.m_sigSelectionChanged),
-	m_sigSelectionIsMultiple(other.m_sigSelectionIsMultiple)
+	m_sigSelectionChanged(other.m_sigSelectionChanged)
 {
 	if (m_isGUISelection && !m_SelList.isEmpty())
 	{
 		m_SelList[0]->connectToGUI();
 		m_SelList[0]->emitAllToGUI();
 		m_SelList[0]->setSelected(true);
-		emit selectionIsMultiple(m_hasGroupSelection);
+		emit selectionChanged();
 	}
+	m_groupX = other.m_groupX;
+	m_groupY = other.m_groupY;
+	m_groupW = other.m_groupW;
+	m_groupH = other.m_groupH;
+	m_visualGX = other.m_visualGX;
+	m_visualGY = other.m_visualGY;
+	m_visualGW = other.m_visualGW;
+	m_visualGH = other.m_visualGH;
 }
 
-Selection& Selection::operator=( const Selection &other )
+Selection& Selection::operator=(const Selection &other)
 {
-	if (&other==this)
+	if (&other == this)
 		return *this;
 	if (m_isGUISelection)
 	{
@@ -75,27 +82,25 @@ Selection& Selection::operator=( const Selection &other )
 		for (SelectionList::Iterator it = m_SelList.begin(); it != itend; ++it)
 			(*it)->setSelected(false);
 	}
-	m_SelList=other.m_SelList;
-	m_hasGroupSelection=other.m_hasGroupSelection;
+	m_SelList = other.m_SelList;
 	// Do not copy m_isGUISelection for consistency with cpy ctor
 	/* m_isGUISelection = other.m_isGUISelection; */
 	// We do not copy m_delaySignals as that can potentially
 	// cause much trouble balancing delaySignalOff/On right
 	m_sigSelectionChanged = other.m_sigSelectionChanged;
-	m_sigSelectionIsMultiple = other.m_sigSelectionIsMultiple;
 	if (m_isGUISelection && !m_SelList.isEmpty())
 	{
 		m_SelList[0]->connectToGUI();
 		m_SelList[0]->emitAllToGUI();
 		m_SelList[0]->setSelected(true);
-		emit selectionIsMultiple(m_hasGroupSelection);
+		emit selectionChanged();
 	}
 	return *this;
 }
 
 void Selection::copy(Selection& other, bool emptyOther)
 {
-	if (&other==this)
+	if (&other == this)
 		return;
 	if (m_isGUISelection)
 	{
@@ -103,10 +108,9 @@ void Selection::copy(Selection& other, bool emptyOther)
 		for (SelectionList::Iterator it = m_SelList.begin(); it != itend; ++it)
 			(*it)->setSelected(false);
 	}
-	m_SelList=other.m_SelList;
-	m_hasGroupSelection=other.m_hasGroupSelection;
-	if (m_isGUISelection && !m_SelList.isEmpty())
-		m_sigSelectionIsMultiple = true;
+	m_SelList = other.m_SelList;
+	if (m_isGUISelection)
+		m_sigSelectionChanged = true;
 	if (emptyOther)
 		other.clear();
 	sendSignals();
@@ -120,9 +124,9 @@ bool Selection::clear()
 {
 	if (!m_SelList.isEmpty())
 	{
-		SelectionList::Iterator itend=m_SelList.end();
-		SelectionList::Iterator it=m_SelList.begin();
-		while (it!=itend)
+		SelectionList::Iterator itend = m_SelList.end();
+		SelectionList::Iterator it = m_SelList.begin();
+		while (it != itend)
 		{
 			(*it)->isSingleSel=false;
 			if (m_isGUISelection)
@@ -134,7 +138,6 @@ bool Selection::clear()
 		}
 	}
 	m_SelList.clear();
-	m_hasGroupSelection   = false;
 	m_sigSelectionChanged = true;
 	sendSignals();
 	return true;
@@ -142,29 +145,26 @@ bool Selection::clear()
 
 bool Selection::connectItemToGUI()
 {
-	bool ret = false;
 	if (!m_isGUISelection || m_SelList.isEmpty())
-		return ret;
-	if (m_hasGroupSelection==false)
+		return false;
+
+	QPointer<PageItem> pi = m_SelList.first();
+	//Quick check to see if the pointer is nullptr, if its nullptr, we should remove it from the list now
+	while (pi.isNull())
 	{
-		QPointer<PageItem> pi=m_SelList.first();
-		//Quick check to see if the pointer is NULL, if its NULL, we should remove it from the list now
-		if (pi.isNull())
-		{
-			m_SelList.removeAll(pi);
-			return ret;
-		}
-		ret = pi->connectToGUI();
-		pi->emitAllToGUI();
-		m_sigSelectionChanged = true;
+		m_SelList.removeAll(pi);
+		if (m_SelList.isEmpty())
+			break;
+		pi = m_SelList.first();
 	}
-	else
-	{
-		ret = m_SelList.first()->connectToGUI();
-		m_SelList.first()->emitAllToGUI();
-		m_sigSelectionChanged    = true;
-		m_sigSelectionIsMultiple = true;
-	}
+
+	if (pi.isNull())
+		return false;
+
+	bool ret = pi->connectToGUI();
+	pi->emitAllToGUI();
+	m_sigSelectionChanged = true;
+
 	sendSignals(false);
 	return ret;
 }
@@ -173,9 +173,9 @@ bool Selection::disconnectAllItemsFromGUI()
 {
 	if (!m_isGUISelection || m_SelList.isEmpty())
 		return false;
-	SelectionList::Iterator it2end=m_SelList.end();
-	SelectionList::Iterator it2=m_SelList.begin();
-	while (it2!=it2end)
+	SelectionList::Iterator it2end = m_SelList.end();
+	SelectionList::Iterator it2 = m_SelList.begin();
+	while (it2 != it2end)
 	{
 		(*it2)->disconnectFromGUI();
 		++it2;
@@ -183,11 +183,11 @@ bool Selection::disconnectAllItemsFromGUI()
 	return true;
 }
 
-bool Selection::addItem(PageItem *item, bool ignoreGUI)
+bool Selection::addItem(PageItem *item, bool /*ignoreGUI*/)
 {
-	if (item==NULL)
+	if (item == nullptr)
 		return false;
-	bool listWasEmpty=m_SelList.isEmpty();
+	bool listWasEmpty = m_SelList.isEmpty();
 	if (listWasEmpty || !m_SelList.contains(item))
 	{
 		m_SelList.append(item);
@@ -195,49 +195,82 @@ bool Selection::addItem(PageItem *item, bool ignoreGUI)
 		{
 			item->setSelected(true);
 			m_sigSelectionChanged = true;
-			m_sigSelectionIsMultiple = true;
 		}
-		m_hasGroupSelection = (m_SelList.count()>1);	
 		sendSignals();
 		return true;
 	}
 	return false;
 }
 
-bool Selection::prependItem(PageItem *item, bool doEmit)
+bool Selection::addItems(const QList<PageItem *> items)
 {
-	if (item==NULL)
+	if (items.isEmpty())
 		return false;
-	if (!m_SelList.contains(item))
+
+	QList< QPointer<PageItem> > toAdd;
+	toAdd.reserve(items.count());
+	for (int i = 0; i < items.count(); ++i)
 	{
-		if (m_isGUISelection && !m_SelList.isEmpty())
-			m_SelList[0]->disconnectFromGUI();
-		m_SelList.prepend(item);
-		if (m_isGUISelection /*&& doEmit*/)
-		{
-			item->setSelected(true);
-			m_sigSelectionChanged = true;
-			m_sigSelectionIsMultiple = true;
-		}
-		m_hasGroupSelection = (m_SelList.count()>1);	
-		sendSignals();
-		return true;
+		PageItem* item = items.at(i);
+		if (m_SelList.contains(item))
+			continue;
+		toAdd.append(item);
+		item->setSelected(true);
 	}
-	return false;
+
+	if (toAdd.count() <= 0)
+		return false;
+
+	m_SelList.append(toAdd);
+	if (m_isGUISelection)
+		m_sigSelectionChanged = true;
+	sendSignals();
+	return true;
+}
+
+bool Selection::prependItem(PageItem *item)
+{
+	if (item == nullptr)
+		return false;
+	if (m_SelList.contains(item))
+		return false;
+
+	if (m_isGUISelection && !m_SelList.isEmpty())
+		m_SelList[0]->disconnectFromGUI();
+	m_SelList.prepend(item);
+	if (m_isGUISelection)
+	{
+		item->setSelected(true);
+		m_sigSelectionChanged = true;
+	}	
+	sendSignals();
+	return true;
 }
 
 PageItem *Selection::itemAt_(int index)
 {
-	if (!m_SelList.isEmpty() && index<m_SelList.count())
+	if (!m_SelList.isEmpty() && index < m_SelList.count())
 	{
-		QPointer<PageItem> pi=m_SelList[index];
-		//If not NULL return it, otherwise remove from the list and return NULL
+		QPointer<PageItem> pi = m_SelList[index];
+		//If not nullptr return it, otherwise remove from the list and return nullptr
 		if (!pi.isNull())
 			return pi;
-//		SelectionList::Iterator it=m_SelList.at(index);
 		m_SelList.removeAt(index);
 	}
-	return NULL;
+	return nullptr;
+}
+
+QList<PageItem*> Selection::items() const
+{
+	QList<PageItem*> selectedItems;
+	for (int i = 0; i < m_SelList.count(); ++i)
+	{
+		QPointer<PageItem> pi = m_SelList.at(i);
+		if (pi.isNull())
+			continue;
+		selectedItems.append(pi.data());
+	}
+	return selectedItems;
 }
 
 bool Selection::removeFirst()
@@ -258,93 +291,101 @@ bool Selection::removeFirst()
 
 bool Selection::removeItem(PageItem *item)
 {
-    bool removeOk(false);
-	if (!m_SelList.isEmpty() && m_SelList.contains(item))
+	if (m_SelList.isEmpty() || !m_SelList.contains(item))
+		return false;
+
+	bool removeOk = (m_SelList.removeAll(item) == 1);
+	if (removeOk)
 	{
-		bool itemIsGroup(item->Groups.count() > 0);
-		if(itemIsGroup)
+		if (m_isGUISelection)
 		{
-			QList<PageItem*> gItems;
-			foreach(PageItem *pi, m_SelList)
-			{
-				if(!pi->groups().isEmpty() && !item->groups().isEmpty())
-				{
-					if(pi->groups().top() == item->groups().top())
-						gItems << pi;
-				}
-			}
-			foreach(PageItem *gi, gItems)
-			{
-				removeOk=(m_SelList.removeAll(gi)==1);
-				if (removeOk)
-				{
-					if (m_isGUISelection)
-					{
-						gi->setSelected(false);
-						gi->disconnectFromGUI();
-					}
-					gi->isSingleSel = false;
-				}
-			}
+			item->setSelected(false);
+			item->disconnectFromGUI();
 		}
-		else // regular item
-		{
-			removeOk=(m_SelList.removeAll(item)==1);
-			if (removeOk)
-			{
-				if (m_isGUISelection)
-				{
-					item->setSelected(false);
-					item->disconnectFromGUI();
-				}
-				item->isSingleSel = false;
-			}
-		}
+		item->isSingleSel = false;
+	}
 
-
-		if (m_SelList.isEmpty())
-			m_hasGroupSelection=false;
-		else if (m_isGUISelection)
-		{
-			m_sigSelectionChanged = true;
-			sendSignals();
-		}
-		return removeOk;
+	if (m_isGUISelection)
+	{
+		m_sigSelectionChanged = true;
+		sendSignals();
 	}
 	return removeOk;
 }
 
+bool Selection::removeItemsOfLayer(int layedID)
+{
+	if (m_SelList.isEmpty())
+		return false;
+
+	int oldSelCount = m_SelList.count();
+
+	delaySignalsOn();
+	
+	int selIndex = 0;
+	while (selIndex < m_SelList.count())
+	{
+		QPointer<PageItem> pi = m_SelList.at(selIndex);
+		if (pi.isNull())
+		{
+			removeItem(itemAt(selIndex));
+			continue;
+		}
+
+		if (pi->m_layerID != layedID)
+		{
+			++selIndex;
+			continue;
+		}
+
+		removeItem(itemAt(selIndex));
+	}
+
+	delaySignalsOff();
+
+	bool itemsRemoved = (oldSelCount != m_SelList.count());
+	return itemsRemoved;
+}
+
+void Selection::replaceItem(PageItem* oldItem, PageItem* newItem)
+{
+	delaySignalsOn();
+
+	int itemIndex = findItem(oldItem);
+	if (itemIndex >= 0)
+		m_SelList.replace(itemIndex, newItem);
+
+	delaySignalsOff();
+}
+
 PageItem* Selection::takeItem(int itemIndex)
 {
-	if (!m_SelList.isEmpty() && itemIndex<m_SelList.count())
+	if (m_SelList.isEmpty() || itemIndex >= m_SelList.count())
+		return nullptr;
+
+	PageItem *item =  m_SelList[itemIndex];
+	bool removeOk = (m_SelList.removeAll(item) == 1);
+	if (removeOk)
 	{
-		PageItem *item =  m_SelList[itemIndex];
-		bool removeOk  = (m_SelList.removeAll(item) == 1);
-		if (removeOk)
+		item->isSingleSel = false;
+		if (m_isGUISelection)
 		{
-			item->isSingleSel = false;
-			if (m_isGUISelection)
-			{
-				item->setSelected(false);
-				m_sigSelectionChanged = true;
-				if (itemIndex == 0)
-					item->disconnectFromGUI();
-			}
-			if (m_SelList.isEmpty())
-				m_hasGroupSelection=false;
-			sendSignals();
-			return item;
+			item->setSelected(false);
+			m_sigSelectionChanged = true;
+			if (itemIndex == 0)
+				item->disconnectFromGUI();
 		}
+		sendSignals();
+		return item;
 	}
-	return NULL;
+	return nullptr;
 }
 
 QStringList Selection::getSelectedItemsByName() const
 {
 	QStringList names;
-	SelectionList::ConstIterator it=m_SelList.begin();
-	SelectionList::ConstIterator itend=m_SelList.end();
-	for ( ; it!=itend ; ++it)
+	SelectionList::ConstIterator itend = m_SelList.end();
+	for (auto it = m_SelList.begin(); it != itend ; ++it)
 		names.append((*it)->itemName());
 	return names;
 }
@@ -353,86 +394,78 @@ double Selection::width() const
 {
 	if (m_SelList.isEmpty())
 		return 0.0;
-	double minX=9999999.9;
-	double maxX=-9999999.9;
-	SelectionList::ConstIterator it=m_SelList.begin();
-	SelectionList::ConstIterator itend=m_SelList.end();
-	double x1=0.0,x2=0.0,y1=0.0,y2=0.0;
-	for ( ; it!=itend ; ++it)
+	double minX =  std::numeric_limits<double>::max();
+	double maxX = -std::numeric_limits<double>::max();
+	double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+	SelectionList::ConstIterator itend = m_SelList.end();
+	for (auto it = m_SelList.begin(); it != itend ; ++it)
 	{
 		(*it)->getBoundingRect(&x1, &y1, &x2, &y2);
-		if (x1<minX)
-			minX=x1;
-		if (x2>maxX)
-			maxX=x2;
+		if (x1 < minX)
+			minX = x1;
+		if (x2 > maxX)
+			maxX = x2;
 	}
-	return maxX-minX;
+	return maxX - minX;
 }
 
 double Selection::height() const
 {
 	if (m_SelList.isEmpty())
 		return 0.0;
-	double minY=9999999.9;
-	double maxY=-9999999.9;
-	SelectionList::ConstIterator it=m_SelList.begin();
-	SelectionList::ConstIterator itend=m_SelList.end();
-	double x1=0.0,x2=0.0,y1=0.0,y2=0.0;
-	for ( ; it!=itend ; ++it)
+	double minY =  std::numeric_limits<double>::max();
+	double maxY = -std::numeric_limits<double>::max();
+	double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+	SelectionList::ConstIterator itend = m_SelList.end();
+	for (auto it = m_SelList.begin(); it != itend ; ++it)
 	{
 		(*it)->getBoundingRect(&x1, &y1, &x2, &y2);
-		if (y1<minY)
-			minY=y1;
-		if (y2>maxY)
-			maxY=y2;
+		if (y1 < minY)
+			minY = y1;
+		if (y2 > maxY)
+			maxY = y2;
 	}
-	return maxY-minY;
+	return maxY - minY;
 }
 
 void Selection::setGroupRect()
 {
 	PageItem *currItem;
-	double minx = 99999.9;
-	double miny = 99999.9;
-	double maxx = -99999.9;
-	double maxy = -99999.9;
-	
-	double vminx = 99999.9;
-	double vminy = 99999.9;
-	double vmaxx = -99999.9;
-	double vmaxy = -99999.9;
-	uint selectedItemCount=count();
-	for (uint gc = 0; gc < selectedItemCount; ++gc)
+	int selectedItemCount = count();
+	if (selectedItemCount == 0)
 	{
-		currItem = itemAt(gc);
-		if (currItem->rotation() != 0)
+		m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
+		m_visualGX = m_visualGY = m_visualGW = m_visualGH = 0;
+		return;
+	}
+	double minx  =  std::numeric_limits<double>::max();
+	double miny  =  std::numeric_limits<double>::max();
+	double maxx  = -std::numeric_limits<double>::max();
+	double maxy  = -std::numeric_limits<double>::max();
+	double vminx =  std::numeric_limits<double>::max();
+	double vminy =  std::numeric_limits<double>::max();
+	double vmaxx = -std::numeric_limits<double>::max();
+	double vmaxy = -std::numeric_limits<double>::max();
+
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		currItem = itemAt(i);
+		if (currItem->rotation() != 0.0)
 		{
-			FPointArray pb(4);
-			pb.setPoint(0, FPoint(currItem->xPos(), currItem->yPos()));
-			pb.setPoint(1, FPoint(currItem->width(), 0.0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
-			pb.setPoint(2, FPoint(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
-			pb.setPoint(3, FPoint(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
-			for (uint pc = 0; pc < 4; ++pc)
-			{
-				minx = qMin(minx, pb.point(pc).x());
-				miny = qMin(miny, pb.point(pc).y());
-				maxx = qMax(maxx, pb.point(pc).x());
-				maxy = qMax(maxy, pb.point(pc).y());
-			}
+			QRectF itRect(currItem->getBoundingRect());
+			minx = qMin(minx, itRect.x());
+			miny = qMin(miny, itRect.y());
+			maxx = qMax(maxx, itRect.right());
+			maxy = qMax(maxy, itRect.bottom());
 			
 			// Same for visual
-// 			pb.setPoint(0, FPoint(currItem->visualXPos(), currItem->visualYPos()));
-// 			pb.setPoint(1, FPoint(currItem->visualWidth(), 0.0, currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
-// 			pb.setPoint(2, FPoint(currItem->visualWidth(), currItem->visualHeight(), currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
-// 			pb.setPoint(3, FPoint(0.0, currItem->visualHeight(), currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
-			QRectF itRect(currItem->getVisualBoundingRect());
-// 			for (uint pc = 0; pc < 4; ++pc)
-			{
-				vminx = qMin(vminx, itRect.x());
-				vminy = qMin(vminy, itRect.y());
-				vmaxx = qMax(vmaxx, itRect.right());
-				vmaxy = qMax(vmaxy, itRect.bottom());
-			}
+			QRectF itVisualRect(currItem->getVisualBoundingRect());
+			vminx = qMin(vminx, itVisualRect.x());
+			vminy = qMin(vminy, itVisualRect.y());
+			vmaxx = qMax(vmaxx, itVisualRect.right());
+			vmaxy = qMax(vmaxy, itVisualRect.bottom());
 		}
 		else
 		{
@@ -447,46 +480,76 @@ void Selection::setGroupRect()
 			vmaxy = qMax(vmaxy, currItem->visualYPos() + currItem->visualHeight());
 		}
 	}
-	groupX = minx;
-	groupY = miny;
-	groupW = maxx - minx;
-	groupH = maxy - miny;
+	m_groupX = minx;
+	m_groupY = miny;
+	m_groupW = maxx - minx;
+	m_groupH = maxy - miny;
 	
-	visualGX = vminx;
-	visualGY = vminy;
-	visualGW = vmaxx - vminx;
-	visualGH = vmaxy - vminy;
+	m_visualGX = vminx;
+	m_visualGY = vminy;
+	m_visualGW = vmaxx - vminx;
+	m_visualGH = vmaxy - vminy;
 }
 
 void Selection::getGroupRect(double *x, double *y, double *w, double *h)
 {
-	*x = groupX;
-	*y = groupY;
-	*w = groupW;
-	*h = groupH;
+	setGroupRect();
+	*x = m_groupX;
+	*y = m_groupY;
+	*w = m_groupW;
+	*h = m_groupH;
+}
+
+QRectF Selection::getGroupRect()
+{
+	double x, y, w, h;
+	getGroupRect(&x, &y, &w, &h);
+	return QRectF(x, y, w, h);
 }
 
 void Selection::getVisualGroupRect(double * x, double * y, double * w, double * h)
 {
-	*x = visualGX;
-	*y = visualGY;
-	*w = visualGW;
-	*h = visualGH;
+	setGroupRect();
+	*x = m_visualGX;
+	*y = m_visualGY;
+	*w = m_visualGW;
+	*h = m_visualGH;
+}
+
+QRectF Selection::getVisualGroupRect()
+{
+	double x, y, w, h;
+	getGroupRect(&x, &y, &w, &h);
+	return QRectF(x, y, w, h);
+}
+
+bool Selection::containsItemType(PageItem::ItemType type) const
+{
+	if (m_SelList.isEmpty())
+		return false;
+	SelectionList::ConstIterator it = m_SelList.begin();
+	SelectionList::ConstIterator itend = m_SelList.end();
+	for (; it != itend; ++it)
+	{
+		if ((*it)->itemType() == type)
+			return true;
+	}
+	return false;
 }
 
 bool Selection::itemsAreSameType() const
 {
 	//CB Putting count=1 before isempty test as its probably the most likely, given our view code.
-	if (m_SelList.count()==1)
+	if (m_SelList.count() == 1)
 		return true;
 	if (m_SelList.isEmpty())
 		return false;
-	SelectionList::ConstIterator it=m_SelList.begin();
-	SelectionList::ConstIterator itend=m_SelList.end();
+	SelectionList::ConstIterator it = m_SelList.begin();
+	SelectionList::ConstIterator itend = m_SelList.end();
 	PageItem::ItemType itemType = (*it)->itemType();
-	for ( ; it!=itend ; ++it)
+	for ( ; it != itend ; ++it)
 	{
-		if ((*it)->isGroupControl)		// ignore GroupControl items
+		if ((*it)->isGroup())		// ignore GroupControl items
 			continue;
 		if ((*it)->itemType() != itemType)
 			return false;
@@ -494,17 +557,70 @@ bool Selection::itemsAreSameType() const
 	return true;
 }
 
-bool Selection::signalsDelayed(void)
+bool Selection::itemsAreOnSamePage() const
+{
+	//CB Putting count=1 before isempty test as its probably the most likely, given our view code.
+	if (m_SelList.count() == 1)
+		return true;
+	if (m_SelList.isEmpty())
+		return false;
+	auto it = m_SelList.begin();
+	auto itend = m_SelList.end();
+	auto ownPage = (*it)->OwnPage;
+	for ( ; it != itend ; ++it)
+	{
+		if ((*it)->OwnPage != ownPage)
+			return false;
+	}
+	return true;
+}
+
+int Selection::objectsLayer() const
+{
+	if (m_SelList.isEmpty())
+		return -1;
+	int layerID = m_SelList.at(0)->m_layerID;
+	for (int i = 1; i < m_SelList.count(); ++i)
+	{
+		if (m_SelList.at(i)->m_layerID != layerID)
+		{
+			layerID = -1;
+			break;
+		}
+	}
+	return layerID;
+}
+
+bool Selection::objectsHaveSameParent() const
+{
+	int selectedItemCount = m_SelList.count();
+	if (selectedItemCount <= 1)
+		return true;
+
+	bool haveSameParent = true;
+	const PageItem *firstItem = itemAt(0);
+	for (int i = 1; i < selectedItemCount; ++i)
+	{
+		if (itemAt(i)->Parent != firstItem->Parent)
+		{
+			haveSameParent = false;
+			break;
+		}
+	}
+	return haveSameParent;
+}
+
+bool Selection::signalsDelayed()
 {
 	return (m_isGUISelection && (m_delaySignals > 0));
 }
 
-void Selection::delaySignalsOn(void)
+void Selection::delaySignalsOn()
 {
 	++m_delaySignals;
 }
 
-void Selection::delaySignalsOff(void)
+void Selection::delaySignalsOff()
 {
 	--m_delaySignals;
 	if (m_delaySignals <= 0)
@@ -515,14 +631,15 @@ void Selection::sendSignals(bool guiConnect)
 {
 	if (m_isGUISelection && (m_delaySignals <= 0))
 	{
-		if (guiConnect)
+		setGroupRect();
+		// JG - We should probably add an m_sigSelectionChanged here
+		// to avoid multiple connectItemToGUI() if sendSignals() is called 
+		// several times successively (but does that happen?)
+		if (guiConnect /*&& m_sigSelectionChanged*/)
 			connectItemToGUI();
 		if (m_sigSelectionChanged)
 			emit selectionChanged();
-		if (m_sigSelectionIsMultiple)
-			emit selectionIsMultiple(m_hasGroupSelection);
 		m_sigSelectionChanged = false;
-		m_sigSelectionIsMultiple = false;
 	}
 }
 

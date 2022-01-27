@@ -24,24 +24,34 @@ for which a new license (GPL+exception) is in place.
 #ifndef FPOINT_H
 #define FPOINT_H
 
-#include <QMatrix>
+#include <QTransform>
 #include <QPoint>
+#include <QPointF>
 #include "scribusapi.h"
+
 /**
-  *@author Franz Schmid
+  * @author Franz Schmid
+  * @brief A point with floating point precision
+  *
+  * One of the advantage of FPoint vs QPointF is that FPoint has consistent precision across platforms :
+  * the coordinates are systematically stored as double. QPointF uses the qreal typedef which is sometime double,
+  * sometime float.
+  *
+  * FPoint has also some coordinate transformation functionalities not provided by QPointF. 
   */
 
 class SCRIBUS_API FPoint
 {
 public: 
-	FPoint() : xp(0), yp(0) {};
-	FPoint(double x, double y) : xp(x), yp(y) {};
-	FPoint(const QPoint & p) : xp(p.x()), yp(p.y()) {};
-	FPoint(const FPoint & p) : xp(p.xp), yp(p.yp) {};
+	FPoint() = default;
+	FPoint(double x, double y) : xp(x), yp(y) {}
+	FPoint(const QPoint & p) : xp(p.x()), yp(p.y()) {}
+	FPoint(const QPointF & p) : xp(p.x()), yp(p.y()) {}
+	FPoint(const FPoint & p) : xp(p.xp), yp(p.yp) {}
 	//Creates a transformed point, replaces ScribusView::transformPoint()
-	FPoint(const double x, const double y, const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert=false);
-//  ~FPoint() {};
-	FPoint &  operator=(const FPoint & rhs);
+	FPoint(double x, double y, double dx, double dy, double rot, double sx, double sy, bool invert=false);
+
+	FPoint& operator=(const FPoint & rhs);
 	double x() const;
 	double y() const;
 	void setX(double x);
@@ -51,78 +61,94 @@ public:
 	bool operator!=(const FPoint &rhs) const;
 	FPoint &operator+=( const FPoint &p );
 	FPoint &operator-=( const FPoint &p );
-	friend inline const FPoint operator+( const FPoint &, const FPoint & );
-	friend inline const FPoint operator-( const FPoint &, const FPoint & );
-	friend inline const FPoint operator*( const FPoint &, const double & );
-	friend inline const FPoint operator*( const double &, const FPoint & );
+	friend inline FPoint operator+( const FPoint &, const FPoint & );
+	friend inline FPoint operator-( const FPoint &, const FPoint & );
+	friend inline FPoint operator*( const FPoint &, const double & );
+	friend inline FPoint operator*( const double &, const FPoint & );
 	friend inline double  operator*( const FPoint &a, const FPoint &b );
 	//Transform an existing point
-	void transform(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert);
+	void transform(double dx, double dy, double rot, double sx, double sy, bool invert);
 	//Transform an existing point, return a new one
-	FPoint transformPoint(const QMatrix& m, const bool invert) const;
-	FPoint transformPoint(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert) const;
+	FPoint transformPoint(const QTransform& m, const bool invert) const;
+	FPoint transformPoint(double dx, double dy, double rot, double sx, double sy, bool invert) const;
+	/// Returns a copy of the point as a QPointF.
+	QPointF toQPointF() const { return QPointF(xp, yp); }
 	friend class FPointArray;
+	bool isNull() const;
 
 private:
-	double xp;
-	double yp;
+	double xp {0.0};
+	double yp {0.0};
 };
 
 
-inline const FPoint operator+( const FPoint &p1, const FPoint &p2 ) { 
-	return FPoint(p1.xp+p2.xp, p1.yp+p2.yp); 
+inline FPoint operator+( const FPoint &p1, const FPoint &p2 )
+{
+	return FPoint(p1.xp + p2.xp, p1.yp + p2.yp); 
 }
 
-inline const FPoint operator-( const FPoint &p1, const FPoint &p2 ) { 
-	return FPoint(p1.xp-p2.xp, p1.yp-p2.yp); 
+inline FPoint operator-( const FPoint &p1, const FPoint &p2 )
+{
+	return FPoint(p1.xp - p2.xp, p1.yp - p2.yp); 
 }
 
-inline const FPoint operator*( const FPoint &p, const double &c ) { 
-	return FPoint(p.xp*c, p.yp*c); 
+inline FPoint operator*( const FPoint &p, const double &c )
+{
+	return FPoint(p.xp * c, p.yp * c); 
 }
 
-inline const FPoint operator*( const double &c, const FPoint &p ) { 
-	return FPoint(p.xp*c, p.yp*c); 
+inline FPoint operator*( const double &c, const FPoint &p )
+{
+	return FPoint(p.xp * c, p.yp * c); 
 }
 
-inline double operator*( const FPoint &a, const FPoint &b ) {
+inline double operator*( const FPoint &a, const FPoint &b )
+{
 	return a.xp * b.xp + a.yp * b.yp; 
 }
 
-inline FPoint &  FPoint::operator=(const FPoint & rhs)  { 
+inline FPoint& FPoint::operator=(const FPoint & rhs)
+{
 	xp = rhs.xp; 
 	yp = rhs.yp; 
 	return *this; 
 }
 
-inline double FPoint::x() const { 
+inline double FPoint::x() const
+{
 	return xp; 
 }
 
-inline double FPoint::y() const { 
+inline double FPoint::y() const
+{
 	return yp; 
 }
 
-inline void FPoint::setX(double x) { 
+inline void FPoint::setX(double x)
+{
 	xp = x; 
 }
 
-inline void FPoint::setY(double y) { 
+inline void FPoint::setY(double y)
+{
 	yp = y; 
 }
 
-inline void FPoint::setXY(double x, double y) { 
+inline void FPoint::setXY(double x, double y)
+{
 	xp = x;
 	yp = y; 
 }
  
-inline FPoint & FPoint::operator+=( const FPoint &p ) { 
+inline FPoint & FPoint::operator+=(const FPoint &p)
+{
 	xp += p.xp; 
 	yp += p.yp; 
 	return *this; 
 }
 
-inline FPoint & FPoint::operator-=( const FPoint &p ) { 
+inline FPoint & FPoint::operator-=(const FPoint &p)
+{
 	xp -= p.xp; 
 	yp -= p.yp; 
 	return *this; 

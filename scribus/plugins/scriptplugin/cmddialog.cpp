@@ -7,23 +7,24 @@ for which a new license (GPL+exception) is in place.
 #include "cmddialog.h"
 #include "cmdutil.h"
 #include "scribuscore.h"
-#include "customfdialog.h"
-#include "stylemanager.h"
+#include "ui/customfdialog.h"
+#include "ui/scmessagebox.h"
+#include "ui/stylemanager.h"
 
 #include <QMessageBox>
 #include <QCursor>
 #include <QInputDialog>
 
 
-PyObject *scribus_newdocdia(PyObject* /* self */)
+PyObject *scribus_newdocdialog(PyObject* /* self */)
 {
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	bool ret = ScCore->primaryMainWindow()->slotFileNew();
 	QApplication::changeOverrideCursor(Qt::ArrowCursor);
-	return PyInt_FromLong(static_cast<long>(ret));
+	return PyLong_FromLong(static_cast<long>(ret));
 }
 
-PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
+PyObject *scribus_filedialog(PyObject* /* self */, PyObject* args, PyObject* kw)
 {
 	char *caption = const_cast<char*>("");
 	char *filter = const_cast<char*>("");
@@ -37,12 +38,12 @@ PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	char* kwargs[] = {const_cast<char*>("caption"), const_cast<char*>("filter"),
 						const_cast<char*>("defaultname"), const_cast<char*>("haspreview"),
 						const_cast<char*>("issave"), const_cast<char*>("isdir"),
-						NULL};
+						nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "es|esesiii", kwargs,
 									 "utf-8", &caption, "utf-8", &filter, "utf-8", &defName,
 									 &haspreview, &issave, &isdir))
 	{
-		return NULL;
+		return nullptr;
 	}
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	/* nobool = Nothing doing boolean for CFileDialog last attrs.
@@ -67,37 +68,51 @@ PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
 										);
 //	QApplication::restoreOverrideCursor();
 	// FIXME: filename return unicode OK?
-	return PyString_FromString(fName.toUtf8());
+	return PyUnicode_FromString(fName.toUtf8());
 }
 
-PyObject *scribus_messdia(PyObject* /* self */, PyObject* args, PyObject* kw)
+PyObject *scribus_messagebox(PyObject* /* self */, PyObject* args, PyObject* kw)
 {
 	char *caption = const_cast<char*>("");
 	char *message = const_cast<char*>("");
 	uint result;
 	QMessageBox::Icon ico = QMessageBox::NoIcon;
-	int butt1 = QMessageBox::Ok|QMessageBox::Default;
-	int butt2 = QMessageBox::NoButton;
-	int butt3 = QMessageBox::NoButton;
+	int butt[3] = { QMessageBox::Ok|QMessageBox::Default, QMessageBox::NoButton, QMessageBox::NoButton };
+	QMessageBox::StandardButtons buttons;
+	enum QMessageBox::StandardButton defaultButton = QMessageBox::NoButton;
 	char* kwargs[] = {const_cast<char*>("caption"), const_cast<char*>("message"),
 						const_cast<char*>("icon"), const_cast<char*>("button1"),
-						const_cast<char*>("button2"), const_cast<char*>("button3"), NULL};
-	if (!PyArg_ParseTupleAndKeywords(args, kw, "eses|iiii", kwargs, "utf-8", &caption, "utf-8", &message, &ico, &butt1, &butt2, &butt3))
-		return NULL;
+						const_cast<char*>("button2"), const_cast<char*>("button3"), nullptr};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "eses|iiii", kwargs, "utf-8", &caption, "utf-8", &message, &ico, &butt[0], &butt[1], &butt[2]))
+		return nullptr;
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	QMessageBox mb(QString::fromUtf8(caption), QString::fromUtf8(message), ico, butt1, butt2, butt3, ScCore->primaryMainWindow());
+	// ScMessageBox mb(ico, butt1, butt2, butt3, ScCore->primaryMainWindow());
+	for (int bi = 0; bi < 3; bi++) {
+		enum QMessageBox::StandardButton b = static_cast<QMessageBox::StandardButton>(butt[bi]);
+		if (b != QMessageBox::NoButton) {
+			if ((b & QMessageBox::Default) != 0) {
+				b = QMessageBox::StandardButton(b & ~QMessageBox::Default);
+				defaultButton = b;
+			}
+			buttons |= b;
+		}
+	}
+	ScMessageBox mb(ico, QString::fromUtf8(caption), QString::fromUtf8(message), buttons, ScCore->primaryMainWindow());
+	if (defaultButton != QMessageBox::NoButton) {
+		mb.setDefaultButton(defaultButton);
+	}
 	result = mb.exec();
 //	QApplication::restoreOverrideCursor();
-	return PyInt_FromLong(static_cast<long>(result));
+	return PyLong_FromLong(static_cast<long>(result));
 }
 
-PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
+PyObject *scribus_valuedialog(PyObject* /* self */, PyObject* args)
 {
 	char *caption = const_cast<char*>("");
 	char *message = const_cast<char*>("");
 	char *value = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "eses|es", "utf-8", &caption, "utf-8", &message, "utf-8", &value))
-		return NULL;
+		return nullptr;
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	QString txt = QInputDialog::getText(ScCore->primaryMainWindow(),
 										QString::fromUtf8(caption),
@@ -105,19 +120,19 @@ PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
 										QLineEdit::Normal,
 										QString::fromUtf8(value));
 //	QApplication::restoreOverrideCursor();
-	return PyString_FromString(txt.toUtf8());
+	return PyUnicode_FromString(txt.toUtf8());
 }
 
 PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 {
-	if(!checkHaveDocument())
-		return NULL;
+	if (!checkHaveDocument())
+		return nullptr;
 
 	ScribusDoc *d = ScCore->primaryMainWindow()->doc;
 	bool ok;
 	QString s = QInputDialog::getText(ScCore->primaryMainWindow(), "New Paragraph Style",
 			"Enter name of the new paragraph style:", QLineEdit::Normal,
-			QString::null, &ok);
+			QString(), &ok);
 
 	if (ok && !s.isEmpty())
 	{
@@ -128,10 +143,9 @@ PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 		st.create(p);
 		d->redefineStyles(st, false);
 		ScCore->primaryMainWindow()->styleMgr()->setDoc(d);
-		return PyString_FromString(s.toUtf8());
+		return PyUnicode_FromString(s.toUtf8());
 	}
-	else
-		Py_RETURN_NONE;
+	Py_RETURN_NONE;
 }
 
 /*! HACK: this removes "warning: 'blash' defined but not used" compiler warnings
@@ -139,7 +153,10 @@ with header files structure untouched (docstrings are kept near declarations)
 PV */
 void cmddialogdocwarnings()
 {
-    QStringList s;
-    s << scribus_newdocdia__doc__ << scribus_filedia__doc__ << scribus_messdia__doc__;
-    s << scribus_valdialog__doc__ << scribus_newstyledialog__doc__;
+	QStringList s;
+	s << scribus_filedialog__doc__
+	  << scribus_messagebox__doc__
+	  << scribus_newdocdialog__doc__ 
+	  << scribus_newstyledialog__doc__
+	  << scribus_valuedialog__doc__ ;
 }

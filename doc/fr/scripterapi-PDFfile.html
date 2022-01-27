@@ -1,0 +1,297 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Python : classe PDFfile</title>
+</head>
+
+<style>
+@import "manual.css";
+</style>
+
+<body>
+<h2>Python : classe PDFfile</h2>
+<p><a name="PDFfile">class <strong>PDFfile</strong></a>(<a href="__builtin__.html#object">objet</a>)
+</p>   
+<hr />
+<p>Méthodes définies par la classe:</p>
+<dl>
+	<dt><a name="PDFfile-Save"><strong>Save</strong></a>(...)</dt>
+	<dd><p>Cette méthode est obsolète - utilisez <a href="#PDFfile-save">save</a>() à la place.</p></dd>
+
+	<dt><a name="PDFfile-__init__"><strong>__init__</strong></a>(...)</dt>
+	<dd><p>x.<a href="#PDFfile-__init__">__init__</a>(...) initialise x; voir x.__class__.__doc__ pour la signature</p></dd>
+
+	<dt><a name="PDFfile-save"><strong>save</strong></a>(...)</dt>
+	<dd><p>Enregistre les pages sélectionnées dans un fichier pdf</p></dd>
+</dl>
+
+<hr/>
+
+<p>Données et attributs définis par la classe:</p>
+<dl>
+	<dt><strong>__new__</strong> = &lt;méthode intégrée __new__ de type objet&gt;</dt>
+	<dd><p>T.<a href="#PDFfile-__new__">__new__</a>(S, ...) -&gt; un nouvel objet de type S, un sous-type de T</p></dd>
+
+	<dt><strong>allowAnnots</strong> = &lt;membre 'allowAnnots' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Autorise l'ajout d'annotations et de champs. Valeur booléenne</p></dd>
+
+	<dt><strong>allowChange</strong> = &lt;membre 'allowChange' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Autorise la modification du document. Valeur booléenne</p></dd>
+
+	<dt><strong>allowCopy</strong> = &lt;membre 'allowCopy' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Autorise la copie de texte et de graphiques. Valeur booléenne</p></dd>
+
+	<dt><strong>allowPrinting</strong> = &lt;membre 'allowPrinting' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Autorise l'impression du document. Valeur booléenne</p></dd>
+
+	<dt><strong>article</strong> = &lt;membre 'article' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Enregistre les cadres de texte liés en tant qu'articles PDF<br/> Valeur booléenne</p></dd>
+
+	<dt><strong>binding</strong> = &lt;membre 'binding' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Indique la liaison.<br/>
+ 0 - Liaison à gauche<br/>
+ 1 - Liaison à droite</p></dd>
+ 
+	<dt><strong>bleedMarks</strong> = &lt;membre 'bleedMarks' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Crée les repères délimitant la zone de fond perdus.</p></dd>
+
+	<dt><strong>bleedb</strong> = &lt;membre 'bleedb' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Marge de coupe du bas<br/>Distance pour la coupe à partir du bas de la page physique</p></dd>
+
+	<dt><strong>bleedl</strong> = &lt;membre 'bleedl' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Marge de coupe de gauche<br/>Distance pour la coupe à partir de la gauche de la page physique</p></dd>
+
+	<dt><strong>bleedr</strong> = &lt;membre 'bleedr' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Marge de coupe de droite<br/>Distance pour la coupe à partir de la droite de la page physique</p></dd>
+
+	<dt><strong>bleedt</strong> = &lt;membre 'bleedt' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Marge de coupe du haut<br/>Distance pour la coupe à partir du haut de la page physique</p></dd>
+
+	<dt><strong>bookmarks</strong> = &lt;membre 'bookmarks' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Inclus les signets que vous avez créés dans votre document.<br/>Ils sont utiles pour la navigation dans de longs documents PDF.<br/>Valeur booléenne</p></dd>
+
+	<dt><strong>colorMarks</strong> = &lt;membre 'colorMarks' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Ajoute les barres de contr&ocirc;les.</p></dd>
+	
+	<dt><strong>compress</strong> = &lt;membre 'compress' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Indicateur de compression. Valeur booléenne.</p></dd>
+
+	<dt><strong>compressmtd</strong> = &lt;membre 'compressmtd' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Méthode de compression.<br/>
+ 0 - Automatique<br/>
+ 1 - JPEG<br/>
+ 2 - zip<br/>
+ 3 - Aucune.</p></dd>
+ 
+	<dt><strong>cropMarks</strong> = &lt;membre 'cropMarks' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Crée des repères indiquant o&ugrave le papier doit &ecirc;tre coupé ou rogné après impression.</p></dd>
+
+	<dt><strong>displayBookmarks</strong> = &lt;membre 'displayBookmarks' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Affiche l'onglet des signets lors de l'ouverture du document PDF.</p></dd>
+	
+	<dt><strong>displayFullscreen</strong> = &lt;membre 'displayFullscreen' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Affiche le document PDF en mode plein écran lors de son ouverture.</p></dd>
+	
+	<dt><strong>displayLayers</strong> = &lt;membre 'displayLayers' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Affiche l'onglet des calques lors de l'ouverture du document PDF. Utile uniquement pour les fichiers PDF 1.5+.</p></dd>
+	
+	<dt><strong>displayThumbs</strong> = &lt;membre 'displayThumbs' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Affiche les vignettes de pages lors de l'ouverture du document PDF.</p></dd>
+	
+	<dt><strong>docInfoMarks</strong> = &lt;membre 'docInfoMarks' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Ajoute les informations de titre de document et de numéros de pages à l'extérieur de la zone de page.</p></dd>
+	
+	<dt><strong>doClip</strong> = &lt;membre 'doClip'  de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Emp&ecirc;che l'affichage des objets situés hors des marges.</p></dd>
+	
+	<dt><strong>downsample</strong> = &lt;attribut 'downsample' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Réduit la résolution de l'image à cette valeur. Les
+valeurs sont comprises entre 35 et 4000<br/>Mettre à 0 pour ne pas modifier la résolution</p></dd>
+
+	<dt><strong>effval</strong> = &lt;attribut 'effval' de la classe 'PDFfile'&gt;</dt>
+	<dd><p>Liste des valeurs des effets pour chaque page enregistrée.<br/>
+	<pre>
+Il s'agit d'une liste de six nombres entiers. Ils ont la signification suivante:
+        - Durée d'affichage de la page avant que la présentation
+          démarre à la page sélectionnée. (1-3600)
+        - Durée de l'effet. (1 - 3600)
+                Un temps plus court accélérera l'effet, un temps plus long le ralentira
+        - Type d'effet visuel
+                0 - Pas d'effet
+                1 - Stores
+                2 - Bo&icirc;te
+                3 - Dissolution
+                4 - Scintillement
+                5 - Séparation
+                6 - Effacement
+        - Direction de l'effet de déplacement de lignes pour les effets de séparation et de store.
+                0 - Horizontal
+                1 - Vertical
+        - Position de départ pour les effets de bo&icirc;te et de séparation.
+                0 - Intérieur
+                1 - Extérieur
+        - Direction des effets de scintillement et d'effacement.
+                0 - De gauche à droite
+                1 - De haut en bas
+                2 - De bas en haut
+                3 - De droite à gauche
+                4 - Du coin supérieur gauche au coin inférieur droit
+</pre></p></dd>
+
+<dt><strong>embedPDF</strong> = &lt;membre 'embedPDF' de la classe 'PDFfile'&gt;;</dt>
+<dd><p>Exporte les fichiers EPS et PDF chargés dans des cadres d'images sous forme d'objets PDF.<br/>
+Cette fonctionnalité ne traite pas les espaces de couleurs, en conséquence cette option ne doit &ecirctre activée qu'en connaissance de cause.<br/>
+Valeur booléenne.</p></dd>
+
+<dt><strong>encrypt</strong> = &lt;membre 'encrypt' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Utilisation de l'encryption. Valeur booléenne</p></dd>
+
+<dt><strong>file</strong> = &lt;attribut 'file' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Nom du fichier dans lequel enregistrer</p></dd>
+
+<dt><strong>fitWindow</strong> = &lt;attribut 'fitWindow' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Adapte l'affichage des pages à l'espace disponible dans la fen&ecirc;tre du visualisateur.</p></dd>
+
+<dt><strong>fontEmbedding</strong> = &lt;membre 'fontEmbedding' de la classe 'PDFfile' &gt;</dt>
+<dd><p>Mode d'encapsulation des polices:<br/>
+0 - Encapsule les polices en jeux complets ou partiels  selon la valeur de l'attribut 'fonts' <br/>
+1 - Incorpore les polices sous forme de vecteurs<br/>
+2 - Pas d'incorporation.</p></dd>
+
+<dt><strong>fonts</strong> = &lt;membre 'fonts' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Liste de polices à inclure.</p></dd>
+
+<dt><strong>hideMenuBar</strong> = &lt;attribut 'hideMenuBar' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Cache la barre de menu du visualisateur, le PDF s'affichera pleine fen&ecirc;tre.</p></dd>
+
+<dt><strong>hideToolBar</strong> = &lt;attribut 'hideToolBar' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Cache la barre d'outil du visualisateur. Cette barre a habituellement des fonctionnalitées d'édition et de sélection.</p></dd>
+
+<dt><strong>imagepr</strong> = &lt;attribut 'imagepr' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Profil couleur pour les images</p></dd>
+
+<dt><strong>info</strong> = &lt;attribut 'info' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Cha&icirc;ne requise pour PDF/X-3, sinon le PDF ne sera pas conforme à PDF/X-3. Nous vous recommandons d'utiliser le titre du document.</p></dd>
+
+<dt><strong>intenti</strong> = &lt;membre 'intenti' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Rendu pour les images<br/>
+0 - Perceptuel<br/>
+1 - Colorimétrie relative<br/>
+2 - Saturation<br/>
+3 - Colorimétrie absolue</p></dd>
+
+<dt><strong>intents</strong> = &lt;membre 'intents' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Rendu pour les couleurs d'accompagnement<br/>
+0 - Perceptuel<br/>
+1 - Colorimétrie relative<br/>
+2 - Saturation<br/>
+3 - Colorimétrie absolue</p></dd>
+
+<dt><strong>isGrayscale</strong> = &lt;attribut 'isGrayscale' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Exporte le fichier PDF en mode niveaux de gris.</p></dd>
+
+<dt><strong>lpival</strong> = &lt;attribut 'lpival' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Paramètres du rendu pour des couleurs individuelles.<br/>
+<pre>
+Il s'agit d'une liste de valeurs pour chaque couleur.
+ Les valeurs des couleurs respectent la structure [siii] qui
+correspond à:
+        s - Nom de la couleur ('Noir', 'Cyan', 'Magenta', 'Jaune')
+        i - Fréquence (10 à 1000)
+        i - Angle (-180 à 180)
+        i - Fonction de point
+                0 - Simple point
+                1 - Ligne
+                2 - Rond
+                3 - Ellipse
+</pre>
+Soyez prudent en assignant ces valeurs, car leur validité n'est pas vérifiée.</p></dd>
+
+<dt><strong>markOffset</strong> = &lt;attribut 'markOffset' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Indique la distance entre les repères et la zone de page correspondante.</p></dd>
+
+<dt><strong>markLength</strong> = &lt;attribut 'markLength' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Indique la longueur des repères de coupe et de fonds perdus.</p></dd>
+
+<dt><strong>mirrorH</strong> = &lt;attribut 'mirrorH' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Effectue un miroir horizontal des pages. Valeur booléenne.</p></dd>
+
+<dt><strong>mirrorV</strong> = &lt;attribut 'mirrorV' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Effectue un miroir vertical des pages. Valeur booléenne.</p></dd>
+
+<dt><strong>noembicc</strong> = &lt;membre 'noembicc' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Ne pas utiliser de profils ICC. Valeur booléenne</p></dd>
+
+<dt><strong>outdst</strong> = &lt;membre 'outdst' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Destination de sortie.<br/>
+0 - écran<br/>
+1 - imprimante</p></dd>
+
+<dt><strong>owner</strong> = &lt;attribut 'owner' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Mot de passe du propriétaire</p></dd>
+
+<dt><strong>pageLayout</strong> = &lt;attribut 'pageLayout' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Mode d'affichage du document dans le visualiseur:<br/>
+0 - Affiche le document en mode 'pages simples'<br/>
+1 - Affiche le document en mode 'pages simples' avec défilement continu<br/>
+2 - Affiche le document en mode 'pages doubles' avec la première page affichée à gauche<br/>
+3 - Affiche le document en mode 'pages doubles' avec la première page affichée à droite</p></dd>
+
+<dt><strong>pages</strong> = &lt;attribut 'pages' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Liste des pages à imprimer</p></dd>
+
+<dt><strong>presentation</strong> = &lt;membre 'presentation' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Active la valeur de présentation Effects.Bool</p></dd>
+
+<dt><strong>printprofc</strong> = &lt;attribut 'printprofc' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Profil de sortie pour l'impression. Si possible, référez-vous à votre imprimeur pour le choix du profil.</p></dd>
+
+<dt><strong>profilei</strong> = &lt;membre 'profilei' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Inclus un profil couleur pour les images. Valeur booléenne.</p></dd>
+
+<dt><strong>profiles</strong> = &lt;membre 'profiles' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Inclus un profil couleur pour les couleurs d'aplats. Valeur booléenne.</p></dd>
+
+<dt><strong>quality</strong> = &lt;membre 'quality' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Qualité de l'image<br/>
+0 - Maximum<br/>
+1 - Haute<br/>
+2 - Moyenne<br/>
+3 - Basse<br/>
+4 - Minimum</p></dd>
+
+<dt><strong>registrationMarks</strong> = &lt;attribut 'registrationMarks' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Ajoute les marques de repèrage &agrave chaque séparation.</p></dd>
+
+<dt><strong>resolution</strong> = &lt;attribut 'resolution' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Résolution du fichier de sortie. Les valeurs sont comprises entre 35 et 4000.</p></dd>
+
+<dt><strong>solidpr</strong> = &lt;attribut 'solidpr' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Profil couleur pour les couleurs d'aplats</p></dd>
+
+<dt><strong>thumbnails</strong> = &lt;membre 'thumbnails' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Génère les vignettes. Valeur booléenne.</p></dd>
+
+<dt><strong>useDocBleeds</strong> = &lt;attribut 'useDocBleeds' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Utilise les valeurs de fonds perdus configurées dans les préférences du document. Valeur booléenne.</p></dd>
+
+<dt><strong>useLayers</strong> = &lt;attribut 'useLayers' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Active l'export des calques en tant que calques PDF. Possible uniquement avec les formats PDF >= 1.5.</p></dd>
+
+<dt><strong>uselpi</strong> = &lt;membre 'uselpi' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Utilisation des paramètres personnalisés de rendu. Valeur booléenne</p></dd>
+
+<dt><strong>user</strong> = &lt;attribut 'user' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Mot de passe de l'utilisateur</p></dd>
+
+<dt><strong>version</strong> = &lt;membre 'version' de la classe 'PDFfile'&gt;</dt>
+<dd><p>Indique la version de PDF à utiliser:<br/>
+11 = PDF/X-1a<br/>
+12 = PDF/X-3<br/>
+13 = PDF 1.3 (Acrobat 4)<br/>
+14 = PDF 1.4 (Acrobat 5)<br/>
+15 = PDF 1.5 (Acrobat 6)</p></dd>
+
+</dl>
+</body>
+</html> 

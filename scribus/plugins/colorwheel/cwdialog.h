@@ -10,7 +10,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_cwdialog.h"
 #include "colorwheelwidget.h"
-#include "scribus.h"
+#include "prefscontext.h"
+
 
 class QSpacerItem;
 class QComboBox;
@@ -31,7 +32,7 @@ class CWDialog : public QDialog, Ui::CWDialog
 {
 	Q_OBJECT
 	public:
-		CWDialog( QWidget* parent = 0, ScribusDoc* doc = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
+		CWDialog(QWidget* parent = nullptr, ScribusDoc* doc = nullptr, const char* name = nullptr, bool modal = false);
 		~CWDialog();
 	private:
 		/** \brief Configuration structure */
@@ -63,16 +64,16 @@ class CWDialog : public QDialog, Ui::CWDialog
 
 		/*! \brief A GUI setter for all components when is one of CMYK changed.
 		*/
-		void setupRGBComponent(ScColor col);
+		void setupRGBComponent(const ScColor& col);
 
 		/*! \brief A GUI setter for all components when is one of RGB changed.
 		*/
-		void setupCMYKComponent(ScColor col);
+		void setupCMYKComponent(const ScColor& col);
 
 		/*! \brief A GUI setter for all components when is one of HSV changed.
 		It uses a dummy QColor->ScColor conversion
 		*/
-		void setupHSVComponent(ScColor col);
+		void setupHSVComponent(const ScColor& col);
 
 		//! \brief Set named colors for labels
 		void updateNamedLabels();
@@ -93,30 +94,30 @@ class CWDialog : public QDialog, Ui::CWDialog
 		void processColors(int index, bool updateSpins=true);
 
 		//! \brief Get a #hhssvv string for given ScColor
-		QString getHexHsv(ScColor c);
+		QString getHexHsv(const ScColor& c);
 
 	private slots:
 		void colorspaceTab_currentChanged(int);
 		void angleSpin_valueChanged(int);
 		void colorWheel_clicked(int, const QPoint &);
 		void typeCombo_activated(int);
-		void documentColorList_currentChanged(QListWidgetItem *);
+		void documentColorList_currentChanged(const QString& itemText);
 		void defectCombo_activated(int);
 		void addButton_clicked();
 		void replaceButton_clicked();
 		void cancelButton_clicked();
-		void colorList_currentChanged(QListWidgetItem *);
+		void colorList_currentChanged(const QString& text);
 
-		void cSpin_valueChanged( int );
-		void mSpin_valueChanged( int );
-		void ySpin_valueChanged( int );
-		void kSpin_valueChanged( int );
-		void rSpin_valueChanged( int );
-		void gSpin_valueChanged( int );
-		void bSpin_valueChanged( int );
-		void hSpin_valueChanged( int );
-		void sSpin_valueChanged( int );
-		void vSpin_valueChanged( int );
+		void cSpin_valueChanged(int);
+		void mSpin_valueChanged(int);
+		void ySpin_valueChanged(int);
+		void kSpin_valueChanged(int);
+		void rSpin_valueChanged(int);
+		void gSpin_valueChanged(int);
+		void bSpin_valueChanged(int);
+		void hSpin_valueChanged(int);
+		void sSpin_valueChanged(int);
+		void vSpin_valueChanged(int);
 };
 
 #endif // CWDIALOG_H

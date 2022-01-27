@@ -24,22 +24,33 @@
 class ResourceCollection;
 
 
-class SCRIBUS_API ParagraphStyle : public Style
+class SCRIBUS_API ParagraphStyle : public BaseStyle
 {
 public:
-	enum LineSpacingMode { 
+	enum LineSpacingMode
+	{
 		FixedLineSpacing        = 0, 
 		AutomaticLineSpacing    = 1,
 		BaselineGridLineSpacing = 2
 	};
-	enum AlignmentType {
-		Leftaligned  = 0,
+
+	enum AlignmentType
+	{
+		LeftAligned  = 0,
 		Centered     = 1,
-		Rightaligned = 2,
+		RightAligned = 2,
 		Justified    = 3,
 		Extended     = 4
 	};
-	enum OpticalMarginType {
+
+	enum DirectionType
+	{
+		LTR  = 0,
+		RTL  = 1
+	};
+
+	enum OpticalMarginType
+	{
 		OM_None  = 0,
 		OM_LeftProtruding    = 1,
 		OM_RightProtruding   = 2,
@@ -47,19 +58,20 @@ public:
 		OM_RightHangingPunct = 8,
 		OM_Default           = OM_RightProtruding + OM_LeftHangingPunct + OM_RightHangingPunct
 	};
-	enum HyphenationMode {
+
+	enum HyphenationMode
+	{
 		NoHyphenation        = 0,
 		ManualHyphenation    = 1,
 		AutomaticHyphenation = 2
 	};
+
 	struct TabRecord
 	{
 		qreal tabPosition;
 		int tabType;
 		QChar tabFillChar;
-		bool operator==(const TabRecord& other) const {
-			return tabPosition==other.tabPosition && tabType==other.tabType && tabFillChar == other.tabFillChar;
-		}
+		bool operator==(const TabRecord& other) const;
 		bool operator<(const TabRecord& other)  const { return tabPosition < other.tabPosition; }
 		bool operator<=(const TabRecord& other) const { return tabPosition <= other.tabPosition; }
 		bool operator>(const TabRecord& other)  const { return tabPosition > other.tabPosition; }
@@ -69,13 +81,13 @@ public:
 	ParagraphStyle();
 	ParagraphStyle(const ParagraphStyle& other);
 	ParagraphStyle& operator=(const ParagraphStyle& other);
-	~ParagraphStyle();
+	~ParagraphStyle() = default;
 
 	static const Xml_string saxxDefaultElem;
-	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
+	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, const Xml_string& elemtag = saxxDefaultElem);
 	
 	virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
-	virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
+	virtual void saxx(SaxHandler& handler) const { saxx(handler, saxxDefaultElem); }
 	
 
 	void getNamedResources(ResourceCollection& lists) const;
@@ -86,17 +98,17 @@ public:
 	void setContext(const StyleContext* context);
 	void update(const StyleContext*);
 	
-	bool equiv(const Style& other) const;
+	bool equiv(const BaseStyle& other) const;
 	
 	void applyStyle(const ParagraphStyle& other);
 	void eraseStyle(const ParagraphStyle& other);
 	void setStyle(const ParagraphStyle& other);
 	void erase() { eraseStyle(*this); }
 
-	StyleContext* charStyleContext() { return & cstyleContext; }
-	const StyleContext* charStyleContext() const { return & cstyleContext; }
-	CharStyle & charStyle() { return cstyle; }
-	const CharStyle& charStyle() const { return cstyle; }
+	StyleContext* charStyleContext() { return & m_cstyleContext; }
+	const StyleContext* charStyleContext() const { return & m_cstyleContext; }
+	CharStyle & charStyle() { return m_cstyle; }
+	const CharStyle& charStyle() const { return m_cstyle; }
 	/** Normally the context for charStyle() is parentStyle()->charStyleContext()
 		Use this method to break that relation and set charStyle()'s context manually
 	*/
@@ -110,7 +122,7 @@ public:
 	/** getter: validates and returns the attribute's value */
 	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	attr_TYPE attr_GETTER() const { validate(); return m_##attr_NAME; }
+	const attr_TYPE &attr_GETTER() const { validate(); return m_##attr_NAME; }
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
 	
@@ -151,9 +163,9 @@ public:
 private:
 		
 	// member declarations:
-	StyleContextProxy cstyleContext;
-	bool cstyleContextIsInh;
-	CharStyle cstyle;
+	StyleContextProxy m_cstyleContext { nullptr };
+	bool m_cstyleContextIsInh { true };
+	CharStyle m_cstyle;
 	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		attr_TYPE m_##attr_NAME; \

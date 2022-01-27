@@ -14,9 +14,11 @@ for which a new license (GPL+exception) is in place.
  * @brief Defines class PDFOptions, used for loading/saving/passing around PDF options
  */
 
-#include "qstring.h"
-#include "qmap.h"
-#include "QList"
+#include <QList>
+#include <QMap>
+#include <QString>
+
+#include "pdfversion.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -25,7 +27,7 @@ struct LPIData;
 class  MarginStruct;
 
 /**
- * @brief PDF Options struture. Capable of verifying its self, but otherwise largely
+ * @brief PDF Options structure. Capable of verifying its self, but otherwise largely
  *        a dumb struct.
  *
  * If you change this class, please ensure that PDFOptionsIO is
@@ -46,14 +48,6 @@ public:
 		Verify_OtherError
 	};
 
-	enum PDFVersion
-	{
-		PDFVersion_13 = 13,
-		PDFVersion_14 = 14,
-		PDFVersion_15 = 15,
-		PDFVersion_X3 = 12,
-	};
-
 	enum PDFPageLayout
 	{
 		SinglePage = 0,
@@ -68,6 +62,13 @@ public:
 		Compression_JPEG = 1,
 		Compression_ZIP  = 2,
 		Compression_None = 3
+	};
+
+	enum PDFFontEmbedding
+	{
+		EmbedFonts = 0,
+		OutlineFonts = 1,
+		DontEmbed  = 2
 	};
 
 	/**
@@ -93,66 +94,76 @@ public:
 	PDFOptions::VerifyResults verify(QString* problemDescription);
 	PDFOptions::VerifyResults verify();
 
-	bool firstUse;
-	bool Thumbnails;
-	bool Articles;
-	bool useLayers;
-	bool Compress;
-	PDFCompression CompressMethod;
-	int  Quality;
-	bool RecalcPic;
-	bool Bookmarks;
-	int  PicRes;
-	bool embedPDF;
-	PDFVersion Version;
-	int  Resolution;
-	int  Binding;
+	bool exportsLayers() const;
+	bool supportsEmbeddedOpenTypeFonts() const;
+	bool supportsOCGs() const;
+	bool supportsTransparency() const;
+
+	bool firstUse { true };
+	bool Thumbnails { false };
+	bool Articles { false };
+	bool useLayers { false };
+	bool Compress { true };
+	PDFCompression CompressMethod { Compression_Auto };
+	int  Quality { 0 };
+	bool RecalcPic { false };
+	bool Bookmarks { false };
+	int  PicRes { 300 };
+	bool embedPDF { false };
+	PDFVersion Version { PDFVersion::PDF_14 };
+	int  Resolution { 300 };
+	int  Binding { 0 };
+	PDFFontEmbedding FontEmbedding { EmbedFonts };
 	QList<QString> EmbedList;
 	QList<QString> SubsetList;
-	bool MirrorH;
-	bool MirrorV;
-	bool doClip;
-	int  RotateDeg;
-	bool PresentMode;
-	QList<PDFPresentationData> PresentVals;
+	QList<QString> OutlineList;
+	bool MirrorH { false };
+	bool MirrorV { false };
+	bool doClip { false };
+	int  RotateDeg { 0 };
+	bool PresentMode { false };
 	QString fileName;
-	bool isGrayscale;
-	bool UseRGB;
-	bool UseProfiles;
-	bool UseProfiles2;
-	bool UseLPI;
-	bool UseSpotColors;
-	bool doMultiFile;
+	bool isGrayscale { false };
+	bool UseRGB { true };
+	bool UseProfiles { false };
+	bool UseProfiles2 { false };
+	bool UseLPI { false };
+	bool UseSpotColors { true };
+	bool doMultiFile { false };
+	bool openAfterExport { false };
 	QMap<QString,LPIData> LPISettings;
 	QString SolidProf;
-	int  SComp;
+	int  SComp { 3 };
 	QString ImageProf;
-	bool EmbeddedI;
-	int  Intent2;
+	bool EmbeddedI { false };
+	int  Intent2 { 0 };
 	QString PrintProf;
 	QString Info;
-	int  Intent;
+	int  Intent { 0 };
 	MarginStruct bleeds;
-	bool Encrypt;
+	bool Encrypt { false };
 	QString PassOwner;
 	QString PassUser;
-	int  Permissions;
-	int  PageLayout;
-	bool displayBookmarks;
-	bool displayThumbs;
-	bool displayLayers;
-	bool displayFullscreen;
-	bool hideToolBar;
-	bool hideMenuBar;
-	bool fitWindow;
-	bool cropMarks;
-	bool bleedMarks;
-	bool registrationMarks;
-	bool colorMarks;
-	bool docInfoMarks;
-	bool useDocBleeds;
-	double markOffset;
+	int  Permissions { -4 };
+	int  PageLayout { SinglePage };
+	bool displayBookmarks { false };
+	bool displayThumbs { false };
+	bool displayLayers { false };
+	bool displayFullscreen { false };
+	bool hideToolBar { false };
+	bool hideMenuBar { false };
+	bool fitWindow { false };
+	bool cropMarks { false };
+	bool bleedMarks { false };
+	bool registrationMarks { false };
+	bool colorMarks { false };
+	bool docInfoMarks { false };
+	bool useDocBleeds { true };
+	double markLength { 20.0 };
+	double markOffset { 0.0 };
 	QString openAction;
+	int pageRangeSelection { 0 }; // All pages
+	QString pageRangeString;
 };
 
 #endif

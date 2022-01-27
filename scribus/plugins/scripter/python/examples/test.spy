@@ -1,0 +1,11 @@
+## name = test
+## title = Test Scribus scripting
+## description = This script will try out some features of ScripterNG
+## subroutine = test
+
+import os             # trigger security warning
+
+def test():
+    print "Hello, world!" # output text on console
+    1/0                   # handled by excepthook
+

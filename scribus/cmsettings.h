@@ -21,71 +21,83 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef CMSETTINGS_H
 #define CMSETTINGS_H
 
+#include <QString>
+
 #include "scconfig.h"
 #include "scribusapi.h"
-#include <QString>
-class ScribusDoc;
+#include "colormgmt/sccolormgmtengine.h"
 
-#include CMS_INC
+class ScribusDoc;
 
 class SCRIBUS_API CMSettings
 {
-public:
-	CMSettings(ScribusDoc* doc, const QString& profileName, int intent);
-	~CMSettings();
-	
-	ScribusDoc* doc() const {return m_Doc;}
-	QString profileName() const {return m_ProfileName;}
-	QString outputProfile() const { return m_outputProfile; }
-	int intent() const {return m_Intent;}
+	public:
+		CMSettings(ScribusDoc* doc, const QString& profileName, eRenderIntent intent);
+		~CMSettings();
 
-	bool useOutputProfile() const { return !m_outputProfile.isEmpty(); }
-	void setOutputProfile(const QString& prof) { m_outputProfile = prof; }
+		ScribusDoc* doc() const {return m_Doc;}
+		QString profileName() const {return m_ProfileName;}
+		eRenderIntent intent() const { return m_Intent; }
 
-	bool useColorManagement() const;
+		bool colorManagementAllowed() const { return m_colorManagementAllowed; }
+		void allowColorManagement(bool allowed) { m_colorManagementAllowed = allowed; }
 
-	QString defaultMonitorProfile() const;
-	QString defaultPrinterProfile() const;
-	QString defaultImageRGBProfile() const;
-	QString defaultImageCMYKProfile() const;
-	QString defaultSolidColorRGBProfile() const;
-	QString defaultSolidColorCMYKProfile() const;
+		bool softProofingAllowed() const { return m_softProofingAllowed; }
+		void allowSoftProofing(bool allowed) { m_softProofingAllowed = allowed; }
 
-	int colorRenderingIntent() const;
-	int imageRenderingIntent() const;
+		bool useEmbeddedProfile() const { return m_useEmbeddedProfile; }
+		void setUseEmbeddedProfile(bool useEmbedded) { m_useEmbeddedProfile = useEmbedded; }
 
-	bool useBlackPoint() const;
-	bool doSoftProofing() const;
-	bool doGamutCheck() const;
+		bool useOutputProfile() const { return !m_outputProfile.isNull(); }
+		void setOutputProfile(const ScColorProfile& prof) { m_outputProfile = prof; }
 
-	cmsHPROFILE monitorProfile() const;
-	cmsHPROFILE printerProfile() const;
+		bool useColorManagement() const;
 
-	cmsHTRANSFORM rgbColorDisplayTransform() const;   // stdTransRGBMonG
-	cmsHTRANSFORM rgbColorProofingTransform() const;  // stdProofG
-	cmsHTRANSFORM rgbImageDisplayTransform() const;   // stdTransImgG
-	cmsHTRANSFORM rgbImageProofingTransform() const;  // stdProofImgG
-	cmsHTRANSFORM rgbToCymkColorTransform() const;    // stdTransCMYKG
-	cmsHTRANSFORM rgbGamutCheckTransform() const;     // stdProofGCG
+		QString defaultMonitorProfile() const;
+		QString defaultPrinterProfile() const;
+		QString defaultImageRGBProfile() const;
+		QString defaultImageCMYKProfile() const;
+		QString defaultSolidColorRGBProfile() const;
+		QString defaultSolidColorCMYKProfile() const;
 
-	cmsHTRANSFORM cmykColorDisplayTransform() const;  // stdTransCMYKMonG
-	cmsHTRANSFORM cmykColorProofingTransform() const; // stdProofCMYKG
-	cmsHTRANSFORM cmykImageProofingTransform() const; // stdProofImgCMYK
-	cmsHTRANSFORM cmykToRgbColorTransform() const;    // stdTransRGBG
-	cmsHTRANSFORM cmykGamutCheckTransform() const;    //stdProofCMYKGCG
+		eRenderIntent colorRenderingIntent() const;
+		eRenderIntent imageRenderingIntent() const;
 
-protected:
-	ScribusDoc* m_Doc;
-	QString m_ProfileName;
-	QString m_outputProfile;
-	int m_Intent;
+		bool useBlackPoint() const;
+		bool doSoftProofing() const;
+		bool doGamutCheck() const;
 
+		ScColorProfile monitorProfile() const;
+		ScColorProfile printerProfile() const;
+		ScColorProfile outputProfile() const;
+
+		ScColorTransform rgbColorDisplayTransform() const;   // stdTransRGBMonG
+		ScColorTransform rgbColorProofingTransform() const;  // stdProofG
+		ScColorTransform rgbImageDisplayTransform() const;   // stdTransImgG
+		ScColorTransform rgbImageProofingTransform() const;  // stdProofImgG
+		ScColorTransform rgbToCymkColorTransform() const;    // stdTransCMYKG
+		ScColorTransform rgbGamutCheckTransform() const;     // stdProofGCG
+
+		ScColorTransform cmykColorDisplayTransform() const;  // stdTransCMYKMonG
+		ScColorTransform cmykColorProofingTransform() const; // stdProofCMYKG
+		ScColorTransform cmykImageProofingTransform() const; // stdProofImgCMYK
+		ScColorTransform cmykToRgbColorTransform() const;    // stdTransRGBG
+		ScColorTransform cmykGamutCheckTransform() const;    //stdProofCMYKGCG
+
+	private:
+		ScribusDoc*    m_Doc {nullptr};
+		bool           m_colorManagementAllowed {true};
+		bool           m_softProofingAllowed {false};
+		bool           m_useEmbeddedProfile {false};
+		QString        m_ProfileName;
+		eRenderIntent  m_Intent;
+		ScColorProfile m_outputProfile;
 };
 
 #endif

@@ -7,17 +7,18 @@ for which a new license (GPL+exception) is in place.
 #include "scplugin.h"
 
 #include "deferredtask.h"
-#include "scribus.h"
+
+#include "scribusdoc.h"
 #include "scribusapp.h"
-#include "prefspanel.h"
 #include "selection.h"
+#include "ui/prefs_pane.h"
 
 //=====================================================//
 //                        ScPlugin                     //
 //=====================================================//
 
 ScPlugin::ScPlugin()
-	: QObject(0)
+	: QObject(nullptr)
 {
 }
 
@@ -25,10 +26,7 @@ ScPlugin::~ScPlugin()
 {
 }
 
-bool ScPlugin::newPrefsPanelWidget( QWidget* /* parent */,
-									PrefsPanel*& /* panel */,
-									QString& /* caption */,
-									QPixmap& /* icon */)
+bool ScPlugin::newPrefsPanelWidget( QWidget* /* parent */, Prefs_Pane*& /* panel */)
 {
 	return false;
 }
@@ -38,21 +36,28 @@ const QString & ScPlugin::lastError() const
 	return m_lastError;
 }
 
+bool ScPlugin::hasLastError() const
+{
+	return (!m_lastError.isEmpty());
+}
+
+void ScPlugin::clearLastError()
+{
+	m_lastError.clear();
+}
+
 const QString ScPlugin::pluginTypeName() const
 {
 	// These tests must be in reverse order of inheritance,
 	// ie most specific to least specific.
 	if (inherits("LoadSavePlugin"))
 		return tr("Load/Save/Import/Export");
-	else if (inherits("ScPersistentPlugin"))
+	if (inherits("ScPersistentPlugin"))
 		return tr("Persistent", "plugin manager plugin type");
-	else if (inherits("ScActionPlugin"))
+	if (inherits("ScActionPlugin"))
 		return tr("Action", "plugin manager plugin type");
-	else
-	{
-		qDebug("Unknown plugin type: %s", metaObject()->className());
-		return tr("Unknown");
-	}
+	qDebug("Unknown plugin type: %s", metaObject()->className());
+	return tr("Unknown");
 }
 
 void ScPlugin::setDoc(ScribusDoc* )
@@ -73,23 +78,6 @@ void ScPlugin::changedDoc(ScribusDoc* )
 
 ScActionPlugin::ScActionPlugin() : ScPlugin()
 {
-	m_actionInfo.name = "";
-	m_actionInfo.text = "";
-	m_actionInfo.keySequence = "";
-	m_actionInfo.menu = "";
-	m_actionInfo.menuAfterName = "";
-	m_actionInfo.parentMenu = "";
-	m_actionInfo.subMenuName = "";
-	m_actionInfo.toolbar = "";
-	m_actionInfo.toolBarName = "";
-	m_actionInfo.icon1 = QPixmap();
-	m_actionInfo.icon2 = QPixmap();
-	m_actionInfo.notSuitableFor.clear();
-	m_actionInfo.forAppMode.clear();
-	m_actionInfo.needsNumObjects = -1;
-	m_actionInfo.firstObjectType.clear();
-	m_actionInfo.secondObjectType.clear();
-	m_actionInfo.enabledOnStartup = false;
 }
 
 ScActionPlugin::~ScActionPlugin()
@@ -102,22 +90,22 @@ bool ScActionPlugin::run(ScribusDoc* /*doc*/, QIODevice* /* target */)
 	return false;
 }
 
-bool ScActionPlugin::run(QWidget *, ScribusDoc* /*doc*/, QString /* target */)
+bool ScActionPlugin::run(QWidget *, ScribusDoc* /*doc*/, const QString& /* target */)
 {
 	return false;
 }
 
 // Stub for plugins that don't implement this method to inherit
-DeferredTask* ScActionPlugin::runAsync(QString /* target */)
+DeferredTask* ScActionPlugin::runAsync(const QString& /* target */)
 {
-	return 0;
+	return nullptr;
 }
 
 
 // Stub for plugins that don't implement this method to inherit
 DeferredTask* ScActionPlugin::runAsync(QIODevice* /* target */)
 {
-	return 0;
+	return nullptr;
 }
 
 // Legacy code support; avoid relying on in new code.
@@ -134,7 +122,7 @@ const ScActionPlugin::ActionInfo & ScActionPlugin::actionInfo() const
 
 bool ScActionPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 {
-	const uint docSelectionCount=doc->m_Selection->count();
+	const int docSelectionCount = doc->m_Selection->count();
 	ActionInfo ai(actionInfo());
 	if (SelectedType != -1)
 	{
@@ -143,62 +131,52 @@ bool ScActionPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 			correctAppMode = true;
 		else if (ai.forAppMode.contains(doc->appMode))
 			correctAppMode = true;
-		if (correctAppMode)
+
+		if (!correctAppMode)
+			return false;
+
+		if (ai.needsNumObjects == -1)
+			return true;
+
+		if (ai.needsNumObjects > 2)
 		{
-			if (ai.needsNumObjects == -1)
-				return true;
-			else
+			bool setter = true;
+			for (int bx = 0; bx < docSelectionCount; ++bx)
 			{
-				if (ai.needsNumObjects > 2)
-				{
-					bool setter = true;
-					for (uint bx = 0; bx < docSelectionCount; ++bx)
-					{
-						if (ai.notSuitableFor.contains(doc->m_Selection->itemAt(bx)->itemType()))
-							setter = false;
-					}
-					return setter;
-				}
-				else
-				{
-					if (docSelectionCount == static_cast<uint>(ai.needsNumObjects))
-					{
-						if (ai.needsNumObjects == 2)
-						{
-							int sel1 = doc->m_Selection->itemAt(0)->itemType();
-							int sel2 = doc->m_Selection->itemAt(1)->itemType();
-							if (ai.notSuitableFor.contains(sel1))
-								return false;
-							else if (ai.notSuitableFor.contains(sel2))
-								return false;
-							else
-							{
-								if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() == 0))
-									return true;
-								else if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() != 0))
-								{
-									if ((ai.secondObjectType.contains(sel2)) || (ai.secondObjectType.contains(sel1)))
-										return true;
-								}
-								else if ((ai.firstObjectType.count() != 0) && (ai.secondObjectType.count() == 0))
-								{
-									if ((ai.firstObjectType.contains(sel2)) || (ai.firstObjectType.contains(sel1)))
-										return true;
-								}
-								if (((ai.firstObjectType.contains(sel1)) && (ai.secondObjectType.contains(sel2))) || ((ai.firstObjectType.contains(sel2)) && (ai.secondObjectType.contains(sel1))))
-									return true;
-							}
-						}
-						else if (!ai.notSuitableFor.contains(SelectedType))
-							return true;
-						else
-							return false;
-					}
-					else
-						return false;
-				}
+				if (ai.notSuitableFor.contains(doc->m_Selection->itemAt(bx)->itemType()))
+					setter = false;
 			}
+			return setter;
 		}
+
+		if (docSelectionCount != ai.needsNumObjects)
+			return false;
+
+		if (ai.needsNumObjects == 2)
+		{
+			int sel1 = doc->m_Selection->itemAt(0)->itemType();
+			int sel2 = doc->m_Selection->itemAt(1)->itemType();
+			if (ai.notSuitableFor.contains(sel1))
+				return false;
+			if (ai.notSuitableFor.contains(sel2))
+				return false;
+			if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() == 0))
+				return true;
+			if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() != 0))
+			{
+				if ((ai.secondObjectType.contains(sel2)) || (ai.secondObjectType.contains(sel1)))
+					return true;
+			}
+			else if ((ai.firstObjectType.count() != 0) && (ai.secondObjectType.count() == 0))
+			{
+				if ((ai.firstObjectType.contains(sel2)) || (ai.firstObjectType.contains(sel1)))
+					return true;
+			}
+			if (((ai.firstObjectType.contains(sel1)) && (ai.secondObjectType.contains(sel2))) || ((ai.firstObjectType.contains(sel2)) && (ai.secondObjectType.contains(sel1))))
+				return true;
+		}
+		else if (!ai.notSuitableFor.contains(SelectedType))
+			return true;
 		else
 			return false;
 	}
@@ -211,13 +189,12 @@ bool ScActionPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 			correctAppMode = true;
 		if (correctAppMode)
 		{
-			if ((ai.needsNumObjects == -1) || (ai.needsNumObjects > 2))
+			if (ai.needsNumObjects == -1)
 				return true;
-			else
-				return false;
-		}
-		else
+			if ((ai.needsNumObjects > 2) && (docSelectionCount > 0))
+				return true;
 			return false;
+		}
 	}
 	return false;
 }

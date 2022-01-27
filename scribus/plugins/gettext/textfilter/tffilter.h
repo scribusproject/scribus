@@ -74,9 +74,9 @@ private:
 	void getParagraphStyles();
 public:
 	tfFilter(QWidget *parent, const char *name,
-             int action, QString regExp, QString replace, QString pstyleName,
+             int action, const QString& regExp, const QString& replace, const QString& pstyleName,
              int less, int more, int style, bool match, bool enabled, bool regexp);
-	tfFilter(QWidget *parent = 0, const char *name = 0);
+	tfFilter(QWidget* parent = nullptr, const char *name = 0);
 	~tfFilter();
 	void setRemovable(bool b);
 	int getAction();
@@ -90,6 +90,7 @@ public:
 	bool isEnabled();
 	bool isRegExp();
 signals:
+	void actionChanged(tfFilter* tff);
 	void removeClicked(tfFilter* tff);
 	void addClicked(tfFilter* tff);
 private slots:

@@ -10,71 +10,75 @@ for which a new license (GPL+exception) is in place.
 #include "nfttemplate.h"
 #include <QFileInfo>
 
-nfttemplate::nfttemplate(QFile* tmplXmlFile, const QString &tmplCategory) 
+nfttemplate::nfttemplate(const QString& tmplFilePath, const QString &tmplCategory)
+	: tmplXml(tmplFilePath)
 {
-	tmplXml = tmplXmlFile;
 	templateCategory = tmplCategory;
-	isWritable = tmplXml->open(QIODevice::WriteOnly | QIODevice::ReadOnly);
-	tmplXml->close();
+	isWritable = tmplXml.open(QIODevice::WriteOnly | QIODevice::ReadOnly);
+	tmplXml.close();
 	isDeleted = false;
 }
 
 void nfttemplate::remove()
 {
-	if (tmplXml->exists())
+	if (!tmplXml.exists())
+		return;
+
+	if (!tmplXml.open(QIODevice::ReadOnly))
+		return;
+
+	QString newTmplXml;
+	QString tmp;
+	bool collect = false;
+	QTextStream stream(&tmplXml);
+	stream.setCodec("UTF-8");
+	QString line = stream.readLine();
+	while (!line.isNull())
 	{
-		QString newTmplXml = "";
-		QString tmp;
-		bool collect = false;
-		tmplXml->open(QIODevice::ReadOnly);
-		QTextStream stream(tmplXml);
-		stream.setCodec("UTF-8");
-		QString line = stream.readLine();
-		while (!line.isNull())
+		if ((line.indexOf(enCategory) != -1) || collect)
 		{
-			if ((line.indexOf(enCategory) != -1) || collect)
+			collect = true;
+			line += "\n";
+			tmp += line;
+			if (line.indexOf("name") != -1)
 			{
-				collect = true;
-				line += "\n";
-				tmp += line;
-				if (line.indexOf("name") != -1)
-				{
-					if (line.indexOf(name) == -1)
-					{
-						collect = false;
-						newTmplXml += tmp;
-						tmp = "";
-					}
-				} 
-				else if (line.indexOf("file") != -1)
-				{
-					QString shortFile = file.right(file.length() - file.lastIndexOf("/") -1);
-					if (line.indexOf(shortFile) == -1)
-					{
-						collect = false;
-						newTmplXml += tmp;
-						tmp = "";
-					}
-				} 
-				else if (line.indexOf("</template>") != -1)
+				if (line.indexOf(name) == -1)
 				{
 					collect = false;
+					newTmplXml += tmp;
 					tmp = "";
 				}
 			}
-			else
+			else if (line.indexOf("file") != -1)
 			{
-				line += "\n";
-				newTmplXml += line;
+				QString shortFile = file.right(file.length() - file.lastIndexOf("/") -1);
+				if (line.indexOf(shortFile) == -1)
+				{
+					collect = false;
+					newTmplXml += tmp;
+					tmp = "";
+				}
 			}
-			line = stream.readLine();
+			else if (line.indexOf("</template>") != -1)
+			{
+				collect = false;
+				tmp = "";
+			}
 		}
-		tmplXml->close();
-		tmplXml->open(QIODevice::WriteOnly);
-		QTextStream instream(tmplXml);
+		else
+		{
+			line += "\n";
+			newTmplXml += line;
+		}
+		line = stream.readLine();
+	}
+	tmplXml.close();
+	if (tmplXml.open(QIODevice::WriteOnly))
+	{
+		QTextStream instream(&tmplXml);
 		instream.setCodec("UTF-8");
 		instream << newTmplXml;
-		tmplXml->close();
+		tmplXml.close();
 	}
 }
 

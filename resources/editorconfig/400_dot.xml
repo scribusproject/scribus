@@ -1,0 +1,174 @@
+<editorsettings description="Dot (GraphViz)" icon="dot.svg">
+	<executable command="dot -Tsvg %file -o %file.svg" />
+	<imagefile extension=".svg"/>
+	<empty-frame-text><i18n>
+    <en>
+		ratio="fill";
+		edge [color ="blue"];
+		S [label="Scribus", color="#f94949", style=filled];
+		node [shape="box", color="#6767ed", style=filled];
+		S -> "Text frames";
+		S -> "Image frames";	
+		C [label="Command frames"];
+		S -> C
+		node [shape="box", color="#82ec80", style=filled]
+		C -> "LaTeX"
+		C -> "Gnuplot"
+		C -> "LilyPond"
+		C -> "Dot"
+		C -> "POV-Ray"
+    </en>
+    <cs>
+		ratio="fill";
+		edge [color ="blue"];
+		S [label="Scribus", color="#f94949", style=filled];
+		node [shape="box", color="#6767ed", style=filled];
+		S -> "Text frames";
+		S -> "Image frames";	
+		C [label="Command frames"];
+		S -> C
+		node [shape="box", color="#82ec80", style=filled]
+		C -> "LaTeX"
+		C -> "Gnuplot"
+		C -> "LilyPond"
+		C -> "Dot"
+		C -> "POV-Ray"
+    </cs>
+    <de>
+		ratio="fill";
+		edge [color ="blue"];
+		S [label="Scribus", color="#f94949", style=filled];
+		node [shape="box", color="#6767ed", style=filled];
+		S -> "Textrahmen";
+		S -> "Bilderrahmen";	
+		C [label="Befehlsrahmen"];
+		S -> C
+		node [shape="box", color="#82ec80", style=filled]
+		C -> "LaTeX"
+		C -> "Gnuplot"
+		C -> "LilyPond"
+		C -> "Dot"
+		C -> "POV-Ray"
+    </de>
+    <fr>
+		ratio="fill";
+		edge [color ="blue"];
+		S [label="Scribus", color="#f94949", style=filled];
+		node [shape="box", color="#6767ed", style=filled];
+		S -> "Cadre de texte";
+		S -> "Cadre d'image";	
+		C [label="Cadre de rendu"];
+		S -> C
+		node [shape="box", color="#82ec80", style=filled]
+		C -> "LaTeX"
+		C -> "Gnuplot"
+		C -> "LilyPond"
+		C -> "Dot"
+		C -> "POV-Ray"
+    </fr>
+    <hr>
+		ratio="fill";
+		edge [color ="blue"];
+		S [label="Scribus", color="#f94949", style=filled];
+		node [shape="box", color="#6767ed", style=filled];
+		S -> "Tekstualni okviri";
+		S -> "Slikovni okviri";	
+		C [label="Naredbeni okviri"];
+		S -> C
+		node [shape="box", color="#82ec80", style=filled]
+		C -> "LaTeX"
+		C -> "Gnuplot"
+		C -> "LilyPond"
+		C -> "Dot"
+		C -> "POV-Ray"
+    </hr>
+    <pl>
+	    ratio="fill";
+	    edge [color ="blue"];
+	    S [label="Scribus", color="#f94949", style=filled];
+	    node [shape="box", color="#6767ed", style=filled];
+	    S -> "Ramki tekstowe";
+	    S -> "Ramki graficzne";	
+	    C [label="Ramki renderowane"];
+	    S -> C
+	    node [shape="box", color="#82ec80", style=filled]
+	    C -> "LaTeX"
+	    C -> "Gnuplot"
+	    C -> "LilyPond"
+	    C -> "Dot"
+	    C -> "POV-Ray"
+    </pl>
+    <ru>
+		ratio="fill";
+		edge [color ="blue"];
+		S [label="Scribus", color="#f94949", style=filled];
+		node [shape="box", color="#6767ed", style=filled];
+		S -> "Текстовые блоки";
+		S -> "Блоки изображений";	
+		C [label="Блоки команд"];
+		S -> C
+		node [shape="box", color="#82ec80", style=filled]
+		C -> "LaTeX"
+		C -> "Gnuplot"
+		C -> "LilyPond"
+		C -> "Dot"
+		C -> "POV-Ray"
+    </ru>
+    <es>
+		ratio="fill";
+		edge [color ="blue"];
+		S [label="Scribus", color="#f94949", style=filled];
+		node [shape="box", color="#6767ed", style=filled];
+		S -> "Marco de texto";
+		S -> "Marco de imagen";	
+		C [label="Marcos de comandos"];
+		S -> C
+		node [shape="box", color="#82ec80", style=filled]
+		C -> "LaTeX"
+		C -> "Gnuplot"
+		C -> "LilyPond"
+		C -> "Dot"
+		C -> "POV-Ray"
+    </es>
+    <it>
+		ratio="fill";
+		edge [color ="blue"];
+		S [label="Scribus", color="#f94949", style=filled];
+		node [shape="box", color="#6767ed", style=filled];
+		S -> "Cornici di testo";
+		S -> "Cornici immagine";	
+		C [label="Cornici di comando"];
+		S -> C
+		node [shape="box", color="#82ec80", style=filled]
+		C -> "LaTeX"
+		C -> "Gnuplot"
+		C -> "LilyPond"
+		C -> "Dot"
+		C -> "POV-Ray"
+    </it>
+    <hu>
+		ratio="fill";
+		edge [color ="blue"];
+		S [label="Scribus", color="#f94949", style=filled];
+		node [shape="box", color="#6767ed", style=filled];
+		S -> "Szövegkeretek";
+		S -> "Képkeretek";
+		C [label="Utasításkeretek"];
+		S -> C
+		node [shape="box", color="#82ec80", style=filled]
+		C -> "LaTeX"
+		C -> "Gnuplot"
+		C -> "LilyPond"
+		C -> "Dot"
+		C -> "POV-Ray"
+    </hu>
+    </i18n>
+	</empty-frame-text>
+	<preamble>
+	digraph scribus {
+	bgcolor="transparent";
+    size="$scribus_width_inch$,$scribus_height_inch$";
+	page="$scribus_width_inch$,$scribus_height_inch$";
+	</preamble>
+	<postamble>}</postamble>
+</editorsettings>

@@ -1,0 +1,68 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Umbruchkontrolle für Abkürzungen</title>
+</head>
+<body>
+<h2>Umbruchkontrolle für Abkürzungen</h2>
+
+<h4>Was das Plug-in tut</h4>
+<p>"Umbruchkontrolle für Abkürzungen" ist ein spezielles Plug-in, das geschützte Leerzeichen vor oder nach Abkürzungen einfügt.</p>
+<p>Die Handhabung hängt von den typographischen Regeln einer Sprache ab. Im Tschechischen, Polnischen und Slowakischen ist es beispielweise unzulässing, Konjunktionen, die nur aus einem Wort bestehen, am Ende einer Zeile stehen zu lassen, die länger als 25 Zeichen ist. Ein verbreitetes Problem sind Maß- und Gewichtangaben, bei denen aus offensichtlichen Gründen, ein geschütztes Leerzeichen zwischen der Zahl und der verwendeten Einheit stehen sollte. Darüber hinaus sollten Abkürzungen für akdemische Titel und militärische Rangbezeichnungen nicht vom Namen ihrer Träger getrennt werden.</p>
+<p>Auch wenn Scribus nicht jeden nationalen Standard berücksichtigen kann, hat sich einer der Scribus-Entwickler , Petr Van&#283;k, entschlossen, Scribus-Anwendern ein Plug-in zur Verfügung zu stellen, das leicht an die eigenen Bedürfnisse angepaßt werden kann.</p>
+
+<h4>Wie es funktioniert</h4>
+<p>Der Screenshot enthält einen Beispieltext, der eine Abkürzung vor dem Anwenden des Plug-ins zeigt.</p>
+<p><b>Textbeispiel vor dem Ausführen des Plug-ins</b></p>
+<table width="100%"><tr><td align="center"><img src="images/before_short_words.png" alt="Textbeispiel vor dem Ausführen des Plug-ins"  title="Textbeispiel vor dem Ausführen des Plug-ins" /></td></tr></table>
+
+<p>Derselbe Text, nachdem ein geschütztes Leerzeichen eingefügt wurde. Das rot markierte Wort "Mr" steht nun in der nächsten Zeile, weil das normale Leerzeichen durch ein geschütztes ersetzt wurde.</p>
+<p><b>Textbeispiel nach dem Ausführen des Plug-ins</b></p>
+<table width="100%"><tr><td align="center"><img src="images/after_short_words.png" alt="Textbeispiel nach dem Ausführen des Plug-ins"  title="Textbeispiel nach dem Ausführen des Plug-ins" /></td></tr></table>
+<h4>Wie das Plug-in verwendet wird</h4>
+<p>Führen Sie <strong>Extras > Umbruchkontrolle für Abkürzungen</strong> aus.</p>
+<p><b>Die Umbruchkontrolle für Abkürzungen in Scribus</b></p>
+<table width="100%"><tr><td align="center"><img src="images/swmenu.png" alt="Die Umbruchkontrolle für Abkürzungen in Scribus"  title="Die Umbruchkontrolle für Abkürzungen in Scribus" /></td></tr></table>
+
+<p><b>Der Dialog für die Umbruchkontrolle</b></p>
+<center><img src="images/" alt="" /></center>
+<table width="100%"><tr><td align="center"><img src="images/swdialog.png" alt="Der Dialog für die Umbruchkontrolle"  title="Der Dialog für die Umbruchkontrolle" /></td></tr></table>
+<ul>
+<li><strong>Markierte Textrahmen</strong> &ndash; Geschütze Leerzeichen werden im ausgewählten Textrahmen eingesetzt.</li>
+<li><strong>Aktive Seite</strong> &ndash; Geschütze Leerzeichen werden in allen Textrahmen der ausgewählten Seite eingesetzt.</li>
+<li><strong>Alle Objekte</strong> &ndash; Geschütze Leerzeichen werden in allen Textrahmen des Dokuments eingesetzt.</li>
+</ul>
+<h4>Konfiguration</h4>
+<p>Die Umbruchkontrolle arbeitet mit einer systemweiten Konfigurationsdatei namens <code>scribus-short-words.rc</code>, die unter Linux und Unix normalerweise unter <code>$prefix/lib/scribus/plugins</code> gespeichert ist (was das tatsächliche Verzeichnis ist, hängt davon ab, wie Sie oder Ihr Distributor Scribus installiert haben.). Die Konfigurationsdatei ist selbsterklärend. Sie besteht aus einer Liste von Abkürzungen in einer bestimmten Sprache. Vor oder nach der Abkürzung befindet sich eine Abkürzung. Abkürzungen und Leerzeichen werden durch Kommas getrennt. Der Platz des Leerzeichens zeigt dem Plug-in an, ob vor oder nach der Abürzung ein geschütztes Leerzeichen eingefügt werden soll. Jede Zeile der Konfigurationsdatei muß mit der Sprache beginnen, für die sie bestimmt ist, z.B. en für Englisch oder cs für Tschechisch:
+</p>
+<pre>
+#  English stuff START here
+en=Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
+en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
+
+#  Czech short words START here
+## hanging conjunctions
+cs=K ,k ,S ,s ,V ,v ,Z ,z ,O ,o ,U ,u ,I ,i ,A ,
+## physics and math
+cs= kg, g, m, cm, mm, l, hl, s, %,
+</pre>
+<p>Wenn Sie eigene Abkürzungslisten verwenden wollen, z.B. für eine neue Sprache, erzeugen Sie selbst eine Konfigurationsdatei und speichern diese als <code>scribus-short-words.rc</code> im <code>~/.scribus</code>-Verzeichnis<em>. Selbstverständlich können Sie auch die ursprüngliche Konfigurationsdatei ersetzen und Ihre Version systemweit zur Verfügung stellen.</em></p>
+
+<h3 class="title">Wichtig</h3>
+<p>Der Autor brennt darauf, die globale Konfigurationsdatei Ihren Wünschen entsprechend zu erweitern. Teilen Sie ihm Abkürzungen und Standards aus Ihrer Sprache mit.</p>
+
+<h3 class="title">Copyright</h3>
+<p>Short Words for Scribus Copyright 2003, 2004 Petr Van&#283;k, &lt;<a href="mailto:petr@yarpen.cz">petr@yarpen.cz</a>&gt;</p>
+<p>This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.</p><p>You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+<p>Document Copyright © 2004 Petr Van&#283;k, Maciej Hanski, under the opencontent.org license included with these documents with Elected Option IV</p></p>
+</body>
+</html>

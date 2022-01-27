@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QColor>
 #include <QString>
 #include <QList>
-#include <QSet>    //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instanciation of templates
+#include <QSet>    //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instantiation of templates
 
 #include "scribusapi.h"
 
@@ -18,31 +18,32 @@ class SCRIBUS_API ScLayer
 {
 public:
 	ScLayer(void);
-	ScLayer(const QString& name, int level, int nr);
+	ScLayer(const QString& name, int level, int id);
 	QString Name;
-	int     LNr;
-	int     Level;
-	bool    isPrintable;
-	bool    isViewable;
-	bool    isEditable;
-	bool    flowControl;
-	bool    outlineMode;
-	double  transparency;
-	int     blendMode;
-	QColor  markerColor;
+	int ID {0};
+	int Level {0};
+	bool isPrintable {true};
+	bool isViewable {true};
+	bool isEditable {true};
+	bool isSelectable {false};
+	bool flowControl {true};
+	bool outlineMode {false};
+	double transparency {1.0};
+	int blendMode {0};
+	QColor markerColor;
 	bool operator< (const ScLayer& other) const;
 	bool operator== (const ScLayer& other) const;
 };
 
 class SCRIBUS_API ScLayers : public QList<ScLayer>
 {
-protected:
+public:
+
 	/**
 	 * @brief  Get layer max identifier
 	 * @return Layer max identifier or -1 is list is empty
 	 */
-	int getMaxNumber(void);
-public:
+	int getMaxID(void);
 
 	/**
 	 * @brief  Get bottom layer
@@ -81,14 +82,14 @@ public:
 	 * @param  level the layer level
 	 * @return layer with the specified level or NULL if not found
 	 */
-	ScLayer* byLevel(const int level);
+	ScLayer* byLevel(int level);
 
 	/**
 	 * @brief  Get layer with a specific number
 	 * @param  nr the layer number
 	 * @return layer with the specified number or NULL if not found
 	 */
-	ScLayer* byNumber(const int nr);
+	ScLayer* byID(int nr);
 
 	/**
 	 * @brief  Get layer above the layer with the specified ID
@@ -116,7 +117,7 @@ public:
 	 * @param  nr the layer number
 	 * @return layer with the specified number or NULL if not found
 	 */
-	const ScLayer* layerByNumber (int nr) const;
+	const ScLayer* layerByID (int nr) const;
 
 	/**
 	 * @brief  Get layer with a specific name
@@ -178,7 +179,7 @@ public:
 	 * @brief  Remove a layer from the layer list
 	 * @param  the layer number to remove
 	 */
-	bool removeLayerByNumber(int nr);
+	bool removeLayerByID(int id);
 
 	/**
 	 * @brief  Remove a layer from the layer list
@@ -205,123 +206,138 @@ public:
 
 	/**
 	 * @brief Is the layer printable
-	 * @param layerNumber ID of the layer
+	 * @param layerID ID of the layer
 	 * @return Printable or not
 	 */
-	bool layerPrintable(const int layerNumber) const;
+	bool layerPrintable(int layerID) const;
 
 	/**
-	 * @brief Set the layer printable via the layer number
-	 * @param layerNumber ID of the layer
+	 * @brief Set the layer printable via the layer ID
+	 * @param layerID ID of the layer
 	 * @param isPrintable bool true = layer is prantable
 	 * @return Success or failure
 	 */
-	bool setLayerPrintable(const int layerNumber, const bool isPrintable);
+	bool setLayerPrintable(int layerID, bool isPrintable);
 
 	/**
 	 * @brief Is the layer visible
-	 * @param layerNumber ID of the layer
+	 * @param layerID ID of the layer
 	 * @return Visible or not
 	 */
-	bool layerVisible(const int layerNumber) const;
+	bool layerVisible(int layerID) const;
 
 	/**
-	 * @brief Set the layer visible via the layer number
-	 * @param layerNumber ID of the layer
+	 * @brief Set the layer visible via the layer ID
+	 * @param layerID ID of the layer
 	 * @param isViewable true = layer is visible
 	 * @return Success or failure
 	 */
-	bool setLayerVisible(const int layerNumber, const bool isViewable);
+	bool setLayerVisible(int layerID, bool isViewable);
 
 	/**
 	 * @brief Is the layer locked
-	 * @param layerNumber ID of the layer
+	 * @param layerID ID of the layer
 	 * @return Locked or not
 	 */
-	bool layerLocked(const int layerNumber) const;
+	bool layerLocked(int layerID) const;
 
 	/**
-	 * @brief Set the layer locked via the layer number
-	 * @param layerNumber ID of the layer
-	 * @param isViewable true = layer is locked
+	 * @brief Set the layer locked via the layer ID
+	 * @param layerID ID of the layer
+	 * @param isLocked true = layer is locked
 	 * @return bool Success or failure
 	 */
-	bool setLayerLocked(const int layerNumber, const bool isViewable);
+	bool setLayerLocked(int layerID, bool isLocked);
 
 	/**
 	 * @brief does text flow around objects on this layer
-	 * @param layerNumber ID of the layer
+	 * @param layerID ID of the layer
 	 * @return flow or not
 	 */
-	bool layerFlow(const int layerNumber) const;
+	bool layerFlow(int layerID) const;
 
 	/**
-	 * @brief Set the layer flow via the layer number
-	 * @param layerNumber ID of the layer
+	 * @brief Set the layer flow via the layer ID
+	 * @param layerID ID of the layer
 	 * @param flow true = Text flows around objects on this layer
 	 * @return Success or failure
 	 */
-	bool setLayerFlow(const int layerNumber, const bool flow);
+	bool setLayerFlow(int layerID, bool flow);
 
 	/**
 	 * @brief is this layer in outline mode
-	 * @param layerNumber ID of the layer
+	 * @param layerID ID of the layer
 	 * @return outline or not
 	 */
-	bool layerOutline(const int layerNumber) const;
+	bool layerOutline(int layerID) const;
 
 	/**
-	 * @brief Set the layer outline mode via the layer number
-	 * @param layerNumber ID of the layer
+	 * @brief Set the layer outline mode via the layer ID
+	 * @param layerID ID of the layer
 	 * @param outline true = layer is displayed in outlines only
 	 * @return Success or failure
 	 */
-	bool setLayerOutline(const int layerNumber, const bool outline);
+	bool setLayerOutline(int layerID, bool outline);
 
 	/**
 	 * @brief returns the layer transparency
-	 * @param layerNumber ID of the layer
+	 * @param layerID ID of the layer
 	 * @return transparency value 0.0 - 1.0
 	 */
-	double layerTransparency(const int layerNumber) const;
+	double layerTransparency(int layerID) const;
 
 	/**
-	 * @brief Set the layer transparency via the layer number
-	 * @param layerNumber ID of the layer
+	 * @brief Set the layer transparency via the layer ID
+	 * @param layerID ID of the layer
 	 * @param trans transparency value 0.0 - 1.0
 	 * @return Success or failure
 	 */
-	bool setLayerTransparency(const int layerNumber, double trans);
+	bool setLayerTransparency(int layerID, double trans);
 
 	/**
 	 * @brief returns the layer BlendMode
-	 * @param layerNumber ID of the layer
+	 * @param layerID ID of the layer
 	 * @return layerBlendMode
 	 */
-	int layerBlendMode(const int layerNumber) const;
+	int layerBlendMode(int layerID) const;
 
 	/**
-	 * @brief Set the layer layerBlendMode via the layer number
-	 * @param layerNumber ID of the layer
+	 * @brief Set the layer layerBlendMode via the layer ID
+	 * @param layerID ID of the layer
 	 * @param trans layerBlendMode
 	 * @return Success or failure
 	 */
-	bool setLayerBlendMode(const int layerNumber, int blend);
+	bool setLayerBlendMode(int layerID, int blend);
 
 	/**
 	 * @brief returns the layer marker color
-	 * @param layerNumber Number of the layer
+	 * @param layerID ID of the layer
 	 * @return marker color
 	 */
-	QColor layerMarker(const int layerNumber) const;
+	QColor layerMarker(int layerID) const;
 
 	/**
 	 * @brief Set the layer marker color
-	 * @param layerNumber ID of the layer
+	 * @param layerID ID of the layer
 	 * @param color color of the marker
 	 * @return Success or failure
 	 */
-	 bool setLayerMarker(const int layerNumber, QColor color);
+	 bool setLayerMarker(int layerID, QColor color);
+
+	 /**
+	  * @brief are objects on the layer selectable
+	  * @param layerID ID of the layer
+	  * @return Items selectable or not
+	  */
+	 bool layerSelectable(int layerID) const;
+
+	 /**
+	  * @brief Set objects on the layer selectable via the layer ID
+	  * @param layerID ID of the layer
+	  * @param isSelectable true = layer objects are selectable
+	  * @return bool Success or failure
+	  */
+	 bool setLayerSelectable(int layerID, bool isSelectable);
 };
 
 uint qHash(const ScLayer& layer);

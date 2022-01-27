@@ -1,0 +1,54 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Gestione del colore con Scribus</title>
+</head>
+<body>
+<h2>Gestione del colore con Scribus</h2>
+<h3>Panoramica</h3>
+
+<p>L'obiettivo di un sistema di gestione del colore &egrave; di ridurre le differenze tra i colori visualizzati su schermo e quelli della stampa finale, e inoltre di individuare i colori &ldquo;fuori gamma,&rdquo; cio&egrave; non compresi nella gamma di colori (o &ldquo;gamut&rdquo;) della stampante che si intende usare. Per usare la gestione del colore sono necessari profili ragionevolmente accurati sia della stampante sia del monitor. Il concetto di gestione del colore, le opzioni e le descrizioni possono causare notevole confusione nell'utente inesperto. Se non si conosce la terminologia, &egrave; <strong>molto</strong> facile scegliere impostazioni errate, e di conseguenza spesso si peggiora l'aspetto delle immagini su video, su carta, o su entrambi. Allora il neofita dice &ldquo;ne ho abbastanza!&rdquo;, e disabilita la gestione del colore.</p>
+
+<p>Ebbene: <strong>non fatelo</strong>. Vi baster&agrave; comprendere alcuni concetti di base e conoscere la destinazione finale di stampa, e sarete in grado di prevedere e controllare meglio l'aspetto che il documento avr&agrave; quando sar&agrave; stampato. Questo &egrave; utile specialmente quando dovete inviare dei file in tipografia per la stampa in quadricromia.</p>
+
+<p>Questi sono i passi per fare in modo che la gestione del colore funzioni in modo affidabile (ci&ograve; che vedete a video &egrave; ci&ograve; che sar&agrave; stampato):</p>
+
+<ol>
+        <li>Imparate un po' i concetti e la terminologia della gestione del colore. Esistono molti buoni libri e siti sull'argomento (ad esempio <a href="http://www.poynton.com">questo</a>, in inglese, e <a href="http://boscarol.com/">questo</a>, in italiano).</li>
+        <li>Procuratevi o create profili colore accurati. Il pi&ugrave; importante &egrave; un profilo preciso per il vostro monitor. <a href="toolbox14.html">Lprof</a> &egrave; un ottimo strumento per la creazione di profili per monitor. <i>Se non avete un profilo per il monitor correttamente creato, e attivate la gestione del colore, otterrete risultati di stampa insoddisfacenti e anteprime inaffidabili a video.</i> </li>
+        <li>Caricate i profili colore nelle applicazioni grafiche in modo corretto. Al giorno d'oggi la gestione del colore pu&ograve; essere utilizzata non solo nelle applicazioni grafiche proprietarie, ma anche nelle principali applicazioni open source come GIMP, Krita, digiKam, Inkscape, o sK1.</li>
+</ol>
+
+<p>Il sistema di gestione del colore di Scribus &egrave; pensato per permettere prove colore a monitor (&ldquo;soft proofs&rdquo;) con la gestione del colore attiva. Inoltre Scribus pu&ograve; avvisare della presenza di colori &ldquo;fuori gamma&rdquo;, che potrebbero essere riprodotti in modo non accurato da una stampante o da una macchina tipografica: questo pu&ograve; accadere perch&eacute; la maggior parte delle stampanti hanno una gamma meno ampia di colori stampabili (CMYK), rispetto alla maggior parte dei monitor (RGB). Scribus non incorpora profili nelle immagini, n&eacute; altera quelli incorporati in esse (alcuni formati immagine, come EPS, JPEG, PNG o TIFF, permettono di incorporare profili ICM o ICC.)</p>
+
+<table width="100%"><tr><td align="center"><img src="images/rgb-cmyk.png"/></td></tr>
+    <tr><td><div align="center"><i>Il modello RGB (a sinistra) ha una gamma di colori molto pi&ugrave; ampia del modello CMYK (a destra).</td></tr></table>
+
+<p><strong>Che cosa sono i profili di colore, e i profili di periferica?</strong></p>
+
+<p>I profili <strong>ICC</strong> o <strong>ICM</strong> sono uno speciale tipo di file che descrive le caratteristiche di colore di una periferica come uno scanner, un monitor o una stampante. Possono esistere profili per qualunque apparecchio in grado di creare, visualizzare o manipolare immagini digitali, da cui il termine <b>profilo di periferica</b>.</p>
+<p>Vi sono anche profili di colore detti <strong>indipendenti dalla periferica</strong> o di <strong>spazio di lavoro</strong>. Questi file speciali possono essere considerati &ldquo;traduttori&rdquo; che convertono i dati di colore da un tipo di profilo colore ad un altro.</p>
+<p>Un file ICC o ICM &egrave; un insieme di tabelle che contengono i valori matematici per mezzo dei quali una periferica  misura e descrive il colore. Fortunatamente, questi profili seguono uno <a href="http://www.color.org ">standard aperto internazionale</a> e funzionano allo stesso modo su Mac&nbsp;OS&nbsp;X, OS/2, eCS, Windows, Linux o UNIX.</p>
+
+
+<h3>Attivare la gestione del colore</h3>
+<p>Perch&eacute; la gestione del colore funzioni correttamente, i seguenti componenti devono essere installati, funzionanti e utilizzabili:</p>
+<ul>
+<li>La libreria littleCMS. &Egrave; compresa nelle versioni di Scribus per Mac&nbsp;OS&nbsp;X, OS/2, eComStation e Windows, ed &egrave; una dipendenza su Linux e UNIX.</li>
+<li>Dovete avere almeno un profilo RGB e uno CMYK. Scribus fornisce due profili di base, in modo che la gestione del colore possa essere attivata subito dopo l'installazione. In pratica ne avrete bisogno di pi&ugrave;: un profilo sRGB per la maggior parte dei colori RGB e uno per ciascuna periferica a colori; uno per il monitor, che dovrebbe essere creato con uno strumento di profilazione; alcuni profili CMYK per la stampa commerciale. <br>Certi profili CMYK sono considerati &ldquo;standard,&rdquo; poich&eacute; rappresentano condizioni standardizzate per la stampa commerciale impiegate in Europa, Giappone e Nord America. Vi sono parecchi siti da cui &egrave; possibile scaricare profili ICC affidabili. Uno degli standard del settore &egrave; il pacchetto &ldquo;Adobe ICC Profiles&rdquo;, che sono quelli forniti con le applicazioni Adobe; si possono scaricare dal sito della Adobe: <a href="http://www.adobe.com/support/downloads/product.jsp?product=62&platform=windows">qui per Windows</a> e <a href="http://www.adobe.com/support/downloads/product.jsp?product=62&platform=Macintosh">qui per Mac OS</a>. Un insieme di profili che si &egrave; dimostrato di qualit&agrave; eccellente &egrave; quello fornito dalla <a href="http://www.basiccolor.de">basICColor GmbH</a>, un'azienda tedesca specializzata nella gestione del colore. I profili, coperti da una licenza CC, possono essere scaricati <a href="http://www.colormanagement.org">qui</a>.</li>
+<li>Uno sviluppo pi&ugrave; recente sui desktop Linux &egrave; la possibilit&agrave; di utilizzare la gestione del colore quasi ovunque, almeno dove essa ha senso. Di conseguenza la gestione del colore ora &egrave; spesso usata non solo da programmi per l'editing di immagini bitmap o vettoriali o di desktop publishing, ma anche da browser web e semplici visualizzatori di immagini. Quindi molte distribuzioni Linux moderne mettono a disposizione molti insiemi di profili ICC di alta qualit&agrave;, sotto forma di pacchetti aggiuntivi facilmente installabili con il proprio gestore di pacchetti. Tra essi vi sono i profili Adobe ICC e basICColor sopra citati. A seconda dei criteri per la gestione delle licenze, potrebbe essere necessario aggiungere o attivare i repository &ldquo;non-free&rdquo; (comunque siano chiamati) della vostra distribuzione, per poter installare i pacchetti con licenze non (L)GPL/BSD.</li>
+</ul>
+
+<h3>Posizioni dei profili colore</h3>
+<ul>
+<li><b>Linux/UNIX:</b> <code>/usr/share/color/icc</code> (profili di sistema) e <code>/home/username/.color/icc</code> (profili utente).</li>
+<li><b>Mac OS X:</b> <code>/Library/ColorSync/Profiles</code>.</li>
+<li><b>Windows:</b>: <code>C:\WINNT\system32\spool\drivers\color</code> (Windows 2000) e <code>C:\Windows\system32\spool\drivers\color</code> (Windows XP, Vista, 7).<br>
+<i>Si noti che sui sistemi Windows a 64 bit, alcuni programmi a 32 bit potrebbero non riuscire a trovare i profili nella directory <code>system32</code> perch&eacute; li cercano in <code>C:\Windows\SysWOW64</code>, che &egrave; una cartella contenente i file necessari per la compatibilit&agrave; dei programmi a 32 bit (questo non &egrave; un refuso: la cartella con un &ldquo;32&rdquo; nel nome &egrave; per i file a 64 bit, e quella con &ldquo;64&rdquo; nel nome &egrave; per file a 32 bit!). Se usate un programma a 32 bit su una versione di Windows a 64 bit, e i profili colore non sono disponibili, dovreste copiarli anche in <code>C:\Windows\SysWOW64\spool\drivers\color</code></i>.</li>
+<li><b>OS/2 ed eComStation:</b> <code>X:\scribus-directory\lib\scribus\profiles</code>. <br>
+<i>Su OS/2 ed eComStation non esiste una modalit&agrave; di gestione del colore a livello di sistema, quindi ciascun programma che usa la gestione del colore, come Scribus o GIMP, deve avere i profili nella propria directory. Tuttavia &egrave; possibile creare una singola directory che comprenda tutti i profili, e impostarla come fonte aggiuntiva per i profili; la directory potrebbe essere, ad esempio, </i> <code>X:\ICC</code>. <i>In Scribus potete aggiungere questo percorso nella scheda &ldquo;Generale&rdquo; delle <a href="settings1.html#1">preferenze</a>.</i></li>
+</ul>
+
+<br />
+</body>
+</html> 

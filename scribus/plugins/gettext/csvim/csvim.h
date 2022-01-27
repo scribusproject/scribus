@@ -9,8 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "pluginapi.h"
 #include "csvdia.h"
-#include <gtwriter.h>
-#include <gtparagraphstyle.h>
 #include <QByteArray>
 #include <QFile>
 #include <QFileInfo>
@@ -18,7 +16,10 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 #include <QTextCodec>
 
-extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+class gtParagraphStyle;
+class gtWriter;
+
+extern "C" PLUGIN_API void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer);
 
 extern "C" PLUGIN_API QString FileFormatName();
 
@@ -28,29 +29,33 @@ class CsvIm
 {
 public:
 	CsvIm(const QString& fname, const QString& enc, gtWriter *w, const QString& fdelim = ",",
-          const QString& vdelim = "\"", bool header = false, bool usevdelim = true);
+          const QString& vdelim = "\"", bool hasheader = false, bool usevdelim = true);
 	~CsvIm();
+
 	void setFieldDelimiter(const QString& fdelim);
 	void setValueDelimiter(const QString& vdelim);
 	void write();
+
 private:
 	QString fieldDelimiter;
 	QString valueDelimiter;
-	bool hasHeader;
-	bool useVDelim;
+	bool hasHeader { false };
+	bool useVDelim { true };
 	QString filename;
 	QString encoding;
-	gtWriter *writer;
+	gtWriter *writer {nullptr};
+
 	QString header;
 	QString data;
-	int rowNumber;
-	int colIndex;
-	int colCount;
-	gtParagraphStyle *pstyleData;
-	gtParagraphStyle *pstyleHeader;
+	int rowNumber {0};
+	int colIndex {0};
+	int colCount {0};
+	gtParagraphStyle *pstyleData {nullptr};
+	gtParagraphStyle *pstyleHeader {nullptr};
+
 	void loadFile();
 	void parseLine(const QString& line, bool isHeader);
-	QString toUnicode(const QString& text);
+	QString toUnicode(const QByteArray& rawText);
 	void setupPStyles();
 	void setupTabulators();
 };

@@ -1,0 +1,367 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Was ist neu in Scribus 1.5.4?</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Was ist neu in Scribus 1.5.4?</h2>
+<p>Dies ist ein kurzer &Uuml;berblick &uuml;ber die wichtigsten &Auml;nderungen in Scribus im Vergleich zur aktuell stabilen Version 1.4.x.</p>
+
+<p><b><i>Beachten Sie bitte, da&szlig; sich das Dateiformat ge&auml;ndert hat und nicht abw&auml;rtskompatibel mit einer anderen stabilen Version (1.4.x oder fr&uuml;her) ist. Genauer gesagt, Sie werden 1.5.x-Dateien nicht mit 1.4.x oder fr&uuml;heren Versionen &ouml;ffnen können.</i></b></p>
+<p>Beachten Sie auch, da&szlig; die 1.5.x-Serie keine offiziell stabile Version ist. Alle 1.5.x-Versionen sind Entwicklungsversionen f&uuml;r das kommende offiziell stabile Scribus 1.6.0! Wenn Sie versuchen, wichtige Dokumente mit 1.5.x zu erstellen, so machen Sie dies auf eigene Gefahr! Das Scribus-Team ist dennoch sicher, da&szlig; Scribus 1.5.4 f&uuml;r mutige Anwender bereits stabil genug f&uuml;r die t&auml;gliche Arbeit ist. Funktionen, die schon in 1.4.x vorhanden sind, arbeiten genauso verl&auml;&szlig;lich und in vielen F&auml;llen sogar besser als in 1.4.x.</p>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/new-icons.png" title="Ein neuer Look!" alt="Ein neuer Look!" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Ein neuer Look!</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h3>Allgemein</h3>
+<ul>
+<li><b>Qt 5:</b> Ab Version 1.5.x wird Scribus mit der Version 5 des Qt-Toolkits kompiliert. F&uuml;r Scribus 1.5.4 ist mindestens Qt 5.5 erforderlich.</li>
+<li><b>Mehr Abh&auml;ngigkeiten:</b> Scribus 1.5.x macht Gebrauch von mehr externen Bibliotheken als fr&uuml;here Versionen, speziell f&uuml;r die Importfilter. In den meisten F&auml;llen mu&szlig; Scribus explizit mit diesen Bibliotheken kompiliert werden, so da&szlig; sie Abh&auml;ngigkeiten werden. In anderen F&auml;llen (z.B. UniConverter) erkennt Scribus eine installierte Version automatisch. Beachten Sie, da&szlig; die vollst&auml;ndige Unterst&uuml;tzung f&uuml;r manche Bibliotheken auf Mac&nbsp;OS&nbsp;X und Windows erst mit der Ver&ouml;ffentlichung von 1.6.0 zur Verf&uuml;gung stehen wird.</li>
+<br>
+<h3>Text und Typographie</h3>
+<h4>Typographie</h4>
+<ul>
+<li>Vertikales Ausrichten des Textes.</li>
+<li>Hurenkinder und Schusterjungen.</li>
+<li>Der Textlayout-Code wurde komplett neu geschrieben und unterst&uuml;tzt jetzt über 500 Sprachen und Schriftsysteme, darunter auch linksläufige wie Arabisch oder Hebr&auml;isch oder komplexe Schriften wie Devanagari.</li>
+<li>Unterstützung erweiterter OpenType-Funktionen.</li>
+</ul>
+
+<h4><b>Text</b></h4>
+<ul>
+<li>Hintergrundfarben f&uuml;r Glyphen.</li>
+<li>Fu&szlig;- und Endnoten.</li>
+<li>Frei definierbare Textvariablen.</li>
+<li>Textreferenzen.</li>
+<li>Verankerte Textrahmen.</li>
+<li>Automatische Numerierung und Spiegelstriche.</li>
+<li>Automatisches Erstellen von Textverkettungen.</li>
+<li>Vertikales Ausrichten des Textes. Dies war eine der am meisten gew&uuml;nschten Funktionen im Zusammenhang mit Scribus&rsquo; Textfunktionen. Der Text in einem Rahmen kann nun oben, mittig und unten ausgerichtet werden.</li>
+<li>Automatische Anpassung des Textrahmens an die Textgr&ouml;&szlig;e.</li>
+<li>Inline-Objekte in Textrahmen sind endlich vollst&auml;ndig bearbeitbar.</li>
+</ul>
+<br>
+<h3>Tabellen</h3>
+<p>Das Tabellen&ndash;Werkzeug wurde komplett neu geschrieben. Tabellen in Scribus funktionieren jetzt mehr wie in anderen DTP&ndash; und Textverarbeitungsprogrammen. Es wurden auch rudiment&auml;re Stile f&uuml;r Tabellen und Zellen eingef&uuml;hrt.</p>
+<br>
+<table width="70%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/RM-tables.png" title="Neue Tabellenfunktionen" alt="Neue Tabellenfunktionen" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Neue Tabellenfunktionen</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h3>Grafiken</h3>
+<h4>Bildbrowser</h4>
+<p>Grafikdateien k&ouml;nnen durch ein neues und leistungsf&auml;higes Plug-in, den &ldquo;Bildbrowser&rdquo;, mit Hilfe von Grafiksammlungen oder Tags verwaltet werden. Auch k&ouml;nnen Grafikdateien einfach vom Bildbrowser in ein Scribus-Dokument gezogen werden. </p>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/RM-picture_browser.png" title="Asset-Verwaltung mit dem Bildbrowser" alt="Asset-Verwaltung mit dem Bildbrowser" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Asset-Verwaltung mit dem Bildbrowser</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h4>Vektorwerkzeuge</h4>
+<ul>
+<li>Neue Vektortypen: Kreisbogen und Spiralen.</li>
+<br>
+<table width="50%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/Scribus-Arcs.png" title="Kreisbogen" alt="Kreisbogen" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Kreisbogen</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table width="50%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/Scribus-Spirals.png" title="Spiralen" alt="Spiralen" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Spiralen</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<li>Kalligraphiestift.</li>
+<br>
+<table width="50%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/Scribus-CalligraphicPen.png" title="Kalligraphiestift" alt="Kalligraphiestift" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Kalligraphiestift</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<li>Neue Pfadwerkzeuge: Abflachen und Gl&auml;tten von Pfaden.</li>
+<li>Eine der meistgew&uuml;nschten Funktionen &ndash; Schlagschatten &ndash; kam hinzu und funktioniert bei allen Exportformaten.</li>
+</ul>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/RM_DS.png" title="Endlich: Schlagschatten!" alt="Endlich: Schlagschatten!" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Endlich: Schlagschatten!</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h4>Rasterbilder</h4>
+<ul>
+<li><b>Bildspeicher:</b> Um zu vermeiden, da&szlig; Scribus beim Laden vieler hochaufl&ouml;sender Bilder langsam wird, wurde eine konfigurierbare Auslagerungsfunktion (Cache) für Rasterbilder implementiert.</li>
+<li><b>Eingebettete Bilder:</b> Rasterbilder k&ouml;nnen jetzt in Scribusdateien eingebettet werden. Beachten Sie, da&szlig; gespeicherte SLA- oder sogar SLA.GZ-Dateien dadurch sehr gro&szlig; werden k&ouml;nnen.</li>
+</ul>
+
+<h3>Rahmenf&uuml;llungen und -linien</h3>
+<br>
+<table width="70%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/LAB.png" title="L*a*b*- und HLC-Farben in Scribus" alt="L*a*b*- und HLC-Farben in Scribus" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>L*a*b*- und HLC-Farben in Scribus</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<ul>
+<li><b>Unterst&uuml;tzung f&uuml;r CIE-L*a*b*- und CIE-HLC-Farbmodelle:</b> Ab Version 1.5.1 unterst&uuml;tzt Scribus den CIE-L*a*b*-Farbraum und seine benutzerfreundliche Variante HLC in nahezu allen Farbdialogen. Man kann nun L*a*b*-Farben hinzuf&uuml;gen oder existierende Farben in diese umwandeln. </li>
+<li><b>Zugang zur &uuml;ber 300 Farbpaletten:</b> Mit Hilfe des Ressourcen-Managers lassen sich mehr als 300 meist kommerzielle Farbpaletten im L*a*b*-Farbraum herunterladen.</li>
+</ul>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/RM-Scribus-1.5-Color_Fills.png" title="Einheitliche Verwaltung von Farben und F&uuml;llungen" alt="Einheitliche Verwaltung von Farben und F&uuml;llungen" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Einheitliche Verwaltung von Farben und F&uuml;llungen</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<ul>
+<li><b>Mehr unterst&uuml;tzte Farbpaletten-Formate:</b> Scribus kann jetzt Paletten aus bzw. für Adobe Photoshop (ACO), AutoCAD (ACB) und Swatchbooker (SBZ) ebenso lesen und nutzen wie Adobe-Swatch-Exchange-Dateien (ASE).</li>
+<li><b>Mehr Farbverl&auml;ufe:</b> Scribus kann GIMP-Farbverl&auml;ufe &uuml;ber den &raquo;Farben und F&uuml;llungen&laquo; Dialog importieren. Dar&uuml;ber hinaus bietet Scribus 1.5.x mehr Farbverlaufstypen, darunter auch  in Scribus deutlich gewachsen und beinhaltet unter anderem Verlaufsgitter.</li>
+<li><b>Schraffuren:</b> Ab dieser Version unterst&uuml;tzt Scribus echte Vektorschraffuren mit verschiedenen Optionen.</li>
+<li><b>Neue Linienoptionen:</b> Alle Linien, inklusive der Rahmenlinien, k&ouml;nnen jetzt einen Farbverlauf oder ein Muster haben, statt nur einer Farbe.</li>
+<li><b>Erweiterte Transparenzeffekte:</b> Transparenzeffekte, die bisher nur f&uuml;r Photoshop&ndash;Dateien mit mehreren Ebenen innerhalb eines Bildrahmens verf&uuml;gbar waren, gibt es jetzt neben wie zus&auml;tzlichen Effekten mit dem neuen &raquo;Transparenz&laquo;-Reiter in der Eigenschaftenpalette f&uuml;r alle Rahmen und Ebenen. </li>
+</ul>
+<br>
+
+
+<h3>Importfilter</h3>
+<p>Erhebliche Arbeit wurde in neue und die Verbesserung existierender Importfilter gesteckt.</p>
+
+<h4>Verbesserte Importfilter</h4>
+<ul>
+<li><b>Adobe Illustrator:</b> Der Adobe-Illustrator-Importer wurde komplett neu geschrieben. Bei AI-Hybrid-Dateien ist es jetzt m&ouml;glich, entweder den PDF- oder den AI-Teil der Datei auszuw&auml;hlen.</li>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/Scribus-1.5-AIorPDF-dialog.png" title="Der neu geschriebene AI-Importer" alt="Der neu geschriebene AI-Importer" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Der neu geschriebene AI-Importer</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<li><b>OpenDocument-Grafiken:</b> Der ODG-Importer wurde komplett neu geschrieben und unterst&uuml;tzt jetzt auch OpenDocument-Presentation-Dateien (ODP).</li>
+<li><b>PDF:</b> Der PDF-Importer wurde komplett neu geschrieben und &ouml;ffnet nun die meisten PDF-Dateien mit 100% korrektem Layout. PDF-Formulare werden als solche erkannt und k&ouml;nnen in Scribus bearbeitet werden.</li>
+<li><b>PostScript:</b> Der PostScript-Importer wurde komplett neu geschrieben und &ouml;ffnet nun die meisten PS Dateien mit 100% korrektem Layout.</li>
+<li><b>OpenDocument Text (ODT):</b> Der ODT-Importer wurde komplett neu geschrieben und ist jetzt wesentlich toleranter gegen&uuml;ber ODT-Dateien, die mit anderen Programmen als LibreOffice und OpenOffice geschrieben wurden (z.B. MS Word, AbiWord). Er unterst&uuml;tzt auch mehr ODT-Funktionen.</li>
+</ul>
+<h4>Neue Importfilter</h4>
+<br>
+<ul>
+<li><b>Adobe PageMaker:</b> Scribus 1.5 beinhaltet eine fr&uuml;he Version eines Filters f&uuml;r Dateien, die mit den Versionen 6.5 und 7.0 des einst popul&auml;ren DTP Programms erstellt wurden. Er benutzt dazu <a href="https://wiki.documentfoundation.org/DLP/Libraries/libpagemaker">libpagemaker</a>.</li>
+<li><b>Color Exchange Format (CXF):</b> CXF, Version 3 ist ein ISO-Standard, dessen Zweck es ist, die Farbkommunikation für verschiedene Ausgabeziele wie Web oder unterschiedliche Druckverfahren zu erleichtern. In einer CXF-datei k&ouml;nnen daher mehrere Versionen einer Farbpalette enthalten sein. Weil CXF auch f&uuml;r die Farbrezeptur verwendet wird, hat das Scribus-Team auch Unterst&uuml;tzung f&uuml;r Spektralfarben implementiert. Letztere werden beim import in den L*a*b*-Farbraum umgerechnet.</li>
+<li><b>Computer Graphics Metafile (CGM):</b> CGM ist ein 2D-Vektorformat&ndash;Standard, den es schon lange gibt und der insbesondere f&uuml;r technische Zeichnungen immer noch weiterentwickelt wird. Der neue Filter sollte die meisten CGM Dateien korrekt importieren.</li>
+<li><b>CorelDraw (CDR, CDT, CMX):</b> Dank der unerm&uuml;dlichen Arbeit an <a href="https://wiki.documentfoundation.org/DLP/Libraries/libcdr">libcdr</a>, kann Scribus nun Dateien importieren, die von CorelDraw von der Version 1 bis zur Gegenwart erstellt wurden. Au&szlig;erdem erlaubt die Integration von libcdr nicht nur das Importieren von CDR-Dateien, sondern auch CorelDraw-Templates- und CorelDraw-Presentations-Exchange-Dateien (CDT, CMX).</li>
+<li><b>Enhanced Metafile (EMF):</b> EMF-Dateien sind 32-bit Versionen des 16-bit-Windows-Metafile-Formats (WMF), das schon von Scribus 1.4.x unterst&uuml;tzt wurde.</li>
+<li><b>GraphicsMagick Plug-in:</b> Nahezu alle Bitmap-Formate, die von GraphicsMagick unterst&uuml;tzt werden, k&ouml;nnen nun von Scribus importiert werden. Zu beachten ist dabei, da&szlig; die vielen Formate im Auswahlmen&uuml; nicht einzeln aufgef&uuml;hrt werden, um Platz zu sparen.</li>
+<li><b>InDesign/InCopy:</b> W&auml;hrend die Reverse-Engineering-Anstrengungen bez&uuml;glich InDesigns Bin&auml;rformat (INDD) durch Entwickler von dritter Seite noch nichts wirklich Brauchbares erreicht haben, hat Adobe die komplette Spezifikation der XML Version des Formats (IDML) ver&ouml;ffentlicht. Scribus 1.5 kommt mit einem grunds&auml;tzlich funktionierenden, aber noch nicht optimalen Importfilter f&uuml;r dieses Format daher, der mit der Zeit verbessert und verfeinert werden wird. Er importiert auch InDesign XML Snippets (IDMS) und einige InCopy XML Dateien (ICML).</li>
+<li><b>iWorks Pages (PAGES):</b> Pages ist Apples Textverarbeitungssoftware, die auch viele DTP Funktionen zur Verf&uuml;gung stellt. Ein eigener Importfilter wurde entwickelt, um Dateien zu importieren, die mit Pages &rsquo;08 und sp&auml;teren Versionen erstellt wurden.</li>
+<li><b>Krita (KRA):</b> Das native Format des digitalen Zeichenprogrammes Krita.</li>
+<li><b>Macromedia FreeHand (FH*):</b> Ein experimenteller Importfilter, der <a href="https://wiki.documentfoundation.org/DLP/Libraries/libfreehand">libfreehand</a> nutzt, wurde hinzugef&uuml;gt.</li>
+<li><b>Micrografx Draw (DRW):</b> Dies ist ein Dateiformat der einst popul&auml;ren Micrografx Draw Grafiksoftware f&uuml;r Windows 3 und 95. Da es immer noch viele Vektorgrafiksammlungen gibt, die dieses Format nutzen, wurde ein Importfilter geschrieben.</li>
+<li><b>Microsoft Publisher (PUB):</b> Ein Importer f&uuml;r PUB-Dateien wurde m&ouml;glich durch die Nutzung von <a href="https://wiki.documentfoundation.org/DLP/Libraries/libmspub">libmspub</a>, das auch f&uuml;r den Publisher Import bei LibreOffice genutzt wird. Die Bibliothek sollte alle Publisher-Versionen unterst&uuml;tzen.</li>
+</ul>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/RM-PUB.png" title="MS-Publisher-Import" alt="MS-Publisher-Import" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>MS-Publisher-Import</i></div></td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<ul>
+<li><b>Microsoft Visio (VSD, VXD):</b> Der Importer f&uuml;r Visio-Dateien wurde erm&ouml;glicht durch <a href="https://wiki.documentfoundation.org/DLP/Libraries/libvisio">libvisio</a>, das auch f&uuml;r den Visio-Import bei LibreOffice genutzt wird. Zumindest alle Visio-Versionen von 2000 bis 2013 sollten importiert werden k&ouml;nnen.</li>
+<li><b>Microsoft Word XML (DOCX):</b> MS Words XML-basiertes Dateiformat wurde zu einem neuen de-facto Standard f&uuml;r Textverarbeitungsdateien. Der neue Importfilter unterst&uuml;tzt zum mindesten DOCX Dateien, die mit Word 2010 oder sp&auml;ter erstellt wurden.</li>
+<li><b>Open Raster File (ORA):</b> Open Raster ist ein offener Standard f&uuml;r komplexe Bitmap Dateien. Es wird von allen gr&ouml;&szlig;eren Freien Bildbearbeitungsprogrammen, inklusive GIMP und Krita, unterst&uuml;tzt.</li>
+<li><b>Photoshop Custom Shapes (CSH):</b> CSH ist ein Vektorformat f&uuml;r einfache Vektorgrafiken in Adobe Photoshop. Es kann mit dem neuen Formen-Manager importiert werden. </li>
+</ul>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/RM_CHF.png" title="Der Formen-Manager" alt="Der Formen-Manager" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Der Formen-Manager</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<ul>
+<li><b>Progressive Graphics File (PGF):</b> Dies ist ein ziemlich neues Format, das wie JPEG 2000 das JPEG-Format ersetzen soll, aber Geschwindigkeit und Qualit&auml;t &uuml;ber die Komprimierung stellt.</li>
+<li><b>QuarkXPress (QXD):</b> Hierbei handelt es sich um einen experimentellen Importfilter f&uuml;r Dateien, die mit QuarkXPress 3.x or 4.x erzeugt wurden. Er verwendet die Bibliothek <a href="https://wiki.documentfoundation.org/DLP/Libraries/libqxp">libqxp</a>, die auch für den XPress-Import in LibreOffice genutzt wird.</li>
+<li><b>Rich Text Format (RTF):</b> Als eines der meistverbreiteten Austauschformate f&uuml;r formatierten Text ist RTF auch in DTP Arbeitsabl&auml;ufen sehr gebr&auml;uchlich und kann von nahezu jedem Textverarbeitungsprogramm seit den 90er Jahren exportiert werden.</li>
+<li><b>StarView Metafile (SVM):</b> Dies ist ein altes Metafile-Format (&auml;hnlich wie WMF), das vom Vorg&auml;nger von OpenOffice / LibreOffice, StarOffice, genutzt wurde. Da beide Nachfolger SVM noch in OpenDocument Graphics nutzen, ist der SVM Importfilter ein Nebenprodukt des neuen ODG-Filters.</li>
+<li><b>UniConvertor-Plug-in:</b> Wie beim GraphicsMagick-Plug-in listet Scribus keine Dateitypen auf, die von UniConverter unterst&uuml;tzt werden, um Platz im Auswahlmen&uuml; zu sparen. Scribus ignoriert UniConverter auch bei Dateitypen f&uuml;r die es eigene Importfilter zur Verf&uuml;gung hat.</li>
+<li><b>WordPerfect Graphics (WPG):</b> Scribus nutzt eine verbesserte Version von libwpg, um das Clipart-Format von WordPerfect Office zu importieren.</li>
+<li><b>VIVA Designer XML (XML):</b> Wie InDesign erm&ouml;glicht VIVA Designer den Export von XML Versionen seines eigenen Formats. Diese k&ouml;nnen nun von Scribus importiert werden.</li>
+<li><b>Xara Designer (XAR):</b> Xara Designer (fr&uuml;her bekannt als Xara Xtreme) ist bekannt als eines der m&auml;chtigsten Vektorzeichenprogramme. Das Dateiformat (XAR) ist gut dokumentiert, und dank der vielen Beitr&auml;ge professioneller Xara-Nutzer war es dem Scribus-Team m&ouml;glich, einen hervorragenden XAR Filter zu schreiben, dessen Implementierung Scribus viele neue Funktionen brachte.</li>
+<li><b>XML Paper Specification (XPS, OXPS):</b> XPS ist eine Alternative zu PDF, die urspr&uuml;nglich von Microsoft entwickelt wurde und nun von ECMA International gepflegt und aktualisiert wird. Scribus 1.5.x kann sowohl die ursprüngliche Microsoft-Version (XPS) als auch die modifizierten Versionen, die von ECMA genormt wurden, (OXPS) importieren.</li>
+<li><b>XPress Tags (XTG):</b> XTG ist ein Format, das Quark ersonnen hat, um Textlayout zwischen Dokumenten zu &uuml;bertragen. Scribus 1.5.x bietet einen Importfilter f&uuml;r XTG-Dateien, die von QuarkXpress geschrieben wurden, und der nahezu fehlerfrei arbeitet. Zu beachten ist, da&szlig; XPress Tags nicht mit Xtags identisch ist, die eine erweiterte Version von XPress Tags darstellen, die von dritter Seite mittels eines XPress-Plug-ins bereitgestellt wird.</li>
+<li><b>ZonerDraw (ZMF):</b> Der Importfilter f&uuml;r ZMF-Dateien war dank der Bibliothek <a href="https://wiki.documentfoundation.org/DLP/Libraries/libzmf">libzmf</a> möglich, die auch LibreOffice für den Import verwendet. Momentan werden nur die Versionen 4 und 5 unterst&uuml;tzt.</li>
+</ul>
+
+
+<h3>PDF-Funktionen</h3>
+<ul>
+<li><b>Unterst&uuml;tzung von PDF/X-4:</b> PDF/X-4 ist, weil es Transparenzen erlaubt, ein erheblicher Fortschritt gegen&uuml;ber PDF/X-3.</li>
+<li><b>Substantielle Verbesserung bei PDF-Formularen:</b> Der Code f&uuml;r PDF-Formulare wurde komplett neu geschrieben, und Scribus unterst&uuml;tzt nun s&auml;mtliche Eigenschaften von PDF-Formularen, so wie sie in der PDF-Spezifikation festgelegt sind.</li>
+<li><b>Unterst&uuml;tzung von PDF-3D-Features mit Hilfe von OpenSceneGraph:</b> Neuere Versionen der PDF-Spezifikation erlauben es, 3D-Objekte in PDF-Dateien einzubetten. Scribus 1.5.x f&uuml;hrt ein neues PDF-Element namens &raquo;3D Anmerkung&laquo; ein. Es erm&ouml;glicht den Import von 3D-Elementen in vielen Formaten und bietet begrenzte Bearbeitungsm&ouml;glichkeiten wie Anzeigeart oder Beleuchtung.</li>
+<li><b>Schrifteinbettung:</b> Der Code zur Schrifteinbettung wurde ebenso wie die zugeh&ouml;rige grafische Oberfl&auml;che komplett neu geschrieben.</li>
+</ul>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/RM-imp3.png" title="3D-Objekte in Scribus" alt="3D-Objekte in Scribus" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>3D-Objekte in Scribus</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h3>Andere Exportm&ouml;glichkeiten</h3>
+<ul>
+<li><b>XPS:</b> Ein elementarer XPS-Exporter wurde hinzugef&uuml;gt.</li>
+</ul>
+
+<br>
+
+<h3>Bedienbarkeit / Grafische Oberfl&auml;che</h3>
+<ul>
+<li><b>Neues Icon-Set:</b> Ab Version 1.5.1 nutzt Scribus neue und moderne Icons. Sie sind haupts&auml;chlich in schwarz und nutzen Farben nur, wenn es unabdingbar ist ist.</li>
+<li><b>Andockbare Fenster:</b> Alle Fenster k&ouml;nnen jetzt an die rechte oder linke Seite des Hauptfensters angedockt werden.</li>
+<li><b>Texteigenschaftenpalette:</b> Die Eigeschaftenpalette war aufgrund der neu hinzugekommenen Textfunktionen nicht mehr zu benutzen. Als erster Scritt wurde daher der &raquo;Text&laquo;-Reiter in eine eigenst&auml;ndige Palette ausgegliedert.</li>
+<li><b>Kontextmenu:</b> Das Kontextmen&uuml; wurde neu gestaltet und ist jetzt wesentlich kleiner.</li>
+</ul>
+<br>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/RM-CM.png" title="Das verkleinerte Kontextmen&uuml;." alt="Das verkleinerte Kontextmen&uuml;." /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Das verkleinerte Kontextmen&uuml;.</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<ul>
+<li><b>Dokument einrichten / Allgemeine Einstellungen:</b> Beide Einstellungsdialoge wurden von Grund auf neu geschrieben und bieten jetzt wesentlich mehr Optionen.</li>
+<li><b>Dateivorschau:</b> Die Vorschau im Dateiauswahlmen&uuml; funktioniert bei allen Arten an Ausgabe-, DTP-, Vektor- und Bitmap-Dateien.</li>
+<li><b>Ansichtsmodus mit Tabs:</b> Wenn mehr als ein Dokument ge&ouml;ffnet ist, kann man die Ansicht mit Tabs w&auml;len, um schnelleren Zugriff auf ein bestimmtes Dokument zu haben.</li>
+<li><b>Symbole:</b> Scribus 1.5.x f&uuml;hrt eine gro&szlig;artige Zeitersparnis namens Symbole ein. Jedes Objekt kann in ein Symbol oder &raquo;Eltern&raquo;-Objekt umgewandelt werden. Alle Kopien oder &raquo;Kind&laquo;-Objekte des letzteren erben jede &Auml;nderung, die an diesem Symbol vorgenommen wird.</li>
+</ul>
+<br>
+<table width="70%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/RM_symb.png" title="Symbole in Scribus" alt="Symbole in Scribus" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><i>Symbole in Scribus</i></div></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<ul>
+<li><b>Ausrichten:</b> Objekte k&ouml;nnen nun an anderen Objekten ausgerichtet werden.</li>
+<li><b>&raquo;Kombinieren&laquo; von Objekten:</b> Objekte zusammenf&uuml;hren, ohne sie zu gruppieren.</li>
+<li><b>&raquo;Ausrichten&laquo;:</b> Der &raquo;Einrasten&laquo;-Modus für Objekte ist nun als Grundeinstellung aktiviert.</li>
+<li><b>Ebenen:</b> Objekte k&ouml;nnen nunmehr über Ebenengrenzen hinaus ausgewählt werden.</li>
+<li><b>Dokument aktualisieren:</b> Es ist nun m&ouml;glich, die Ansicht des gesamten Dokuments mit einem einzelnen Men&uuml;eintrag zu aktualisieren.</li>
+<li><b>Dokumentenstruktur:</b> Objekte k&ouml;nnen jetzt Im Dokumentstruktur-Dialog beliebig verschoben werden.</li>
+<li><b>R&uuml;ckg&auml;ngig / Wiederherstellen:</b> Die Verlaufsgeschichte wurde komplett überholt und funktioniert nun f&uuml;r fast alle alle Aktionen.</li>
+<li><b>Ressourcenmanager:</b> Der neu implementierte Ressourcen-Manager erlaubt nicht nur den Download von Ressourcen wie W&ouml;rterb&uuml;chern oder Schriften, sondern zeigt auch die entsprechende Lizenz an.</li>
+</ul>
+<br>
+
+<h3>Online-Hilfe</h3>
+<p>F&uuml;r die 1.5/1.6er Serie nutzt Scribus f&uuml;r das Online-Handbuch jetzt eine CSS-Datei, um das Erscheinungsbild des Textes zu kontrollieren und zu verbessern. Die Datei hei&szlig;t <code>manual.css</code> und kann, wie viele Scribus-Optionen, nach Wunsch modifiziert werden. Falls vorhanden, benutzt sie die Schriftart <strong>Fontin</strong> f&uuml;r  &Uuml;berschriften. Dies ist eine frei verf&uuml;gbare Schrift, die leicht zum System hinzugef&uuml;gt werden kann.</p>
+<p>Zu beachten ist, da&szlig; das Online-Handbuch vor der Ver&ouml;ffentlichung der stabilen 1.6.x-Serie nicht immer aktuell sein wird.</p>
+
+<h3>Verschiedenes</h3>
+<li>Scribus folgt nun dem XDG-Standard f&uuml;r Konfigurationsdateien. Daher befindet das Verzeichnis der allgemeinen Einstellungsdateien jetzt nicht mehr unter <code>~/.scribus/</code>, sondern unter <code>~/.config/scribus/</code>.</li>
+<li>Einige neue und n&uuml;tzliche Scripte wurden hinzugef&uuml;gt und bestehende aktualisiert.</li>
+
+<h3>Bekannte Probleme mit Scribus 1.5.x</h3>
+<ul>
+<li>Die Funktionalit&auml;t der Eigenschaftenpalette ist enorm gewachsen, und sie mu&szlig; so schnell wie m&ouml;glich auseinandergenommen werden.</li>
+<li>Der Aktionsverlauf k&ouml;nnte bei neuen Funktionen noch nicht zuverl&auml;ssig funktionieren.</li>
+<li>Manche Scripts, die mit Scribus mitgeliefert wurden, funktionieren u.U. nicht.</li>
+<li>Einige Tabellenoptionen in der Eigenschaftenpalette funktionieren nicht.</li>
+<li>Einige Textfunktionen, die mit Numerierung zu tun haben (z.B. Fu&szlig;noten, Listen) funktionieren nicht richtig.</li>
+</ul>
+
+<br>
+<br>
+
+
+<br>
+<br>
+</body>
+</html>

@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef GTACTION_H
@@ -32,71 +32,46 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <QString>
 
+#include "scribusapi.h"
+
 class PageItem;
 class PrefsManager;
 class ScFace;
-
-#include "gtfont.h"
-#include "gtframestyle.h"
-#include "gtparagraphstyle.h"
-#include "gtstyle.h"
-#include "scribusapi.h"
-
 class CharStyle;
 class ParagraphStyle;
 class ScribusDoc;
 class ScribusMainWindow;
+class StoryText;
+class TextNote;
+
+class UndoManager;
+
+class gtStyle;
+class gtParagraphStyle;
+class gtFont;
+class gtFrameStyle;
 
 typedef QMap<QString, QString> FontFamilyMap;
 
 class SCRIBUS_API gtAction
 {
-private:
-	ScribusMainWindow* m_ScMW;
-	PageItem *textFrame;
-	PageItem *it;
-	int lastParagraphStyle;
-	bool inPara;
-	bool isFirstWrite;
-	bool doAppend;
-	bool lastCharWasLineChange;
-	bool updateParagraphStyles;
-	/* If paragraph style is used should the font style of the gtpstyle be used 
-	   or should writer respect the font set in the real paragraph style
-	*/
-	bool overridePStyleFont;
-	QString currentFrameStyle;
-	FontFamilyMap families;
-
-	int findParagraphStyle(const QString& name);
-	int findParagraphStyle(gtParagraphStyle* pstyle);
-	int applyParagraphStyle(gtParagraphStyle* pstyle);
-
-	ScFace  validateFont(gtFont* font);
-	QString findFontName(gtFont* font);
-	void    updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle);
-	QString parseColor(const QString &s);
-	QColor  parseColorN(const QString &rgbColor);
-	void finalize();
-	PrefsManager *prefsManager;
 public:
-//	gtAction(bool append);
 	gtAction(bool append, PageItem *pageitem);
 	~gtAction();
-	void setTextFrame(PageItem* frame);
+
 	void setProgressInfo();
 	void setProgressInfoDone();
-	void setInfo(QString infoText);
+	void setInfo(const QString& infoText);
 	double getLineSpacing(int fontSize);
 	void clearFrame();
 	void getFrameFont(gtFont *font);
 	void getFrameStyle(gtFrameStyle *fstyle);
-	void write(const QString& text, gtStyle *style);
-	void writeUnstyled(const QString& text);
+	void write(const QString& text, gtStyle *style, bool isNote);
+	void writeUnstyled(const QString& text, bool isNote);
 	void applyFrameStyle(gtFrameStyle* fstyle);
 	void createParagraphStyle(gtParagraphStyle* pstyle);
 	void setCharStyleAttributes(gtFont *font, CharStyle& style);
-	void setParaStyleAttributes(gtParagraphStyle *gtstyle, ParagraphStyle& style);
+	void setParaStyleAttributes(gtParagraphStyle *pstyle, ParagraphStyle& style);
 	void updateParagraphStyle(const QString& pstyleName, gtParagraphStyle* pstyle);
 	void removeParagraphStyle(const QString& name);
 	void removeParagraphStyle(int index);
@@ -106,6 +81,38 @@ public:
 	void setUpdateParagraphStyles(bool newUPS);
 	bool getOverridePStyleFont();
 	void setOverridePStyleFont(bool newOPSF);
+
+private:
+	PrefsManager& m_prefsManager;
+	UndoManager* m_undoManager { nullptr };
+	ScribusMainWindow* m_ScMW { nullptr };
+	PageItem *m_textFrame { nullptr };
+	PageItem *m_it { nullptr };
+	int m_lastParagraphStyle { -1 };
+	bool m_inPara { false };
+	bool m_isFirstWrite { true };
+	bool m_doAppend;
+	bool m_lastCharWasLineChange { false };
+	bool m_updateParagraphStyles { false };
+	/* If paragraph style is used should the font style of the gtpstyle be used 
+	   or should writer respect the font set in the real paragraph style
+	*/
+	bool m_overridePStyleFont { true };
+	QString m_currentFrameStyle;
+	FontFamilyMap m_families;
+
+	StoryText* m_noteStory { nullptr };
+	TextNote* m_note { nullptr };
+
+	int findParagraphStyle(const QString& name);
+	int findParagraphStyle(gtParagraphStyle* pstyle);
+	int applyParagraphStyle(gtParagraphStyle* pstyle);
+
+	ScFace  validateFont(gtFont* font);
+	QString findFontName(gtFont* font);
+	void    updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle);
+	QString parseColor(const QString &s);
+	void    finalize();
 };
 
 #endif

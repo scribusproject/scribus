@@ -6,45 +6,72 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QCheckBox>
-#include "fontlistmodel.h"
-#include "prefsmanager.h"
-#include "util_icon.h"
-#include "scribusdoc.h"
+
 #include "commonstrings.h"
+#include "fontlistmodel.h"
+#include "iconmanager.h"
+#include "prefsmanager.h"
+#include "scribusapp.h"
+#include "scribusdoc.h"
 
-
-FontListModel::FontListModel(QObject * parent, ScribusDoc * doc)
+FontListModel::FontListModel(QObject * parent, ScribusDoc * doc, bool includeDisabled)
 	: QAbstractTableModel(parent),
 	m_doc(doc),
-	m_fonts(PrefsManager::instance()->appPrefs.AvailFonts)
+	m_fonts(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts),
+	m_includeDisabled(includeDisabled)
 {
-	ttfFont = loadIcon("font_truetype16.png");
-	otfFont = loadIcon("font_otf16.png");
-	psFont = loadIcon("font_type1_16.png");
-	substFont = loadIcon("font_subst16.png");
-	m_font_values = m_fonts.values();
+	iconSetChange();
+	setFonts(m_fonts.keys());
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
-void FontListModel::setFonts(SCFonts f)
+void FontListModel::iconSetChange()
 {
-	m_fonts = f;
-	m_font_values = m_fonts.values();
-	reset();
+	IconManager& iconManager = IconManager::instance();
+	ttfFont = iconManager.loadPixmap("font_truetype16.png");
+	otfFont = iconManager.loadPixmap("font_otf16.png");
+	psFont = iconManager.loadPixmap("font_type1_16.png");
+	substFont = iconManager.loadPixmap("font_subst16.png");
 }
 
-int FontListModel::rowCount(const QModelIndex&) const
+void FontListModel::setFonts(QList<QString> f)
 {
-	return m_fonts.size();
+	beginResetModel();
+	m_font_names.clear();
+	m_font_values.clear();
+	m_enabledFonts.clear();
+	m_embedFlags.clear();
+	for (int i = 0; i < f.length(); ++i)
+	{
+		ScFace &font = m_fonts[f[i]];
+		if (font.usable() || m_includeDisabled)
+		{
+			m_font_names.append(f[i]);
+			m_font_values.append(font);
+			m_enabledFonts.append(font.usable());
+			int embedFlags = 0;
+			embedFlags |= font.embedPs() ? EmbedPS : 0;
+			embedFlags |= font.subset()  ? SubsetPDF : 0;
+			m_embedFlags.append(embedFlags);
+		}
+	}
+	endResetModel();
 }
 
-int FontListModel::rowCount()
+int FontListModel::rowCount(const QModelIndex& /*mi*/) const
 {
-	return m_fonts.size();
+	return m_font_names.size();
 }
 
-int FontListModel::columnCount(const QModelIndex&) const
+int FontListModel::rowCount() const
 {
-	return 12;
+	return m_font_names.size();
+}
+
+int FontListModel::columnCount(const QModelIndex& /*mi*/) const
+{
+	return 9;
 }
 
 QVariant FontListModel::headerData(int section,
@@ -54,47 +81,43 @@ QVariant FontListModel::headerData(int section,
 	if (orientation == Qt::Vertical)
 		return QVariant(); // no verticals
 	// TODO for tooltips etc.
-	if (role != Qt::DisplayRole)
-		return QVariant();
-
-	switch (section)
+	
+	bool isDisplayRole = (role == Qt::DisplayRole);
+	switch (role)
 	{
-		case FontListModel::FontName:
-			return tr("Font Name");
-		case FontListModel::FontUsable:
-			return tr("Use Font");
-		case FontListModel::FontFamily:
-			return tr("Family");
-		case FontListModel::FontStyle:
-			return tr("Style");
-		case FontListModel::FontVariant:
-			return tr("Variant");
-		case FontListModel::FontType:
-			return tr("Type");
-		case FontListModel::FontFormat:
-			return tr("Format");
-		case FontListModel::FontEmbed:
-			return tr("Embed in PostScript");
-		case FontListModel::FontSubset:
-			return tr("Subset");
-		case FontListModel::FontAccess:
-			return tr("Access");
-		case FontListModel::FontInDoc:
-			return tr("Used in Doc");
-		case FontListModel::FontFile:
-			return tr("Path to Font File");
+		case Qt::DisplayRole:
+		case Qt::ToolTipRole:
+			switch (section)
+		{
+			case FontListModel::FontName:
+				return tr("Font Name");
+			case FontListModel::FontUsable:
+				return isDisplayRole? QString("✓") : tr("Use Font");
+			case FontListModel::FontType:
+				return tr("Type");
+			case FontListModel::FontFormat:
+				return tr("Format");
+			case FontListModel::FontSubset:
+				return tr("Subset");
+			case FontListModel::FontAccess:
+				return tr("Access");
+			case FontListModel::FontInDoc:
+				return tr("Used in Doc");
+			case FontListModel::FontFile:
+				return tr("Path to Font File");
+			default:
+				return "Never should be shown";
+		};
+	
 		default:
-			return "Never should be shown";
-	};
-
-	// dummy return
-	return QVariant();
+			// dummy return
+			return QVariant();
+	}
 }
 
 QVariant FontListModel::data(const QModelIndex & index,
 							 int role) const
 {
-//	ScFace font = m_fonts[m_fonts.keys().at(index.row())];
 	ScFace font = m_font_values[index.row()];
 
 	if (role == Qt::DecorationRole && index.column() == FontListModel::FontType)
@@ -114,20 +137,22 @@ QVariant FontListModel::data(const QModelIndex & index,
 		};
 	}
 
-	if (role == Qt::DisplayRole)
+	if (role == Qt::DisplayRole || role == Qt::ToolTipRole)
 	{
 		switch (index.column())
 		{
 			case FontListModel::FontName:
-				return font.scName();
-			case FontListModel::FontFamily:
-				return font.family();
-			case FontListModel::FontStyle:
-				return font.style();
-			case FontListModel::FontVariant:
-				return font.variant();
+				if (role == Qt::DisplayRole)
+					return font.scName();
+				return
+					tr("Family") + ":\t" + font.family() + "\n"
+					+ tr("Style") + ":\t" + font.style() + "\n"
+					+ tr("Variant") + ":\t" + font.variant();
 			case FontListModel::FontType:
 			{
+				if (role == Qt::DisplayRole)
+					return QVariant();
+				
 				switch (font.type())
 				{
 					case ScFace::TYPE0:
@@ -171,31 +196,37 @@ QVariant FontListModel::data(const QModelIndex & index,
 				return QVariant();
 			}
 			case FontListModel::FontFile:
-				return font.fontFilePath();
+				return font.fontPath();
 			case FontListModel::SortIndex:
+				if (font.scName().at(0) == QChar('.'))
+					return font.scName().mid(1).toLower();
 				return font.scName().toLower();
 			default:
+				if (role == Qt::ToolTipRole
+					&&
+					(index.column() == FontListModel::FontUsable
+					 || index.column() == FontListModel::FontSubset
+					 )
+					)
+				{
+					return tr("Click to change the value");
+				}
 				return QVariant();
 		};
 	}
-
-	if (role == Qt::ToolTipRole
-		   &&
-		   (index.column() == FontListModel::FontUsable
-		   || index.column() == FontListModel::FontEmbed
-		   || index.column() == FontListModel::FontSubset
-		   )
-	   )
-	{
-		return tr("Click to change the value");
-	}
-
+	
 	if (role == Qt::CheckStateRole && index.column() == FontListModel::FontUsable)
-		return (font.usable() ? Qt::Checked : Qt::Unchecked);
-	if (role == Qt::CheckStateRole && index.column() == FontListModel::FontEmbed)
-		return (font.embedPs() ? Qt::Checked : Qt::Unchecked);
+	{
+		if (isLive())
+			return (font.usable() ? Qt::Checked : Qt::Unchecked);
+		return (m_enabledFonts[index.row()] ? Qt::Checked : Qt::Unchecked);
+	}
 	if (role == Qt::CheckStateRole && index.column() == FontListModel::FontSubset)
-		return (font.subset() ? Qt::Checked : Qt::Unchecked);
+	{
+		if (isLive())
+			return (font.subset() ? Qt::Checked : Qt::Unchecked);
+		return ((m_embedFlags[index.row()] & SubsetPDF) ? Qt::Checked : Qt::Unchecked);
+	}
 
 	return QVariant();
 }
@@ -207,51 +238,69 @@ Qt::ItemFlags FontListModel::flags(const QModelIndex &index) const
 	if (!index.isValid())
 		return QAbstractTableModel::flags(index);
 	if (index.column() == FontListModel::FontUsable
-		   || index.column() == FontListModel::FontEmbed
 		   || index.column() == FontListModel::FontSubset)
 		return Qt::ItemIsUserCheckable | /*Qt::ItemIsEditable |*/ defaultFlags;
-	else
-		return defaultFlags;
+	return defaultFlags;
 }
 
-bool FontListModel::setData(const QModelIndex & index,
+bool FontListModel::setData(const QModelIndex & idx,
 							const QVariant & value,
 							int role)
 {
-	if (!index.isValid() || role != Qt::CheckStateRole)
+	if (!idx.isValid() || role != Qt::CheckStateRole)
 	{
 		qDebug("FontListModel::setData() out of Qt::CheckStateRole role");
 		return false;
 	}
 
-/*	ScFace f = m_fonts[m_fonts.keys().at(index.row())];
+/*	ScFace f = m_fonts[m_fonts.keys().at(idx.row())];
 
-	if (index.column() == FontListModel::FontUsable)
-		m_fonts[m_fonts.keys().at(index.row())].usable(!f.usable());
-	else if (index.column() == FontListModel::FontEmbed)
-		m_fonts[m_fonts.keys().at(index.row())].embedPs(!f.embedPs());
-	else if (index.column() == FontListModel::FontSubset)
-		m_fonts[m_fonts.keys().at(index.row())].subset(!f.subset());
+	if (idx.column() == FontListModel::FontUsable)
+		m_fonts[m_fonts.keys().at(idx.row())].usable(!f.usable());
+	else if (idx.column() == FontListModel::FontEmbed)
+		m_fonts[m_fonts.keys().at(idx.row())].embedPs(!f.embedPs());
+	else if (idx.column() == FontListModel::FontSubset)
+		m_fonts[m_fonts.keys().at(idx.row())].subset(!f.subset());
 	else
 		qDebug("FontListModel::setData() out of defined editable columns"); */
 
-	ScFace f = m_font_values[index.row()];
+	ScFace f = m_font_values[idx.row()];
 
-	if (index.column() == FontListModel::FontUsable)
-		f.usable(!f.usable());
-	else if (index.column() == FontListModel::FontEmbed)
-		f.embedPs(!f.embedPs());
-	else if (index.column() == FontListModel::FontSubset)
-		f.subset(!f.subset());
+	if (isLive())
+	{
+		if (idx.column() == FontListModel::FontUsable)
+			f.usable(!f.usable());
+		else if (idx.column() == FontListModel::FontSubset)
+			f.subset(!f.subset());
+		else
+			qDebug("FontListModel::setData() out of defined editable columns");
+	}
 	else
-		qDebug("FontListModel::setData() out of defined editable columns");
+	{
+		if (idx.column() == FontListModel::FontUsable && role == Qt::CheckStateRole)
+		{
+			Qt::CheckState checkState = static_cast<Qt::CheckState>(value.toInt());
+			m_enabledFonts[idx.row()] = (checkState == Qt::Checked);
+		}
+		else if (idx.column() == FontListModel::FontSubset)
+		{
+			Qt::CheckState checkState = static_cast<Qt::CheckState>(value.toInt());
+			m_embedFlags[idx.row()] &= ~SubsetPDF;
+			m_embedFlags[idx.row()] |= (checkState == Qt::Checked) ? SubsetPDF : 0;
+		}
+		else
+			qDebug("FontListModel::setData() out of defined editable columns");
+	}
 
-	emit dataChanged(index, index);
+	if (idx.column() == FontListModel::FontUsable)
+		emit dataChanged(index(idx.row(), FontListModel::FontUsable), index(idx.row(), FontListModel::FontUsable));
+	else
+		emit dataChanged(index(idx.row(), FontListModel::FontSubset), index(idx.row(), FontListModel::FontSubset));
 
 	return true;
 }
 
-QString FontListModel::nameForIndex(const QModelIndex & index)
+QString FontListModel::nameForIndex(const QModelIndex & idx) const
 {
-	return m_fonts.keys().at(index.row());
+	return m_font_names.at(idx.row());
 }

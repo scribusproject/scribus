@@ -20,8 +20,10 @@
 
 #include "canvasmode.h"
 
-#include <QMatrix>
+#include <QTransform>
 #include <QRect>
+
+class QPainter;
 
 class PageItem;
 class RectSelect;
@@ -29,41 +31,46 @@ class ScribusMainWindow;
 
 class SCRIBUS_API CanvasMode_NodeEdit : public CanvasMode
 {
-public:
-	CanvasMode_NodeEdit (ScribusView* view);
-	
-	virtual void activate(bool fromgesture);
-	virtual void deactivate(bool forGesture);
-	
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
-	
-	virtual void mouseDoubleClickEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void mousePressEvent(QMouseEvent *m);
+	public:
+		explicit CanvasMode_NodeEdit (ScribusView* view);
+		~CanvasMode_NodeEdit() override = default;
 
-	
-	/**
-		Draws the controls for this mode
-	 */
-	virtual void drawControls(QPainter* p);
-	
-	
-	virtual ~CanvasMode_NodeEdit() {};
-	
-	
-private:
-	inline bool GetItem(PageItem** pi); 
-	void handleNodeEditPress(QMouseEvent*, QRect);
-	void handleNodeEditDrag(QMouseEvent*, PageItem*);
-	bool handleNodeEditMove(QMouseEvent*, QRect, PageItem*, QMatrix);
-	
-	ScribusMainWindow* m_ScMW;
-	
-	RectSelect* m_rectangleSelect;
-	int Mxp, Myp, Dxp, Dyp, SeRx, SeRy, GxM, GyM;
-	bool MoveGX, MoveGY;
+		void activate(bool fromgesture) override;
+		void deactivate(bool forGesture) override;
+
+		void enterEvent(QEvent *) override;
+		void leaveEvent(QEvent *) override;
+
+		void mouseDoubleClickEvent(QMouseEvent *m) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+		void mousePressEvent(QMouseEvent *m) override;
+
+		void keyPressEvent(QKeyEvent *e) override;
+		void keyReleaseEvent(QKeyEvent *e) override;
+
+		/**
+		 * Draws the controls for this mode
+		 */
+		void drawControls(QPainter* p) override;
+
+	private:
+		inline bool GetItem(PageItem** pi);
+		void handleNodeEditPress(QMouseEvent*, QRect r);
+		void handleNodeEditDrag(QMouseEvent*, PageItem*);
+		bool handleNodeEditMove(QMouseEvent*, QRect r, PageItem*, const QTransform&);
+
+		ScribusMainWindow* m_ScMW;
+
+		RectSelect* m_rectangleSelect {nullptr};
+		int m_Mxp {-1}; // last mouse position
+		int m_Myp {-1};
+		int m_Dxp {-1}; // last mouse press position for rectangle select
+		int m_Dyp {-1};
+		int m_GxM {-1}; // guide position
+		int m_GyM {-1};
+		bool m_MoveGX {false};
+		bool m_MoveGY {false};
 };
 
 

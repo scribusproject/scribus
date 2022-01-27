@@ -7,35 +7,38 @@ for which a new license (GPL+exception) is in place.
 #ifndef _UTIL_MATH_H
 #define _UTIL_MATH_H
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
 #include <vector>
 
-#include <QString>
+#include <QByteArray>
 #include <QPolygon>
 #include <QList>
 #include <QPainterPath>
+#include <QLineF>
 
 #include "scribusapi.h"
 
 class FPoint;
 class FPointArray;
-
+class QRegion;
 
 /*! \brief Compare double values by pre-multiplying by 10000 and converting to long if possible.
 If premultiplication does not allow to store result in a long value, perform a standard comparison.
 */
 bool SCRIBUS_API compareDouble(double a, double b);
-FPoint SCRIBUS_API getMaxClipF(FPointArray* Clip);
-FPoint SCRIBUS_API getMinClipF(FPointArray* Clip);
+uint SCRIBUS_API getDouble(const QByteArray& in, bool raw);
+FPoint   SCRIBUS_API getMaxClipF(const FPointArray* clip);
+FPoint   SCRIBUS_API getMinClipF(const FPointArray* clip);
+FPoint   SCRIBUS_API projectPointOnLine(FPoint p, QPointF lineStart, QPointF lineEnd);
+bool     SCRIBUS_API regionContainsRect(const QRegion& shape, QRect rect);
+QPolygon SCRIBUS_API flattenPath(const FPointArray& ina, QList<uint> &segments);
+QList<QPainterPath> SCRIBUS_API decomposePath(const QPainterPath &path);
+QPainterPath  SCRIBUS_API regularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2 = 0.0, double innerRot = 0.0, double factor3 = 0.0);
+QPainterPath  SCRIBUS_API spiralPath(double spiralWidth, double spiralHeight, double spiralStartAngle, double spiralEndAngle, double spiralFactor);
 inline double SCRIBUS_API xy2Deg(double x, double y);
-FPoint SCRIBUS_API projectPointOnLine(FPoint p, QPointF lineStart, QPointF lineEnd);
-QPolygon SCRIBUS_API FlattenPath(const FPointArray& ina, QList<uint> &Segs);
-QList<QPainterPath> SCRIBUS_API decomposePath(QPainterPath &path);
-QPainterPath SCRIBUS_API RegularPolygon(double w, double h, uint c, bool star, double factor, double rota, double factor2 = 0.0);
-uint SCRIBUS_API getDouble(QString in, bool raw);
 inline double SCRIBUS_API sind(double);
 inline double SCRIBUS_API cosd(double);
 inline double SCRIBUS_API square(double);
@@ -53,7 +56,14 @@ double SCRIBUS_API constrainAngle(double angle, double constrain);
    \param def the value that should be return if matrix is not a rotation matrix
    \retval double the rotation angle
  */
-double SCRIBUS_API getRotationFromMatrix(QMatrix& matrix, double def);
+double SCRIBUS_API getRotationFromMatrix(const QTransform& matrix, double def);
+/*! \brief Get the rotation angle (in degree) from a transformation matrix
+   \param matrix the transformation matrix
+   \retval double the rotation angle
+ */
+double SCRIBUS_API getRotationDFromMatrix(const QTransform& matrix);
+void SCRIBUS_API getScaleFromMatrix(const QTransform &matrix, double &scX, double &scY);
+void SCRIBUS_API getTransformValuesFromMatrix(const QTransform &matrix, double &scX, double &scY, double &rot, double &dx, double &dy);
 
 
 // IMPLEMENTATION

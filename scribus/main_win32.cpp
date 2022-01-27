@@ -37,20 +37,22 @@ for which a new license (GPL+exception) is in place.
 #include <io.h>
 
 #include <QApplication>
+#include <QMessageBox>
 #include <exception>
-using namespace std;
 
-#define BASE_QM "scribus"
 #define MAX_LINES 500
 
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribus.h"
+#include "scimagecachemanager.h"
 
 #include "scconfig.h"
 
-#include <wincon.h>
 #include <windows.h>
+#include <wincon.h>
+
+using namespace std;
 
 int mainApp(ScribusQApp& app);
 
@@ -60,32 +62,51 @@ static QString exceptionDescription(DWORD exceptionCode);
 static void defaultCrashHandler(DWORD exceptionCode);
 
 // Console IO redirection handling
-void messageHandler( QtMsgType type, const char *msg );
+void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 bool consoleOptionEnabled(int argc, char* argv[]);
 void redirectIOToConsole(void);
+
+// Python environment configuration function
+void setPythonEnvironment(const QString& appPath);
 
 // Console option arguments declared in scribusapp.cpp
 extern const char ARG_CONSOLE[];
 extern const char ARG_CONSOLE_SHORT[];
 
-ScribusCore SCRIBUS_API *ScCore;
-ScribusMainWindow SCRIBUS_API *ScMW;
-ScribusQApp SCRIBUS_API *ScQApp;
-bool emergencyActivated;
+ScribusCore SCRIBUS_API* ScCore { nullptr };
+ScribusQApp SCRIBUS_API *ScQApp { nullptr };
+bool emergencyActivated { false };
+
+#if !defined(_CONSOLE)
+#if defined(_DEBUG)
+#pragma comment(lib, "qtmaind.lib")
+#else
+#pragma comment(lib, "qtmain.lib")
+#endif
+#endif
 
 int main(int argc, char *argv[])
 {
 	int result;
 	emergencyActivated = false;
+
 #if !defined(_CONSOLE)
 	if (consoleOptionEnabled(argc, argv))
 	{
 		redirectIOToConsole();
-		qInstallMsgHandler( messageHandler );
+		qInstallMessageHandler(messageHandler);
 	}
 #endif
+
+	ScribusQApp::setAttribute(Qt::AA_EnableHighDpiScaling);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+	ScribusQApp::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+#endif
+
 	ScribusQApp app(argc, argv);
+	setPythonEnvironment(ScribusQApp::applicationDirPath());
 	result =  mainApp(app);
+
 	return result;
 }
 
@@ -102,17 +123,17 @@ int main(int argc, char *argv[])
 */
 int mainApp(ScribusQApp& app)
 {
-	int appRetVal;
+	int appRetVal = 0;
 #ifndef _DEBUG
 	__try
 	{
 #endif
 		app.parseCommandLine();
-		if (app.useGUI)
+		appRetVal = app.init();
+		if (appRetVal != EXIT_FAILURE)
 		{
-			appRetVal = app.init();
-			if (appRetVal != EXIT_FAILURE)
-				appRetVal = app.exec();
+			if (ScribusQApp::useGUI)
+				appRetVal = ScribusQApp::exec();
 		}
 #ifndef _DEBUG
 	}
@@ -122,6 +143,50 @@ int mainApp(ScribusQApp& app)
 	}
 #endif
 	return appRetVal;
+}
+
+/*!
+\fn void setPythonEnvironment(const QString& appPath)
+\author Jean Ghali
+\date Sat Jul 03 23:00:00 CET 2009
+\brief set the Python environment for Scribus
+\param appPath application Path
+\retval None
+*/
+void setPythonEnvironment(const QString& appPath)
+{
+	QString pythonHome = appPath + "/python";
+	if (!QDir(pythonHome).exists())
+		return; //assume a custom python
+	pythonHome = QFileInfo(pythonHome).canonicalFilePath();
+
+	QString tmp = "PYTHONHOME=" + QDir::toNativeSeparators(pythonHome);
+	_wputenv((const wchar_t*) tmp.utf16());
+
+	QString nativePath = QFileInfo(appPath).canonicalFilePath();
+	nativePath = QDir::toNativeSeparators(nativePath);
+	tmp = "PYTHONPATH=";
+	tmp += nativePath;
+	tmp += "\\python;";
+	tmp += nativePath;
+	tmp += "\\python\\lib;";
+	tmp += nativePath;
+	tmp += "\\python\\dlls;";
+	tmp += nativePath;
+	tmp += "\\python\\tcl";
+	_wputenv((const wchar_t*) tmp.utf16());
+
+	const wchar_t* oldenv = _wgetenv(L"PATH");
+	tmp = "PATH=";
+	tmp += nativePath;
+	tmp += ";";
+	tmp += nativePath;
+	tmp += "\\python";
+	if (oldenv != nullptr) {
+		tmp += ";";
+		tmp +=  QString::fromUtf16((const ushort*) oldenv);
+	}
+	_wputenv((const wchar_t*) tmp.utf16());
 }
 
 /*!
@@ -135,7 +200,7 @@ int mainApp(ScribusQApp& app)
 LONG exceptionFilter(DWORD exceptionCode)
 {
 	LONG result;
-	switch( exceptionCode )
+	switch (exceptionCode)
 	{
 	case EXCEPTION_ACCESS_VIOLATION:
 	case EXCEPTION_DATATYPE_MISALIGNMENT:
@@ -177,45 +242,45 @@ LONG exceptionFilter(DWORD exceptionCode)
 static QString exceptionDescription(DWORD exceptionCode)
 {
 	QString description;
-	if ( exceptionCode == EXCEPTION_ACCESS_VIOLATION )
+	if (exceptionCode == EXCEPTION_ACCESS_VIOLATION)
 		description = "EXCEPTION_ACCESS_VIOLATION";
-	else if ( exceptionCode == EXCEPTION_DATATYPE_MISALIGNMENT )
+	else if (exceptionCode == EXCEPTION_DATATYPE_MISALIGNMENT)
 		description = "EXCEPTION_DATATYPE_MISALIGNMENT";
-	else if ( exceptionCode == EXCEPTION_ARRAY_BOUNDS_EXCEEDED )
+	else if (exceptionCode == EXCEPTION_ARRAY_BOUNDS_EXCEEDED)
 		description = "EXCEPTION_ARRAY_BOUNDS_EXCEEDED";
-	else if ( exceptionCode == EXCEPTION_FLT_DENORMAL_OPERAND )
+	else if (exceptionCode == EXCEPTION_FLT_DENORMAL_OPERAND)
 		description = "EXCEPTION_FLT_DENORMAL_OPERAND";
-	else if ( exceptionCode == EXCEPTION_FLT_DIVIDE_BY_ZERO )
+	else if (exceptionCode == EXCEPTION_FLT_DIVIDE_BY_ZERO)
 		description = "EXCEPTION_FLT_DIVIDE_BY_ZERO";
-	else if ( exceptionCode == EXCEPTION_FLT_INEXACT_RESULT )
+	else if (exceptionCode == EXCEPTION_FLT_INEXACT_RESULT)
 		description = "EXCEPTION_FLT_INEXACT_RESULT";
-	else if ( exceptionCode == EXCEPTION_FLT_INVALID_OPERATION )
+	else if (exceptionCode == EXCEPTION_FLT_INVALID_OPERATION)
 		description = "EXCEPTION_FLT_INVALID_OPERATION";
-	else if ( exceptionCode == EXCEPTION_FLT_OVERFLOW )
+	else if (exceptionCode == EXCEPTION_FLT_OVERFLOW)
 		description = "EXCEPTION_FLT_OVERFLOW";
-	else if ( exceptionCode == EXCEPTION_FLT_STACK_CHECK )
+	else if (exceptionCode == EXCEPTION_FLT_STACK_CHECK)
 		description = "EXCEPTION_FLT_STACK_CHECK";
-	else if ( exceptionCode == EXCEPTION_FLT_UNDERFLOW )
+	else if (exceptionCode == EXCEPTION_FLT_UNDERFLOW)
 		description = "EXCEPTION_FLT_UNDERFLOW";
-	else if ( exceptionCode == EXCEPTION_GUARD_PAGE )
+	else if (exceptionCode == EXCEPTION_GUARD_PAGE)
 		description = "EXCEPTION_GUARD_PAGE";
-	else if ( exceptionCode == EXCEPTION_ILLEGAL_INSTRUCTION )
+	else if (exceptionCode == EXCEPTION_ILLEGAL_INSTRUCTION)
 		description = "EXCEPTION_ILLEGAL_INSTRUCTION";
-	else if ( exceptionCode == EXCEPTION_IN_PAGE_ERROR )
+	else if (exceptionCode == EXCEPTION_IN_PAGE_ERROR)
 		description = "EXCEPTION_IN_PAGE_ERROR";
-	else if ( exceptionCode == EXCEPTION_INT_DIVIDE_BY_ZERO )
+	else if (exceptionCode == EXCEPTION_INT_DIVIDE_BY_ZERO)
 		description = "EXCEPTION_INT_DIVIDE_BY_ZERO";
-	else if ( exceptionCode == EXCEPTION_INT_OVERFLOW )
+	else if (exceptionCode == EXCEPTION_INT_OVERFLOW)
 		description = "EXCEPTION_INT_OVERFLOW";
-	else if ( exceptionCode == EXCEPTION_INVALID_DISPOSITION )
+	else if (exceptionCode == EXCEPTION_INVALID_DISPOSITION)
 		description = "EXCEPTION_INVALID_DISPOSITION";
-	else if ( exceptionCode == EXCEPTION_INVALID_HANDLE )
+	else if (exceptionCode == EXCEPTION_INVALID_HANDLE)
 		description = "EXCEPTION_INVALID_HANDLE";
-	else if ( exceptionCode == EXCEPTION_NONCONTINUABLE_EXCEPTION )
+	else if (exceptionCode == EXCEPTION_NONCONTINUABLE_EXCEPTION)
 		description = "EXCEPTION_NONCONTINUABLE_EXCEPTION";
-	else if ( exceptionCode == EXCEPTION_PRIV_INSTRUCTION )
+	else if (exceptionCode == EXCEPTION_PRIV_INSTRUCTION)
 		description = "EXCEPTION_PRIV_INSTRUCTION";
-	else if ( exceptionCode == EXCEPTION_STACK_OVERFLOW )
+	else if (exceptionCode == EXCEPTION_STACK_OVERFLOW)
 		description = "EXCEPTION_STACK_OVERFLOW";
 	else
 		description = "UNKNOWN EXCEPTION";
@@ -234,33 +299,68 @@ void defaultCrashHandler(DWORD exceptionCode)
 		QString expHdr  = QObject::tr("Scribus Crash");
 		QString expLine = "-------------";
 		QString expMsg  = QObject::tr("Scribus crashes due to the following exception : %1").arg(expDesc);
-		std::cout << (const char*) expHdr.toAscii().data() << std::endl;
-		std::cout << (const char*) expLine.toAscii().data() << std::endl;
-		std::cout << (const char*) expMsg.toAscii().data() << std::endl;
+		std::cout << expHdr.toStdString() << std::endl;
+		std::cout << expLine.toStdString() << std::endl;
+		std::cout << expMsg.toStdString() << std::endl;
 		if (ScribusQApp::useGUI)
 		{
 			ScCore->closeSplash();
-			QMessageBox::critical(ScMW, expHdr, expMsg, QObject::tr("&OK"));
-			ScMW->emergencySave();
-			ScMW->close();
+			ScribusMainWindow* mainWin = ScCore->primaryMainWindow();
+			if (mainWin)
+			{
+				ScMessageBox::critical(mainWin, expHdr, expMsg);
+				mainWin->emergencySave();
+				mainWin->close();
+			}
 		}
+		ScImageCacheManager::instance().removeMasterLock();
 	}
 	ExitProcess(255);
 }
 
-void messageHandler( QtMsgType type, const char *msg )
+void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-	cerr << msg << endl;
-	if( type == QtFatalMsg )
+	QByteArray localMsg = msg.toLocal8Bit();
+	switch (type)
 	{
+	case QtDebugMsg:
+		cerr << "Debug: " << localMsg.constData();
+		if (context.file && context.function)
+			cerr << "(" << context.file << ":" << context.line << ", " << context.function << ")";
+		cerr << endl;
+		break;
+	case QtWarningMsg:
+		cerr << "Warning: " << localMsg.constData();
+		if (context.file && context.function)
+			cerr << "(" << context.file << ":" << context.line << ", " << context.function << ")";
+		cerr << endl;
+		break;
+	case QtCriticalMsg:
+		cerr << "Critical: " << localMsg.constData();
+		if (context.file && context.function)
+			cerr << "(" << context.file << ":" << context.line << ", " << context.function << ")";
+		cerr << endl;
+		break;
+	case QtFatalMsg:
 		if (ScribusQApp::useGUI)
 		{
 			ScCore->closeSplash();
-			QString expHdr = QObject::tr("Scribus Crash");
-			QString expMsg = msg;
-			QMessageBox::critical(ScMW, expHdr, expMsg, QObject::tr("&OK"));
-			ScMW->emergencySave();
-			ScMW->close();
+			ScribusMainWindow* mainWin = ScCore->primaryMainWindow();
+			if (mainWin)
+			{
+				QString expHdr = QObject::tr("Scribus Crash");
+				QString expMsg = msg;
+				ScMessageBox::critical(mainWin, expHdr, expMsg);
+				mainWin->emergencySave();
+				mainWin->close();
+			}
+		}
+		else
+		{
+			cerr << "Fatal: " << localMsg.constData();
+			if (context.file && context.function)
+				cerr << "(" << context.file << ":" << context.line << ", " << context.function << ")";
+			cerr << endl;
 		}
 		ExitProcess(255);
 	}
@@ -269,10 +369,10 @@ void messageHandler( QtMsgType type, const char *msg )
 bool consoleOptionEnabled(int argc, char* argv[])
 {
 	bool value = false;
-	for( int i = 0; i < argc; i++ )
+	for (int i = 0; i < argc; i++)
 	{
-		if( strcmp(argv[i], ARG_CONSOLE) == 0 ||
-			strcmp(argv[i], ARG_CONSOLE_SHORT) == 0 )
+		if (strcmp(argv[i], ARG_CONSOLE) == 0 ||
+			strcmp(argv[i], ARG_CONSOLE_SHORT) == 0)
 		{
 			value = true;
 			break;
@@ -286,33 +386,69 @@ void redirectIOToConsole(void)
 	int hConHandle;
 	HANDLE lStdHandle;
 	CONSOLE_SCREEN_BUFFER_INFO coninfo;
-	FILE *fp;
+
+	freopen("NUL", "r", stdin);
+	freopen("NUL", "w", stdout);
+	freopen("NUL", "w", stderr);
 
 	// allocate console
-	if( GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE )
+	if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
 		AllocConsole();
+
 	// set the screen buffer to be big enough to let us scroll text
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
 	coninfo.dwSize.Y = MAX_LINES;
 	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), coninfo.dwSize);
-	//redirect unbuffered STDOUT to the console
-	lStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-	hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "w" );
-	*stdout = *fp;
-	setvbuf( stdout, NULL, _IONBF, 0 );
+
 	// redirect unbuffered STDIN to the console
 	lStdHandle = GetStdHandle(STD_INPUT_HANDLE);
-	hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "r" );
-	*stdin = *fp;
-	setvbuf( stdin, NULL, _IONBF, 0 );
+	if (lStdHandle != INVALID_HANDLE_VALUE)
+	{
+		hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
+		if (hConHandle != -1)
+		{
+			_dup2(hConHandle, fileno(stdin));
+			setvbuf(stdin, nullptr, _IONBF, 0);
+			SetStdHandle(STD_INPUT_HANDLE, (HANDLE) _get_osfhandle(fileno(stdin)));
+			_close(hConHandle);
+		}
+	}
+
+	//redirect unbuffered STDOUT to the console
+	lStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (lStdHandle != INVALID_HANDLE_VALUE)
+	{
+		hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
+		if (hConHandle != -1)
+		{
+			_dup2(hConHandle, fileno(stdout));
+			setvbuf(stdout, nullptr, _IONBF, 0);
+			SetStdHandle(STD_OUTPUT_HANDLE, (HANDLE) _get_osfhandle(fileno(stdout)));
+			_close(hConHandle);
+		}
+	}
+	
 	// redirect unbuffered STDERR to the console
 	lStdHandle = GetStdHandle(STD_ERROR_HANDLE);
-	hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
-	fp = _fdopen( hConHandle, "w" );
-	*stderr = *fp;
-	setvbuf( stderr, NULL, _IONBF, 0 );
+	if (lStdHandle != INVALID_HANDLE_VALUE)
+	{
+		hConHandle = _open_osfhandle((intptr_t) lStdHandle, _O_TEXT);
+		if (hConHandle != -1)
+		{
+			_dup2(hConHandle, fileno(stderr));
+			setvbuf(stderr, nullptr, _IONBF, 0);
+			SetStdHandle(STD_ERROR_HANDLE, (HANDLE) _get_osfhandle(fileno(stderr)));
+			_close(hConHandle);
+		}
+	}
+
+	std::wcout.clear();
+	std::cout.clear();
+	std::wcerr.clear();
+	std::cerr.clear();
+	std::wcin.clear();
+	std::cin.clear();
+
 	// make cout, wcout, cin, wcin, wcerr, cerr, wclog and clog 
 	// point to console as well
 	ios::sync_with_stdio();

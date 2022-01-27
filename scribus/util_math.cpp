@@ -21,41 +21,31 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <QRegion> 
 #include "util_math.h"
 #include "scconfig.h"
+#include "sclimits.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 
 using namespace std;
 
-
-
-uint getDouble(QString in, bool raw)
+uint getDouble(const QByteArray& in, bool raw)
 {
 	QByteArray bb(4, ' ');
 	if (raw)
 	{
-		// Qt4
-/*		bb[3] = static_cast<uchar>(QChar(in.at(0)));
-		bb[2] = static_cast<uchar>(QChar(in.at(1)));
-		bb[1] = static_cast<uchar>(QChar(in.at(2)));
-		bb[0] = static_cast<uchar>(QChar(in.at(3)));*/
-		bb = bb.insert(3, in.at(0));
-		bb = bb.insert(2, in.at(1));
-		bb = bb.insert(1, in.at(2));
-		bb = bb.insert(0, in.at(3));
+		bb[3] = in.at(0);
+		bb[2] = in.at(1);
+		bb[1] = in.at(2);
+		bb[0] = in.at(3);
 	}
 	else
 	{
-		// Qt4
-// 		bb[0] = static_cast<uchar>(QChar(in.at(0)));
-// 		bb[1] = static_cast<uchar>(QChar(in.at(1)));
-// 		bb[2] = static_cast<uchar>(QChar(in.at(2)));
-// 		bb[3] = static_cast<uchar>(QChar(in.at(3)));
-		bb = bb.insert(0, in.at(0));
-		bb = bb.insert(1, in.at(1));
-		bb = bb.insert(2, in.at(2));
-		bb = bb.insert(3, in.at(3));
+		bb[0] = in.at(0);
+		bb[1] = in.at(1);
+		bb[2] = in.at(2);
+		bb[3] = in.at(3);
 	}
 	uint ret;
 	ret = bb[0] & 0xff;
@@ -65,7 +55,7 @@ uint getDouble(QString in, bool raw)
 	return ret;
 }
 
-QPainterPath RegularPolygon(double w, double h, uint c, bool star, double factor, double rota, double factor2)
+QPainterPath regularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2, double innerRot, double factor3)
 {
 	uint cx = star ? c * 2 : c;
 	double seg = 360.0 / cx;
@@ -73,9 +63,11 @@ QPainterPath RegularPolygon(double w, double h, uint c, bool star, double factor
 	double di = factor;
 	double mx = 0;
 	double my = 0;
-	bool first = true;
 	double trueLength = sqrt(pow(sin(seg / 180.0 * M_PI) * (w / 2.0), 2) + pow(cos(seg / 180.0 * M_PI) * (h / 2.0) + (h/2.0) - h, 2));
 	QPainterPath pts;
+	// calculate corner Points first
+	QList<QPointF> cornerPoints;
+	cornerPoints.reserve(cx);
 	for (uint x = 0; x < cx; ++x)
 	{
 		sc = seg * x + 180.0 + rota;
@@ -87,65 +79,196 @@ QPainterPath RegularPolygon(double w, double h, uint c, bool star, double factor
 			{
 				wf *= di;
 				hf *= di;
+				sc += innerRot;
 			}
-			mx = sin(sc / 180.0 * M_PI) * (wf) + (w/2.0);
-			my = cos(sc / 180.0 * M_PI) * (hf) + (h/2.0);
-			if (first)
-				pts.moveTo(mx, my);
-			else
-			{
-				if (factor2 != 0.0)
-				{
-					if (x % 2 != 0)
-					{
-						QPointF curr = pts.currentPosition();
-						double mxc = sin((sc + 90.0) / 180.0 * M_PI) * (-trueLength * factor2) + mx;
-						double myc = cos((sc + 90.0) / 180.0 * M_PI) * (-trueLength * factor2) + my;
-						pts.cubicTo(curr, QPointF(mxc, myc), QPointF(mx, my));
-					}
-					else
-					{
-						QPointF curr = pts.currentPosition();
-						double mxc = sin((sc - seg + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + curr.x();
-						double myc = cos((sc - seg + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + curr.y();
-						pts.cubicTo(QPointF(mxc, myc), QPointF(mx, my), QPointF(mx, my));
-					}
-				}
-				else
-					pts.lineTo(mx, my);
-			}
+			mx = sin(sc / 180.0 * M_PI) * wf + (w / 2.0);
+			my = cos(sc / 180.0 * M_PI) * hf + (h / 2.0);
 		}
 		else
 		{
-			mx = sin(sc / 180.0 * M_PI) * (w/2.0) + (w/2.0);
-			my = cos(sc / 180.0 * M_PI) * (h/2.0) + (h/2.0);
-			if (first)
-				pts.moveTo(mx, my);
-			else
-				pts.lineTo(mx, my);
+			mx = sin(sc / 180.0 * M_PI) * (w / 2.0) + (w / 2.0);
+			my = cos(sc / 180.0 * M_PI) * (h / 2.0) + (h / 2.0);
 		}
-		first = false;
+		cornerPoints.append(QPointF(mx, my));
 	}
-	if ((star) && (factor2 != 0.0))
+	// now calculate bezier control points if needed
+	if (star)
 	{
-		sc = 360.0 + 180.0 + rota;
-		mx = sin(sc / 180.0 * M_PI) * (w / 2.0) + (w/2.0);
-		my = cos(sc / 180.0 * M_PI) * (h / 2.0) + (h/2.0);
-		QPointF curr = pts.currentPosition();
-		double mxc = sin((sc - seg + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + curr.x();
-		double myc = cos((sc - seg + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + curr.y();
-		pts.cubicTo(QPointF(mxc, myc), QPointF(mx, my), QPointF(mx, my));
+		pts.moveTo(cornerPoints[0]);
+		double mxc1 = 0.0;
+		double myc1 = 0.0;
+		double mxc2 = 0.0;
+		double myc2 = 0.0;
+		for (int i = 0; i < cornerPoints.count() - 2; i++)
+		{
+			sc = seg * i + 180.0 + rota;
+			if (i % 2 != 0)
+			{
+				// outer control point
+				QLineF oline = QLineF(cornerPoints[i+1], cornerPoints[i-1]);
+				mxc1 = oline.pointAt(factor3).x();
+				myc1 = oline.pointAt(factor3).y();
+				// inner control point
+				mxc2 = sin((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[i].x();
+				myc2 = cos((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[i].y();
+				pts.cubicTo(QPointF(mxc2, myc2), QPointF(mxc1, myc1), cornerPoints[i+1]);
+			}
+			else
+			{
+				// outer control point
+				QLineF oline = QLineF(cornerPoints[i], cornerPoints[i+2]);
+				mxc1 = oline.pointAt(factor3).x();
+				myc1 = oline.pointAt(factor3).y();
+				// inner control point
+				mxc2 = sin((sc - 90.0 + seg) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[i+1].x();
+				myc2 = cos((sc - 90.0 + seg) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints[i+1].y();
+				pts.cubicTo(QPointF(mxc1, myc1), QPointF(mxc2, myc2), cornerPoints[i+1]);
+			}
+		}
+		// outer control point
+		QLineF oline = QLineF(cornerPoints[cornerPoints.count()-2], cornerPoints[0]);
+		mxc1 = oline.pointAt(factor3).x();
+		myc1 = oline.pointAt(factor3).y();
+		// inner control point
+		sc = seg * (cornerPoints.count()-1) + 180.0 + rota;
+		mxc2 = sin((sc - 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints.last().x();
+		myc2 = cos((sc - 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints.last().y();
+		pts.cubicTo(QPointF(mxc1, myc1), QPointF(mxc2, myc2), cornerPoints.last());
+		oline = QLineF(cornerPoints[0], cornerPoints[cornerPoints.count()-2]);
+		mxc1 = oline.pointAt(factor3).x();
+		myc1 = oline.pointAt(factor3).y();
+		// inner control point
+		mxc2 = sin((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints.last().x();
+		myc2 = cos((sc + 90.0) / 180.0 * M_PI) * (trueLength * factor2) + cornerPoints.last().y();
+		pts.cubicTo(QPointF(mxc2, myc2), QPointF(mxc1, myc1), cornerPoints[0]);
+		pts.closeSubpath();
 	}
-	pts.closeSubpath();
+	else
+	{
+		pts.moveTo(cornerPoints[0]);
+		for (int i = 1; i < cornerPoints.count(); i++)
+			pts.lineTo(cornerPoints[i]);
+		pts.closeSubpath();
+	}
 	return pts;
 }
 
-QList<QPainterPath> decomposePath(QPainterPath &path)
+QPainterPath spiralPath(double spiralWidth, double spiralHeight, double spiralStartAngle, double spiralEndAngle, double spiralFactor)
+{
+	if (spiralStartAngle >= spiralEndAngle)
+		return QPainterPath();
+	double startAngleK = spiralStartAngle;
+	double endAngleK = spiralEndAngle;
+	QPainterPath path;
+	QPainterPath path2;
+	double sh = spiralHeight / (spiralFactor + 1.0);
+	double sw = 0.0;
+	double ww = spiralWidth;
+	double hh = spiralHeight - sh;
+	double segStart = 0.0;
+	double segEnd = 180.0;
+	double spanAngle = 180.0;
+	double startAngle = 0.0;
+	bool segPart = true;
+	bool draw = false;
+	QPointF tp;
+	path2.moveTo(sw, sh);
+	while (segStart < endAngleK)
+	{
+		if (startAngleK >= segEnd)
+		{
+			tp = path2.currentPosition();
+			if (segPart)
+			{
+				sw = tp.x();
+				sh = spiralHeight / (spiralFactor + 1.0);
+				path2.arcTo(sw, sh - hh, ww, hh * 2, 180, 180);
+			}
+			else
+			{
+				sw = tp.x() - ww;
+				sh = spiralHeight / (spiralFactor + 1.0) - hh;
+				path2.arcTo(sw, sh, ww, hh * 2, 0, 180);
+			}
+			segPart = !segPart;
+			ww /= spiralFactor;
+			hh /= spiralFactor;
+			segStart += 180.0;
+			segEnd += 180.0;
+			spanAngle = 180.0;
+			continue;
+		}
+		if ((startAngleK >= segStart) && (startAngleK <= segEnd))
+		{
+			startAngle = startAngleK + 180;
+			spanAngle = segEnd - startAngleK;
+			if ((endAngleK >= segStart) && (endAngleK <= segEnd))
+				spanAngle -= segEnd - endAngleK;
+			if (segPart)
+			{
+				sw = tp.x();
+				sh = spiralHeight / (spiralFactor + 1.0);
+				path.arcMoveTo(sw, sh - hh, ww, hh * 2, startAngle);
+				path.arcTo(sw, sh - hh, ww, hh * 2, startAngle, spanAngle);
+				startAngle = 0.0;
+			}
+			else
+			{
+				sw = tp.x() - ww;
+				sh = spiralHeight / (spiralFactor + 1.0) - hh;
+				path.arcMoveTo(sw, sh, ww, hh * 2, startAngle);
+				path.arcTo(sw, sh, ww, hh * 2, startAngle, spanAngle);
+				startAngle = 180.0;
+			}
+			draw = true;
+			segPart = !segPart;
+			ww /= spiralFactor;
+			hh /= spiralFactor;
+			if ((endAngleK >= segStart) && (endAngleK <= segEnd))
+				break;
+			segStart += 180.0;
+			segEnd += 180.0;
+			spanAngle = 180.0;
+			continue;
+		}
+		if ((endAngleK >= segStart) && (endAngleK <= segEnd))
+			spanAngle -= segEnd - endAngleK;
+		tp = path.currentPosition();
+		if (segPart)
+		{
+			sw = tp.x();
+			sh = tp.y();
+			if (draw)
+				path.arcTo(sw, sh - hh, ww, hh * 2, startAngle, spanAngle);
+			startAngle = 0.0;
+		}
+		else
+		{
+			sw = tp.x() - ww;
+			sh = tp.y() - hh;
+			if (draw)
+				path.arcTo(sw, sh, ww, hh * 2, startAngle, spanAngle);
+			startAngle = 180.0;
+		}
+		segPart = !segPart;
+		ww /= spiralFactor;
+		hh /= spiralFactor;
+		if ((endAngleK >= segStart) && (endAngleK <= segEnd))
+			break;
+		segStart += 180.0;
+		segEnd += 180.0;
+		spanAngle = 180.0;
+	}
+	return path;
+}
+
+QList<QPainterPath> decomposePath(const QPainterPath &path)
 {
 	QList<QPainterPath> ret;
-	ret.clear();
 	QPainterPath part;
-	part = QPainterPath();
+	QPainterPath::Element element1;
+	QPainterPath::Element element2;
+
 	bool first = true;
 	for (int i = 0; i < path.elementCount(); ++i)
 	{
@@ -167,7 +290,9 @@ QList<QPainterPath> decomposePath(QPainterPath &path)
 				part.lineTo(elm.x, elm.y);
 				break;
 			case QPainterPath::CurveToElement:
-				part.cubicTo(elm.x, elm.y, path.elementAt(i+1).x, path.elementAt(i+1).y, path.elementAt(i+2).x, path.elementAt(i+2).y );
+				element1 = path.elementAt(i + 1);
+				element2 = path.elementAt(i + 2);
+				part.cubicTo(elm.x, elm.y, element1.x, element1.y, element2.x, element2.y );
 				break;
 			default:
 				break;
@@ -177,8 +302,6 @@ QList<QPainterPath> decomposePath(QPainterPath &path)
 		ret.append(part);
 	return ret;
 }
-
-
 
 FPoint projectPointOnLine(FPoint p, QPointF lineStart, QPointF lineEnd)
 {
@@ -195,50 +318,127 @@ FPoint projectPointOnLine(FPoint p, QPointF lineStart, QPointF lineEnd)
 	return FPoint(lineStart.x() + partOfLine * lineEnd.x(), lineStart.y() + partOfLine * lineEnd.y());
 }
 
-
-QPolygon FlattenPath(const FPointArray& ina, QList<uint> &Segs)
+bool regionContainsRect(const QRegion& shape, QRect rect)
 {
-	QPolygon cli, outa;
-	Segs.clear();
-	if (ina.size() > 3)
+	/*bool oldResult = QRegion(rect).subtracted(shape).isEmpty();*/
+
+	// Code adapted from Qt RectInRegion (cf. qregion.cpp) to detect
+	// if a specific rect is strictly contained in a specific region
+	bool partIn(false);
+	bool partOut(false);
+
+	const QRect *prect = &rect;
+	int rx = rect.left();
+	int ry = rect.top();
+
+	int rectCount = shape.rectCount();
+	QRect boundingRect = shape.boundingRect();
+	if (rectCount == 0 || !boundingRect.contains(rect))
+		return false;
+
+	/* can stop when both partOut and partIn are true, or we reach prect->y2 */
+	const QRect* pbox = (rectCount == 1) ? &boundingRect : shape.cbegin();
+	const QRect* pboxEnd = (rectCount == 1) ? (&boundingRect + 1) : shape.cend();
+	for (; pbox < pboxEnd; ++pbox)
 	{
-		for (uint poi=0; poi<ina.size()-3; poi += 4)
+		if (pbox->bottom() < ry)
+			continue;
+
+		if (pbox->top() > ry)
 		{
-			if (ina.point(poi).x() > 900000) // && cli.size() > 0)
-			{
-//				outa << cli.point(cli.size()-1);
-				Segs.append(outa.size());
-				continue;
-			}
-			FPoint a1 = ina.point(poi);
-			FPoint a2 = ina.point(poi+1);
-			FPoint a3 = ina.point(poi+3);
-			FPoint a4 = ina.point(poi+2);
-			QPainterPath Bez;
-			Bez.moveTo(a1.x(), a1.y());
-			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
-			cli = Bez.toFillPolygon().toPolygon();
-			if (cli.size() > 1)
-				outa.putPoints(outa.size(), cli.size()-2, cli);
-			else
-				outa << QPoint(qRound(a4.x()), qRound(a4.y()));
+			partOut = true;
+			if (partIn || pbox->top() > prect->bottom())
+				break;
+			ry = pbox->top();
 		}
-//		if (cli.size() > 0)
-//			outa << cli.point(cli.size()-1);
+
+		if (pbox->right() < rx)
+			continue;            /* not far enough over yet */
+
+		if (pbox->left() > rx)
+		{
+			partOut = true;      /* missed part of rectangle to left */
+			if (partIn)
+				break;
+		}
+
+		if (pbox->left() <= prect->right())
+		{
+			partIn = true;      /* definitely overlap */
+			if (partOut)
+				break;
+		}
+
+		if (pbox->right() >= prect->right())
+		{
+			ry = pbox->bottom() + 1;     /* finished with this band */
+			if (ry > prect->bottom())
+				break;
+			rx = prect->left();  /* reset x out to left again */
+		}
+		else
+		{
+			/*
+			 * Because boxes in a band are maximal width, if the first box
+			 * to overlap the rectangle doesn't completely cover it in that
+			 * band, the rectangle must be partially out, since some of it
+			 * will be uncovered in that band. partIn will have been set true
+			 * by now...
+			 */
+			break;
+		}
 	}
+	/*bool newResult = partIn ? ((ry <= prect->bottom()) ? false : true) : false;
+	if (oldResult != newResult)
+		int test = 0;*/
+	return partIn ? (ry > prect->bottom()) : false;
+}
+
+QPolygon flattenPath(const FPointArray& ina, QList<uint> &segments)
+{
+	QPolygon cli;
+	QPolygon outa;
+
+	segments.clear();
+	if (ina.size() <= 3)
+		return outa;
+
+	int limit = ina.size() - 3;
+	for (int i = 0; i < limit; i += 4)
+	{
+		if (ina.isMarker(i)) // && cli.size() > 0)
+		{
+			segments.append(outa.size());
+			continue;
+		}
+		const FPoint& a1 = ina.point(i);
+		const FPoint& a2 = ina.point(i + 1);
+		const FPoint& a3 = ina.point(i + 3);
+		const FPoint& a4 = ina.point(i + 2);
+		QPainterPath bez;
+		bez.moveTo(a1.x(), a1.y());
+		bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
+		cli = bez.toFillPolygon().toPolygon();
+		if (cli.size() > 1)
+			outa.putPoints(outa.size(), cli.size() - 2, cli);
+		else
+			outa << QPoint(qRound(a4.x()), qRound(a4.y()));
+	}
+
 	return outa;
 }
 
-FPoint getMaxClipF(FPointArray* Clip)
+FPoint getMaxClipF(const FPointArray* clip)
 {
-	FPoint np, rp;
+	FPoint np;
+	FPoint rp;
 	double mx = 0;
 	double my = 0;
-	uint clipSize=Clip->size();
-	for (uint c = 0; c < clipSize; ++c)
+	int clipSize = clip->size();
+	for (int i = 0; i < clipSize; ++i)
 	{
-		np = Clip->point(c);
-		if (np.x() > 900000)
+		np = clip->point(i);
+		if (clip->isMarker(i))
 			continue;
 		if (np.x() > mx)
 			mx = np.x();
@@ -249,16 +449,17 @@ FPoint getMaxClipF(FPointArray* Clip)
 	return rp;
 }
 
-FPoint getMinClipF(FPointArray* Clip)
+FPoint getMinClipF(const FPointArray* clip)
 {
-	FPoint np, rp;
-	double mx = 99999;
-	double my = 99999;
-	uint clipSize=Clip->size();
-	for (uint c = 0; c < clipSize; ++c)
+	FPoint np;
+	FPoint rp;
+	double mx = std::numeric_limits<double>::max();
+	double my = std::numeric_limits<double>::max();
+	int clipSize = clip->size();
+	for (int i = 0; i < clipSize; ++i)
 	{
-		np = Clip->point(c);
-		if (np.x() > 900000)
+		np = clip->point(i);
+		if (clip->isMarker(i))
 			continue;
 		if (np.x() < mx)
 			mx = np.x();
@@ -284,20 +485,20 @@ bool compareDouble(double a, double b)
 
 double constrainAngle(double angle, double constrain)
 {
-	double newAngle=angle;
-	double constrainTo=constrain;
-	if (newAngle<0.0)
-		newAngle+=360.0;
-	newAngle=qRound(angle/constrainTo)*constrainTo;
-	if (newAngle==360.0)
-		newAngle=0.0;
+	double newAngle = angle;
+	double constrainTo = constrain;
+	if (newAngle < 0.0)
+		newAngle += 360.0;
+	newAngle = qRound(newAngle / constrainTo) * constrainTo;
+	if (newAngle == 360.0)
+		newAngle = 0.0;
 	return newAngle;
 }
 
-double getRotationFromMatrix(QMatrix& matrix, double def)
+double getRotationFromMatrix(const QTransform& matrix, double def)
 {
 	double value = def;
-	double norm = sqrt(fabs(matrix.det()));
+	double norm = sqrt(fabs(matrix.determinant()));
 	if (norm > 0.0000001)
 	{
 		double m11 = matrix.m11() / norm;
@@ -306,8 +507,8 @@ double getRotationFromMatrix(QMatrix& matrix, double def)
 		double m22 = matrix.m22() / norm;
 		if (fabs(m11) <= 1.0 && fabs(m12) <= 1.0 && fabs(m21) <= 1.0 && fabs(m22) <= 1.0)
 		{
-			QMatrix mat(m11, m12, m21, m22, 0, 0);
-			if (abs(mat.det()-1.0) < 0.00001 && (mat.m12() == -mat.m21()))
+			QTransform mat(m11, m12, m21, m22, 0, 0);
+			if (abs(mat.determinant()-1.0) < 0.00001 && (mat.m12() == -mat.m21()))
 			{
 				double ac = acos(mat.m11());
 				value = (mat.m21() >= 0.0) ? ac : (-ac);
@@ -317,3 +518,32 @@ double getRotationFromMatrix(QMatrix& matrix, double def)
 	return value;
 }
 
+double getRotationDFromMatrix(const QTransform& matrix)
+{
+	QLineF line(0.0, 0.0, 1.0, 0.0);
+	line = matrix.map(line);
+	return line.angle();
+}
+
+void getScaleFromMatrix(const QTransform &matrix, double &scX, double &scY)
+{
+	QLineF lineX(0.0, 0.0, 1.0, 0.0);
+	QLineF lineY(0.0, 0.0, 0.0, 1.0);
+	lineX = matrix.map(lineX);
+	lineY = matrix.map(lineY);
+	scX = lineX.length();
+	scY = lineY.length();
+}
+
+void getTransformValuesFromMatrix(const QTransform &matrix, double &scX, double &scY, double &rot, double &dx, double &dy)
+{
+	QLineF lineX(0.0, 0.0, 1.0, 0.0);
+	QLineF lineY(0.0, 0.0, 0.0, 1.0);
+	lineX = matrix.map(lineX);
+	lineY = matrix.map(lineY);
+	scX = lineX.length();
+	scY = lineY.length();
+	rot = lineX.angle();
+	dx = lineX.x1();
+	dy = lineX.y1();
+}

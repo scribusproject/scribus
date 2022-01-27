@@ -22,7 +22,7 @@ ScASCII85EncodeFilter::ScASCII85EncodeFilter(ScStreamFilter* filter)
 	m_four_tuple_pending = 0;
 }
 
-bool ScASCII85EncodeFilter::openFilter (void)
+bool ScASCII85EncodeFilter::openFilter ()
 {
 	m_buffer_pending     = 0;
 	m_four_tuple_pending = 0;
@@ -32,7 +32,7 @@ bool ScASCII85EncodeFilter::openFilter (void)
 	return ScStreamFilter::openFilter();
 }
 
-bool ScASCII85EncodeFilter::closeFilter(void)
+bool ScASCII85EncodeFilter::closeFilter()
 {
 	bool success = true;
 	if (m_buffer_pending)

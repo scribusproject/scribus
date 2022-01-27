@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "exif.h"
-#include <QMatrix>
+#include <QTransform>
 
 //--------------------------------------------------------------------------
 // Table of Jpeg encoding process names
@@ -42,22 +42,22 @@ for which a new license (GPL+exception) is in place.
 
 
 TagTable ProcessTable[] =
-    {
-        TagTable ( M_SOF0,   "Baseline" ),
-        TagTable ( M_SOF1,   "Extended sequential" ),
-        TagTable ( M_SOF2,   "Progressive" ),
-        TagTable ( M_SOF3,   "Lossless" ),
-        TagTable ( M_SOF5,   "Differential sequential" ),
-        TagTable ( M_SOF6,   "Differential progressive" ),
-        TagTable ( M_SOF7,   "Differential lossless" ),
-        TagTable ( M_SOF9,   "Extended sequential, arithmetic coding" ),
-        TagTable ( M_SOF10,  "Progressive, arithmetic coding" ),
-        TagTable ( M_SOF11,  "Lossless, arithmetic coding" ),
-        TagTable ( M_SOF13,  "Differential sequential, arithmetic coding" ),
-        TagTable ( M_SOF14,  "Differential progressive, arithmetic coding" ),
-        TagTable ( M_SOF15,  "Differential lossless, arithmetic coding" ),
-        TagTable ( 0,        "Unknown" )
-    };
+	{
+		TagTable ( M_SOF0,   "Baseline" ),
+		TagTable ( M_SOF1,   "Extended sequential" ),
+		TagTable ( M_SOF2,   "Progressive" ),
+		TagTable ( M_SOF3,   "Lossless" ),
+		TagTable ( M_SOF5,   "Differential sequential" ),
+		TagTable ( M_SOF6,   "Differential progressive" ),
+		TagTable ( M_SOF7,   "Differential lossless" ),
+		TagTable ( M_SOF9,   "Extended sequential, arithmetic coding" ),
+		TagTable ( M_SOF10,  "Progressive, arithmetic coding" ),
+		TagTable ( M_SOF11,  "Lossless, arithmetic coding" ),
+		TagTable ( M_SOF13,  "Differential sequential, arithmetic coding" ),
+		TagTable ( M_SOF14,  "Differential progressive, arithmetic coding" ),
+		TagTable ( M_SOF15,  "Differential lossless, arithmetic coding" ),
+		TagTable ( 0,        "Unknown" )
+	};
 
 //--------------------------------------------------------------------------
 // Describes format descriptor
@@ -285,7 +285,7 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 
 			case M_JFIF:
 				// Regular jpegs always have this tag, exif images have the exif
-				// marker instead, althogh ACDsee will write images with both markers.
+				// marker instead, although ACDsee will write images with both markers.
 				// this program will re-create this marker on absence of exif marker.
 				// hence no need to keep the copy from the file.
 				break;
@@ -338,7 +338,7 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 //--------------------------------------------------------------------------
 // Discard read data.
 //--------------------------------------------------------------------------
-void ExifData::DiscardData ( void )
+void ExifData::DiscardData()
 {
 //	for ( int a=0; a < SectionsRead; a++ )
 //		free ( Sections[a].Data );
@@ -351,13 +351,8 @@ void ExifData::DiscardData ( void )
 int ExifData::Get16u ( void * Short )
 {
 	if ( MotorolaOrder )
-	{
 		return ( ( ( uchar * ) Short ) [0] << 8 ) | ( ( uchar * ) Short ) [1];
-	}
-	else
-	{
-		return ( ( ( uchar * ) Short ) [1] << 8 ) | ( ( uchar * ) Short ) [0];
-	}
+	return ( ( ( uchar * ) Short ) [1] << 8 ) | ( ( uchar * ) Short ) [0];
 }
 
 //--------------------------------------------------------------------------
@@ -368,13 +363,10 @@ int ExifData::Get32s ( void * Long )
 	if ( MotorolaOrder )
 	{
 		return ( ( ( char * ) Long ) [0] << 24 ) | ( ( ( uchar * ) Long ) [1] << 16 )
-		       | ( ( ( uchar * ) Long ) [2] << 8 ) | ( ( ( uchar * ) Long ) [3] << 0 );
+				| ( ( ( uchar * ) Long ) [2] << 8 ) | ( ( ( uchar * ) Long ) [3] << 0 );
 	}
-	else
-	{
-		return ( ( ( char * ) Long ) [3] << 24 ) | ( ( ( uchar * ) Long ) [2] << 16 )
-		       | ( ( ( uchar * ) Long ) [1] << 8 ) | ( ( ( uchar * ) Long ) [0] << 0 );
-	}
+	return ( ( ( char * ) Long ) [3] << 24 ) | ( ( ( uchar * ) Long ) [2] << 16 )
+			| ( ( ( uchar * ) Long ) [1] << 8 ) | ( ( ( uchar * ) Long ) [0] << 0 );
 }
 
 //--------------------------------------------------------------------------
@@ -529,7 +521,11 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 				break;
 
 			case TAG_ORIENTATION:
-				Orientation = ( int ) ConvertAnyFormat ( ValuePtr, Format );
+				if (orientationCount == 0)
+				{
+					Orientation = ( int ) ConvertAnyFormat ( ValuePtr, Format );
+					orientationCount++;
+				}
 				break;
 
 			case TAG_DATETIME_ORIGINAL:
@@ -562,7 +558,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 						if ( c != '\0' && c != ' ' )
 						{
 							//strncpy(ImageInfo.Comments, (const char*)(a+ValuePtr), 199);
-							UserComment.sprintf ( "%s", ( const char* ) ( a+ValuePtr ) );
+							UserComment = QString::asprintf ( "%s", ( const char* ) ( a+ValuePtr ) );
 							break;
 						}
 					}
@@ -570,7 +566,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 				else
 				{
 					//strncpy(ImageInfo.Comments, (const char*)ValuePtr, 199);
-					UserComment.sprintf ( "%s", ( const char* ) ValuePtr );
+					UserComment = QString::asprintf ( "%s", ( const char* ) ValuePtr );
 				}
 				break;
 
@@ -647,7 +643,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 						break;
 
 					case 3: FocalplaneUnits = 10;   break;  // centimeter
-					case 4: FocalplaneUnits = 1;    break;  // milimeter
+					case 4: FocalplaneUnits = 1;    break;  // millimeter
 					case 5: FocalplaneUnits = .001; break;  // micrometer
 				}
 				break;
@@ -706,7 +702,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 	{
 		// In addition to linking to subdirectories via exif tags,
 		// there's also a potential link to another directory at the end of each
-		// directory.  this has got to be the result of a comitee!
+		// directory.  this has got to be the result of a committee!
 		unsigned char * SubdirStart;
 		unsigned Offset;
 
@@ -762,7 +758,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 
 //--------------------------------------------------------------------------
 // Process a COM marker.  We want to leave the bytes unchanged.  The
-// progam that displays this text may decide to remove blanks, convert
+// program that displays this text may decide to remove blanks, convert
 // newlines, or otherwise modify the text.  In particular we want to be
 // safe for passing utf-8 text.
 //--------------------------------------------------------------------------
@@ -777,12 +773,12 @@ void ExifData::process_COM ( const uchar * Data, int length )
 //--------------------------------------------------------------------------
 void ExifData::process_SOFn ( const uchar * Data, int marker )
 {
-	int data_precision, num_components;
+//	int data_precision, num_components;
 
-	data_precision = Data[2];
+//	data_precision = Data[2];
 	ExifData::Height = Get16m ( Data+3 );
 	ExifData::Width = Get16m ( Data+5 );
-	num_components = Data[7];
+	int num_components = Data[7];
 
 	if ( num_components == 3 )
 		ExifData::IsColor = 1;
@@ -842,7 +838,7 @@ void ExifData::process_EXIF ( unsigned char * CharBuf, unsigned int length )
 	// This is how far the interesting (non thumbnail) part of the exif went.
 	ExifSettingsLength = LastExifRefd - CharBuf;
 
-	// Compute the CCD width, in milimeters.
+	// Compute the CCD width, in millimeters.
 	if ( FocalplaneXRes != 0 )
 	{
 		ExifData::CCDWidth = ( float ) ( ExifImageWidth * FocalplaneUnits / FocalplaneXRes );
@@ -860,8 +856,8 @@ int ExifData::Exif2tm ( struct tm * timeptr, char * ExifTime )
 
 	// Check for format: YYYY:MM:DD HH:MM:SS format.
 	a = sscanf ( ExifTime, "%d:%d:%d %d:%d:%d",
-	             &timeptr->tm_year, &timeptr->tm_mon, &timeptr->tm_mday,
-	             &timeptr->tm_hour, &timeptr->tm_min, &timeptr->tm_sec );
+				 &timeptr->tm_year, &timeptr->tm_mon, &timeptr->tm_mday,
+				 &timeptr->tm_hour, &timeptr->tm_min, &timeptr->tm_sec );
 
 	if ( a == 6 )
 	{
@@ -875,7 +871,7 @@ int ExifData::Exif2tm ( struct tm * timeptr, char * ExifTime )
 }
 
 //--------------------------------------------------------------------------
-// Contructor for initialising
+// Constructor for initialising
 //--------------------------------------------------------------------------
 ExifData::ExifData()
 {
@@ -898,6 +894,7 @@ ExifData::ExifData()
 	CompressionLevel = 0;
 	exifDataValid = false;
 	recurseLevel = 0;
+	orientationCount = 0;
 }
 
 //--------------------------------------------------------------------------
@@ -911,15 +908,12 @@ bool ExifData::scan ( const QString & path )
 	if ( !f.open ( QIODevice::ReadOnly ) )
 		return false;
 	ret = ReadJpegSections ( f, READ_EXIF );
-	if ( ret == false )
-	{
-		f.close();
-		return false;
-	}
 	f.close();
+	if ( ret == false )
+		return false;
 
 	//now make the strings clean,
-	// for exmaple my Casio is a "QV-4000   "
+	// for example my Casio is a "QV-4000   "
 	CameraMake = CameraMake.trimmed();
 	CameraModel = CameraModel.trimmed();
 	UserComment = UserComment.trimmed();
@@ -945,11 +939,11 @@ bool ExifData::isThumbnailSane()
 		ret = false;
 	if ( ExifImageWidth != 0 && ExifImageWidth != Width )
 		ret = false;
-	if ( Thumbnail.width() == 0 || Thumbnail.height() == 0 )
+	double d = 0.0;
+	if ( Thumbnail.width() == 0 || Thumbnail.height() == 0 || Height == 0 || Width == 0 )
 		ret = false;
-	if ( Height == 0 || Width == 0 )
-		ret = false;
-	double d = ( double ) Height/Width*Thumbnail.width() /Thumbnail.height();
+	else
+		d = (double) Height/Width * Thumbnail.width()/Thumbnail.height();
 	if (!(( 1-JPEG_TOL < d ) && ( d < 1+JPEG_TOL )))
 		ret = false;
 	exifDataValid = ret;
@@ -963,20 +957,23 @@ bool ExifData::isThumbnailSane()
 //--------------------------------------------------------------------------
 QImage ExifData::getThumbnail()
 {
-	if ( Thumbnail.isNull() ) return QImage(); // Qt4 NULL->QImage() is it sane?
-	if ( !Orientation || Orientation == 1 ) return Thumbnail;
-
+	if ( Thumbnail.isNull() )
+		return QImage(); // Qt4 NULL->QImage() is it sane?
+	if (orientationCount > 1)
+		return Thumbnail;
+	if ( !Orientation || Orientation == 1 )
+		return Thumbnail;
 	// now fix orientation
-	QMatrix M;
-	QMatrix flip = QMatrix ( -1,0,0,1,0,0 );
+	QTransform M;
+	QTransform flip = QTransform ( -1,0,0,1,0,0 );
 	switch ( Orientation )
 	{  // notice intentional fallthroughs
 		case 2: M = flip; break;
-		case 4: M = flip;
+		case 4: M = flip; //Q_FALLTHROUGH();
 		case 3: M.rotate ( 180 ); break;
-		case 5: M = flip;
+		case 5: M = flip; //Q_FALLTHROUGH();
 		case 6: M.rotate ( 90 ); break;
-		case 7: M = flip;
+		case 7: M = flip; //Q_FALLTHROUGH();
 		case 8: M.rotate ( 270 ); break;
 		default: break; // should never happen
 	}

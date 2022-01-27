@@ -37,14 +37,96 @@ selected item is used.\n\
 PyObject *scribus_getfont(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_gettextsize__doc__,
+PyDoc_STRVAR(scribus_getfontfeatures__doc__,
+QT_TR_NOOP("getFontFeatures([\"name\"]) -> string\n\
+\n\
+Returns the font features for the text frame \"name\". If this text frame\n\
+has some text selected the value assigned to the first character\n\
+of the selection is returned. If \"name\" is not given the currently\n\
+selected item is used.\n\
+"));
+/*! Get fontfeatures */
+PyObject *scribus_getfontfeatures(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getfirstlinkedframe__doc__,
+QT_TR_NOOP("getFirstLinkedFrame(item: str = None) -> str\n\
+\n\
+Return the first text frame in the chain.\n\
+\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*!  Get the name of the first text frame in the chain */
+PyObject *scribus_getfirstlinkedframe(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getlastlinkedframe__doc__,
+QT_TR_NOOP("getLastLinkedFrame(item: str = None) -> str\n\
+\n\
+Return the last text frame in the chain.\n\
+\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*!  Get the name of the last text frame in the chain */
+PyObject *scribus_getlastlinkedframe(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getnextlinkedframe__doc__,
+QT_TR_NOOP("getNextLinkedFrame(item: str = None) -> str\n\
+\n\
+Return the next text frame in the chain or None\n\
+if specified frame is the last frame in the chain.\n\
+\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*!  Get the name of the next frame in the chain */
+PyObject *scribus_getnextlinkedframe(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getprevlinkedframe__doc__,
+QT_TR_NOOP("getPrevLinkedFrame(item: str = None) -> str\n\
+\n\
+Return the previous text frame in the chain or None\n\
+if specified frame is the first frame in the chain.\n\
+\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*!  Get the name of the previous frame in the chain */
+PyObject *scribus_getprevlinkedframe(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_gettextcolor__doc__,
+	QT_TR_NOOP("getTextColor([\"name\"]) -> string\n\
+\n\
+Returns the name of the text color used for text frame \"name\".\n\
+If this text frame has some text selected the value assigned\n\
+to the first character of the selection is returned.\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Returns color of the line */
+PyObject *scribus_gettextcolor(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_gettextshade__doc__,
+	QT_TR_NOOP("getTextShade([\"name\"]) -> integer\n\
+\n\
+Returns the shade of text color used for text frame \"name\".\n\
+If this text frame has some text selected the value assigned\n\
+to the first character of the selection is returned.\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Returns color of the line */
+PyObject *scribus_gettextshade(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_gettextlength__doc__,
 QT_TR_NOOP("getTextLength([\"name\"]) -> integer\n\
 \n\
 Returns the length of the text in the text frame \"name\".\n\
 If \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Get text size */
-PyObject *scribus_gettextsize(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_gettextlength(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_gettextlines__doc__,
@@ -52,24 +134,39 @@ QT_TR_NOOP("getTextLines([\"name\"]) -> integer\n\
 \n\
 Returns the number of lines of the text in the text frame \"name\".\n\
 If \"name\" is not given the currently selected item is used.\n\
+\n\
+As this function depends on text layout being up-to-date, you may need to call \n\
+layoutText() or layoutTextChain() before calling this function in order to get \n\
+expected result.\n\
 "));
 /*! Get text lines */
 PyObject *scribus_gettextlines(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getframetext__doc__,
+QT_TR_NOOP("getFrameText([\"name\"]) -> string\n\
+\n\
+Returns the text visible in text frame \"name\". If this text frame has some text\n\
+selected, the selected text is returned. If \"name\" is not given the currently\n\
+selected item is used.\n\
+\n\
+This function returns only the text visible in specified frame. If you need to \n\
+retrieve the text contained in a text chain, use getAllText() instead.\n\
+\n\
+As this function depends on text layout being up-to-date, you may need to call \n\
+layoutText() or layoutTextChain() before calling this function in order to get \n\
+expected result.\n\
+"));
+PyDoc_STRVAR(scribus_gettext__doc__,
 QT_TR_NOOP("getText([\"name\"]) -> string\n\
 \n\
-Returns the text of the text frame \"name\". If this text frame has some text\n\
-selected, the selected text is returned. All text in the frame, not just\n\
-currently visible text, is returned. If \"name\" is not given the currently\n\
-selected item is used.\n\
+Deprecated. Use getFrameText() instead.\n\
 "));
 /*! Get frame text */
 PyObject *scribus_getframetext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_gettext__doc__,
+PyDoc_STRVAR(scribus_getalltext__doc__,
 QT_TR_NOOP("getAllText([\"name\"]) -> string\n\
 \n\
 Returns the text of the text frame \"name\" and of all text frames which are\n\
@@ -78,17 +175,36 @@ text is returned. If \"name\" is not given the currently selected item is\n\
 used.\n\
 "));
 /*! Get all text */
-PyObject *scribus_gettext(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getalltext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getlinespace__doc__,
+PyDoc_STRVAR(scribus_getfirstlineoffset__doc__,
+	QT_TR_NOOP("getFirstLineOffset([\"name\"]) -> integer\n\
+\n\
+Gets the offset of the first line of text inside text frame \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Get columns */
+PyObject *scribus_getfirstlineoffset(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getlinespacing__doc__,
 QT_TR_NOOP("getLineSpacing([\"name\"]) -> float\n\
 \n\
 Returns the line spacing (\"leading\") of the text frame \"name\" expressed in\n\
 points. If \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Get line space */
-PyObject *scribus_getlinespace(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getlinespacing(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getlinespacingmode__doc__,
+QT_TR_NOOP("getLineSpacingMode([\"name\"]) -> float\n\
+\n\
+Returns the line spacing mode of the text frame \"name\". If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Get line spacing mode*/
+PyObject *scribus_getlinespacingmode(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_gettextdistances__doc__,
@@ -100,6 +216,16 @@ is not given the currently selected item is used.\n\
 "));
 /*! Get text distances */
 PyObject *scribus_gettextdistances(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_gettextverticalalignment__doc__,
+	QT_TR_NOOP("getTextVerticalAlignment([\"name\"]) -> integer\n\
+\n\
+Gets the vertical alignment of text inside text frame \"name\". If \"name\" is not\n\
+given the currently selected item is used.\n\
+"));
+/*! Get columns */
+PyObject *scribus_gettextverticalalignment(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getcolumngap__doc__,
@@ -122,7 +248,7 @@ given the currently selected item is used.\n\
 PyObject *scribus_getcolumns(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_setboxtext__doc__,
+PyDoc_STRVAR(scribus_settext__doc__,
 QT_TR_NOOP("setText(\"text\", [\"name\"])\n\
 \n\
 Sets the text of the text frame \"name\" to the text of the string \"text\".\n\
@@ -131,7 +257,7 @@ for more details. If \"name\" is not given the currently selected item is\n\
 used.\n\
 "));
 /*! Set text */
-PyObject *scribus_setboxtext(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_settext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_inserttext__doc__,
@@ -140,12 +266,48 @@ QT_TR_NOOP("insertText(\"text\", pos, [\"name\"])\n\
 Inserts the text \"text\" at the position \"pos\" into the text frame \"name\".\n\
 Text must be UTF encoded (see setText() as reference) The first character has an\n\
 index of 0. Inserting text at position -1 appends it to the frame. If \"name\" is\n\
-not given the currently selected Item is used.\n\
+not given the currently selected item is used.\n\
+\n\
+For performance reason, this function does not update text layout in any way. \n\
+As a consequence, you may need to call layoutText() or layoutTextChain() at appropriate \n\
+times after calling this function and before calling functions such as getFrameText() \n\
+or getTextLines().\n\
 \n\
 May throw IndexError for an insertion out of bounds.\n\
 "));
 /*! Insert text */
 PyObject *scribus_inserttext(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_inserthtmltext__doc__,
+QT_TR_NOOP("insertHTMLText(\"file\", [\"name\"])\n\
+\n\
+Inserts the text from \"file\" into the text frame \"name\".\n\
+Text must be UTF encoded (see setText() as reference). If \"name\" is\n\
+not given the currently selected Item is used.\n\
+"));
+/*! Insert HTML text */
+PyObject *scribus_inserthtmltext(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_layouttext__doc__,
+QT_TR_NOOP("layoutText([\"name\"])\n\
+\n\
+Relayout text in the text frame \"name\". If \"name\" is not given the currently\n\
+selected item is used.\n\
+"));
+/*! Delete text */
+PyObject *scribus_layouttext(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_layouttextchain__doc__,
+QT_TR_NOOP("layoutTextChain([\"name\"])\n\
+\n\
+Relayout the whole text chain whom the text frame \"name\" belongs.\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Delete text */
+PyObject *scribus_layouttextchain(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setfont__doc__,
@@ -159,6 +321,19 @@ May throw ValueError if the font cannot be found.\n\
 "));
 /*! Set font */
 PyObject *scribus_setfont(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setfontfeatures__doc__,
+QT_TR_NOOP("setFontFeatures(\"fontfeature\", [\"name\"])\n\
+\n\
+Sets the font features of the text frame \"name\" to \"fontfeature\". If there is some text\n\
+selected only the selected text is changed.  If \"name\" is not given the\n\
+currently selected item is used.\n\
+\n\
+May throw ValueError if the font cannot be found.\n\
+"));
+/*! Set font features */
+PyObject *scribus_setfontfeatures(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setfontsize__doc__,
@@ -175,7 +350,20 @@ May throw ValueError for a font size that's out of bounds.\n\
 PyObject *scribus_setfontsize(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_setlinespace__doc__,
+PyDoc_STRVAR(scribus_setfirstlineoffset__doc__,
+	QT_TR_NOOP("setFirstLineOffset(offset, [\"name\"])\n\
+\n\
+Sets the offset of the first line of text inside text frame \"name\" to the specified\n\
+offset policy. If \"name\" is not given the currently selected item is used. \"offset\" \n\
+should be one of the FLOP_* constants defined in this module - see dir(scribus).\n\
+\n\
+May throw ValueError for an invalid offset constant.\n\
+"));
+/*! Set vertical alignment */
+PyObject *scribus_setfirstlineoffset(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setlinespacing__doc__,
 QT_TR_NOOP("setLineSpacing(size, [\"name\"])\n\
 \n\
 Sets the line spacing (\"leading\") of the text frame \"name\" to \"size\".\n\
@@ -185,7 +373,21 @@ item is used.\n\
 May throw ValueError if the line spacing is out of bounds.\n\
 "));
 /*! Set line space */
-PyObject *scribus_setlinespace(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setlinespacing(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setlinespacingmode__doc__,
+QT_TR_NOOP("setLineSpacingMode(mode, [\"name\"])\n\
+\n\
+Sets the line spacing mode of the text frame \"name\" to \"mode\".\n\
+If \"name\" is not given the currently selected\n\
+item is used.\n\
+Mode values are the same as in createParagraphStyle.\n\
+\n\
+May throw ValueError if the mode is out of bounds.\n\
+"));
+/*! Set line space mode */
+PyObject *scribus_setlinespacingmode(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_settextdistances__doc__,
@@ -225,7 +427,7 @@ May throw ValueError if number of columns is not at least one.\n\
 PyObject *scribus_setcolumns(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_setalign__doc__,
+PyDoc_STRVAR(scribus_settextalignment__doc__,
 QT_TR_NOOP("setTextAlignment(align, [\"name\"])\n\
 \n\
 Sets the text alignment of the text frame \"name\" to the specified alignment.\n\
@@ -235,13 +437,60 @@ be one of the ALIGN_ constants defined in this module - see dir(scribus).\n\
 May throw ValueError for an invalid alignment constant.\n\
 "));
 /*! Set alignt */
-PyObject *scribus_setalign(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_settextalignment(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_settextverticalalignment__doc__,
+	QT_TR_NOOP("setTextVerticalAlignment(align, [\"name\"])\n\
+\n\
+Sets the vertical alignment of text inside text frame \"name\" to the specified\n\
+alignment. If \"name\" is not given the currently selected item is used. \"align\" \n\
+should be one of the ALIGNV constants defined in this module - see dir(scribus).\n\
+\n\
+May throw ValueError for an invalid alignment constant.\n\
+"));
+/*! Set vertical alignment */
+PyObject *scribus_settextverticalalignment(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setdirection__doc__,
+QT_TR_NOOP("setTextDirection(direction, [\"name\"])\n\
+\n\
+Sets the text direction of the text frame \"name\" to the specified direction.\n\
+If \"name\" is not given the currently selected item is used. \"direction\" should\n\
+be one of the DIRECTION_ constants defined in this module - see dir(scribus).\n\
+\n\
+May throw ValueError for an invalid direction constant.\n\
+"));
+/*! Set direction */
+PyObject *scribus_setdirection(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_selectframetext__doc__,
+QT_TR_NOOP("selectFrameText(start, count, [\"name\"])\n\
+\n\
+Selects \"count\" characters of text in the text frame \"name\" starting from the\n\
+character \"start\". Character counting starts at 0.\n\
+If \"count\" is zero, any text selection will be cleared.\n\
+If \"count\" is -1, the selection will extend to the end of the frame.\n\
+If \"name\" is not given the currently selected item is used.\n\
+\n\
+This function only acts on the text visible in the specified frame. If you need to \n\
+work on the text contained in a text chain, use selectText() instead.\n\
+As this function depends on text layout being up-to-date, you may need to call \n\
+layoutText() or layoutTextChain() before calling this function in order to get \n\
+expected result.\n\
+\n\
+May throw IndexError if the selection is outside the bounds of the text.\n\
+"));
+/*! Select frame text */
+PyObject *scribus_selectframetext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_selecttext__doc__,
 QT_TR_NOOP("selectText(start, count, [\"name\"])\n\
 \n\
-Selects \"count\" characters of text in the text frame \"name\" starting from the\n\
+Selects \"count\" characters of text in the story of the text frame \"name\" starting from the\n\
 character \"start\". Character counting starts at 0. If \"count\" is zero, any\n\
 text selection will be cleared.  If \"name\" is not given the currently\n\
 selected item is used.\n\
@@ -351,21 +600,25 @@ May throw ScribusException if linking rules are violated.\n\
 PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_tracetext__doc__,
+PyDoc_STRVAR(scribus_outlinetext__doc__,
 QT_TR_NOOP("traceText([\"name\"])\n\
 \n\
 Convert the text frame \"name\" to outlines. If \"name\" is not given the\n\
 currently selected item is used."));
+PyDoc_STRVAR(scribus_tracetext__doc__,
+QT_TR_NOOP("traceText([\"name\"])\n\
+\n\
+Deprecated, use outlineText() instead."));
 /**
  Trace text frames via Scripter.
  2004-09-07 (Craig Ringer)
 */
-PyObject *scribus_tracetext(PyObject * self, PyObject* args);
+PyObject *scribus_outlinetext(PyObject * self, PyObject* args);
 
 PyDoc_STRVAR(scribus_istextoverflowing__doc__,
 QT_TR_NOOP("textOverflows([\"name\", nolinks]) -> integer\n\
 \n\
-Returns the actual number of overflowing characters in text frame \"name\".\n\
+Returns 1 if there are overflowing characters in text frame \"name\", 0 if not.\n\
 If is nolinks set to non zero value it takes only one frame - it doesn't\n\
 use text frame linking. Without this parameter it search all linking chain.\n\
 \n\
@@ -407,7 +660,7 @@ PyObject *scribus_dehyphenatetext(PyObject *, PyObject* args);
 PyDoc_STRVAR(scribus_setpdfbookmark__doc__,
 QT_TR_NOOP("setPDFBookmark(\"toggle\", [\"name\"])\n\
 \n\
-Sets whether (toggle = 1) the text frame \"name\" is a bookmark nor not.\n\
+Sets whether (toggle = 1) the text frame \"name\" is a bookmark or not.\n\
 If \"name\" is not given the currently selected item is used.\n\
 \n\
 May raise WrongFrameTypeError if the target frame is not a text frame\n\

@@ -11,24 +11,24 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scribusdoc.h"
-#include "page.h"
-#include "scpainterexbase.h"
+#include "scpage.h"
 #include "scpageoutput.h"
+#include "scpainterexbase.h"
 
 class SCRIBUS_API ScDocOutput
 {
 protected:
-	ScDocOutput() {}
+	ScDocOutput() = default;
 
-	virtual void begin(void) {}
+	virtual bool begin(void) { return true; }
 	virtual void end(void) {}
 
-	virtual ScPageOutput* createPageOutputComponent(int pageIndex) { return NULL; }
+	virtual ScPageOutput* createPageOutputComponent(int pageIndex) { return nullptr; }
 
 public:
-	virtual ~ScDocOutput() {}
+	virtual ~ScDocOutput() = default;
 
-	virtual bool makeOutput(ScribusDoc* doc, std::vector<int>& pageNumbers);
+	virtual bool makeOutput(ScribusDoc* doc, const std::vector<int>& pageNumbers);
 };
 
 #endif

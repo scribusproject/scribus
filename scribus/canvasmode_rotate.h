@@ -34,39 +34,41 @@ class PageItem;
 
 class SCRIBUS_API CanvasMode_Rotate : public CanvasMode
 {
-public:
-	CanvasMode_Rotate(ScribusView* view);
+	public:
+		explicit CanvasMode_Rotate(ScribusView* view);
+		~CanvasMode_Rotate() override = default;
 
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+		void enterEvent(QEvent *) override;
+		void leaveEvent(QEvent *) override;
 
-	virtual void drawControls(QPainter* p);
-	virtual void activate(bool);
-	virtual void deactivate(bool);
+		void drawControls(QPainter* p) override;
+		void activate(bool) override;
+		void deactivate(bool) override;
+		
+		void keyReleaseEvent(QKeyEvent *e) override;
+		void keyPressEvent(QKeyEvent *e) override;
 
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
+		void mousePressEvent(QMouseEvent *m) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
 
-private:
-	inline bool GetItem(PageItem** pi);
-	
-	void   createContextMenu(PageItem *currItem, double mx, double my);
-	void   drawItemOutlines(QPainter*);
-	void   getNewItemPosition(PageItem* item, FPoint& pos, double& rotation);
-// 	void   setResizeCursor(int how);
+	private:
+		inline bool GetItem(PageItem** pi);
 
-	bool   m_inItemRotation;
+		void   createContextMenu(PageItem *currItem, double mx, double my);
+		void   drawItemOutlines(QPainter*);
+		void   getNewItemPosition(PageItem* item, FPoint& pos, double& rotation);
+		// 	void   setResizeCursor(int how);
 
-	int    m_oldRotMode;
-	FPoint m_oldRotCenter;
-	FPoint m_canvasPressCoord;
-	FPoint m_canvasCurrCoord;
-	bool   m_angleConstrained;
-
-	int    m_rotMode;
-	FPoint m_rotCenter;
-	double m_startAngle;
+		FPoint m_canvasCurrCoord;
+		FPoint m_canvasPressCoord;
+		FPoint m_oldRotCenter;
+		FPoint m_rotCenter;
+		bool   m_angleConstrained {false};
+		bool   m_inItemRotation {false};
+		double m_startAngle {0.0};
+		int    m_oldRotMode {0};
+		int    m_rotMode {0};
 };
 
 #endif

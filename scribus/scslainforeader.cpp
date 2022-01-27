@@ -9,10 +9,11 @@ for which a new license (GPL+exception) is in place.
 #include <memory>
 
 #include <QFile>
+#include <QScopedPointer>
 #include <QXmlStreamReader>
-#include "scgzfile.h"
+#include "qtiocompressor.h"
 
-void ScSlaInfoReader::resetFileInfos(void)
+void ScSlaInfoReader::resetFileInfos()
 {
 	m_title.resize(0);
 	m_author.resize(0);
@@ -24,16 +25,21 @@ bool ScSlaInfoReader::readInfos(const QString& fileName)
 	bool isScribusDocument = false;
 	bool readInfoSuccess   = false;
 	bool firstStartElement = true;
-	std::auto_ptr<QIODevice> file;
+	QScopedPointer<QIODevice> file;
 
 	resetFileInfos();
-
+	QFile aFile;
 	if (fileName.right(2).toLower() == "gz")
-		file.reset( new ScGzFile(fileName) );
+	{
+		aFile.setFileName(fileName);
+		QtIOCompressor *compressor = new QtIOCompressor(&aFile);
+		compressor->setStreamFormat(QtIOCompressor::GzipFormat);
+		file.reset(compressor);
+	}
 	else
 		file.reset( new QFile(fileName) );
 
-	if (!file.get() || !file->open(QIODevice::ReadOnly))
+	if (file.isNull() || !file->open(QIODevice::ReadOnly))
 		return false;
 
 	QByteArray bytes = file->read(512);
@@ -44,7 +50,7 @@ bool ScSlaInfoReader::readInfos(const QString& fileName)
 	}
 	file->reset();
 
-	QXmlStreamReader reader(file.get());
+	QXmlStreamReader reader(file.data());
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		QXmlStreamReader::TokenType ttype = reader.readNext();

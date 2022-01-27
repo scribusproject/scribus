@@ -28,7 +28,7 @@
  */
 struct SCRIBUS_API UpdateMemento
 {
-	virtual ~UpdateMemento();
+	virtual ~UpdateMemento() = default;
 };
 
 
@@ -42,7 +42,7 @@ class SCRIBUS_API UpdateManaged
 {
 public:
 	virtual void updateNow(UpdateMemento* what) = 0;
-	virtual ~UpdateManaged() {}
+	virtual ~UpdateManaged() = default;
 };
 
 
@@ -65,16 +65,16 @@ public:
 
 class SCRIBUS_API UpdateManager
 {
-	int m_updatesDisabled;
+	int m_updatesDisabled {0};
 	QSet<QPair<UpdateManaged*, UpdateMemento*> > m_pending;
 	
 public:
-	UpdateManager() : m_updatesDisabled(0), m_pending() {}
+	UpdateManager() = default;
 	virtual ~UpdateManager();
 	
-	void setUpdatesEnabled(bool val=true);
+	void setUpdatesEnabled(bool val = true);
 	void setUpdatesDisabled() { setUpdatesEnabled(false); };
-	bool updatesEnabled() { return m_updatesDisabled == 0; };
+	bool updatesEnabled() const { return m_updatesDisabled == 0; };
 	/**
 		Returns true if updates are enabled, otherwise stores 'observable' for notification when updates get enabled again.
 	 */

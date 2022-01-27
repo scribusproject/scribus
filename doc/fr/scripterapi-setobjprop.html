@@ -1,0 +1,131 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Définir les propriétés de l'objet</title>
+</head>
+<body>
+<h2>Définir les propriétés de l'objet</h2>
+
+<dl>
+
+<dt><a name="-loadImage"><strong>loadImage</strong></a>(...)</dt>
+<dd><code>loadImage("nomFichier" [, "nom"])</code>
+<p>Charge l'image "nomFichier" dans le cadre d'image "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Peut générer <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image</p></dd></dt>
+
+<dt><a name="-outlineText"><strong>outlineText</strong></a>(...)</dt>
+<dd><code>outlineText(["nom"])</code>
+<p>Convertit le cadre de texte "nom" en contours. Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-scaleImage"><strong>scaleImage</strong></a>(...)</dt>
+<dd><code>scaleImage(x, y [, "nom"])</code>
+<p><b>Veuillez ne plus utiliser cette fonction. Utilisez setImageScale en lieu et place.</b></p></dd>
+
+<dt><a name="-setCornerRadius"><strong>setCornerRadius</strong></a>(...)</dt>
+<dd><code>setCornerRadius(rayon, ["nom"])</code>
+<p>Définit le rayon de coin de l'objet "nom". Le rayon est exprimé en points. Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p> 
+<p>Peut générer ValueError si le rayon de coin est négatif. </p></dd>
+
+<dt><a name="-setCustomLineStyle"><strong>setCustomLineStyle</strong></a>(...)</dt>
+<dd><code>setCustomLineStyle(nomStyle, ["nom"])</code>
+<p>Définit le style de ligne personnalisé de l'objet "nom" à la valeur "nomStyle". L'argument "nomStyle" doit &ecirc;tre le nom du style tel que définit dans le gestionnaire de style. Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-setFillBlendmode"><strong>setFillBlendmode</strong>(...)</a></dt>
+<dd><code>setFillBlendmode(modeFusion, ["nom"])</code>
+<p>Définit le mode de fusion appliqué à la couleur de fond de l'objet "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-setFillColor"><strong>setFillColor</strong></a>(...)</dt>
+<dd><code>setFillColor("couleur", ["nom"])</code>
+<p>Définit la "couleur" de fond de l'objet "nom". La "couleur" est le nom d'une des couleurs définies. 
+Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-setFillShade"><strong>setFillShade</strong></a>(...)</dt>
+<dd><code>setFillShade(teinte, ["nom"])</code>
+<p>Définit la teinte de la couleur de fond de l'objet "nom". La valeur "teinte" doit &ecirc;tre une valeur entière comprise entre 0 (le plus p&acirc;le) et 100 (toute l'intensité couleur). 
+Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. <p>
+<p>Peut générer ValueError si la couleur de fond est hors limites.</p></dd>
+
+<dt><a name="-setFillTransparency"><strong>setFillTransparency</strong>(...)</a></dt>
+<dd><code>setFillTransparency(transparence, ["name"])</code>
+<p>Définit la transparence de la couleur de fond de l'objet "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>En dépit du nom de cette fonction, la valeur "transparence" correspond en réalité à <strong>l'opacité</strong>, par exemple, 0.9 = 90% d'opacité, 0.2 = 20% d'opacité.</p></dd>
+
+<dt><a name="-setGradientFill"><strong>setGradientFill</strong></a>(...)</dt>
+<dd><code>setGradientFill(type, "couleur1", teinte1, "couleur2", teinte2, ["nom"])</code>
+<p>Définit le dégradé de fond de l'objet "nom" à "type". Les descriptions des couleurs sont identiques à celles de <a href="#-setFillColor">setFillColor</a>() et de <a href="#-setFillShade">setFillShade</a>(). Voir
+les constantes pour les types disponibles (FILL_&lt;type&gt;).</p></dd>
+
+<dt><a name="-setImageScale"><strong>setImageScale</strong></a>(...)</dt>
+<dd><code>setImageScale(x, y [, "nom"])</code>
+<p>Définit les facteurs de redimensionnement de l'image dans le cadre d'image "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. Un nombre de 1 signifie 100 %. Les facteurs de redimensionnement sont égaux aux valeurs indiquées dans la palette des propriétés.</p>
+<p>Peut générer <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image</p></dd>
+
+<dt><a name="-setImageOffset"><strong>setImageOffset</strong></a>(...)</dt>
+<dd><code>setImageOffset(x, y [, "nom"])</code>
+<p>Définit la position de l'image dans le cadre d'image "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. Les coordonnées spécifiées sont égales aux valeurs indiquées dans la palette des propriétés lorsque l'unité utilisée est le point.</p>
+<p>Peut générer <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image</p></dd>
+
+<dt><a name="-setItemName"><strong>setItemName</strong></a>(...)</dt>
+<dd><code>setItemName(nouveauNom, [, "nom"])</code>
+<p>Définit le nom de l'objet "nom" à la valeur "nouveauNom" et retourne le nom effectivement appliqué. Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>Peut générer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si l'objet n'existe pas.</p></dd>
+
+<dt><a name="-setLineBlendmode"><strong>setLineBlendmode</strong>(...)</a></dt>
+<dd><code>setLineBlendmode(modeFusion, ["nom"])</code>
+<p>Définit le mode de fusion appliqué à au filet de l'objet "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-setLineCap"><strong>setLineCap</strong></a>(...)</dt>
+<dd><code>setLineCap(typeFin, ["nom"])</code>
+<p>Définit le type de fin de ligne "typeFin" de l'objet "nom".
+Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.<p>
+<p>La valeur "typeFin" doit &ecirc;tre choisie parmi les constantes prédéfinies CAP_&lt;type&gt; : CAP_FLAT, CAP_ROUND ou CAP_SQUARE.</p></dd>
+
+<dt><a name="-setLineColor"><strong>setLineColor</strong></a>(...)</dt>
+<dd><code>setLineColor("couleur", ["nom"])</code>
+<p>Définit la "couleur" de filet de l'objet "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
+<dt><a name="-setLineJoin"><strong>setLineJoin</strong></a>(...)</dt>
+<dd><code>setLineJoin(jonction, ["nom"])</code>
+<p>Définit la valeur du style "jonction" pour le filet de l'objet "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>La valeur "jonction" doit &ecirc;tre choisie parmi les constantes prédéfinies JOIN_&lt;type&gt; : JOIN_BEVEL, JOIN_MITTER ou JOIN_ROUND.</p></dd>
+
+<dt><a name="-setLineShade"><strong>setLineShade</strong></a>(...)</dt>
+<dd><code>setLineShade(teinte, ["nom"])</code>
+<p>Définit  la teinte de couleur du filet de l'objet "nom" à la valeur "teinte". La valeur "teinte" doit &ecirc;tre un nombre entier compris entre 0 (p&acirc;le) et 100 (intensité maximale). 
+Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Peut générer ValueError si la teinte du filet est hors limites.</p></dd>
+	
+<dt><a name="-setLineStyle"><strong>setLineStyle</strong></a>(...)</dt>
+<dd><code>setLineStyle(style, ["nom"])</code>
+<p>Définit le style de filet de l'objet "nom" à la valeur "style". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.<p>
+<p>Il existe des constantes prédéfinies pour "style" - LINE_&lt;style&gt;.</p></dd>
+
+<dt><a name="-setLineTransparency"><strong>setLineTransparency</strong>(...)</a></dt>
+<dd><code>setLineTransparency(transparence, ["name"])</code>
+<p>Définit la transparence appliquée au filet de l'objet "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>En dépit du nom de cette fonction, la valeur "transparence" correspond en réalité à <strong>l'opacité</strong>, par exemple, 0.9 = 90% d'opacité, 0.2 = 20% d'opacité.</p></dd>
+
+<dt><a name="-setLineWidth"><strong>setLineWidth</strong></a>(...)</dt>
+<dd><code>setLineWidth(epaisseur, ["nom"])</code>
+<p>Définit l'épaisseur de filet de l'objet "nom" à la valeur "épaisseur". La valeur "épaisseur" doit &ecirc;tre entre 0.0 et 12.0 inclusivement,
+exprimée en points. Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p> 
+<p>Peut générer ValueError si l'épaisseur de filet est hors limites.</p></dd>
+
+<dt><a name="-setMultiLine"><strong>setMultiLine</strong></a>(...)</dt>
+<dd><code>setMultiLine("styleNomme", ["nom"])</code>
+<p>Définit le style de filet de l'objet "nom" à la valeur "styleNomme". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Peut générer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le style de filet n'existe pas.</p></dd>
+
+<dt><a name="-setObjectAttributes"><strong>setObjectAttributes</strong></a>(...)</dt>
+<dd><code>setObjectAttributes(attributs, ["nom"])</code>
+<p>Définit les attributs de l'objet "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>L'argument "attributs" est une liste de dictionnaires. Chaque dictionnaire doit définir les clés suivantes: Name, Type, Value, Parameter, Relationship, RelationshipTo, AutoAddTo. Chacune de ces valeurs doit être du type chaîne de caractère.</p></dd>
+
+<dt><a name="-traceText"><strong>traceText</strong></a>(...)</dt>
+<dd><code>traceText(["nom"])</code>
+<p>Obsolète, veuillez utiliser outlineText() en lieu et place. </p></dd>
+
+</dl>
+</body>
+</html>
+ 

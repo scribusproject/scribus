@@ -24,7 +24,7 @@ class GuidesModel : public QAbstractTableModel
 	Q_OBJECT
 
 	public:
-		GuidesModel(QObject * parent = 0);
+		GuidesModel(QObject * parent = nullptr);
 		~GuidesModel();
 
 		int rowCount(const QModelIndex & parent = QModelIndex()) const;
@@ -37,7 +37,7 @@ class GuidesModel : public QAbstractTableModel
 
 		QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
-		void removeValues(const Guides & v);
+		void removeValues(const Guides & guides);
 		// qt4 api is "wrokarounded" with insertRow() and removeValues()
 		// these removeRows() and insertRows() does not handle margin items correctly
 // 		bool removeRows(int row, int count, const QModelIndex & parent = QModelIndex());
@@ -45,25 +45,26 @@ class GuidesModel : public QAbstractTableModel
 		void insertRow();
 
 		//! \brief Set new values into the model.
-		void setValues(Guides values);
+		void setValues(const Guides& values);
 		//! \brief Get values back to the app.
 		Guides values();
 
-		void unitChange(int docUnitIndex, int docUnitDecimals);
+		void unitChange(int docUnitIndex, int docUnitDecimals, double offset);
 #if 0
 		//! debug only
 		void printValues();
 #endif
 
 	signals:
-		/*! \brief Signal emmitted when the user finish the editation of one value.
+		/*! \brief Signal emitted when the user finishes editing one value.
 		*/
 		void valueChanged();
 
 	private:
 		Guides m_values;
-		int m_docUnitIndex;
-		int m_docUnitDecimals;
+		int m_docUnitIndex {0};
+		int m_docUnitDecimals {0};
+		double m_rule {0.0};
 };
 
 #endif

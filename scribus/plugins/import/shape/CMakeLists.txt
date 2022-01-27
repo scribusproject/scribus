@@ -1,0 +1,28 @@
+include_directories(
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/scribus
+	${SCRIBUS_AUTOGEN_INCLUDE_PATH}
+)
+
+set(IMPORTSHAPE_PLUGIN_SOURCES
+	importshape.cpp
+	importshapeplugin.cpp
+)
+
+set(SCRIBUS_IMPORTSHAPE_PLUGIN "importshape")
+
+add_library(${SCRIBUS_IMPORTSHAPE_PLUGIN} MODULE ${IMPORTSHAPE_PLUGIN_SOURCES})
+
+target_link_libraries(${SCRIBUS_IMPORTSHAPE_PLUGIN} ${EXE_NAME})
+
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_IMPORTSHAPE_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
+install(TARGETS ${SCRIBUS_IMPORTSHAPE_PLUGIN}
+	LIBRARY
+	DESTINATION ${PLUGINDIR}
+	PERMISSIONS ${PLUGIN_PERMISSIONS}
+)
+
+add_dependencies(Plugins ${SCRIBUS_IMPORTSHAPE_PLUGIN})

@@ -34,7 +34,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 Author: Sebastian Stetter
 please report bugs to: scribusscript@sebastianstetter.de
@@ -47,9 +47,9 @@ try:
     # Do so _after_ the 'import scribus' and only import the names you need, such
     # as commonly used constants.
     import scribus
-except ImportError,err:
-    print "This Python script is written for the Scribus scripting interface."
-    print "It can only be run from within Scribus."
+except ImportError as err:
+    print ("This Python script is written for the Scribus scripting interface.")
+    print ("It can only be run from within Scribus.")
     sys.exit(1)
 
 ####################
@@ -88,6 +88,7 @@ def drawHeaderFooter(pagetitle):
     #load the string into the textbox
     headerstring=pagetitle
     scribus.insertText(headerstring, 0, textbox)
+    scribus.setTextColor("Black", textbox)
 
     #create textbox and insert text for footer
     textbox=scribus.createText(leftMargin, pageHeight-bottomMargin-FOOTERSIZE,  pageWidth-leftMargin-rightMargin, FOOTERSIZE)
@@ -97,6 +98,7 @@ def drawHeaderFooter(pagetitle):
     #load the string into the textbox
     footerstring="Created using ColorChart.py V %s script for Scribus by Sebastian Stetter - http://www.sebastianstetter.de" % str(__version__)
     scribus.insertText(footerstring, 0, textbox)
+    scribus.setTextColor("Black", textbox)
 
 
 def getSpotColors():
@@ -129,7 +131,7 @@ def getColorsFromDocument():
         return list
 
     #check if we have a document - otherwise display open file dialog
-    if scribus.haveDoc() == 1:
+    if scribus.haveDoc() > 0:
         pass
         list=getColors()
         return list
@@ -165,8 +167,8 @@ def prepareDocument():
         m = int(color[2])
         y = int(color[3])
         k = int(color[4])
-        scribus.defineColor(cname,  c, m, y, k )
-        if spotDict.has_key(cname):
+        scribus.defineColorCMYK(cname,  c, m, y, k )
+        if cname in spotDict:
             scribus.setSpotColor(cname, spotDict[cname])
 
     #get the pageTitle form user and store it in PageTitle
@@ -249,6 +251,7 @@ def drawColor(colorname, h, v, width,  height): #h horizontal position, v vertic
     scribus.setTextAlignment(scribus.ALIGN_LEFT, textbox)
     #load the string into the textbox
     scribus.insertText(colorstring, 0, textbox)
+    scribus.setTextColor("Black", textbox)
 
 
 def createChart():
@@ -290,7 +293,7 @@ def createChart():
     scribus.setRedraw(False)
     for color in colorList:
         if (vSpaceUsedByField * (colorFieldCounter+1)) <= vSpaceAvailable:
-            # when there is enought space left draw a color field...
+            # when there is enough space left draw a color field...
 
             #calculate Position for new colorField
             h=leftMargin
@@ -315,7 +318,7 @@ def createChart():
             stepCompleted = stepCompleted+1
             scribus.progressSet(stepCompleted)
 
-    #make shure pages are redrawn
+    #make sure pages are redrawn
     scribus.setRedraw(True)
 
 

@@ -25,17 +25,23 @@ for which a new license (GPL+exception) is in place.
 #define MODETOOLBAR_H
 
 #include "scribusapi.h"
-#include "sctoolbar.h"
+#include "ui/sctoolbar.h"
 #include <QAction>
 #include <QMenu>
 #include <QWidgetAction>
+#include <QGridLayout>
+#include <QLabel>
+#include <QWidget>
 
 class QEvent;
-
 class QToolButton;
+
 class AutoformButtonGroup;
+class ScrSpinBox;
+class ScribusDoc;
 class ScribusMainWindow;
 class WidgetPopupMenu2;
+
 
 /**
   *@author Franz Schmid
@@ -47,26 +53,35 @@ class SCRIBUS_API ModeToolBar : public ScToolBar
 
 public: 
 	ModeToolBar(ScribusMainWindow* parent);
-	~ModeToolBar() {};
+	~ModeToolBar();
 
+	void changeEvent(QEvent *e) override;
+	void setDoc(ScribusDoc* doc);
 	int SubMode;
 	int ValCount;
 	double *ShapeVals;
-	
-	virtual void changeEvent(QEvent *e);
 
 public slots:
+	void newCalValues();
 	void GetPolyProps();
 	void SelShape(int s, int c, qreal *vals);
+//	void getShapeValues(int& mode, double* values, int& count);
 	void languageChange();
 		
 protected:
-	AutoformButtonGroup* Rechteck;
-	QWidgetAction* insertShapeButtonAct;
-	QMenu* insertShapeButtonMenu;
+	AutoformButtonGroup* autoFormButtonGroup;
 	QMenu* insertPolygonButtonMenu;
 	QAction* idInsertPolygonButtonMenu;
 	ScribusMainWindow* m_ScMW;
+	QWidget *propWidget;
+	QGridLayout* group1Layout;
+	QMenu* calPop;
+	QWidgetAction* calValAct;
+	QLabel *AngleTxt;
+	QLabel *PWidthTxt;
+	ScrSpinBox *Angle;
+	ScrSpinBox *PWidth;
+
 };
 
 #endif

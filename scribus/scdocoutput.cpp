@@ -9,32 +9,28 @@ for which a new license (GPL+exception) is in place.
 #include "scdocoutput.h"
 using namespace std;
 
-bool ScDocOutput::makeOutput(ScribusDoc* doc, vector<int>& pageNumbers)
+bool ScDocOutput::makeOutput(ScribusDoc* doc, const vector<int>& pageNumbers)
 {
-	bool  done = true;
-	Page* page;
+	if (!begin())
+		return false;
 
-	begin();
+	bool done = true;
+	ScPage* page;
 
-	for (uint index = 0; index < pageNumbers.size(); index++)
+	for (size_t index = 0; index < pageNumbers.size(); index++)
 	{
 		page = doc->Pages->at( pageNumbers[index] - 1 );
 		ScPageOutput* outputComponent = createPageOutputComponent(index + 1);
-		if (outputComponent != NULL)
-		{
-			outputComponent->begin();
-			outputComponent->drawPage(page);
-			outputComponent->end();
-			delete outputComponent;
-		}
-		else
+		if (!outputComponent)
 		{
 			done = false;
 			break;
 		}
+		outputComponent->begin();
+		outputComponent->drawPage(page);
+		outputComponent->end();
+		delete outputComponent;
 	}
-
 	end();
-
 	return done;
 }

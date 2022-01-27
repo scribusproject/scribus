@@ -21,55 +21,46 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
-#include "missing.h"
-#include "gtaction.h"
-#include "propertiespalette.h"
-#include "scribus.h"
 #include <QCursor>
-#include <QStringList>
-//Added by qt3to4:
 #include <QList>
-#include "color.h"
-#include "prefsmanager.h"
+#include <QProgressBar>
+#include <QStringList>
+
+#include "gtaction.h"
+#include "gtfont.h"
+#include "gtstyle.h"
+#include "gtparagraphstyle.h"
+#include "gtframestyle.h"
+
+#include "commonstrings.h"
 #include "hyphenator.h"
+#include "marks.h"
+#include "notesstyles.h"
+#include "pageitem_textframe.h"
+#include "prefsmanager.h"
 #include "scclocale.h"
 #include "selection.h"
-#include "commonstrings.h"
-#include "util_icon.h"
 #include "sccolorengine.h"
-
-// gtAction::gtAction(bool append)
-// {
-// 	prefsManager=PrefsManager::instance();
-// 	textFrame = ScMW->doc->m_Selection->itemAt(0);
-// 	it = textFrame;
-// 	lastParagraphStyle = -1;
-// 	inPara = false;
-// 	isFirstWrite = true;
-// 	lastCharWasLineChange = false;
-// 	currentFrameStyle = "";
-// 	doAppend = append;
-// 	updateParagraphStyles = false;
-// 	overridePStyleFont = true;
-// }
+#include "scribusdoc.h"
+#include "scribus.h"
+#include "textnote.h"
+#include "undomanager.h"
+#include "util.h"
+#include "util_text.h"
+#include "ui/contentpalette.h"
+#include "ui/missing.h"
 
 gtAction::gtAction(bool append, PageItem* pageitem)
+	    : m_prefsManager(PrefsManager::instance())
 {
-	prefsManager=PrefsManager::instance();
-	textFrame = pageitem;
-	m_ScMW=textFrame->doc()->scMW();
-	it = textFrame;
-	lastParagraphStyle = -1;
-	inPara = false;
-	isFirstWrite = true;
-	lastCharWasLineChange = false;
-	currentFrameStyle = "";
-	doAppend = append;
-	updateParagraphStyles = false;
-	overridePStyleFont = true;
+	m_textFrame = pageitem;
+	m_ScMW = m_textFrame->doc()->scMW();
+	m_it = m_textFrame;
+	m_doAppend = append;
+	m_undoManager = UndoManager::instance();
 }
 
 void gtAction::setProgressInfo()
@@ -86,112 +77,172 @@ void gtAction::setProgressInfoDone()
 	m_ScMW->mainWindowProgressBar->setMaximum(1);
 }
 
-void gtAction::setInfo(QString infoText)
+void gtAction::setInfo(const QString& infoText)
 {
 	m_ScMW->setStatusBarInfoText(infoText);
 }
 
 void gtAction::clearFrame()
 {
-	textFrame->itemText.clear();
-	textFrame->CPos = 0;
+	m_textFrame->itemText.clear();
 }
 
-void gtAction::writeUnstyled(const QString& text)
+void gtAction::writeUnstyled(const QString& text, bool isNote)
 {
-	if (isFirstWrite)
+	UndoTransaction activeTransaction;
+	if (m_isFirstWrite && m_it->itemText.length() > 0)
 	{
-		if (!doAppend)
+		if (!m_doAppend)
 		{
-			if (it->nextInChain() != 0)
+			if (UndoManager::undoEnabled())
+				activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ImportText, "", Um::IDelete);
+			if (m_it->nextInChain() != nullptr)
 			{
-				PageItem *nextItem = it->nextInChain();
-				while (nextItem != 0)
+				PageItem *nextItem = m_it->nextInChain();
+				while (nextItem != nullptr)
 				{
-					nextItem->itemText.clear();
-					nextItem->CPos = 0;
+					nextItem->itemText.selectAll();
+					nextItem->asTextFrame()->deleteSelectedTextFromFrame();
 					nextItem = nextItem->nextInChain();
 				}
 			}
-			it->itemText.clear();
-			it->CPos = 0;
+			m_it->itemText.selectAll();
+			m_it->asTextFrame()->deleteSelectedTextFromFrame();
 		}
 	}
 
-	QChar ch0(0), ch5(5), ch10(10), ch13(13); 
-	for (int a = 0; a < text.length(); ++a)
+	QChar ch0(0), ch5(5), ch10(10), ch13(13);
+	QString textStr = text;
+	textStr.remove(ch0);
+	textStr.remove(ch13);
+	textStr.replace(ch10, ch13);
+	textStr.replace(ch5, ch13);
+	textStr.replace(QString(0x2028), SpecialChars::LINEBREAK);
+	textStr.replace(QString(0x2029), SpecialChars::PARSEP);
+	if (isNote)
 	{
-		if ((text.at(a) == ch0) || (text.at(a) == ch13))
-			continue;
-		QChar ch = text.at(a);
-		if ((ch == ch10) || (ch == ch5))
-			ch = ch13;
-		
-		int pos = it->itemText.length();
-		it->itemText.insertChars(pos, QString(ch));
+		if (m_note == nullptr)
+		{
+			m_note = m_it->m_Doc->newNote(m_it->m_Doc->m_docNotesStylesList.at(0));
+			Q_ASSERT(m_noteStory == nullptr);
+			m_noteStory = new StoryText(m_it->m_Doc);
+		}
+		if (textStr == SpecialChars::OBJECT)
+		{
+			NotesStyle* nStyle = m_note->notesStyle();
+			QString label = "NoteMark_" + nStyle->name();
+			if (nStyle->range() == NSRstory)
+				label += " in " + m_it->firstInChain()->itemName();
+			if (m_it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != nullptr)
+				getUniqueName(label,m_it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+			else
+				label = label + "_1";
+			Mark* mrk = m_it->m_Doc->newMark();
+			mrk->label = label;
+			mrk->setType(MARKNoteMasterType);
+			mrk->setNotePtr(m_note);
+			m_note->setMasterMark(mrk);
+			if (m_noteStory->text(m_noteStory->length() -1) == SpecialChars::PARSEP)
+				m_noteStory->removeChars(m_noteStory->length() -1, 1);
+			m_note->setSaxedText(saxedText(m_noteStory));
+			mrk->clearString();
+			mrk->OwnPage = m_it->OwnPage;
+			m_it->itemText.insertMark(mrk);
+			if (UndoManager::undoEnabled())
+			{
+				ScItemsState* is = new ScItemsState(UndoManager::InsertNote);
+				is->set("ETEA", mrk->label);
+				is->set("MARK", QString("new"));
+				is->set("label", mrk->label);
+				is->set("type", (int) MARKNoteMasterType);
+				is->set("strtxt", QString(""));
+				is->set("nStyle", nStyle->name());
+				is->set("at", m_it->itemText.cursorPosition() -1);
+				is->insertItem("inItem", m_it);
+				m_undoManager->action(m_it->m_Doc, is);
+			}
+			m_note = nullptr;
+			delete m_noteStory;
+		}
+		else
+			m_noteStory->insertChars(m_noteStory->length(), textStr);
 	}
-	
-	lastCharWasLineChange = text.right(1) == "\n";
-	isFirstWrite = false;
+	else
+	{
+		int pos = m_it->itemText.length();
+		if (UndoManager::undoEnabled())
+		{
+			SimpleState *ss = new SimpleState(Um::AppendText,"",Um::ICreate);
+			ss->set("INSERT_FRAMETEXT");
+			ss->set("TEXT_STR",textStr);
+			ss->set("START", pos);
+			m_undoManager->action(m_it, ss);
+		}
+		m_it->itemText.insertChars(pos, textStr);
+	}
+	m_lastCharWasLineChange = text.right(1) == "\n";
+	m_isFirstWrite = false;
+	if (activeTransaction)
+	{
+		activeTransaction.commit();
+	}
 }
 
-void gtAction::write(const QString& text, gtStyle *style)
+void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 {
-	if (isFirstWrite)
+	if (m_isFirstWrite)
 	{
-		if (!doAppend)
+		if (!m_doAppend)
 		{
-			if (it->nextInChain() != 0)
+			if (m_it->nextInChain() != nullptr)
 			{
-				PageItem *nextItem = it->nextInChain();
-				while (nextItem != 0)
+				PageItem *nextItem = m_it->nextInChain();
+				while (nextItem != nullptr)
 				{
 					nextItem->itemText.clear();
-					nextItem->CPos = 0;
 					nextItem = nextItem->nextInChain();
 				}
 			}
-			it->itemText.clear();
-			it->CPos = 0;
+			m_it->itemText.clear();
 		}
 	}
 	int paragraphStyle = -1;
 	if (style->target() == "paragraph")
 	{
 		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(style);
-		assert(pstyle != NULL);
+		assert(pstyle != nullptr);
 		paragraphStyle = applyParagraphStyle(pstyle);
-		if (isFirstWrite)
-			inPara = true;
+		if (m_isFirstWrite)
+			m_inPara = true;
 	}
 	else if (style->target() == "frame")
 	{
 		gtFrameStyle* fstyle = dynamic_cast<gtFrameStyle*>(style);
-		assert(fstyle != NULL);
+		assert(fstyle != nullptr);
 		applyFrameStyle(fstyle);
 	}
 
-	if ((inPara) && (!lastCharWasLineChange) && (text.left(1) != "\n") && (lastParagraphStyle != -1))
-		paragraphStyle = lastParagraphStyle;
+	if ((m_inPara) && (!m_lastCharWasLineChange) && (text.left(1) != "\n") && (m_lastParagraphStyle != -1))
+		paragraphStyle = m_lastParagraphStyle;
 
 	if (paragraphStyle == -1)
 		paragraphStyle = 0; //::findParagraphStyle(textFrame->doc(), textFrame->doc()->currentStyle);
 
-	const ParagraphStyle& paraStyle = textFrame->doc()->paragraphStyles()[paragraphStyle];
+	const ParagraphStyle& paraStyle = m_textFrame->doc()->paragraphStyles()[paragraphStyle];
 
 	gtFont* font = style->getFont();
-	QString fontName = validateFont(font).scName();
+//	QString fontName = validateFont(font).scName();
 	CharStyle lastStyle, newStyle;
 	int lastStyleStart = 0;
 	
-	if ((inPara) && (!overridePStyleFont))
+	if ((m_inPara) && (!m_overridePStyleFont))
 	{
 		if (paraStyle.charStyle().font().isNone())
 		{
 			gtFont font2(*font);
 			font2.setName(paraStyle.charStyle().font().scName());
 			QString fontName2 = validateFont(&font2).scName();
-			newStyle.setFont((*textFrame->doc()->AllFonts)[fontName2]);
+			newStyle.setFont((*m_textFrame->doc()->AllFonts)[fontName2]);
 		}
 	}
 	else
@@ -201,7 +252,19 @@ void gtAction::write(const QString& text, gtStyle *style)
 	/*newStyle.eraseCharStyle(paraStyle.charStyle());*/
 
 	lastStyle = newStyle;
-	lastStyleStart = it->itemText.length();
+	lastStyleStart = m_it->itemText.length();
+	StoryText* story = nullptr;
+	if (isNote)
+	{
+		if (m_noteStory == nullptr)
+		{
+			m_note = m_it->m_Doc->newNote(m_it->m_Doc->m_docNotesStylesList.at(0));
+			m_noteStory = new StoryText(m_it->m_Doc);
+		}
+		story = m_noteStory;
+	}
+	else
+		story = &m_it->itemText;
 
 	QChar ch0(0), ch5(5), ch10(10), ch13(13); 
 	for (int a = 0; a < text.length(); ++a)
@@ -212,35 +275,76 @@ void gtAction::write(const QString& text, gtStyle *style)
 		if ((ch == ch10) || (ch == ch5))
 			ch = ch13;
 		
-		int pos = it->itemText.length();
-		it->itemText.insertChars(pos, QString(ch));
+		int pos = story->length();
+		if (isNote && ch == SpecialChars::OBJECT)
+		{
+			NotesStyle* nStyle = m_note->notesStyle();
+			QString label = "NoteMark_" + nStyle->name();
+			if (nStyle->range() == NSRstory)
+				label += " in " + m_it->firstInChain()->itemName();
+			if (m_it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != nullptr)
+				getUniqueName(label,m_it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+			else
+				label = label + "_1";
+			Mark* mrk = m_it->m_Doc->newMark();
+			mrk->label = label;
+			mrk->setType(MARKNoteMasterType);
+			mrk->setNotePtr(m_note);
+			m_note->setMasterMark(mrk);
+			mrk->clearString();
+			mrk->OwnPage = m_it->OwnPage;
+			m_it->itemText.insertMark(mrk);
+			story->applyCharStyle(lastStyleStart, story->length()-lastStyleStart, lastStyle);
+			if (paraStyle.hasName())
+			{
+				ParagraphStyle pStyle;
+				pStyle.setParent(paraStyle.name());
+				story->applyStyle(qMax(0,story->length()-1), pStyle);
+			}
+			else
+				story->applyStyle(qMax(0,story->length()-1), paraStyle);
+			
+			m_lastCharWasLineChange = text.right(1) == "\n";
+			m_inPara = style->target() == "paragraph";
+			m_lastParagraphStyle = paragraphStyle;
+			if (m_isFirstWrite)
+				m_isFirstWrite = false;
+			if (story->text(pos -1) == SpecialChars::PARSEP)
+				story->removeChars(pos-1, 1);
+			m_note->setSaxedText(saxedText(story));
+			m_note = nullptr;
+			delete m_noteStory;
+			m_noteStory = nullptr;
+			return;
+		}
+		story->insertChars(pos, QString(ch));
 		if (ch == SpecialChars::PARSEP) 
 		{
 			if (paraStyle.hasName())
 			{
 				ParagraphStyle pstyle;
 				pstyle.setParent(paraStyle.name());
-				it->itemText.applyStyle(pos, pstyle);
+				story->applyStyle(pos, pstyle);
 			}
 			else
-				it->itemText.applyStyle(pos, paraStyle);
+				story->applyStyle(pos, paraStyle);
 		}
 	}
-	it->itemText.applyCharStyle(lastStyleStart, it->itemText.length()-lastStyleStart, lastStyle);
+	story->applyCharStyle(lastStyleStart, story->length()-lastStyleStart, lastStyle);
 	if (paraStyle.hasName())
 	{
 		ParagraphStyle pStyle;
 		pStyle.setParent(paraStyle.name());
-		it->itemText.applyStyle(qMax(0,it->itemText.length()-1), pStyle);
+		story->applyStyle(qMax(0,story->length()-1), pStyle);
 	}
 	else
-		it->itemText.applyStyle(qMax(0,it->itemText.length()-1), paraStyle);
+		story->applyStyle(qMax(0,story->length()-1), paraStyle);
 	
-	lastCharWasLineChange = text.right(1) == "\n";
-	inPara = style->target() == "paragraph";
-	lastParagraphStyle = paragraphStyle;
-	if (isFirstWrite)
-		isFirstWrite = false;
+	m_lastCharWasLineChange = text.right(1) == "\n";
+	m_inPara = style->target() == "paragraph";
+	m_lastParagraphStyle = paragraphStyle;
+	if (m_isFirstWrite)
+		m_isFirstWrite = false;
 }
 
 int gtAction::findParagraphStyle(gtParagraphStyle* pstyle)
@@ -251,9 +355,9 @@ int gtAction::findParagraphStyle(gtParagraphStyle* pstyle)
 int gtAction::findParagraphStyle(const QString& name)
 {
 	int pstyleIndex = -1;
-	for (int i = 0; i < textFrame->doc()->paragraphStyles().count(); ++i)
+	for (int i = 0; i < m_textFrame->doc()->paragraphStyles().count(); ++i)
 	{
-		if (textFrame->doc()->paragraphStyles()[i].name() == name)
+		if (m_textFrame->doc()->paragraphStyles()[i].name() == name)
 		{
 			pstyleIndex = i;
 			break;
@@ -268,9 +372,9 @@ int gtAction::applyParagraphStyle(gtParagraphStyle* pstyle)
 	if (pstyleIndex == -1)
 	{
 		createParagraphStyle(pstyle);
-		pstyleIndex = textFrame->doc()->paragraphStyles().count() - 1;
+		pstyleIndex = m_textFrame->doc()->paragraphStyles().count() - 1;
 	}
-	else if (updateParagraphStyles)
+	else if (m_updateParagraphStyles)
 	{
 		updateParagraphStyle(pstyleIndex, pstyle);
 	}
@@ -279,13 +383,13 @@ int gtAction::applyParagraphStyle(gtParagraphStyle* pstyle)
 
 void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 {
-	textFrame->setColumns(fstyle->getColumns());
-	textFrame->setColumnGap(fstyle->getColumnsGap());
-	textFrame->setFillColor(parseColor(fstyle->getBgColor()));
-	textFrame->setFillShade(fstyle->getBgShade());
-	ParagraphStyle newTabs(textFrame->itemText.defaultStyle());
-	newTabs.setTabValues(QList<ParagraphStyle::TabRecord>(*(fstyle->getTabValues())));
-	textFrame->itemText.setDefaultStyle(newTabs);
+	m_textFrame->setColumns(fstyle->getColumns());
+	m_textFrame->setColumnGap(fstyle->getColumnsGap());
+	m_textFrame->setFillColor(parseColor(fstyle->getBgColor()));
+	m_textFrame->setFillShade(fstyle->getBgShade());
+	ParagraphStyle newTabs(m_textFrame->itemText.defaultStyle());
+	newTabs.setTabValues(fstyle->getTabValues());
+	m_textFrame->itemText.setDefaultStyle(newTabs);
 
 // 	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
 // 	int pstyleIndex = findParagraphStyle(pstyle);
@@ -325,7 +429,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 
 void gtAction::getFrameFont(gtFont *font)
 {
-	const CharStyle& style(textFrame->itemText.defaultStyle().charStyle());
+	const CharStyle& style(m_textFrame->itemText.defaultStyle().charStyle());
 	
 	if (!style.isInhFont())
 		font->setName(style.font().scName());
@@ -346,12 +450,12 @@ void gtAction::getFrameFont(gtFont *font)
 
 void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 {
-	fstyle->setColumns(textFrame->Cols);
-	fstyle->setColumnsGap(textFrame->ColGap);
-	fstyle->setBgColor(textFrame->fillColor());
-	fstyle->setBgShade(qRound(textFrame->fillShade()));
+	fstyle->setColumns(m_textFrame->m_columns);
+	fstyle->setColumnsGap(m_textFrame->m_columnGap);
+	fstyle->setBgColor(m_textFrame->fillColor());
+	fstyle->setBgShade(qRound(m_textFrame->fillShade()));
 
-	const ParagraphStyle& vg(textFrame->itemText.defaultStyle());
+	const ParagraphStyle& vg(m_textFrame->itemText.defaultStyle());
 	fstyle->setName(vg.name());
 	fstyle->setLineSpacing(vg.lineSpacing());
 	fstyle->setAdjToBaseline(vg.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing);
@@ -370,6 +474,10 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 		fstyle->setDropCap(vg.hasDropCap());
 	if (!vg.isInhDropCapLines())
 		fstyle->setDropCapHeight(vg.dropCapLines());
+	if (!vg.isInhHasBullet())
+		fstyle->setBullet(vg.hasBullet(), vg.bulletStr());
+	if (!vg.isInhHasNum())
+		fstyle->setNum(vg.hasNum(),vg.numFormat(),vg.numLevel(), vg.numStart(), vg.numPrefix(), vg.numSuffix());
 
 	gtFont font;
 	getFrameFont(&font);
@@ -379,7 +487,7 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 
 void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 {
-	ScribusDoc* currDoc=textFrame->doc();
+	ScribusDoc* currDoc=m_textFrame->doc();
 	for (int i = 0; i < currDoc->paragraphStyles().count(); ++i)
 	{
 		if (currDoc->paragraphStyles()[i].name() == pstyle->getName())
@@ -406,9 +514,9 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 
 	StyleSet<ParagraphStyle> tmp;
 	tmp.create(vg);
-	textFrame->doc()->redefineStyles(tmp, false);
+	m_textFrame->doc()->redefineStyles(tmp, false);
 	
-	m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
+	m_ScMW->contentPalette->updateTextStyles();
 }
 
 void gtAction:: setCharStyleAttributes(gtFont *font, CharStyle& style)
@@ -416,7 +524,7 @@ void gtAction:: setCharStyleAttributes(gtFont *font, CharStyle& style)
 	int flags = font->getFlags();
 	style.erase();
 
-	if ((flags & gtFont::familyWasSet) || (flags & gtFont::weightWasSet))
+	if ((flags & gtFont::familyWasSet) || (flags & gtFont::weightWasSet) || (flags & gtFont::slantWasSet))
 		style.setFont(validateFont(font));
 	if (flags & gtFont::sizeWasSet)
 		style.setFontSize(font->getSize());
@@ -461,11 +569,29 @@ void gtAction::setParaStyleAttributes(gtParagraphStyle *pstyle, ParagraphStyle& 
 	if (flags & gtParagraphStyle::spaceBelowWasSet)
 		style.setGapAfter(pstyle->getSpaceBelow());
 	if (flags & gtParagraphStyle::tabValueWasSet)
-		style.setTabValues(*pstyle->getTabValues());
+		style.setTabValues(pstyle->getTabValues());
 	if (flags & gtParagraphStyle::dropCapWasSet)
 		style.setHasDropCap(pstyle->hasDropCap());
 	if (flags & gtParagraphStyle::dropCapHeightWasSet)
 		style.setDropCapLines(pstyle->getDropCapHeight());
+	if (flags & gtParagraphStyle::bulletWasSet)
+	{
+		style.setHasBullet(pstyle->hasBullet());
+		style.setBulletStr(pstyle->getBullet());
+	}
+	if (flags & gtParagraphStyle::numWasSet)
+	{
+		style.setHasNum(pstyle->hasNum());
+		style.setNumName(pstyle->getName());
+		style.setNumFormat(pstyle->getNumFormat());
+		style.setNumLevel(pstyle->getNumLevel());
+		style.setNumStart(pstyle->getNumStart());
+		style.setNumHigher(true);
+		style.setNumOther(true);
+		style.setNumPrefix(pstyle->getNumPrefix());
+		style.setNumSuffix(pstyle->getNumSuffix());
+	}
+	
 	/*vg.setDropCapOffset(0);*/
 }
 
@@ -479,8 +605,8 @@ void gtAction::removeParagraphStyle(const QString& name)
 void gtAction::removeParagraphStyle(int index)
 {
 	QMap<QString, QString> map;
-	map[textFrame->doc()->paragraphStyles()[index].name()] = "";
-	textFrame->doc()->replaceStyles(map);
+	map[m_textFrame->doc()->paragraphStyles()[index].name()] = "";
+	m_textFrame->doc()->replaceStyles(map);
 }
 
 void gtAction::updateParagraphStyle(const QString&, gtParagraphStyle* pstyle)
@@ -513,12 +639,12 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 
 	StyleSet<ParagraphStyle> tmp;
 	tmp.create(vg);
-	textFrame->doc()->redefineStyles(tmp, false);
-	if (vg.name() != textFrame->doc()->paragraphStyles()[pstyleIndex].name())
+	m_textFrame->doc()->redefineStyles(tmp, false);
+	if (vg.name() != m_textFrame->doc()->paragraphStyles()[pstyleIndex].name())
 	{
 		QMap<QString, QString> map;
-		map[textFrame->doc()->paragraphStyles()[pstyleIndex].name()] = vg.name();
-		textFrame->doc()->replaceStyles(map);
+		map[m_textFrame->doc()->paragraphStyles()[pstyleIndex].name()] = vg.name();
+		m_textFrame->doc()->replaceStyles(map);
 	}
 }
 
@@ -534,8 +660,8 @@ ScFace gtAction::validateFont(gtFont* font)
 
 	QString useFont = font->getName();
 	if ((useFont.isNull()) || (useFont.isEmpty()))
-		useFont = textFrame->itemText.defaultStyle().charStyle().font().scName();
-	else if (prefsManager->appPrefs.AvailFonts[font->getName()].isNone())
+		useFont = m_textFrame->itemText.defaultStyle().charStyle().font().scName();
+	else if (m_prefsManager.appPrefs.fontPrefs.AvailFonts[font->getName()].isNone())
 	{
 		bool found = false;
 		// Do not empty otherwise user may be asked to replace an empty font 
@@ -575,32 +701,32 @@ ScFace gtAction::validateFont(gtFont* font)
 			}
 			if (!found)
 			{
-				if (!prefsManager->appPrefs.GFontSub.contains(font->getName()))
+				if (!m_prefsManager.appPrefs.fontPrefs.GFontSub.contains(font->getName()))
 				{
-					MissingFont *dia = new MissingFont(0, useFont, textFrame->doc());
+					MissingFont *dia = new MissingFont(nullptr, useFont, m_textFrame->doc());
 					dia->exec();
 					useFont = dia->getReplacementFont();
-					prefsManager->appPrefs.GFontSub[font->getName()] = useFont;
+					m_prefsManager.appPrefs.fontPrefs.GFontSub[font->getName()] = useFont;
 					delete dia;
 				}
 				else
-					useFont = prefsManager->appPrefs.GFontSub[font->getName()];
+					useFont = m_prefsManager.appPrefs.fontPrefs.GFontSub[font->getName()];
 			}
 		}
 	}
 
-	if(!textFrame->doc()->UsedFonts.contains(useFont))
-		textFrame->doc()->AddFont(useFont);
-	return prefsManager->appPrefs.AvailFonts[useFont];
+	if(!m_textFrame->doc()->UsedFonts.contains(useFont))
+		m_textFrame->doc()->AddFont(useFont);
+	return m_prefsManager.appPrefs.fontPrefs.AvailFonts[useFont];
 }
 
 QString gtAction::findFontName(gtFont* font)
 {
-	QString ret = QString(); 
+	QString ret;
 	for (uint i = 0; i < static_cast<uint>(gtFont::NAMECOUNT); ++i)
 	{
 		QString nname = font->getName(i);
-		if (! prefsManager->appPrefs.AvailFonts[nname].isNone())
+		if (! m_prefsManager.appPrefs.fontPrefs.AvailFonts[nname].isNone())
 		{
 			ret = nname;
 			break;
@@ -611,36 +737,36 @@ QString gtAction::findFontName(gtFont* font)
 
 double gtAction::getLineSpacing(int fontSize)
 {
-	return ((fontSize / 10.0) * static_cast<double>(textFrame->doc()->typographicSettings.autoLineSpacing) / 100) + (fontSize / 10.0);
+	return ((fontSize / 10.0) * (static_cast<double>(m_textFrame->doc()->typographicPrefs().autoLineSpacing) / 100));
 }
 
 double gtAction::getFrameWidth()
 {
-	return textFrame->width();
+	return m_textFrame->width();
 }
 
 QString gtAction::getFrameName()
 {
-	return QString(textFrame->itemName());
+	return QString(m_textFrame->itemName());
 }
 
 bool gtAction::getUpdateParagraphStyles()
 {
-	return updateParagraphStyles;
+	return m_updateParagraphStyles;
 }
 
 void gtAction::setUpdateParagraphStyles(bool newUPS)
 {
-	updateParagraphStyles = newUPS;
+	m_updateParagraphStyles = newUPS;
 }
 
 bool gtAction::getOverridePStyleFont()
 {
-	return overridePStyleFont;
+	return m_overridePStyleFont;
 }
 void gtAction::setOverridePStyleFont(bool newOPSF)
 {
-	overridePStyleFont = newOPSF;
+	m_overridePStyleFont = newOPSF;
 }
 
 QString gtAction::parseColor(const QString &s)
@@ -650,7 +776,7 @@ QString gtAction::parseColor(const QString &s)
 		return ret; // don't want None to become Black or any color
 	bool found = false;
 	ColorList::Iterator it;
-	for (it = textFrame->doc()->PageColors.begin(); it != textFrame->doc()->PageColors.end(); ++it)
+	for (it = m_textFrame->doc()->PageColors.begin(); it != m_textFrame->doc()->PageColors.end(); ++it)
 	{
 		if (it.key() == s)
 		{
@@ -664,39 +790,33 @@ QString gtAction::parseColor(const QString &s)
 		if( s.startsWith( "rgb(" ) )
 		{
 			QString parse = s.trimmed();
-			QStringList colors = parse.split(',', QString::SkipEmptyParts);
+			QStringList colors = parse.split(',', Qt::SkipEmptyParts);
 			QString r = colors[0].right( ( colors[0].length() - 4 ) );
 			QString g = colors[1];
 			QString b = colors[2].left( ( colors[2].length() - 1 ) );
 			if( r.contains( "%" ) )
 			{
-				r = r.left( r.length() - 1 );
+				r.chop(1);
 				r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
 			}
 			if( g.contains( "%" ) )
 			{
-				g = g.left( g.length() - 1 );
+				g.chop(1);
 				g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
 			}
 			if( b.contains( "%" ) )
 			{
-				b = b.left( b.length() - 1 );
+				b.chop(1);
 				b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
 			}
 			c = QColor(r.toInt(), g.toInt(), b.toInt());
 		}
 		else
-		{
-			QString rgbColor = s.trimmed();
-			if( rgbColor.startsWith( "#" ) )
-				c.setNamedColor( rgbColor );
-			else
-				c = parseColorN( rgbColor );
-		}
+			c.setNamedColor(s.trimmed());
 		found = false;
-		for (it = textFrame->doc()->PageColors.begin(); it != textFrame->doc()->PageColors.end(); ++it)
+		for (it = m_textFrame->doc()->PageColors.begin(); it != m_textFrame->doc()->PageColors.end(); ++it)
 		{
-			if (c == ScColorEngine::getRGBColor(it.value(), textFrame->doc()))
+			if (c == ScColorEngine::getRGBColor(it.value(), m_textFrame->doc()))
 			{
 				ret = it.key();
 				found = true;
@@ -706,27 +826,20 @@ QString gtAction::parseColor(const QString &s)
 		{
 			ScColor tmp;
 			tmp.fromQColor(c);
-			textFrame->doc()->PageColors.insert("FromGetText"+c.name(), tmp);
-			m_ScMW->propertiesPalette->updateColorList();
+			m_textFrame->doc()->PageColors.insert("FromGetText"+c.name(), tmp);
+			m_ScMW->contentPalette->updateColorList();
 			ret = "FromGetText"+c.name();
 		}
 	}
 	return ret;
 }
 
-QColor gtAction::parseColorN(const QString &rgbColor)
-{
-	int r, g, b;
-	keywordToRGB( rgbColor, r, g, b );
-	return QColor( r, g, b );
-}
-
 void gtAction::finalize()
 {
-	if (textFrame->doc()->docHyphenator->AutoCheck)
-		textFrame->doc()->docHyphenator->slotHyphenate(textFrame);
-	textFrame->doc()->regionsChanged()->update(QRectF());
-	textFrame->doc()->changed();
+	if (m_textFrame->doc()->docHyphenator->AutoCheck)
+		m_textFrame->doc()->docHyphenator->slotHyphenate(m_textFrame);
+	m_textFrame->doc()->regionsChanged()->update(QRectF());
+	m_textFrame->doc()->changed();
 }
 
 gtAction::~gtAction()

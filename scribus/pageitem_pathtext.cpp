@@ -24,93 +24,122 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_pathtext.h"
 #include <QGridLayout>
 #include <QImage>
+#include <QLabel>
 #include <QList>
 #include <QPainterPath>
 
-#include <cmath>
 #include <cassert>
 
-#include "page.h"
-#include "pageitem.h"
-#include "prefsmanager.h"
-#include "scpaths.h"
-#include "scpainter.h"
-#include "scraction.h"
-#include "scribus.h"
-#include "scribusstructs.h"
-#include "scribusdoc.h"
-#include "commonstrings.h"
-#include "undomanager.h"
-#include "undostate.h"
 #include "scconfig.h"
 
+#include "commonstrings.h"
+#include "pageitem.h"
+#include "prefsmanager.h"
+#include "scpage.h"
+#include "scpainter.h"
+#include "scpaths.h"
+#include "scraction.h"
+
+#include "scribusstructs.h"
+#include "scribusdoc.h"
+#include "undomanager.h"
+#include "undostate.h"
 #include "util.h"
 #include "util_math.h"
-
-#include "text/nlsconfig.h"
+#include "text/boxes.h"
+#include "text/textlayoutpainter.h"
+#include "text/textshaper.h"
+#include "text/screenpainter.h"
 
 using namespace std;
 
-PageItem_PathText::PageItem_PathText(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
+PageItem_PathText::PageItem_PathText(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
 	: PageItem(pa, PageItem::PathText, x, y, w, h, w2, fill, outline)
 {
 	firstChar = 0;
-	MaxChars = itemText.length();
+	m_maxChars = itemText.length();
 }
 
 
 void PageItem_PathText::layout()
 {
-	QImage pgPix(10, 10, QImage::Format_ARGB32);
+	QImage pgPix(10, 10, QImage::Format_ARGB32_Premultiplied);
 	QRectF rd; // = QRect(0,0,9,9);
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());	
 	DrawObj(painter, rd);
 	painter->end();
 	delete painter;
-	Frame = true;
 	updatePolyClip();
 }
 
 
-void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc)
+void PageItem_PathText::DrawObj_Item(ScPainter *p, const QRectF& cullingArea)
 {
 	itemText.invalidateAll();
 	firstChar = 0;
-	MaxChars = 0;
-	int a;
-	double chs;
-	QString chstr, chstr2, chstr3;
-	ScText *hl;
-	double dx;
-	FPoint point = FPoint(0, 0);
-	FPoint tangent = FPoint(0, 0);
-	uint seg = 0;
-	double segLen = 0;
-	QColor tmp;
-	CurX = Extra;
-	QString cachedStroke = "";
-	QString cachedFill = "";
-	double cachedFillShade = -1;
-	double cachedStrokeShade = -1;
-	QString actStroke = "";
-	QString actFill = "";
-	double actFillShade = -1;
-	double actStrokeShade = -1;
-	QColor cachedFillQ;
-	QColor cachedStrokeQ;
-	if (!m_Doc->layerOutline(LayerNr))
+	m_maxChars = 0;
+	FPoint point(0, 0);
+	FPoint tangent(0, 0);
+	CurX = m_textDistanceMargins.left();
+
+	if (!m_Doc->layerOutline(m_layerID))
 	{
 		if (PoShow)
 		{
 			p->setupPolygon(&PoLine, false);
 			if (NamedLStyle.isEmpty())
 			{
-				if (lineColor() != CommonStrings::None)
+				if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
+				{
+					if (patternStrokePath)
+					{
+						QPainterPath guidePath = PoLine.toQPainterPath(false);
+						DrawStrokePattern(p, guidePath);
+					}
+					else
+					{
+						p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
+						p->setStrokeMode(ScPainter::Pattern);
+						p->strokePath();
+					}
+				}
+				else if (GrTypeStroke > 0)
+				{
+					if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
+						gradientStrokeVal.clear();
+					if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
+						stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
+					if (stroke_gradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+					{
+						if (lineColor() != CommonStrings::None)
+						{
+							p->setBrush(m_strokeQColor);
+							p->setStrokeMode(ScPainter::Solid);
+						}
+						else
+							p->setStrokeMode(ScPainter::None);
+					}
+					else
+					{
+						p->setStrokeMode(ScPainter::Gradient);
+						p->stroke_gradient = stroke_gradient;
+						if (GrTypeStroke == Gradient_Linear)
+							p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
+						else
+							p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
+					}
 					p->strokePath();
+				}
+				else if (lineColor() != CommonStrings::None)
+				{
+					p->setStrokeMode(ScPainter::Solid);
+					p->strokePath();
+				}
 			}
 			else
 			{
-				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+				p->setStrokeMode(ScPainter::Solid);
+				multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 				QColor tmp;
 				for (int it = ml.size()-1; it > -1; it--)
 				{
@@ -124,172 +153,195 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 			}
 		}
 	}
+
 	double totalTextLen = 0.0;
 	double totalCurveLen = 0.0;
 	double extraOffset = 0.0;
-	if (itemText.length() != 0)
+	if (itemText.length() <= 0)
+		return;
+	CurX += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
+
+	textLayout.setStory(&itemText);
+	int spaceCount = 0;
+	double wordExtra = 0;
+
+	TextShaper textShaper(this, itemText, firstChar, true);
+	const QList<GlyphCluster> glyphRuns = textShaper.shape(0, itemText.length()).glyphs();
+	if (glyphRuns.isEmpty())
+		return;
+
+	// enable seamless crossing past the endpoint for closed curve
+	bool curveClosed = PoLine.isBezierClosed();
+	bool canWrapAround = curveClosed;
+
+	for (const GlyphCluster& run : glyphRuns)
 	{
-		CurX += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
-		totalTextLen += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
+		totalTextLen += run.width();
+		if (run.hasFlag(ScLayout_ExpandingSpace))
+			spaceCount++;
 	}
-	segLen = PoLine.lenPathSeg(seg);
-	for (a = firstChar; a < itemText.length(); ++a)
-	{
-		hl = itemText.item(a);
-		chstr = hl->ch;
-		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
-			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
-			continue;
-		if (a < itemText.length()-1)
-			chstr += itemText.text(a+1, 1);
-		hl->glyph.yadvance = 0;
-		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
-		hl->glyph.shrink();
-		if (hl->ch == SpecialChars::OBJECT)
-			totalTextLen += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
-		else
-			totalTextLen += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
-	}
-	for (uint segs = 0; segs < PoLine.size()-3; segs += 4)
+
+	for (int segs = 0; segs < PoLine.size()-3; segs += 4)
 	{
 		totalCurveLen += PoLine.lenPathSeg(segs);
 	}
-	if ((itemText.defaultStyle().alignment() != 0) && (totalCurveLen >= totalTextLen + Extra))
+	if ((itemText.paragraphStyle(0).alignment() != ParagraphStyle::LeftAligned) && (totalCurveLen >= totalTextLen + m_textDistanceMargins.left()))
 	{
-		if (itemText.defaultStyle().alignment() == 2)
+		if (itemText.paragraphStyle(0).alignment() == ParagraphStyle::RightAligned)
 		{
-			CurX = totalCurveLen  - totalTextLen;
-			CurX -= Extra;
+			CurX = totalCurveLen - totalTextLen;
+			CurX -= m_textDistanceMargins.left();
 		}
-		if (itemText.defaultStyle().alignment() == 1)
-			CurX = (totalCurveLen - totalTextLen) / 2.0;
-		if ((itemText.defaultStyle().alignment() == 3) || (itemText.defaultStyle().alignment() == 4))
-			extraOffset = (totalCurveLen - Extra  - totalTextLen) / static_cast<double>(itemText.length());
+		if (itemText.paragraphStyle(0).alignment() == ParagraphStyle::Centered)
+			CurX = ((totalCurveLen - totalTextLen) / 2.0) + m_textDistanceMargins.left();
+		if (itemText.paragraphStyle(0).alignment() == ParagraphStyle::Justified)
+		{
+			if (spaceCount != 0)
+			{
+				extraOffset = 0;
+				wordExtra = (totalCurveLen - m_textDistanceMargins.left()  - totalTextLen) / static_cast<double>(spaceCount);
+			}
+			else
+			{
+				extraOffset = (totalCurveLen - m_textDistanceMargins.left()  - totalTextLen) / static_cast<double>(itemText.length());
+				wordExtra = 0;
+			}
+		}
+		if (itemText.paragraphStyle(0).alignment() == ParagraphStyle::Extended)
+			extraOffset = (totalCurveLen - m_textDistanceMargins.left() - totalTextLen) / static_cast<double>(itemText.length());
 	}
-#ifndef NLS_PROTO
+	int firstRun = 0;
+	if (!curveClosed && (totalTextLen + m_textDistanceMargins.left() > totalCurveLen) && (itemText.paragraphStyle(0).direction() == ParagraphStyle::RTL))
+	{
+		double totalLenDiff = totalTextLen + m_textDistanceMargins.left() - totalCurveLen;
+		while (firstRun < glyphRuns.count())
+		{
+			const GlyphCluster &run = glyphRuns.at(firstRun);
+			totalLenDiff -= run.width();
+			firstRun++;
+			if (totalLenDiff <= 0)
+				break;
+		}
+	}
+
+	int currPathIndex = 0;
 	QPainterPath guidePath = PoLine.toQPainterPath(false);
 	QList<QPainterPath> pathList = decomposePath(guidePath);
 	QPainterPath currPath = pathList[0];
-	int currPathIndex = 0;
-	for (a = firstChar; a < itemText.length(); ++a)
-	{
-		CurY = 0;
-		hl = itemText.item(a);
-		chstr = hl->ch;
-		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
-			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
-			continue;
-		chs = hl->fontSize();
-		if (a < itemText.length()-1)
-			chstr += itemText.text(a+1, 1);
-		hl->glyph.yadvance = 0;
-		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
-		hl->glyph.shrink();                                                           // HACK
-		if (hl->ch == SpecialChars::OBJECT)
-			dx = (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH / 2.0;
-		else
-			dx = hl->glyph.wide() / 2.0;
-		CurX += dx;
+	PathLineBox* linebox = new PathLineBox();
 
+	double lastPathPerc = currPath.percentAtLength(CurX);
+	double totalPathPerc = 0.0;
+
+	for (int i = firstRun; i < glyphRuns.length(); i++)
+	{
+		const GlyphCluster &run = glyphRuns.at(i);
+		double dx = run.width() / 2.0;
+		CurX += dx;
+		CurY = 0;
 		double currPerc = currPath.percentAtLength(CurX);
 		if (currPerc >= 0.9999999)
 		{
+			// sticks out to the next segment
 			currPathIndex++;
 			if (currPathIndex == pathList.count())
-				break;
+			{
+				if (!curveClosed || !canWrapAround)
+				{
+					m_maxChars = run.firstChar();
+					break;
+				}
+				canWrapAround = false;
+				currPathIndex = 0;
+			}
+			CurX -= currPath.length();
 			currPath = pathList[currPathIndex];
-			CurX = dx;
 			currPerc = currPath.percentAtLength(CurX);
+			lastPathPerc = 0.0;
 		}
+
+		// Prevent total text length to exceed the length of path
+		totalPathPerc += (currPerc - lastPathPerc);
+		if (lastPathPerc > currPerc)
+			totalPathPerc -= 1.0;
+		if (totalPathPerc >= pathList.count() - 1e-7)
+		{
+			m_maxChars = run.firstChar();
+			break;
+		}
+		lastPathPerc = currPerc;
+
 		double currAngle = currPath.angleAtPercent(currPerc);
-#if QT_VERSION  >= 0x040400
 		if (currAngle <= 180.0)
 			currAngle *= -1.0;
 		else
 			currAngle = 360.0 - currAngle;
-#endif
 		QPointF currPoint = currPath.pointAtPercent(currPerc);
 		tangent = FPoint(cos(currAngle * M_PI / 180.0), sin(currAngle * M_PI / 180.0));
 		point = FPoint(currPoint.x(), currPoint.y());
-		hl->glyph.xoffset = 0;
-		hl->PtransX = point.x();
-		hl->PtransY = point.y();
-		hl->PRot    = currAngle * M_PI / 180.0;
-		hl->PDx     = dx;
-		QMatrix trafo = QMatrix( 1, 0, 0, -1, -dx, 0 );
+		QTransform trafo = QTransform( 1, 0, 0, -1, -dx, 0 );
 		if (textPathFlipped)
-			trafo *= QMatrix(1, 0, 0, -1, 0, 0);
+			trafo *= QTransform(1, 0, 0, -1, 0, 0);
 		if (textPathType == 0)
-			trafo *= QMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() ); // ID's Rainbow mode
+			trafo *= QTransform( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() ); // ID's Rainbow mode
 		else if (textPathType == 1)
-			trafo *= QMatrix( 1, 0, 0, -1, point.x(), point.y() ); // ID's Stair Step mode
+			trafo *= QTransform( 1, 0, 0, -1, point.x(), point.y() ); // ID's Stair Step mode
 		else if (textPathType == 2)
 		{
 			double a = 1;
 			if (tangent.x() < 0)
 				a = -1;
 			if (fabs(tangent.x()) > 0.1)
-				trafo *= QMatrix( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x(), point.y() ); // ID's Skew mode
+				trafo *= QTransform( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x(), point.y() ); // ID's Skew mode
 			else
-				trafo *= QMatrix( a, 4 * a, 0, -1, point.x(), point.y() );
+				trafo *= QTransform( a, 4 * a, 0, -1, point.x(), point.y() );
 		}
-		QMatrix sca = p->worldMatrix();
-		trafo *= sca;
-		p->save();
-		QMatrix savWM = p->worldMatrix();
-		p->setWorldMatrix(trafo);
-		if (!m_Doc->RePos)
+		trafo.translate(0, BaseOffs);
+
+		const CharStyle& cStyle(run.style());
+		double scaleV = cStyle.scaleV() / 1000.0;
+		double offset = (cStyle.fontSize() / 10) * (cStyle.baselineOffset() / 1000.0);
+		double ascent = cStyle.font().ascent(cStyle.fontSize()/10.00) * scaleV + offset;
+		double descent = cStyle.font().descent(cStyle.fontSize()/10.00) * scaleV - offset;
+		linebox->setAscent(ascent);
+		linebox->setDescent(descent);
+		Box* box;
+		if (run.object().getPageItem(m_Doc))
 		{
-			actFill = itemText.charStyle(a).fillColor();
-			actFillShade = itemText.charStyle(a).fillShade();
-			if (actFill != CommonStrings::None)
-			{
-				p->setFillMode(ScPainter::Solid);
-				if ((cachedFillShade != actFillShade) || (cachedFill != actFill))
-				{
-					SetQColor(&tmp, actFill, actFillShade);
-					p->setBrush(tmp);
-					cachedFillQ = tmp;
-					cachedFill = actFill;
-					cachedFillShade = actFillShade;
-				}
-				else
-					p->setBrush(cachedFillQ);
-			}
-			else
-				p->setFillMode(ScPainter::None);
-			actStroke = itemText.charStyle(a).strokeColor();
-			actStrokeShade = itemText.charStyle(a).strokeShade();
-			if (actStroke != CommonStrings::None)
-			{
-				if ((cachedStrokeShade != actStrokeShade) || (cachedStroke != actStroke))
-				{
-					SetQColor(&tmp, actStroke, actStrokeShade);
-					p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-					cachedStrokeQ = tmp;
-					cachedStroke = actStroke;
-					cachedStrokeShade = actStrokeShade;
-				}
-				else
-					p->setPen(cachedStrokeQ, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-			}
-			p->translate(0.0, BaseOffs);
-			if (hl->ch == SpecialChars::OBJECT)
-				DrawObj_Embedded(p, cullingArea, itemText.charStyle(a), hl->embedded.getItem());
-			else
-				drawGlyphs(p, itemText.charStyle(a), hl->glyph);
+			box = new ObjectBox(run, this);
+			box->setAscent(this->getVisualBoundingBox(run.object()).height());
+			box->setDescent(0);
 		}
-		p->setWorldMatrix(savWM);
-		p->restore();
-		MaxChars = a+1;
-		CurX -= dx;
-		if (hl->ch == SpecialChars::OBJECT)
-			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
 		else
-			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
+		{
+			box = new GlyphBox(run);
+			box->setAscent(linebox->ascent());
+			box->setDescent(linebox->descent());
+		}
+
+		box->setMatrix(trafo);
+		linebox->addBox(box);
+
+		m_maxChars = run.lastChar() + 1;
+		CurX -= dx;
+		CurX += run.width() + cStyle.fontSize() * cStyle.tracking() / 10000.0 + extraOffset;
+		if (run.hasFlag(ScLayout_ExpandingSpace))
+			CurX += wordExtra;
 	}
-	MaxChars++;  // ugly Hack
-#endif
+
+	textLayout.addColumn(0, 0);
+	textLayout.appendLine(linebox);
+
+	if (!m_Doc->RePos)
+	{
+		int fm = p->fillMode();
+		p->setFillMode(ScPainter::Solid);
+		p->save();
+		ScreenPainter painter(p, this);
+		textLayout.render(&painter);
+		p->setFillMode(fm);
+		p->restore();
+	}
 }
 
 bool PageItem_PathText::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGroupLayout)
@@ -326,7 +378,7 @@ bool PageItem_PathText::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGrou
 	
 	linesCT->setText(tr("Lines: "));
 	infoGroupLayout->addWidget( linesCT, 2, 0, Qt::AlignRight );
-	linesT->setText(QString::number(itemText.lines()));
+	linesT->setText(QString::number(textLayout.lines()));
 	infoGroupLayout->addWidget( linesT, 2, 1 );
 	
 	
@@ -348,35 +400,48 @@ bool PageItem_PathText::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGrou
 	return true;
 }
 
-/*
-bool PageItem_PathText::createContextMenu(QMenu *menu, int step)
-{
-	QMap<QString, QPointer<ScrAction> > actions = doc()->scMW()->scrActions;
-	
-	if (menu == 0) return false;
-	
-	switch(step) {
-		case 10:
-			menu->addSeparator();
-			menu->addAction(actions["toolsEditWithStoryEditor"]);
-			break;
-		case 30:
-			menu->addAction(actions["itemConvertToOutlines"]);
-		break;
-		default:
-			return false;
-	}
-	return true;
-}
-*/
-
 void PageItem_PathText::applicableActions(QStringList & actionList)
 {
 	actionList << "toolsEditWithStoryEditor";
 	actionList << "itemConvertToOutlines";
 }
 
-QString PageItem_PathText::infoDescription()
+QString PageItem_PathText::infoDescription() const
 {
 	return QString();
+}
+
+void PageItem_PathText::getVisualBoundingRect(double * x1, double * y1, double * x2, double * y2) const
+{
+	PageItem::getVisualBoundingRect(x1, y1, x2, y2);
+	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	QTransform clipTrans;
+	clipTrans.translate(m_xPos, m_yPos);
+	clipTrans.rotate(m_rotation);
+	totalRect = totalRect.united(QRectF(clipTrans.mapRect(Clip.boundingRect())));
+	totalRect.getCoords(x1, y1, x2, y2);
+}
+
+double PageItem_PathText::visualXPos() const
+{
+	double extraSpace = visualLineWidth() / 2.0;
+	return qMin(m_xPos + QRectF(Clip.boundingRect()).x(), m_xPos - extraSpace);
+}
+
+double PageItem_PathText::visualYPos() const
+{
+	double extraSpace = visualLineWidth() / 2.0;
+	return qMin(m_yPos + QRectF(Clip.boundingRect()).y(), m_yPos - extraSpace);
+}
+
+double PageItem_PathText::visualWidth() const
+{
+	double extraSpace = visualLineWidth();
+	return qMax(QRectF(Clip.boundingRect()).width(), m_width + extraSpace);
+}
+
+double PageItem_PathText::visualHeight() const
+{
+	double extraSpace = visualLineWidth();
+	return qMax(QRectF(Clip.boundingRect()).height(), m_height + extraSpace);
 }

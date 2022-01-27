@@ -6,7 +6,7 @@
 # 2004/07/11 English bu Owen (edit pv)
 # 2004/07/28 French by fredd
 # 2004/08/25 Slovak by Zdenko Podobny
-# 2004/09/13 more polish by Mikolaj Machowski <mikmach@wp.pl>  (vim-LaTeX-Suite)
+# 2004/09/13 more polish by Mikolaj Machowski <mikmach@wp.pl>  (vim-LaTeX-Suite)
 # 2005/02/07 Brazilian Portguese by Ludi Maciel & Frederico Guimarães
 # 2005/05/17 Claudio Beccari <claudio.beccari@polito.it> notices about
 #            ISO regulations in the case of the physics
@@ -14,6 +14,7 @@
 # 2005/08/28 german by Christoph Schäfer <christoph-schaefer@gmx.de>
 # 2006/05/15 Estonian by Marek Laane
 # 2007/05/02 Italian by Alessandro Rimoldi <http://ideale.ch/contact/>
+# 2019/04/21 Croatian by Milo Ivir <mail@milotype.de>
 #
 #
 # Use UTF8 as coding of this file!
@@ -27,10 +28,30 @@
 
 
 #  English stuff START here
-en=Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
+en= Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
 # claudio's fix en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
 en= kg, g, mg, oz, lb, cwt, km, m, cm, mm,
 #  English stuff - THE END
+
+
+#  Croatian short words START here
+## single/double letters
+hr=A ,Da ,Do ,I ,Iz ,Ja ,Je ,K ,Ka ,Na ,Ne ,Ni ,No ,O ,Od ,Pa ,Po ,S ,Sa ,Ta ,Te ,Ti ,To ,Tu ,U ,Uz ,
+## Titles and degrees
+hr=Dr. ,dr. ,Mr. ,mr. ,Prof. ,prof. ,dipl. ing.,
+## measures
+hr= mg, g, kg, t,
+hr= μm, mm, cm, dm, m, km, mm², cm², dm², m², km², ha, mm³, cm³, dm³, m³, km³,
+hr= kB, MB, GB, TB, dpi, DPI,
+hr= l, hl, cl, dl, ml,
+hr= s, min, h, god., g.,
+hr= km/h, m/s, m/s²,
+hr= KWh, kW, V,
+hr= Hz, kHz, MHz, GHz, mA, A, cd, mol, K, lm, lx, Ω, kΩ,
+hr= %, ‰, ‱, °, ℃, °C,
+## Misc
+hr= …,i dr.,i sl., itd.,§ ,čl. , EUR, €, HRK, kuna,$ ,ul. ,Br. ,br. ,Str. ,str. ,g. ,r. ,† ,‡ ,d. d.,d. o. o.,j. t. d.,t. d.,n. r.,
+#  Croatian short words - THE END
 
 
 #  Czech short words START here
@@ -45,20 +66,36 @@ cs=ing. ,Ing. ,Dr. ,dr. ,mudr. ,Mudr. ,mgr. ,Mgr. ,
 #  Czech short words - THE END
 
 
-#   Polish short words START here
-##  "zawieszone spójniki" (hanging conjunctions)
-pl=a ,i ,o ,w ,u ,z ,A ,E ,I ,O ,W ,U ,Z ,
-## measure units (miary i wagi)
-pl= kg, m, g, l, s, %, zł, km, mm, ft, yd, cm, MM, oz, pd,
-## degrees + ranks (tytuły i stopnie)
-pl=inż. ,dr ,dr. ,doc. ,mgr ,mgr. ,prof. ,post. ,sierż. ,asp. ,kom. ,insp. ,szer. ,kpr. ,plut. ,chor. ,ppor. ,por. ,kpt. ,mjr ,mjr. ,ppłk. ,płk. ,gen. ,
-## bibliographic entries:
-pl=str. ,ryc. ,rys. ,tab. ,art. ,vol. ,nr ,tabl. ,rozdz. ,ss. ,s. ,t. ,z. ,
-## degrees, ranks:
-pl=sir ,prof. ,hab. ,red. ,min. ,przew. ,mgr ,bp ,ks. ,o. ,oo. ,św. ,
-## measure units:
-pl=gr, ha, t, mies, godz, min, sek, mln, mld, tys.,
-#   Polish short words - THE END
+# Danish stuff START here
+# Titles
+da= hr., hr, fr., fru, frk., frk,
+# Weight
+da= kg, g, mg, km, m, m2, cm, mm, l, liter, dl, ml,
+# Date and time
+da= kl., kl, d.,
+# Danish stuff - THE END
+
+
+#  German short words START here
+## Titles and degrees
+de= Dr. ,Prof. ,Hr. ,Hrn. ,Fr. ,Frl. ,Frhr. ,StR ,OStR ,AR ,OAR ,RA ,RAe , MDB, MdB, MDL, MdL, MEP, M.A., M. A.,
+## physics and math
+de= t, kg, g, mg, km, m, cm, mm, qm, ha, l, L, hl, HL, cl, dl, min, Min., h, s, Hz, kHz, KHz, MHz, kW, m/s, km/h, MEZ, Mrd., Mrd, Mio., Mio, Bio., PS, rm, U/min, v. H., v.H., %,
+## Misc
+de= d. h. ,d.h. , a. a. O., a.a.O.,ŕ ,§ ,§§ , EUR, USD, DM, GBP, A. D. , A.D., a. D., a.D.,Abb. ,Best.-Nr. ,Nr. ,No. , d. Ä., d.Ä., d. Gr., d.Gr., d. J., d.J., d. M., d.M., n. M., n.M., n. J., n.J., dgl., et al., e.a., e. a.,gegr. ,i. J. , i. R., Jh., o. ä., o.ä.,rd. , jun., sen., u. d. M., u.d.M., ü. d. M., ü.d.M., v. Chr., v.Chr., n. Chr., n.Chr., v. J., v.J., v. M., v.M., & ,
+#  German short words - THE END
+
+
+#  Estonian short words START here
+## Tiitlid ja kõnetused
+et= Hr. ,hr. ,Hr ,hr ,Pr. ,pr. ,Pr ,pr ,Prl. ,prl. ,Prl ,prl ,Sm. ,sm. ,Prof. ,prof. ,Dr. ,dr. , jun., sen.,Kod. ,kod. ,Kod ,kod ,Lp. ,Lp ,lp. ,lp ,V.a. ,
+## Mõõtühikud
+et= t, kg, g, ts, km, m, cm, mm, ha, ml, l, dl, cl, min, sek, Hz, kHz, MHz, km/h, m/s, kW, W, kV, V, mV, A, mA, kWh,
+## Rahaühikud ja muud märgid
+et= EEK, USD,§ , & , $ , €,
+## Muud lühendid
+et= a., AS , eKr, e.m.a., jj, jm, jms, jmt, jne, jpt, jt, kd, kk, kr, lk , m.a.j., mnt,MTÜ ,nn ,nr ,nt ,n-ö , OÜ , pKr,p.o ,sh , sl,s.o , spl,st ,s.t ,tel. ,tel , tk, tl, tn,v.a , vkj, vms,vrd ,vt. ,vt , õa,õp. ,õpil. ,
+#  Estonian short words - THE END
 
 
 #  French short words START here
@@ -69,6 +106,80 @@ fr= kg, g, km, cm, mm, hl, %, °,
 ## Misc
 fr= €,« , », :, $, ;, !, ?,
 #  French short words - THE END
+
+
+# Hungarian short words START here – magyar rövid szavak
+## Mondatkezdés sorvégi tiltása
+hu=A ,E ,Ő ,
+## Megszólítás
+hu=Dr. ,dr. ,ifj. ,id. ,szül. ,
+## Pénznemek
+hu= Ft, €, $, £, ¥, HUF, GBP, USD, AUD, EUR,
+## Jogi
+hu= §, bek., sz.,
+## Idő
+hu=Kr. e. ,Kr. u. ,i. sz. ,
+## Egyéb
+hu= em.,fszt. ,mfszt. , o., old.,
+## Gyakori mértékegységek: Szóköz nélkül kapcsolódik a számhoz a fokjel (90°), a százalékjel (100%), az ezrelékjel (1000‰).
+hu= kg, m, s, K, cd, mol, dkg, mg, km, cm, mm, μm, g, m/s, °C, t, Hz, kHz, MHz, GHz, km/h, kW, W, mA, kWh, dl, l, min, kB, MB, GB, TB, Ω, kΩ,
+## Bibliai könyvek
+hu=Ter ,1Móz ,Kiv ,2Móz ,Lev ,3Móz ,Szám ,4Móz ,MTörv ,5Móz ,Józs ,Bír ,Rut ,Ruth ,1Sám ,2Sám ,1Kir ,2Kir ,1Krón ,2Krón ,Ezd ,Ezsdr ,Neh ,Tób ,Jud ,Eszt ,1Mak ,2Mak ,Jób ,Zsolt ,Péld ,Préd ,Én ,Bölcs ,Sir ,Iz ,Ézsa ,Jer ,Siral ,Jsir ,Bár ,Ez ,Dán ,Oz ,Hós ,Jo ,Jóel ,Ám ,Abd ,Jón ,Mik ,Náh ,Hab ,Szof ,Zof ,Ag ,Hag ,Zak ,Mal ,Mt ,Mk ,Lk ,Jn ,ApCsel ,Róm ,1Kor ,2Kor ,Gal ,Ef ,Fil ,Kol ,1Tessz ,2Tessz ,1Tim ,2Tim ,Tit ,Filem ,Zsid ,Jak ,1Pét ,2Pét ,1Jn ,2Jn ,3Jn ,Júd ,Jel ,
+# Hungarian short words – THE END
+
+
+#  Italian short words START here
+## Titles 
+it=Sig. ,Sigg. ,Sig.ra , Sig.na, Dott. ,Dott.ssa. ,Prof. ,Comm. ,Mons. ,Rev. ,On. ,Rag. ,Egr. ,Spett. ,Ing. ,
+it=sig. ,sigg. ,sig.ra , sig.na, dott. ,dott.ssa. ,prof. ,comm. ,mons. ,rev. ,on. ,rag. ,egr. ,spett. ,ing. ,
+## Post
+it=c/o ,C.P. ,v. ,V. ,v.le ,V.le ,
+#  Holies
+it=S. ,S.ta ,
+## Measure units
+it= g, gr, kg, q, t,
+it= mm, cm, m, km, Km,
+it= ha, cmq, cmc, mc, mq, kmq, Kmq,
+it= s, min., h,
+it= km/h, Km/h, m/s,
+it= KWh, kW, V,
+it= Hz, MHz, KHz, kHz, mA,
+it= %,
+## Finance
+it= EUR, €, $, £, CHF, Fr.s.,
+it= S.A., SA, S.p.A., Spa, S.r.l, Srl, S.n.c, Snc,
+## Bibliographic entries
+it=p. ,pp. ,pag. ,pagg. ,par. ,v. ,vol. ,voll. , ed.,tab. , Tab. ,
+## Misc
+it=N° ,
+#  Italian short words - THE END
+
+
+#   Polish short words START here
+##  "zawieszone spójniki" (hanging conjunctions)
+pl=a ,i ,o ,w ,u ,z ,A ,E ,I ,O ,W ,U ,Z ,
+## measure units (miary i wagi)
+pl= kg, m, g, l, s, %, zł, km, mm, ft, yd, cm, MM, oz, pd,
+## degrees + ranks (tytuły i stopnie)
+pl=inż. ,dr ,dr. ,doc. ,mgr ,mgr. ,prof. ,post. ,sierż. ,asp. ,kom. ,insp. ,szer. ,kpr. ,plut. ,chor. ,ppor. ,por. ,kpt. ,mjr ,mjr. ,ppłk. ,płk. ,gen. ,
+pl=sir ,hab. ,red. ,min. ,przew. ,mgr ,bp ,ks. ,o. ,oo. ,św. ,
+## bibliographic entries:
+pl=str. ,ryc. ,rys. ,tab. ,art. ,vol. ,nr ,tabl. ,rozdz. ,ss. ,s. ,t. ,z. ,
+## measure units:
+pl=gr, ha, t, mies, godz, min, sek, mln, mld, tys.,
+## additional:
+pl=że ,ul. ,pl. ,al. ,ok. , r.,ur. ,
+#   Polish short words - THE END
+
+
+# Português do Brasil começa AQUI
+## pronomes de tratamento
+pt_BR=Sr. ,Sra. ,Srª. ,Dr. ,Dra. ,Drª. ,Prof. ,Profa. ,Profª ,
+## unidades de medida
+pt_BR= µm, nm, mm, cm, dm, m, dam, hm, km, mg, cg, dg, g, dag, hg, kg, pt, pol, V, Kv, W, Kb, Mb, Gb, Tb, seg, min, h, C, F, N, J, W, V, Ω, pol., pol, pts., pts, bps, BPS, dpi, DPI,
+## outros
+pt_BR=R$ ,€ ,$ ,US$ ,£ , %, ltda., LTDA., S.A., s.a.,nº ,Nº ,apto. ,APTO. ,
+# Brazilian Portguese - FIM
 
 
 #  Slovak short words START here
@@ -89,76 +200,18 @@ sk= ArtD., CSc., DrSc., PhD.,
 #  Slovak short words - THE END
 
 
-# Português do Brasil começa AQUI
-## pronomes de tratamento
-pt_BR=Sr. ,Sra. ,Srª. ,Dr. ,Dra. ,Drª. ,Prof. ,Profa. ,Profª ,
-## unidades de medida
-pt_BR= µm, nm, mm, cm, dm, m, dam, hm, km, mg, cg, dg, g, dag, hg, kg, pt, pol, V, Kv, W, Kb, Mb, Gb, Tb, seg, min, h, C, F, N, J, W, V, Ω, pol., pol, pts., pts, bps, BPS, dpi, DPI,
-## outros
-pt_BR=R$ ,€ ,$ ,US$ ,£ , %, ltda., LTDA., S.A., s.a.,nº ,Nº ,apto. ,APTO. ,
-# Brazilian Portguese - FIM
-
-
-
-#  German short words START here
-## Titles and degrees
-de=Dr. ,Prof. ,Hr. ,Hrn. ,Fr. ,Frl. ,Frhr. ,StR ,OStR ,AR ,OAR ,RA ,RAe , MDB, MdB, MDL, MdL, MEP, M.A., M. A.,
-## physics and math
-de= t, kg, g, mg, km, m, cm, mm, qm, ha, l, L, hl, HL, cl, dl, min, Min., h, s, Hz, kHz, KHz, MHz, kW, m/s, km/h, MEZ, Mrd., Mrd, Mio., Mio, Bio., PS, rm, U/min, v. H., v.H., %,
-## Misc
-de=d. h. ,d.h. , a. a. O., a.a.O.,ŕ ,§ ,§§ , EUR, USD, DM, GBP, A. D. , A.D., a. D., a.D.,Abb. ,Best.-Nr. ,Nr. ,No. , d. Ä., d.Ä., d. Gr., d.Gr., d. J., d.J., d. M., d.M., n. M., n.M., n. J., n.J., dgl., et al., e.a., e. a.,gegr. ,i. J. , i. R., Jh., o. ä., o.ä.,rd. , jun., sen., u. d. M., u.d.M., ü. d. M., ü.d.M., v. Chr., v.Chr., n. Chr., n.Chr., v. J., v.J., v. M., v.M., & ,
-#  German short words - THE END
-
-
 #  Russian short words START here
 ## физические и математические единицы
 ru= кг, г, м, см, мм, мл, л, гл, с, мс, Вт, кВт, мВт, В, А, %,
 ## разные знаки и символы валют
 ru= § , & , $, *, €,
 ## академические звания
-ru=проф. , Проф. ,
+ru= проф. , Проф. ,
 ## география
-ru=ул. , корп. ,
+ru= ул. , корп. ,
 ## предлоги, союзы и пр.
-ru=с ,на ,а ,в ,у ,и ,о ,я ,к ,А ,О ,И ,У ,В ,С ,К ,
+ru= с ,на ,а ,в ,у ,и ,о ,я ,к ,А ,О ,И ,У ,В ,С ,К ,
 #  Russian short words - THE END
 
-
-#  Estonian short words START here
-## Tiitlid ja kõnetused
-et=Hr. ,hr. ,Hr ,hr ,Pr. ,pr. ,Pr ,pr ,Prl. ,prl. ,Prl ,prl ,Sm. ,sm. ,Prof. ,prof. ,Dr. ,dr. , jun., sen.,Kod. ,kod. ,Kod ,kod ,Lp. ,Lp ,lp. ,lp ,V.a. ,
-## Mõõtühikud
-et= t, kg, g, ts, km, m, cm, mm, ha, ml, l, dl, cl, min, sek, Hz, kHz, MHz, km/h, m/s, kW, W, kV, V, mV, A, mA, kWh,
-## Rahaühikud ja muud märgid
-et= EEK, USD,§ , & , $ , €,
-## Muud lühendid
-et= a., AS , eKr, e.m.a., jj, jm, jms, jmt, jne, jpt, jt, kd, kk, kr, lk , m.a.j., mnt,MTÜ ,nn ,nr ,nt ,n-ö , OÜ , pKr,p.o ,sh , sl,s.o , spl,st ,s.t ,tel. ,tel , tk, tl, tn,v.a , vkj, vms,vrd ,vt. ,vt , õa,õp. ,õpil. ,
-#  Estonian short words - THE END
-
-#  Italian short words START here
-## Titles 
-it=Sig. ,Sigg. ,Sig.ra , Sig.na, Dott. ,Dott.ssa. ,Prof. ,Comm. ,Mons. ,Rev. ,On. ,Rag. ,Egr. ,Spett. ,Ing. ,
-it=sig. ,sigg. ,sig.ra , sig.na, dott. ,dott.ssa. ,prof. ,comm. ,mons. ,rev. ,on. ,rag. ,egr. ,spett. ,ing. ,
-## Post
-it=c/o ,C.P. ,v. ,V. ,v.le ,V.le ,
-#  Holies
-it=S. ,S.ta ,
-## Measure units
-it= g, gr, kg, q, t,
-it= mm, cm, m, km, Km
-it= ha, cmq, cmc, mc, mq, kmq, Kmq
-it= s, min., h,
-it= km/h, Km/h, m/s,
-it= KWh, kW, V,
-it= Hz, MHz, KHz, kHz, mA,
-it= %,
-## Finance
-it= EUR, €, $, £, CHF, Fr.s.,
-it= S.A., SA, S.p.A., Spa, S.r.l, Srl, S.n.c, Snc,
-## Bibliographic entries
-it=p. ,pp. ,pag. ,pagg. ,par. ,v. ,vol. ,voll. , ed.,tab. , Tab. ,
-## Misc
-it=N° ,
-#  Italian short words - THE END
 
 # end of the config file

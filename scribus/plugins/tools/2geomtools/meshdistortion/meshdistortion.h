@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License      *
 *   along with this program; if not, write to the                          *
 *   Free Software Foundation, Inc.,                                        *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
 #ifndef MESHDISTORTION_H
@@ -43,14 +43,16 @@ class PLUGIN_API MeshDistortionPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		MeshDistortionPlugin();
 		virtual ~MeshDistortionPlugin();
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
-		PageItem *patternItem;
-		ScribusDoc* currDoc;
+		bool run(ScribusDoc* doc, const QString& target = QString()) override;
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
+		void addToMainWindowMenu(ScribusMainWindow *) override {};
+		
+	private:
+		PageItem *m_patternItem;
+		ScribusDoc* m_doc;
 };
 
 extern "C" PLUGIN_API int meshdistortion_getPluginAPIVersion();

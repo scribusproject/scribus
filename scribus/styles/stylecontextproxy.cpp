@@ -18,7 +18,7 @@
 #include "style.h"
 #include "stylecontextproxy.h"
 
-const Style* StyleContextProxy::resolve(const QString& name) const
+const BaseStyle* StyleContextProxy::resolve(const QString& name) const
 {
 	const StyleContext* context = m_default->context();
 	//	if (!name.isEmpty())
@@ -28,8 +28,7 @@ const Style* StyleContextProxy::resolve(const QString& name) const
 	
 	if (name.isEmpty() || ! context)
 		return m_default;
-	else if (this == context)
-		return NULL;
-	else
-		return context->resolve(name);
+	if (this == context)
+		return nullptr;
+	return context->resolve(name);
 }

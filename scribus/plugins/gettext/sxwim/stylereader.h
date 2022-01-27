@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef STYLEREADER_H
@@ -35,53 +35,61 @@ for which a new license (GPL+exception) is in place.
  #include <libxml/SAX.h>
 #endif
 #include <QMap>
-#include <QXmlAttributes>
+
 #include <gtstyle.h>
 #include <gtwriter.h>
 
 typedef QMap<QString, gtStyle*> StyleMap;
 typedef QMap<QString, QString> FontMap;
+typedef QMap<QString, QString> SXWAttributesMap;
 typedef QMap<QString, int> CounterMap;
 
 class StyleReader
 {
+public:
+	StyleReader(const QString& documentName, gtWriter *wr, bool textOnly, bool prefix, bool combineStyles = true);
+	~StyleReader();
+	
+	void parse(const QString& fileName);
+
+	static void startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts);
+	static void endElement(void *user_data, const xmlChar * name);
+	bool startElement(const QString &name, const SXWAttributesMap &attrs);
+	bool endElement(const QString &name);
+
+	gtStyle* getDefaultStyle();
+	gtStyle* getStyle(const QString& name);
+	void setStyle(const QString& name, gtStyle* style);
+	QString getFont(const QString& key);
+
+	bool updateStyle(gtStyle* style, gtStyle* parent2Style, const QString& key, const QString& value);
+
 private:
 	static StyleReader *sreader;
-	gtWriter *writer;
-	bool importTextOnly;
-	bool usePrefix;
-	bool packStyles;
-	bool readProperties;
+
+	gtWriter *writer { nullptr };
+	bool importTextOnly { false };
+	bool usePrefix { false };
+	bool packStyles { false };
+	bool readProperties { false };
 	QString docname;
 	StyleMap styles;
 	StyleMap listParents;
 	StyleMap attrsStyles;
 	CounterMap pstyleCounts;
 	FontMap fonts;
-	gtStyle* currentStyle;
-	gtStyle* parentStyle;
-	bool inList;
+	gtStyle* currentStyle { nullptr };
+	gtStyle* parentStyle { nullptr };
+	bool inList { false };
 	QString currentList;
-	bool defaultStyleCreated;
-	double getSize(QString s, double parentSize = -1);
-	void styleProperties(const QXmlAttributes& attrs);
-	void defaultStyle(const QXmlAttributes& attrs);
-	void styleStyle(const QXmlAttributes& attrs);
-	void tabStop(const QXmlAttributes& attrs);
+	bool defaultStyleCreated { false };
+
+	double getSize(const QString& s, double parentSize = -1);
+	void styleProperties(const SXWAttributesMap& attrs);
+	void defaultStyle(const SXWAttributesMap& attrs);
+	void styleStyle(const SXWAttributesMap& attrs);
+	void tabStop(const SXWAttributesMap& attrs);
 	void setupFrameStyle();
-public:
-	StyleReader(QString documentName, gtWriter *wr, bool textOnly, bool prefix, bool combineStyles = true);
-	~StyleReader();
-	bool updateStyle(gtStyle* style, gtStyle* parent2Style, const QString& key, const QString& value);
-	static void startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts);
-	static void endElement(void *user_data, const xmlChar * name);
-	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
-	bool endElement(const QString&, const QString&, const QString &name);
-	void parse(QString fileName);
-	gtStyle* getDefaultStyle(void);
-	gtStyle* getStyle(const QString& name);
-	void setStyle(const QString& name, gtStyle* style);
-	QString getFont(const QString& key);
 };
 
 #endif

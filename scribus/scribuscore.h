@@ -27,12 +27,13 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusapi.h"
 
-#include CMS_INC
+#include "colormgmt/sccolormgmtengine.h"
 
 class QWidget;
 class FileWatcher;
+class IconManager;
 class PluginManager;
-class SplashScreen;
+class ScSplashScreen;
 class ScribusMainWindow;
 class PrefsManager;
 class UndoManager;
@@ -54,19 +55,20 @@ Q_OBJECT
 
 public:
 	ScribusCore();
-	~ScribusCore();
+	~ScribusCore() override;
 	
-	SplashScreen* splash() {return m_SplashScreen;};
+	ScSplashScreen* splash() {return m_SplashScreen;}
 	/*
 	int exportToPDF() {return 0;}
 	int exportToEPS() {return 0;}
 	int exportToSVG() {return 0;}
 	int runScript() {return 0;}
 	*/	
-	int init(bool useGUI, bool swapDialogButtonOrder, const QList<QString>& filesToUse);
-	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile);
-	bool initialized() const {return m_ScribusInitialized;};
+	int init(bool useGUI, const QList<QString>& filesToUse);
+	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage);
+	bool initialized() const {return m_scribusInitialized;}
 	const QString& getGuiLanguage() const;
+
 	void initSplash(bool showSplash);
 	bool initFonts(bool showFontInfo);
 	void showSplash(bool);
@@ -74,7 +76,7 @@ public:
 	void closeSplash();
 	void setSplashStatus(const QString&);
 	bool usingGUI() const;
-	int startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile);
+	int startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage);
 	/**
 	* @brief Are we trying to adhere to Apple Mac HIG ?
 	* @retval bool true if we are on Qt/Mac
@@ -85,73 +87,60 @@ public:
 	* @retval bool true if we are on Qt/Win
 	*/
 	bool isWinGUI() const;
-	/**
-	* @brief Are we swapping dialog button order?
-	* @retval bool if we are swapping
-	*/
-	bool reverseDialogButtons() const;
-	bool haveCMS() const {return m_HaveCMS;}
-	bool haveGS() const {return m_HaveGS;};
-	bool havePNGAlpha() const {return m_HavePngAlpha;}
-	bool haveTIFFSep() const {return m_HaveTiffSep;}
+	bool haveCMS() const {return m_haveCMS;}
+	bool haveGS() const {return m_haveGS;}
+	bool havePNGAlpha() const {return m_havePNGAlpha;}
+	bool haveTIFFSep() const {return m_haveTiffSep;}
 	void getCMSProfiles(bool showInfo);
-	void getCMSProfilesDir(QString pfad, bool showInfo, bool recursive);
-	void InitDefaultColorTransforms(void);
-	void TermDefaultColorTransforms(void);
-	bool IsDefaultProfile(cmsHPROFILE prof);
-	bool IsDefaultTransform(cmsHTRANSFORM trans);
+	void getCMSProfilesDir(const QString& pfad, bool showInfo, bool recursive);
+	void InitDefaultColorTransforms();
+	void ResetDefaultColorTransforms();
 	bool fileWatcherActive() const;
 	void recheckGS();
 	
 	//Main Window members
 	ScribusMainWindow* primaryMainWindow();
 	
-	PluginManager* pluginManager;	
-	FileWatcher* fileWatcher;
+	PluginManager* pluginManager {nullptr};
+	FileWatcher* fileWatcher {nullptr};
 	
 	ProfilesL InputProfiles;
 	ProfilesL InputProfilesCMYK;
 	ProfilesL MonitorProfiles;
 	ProfilesL PrinterProfiles;
 	ProfilesL PDFXProfiles;
+	ProfilesL LabProfiles;
 
-	cmsHPROFILE   defaultRGBProfile;
-	cmsHPROFILE   defaultCMYKProfile;
-	cmsHTRANSFORM defaultRGBToScreenSolidTrans;
-	cmsHTRANSFORM defaultRGBToScreenImageTrans;
-	cmsHTRANSFORM defaultCMYKToScreenImageTrans;
-	cmsHTRANSFORM defaultRGBToCMYKTrans;
-	cmsHTRANSFORM defaultCMYKToRGBTrans;
-	//CB FIXME protect
-// 	QWidget *m_PaletteParent;
+	ScColorMgmtEngine defaultEngine;
+	ScColorProfile   monitorProfile;
+	ScColorProfile   defaultRGBProfile;
+	ScColorProfile   defaultCMYKProfile;
+	ScColorProfile   defaultLabProfile;
+	ScColorTransform defaultRGBToScreenSolidTrans;
+	ScColorTransform defaultRGBToScreenImageTrans;
+	ScColorTransform defaultCMYKToScreenImageTrans;
+	ScColorTransform defaultRGBToCMYKTrans;
+	ScColorTransform defaultCMYKToRGBTrans;
+	ScColorTransform defaultLabToRGBTrans;
+	ScColorTransform defaultLabToCMYKTrans;
+	ScColorTransform defaultLabToScreenTrans;
 	
 protected:
 	void initCMS();
 	
-	QList<ScribusMainWindow*> ScMWList;
-	int m_currScMW;
-	
-	SplashScreen *m_SplashScreen;
-	UndoManager *undoManager;
-	PrefsManager *prefsManager;
-	bool m_ScribusInitialized;
-	bool m_UseGUI;
-	bool m_SwapDialogButtonOrder;
+	IconManager& m_iconManager;
+	PrefsManager& m_prefsManager;
 	QList<QString> m_Files;
-	bool m_HaveCMS;
-	bool m_HaveGS;
-	bool m_HavePngAlpha;
-	bool m_HaveTiffSep;
-	
-	
-signals:
-	void appStarted();
-
+	QList<ScribusMainWindow*> m_ScMWList;
+	ScSplashScreen *m_SplashScreen {nullptr};
+	UndoManager *m_undoManager {nullptr};
+	bool m_haveCMS {false};
+	bool m_haveGS {false};
+	bool m_havePNGAlpha {false};
+	bool m_haveTiffSep {false};
+	bool m_scribusInitialized {false};
+	bool m_useGUI {false};
+	int m_currScMW {0};
 };
-
-/*
-
-
-*/
 
 #endif

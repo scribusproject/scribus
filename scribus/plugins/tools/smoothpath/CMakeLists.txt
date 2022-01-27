@@ -1,0 +1,24 @@
+include_directories(
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/scribus
+)
+
+set(SMOOTHPATH_PLUGIN_SOURCES
+	smoothpath.cpp
+)
+
+set(SCRIBUS_SMOOTHPATH_PLUGIN "smoothpath")
+
+add_library(${SCRIBUS_SMOOTHPATH_PLUGIN} MODULE ${SMOOTHPATH_PLUGIN_SOURCES})
+
+target_link_libraries(${SCRIBUS_SMOOTHPATH_PLUGIN} ${EXE_NAME})
+
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_SMOOTHPATH_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
+install(TARGETS ${SCRIBUS_SMOOTHPATH_PLUGIN}
+	LIBRARY
+	DESTINATION ${PLUGINDIR}
+	PERMISSIONS ${PLUGIN_PERMISSIONS}
+)

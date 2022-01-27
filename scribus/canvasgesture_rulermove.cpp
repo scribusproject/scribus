@@ -19,31 +19,52 @@
 #include <QMouseEvent>
 #include <QPainter>
 
-#include "guidemanager.h"
+#include "appmodes.h"
 #include "guidemanagercore.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-#include "util_icon.h"
+#include "scribusview.h"
+#include "ui/guidemanager.h"
+#include "iconmanager.h"
+
+
+RulerGesture::RulerGesture(ScribusView *view, RulerGesture::Mode mode) :
+	CanvasGesture(view),
+	m_mode(mode),
+	m_ScMW(m_view->m_ScMW)
+{
+}
+
 
 void RulerGesture::drawControls(QPainter* p)
 {
-	Page* page = m_doc->currentPage();
-	QColor color(m_doc->guidesSettings.guideColor);
+	int page = -1;
+	//This is !null where we've entered the RulerGesture::mouseMoveEvent
+	if (!m_mousePoint.isNull())
+		page = m_doc->OnPage(m_mousePoint.x(), m_mousePoint.y());
+	if (page == -1)
+		return;
+	ScPage* dragToPage=m_doc->Pages->at(page);
+	if (!dragToPage)
+		return;
+	if (m_haveGuide)
+		dragToPage = m_doc->Pages->at(m_page);
+	QColor color(m_doc->guidesPrefs().guideColor);
 	p->save();
-	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(page->xOffset(), page->yOffset()));
-	QSize pageSize = (QSizeF(page->width(), page->height()) * m_canvas->scale()).toSize();
+	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(dragToPage->xOffset(), dragToPage->yOffset()));
+	QSize pageSize = (QSizeF(dragToPage->width(), dragToPage->height()) * m_canvas->scale()).toSize();
 	switch (m_mode)
 	{
 		case HORIZONTAL:
-			p->setPen(QPen(color, 1.0 / m_canvas->scale(), Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setPen(QPen(color, 1.0, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
 			p->drawLine(QPoint(pageOrigin.x(), m_xy.y()), QPoint(pageOrigin.x() + pageSize.width(), m_xy.y()));
 			break;
 		case VERTICAL:
-			p->setPen(QPen(color, 1.0 / m_canvas->scale(), Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setPen(QPen(color, 1.0, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
 			p->drawLine(QPoint(m_xy.x(), pageOrigin.y()), QPoint(m_xy.x(), pageOrigin.y() + pageSize.height()));
 			break;
 		case ORIGIN:
-			p->setPen(QPen(color, 1.0 / m_canvas->scale(), Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setPen(QPen(color, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			p->drawLine(QPoint(m_xy.x(), 0), QPoint(m_xy.x(), m_canvas->height()));
 			p->drawLine(QPoint(0, m_xy.y()), QPoint(m_canvas->width(), m_xy.y()));
 			break;
@@ -51,23 +72,22 @@ void RulerGesture::drawControls(QPainter* p)
 	p->restore();
 }
 
-
 void RulerGesture::clear()
 {
 	m_haveGuide = false;
 }
 
-
 void RulerGesture::prepare(Mode mode)
 {
 	m_haveGuide = false;
-	m_mode = mode;	
+	m_mode = mode;
 }
-
 
 void RulerGesture::activate(bool fromGesture)
 {
-	m_haveCursor = (qApp->overrideCursor() != NULL);
+	CanvasGesture::activate(fromGesture);
+
+	m_haveCursor = (qApp->overrideCursor() != nullptr);
 	if ( (!fromGesture) && qApp->overrideCursor())
 	{
 		m_haveCursor = true;
@@ -92,28 +112,31 @@ void RulerGesture::activate(bool fromGesture)
 	emit guideInfo(m_mode, m_guide);
 }
 
-void RulerGesture::deactivate(bool)
+void RulerGesture::deactivate(bool fromGesture)
 {
 	if (m_haveCursor)
 		qApp->changeOverrideCursor(m_cursor);
 	m_haveGuide = false;
+	m_mousePoint = FPoint();
+
+	CanvasGesture::deactivate(fromGesture);
 }
 
 
-bool RulerGesture::mouseHitsGuide(FPoint mousePointDoc)
+bool RulerGesture::mouseHitsGuide(const FPoint& mousePointDoc)
 {
 	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
-	if ((m_doc->guidesSettings.guidesShown) && (!m_doc->GuideLock) && page >= 0)
+	if ((m_doc->guidesPrefs().guidesShown) && (!m_doc->GuideLock) && page >= 0)
 	{
-		double grabRadScale = m_doc->guidesSettings.grabRad / m_canvas->scale();
+		double grabRadScale = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 		int index = m_doc->Pages->at(page)->guides.isMouseOnVertical(mousePointDoc.x() + grabRadScale, mousePointDoc.x() - grabRadScale, GuideManagerCore::Standard);
 		if (index >= 0)
 		{
 			m_mode = VERTICAL;
 			m_haveGuide = true;
 			m_guide = m_doc->Pages->at(page)->guides.vertical(index, GuideManagerCore::Standard);
+			m_currentGuide = m_guide;
 			m_page = page;
-// 			emit guideInfo(m_mode, m_guide);
 			return true;
 		}
 		index = m_doc->Pages->at(page)->guides.isMouseOnHorizontal(mousePointDoc.y() + grabRadScale, mousePointDoc.y() - grabRadScale, GuideManagerCore::Standard);
@@ -122,8 +145,8 @@ bool RulerGesture::mouseHitsGuide(FPoint mousePointDoc)
 			m_mode = HORIZONTAL;
 			m_haveGuide = true;
 			m_guide = m_doc->Pages->at(page)->guides.horizontal(index, GuideManagerCore::Standard);
+			m_currentGuide = m_guide;
 			m_page = page;
-// 			emit guideInfo(m_mode, m_guide);
 			return true;
 		}
 	}
@@ -135,9 +158,9 @@ void RulerGesture::mouseSelectGuide(QMouseEvent *m)
 {
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
-	if ((m_doc->guidesSettings.guidesShown) && page >= 0)
+	if ((m_doc->guidesPrefs().guidesShown) && page >= 0)
 	{
-		double grabRadScale = m_doc->guidesSettings.grabRad / m_canvas->scale();
+		double grabRadScale = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 		int index = m_doc->Pages->at(page)->guides.isMouseOnVertical(mousePointDoc.x() + grabRadScale, mousePointDoc.x() - grabRadScale, GuideManagerCore::Standard);
 		if (index >= 0)
 		{
@@ -153,136 +176,223 @@ void RulerGesture::mouseSelectGuide(QMouseEvent *m)
 	}
 }
 
-void RulerGesture::movePoint(QMouseEvent* m)
+void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 {
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
-	QRect viewport(m_view->viewport()->mapToGlobal(QPoint(0,0)), QSize(m_view->visibleWidth(), m_view->visibleHeight()));
+	QRect  viewport(m_view->viewport()->mapToGlobal(QPoint(0,0)), QSize(m_view->visibleWidth(), m_view->visibleHeight()));
 	QPoint newMousePoint = m->globalPos() - (m_canvas->mapToParent(QPoint(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPoint(0, 0)));
+	double x = mousePointDoc.x();
+	double y = mousePointDoc.y();
 	switch (m_mode)
 	{
 		case ORIGIN:
 			m_canvas->repaint();
-			m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
+			m_canvas->displayCorrectedXYHUD(m->globalPos(), x, y);
 			break;
 		case HORIZONTAL:
-			if (!m_ScMW->doc->guidesSettings.guidesShown)
+			if (!m_ScMW->doc->guidesPrefs().guidesShown)
 				break;
-			m_canvas->update(0, m_xy.y()-2, m_canvas->width(), 4);
-			m_canvas->update(0, newMousePoint.y()-2, m_canvas->width(), 4);
+			m_canvas->update(0, m_xy.y() - 2, m_canvas->width(), 4);
+			
 			if ((page >= 0) && (viewport.contains(m->globalPos())))
 			{
+				ScPage* currentPage = m_doc->Pages->at(page);
+				if (m_doc->SnapElement)
+				{
+					double xout = 0;
+					double yout = 0;
+					m_doc->getClosestElementBorder(x, y, &xout, &yout, ScribusDoc::IncludeSelection);
+					if (yout != y)
+					{
+						y = yout;
+						newMousePoint = m_canvas->canvasToLocal(QPointF(x, y));
+					}
+				}
 				if (!m_haveGuide)
 				{
 					qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
-					m_doc->Pages->at(page)->guides.addHorizontal(mousePointDoc.y() - m_doc->Pages->at(page)->yOffset(), GuideManagerCore::Standard);
-					m_page = page;
-					m_haveGuide = true;
+					if (mouseRelease)
+					{
+						currentPage->guides.addHorizontal(y - currentPage->yOffset(), GuideManagerCore::Standard);
+						m_guide = y - currentPage->yOffset();
+						m_page  = page;
+						m_haveGuide = true;
+						m_doc->changed();
+					}
+				}
+				else if (mouseRelease)
+				{
+					if (page == m_page)
+						currentPage->guides.moveHorizontal(m_guide, y - currentPage->yOffset(), GuideManagerCore::Standard);
+					else
+					{
+						m_doc->Pages->at(m_page)->guides.deleteHorizontal(m_guide, GuideManagerCore::Standard);
+						currentPage->guides.addHorizontal(y - currentPage->yOffset(), GuideManagerCore::Standard);
+						m_page = page;
+					}
+					if (m_doc->currentPage() != m_doc->Pages->at(m_page))
+						m_doc->setCurrentPage( m_doc->Pages->at(m_page) );
+					m_doc->changed();
 				}
 				else
 				{
-					if (page == m_page)
-						m_doc->Pages->at(page)->guides.moveHorizontal( m_guide, mousePointDoc.y() - m_doc->Pages->at(page)->yOffset(), GuideManagerCore::Standard);
-					else
-					{
-						m_doc->Pages->at(m_page)->guides.deleteHorizontal( m_guide, GuideManagerCore::Standard);
-						m_doc->Pages->at(page)->guides.addHorizontal(mousePointDoc.y() - m_doc->Pages->at(page)->yOffset(), GuideManagerCore::Standard);
-						m_page = page;
-					}
+					QCursor* cursor = qApp->overrideCursor();
+					if (cursor && (cursor->shape() != Qt::SplitVCursor))
+						qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
 				}
-				m_guide = mousePointDoc.y() - m_doc->Pages->at(page)->yOffset();
+				m_currentGuide = y - currentPage->yOffset();
 			}
 			else
 			{ 
 				if (m_haveGuide)
 				{
-					qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png")));
-					m_doc->Pages->at(m_page)->guides.deleteHorizontal( m_guide, GuideManagerCore::Standard);
-					m_haveGuide = false;
+					qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png"));
+					if (mouseRelease)
+					{
+						m_doc->Pages->at(m_page)->guides.deleteHorizontal( m_guide, GuideManagerCore::Standard);
+						m_haveGuide = false;
+						m_doc->changed();
+					}
 				}
 			}
-			m_canvas->displayCorrectedSingleHUD(m->globalPos(), mousePointDoc.y(), false);
+			m_canvas->update(0, newMousePoint.y() - 2, m_canvas->width(), 4);
+			m_canvas->displayCorrectedSingleHUD(m->globalPos(), y, false);
 			break;
 		case VERTICAL:
-			if (!m_ScMW->doc->guidesSettings.guidesShown)
+			if (!m_ScMW->doc->guidesPrefs().guidesShown)
 				break;
-			m_canvas->update(m_xy.x()-2, 0, 4, m_canvas->height());
-			m_canvas->update(newMousePoint.x()-2, 0, 4, m_canvas->height());
+			m_canvas->update(m_xy.x() - 2, 0, 4, m_canvas->height());
 			if ((page >= 0) && viewport.contains(m->globalPos()))
 			{
+				ScPage* currentPage = m_doc->Pages->at(page);
+				if (m_doc->SnapElement)
+				{
+					double xout = 0;
+					double yout = 0;
+					m_doc->getClosestElementBorder(x, y, &xout, &yout, ScribusDoc::IncludeSelection);
+					if (xout != x)
+					{
+						x = xout;
+						newMousePoint = m_canvas->canvasToLocal(QPointF(x, y));
+					}
+				}
 				if (!m_haveGuide)
 				{
 					qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
-					m_doc->Pages->at(page)->guides.addVertical(mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
-					m_page = page;
-					m_haveGuide = true;
+					if (mouseRelease)
+					{
+						currentPage->guides.addVertical(x - currentPage->xOffset(), GuideManagerCore::Standard);
+						m_guide = x - currentPage->xOffset();
+						m_page  = page;
+						m_haveGuide = true;
+						m_doc->changed();
+					}
+				}
+				else if (mouseRelease)
+				{
+					if (page == m_page)
+						currentPage->guides.moveVertical(m_guide, x - currentPage->xOffset(), GuideManagerCore::Standard);
+					else
+					{
+						m_doc->Pages->at(m_page)->guides.deleteVertical(m_guide, GuideManagerCore::Standard);
+						currentPage->guides.addVertical(x - currentPage->xOffset(), GuideManagerCore::Standard);
+						m_page = page;
+					}
+					if (m_doc->currentPage() != m_doc->Pages->at(m_page))
+						m_doc->setCurrentPage( m_doc->Pages->at(m_page) );
+					m_doc->changed();
 				}
 				else
 				{
-					if (page == m_page)
-						m_doc->Pages->at(page)->guides.moveVertical( m_guide, mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
-					else
-					{
-						m_doc->Pages->at(m_page)->guides.deleteVertical( m_guide, GuideManagerCore::Standard);
-						m_doc->Pages->at(page)->guides.addVertical(mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
-						m_page = page;
-					}
+					QCursor* cursor = qApp->overrideCursor();
+					if (cursor && (cursor->shape() != Qt::SplitHCursor))
+						qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
 				}
-				m_guide = mousePointDoc.x() - m_doc->Pages->at(page)->xOffset();
+				m_currentGuide = x - currentPage->xOffset();
 			}
 			else
 			{ 
 				if (m_haveGuide)
 				{
-					qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png")));
-					m_doc->Pages->at(m_page)->guides.deleteVertical( m_guide, GuideManagerCore::Standard);
-					m_haveGuide = false;
+					qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png"));
+					if (mouseRelease)
+					{
+						m_doc->Pages->at(m_page)->guides.deleteVertical( m_guide, GuideManagerCore::Standard);
+						m_haveGuide = false;
+						m_doc->changed();
+					}
 				}
 			}
-			m_canvas->displayCorrectedSingleHUD(m->globalPos(), mousePointDoc.x(), true);
+			m_canvas->update(newMousePoint.x() - 2, 0, 4, m_canvas->height());
+			m_canvas->displayCorrectedSingleHUD(m->globalPos(), x, true);
 			break;
 	}
 	m_xy = newMousePoint;
 }
 
 
+void RulerGesture::keyPressEvent(QKeyEvent* e)
+{
+	e->accept();
+
+	if (e->key() == Qt::Key_Escape)
+	{
+		// Go back to normal mode.
+		m_view->stopGesture();
+		return;
+	}
+}
+
 void RulerGesture::mouseMoveEvent(QMouseEvent* m)
 {
-	movePoint(m);
+	m_mousePoint=m_canvas->globalToCanvas(m->globalPos());
 	m->accept();
-	if (m_ScMW->doc->guidesSettings.guidesShown)
-		emit guideInfo(m_mode, m_guide);
+	if (m_view->moveTimerElapsed())
+	{
+		movePoint(m, false);
+		if (m_ScMW->doc->guidesPrefs().guidesShown)
+			emit guideInfo(m_mode, m_currentGuide);
+	}
 }
 
 
 void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 {
-	movePoint(m);
-	if (m_mode == ORIGIN)
-		m_view->setNewRulerOrigin(m);
-	else
+	m->accept();
+	if (m_view->moveTimerElapsed())
 	{
-		if (m_ScMW->doc->guidesSettings.guidesShown)
-			m_ScMW->guidePalette->setupPage();
+		movePoint(m, true);
+		if (m_mode == ORIGIN)
+			m_view->setNewRulerOrigin(m);
+		else
+		{
+			if (m_ScMW->doc->guidesPrefs().guidesShown)
+				m_ScMW->guidePalette->setupPage();
+		}
 	}
 	m_haveGuide = false;
-	m->accept();
+	//#9391: Force redraw to get the guide drawn if we draw a guide in an edit mode
+	if (m_ScMW->doc->appMode != modeNormal)
+		m_canvas->setForcedRedraw(true);
 	m_canvas->repaint();
 	m_view->stopGesture();
-	if (m_ScMW->doc->guidesSettings.guidesShown)
-		emit guideInfo(m_mode, m_guide);
+	m_mousePoint=QPoint(0,0);
+	if (m_ScMW->doc->guidesPrefs().guidesShown)
+		emit guideInfo(m_mode, m_currentGuide);
 }
 
 
 void RulerGesture::mousePressEvent(QMouseEvent* m)
 {
+	m->accept();
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	m_view->registerMousePress(m->globalPos());
 	if (mouseHitsGuide(mousePointDoc))
 	{
 		m_xy = m->globalPos() - (m_canvas->mapToParent(QPoint(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPoint(0, 0)));
-		m->accept();
 	}
-	if (m_ScMW->doc->guidesSettings.guidesShown)
-		emit guideInfo(m_mode, m_guide);
+	if (m_ScMW->doc->guidesPrefs().guidesShown)
+		emit guideInfo(m_mode, m_currentGuide);
 }
 

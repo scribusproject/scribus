@@ -18,8 +18,8 @@
 #ifndef CANVAS_MODE_EDIT_H
 #define CANVAS_MODE_EDIT_H
 
+#include <QElapsedTimer>
 #include <QObject>
-#include <QTime>
 
 #include "canvasmode.h"
 #include "fpointarray.h"
@@ -27,7 +27,6 @@
 class PageItem;
 class PageItem_TextFrame;
 class QTimer;
-class ResizeGesture;
 class ScribusMainWindow;
 class ScribusView;
 
@@ -38,18 +37,23 @@ class CanvasMode_Edit :  public CanvasMode
 	Q_OBJECT
 	
 public:
-	CanvasMode_Edit(ScribusView* view);
+	explicit CanvasMode_Edit(ScribusView* view);
+	~CanvasMode_Edit() override = default;
 
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
 	
-	virtual void activate(bool);
-	virtual void deactivate(bool);
-	virtual void mouseDoubleClickEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter* p);
+	void activate(bool) override;
+	void deactivate(bool) override;
+
+	void mouseDoubleClickEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	
+	void keyPressEvent(QKeyEvent *e) override;
+
+	void drawControls(QPainter* p) override;
 
 // protected:
 // 	void setResizeCursor(int how, double rot = 0.0);
@@ -60,20 +64,26 @@ private:
 	bool SeleItem(QMouseEvent *m);
 	void createContextMenu(PageItem *currItem, double mx, double my);
 
-	int  Cp, oldCp;
-	int  frameResizeHandle;
-	int  dragConstrainInitPtX, dragConstrainInitPtY;
-	double Mxp, Myp, Dxp, Dyp;
-	double SeRx, SeRy;
-	ScribusMainWindow* m_ScMW;
-	ResizeGesture* resizeGesture;
-	bool m_cursorVisible;
-	QTime m_blinkTime;
+	QElapsedTimer m_blinkTime;
 	QTimer* m_blinker;
-	bool m_lastPosWasOverGuide;
+	ScribusMainWindow* m_ScMW {nullptr};
+	bool m_cursorVisible {false};
+	bool m_keyRepeat {false};
+	bool m_longCursorTime {false};
+	double Dxp {-1};
+	double Dyp {-1};
+	double Mxp {-1};
+	double Myp {-1};
+	double SeRx {-1};
+	double SeRy {-1};
+	double mRulerGuide {-1.0};
+	int Cp {-1};
+	int frameResizeHandle {-1};
+	int oldCp {-1};
 
 private slots:
 	void blinkTextCursor();
+	void rulerPreview(double base, double xp);
 };
 
 

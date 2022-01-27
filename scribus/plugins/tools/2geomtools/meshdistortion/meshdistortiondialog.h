@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 *   You should have received a copy of the GNU General Public License      *
 *   along with this program; if not, write to the                          *
 *   Free Software Foundation, Inc.,                                        *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
 #ifndef MESHDISTORTIONDIALOG_H
@@ -31,34 +31,41 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsPathItem>
-#include <QGraphicsSceneMouseEvent>
-#include <QGraphicsSceneHoverEvent>
+
 #include "ui_meshdistortiondialog.h"
 #include "pluginapi.h"
 #include "scribusdoc.h"
-#include "scribus.h"
 
-#include "../lib2geom/sbasis.h"
-#include "../lib2geom/sbasis-geometric.h"
-#include "../lib2geom/bezier-to-sbasis.h"
-#include "../lib2geom/sbasis-to-bezier.h"
-#include "../lib2geom/d2.h"
-#include "../lib2geom/piecewise.h"
-#include "../lib2geom/utils.h"
-#include "../lib2geom/path.h"
-#include "../lib2geom/sbasis-2d.h"
-#include "../lib2geom/transforms.h"
-#include "../lib2geom/scribushelper.h"
+#if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
+#define _USE_MATH_DEFINES
+#endif
+
+#include "third_party/lib2geom/sbasis.h"
+#include "third_party/lib2geom/sbasis-geometric.h"
+#include "third_party/lib2geom/bezier-to-sbasis.h"
+#include "third_party/lib2geom/sbasis-to-bezier.h"
+#include "third_party/lib2geom/d2.h"
+#include "third_party/lib2geom/piecewise.h"
+#include "third_party/lib2geom/utils.h"
+#include "third_party/lib2geom/path.h"
+#include "third_party/lib2geom/sbasis-2d.h"
+#include "third_party/lib2geom/transforms.h"
+#include "third_party/lib2geom/scribushelper.h"
 #include <vector>
-using namespace Geom;
+
+//using namespace Geom;
 class MeshDistortionDialog;
+class QGraphicsSceneHoverEvent;
+class QGraphicsSceneMouseEvent;
+class QStyleOptionGraphicsItem;
 
 class PLUGIN_API NodeItem : public QGraphicsEllipseItem
 {
 public:
-	NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent);
+	NodeItem(QRectF geom, uint num, MeshDistortionDialog* parent);
 	~NodeItem() {};
-	void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget);
+	
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget* widget);
 	uint handle;
 	bool mouseMoving;
 	bool mousePressed;
@@ -80,6 +87,8 @@ class PLUGIN_API MeshDistortionDialog : public QDialog, Ui::MeshDistortionDialog
 public:
 	MeshDistortionDialog(QWidget* parent, ScribusDoc *doc);
 	~MeshDistortionDialog() {};
+	
+	void addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGraphicsPathItem* parentItem, PageItem* parent);
 	void adjustHandles();
 	void updateMesh(bool gridOnly);
 	void updateAndExit();
@@ -94,8 +103,9 @@ public:
 	QGraphicsScene scene;
 	QGraphicsPathItem* pItemG;
 	QList<QGraphicsPathItem*> origPathItem;
+	QList<PageItem*> origPageItem;
 	QList<NodeItem*> nodeItems;
-	QList< Geom::Piecewise<D2<Geom::SBasis> > > origPath;
+	QList< Geom::Piecewise<Geom::D2<Geom::SBasis> > > origPath;
 	std::vector<Geom::Point> handles;
 	std::vector<Geom::Point> origHandles;
 	Geom::D2<Geom::SBasis2d> sb2;

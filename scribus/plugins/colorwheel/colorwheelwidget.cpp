@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "colorwheelwidget.h"
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
@@ -21,7 +21,7 @@ ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent)
 {
 	setObjectName(name);
 	pointList.clear();
-	currentDoc = NULL;
+	currentDoc = nullptr;
 	currentColorSpace = colorModelRGB;
 	baseAngle = 0;
 	angleShift = 270;
@@ -71,9 +71,8 @@ void ColorWheel::paintEvent(QPaintEvent *)
 	// clear marks
 	for (int i = 0; i < 360; ++i)
 		drawBorderPoint(i, false, true);
-	QList<PaintPoint>::const_iterator it;
-	for (it = pointList.constBegin(); it != pointList.constEnd(); ++it)
-		drawBorderPoint((*it).angle, (*it).base);
+	for (auto it = pointList.constBegin(); it != pointList.constEnd(); ++it)
+		drawBorderPoint(it->angle, it->base);
 }
 
 void ColorWheel::makeColors()
@@ -96,6 +95,7 @@ void ColorWheel::paintCenterSample()
 {
 	QPainter p;
 	p.begin(this);
+	p.setRenderHint(QPainter::Antialiasing, true);
 	p.setPen(QPen(Qt::black, 2));
 	p.setBrush(ScColorEngine::getDisplayColor(actualColor, currentDoc ));
 	p.drawEllipse(widthH - 20, heightH - 20, 40, 40);
@@ -112,7 +112,7 @@ void ColorWheel::paintWheel()
 	QPainter p;
 	p.begin(this);
 	p.setWindow( 0, 0, width, height);
-	p.fillRect(0, 0, width, height, Qt::white);
+	p.fillRect(0, 0, width, height, palette().color(QPalette::Base));
 	p.setPen(Qt::black);
 	p.drawRect(0, 0, width, height);
 	// Half sizes
@@ -120,10 +120,10 @@ void ColorWheel::paintWheel()
 	widthH = width / 2;
 	for (int i = 0; i < 360; ++i)
 	{
-		QMatrix matrix;
+		QTransform matrix;
 		matrix.translate(widthH, heightH);
-		matrix.rotate((float)i);
-		p.setWorldMatrix(matrix);
+		matrix.rotate((float) i);
+		p.setWorldTransform(matrix);
 		QColor c;
 		c.setHsv(i, 255, 255);
 		p.setPen(QPen(c, 7));
@@ -201,10 +201,10 @@ void ColorWheel::makeMonochromatic()
 	baseColor();
 	QColor col(ScColorEngine::getRGBColor(actualColor, currentDoc));
 	ScColor l;
-	l.fromQColor(col.light());
+	l.fromQColor(col.lighter());
 	l = ScColorEngine::convertToModel(l, currentDoc, currentColorSpace);
 	colorList[tr("Monochromatic Light")] = l;
-	l.fromQColor(col.dark());
+	l.fromQColor(col.darker());
 	l = ScColorEngine::convertToModel(l, currentDoc, currentColorSpace);
 	colorList[tr("Monochromatic Dark")] = l;
 	currentType = Monochromatic;
@@ -268,20 +268,23 @@ void ColorWheel::drawBorderPoint(int angle, bool base, bool clear)
 	// draw border mark
 	QPainter p;
 	p.begin(this);
+	p.setRenderHint(QPainter::Antialiasing, true);
 	if (clear)
 	{
-		p.setPen(QPen(Qt::white, 1));
-		p.setBrush(Qt::white);
+		QColor baseColor = palette().color(QPalette::Base);
+		p.setPen(QPen(baseColor, 1));
+		p.setBrush(baseColor);
 	}
 	else
 	{
-		p.setPen(QPen(Qt::black, 1));
+		QColor textColor = palette().color(QPalette::WindowText);
+		p.setPen(QPen(textColor, 1));
 		if (base)
 			p.setBrush(Qt::red);
 		else
 			p.setBrush(Qt::SolidPattern);
 	}
-	p.drawEllipse(x-4, y-4, 8, 8);
+	p.drawEllipse(x - 4, y - 4, 8, 8);
 	p.end();
 }
 
@@ -311,19 +314,19 @@ bool ColorWheel::recomputeColor(ScColor col)
 	QColor act(ScColorEngine::getRGBColor(actualColor, currentDoc));
 
 	c.getHsv(&origh, &origs, &origv);
-	for (it = colorMap.begin(); it != colorMap.end(); ++it)
+	angle = origh + angleShift;
+	if (angle > 359)
+		angle -= 360;
+	if (colorMap.contains(angle))
 	{
 		int tmph, tmps, tmpv;
-		QColor col(ScColorEngine::getRGBColor(it.value(), currentDoc));
+		QColor col(ScColorEngine::getRGBColor(colorMap[angle], currentDoc));
 		col.getHsv(&tmph, &tmps, &tmpv);
-		if (origh == tmph)
-		{
-			act.setHsv(tmph, origs, origv);
-			actualColor.fromQColor(act);
-			actualColor = ScColorEngine::convertToModel(actualColor, currentDoc, currentColorSpace);
-			baseAngle = it.key();
-			return true;
-		}
+		act.setHsv(tmph , origs, origv);
+		actualColor.fromQColor(act);
+		actualColor = ScColorEngine::convertToModel(actualColor, currentDoc, currentColorSpace);
+		baseAngle = angle;
+		return true;
 	}
 	return false;
 }

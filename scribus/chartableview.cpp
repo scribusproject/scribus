@@ -11,18 +11,16 @@ for which a new license (GPL+exception) is in place.
 
 #include "chartablemodel.h"
 #include "chartableview.h"
-#include "charzoom.h"
+#include "ui/charzoom.h"
 #include "fonts/scface.h"
 
 
 CharTableView::CharTableView(QWidget * parent)
-		: QTableView(parent),
-		zoom(0)
+		: QTableView(parent)
 {
 	deleteAct = new QAction( tr("Delete"), this);
 	connect(deleteAct, SIGNAL(triggered()), this, SLOT(removeCharacter()));
-	connect(this, SIGNAL(doubleClicked(const QModelIndex &)),
-	        this, SLOT(viewDoubleClicked(const QModelIndex &)));
+	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(viewDoubleClicked(const QModelIndex &)));
 
 	actionMenu = new QMenu(this);
 	actionMenu->addAction(deleteAct);
@@ -54,105 +52,109 @@ void CharTableView::resizeLastRow()
 	setRowHeight(model()->rowCount()-1, width() / model()->columnCount() + 5);
 }
 
-void CharTableView::keyPressEvent(QKeyEvent *k)
+void CharTableView::keyPressEvent(QKeyEvent *event)
 {
-	switch (k->key())
+	switch (event->key())
 	{
 	case Qt::Key_Backspace:
 	case Qt::Key_Delete:
 		emit delChar();
 		break;
 	case Qt::Key_Insert:
-		// safely emit selectChar(model()->characters()[currenCharactersIndex()]);
+		// safely emit selectChar(model()->characters()[currentCharactersIndex()]);
 		viewDoubleClicked(QModelIndex());
 		break;
 	}
-	QTableView::keyPressEvent(k);
+	QTableView::keyPressEvent(event);
 }
 
-void CharTableView::mousePressEvent(QMouseEvent* e)
+void CharTableView::mousePressEvent(QMouseEvent* event)
 {
-	QTableView::mousePressEvent(e);
+	QTableView::mousePressEvent(event);
 
-	int index = currenCharactersIndex();
+	int index = currentCharactersIndex();
+	if (index < 0)
+		return;
 	int currentChar = -1;
 
-	if (index < model()->characters().count())
+	if ((index < model()->characters().count()) && (model()->characters().count() > 0))
 		currentChar = model()->characters()[index];
 
-	if (e->button() == Qt::RightButton && currentChar > -1)
+	if (event->button() == Qt::RightButton && currentChar > -1)
 	{
 		// Only non-dropable tables show "magnifier glass"
 		if (!acceptDrops())
 		{
 			hideZoomedChar();
 			zoom = new CharZoom(this, currentChar, model()->fontFace());
-			zoom->move(e->globalPos().x()-2, e->globalPos().y()-2);
+			zoom->move(event->globalPos().x()-2, event->globalPos().y()-2);
 			zoom->show();
 		}
 		else
 		{
 			deleteAct->setData(index);
-			actionMenu->popup(e->globalPos());
+			actionMenu->popup(event->globalPos());
 		}
 	}
 }
 
-void CharTableView::mouseMoveEvent(QMouseEvent* e)
+void CharTableView::mouseMoveEvent(QMouseEvent* event)
 {
 	// HACK to prevent strange Qt4 cursor behaviour after dropping. It's examined by Trolltech now - PV.
 	// It's the one and only reason why to include QApplication here.
 		// Fixed at least in Qt-4.4.2
 //	QApplication::restoreOverrideCursor();
 	hideZoomedChar();
-	QTableView::mouseMoveEvent(e);
+	QTableView::mouseMoveEvent(event);
 }
 
-void CharTableView::mouseReleaseEvent(QMouseEvent* e)
+void CharTableView::mouseReleaseEvent(QMouseEvent* event)
 {
 	hideZoomedChar();
-	QTableView::mouseReleaseEvent(e);
+	QTableView::mouseReleaseEvent(event);
 }
 
 void CharTableView::viewDoubleClicked(const QModelIndex & /*index*/)
 {
-	if (model()->characters().count() > currenCharactersIndex())
-		emit selectChar(model()->characters()[currenCharactersIndex()]);
+	int charIndex = currentCharactersIndex();
+	if (model()->characters().count() > charIndex)
+		emit selectChar(model()->characters()[charIndex], model()->fonts()[charIndex]);
 }
 
-int CharTableView::currenCharactersIndex()
+int CharTableView::currentCharactersIndex()
 {
-	return currentIndex().row() * model()->columnCount() + currentIndex().column();
+	QModelIndex index = currentIndex();
+	if (!index.isValid())
+		return -1;
+	return index.row() * model()->columnCount() + index.column();
 }
 
 void CharTableView::hideZoomedChar()
 {
-	if (zoom)
-	{
-		zoom->close();
-		delete zoom;
-		zoom = 0;
-	}
+	if (!zoom)
+		return;
+	zoom->close();
+	delete zoom;
+	zoom = nullptr;
 }
 
-void CharTableView::hideEvent(QHideEvent * e)
+void CharTableView::hideEvent(QHideEvent *event)
 {
 	hideZoomedChar();
-	QTableView::hideEvent(e);
+	QTableView::hideEvent(event);
 }
 
 void CharTableView::resizeEvent(QResizeEvent *e)
 {
 	QTableView::resizeEvent(e);
-	if (model())
-	{
-		model()->setViewWidth(e->size().width());
-		// The resizeColumnsToContents() method won't work here.
-		// It doesn't handle cells without any content. And it creates
-		// larger columns than required. Dunno why.
-		for (int i = 0; i < model()->columnCount(); ++i)
-			setColumnWidth(i, e->size().width() / model()->columnCount());
-		for (int i = 0; i < model()->rowCount(); ++i)
-			setRowHeight(i, e->size().width() / model()->columnCount() + 5);
-	}
+	if (!model())
+		return;
+	model()->setViewWidth(e->size().width());
+	// The resizeColumnsToContents() method won't work here.
+	// It doesn't handle cells without any content. And it creates
+	// larger columns than required. Dunno why.
+	for (int i = 0; i < model()->columnCount(); ++i)
+		setColumnWidth(i, e->size().width() / model()->columnCount());
+	for (int i = 0; i < model()->rowCount(); ++i)
+		setRowHeight(i, e->size().width() / model()->columnCount() + 5);
 }

@@ -1,0 +1,1384 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <link href="style.css" rel="stylesheet" type="text/css" title="normal" media=screen>
+ <title>Function Parser for C++ v3.3.2  : Documentation</title>
+</head>
+
+<body>
+<h1>Function Parser for C++ v3.3.2  </h1>
+
+<p>Authors: Juha Nieminen
+(<a href="http://iki.fi/warp/">http://iki.fi/warp/</a>),
+Joel Yliluoma
+(<a href="http://iki.fi/bisqwit/">http://iki.fi/bisqwit/</a>).
+
+<p>The usage license of this library is located at the end of this file.
+
+<h2>Table of contents:</h2>
+
+<ul>
+ <li><a href="#whatsnew">What's new</a>
+ <li><a href="#preface">Preface</a>
+ <li><a href="#usage">Usage</a>
+     <ul>
+      <li><a href="#configuring">Configuring the compilation</a>
+      <li><a href="#copyassignment">Copying and assignment</a>
+      <li><a href="#identifiers">Identifier names</a>
+      <li><a href="#shortdesc">Short descriptions of FunctionParser methods</a>
+      <li><a href="#longdesc">Long descriptions of FunctionParser methods</a>
+     </ul>
+ <li><a href="#evaluationchecks">About evaluation-time checks</a>
+ <li><a href="#threadsafety">About thread safety</a>
+ <li><a href="#functionsyntax">The function string syntax</a>
+ <li><a href="#tipsandtricks">Tips and tricks</a>
+ <li><a href="#contact">Contacting the author</a>
+<!-- <li><a href="#algorithm">The algorithm used in the library</a> -->
+ <li><a href="#license">Usage license</a>
+</ul>
+
+<a name="whatsnew"></a>
+<h2>What's new</h2>
+
+<p>What's new in v3.3.2
+<ul>
+ <li>Fixed an incompatibility with MS Visual Studio which caused the optimizer
+   to enter an infinite loop with some input functions (VS interprets bitfields
+   slightly differently from gcc). Also minor additions and fine-tuning of the
+   optimizer.
+</ul>
+
+<p>What's new in v3.3.1
+<ul>
+ <li>Fixed some incompatibilities with MS Visual Studio introduced with the
+   refactored optimizer.
+</ul>
+
+<p>What's new in v3.3
+<ul>
+ <li>The <code>Parse()</code> method now performs more exhaustive constant
+   folding (calculating constant expressions at parse time) than before.
+   Also integral powers (eg. like <code>"x^4"</code>) are now more optimized
+   at parse time, resulting in faster evaluation even without a call to the
+   <code>Optimize()</code> method (although the latter will sometimes still
+   result in an even better result). The speed impact of this on the
+   <code>Parse()</code> method has been kept minimal.
+ <li>More refactoring of the optimizer, making the <code>Optimize()</code>
+   method significantly faster than in the previous version. Also new and
+   more exhaustive rules have been added, resulting in better results in
+   certain cases (eg. when using basic operators in very complex functions).
+ <li>Added utility member functions to parse a function so that the variables
+   in the function are deduced automatically. The found variables are returned
+   to the caller if requested.
+</ul>
+
+
+<!-- -------------------------------------------------------------------- -->
+<a name="preface"></a>
+<h2>Preface</h2>
+
+<p>Often people need to ask some mathematical expression from the user and
+then evaluate values for that expression. The simplest example is a program
+which draws the graphic of a user-defined function on screen.
+
+<p>This library adds C-style function string parsing to the program. This
+means that you can evaluate the string <code>"sqrt(1-x^2+y^2)"</code> with
+given values of '<code>x</code>' and '<code>y</code>'.
+
+<p>The library is intended to be very fast. It byte-compiles the function
+string at parse time and interpretes this byte-code at evaluation time.
+The evaluation is straightforward and no recursions are done (uses stack
+arithmetic).
+
+<p>Empirical tests show that it indeed is very fast (specially compared to
+libraries which evaluate functions by just interpreting the raw function
+string).
+
+<p>The library is made in ISO C++ and requires a standard-conforming C++
+compiler.
+
+
+<a name="usage"></a>
+<h2>Usage</h2>
+
+<p>To use the <code>FunctionParser</code> class, you have to include
+<code>"fparser.hh"</code> in your source code files which use the
+<code>FunctionParser</code> class.
+
+<p>When compiling, you have to compile <code>fparser.cc</code> and
+<code>fpoptimizer.cc</code> and link them to the main program. In some
+developement environments it's enough to add those two files to your
+current project (usually header files don't have to be added to the
+project for the compilation to work).
+
+<p>If you are not going to use the optimizer (ie. you have commented out
+<code>FP_SUPPORT_OPTIMIZER</code> in <code>fpconfig.hh</code>), you can
+leave the latter file out.
+
+
+<!-- -------------------------------------------------------------------- -->
+<a name="configuring"></a>
+<h3>Configuring the compilation</h3>
+
+<p>There is a set of precompiler options in the <code>fpconfig.hh</code> file
+which can be used for setting certain features on or off. All of these options
+can also be specified from the outside, using precompiler settings (eg. the
+<code>-D</code> option in gcc), and thus it's not necessary to modify this
+file.
+
+<dl>
+ <dt><p><code>FP_SUPPORT_TR1_MATH_FUNCS</code> : (Default off)
+ <dd><p>Define this precompiler constant to make the library use additional
+     math functions defined in the C99 standard and the C++ TR1 standard
+     proposal (but not yet in the official C++ standard). This can make
+     evaluation faster when these functions are involved.
+   <p>The C++ TR1 math functions in question are: <code>asinh()</code>,
+     <code>acosh()</code>, <code>atanh()</code>, <code>exp2()</code> and
+     <code>log2()</code>.
+
+ <dt><p><code>FP_ENABLE_EVAL</code> : (Default off)
+ <dd><p>Even though the maximum recursion level of the <code>eval()</code>
+       function is limited, it is still possible to write functions which never
+       reach this maximum recursion level but take enormous amounts of
+       time to evaluate (this can be undesirable eg. in web server-side
+       applications). For this reason this function is disabled by default.
+       You can add support for the <code>eval()</code> function by
+       defining this precompiler constant.
+
+ <dt><p><code>FP_EVAL_MAX_REC_LEVEL</code> : (Default 1000)
+ <dd><p>Sets the maximum recursion level allowed for <code>eval()</code>.
+
+ <dt><p><code>FP_SUPPORT_OPTIMIZER</code> : (Default on)
+ <dd><p>If you are not going to use the <code>Optimize()</code> method, you
+       can comment this line out to speed-up the compilation a bit, as
+       well as making the binary a bit smaller. (<code>Optimize()</code> can
+       still be called, but it will not do anything.)
+
+       <p>You can also disable the optimizer by specifying the
+       <code>FP_NO_SUPPORT_OPTIMIZER</code> precompiler constant in your
+       compiler settings.
+
+ <dt><p><code>FP_EPSILON</code> : (Default <code>1e-14</code>)
+ <dd><p>Epsilon value used in comparison operators.
+       If this line is commented out, then no epsilon will be used.
+
+ <dt><p><code>FP_USE_THREAD_SAFE_EVAL</code> : (Default off)
+ <dd><p>Define this precompiler constant to make <code>Eval()</code>
+       thread-safe. Refer to the <a href="#threadsafety">thread safety
+       section</a> later in this document for more information.
+       Note that defining this may make <code>Eval()</code> slightly slower.
+
+ <dt><p><code>FP_USE_THREAD_SAFE_EVAL_WITH_ALLOCA</code> : (Default off)
+ <dd><p>This is like the previous, but makes <code>Eval()</code> use the
+       <code>alloca()</code> function (instead of <code>std::vector</code>).
+       This will make it faster, but the <code>alloca()</code>
+       function is not standard and thus not supported by all compilers.
+
+ <dt><p><code>FP_NO_EVALUATION_CHECKS</code> : (Default off)
+ <dd><p>If this precompiler constant is defined, no evaluation-time checks
+        will be performed. This may give a slight boost in speed in certain
+        situations. Consult the <a href="#evaluationchecks">evaluation
+        checks section</a> below for more information on this subject.
+</dl>
+
+
+<!-- -------------------------------------------------------------------- -->
+<a name="copyassignment"></a>
+<h3>Copying and assignment</h3>
+
+<p>The class implements a safe copy constructor and assignment operator.
+
+<p>It uses the copy-on-write technique for efficiency. This means that
+  when copying or assigning a FunctionParser instance, the internal data
+  (which in some cases can be quite lengthy) is not immediately copied
+  but only when the contents of the copy (or the original) are changed.
+
+<p>This means that copying/assigning is a very fast operation, and if
+  the copies are never modified then actual data copying never happens
+  either.
+
+<p>The <code>Eval()</code> and <code>EvalError()</code> methods of the
+copy can be called without the internal data being copied.
+
+<p>Calling <code>Parse()</code>, <code>Optimize()</code> or the user-defined
+constant/function adding methods will cause a deep-copy.
+
+
+<!-- -------------------------------------------------------------------- -->
+<a name="identifiers"></a>
+<h3>Identifier names</h3>
+
+<p>An identifier is a function (internal or user-defined), variable,
+  constant or unit. New identifiers can be specified with the functions
+  described in the next subsections.
+
+<p>The name of an identifier can use any alphanumeric characters, the
+  underscore character and any UTF8-encoded unicode character. The first
+  character of the name cannot be a numeric digit, though.
+
+<p>All functions, variables, constants and units must use unique names.
+  It's not possible to add two different identifiers with the same name.
+
+
+<!-- -------------------------------------------------------------------- -->
+<a name="shortdesc"></a>
+<h3>Short descriptions of FunctionParser methods</h3>
+
+<pre>
+int Parse(const std::string&amp; Function, const std::string&amp; Vars,
+          bool useDegrees = false);
+
+int Parse(const char* Function, const std::string&amp; Vars,
+          bool useDegrees = false);
+</pre>
+
+<p>Parses the given function and compiles it to internal format.
+    Return value is -1 if successful, else the index value to the location
+    of the error.
+
+<hr>
+<pre>
+void setDelimiterChar(char);
+</pre>
+
+<p>Sets an ending delimiter character for the function string. (See the
+    long description for more details.)
+
+<hr>
+<pre>
+const char* ErrorMsg(void) const;
+</pre>
+
+<p>Returns an error message corresponding to the error in
+<code>Parse()</code>, or an empty string if no such error occurred.
+
+<hr>
+<pre>
+ParseErrorType GetParseErrorType() const;
+</pre>
+
+<p>Returns the type of parsing error which occurred. Possible return types
+    are described in the long description.
+
+<hr>
+<pre>
+double Eval(const double* Vars);
+</pre>
+
+<p>Evaluates the function given to <code>Parse()</code>.
+
+<hr>
+<pre>
+int EvalError(void) const;
+</pre>
+
+<p>Returns <code>0</code> if no error happened in the previous call to
+<code>Eval()</code>, else an error code <code>&gt;0</code>.
+
+<hr>
+<pre>
+void Optimize();
+</pre>
+
+<p>Tries to optimize the bytecode for faster evaluation.
+
+<hr>
+<pre>
+bool AddConstant(const std::string&amp; name, double value);
+</pre>
+
+<p>Add a constant to the parser. Returns <code>false</code> if the name of
+the constant is invalid, else <code>true</code>.
+
+<hr>
+<pre>
+bool AddUnit(const std::string&amp; name, double value);
+</pre>
+
+<p>Add a new unit to the parser. Returns <code>false</code> if the name of
+the unit is invalid, else <code>true</code>.
+
+<hr>
+<pre>
+bool AddFunction(const std::string&amp; name,
+                 double (*functionPtr)(const double*),
+                 unsigned paramsAmount);
+</pre>
+
+<p>Add a user-defined function to the parser (as a function pointer).
+Returns <code>false</code> if the name of the function is invalid, else
+<code>true</code>.
+
+<hr>
+<pre>
+bool AddFunction(const std::string&amp; name, FunctionParser&amp;);
+</pre>
+
+<p>Add a user-defined function to the parser (as a <code>FunctionParser</code>
+instance). Returns <code>false</code> if the name of the function is invalid,
+else <code>true</code>.
+
+<hr>
+<pre>
+bool RemoveIdentifier(const std::string&amp; name);
+</pre>
+
+<p>Removes the constant, unit or user-defined function with the specified
+name from the parser.
+
+<hr>
+<pre>
+int ParseAndDeduceVariables(const std::string&amp; function,
+                            int* amountOfVariablesFound = 0,
+                            bool useDegrees = false);
+int ParseAndDeduceVariables(const std::string&amp; function,
+                            std::string&amp; resultVarString,
+                            int* amountOfVariablesFound = 0,
+                            bool useDegrees = false);
+int ParseAndDeduceVariables(const std::string&amp; function,
+                            std::vector&lt;std::string&gt;&amp; resultVars,
+                            bool useDegrees = false);
+</pre>
+
+<p>Like <code>Parse()</code>, but the variables in the function are deduced
+automatically. The amount of found variables and the variable names themselves
+are returned by the different versions of the function.
+
+<!-- -------------------------------------------------------------------- -->
+<a name="longdesc"></a>
+<h3>Long descriptions of FunctionParser methods</h3>
+
+<hr>
+<pre>
+int Parse(const std::string&amp; Function, const std::string&amp; Vars,
+          bool useDegrees = false);
+
+int Parse(const char* Function, const std::string&amp; Vars,
+          bool useDegrees = false);
+</pre>
+
+<p>Parses the given function (and compiles it to internal format).
+Destroys previous function. Following calls to <code>Eval()</code> will evaluate
+the given function.
+
+<p>The strings given as parameters are not needed anymore after parsing.
+
+<p>Parameters:
+
+<table border=2>
+ <tr>
+  <td><code>Function</code></td>
+  <td>String containing the function to parse.</td>
+ </tr><tr>
+  <td><code>Vars</code></td>
+  <td>String containing the variable names, separated by commas.<br>
+      Eg. <code>"x,y"</code>, <code>"VarX,VarY,VarZ,n"</code> or
+      <code>"x1,x2,x3,x4,__VAR__"</code>.
+ </tr><tr>
+  <td><code>useDegrees</code></td>
+  <td>(Optional.) Whether to use degrees or radians in
+        trigonometric functions. (Default: radians)</td>
+ </tr>
+</table>
+
+<p>If a <code>char*</code> is given as the <code>Function</code> parameter,
+it must be a null-terminated string.
+
+<p>Variables can have any size and they are case sensitive (ie.
+<code>"var"</code>, <code>"VAR"</code> and <code>"Var"</code> are
+<em>different</em> variable names). Letters, digits, underscores and
+UTF8-encoded characters can be used in variable names, but the name of
+a variable can't begin with a digit. Each variable name can appear only
+once in the '<code>Vars</code>' string. Function names are not legal
+variable names.
+
+<p>Using longer variable names causes no overhead whatsoever to the
+<code>Eval()</code> method, so it's completely safe to use variable names
+of any size.
+
+<p>The third, optional parameter specifies whether angles should be
+    interpreted as radians or degrees in trigonometrical functions.
+    If not specified, the default value is radians.
+
+<p>Return values:
+
+<ul>
+ <li>On success the function returns <code>-1</code>.
+ <li>On error the function returns an index to where the error was found
+     (<code>0</code> is the first character, <code>1</code> the second, etc).
+     If the error was not a parsing error returns an index to the end of the
+     string.
+</ul>
+
+<p>Example: <code>parser.Parse("3*x+y", "x,y");</code>
+
+
+<hr>
+<pre>
+void setDelimiterChar(char);
+</pre>
+
+<p>By default the parser expects the entire function string to be valid
+(ie. the entire contents of the given <code>std::string</code>, or a C string
+ending in the null character <code>'\0'</code>).
+
+<p>If a delimiter character is specified with this function, then if it's
+encountered at the outermost parsing level by the <code>Parse()</code>
+function, and the input function has been valid so far, <code>Parse()</code>
+will return an index to this character inside the input string, but rather
+than set an error code, <code>FP_NO_ERROR</code> will be set.
+
+<p>The idea is that this can be used to more easily parse functions which
+are embedded inside larger strings, containing surrounding data, without
+having to explicitly extract the function to a separate string.
+
+<p>For example, suppose you are writing an interpreter for a scripting
+    language, which can have commands like this:
+
+<p><code>let MyFunction(x,y) = { sin(x*x+y*y) } // A 2-dimensional function</code>
+
+<p>Normally when parsing such a line you would have to extract the part
+inside the curly brackets into a separate string and parse it that way.
+With this feature what you can do instead is to set <code>'}'</code> as
+the delimiter character and then simply give a pointer to the character
+which comes after the <code>'{'</code>. If all goes well, the
+<code>Parse()</code> function will return an index to the <code>'}'</code>
+character (from the given starting point) and <code>GetParseErrorType()</code>
+will return <code>FP_NO_ERROR</code>. You can use the return
+value (if it's not <code>-1</code>) to jump forward in the string to the
+delimiter character.
+
+<p>Note that a null character (<code>'\0'</code>) or the end of the
+<code>std::string</code> (if one was given) will still be a valid end of
+the function string even if a delimiter character was specified. (In this
+case <code>Parse()</code> will return <code>-1</code> if there was no error,
+as usual.)
+
+<p>Also note that the delimiter character cannot be any valid operator
+or alphanumeric (including the underscore) character, nor the other
+characters defined in the function syntax. It must be a character not
+supported by the function parser (such as <code>'}'</code>,
+<code>'&quot;'</code>, <code>']'</code>, etc).
+
+
+<hr>
+<pre>
+const char* ErrorMsg(void) const;
+</pre>
+
+<p>Returns a pointer to an error message string corresponding to the error
+caused by <code>Parse()</code> (you can use this to print the proper error
+message to the user). If no such error has occurred, returns an empty string.
+
+
+<hr>
+<pre>
+ParseErrorType GetParseErrorType() const;
+</pre>
+
+<p>Returns the type of parse error which occurred.
+
+<p>This method can be used to get the error type if <code>ErrorMsg()</code>
+is not enough for printing the error message. In other words, this can be
+used for printing customized error messages (eg. in another language).
+If the default error messages suffice, then this method doesn't need
+to be called.
+
+<code>FunctionParser::ParseErrorType</code> is an enumerated type inside
+the class (ie. its values are accessed like
+"<code>FunctionParser::SYNTAX_ERROR</code>").
+
+<p>The possible values for FunctionParser::ParseErrorType are listed below,
+along with their equivalent error message returned by the
+<code>ErrorMsg()</code> method:
+
+<p><table border=2>
+<tr>
+ <td><code>FP_NO_ERROR</code></td>
+ <td>If no error occurred in the previous call to <code>Parse()</code>.</td>
+</tr><tr>
+ <td><code>SYNTAX_ERROR</code></td>
+ <td>"Syntax error"</td>
+</tr><tr>
+ <td><code>MISM_PARENTH</code></td>
+ <td>"Mismatched parenthesis"</td>
+</tr><tr>
+ <td><code>MISSING_PARENTH</code></td>
+ <td>"Missing ')'"</td>
+</tr><tr>
+ <td><code>EMPTY_PARENTH</code></td>
+ <td>"Empty parentheses"</td>
+</tr><tr>
+ <td><code>EXPECT_OPERATOR</code></td>
+ <td>"Syntax error: Operator expected"</td>
+</tr><tr>
+ <td><code>OUT_OF_MEMORY</code></td>
+ <td>"Not enough memory"</td>
+</tr><tr>
+ <td><code>UNEXPECTED_ERROR</code></td>
+ <td>"An unexpected error occurred. Please make a full bug report to the
+      author"</td>
+</tr><tr>
+ <td><code>INVALID_VARS</code></td>
+ <td>"Syntax error in parameter 'Vars' given to FunctionParser::Parse()"</td>
+</tr><tr>
+ <td><code>ILL_PARAMS_AMOUNT</code></td>
+ <td>"Illegal number of parameters to function"</td>
+</tr><tr>
+ <td><code>PREMATURE_EOS</code></td>
+ <td>"Syntax error: Premature end of string"</td>
+</tr><tr>
+ <td><code>EXPECT_PARENTH_FUNC</code></td>
+ <td>"Syntax error: Expecting ( after function"</td>
+</tr>
+</tr><tr>
+ <td><code>NO_FUNCTION_PARSED_YET</code></td>
+ <td>"(No function has been parsed yet)"</td>
+</tr>
+</table>
+
+
+<hr>
+<pre>
+double Eval(const double* Vars);
+</pre>
+
+<p>Evaluates the function given to <code>Parse()</code>.
+The array given as parameter must contain the same amount of values as
+the amount of variables given to <code>Parse()</code>. Each value corresponds
+to each variable, in the same order.
+
+<p>Return values:
+<ul>
+ <li>On success returns the evaluated value of the function given to
+     <code>Parse()</code>.
+ <li>On error (such as division by 0) the return value is unspecified,
+     probably 0.
+</ul>
+
+<p>Example:
+
+<p><code>double Vars[] = {1, -2.5};</code><br>
+<code>double result = parser.Eval(Vars);</code>
+
+
+<hr>
+<pre>
+int EvalError(void) const;
+</pre>
+
+<p>Used to test if the call to <code>Eval()</code> succeeded.
+
+<p>Return values:
+
+<p>If there was no error in the previous call to <code>Eval()</code>,
+returns <code>0</code>, else returns a positive value as follows:
+<ul>
+ <li>1: division by zero
+ <li>2: sqrt error (sqrt of a negative value)
+ <li>3: log error (logarithm of a negative value)
+ <li>4: trigonometric error (asin or acos of illegal value)
+ <li>5: maximum recursion level in <code>eval()</code> reached
+</ul>
+
+
+<hr>
+<pre>
+void Optimize();
+</pre>
+
+<p>This method can be called after calling the <code>Parse()</code> method.
+It will try to simplify the internal bytecode so that it will evaluate faster
+(it tries to reduce the amount of opcodes in the bytecode).
+
+<p>For example, the bytecode for the function <code>"5+x*y-25*4/8"</code> will
+be reduced to a bytecode equivalent to the function <code>"x*y-7.5"</code> (the
+original 11 opcodes will be reduced to 5). Besides calculating constant
+expressions (like in the example), it also performs other types of
+simplifications with variable and function expressions.
+
+<p>This method is quite slow and the decision of whether to use it or
+not should depend on the type of application. If a function is parsed
+once and evaluated millions of times, then calling <code>Optimize()</code>
+may speed-up noticeably. However, if there are tons of functions to parse
+and each one is evaluated once or just a few times, then calling
+<code>Optimize()</code> will only slow down the program.
+
+<p>Also, if the original function is expected to be optimal, then calling
+<code>Optimize()</code> would be useless.
+
+<p>Note: Currently this method does not make any checks (like
+<code>Eval()</code> does) and thus things like <code>"1/0"</code> will cause
+undefined behaviour. (On the other hand, if such expression is given to the
+parser, <code>Eval()</code> will always give an error code, no matter what
+the parameters.) If caching this type of errors is important, a work-around
+is to call <code>Eval()</code> once before calling <code>Optimize()</code>
+and checking <code>EvalError()</code>.
+
+<p>If the destination application is not going to use this method,
+the compiler constant <code>FP_SUPPORT_OPTIMIZER</code> can be undefined in
+<code>fpconfig.hh</code> to make the library smaller (<code>Optimize()</code>
+can still be called, but it will not do anything).
+
+<p>(If you are interested in seeing how this method optimizes the opcode,
+you can call the <code>PrintByteCode()</code> method before and after the
+call to <code>Optimize()</code> to see the difference.)
+
+
+<hr>
+<pre>
+bool AddConstant(const std::string&amp; name, double value);
+</pre>
+
+<p>This method can be used to add constants to the parser. Syntactically
+    constants are identical to variables (ie. they follow the same naming
+    rules and they can be used in the function string in the same way as
+    variables), but internally constants are directly replaced with their
+    value at parse time.
+
+<p>Constants used by a function must be added before calling
+<code>Parse()</code> for that function. Constants are preserved between
+<code>Parse()</code> calls in the current FunctionParser instance, so
+they don't need to be added but once. (If you use the same constant in
+several instances of FunctionParser, you will need to add it to all the
+instances separately.)
+
+<p>Constants can be added at any time and the value of old constants can
+be changed, but new additions and changes will only have effect the next
+time <code>Parse()</code> is called. (That is, changing the value of a constant
+after calling <code>Parse()</code> and before calling <code>Eval()</code>
+will have no effect.)
+
+<p>The return value will be <code>false</code> if the '<code>name</code>' of
+the constant was illegal, else <code>true</code>. If the name was illegal,
+the method does nothing.
+
+<p>Example: <code>parser.AddConstant("pi", 3.1415926535897932);</code>
+
+<p>Now for example <code>parser.Parse("x*pi", "x");</code> will be identical
+to the call <code>parser.Parse("x*3.1415926535897932", "x");</code>
+
+
+<hr>
+<pre>
+bool AddUnit(const std::string&amp; name, double value);
+</pre>
+
+<p>In some applications it is desirable to have units of measurement.
+A typical example is an application which creates a page layout to be
+printed. When printing, distances are usually measured in points
+(defined by the resolution of the printer). However, it is often more
+useful for the user to be able to specify measurements in other units
+such as centimeters or inches.
+
+<p>A unit is simply a value by which the preceding element is multiplied.
+For example, if the printing has been set up to 300 DPI, one inch is
+then 300 points (dots). Thus saying eg. <code>"5in"</code> is the same as saying
+<code>"5*300"</code> or <code>"1500"</code> (assuming <code>"in"</code> has
+been added as a unit with the value 300).
+
+<p>Note that units are slightly different from a multiplication in
+that they have a higher precedence than any other operator (except
+parentheses). Thus for example <code>"5/2in"</code> is parsed as
+<code>"5/(2*300)"</code>.
+(If 5/2 inches is what one wants, it has to be written <code>"(5/2)in"</code>.)
+
+<p>You can use the <code>AddUnit()</code> method to add a new unit. The
+unit can then be used after any element in the function (and will work as
+a multiplier for that element). An element is a float literal, a constant,
+a variable, a function or any expression in parentheses. When the element
+is not a float literal nor an expression in parentheses, there has to naturally
+be at least one whitespace between the element and the unit (eg.
+<code>"x in"</code>). To change the value of a unit, call
+<code>AddUnit()</code> again with the same unit name and the new value.
+
+<p>Unit names share the same namespace as constants, functions and
+    variables, and thus should be distinct from those.
+
+<p>Example: <code>parser.AddUnit("in", 300);</code>
+
+<p>Now for example the function <code>"5in"</code> will be identical to
+<code>"(5*300)"</code>. Other usage examples include <code>"x in"</code>,
+<code>"3in+2"</code>, <code>"pow(x,2)in"</code>, <code>"(x+2)in"</code>.
+
+
+<hr>
+<pre>
+bool AddFunction(const std::string&amp; name,
+                 double (*functionPtr)(const double*),
+                 unsigned paramsAmount);
+</pre>
+
+This method can be used to add new functions to the parser. For example,
+if you would like to add a function "<code>sqr(A)</code>" which squares the
+value of <code>A</code>, you can do it with this method (so that you don't
+need to touch the source code of the parser).
+
+<p>The method takes three parameters:
+
+<ul>
+ <li>The name of the function. The name follows the same naming conventions
+      as variable names.
+
+ <li>A C++ function, which will be called when evaluating the function
+      string (if the user-given function is called there). The C++ function
+      must have the form:
+      <p><code>double functionName(const double* params);</code>
+
+ <li>The number of parameters the function takes. 0 is a valid value
+      in which case the function takes no parameters (such function
+      should simply ignore the <code>double*</code> it gets as a parameter).
+</ul>
+
+<p>The return value will be <code>false</code> if the given name was invalid
+(either it did not follow the variable naming conventions, or the name was
+already reserved), else <code>true</code>. If the return value is
+<code>false</code>, nothing is added.
+
+<p>Example: Suppose we have a C++ function like this:
+
+<p><code>double Square(const double* p)</code><br>
+<code>{</code><br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;return p[0]*p[0];</code><br>
+<code>}</code>
+
+<p>Now we can add this function to the parser like this:
+
+<p><code>parser.AddFunction("sqr", Square, 1);</code><br>
+<code>parser.Parse("2*sqr(x)", "x");</code>
+
+<p>An example of a useful function taking no parameters is a function
+    returning a random value. For example:
+
+<p><code>double Rand(const double*)</code><br>
+<code>{</code><br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;return drand48();</code><br
+<code>}</code>
+
+<p><code>parser.AddFunction("rand", Rand, 0);</code>
+
+<p><em>Important note</em>: If you use the <code>Optimize()</code> method,
+it will assume that the user-given function has no side-effects, that is,
+it always returns the same value for the same parameters. The optimizer will
+optimize the function call away in some cases, making this assumption.
+(The <code>Rand()</code> function given as example above is one such
+problematic case.)
+
+
+<hr>
+<pre>
+bool AddFunction(const std::string&amp; name, FunctionParser&amp;);
+</pre>
+
+<p>This method is almost identical to the previous <code>AddFunction()</code>,
+but instead of taking a C++ function, it takes another FunctionParser
+instance.
+
+<p>There are some important restrictions on making a FunctionParser instance
+    call another:
+
+<ul>
+ <li>The FunctionParser instance given as parameter must be initialized
+      with a <code>Parse()</code> call before giving it as parameter. That
+      is, if you want to use the parser <code>A</code> in the parser
+      <code>B</code>, you must call <code>A.Parse()</code> before you can
+      call <code>B.AddFunction("name", A)</code>.
+
+ <li>The amount of variables in the FunctionParser instance given as
+      parameter must not change after it has been given to the
+      <code>AddFunction()</code>
+      of another instance. Changing the number of variables will result in
+      malfunction.
+
+ <li><code>AddFunction()</code> will fail (ie. return <code>false</code>)
+      if a recursive loop is
+      formed. The method specifically checks that no such loop is built.
+
+ <li>The FunctionParser instance given as parameter will <em>not</em> be
+     copied internally, only referenced. Thus the FunctionParser instance
+     given as parameter must exist for as long as the other FunctionParser
+     instance uses it.
+</ul>
+
+<p>Example:
+
+<p><code>FunctionParser f1, f2;</code><br>
+<p><code>f1.Parse("x*x", "x");</code><br>
+<p><code>f2.AddFunction("sqr", f1);</code>
+
+<p>This version of the <code>AddFunction()</code> method can be useful to
+eg. chain user-given functions. For example, ask the user for a function F1,
+    and then ask the user another function F2, but now the user can
+    call F1 in this second function if he wants (and so on with a third
+    function F3, where he can call F1 and F2, etc).
+
+<hr>
+<pre>
+bool RemoveIdentifier(const std::string&amp; name);
+</pre>
+
+<p>If a constant, unit or user-defined function with the specified name
+exists in the parser, it will be removed and the return value will be
+<code>true</code>, else nothing will be done and the return value will be
+<code>false</code>.
+
+<p>(Note: If you want to remove <em>everything</em> from an existing
+FunctionParser instance, simply assign a fresh instance to it, ie. like
+"<code>parser&nbsp;=&nbsp;FunctionParser();</code>")
+
+<hr>
+<pre>
+int ParseAndDeduceVariables(const std::string&amp; function,
+                            int* amountOfVariablesFound = 0,
+                            bool useDegrees = false);
+int ParseAndDeduceVariables(const std::string&amp; function,
+                            std::string&amp; resultVarString,
+                            int* amountOfVariablesFound = 0,
+                            bool useDegrees = false);
+int ParseAndDeduceVariables(const std::string&amp; function,
+                            std::vector&lt;std::string&gt;&amp; resultVars,
+                            bool useDegrees = false);
+</pre>
+
+<p>These functions work in the same way as the <code>Parse()</code> function,
+but the variables in the input function string are deduced automatically. The
+parameters are:
+
+<ul>
+ <li><code>function</code>: The input function string, as with
+   <code>Parse()</code>.
+ <li><code>amountOfVariablesFound</code>: If non-null, the amount of found
+   variables will be assigned here.
+ <li><code>resultVarString</code>: The found variables will be written to
+   this string, in the same format as accepted by the <code>Parse()</code>
+   function. The variable names will be sorted using the <code>&lt</code>
+   operator of <code>std::string</code>.
+ <li><code>resultVars</code>: The found variables will be written to this
+   vector, each element being one variable name. They will be sorted using
+   the <code>&lt</code> operator of <code>std::string</code>. (The amount
+   of found variables can be retrieved, rather obviously, with the
+   <code>size()</code> method of the vector.)
+ <li><code>useDegrees</code>: As with <code>Parse()</code>.
+</ul>
+
+<p>As with <code>Parse()</code>, the return value will be <code>-1</code> if
+the parsing succeeded, else an index to the location of the error. None of
+the specified return values will be modified in case of error.
+
+
+<!-- -------------------------------------------------------------------- -->
+<a name="evaluationchecks"></a>
+<h2>About evaluation-time checks</h2>
+
+<p>By default <code>FunctionParser::Eval()</code> will perform certain sanity
+checks before performing certain operations. For example, before calling the
+<code>sqrt</code> function, it will check if the parameter is negative, and
+if so, it will set the proper error code instead of calling the function.
+These checks include:
+
+<ul>
+ <li>Division by (the exact value of) zero.
+ <li>Square root of a negative value.
+ <li>Logarithm of a non-positive value.
+ <li>Arcsine or arccosine of a value not in the range [-1, 1].
+</ul>
+
+<p>However, the library <em>can not</em> guarantee that it will catch all
+possible floating point errors before performing them, because this is
+impossible to do with standard C++. For example, dividing a very large
+value by a value which is very close to zero, or calculating the logarithm
+of a very small value may overflow the result, as well as multiplying two
+very large values. Raising a negative number to a non-integral power may
+cause a <em>NaN</em> result, etc.
+
+<p>In general, as stated, the library cannot guarantee that floating point
+errors will never happen during evaluation. This can make the library to
+return the floating point values <em>inf</em> and <em>NaN</em>. Moreover,
+if floating point errors cause an interrupt in the target computer
+architecture and/or when using certain compiler settings, this library
+cannot guarantee that it will never happen.
+
+<p>Since not all error situations can be caught, and since the sanity checks
+only slow down the evaluation (although only very slightly), the precompiler
+constant <code>FP_NO_EVALUATION_CHECKS</code> can be used to turn all the
+checks off. This might make the evaluation slightly faster in certain
+situations.
+
+<p>Note that the optimizer never performs any sanity checks.
+
+
+<!-- -------------------------------------------------------------------- -->
+<a name="threadsafety"></a>
+<h2>About thread safety</h2>
+
+<p>None of the member functions of the FunctionParser class are thread-safe.
+Most prominently, the <code>Eval()</code> function is not thread-safe.
+(In other words, the <code>Eval()</code> function of a single FunctionParser
+instance cannot be safely called simultaneously by two threads.)
+
+<p>There are ways to use this library in a thread-safe way, though. If each
+thread uses its own FunctionParser instance, no problems will obviously
+happen. Note, however, that if these instances need to be a copy of a given
+FunctionParser instance (eg. one where the user has entered a function),
+a deep copy of this instance has to be performed for each thread. By
+default FunctionParser uses shallow-copying (copy-on-write), which means
+that a simple assignment of copy construction will not copy the data itself.
+To force a deep copy you can all the <code>ForceDeepCopy()</code> function on
+each of the instances of each thread after the assignment or copying has been
+done.
+
+<p>Another possibility is to compile the FunctionParser library so that
+its <code>Eval()</code> function will be thread-safe. (This can be done by
+defining the <code>FP_USE_THREAD_SAFE_EVAL</code> or the
+<code>FP_USE_THREAD_SAFE_EVAL_WITH_ALLOCA</code>
+precompiler constant.) As long as only one thread calls the other functions
+of FunctionParser, the other threads can safely call the <code>Eval()</code>
+of this one instance.
+
+<p>Note, however, that compiling the library like this can make
+<code>Eval()</code> slightly slower. (The <code>alloca</code> version, if
+supported by the compiler, will not be as slow.)
+
+
+<!-- -------------------------------------------------------------------- -->
+<a name="functionsyntax"></a>
+<h2>The function string syntax</h2>
+
+<p>The function string understood by the class is very similar to the C-syntax.
+Arithmetic float expressions can be created from float literals, variables
+or functions using the following operators in this order of precedence:
+
+<p><table border=2>
+ <tr>
+  <td><code>()</code></td>
+  <td>expressions in parentheses first</td>
+ </tr><tr>
+  <td><code>A unit</code></td>
+  <td>a unit multiplier (if one has been added)</td>
+ </tr><tr>
+  <td><code>A^B</code></td>
+  <td>exponentiation (A raised to the power B)</td>
+ </tr><tr>
+  <td><code>-A</code></td>
+  <td>unary minus</td>
+ </tr><tr>
+  <td><code>!A</code></td>
+  <td>unary logical not (result is 1 if <code>int(A)</code> is 0, else 0)</td>
+ </tr><tr>
+  <td><code>A*B  A/B  A%B</code></td>
+  <td>multiplication, division and modulo</td>
+ </tr><tr>
+  <td><code>A+B  A-B</code></td>
+  <td>addition and subtraction</td>
+ </tr><tr>
+  <td><code>A=B  A&lt;B  A&lt;=B<br>A!=B  A&gt;B  A&gt;=B</code></td>
+  <td>comparison between A and B (result is either 0 or 1)</td>
+ </tr><tr>
+  <td><code>A&amp;B</code></td>
+  <td>result is 1 if <code>int(A)</code> and <code>int(B)</code> differ from
+      0, else 0</td>
+ </tr><tr>
+  <td><code>A|B</code></td>
+  <td>result is 1 if <code>int(A)</code> or <code>int(B)</code> differ from 0,
+      else 0</td>
+ </tr>
+</table>
+
+<p>Since the unary minus has higher precedence than any other operator, for
+  example the following expression is valid: <code>x*-y</code>
+
+<p>The comparison operators use an epsilon value, so expressions which may
+differ in very least-significant digits should work correctly. For example,
+<code>"0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1 = 1"</code> should always
+return 1, and the same comparison done with "<code>&gt;</code>" or
+"<code>&lt;</code>" should always return 0. (The epsilon value can be
+configured in the <code>fpconfig.hh</code> file.)
+Without epsilon this comparison probably returns the wrong value.
+
+<p>The class supports these functions:
+
+<p><table border=2>
+<tr>
+ <td><code>abs(A)</code></td>
+ <td>Absolute value of A. If A is negative, returns -A otherwise returns A.</td>
+</tr><tr>
+  <td><code>acos(A)</code></td>
+  <td>Arc-cosine of A. Returns the angle, measured in radians, whose cosine
+      is A.</td>
+</tr><tr>
+  <td><code>acosh(A)</code></td>
+  <td>Same as acos() but for hyperbolic cosine.</td>
+</tr><tr>
+  <td><code>asin(A)</code></td>
+  <td>Arc-sine of A. Returns the angle, measured in radians, whose sine
+      is A.</td>
+</tr><tr>
+  <td><code>asinh(A)</code></td>
+  <td>Same as asin() but for hyperbolic sine.</td>
+</tr><tr>
+  <td><code>atan(A)</code></td>
+  <td>Arc-tangent of (A). Returns the angle, measured in radians,
+      whose tangent is (A).</td>
+</tr><tr>
+  <td><code>atan2(A,B)</code></td>
+  <td>Arc-tangent of A/B. The two main differences to atan() is
+      that it will return the right angle depending on the signs of
+      A and B (atan() can only return values betwen -pi/2 and pi/2),
+      and that the return value of pi/2 and -pi/2 are possible.</td>
+</tr><tr>
+  <td><code>atanh(A)</code></td>
+  <td>Same as atan() but for hyperbolic tangent.</td>
+</tr><tr>
+  <td><code>ceil(A)</code></td>
+  <td>Ceiling of A. Returns the smallest integer greater than A.
+      Rounds up to the next higher integer.</td>
+</tr><tr>
+  <td><code>cos(A)</code></td>
+  <td>Cosine of A. Returns the cosine of the angle A, where A is
+      measured in radians.</td>
+</tr><tr>
+  <td><code>cosh(A)</code></td>
+  <td>Same as cos() but for hyperbolic cosine.</td>
+</tr><tr>
+  <td><code>cot(A)</code></td>
+  <td>Cotangent of A (equivalent to 1/tan(A)).</td>
+</tr><tr>
+  <td><code>csc(A)</code></td>
+  <td>Cosecant of A (equivalent to 1/sin(A)).</td>
+</tr><tr>
+  <td><code>eval(...)</code></td>
+  <td>This a recursive call to the function to be evaluated. The
+      number of parameters must be the same as the number of parameters
+      taken by the function. Must be called inside <code>if()</code> to avoid
+      infinite recursion.</td>
+</tr><tr>
+  <td><code>exp(A)</code></td>
+  <td>Exponential of A. Returns the value of e raised to the power
+      A where e is the base of the natural logarithm, i.e. the
+      non-repeating value approximately equal to 2.71828182846.</td>
+</tr><tr>
+  <td><code>floor(A)</code></td>
+  <td>Floor of A. Returns the largest integer less than A. Rounds
+      down to the next lower integer.</td>
+</tr><tr>
+  <td><code>if(A,B,C)</code></td>
+  <td>If int(A) differs from 0, the return value of this function is B,
+      else C. Only the parameter which needs to be evaluated is
+      evaluated, the other parameter is skipped; this makes it safe to
+      use <code>eval()</code> in them.</td>
+</tr><tr>
+  <td><code>int(A)</code></td>
+  <td>Rounds A to the closest integer. 0.5 is rounded to 1.</td>
+</tr><tr>
+  <td><code>log(A)</code></td>
+  <td>Natural (base e) logarithm of A.</td>
+</tr><tr>
+  <td><code>log10(A)</code></td>
+  <td>Base 10 logarithm of A.</td>
+</tr><tr>
+  <td><code>max(A,B)</code></td>
+  <td>If A&gt;B, the result is A, else B.</td>
+</tr><tr>
+  <td><code>min(A,B)</code></td>
+  <td>If A&lt;B, the result is A, else B.</td>
+</tr><tr>
+  <td><code>pow(A,B)</code></td>
+  <td>Exponentiation (A raised to the power B).</td>
+</tr><tr>
+  <td><code>sec(A)</code></td>
+  <td>Secant of A (equivalent to 1/cos(A)).</td>
+</tr><tr>
+  <td><code>sin(A)</code></td>
+  <td>Sine of A. Returns the sine of the angle A, where A is
+      measured in radians.</td>
+</tr><tr>
+  <td><code>sinh(A)</code></td>
+  <td>Same as sin() but for hyperbolic sine.</td>
+</tr><tr>
+  <td><code>sqrt(A)</code></td>
+  <td>Square root of A. Returns the value whose square is A.</td>
+</tr><tr>
+  <td><code>tan(A)</code></td>
+  <td>Tangent of A. Returns the tangent of the angle A, where A
+      is measured in radians.</td>
+</tr><tr>
+  <td><code>tanh(A)</code></td>
+  <td>Same as tan() but for hyperbolic tangent.</td>
+</tr>
+</table>
+
+<p>Examples of function string understood by the class:
+
+<p><code>"1+2"</code><br>
+<code>"x-1"</code><br>
+<code>"-sin(sqrt(x^2+y^2))"</code><br>
+<code>"sqrt(XCoord*XCoord + YCoord*YCoord)"</code><br>
+
+<p>An example of a recursive function is the factorial function:
+
+<code>"if(n>1, n*eval(n-1), 1)"</code>
+
+<p>Note that a recursive call has some overhead, which makes it a bit slower
+  than any other operation. It may be a good idea to avoid recursive functions
+  in very time-critical applications. Recursion also takes some memory, so
+  extremely deep recursions should be avoided (eg. millions of nested recursive
+  calls).
+
+<p>Also note that even though the maximum recursion level of
+<code>eval()</code> is limited, it is possible to write functions which
+never reach that level but still take enormous amounts of time to evaluate.
+This can sometimes be undesirable because it is prone to exploitation,
+which is why <code>eval()</code> is disabled by default. It can be enabled
+in the <code>fpconfig.hh</code> file.
+
+
+<!-- -------------------------------------------------------------------- -->
+<a name="tipsandtricks"></a>
+<h2>Tips and tricks</h2>
+
+<h3>Add constants automatically to all parser objects</h3>
+
+<p>Often the same constants (such as <em>pi</em> and <em>e</em>) and other
+user-defined identifiers (such as units) are always used in all the
+<code>FunctionParser</code> objects throughout the program. It would be
+troublesome to always have to manually add these constants every time a
+new parser object is created.
+
+<p>There is, however, a simple way to always add these user-defined identifiers
+to all instances. Write a class like this:
+
+<pre>
+    class ParserWithConsts: public FunctionParser
+    {
+     public:
+        ParserWithConsts()
+        {
+            AddConstant("pi", 3.14159265358979323846);
+            AddConstant("e", 2.71828182845904523536);
+        }
+    };
+</pre>
+
+<p>Now instead of using <code>FunctionParser</code>, always use
+<code>ParserWithConsts</code>. It will behave identically except that the
+constants (and possibly other user-defined identifiers) will always be
+automatically defined. (Objects of this type even survive
+<a href="http://en.wikipedia.org/wiki/Object_slicing">slicing</a>, so
+they are completely safe to use anywhere.)
+
+
+<!-- -------------------------------------------------------------------- -->
+<a name="contact"></a>
+<h2>Contacting the author</h2>
+
+<p>Any comments, bug reports, etc. should be sent to warp@iki.fi
+
+
+<!-- -------------------------------------------------------------------- -->
+<!--
+<a name="algorithm"></a>
+<h2>The algorithm used in the library</h2>
+
+<p>The whole idea behind the algorithm is to convert the regular infix
+format (the regular syntax for mathematical operations in most languages,
+like C and the input of the library) to postfix format. The postfix format
+is also called stack arithmetic since an expression in postfix format
+can be evaluated using a stack and operating with the top of the stack.
+
+<p>For example:
+
+<p><table border=2>
+<tr><th>infix</th> <th>postfix</th></tr>
+<tr><td><code>2+3</code></td><td><code>2 3 +</code></td></tr>
+<tr><td><code>1+2+3</code></td><td><code>1 2 + 3 +</code></td></tr>
+<tr><td><code>5*2+8/2</code></td><td><code>5 2 * 8 2 / +</code></td></tr>
+<tr><td><code>(5+9)*3</code></td><td><code>5 9 + 3 *</code></td></tr>
+</table>
+
+<p>The postfix notation should be read in this way:
+
+<p>Let's take for example the expression: <code>5 2 * 8 2 / +</code>
+<ul>
+ <li>Put 5 on the stack
+ <li>Put 2 on the stack
+ <li>Multiply the two values on the top of the stack and put the result on
+    the stack (removing the two old values)
+ <li>Put 8 on the stack
+ <li>Put 2 on the stack
+ <li>Divide the two values on the top of the stack
+ <li>Add the two values on the top of the stack (which are in this case
+    the result of 5*2 and 8/2, that is, 10 and 4).
+</ul>
+
+<p>At the end there's only one value in the stack, and that value is the
+result of the expression.
+
+<p>Why stack arithmetic?
+
+<p>The last example above can give you a hint.
+  In infix format operators have precedence and we have to use parentheses to
+group operations with lower precedence to be calculated before operations
+with higher precedence.
+  This causes a problem when evaluating an infix expression, specially
+when converting it to byte code. For example in this kind of expression:
+    <code>(x+1)/(y+2)</code>
+we have to calculate first the two additions before we can calculate the
+division. We have to also keep counting parentheses, since there can be
+a countless amount of nested parentheses. This usually means that you
+have to do some type of recursion.
+
+<p>The simplest and mostefficient way of calculating this is to convert it
+to postfix notation.
+  The postfix notation has the advantage that you can make all operations
+in a straightforward way. You just evaluate the expression from left to
+right, applying each operation directly and that's it. There are no
+parentheses to worry about. You don't need recursion anywhere.
+  You have to keep a stack, of course, but that's extremely easily done.
+Also you just operate with the top of the stack, which makes it very easy.
+You never have to go deeper than 2 items in the stack.
+  And even better: Evaluating an expression in postfix format is never
+slower than in infix format. All the contrary, in many cases it's a lot
+faster (eg. because all parentheses are optimized away).
+  The above example could be expressed in postfix format:
+    <code>x 1 + y 2 + /</code>
+
+<p>The good thing about the postfix notation is also the fact that it can
+be extremely easily expressed in bytecode form.
+  You only need a byte value for each operation, for each variable and
+to push a constant to the stack.
+  Then you can interpret this bytecode straightforwardly. You just interpret
+it byte by byte, from the beginning to the end. You never have to go back,
+make loops or anything.
+
+<p>This is what makes byte-coded stack arithmetic so fast.
+-->
+
+
+<!-- -------------------------------------------------------------------- -->
+<a name="license"></a>
+<h2>Usage license</h2>
+
+<p>Copyright © 2003-2008 Juha Nieminen, Joel Yliluoma
+
+<p>This library is distributed under two distinct usage licenses depending
+on the software ("Software" below) which uses the Function Parser library
+("Library" below).
+
+<p>The reason for having two distinct usage licenses is to make the library
+compatible with the GPL license while still being usable in other non-GPL
+(even commercial) software.
+
+<hr>
+<h3>License A</h3>
+
+<p>If the Software using the Library is distributed under the GPL license,
+   then the Library can be used under the GPL license as well.
+
+<p>The Library will be under the GPL license only when used with the
+   Software. If the Library is separated from the Software and used in
+   another different software under a different license, then the Library
+   will have the B) license below.
+
+<p>Exception to the above: If the Library is modified for the GPL Software,
+   then the Library cannot be used with the B) license without the express
+   permission of the author of the modifications. A modified library will
+   be under the GPL license by default. That is, only the original,
+   unmodified version of the Library can be taken to another software
+   with the B) license below.
+
+<p>The author of the Software should provide an URL to the original
+   version of the Library if the one used in the Software has been
+   modified. (<code>http://iki.fi/warp/FunctionParser/</code>)
+
+<p>This text file must be distributed in its original intact form along
+   with the sources of the Library. (Documentation about possible
+   modifications to the library should be put in a different text file.)
+
+<p>As per the GPL license, the copyright notification at the beginning of
+   this section should accompany any significant portions of the Library.
+   Proper credits in any Software using the Library is appreciated.
+
+<hr>
+<h3>License B</h3>
+
+<p>If the Software using the Library is not distributed under the GPL
+   license but under any other license, then the following usage license
+   applies to the Library:
+
+<ol>
+ <li>This library is free for non-commercial usage. You can do whatever you
+     like with it as long as you don't claim you made it yourself.
+
+ <li>It is possible to use this library in a commercial program, but in this
+     case you MUST contact me first (warp@iki.fi) and ask express permission
+     for this. (Read explanation at the end of the file.)
+     <p>If you are making a free program or a shareware program with just a
+     nominal price (5 US dollars or less), you don't have to ask for
+     permission.
+     <p>In any case, I DON'T WANT MONEY for the usage of this library. It is
+     free, period.
+
+ <li>You can make any modifications you want to it so that it conforms your
+     needs. If you make modifications to it, you have, of course, credits for
+     the modified parts.
+
+ <li>If you use this library in your own program, you don't have to provide
+     the source code if you don't want to (ie. the source code of your program
+     or this library).
+     <p>If you DO include the source code for this library, this text file
+     must be included in its original intact form.
+
+ <li>If you distribute a program which uses this library, and specially if you
+     provide the source code, proper credits MUST be included. Trying to
+     obfuscate the fact that this library is not made by you or that it is
+     free is expressly prohibited. When crediting the usage of this library,
+     it's enough to include a copyright notice and the name of the authors,
+     that is: Juha Nieminen, Joel Yliluoma.
+     <p>Also a URL to the library download page would be nice, although not
+     required. The official URL is:
+     <p><code>http://iki.fi/warp/FunctionParser/</code>
+
+ <li>And the necessary "lawyer stuff":
+
+     <p>The above copyright notice and this permission notice shall be
+     included in all copies or substantial portions of the Software.
+
+     <p>The software is provided "as is", without warranty of any kind,
+     express or implied, including but not limited to the warranties of
+     merchantability, fitness for a particular purpose and noninfringement.
+     In no event shall the authors or copyright holders be liable for any
+     claim, damages or other liability, whether in an action of contract,
+     tort or otherwise, arising from, out of or in connection with the
+     software or the use or other dealings in the software.
+</ol>
+
+<p>Explanation of the section 2 of the B) license above:
+
+<p>The section 2 tries to define "fair use" of the library in commercial
+programs.
+<p>"Fair use" of the library means that the program is not heavily dependent
+on the library, but the library only provides a minor secondary feature
+to the program.
+<p>"Heavily dependent" means that the program depends so much on the library
+that without it the functionality of the program would be seriously
+degraded or the program would even become completely non-functional.
+
+<p>In other words: If the program does not depend heavily on the library,
+that is, the library only provides a minor secondary feature which could
+be removed without the program being degraded in any considerable way,
+then it's OK to use the library in the commercial program.
+<p>If, however, the program depends so heavily on the library that
+removing it would make the program non-functional or degrade its
+functionality considerably, then it's NOT OK to use the library.
+
+<p>The ideology behind this is that it's not fair to use a free library
+as a base for a commercial program, but it's fair if the library is
+just a minor, unimportant extra.
+
+<p>If you are going to ask me for permission to use the library in a
+commercial program, please describe the feature which the library will
+be providing and how important it is to the program.
+
+</body>
+</html>

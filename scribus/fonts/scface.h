@@ -1,3 +1,10 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+
 #ifndef SC_FACE_H
 #define SC_FACE_H
 
@@ -13,17 +20,21 @@ embedding:    fontdictionary, rawdata, embedPS, embedPDF, subsetPS, subsetPDF
 virtual:      dispatch to constituents, handle embedding (-)
 */
 
-#include <QString>
-//#include <QVector>
+#include <QHash>
 #include <QMap>
-//#include <QArray>
+#include <QString>
+#include <QStringList>
 #include <utility>
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 #include "fpointarray.h"
 
+class CharStyle;
 
-
-struct GlyphMetrics {
+struct GlyphMetrics
+{
 	qreal width;
 	qreal ascent;
 	qreal descent;
@@ -73,93 +84,106 @@ public:
 		// handled by freetype:	PFB_MAC, DFONT, HQX, MACBIN,
 		SFNT, TTCF, UNKNOWN_FORMAT };
 
-	static const uint CONTROL_GLYPHS = 2000000000; // 2 billion
-	
-	struct GlyphData { 
-		FPointArray Outlines;
-		qreal x;
-		qreal y;
-		qreal bbox_width;
-		qreal bbox_ascent;
-		qreal bbox_descent;
-		bool broken;
-		GlyphData() : Outlines(), x(0), y(0), bbox_width(1), bbox_ascent(1), bbox_descent(0), broken(true) {}
+	typedef uint cid_type;
+	typedef uint gid_type;
+	typedef uint ucs4_type;
+	struct GlyphEncoding
+	{
+		ucs4_type charcode {0};
+		QString glyphName;
+		QString toUnicode {"0000"};
 	};
-	
-	
+	typedef QMap<gid_type, GlyphEncoding> FaceEncoding;
+
+	static const gid_type CONTROL_GLYPHS = 2000000000; // 2 billion
+
+	struct GlyphData
+	{ 
+		FPointArray Outlines;
+		qreal x {0.0};
+		qreal y {0.0};
+		qreal bbox_width {1.0};
+		qreal bbox_ascent {1.0};
+		qreal bbox_descent {0.0};
+		bool broken {true};
+		GlyphData() {}
+	};
+
+    
 	/// see accessors for ScFace for docs
-	class ScFaceData {
+	class ScFaceData 
+	{
 	public:
+		ScFaceData();
+		virtual ~ScFaceData();
+
 		/// controls destruction
-		mutable int refs;
+		mutable int refs {0};
 		/// controls load()
-		mutable int usage;
-		
-		QString scName;
-		QString fontFile;
-		int     faceIndex;
-		QString psName;
+		mutable int usage {0};
+
 		QString family;
+		QString fontFile {"(None)"};
+		QString forDocument;
+		QString psName;
+		QString scName;
 		QString style;
 		QString variant;
+		QStringList fontFeatures;
+		int     faceIndex {-1};
 
-		QString forDocument;
+		mutable ScFace::Status status {ScFace::NULLFACE};
+		ScFace::FontType typeCode {ScFace::UNKNOWN_TYPE};
+		ScFace::FontFormat formatCode {ScFace::UNKNOWN_FORMAT};
 
-		mutable ScFace::Status status;
-		ScFace::FontType typeCode;
-		ScFace::FontFormat formatCode;
-		
-		bool usable;
-		bool embedPs;
-		bool subset;
-		
-		bool isStroked;
-		bool isFixedPitch;
-		bool hasNames;
-		uint maxGlyph;
+		bool usable {false};
+		bool embedPs {false};
+		bool subset {false};
+		bool outline {false};
 
-		ScFaceData();
-		virtual ~ScFaceData() { };
+		bool isCIDFont {false};
+		bool isStroked {false};
+		bool isFixedPitch {false};
+		bool hasGlyphNames {false};
+		gid_type maxGlyph {0};
+
 	protected:
-			
 		friend class ScFace;
-		Status cachedStatus;
-		
+		Status m_cachedStatus {ScFace::UNKNOWN};
+
 		// caches
-		mutable QMap<uint,qreal>    m_glyphWidth;
-		mutable QMap<uint,GlyphData> m_glyphOutline;
-		mutable QMap<uint, uint>     m_cMap;
-		
+		mutable QHash<gid_type, qreal>     m_glyphWidth;
+		mutable QHash<gid_type, GlyphData> m_glyphOutline;
+		void* m_hbFont {nullptr};
+
 		// fill caches & members
-		
+
 		virtual void load()             const 
 		{ 
 			m_glyphWidth.clear();
 			m_glyphOutline.clear();
-			m_cMap.clear();
 
-			status = qMax(cachedStatus, ScFace::LOADED);
+			status = qMax(m_cachedStatus, ScFace::LOADED);
 		}
-		
+
 		virtual void unload()           const 
 		{
 			m_glyphWidth.clear();
 			m_glyphOutline.clear();
-			m_cMap.clear();
 
 			status = ScFace::UNKNOWN;
 		}
-		
-		virtual void loadGlyph(uint /*gl*/) const {}
+
+		virtual void loadGlyph(gid_type /*gl*/) const {}
 
 		// dummy implementations
 		virtual qreal ascent(qreal sz)           const { return sz; }
-		virtual QString ascentAsString()    const { return "0" ; }
-		virtual QString descentAsString()    const { return "0"; }
-		virtual QString capHeightAsString()    const { return "0"; }
-		virtual QString FontBBoxAsString()    const { return "0 0 0 0"; }
-		virtual QString ItalicAngleAsString()    const { return "0"; }
-		virtual qreal descent(qreal /*sz*/)          const { return 0.0; }
+		virtual QString pdfAscentAsString()      const { return "0"; }
+		virtual QString pdfDescentAsString()     const { return "0"; }
+		virtual QString pdfCapHeightAsString()   const { return "0"; }
+		virtual QString pdfFontBBoxAsString()    const { return "0 0 0 0"; }
+		virtual QString italicAngleAsString()    const { return "0"; }
+		virtual qreal descent(qreal /*sz*/)      const { return 0.0; }
 		virtual qreal xHeight(qreal sz)          const { return sz; }
 		virtual qreal capHeight(qreal sz)        const { return sz; }
 		virtual qreal height(qreal sz)           const { return sz; }
@@ -167,23 +191,32 @@ public:
 		virtual qreal underlinePos(qreal /*sz*/)     const { return -1.0; }
 		virtual qreal strokeWidth(qreal /*sz*/)      const { return 0.1; }
 		virtual qreal maxAdvanceWidth(qreal sz)  const { return sz; }
-		virtual uint   char2CMap(QChar /*ch*/)         const { return 0; }
-		virtual qreal glyphKerning(uint gl1, uint gl2, qreal sz) const;
+		virtual gid_type char2CMap(uint /*ch*/)         const { return 0; }
+		virtual cid_type glyphIndexToCID(ScFace::gid_type index) const { return index; }
 		virtual QMap<QString,QString> fontDictionary(qreal sz=1.0) const;
-		virtual GlyphMetrics glyphBBox(uint gl, qreal sz) const;
-		virtual bool EmbedFont(QString &/*str*/)       const { return false; }
-		virtual void RawData(QByteArray & /*bb*/)      const {}
-		virtual bool glyphNames(QMap<uint, std::pair<QChar, QString> >& gList) const;
+		virtual GlyphMetrics glyphBBox(gid_type gl, qreal sz) const;
+		virtual bool embedFont(QByteArray &/*str*/)       const { return false; }
+		virtual void rawData(QByteArray & /*bb*/)      const {}
+		virtual FT_Face ftFace() const { return nullptr; }
+		virtual void* hbFont();
+
+		virtual bool isItalic() const { return false; }
+		virtual bool isBold()   const { return false; }
+
+		virtual bool isCIDKeyed() const { return isCIDFont; }
+		virtual bool hasNames() const { return hasGlyphNames; }
+		virtual bool glyphNames(ScFace::FaceEncoding& gList) const;
 
 		// these use the cache:
-		virtual qreal      glyphWidth(uint gl, qreal sz)   const;
-		virtual FPointArray glyphOutline(uint gl, qreal sz) const; 
-		virtual FPoint      glyphOrigin (uint gl, qreal sz) const;
-		
+		virtual qreal       glyphWidth(gid_type gl, qreal size)   const;
+		virtual FPointArray glyphOutline(gid_type gl, qreal size) const;
+		virtual FPoint      glyphOrigin (gid_type gl, qreal size) const;
+
+		virtual bool isSymbolic() const { return false; }
 	};
-		
-	
-	
+
+
+
 	ScFace();
 	ScFace(const ScFace& other);
 	~ScFace();
@@ -192,193 +225,200 @@ public:
 	static const ScFace& none();
 
 	/// test for null object
-	bool isNone() const   { return m->status == NULLFACE; }
-	
+	bool isNone() const   { return m_m->status == NULLFACE; }
+
+	/// test if font is a symbolic font
+	bool isSymbolic() const;
+
 	ScFace& operator=(const ScFace& other);
 	/** two ScFaces are equal if they either are both NULLFACEs or they
 		agree on family, style, variant and fontpath
 		*/
 	bool operator==(const ScFace& other) const ;
 	bool operator!=(const ScFace& other) const { return ! (*this == other); }
-	
-	
-	bool EmbedFont(QString &str);
-	void RawData(QByteArray & bb);
-	bool glyphNames(QMap<uint, std::pair<QChar, QString> >& gList);
-	
+
+
+	bool embedFont(QByteArray &str);
+	void rawData(QByteArray & bb);
+	bool glyphNames(FaceEncoding& gList);
+
 	/// prevent unloading of face data
 	void increaseUsage() const;
-	
+
 	/// unload face data if not used any more
 	void decreaseUsage() const;
-	
+
 	/// unload face data. It will be reloaded on need
 	void unload()      const;
-	
+
 	/// the name Scribus uses for this font
-	QString scName()   const { return replacedName.isEmpty() ? m->scName : replacedName; }
-	
+	QString scName()   const { return m_replacedName.isEmpty() ? m_m->scName : m_replacedName; }
+
 	/// the name of the font which was used for replacement
-	QString replacementName()   const { return m->scName; }
-	
+	QString replacementName()   const { return m_m->scName; }
+
 	/// the name of the font which was used for replacement
-	QString replacementForDoc()   const { return replacedInDoc; }
-	
+	QString replacementForDoc()   const { return m_replacedInDoc; }
+
 	/// check if this is a replacement font
-	bool isReplacement()   const { return !replacedName.isEmpty(); }
-	
+	bool isReplacement()   const { return !m_replacedName.isEmpty(); }
+
 	/// makes a repalcement font for font "name" using this fonts data
-	ScFace mkReplacementFor(QString name, QString doc) { 
-		ScFace result(m); 
-		result.replacedName = name; 
-		result.replacedInDoc = doc; 
+	ScFace mkReplacementFor(const QString& name, const QString& doc) {
+		ScFace result(m_m);
+		result.m_replacedName = name;
+		result.m_replacedInDoc = doc;
 		return result; 
 	}
 
-	void chReplacementTo(ScFace& other, QString doc) { 
-		QString oldName = replacedName;
+	void chReplacementTo(ScFace& other, const QString& doc) {
+		QString oldName = m_replacedName;
 		(*this) = other;
-		replacedName = oldName;
-		replacedInDoc = doc; 
+		m_replacedName = oldName;
+		m_replacedInDoc = doc;
 	}
-	
+
 	/// the name PostScript uses for this font
-	QString psName()   const { return m->psName; }
-	
+	QString psName()   const { return m_m->psName; }
+
 	/// the physical location of the fontfile
-	QString fontPath() const { return m->faceIndex >= 0 ? QString("%1(%2)").arg(m->fontFile).arg(m->faceIndex+1) : m->fontFile; }
-	
+	QString fontPath() const { return m_m->faceIndex >= 0 ? QString("%1(%2)").arg(m_m->fontFile).arg(m_m->faceIndex+1) : m_m->fontFile; }
+
 	/// the file path of the fontfile
-	QString fontFilePath()      const { return m->fontFile; }
-	
+	QString fontFilePath()      const { return m_m->fontFile; }
+
 	/// if the fontfile contains more than one face, the index, else -1
-	int faceIndex()    const { return m->faceIndex; }
-	
+	int faceIndex()    const { return m_m->faceIndex; }
+
+	/// a HarfBuzz font for this font
+	void* hbFont() const { return m_m->hbFont(); }
+
 	/// path name of the document this face is local to
-	QString localForDocument()  const { return m->forDocument; }
-	
+	QString localForDocument()  const { return m_m->forDocument; }
+
 	/// font type, eg. Type1 or TTF
-	FontType type()    const { return m->typeCode; }
-	
+	FontType type()    const { return m_m->typeCode; }
+
 	/// font format, which might be a little more complicated
-	FontFormat format()const { return m->formatCode; }
-	
+	FontFormat format()const { return m_m->formatCode; }
+
 	/// test if this face can be used in documents
-	bool usable()      const { return m->usable && !isNone(); }
-	
+	bool usable()      const { return m_m->usable && !isNone(); }
+
+    /// test if this face should be outlined in documents
+	bool outline()      const { return usable() && m_m->outline; }
+    
 	/// test if this face can be embedded in PS/PDF
-	bool embedPs()     const { return m->embedPs && m->status < BROKENGLYPHS; }
-	
+	bool embedPs()     const { return m_m->embedPs && m_m->status < BROKENGLYPHS; }
+
 	/// test if this face can be embedded as outlines in PS/PDF
-	bool subset()      const { return m->subset && m->status < BROKEN; }
-	
-	void usable(bool flag)   { m->usable = flag; }
-	void embedPs(bool flag)  { m->embedPs = flag; }
-	void subset(bool flag)   { m->subset = flag; }
-	
+	bool subset()      const { return m_m->subset && m_m->status < BROKEN; }
+
+	void usable(bool flag)   { m_m->usable = flag; }
+	void embedPs(bool flag)  { m_m->embedPs = flag; }
+	void subset(bool flag)   { m_m->subset = flag; }
+	void outline(bool flag)   { m_m->outline = flag; }
+
 	/// deprecated? tells if the face has PS names
-	bool hasNames()    const { return m->hasNames; }
+	bool hasNames()    const { return m_m->hasNames(); }
+
+	/// tells if the font is a CID font
+	bool isCIDKeyed() const { return m_m->isCIDFont; }
 
 	/// tells if this font is an outline font
-	bool isStroked()   const { return m->isStroked; }
+	bool isStroked()   const { return m_m->isStroked; }
 
 	/// tells if this font is a fixed pitch font
-	bool isFixedPitch()const { return m->isFixedPitch; }
-	
+	bool isFixedPitch()const { return m_m->isFixedPitch; }
+
 	/// tells if this is an OTF/CFF font
-	bool isOTF()       const { return m->typeCode == OTF; }
-		
+	bool isOTF()       const { return m_m->typeCode == OTF; }
+
 	/// returns the highest glyph index in this face
-	uint maxGlyph()    const { return m->maxGlyph; }
-	
+	gid_type maxGlyph() const { return m_m->maxGlyph; }
+
 	/// returns the font family as seen by Scribus
-	QString family()   const { return m->family; }
-	
+	QString family()   const { return m_m->family; }
+
 	/// returns the font style as seen by Scribus (eg. bold, Italic)
-	QString style()    const { return m->style; }
-	
+	QString style()    const { return m_m->style; }
+
 	/// returns an additional discriminating String for this face
-	QString variant()  const { return m->variant; }
-	
+	QString variant()  const { return m_m->variant; }
+
 	// font metrics
-	qreal ascent(qreal sz=1.0)          const { return m->ascent(sz); }
-	QString ascentAsString()    const { return m->ascentAsString() ; }
-	QString descentAsString()    const { return m->descentAsString() ; }
-	QString capHeightAsString()    const { return m->capHeightAsString() ; }
-	QString FontBBoxAsString()    const { return m->FontBBoxAsString() ; }
-	QString ItalicAngleAsString()    const { return m->ItalicAngleAsString() ; }
-	qreal descent(qreal sz=1.0)         const { return m->descent(sz); }
-	qreal xHeight(qreal sz=1.0)         const { return m->xHeight(sz); }
-	qreal capHeight(qreal sz=1.0)       const { return m->capHeight(sz); }
-	qreal height(qreal sz=1.0)          const { return m->height(sz); }
-	qreal strikeoutPos(qreal sz=1.0)    const { return m->strikeoutPos(sz); }
-	qreal underlinePos(qreal sz=1.0)    const { return m->underlinePos(sz); }
-	qreal strokeWidth(qreal sz=1.0)     const { return m->strokeWidth(sz); }
-	qreal maxAdvanceWidth(qreal sz=1.0) const { return m->maxAdvanceWidth(sz); }
-	
-	/// deprecated
-	QString stemV(qreal sz=1.0)    const { return fontDictionary(sz)["/StemV"]; }
-	
-	/// deprecated
-	QString italicAngle(qreal sz=1.0)      const { return fontDictionary(sz)["/ItalicAngle"]; }
-	
-	/// deprecated
-	QString fontBBox(qreal sz=1.0)         const { return fontDictionary(sz)["/FontBBox"]; }
+	QString pdfAscentAsString()      const;
+	QString pdfDescentAsString()     const;
+	QString pdfCapHeightAsString()   const;
+	QString pdfFontBBoxAsString()    const;
+	QString italicAngleAsString()    const;
+	qreal ascent(qreal sz=1.0)          const;
+	qreal descent(qreal sz=1.0)         const;
+	qreal xHeight(qreal sz=1.0)         const;
+	qreal capHeight(qreal sz=1.0)       const;
+	qreal height(qreal sz=1.0)          const;
+	qreal strikeoutPos(qreal sz=1.0)    const;
+	qreal underlinePos(qreal sz=1.0)    const;
+	qreal strokeWidth(qreal sz=1.0)     const;
+	qreal maxAdvanceWidth(qreal sz=1.0) const;
+
+	bool isItalic() const;
+	bool isBold()   const;
+
+//	/// deprecated
+//	QString stemV(qreal sz=1.0)    const { return fontDictionary(sz)["/StemV"]; }
+
+//	/// deprecated
+//	QString italicAngle(qreal sz=1.0)      const { return fontDictionary(sz)["/ItalicAngle"]; }
+
+//	/// deprecated
+//	QString fontBBox(qreal sz=1.0)         const { return fontDictionary(sz)["/FontBBox"]; }
 
 	/// returns a map of values used for font dictionaries in PS/PDF
-	QMap<QString,QString> fontDictionary(qreal sz=1.0) const { return m->fontDictionary(sz); }	
+	QMap<QString,QString> fontDictionary(qreal sz=1.0) const { return m_m->fontDictionary(sz); }
 	// glyph interface
-	
-	/// returns the glyphs normal advance width at size 'sz'
-	qreal glyphWidth(uint gl, qreal sz=1.0) const { return m->glyphWidth(gl, sz); }
 
-	/// returns the glyph kerning between 'gl1' and 'gl2' at size 'sz'
-	qreal glyphKerning(uint gl1, uint gl2, qreal sz=1.0) const { return qMax(gl1,gl2) < CONTROL_GLYPHS ? m->glyphKerning(gl1, gl2, sz) : 0; } 
+	/// returns the glyphs normal advance width at size 'sz'
+	qreal glyphWidth(gid_type gl, qreal sz=1.0) const { return m_m->glyphWidth(gl, sz); }
 
 	/// returns the glyphs bounding box at size 'sz', ie. the area where this glyph will produce marks
-	GlyphMetrics glyphBBox(uint gl, qreal sz=1.0) const { return m->glyphBBox(gl, sz); }
+	GlyphMetrics glyphBBox(gid_type gl, qreal sz=1.0) const { return m_m->glyphBBox(gl, sz); }
 
 	/// returns the glyph's outline as a cubic Bezier path
-	FPointArray glyphOutline(uint gl, qreal sz=1.0) const { return m->glyphOutline(gl, sz); }
+	FPointArray glyphOutline(gid_type gl, qreal sz=1.0) const { return m_m->glyphOutline(gl, sz); }
 
 	/// returns the glyph's origin FIXME: what's that exactly?
-	FPoint glyphOrigin(uint gl, qreal sz=1.0)    const { return m->glyphOrigin(gl, sz); }
-	
+	FPoint glyphOrigin(gid_type gl, qreal sz=1.0)    const { return m_m->glyphOrigin(gl, sz); }
+
 	// char interface
 
 	/// test if the face can render this char
 	bool canRender(QChar ch)   const;
 
-	/// translate unicode to glyph index
-	uint char2CMap(QChar ch)   const;
+	// translate glyph index to CID (OpenType and CID fonts only)
+	cid_type glyphIndexToCID(gid_type index) const;
 
-	/// returns the combined glyph width and kerning for 'ch' if followed by 'ch2'
-	qreal charWidth(QChar ch, qreal sz=1.0, QChar ch2 = QChar(0)) const;
-	
-	/// deprecated, see glyphBBox()
-	qreal realCharWidth(QChar ch, qreal sz=1.0) const { return glyphBBox(char2CMap(ch),sz).width; }
-	
-	/// deprecated, see glyphBBox()
-	qreal realCharHeight(QChar ch, qreal sz=1.0) const { GlyphMetrics gm=glyphBBox(char2CMap(ch),sz); return gm.ascent + gm.descent; }
-	
-	/// deprecated, see glyphBBox()
-	qreal realCharAscent(QChar ch, qreal sz=1.0) const { return glyphBBox(char2CMap(ch),sz).ascent; }
-	
-	/// deprecated, see glyphBBox()
-	qreal realCharDescent(QChar ch, qreal sz=1.0) const { return glyphBBox(char2CMap(ch),sz).descent; }
-	
+	/// translate unicode to glyph index
+	gid_type char2CMap(uint ch)   const;
+
+	gid_type emulateGlyph(uint ch) const;
+
+	gid_type hyphenGlyph() const;
+	gid_type hyphenGlyph(const CharStyle& style) const;
+	double hyphenWidth(const CharStyle& style, qreal size=1.0) const;
+	QStringList fontFeatures() const;
+
 private:
-		
+
 	friend class SCFonts;
-	
-	ScFace(ScFaceData* md);
-	ScFaceData* m;
-	QString replacedName;
-	QString replacedInDoc;
-	
+
+	ScFace(ScFaceData* data);
+	ScFaceData* m_m;
+	QString m_replacedName;
+	QString m_replacedInDoc;
+
 	void initFaceData();
 	void checkAllGlyphs();
-	uint emulateGlyph(QChar c) const;
 };
 
 #endif

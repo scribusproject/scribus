@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<Import Project=".\doc\install.targets" />
+	<Import Project=".\resources\install.targets" />
+	<Import Project=".\scribus\install.targets" />
+
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_root;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+
+	<Target Name="Install_root">  
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)AUTHORS"  
+			DestinationFolder="$(OutDir)\share\doc"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)COPYING"  
+			DestinationFolder="$(OutDir)\share\doc"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)LINKS"
+			DestinationFolder="$(OutDir)\share\doc"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)README"  
+			DestinationFolder="$(OutDir)\share\doc"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)TRANSLATION"  
+			DestinationFolder="$(OutDir)\share\doc"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>

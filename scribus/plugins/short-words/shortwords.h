@@ -10,12 +10,11 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "pluginapi.h"
 #include "scplugin.h"
-//Added by qt3to4:
 #include <QPixmap>
 
 /*! \brief This is the Scribus Short Words plugin interface specification.
 
-This code is based on the Scribus-Vlna plug in rewritten for
+This code is based on the Scribus-Vlna plugin rewritten for
 international use.
 
 \author Petr Vanek <petr@yarpen.cz>
@@ -28,15 +27,14 @@ class PLUGIN_API ShortWordsPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		ShortWordsPlugin();
 		virtual ~ShortWordsPlugin();
-		virtual bool run(ScribusDoc* doc, QString target = QString::null);
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+		bool run(ScribusDoc* doc, const QString& target = QString()) override;
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
+		void addToMainWindowMenu(ScribusMainWindow *) override {};
 		/*! \brief Preference widget */
-		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
-										 QString& caption, QPixmap& icon);
+		bool newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel) override;
 		// Special features (none)
 };
 

@@ -1,0 +1,5 @@
+sceditor
+ * wrong syntax (while typing) triggers unwanted errors with rope
+ * make sure the line numbers left of the editor are updated
+ * better highlighting for Python code
+ * problem in console when return pressed inside the line

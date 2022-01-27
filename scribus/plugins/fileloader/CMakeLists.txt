@@ -1,5 +1,5 @@
 #Subdirectories
-ADD_SUBDIRECTORY(scribus134format)
-ADD_SUBDIRECTORY(scribus13format)
-ADD_SUBDIRECTORY(scribus12format)
-ADD_SUBDIRECTORY(oodraw)
+add_subdirectory(scribus150format)
+add_subdirectory(scribus134format)
+add_subdirectory(scribus13format)
+add_subdirectory(scribus12format)

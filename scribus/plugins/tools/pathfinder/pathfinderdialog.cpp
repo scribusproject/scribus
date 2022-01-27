@@ -21,58 +21,61 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "pathfinderdialog.h"
-#include "util.h"
-#include "util_icon.h"
+
 #include "fpointarray.h"
+#include "pageitem.h"
 #include "sccolorengine.h"
+#include "scribusdoc.h"
+#include "util.h"
+#include "iconmanager.h"
 
 #include <QPixmap>
 #include <QPainter>
-#include <QMatrix>
+#include <QTransform>
 
 PathFinderDialog::PathFinderDialog(QWidget* parent, ScribusDoc* doc, PageItem *shape1, PageItem *shape2) : QDialog( parent )
 {
-	currDoc = doc;
+	m_doc = doc;
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
-	opCombine->setText( QString::null );
-	opSubtraction->setText( QString::null );
-	opIntersection->setText( QString::null );
-	opExclusion->setText( QString::null );
-	opParts->setText( QString::null );
-	opExclusion->setIcon(QIcon(loadIcon("pathexclusion.png")));
-	opIntersection->setIcon(QIcon(loadIcon("pathintersection.png")));
-	opParts->setIcon(QIcon(loadIcon("pathparts.png")));
-	opSubtraction->setIcon(QIcon(loadIcon("pathsubtraction.png")));
-	opCombine->setIcon(QIcon(loadIcon("pathunite.png")));
-	otherColorComboLine->addItem(CommonStrings::tr_NoneColor);
-	otherColorComboLine->insertItems(currDoc->PageColors, ColorCombo::fancyPixmaps);
-	otherColorComboFill->addItem(CommonStrings::tr_NoneColor);
-	otherColorComboFill->insertItems(currDoc->PageColors, ColorCombo::fancyPixmaps);
+	setWindowIcon(QIcon(IconManager::instance().loadIcon("AppIcon.png")));
+	opCombine->setText( QString() );
+	opSubtraction->setText( QString() );
+	opIntersection->setText( QString() );
+	opExclusion->setText( QString() );
+	opParts->setText( QString() );
+	opExclusion->setIcon(QIcon(IconManager::instance().loadIcon("pathexclusion.png")));
+	opIntersection->setIcon(QIcon(IconManager::instance().loadIcon("pathintersection.png")));
+	opParts->setIcon(QIcon(IconManager::instance().loadIcon("pathparts.png")));
+	opSubtraction->setIcon(QIcon(IconManager::instance().loadIcon("pathsubtraction.png")));
+	opCombine->setIcon(QIcon(IconManager::instance().loadIcon("pathunite.png")));
+	otherColorComboLine->setPixmapType(ColorCombo::fancyPixmaps);
+	otherColorComboLine->setColors(m_doc->PageColors, true);
+	otherColorComboFill->setPixmapType(ColorCombo::fancyPixmaps);
+	otherColorComboFill->setColors(m_doc->PageColors, true);
 	setCurrentComboItem(otherColorComboLine, shape1->lineColor());
 	setCurrentComboItem(otherColorComboFill, shape1->fillColor());
 	opMode = 0;
-	QMatrix ms;
+	QTransform ms;
 	ms.rotate(shape1->rotation());
-	input1 = ms.map(shape1->PoLine.toQPainterPath(true));
+	m_input1 = ms.map(shape1->PoLine.toQPainterPath(true));
 	if (shape1->fillEvenOdd())
-		input1.setFillRule(Qt::OddEvenFill);
+		m_input1.setFillRule(Qt::OddEvenFill);
 	else
-		input1.setFillRule(Qt::WindingFill);
+		m_input1.setFillRule(Qt::WindingFill);
 	double dx = shape2->xPos() - shape1->xPos();
 	double dy = shape2->yPos() - shape1->yPos();
-	QMatrix mm;
+	QTransform mm;
 	mm.translate(dx, dy);
 	mm.rotate(shape2->rotation());
-	input2 = mm.map(shape2->PoLine.toQPainterPath(true));
+	m_input2 = mm.map(shape2->PoLine.toQPainterPath(true));
 	if (shape2->fillEvenOdd())
-		input2.setFillRule(Qt::OddEvenFill);
+		m_input2.setFillRule(Qt::OddEvenFill);
 	else
-		input2.setFillRule(Qt::WindingFill);
+		m_input2.setFillRule(Qt::WindingFill);
 	result = QPainterPath();
-	source1 = shape1;
-	source2 = shape2;
+	m_source1 = shape1;
+	m_source2 = shape2;
 	swapped = false;
 	targetColor = 0;
 	keepItem1 = false;
@@ -132,25 +135,25 @@ void PathFinderDialog::newOpMode()
 
 void PathFinderDialog::swapObjects()
 {
-	QPainterPath tmp = input1;
-	input1 = input2;
-	input2 = tmp;
-	PageItem* item = source1;
-	source1 = source2;
-	source2 = item;
+	QPainterPath tmp = m_input1;
+	m_input1 = m_input2;
+	m_input2 = tmp;
+	PageItem* item = m_source1;
+	m_source1 = m_source2;
+	m_source2 = item;
 	swapped = !swapped;
 	updateAllPreviews();
 }
 
-void PathFinderDialog::updatePreview(QLabel *label, QPainterPath &path, QColor color, double scale)
+void PathFinderDialog::updatePreview(QLabel *label, QPainterPath &path, const QColor& color, double scale)
 {
 	QPixmap pm(100, 100);
 	QPainter p;
 	p.begin(&pm);
 	p.setRenderHint(QPainter::Antialiasing, true);
-	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 	p.fillRect(0, 0, pm.width(), pm.height(), b);
-	QRectF bb = input1.boundingRect().united(input2.boundingRect());
+	QRectF bb = m_input1.boundingRect().united(m_input2.boundingRect());
 	p.translate(5, 5);
 	p.scale(scale, scale);
 	p.translate(-bb.x(), -bb.y());
@@ -161,22 +164,22 @@ void PathFinderDialog::updatePreview(QLabel *label, QPainterPath &path, QColor c
 	label->setPixmap(pm);
 }
 
-void PathFinderDialog::updatePartPreview(QColor color, double scale)
+void PathFinderDialog::updatePartPreview(const QColor& color, double scale)
 {
 	QPixmap pm(100, 100);
 	QPainter p;
 	p.begin(&pm);
 	p.setRenderHint(QPainter::Antialiasing, true);
-	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 	p.fillRect(0, 0, pm.width(), pm.height(), b);
-	QRectF bb = input1.boundingRect().united(input2.boundingRect());
+	QRectF bb = m_input1.boundingRect().united(m_input2.boundingRect());
 	p.translate(5, 5);
 	p.scale(scale, scale);
 	p.translate(-bb.x(), -bb.y());
 	p.setPen(Qt::black);
-	p.setBrush(getColorFromItem(source1->fillColor(), Qt::blue));
+	p.setBrush(getColorFromItem(m_source1->fillColor(), Qt::blue));
 	p.drawPath(result);
-	p.setBrush(getColorFromItem(source2->fillColor(), Qt::red));
+	p.setBrush(getColorFromItem(m_source2->fillColor(), Qt::red));
 	p.drawPath(result1);
 	p.setBrush(color);
 	p.drawPath(result2);
@@ -186,12 +189,12 @@ void PathFinderDialog::updatePartPreview(QColor color, double scale)
 
 void PathFinderDialog::updateAllPreviews()
 {
-	QRectF bb = input1.boundingRect().united(input2.boundingRect());
+	QRectF bb = m_input1.boundingRect().united(m_input2.boundingRect());
 	double scaleX = 90.0 / bb.width();
 	double scaleY = 90.0 / bb.height();
 	double scale = qMin(scaleX, scaleY);
-	updatePreview(sourceShape, input1, getColorFromItem(source1->fillColor(), Qt::blue), scale);
-	updatePreview(sourceShape2, input2, getColorFromItem(source2->fillColor(), Qt::red), scale);
+	updatePreview(sourceShape, m_input1, getColorFromItem(m_source1->fillColor(), Qt::blue), scale);
+	updatePreview(sourceShape2, m_input2, getColorFromItem(m_source2->fillColor(), Qt::red), scale);
 	updateResult();
 }
 
@@ -202,50 +205,50 @@ void PathFinderDialog::updateResult()
 	result2 = QPainterPath();
 	if (opMode == 0)
 	{
-		result = input1.united(input2);
+		result = m_input1.united(m_input2);
 	}
 	else if (opMode == 1)
 	{
-		result = input1.subtracted(input2);
+		result = m_input1.subtracted(m_input2);
 	}
 	else if (opMode == 2)
 	{
-		result = input1.intersected(input2);
+		result = m_input1.intersected(m_input2);
 	}
 	else if (opMode == 3)
 	{
-		QPainterPath part1 = input1.subtracted(input2);
-		QPainterPath part2 = input2.subtracted(input1);
+		QPainterPath part1 = m_input1.subtracted(m_input2);
+		QPainterPath part2 = m_input2.subtracted(m_input1);
 		result.addPath(part1);
 		result.addPath(part2);
 	}
 	else if (opMode == 4)
 	{
-		QPainterPath part1 = input1.subtracted(input2);
-		QPainterPath part2 = input2.subtracted(input1);
-		QPainterPath part3 = input1.intersected(input2);
+		QPainterPath part1 = m_input1.subtracted(m_input2);
+		QPainterPath part2 = m_input2.subtracted(m_input1);
+		QPainterPath part3 = m_input1.intersected(m_input2);
 		result.addPath(part1);
 		result1.addPath(part2);
 		result2.addPath(part3);
 	}
-	QRectF bb = input1.boundingRect().united(input2.boundingRect());
+	QRectF bb = m_input1.boundingRect().united(m_input2.boundingRect());
 	double scaleX = 90.0 / bb.width();
 	double scaleY = 90.0 / bb.height();
 	double scale = qMin(scaleX, scaleY);
 	QColor cc = Qt::red;
 	if (targetGetsSource1Color->isChecked())
 	{
-		cc = getColorFromItem(source1->fillColor(), Qt::blue);
+		cc = getColorFromItem(m_source1->fillColor(), Qt::blue);
 		targetColor = 0;
-		setCurrentComboItem(otherColorComboLine, source1->lineColor());
-		setCurrentComboItem(otherColorComboFill, source1->fillColor());
+		setCurrentComboItem(otherColorComboLine, m_source1->lineColor());
+		setCurrentComboItem(otherColorComboFill, m_source1->fillColor());
 	}
 	else if (targetGetsSource2Color->isChecked())
 	{
 		targetColor = 1;
-		cc = getColorFromItem(source2->fillColor(), Qt::red);
-		setCurrentComboItem(otherColorComboLine, source2->lineColor());
-		setCurrentComboItem(otherColorComboFill, source2->fillColor());
+		cc = getColorFromItem(m_source2->fillColor(), Qt::red);
+		setCurrentComboItem(otherColorComboLine, m_source2->lineColor());
+		setCurrentComboItem(otherColorComboFill, m_source2->fillColor());
 	}
 	else if (targetGetsOtherColor->isChecked())
 	{
@@ -258,26 +261,26 @@ void PathFinderDialog::updateResult()
 		updatePreview(resultShape, result, cc, scale);
 }
 
-QColor PathFinderDialog::getColorFromItem(QString color, QColor in)
+QColor PathFinderDialog::getColorFromItem(const QString& color, const QColor& in)
 {
-	QColor out = in;
+	QColor out(in);
 	QString fill = color;
 	if (fill == CommonStrings::tr_NoneColor)
 		fill = CommonStrings::None;
 	if (fill != CommonStrings::None)
 	{
-		ScColor m_color = currDoc->PageColors[fill];
-		out = ScColorEngine::getDisplayColor(m_color, currDoc);
+		ScColor color = m_doc->PageColors[fill];
+		out = ScColorEngine::getDisplayColor(color, m_doc);
 	}
 	return out;
 }
 
-const QString PathFinderDialog::getOtherFillColor()
+QString PathFinderDialog::getOtherFillColor()
 {
 	return otherColorComboFill->currentText();
 }
 
-const QString PathFinderDialog::getOtherLineColor()
+QString PathFinderDialog::getOtherLineColor()
 {
 	return otherColorComboLine->currentText();
 }

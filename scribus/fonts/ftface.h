@@ -1,11 +1,15 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+
 #ifndef FT_FACE_H
 #define FT_FACE_H
 
-
 #include <QString>
-//#include <QVector>
 #include <QMap>
-//#include <QArray>
 
 #include "scribusapi.h"
 
@@ -49,69 +53,76 @@ so there are no extra cleaning-up chores to take care of.
 struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 {
 
-	FtFace(QString fam, QString sty, QString variant, QString scname, 
-		   QString psname, QString path, int face);
-	
-	FT_Face ftFace() const;
+	FtFace(const QString& fam, const QString& sty, const QString& variant, const QString& scname,
+		   const QString& psname, const QString& path, int face, const QStringList& features);
+	~FtFace() override;
 
-	virtual ~FtFace();
-	
+	FT_Face ftFace() const override;
+
 	// font metrics
-	qreal ascent(qreal sz=1.0)    const { return m_ascent * sz; }
-	qreal descent(qreal sz=1.0)   const { return m_descent * sz; }
-	qreal xHeight(qreal sz=1.0)   const { return m_xHeight * sz; }
-	qreal capHeight(qreal sz=1.0) const { return m_capHeight * sz; }
-	qreal height(qreal sz=1.0)    const { return m_height * sz; }
-	qreal strikeoutPos(qreal sz=1.0)    const { return m_strikeoutPos * sz; }
-	qreal underlinePos(qreal sz=1.0)    const { return m_underlinePos * sz; }
-	qreal strokeWidth(qreal /*sz*/)     const { return m_strokeWidth; }
-	qreal maxAdvanceWidth(qreal sz=1.0) const { return m_maxAdvanceWidth * sz; }
-	QString ascentAsString()    const { return Ascent; }
-	QString descentAsString()    const { return Descender; }
-	QString capHeightAsString()    const { return CapHeight; }
-	QString FontBBoxAsString()    const { return FontBBox; }
-	QString ItalicAngleAsString()    const { return ItalicAngle; }
-	
-	
-//FIXME	QMap<QString,QString> fontDictionary(qreal sz=1.0)      const;
-	
-	uint         char2CMap(QChar ch)                         const;
+	qreal ascent(qreal sz=1.0) const override          { return m_ascent * sz; }
+	qreal descent(qreal sz=1.0) const override         { return m_descent * sz; }
+	qreal xHeight(qreal sz=1.0) const override         { return m_xHeight * sz; }
+	qreal capHeight(qreal sz=1.0) const override       { return m_capHeight * sz; }
+	qreal height(qreal sz=1.0) const override          { return m_height * sz; }
+	qreal strikeoutPos(qreal sz=1.0) const override    { return m_strikeoutPos * sz; }
+	qreal underlinePos(qreal sz=1.0) const override    { return m_underlinePos * sz; }
+	qreal strokeWidth(qreal /*sz*/) const override     { return m_strokeWidth; }
+	qreal maxAdvanceWidth(qreal sz=1.0) const override { return m_maxAdvanceWidth * sz; }
+	QString pdfAscentAsString() const override         { return m_pdfAscent; }
+	QString pdfDescentAsString() const override        { return m_pdfDescender; }
+	QString pdfCapHeightAsString() const override      { return m_pdfCapHeight; }
+	QString pdfFontBBoxAsString() const override       { return m_pdfFontBBox; }
+	QString italicAngleAsString() const override       { return m_italicAngle; }
 
-	qreal       glyphKerning (uint gl1, uint gl2, qreal sz) const;
-//	GlyphMetrics glyphBBox (uint gl,               qreal sz) const;
+	bool isItalic() const override { return m_isItalic; }
+	bool isBold() const override { return m_isBold; }
 
-	void RawData   (QByteArray & bb)            const;
-	bool glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const;
-	void load      ()                           const;
-	void unload    ()                           const;
-	void loadGlyph (uint ch)                    const;
+//FIXME	QMap<QString,QString> fontDictionary(qreal sz=1.0) const;
+
+	ScFace::gid_type char2CMap(uint ch) const override;
+	ScFace::cid_type glyphIndexToCID(ScFace::gid_type index) const override;
+
+//	GlyphMetrics glyphBBox (gid_type gl, qreal sz) const;
+
+	void rawData(QByteArray & bb) const override;
+
+	static bool hasMicrosoftUnicodeCmap(FT_Face face);
+	static QString adobeGlyphName(FT_ULong charcode);
+	bool glyphNames(ScFace::FaceEncoding& glyphList) const override;
+
+	void load() const override;
+	void unload() const override;
+	void loadGlyph (ScFace::gid_type gl) const override;
 
 protected:
-	mutable FT_Face m_face;
-	
-	static FT_Library library;
+	mutable FT_Face m_face { nullptr };
 
-	mutable QString Ascent;
-	mutable QString CapHeight;
-	mutable QString Descender;
-	mutable QString ItalicAngle;
-	mutable QString StdVW;
-	QString FontEnc;
-	mutable QString FontBBox;
+	static FT_Library m_library;
 
-	mutable int m_encoding;
-	
-	mutable qreal m_uniEM;
-	mutable qreal m_ascent;
-	mutable qreal m_descent;
-	mutable qreal m_height;
-	mutable qreal m_xHeight;
-	mutable qreal m_capHeight;
-	mutable qreal m_maxAdvanceWidth;
-	mutable qreal m_underlinePos;
-	mutable qreal m_strikeoutPos;
-	mutable qreal m_strokeWidth;
-	
+	mutable bool m_isBold { false };
+	mutable bool m_isItalic { false };
+
+	mutable QString m_pdfAscent;
+	mutable QString m_pdfCapHeight;
+	mutable QString m_pdfDescender;
+	mutable QString m_italicAngle;
+	mutable QString m_pdfFontBBox;
+
+	mutable int m_encoding { 0 };
+
+	mutable qreal m_uniEM { 0.0 };
+	mutable qreal m_ascent { 0.0 };
+	mutable qreal m_descent { 0.0 };
+	mutable qreal m_height { 0.0 };
+	mutable qreal m_xHeight { 0.0 };
+	mutable qreal m_capHeight { 0.0 };
+	mutable qreal m_maxAdvanceWidth { 0.0 };
+	mutable qreal m_underlinePos { 0.0 };
+	mutable qreal m_strikeoutPos { 0.0 };
+	mutable qreal m_strokeWidth { 0.0 };
+
+	QString uniGlyphNameToUnicode(const QString& glyphName) const;
 };
 
 #endif

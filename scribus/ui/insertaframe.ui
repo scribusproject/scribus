@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>InsertAFrame</class>
+ <widget class="QDialog" name="InsertAFrame">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>467</width>
+    <height>328</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Insert Frames</string>
+  </property>
+  <layout class="QVBoxLayout">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="typeTab">
+      <attribute name="title">
+       <string>T&amp;ype</string>
+      </attribute>
+      <layout class="QHBoxLayout">
+       <item>
+        <layout class="QVBoxLayout" name="typeGroupBox">
+         <item>
+          <widget class="QRadioButton" name="radioButtonTextFrame">
+           <property name="toolTip">
+            <string>Insert one or more text frames</string>
+           </property>
+           <property name="text">
+            <string>&amp;Text Frame</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButtonImageFrame">
+           <property name="toolTip">
+            <string>Insert one or more image frames</string>
+           </property>
+           <property name="text">
+            <string>&amp;Image Frame</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="typeTextEdit">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="locationTab">
+      <attribute name="title">
+       <string>&amp;Location</string>
+      </attribute>
+      <layout class="QHBoxLayout">
+       <item>
+        <widget class="QGroupBox" name="pagePlacementGroupBox">
+         <property name="toolTip">
+          <string>Place the new frames on the current page, on all pages or on a selected range</string>
+         </property>
+         <property name="title">
+          <string>Page Placement</string>
+         </property>
+         <layout class="QVBoxLayout">
+          <item>
+           <widget class="QRadioButton" name="radioButtonCurrentPage">
+            <property name="toolTip">
+             <string>Insert the frame on the current page only</string>
+            </property>
+            <property name="text">
+             <string>Current Page</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButtonAllPages">
+            <property name="toolTip">
+             <string>Insert one frame for each existing page</string>
+            </property>
+            <property name="text">
+             <string>All Pages</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButtonRangeOfPages">
+            <property name="toolTip">
+             <string>Insert frames on a range of pages</string>
+            </property>
+            <property name="text">
+             <string>Range of Pages</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout">
+            <item>
+             <widget class="QLineEdit" name="placementPagesLineEdit">
+              <property name="toolTip">
+               <string>Range of pages to insert frames on</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="placementPagesRangeButton">
+              <property name="toolTip">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="framePositionGroupBox">
+         <property name="toolTip">
+          <string>Position the new frame in relation to the page</string>
+         </property>
+         <property name="title">
+          <string>Position of Frame</string>
+         </property>
+         <layout class="QVBoxLayout">
+          <item>
+           <widget class="QRadioButton" name="radioButtonTopLeftOfMargins">
+            <property name="toolTip">
+             <string>Insert the frame at the top left of the page margins</string>
+            </property>
+            <property name="text">
+             <string>Top Left of Margins</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButtonTopLeftOfPage">
+            <property name="toolTip">
+             <string>Insert the frame at the top left of the page</string>
+            </property>
+            <property name="text">
+             <string>Top Left of Page</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButtonTopLeftOfBleed">
+            <property name="toolTip">
+             <string>Insert the frame at the top left of the page bleed</string>
+            </property>
+            <property name="text">
+             <string>Top Left of Bleed</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButtonCustomPosition">
+            <property name="toolTip">
+             <string>Insert the frame at a custom position on the page</string>
+            </property>
+            <property name="text">
+             <string>Custom Position</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout">
+            <item>
+             <spacer>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>30</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QGridLayout">
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>Y:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>X:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="ScrSpinBox" name="yPosScrSpinBox">
+                <property name="toolTip">
+                 <string>Top position of the inserted frame</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="ScrSpinBox" name="xPosScrSpinBox">
+                <property name="toolTip">
+                 <string>Left position of the inserted frame</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>31</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="sizeTab">
+      <attribute name="title">
+       <string>&amp;Size</string>
+      </attribute>
+      <layout class="QHBoxLayout">
+       <item>
+        <layout class="QVBoxLayout" name="sizeGroupBox">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QRadioButton" name="radioButtonPageMarginSize">
+           <property name="toolTip">
+            <string>Insert the new frame with the same dimensions as the page margins</string>
+           </property>
+           <property name="text">
+            <string>Same as the Page Margins</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButtonPageSize">
+           <property name="toolTip">
+            <string>Insert the new frame with the same dimensions as the page</string>
+           </property>
+           <property name="text">
+            <string>Same as the Page</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButtonBleedSize">
+           <property name="toolTip">
+            <string>Insert the new frame with the same dimensions as the bleed area outside the boundary of the page itself</string>
+           </property>
+           <property name="text">
+            <string>Same as the Bleed</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButtonImageSize">
+           <property name="toolTip">
+            <string>Insert the new frame with the same dimensions as the image that will be imported</string>
+           </property>
+           <property name="text">
+            <string>Same as the Imported Image</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButtonCustomSize">
+           <property name="toolTip">
+            <string>Insert the new frame with a custom size</string>
+           </property>
+           <property name="text">
+            <string>Custom Size</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout">
+           <item>
+            <spacer>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>30</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QGridLayout">
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Height:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Width:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="ScrSpinBox" name="widthScrSpinBox">
+               <property name="toolTip">
+                <string>Width of the inserted frame</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="ScrSpinBox" name="heightScrSpinBox">
+               <property name="toolTip">
+                <string>Height of the inserted frame</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="optionsTab">
+      <attribute name="title">
+       <string>&amp;Options</string>
+      </attribute>
+      <layout class="QVBoxLayout">
+       <item>
+        <widget class="QStackedWidget" name="optionsStackedWidget">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="page">
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <layout class="QHBoxLayout">
+             <item>
+              <layout class="QGridLayout">
+               <item row="0" column="1">
+                <widget class="QSpinBox" name="textColumnCountSpinBox">
+                 <property name="toolTip">
+                  <string>Number of columns for the inserted text frame</string>
+                 </property>
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="textColumnGapLabel">
+                 <property name="text">
+                  <string>Gap:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="ScrSpinBox" name="textColumnGapScrSpinBox">
+                 <property name="toolTip">
+                  <string>Distance between the columns in the text frame</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="textColumnCountLabel">
+                 <property name="text">
+                  <string>Columns:</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer>
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBoxLinkCreatedTextFrames">
+             <property name="toolTip">
+              <string>Link the inserted text frames together to form a chain of frames</string>
+             </property>
+             <property name="text">
+              <string>Link Inserted Frames</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QCheckBox" name="checkBoxLinkToExistingFrame">
+               <property name="toolTip">
+                <string>Link the first inserted frame to a preexisting text frame</string>
+               </property>
+               <property name="text">
+                <string>Link to Existing Frame</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBoxLinkToExistingFrameName">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>Name of existing text frame to link to</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout">
+             <item>
+              <widget class="QLabel" name="sourceDocLabel">
+               <property name="text">
+                <string>Source Document:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="sourceDocLineEdit">
+               <property name="toolTip">
+                <string>Source document to load into the text frame</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="selectDocFileButton">
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_2">
+          <layout class="QVBoxLayout">
+           <item>
+            <layout class="QHBoxLayout">
+             <item>
+              <widget class="QLabel" name="sourceImageLabel">
+               <property name="text">
+                <string>Source Image:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="sourceImageLineEdit">
+               <property name="toolTip">
+                <string>Source image to load into the inserted image frame</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="selectImageFileButton">
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_3">
+          <layout class="QVBoxLayout">
+           <item>
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>There are no options for this type of frame</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>InsertAFrame</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>InsertAFrame</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

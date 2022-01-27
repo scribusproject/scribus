@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Bundesregierung HKS">
+ <COLOR RGB="#ffb600" NAME="HKS 5 K" Spot="1" />
+ <COLOR RGB="#ff8c00" NAME="HKS 6 K" Spot="1" />
+ <COLOR RGB="#c90230" NAME="HKS 15 K" Spot="1" />
+ <COLOR RGB="#701a32" NAME="HKS 18 K" Spot="1" />
+ <COLOR RGB="#0055aa" NAME="HKS 44 K" Spot="1" />
+ <COLOR RGB="#0077a9" NAME="HKS 46 K" Spot="1" />
+ <COLOR RGB="#00b2dc" NAME="HKS 50 K" Spot="1" />
+ <COLOR RGB="#007151" NAME="HKS 55 K" Spot="1" />
+ <COLOR RGB="#5cbd00" NAME="HKS 67 K" Spot="1" />
+ <COLOR RGB="#495057" NAME="HKS 93 K" Spot="1" />
+ <COLOR NAME="Black" CMYK="#000000ff"/>
+ <COLOR NAME="Registration" CMYK="#ffffffff" Register="1"/>
+ <COLOR NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>
+<!-- Public Domain -->

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Ubuntu RGB">
+ <COLOR RGB="#dd4814" NAME="Ubuntu Orange" />
+ <COLOR RGB="#2c001e" NAME="Server Dark Aubergine" />
+ <COLOR RGB="#aea79f" NAME="Warm Grey" />
+ <COLOR RGB="#333333" NAME="Cool Grey" />
+ <COLOR RGB="#000000" NAME="Black" />
+ <COLOR RGB="#ffffff" NAME="White" />
+</SCRIBUSCOLORS>

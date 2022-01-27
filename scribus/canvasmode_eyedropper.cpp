@@ -24,36 +24,36 @@
 #include <QMouseEvent>
 #include <QPoint>
 #include <QRect>
+#include <QScreen>
 #include <QDebug>
 
+#include "appmodes.h"
 #include "canvas.h"
 #include "fpoint.h"
-#include "propertiespalette.h"
 #include "sccolorengine.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "ui/propertiespalette.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
 
 
 CanvasMode_EyeDropper::CanvasMode_EyeDropper(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	m_mouseGrabbed = false;
 }
 
-void CanvasMode_EyeDropper::grabMouse(void)
+void CanvasMode_EyeDropper::grabMouse()
 {
 	if (!m_mouseGrabbed)
 	{
-		m_view->widget()->grabMouse();
+		m_view->widget()->grabMouse(modeCursor());
 		m_mouseGrabbed = true;
 	}
 }
 
-void CanvasMode_EyeDropper::releaseMouse(void)
+void CanvasMode_EyeDropper::releaseMouse()
 {
 	if (m_mouseGrabbed)
 	{
@@ -64,24 +64,24 @@ void CanvasMode_EyeDropper::releaseMouse(void)
 
 void CanvasMode_EyeDropper::drawControls(QPainter* p)
 {
-	commonDrawControls(p);
+	commonDrawControls(p, false);
 }
 
-void CanvasMode_EyeDropper::enterEvent(QEvent *)
+void CanvasMode_EyeDropper::enterEvent(QEvent *e)
 {
 	setModeCursor();
 }
 
 void CanvasMode_EyeDropper::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 
 void CanvasMode_EyeDropper::activate(bool fromGesture)
 {
 //	qDebug() << "CanvasMode_EyeDropper::activate" << fromGesture;
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -92,7 +92,6 @@ void CanvasMode_EyeDropper::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 	grabMouse();
@@ -101,8 +100,20 @@ void CanvasMode_EyeDropper::activate(bool fromGesture)
 void CanvasMode_EyeDropper::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_EyeDropper::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 	releaseMouse();
+
+	CanvasMode::deactivate(forGesture);
+}
+
+void CanvasMode_EyeDropper::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_EyeDropper::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
 }
 
 void CanvasMode_EyeDropper::mouseDoubleClickEvent(QMouseEvent *m)
@@ -113,12 +124,12 @@ void CanvasMode_EyeDropper::mouseDoubleClickEvent(QMouseEvent *m)
 //	m_view->stopDragTimer();
 }
 
-
 void CanvasMode_EyeDropper::mouseMoveEvent(QMouseEvent *m)
 {
 	/*m->accept();
 	if (commonMouseMove(m))
 		return;*/
+	m->accept();
 }
 
 void CanvasMode_EyeDropper::mousePressEvent(QMouseEvent *m)
@@ -141,66 +152,69 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 
 	releaseMouse();
 
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-
-	QPixmap pm = QPixmap::grabWindow( QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
+	m_view->setCursor(QCursor(Qt::ArrowCursor));
+	QPixmap pm;
+	QScreen *screen = QGuiApplication::primaryScreen();
+	if (screen)
+		pm = screen->grabWindow( QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
 	QImage i = pm.toImage();
-	QColor selectedColor=i.pixel(0, 0);
+	QColor selectedColor = i.pixel(0, 0);
 
-	bool found=false;
-    ColorList::Iterator it;
+	bool found = false;
+	ColorList::Iterator it;
 	for (it = m_doc->PageColors.begin(); it != m_doc->PageColors.end(); ++it)
 	{
-		if (selectedColor== ScColorEngine::getRGBColor(it.value(), m_doc))
+		if (selectedColor == ScColorEngine::getRGBColor(it.value(), m_doc))
 		{
-			found=true;
+			found = true;
 			break;
 		}
 	}
-	QString colorName=QString::null;
+
+	QString colorName;
 	if (found)
-		colorName=it.key();
+		colorName = it.key();
 	else
 	{
 		bool ok;
-		bool nameFound=false;
-		QString questionString="<qt>"+ tr("The selected color does not exist in the document's color set. Please enter a name for this new color.")+"</qt>";
+		bool nameFound = false;
+		QString questionString = "<qt>" + tr("The selected color does not exist in the document's color set.") + "<br/>" + tr("Please enter a name for this new color.") + "</qt>";
 		do
 		{
-			colorName = QInputDialog::getText(m_ScMW, tr("Color Not Found"), questionString, QLineEdit::Normal, QString::null, &ok);
+			colorName = QInputDialog::getText(m_ScMW, tr("Color Not Found"), questionString, QLineEdit::Normal, tr("RGB %1").arg(selectedColor.name()), &ok);
 			if (ok)
 			{
 				if (m_doc->PageColors.contains(colorName))
-					questionString="<qt>"+ tr("The name you have selected already exists. Please enter a different name for this new color.")+"</qt>";
+					questionString = "<qt>" + tr("The name you have selected already exists.") + "<br/>" + tr("Please enter a different name for this new color.") + "</qt>";
 				else
-					nameFound=true;
+					nameFound = true;
 			}
 		} while (!nameFound && ok);
-		if ( ok && !colorName.isEmpty() )
+		if (!ok)
+			colorName.clear();
+		if (!colorName.isEmpty())
 		{
 			ScColor newColor(selectedColor.red(), selectedColor.green(), selectedColor.blue());
-			m_doc->PageColors[colorName]=newColor;
-			m_ScMW->propertiesPalette->updateColorList();
+			m_doc->PageColors[colorName] = newColor;
+			m_doc->changed();
+			m_ScMW->updateColorLists();
 		}
-		else
-			colorName=QString::null;
 	}
-	uint docSelectionCount=m_doc->m_Selection->count();
-	if (!colorName.isNull() && docSelectionCount > 0)
+
+	uint docSelectionCount = m_doc->m_Selection->count();
+	if (!colorName.isEmpty() && docSelectionCount > 0)
 	{
 		for (uint i = 0; i < docSelectionCount; ++i)
 		{
-			PageItem *currItem=m_doc->m_Selection->itemAt(i);
-			if (currItem!=NULL)
-			{
-				if ((m->modifiers() & Qt::ControlModifier) && (currItem->asTextFrame() || currItem->asPathText()))
-					m_doc->itemSelection_SetFillColor(colorName); //Text colour
-				else
-				if (m->modifiers() & Qt::AltModifier) //Line colour
-					m_doc->itemSelection_SetItemPen(colorName);
-				else
-					m_doc->itemSelection_SetItemBrush(colorName); //Fill colour
-			}
+			PageItem *currItem = m_doc->m_Selection->itemAt(i);
+			if (!currItem)
+				continue;
+			if ((m->modifiers() & Qt::ControlModifier) && (currItem->isTextFrame() || currItem->asPathText()))
+				m_doc->itemSelection_SetFillColor(colorName); //Text colour
+			else if (m->modifiers() & Qt::AltModifier) //Line colour
+				m_doc->itemSelection_SetItemPen(colorName);
+			else
+				m_doc->itemSelection_SetItemBrush(colorName); //Fill colour
 		}
 	}
 	m_view->requestMode(modeNormal);

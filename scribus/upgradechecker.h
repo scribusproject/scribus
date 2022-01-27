@@ -8,13 +8,12 @@ for which a new license (GPL+exception) is in place.
 #define UPGRADECHECKER_H
 
 #include <QFile>
+#include <QNetworkReply>
 #include <QObject>
 #include <QString>
 #include <QStringList>
-class QHttp;
-class QHttpResponseHeader;
-
-class ScTextBrowser;
+#include <QNetworkAccessManager>
+#include <QTextBrowser>
 
 /**
 	@author Craig Bradney <cbradney@zip.com.au>
@@ -32,35 +31,27 @@ public:
 	void show(bool error);
 	QStringList upgradeData();
 	
-public slots:
-	void abort();
-	
 private slots:
-	void requestFinished(int requestId, bool error);
-	void responseHeaderReceived(const QHttpResponseHeader &responseHeader);
-	void done(bool);
+	void downloadFinished();
+	void downloadReadyRead();
 	
 protected:
-	void init();
-	virtual void outputText(QString text, bool noLineFeed=false);
+	virtual void outputText(const QString& text, bool noLineFeed=false);
 	void reportError(const QString& s);
-	bool writeToConsole;
-	QString version;
-	QString stability;
-	uint major, minor, revision1, revision2;
-	bool isCVS;
-	QString platform;
-	QStringList updates;
-	QString tempFile;
-	bool fin;
-	QHttp* getter;
-	int getterID;
-	QString message;
-	int httpGetId;
-	bool httpRequestAborted;
-	QFile *rcvdFile;
-	bool errorReported;
-	bool userAbort;
+	QFile *m_file {nullptr};
+	QNetworkAccessManager* m_networkManager {nullptr};
+	QNetworkReply *m_networkReply {nullptr};
+	QString m_message;
+	QString m_platform;
+	QString m_stability;
+	QString m_tempFile;
+	QString m_version;
+	QStringList m_updates;
+	bool m_errorReported {false};
+	bool m_fin {false};
+	bool m_isSVN {false};
+	bool m_writeToConsole {true};
+	uint major, minor, m_patchLevel, m_versionSuffix;
 };
 
 class UpgradeCheckerGUI : public UpgradeChecker
@@ -68,12 +59,12 @@ class UpgradeCheckerGUI : public UpgradeChecker
 	Q_OBJECT
 	
 public:
-	UpgradeCheckerGUI(ScTextBrowser *tb=0);
+	UpgradeCheckerGUI(QTextBrowser *tb=0);
 	~UpgradeCheckerGUI();
 	
 protected:
-	virtual void outputText(QString text, bool noLineFeed=false);
-	ScTextBrowser *outputWidget;
+	virtual void outputText(const QString& text, bool noLineFeed=false);
+	QTextBrowser *m_outputWidget;
 };
 
 

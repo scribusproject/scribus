@@ -5,7 +5,7 @@ ABOUT THIS SCRIPT:
 
 Export Scribus Colors to CSV
 
-color2csv.py allows a user to export  the colors of a given scribus document in a csv file. The file will be a text file with comma seperated values in the following format:
+color2csv.py allows a user to export  the colors of a given scribus document in a csv file. The file will be a text file with comma separated values in the following format:
 "colorname", c,m,y,k 
 
 If there is a document opened in scribus, color2csv uses this document as color source.
@@ -29,7 +29,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 Author: Sebastian Stetter
 
@@ -45,9 +45,9 @@ try:
     # Do so _after_ the 'import scribus' and only import the names you need, such
     # as commonly used constants.
     import scribus
-except ImportError,err:
-    print "This Python script is written for the Scribus scripting interface."
-    print "It can only be run from within Scribus."
+except ImportError as err:
+    print ("This Python script is written for the Scribus scripting interface.")
+    print ("It can only be run from within Scribus.")
     sys.exit(1)
 
 #########################
@@ -92,7 +92,7 @@ def writeColorCsvFile(filename, colorlist):
     scribus.progressTotal(len(colorlist))
     i=0
     try:
-        csvwriter=csv.writer(file(filename, "w"), quoting=csv.QUOTE_NONNUMERIC)
+        csvwriter=csv.writer(open(filename, "w"), quoting=csv.QUOTE_NONNUMERIC)
         for line in colorlist:
             csvwriter.writerow(line)
             i=i+1
@@ -103,14 +103,14 @@ def writeColorCsvFile(filename, colorlist):
 
 def main(argv):
     """Main method - here we check if we have a doc - else we open one. we get all the colors and write them to a csv file."""
-    if scribus.haveDoc():  #DOC OPEN
+    if scribus.haveDoc() > 0:  #DOC OPEN
     #get colors, get filename, write stuff
         cols = getColorsFromDoc()
         filename = scribus.fileDialog("color2csv: Save csv color file", defaultname="colors.csv",  issave=True ,  haspreview=False)
         
         #@TODO: optimize path checking
         if filename !="":
-            if os.path.exists(filename): #make shure we don't accidentaly overwrite existing files
+            if os.path.exists(filename): #make sure we don't accidentally overwrite existing files
                 answer= scribus.messageBox("color2csv", "File already exists! \n do you want to overwrite it?",  icon=scribus.ICON_WARNING,  button1=scribus.BUTTON_YES,  button2=scribus.BUTTON_ABORT)
                 if answer == scribus.BUTTON_YES:
                     writeColorCsvFile(filename,  cols)

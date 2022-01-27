@@ -26,15 +26,15 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include <iostream>
-#include <signal.h>
+#include <csignal>
 
 #include <QApplication>
-
-#define BASE_QM "scribus"
+#include <QMessageBox>
 
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribus.h"
+#include "scimagecachemanager.h"
 
 #include "scconfig.h"
 
@@ -43,7 +43,6 @@ void initCrashHandler();
 static void defaultCrashHandler(int sig);
 
 ScribusCore SCRIBUS_API *ScCore;
-ScribusMainWindow SCRIBUS_API *ScMW;
 ScribusQApp SCRIBUS_API *ScQApp;
 bool emergencyActivated;
 
@@ -64,32 +63,24 @@ int main(int argc, char *argv[])
 */
 int mainApp(int argc, char **argv)
 {
-	emergencyActivated=false;
+	emergencyActivated = false;
 
+	ScribusQApp::setAttribute(Qt::AA_EnableHighDpiScaling);
 	ScribusQApp app(argc, argv);
 	initCrashHandler();
-/* possible fix for the Qt-4.4.0 locale problem */
-#ifdef Q_OS_UNIX
-// 	setlocale(LC_ALL, "C");                // use correct char set mapping
-#if (QT_VERSION == 0x040400) || (QT_VERSION == 0x040500)
-	setlocale(LC_NUMERIC, "C");        // make sprintf()/scanf() work
-#endif // QT_VERSION == 0x040400
-#endif // Q_OS_UNIX
 	app.parseCommandLine();
+	int appRetVal=app.init();
+	if (appRetVal==EXIT_FAILURE)
+		return(EXIT_FAILURE);
 	if (app.useGUI)
-	{
-		int appRetVal=app.init();
-		if (appRetVal==EXIT_FAILURE)
-			return(EXIT_FAILURE);
 		return app.exec();
-	}
-	return EXIT_SUCCESS;	
+	return EXIT_SUCCESS;
 }
 
 void initCrashHandler()
 {
 	typedef void (*HandlerType)(int);
-	HandlerType handler	= 0;
+	HandlerType handler	= nullptr;
 	handler = defaultCrashHandler;
 	if (!handler)
 		handler = SIG_DFL;
@@ -111,7 +102,7 @@ void initCrashHandler()
 	signal (SIGABRT, handler);
 	sigaddset(&mask, SIGABRT);
 #endif
-	sigprocmask(SIG_UNBLOCK, &mask, 0);
+	sigprocmask(SIG_UNBLOCK, &mask, nullptr);
 }
 
 void defaultCrashHandler(int sig)
@@ -129,12 +120,17 @@ void defaultCrashHandler(int sig)
 		std::cout << sigHdr.toStdString() << std::endl;
 		std::cout << sigLine.toStdString() << std::endl;
 		std::cout << sigMsg.toStdString() << std::endl;
+		ScImageCacheManager::instance().removeMasterLock();
 		if (ScribusQApp::useGUI)
 		{
 			ScCore->closeSplash();
-			QMessageBox::critical(ScMW, sigHdr, sigMsg, QObject::tr("&OK"));
-			ScMW->emergencySave();
-			ScMW->close();
+			ScribusMainWindow* mainWin = ScCore->primaryMainWindow();
+			if (mainWin)
+			{
+				ScMessageBox::critical(mainWin, sigHdr, sigMsg);
+				mainWin->emergencySave();
+				mainWin->close();
+			}
 		}
 		alarm(300);
 	}

@@ -34,16 +34,19 @@ struct InsertAFrameData
 
 struct ItemMultipleDuplicateData
 {
-	int type;
-	int copyCount;
-	int copyShiftOrGap;
-	double copyShiftGapH;
-	double copyShiftGapV;
-	double copyRotation;
-	int gridRows;
-	int gridCols;
-	double gridGapH;
-	double gridGapV;
+	int type = 0;
+	int copyCount = 0;
+	int copyShiftOrGap = 0;
+	double copyShiftGapH = 0.0;
+	double copyShiftGapV = 0.0;
+	double copyRotation = 0.0;
+	int gridRows = 0;
+	int gridCols = 0;
+	double gridGapH = 0.0;
+	double gridGapV = 0.0;
+	int pageSelection = 0; // 1 = All, 2 = Even, 3 = Odd, 4 = Range
+	QString pageRange;
+	bool pageLinkText = false;
 };
 
 struct CreateRangeData

@@ -1,0 +1,49 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Scribus unter OS/2&#174; and eComStation&#8482; </title>
+</head>
+<body>
+<h2>Scribus unter OS/2 Warp4&#0174; and eComStation&#0153;</h2>
+
+<p>Das Scribus-Team f&uuml;hlt sich Paul Smedley sehr verpflichtet, der es auf sich genommen hat, Scribus nach OS/2 und eComStation zu portieren.</p>
+
+<p>Das Scribus Team m&ouml;chte au&szlig;erdem <a href="http://www.serenity-systems.com/">Serenity Systems</a> und  <a href="http://www.http://mensys.nl/">Mensys BV</a> f&uuml;r die Unterst&uuml;tzung bei der Entwicklung und dem Testen der OS/2- und eComStation-Portierung danken.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/scribus-os2.png" alt="Scribus unter eComStation"  title="Scribus unter eComStation" /></td></tr></table>
+
+<h4>Voraussetzungen</h4>
+<p>Um Scribus unter OS/2 und eCS verwenden zu k&ouml;nnen, m&uuml;ssen die folgenden Voraussetzungen erf&uuml;llt sein:
+<ul>
+<li>Sie ben&ouml;tigen die  Dateien libc063.dll und gcc445.dll. Beide Dateien m&uuml;ssen nach <code>C:\OS2\DLL</code> (OS/2) oder <code>C:\ECS\DLL</code> (eComStation) kopiert werden.</li>
+<li>Sie ben&ouml;tigen au&szlig;erdem die Qt4-GA-DLLs, die unter http://svn.netlabs.org/qt4 heruntergeladen werden k&ouml;nnen.</li>
+<li>Beachten Sie, da&szlig; manche der obengenannten Bibliotheken als WarpIn-Pakete unter http://www.netlabs.org zur Verf&uuml;gung stehen. Um alle *.wpi-Dateien installieren zu k&ouml;nnen, ben&ouml;tigen Sie mindestens WarpIn 1.0.15.</li>
+<li>Ghostscript und Python 2.6 (beide verf&uuml;gbar unter http://os2ports.smedley.info) werden f&uuml;r einige Funktionen ben&ouml;tigt. So werden Python-Scripts nicht funktionieren, wenn Python fehlt. Die Druckvorschau, der EPS-Import oder der Strichcode-Generator werden ohne Ghostscript nicht funktionieren.</li>
+<li>Seit eComStation 2.0 wird 1.3.8 mit den Installations-CDs ausgeliefert. Wenn Sie diese &auml;ltere Version von der Add-on-CD installieren, sind alle obengenannten Komponenten ordnungsgem&auml;&szlig; installiert, und Sie k&ouml;nnen einfach immer die neueste Version herunterladen und wie unten beschrieben verwenden.</li>
+</ul>
+</p>
+
+<h4>Installation</h4>
+<p>Scribus f&uuml;r OS/2 und eCS wird nicht mit einem Installationsprogramm ausgeliefert. Alles, was Sie tun m&uuml;ssen, ist, die ZIP-Datei von <a href="http://sourceforge.net/projects/scribus/files/">Sourceforge</a> herunterzuladen (die OS/2- und eCS-Version ist diejenige mit &raquo;OS2&laquo; im Dateinamen) und dieses Archiv dorthin zu entpacken, von wo aus Sie Scribus starten wollen. Wechseln Sie in das Verzeichnis <code>SCRIBUS-1.4.x-OS2-date\scribus</code> (&raquo;x&laquo; ist hier ein Platzhalter f&uuml;r die jeweilige Scribus-Versionsnummer, und &raquo;date&laquo; steht f&uuml;r das Datum, an dem diese Version kompiliert wurde, z.B. <code>20110128</code> (=28. Januar 2011)). Doppelklicken Sie auf die <code>scribus.exe</code>-Datei. Sie k&ouml;nnen Scribus aber auch &uuml;ber die Kommandozeile starten.</p>
+<p><i>Beachten Sie, da&szlig; Sie den Inhalt des ZIP-Archivs auf eine Partition entpacken m&uuml;ssen, die ein Dateisystem benutzt, das lange Dateinamen unterst&uuml;tzt. Bei FAT&nbsp;16 ist dies <b>nicht</b> der Fall, und die existierenden Treiber f&uuml;r FAT&nbsp;32 und NTFS k&ouml;nnen bestenfalls als experimentell bezeichnet werden. Am einfachsten ist es, wenn Sie ein natives IBM-Dateisystem wie HPFS (das Standardsystem f&uuml;r OS/2 und eComStation) oder JFS verwenden.</i></p>
+
+<h4>Ghostscript installieren and einrichten</h4>
+<p>Wie bei Scribus gibt es auch f&uuml;r Ghostscript kein Installationsprogramm. Laden Sie einfach die ZIP-Datei von der oben erw&auml;hnten Adresse herunter und entpacken Sie diese. Um Scribus mitzuteilen, wo sich Ghostscript befindet, &ouml;ffnen Sie den Dialog <i>Datei&nbsp;> Allgemeine Einstellungen</i> in Scribus. Dort gehen Sie zu &raquo;Externe Tools&laquo;. Unter &raquo;PostScript-Interpreter&laquo; k&ouml;nnen Sie entweder den Pfad zu gs von Hand eingeben oder den Dateidialog &uuml;ber &raquo;&Auml;ndern&nbsp;...&laquo; aufrufen. Der Name der ausf&uuml;hrbaren Datei ist <code>gsos2.exe</code>, und sie befindet sich im Unterverzeichnis <code>\bin</code>, z.B.: <code>X:\GHOSTSCRIPT-900-OS2-Datum\GS900OS2\bin\gsos2.exe</code>.</p>
+
+<h4>Bekannte Probleme</h4>
+<p>
+<ul>
+<li>Druckerunterst&uuml;tzung ist nicht vollst&auml;ndig implementiert, aber der PDF-Export funktioniert. Sie k&ouml;nnen problemlos vom Adobe Reader oder einem anderen PDF-Betrachter aus drucken.</li>
+<li>Was Adobe Reader f&uuml;r OS/2 betrifft, lesen Sie bitte die detaillierten Hinweise im <a href="toolbox1.html">Werkzeugkasten-Kapitel</a>.</li>
+</ul>
+</p>
+
+<h4>Ein besonderer Hinweis f&uuml;r Anwender von OS/2 und eComStation</h4>
+
+<p>Allgemeine R&uuml;ckmeldungen sind per E-Mail an paul@smedley.info und &uuml;ber die &uuml;blichen Kommunikationskan&auml;le (IRC, Mailingliste usw.) m&ouml;glich. Fehlerberichte sollten in den <a href="http://bugs.scribus.net">Bugtracker</a> eingetragen werden.</p>
+<p>Wenn Sie diese Software m&ouml;gen und die Portierung auf OS/2 und eCS auch in Zukunft unterst&uuml;tzen m&ouml;chten, k&ouml;nnen Sie &uuml;ber PayPal und den Link unter http://smedley.info/os2ports oder &uuml;ber den Mensys Online Store unter http://www.mensys.net/os2ports spenden.</p>
+<p>Sie k&ouml;nnen auch das <a href="http://www.mensys.com/NetlabsQT4">&raquo;Qt4 for OS/2&laquo;-Projekt</a> sponsern oder unterst&uuml;tzen &ndash; ohne das Qt4-Projekt von Netlabs w&auml;re diese Portierung nicht m&ouml;glich gewesen!</p>
+<br>
+<br>
+</body>
+</html>

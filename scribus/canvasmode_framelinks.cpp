@@ -30,46 +30,44 @@
 #include <QWidgetAction>
 #include <QDebug>
 
+#include "appmodes.h"
 #include "canvas.h"
-#include "contextmenu.h"
-#include "customfdialog.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "pageitem_textframe.h"
-#include "pageselector.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "propertiespalette.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "ui/contextmenu.h"
+#include "ui/pageselector.h"
+#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
+
+
 
 CanvasMode_FrameLinks::CanvasMode_FrameLinks(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
-	frameResizeHandle = -1;
 }
 
 inline bool CanvasMode_FrameLinks::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 void CanvasMode_FrameLinks::drawControls(QPainter* p)
 {
-	commonDrawControls(p);
+	commonDrawControls(p, false);
 }
 
-void CanvasMode_FrameLinks::enterEvent(QEvent *)
+void CanvasMode_FrameLinks::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{
@@ -79,14 +77,36 @@ void CanvasMode_FrameLinks::enterEvent(QEvent *)
 
 void CanvasMode_FrameLinks::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 
 void CanvasMode_FrameLinks::activate(bool fromGesture)
 {
 //	qDebug() << "CanvasMode_FrameLinks::activate" << fromGesture;
+	CanvasMode::activate(fromGesture);
+
+	if (m_doc->m_Selection->count() >= 2)
+	{
+		switch (m_doc->appMode)
+		{
+		case modeLinkFrames:
+			// if there are more than one text frames selected, link them and exit
+			for(int i = 0; i < m_doc->m_Selection->count(); i++)
+			{
+				PageItem* item1 = m_doc->m_Selection->itemAt(i);
+				PageItem* item2 = m_doc->m_Selection->itemAt(i+1);
+				if ((item1 != nullptr && item1->isTextFrame()) &&
+					(item2 != nullptr && item2->isTextFrame()) &&
+				     item1->canBeLinkedTo(item2))
+				{
+					item1->link(item2);
+				}
+			}
+			// now exit and return to the normal mode
+			m_view->requestMode(modeNormal);
+			return;
+		}
+	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -94,13 +114,11 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
-	frameResizeHandle = -1;
+	m_Mxp = m_Myp = -1;
+	m_frameResizeHandle = -1;
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }
@@ -108,7 +126,18 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 void CanvasMode_FrameLinks::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_FrameLinks::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
+	CanvasMode::deactivate(forGesture);
+}
+
+void CanvasMode_FrameLinks::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_FrameLinks::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
 }
 
 void CanvasMode_FrameLinks::mouseDoubleClickEvent(QMouseEvent *m)
@@ -121,7 +150,7 @@ void CanvasMode_FrameLinks::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	//const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
 	m->accept();
 
@@ -129,15 +158,9 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 		return;
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
-		SeRx = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		SeRy = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-		/*
-		m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
-		*/
-		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
-		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-		if (!m_view->redrawMarker->isVisible())
-			m_view->redrawMarker->show();
+		QPoint startP = m_canvas->canvasToGlobal(QPointF(m_Mxp, m_Myp));
+		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
+		m_view->setRedrawMarkerShown(true);
 		m_view->HaveSelRect = true;
 		return;
 	}
@@ -145,13 +168,10 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 {
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 
 	double Rxp = 0;
 	double Ryp = 0;
-	PageItem *currItem, *bb;
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
@@ -161,83 +181,146 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 //	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
-	Mxp = qRound(Rxp);
-	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
-	Myp = qRound(Ryp);
-	SeRx = Mxp;
-	SeRy = Myp;
-	if (m->button() == Qt::MidButton)
+	m_Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+	m_Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
+	m_Mxp = qRound(Rxp);
+	Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
+	m_Myp = qRound(Ryp);
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)
 			m_view->DrawNew();
 		return;
 	}
+	PageItem *currItem=nullptr, *bb=nullptr;
 	switch (m_doc->appMode)
 	{
 		case modeLinkFrames:
 			if (m->button() != Qt::LeftButton)
 				break;
 			currItem = m_doc->ElemToLink;
-			if (currItem==NULL)
+			if (currItem==nullptr)
 				break;
+			// #14334: delay selection signals so that (un)link actions get properly enabled/disabled
+			m_doc->m_Selection->delaySignalsOn();
 			SeleItem(m);
-			if (GetItem(&bb) && (bb->asTextFrame()))
+			if (GetItem(&bb) && (bb->isTextFrame()))
 			{
 				PageItem* bblast = bb;
 				while (bblast->nextInChain())
 					bblast = bblast->nextInChain();
 				
-				if (currItem->nextInChain() == 0 && bb->prevInChain() == 0 && currItem != bblast)
+				if (currItem->nextInChain() == nullptr && currItem != bblast) //possibility to insert empty frames into chain
 				{
+					if (bb->prevInChain() != nullptr)
+					{
+						ScMessageBox msgBox(QMessageBox::Question, tr("Linking Text Frames"),
+										   "<qt>" + tr("You are trying to insert a frame into an existing text chain, where would you like to insert it?") + "<qt>");
+						QPushButton *cancelButton = msgBox.addButton(CommonStrings::tr_Cancel, QMessageBox::RejectRole);
+						QPushButton *beforeButton = msgBox.addButton(tr("Before"), QMessageBox::AcceptRole);
+						QPushButton *afterButton = msgBox.addButton(tr("After"), QMessageBox::AcceptRole);
+						msgBox.setDefaultBatchButton(afterButton);
+						msgBox.exec();
+						if ((QPushButton *) msgBox.clickedButton() == cancelButton)
+							break;
+						if ((QPushButton *) msgBox.clickedButton() == beforeButton)
+						{
+							if (currItem->prevInChain())
+								currItem->prevInChain()->unlink();
+							PageItem *prev = bb->prevInChain();
+							prev->unlink();
+							prev->link(currItem);
+						}
+						else if ((QPushButton *) msgBox.clickedButton() == afterButton)
+						{
+							if (bb->nextInChain() != nullptr)
+							{
+								if (currItem->prevInChain())
+									currItem->prevInChain()->unlink();
+								PageItem *next = bb->nextInChain();
+								bb->unlink();
+								bb->link(currItem);
+								bb = next;
+							}
+							else
+							{ // link at end of last frame in chain - switch currItem <-> bb
+								PageItem* tmp = currItem;
+								currItem = bb;
+								bb = tmp;
+							}
+						}
+					}
+					if (bb->prevInChain())
+						bb->prevInChain()->unlink();
 					currItem->link(bb);
+
+					/*
+					// #133881: Remove item renumbering on link as 1.5.x has better drawing methods
+					// than 1.3.3.x did at the time (#3488). Leaving in in case we find we need it back
+					//
+					int cid = m_doc->Items->indexOf(currItem);
+					int bid = m_doc->Items->indexOf(bb);
 					// CB We need to do this because we draw in the order of the item list
 					// Which is also item number list.. but #3488: we must also renumber the items
-					if (bb->ItemNr < currItem->ItemNr)
+					if (bid < cid)
 					{
-						m_doc->Items->insert(currItem->ItemNr+1, bb);
-						bb = m_doc->Items->takeAt(bb->ItemNr);
-						m_doc->renumberItemsInListOrder();
+						m_doc->Items->insert(cid+1, bb);
+						bb = m_doc->Items->takeAt(bid);
 					}
+					*/
+
 					// m_view->updateContents();
 					// link calls PageItem::update	
-					// emit DocChanged();
+					//ECE no, link() not force update
+					currItem->update();
+					m_view->DrawNew();
+					//emit DocChanged();
 					m_doc->ElemToLink = bb;
 				}
 				else if (currItem == bblast)
 				{
 					//CB Mouse is released when this messagebox takes focus
 					m_canvas->m_viewMode.m_MouseButtonPressed = false;
-					QMessageBox::warning(m_view, ScribusView::tr("Linking Text Frames"),
-											 "<qt>" + ScribusView::tr("You are trying to link a frame to itself.") + "</qt>");
+					ScMessageBox::warning(m_view, tr("Linking Text Frames"),
+										"<qt>" + tr("You are trying to link a frame to itself.") + "</qt>");
+				}
+				else if (currItem->nextInChain() != nullptr)
+				{
+					//CB Mouse is released when this messagebox takes focus
+					m_canvas->m_viewMode.m_MouseButtonPressed = false;
+					ScMessageBox::warning(m_view, tr("Linking Text Frames"),
+										 "<qt>" + tr("Frame is already linked. Unlink it before linking it to another frame.") + "</qt>");
 				}
 				else
 				{
 					//CB Mouse is released when this messagebox takes focus
 					m_canvas->m_viewMode.m_MouseButtonPressed = false;
-					QMessageBox::warning(m_view, ScribusView::tr("Linking Text Frames"),
-										 "<qt>" + ScribusView::tr("You are trying to link a frame which is already linked.") + "</qt>");
+					ScMessageBox::warning(m_view, tr("Linking Text Frames"),
+										 "<qt>" + tr("You are trying to link a non-empty frame to frame which is already linked.") + "</qt>");
 				}
 			}
 			else
-				m_doc->ElemToLink = NULL;
+				m_doc->ElemToLink = nullptr;
+			m_doc->m_Selection->delaySignalsOff();
 			break;
 		case modeUnlinkFrames:
 			if (m->button() != Qt::LeftButton)
 				break;
+			// #14334: delay selection signals so that (un)link actions get properly enabled/disabled
+			m_doc->m_Selection->delaySignalsOn();
 			SeleItem(m);
-			if (GetItem(&currItem) && (currItem->asTextFrame()))
+			if (GetItem(&currItem) && (currItem->isTextFrame()))
 			{
-				if (currItem->prevInChain() != 0)
+				if (currItem->prevInChain() != nullptr)
 				{
 					currItem->prevInChain()->unlink();
 				}
 				// unlink calls PageItem::update				emit DocChanged();
 				// m_view->updateContents();
 			}
+			m_doc->m_Selection->delaySignalsOff();
 			break;
 	}
 }
@@ -245,7 +328,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 void CanvasMode_FrameLinks::mouseReleaseEvent(QMouseEvent *m)
 {
 #ifdef GESTURE_FRAME_PREVIEW
-        clearPixmapCache();
+	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	PageItem *currItem;
@@ -262,13 +345,9 @@ void CanvasMode_FrameLinks::mouseReleaseEvent(QMouseEvent *m)
 	if ((m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 	{
 		m_view->updateContents();
-		if (m_doc->ElemToLink != 0)
-			return;
-		else
-		{
+		if (!PrefsManager::instance().appPrefs.uiPrefs.stickyTools || m_doc->ElemToLink == nullptr)
 			m_view->requestMode(submodePaintingDone);
-			return;
-		}
+		return;
 	}
 	m_canvas->setRenderModeUseBuffer(false);
 	m_doc->DragP = false;
@@ -278,22 +357,22 @@ void CanvasMode_FrameLinks::mouseReleaseEvent(QMouseEvent *m)
 	m_view->MidButt = false;
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		m_doc->m_Selection->itemAt(i)->checkChanges(true);
-	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
-	m_view->zoomSpinBox->clearFocus();
-	m_view->pageSelector->clearFocus();
+	//Make sure the Zoom spinbox and page selector don't have focus if we click on the canvas
+	m_view->m_ScMW->zoomSpinBox->clearFocus();
+	m_view->m_ScMW->pageSelector->clearFocus();
 }
 
 void CanvasMode_FrameLinks::selectPage(QMouseEvent *m)
 {
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
+	m_Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
+	m_Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
 	m_doc->nodeEdit.deselect();
-	m_view->Deselect(false);
+	m_view->deselectItems(false);
 	if (!m_doc->masterPageMode())
 	{
-		int i = m_doc->OnPage(Mxp, Myp);
+		int i = m_doc->OnPage(m_Mxp, m_Myp);
 		if (i!=-1)
 		{
 			uint docCurrPageNo=m_doc->currentPageNumber();
@@ -301,29 +380,10 @@ void CanvasMode_FrameLinks::selectPage(QMouseEvent *m)
 			if (docCurrPageNo != j)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(j));
-				m_view->setMenTxt(j);
+				m_view->m_ScMW->slotSetCurrentPage(j);
 				m_view->DrawNew();
 			}
 		}
-/*		uint docPagesCount=m_doc->Pages->count();
-		uint docCurrPageNo=m_doc->currentPageNumber();
-		for (uint i = 0; i < docPagesCount; ++i)
-		{
-			int x = static_cast<int>(m_doc->Pages->at(i)->xOffset() * m_canvas->scale());
-			int y = static_cast<int>(m_doc->Pages->at(i)->yOffset() * m_canvas->scale());
-			int w = static_cast<int>(m_doc->Pages->at(i)->width() * m_canvas->scale());
-			int h = static_cast<int>(m_doc->Pages->at(i)->height() * m_canvas->scale());
-			if (QRect(x, y, w, h).intersects(mpo))
-			{
-				if (docCurrPageNo != i)
-				{
-					m_doc->setCurrentPage(m_doc->Pages->at(i));
-					setMenTxt(i);
-					DrawNew();
-				}
-				break;
-			}
-		} */
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
 }
@@ -334,12 +394,12 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 	const unsigned SELECT_IN_GROUP = Qt::AltModifier;
 	const unsigned SELECT_MULTIPLE = Qt::ShiftModifier;
 	const unsigned SELECT_BENEATH = Qt::ControlModifier;
-	QMatrix p;
+	QTransform p;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
+	m_Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
+	m_Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	m_doc->nodeEdit.deselect();
@@ -349,16 +409,16 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 		int docPageCount = static_cast<int>(m_doc->Pages->count() - 1);
 		MarginStruct pageBleeds;
 		bool drawBleed = false;
-		if (m_doc->bleeds.hasNonZeroValue() && m_doc->guidesSettings.showBleed)
+		if (!m_doc->bleeds()->isNull() && m_doc->guidesPrefs().showBleed)
 			drawBleed = true;
 		for (int a = docPageCount; a > -1; a--)
 		{
 			if (drawBleed)
 				m_doc->getBleeds(a, pageBleeds);
-			int x = static_cast<int>(m_doc->Pages->at(a)->xOffset() - pageBleeds.Left);
-			int y = static_cast<int>(m_doc->Pages->at(a)->yOffset() - pageBleeds.Top);
-			int w = static_cast<int>(m_doc->Pages->at(a)->width() + pageBleeds.Left + pageBleeds.Right);
-			int h = static_cast<int>(m_doc->Pages->at(a)->height() + pageBleeds.Bottom + pageBleeds.Top);
+			int x = static_cast<int>(m_doc->Pages->at(a)->xOffset() - pageBleeds.left());
+			int y = static_cast<int>(m_doc->Pages->at(a)->yOffset() - pageBleeds.top());
+			int w = static_cast<int>(m_doc->Pages->at(a)->width() + pageBleeds.left() + pageBleeds.right());
+			int h = static_cast<int>(m_doc->Pages->at(a)->height() + pageBleeds.bottom() + pageBleeds.top());
 			if (QRect(x, y, w, h).contains(MxpS, MypS))
 			{
 				pgNum = static_cast<int>(a);
@@ -384,64 +444,32 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 		{
 			if (m_doc->currentPageNumber() != pgNum)
 			{
-				m_doc->setCurrentPage(m_doc->Pages->at(unsigned(pgNum)));
-				m_view->setMenTxt(unsigned(pgNum));
+				m_doc->setCurrentPage(m_doc->Pages->at(pgNum));
+				m_view->m_ScMW->slotSetCurrentPage(pgNum);
 				m_view->DrawNew();
 			}
 		}
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
 	
-	currItem = NULL;
+	currItem = nullptr;
 	if ((m->modifiers() & SELECT_BENEATH) != 0)
 	{
-		for (int i=0; i < m_doc->m_Selection->count(); ++i)
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		{
-			if (m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), m_doc->m_Selection->itemAt(i)) >= 0)
+			if (m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), m_doc->m_Selection->itemAt(i)) >= 0)
 			{
 				currItem = m_doc->m_Selection->itemAt(i);
-//				qDebug() << "select item: found BENEATH" << currItem << "groups" << currItem->Groups.count();
-				if (currItem->Groups.count() > 0)
-				{
-					m_doc->m_Selection->delaySignalsOn();
-					for (int ga=0; ga<m_doc->Items->count(); ++ga)
-					{
-						PageItem* item = m_doc->Items->at(ga);
-						if (item->Groups.count() != 0)
-						{
-							if (item->Groups.top() == currItem->Groups.top())
-							{
-								if (m_doc->m_Selection->findItem(item) >= 0)
-								{
-									m_doc->m_Selection->removeItem(item);
-								}
-							}
-						}
-					}
-					m_doc->m_Selection->delaySignalsOff();
-				}
-				else
-				{
-					m_doc->m_Selection->removeItem(currItem);
-				}
+				m_doc->m_Selection->removeItem(currItem);
 				break;
 			}
-//			else
-//				qDebug() << "select item: not BENEATH" << QPointF(mousePointDoc.x(),mousePointDoc.y()) 
-//					<< m_doc->m_Selection->itemAt(i)->getTransform() 
-//					<< m_doc->m_Selection->itemAt(i)->getBoundingRect();
 		}
 	}
 	else if ( (m->modifiers() & SELECT_MULTIPLE) == Qt::NoModifier || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames) )
 	{
-		m_view->Deselect(false);
+		m_view->deselectItems(false);
 	}
-	
-//	qDebug() << "select item: beneath" << (m->modifiers() & SELECT_BENEATH) << currItem 
-//		<< "multi" << (m->modifiers() & SELECT_MULTIPLE)
-//		<< "current sel" << m_doc->m_Selection->count();
 	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
-//	qDebug() << "item under cursor: " << currItem;
 	if (currItem)
 	{
 		m_doc->m_Selection->delaySignalsOn();
@@ -457,33 +485,11 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 				m_doc->m_Selection->clear();
 			//CB: #7186: This was prependItem, does not seem to need to be anymore with current select code
 			m_doc->m_Selection->addItem(currItem);
-			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroupControl))
+			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroup()))
 			{
 				currItem->isSingleSel = true;
 			}
-			else if (currItem->Groups.count() > 0)
-			{
-				for (int ga=0; ga<m_doc->Items->count(); ++ga)
-				{
-					PageItem* item = m_doc->Items->at(ga);
-					if (item->Groups.count() != 0)
-					{
-						if (item->Groups.top() == currItem->Groups.top())
-						{
-							if (item->ItemNr != currItem->ItemNr)
-							{
-								if (m_doc->m_Selection->findItem(item) == -1)
-								{
-									m_doc->m_Selection->addItem(item, true);
-								}
-							}
-							item->isSingleSel = false;
-						}
-					}
-				}
-			}
 		}
-
 		currItem->update();
 		m_doc->m_Selection->delaySignalsOff();
 		if (m_doc->m_Selection->count() > 1)
@@ -493,43 +499,36 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 				PageItem *bb = m_doc->m_Selection->itemAt(aa);
 				bb->update();
 			}
-			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			//	emit ItemPos(x, y);
-			//	emit ItemGeom(w, h);
 			m_view->getGroupRectScreen(&x, &y, &w, &h);
-			//	m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-			//	emit HaveSel(currItem->itemType());
 		}
 		if (m_doc->m_Selection->count() == 1)
 		{
-			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
-			if ((frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
-				qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			m_frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
+			if ((m_frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
+				m_view->setCursor(QCursor(Qt::SizeAllCursor));
 		}
 		else
 		{
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			m_view->setCursor(QCursor(Qt::SizeAllCursor));
 			m_canvas->m_viewMode.operItemResizing = false;
 		}
 		return true;
 	}
-	//m_doc->m_Selection->setIsGUISelection(true);
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
-		m_view->Deselect(true);
+		m_view->deselectItems(true);
 	return false;
 }
 
 void CanvasMode_FrameLinks::createContextMenu(PageItem* currItem, double mx, double my)
 {
-	ContextMenu* cmen=NULL;
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	ContextMenu* cmen=nullptr;
 	m_view->setObjectUndoMode();
-	Mxp = mx;
-	Myp = my;
-	if(currItem!=NULL)
+	m_Mxp = mx;
+	m_Myp = my;
+	if (currItem!=nullptr)
 	{
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 		cmen->exec(QCursor::pos());

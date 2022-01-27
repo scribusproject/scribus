@@ -1,0 +1,28 @@
+include_directories(
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/scribus
+	${SCRIBUS_AUTOGEN_INCLUDE_PATH}
+)
+
+set(IMPORTXFIG_PLUGIN_SOURCES
+	importxfig.cpp
+	importxfigplugin.cpp
+)
+
+set(SCRIBUS_IMPORTXFIG_PLUGIN "importxfig")
+
+add_library(${SCRIBUS_IMPORTXFIG_PLUGIN} MODULE ${IMPORTXFIG_PLUGIN_SOURCES})
+
+target_link_libraries(${SCRIBUS_IMPORTXFIG_PLUGIN} ${EXE_NAME})
+
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_IMPORTXFIG_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
+install(TARGETS ${SCRIBUS_IMPORTXFIG_PLUGIN}
+	LIBRARY
+	DESTINATION ${PLUGINDIR}
+	PERMISSIONS ${PLUGIN_PERMISSIONS}
+)
+
+add_dependencies(Plugins ${SCRIBUS_IMPORTXFIG_PLUGIN})

@@ -4,6 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <algorithm>
 #include <QLocale>
 
 #include "guidesmodel.h"
@@ -11,20 +13,10 @@ for which a new license (GPL+exception) is in place.
 
 
 GuidesModel::GuidesModel(QObject * /*parent*/)
-	: QAbstractTableModel(),
-		m_docUnitIndex(0),
-		m_docUnitDecimals(0)
-{
-
-	// debug
-// 	m_values << 1.0 << 10.1 << 6.3 << 4.1;
-// 	qSort(m_values);
-}
-
-
-GuidesModel::~GuidesModel()
 {
 }
+
+GuidesModel::~GuidesModel() = default;
 
 int GuidesModel::rowCount(const QModelIndex & /*parent*/) const
 {
@@ -41,23 +33,25 @@ QVariant GuidesModel::data(const QModelIndex & index, int role) const
 {
 	if (!index.isValid())
 		return QVariant();
-	// DisplayRole and EditRole *must* be splitted. There is rounding
+	// DisplayRole and EditRole *must* be split. There is rounding
 	// in pts2value(), toString() sequence. It disallows to compare
 	// these values with m_data list.
 	// Call it with EditRole when you need exact value.
 	if (role == Qt::DisplayRole)
 	{
 		QLocale l;
-		return QVariant(l.toString(pts2value(m_values.at(index.row()),
+		return QVariant(l.toString(pts2value(m_values.at(index.row()) - m_rule,
 											  m_docUnitIndex), 'f',
 											  m_docUnitDecimals)
 						);
 	}
 	if (role == Qt::EditRole)
-		return pts2value(m_values.at(index.row()), m_docUnitIndex);
+		return pts2value(m_values.at(index.row()) - m_rule, m_docUnitIndex);
+	if (role == Qt::UserRole)
+		return m_values.at(index.row());
 
-	if (role == Qt::BackgroundColorRole && m_values.at(index.row()) == 0.0)
-		return QVariant(Qt::red);
+	if (role == Qt::BackgroundRole && m_values.at(index.row()) == 0.0)
+		return QVariant(QColor(Qt::red));
 	return QVariant();
 }
 
@@ -69,8 +63,8 @@ bool GuidesModel::setData(const QModelIndex & index, const QVariant & value, int
 	double newVal = value.toDouble(&ok);
 	if (!ok)
 		return false;
-	m_values[index.row()] = value2pts(newVal, m_docUnitIndex);
-	qSort(m_values);
+	m_values[index.row()] = value2pts(newVal, m_docUnitIndex) + m_rule;
+	std::sort(m_values.begin(), m_values.end());
 	emit dataChanged(index, index);
 	emit valueChanged();
 	return true;
@@ -88,11 +82,12 @@ QVariant GuidesModel::headerData(int /*section*/, Qt::Orientation orientation, i
 	return "";
 }
 
-void GuidesModel::removeValues(const Guides & v)
+void GuidesModel::removeValues(const Guides & guides)
 {
-	foreach(double i, v)
-		m_values.removeAll(value2pts(i, m_docUnitIndex));
-	reset();
+	beginResetModel();
+	for (double d : guides)
+		m_values.removeAll(d);
+	endResetModel();
 }
 
 // bool GuidesModel::removeRows(int row, int count, const QModelIndex & parent)
@@ -119,18 +114,20 @@ void GuidesModel::removeValues(const Guides & v)
 void GuidesModel::insertRow()
 {
 // 	insertRows(rowCount(), 1);
+	beginResetModel();
 	if (m_values.contains(0.0))
 		return;
 	m_values.append(0.0);
-	qSort(m_values);
-	reset();
+	std::sort(m_values.begin(), m_values.end());
+	endResetModel();
 }
 
-void GuidesModel::setValues(Guides values)
+void GuidesModel::setValues(const Guides& values)
 {
+	beginResetModel();
 	m_values = values;
-	qSort(m_values);
-	reset();
+	std::sort(m_values.begin(), m_values.end());
+	endResetModel();
 }
 
 Guides GuidesModel::values()
@@ -138,11 +135,13 @@ Guides GuidesModel::values()
 	return m_values;
 }
 
-void GuidesModel::unitChange(int docUnitIndex, int docUnitDecimals)
+void GuidesModel::unitChange(int docUnitIndex, int docUnitDecimals,double offset)
 {
+	beginResetModel();
+	m_rule = offset;
 	m_docUnitIndex = docUnitIndex;
 	m_docUnitDecimals = docUnitDecimals;
-	reset();
+	endResetModel();
 }
 
 #if 0

@@ -1,0 +1,293 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Python: class PDFfile</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Python: class PDFfile</h2>
+<p><a name="PDFfile">class <strong>PDFfile</strong></a>(<a href="__builtin__.html#object">object</a>)
+</p>   
+<hr />
+<p>Methods defined here:</p>
+<dl>
+	<dt><a name="PDFfile-Save"><strong>Save</strong></a>(...)</dt>
+	<dd><p>This method is deprecated - use <a href="#PDFfile-save">save</a>() instead.</p></dd>
+
+	<dt><a name="PDFfile-__init__"><strong>__init__</strong></a>(...)</dt>
+	<dd><p>x.<a href="#PDFfile-__init__">__init__</a>(...) initializes x; see x.__class__.__doc__ for signature</p></dd>
+
+	<dt><a name="PDFfile-save"><strong>save</strong></a>(...)</dt>
+	<dd><p>Save selected pages to pdf file</p></dd>
+</dl>
+
+<hr>
+<p>Data and other attributes defined here:</p>
+<dl>
+	<dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;</dt>
+	<dd><p>T.<a href="#PDFfile-__new__">__new__</a>(S, ...) -&gt; a new object with type S, a subtype of T</p></dd>
+
+	<dt><strong>allowAnnots</strong> = &lt;member 'allowAnnots' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Allow adding annotations and fields. Bool value</p></dd>
+
+	<dt><strong>allowChange</strong> = &lt;member 'allowChange' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Allow changing the Document. Bool value</p></dd>
+
+	<dt><strong>allowCopy</strong> = &lt;member 'allowCopy' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Allow copying text and graphics. Bool value</p></dd>
+
+	<dt><strong>allowPrinting</strong> = &lt;member 'allowPrinting' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Allow printing the Document. Bool value</p></dd>
+
+	<dt><strong>article</strong> = &lt;member 'article' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Save linked text frames as PDF articles<br/> Bool value</p></dd>
+
+	<dt><strong>binding</strong> = &lt;member 'binding' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Choose binding.<br/>
+	0 - Left binding<br/>
+	1 - Right binding</p></dd>
+	
+	<dt><strong>bleedMarks</strong> = &lt;attribute 'bleedMarks' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Create marks delimiting the bleed area.</p></dd>
+
+	<dt><strong>bleedb</strong> = &lt;member 'bleedb' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Bleed Bottom<br/>Distance for bleed from the bottom of the physical page</p></dd>
+
+	<dt><strong>bleedl</strong> = &lt;member 'bleedl' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Bleed Left<br/>Distance for bleed from the left of the physical page</p></dd>
+
+	<dt><strong>bleedr</strong> = &lt;member 'bleedr' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Bleed Right<br/>Distance for bleed from the right of the physical page</p></dd>
+
+	<dt><strong>bleedt</strong> = &lt;member 'bleedt' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Bleed Top<br/>Distance for bleed from the top of the physical page</p></dd>
+
+	<dt><strong>bookmarks</strong> = &lt;member 'bookmarks' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Embed the bookmarks you created in your document.<br/>These are useful for navigating long PDF documents.<br/>Bool value</p></dd>
+
+	<dt><strong>colorMarks</strong> = &lt;member 'colorMarks' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Add color calibration bars.</p></dd>
+	
+	<dt><strong>compress</strong> = &lt;member 'compress' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Compression switch. Bool value.</p></dd>
+
+	<dt><strong>compressmtd</strong> = &lt;member 'compressmtd' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Compression method.<br/>
+	0 - Automatic<br/>
+	1 - JPEG<br/>
+	2 - zip<br/>
+	3 - None.</p></dd>
+	
+	<dt><strong>cropMarks</strong> = &lt;attribute 'cropMarks' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Create crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</p></dd>
+	
+	<dt><strong>displayBookmarks</strong> = &lt;attribute 'displayBookmarks' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Display the bookmarks upon opening.</p></dd>
+	
+	<dt><strong>displayFullscreen</strong> = &lt;attribute 'displayFullscreen' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Display the document in full screen mode upon opening.</p></dd>
+	
+	<dt><strong>displayLayers</strong> = &lt;attribute 'displayLayers' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Display the layer list upon opening. Useful only for PDF 1.5+.</p></dd>
+	
+	<dt><strong>displayThumbs</strong> = &lt;attribute 'displayThumbs' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Display the page thumbnails upon opening.</p></dd>
+	
+	<dt><strong>docInfoMarks</strong> = &lt;member 'docInfoMarks' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Add document information which includes the document title and page numbers.</p></dd>
+	
+	<dt><strong>doClip</strong> = &lt;attribute 'doClip' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Do not show objects outside the margins in the exported file.</p></dd>
+
+	<dt><strong>downsample</strong> = &lt;attribute 'downsample' of 'PDFfile' objects&gt;</dt>
+	<dd><p>Downsample image resolusion to this value. Values from 35 to 4000<br/>Set 0 for not to downsample</p></dd>
+
+	<dt><strong>effval</strong> = &lt;attribute 'effval' of 'PDFfile' objects&gt;</dt>
+	<dd><p>List of effection values for each saved page.<br/>
+	<pre>
+It is list of list of six integers. Those int have the following meaning:
+        - Length of time the page is shown before the presentation
+        starts on the selected page. (1-3600)
+        - Length of time the effect runs. (1 - 3600)
+                A shorter time will speed up the effect, a longer one will slow it down
+        - Type of the display effect
+                0 - No Effect
+                1 - Blinds
+                2 - Box
+                3 - Dissolve
+                4 - Glitter
+                5 - Split
+                6 - Wipe
+        - Direction of the effect of moving lines for the split and blind effects.
+                0 - Horizontal
+                1 - Vertical
+        - Starting position for the box and split effects.
+                0 - Inside
+                1 - Outside
+        - Direction of the glitter or wipe effects.
+                0 - Left to Right
+                1 - Top to Bottom
+                2 - Bottom to Top
+                3 - Right to Left
+                4 - Top-left to Bottom-Right
+</pre></p></dd>
+</dl>
+<dl>
+<dt><strong>embedPDF</strong> = &lt;member 'embedPDF' of 'PDFfile' objects&gt;</dt>
+<dd><p>Export PDFs in image frames as embedded PDFs.<br/>
+This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to 'true'.<br/>
+Bool value.</p></dd>
+
+<dt><strong>encrypt</strong> = &lt;member 'encrypt' of 'PDFfile' objects&gt;</dt>
+<dd><p>Use Encription. Bool value</p></dd>
+
+<dt><strong>file</strong> = &lt;attribute 'file' of 'PDFfile' objects&gt;</dt>
+<dd><p>Name of file to save into</p></dd>
+
+<dt><strong>fitWindow</strong> = &lt;attribute 'fitWindow' of 'PDFfile' objects&gt;</dt>
+<dd><p>Fit the document page or pages to the available space in the viewer window.</p></dd>
+
+<dt><strong>fontEmbedding</strong> = &lt;attribute 'fontEmbedding' of 'PDFfile' objects&gt;</dt>
+<dd><p>Choose the font embedding mode :<br/>
+0 - Embed fonts fully or as subset depending on 'fonts' attribute<br/>
+1 - Outline fonts: fonts will be converted to vector<br/>
+2 - No embedding: no font will be embedded.</p></dd>
+
+<dt><strong>fonts</strong> = &lt;attribute 'fonts' of 'PDFfile' objects&gt;</dt>
+<dd><p>List of fonts to embed.</p></dd>
+
+<dt><strong>hideMenuBar</strong> = &lt;attribute 'hideMenuBar' of 'PDFfile' objects&gt;</dt>
+<dd><p>Hides the viewer menu bar, the PDF will display in a plain window.</p></dd>
+
+<dt><strong>hideToolBar</strong> = &lt;attribute 'hideToolBar' of 'PDFfile' objects&gt;</dt>
+<dd><p>Hides the viewer toolbar. The toolbar has usually selection and other editing capabilities.</p></dd>
+
+<dt><strong>imagepr</strong> = &lt;attribute 'imagepr' of 'PDFfile' objects&gt;</dt>
+<dd><p>Color profile for images</p></dd>
+
+<dt><strong>info</strong> = &lt;attribute 'info' of 'PDFfile' objects&gt;</dt>
+<dd><p>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</p></dd>
+
+<dt><strong>intenti</strong> = &lt;member 'intenti' of 'PDFfile' objects&gt;</dt>
+<dd><p>Rendering intent for images<br/>
+0 - Perceptual<br/>
+1 - Relative Colorimetric<br/>
+2 - Saturation<br/>
+3 - Absolute Colorimetric</p></dd>
+
+<dt><strong>intents</strong> = &lt;member 'intents' of 'PDFfile' objects&gt;</dt>
+<dd><p>Rendering intent for solid colors<br/>
+0 - Perceptual<br/>
+1 - Relative Colorimetric<br/>
+2 - Saturation<br/>
+3 - Absolute Colorimetric</p></dd>
+
+<dt><strong>isGrayscale</strong> = &lt;attribute 'isGrayscale' of 'PDFfile' objects&gt;</dt>
+<dd><p>Export PDF in grayscale.</p></dd>
+
+<dt><strong>lpival</strong> = &lt;attribute 'lpival' of 'PDFfile' objects&gt;</dt>
+<dd><p>Rendering Settings for individual colors.<br/>
+<pre>
+This is list of values for each color.
+Color values have structure [siii] which stand for:
+        s - Color name ('Black', 'Cyan', 'Magenta', 'Yellow')
+        i - Frequency (10 to 1000)
+        i - Angle (-180 to 180)
+        i - Spot Function
+                0 - Simple Dot
+                1 - Line
+                2 - Round
+                3 - Ellipse
+</pre>
+Be careful when supplying these values as they are not checked for validity.</p></dd>
+
+<dt><strong>markOffset</strong> = &lt;member 'markOffset' of 'PDFfile' objects&gt;</dt>
+<dd><p>Indicate the distance offset between mark and page area.</p></dd>
+
+<dt><strong>markLength</strong> = &lt;member 'markLength' of 'PDFfile' objects&gt;</dt>
+<dd><p>Indicate the length of crop and bleed marks.</p></dd>
+
+<dt><strong>mirrorH</strong> = &lt;member 'mirrorH' of 'PDFfile' objects&gt;</dt>
+<dd><p>Mirror Page(s) horizontally. Bool value.</p></dd>
+
+<dt><strong>mirrorV</strong> = &lt;member 'mirrorV' of 'PDFfile' objects&gt;</dt>
+<dd><p>Mirror Page(s) vertically. Bool value.</p></dd>
+
+<dt><strong>noembicc</strong> = &lt;member 'noembicc' of 'PDFfile' objects&gt;</dt>
+<dd><p>Don't use embedded ICC profiles. Bool value</p></dd>
+
+<dt><strong>outdst</strong> = &lt;member 'outdst' of 'PDFfile' objects&gt;</dt>
+<dd><p>Output destination.<br/>
+0 - screen<br/>
+1 - printer</p></dd>
+
+<dt><strong>owner</strong> = &lt;attribute 'owner' of 'PDFfile' objects&gt;</dt>
+<dd><p>Owner's password</p></dd>
+
+<dt><strong>pageLayout</strong> = &lt;attribute 'pageLayout' of 'PDFfile' objects&gt;</dt>
+<dd><p>Document layout in PDF viewer:<br/>
+0 - Show the document in single page mode<br/>
+1 - Show the document in single page mode with the pages displayed continuously end to end like a scroll<br/>
+2 - Show the document with facing pages, starting with the first page displayed on the left<br/>
+3 - Show the document with facing pages, starting with the first page displayed on the right</p></dd>
+
+<dt><strong>pages</strong> = &lt;attribute 'pages' of 'PDFfile' objects&gt;</dt>
+<dd><p>List of pages to print</p></dd>
+
+<dt><strong>presentation</strong> = &lt;member 'presentation' of 'PDFfile' objects&gt;</dt>
+<dd><p>Enable Presentation Effects.Bool value</p></dd>
+
+<dt><strong>printprofc</strong> = &lt;attribute 'printprofc' of 'PDFfile' objects&gt;</dt>
+<dd><p>Output profile for printing. If possible, get some guidance from your printer on profile selection.</p></dd>
+
+<dt><strong>profilei</strong> = &lt;member 'profilei' of 'PDFfile' objects&gt;</dt>
+<dd><p>Embed a color profile for images. Bool value.</p></dd>
+
+<dt><strong>profiles</strong> = &lt;member 'profiles' of 'PDFfile' objects&gt;</dt>
+<dd><p>Embed a color profile for solid colors. Bool value.</p></dd>
+
+<dt><strong>quality</strong> = &lt;member 'quality' of 'PDFfile' objects&gt;</dt>
+<dd><p>Image quality<br/>
+0 - Maximum<br/>
+1 - High<br/>
+2 - Medium<br/>
+3 - Low<br/>
+4 - Minimum</p></dd>
+
+<dt><strong>registrationMarks</strong> = &lt;attribute 'registrationMarks' of 'PDFfile' objects&gt;</dt>
+<dd><p>Add registration marks to each separation.</p></dd>
+
+<dt><strong>resolution</strong> = &lt;attribute 'resolution' of 'PDFfile' objects&gt;</dt>
+<dd><p>Resolution of output file. Values from 35 to 4000.</p></dd>
+
+<dt><strong>solidpr</strong> = &lt;attribute 'solidpr' of 'PDFfile' objects&gt;</dt>
+<dd><p>Color profile for solid colors</p></dd>
+
+<dt><strong>thumbnails</strong> = &lt;member 'thumbnails' of 'PDFfile' objects&gt;</dt>
+<dd><p>Generate thumbnails. Bool value.</p></dd>
+
+<dt><strong>useDocBleeds</strong> = &lt;attribute 'useDocBleeds' of 'PDFfile' objects&gt;</dt>
+<dd><p>Use the existing bleed settings from the document preferences. Bool value.</p></dd>
+
+<dt><strong>useLayers</strong> = &lt;attribute 'useLayers' of 'PDFfile' objects&gt;</dt>
+<dd><p>Layers in your document are exported to the PDF. Only available with PDF >= 1.5.</p></dd>
+
+<dt><strong>uselpi</strong> = &lt;member 'uselpi' of 'PDFfile' objects&gt;</dt>
+<dd><p>Use Custom Rendering Settings. Bool value</p></dd>
+
+<dt><strong>user</strong> = &lt;attribute 'user' of 'PDFfile' objects&gt;</dt>
+<dd><p>User's password</p></dd>
+
+<dt><strong>version</strong> = &lt;member 'version' of 'PDFfile' objects&gt;</dt>
+<dd><p>Choose PDF version to use:<br/>
+11 = PDF/X-1a<br/>
+12 = PDF/X-3<br/>
+13 = PDF 1.3 (Acrobat 4)<br/>
+14 = PDF 1.4 (Acrobat 5)<br/>
+15 = PDF 1.5 (Acrobat 6)</p></dd>
+
+</dl>
+</body>
+</html>

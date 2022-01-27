@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 /* This is the Scribus Short Words plugin interface implementation.
 
-This code is based on the Scribus-Vlna plug in rewritten for
+This code is based on the Scribus-Vlna plugin rewritten for
 international use.
 
 2004 Petr Vanek <petr@yarpen.cz>
@@ -22,20 +22,21 @@ or documentation
 #include <QMessageBox>
 #include <QProgressBar>
 #include <QTextCodec>
-//Added by qt3to4:
 #include <QPixmap>
 
-#include "shortwords.h"
-//#include "shortwords.moc"
-#include "version.h"
-#include "vlnadialog.h"
 #include "configuration.h"
+#include "iconmanager.h"
 #include "parse.h"
-#include "page.h"
-#include "swprefsgui.h"
+#include "prefs_shortwords.h"
+#include "scpage.h"
 #include "scpaths.h"
 #include "scribus.h"
-#include "util_icon.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
+#include "shortwords.h"
+#include "swdialog.h"
+#include "version.h"
+
 
 int scribusshortwords_getPluginAPIVersion()
 {
@@ -51,19 +52,19 @@ ScPlugin* scribusshortwords_getPlugin()
 
 void scribusshortwords_freePlugin(ScPlugin* plugin)
 {
-	ShortWordsPlugin* plug = dynamic_cast<ShortWordsPlugin*>(plugin);
+	ShortWordsPlugin* plug = qobject_cast<ShortWordsPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
 
-ShortWordsPlugin::ShortWordsPlugin() : ScActionPlugin()
+ShortWordsPlugin::ShortWordsPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
 	languageChange();
 }
 
-ShortWordsPlugin::~ShortWordsPlugin() {};
+ShortWordsPlugin::~ShortWordsPlugin() = default;
 
 void ShortWordsPlugin::languageChange()
 {
@@ -75,11 +76,12 @@ void ShortWordsPlugin::languageChange()
 	m_actionInfo.text = tr("Short &Words...", "short words plugin");
 	// Menu
 	m_actionInfo.menu = "Extras";
+	m_actionInfo.menuAfterName = "extrasDeHyphenateText";
 	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString ShortWordsPlugin::fullTrName() const
+QString ShortWordsPlugin::fullTrName() const
 {
 	return QObject::tr("Short Words");
 }
@@ -110,9 +112,9 @@ void ShortWordsPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool ShortWordsPlugin::run(ScribusDoc* doc, QString target)
+bool ShortWordsPlugin::run(ScribusDoc* doc, const QString& target)
 {
-	if (doc==NULL)
+	if (doc == nullptr)
 		return false;
 	Q_ASSERT(target.isEmpty());
 
@@ -124,10 +126,11 @@ bool ShortWordsPlugin::run(ScribusDoc* doc, QString target)
 		if (!dlg->useStyleLang())
 			parse->lang = dlg->lang();
 		else
-			parse->lang = ""; // get it from style
+			parse->lang.clear(); // get it from style
 
 		doc->scMW()->setStatusBarInfoText(QObject::tr("Short Words processing. Wait please...", "short words plugin"));
-		switch (dlg->actionSelected()) {
+		switch (dlg->actionSelected())
+		{
 			case 0:
 				parse->parseSelection(doc);
 				break;
@@ -154,15 +157,9 @@ bool ShortWordsPlugin::run(ScribusDoc* doc, QString target)
 	return true;
 }
 
-bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent,
-									       PrefsPanel*& panel,
-									       QString& caption,
-									       QPixmap& icon)
+bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel)
 {
-	panel = new SWPrefsGui(parent);
+	panel = new Prefs_ShortWords(parent);
 	Q_CHECK_PTR(panel);
-	caption = tr("Short Words");
-	icon = loadIcon("shortwords.png");
 	return true;
 }
-

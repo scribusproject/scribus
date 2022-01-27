@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PropertiesPalette_XYZBase</class>
+ <widget class="QWidget" name="PropertiesPalette_XYZBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>280</width>
+    <height>371</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>3</number>
+   </property>
+   <property name="leftMargin">
+    <number>3</number>
+   </property>
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="rightMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
+    <number>3</number>
+   </property>
+   <item>
+    <widget class="QGroupBox" name="nameGroup">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Name</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>3</number>
+      </property>
+      <property name="leftMargin">
+       <number>6</number>
+      </property>
+      <property name="topMargin">
+       <number>6</number>
+      </property>
+      <property name="rightMargin">
+       <number>6</number>
+      </property>
+      <property name="bottomMargin">
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="NameWidget" name="nameEdit">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>Name of selected object</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="geoGroup">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Geometry</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>3</number>
+      </property>
+      <property name="leftMargin">
+       <number>6</number>
+      </property>
+      <property name="topMargin">
+       <number>6</number>
+      </property>
+      <property name="rightMargin">
+       <number>6</number>
+      </property>
+      <property name="bottomMargin">
+       <number>6</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="geoGroupLayout">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>3</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="xposLabel">
+          <property name="text">
+           <string>&amp;X-Pos:</string>
+          </property>
+          <property name="buddy">
+           <cstring>xposSpin</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="ScrSpinBox" name="xposSpin">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Horizontal position of current basepoint</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="widthLabel">
+          <property name="text">
+           <string>&amp;Width:</string>
+          </property>
+          <property name="buddy">
+           <cstring>widthSpin</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="yposLabel">
+          <property name="text">
+           <string>&amp;Y-Pos:</string>
+          </property>
+          <property name="buddy">
+           <cstring>yposSpin</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="ScrSpinBox" name="yposSpin">
+          <property name="toolTip">
+           <string>Vertical position of current basepoint</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="ScrSpinBox" name="widthSpin">
+          <property name="toolTip">
+           <string>Width of current selection</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="heightLabel">
+          <property name="text">
+           <string>&amp;Height:</string>
+          </property>
+          <property name="buddy">
+           <cstring>heightSpin</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="ScrSpinBox" name="heightSpin">
+          <property name="toolTip">
+           <string>Height of current selection</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="rotationLabel">
+          <property name="text">
+           <string>&amp;Rotation:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="ScrSpinBox" name="rotationSpin">
+          <property name="toolTip">
+           <string>Rotation of object at current basepoint</string>
+          </property>
+          <property name="wrapping">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="basepointLabel">
+          <property name="toolTip">
+           <string>Point from which measurements or rotation angles are referenced</string>
+          </property>
+          <property name="text">
+           <string>Basepoint:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="BasePointWidget" name="basePointWidget" native="true"/>
+        </item>
+        <item row="2" column="2" rowspan="2">
+         <widget class="LinkButton" name="keepFrameWHRatioButton">
+          <property name="maximumSize">
+           <size>
+            <width>15</width>
+            <height>32767</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Keep the aspect ratio</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>3</number>
+     </property>
+     <item>
+      <widget class="QGroupBox" name="levelGroup">
+       <property name="title">
+        <string>Level</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <property name="leftMargin">
+         <number>6</number>
+        </property>
+        <property name="topMargin">
+         <number>6</number>
+        </property>
+        <property name="rightMargin">
+         <number>6</number>
+        </property>
+        <property name="bottomMargin">
+         <number>6</number>
+        </property>
+        <property name="spacing">
+         <number>3</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QToolButton" name="levelUp">
+          <property name="toolTip">
+           <string>Move one level up</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QToolButton" name="levelDown">
+          <property name="toolTip">
+           <string>Move one level down</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QToolButton" name="levelTop">
+          <property name="toolTip">
+           <string>Move to front</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QToolButton" name="levelBottom">
+          <property name="toolTip">
+           <string>Move to back</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2" rowspan="2">
+         <widget class="QLabel" name="levelLabel">
+          <property name="toolTip">
+           <string>Indicates the level the object is on, 1 means the object is at the bottom</string>
+          </property>
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <property name="spacing">
+        <number>3</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QToolButton" name="doGroup">
+         <property name="toolTip">
+          <string>Group the selected objects</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QToolButton" name="doUnGroup">
+         <property name="toolTip">
+          <string>Ungroup the selected group</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QToolButton" name="flipH">
+         <property name="toolTip">
+          <string>Flip horizontally</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QToolButton" name="flipV">
+         <property name="toolTip">
+          <string>Flip vertically</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QToolButton" name="doLock">
+         <property name="toolTip">
+          <string>Lock or unlock the object</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QToolButton" name="noPrint">
+         <property name="toolTip">
+          <string>Enable or disable exporting of the object</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QToolButton" name="noResize">
+         <property name="toolTip">
+          <string>Lock or unlock the size of the object</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>NameWidget</class>
+   <extends>QLineEdit</extends>
+   <header>ui/propertiespalette_utils.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>BasePointWidget</class>
+   <extends>QWidget</extends>
+   <header>ui/basepointwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LinkButton</class>
+   <extends>QToolButton</extends>
+   <header>ui/linkbutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

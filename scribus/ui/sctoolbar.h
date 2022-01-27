@@ -1,0 +1,91 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+/***************************************************************************
+ *   Copyright (C) 2006 by Riku Leino                                      *
+ *   riku@scribus.info                                                     *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
+ ***************************************************************************/
+
+#ifndef SCTOOLBAR_H
+#define SCTOOLBAR_H
+
+#include "scribusapi.h"
+#include <QToolBar>
+#include <QMainWindow>
+#include <QMenu>
+#include <QCloseEvent>
+
+class QString;
+class PrefsContext;
+class QCloseEvent;
+class QToolButton;
+
+#include "scribus.h"
+
+class SCRIBUS_API ScToolBar : public QToolBar
+{
+	Q_OBJECT
+public:
+	// prefName is the name without tr() that will be used in the preferences for this toolbar
+	// if using name settings depend on the language
+	ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, Qt::Orientation o = Qt::Horizontal);
+	virtual ~ScToolBar();
+	//bit of a hack as saving prefs seems to happen on shutdown and prefs is already in the process of being destroyed
+	void connectPrefsSlot(bool b);
+
+
+// 	int position();
+// 	void storeDockPosition();
+// 	void moveDock();
+	void initVisibility();
+
+public slots:
+	void languageChange();
+
+protected slots:
+// 	void slotPlaceChanged(Q3DockWindow::Place p);
+	void slotVisibilityChanged(bool visible);
+// 	void slotTop();
+// 	void slotRight();
+// 	void slotBottom();
+// 	void slotLeft();
+// 	void slotVert();
+// 	void slotHor();
+
+private:
+	QString m_name;
+	PrefsContext *m_prefs {nullptr};
+	Qt::Orientation floatOrientation {Qt::Horizontal};
+	QToolButton *prefsButton {nullptr};
+	QMainWindow* parentMW {nullptr};
+	bool dockTop {false};
+	bool dockRight {false};
+	bool dockBottom {false};
+	bool dockLeft {false};
+
+// 	void initPrefsButton();
+// 	void storeDockPositions();
+// 	void moveDocks();
+
+	enum Orientation { Vert, Hor };
+};
+
+#endif

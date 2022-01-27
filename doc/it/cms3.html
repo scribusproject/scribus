@@ -1,0 +1,20 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Intenti rendering</title>
+</head>
+<body>
+<h2>Intenti rendering</h2>
+
+<p>Il concetto di <i>intento rendering</i> pu&ograve; essere un po' difficile da capire per chi non &egrave; esperto nella gestione del colore. In sostanza, scegliere un certo intento rendering significa indicare a littleCMS in che modo i colori di un certo spazio colore devono essere fatti corrispondere a quelli di un altro spazio colore. Esistono quattro intenti rendering:</p>
+<ul>
+<li><b>Percettivo:</b> questo intento rendering fa corrispondere i colori in modo &ldquo;continuo&rdquo; e senza &ldquo;sbalzi&rdquo;, conservando i rapporti tra colori simili. Previene il &ldquo;clipping del gamut&rdquo; con la sua potenziale perdita di dettagli, e i problemi di &ldquo;bandeggio tonale&rdquo;. Il &ldquo;clipping del gamut&rdquo; si verifica quando due o pi&ugrave; colori, diversi nell'immagine iniziale, appaiono uguali nell'immagine stampata. L'intento rendering percettivo effettua piccoli aggiustamenti in tutta l'immagine per mantenere i rapporti tra i colori; sacrifica una parte della precisione dei colori per assicurare risultati piacevoli. Per immagini e scansioni fotografiche &egrave; di solito la scelta migliore come impostazione predefinita. <br>L'intento percettivo produce i risultati pi&ugrave; prevedibili quando si stampa da una vasta gamma di immagini sorgente, ad esempio quando si stampano immagini RGB su stampanti CMYK, o quando si tenta di utilizzare insieme dispositivi CMYK radicalmente diversi tra loro. Potete considerarla un'impostazione di uso semplice e sicuro, la migliore per gli utenti che devono gestire l'ampia variet&agrave; di immagini comunemente fornite a tipografie per grandi formati.</li> 
+
+<li><b>Saturazione:</b> dovrebbe essere usato per loghi, <a href="color1.html">colori spot</a>, ecc. Tende a conservare la quantit&agrave; o la vivacit&agrave; dei colori, ma pu&ograve; dare alle fotografie un aspetto sgradevole. Se lavorate con loghi che hanno una specifica sfumatura, la saturazione fornisce una migliore corrispondenza dei colori, se per voi &egrave; pi&ugrave; importante il colore a tinta unita rispetto ai colori dell'immagine.</li>
+
+<li><b>Colorimetrico assoluto:</b> quando un colore non &egrave; stampabile (cio&egrave; non &egrave; compreso) nel gamut della periferica di output, questo intento rendering stampa al suo posto il colore pi&ugrave; simile. Riproduce i colori compresi nel gamut senza compormessi nel modo pi&ugrave; fedele possibile. Ci&ograve; produce la corrispondenza pi&ugrave; precisa dei colori spot; purtroppo pu&ograve; anche causare il &ldquo;clipping del gamut&rdquo;, in cui due colori diversi nell'originale sono identici nella stampa. Anche i punti bianchi sono soggetti a clipping, causando problemi nei rapporti tra colori nelle aree pi&ugrave; luminose delle immagini. Questo tipo di clipping, con i problemi che causa, di solito rende questo intento difficile da usare, tranne che con i colori spot. Alcuni utenti saranno sconcertati dalla sfumatura giallastra che pu&ograve; dare alle immagini, ma quest'intento &egrave; misurato in condizioni di illuminazione strettamente controllate con un illuminante standard D50; spesso ha una temperatura &ldquo;pi&ugrave; calda&rdquo; rispetto a condizioni di osservazione pi&ugrave; tipiche. Questo intento rendering &egrave; usato quasi esclusivamente quando &egrave; necessario riprodurre esattamente un logo o un colore aziendale, indipendentemente dal supporto. Il giallo Kodak pu&ograve; essere un buon esempio.</li>
+
+<li><b>Colorimetrico relativo:</b> quando un colore non &egrave; stampabile all'interno del gamut della periferica di output, questo intento rendering stampa il colore pi&ugrave; simile, con un aggiustamento che fa corrispondere il bianco alla carta usata per la stampa. Questa corrispondenza del &ldquo;punto bianco&rdquo; evita i problemi del colorimetrico assoluto con immagini che non saranno stampate con colori spot.</li>
+</ul>
+</body>
+</html>

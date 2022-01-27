@@ -1,0 +1,47 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Parole brevi</title>
+</head>
+<body>
+<h2>Parole brevi</h2>
+
+<h4>Che cosa fa il plugin Parole Brevi:</h4>
+<p>&ldquo;Parole brevi&rdquo; &egrave; un plugin che inserisce spazi protetti (detti anche spazi non divisibili) prima o dopo certe abbreviazioni, ad esempio tra &ldquo;25&rdquo; e &ldquo;km&rdquo; o tra &ldquo;Dott.&rdquo; e &ldquo;Pittman&rdquo;, per evitare che i due termini siano separati da un ritorno a capo.</p>
+<p>Gli sviluppatori di Scribus non possono applicare tutte le diverse regole nazionali o specifiche di ciascuna lingua, ma uno di essi, Petr Van&#283;k, ha deciso di creare un plugin che pu&ograve; essere facilmente personalizzato dagli utenti per soddisfare le loro particolari necessit&agrave;.</p>
+
+<h3>Applicare le &ldquo;Parole brevi&rdquo;</h3>
+<p>Il plugin &ldquo;Parole brevi&rdquo; si trova in <i>Utilit&agrave; > Parole brevi</i> nella barra dei men&ugrave;.</p>
+<table width="100%"><tr><td align="center"><img src="images/swdialog.png" alt="La finestra di dialogo Parole brevi"  title="La finestra di dialogo Parole brevi" /></td></tr></table>
+<p>La finestra di dialogo &ldquo;Parole brevi&rdquo; comprende due parti. Le opzioni nella parte superiore (&ldquo;Applica spazio protetto su;&rdquo;) permettono di scegliere a quali parti del documento saranno applicati gli spazi protetti:</p>
+<ul>
+<li><strong>cornici selezionate</strong> - applica gli spazi protetti alle cornici di testo selezionate.</li>
+<li><strong>pagina attiva</strong> - applica gli spazi protetti a tutte le cornici della pagina corrente.</li>
+<li><strong>tutti gli elementi</strong> - applica gli spazi protetti all'intero documento.</li>
+</ul>
+
+<p>La parte inferiore (&ldquo;Impostazioni lingua&rdquo;) sembra pi&ugrave; semplice, ma concettualmente &egrave; un po' pi&ugrave; complicata. L'impostazione predefinita (&rdquo;Usa la stessa lingua dello stile&rdquo;) significa che Scribus user&agrave; <b>o</b> le impostazioni della lingua di sistema, <b>o</b> le <a href="settings1.html#1">impostazioni della lingua di Scribus</a>, <b>o</b> le impostazioni della lingua di un certo <a href="WwStyles.html">stile</a>, e il successivo prevale sempre sul precedente. Se disabilitate l'impostazione predefinita, potete far s&igrave; che Scribus appliche le mregole di una lingua diversa, ma (cos&igrave; come per le impostazioni di sistema, di Scribus e di stile) Scribus deve avere a disposizione le informazioni corrette sulla lingua che volete utilizzare. Se per una certa lingua non esiste una configurazione, dovrete crearla.</p>
+
+<h4>Configurare il plugin Parole Brevi</h4>
+<p>il plugin Parole Brevi utilizza un file di configurazione globale chiamato <code>scribus-short-words.rc</code>, che di solito si trova nella directory <code>$prefix/lib/scribus/plugins</code> (la directory effettiva pu&ograve; essere diversa, a seconda del sistema operativo e/o della posizione in cui Scribus &egrave; stato installato dalla vostra distribuzione o da voi). La struttura del file di configurazione &egrave; piuttosto semplice e non ha bisogno di molte spiegazioni: contiene un elenco di abbreviazioni per una data lingua, precedute o seguite da uno spazio e separate da virgole. La posizione dello spazio, prima o dopo un'abbreviazione, indica al plugin dove lo spazio protetto deve essere inserito. Ciascuna riga contenente le impostazioni deve iniziare con l'indicazione della lingua a cui si riferisce, quindi ad esempio <code>en</code> per l'inglese o <code>cs</code> per il ceco:</p>
+
+<pre>
+#  English starts here
+en=Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
+en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
+
+#  Czech starts here
+## hanging conjunctions
+cs=K ,k ,S ,s ,V ,v ,Z ,z ,O ,o ,U ,u ,I ,i ,A ,
+## physics and math
+cs= kg, g, m, cm, mm, l, hl, s, %,
+</pre>
+
+<p>Se volete usare &ldquo;Parole brevi&rdquo; personalizzate, ad esempio per una nuova lingua, potete creare una vostra configurazione con i dati appropriati e aggiungere il contenuto facendo copia-e-incolla nel file <code>scribus-short-words.rc</code> nella cartella <code>.scribus</code> nella vostra directory home/utente. Potete anche inserire la vostra configurazione direttamente nelle <a href="settings1.html#18">Preferenze di Scribus</a>.</p>
+
+<h3>Importante</h3>
+<p>Gli sviluppatori di Scribus desiderano accrescere il file di configurazione globale per soddisfare le necessit&agrave; degli utenti del maggior numero di lingue possibile. Se avete creato un file di configurazione affidabile per la vostra lingua, saremo felici di distribuirlo con Scribus, in modo che il vostro lavoro possa essere utilizzato e migliorato da altri utenti.</p>
+
+</body>
+</html>

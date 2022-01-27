@@ -24,18 +24,15 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCRIBUSWIN_H
 #define SCRIBUSWIN_H
 
-#include <QMainWindow>
-#include <QFrame>
 #include <QCloseEvent>
-#include <QResizeEvent>
-#include <QHBoxLayout>
+#include <QMainWindow>
+#include <QMdiSubWindow>
 
 class ScribusDoc;
 class ScribusMainWindow;
 class ScribusView;
 
 #include "scribusapi.h"
-class MasterPagesPalette;
 /**
   *@author Franz Schmid
   */
@@ -47,35 +44,22 @@ class SCRIBUS_API ScribusWin : public QMainWindow
 public: 
 	ScribusWin(QWidget* parent, ScribusDoc* doc);
 	~ScribusWin() {};
-	void closeEvent(QCloseEvent *ce);
-	void resizeEvent(QResizeEvent *re);
+
 	void setView(ScribusView* newView);
 	void setMainWindow(ScribusMainWindow *);
 	ScribusView* view() const { return m_View;}
 	ScribusDoc* doc() const { return m_Doc;}
-	void setMasterPagesPalette(MasterPagesPalette* newMPP);
-	MasterPagesPalette* masterPagesPalette() const;
-	void setMenuStatus(int index, bool value) { if (index>=0 && index <=6) MenuStat[index]=value;}
-	bool menuStatus(int index) const { if (index>=0 && index <=6) return MenuStat[index]; else return false; }
-	void setMasterPagesPaletteShown(bool isShown) const;
-	
-public slots:
-	void slotAutoSave();
-	
-signals:
-	void AutoSaved();
+	QMdiSubWindow* getSubWin() { return m_subWindow; }
+	void setSubWin(QMdiSubWindow *win) { m_subWindow = win; }
 
 protected:
-	virtual void windowActivationChange ( bool oldActive );
-	QString currentDir;
-	QHBoxLayout* statusFrameLayout;
-	ScribusMainWindow* m_MainWindow;
-	ScribusView* m_View;
-	ScribusDoc* m_Doc;
-	MasterPagesPalette* m_masterPagesPalette;
-	QFrame *statusFrame;
-	bool MenuStat[7];
-	int winIndex;
+	QMdiSubWindow *m_subWindow {nullptr};
+	ScribusDoc *m_Doc {nullptr};
+	ScribusMainWindow *m_ScMW {nullptr};
+	ScribusView *m_View {nullptr};
+	int m_winIndex {0};
+
+	void closeEvent(QCloseEvent *ce) override;
 };
 
 #endif

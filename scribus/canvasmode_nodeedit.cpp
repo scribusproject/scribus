@@ -17,46 +17,37 @@
 
 #include <QMenu>
 #include <QMouseEvent>
+#include <QPainter>
 
 #include "canvas.h"
+#include "canvasgesture_pan.h"
 #include "canvasgesture_rectselect.h"
 #include "fpoint.h"
+#include "iconmanager.h"
+#include "nodeeditcontext.h"
 #include "pageitem.h"
-#include "pageselector.h"
 #include "scraction.h"
-#include "scrapbookpalette.h"
 #include "scribus.h"
+#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "scribusXml.h"
 #include "selection.h"
+#include "ui/pageselector.h"
+#include "ui/propertiespalette.h"
+#include "ui/scrspinbox.h"
 #include "undomanager.h"
-#include "util_icon.h"
 #include "util_math.h"
 
-
-CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view), m_rectangleSelect(NULL)
+CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view)
 {
-//	SeRx = -1; // selected pos
-//	SeRy = -1;
-	Mxp = -1;  // last mouse position
-	Myp = -1;
-	Dxp = -1;  // last mouse press position for rectangle select
-	Dyp = -1;
-	GxM = -1;  // guide position
-	GyM = -1;
-	MoveGX = MoveGY = false;
 	m_ScMW = m_view->m_ScMW;
 }
 
-
-
 void CanvasMode_NodeEdit::drawControls(QPainter* p) 
 {
-//	qDebug() << "NodeEdit::drawControls";
-//	void Canvas::MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, bool)
-	double x, y;
-	if (m_doc->m_Selection->count() == 0)
+	if (m_doc->m_Selection->isEmpty())
+		return;
+	if (m_doc->nodeEdit.previewMode())
 		return;
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	FPointArray cli;
@@ -64,29 +55,43 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	p->save();
 	p->scale(m_canvas->scale(), m_canvas->scale());
 	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
-	p->translate(currItem->xPos(), currItem->yPos());
-	p->rotate(currItem->rotation());			
+	p->setTransform(currItem->getTransform(), true);
 	p->setPen(QPen(Qt::blue, 1 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p->setBrush(Qt::NoBrush);
 
-	if ((m_doc->nodeEdit.isContourLine) && (currItem->ContourLine.size() != 0))
+	if ((m_doc->nodeEdit.isContourLine()) && (!currItem->ContourLine.empty()))
 		cli = currItem->ContourLine;
 	else
+	{
 		cli = currItem->PoLine;
+		if (currItem->isSymbol() || currItem->isGroup())
+		{
+			if (currItem->imageFlippedH())
+			{
+				p->translate(currItem->width(), 0);
+				p->scale(-1, 1);
+			}
+			if (currItem->imageFlippedV())
+			{
+				p->translate(0, currItem->height());
+				p->scale(1, -1);
+			}
+		}
+	}
 	// draw curve
 	const double scale = m_canvas->m_viewMode.scale;
 	const double onePerScale = 1 / scale;
 	if (cli.size() > 3)
 	{
-		for (uint poi=0; poi<cli.size()-3; poi += 4)
+		for (int i = 0; i < cli.size() - 3; i += 4)
 		{
-			if (cli.point(poi).x() > 900000)
+			if (cli.isMarker(i))
 				continue;
 			p->setPen(QPen(Qt::blue, onePerScale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			FPoint a1 = cli.point(poi);
-			FPoint a2 = cli.point(poi+1);
-			FPoint a3 = cli.point(poi+3);
-			FPoint a4 =	cli.point(poi+2);
+			const FPoint& a1 = cli.point(i);
+			const FPoint& a2 = cli.point(i + 1);
+			const FPoint& a3 = cli.point(i + 3);
+			const FPoint& a4 =	cli.point(i + 2);
 			QPainterPath Bez;
 			Bez.moveTo(a1.x(), a1.y());
 			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
@@ -96,119 +101,126 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 			p->drawLine(QPointF(a3.x(), a3.y()), QPointF(a4.x(), a4.y()));
 		}
 	}
+	double x = 0.0;
+	double y = 0.0;
 	// draw points
-	for (uint a=0; a<cli.size()-1; a += 2)
+	for (int i = 0; i < cli.size() - 1; i += 2)
 	{
-		if (cli.point(a).x() > 900000)
+		if (cli.isMarker(i))
 			continue;
-		if (m_doc->nodeEdit.EdPoints)
+		Qt::GlobalColor color1 = (m_doc->nodeEdit.clre() == (i + 1)) ? Qt::red : Qt::magenta;
+		Qt::GlobalColor color2 = (m_doc->nodeEdit.clre() == i) ? Qt::red : Qt::blue;
+		if (m_doc->nodeEdit.edPoints())
 		{
-			if (m_doc->nodeEdit.ClRe == static_cast<int>(a+1))
-				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			else
-				p->setPen(QPen(Qt::magenta, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			cli.point(a+1, &x, &y);
+			p->setPen(QPen(color1, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			cli.point(i + 1, &x, &y);
 			p->drawPoint(QPointF(x, y));
-			if (m_doc->nodeEdit.ClRe == static_cast<int>(a))
-				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			else
-				p->setPen(QPen(Qt::blue, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			cli.point(a, &x, &y);
+			p->setPen(QPen(color2, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			cli.point(i, &x, &y);
 			p->drawPoint(QPointF(x, y));
 		}
 		else
 		{
-			if (m_doc->nodeEdit.ClRe == static_cast<int>(a))
-				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			else
-				p->setPen(QPen(Qt::blue, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			cli.point(a, &x, &y);
+			p->setPen(QPen(color2, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			cli.point(i, &x, &y);
 			p->drawPoint(QPointF(x, y));
-			if (m_doc->nodeEdit.ClRe == static_cast<int>(a+1))
-				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			else
-				p->setPen(QPen(Qt::magenta, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			cli.point(a+1, &x, &y);
+			p->setPen(QPen(color1, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			cli.point(i + 1, &x, &y);
 			p->drawPoint(QPointF(x, y));
 		}
 	}
 	
-	if (m_doc->nodeEdit.ClRe != -1)
+	if (m_doc->nodeEdit.clre() != -1)
 	{
 		p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-		cli.point(m_doc->nodeEdit.ClRe, &x, &y);
+		cli.point(m_doc->nodeEdit.clre(), &x, &y);
 		p->drawPoint(QPointF(x, y));
-		QList<int>::Iterator itm;
-		for (itm = m_doc->nodeEdit.SelNode.begin(); itm != m_doc->nodeEdit.SelNode.end(); ++itm)
+		const auto& selectedNodes = m_doc->nodeEdit.selNode();
+		for (int i = 0; i < selectedNodes.count(); ++i)
 		{
-			cli.point((*itm), &x, &y);
+			int selectedNode = selectedNodes.at(i);
+			cli.point(selectedNode, &x, &y);
 			p->drawPoint(QPointF(x, y));
 		}
-		emit m_view->HavePoint(true, m_doc->nodeEdit.MoveSym);
-		cli.point(m_doc->nodeEdit.ClRe, &x, &y);
+	}
+
+	bool havePoint = (m_doc->nodeEdit.clre() != -1);
+	emit m_view->HavePoint(havePoint, m_doc->nodeEdit.moveSym());
+
+	if (m_doc->nodeEdit.clre() != -1)
+	{
+		cli.point(m_doc->nodeEdit.clre(), &x, &y);
 		emit m_view->ClipPo(x, y);
 	}
-	else
-		emit m_view->HavePoint(false, m_doc->nodeEdit.MoveSym);
+
 	p->restore();
 }
 
 
 void CanvasMode_NodeEdit::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
 	if (fromGesture && m_rectangleSelect)
 	{
 		m_canvas->m_viewMode.m_MouseButtonPressed = false;
 		// handle rectangle select
-//	double sc = m_canvas->scale();
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
-		m_doc->nodeEdit.SelNode.clear();
-		QRectF Sele = m_rectangleSelect->result(); //QRect(Dxp, Dyp, SeRx-Dxp, SeRy-Dyp).normalized();
+		m_doc->nodeEdit.selNode().clear();
+		QRectF Sele = m_rectangleSelect->result();
 		FPointArray Clip;
 		bool firstPoint = false;
-//	m_canvas->setScale(1.0);
-		if (m_doc->nodeEdit.isContourLine)
+		QTransform pm2 = currItem->getTransform();
+		if (m_doc->nodeEdit.isContourLine())
 			Clip = currItem->ContourLine;
 		else
-			Clip = currItem->PoLine;
-		for (uint a = 0; a < Clip.size(); ++a)
 		{
-			if (Clip.point(a).x() > 900000)
-				continue;
-			FPoint np = Clip.point(a);
-			FPoint npf2 = np.transformPoint(currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0, false);
-			if ((Sele.contains(npf2.x(), npf2.y())) && ((a == 0) || (((a-2) % 4) == 0)))
+			Clip = currItem->PoLine;
+			if (currItem->isSymbol() || currItem->isGroup())
 			{
-				if (a == 0)
-					firstPoint = true;
-				if ((firstPoint) && (a == Clip.size() - 2) && (!currItem->asPolyLine()))
-					continue;
-				m_doc->nodeEdit.ClRe = a;
-				m_doc->nodeEdit.SelNode.append(a);
-				m_doc->nodeEdit.update(Clip.pointQF(a));
+				if (currItem->imageFlippedH())
+				{
+					pm2.translate(currItem->width(), 0);
+					pm2.scale(-1, 1);
+				}
+				if (currItem->imageFlippedV())
+				{
+					pm2.translate(0, currItem->height());
+					pm2.scale(1, -1);
+				}
 			}
 		}
-//	m_canvas->setScale(sc);
-//	m_view->HaveSelRect = false;
-//	m_view->redrawMarker->hide();
+		for (int i = 0; i < Clip.size(); ++i)
+		{
+			if (Clip.isMarker(i))
+				continue;
+			const FPoint& np = Clip.point(i);
+			FPoint npf2 = np.transformPoint(pm2, false);
+			if ((Sele.contains(npf2.x(), npf2.y())) && ((i == 0) || (((i - 2) % 4) == 0)))
+			{
+				if (i == 0)
+					firstPoint = true;
+				if ((firstPoint) && (i == Clip.size() - 2) && (!currItem->asPolyLine()))
+					continue;
+				m_doc->nodeEdit.selectNode(i);
+				m_doc->nodeEdit.update(Clip.pointQF(i));
+			}
+		}
 		currItem->update();
-//		m_view->updateContents();
 		m_doc->nodeEdit.finishTransaction(currItem);
 		delete m_rectangleSelect;
-		m_rectangleSelect = NULL;
+		m_rectangleSelect = nullptr;
 	}
 	else
 	{
-		Mxp = -1;  // last mouse position
-		Myp = -1;
-		Dxp = -1;  // last mouse press position for rectangle select
-		Dyp = -1;
-		GxM = -1;  // guide position
-		GyM = -1;
-		MoveGX = MoveGY = false;
-	}		
+		m_Mxp = -1;  // last mouse position
+		m_Myp = -1;
+		m_Dxp = -1;  // last mouse press position for rectangle select
+		m_Dyp = -1;
+		m_GxM = -1;  // guide position
+		m_GyM = -1;
+		m_MoveGX = m_MoveGY = false;
+	}
 }
-
 
 void CanvasMode_NodeEdit::deactivate(bool forGesture)
 {
@@ -216,32 +228,27 @@ void CanvasMode_NodeEdit::deactivate(bool forGesture)
 	{
 		m_rectangleSelect->clear();
 		delete m_rectangleSelect;
-		m_rectangleSelect = NULL;
+		m_rectangleSelect = nullptr;
 	}
+	CanvasMode::deactivate(forGesture);
 }
 
 
 inline bool CanvasMode_NodeEdit::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
-	return (*pi) != NULL; 
+	return (*pi) != nullptr;
 }
 
 
 
-void CanvasMode_NodeEdit::enterEvent(QEvent *)
+void CanvasMode_NodeEdit::enterEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-	{
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	}
 }
 
 
 void CanvasMode_NodeEdit::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 
@@ -251,7 +258,6 @@ void CanvasMode_NodeEdit::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-//	m_view->stopDragTimer();
 	m_view->requestMode(submodeEndNodeEdit);
 }
 
@@ -259,32 +265,10 @@ void CanvasMode_NodeEdit::mouseDoubleClickEvent(QMouseEvent *m)
 void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 {
 	PageItem *currItem;
-	QPoint np, np2, mop;
-	FPoint npf, npf2;
+	FPoint npf;
 	double sc = m_canvas->scale();
 	m->accept();
 	npf = m_canvas->globalToCanvas(m->globalPos());
-#ifdef MODEDEBUG
-//	qDebug() << "nodedit move event:" << m->x() << m->y() << "canvas:" << npf.x() << npf.y() << "@" << m_canvas->scale();
-#endif
-/*	if (m_doc->guidesSettings.guidesShown)
-	{
-		if (MoveGY)
-		{
-			m_view->FromHRuler(m);
-			return;
-		}
-		if (MoveGX)
-		{
-			m_view->FromVRuler(m);
-			return;
-		}
-	}
-	*/
-//	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
-//	{
-//		m_ScMW->setAppMode(modePanning);
-//	}
 	if (GetItem(&currItem))
 	{
 		if (m_doc->DragP)
@@ -294,37 +278,24 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed 
 			&& (m->buttons() & Qt::LeftButton) &&  (!currItem->locked()))
 		{
-#ifdef MODEDEBUG
-//			qDebug() << "node edit drag 1";
-#endif
-//			m_view->stopDragTimer();
 			handleNodeEditDrag(m, currItem);
 		}
 		else if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 		{
 			if (!currItem->locked())
 			{
-				QMatrix p; // = currItem->getTransform();
-				QRect mpo; // = QRect(m->globalX()-m_doc->guidesSettings.grabRad, m->globalY()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
-				//				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
+				QTransform p;
+				QRect mpo;
 				handleNodeEditMove(m, mpo, currItem, p);
 			}
 		}
-//		else
-//			qDebug() << "node edit drag 9:" << (m->buttons() & Qt::LeftButton);
 
 	}
-	else // shouldnt be in nodeedit mode now, should it??
+	else // shouldn't be in nodeedit mode now, should it??
 	{
 		npf = m_canvas->globalToCanvas(m->globalPos());
-		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
+		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (m_GyM == -1) && (m_GxM == -1))
 		{
-//			SeRx = qRound(npf.x());
-//			SeRy = qRound(npf.y());
-//			m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->x() - Mxp, m->y() - Myp).normalized());
-//			if (!m_view->redrawMarker->isVisible())
-//				m_view->redrawMarker->show();
-//			m_view->HaveSelRect = true;
 			if (!m_rectangleSelect)
 			{
 				m_rectangleSelect = new RectSelect(this);
@@ -333,97 +304,70 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 			m_view->startGesture(m_rectangleSelect);
 			return;
 		}
-		if ((m_doc->guidesSettings.guidesShown) && (!m_doc->GuideLock) 
+		if ((m_doc->guidesPrefs().guidesShown) && (!m_doc->GuideLock)
 			&& (m_doc->OnPage(npf.x(), npf.y()) != -1))
 		{
 			Guides::iterator it;
 			Guides tmpGuides = m_doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
 			for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
 			{
-				if ( (*it) + m_doc->currentPage()->yOffset() < npf.y() + m_doc->guidesSettings.grabRad * sc &&
-					 (*it) + m_doc->currentPage()->yOffset() > npf.y() - m_doc->guidesSettings.grabRad * sc )
+				if ( (*it) + m_doc->currentPage()->yOffset() < npf.y() + m_doc->guidesPrefs().grabRadius * sc &&
+					 (*it) + m_doc->currentPage()->yOffset() > npf.y() - m_doc->guidesPrefs().grabRadius * sc )
 				{
-					if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GyM != -1))
-						MoveGY = true;
+					if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m_GyM != -1))
+						m_MoveGY = true;
 					if (npf.x() < m_doc->currentPage()->xOffset() || 
 						npf.x() >= m_doc->currentPage()->xOffset() + m_doc->currentPage()->width() - 1)
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+						m_view->setCursor(QCursor(Qt::ArrowCursor));
 					else
-						qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
+						m_view->setCursor(QCursor(Qt::SplitVCursor));
 					return;
 				}
 			}
-//			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			tmpGuides = m_doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
 			for (it = tmpGuides.begin(); it!= tmpGuides.end(); ++it)
 			{
-				if ( (*it) + m_doc->currentPage()->xOffset() < npf.x() + m_doc->guidesSettings.grabRad * sc &&
-					 (*it) + m_doc->currentPage()->xOffset() > npf.x() - m_doc->guidesSettings.grabRad * sc)
+				if ( (*it) + m_doc->currentPage()->xOffset() < npf.x() + m_doc->guidesPrefs().grabRadius * sc &&
+					 (*it) + m_doc->currentPage()->xOffset() > npf.x() - m_doc->guidesPrefs().grabRadius * sc)
 				{
-					if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GxM != -1))
-						MoveGX = true;
+					if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m_GxM != -1))
+						m_MoveGX = true;
 					if (npf.y() < m_doc->currentPage()->yOffset() || 
 						npf.y() >= m_doc->currentPage()->yOffset() + m_doc->currentPage()->height() - 1)
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+						m_view->setCursor(QCursor(Qt::ArrowCursor));
 					else
-						qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+						m_view->setCursor(QCursor(Qt::SplitHCursor));
 					return;
 				}
 			}
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			m_view->setCursor(QCursor(Qt::ArrowCursor));
 		}
 	}
 }
 
 void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 {
-//	double Rxp = 0;
-//	double Ryp = 0;
-//	double Rxpd = 0;
-//	double Rypd = 0;
-	QPainter p;
-//	m_canvas->PaintSizeRect(QRect());
-//	FPoint npf, npf2;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
-//	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
-	MoveGX = MoveGY = false;
-//	oldClip = 0;
+	m_MoveGX = m_MoveGY = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-//	npf = m_canvas->globalToCanvas(m->globalPos());
-//	Mxp = qRound(npf.x()); // WTF? FIXME:av
-//	Myp = qRound(npf.y());
-	QRect mpo; //(m->globalX()-m_doc->guidesSettings.grabRad, m->globalY()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
-//	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
-/*	if (m_doc->appMode != modeEdit)
+	QRect mpo;
+	m_Mxp = m->x();
+	m_Myp = m->y();
+
+	if (((m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MiddleButton)))
 	{
-		Rxp = m_doc->ApplyGrid(QPoint(Mxp, Myp)).x();
-		Rxpd = Mxp - Rxp;
-		Mxp = qRound(Rxp);
-		Ryp = m_doc->ApplyGrid(QPoint(Mxp, Myp)).y();
-		Rypd = Myp - Ryp;
-		Myp = qRound(Ryp);
-	}*/
-//	SeRx = Mxp;
-//	SeRy = Myp;
-/*	if (m->button() == Qt::MidButton)
-	{
-		m_view->MidButt = true;
-		m_view->DrawNew();
+		if (!m_panGesture)
+		{
+			m_panGesture = new PanGesture(this);
+		}
+		m_view->startGesture(m_panGesture);
+		m_panGesture->mousePressEvent(m); // Not an error, this is used to register current canvas point
 		return;
-	}*/
-//	npf = m_canvas->globalToCanvas(m->globalPos());
-//	Mxp = qRound(npf.x()); // WTF?
-//	Myp = qRound(npf.y());
-//	SeRx = Mxp;
-//	SeRy = Myp;
-	
-	// this has to be:
-	Mxp = m->x();
-	Myp = m->y();
+	}
 	
 	if (m_doc->m_Selection->count() != 0)
 	{
@@ -432,8 +376,8 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 	if ((m_doc->m_Selection->count() != 0) && (m->button() == Qt::RightButton))
 	{
 		m_canvas->m_viewMode.m_MouseButtonPressed = true;
-		Dxp = Mxp;
-		Dyp = Myp;
+		m_Dxp = m_Mxp;
+		m_Dyp = m_Myp;
 	}
 }
 
@@ -441,175 +385,77 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 
 void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 {
-//	const double mouseX = m->globalX();
-//	const double mouseY = m->globalY();
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
-//	QMenu* pmen3 = NULL;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-//	m_view->stopDragTimer();
-/*	if (m_doc->guidesSettings.guidesShown)
-	{
-		bool foundGuide = false;
-		FPoint np = m_canvas->globalToCanvas(m->globalPos());
-		double nx = np.x();
-		double ny = np.y();
-		double grabRadScale = m_doc->guidesSettings.grabRad / m_canvas->scale();
-		if (0 <= m_doc->currentPage()->guides.isMouseOnHorizontal(ny + grabRadScale, ny - grabRadScale, GuideManagerCore::Standard)
-			|| 0 <= m_doc->currentPage()->guides.isMouseOnVertical(nx + grabRadScale, nx - grabRadScale, GuideManagerCore::Standard))
-			foundGuide = true;
-		if ((foundGuide) && (m->button() == Qt::RightButton) && (!GetItem(&currItem)))
-		{
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			MoveGY = false;
-			MoveGX = false;
-			return;
-		}
-		if (MoveGY)
-		{
-			m_view->SetYGuide(m, GyM);
-			MoveGY = false;
-			m_view->redrawMarker->hide();
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			m_view->updateContents();
-			GyM = -1;
-			return;
-		}
-		if (MoveGX)
-		{
-			m_view->SetXGuide(m, GxM);
-			MoveGX = false;
-			m_view->redrawMarker->hide();
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			m_view->updateContents();
-			GxM = -1;
-			return;
-		}
-	}*/
-	/* see activated()
-	if (!m_doc->nodeEdit.hasNodeSelected() && (m_view->HaveSelRect))
-	{
-		double sc = m_canvas->scale();
-		currItem = m_doc->m_Selection->itemAt(0);
-		m_doc->nodeEdit.SelNode.clear();
-		QRect Sele = QRect(Dxp, Dyp, SeRx-Dxp, SeRy-Dyp).normalized();
-		FPointArray Clip;
-		m_canvas->setScale(1.0);
-		if (m_doc->nodeEdit.isContourLine)
-			Clip = currItem->ContourLine;
-		else
-			Clip = currItem->PoLine;
-		for (uint a = 0; a < Clip.size(); ++a)
-		{
-			if (Clip.point(a).x() > 900000)
-				continue;
-			FPoint np = Clip.point(a);
-			FPoint npf2 = np.transformPoint(currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0, false);
-			QPoint npf = QPoint(qRound(npf2.x()), qRound(npf2.y()));
-			if ((Sele.contains(npf)) && ((a == 0) || (((a-2) % 4) == 0)))
-			{
-				m_doc->nodeEdit.ClRe = a;
-				m_doc->nodeEdit.SelNode.append(a);
-				m_doc->nodeEdit.update(QPointF(Clip.point(a).x(), Clip.point(a).y()));
-			}
-		}
-		m_canvas->setScale(sc);
-		m_view->HaveSelRect = false;
-		m_view->redrawMarker->hide();
-		currItem->update();
-		m_doc->nodeEdit.finishTransaction(currItem);
-		return;
-	}
-	*/
-/*	if (m_view->moveTimerElapsed() && (m_doc->appMode == modeEditClip) && (SegP1 == -1) && (SegP2 == -1))
-	{
-		currItem = m_doc->m_Selection->itemAt(0);
-		if (operItemMoving)
-		{
-			currItem->OldB2 = currItem->width();
-			currItem->OldH2 = currItem->height();
-			double nx = m->x()/m_canvas->scale() + m_doc->minCanvasCoordinate.x();
-			double ny = m->y()/m_canvas->scale() + m_doc->minCanvasCoordinate.y();
-			if (!m_doc->ApplyGuides(&nx, &ny))
-			{
-				FPoint npg(ApplyGridF(FPoint(nx, ny)));
-				nx = npg.x();
-				ny = npg.y();
-			}
-			FPoint np(nx, ny, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
-			m_doc->nodeEdit.moveClipPoint(currItem, np);
-		}
-		m_doc->AdjustItemSize(currItem);
-		emit DocChanged();
-		updateContents();
-		operItemMoving = false;
-		return;
-	}
-	if (m_view->moveTimerElapsed() && (m_doc->appMode == modeEditClip) && (SegP1 != -1) && (SegP2 != -1)) */
 	if (m_view->moveTimerElapsed())
 	{
-//		m_view->stopDragTimer();
-		if (m_doc->nodeEdit.SegP1 != -1 && m_doc->nodeEdit.SegP2 != -1)
+		if (m_doc->nodeEdit.segP1() != -1 && m_doc->nodeEdit.segP2() != -1)
 		{
 			m_doc->nodeEdit.deselect();
-			m_doc->nodeEdit.SegP1 = -1;
-			m_doc->nodeEdit.SegP2 = -1;
+			m_doc->nodeEdit.setSegP1(-1);
+			m_doc->nodeEdit.setSegP2(-1);
 		}
 		currItem = m_doc->m_Selection->itemAt(0);
 		m_canvas->m_viewMode.operItemMoving = false;
 		double xposOrig = currItem->xPos();
 		double yposOrig = currItem->yPos();
 
-		ItemState<QPair<FPointArray, FPointArray> > *state = NULL;
-		
+		ScItemState<QPair<FPointArray, FPointArray> > *state = nullptr;
 		state = m_doc->nodeEdit.finishTransaction1(currItem);
-		xposOrig = currItem->xPos();
-		yposOrig = currItem->yPos();
-		if (m_doc->nodeEdit.hasNodeSelected() && (m_doc->nodeEdit.SelNode.count() == 1))
+		if (m_doc->nodeEdit.hasNodeSelected() && (m_doc->nodeEdit.selectionCount() == 1))
 		{
 			//FIXME:av
 			FPoint newP = m_canvas->globalToCanvas(m->globalPos());
-//			double newX = newP.x();
-//			double newY = newP.y();
-//			FPoint np(newX, newY, 0, 0, currItem->rotation(), 1, 1, true);
 			currItem->OldB2 = currItem->width();
 			currItem->OldH2 = currItem->height();
 			FPointArray Clip;
-			if (m_doc->nodeEdit.isContourLine)
-				Clip = currItem->ContourLine;
-			else
-				Clip = currItem->PoLine;
-//			FPoint npf = FPoint(Clip.point(m_doc->nodeEdit.ClRe).x() + np.x() / m_canvas->scale(), Clip.point(m_doc->nodeEdit.ClRe).y() + np.y() / m_canvas->scale());
-//			double nx = npf.x();
-//			double ny = npf.y();
-//			nx += currItem->xPos();
-//			ny += currItem->yPos();
 			FPoint npf;
 			double nx = newP.x();
 			double ny = newP.y();
-			if (!m_doc->ApplyGuides(&nx, &ny))
+			if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 				npf = m_doc->ApplyGridF(FPoint(nx, ny));
 			else
 				npf = FPoint(nx, ny);
-//			npf = FPoint(npf.x() - currItem->xPos(), npf.y() - currItem->yPos());
-			npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+			QTransform pp = currItem->getTransform();
+			npf = npf.transformPoint(pp, true);
+			if (m_doc->nodeEdit.isContourLine())
+				Clip = currItem->ContourLine;
+			else
+			{
+				Clip = currItem->PoLine;
+				if (currItem->isSymbol() || currItem->isGroup())
+				{
+					if (currItem->imageFlippedH())
+					{
+						QTransform p;
+						p.translate(currItem->width(), 0);
+						p.scale(-1, 1);
+						npf = npf.transformPoint(p, false);
+					}
+					if (currItem->imageFlippedV())
+					{
+						QTransform p;
+						p.translate(0, currItem->height());
+						p.scale(1, -1);
+						npf = npf.transformPoint(p, false);
+					}
+				}
+			}
 			m_doc->nodeEdit.moveClipPoint(currItem, npf);
 		}
-
-		m_doc->AdjustItemSize(currItem);
-		if (!m_doc->nodeEdit.isContourLine)
-			currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
-//		currItem->update();
-		m_doc->regionsChanged()->update(QRectF());
-//		emit DocChanged();
-//		m_view->updateContents();
-		if (state)
+		m_doc->adjustItemSize(currItem, true);
+		if (!m_doc->nodeEdit.isContourLine())
 		{
-			m_doc->nodeEdit.finishTransaction2(currItem, state);
+			// Move the contour accordingly in the item's coordinate space
+			QTransform m = QTransform().rotate(-currItem->rotation());
+			QPointF delta = m.map(QPointF(xposOrig, yposOrig)) - m.map(QPointF(currItem->xPos(), currItem->yPos()));
+			currItem->ContourLine.translate(delta.x(), delta.y());
 		}
+		m_doc->regionsChanged()->update(QRectF());
+		if (state)
+			m_doc->nodeEdit.finishTransaction2(currItem, state);
 		return;
 	}
 
@@ -619,144 +465,142 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-//	m_doc->SubMode = -1;
 	if (m_view->groupTransactionStarted())
 	{
 		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 			m_doc->m_Selection->itemAt(i)->checkChanges(true);
 		m_view->endGroupTransaction();
 	}
-
-//???	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
-//??? av		m_doc->m_Selection->itemAt(i)->checkChanges(true);
-
 	//Commit drag created items to undo manager.
-	if (m_doc->m_Selection->itemAt(0)!=NULL)
+	if (m_doc->m_Selection->itemAt(0)!=nullptr)
 	{
-		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0)->ItemNr);
+		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 	}
-	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
-	m_view->zoomSpinBox->clearFocus();
-	m_view->pageSelector->clearFocus();
-	if (m_doc->m_Selection->itemAt(0) != 0) // is there the old clip stored for the undo action
+	//Make sure the Zoom spinbox and page selector don't have focus if we click on the canvas
+	m_view->m_ScMW->zoomSpinBox->clearFocus();
+	m_view->m_ScMW->pageSelector->clearFocus();
+	if (m_doc->m_Selection->itemAt(0) != nullptr) // is there the old clip stored for the undo action
 	{
 		currItem = m_doc->m_Selection->itemAt(0);
 		m_doc->nodeEdit.finishTransaction(currItem);
 	}
-	else
-	{
-		//delete oldClip;
-		//oldClip = 0;
-	}
 }
 
+void CanvasMode_NodeEdit::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_NormalNodeEdit(e);
+}
 
+void CanvasMode_NodeEdit::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
 
-void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
+void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 {
 	FPoint npf2;
+	bool edited = false;
+	bool pfound = false;
 	
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	FPointArray Clip = m_doc->nodeEdit.beginTransaction(currItem);
-	bool edited = false;
-	bool pfound = false;
-//	QMatrix pm;
-//	pm.translate(-m_doc->minCanvasCoordinate.x()*m_canvas->scale(), -m_doc->minCanvasCoordinate.y()*m_canvas->scale());
-//	m_canvas->Transform(currItem, pm);
-//	npf2 = FPoint(m->pos() * pm.inverted());
-	npf2 = m_canvas->globalToCanvas(m->globalPos()).transformPoint(currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0, true);
-	QMatrix pm2 = currItem->getTransform();
-	for (int a=0; a < signed(Clip.size()); ++a)
+	m_doc->nodeEdit.deselect();
+
+	QTransform pm2 = currItem->getTransform();
+	npf2 = m_canvas->globalToCanvas(m->globalPos()).transformPoint(pm2, true);
+	if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine()))
 	{
-		if (((m_doc->nodeEdit.EdPoints) && (a % 2 != 0)) || ((!m_doc->nodeEdit.EdPoints) && (a % 2 == 0)))
-				continue;
-		QPointF npf = pm2.map(Clip.pointQF(a));
-//			QRect tx = QRect(static_cast<int>(npf.x()-3), static_cast<int>(npf.y()-3), 6, 6);
-//			if (tx.intersects(mpo))
+		if (currItem->imageFlippedH())
+		{
+			pm2.translate(currItem->width(), 0);
+			pm2.scale(-1, 1);
+		}
+		if (currItem->imageFlippedV())
+		{
+			pm2.translate(0, currItem->height());
+			pm2.scale(1, -1);
+		}
+	}
+	for (int i = 0; i < Clip.size(); ++i)
+	{
+		if (((m_doc->nodeEdit.edPoints()) && (i % 2 != 0)) || ((!m_doc->nodeEdit.edPoints()) && (i % 2 == 0)))
+			continue;
+		QPointF npf = pm2.map(Clip.pointQF(i));
 		if (m_canvas->hitsCanvasPoint(m->globalPos(), npf))
 		{
-#ifdef MODEDEBUG
-			qDebug() << "nodeedit: selecting point" << a << "at" << npf.x() << npf.y();
-#endif
-			m_doc->nodeEdit.ClRe = a;
-			if ((m_doc->nodeEdit.EdPoints) && (m_doc->nodeEdit.SelNode.contains(a) == 0))
+			m_doc->nodeEdit.setClre(i);
+			if ((m_doc->nodeEdit.edPoints()) && (m_doc->nodeEdit.selNode().contains(i) == 0))
 			{
-				if (m->modifiers() == Qt::ShiftModifier)
-					m_doc->nodeEdit.SelNode.append(a);
-				else
-				{
-					m_doc->nodeEdit.SelNode.clear();
-					m_doc->nodeEdit.SelNode.append(a);
-				}
+				if (m->modifiers() != Qt::ShiftModifier)
+					m_doc->nodeEdit.selNode().clear();
+				m_doc->nodeEdit.selectNode(i);
 			}
-			m_doc->nodeEdit.update(Clip.pointQF(a));
+			m_doc->nodeEdit.update(Clip.pointQF(i));
 			pfound = true;
 			edited = true;
 			break;
 		}
 	}
-	if ((!pfound) || (!m_doc->nodeEdit.EdPoints))
-		m_doc->nodeEdit.SelNode.clear();
+	if ((!pfound) || (!m_doc->nodeEdit.edPoints()))
+		m_doc->nodeEdit.selNode().clear();
 
-	if ((m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT) && (m_doc->nodeEdit.ClRe2 != -1) && !m_doc->nodeEdit.hasNodeSelected())
+	if ((m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT) && (m_doc->nodeEdit.clre() != -1) && !m_doc->nodeEdit.hasNodeSelected())
 	{
-		m_doc->nodeEdit.SegP1 = m_doc->nodeEdit.ClRe2;
-		m_doc->nodeEdit.SegP2 = m_doc->nodeEdit.ClRe2+2;
-		m_doc->nodeEdit.ClRe = m_doc->nodeEdit.ClRe2;
+		m_doc->nodeEdit.setSegP1(m_doc->nodeEdit.clre2());
+		m_doc->nodeEdit.setSegP2(m_doc->nodeEdit.clre2()+2);
+		m_doc->nodeEdit.setClre(m_doc->nodeEdit.clre2());
 	}
 	FPointArray cli;
-	uint EndInd = Clip.size();
-	uint StartInd = 0;
-	for (uint n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
+	int EndInd = Clip.size();
+	int StartInd = 0;
+	if (m_doc->nodeEdit.clre() > 0)
 	{
-		if (Clip.point(n).x() > 900000)
+		for (int n = m_doc->nodeEdit.clre(); n < Clip.size(); ++n)
 		{
-			EndInd = n;
-			break;
-		}
-	}
-	if (m_doc->nodeEdit.ClRe > 0)
-	{
-		for (uint n2 = m_doc->nodeEdit.ClRe; n2 > 0; n2--)
-		{
-			if (n2 == 0)
+			if (Clip.isMarker(n))
+			{
+				EndInd = n;
 				break;
-			if (Clip.point(n2).x() > 900000)
+			}
+		}
+		for (int n2 = m_doc->nodeEdit.clre(); n2 > 0; n2--)
+		{
+			if (Clip.isMarker(n2))
 			{
 				StartInd = n2 + 1;
 				break;
 			}
 		}
 	}
-	if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
+	if (m_doc->nodeEdit.submode() == NodeEditContext::SPLIT_PATH)
 	{
-		if (!m_doc->nodeEdit.EdPoints)
+		if (!m_doc->nodeEdit.edPoints())
 			return;
-		if (!m_doc->nodeEdit.hasNodeSelected())	// We don't have a Point, try to add one onto the current curve segment
+		if ((!m_doc->nodeEdit.hasNodeSelected()) && (m_doc->nodeEdit.clre2() != -1)) // We don't have a Point, try to add one onto the current curve segment
 		{
 			bool foundP = false;
-			uint seg = 0;
+			int seg = 0;
 			double absDist = 9999999999.9;
 			FPoint point = FPoint(0, 0);
 			FPoint normal = FPoint(0, 0);
 			FPoint tangent = FPoint(0, 0);
 			FPoint nearPoint = FPoint(0, 0);
 			double nearT = 0.0;
-			QRect mpo2(0, 0, m_doc->guidesSettings.grabRad*3, m_doc->guidesSettings.grabRad*3);
+			QRect mpo2(0, 0, m_doc->guidesPrefs().grabRadius*3, m_doc->guidesPrefs().grabRadius*3);
 			mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
-			for (uint poi=0; poi<Clip.size()-3; poi += 4)
+			for (int poi = 0; poi < Clip.size() - 3; poi += 4)
 			{
-				FPoint a1 = Clip.point(poi);
-				FPoint a2 = Clip.point(poi+1);
-				FPoint a3 = Clip.point(poi+3);
-				FPoint a4 = Clip.point(poi+2);
+				const FPoint& a1 = Clip.point(poi);
+				const FPoint& a2 = Clip.point(poi + 1);
+				const FPoint& a3 = Clip.point(poi + 3);
+				const FPoint& a4 = Clip.point(poi + 2);
 				QPainterPath Bez;
 				Bez.moveTo(a1.x(), a1.y());
 				Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
 				QPolygon cli2 = Bez.toFillPolygon().toPolygon();
 				for (int clp = 0; clp < cli2.size()-1; ++clp)
 				{
-					if (m_view->PointOnLine(cli2.point(clp), cli2.point(clp+1), mpo2))
+					if (m_view->PointOnLine(cli2.point(clp), cli2.point(clp + 1), mpo2))
 					{
 						seg = poi;
 						double sp = 0.0;
@@ -777,19 +621,19 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 					}
 				}
 			}
-			cli.putPoints(0, m_doc->nodeEdit.ClRe2+2, Clip);
+			cli.putPoints(0, m_doc->nodeEdit.clre2() + 2, Clip);
 			if (foundP)
 			{
 				npf2 = nearPoint;
-				FPoint base = cli.point(cli.size()-2);
-				FPoint c1 = cli.point(cli.size()-1);
-				FPoint base2 =  Clip.point(m_doc->nodeEdit.ClRe2+2);
-				FPoint c2 = Clip.point(m_doc->nodeEdit.ClRe2+3);
+				FPoint base = cli.point(cli.size() - 2);
+				FPoint c1 = cli.point(cli.size() - 1);
+				FPoint base2 =  Clip.point(m_doc->nodeEdit.clre2() + 2);
+				FPoint c2 = Clip.point(m_doc->nodeEdit.clre2() + 3);
 				if ((base == c1) && (base2 == c2))
 				{
 					cli.resize(cli.size()+4);
-					cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
-					cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
+					cli.putPoints(cli.size() - 4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
+					cli.putPoints(cli.size(), Clip.size() - (m_doc->nodeEdit.clre2() + 2), Clip, m_doc->nodeEdit.clre2() + 2);
 				}
 				else
 				{
@@ -798,33 +642,31 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 					FPoint cn3 = (1.0 - nearT) * ((1.0 - nearT) * c1 + nearT * c2) + nearT * ((1.0 - nearT) * c2 + nearT * base2);
 					FPoint cn4 = (1.0 - nearT) * c2 + nearT * base2;
 					cli.setPoint(cli.size()-1, cn1);
-					cli.resize(cli.size()+4);
-					uint basind = cli.size()+1;
-					cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), cn2.x(), cn2.y(), npf2.x(), npf2.y(), cn3.x(), cn3.y());
-					cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
+					cli.resize(cli.size() + 4);
+					int basind = cli.size() + 1;
+					cli.putPoints(cli.size() - 4, 4, npf2.x(), npf2.y(), cn2.x(), cn2.y(), npf2.x(), npf2.y(), cn3.x(), cn3.y());
+					cli.putPoints(cli.size(), Clip.size() - (m_doc->nodeEdit.clre2() + 2), Clip, m_doc->nodeEdit.clre2() + 2);
 					cli.setPoint(basind, cn4);
 				}
 				Clip = cli.copy();
 				cli.resize(0);
-				m_doc->nodeEdit.ClRe = m_doc->nodeEdit.ClRe2+2;
-				m_doc->nodeEdit.ClRe2 = -1;
+				m_doc->nodeEdit.setClre(m_doc->nodeEdit.clre2() + 2);
+				m_doc->nodeEdit.setClre2(-1);
 				EndInd = Clip.size();
 				StartInd = 0;
-				for (uint n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
+				for (int n = m_doc->nodeEdit.clre(); n < Clip.size(); ++n)
 				{
-					if (Clip.point(n).x() > 900000)
+					if (Clip.isMarker(n))
 					{
 						EndInd = n;
 						break;
 					}
 				}
-				if (m_doc->nodeEdit.ClRe > 0)
+				if (m_doc->nodeEdit.clre() > 0)
 				{
-					for (uint n2 = m_doc->nodeEdit.ClRe; n2 > 0; n2--)
+					for (int n2 = m_doc->nodeEdit.clre(); n2 > 0; n2--)
 					{
-						if (n2 == 0)
-							break;
-						if (Clip.point(n2).x() > 900000)
+						if (Clip.isMarker(n2))
 						{
 							StartInd = n2 + 1;
 							break;
@@ -837,56 +679,55 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		}
 		if (m_doc->nodeEdit.hasNodeSelected())
 		{
-			if (currItem->asPolygon())
+			if (currItem->isPolygon())
 			{
-				if ((m_doc->nodeEdit.ClRe != 0) && (m_doc->nodeEdit.ClRe != static_cast<int>(EndInd-2)))
+				if ((m_doc->nodeEdit.clre() != 0) && (m_doc->nodeEdit.clre() != (EndInd - 2)))
 				{
 					if (currItem->Segments.count() == 0)
 					{
-						cli.putPoints(0, EndInd-(m_doc->nodeEdit.ClRe+2), Clip, m_doc->nodeEdit.ClRe+2);
-						cli.putPoints(cli.size(), m_doc->nodeEdit.ClRe+2, Clip);
+						cli.putPoints(0, EndInd - (m_doc->nodeEdit.clre() + 2), Clip, m_doc->nodeEdit.clre() + 2);
+						cli.putPoints(cli.size(), m_doc->nodeEdit.clre() + 2, Clip);
 					}
 					else
 					{
 						cli.putPoints(0, EndInd-StartInd, Clip, StartInd);
-						int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
-						PageItem* bb = m_doc->Items->at(z);
-						if (m_doc->nodeEdit.isContourLine)
+						int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor());
+						PageItem* bb = m_doc->Items->takeAt(z);
+						if (m_doc->nodeEdit.isContourLine())
 							bb->ContourLine.resize(0);
 						else
 							bb->PoLine.resize(0);
 						if (StartInd != 0)
 						{
-							if (m_doc->nodeEdit.isContourLine)
+							if (m_doc->nodeEdit.isContourLine())
 							{
 								bb->ContourLine.putPoints(0, StartInd - 4, Clip);
-								bb->ContourLine.putPoints(bb->ContourLine.size(), Clip.size()-EndInd, Clip, EndInd);
+								bb->ContourLine.putPoints(bb->ContourLine.size(), Clip.size() -EndInd, Clip, EndInd);
 							}
 							else
 							{
 								bb->PoLine.putPoints(0, StartInd - 4, Clip);
-								bb->PoLine.putPoints(bb->PoLine.size(), Clip.size()-EndInd, Clip, EndInd);
+								bb->PoLine.putPoints(bb->PoLine.size(), Clip.size() - EndInd, Clip, EndInd);
 							}
 						}
 						else
 						{
-							if (m_doc->nodeEdit.isContourLine)
-								bb->ContourLine.putPoints(0, Clip.size()-EndInd-4, Clip, EndInd+4);
+							if (m_doc->nodeEdit.isContourLine())
+								bb->ContourLine.putPoints(0, Clip.size() - EndInd - 4, Clip, EndInd + 4);
 							else
-								bb->PoLine.putPoints(0, Clip.size()-EndInd-4, Clip, EndInd+4);
+								bb->PoLine.putPoints(0, Clip.size() - EndInd - 4, Clip, EndInd + 4);
 						}
 						bb->setRotation(currItem->rotation());
-						m_doc->AdjustItemSize(bb);
 						bb->ClipEdited = true;
-						PageItem *bx = m_doc->Items->takeAt(bb->ItemNr);
-						m_doc->Items->insert(bb->ItemNr-1, bx);
+						m_doc->Items->insert(m_doc->Items->indexOf(currItem), bb);
+						m_doc->adjustItemSize(bb, true);
 					}
 					currItem->PoLine = cli.copy();
 				}
 				m_doc->nodeEdit.deselect();
 				currItem->ClipEdited = true;
 				edited = true;
-				m_doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
+				m_doc->nodeEdit.setSubMode(NodeEditContext::MOVE_POINT);
 				PageItem* newItem=m_doc->convertItemTo(currItem, PageItem::PolyLine);
 				currItem=newItem;
 				m_doc->m_Selection->clear();
@@ -895,21 +736,22 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 			}
 			else
 			{
-				if ((currItem->asPolyLine()) || (currItem->asPathText()))
+				if ((currItem->isPolyLine()) || (currItem->isPathText()))
 				{
-					if ((m_doc->nodeEdit.ClRe > 1) && (m_doc->nodeEdit.ClRe < static_cast<int>(Clip.size()-2)))
+					if ((m_doc->nodeEdit.clre() > 1) && (m_doc->nodeEdit.clre() < (Clip.size() - 2)))
 					{
-						int z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
+						int z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor());
 						PageItem* bb = m_doc->Items->at(z);
-						if (m_doc->nodeEdit.isContourLine)
-							bb->ContourLine.putPoints(0, Clip.size()-(m_doc->nodeEdit.ClRe+2), Clip, m_doc->nodeEdit.ClRe+2);
+						if (m_doc->nodeEdit.isContourLine())
+							bb->ContourLine.putPoints(0, Clip.size() - (m_doc->nodeEdit.clre() + 2), Clip, m_doc->nodeEdit.clre() + 2);
 						else
-							bb->PoLine.putPoints(0, Clip.size()-(m_doc->nodeEdit.ClRe+2), Clip, m_doc->nodeEdit.ClRe+2);
+							bb->PoLine.putPoints(0, Clip.size() - (m_doc->nodeEdit.clre() + 2), Clip, m_doc->nodeEdit.clre() + 2);
 						bb->setRotation(currItem->rotation());
-						m_doc->AdjustItemSize(bb);
+						m_doc->adjustItemSize(bb, true);
 						bb->ClipEdited = true;
+						bb->setFrameType(currItem->frameType());
 						cli.resize(0);
-						cli.putPoints(0, m_doc->nodeEdit.ClRe+2, Clip);
+						cli.putPoints(0, m_doc->nodeEdit.clre() + 2, Clip);
 						currItem->PoLine = cli.copy();
 						m_doc->m_Selection->clear();
 						m_doc->m_Selection->addItem(currItem);
@@ -917,61 +759,68 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 					m_doc->nodeEdit.deselect();
 					currItem->ClipEdited = true;
 					edited = true;
-					m_doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
+					m_doc->nodeEdit.setSubMode(NodeEditContext::MOVE_POINT);
 					currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1.0)));
 					emit m_view->PolyOpen();
 				}
 			}
 		}
 	}
-	if ((m_doc->nodeEdit.submode == NodeEditContext::DEL_POINT) && m_doc->nodeEdit.hasNodeSelected())
+	if ((m_doc->nodeEdit.submode() == NodeEditContext::DEL_POINT) && m_doc->nodeEdit.hasNodeSelected())
 	{
-		if (!m_doc->nodeEdit.EdPoints)
+		if (!m_doc->nodeEdit.edPoints())
 			return;
-		if ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame()))
+
+		int minClipSize = 4;
+		if (!currItem->isLine() && !currItem->isPathText() && !currItem->isPolyLine())
+			minClipSize = 12;
+
+		if (Clip.size() <= minClipSize)
 		{
-			if ((currItem->Segments.count() == 0) && (Clip.size() <= 12))  // min. 3 points
-				return;
+			m_doc->nodeEdit.deselect();
+			return;
 		}
-		else
-		{
-			if (Clip.size() <= 4)
-				return;
-		}
-		if ((currItem->Segments.count() != 0) && ((EndInd - StartInd) <= 12))
+
+		int numPoints = (StartInd != 0) ? (StartInd-4) : 0;
+		numPoints += (Clip.size() - EndInd);
+		if ((currItem->Segments.count() > 0) && ((EndInd - StartInd) <= minClipSize) && (numPoints > 0))
 		{
 			if (StartInd != 0)
-				cli.putPoints(0, StartInd-4, Clip);
+				cli.putPoints(0, StartInd - 4, Clip);
 			cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
 		}
-		else
+		else if (m_doc->nodeEdit.clre() == StartInd)
 		{
-			if (m_doc->nodeEdit.ClRe == static_cast<int>(StartInd))
+			if (!currItem->isLine() && !currItem->isPathText() && !currItem->isPolyLine())
 			{
-				if ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame()))
-				{
-					FPoint kp(Clip.point(EndInd-3));
-					cli.putPoints(0, StartInd, Clip);
-					cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd);
-					cli.setPoint(StartInd, cli.point(cli.size()-2));
-					cli.setPoint(StartInd + 1, kp);
-					cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
-				}
-				else
-				{
-					cli.putPoints(0, StartInd, Clip);
-					cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd+4);
-					cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
-				}
+				const FPoint& kp(Clip.point(EndInd - 3));
+				cli.putPoints(0, StartInd, Clip);
+				cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd);
+				cli.setPoint(StartInd, cli.point(cli.size() - 2));
+				cli.setPoint(StartInd + 1, kp);
+				cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
 			}
 			else
 			{
-				if (m_doc->nodeEdit.ClRe != 0)
-					cli.putPoints(0, m_doc->nodeEdit.ClRe, Clip);
-				cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe + 4), Clip, m_doc->nodeEdit.ClRe+4);
+				cli.putPoints(0, StartInd, Clip);
+				cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd+4);
+				cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
 			}
 		}
-		if (m_doc->nodeEdit.isContourLine)
+		else if (m_doc->nodeEdit.clre() == (EndInd - 2))
+		{
+			Clip.remove(m_doc->nodeEdit.clre() - 2, 4);
+			cli = Clip.copy();
+		}
+		else
+		{
+			if (m_doc->nodeEdit.clre() != 0)
+				cli.putPoints(0, m_doc->nodeEdit.clre(), Clip);
+			cli.putPoints(cli.size(), Clip.size() - (m_doc->nodeEdit.clre() + 4), Clip, m_doc->nodeEdit.clre() + 4);
+		}
+		while (cli.isMarker(0))
+			cli.remove(0, 4);
+		if (m_doc->nodeEdit.isContourLine())
 			currItem->ContourLine = cli.copy();
 		else
 			currItem->PoLine = cli.copy();
@@ -979,7 +828,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		currItem->ClipEdited = true;
 		edited = true;
 	}
-	if ((m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT) && (m_doc->nodeEdit.ClRe2 != -1))
+	if ((m_doc->nodeEdit.submode() == NodeEditContext::ADD_POINT) && (m_doc->nodeEdit.clre2() != -1))
 	{
 		bool foundP = false;
 		uint seg = 0;
@@ -989,21 +838,21 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		FPoint tangent = FPoint(0, 0);
 		FPoint nearPoint = FPoint(0, 0);
 		double nearT = 0.0;
-		QRect mpo2(0, 0, m_doc->guidesSettings.grabRad*3, m_doc->guidesSettings.grabRad*3);
+		QRect mpo2(0, 0, m_doc->guidesPrefs().grabRadius * 3, m_doc->guidesPrefs().grabRadius * 3);
 		mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
-		for (uint poi=0; poi<Clip.size()-3; poi += 4)
+		for (int poi = 0; poi < Clip.size() - 3; poi += 4)
 		{
-			FPoint a1 = Clip.point(poi);
-			FPoint a2 = Clip.point(poi+1);
-			FPoint a3 = Clip.point(poi+3);
-			FPoint a4 = Clip.point(poi+2);
+			const FPoint& a1 = Clip.point(poi);
+			const FPoint& a2 = Clip.point(poi + 1);
+			const FPoint& a3 = Clip.point(poi + 3);
+			const FPoint& a4 = Clip.point(poi + 2);
 			QPainterPath Bez;
 			Bez.moveTo(a1.x(), a1.y());
 			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
 			QPolygon cli2 = Bez.toFillPolygon().toPolygon();
-			for (int clp = 0; clp < cli2.size()-1; ++clp)
+			for (int clp = 0; clp < cli2.size() - 1; ++clp)
 			{
-				if (m_view->PointOnLine(cli2.point(clp), cli2.point(clp+1), mpo2))
+				if (m_view->PointOnLine(cli2.point(clp), cli2.point(clp + 1), mpo2))
 				{
 					seg = poi;
 					double sp = 0.0;
@@ -1024,19 +873,19 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				}
 			}
 		}
-		cli.putPoints(0, m_doc->nodeEdit.ClRe2+2, Clip);
+		cli.putPoints(0, m_doc->nodeEdit.clre2() + 2, Clip);
 		if (foundP)
 		{
 			npf2 = nearPoint;
-			FPoint base = cli.point(cli.size()-2);
-			FPoint c1 = cli.point(cli.size()-1);
-			FPoint base2 =  Clip.point(m_doc->nodeEdit.ClRe2+2);
-			FPoint c2 = Clip.point(m_doc->nodeEdit.ClRe2+3);
+			FPoint base = cli.point(cli.size() - 2);
+			FPoint c1 = cli.point(cli.size() - 1);
+			const FPoint& base2 =  Clip.point(m_doc->nodeEdit.clre2() + 2);
+			const FPoint& c2 = Clip.point(m_doc->nodeEdit.clre2() + 3);
 			if ((base == c1) && (base2 == c2))
 			{
-				cli.resize(cli.size()+4);
-				cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
-						cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
+				cli.resize(cli.size() + 4);
+				cli.putPoints(cli.size() - 4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
+				cli.putPoints(cli.size(), Clip.size() - (m_doc->nodeEdit.clre2() + 2), Clip, m_doc->nodeEdit.clre2() + 2);
 			}
 			else
 			{
@@ -1044,50 +893,63 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				FPoint cn2 = (1.0 - nearT) * cn1 + nearT * ((1.0 - nearT) * c1 + nearT * c2);
 				FPoint cn3 = (1.0 - nearT) * ((1.0 - nearT) * c1 + nearT * c2) + nearT * ((1.0 - nearT) * c2 + nearT * base2);
 				FPoint cn4 = (1.0 - nearT) * c2 + nearT * base2;
-				cli.setPoint(cli.size()-1, cn1);
-				cli.resize(cli.size()+4);
-				uint basind = cli.size()+1;
-				cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), cn2.x(), cn2.y(), npf2.x(), npf2.y(), cn3.x(), cn3.y());
-				cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
+				cli.setPoint(cli.size() - 1, cn1);
+				cli.resize(cli.size() + 4);
+				uint basind = cli.size() + 1;
+				cli.putPoints(cli.size() - 4, 4, npf2.x(), npf2.y(), cn2.x(), cn2.y(), npf2.x(), npf2.y(), cn3.x(), cn3.y());
+				cli.putPoints(cli.size(), Clip.size() - (m_doc->nodeEdit.clre2() + 2), Clip, m_doc->nodeEdit.clre2() + 2);
 				cli.setPoint(basind, cn4);
 			}
 		}
 		else
 		{
-			cli.resize(cli.size()+4);
-			cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
-			cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
+			cli.resize(cli.size() + 4);
+			cli.putPoints(cli.size() - 4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
+			cli.putPoints(cli.size(), Clip.size() - (m_doc->nodeEdit.clre2() + 2), Clip, m_doc->nodeEdit.clre2() + 2);
 		}
-		if (m_doc->nodeEdit.isContourLine)
+		if (m_doc->nodeEdit.isContourLine())
 			currItem->ContourLine = cli.copy();
 		else
 			currItem->PoLine = cli.copy();
-		m_doc->nodeEdit.ClRe2 = -1;
+		m_doc->nodeEdit.setClre2(-1);
 		currItem->ClipEdited = true;
 		edited = true;
 	}
 	if (edited)
 	{
 		currItem->FrameType = 3;
-		m_doc->AdjustItemSize(currItem);
+		double xp, yp, w, h, xp2, yp2, w2, h2;
+		xp = currItem->xPos();
+		yp = currItem->yPos();
+		w = currItem->width();
+		h = currItem->height();
+		m_doc->adjustItemSize(currItem, true);
+		xp2 = currItem->xPos();
+		yp2 = currItem->yPos();
+		w2 = currItem->width();
+		h2 = currItem->height();
 		currItem->update();
+		if ((xp != xp2) || (yp != yp2) || (w != w2) || (h != h2))
+			m_view->DrawNew();
+		emit m_view->PolyStatus(currItem->itemType(), currItem->PoLine.size());
 	}
-	if ((m_doc->nodeEdit.SelNode.count() != 0) || ((m_doc->nodeEdit.SegP1 != -1) && (m_doc->nodeEdit.SegP2 != -1)) || (m_doc->nodeEdit.hasNodeSelected() && (!m_doc->nodeEdit.EdPoints)))
+	else
 	{
-		Mxp = m->x();
-		Myp = m->y();
+		currItem->update();
+		m_view->DrawNew();
+	}
+	if ((m_doc->nodeEdit.selectionCount() != 0) || ((m_doc->nodeEdit.segP1() != -1) && (m_doc->nodeEdit.segP2() != -1)) || (m_doc->nodeEdit.hasNodeSelected() && (!m_doc->nodeEdit.edPoints())))
+	{
+		m_Mxp = m->x();
+		m_Myp = m->y();
 		m_canvas->setRenderModeFillBuffer();
 	}
 	else
 	{
-		/*
-		m_view->redrawMarker->setGeometry(m->x(), m->y(), 1, 1);
-		m_view->redrawMarker->show();
-		*/
-		Mxp = m->x();
-		Myp = m->y();
-		Dxp = qRound(m->x()/m_canvas->scale());  // + m_doc->minCanvasCoordinate.x());
-		Dyp = qRound(m->y()/m_canvas->scale());  // + m_doc->minCanvasCoordinate.y());
+		m_Mxp = m->x();
+		m_Myp = m->y();
+		m_Dxp = qRound(m->x() / m_canvas->scale());  // + m_doc->minCanvasCoordinate.x());
+		m_Dyp = qRound(m->y() / m_canvas->scale());  // + m_doc->minCanvasCoordinate.y());
 		if (!m_rectangleSelect)
 			m_rectangleSelect = new RectSelect(this);
 		m_rectangleSelect->prepare(m->globalPos());
@@ -1098,56 +960,62 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 
 
 
-bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* currItem, QMatrix)
+bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect /*r*/, PageItem* currItem, const QTransform& /*t*/)
 {
-	QMatrix itemPos = currItem->getTransform();
+	QTransform itemPos = currItem->getTransform();
+	if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine()))
+	{
+		if (currItem->imageFlippedH())
+		{
+			itemPos.translate(currItem->width(), 0);
+			itemPos.scale(-1, 1);
+		}
+		if (currItem->imageFlippedV())
+		{
+			itemPos.translate(0, currItem->height());
+			itemPos.scale(1, -1);
+		}
+	}
 	FPointArray Clip;
-	m_doc->nodeEdit.ClRe2 = -1;
-	m_doc->nodeEdit.SegP1 = -1;
-	m_doc->nodeEdit.SegP2 = -1;
-	if (m_doc->nodeEdit.isContourLine)
+	m_doc->nodeEdit.setClre2(-1);
+	m_doc->nodeEdit.setSegP1(-1);
+	m_doc->nodeEdit.setSegP2(-1);
+	if (m_doc->nodeEdit.isContourLine())
 		Clip = currItem->ContourLine;
 	else
 		Clip = currItem->PoLine;
-#ifdef MODEDEBUG
-//	qDebug() << "handle nodeedit move:" << m_doc->nodeEdit.submode << m_doc->nodeEdit.EdPoints;
-#endif	
-	if ((m_doc->nodeEdit.submode == NodeEditContext::DEL_POINT) || 
-		(m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT) || 
-		(m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH))
+	if ((m_doc->nodeEdit.submode() == NodeEditContext::DEL_POINT) ||
+		(m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT) ||
+		(m_doc->nodeEdit.submode() == NodeEditContext::SPLIT_PATH))
 	{
-		for (int a=0; a < signed(Clip.size()); ++a)
+		for (int i = 0; i < Clip.size(); ++i)
 		{
-			if (((m_doc->nodeEdit.EdPoints) && (a % 2 != 0)) || ((!m_doc->nodeEdit.EdPoints) && (a % 2 == 0)))
+			if (((m_doc->nodeEdit.edPoints()) && (i % 2 != 0)) || ((!m_doc->nodeEdit.edPoints()) && (i % 2 == 0)))
 				continue;
-			//QPoint np = p.map(Clip.pointQ(a));
-			//QRect tx = QRect(np.x()-3, np.y()-3, 6, 6);
-			//if (tx.intersects(mpo))
-			QPointF point = Clip.pointQF(a);
+			QPointF point = Clip.pointQF(i);
 			if (m_canvas->hitsCanvasPoint(m->globalPos(), itemPos.map(point)))
 			{
-				if (m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
-					qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-				if (m_doc->nodeEdit.submode == NodeEditContext::DEL_POINT)
-					qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
-				if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
-					qApp->changeOverrideCursor(QCursor(loadIcon("Split.png"), 1, 1));
+				if (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT)
+					m_view->setCursor(QCursor(Qt::SizeAllCursor));
+				if (m_doc->nodeEdit.submode() == NodeEditContext::DEL_POINT)
+					m_view->setCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+				if (m_doc->nodeEdit.submode() == NodeEditContext::SPLIT_PATH)
+					m_view->setCursor(IconManager::instance().loadCursor("Split.png", 1, 1));
 				return true;
 			}
 		}
 	}
-	if ((m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT) || 
-		(m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT) || 
-		(m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH && m_doc->nodeEdit.EdPoints))
+	if ((m_doc->nodeEdit.submode() == NodeEditContext::ADD_POINT) ||
+		(m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT) ||
+		(m_doc->nodeEdit.submode() == NodeEditContext::SPLIT_PATH && m_doc->nodeEdit.edPoints()))
 	{
-		FPoint mousePoint = m_canvas->globalToCanvas(m->globalPos());
-		for (uint poi=0; poi<Clip.size()-3; poi += 4)
+		for (int poi = 0; poi < Clip.size() - 3; poi += 4)
 		{
 			// create bezier curve in canvas coords
 			QPointF a1 = itemPos.map(Clip.pointQF(poi));
-			QPointF a2 = itemPos.map(Clip.pointQF(poi+1));
-			QPointF a3 = itemPos.map(Clip.pointQF(poi+3));
-			QPointF a4 = itemPos.map(Clip.pointQF(poi+2));
+			QPointF a2 = itemPos.map(Clip.pointQF(poi + 1));
+			QPointF a3 = itemPos.map(Clip.pointQF(poi + 3));
+			QPointF a4 = itemPos.map(Clip.pointQF(poi + 2));
 			QPainterPath Bez;
 			Bez.moveTo(a1);
 			Bez.cubicTo(a2, a3, a4);
@@ -1160,48 +1028,29 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 					QPointF pl = Bez.pointAtPercent(d);
 					if (m_canvas->hitsCanvasPoint(m->globalPos(), FPoint(pl.x(), pl.y())))
 					{
-						if (m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
-							qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
-						else if (m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT)
-							qApp->changeOverrideCursor(QCursor(loadIcon("AddPoint.png"), 1, 1));
-						else if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
-							qApp->changeOverrideCursor(QCursor(loadIcon("Split.png"), 1, 1));
+						if (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT)
+							m_view->setCursor(IconManager::instance().loadCursor("handc.png"));
+						else if (m_doc->nodeEdit.submode() == NodeEditContext::ADD_POINT)
+							m_view->setCursor(IconManager::instance().loadCursor("AddPoint.png", 1, 1));
+						else if (m_doc->nodeEdit.submode() == NodeEditContext::SPLIT_PATH)
+							m_view->setCursor(IconManager::instance().loadCursor("Split.png", 1, 1));
 						else
-							qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-						m_doc->nodeEdit.ClRe2 = poi;
+							m_view->setCursor(QCursor(Qt::ArrowCursor));
+						m_doc->nodeEdit.setClre2(poi);
 						return true;
 					}
 				}
 			}
-			// as polygon
-//			QPolygonF cli = Bez.toSubpathPolygons().first();
-//			for (int clp = 0; clp < cli.size()-1; ++clp)
-//			{
-				// project mousepoint on line
-//				FPoint pointOnLine = projectPointOnLine(mousePoint, cli.at(clp), cli.at(clp+1));
-				//if (m_view->PointOnLine(cli.point(clp), cli.point(clp+1), p.inverted().mapRect(mpo)))
-//				if (m_canvas->hitsCanvasPoint(m->globalPos(), pointOnLine))
-//				{
-//					if (m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
-//						qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
-//					if (m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT)
-//						qApp->changeOverrideCursor(QCursor(loadIcon("AddPoint.png"), 1, 1));
-//					if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
-//						qApp->changeOverrideCursor(QCursor(loadIcon("Split.png"), 1, 1));
-//					m_doc->nodeEdit.ClRe2 = poi;
-//					return true;
-//				}
-//			}
 		}
 	}
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	m_view->setCursor(QCursor(Qt::ArrowCursor));
 	return false;
 }
 
 void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 {
 	FPoint npf;
-	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && !m_doc->nodeEdit.hasNodeSelected() && (m_doc->nodeEdit.SegP1 == -1) && (m_doc->nodeEdit.SegP2 == -1))
+	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && !m_doc->nodeEdit.hasNodeSelected() && (m_doc->nodeEdit.segP1()  == -1) && (m_doc->nodeEdit.segP2() == -1))
 	{
 		if (!m_rectangleSelect)
 		{
@@ -1213,77 +1062,177 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 	}
 	int newX = m->x();
 	int newY = m->y();
-	FPoint np(newX-Mxp, newY-Myp, 0, 0, currItem->rotation(), 1, 1, true);
+	FPoint np(newX - m_Mxp, newY - m_Myp, 0, 0, currItem->rotation(), 1, 1, true);
 	np = np * (1.0 / m_canvas->scale());
 	m_canvas->m_viewMode.operItemMoving = true;
 	currItem = m_doc->m_Selection->itemAt(0);
-	if ((m_doc->nodeEdit.SegP1 != -1) && (m_doc->nodeEdit.SegP2 != -1))
+	if ((m_doc->nodeEdit.segP1() != -1) && (m_doc->nodeEdit.segP2() != -1))
 	{
-		if (m_doc->nodeEdit.isContourLine)
-			npf = currItem->ContourLine.point(m_doc->nodeEdit.SegP2) + np;
+		if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine()))
+		{
+			if (currItem->imageFlippedH())
+				np.setX(np.x() * -1);
+			if (currItem->imageFlippedV())
+				np.setY(np.y() * -1);
+		}
+		if (m_doc->nodeEdit.isContourLine())
+			npf = currItem->ContourLine.point(m_doc->nodeEdit.segP2()) + np;
 		else
-			npf = currItem->PoLine.point(m_doc->nodeEdit.SegP2) + np;
-		m_doc->nodeEdit.ClRe = m_doc->nodeEdit.SegP2;
+			npf = currItem->PoLine.point(m_doc->nodeEdit.segP2()) + np;
+		m_doc->nodeEdit.setClre(m_doc->nodeEdit.segP2());
 		m_doc->nodeEdit.moveClipPoint(currItem, npf);
-		if (m_doc->nodeEdit.isContourLine)
-			npf = currItem->ContourLine.point(m_doc->nodeEdit.SegP1) + np;
+		if (m_doc->nodeEdit.isContourLine())
+			npf = currItem->ContourLine.point(m_doc->nodeEdit.segP1() ) + np;
 		else
-			npf = currItem->PoLine.point(m_doc->nodeEdit.SegP1) + np;
-		m_doc->nodeEdit.ClRe = m_doc->nodeEdit.SegP1;
+			npf = currItem->PoLine.point(m_doc->nodeEdit.segP1() ) + np;
+		m_doc->nodeEdit.setClre(m_doc->nodeEdit.segP1());
 		m_doc->nodeEdit.moveClipPoint(currItem, npf);
-		Mxp = newX;
-		Myp = newY;
+		m_Mxp = newX;
+		m_Myp = newY;
 	}
 	else
 	{
-		if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
+		if ((m_doc->nodeEdit.selectionCount() != 0) && (m_doc->nodeEdit.edPoints()))
 		{
-			int storedClRe = m_doc->nodeEdit.ClRe;
-			if (m_doc->nodeEdit.SelNode.count() == 1)
+			int storedClRe = m_doc->nodeEdit.clre();
+			if (m_doc->nodeEdit.selectionCount() == 1)
 			{
 				npf = m_canvas->globalToCanvas(m->globalPos());
 				double nx = npf.x();
 				double ny = npf.y();
-				if (!m_doc->ApplyGuides(&nx, &ny))
+				if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 					npf = m_doc->ApplyGridF(FPoint(nx, ny));
 				else
 					npf = FPoint(nx, ny);
-				npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+				QTransform pp = currItem->getTransform();
+				npf = npf.transformPoint(pp, true);
+				if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine()))
+				{
+					if (currItem->imageFlippedH())
+					{
+						QTransform p;
+						p.translate(currItem->width(), 0);
+						p.scale(-1, 1);
+						npf = npf.transformPoint(p, false);
+					}
+					if (currItem->imageFlippedV())
+					{
+						QTransform p;
+						p.translate(0, currItem->height());
+						p.scale(1, -1);
+						npf = npf.transformPoint(p, false);
+					}
+				}
+
+				//Control Modifier to have parallele shape
+				if (m->modifiers() == Qt::ControlModifier)
+				{
+					FPointArray cli;
+					if (m_doc->nodeEdit.isContourLine())
+						cli = currItem->ContourLine;
+					else
+						cli = currItem->PoLine;
+					FPoint npf1(npf);
+					int tmpNode;
+					int curr = (m_doc->nodeEdit.clre() == 0) ? cli.size() - 2 : m_doc->nodeEdit.clre();
+					int prev = (curr + cli.size() - 4) % cli.size();
+					int next = (curr+4) % cli.size();
+
+					if (std::abs(cli.point(prev).x() - cli.point(curr).x()) < std::abs(cli.point(next).x() - cli.point(curr).x()))
+						tmpNode = next;
+					else if (std::abs(cli.point(prev).x() - cli.point(curr).x()) == std::abs(cli.point(next).x() - cli.point(curr).x()))
+					{
+						if (cli.point(prev).y() != cli.point(curr).y())
+							tmpNode = next;
+						else
+							tmpNode = prev;
+					}
+					else
+						tmpNode = prev;
+
+					m_doc->nodeEdit.moveClipPoint(currItem, npf);
+
+					m_doc->nodeEdit.setClre(tmpNode);
+
+					if (m_doc->nodeEdit.isContourLine())
+						npf1.setX(currItem->ContourLine.point(m_doc->nodeEdit.clre()).x());
+					else
+						npf1.setX(currItem->PoLine.point(m_doc->nodeEdit.clre()).x());
+
+					m_doc->nodeEdit.moveClipPoint(currItem, npf1);
+
+					if (m_doc->nodeEdit.clre() == prev)
+						m_doc->nodeEdit.setClre(next);
+					else
+						m_doc->nodeEdit.setClre(prev);
+
+					if (m_doc->nodeEdit.isContourLine())
+						npf.setY(currItem->ContourLine.point(m_doc->nodeEdit.clre()).y());
+					else
+						npf.setY(currItem->PoLine.point(m_doc->nodeEdit.clre()).y());
+
+
+				}
 				m_doc->nodeEdit.moveClipPoint(currItem, npf);
+
 				m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
 			}
 			else
 			{
-				for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
+				if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine()))
 				{
-					m_doc->nodeEdit.ClRe = m_doc->nodeEdit.SelNode.at(itm);
-					if (m_doc->nodeEdit.isContourLine)
-						npf = currItem->ContourLine.point(m_doc->nodeEdit.ClRe) + np;
+					if (currItem->imageFlippedH())
+						np.setX(np.x() * -1);
+					if (currItem->imageFlippedV())
+						np.setY(np.y() * -1);
+				}
+				const auto& nodeSelection = m_doc->nodeEdit.selNode();
+				for (int itm = 0; itm < nodeSelection.count(); ++itm)
+				{
+					m_doc->nodeEdit.setClre(nodeSelection.at(itm));
+					if (m_doc->nodeEdit.isContourLine())
+						npf = currItem->ContourLine.point(m_doc->nodeEdit.clre()) + np;
 					else
-						npf = currItem->PoLine.point(m_doc->nodeEdit.ClRe) + np;
+						npf = currItem->PoLine.point(m_doc->nodeEdit.clre()) + np;
 					m_doc->nodeEdit.moveClipPoint(currItem, npf);
 				}
 			}
-			m_doc->nodeEdit.ClRe = storedClRe;
+			m_doc->nodeEdit.setClre(storedClRe);
 		}
 		else
 		{
 			npf = m_canvas->globalToCanvas(m->globalPos());
 			double nx = npf.x();
 			double ny = npf.y();
-			if (!m_doc->ApplyGuides(&nx, &ny))
+			if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 				npf = m_doc->ApplyGridF(FPoint(nx, ny));
 			else
 				npf = FPoint(nx, ny);
-			npf = FPoint(npf.x(), npf.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+			QTransform pp = currItem->getTransform();
+			npf = npf.transformPoint(pp, true);
+			if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine()))
+			{
+				if (currItem->imageFlippedH())
+				{
+					QTransform p;
+					p.translate(currItem->width(), 0);
+					p.scale(-1, 1);
+					npf = npf.transformPoint(p, false);
+				}
+				if (currItem->imageFlippedV())
+				{
+					QTransform p;
+					p.translate(0, currItem->height());
+					p.scale(1, -1);
+					npf = npf.transformPoint(p, false);
+				}
+			}
 			m_doc->nodeEdit.moveClipPoint(currItem, npf);
 			m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
 		}
-		Mxp = newX;
-		Myp = newY;
+		m_Mxp = newX;
+		m_Myp = newY;
 	}
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_doc->regionsChanged()->update(QRectF());
 }
-
-

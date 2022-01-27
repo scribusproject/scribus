@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 /***************************************************************************
 *                                                                         *
-*   ScMW program is free software; you can redistribute it and/or modify  *
+*   Scribus program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
 *   the Free Software Foundation; either version 2 of the License, or     *
 *   (at your option) any later version.                                   *
@@ -50,7 +50,7 @@ class SCRIBUS_API CommonStrings : public QObject
 	Q_OBJECT
 public:
 	CommonStrings();
-	
+
 	virtual void changeEvent(QEvent *e);
 
 	/**
@@ -105,7 +105,7 @@ public:
 	static QString trYesKey;
 	//! \brief Translated "No" with key accelerator "&No"
 	static QString trNoKey;
-	
+
 	//Item Types
 	static QString itemType_TextFrame;
 	static QString itemType_ImageFrame;
@@ -114,16 +114,32 @@ public:
 	static QString itemType_Polyline;
 	static QString itemType_PathText;
 	static QString itemType_LatexFrame;
+	static QString itemType_OSGFrame;
+	static QString itemType_Symbol;
+	static QString itemType_Group;
+	static QString itemType_RegularPolygon;
+	static QString itemType_Arc;
+	static QString itemType_Spiral;
+	static QString itemType_Table;
 	static QString itemType_Multiple;
-	
+
 	static QString itemSubType_PDF_PushButton;
+	static QString itemSubType_PDF_RadioButton;
 	static QString itemSubType_PDF_TextField;
 	static QString itemSubType_PDF_CheckBox;
 	static QString itemSubType_PDF_ComboBox;
 	static QString itemSubType_PDF_ListBox;
 	static QString itemSubType_PDF_TextAnnotation;
 	static QString itemSubType_PDF_LinkAnnotation;
-	
+	static QString itemName_PushButton;
+	static QString itemName_RadioButton;
+	static QString itemName_TextField;
+	static QString itemName_CheckBox;
+	static QString itemName_ComboBox;
+	static QString itemName_ListBox;
+	static QString itemName_TextAnnotation;
+	static QString itemName_LinkAnnotation;
+
 	//Page Size
 	static QString customPageSize;
 	static QString trCustomPageSize;
@@ -147,7 +163,7 @@ public:
 	static QString trPageLocMiddleLeft;
 	static QString trPageLocMiddleRight;
 	static QString trPageLocRight;
-	
+
 	//Master Page Default Names
 	static QString masterPageNormal;
 	static QString trMasterPageNormal;
@@ -157,24 +173,28 @@ public:
 	static QString trMasterPageNormalMiddle;
 	static QString masterPageNormalRight;
 	static QString trMasterPageNormalRight;
-	
+
 	//Pen Styles
 	static QString trPenStyle_SolidLine;
 	static QString trPenStyle_DashedLine;
 	static QString trPenStyle_DottedLine;
 	static QString trPenStyle_DashDotLine;
 	static QString trPenStyle_DashDotDotLine;
-	
+
 	//Default Styles
 	static QString DefaultParagraphStyle;
 	static QString DefaultCharacterStyle;
 	static QString DefaultLineStyle;
+	static QString DefaultTableStyle;
+	static QString DefaultCellStyle;
 	static QString trDefaultParagraphStyle;
 	static QString trDefaultCharacterStyle;
 	static QString trDefaultLineStyle;
-	
+	static QString trDefaultTableStyle;
+	static QString trDefaultCellStyle;
+
 	//Days and Months
-	static QString monday; 
+	static QString monday;
 	static QString tuesday;
 	static QString wednesday;
 	static QString thursday;
@@ -194,12 +214,13 @@ public:
 	static QString october;
 	static QString november;
 	static QString december;
-	
+
 	//Color Related
 	static QString trRGB;
 	static QString trCMYK;
 	static QString trGrayscale;
 	static QString trDuotone;
+	static QString trMonochrome;
 	static QString trUnknownCS;
 
 	//Color Blindness
@@ -208,10 +229,10 @@ public:
 	static QString trVisionDeuteranopia;
 	static QString trVisionTritanopia;
 	static QString trVisionFullColorBlind;
-	
+
 	//Tab Fill Custom
 	static QString trCustomTabFill;
-	
+
 	//Paragraph Style Optical Margins
 	static QString trOpticalMarginsNone;
 	static QString trOpticalMarginsLeftProtruding;
@@ -219,22 +240,29 @@ public:
 	static QString trOpticalMarginsLeftHangPunct;
 	static QString trOpticalMarginsRightHangPunct;
 	static QString trOpticalMarginsDefault;
-	
+
 	//Paragraph Style Word Tracking
 	static QString trMinWordTracking;
 	static QString trMaxWordTracking;
-	
+
 	//Paragraph Style Glyph Extension
 	static QString trMinGlyphExtension;
 	static QString trMaxGlyphExtension;
 
 	//PostScript or other PDL strings
+	static QString File;
+	static QString trFile;
 	static QString PostScript;
 	static QString trPostScript;
+	static QString PDF;
+	static QString trPDF;
 	static QString PDF_1_3;
 	static QString PDF_1_4;
 	static QString PDF_1_5;
+	static QString PDF_1_6;
+	static QString PDF_X1a;
 	static QString PDF_X3;
+	static QString PDF_X4;
 
 	static QString PostScript1;
 	static QString trPostScript1;
@@ -244,7 +272,7 @@ public:
 	static QString trPostScript3;
 	static QString WindowsGDI;
 	static QString trWindowsGDI;
-	
+
 	//Units strings
 	static QString trStrPT;
 	static QString trStrMM;
@@ -252,12 +280,21 @@ public:
 	static QString trStrP;
 	static QString trStrCM;
 	static QString trStrC;
+	static QString trStrPX;
 	static QString strPT;
 	static QString strMM;
 	static QString strIN;
 	static QString strP;
 	static QString strCM;
 	static QString strC;
+	static QString strPX;
+
+	//Keyboard Modifiers
+	static QString controlModifier;
+	static QString altModifier;
+	static QString shiftModifier;
+	static QString metaModifier;
+
 };
 
 #endif

@@ -21,6 +21,7 @@ class ScPlugin;
 class ScActionPlugin;
 class ScPersistentPlugin;
 class PrefsContext;
+class StoryEditor;
 
 /**
  * \brief PluginManager handles plugin loading, unloading, and running.
@@ -33,28 +34,26 @@ class PrefsContext;
  */
 class SCRIBUS_API PluginManager : public QObject
 {
-
 	Q_OBJECT
 
 public:
-
 	PluginManager();
 	~PluginManager();
 
 	/*! \brief Static methods for loading, unloading plugins and resolving symbols
 	 These methods are platform independent, but each platform uses a different
 	 implementation. */
-	static void* loadDLL( QString plugin );
+	static void* loadDLL(const QString& plugin);
 	static void* resolveSym( void* plugin, const char* sym );
 	static void  unloadDLL( void* plugin );
 
-	/*! \brief Initalization of all plugins. It's called at scribus start.
+	/*! \brief Initialization of all plugins. It's called at scribus start.
 	 *
 	 * Walk through all plugins, try to init them and try to re-load failed
 	 * ones then. See initPlugin for more info.
 	 * Reload uses a "brute force" method - Repeat until there is something
 	 * to load again. It's not elegant I know. But there are no additional
-	 * dependancy relations addons (XML config, plugin classes change etc.).
+	 * dependency relations addons (XML config, plugin classes change etc.).
 	 */
 	void initPlugs();
 
@@ -62,11 +61,17 @@ public:
 	 * Run in main window startup
 	 */
 	bool setupPluginActions(ScribusMainWindow*);
+	
+	/*! \brief Called at after initPlugs to hook the loaded plugin into the GUI.
+	 * Run in SE startup
+	 */
+	bool setupPluginActions(StoryEditor *sew);
 
 	/*! \brief Called when the last doc is closed
 	 */
 	void enableOnlyStartupPluginActions(ScribusMainWindow*);
-	/*! \brief Called when the last doc is closed
+
+	/*! \brief Called when selection change
 	 */
 	void enablePluginActionsForSelection(ScribusMainWindow*);
 
@@ -76,7 +81,7 @@ public:
 	 * \param includeDisabled return true if a plugin is loaded but not enabled
 	 * \return bool
 	 */
-	bool DLLexists(QString pluginName, bool includeDisabled = false) const;
+	bool DLLexists(const QString& pluginName, bool includeDisabled = false) const;
 
 	/*! \brief Returns a pointer to the requested plugin, or 0 if not found.
 	 *
@@ -105,7 +110,7 @@ public:
 
 	/*! \brief Return the path to the file for the named plugin.
 	An invalid plugin name is an error.*/
-	const QString getPluginPath(const QString & pluginName) const;
+	QString getPluginPath(const QString & pluginName) const;
 
 	/*! \brief Whether the given plug-in will be enabled on start-up.
 	Usable as an lvalue. An invalid plugin name is an error. */
@@ -128,19 +133,14 @@ public:
 	 * \sa getPluginNamesT
 	 * \sa getPlugin
 	 */
-	QStringList pluginNames(bool includeDisabled = false,
-									 const char* inherits = 0) const;
+	QStringList pluginNames(bool includeDisabled = false, const char* inherits = nullptr) const;
 	
-	virtual void changeEvent(QEvent *e);
-
 public slots:
-
 	void languageChange();
 
 protected:
-
 	/**
-	 * \brief PluginData is structure for plugin related informations.
+	 * \brief PluginData is structure for plugin related information.
 	 * \param pluginFile path to the share library (with name).
 	 * \param pluginName internal name of plug-in, used for prefix to dlsym() names
 	 * \param pluginDLL reference to plug-in data for dynamic loading
@@ -165,6 +165,7 @@ protected:
 		ScPlugin* plugin;
 		bool enableOnStartup;
 		bool enabled;
+		QString version;
 	};
 
 	/*! \brief Init one plugin.
@@ -176,13 +177,13 @@ protected:
 	\param fileName a filename of the plugin without path
 	\retval int 0 init failed, 1 loaded.
 	 */
-	int initPlugin(const QString fileName);
+	int initPlugin(const QString& fileName);
 
 	/*! \brief Reads available info and fills PluginData structure */
-	bool loadPlugin(PluginData & pluginData);
+	bool loadPlugin(PluginData& pluginData);
 
 	/*! \brief Determines the plugin name from the file name and returns it. */
-	static QString getPluginName(QString fileName);
+	static QString getPluginName(const QString& fileName);
 
 	/*! \brief Called by loadPlugin to hook the loaded plugin into the GUI,
 	call its setup routine, etc. Not responsible for creating
@@ -194,15 +195,12 @@ protected:
 	 DOES NOT destroy the ScPlugin instance or unload the plugin. */
 	void disablePlugin(PluginData & pda);
 
-	/*! \brief Runs plugin's languageChange() method, and returns main menu item text if one exists */
-	QString callDLLForNewLanguage(const PluginData & pluginData);
-
 	/*! \brief Shuts down one plug-in. The DLL may not be unloaded, but
 	 *         it is cleaned up and its ScPlugin instance is destroyed.
 	 *         The plug-in is marked unloaded in the map.
 	 *  \param pda plugin data
 	 */
-	void finalizePlug(PluginData & pda);
+	void finalizePlug(PluginData & pluginData);
 
 	/** \brief Configuration structure */
 	PrefsContext* prefs;

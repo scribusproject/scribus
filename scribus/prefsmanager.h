@@ -44,19 +44,13 @@ class SCRIBUS_API PrefsManager : public QObject
 {
 Q_OBJECT
 public:
-	PrefsManager(QObject *parent = 0);
-	~PrefsManager();
-
+	PrefsManager(PrefsManager const&) = delete;
+	void operator=(PrefsManager const&) = delete;
 	/**
 	* @brief Returns a pointer to the PrefsManager instance
 	* @return A pointer to the PrefsManager instance
 	*/
-	static PrefsManager* instance();
-	/**
-	* @brief Deletes the PrefsManager Instance
-	* Must be called when PrefsManager is no longer needed.
-	*/
-	static void deleteInstance();
+	static PrefsManager& instance();
 
 	void setup();
 	/*!
@@ -66,24 +60,30 @@ public:
 	*/
 	void initDefaults();
 	void initDefaultGUIFont(const QFont&);
-	void initDefaultCheckerPrefs(CheckerPrefsList* cp);
+	void initDefaultCheckerPrefs(CheckerPrefsList& cp);
 	void initDefaultActionKeys();
 	void applyLoadedShortCuts();
 	void initArrowStyles();
+
+	/*!
+	\brief Insert checker profiles not available in specified list
+	*/
+	void insertMissingCheckerProfiles(CheckerPrefsList& cp);
+
 	/*!
 	\author Craig Bradney
 	\date Thu 18 Nov 2004
 	\brief Set the user's preference file location. Rename any existing old preferences files
 	\retval QString Location of the user's preferences
 	*/
-	QString setupPreferencesLocation();
+	void setupPreferencesLocation();
 	/*!
 	\author Craig Bradney
 	\date Sun 09 Jan 2005
 	\brief Copy 1.2 prefs XML before loading, and copy rc files we don't yet convert
 	\retval bool true if prefs were imported
 	*/
-	bool copyOldPreferences();
+	bool copyOldAppConfigAndData();
 	/*!
 	\author Craig Ringer
 	\date Sun 26 June 2005
@@ -99,57 +99,61 @@ public:
 
 	/*! \brief Read the preferences.
 	\param fname optional filename with preferences. If is not given,
-	the defualt is used. */
-	void ReadPrefs(const QString & fname=QString::null);
-	void ReadPrefsXML();
+	the default is used. */
+	void readPrefs();
+	void readPrefsXML();
 
 	/*! \brief Save the preferences.
 	\param fname optional filename with preferences. If is not given,
-	the defualt is used. */
-	void SavePrefs(const QString & fname=QString::null);
-	void SavePrefsXML();
+	the default is used. */
+	void savePrefs();
+	void savePrefsXML();
 
 	/*! \brief Writes the preferences physically to the file.
 	Here is the XML file created itself.
 	\param ho a file name to write
 	\retval bool true on success, false on write error */
-	bool WritePref(QString ho);
+	bool writePref(const QString& filePath);
 	/*! \brief Reads the preferences physically from the file.
 	Here is the XML file parsed itself. Returns false on error. 
 	It's the caller's job to make sure the prefs file actually exists.
 	\param ho a file name to write
 	\retval bool true on success, false on write error */
-	bool ReadPref(QString ho);
-	//! \brief Set up the main window with prefs values, recent files list, main window size etc
-	void setupMainWindow(ScribusMainWindow* mw);
+	bool readPref(const QString& filePath);
+
 	void setGhostscriptExecutable(const QString&);
 	void setImageEditorExecutable(const QString&);
 	void setExtBrowserExecutable(const QString&);
+	void setUniconvExecutable(const QString&);
 	void setLatexConfigs(const QStringList&);
-	void setLatexCommands(const QMap<QString, QString>& commands) { appPrefs.latexCommands=commands; }
+	void setLatexCommands(const QMap<QString, QString>& commands);
 	void setLatexEditorExecutable(const QString&);
-	QString ghostscriptExecutable() const {return appPrefs.gs_exe;};
-	QString imageEditorExecutable() const {return appPrefs.imageEditorExecutable;};
-	QString extBrowserExecutable() const {return appPrefs.extBrowserExecutable;};
-	QStringList latexConfigs() const {return appPrefs.latexConfigs;}
-	QMap<QString, QString> latexCommands() const {return appPrefs.latexCommands;}
-	QString latexEditorExecutable() const {return appPrefs.latexEditorExecutable;}
-	bool latexStartWithEmptyFrames() const {return appPrefs.latexStartWithEmptyFrames;}
+	QString ghostscriptExecutable() const {return appPrefs.extToolPrefs.gs_exe;};
+	QString imageEditorExecutable() const {return appPrefs.extToolPrefs.imageEditorExecutable;};
+	QString extBrowserExecutable() const {return appPrefs.extToolPrefs.extBrowserExecutable;};
+	QString uniconvExecutable() const {return appPrefs.extToolPrefs.uniconvExecutable;}
+	QStringList latexConfigs() const {return appPrefs.extToolPrefs.latexConfigs;}
+	QMap<QString, QString> latexCommands() const {return appPrefs.extToolPrefs.latexCommands;}
+	bool renderFrameConfigured();
+	QString latexEditorExecutable() const {return appPrefs.extToolPrefs.latexEditorExecutable;}
+	bool latexStartWithEmptyFrames() const {return appPrefs.extToolPrefs.latexStartWithEmptyFrames;}
 	//! \brief Get the users preferred preview resolution
-	int gsResolution();
-	int latexResolution() const {return appPrefs.latexResolution;}
-	bool latexForceDpi() const {return appPrefs.latexForceDpi;}
+	int gsResolution() const {return appPrefs.extToolPrefs.gs_Resolution;}
+	int latexResolution() const {return appPrefs.extToolPrefs.latexResolution;}
+	bool latexForceDpi() const {return appPrefs.extToolPrefs.latexForceDpi;}
 	//! \brief Get the users preferred document directory
 	const QString documentDir();
 	void setDocumentDir(const QString& dirname);
-	int mouseWheelValue() const;
+	int mouseWheelJump() const;
 	//! \brief Get the user set display scale
 	double displayScale() const;
 	//! \brief Get the GUI language from preferences
-	const QString& guiLanguage() const;
+	const QString& uiLanguage() const;
 	//! \brief Get the GUI style from preferences
 	const QString& guiStyle() const;
 	const QString& guiSystemStyle() const;
+	//! \brief Get the GUI icon set from preferences
+	const QString& guiIconSet() const;
 	//! \brief Get the GUI style from preferences
 	const int& guiFontSize() const;
 	const int& paletteFontSize() const;
@@ -161,20 +165,20 @@ public:
 	//! \brief Sets the preferences' color set name
 	void setColorSetName(const QString&);
 	//! \brief Returns the preferences' color set
-	const ColorList& colorSet();
+	const ColorList& colorSet() const;
 	//! \brief Returns a pointer to the preferences' color set. Needed for now until colors are better defined
 	ColorList* colorSetPtr();
 	//! \brief Returns the preferences' color set name
-	const QString& colorSetName();
+	const QString& colorSetName() const;
 	/*! \brief Return if a color belongs to tools prefs colors */
-	bool isToolColor(const QString& name);
-	static bool isToolColor(const struct toolPrefs& settings, const QString& name);
+	bool isToolColor(const QString& name) const;
+	static bool isToolColor(const struct ItemToolPrefs& settings, const QString& name);
 	/*! \brief Return the list of used colors in tool prefs */
-	QStringList toolColorNames();
-	static QStringList toolColorNames(const struct toolPrefs& settings);
+	QStringList toolColorNames() const;
+	static QStringList toolColorNames(const struct ItemToolPrefs& settings);
 	/*! \brief Replace used colors in tool prefs */
-	void replaceToolColors(const QMap<QString, QString> replaceMap);
-	static void replaceToolColors(struct toolPrefs& settings, const QMap<QString, QString> replaceMap);
+	void replaceToolColors(const QMap<QString, QString>& replaceMap);
+	static void replaceToolColors(struct ItemToolPrefs& settings, const QMap<QString, QString>& replaceMap);
 	/*! \brief Finds the fonts on the system
 	Must be run after: PrefsManager::setup()
 	Must be run before: PrefsManager::initDefaults()
@@ -183,6 +187,7 @@ public:
 	bool GetAllFonts(bool showFontInfo);
 
 	ApplicationPrefs* applicationPrefs();
+	void setNewPrefs(ApplicationPrefs& newPrefs);
 	PrefsFile* applicationPrefsFile();
 	bool importingFrom12x();
 
@@ -197,19 +202,19 @@ public:
 
 	//! \brief Temporarily public while this class takes shape so progress can happen and cvs can build
 	struct ApplicationPrefs appPrefs;
-	PrefsFile* prefsFile;
-private:
-	/**
-	* @brief The only instance of PrefsManager available.
-	*
-	* PrefsManager is singleton and the instance can be queried with the method
-	* instance().
-	*/
-	static PrefsManager* _instance;
+	PrefsFile* prefsFile {nullptr};
+	bool firstTimeIgnoreOldPrefs() const;
 
-	QString prefsLocation;
-	bool importingFrom12;
-	bool firstTimeIgnoreOldPrefs;
+public slots:
+	void languageChange();
+
+private:
+	PrefsManager(QObject *parent = nullptr);
+	~PrefsManager();
+
+	QString m_prefsLocation;
+	bool m_importingFrom12 {false};
+	bool m_firstTimeIgnoreOldPrefs {false};
 
 	/*! \brief The last error message generated by a method of this class.
 	Do not write "success" messages to this. */

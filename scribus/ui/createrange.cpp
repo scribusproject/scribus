@@ -17,26 +17,29 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QTabWidget>
 
-CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, Qt::WFlags fl )
-	: QDialog(parent, fl),
-	m_PageCount(pageCount),
-	m_RangeType(0),
-	m_BasicRangeType(0)
+CreateRange::CreateRange(const QString& currText, int pageCount, QWidget* parent) : QDialog(parent),
+	m_PageCount(pageCount)
 {
 	setupUi(this);
 	pageCountValueLabel->setText(QString("%1").arg(pageCount));
 	basicConsecutiveFromSpinBox->setMinimum(1);
+	basicConsecutiveFromSpinBox->setSuffix("");
 	basicConsecutiveToSpinBox->setMinimum(1);
+	basicConsecutiveToSpinBox->setSuffix("");
+	basicConsecutiveFromSpinBox->setDecimals(0);
+	basicConsecutiveToSpinBox->setDecimals(0);
 	basicConsecutiveFromSpinBox->setMaximum(pageCount);
 	basicConsecutiveToSpinBox->setMaximum(pageCount);
 	basicSelectRangeType(m_BasicRangeType);
 	advPageGroupSizeSpinBox->setMaximum(pageCount);
+	advPageGroupSizeSpinBox->setDecimals(0);
+	advPageGroupSizeSpinBox->setSuffix("");
 	if (m_PageCount==1)
-		basicEvenRadioButton->setShown(false);
+		basicEvenRadioButton->setVisible(false);
 	if (currText.length()>0)
 		basicRangeListBox->addItem(currText);
 	// signals and slots connections
-	connect(tabWidget, SIGNAL(currentChanged(QWidget*)), this, SLOT(selectRangeType(QWidget*)));
+	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(selectRangeType(int)));
 	connect(basicRangeAddButton, SIGNAL(clicked()), this, SLOT(basicAddToRange()));
 	connect(basicRangeDelButton, SIGNAL(clicked()), this, SLOT(basicDelFromRange()));
 	connect(basicConsecutiveRadioButton, SIGNAL(clicked()), this, SLOT(basicSelectRangeTypeConsec()));
@@ -45,7 +48,7 @@ CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, Qt::W
 	connect(basicOddRadioButton, SIGNAL(clicked()), this, SLOT(basicSelectRangeTypeOdd()));
 	connect(basicRangeUpButton, SIGNAL(clicked()), this, SLOT(basicMoveUp()));
 	connect(basicRangeDownButton, SIGNAL(clicked()), this, SLOT(basicMoveDown()));
-	connect(advPageGroupSizeSpinBox, SIGNAL(valueChanged(int)), this, SLOT(advSpinChange(int)));
+	connect(advPageGroupSizeSpinBox, SIGNAL(valueChanged(double)), this, SLOT(advSpinChange()));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	advPageGroupSizeSpinBox->setValue(4);
@@ -61,13 +64,13 @@ void CreateRange::getCreateRangeData(CreateRangeData& crData)
 	//First tab selected
 	if (m_RangeType==0)
 	{
-		uint c=basicRangeListBox->count();
+		int c=basicRangeListBox->count();
 		if (c==0)
 		{
 			basicAddToRange();
 			c=basicRangeListBox->count();
 		}
-		for (uint i=0;i<c;++i)
+		for (int i=0;i<c;++i)
 		{
 			if (i!=0 && i<c)
 				crData.pageRange+=",";
@@ -85,8 +88,8 @@ void CreateRange::basicAddToRange( )
 	{
 		case 0:
 			{
-				int from=basicConsecutiveFromSpinBox->value();
-				int to=basicConsecutiveToSpinBox->value();
+				int from=static_cast<int>(basicConsecutiveFromSpinBox->value());
+				int to=static_cast<int>(basicConsecutiveToSpinBox->value());
 				if (from==to)
 					newEntry=QString("%1").arg(from);
 				else
@@ -161,7 +164,7 @@ void CreateRange::basicSelectRangeType(int i)
 	basicCommaSepLineEdit->setEnabled(!basicRangeTypeIsConsecutive);
 }
 
-void CreateRange::selectRangeType(QWidget *)
+void CreateRange::selectRangeType(int)
 {
 	m_RangeType=tabWidget->currentIndex();
 }
@@ -190,7 +193,7 @@ void CreateRange::basicMoveDown()
 }
 
 
-void CreateRange::advSpinChange(int /*v*/)
+void CreateRange::advSpinChange()
 {
 	m_PageString="";
 	int mp1=m_PageCount+1;

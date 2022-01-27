@@ -28,8 +28,8 @@
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "scribusview.h"
+#include "scribusdoc.h"
 #include "util.h"
-#include "util_icon.h"
 
 CanvasMode_Panning::CanvasMode_Panning(ScribusView* view) : CanvasMode(view) 
 {
@@ -38,10 +38,10 @@ CanvasMode_Panning::CanvasMode_Panning(ScribusView* view) : CanvasMode(view)
 
 void CanvasMode_Panning::drawControls(QPainter* p)
 {
-	commonDrawControls(p);
+	commonDrawControls(p, false);
 }
 
-void CanvasMode_Panning::enterEvent(QEvent *)
+void CanvasMode_Panning::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{
@@ -52,13 +52,12 @@ void CanvasMode_Panning::enterEvent(QEvent *)
 
 void CanvasMode_Panning::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
-
 
 void CanvasMode_Panning::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -69,14 +68,24 @@ void CanvasMode_Panning::activate(bool fromGesture)
 	setModeCursor();
 	if (fromGesture)
 	{
-		m_canvas->m_viewMode.operItemResizeInEditMode = false;
 		m_view->update();
 	}
 }
 
 void CanvasMode_Panning::deactivate(bool forGesture)
 {
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
+	CanvasMode::deactivate(forGesture);
+}
+
+void CanvasMode_Panning::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_Panning::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
 }
 
 void CanvasMode_Panning::mouseDoubleClickEvent(QMouseEvent *m)

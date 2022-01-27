@@ -2,791 +2,630 @@
 ########## CMake Setup                                                                              ##########
 
 #Set our CMake minimum version
-#Require 2.4.2 for Qt finding
-#Require 2.4.3 for moc change detection and rpath updates for custom cairo install
-CMAKE_MINIMUM_REQUIRED(VERSION 2.4.5 FATAL_ERROR)
+#Require 2.8.9 for Qt5 and CMAKE_POSITION_INDEPENDENT_CODE property
+#Require 3.1.0 for Qt 5.7 C++ 11 easy support
+#Require 3.2.0 for add_custom_target with byproducts
+#Require 3.12 for new Find Python modules
+#Require 3.14 for new Fontconfig module
 
-IF(WIN32)
-  IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
-    MESSAGE(FATAL_ERROR "Windows builds require CMake 2.6")
-  ENDIF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
-ENDIF(WIN32)
+cmake_minimum_required(VERSION 3.14.0 FATAL_ERROR)
+if (WANT_QT6)
+	cmake_minimum_required(VERSION 3.16.0)
+endif()
+cmake_policy(SET CMP0048 NEW)
+message(STATUS "CMake Version: ${CMAKE_VERSION}")
+if (WANT_PCH)
+	if(${CMAKE_VERSION} VERSION_LESS "3.16.0")
+		message(STATUS "Precompiled headers requested however CMake version < 3.16.0")
+		set(WANT_PCH OFF)
+	else()
+		message(STATUS "Precompiled headers enabled")
+	endif()
+else()
+	set(WANT_PCH OFF)
+	message(STATUS "Precompiled headers disabled")
+endif()
+
+#Set our version values
+#Final version is ${VERSION} = ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_SUFFIX}
+#where VERSION_SUFFIX is of the form "", "svn" or "Nsvn" (N being the minor patch level)
+set (VERSION_MAJOR "1")
+set (VERSION_MINOR "5")
+set (VERSION_PATCH "8")
+set (VERSION_SUFFIX "")
+set (VERSION ${VERSION_MAJOR})
+if (VERSION_MINOR GREATER -1)
+	set (VERSION ${VERSION}.${VERSION_MINOR})
+endif()
+if (VERSION_PATCH GREATER -1)
+	set (VERSION ${VERSION}.${VERSION_PATCH})
+endif()
+
+#Project Setup
+#Do this now, prior to adding the suffix for SVN
+project(scribus VERSION ${VERSION}) # LANGUAGES CXX C)
+if (VERSION_SUFFIX)
+	set (VERSION ${VERSION}.${VERSION_SUFFIX})
+endif()
+message(STATUS "Scribus ${VERSION} will be built and installed into ${CMAKE_INSTALL_PREFIX}")
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+
+
+# Configure CCache if available and wanted
+if (WANT_CCACHE)
+	find_program(CCACHE_FOUND ccache)
+	if(CCACHE_FOUND)
+		message(STATUS "Enabling ccache")
+		set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+		set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+	endif()
+endif()
 
 #Pretty colors
-SET(CMAKE_COLOR_MAKEFILE ON)
-#Dont force verbose
-SET(CMAKE_VERBOSE_MAKEFILE OFF)
+set(CMAKE_COLOR_MAKEFILE ON)
+#Don't force verbose
+set(CMAKE_VERBOSE_MAKEFILE OFF)
 #Include current dir
-SET(CMAKE_INCLUDE_CURRENT_DIR TRUE)
-#RPATH setup - more below too
-IF (WANT_NORPATH OR WANT_DISTROBUILD)
-  SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
-ELSE (WANT_NORPATH OR WANT_DISTROBUILD)
-  SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-ENDIF (WANT_NORPATH OR WANT_DISTROBUILD)
-SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-SET(CMAKE_SKIP_RULE_DEPENDENCY TRUE)
-SET(CMAKE_SKIP_BUILD_RPATH TRUE)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+#Don't allow in source builds
+#set(CMAKE_DISABLE_SOURCE_CHANGES ON)
+#set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
-INCLUDE(CheckIncludeFile)
-INCLUDE(CheckCCompilerFlag)
-INCLUDE(CheckCXXCompilerFlag)
-INCLUDE(CheckTypeSize)
-INCLUDE(TestBigEndian)
+
+#RPATH setup - more below too
+if (WANT_NORPATH OR WANT_DISTROBUILD)
+	set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+else()
+	set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+endif()
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+set(CMAKE_SKIP_RULE_DEPENDENCY TRUE)
+set(CMAKE_SKIP_BUILD_RPATH TRUE)
+
+include(CheckIncludeFile)
+include(CheckCCompilerFlag)
+include(CheckCXXCompilerFlag)
+include(CheckTypeSize)
+include(TestBigEndian)
+include(GNUInstallDirs)
+#include(FeatureSummary)
+
+#enable_testing()
 
 #Set the custom CMake module directory where our include/lib finders are
-SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 ##############################################################################################################
 ########## toplevel compiler flags                                                                  ##########
+message(STATUS "Shared Library Flags: ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
 
-# CHECK_C_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" C_HAVE_PIC)
-# CHECK_CXX_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" CXX_HAVE_PIC)
-# IF (CXX_HAVE_PIC AND C_HAVE_PIC)
-#     SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
-#     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
-# ELSE (CXX_HAVE_PIC AND C_HAVE_PIC)
-#     MESSAGE(FATAL_ERROR "Shared library support is missing")
-# ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
 
-# SET(CMAKE_SHARED_MODULE_LINK_FLAGS "${CMAKE_SHARED_MODULE_LINK_FLAGS} -export-dynamic")
-# SET(CMAKE_SHARED_MODULE_LINK_CXX_FLAGS "${CMAKE_SHARED_MODULE_LINK_CXX_FLAGS} -export-dynamic")
-# SET(CMAKE_SHARED_LIBRARY_C_FLAGS "${CMAKE_SHARED_LIBRARY_C_FLAGS} -export-dynamic")
-# SET(CMAKE_SHARED_LIBRARY_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CXX_FLAGS} -export-dynamic")
-# MESSAGE(STATUS ${CMAKE_SHARED_MODULE_LINK_FLAGS})
-# MESSAGE(STATUS ${CMAKE_SHARED_MODULE_LINK_CXX_FLAGS})
-# MESSAGE(STATUS ${CMAKE_SHARED_LIBRARY_C_FLAGS})
-# MESSAGE(STATUS ${CMAKE_SHARED_LIBRARY_CXX_FLAGS})
-# MESSAGE(STATUS ${CMAKE_CXX_CREATE_SHARED_MODULE})
-# MESSAGE(STATUS ${CMAKE_CXX_CREATE_SHARED_LIBRARY})
 
-#IMPORT FROM COMMANDLINE
-# SET with cmake -DWANT_CAIRO=1, etc
-# MESSAGE(STATUS ${WANT_CAIRO})
-# MESSAGE(STATUS ${WANT_LIBART})
-# MESSAGE(STATUS ${WANT_DEBUG})
-
-# SET(WANT_CAIRO 0)
-# SET(WANT_LIBART 1)
-
-#Project Setup
-PROJECT(scribus)
-#Set our version values
-#Final version is ${VERSION} = ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}${VERSION_SUFFIX}
-#where VERSION_SUFFIX is of the form "", "cvs" or "Ncvs" (N being the minor patch level)
-SET (VERSION_MAJOR "1")
-SET (VERSION_MINOR "3")
-SET (VERSION_PATCH "5")
-SET (VERSION_SUFFIX "rc1")
-SET (VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_SUFFIX})
-MESSAGE(STATUS "Scribus ${VERSION} will be built to install into ${CMAKE_INSTALL_PREFIX}")
 
 #Set the permissions to be used when installing plugins
-SET(PLUGIN_PERMISSIONS WORLD_EXECUTE GROUP_EXECUTE OWNER_EXECUTE WORLD_READ GROUP_READ OWNER_READ OWNER_WRITE)
+set(PLUGIN_PERMISSIONS WORLD_EXECUTE GROUP_EXECUTE OWNER_EXECUTE WORLD_READ GROUP_READ OWNER_READ OWNER_WRITE)
 
 #Our main directory is scribus
-SET(MAIN_DIR_NAME "scribus")
+set(MAIN_DIR_NAME "scribus")
 
 ##############################################################################################################
 ########## check for the CPU we build for                                                           ##########
 
-EXECUTE_PROCESS(
-    COMMAND ${CMAKE_C_COMPILER} -dumpmachine
-    OUTPUT_VARIABLE MACHINE
-    OUTPUT_STRIP_TRAILING_WHITESPACE
+execute_process(
+	COMMAND ${CMAKE_C_COMPILER} -dumpmachine
+	OUTPUT_VARIABLE MACHINE
+	OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-STRING(REGEX MATCH "(i?86-*)|(athlon-*)|(pentium-*)" _machine_x86 "${MACHINE}")
-IF (_machine_x86)
-    MESSAGE(STATUS "Found target X86")
-    SET(ARCH_X86 1)
-ENDIF (_machine_x86)
+## Find out what machine/cpu we are running on
+message(STATUS  "Machine: ${MACHINE}, void pointer size: ${CMAKE_SIZEOF_VOID_P}")
+string(REGEX MATCH "(i[0-9]86-*)|(athlon-*)|(pentium-*)" _machine_x86 "${MACHINE}")
+if (_machine_x86)
+	message(STATUS "Found target X86")
+	set(ARCH_X86 ON)
+endif()
 
-STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)|(AMD64-*)|(amd64-*)" _machine_x86_64 "${MACHINE}")
-IF (_machine_x86_64)
-    MESSAGE(STATUS "Found target X86_64")
-    SET(ARCH_X86_64 1)
-ENDIF (_machine_x86_64)
+string(REGEX MATCH "(x86_64-*)|(X86_64-*)|(AMD64-*)|(amd64-*)" _machine_x86_64 "${MACHINE}")
+if (_machine_x86_64)
+	message(STATUS "Found target X86_64")
+	set(ARCH_X86_64 ON)
+endif()
 
-STRING(REGEX MATCH "(sparc64-*)|(SPARC64-*)" _machine_sparc_64 "${MACHINE}")
-IF (_machine_sparc_64)
-    MESSAGE(STATUS "Found target SPARC 64")
-    SET(ARCH_SPARC_64 1)
-ENDIF (_machine_sparc_64)
+string(REGEX MATCH "(sparc64-*)|(SPARC64-*)" _machine_sparc_64 "${MACHINE}")
+if (_machine_sparc_64)
+	message(STATUS "Found target SPARC 64")
+	set(ARCH_SPARC_64 ON)
+endif()
 
-STRING(REGEX MATCH "(mips64-*)|(MIPS64-*)" _machine_mips_64 "${MACHINE}")
-IF (_machine_mips_64)
-    MESSAGE(STATUS "Found target MIPS 64")
-    SET(ARCH_MIPS_64 1)
-ENDIF (_machine_mips_64)
+string(REGEX MATCH "(mips64-*)|(MIPS64-*)" _machine_mips_64 "${MACHINE}")
+if (_machine_mips_64)
+	message(STATUS "Found target MIPS 64")
+	set(ARCH_MIPS_64 ON)
+endif()
 
-STRING(REGEX MATCH "(ppc-*)|(powerpc-*)" _machine_ppc "${MACHINE}")
-IF (_machine_ppc)
-    MESSAGE(STATUS "Found target PPC")
-    SET(ARCH_PPC 1)
-ENDIF (_machine_ppc)
+string(REGEX MATCH "(ppc-*)|(powerpc-*)" _machine_ppc "${MACHINE}")
+if (_machine_ppc)
+	message(STATUS "Found target PPC")
+	set(ARCH_PPC ON)
+endif()
 
-STRING(REGEX MATCH "(ppc64-*)|(PPC64-*)|(powerpc64-*)" _machine_ppc_64 "${MACHINE}")
-IF (_machine_ppc_64)
-    MESSAGE(STATUS "Found target PPC64")
-    SET(ARCH_PPC_64 1)
-ENDIF (_machine_ppc_64)
+string(REGEX MATCH "(ppc64-*)|(PPC64-*)|(powerpc64-*)" _machine_ppc_64 "${MACHINE}")
+if (_machine_ppc_64)
+	message(STATUS "Found target PPC64")
+	set(ARCH_PPC_64 ON)
+endif()
 
-STRING(REGEX MATCH "(sparc-*)" _machine_sparc "${MACHINE}")
-IF (_machine_sparc)
-    MESSAGE(STATUS "Found target Sparc")
-    SET(ARCH_SPARC 1)
-ENDIF (_machine_sparc)
+string(REGEX MATCH "(sparc-*)" _machine_sparc "${MACHINE}")
+if (_machine_sparc)
+	message(STATUS "Found target Sparc")
+	set(ARCH_SPARC ON)
+endif()
 
-STRING(REGEX MATCH "(sparcv9-*)" _machine_sparcv9 "${MACHINE}")
-IF (_machine_sparcv9)
-    MESSAGE(STATUS "Found target Sparc v9")
-    SET(ARCH_SPARCV9 1)
-ENDIF (_machine_sparcv9)
+string(REGEX MATCH "(sparcv9-*)" _machine_sparcv9 "${MACHINE}")
+if (_machine_sparcv9)
+	message(STATUS "Found target Sparc v9")
+	set(ARCH_SPARCV9 ON)
+endif()
 
-STRING(REGEX MATCH "(sparc64-*)" _machine_sparc64 "${MACHINE}")
-IF (_machine_sparc64)
-    MESSAGE(STATUS "Found target Sparc64")
-    SET(ARCH_SPARC64 1)
-    SET(ARCH64BIT 1)
-ENDIF (_machine_sparc64)
+string(REGEX MATCH "(sparc64-*)" _machine_sparc64 "${MACHINE}")
+if (_machine_sparc64)
+	message(STATUS "Found target Sparc64")
+	set(ARCH_SPARC64 ON)
+	set(ARCH64BIT ON)
+endif()
+
+string(REGEX MATCH "(hppa+)" _machine_hppa "${MACHINE}")
+if (_machine_hppa)
+	message(STATUS "Found target Hppa")
+	set(ARCH_HPPA ON)
+endif()
+
+string(REGEX MATCH "(arm+)" _machine_arm "${MACHINE}")
+if (_machine_arm)
+	message(STATUS "Found target arm")
+	set(ARCH_ARM ON)
+endif()
+
+string(REGEX MATCH "(arm64+)" _machine_arm "${MACHINE}")
+if (_machine_arm)
+	message(STATUS "Found target arm64")
+	set(ARCH_ARM_64 ON)
+endif()
+
+# We need to pass -fPIC to lib2geom on amd64, mips, mipsel, and hppa. See:
+# http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3 and
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=559133
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+## Do our Apple OSX version setup
+if (APPLE)
+	if ((CMAKE_SIZEOF_VOID_P EQUAL 8) AND (ARCH_ARM))
+		string(REGEX REPLACE ".*-darwin([0-9]+).*" "\\1" _apple_ver "${MACHINE}")
+		if (_apple_ver EQUAL "21")
+			message(STATUS "Found macOS Monterey Target: Apple, 64 bit, ARM")
+			set(APPLE_12_00_X ON CACHE BOOL "Found macOS Monterey Target: Apple, 64 bit, ARM")
+		endif()
+		if (_apple_ver EQUAL "20")
+			message(STATUS "Found macOS Big Sur Target: Apple, 64 bit, ARM")
+			set(APPLE_11_00_X ON CACHE BOOL "Found macOS Big Sur Target: Apple, 64 bit, ARM")
+		endif()
+	endif()
+	if ((CMAKE_SIZEOF_VOID_P EQUAL 8) AND (ARCH_X86 OR ARCH_X86_64))
+		string(REGEX REPLACE ".*-darwin([0-9]+).*" "\\1" _apple_ver "${MACHINE}")
+		if (_apple_ver EQUAL "21")
+			message(STATUS "Found macOS Monterey Target: Apple, 64 bit, X86")
+			set(APPLE_12_00_X ON CACHE BOOL "Found macOS Monterey Target: Apple, 64 bit, X86")
+		endif()
+		if (_apple_ver EQUAL "20")
+			message(STATUS "Found macOS Big Sur Target: Apple, 64 bit, X86")
+			set(APPLE_11_00_X ON CACHE BOOL "Found macOS Big Sur Target: Apple, 64 bit, X86")
+		endif()
+		if (_apple_ver EQUAL "19")
+			message(STATUS "Found macOS Catalina Target: Apple, 64 bit, X86")
+			set(APPLE_10_15_X ON CACHE BOOL "Found macOS Catalina Target: Apple, 64 bit, X86")
+		endif()
+		if (_apple_ver EQUAL "18")
+			message(STATUS "Found macOS Mojave Target: Apple, 64 bit, X86")
+			set(APPLE_10_14_X ON CACHE BOOL "Found macOS Mojave Target: Apple, 64 bit, X86")
+		endif()
+		if (_apple_ver EQUAL "17")
+			message(STATUS "Found macOS High Sierra Target: Apple, 64 bit, X86")
+			set(APPLE_10_13_X ON CACHE BOOL "Found macOS High Sierra Target: Apple, 64 bit, X86")
+		endif()
+		if (_apple_ver EQUAL "16")
+			message(STATUS "Found macOS Sierra Target: Apple, 64 bit, X86")
+			set(APPLE_10_12_X ON CACHE BOOL "Found macOS Sierra Target: Apple, 64 bit, X86")
+		endif()
+		if (_apple_ver EQUAL "15")
+			message(STATUS "Found OSX El Capitan Target: Apple, 64 bit, X86")
+			set(APPLE_10_11_X ON CACHE BOOL "Found OSX El Capitan Target: Apple, 64 bit, X86")
+		endif()
+		if (_apple_ver EQUAL "14")
+			message(STATUS "Found OSX Yosemite Target: Apple, 64 bit, X86")
+			set(APPLE_10_10_X ON CACHE BOOL "Found OSX Yosemite Target: Apple, 64 bit, X86")
+		endif()
+		if (_apple_ver EQUAL "13")
+			message(STATUS "Found OSX Mavericks Target: Apple, 64 bit, X86")
+			set(APPLE_10_9_X ON CACHE BOOL "Found OSX Mavericks Target: Apple, 64 bit, X86")
+		endif()
+		if (_apple_ver EQUAL "12")
+			message(STATUS "Found OSX Mountain Lion Target: Apple, 64 bit, X86")
+			set(APPLE_10_8_X ON CACHE BOOL "Found OSX Mountain Lion Target: Apple, 64 bit, X86")
+		endif()
+		if (_apple_ver EQUAL "11")
+			message(STATUS "Found OSX Lion Target: Apple, 64 bit, X86")
+			set(APPLE_10_7_X ON CACHE BOOL "Found OSX Lion Target: Apple, 64 bit, X86")
+		endif()
+		if (_apple_ver EQUAL "10")
+			message(STATUS "Found OSX Snow Leopard Target: Apple, 64 bit, X86")
+			set(APPLE_10_6_X ON CACHE BOOL "Found OSX Snow Leopard Target: Apple, 64 bit, X86")
+		endif()
+		if (_apple_ver EQUAL "9")
+			message(STATUS "Found OSX Leopard Target: Apple, 32 bit, X86")
+			set(APPLE_10_5_X ON CACHE BOOL "Found OSX Leopard Target: Apple, 32 bit, X86")
+		endif()
+		unset(ARCH_X86)
+	endif()
+endif()
+
 
 #convert any 64 bit build into generic 64 tag for below
-IF (ARCH_X86_64 OR ARCH_SPARC_64 OR ARCH_MIPS_64 OR ARCH_PPC_64) 
-  SET(ARCH64BIT 1)
-ENDIF (ARCH_X86_64 OR ARCH_SPARC_64 OR ARCH_MIPS_64 OR ARCH_PPC_64) 
+if (ARCH_X86_64 OR ARCH_SPARC_64 OR ARCH_MIPS_64 OR ARCH_PPC_64 OR ARCH_ARM_64)
+	set(ARCH64BIT ON)
+endif()
 
-MESSAGE(STATUS "Building for target ${MACHINE}")
+message(STATUS "Building for target ${MACHINE}")
+
+##############################################################################################################
+########## Relocatability                                                                           ##########
+
+if (APPLEBUNDLE OR WIN32)
+	if (WANT_RELOCATABLE)
+		message(STATUS "Ignoring relocatable option on Win32 or OSX when building bundle")
+		set(WANT_RELOCATABLE OFF)
+	endif()
+endif()
+
+if (WANT_RELOCATABLE)
+	message(STATUS "Enabling relocatable binaries")
+	set(WANT_RELOCATABLE ON CACHE BOOL "Enable relocatable binaries")
+	add_definitions(-DWANT_RELOCATABLE)
+endif()
 
 ##############################################################################################################
 ########## Versioning Setup                                                                         ##########
 
 #On Apple, we ignore the versioning tag so all items are "scribus" not "scribus-version"
-IF (NOT BUILD_OSX_BUNDLE)
-  SET(BUILD_OSX_BUNDLE ${APPLE} CACHE TYPE BOOL)
-ENDIF (NOT BUILD_OSX_BUNDLE)
+if (NOT BUILD_OSX_BUNDLE)
+	set(BUILD_OSX_BUNDLE ${APPLE} CACHE BOOL "Building MacOS X Bundle")
+endif()
 
 #Simplify future conditionals for Apple
-IF (APPLE AND BUILD_OSX_BUNDLE)
-  SET(APPLEBUNDLE TRUE CACHE TYPE BOOL)
-ENDIF (APPLE AND BUILD_OSX_BUNDLE)
+if (APPLE AND BUILD_OSX_BUNDLE)
+	set(APPLEBUNDLE ON CACHE BOOL "Building Apple Bundle")
+endif()
 
 #Announce we cached a version request before, overridden below for OSX
-IF(TAG_VERSION)
-  IF (NOT APPLEBUNDLE)
-    MESSAGE(STATUS "Previously selected version tag: ${TAG_VERSION}")
-  ENDIF (NOT APPLEBUNDLE)
-  SET(WANT_VERSIONING 1)
-  SET(CACHED_VERSIONING 1)
-ENDIF(TAG_VERSION)
+if(TAG_VERSION)
+	if (NOT APPLEBUNDLE)
+		message(STATUS "Previously selected version tag: ${TAG_VERSION}")
+	endif()
+	set(WANT_VERSIONING ON)
+	set(CACHED_VERSIONING ON)
+endif()
 
 #Remove version tags on OSX so our bundle is Scribus.app
-IF (APPLEBUNDLE)
-  IF (WANT_VERSIONING OR CACHED_VERSIONING)
-    MESSAGE(STATUS "Ignoring version tag on OSX when building bundle")
-    SET(WANT_VERSIONING 0)
-    SET(CACHED_VERSIONING 0)
-  ENDIF (WANT_VERSIONING OR CACHED_VERSIONING)
-ENDIF (APPLEBUNDLE)
+if (APPLEBUNDLE OR WIN32)
+	if (WANT_VERSIONING OR CACHED_VERSIONING)
+		message(STATUS "Ignoring version tag on Win32 or OSX when building bundle")
+		set(WANT_VERSIONING OFF)
+		set(CACHED_VERSIONING OFF)
+	endif()
+endif()
 
-#Store our version string if require
-IF (WANT_VERSIONING AND NOT CACHED_VERSIONING)
-  IF (NOT CUSTOM_VERSIONTAG)
-    SET(TAG_VERSION "-${VERSION}" CACHE TYPE STRING)
-  ELSE (NOT CUSTOM_VERSIONTAG)
-    SET(TAG_VERSION ${CUSTOM_VERSIONTAG} CACHE TYPE STRING)
-  ENDIF (NOT CUSTOM_VERSIONTAG)
-ENDIF (WANT_VERSIONING AND NOT CACHED_VERSIONING)
+#Store our version string if required
+if (WANT_VERSIONING AND NOT CACHED_VERSIONING)
+	if (NOT CUSTOM_VERSIONTAG)
+		set(TAG_VERSION "-${VERSION}" CACHE STRING "Version string")
+	else()
+		set(TAG_VERSION ${CUSTOM_VERSIONTAG} CACHE STRING "Version string")
+	endif()
+endif()
 
 ##############################################################################################################
 ########## Install/Directory Setup                                                                  ##########
-
-IF (APPLEBUNDLE)
-  IF ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/Contents/?$")
-    # all ok
-  ELSE ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/Contents/?$")
-    IF ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/?$")
-      # add "/Contents" subpath
-      SET(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/Contents")
-    ELSE ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/?$")
-      # no bundle name spcified, use appname and version
-      SET(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/Scribus${VERSION}.app/Contents")
-    ENDIF ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/?$")
-  ENDIF ("${CMAKE_INSTALL_PREFIX}" MATCHES "[.]app/Contents/?$")
-
-  MESSAGE(STATUS "APPLEBUNDLE install prefix: ${CMAKE_INSTALL_PREFIX}")
-ENDIF (APPLEBUNDLE)
-
-
-#Setp all the directories we will use
-#MAN
-CMAKE_POLICY(SET CMP0005 OLD)
-SET(MANDIR "share/man/")
-SET(SHAREDIR "share/${MAIN_DIR_NAME}${TAG_VERSION}/")
-ADD_DEFINITIONS("-DSHAREDIR=\\\"${CMAKE_INSTALL_PREFIX}/${SHAREDIR}\\\"")
-
-#SHARE - use the default on Apple as TAG_VERSION is empty
-IF(TAG_VERSION OR BUILD_OSX_BUNDLE)
-  SET(DOCDIR "share/doc/${MAIN_DIR_NAME}${TAG_VERSION}/")
-ELSE(TAG_VERSION OR BUILD_OSX_BUNDLE)
-  SET(DOCDIR "share/doc/${MAIN_DIR_NAME}-${VERSION}/")
-ENDIF (TAG_VERSION OR BUILD_OSX_BUNDLE)
-ADD_DEFINITIONS("-DDOCDIR=\\\"${CMAKE_INSTALL_PREFIX}/${DOCDIR}\\\"")
-
-#ICON
-IF(WIN32)
-  SET(ICONDIR "share/icons/")
-ELSE(WIN32)
-  SET(ICONDIR "share/${MAIN_DIR_NAME}${TAG_VERSION}/icons/")
-ENDIF(WIN32)
-ADD_DEFINITIONS("-DICONDIR=\\\"${CMAKE_INSTALL_PREFIX}/${ICONDIR}\\\"")
-
-#SAMPLES
-SET(SAMPLESDIR "share/${MAIN_DIR_NAME}${TAG_VERSION}/samples/")
-ADD_DEFINITIONS("-DSAMPLESDIR=\\\"${CMAKE_INSTALL_PREFIX}/${SAMPLESDIR}\\\"")
-
-#SCRIPTS
-SET(SCRIPTSDIR "share/${MAIN_DIR_NAME}${TAG_VERSION}/scripts/")
-ADD_DEFINITIONS("-DSCRIPTSDIR=\\\"${CMAKE_INSTALL_PREFIX}/${SCRIPTSDIR}\\\"")
-
-#TEMPLATES
-IF(WIN32)
-  SET(TEMPLATEDIR "share/templates/")
-ELSE(WIN32)
-  SET(TEMPLATEDIR "share/${MAIN_DIR_NAME}${TAG_VERSION}/templates/")
-ENDIF(WIN32)
-ADD_DEFINITIONS("-DTEMPLATEDIR=\\\"${CMAKE_INSTALL_PREFIX}/${TEMPLATEDIR}\\\"")
-
-#DESKTOP
-SET(DESKTOPDIR "share/applications/")
-ADD_DEFINITIONS("-DDESKTOPDIR=\\\"${CMAKE_INSTALL_PREFIX}/${DESKTOPDIR}\\\"")
-
-# APPLICATION_DATA_DIR
-# It allows specify the user configuration directory in the compile time.
-# Example: I want to use special ~/.scribus135svn config directory for my trunk
-#          cmake -DAPPLICATION_DATA_DIR=.scribus135svn ...
-IF (APPLICATION_DATA_DIR)
-	MESSAGE(STATUS "Using ApplicationDataDir ${APPLICATION_DATA_DIR} instead of the platform default.")
-    ADD_DEFINITIONS("-DAPPLICATION_DATA_DIR=\\\"${APPLICATION_DATA_DIR}\\\"")
-ELSE (APPLICATION_DATA_DIR)
-    MESSAGE(STATUS "Using standard ApplicationDataDir. You can change it with -DAPPLICATION_DATA_DIR")
-ENDIF (APPLICATION_DATA_DIR)
-
-#LIB LOCATION - lib or lib64 normally
-#LIB
-IF(WANT_LIB64)
-  IF(NOT ARCH_X86_64)
-    MESSAGE(STATUS "WARNING: BUILDING 64 Bit build on non 64 bit architecture")
-  ENDIF(NOT ARCH_X86_64)
-  SET(LIB_SUFFIX "64" CACHE TYPE STRING)
-ENDIF(WANT_LIB64)
-SET(LIB_DIR_NAME "lib${LIB_SUFFIX}")
-SET(LIBDIR "${LIB_DIR_NAME}/${MAIN_DIR_NAME}${TAG_VERSION}/")
-ADD_DEFINITIONS("-DLIBDIR=\\\"${CMAKE_INSTALL_PREFIX}/${LIBDIR}\\\"")
-
-#PLUGINS
-IF(WIN32)
-  SET(PLUGINDIR "plugins")
-ELSE(WIN32)
-  SET(PLUGINDIR "${LIB_DIR_NAME}/${MAIN_DIR_NAME}${TAG_VERSION}/plugins/")
-ENDIF(WIN32)
-ADD_DEFINITIONS("-DPLUGINDIR=\\\"${CMAKE_INSTALL_PREFIX}/${PLUGINDIR}\\\"")
-
-#INCLUDE
-SET(INCLUDEDIR "include/${MAIN_DIR_NAME}${TAG_VERSION}/")
-#NO ADD DEFINITIONS, WE ONLY INSTALL WITH IT
-
-#RPATH
-IF (WANT_NORPATH OR WANT_DISTROBUILD)
-  set(CMAKE_INSTALL_RPATH "")
-ELSE (WANT_NORPATH OR WANT_DISTROBUILD)
-  set(CMAKE_INSTALL_RPATH ${PLUGINDIR})
-ENDIF (WANT_NORPATH OR WANT_DISTROBUILD)
-
-# Set the XDG mime stuff
-SET(MIMEDIR "share/mime/packages/")
-SET(MIMELNKDIR "share/mimelnk/application/")
+include (CMakeLists_Directories.cmake)
 
 ##############################################################################################################
 ########## Build Setup                                                                              ##########
 
 #Convert our simpler command line option to the CMake style
 #None, Debug, Release, .. or custom ones
-# SET(WANT_DEBUG 1)
-IF(WANT_DEBUG)
-  SET(CMAKE_BUILD_TYPE Debug)
-ENDIF(WANT_DEBUG)
-IF (WANT_RELEASEWITHDEBUG)
-  SET(CMAKE_BUILD_TYPE RelWithDebInfo)
-ENDIF (WANT_RELEASEWITHDEBUG)
-IF(NOT WANT_DEBUG AND NOT WANT_RELEASEWITHDEBUG)
-  SET(CMAKE_BUILD_TYPE RELEASE)
-ENDIF(NOT WANT_DEBUG AND NOT WANT_RELEASEWITHDEBUG)
+if(WANT_DEBUG)
+	set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Set Debug Build Type" FORCE)
+endif()
+if (WANT_RELEASEWITHDEBUG)
+	set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Set Release with Debug Info Build Type" FORCE)
+endif()
+if(NOT WANT_DEBUG AND NOT WANT_RELEASEWITHDEBUG)
+	set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Set Release Build Type" FORCE)
+endif()
 
-
+set(CMAKE_ENABLE_EXPORTS ON)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
 
 #Based on our build type, setup our build options
-IF(APPLE)
-  # gcc/mac
-  IF(WANT_UNIVERSAL_BUNDLE)
-    MESSAGE("Setting Universal (PPC/i386) Architecture for OSX Build/Bundle")
-    SET(CMAKE_OSX_ARCHITECTURES "ppc;i386" )
-    SET(CMAKE_TRY_COMPILE_OSX_ARCHITECTURES "ppc;i386" )
-    SET(CMAKE_OSX_SYSROOT "/Developer/SDKs/MacOSX10.4u.sdk")
-  ELSE(WANT_UNIVERSAL_BUNDLE)
-    IF(ARCH_PPC OR ARCH_PPC_64)
-      MESSAGE("Setting PPC Architecture for OSX Build/Bundle")
-      SET(CMAKE_OSX_ARCHITECTURES "ppc" )
-      SET(CMAKE_TRY_COMPILE_OSX_ARCHITECTURES "ppc" )
-    ELSE(ARCH_PPC OR ARCH_PPC_64)
-      MESSAGE("Setting i386 Architecture for OSX Build/Bundle")
-      SET(CMAKE_OSX_ARCHITECTURES "i386" )
-      SET(CMAKE_TRY_COMPILE_OSX_ARCHITECTURES "i386" )   
-    ENDIF(ARCH_PPC OR ARCH_PPC_64)
-  ENDIF(WANT_UNIVERSAL_BUNDLE)
-  MESSAGE(STATUS "${CMAKE_OSX_ARCHITECTURES} ${CMAKE_OSX_SYSROOT}")
-  SET( ENV{MACOSX_DEPLOYMENT_TARGET} 10.4 ) 
-  SET( ENV{LD_PREBIND} 1 )
-  SET( ENV{LD_PREBIND_ALLOW_OVERLAP} 1 )
-  IF (WANT_DEBUG)
-	SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -fno-inline-functions -Wall -mmacosx-version-min=10.4")
-	SET(CMAKE_C_FLAGS_DEBUG "-O0 -g3 -fno-inline-functions -Wall -mmacosx-version-min=10.4")
-  ENDIF (WANT_DEBUG)
-  IF (WANT_RELEASEWITHDEBUG)
-	SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g3 -fno-inline-functions -Wall -mmacosx-version-min=10.4")
-	SET(CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g3 -fno-inline-functions -Wall -mmacosx-version-min=10.4")
-  ENDIF (WANT_RELEASEWITHDEBUG)
-  IF (NOT WANT_DEBUG AND NOT WANT_RELEASEWITHDEBUG)
-	SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -fno-inline-functions -Wall -mmacosx-version-min=10.4")
-	SET(CMAKE_C_FLAGS_RELEASE "-O2 -fno-inline-functions -Wall -mmacosx-version-min=10.4")
-  ENDIF (NOT WANT_DEBUG AND NOT WANT_RELEASEWITHDEBUG)
-ELSE(APPLE)
-  IF(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
-    # Windows build with Visual Studio
-    # Surely there's a better way to identify the compiler?
-    SET(CMAKE_CXX_FLAGS_DEBUG)
-    SET(CMAKE_C_FLAGS_DEBUG)
-  ELSE(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
-    # vanilla gcc
-    SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -fstrict-aliasing")
-    SET(CMAKE_C_FLAGS_DEBUG "-O0 -g3 -Wall -fstrict-aliasing")
-    
-    IF (_machine_x86 OR _machine_x86_64)
-      SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fPIC")
-      SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fPIC")
-    ENDIF (_machine_x86 OR _machine_x86_64)
-    
-  ENDIF(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
-ENDIF(APPLE)
+if(APPLE)
+	### Include our Apple configure commands
+	include(CMakeLists_Apple.cmake)
+else()
+	if(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
+		# Windows build with Visual Studio
+		# Surely there's a better way to identify the compiler?
+		set(CMAKE_CXX_FLAGS_DEBUG)
+		set(CMAKE_C_FLAGS_DEBUG)
+	else()
+		# vanilla gcc
+		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -Wall -fstrict-aliasing")
+		set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0 -g -Wall -fstrict-aliasing")
+	endif()
+	if(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
+		set(CMAKE_CXX_FLAGS_RELEASE)
+		set(CMAKE_C_FLAGS_RELEASE)
+	else()
+		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -Wall")
+		set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O2 -Wall")
+	#	add_definitions(-DNDEBUG)
+	endif()
+endif()
+if(WIN32)
+	add_definitions(-DWIN32_LEAN_AND_MEAN
+					-DAVOID_WIN32_FILEIO
+					-D_CRT_SECURE_NO_DEPRECATE
+					-D_USE_MATH_DEFINES
+					-DCOMPILE_PLUGIN_AS_DLL
+					)
+	set(BUILD_WINDOWS_VERSION ON)
+	set(DLL_USE_NATIVE_API ON)
+endif()
 
-IF(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
-  SET(CMAKE_CXX_FLAGS_RELEASE)
-  SET(CMAKE_C_FLAGS_RELEASE)
-ELSE(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
-  SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall -fPIC")
-  SET(CMAKE_C_FLAGS_RELEASE "-O2 -Wall -fPIC")
-  ADD_DEFINITIONS(-DNDEBUG)
-ENDIF(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
-
-IF(WIN32)
-  ADD_DEFINITIONS(-DWIN32_LEAN_AND_MEAN
-                  -DAVOID_WIN32_FILEIO
-                  -D_CRT_SECURE_NO_DEPRECATE
-                  -DCOMPILE_PLUGIN_AS_DLL
-  )
-  SET(BUILD_WINDOWS_VERSION 1)
-  SET(SC_USE_GDI 1)
-  IF(NOT SC_SHOULD_NOT_USE_GDIPLUS)
-    SET(SC_USE_GDIPLUS 1)
-  ENDIF(NOT SC_SHOULD_NOT_USE_GDIPLUS)
-  SET(DLL_USE_NATIVE_API 1)
-ENDIF(WIN32)
+#C++11 Support
+#as of 1.5.5.svn, require C++11
+if (WANT_QT6)
+	set (WANT_CPP17 ON)
+endif()
+if(NOT WANT_CPP14 AND NOT WANT_CPP17)
+	message(STATUS "Enabling C++11 compiler features")
+	set(CMAKE_CXX_STANDARD 11)
+endif()
+if (WANT_CPP14)
+	message(STATUS "Enabling C++14 compiler features")
+	set(CMAKE_CXX_STANDARD 14)
+elseif(WANT_CPP17)
+		message(STATUS "Enabling C++17 compiler features")
+		set(CMAKE_CXX_STANDARD 17)
+endif()
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_EXTENSIONS OFF)
 
 ##############################################################################################################
 ########## Find Dependencies                                                                        ##########
+### Include our Dependency finding commands
+include(CMakeLists_Dependencies.cmake)
 
-#<< Qt
-SET (QT_MT_REQUIRED TRUE)
-SET (QT_MIN_VERSION "4.4.0")
-IF (WANT_QT4MAC_COCOA)
-  SET (QT_MAC_USE_COCOA TRUE)
-ENDIF (WANT_QT4MAC_COCOA)
-IF (WANT_QT3SUPPORT)
-  SET (QT_USE_QT3SUPPORT TRUE)
-ELSE (WANT_QT3SUPPORT)
-  SET (QT_USE_QT3SUPPORT FALSE)
-ENDIF (WANT_QT3SUPPORT)
-SET (QT_USE_QTXML TRUE )
-IF (APPLE)
-  SET( QT_USE_QTSQL TRUE )
-ENDIF (APPLE)
-SET( QT_USE_QTNETWORK TRUE )
-FIND_PACKAGE(Qt4 REQUIRED)
-INCLUDE( ${QT_USE_FILE} )
-IF (QT_FOUND)
-  MESSAGE("Qt4 Found OK")
-  IF (QT_VERSION_MAJOR EQUAL 4 AND QT_VERSION_MINOR EQUAL 4 AND QT_VERSION_PATCH EQUAL 0)
-  MESSAGE(STATUS "Warning: Qt 4.4.0 has some bugs relating to decimal notation and line drawing. Please refer to Scribus bug 6999 and 7187 for information and to check if this may affect your use. Please use 4.4.1+ on release for your platform/distribution.")
-  ENDIF (QT_VERSION_MAJOR EQUAL 4 AND QT_VERSION_MINOR EQUAL 4 AND QT_VERSION_PATCH EQUAL 0)
-  IF (QT_VERSION_MAJOR EQUAL 4 AND QT_VERSION_MINOR EQUAL 3)
-    MESSAGE(STATUS "Warning: Some versions of Qt 4.3.x have a bug influencing layout in the Scribus Properties Palette (refer to Scribus bug 7107). Please upgrade to Qt 4.4.1+ on release (4.4.0 has a decimal notation bug)")
-  ENDIF (QT_VERSION_MAJOR EQUAL 4 AND QT_VERSION_MINOR EQUAL 3)
-  IF (WANT_QT3SUPPORT)
-    MESSAGE(STATUS "Building with Qt3 Support")
-  ELSE (WANT_QT3SUPPORT)
-    MESSAGE(STATUS "Building without Qt3 Support (GOOD)")
-  ENDIF (WANT_QT3SUPPORT)
-  #Add our Qt definitions
-  ADD_DEFINITIONS(
-    ${QT_DEFINITIONS}
-    -DQT_CORE_LIB
-    -DQT_GUI_LIB
-    -DQT_THREAD_LIB
-    -DQT_XML_LIB
-  )
-ELSE(QT_FOUND)
-  MESSAGE(FATAL_ERROR "No Qt4 found")
-ENDIF(QT_FOUND)
-#>> Qt
-
-#<< ZLIB, PNG
-IF (WIN32)
-  # On win32 we can use Qt's zlib and libpng, so we use some
-  # custom cmake includes. This permits us to honour the 
-  # USE_QT_ZLIB_PNGLIB flag if passed.
-  SET(PNG_DIR ${CMAKE_MODULE_PATH})
-  SET(ZLIB_DIR ${CMAKE_MODULE_PATH})
-ENDIF (WIN32)
-FIND_PACKAGE(ZLIB REQUIRED)
-IF (ZLIB_FOUND)
-  MESSAGE("ZLIB Library Found OK")
-  SET(HAVE_LIBZ 1)
-ENDIF(ZLIB_FOUND)
-FIND_PACKAGE(PNG REQUIRED)
-IF (PNG_FOUND)
-  MESSAGE("PNG Library Found OK")
-ENDIF(PNG_FOUND)
-#>> ZLIB, PNG
-
-#<< JPEG, TIFF, PYTHON
-FIND_PACKAGE(JPEG REQUIRED)
-IF (JPEG_FOUND)
-  MESSAGE("JPEG Library Found OK")
-ENDIF(JPEG_FOUND)
-FIND_PACKAGE(TIFF REQUIRED)
-IF (TIFF_FOUND)
-  MESSAGE("TIFF Library Found OK")
-  SET(HAVE_TIFF 1)
-ELSE(TIFF_FOUND)
-  MESSAGE(FATAL_ERROR "Could not find the TIFF Library")
-ENDIF(TIFF_FOUND)
-FIND_PACKAGE(PythonLibs REQUIRED)
-IF (PYTHON_LIBRARY)
-  MESSAGE("Python Library Found OK")
-  SET(HAVE_PYTHON 1)
-  SET(COMPILE_PYTHON 1)
-ENDIF(PYTHON_LIBRARY)
-#>> JPEG, TIFF, PYTHON
-
-#<< FreeType2
-IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
-  SET(FREETYPE_DIR ${CMAKE_MODULE_PATH})
-  FIND_PACKAGE(FREETYPE REQUIRED)
-  IF (FREETYPE_FOUND)
-    MESSAGE("FreeType2 Library Found OK")
-    INCLUDE(CheckLibraryExists)
-    CHECK_LIBRARY_EXISTS(${FREETYPE_LIBRARY} FT_Get_First_Char "" HAVE_FREETYPE_FIRST)
-    CHECK_LIBRARY_EXISTS(${FREETYPE_LIBRARY} FT_Get_Next_Char "" HAVE_FREETYPE_NEXT)
-  ENDIF(FREETYPE_FOUND)
-  SET(CFLAGS "${CFLAGS}"."${LIBFREETYPE_CFLAGS}")
-ELSE(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
-  FIND_PACKAGE(Freetype REQUIRED)
-  IF (FREETYPE_FOUND)
-    MESSAGE(STATUS "FreeType2 Library Found OK")
-    INCLUDE(CheckLibraryExists)
-    CHECK_LIBRARY_EXISTS(${FREETYPE_LIBRARY} FT_Get_First_Char "" HAVE_FREETYPE_FIRST)
-    CHECK_LIBRARY_EXISTS(${FREETYPE_LIBRARY} FT_Get_Next_Char "" HAVE_FREETYPE_NEXT)
-    # here we have an alternative
-    # a) Setup CFLAGS with the FREETYPE_INCLUDE_DIR_freetype2 provided by cmake
-    # b) Insert ${FREETYPE_INCLUDE_DIRS} in include sections of CMakeLists that need it
-    # I prefer (b) and at some point & from my opinion it should  be just needed in scribus/fonts/CmakeLists.txt - pm
-  ELSE (FREETYPE_FOUND)
-    MESSAGE(FATAL_ERROR "No Freetype Found")
-  ENDIF(FREETYPE_FOUND)
-ENDIF(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.6)
-#>> FreeType2
-
-#<<Render Library
-# Select our rendering library
-# As of Scribus 1.3.5, we can use cairo or Qt4's Arthur
-# If we have a RENDER_LIB selected from a previous cmake run, then use it
-# otherwise, we should be defaulting to Libart_LGPL for 1.3.4.x
-IF(RENDER_LIB)
-  MESSAGE(STATUS "Previously selected rendering system: ${RENDER_LIB}")
-ELSE(RENDER_LIB)
-  IF (NOT WANT_QTARTHUR)
-    SET(WANT_CAIRO 1)
-  ENDIF (NOT WANT_QTARTHUR)
-ENDIF(RENDER_LIB)
-
-IF (WANT_CAIRO OR RENDER_LIB STREQUAL "CAIRO")
-  SET(CAIRO_DIR ${CMAKE_MODULE_PATH})
-  FIND_PACKAGE(CAIRO)
-  IF(CAIRO_FOUND)
-    MESSAGE("CAIRO Library Found OK")
-    SET(RENDER_LIB "CAIRO" CACHE TYPE STRING)
-  ELSE(CAIRO_FOUND)
-    SET(OLDRENDERLIBLOST TRUE)
-  ENDIF(CAIRO_FOUND)
-ENDIF (WANT_CAIRO OR RENDER_LIB STREQUAL "CAIRO")
-
-#Cairo is required on Windows for printing system
-IF (WIN32)
-  IF (NOT CAIRO_FOUND)
-    MESSAGE(FATAL_ERROR "Cairo >= 1.5.16 is required for Windows build")  
-  ENDIF (NOT CAIRO_FOUND)
-ENDIF (WIN32)
-
-IF (OLDRENDERLIBLOST OR WANT_QTARTHUR OR RENDER_LIB STREQUAL "QTARTHUR" OR NOT RENDER_LIB)
-  SET(RENDER_LIB "QTARTHUR" CACHE TYPE STRING)
-  MESSAGE("Qt4's Arthur selected for renderer")
-  IF (OLDRENDERLIBLOST)
-    MESSAGE("CAIRO could no longer be found, replaced by Qt4's Arthur")
-  ENDIF (OLDRENDERLIBLOST)
-ENDIF (OLDRENDERLIBLOST OR WANT_QTARTHUR OR RENDER_LIB STREQUAL "QTARTHUR" OR NOT RENDER_LIB)
-#>>Render Library
-
-#<<CUPS
-IF(NOT WIN32)
-  IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
-    SET(Cups_DIR ${CMAKE_MODULE_PATH})
-  ENDIF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
-  FIND_PACKAGE(Cups REQUIRED)
-  IF(CUPS_FOUND)
-    SET(HAVE_CUPS 1)
-    MESSAGE("CUPS Library Found OK")
-  ENDIF(CUPS_FOUND)
-ELSE(NOT WIN32)
-  # Windows doesn't use CUPS
-  SET(CUPS_INCLUDE_DIR)
-ENDIF(NOT WIN32)
-#>>CUPS
-
-#<<LibXML2
-IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
-  SET(LibXml2_DIR ${CMAKE_MODULE_PATH})
-ENDIF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
-FIND_PACKAGE(LibXml2 REQUIRED)
-IF(LIBXML2_FOUND)
-  SET(HAVE_XML 1)
-  MESSAGE("LIBXML2 Library Found OK")
-ENDIF(LIBXML2_FOUND)
-#>>LibXML2
-
-#<<LittleCMS
-SET(LCMS_DIR ${CMAKE_MODULE_PATH})
-FIND_PACKAGE(LCMS REQUIRED)
-IF(LCMS_FOUND)
-  SET(HAVE_CMS 1)
-  SET(CMS_INC "lcms.h")
-  MESSAGE("LittleCMS Library Found OK")
-ELSE(LCMS_FOUND)
-  MESSAGE(FATAL_ERROR "Could not find the LittleCMS Library")
-ENDIF(LCMS_FOUND)
-#>>LittleCMS
-
-#<<FontConfig
-IF(NOT WIN32)
-  SET(FONTCONFIG_DIR ${CMAKE_MODULE_PATH})
-  FIND_PACKAGE(FONTCONFIG)
-  IF(FONTCONFIG_FOUND)
-	MESSAGE("FontConfig Found OK")
-	SET(HAVE_FONTCONFIG 1)
-  ENDIF(FONTCONFIG_FOUND)
-ELSE(NOT WIN32)
-  # Windows builds neither use nor require fontconfig
-  SET(FONTCONFIG_INCLUDE_DIR)
-ENDIF(NOT WIN32)
-#>>FontConfig
-
-#<<ASPELL for Speelling support
-FIND_PACKAGE(ASPELL)
-IF (ASPELL_FOUND)
-  MESSAGE("ASpell Found OK")
-  SET(HAVE_ASPELL 1)
-ELSE(ASPELL_FOUND)
-  MESSAGE("ASpell or its developer libraries NOT found - Disabling support for spell checking")
-ENDIF(ASPELL_FOUND)
-#>>ASPELL for Speelling support
-
-
-#<<PoDoFo for AI PDF import
-FIND_PACKAGE(LIBPODOFO)
-IF(LIBPODOFO_FOUND)
-  MESSAGE("PoDoFo found OK")
-  SET(HAVE_PODOFO 1)
-ELSE(LIBPODOFO_FOUND)
-  MESSAGE("PoDoFo NOT found - Disabling support for PDF embedded in AI")
-ENDIF(LIBPODOFO_FOUND)
-#>>PoDoFo for AI PDF import
 
 ##############################################################################################################
 ########## Include Setup                                                                            ##########
 
 TEST_BIG_ENDIAN(WORDS_BIGENDIAN)
-  
+
 CHECK_INCLUDE_FILE("dlfcn.h" HAVE_DLFCN_H)
-IF(HAVE_DLFCN_H)
-  ADD_DEFINITIONS(-DHAVE_DLFCN_H)
-ENDIF(HAVE_DLFCN_H)
+if(HAVE_DLFCN_H)
+	add_definitions(-DHAVE_DLFCN_H)
+endif()
 
 CHECK_INCLUDE_FILE("unistd.h" HAVE_UNISTD_H)
-IF(HAVE_UNISTD_H)
-  ADD_DEFINITIONS(-DHAVE_UNISTD_H)
-ENDIF(HAVE_UNISTD_H)
+if(HAVE_UNISTD_H)
+	add_definitions(-DHAVE_UNISTD_H)
+endif()
 
 CHECK_INCLUDE_FILE("sys/types.h" HAVE_SYS_TYPES_H)
-# IF(HAVE_SYS_TYPES_H)
-#   ADD_DEFINITIONS(-DHAVE_SYS_TYPES_H)
-# ENDIF(HAVE_SYS_TYPES_H)
+# if(HAVE_SYS_TYPES_H)
+#   add_definitions(-DHAVE_SYS_TYPES_H)
+# endif()
 
 CHECK_INCLUDE_FILE("sys/stat.h" HAVE_SYS_STAT_H)
-# IF(HAVE_SYS_STAT_H)
-#   ADD_DEFINITIONS(-DHAVE_SYS_STAT_H)
-# ENDIF(HAVE_SYS_STAT_H)
+# if(HAVE_SYS_STAT_H)
+#   add_definitions(-DHAVE_SYS_STAT_H)
+# endif()
 #>>Test for existing include files
 
 
 #Create configure files.. config.h and uninstall
 #config.h
-INCLUDE (ConfigureChecks.cmake)
-  IF(WIN32)
-    SET(CONFIG_NAME win-config.h)
-  ELSE(WIN32)
-    SET(CONFIG_NAME config.h)
-  ENDIF(WIN32)
-CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_NAME})
-ADD_DEFINITIONS("-DHAVE_CONFIG_H")
+include (ConfigureChecks.cmake)
+	if(WIN32)
+		set(CONFIG_NAME win-config.h)
+	else()
+		set(CONFIG_NAME config.h)
+	endif()
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/${CONFIG_NAME})
+add_definitions(-DHAVE_CONFIG_H)
 
 
 
 #Set up include dirs with all found packages
-INCLUDE_DIRECTORIES(
-  ${CMAKE_BINARY_DIR}
-  ${CMAKE_BINARY_DIR}/scribus
-  ${QT_INCLUDES}
-  ${CUPS_INCLUDE_DIR}
-  ${FREETYPE_INCLUDE_DIR}
-  ${FONTCONFIG_INCLUDE_DIR}
-  ${JPEG_INCLUDE_DIR}
-  ${LCMS_INCLUDE_DIR}
-  ${LIBXML2_INCLUDE_DIR}
-  ${PYTHON_INCLUDE_PATH}
-  ${TIFF_INCLUDE_DIR}
-  ${ZLIB_INCLUDE_DIR}
+include_directories(
+	${CMAKE_BINARY_DIR}
+	${CMAKE_BINARY_DIR}/scribus
+	${QT_INCLUDES}
+	${FREETYPE_INCLUDE_DIR}
+#	${FONTCONFIG_INCLUDE_DIR}
+	${JPEG_INCLUDE_DIR}
+	${LCMS2_INCLUDE_DIR}
+	${LIBXML2_INCLUDE_DIR}
+	${PNG_INCLUDE_DIR}
+	${TIFF_INCLUDE_DIR}
+	${ZLIB_INCLUDE_DIR}
+	${OPENGL_INCLUDE_DIR}
+	${OSG_INCLUDE_DIR}
+	${GSL_INCLUDE_DIR}
 )
+
+if (NOT WIN32 AND NOT HAIKU)
+include_directories(
+	${CUPS_INCLUDE_DIR}
+)
+endif()
 
 ##############################################################################################################
 ########## Uninstall Setup                                                                          ##########
 
-CONFIGURE_FILE(
-  "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-  IMMEDIATE @ONLY
+configure_file(
+	"${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+	"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+	IMMEDIATE @ONLY
 )
 
-ADD_CUSTOM_TARGET(uninstall
-  "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
-  
-  
+add_custom_target(uninstall
+	"${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+)
+
+
 ##############################################################################################################
 ########## Add our subdirs                                                                          ##########
 
 #Add our source subdirs
-ADD_SUBDIRECTORY(scribus)
-ADD_SUBDIRECTORY(translations/qm)
+add_subdirectory(scribus)
+add_subdirectory(doc)
+add_subdirectory(resources/dicts)
+add_subdirectory(resources/editorconfig)
+add_subdirectory(resources/iconsets)
+add_subdirectory(resources/keysets)
+add_subdirectory(resources/loremipsum)
+add_subdirectory(resources/manpages)
+add_subdirectory(resources/profiles)
+add_subdirectory(resources/swatches)
+add_subdirectory(resources/templates)
+add_subdirectory(resources/translations)
+add_subdirectory(resources/unicodemap)
 
 #Install our READMEs etc.
-INSTALL(FILES
-  AUTHORS
-  BUILDING
-  ChangeLog
-  ChangeLogSVN
-  COPYING
-  LINKS
-  NEWS
-  PACKAGING
-  README
-  README.MacOSX
-  TODO
-  TRANSLATION
-  DESTINATION ${DOCDIR}
+install(FILES
+	AUTHORS
+	ChangeLog
+	COPYING
+	LINKS
+	README
+	TRANSLATION
+	DESTINATION ${DOCDIR}
+)
+
+if (APPLE)
+	install(FILES
+		README.MacOSX
+		DESTINATION ${DOCDIR}
+	)
+
+	#	execute_process (COMMAND mkdir -p "${CMAKE_INSTALL_PREFIX}/PlugIns/imageformats")
+	#	if (NOT EXISTS "${CMAKE_INSTALL_PREFIX}/PlugIns/imageformats/libqjpeg.dylib")
+	#message(STATUS ${QT_PREFIX})
+	#message(STATUS "@QT_PREFIX@/plugins/imageformats/libqjpeg.dylib")
+	#message(STATUS "${CMAKE_INSTALL_PREFIX}/PlugIns/imageformats/libqjpeg.dylib")
+	#		execute_process (COMMAND ditto "@QT_PREFIX@/plugins/imageformats/libqjpeg.dylib" "${CMAKE_INSTALL_PREFIX}/PlugIns/imageformats/libqjpeg.dylib")
+	#	endif()
+
+endif()
+
+#Install the .desktop file
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/scribus.desktop.in
+	${CMAKE_CURRENT_SOURCE_DIR}/scribus.desktop
+)
+install(FILES
+	scribus.desktop
+	RENAME scribus${TAG_VERSION}.desktop
+	DESTINATION ${DESKTOPDIR}
 )
 
 #Install our MIME data
-INSTALL(FILES
-  scribus.xml
-  DESTINATION ${MIMEDIR}
-)
-#KDE workaround until it starts supporting freedesktop spec
-INSTALL(FILES
-  vnd.scribus.desktop
-  DESTINATION ${MIMELNKDIR}
+install(FILES
+	scribus.xml
+	RENAME scribus${TAG_VERSION}.xml
+	DESTINATION ${MIMEDIR}
 )
 
-## PL We may not need this anymore
-#Install the desktop file
-## INSTALL(FILES
- # scribus.desktop
- # #DESTINATION ${DESKTOPDIR}
-#)
+
+#Install the appdata file
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/scribus.appdata.xml.in
+	${CMAKE_CURRENT_SOURCE_DIR}/scribus.appdata.xml
+)
+install(FILES
+	scribus.appdata.xml
+	RENAME scribus${TAG_VERSION}.appdata.xml
+	DESTINATION ${APPDATADIR}
+)
+
 
 #If building an Apple bundle, install these specific files
-IF(APPLEBUNDLE)
-  INSTALL(FILES
-    Scribus.app/Contents/Info.plist
-    DESTINATION ${CMAKE_INSTALL_PREFIX}
-  )
-  INSTALL(FILES
-    Scribus.app/Contents/Resources/Scribus.icns
-    Scribus.app/Contents/Resources/Scribus-doc.icns
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/Resources
-  )
-ENDIF(APPLEBUNDLE)
+if(APPLEBUNDLE)
+	install(FILES
+		Scribus.app/Contents/Info.plist
+		DESTINATION ${CMAKE_INSTALL_PREFIX}
+	)
+	install(FILES
+		Scribus.app/Contents/Resources/Scribus.icns
+		Scribus.app/Contents/Resources/Scribus-doc.icns
+		DESTINATION ${CMAKE_INSTALL_PREFIX}/Resources
+	)
+endif()
 
 ##############################################################################################################
 ########## Install/CPack Setup                                                                      ##########
 
 # If the cmake version includes cpack, use it for tarball building
-IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
-  SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Scribus is an open source publishing application for Linux, Mac OSX and Windows")
-  SET(CPACK_PACKAGE_VENDOR "Scribus Team")
-  SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")
-  SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/README")
-  SET(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
-  SET(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
-  SET(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
-  SET(CPACK_PACKAGE_INSTALL_DIRECTORY "Scribus ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
-  SET(CPACK_PACKAGE_EXECUTABLES "scribus${TAG_VERSION}")
-  SET(CPACK_SOURCE_PACKAGE_FILE_NAME "scribus-${VERSION}${VERSION_SUFFIX}")
-  SET(CPACK_SOURCE_GENERATOR TBZ2)
-  SET(CPACK_SYSTEM_NAME "")
-  SET(CPACK_TOPLEVEL_TAG "")
-  SET(CPACK_SOURCE_IGNORE_FILES
-    CMakeCache.txt
-    scribus-1.3.5.rc1.tar.bz2
-    scribus-1.3.5.rc1.tar.Z
-    scribus-1.3.5.rc1.svn.tar.gz
-    "~$"
-    "\\\\.cvsignore$"
-    "\\\\.o$"
-    "\\\\.svn-base$"
-    "\\\\.svn$"
-    "^${PROJECT_SOURCE_DIR}.*/CVS/"
-    "^${PROJECT_SOURCE_DIR}/debian/"
-    "^${PROJECT_SOURCE_DIR}/old/"
-    "^${PROJECT_SOURCE_DIR}.*/CVSROOT/"
-    "^${PROJECT_SOURCE_DIR}/admin/"
-  )
-  INCLUDE(CPack)
-ENDIF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
+if(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
+	set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Scribus is an open source publishing application for Linux, Mac OSX and Windows")
+	set(CPACK_PACKAGE_VENDOR "Scribus Team")
+	set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")
+	set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/README")
+	set(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
+	set(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
+	set(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
+	set(CPACK_PACKAGE_INSTALL_DIRECTORY "Scribus ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+	set(CPACK_PACKAGE_EXECUTABLES "scribus${TAG_VERSION}")
+	set(CPACK_SOURCE_PACKAGE_FILE_NAME "scribus-${VERSION}${VERSION_SUFFIX}")
+	set(CPACK_SOURCE_GENERATOR TBZ2)
+	set(CPACK_SYSTEM_NAME "")
+	set(CPACK_TOPLEVEL_TAG "")
+	set(CPACK_SOURCE_IGNORE_FILES
+		CMakeCache.txt
+		scribus-1.5.8.tar.bz2
+		scribus-1.5.8.tar.7z
+		scribus-1.5.8.tar.gz
+		scribus-1.5.8.svn.tar.bz2
+		scribus-1.5.8.svn.tar.7z
+		scribus-1.5.8.svn.tar.gz
+		"~$"
+		"\\\\.cvsignore$"
+		"\\\\.o$"
+		"\\\\.svn-base$"
+		"\\\\.svn$"
+		"^${PROJECT_SOURCE_DIR}.*/CVS/"
+		"^${PROJECT_SOURCE_DIR}/debian/"
+		"^${PROJECT_SOURCE_DIR}/old/"
+		"^${PROJECT_SOURCE_DIR}.*/CVSROOT/"
+		"^${PROJECT_SOURCE_DIR}/admin/"
+	)
+	include(CPack)
+endif()
+
+#include (cmakeconfigreport optional)
+
+# Output everything we've found
+#feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES)

@@ -1,0 +1,72 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <title>Kompilieren und installieren mit CMake unter Mac OS X</title>
+</head>
+
+<body>
+  <h2>Kompilieren und installieren mit CMake unter Mac OS X</h2>
+
+  <p>Dieses Dokument beschreibt den Kompilierungsproze&szlig; f&uuml;r Scribus 1.4 oder h&ouml;her unter Mac&nbsp;OS&nbsp;X. Zur Zeit fehlt in dieser Beschreibung noch die Anleitung zum Erstellen von Installationspaketen.</p>
+
+  <h3>Schritt-f&uuml;r-Schritt-Anleitung</h3>
+
+
+  <ul>
+    <li>Installieren Sie X11 (auf der OS-X-DVD enthalten oder von der Apple-Site herunterladbar).</li>
+
+    <li>Installieren Sie <a href="http://developer.apple.com/tools/xcode/">XCode</a> (auf der OS-X-DVD enthalten oder von der Apple-Site herunterladbar).</li>
+
+    <li>Installieren Sie MacPorts (herunterladbar bei <a href="http://www.macports.org">MacPorts</a>)</li>
+
+    <li>Installieren Sie Qt 4.6.0+ f&uuml;r OS X (herunterladbar bei <a href="http://www.trolltech.com">Nokia</a>)</li>
+  </ul>
+
+  <p>Installieren Sie einige Ports von MacPorts. Alle weiteren Abh&auml;ngigkeiten werden automatisch aufgel&ouml;st. Wenn Sie bereits MacPorts f&uuml;r andere Programme installiert haben, sollten Sie zuvor <code>sudo port selfupdate</code> und <code>sudo port upgrade installed</code> ausf&uuml;hren, um sicherzustellen, da&szlig; die aktuellen Versionen Ihrer Ports und Bibliotheken installiert sind.</p>
+
+  <ul>
+    <li>Installieren Sie CMake (<code>sudo port install cmake</code>). </li>
+
+    <li>Installieren Sie freetype2 (<code>sudo port install freetype</code>). Die Version , die mit OS&nbsp;X ausgeliefert wird, ist nicht so gut wie die von MacPorts.</li>
+
+    <li>Installieren Sie lcms (<code>sudo port install lcms</code>). Dadurch werden auch libjpeg, zlib und libtiff installiert.</li>
+
+    <li>Installieren Sie Cairo (<code>sudo port install cairo</code>). Dadurch wird auch fontconfig installiert.</li>
+
+    <li>Installieren Sie libxml2 (<code>sudo port install libxml2</code>).</li>
+
+    <li>Installieren Sie Subversion (<code>sudo port install subversion</code>) ODER installieren Sie subversion aus einer Quelle.</li>
+
+    <li>Optional (aber empfohlen): <code>sudo port install ghostscript</code>.</li>
+
+    <li>Erzeugen Sie ein Verzeichnis, in das Sie den Scribus-Quellcode herunterladen m&ouml;chten, z.B. in einem Terminal: <code>mkdir -p ~/scribus/14</code></li>
+
+    <li>Wechseln Sie in dieses Verzeichnis (<code>cd ~/scribus/14</code>).</li>
+  </ul>
+
+  <p>Laden Sie den aktuellen Quellcode aus SVN herunter:</p>
+
+  <code>svn co svn://scribus.info/Scribus/branches/Version140</code>
+
+    <p>Erzeugen Sie ein Kompilierungsverzeichnis:</p> 
+
+<p><code>mkdir builddir</code></p>
+
+    <p>Wechseln Sie in dieses Verzeichnis:</p> 
+
+<p><code>cd builddir</code></p>
+
+    <p>Rufen Sie CMake auf:</p>
+<p><code>cmake -DBUILD_OSX_BUNDLE=1 -DWANT_CAIRO=1 -DCMAKE_INSTALL_PREFIX:PATH=/Users/username/Applications/Scribus.App/Contents/ ../trunk/Scribus/</code></p>
+
+<p>Starten Sie den Compiler:</p>
+    <p><code>make</code></p>
+<p>Wenn die Kompilierung beendet ist (was unter Mac OS X sehr lange dauern kann):</p>
+    <p><code>make install</code></p>
+<br>
+
+  <p>Wenn alles gutgegangen ist, k&ouml;nnen Sie Scribus 1.4.x jetzt unter Mac&nbsp;OS&nbsp;X verwenden.</p>
+<br>
+</body>
+</html>

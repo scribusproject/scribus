@@ -1,0 +1,46 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Short Words</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Short Words</h2>
+
+<h3>What the Short Words Plug-in does:</h3>
+<p>&ldquo;Short Words&rdquo; is a plug-in for adding non-breaking spaces before or after certain abbreviations, e.g. between &ldquo;25&rdquo; and &ldquo;km&rdquo; or between &ldquo;Dr.&rdquo; and &ldquo;Pittman&rdquo;, to avoid a line break between both parts.</p>
+<p>The Scribus Team cannot address all of the different national or language-specific standards that should be applied to avoid a line break, but one of the Scribus Team members, Petr Van&#283;k, decided to provide Scribus users with a plug-in, that can be easily customized to meet their specific needs.</p>
+
+<h3>Applying the &ldquo;Short Words&rdquo; mechanism</h3>
+<p>The &ldquo;Short Words&rdquo; plug-in is available via <i>Extras > Short Words</i> from the Menu Bar.</p>
+<table width="100%"><tr><td align="center"><img src="images/swdialog.png" alt="Short Words Dialog"  title="Short Words Dialog" /></td></tr></table>
+<p>The &ldquo;Short Words&rdquo; dialog consists of two parts. The options in the upper section (&ldquo;Apply unbreakable space to:&rdquo;) allow for choosing between different ranges of adding non-breaking spaces:</p>
+<ul>
+<li><b>Selected frames</b> adds non-breaking spaces to all selected text frames.</li>
+<li><b>Active page</b> adds non-breaking spaces to all frames on the current page.</li>
+<li><b>All items</b> adds non-breaking spaces to the whole document.</li>
+</ul>
+<p>The lower part (&ldquo;Language Settings&rdquo;) looks more simple, but is conceptually a bit more complicated. The default setting &ndash; &rdquo;Use Language from Style Definition&rdquo; &ndash; means that Scribus will <b>either</b> use the system&rsquo;s language settings, <b>or</b> the <a href="settings1.html#1">Scribus language settings</a>, <b>or</b> the language settings in a particular <a href="WwStyles.html">style</a>, and the latter will always override the former. If you uncheck the default, you can let Scribus apply the rules for another language, but, as is also true for system, Scribus and style settings, Scribus needs correct information about the language you want to use. If there&rsquo;s no configuration for a particular language available, you need to create it yourself.</p>
+<h4>Configuring the Short Words Plug-in</h4>
+<p>The &ldquo;Short Words&rdquo; plug-in uses a system-wide configuration file called <code>scribus-short-words.rc</code>, which is usually located in the <code>$prefix/lib/scribus/plugins</code> directory (the actual directory depends on your operating system and/or where you or your distribution installed Scribus). This configuration file is almost self-explanatory: Basically, it contains a list of abbreviations for a given language, preceded or followed by a space and separated by commas. The position of the space, before or after an abbreviation, tells the plug-in where the non-breaking space will be added. Every line with configuration settings has to start with the language it is meant for, e.g. <code>en</code> for English or <code>cs</code> for Czech:
+</p>
+<pre>
+#  English starts here
+en=Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
+en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
+
+#  Czech starts here
+## hanging conjunctions
+cs=K ,k ,S ,s ,V ,v ,Z ,z ,O ,o ,U ,u ,I ,i ,A ,
+## physics and math
+cs= kg, g, m, cm, mm, l, hl, s, %,
+</pre>
+<p>If you want to use customized &ldquo;Short Words&rdquo;, e.g. for a new language, you can create your own configuration with the appropriate data and add the content via copy and paste to the file <code>scribus-short-words.rc</code> in the <code>.scribus</code> folder in your home/user directory. You can also use the <a href="settings1.html#18">Scribus Preferences</a> to enter your configuration data directly.</p>
+
+<h3>Important</h3>
+<p>The Scribus Team is eager to extend the global configuration file to meet as many needs as there are users who want the typographical rules of their particular language to be available in Scribus. In case you have created a reliable configuration file for your language, we&rsquo;d be happy to distribute it with Scribus, so that your work can be shared with and improved by others.</p>
+</body>
+</html>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<FilesToInstall_plugins_pathfinder Include="$(MSBuildThisFileDirectory)\*.png" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_plugins_pathfinder;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_plugins_pathfinder">
+		<Copy  
+			SourceFiles="@(FilesToInstall_plugins_pathfinder)"  
+			DestinationFiles="@(FilesToInstall_plugins_pathfinder-&gt;'$(OutDir)\share\icons\1_5_0\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="@(FilesToInstall_plugins_pathfinder)"  
+			DestinationFiles="@(FilesToInstall_plugins_pathfinder-&gt;'$(OutDir)\share\icons\1_5_1\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>

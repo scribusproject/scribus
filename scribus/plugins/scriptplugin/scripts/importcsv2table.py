@@ -55,7 +55,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 Author: Sebastian Stetter
 
@@ -72,9 +72,9 @@ try:
     # Do so _after_ the 'import scribus' and only import the names you need, such
     # as commonly used constants.
     import scribus
-except ImportError,err:
-    print "This Python script is written for the Scribus scripting interface."
-    print "It can only be run from within Scribus."
+except ImportError as err:
+    print ("This Python script is written for the Scribus scripting interface.")
+    print ("It can only be run from within Scribus.")
     sys.exit(1)
 
 #########################
@@ -82,7 +82,7 @@ except ImportError,err:
 #########################
 import csv
 
-#get information about the area where the bale should be drawed
+#get information about the area where the bale should be drawn
 def getPosition():
     if scribus.selectionCount() == 1:
         areaname = scribus.getSelectedObject()
@@ -102,7 +102,7 @@ def getCSVdata():
     csvfile = scribus.fileDialog("csv2table :: open file", "*.csv")
     if csvfile != "":
         try:
-            reader = csv.reader(file(csvfile))
+            reader = csv.reader(open(csvfile, "r"))
             datalist=[]
             for row in reader:
                 rowlist=[]
@@ -110,7 +110,7 @@ def getCSVdata():
                     rowlist.append(col)
                 datalist.append(rowlist)
             return datalist
-        except Exception,  e:
+        except Exception as e:
             scribus.messageBox("csv2table", "Could not open file %s"%e)
     else:
         sys.exit
@@ -136,23 +136,32 @@ def main(argv):
     #########################
     #  YOUR CODE GOES HERE  #
     #########################
-    userdim=scribus.getUnit() #get unit and change it to mm
+    if not scribus.haveDoc() > 0: #do we have a doc?
+        scribus.messageBox("importcvs2table", "No opened document.\nPlease open one first.")
+        sys.exit()
+    userdim = scribus.getUnit() #get unit and change it to mm
     scribus.setUnit(scribus.UNIT_MILLIMETERS)
     cellwidthleft = 0
     cellwidthright = 0
     cellHeight = 0
     pos = getPosition()
     while cellwidthleft <= 0:
-      cellwidthL = scribus.valueDialog('Left Cell Width','How wide (mm) do you wish left cells to be?','30.0')
-      cellwidthleft = float(cellwidthL)
+        cellwidthL = scribus.valueDialog('Left Cell Width','How wide (mm) do you wish left cells to be?','30.0')
+        if (not cellwidthL) :
+            sys.exit()
+        cellwidthleft = float(cellwidthL)
     while cellwidthright <= 0:
-      cellwidthR = scribus.valueDialog('Right Cell Width','How wide (mm) do you wish right cells to be?','30.0')
-      cellwidthright = float(cellwidthR)
+        cellwidthR = scribus.valueDialog('Right Cell Width','How wide (mm) do you wish right cells to be?','30.0')
+        if (not cellwidthR) :
+            sys.exit()
+        cellwidthright = float(cellwidthR)
     while cellHeight <= 0:
-      cellheight = scribus.valueDialog('Cell Height','How tall (mm) do you wish cells to be?','10.0')
-      cellHeight = float(cellheight)
+        cellheight = scribus.valueDialog('Cell Height','How tall (mm) do you wish cells to be?','10.0')
+        if (not cellheight) :
+            sys.exit()
+        cellHeight = float(cellheight)
     data = getCSVdata()
-    di= getDataInformation(data)
+    di = getDataInformation(data)
     hposition=pos[1]
     vposition=pos[0]
     
@@ -196,7 +205,7 @@ def main_wrapper(argv):
         # Exit neatly even if the script terminated with an exception,
         # so we leave the progress bar and status bar blank and make sure
         # drawing is enabled.
-        if scribus.haveDoc():
+        if scribus.haveDoc() > 0:
             scribus.setRedraw(True)
         scribus.statusMessage("")
         scribus.progressReset()

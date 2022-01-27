@@ -20,9 +20,9 @@
 #include "desaxe/simple_actions.h"
 #include "desaxe/saxiohelper.h"
 
-const QString Style::INHERIT_PARENT = "\n";
+const QString BaseStyle::INHERIT_PARENT = "\n";
 
-void Style::setContext(const StyleContext* context)
+void BaseStyle::setContext(const StyleContext* context)
 { 
 	if (m_context != context) {
 		m_context = context;
@@ -32,14 +32,14 @@ void Style::setContext(const StyleContext* context)
 	//qDebug() << QString("setContext of %2 context %1").arg(reinterpret_cast<uint>(m_context),16).arg(reinterpret_cast<uint>(this),16);
 }
 
-void Style::setDefaultStyle(bool ids)
+void BaseStyle::setDefaultStyle(bool ids)
 { 
 	if (ids && hasParent())
 		setParent(QString(""));
 	m_isDefaultStyle = ids; 
 }
 
-void Style::setParent(const QString& p) 
+void BaseStyle::setParent(const QString& p)
 { 
 	if (m_isDefaultStyle && !p.isEmpty())
 	{
@@ -51,7 +51,7 @@ void Style::setParent(const QString& p)
 	m_parent = p.isEmpty()? "" : p;
 }
 
-void Style::update(const StyleContext* b)
+void BaseStyle::update(const StyleContext* b)
 {
 	if (b)
 		m_context = b;
@@ -59,26 +59,60 @@ void Style::update(const StyleContext* b)
 		m_contextversion = m_context->version(); 
 }
 
-void Style::validate() const
-{ 
-	if (m_context && m_contextversion != m_context->version()) {
-		const_cast<Style*>(this)->update(m_context); 
-		assert( m_context->checkConsistency() );
+QString BaseStyle::baseName() const
+{
+	if (m_name.isEmpty())
+		return QString();
+
+	static QRegExp rx("^(.*)\\s+\\((\\d+)\\)$");
+	if (rx.indexIn(m_name) != -1)
+	{
+		QStringList matches = rx.capturedTexts();
+		if (matches.count() >= 3)
+			return matches[1];
 	}
+	return m_name;
 }
 
-
-const Style* Style::parentStyle() const 
+const BaseStyle* BaseStyle::parentStyle() const
 { 
 	//qDebug() << QString("follow %1").arg(reinterpret_cast<uint>(m_context),16);
 	if (m_isDefaultStyle)
-		return NULL;
-	const Style * par = m_context ? m_context->resolve(m_parent) : NULL;
-	if (par == this) return NULL; else return par;
+		return nullptr;
+	const BaseStyle * par = m_context ? m_context->resolve(m_parent) : nullptr;
+	if (par == this)
+		return nullptr;
+	return par;
 }
 
+bool BaseStyle::canInherit(const QString& parentName) const
+{
+	if (m_name.isEmpty() || parentName.isEmpty())
+		return true;
+	if (!m_context || (m_name == parentName))
+		return false;
 
-void Style::saxxAttributes(Xml_attr& attr) const
+	const BaseStyle* parentStyle = m_context->resolve(parentName);
+	if (!parentStyle)
+		return false;
+
+	bool  parentLoop = false;
+
+	const BaseStyle* pStyle = parentStyle;
+	while (pStyle)
+	{
+		if (pStyle->hasParent() && (pStyle->parent() == m_name))
+		{
+			parentLoop = true;
+			break;
+		}
+		pStyle = pStyle->hasParent() ? pStyle->parentStyle() : nullptr;
+	}
+
+	return (!parentLoop);
+}
+
+void BaseStyle::saxxAttributes(Xml_attr& attr) const
 {
 	if (!name().isEmpty())
 		attr["name"] = name();

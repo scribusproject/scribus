@@ -6,14 +6,14 @@ ABOUT THIS SCRIPT:
 Import Colors from a CSV file to Scribus
 
 csv2color.py allows a user to import colors from a given csv file into a scribus document. 
-The file must be a text file with comma seperated values in the following format:
+The file must be a text file with comma separated values in the following format:
 
 "colorname", c,m,y,k 
 
 There must be a document opend in scribus where the colors can be defined in. 
-If the csv contanins one or more color names that already exist in the document, the colors will be imported with a `*` as prefix.
+If the csv contains one or more color names that already exist in the document, the colors will be imported with a `*` as prefix.
 
-This script is especially helpfull if you want to use CMYK color representations of color systems like HKS, Pantone or RAL in Scribus. Lots of such CMYK translation tables can be found on the Web. 
+This script is especially helpful if you want to use CMYK color representations of color systems like HKS, Pantone or RAL in Scribus. Lots of such CMYK translation tables can be found on the Web. 
 One can easily copy such a table into a text file, save it in the obove described format and import it into a scribus document.
 
 Use color2csv to export the colors from a scribus document into a csv file.
@@ -34,7 +34,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 Author: Sebastian Stetter
 
@@ -51,9 +51,9 @@ try:
     # Do so _after_ the 'import scribus' and only import the names you need, such
     # as commonly used constants.
     import scribus
-except ImportError,err:
-    print "This Python script is written for the Scribus scripting interface."
-    print "It can only be run from within Scribus."
+except ImportError as err:
+    print ("This Python script is written for the Scribus scripting interface.")
+    print ("It can only be run from within Scribus.")
     sys.exit(1)
 
 #########################
@@ -79,7 +79,7 @@ def checkValue(c, m, y, k):
 
 def getColorsFromCsv(filename):
     """get colors from csv file and return a list with name and cmyk 255 values"""
-    csvreader=csv.reader(file(filename))
+    csvreader=csv.reader(open(filename, "r"))
 
     csvcolors=[]
     i=0
@@ -129,16 +129,16 @@ def importColors(colorlist):
             m=color[2]
             y=color[3]
             k=color[4]
-            while colordict.has_key(name):# check if color already exists - then add PREFIX to name
+            while name in colordict:# check if color already exists - then add PREFIX to name
                 name = PREFIX+name
             
-            scribus.defineColor(name, c, m, y, k)
+            scribus.defineColorCMYK(name, c, m, y, k)
             i=i+1
             scribus.progressSet(i)
 
 def main(argv):
     """Main method for importing colors."""
-    if not scribus.haveDoc(): #do we have a doc?
+    if not scribus.haveDoc() > 0: #do we have a doc?
         scribus.messageBox("csv2color", "No document to import colors \n Please open one, first.")
         sys.exit()
     else:

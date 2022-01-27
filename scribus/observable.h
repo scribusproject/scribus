@@ -28,42 +28,42 @@
 //#include "observable_private.h"
 struct SCRIBUS_API Private_Signal : public QObject 
 {
-	Q_OBJECT;
+	Q_OBJECT
 	
 public:
 	void emitSignal(QObject* what)
-{
-		emit changedObject(what);
-}
+	{
+			emit changedObject(what);
+	}
 
-void emitSignal(QVariant what)
-{
-	emit changedData(what);
-}
+	void emitSignal(QVariant what)
+	{
+		emit changedData(what);
+	}
 
-bool connectSignal(QObject*, QObject* o, const char* slot)
-{
-	return QObject::connect(this, SIGNAL(changedObject(QObject*)), o, slot);
-}
+	bool connectSignal(QObject*, QObject* o, const char* slot)
+	{
+		return QObject::connect(this, SIGNAL(changedObject(QObject*)), o, slot);
+	}
 
-bool disconnectSignal(QObject*, QObject* o, const char* slot)
-{
-	return QObject::disconnect(this, SIGNAL(changedObject(QObject*)), o, slot);
-}
+	bool disconnectSignal(QObject*, QObject* o, const char* slot)
+	{
+		return QObject::disconnect(this, SIGNAL(changedObject(QObject*)), o, slot);
+	}
 
-bool connectSignal(QVariant, QObject* o, const char* slot)
-{
-	return QObject::connect(this, SIGNAL(changedData(QVariant)), o, slot);
-}
+	bool connectSignal(QVariant, QObject* o, const char* slot)
+	{
+		return QObject::connect(this, SIGNAL(changedData(QVariant)), o, slot);
+	}
 
-bool disconnectSignal(QVariant, QObject* o, const char* slot)
-{
-	return QObject::disconnect(this, SIGNAL(changedData(QVariant)), o, slot);
-}
+	bool disconnectSignal(QVariant, QObject* o, const char* slot)
+	{
+		return QObject::disconnect(this, SIGNAL(changedData(QVariant)), o, slot);
+	}
 
 signals:
-void changedObject(QObject* what);
-void changedData(QVariant what);
+	void changedObject(QObject* what);
+	void changedData(QVariant what);
 };
 
 
@@ -71,20 +71,22 @@ void changedData(QVariant what);
 template<class OBSERVED>
 struct Private_Memento : public UpdateMemento
 {
-	Private_Memento(OBSERVED data) : m_data(data) {};
+	Private_Memento(OBSERVED data) : m_data(data) {}
+	Private_Memento(OBSERVED data, bool layout) : m_data(data), m_layout(layout) {}
 	
 	OBSERVED m_data;
+	bool     m_layout { false };
 };
 
 
 
 /**
-  Implement this interface if you want to observe an observable but dont want to derive from QObject 
+  Implement this interface if you want to observe an observable but don't want to derive from QObject 
  */
 template<class OBSERVED>
 class SCRIBUS_API Observer {
 public:
-	virtual void changed(OBSERVED) = 0;
+	virtual void changed(OBSERVED, bool doLayout) = 0;
 	virtual ~Observer() {}
 };
 
@@ -95,7 +97,7 @@ public:
  An MassObservable is basically just the source of a changed() signal.
  Observers can register via the Qt signal/slot mechanism or via the above interface.
  
- The difference to Observable (below) is that a MassObservable doesnt report changes to
+ The difference to Observable (below) is that a MassObservable doesn't report changes to
  itself but to a bunch of SingleObservables.
  When you call update() on the SingleObservable, it will tell the associated
  MassObservable to notify all observers with the "changed" signal,
@@ -111,7 +113,7 @@ class MassObservable : public UpdateManaged
 	friend class UpdateManager;
 	
 public:
-	MassObservable(UpdateManager* um = NULL);
+	MassObservable(UpdateManager* um = nullptr);
 	virtual ~MassObservable();
 	/**
 		Used if the UpdateManager is not available when the constructor is called
@@ -124,6 +126,11 @@ public:
 	    will take care of that.
 	 */
 	virtual void update(OBSERVED what);
+
+	/**
+		Same as update, except layout will be update immediately
+	 */
+	virtual void updateLayout(OBSERVED what);
 	
 	void connectObserver(Observer<OBSERVED>* o);
 	void disconnectObserver(Observer<OBSERVED>* o);
@@ -138,8 +145,8 @@ protected:
 	virtual void updateNow(UpdateMemento* what);
 
 	QSet<Observer<OBSERVED>*> m_observers;
-	Private_Signal* changedSignal;
-	UpdateManager* m_um;
+	Private_Signal* changedSignal { nullptr };
+	UpdateManager* m_um { nullptr };
 };
 
 
@@ -155,11 +162,9 @@ public:
 	/**
 	  Connects this SingleObservale to the MassObservable
 	 */
-	SingleObservable(MassObservable<OBSERVED*> * massObservable) : m_massObservable(massObservable) 
-	{};
+	SingleObservable(MassObservable<OBSERVED*> * massObservable) : m_massObservable(massObservable) {}
 	
-	virtual ~SingleObservable() 
-	{};
+	virtual ~SingleObservable() {}
 	
 	void setMassObservable(MassObservable<OBSERVED*> * massObservable) 
 	{
@@ -170,9 +175,14 @@ public:
 	{ 
 		m_massObservable->update(dynamic_cast<OBSERVED*>(this)); 
 	}
+
+	virtual void updateLayout() 
+	{ 
+		m_massObservable->updateLayout(dynamic_cast<OBSERVED*>(this)); 
+	}
 	
 private:
-	MassObservable<OBSERVED*>* m_massObservable;
+	MassObservable<OBSERVED*>* m_massObservable { nullptr };
 };
 
 
@@ -194,13 +204,14 @@ template<class OBSERVED>
 class SCRIBUS_API Observable : public MassObservable<OBSERVED*> 
 {	
 public:
-	Observable(UpdateManager* um = NULL) : MassObservable<OBSERVED*>(um) 
-	{};
+	Observable(UpdateManager* um = nullptr) : MassObservable<OBSERVED*>(um) {}
 	
 	virtual void update() 
 	{ 
 		MassObservable<OBSERVED*>::update(dynamic_cast<OBSERVED*>(this)); 
 	}
+private:
+	using MassObservable<OBSERVED*>::update;
 };
 
 
@@ -233,21 +244,28 @@ template<class OBSERVED>
 inline void MassObservable<OBSERVED>::update(OBSERVED what)
 {
 	Private_Memento<OBSERVED>* memento = new Private_Memento<OBSERVED>(what);
-	if (m_um == NULL || m_um->requestUpdate(this, memento))
+	if (m_um == nullptr || m_um->requestUpdate(this, memento))
 	{
 		updateNow(memento);
 	}
 }
 
+template<class OBSERVED>
+inline void MassObservable<OBSERVED>::updateLayout(OBSERVED what)
+{
+	Private_Memento<OBSERVED>* memento = new Private_Memento<OBSERVED>(what, true);
+	if (m_um == nullptr || m_um->requestUpdate(this, memento))
+		updateNow(memento);
+}
 
 template<class OBSERVED>
 inline void MassObservable<OBSERVED>::updateNow(UpdateMemento* what)
 {
 	Private_Memento<OBSERVED>* memento = dynamic_cast<Private_Memento<OBSERVED>*>(what);
+	if (!memento)
+		qFatal("MassObservable<OBSERVED>::updateNow memento nullptr");
 	foreach (Observer<OBSERVED>* obs, m_observers)
-	{
-		obs->changed(memento->m_data);
-	}
+		obs->changed(memento->m_data, memento->m_layout);
 	changedSignal->emitSignal(QVariant::fromValue(memento->m_data));
 	delete memento;
 }

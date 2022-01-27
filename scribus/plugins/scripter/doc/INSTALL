@@ -1,0 +1,14 @@
+The following commands would add this plugin to your current source
+snapshot of Scribus:
+
+# ROOT=/usr/src/scribus_svn_trunk/Scribus/
+# ln -s $(pwd) $ROOT/scribus/plugins/scripterng
+# echo "ADD_SUBDIRECTORY(scripterng)" >> $ROOT/scribus/plugins/CMakeLists.txt
+# cd $ROOT
+# cmake .
+# make
+# make install
+
+You can use this plug-in together with the old scripter. But on exit
+it will raise an segfault. So you might want to remove scriptplugin from
+CMakeLists.txt or you can deactivate it in the preferences.

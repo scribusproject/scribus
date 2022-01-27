@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef PREFSFILE_H
@@ -37,25 +37,28 @@ typedef QMap<QString, PrefsContext*> ContextMap;
 
 class SCRIBUS_API PrefsFile
 {
-private:
-	QString prefsFilePath;
-	ContextMap contexts;
-	ContextMap pluginContexts;
-	ContextMap userprefsContexts;
-	bool ioEnabled;
-	void load();
-	QString replaceIllegalChars(const QString& text);
-	void writeContexts(ContextMap* contextMap, QTextStream& stream);
-	void canWrite();
 public:
-	PrefsFile();
+	PrefsFile() = default;
 	PrefsFile(const QString& pFilePath, bool write = true);
 	~PrefsFile();
-	bool          hasContext(const QString& contextName) const;
+
+	bool hasContext(const QString& contextName) const;
 	PrefsContext* getContext(const QString& contextName, bool persistent = true);
 	PrefsContext* getPluginContext(const QString& contextName, bool persistent = true);
 	PrefsContext* getUserPrefsContext(const QString& contextName, bool persistent = true);
 	void write();
+
+private:
+	QString m_prefsFilePath;
+	ContextMap m_contexts;
+	ContextMap m_pluginContexts;
+	ContextMap m_userprefsContexts;
+	bool m_ioEnabled { false };
+
+	void load();
+	QString replaceIllegalChars(const QString& text);
+	void writeContexts(const ContextMap* contextMap, QTextStream& stream);
+	void canWrite();
 };
 
 #endif // PREFSFILE_H

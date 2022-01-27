@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>PathConnectDialogBase</class>
- <widget class="QDialog" name="PathConnectDialogBase" >
-  <property name="geometry" >
+ <widget class="QDialog" name="PathConnectDialogBase">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,89 +10,101 @@
     <height>160</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Connect Paths</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <item row="0" column="0" >
-    <widget class="QLabel" name="label" >
-     <property name="text" >
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
       <string>Connect First Line</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
-    <widget class="QComboBox" name="firstLinePoint" >
+   <item row="0" column="1">
+    <widget class="QComboBox" name="firstLinePoint">
      <item>
-      <property name="text" >
+      <property name="text">
        <string>Starting Point</string>
       </property>
      </item>
      <item>
-      <property name="text" >
+      <property name="text">
        <string>End Point</string>
       </property>
      </item>
     </widget>
    </item>
-   <item row="1" column="0" >
-    <widget class="QLabel" name="label_2" >
-     <property name="text" >
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
       <string>with Second Line</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" >
-    <widget class="QComboBox" name="secondLinePoint" >
+   <item row="1" column="1">
+    <widget class="QComboBox" name="secondLinePoint">
      <item>
-      <property name="text" >
+      <property name="text">
        <string>Starting Point</string>
       </property>
      </item>
      <item>
-      <property name="text" >
+      <property name="text">
        <string>End Point</string>
       </property>
      </item>
     </widget>
    </item>
-   <item row="2" column="0" >
-    <widget class="QLabel" name="label_3" >
-     <property name="text" >
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
       <string>by using:</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="1" >
-    <widget class="QComboBox" name="modeCombo" >
+   <item row="2" column="1">
+    <widget class="QComboBox" name="modeCombo">
      <item>
-      <property name="text" >
+      <property name="text">
        <string>a straight Line</string>
       </property>
      </item>
      <item>
-      <property name="text" >
+      <property name="text">
        <string>Points moving</string>
       </property>
      </item>
     </widget>
    </item>
-   <item row="3" column="0" colspan="2" >
-    <widget class="QCheckBox" name="previewCheck" >
-     <property name="text" >
+   <item row="3" column="0" colspan="2">
+    <widget class="QCheckBox" name="previewCheck">
+     <property name="text">
       <string>Preview on Canvas</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="2" >
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
+   <item row="4" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="standardButtons" >
+     <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
-     <property name="centerButtons" >
+     <property name="centerButtons">
       <bool>false</bool>
      </property>
     </widget>
@@ -106,11 +119,11 @@
    <receiver>PathConnectDialogBase</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>248</x>
      <y>254</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>157</x>
      <y>274</y>
     </hint>
@@ -122,11 +135,11 @@
    <receiver>PathConnectDialogBase</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>316</x>
      <y>260</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
     </hint>

@@ -1,44 +1,57 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+
 #include <cassert>  //added to make Fedora-5 happy
 
 //#include <QDebug>
 
 #include "fpoint.h"
 #include "scfonts.h"
-#include "scribus.h"
+
 #include "scribusdoc.h"
 #include "sctext_shared.h"
 #include "util.h"
 
-ScText_Shared::ScText_Shared(const StyleContext* pstyles) : QList<ScText*>(), 
-	defaultStyle(), 
-	pstyleContext(NULL),
-	refs(1), len(0), trailingStyle()
+ScText_Shared::ScText_Shared(const StyleContext* pstyles) :
+	pstyleContext(nullptr)
 {
 	pstyleContext.setDefaultStyle( & defaultStyle );
 	defaultStyle.setContext( pstyles );
 	trailingStyle.setContext( &pstyleContext );
+	orphanedCharStyle.setContext( defaultStyle.charStyle().context() );
 //		defaultStyle.charStyle().setContext( cstyles );
 //		qDebug() << QString("ScText_Shared() %1 %2 %3 %4").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&defaultStyle)).arg(reinterpret_cast<uint>(pstyles)).arg(reinterpret_cast<uint>(cstyles));
 }
 		
 
-ScText_Shared::ScText_Shared(const ScText_Shared& other) : QList<ScText*>(), 
+ScText_Shared::ScText_Shared(const ScText_Shared& other) :
 	defaultStyle(other.defaultStyle), 
 	pstyleContext(other.pstyleContext),
-	refs(1), len(0), trailingStyle(other.trailingStyle)
+	cursorPosition(other.cursorPosition),
+	selFirst(other.selFirst), selLast(other.selLast),
+	marksCount(other.marksCount), marksCountChanged(other.marksCountChanged),
+	trailingStyle(other.trailingStyle)
 {
 	pstyleContext.setDefaultStyle( &defaultStyle );
 	trailingStyle.setContext( &pstyleContext );
+	orphanedCharStyle.setContext( defaultStyle.charStyle().context() );
+
 	QListIterator<ScText*> it( other );
 	ScText* elem;
-	while ( it.hasNext() ) {
+	while ( it.hasNext() )
+	{
 		elem = it.next();
 		ScText* elem2 = new ScText(*elem);
 		append(elem2);
-		if (elem2->parstyle) {
+		if (elem2->parstyle)
+		{
 			elem2->parstyle->setContext( & pstyleContext);
 //				elem2->parstyle->charStyle().setContext( defaultStyle.charStyleContext() );
-			replaceCharStyleContextInParagraph(count()-1, elem2->parstyle->charStyleContext());
+			replaceCharStyleContextInParagraph(count() - 1, elem2->parstyle->charStyleContext());
 		}
 	}
 	len = count();
@@ -48,29 +61,38 @@ ScText_Shared::ScText_Shared(const ScText_Shared& other) : QList<ScText*>(),
 
 void ScText_Shared::clear()
 {
-	while(!this->isEmpty())
+	while (!this->isEmpty())
 		delete this->takeFirst(); 
 	QList<ScText*>::clear();
+	cursorPosition = 0;
+	selFirst = 0;
+	selLast = -1;
+	if (marksCount > 0)
+		marksCountChanged = true;
+	marksCount = 0;
 }
 
 ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other) 
 {
 	if (this != &other) 
 	{
-		defaultStyle = other.defaultStyle;
-		trailingStyle = other.trailingStyle;
-		pstyleContext = other.pstyleContext;
+		defaultStyle   = other.defaultStyle;
+		trailingStyle  = other.trailingStyle;
+		pstyleContext  = other.pstyleContext;
 		pstyleContext.setDefaultStyle( &defaultStyle );
 		defaultStyle.setContext( other.defaultStyle.context() );
 		trailingStyle.setContext( &pstyleContext );
+		orphanedCharStyle.setContext( other.defaultStyle.charStyle().context() );
 		clear();
 		QListIterator<ScText*> it( other );
 		ScText* elem;
-		while ( it.hasNext() ) {
+		while ( it.hasNext() )
+		{
 			elem = it.next();
 			ScText* elem2 = new ScText(*elem);
 			append(elem2);
-			if (elem2->parstyle) {
+			if (elem2->parstyle)
+			{
 				elem2->parstyle->setContext( & pstyleContext );
 //					qDebug() << QString("StoryText::copy: * %1 align=%2").arg(elem2->parstyle->parent())
 //						   .arg(elem2->parstyle->alignment())
@@ -80,6 +102,11 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 			}
 		}
 		len = count();
+		cursorPosition = other.cursorPosition;
+		selFirst = other.selFirst;
+		selLast = other.selLast;
+		marksCount = other.marksCount;
+		marksCountChanged = other.marksCountChanged;
 		pstyleContext.invalidate();
 //			qDebug() << QString("StoryText::copy: %1 align=%2 %3").arg(trailingStyle.parentStyle()->name())
 //				   .arg(trailingStyle.alignment()).arg((uint)trailingStyle.context());
@@ -92,7 +119,7 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 ScText_Shared::~ScText_Shared() 
 {
 //		qDebug() << QString("~ScText_Shared() %1").arg(reinterpret_cast<uint>(this));
-	while(!this->isEmpty())
+	while (!this->isEmpty())
 		delete this->takeFirst(); 
 }
 
@@ -118,8 +145,9 @@ void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleConte
 	// we are done here but will do a sanity check:
 	// assert that all chars point to the following parstyle
 	QListIterator<ScText*> it( *this );
-	const StyleContext* lastContext = NULL;
-	while ( it.hasNext() ) {
+	const StyleContext* lastContext = nullptr;
+	while ( it.hasNext() )
+	{
 		ScText* elem = it.next();
 		assert( elem );
 		if ( elem->ch.isNull() ) 
@@ -133,9 +161,9 @@ void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleConte
 			{
 				assert( lastContext == elem->parstyle->charStyleContext() );
 			}
-			lastContext = NULL;
+			lastContext = nullptr;
 		}
-		else if (lastContext == NULL)
+		else if (lastContext == nullptr)
 		{
 			lastContext = elem->context();
 		}

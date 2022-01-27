@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef CONTENTREADER_H
@@ -38,55 +38,61 @@ for which a new license (GPL+exception) is in place.
 #else
  #include <libxml/SAX.h>
 #endif
-#include <QXmlAttributes>
+
 #include <QMap>
+
 #include <gtstyle.h>
 #include <gtwriter.h>
 #include "stylereader.h"
 
 typedef std::vector<std::pair<QString, QString> > Properties;
+typedef QMap<QString, QString> SXWAttributesMap;
 typedef QMap<QString, Properties > TMap;
 
 class ContentReader
 {
-private:
-	static ContentReader *creader;
-	TMap tmap;
-	QString docname;
-	StyleReader* sreader;
-	gtWriter *writer;
-	gtStyle *defaultStyle;
-	gtStyle *currentStyle;
-	gtStyle *lastStyle;
-	gtStyle *pstyle;
-	bool importTextOnly;
-	bool inList;
-	bool inNote;
-	bool inNoteBody;
-	bool isOrdered;
-	bool inSpan;
-	int  append;
-	int  listLevel;
-	int  listIndex;
-	std::vector<int> listIndex2;
-	std::vector<bool> isOrdered2;
-	bool inT;
-	std::vector<QString> styleNames;
-	QString tName;
-	QString currentList;
-	void write(const QString& text);
-	QString getName();
-	void getStyle();
 public:
-	ContentReader(QString documentName, StyleReader* s, gtWriter *w, bool textOnly);
+	ContentReader(const QString& documentName, StyleReader* s, gtWriter *w, bool textOnly);
 	~ContentReader();
+	
+	void parse(const QString& fileName);
+
 	static void startElement(void *user_data, const xmlChar *fullname, const xmlChar ** atts);
 	static void endElement(void *user_data, const xmlChar *name);
 	static void characters(void *user_data, const xmlChar *ch, int len);
-	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
-	bool endElement(const QString&, const QString&, const QString &name);
+	bool startElement(const QString &name, const SXWAttributesMap &attrs);
+	bool endElement(const QString &name);
 	bool characters(const QString &ch);
-	void parse(QString fileName);
+
+private:
+	static ContentReader *creader;
+
+	TMap tmap;
+	QString docname;
+	StyleReader* sreader { nullptr };
+	gtWriter *writer { nullptr };
+	gtStyle *defaultStyle { nullptr };
+	gtStyle *currentStyle { nullptr };
+	gtStyle *lastStyle { nullptr };
+	gtStyle *pstyle { nullptr };
+	bool importTextOnly { false };
+	bool inList { false };
+	bool inNote { false };
+	bool inNoteBody { false };
+	bool inSpan { false };
+	int  append { 0 };
+	int  listLevel { 0 };
+	int  listIndex { 0 };
+	std::vector<int> listIndex2;
+	std::vector<bool> isOrdered2;
+	bool inT { false };
+	std::vector<QString> styleNames;
+	QString tName;
+	QString currentList;
+
+	void write(const QString& text);
+	QString getName();
+	void getStyle();
 };
 
 #endif // HAVE_XML

@@ -18,7 +18,7 @@ protected:
 
 	ScFlateEncodeFilterData* m_filterData;
 
-	void freeData(void);
+	void freeData();
 	bool m_openedFilter;
 
 	bool writeDeflate(bool flush);
@@ -28,8 +28,8 @@ public:
 	ScFlateEncodeFilter(ScStreamFilter* filter);
 	~ScFlateEncodeFilter();
 
-	virtual bool openFilter (void);
-	virtual bool closeFilter(void);
+	virtual bool openFilter ();
+	virtual bool closeFilter();
 
 	virtual bool writeData(const char* data, int dataLen);
 };

@@ -14,17 +14,17 @@ using namespace std;
 
 ScStreamFilter::ScStreamFilter(QDataStream* stream)
 {
-	assert(stream != NULL);
+	assert(stream != nullptr);
 	m_dataStream = stream;
-	m_filter     = NULL;
+	m_filter     = nullptr;
 	m_filterMode = FilterToStream;
 	m_writtenToStream = 0;
 }
 
 ScStreamFilter::ScStreamFilter(ScStreamFilter* filter)
 {
-	assert(filter != NULL);
-	m_dataStream = NULL;
+	assert(filter != nullptr);
+	m_dataStream = nullptr;
 	m_filter     = filter;
 	m_filterMode = FilterToFilter;
 	m_writtenToStream = 0;
@@ -49,7 +49,7 @@ bool ScStreamFilter::writeData(const QByteArray& data)
 	return writeData(data.constData(), data.size());
 }
 
-bool ScStreamFilter::openFilter (void)
+bool ScStreamFilter::openFilter ()
 {
 	m_writtenToStream = 0;
 	if (m_filterMode == FilterToFilter)
@@ -57,14 +57,14 @@ bool ScStreamFilter::openFilter (void)
 	return true;
 }
 
-bool ScStreamFilter::closeFilter(void)
+bool ScStreamFilter::closeFilter()
 {
 	if (m_filterMode == FilterToFilter)
 		return m_filter->closeFilter();
 	return true;
 }
 
-int ScStreamFilter::writtenToStream(void)
+int ScStreamFilter::writtenToStream()
 {
 	if (m_filterMode == FilterToFilter)
 		return (m_writtenToStream + m_filter->writtenToStream());

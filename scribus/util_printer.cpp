@@ -6,10 +6,11 @@ for which a new license (GPL+exception) is in place.
 */
 #include "util_printer.h"
 #include "scconfig.h"
+#include <QPrinterInfo>
+#include <QPrinter>
+#include <QPageLayout>
 
-#if defined( HAVE_CUPS )
- #include <cups/cups.h>
-#elif defined(_WIN32)
+#if defined(_WIN32)
  #include <windows.h>
  #include <winspool.h>
 #endif
@@ -17,255 +18,198 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 #include <QDataStream>
 #include <QByteArray>
+
 #include "util.h"
 #include "commonstrings.h"
-#include "scribus.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
 #include "scribuscore.h"
+#include "util_os.h"
+
+void PrinterUtil::getDefaultPrintOptions(PrintOptions& options, const MarginStruct& docBleeds)
+{
+	PrefsManager& prefsManager = PrefsManager::instance();
+	PrefsContext *prnPrefs = prefsManager.prefsFile->getContext("print_options");
+
+	options.firstUse = true;
+	options.printer  = prnPrefs->get("CurrentPrn", QString());
+	options.useAltPrintCommand = prnPrefs->getBool("OtherCom", false);
+	options.printerCommand = prnPrefs->get("Command", QString());
+	options.outputSeparations = prnPrefs->getInt("Separations", 0);
+	options.useColor = (prnPrefs->getInt("PrintColor", 0) == 0);
+	QStringList spots { "All" , "Cyan", "Magenta", "Yellow", "Black" };
+	int selectedSep  = prnPrefs->getInt("SepArt", 0);
+	if ((selectedSep < 0) || (selectedSep > 4))
+		selectedSep = 0;
+	options.separationName = spots.at(selectedSep);
+	if (prnPrefs->contains("PrintLanguage"))
+		options.prnLanguage = (PrintLanguage) prnPrefs->getInt("PrintLanguage", (int) PrinterUtil::getDefaultPrintLanguage(options.printer, false));
+	else
+		options.prnLanguage = (PrintLanguage) prnPrefs->getInt("PSLevel", (int) PrintLanguage::PostScript3);
+	options.mirrorH = prnPrefs->getBool("MirrorH", false);
+	options.mirrorV = prnPrefs->getBool("MirrorV", false);
+	options.setDevParam = prnPrefs->getBool("doDev", false);
+	options.doGCR   = prnPrefs->getBool("DoGCR", prefsManager.appPrefs.printerPrefs.GCRMode);
+	options.doClip  = prnPrefs->getBool("Clip", false);
+	options.useSpotColors = prnPrefs->getBool("doSpot", true);
+	options.useDocBleeds  = true;
+	options.bleeds = docBleeds;
+	options.markLength = prnPrefs->getDouble("markLength", 20.0);
+	options.markOffset = prnPrefs->getDouble("markOffset", 0.0);
+	options.cropMarks  = prnPrefs->getBool("cropMarks", false);
+	options.bleedMarks = prnPrefs->getBool("bleedMarks", false);
+	options.registrationMarks = prnPrefs->getBool("registrationMarks", false);
+	options.colorMarks = prnPrefs->getBool("colorMarks", false);
+	options.includePDFMarks = prnPrefs->getBool("includePDFMarks", true);
+}
+
+QString PrinterUtil::getDefaultPrinterName()
+{
+	return QPrinterInfo::defaultPrinterName();
+}
 
 QStringList PrinterUtil::getPrinterNames()
 {
-	QString printerName;
-	QStringList printerNames;
-#if defined (HAVE_CUPS)
-	cups_dest_t *dests;
-	int num_dests = cupsGetDests(&dests);
-	for (int pr = 0; pr < num_dests; ++pr)
-	{
-		printerName = QString(dests[pr].name);
-		printerNames.append(printerName);
-	}
-	cupsFreeDests(num_dests, dests);
-#elif defined(_WIN32)
-	DWORD size;
-	DWORD numPrinters;
-	PRINTER_INFO_2W* printerInfos = NULL;
-	EnumPrintersW ( PRINTER_ENUM_LOCAL|PRINTER_ENUM_CONNECTIONS , NULL, 2, NULL, 0, &size, &numPrinters );
-	printerInfos = (PRINTER_INFO_2W*) malloc(size);
-	if ( EnumPrintersW ( PRINTER_ENUM_LOCAL|PRINTER_ENUM_CONNECTIONS, NULL, 2, (LPBYTE) printerInfos, size, &size, &numPrinters ) )
-	{
-		for ( uint i = 0; i < numPrinters; i++)
-		{
-			printerName = QString::fromUtf16( (const ushort*) printerInfos[i].pPrinterName );
-			printerNames.append(printerName);
-		}
-		printerNames.sort();	
-	}
-	if ( printerInfos) free(printerInfos);
-#else
-	QString tmp;
-	QString Pcap;
-	QStringList wt;
-	if (loadText("/etc/printcap", &Pcap))
-	{
-		QDataStream ts(&Pcap, QIODevice::ReadOnly);
-		while(!ts.atEnd())
-		{
-			tmp = readLinefromDataStream(ts);
-			if (tmp.isEmpty())
-				continue;
-			if ((tmp[0] != '#') && (tmp[0] != ' ') && (tmp[0] != '\n') && (tmp[0] != '\t'))
-			{
-				tmp = tmp.trimmed();
-				tmp = tmp.left(tmp.length() - (tmp.right(2) == ":\\" ? 2 : 1));
-				wt = tmp.split("|", QString::SkipEmptyParts);
-				printerName = wt[0];
-				printerNames.append(printerName);
-			}
-		}
-	}
-#endif
-	return printerNames;
+	return QPrinterInfo::availablePrinterNames();
 }
 
 #if defined(_WIN32)
-bool PrinterUtil::getDefaultSettings( QString printerName, QByteArray& devModeA )
+bool PrinterUtil::getDefaultSettings(QString printerName, QByteArray& devModeA)
 {
 	bool done;
 	uint size;
 	LONG result = IDOK+1;
-	Qt::HANDLE handle = NULL;
+	Qt::HANDLE handle = nullptr;
 	// Get the printer handle
-	done = OpenPrinterW( (LPWSTR) printerName.utf16(), &handle, NULL );
-	if(!done)
+	done = OpenPrinterW((LPWSTR) printerName.utf16(), &handle, nullptr);
+	if (!done)
 		return false;
 	// Get size of DEVMODE structure (public + private data)
-	size = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
+	size = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), nullptr, nullptr, 0);
 	// Allocate the memory needed by the DEVMODE structure
-	devModeA.resize( size );
+	devModeA.resize(size);
 	// Retrieve printer default settings
-	result = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), NULL, DM_OUT_BUFFER);
+	result = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), nullptr, DM_OUT_BUFFER);
 	// Free the printer handle
-	ClosePrinter( handle );
-	return ( result == IDOK );
+	ClosePrinter(handle);
+	return (result == IDOK);
 }
 #endif
 
 #if defined(_WIN32)
-bool PrinterUtil::initDeviceSettings( QString printerName, QByteArray& devModeA )
+bool PrinterUtil::initDeviceSettings(QString printerName, QByteArray& devModeA)
 {
 	bool done;
 	uint size;
 	LONG result = IDOK+1;
-	Qt::HANDLE handle = NULL;
+	Qt::HANDLE handle = nullptr;
 	// Get the printer handle
-	done = OpenPrinterW( (LPWSTR) printerName.utf16(), &handle, NULL );
-	if(!done)
+	done = OpenPrinterW((LPWSTR) printerName.utf16(), &handle, nullptr);
+	if (!done)
 		return false;
 	// Get size of DEVMODE structure (public + private data)
-	size = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
+	size = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), nullptr, nullptr, 0);
 	// Compare size with DevMode structure size
-	if( devModeA.size() == size )
+	if (devModeA.size() == size)
 	{
 		// Merge printer settings
-		result = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), (DEVMODEW*) devModeA.data(), DM_IN_BUFFER | DM_OUT_BUFFER);
+		result = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), (DEVMODEW*) devModeA.data(), DM_IN_BUFFER | DM_OUT_BUFFER);
 	}
 	else
 	{
 		// Retrieve default settings
-		devModeA.resize( size );
-		result = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), NULL, DM_OUT_BUFFER);
+		devModeA.resize(size);
+		result = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), nullptr, DM_OUT_BUFFER);
 	}
-	done = ( result == IDOK);
+	done = (result == IDOK);
 	// Free the printer handle
-	ClosePrinter( handle );
+	ClosePrinter(handle);
 	return done;
 }
 #endif
 
-bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QString& pageSize, double& ptsTopMargin, double& ptsBottomMargin, double& ptsLeftMargin, double& ptsRightMargin)
+bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QSizeF& pageSize, QMarginsF& margins)
 {
-	bool retVal=false;
-#if defined(HAVE_CUPS)
-	const char *filename; // tmp PPD filename
-	filename=cupsGetPPD(printerName.toLocal8Bit().constData());
-	if (filename!=NULL)
+	QPrinterInfo pInfo = QPrinterInfo::printerInfo(printerName);
+	if (pInfo.isNull())
+		return false;
+
+	QPrinter printer(pInfo, QPrinter::HighResolution);
+	margins = printer.pageLayout().margins();
+
+	// Unfortunately margin values are not updated when calling QPrinter or QPageLayout's setOrientation()
+	// so we have to adapt margin values according to orientation ourselves
+	if (pageSize.width() > pageSize.height())
 	{
-		ppd_file_t *ppd; // PPD data
-		ppd = ppdOpenFile(filename);
-		if (ppd!=NULL)
-		{
-			ppd_size_t *size; // page size data, null if printer doesnt support selected size
-			size = ppdPageSize(ppd, pageSize.toLocal8Bit().constData());
-			if (size!=NULL)
-			{
-				//Store in pts for returning via getNewPrinterMargins in pts
-				retVal=true;
-				ptsTopMargin=size->length-size->top;
-				ptsBottomMargin=size->bottom;
-				ptsLeftMargin=size->left;
-				ptsRightMargin=size->width-size->right;
-			}
-			ppdClose(ppd);
-		}
+		double l = margins.left();
+		double r = margins.right();
+		double b = margins.bottom();
+		double t = margins.top();
+		margins = QMarginsF(b, l, t, r);
 	}
-#elif defined(_WIN32)
-	DWORD nPaper;
-	DWORD nPaperNames;
-	typedef WCHAR wchar64[64];
-	nPaper = DeviceCapabilitiesW( (LPCWSTR) printerName.utf16(), NULL, DC_PAPERS, NULL, NULL );
-	nPaperNames = DeviceCapabilitiesW( (LPCWSTR) printerName.utf16(), NULL, DC_PAPERNAMES, NULL, NULL );
-	if ( (nPaper > 0) && (nPaperNames > 0) && (nPaper == nPaperNames) )
-	{
-		int paperIndex = -1;
-		DWORD   *papers = new DWORD[nPaper];
-		wchar64 *paperNames = new wchar64[nPaperNames];
-		DWORD s1 = DeviceCapabilitiesW( (LPCWSTR) printerName.utf16(), NULL, DC_PAPERS, (LPWSTR) papers, NULL );
-		DWORD s2 = DeviceCapabilitiesW( (LPCWSTR) printerName.utf16(), NULL, DC_PAPERNAMES, (LPWSTR) paperNames, NULL );
-		for ( uint i = 0; i < nPaperNames; i++ )
-		{
-			if ( pageSize == QString::fromUtf16((const ushort*) paperNames[i]) )
-			{
-				paperIndex = i;
-				break;
-			}
-		}
-		if ( paperIndex >= 0 )
-		{
-			Qt::HANDLE handle = NULL;
-			if( OpenPrinterW( (LPWSTR) printerName.utf16(), &handle, NULL ) )
-			{
-				// Retrieve DEVMODE structure for selected device
-				uint size = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
-				QByteArray devModeW(size, 0);
-				DEVMODEW* devMode = (DEVMODEW*) devModeW.data();
-				DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), devMode, NULL, DM_OUT_BUFFER);
-				ClosePrinter( handle );
-				// Set paper size
-				devMode->dmPaperSize = papers[paperIndex];
-				// Create device context
-				HDC printerDC = CreateDCW( NULL, (LPWSTR) printerName.utf16(), NULL, devMode );
-				if( printerDC )
-				{
-					retVal = true;
-					int logPixelsX = GetDeviceCaps( printerDC, LOGPIXELSX );
-					int logPixelsY = GetDeviceCaps( printerDC, LOGPIXELSY );
-					int physicalOffsetX = GetDeviceCaps( printerDC, PHYSICALOFFSETX );
-					int physicalOffsetY = GetDeviceCaps( printerDC, PHYSICALOFFSETY );
-					ptsLeftMargin = ptsRightMargin = ( physicalOffsetX / (double) logPixelsX * 72 );
-					ptsTopMargin = ptsBottomMargin = ( physicalOffsetY / (double) logPixelsY * 72 );
-					DeleteDC(printerDC);
-				}
-			}
-		}
-		delete[] papers;
-		delete[] paperNames;
-	}
-#endif
-	return retVal;
+	return true;
 }
 
-PrintEngine PrinterUtil::getDefaultPrintEngine(const QString& printerName, bool toFile)
+PrintLanguage PrinterUtil::getDefaultPrintLanguage(const QString&  /*printerName*/, bool toFile)
 {
-	if(!toFile)
+	if (!toFile)
 	{
 #if defined(_WIN32)
-		return WindowsGDI;
+		return PrintLanguage::WindowsGDI;
 #else
-		return PostScript3;
+		return PrintLanguage::PostScript3;
 #endif
 	}
-	return PostScript3;
+	return PrintLanguage::PostScript3;
 }
 
-PrintEngineMap PrinterUtil::getPrintEngineSupport(const QString& printerName, bool toFile)
+PrintLanguageMap PrinterUtil::getPrintLanguageSupport(const QString& printerName, bool toFile)
 {
-	PrintEngineMap prnMap;
+	PrintLanguageMap prnMap;
 	if (toFile || PrinterUtil::isPostscriptPrinter(printerName))
 	{
 		if (ScCore->haveGS())
 		{
-			prnMap.insert(CommonStrings::trPostScript1, PostScript1);
-			prnMap.insert(CommonStrings::trPostScript2, PostScript2);
+			prnMap.insert(CommonStrings::trPostScript1, PrintLanguage::PostScript1);
+			prnMap.insert(CommonStrings::trPostScript2, PrintLanguage::PostScript2);
 		}
-		prnMap.insert(CommonStrings::trPostScript3, PostScript3);
+		prnMap.insert(CommonStrings::trPostScript3, PrintLanguage::PostScript3);
 	}
+	if (toFile || PrinterUtil::supportsPDF(printerName))
+		prnMap.insert(CommonStrings::trPDF, PrintLanguage::PDF);
 #if defined(_WIN32)
 	if (!toFile)
-		prnMap.insert(CommonStrings::trWindowsGDI, WindowsGDI);
+		prnMap.insert(CommonStrings::trWindowsGDI, PrintLanguage::WindowsGDI);
 #endif
 	return prnMap;
 }
 
-bool PrinterUtil::checkPrintEngineSupport(const QString& printerName, PrintEngine engine, bool toFile)
+bool PrinterUtil::checkPrintLanguageSupport(const QString& printerName, PrintLanguage engine, bool toFile)
 {
-	bool psSupported = toFile || PrinterUtil::isPostscriptPrinter(printerName);
-	if (psSupported && (engine >= PostScript1 && engine <= PostScript3))
-		return true;
-	else if (!psSupported && (engine >= PostScript1 && engine <= PostScript3))
-		return false;
-	else if (engine == WindowsGDI)
-	{
-#if defined(_WIN32)
-		return true; //WindowsGDI
-#else
-		return false;
-#endif
-	}
+	if (engine >= PrintLanguage::PostScript1 && engine <= PrintLanguage::PostScript3)
+		return (toFile || PrinterUtil::isPostscriptPrinter(printerName));
+
+	if (engine == PrintLanguage::WindowsGDI)
+		return os_is_win();
+
+	if (engine == PrintLanguage::PDF)
+		return toFile || os_is_unix();
+
 	return false;
 }
 
+bool PrinterUtil::supportsPDF(const QString& /*printerName*/)
+{
+#ifdef _WIN32
+	return false;
+#else
+	return true;
+#endif
+}
+
 //Parameter needed on win32..
-bool PrinterUtil::isPostscriptPrinter( QString printerName)
+bool PrinterUtil::isPostscriptPrinter(const QString& printerName)
 {
 #ifdef _WIN32
 	HDC dc;
@@ -273,43 +217,43 @@ bool PrinterUtil::isPostscriptPrinter( QString printerName)
 	char technology[MAX_PATH] = {0};
 	
 	// Create the default device context
-	dc = CreateDCW( NULL, (LPCWSTR) printerName.utf16(), NULL, NULL );
-	if ( !dc )
+	dc = CreateDCW(nullptr, (LPCWSTR) printerName.utf16(), nullptr, nullptr);
+	if (!dc)
 	{
-		qWarning("isPostscriptPrinter() failed to create device context for %s", printerName.toAscii().data());
+		qWarning("isPostscriptPrinter() failed to create device context for %s", printerName.toLatin1().data());
 		return false;
 	}
 	// test if printer support the POSTSCRIPT_PASSTHROUGH escape code
 	escapeCode = POSTSCRIPT_PASSTHROUGH;
-	if ( ExtEscape( dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR)&escapeCode, 0, NULL ) > 0 )
+	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, nullptr) > 0)
 	{
-		DeleteDC( dc );
+		DeleteDC(dc);
 		return true;
 	}
 	// test if printer support the POSTSCRIPT_DATA escape code
 	escapeCode = POSTSCRIPT_DATA;
-	if ( ExtEscape( dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR)&escapeCode, 0, NULL ) > 0 )
+	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, nullptr) > 0)
 	{
-		DeleteDC( dc );
+		DeleteDC(dc);
 		return true;
 	}
 	// try to get postscript support by testing the printer technology
 	escapeCode = GETTECHNOLOGY;
-	if ( ExtEscape( dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR)&escapeCode, 0, NULL ) > 0 )
+	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, nullptr) > 0)
 	{
 		// if GETTECHNOLOGY is supported, then ... get technology
-		if ( ExtEscape( dc, GETTECHNOLOGY, 0, NULL, MAX_PATH, (LPSTR) technology ) > 0 )
+		if (ExtEscape(dc, GETTECHNOLOGY, 0, nullptr, MAX_PATH, (LPSTR) technology) > 0)
 		{
 			// check technology string for postscript word
-			strupr( technology );
-			if ( strstr( technology, "POSTSCRIPT" ) )
+			strupr(technology);
+			if (strstr(technology, "POSTSCRIPT"))
 			{
-				DeleteDC( dc );
+				DeleteDC(dc);
 				return true;
 			}
 		}
 	}
-	DeleteDC( dc );
+	DeleteDC(dc);
 	return false;
 #else
 	return true;

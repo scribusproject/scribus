@@ -20,17 +20,18 @@ class CsvDialog : public QDialog
 public:
 	CsvDialog();
 	~CsvDialog();
+
 	QString getFDelim();
 	QString getVDelim();
 	bool hasHeader();
 	bool useVDelim();
 
 private:
-	QComboBox* fdelimCombo;
-	QComboBox* vdelimCombo;
-	QCheckBox* headerCheck;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
+	QComboBox* fdelimCombo { nullptr };
+	QComboBox* vdelimCombo { nullptr };
+	QCheckBox* headerCheck { nullptr };
+	QPushButton* okButton { nullptr };
+	QPushButton* cancelButton { nullptr };
 };
 
 #endif // CSVDIA_H

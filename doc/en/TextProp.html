@@ -1,0 +1,127 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Text Properties Palette</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Text Properties Palette</h2>
+<table cellpadding=3><tr>
+<td><img src="images/text_tab1.png" ALT="Text Properties Palette" ALIGN="right"></td>
+<td valign="top"><p>Thanks to the addition of docking features for palettes, it has become feasible and worthwhile to separate the former Text tab of Properties into its own palette, which has already made it much more usable. There are a series of sub-tabs to choose from. In the top section, there is a button for the font family, and then just below it the fontface in that family. Next we come to the spinbox for text size, and just below that a drop-down selector for linespacing, with 3 choices: <b>Fixed</b>, <b>Automatic</b>, and <b>Align to Baseline Grid</b>. Fixed linespacing allows you to set the space between lines of text using the spinbox to the right. Automatic spacing causes Scribus to adjust for you, according to the font size. The default setting for this is 120% of the font size, but this can be adjusted in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Typography</i>. The row of buttons at the bottom sets justification &ndash; left, center, right, full, and forced full.</p>
+  <p><b>Right-to-Left Capability</b></p>
+  <p>A fantastic and long-awaited capability is found in the two buttons to the left of the justification set. On the left is <b>Left to Right</b> direction of character placement, as in most Latin languages, and adjacent to it, <b>Right to Left</b> direction for languages using that arrangement, such as Arabic or Hebrew, among others. What you will see is that what happens is language-specific. For languages that use them, ligatures will also be applied.</p>
+<p>At this point it should be mentioned that when you are in Select Item mode, any changes will apply to the entire frame contents. In Edit Contents mode, things are a bit more complex.</p>
+<ul>
+<li>If your cursor is at some particular position, changes in font, fontface, and size apply to the single glyph to the right of the cursor.</li>
+<li>If your cursor is highlighting a block of text, changes in font, fontface, and size apply to the highlighted glyphs.</li>
+<li>Changes in linespacing and justification apply to the paragraph in which the cursor is located or in the paragraph(s) where words are highlighted. <i>Note that with automatic linespacing, this is adjusted line-by-line in situations where font size varies from word-to-word or letter-by-letter in the same paragraph. In most cases, you will find that fixed linespacing produces a more attractive result when font size is variable within a paragraph.</i></li>
+</ul>
+<p><b>Style Settings</b></p>
+  <p>Here in the Properties palette, we can only set an already created style. An explanation on creating and editing styles is found in <a href="WwStyles.html">Working with Styles</a>.</p>
+</td></tr></table>
+<h3><a name="10">What About the Baseline Grid?</a></h3>
+<table cellpadding=3 width="80%"><tr>
+<td valign="top"><p>The baseline grid is always present but hidden by default, and is never seen in printed output or in your PDF. Click <i>View&nbsp;&gt; Show Baseline Grid</i> to see it. Its default setting is 14.40 points, and the default is adjustable in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Guides</i>, where you will see that the <b>Offset</b> is also adjustable &ndash; this is the displacement of glyphs from the baseline, and can have a positive or negative value.</p>
+<p>To the right we see text aligned to the baseline grid for the entire frame, along with an illustration of localized adjustments in Edit Contents mode. The Offset here is 0. As you can see, this is also a method for keeping linespacing constant when font size varies in a paragraph, since aligning to the baseline grid is just another kind of fixed linespacing. The other common use for aligning to baseline grid is to make sure that lines of text match their spacing in adjacent frames or columns.</p></td>
+<td><img src="images/text_tab2.png" ALT="Baseline Grid" ALIGN="right"></td></tr>
+</table>
+
+<h3>Color & Effects</h3>
+<table cellpadding=3><tr>
+<td><p>Here we choose the colors for text. The top button is the fill or main color for the font. The middle button applies when you are using the Outline or Shadow feature for text. Since there is now a true Drop Shadow capability in Properties, this may be of less value, except that Drop Shadow can only be applied to an entire frame of text. The lowest button is new, and sets the color of a background for the glyphs.</p>
+<p>The effects buttons have become a bit more cryptic, but always remember if you hover over them you have the tool tip. From left to right:</p>
+<ol>
+<li>Underline sections of text, including intervening spaces. Hold down the button to make adjustments of <b>Displacement</b> and <b>Linewidth</b>. Defaults are in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Typography</i>.</li>
+<li>Underline words only, not intervening spaces. Hold down the button to make adjustments of <b>Displacement</b> and <b>Linewidth</b>. Defaults are in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Typography</i>.</li>
+<li>Subscript. Relative size (<b>Scaling</b>) and <b>Displacement</b> are set in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Typography</i>.</li>
+<li>Superscript.  Defaults are in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Typography</i>.</li>
+<li>All caps. All letters will be capitalized.</li>
+<li>Small caps. Lowercase letters will be capitalized with a size slightly smaller than uppercase letters. There are a few fonts that have a real small caps subset, but this is a workaround for those that do not.</li>
+<li>Strike Out, or strikethrough. Hold down the button to make adjustments of <b>Displacement</b> and <b>Linewidth</b>. Defaults are in <i>File > Preferences > Typography</i>.</li>
+<li>Outline. Hold down the button to adjust <b>Stroke width</b>.</li>
+<li>Shadow. Hold down the button to adjust the <b>X- and Y-Offsets</b>.</li>
+</ol>
+<p><i>Note that the Right to Left Writing button is gone. This is thankfully due to the more proper capabilities for LTR and RTL languages now present.</i></p>
+</td>
+<td valign=middle><img src="images/text_tab3.png" ALT="Color & Effects"></td>
+</tr>
+</table>
+<h3>First Line Offset</h3>
+<table cellpadding=3>
+  <tr><td><p>First line offset refers to how closely the first line of text approaches the top of the frame or the space it is allowed.</p>
+      <p>In this example, where we have set a top distance, we see from left to right, <b>Maximum Ascent</b>, <b>Font Ascent</b>, and <b>Line Spacing</b> offsets.</p>
+</td></tr>
+<tr>
+<td><img src="images/text_tab7a.png" ALT="First Line Offset"></td></tr>
+</table>
+<h3>Orphans and Widows</h3>
+<table cellpadding=3 width="80%">
+  <tr><td valign="top"><p>Orphans and Widows is the situation where, in a linked series of frames, either a single line (or more) from a following paragraph is left at the bottom of the frame, or a paragraph is complete except for the last line or so, which is carried to the next frame or page.</p>
+      <p>The settings are pretty straightforward, but keep in mind that sometimes other adjustments must be made for a pleasing appearance.</p>
+</td>
+<td><img src="images/text_tab14.png" ALT="Orphans and Widows"></td></tr>
+</table>
+<h3>Paragraph Effects</h3>
+<table cellpadding=3 width="80%">
+  <tr><td valign="top"><p><b>Drop Caps</b> was formerly available only as part of a Paragraph Style, but now can be set here. You can either apply to an entire selected frame or an individually selected paragraph.</p>
+      <p><b>Bulleted List</b> and <b>Numbered List</b> are also each available here, again either applied frame-wide or by selected paragraph.</p>
+      <p>Once selected, each of these choices will show various parameters which can be adjusted, such as Offset, Size, Character Style, and others as applicable to each.</p>
+</td>
+<td><img src="images/text_tab15.png" ALT="Paragraph Effects"></td></tr>
+</table>
+<h3>Columns and Text Distances</h3>
+<table cellpadding=3 width="60%"><tr>
+<td><img src="images/text_tab6.png" width=200 height=200 ALT="Columns and Text Distances" ALIGN="left"></td>
+<td><p>Formerly, this was in the Shape tab, but now has sensibly moved to Text, since it does apply to text frames. Another enhancement is that now we can see in this example that two <b>Columns</b>, a <b>Gap</b>, and <b>Top</b> and <b>Left</b> distances have been set, even in an empty frame. This feature can be turned off/on with <i>View&nbsp;&gt; Show Text Frame Columns</i>.</p></td></tr>
+</table>
+<h3>Optical Margins</h3>
+<table cellpadding=3 width="75%"><tr>
+<td><p>When there is punctuation ending or beginning a line, the adjacent characters will be pushed in a bit resulting in a slightly ragged edge to the text. Application of optical margins allows the punctuation to extend from the frame just a bit so that the edges of other characters line up more closely.</p>
+<p>In the image to the right, on the left side we see the edge with no optical margins applied, and the right side shows what we see with optical margins.</td>
+<td><img src="images/text_tab11b.png" ALT="Optical Margins" ALIGN="right"></td></tr>
+</table>
+<h3>Hyphenation</h3>
+<p>This is covered in the page on <a href="hyphenator.html">Hyphenation</a>.</p>
+<h3>Advanced Settings</h3>
+<table cellpadding=3 width="80%">
+<tr><td><p>The upper part of this sub-tab contains some features long present in Scribus, but have simply moved here. Starting from the upper left spinbox and going clockwise, we have <b>Offset to baseline of characters</b>, and not just for align to baseline grid, so that selected words can be shifted above or below the baseline for the desired effect.</p>
+<p>Next we have <b>Manual Tracking</b> or kerning (kerning would apply to adjusting the space only between two particular glyphs), in which the spaces between glyphs can be adjusted, again in a smaller than normal (negative percent) or larger fashion.</p>
+    <p>In the lower right corner <b>Scaling height of characters</b>, and in the lower left <b>Scaling width of characters</b>, each self-explanatory.</p>
+  <p><b>Word Tracking and Glyph Extension</b></p>
+<p>You might consider these a more advanced or intelligent kerning and character width adjustment, where we can, by setting the Minimum and Normal, or Minimum and Maximum parameters, allow for adjustments in spacing in a selective fashion, yet frame-wide. As you adjust these, you will see only some words, some lines adjusting. The idea is to adjust for a more pleasing appearance and even layout of the words in the frame, trying to avoid or eliminate problems like white space rivers.</p>
+</td>
+<td><img src="images/text_tab13.png" ALT="Advanced Settings" ALIGN="right"></td>
+</tr>
+</table>
+<h3>Font Features</h3>
+<table cellpadding=3 width="80%">
+  <tr><td valign="top"><p>Thanks to the extremely dedicated work of some developers new to Scribus, we can now offer some advanced features capable with Open Type Fonts, and also true Right-to-Left capability, a feature of languages such as Arabic and Hebrew.</p>
+      <p> This particular section of Text Properties can make use of alternate character sets which are present in OTF. There has been an intensive effort in bringing this about, and we want to encourage users to file reports of any remaining issues they may find with a particular language.</p>
+      <p><i>Note that if you are not using an Open Type Font, you will not have most of these settings available.</i></p></td>
+    <td><img src="images/text_tab16.png" ALT="Open Type Font Features" ALIGN="right"></td></tr></table>
+<h3>Path Text Properties</h3>
+<table cellpadding=3 width="80%">
+  <tr><td valign="top"><p>You won't have these settings available if you are not working with Text on Path. You make Text on Path by simultaneously selecting a text frame and a path, such as a Bezier curve. At that point, you have available under <b>Item > Path Tools > Attach Text to Path</b>. After that, Path Text Properties shows these possible settings.</p>
+      <p>Under <b>Type</b>, you have the <b>Default</b>, in which the vertical axis of the glyphs stays perpendicular to the path, <b>Stair Step</b>, (shown) keeps glyphs lined up vertically with no distortion of them, and <b>Skew</b> keeps glyphs vertical, but skews them so that the baseline of the characters follow the path.</p>
+      <p>Below we see the effect of the particular settings you see.</p></td>
+    <td><img src="images/text_tab17.png"></td></tr>
+  <tr><td><img src="images/text_tab18.png"></td></tr>
+  </table>
+
+      <hr>
+<p>See also:
+<ul>
+<li><a href="WwFrames.html">Working with Frames</a></li>
+<li><a href="WwStyles.html">Working with Styles</a></li>
+<li><a href="hyphenator.html">Hyphenation</a></li>
+<li><a href="pagenumber.html">Page Numbering</a></li>
+<li><a href="short-words.html">Short Words Plug-in</a></li>
+<li><a href="importhints3.html">Importing OpenOffice.org and ODF Files</a></li>
+<li><a href="importhints4.html">Importing HTML</a></li>
+</ul>
+</p>
+</body>
+</html>

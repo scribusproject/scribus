@@ -29,10 +29,14 @@ for which a new license (GPL+exception) is in place.
 PDFToolBar::PDFToolBar(ScribusMainWindow* parent) : ScToolBar( tr("PDF Tools"), "PDF_Tools", parent)
 {
 	this->addAction(parent->scrActions["toolsPDFPushButton"]);
-	this->addAction(parent->scrActions["toolsPDFTextField"]);
 	this->addAction(parent->scrActions["toolsPDFCheckBox"]);
+	this->addAction(parent->scrActions["toolsPDFRadioButton"]);
+	this->addAction(parent->scrActions["toolsPDFTextField"]);
 	this->addAction(parent->scrActions["toolsPDFComboBox"]);
 	this->addAction(parent->scrActions["toolsPDFListBox"]);
 	this->addAction(parent->scrActions["toolsPDFAnnotText"]);
 	this->addAction(parent->scrActions["toolsPDFAnnotLink"]);
+#ifdef HAVE_OSG
+	this->addAction(parent->scrActions["toolsPDFAnnot3D"]);
+#endif
 }

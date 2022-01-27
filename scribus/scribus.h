@@ -30,88 +30,88 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 
 // include files for QT
-#include <QAction>
+
 #include <QActionGroup>
-#include <QApplication>
 #include <QClipboard>
-#include <QCloseEvent>
-#include <QDragEnterEvent>
-#include <QDropEvent>
-#include <QEvent>
-#include <QFont>
+#include <QImage>
 #include <QKeyEvent>
-#include <QLabel>
 #include <QMainWindow>
 #include <QMap>
-#include <QMenu>
-#include <QMenuBar>
-#include <QMessageBox>
-#include <QMouseEvent>
 #include <QMultiHash>
-#include <QPainter>
-#include <QPixmap>
 #include <QPointer>
+#include <QPushButton>
 #include <QProcess>
-#include <QProgressBar>
-#include <QProgressDialog>
-#include <QStatusBar>
 #include <QString>
-#include <QTimer>
-#include <QToolButton>
-#include <QToolTip>
-#include <QWheelEvent>
-#include <QWorkspace>
 
+class QCloseEvent;
+class QDragEnterEvent;
+class QDropEvent;
+class QEvent;
+class QKeyEvent;
+class QLabel;
+class QMdiArea;
+class QMdiSubWindow;
+class QQuickView;
 
 // application specific includes
 #include "scribusapi.h"
-#include "scribusview.h"
 #include "scribusdoc.h"
-#include "customfdialog.h"
+#include "styleoptions.h"
+#include "ui/customfdialog.h"
+#include "ui/scmessagebox.h"
 
 class ActionManager;
 class AlignDistributePalette;
+class AppModeHelper;
 class Autoforms;
 class Biblio;
 class BookPalette;
 class CharSelect;
 class CheckDocument;
 class ColorCombo;
+class DownloadsPalette;
 class EditToolBar;
 class FileToolBar;
 class FontCombo;
 class FormatsManager;
 class GuideManager;
 class HelpBrowser;
+class InlinePalette;
 class LayerPalette;
+class MarksManager;
 class Measurements;
-class MenuManager;
 class ModeToolBar;
 class NodePalette;
+class NotesStylesEditor;
 class OutlinePalette;
 class PDFToolBar;
 class PSLib;
 class PageItem;
 class PagePalette;
-class Preferences;
+class PageSelector;
 class PrefsContext;
 class PrefsManager;
+class ContentPalette;
 class PropertiesPalette;
-class ReformDoc;
+class ResourceManager;
+class ScMWMenuManager;
 class ScToolBar;
 class ScrAction;
+class ScrSpinBox;
 class ScribusCore;
+class ScribusDoc;
 class ScribusMainWindow;
 class ScribusQApp;
 class ScribusWin;
 class SimpleState;
 class StoryEditor;
 class StyleManager;
+class SymbolPalette;
 class TOCGenerator;
 class UndoManager;
 class UndoPalette;
 class UndoState;
-
+class ViewToolBar;
 
 extern SCRIBUS_API ScribusQApp* ScQApp;
 
@@ -133,189 +133,231 @@ public:
 	/*!
 	* \retval 0 - ok, 1 - no fonts, ...
 	*/
-	int initScMW(bool primaryMainwWindow);
-	void addScToolBar(ScToolBar *tb, QString name);
+	int initScMW(bool primaryMainWindow);
+	void setupMainWindow();
+	int getScreenNumber() const;
+	QScreen* getScreen() const;
+	void getScreenPosition(int& xPos, int& yPos) const;
+	void getScreenDPI(int& dpiX, int& dpiY) const;
+	void addScToolBar(ScToolBar *tb, const QString& name);
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
 	void startUpDialog();
 	void setDefaultPrinter(const QString&, const QString&, const QString&);
 	void getDefaultPrinter(QString& name, QString& file, QString& command);
 
+	inline bool scriptIsRunning(void) const { return (m_ScriptRunning > 0); }
+	inline void setScriptRunning(bool value) { m_ScriptRunning += (value ? 1 : -1); }
+
 	ScribusDoc *doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
 	ScribusDoc *newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
-	bool DoFileSave(const QString& fileName, QString* savedFileName = NULL);
-	void changeEvent(QEvent *e);
-	void closeEvent(QCloseEvent *ce);
-	void keyPressEvent(QKeyEvent *k);
-	void keyReleaseEvent(QKeyEvent *k);
+	bool DoFileSave(const QString& fileName, QString* savedFileName = nullptr);
+
+	void changeEvent(QEvent *e) override;
+	void closeEvent(QCloseEvent *ce) override;
+	void keyPressEvent(QKeyEvent *k) override;
+	void keyReleaseEvent(QKeyEvent *k) override;
+	void inputMethodEvent (QInputMethodEvent *event) override;
+	QVariant inputMethodQuery ( Qt::InputMethodQuery query ) const override;
+
+	void requestUpdate(int);
 	void setTBvals(PageItem *currItem);
-	void ShowSubs();
-	void applyNewMaster(QString name);
-	void updateRecent(QString fn);
-	void doPasteRecent(QString data);
-	QString GetLang(QString inLang);
-	bool getPDFDriver(const QString & fn, const QString & nam,
-					  int Components, const std::vector<int> & pageNs,
-					  const QMap<int,QPixmap> & thumbs, QString& error, 
-					  bool* cancelled = NULL);
-	bool DoSaveAsEps(QString fn, QString& error);
-	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
-						int optionFlags = fdExistingFiles, bool *docom = 0, bool *doFont = 0, bool *doProfiles = 0);
+	int ShowSubs();
+	void applyNewMaster(const QString& name);
+	void updateRecent(const QString& fn);
+	void doPasteRecent(const QString& data);
+	bool getPDFDriver(const QString & filename, const std::vector<int> & pageNumbers, const QMap<int, QImage> & thumbs, QString& error, bool* cancelled = nullptr);
+	bool DoSaveAsEps(const QString& fn, QString& error);
+	QString CFileDialog(const QString& workingDirectory = ".", const QString& dialogCaption = "", const QString& fileFilter = "", const QString& defNa = "",
+						int optionFlags = fdExistingFiles, bool *useCompression = 0, bool *useFonts = 0, bool *useProfiles = 0);
 	/*! \brief Recalculate the colors after changing CMS settings.
 	Call the appropriate document function and then update the GUI elements.
 	\param dia optional progress widget */
-	void recalcColors(QProgressBar *dia = 0);
+	void recalcColors();
 	void SwitchWin();
 	void RestoreBookMarks();
-
+	QStringList  scrapbookNames();
+	void updateLayerMenu();
 	void emergencySave();
+	QStringList findRecoverableFile();
+	bool recoverFile(const QStringList& foundFiles);
 
 	/**
 	 * @brief Returns true if an arrow key is pressed down.
 	 * @return true if an arrow key is pressed down otherwise returns false
 	 */
-	bool arrowKeyDown();
+	//bool arrowKeyDown();
+
 	/**
 	 * @brief Returns true if application is in object specific undo mode, other wise returns false.
 	 * @return true if application is in object specific undo mode, other wise returns false
 	 */
 	bool isObjectSpecificUndo();
-	void restore(UndoState* state, bool isUndo);
+	void restore(UndoState* state, bool isUndo) override;
 	void restoreGrouping(SimpleState *state, bool isUndo);
 	void restoreUngrouping(SimpleState *state, bool isUndo);
 	void restoreAddPage(SimpleState *state, bool isUndo);
 	void restoreDeletePage(SimpleState *state, bool isUndo);
-	struct CopyPasteBuffer Buffer;
+	void setPreviewToolbar();
+	void updateFromDrop();
 	struct CopyContentsBuffer contentsBuffer;
-	bool internalCopy;
-	int  HaveDoc;
-	PrefsContext* dirs;
+	bool internalCopy { false };
+	QString internalCopyBuffer;
+	int  HaveDoc { 0 };
+	PrefsContext* dirs {nullptr};
 	/** \brief view is the main widget which represents your working area. The View
 	 * class should handle all events of the view widget.  It is kept empty so
 	 * you can create your view according to your application's needs by
 	 * changing the view class.
 	 */
-	ScribusView *view;
+	ScribusView *view {nullptr};
 	/** \brief doc represents your actual document and is created only once. It keeps
 	 * information such as filename and does the serialization of your files.
 	 */
-	ScribusDoc *doc;
+	ScribusDoc *doc {nullptr};
+	/** \brief private doc for managing default patterns. */
+	ScribusDoc* m_doc {nullptr};
 
 
-	QProgressBar* mainWindowProgressBar;
-	QLabel* mainWindowXPosLabel;
-	QLabel* mainWindowXPosDataLabel;
-	QLabel* mainWindowYPosLabel;
-	QLabel* mainWindowYPosDataLabel;
-	GuideManager *guidePalette;
-	CharSelect *charPalette;
-	PropertiesPalette *propertiesPalette;
-	NodePalette *nodePalette;
-	OutlinePalette *outlinePalette;
-	Biblio *scrapbookPalette;
-	LayerPalette* layerPalette;
-	PagePalette *pagePalette;
-	BookPalette *bookmarkPalette;
-	Measurements* measurementPalette;
-	CheckDocument * docCheckerPalette;
-	UndoPalette* undoPalette;
-	AlignDistributePalette *alignDistributePalette;
-	StoryEditor* storyEditor;
-	StoryEditor* CurrStED;
-// 	QMap<QString,QString> Sprachen; // <language not translated, file name>
-	QWorkspace *wsp;
-	ScribusWin* ActWin;
-	QClipboard *ClipB;
+	QProgressBar* mainWindowProgressBar {nullptr};
+	ScrSpinBox* zoomSpinBox {nullptr}; //zoom spinbox at bottom of view
+	PageSelector* pageSelector {nullptr}; //Page selector at bottom of view
+	QPushButton *zoomDefaultToolbarButton {nullptr};
+	QPushButton *zoomOutToolbarButton {nullptr};
+	QPushButton *zoomInToolbarButton {nullptr};
+	QComboBox *layerMenu {nullptr}; //Menu for layers at bottom of view
+	QComboBox *unitSwitcher {nullptr}; //Menu for units at bottom of view
+	EditToolBar *editToolBar {nullptr};
+	FileToolBar *fileToolBar {nullptr};
+	ModeToolBar* modeToolBar {nullptr};
+	PDFToolBar* pdfToolBar {nullptr};
+	ViewToolBar* viewToolBar {nullptr};
+	QLabel* mainWindowXPosLabel {nullptr};
+	QLabel* mainWindowXPosDataLabel {nullptr};
+	QLabel* mainWindowYPosLabel {nullptr};
+	QLabel* mainWindowYPosDataLabel {nullptr};
+	GuideManager *guidePalette {nullptr};
+	CharSelect *charPalette {nullptr};
+	PropertiesPalette *propertiesPalette {nullptr};
+	ContentPalette *contentPalette {nullptr};
+	MarksManager *marksManager {nullptr};
+	NotesStylesEditor *nsEditor {nullptr};
+	NodePalette *nodePalette {nullptr};
+	OutlinePalette *outlinePalette {nullptr};
+	Biblio *scrapbookPalette {nullptr};
+	LayerPalette* layerPalette {nullptr};
+	PagePalette *pagePalette {nullptr};
+	BookPalette *bookmarkPalette {nullptr};
+	DownloadsPalette *downloadsPalette {nullptr};
+	SymbolPalette *symbolPalette {nullptr};
+	InlinePalette *inlinePalette {nullptr};
+	Measurements* measurementPalette {nullptr};
+	CheckDocument * docCheckerPalette {nullptr};
+	UndoPalette* undoPalette {nullptr};
+	AlignDistributePalette *alignDistributePalette {nullptr};
+	ResourceManager *resourceManager {nullptr};
+	StoryEditor* storyEditor {nullptr};
+	StoryEditor* CurrStED {nullptr};
+	QMdiArea *mdiArea {nullptr};
+	ScribusWin* ActWin {nullptr};
+	QClipboard *ClipB {nullptr};
 	QString LoadEnc;
-	bool ScriptRunning;
-	QMap<QString, QStringList> InstLang;
-	QMap<QString,QString> LangTransl;
-
-	QProcess *ExternalApp;
+	AppModeHelper *appModeHelper {nullptr};
 
 	QMap<QString, QPointer<ScrAction> > scrActions;
 	QMap<QString, QPointer<ScrAction> > scrRecentFileActions;
 	QMap<QString, QPointer<ScrAction> > scrWindowsActions;
+	QMap<QString, QPointer<ScrAction> > scrScrapActions;
 	QMap<QString, QPointer<ScrAction> > scrLayersActions;
 	QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
 	QMap<QString, QPointer<ScToolBar> > scrToolBars;
 	QMultiHash<QString, QActionGroup*> scrActionGroups;
-	MenuManager* scrMenuMgr;
-	ActionManager* actionManager;
-	QStringList RecentDocs;
+	ScMWMenuManager* scrMenuMgr {nullptr};
+	ActionManager* actionManager {nullptr};
+	QStringList m_recentDocsList;
+	QStringList patternsDependingOnThis;
 
 public slots:
+	void iconSetChange();
 	void languageChange();
-	void specialActionKeyEvent(const QString& actionName, int unicodevalue);
+	void localeChange();
+	void statusBarLanguageChange();
+	void specialActionKeyEvent(int unicodevalue);
 	void newView();
 	void ToggleStickyTools();
 	void ToggleAllGuides();
 	void ToggleAllPalettes();
-	void slotStoryEditor();
+	void slotStoryEditor(bool fromTable);
 	void slotCharSelect();
 	void ImageEffects();
-	QString Collect(const bool compress = false, const bool withFonts = false, const bool withProfiles = false, const QString& newDirectory=QString::null);
+	QString fileCollect(const bool compress = false, const bool withFonts = false, const bool withProfiles = false, const QString& newDirectory=QString());
 	void AddBookMark(PageItem *ite);
 	void DelBookMark(PageItem *ite);
 	void BookMarkTxT(PageItem *ite);
 	void StoreBookmarks();
-	//void setItemFillTransparency(double t);
-	//void setItemLineTransparency(double t);
 	void setStatusBarMousePosition(double xp, double yp);
-	void setStatusBarInfoText(QString newText);
+	void setStatusBarTextPosition(double base, double xp);
+	void setStatusBarTextSelectedItemInfo();
+	void setTempStatusBarText(const QString &text);
+	void setStatusBarInfoText(const QString& newText);
 	bool DoFileClose();
-	//bool DoSaveClose();
 	void windowsMenuAboutToShow();
 	//! \brief Handle the Extras menu for its items availability.
 	void extrasMenuAboutToShow();
-	void newActWin(QWidget *w);
+	void newActWin(QMdiSubWindow *w);
 	void closeActiveWindowMasterPageEditor();
 	void updateActiveWindowCaption(const QString &newCaption);
 	void windowsMenuActivated(int id);
-	void UnDoAction();
-	void RedoAction();
-	//void doHyphenate();
-	//void doDeHyphenate();
-	void slotTest();
-	void slotTest2();
-	void PutScrap();
+	void PutScrap(int scID);
+	void PutToInline(const QString& buffer);
+	void PutToInline();
 	void PutToPatterns();
+	void ConvertToSymbol();
 	void changeLayer(int);
+	void setLayerMenuText(const QString &);
 	void showLayer();
-	//void LayerRemove(int l, bool dl = false);
+	void slotSetCurrentPage(int pageIndex);
+	void setCurrentPage(int p);
 	void ManageJava();
-	void manageMasterPages(QString temp = "");
-	void manageMasterPagesEnd();
+	void editSelectedSymbolStart();
+	void editSymbolStart(const QString& temp);
+	void editSymbolEnd();
+	void editInlineStart(int id);
+	void editInlineEnd();
+	void editMasterPagesStart(const QString& temp = "");
+	void editMasterPagesEnd();
 	/** \brief generate a new document in the current view */
 	bool slotFileNew();
 	void newFileFromTemplate();
 	bool slotPageImport();
-	bool loadPage(QString fileName, int Nr, bool Mpa, const QString& renamedPageName=QString::null);
-
+	bool loadPage(const QString& fileName, int Nr, bool Mpa, const QString& renamedPageName=QString());
+	void gotoLayer(int l);
 	void slotGetContent();
 	void slotGetContent2(); // kk2006
 	void slotGetClipboardImage();
+	void toogleInlineState();
 	/*!
 	\author Franz Schmid
 	\brief Appends a Textfile to the Text in the selected Textframe at the Cursorposition
 	*/
 	void slotFileAppend();
 
-	void removeRecent(QString fn);
-	void loadRecent(QString fn);
+	void removeRecent(const QString& fn, bool fromFileWatcher = false);
+	void removeRecentFromWatcher(const QString& filename);
+	void loadRecent(const QString& filename);
 	void rebuildRecentFileMenu();
 	void rebuildRecentPasteMenu();
-	void pasteRecent(QString fn);
-	void pasteFromScrapbook(QString fn);
+	void rebuildScrapbookMenu();
+	void pasteRecent(const QString& fn);
+	void pasteFromScrapbook(const QString& fn);
 	void importVectorFile();
 	void rebuildLayersList();
-	bool slotDocOpen();
-	bool loadDoc(QString);
+	bool slotFileOpen();
+	bool loadDoc(const QString& );
 	/**
 	 * @brief Do post loading functions
 	 */
 	bool postLoadDoc();
-	void slotAutoSaved();
 	/** \brief save a document */
 	bool slotFileSave();
 	/** \brief save a document under a different filename*/
@@ -328,6 +370,7 @@ public slots:
 	/** \brief print the actual file */
 	void slotFilePrint();
 	void slotReallyPrint();
+	void slotEndSpecialEdit();
 	/*!
 	\author Franz Schmid
 	\brief Generate and print PostScript from a doc
@@ -347,171 +390,147 @@ public slots:
 	void slotEditPaste();
 	void slotEditCopyContents();
 	void slotEditPasteContents(int absolute=0);
-	void EnableTxEdit();
-	void DisableTxEdit();
 	void SelectAll(bool docWideSelect=false);
 	void SelectAllOnLayer();
 	void deselectAll();
 	void ClipChange();
-	//void clearContents();
+	void setCopyCutEnabled(bool b);
 	/** \brief shows an about dialog*/
 	void slotHelpAbout();
 	void slotHelpAboutPlugins();
     void slotHelpAboutQt();
+	void slotHelpActionSearch();
 	void slotHelpCheckUpdates();
-	void slotOnlineHelp();
+	void slotRaiseOnlineHelp();
+	void slotOnlineHelp(const QString & jumpToSection=QString(), const QString & jumpToFile=QString());
 	void slotOnlineHelpClosed();
+	void slotResourceManager();
 	void ToggleTips();
 	void ToggleMouseTips();
 	/** \brief Erzeugt eine neue Seite */
-	void slotNewPageP(int wo, QString templ);
+	void slotNewPageP(int wo, const QString& templ);
 	void slotNewPageM();
 	void slotNewMasterPage(int w, const QString &);
-	void slotNewPage(int w, const QString& masterPageName=QString::null, bool mov = true);
+	void slotNewPage(int w, const QString& masterPageName=QString(), bool mov = true);
 	void duplicateToMasterPage();
 	/** \brief Loescht die aktuelle Seite */
-	void DeletePage();
+	void deletePage();
 	/**
 	 * \brief Delete pages
 	 * @param from First page to delete
 	 * @param to Last page to delete
 	 */
-	void DeletePage(int from, int to);
-	void DeletePage2(int pg);
+	void deletePage(int from, int to);
+	void deletePage2(int pg);
 	/** \brief Verschiebt Seiten */
-	void MovePage();
-	void CopyPage();
-	void changePageMargins();
+	void movePage();
+	void copyPage();
+	void changePageProperties();
 	/*!
 	\author Craig Bradney
 	\date Sun 30 Jan 2005
 	\brief Zoom the view.
-	Take the ScMW zoom actions and pass the view a %. Actions have whole number values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+	Take the main window zoom actions and pass the view a %. Actions have whole number values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 	\param zoomFactor Value stored in the ScrAction.
 	 */
 	void slotZoom(double zoomFactor); // 20, 50, 100, or -100 for Fit
 	/** \brief Schaltet Raender ein/aus */
-	void ToggleMarks();
-	void ToggleBleeds();
-	void ToggleFrames();
-	void ToggleLayerMarkers();
-	void ToggleTextLinks();
-	void ToggleTextControls();
-	void ToggleColumnBorders();
-	void ToggleRulers();
-	void ToggleRulerMode();
-	/* Schaltet Masspalette ein/aus */
-	//void togglePropertiesPalette();
-	/* Schaltet Uebersichtspalette ein/aus*/
-	//void toggleOutlinePalette();
-	//void toggleScrapbookPalette();
-	//void toggleLayerPalette();
+	void toggleMarks();
+	void toggleBleeds();
+	void toggleFrames();
+	void toggleLayerMarkers();
+	void toggleTextLinks();
+	void toggleTextControls();
+	void toggleColumnBorders();
+	void toggleRulers();
+	void toggleRulerMode();
 	void togglePagePalette();
-	void setPagePalette(bool visible);
-	//void toggleBookmarkPalette();
 	void toggleUndoPalette();
 	void setUndoPalette(bool visible);
 	void toggleCheckPal();
 	/** \brief Schaltet M_ViewShowImages ein/aus */
-	void TogglePics();
+	void toggleImageVisibility();
 	/** \brief Schaltet Raster ein/aus */
-	void ToggleRaster();
+	void toggleGrid();
 	/** \brief Schaltet Rasterbenutzung ein/aus */
-	void ToggleURaster();
+	void toggleSnapGrid();
 	/** \brief Schaltet Rahmenbearbeitung ein/aus */
 	void toggleNodeEdit();
 	void slotSelect();
 	/** \brief Switch appMode
 	\param mode TODO learn modes*/
-	void setAppMode(int mode);
 	void setAppModeByToggle(bool isOn, int newMode);
 	/** \brief Neues Dokument erzeugt */
 	void HaveNewDoc();
-	void HaveNewSel(int Nr);
+	void HaveNewSel();
 	/** Dokument ist geaendert worden */
 	void slotDocCh(bool reb = true);
 	/** Setzt die Abstufung */
-	void setItemShade(int id);
-	/** Setzt den Font */
-	/** Korrigiert das FontMenu */
-	void SetNewFont(const QString& nf);
+	//void setItemShade(int id);
 	/** Setz die Zeichensatzgroesse */
-	void setItemFSize(int id);
-	/** Farbeditor */
-	void slotEditColors();
+	void setItemFontSize(int fontSize);
+	void setItemLanguage(const QString& language);
 	/** Color Replacement */
 	void slotReplaceColors();
 	/** Style Manager */
-	/*
-	// Setzt den Pen-Tonwert
-	void setPenShade(int sh);
-	// Setzt den Brush-Tonwert
-	void setBrushShade(int sh);
-	void setGradFill(int typ);
-	*/
-	void updtGradFill();
-	/*
-	// Setzt die Pen-Farbe
-	void setPenFarbe(QString farbe);
-	// Setzt die Brush-Farbe
-	void setBrushFarbe(QString farbe);
-	*/
-	//CB: void setCSMenu();
-	/** Fragt nach den Farben */
-//	void GetBrushPen();
+
 	/** Erzeugt einen Rahmen */
 	void MakeFrame(int f, int c, double *vals);
-	//** Loescht ein Element */
-	//void DeleteObjekt();
 	/** Duplicate current item */
 	void duplicateItem();
 	/** Multiple duplicate current item*/
 	void duplicateItemMulti();
-	/** \brief Refromat the document when user click "OK" in ReformDoc dialog.
-	See docSetup() for more info. */
-	bool slotDocSetup();
+
 	void objectAttributes();
 	void getImageInfo();
 	void generateTableOfContents();
-	/*! \brief Change Preferences dialog.
-	See prefsOrg for more info. It's very similar to docSetup/slotDocSetup. */
-	void slotPrefsOrg();
-//	void saveStyles(StilFormate *dia); //still required for style save from SE
-	void setNewAlignment(int a);
+	void updateDocument();
+
+	void setNewAlignment(int i);
+	void setNewDirection(int i);
 	void setNewParStyle(const QString& name);
 	void setNewCharStyle(const QString& name);
-	void setAbsValue(int a);
-	void selectItemsFromOutlines(PageItem *ite);
-	void selectItemsFromOutlines(int Page, int Item, bool single = false);
-	void selectPagesFromOutlines(int Page);
+	void setAlignmentValue(int i);
+	void setDirectionValue(int i);
+	void editItemsFromOutlines(PageItem *ite);
+	//0= center, 1 = top left.
+	void selectItemsFromOutlines(PageItem *ite, bool single = false, int position = 0);
+	void selectItemFromOutlines(PageItem *ite, bool single, int cPos);
+	void selectPagesFromOutlines(int ScPage);
 	void doPrintPreview();
 	void printPreview();
+	void doOutputPreviewPDF();
+	void outputPreviewPDF();
+	void doOutputPreviewPS();
+	void outputPreviewPS();
 	void SaveAsEps();
 	void reallySaveAsEps();
 	void SaveAsPDF();
 	void doSaveAsPDF();
 	void setMainWindowActive();
-	void setItemHoch(int h);
-	void setStilvalue(int s);
+	void setItemEffects(int h);
+	void setStyleEffects(int s);
 	void setItemTypeStyle(int id);
-	void slotElemRead(QString Name, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie);
+	void slotElemRead(const QString& Name, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie);
 	void slotChangeUnit(int art, bool draw = true);
 	/*!
 	 * @brief Apply master pages from the Apply Master Page dialog
 	 * @todo Make this work with real page numbers, negative numbers and document sections when they are implemented
 	*/
 	void ApplyMasterPage();
-	void Apply_MasterPage(QString pageName, int pageNumber, bool reb = true);
+	void Apply_MasterPage(const QString& pageName, int pageNumber, bool reb = true);
 	void GroupObj(bool showLockDia = true);
 	void UnGroupObj();
+	void AdjustGroupObj();
 	void StatusPic();
 	void ModifyAnnot();
-	void ToggleGuides();
-	void ToggleBase();
-	void ToggleUGuides();
+	void toggleGuides();
+	void toggleBase();
+	void toggleSnapGuides();
+	void toggleSnapElements();
+	void SetSnapElements(bool b);
 	void EditTabs();
 	void SearchText();
-	void imageEditorExited(int, QProcess::ExitStatus);
 	/*! \brief call gimp and wait upon completion */
 	void callImageEditor();
 	void docCheckToggle(bool visible);
@@ -520,124 +539,126 @@ public slots:
 	void setUndoMode(bool isObjectSpecific);
 	//! \brief Apply a Lorem Ipsum to the each item in a selection
 	void insertSampleText();
-	//void sendToLayer(int layerNumber);
 	void updateItemLayerList();
-	/*! \brief Apply changes from ReformDoc dialog.
-	It's called from this->slotDocSetup() or from ReformDoc directly.
-	\param dia a reference to the ReformDoc dialog */
-	void docSetup(ReformDoc* dia);
-	/*! \brief Apply changes from Preferences dialog.
-	It's called from this->slotPrefsOrg() or from Preferences directly.
-	\param dia a reference to the Preferences dialog */
-	void prefsOrg(Preferences* dia);
+	void updateColorLists();
+	/*! \brief Change Preferences dialog.
+	See prefsOrg for more info. It's very similar to docSetup/slotDocSetup. */
+	void slotPrefsOrg();
+	/** \brief Refromat the document when user click "OK" in ReformDoc dialog.
+	See docSetup() for more info. */
+	void slotDocSetup();
 	//! \brief Insert a frame friendly dialog
 	void slotInsertFrame();
-	//! \brief manages the documents patterns
-	void managePatterns();
-	//! \brief enable or disable the unicode actions and their menus
-	void enableTextActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
-	//! \brief allow SE to get the SM for edit stlyes
-	StyleManager *styleMgr() const {return styleManager;};
+	//! \brief Transform an item
+	void slotItemTransform();
+	//! \brief manages paints
+	void manageColorsAndFills();
+	//! \brief allow SE to get the SM for edit styles
+	StyleManager *styleMgr() const {return m_styleManager;};
+	//! \brief drawnew, call palettes to update for new page layout
+	void updateGUIAfterPagesChanged();
+	/**
+	 * Enables/disables the actions in the "Table" menu.
+	 *
+	 * This has a functions of its own, since it needs to be called from the table edit
+	 * canvas modes/gestures.
+	 */
+	void updateTableMenuActions();
+	void emitUpdateRequest(int updateFlags) { emit UpdateRequest(updateFlags); }
+
+	//inserting marks
+	void slotInsertMark2Mark() { insertMark(MARK2MarkType); }
+	void slotInsertMarkAnchor() { insertMark(MARKAnchorType); }
+	void slotInsertMarkVariableText() { insertMark(MARKVariableTextType); }
+	void slotInsertMarkItem() { insertMark(MARK2ItemType); }
+	void slotInsertMarkNote();
+	void slotInsertMarkIndex() { insertMark(MARKIndexType); }
+	void slotEditMark();
+	//connected to signal emitted by actions when "Update Marks" menu item is triggered
+	void slotUpdateMarks();
+	bool editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem = nullptr);
+//	void testQT_slot1(QString);
+//	void testQT_slot2(double);
+//	void testQT_slot3(int);
+//	void testQT_slot4();
+	void changePreviewQuality(int index);
+	void enablePalettes(bool b);
+	void ToggleFrameEdit();
+	void NoFrameEdit();
 
 signals:
 	void TextStyle(const ParagraphStyle&);
 //deprecated: (av)
-	void TextISize(double);
-	void TextIFont(const QString&);
-	void TextUSval(double);
-	void TextStil(int);
-	void TextFarben(QString, QString, double, double);
-	void TextScale(double);
-	void TextScaleV(double);
-	void TextBase(double);
-	void TextShadow(double, double);
-	void TextOutline(double);
-	void TextUnderline(double, double);
-	void TextStrike(double, double);
+	void TextEffects(int);
+	void UpdateRequest(int updateFlags);
+	void changeLayers(int);
 
 protected:
 	/*!
 	\brief Receive key events from palettes such as palette hiding events. Possibly easier way but this is cleaner than before. No need to modify all those palettes and each new one in future.
 	 */
-	bool eventFilter( QObject *o, QEvent *e );
-	virtual void dragEnterEvent( QDragEnterEvent* e);
-	virtual void dropEvent( QDropEvent* e);
+	bool eventFilter( QObject *o, QEvent *e ) override;
+	void dragEnterEvent( QDragEnterEvent* e) override;
+	void dropEvent( QDropEvent* e) override;
 
 private:
     /** init methods */
 	void initSplash(bool showSplash);
+	void initMdiArea();
 	void initMenuBar(); // initMenuBar creates the menu_bar and inserts the menuitems
+	void createMenuBar();
 	void addDefaultWindowMenuItems(); // addDefaultWindowMenuItems adds the basic Windows menu items, excluding the actual list of windows
 	void initStatusBar(); // setup the statusbar
 	void initToolBars(); // setup the toolbars
+	void setStyleSheet(); //set stylesheet for app
 	//Returns false when there are no fonts
 	void initHyphenator();
 	void initDefaultValues();
 	void initKeyboardShortcuts();
 	void initPalettes();
 	void initScrapbook();
+	void updateColorMenu(QProgressBar* progressBar=nullptr);
 
-	void updateColorMenu(QProgressBar* progressBar=NULL);
-	void ToggleFrameEdit();
-	void NoFrameEdit();
+	int m_ScriptRunning {0};
 
-	QLabel* mainWindowStatusLabel;
-	QString recentFileMenuName;
-	QString recentPasteMenuName;
-	QString layerMenuName;
-	QPixmap noIcon;
-	EditToolBar *editToolBar;
-	FileToolBar *fileToolBar;
-	ModeToolBar* modeToolBar;
-	PDFToolBar* pdfToolBar;
-	QToolButton* DatOpe;
-	QToolButton* DatSav;
-	QToolButton* DatClo;
-	QToolButton* DatPri;
-	QToolButton* DatPDF;
-	QToolButton* DatNeu;
-	int toolbarMenuTools;
-	int toolbarMenuPDFTools;
-	int viewToolbars;
-	int viewPropertiesPalette;
-	int viewOutlinePalette;
-	int viewNodePalette;
-	int viewBpal;
-	int viewLayerPalette;
-	int viewPagePalette;
-	int viewBopal;
-	int viewUndoPalette;
+	QLabel* m_mainWindowStatusLabel {nullptr};
+	QString m_statusLabelText;
+	//QPixmap noIcon;
 
-	bool palettesStatus[10];
-	bool guidesStatus[13];
+	bool m_palettesStatus[13] { false };
+	bool m_guidesStatus[13] { false };
 
-	bool keyrep;
+	//bool m_keyrep;
 	/** @brief Tells if an arrow key is pressed down */
-	bool _arrowKeyDown;
+	//bool m_arrowKeyDown;
 	/** @brief tells the undo mode */
-	bool objectSpecificUndo;
+	bool m_objectSpecificUndo { false };
 
-	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn = 0);
+	//CB: #8212: add overrideMasterPageSizing, however default to true for compatibility with other calls.. for now
+	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, const QString& siz, bool mov, QStringList* basedOn = 0, bool overrideMasterPageSizing=true);
 
-	void *PSDriver;
-	int DocNr;
-	bool PrinterUsed;
+	int m_DocNr { 1 };
+	bool m_PrinterUsed { false };
 	struct PDe {
 					QString Pname;
 					QString Dname;
 					QString Command;
 				} PDef ;
-	TOCGenerator *tocGenerator;
-	int storedPageNum;
-	int storedViewXCoor;
-	int storedViewYCoor;
-	double storedViewScale;
-	StyleManager *styleManager;
-	UndoManager *undoManager;
-	PrefsManager *prefsManager;
-	FormatsManager *formatsManager;
+	TOCGenerator *m_tocGenerator {nullptr};
 
-	HelpBrowser* helpBrowser;
+	StyleManager *m_styleManager {nullptr};
+	UndoManager *m_undoManager {nullptr};
+	PrefsManager& m_prefsManager;
+	FormatsManager *m_formatsManager {nullptr};
+
+	QPointer<HelpBrowser> m_helpBrowser;
+	QString m_osgFilterString;
+
+	void insertMark(MarkType);
+	bool insertMarkDialog(PageItem_TextFrame* item, MarkType mT, ScItemsState* &is);
+	int m_marksCount { 0 }; //remember marks count from last call
+	bool m_WasAutoSave { false };
+	bool m_pagePalVisible { false };
 };
 
 #endif

@@ -21,11 +21,12 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #include "sxwim.h"
 #include <QStringList>
+#include <QTemporaryDir>
 
 #ifndef HAVE_XML
 #error The sxwim plugin requires libxml to build
@@ -35,10 +36,10 @@ for which a new license (GPL+exception) is in place.
 #include <prefsfile.h>
 #include <prefscontext.h>
 #include <prefstable.h>
-#include "fileunzip.h"
 #include "stylereader.h"
 #include "contentreader.h"
 #include "sxwdia.h"
+#include "third_party/zip/scribus_zip.h"
 
 QString FileFormatName()
 {
@@ -50,7 +51,7 @@ QStringList FileExtensions()
 	return QStringList("sxw");
 }
 
-void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer)
 {
 	SxwIm* sim = new SxwIm(filename, encoding, writer, textOnly);
 	delete sim;
@@ -58,14 +59,15 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 
 /********** Class SxwIm ************************************************************/
 
-SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
+SxwIm::SxwIm(const QString& fileName, const QString& enc, gtWriter* w, bool textOnly)
 {
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("SxwIm");
+	PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("SxwIm");
 	bool update = prefs->getBool("update", true);
 	bool prefix = prefs->getBool("prefix", true);
 	bool ask = prefs->getBool("askAgain", true);
 	bool pack = prefs->getBool("pack", true);
 	encoding = enc;
+	writer = w;
 	if (!textOnly)
 	{
 		if (ask)
@@ -87,38 +89,32 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 		}
 	}
 	filename = fileName;
-	writer = w;
 	writer->setUpdateParagraphStyles(update);
-	FileUnzip* fun = new FileUnzip(fileName);
-	stylePath   = fun->getFile(STYLE);
-	contentPath = fun->getFile(CONTENT);
+	ScZipHandler* fun = new ScZipHandler();
+	if (fun->open(fileName))
+	{
+		const QString STYLE   = "styles.xml";
+		const QString CONTENT = "content.xml";
+		QTemporaryDir *dir = new QTemporaryDir();
+		QString baseDir = dir->path();
+		fun->extract(STYLE, baseDir, ScZipHandler::SkipPaths);
+		fun->extract(CONTENT, baseDir, ScZipHandler::SkipPaths);
+		stylePath   = baseDir + "/" + STYLE;
+		contentPath = baseDir + "/" + CONTENT;
+		if ((!stylePath.isNull()) && (!contentPath.isNull()))
+		{
+			QString docname = filename.right(filename.length() - filename.lastIndexOf("/") - 1);
+			docname = docname.left(docname.lastIndexOf("."));
+			StyleReader *sreader = new StyleReader(docname, writer, textOnly, prefix, pack);
+			sreader->parse(stylePath);
+			ContentReader *creader = new ContentReader(docname, sreader, writer, textOnly);
+			creader->parse(contentPath);
+			delete sreader;
+			delete creader;
+		}
+		delete dir;
+	}
 	delete fun;
-	// Qt4 NULL -> isNull()
-	if ((!stylePath.isNull()) && (!contentPath.isNull()))
-	{
-		QString docname = filename.right(filename.length() - filename.lastIndexOf("/") - 1);
-		docname = docname.left(docname.lastIndexOf("."));
-		StyleReader *sreader = new StyleReader(docname, writer, textOnly, prefix, pack);
-		sreader->parse(stylePath);
-		ContentReader *creader = new ContentReader(docname, sreader, writer, textOnly);
-		creader->parse(contentPath);
-		delete sreader;
-		delete creader;
-		QFile f1(stylePath);
-		f1.remove();
-		QFile f2(contentPath);
-		f2.remove();
-	}
-	else if ((stylePath.isNull()) && (!contentPath.isNull()))
-	{
-		QFile f2(contentPath);
-		f2.remove();
-	}
-	else if ((!stylePath.isNull()) && (contentPath.isNull()))
-	{
-		QFile f1(stylePath);
-		f1.remove();
-	}
 }
 
 SxwIm::~SxwIm()

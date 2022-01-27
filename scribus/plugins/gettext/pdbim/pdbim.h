@@ -14,14 +14,11 @@ class gtParagraphStyle;
 class QString;
 class QStringList;
 
-extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+extern "C" PLUGIN_API void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer);
 
 extern "C" PLUGIN_API QString FileFormatName();
 
 extern "C" PLUGIN_API QStringList FileExtensions();
-
-
-
 
 /*! \brief Abiword's internal data types */
 typedef unsigned int UT_uint32;
@@ -72,7 +69,7 @@ typedef struct
 	Word	numRecords;
 } pdb_header;
 
-/*! \brief Some compilers pad structures out to DWord boundaries so using 
+/*! \brief Some compilers pad structures out to DWord boundaries so using
 sizeof() doesn't give the intended result.
 */
 #define PDB_HEADER_SIZE 78
@@ -92,12 +89,12 @@ typedef struct {
 /*! \brief Binary buffer */
 typedef struct {
 	Byte buf[BUFFER_SIZE];
-	UT_uint32   len;
-	UT_uint32   position;
+	size_t   len;
+	size_t   position;
 } buffer;
 
-#define GET_Word(f,n)   { fread( &n, 2, 1, f ); n = swap_Word ( n ); }
-#define GET_DWord(f,n)  { fread( &n, 4, 1, f ); n = swap_DWord( n ); }
+#define GET_Word(f,n)   { size_t result = fread( &n, 2, 1, f ); if (result == 1) n = swap_Word ( n ); }
+#define GET_DWord(f,n)  { size_t result = fread( &n, 4, 1, f ); if (result == 1) n = swap_DWord( n ); }
 
 /*! \brief An import filter for Palm Documents (PDB files).
 PDB documents are simple non-formatted texts in binary forms used
@@ -119,27 +116,29 @@ public:
 	\param enc user selected text encoding. See encoding attr.
 	\param w a reference to the gtWriter instance */
 	PdbIm(const QString& fname, const QString& enc, gtWriter *w);
-	~PdbIm(){};
+	~PdbIm();
+
 	/*! \brief Write data into Scribus text frame.
 	User should specify encoding of the imported text - it's recoded here. */
 	void write();
+
 private:
 	//! \brief Binary buffer for extraction tasks
-	buffer *m_buf;
+	buffer *m_buf { nullptr };
 	//! \brief Store the extracted text here
 	QString data;
 	//! \brief Name of the codec/encoding to recode
 	QString encoding;
 	//! \brief Imp plugin handler
-	gtWriter *writer;
+	gtWriter *writer { nullptr };
 	//! \brief A "bit order" flag. True on little endian systems.
-	bool m_littlendian;
+	bool m_littlendian { true };
 	//! \brief A "document uses that strange compress algorithm" flag.
-	bool bCompressed;
-	
+	bool bCompressed { false };
+
 	/*! \brief Parse the PDB file.
 	\param fname a filename to open */
-	void loadFile(QString fname);
+	void loadFile(const QString& fname);
 	/*! \brief Learn which endian to use.
 	It fills the m_littlendian flag */
 	void selectSwap();

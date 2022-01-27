@@ -1,0 +1,30 @@
+include_directories(
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/scribus
+	${SCRIBUS_AUTOGEN_INCLUDE_PATH}
+)
+
+set(IMPORTVIVA_PLUGIN_SOURCES
+	importviva.cpp
+	importvivaplugin.cpp
+)
+
+set(SCRIBUS_IMPORTVIVA_PLUGIN "importviva")
+
+
+
+add_library(${SCRIBUS_IMPORTVIVA_PLUGIN} MODULE ${IMPORTVIVA_PLUGIN_SOURCES})
+
+target_link_libraries(${SCRIBUS_IMPORTVIVA_PLUGIN} ${EXE_NAME})
+
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_IMPORTVIVA_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
+install(TARGETS ${SCRIBUS_IMPORTVIVA_PLUGIN}
+	LIBRARY
+	DESTINATION ${PLUGINDIR}
+	PERMISSIONS ${PLUGIN_PERMISSIONS}
+)
+
+add_dependencies(Plugins ${SCRIBUS_IMPORTVIVA_PLUGIN})

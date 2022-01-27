@@ -7,26 +7,37 @@ for which a new license (GPL+exception) is in place.
 
 #include "barcode.h"
 #include "barcodegenerator.h"
+#include "scribuscore.h"
 #include "scribusstructs.h"
+#include "iconmanager.h"
+#include "scpaths.h"
 
-Barcode::Barcode() : ScActionPlugin()
+Barcode::Barcode()
 {
 	languageChange();
 }
 
-Barcode::~Barcode() {};
+Barcode::~Barcode() = default;
 
 void Barcode::languageChange()
 {
-	m_actionInfo.name = "Barcode Generator";
-	m_actionInfo.text = tr("&Barcode...");
-	m_actionInfo.menu = "Insert";
+	m_actionInfo.name = "BarcodeGenerator";
+	m_actionInfo.text = tr("Barcode");
+	m_actionInfo.helpText = tr("Insert a barcode");
+	if (ScCore->haveGS())
+	{
+		m_actionInfo.menu = "Insert";
+		m_actionInfo.menuAfterName = "toolsInsertRenderFrame";
+		m_actionInfo.toolbar = "Tools";
+	}
+	m_actionInfo.iconPath1 = "16/insert-barcode.png";
+	m_actionInfo.iconPath2 = "22/insert-barcode.png";
 	m_actionInfo.enabledOnStartup = false;
-	m_actionInfo.forAppMode.append(modeNormal);
+//	m_actionInfo.forAppMode.append(modeNormal);
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString Barcode::fullTrName() const
+QString Barcode::fullTrName() const
 {
 	return QObject::tr("Barcode Generator");
 }
@@ -35,12 +46,28 @@ const ScActionPlugin::AboutData* Barcode::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	Q_CHECK_PTR(about);
+
 	about->authors = QString::fromUtf8("Terry Burton - <tez@terryburton.co.uk>, Petr Van\xc4\x9bk <petr@scribus.info>");
-	about->shortDescription = tr("Scribus frontend for Pure PostScript Barcode Writer");
-	about->description = "Barcode Writer in Pure PostScript is an award-winning open source barcode maker, as used by NASA, that facilitates the printing of all major barcode symbologies entirely within level 2 PostScript, ideal for variable data printing. The complete process of generating printed barcodes is performed entirely within the printer (or print system) so that it is no longer the responsibility of your application or a library. There is no need for any barcode fonts and the flexibility offered by direct PostScript means you can avoid re-implementing barcode generator code, or migrating to new libraries, whenever your project language needs change.\nhttp://www.terryburton.co.uk/barcodewriter/";
-	about->version = "Backend: 2006-01-17";
+	about->shortDescription = tr("Scribus frontend for Barcode Writer in Pure PostScript");
+	about->description = "Barcode Writer in Pure Postscript generates all barcode formats entirely within PostScript hence this plugin requires Ghostscript to be installed on your system. https://bwipp.terryburton.co.uk";
+
+	// Extract the version information from BWIPP
+	QFile f( ScPaths::instance().shareDir() + QString("/plugins/barcode.ps") );
+	if (f.open(QIODevice::ReadOnly))
+	{
+		QTextStream ts(&f);
+		QString bwipp = ts.read(150);
+		f.close();
+		QRegExp rx("\\n% Barcode Writer in Pure PostScript - Version ([\\d-]+)\\n");
+		if (rx.indexIn(bwipp) >= 0)
+			about->version = "Backend: " + rx.cap(1);
+		else
+			about->version = "Backend: Unknown";
+	}
+	else
+		about->version = "Unable to open backend file";
 	// about->releaseDate
-	about->copyright = QString::fromUtf8("Backend: Copyright (c) 2005 Terry Burton - tez@terryburton.co.uk\nFrontend: Copyright (c) 2005 Petr Van\xc4\x9bk - petr@scribus.info");
+	about->copyright = QString::fromUtf8("Backend: Copyright (c) 2004-2018 Terry Burton - tez@terryburton.co.uk\nFrontend: Copyright (c) 2005 Petr Van\xc4\x9bk - petr@scribus.info");
 	about->license = "Backend: MIT/X-Consortium, Frontend: GPL";
 	return about;
 }
@@ -51,9 +78,9 @@ void Barcode::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool Barcode::run(ScribusDoc* doc, QString /*target*/ )
+bool Barcode::run(ScribusDoc* doc, const QString& /*target*/ )
 {
-	if (!doc)
+	if (!doc || !ScCore->haveGS())
 		return false;
 	BarcodeGenerator *bg = new BarcodeGenerator();
 	Q_CHECK_PTR(bg);
@@ -76,7 +103,7 @@ ScPlugin* barcodegenerator_getPlugin()
 
 void barcodegenerator_freePlugin(ScPlugin* plugin)
 {
-	Barcode* plug = dynamic_cast<Barcode*>(plugin);
+	Barcode* plug = qobject_cast<Barcode*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

@@ -1,0 +1,154 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+#include "javadocs.h"
+
+#include <memory>
+
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QListWidget>
+#include <QMessageBox>
+#include <QPixmap>
+#include <QPushButton>
+#include <QRegExp>
+#include <QTextEdit>
+#include <QToolTip>
+
+#include "commonstrings.h"
+#include "editor.h"
+#include "query.h"
+#include "scpage.h"
+#include "scribusdoc.h"
+#include "ui/scmessagebox.h"
+#include "iconmanager.h"
+
+
+JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
+	    : QDialog( parent ),
+	      m_Doc(doc),
+	      m_View(vie)
+{
+	setModal(true);
+	setWindowTitle( tr( "Edit JavaScripts" ) );
+	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+
+	JavaDocsLayout = new QHBoxLayout(this);
+	JavaDocsLayout->setContentsMargins(9, 9, 9, 9);
+	JavaDocsLayout->setSpacing(6);
+
+	Scripts = new QListWidget( this );
+	Scripts->setMinimumSize( QSize( 150, 200 ) );
+	QMap<QString,QString>::Iterator it;
+	for (it = m_Doc->JavaScripts.begin(); it != m_Doc->JavaScripts.end(); ++it)
+		Scripts->addItem(it.key());
+	JavaDocsLayout->addWidget( Scripts );
+
+	Layout1 = new QVBoxLayout;
+	Layout1->setContentsMargins(0, 0, 0, 0);
+	Layout1->setSpacing(6);
+
+	EditScript = new QPushButton( tr( "&Edit..." ), this);
+	Layout1->addWidget( EditScript );
+
+	AddScript = new QPushButton( tr( "&Add..." ), this);
+	Layout1->addWidget( AddScript );
+
+	DeleteScript = new QPushButton( tr( "&Delete" ), this);
+	Layout1->addWidget( DeleteScript );
+	auto* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	Layout1->addItem( spacer );
+
+	ExitDia = new QPushButton( tr( "&Close" ), this);
+	ExitDia->setDefault( true );
+	Layout1->addWidget( ExitDia );
+	if (m_Doc->JavaScripts.count() == 0)
+	{
+		EditScript->setEnabled(false);
+		DeleteScript->setEnabled(false);
+	}
+	JavaDocsLayout->addLayout( Layout1 );
+	connect(AddScript, SIGNAL(clicked()), this, SLOT(slotAdd()));
+	connect(EditScript, SIGNAL(clicked()), this, SLOT(slotEdit()));
+	connect(DeleteScript, SIGNAL(clicked()), this, SLOT(slotDelete()));
+	connect(ExitDia, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(Scripts, SIGNAL(itemActivated (QListWidgetItem *)), this, SLOT(slotEdit()));
+	connect(Scripts, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()));
+	AddScript->setToolTip( "<qt>" + tr( "Adds a new Script, predefines a function with the same name. If you want to use this script as an \"Open Action\" script be sure not to change the name of the function." ) + "</qt>" );
+}
+
+void JavaDocs::slotAdd()
+{
+	Query dia(this, "tt", true, tr("&New Script:"), tr("New Script"));
+	dia.setEditText( tr("New Script"), false );
+	dia.setTestList(m_Doc->JavaScripts.keys());
+	if (!dia.exec())
+		return;
+
+	QString nam = dia.getEditText();
+	nam.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%\\.]"), "_" );
+
+	std::unique_ptr<Editor> dia2(new Editor(this, "", m_View));
+	dia2->EditTex->setText("function "+nam+"()\n{\n}");
+	if (!dia2->exec())
+		return;
+
+	m_Doc->JavaScripts[nam] = dia2->EditTex->toPlainText();
+	Scripts->addItem(nam);
+	Scripts->setCurrentRow(Scripts->count() - 1);
+	emit docChanged(false);
+}
+
+void JavaDocs::slotEdit()
+{
+	const QListWidgetItem* currentItem = Scripts->currentItem();
+	if (!currentItem)
+		return;
+
+	QString name = currentItem->text();
+	std::unique_ptr<Editor> dia2(new Editor(this, m_Doc->JavaScripts[name], m_View));
+	if (!dia2->exec())
+		return;
+
+	m_Doc->JavaScripts[name] = dia2->EditTex->toPlainText();
+	emit docChanged(false);
+}
+
+void JavaDocs::slotDelete()
+{
+	QListWidgetItem* currentItem = Scripts->currentItem();
+	if (!currentItem)
+		return;
+
+	int exit = ScMessageBox::warning(this,
+					   CommonStrings::trWarning,
+					   tr("Do you really want to delete this script?"),
+					   QMessageBox::Yes | QMessageBox::No,
+					   QMessageBox::NoButton,	// GUI default
+					   QMessageBox::Yes);	// batch default
+	if (exit == QMessageBox::Yes)
+	{
+		QString name = currentItem->text();
+		m_Doc->JavaScripts.remove(name);
+		Scripts->clear();
+		QMap<QString,QString>::Iterator it;
+		for (it = m_Doc->JavaScripts.begin(); it != m_Doc->JavaScripts.end(); ++it)
+			Scripts->addItem(it.key());
+		if (m_Doc->JavaScripts.count() == 0)
+		{
+			EditScript->setEnabled(false);
+			DeleteScript->setEnabled(false);
+		}
+		emit docChanged(false);
+	}
+}
+
+void JavaDocs::slotSelectionChanged()
+{
+	QListWidgetItem* currentItem = Scripts->currentItem();
+	EditScript->setEnabled(currentItem != nullptr);
+	DeleteScript->setEnabled(currentItem != nullptr);
+}

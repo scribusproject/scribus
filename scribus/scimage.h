@@ -30,6 +30,8 @@ for which a new license (GPL+exception) is in place.
 class ScribusDoc;
 class ScStreamFilter;
 class CMSettings;
+class ScImageCacheProxy;
+class ScColorProfile;
 
 class SCRIBUS_API ScImage : private QImage
 {
@@ -44,57 +46,43 @@ public:
 	{
 		CMYKData = 0,
 		RGBData = 1,
-		RGBProof = 2,
-		RawData = 3,
+		RawData = 2,
+		OutputProfile = 3,
 		Thumbnail = 4,
-	};
-
-	enum ImageEffectCode
-	{
-		EF_INVERT = 0,
-		EF_GRAYSCALE = 1,
-		EF_COLORIZE = 2,
-		EF_BRIGHTNESS = 3,
-		EF_CONTRAST = 4,
-		EF_SHARPEN = 5,
-		EF_BLUR = 6,
-		EF_SOLARIZE = 7,
-		EF_DUOTONE = 8,
-		EF_TRITONE = 9,
-		EF_QUADTONE = 10,
-		EF_GRADUATE = 11
 	};
 
 	void initialize();
 
 	const QImage& qImage();
 	QImage* qImagePtr();
-	QImage scaled(int h, int w, Qt::AspectRatioMode mode = Qt::IgnoreAspectRatio, Qt::TransformationMode transformMode = Qt::FastTransformation) const;
+	QImage scaled(int w, int h, Qt::AspectRatioMode mode = Qt::IgnoreAspectRatio, Qt::TransformationMode transformMode = Qt::FastTransformation) const;
 	
 	int height() const { return QImage::height(); }
 	int width() const { return QImage::width(); }
 	bool hasAlpha() const { return QImage::hasAlphaChannel(); }
+	bool hasSmoothAlpha() const;
 	
 	// Routines for PDF/PS output of images
-	QByteArray ImageToArray();
+	QByteArray ImageToArray() const;
 
-	void convertToGray(void);
+	void convertToGray();
 
-	bool writeRGBDataToFilter(ScStreamFilter* filter);
-	bool writeGrayDataToFilter(ScStreamFilter* filter, bool precal);
-	bool writeCMYKDataToFilter(ScStreamFilter* filter);
+	bool writeRGBDataToFilter(ScStreamFilter* filter) const;
+	bool writeGrayDataToFilter(ScStreamFilter* filter, bool precal) const;
+	bool writeMonochromeDataToFilter(ScStreamFilter* filter, bool fromCmyk) const;
+	bool writeCMYKDataToFilter(ScStreamFilter* filter) const;
 
-	bool writePSImageToFilter(ScStreamFilter* filter, int pl);
-	bool writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl);
+	bool writePSImageToFilter(ScStreamFilter* filter, int pl) const;
+	bool writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl) const;
 
-	bool getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes = 72, int scaleXSize = 0, int scaleYSize = 0);
-	bool Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
+	bool getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes = 72, int scaleXSize = 0, int scaleYSize = 0);
+	bool convert2JPG(const QString& fn, int Quality, bool isCMYK, bool isGray);
 
 	// Image effects
 	void applyEffect(const ScImageEffectList& effectsList, ColorList& colors, bool cmyk);
 
 	// Generate a low res image for user preview
-	void createLowRes(double scale);
+	bool createLowRes(double scale);
 
 	// Scale this image in-place
 	void scaleImage(int width, int height);
@@ -105,11 +93,19 @@ public:
 
 	// Load an image into this ScImage instance
 	// TODO: document params, split into smaller functions
-	bool LoadPicture(const QString & fn, int page, const CMSettings& cmSettings, bool useEmbedded, bool useProf, RequestType requestType, int gsRes, bool *realCMYK = 0, bool showMsg = false);
+	bool loadPicture(const QString & fn, int page, const CMSettings& cmSettings, RequestType requestType, int gsRes, bool *realCMYK = 0, bool showMsg = false);
+	bool loadPicture(ScImageCacheProxy & cache, bool & fromCache, int page, const CMSettings& cmSettings, RequestType requestType, int gsRes, bool *realCMYK = 0, bool showMsg = false);
+	bool saveCache(ScImageCacheProxy & cache);
 
 	ImageInfoRecord imgInfo;
 
 private:
+
+	// Scale image in-place : case of 32bpp image (RGBA, RGB32, CMYK)
+	void scaleImage32bpp(int width, int height);
+
+	// Scale image in-place : generic case
+	void scaleImageGeneric(int width, int height);
 
 	// Image effects
 	void solarize(double factor, bool cmyk);
@@ -120,7 +116,7 @@ private:
 	void invert(bool cmyk);
 	void colorize(ScribusDoc* doc, ScColor color, int shade, bool cmyk);
 	void duotone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, bool cmyk);
-	void tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, FPointArray curve3, bool lin3, bool cmyk);
+	void tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, const FPointArray& curve3, bool lin3, bool cmyk);
 	void quadtone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, FPointArray curve3, bool lin3, ScColor color4, int shade4, FPointArray curve4, bool lin4, bool cmyk);
 	void toGrayscale(bool cmyk);
 	void doGraduate(FPointArray curve, bool cmyk, bool linear);
@@ -128,6 +124,8 @@ private:
 	bool convolveImage(QImage *dest, const unsigned int order, const double *kernel);
 	int  getOptimalKernelWidth(double radius, double sigma);
 	void applyCurve(const QVector<int>& curveTable, bool cmyk);
+
+	void addProfileToCacheModifiers(ScImageCacheProxy & cache, const QString & prefix, const ScColorProfile & profile) const;
 };
 
 #endif

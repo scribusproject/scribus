@@ -39,6 +39,14 @@ for which a new license (GPL+exception) is in place.
 #endif
 #endif
 
+#ifndef OF
+#ifdef _Z_OF
+  #define OF(args) _Z_OF(args)
+#else
+  #define OF(args) args
+#endif
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif

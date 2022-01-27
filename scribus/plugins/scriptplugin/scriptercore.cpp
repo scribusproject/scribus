@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QGlobalStatic>
 #include <QWidget>
 #include <QString>
+#include <QStringList>
 #include <QApplication>
 #include <QMessageBox>
 #include <QTextCodec>
@@ -16,292 +17,283 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <cstdlib>
 
+#include "cmdutil.h"
 #include "runscriptdialog.h"
-#include "helpbrowser.h"
-#include "propertiespalette.h" //TODO Move the calls to this to a signal
-#include "pagepalette.h" //TODO Move the calls to this to a signal
-#include "layers.h" //TODO Move the calls to this to a signal
-#include "outlinepalette.h" //TODO Move the calls to this to a signal
-#include "menumanager.h"
+#include "ui/helpbrowser.h"
+#include "ui/marksmanager.h"
+#include "ui/notesstyleseditor.h"
+#include "ui/propertiespalette.h" //TODO Move the calls to this to a signal
+#include "ui/contentpalette.h" //TODO Move the calls to this to a signal
+#include "ui/pagepalette.h" //TODO Move the calls to this to a signal
+#include "ui/layers.h" //TODO Move the calls to this to a signal
+#include "ui/outlinepalette.h" //TODO Move the calls to this to a signal
+#include "ui/scmessagebox.h"
+#include "ui/scmwmenumanager.h"
 #include "pconsole.h"
 #include "scraction.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
 #include "scpaths.h"
 #include "selection.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "prefsmanager.h"
+#include "scribusapp.h" // need it to access ScQApp->pythonScript & ScQApp->pythonScriptArgs
 
 ScripterCore::ScripterCore(QWidget* parent)
 {
-	pcon = new PythonConsole(parent);
-	scrScripterActions.clear();
-	scrRecentScriptActions.clear();
+	m_pyConsole = new PythonConsole(parent);
+	m_scripterActions.clear();
+	m_recentScriptActions.clear();
 	returnString = "init";
 
-	scrScripterActions.insert("scripterExecuteScript", new ScrAction(QObject::tr("&Execute Script..."), QKeySequence(), this));
-	scrScripterActions.insert("scripterShowConsole", new ScrAction(QObject::tr("Show &Console"), QKeySequence(), this));
-	scrScripterActions.insert("scripterAboutScript", new ScrAction(QObject::tr("&About Script..."), QKeySequence(), this));
+	m_scripterActions.insert("scripterExecuteScript", new ScrAction(QObject::tr("&Execute Script..."), QKeySequence(), this));
+	m_scripterActions.insert("scripterShowConsole", new ScrAction(QObject::tr("Show &Console"), QKeySequence(), this));
+	m_scripterActions.insert("scripterAboutScript", new ScrAction(QObject::tr("&About Script..."), QKeySequence(), this));
 
-	scrScripterActions["scripterExecuteScript"]->setMenuRole(QAction::NoRole);
-	scrScripterActions["scripterShowConsole"]->setMenuRole(QAction::NoRole);
-	scrScripterActions["scripterAboutScript"]->setMenuRole(QAction::NoRole);
+	m_scripterActions["scripterExecuteScript"]->setMenuRole(QAction::NoRole);
+	m_scripterActions["scripterShowConsole"]->setMenuRole(QAction::NoRole);
+	m_scripterActions["scripterAboutScript"]->setMenuRole(QAction::NoRole);
 
-	scrScripterActions["scripterShowConsole"]->setToggleAction(true);
-	scrScripterActions["scripterShowConsole"]->setChecked(false);
+	m_scripterActions["scripterShowConsole"]->setToggleAction(true);
+	m_scripterActions["scripterShowConsole"]->setChecked(false);
 
-	QObject::connect( scrScripterActions["scripterExecuteScript"], SIGNAL(triggered()) , this, SLOT(runScriptDialog()) );
-	QObject::connect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
-	QObject::connect( scrScripterActions["scripterAboutScript"], SIGNAL(triggered()) , this, SLOT(aboutScript()) );
+	QObject::connect( m_scripterActions["scripterExecuteScript"], SIGNAL(triggered()) , this, SLOT(runScriptDialog()) );
+	QObject::connect( m_scripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
+	QObject::connect( m_scripterActions["scripterAboutScript"], SIGNAL(triggered()) , this, SLOT(aboutScript()) );
 
-	SavedRecentScripts.clear();
-	ReadPlugPrefs();
+	m_savedRecentScripts.clear();
+	readPlugPrefs();
 
-	QObject::connect(pcon, SIGNAL(runCommand()), this, SLOT(slotExecute()));
-	QObject::connect(pcon, SIGNAL(paletteShown(bool)), this, SLOT(slotInteractiveScript(bool)));
+	QObject::connect(m_pyConsole, SIGNAL(runCommand()), this, SLOT(slotExecute()));
+	QObject::connect(m_pyConsole, SIGNAL(paletteShown(bool)), this, SLOT(slotInteractiveScript(bool)));
+
+	QObject::connect(ScQApp, SIGNAL(appStarted()) , this, SLOT(runStartupScript()) );
+	QObject::connect(ScQApp, SIGNAL(appStarted()) , this, SLOT(slotRunPythonScript()) );
 }
 
 ScripterCore::~ScripterCore()
 {
-	SavePlugPrefs();
-	delete pcon;
+	savePlugPrefs();
+	delete m_pyConsole;
 }
 
 void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
 {
-	menuMgr = mw->scrMenuMgr;
-	menuMgr->createMenu("Scripter", QObject::tr("&Script"));
-	menuMgr->addMenuToMenuBarBefore("Scripter","Windows");
-	menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
-	menuMgr->addMenuItem(scrScripterActions["scripterExecuteScript"], "Scripter");
-	menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter");
-	menuMgr->addMenuSeparator("Scripter");
-	menuMgr->addMenuItem(scrScripterActions["scripterShowConsole"], "Scripter");
-	menuMgr->addMenuItem(scrScripterActions["scripterAboutScript"], "Scripter");
+	m_menuMgr = mw->scrMenuMgr;
+	m_menuMgr->createMenu("Scripter", QObject::tr("&Script"));
+	m_menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
+	m_menuMgr->addMenuItemString("ScribusScripts", "Scripter");
+	m_menuMgr->addMenuItemString("scripterExecuteScript", "Scripter");
+	m_menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter", false, true);
+	m_menuMgr->addMenuItemString("RecentScripts", "Scripter");
+	m_menuMgr->addMenuItemString("scripterExecuteScript", "Scripter");
+	m_menuMgr->addMenuItemString("SEPARATOR", "Scripter");
+	m_menuMgr->addMenuItemString("scripterShowConsole", "Scripter");
+	m_menuMgr->addMenuItemString("scripterAboutScript", "Scripter");
+
 	buildScribusScriptsMenu();
-	buildRecentScriptsMenu();
+
+	m_menuMgr->addMenuStringToMenuBarBefore("Scripter", "Windows");
+	m_menuMgr->addMenuItemStringsToMenuBar("Scripter", m_scripterActions);
+	m_recentScripts = m_savedRecentScripts;
+	rebuildRecentScriptsMenu();
 }
 
+void ScripterCore::enableMainWindowMenu()
+{
+	if (!m_menuMgr)
+		return;
+	m_menuMgr->setMenuEnabled("ScribusScripts", true);
+	m_menuMgr->setMenuEnabled("RecentScripts", true);
+	m_scripterActions["scripterExecuteScript"]->setEnabled(true);
+}
+
+void ScripterCore::disableMainWindowMenu()
+{
+	if (!m_menuMgr)
+		return;
+	m_menuMgr->setMenuEnabled("ScribusScripts", false);
+	m_menuMgr->setMenuEnabled("RecentScripts", false);
+	m_scripterActions["scripterExecuteScript"]->setEnabled(false);
+}
 
 void ScripterCore::buildScribusScriptsMenu()
 {
 	QString pfad = ScPaths::instance().scriptDir();
-	QString pfad2;
-	pfad2 = QDir::convertSeparators(pfad);
+	QString pfad2 = QDir::toNativeSeparators(pfad);
 	QDir ds(pfad2, "*.py", QDir::Name | QDir::IgnoreCase, QDir::Files | QDir::NoSymLinks);
-	if ((ds.exists()) && (ds.count() != 0))
+	if ((!ds.exists()) || (ds.count() == 0))
+		return;
+
+	for (uint dc = 0; dc < ds.count(); ++dc)
 	{
-		for (uint dc = 0; dc < ds.count(); ++dc)
-		{
-			QFileInfo fs(ds[dc]);
-			QString strippedName=fs.baseName();
-			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), strippedName, QKeySequence(), this));
-			connect( scrScripterActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(StdScript(QString)) );
-			menuMgr->addMenuItem(scrScripterActions[strippedName], "ScribusScripts");
-		}
+		QFileInfo fs(ds[dc]);
+		QString strippedName=fs.baseName();
+		m_scripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, strippedName, QKeySequence(), this, strippedName));
+		connect( m_scripterActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(StdScript(QString)) );
+		m_menuMgr->addMenuItemString(strippedName, "ScribusScripts");
 	}
-
-
 }
 
 void ScripterCore::rebuildRecentScriptsMenu()
 {
-	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrRecentScriptActions.begin(); it!=scrRecentScriptActions.end(); ++it )
-		menuMgr->removeMenuItem((*it), "RecentScripts");
-
-	scrRecentScriptActions.clear();
-	uint max = qMin(PrefsManager::instance()->appPrefs.RecentDCount, RecentScripts.count());
+	m_menuMgr->clearMenuStrings("RecentScripts");
+	m_recentScriptActions.clear();
+	uint max = qMin(PrefsManager::instance().appPrefs.uiPrefs.recentDocCount, m_recentScripts.count());
 	for (uint m = 0; m < max; ++m)
 	{
-		QString strippedName=RecentScripts[m];
+		QString strippedName=m_recentScripts[m];
 		strippedName.remove(QDir::separator());
-		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), RecentScripts[m], QKeySequence(), this));
-		connect( scrRecentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)) );
-		menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
+		m_recentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, m_recentScripts[m], QKeySequence(), this, m_recentScripts[m]));
+		connect( m_recentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)) );
+		m_menuMgr->addMenuItemString(strippedName, "RecentScripts");
 	}
+	m_menuMgr->addMenuItemStringsToRememberedMenu("RecentScripts", m_recentScriptActions);
 }
 
-void ScripterCore::buildRecentScriptsMenu()
+void ScripterCore::finishScriptRun()
 {
-	RecentScripts = SavedRecentScripts;
-	scrRecentScriptActions.clear();
-	if (SavedRecentScripts.count() != 0)
-	{
-		uint max = qMin(PrefsManager::instance()->appPrefs.RecentDCount, SavedRecentScripts.count());
-		for (uint m = 0; m < max; ++m)
-		{
-			QFileInfo fd(SavedRecentScripts[m]);
-			if (fd.exists())
-			{
-				QString strippedName=SavedRecentScripts[m];
-				strippedName.remove(QDir::separator());
-				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), SavedRecentScripts[m], QKeySequence(), this));
-				connect( scrRecentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)) );
-				menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
-			}
-		}
-	}
-}
+	ScribusMainWindow* mainWin = ScCore->primaryMainWindow();
+	if (!mainWin->HaveDoc)
+		return;
 
-void ScripterCore::FinishScriptRun()
-{
-	ScribusMainWindow* ScMW=ScCore->primaryMainWindow();
-	if (ScMW->HaveDoc)
-	{
-		ScMW->propertiesPalette->setDoc(ScMW->doc);
-		ScMW->layerPalette->setDoc(ScMW->doc);
-		ScMW->outlinePalette->setDoc(ScMW->doc);
-		ScMW->outlinePalette->BuildTree();
-		ScMW->pagePalette->setView(ScMW->view);
-		ScMW->pagePalette->Rebuild();
-		ScMW->doc->RePos = true;
-/*		QImage pgPix(10, 10, QImage::Format_ARGB32);
-		QRect rd = QRect(0,0,9,9);
-		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-		for (int azz=0; azz<ScMW->doc->Items->count(); ++azz)
-		{
-			PageItem *ite = ScMW->doc->Items->at(azz);
-			if (ite->Groups.count() != 0)
-				ScMW->doc->GroupOnPage(ite);
-			else
-				ite->OwnPage = ScMW->doc->OnPage(ite);
-			ite->setRedrawBounding();
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText)) // && (!ite->Redrawn))
-			{
-				if (ite->itemType() == PageItem::PathText)
-				{
-					ite->Frame = false;
-					ite->updatePolyClip();
-					ite->DrawObj(painter, rd);
-				}
-				else
-				{
-					if ((ite->prevInChain() != 0) || (ite->nextInChain() != 0))
-					{
-						PageItem *nextItem = ite;
-						while (nextItem->prevInChain() != 0)
-							nextItem = nextItem->prevInChain();
-						ite = nextItem;
-						ite->DrawObj(painter, rd);
-					}
-					else
-						ite->DrawObj(painter, rd);
-				}
-			}
-		}
-		delete painter; */
-		ScMW->doc->RePos = false;
-		if (ScMW->doc->m_Selection->count() != 0)
-		{
-			ScMW->doc->m_Selection->itemAt(0)->emitAllToGUI();
-			ScMW->HaveNewSel(ScMW->doc->m_Selection->itemAt(0)->itemType());
-		}
-		else
-			ScMW->HaveNewSel(-1);
-		ScMW->view->DrawNew();
-		//CB Really only need (want?) this for new docs, but we need it after a call to ScMW doFileNew.
-		//We don't want it in cmddoc calls as itll interact with the GUI before a script may be finished.
-		ScMW->HaveNewDoc();
-	}
+	mainWin->propertiesPalette->setDoc(mainWin->doc);
+	mainWin->contentPalette->setDoc(mainWin->doc);
+	mainWin->marksManager->setDoc(mainWin->doc);
+	mainWin->nsEditor->setDoc(mainWin->doc);
+	mainWin->layerPalette->setDoc(mainWin->doc);
+	mainWin->outlinePalette->setDoc(mainWin->doc);
+	mainWin->outlinePalette->BuildTree();
+	mainWin->pagePalette->setView(mainWin->view);
+	mainWin->pagePalette->rebuild();
+	mainWin->doc->RePos = false;
+	if (mainWin->doc->m_Selection->count() != 0)
+		mainWin->doc->m_Selection->itemAt(0)->emitAllToGUI();
+	mainWin->HaveNewSel();
+	mainWin->view->DrawNew();
+	//CB Really only need (want?) this for new docs, but we need it after a call to ScMW doFileNew.
+	//We don't want it in cmddoc calls as itll interact with the GUI before a script may be finished.
+	mainWin->HaveNewDoc();
 }
 
 void ScripterCore::runScriptDialog()
 {
 	QString fileName;
-	QString curDirPath = QDir::currentPath();
 	RunScriptDialog dia( ScCore->primaryMainWindow(), m_enableExtPython );
 	if (dia.exec())
 	{
 		fileName = dia.selectedFile();
 		slotRunScriptFile(fileName, dia.extensionRequested());
 
-		if (RecentScripts.indexOf(fileName) == -1)
-			RecentScripts.prepend(fileName);
+		if (m_recentScripts.indexOf(fileName) == -1)
+			m_recentScripts.prepend(fileName);
 		else
 		{
-			RecentScripts.removeAll(fileName);
-			RecentScripts.prepend(fileName);
+			m_recentScripts.removeAll(fileName);
+			m_recentScripts.prepend(fileName);
 		}
 		rebuildRecentScriptsMenu();
 	}
-	QDir::setCurrent(curDirPath);
-	FinishScriptRun();
+	finishScriptRun();
 }
 
-void ScripterCore::StdScript(QString basefilename)
+void ScripterCore::StdScript(const QString& baseFilename)
 {
 	QString pfad = ScPaths::instance().scriptDir();
 	QString pfad2;
-	pfad2 = QDir::convertSeparators(pfad);
-	QString fn = pfad2+basefilename+".py";
+	pfad2 = QDir::toNativeSeparators(pfad);
+	QString fn = pfad2+baseFilename+".py";
 	QFileInfo fd(fn);
 	if (!fd.exists())
 		return;
 	slotRunScriptFile(fn);
-	FinishScriptRun();
+	finishScriptRun();
 }
 
-void ScripterCore::RecentScript(QString fn)
+void ScripterCore::RecentScript(const QString& fn)
 {
 	QFileInfo fd(fn);
 	if (!fd.exists())
 	{
-		RecentScripts.removeAll(fn);
+		m_recentScripts.removeAll(fn);
 		rebuildRecentScriptsMenu();
 		return;
 	}
 	slotRunScriptFile(fn);
-	FinishScriptRun();
+	finishScriptRun();
 }
 
-void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
+void ScripterCore::slotRunScriptFile(const QString& fileName, bool inMainInterpreter)
 {
-	PyThreadState *stateo = NULL;
-	PyThreadState *state = NULL;
+	slotRunScriptFile(fileName, QStringList(), inMainInterpreter);
+}
+
+void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList arguments, bool inMainInterpreter)
+/** run "filename" python script with the additional arguments provided in "arguments" */
+{
+	// Prevent two scripts to be run concurrently or face crash!
+	if (ScCore->primaryMainWindow()->scriptIsRunning())
+		return;
+	disableMainWindowMenu();
+
+	PyThreadState *state = nullptr;
 	QFileInfo fi(fileName);
 	QByteArray na = fi.fileName().toLocal8Bit();
 	// Set up a sub-interpreter if needed:
+	PyThreadState* global_state = nullptr;
 	if (!inMainInterpreter)
 	{
 		ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
-		ScCore->primaryMainWindow()->pagePalette->setView(NULL);
-		ScCore->primaryMainWindow()->ScriptRunning = true;
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		ScCore->primaryMainWindow()->contentPalette->unsetDoc();
+		ScCore->primaryMainWindow()->pagePalette->setView(nullptr);
+		ScCore->primaryMainWindow()->setScriptRunning(true);
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		// Create the sub-interpreter
 		// FIXME: This calls abort() in a Python debug build. We're doing something wrong.
-		stateo = PyEval_SaveThread();
+		//stateo = PyEval_SaveThread();
+		global_state = PyThreadState_Get();
 		state = Py_NewInterpreter();
-		// Chdir to the dir the script is in
-		QDir::setCurrent(fi.absolutePath());
 		// Init the scripter module in the sub-interpreter
-		initscribus(ScCore->primaryMainWindow());
+		//initscribus(ScCore->primaryMainWindow());
 	}
+
 	// Make sure sys.argv[0] is the path to the script
-	char* comm[2];
-	comm[0] = na.data();
-	// and tell the script if it's running in the main intepreter or
-	// a subinterpreter using the second argument, ie sys.argv[1]
-	if (inMainInterpreter)
-		comm[1] = const_cast<char*>("ext");
-	else
-		comm[1] = const_cast<char*>("sub");
-	PySys_SetArgv(2, comm);
+	arguments.prepend(na.data());
+	//convert arguments (QListString) to char** for Python bridge
+	/* typically arguments == ['path/to/script.py','--argument1','valueforarg1','--flag']*/
+	wchar_t **comm = new wchar_t*[arguments.size()];
+	for (int i = 0; i < arguments.size(); i++)
+	{
+		const QString& argStr = arguments.at(i);
+		comm[i] = new wchar_t[argStr.size() + 1]; //+1 to allow adding '\0'. may be useless, don't know how to check.
+		comm[i][argStr.size()] = 0;
+		argStr.toWCharArray(comm[i]);
+	}
+	PySys_SetArgv(arguments.size(), comm);
+
+	for (int i = 0; i < arguments.size(); i++)
+		delete[] comm[i];
+	delete[] comm;
+	
 	// call python script
 	PyObject* m = PyImport_AddModule((char*)"__main__");
-	if (m == NULL)
+	if (m == nullptr)
 		qDebug("Failed to get __main__ - aborting script");
 	else
 	{
 		// Path separators need to be escaped on Windows
 		QString escapedAbsPath  = QDir::toNativeSeparators(fi.absolutePath()).replace("\\", "\\\\");
+		QString escapedAbsFilePath  = QDir::toNativeSeparators(fi.absoluteFilePath()).replace("\\", "\\\\");
 		QString escapedFileName = QDir::toNativeSeparators(fileName).replace("\\", "\\\\");
 		// FIXME: If filename contains chars outside 7bit ascii, might be problems
 		PyObject* globals = PyModule_GetDict(m);
 		// Build the Python code to run the script
 		//QString cm = QString("from __future__ import division\n"); removed due #5252 PV
 		QString cm = QString("import sys\n");
-		cm        += QString("import cStringIO\n");
+		cm        += QString("import io\n");
 		/* Implementation of the help() in pydoc.py reads some OS variables
 		 * for output settings. I use ugly hack to stop freezing calling help()
 		 * in script. pv. */
@@ -309,22 +301,28 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		cm        += QString("sys.path[0] = \"%1\"\n").arg(escapedAbsPath);
 		// Replace sys.stdin with a dummy StringIO that always returns
 		// "" for read
-		cm        += QString("sys.stdin = cStringIO.StringIO()\n");
+		cm        += QString("sys.stdin = io.StringIO()\n");
+		// Provide script path to the interpreter
+		cm        += QString("__file__ = \"%1\"\n").arg(escapedAbsFilePath);
+		// tell the script if it's running in the main interpreter or a subinterpreter
+		cm        += QString("import scribus\n");
+		if (inMainInterpreter)
+			cm+= QString("scribus.mainInterpreter = True\n");
+		else
+			cm+= QString("scribus.mainInterpreter = False\n");
 		cm        += QString("try:\n");
-		cm        += QString("    execfile(\"%1\")\n").arg(escapedFileName);
+		cm        += QString("    exec(open(\"%1\", \"rb\").read())\n").arg(escapedFileName);
 		cm        += QString("except SystemExit:\n");
 		cm        += QString("    pass\n");
 		// Capture the text of any other exception that's raised by the interpreter
 		// into a StringIO buffer for later extraction.
 		cm        += QString("except:\n");
 		cm        += QString("    import traceback\n");
-		cm        += QString("    import scribus\n");                  // we stash our working vars here
-		cm        += QString("    scribus._f=cStringIO.StringIO()\n");
-		cm        += QString("    traceback.print_exc(file=scribus._f)\n");
-		cm        += QString("    _errorMsg = scribus._f.getvalue()\n");
-		cm        += QString("    del(scribus._f)\n");
+		cm        += QString("    _errorMsg = traceback.format_exc()\n");
+		if (!ScCore->usingGUI())
+			cm += QString("    traceback.print_exc()\n");
 		// We re-raise the exception so the return value of PyRun_StringFlags reflects
-		// the fact that an exception has ocurred.
+		// the fact that an exception has occurred.
 		cm        += QString("    raise\n");
 		// FIXME: if cmd contains chars outside 7bit ascii, might be problems
 		QByteArray cmd = cm.toUtf8();
@@ -332,60 +330,80 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// sub-interpreter if we created and switched to one earlier, otherwise
 		// it'll run in the main interpreter.
 		PyObject* result = PyRun_String(cmd.data(), Py_file_input, globals, globals);
-		// NULL is returned if an exception is set. We don't care about any
+		// nullptr is returned if an exception is set. We don't care about any
 		// other return value (most likely None anyway) and can ignore it.
-		if (result == NULL)
+		if (result == nullptr)
 		{
-			// We've already saved the exception text, so clear the exception
-			PyErr_Clear();
 			PyObject* errorMsgPyStr = PyMapping_GetItemString(globals, (char*)"_errorMsg");
-			if (errorMsgPyStr == NULL)
+			if (errorMsgPyStr == nullptr)
 			{
 				// It's rather unlikely that this will ever be reached - to get here
-				// we'd have to fail to retrive the string we just created.
+				// we'd have to fail to retrieve the string we just created.
 				qDebug("Error retrieving error message content after script exception!");
 				qDebug("Exception was:");
 				PyErr_Print();
 			}
-			else
+			else if (ScCore->usingGUI())
 			{
-				QString errorMsg = PyString_AsString(errorMsgPyStr);
+				QString errorMsg = PyUnicode_asQString(errorMsgPyStr);
 				// Display a dialog to the user with the exception
 				QClipboard *cp = QApplication::clipboard();
 				cp->setText(errorMsg);
 				ScCore->closeSplash();
-				QMessageBox::warning(ScCore->primaryMainWindow(),
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				ScMessageBox::warning(ScCore->primaryMainWindow(),
 									tr("Script error"),
 									"<qt><p>"
 									+ tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
-									+ "</p><pre>" +errorMsg + "</pre><p>"
+									+ "</p><pre>" + errorMsg.toHtmlEscaped() + "</pre><p>"
 									+ tr("This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.")
 									+ "</p></qt>");
 			}
-		} // end if result == NULL
-		// Because 'result' may be NULL, not a PyObject*, we must call PyXDECREF not Py_DECREF
+			// We've already processed the exception text, so clear the exception
+			PyErr_Clear();
+		} // end if result == nullptr
+		// Because 'result' may be nullptr, not a PyObject*, we must call PyXDECREF not Py_DECREF
 		Py_XDECREF(result);
-	} // end if m == NULL
+	} // end if m == nullptr
 	if (!inMainInterpreter)
 	{
 		Py_EndInterpreter(state);
-		PyEval_RestoreThread(stateo);
-//		qApp->restoreOverrideCursor();
+		PyThreadState_Swap(global_state);
+		//PyEval_RestoreThread(stateo);
+		qApp->restoreOverrideCursor();
+		ScCore->primaryMainWindow()->setScriptRunning(false);
 	}
-	ScCore->primaryMainWindow()->ScriptRunning = false;
+
+	enableMainWindowMenu();
 }
 
-void ScripterCore::slotRunScript(const QString Script)
+// needed for running script from CLI
+void ScripterCore::slotRunPythonScript()
 {
+	if (!ScQApp->pythonScript.isNull())
+	{
+		slotRunScriptFile(ScQApp->pythonScript, ScQApp->pythonScriptArgs, true);
+		finishScriptRun();
+	}
+}
+
+void ScripterCore::slotRunScript(const QString& Script)
+{
+	// Prevent two scripts to be run concurrently or face crash!
+	if (ScCore->primaryMainWindow()->scriptIsRunning())
+		return;
+	disableMainWindowMenu();
+
 	ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
-	ScCore->primaryMainWindow()->pagePalette->setView(NULL);
-	ScCore->primaryMainWindow()->ScriptRunning = true;
+	ScCore->primaryMainWindow()->contentPalette->unsetDoc();
+	ScCore->primaryMainWindow()->pagePalette->setView(nullptr);
+	ScCore->primaryMainWindow()->setScriptRunning(true);
 	inValue = Script;
 	QString cm;
 	cm = "# -*- coding: utf8 -*- \n";
-	if (PyThreadState_Get() != NULL)
+	if (PyThreadState_Get() != nullptr)
 	{
-		initscribus(ScCore->primaryMainWindow());
+		//initscribus(ScCore->primaryMainWindow());
 		/* HACK: following loop handles all input line by line.
 		It *should* use I.C. because of docstrings etc. I.I. cannot
 		handle docstrings right.
@@ -394,20 +412,21 @@ void ScripterCore::slotRunScript(const QString Script)
 		works fine in plain Python. Not here. WTF? */
 		cm += (
 				"try:\n"
-				"    import cStringIO\n"
-				"    scribus._bu = cStringIO.StringIO()\n"
+				"    import io\n"
+				"    scribus._bu = io.StringIO()\n"
 				"    sys.stdout = scribus._bu\n"
 				"    sys.stderr = scribus._bu\n"
-				"    sys.argv = ['scribus', 'ext']\n" // this is the PySys_SetArgv replacement
-				"    for i in scribus.getval().splitlines():\n"
-				"        scribus._ia.push(i)\n"
+				"    sys.argv = ['scribus']\n" // this is the PySys_SetArgv replacement
+				"    scribus.mainInterpreter = True\n" // the scripter console runs everything in the main interpreter
+				"    for scribus._i_str in scribus.getval().splitlines():\n"
+				"        scribus._ia.push(scribus._i_str)\n"
 				"    scribus.retval(scribus._bu.getvalue())\n"
 				"    sys.stdout = sys.__stdout__\n"
 				"    sys.stderr = sys.__stderr__\n"
 				"except SystemExit:\n"
-				"    print 'Catched SystemExit - it is not good for Scribus'\n"
+				"    print ('Catched SystemExit - it is not good for Scribus')\n"
 				"except KeyboardInterrupt:\n"
-				"    print 'Catched KeyboardInterrupt - it is not good for Scribus'\n"
+				"    print ('Catched KeyboardInterrupt - it is not good for Scribus')\n"
 			  );
 	}
 	// Set up sys.argv
@@ -418,55 +437,54 @@ void ScripterCore::slotRunScript(const QString Script)
 	Anyway - sys.argv is set above
 	char* comm[1];
 	comm[0] = const_cast<char*>("scribus");
-	// the scripter console runs everything in the main interpreter
-	// tell the code it's running there.
-	comm[1] = const_cast<char*>("ext");
-	PySys_SetArgv(2, comm); */
+	PySys_SetArgv(1, comm); */
 	// then run the code
 	PyObject* m = PyImport_AddModule((char*)"__main__");
-	if (m == NULL)
+	if (m == nullptr)
 		qDebug("Failed to get __main__ - aborting script");
 	else
 	{
 		PyObject* globals = PyModule_GetDict(m);
 		PyObject* result = PyRun_String(cm.toUtf8().data(), Py_file_input, globals, globals);
-		if (result == NULL)
+		if (result == nullptr)
 		{
 			PyErr_Print();
-			QMessageBox::warning(ScCore->primaryMainWindow(), tr("Script error"),
+			ScMessageBox::warning(ScCore->primaryMainWindow(), tr("Script error"),
 					"<qt>" + tr("There was an internal error while trying the "
 					   "command you entered. Details were printed to "
 					   "stderr. ") + "</qt>");
 		}
 		else
-		// Because 'result' may be NULL, not a PyObject*, we must call PyXDECREF not Py_DECREF
+		// Because 'result' may be nullptr, not a PyObject*, we must call PyXDECREF not Py_DECREF
 			Py_XDECREF(result);
 	}
-	ScCore->primaryMainWindow()->ScriptRunning = false;
+	ScCore->primaryMainWindow()->setScriptRunning(false);
+
+	enableMainWindowMenu();
 }
 
 void ScripterCore::slotInteractiveScript(bool visible)
 {
-	QObject::disconnect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
+	QObject::disconnect( m_scripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
 
-	scrScripterActions["scripterShowConsole"]->setChecked(visible);
-	pcon->setFonts();
-	pcon->setShown(visible);
+	m_scripterActions["scripterShowConsole"]->setChecked(visible);
+	m_pyConsole->setFonts();
+	m_pyConsole->setVisible(visible);
 
-	QObject::connect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
+	QObject::connect( m_scripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
 }
 
 void ScripterCore::slotExecute()
 {
-	slotRunScript(pcon->command());
-	pcon->outputEdit->append(returnString);
-	pcon->commandEdit->ensureCursorVisible();
-	FinishScriptRun();
+	slotRunScript(m_pyConsole->command());
+	m_pyConsole->outputEdit->append(returnString);
+	m_pyConsole->commandEdit->ensureCursorVisible();
+	finishScriptRun();
 }
 
-void ScripterCore::ReadPlugPrefs()
+void ScripterCore::readPlugPrefs()
 {
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
+	PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("scriptplugin");
 	if (!prefs)
 	{
 		qDebug("scriptplugin: Unable to load prefs");
@@ -480,17 +498,20 @@ void ScripterCore::ReadPlugPrefs()
 	}
 	// Load recent scripts from the prefs
 	for (int i = 0; i < prefRecentScripts->getRowCount(); i++)
-		SavedRecentScripts.append(prefRecentScripts->get(i,0));
+	{
+		QString rs(prefRecentScripts->get(i,0));
+		m_savedRecentScripts.append(rs);
+	}
 	// then get more general preferences
 	m_enableExtPython = prefs->getBool("extensionscripts",false);
 	m_importAllNames = prefs->getBool("importall",true);
-	m_startupScript = prefs->get("startupscript", QString::null);
+	m_startupScript = prefs->get("startupscript", QString());
 	// and have the console window set up its position
 }
 
-void ScripterCore::SavePlugPrefs()
+void ScripterCore::savePlugPrefs()
 {
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
+	PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("scriptplugin");
 	if (!prefs)
 	{
 		qDebug("scriptplugin: Unable to load prefs");
@@ -502,8 +523,10 @@ void ScripterCore::SavePlugPrefs()
 		qDebug("scriptplugin: Unable to get recent scripts");
 		return;
 	}
-	for (int i = 0; i < RecentScripts.count(); i++)
-		prefRecentScripts->set(i, 0, RecentScripts[i]);
+	for (int i = 0; i < m_recentScripts.count(); i++)
+	{
+		prefRecentScripts->set(i, 0, m_recentScripts[i]);
+	}
 	// then save more general preferences
 	prefs->set("extensionscripts", m_enableExtPython);
 	prefs->set("importall", m_importAllNames);
@@ -513,30 +536,30 @@ void ScripterCore::SavePlugPrefs()
 void ScripterCore::aboutScript()
 {
 	QString fname = ScCore->primaryMainWindow()->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py *.PY);;All Files (*)"), "", fdNone);
-	if (fname == QString::null)
+	if (fname.isNull())
 		return;
 	QString html("<html><body>");
 	QFileInfo fi = QFileInfo(fname);
 	QFile input(fname);
-	if(!input.open(QIODevice::ReadOnly))
+	if (!input.open(QIODevice::ReadOnly))
 		return;
 	QTextStream intputstream(&input);
 	QString content = intputstream.readAll();
-	QString docstring = content.section("\"\"\"", 1, 1);
+	QString docstring = content.section(R"(""")", 1, 1);
 	if (!docstring.isEmpty())
 	{
-		html += QString("<h1>%1 %2</h1>").arg( tr("Documentation for:")).arg(fi.fileName());
+		html += QString("<h1>%1 %2</h1>").arg( tr("Documentation for:"), fi.fileName());
 		html += QString("<p>%1</p>").arg(docstring.replace("\n\n", "<br><br>"));
 	}
 	else
 	{
-		html += QString("<p><b>%1 %2 %3</b></p>").arg( tr("Script")).arg(fi.fileName()).arg( tr(" doesn't contain any docstring!"));
+		html += QString("<p><b>%1 %2 %3</b></p>").arg( tr("Script"), fi.fileName(), tr(" doesn't contain any docstring!"));
 		html += QString("<pre>%4</pre>").arg(content);
 	}
 	html += "</body></html>";
 	input.close();
-	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("About Script") + " " + fi.fileName(), "en");
-	dia->setText(html);
+	HelpBrowser *dia = new HelpBrowser(nullptr, QObject::tr("About Script") + " " + fi.fileName(), "en");
+	dia->setHtml(html);
 	dia->show();
 }
 
@@ -547,7 +570,7 @@ void ScripterCore::initExtensionScripts()
 
 void ScripterCore::runStartupScript()
 {
-	if ((m_enableExtPython) && (!m_startupScript.isNull()))
+	if ((m_enableExtPython) && (!m_startupScript.isEmpty()))
 	{
 		if (QFile::exists(this->m_startupScript))
 		{
@@ -556,19 +579,20 @@ void ScripterCore::runStartupScript()
 			this->slotRunScriptFile(this->m_startupScript, true);
 		}
 		else
-			qDebug("Startup script enabled, but couln't find script %s.", m_startupScript.toAscii().constData());
+			ScMessageBox::warning(ScCore->primaryMainWindow(), tr("Startup Script error"),
+					      tr("Could not find script: %1.").arg( m_startupScript));
 	}
 }
 
 void ScripterCore::languageChange()
 {
-	scrScripterActions["scripterExecuteScript"]->setText(QObject::tr("&Execute Script..."));
-	scrScripterActions["scripterShowConsole"]->setText(QObject::tr("Show &Console"));
-	scrScripterActions["scripterAboutScript"]->setText(QObject::tr("&About Script..."));
+	m_scripterActions["scripterExecuteScript"]->setText(QObject::tr("&Execute Script..."));
+	m_scripterActions["scripterShowConsole"]->setText(QObject::tr("Show &Console"));
+	m_scripterActions["scripterAboutScript"]->setText(QObject::tr("&About Script..."));
 
-	menuMgr->setText("Scripter", QObject::tr("&Script"));
-	menuMgr->setText("ScribusScripts", QObject::tr("&Scribus Scripts"));
-	menuMgr->setText("RecentScripts", QObject::tr("&Recent Scripts"));
+	m_menuMgr->setText("Scripter", QObject::tr("&Script"));
+	m_menuMgr->setText("ScribusScripts", QObject::tr("&Scribus Scripts"));
+	m_menuMgr->setText("RecentScripts", QObject::tr("&Recent Scripts"));
 }
 
 bool ScripterCore::setupMainInterpreter()
@@ -578,9 +602,9 @@ bool ScripterCore::setupMainInterpreter()
 		"import scribus\n"
 		"import sys\n"
 		"import code\n"
-		"sys.path[0] = \"%1\"\n"
-		"import cStringIO\n"
-		"sys.stdin = cStringIO.StringIO()\n"
+		"sys.path.insert(0, \"%1\")\n"
+		"import io\n"
+		"sys.stdin = io.StringIO()\n"
 		"scribus._ia = code.InteractiveConsole(globals())\n"
 		).arg(ScPaths::instance().scriptDir());
 	if (m_importAllNames)
@@ -589,13 +613,12 @@ bool ScripterCore::setupMainInterpreter()
 	if (PyRun_SimpleString(cmd.data()))
 	{
 		PyErr_Print();
-		QMessageBox::warning(ScCore->primaryMainWindow(), tr("Script error"),
+		ScMessageBox::warning(ScCore->primaryMainWindow(), tr("Script error"),
 				tr("Setting up the Python plugin failed. "
 				   "Error details were printed to stderr. "));
 		return false;
 	}
-	else
-		return true;
+	return true;
 }
 
 void ScripterCore::setStartupScript(const QString& newScript)
@@ -606,6 +629,11 @@ void ScripterCore::setStartupScript(const QString& newScript)
 void ScripterCore::setExtensionsEnabled(bool enable)
 {
 	m_enableExtPython = enable;
+}
+
+void ScripterCore::updateSyntaxHighlighter()
+{
+	m_pyConsole->updateSyntaxHighlighter();
 }
 
 const QString & ScripterCore::startupScript() const

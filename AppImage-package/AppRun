@@ -1,0 +1,87 @@
+#!/bin/sh
+
+HERE="$(dirname "$(readlink -f "${0}")")"
+
+############################################################################################
+# Allow AppRun or the AppImage to be symlinked to, e.g.,
+# /usr/local/bin/scribus
+# or to be called with ./Scribus*.AppImage scribus
+############################################################################################
+
+if [ ! -z $APPIMAGE ] ; then
+  BINARY_NAME=$(basename "$ARGV0")
+else
+  BINARY_NAME=$(basename "$0")
+fi
+if [ ! -z "$1" ] && [ -e "$HERE/bin/$1" ] ; then
+  MAIN="$HERE/bin/$1" ; shift
+elif [ ! -z "$1" ] && [ -e "$HERE/usr/bin/$1" ] ; then
+  MAIN="$HERE/usr/bin/$1" ; shift
+elif [ -e "$HERE/bin/$BINARY_NAME" ] ; then
+  MAIN="$HERE/bin/$BINARY_NAME"
+elif [ -e "$HERE/usr/bin/$BINARY_NAME" ] ; then
+  MAIN="$HERE/usr/bin/$BINARY_NAME"
+else
+  MAIN="$HERE/usr/bin/scribus"
+fi
+
+############################################################################################
+# Use bundled paths
+############################################################################################
+
+export PATH="${HERE}"/usr/bin/:"${HERE}"/usr/sbin/:"${HERE}"/usr/games/:"${HERE}"/bin/:"${HERE}"/sbin/:"${PATH}"
+export XDG_DATA_DIRS="${HERE}"/usr/share/:"${XDG_DATA_DIRS}"
+
+############################################################################################
+# Change into bundled usr/ directory
+############################################################################################
+
+cd "${HERE}"/usr # Because Scribus has some hardcoded paths that we patch away; FIXME
+
+############################################################################################
+# Use bundled Python
+############################################################################################
+
+export PYTHONPATH="${HERE}"/usr/share/pyshared/:"${PYTHONPATH}"
+export PYTHONHOME="${HERE}"/usr/
+
+############################################################################################
+# Use bundled Tcl/Tk
+############################################################################################
+
+export TCL_LIBRARY="${HERE}"/usr/share/tcltk/tcl8.6:$TCL_LIBRARY:$TK_LIBRARY
+export TK_LIBRARY="${HERE}"/usr/share/tcltk/tk8.6:$TK_LIBRARY:$TCL_LIBRARY
+
+############################################################################################
+# Make it look more native on Gtk+ based systems
+############################################################################################
+
+case "${XDG_CURRENT_DESKTOP}" in
+    *GNOME*|*gnome*)
+        export QT_QPA_PLATFORMTHEME=gtk2
+esac
+
+############################################################################################
+# Run experimental bundle that bundles everything if a private ld-linux-x86-64.so.2 is there
+# This allows the bundle to run even on older systems than the one it was built on
+############################################################################################
+
+if [ -e "$HERE/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2" ] ; then
+  echo "Run experimental bundle that bundles everything"
+  export GCONV_PATH="$HERE/usr/lib/x86_64-linux-gnu/gconv"
+  export FONTCONFIG_FILE="$HERE/etc/fonts/fonts.conf"
+  export LIBRARY_PATH="$HERE/usr/lib":$LIBRARY_PATH
+  export LIBRARY_PATH="$HERE/lib":$LIBRARY_PATH
+  export LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu":$LIBRARY_PATH
+  export LIBRARY_PATH="$HERE/lib/i386-linux-gnu":$LIBRARY_PATH
+  export LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu/pulseaudio":$LIBRARY_PATH
+  export LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu/alsa-lib":$LIBRARY_PATH
+  export LIBRARY_PATH="$HERE/usr/lib/x86_64-linux-gnu":$LIBRARY_PATH
+  export LIBRARY_PATH="$HERE/lib/x86_64-linux-gnu":$LIBRARY_PATH
+  export LIBRARY_PATH="$HERE/usr/lib/x86_64-linux-gnu/pulseaudio":$LIBRARY_PATH
+  export LIBRARY_PATH="$HERE/usr/lib/x86_64-linux-gnu/alsa-lib":$LIBRARY_PATH
+  export LIBRARY_PATH=$GDK_PIXBUF_MODULEDIR:$LIBRARY_PATH # Otherwise getting "Unable to load image-loading module"
+  exec "${HERE}/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2" --inhibit-cache --library-path "${LIBRARY_PATH}" "${MAIN}" "$@"
+else
+  exec "${MAIN}" "$@"
+fi

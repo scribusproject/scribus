@@ -19,6 +19,7 @@
 #include "canvasgesture_rectselect.h"
 #include "canvas.h"
 #include "scribusview.h"
+#include "selectionrubberband.h"
 
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
@@ -35,30 +36,34 @@ void RectSelect::enterEvent(QEvent * e){}
 void RectSelect::leaveEvent(QEvent * e){}
 
 
-void RectSelect::prepare(QPoint start)
+void RectSelect::prepare(QPoint globalStartPos)
 {
-	if (!m_rectangle)
-		m_rectangle = new QRubberBand(QRubberBand::Rectangle);
-	setStart(start);
-	m_rectangle->setGeometry(m_start.x(), m_start.y(), 1, 1);
+	if (!m_selectionRubberBand)
+		m_selectionRubberBand = new SelectionRubberBand(QRubberBand::Rectangle, m_view);
+	setStart(globalStartPos);
+//FIXME Move to new code like SelectionRubberBand
+	m_selectionRubberBand->setWindowOpacity(0.5);
+	m_selectionRubberBand->setGeometry(QRect(m_view->mapFromGlobal(globalStartPos), m_view->mapFromGlobal(globalStartPos)));
 }
 
 void RectSelect::clear()
 {
-	m_rectangle->hide();
+	m_selectionRubberBand->hide();
 	m_start = QPoint(0,0);
 }
 
 
-void RectSelect::activate(bool)
+void RectSelect::activate(bool fromGesture)
 {
+	CanvasGesture::activate(fromGesture);
 	prepare(m_start);
-	m_rectangle->show();
+	m_selectionRubberBand->show();
 }
 
-void RectSelect::deactivate(bool)
+void RectSelect::deactivate(bool fromGesture)
 {
-	m_rectangle->hide();
+	m_selectionRubberBand->hide();
+	CanvasGesture::deactivate(fromGesture);
 }
 
 void RectSelect::setStart(QPoint globalPos)
@@ -68,17 +73,15 @@ void RectSelect::setStart(QPoint globalPos)
 
 void RectSelect::setEnd(QPoint globalPos)
 {
-	m_rectangle->setGeometry(QRect(m_start.x(), 
-								   m_start.y(), 
-								   globalPos.x()-m_start.x(), 
-								   globalPos.y()-m_start.y())
-							 .normalized());	
+	m_selectionRubberBand->setGeometry(QRect(m_view->mapFromGlobal(m_start), m_view->mapFromGlobal(globalPos)).normalized());
 }
 
 
 QRectF RectSelect::result() const
-{ 
-	return m_canvas->globalToCanvas(m_rectangle->geometry());
+{
+	QRect geom = m_selectionRubberBand->geometry().normalized();
+	geom = QRect(m_view->mapToGlobal(geom.topLeft()), m_view->mapToGlobal(geom.bottomRight()));
+	return m_canvas->globalToCanvas(geom);
 }
 
 void RectSelect::mousePressEvent(QMouseEvent *m)
@@ -100,4 +103,9 @@ void RectSelect::mouseMoveEvent(QMouseEvent *m)
 {
 	setEnd(m->globalPos());
 	m->accept();
+}
+
+void RectSelect::drawControls(QPainter* p)
+{
+	m_delegate->drawControls(p);
 }

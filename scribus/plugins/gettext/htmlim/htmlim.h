@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef HTMLIM_H
@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "pluginapi.h"
 
-extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+extern "C" PLUGIN_API void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer);
 
 extern "C" PLUGIN_API QString FileFormatName();
 
@@ -43,14 +43,15 @@ extern "C" PLUGIN_API QStringList FileExtensions();
 class HTMLIm 
 {
 public:
-	HTMLIm(QString fname, QString encoding, gtWriter *w, bool textOnly);
+	HTMLIm(const QString& fname, const QString& encoding, gtWriter *w, bool textOnly);
 	~HTMLIm();
+
 private:
 	QString encoding;
 	QString filename;
-	gtWriter *writer;
-	gtParagraphStyle *pstyle;
-// 	int defaultFontSize;
+	gtWriter *writer { nullptr };
+	gtParagraphStyle *pstyle { nullptr };
+
 	void importText(bool textOnly);
 };
 

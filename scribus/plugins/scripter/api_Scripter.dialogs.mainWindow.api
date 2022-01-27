@@ -1,0 +1,1471 @@
+/**
+* Scripter.dialogs.mainWindow.objectName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.modal
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.windowModality
+* Property
+* type is Qt::WindowModality 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.enabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.geometry
+* Property
+* type is QRect 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.frameGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.normalGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.x
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.y
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.pos
+* Property
+* type is QPoint 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.frameSize
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.size
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.width
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.height
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.rect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.childrenRect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.childrenRegion
+* Property
+* type is QRegion  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.sizePolicy
+* Property
+* type is QSizePolicy 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.minimumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.maximumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.minimumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.minimumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.maximumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.maximumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.sizeIncrement
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.baseSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.palette
+* Property
+* type is QPalette 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.font
+* Property
+* type is QFont 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.cursor
+* Property
+* type is QCursor 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.mouseTracking
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.isActiveWindow
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.focusPolicy
+* Property
+* type is Qt::FocusPolicy 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.focus
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.contextMenuPolicy
+* Property
+* type is Qt::ContextMenuPolicy 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.updatesEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.visible
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.minimized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.maximized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.fullScreen
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.sizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.minimumSizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.mainWindow.acceptDrops
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.windowTitle
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.windowIcon
+* Property
+* type is QIcon 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.windowIconText
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.windowOpacity
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.windowModified
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.toolTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.statusTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.whatsThis
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.accessibleName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.accessibleDescription
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.layoutDirection
+* Property
+* type is Qt::LayoutDirection 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.autoFillBackground
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.styleSheet
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.locale
+* Property
+* type is QLocale 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.windowFilePath
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.iconSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.toolButtonStyle
+* Property
+* type is Qt::ToolButtonStyle 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.animated
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.dockNestingEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.dockOptions
+* Property
+* type is DockOptions 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.unifiedTitleAndToolBarOnMac
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.mainWindow.destroyed(arg1)
+* arg1 is a QObject*
+*/
+
+/**
+* Scripter.dialogs.mainWindow.destroyed()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.deleteLater()
+*/
+
+/**
+* Scripter.dialogs.mainWindow._q_reregisterTimers(arg1)
+* arg1 is a void*
+*/
+
+/**
+* Scripter.dialogs.mainWindow.customContextMenuRequested(pos)
+* pos is a QPoint
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setEnabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setDisabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setWindowModified(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setWindowTitle(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setStyleSheet(styleSheet)
+* styleSheet is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setFocus()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.update()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.repaint()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setVisible(visible)
+* visible is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setHidden(hidden)
+* hidden is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.show()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.hide()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setShown(shown)
+* shown is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.showMinimized()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.showMaximized()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.showFullScreen()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.showNormal()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.close()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.raise()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.lower()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.updateMicroFocus()
+*/
+
+/**
+* Scripter.dialogs.mainWindow._q_showIfNotHidden()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.iconSizeChanged(iconSize)
+* iconSize is a QSize
+*/
+
+/**
+* Scripter.dialogs.mainWindow.toolButtonStyleChanged(toolButtonStyle)
+* toolButtonStyle is a Qt::ToolButtonStyle
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setAnimated(enabled)
+* enabled is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setDockNestingEnabled(enabled)
+* enabled is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextStyle(arg1)
+* arg1 is a ParagraphStyle
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextISize(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextIFont(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextUSval(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextStil(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextFarben(arg1, arg2, arg3, arg4)
+* arg1 is a QString
+* arg2 is a QString
+* arg3 is a double
+* arg4 is a double
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextScale(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextScaleV(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextBase(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextShadow(arg1, arg2)
+* arg1 is a double
+* arg2 is a double
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextOutline(arg1)
+* arg1 is a double
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextUnderline(arg1, arg2)
+* arg1 is a double
+* arg2 is a double
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TextStrike(arg1, arg2)
+* arg1 is a double
+* arg2 is a double
+*/
+
+/**
+* Scripter.dialogs.mainWindow.languageChange()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.specialActionKeyEvent(actionName, unicodevalue)
+* actionName is a QString
+* unicodevalue is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.newView()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleStickyTools()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleAllGuides()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleAllPalettes()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotStoryEditor()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotCharSelect()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ImageEffects()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.Collect(compress, withFonts, withProfiles, newDirectory)
+* compress is a bool
+* withFonts is a bool
+* withProfiles is a bool
+* newDirectory is a QString
+* returns QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.Collect(compress, withFonts, withProfiles)
+* compress is a bool
+* withFonts is a bool
+* withProfiles is a bool
+* returns QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.Collect(compress, withFonts)
+* compress is a bool
+* withFonts is a bool
+* returns QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.Collect(compress)
+* compress is a bool
+* returns QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.Collect()
+* returns QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.AddBookMark(ite)
+* ite is a PageItem*
+*/
+
+/**
+* Scripter.dialogs.mainWindow.DelBookMark(ite)
+* ite is a PageItem*
+*/
+
+/**
+* Scripter.dialogs.mainWindow.BookMarkTxT(ite)
+* ite is a PageItem*
+*/
+
+/**
+* Scripter.dialogs.mainWindow.StoreBookmarks()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setStatusBarMousePosition(xp, yp)
+* xp is a double
+* yp is a double
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setStatusBarInfoText(newText)
+* newText is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.DoFileClose()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.windowsMenuAboutToShow()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.extrasMenuAboutToShow()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.newActWin(w)
+* w is a QWidget*
+*/
+
+/**
+* Scripter.dialogs.mainWindow.closeActiveWindowMasterPageEditor()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.updateActiveWindowCaption(newCaption)
+* newCaption is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.windowsMenuActivated(id)
+* id is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.UnDoAction()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.RedoAction()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotTest()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotTest2()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.PutScrap()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.PutToPatterns()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.changeLayer(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.showLayer()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ManageJava()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.manageMasterPages(temp)
+* temp is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.manageMasterPages()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.manageMasterPagesEnd()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotFileNew()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotPageImport()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.loadPage(fileName, Nr, Mpa, renamedPageName)
+* fileName is a QString
+* Nr is a int
+* Mpa is a bool
+* renamedPageName is a QString
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.loadPage(fileName, Nr, Mpa)
+* fileName is a QString
+* Nr is a int
+* Mpa is a bool
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotGetContent()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotGetContent2()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotFileAppend()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.removeRecent(fn)
+* fn is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.loadRecent(fn)
+* fn is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.rebuildRecentFileMenu()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.rebuildRecentPasteMenu()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.pasteRecent(fn)
+* fn is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.pasteFromScrapbook(fn)
+* fn is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.importVectorFile()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.rebuildLayersList()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotDocOpen()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.loadDoc(arg1)
+* arg1 is a QString
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.postLoadDoc()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotAutoSaved()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotFileSave()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotFileSaveAs()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotFileRevert()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.SaveText()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotFileClose()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotFilePrint()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotReallyPrint()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.doPrint(options, error)
+* options is a PrintOptions&
+* error is a QString&
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotFileQuit()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotEditCut()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotEditCopy()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotEditPaste()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotEditCopyContents()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotEditPasteContents(absolute)
+* absolute is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotEditPasteContents()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.EnableTxEdit()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.DisableTxEdit()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.SelectAll(docWideSelect)
+* docWideSelect is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.SelectAll()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.SelectAllOnLayer()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.deselectAll()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ClipChange()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotHelpAbout()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotHelpAboutPlugins()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotHelpAboutQt()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotHelpCheckUpdates()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotOnlineHelp()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotOnlineHelpClosed()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleTips()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotNewPageP(wo, templ)
+* wo is a int
+* templ is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotNewPageM()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotNewMasterPage(w, arg2)
+* w is a int
+* arg2 is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotNewPage(w, masterPageName, mov)
+* w is a int
+* masterPageName is a QString
+* mov is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotNewPage(w, masterPageName)
+* w is a int
+* masterPageName is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotNewPage(w)
+* w is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.duplicateToMasterPage()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.DeletePage()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.DeletePage(from, to)
+* from is a int
+* to is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.DeletePage2(pg)
+* pg is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.MovePage()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.CopyPage()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.changePageMargins()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotZoom(zoomFactor)
+* zoomFactor is a double
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleMarks()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleBleeds()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleFrames()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleLayerMarkers()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleTextLinks()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleTextControls()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleColumnBorders()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleRulers()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleRulerMode()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.togglePagePalette()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setPagePalette(visible)
+* visible is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.toggleUndoPalette()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setUndoPalette(visible)
+* visible is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.toggleCheckPal()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.TogglePics()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleRaster()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleURaster()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.toggleNodeEdit()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotSelect()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setAppMode(mode)
+* mode is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setAppModeByToggle(isOn, newMode)
+* isOn is a bool
+* newMode is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.HaveNewDoc()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.HaveNewSel(Nr)
+* Nr is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotDocCh(reb)
+* reb is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotDocCh()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setItemShade(id)
+* id is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.SetNewFont(nf)
+* nf is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setItemFSize(id)
+* id is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotEditColors()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotReplaceColors()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.updtGradFill()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setCSMenu()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.MakeFrame(f, c, vals)
+* f is a int
+* c is a int
+* vals is a double*
+*/
+
+/**
+* Scripter.dialogs.mainWindow.duplicateItem()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.duplicateItemMulti()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotDocSetup()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.objectAttributes()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.getImageInfo()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.generateTableOfContents()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotPrefsOrg()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setNewAlignment(a)
+* a is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setNewParStyle(name)
+* name is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setNewCharStyle(name)
+* name is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setAbsValue(a)
+* a is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.selectItemsFromOutlines(ite)
+* ite is a PageItem*
+*/
+
+/**
+* Scripter.dialogs.mainWindow.selectItemsFromOutlines(Page, Item, single)
+* Page is a int
+* Item is a int
+* single is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.selectItemsFromOutlines(Page, Item)
+* Page is a int
+* Item is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.selectPagesFromOutlines(Page)
+* Page is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.doPrintPreview()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.printPreview()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.SaveAsEps()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.reallySaveAsEps()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.SaveAsPDF()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.doSaveAsPDF()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setMainWindowActive()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setItemHoch(h)
+* h is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setStilvalue(s)
+* s is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setItemTypeStyle(id)
+* id is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotElemRead(Name, x, y, art, loca, docc, vie)
+* Name is a QString
+* x is a double
+* y is a double
+* art is a bool
+* loca is a bool
+* docc is a ScribusDoc*
+* vie is a ScribusView*
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotChangeUnit(art, draw)
+* art is a int
+* draw is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotChangeUnit(art)
+* art is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ApplyMasterPage()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.Apply_MasterPage(pageName, pageNumber, reb)
+* pageName is a QString
+* pageNumber is a int
+* reb is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.Apply_MasterPage(pageName, pageNumber)
+* pageName is a QString
+* pageNumber is a int
+*/
+
+/**
+* Scripter.dialogs.mainWindow.GroupObj(showLockDia)
+* showLockDia is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.GroupObj()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.UnGroupObj()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.StatusPic()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ModifyAnnot()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleGuides()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleBase()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.ToggleUGuides()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.EditTabs()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.SearchText()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.imageEditorExited(arg1, arg2)
+* arg1 is a int
+* arg2 is a QProcess::ExitStatus
+*/
+
+/**
+* Scripter.dialogs.mainWindow.callImageEditor()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.docCheckToggle(visible)
+* visible is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.scanDocument()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.setUndoMode(isObjectSpecific)
+* isObjectSpecific is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.insertSampleText()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.updateItemLayerList()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.docSetup(dia)
+* dia is a ReformDoc*
+*/
+
+/**
+* Scripter.dialogs.mainWindow.prefsOrg(dia)
+* dia is a Preferences*
+*/
+
+/**
+* Scripter.dialogs.mainWindow.slotInsertFrame()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.managePatterns()
+*/
+
+/**
+* Scripter.dialogs.mainWindow.enableTextActions(actionMap, enabled, fontName)
+* actionMap is a QMap<QString,QPointer<ScrAction> >*
+* enabled is a bool
+* fontName is a QString
+*/
+
+/**
+* Scripter.dialogs.mainWindow.enableTextActions(actionMap, enabled)
+* actionMap is a QMap<QString,QPointer<ScrAction> >*
+* enabled is a bool
+*/
+
+/**
+* Scripter.dialogs.mainWindow.styleMgr()
+* returns StyleManager*
+*/

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			Install_resources_keysets;
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="Install_resources_keysets">  
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)icalamus.xml"  
+			DestinationFolder="$(OutDir)\share\keysets"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)pageplusx3.xml"  
+			DestinationFolder="$(OutDir)\share\keysets"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)pagestream.xml"  
+			DestinationFolder="$(OutDir)\share\keysets"
+			SkipUnchangedFiles="true"
+		/>
+		<Copy  
+			SourceFiles="$(MSBuildThisFileDirectory)scribus15.xml"  
+			DestinationFolder="$(OutDir)\share\keysets"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+</Project>

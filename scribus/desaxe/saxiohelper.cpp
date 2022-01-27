@@ -1,18 +1,21 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+
 #include "saxiohelper.h"
 #include "saxio.h"
 #include "scfonts.h"
 #include "fpointarray.h"
 #include "scclocale.h"
 
-
-
-const Xml_string SaxIO::saxxDefaultElem("");
-
-
+const Xml_string SaxIO::saxxDefaultElem;
 
 Xml_string mkXMLName(const QString& any)
 {
-	QString result("");
+	QString result;
 	for (int i=0; i < any.length(); ++i)
 	{
 		unsigned int ch = any[i].unicode();
@@ -113,9 +116,9 @@ float parseFloat(const Xml_string& str)
 }
 
 
-Xml_string toXMLString(bool what)
+Xml_string toXMLString(bool val)
 {
-	return what? "yes" : "no";
+	return val ? "yes" : "no";
 }
 
 
@@ -133,7 +136,7 @@ Xml_string toXMLString(const Xml_string& val)
 
 Xml_string toXMLString(const QList<double>& doublelist)
 {
-	QString result = "";
+	QString result;
 	QList<double>::const_iterator dax;
 	for (dax = doublelist.begin(); dax != doublelist.end(); ++dax)
 		result += toXMLString(*dax) + " ";
@@ -142,45 +145,42 @@ Xml_string toXMLString(const QList<double>& doublelist)
 
 Xml_string toXMLString(const QList<float>& floatlist)
 {
-	QString result = "";
-	QList<float>::const_iterator dax;
-	for (dax = floatlist.begin(); dax != floatlist.end(); ++dax)
+	QString result;
+	for (auto dax = floatlist.cbegin(); dax != floatlist.cend(); ++dax)
 		result += toXMLString(*dax) + " ";
 	return result;
 }
 
 QList<double> parseDoubleList(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
+	QStringList strlist = str.split(' ', Qt::SkipEmptyParts);
 	QList<double> result;
-	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
+	for (auto it = strlist.begin(); it != strlist.end(); ++it)
 		result.append(parseDouble(*it));
 	return result;
 }
 
 Xml_string toXMLString(const QVector<double>& doublelist)
 {
-	QString result = "";
-	QVector<double>::const_iterator dax;
-	for (dax = doublelist.begin(); dax != doublelist.end(); ++dax)
+	QString result;
+	for (auto dax = doublelist.cbegin(); dax != doublelist.cend(); ++dax)
 		result += toXMLString(*dax) + " ";
 	return result;
 }
 
 Xml_string toXMLString(const QVector<float>& floatlist)
 {
-	QString result = "";
-	QVector<float>::const_iterator dax;
-	for (dax = floatlist.begin(); dax != floatlist.end(); ++dax)
+	QString result;
+	for (auto dax = floatlist.cbegin(); dax != floatlist.cend(); ++dax)
 		result += toXMLString(*dax) + " ";
 	return result;
 }
 
 QVector<double> parseDoubleVector(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
+	QStringList strlist = str.split(' ', Qt::SkipEmptyParts);
 	QVector<double> result;
-	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
+	for (auto it = strlist.cbegin(); it != strlist.cend(); ++it)
 		result.append(parseDouble(*it));
 	return result;
 }
@@ -188,9 +188,8 @@ QVector<double> parseDoubleVector(const Xml_string& str)
 
 Xml_string toXMLString(const QList<int>& intlist)
 {
-	QString result = "";
-	QList<int>::const_iterator dax;
-	for (dax = intlist.begin(); dax != intlist.end(); ++dax)
+	QString result;
+	for (auto dax = intlist.cbegin(); dax != intlist.cend(); ++dax)
 		result += toXMLString(*dax) + " ";
 	return result;
 }
@@ -198,18 +197,17 @@ Xml_string toXMLString(const QList<int>& intlist)
 
 QList<int> parseIntList(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
+	QStringList strlist = str.split(' ', Qt::SkipEmptyParts);
 	QList<int> result;
-	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
+	for (auto it = strlist.cbegin(); it != strlist.cend(); ++it)
 		result.append(parseInt(*it));
 	return result;
 }
 
 Xml_string toXMLString(const QVector<int>& intlist)
 {
-	QString result = "";
-	QVector<int>::const_iterator dax;
-	for (dax = intlist.begin(); dax != intlist.end(); ++dax)
+	QString result;
+	for (auto dax = intlist.cbegin(); dax != intlist.cend(); ++dax)
 		result += toXMLString(*dax) + " ";
 	return result;
 }
@@ -217,9 +215,9 @@ Xml_string toXMLString(const QVector<int>& intlist)
 
 QVector<int> parseIntVector(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
+	QStringList strlist = str.split(' ', Qt::SkipEmptyParts);
 	QVector<int> result;
-	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
+	for (auto it = strlist.cbegin(); it != strlist.cend(); ++it)
 		result.append(parseInt(*it));
 	return result;
 }
@@ -227,9 +225,9 @@ QVector<int> parseIntVector(const Xml_string& str)
 
 QStack<int> parseIntStack(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
+	QStringList strlist = str.split(' ', Qt::SkipEmptyParts);
 	QStack<int> result;
-	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
+	for (auto it = strlist.cbegin(); it != strlist.cend(); ++it)
 		result.append(parseInt(*it));
 	return result;
 }
@@ -237,9 +235,8 @@ QStack<int> parseIntStack(const Xml_string& str)
 
 Xml_string toXMLString(const QStringList& list)
 {
-	QString result = "";
-	QStringList::const_iterator dax;
-	for (dax = list.begin(); dax != list.end(); ++dax)
+	QString result;
+	for (auto dax = list.cbegin(); dax != list.cend(); ++dax)
 		result += *dax + " ";
 	return result;
 }
@@ -247,7 +244,7 @@ Xml_string toXMLString(const QStringList& list)
 
 QStringList parseStringList(const Xml_string&  str)
 {
-	return str.split(' ', QString::SkipEmptyParts);
+	return str.split(' ', Qt::SkipEmptyParts);
 }
 
 

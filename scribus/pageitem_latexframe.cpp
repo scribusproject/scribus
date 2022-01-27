@@ -24,6 +24,9 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_latexframe.h"
 
 #include <QDebug>
+#include <QFontInfo>
+#include <QMessageBox>
+#include <QSignalBlocker>
 #include <QTemporaryFile>
 
 #include "prefsmanager.h"
@@ -33,32 +36,23 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "undomanager.h"
 #include "undostate.h"
-#include "latexeditor.h"
+#include "ui/latexeditor.h"
 #include "latexhelpers.h"
 #include "util.h"
 
-PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
+PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
 		: PageItem_ImageFrame(pa, x, y, w, h, w2, fill, outline)
 {
 	setUPixmap(Um::ILatexFrame);
-	AnName = tr("Render") + QString::number(m_Doc->TotalItems);
-	setUName(AnName);
+	m_itemName = tr("Render") + QString::number(m_Doc->TotalItems);
+	setUName(m_itemName);
 	
-	imgValid = false;
-	m_usePreamble = true;
-	err = 0;
-	internalEditor = 0;
-	killed = false;
-	
-	config = 0;
-	if (PrefsManager::instance()->latexConfigs().count() > 0)
-		setConfigFile(PrefsManager::instance()->latexConfigs()[0]);
+	if (PrefsManager::instance().latexConfigs().count() > 0)
+		setConfigFile(PrefsManager::instance().latexConfigs()[0]);
 
 	latex = new QProcess();
-	connect(latex, SIGNAL(finished(int, QProcess::ExitStatus)),
-		this, SLOT(updateImage(int, QProcess::ExitStatus)));
-	connect(latex, SIGNAL(error(QProcess::ProcessError)),
-		this, SLOT(latexError(QProcess::ProcessError)));
+	connect(latex, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(updateImage(int,QProcess::ExitStatus)));
+	connect(latex, SIGNAL(error(QProcess::ProcessError)), this, SLOT(latexError(QProcess::ProcessError)));
 	latex->setProcessChannelMode(QProcess::MergedChannels);
 	
 	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_render_XXXXXX");
@@ -69,19 +63,24 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	delete tempfile;
 	Q_ASSERT(!tempFileBase.isEmpty());
 	
-	m_dpi = 0;
+	m_lastDpi = realDpi();
+
+	m_imageXScale *= (72.0 / realDpi());
+	m_imageYScale *= (72.0 / realDpi());
 }
 
 PageItem_LatexFrame::~PageItem_LatexFrame()
 {
-	if (internalEditor) delete internalEditor;
+	delete internalEditor;
 	
 	latex->disconnect();
-	if (latex->state() != QProcess::NotRunning) {
-		killed = true;
+	if (latex->state() != QProcess::NotRunning)
+	{
+		m_killed = true;
 		latex->terminate();
 		latex->waitForFinished(500);
-		if (latex->state() != QProcess::NotRunning) {
+		if (latex->state() != QProcess::NotRunning)
+		{
 			latex->kill();
 			latex->waitForFinished(500);
 		}
@@ -95,8 +94,8 @@ void PageItem_LatexFrame::clearContents()
 	PageItem_ImageFrame::clearContents();
 	formulaText = "";
 	appStdout = "";
-	err = 0;
-	imgValid = false;
+	m_err = 0;
+	m_imgValid = false;
 }
 
 void PageItem_LatexFrame::deleteImageFile()
@@ -109,112 +108,136 @@ void PageItem_LatexFrame::deleteImageFile()
 	Q_ASSERT(!fi.fileName().isEmpty());
 	Q_ASSERT(!fi.fileName().contains("/"));
 	Q_ASSERT(!fi.fileName().contains("\\"));
-	QStringList files;
-	files = dir.entryList(filter);
-	foreach (QString file, files) {
+
+	const QStringList files = dir.entryList(filter);
+	for (const QString& file : files)
+	{
 		Q_ASSERT(file.startsWith("scribus_temp"));
 		dir.remove(file);
 	}
-	imgValid = false;
+	m_imgValid = false;
 }
 
-void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e, double sc)
+void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, const QRectF& e)
 {
 	layout();
-	if (!imgValid && !err)
+	if (!m_imgValid && !m_err)
 	{
 		//Draw indicator that latex is running
 		p->setBrush(Qt::white);
 		p->setPen(Qt::green, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-		p->drawText(QRectF(0.0, 0.0, Width, Height), tr("Rendering..."));
+		p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
+		const QFont &font = QApplication::font();
+		p->setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.findFont(font.family(), QFontInfo(font).styleName()), font.pointSizeF());
+		p->drawText(QRectF(0.0, 0.0, m_width, m_height), tr("Rendering..."));
 	}
-	else if (err)
+	else if (m_err)
 	{
 		//Draw error indicator
 		p->setBrush(Qt::white);
 		p->setPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-		p->drawLine(FPoint(0, Height), FPoint(Width, 0));
-		p->drawText(QRectF(0.0, 0.0, Width, Height), tr("Render Error"));
+		p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
+		p->drawLine(FPoint(0, m_height), FPoint(m_width, 0));
+		const QFont &font = QApplication::font();
+		p->setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.findFont(font.family(), QFontInfo(font).styleName()), font.pointSizeF());
+		p->drawText(QRectF(0.0, 0.0, m_width, m_height), tr("Render Error"));
 	}
 	else
 	{
 		//Just pass it to ImageFrame
-		PageItem_ImageFrame::DrawObj_Item(p, e, sc);
+		PageItem_ImageFrame::DrawObj_Item(p, e);
 	}
+}
+
+bool PageItem_LatexFrame::loadImage(const QString & filename, bool reload, int gsResolution, bool showMsg)
+{
+	//Save state and restore afterwards
+	double xres = 0.0;
+	double yres = 0.0;
+	if (imageIsAvailable)
+	{
+		xres = pixm.imgInfo.xres;
+		yres = pixm.imgInfo.yres;
+	}
+	else
+	{
+		xres = yres = realDpi();
+	}
+	double scaleX = m_imageXScale * xres;
+	double scaleY = m_imageYScale * yres;
+	double offX = m_imageXOffset / xres;
+	double offY = m_imageYOffset / yres;
+
+	bool imageLoaded = PageItem_ImageFrame::loadImage(imageFile, true, realDpi(), showMsg);
+	if (PrefsManager::instance().latexForceDpi())
+	{
+		pixm.imgInfo.xres = pixm.imgInfo.yres = realDpi();
+	}
+	m_lastDpi = realDpi();
+
+	//Restore parameters, account for dpi changes
+	m_imageXScale = scaleX / pixm.imgInfo.xres;
+	m_imageYScale = scaleY / pixm.imgInfo.yres;
+	m_imageXOffset = offX  * pixm.imgInfo.xres;
+	m_imageYOffset = offY  * pixm.imgInfo.yres;
+
+	return imageLoaded;
 }
 
 void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitStatus)
 {
 	appStdout = latex->readAllStandardOutput();
-	err = exitCode;
+	invalid = false;
+	m_err = exitCode;
 	
 	emit latexFinished();
 	emit stateChanged(latex->state());
 	
 	static bool firstWarning = true;
 	if (exitCode) {
-		imgValid = false;
-		if (firstWarning && !killed)
+		m_imgValid = false;
+		if (firstWarning && !m_killed)
 		{
-			QMessageBox::critical(0, tr("Error"), "<qt>" + 
-				tr("Running the external application failed!")
-				+ "</qt>", 1, 0, 0);
+			bool editorRunning = internalEditor && internalEditor->isVisible();
+			ScMessageBox msgBox;
+			msgBox.setText(tr("Running the external application failed!"));
+			QString informativeText = tr("This is usually a problem with your input. Please check the program's output.");
+			if (!editorRunning) {
+				informativeText += " "+tr("Do you want to open the editor to fix the problem?");
+				msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+				msgBox.setDefaultButton(QMessageBox::Yes);
+			} else {
+				msgBox.setStandardButtons(QMessageBox::Ok);
+				msgBox.setDefaultButton(QMessageBox::Ok);
+			}
+			msgBox.setIcon(QMessageBox::Warning);
+			msgBox.setInformativeText(informativeText);
+			msgBox.setDetailedText(output());
+			if ((msgBox.exec() == QMessageBox::Yes) && !editorRunning) {
+				runEditor();
+			}
 			firstWarning = false;
 		}
 		qCritical() << "RENDER FRAME: updateImage():" << tr("Running the external application failed!");
-		killed = false;
+		m_killed = false;
 		update(); //Show error marker
 		return;
 	}
-	else
-	{
-		firstWarning = true;
-	}
-	imgValid = true;
+	firstWarning = true;
+	m_imgValid = true;
 
-	//Save state and restore afterwards
-	bool do_update = PictureIsAvailable;
-	double scaleX = 72.0, scaleY = 72.0, offX = 0.0, offY = 0.0;
-	if (do_update) {
-		scaleX = LocalScX * pixm.imgInfo.xres;
-		scaleY = LocalScY * pixm.imgInfo.yres;
-		offX   = LocalX   / pixm.imgInfo.xres;
-		offY   = LocalY   / pixm.imgInfo.yres;
-	}
-	PageItem_ImageFrame::loadImage(imageFile, true, realDpi());
-	if (PrefsManager::instance()->latexForceDpi()) 
-	{
-		pixm.imgInfo.xres = pixm.imgInfo.yres = realDpi();
-	}
-	
-	if (do_update) 
-	{
-		//Restoring parameters
-		LocalScX = scaleX / pixm.imgInfo.xres; //Account for dpi changes!
-		LocalScY = scaleY / pixm.imgInfo.yres;
-		LocalX   = offX   * pixm.imgInfo.xres;
-		LocalY   = offY   * pixm.imgInfo.yres;
-	} 
-	else 
-	{
-		//Setting sane defaults
-		LocalX = LocalY = 0;
-		LocalScX = 72.0/pixm.imgInfo.xres;
-		LocalScY = 72.0/pixm.imgInfo.yres;
-	}
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY );
-	
+	loadImage(imageFile, true, realDpi(), false);
+
+	//emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 	update();
 }
 
 
 void PageItem_LatexFrame::runApplication()
 {
-	imgValid = false;
-	err = 0;
-	killed = false;
+	m_imgValid = false;
+	m_err = 0;
+	m_killed = false;
 	
 	static bool firstWarningTmpfile = true;
 	static bool firstWarningLatexMissing = true;
@@ -227,56 +250,50 @@ void PageItem_LatexFrame::runApplication()
 	
 	QFile tempfile(tempFileBase);
 	if (!tempfile.open(QIODevice::Truncate|QIODevice::WriteOnly)) {
-		err = 0xffff;
+		m_err = 0xffff;
 		update(); //Show error marker
 		if (firstWarningTmpfile)
 		{
-			QMessageBox::critical(0, tr("Error"), "<qt>" +
+			ScMessageBox::critical(nullptr, tr("Error"), "<qt>" +
 								  tr("Could not create a temporary file to run the application!") 
-								  + "</qt>", 1, 0, 0);
+								  + "</qt>");
 			firstWarningTmpfile = false;
 		}
 		qCritical() << "RENDER FRAME:" << tr("Could not create a temporary file to run the application!");
 		//Don't know how to continue as it's impossible to create tempfile
 		return;
 	}
-	else
-	{
-		firstWarningTmpfile = true;
-	}
+	firstWarningTmpfile = true;
 	
 	QString full_command = config->executable();
-	
-	if (full_command.isEmpty()) {
-		err = 0xffff;
+	if (full_command.isEmpty())
+	{
+		m_err = 0xffff;
 		update(); //Show error marker
 		if (firstWarningLatexMissing)
 		{
-			QMessageBox::critical(0, tr("Error"),
+			ScMessageBox::critical(nullptr, tr("Error"),
 									 "<qt>" + tr("The config file didn't specify a executable path!") +
-									 "</qt>",1, 0, 0);
+									 "</qt>");
 			firstWarningLatexMissing = false;
 		}
         qCritical() << "RENDER FRAME:" << tr("The config file didn't specify a executable path!");
 		return;
 	}
-	else
-	{
-		firstWarningLatexMissing = true;
-	}
+	firstWarningLatexMissing = true;
 
 	full_command.replace("%dpi", QString::number(realDpi()));
-	if (full_command.contains("%file")) {
+	if (full_command.contains("%file"))
 		full_command.replace("%file", QString("\"%1\"").arg(QDir::toNativeSeparators(tempFileBase)));
-	} else {
+	else
 		full_command = full_command + QString(" \"%1\"").arg(QDir::toNativeSeparators(tempFileBase));
-	}
+
 	full_command.replace("%dir", QString("\"%1\"").arg(QDir::toNativeSeparators(QDir::tempPath())));
 	latex->setWorkingDirectory(QDir::tempPath());
 
 	double lDpi = realDpi()/72.0;
-	full_command.replace("$scribus_height_px$", QString::number(qRound(Height*lDpi)));
-	full_command.replace("$scribus_width_px$",  QString::number(qRound(Width*lDpi)));
+	full_command.replace("$scribus_height_px$", QString::number(qRound(m_height*lDpi)));
+	full_command.replace("$scribus_width_px$",  QString::number(qRound(m_width*lDpi)));
 	QMapIterator<QString, QString> i(editorProperties);
 	while (i.hasNext())
 	{
@@ -308,18 +325,22 @@ void PageItem_LatexFrame::runEditor()
 
 void PageItem_LatexFrame::rerunApplication(bool updateDisplay)
 {
-	if (latex->state() != QProcess::NotRunning) {
-		killed = true;
+	if (latex->state() != QProcess::NotRunning)
+	{
+		QSignalBlocker sigBloker(latex);
+		m_killed = true;
 		latex->terminate();
 		latex->waitForFinished(500);
-		if (latex->state() != QProcess::NotRunning) {
+		if (latex->state() != QProcess::NotRunning)
+		{
 			//Still not terminated?
 			latex->kill();
 			latex->waitForFinished(500);
 		}
 	}
 	runApplication();
-	if (updateDisplay) this->update();
+	if (updateDisplay)
+		this->update();
 }
 
 
@@ -327,22 +348,22 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 {
 	QString tmp(formulaText);
 	double scaleX, scaleY, realW, realH, offsetX, offsetY;
-	double lDpi = realDpi()/72.0;
-	scaleX = LocalScX*lDpi;
-	scaleY = LocalScY*lDpi;
-	offsetX = LocalX*LocalScX;
-	offsetY = LocalY*LocalScY;
-	realW = Width/scaleX - LocalX/lDpi;
-	realH = Height/scaleY - LocalY/lDpi;
+	double lDpi = realDpi() / 72.0;
+	scaleX = m_imageXScale * lDpi;
+	scaleY = m_imageYScale * lDpi;
+	offsetX = m_imageXOffset * m_imageXScale;
+	offsetY = m_imageYOffset * m_imageYScale;
+	realW = m_width  - m_imageXOffset / lDpi;
+	realH = m_height - m_imageYOffset / lDpi;
 	if (!tmp.contains("$scribus_noprepost$") && m_usePreamble) {
 		tmp = config->preamble() + tmp + config->postamble();
 	}
-	tmp.replace(QString("$scribus_width$"), QString::number(Width));
-	tmp.replace(QString("$scribus_width_px$"), QString::number(qRound(Width*lDpi)));
-	tmp.replace(QString("$scribus_width_inch$"), QString::number(Width/72.0));
-	tmp.replace(QString("$scribus_height$"), QString::number(Height));
-	tmp.replace(QString("$scribus_height_px$"), QString::number(qRound(Height*lDpi)));
-	tmp.replace(QString("$scribus_height_inch$"), QString::number(Height/72.0));
+	tmp.replace(QString("$scribus_width$"), QString::number(m_width));
+	tmp.replace(QString("$scribus_width_px$"), QString::number(qRound(m_width*lDpi)));
+	tmp.replace(QString("$scribus_width_inch$"), QString::number(m_width/72.0));
+	tmp.replace(QString("$scribus_height$"), QString::number(m_height));
+	tmp.replace(QString("$scribus_height_px$"), QString::number(qRound(m_height*lDpi)));
+	tmp.replace(QString("$scribus_height_inch$"), QString::number(m_height/72.0));
 	tmp.replace(QString("$scribus_realwidth$"), QString::number(realW));
 	tmp.replace(QString("$scribus_realwidth_px$"), QString::number(qRound(realW*lDpi)));
 	tmp.replace(QString("$scribus_realheight$"), QString::number(realH));
@@ -364,18 +385,18 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 	tempfile->write(tmp.toUtf8());
 }
 
-bool PageItem_LatexFrame::setFormula(QString formula, bool undoable)
+bool PageItem_LatexFrame::setFormula(const QString& formula, bool undoable)
 {
 	if (formula == formulaText) {
 		//Nothing changed
 		return false;
 	}
-	imgValid = false;
-	err = 0;
+	m_imgValid = false;
+	m_err = 0;
 	if (UndoManager::undoEnabled() && undoable)
 	{
-		SimpleState *ss = new SimpleState(Um::ChangeFormula, "", Um::IChangeFormula);
-		ss->set("CHANGE_FORMULA", "change_formula");
+		auto *ss = new SimpleState(Um::ChangeFormula, "", Um::IChangeFormula);
+		ss->set("CHANGE_FORMULA");
 		ss->set("OLD_FORMULA", formulaText);
 		ss->set("NEW_FORMULA", formula);
 		undoManager->action(this, ss);
@@ -388,11 +409,11 @@ bool PageItem_LatexFrame::setFormula(QString formula, bool undoable)
 
 void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 {
-	err = 0xffff;
+	m_err = 0xffff;
 	update(); //Show error marker
 	static bool firstWarning = true;
-	if (killed) {
-		killed = false;
+	if (m_killed) {
+		m_killed = false;
 		update();
 		//Don't show errors caused by killing processes
 		return; 
@@ -400,19 +421,20 @@ void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 	if (firstWarning)
 	{
 		if (latex->error() == QProcess::FailedToStart) {
-			QMessageBox::critical(0, tr("Error"), "<qt>" +
-								  tr("The application \"%1\" failed to start!").
+			ScMessageBox::critical(nullptr, tr("Error"), "<qt>" +
+								  tr("The application \"%1\" failed to start! Please check the path: ").
 								  arg(config->executable())
-								  + "</qt>", 1, 0, 0);
+								  + "</qt>");
 		} else {
-			QMessageBox::critical(0, tr("Error"), "<qt>" +
+			ScMessageBox::critical(nullptr, tr("Error"), "<qt>" +
 					tr("The application \"%1\" crashed!").arg(config->executable())
-					+ "</qt>", 1, 0, 0);
+					+ "</qt>");
 		}
 		firstWarning = false;
 	}
 	qCritical() << "RENDER FRAME: latexError():" << 
 			tr("Running the application \"%1\" failed!").arg(config->executable()) << latex->error();
+	emit stateChanged(QProcess::NotRunning);
 }
 
 
@@ -428,11 +450,9 @@ QString PageItem_LatexFrame::configFile() const
 
 int PageItem_LatexFrame::realDpi() const
 {
-	if (m_dpi) {
+	if (m_dpi)
 		return m_dpi;
-	} else {
-		return PrefsManager::instance()->latexResolution();
-	}
+	return PrefsManager::instance().latexResolution();
 }
 
 void PageItem_LatexFrame::setDpi(int newDpi)
@@ -442,12 +462,16 @@ void PageItem_LatexFrame::setDpi(int newDpi)
 
 void PageItem_LatexFrame::setConfigFile(QString newConfig, bool relative)
 {
-	if (relative) {
+	// Try to interpret a config file as a relative path even when it is given with a full path
+	if (relative)
+	{
 		QFileInfo fi;
-		QStringList configs = PrefsManager::instance()->latexConfigs();
-		foreach (QString config, configs) {
+		const QStringList configs = PrefsManager::instance().latexConfigs();
+		for (const QString& config : configs)
+		{
 			fi.setFile(config);
-			if (newConfig == fi.fileName()) {
+			if (newConfig == fi.fileName())
+			{
 				newConfig = config;
 				break;
 			}
@@ -463,7 +487,6 @@ void PageItem_LatexFrame::setConfigFile(QString newConfig, bool relative)
 	
 	configFilename = newConfig;
 	config = LatexConfigCache::instance()->parser(configFilename);
-	
 	//Initialize with default values
 	QString key;
 	QMapIterator<QString, QString> i(config->properties);
@@ -476,7 +499,7 @@ void PageItem_LatexFrame::setConfigFile(QString newConfig, bool relative)
 	}
 	QString newFormula;
 	if (unchanged) {
-		if (PrefsManager::instance()->latexStartWithEmptyFrames()) {
+		if (PrefsManager::instance().latexStartWithEmptyFrames()) {
 			newFormula = "";
 		} else {
 			newFormula = config->emptyFrameText();
@@ -490,26 +513,28 @@ void PageItem_LatexFrame::setConfigFile(QString newConfig, bool relative)
 
 void PageItem_LatexFrame::killProcess()
 {
-	killed = true;
+	m_killed = true;
 	latex->kill();
 }
 
 void PageItem_LatexFrame::restore(UndoState *state, bool isUndo)
 {
-	SimpleState *ss = dynamic_cast<SimpleState*>(state);
-	if (!ss) {
+	auto *ss = dynamic_cast<SimpleState*>(state);
+	if (!ss)
+	{
 		PageItem_ImageFrame::restore(state, isUndo);
 		return;
 	}
-	if (ss->contains("CHANGE_FORMULA")) {
-		if (isUndo) {
+	if (ss->contains("CHANGE_FORMULA"))
+	{
+		if (isUndo)
 			setFormula(ss->get("OLD_FORMULA"), false);
-		} else {
+		else
 			setFormula(ss->get("NEW_FORMULA"), false);
-		}
-	} else {
-		PageItem_ImageFrame::restore(state, isUndo);
+		rerunApplication(true);
 	}
+	else
+		PageItem_ImageFrame::restore(state, isUndo);
 }
 
 
@@ -523,9 +548,11 @@ void PageItem_LatexFrame::layout()
 	if (!invalid) return;
 	invalid = false;
 	
-	if (Width == lastWidth && Height == lastHeight) return;
-	lastWidth = Width;
-	lastHeight = Height;
+	if (m_width == m_lastWidth && m_height == m_lastHeight && m_lastDpi == realDpi())
+		return;
+	m_lastWidth = m_width;
+	m_lastHeight = m_height;
+	m_lastDpi = realDpi();
 	
 	rerunApplication(false);
 }
@@ -538,7 +565,7 @@ void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 	actionList << "itemPreviewNormal";
 	actionList << "itemUpdateImage";
 	actionList << "editEditRenderSource";
-	if (PictureIsAvailable)
+	if (imageIsAvailable)
 	{
 		/*if (!isTableItem)
 			actionList << "itemAdjustFrameToImage";*/
@@ -552,7 +579,7 @@ void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 	}
 }
 
-QString PageItem_LatexFrame::infoDescription()
+QString PageItem_LatexFrame::infoDescription() const
 {
 	QString htmlText;
 	htmlText.append("<h2>"+tr("Render Frame") + "</h2><table>");

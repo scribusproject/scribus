@@ -36,17 +36,17 @@ class SCRIBUS_API PageItem_Polygon : public PageItem
 	Q_OBJECT
 
 public:
-	PageItem_Polygon(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
+	PageItem_Polygon(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 	PageItem_Polygon(const PageItem & p) : PageItem(p) {}
 	~PageItem_Polygon() {};
 
-	virtual PageItem_Polygon * asPolygon() { return this; }
-//	virtual bool createContextMenu(QMenu *, int);
-	virtual void applicableActions(QStringList& actionList);
-	virtual QString infoDescription();
+	PageItem_Polygon * asPolygon() override { return this; }
+	bool isPolygon() const override { return true; }
+	void applicableActions(QStringList& actionList) override;
+	QString infoDescription() const override;
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRectF e, double sc);
+	void DrawObj_Item(ScPainter *p, const QRectF& e) override;
 
 };
 

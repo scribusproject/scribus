@@ -11,15 +11,26 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 // PV - commented out - why it was here?
-// #if defined(_XOPEN_SOURCE)
-// #define SCRIBUS_XOPEN_SOURCE
-// #undef _XOPEN_SOURCE
-// #endif
+#if defined(_XOPEN_SOURCE)
+	#undef _XOPEN_SOURCE
+#endif
+#if defined(_POSIX_C_SOURCE)
+	#undef _POSIX_C_SOURCE
+#endif
+
+#if defined(_MSC_VER) || defined(__GNUC__) || defined(__clang__)
+#pragma push_macro("slots")
+#undef slots
+#endif
 
 #if defined(HAVE_BOOST_PYTHON)
 #include <boost/python.hpp>
 #else
 #include <Python.h>
+#endif
+
+#if defined(_MSC_VER) || defined(__GNUC__) || defined(__clang__)
+#pragma pop_macro("slots")
 #endif
 
 #ifndef Py_RETURN_NONE
@@ -30,12 +41,6 @@ for which a new license (GPL+exception) is in place.
 	#define Py_RETURN_TRUE return Py_INCREF(Py_True), Py_True
 #endif
 
-// PV - commented out - why it was here?
-// #if defined(SCRIBUS_XOPEN_SOURCE)
-// #define _XOPEN_SOURCE
-// #undef SCRIBUS_XOPEN_SOURCE
-// #endif
-
 #include <QString>
 
 #include "scribus.h"
@@ -43,11 +48,11 @@ for which a new license (GPL+exception) is in place.
 
 class ScripterCore;
 
-// Globals for testing Qt properties and probably other more intresting future
+// Globals for testing Qt properties and probably other more interesting future
 // uses.
 /** @brief A PyCObject containing a pointer to qApp */
 extern PyObject* wrappedQApp;
-/** @brief A PyCObject containing a pointer to the main window ('Carrier') */
+/** @brief A PyCObject containing a pointer to the main window ('mainWindow') */
 extern PyObject* wrappedMainWindow;
 
 /** @brief A pointer to the ScripterCore instance */
@@ -55,6 +60,8 @@ extern ScripterCore* scripterCore;
 
 /** @brief Initialize the 'scribus' Python module in the currently active interpreter */
 extern "C" void initscribus(ScribusMainWindow *pl);
+
+extern "C" PyObject* PyInit_scribus(void);
 
 /* Exceptions */
 /*! Common scribus Exception */
@@ -70,7 +77,7 @@ extern PyObject* NotFoundError;
 /*! Exception raised when the user tries to create an object with the same name as one that already exists */
 extern PyObject* NameExistsError;
 
-/*! A helper variable for better string comparsions to reduce warnings:
+/*! A helper variable for better string comparisons to reduce warnings:
 "warning: comparison with string literal results in unspecified behaviour"
 what is criticised by some linux distributors */
 #ifndef EMPTY_STRING

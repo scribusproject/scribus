@@ -1,0 +1,23 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Rendering Intents</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Rendering Intents</h2>
+
+<p><i>Rendering Intents</i> is a concept that can be quite puzzling for newcomers to color management. Basically, your choice of a rendering intent is a way of telling littleCMS how you want colors to be mapped from one color space to another. There are four rendering intents:</p>
+<ul>
+<li><b>Perceptual:</b> This rendering intent maps color &ldquo;smoothly&rdquo; by preserving relationships between similar colors. It prevents &ldquo;gamut clipping&rdquo; with its potential loss of detail and &ldquo;tonal banding&rdquo; problems. &ldquo;Gamut clipping&rdquo; happens when two or more colors that are different in the input image appear the same when printed. The perceptual rendering intent makes small adjustments throughout the image to preserve color relationships. It sacrifices some precision of colors in order to ensure pleasing results. For photographic images and scans, this is usually the best choice for a default setting. <br>The perceptual intent will produce the most predictable results when printing from a wide range of image sources, for example, when printing RGB images on CMYK devices, or when trying to match CMYK devices that are radically different from each other. Consider this a &ldquo;foolproof&rdquo; setting to be best for users who handle the wide variety of images that commonly enter large format printing facilities.</li> 
+
+<li><b>Saturation</b> should be used for logos, <a href="color1.html">spot colors</a> etc. It tends to preserve the amount or vividness of colors, but it can make photos look ugly. If you are working with logos with a specific shade, saturation will bring better color matching, as long as you give more importance to the solid color than to image colors.</li>
+
+<li><b>Absolute Colorimetric:</b> When a color is not printable within the gamut of the output device, this rendering intent simply prints the closest match. It reproduces in-gamut colors without compromise as faithfully as possible. This produces the most accurate matching of spot colors. Unfortunately, it can also result in &ldquo;gamut clipping&rdquo; where two colors that are different in the original are identical on the print. White points are similarly clipped, then causing color relationship problems in the highlights of images. This type of clipping, and the resultant problems, typically make this intent difficult to use with anything but spot colors. Some users will be disconcerted with a yellowish cast in their images, but this intent is measured in highly controlled lighting conditions with a D50 light box. It often has a &ldquo;warmer&rdquo; temperature than more typical viewing conditions. This rendering intent is almost exclusively used when a corporate logo or color must be matched exactly, regardless of media. Kodak yellow would be a good example.</li>
+
+<li><b>Relative Colorimetric:</b> When a color is not printable within the gamut of the output device, this rendering intent prints the closest match along with an adjustment that maps white to the paper of the output. This mapping of &ldquo;white point&rdquo; prevents the problems of &ldquo;Absolute Colorimetric&rdquo; with images that will not be printed with spot colors.</li>
+</ul>
+</body>
+</html>

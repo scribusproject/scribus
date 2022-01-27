@@ -1,0 +1,47 @@
+Metadata-Version: 1.0
+Name: Cheetah
+Version: 2.4.4
+Summary: Cheetah is a template engine and code generation tool.
+Home-page: http://www.cheetahtemplate.org/
+Author: R. Tyler Ballance
+Author-email: cheetahtemplate-discuss@lists.sf.net
+License: UNKNOWN
+Description: Cheetah is an open source template engine and code generation tool.
+        
+        It can be used standalone or combined with other tools and frameworks. Web
+        development is its principle use, but Cheetah is very flexible and is also being
+        used to generate C++ game code, Java, sql, form emails and even Python code.
+        
+        Documentation
+        ================================================================================
+        For a high-level introduction to Cheetah please refer to the User's Guide
+        at http://www.cheetahtemplate.org/learn.html
+        
+        Mailing list
+        ================================================================================
+        cheetahtemplate-discuss@lists.sourceforge.net
+        Subscribe at http://lists.sourceforge.net/lists/listinfo/cheetahtemplate-discuss
+        
+        Credits
+        ================================================================================
+        http://www.cheetahtemplate.org/credits.html
+        
+        Recent Changes
+        ================================================================================
+        See http://www.cheetahtemplate.org/CHANGES.txt for full details
+        
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Internet :: WWW/HTTP :: Site Management
+Classifier: Topic :: Software Development :: Code Generators
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: User Interfaces
+Classifier: Topic :: Text Processing

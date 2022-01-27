@@ -1,0 +1,688 @@
+/**
+* Scripter.dialogs.nodes.objectName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.nodes.modal
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.windowModality
+* Property
+* type is Qt::WindowModality 
+*/
+
+/**
+* Scripter.dialogs.nodes.enabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.nodes.geometry
+* Property
+* type is QRect 
+*/
+
+/**
+* Scripter.dialogs.nodes.frameGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.normalGeometry
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.x
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.y
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.pos
+* Property
+* type is QPoint 
+*/
+
+/**
+* Scripter.dialogs.nodes.frameSize
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.size
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.nodes.width
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.height
+* Property
+* type is int  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.rect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.childrenRect
+* Property
+* type is QRect  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.childrenRegion
+* Property
+* type is QRegion  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.sizePolicy
+* Property
+* type is QSizePolicy 
+*/
+
+/**
+* Scripter.dialogs.nodes.minimumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.nodes.maximumSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.nodes.minimumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.nodes.minimumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.nodes.maximumWidth
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.nodes.maximumHeight
+* Property
+* type is int 
+*/
+
+/**
+* Scripter.dialogs.nodes.sizeIncrement
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.nodes.baseSize
+* Property
+* type is QSize 
+*/
+
+/**
+* Scripter.dialogs.nodes.palette
+* Property
+* type is QPalette 
+*/
+
+/**
+* Scripter.dialogs.nodes.font
+* Property
+* type is QFont 
+*/
+
+/**
+* Scripter.dialogs.nodes.cursor
+* Property
+* type is QCursor 
+*/
+
+/**
+* Scripter.dialogs.nodes.mouseTracking
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.nodes.isActiveWindow
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.focusPolicy
+* Property
+* type is Qt::FocusPolicy 
+*/
+
+/**
+* Scripter.dialogs.nodes.focus
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.contextMenuPolicy
+* Property
+* type is Qt::ContextMenuPolicy 
+*/
+
+/**
+* Scripter.dialogs.nodes.updatesEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.nodes.visible
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.nodes.minimized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.maximized
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.fullScreen
+* Property
+* type is bool  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.sizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.minimumSizeHint
+* Property
+* type is QSize  (read-only)
+*/
+
+/**
+* Scripter.dialogs.nodes.acceptDrops
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.nodes.windowTitle
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.nodes.windowIcon
+* Property
+* type is QIcon 
+*/
+
+/**
+* Scripter.dialogs.nodes.windowIconText
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.nodes.windowOpacity
+* Property
+* type is double 
+*/
+
+/**
+* Scripter.dialogs.nodes.windowModified
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.nodes.toolTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.nodes.statusTip
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.nodes.whatsThis
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.nodes.accessibleName
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.nodes.accessibleDescription
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.nodes.layoutDirection
+* Property
+* type is Qt::LayoutDirection 
+*/
+
+/**
+* Scripter.dialogs.nodes.autoFillBackground
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.nodes.styleSheet
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.nodes.locale
+* Property
+* type is QLocale 
+*/
+
+/**
+* Scripter.dialogs.nodes.windowFilePath
+* Property
+* type is QString 
+*/
+
+/**
+* Scripter.dialogs.nodes.sizeGripEnabled
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.nodes.modal
+* Property
+* type is bool 
+*/
+
+/**
+* Scripter.dialogs.nodes.destroyed(arg1)
+* arg1 is a QObject*
+*/
+
+/**
+* Scripter.dialogs.nodes.destroyed()
+*/
+
+/**
+* Scripter.dialogs.nodes.deleteLater()
+*/
+
+/**
+* Scripter.dialogs.nodes._q_reregisterTimers(arg1)
+* arg1 is a void*
+*/
+
+/**
+* Scripter.dialogs.nodes.customContextMenuRequested(pos)
+* pos is a QPoint
+*/
+
+/**
+* Scripter.dialogs.nodes.setEnabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.nodes.setDisabled(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.nodes.setWindowModified(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.nodes.setWindowTitle(arg1)
+* arg1 is a QString
+*/
+
+/**
+* Scripter.dialogs.nodes.setStyleSheet(styleSheet)
+* styleSheet is a QString
+*/
+
+/**
+* Scripter.dialogs.nodes.setFocus()
+*/
+
+/**
+* Scripter.dialogs.nodes.update()
+*/
+
+/**
+* Scripter.dialogs.nodes.repaint()
+*/
+
+/**
+* Scripter.dialogs.nodes.setVisible(visible)
+* visible is a bool
+*/
+
+/**
+* Scripter.dialogs.nodes.setHidden(hidden)
+* hidden is a bool
+*/
+
+/**
+* Scripter.dialogs.nodes.show()
+*/
+
+/**
+* Scripter.dialogs.nodes.hide()
+*/
+
+/**
+* Scripter.dialogs.nodes.setShown(shown)
+* shown is a bool
+*/
+
+/**
+* Scripter.dialogs.nodes.showMinimized()
+*/
+
+/**
+* Scripter.dialogs.nodes.showMaximized()
+*/
+
+/**
+* Scripter.dialogs.nodes.showFullScreen()
+*/
+
+/**
+* Scripter.dialogs.nodes.showNormal()
+*/
+
+/**
+* Scripter.dialogs.nodes.close()
+* returns bool
+*/
+
+/**
+* Scripter.dialogs.nodes.raise()
+*/
+
+/**
+* Scripter.dialogs.nodes.lower()
+*/
+
+/**
+* Scripter.dialogs.nodes.updateMicroFocus()
+*/
+
+/**
+* Scripter.dialogs.nodes._q_showIfNotHidden()
+*/
+
+/**
+* Scripter.dialogs.nodes.finished(result)
+* result is a int
+*/
+
+/**
+* Scripter.dialogs.nodes.accepted()
+*/
+
+/**
+* Scripter.dialogs.nodes.rejected()
+*/
+
+/**
+* Scripter.dialogs.nodes.exec()
+* returns int
+*/
+
+/**
+* Scripter.dialogs.nodes.done(arg1)
+* arg1 is a int
+*/
+
+/**
+* Scripter.dialogs.nodes.accept()
+*/
+
+/**
+* Scripter.dialogs.nodes.reject()
+*/
+
+/**
+* Scripter.dialogs.nodes.showExtension(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.nodes.paletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.nodes.setPaletteShown(arg1)
+* arg1 is a bool
+*/
+
+/**
+* Scripter.dialogs.nodes.setFontSize()
+*/
+
+/**
+* Scripter.dialogs.nodes.exec(newParent)
+* newParent is a QWidget*
+* returns int
+*/
+
+/**
+* Scripter.dialogs.nodes.reject()
+*/
+
+/**
+* Scripter.dialogs.nodes.Schliessen()
+*/
+
+/**
+* Scripter.dialogs.nodes.DocChanged()
+*/
+
+/**
+* Scripter.dialogs.nodes.closeEvent(arg1)
+* arg1 is a QCloseEvent*
+*/
+
+/**
+* Scripter.dialogs.nodes.MoveK()
+*/
+
+/**
+* Scripter.dialogs.nodes.AddN()
+*/
+
+/**
+* Scripter.dialogs.nodes.DelN()
+*/
+
+/**
+* Scripter.dialogs.nodes.MovePoint()
+*/
+
+/**
+* Scripter.dialogs.nodes.SetSym()
+*/
+
+/**
+* Scripter.dialogs.nodes.SetAsym()
+*/
+
+/**
+* Scripter.dialogs.nodes.ResetControl()
+*/
+
+/**
+* Scripter.dialogs.nodes.Reset1Control()
+*/
+
+/**
+* Scripter.dialogs.nodes.ResetContour()
+*/
+
+/**
+* Scripter.dialogs.nodes.ResetContourToImageClip()
+*/
+
+/**
+* Scripter.dialogs.nodes.CloseBezier()
+*/
+
+/**
+* Scripter.dialogs.nodes.SplitPoly()
+*/
+
+/**
+* Scripter.dialogs.nodes.MirrorH()
+*/
+
+/**
+* Scripter.dialogs.nodes.MirrorV()
+*/
+
+/**
+* Scripter.dialogs.nodes.doRotCCW()
+*/
+
+/**
+* Scripter.dialogs.nodes.doRotCW()
+*/
+
+/**
+* Scripter.dialogs.nodes.doShrink()
+*/
+
+/**
+* Scripter.dialogs.nodes.doExpand()
+*/
+
+/**
+* Scripter.dialogs.nodes.doReduce()
+*/
+
+/**
+* Scripter.dialogs.nodes.doEnlarge()
+*/
+
+/**
+* Scripter.dialogs.nodes.ShearR()
+*/
+
+/**
+* Scripter.dialogs.nodes.ShearL()
+*/
+
+/**
+* Scripter.dialogs.nodes.ShearU()
+*/
+
+/**
+* Scripter.dialogs.nodes.ShearD()
+*/
+
+/**
+* Scripter.dialogs.nodes.ToggleAbsMode()
+*/
+
+/**
+* Scripter.dialogs.nodes.ToggleConMode()
+*/
+
+/**
+* Scripter.dialogs.nodes.MoveN()
+*/
+
+/**
+* Scripter.dialogs.nodes.SetXY(x, y)
+* x is a double
+* y is a double
+*/
+
+/**
+* Scripter.dialogs.nodes.HaveNode(have, mov)
+* have is a bool
+* mov is a bool
+*/
+
+/**
+* Scripter.dialogs.nodes.IsOpen()
+*/
+
+/**
+* Scripter.dialogs.nodes.PolyStatus(typ, size)
+* typ is a int
+* size is a uint
+*/
+
+/**
+* Scripter.dialogs.nodes.languageChange()
+*/
+
+/**
+* Scripter.dialogs.nodes.unitChange()
+*/
+
+/**
+* Scripter.dialogs.nodes.EndEdit()
+*/

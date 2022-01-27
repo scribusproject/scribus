@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
 #ifndef PREFSCONTEXT_H
@@ -34,41 +34,44 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "prefstable.h"
 
-typedef QMap<QString, QString> AttributeMap;
-typedef QMap<QString, PrefsTable*> TableMap;
+using AttributeMap =  QMap<QString, QString>;
+using TableMap = QMap<QString, PrefsTable*>;
 
 class SCRIBUS_API PrefsContext
 {
-private:
-	QString name;
-	bool isplugin;
-	bool ispersistent;
 public:
+	PrefsContext() = default;
+	PrefsContext(const QString& contextName, bool persistent = true, bool plugin = false);
+	~PrefsContext();
+
 	AttributeMap values;
 	TableMap tables;
-	PrefsContext();
-	PrefsContext(QString contextName, bool persistent = true, bool plugin = false);
-	~PrefsContext();
-	QString getName();
-	bool    isPersistent();
-	bool    isPlugin();
-	bool    isEmpty();
-	bool    contains(const QString& key);
-	bool    containsTable(const QString& key);
+
+	QString getName() const;
+	bool    isPersistent() const;
+	bool    isPlugin() const;
+	bool    isEmpty() const;
+	bool    contains(const QString& key) const;
+	bool    containsTable(const QString& key) const;
 	QString get(const QString& key, const QString& defValue = "");
+	int     getInt(const QString& key, int defValue = -1);
+	uint    getUInt(const QString& key, uint defValue = 0);
+	double  getDouble(const QString& key, double defValue = -1.0);
+	bool    getBool(const QString& key, bool defValue = false);
 	void    set(const QString& key, const char* value);
 	void    set(const QString& key, const std::string& value);
 	void    set(const QString& key, const QString& value);
-	int     getInt(const QString& key, int defValue = -1);
 	void    set(const QString& key, int value);
 	void    set(const QString& key, uint value);
-	uint    getUInt(const QString& key, uint defValue = 0);
-	double  getDouble(const QString& key, double defValue = -1.0);
 	void    set(const QString& key, double value);
-	bool    getBool(const QString& key, bool defValue = false);
 	void    set(const QString& key, bool value);
-	PrefsTable* getTable(const QString& name);
-	void    removeTable(const QString& name);
+	PrefsTable* getTable(const QString& m_name);
+	void    removeTable(const QString& m_name);
+
+private:
+	QString m_name;
+	bool m_isPlugin { false };
+	bool m_isPersistent { false };
 };
 
 #endif // PREFSCONTEXTS_H

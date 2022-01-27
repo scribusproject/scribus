@@ -19,343 +19,296 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include <QMenuBar>
-#include <QMenu>
-#include "scribus.h"
+
 #include "menumanager.h"
-#include "scmenu.h"
+#include "ui/scmenu.h"
 #include "scraction.h"
 #include <QDebug>
 
 
 MenuManager::MenuManager(QMenuBar* mb, QObject *parent) : QObject(parent)
 {
-	scribusMenuBar=mb;
-	menuList.clear();
+	scribusMenuBar = mb;
+	menuStrings.clear();
+	m_undoMenu = new QMenu("undo");
+	m_redoMenu = new QMenu("redo");
+	rememberedMenus.clear();
 }
 
 MenuManager::~MenuManager()
 {
+	m_undoMenu->deleteLater();
+	m_redoMenu->deleteLater();
 }
 
-bool MenuManager::createMenu(const QString &menuName, const QString &menuText, const QString parent, bool checkable)
+bool MenuManager::createMenu(const QString &menuName, const QString &menuText, const QString& parent, bool checkable, bool rememberMenu)
 {
-	bool retVal=false;
-		
-	ScrPopupMenu *newMenu = new ScrPopupMenu(NULL, menuName, menuText, parent);
-	if (newMenu)
+	bool retVal = false;
+	QList<QString> menuEntries;
+	menuStrings.insert(menuName, menuEntries);
+	menuStringTexts.insert(menuName, menuText);
+	if (rememberMenu)
 	{
-		menuList.insert(menuName, newMenu);
-		if (!parent.isNull() && menuList[parent])
-			retVal=menuList[parent]->insertSubMenu(newMenu);
+		rememberedMenus.insert(menuName, nullptr);
 	}
 	return retVal;
 }
 
-bool MenuManager::addMenuToMenu(const QString &child, const QString &parent)
-{
-	bool retVal=false;
-	if (child==parent)
-	{
-		qDebug("%s", QString("Cannot add %1 menu to %2 menu (itself)").arg(child, parent).toAscii().constData());
-		return false;	
-	}
-	if ((menuList.contains(child) && menuList[child]!=NULL) &&
-		(menuList.contains(parent) && menuList[parent]!=NULL))
-	{
-		menuList.insert(child, menuList[child]);
-		retVal=menuList[parent]->insertSubMenu(menuList[child]);
-	}
-	
-	return retVal;
-}
 
 bool MenuManager::clearMenu(const QString &menuName)
 {
-	bool retVal=false;
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
-	{
-		menuList[menuName]->clear();
-		retVal=true;
-	}
+	bool retVal = false;
+	if (menuBarMenus.contains(menuName))
+		menuBarMenus[menuName]->clear();
 	return retVal;
 }
 
 void MenuManager::setText(const QString &menuName, const QString &menuText)
 {
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
-	{
-		menuList[menuName]->setText(menuText);
-		QString parent=menuList[menuName]->getParentMenuName();
-		if (!parent.isNull())
-			menuList[parent]->repopulateLocalMenu();
-		
-		/*
-		
-		int id = menuList[menuName]->getMenuBarID();
-		if (id!=-1)
-// 			scribusMenuBar->actions()[id]->setText(menuText);
-		{
-			QIcon menuIcon = menuList[menuName]->getMenuIcon();
-			scribusMenuBar->changeItem(id, menuIcon, menuText);
-		}*/
-	}
-}
-
-void MenuManager::setMenuIcon(const QString &menuName, const QIcon &menuIcon)
-{
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
-	{
-		menuList[menuName]->setMenuIcon(menuIcon);
-		QString parent=menuList[menuName]->getParentMenuName();
-		if (!parent.isNull())
-			menuList[parent]->repopulateLocalMenu();
-		/*
-		int id=menuList[menuName]->getMenuBarID();
-		if (id!=-1)
-// 			scribusMenuBar->actions()[id]->setIcon(menuIcon);
-		{
-			QString menuText = menuList[menuName]->getMenuText();
-			scribusMenuBar->changeItem(id, menuIcon, menuText);
-		}
-		*/
-	}
+	if (menuStringTexts.contains(menuName))
+		menuStringTexts.insert(menuName, menuText);
+	//TODO rebuild all menus
+//	if (menuList.contains(menuName) && menuList[menuName]!=nullptr)
+//	{
+//		menuList[menuName]->setText(menuText);
+//		QString parent=menuList[menuName]->getParentMenuName();
+//		if (!parent.isNull())
+//			menuList[parent]->repopulateLocalMenu();
+//	}
 }
 
 QMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
 {
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
-		return menuList[menuName]->getLocalPopupMenu();
-	return NULL;
+	if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName)!=nullptr)
+		return menuBarMenus.value(menuName);
+	return nullptr;
 }
 
-bool MenuManager::deleteMenu(const QString &menuName, const QString &parent)
+void MenuManager::setMenuEnabled(const QString &menuName, bool enabled)
 {
-	if (!parent.isNull())
-	{
-		if (menuList[parent] && menuList[parent]->hasSubMenu(menuList[menuName]))
-			menuList[parent]->removeSubMenu(menuList[menuName]);
-	}
-	menuList.remove(menuName);
+	// OSX UI rules don't allow this so let's not do it elsewhere.
+	//if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName)!=nullptr)
+	//	menuBarMenus.value(menuName)->setEnabled(enabled);
+}
+
+bool MenuManager::addMenuStringToMenuBar(const QString &menuName, bool rememberMenu)
+{
+	if (!menuStrings.contains(menuName))
+		return false;
+
+	QMenu *m = scribusMenuBar->addMenu(menuStringTexts[menuName]);
+	menuBarMenus.insert(menuName, m);
+	if (rememberMenu)
+		rememberedMenus.insert(menuName, m);
 	return true;
 }
 
-void MenuManager::setMenuEnabled(const QString &menuName, const bool enabled)
+bool MenuManager::addMenuStringToMenuBarBefore(const QString &menuName, const QString &beforeMenuName)
 {
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
+	bool retVal = false;
+
+	if (!menuStrings.contains(menuName))
+		return false;
+
+	QList<QAction*> mba = scribusMenuBar->actions();
+	QAction* beforeAct = nullptr;
+	foreach (beforeAct, mba)
 	{
-		menuList[menuName]->setEnabled(enabled);
-		/*
-		int mainID=menuList[menuName]->getMenuBarID();
-		if (mainID!=-1)
-// 			scribusMenuBar->actions()[mainID]->setEnabled(enabled);
-			scribusMenuBar->setItemEnabled(mainID, enabled);
-		*/
+		if (beforeMenuName == beforeAct->text().remove('&').remove("..."))
+			break;
 	}
+	if (beforeAct)
+	{
+		auto *m = new QMenu(menuStringTexts[menuName]);
+		scribusMenuBar->insertMenu(beforeAct, m);
+		menuBarMenus.insert(menuName, m);
+		retVal = true;
+	}
+	return retVal;
 }
 
-bool MenuManager::addMenuToMenuBar(const QString &menuName)
+void MenuManager::clear()
 {
-	bool retVal=false;
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
+	menuStrings.clear();
+	rememberedMenus.clear();
+}
+
+
+void MenuManager::addMenuItemStringsToMenuBar(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
+{
+	if (!menuStrings.contains(menuName) || !menuBarMenus.contains(menuName))
+		return;
+
+	const auto menuStringList = menuStrings[menuName];
+	for (const QString& menuString : menuStringList)
 	{
-// 		qDebug() << "addMenuToMenuBar:" << menuName << " with text " << menuList[menuName]->getMenuText();
-		QAction* t=scribusMenuBar->addMenu(menuList[menuName]->getLocalPopupMenu());
-		if (t!=NULL)
+		//Add Separators
+		if (menuString == "SEPARATOR")
 		{
-			t->setText(menuList[menuName]->getMenuText());
-// 			qDebug() << "t" << t->text();
-			retVal=true;
+			menuBarMenus[menuName]->addSeparator();
+			continue;
 		}
-		/*
-		int id=scribusMenuBar->insertItem( menuList[menuName]->getMenuIcon(), menuList[menuName]->getMenuText(), menuList[menuName]->getLocalPopupMenu());
-// 		menuList[menuName]->setMenuBarID(id);
-		*/
-	}
-	return retVal;
-}
-
-bool MenuManager::addMenuToMenuBarBefore(const QString &menuName, const QString &afterMenuName)
-{
-	bool retVal=false;
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
-	{
-		if (menuList[afterMenuName])
+			
+		//Add Menu Items
+		if (menuActions.contains(menuString))
 		{
-// 			qDebug() << "addMenuToMenuBarAfter:" << menuName << " with text " << menuList[menuName]->getMenuText() << " after " << menuList[afterMenuName]->getMenuText();
-			QAction* t=scribusMenuBar->insertMenu(menuList[afterMenuName]->getLocalPopupMenu()->menuAction(), menuList[menuName]->getLocalPopupMenu());
-			if (t!=NULL)
-			{
-				t->setText(menuList[menuName]->getMenuText());
-// 				qDebug() << "t" << t->text();
-				retVal=true;
-			}
-			/*
-			int afterID=menuList[afterMenuName]->getMenuBarID();
-			if (afterID!=-1)
-			{
-				int id=scribusMenuBar->insertItem( menuList[menuName]->getMenuIcon(), menuList[menuName]->getMenuText(), menuList[menuName]->getLocalPopupMenu(), scribusMenuBar->indexOf(afterID)+1, scribusMenuBar->indexOf(afterID)+1);
-// 				menuList[menuName]->setMenuBarID(id);
-				retVal=true;
-			}*/
+			menuBarMenus[menuName]->addAction(menuActions[menuString]);
+			continue;
 		}
-	}
-	return retVal;
-}
 
-bool MenuManager::removeMenuFromMenuBar(const QString &menuName)
-{
-	bool retVal=false;
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
-	{
-		if (menuList[menuName]->getLocalPopupMenu()->menuAction())
-			scribusMenuBar->removeAction(menuList[menuName]->getLocalPopupMenu()->menuAction());
-		/*
-		int id=menuList[menuName]->getMenuBarID();
-		if (id!=-1)
-			scribusMenuBar->removeItem( id );
-		*/
-		retVal=true;
-	}
-	return retVal;
-}
-
-bool MenuManager::addMenuToWidgetOfAction(const QString &menuName, ScrAction *action)
-{
-	bool retVal=false;
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL && action!=NULL)
-	{
-		/* //qt4 cb replace with qwidgetaction or similar
-		QWidget *w=action->getWidgetAddedTo();
-		if (w)
+		//Add Sub Menus
+		if (menuStrings.contains(menuString))
 		{
-			QString menuItemListClassName=w->className();
-			if (menuItemListClassName=="QToolButton")
-			{
-				QToolButton *toolButton=dynamic_cast<QToolButton *>(w);
-				if (toolButton!=NULL)
-				{
-					toolButton->setPopup(menuList[menuName]->getLocalPopupMenu());
-					retVal=true;
-				}
-			}
+			QMenu *subMenu = menuBarMenus[menuName]->addMenu(menuStringTexts[menuString]);
+			if (!subMenu)
+				continue;
+			//#16020 and related Qt bugs for QMenu/QAction Text Heuristics messing up detection. Turn off the role detection except where we explicitly set it in ActionManager
+			if (subMenu->menuAction()->menuRole() == QAction::TextHeuristicRole)
+				subMenu->menuAction()->setMenuRole(QAction::NoRole);
+			menuBarMenus.insert(menuString, subMenu);
+			if (rememberedMenus.contains(menuString))
+				rememberedMenus.insert(menuString, subMenu);
+			addMenuItemStringsToMenu(menuString, subMenu, menuActions);
 		}
-		*/
 	}
-	return retVal;
 }
 
-bool MenuManager::addMenuItem(ScrAction *menuAction, const QString &parent)
+
+void MenuManager::addMenuItemStringsToMenu(const QString &menuName, QMenu *menuToAddTo, const QMap<QString, QPointer<ScrAction> > &menuActions)
 {
-	bool retVal=false;
-	if (menuList.contains(parent) && menuList[parent]!=NULL)
-		retVal=menuList[parent]->insertMenuItem(menuAction);
-	return retVal;
+	if (!menuStrings.contains(menuName))
+		return;
+
+	const auto menuStringList = menuStrings[menuName];
+	for (const QString& menuString : menuStringList)
+	{
+		//Add Separators
+		if (menuString == "SEPARATOR")
+		{
+			menuToAddTo->addSeparator();
+			continue;
+		}
+
+		//Add Menu Items
+		if (menuActions.contains(menuString))
+		{
+			menuToAddTo->addAction(menuActions[menuString]);
+			continue;
+		}
+
+		//Add Sub Menus
+		if (menuStrings.contains(menuString))
+		{
+			QMenu *subMenu = menuToAddTo->addMenu(menuStringTexts[menuString]);
+			if (!subMenu)
+				continue;
+			//#16020 and related Qt bugs for QMenu/QAction Text Heuristics messing up detection. Turn off the role detection except where we explicitly set it in ActionManager
+			if (subMenu->menuAction()->menuRole() == QAction::TextHeuristicRole)
+				subMenu->menuAction()->setMenuRole(QAction::NoRole);
+			menuBarMenus.insert(menuString, subMenu);
+			if (rememberedMenus.contains(menuString))
+				rememberedMenus.insert(menuString, subMenu);
+			addMenuItemStringsToMenu(menuString, subMenu, menuActions);
+		}
+	}
 }
 
-/* Qt4
-bool MenuManager::addMenuItem(QWidget *widget, const QString &parent)
+void MenuManager::addMenuItemStringsToRememberedMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
 {
-	bool retVal=false;
-	if (menuList.contains(parent) && menuList[parent]!=NULL)
-		retVal=menuList[parent]->insertMenuItem(widget);
-	return retVal;
-}
-*/
-
-bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString &parent, ScrAction *afterMenuAction)
-{
-	bool retVal=false;
-	if (menuList.contains(parent) && menuList[parent]!=NULL)
-		retVal=menuList[parent]->insertMenuItemAfter(menuAction, afterMenuAction);
-	return retVal;
+	if (rememberedMenus.contains(menuName))
+		if (rememberedMenus.value(menuName)!=nullptr)
+			addMenuItemStringsToMenu(menuName, rememberedMenus.value(menuName), menuActions);
 }
 
-// bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString &parent, const QString &afterMenuName)
-// {
-// 	ScrAction *actionFromName=NULL;
-// 	//quick hack to make this work for existing plugins for now
-// // 	if (parent=="File" && afterMenuName=="New")
-// // 		actionFromName=m_ScMW->scrActions["fileNew"];
-// // 	if (parent=="File" && afterMenuName=="Print")
-// // 		actionFromName=m_ScMW->scrActions["filePrint"];
-// // 	if (parent=="File" && afterMenuName=="SaveAs")
-// // 		actionFromName=m_ScMW->scrActions["fileSaveAs"];
-// // 	if (parent=="Help" && afterMenuName=="Manual")
-// // 		actionFromName=m_ScMW->scrActions["helpManual"];
-// 	bool retVal=false;
-// 	if (menuList.contains(parent) && menuList[parent]!=NULL)
-// 		retVal=menuList[parent]->insertMenuItemAfter(menuAction, actionFromName);
-// 	return retVal;
-// }
-
-
-bool MenuManager::addMenuSeparator(const QString &parent)
+void MenuManager::clearMenuStrings(const QString &menuName)
 {
-	bool retVal=false;
-	if (menuList.contains(parent) && menuList[parent]!=NULL)
-		retVal=menuList[parent]->insertMenuSeparator();
-	return retVal;
-	
+	QMenu* menu = rememberedMenus.value(menuName, nullptr);
+	if (menu != nullptr)
+		menu->clear();
+}
+
+void MenuManager::addMenuItemString(const QString& s, const QString &parent)
+{
+	if (menuStrings.contains(parent))
+		menuStrings[parent].append(s);
+}
+
+void MenuManager::addMenuItemStringAfter(const QString& s, const QString& after, const QString &parent)
+{
+	if (menuStrings.contains(parent))
+	{
+		int i = menuStrings[parent].indexOf(after);
+		menuStrings[parent].insert(i + 1, s);
+	}
+}
+
+void MenuManager::removeMenuItem(const QString& s, ScrAction *menuAction, const QString &parent)
+{
+	if (menuStrings.contains(parent))
+	{
+		if (menuStrings[parent].contains(s))
+		{
+			menuBarMenus[parent]->removeAction(menuAction);
+			menuStrings[parent].removeAll(s);
+		}
+	}
 }
 
 bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString &parent)
 {
-	bool retVal=false;
-	if (menuList.contains(parent) && menuList[parent]!=NULL)
+	bool retVal = false;
+	/*
+	 if (menuList.contains(parent) && menuList[parent]!=nullptr)
 		retVal=menuList[parent]->removeMenuItem(menuAction);
+	*/
 	return retVal;
 }
 
-void MenuManager::runMenuAtPos(const QString &menuName, const QPoint position)
+void MenuManager::runMenuAtPos(const QString &menuName, const QPoint& position)
 {
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
+	/*
+	if (menuList.contains(menuName) && menuList[menuName]!=nullptr)
 	{	
 		QMenu *popupmenu=menuList[menuName]->getLocalPopupMenu();
 		if (popupmenu)
 			popupmenu->exec(position);
 	}
-}
-
-// Used to generate a list of entries from the menu system into the keyboard shortcut manager
-void MenuManager::generateKeyManList(QStringList *actionNames)
-{
-	if (actionNames)
-	{
-		if (scribusMenuBar)
-		{
-			/*
-			QMap<QString, ScrPopupMenu *>::Iterator menuListIt;
-			for (uint menuBarCount=0; menuBarCount<scribusMenuBar->count(); ++menuBarCount)
-			{
-				int menuBarMenuID=scribusMenuBar->idAt(menuBarCount);
-				bool menuBarItemFound=false;
-				for ( menuListIt = menuList.begin(); menuListIt!=menuList.end(); ++menuListIt)
-				{
-					if(menuListIt.value()->getMenuBarID()==menuBarMenuID)
-					{
-						menuBarItemFound=true;
-						break;
-					}
-				}
-				if (menuBarItemFound)
-				{
-					if (menuListIt.value())
-					{
-						ScrPopupMenu *currentMenu=menuListIt.value();
-						currentMenu->generateEntryList(actionNames);
-					}
-				}
-			}*/
-		}
-	}
+	*/
 }
 
 bool MenuManager::empty()
 {
-	return menuList.empty();
+	return menuStrings.empty();
 }
 
 bool MenuManager::menuExists(const QString &menuName)
 {
-	return menuList.contains(menuName);
+	return menuStrings.contains(menuName);
+}
+
+void MenuManager::dumpMenuStrings()
+{
+	QMapIterator<QString, QList<QString> > i(menuStrings);
+	while (i.hasNext())
+	{
+		i.next();
+		qDebug() << "Menu name:" << i.key();// << ": " << i.value() << endl;
+
+		QListIterator<QString> li (i.value());
+		while (li.hasNext())
+		{
+			qDebug() << "Menu entry:" << li.next();
+		}
+	}
+}
+
+void MenuManager::languageChange()
+{
+	const auto menuBarKeys = menuBarMenus.keys();
+	for (const QString &menuName : menuBarKeys)
+	{
+		QMenu *m = menuBarMenus.value(menuName);
+		if (m && menuStringTexts.contains(menuName))
+			m->setTitle(menuStringTexts[menuName]);
+	}
 }

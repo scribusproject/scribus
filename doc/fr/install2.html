@@ -1,0 +1,46 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>&Eacute;l&eacute;ments requis</title>
+</head>
+<body>
+<h2>&Eacute;l&eacute;ments requis</h2>
+<p>Pour compiler Scribus, vous aurez besoin de :</p>
+<ol>
+	<li><strong>Pour Scribus 1.5.x+ GCC 4.8+ est requis, GCC 7+ est fortement recommand&eacute;</strong>. L'&eacute;quipe de Scribus recommande de l'utiliser la dernière release de GGC en raison des gains de performance obtenus.</li>
+	<li>CMake 3.12+</li>
+	<li>GNU make</li>
+</ol>
+Les d&eacute;pendances pour la compilation et pour ex&eacute;cuter Scribus sont:
+<ol>
+	<li>Qt 5.11.0+, les librairies d'ex&eacute;cution et les libraires de d&eacute;veloppement. Nous recommandons d'utiliser Qt 5.12.0+.</li>
+	<li>Cairo 1.14.x. Nous recommandons 1.16.x ou ultérieur.</li>
+	<li>Les librairies de d&eacute;veloppement CUPS - Scribus supporte maintenant directement l'impression avec CUPS. (Linux/UNIX/Mac&nbsp;OS&nbsp;X uniquement)</li>
+	<li>fontconfig-devel - pour la d&eacute;couverte automatique des polices sous Linux, MacOSX et Unix. Pas n&eacute;cessaire sous Windows.</li>
+	<li>Freetype2 2.1.7+. &Agrave; cause de nombreux probl&egrave;mes de freetype2, nous recommandons, si votre distribution/syst&egrave;me d'exploitation le permet, d'utiliser 2.1.10+</li>
+	<li>Ghostscript 9.00+ est hautement recommand&eacute;.</li>
+	<li>Littlecms - aussi connu comme lcms dans certaines distributions. Minimum 2.1, 2.9+ recommand&eacute;.</li>
+	<li>libjpeg</li>
+	<li>libtiff 3.6.0+</li>
+	<li>libxml2 2.6+.</li>
+	<li>Podofo 0.9 ou ultérieur. Utilisé pour améliorer l'import des fichiers Adobe Illustrator.</li>
+	<li>Les librairies Python et python-devel 3.3+. Python 3.2 n'est pas support&eacute;.</li>
+</ol>
+<p>Scribus s'ex&eacute;cutera sous la plupart des gestionnaires de fen&ecirc;tres et ne requiert pas KDE en soi. Cependant, les fonctionnalit&eacute;s de glisser-d&eacute;poser seront perdues sans KDE. Un des d&eacute;veloppeurs de Scribus roule sous Gnome. L'auteur de cette documentation s'est astreint &agrave; tester chaque version de Scribus sous Blackbox &eacute;galement.
+L'op&eacute;ration n'a r&eacute;v&eacute;l&eacute; aucune incompatibilit&eacute; ni probl&egrave;me, mise &agrave; part la perte de la fonctionnalit&eacute; glisser-d&eacute;poser.</p>
+<p>Si la gestion des couleurs ne fonctionne pas, c'est probablement que vous n'avez pas install&eacute; les librairies de d&eacute;veloppement pour littlecms. En t&eacute;l&eacute;chargeant le progiciel &agrave; partir de littlecms le fichier make est d&eacute;j&agrave; configur&eacute; pour Linux, la compilation en devient tr&egrave;s simple. Vous avez &eacute;galement besoin d'au moins un profil couleur RVB et d'un profil CMJN install&eacute;s, sinon les pr&eacute;f&eacute;rences et les options couleurs n'appara&icirc;tront pas dans les menus.</p>
+<p>Les tests sugg&egrave;rent d'assigner le param&egrave;tre &#034;-march=&#034; CXXFLAGS a tr&egrave;s peu d'effets b&eacute;n&eacute;fiques sur la performance de Scribus. Par exemple, si vous avez un processeur Duron ou Athlon, utilisez <code>export
+CXXFLAGS=&#034;-march=athlon&#034;</code> serait b&eacute;n&eacute;fique. V&eacute;rifiez si votre distribution les assigne pour vous et comment ils sont assign&eacute;s et, pour plus d'information, voyez :
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>man gcc</pre>
+</td></tr></table></blockquote>
+pour des options d&eacute;taill&eacute;es</p>
+<h3>Optionnellement :</h3>
+<ul>
+	<li>Les librairies de d&eacute;veloppement Gimp Print - Scribus supporte maintenant l'extension Gimp Print avec CUPS.</li>
+	<li>tkinter - pour le script d'&eacute;chantillonnage de police</li>
+	<li>Les librairies python-imaging pour l'aper&ccedil;u du script d'&eacute;chantillonage de police</li>
+	<li>openssl-devel (Certaines distributions activent le support ssl pour CUPS, notamment Suse Linux)</li>
+</ul>
+</body>
+</html> 

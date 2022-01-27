@@ -1,0 +1,375 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Constantes prédéfinies</title>
+</head>
+<body>
+<h2>Constantes prédéfinies</h2>
+
+<p>Des constantes sont définies pour aider à utiliser les commandes: </p>
+
+<h4>Version Scribus :</h4>
+	<p>L'interface de script fournit deux variables contenant la version
+courante de Scribus dans le module <code>Scribus</code>. Les scripts peuvent utiliser ces variables pour vérifier qu'ils tournent sous la bonne version de Scribus et pour informer l'utilisateur d'éventuelles incompatibilités. Ces
+deux variables, <code>scribus_version</code> et
+<code>scribus_version_info</code>, ont été ajoutées dans les versions
+1.2.1 et 1.3.0cvs et sont absentes des versions
+précédentes. Si nécessaire, vous pouvez vérifier leur présence avec <code>hasattr(scribus, 'scribus_version')</code>.</p>
+	<p><code>scribus_version</code> est une cha&icirc;ne qui contient la version courante de Scribus. Sa valeur ressemble habituellement à <code>'1.2.1cvs'</code> ou <code>'1.3.0'</code>, par exemple, mais il n'est pas garanti que le format sera toujours le même. Cette
+variable est utile pour afficher la version à l'utilisateur, par exemple pour signaler une incompatibilité. N'analysez pas et ne comparez pas cette variable, car <code>scribus_version_info</code> est fait pour cela.</p>
+	<p><code>scribus_version_info</code> est un vecteur semblable au vecteur <code>sys.version_info</code> fourni par Python. 
+C'est un vecteur de la forme (majorversion, minorversion, patchlevel,
+extraversion, build), par exemple 1.2.1cvs correspond à
+<code>(1,2,1,'cvs',0)</code> et 1.3.2 correspond à <code>(1,3,2,'',0)</code> . Ces vecteurs sont idéaux pour vérifier les versions minimum, etc., parce que Python compare les vecteurs élément par élément, de gauche à droite. Par exemple :</p>
+<pre>
+if scribus.scribus_version_info[:3] &lt; (1,2,2):
+    messageBox("Scribus - script Python",
+        "Ce script requiert 1.2.2 ou plus récent."+\
+        "Vous roulez %s." % scribus.scribus_version,
+        ICON_CRITICAL)
+    sys.exit()
+</pre>
+
+<h4>Constantes d'énumération d'unités : </h4>
+<table><tr><td>
+<dl>
+	<dt>UNIT_POINTS</dt>
+	<dd>Unité de mesure point = 0</dd>
+	<dt>UNIT_MILLIMETERS</dt>
+	<dd>Unité de mesure millimètre = 1</dd>
+	<dt>UNIT_INCHES</dt>
+	<dd>Unité de mesure pouce = 2</dd>
+	<dt>UNIT_PICAS</dt>
+	<dd>Unité de mesure pica = 3</dd>
+</dl>
+</td></tr></table>
+
+<h4>Constantes de conversion d'unités</h4>
+
+<p>Ces facteurs de conversion peuvent être utilisés pour convertir les unités en points et vice versa.
+Ainsi, pour convertir les pouces en points, il suffit d'écrire 'valeur/inch'; pour convertir les points en pouces vous écrirez 'valeur*inch', et pour convertir les pouces en mm vous écrirez 'valeur*mm/inch'.</p>
+
+<table><tr><td>
+<dl>
+	<dt>pt</dt>
+	<dd>points dans 1 pt</dd>
+	<dt>inch</dt>
+	<dd>pouces dans 1 pt</dt>
+	<dt>p</dt>
+	<dd>pica dans 1 pt</dd>
+	<dt>cm<dt>
+	<dd>centimètres dans 1 pt</dd>
+	<dt>mm</dt>
+	<dd>millimètres dans 1 pt</dd>
+	<dt>...</dt>
+	<dd>D'autres constantes seront fournies si le coeur de Scribus les reconna&icirc;t.</dd>
+</dl>
+</td></tr></table>
+
+<h4>Constantes d'orientation de page :</h4>
+<table><tr><td>
+<dl>
+	<dt>PORTRAIT</dt>
+	<dd>Orientation Portrait = 0</dd>
+	<dt>LANDSCAPE</dt>
+	<dd>Orientation Landscape = 1</dd>
+</dl>
+</td></tr></table>
+
+<h4>Réglages de format de page : </h4>
+<table><tr>
+<td>
+<dl>
+	<dt>PAPER_A0</dt>
+	<dd>Format papier A0 = 2380 x 3368 Points</dd>
+	<dt>PAPER_A1</dt>
+	<dd>Format papier A1 = 1684 x 2380 Points</dd>
+	<dt>PAPER_A2</dt>
+	<dd>Format papier A2 = 1190 x 1684 Points</dd>
+	<dt>PAPER_A3</dt>
+	<dd>Format papier A3 = 842 x 1190 Points</dd>
+	<dt>PAPER_A4</dt>
+	<dd>Format papier A4 = 595 x 842 Points</dd>
+	<dt>PAPER_A5</dt>
+	<dd>Format papier A5 = 421 x 595 Points</dd>
+	<dt>PAPER_A6</dt>
+	<dd>Format papier A6 = 297 x 421 Points</dd>
+	<dt>PAPER_A7</dt>
+	<dd>Format papier A7 = 210 x 297 Points</dd>
+	<dt>PAPER_A8</dt>
+	<dd>Format papier A8 = 148 x 210 Points</dd>
+	<dt>PAPER_A9</dt>
+	<dd>Format papier A9 = 105 x 148 Points</dd></dl></td>
+<td>
+<dl>
+	<dt>PAPER_A0_MM</dt>
+	<dd>Format papier A0 = 841 x 1189 Millimètres</dd>
+	<dt>PAPER_A1_MM</dt>
+	<dd>Format papier A1 = 594 x 841 Millimètres</dd>
+	<dt>PAPER_A2_MM</dt>
+	<dd>Format papier A2 = 420 x 594 Millimètres</dd>
+	<dt>PAPER_A3_MM</dt>
+	<dd>Format papier A3 = 297 x 420 Millimètres</dd>
+	<dt>PAPER_A4_MM</dt>
+	<dd>Format papier A4 = 210 x 297 Millimètres</dd>
+	<dt>PAPER_A5_MM</dt>
+	<dd>Format papier A5 = 148 x 210 Millimètres</dd>
+	<dt>PAPER_A6_MM</dt>
+	<dd>Format papier A6 = 105 x 148 Millimètres</dd>
+	<dt>PAPER_A7_MM</dt>
+	<dd>Format papier A7 = 74 x 105 Millimètres</dd>
+	<dt>PAPER_A8_MM</dt>
+	<dd>Format papier A8 = 52 x 74 Millimètres</dd>
+	<dt>PAPER_A9_MM</dt>
+	<dd>Format papier A9 = 37 x 52 Millimètres</dd></dl></td></tr>
+<tr><td>
+<dl>
+	<dt>PAPER_B0</dt>
+	<dd>Format papier B0 = 2836 x 4008 Points</dd>
+	<dt>PAPER_B1</dt>
+	<dd>Format papier B1 = 2004 x 2836 Points</dd>
+	<dt>PAPER_B2</dt>
+	<dd>Format papier B2 = 1418 x 2004 Points</dd>
+	<dt>PAPER_B3</dt>
+	<dd>Format papier B3 = 1002 x 1418 Points</dd>
+	<dt>PAPER_B4</dt>
+	<dd>Format papier B4 = 709 x 1002 Points</dd>
+	<dt>PAPER_B5</dt>
+	<dd>Format papier B5 = 501 x 709 Points</dd>
+	<dt>PAPER_B6</dt>
+	<dd>Format papier B6 = 355 x 501 Points</dd>
+	<dt>PAPER_B7</dt>
+	<dd>Format papier B7 = 250 x 355 Points</dd>
+	<dt>PAPER_B8</dt>
+	<dd>Format papier B8 = 178 x 250 Points</dd>
+	<dt>PAPER_B9</dt>
+	<dd>Format papier B9 = 125 x 178 Points</dd>
+	<dt>PAPER_B10</dt>
+	<dd>Format papier B10 = 89 x 125 Points</dd></dl></td>
+<td>
+<dl>
+	<dt>PAPER_B0_MM</dt>
+	<dd>Format papier B0 = 1000 x 1414 Millimètres</dd>
+	<dt>PAPER_B1_MM</dt>
+	<dd>Format papier B1 = 707 x 1000 Millimètres</dd>
+	<dt>PAPER_B2_MM</dt>
+	<dd>Format papier B2 = 500 x 707 Millimètres</dd>
+	<dt>PAPER_B3_MM</dt>
+	<dd>Format papier B3 = 353 x 500 Millimètres</dd>
+	<dt>PAPER_B4_MM</dt>
+	<dd>Format papier B4 = 250 x 353 Millimètres</dd>
+	<dt>PAPER_B5_MM</dt>
+	<dd>Format papier B5 = 176 x 250 Millimètres</dd>
+	<dt>PAPER_B6_MM</dt>
+	<dd>Format papier B6 = 125 x 176 Millimètres</dd>
+	<dt>PAPER_B7_MM</dt>
+	<dd>Format papier B7 = 88 x 125 Millimètres</dd>
+	<dt>PAPER_B8_MM</dt>
+	<dd>Format papier B8 = 62 x 88 Millimètres</dd>
+	<dt>PAPER_B9_MM</dt>
+	<dd>Format papier B9 = 44 x 62 Millimètres</dd>
+	<dt>PAPER_B10_MM</dt>
+	<dd>Format papier B10 = 31 x 44 Millimètres</dd></dl></td></tr>
+<tr><td>
+<dl>
+	<dt>PAPER_C5E</dt>
+	<dd>Format papier C5E = 462 x 649 Points</dd>
+	<dt>PAPER_COMM10E</dt>
+	<dd>Format papier Comm10E = 298 x 683 Points</dd>
+	<dt>PAPER_DLE</dt>
+	<dd>Format papier DLE = 312 x 624 Points</dd>
+	<dt>PAPER_EXECUTIVE</dt>
+	<dd>Format papier Executive = 542 x 720 Points</dd>
+	<dt>PAPER_FOLIO</dt>
+	<dd>Format papier Folio = 595 x 935 Points</dd>
+	<dt>PAPER_LEDGER</dt>
+	<dd>Format papier Ledger = 1224 x 792 Points</dd>
+	<dt>PAPER_LEGAL</dt>
+	<dd>Format papier Legal = 612 x 1008 Points</dd>
+	<dt>PAPER_LETTER</dt>
+	<dd>Format papier Letter = 612 x 792 Points</dd>
+	<dt>PAPER_TABLOID</dt>
+	<dd>Format papier Tabloid = 792 x 1224 Points</dd>
+</dl></td></tr>
+</table>
+
+<h4>Constantes de disposition du document :</h4>
+<table><tr><td>
+<dl>
+	<dt>FACINGPAGES</dt>
+	<dd>Disposition avec des pages en regard.</dd>
+	<dt>NOFACINGPAGES</dt>
+	<dd>Disposition normale du document.</dd>
+	<dt>FIRSTPAGELEFT</dt>
+	<dd>La première page du document est une page de droite.</dd>
+	<dt>FIRSTPAGERIGHT</dt>
+	<dd>La première page du document est une première de droite.</dd>
+</dl>
+</td></tr></table>
+
+<h4>Constantes de types d'objet de page:</h4>
+<table><tr><td>
+<dl>
+	<dt>ITEM_ITEMTYPE1</dt>
+	<dd>Obsolète, veuillez ne pas utiliser. Présent pour des raisons d'exhaustivité.</dd>
+	<dt>ITEM_IMAGEFRAME</dt>
+	<dt>ITEM_ITEMTYPE3</dt>
+	<dd>Obsolète, veuillez ne pas utiliser. Présent pour des raisons d'exhaustivité.</dd>
+	<dt>ITEM_TEXTFRAME</dt>
+	<dt>ITEM_LINE</dt>
+	<dt>ITEM_POLYGON</dt>
+	<dt>ITEM_POLYLINE</dt>
+	<dt>ITEM_PATHTEXT</dt>
+	<dt>ITEM_LATEXFRAME</dt>
+	<dt>ITEM_OSGFRAME</dt>
+	<dt>ITEM_SYMBOL</dt>
+	<dt>ITEM_GROUP</dt>
+	<dt>ITEM_REGULARPOLYGON</dt>
+	<dt>ITEM_ARC</dt>
+	<dt>ITEM_SPIRAL</dt>
+	<dt>ITEM_TABLE</dt>
+	<dt>ITEM_NOTEFRAME</dt>
+	<dt>ITEM_MULTIPLE</dt>
+</dl>
+</td></tr></table>
+
+<h4>Constantes d'alignement :</h4>
+<table><tr><td>
+<dl>
+	<dt>ALIGN_LEFT</dt>
+	<dd>Le texte est aligné à gauche.</dd>
+	<dt>ALIGN_CENTERED</dt>
+	<dd>Le texte est centré dans le cadre de texte.</dd>
+	<dt>ALIGN_RIGHT</dt>
+	<dd>Le texte est aligné sur le c&ocirc;té droit du cadre de texte.</dd>
+	<dt>ALIGN_FORCED</dt>
+	<dd>Le texte a un alignement forcé.</dd>
+  	<dt>ALIGN_BLOCK</dt>
+	<dd>Le texte a un alignement bloqué.</dd>
+</dl>
+</td></tr></table>
+
+<h4>Constantes d'alignement vertical :</h4>
+<table><tr><td>
+<dl>
+	<dt>ALIGNV_TOP</dt>
+	<dd>Le texte est aligné verticalement en haut.</dd>
+	<dt>ALIGNV_CENTERED</dt>
+	<dd>Le texte est aligné verticalement au centre.</dd>
+	<dt>ALIGNV_BOTTOM</dt>
+	<dd>Le texte est aligné verticalement en bas.</dd>
+</dl>
+</td></tr></table>
+
+<h4>Constantes d'offset de première ligne: </h4>
+<table><tr><td>
+<dl>
+	<dt>FLOP_REALGLYPHHEIGHT</dt>
+	<dd>L'offset de la première ligne est déterminé selon la hauteur maximale des glyphes situés dans la ligne de texte.</dd>
+	<dt>FLOP_FONTASCENT</dt>
+	<dd>L'offset de la première ligne est déterminé selon la hauteur de hampe de la police de caractère.</dd>
+	<dt>FLOP_LINESPACING</dt>
+	<dd>L'offset de la première ligne est déterminé selon la valeur d'interligne courante.</dd>
+	<dt>FLOP_BASELINEGRID</dt>
+	<dd>L'offset de la première ligne est déterminé selon la grille de base.</dd>
+</dl>
+</td></tr></table>
+
+<h4>Réglages relatifs aux lignes :</h4>
+<table><tr><td>
+<dl>
+    <dt>LINE_DASH</dt>
+    <dt>LINE_DASHDOT</dt>
+    <dt>LINE_DASHDOTDOT</dt>
+    <dt>LINE_DOT</dt>
+    <dt>LINE_SOLID</dt>
+    <dt><p/></dt>
+    <dt>JOIN_BEVEL</dt>
+    <dt>JOIN_MITTER</dt>
+    <dt>JOIN_ROUND</dt>
+    <dt><p/></dt>
+    <dt>CAP_FLAT</dt>
+    <dt>CAP_ROUND</dt>
+    <dt>CAP_SQUARE</dt>
+</dl>
+</td></tr></table>
+
+<h4>Définitions d'espaces de couleur: </h4>
+<table><tr><td>
+<dl>
+	<dt>CSPACE_UNDEFINED</dt>
+	<dt>CSPACE_RGB</dt>
+	<dt>CSPACE_CMYK</dt>
+	<dt>CSPACE_GRAY</dt>
+	<dt>CSPACE_DUOTONE</dt>
+	<dt>CSPACE_MONOCHROME</dt>
+</dl>
+</td></tr></table>
+
+<h4>Réglages relatifs au fond :</h4>
+<table><tr><td>
+<dl>
+	<dt>FILL_NOG</dt>
+    <dd>Pas de dégradé, couleur unie</dd>
+	<dt>FILL_HORIZONTALG</dt>
+	<dt>FILL_VERTICALG</dt>
+	<dt>FILL_DIAGONALG</dt>
+	<dt>FILL_CROSSDIAGONALG</dt>
+	<dt>FILL_RADIALG</dt>
+</dl>
+</td></tr></table>
+
+<h4>Boutons de dialogue</h4>
+<table><tr><td>
+<dl>
+    <dt>BUTTON_ABORT</dt>
+    <dt>BUTTON_CANCEL</dt>
+    <dt>BUTTON_IGNORE</dt>
+    <dt>BUTTON_NO</dt>
+    <dt>BUTTON_NONE</dt>
+    <dt>BUTTON_OK</dt>
+    <dt>BUTTON_RETRY</dt>
+    <dt>BUTTON_YES</dt>
+</dl>
+</td></tr></table>
+
+<h4>Ic&ocirc;nes de dialogue</h4>
+<table><tr><td>
+<dl>
+    <dt>ICON_CRITICAL</dt>
+    <dt>ICON_INFORMATION</dt>
+    <dt>ICON_NONE</dt>
+    <dt>ICON_WARNING</dt>
+</dl>
+</td></tr></table>
+
+<h4>Constantes d'alignement par TAB</h4>
+<table><tr><td>
+<dl>
+	<dt>TAB_LEFT</dt>
+	<dt>TAB_RIGHT</dt>
+	<dt>TAB_PERIOD</dt>
+	<dt>TAB_COMMA</dt>
+	<dt>TAB_CENTER</dt>
+</dl>
+</td></tr></table>
+
+<h4>Constantes de language d'impression</h4>
+<table><tr><td>
+<dl>
+	<dt>PRNLANG_POSTSCRIPT1</dt>
+	<dd>Postscript Niveau 1 (requiert Ghostscript)</dd>
+	<dt>PRNLANG_POSTSCRIPT2</dt>
+	<dd>Postscript Niveau 2 (requiert Ghostscript)</dd>
+	<dt>PRNLANG_POSTSCRIPT3</dt>
+	<dd>Postscript Niveau 3</dd>
+	<dt>PRNLANG_WINDOWSGDI</dt>
+	<dd>Windows GDI (disponible sur Microsoft Windows uniquement)</dd>
+	<dt>PRNLANG_PDF</dt>
+	<dd>Adobe PDF (disponible uniquement sur MacOS et les systèmes dérivés d'Unix)</dd>
+</dl>
+</td></tr></table>
+
+</body>
+</html>
+ 

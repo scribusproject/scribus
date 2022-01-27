@@ -38,7 +38,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 """
 
 import sys
@@ -47,13 +47,13 @@ import sys
 try:
     import scribus
 except ImportError:
-    print "This script only runs from within Scribus."
+    print ("This script only runs from within Scribus.")
     sys.exit(1)
 
 try:
     import MySQLdb
 except ImportError:
-    print "You must have 'MySQLdb' installed."
+    print ("You must have 'MySQLdb' installed.")
     sys.exit(1)
 
 
@@ -77,7 +77,7 @@ cur = conn.cursor()
 # get the list of the databases
 # it's like 'select * from dba_tables' in Oracle
 count = cur.execute('show tables')
-# formating the output
+# formatting the output
 result = str(count) + ' table(s) in the ' + dbname + ' database.\n\n'
 for i in cur.fetchall():
     result = result + i[0] + '\n'

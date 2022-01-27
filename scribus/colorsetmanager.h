@@ -13,9 +13,14 @@ for which a new license (GPL+exception) is in place.
 #define COLORSETMANAGER_H
 
 #include "scribusapi.h"
+#include "sccolor.h"
+#include "scribusdoc.h"
+#include "vgradient.h"
+#include "scpattern.h"
 #include <QMap>
 #include <QString>
 #include <QStringList>
+#include <QTreeWidget>
 
 struct ApplicationPrefs;
 
@@ -27,12 +32,22 @@ class SCRIBUS_API ColorSetManager
 		
 		void initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs);
 		void findPaletteLocations();
-		void findPalettes();
+		void searchDir(const QString& path, QMap<QString, QString> &pList, QTreeWidgetItem* parent = nullptr);
+		void findPalettes(QTreeWidgetItem* parent = nullptr);
+		void findUserPalettes(QTreeWidgetItem* parent = nullptr);
 		QStringList paletteNames();
+		QStringList userPaletteNames();
+		
 		QString paletteFileFromName(const QString& paletteName);
+		QString userPaletteFileFromName(const QString& paletteName);
+		bool paletteLocationLocked(const QString& palettePath);
+		bool checkPaletteFormat(const QString& paletteFileName);
+		bool loadPalette(const QString& paletteFileName, ScribusDoc *doc, ColorList &colors, QHash<QString,VGradient> &gradients, QHash<QString, ScPattern> &patterns, bool merge);
 		
 	protected:
 		QStringList paletteLocations;
 		QMap<QString, QString> palettes;
+		QMap<QString, QString> userPalettes;
+		QMap<QString, bool> paletteLocationLocks;
 };
 #endif
