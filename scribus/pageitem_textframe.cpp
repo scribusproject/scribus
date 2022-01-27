@@ -4537,7 +4537,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 					notes2DEL.append(QPair<TextNote*, int>(mark->getNotePtr(), i));
 			}
 		}
-		else
+		else if (!itemText.hasMark(start))
 		{
 			//delete marks from selected text (with undo)
 			marksNum = removeMarksFromText(true);
