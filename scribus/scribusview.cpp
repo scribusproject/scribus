@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QPixmap>
 #include <QPolygon>
+#include <QRegularExpression>
 #include <QStack>
 #include <QStringList>
 #include <QStyleOptionRubberBand>
@@ -976,9 +977,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					if (loadRawText(url.toLocalFile(), file))
 					{
 						QString txt = codec->toUnicode( file.data() );
-						txt.replace(QRegExp("\r"), QChar(13));
-						txt.replace(QRegExp("\n"), QChar(13));
-						txt.replace(QRegExp("\t"), QChar(9));
+						txt.replace(QRegularExpression("\r"), QChar(13));
+						txt.replace(QRegularExpression("\n"), QChar(13));
+						txt.replace(QRegularExpression("\t"), QChar(9));
 						item->itemText.insertChars(txt, true);
 					}
 				}

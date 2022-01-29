@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <QPalette>
 #include <QPixmap>
-#include <QRegExp>
+#include <QRegularExpression>
 
 #include "scconfig.h"
 
@@ -36,9 +36,9 @@ ScSplashScreen::ScSplashScreen( const QPixmap & pixmap, Qt::WindowFlags f ) : QS
 
 void ScSplashScreen::setStatus( const QString &message )
 {
-	static QRegExp rx("&\\S*");	
+	static QRegularExpression rx("&\\S*");
 	QString tmp(message);
-	int f = 0;
+	qsizetype f = 0;
 	while (f != -1)
 	{
 		f = tmp.indexOf(rx);

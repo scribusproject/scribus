@@ -9,6 +9,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <QCheckBox>
 #include <QLabel>
+#include <QRegularExpression>
+
 #include "ui/scmwmenumanager.h"
 #include "pluginmanager.h"
 #include "scraction.h"
@@ -58,18 +60,19 @@ Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* /*doc*/)
 			ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
 			// menu path
 			QString men;
+			QRegularExpression regExp("&(?!&)");
 			if (!ai.parentMenu.isEmpty())
 			{
 				if (scMW->scrMenuMgr->menuExists(ai.parentMenu))
-					men = scMW->scrMenuMgr->getLocalPopupMenu(ai.parentMenu)->title().remove(QRegExp("&(?!&)")) + " -> ";
+					men = scMW->scrMenuMgr->getLocalPopupMenu(ai.parentMenu)->title().remove(regExp) + " -> ";
 			}
 			if (scMW->scrMenuMgr->menuExists(ai.menu))
 			{
 				QMenu *m = scMW->scrMenuMgr->getLocalPopupMenu(ai.menu);
 				if (m)
-					men += m->title().remove(QRegExp("&(?!&)")) + " -> ";
+					men += m->title().remove(regExp) + " -> ";
 			}
-			i1->setText(men + QString("%1").arg(scMW->scrActions[ai.name]->text().remove(QRegExp("&(?!&)"))));
+			i1->setText(men + QString("%1").arg(scMW->scrActions[ai.name]->text().remove(regExp)));
 		}
 		pluginTable->setItem(i, 1, i1);
 

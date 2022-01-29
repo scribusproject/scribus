@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QDirIterator>
 #include <QFileInfo>
+#include <QRegularExpression>
 #include <QTemporaryFile>
 
 #include "sclockedfile.h"
@@ -543,8 +544,8 @@ void ScImageCacheManager::sanitizeCache()
 		}
 	}
 
-	QRegExp reImg(ScImageCacheProxy::imageSuffix + "$");
-	QRegExp reRef(ScImageCacheProxy::referenceSuffix + "$");
+	QRegularExpression reImg(ScImageCacheProxy::imageSuffix + "$");
+	QRegularExpression reRef(ScImageCacheProxy::referenceSuffix + "$");
 
 	QHash<QString, int>::iterator isi;
 

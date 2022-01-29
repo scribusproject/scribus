@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QRegularExpressionValidator>
 
 #include "charselectenhanced.h"
 #include "fonts/scface.h"
@@ -28,7 +29,7 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 	m_charTable->setDragEnabled(true);
 
 	// insert hex codes directly
-	QValidator* insValidator = new QRegExpValidator(QRegExp("[A-F,a-f,0-9]{4}"), this);
+	QValidator* insValidator = new QRegularExpressionValidator(QRegularExpression("[A-F,a-f,0-9]{4}"), this);
 	hexLineEdit->setValidator(insValidator);
 
 	// signals and slots connections

@@ -89,7 +89,7 @@ void JavaDocs::slotAdd()
 		return;
 
 	QString nam = dia.getEditText();
-	nam.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%\\.]"), "_" );
+	nam.replace( QRegularExpression("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%\\.]"), "_" );
 
 	std::unique_ptr<Editor> dia2(new Editor(this, "", m_View));
 	dia2->EditTex->setText("function "+nam+"()\n{\n}");

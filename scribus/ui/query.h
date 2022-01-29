@@ -11,9 +11,11 @@ for which a new license (GPL+exception) is in place.
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QHBoxLayout>
+
 class QLabel;
 class QLineEdit;
 class QPushButton;
+class QRegularExpression;
 class QString;
 
 #include "scribusapi.h"
@@ -31,7 +33,7 @@ public:
 	void setTestList(const QStringList& tList);
 	void setForbiddenList(const QStringList& tList);
 	void setCheckMode(bool mode);
-	void setValidator(const QRegExp& rx);
+	void setValidator(const QRegularExpression& rx);
 
 public slots:
 	void Leave();

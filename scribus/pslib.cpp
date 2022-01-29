@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFontInfo>
 #include <QList>
 #include <QByteArray>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QBuffer>
 #include <QStack>
 
@@ -314,7 +314,7 @@ PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, Col
 		// Subset always now with new boxes code.
 		ScFace &face (allFonts[it.key()]);
 		QMap<uint, QString>& usedGlyphs(it.value());
-		QString encodedName = face.psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" );
+		QString encodedName = face.psName().simplified().replace( QRegularExpression("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" );
 
 		// Handle possible PostScript name conflict in oft/ttf fonts
 		int psNameIndex = 1;
@@ -754,7 +754,7 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 
 QString PSLib::PSEncode(const QString& in) const
 {
-	static QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
+	static QRegularExpression badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
 	QString tmp(in.simplified().replace( badchars, "_" ));
 	return tmp;
 }

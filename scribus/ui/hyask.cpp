@@ -5,14 +5,15 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "hyask.h"
+
+#include <QCheckBox>
+#include <QKeyEvent>
+#include <QLabel>
 #include <QPixmap>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QKeyEvent>
 #include <QPushButton>
-#include <QCheckBox>
-#include <QLabel>
 
 #include "iconmanager.h"
 
@@ -142,7 +143,7 @@ void HyAsk::Check()
 {
 	disconnect ( Wort, SIGNAL ( textChanged ( const QString & ) ), this, SLOT ( Check() ) );
 	QString in = Wort->text();
-	QString out = in.replace ( QRegExp ( "(-)+" ), "-" );
+	QString out = in.replace ( QRegularExpression ( "(-)+" ), "-" );
 	Wort->setText ( out );
 	addToExceptionList->setEnabled(true);
 	addToExceptionListText->setEnabled(true);
@@ -153,7 +154,7 @@ void HyAsk::DoSkip()
 {
 	disconnect ( Wort, SIGNAL ( textChanged ( const QString & ) ), this, SLOT ( Check() ) );
 	QString in = Wort->text();
-	QString out = in.replace ( QRegExp ( "(-)+" ), "" );
+	QString out = in.replace ( QRegularExpression ( "(-)+" ), "" );
 	Wort->setText ( out );
 	accept();
 }

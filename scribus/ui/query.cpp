@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "query.h"
+
 #include <QPixmap>
 #include <QLabel>
 #include <QLineEdit>
@@ -12,7 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QRegExp>
 #include <QValidator>
-#include <QRegExpValidator>
+#include <QRegularExpressionValidator>
+
 #include "commonstrings.h"
 #include "ui/scmessagebox.h"
 #include "iconmanager.h"
@@ -127,8 +129,8 @@ void Query::setCheckMode(bool mode)
 	checkMode = mode;
 }
 
-void Query::setValidator(const QRegExp& rx)
+void Query::setValidator(const QRegularExpression& rx)
 {
-	QValidator* vaild = new QRegExpValidator( rx, this );
+	QValidator* vaild = new QRegularExpressionValidator( rx, this );
 	answerEdit->setValidator(vaild);
 }

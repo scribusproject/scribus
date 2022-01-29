@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <QPixmap>
 #include <QProgressDialog>
+#include <QRegularExpression>
 #include <QSet>
 #include <QSignalMapper>
 #include <QSpacerItem>
@@ -1237,7 +1238,7 @@ bool Biblio::copyObj(int id)
 	if (bv->objectMap.contains(nam))
 	{
 		Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
-		dia.setValidator(QRegExp("[\\w()]+"));
+		dia.setValidator(QRegularExpression("[\\w()]+"));
 		dia.setEditText(nam, true);
 		dia.setTestList(activeBView->objectMap.keys());
 		if (dia.exec())
@@ -1430,7 +1431,7 @@ void Biblio::renameObj()
 	QListWidgetItem *ite = actItem;
 	QString oldName = ite->text();
 	Query dia(this, "tt", 1, tr("&Name:"), tr("New Name"));
-	dia.setValidator(QRegExp("[\\w()]+"));
+	dia.setValidator(QRegularExpression("[\\w()]+"));
 	dia.setEditText(ite->text(), true);
 	dia.setTestList(activeBView->objectMap.keys());
 	if (dia.exec())
@@ -1622,7 +1623,7 @@ void Biblio::objFromFile(const QString& path, int testResult)
 			nam += "("+ tmp.setNum(m_tempCount) + ")";
 	}
 	Query dia(this, "tt", true, tr("&Name:"), tr("New Entry"));
-	dia.setValidator(QRegExp("[\\w()]+"));
+	dia.setValidator(QRegularExpression("[\\w()]+"));
 	dia.setEditText(nam, true);
 	dia.setTestList(activeBView->objectMap.keys());
 	if (dia.exec())
@@ -1750,7 +1751,7 @@ void Biblio::objFromMenu(QString text)
 			nam += "("+ tmp.setNum(m_tempCount) + ")";
 	}
 	Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
-	dia.setValidator(QRegExp("[\\w()]+"));
+	dia.setValidator(QRegularExpression("[\\w()]+"));
 	dia.setEditText(nam, true);
 	dia.setTestList(activeBView->objectMap.keys());
 	if (dia.exec())
@@ -1922,7 +1923,7 @@ void Biblio::objFromMainMenu(QString text, int scrapID)
 	if (actBView->objectMap.contains(nam))
 		nam += "("+ tmp.setNum(m_tempCount) + ")";
 	Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
-	dia.setValidator(QRegExp("[\\w()]+"));
+	dia.setValidator(QRegularExpression("[\\w()]+"));
 	dia.setEditText(nam, true);
 	dia.setTestList(activeBView->objectMap.keys());
 	if (dia.exec())
