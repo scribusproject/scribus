@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QMenu>
 #include <QMessageBox>
+#include <QRegularExpression>
 #include <QResizeEvent>
 #include <QSignalBlocker>
 #include <QSignalMapper>
@@ -1379,6 +1380,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 void OutlinePalette::filterTree(const QString& keyword)
 {
 	OutlineTreeItem *item = nullptr;
+	QRegularExpression regExp(keyword, QRegularExpression::CaseInsensitiveOption);
 	QTreeWidgetItemIterator it( reportDisplay );
 	while (*it)
 	{
@@ -1387,7 +1389,7 @@ void OutlinePalette::filterTree(const QString& keyword)
 		{
 			if ((item->type == 1) || (item->type == 3) || (item->type == 4))
 			{
-				if (item->PageItemObject->itemName().contains(QRegExp(keyword, Qt::CaseInsensitive)))
+				if (item->PageItemObject->itemName().contains(regExp))
 					item->setHidden(false);
 				else
 					item->setHidden(true);

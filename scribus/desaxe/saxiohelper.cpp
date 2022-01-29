@@ -160,21 +160,6 @@ QList<double> parseDoubleList(const Xml_string& str)
 	return result;
 }
 
-Xml_string toXMLString(const QVector<double>& doublelist)
-{
-	QString result;
-	for (auto dax = doublelist.cbegin(); dax != doublelist.cend(); ++dax)
-		result += toXMLString(*dax) + " ";
-	return result;
-}
-
-Xml_string toXMLString(const QVector<float>& floatlist)
-{
-	QString result;
-	for (auto dax = floatlist.cbegin(); dax != floatlist.cend(); ++dax)
-		result += toXMLString(*dax) + " ";
-	return result;
-}
 
 QVector<double> parseDoubleVector(const Xml_string& str)
 {
@@ -201,14 +186,6 @@ QList<int> parseIntList(const Xml_string& str)
 	QList<int> result;
 	for (auto it = strlist.cbegin(); it != strlist.cend(); ++it)
 		result.append(parseInt(*it));
-	return result;
-}
-
-Xml_string toXMLString(const QVector<int>& intlist)
-{
-	QString result;
-	for (auto dax = intlist.cbegin(); dax != intlist.cend(); ++dax)
-		result += toXMLString(*dax) + " ";
 	return result;
 }
 

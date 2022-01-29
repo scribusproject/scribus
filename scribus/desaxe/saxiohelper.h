@@ -32,9 +32,6 @@ Xml_string toXMLString(const FPointArray& path);
 Xml_string toXMLString(const QList<double>& doublelist);
 Xml_string toXMLString(const QList<float>& floatlist);
 Xml_string toXMLString(const QList<int>& intlist);
-Xml_string toXMLString(const QVector<double>& doublelist);
-Xml_string toXMLString(const QVector<float>& floatlist);
-Xml_string toXMLString(const QVector<int>& intlist);
 Xml_string toXMLString(const QStringList& list);
 
 unsigned int parseUInt(const Xml_string& str);

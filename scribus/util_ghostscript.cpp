@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QMultiMap>
 #include <QPainter>
 #include <QPixmap>
 #include <QProcess>
@@ -300,16 +301,16 @@ QString getGSDefaultExeName()
 	if (procArchWow64) isWindows64 = true;
 
 	// Search for Ghostsscript executable in native registry
-	QMap<int, QString> gsVersions;
-	gsVersions.unite( getGSExePaths("SOFTWARE\\GPL Ghostscript") );
-	gsVersions.unite( getGSExePaths("SOFTWARE\\AFPL Ghostscript") );
+	QMultiMap<int, QString> gsVersions;
+	gsVersions.unite( QMultiMap(getGSExePaths("SOFTWARE\\GPL Ghostscript")) );
+	gsVersions.unite( QMultiMap(getGSExePaths("SOFTWARE\\AFPL Ghostscript")) );
 
 	// If running on Windows 64bit, search alternate registry view,
 	// ie 32bit registry if process is 64bit, 64bit registry if process is 32bit
 	if (isWindows64)
 	{
-		gsVersions.unite( getGSExePaths("SOFTWARE\\GPL Ghostscript", true) );
-		gsVersions.unite( getGSExePaths("SOFTWARE\\AFPL Ghostscript", true) );
+		gsVersions.unite( QMultiMap(getGSExePaths("SOFTWARE\\GPL Ghostscript", true)) );
+		gsVersions.unite( QMultiMap(getGSExePaths("SOFTWARE\\AFPL Ghostscript", true)) );
 	}
 
 	if (gsVersions.isEmpty())
@@ -317,8 +318,8 @@ QString getGSDefaultExeName()
 
 	int currentVer = 0;
 	QString gsPath;
-	QMap<int, QString>::ConstIterator it, itEnd = gsVersions.constEnd();
-	for (it = gsVersions.constBegin(); it != itEnd; ++it)
+	QMultiMap<int, QString>::ConstIterator itEnd = gsVersions.constEnd();
+	for (auto it = gsVersions.constBegin(); it != itEnd; ++it)
 	{
 		int version = it.key();
 		if (version > currentVer)
