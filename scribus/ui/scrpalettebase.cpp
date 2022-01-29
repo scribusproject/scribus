@@ -161,16 +161,17 @@ void ScrPaletteBase::showEvent(QShowEvent *showEvent)
 		QScreen *s = ScCore->primaryMainWindow()->screen();
 		if (m_palettePrefs->contains("left"))
 		{
-			QRect scr = s->availableGeometry(this);
+			QRect scr = s->availableGeometry();
+			QSize scrSize(s->size());
 			// all palettes should have enough room for 3x3 min widgets
-			int vwidth  = qMin(qMax(0, m_palettePrefs->getInt("width")), s->width());
-			int vheight = qMin(qMax(0, m_palettePrefs->getInt("height")), s->height());
+			int vwidth  = qMin(qMax(0, m_palettePrefs->getInt("width")), scrSize.width());
+			int vheight = qMin(qMax(0, m_palettePrefs->getInt("height")), scrSize.height());
 			// palettes should not use too much screen space
-			if (vwidth > s->width()/3 && vheight > s->height()/3)
-				vwidth = s->width()/3;
+			if (vwidth > scrSize.width()/3 && vheight > scrSize.height()/3)
+				vwidth = scrSize.width()/3;
 			// and should be partly visible
 			int vleft   = qMin(qMax(scr.left() - vwidth, m_palettePrefs->getInt("left")), scr.right());
-			int vtop = qMin(m_palettePrefs->getInt("top"), s->height());
+			int vtop = qMin(m_palettePrefs->getInt("top"), scrSize.height());
 #if defined(Q_OS_MAC) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
 			vtop    = qMax(64, vtop);

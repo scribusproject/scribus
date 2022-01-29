@@ -18,14 +18,14 @@
 
 #include <QApplication>
 #include <QCursor>
-#include <QDesktopWidget>
+#include <QDebug>
 #include <QEvent>
 #include <QInputDialog>
 #include <QMouseEvent>
 #include <QPoint>
 #include <QRect>
 #include <QScreen>
-#include <QDebug>
+#include <QScreen>
 
 #include "appmodes.h"
 #include "canvas.h"

@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "scribuscore.h"
 #include "scdockpalette.h"
 #include "util.h"
 
@@ -154,18 +155,19 @@ void ScDockPalette::showEvent(QShowEvent *showEvent)
 	if (m_palettePrefs && !showEvent->spontaneous() && isFloating())
 	{
 		QScreen *s = ScCore->primaryMainWindow()->screen();
+		QSize scrSize(s->size());
 		if (m_palettePrefs->contains("left"))
 		{
-			QRect scr = s->availableGeometry(this);
+			QRect scr = s->availableGeometry();
 			// all palettes should have enough room for 3x3 min widgets
-			int vwidth  = qMin(qMax(0, m_palettePrefs->getInt("width")), s->width());
-			int vheight = qMin(qMax(0, m_palettePrefs->getInt("height")), s->height());
+			int vwidth  = qMin(qMax(0, m_palettePrefs->getInt("width")), scrSize.width());
+			int vheight = qMin(qMax(0, m_palettePrefs->getInt("height")), scrSize.height());
 			// palettes should not use too much screen space
-			if (vwidth > s->width() / 3 && vheight > s->height()/3)
-				vwidth = s->width() / 3;
+			if (vwidth > scrSize.width() / 3 && vheight > scrSize.height()/3)
+				vwidth = scrSize.width() / 3;
 			// and should be partly visible
 			int vleft   = qMin(qMax(scr.left() - vwidth, m_palettePrefs->getInt("left")), scr.right());
-			int vtop = qMin(m_palettePrefs->getInt("top"), s->height());
+			int vtop = qMin(m_palettePrefs->getInt("top"), scrSize.height());
 #if defined(Q_OS_MAC) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
 			vtop    = qMax(64, vtop);

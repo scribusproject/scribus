@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QCheckBox>
 #include <QComboBox>
-#include <QDesktopWidget>
 #include <QDir>
 #include <QFileInfo>
 #include <QFrame>
@@ -36,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <QPixmap>
 #include <QPushButton>
+#include <QScreen>
 #include <QScreen>
 #include <QTextCodec>
 #include <QVBoxLayout>

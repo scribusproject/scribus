@@ -26,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 #include <QColorDialog>
 #include <QComboBox>
 #include <QCursor>
-#include <QDesktopWidget>
 #include <QEvent>
 #include <QFocusEvent>
 #include <QFontDialog>
@@ -46,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QScopedPointer>
 #include <QScopedValueRollback>
+#include <QScreen>
 #include <QScreen>
 #include <QScrollBar>
 #include <QShowEvent>
