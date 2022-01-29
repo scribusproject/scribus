@@ -50,7 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QPainterPath>
 #include <QRect>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QScopedPointer>
 #include <QStack>
 #include <QString>
@@ -1005,16 +1005,16 @@ void PDFLibCore::PDF_Begin_Catalog()
 	Datum = Pdf::toDateString(dt);
 //    "D:";
 //	tmp.sprintf("%4d", d.year());
-//	tmp.replace(QRegExp(" "), "0");
+//	tmp.replace(QRegularExpression(" "), "0");
 //	Datum += tmp;
 //	tmp.sprintf("%2d", d.month());
-//	tmp.replace(QRegExp(" "), "0");
+//	tmp.replace(QRegularExpression(" "), "0");
 //	Datum += tmp;
 //	tmp.sprintf("%2d", d.day());
-//	tmp.replace(QRegExp(" "), "0");
+//	tmp.replace(QRegularExpression(" "), "0");
 //	Datum += tmp;
 //	tmp = dt.time().toString();
-//	tmp.replace(QRegExp(":"), "");
+//	tmp.replace(QRegularExpression(":"), "");
 //	Datum += tmp;
 //	Datum += "Z";
 
@@ -1266,7 +1266,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 
 static QByteArray sanitizeFontName(QString fn)
 {
-	return Pdf::toPdfDocEncoding(fn.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_"));
+	return Pdf::toPdfDocEncoding(fn.replace( QRegularExpression("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_"));
 }
 
 static QString sanitizeItemName(const QString& itemName)
@@ -1352,9 +1352,9 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 
 	QList<uint> glyphWidths;
 	QList<QByteArray> charProcs;
-	QStringList toUnicodeMaps;
+	QList<QByteArray> toUnicodeMaps;
 	QList<int> toUnicodeMapsCount;
-	QString toUnicodeMap;
+	QByteArray toUnicodeMap;
 	int toUnicodeMapCounter = 0;
 	QByteArray encoding = "<< /Type /Encoding\n/Differences [ 0\n";
 	QByteArray fon;
@@ -1890,9 +1890,9 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 		PutDoc("]");
 		writer.endObj(fontWidths2);
 
-		QStringList toUnicodeMaps;
+		QList<QByteArray> toUnicodeMaps;
 		QList<int>  toUnicodeMapsCount;
-		QString toUnicodeMap;
+		QByteArray  toUnicodeMap;
 		int toUnicodeMapCounter = 0;
 		int crc = 0;
 		bool startOfSeq = true;
@@ -3988,7 +3988,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 			PutDoc("\n/Filter /FlateDecode");
 		PutDoc(" >>\nstream\n" + EncStream(inh, formObject) + "\nendstream");
 		writer.endObj(formObject);
-		QByteArray name = Pdf::toPdfDocEncoding(layer.Name.simplified().replace(QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_")) + Pdf::toPdf(layer.ID) + Pdf::toPdf(PNr);
+		QByteArray name = Pdf::toPdfDocEncoding(layer.Name.simplified().replace(QRegularExpression("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_")) + Pdf::toPdf(layer.ID) + Pdf::toPdf(PNr);
 		pageData.XObjects[name] = formObject;
 		PutPage("q\n");
 		PutPage(Pdf::toName(ShName) + " gs\n");
@@ -6891,7 +6891,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
 				PutDoc(" " + Pdf::toName(spotColorSet.at(sc).simplified()));
-				       // " /" + spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+				       // " /" + spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegularExpression("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 				entx += " 0 1";
 			}
 			PutDoc(" ]\n");
@@ -7221,7 +7221,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
 				PutDoc(" " + Pdf::toName(spotColorSet.at(sc).simplified()));
-				       //" /" + spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+				       //" /" + spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegularExpression("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 				entx += " 0 1";
 			}
 			PutDoc(" ]\n");
@@ -7581,7 +7581,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
 				PutDoc(" " + Pdf::toName(spotColorSet.at(sc).simplified()));
-				       //" /" + spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+				       //" /" + spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegularExpression("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 				entx += " 0 1";
 			}
 			PutDoc(" ]\n");
@@ -7944,7 +7944,7 @@ bool PDFLibCore::PDF_TensorGradientFill(QByteArray& output, PageItem *c)
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
 				PutDoc(" " + Pdf::toName(spotColorSet.at(sc).simplified()));
-				       //" /" + spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+				       //" /" + spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegularExpression("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 				entx += " 0 1";
 			}
 			PutDoc(" ]\n");
@@ -8412,7 +8412,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
 				PutDoc("" + Pdf::toName(spotColorSet.at(sc).simplified()));
-				       //" /" + spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+				       //" /" + spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegularExpression("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 			}
 			PutDoc(" ]\n");
 			PutDoc("/DeviceCMYK\n");
@@ -9346,7 +9346,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 			cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
 		if (Options.Version < PDFVersion::PDF_14)
-			cc += "/" + StdFonts[ind2PDFabr[ite->annotation().Font()]];
+			cc += Pdf::toName(StdFonts[ind2PDFabr[ite->annotation().Font()]]);
 		else
 			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()].name;
 //			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()] + "Form";
@@ -9369,7 +9369,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 			cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
 		if (Options.Version < PDFVersion::PDF_14)
-			cc += "/" + StdFonts[ind2PDFabr[ite->annotation().Font()]];
+			cc += Pdf::toName(StdFonts[ind2PDFabr[ite->annotation().Font()]]);
 		else
 			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()].name;
 //			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()] + "Form";
@@ -9397,7 +9397,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 		cc += "BT\n";
 		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 			cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
-		cc += "/" + StdFonts["/ZapfDingbats"] + " " + FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0) + " Tf\n";
+		cc += Pdf::toName(StdFonts["/ZapfDingbats"]) + " " + FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0) + " Tf\n";
 		cc += Pdf::toPdf(ite->annotation().borderWidth()) + " " + Pdf::toPdf(ite->annotation().borderWidth()) + " Td\n(" + ct + ") Tj\nET\nQ";
 		PDF_xForm(appearanceObj1, ite->width(), ite->height(), cc);
 		cc.clear();
@@ -9416,7 +9416,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 		cc += "/Tx BMC\nq\nBT\n";
 		cc += "0 g\n";
 		if (Options.Version < PDFVersion::PDF_14)
-			cc += "/" + StdFonts[ind2PDFabr[ite->annotation().Font()]];
+			cc += Pdf::toName(StdFonts[ind2PDFabr[ite->annotation().Font()]]);
 		else
 			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()].name;
 //			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()] + "Form";

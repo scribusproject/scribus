@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include <cmath>
 
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QVector>
 
 #include "util.h"
@@ -915,7 +915,7 @@ static const char * getCoord(const char *ptr, double &number)
 bool FPointArray::parseSVG(const QString& svgPath)
 {
 	QString d = svgPath;
-	d = d.replace(QRegExp(","), " ");
+	d = d.replace(QRegularExpression(","), " ");
 
 	bool ret = false;
 	if (d.isEmpty())
