@@ -43,29 +43,25 @@ class ScFace_PostScript : public FtFace
 /*
 	Class ScFace_pfb
 	Subclass of ScFace, specifically for Adobe type 1 .pfb fonts.
-	Implements: realName() and embedFont().
+	Implements: realName().
 */
 
 class ScFace_PFB : public ScFace_PostScript
 {
 	public:
 		ScFace_PFB(const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features);
-
-		bool embedFont(QByteArray &str) const override;
 };
 
 /*
 	Class ScFace_pfa
 	Subclass of ScFace, specifically for Adobe type 1 and type 3 .pfa fonts.
-	Implements: realName() and embedFont().
+	Implements: realName().
 */
 
 class ScFace_PFA : public ScFace_PostScript
 {
 	public:
 		ScFace_PFA(const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features);
-
-		bool embedFont(QByteArray &str) const override;
 };
 
 

@@ -141,89 +141,8 @@ ScFace_PFB::ScFace_PFB(const QString& fam, const QString& sty, const QString& al
 	formatCode = ScFace::PFB;
 }
 
-bool ScFace_PFB::embedFont(QByteArray& str) const
-{
-	QByteArray bb;
-	rawData(bb);
-	if ((bb.size() > 2) &&  (bb[0] == '\x80') && (static_cast<int>(bb[1]) == 1))
-	{
-		int posi,cxxc=0;
-		for (posi = 6; posi < bb.size(); ++posi)
-		{
-			if ((bb[posi] == '\x80') && (posi + 1 < bb.size()) && (static_cast<int>(bb[posi + 1]) == 2))
-				break;
-			str += bb[posi];
-		}
-		int ulen;
-		if (posi + 6 < bb.size())
-		{
-			ulen = bb[posi + 2] & 0xff;
-			ulen |= (bb[posi + 3] << 8) & 0xff00;
-			ulen |= (bb[posi + 4] << 16) & 0xff0000;
-			ulen |= (bb[posi + 5] << 24) & 0xff000000;
-			posi += 6;
-			if (posi + ulen > bb.size())
-				ulen = bb.size() - posi - 1;
-			char linebuf[80];
-			cxxc = 0;
-			for (int j = 0; j < ulen; ++j)
-			{
-				unsigned char u = bb[posi];
-				linebuf[cxxc] = ((u >> 4) & 15) + '0';
-				if (u>0x9f)
-					linebuf[cxxc] += 'a'-':';
-				++cxxc;
-				u &= 15;
-				linebuf[cxxc] = u + '0';
-				if (u>0x9)
-					linebuf[cxxc] += 'a'-':';
-				++posi;
-				++cxxc;
-				if (cxxc > 72)
-				{
-					linebuf[cxxc++] = '\n';
-					linebuf[cxxc++] = 0;
-					str += linebuf;
-					cxxc = 0;
-				}
-			}
-			linebuf[cxxc] = 0;
-			str += linebuf;
-			str += "\n";
-		}
-		posi += 6;
-		for (int j = posi; j < bb.size(); ++j)
-		{
-			if ((bb[j] == '\x80') && (j + 1 < bb.size()) && (static_cast<int>(bb[j + 1]) == 3))
-				break;
-			if (bb[j] == '\r')
-				str += "\n";
-			else
-				str += bb[j];
-		}
-		str += "\n";
-		return true;
-	}
-	qDebug("%s", QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile).toLatin1().constData());
-	return false;
-}
-
 ScFace_PFA::ScFace_PFA(const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features) :
 	ScFace_PostScript(fam, sty, alt, scname, psname, path, face, features)
 {
 	formatCode = ScFace::PFA;
-}
-
-bool ScFace_PFA::embedFont(QByteArray& str) const
-{
-	QByteArray bb;
-	rawData(bb);
-	if (bb.size() > 2 && bb[0] == '%' && bb[1] == '!')
-	{
-		// this is ok since bb will not contain '\0'
-		str.append(bb);
-		return true;
-	}
-	qDebug("%s", QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile).toLatin1().constData());
-	return false;
 }

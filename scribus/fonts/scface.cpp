@@ -475,13 +475,6 @@ bool ScFace::canRender(QChar ch) const
 	return false;
 }
 
-bool ScFace::embedFont(QByteArray &str)
-{
-	if (m_m->status == ScFace::UNKNOWN)
-		m_m->load();
-	return m_m->embedFont(str);
-}
-
 bool ScFace::glyphNames(FaceEncoding& gList)
 {
 	if (m_m->status == ScFace::UNKNOWN)

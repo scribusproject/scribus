@@ -195,7 +195,6 @@ public:
 		virtual cid_type glyphIndexToCID(ScFace::gid_type index) const { return index; }
 		virtual QMap<QString,QString> fontDictionary(qreal sz=1.0) const;
 		virtual GlyphMetrics glyphBBox(gid_type gl, qreal sz) const;
-		virtual bool embedFont(QByteArray &/*str*/)       const { return false; }
 		virtual void rawData(QByteArray & /*bb*/)      const {}
 		virtual FT_Face ftFace() const { return nullptr; }
 		virtual void* hbFont();
@@ -237,8 +236,6 @@ public:
 	bool operator==(const ScFace& other) const ;
 	bool operator!=(const ScFace& other) const { return ! (*this == other); }
 
-
-	bool embedFont(QByteArray &str);
 	void rawData(QByteArray & bb);
 	bool glyphNames(FaceEncoding& gList);
 
