@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QByteArray>
 #include <QDataStream>
+#include <QIODevice>
 
 #define SC_DEBUG_FILE defined(DEBUG_SCIMAGECACHE)
 #include "scdebug.h"

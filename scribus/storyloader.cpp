@@ -12,7 +12,6 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <QCursor>
 #include <QDir>
-#include <QDomElement>
 #include <QFile>
 #include <QFileInfo>
 #include <QList>

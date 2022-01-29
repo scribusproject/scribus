@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QDebug>
-#include <QDomDocument>
 #include <QInputDialog>
 #include <QListWidget>
 #include <QTableWidgetItem>

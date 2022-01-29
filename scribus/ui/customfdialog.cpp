@@ -130,14 +130,14 @@ void FDialogPreview::updatePix()
 
 void FDialogPreview::genPreview(const QString& name)
 {
-	QPixmap pm;
-	QString Buffer;
-	updatePix();
 	if (name.isEmpty())
 		return;
 	QFileInfo fi(name);
 	if (fi.isDir())
 		return;
+	QPixmap pm;
+	QString Buffer;
+	updatePix();
 	int w = pixmap().width();
 	int h = pixmap().height();
 	bool mode = false;
@@ -357,6 +357,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 		Layout1C->addItem( spacer2 );
 		vboxLayout->addWidget(LayoutC);
 		fileDialog->setFileMode(QFileDialog::Directory);
+		fileDialog->setOption(QFileDialog::ShowDirsOnly, true);
 		fileDialog->forceDoubleClickActivation(false);
 		filePreview->hide();
 		showPreview->setVisible(false);
@@ -386,7 +387,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 			if (flags & fdCompressFile)
 				vboxLayout->addWidget(Layout);
 		}
-		
+		fileDialog->setOption(QFileDialog::ShowDirsOnly, false);
 		if (saveZip != nullptr)
 			saveZip->setToolTip( "<qt>" + tr( "Compress the Scribus document on save" ) + "</qt>");
 		if (withFonts != nullptr)
