@@ -7,18 +7,18 @@ for which a new license (GPL+exception) is in place.
 #include "tfdia.h"
 
 #include <QApplication>
-#include <QComboBox>
-#include <QDesktopWidget>
-#include <QFrame>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QScrollArea>
 #include <QBoxLayout>
+#include <QComboBox>
+#include <QFrame>
 #include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QToolTip>
+#include <QLineEdit>
 #include <QPixmap>
+#include <QPushButton>
 #include <QRect>
+#include <QScreen>
+#include <QScrollArea>
+#include <QToolTip>
+#include <QVBoxLayout>
 
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "iconmanager.h"
+#include "scribuscore.h"
 #include "util.h"
 
 tfDia::tfDia()
@@ -39,14 +40,14 @@ tfDia::tfDia()
 	//Get last window geometry values
 	int vleft   = qMax(0, prefs->getInt("x", 10));
 #if defined(Q_OS_MAC) || defined(_WIN32)
-	int vtop    = qMax(64, prefs->getInt("y", 10));
+	int vtop = qMax(64, prefs->getInt("y", 10));
 #else
-	int vtop    = qMax(0, prefs->getInt("y", 10));
+	int vtop = qMax(0, prefs->getInt("y", 10));
 #endif
 	int vwidth  = qMax(400, prefs->getInt("width", 400));
 	int vheight = qMax(300, prefs->getInt("height", 300));
 	// Check values against current available space
-	QRect scr = QApplication::desktop()->availableGeometry(this);
+	QRect scr = ScCore->primaryMainWindow()->screen()->availableGeometry();
 	if ( vleft >= scr.width() )
 		vleft = 0;
 	if ( vtop >= scr.height() )

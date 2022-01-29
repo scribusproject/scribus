@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <QPixmap>
 #include <QPushButton>
+#include <QScreen>
 #include <QScrollArea>
 #include <QSpacerItem>
 #include <QSpinBox>
@@ -245,7 +246,7 @@ PrintPreview::PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& pri
 	m_ui->pageSelector->setGUIForPage(m_doc->currentPage()->pageNr());
 
 	int w = m_previewLabel->width() + inkTableWidth + 50;
-	resize(qMin(QApplication::desktop()->width() - 30, w), 500);
+	resize(qMin(ScCore->primaryMainWindow()->screen()->size().width() - 30, w), 500);
 
 	// tooltips
 	m_ui->antiAliasing->setToolTip( "<qt>" + tr( "Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing" ) + "</qt>" );

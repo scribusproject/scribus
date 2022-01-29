@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QColor>
 #include <QColorDialog>
-#include <QDesktopWidget>
+#include <QScreen>
 #include <QPainter>
 
 #include "iconmanager.h"
@@ -262,7 +262,7 @@ void Prefs_Display::drawRuler()
 void Prefs_Display::restoreDisScale()
 {
 	disconnect(adjustDisplaySlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
-	int dpi = QApplication::desktop()->logicalDpiX();
+	int dpi = ScCore->primaryMainWindow()->screen()->logicalDotsPerInchX();
 	if ((dpi < 60) || (dpi > 500))
 		dpi = 72;
 	displayScale = dpi / 72.0;

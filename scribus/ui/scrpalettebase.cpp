@@ -26,14 +26,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <QApplication>
 #include <QCloseEvent>
-#include <QDesktopWidget>
 #include <QHideEvent>
 #include <QPoint>
+#include <QScreen>
 
 #include "iconmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "scribuscore.h"
 #include "scrpalettebase.h"
 #include "util.h"
 
@@ -157,22 +158,19 @@ void ScrPaletteBase::showEvent(QShowEvent *showEvent)
 	// events as spontaneous events are delivered after dialog has been shown
 	if (m_palettePrefs && !showEvent->spontaneous())
 	{
-		QDesktopWidget *d = QApplication::desktop();
+		QScreen *s = ScCore->primaryMainWindow()->screen();
 		if (m_palettePrefs->contains("left"))
 		{
-			QRect scr = QApplication::desktop()->availableGeometry(this);
+			QRect scr = s->availableGeometry(this);
 			// all palettes should have enough room for 3x3 min widgets
-			int vwidth  = qMin(qMax(0, m_palettePrefs->getInt("width")),
-			                   d->width());
-			int vheight = qMin(qMax(0, m_palettePrefs->getInt("height")),
-			                   d->height());
+			int vwidth  = qMin(qMax(0, m_palettePrefs->getInt("width")), s->width());
+			int vheight = qMin(qMax(0, m_palettePrefs->getInt("height")), s->height());
 			// palettes should not use too much screen space
-			if (vwidth > d->width()/3 && vheight > d->height()/3)
-				vwidth = d->width()/3;
+			if (vwidth > s->width()/3 && vheight > s->height()/3)
+				vwidth = s->width()/3;
 			// and should be partly visible
-			int vleft   = qMin(qMax(scr.left() - vwidth, m_palettePrefs->getInt("left")),
-							   scr.right());
-			int vtop = qMin(m_palettePrefs->getInt("top"), d->height());
+			int vleft   = qMin(qMax(scr.left() - vwidth, m_palettePrefs->getInt("left")), scr.right());
+			int vtop = qMin(m_palettePrefs->getInt("top"), s->height());
 #if defined(Q_OS_MAC) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
 			vtop    = qMax(64, vtop);
@@ -205,12 +203,11 @@ void ScrPaletteBase::showEvent(QShowEvent *showEvent)
 
 void ScrPaletteBase::hide()
 {
-	if (isVisible())
-	{
-		storePosition();
-		storeSize();
-		QDialog::hide();
-	}
+	if (!isVisible())
+		return;
+	storePosition();
+	storeSize();
+	QDialog::hide();
 }
 
 void ScrPaletteBase::reject()
@@ -221,30 +218,27 @@ void ScrPaletteBase::reject()
 
 void ScrPaletteBase::storePosition()
 {
-	if (m_palettePrefs)
-	{
-		QPoint geo = pos();
-		m_palettePrefs->set("left", geo.x());
-		m_palettePrefs->set("top", geo.y());
-	}
+	if (!m_palettePrefs)
+		return;
+	QPoint geo = pos();
+	m_palettePrefs->set("left", geo.x());
+	m_palettePrefs->set("top", geo.y());
 }
 
 void ScrPaletteBase::storePosition(int newX, int newY)
 {
-	if (m_palettePrefs)
-	{
-		m_palettePrefs->set("left", newX);
-		m_palettePrefs->set("top", newY);
-	}
+	if (!m_palettePrefs)
+		return;
+	m_palettePrefs->set("left", newX);
+	m_palettePrefs->set("top", newY);
 }
 
 void ScrPaletteBase::storeSize()
 {
-	if (m_palettePrefs)
-	{
-		m_palettePrefs->set("width", width());
-		m_palettePrefs->set("height", height());
-	}
+	if (!m_palettePrefs)
+		return;
+	m_palettePrefs->set("width", width());
+	m_palettePrefs->set("height", height());
 }
 
 void ScrPaletteBase::storeVisibility(bool vis)

@@ -8,10 +8,10 @@ for which a new license (GPL+exception) is in place.
 #include <algorithm>
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QMap>
-#include <QTransform>
+#include <QScreen>
 #include <QTemporaryFile>
+#include <QTransform>
 
 #include "outputpreview_ps.h"
 #include "commonstrings.h"
@@ -212,7 +212,7 @@ OutputPreview_PS::OutputPreview_PS(QWidget* parent, ScribusDoc* doc) :
 	m_uiBase->pageSelector->setGUIForPage(m_doc->currentPage()->pageNr());
 
 	int w = m_previewLabel->width() + inkTableWidth + 50;
-	resize(qMin(QApplication::desktop()->width() - 30, w), 500);
+	resize(qMin(ScCore->primaryMainWindow()->screen()->size().width() - 30, w), 500);
 
 	//signals and slots
 	connect(m_uiBase->pageSelector, SIGNAL(pageChanged(int)), this, SLOT(jumpToPage(int)));

@@ -6,8 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QMap>
+#include <QScreen>
 #include <QTemporaryFile>
 
 #include "outputpreview_pdf.h"
@@ -190,7 +190,7 @@ OutputPreview_PDF::OutputPreview_PDF(QWidget* parent, ScribusDoc* doc) :
 	m_uiBase->pageSelector->setGUIForPage(m_doc->currentPage()->pageNr());
 
 	int w = m_previewLabel->width() + inkTableWidth + 50;
-	resize(qMin(QApplication::desktop()->width() - 30, w), 500);
+	resize(qMin(ScCore->primaryMainWindow()->screen()->size().width() - 30, w), 500);
 
 	//signals and slots
 	connect(m_uiBase->pageSelector, SIGNAL(pageChanged(int)), this, SLOT(jumpToPage(int)));

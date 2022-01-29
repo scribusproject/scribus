@@ -7,10 +7,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMAGEDIALOG_H
 #define IMAGEDIALOG_H
 
+#include <QDialog>
 #include <QScrollArea>
+#include <QString>
 //#include <QMessageBox>
 
 #include "scimage.h"
+#include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "cmsettings.h"
 
