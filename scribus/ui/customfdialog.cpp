@@ -138,8 +138,8 @@ void FDialogPreview::genPreview(const QString& name)
 	QFileInfo fi(name);
 	if (fi.isDir())
 		return;
-	int w = pixmap()->width();
-	int h = pixmap()->height();
+	int w = pixmap().width();
+	int h = pixmap().height();
 	bool mode = false;
 	QString ext = fi.suffix().toLower();
 	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 1));
@@ -177,7 +177,7 @@ void FDialogPreview::genPreview(const QString& name)
 		QPainter p;
 		QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
 		// Qt4 FIXME imho should be better
-		pm = *pixmap();
+		pm = pixmap();
 		p.begin(&pm);
 		p.fillRect(0, 0, w, h - 44, b);
 		p.fillRect(0, h - 44, w, 44, QColor(255, 255, 255));
@@ -215,7 +215,7 @@ void FDialogPreview::genPreview(const QString& name)
 		im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		QPainter p;
 		QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
-		pm = *pixmap();
+		pm = pixmap();
 		p.begin(&pm);
 		p.fillRect(0, 0, w, h - 21, b);
 		p.fillRect(0, h - 21, w, 21, QColor(255, 255, 255));
@@ -240,7 +240,7 @@ void FDialogPreview::genPreview(const QString& name)
 		im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		QPainter p;
 		QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
-		pm = *pixmap();
+		pm = pixmap();
 		p.begin(&pm);
 		p.fillRect(0, 0, w, h - 21, b);
 		p.fillRect(0, h - 21, w, 21, QColor(255, 255, 255));
@@ -356,7 +356,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 		QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1C->addItem( spacer2 );
 		vboxLayout->addWidget(LayoutC);
-		fileDialog->setFileMode(QFileDialog::DirectoryOnly);
+		fileDialog->setFileMode(QFileDialog::Directory);
 		fileDialog->forceDoubleClickActivation(false);
 		filePreview->hide();
 		showPreview->setVisible(false);
@@ -547,7 +547,7 @@ void CustomFDialog::okClicked()
 	if (selFile.isEmpty())
 		return;
 	QFileInfo fi(selFile);
-	if (fi.isDir() && (fileDialog->fileMode() != QFileDialog::DirectoryOnly))
+	if (fi.isDir() && (fileDialog->fileMode() != QFileDialog::Directory))
 		fileDialog->gotoSelectedDirectory();
 	else
 		accept();

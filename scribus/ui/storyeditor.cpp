@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPalette>
 #include <QPixmap>
 #include <QRegExp>
+#include <QRegularExpression>
 #include <QScopedPointer>
 #include <QScopedValueRollback>
 #include <QScreen>
@@ -481,7 +482,7 @@ void SEditor::handleContentsChange(int position, int charsRemoved, int charsAdde
 			QString addedChars = cursor.selectedText();
 			if (addedChars.length() > 0)
 			{
-				addedChars.replace(QString(0x2029), SpecialChars::PARSEP);
+				addedChars.replace(QChar(0x2029), SpecialChars::PARSEP);
 				StyledText.insertChars(position, addedChars, true);
 			}
 			//qDebug("handleContentsChange : - %01d, + %01d, len %01d", charsRemoved, charsAdded, addedChars.length());
@@ -1055,10 +1056,10 @@ void SEditor::paste()
 		QString data = QApplication::clipboard()->text(QClipboard::Clipboard);
 		if (!data.isEmpty())
 		{
-			data.replace(QRegExp("\r"), "");
+			data.replace(QRegularExpression("\r"), "");
 		//	newParaCount=data.count("\n");
 		//	lengthLastPara=data.length()-data.lastIndexOf("\n");
-			data.replace(QRegExp("\n"), SpecialChars::PARSEP);
+			data.replace(QRegularExpression("\n"), SpecialChars::PARSEP);
 //			inserted=true;
 			advanceLen = data.length() /*- newParaCount*/;
 			insertCharsInternal(data, pos);
@@ -3365,8 +3366,8 @@ void StoryEditor::LoadTextFile()
 			QString txt;
 			if (Serializer::readWithEncoding(fileName, textEncoding, txt))
 			{
-				txt.replace(QRegExp("\r"), "");
-				txt.replace(QRegExp("\n"), QChar(13));
+				txt.replace(QRegularExpression("\r"), "");
+				txt.replace(QRegularExpression("\n"), QChar(13));
 				Editor->loadText(txt, m_item);
 				seActions["editPaste"]->setEnabled(false);
 				seActions["editCopy"]->setEnabled(false);
