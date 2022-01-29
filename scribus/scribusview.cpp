@@ -3203,14 +3203,14 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 {
 	if (w->modifiers() == Qt::ControlModifier)
 	{
-		FPoint mp = m_canvas->globalToCanvas(w->globalPos());
-		w->delta() > 0 ? slotZoomIn(mp.x(), mp.y() , true) : slotZoomOut(mp.x(), mp.y(), true);
+		FPoint mp = m_canvas->globalToCanvas(w->globalPosition());
+		w->pixelDelta().x() > 0 ? slotZoomIn(mp.x(), mp.y() , true) : slotZoomOut(mp.x(), mp.y(), true);
 	}
 	else
 	{
 		int dX = 0, dY = 0;
-		int moveBy = (w->delta() < 0) ? Prefs->uiPrefs.wheelJump : -Prefs->uiPrefs.wheelJump;
-		if ((w->orientation() != Qt::Vertical) || ( w->modifiers() == Qt::ShiftModifier ))
+		int moveBy = (w->pixelDelta().x() < 0) ? Prefs->uiPrefs.wheelJump : -Prefs->uiPrefs.wheelJump;
+		if ((w->angleDelta().y()==0) || ( w->modifiers() == Qt::ShiftModifier ))
 			dX = moveBy;
 		else
 			dY = moveBy;

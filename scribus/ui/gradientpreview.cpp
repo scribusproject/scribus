@@ -301,7 +301,7 @@ void GradientPreview::leaveEvent(QEvent*)
 	}
 }
 
-void GradientPreview::enterEvent(QEvent*)
+void GradientPreview::enterEvent(QEnterEvent *)
 {
 	outside = false;
 }

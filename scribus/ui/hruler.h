@@ -29,15 +29,16 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "styles/paragraphstyle.h"
 
-class PageItem;
+#include <QEnterEvent>
+#include <QMouseEvent>
+#include <QPaintEvent>
 
-class QPaintEvent;
-class QMouseEvent;
+class PageItem;
 class PrefsManager;
 class RulerGesture;
-class ScribusView;
 class ScribusDoc;
 class ScribusMainWindow;
+class ScribusView;
 
 /** \brief Horizontal ruler
 \author Franz Schmid
@@ -82,7 +83,7 @@ private:
 	virtual void mousePressEvent(QMouseEvent *m);
 	virtual void mouseReleaseEvent(QMouseEvent *);
 	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void enterEvent(QEvent *m);
+	virtual void enterEvent(QEnterEvent *m);
 	virtual void leaveEvent(QEvent *m);
 
 	void drawMarks(QPainter& p);

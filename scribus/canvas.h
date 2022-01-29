@@ -154,7 +154,7 @@ public:
 	FPoint localToCanvas(QPoint p) const;
 //	FPoint localToCanvas(QPointF p) const;
 	FPoint globalToCanvas(QPoint p) const;
-//	FPoint globalToCanvas(QPointF p) const;
+	FPoint globalToCanvas(QPointF p) const;
 	QRectF globalToCanvas(QRect p) const;
 //	QRectF globalToCanvas(QRectF p) const;
 	bool hitsCanvasPoint(QPoint globalPoint, const FPoint& canvasPoint) const;

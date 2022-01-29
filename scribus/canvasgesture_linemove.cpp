@@ -131,7 +131,7 @@ void LineMove::mousePressEvent(QMouseEvent *m)
 	PageItem_Line* line = m_doc->m_Selection->count() == 1 ? m_doc->m_Selection->itemAt(0)->asLine() : nullptr;
 	if (line)
 	{
-		bool hitsOrigin = m_canvas->hitsCanvasPoint(m->globalPos(), line->xyPos());
+		bool hitsOrigin = m_canvas->hitsCanvasPoint(m->globalPosition(), line->xyPos());
 		prepare(line, hitsOrigin);
 		// now we also know the line's endpoint:
 		bool hitsEnd = m_canvas->hitsCanvasPoint(m->globalPos(), endPoint());
@@ -139,7 +139,7 @@ void LineMove::mousePressEvent(QMouseEvent *m)
 	}
 	else
 	{
-		FPoint point = m_canvas->globalToCanvas(m->globalPos());
+		FPoint point = m_canvas->globalToCanvas(m->globalPosition());
 		setStartPoint(QPointF(point.x(), point.y()));
 		setEndPoint(QPointF(point.x(), point.y()));
 		m_haveLineItem = false;
@@ -167,7 +167,7 @@ void LineMove::mouseMoveEvent(QMouseEvent *m)
 		double angle = rotation();
 		if (angle > 0)
 			angle = 360 - angle;
-		m_canvas->displaySizeHUD(m->globalPos(), length(), fabs(angle), true);
+		m_canvas->displaySizeHUD(m->globalPosition(), length(), fabs(angle), true);
 	}
 	m->accept();
 	m_canvas->repaint();
@@ -218,7 +218,7 @@ void LineMove::doResize()
 
 void LineMove::adjustBounds(QMouseEvent *m, bool updateCanvas)
 {
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
 
 	double newX = mousePointDoc.x();

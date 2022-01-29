@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QList>
 #include <QFrame>
+#include <QEnterEvent>
 #include <QPaintEvent>
 #include <QMouseEvent>
 #include <QKeyEvent>
@@ -50,7 +51,7 @@ public:
 	void mouseReleaseEvent(QMouseEvent *);
 	void mouseMoveEvent(QMouseEvent *m);
 	void leaveEvent(QEvent*);
-	void enterEvent(QEvent*);
+	void enterEvent(QEnterEvent*);
 	void updateDisplay();
 	void setActColor(const QColor& c, const QString& n, int s);
 	void setActTrans(double t);

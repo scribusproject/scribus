@@ -215,14 +215,10 @@ FPoint Canvas::globalToCanvas(QPoint p) const
 	return localToCanvas(p - (mapToParent(QPoint(0, 0)) + parentWidget()->mapToGlobal(QPoint(0, 0))));
 }
 
-
-/*
 FPoint Canvas::globalToCanvas(QPointF p) const
 {
 	return localToCanvas(p - mapToGlobal(QPoint(0, 0)));
 }
-*/
-
 
 QRectF Canvas::globalToCanvas(QRect p) const
 {

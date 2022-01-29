@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <qglobal.h>
 #include <QApplication>
 #include <QCryptographicHash>
-#include <QDomElement>
 #include <QMessageBox>
 #include <QProcess>
 #include <QSignalBlocker>

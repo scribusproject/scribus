@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef CXFDOCUMENT_H
 #define CXFDOCUMENT_H
 
-#include <QDomDocument>
+#include <QDomElement>
 #include <QList>
 #include <QMap>
 #include <QString>
