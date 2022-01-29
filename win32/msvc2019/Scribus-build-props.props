@@ -7,23 +7,25 @@
 	<SCRIBUS_LIB_ROOT>F:\Scribus Libs\scribus-1.5.x-libs-msvc2019</SCRIBUS_LIB_ROOT>
   </PropertyGroup>
   <Import Project="$(SCRIBUS_LIB_ROOT)\scribus-lib-paths.props" />
-  <!-- Import Qt5 -->
+  <!-- Import Qt6 -->
   <PropertyGroup Label="UserMacros">
-	<!-- Qt5 -->
-	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt\5.15.2\msvc2019</QT5_DIR>
-	<QT5_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt\5.15.2\msvc2019_64</QT5_DIR>
-	<QT5CORE_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Cored.lib</QT5CORE_LIB>
-	<QT5CORE_LIB Condition="'$(Configuration)' == 'Release'">Qt5Core.lib</QT5CORE_LIB>
-	<QT5GUI_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Guid.lib</QT5GUI_LIB>
-	<QT5GUI_LIB Condition="'$(Configuration)' == 'Release'">Qt5Gui.lib</QT5GUI_LIB>
-	<QT5NETWORK_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Networkd.lib</QT5NETWORK_LIB>
-	<QT5NETWORK_LIB Condition="'$(Configuration)' == 'Release'">Qt5Network.lib</QT5NETWORK_LIB>
-	<QT5PRINTSUPPORT_LIB Condition="'$(Configuration)' == 'Debug'">Qt5PrintSupportd.lib</QT5PRINTSUPPORT_LIB>
-	<QT5PRINTSUPPORT_LIB Condition="'$(Configuration)' == 'Release'">Qt5PrintSupport.lib</QT5PRINTSUPPORT_LIB>
-	<QT5WIDGETS_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Widgetsd.lib</QT5WIDGETS_LIB>
-	<QT5WIDGETS_LIB Condition="'$(Configuration)' == 'Release'">Qt5Widgets.lib</QT5WIDGETS_LIB>
-	<QT5XML_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Xmld.lib</QT5XML_LIB>
-	<QT5XML_LIB Condition="'$(Configuration)' == 'Release'">Qt5Xml.lib</QT5XML_LIB>
+	<!-- Qt6 -->
+	<QT6_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt\6.2.3\msvc2019</QT6_DIR>
+	<QT6_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt\6.2.3\msvc2019_64</QT6_DIR>
+	<QT6CORE_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Cored.lib</QT6CORE_LIB>
+	<QT6CORE_LIB Condition="'$(Configuration)' == 'Release'">Qt6Core.lib</QT6CORE_LIB>
+	<QT6CORE5COMPAT_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Core5Compatd.lib</QT6CORE5COMPAT_LIB>
+	<QT6CORE5COMPAT_LIB Condition="'$(Configuration)' == 'Release'">Qt6Core5Compat.lib</QT6CORE5COMPAT_LIB>
+	<QT6GUI_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Guid.lib</QT6GUI_LIB>
+	<QT6GUI_LIB Condition="'$(Configuration)' == 'Release'">Qt6Gui.lib</QT6GUI_LIB>
+	<QT6NETWORK_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Networkd.lib</QT6NETWORK_LIB>
+	<QT6NETWORK_LIB Condition="'$(Configuration)' == 'Release'">Qt6Network.lib</QT6NETWORK_LIB>
+	<QT6PRINTSUPPORT_LIB Condition="'$(Configuration)' == 'Debug'">Qt6PrintSupportd.lib</QT6PRINTSUPPORT_LIB>
+	<QT6PRINTSUPPORT_LIB Condition="'$(Configuration)' == 'Release'">Qt6PrintSupport.lib</QT6PRINTSUPPORT_LIB>
+	<QT6WIDGETS_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Widgetsd.lib</QT6WIDGETS_LIB>
+	<QT6WIDGETS_LIB Condition="'$(Configuration)' == 'Release'">Qt6Widgets.lib</QT6WIDGETS_LIB>
+	<QT6XML_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Xmld.lib</QT6XML_LIB>
+	<QT6XML_LIB Condition="'$(Configuration)' == 'Release'">Qt6Xml.lib</QT6XML_LIB>
 	<!-- LittleCMS 2 -->
 	<LCMS_DIR>$(LCMS2_DIR)</LCMS_DIR>
 	<LCMS_INCLUDE_DIR>$(LCMS2_INCLUDE_DIR)</LCMS_INCLUDE_DIR>
