@@ -7,11 +7,13 @@
 #Require 3.2.0 for add_custom_target with byproducts
 #Require 3.12 for new Find Python modules
 #Require 3.14 for new Fontconfig module
+#Require 3.16 for 1.7.0.svn for Qt 6.2
 
-cmake_minimum_required(VERSION 3.14.0 FATAL_ERROR)
-if (WANT_QT6)
-	cmake_minimum_required(VERSION 3.16.0)
-endif()
+cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
+#keep just in case this changes
+#if (WANT_QT6)
+#	cmake_minimum_required(VERSION 3.16.0)
+#endif()
 cmake_policy(SET CMP0048 NEW)
 message(STATUS "CMake Version: ${CMAKE_VERSION}")
 if (WANT_PCH)
@@ -30,9 +32,9 @@ endif()
 #Final version is ${VERSION} = ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_SUFFIX}
 #where VERSION_SUFFIX is of the form "", "svn" or "Nsvn" (N being the minor patch level)
 set (VERSION_MAJOR "1")
-set (VERSION_MINOR "5")
-set (VERSION_PATCH "8")
-set (VERSION_SUFFIX "")
+set (VERSION_MINOR "7")
+set (VERSION_PATCH "0")
+set (VERSION_SUFFIX "svn")
 set (VERSION ${VERSION_MAJOR})
 if (VERSION_MINOR GREATER -1)
 	set (VERSION ${VERSION}.${VERSION_MINOR})
@@ -395,9 +397,9 @@ endif()
 
 #C++11 Support
 #as of 1.5.5.svn, require C++11
-if (WANT_QT6)
-	set (WANT_CPP17 ON)
-endif()
+#if (WANT_QT6)
+set (WANT_CPP17 ON)
+#endif()
 if(NOT WANT_CPP14 AND NOT WANT_CPP17)
 	message(STATUS "Enabling C++11 compiler features")
 	set(CMAKE_CXX_STANDARD 11)
@@ -605,12 +607,12 @@ if(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
 	set(CPACK_TOPLEVEL_TAG "")
 	set(CPACK_SOURCE_IGNORE_FILES
 		CMakeCache.txt
-		scribus-1.5.8.tar.bz2
-		scribus-1.5.8.tar.7z
-		scribus-1.5.8.tar.gz
-		scribus-1.5.8.svn.tar.bz2
-		scribus-1.5.8.svn.tar.7z
-		scribus-1.5.8.svn.tar.gz
+		scribus-1.7.0.tar.bz2
+		scribus-1.7.0.tar.7z
+		scribus-1.7.0.tar.gz
+		scribus-1.7.0.svn.tar.bz2
+		scribus-1.7.0.svn.tar.7z
+		scribus-1.7.0.svn.tar.gz
 		"~$"
 		"\\\\.cvsignore$"
 		"\\\\.o$"
