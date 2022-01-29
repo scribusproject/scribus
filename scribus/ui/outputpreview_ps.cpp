@@ -963,7 +963,7 @@ void OutputPreview_PS::onInkTableCellDoubleClicked(int row)
 
 	if (m_optionsUi->enableCMYK->isChecked())
 		m_previewLabel->setPixmap(createPreview(m_currentPage, qRound(72 * m_scaleFactor)));
-	m_previewLabel->resize(m_previewLabel->pixmap()->size());
+	m_previewLabel->resize(m_previewLabel->pixmap().size());
 }
 
 void OutputPreview_PS::toggleAllFromHeader()
@@ -976,7 +976,7 @@ void OutputPreview_PS::toggleAllFromHeader()
 
 	if (m_optionsUi->enableCMYK->isChecked())
 		m_previewLabel->setPixmap(createPreview(m_currentPage, qRound(72 * m_scaleFactor)));
-	m_previewLabel->resize(m_previewLabel->pixmap()->size());
+	m_previewLabel->resize(m_previewLabel->pixmap().size());
 }
 
 void OutputPreview_PS::toggleCMYK()
@@ -1004,7 +1004,7 @@ void OutputPreview_PS::toggleCMYK_Colour()
 	}
 	if (m_optionsUi->enableCMYK->isChecked())
 		m_previewLabel->setPixmap(createPreview(m_currentPage, qRound(72 * m_scaleFactor)));
-	m_previewLabel->resize(m_previewLabel->pixmap()->size());
+	m_previewLabel->resize(m_previewLabel->pixmap().size());
 }
 
 void OutputPreview_PS::imageLoadError(QPixmap &pixmap)

@@ -13,6 +13,7 @@
 #ifndef SCTEXTSTREAM_H
 #define SCTEXTSTREAM_H
 
+#include <QIODevice>
 #include <QString>
 #include <QTextStream>
 

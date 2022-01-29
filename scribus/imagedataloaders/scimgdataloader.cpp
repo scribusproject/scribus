@@ -6,6 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scimgdataloader.h"
 
+#include <QIODevice>
+
 ScImgDataLoader::ScImgDataLoader()
 {
 	initialize();
