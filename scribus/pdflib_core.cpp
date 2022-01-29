@@ -1746,7 +1746,7 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 
 	// In some case (arial!), all used glyphs may not be listed in the  encoding map,
 	// and glyphs such as old numerals may be found only in the usedGlyphs map
-	QList<uint> keys = encoding.uniqueKeys() + usedGlyphs.uniqueKeys();
+	QList<uint> keys = encoding.keys() + usedGlyphs.keys();
 	std::sort(keys.begin(), keys.end());
 	auto lastIt = std::unique(keys.begin(), keys.end());
 	keys.erase(lastIt, keys.end());
@@ -2083,7 +2083,7 @@ PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& f
 	QByteArray font;
 	face.rawData(font);
 	/*dumpFont(face.psName() + ".ttf", font);*/
-	QList<ScFace::gid_type> glyphs = usedGlyphs.uniqueKeys();
+	QList<ScFace::gid_type> glyphs = usedGlyphs.keys();
 	glyphs.removeAll(0);
 	glyphs.prepend(0);
 
@@ -2120,7 +2120,7 @@ PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& f
 	face.rawData(data);
 	font = sfnt::getTable(data, "CFF ");
 	/*dumpFont(face.psName() + ".cff", font);*/
-	QList<ScFace::gid_type> glyphs = usedGlyphs.uniqueKeys();
+	QList<ScFace::gid_type> glyphs = usedGlyphs.keys();
 	glyphs.removeAll(0);
 	glyphs.prepend(0);
 
@@ -2147,7 +2147,7 @@ PdfFont PDFLibCore::PDF_WriteOpenTypeSubsetFont(const QByteArray& fontName, ScFa
 {
 	QByteArray data;
 	face.rawData(data);
-	QList<ScFace::gid_type> glyphs = usedGlyphs.uniqueKeys();
+	QList<ScFace::gid_type> glyphs = usedGlyphs.keys();
 	glyphs.removeAll(0);
 	glyphs.prepend(0);
 
@@ -3265,8 +3265,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool)
 //				PutDoc("/BBox [ 0 0 " + FToStr(ActPageP->width()) + " " + FToStr(ActPageP->height()) + " ]\n");
 				
 			Pdf::ResourceDictionary dict;
-			dict.XObject.unite(pageData.ImgObjects);
-			dict.XObject.unite(pageData.XObjects);
+			dict.XObject.insert(pageData.ImgObjects);
+			dict.XObject.insert(pageData.XObjects);
 			dict.Font = pageData.FObjects;
 			dict.Shading = Shadings;
 			dict.Pattern = Patterns;
@@ -4032,8 +4032,8 @@ QByteArray PDFLibCore::Write_FormXObject(QByteArray &data, PageItem *controlItem
 		PutDoc("/BBox [ " + FToStr(-bleedLeft) + " " + FToStr(-Options.bleeds.bottom()) + " " + FToStr(maxBoxX) + " " + FToStr(maxBoxY) + " ]\n");
 	PutDoc("/Resources ");
 	Pdf::ResourceDictionary dict;
-	dict.XObject.unite(pageData.ImgObjects);
-	dict.XObject.unite(pageData.XObjects);
+	dict.XObject.insert(pageData.ImgObjects);
+	dict.XObject.insert(pageData.XObjects);
 	dict.Font = pageData.FObjects;
 	dict.Shading = Shadings;
 	dict.Pattern = Patterns;
@@ -4121,8 +4121,8 @@ QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArr
 	PutDoc("/Group " + Pdf::toObjRef(Gobj) + "\n");
 	PutDoc("/Resources ");
 	Pdf::ResourceDictionary dict;
-	dict.XObject.unite(pageData.ImgObjects);
-	dict.XObject.unite(pageData.XObjects);
+	dict.XObject.insert(pageData.ImgObjects);
+	dict.XObject.insert(pageData.XObjects);
 	dict.Font = pageData.FObjects;
 	dict.Shading = Shadings;
 	dict.Pattern = Patterns;
@@ -4196,7 +4196,7 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 
 	ite->doc()->guidesPrefs().showControls = saveControl;
 	ite->setHasSoftShadow(savedShadow);
-	ScImage img = imgC.alphaChannel().convertToFormat(QImage::Format_RGB32);
+	ScImage img = imgC.convertToFormat(QImage::Format_Alpha8).convertToFormat(QImage::Format_RGB32);
 
 	PdfId maskObj = writer.newObject();
 	writer.startObj(maskObj);
@@ -6209,7 +6209,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			double actualStop = cstops.at(cst)->rampPoint;
 			qStopColor = cstops.at(cst)->color;
 			double a = cstops.at(cst)->opacity;
-			double r, g, b;
+			float r, g, b;
 			qStopColor.getRgbF(&r, &g, &b);
 			if ((GType == 4) || (GType == 5))
 				a = /* 1.0 - */ (0.3 * r + 0.59 * g + 0.11 * b);
@@ -6297,8 +6297,8 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		PutDoc("/Resources ");
 		Pdf::ResourceDictionary dict;
 		dict.Pattern = Patterns;
-		dict.XObject.unite(pageData.ImgObjects);
-		dict.XObject.unite(pageData.XObjects);
+		dict.XObject.insert(pageData.ImgObjects);
+		dict.XObject.insert(pageData.XObjects);
 		writer.write(dict);
 		PutDoc("\n");
 		
@@ -6367,8 +6367,8 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		PutDoc("/Resources ");
 		Pdf::ResourceDictionary dict;
 		dict.Pattern = Patterns;
-		dict.XObject.unite(pageData.ImgObjects);
-		dict.XObject.unite(pageData.XObjects);
+		dict.XObject.insert(pageData.ImgObjects);
+		dict.XObject.insert(pageData.XObjects);
 		writer.write(dict);
 		PutDoc("\n");
 		
@@ -6643,8 +6643,8 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, i
 	PutDoc("/Resources ");
 	
 	Pdf::ResourceDictionary dict;
-	dict.XObject.unite(pageData.ImgObjects);
-	dict.XObject.unite(pageData.XObjects);
+	dict.XObject.insert(pageData.ImgObjects);
+	dict.XObject.insert(pageData.XObjects);
 	dict.Font = pageData.FObjects;
 	dict.Shading = Shadings;
 	dict.Pattern = Patterns;
@@ -9737,8 +9737,8 @@ void PDFLibCore::PDF_xForm(PdfId objNr, double w, double h, const QByteArray& im
 	PutDoc("/Resources ");
 	
 	Pdf::ResourceDictionary dict;
-	dict.XObject.unite(pageData.ImgObjects);
-	dict.XObject.unite(pageData.XObjects);
+	dict.XObject.insert(pageData.ImgObjects);
+	dict.XObject.insert(pageData.XObjects);
 	dict.Font = pageData.FObjects;
 	writer.write(dict);
 
@@ -10937,8 +10937,8 @@ void PDFLibCore::PDF_End_Resources()
 	writer.startObj(writer.ResourcesObj);
 	
 	Pdf::ResourceDictionary dict;
-	dict.XObject.unite(pageData.ImgObjects);
-	dict.XObject.unite(pageData.XObjects);
+	dict.XObject.insert(pageData.ImgObjects);
+	dict.XObject.insert(pageData.XObjects);
 	dict.Font = pageData.FObjects;
 	dict.Shading = Shadings;
 	dict.Pattern = Patterns;

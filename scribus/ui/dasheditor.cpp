@@ -266,7 +266,7 @@ void DashPreview::leaveEvent(QEvent*)
 	m_outside = true;
 }
 
-void DashPreview::enterEvent(QEvent*)
+void DashPreview::enterEvent(QEnterEvent*)
 {
 	m_outside = false;
 }

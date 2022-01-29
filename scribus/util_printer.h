@@ -12,11 +12,10 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <QMarginsF>
 #include <QSizeF>
+#include <QStringList>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-
-class QStringList;
 
 class SCRIBUS_API PrinterUtil
 {

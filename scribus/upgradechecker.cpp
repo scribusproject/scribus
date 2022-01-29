@@ -120,7 +120,7 @@ bool UpgradeChecker::process()
 	if (!m_file)
 		return false;
 	QTextStream ts(m_file);
-	ts.setCodec(QTextCodec::codecForName("UTF-8"));
+	ts.setEncoding(QStringConverter::Utf8);
 	QString errorMsg;
 	int eline;
 	int ecol;

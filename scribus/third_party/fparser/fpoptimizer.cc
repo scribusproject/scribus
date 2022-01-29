@@ -5637,7 +5637,7 @@ using namespace FPoptimizer_CodeTree;
 
 #define FP_MUL_COMBINE_EXPONENTS
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && (_MSC_VER < 1920)
 #include <float.h>
 #define isinf(x) (!_finite(x))
 #endif

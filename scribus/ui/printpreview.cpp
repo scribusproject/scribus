@@ -26,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 #include <QColor>
 #include <QComboBox>
 #include <QCursor>
-#include <QDesktopWidget>
 #include <QFile>
 #include <QGroupBox>
 #include <QHBoxLayout>
@@ -403,7 +402,7 @@ void PrintPreview::toggleCMYK_Colour()
 	}
 	if (m_ui->enableCMYK->isChecked())
 		m_previewLabel->setPixmap(createPreview(m_currentPage, qRound(72 * m_scaleFactor)));
-	m_previewLabel->resize(m_previewLabel->pixmap()->size());
+	m_previewLabel->resize(m_previewLabel->pixmap().size());
 }
 
 void PrintPreview::onInkTableCellDoubleClicked(int row)
@@ -417,7 +416,7 @@ void PrintPreview::onInkTableCellDoubleClicked(int row)
 
 	if (m_ui->enableCMYK->isChecked())
 		m_previewLabel->setPixmap(createPreview(m_currentPage, qRound(72 * m_scaleFactor)));
-	m_previewLabel->resize(m_previewLabel->pixmap()->size());
+	m_previewLabel->resize(m_previewLabel->pixmap().size());
 }
 
 void PrintPreview::onPrintLanguageChange(int /*langIndex*/)
@@ -470,7 +469,7 @@ void PrintPreview::toggleAllFromHeader()
 
 	if (m_ui->enableCMYK->isChecked())
 		m_previewLabel->setPixmap(createPreview(m_currentPage, qRound(72 * m_scaleFactor)));
-	m_previewLabel->resize(m_previewLabel->pixmap()->size());
+	m_previewLabel->resize(m_previewLabel->pixmap().size());
 }
 
 void PrintPreview::scaleBox_valueChanged(int value)

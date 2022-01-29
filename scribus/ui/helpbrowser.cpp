@@ -50,6 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include <QProcess>
 #include <QPushButton>
 #include <QString>
+#include <QStringView>
 #include <QStandardItem>
 #include <QTextEdit>
 #include <QTreeView>
@@ -81,7 +82,7 @@ class HistoryParser2
 
 			QXmlStreamReader sReader(&qFile);
 			QXmlStreamReader::TokenType tagType;
-			QStringRef tagName;
+			QStringView tagName;
 
 			while (!sReader.atEnd() && !sReader.hasError())
 			{
@@ -90,7 +91,7 @@ class HistoryParser2
 					continue;
 
 				tagName = sReader.name();
-				if (tagName != "item")
+				if (tagName != QLatin1String("item"))
 					continue;
 
 				struct histd2 his;
@@ -126,7 +127,7 @@ class BookmarkParser2
 
 			QXmlStreamReader sReader(&qFile);
 			QXmlStreamReader::TokenType tagType;
-			QStringRef tagName;
+			QStringView tagName;
 
 			while (!sReader.atEnd() && !sReader.hasError())
 			{
@@ -135,7 +136,7 @@ class BookmarkParser2
 					continue;
 
 				tagName = sReader.name();
-				if (tagName != "item")
+				if (tagName != QLatin1String("item"))
 					continue;
 
 				QXmlStreamAttributes attrs = sReader.attributes();
@@ -210,7 +211,7 @@ void HelpBrowser::closeEvent(QCloseEvent * event)
 	if (bookFile.open(QIODevice::WriteOnly))
 	{
 		QTextStream stream(&bookFile);
-		stream.setCodec("UTF-8");
+		stream.setEncoding(QStringConverter::Utf8);
 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		stream << "<bookmarks>\n";
 		QTreeWidgetItemIterator it(helpNav->bookmarksView);
@@ -232,7 +233,7 @@ void HelpBrowser::closeEvent(QCloseEvent * event)
 	if (histFile.open(QIODevice::WriteOnly))
 	{
 		QTextStream stream(&histFile);
-		stream.setCodec("UTF-8");
+		stream.setEncoding(QStringConverter::Utf8);
 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		stream << "<history>\n";
 		for (auto it = m_history.cbegin() ; it != m_history.cend(); ++it)

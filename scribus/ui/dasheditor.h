@@ -53,7 +53,7 @@ public:
 	void mouseReleaseEvent(QMouseEvent *) override;
 	void mouseMoveEvent(QMouseEvent *m) override;
 	void leaveEvent(QEvent*) override;
-	void enterEvent(QEvent*) override;
+	void enterEvent(QEnterEvent*) override;
 
 	const QVector<double>& dashValues() const { return m_dashValues; }
 	void setDashValues(const QVector<double>& vals);

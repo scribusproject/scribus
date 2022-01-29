@@ -1960,8 +1960,8 @@ bool PrefsManager::writePref(const QString& filePath)
 	else
 	{
 		QTextStream s(&f);
-		s.setCodec("UTF-8");
-		s<<docu.toString();
+		s.setEncoding(QStringConverter::Utf8);
+		s << docu.toString();
 		if (f.error()==QFile::NoError)
 			result = true;
 		else
@@ -1982,7 +1982,7 @@ bool PrefsManager::readPref(const QString& filePath)
 		return false;
 	}
 	QTextStream ts(&f);
-	ts.setCodec("UTF-8");
+	ts.setEncoding(QStringConverter::Utf8);
 	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;

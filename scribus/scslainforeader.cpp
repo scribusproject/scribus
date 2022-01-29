@@ -58,10 +58,10 @@ bool ScSlaInfoReader::readInfos(const QString& fileName)
 
 		if (ttype == QXmlStreamReader::StartElement)
 		{
-			QStringRef nodeName = reader.name();
+			QStringView nodeName = reader.name();
 			if (firstStartElement)
 			{
-				if (nodeName == "SCRIBUS" || nodeName == "SCRIBUSUTF8" || nodeName == "SCRIBUSUTF8NEW")
+				if (nodeName == QLatin1String("SCRIBUS") || nodeName == QLatin1String("SCRIBUSUTF8") || nodeName == QLatin1String("SCRIBUSUTF8NEW"))
 				{
 					QXmlStreamAttributes attrs = reader.attributes();
 					m_format = attrs.value(QLatin1String("Version")).toString();
@@ -73,7 +73,7 @@ bool ScSlaInfoReader::readInfos(const QString& fileName)
 					break;
 				}
 			}
-			else if (nodeName == "DOCUMENT")
+			else if (nodeName == QLatin1String("DOCUMENT"))
 			{
 				QXmlStreamAttributes attrs = reader.attributes();
 				m_title  = attrs.value(QLatin1String("TITLE")).toString();

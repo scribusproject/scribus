@@ -513,7 +513,7 @@ void ScribusView::requestMode(int appMode)
 		updateCanvas();
 }
 
-void ScribusView::enterEvent(QEvent * e)
+void ScribusView::enterEvent(QEnterEvent* e)
 {
 	m_canvasMode->enterEvent(e);
 }

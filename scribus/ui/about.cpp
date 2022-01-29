@@ -216,7 +216,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	{
 		QTextStream inTS(&licenceFile);
 		inTS.setAutoDetectUnicode(true);
-		inTS.setCodec("UTF-8");
+		inTS.setEncoding(QStringConverter::Utf8);
 		QString licenceText = inTS.readAll();
 		textViewLicence->setPlainText(licenceText);
 	} 
@@ -349,7 +349,7 @@ QString About::parseAuthorFile(const QString& fileName)
 	if (authorsFile.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
 		QTextStream inTS(&authorsFile);
-		inTS.setCodec("UTF-8");
+		inTS.setEncoding(QStringConverter::Utf8);
 		inTS.setAutoDetectUnicode(true);
 		QString lineTS;
 		QStringList fieldTS;
@@ -437,7 +437,7 @@ QString About::parseTranslationFile(const QString& fileName)
 	if (translationFile.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
 		QTextStream inTS(&translationFile);
-		inTS.setCodec("UTF-8");
+		inTS.setEncoding(QStringConverter::Utf8);
 		inTS.setAutoDetectUnicode(true);
 		QString lineTS;
 		QStringList fieldTS;
@@ -548,7 +548,7 @@ QString About::parseTranslationFile(const QString& fileName)
 				{
 					result += l.value();
 
-					QMapIterator<QString, QString> n(names);
+					QMultiMapIterator<QString, QString> n(names);
 					while (n.hasNext())
 					{
 						n.next();
@@ -593,7 +593,7 @@ QString About::parseLinksFile(const QString& fileName)
 	if (linksFile.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
 		QTextStream inTS(&linksFile);
-		inTS.setCodec("UTF-8");
+		inTS.setEncoding(QStringConverter::Utf8);
 		inTS.setAutoDetectUnicode(true);
 		QString lineTS;
 		bool isTitle = true;

@@ -112,7 +112,7 @@ bool LatexConfigParser::parseConfigFile(QString fn)
 		xml.readNext();
 		if (xml.isWhitespace() || xml.isComment() || xml.isStartDocument() || xml.isEndDocument())
 			continue;
-		if (xml.isStartElement() && xml.name() == "editorsettings")
+		if (xml.isStartElement() && xml.name() == QLatin1String("editorsettings"))
 		{
 			m_description = xml.attributes().value("description").toString();
 			m_icon = xml.attributes().value("icon").toString();
@@ -134,8 +134,10 @@ void LatexConfigParser::parseElements()
 	while (!xml.atEnd())
 	{
 		xml.readNext();
-		if (xml.isEndElement() && xml.name() == "editorsettings") break;
-		if (xml.isWhitespace() || xml.isComment() || xml.isEndElement()) continue;
+		if (xml.isEndElement() && xml.name() == QLatin1String("editorsettings"))
+			break;
+		if (xml.isWhitespace() || xml.isComment() || xml.isEndElement())
+			continue;
 		if (!xml.isStartElement())
 		{
 			formatError("Unexpected element in <editorsettings>"+xml.name().toString()+", Token String: "+
@@ -143,19 +145,19 @@ void LatexConfigParser::parseElements()
 			continue;
 		}
 	
-		if (xml.name() == "executable") {
+		if (xml.name() == QLatin1String("executable")){
 			m_executable = xml.attributes().value("command").toString();
-		} else if (xml.name() == "imagefile") {
+		} else if (xml.name() == QLatin1String("imagefile")) {
 			m_imageExtension = xml.attributes().value("extension").toString();
-		} else if (xml.name() == "highlighter") {
+		} else if (xml.name() == QLatin1String("highlighter")) {
 			parseHighlighter();
-		} else if (xml.name() == "empty-frame-text") {
+		} else if (xml.name() == QLatin1String("empty-frame-text")) {
 			m_emptyFrameText = xml.readI18nText(true);
-		} else if (xml.name() == "preamble") {
+		} else if (xml.name() == QLatin1String("preamble")) {
 			m_preamble = xml.readElementText();
-		} else if (xml.name() == "postamble") {
+		} else if (xml.name() == QLatin1String("postamble")) {
 			m_postamble = xml.readElementText();
-		} else if (xml.name() == "tab") {
+		} else if (xml.name() == QLatin1String("tab")) {
 			parseTab();
 		} else {
 			formatError("Unknown tag in <editorsettings>: "+xml.name().toString());
@@ -171,11 +173,11 @@ void LatexConfigParser::formatError(const QString& message)
 	m_error += new_error + "\n";
 }
 
-bool LatexConfigParser::StrRefToBool(const QStringRef &str) const
+bool LatexConfigParser::StrViewToBool(const QStringView& str) const
 {
-	if (str == "1" || str == "true")
+	if (str == QLatin1String("1") || str == QLatin1String("true"))
 		return true;
-	if (str == "0" || str == "false" || str.isEmpty())
+	if (str == QLatin1String("0") || str == QLatin1String("false") || str.isEmpty())
 		return false;
 	qWarning() << "Invalid bool string:" << str.toString();
 	return false;
@@ -190,11 +192,11 @@ void LatexConfigParser::parseHighlighter()
 		xml.readNext();
 		if (xml.isWhitespace() || xml.isComment())
 			continue;
-		if (xml.isEndElement() && xml.name() == "highlighter")
+		if (xml.isEndElement() && xml.name() == QLatin1String("highlighter"))
 			break;
-		if (xml.isEndElement() && xml.name() == "rule")
+		if (xml.isEndElement() && xml.name() == QLatin1String("rule"))
 			continue;
-		if (!xml.isStartElement() || xml.name() != "rule")
+		if (!xml.isStartElement() || xml.name() != QLatin1String("rule"))
 		{
 			formatError("Unexpected element in <highlighter>: "+
 				xml.name().toString()+", Token String: "+
@@ -202,10 +204,10 @@ void LatexConfigParser::parseHighlighter()
 			continue;
 		}
 		QString regex = xml.attributes().value("regex").toString();
-		bool bold = StrRefToBool(xml.attributes().value("bold"));
-		bool italic = StrRefToBool(xml.attributes().value("italic"));
-		bool underline = StrRefToBool(xml.attributes().value("underline"));
-		bool minimal = StrRefToBool(xml.attributes().value("minimal"));
+		bool bold = StrViewToBool(xml.attributes().value("bold"));
+		bool italic = StrViewToBool(xml.attributes().value("italic"));
+		bool underline = StrViewToBool(xml.attributes().value("underline"));
+		bool minimal = StrViewToBool(xml.attributes().value("minimal"));
 		QString colorStr = xml.attributes().value("color").toString();
 		QColor color(colorStr);
 		if (!color.isValid())
@@ -237,21 +239,23 @@ void LatexConfigParser::parseTab()
 	while (!xml.atEnd())
 	{
 		xml.readNext();
-		if (xml.isWhitespace() || xml.isComment()) continue;
-		if (xml.isEndElement() && xml.name() == "tab") break;
+		if (xml.isWhitespace() || xml.isComment())
+			continue;
+		if (xml.isEndElement() && xml.name() == QLatin1String("tab"))
+			break;
 		if (!xml.isStartElement())
 		{
 			formatError("Unexpected element in <tab>: "+xml.name().toString()+", Token String: "+
 								 xml.tokenString());
 			continue;
 		}
-		if (xml.name() == "title")
+		if (xml.name() == QLatin1String("title"))
 		{
 			if (!title.isEmpty())
 				formatError("Second <title> tag in <tab>");
 			title = xml.readI18nText();
 		}
-		else if (xml.name() == "item")
+		else if (xml.name() == QLatin1String("item"))
 		{
 			if (!itemstab)
 				formatError("Found <item> in a 'settings'-tab!");
@@ -259,15 +263,18 @@ void LatexConfigParser::parseTab()
 //			QString img = xml.attributes().value("image").toString();
 			text = xml.readI18nText();
 		}
-		else if (xml.name() == "comment" || xml.name() == "font"
-				|| xml.name() == "spinbox" || xml.name() == "color"
-				|| xml.name() == "text" || xml.name() == "list")
+		else if (xml.name() == QLatin1String("comment") ||
+			     xml.name() == QLatin1String("font") ||
+				 xml.name() == QLatin1String("spinbox") || 
+			     xml.name() == QLatin1String("color") ||
+				 xml.name() == QLatin1String("text") ||
+			     xml.name() == QLatin1String("list"))
 		{
 			//TODO: Store this + attributes in a list
 //			QString tagname = xml.name().toString();
 			name = xml.attributes().value("name").toString();
 			default_value = xml.attributes().value("default").toString();
-			if (xml.name() != "list")
+			if (xml.name() != QLatin1String("list"))
 				text = xml.readI18nText();
 			else
 				ignoreList();
@@ -294,7 +301,8 @@ void LatexConfigParser::ignoreList()
 	while (!xml.atEnd())
 	{
 		xml.readNext();
-		if (xml.isEndElement() && xml.name() == "list") break;
+		if (xml.isEndElement() && xml.name() == QLatin1String("list"))
+			break;
 	}
 }
 
@@ -351,7 +359,7 @@ QString I18nXmlStreamReader::readI18nText(bool unindent)
 		{
 			if (isEndElement())
 			{
-				if (name() == "i18n")
+				if (name() == QLatin1String("i18n"))
 				{
 					i18n = false;
 				}
@@ -389,7 +397,7 @@ QString I18nXmlStreamReader::readI18nText(bool unindent)
 		{
 			if (isStartElement())
 			{
-				if (name() == "i18n")
+				if (name() == QLatin1String("i18n"))
 				{
 					i18n = true;
 					continue;

@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QProcess>
 #include <QSignalBlocker>
+#include <QStringView>
 
 #include "pageitem.h"
 #include "pageitem_table.h"
@@ -762,8 +763,8 @@ void parsePagesString(const QString& pages, std::vector<int>* pageNs, int source
 		}
 		else if (token.indexOf("-") != -1) // import a range of source doc pages
 		{
-			int from = QStringRef(token.leftRef(token.indexOf("-"))).toInt();
-			int to = QStringRef(token.rightRef(token.length() - token.indexOf("-") - 1)).toInt();
+			int from = QStringView(token).first(token.indexOf("-")).toInt();
+			int to = QStringView(token).last(token.length() - token.indexOf("-") - 1).toInt();
 			if ((from != 0) && (to != 0))
 			{
 				if (from > sourcePageCount)

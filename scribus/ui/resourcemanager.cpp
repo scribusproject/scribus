@@ -117,7 +117,7 @@ void ResourceManager::readAvailableFonts()
 		return;
 
 	QTextStream ts(&dataFile);
-	ts.setCodec(QTextCodec::codecForName("UTF-8"));
+	ts.setEncoding(QStringConverter::Utf8);
 	QString errorMsg;
 	int eline;
 	int ecol;
@@ -175,7 +175,7 @@ void ResourceManager::readAvailableHelp()
 		return;
 
 	QTextStream ts(&dataFile);
-	ts.setCodec(QTextCodec::codecForName("UTF-8"));
+	ts.setEncoding(QStringConverter::Utf8);
 	QString errorMsg;
 	int eline;
 	int ecol;
@@ -231,7 +231,7 @@ void ResourceManager::readAvailablePalettes()
 		return;
 
 	QTextStream ts(&dataFile);
-	ts.setCodec(QTextCodec::codecForName("UTF-8"));
+	ts.setEncoding(QStringConverter::Utf8);
 	QString errorMsg;
 	int eline;
 	int ecol;
@@ -566,7 +566,7 @@ void ResourceManager::updateAvailableHyph()
 		return;
 
 	QTextStream ts(&dataFile);
-	ts.setCodec(QTextCodec::codecForName("UTF-8"));
+	ts.setEncoding(QStringConverter::Utf8);
 	QString errorMsg;
 	int eline;
 	int ecol;
@@ -666,7 +666,7 @@ void ResourceManager::updateAvailableSpell()
 		return;
 
 	QTextStream ts(&dataFile);
-	ts.setCodec(QTextCodec::codecForName("UTF-8"));
+	ts.setEncoding(QStringConverter::Utf8);
 	QString errorMsg;
 	int eline;
 	int ecol;

@@ -847,7 +847,7 @@ XmlWidget* XmlWidget::fromXml(I18nXmlStreamReader *xml)
 		return new XmlFontComboBox(xml);
 	if (tagname == QStringView(u"spinbox"))
 	{
-		if (xml->attributes().value("type") == "double")
+		if (xml->attributes().value("type") == QStringView(u"double"))
 			return new XmlDoubleSpinBox(xml);
 		return new XmlSpinBox(xml);
 	}
@@ -855,7 +855,7 @@ XmlWidget* XmlWidget::fromXml(I18nXmlStreamReader *xml)
 		return new XmlColorPicker(xml);
 	if (tagname == QStringView(u"text"))
 	{
-		if (xml->attributes().value("type") == "long")
+		if (xml->attributes().value("type") == QStringView(u"long"))
 			return new XmlTextEdit(xml);
 		return new XmlLineEdit(xml);
 	}

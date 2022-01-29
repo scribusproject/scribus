@@ -31,7 +31,7 @@ void nfttemplate::remove()
 	QString tmp;
 	bool collect = false;
 	QTextStream stream(&tmplXml);
-	stream.setCodec("UTF-8");
+	stream.setEncoding(QStringConverter::Utf8);
 	QString line = stream.readLine();
 	while (!line.isNull())
 	{
@@ -76,7 +76,7 @@ void nfttemplate::remove()
 	if (tmplXml.open(QIODevice::WriteOnly))
 	{
 		QTextStream instream(&tmplXml);
-		instream.setCodec("UTF-8");
+		instream.setEncoding(QStringConverter::Utf8);
 		instream << newTmplXml;
 		tmplXml.close();
 	}

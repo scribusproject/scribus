@@ -584,7 +584,7 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 		{
 			qStopColor = colorStops[ offset ]->color;
 			double a = colorStops[offset]->opacity;
-			double r, g, b;
+			float r, g, b;
 			qStopColor.getRgbF(&r, &g, &b);
 			if (m_maskMode == 3)
 				a = /* 1.0 - */(0.3 * r + 0.59 * g + 0.11 * b);
@@ -679,7 +679,7 @@ void ScPainter::fillPathHelper()
 		cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
 	if (m_fillMode == 1)
 	{
-		double r, g, b;
+		float r, g, b;
 		m_fill.getRgbF(&r, &g, &b);
 		if (m_maskMode > 0)
 		{
@@ -720,7 +720,7 @@ void ScPainter::fillPathHelper()
 			cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 			cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 			cairo_set_tolerance(cr, 0.5);
-			double r, g, b, a;
+			float r, g, b, a;
 			mpat = cairo_pattern_create_mesh();
 			cairo_mesh_pattern_begin_patch(mpat);
 			cairo_mesh_pattern_move_to(mpat, p1x, p1y);
@@ -763,7 +763,7 @@ void ScPainter::fillPathHelper()
 			cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 			cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 			cairo_set_tolerance(cr, 0.5);
-			double r, g, b, a;
+			float r, g, b, a;
 			QList<VColorStop*> colorStops = fill_gradient.colorStops();
 			QList<QColor> qStopColors;
 			QList<double> qStopRampPoints;
@@ -939,7 +939,7 @@ void ScPainter::fillPathHelper()
 			cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 			cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 			cairo_set_tolerance(cr, 0.5);
-			double r, g, b, a;
+			float r, g, b, a;
 			mpat = cairo_pattern_create_mesh();
 			for (int grow = 0; grow < meshGradientArray.count()-1; grow++)
 			{
@@ -986,7 +986,7 @@ void ScPainter::fillPathHelper()
 			cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 			cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 			cairo_set_tolerance(cr, 0.5);
-			double r, g, b, a;
+			float r, g, b, a;
 			mpat = cairo_pattern_create_mesh();
 			for (int col = 0; col < meshGradientPatches.count(); col++)
 			{
@@ -1049,7 +1049,7 @@ void ScPainter::fillPathHelper()
 					continue;
 				isFirst = false;
 				double a = colorStops[offset]->opacity;
-				double r, g, b;
+				float r, g, b;
 				colorStops[ offset ]->color.getRgbF(&r, &g, &b);
 				cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
 				lastPoint = rampPoint;
@@ -1148,12 +1148,12 @@ void ScPainter::fillPathHelper()
 		cairo_push_group(m_cr);
 		if (m_hatchUseBackground && m_hatchBackground.isValid())
 		{
-			double r2, g2, b2;
+			float r2, g2, b2;
 			m_hatchBackground.getRgbF(&r2, &g2, &b2);
 			cairo_set_source_rgb(m_cr, r2, g2, b2);
 			cairo_fill_preserve(m_cr);
 		}
-		double r, g, b;
+		float r, g, b;
 		m_hatchForeground.getRgbF(&r, &g, &b);
 		cairo_clip_preserve (m_cr);
 		cairo_set_line_width(m_cr, 1);
@@ -1321,7 +1321,7 @@ void ScPainter::strokePathHelper()
 				continue;
 			isFirst = false;
 			double a = colorStops[offset]->opacity;
-			double r, g, b;
+			float r, g, b;
 			colorStops[ offset ]->color.getRgbF(&r, &g, &b);
 			cairo_pattern_add_color_stop_rgba (pat, rampPoint, r, g, b, a);
 			lastPoint = rampPoint;
@@ -1356,7 +1356,7 @@ void ScPainter::strokePathHelper()
 	}
 	else
 	{
-		double r, g, b;
+		float r, g, b;
 		m_stroke.getRgbF(&r, &g, &b);
 		cairo_set_source_rgba(m_cr, r, g, b, m_stroke_trans);
 		setRasterOp(m_blendModeStroke);
@@ -1608,7 +1608,7 @@ void ScPainter::drawText(const QRectF& area, const QString& text, bool filled, i
 	double y = area.y();
 	double ww = 0;
 	double hh = 0;
-	double r, g, b;
+	float r, g, b;
 
 	assert(!m_font.isNone());
 

@@ -448,8 +448,8 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 	return nfa;
 }
 
-struct CreateDFAState : public std::unary_function <std::set<nfa_state_t>, dfa_state_t> {
-
+struct CreateDFAState
+{
 	CreateDFAState(const std::vector<rule_t>& rules, const std::vector<nfa_state_t>& accepting) 
 	: n(0), rules_(rules), accepting_(accepting) 
 	{}

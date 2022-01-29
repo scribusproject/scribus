@@ -336,7 +336,7 @@ public:
 	bool handleObjectImport(QMimeData* mimeData, TransactionSettings* trSettings = nullptr);
 
 protected: // Protected methods
-	void enterEvent(QEvent *) override;
+	void enterEvent(QEnterEvent *) override;
 	void leaveEvent(QEvent *) override;
 	void resizeEvent(QResizeEvent *event) override;
 	bool eventFilter(QObject *obj, QEvent *event) override;

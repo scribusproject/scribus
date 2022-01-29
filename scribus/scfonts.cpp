@@ -1226,7 +1226,7 @@ void SCFonts::readFontCache(const QString& pf)
 		return;
 	ScCore->setSplashStatus( QObject::tr("Reading Font Cache") );
 	QTextStream ts(&f);
-	ts.setCodec("UTF-8");
+	ts.setEncoding(QStringConverter::Utf8);
 	QString errorMsg;
 	int errorLine = 0, errorColumn = 0;
 	if ( !docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
@@ -1289,7 +1289,7 @@ void SCFonts::writeFontCache(const QString& pf)
 	if (!file.open(QIODevice::WriteOnly))
 		return;
 	QTextStream s(&file);
-	s.setCodec("UTF-8");
+	s.setEncoding(QStringConverter::Utf8);
 	s << docu.toString();
 	file.close();
 }

@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QMessageBox>
 #include <QPainter>
+#include <QStringView>
 
 #include "commonstrings.h"
 #include "iconmanager.h"
@@ -260,8 +261,8 @@ void SeView::dropEvent(QDropEvent * e)
 		{
 			int st = str.indexOf(" ");
 			int en = str.indexOf(" ", st + 1);
-			tmp = str.mid(en+1);
-			int dr = str.midRef(st, en-st).toInt();
+			tmp = str.mid(en + 1);
+			int dr = QStringView(str).sliced(st, en - st).toInt();
 			int a = rowAt(e->pos().y());
 			int b = columnAt(e->pos().x());
 			if ((a == -1) || (b == -1))
@@ -491,8 +492,8 @@ void TrashBin::dropEvent(QDropEvent * e)
 		if (str.startsWith("2"))
 		{
 			int st = str.indexOf(" ");
-			int en = str.indexOf(" ", st+1);
-			emit delPageRequest(str.midRef(st, en - st).toInt());
+			int en = str.indexOf(" ", st + 1);
+			emit delPageRequest(QStringView(str).sliced(st, en - st).toInt());
 		}
 		if (str.startsWith("1"))
 		{

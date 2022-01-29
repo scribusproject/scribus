@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSet>
 #include <QSignalMapper>
 #include <QSpacerItem>
+#include <QStringView>
 #include <QToolBox>
 #include <QToolButton>
 #include <QToolTip>
@@ -138,7 +139,7 @@ void BibView::dropEvent(QDropEvent *e)
 		if (e->source() == this)
 			return;
 		QString text = e->mimeData()->text();
-		int startElemPos = text.leftRef(512).indexOf("<SCRIBUSELEM");
+		int startElemPos = QStringView(text).first(512).indexOf(QStringView(u"<SCRIBUSELEM"));
 		if (startElemPos >= 0)
 			emit objDropped(text);
 	}

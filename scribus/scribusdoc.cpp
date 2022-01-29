@@ -38,8 +38,9 @@ for which a new license (GPL+exception) is in place.
 #include <QPointer>
 #include <QProgressBar>
 #include <QRandomGenerator>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QScopedValueRollback>
+#include <QStringList>
 #include <QtAlgorithms>
 #include <QTime>
 #include <QTransform>
@@ -4239,7 +4240,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, QStrin
 		int stop = it->isTextFrame() ? it->lastInFrame() + 1 : it->itemText.length();
 		for (int e = start; e < stop; ++e)
 		{
-			uint chr = it->itemText.text(e).unicode();
+			QChar chr = it->itemText.text(e);
 			if ((chr == SpecialChars::PAGENUMBER) || (chr == SpecialChars::PAGECOUNT))
 			{
 				hasPageNumbers = true;

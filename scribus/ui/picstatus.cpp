@@ -230,7 +230,7 @@ void PicStatus::sortByName()
 
 void PicStatus::sortByPage()
 {
-	QMap<int, PicItem*> sorted;
+	QMultiMap<int, PicItem*> sorted;
 
 	int num = imageViewArea->count();
 	if (num == 0)
@@ -241,7 +241,7 @@ void PicStatus::sortByPage()
 	{
 		QListWidgetItem *ite = imageViewArea->takeItem(a);
 		PicItem *item = (PicItem*)ite;
-		sorted.insertMulti(item->PageItemObject->OwnPage, item);
+		sorted.insert(item->PageItemObject->OwnPage, item);
 	}
 	int counter = 0;
 	foreach (int i, sorted.uniqueKeys())

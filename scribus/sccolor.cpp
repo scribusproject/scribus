@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <cassert>
 
+#include <QStringView>
+
 #include "commonstrings.h"
 #include "sccolor.h"
 #include "sccolorengine.h"
@@ -367,17 +369,19 @@ void ScColor::setNamedColor(QString colorName)
 	bool ok;
 	if (colorName.length () == 9)
 	{
-		int c = colorName.midRef(1,2).toInt(&ok, 16);
-		int m = colorName.midRef(3,2).toInt(&ok, 16);
-		int y = colorName.midRef(5,2).toInt(&ok, 16);
-		int k = colorName.midRef(7,2).toInt(&ok, 16);
+		QStringView colorNameView(colorName);
+		int c = colorNameView.sliced(1, 2).toInt(&ok, 16);
+		int m = colorNameView.sliced(3, 2).toInt(&ok, 16);
+		int y = colorNameView.sliced(5, 2).toInt(&ok, 16);
+		int k = colorNameView.sliced(7, 2).toInt(&ok, 16);
 		setColor(c, m, y, k);
 	}
 	else if (colorName.length () == 7)
 	{
-		int r = colorName.midRef(1,2).toInt(&ok, 16);
-		int g = colorName.midRef(3,2).toInt(&ok, 16);
-		int b = colorName.midRef(5,2).toInt(&ok, 16);
+		QStringView colorNameView(colorName);
+		int r = colorNameView.sliced(1, 2).toInt(&ok, 16);
+		int g = colorNameView.sliced(3, 2).toInt(&ok, 16);
+		int b = colorNameView.sliced(5, 2).toInt(&ok, 16);
 		setRgbColor(r, g, b);
 	}
 }

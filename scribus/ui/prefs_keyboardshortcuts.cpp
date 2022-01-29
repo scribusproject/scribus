@@ -155,7 +155,7 @@ void Prefs_KeyboardShortcuts::importKeySet(const QString& filename)
 	if ( !file1.open( QIODevice::ReadOnly ) )
 		return;
 	QTextStream ts(&file1);
-	ts.setCodec("UTF-8");
+	ts.setEncoding(QStringConverter::Utf8);
 	QString errorMsg;
 	int eline;
 	int ecol;

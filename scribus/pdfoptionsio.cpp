@@ -40,7 +40,7 @@ bool PDFOptionsIO::writeTo(const QString& outFileName, bool includePasswords)
 		return false;
 	}
 	QTextStream ts(&f);
-	ts.setCodec("UTF-8");
+	ts.setEncoding(QStringConverter::Utf8);
 	ts << xml;
 	m_includePasswords = false; // just to be paranoid
 	m_error.clear();
@@ -59,7 +59,7 @@ bool PDFOptionsIO::writeTo(QIODevice& outDevice, bool includePasswords)
 	if (xml.isNull())
 		return false;
 	QTextStream ts(&outDevice);
-	ts.setCodec("UTF-8");
+	ts.setEncoding(QStringConverter::Utf8);
 	ts << xml;
 	m_includePasswords = false; // just to be paranoid
 	m_error.clear();

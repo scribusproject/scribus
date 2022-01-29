@@ -773,7 +773,7 @@ void ScAnnot::DecodeCalc()
 	if (pfol.count() > 1)
 	{
 		tm2 = pfol[0].simplified();
-		tm += tm2.midRef(1, tm2.length()-2);
+		tm += tm2.mid(1, tm2.length() - 2);
 		for (int cfx = 1; cfx < pfol.count(); ++cfx)
 		{
 			tm2 = pfol[cfx].simplified();
@@ -782,7 +782,7 @@ void ScAnnot::DecodeCalc()
 	}
 	CalcFields->setText(tm);
 	ss = pfor.indexOf("(");
-	pfo = pfor.mid(ss+1, pfor.length()-ss-3);
+	pfo = pfor.mid(ss + 1, pfor.length() - ss - 3);
 	pfol = pfo.split(",", Qt::SkipEmptyParts);
 	/* PFJ - 28/02/04 - Let's get rid of lots of ifs.... */
 	QString pf[] = {"\"SUM\"", "\"PRD\"", "\"AVG\"", "\"MIN\"", "\"MAX\""};

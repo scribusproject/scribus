@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCursor>
 #include <QCheckBox>
 #include <QByteArray>
+#include <QStringView>
 #include <unicode/brkiter.h>
 
 #include "langmgr.h"
@@ -188,7 +189,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	  			int i = 0;
 				buffer[te.length()] = '\0';
 				bool hasHyphen = false;
-				for (i = 1; i < wordLower.length()-1; ++i)
+				for (i = 1; i < wordLower.length() - 1; ++i)
 				{
 					if(buffer[i] & 1)
 					{
@@ -199,13 +200,13 @@ void Hyphenator::slotHyphenate(PageItem* it)
 				QString outs = "";
 				QString input = "";
 				outs += word[0];
-				for (i = 1; i < wordLower.length()-1; ++i)
+				for (i = 1; i < wordLower.length() - 1; ++i)
 				{
 					outs += word[i];
 					if(buffer[i] & 1)
 						outs += "-";
 				}
-				outs += word.rightRef(1);
+				outs += QStringView(word).last();
 				input = outs;
 				if (!ignoredWords.contains(word))
 				{

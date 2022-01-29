@@ -88,7 +88,7 @@ void PrefsFile::write()
 		return;
 
 	QTextStream stream(&prefsXML);
-	stream.setCodec("UTF-8");
+	stream.setEncoding(QStringConverter::Utf8);
 	stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	stream << "<preferences>\n";
 	if (!m_contexts.empty())

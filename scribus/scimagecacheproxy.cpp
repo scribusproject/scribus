@@ -141,7 +141,7 @@ bool ScImageCacheProxy::loadMetadata(ScLockedFile *file, MetaMap *meta, MetaMap 
 		{
 			QXmlStreamAttributes attr = xml.attributes();
 
-			if (xml.name() == "cache")
+			if (xml.name() == QLatin1String("cache"))
 			{
 				if (attr.hasAttribute("base"))
 				{
@@ -151,7 +151,7 @@ bool ScImageCacheProxy::loadMetadata(ScLockedFile *file, MetaMap *meta, MetaMap 
 					baseFound = true;
 				}
 			}
-			else if (xml.name() == "metadata")
+			else if (xml.name() == QLatin1String("metadata"))
 			{
 				if (meta)
 				{
@@ -163,7 +163,7 @@ bool ScImageCacheProxy::loadMetadata(ScLockedFile *file, MetaMap *meta, MetaMap 
 
 				metaFound = true;
 			}
-			else if (xml.name() == "modifier")
+			else if (xml.name() == QLatin1String("modifier"))
 			{
 				if (mod)
 				{
@@ -175,7 +175,7 @@ bool ScImageCacheProxy::loadMetadata(ScLockedFile *file, MetaMap *meta, MetaMap 
 
 				modFound = true;
 			}
-			else if (xml.name() == "imginfo")
+			else if (xml.name() == QLatin1String("imginfo"))
 			{
 				if (info)
 				{
@@ -602,7 +602,7 @@ bool ScImageCacheProxy::loadRef(ScLockedFile *file, int & refcount)
 		{
 			QXmlStreamAttributes attr = xml.attributes();
 
-			if (xml.name() == "reference")
+			if (xml.name() == QLatin1String("reference"))
 				if (attr.hasAttribute("count"))
 					refcount = attr.value("count").toString().toInt(&refcountFound);
 		}

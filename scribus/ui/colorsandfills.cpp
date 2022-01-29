@@ -1771,7 +1771,7 @@ void ColorsAndFillsDialog::loadScribusFormat(const QString& fileName)
 		return;
 	QDomDocument docu("scridoc");
 	QTextStream ts(&f);
-	ts.setCodec("UTF-8");
+	ts.setEncoding(QStringConverter::Utf8);
 	QString errorMsg;
 	int errorLine = 0, errorColumn = 0;
 	if (!docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )

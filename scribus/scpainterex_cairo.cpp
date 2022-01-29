@@ -452,7 +452,7 @@ void ScPainterEx_Cairo::fillPathHelper()
 		cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
 	if (m_fillMode == ScPainterExBase::Solid)
 	{
-		double r, g, b;
+		float r, g, b;
 		QColor fillColor = transformColor(m_fillColor, 1.0);
 		fillColor.getRgbF(&r, &g, &b);
 		if (m_maskMode > 0)
@@ -517,7 +517,7 @@ void ScPainterEx_Cairo::strokePathHelper()
 	}
 	else
 	{
-		double r, g, b;
+		float r, g, b;
 		QColor strokeColor = transformColor(m_strokeColor, 1.0);
 		strokeColor.getRgbF(&r, &g, &b);
 		cairo_set_source_rgba(m_cr, r, g, b, m_strokeTrans);
@@ -651,7 +651,7 @@ void ScPainterEx_Cairo::drawGradient(VGradientEx& gradient)
 void ScPainterEx_Cairo::drawLinearGradient(VGradientEx& gradient, const QRect& rect)
 {
 	int index = 0;
-	double r, g, b;
+	float r, g, b;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx* stop = nullptr;
 	QColor color;
@@ -701,7 +701,7 @@ void ScPainterEx_Cairo::drawLinearGradient(VGradientEx& gradient, const QRect& r
 void ScPainterEx_Cairo::drawCircularGradient(VGradientEx& gradient, const QRect& rect)
 {
 	int offset = 0;
-	double r, g, b;
+	float r, g, b;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx* stop = nullptr;
 	QColor color;
@@ -770,7 +770,7 @@ void ScPainterEx_Cairo::drawFourColorGradient(const QRect& rect)
 	cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 	cairo_set_tolerance(cr, 0.5);
-	double r, g, b, a;
+	float r, g, b, a;
 	mpat = cairo_pattern_create_mesh();
 	cairo_mesh_pattern_begin_patch(mpat);
 	cairo_mesh_pattern_move_to(mpat, p1x, p1y);
@@ -848,7 +848,7 @@ void ScPainterEx_Cairo::drawDiamondGradient(VGradientEx& gradient, const QRect& 
 	cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 	cairo_set_tolerance(cr, 0.5);
-	double r, g, b, a;
+	float r, g, b, a;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	QList<QColor> qStopColors;
 	QList<double> qStopRampPoints;
@@ -1066,7 +1066,7 @@ void ScPainterEx_Cairo::drawMeshGradient(const QRect& rect)
 	cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 	cairo_set_tolerance(cr, 0.5);
-	double r, g, b, a;
+	float r, g, b, a;
 	mpat = cairo_pattern_create_mesh();
 	for (int grow = 0; grow < m_meshGradientArray.count()-1; grow++)
 	{
@@ -1144,7 +1144,7 @@ void ScPainterEx_Cairo::drawFreeMeshGradient(const QRect& rect)
 	cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 	cairo_set_tolerance(cr, 0.5);
-	double r, g, b, a;
+	float r, g, b, a;
 	mpat = cairo_pattern_create_mesh();
 	for (int col = 0; col < m_meshGradientPatches.count(); col++)
 	{
@@ -1217,7 +1217,8 @@ void ScPainterEx_Cairo::strokeGradient(VGradientEx& gradient)
 void ScPainterEx_Cairo::strokeLinearGradient(VGradientEx& gradient)
 {
 	cairo_pattern_t *pat = nullptr;
-	double r, g, b, lastPoint = 0.0;
+	float r, g, b;
+	double lastPoint = 0.0;
 	double x1 = gradient.origin().x();
 	double y1 = gradient.origin().y();
 	double x2 = gradient.vector().x();
@@ -1269,7 +1270,8 @@ void ScPainterEx_Cairo::strokeLinearGradient(VGradientEx& gradient)
 void ScPainterEx_Cairo::strokeCircularGradient(VGradientEx& gradient)
 {
 	cairo_pattern_t *pat = nullptr;
-	double r, g, b, lastPoint = 0.0;
+	float r, g, b;
+	double lastPoint = 0.0;
 	double x1 = gradient.origin().x();
 	double y1 = gradient.origin().y();
 	double x2 = gradient.vector().x();

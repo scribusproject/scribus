@@ -29,7 +29,7 @@ Xml_string mkXMLName(const QString& any)
 			|| (i > 0 && (ch == '-' || ch == '.' || ('0' <= ch && ch <= '9') || ch == 0xB7
 						  || (0x300 <= ch && ch <= 0x36F) || (0x203F <= ch && ch <= 0x2040) )))
 		{
-			result += ch;
+			result += QChar(ch);
 		}
 		else
 		{
