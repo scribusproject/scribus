@@ -11,6 +11,8 @@
 
 cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 #keep just in case this changes
+
+SET(WANT_QT6 ON)
 #if (WANT_QT6)
 #	cmake_minimum_required(VERSION 3.16.0)
 #endif()
