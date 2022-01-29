@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QColor>
 #include <QColorDialog>
 #include <QCursor>
+#include <QDomDocument>
 #include <QDrag>
 #include <QDragEnterEvent>
 #include <QDropEvent>
@@ -8064,19 +8065,19 @@ void ScribusMainWindow::PutScrap(int scID)
 	QDomDocument docu("scridoc");
 	docu.setContent(objectString);
 	QDomElement elem = docu.documentElement();
-	QDomNode DOC = elem.firstChild();
+	QDomNode domNode = elem.firstChild();
 	bool first = true;
-	DOC = elem.firstChild();
-	while (!DOC.isNull())
+	domNode = elem.firstChild();
+	while (!domNode.isNull())
 	{
-		QDomElement pg = DOC.toElement();
+		QDomElement pg = domNode.toElement();
 		if (pg.tagName() == "ITEM")
 		{
 			if (first)
 				pg.setAttribute("ANNAME", doc->m_Selection->itemAt(0)->itemName());
 			first = false;
 		}
-		DOC = DOC.nextSibling();
+		domNode = domNode.nextSibling();
 	}
 	objectString = docu.toString();
 	scrapbookPalette->objFromMainMenu(objectString, scID);
