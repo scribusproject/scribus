@@ -108,6 +108,8 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -133,6 +135,8 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -161,6 +165,8 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -191,6 +197,8 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>

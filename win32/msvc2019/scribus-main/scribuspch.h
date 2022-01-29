@@ -66,7 +66,7 @@
 #include <qlist.h>
 #include <qvariant.h>  // All moc generated code has this include
 #include <qobject.h>
-#include <qregexp.h>
+#include <qregularexpression.h>
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qtextcodec.h>
@@ -77,7 +77,6 @@
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qcursor.h>
-#include <qdesktopwidget.h>
 #include <qevent.h>
 #include <qgridlayout.h>
 #include <qimage.h>

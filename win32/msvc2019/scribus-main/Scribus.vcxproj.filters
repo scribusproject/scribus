@@ -842,7 +842,7 @@
     <ClInclude Include="..\..\..\scribus\api\api_application.h">
       <Filter>api</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\textnote.h">
+    <ClInclude Include="..\..\..\scribus\notesstyles.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -3542,9 +3542,6 @@
     <moc Include="..\..\..\scribus\ui\nodeeditpalette.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\notesstyles.h">
-      <Filter>Header Files</Filter>
-    </moc>
     <moc Include="..\..\..\scribus\ui\notesstyleseditor.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -4230,6 +4227,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\storyloader.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\textnote.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
