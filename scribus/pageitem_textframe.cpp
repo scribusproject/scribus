@@ -5756,7 +5756,7 @@ void PageItem_TextFrame::updateNotesMarks(NotesInFrameMap notesMap)
 			else if (nF->isAutoNoteFrame() || nF->isEndNotesFrame())
 				m_notesFramesMap.remove(nF);
 		}
-		m_notesFramesMap.unite(notesMap);
+		m_notesFramesMap.insert(notesMap);
 	}
 	if (docWasChanged)
 	{

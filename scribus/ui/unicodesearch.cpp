@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QFile>
 #include <QHeaderView>
+#include <QRegularExpression>
 #include <QSortFilterProxyModel>
  
 #include "unicodesearch.h"
@@ -211,15 +212,16 @@ void UnicodeSearch::searchEdit_returnPressed()
 	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString s(searchEdit->text());
 	if (s.isEmpty())
-		m_proxyModel->setFilterRegExp(QRegExp("*",
-											Qt::CaseInsensitive,
-											QRegExp::Wildcard));
+	{
+		QString wildcardExp = QRegularExpression::wildcardToRegularExpression(QString("*"));
+		QRegularExpression regExp(wildcardExp, QRegularExpression::CaseInsensitiveOption);
+		m_proxyModel->setFilterRegularExpression(regExp);
+	}
 	else
 	{
-		QRegExp regExp(QString("*%1*").arg(s),
-					   Qt::CaseInsensitive,
-					   QRegExp::Wildcard);
-		m_proxyModel->setFilterRegExp(regExp);
+		QString wildcardExp = QRegularExpression::wildcardToRegularExpression(QString("*%1*").arg(s));
+		QRegularExpression regExp(wildcardExp, QRegularExpression::CaseInsensitiveOption);
+		m_proxyModel->setFilterRegularExpression(regExp);
 	}
 	tableView->setFocus(Qt::OtherFocusReason);
 	tableView->selectRow(0);
