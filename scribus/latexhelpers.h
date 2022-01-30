@@ -35,7 +35,7 @@ copyright            : Scribus Team
 class LatexHighlighterRule
 {
 	public:
-		LatexHighlighterRule();
+		LatexHighlighterRule() = default;
 		QRegularExpression regex;
 		QTextCharFormat format;
 		bool multiline {false};
