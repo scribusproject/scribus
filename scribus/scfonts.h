@@ -95,7 +95,7 @@ struct SCFontsIterator
 	ScFace& current()          { return *m_it; }
 	QString currentKey() const { return m_it.key(); }
 	bool hasNext()       const { return m_it != m_end_it; }
-	ScFace& next()             { ++m_it; return current(); }
+	void next()                { ++m_it; }
 
 private:
 	QMap<QString, ScFace>::Iterator m_it;
