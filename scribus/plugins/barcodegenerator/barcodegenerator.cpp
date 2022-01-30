@@ -538,7 +538,7 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 	if (ui.eccCombo->currentIndex() != 0)
 	{
 		QString t = ui.eccCombo->currentText();
-		if (!opts.contains(QRegExp("\\beclevel=.*\\b")))
+		if (!opts.contains(QRegularExpression("\\beclevel=.*\\b")))
 			opts.append(" eclevel=" + t);
 		else
 			opts.replace(QRegularExpression("\\beclevel=\\S*\\b"), "eclevel=" + t);
@@ -557,37 +557,38 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 void BarcodeGenerator::updateUIFromOptionsText()
 {
 	ui.includetextCheck->blockSignals(true);
-	ui.includetextCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bincludetext\\b")));
+	ui.includetextCheck->setChecked(ui.optionsEdit->text().contains(QRegularExpression("\\bincludetext\\b")));
 	ui.includetextCheck->blockSignals(false);
 
 	ui.guardwhitespaceCheck->blockSignals(true);
-	ui.guardwhitespaceCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bguardwhitespace\\b")));
+	ui.guardwhitespaceCheck->setChecked(ui.optionsEdit->text().contains(QRegularExpression("\\bguardwhitespace\\b")));
 	ui.guardwhitespaceCheck->blockSignals(false);
 
 	ui.includecheckCheck->blockSignals(true);
-	ui.includecheckCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bincludecheck\\b")));
+	ui.includecheckCheck->setChecked(ui.optionsEdit->text().contains(QRegularExpression("\\bincludecheck\\b")));
 	ui.includecheckCheck->blockSignals(false);
 
 	ui.includecheckintextCheck->blockSignals(true);
-	ui.includecheckintextCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bincludecheckintext\\b")));
+	ui.includecheckintextCheck->setChecked(ui.optionsEdit->text().contains(QRegularExpression("\\bincludecheckintext\\b")));
 	ui.includecheckintextCheck->blockSignals(false);
 
 	ui.parseCheck->blockSignals(true);
-	ui.parseCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bparse\\b")));
+	ui.parseCheck->setChecked(ui.optionsEdit->text().contains(QRegularExpression("\\bparse\\b")));
 	ui.parseCheck->blockSignals(false);
 
 	ui.parsefncCheck->blockSignals(true);
-	ui.parsefncCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bparsefnc\\b")));
+	ui.parsefncCheck->setChecked(ui.optionsEdit->text().contains(QRegularExpression("\\bparsefnc\\b")));
 	ui.parsefncCheck->blockSignals(false);
 
 	QString enc = map[ui.bcCombo->currentText()].command;
 	QString vlbl = resvlbl.contains(enc) ? resvlbl[enc].toLower() : "version";
 
-	QRegExp rxf("\\b" + QRegExp::escape(vlbl) + "=(\\S*)\\b");
+	QRegularExpression rxf("\\b" + QRegularExpression::escape(vlbl) + "=(\\S*)\\b");
 	ui.formatCombo->blockSignals(true);
 	if (ui.optionsEdit->text().contains(rxf))
 	{
-		int idx = ui.formatCombo->findText(rxf.cap(1));
+		QRegularExpressionMatch match = rxf.match(ui.optionsEdit->text());
+		int idx = ui.formatCombo->findText(match.captured(1));
 		if (idx == -1)
 			idx = 0;
 		ui.formatCombo->setCurrentIndex(idx);
@@ -598,11 +599,12 @@ void BarcodeGenerator::updateUIFromOptionsText()
 	}
 	ui.formatCombo->blockSignals(false);
 
-	QRegExp rxe("\\beclevel=(\\S*)\\b");
+	QRegularExpression rxe("\\beclevel=(\\S*)\\b");
 	ui.eccCombo->blockSignals(true);
 	if (ui.optionsEdit->text().contains(rxe))
 	{
-		int idx=ui.eccCombo->findText(rxe.cap(1));
+		QRegularExpressionMatch match = rxe.match(ui.optionsEdit->text());
+		int idx=ui.eccCombo->findText(match.captured(1));
 		if (idx == -1)
 			idx = 0;
 		ui.eccCombo->setCurrentIndex(idx);

@@ -1407,7 +1407,7 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 		QStringList subtransform = (*it).split('(', Qt::SkipEmptyParts);
 		subtransform[0] = subtransform[0].trimmed().toLower();
 		subtransform[1] = subtransform[1].simplified();
-		QRegExp reg("[,( ]");
+		QRegularExpression reg("[,( ]");
 		QStringList params = subtransform[1].split(reg, Qt::SkipEmptyParts);
 		if (subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
