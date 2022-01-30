@@ -60,8 +60,15 @@ bool copyFile(const QString& source, const QString& target)
 	bool success = true;
 	if ((source.isEmpty()) || (target.isEmpty()))
 		return false;
-	if (source == target)
+
+	// Make sure to compare source and target paths
+	// by using same directory separators. Source and target
+	// arguments might use native and Qt's separators for eg
+	QString qtSource = QDir::fromNativeSeparators(source);
+	QString qtTarget = QDir::fromNativeSeparators(target);
+	if (qtSource == qtTarget)
 		return false;
+
 	QFile s(source);
 	if (!s.exists())
 		return false;
@@ -84,8 +91,15 @@ bool copyFileAtomic(const QString& source, const QString& target)
 	bool success = false;
 	if ((source.isEmpty()) || (target.isEmpty()))
 		return false;
-	if (source == target)
+
+	// Make sure to compare source and target paths
+	// by using same directory separators. Source and target
+	// arguments might use native and Qt's separators for eg
+	QString qtSource = QDir::fromNativeSeparators(source);
+	QString qtTarget = QDir::fromNativeSeparators(target);
+	if (qtSource == qtTarget)
 		return false;
+
 	QFile srcFile(source);
 	QString tempFileName;
 	QTemporaryFile* tempFile = new QTemporaryFile(target + "_XXXXXX");
@@ -178,8 +192,15 @@ bool moveFile(const QString& source, const QString& target)
 {
 	if (source.isEmpty() || target.isEmpty())
 		return false;
-	if (source == target)
+
+	// Make sure to compare source and target paths
+	// by using same directory separators. Source and target
+	// arguments might use native and Qt's separators for eg
+	QString qtSource = QDir::fromNativeSeparators(source);
+	QString qtTarget = QDir::fromNativeSeparators(target);
+	if (qtSource == qtTarget)
 		return false;
+
 	bool moveSucceed = copyFile(source, target);
 	if (moveSucceed)
 		moveSucceed &= QFile::remove(source);
