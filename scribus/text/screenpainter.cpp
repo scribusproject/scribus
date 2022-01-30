@@ -56,7 +56,7 @@ void ScreenPainter::drawGlyph(const GlyphCluster& gc)
 		setupState(false);
 
 		cairo_t* cr = m_painter->context();
-		double r, g, b;
+		float r, g, b;
 		m_painter->brush().getRgbF(&r, &g, &b);
 		cairo_set_source_rgba(cr, r, g, b, m_painter->brushOpacity());
 		m_painter->setRasterOp(m_painter->blendModeFill());
