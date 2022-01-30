@@ -159,13 +159,17 @@ FPoint Canvas::localToCanvas(QPointF p) const
 }
 */
 
-
 QPoint Canvas::canvasToLocal(const FPoint& p) const
 {
 	return { qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
 	         qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale) };
 }
 
+QPointF Canvas::canvasToLocalF(const FPoint& p) const
+{
+	return { ((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+			 ((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale) };
+}
 
 QPoint Canvas::canvasToLocal(QPointF p) const
 {
@@ -173,6 +177,11 @@ QPoint Canvas::canvasToLocal(QPointF p) const
 	         qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale) };
 }
 
+QPointF Canvas::canvasToLocalF(QPointF p) const
+{
+	return { ((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+			 ((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale) };
+}
 
 QRect Canvas::canvasToLocal(const QRectF& p) const
 {
@@ -217,7 +226,7 @@ FPoint Canvas::globalToCanvas(QPoint p) const
 
 FPoint Canvas::globalToCanvas(QPointF p) const
 {
-	return localToCanvas(p - mapToGlobal(QPoint(0, 0)));
+	return localToCanvas(p.toPoint() - (mapToParent(QPoint(0, 0)) + parentWidget()->mapToGlobal(QPoint(0, 0))));
 }
 
 QRectF Canvas::globalToCanvas(QRect p) const
@@ -248,11 +257,26 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, const FPoint& canvasPoint) cons
 	return qAbs(localPoint1.x() - localPoint2.x()) < radius && qAbs(localPoint1.y() - localPoint2.y()) < radius;
 }
 
+bool Canvas::hitsCanvasPoint(QPointF globalPoint, const FPoint& canvasPoint) const
+{
+	QPointF localPoint1 = globalPoint - (mapToParent(QPointF(0, 0)) + parentWidget()->mapToGlobal(QPointF(0, 0)));
+	QPointF localPoint2 = canvasToLocalF(canvasPoint);
+	int radius = m_doc->guidesPrefs().grabRadius;
+	return qAbs(localPoint1.x() - localPoint2.x()) < radius && qAbs(localPoint1.y() - localPoint2.y()) < radius;
+}
 
 bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
 {
 	QPoint localPoint1 = globalPoint - (mapToParent(QPoint(0,0)) + parentWidget()->mapToGlobal(QPoint(0, 0)));
 	QPoint localPoint2 = canvasToLocal(canvasPoint);
+	int radius = m_doc->guidesPrefs().grabRadius;
+	return qAbs(localPoint1.x() - localPoint2.x()) < radius && qAbs(localPoint1.y() - localPoint2.y()) < radius;
+}
+
+bool Canvas::hitsCanvasPoint(QPointF globalPoint, QPointF canvasPoint) const
+{
+	QPointF localPoint1 = globalPoint - (mapToParent(QPointF(0, 0)) + parentWidget()->mapToGlobal(QPointF(0, 0)));
+	QPointF localPoint2 = canvasToLocalF(canvasPoint);
 	int radius = m_doc->guidesPrefs().grabRadius;
 	return qAbs(localPoint1.x() - localPoint2.x()) < radius && qAbs(localPoint1.y() - localPoint2.y()) < radius;
 }

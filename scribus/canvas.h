@@ -144,9 +144,12 @@ public:
 
 	double scale() const { return m_viewMode.scale; }
 	void setScale(double scale);
+
 	QPoint canvasToLocal(const FPoint& p) const;
+	QPointF canvasToLocalF(const FPoint& p) const;
 	QPoint canvasToGlobal(const FPoint& p) const;
 	QPoint canvasToLocal(QPointF p) const;
+	QPointF canvasToLocalF(QPointF p) const;
 	QPoint canvasToGlobal(QPointF p) const;
 	QRect canvasToLocal(const QRectF& p) const;
 	QRectF canvasToLocalF(const QRectF& p) const;
@@ -158,7 +161,9 @@ public:
 	QRectF globalToCanvas(QRect p) const;
 //	QRectF globalToCanvas(QRectF p) const;
 	bool hitsCanvasPoint(QPoint globalPoint, const FPoint& canvasPoint) const;
+	bool hitsCanvasPoint(QPointF globalPoint, const FPoint& canvasPoint) const;
 	bool hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const;
+	bool hitsCanvasPoint(QPointF globalPoint, QPointF canvasPoint) const;
 	bool hitsCanvasPoint(const FPoint& globalPoint, const QPointF& canvasPoint) const;
 	QRect exposedRect() const;
 	bool cursorOverTextFrameControl(QPoint globalPos, PageItem* frame);

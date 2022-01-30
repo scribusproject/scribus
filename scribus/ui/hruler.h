@@ -79,12 +79,12 @@ public:
 private:
 	int findRulerHandle(QPoint mp, double grabRadius);
 	
-	virtual void paintEvent(QPaintEvent *e);
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void enterEvent(QEnterEvent *m);
-	virtual void leaveEvent(QEvent *m);
+	void paintEvent(QPaintEvent *e) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void enterEvent(QEnterEvent *m) override;
+	void leaveEvent(QEvent *m) override;
 
 	void drawMarks(QPainter& p);
 	void drawTextMarks(double pos, double endPos, QPainter& p);
