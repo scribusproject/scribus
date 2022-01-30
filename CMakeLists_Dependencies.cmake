@@ -89,17 +89,22 @@ else()
 	include_directories(${Qt6Network_INCLUDE_DIRS})
 	add_definitions(${Qt6Network_DEFINITIONS})
 
+	find_package(Qt6 COMPONENTS OpenGL REQUIRED)
+	include_directories(${Qt6OpenGL_INCLUDE_DIRS})
+	add_definitions(${Qt6OpenGL_DEFINITIONS})
+
+	find_package(Qt6 COMPONENTS PrintSupport REQUIRED)
+	include_directories(${Qt6PrintSupport_INCLUDE_DIRS})
+	add_definitions(${Qt6PrintSupport_DEFINITIONS})
+
+	find_package(Qt6 COMPONENTS Xml REQUIRED)
+	include_directories(${Qt6Xml_INCLUDE_DIRS})
+	add_definitions(${Qt6Xml_DEFINITIONS})
+
 	find_package(Qt6 COMPONENTS LinguistTools REQUIRED)
 	include_directories(${Qt6LinguistTools_INCLUDE_DIRS})
 	add_definitions(${Qt6LinguistTools_DEFINITIONS})
 
-	#	include_directories(${Qt5Xml_INCLUDE_DIRS})
-#	add_definitions(${Qt5Xml_DEFINITIONS})
-
-#	include_directories(${Qt5OpenGL_INCLUDE_DIRS})
-#	add_definitions(${Qt5OpenGL_DEFINITIONS})
-#	include_directories(${Qt5PrintSupport_INCLUDE_DIRS})
-#	add_definitions(${Qt5PrintSupport_DEFINITIONS})
 	message(STATUS "Qt Version Found: ${Qt6Widgets_VERSION}")
 endif()
 
