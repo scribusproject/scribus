@@ -12,10 +12,6 @@
 cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 #keep just in case this changes
 
-SET(WANT_QT6 ON)
-#if (WANT_QT6)
-#	cmake_minimum_required(VERSION 3.16.0)
-#endif()
 cmake_policy(SET CMP0048 NEW)
 message(STATUS "CMake Version: ${CMAKE_VERSION}")
 if (WANT_PCH)
@@ -398,20 +394,20 @@ if(WIN32)
 endif()
 
 #C++11 Support
-#as of 1.5.5.svn, require C++11
-#if (WANT_QT6)
+#as of 1.7.0.svn, require C++17
+#yes the below conditions suggest 20/23 support. Yeah, nah..
 set (WANT_CPP17 ON)
-#endif()
-if(NOT WANT_CPP14 AND NOT WANT_CPP17)
-	message(STATUS "Enabling C++11 compiler features")
-	set(CMAKE_CXX_STANDARD 11)
+
+if(NOT WANT_CPP20 AND NOT WANT_CPP23)
+	message(STATUS "Enabling C++17 compiler features")
+	set(CMAKE_CXX_STANDARD 17)
 endif()
-if (WANT_CPP14)
-	message(STATUS "Enabling C++14 compiler features")
-	set(CMAKE_CXX_STANDARD 14)
-elseif(WANT_CPP17)
-		message(STATUS "Enabling C++17 compiler features")
-		set(CMAKE_CXX_STANDARD 17)
+if (WANT_CPP20)
+	message(STATUS "Enabling C++20 compiler features")
+	set(CMAKE_CXX_STANDARD 20)
+elseif(WANT_CPP23)
+	    message(STATUS "Enabling C++23 compiler features")
+		set(CMAKE_CXX_STANDARD 23)
 endif()
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_EXTENSIONS OFF)
@@ -468,7 +464,6 @@ include_directories(
 	${CMAKE_BINARY_DIR}/scribus
 	${QT_INCLUDES}
 	${FREETYPE_INCLUDE_DIR}
-#	${FONTCONFIG_INCLUDE_DIR}
 	${JPEG_INCLUDE_DIR}
 	${LCMS2_INCLUDE_DIR}
 	${LIBXML2_INCLUDE_DIR}
