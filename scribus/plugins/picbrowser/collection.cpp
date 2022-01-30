@@ -62,16 +62,16 @@ void collectionReaderThread::readFile()
 
 		if ( isStartElement() )
 		{
-			if ( name() == "picturebrowser" )
+			if (name() == QLatin1String("picturebrowser"))
 			{
 				//we have a collectionsdbfile
-				if ( attributes().value ( "type" ) == "collectionsset" )
+				if ( attributes().value ( "type" ) == QLatin1String("collectionsset") )
 				{
 					readCollectionsDb();
 					type = 1;
 				}
 				//we have a collectionfile
-				else if ( attributes().value ( "type" ) == "collection" )
+				else if ( attributes().value ( "type" ) == QLatin1String("collection") )
 				{
 					collection = new imageCollection;
 					collection->file = xmlFile;
@@ -109,7 +109,7 @@ void collectionReaderThread::readCollectionsDb()
 
 		if ( isStartElement() )
 		{
-			if ( name() == "category" )
+			if ( name() == QLatin1String("category") )
 			{
 				QString name = attributes().value ( "name" ).toString();
 				collections *tmpCollections = new collections ( name );
@@ -141,7 +141,7 @@ void collectionReaderThread::readCollectionFile()
 
 		if ( isStartElement() )
 		{
-			if ( name() == "image" )
+			if ( name() == QLatin1String("image") )
 			{
 				QString tmpImageFile = attributes().value ( "file" ).toString();
 				collection->imageFiles.append ( tmpImageFile );
@@ -170,7 +170,7 @@ void collectionReaderThread::readCategory()
 
 		if ( isStartElement() )
 		{
-			if ( name() == "collection" )
+			if ( name() == QLatin1String("collection") )
 			{
 				readCollection();
 			}
@@ -207,7 +207,7 @@ void collectionReaderThread::readImage()
 
 		if ( isStartElement() )
 		{
-			if ( name() == "tag" )
+			if ( name() == QLatin1String("tag") )
 			{
 				//read tag here
 				tmpTags.append ( readElementText() );

@@ -9,13 +9,15 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QScreen>
 
+#include "scribuscore.h"
+
 Imagedialog::Imagedialog ( const QString& imageFile, ScribusDoc* doc , QWidget *parent ) : QDialog ( parent )
 {
 	setupUi ( this );
 	setAttribute ( Qt::WA_DeleteOnClose );
 	setWindowTitle ( imageFile );
-	m_hRatio = double(ScCore->primaryMainWindow()->screen()->logicalDpiX()) / 72.0;
-	m_vRatio = double(ScCore->primaryMainWindow()->screen()->logicalDpiY()) / 72.0;
+	m_hRatio = double(ScCore->primaryMainWindow()->screen()->logicalDotsPerInchX()) / 72.0;
+	m_vRatio = double(ScCore->primaryMainWindow()->screen()->logicalDotsPerInchY()) / 72.0;
 
 //no realCMYK
 	bool mode=false;
