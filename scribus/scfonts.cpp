@@ -1222,7 +1222,7 @@ void SCFonts::readFontCache(const QString& pf)
 	m_checkedFonts.clear();
 	struct testCache foCache;
 	QDomDocument docu("fontcacherc");
-	QFile f(pf + "/checkfonts150.xml");
+	QFile f(pf + "/checkfonts170.xml");
 	if (!f.open(QIODevice::ReadOnly))
 		return;
 	ScCore->setSplashStatus( QObject::tr("Reading Font Cache") );
@@ -1286,7 +1286,7 @@ void SCFonts::writeFontCache(const QString& pf)
 
 	ScCore->setSplashStatus( QObject::tr("Writing updated Font Cache") );
 
-	QFile file(pf + "/checkfonts150.xml");
+	QFile file(pf + "/checkfonts170.xml");
 	if (!file.open(QIODevice::WriteOnly))
 		return;
 	QTextStream s(&file);

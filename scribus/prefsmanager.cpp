@@ -102,20 +102,13 @@ PrefsFile* PrefsManager::applicationPrefsFile()
 	return prefsFile;
 }
 
-bool PrefsManager::importingFrom12x()
-{
-	return m_importingFrom12;
-}
-
-
 void PrefsManager::setup()
 {
 	setupPreferencesLocation();
 
-	m_importingFrom12=copyOldAppConfigAndData();
-	prefsFile = new PrefsFile( m_prefsLocation + "prefs150.xml" );
-	if (m_importingFrom12)
-		convert12Preferences();
+	copyOldAppConfigAndData();
+	prefsFile = new PrefsFile( m_prefsLocation + "prefs170.xml" );
+
 	//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
 	//	 have conflicts if they don't nuke their settings.
 	// - Remove for 1.3.0 release: importingFrom12=true;
@@ -770,106 +763,116 @@ void PrefsManager::setupPreferencesLocation()
 
 bool PrefsManager::copyOldAppConfigAndData()
 {
-	if (QFile::exists(m_prefsLocation + "scribus150.rc") && QFile::exists(m_prefsLocation + "prefs150.xml"))
+	if (QFile::exists(m_prefsLocation + "scribus170.rc") && QFile::exists(m_prefsLocation + "prefs170.xml"))
 		return false;
 
 	//Move to using the ScPaths default prefs location/scribus.* from ~/.scribus.*
 	QString oldPR = QDir::toNativeSeparators(QDir::homePath() + "/.scribus.rc");
+	QString newPR = QDir::toNativeSeparators(m_prefsLocation + "/scribus.rc");
 	QFileInfo oldPi(oldPR);
-	if (oldPi.exists())
+	if (oldPi.exists() && !QFile::exists(newPR))
 		moveFile(oldPR, m_prefsLocation + "scribus.rc");
 
 	QString oldPR2 = QDir::toNativeSeparators(QDir::homePath() + "/.scribusfont.rc");
+	QString newPR2 = QDir::toNativeSeparators(m_prefsLocation + "/scribusfont.rc");
 	QFileInfo oldPi2(oldPR2);
-	if (oldPi2.exists())
+	if (oldPi2.exists() && !QFile::exists(newPR2))
 		moveFile(oldPR2, m_prefsLocation + "scribusfont.rc");
 
 	QString oldPR3 = QDir::toNativeSeparators(QDir::homePath() + "/.scribusscrap.scs");
+	QString newPR3 = QDir::toNativeSeparators(m_prefsLocation + "/scrap.scs");
 	QFileInfo oldPi3(oldPR3);
-	if (oldPi3.exists())
+	if (oldPi3.exists() && !QFile::exists(newPR3))
 		moveFile(oldPR3, m_prefsLocation + "scrap.scs");
 
 	QString oldPrefsLocation(ScPaths::oldApplicationDataDir());
 	QString oldPR4 = QDir::toNativeSeparators(oldPrefsLocation + "scribus150.rc");
+	QString newPR4 = QDir::toNativeSeparators(m_prefsLocation + "scribus150.rc");
 	QFileInfo oldPi4(oldPR4);
-	if (oldPi4.exists())
+	if (oldPi4.exists() && !QFile::exists(newPR4))
 		moveFile(oldPR4, m_prefsLocation + "scribus150.rc");
 
 	QString oldPR5 = QDir::toNativeSeparators(oldPrefsLocation + "scrap150.scs");
+	QString newPR5 = QDir::toNativeSeparators(m_prefsLocation + "scrap150.scs");
 	QFileInfo oldPi5(oldPR5);
-	if (oldPi5.exists())
+	if (oldPi5.exists() && !QFile::exists(newPR5))
 		moveFile(oldPR5, m_prefsLocation + "scrap150.scs");
 
 	QString oldPR6 = QDir::toNativeSeparators(oldPrefsLocation + "prefs150.xml");
+	QString newPR6 = QDir::toNativeSeparators(m_prefsLocation + "prefs150.xml");
 	QFileInfo oldPi6(oldPR6);
-	if (oldPi6.exists())
+	if (oldPi6.exists() && !QFile::exists(newPR6))
 		moveFile(oldPR6, m_prefsLocation + "prefs150.xml");
 
 	QString oldPR7 = QDir::toNativeSeparators(oldPrefsLocation + "scripter150.rc");
+	QString newPR7 = QDir::toNativeSeparators(m_prefsLocation + "scripter150.rc");
 	QFileInfo oldPi7(oldPR7);
-	if (oldPi7.exists())
+	if (oldPi7.exists() && !QFile::exists(newPR7))
 		moveFile(oldPR7, m_prefsLocation + "scripter150.rc");
 
 	QString oldPR8 = QDir::toNativeSeparators(oldPrefsLocation + "checkfonts.xml");
+	QString newPR8 = QDir::toNativeSeparators(m_prefsLocation + "checkfonts150.xml");
 	QFileInfo oldPi8(oldPR8);
-	if (oldPi8.exists())
+	if (oldPi8.exists() && !QFile::exists(newPR8))
 		moveFile(oldPR8, m_prefsLocation + "checkfonts150.xml");
-
 
 	//Move plugin data files to new plugin data file directory
 	QDir oldPluginData(ScPaths::preferencesDir() + "/plugins");
 	const QFileInfoList filPluginData(oldPluginData.entryInfoList());
-	for (const QFileInfo &fiP : filPluginData)
+	for (const QFileInfo& fiP : filPluginData)
 		moveFile(fiP.absoluteFilePath(), ScPaths::pluginDataDir(true) + fiP.fileName());
 
 	//Move scrapbook files to new scrapbook directory
 	QDir oldScrapData(ScPaths::preferencesDir() + "/scrapbook");
 	const QFileInfoList filScrapData(oldScrapData.entryInfoList());
-	for (const QFileInfo &fiS : filScrapData)
+	for (const QFileInfo& fiS : filScrapData)
 		moveFile(fiS.absoluteFilePath(), ScPaths::scrapbookDir(true) + fiS.fileName());
 
 	//Move swatch files to new palette directory
 	QDir oldPaletteData(ScPaths::preferencesDir() + "/swatches");
 	const QFileInfoList filPaletteData(oldPaletteData.entryInfoList());
-	for (const QFileInfo &fiPal : filPaletteData)
+	for (const QFileInfo& fiPal : filPaletteData)
 		moveFile(fiPal.absoluteFilePath(), ScPaths::userPaletteFilesDir(true) + fiPal.fileName());
 	QDir oldPaletteData2 = ScPaths::preferencesDir() + "/palettes";
 	const QFileInfoList filPaletteData2(oldPaletteData2.entryInfoList());
-	for (const QFileInfo &fiPal : filPaletteData2)
+	for (const QFileInfo& fiPal : filPaletteData2)
 		moveFile(fiPal.absoluteFilePath(), ScPaths::userPaletteFilesDir(true) + fiPal.fileName());
 
-	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
-	QString prefs135[5], prefs140[5], prefs150[5];
+	//Now make copies for 1.7.0 use and leave the old ones alone for <1.7.0 usage
+	QString prefs150[5], prefs160[5], prefs170[5];
 
-	prefs135[0] = QDir::toNativeSeparators(m_prefsLocation + "scribus135.rc");
-	prefs135[1] = QDir::toNativeSeparators(m_prefsLocation + "scrap135.scs");
-	prefs135[2] = QDir::toNativeSeparators(m_prefsLocation + "prefs135.xml");
-	prefs135[3] = QDir::toNativeSeparators(m_prefsLocation + "scripter135.rc");
-	prefs135[4] = QDir::toNativeSeparators(m_prefsLocation + "checkfonts.xml");
-	prefs140[0] = QDir::toNativeSeparators(m_prefsLocation + "scribus140.rc");
-	prefs140[1] = QDir::toNativeSeparators(m_prefsLocation + "scrap140.scs");
-	prefs140[2] = QDir::toNativeSeparators(m_prefsLocation + "prefs140.xml");
-	prefs140[3] = QDir::toNativeSeparators(m_prefsLocation + "scripter140.rc");
-	prefs140[4] = QDir::toNativeSeparators(m_prefsLocation + "checkfonts.xml");
 	prefs150[0] = QDir::toNativeSeparators(m_prefsLocation + "scribus150.rc");
 	prefs150[1] = QDir::toNativeSeparators(m_prefsLocation + "scrap150.scs");
 	prefs150[2] = QDir::toNativeSeparators(m_prefsLocation + "prefs150.xml");
 	prefs150[3] = QDir::toNativeSeparators(m_prefsLocation + "scripter150.rc");
 	prefs150[4] = QDir::toNativeSeparators(m_prefsLocation + "checkfonts150.xml");
 
-	bool existsPrefs135[5], existsPrefs140[5], existsPrefs150[5];
+	prefs160[0] = QDir::toNativeSeparators(m_prefsLocation + "scribus160.rc");
+	prefs160[1] = QDir::toNativeSeparators(m_prefsLocation + "scrap160.scs");
+	prefs160[2] = QDir::toNativeSeparators(m_prefsLocation + "prefs160.xml");
+	prefs160[3] = QDir::toNativeSeparators(m_prefsLocation + "scripter160.rc");
+	prefs160[4] = QDir::toNativeSeparators(m_prefsLocation + "checkfonts160.xml");
+
+	prefs170[0] = QDir::toNativeSeparators(m_prefsLocation + "scribus170.rc");
+	prefs170[1] = QDir::toNativeSeparators(m_prefsLocation + "scrap170.scs");
+	prefs170[2] = QDir::toNativeSeparators(m_prefsLocation + "prefs170.xml");
+	prefs170[3] = QDir::toNativeSeparators(m_prefsLocation + "scripter170.rc");
+	prefs170[4] = QDir::toNativeSeparators(m_prefsLocation + "checkfonts170.xml");
+
+	bool existsPrefs150[5], existsPrefs160[5], existsPrefs170[5];
 	for (uint i = 0; i < 5; ++i)
 	{
-		existsPrefs135[i] = QFile::exists(prefs135[i]);
-		existsPrefs140[i] = QFile::exists(prefs140[i]);
 		existsPrefs150[i] = QFile::exists(prefs150[i]);
+		existsPrefs160[i] = QFile::exists(prefs160[i]);
+		existsPrefs170[i] = QFile::exists(prefs170[i]);
 	}
 
-	bool retVal=false;
-	if (existsPrefs150[0] && existsPrefs150[2])
+	bool retVal = false;
+	if (existsPrefs170[0] && existsPrefs170[2])
 		return retVal;
+
 	//Only check for these three as they will be autocreated if they don't exist.
-	if ((existsPrefs135[0] && !existsPrefs140[0]) || (existsPrefs135[2] && !existsPrefs140[2]))
+	if ((existsPrefs160[0] && !existsPrefs170[0]) || (existsPrefs160[2] && !existsPrefs170[2]))
 	{
 		// Now always return false
 		// retVal=true; // converting from 1.2 prefs
@@ -878,63 +881,38 @@ bool PrefsManager::copyOldAppConfigAndData()
 			bool splashShown = ScCore->splashShowing();
 			if (splashShown)
 				ScCore->showSplash(false);
-			if ( ScMessageBox::question( ScCore->primaryMainWindow(), tr("Migrate Old Scribus Settings?"),
-					tr("Scribus has detected existing Scribus 1.3.5 preferences files.\n"
+			if (ScMessageBox::question(ScCore->primaryMainWindow(), tr("Migrate Old Scribus Settings?"),
+				tr("Scribus has detected existing Scribus 1.6.0 preferences files.\n"
 					"Do you want to migrate them to the new Scribus version?"),
-					QMessageBox::Yes | QMessageBox::No,
-					QMessageBox::NoButton,	// GUI default
-					QMessageBox::Yes	// batch default
-				)==QMessageBox::Yes )
+				QMessageBox::Yes | QMessageBox::No,
+				QMessageBox::NoButton,	// GUI default
+				QMessageBox::Yes	// batch default
+			) == QMessageBox::Yes)
 			{
-				for (uint i=0;i<5;++i)
+				for (uint i = 0; i < 5; ++i)
 				{
-					if (existsPrefs135[i] && !existsPrefs150[i])
-						copyFile(prefs135[i], prefs150[i]);
+					if (existsPrefs160[i] && !existsPrefs170[i])
+						copyFile(prefs160[i], prefs170[i]);
 				}
 			}
 			if (splashShown)
 				ScCore->showSplash(true);
 		}
 	}
-	else if (existsPrefs140[0])
+	else if (existsPrefs150[0])
 	{
 		for (uint i = 0; i < 5; ++i)
 		{
-			if (existsPrefs140[i] && !existsPrefs150[i])
-				copyFile(prefs140[i], prefs150[i]);
-		}
-	}
-	else if (existsPrefs135[0])
-	{
-		for (uint i = 0; i < 5; ++i)
-		{
-			if (existsPrefs135[i] && !existsPrefs150[i])
-				copyFile(prefs135[i], prefs150[i]);
+			if (existsPrefs150[i] && !existsPrefs170[i])
+				copyFile(prefs150[i], prefs170[i]);
 		}
 	}
 	return retVal;
 }
 
-void PrefsManager::convert12Preferences()
-{
-	// Import 1.2 font search path prefs
-	QFile fontPrefsFile12(QDir::toNativeSeparators(m_prefsLocation + "/scribusfont.rc"));
-	if (fontPrefsFile12.exists() && fontPrefsFile12.open(QIODevice::ReadOnly))
-	{
-		PrefsContext *pc = prefsFile->getContext("Fonts");
-		PrefsTable *fontPrefs = pc->getTable("ExtraFontDirs");
-		QTextStream tsx(&fontPrefsFile12);
-		QString extraPath = tsx.readAll();
-		fontPrefsFile12.close();
-		QStringList extraFonts = extraPath.split("\n", Qt::SkipEmptyParts);
-		for (int i = 0; i < extraFonts.count(); ++i)
-			fontPrefs->set(i, 0, extraFonts[i]);
-	}
-}
-
 void PrefsManager::readPrefs()
 {
-	QString prefsFile(m_prefsLocation + "scribus150.rc");
+	QString prefsFile(m_prefsLocation + "scribus170.rc");
 	if (QFile::exists(prefsFile))
 	{
 		if (!readPref(prefsFile))
@@ -1028,7 +1006,7 @@ void PrefsManager::savePrefs()
 	}
 	ScCore->primaryMainWindow()->getDefaultPrinter(appPrefs.printerPrefs.PrinterName, appPrefs.printerPrefs.PrinterFile, appPrefs.printerPrefs.PrinterCommand);
 	savePrefsXML();
-	if (!writePref(m_prefsLocation + "scribus150.rc"))
+	if (!writePref(m_prefsLocation + "scribus170.rc"))
 		alertSavePrefsFailed();
 	emit prefsChanged();
 }
@@ -2423,7 +2401,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.colorPrefs.DCMSset.DefaultIntentColors = (eRenderIntent) dc.attribute("DefaultIntentColors", "1").toInt();
 			appPrefs.colorPrefs.DCMSset.DefaultIntentImages = (eRenderIntent) dc.attribute("DefaultIntentImages", "0").toInt();
 		}
-		if (!m_importingFrom12 && dc.tagName() == "Shortcut")
+		if (dc.tagName() == "Shortcut")
 		{
 			appPrefs.keyShortcutPrefs.KeyActions[dc.attribute("Action")].actionName = dc.attribute("Action");
 			QKeySequence newKeySequence(dc.attribute("KeySequence"));
