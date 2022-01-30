@@ -292,32 +292,28 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *textEdit) : QSyntaxHighlighter(t
 
 	foreach (const QString& kw, keywords)
 	{
-		rule.pattern = QRegExp("\\b" + kw + "\\b", Qt::CaseInsensitive);
+		rule.pattern = QRegularExpression("\\b" + kw + "\\b", QRegularExpression::CaseInsensitiveOption);
 		rule.format = keywordFormat;
 		highlightingRules.append(rule);
 	}
 
-	rule.pattern = QRegExp("#[^\n]*");
+	rule.pattern = QRegularExpression("#[^\n]*");
 	rule.format = singleLineCommentFormat;
 	highlightingRules.append(rule);
 
-	rule.pattern = QRegExp("\'.*\'");
-	rule.pattern.setMinimal(true);
+	rule.pattern = QRegularExpression("\'.*\'", QRegularExpression::InvertedGreedinessOption);
 	rule.format = quotationFormat;
 	highlightingRules.append(rule);
 
-	rule.pattern = QRegExp("\".*\"");
-	rule.pattern.setMinimal(true);
+	rule.pattern = QRegularExpression("\".*\"", QRegularExpression::InvertedGreedinessOption);
 	rule.format = quotationFormat;
 	highlightingRules.append(rule);
 
-	rule.pattern = QRegExp("\\b\\d+\\b");
-	rule.pattern.setMinimal(true);
+	rule.pattern = QRegularExpression("\\b\\d+\\b", QRegularExpression::InvertedGreedinessOption);
 	rule.format = numberFormat;
 	highlightingRules.append(rule);
 
-	rule.pattern = QRegExp("[\\\\|\\<|\\>|\\=|\\!|\\+|\\-|\\*|\\/|\\%]+");
-	rule.pattern.setMinimal(true);
+	rule.pattern = QRegularExpression("[\\\\|\\<|\\>|\\=|\\!|\\+|\\-|\\*|\\/|\\%]+", QRegularExpression::InvertedGreedinessOption);
 	rule.format = operatorFormat;
 	highlightingRules.append(rule);
 }
@@ -329,13 +325,15 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 
 	foreach (HighlightingRule rule, highlightingRules)
 	{
-		QRegExp expression(rule.pattern);
-		int index = expression.indexIn(text);
+		QRegularExpression expression(rule.pattern);
+		QRegularExpressionMatch match = expression.match(text);
+		int n = 0;
+		int index = match.capturedStart(n);
 		while (index >= 0)
 		{
-			int length = expression.matchedLength();
+			int length = match.capturedLength(n);
 			setFormat(index, length, rule.format);
-			index = expression.indexIn(text, index + length);
+			index = match.capturedStart(++n);
 		}
 	}
 	setCurrentBlockState(0);

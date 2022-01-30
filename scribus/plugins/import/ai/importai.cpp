@@ -2445,9 +2445,9 @@ void AIPlug::processData(const QString& data)
 			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 			gVals >> textFont >> textSize;
 			textFont.remove(0, 2);
-			QString family = textFont;
-			QString ret = "";
-			family.replace( QRegExp( "'" ) , QChar( ' ' ) );
+			QString family(textFont);
+			QString ret;
+			family.replace( QRegularExpression( "'" ) , QChar( ' ' ) );
 			textFont = m_Doc->itemToolPrefs().textFont;
 			bool found = false;
 			SCFontsIterator it(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts);

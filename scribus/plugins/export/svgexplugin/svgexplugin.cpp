@@ -1485,7 +1485,7 @@ QDomElement SVGExPlug::processInlineItem(PageItem* embItem, const QString& trans
 
 QString SVGExPlug::handleGlyph(uint gid, const ScFace& font)
 {
-	QString glName = QString("Gl%1%2").arg(font.psName().simplified().replace(QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )).arg(gid);
+	QString glName = QString("Gl%1%2").arg(font.psName().simplified().replace(QRegularExpression("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )).arg(gid);
 	if (m_glyphNames.contains(glName))
 		return glName;
 	FPointArray pts = font.glyphOutline(gid);

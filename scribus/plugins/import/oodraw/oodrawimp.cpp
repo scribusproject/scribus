@@ -1453,7 +1453,7 @@ void OODPlug::parseViewBox(const QDomElement& object, double *x, double *y, doub
 	if (!object.attribute( "svg:viewBox" ).isEmpty())
 	{
 		QString viewbox( object.attribute( "svg:viewBox" ) );
-		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split(' ', Qt::SkipEmptyParts);
+		QStringList points = viewbox.replace( QRegularExpression(","), " ").simplified().split(' ', Qt::SkipEmptyParts);
 		*x = ScCLocale::toDoubleC(points[0]);
 		*y = ScCLocale::toDoubleC(points[1]);
 		*w = ScCLocale::toDoubleC(points[2]);
@@ -1571,8 +1571,8 @@ const char * OODPlug::getCoord( const char *ptr, double &number )
 
 bool OODPlug::parseSVG(const QString &s, FPointArray *ite)
 {
-	QString d = s;
-	d = d.replace( QRegExp( "," ), " ");
+	QString d(s);
+	d = d.replace( QRegularExpression( "," ), " ");
 	bool ret = false;
 	if (!d.isEmpty())
 	{

@@ -16,6 +16,7 @@ the Free Software Foundation; either version 2 of the License, or
 
 #include <QLabel>
 #include <QMainWindow>
+#include <QRegularExpression>
 #include <QSyntaxHighlighter>
 #include "ui_pconsole.h"
 
@@ -126,7 +127,7 @@ class SyntaxHighlighter : public QSyntaxHighlighter
 
 		struct HighlightingRule
 		{
-			QRegExp pattern;
+			QRegularExpression pattern;
 			QTextCharFormat format;
 		};
 		QVector<HighlightingRule> highlightingRules;

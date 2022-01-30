@@ -266,7 +266,7 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 	if (!docElem.attribute("viewBox").isEmpty())
 	{
 		QString viewbox(docElem.attribute("viewBox"));
-		QStringList points = viewbox.replace(QRegExp(","), " ").simplified().split(' ', Qt::SkipEmptyParts);
+		QStringList points = viewbox.replace(QRegularExpression(","), " ").simplified().split(' ', Qt::SkipEmptyParts);
 		if (points.size() > 3)
 		{
 			QTransform matrix;
@@ -447,7 +447,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	if (!docElem.attribute("viewBox").isEmpty())
 	{
 		QString viewbox(docElem.attribute("viewBox"));
-		QStringList points = viewbox.replace(QRegExp(","), " ").simplified().split(' ', Qt::SkipEmptyParts);
+		QStringList points = viewbox.replace(QRegularExpression(","), " ").simplified().split(' ', Qt::SkipEmptyParts);
 		if (points.size() > 3)
 		{
 			QTransform matrix;
@@ -1071,7 +1071,7 @@ QRectF SVGPlug::parseViewBox(const QDomElement &e)
 	if (!e.attribute("viewBox").isEmpty())
 	{
 		QString viewbox(e.attribute("viewBox"));
-		QStringList points = viewbox.replace(QRegExp(","), " ").simplified().split(' ', Qt::SkipEmptyParts);
+		QStringList points = viewbox.replace(QRegularExpression(","), " ").simplified().split(' ', Qt::SkipEmptyParts);
 		if (points.size() > 3)
 		{
 			double left   = ScCLocale::toDoubleC(points[0]);

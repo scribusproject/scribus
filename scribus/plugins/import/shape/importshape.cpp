@@ -926,7 +926,7 @@ const char * ShapePlug::getCoord( const char *ptr, double &number )
 bool ShapePlug::parseSVG( const QString &s, FPointArray *ite )
 {
 	QString d = s;
-	d = d.replace( QRegExp( "," ), " ");
+	d = d.replace( QRegularExpression( "," ), " ");
 	bool ret = false;
 	if (!d.isEmpty())
 	{

@@ -4,21 +4,24 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "textfilter.h"
+
 #include <QByteArray>
 #include <QFile>
 #include <QFileInfo>
+#include <QMap>
+#include <QRegularExpression>
 #include <QString>
 #include <QStringList>
 #include <QTextCodec>
-#include <QRegExp> 
-#include <QMap>
 #include <QToolTip>
-#include "prefsmanager.h"
-#include "prefsfile.h"
+
 #include <vector>
+
 #include "gtframestyle.h"
 #include "gtparagraphstyle.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "textfilter.h"
 #include "tfdia.h"
 
 QString FileFormatName()
@@ -98,8 +101,7 @@ void TextFilter::write()
 			if (useRegexp)
 				replace(&replaceWith);
 			QString pstyle = (*filters)[i]->getPStyleName();
-			QRegExp rx = QRegExp(regExp);
-			rx.setMinimal(true);
+			QRegularExpression rx(regExp, QRegularExpression::InvertedGreedinessOption);
 			switch (action)
 			{
 				case REMOVE: 
@@ -150,7 +152,7 @@ void TextFilter::write()
 					int moreThan = (*filters)[j]->getMoreThan();
 					int style = (*filters)[j]->getStyle();
 					bool removeMatch = (*filters)[j]->removeMatch();
-					QRegExp rx = QRegExp(regExp);
+					QRegularExpression rx(regExp);
 					if (!pstyle.isEmpty())
 					{
 						switch (action)

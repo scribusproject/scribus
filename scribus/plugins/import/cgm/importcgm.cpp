@@ -265,7 +265,7 @@ bool CgmPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		{
 			PageItem* group = m_Doc->groupObjectsList(Elements);
 			if (!pictName.isEmpty())
-				group->setItemName(group->generateUniqueCopyName(pictName, false).replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%\\.]"), "_" ));
+				group->setItemName(group->generateUniqueCopyName(pictName, false).replace( QRegularExpression("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%\\.]"), "_" ));
 		}
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);

@@ -17,7 +17,7 @@ or documentation
 */
 
 #include <QProgressBar>
-#include <QRegExp>
+#include <QRegularExpression>
 
 #include "parse.h"
 
@@ -48,7 +48,7 @@ void SWParse::parseItem(PageItem *aFrame)
 	// text with special space
 	QString unbreak;
 	// the regexp
-	QRegExp rx(" ");
+	QRegularExpression rx(" ");
 	// cfg
 	SWConfig *cfg = new SWConfig();
 

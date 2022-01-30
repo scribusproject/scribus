@@ -711,7 +711,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				ds >> chData;
 			}
 			fontName = fontName.trimmed();
-			fontName.replace( QRegExp( "'" ) , QChar( ' ' ) );
+			fontName.replace( QRegularExpression( "'" ) , QChar( ' ' ) );
 			{
 				textFont = m_Doc->itemToolPrefs().textFont;
 				bool found = false;

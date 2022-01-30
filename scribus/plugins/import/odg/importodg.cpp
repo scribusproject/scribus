@@ -1007,7 +1007,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 			mat.scale(sx, sy);
 			if (!textArea.isEmpty())
 			{
-				QStringList points = textArea.replace( QRegExp(","), " ").simplified().split( ' ', Qt::SkipEmptyParts );
+				QStringList points = textArea.replace( QRegularExpression(","), " ").simplified().split( ' ', Qt::SkipEmptyParts );
 				texAreaPoints.append(QPointF(ScCLocale::toDoubleC(points[0]), ScCLocale::toDoubleC(points[1])));
 				texAreaPoints.append(QPointF(ScCLocale::toDoubleC(points[2]), ScCLocale::toDoubleC(points[3])));
 				texAreaPoints = mat.map(texAreaPoints);
@@ -1997,7 +1997,7 @@ void OdgPlug::parseViewBox( const QDomElement& object, double *x, double *y, dou
 	if (!object.attribute( "svg:viewBox" ).isEmpty())
 	{
 		QString viewbox( object.attribute( "svg:viewBox" ) );
-		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', Qt::SkipEmptyParts );
+		QStringList points = viewbox.replace( QRegularExpression(","), " ").simplified().split( ' ', Qt::SkipEmptyParts );
 		*x = ScCLocale::toDoubleC(points[0]);
 		*y = ScCLocale::toDoubleC(points[1]);
 		*w = ScCLocale::toDoubleC(points[2]);
@@ -2670,7 +2670,7 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, const QString& pAttrs)
 		if (actStyle.markerViewBox.valid)
 		{
 			QString viewbox = actStyle.markerViewBox.value;
-			QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', Qt::SkipEmptyParts );
+			QStringList points = viewbox.replace( QRegularExpression(","), " ").simplified().split( ' ', Qt::SkipEmptyParts );
 			tmpOStyle.markerViewBox = QRectF(ScCLocale::toDoubleC(points[0]), ScCLocale::toDoubleC(points[1]), ScCLocale::toDoubleC(points[2]), ScCLocale::toDoubleC(points[3]));
 		}
 		else
@@ -2854,8 +2854,8 @@ const char * OdgPlug::getCoord( const char *ptr, double &number )
 
 bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fill, bool &stroke)
 {
-	QString d = svgPath;
-	d = d.replace( QRegExp( "," ), " ");
+	QString d(svgPath);
+	d = d.replace( QRegularExpression( "," ), " ");
 	bool ret = false;
 	fill = true;
 	stroke = true;

@@ -5,6 +5,12 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QDebug>
+#include <QRegularExpression>
+#include <QStandardItemModel>
+#include <QTextStream>
+#include <QThread>
+#include <QTimer>
 
 #include "../formatidlist.h"
 #include "barcodegenerator.h"
@@ -16,16 +22,12 @@ for which a new license (GPL+exception) is in place.
 #include "ui/colorsandfills.h"
 #include "undomanager.h"
 
-#include <QDebug>
-#include <QTextStream>
-#include <QStandardItemModel>
-#include <QTimer>
-#include <QThread>
+
 
 BarcodeType::BarcodeType(const QString &cmd, const QString &exa, const QString &exaop)
-           : command(cmd),
-             exampleContents(exa),
-             exampleOptions(exaop)
+		   : command(cmd),
+			 exampleContents(exa),
+			 exampleOptions(exaop)
 {
 
 }
@@ -64,20 +66,22 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	QString bwipp = ts.readAll();
 	f.close();
 
-	QRegExp rx(
+	QRegularExpression rx(
 				"[\\r\\n]+% --BEGIN (RESOURCE|RENDERER|ENCODER) ([\\w-]+)--[\\r\\n]+"
 				"(.*[\\r\\n]+)?"
 				"(%%BeginResource.*[\\r\\n]+)"
-				"% --END \\1 \\2--[\\r\\n]+");
-	rx.setMinimal(true);
-	int pos = 0;
-	while ( (pos = rx.indexIn(bwipp, pos)) != -1 )
+				"% --END \\1 \\2--[\\r\\n]+",
+				QRegularExpression::InvertedGreedinessOption);
+	QRegularExpressionMatch match = rx.match(bwipp);
+	int n = 0;
+	int pos = match.capturedStart(n);
+	while ( pos >= 0 )
 	{
-		int len = rx.matchedLength();
-		QString restype = rx.cap(1);
-		QString resname = rx.cap(2);
-		QString reshead = rx.cap(3);
-		QString resbody = rx.cap(4);
+		int len = match.capturedLength();
+		QString restype = match.captured(1);
+		QString resname = match.captured(2);
+		QString reshead = match.captured(3);
+		QString resbody = match.captured(4);
 
 		resbodys[resname] = resbody;
 
@@ -100,7 +104,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 				encoderlist.append(resname);
 			}
 		}
-		pos += len;
+		pos = match.capturedStart(n++);
 	}
 
 	foreach (const QString& enc, encoderlist)
@@ -457,62 +461,62 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 
 	if (ui.includetextCheck->isChecked())
 	{
-		if (!opts.contains(QRegExp("\\bincludetext\\b")))
+		if (!opts.contains(QRegularExpression("\\bincludetext\\b")))
 			opts.append(" includetext");
 	}
 	else
 	{
-		opts.replace(QRegExp("\\bincludetext\\b")," ");
+		opts.replace(QRegularExpression("\\bincludetext\\b")," ");
 	}
 
 	if (ui.guardwhitespaceCheck->isChecked())
 	{
-		if (!opts.contains(QRegExp("\\bguardwhitespace\\b")))
+		if (!opts.contains(QRegularExpression("\\bguardwhitespace\\b")))
 			opts.append(" guardwhitespace");
 	}
 	else
 	{
-		opts.replace(QRegExp("\\bguardwhitespace\\b")," ");
+		opts.replace(QRegularExpression("\\bguardwhitespace\\b")," ");
 	}
 
 	if (ui.includecheckCheck->isChecked())
 	{
-		if (!opts.contains(QRegExp("\\bincludecheck\\b")))
+		if (!opts.contains(QRegularExpression("\\bincludecheck\\b")))
 			opts.append(" includecheck");
 	}
 	else
 	{
-		opts.replace(QRegExp("\\bincludecheck\\b")," ");
+		opts.replace(QRegularExpression("\\bincludecheck\\b")," ");
 	}
 
 	if (ui.includecheckintextCheck->isChecked())
 	{
-		if (!opts.contains(QRegExp("\\bincludecheckintext\\b")))
+		if (!opts.contains(QRegularExpression("\\bincludecheckintext\\b")))
 			opts.append(" includecheckintext");
 	}
 	else
 	{
-		opts.replace(QRegExp("\\bincludecheckintext\\b")," ");
+		opts.replace(QRegularExpression("\\bincludecheckintext\\b")," ");
 	}
 
 	if (ui.parseCheck->isChecked())
 	{
-		if (!opts.contains(QRegExp("\\bparse\\b")))
+		if (!opts.contains(QRegularExpression("\\bparse\\b")))
 			opts.append(" parse");
 	}
 	else
 	{
-		opts.replace(QRegExp("\\bparse\\b")," ");
+		opts.replace(QRegularExpression("\\bparse\\b")," ");
 	}
 
 	if (ui.parsefncCheck->isChecked())
 	{
-		if (!opts.contains(QRegExp("\\bparsefnc\\b")))
+		if (!opts.contains(QRegularExpression("\\bparsefnc\\b")))
 			opts.append(" parsefnc");
 	}
 	else
 	{
-		opts.replace(QRegExp("\\bparsefnc\\b")," ");
+		opts.replace(QRegularExpression("\\bparsefnc\\b")," ");
 	}
 
 	QString enc = map[ui.bcCombo->currentText()].command;
@@ -521,14 +525,14 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 	if (ui.formatCombo->currentIndex() != 0)
 	{
 		QString t = ui.formatCombo->currentText();
-		if (!opts.contains(QRegExp("\\b" + QRegExp::escape(vlbl) + "=.*\\b")))
+		if (!opts.contains(QRegularExpression("\\b" + QRegularExpression::escape(vlbl) + "=.*\\b")))
 			opts.append(" " + vlbl + "=" + t);
 		else
-			opts.replace(QRegExp("\\b" + QRegExp::escape(vlbl) + "=\\S*\\b"), vlbl + "=" + t);
+			opts.replace(QRegularExpression("\\b" + QRegularExpression::escape(vlbl) + "=\\S*\\b"), vlbl + "=" + t);
 	}
 	else
 	{
-		opts.replace(QRegExp("\\b" + QRegExp::escape(vlbl) + "=\\S*\\b"), " ");
+		opts.replace(QRegularExpression("\\b" + QRegularExpression::escape(vlbl) + "=\\S*\\b"), " ");
 	}
 
 	if (ui.eccCombo->currentIndex() != 0)
@@ -537,11 +541,11 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 		if (!opts.contains(QRegExp("\\beclevel=.*\\b")))
 			opts.append(" eclevel=" + t);
 		else
-			opts.replace(QRegExp("\\beclevel=\\S*\\b"), "eclevel=" + t);
+			opts.replace(QRegularExpression("\\beclevel=\\S*\\b"), "eclevel=" + t);
 	}
 	else
 	{
-		opts.replace(QRegExp("\\beclevel=\\S*\\b")," ");
+		opts.replace(QRegularExpression("\\beclevel=\\S*\\b")," ");
 	}
 
 	ui.optionsEdit->blockSignals(true);

@@ -292,31 +292,29 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *textEdit) : QSyntaxHighlighter(t
 
 	foreach (const QString& kw, keywords)
 	{
-		rule.pattern = QRegExp("\\b" + kw + "\\b", Qt::CaseInsensitive);
+		rule.pattern = QRegularExpression("\\b" + kw + "\\b", QRegularExpression::CaseInsensitiveOption);
 		rule.format = keywordFormat;
 		highlightingRules.append(rule);
 	}
 
-	rule.pattern = QRegExp("#[^\n]*");
+	rule.pattern = QRegularExpression("#[^\n]*");
 	rule.format = singleLineCommentFormat;
 	highlightingRules.append(rule);
 
-	rule.pattern = QRegExp("\'.*\'");
-	rule.pattern.setMinimal(true);
+	rule.pattern = QRegularExpression("\'.*\'". QRegularExpression::InvertedGreedinessOption);
+
 	rule.format = quotationFormat;
 	highlightingRules.append(rule);
 
-	rule.pattern = QRegExp("\".*\"");
-	rule.pattern.setMinimal(true);
+	rule.pattern = QRegularExpression("\".*\"", QRegularExpression::InvertedGreedinessOption);
 	rule.format = quotationFormat;
 	highlightingRules.append(rule);
 
-	rule.pattern = QRegExp("\\b\\d+\\b");
-	rule.pattern.setMinimal(true);
+	rule.pattern = QRegularExpression("\\b\\d+\\b", QRegularExpression::InvertedGreedinessOption);
 	rule.format = numberFormat;
 	highlightingRules.append(rule);
 
-	rule.pattern = QRegExp("[\\\\|\\<|\\>|\\=|\\!|\\+|\\-|\\*|\\/|\\%]+");
+	rule.pattern = QRegularExpression("[\\\\|\\<|\\>|\\=|\\!|\\+|\\-|\\*|\\/|\\%]+");
 	rule.pattern.setMinimal(true);
 	rule.format = operatorFormat;
 	highlightingRules.append(rule);

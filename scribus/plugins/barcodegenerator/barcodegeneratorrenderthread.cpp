@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_ghostscript.h"
 
 #include <QDir>
+#include <QRegularExpression>
 #include <QTextStream>
 #include <QThread>
 
@@ -88,10 +89,10 @@ void BarcodeGeneratorRenderThread::run()
 					QTextStream ts(&f);
 					QString err = ts.readAll();
 					f.close();
-					QRegExp rx("[\\r\\n]+BWIPP ERROR: [^\\s]+ (.*)[\\r\\n$]+");
-					rx.setMinimal(true);
-					if (rx.indexIn(err) != -1)
-						errorMsg=rx.cap(1).trimmed();
+					QRegularExpression rx("[\\r\\n]+BWIPP ERROR: [^\\s]+ (.*)[\\r\\n$]+", QRegularExpression::InvertedGreedinessOption);
+					QRegularExpressionMatch match = rx.match(err);
+					if (match.hasMatch())
+						errorMsg = match.captured(1).trimmed();
 				}
 			}
 		}
