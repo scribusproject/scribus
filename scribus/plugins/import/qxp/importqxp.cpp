@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QMessageBox>
 #include <QMimeData>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStack>
 #include <QDebug>
 

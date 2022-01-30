@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QList>
 #include <QMessageBox>
+#include <QRegularExpression>
 
 #include "../../formatidlist.h"
 #include "commonstrings.h"
@@ -1737,9 +1738,9 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj, LastStyles* last)
 {
 	QString tmp2(it->attribute("CH"));
-	tmp2.replace(QRegExp("\r"), QChar(5));
-	tmp2.replace(QRegExp("\n"), QChar(5));
-	tmp2.replace(QRegExp("\t"), QChar(4));
+	tmp2.replace(QRegularExpression("\r"), QChar(5));
+	tmp2.replace(QRegularExpression("\n"), QChar(5));
+	tmp2.replace(QRegularExpression("\t"), QChar(4));
 	tmp2.replace(SpecialChars::OLD_LINEBREAK, SpecialChars::LINEBREAK);
 	tmp2.replace(SpecialChars::OLD_NBHYPHEN, SpecialChars::NBHYPHEN);
 	tmp2.replace(SpecialChars::OLD_NBSPACE, SpecialChars::NBSPACE);

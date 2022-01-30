@@ -203,7 +203,7 @@ void sat::createTmplXml()
 	if ( tmplXml.open( QIODevice::WriteOnly ) )
 	{
 		QTextStream stream(&tmplXml);
-		stream.setCodec("UTF-8");
+		stream.setEncoding(QStringConverter::Utf8);
 		stream << xml;
 		tmplXml.close();
 	}
@@ -252,7 +252,7 @@ void sat::appendTmplXml()
 		if ( tmplXml.open( QIODevice::WriteOnly ) )
 		{
 			QTextStream stream2(&tmplXml);
-			stream2.setCodec("UTF-8");
+			stream2.setEncoding(QStringConverter::Utf8);
 			stream2 << file;
 			tmplXml.close();
 		}
