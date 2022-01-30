@@ -14,6 +14,7 @@
 ***************************************************************************/
 
 #include <QDebug>
+#include <QRegularExpression>
 
 #include "style.h"
 #include "desaxe/digester.h"
@@ -64,10 +65,11 @@ QString BaseStyle::baseName() const
 	if (m_name.isEmpty())
 		return QString();
 
-	static QRegExp rx("^(.*)\\s+\\((\\d+)\\)$");
-	if (rx.indexIn(m_name) != -1)
+	static QRegularExpression rx("^(.*)\\s+\\((\\d+)\\)$");
+	QRegularExpressionMatch match = rx.match(m_name);
+	if (match.hasMatch())
 	{
-		QStringList matches = rx.capturedTexts();
+		QStringList matches = match.capturedTexts();
 		if (matches.count() >= 3)
 			return matches[1];
 	}
