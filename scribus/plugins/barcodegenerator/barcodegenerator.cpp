@@ -674,17 +674,12 @@ void BarcodeGenerator::on_eccCombo_currentIndexChanged(int)
 
 void BarcodeGenerator::paintColorSample(QLabel *l, const ScColor & c)
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 	QPixmap currentPixmap = l->pixmap(Qt::ReturnByValue);
-#else
-	QPixmap currentPixmap = l->pixmap() ? *(l->pixmap()) : QPixmap();
-#endif
-	
-	double pixelRatio = l->devicePixelRatioF();
 	QSize pixmapSize(currentPixmap.width(), currentPixmap.height());
 	if (currentPixmap.isNull())
 	{
 		QRect rect = l->frameRect();
+		double pixelRatio = l->devicePixelRatioF();
 		pixmapSize = QSize(rect.width() * pixelRatio, rect.height() * pixelRatio);
 	}
 	QPixmap pm(pixmapSize.width(), pixmapSize.height());

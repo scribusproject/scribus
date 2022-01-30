@@ -88,26 +88,7 @@ void ScDockPalette::setPrefsContext(const QString& context)
 void ScDockPalette::startup()
 {
 	setFontSize();
-	if (m_visibleOnStartup)
-	{
-#if QT_VERSION < 0x050600
-		QMainWindow* mainWindow = dynamic_cast<QMainWindow*>(parent());
-		if (palettePrefs && mainWindow)
-		{
-			Qt::DockWidgetArea area = Qt::NoDockWidgetArea;
-			area = (Qt::DockWidgetArea) palettePrefs->getInt("area", (int) Qt::NoDockWidgetArea);
-			Qt::DockWidgetAreas areas = this->allowedAreas();
-			if (areas.testFlag(area))
-			{
-				mainWindow->addDockWidget(area, this);
-				setFloating (palettePrefs->getBool("floating"));
-			}
-		}
-#endif
-		show();
-	}
-	else
-		hide();
+	setVisible(m_visibleOnStartup);
 	emit paletteShown(m_visibleOnStartup);
 }
 
@@ -170,9 +151,9 @@ void ScDockPalette::showEvent(QShowEvent *showEvent)
 			int vtop = qMin(m_palettePrefs->getInt("top"), scrSize.height());
 #if defined(Q_OS_MAC) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
-			vtop    = qMax(64, vtop);
+			vtop = qMax(64, vtop);
 #else
-			vtop    = qMax(-vheight, vtop);
+			vtop = qMax(-vheight, vtop);
 #endif
 			// Check values against current screen size
 			if (vleft <= scr.left())

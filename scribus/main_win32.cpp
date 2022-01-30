@@ -99,9 +99,7 @@ int main(int argc, char *argv[])
 #endif
 
 	ScribusQApp::setAttribute(Qt::AA_EnableHighDpiScaling);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 	ScribusQApp::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
-#endif
 
 	ScribusQApp app(argc, argv);
 	setPythonEnvironment(ScribusQApp::applicationDirPath());
