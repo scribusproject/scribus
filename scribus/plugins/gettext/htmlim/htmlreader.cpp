@@ -595,7 +595,7 @@ void HTMLReader::parse(const QString& filename)
 {
 #if defined(_WIN32)
 	QString fname = QDir::toNativeSeparators(filename);
-	QByteArray fn = (QSysInfo::WindowsVersion & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
+	QByteArray fn = fname.toUtf8();
 #else
 	QByteArray fn(filename.toLocal8Bit());
 #endif

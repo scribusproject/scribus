@@ -276,11 +276,11 @@ void StyleReader::styleProperties(const SXWAttributesMap& attrs)
 			currentStyle->getFont()->setHscale(static_cast<int>(getSize(attrValue, -1.0)));
 		else if ((attrName == "style:text-position") &&
 				 (((attrValue).indexOf("sub") != -1) ||
-				  (((attrValue).at(0) == "-") && ((attrValue).at(0) != "0"))))
+				  (((attrValue).at(0) == '-') && ((attrValue).at(0) != '0'))))
 			currentStyle->getFont()->toggleEffect(SUBSCRIPT);
 		else if ((attrName == "style:text-position") &&
 				 (((attrValue).indexOf("super") != -1) ||
-				  (((attrValue).at(0) != "-") && ((attrValue).at(0) != "0"))))
+				  (((attrValue).at(0) != '-') && ((attrValue).at(0) != '0'))))
 			currentStyle->getFont()->toggleEffect(SUPERSCRIPT);
 		else if ((attrName == "fo:margin-top") && (pstyle != nullptr))
 			pstyle->setSpaceAbove(getSize(attrValue));
@@ -486,7 +486,7 @@ void StyleReader::parse(const QString& fileName)
 {
 #if defined(_WIN32)
 	QString fname = QDir::toNativeSeparators(fileName);
-	QByteArray fn = (QSysInfo::WindowsVersion & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
+	QByteArray fn = fname.toUtf8();
 #else
 	QByteArray fn(fileName.toLocal8Bit());
 #endif

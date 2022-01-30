@@ -7,12 +7,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef PDBIM_H
 #define PDBIM_H
 
+#include <QString>
+#include <QStringList>
+
 #include "pluginapi.h"
 
 class gtWriter;
 class gtParagraphStyle;
-class QString;
-class QStringList;
 
 extern "C" PLUGIN_API void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer);
 

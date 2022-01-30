@@ -8,9 +8,9 @@ for which a new license (GPL+exception) is in place.
 #define _SCRIBUS_SHORTCFG_H_
 
 #include <QObject>
+#include <QStringList>
 
 class QString;
-class QStringList;
 class PrefsContext;
 
 /*! \brief This is the Scribus Short Words configuration specification.

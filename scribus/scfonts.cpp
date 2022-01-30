@@ -91,21 +91,22 @@ void SCFonts::updateFontMap()
 	SCFontsIterator it( *this );
 	for ( ; it.hasNext(); it.next())
 	{
-		if (it.current().usable())
+		ScFace& currentFace = it.current();
+		if (!currentFace.usable())
+			continue;
+
+		if (fontMap.contains(currentFace.family()))
 		{
-			if (fontMap.contains(it.current().family()))
+			if (!fontMap[currentFace.family()].contains(currentFace.style()))
 			{
-				if (!fontMap[it.current().family()].contains(it.current().style()))
-				{
-					fontMap[it.current().family()].append(it.current().style());
-				}
+				fontMap[currentFace.family()].append(currentFace.style());
 			}
-			else
-			{
-				QStringList styles;
-				styles.append(it.current().style());
-				fontMap.insert(it.current().family(), styles);
-			}
+		}
+		else
+		{
+			QStringList styles;
+			styles.append(it.current().style());
+			fontMap.insert(it.current().family(), styles);
 		}
 	}
 }

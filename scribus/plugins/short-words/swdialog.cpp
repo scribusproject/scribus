@@ -31,6 +31,7 @@ or documentation
 #include <QPushButton>
 #include <QGroupBox>
 #include <QRadioButton>
+#include <QStringList>
 #include <QToolTip>
 
 #include "commonstrings.h"

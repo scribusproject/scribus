@@ -250,7 +250,7 @@ void ContentReader::parse(const QString& fileName)
 	sreader->parse(fileName);
 #if defined(_WIN32)
 	QString fname = QDir::toNativeSeparators(fileName);
-	QByteArray fn = (QSysInfo::WindowsVersion & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
+	QByteArray fn = fname.toUtf8();
 #else
 	QByteArray fn(fileName.toLocal8Bit());
 #endif
