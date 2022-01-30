@@ -56,7 +56,6 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QTemporaryFile>
 #include <QTextCodec>
-#include <QtXml>
 #include <QUuid>
 
 #include "cmsettings.h"

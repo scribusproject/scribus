@@ -42,38 +42,26 @@ void LatexHighlighter::highlightBlock(const QString &text)
 {
 	//This is required to fix a Qt incompatibility. See error message below for details.
 	static bool disable_highlighting = false;
-	if (disable_highlighting) return;
-
-	if (!m_rules) return;
+	if (disable_highlighting)
+		return;
+	if (!m_rules)
+		return;
 	foreach (LatexHighlighterRule *rule, *m_rules)
 	{
-		int index = text.indexOf(rule->regex);
-		while (index >= 0) {
-			int length;
-			if (rule->regex.captureCount() == 0)
-			{
-				length = rule->regex.matchedLength();
-			}
-			else
-			{
-				length = rule->regex.cap(1).length();
-				index = rule->regex.pos(1);
-			}
+		QRegularExpressionMatch match = rule->regex.match(text);
+		int n = 0;
+		int index = match.capturedStart(n);
+		while (index>=0)
+		{
+			int length = match.capturedLength(n);
+			index = match.capturedStart(n);
 			if (length == 0)
 			{
 				qWarning() << "Highlighter pattern" << rule->regex.pattern() << "matched a zero length string. This would lead to an infinite loop. Aborting. Please fix this pattern!";
 				break;
 			}
 			setFormat(index, length, rule->format);
-			
-			int oldindex = index;
-			int offset = index + length;
-			index = text.indexOf(rule->regex, offset);
-			if (index >= 0 && (index == oldindex || index <= offset)) {
-				qWarning() << QObject::tr("Highlighter error: Invalid index returned by Qt's QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.") << "Additional debugging info: old index:" << oldindex << "new index:"<< index << "offset:" << offset;
-				disable_highlighting = true;
-				return;
-			}
+			index = match.capturedStart(++n);
 		}
 	}
 }
@@ -223,7 +211,7 @@ void LatexConfigParser::parseHighlighter()
 			newRule->format.setFontWeight(QFont::Bold);
 		newRule->format.setFontUnderline(underline);
 		newRule->regex.setPattern(regex);
-		newRule->regex.setMinimal(minimal);
+		newRule->regex.setPatternOptions(QRegularExpression::InvertedGreedinessOption);
 		highlighterRules.append(newRule);
 	}
 }

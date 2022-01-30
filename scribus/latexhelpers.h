@@ -25,6 +25,7 @@ copyright            : Scribus Team
 
 #include <QObject>
 #include <QPointer>
+#include <QRegularExpression>
 #include <QString>
 #include <QStringRef>
 #include <QStringView>
@@ -34,10 +35,10 @@ copyright            : Scribus Team
 class LatexHighlighterRule
 {
 	public:
-		LatexHighlighterRule(){multiline=false;}
-		QRegExp regex;
+		LatexHighlighterRule();
+		QRegularExpression regex;
 		QTextCharFormat format;
-		bool multiline;
+		bool multiline {false};
 };
 
 class LatexHighlighter : public QSyntaxHighlighter
