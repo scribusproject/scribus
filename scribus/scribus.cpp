@@ -316,7 +316,7 @@ ScribusMainWindow::ScribusMainWindow() :
 int ScribusMainWindow::initScMW(bool primaryMainWindow)
 {
 	int retVal=0;
-	qsrand(1234);
+	//qsrand(1234);
 	QByteArray stylesheet;
 	if (loadRawText(ScPaths::preferencesDir() + "/stylesheet.css", stylesheet))
 	{
