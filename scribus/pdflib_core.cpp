@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDataStream>
 #include <QDebug>
 #include <QDir>
+#include <QDomDocument>
 #include <QFileInfo>
 #include <QImage>
 #include <QList>
@@ -56,7 +57,6 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QTemporaryFile>
 #include <QTextCodec>
-#include <QDomDocument>
 #include <QUuid>
 
 #include "cmsettings.h"
