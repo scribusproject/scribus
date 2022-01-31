@@ -69,16 +69,23 @@ namespace Pdf
 	 Cf. PDF32000-2008, 7.3.3
 	 */
 	QByteArray toPdf(uint v);
-	
+
 	/**
 	 Cf. PDF32000-2008, 7.3.3
 	 */
 	QByteArray toPdf(qlonglong v);
-	
+
 	/**
 	 Cf. PDF32000-2008, 7.3.3
 	 */
 	QByteArray toPdf(qulonglong v);
+	
+	/**
+	 Cf. PDF32000-2008, 7.3.3
+	 */
+#ifndef Q_OS_WIN
+	QByteArray toPdf(size_t v);
+#endif
 	
 	/**
 	 Cf. PDF32000-2008, 7.3.3

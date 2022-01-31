@@ -27,6 +27,9 @@ public:
 	void writeAttribute(const QString & name, int64_t value)    { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
 	void writeAttribute(const QString & name, uint value)   { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
 	void writeAttribute(const QString & name, uint64_t value)   { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
+#ifndef Q_OS_WIN
+	void writeAttribute(const QString & name, size_t value)   { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
+#endif
 	void writeAttribute(const QString & name, double value) { QXmlStreamWriter::writeAttribute(name, QString::number(value, 'g', 15)); }
 };
 

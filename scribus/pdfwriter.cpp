@@ -328,7 +328,13 @@ namespace Pdf
 	{
 		return QByteArray::number(v);
 	}
-	
+
+#ifndef Q_OS_WIN
+	QByteArray toPdf(size_t v)
+	{
+		return QByteArray::number(v);
+	}
+#endif
 	QByteArray toPdf(double v)
 	{
 		return QByteArray::number(v, 'f');
