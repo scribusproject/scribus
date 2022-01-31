@@ -666,11 +666,11 @@ bool StyleReader::updateStyle(gtStyle* style, gtStyle* parent2Style, const QStri
 		style->getFont()->setHscale(static_cast<int>(getSize(value, -1.0)));
 	else if ((key == "style:text-position") &&
 			 ((value.indexOf("sub") != -1) ||
-			  ((value.at(0) == "-") && (value.at(0) != "0"))))
+			  ((value.at(0) == '-') && (value.at(0) != '0'))))
 		style->getFont()->toggleEffect(SUBSCRIPT);
 	else if ((key == "style:text-position") &&
 			 ((value.indexOf("super") != -1) ||
-			  ((value.at(0) != "-") && (value.at(0) != "0"))))
+			  ((value.at(0) != '-') && (value.at(0) != '0'))))
 		style->getFont()->toggleEffect(SUPERSCRIPT);
 	else if ((key == "fo:margin-top") && (pstyle != nullptr))
 		pstyle->setSpaceAbove(getSize(value));

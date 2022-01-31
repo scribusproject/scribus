@@ -42,7 +42,7 @@ void ScListWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 		if (option.state & QStyle::State_Selected)
 		{
 			QColor sele = option.palette.brush(cg, QPalette::Highlight).color();
-			sele.setAlphaF(0.3);
+			sele.setAlphaF(0.3f);
 			painter->fillRect(option.rect, sele);
 		}
 		painter->restore();

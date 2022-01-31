@@ -58,15 +58,16 @@ NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog* parent) : QGraph
 void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget* widget)
 {
 	Q_UNUSED(widget);
+	qreal painterLevelOfDetail = item->levelOfDetailFromTransform(painter->worldTransform());
 	if (item->state & QStyle::State_Selected)
 	{
 		painter->setBrush(Qt::red);
-		painter->setPen(QPen(Qt::red, qMax(0.1, 1.0 / item->levelOfDetail)));
+		painter->setPen(QPen(Qt::red, qMax(0.1, 1.0 / painterLevelOfDetail)));
 	}
 	else
 	{
 		painter->setBrush(Qt::NoBrush);
-		painter->setPen(QPen(Qt::red, qMax(0.2, 2.0 / item->levelOfDetail)));
+		painter->setPen(QPen(Qt::red, qMax(0.2, 2.0 / painterLevelOfDetail)));
 	}
 	painter->drawEllipse(rect());
 }

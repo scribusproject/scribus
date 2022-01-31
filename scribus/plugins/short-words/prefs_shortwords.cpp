@@ -86,7 +86,7 @@ void Prefs_ShortWords::saveButton_pressed()
 			 "<qt>" + tr("Cannot write file %1.").arg(RC_PATH_USR) + "</qt>");
 	}
 	QTextStream stream(&f);
-	stream.setCodec("UTF-8");
+	stream.setEncoding(QStringConverter::Utf8);
 	stream << cfgEdit->toPlainText();
 	f.close();
 	messageLabel->setText( tr("User settings saved"));
@@ -119,7 +119,7 @@ bool Prefs_ShortWords::loadCfgFile(const QString& filename)
 	}
 	cfgEdit->clear();
 	QTextStream stream(&f);
-	stream.setCodec("UTF-8");
+	stream.setEncoding(QStringConverter::Utf8);
 	while (!stream.atEnd())
 		cfgEdit->append(stream.readLine());
 	f.close();

@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QScopedPointer>
 #include <QStack>
+#include <QStringView>
 #include <QTemporaryFile>
 #include <QDebug>
 
@@ -2958,7 +2959,7 @@ void AIPlug::processRaster(QDataStream &ts)
 			for (int a = 1; a < tmp.length(); a += 2)
 			{
 				bool ok;
-				ushort data = tmp.midRef(a, 2).toUShort(&ok, 16);
+				ushort data = QStringView(tmp).sliced(a, 2).toUShort(&ok, 16);
 				psdata[dataPointer++] = data;
 			}
 		}
