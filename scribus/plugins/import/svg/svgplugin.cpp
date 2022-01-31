@@ -1596,7 +1596,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 {
 	FPointArray clipPath;
 	QList<PageItem*> IElements;
-	QString fname = e.attribute("xlink:href");
+	QString hrefData = e.attribute("xlink:href"); //contains filename or xlink:href data:image/png embedded image
 	double baseX = m_Doc->currentPage()->xOffset();
 	double baseY = m_Doc->currentPage()->yOffset();
 	double x = e.attribute("x").isEmpty() ? 0.0 : parseUnit(e.attribute("x"));
@@ -1607,17 +1607,19 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 	parseClipPathAttr(e, clipPath);
 	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
-	if (!fname.isEmpty())
+	if (!hrefData.isEmpty())
 	{
-		if (!fname.startsWith("data:"))
-			m_Doc->loadPict(fname, ite);
+		//hrefData contains a filename
+		if (!hrefData.startsWith("data:"))
+			m_Doc->loadPict(hrefData, ite);
 		else
 		{
-			int startData = fname.indexOf(",");
-			QString dataType = fname.left(startData);
-			fname.remove(0, startData + 1);
+			//hrefData is embedded
+			int startData = hrefData.indexOf(",");
+			QString dataType = hrefData.left(startData);
+			hrefData.remove(0, startData + 1);
 			QByteArray ba;
-			ba.append(fname.toLatin1());
+			ba.append(hrefData.toLatin1());
 			if (dataType.contains("base64"))
 				ba = QByteArray::fromBase64(ba);
 			QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX.png");
