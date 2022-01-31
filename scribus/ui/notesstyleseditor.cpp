@@ -229,7 +229,7 @@ void NotesStylesEditor::readNotesStyle(const QString& nsName)
 	setNotesStyle(NS);
 }
 
-void NotesStylesEditor::on_NSlistBox_currentIndexChanged(const QString &arg1)
+void NotesStylesEditor::on_NSlistBox_currentTextChanged(const QString &arg1)
 {
 	if (arg1 != tr("default"))
 		DeleteButton->setEnabled(true);
@@ -411,7 +411,7 @@ void NotesStylesEditor::on_OKButton_clicked()
 		int index = NSlistBox->findText(newName);
 		NSlistBox->removeItem(index);
 		NSlistBox->setCurrentIndex(index-1);
-		on_NSlistBox_currentIndexChanged(NSlistBox->currentText());
+		on_NSlistBox_currentTextChanged(NSlistBox->currentText());
 	}
 	else
 	{

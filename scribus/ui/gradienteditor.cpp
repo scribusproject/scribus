@@ -39,7 +39,7 @@ GradientEditor::GradientEditor(QWidget *pa) : QFrame(pa)
 	stopOpacity->setDecimals(0);
 	stopShade->setDecimals(0);
 	connect(stopPos    , SIGNAL(valueChanged(double)), this, SLOT(changePos(double)));
-	connect(stopColor  , SIGNAL(activated(const QString&)), this, SLOT(setStopColor(const QString&)));
+	connect(stopColor  , SIGNAL(textActivated(const QString&)), this, SLOT(setStopColor(const QString&)));
 	connect(stopOpacity, SIGNAL(valueChanged(double)), this, SLOT(setStopTrans(double)));
 	connect(stopShade  , SIGNAL(valueChanged(double)), this, SLOT(setStopShade(double)));
 	connect(Preview, SIGNAL(selectedStop(VColorStop*)), this, SLOT(slotDisplayStop(VColorStop*)));

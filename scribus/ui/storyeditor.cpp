@@ -1512,7 +1512,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 
 	connect(charScaleH, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleH(double)));
 	connect(charScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
-	connect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(newFont(const QString &)));
+	connect(Fonts, SIGNAL(textActivated(const QString &)), this, SIGNAL(newFont(const QString &)));
 	connect(Size, SIGNAL(valueChanged(double)), this, SIGNAL(newSize(double)));
 
 	languageChange();

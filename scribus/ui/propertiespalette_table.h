@@ -82,12 +82,12 @@ private slots:
 	/// Handles border line width changes.
 	void on_borderLineWidth_valueChanged(double width);
 	/// Handles border line color changes.
-	void on_borderLineColor_activated(const QString& colorName);
+	void on_borderLineColor_textActivated(const QString& colorName);
 	/// Handles border line style changes.
 	void on_borderLineStyle_activated(int style);
 
 	/// Handles table fill color changes.
-	void on_fillColor_activated(const QString& colorName);
+	void on_fillColor_textActivated(const QString& colorName);
 	/// Handles table fill shade changes.
 	void on_fillShade_valueChanged(double shade);
 	void on_buttonClearTableStyle_clicked();

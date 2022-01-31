@@ -58,7 +58,7 @@ AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent)
 	resize(minimumSizeHint());
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
-	connect(buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(setTypeStyle(int)));
+	connect(buttonGroup, SIGNAL(idClicked(int)), this, SLOT(setTypeStyle(int)));
 }
 
 void AlignSelect::setStyle(int s, int d)

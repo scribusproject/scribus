@@ -38,7 +38,7 @@ public slots:
 	void setNotesStyle(NotesStyle* NS);
 
 private slots:
-	void on_NSlistBox_currentIndexChanged(const QString &arg1);
+	void on_NSlistBox_currentTextChanged(const QString &arg1);
 	void on_ApplyButton_clicked();
 	void on_DeleteButton_clicked();
 	void on_OKButton_clicked();

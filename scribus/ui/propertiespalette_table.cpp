@@ -497,7 +497,7 @@ void PropertiesPalette_Table::on_borderLineShade_valueChanged(double shade)
 	updateBorderLineListItem();
 }
 
-void PropertiesPalette_Table::on_borderLineColor_activated(const QString& colorName)
+void PropertiesPalette_Table::on_borderLineColor_textActivated(const QString& colorName)
 {
 	int index = borderLineList->currentRow();
 	TableBorderLine borderLine = m_currentBorder.borderLines().at(index);
@@ -522,7 +522,7 @@ void PropertiesPalette_Table::on_borderLineStyle_activated(int style)
 	updateBorderLineListItem();
 }
 
-void PropertiesPalette_Table::on_fillColor_activated(const QString& colorName)
+void PropertiesPalette_Table::on_fillColor_textActivated(const QString& colorName)
 {
 	if (!m_item || !m_item->isTable())
 		return;

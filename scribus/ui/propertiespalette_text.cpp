@@ -103,7 +103,7 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	connect(charStyleClear, SIGNAL(clicked()), this, SLOT(doClearCStyle()));
 	connect(paraStyleClear, SIGNAL(clicked()), this, SLOT(doClearPStyle()));
 
-	connect(flopBox->flopGroup, SIGNAL(buttonClicked( int )), this, SLOT(handleFirstLinePolicy(int)));
+	connect(flopBox->flopGroup, SIGNAL(idClicked(int)), this, SLOT(handleFirstLinePolicy(int)));
 
 	connect(lineSpacingModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLineSpacingMode(int)));
 	connect(langCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeLang(int)));

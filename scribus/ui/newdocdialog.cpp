@@ -164,7 +164,7 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );
 	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize(const QString &)));
+	connect(pageSizeComboBox, SIGNAL(textActivated(const QString &)), this, SLOT(setPageSize(const QString &)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrientation(int)));
 	connect(unitOfMeasureComboBox, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(double)), this, SLOT(setDistance(double)));

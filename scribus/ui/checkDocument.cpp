@@ -88,7 +88,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
 	connect(ignoreErrors, SIGNAL(clicked()), this, SIGNAL(ignoreAllErrors()));
-	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
+	connect(curCheckProfile, SIGNAL(textActivated(const QString&)), this, SLOT(newScan(const QString&)));
 	connect(reScan, SIGNAL(clicked()), this, SLOT(doReScan()));
 }
 
@@ -410,7 +410,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 {
 // 	bool resultError = false;
 	m_Doc = doc;
-	disconnect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
+	disconnect(curCheckProfile, SIGNAL(textActivated(const QString&)), this, SLOT(newScan(const QString&)));
 	curCheckProfile->clear();
 	clearErrorList();
 
@@ -756,7 +756,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	reportDisplay->resizeColumnToContents(COLUMN_ITEM);
 	reportDisplay->resizeColumnToContents(COLUMN_PROBLEM);
 	reportDisplay->resizeColumnToContents(COLUMN_LAYER);
-	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
+	connect(curCheckProfile, SIGNAL(textActivated(const QString&)), this, SLOT(newScan(const QString&)));
 	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*)));
 }
 

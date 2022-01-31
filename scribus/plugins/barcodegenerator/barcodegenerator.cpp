@@ -313,8 +313,8 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	paintBarcodeTimer->setSingleShot(true);
 	connect(paintBarcodeTimer, SIGNAL(timeout()), this, SLOT(paintBarcode()));
 
-	connect(ui.bcFamilyCombo, SIGNAL(activated(QString)), this, SLOT(bcFamilyComboChanged()));
-	connect(ui.bcCombo, SIGNAL(activated(QString)), this, SLOT(bcComboChanged()));
+	connect(ui.bcFamilyCombo, SIGNAL(activated(int)), this, SLOT(bcFamilyComboChanged()));
+	connect(ui.bcCombo, SIGNAL(activated(int)), this, SLOT(bcComboChanged()));
 	connect(ui.bgColorButton, SIGNAL(clicked()), this, SLOT(bgColorButton_pressed()));
 	connect(ui.lnColorButton, SIGNAL(clicked()), this, SLOT(lnColorButton_pressed()));
 	connect(ui.txtColorButton, SIGNAL(clicked()), this, SLOT(txtColorButton_pressed()));

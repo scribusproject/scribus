@@ -147,7 +147,7 @@ QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 		edito->setAutoFillBackground(true);
 		connect(editor, SIGNAL(activated(int)), this, SLOT(valueHasChanged()));
 		connect(editor, SIGNAL(activated(int)), item, SIGNAL(valueChanged(int)));
-		connect(editor, SIGNAL(activated(QString)), item, SIGNAL(valueChanged(QString)));
+		connect(editor, SIGNAL(textActivated(QString)), item, SIGNAL(valueChanged(QString)));
 	}
 	else if (item->m_type == PropTreeItem::CheckBox)
 	{
@@ -165,7 +165,7 @@ QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 		edito->setAutoFillBackground(true);
 		connect(editor, SIGNAL(activated(int)), this, SLOT(valueHasChanged()));
 		connect(editor, SIGNAL(activated(int)), item, SIGNAL(valueChanged(int)));
-		connect(editor, SIGNAL(activated(QString)), item, SIGNAL(valueChanged(QString)));
+		connect(editor, SIGNAL(textActivated(QString)), item, SIGNAL(valueChanged(QString)));
 	}
 	else
 		edito = nullptr;

@@ -315,7 +315,7 @@ void PropertyWidget_ParEffect::connectSignals()
 	connect(peCombo, SIGNAL(activated(int)), this, SLOT(handleParEffectUse()), Qt::UniqueConnection);
 	connect(dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(handleDropCapLines(int)), Qt::UniqueConnection);
 	connect(bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(handleBulletStr(QString)), Qt::UniqueConnection);
-	connect(numComboBox, SIGNAL(activated(QString)), this, SLOT(handleNumName(QString)), Qt::UniqueConnection);
+	connect(numComboBox, SIGNAL(textActivated(QString)), this, SLOT(handleNumName(QString)), Qt::UniqueConnection);
 	connect(numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(handleNumLevel(int)), Qt::UniqueConnection);
 	connect(numFormatCombo, SIGNAL(activated(int)), this, SLOT(handleNumFormat(int)), Qt::UniqueConnection);
 	connect(numPrefix, SIGNAL(textChanged(QString)), this, SLOT(handleNumPrefix(QString)), Qt::UniqueConnection);
@@ -331,7 +331,7 @@ void PropertyWidget_ParEffect::disconnectSignals()
 	disconnect(peCombo, SIGNAL(activated(int)), this, SLOT(handleParEffectUse()));
 	disconnect(dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(handleDropCapLines(int)));
 	disconnect(bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(handleBulletStr(QString)));
-	disconnect(numComboBox, SIGNAL(activated(QString)), this, SLOT(handleNumName(QString)));
+	disconnect(numComboBox, SIGNAL(textActivated(QString)), this, SLOT(handleNumName(QString)));
 	disconnect(numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(handleNumLevel(int)));
 	disconnect(numFormatCombo, SIGNAL(activated(int)), this, SLOT(handleNumFormat(int)));
 	disconnect(numPrefix, SIGNAL(textChanged(QString)), this, SLOT(handleNumPrefix(QString)));

@@ -51,7 +51,7 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent)
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 
-	connect(textFlowBtnGroup, SIGNAL(buttonClicked(int)), this, SLOT(handleTextFlow()));
+	connect(textFlowBtnGroup, SIGNAL(idClicked(int)), this, SLOT(handleTextFlow()));
 	connect(editShape  , SIGNAL(clicked())                 , this, SLOT(handleShapeEdit()));
 	connect(roundRect  , SIGNAL(valueChanged(double))      , this, SLOT(handleCornerRadius()));
 	connect(evenOdd    , SIGNAL(clicked())                 , this, SLOT(handleFillRule()) );
