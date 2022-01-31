@@ -1374,7 +1374,7 @@ void WMFImport::createFontIndirect( QList<PageItem*>& /*items*/, long , const sh
 	// TODO: investigation why some test case need -2. (size of font in logical point)
 	int fontSize = (params[0] != 0) ? (qAbs(params[0]) - 2) : 12;
 	handle->font.setPixelSize( fontSize );
-	handle->font.setWeight( (params[ 4 ] >> 3) );
+	handle->font.setWeight( (QFont::Weight) ((params[ 4 ] >> 3)) );
 	handle->font.setItalic( (params[ 5 ] & 0x01) );
 	handle->font.setUnderline( (params[ 5 ] & 0x100) );
 	handle->font.setStrikeOut( (params[ 6 ] & 0x01) );

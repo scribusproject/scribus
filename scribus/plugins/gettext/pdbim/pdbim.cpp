@@ -168,7 +168,7 @@ void PdbIm::loadFile(const QString& fname)
 				++m_buf->position;
 				continue;
 			}
-			data += m_buf->buf[m_buf->position];
+			data += QChar(m_buf->buf[m_buf->position]);
 			++m_buf->position;
 		} 
 	}

@@ -1617,7 +1617,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 			QString dataType = fname.left(startData);
 			fname.remove(0, startData + 1);
 			QByteArray ba;
-			ba.append(fname);
+			ba.append(fname.toLatin1());
 			if (dataType.contains("base64"))
 				ba = QByteArray::fromBase64(ba);
 			QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX.png");
