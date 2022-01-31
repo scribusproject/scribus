@@ -1360,7 +1360,7 @@ void AIPlug::processData(const QString& data)
 	{
 		if (data.contains("~>"))
 		{
-			dataString += data.midRef(1);
+			dataString += data.sliced(1);
 			dataMode = false;
 			QByteArray fData;
 			decodeA85(fData, dataString);
@@ -1419,7 +1419,7 @@ void AIPlug::processData(const QString& data)
 			currentSpecialPath.svgInit();
 		}
 		else
-			dataString += data.midRef(1);
+			dataString += data.sliced(1);
 		return;
 	}
 	getCommands(data, da);

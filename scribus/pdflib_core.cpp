@@ -3286,8 +3286,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool)
 				
 			int pIndex = doc.MasterPages.indexOf((ScPage* const) pag) + 1;
 			QByteArray name = QByteArray("master_page_obj_%1_%2")
-				                        .replace("%1", Pdf::toPdf(pIndex))
-				                        .replace("%2", Pdf::toPdf(qHash(ite)));
+										.replace("%1", Pdf::toPdf(pIndex))
+										.replace("%2", Pdf::toPdf(qHash(ite)));
 			pageData.XObjects[name] = templateObject;
 		}
 		if (Options.exportsLayers())
@@ -3848,8 +3848,8 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 			continue;
 
 		QByteArray name = QByteArray("/master_page_obj_%1_%2")
-			                            .replace("%1", Pdf::toPdf(mPageIndex))
-			                            .replace("%2", Pdf::toPdf(qHash(ite)));
+										.replace("%1", Pdf::toPdf(mPageIndex))
+										.replace("%2", Pdf::toPdf(qHash(ite)));
 		if (!ite->isTextContainer())
 		{
 			if (((layer.transparency != 1) || (layer.blendMode != 0)) && Options.supportsTransparency())
