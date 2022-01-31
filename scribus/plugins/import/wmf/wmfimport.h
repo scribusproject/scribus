@@ -15,6 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include <QColor>
 #include <QList>
 #include <QSize>
+#include <QTextCodec>
+
 #include "pluginapi.h"
 #include "fpointarray.h"
 #include "wmfcontext.h"
