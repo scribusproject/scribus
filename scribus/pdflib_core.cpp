@@ -1660,7 +1660,7 @@ PdfId PDFLibCore::PDF_EmbedFontObject(const QByteArray& font, const QByteArray& 
 
 QByteArray PDFLibCore::PDF_GenerateSubsetTag(const QByteArray& fontName, const QList<uint>& usedGlyphs)
 {
-	uint hash, mod;
+	size_t hash, mod;
 	QVector<uint> glyphVec = usedGlyphs.toVector();
 
 	hash = qHashBits(fontName.constData(), fontName.size(), 0);

@@ -614,7 +614,7 @@ bool ScLayers::setLayerSelectable(int layerID, bool isSelectable)
 	return true;
 }
 
-uint qHash(const ScLayer& layer)
+size_t qHash(const ScLayer& layer)
 { 
 	return qHash(&layer);
 }

@@ -340,6 +340,6 @@ public:
 	 bool setLayerSelectable(int layerID, bool isSelectable);
 };
 
-uint qHash(const ScLayer& layer);
+size_t qHash(const ScLayer& layer);
 
 #endif

@@ -254,7 +254,7 @@ private:
 };
 Q_DECLARE_TYPEINFO(TableCell, Q_MOVABLE_TYPE);
 
-inline uint qHash(const TableCell& cell)
+inline size_t qHash(const TableCell& cell)
 {
 	return (cell.row() << 16) ^ cell.column();
 }

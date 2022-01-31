@@ -660,7 +660,7 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 					return false;
 			}
 		}
-		uint patHash = qHash(patternName);
+		size_t patHash = qHash(patternName);
 		PutStream("/Pattern" + QString::number(patHash) + " 8 dict def\n");
 		PutStream("Pattern" + QString::number(patHash) + " begin\n");
 		PutStream("/PatternType 1 def\n");
@@ -2866,7 +2866,7 @@ void PSLib::HandleStrokePattern(PageItem *item)
 	QTransform patternMatrix;
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
 	pat = &m_Doc->docPatterns[item->strokePattern()];
-	uint patHash = qHash(item->strokePattern());
+	size_t patHash = qHash(item->strokePattern());
 	item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
 	patternMatrix.translate(-item->lineWidth() / 2.0, item->lineWidth() / 2.0);
 	patternMatrix.translate(patternOffsetX, -patternOffsetY);
@@ -3618,7 +3618,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 			QTransform patternMatrix;
 			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 			ScPattern *pat = &m_Doc->docPatterns[item->pattern()];
-			uint patHash = qHash(item->pattern());
+			size_t patHash = qHash(item->pattern());
 			item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 			patternMatrix.translate(patternOffsetX, -patternOffsetY);
 			patternMatrix.rotate(-patternRotation);
@@ -4011,7 +4011,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 			QTransform patternMatrix;
 			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
 			ScPattern *pat = &m_Doc->docPatterns[ite->strokePattern()];
-			uint patHash = qHash(ite->strokePattern());
+			size_t patHash = qHash(ite->strokePattern());
 			ite->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
 			patternMatrix.translate(patternOffsetX, -patternOffsetY);
 			patternMatrix.rotate(-patternRotation);
