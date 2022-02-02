@@ -422,18 +422,18 @@ void SMTableStyle::setupConnections()
 {
 	if (!m_page)
 		return;
-	connect(m_page->fillColor, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
+	connect(m_page->fillColor, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotFillColor()));
 	connect(m_page->fillShade, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	connect(m_page->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
+	connect(m_page->parentCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotParentChanged(const QString&)));
 }
 
 void SMTableStyle::removeConnections()
 {
 	if (!m_page)
 		return;
-	disconnect(m_page->fillColor, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
+	disconnect(m_page->fillColor, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotFillColor()));
 	disconnect(m_page->fillShade, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	disconnect(m_page->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
+	disconnect(m_page->parentCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotParentChanged(const QString&)));
 }
 
 void SMTableStyle::slotFillColor()
