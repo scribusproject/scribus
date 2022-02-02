@@ -164,8 +164,8 @@ void ColorPalette::connectSignals()
 	connect(gradEditStroke, SIGNAL(gradientChanged()), this, SLOT(handleStrokeGradient()));
 	connect(gradientType  , SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(gradientTypeStroke , SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
-	connect(namedGradient , SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
-	connect(namedGradientStroke, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
+	connect(namedGradient , SIGNAL(currentTextChanged(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	connect(namedGradientStroke, SIGNAL(currentTextChanged(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 	connect(overPrintCombo     , SIGNAL(activated(int)), this, SIGNAL(NewOverprint(int)));
 	connect(patternBox         , SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	connect(patternBoxStroke   , SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
@@ -224,8 +224,8 @@ void ColorPalette::disconnectSignals()
 	disconnect(gradEditStroke, SIGNAL(gradientChanged()), this, SLOT(handleStrokeGradient()));
 	disconnect(gradientType  , SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	disconnect(gradientTypeStroke , SIGNAL(activated(int)), this, SLOT(slotGradTypeStroke(int)));
-	disconnect(namedGradient , SIGNAL(textActivated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
-	disconnect(namedGradientStroke, SIGNAL(textActivated(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
+	disconnect(namedGradient , SIGNAL(currentTextChanged(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	disconnect(namedGradientStroke, SIGNAL(currentTextChanged(const QString &)), this, SLOT(setNamedGradientStroke(const QString &)));
 	disconnect(overPrintCombo     , SIGNAL(activated(int)), this, SIGNAL(NewOverprint(int)));
 	disconnect(patternBox         , SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	disconnect(patternBoxStroke   , SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPatternS(QListWidgetItem*)));
