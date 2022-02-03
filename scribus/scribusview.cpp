@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <cstdio>
 #include <cstdlib>
+#include <utility>
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -3201,19 +3202,20 @@ QVariant ScribusView::inputMethodQuery(Qt::InputMethodQuery query) const
 
 void ScribusView::wheelEvent(QWheelEvent *w)
 {
+	QPoint angleDelta = w->angleDelta();
 	if (w->modifiers() == Qt::ControlModifier)
 	{
 		FPoint mp = m_canvas->globalToCanvas(w->globalPosition());
-		w->angleDelta().x() > 0 ? slotZoomIn(mp.x(), mp.y() , true) : slotZoomOut(mp.x(), mp.y(), true);
+		angleDelta.y() > 0 ? slotZoomIn(mp.x(), mp.y(), true) : slotZoomOut(mp.x(), mp.y(), true);
 	}
 	else
 	{
-		int dX = 0, dY = 0;
-		int moveBy = (w->angleDelta().x() < 0) ? Prefs->uiPrefs.wheelJump : -Prefs->uiPrefs.wheelJump;
-		if ((w->angleDelta().y()==0) || ( w->modifiers() == Qt::ShiftModifier ))
-			dX = moveBy;
-		else
-			dY = moveBy;
+		int signOfX = (angleDelta.x() > 0) ? 1 : ((angleDelta.x() < 0) ? -1 : 0);
+		int signOfY = (angleDelta.y() > 0) ? 1 : ((angleDelta.y() < 0) ? -1 : 0);
+		int dX = -Prefs->uiPrefs.wheelJump * signOfX;
+		int dY = -Prefs->uiPrefs.wheelJump * signOfY;
+		if (w->modifiers() == Qt::ShiftModifier)
+			std::swap(dX, dY);
 		scrollBy(dX, dY);
 	}
 	w->accept();
