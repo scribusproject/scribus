@@ -3072,10 +3072,10 @@ void SlaOutputDev::updateFont(GfxState *state)
 		delete id;
 	else
 	{
-		if (!(fontLoc = gfxFont->locateFont(xref, nullptr)))
+		fontLoc = gfxFont->locateFont((xref) ? xref : pdfDoc->getXRef(), nullptr);
+		if (!fontLoc)
 		{
-			error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'",
-			gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
+			error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
 			goto err2;
 		}
 
