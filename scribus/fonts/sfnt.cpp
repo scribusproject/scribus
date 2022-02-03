@@ -725,7 +725,7 @@ namespace sfnt {
 				symbolFormat = format;
 				continue;
 			}
-			format = 1; // no such format
+//			format = 1; // no such format
 		}
 		// If no unicode cmap was found, fallback on ms symbol cmap
 		uint format = unicodeFormat;

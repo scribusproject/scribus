@@ -788,8 +788,8 @@ void ScribusMainWindow::initPalettes()
 	connect(docCheckerPalette, SIGNAL(selectElement(PageItem*,bool,int)), this, SLOT(selectItemFromOutlines(PageItem*,bool,int)));
 	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(docCheckerPalette, SIGNAL(selectMasterPage(QString)), this, SLOT(editMasterPagesStart(QString)));
-	connect(outlinePalette, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem*,bool)));
-	connect(outlinePalette, SIGNAL(editElementByItem(PageItem *)), this, SLOT(editItemsFromOutlines(PageItem *)));
+	connect(outlinePalette, SIGNAL(selectElementByItem(PageItem*,bool)), this, SLOT(selectItemsFromOutlines(PageItem*,bool)));
+	connect(outlinePalette, SIGNAL(editElementByItem(PageItem*)), this, SLOT(editItemsFromOutlines(PageItem*)));
 	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(editMasterPagesStart(QString)));
 	connect(nodePalette, SIGNAL(paletteClosed()), this, SLOT(slotSelect()));
@@ -798,7 +798,7 @@ void ScribusMainWindow::initPalettes()
 
 	connect(bookmarkPalette->BView, SIGNAL(markMoved()), this, SLOT(StoreBookmarks()));
 	connect(bookmarkPalette->BView, SIGNAL(changed()), this, SLOT(slotDocCh()));
-	connect(bookmarkPalette->BView, SIGNAL(selectElement(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
+	connect(bookmarkPalette->BView, SIGNAL(selectElement(PageItem*,bool)), this, SLOT(selectItemsFromOutlines(PageItem*,bool)));
 	// guides
 	connect(scrActions["pageManageGuides"], SIGNAL(toggled(bool)), guidePalette, SLOT(setPaletteShown(bool)));
 	connect(guidePalette, SIGNAL(paletteShown(bool)), scrActions["pageManageGuides"], SLOT(setChecked(bool)));
@@ -831,8 +831,8 @@ void ScribusMainWindow::initScrapbook()
 	scrapbookPalette->setOpenScrapbooks(m_prefsManager.appPrefs.scrapbookPrefs.RecentScrapbooks);
 	rebuildRecentPasteMenu();
 	connect(scrapbookPalette, SIGNAL(updateRecentMenue()), this, SLOT(rebuildRecentPasteMenu()));
-	connect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), scrapbookPalette, SLOT(reloadLib(QString )));
-	connect(ScCore->fileWatcher, SIGNAL(dirDeleted(QString )), scrapbookPalette, SLOT(closeOnDel(QString )));
+	connect(ScCore->fileWatcher, SIGNAL(dirChanged(QString)), scrapbookPalette, SLOT(reloadLib(QString)));
+	connect(ScCore->fileWatcher, SIGNAL(dirDeleted(QString)), scrapbookPalette, SLOT(closeOnDel(QString)));
 }
 
 bool ScribusMainWindow::warningVersion(QWidget *parent)
@@ -1440,7 +1440,7 @@ void ScribusMainWindow::initStatusBar()
 
 	statusBar()->addPermanentWidget(unitSwitcher,0);
 	statusBar()->addPermanentWidget(mainWindowProgressBar, 0);
-	connect(statusBar(), SIGNAL(messageChanged(const QString &)), this, SLOT(setTempStatusBarText(const QString &)));
+	connect(statusBar(), SIGNAL(messageChanged(QString)), this, SLOT(setTempStatusBarText(QString)));
 
 }
 
@@ -1819,7 +1819,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 		int windowCount = windows.count();
 		for ( int i = 0; i < windowCount; ++i )
 		{
-			tw = qobject_cast<ScribusWin *>(windows.at(i));
+//			tw = qobject_cast<ScribusWin *>(windows.at(i));
 			QMdiSubWindow *tws = windows.at(i);
 			ScribusWin* scw = dynamic_cast<ScribusWin *>(tws->widget());
 			if (scw)
@@ -2625,7 +2625,7 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(HaveSel()), this, SLOT(HaveNewSel()), Qt::UniqueConnection);
 	connect(view, SIGNAL(DocChanged()), this, SLOT(slotDocCh()), Qt::UniqueConnection);
 	connect(view, SIGNAL(MousePos(double,double)), this, SLOT(setStatusBarMousePosition(double,double)), Qt::UniqueConnection);
-	connect(view, SIGNAL(ItemCharStyle(const CharStyle&)), contentPalette, SLOT(update(const CharStyle&)), Qt::UniqueConnection);
+	connect(view, SIGNAL(ItemCharStyle(CharStyle)), contentPalette, SLOT(update(CharStyle)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemTextEffects(int)), this, SLOT(setStyleEffects(int)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemTextAlign(int)), this, SLOT(setAlignmentValue(int)), Qt::UniqueConnection);
 	connect(view, SIGNAL(LoadElem(QString,double,double,bool,bool,ScribusDoc*,ScribusView*)), this, SLOT(slotElemRead(QString,double,double,bool,bool,ScribusDoc*,ScribusView*)), Qt::UniqueConnection);
@@ -7004,7 +7004,7 @@ void ScribusMainWindow::reallySaveAsEps()
 	}
 	else
 	{
-		QDir di = QDir();
+//		QDir di = QDir();
 		if (!doc->m_Selection->isEmpty())
 			filename = QDir::currentPath() + "/" + doc->documentFileName() + "_selection.eps";
 		else
@@ -7175,7 +7175,7 @@ void ScribusMainWindow::doSaveAsPDF()
 			std::vector<int> pageNs2;
 			pageNs2.clear();
 			pageNs2.push_back(pageNs[aa]);
-			pageNumbersSize = pageNs2.size();
+//			pageNumbersSize = pageNs2.size();
 			QImage thumb(10, 10, QImage::Format_ARGB32_Premultiplied);
 			if (doc->pdfOptions().Thumbnails)
 				thumb = allThumbs[pageNs[aa]];

@@ -17,7 +17,7 @@
 void PageItemPointerDB::addToDB(const QString & key, PageItem * value)
 {
 	insert(key,value);
-	connect ( value,SIGNAL( destroyed ( QObject* ) ),this,SLOT( removeFromDB ( QObject* ) ) );
+	connect(value, SIGNAL(destroyed(QObject*)), this, SLOT(removeFromDB(QObject*)));
 }
 
 void PageItemPointerDB::removeFromDB ( QObject * obj )

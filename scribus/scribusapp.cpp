@@ -455,15 +455,15 @@ QStringList ScribusQApp::getLang(QString lang)
 #endif
 
 	langs.append(QLocale::system().name());
-
-	// remove duplicate entries...
-	QStringList::Iterator it = langs.end();
-	while (it != langs.begin())
-	{
-		--it;
-		if (langs.count(*it) > 1)
-			it = langs.erase(it);
-	}
+	langs.removeDuplicates();
+//	// remove duplicate entries...
+//	QStringList::Iterator it = langs.end();
+//	while (it != langs.begin())
+//	{
+//		--it;
+//		if (langs.count(*it) > 1)
+//			it = langs.erase(it);
+//	}
 	return langs;
 }
 

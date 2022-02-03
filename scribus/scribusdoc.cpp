@@ -6013,11 +6013,12 @@ void ScribusDoc::reformPages(bool moveObjects)
 	int counter = pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].FirstPage;
 	int rowcounter = 0;
 	double maxYPos=0.0, maxXPos=0.0;
-	double currentXPos=m_docPrefsData.displayPrefs.scratch.left(), currentYPos=m_docPrefsData.displayPrefs.scratch.top(), lastYPos=Pages->at(0)->initialHeight();
+	double currentXPos=m_docPrefsData.displayPrefs.scratch.left();
+	double currentYPos=m_docPrefsData.displayPrefs.scratch.top();
+	double lastYPos=Pages->at(0)->initialHeight();
 //	currentXPos += (pageWidth+pageSets[currentPageLayout].GapHorizontal) * counter;
 	currentXPos += (m_docPrefsData.docSetupPrefs.pageWidth+m_docPrefsData.displayPrefs.pageGapHorizontal) * counter;
 
-	lastYPos = Pages->at(0)->initialHeight();
 	ScPage* page;
 	int docPageCount=Pages->count();
 	for (int i = 0; i < docPageCount; ++i)
