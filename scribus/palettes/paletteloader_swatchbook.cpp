@@ -56,59 +56,60 @@ bool PaletteLoader_Swatchbook::importFile(const QString& fileName, bool /*merge*
 	QDomElement docElem = docu.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
-		if (drawPag.tagName() == "materials")
+		if (drawPag.tagName() != "materials")
+			continue;
+
+		for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
 		{
-			for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			if (spf.tagName() != "color")
+				continue;
+
+			bool isSpot = spf.attribute("usage") == "spot";
+			QString colorName;
+			ScColor tmp;
+			tmp.setRegistrationColor(false);
+			for (QDomElement spp = spf.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement() )
 			{
-				if (spf.tagName() == "color")
+				if (spp.tagName() == "metadata")
 				{
-					bool isSpot = spf.attribute("usage") == "spot";
-					QString colorName = "";
-					ScColor tmp;
-					tmp.setRegistrationColor(false);
-					for (QDomElement spp = spf.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement() )
+					for (QDomElement spm = spp.firstChildElement(); !spm.isNull(); spm = spm.nextSiblingElement() )
 					{
-						if (spp.tagName() == "metadata")
-						{
-							for (QDomElement spm = spp.firstChildElement(); !spm.isNull(); spm = spm.nextSiblingElement() )
-							{
-								if (spm.tagName() == "dc:identifier")
-									colorName = spm.text();
-							}
-						}
-						else if (spp.tagName() == "values")
-						{
-							QString colorVals = spp.text();
-							ScTextStream CoE(&colorVals, QIODevice::ReadOnly);
-							if (spp.attribute("model") == "Lab")
-							{
-								double inC[3];
-								CoE >> inC[0];
-								CoE >> inC[1];
-								CoE >> inC[2];
-								tmp.setLabColor(inC[0], inC[1], inC[2]);
-								tmp.setSpotColor(isSpot);
-							}
-							else if (spp.attribute("model") == "CMYK")
-							{
-								double c, m, y, k;
-								CoE >> c >> m >> y >> k;
-								tmp.setColorF(c, m, y, k);
-								tmp.setSpotColor(isSpot);
-							}
-							else if (spp.attribute("model") == "RGB")
-							{
-								double r, g, b;
-								CoE >> r >> g >> b;
-								tmp.setRgbColorF(r, g, b);
-								tmp.setSpotColor(false);
-							}
-						}
+						if (spm.tagName() == "dc:identifier")
+							colorName = spm.text();
 					}
-					if (!colorName.isEmpty())
-						m_colors->tryAddColor(colorName, tmp);
+				}
+				else if (spp.tagName() == "values")
+				{
+					QString colorVals = spp.text();
+					ScTextStream CoE(&colorVals, QIODevice::ReadOnly);
+					if (spp.attribute("model") == "Lab")
+					{
+						double inC[3];
+						CoE >> inC[0];
+						CoE >> inC[1];
+						CoE >> inC[2];
+						tmp.setLabColor(inC[0], inC[1], inC[2]);
+						tmp.setSpotColor(isSpot);
+					}
+					else if (spp.attribute("model") == "CMYK")
+					{
+						double c, m, y, k;
+						CoE >> c >> m >> y >> k;
+						tmp.setColorF(c, m, y, k);
+						tmp.setSpotColor(isSpot);
+					}
+					else if (spp.attribute("model") == "RGB")
+					{
+						double r, g, b;
+						CoE >> r >> g >> b;
+						tmp.setRgbColorF(r, g, b);
+						tmp.setSpotColor(false);
+					}
 				}
 			}
+
+			if (!colorName.isEmpty())
+				m_colors->tryAddColor(colorName, tmp);
 		}
 	}
 	
