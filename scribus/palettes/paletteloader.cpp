@@ -14,5 +14,5 @@ void PaletteLoader::setupTargets(ColorList* colors, QHash<QString, VGradient> *g
 	assert (colors != nullptr);
 	
 	m_colors = colors;
-	gradients = m_gradients;
+	m_gradients = gradients;
 }
