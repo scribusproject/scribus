@@ -3210,8 +3210,8 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 	}
 	else
 	{
-		int signOfX = (angleDelta.x() > 0) ? 1 : ((angleDelta.x() < 0) ? -1 : 0);
-		int signOfY = (angleDelta.y() > 0) ? 1 : ((angleDelta.y() < 0) ? -1 : 0);
+		int signOfX = (angleDelta.x() == 0) ? 0 : ((angleDelta.x() < 0) ? -1 : 1);
+		int signOfY = (angleDelta.y() == 0) ? 0 : ((angleDelta.y() < 0) ? -1 : 1);
 		int dX = -Prefs->uiPrefs.wheelJump * signOfX;
 		int dY = -Prefs->uiPrefs.wheelJump * signOfY;
 		if (w->modifiers() == Qt::ShiftModifier)
