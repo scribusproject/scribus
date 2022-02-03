@@ -420,9 +420,9 @@ void SMCellStyle::setupConnections()
 {
 	if (!m_page)
 		return;
-	connect(m_page->fillColor, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotFillColor()));
+	connect(m_page->fillColor, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
 	connect(m_page->fillShade, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	connect(m_page->parentCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotParentChanged(const QString&)));
+	connect(m_page->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotParentChanged(QString)));
 }
 
 void SMCellStyle::removeConnections()

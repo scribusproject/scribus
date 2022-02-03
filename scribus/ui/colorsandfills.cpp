@@ -150,10 +150,10 @@ ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGrad
 	dataTree->setCurrentItem(dataTree->topLevelItem(0));
 	itemSelected(dataTree->currentItem());
 
-	connect(dataTree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(itemSelected(QTreeWidgetItem*)));
-	connect(dataTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(selEditColor(QTreeWidgetItem*)));
+	connect(dataTree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(itemSelected(QTreeWidgetItem*)));
+	connect(dataTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(selEditColor(QTreeWidgetItem*)));
 	connect(dataTree, SIGNAL(itemSelectionChanged()), this, SLOT(itemSelectionChanged()));
-	connect(dataTree, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick(QPoint)));
+	connect(dataTree, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotRightClick(QPoint)));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(createNew()));
 	connect(editButton, SIGNAL(clicked()), this, SLOT(editColorItem()));
 	connect(duplicateButton, SIGNAL(clicked()), this, SLOT(duplicateColorItem()));

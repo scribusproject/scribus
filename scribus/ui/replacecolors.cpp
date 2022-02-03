@@ -60,7 +60,7 @@ replaceColorsDialog::replaceColorsDialog(QWidget* parent, ColorList &colorList, 
 	updateReplacementTable();
 	removeButton->setEnabled(false);
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addColor()));
-	connect(replacementTable, SIGNAL(cellClicked(int, int)), this, SLOT(selReplacement(int)));
+	connect(replacementTable, SIGNAL(cellClicked(int,int)), this, SLOT(selReplacement(int)));
 	connect(removeButton, SIGNAL(clicked()), this, SLOT(delReplacement()));
 	connect(editButton, SIGNAL(clicked()), this, SLOT(editReplacement()));
 }

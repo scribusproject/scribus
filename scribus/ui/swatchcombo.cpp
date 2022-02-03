@@ -39,7 +39,7 @@ SwatchCombo::SwatchCombo( QWidget* parent ) : QToolButton(parent)
 	setMenu(popUp);
 	setPopupMode(QToolButton::MenuButtonPopup);
 	setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed));
-	connect(dataTree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(itemActivated(QTreeWidgetItem*)));
+	connect(dataTree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(itemActivated(QTreeWidgetItem*)));
 }
 
 void SwatchCombo::itemActivated(QTreeWidgetItem* item)

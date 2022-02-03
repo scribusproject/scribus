@@ -543,8 +543,8 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->tabList->rightIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
 	connect(m_pwidget->tabList->firstLineSpin, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
 
-	connect(m_pwidget->parentCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotParentChanged(const QString&)));
-	connect(m_pwidget->backColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotBackPColor()));
+	connect(m_pwidget->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotParentChanged(QString)));
+	connect(m_pwidget->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackPColor()));
 	connect(m_pwidget->backShade_, SIGNAL(clicked()), this, SLOT(slotBackPShade()));
 
 	// character attributes
@@ -557,9 +557,9 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	connect(m_pwidget->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	connect(m_pwidget->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	connect(m_pwidget->cpage->fillColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotFillColor()));
+	connect(m_pwidget->cpage->fillColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
 	connect(m_pwidget->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	connect(m_pwidget->cpage->strokeColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotStrokeColor()));
+	connect(m_pwidget->cpage->strokeColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotStrokeColor()));
 	connect(m_pwidget->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	connect(m_pwidget->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	connect(m_pwidget->cpage->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
@@ -568,15 +568,15 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->cpage->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
 	connect(m_pwidget->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	connect(m_pwidget->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
-	connect(m_pwidget->cpage->parentCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotCharParentChanged(const QString&)));
-	connect(m_pwidget->cpage->backColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotBackColor()));
+	connect(m_pwidget->cpage->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotCharParentChanged(QString)));
+	connect(m_pwidget->cpage->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackColor()));
 	connect(m_pwidget->cpage->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
 	connect(m_pwidget->cpage->fontfeaturesSetting,SIGNAL(changed()), this, SLOT(slotFontFeatures()));
 	connect(m_pwidget->cpage->hyphenCharLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotHyphenChar()));
 	connect(m_pwidget->cpage->smallestWordSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotWordMin()));
 
 	// Referenced character style changes
-	connect(m_cstyleItem, SIGNAL(charStylesDeleted(const QList<RemoveItem>&)), this, SLOT(slotCharStylesDeleted(const QList<RemoveItem>&)));
+	connect(m_cstyleItem, SIGNAL(charStylesDeleted(QList<RemoveItem>)), this, SLOT(slotCharStylesDeleted(QList<RemoveItem>)));
 }
 
 void SMParagraphStyle::removeConnections()
@@ -2280,9 +2280,9 @@ void SMCharacterStyle::setupConnections()
 	connect(m_page->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	connect(m_page->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	connect(m_page->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	connect(m_page->fillColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotFillColor()));
+	connect(m_page->fillColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
 	connect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	connect(m_page->strokeColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotStrokeColor()));
+	connect(m_page->strokeColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotStrokeColor()));
 	connect(m_page->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	connect(m_page->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	connect(m_page->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
@@ -2291,8 +2291,8 @@ void SMCharacterStyle::setupConnections()
 	connect(m_page->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
 	connect(m_page->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	connect(m_page->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
-	connect(m_page->parentCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotParentChanged(const QString&)));
-	connect(m_page->backColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotBackColor()));
+	connect(m_page->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotParentChanged(QString)));
+	connect(m_page->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackColor()));
 	connect(m_page->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
 	connect(m_page->fontfeaturesSetting, SIGNAL(changed()), this, SLOT(slotFontFeatures()));
 	connect(m_page->smallestWordSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotSmallestWord()));

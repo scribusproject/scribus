@@ -198,12 +198,12 @@ int convertPS2PDF(const QString& in, const QString& out, const QStringList& opts
 
 bool testGSAvailability()
 {
-	QStringList args;
+//	QStringList args;
 	PrefsManager& prefsManager = PrefsManager::instance();
 	return testGSAvailability(prefsManager.ghostscriptExecutable());
 }
 
-bool testGSAvailability( const QString& gsPath )
+bool testGSAvailability(const QString& gsPath)
 {
 	QStringList args;
 	args.append( "-h" );

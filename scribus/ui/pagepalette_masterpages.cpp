@@ -105,10 +105,8 @@ void PagePalette_MasterPages::connectSignals()
 	connect(deleteButton   , SIGNAL(clicked()), this, SLOT(deleteMasterPage()));
 	connect(newButton      , SIGNAL(clicked()), this, SLOT(newMasterPage()));
 	connect(importButton   , SIGNAL(clicked()), this, SLOT(importPage()));
-	connect(masterPageListBox, SIGNAL(itemClicked(QListWidgetItem*)),
-			 this, SLOT(selectMasterPage(QListWidgetItem*)));
-	connect(masterPageListBox, SIGNAL(itemChanged(QListWidgetItem*)),
-			 this, SLOT(renameMasterPage( QListWidgetItem*)));
+	connect(masterPageListBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectMasterPage(QListWidgetItem*)));
+	connect(masterPageListBox, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(renameMasterPage(QListWidgetItem*)));
 	connect(finishButton   , SIGNAL(released()), this, SIGNAL(finished()));
 }
 

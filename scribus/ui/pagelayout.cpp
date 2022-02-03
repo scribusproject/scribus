@@ -114,7 +114,7 @@ PageLayouts::PageLayouts(QWidget* parent, const QList<PageSet>& pSets, bool mode
 // 	We need change combos width setMaximumWidth(minimumSizeHint().width());
 
 	if (modus)
-		connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+		connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem*)));
 	else
 		connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 	connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
@@ -176,7 +176,7 @@ void PageLayouts::selectItem(uint nr)
 	{
 		layoutsView->setCurrentRow(nr);
 		layoutsView->item(nr)->setSelected(true);
-		connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+		connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem*)));
 	}
 	else
 	{

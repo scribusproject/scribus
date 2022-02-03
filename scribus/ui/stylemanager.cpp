@@ -72,10 +72,8 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(slotDelete()));
 	connect(cloneButton, SIGNAL(clicked()), this, SLOT(slotClone()));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
-	connect(styleView, SIGNAL(customContextMenuRequested(const QPoint &)),
-			this, SLOT(slotRightClick(const QPoint &)));
-	connect(styleView, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
-			this, SLOT(slotDoubleClick(QTreeWidgetItem *, int)));
+	connect(styleView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotRightClick(QPoint)));
+	connect(styleView, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotDoubleClick(QTreeWidgetItem*,int)));
 
 	languageChange();
 	slotOk();

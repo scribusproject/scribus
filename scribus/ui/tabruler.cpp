@@ -605,7 +605,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int unit, const QList<Parag
 	connect(ruler, SIGNAL(fillCharChanged(QChar)) , this, SLOT(setTabFillChar(QChar)));
 	connect(typeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
 	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
-	connect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	connect(tabFillCombo, SIGNAL(editTextChanged(QString)), this, SLOT(setCustomFillChar(QString)));
 	connect(ruler, SIGNAL(tabMoved(double)) , this, SLOT(setTabData(double)));
 	connect(ruler, SIGNAL(tabSelected()), this, SLOT(tabAdded()));
 	connect(ruler, SIGNAL(newTab()), this, SLOT(tabAdded()));

@@ -172,7 +172,7 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 	connect(EDirection_2_2, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
 	connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
 	connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
-	connect(InfoString, SIGNAL(textChanged(const QString &)), this, SLOT(checkInfo()));
+	connect(InfoString, SIGNAL(textChanged(QString)), this, SLOT(checkInfo()));
 	connect(InfoString, SIGNAL(editingFinished()), this, SLOT(checkInfo()));
 	connect(docBleeds, SIGNAL(clicked()), this, SLOT(doDocBleeds()));
 	

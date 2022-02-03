@@ -45,7 +45,7 @@ SymbolView::SymbolView(QWidget* parent) : QListWidget(parent)
 	delegate = new ScListWidgetDelegate(this, this);
 	setItemDelegate(delegate);
 	setIconSize(QSize(48, 48));
-	connect(this, SIGNAL(customContextMenuRequested (const QPoint&)), this, SLOT(HandleContextMenu(QPoint)));
+	connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(HandleContextMenu(QPoint)));
 }
 
 void SymbolView::HandleContextMenu(QPoint p)

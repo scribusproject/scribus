@@ -942,9 +942,9 @@ void ResourceManager::updateDownloadLists()
 	for (const QString& f : qAsConst(m_dataFiles))
 		ScQApp->dlManager()->addURL("https://services.scribus.net/" + f + ".sha256", true, ScPaths::downloadDir(), ScPaths::downloadDir());
 	connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadListFinished()));
-	connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
-	connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
-	connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
+	connect(ScQApp->dlManager(), SIGNAL(fileReceived(QString)), this, SLOT(updateProgressBar()));
+	connect(ScQApp->dlManager(), SIGNAL(fileFailed(QString)), this, SLOT(updateProgressBar()));
+	connect(ScQApp->dlManager(), SIGNAL(fileFailed(QString)), this, SLOT(updateProgressBar()));
 	connect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64, qint64)), this, SLOT(updateProgressData(qint64, qint64)));
 	ScQApp->dlManager()->startDownloads();
 }
@@ -1341,9 +1341,9 @@ void ResourceManager::startDownload()
 	{
 		downloadProgressBar->setRange(0, dlCount);
 		connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadFilesFinished()));
-		connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
-		connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
-		connect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64, qint64)), this, SLOT(updateProgressData(qint64, qint64)));
+		connect(ScQApp->dlManager(), SIGNAL(fileReceived(QString)), this, SLOT(updateProgressBar()));
+		connect(ScQApp->dlManager(), SIGNAL(fileFailed(QString)), this, SLOT(updateProgressBar()));
+		connect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64,qint64)), this, SLOT(updateProgressData(qint64,qint64)));
 		ScQApp->dlManager()->startDownloads();
 	}
 }

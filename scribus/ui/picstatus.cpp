@@ -80,7 +80,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 	connect(effectsButton, SIGNAL(clicked()), this, SLOT(doImageEffects()));
 	connect(buttonLayers, SIGNAL(clicked()), this, SLOT(doImageExtProp()));
 	connect(buttonEdit, SIGNAL(clicked()), this, SLOT(doEditImage()));
-	connect(imageViewArea, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick()));
+	connect(imageViewArea, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotRightClick()));
 }
 
 QPixmap PicStatus::createImgIcon(PageItem* item)
