@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
-#include <cstdint>
 #include <QByteArray>
 #include <QString>
 #include <QXmlStreamWriter>
@@ -24,9 +23,9 @@ public:
 
 	void writeAttribute(const QString & name, const QString & value) { QXmlStreamWriter::writeAttribute(name, value); }
 	void writeAttribute(const QString & name, int value)    { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
-	void writeAttribute(const QString & name, int64_t value)    { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
+	void writeAttribute(const QString & name, qint64 value)    { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
 	void writeAttribute(const QString & name, uint value)   { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
-	void writeAttribute(const QString & name, uint64_t value)   { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
+	void writeAttribute(const QString & name, quint64 value)   { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
 #ifndef Q_OS_WIN
 	void writeAttribute(const QString & name, size_t value)   { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
 #endif

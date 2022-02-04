@@ -200,18 +200,18 @@ public:
 	 * @brief Returns the int value attached to the key.
 	 *
 	 * Values are stored as <code>QString</code>s in the map and when queried
-	 * with this method value attached to the key is converted to an int64_t. If
+	 * with this method value attached to the key is converted to a 64bit integer. If
 	 * the conversion fails value of the parameter <code>def</code> will be returned.
 	 * If key is not found from the map it will be added there with the
 	 * value given as a parameter <code>def</code>. In such case <code>def</code>
 	 * will also be returned.
 	 * @param key Key that is searched from the map
 	 * @param def Default value to be used if key is not found from the map
-	 * @return <code>int64_t</code> value attached to the key in the map. If the key is not found
+	 * @return <code>qint64</code> value attached to the key in the map. If the key is not found
 	 * from the map it will be added with the value described in the param
 	 * <code>def</code> which is then returned.
 	 */
-	int64_t getInt64(const QString& key, int64_t def = 0) const;
+	qint64 getInt64(const QString& key, qint64 def = 0) const;
 
 	/**
 	 * @brief Returns the uint value attached to the key.
@@ -234,18 +234,18 @@ public:
 	 * @brief Returns the uint64_t value attached to the key.
 	 *
 	 * Values are stored as <code>QString</code>s in the map and when queried
-	 * with this method value attached to the key is converted to an uint64_t. If
+	 * with this method value attached to the key is converted to a 64bit integer. If
 	 * the conversion fails value of the parameter <code>def</code> will be returned.
 	 * If key is not found from the map it will be added there with the
 	 * value given as a parameter <code>def</code>. In such case <code>def</code>
 	 * will also be returned.
 	 * @param key Key that is searched from the map
 	 * @param def Default value to be used if key is not found from the map
-	 * @return <code>uint64_t</code> value attached to the key in the map. If the key is not found
+	 * @return <code>quint64</code> value attached to the key in the map. If the key is not found
 	 * from the map it will be added with the value described in the param
 	 * <code>def</code> which is then returned.
 	 */
-	uint64_t getUInt64(const QString& key, uint64_t def = 0) const;
+	quint64 getUInt64(const QString& key, quint64 def = 0) const;
 
 	/**
 	 * @brief Returns the double value attached to the key.
@@ -321,7 +321,7 @@ public:
 	 * @param key Key that can be later used to query the value.
 	 * @param value Value attached to the key.
 	 */
-	void set(const QString& key, int64_t value);
+	void set(const QString& key, qint64 value);
 
 	/**
 	 * @brief Set a value for the key.
@@ -335,7 +335,7 @@ public:
 	 * @param key Key that can be later used to query the value.
 	 * @param value Value attached to the key.
 	 */
-	void set(const QString& key, uint64_t value);
+	void set(const QString& key, quint64 value);
 
 	/**
 	 * @brief Set a value for the key.

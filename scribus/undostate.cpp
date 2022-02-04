@@ -139,11 +139,11 @@ int SimpleState::getInt(const QString& key, int def) const
 	return ret;
 }
 
-int64_t SimpleState::getInt64(const QString& key, int64_t def) const
+qint64 SimpleState::getInt64(const QString& key, qint64 def) const
 {
 	bool ok = false;
 	QVariant retVar = variant(key, QVariant(def));
-	int ret = retVar.toLongLong(&ok);
+	qint64 ret = retVar.toLongLong(&ok);
 	if (!ok)
 		ret = def;
 	return ret;
@@ -159,11 +159,11 @@ uint SimpleState::getUInt(const QString& key, uint def) const
 	return ret;
 }
 
-uint64_t SimpleState::getUInt64(const QString& key, uint64_t def) const
+quint64 SimpleState::getUInt64(const QString& key, qulonglong def) const
 {
 	bool ok = false;
 	QVariant retVar = variant(key, QVariant(def));
-	uint64_t ret = retVar.toULongLong(&ok);
+	quint64 ret = retVar.toULongLong(&ok);
 	if (!ok)
 		ret = def;
 	return ret;
@@ -209,7 +209,7 @@ void SimpleState::set(const QString& key, int value)
 	m_values[key] = QVariant(value);
 }
 
-void SimpleState::set(const QString& key, int64_t value)
+void SimpleState::set(const QString& key, qlonglong value)
 {
 	m_values[key] = QVariant(value);
 }
@@ -219,7 +219,7 @@ void SimpleState::set(const QString& key, uint value)
 	m_values[key] = QVariant(value);
 }
 
-void SimpleState::set(const QString& key, uint64_t value)
+void SimpleState::set(const QString& key, qulonglong value)
 {
 	m_values[key] = QVariant(value);
 }
