@@ -315,20 +315,20 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		return;
 	if (m_textEditMode)
 	{
+		int colEnd, colStart;
 		double colWidth = (textWidth() - m_colGap * (m_cols - 1)) / m_cols;
-		int ColEnd, ColStart;
 		double oldInd;
 		if (m_rulerCode == rc_leftFrameDist || m_rulerCode == rc_rightFrameDist)
 		{
-			ColStart = 0; //textPosToLocal(0);
-			ColEnd   = width(); //textPosToLocal(textWidth());
+			colStart = 0; //textPosToLocal(0);
+			colEnd   = width(); //textPosToLocal(textWidth());
 		}
 		else
 		{
-			ColStart = textPosToLocal((colWidth + m_colGap) * (m_currCol- 1));
-			ColEnd   = textPosToLocal((colWidth + m_colGap) * (m_currCol- 1) + colWidth);
+			colStart = textPosToLocal((colWidth + m_colGap) * (m_currCol- 1));
+			colEnd   = textPosToLocal((colWidth + m_colGap) * (m_currCol- 1) + colWidth);
 		}
-		if ((m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart - m_doc->guidesPrefs().grabRadius) && (m->x() < ColEnd + m_doc->guidesPrefs().grabRadius))
+		if ((m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > colStart - m_doc->guidesPrefs().grabRadius) && (m->x() < colEnd + m_doc->guidesPrefs().grabRadius))
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 			double toplimit = textWidth() + m_distRight - (m_colGap * (m_cols - 1)) - 1;
@@ -398,7 +398,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			m_mouseX = m->x();
 			return;
 		}
-		if ((!m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart - 2*m_doc->guidesPrefs().grabRadius) && (m->x() < ColEnd + 2*m_doc->guidesPrefs().grabRadius))
+		if ((!m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > colStart - 2*m_doc->guidesPrefs().grabRadius) && (m->x() < colEnd + 2*m_doc->guidesPrefs().grabRadius))
 		{
 			setCursor(IconManager::instance().loadCursor("tab.png", 3));
 			switch (findRulerHandle(m->pos(), m_doc->guidesPrefs().grabRadius))
