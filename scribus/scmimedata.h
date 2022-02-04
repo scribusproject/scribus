@@ -62,20 +62,20 @@ class SCRIBUS_API ScElemMimeData : public QMimeData
 {
 	Q_OBJECT
 
+public:
+	ScElemMimeData();
+
+	QStringList formats() const override { return m_formats; }
+	bool hasFormat (const QString & mimeType) const override;
+
+	void  setScribusElem(const QString& elem) { m_scribusElemData = elem; }
+	const QString& scribusElem(void) const    { return m_scribusElemData; }
+
 protected:
 	QString m_scribusElemData;
 	QStringList m_formats;
 
-	virtual QVariant retrieveData ( const QString & mimeType, QVariant::Type type ) const;
-
-public:
-	ScElemMimeData();
-
-	virtual QStringList formats() const { return m_formats; }
-	virtual bool hasFormat ( const QString & mimeType ) const;
-
-	void  setScribusElem(const QString& elem) { m_scribusElemData = elem; }
-	const QString& scribusElem(void) const    { return m_scribusElemData; }
+	QVariant retrieveData(const QString & mimeType, QVariant::Type type) const override;
 };
 
 class SCRIBUS_API ScTextMimeData : public QMimeData
