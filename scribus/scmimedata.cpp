@@ -157,7 +157,7 @@ ScElemMimeData::ScElemMimeData()
 #endif 
 }
 
-bool ScElemMimeData::hasFormat (const QString & mimeType) const
+bool ScElemMimeData::hasFormat(const QString & mimeType) const
 {
 	if (mimeType == ScMimeData::ScribusElemMimeType)
 	{
@@ -173,7 +173,7 @@ bool ScElemMimeData::hasFormat (const QString & mimeType) const
 	return QMimeData::hasFormat(mimeType);
 }
 
-QVariant ScElemMimeData::retrieveData (const QString &mimeType, QVariant::Type type) const
+QVariant ScElemMimeData::retrieveData(const QString &mimeType, QMetaType /*type*/) const
 {
 	if (mimeType == ScMimeData::ScribusElemMimeType)
 	{
