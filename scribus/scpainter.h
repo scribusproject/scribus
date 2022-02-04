@@ -180,15 +180,9 @@ private:
 	int  m_blendMode { 0 };
 	int  m_blendModeFill { 0 };
 	int  m_blendModeStroke { 0 };
-//	unsigned int m_width;
-//	unsigned int m_height;
 	QTransform m_matrix;
 	ScFace m_font;
 	double m_fontSize { 0.0 };
-//	bool mf_underline { false };
-//	bool mf_strikeout { false };
-//	bool mf_shadow { false };
-//	bool mf_outlined { false };
 	/*! \brief Filling */
 	QColor m_fill { 0, 0, 0 };
 	double m_fill_trans { 1.0 };

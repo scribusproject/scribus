@@ -208,7 +208,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
+	QRect mpo(m->position().x()-m_doc->guidesPrefs().grabRadius, m->position().y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
 	double Rxp = m_doc->ApplyGridF(m_canvasPressCoord).x();
 	m_canvasPressCoord.setX( qRound(Rxp) );
 	double Ryp = m_doc->ApplyGridF(m_canvasPressCoord).y();
@@ -416,7 +416,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 					break;
 				QTransform p;
 				m_canvas->Transform(currItem, p);
-				QRect mpo = QRect(m->x() - m_doc->guidesPrefs().grabRadius, m->y() - m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius * 2, m_doc->guidesPrefs().grabRadius * 2);
+				QRect mpo = QRect(m->position().x() - m_doc->guidesPrefs().grabRadius, m->position().y() - m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius * 2, m_doc->guidesPrefs().grabRadius * 2);
 				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width() + 6), static_cast<int>(currItem->height() + 6))))).contains(mpo)))
 				{
 					QRect tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
