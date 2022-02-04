@@ -64,13 +64,13 @@ ScImageCacheDir::~ScImageCacheDir()
 {
 	if (m_dirs)
 	{
-		foreach (ScImageCacheDir *p, *m_dirs)
+		for (ScImageCacheDir *p : *m_dirs)
 			delete p;
 		delete m_dirs;
 	}
 	if (m_files)
 	{
-		foreach (ScImageCacheFile *p, *m_files)
+		for (ScImageCacheFile *p : *m_files)
 			delete p;
 		delete m_files;
 	}
@@ -135,8 +135,10 @@ void ScImageCacheDir::update()
 	{
 		scDebug() << path() << "is modified";
 		if (m_dirs)
-			foreach (ScImageCacheDir *p, *m_dirs)
+		{
+			for (ScImageCacheDir* p : *m_dirs)
 				p->update();
+		}
 		if (m_files)
 			scan();
 	}
@@ -148,7 +150,7 @@ void ScImageCacheDir::scan()
 	{
 		if (!m_files->isEmpty())
 		{
-			foreach (ScImageCacheFile *p, *m_files)
+			for (ScImageCacheFile *p : *m_files)
 			{
 				emit fileRemoved(p);
 				delete p;
