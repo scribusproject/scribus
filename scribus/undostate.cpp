@@ -159,7 +159,7 @@ uint SimpleState::getUInt(const QString& key, uint def) const
 	return ret;
 }
 
-quint64 SimpleState::getUInt64(const QString& key, qulonglong def) const
+quint64 SimpleState::getUInt64(const QString& key, quint64 def) const
 {
 	bool ok = false;
 	QVariant retVar = variant(key, QVariant(def));
