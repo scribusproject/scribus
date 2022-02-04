@@ -54,22 +54,22 @@ Navigator::Navigator(QWidget *parent, int size, int pageNr, ScribusView* view, c
 
 void Navigator::mouseMoveEvent(QMouseEvent *m)
 {
-	drawMark(m->x(), m->y());
-	emit Coords(static_cast<double>(m->x()) / static_cast<double>(pmx.width()),
-			    static_cast<double>(m->y()) / static_cast<double>(pmx.height()));
+	drawMark(m->position().x(), m->position().y());
+	emit Coords(static_cast<double>(m->position().x()) / static_cast<double>(pmx.width()),
+				static_cast<double>(m->position().y()) / static_cast<double>(pmx.height()));
 }
 
 void Navigator::mousePressEvent(QMouseEvent *m)
 {
-	drawMark(m->x(), m->y());
-	emit Coords(static_cast<double>(m->x()) / static_cast<double>(pmx.width()),
-			    static_cast<double>(m->y()) / static_cast<double>(pmx.height()));
+	drawMark(m->position().x(), m->position().y());
+	emit Coords(static_cast<double>(m->position().x()) / static_cast<double>(pmx.width()),
+				static_cast<double>(m->position().y()) / static_cast<double>(pmx.height()));
 }
 
 void Navigator::mouseReleaseEvent(QMouseEvent *m)
 {
-	emit Coords(static_cast<double>(m->x()) / static_cast<double>(pmx.width()),
-			    static_cast<double>(m->y()) / static_cast<double>(pmx.height()));
+	emit Coords(static_cast<double>(m->position().x()) / static_cast<double>(pmx.width()),
+				static_cast<double>(m->position().y()) / static_cast<double>(pmx.height()));
 }
 
 void Navigator::paintEvent(QPaintEvent *e)

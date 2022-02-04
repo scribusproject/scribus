@@ -65,7 +65,6 @@ void IconManager::readIconConfigFiles()
 	QString baseIconDir(ScPaths::instance().iconDir());
 	QStringList locations;
 	locations << baseIconDir;
-	QStringList configNames;
 	for (QStringList::Iterator it = locations.begin(); it != locations.end(); ++it)
 	{
 		QFileInfo iconDir(*it);

@@ -180,8 +180,8 @@ private:
 	int  m_blendMode { 0 };
 	int  m_blendModeFill { 0 };
 	int  m_blendModeStroke { 0 };
-	unsigned int m_width;
-	unsigned int m_height;
+//	unsigned int m_width;
+//	unsigned int m_height;
 	QTransform m_matrix;
 	ScFace m_font;
 	double m_fontSize { 0.0 };

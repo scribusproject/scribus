@@ -177,7 +177,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	if (m_doc->isLoading())
 		return;
 	m_mousePressed = true;
-	m_mouseX = m->x();
+	m_mouseX = m->position().x();
 	if (m_textEditMode)
 	{
 		m_rulerCode = findRulerHandle(m->pos(), m_doc->guidesPrefs().grabRadius);
@@ -185,7 +185,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		if ((m_rulerCode == rc_none) && (m_currCol != 0) && (m->button() == Qt::LeftButton))
 		{
 			ParagraphStyle::TabRecord tb;
-			tb.tabPosition = localToTextPos(m->x());
+			tb.tabPosition = localToTextPos(m->position().x());
 			tb.tabType = 0;
 			tb.tabFillChar = m_doc->itemToolPrefs().textTabFillChar[0];
 			m_tabValues.prepend(tb);
@@ -216,7 +216,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if (m_textEditMode && m_currItem)
 	{
-		if ((m->y() < height()) && (m->y() > 0))
+		if ((m->position().y() < height()) && (m->position().y() > 0))
 		{
 			bool mustApplyStyle = false;
 			ParagraphStyle paraStyle;
@@ -328,7 +328,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			ColStart = textPosToLocal((colWidth + m_colGap) * (m_currCol- 1));
 			ColEnd   = textPosToLocal((colWidth + m_colGap) * (m_currCol- 1) + colWidth);
 		}
-		if ((m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart - m_doc->guidesPrefs().grabRadius) && (m->x() < ColEnd + m_doc->guidesPrefs().grabRadius))
+		if ((m_mousePressed) && (m->position().y() < height()) && (m->position().y() > 0) && (m->position().x() > ColStart - m_doc->guidesPrefs().grabRadius) && (m->position().x() < ColEnd + m_doc->guidesPrefs().grabRadius))
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 			double toplimit = textWidth() + m_distRight - (m_colGap * (m_cols - 1)) - 1;
@@ -336,7 +336,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			switch (m_rulerCode)
 			{
 				case rc_leftFrameDist:
-					m_distLeft -= (m_mouseX - m->x()) / m_scaling;
+					m_distLeft -= (m_mouseX - m->position().x()) / m_scaling;
 					if (m_distLeft < 0)
 						m_distLeft = 0;
 					if (m_distLeft > toplimit2)
@@ -345,7 +345,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					repaint();
 					break;
 				case rc_rightFrameDist:
-					m_distRight += (m_mouseX - m->x()) / m_scaling;
+					m_distRight += (m_mouseX - m->position().x()) / m_scaling;
 					if (m_distRight < 0)
 						m_distRight = 0;
 					if (m_distRight > toplimit)
@@ -354,7 +354,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					repaint();
 					break;
 				case rc_indentFirst:
-					m_firstIndent -= (m_mouseX - m->x()) / m_scaling;
+					m_firstIndent -= (m_mouseX - m->position().x()) / m_scaling;
 					if (m_firstIndent + m_leftMargin < 0)
 						m_firstIndent = -m_leftMargin;
 					if (m_firstIndent + m_leftMargin > colWidth)
@@ -364,7 +364,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					break;
 				case rc_leftMargin:
 					oldInd = m_leftMargin + m_firstIndent;
-					m_leftMargin -= (m_mouseX - m->x()) / m_scaling;
+					m_leftMargin -= (m_mouseX - m->position().x()) / m_scaling;
 					if (m_leftMargin < 0)
 						m_leftMargin = 0;
 					if (m_leftMargin > colWidth - 1)
@@ -374,7 +374,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					repaint();
 					break;
 				case rc_rightMargin:
-					m_rightMargin -= (m_mouseX - m->x()) / m_scaling;
+					m_rightMargin -= (m_mouseX - m->position().x()) / m_scaling;
 					if (m_rightMargin < 0)
 						m_rightMargin = 0;
 					if (m_rightMargin > colWidth - 1)
@@ -383,7 +383,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					repaint();
 					break;
 				case rc_tab:
-					m_tabValues[m_currTab].tabPosition -= (m_mouseX - m->x()) / m_scaling;
+					m_tabValues[m_currTab].tabPosition -= (m_mouseX - m->position().x()) / m_scaling;
 					if (m_tabValues[m_currTab].tabPosition < 0)
 						m_tabValues[m_currTab].tabPosition = 0;
 					if (m_tabValues[m_currTab].tabPosition > colWidth - 1)
@@ -395,7 +395,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 				default:
 					break;
 			}
-			m_mouseX = m->x();
+			m_mouseX = m->position().x();
 			return;
 		}
 		if ((!m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart - 2*m_doc->guidesPrefs().grabRadius) && (m->x() < ColEnd + 2*m_doc->guidesPrefs().grabRadius))
@@ -422,12 +422,12 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					setCursor(QCursor(Qt::SizeHorCursor));
 					break;
 			}
-			draw(m->x());
-			double marker = localToTextPos(m->x());
+			draw(m->position().x());
+			double marker = localToTextPos(m->position().x());
 			emit MarkerMoved(textBase(), marker);
 			return;
 		}
-		if ((m_mousePressed) && (m_rulerCode == rc_tab) && ((m->y() > height()) || (m->y() < 0)))
+		if ((m_mousePressed) && (m_rulerCode == rc_tab) && ((m->position().y() > height()) || (m->position().y() < 0)))
 		{
 			setCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 			return;

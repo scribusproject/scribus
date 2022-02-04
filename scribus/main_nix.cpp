@@ -65,7 +65,6 @@ int mainApp(int argc, char **argv)
 {
 	emergencyActivated = false;
 
-	ScribusQApp::setAttribute(Qt::AA_EnableHighDpiScaling);
 	ScribusQApp app(argc, argv);
 	initCrashHandler();
 	app.parseCommandLine();

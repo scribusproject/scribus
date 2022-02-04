@@ -3214,8 +3214,10 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 		int signOfY = (angleDelta.y() == 0) ? 0 : ((angleDelta.y() < 0) ? -1 : 1);
 		int dX = -Prefs->uiPrefs.wheelJump * signOfX;
 		int dY = -Prefs->uiPrefs.wheelJump * signOfY;
+#ifndef Q_OS_MACOS
 		if (w->modifiers() == Qt::ShiftModifier)
 			std::swap(dX, dY);
+#endif
 		scrollBy(dX, dY);
 	}
 	w->accept();
@@ -3311,10 +3313,10 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	{
 		auto* m = dynamic_cast<QMouseEvent*> (event);
 		m_mousePointDoc=m_canvas->globalToCanvas(m->globalPos());
-		FPoint p = m_canvas->localToCanvas(QPoint(m->x(),m->y()));
+		FPoint p = m_canvas->localToCanvas(QPoint(m->position().x(),m->position().y()));
 		emit MousePos(p.x(),p.y());
-		horizRuler->draw(m->x() + qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale())); //  - 2 * contentsX());
-		vertRuler->draw(m->y() + qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
+		horizRuler->draw(m->position().x() + qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale())); //  - 2 * contentsX());
+		vertRuler->draw(m->position().y() + qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 		m_canvasMode->mouseMoveEvent(m);
 		return true;
 	}

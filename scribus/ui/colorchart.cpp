@@ -50,29 +50,29 @@ ColorChart::ColorChart(QWidget *parent, ScribusDoc* doc) : QWidget(parent), m_do
 
 void ColorChart::mouseMoveEvent(QMouseEvent *m)
 {
-	drawMark(m->x(), m->y());
+	drawMark(m->position().x(), m->position().y());
 	if (drawMode > 0)
-		emit ColorVal(m->x() * 256 / width() - 128, 256 - (m->y() * 256 / height()) - 128, true);
+		emit ColorVal(m->position().x() * 256 / width() - 128, 256 - (m->position().y() * 256 / height()) - 128, true);
 	else
-		emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), true);
+		emit ColorVal(m->position().x() * 359 / width(), m->position().y() * 255 / height(), true);
 }
 
 void ColorChart::mousePressEvent(QMouseEvent *m)
 {
-	drawMark(m->x(), m->y());
+	drawMark(m->position().x(), m->position().y());
 	if (drawMode > 0)
-		emit ColorVal(m->x() * 256 / width() - 128, 256 - (m->y() * 256 / height()) - 128, true);
+		emit ColorVal(m->position().x() * 256 / width() - 128, 256 - (m->position().y() * 256 / height()) - 128, true);
 	else
-		emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), true);
+		emit ColorVal(m->position().x() * 359 / width(), m->position().y() * 255 / height(), true);
 }
 
 void ColorChart::mouseReleaseEvent(QMouseEvent *m)
 {
-	drawMark(m->x(), m->y());
+	drawMark(m->position().x(), m->position().y());
 	if (drawMode > 0)
-		emit ColorVal(m->x() * 256 / width() - 128, 256 - (m->y() * 256 / height()) - 128, true);
+		emit ColorVal(m->position().x() * 256 / width() - 128, 256 - (m->position().y() * 256 / height()) - 128, true);
 	else
-		emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), true);
+		emit ColorVal(m->position().x() * 359 / width(), m->position().y() * 255 / height(), true);
 }
 
 void ColorChart::paintEvent(QPaintEvent *e)
