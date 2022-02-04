@@ -258,13 +258,13 @@ QString CompressStr(QString *in)
 		}
 		else
 		{
-			qDebug("insufficient memory to allocate %i bytes", in->length());
+			qDebug("insufficient memory to allocate %" PRIdQSIZETYPE " bytes", in->length());
 			out = *in;
 		}
 	}
 	else
 	{
-		qDebug("insufficient memory to allocate %i bytes", in->length());
+		qDebug("insufficient memory to allocate %" PRIdQSIZETYPE " bytes", in->length());
 		out = *in;
 	}
 	return out;
