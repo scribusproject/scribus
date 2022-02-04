@@ -139,7 +139,8 @@ void DashPreview::mouseReleaseEvent(QMouseEvent *m)
 {
 	m->accept();
 	qApp->restoreOverrideCursor();
-	if ((m_mousePressed) && (m_stops.count() > 2) && (m_outside || m->position().y() > 30))
+	QPointF mousePos = m->position();
+	if ((m_mousePressed) && (m_stops.count() > 2) && (m_outside || mousePos.y() > 30))
 	{
 		m_stops.removeAt(m_currentStop);
 		m_dashValues.clear();
@@ -158,7 +159,7 @@ void DashPreview::mouseReleaseEvent(QMouseEvent *m)
 		emit dashChanged();
 		return;
 	}
-	if ((m->position().y() < height()) && (m->position().y() > 16) && (m->position().x() > 9) && (m->position().x() < width() - 9))
+	if ((mousePos.y() < height()) && (mousePos.y() > 16) && (mousePos.x() > 9) && (mousePos.x() < width() - 9))
 	{
 		if (m_currentStop != -1)
 		{
@@ -167,12 +168,12 @@ void DashPreview::mouseReleaseEvent(QMouseEvent *m)
 				m_mousePressed = false;
 				return;
 			}
-			m_stops[m_currentStop] = m->position().x() - 10;
+			m_stops[m_currentStop] = mousePos.x() - 10;
 		}
 		else
 		{
 			if (m_dashValues.count() < 10)
-				m_stops.append(m->position().x() - 10);
+				m_stops.append(mousePos.x() - 10);
 			std::sort(m_stops.begin(), m_stops.end());
 			m_currentStop = 0;
 			for (int i = 0; i < m_stops.count(); ++i)
@@ -206,7 +207,8 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 	m->accept();
 
 	QRect fpo;
-	if ((!m_mousePressed) && (m->position().y() < height()) && (m->position().y() > 16) && (m->position().x() > 9) && (m->position().x() < width() - 9) && (m_dashValues.count() < 10))
+	QPointF mousePos = m->position();
+	if ((!m_mousePressed) && (mousePos.y() < height()) && (mousePos.y() > 16) && (mousePos.x() > 9) && (mousePos.x() < width() - 9) && (m_dashValues.count() < 10))
 	{
 		setCursor(IconManager::instance().loadCursor("AddPoint.png", 1, 1));
 		for (int i = 0; i < m_stops.count(); ++i)
@@ -219,20 +221,20 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 			}
 		}
 	}
-	if ((m_mousePressed) && (m->position().y() < height()) && (m->position().y() > 16) && (m->position().x() > 9) && (m->position().x() < width() - 9) && (m_currentStop != -1))
+	if ((m_mousePressed) && (mousePos.y() < height()) && (mousePos.y() > 16) && (mousePos.x() > 9) && (mousePos.x() < width() - 9) && (m_currentStop != -1))
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 		if (m_currentStop > 1)
 		{
-			if (static_cast<int>(m_stops[m_currentStop - 1] + 10) + 2 >= m->position().x())
+			if (static_cast<int>(m_stops[m_currentStop - 1] + 10) + 2 >= mousePos.x())
 				return;
 		}
 		if (m_currentStop < static_cast<int>(m_stops.count() - 2))
 		{
-			if (static_cast<int>(m_stops[m_currentStop + 1] + 10) - 2 < m->position().x())
+			if (static_cast<int>(m_stops[m_currentStop + 1] + 10) - 2 < mousePos.x())
 				return;
 		}
-		m_stops[m_currentStop] = m->position().x() - 10;
+		m_stops[m_currentStop] = mousePos.x() - 10;
 		m_dashValues.clear();
 		double startX = 0.0;
 		for (int i = 0; i < m_stops.count(); ++i)
@@ -250,7 +252,7 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 		}
 		emit currStep(m_stops[m_currentStop] / 10.0 - startX);
 	}
-	if ((m_mousePressed) && (m_outside || m->position().y() > 30) && (m_currentStop >= 0) && (m_stops.count() > 2))
+	if ((m_mousePressed) && (m_outside || mousePos.y() > 30) && (m_currentStop >= 0) && (m_stops.count() > 2))
 		qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 }
 

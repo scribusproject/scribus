@@ -168,6 +168,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 	if (isEditable)
 	{
 		QRect fpo;
+		QPointF mousePos = m->position();
 		if (m->button() == Qt::LeftButton)
 		{
 			if ((Mpressed) && (ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)) && (outside || !insideRect.contains(m->pos())))
@@ -179,10 +180,10 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 				QList<VColorStop*> cstops = fill_gradient.colorStops();
 				emit selectedStop(cstops.at(ActStop));
 			}
-			if ((m->position().y() < height()) && (m->position().y() > 43) && (m->position().x() > 0) && (m->position().x() < width()) && (ActStop == -1))
+			if ((mousePos.y() < height()) && (mousePos.y() > 43) && (mousePos.x() > 0) && (mousePos.x() < width()) && (ActStop == -1))
 			{
 				QList<VColorStop*> cstops = fill_gradient.colorStops();
-				double  newStop = static_cast<double>((m->position().x() - 10)) / (static_cast<double>(width()) - 20);
+				double  newStop = static_cast<double>((mousePos.x() - 10)) / (static_cast<double>(width()) - 20);
 				QColor  stopColor = (cstops.count() > 0) ? cstops.at(0)->color : QColor(255, 255, 255);
 				QString stopName  = (cstops.count() > 0) ? cstops.at(0)->name  : QString("White");
 				int     stopShade = (cstops.count() > 0) ? cstops.at(0)->shade : 100;
@@ -243,8 +244,9 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 	if (isEditable)
 	{
 		QRect fpo;
+		QPointF mousePos = m->position();
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((!Mpressed) && (m->position().y() < height()) && (m->position().y() > 43) && (m->position().x() > 9) && (m->position().x() < width()-9))
+		if ((!Mpressed) && (mousePos.y() < height()) && (mousePos.y() > 43) && (mousePos.x() > 9) && (mousePos.x() < width()-9))
 		{
 			setCursor(IconManager::instance().loadCursor("AddPoint.png", 1, 1));
 			for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
@@ -259,21 +261,21 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 		}
 		if (m->buttons() & Qt::LeftButton)
 		{
-			if ((Mpressed) && (m->position().y() < height()) && (m->position().y() > 43) && (m->position().x() > 9) && (m->position().x() < width() - 9) && (ActStop != -1))
+			if ((Mpressed) && (mousePos.y() < height()) && (mousePos.y() > 43) && (mousePos.x() > 9) && (mousePos.x() < width() - 9) && (ActStop != -1))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-				double newStop = static_cast<double>((m->position().x() - 10)) / (static_cast<double>(width()) - 20);
+				double newStop = static_cast<double>((mousePos.x() - 10)) / (static_cast<double>(width()) - 20);
 				if (ActStop > 1)
 				{
-					if (StopM[ActStop-1]+2 >= m->position().x())
+					if (StopM[ActStop-1]+2 >= mousePos.x())
 						return;
 				}
 				if (ActStop < static_cast<int>(StopM.count()-2))
 				{
-					if (StopM[ActStop+1]-2 < m->position().x())
+					if (StopM[ActStop+1]-2 < mousePos.x())
 						return;
 				}
-				StopM[ActStop] = m->position().x();
+				StopM[ActStop] = mousePos.x();
 				QList<VColorStop*> cstops = fill_gradient.colorStops();
 				cstops.at(ActStop)->rampPoint = newStop;
 				std::sort(cstops.begin(), cstops.end());
