@@ -179,7 +179,7 @@ void CharSelect::slot_selectionChanged( const QItemSelection& sel, const QItemSe
 	// QVariant, so we should make sure first that we can convert to QStringList.
 	// Otherwise clear the status label
 	QVariant tmp = index.data(Qt::StatusTipRole);
-	if ( !tmp.canConvert(QMetaType::QStringList) )
+	if (!tmp.canConvert<QStringList>())
 	{
 		m_statusLabel->setText(QString());
 		return;

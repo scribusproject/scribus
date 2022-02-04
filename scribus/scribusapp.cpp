@@ -502,7 +502,7 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 		}
 
 		//CB: This might need adjusting for qm files distribution locations
-		if (transQt->load("qt_" + lang,	QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+		if (transQt->load("qt_" + lang,	QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
 			loadedQt = true;
 		if (trans->load(QString("scribus." + lang), path))
 			loadedScribus = true;
