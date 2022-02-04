@@ -3814,7 +3814,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	if (kk == Qt::Key_Return)
 		uc = "\r";
 #endif
-	int as = uc[0].unicode();
+	int as = !uc.isEmpty() ? uc[0].unicode() : 0;
 	QString Tcha, Twort;
 	uint Tcoun;
 	int len, pos;
@@ -4389,7 +4389,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //			view->RefreshItem(this);
 			doUpdate = true;
 		}
-		else if (uc[0] > QChar(31) || (as == 13) || (as == 30))
+		else if ((as > 31) || (as == 13) || (as == 30))
 		{
 			if (UndoManager::undoEnabled())
 			{
