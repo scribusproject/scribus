@@ -78,7 +78,7 @@ private:
 												// Loads the "DLL", validates the importer is good, populates the passed parameters with 
 												// the plugin information.
 	void createMap();							// Create the importer Qmap.
-	gtDialogs* m_dias;							// File Selection Dialog pointer.
+	gtDialogs* m_dias {nullptr};							// File Selection Dialog pointer.
 	QStringList m_ilist;							// List of supported importers, used with dialogs
 	ScribusDoc* m_Doc;							// Which document are we working with.
 public:

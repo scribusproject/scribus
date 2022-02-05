@@ -30,10 +30,10 @@ for which a new license (GPL+exception) is in place.
 gtFrameStyle::gtFrameStyle(const QString& name) :
 	gtParagraphStyle(name)
 {
-	init();
 }
 
-gtFrameStyle::gtFrameStyle(const gtFrameStyle& f) : gtParagraphStyle(f)
+gtFrameStyle::gtFrameStyle(const gtFrameStyle& f) :
+	gtParagraphStyle(f)
 {
 	m_columns    = f.m_columns;
 	m_columnsGap = f.m_columnsGap;
@@ -41,22 +41,14 @@ gtFrameStyle::gtFrameStyle(const gtFrameStyle& f) : gtParagraphStyle(f)
 	m_bgShade    = f.m_bgShade;
 }
 
-gtFrameStyle::gtFrameStyle(const gtParagraphStyle& p) : gtParagraphStyle(p)
+gtFrameStyle::gtFrameStyle(const gtParagraphStyle& p) :
+	gtParagraphStyle(p)
 {
-	init();
 }
 
-gtFrameStyle::gtFrameStyle(const gtStyle& s) : gtParagraphStyle(s)
+gtFrameStyle::gtFrameStyle(const gtStyle& s) :
+	gtParagraphStyle(s)
 {
-	init();
-}
-
-void gtFrameStyle::init()
-{
-	m_columns    = 1;
-	m_columnsGap = 0;
-	m_bgColor    = "White";
-	m_bgShade    = 100;
 }
 
 int gtFrameStyle::getColumns() const

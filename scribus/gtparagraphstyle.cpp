@@ -30,12 +30,10 @@ for which a new license (GPL+exception) is in place.
 gtParagraphStyle::gtParagraphStyle(const QString& name) :
 	gtStyle(name)
 {
-	init();
 }
 
 gtParagraphStyle::gtParagraphStyle(const gtParagraphStyle& p) : gtStyle(p)
 {
-	defaultStyle    = false;
 	lineSpacing     = p.lineSpacing;
 	alignment       = p.alignment;
 	indent          = p.indent;
@@ -43,50 +41,26 @@ gtParagraphStyle::gtParagraphStyle(const gtParagraphStyle& p) : gtStyle(p)
 	spaceAbove      = p.spaceAbove;
 	spaceBelow      = p.spaceBelow;
 	dropCap         = p.dropCap;
-	m_bullet          = p.m_bullet;
-	m_bulletStr       = p.m_bulletStr;
+	m_bullet        = p.m_bullet;
+	m_bulletStr     = p.m_bulletStr;
 	dropCapHeight   = p.dropCapHeight;
-	m_numeration      = p.m_numeration;
-	m_numFormat       = p.m_numFormat;
-	m_numLevel        = p.m_numLevel;
-	m_numStart        = p.m_numStart;
-	m_numPrefix       = p.m_numPrefix;
-	m_numSuffix       = p.m_numSuffix;
+	m_numeration    = p.m_numeration;
+	m_numFormat     = p.m_numFormat;
+	m_numLevel      = p.m_numLevel;
+	m_numStart      = p.m_numStart;
+	m_numPrefix     = p.m_numPrefix;
+	m_numSuffix     = p.m_numSuffix;
 	adjToBaseline   = p.adjToBaseline;
 	autoLineSpacing = p.autoLineSpacing;
 	isVisible       = p.isVisible;
 	flags           = p.flags;
 }
 
-gtParagraphStyle::gtParagraphStyle(const gtStyle& s) : gtStyle(s)
+gtParagraphStyle::gtParagraphStyle(const gtStyle& s) :
+	gtStyle(s)
 {
-	init();
 }
 
-void gtParagraphStyle::init()
-{
-	defaultStyle    = false;
-	lineSpacing     = 15;
-	alignment       = LEFT;
-	indent          = 0;
-	firstLineIndent = 0;
-	spaceAbove      = 0;
-	spaceBelow      = 0;
-	dropCap         = false;
-	dropCapHeight   = 2;
-	m_bullet          = false;
-	m_bulletStr       = QString(QChar(0x2022));
-	m_numeration      = false;
-	m_numFormat       = 0;
-	m_numLevel        = 0;
-	m_numStart        = 1;
-	m_numPrefix.clear();
-	m_numSuffix.clear();
-	adjToBaseline   = false;
-	autoLineSpacing = false;
-	isVisible       = true;
-	flags           = 0;
-}
 
 QString gtParagraphStyle::target() const
 {
@@ -250,7 +224,7 @@ QString  gtParagraphStyle::getBullet() const
 void gtParagraphStyle::setBullet(bool newBullet, const QString& str)
 {
 	m_bullet = newBullet;
-	if (str != "")
+	if (!str.isEmpty())
 		m_bulletStr = str;
 	else
 		m_bulletStr = QString(QChar(0x2022));

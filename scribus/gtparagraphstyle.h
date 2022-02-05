@@ -142,8 +142,6 @@ protected:
 	bool autoLineSpacing { false };
 	bool isVisible { true };
 
-private:
-	void init();
 };
 
 #endif // GTPARAGRAPHSTYLE_H

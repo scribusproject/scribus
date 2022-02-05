@@ -486,6 +486,6 @@ void cmdgetsetpropdocwarnings()
 	QStringList s;
 	s << scribus_getproperty__doc__
 	  << scribus_getpropertynames__doc__
-	  << scribus_propertyctype__doc__ 
+	  << scribus_propertyctype__doc__
 	  << scribus_setproperty__doc__;
 }

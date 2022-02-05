@@ -37,7 +37,6 @@ for which a new license (GPL+exception) is in place.
 // Constructor
 gtGetText::gtGetText(ScribusDoc* doc)
 {
-	m_dias = nullptr;
 	// Attach to the active document
 	m_Doc = doc;
 	// Load the plugins array.

@@ -59,8 +59,6 @@ private:
 	double  m_columnsGap { 0.0 };
 	QString m_bgColor { "White" };
 	int     m_bgShade { 100 };
-
-	void init();
 };
 
 #endif // GTFRAMESTYLE_H

@@ -31,7 +31,6 @@ class UserPropsDestination: public Destination
 {
 	public:
 		UserPropsDestination( Reader *reader, AbstractRtfOutput *output, const QString &name );
-
 		virtual ~UserPropsDestination();
 
 		virtual void handleControlWord( const QString &controlWord, bool hasValue, const int value );
