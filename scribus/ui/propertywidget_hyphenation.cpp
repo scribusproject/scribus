@@ -126,7 +126,7 @@ void PropertyWidget_Hyphenation::updateCharStyle(const CharStyle& charStyle)
 	QSignalBlocker hyphenCharLineEditBlocker(hyphenCharLineEdit);
 
 	smallestWordSpinBox->setValue(charStyle.hyphenWordMin());
-	uint hyphenChar = charStyle.hyphenChar();
+	char32_t hyphenChar = charStyle.hyphenChar();
 	QString hyphenText;
 	if (hyphenChar)
 		hyphenText = QString::fromUcs4(&hyphenChar, 1);

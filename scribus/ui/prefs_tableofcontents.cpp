@@ -34,11 +34,11 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	//do not connect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
 	connect( tocAddButton, SIGNAL( clicked() ), this, SLOT( addToC() ) );
 	connect( tocDeleteButton, SIGNAL( clicked() ), this, SLOT( deleteToC() ) );
-	connect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&)));
-	connect( itemDestFrameComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemFrameSelected(const QString&)));
-	connect( itemParagraphStyleComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemParagraphStyleSelected(const QString&)));
-	connect( itemNumberPlacementComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemPageNumberPlacedSelected(const QString&)));
-	connect( tocNameLineEdit, SIGNAL( textChanged(const QString&)), this, SLOT( setToCName(const QString&)));
+	connect( itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)));
+	connect( itemDestFrameComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemFrameSelected(QString)));
+	connect( itemParagraphStyleComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemParagraphStyleSelected(QString)));
+	connect( itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
+	connect( tocNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT( setToCName(const QString&)));
 	connect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool)));
 
 	itemAttrComboBox->setEnabled(false);
@@ -93,14 +93,14 @@ void Prefs_TableOfContents::languageChange()
 	trStrPNNotShown = tr("Not Shown");
 	strPNNotShown = "Not Shown";
 
-	disconnect(itemNumberPlacementComboBox, SIGNAL(activated(const QString&)), this, SLOT(itemPageNumberPlacedSelected(const QString&)));
+	disconnect(itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
 	int i = itemNumberPlacementComboBox->currentIndex();
 	itemNumberPlacementComboBox->clear();
 	itemNumberPlacementComboBox->addItem(trStrPNEnd);
 	itemNumberPlacementComboBox->addItem(trStrPNBeginning);
 	itemNumberPlacementComboBox->addItem(trStrPNNotShown);
 	itemNumberPlacementComboBox->setCurrentIndex(i);
-	connect(itemNumberPlacementComboBox, SIGNAL(activated(const QString&)), this, SLOT(itemPageNumberPlacedSelected(const QString&)));
+	connect(itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
 }
 
 void Prefs_TableOfContents::destroy()
@@ -137,7 +137,7 @@ void Prefs_TableOfContents::generatePageItemList()
 
 void Prefs_TableOfContents::setupItemAttrs(const QStringList& newNames)
 {
-	disconnect(itemAttrComboBox, SIGNAL(activated(const QString&)), this, SLOT(itemAttributeSelected(const QString&)));
+	disconnect(itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)));
 	itemAttrComboBox->clear();
 	itemAttrComboBox->addItem(CommonStrings::tr_None);
 	itemAttrComboBox->addItems(newNames);
@@ -148,7 +148,7 @@ void Prefs_TableOfContents::setupItemAttrs(const QStringList& newNames)
 		else
 			setCurrentComboItem(itemAttrComboBox, localToCSetupVector[numSelected].itemAttrName);
 	}
-	connect(itemAttrComboBox, SIGNAL(activated(const QString&)), this, SLOT(itemAttributeSelected(const QString&)));
+	connect(itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)));
 }
 
 void Prefs_TableOfContents::selectToC(int numberSelected)
@@ -165,11 +165,11 @@ void Prefs_TableOfContents::selectToC(int numberSelected)
 		numSelected = 0;
 
 	disconnect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
-	disconnect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
-	disconnect( itemDestFrameComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemFrameSelected(const QString&) ) );
-	disconnect( itemParagraphStyleComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemParagraphStyleSelected(const QString&) ) );
-	disconnect( itemNumberPlacementComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemPageNumberPlacedSelected(const QString&) ) );
-	disconnect( tocNameLineEdit, SIGNAL( textChanged(const QString&) ), this, SLOT( setToCName(const QString&) ) );
+	disconnect( itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)) );
+	disconnect( itemDestFrameComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemFrameSelected(QString)) );
+	disconnect( itemParagraphStyleComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemParagraphStyleSelected(QString)));
+	disconnect( itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
+	disconnect( tocNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(setToCName(QString)));
 	disconnect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
 
 	if (localToCSetupVector[numSelected].itemAttrName == CommonStrings::None)
@@ -205,11 +205,11 @@ void Prefs_TableOfContents::selectToC(int numberSelected)
 		tocNameLineEdit->setText(tocListBox->currentItem()->text());
 
 	connect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
-	connect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
-	connect( itemDestFrameComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemFrameSelected(const QString&) ) );
-	connect( itemParagraphStyleComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemParagraphStyleSelected(const QString&) ) );
-	connect( itemNumberPlacementComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemPageNumberPlacedSelected(const QString&) ) );
-	connect( tocNameLineEdit, SIGNAL( textChanged(const QString&) ), this, SLOT( setToCName(const QString&) ) );
+	connect( itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)) );
+	connect( itemDestFrameComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemFrameSelected(QString)) );
+	connect( itemParagraphStyleComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemParagraphStyleSelected(QString)));
+	connect( itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
+	connect( tocNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(setToCName(QString)));
 	connect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
 }
 

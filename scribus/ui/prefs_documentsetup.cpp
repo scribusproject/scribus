@@ -68,11 +68,11 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 	pageHeightSpinBox->setMaximum(16777215);
 	languageChange();
 
-	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
+	connect(pageSizeComboBox, SIGNAL(activated(int)), this, SLOT(setPageSize()));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setPageOrientation(int)));
 	connect(pageWidthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	connect(pageHeightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
-	connect(pageLayoutButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(pageLayoutChanged(int)));
+	connect(pageLayoutButtonGroup, SIGNAL(idClicked(int)), this, SLOT(pageLayoutChanged(int)));
 	connect(pageUnitsComboBox, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(undoCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotUndo(bool)));
 	connect(changeAutoDir, SIGNAL(clicked()), this, SLOT(changeAutoDocDir()));

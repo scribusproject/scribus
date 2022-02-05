@@ -51,7 +51,7 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* /*doc*/)
 	numberFormatComboBox->addItem(tr("Use System Format"),"System");
 	numberFormatComboBox->addItem(tr("Use Interface Language Format"),"Language");
 
-	connect(languageComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSelectedGUILang(const QString &)));
+	connect(languageComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(setSelectedGUILang(QString)));
 	connect(storyEditorFontPushButton, SIGNAL(clicked()), this, SLOT(changeStoryEditorFont()));
 }
 

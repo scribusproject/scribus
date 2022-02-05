@@ -109,11 +109,11 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	if (comboBoxLinkToExistingFrameName->count() == 0)
 		checkBoxLinkToExistingFrame->setEnabled(false);
 	
-	connect(typeButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectType(int)));
-	connect(pagePlacementButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectPagePlacement(int)));
+	connect(typeButtonGroup, SIGNAL(idClicked(int)), this, SLOT(slotSelectType(int)));
+	connect(pagePlacementButtonGroup, SIGNAL(idClicked(int)), this, SLOT(slotSelectPagePlacement(int)));
 	connect(placementPagesRangeButton, SIGNAL(clicked()), this, SLOT(slotCreatePageNumberRange()));
-	connect(framePositionButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectPosition(int)));
-	connect(sizeButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectSize(int)));
+	connect(framePositionButtonGroup, SIGNAL(idClicked(int)), this, SLOT(slotSelectPosition(int)));
+	connect(sizeButtonGroup, SIGNAL(idClicked(int)), this, SLOT(slotSelectSize(int)));
 	connect(selectImageFileButton, SIGNAL(clicked()), this, SLOT(locateImageFile()));
 	connect(selectDocFileButton, SIGNAL(clicked()), this, SLOT(locateDocFile()));
 	connect(checkBoxLinkToExistingFrame, SIGNAL(stateChanged(int)), this, SLOT(slotLinkToExistingFrame(int)));

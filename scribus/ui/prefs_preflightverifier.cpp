@@ -18,8 +18,8 @@ Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* /*
 	m_caption = tr("Preflight Verifier");
 	m_icon = "16/preflight-verifier.png";
 
-	connect(currentProfileComboBox, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	connect(currentProfileComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	connect(currentProfileComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(setProfile(QString)));
+	connect(currentProfileComboBox, SIGNAL(editTextChanged(QString)), this, SLOT(setProfile(QString)));
 
 	connect(ignoreAllErrorsCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(autoCheckBeforePrintExportCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
@@ -228,8 +228,8 @@ void Prefs_PreflightVerifier::addProf()
 	addProfilePushButton->setEnabled(false);
 	currentProfileComboBox->clear();
 
-	disconnect(currentProfileComboBox, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	disconnect(currentProfileComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	disconnect(currentProfileComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(setProfile(QString)));
+	disconnect(currentProfileComboBox, SIGNAL(editTextChanged(QString)), this, SLOT(setProfile(QString)));
 	CheckerPrefsList::Iterator it;
 	int j,i=0;
 	for (it = checkerProfiles.begin(), j=0; it != checkerProfiles.end(); ++it, ++j)
@@ -239,15 +239,15 @@ void Prefs_PreflightVerifier::addProf()
 			i=j;
 	}
 	currentProfileComboBox->setCurrentIndex(i);
-	connect(currentProfileComboBox, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	connect(currentProfileComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	connect(currentProfileComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(setProfile(QString)));
+	connect(currentProfileComboBox, SIGNAL(editTextChanged(QString)), this, SLOT(setProfile(QString)));
 	tempNewProfileName="";
 }
 
 void Prefs_PreflightVerifier::delProf()
 {
-	disconnect(currentProfileComboBox, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	disconnect(currentProfileComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	disconnect(currentProfileComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(setProfile(QString)));
+	disconnect(currentProfileComboBox, SIGNAL(editTextChanged(QString)), this, SLOT(setProfile(QString)));
 	checkerProfiles.remove(currentProfile);
 	updateProfile(checkerProfiles.begin().key());
 	currentProfileComboBox->clear();
@@ -256,8 +256,8 @@ void Prefs_PreflightVerifier::delProf()
 	for (it = checkerProfiles.begin(); it != itend; ++it)
 		currentProfileComboBox->addItem(it.key());
 	setCurrentComboItem(currentProfileComboBox, currentProfile);
-	connect(currentProfileComboBox, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	connect(currentProfileComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	connect(currentProfileComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(setProfile(QString)));
+	connect(currentProfileComboBox, SIGNAL(editTextChanged(QString)), this, SLOT(setProfile(QString)));
 	if (checkerProfiles.count() == 1)
 		removeProfilePushButton->setEnabled(false);
 }
