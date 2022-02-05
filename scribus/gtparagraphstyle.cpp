@@ -204,7 +204,6 @@ void gtParagraphStyle::setTabValue(double newTabValue, TabType ttype)
 	ParagraphStyle::TabRecord tb;
 	tb.tabPosition = newTabValue;
 	tb.tabType = ttype;
-	tb.tabFillChar =  QChar();
 	tabValues.append(tb);
 	flags |= tabValueWasSet;
 }

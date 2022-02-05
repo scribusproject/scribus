@@ -416,10 +416,11 @@ void ImportIdmlImpl::readParagraphStyle(ScribusDoc *doc, QDomNode node,  Paragra
 						tb.tabPosition = tabElements.text().toDouble();
 						if(tabElements.tagName()=="AlignmentCharacter")
 						{
-							QString tbCh   = tabElements.text();
+							QString tbCh(tabElements.text());
 							if(tbCh.contains("$ID/",Qt::CaseSensitive))
 								tbCh = tbCh.split("$ID/",QString::SkipEmptyParts,Qt::CaseSensitive).at(1);
-							tb.tabFillChar = tbCh.isEmpty() ? QChar() : tbCh[0];
+							if (!tbCh.isEmpty())
+								tb.tabFillChar = tbCh[0];
 							tbs.append(tb);
 							if (tbs.count() > 0)
 								newStyle.setTabValues(tbs);

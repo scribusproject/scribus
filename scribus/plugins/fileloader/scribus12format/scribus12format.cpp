@@ -1711,7 +1711,6 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 			tgv >> xf2;
 			tb.tabPosition = xf2;
 			tb.tabType = static_cast<int>(xf);
-			tb.tabFillChar = QChar();
 			OB->TabValues.append(tb);
 		}
 		tmp = "";
@@ -2335,11 +2334,8 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 				ParagraphStyle::TabRecord tb;
 				tb.tabPosition = ScCLocale::toDoubleC(it.attribute("Pos"));
 				tb.tabType = it.attribute("Type").toInt();
-				QString tbCh = "";
-				tbCh = it.attribute("Fill","");
-				if (tbCh.isEmpty())
-					tb.tabFillChar = QChar();
-				else
+				QString tbCh(it.attribute("Fill",""));
+				if (!tbCh.isEmpty())
 					tb.tabFillChar = tbCh[0];
 				tbs.append(tb);
 			}

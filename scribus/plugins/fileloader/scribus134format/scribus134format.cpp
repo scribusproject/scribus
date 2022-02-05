@@ -1474,7 +1474,6 @@ void Scribus134Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 			tgv >> xf2;
 			tb.tabPosition = xf2;
 			tb.tabType = static_cast<int>(xf);
-			tb.tabFillChar =  QChar();
 			tbs.append(tb);
 		}
 		newStyle.setTabValues(tbs);
@@ -1496,8 +1495,9 @@ void Scribus134Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 				ScXmlStreamAttributes attrs2 = reader.scAttributes();
 				tb.tabPosition = attrs2.valueAsDouble("Pos");
 				tb.tabType     = attrs2.valueAsInt("Type");
-				QString tbCh   = attrs2.valueAsString("Fill","");
-				tb.tabFillChar = tbCh.isEmpty() ? QChar() : tbCh[0];
+				QString tbCh(attrs2.valueAsString("Fill",""));
+				if (!tbCh.isEmpty())
+					tb.tabFillChar = tbCh[0];
 				tbs.append(tb);
 			}
 		}
@@ -2108,8 +2108,9 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			ParagraphStyle::TabRecord tb;
 			tb.tabPosition = tAtt.valueAsDouble("Pos");
 			tb.tabType     = tAtt.valueAsInt("Type");
-			QString tbCh   = tAtt.valueAsString("Fill", "");
-			tb.tabFillChar = tbCh.isEmpty() ? QChar() : tbCh[0];
+			QString tbCh(tAtt.valueAsString("Fill", ""));
+			if (!tbCh.isEmpty())
+				tb.tabFillChar = tbCh[0];
 			tabValues.append(tb);
 		}
 		if (tName == QLatin1String("LATEX"))
@@ -2989,7 +2990,6 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			tgv >> xf2;
 			tb.tabPosition = xf2;
 			tb.tabType = static_cast<int>(xf);
-			tb.tabFillChar = QChar();
 			tbs.append(tb);
 		}
 		tmp = "";

@@ -386,7 +386,6 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 			tgv >> xf2;
 			tb.tabPosition = ScCLocale::toDoubleC(xf2);
 			tb.tabType = static_cast<int>(ScCLocale::toDoubleC(xf));
-			tb.tabFillChar =  QChar();
 			tbs.append(tb);
 		}
 		vg.setTabValues(tbs);
@@ -404,10 +403,8 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 				ParagraphStyle::TabRecord tb;
 				tb.tabPosition = ScCLocale::toDoubleC(it.attribute("Pos"));
 				tb.tabType = it.attribute("Type").toInt();
-				QString tbCh = it.attribute("Fill", QString());
-				if (tbCh.isEmpty())
-					tb.tabFillChar = QChar();
-				else
+				QString tbCh(it.attribute("Fill", QString()));
+				if (!tbCh.isEmpty())
 					tb.tabFillChar = tbCh[0];
 				tbs.append(tb);
 			}

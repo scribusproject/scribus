@@ -355,8 +355,8 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 	QRect mpo;
-	m_Mxp = m->x();
-	m_Myp = m->y();
+	m_Mxp = m->position().x();
+	m_Myp = m->position().y();
 
 	if (((m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MiddleButton)))
 	{

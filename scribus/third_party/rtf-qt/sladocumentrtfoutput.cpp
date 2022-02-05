@@ -572,7 +572,6 @@ namespace RtfReader
 		ParagraphStyle::TabRecord tb;
 		tb.tabType = type;
 		tb.tabPosition = tabVal;
-		tb.tabFillChar = QChar();
 		QList<ParagraphStyle::TabRecord> tbs = m_textStyle.top().tabValues();
 		if (tbs.count() == 0)
 			tbs.append(tb);

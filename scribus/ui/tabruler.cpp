@@ -172,6 +172,8 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 {
 	QRect fpo;
 	mousePressed = true;
+	int mPosX = m->position().x();
+	int mPosY = m->position().y();
 	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 	rulerCode = 0;
 	if (haveInd)
@@ -180,14 +182,14 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 		if (fpo.contains(m->pos()))
 		{
 			rulerCode = 1;
-			mouseX = m->x();
+			mouseX = mPosX;
 			return;
 		}
 		fpo = QRect(static_cast<int>(leftIndent - offset) - 4, 12, 8, 12);
 		if (fpo.contains(m->pos()))
 		{
 			rulerCode = 2;
-			mouseX = m->x();
+			mouseX = mPosX;
 			return;
 		}
 	}
@@ -200,7 +202,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 			{
 				rulerCode = 3;
 				actTab = i;
-				mouseX = m->x();
+				mouseX = mPosX;
 				emit tabSelected();
 				emit typeChanged(tabValues[actTab].tabType);
 				emit tabMoved(tabValues[actTab].tabPosition);
@@ -213,9 +215,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 	if ((rulerCode == 0) && (m->button() == Qt::LeftButton))
 	{
 		ParagraphStyle::TabRecord tb;
-		tb.tabPosition = static_cast<double>(m->x() + offset);
-		tb.tabType = 0;
-		tb.tabFillChar = QChar();
+		tb.tabPosition = static_cast<double>(mPosX + offset);
 		tabValues.prepend(tb);
 		actTab = 0;
 		rulerCode = 3;
@@ -227,14 +227,15 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 		emit fillCharChanged(tabValues[actTab].tabFillChar);
 		qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 	}
-	mouseX = m->x();
+	mouseX = mPosX;
 }
 
 void RulerT::mouseReleaseEvent(QMouseEvent *m)
 {
 	mousePressed = false;
 	qApp->restoreOverrideCursor();
-	if ((m->y() < height()) && (m->y() > 0))
+	int mPosY = m->position().y();
+	if ((mPosY < height()) && (mPosY > 0))
 	{
 		if (rulerCode == 3)
 		{
@@ -273,15 +274,17 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 {
 	double oldInd;
 	QRect fpo;
-	if ((mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > 0) && (m->x() < width()))
+	int mPosX = m->position().x();
+	int mPosY = m->position().y();
+	if ((mousePressed) && (mPosY < height()) && (mPosY > 0) && (mPosX > 0) && (mPosX < width()))
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 		switch (rulerCode)
 		{
 			case 1:
-				firstLine -= mouseX - m->x();
+				firstLine -= mouseX - mPosX;
 				if (firstLine + leftIndent + offset < offset)
-					firstLine += mouseX - m->x();
+					firstLine += mouseX - mPosX;
 				if (firstLine + leftIndent > m_rulerWidth)
 					firstLine  = m_rulerWidth - leftIndent;
 				emit firstLineMoved(firstLine);
@@ -289,7 +292,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 				break;
 			case 2:
 				oldInd = leftIndent+firstLine;
-				leftIndent -= mouseX - m->x();
+				leftIndent -= mouseX - mPosX;
 				if (leftIndent < 0)
 					leftIndent = 0;
 				if (leftIndent > m_rulerWidth - 1)
@@ -300,7 +303,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 				repaint();
 				break;
 			case 3:
-				tabValues[actTab].tabPosition -= mouseX - m->x();
+				tabValues[actTab].tabPosition -= mouseX - mPosX;
 				if (tabValues[actTab].tabPosition < 0)
 					tabValues[actTab].tabPosition = 0;
 				if (tabValues[actTab].tabPosition > m_rulerWidth - 1)
@@ -312,10 +315,10 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 			default:
 				break;
 		}
-		mouseX = m->x();
+		mouseX = mPosX;
 		return;
 	}
-	if ((!mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > 0) && (m->x() < width()))
+	if ((!mousePressed) && (mPosY < height()) && (mPosY > 0) && (mPosX > 0) && (mPosX < width()))
 	{
 		setCursor(IconManager::instance().loadCursor("tab.png", 3));
 		if (haveInd)
@@ -346,10 +349,8 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 			}
 		}
 	}
-	if ((mousePressed) && ((m->y() > height()) || (m->y() < 0) || (m->x() < 0) || (m->x() > width())))
-	{
+	if ((mousePressed) && ((mPosY > height()) || (mPosY < 0) || (mPosX < 0) || (mPosX > width())))
 		qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
-	}
 }
 
 void RulerT::leaveEvent(QEvent*)

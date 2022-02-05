@@ -69,7 +69,7 @@ public:
 	struct TabRecord
 	{
 		qreal tabPosition;
-		int tabType;
+		int tabType {0};
 		QChar tabFillChar;
 		bool operator==(const TabRecord& other) const;
 		bool operator<(const TabRecord& other)  const { return tabPosition < other.tabPosition; }

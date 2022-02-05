@@ -1463,11 +1463,8 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 				ParagraphStyle::TabRecord tb;
 				tb.tabPosition = ScCLocale::toDoubleC(it.attribute("Pos"));
 				tb.tabType = it.attribute("Type").toInt();
-				QString tbCh = "";
-				tbCh = it.attribute("Fill","");
-				if (tbCh.isEmpty())
-					tb.tabFillChar = QChar();
-				else
+				QString tbCh(it.attribute("Fill",""));
+				if (!tbCh.isEmpty())
 					tb.tabFillChar = tbCh[0];
 				tbs.append(tb);
 			}
@@ -1721,7 +1718,6 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 			tgv >> xf2;
 			tb.tabPosition = xf2;
 			tb.tabType = static_cast<int>(xf);
-			tb.tabFillChar = QChar();
 			tbValues.append(tb);
 		}
 		tmp = "";
@@ -1737,11 +1733,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 				ParagraphStyle::TabRecord tb;
 				tb.tabPosition = ScCLocale::toDoubleC(it.attribute("Pos"));
 				tb.tabType = it.attribute("Type").toInt();
-				QString tbCh = "";
-				tbCh = it.attribute("Fill","");
-				if (tbCh.isEmpty())
-					tb.tabFillChar = QChar();
-				else
+				QString tbCh(it.attribute("Fill",""));
+				if (!tbCh.isEmpty())
 					tb.tabFillChar = tbCh[0];
 				tbValues.append(tb);
 			}

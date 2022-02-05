@@ -670,7 +670,6 @@ void XtgScanner::setTabStops()
 			tb.tabType = 3;
 		tb.tabType = typ;
 		tb.tabPosition = pos;
-		tb.tabFillChar = QChar();
 		tbs.append(tb);
 	}
 	m_currentParagraphStyle.setTabValues(tbs);

@@ -3220,8 +3220,9 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 			ScXmlStreamAttributes attrs2 = reader.scAttributes();
 			tb.tabPosition = attrs2.valueAsDouble("Pos");
 			tb.tabType     = attrs2.valueAsInt("Type");
-			QString tbCh   = attrs2.valueAsString("Fill","");
-			tb.tabFillChar = tbCh.isEmpty() ? QChar() : tbCh[0];
+			QString tbCh(attrs2.valueAsString("Fill",""));
+			if (!tbCh.isEmpty())
+				tb.tabFillChar = tbCh[0];
 			tbs.append(tb);
 		}
 	}
@@ -4460,8 +4461,9 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 			ParagraphStyle::TabRecord tb;
 			tb.tabPosition = tAtt.valueAsDouble("Pos");
 			tb.tabType     = tAtt.valueAsInt("Type");
-			QString tbCh   = tAtt.valueAsString("Fill", "");
-			tb.tabFillChar = tbCh.isEmpty() ? QChar() : tbCh[0];
+			QString tbCh(tAtt.valueAsString("Fill", ""));
+			if (!tbCh.isEmpty())
+				tb.tabFillChar = tbCh[0];
 			tabValues.append(tb);
 		}
 		if (tName == QLatin1String("LATEX"))
