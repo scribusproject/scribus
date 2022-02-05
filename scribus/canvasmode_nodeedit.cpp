@@ -1053,15 +1053,13 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && !m_doc->nodeEdit.hasNodeSelected() && (m_doc->nodeEdit.segP1()  == -1) && (m_doc->nodeEdit.segP2() == -1))
 	{
 		if (!m_rectangleSelect)
-		{
 			m_rectangleSelect = new RectSelect(this);
-		}
 		m_rectangleSelect->prepare(m->globalPos());
 		m_view->startGesture(m_rectangleSelect);
 		return;
 	}
-	int newX = m->x();
-	int newY = m->y();
+	int newX = m->position().x();
+	int newY = m->position().y();
 	FPoint np(newX - m_Mxp, newY - m_Myp, 0, 0, currItem->rotation(), 1, 1, true);
 	np = np * (1.0 / m_canvas->scale());
 	m_canvas->m_viewMode.operItemMoving = true;

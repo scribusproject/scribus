@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QMetaObject>
 #include <QMetaProperty>
+#include <QMetaType>
 #include <QList>
 #include <QObject>
 #include <QObjectList>
@@ -274,29 +275,29 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	// Convert the property to an instance of the closest matching Python type.
 	PyObject* resultobj = nullptr;
 	// NUMERIC TYPES
-	if (prop.type() == QVariant::Int)
+	if (prop.userType() == QMetaType::Int)
 		resultobj = PyLong_FromLong(prop.toInt());
-	else if (prop.type() == QVariant::Double)
+	else if (prop.userType() == QMetaType::Double)
 		resultobj = PyFloat_FromDouble(prop.toDouble());
 	// BOOLEAN
-	else if (prop.type() == QVariant::Bool)
+	else if (prop.userType() == QMetaType::Bool)
 		resultobj = PyBool_FromLong(prop.toBool());
 	// STRING TYPES
-	else if (prop.type() == QVariant::ByteArray)
+	else if (prop.userType() == QMetaType::QByteArray)
 	{
 		QByteArray ba = prop.toByteArray();
 		resultobj = PyBytes_FromStringAndSize(ba.data(), ba.size());
 	}
-	else if (prop.type() == QVariant::String)
+	else if (prop.userType() == QMetaType::QString)
 		resultobj = PyUnicode_FromString(prop.toString().toUtf8().data());
 	// HIGHER ORDER TYPES
-	else if (prop.type() == QVariant::Point)
+	else if (prop.userType() == QMetaType::QPoint)
 	{
 		// Return a QPoint as an (x,y) tuple.
 		QPoint pt = prop.toPoint();
 		return Py_BuildValue("(ii)", pt.x(), pt.y());
 	}
-	else if (prop.type() == QVariant::Rect)
+	else if (prop.userType() == QMetaType::QRect)
 	{
 		// Return a QRect as an (x,y,width,height) tuple.
 		// FIXME: We should really construct and return an object that
@@ -305,7 +306,7 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		QRect r = prop.toRect();
 		return Py_BuildValue("(iiii)", r.x(), r.y(), r.width(), r.height());
 	}
-	else if (prop.type() == QVariant::StringList)
+	else if (prop.userType() == QMetaType::QStringList)
 	{
 		QStringList tmp = prop.toStringList();
 		return convert_QStringList_to_PyListObject(tmp);
