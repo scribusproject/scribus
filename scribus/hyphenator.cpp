@@ -169,7 +169,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 			QString word = text.mid(firstC, countC);
 			QString wordLower = QLocale(style.language()).toLower(word);
 			if (wordLower.contains(SpecialChars::SHYPHEN))
-				break;
+				continue;
 
 			bool ok = loadDict(style.language());
 			if (!ok)
