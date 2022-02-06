@@ -322,23 +322,23 @@ void SeView::dragMoveEvent(QDragMoveEvent *e)
 	if (!e->mimeData()->hasFormat("page/magic"))
 		return;
 	e->acceptProposedAction();
-	int a = rowAt(e->pos().y());
-	int b = columnAt(e->pos().x());
+	int row = rowAt(e->pos().y());
+	int col = columnAt(e->pos().x());
 	clearPix();
-	if ((a == -1) || (b == -1))
+	if ((row == -1) || (col == -1))
 		return;
 	if (columnCount() == 1)
 	{
-		if ((a % 2) == 0)
+		if ((row % 2) == 0)
 		{
-			item(a, 0)->setBackground(Qt::darkBlue);
+			item(row, 0)->setBackground(Qt::darkBlue);
 		}
 	}
 	else
 	{
-		if (((b % 2) == 0) || (a == rowCount()-1))
+		if (((col % 2) == 0) || (row == rowCount()-1))
 		{
-			item(a, b)->setBackground(Qt::darkBlue);
+			item(row, col)->setBackground(Qt::darkBlue);
 		}
 	}
 }

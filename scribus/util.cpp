@@ -60,14 +60,17 @@ QString cleanupLang(const QString& lang)
 	return lang.left(dotIndex);
 }
 
-int System(const QString& exename, const QStringList & args, const QString& fileStdErr, const QString& fileStdOut, const bool* cancel)
+int System(const QString& exename, const QStringList& args, const QString& fileStdErr, const QString& fileStdOut, const bool* cancel)
 {
 	QProcess proc;
 	if (!fileStdOut.isEmpty())
 		proc.setStandardOutputFile(fileStdOut);
 	if (!fileStdErr.isEmpty())
 		proc.setStandardErrorFile(fileStdErr);
-	proc.start(exename, args);
+	QString command(exename);
+	command.append(" ");
+	command.append(args.join(" "));
+	proc.startCommand(command.toLocal8Bit());
 	if (proc.waitForStarted(15000))
 	{
 		while (!proc.waitForFinished(15000))
