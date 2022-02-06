@@ -205,8 +205,10 @@ bool testGSAvailability()
 
 bool testGSAvailability(const QString& gsPath)
 {
+	QStringList args;
+	args.append( "-h" );
 	QProcess proc;
-	proc.startCommand(getShortPathName(gsPath) + " -h");
+	proc.start(getShortPathName(gsPath), args);
 	if (!proc.waitForStarted(5000))
 		return false;
 	proc.waitForFinished(5000);
@@ -215,12 +217,13 @@ bool testGSAvailability(const QString& gsPath)
 
 bool testGSDeviceAvailability( const QString& device )
 {
-	QString command(getShortPathName(PrefsManager::instance().ghostscriptExecutable()));
-	command.append(" -sDEVICE=");
-	command.append(device);
-	command.append(" -c quit");
+	QStringList args;
+	PrefsManager& prefsManager = PrefsManager::instance();
+	args.append( QString("-sDEVICE=%1").arg( device ) );
+	args.append( "-c" );
+	args.append( "quit" );
 	QProcess proc;
-	proc.startCommand(command.toLocal8Bit());
+	proc.start(getShortPathName(prefsManager.ghostscriptExecutable()), args);
 	if (!proc.waitForStarted(5000))
 		return false;
 	proc.waitForFinished(5000);
@@ -230,10 +233,11 @@ bool testGSDeviceAvailability( const QString& device )
 // Return the GhostScript version string, or QString() if it couldn't be retrieved.
 QString getGSVersion()
 {
-	QString command(getShortPathName(PrefsManager::instance().ghostscriptExecutable()));
-	command.append(" --version");
+	QStringList args;
+	args.append(QString("--version").toLocal8Bit());
+	QString gsExe = getShortPathName(PrefsManager::instance().ghostscriptExecutable());
 	QProcess proc;
-	proc.startCommand(command.toLocal8Bit());
+	proc.start(gsExe, args);
 	if (proc.waitForStarted(5000))
 	{
 		while (!proc.waitForFinished(5000))

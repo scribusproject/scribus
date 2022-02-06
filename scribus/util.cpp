@@ -67,10 +67,7 @@ int System(const QString& exename, const QStringList& args, const QString& fileS
 		proc.setStandardOutputFile(fileStdOut);
 	if (!fileStdErr.isEmpty())
 		proc.setStandardErrorFile(fileStdErr);
-	QString command(exename);
-	command.append(" ");
-	command.append(args.join(" "));
-	proc.startCommand(command.toLocal8Bit());
+	proc.start(exename, args);
 	if (proc.waitForStarted(15000))
 	{
 		while (!proc.waitForFinished(15000))
