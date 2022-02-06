@@ -143,10 +143,10 @@ bool ScImageCacheProxy::loadMetadata(ScLockedFile *file, MetaMap *meta, MetaMap 
 
 			if (xml.name() == QLatin1String("cache"))
 			{
-				if (attr.hasAttribute("base"))
+				if (attr.hasAttribute(QLatin1String("base")))
 				{
 					if (base)
-						*base = attr.value("base").toString();
+						*base = attr.value(QLatin1String("base")).toString();
 
 					baseFound = true;
 				}

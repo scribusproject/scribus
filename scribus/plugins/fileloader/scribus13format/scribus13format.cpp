@@ -113,7 +113,7 @@ void Scribus13Format::registerFormats()
 
 bool Scribus13Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
-	QByteArray docBytes("");
+	QByteArray docBytes;
 	if (fileName.right(2) == "gz")
 	{
 		QFile file(fileName);
