@@ -5845,33 +5845,33 @@ void PageItem_TextFrame::setTextFrameHeight()
 	if (textLayout.lines() <= 0)
 		return;
 
-	if (m_nextBox == nullptr) // Vertical alignment is not used inside a text chain
+	if (m_nextBox != nullptr) // Vertical alignment is not used inside a text chain
+		return;
+
+	textLayout.box()->moveTo(textLayout.box()->x(), 0);
+	double newHeight = textLayout.box()->naturalHeight();
+	newHeight += m_textDistanceMargins.bottom();
+
+	UndoTransaction undoTransaction;
+	if (UndoManager::undoEnabled())
 	{
-		textLayout.box()->moveTo(textLayout.box()->x(), 0);
-		double newHeight = textLayout.box()->naturalHeight();
-		newHeight += m_textDistanceMargins.bottom();
-
-		UndoTransaction undoTransaction;
-		if (UndoManager::undoEnabled())
-		{
-			QString unitSuffix = unitGetStrFromIndex(m_Doc->unitIndex());
-			int unitPrecision  = unitGetPrecisionFromIndex(m_Doc->unitIndex());
-			double unitRatio   = m_Doc->unitRatio();
-			QString owString  = QString::number(oldWidth * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
-			QString ohString  = QString::number(oldHeight * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
-			QString nwString  = QString::number(m_width * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
-			QString nhString  = QString::number(m_height * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
-			QString tooltip   = QString(Um::ResizeFromTo).arg(owString, ohString, nwString, nhString);
-			undoTransaction = undoManager->beginTransaction(Um::Selection, Um::ITextFrame, Um::Resize, tooltip, Um::IResize);
-		}
-
-		setHeight(newHeight);
-
-		if (undoTransaction)
-			undoTransaction.commit();
+		QString unitSuffix = unitGetStrFromIndex(m_Doc->unitIndex());
+		int unitPrecision  = unitGetPrecisionFromIndex(m_Doc->unitIndex());
+		double unitRatio   = m_Doc->unitRatio();
+		QString owString  = QString::number(oldWidth * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString ohString  = QString::number(oldHeight * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nwString  = QString::number(m_width * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nhString  = QString::number(m_height * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString tooltip   = QString(Um::ResizeFromTo).arg(owString, ohString, nwString, nhString);
+		undoTransaction = undoManager->beginTransaction(Um::Selection, Um::ITextFrame, Um::Resize, tooltip, Um::IResize);
 	}
 
+	setHeight(newHeight);
 	updateClip();
+
+	if (undoTransaction)
+		undoTransaction.commit();
+
 	invalid = true;
 	m_Doc->changed();
 	m_Doc->regionsChanged()->update(QRect());
