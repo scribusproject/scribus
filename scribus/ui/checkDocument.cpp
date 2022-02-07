@@ -254,15 +254,15 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 
 void CheckDocument::doReScan()
 {
-	showPagesWithoutErrors=PrefsManager::instance().appPrefs.verifierPrefs.showPagesWithoutErrors;
-	showNonPrintingLayerErrors=PrefsManager::instance().appPrefs.verifierPrefs.showNonPrintingLayerErrors;
+	showPagesWithoutErrors = PrefsManager::instance().appPrefs.verifierPrefs.showPagesWithoutErrors;
+	showNonPrintingLayerErrors = PrefsManager::instance().appPrefs.verifierPrefs.showNonPrintingLayerErrors;
 	newScan(curCheckProfile->currentText());
 }
 
 void CheckDocument::newScan(const QString& name)
 {
 	clearErrorList();
-	if (m_Doc==nullptr)
+	if (m_Doc == nullptr)
 		return;
 	m_Doc->setCurCheckProfile(name);
 	DocumentChecker::checkDocument(m_Doc);
@@ -414,7 +414,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	curCheckProfile->clear();
 	clearErrorList();
 
-	if (m_Doc==nullptr)
+	if (m_Doc == nullptr)
 		return;
 
 	minResDPI = qRound(doc->checkerProfiles()[doc->curCheckProfile()].minResolution);
