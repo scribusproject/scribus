@@ -45,7 +45,7 @@ UsePrinterMarginsDialog::UsePrinterMarginsDialog(QWidget* parent, const QSizeF& 
 		printerComboBox->insertItems(0, printerNames);
 		getPrinterMarginValues(printerNames.first());
 		marginsGroupBox->setTitle( tr("Minimum Margins for Page Size %1").arg(pageSizeName));
-		connect(printerComboBox, SIGNAL(activated(QString)), this, SLOT(getPrinterMarginValues(QString)));
+		connect(printerComboBox, SIGNAL(textActivated(QString)), this, SLOT(getPrinterMarginValues(QString)));
 	}
 
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));

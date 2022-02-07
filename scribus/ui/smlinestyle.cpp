@@ -415,7 +415,7 @@ void SMLineStyle::setupConnections()
 	connect(m_widget->removeButton, SIGNAL(clicked()), this, SLOT(slotDeleteLine()));
 	connect(m_widget->endCombo, SIGNAL(activated(int)), this, SLOT(slotSetEnd(int)));
 	connect(m_widget->joinCombo, SIGNAL(activated(int)), this, SLOT(slotSetJoin(int)));
-	connect(m_widget->colorCombo, SIGNAL(activated(QString)), this, SLOT(slotColor(QString)));
+	connect(m_widget->colorCombo, SIGNAL(textActivated(QString)), this, SLOT(slotColor(QString)));
 	connect(m_widget->dashCombo, SIGNAL(activated(int)), this, SLOT(slotLineStyle(int)));
 	connect(m_widget->shadeBox, SIGNAL(valueChanged(int)), this, SLOT(slotShade(int)));
 	connect(m_widget->lineWidth, SIGNAL(valueChanged(double)), this, SLOT(slotLineWidth()));
