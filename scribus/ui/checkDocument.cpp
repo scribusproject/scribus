@@ -421,8 +421,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	maxResDPI = qRound(doc->checkerProfiles()[doc->curCheckProfile()].maxResolution);
 	
 	CheckerPrefsList::Iterator it;
-	CheckerPrefsList::Iterator itend=doc->checkerProfiles().end();
-	for (it = doc->checkerProfiles().begin(); it != itend ; ++it)
+	CheckerPrefsList::Iterator itend = doc->checkerProfiles().end();
+	for (it = doc->checkerProfiles().begin(); it != itend; ++it)
 		curCheckProfile->addItem(it.key());
 	setCurrentComboItem(curCheckProfile, doc->curCheckProfile());
 	if (!doc->hasPreflightErrors()
@@ -513,11 +513,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		{
 			hasError = false;
 			pageGraveError = false;
-			QTreeWidgetItem * page=nullptr;
+			QTreeWidgetItem* page = nullptr;
+			ScPage* masterPage = doc->MasterPages.at(mPage);
 			if (showPagesWithoutErrors)
 			{
-				page = new QTreeWidgetItem( masterPageRootItem);
-				masterPageMap.insert(page, doc->MasterPages.at(mPage));
+				page = new QTreeWidgetItem(masterPageRootItem);
+				masterPageMap.insert(page, masterPage);
 			}
 
 			QMap<PageItem*, errorCodes>::Iterator masterItemErrorsIt;
@@ -525,61 +526,59 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				 masterItemErrorsIt != doc->masterItemErrors.end();
 				 ++masterItemErrorsIt)
 			{
-				if (((masterItemErrorsIt.key()->OwnPage == mPage)
-					|| (masterItemErrorsIt.key()->OnMasterPage == doc->MasterPages.at(mPage)->pageName()))
-					&&
-					((showNonPrintingLayerErrors) ||
-					(!showNonPrintingLayerErrors && doc->layerPrintable(masterItemErrorsIt.key()->m_layerID)))
-					)
+				PageItem* masterItem = masterItemErrorsIt.key();
+				if ((masterItem->OwnPage != mPage) && (masterItem->OnMasterPage != masterPage->pageName()))
+					continue;
+				if (!showNonPrintingLayerErrors && !doc->layerPrintable(masterItem->m_layerID))
+					continue;
+
+				if (!showPagesWithoutErrors && page == nullptr)
 				{
-					if (!showPagesWithoutErrors && page==nullptr)
+					page = new QTreeWidgetItem(masterPageRootItem);
+					masterPageMap.insert(page, doc->MasterPages.at(mPage));
+				}
+				hasError = true;
+				QTreeWidgetItem* object = new QTreeWidgetItem(page);
+				masterPageItemMap.insert(object, masterItem);
+				object->setText(COLUMN_ITEM, masterItem->itemName());
+				errorCodes::Iterator it3;
+				if (masterItemErrorsIt.value().count() == 1)
+				{
+					it3 = masterItemErrorsIt.value().begin();
+					buildItem(object, it3.key(), masterItem);
+					posMap.insert(object, it3.value());
+				}
+				else
+				{
+					for (it3 = masterItemErrorsIt.value().begin(); it3 != masterItemErrorsIt.value().end(); ++it3)
 					{
-						page = new QTreeWidgetItem( masterPageRootItem);
-						masterPageMap.insert(page, doc->MasterPages.at(mPage));
-					}
-					hasError = true;
-					QTreeWidgetItem * object = new QTreeWidgetItem( page);
-					masterPageItemMap.insert(object, masterItemErrorsIt.key());
-					object->setText(COLUMN_ITEM, masterItemErrorsIt.key()->itemName());
-					errorCodes::Iterator it3;
-					if (masterItemErrorsIt.value().count() == 1)
-					{
-						it3 = masterItemErrorsIt.value().begin();
-						buildItem(object, it3.key(), masterItemErrorsIt.key());
+						QTreeWidgetItem* errorText = new QTreeWidgetItem(object, 0);
+						buildItem(errorText, it3.key(), masterItem);
+						masterPageItemMap.insert(errorText, masterItem);
 						posMap.insert(object, it3.value());
 					}
-					else
-					{
-						for (it3 = masterItemErrorsIt.value().begin(); it3 != masterItemErrorsIt.value().end(); ++it3)
-						{
-							QTreeWidgetItem * errorText = new QTreeWidgetItem( object, 0 );
-							buildItem(errorText, it3.key(), masterItemErrorsIt.key());
-							masterPageItemMap.insert(errorText, masterItemErrorsIt.key());
-							posMap.insert(object, it3.value());
-						}
-						object->setExpanded( true );
-					}
-					if (itemError)
-						object->setIcon(COLUMN_ITEM, graveError );
-					else
-						object->setIcon(COLUMN_ITEM, onlyWarning );
+					object->setExpanded(true);
 				}
+				if (itemError)
+					object->setIcon(COLUMN_ITEM, graveError);
+				else
+					object->setIcon(COLUMN_ITEM, onlyWarning);
 			}
 			if (hasError)
 			{
 				++mpErrorCount;
 				if (pageGraveError)
-					page->setIcon(COLUMN_ITEM, graveError );
+					page->setIcon(COLUMN_ITEM, graveError);
 				else
-					page->setIcon(COLUMN_ITEM, onlyWarning );
-				page->setExpanded( true );
+					page->setIcon(COLUMN_ITEM, onlyWarning);
+				page->setExpanded(true);
 			}
 			else
 			{
-				if (showPagesWithoutErrors && page!=nullptr)
-					page->setIcon(COLUMN_ITEM, noErrors );
+				if (showPagesWithoutErrors && page != nullptr)
+					page->setIcon(COLUMN_ITEM, noErrors);
 			}
-			if (page!=nullptr)
+			if (page != nullptr)
 				page->setText(COLUMN_ITEM, doc->MasterPages.at(mPage)->pageName());
 		}
 		masterPageRootItem->setExpanded(true);
@@ -605,22 +604,21 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				 pageErrorsIt != doc->pageErrors.end();
 				 ++pageErrorsIt)
 			{
-				if (pageErrorsIt.key() == aPage)
+				if (pageErrorsIt.key() != aPage)
+					continue;
+				if (page == nullptr)
 				{
-					if (page==nullptr)
-					{
-						page = new QTreeWidgetItem( reportDisplay);
-						pageMap.insert(page, doc->DocPages.at(aPage));
-					}
-					QTreeWidgetItem * errorText = new QTreeWidgetItem(page);
-					errorText->setText(COLUMN_PROBLEM, warnMap[PV_APPLIED_MASTER_DIFF_SIDE].first);
-					errorText->setToolTip(COLUMN_PROBLEM, warnMap[PV_APPLIED_MASTER_DIFF_SIDE].second);
-					errorText->setIcon(COLUMN_ITEM, onlyWarning );
-					pageMap.insert(errorText, doc->DocPages.at(aPage));
-					hasError=true;
-					page->setExpanded( true );
-					++pageErrorCount;
+					page = new QTreeWidgetItem(reportDisplay);
+					pageMap.insert(page, doc->DocPages.at(aPage));
 				}
+				QTreeWidgetItem * errorText = new QTreeWidgetItem(page);
+				errorText->setText(COLUMN_PROBLEM, warnMap[PV_APPLIED_MASTER_DIFF_SIDE].first);
+				errorText->setToolTip(COLUMN_PROBLEM, warnMap[PV_APPLIED_MASTER_DIFF_SIDE].second);
+				errorText->setIcon(COLUMN_ITEM, onlyWarning );
+				pageMap.insert(errorText, doc->DocPages.at(aPage));
+				hasError = true;
+				page->setExpanded( true );
+				++pageErrorCount;
 			}
 
 			QMap<PageItem*, errorCodes>::Iterator docItemErrorsIt;
@@ -628,63 +626,63 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				 docItemErrorsIt != doc->docItemErrors.end();
 				 ++docItemErrorsIt)
 			{
-				if (docItemErrorsIt.key()->OwnPage == aPage &&
-					((showNonPrintingLayerErrors) ||
-					(!showNonPrintingLayerErrors && doc->layerPrintable(docItemErrorsIt.key()->m_layerID)))
-					)
+				PageItem* pageItem = docItemErrorsIt.key();
+				if (pageItem->OwnPage != aPage)
+					continue;
+				if (!showNonPrintingLayerErrors && !doc->layerPrintable(pageItem->m_layerID))
+					continue;
+
+				if (!showPagesWithoutErrors && page == nullptr)
 				{
-					if (!showPagesWithoutErrors && page==nullptr)
+					page = new QTreeWidgetItem(reportDisplay);
+					pageMap.insert(page, doc->DocPages.at(aPage));
+				}
+				hasError = true;
+				itemError = false;
+				QTreeWidgetItem* object = new QTreeWidgetItem(page);
+				object->setText(COLUMN_ITEM, pageItem->itemName());
+				itemMap.insert(object, pageItem);
+				errorCodes::Iterator it3;
+				if (docItemErrorsIt.value().count() == 1)
+				{
+					it3 = docItemErrorsIt.value().begin();
+					buildItem(object, it3.key(), pageItem);
+					posMap.insert(object, it3.value());
+					++pageErrorCount;
+				}
+				else
+				{
+					for (it3 = docItemErrorsIt.value().begin(); it3 != docItemErrorsIt.value().end(); ++it3)
 					{
-						page = new QTreeWidgetItem( reportDisplay);
-						pageMap.insert(page, doc->DocPages.at(aPage));
-					}
-					hasError = true;
-					itemError = false;
-					QTreeWidgetItem * object = new QTreeWidgetItem(page);
-					object->setText(COLUMN_ITEM, docItemErrorsIt.key()->itemName());
-					itemMap.insert(object, docItemErrorsIt.key());
-					errorCodes::Iterator it3;
-					if (docItemErrorsIt.value().count() == 1)
-					{
-						it3 = docItemErrorsIt.value().begin();
-						buildItem(object, it3.key(), docItemErrorsIt.key());
+						QTreeWidgetItem* errorText = new QTreeWidgetItem(object);
+						buildItem(errorText, it3.key(), pageItem);
+						itemMap.insert(errorText, pageItem);
 						posMap.insert(object, it3.value());
 						++pageErrorCount;
 					}
-					else
-					{
-						for (it3 = docItemErrorsIt.value().begin(); it3 != docItemErrorsIt.value().end(); ++it3)
-						{
-							QTreeWidgetItem * errorText = new QTreeWidgetItem( object);
-							buildItem(errorText, it3.key(), docItemErrorsIt.key());
-							itemMap.insert(errorText, docItemErrorsIt.key());
-							posMap.insert(object, it3.value());
-							++pageErrorCount;
-						}
-						object->setExpanded( true );
-					}
-					if (itemError)
-						object->setIcon(COLUMN_ITEM, graveError );
-					else
-						object->setIcon(COLUMN_ITEM, onlyWarning );
+					object->setExpanded(true);
 				}
+				if (itemError)
+					object->setIcon(COLUMN_ITEM, graveError);
+				else
+					object->setIcon(COLUMN_ITEM, onlyWarning);
 			}
 			if (hasError)
 			{
 				if (pageGraveError)
-					page->setIcon(COLUMN_ITEM, graveError );
+					page->setIcon(COLUMN_ITEM, graveError);
 				else
-					page->setIcon(COLUMN_ITEM, onlyWarning );
-				page->setExpanded( true );
-				page->setText(COLUMN_PROBLEM, tr( "Issues: %1" ).arg(pageErrorCount) );
+					page->setIcon(COLUMN_ITEM, onlyWarning);
+				page->setExpanded(true);
+				page->setText(COLUMN_PROBLEM, tr("Issues: %1").arg(pageErrorCount));
 			}
 			else
 			{
-				if (showPagesWithoutErrors && page!=nullptr)
-					page->setIcon( 0, noErrors );
+				if (showPagesWithoutErrors && page != nullptr)
+					page->setIcon(0, noErrors);
 			}
-			if (page!=nullptr)
-				page->setText(COLUMN_ITEM, tr("Page ")+tmp.setNum(aPage+1));
+			if (page != nullptr)
+				page->setText(COLUMN_ITEM, tr("Page ") + tmp.setNum(aPage + 1));
 		}
 		// END of PAGES
 
@@ -723,7 +721,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					{
 						for (it3 = freeItemsErrorsIt.value().begin(); it3 != freeItemsErrorsIt.value().end(); ++it3)
 						{
-							QTreeWidgetItem * errorText = new QTreeWidgetItem( object);
+							QTreeWidgetItem* errorText = new QTreeWidgetItem(object);
 							buildItem(errorText, it3.key(), freeItemsErrorsIt.key());
 							itemMap.insert(errorText, freeItemsErrorsIt.key());
 							posMap.insert(object, it3.value());
