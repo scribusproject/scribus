@@ -483,7 +483,7 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette(parent, "Tree",
 	connect(reportDisplay, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick(QPoint)));
 	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
-	connect(filterEdit, SIGNAL(textChanged(const QString&)), this, SLOT(filterTree(const QString&)));
+	connect(filterEdit, SIGNAL(textChanged(QString)), this, SLOT(filterTree(QString)));
 //	connect(filterShortcut, SIGNAL(activated()), filterEdit, SLOT(setFocus()));
 	connect(reportDisplay, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(slotDoubleClick(QTreeWidgetItem*, int)));
 }

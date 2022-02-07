@@ -1024,8 +1024,7 @@ void StyleManager::insertShortcutPage(QTabWidget *twidget)
 	{
 		m_shortcutWidget = new ShortcutWidget(nullptr);
 		m_shortcutWidget->setAllowedModifiers(Qt::META|Qt::CTRL|Qt::SHIFT|Qt::ALT,0);
-		connect(m_shortcutWidget, SIGNAL(newKey(const QString&)),
-				this, SLOT(slotShortcutChanged(const QString&)));
+		connect(m_shortcutWidget, SIGNAL(newKey(QString)), this, SLOT(slotShortcutChanged(QString)));
 	}
 	twidget->addTab(m_shortcutWidget, tr("Shortcut"));
 }
@@ -1182,7 +1181,7 @@ void StyleManager::slotSetupWidget()
 	else if (m_widget && !m_widget->isEnabled())
 		m_widget->setEnabled(true);
 
-	disconnect(nameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(slotNameChanged(const QString&)));
+	disconnect(nameEdit, SIGNAL(textChanged(QString)), this, SLOT(slotNameChanged(QString)));
 	if (!typeName.isEmpty())
 	{
 		m_item->selected(selection.second);
@@ -1214,7 +1213,7 @@ void StyleManager::slotSetupWidget()
 		nameEdit->setEnabled(false);
 	}
 
-	connect(nameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(slotNameChanged(const QString&)));
+	connect(nameEdit, SIGNAL(textChanged(QString)), this, SLOT(slotNameChanged(QString)));
 
 }
 

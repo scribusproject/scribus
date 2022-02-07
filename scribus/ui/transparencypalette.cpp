@@ -48,7 +48,7 @@ TransparencyPalette::TransparencyPalette(QWidget* parent) : QWidget(parent)
 	connect(fillOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransF(double)));
 	connect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
 	connect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
-	connect(namedGradient, SIGNAL(textActivated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	connect(namedGradient, SIGNAL(textActivated(QString)), this, SLOT(setNamedGradient(QString)));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
 	connect(TGradDia, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)));
@@ -65,7 +65,7 @@ TransparencyPalette::TransparencyPalette(QWidget* parent) : QWidget(parent)
 void TransparencyPalette::connectSignals()
 {
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
-	connect(namedGradient, SIGNAL(textActivated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	connect(namedGradient, SIGNAL(textActivated(QString)), this, SLOT(setNamedGradient(QString)));
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
 	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	connect(transpCalcGradient, SIGNAL(clicked()), this, SLOT(switchGradientMode()));
@@ -76,7 +76,7 @@ void TransparencyPalette::connectSignals()
 void TransparencyPalette::disconnectSignals()
 {
 	disconnect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
-	disconnect(namedGradient, SIGNAL(textActivated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	disconnect(namedGradient, SIGNAL(textActivated(QString)), this, SLOT(setNamedGradient(QString)));
 	disconnect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
 	disconnect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
 	disconnect(transpCalcGradient, SIGNAL(clicked()), this, SLOT(switchGradientMode()));
@@ -230,7 +230,7 @@ void TransparencyPalette::updateCList()
 
 void TransparencyPalette::updateGradientList()
 {
-	disconnect(namedGradient, SIGNAL(textActivated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	disconnect(namedGradient, SIGNAL(textActivated(QString)), this, SLOT(setNamedGradient(QString)));
 	namedGradient->clear();
 	namedGradient->setIconSize(QSize(48, 12));
 	namedGradient->addItem( tr("Custom"));
@@ -257,7 +257,7 @@ void TransparencyPalette::updateGradientList()
 		pm = QPixmap::fromImage(pixm);
 		namedGradient->addItem(pm, patK[i]);
 	}
-	connect(namedGradient, SIGNAL(textActivated(const QString&)), this, SLOT(setNamedGradient(const QString&)));
+	connect(namedGradient, SIGNAL(textActivated(QString)), this, SLOT(setNamedGradient(QString)));
 }
 
 void TransparencyPalette::setGradients(QHash<QString, VGradient> *docGradients)
@@ -277,7 +277,7 @@ void TransparencyPalette::slotGrad(int number)
 {
 	if (number == 1)
 	{
-		disconnect(namedGradient, SIGNAL(textActivated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+		disconnect(namedGradient, SIGNAL(textActivated(QString)), this, SLOT(setNamedGradient(QString)));
 		if (!currentItem->gradientMask().isEmpty())
 		{
 			setCurrentComboItem(namedGradient, currentItem->gradientMask());
@@ -304,7 +304,7 @@ void TransparencyPalette::slotGrad(int number)
 			else
 				emit NewGradient(GradMask_Radial);
 		}
-		connect(namedGradient, SIGNAL(textActivated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+		connect(namedGradient, SIGNAL(textActivated(QString)), this, SLOT(setNamedGradient(QString)));
 	}
 	else if (number == 2)
 	{

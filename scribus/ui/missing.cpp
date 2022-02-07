@@ -51,7 +51,7 @@ MissingFont::MissingFont( QWidget* parent, const QString& fon, ScribusDoc* doc )
 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( replaceFontCombo, SIGNAL(fontSelected(QString)), this, SLOT( newFont(const QString&) ) );
+	connect( replaceFontCombo, SIGNAL(fontSelected(QString)), this, SLOT(newFont(QString) ) );
 }
 
 void MissingFont::newFont(const QString& replacement)

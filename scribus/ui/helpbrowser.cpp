@@ -300,7 +300,7 @@ void HelpBrowser::setupLocalUI()
 	connect(helpNav->deleteAllBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteAllBookmarkButton_clicked()));
 	connect(helpNav->bookmarksView, SIGNAL(itemClicked( QTreeWidgetItem *, int)), this, SLOT(itemBookmarkSelected(QTreeWidgetItem *, int)));
 	// links hoover
-//	connect(textBrowser, SIGNAL(overLink(const QString &)), this, SLOT(showLinkContents(const QString &)));
+//	connect(textBrowser, SIGNAL(overLink(QString)), this, SLOT(showLinkContents(QString)));
 
 	// status bar
 //	connect(textBrowser,SIGNAL(statusBarMessage(QString)), this->statusBar(), SLOT(showMessage(QString)));

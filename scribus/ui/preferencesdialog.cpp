@@ -136,7 +136,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		itemSelected(preferencesTypeList->item(0));
 	}
 
-	connect(prefs_DocumentSetup, SIGNAL(changeToOtherSection(const QString&)), this, SLOT(setNewItemSelected(const QString&)));
+	connect(prefs_DocumentSetup, SIGNAL(changeToOtherSection(QString)), this, SLOT(setNewItemSelected(QString)));
 	connect(prefs_DocumentSetup, SIGNAL(prefsChangeUnits(int)), this, SLOT(changeUnits(int)));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));

@@ -43,8 +43,8 @@ PropertiesPalette_Table::PropertiesPalette_Table(QWidget* parent) : QWidget(pare
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
-	connect(tableStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setTableStyle(const QString&)));
-	connect(cellStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setCellStyle(const QString&)));
+	connect(tableStyleCombo, SIGNAL(newStyle(QString)), this, SLOT(setTableStyle(QString)));
+	connect(cellStyleCombo, SIGNAL(newStyle(QString)), this, SLOT(setCellStyle(QString)));
 }
 
 void PropertiesPalette_Table::iconSetChange()

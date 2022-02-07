@@ -102,7 +102,7 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	connect(cbProportional     , SIGNAL(stateChanged(int))   , this, SLOT(handleScaling()));
 	connect(imgEffectsButton   , SIGNAL(clicked())           , this, SLOT(handleImageEffects()));
 	connect(imgExtProperties   , SIGNAL(clicked())           , this, SLOT(handleExtImgProperties()));
-	connect(inputProfiles      , SIGNAL(textActivated(const QString&)), this, SLOT(handleProfile(const QString&)));
+	connect(inputProfiles      , SIGNAL(textActivated(QString)), this, SLOT(handleProfile(QString)));
 	connect(renderIntent       , SIGNAL(activated(int))      , this, SLOT(handleIntent()));
 	connect(compressionMethod  , SIGNAL(activated(int))      , this, SLOT(handleCompressionMethod()));
 	connect(compressionQuality , SIGNAL(activated(int))      , this, SLOT(handleCompressionQuality()));

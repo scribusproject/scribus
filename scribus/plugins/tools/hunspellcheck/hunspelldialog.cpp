@@ -27,7 +27,7 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, PageItem *item)
 	connect (ignoreAllPushButton, SIGNAL(clicked()), this, SLOT(ignoreAllWords()));
 	connect (changePushButton, SIGNAL(clicked()), this, SLOT(changeWord()));
 	connect (changeAllPushButton, SIGNAL(clicked()), this, SLOT(changeAllWords()));
-	connect (languagesComboBox, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(languageComboChanged(const QString &)));
+	connect (languagesComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(languageComboChanged(QString)));
 }
 
 HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText * itemText)
@@ -42,7 +42,7 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText * ite
 	connect (ignoreAllPushButton, SIGNAL(clicked()), this, SLOT(ignoreAllWords()));
 	connect (changePushButton, SIGNAL(clicked()), this, SLOT(changeWord()));
 	connect (changeAllPushButton, SIGNAL(clicked()), this, SLOT(changeAllWords()));
-	connect (languagesComboBox, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(languageComboChanged(const QString &)));
+	connect (languagesComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(languageComboChanged(QString)));
 }
 
 void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, QMap<QString, HunspellDict*> *hspellerMap, QList<WordsFound> *wfList)

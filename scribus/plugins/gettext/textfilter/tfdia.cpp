@@ -150,12 +150,12 @@ void tfDia::createLayout()
 	layout->addLayout(layout2);
 	
 
-	connect(filtersCombo, SIGNAL(activated(const QString&)), this, SLOT(loadFilter(const QString&)));
+	connect(filtersCombo, SIGNAL(textActivated(QString)), this, SLOT(loadFilter(QString)));
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearClicked()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteClicked()));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(okClicked()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelClicked()));
-	connect(saveEdit, SIGNAL(textChanged(const QString&)), this, SLOT(saveTextChanged(const QString&)));
+	connect(saveEdit, SIGNAL(textChanged(QString)), this, SLOT(saveTextChanged(QString)));
 }
 
 void tfDia::createFilterRow(tfFilter* after)

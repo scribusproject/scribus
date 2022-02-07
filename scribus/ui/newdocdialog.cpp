@@ -164,7 +164,7 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );
 	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect(pageSizeComboBox, SIGNAL(textActivated(const QString &)), this, SLOT(setPageSize(const QString &)));
+	connect(pageSizeComboBox, SIGNAL(textActivated(QString)), this, SLOT(setPageSize(QString)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrientation(int)));
 	connect(unitOfMeasureComboBox, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(double)), this, SLOT(setDistance(double)));
@@ -408,8 +408,8 @@ void NewDocDialog::createOpenDocPage()
 	connect(keyCatcher, SIGNAL(homePressed()), this, SLOT(gotoHomeDirectory()));
 	connect(keyCatcher, SIGNAL(parentPressed()), this, SLOT(gotoParentDirectory()));
 	connect(keyCatcher, SIGNAL(enterSelectedPressed()), this, SLOT(gotoSelectedDirectory()));
-	connect(fileDialog, SIGNAL(currentChanged(const QString &)), this, SLOT(openFileDialogFileClicked(const QString &)));
-	connect(fileDialog, SIGNAL(filesSelected(const QStringList &)), this, SLOT(openFile()));
+	connect(fileDialog, SIGNAL(currentChanged(QString)), this, SLOT(openFileDialogFileClicked(QString)));
+	connect(fileDialog, SIGNAL(filesSelected(QStringList)), this, SLOT(openFile()));
 	connect(fileDialog, SIGNAL(rejected()), this, SLOT(reject()));
 }
 

@@ -143,8 +143,8 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButtonClicked() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( PrintDest, SIGNAL(activated(const QString&)), this, SLOT(selectPrinter(const QString&)));
-	connect( printLanguages, SIGNAL(activated(const QString&)), this, SLOT(selectPrintLanguage(const QString&)));
+	connect( PrintDest, SIGNAL(textActivated(QString)), this, SLOT(selectPrinter(QString)));
+	connect( printLanguages, SIGNAL(textActivated(QString)), this, SLOT(selectPrintLanguage(QString)));
 	connect( printAllRadio, SIGNAL(toggled(bool)), this, SLOT(selectRange(bool)));
 	connect( printCurrentRadio, SIGNAL(toggled(bool)), this, SLOT(selectRange(bool)));
 	connect( pageNrButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));

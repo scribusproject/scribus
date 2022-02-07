@@ -157,7 +157,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 			styleName = m_editor->StyledText.paragraphStyle(pos).parent(); //FIXME ParaStyleComboBox and use localized style name
 	}
 	paraStyleCombo->setStyle(styleName);
-	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setPStyle(const QString&)));
+	connect(paraStyleCombo, SIGNAL(newStyle(QString)), this, SLOT(setPStyle(QString)));
 	
 	paraStyleAct = new QWidgetAction(pmen);
 	paraStyleAct->setDefaultWidget(paraStyleCombo);
@@ -1427,7 +1427,7 @@ SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), 
 	paraStyleCombo = new ParaStyleComboBox(this);
 	paraStyleComboAction=addWidget(paraStyleCombo);
 	paraStyleComboAction->setVisible(true);
-	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SIGNAL(newParaStyle(const QString& )));
+	connect(paraStyleCombo, SIGNAL(newStyle(QString)), this, SIGNAL(newParaStyle(QString )));
 	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(newAlign(int )));
 	connect(GroupDirection, SIGNAL(State(int)), this, SIGNAL(newDirection(int )));
 
@@ -1512,7 +1512,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 
 	connect(charScaleH, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleH(double)));
 	connect(charScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
-	connect(Fonts, SIGNAL(textActivated(const QString &)), this, SIGNAL(newFont(const QString &)));
+	connect(Fonts, SIGNAL(textActivated(QString)), this, SIGNAL(newFont(QString)));
 	connect(Size, SIGNAL(valueChanged(double)), this, SIGNAL(newSize(double)));
 
 	languageChange();
@@ -2104,15 +2104,15 @@ void StoryEditor::connectSignals()
 	Editor->SuspendContentsChange = 0;
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 //	connect(Editor, SIGNAL(doubleClicked(int, int)), this, SLOT(doubleClick(int, int)));
-	connect(EditorBar, SIGNAL(ChangeStyle(int, const QString&)), this, SLOT(changeStyleSB(int, const QString&)));
+	connect(EditorBar, SIGNAL(ChangeStyle(int, QString)), this, SLOT(changeStyleSB(int, QString)));
 //	connect(EditorBar, SIGNAL(sigEditStyles()), this, SLOT(slotEditStyles()));
-	connect(AlignTools, SIGNAL(newParaStyle(const QString&)), this, SLOT(newStyle(const QString&)));
+	connect(AlignTools, SIGNAL(newParaStyle(QString)), this, SLOT(newStyle(QString)));
 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(newDirection(int)), this, SLOT(newDirection(int)));
 	connect(FillTools, SIGNAL(NewColor(int,int)), this, SLOT(newTxFill(int,int)));
 	connect(StrokeTools, SIGNAL(NewColor(int,int)), this, SLOT(newTxStroke(int,int)));
 	connect(FontTools, SIGNAL(newSize(double)), this, SLOT(newTxSize(double)));
-	connect(FontTools, SIGNAL(newFont(const QString&)), this, SLOT(newTxFont(const QString&)));
+	connect(FontTools, SIGNAL(newFont(QString)), this, SLOT(newTxFont(QString)));
 	connect(FontTools, SIGNAL(newScaleH(double)), this, SLOT(newTxScale()));
 	connect(FontTools, SIGNAL(newScaleV(double)), this, SLOT(newTxScaleV()));
 	connect(StyleTools, SIGNAL(NewKern(double)), this, SLOT(newTxKern(double)));

@@ -38,7 +38,7 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	connect( itemDestFrameComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemFrameSelected(QString)));
 	connect( itemParagraphStyleComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemParagraphStyleSelected(QString)));
 	connect( itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
-	connect( tocNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT( setToCName(const QString&)));
+	connect( tocNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT( setToCName(QString)));
 	connect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool)));
 
 	itemAttrComboBox->setEnabled(false);

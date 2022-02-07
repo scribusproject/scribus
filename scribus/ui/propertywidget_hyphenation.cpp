@@ -149,14 +149,14 @@ void PropertyWidget_Hyphenation::connectSignals()
 {
 	connect(smallestWordSpinBox,        SIGNAL(valueChanged(int)), this, SLOT(handleWordMin(int)));
 	connect(maxConsecutiveCountSpinBox, SIGNAL(valueChanged(int)), this, SLOT(handleConsecutiveLines(int)));
-	connect(hyphenCharLineEdit,         SIGNAL(textChanged(const QString&)), this, SLOT(handleHyphenChar(const QString&)));
+	connect(hyphenCharLineEdit,         SIGNAL(textChanged(QString)), this, SLOT(handleHyphenChar(QString)));
 }
 
 void PropertyWidget_Hyphenation::disconnectSignals()
 {
 	disconnect(smallestWordSpinBox,        SIGNAL(valueChanged(int)), this, SLOT(handleWordMin(int)));
 	disconnect(maxConsecutiveCountSpinBox, SIGNAL(valueChanged(int)), this, SLOT(handleConsecutiveLines(int)));
-	disconnect(hyphenCharLineEdit,         SIGNAL(textChanged(const QString&)), this, SLOT(handleHyphenChar(const QString&)));
+	disconnect(hyphenCharLineEdit,         SIGNAL(textChanged(QString)), this, SLOT(handleHyphenChar(QString)));
 }
 
 void PropertyWidget_Hyphenation::configureWidgets()

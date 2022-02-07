@@ -106,8 +106,8 @@ void Prefs_Spelling::downloadSpellDicts()
 	{
 		downloadProgressBar->setRange(0, i);
 		connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadSpellDictsFinished()));
-		connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
-		connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
+		connect(ScQApp->dlManager(), SIGNAL(fileReceived(QString)), this, SLOT(updateProgressBar()));
+		connect(ScQApp->dlManager(), SIGNAL(fileFailed(QString)), this, SLOT(updateProgressBar()));
 		ScQApp->dlManager()->startDownloads();
 	}
 }

@@ -600,7 +600,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		connect(effectDirectionComboBox, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
 		connect(enabledEffectsCheckBox, SIGNAL(clicked()), this, SLOT(DoEffects()));
 		connect(applyEffectToAllPagesPushButton, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
-//		connect(pdfx3InfoStringLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(checkInfo()));
+//		connect(pdfx3InfoStringLineEdit, SIGNAL(textChanged(QString)), this, SLOT(checkInfo()));
 //		connect(pdfx3InfoStringLineEdit, SIGNAL(editingFinished()), this, SLOT(checkInfo()));
 		connect(useDocumentBleedsCheckBox, SIGNAL(clicked()), this, SLOT(doDocBleeds()));
 

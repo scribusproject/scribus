@@ -100,10 +100,10 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	// signals and slots that cannot be in ui file
 	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)),
 			this, SLOT(colorWheel_clicked(int, const QPoint&)));
-	connect(documentColorList, SIGNAL(currentTextChanged(const QString &)),
-			this, SLOT(documentColorList_currentChanged(const QString &)));
-	connect(colorList, SIGNAL(currentTextChanged(const QString &)),
-			this, SLOT(colorList_currentChanged(const QString &)));
+	connect(documentColorList, SIGNAL(currentTextChanged(QString)),
+			this, SLOT(documentColorList_currentChanged(QString)));
+	connect(colorList, SIGNAL(currentTextChanged(QString)),
+			this, SLOT(colorList_currentChanged(QString)));
 	connect(angleSpin, SIGNAL(valueChanged(int)),
 			this, SLOT(angleSpin_valueChanged(int)));
 	connect(colorspaceTab, SIGNAL(currentChanged(int)),

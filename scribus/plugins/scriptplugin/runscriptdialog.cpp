@@ -30,7 +30,7 @@ RunScriptDialog::RunScriptDialog(QWidget* parent, bool extEnable) :
 	if (!extEnable)
 		extChk->setVisible(false);
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-	connect(fileWidget, SIGNAL(currentChanged(const QString &)), this, SLOT(fileClicked(const QString &)));
+	connect(fileWidget, SIGNAL(currentChanged(QString)), this, SLOT(fileClicked(QString)));
 	connect(fileWidget, SIGNAL(accepted()), this, SLOT(accept()));
 	connect(fileWidget, SIGNAL(rejected()), this, SLOT(reject()));
 	connect(buttonBox, SIGNAL(accepted()), this, SLOT(okClicked()));

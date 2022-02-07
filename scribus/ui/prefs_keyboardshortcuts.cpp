@@ -79,7 +79,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* /*
 	connect( exportSetButton, SIGNAL(clicked()), this, SLOT(exportKeySetFile()));
 	connect( resetSetButton, SIGNAL(clicked()), this, SLOT(resetKeySet()));
 	connect( clearSearchButton, SIGNAL(clicked()), this, SLOT(clearSearchString()));
-	connect( searchTextLineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(applySearch(const QString&)));
+	connect( searchTextLineEdit, SIGNAL(textChanged(QString)), this, SLOT(applySearch(QString)));
 
 }
 

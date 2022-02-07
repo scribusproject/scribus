@@ -46,8 +46,8 @@ void ScrSpinBox::init(int unitIndex)
 	setSingleStep(1.0);
 	lineEdit()->setValidator(nullptr);
 // just for testing
-//	disconnect(this, SIGNAL(textChanged(const QString &)), this, SLOT(textChanged()));
-//	connect(this, SIGNAL(textChanged(const QString &)), this, SLOT(textChanged()));
+//	disconnect(this, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
+//	connect(this, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
 	installEventFilter(this);
 }
 

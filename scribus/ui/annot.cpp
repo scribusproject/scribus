@@ -406,7 +406,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* vi
 	connect(EditCalc, SIGNAL(clicked()), this, SLOT(editCalcSc()));
 	connect(EditJ, SIGNAL(clicked()), this, SLOT(editJavaSc()));
 	connect(SeField, SIGNAL(clicked()), this, SLOT(SelectFelder()));
-	connect(Format0c, SIGNAL(activated(const QString&)), this, SLOT(setDateSample(const QString&)));
+	connect(Format0c, SIGNAL(textActivated(QString)), this, SLOT(setDateSample(QString)));
 	connect(TxFormat, SIGNAL(activated(int)), this, SLOT(SetFoScript(int)));
 	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetAnnotationType(int)));
 	connect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActionType(int)));

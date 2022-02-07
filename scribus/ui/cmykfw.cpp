@@ -228,9 +228,9 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, const QS
 	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( ColorMap, SIGNAL( ColorVal(int, int, bool)), this, SLOT( setColor2(int, int, bool)));
-	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
+	connect( ComboBox1, SIGNAL(textActivated(QString)), this, SLOT(selModel(QString)));
 //	connect( Swatches, SIGNAL(activated(int)), this, SLOT(selSwatch(int)));
-	connect(Swatches, SIGNAL(activated(const QString &)), this, SLOT(selSwatch()));
+	connect(Swatches, SIGNAL(activated(QString)), this, SLOT(selSwatch()));
 	connect(ColorSwatch, SIGNAL(itemClicked(int) ), this, SLOT( selFromSwatch(int) ) );
 	connect(Separations, SIGNAL(clicked()), this, SLOT(setSpot()));
 //	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));

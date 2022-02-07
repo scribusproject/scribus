@@ -58,10 +58,8 @@ void UnicodeChooseButton::self_toggled(bool state)
 	{
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		m_searchDialog = new UnicodeSearch();
-		connect(m_searchDialog, SIGNAL(setVisibleState(bool)),
-				 this, SLOT(setChecked(bool)));
-		connect(m_searchDialog, SIGNAL(glyphSelected(const QString &)),
-				 this, SLOT(glyphSelected(const QString &)));
+		connect(m_searchDialog, SIGNAL(setVisibleState(bool)), this, SLOT(setChecked(bool)));
+		connect(m_searchDialog, SIGNAL(glyphSelected(QString)), this, SLOT(glyphSelected(QString)));
 		QApplication::changeOverrideCursor(Qt::ArrowCursor);
 	}
 

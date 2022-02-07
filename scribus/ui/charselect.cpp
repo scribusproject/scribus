@@ -45,7 +45,7 @@ CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect")
 	connect(m_userTable, SIGNAL(selectChar(uint,QString)), this, SLOT(userNewChar(uint,QString)));
 	connect(m_userTable->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)), this, SLOT(slot_selectionChanged(const QItemSelection&,const QItemSelection&)));
 	connect(m_userTableModel, SIGNAL(rowAppended()),m_userTable, SLOT(resizeLastRow()));
-	connect(unicodeButton, SIGNAL(chosenUnicode(const QString&)), m_userTableModel, SLOT(appendUnicode(const QString&)));
+	connect(unicodeButton, SIGNAL(chosenUnicode(QString)), m_userTableModel, SLOT(appendUnicode(QString)));
 	connect(enhancedDialogButton, SIGNAL(toggled(bool)), this, SLOT(enhancedDialogButton_toggled(bool)));
 	connect(this, SIGNAL(insertUserSpecialChar(QChar,QString)), this, SLOT(slot_insertUserSpecialChar(QChar,QString)));
 	connect(uniLoadButton, SIGNAL(clicked()), this, SLOT(uniLoadButton_clicked()));

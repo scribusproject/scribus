@@ -132,8 +132,8 @@ void PropertiesPalette_Text::setMainWindow(ScribusMainWindow* mw)
 
 	connect(m_ScMW, SIGNAL(UpdateRequest(int))     , this  , SLOT(handleUpdateRequest(int)));
 
-	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), m_ScMW, SLOT(setNewParStyle(const QString&)), Qt::UniqueConnection);
-	connect(charStyleCombo, SIGNAL(newStyle(const QString&)), m_ScMW, SLOT(setNewCharStyle(const QString&)), Qt::UniqueConnection);
+	connect(paraStyleCombo, SIGNAL(newStyle(QString)), m_ScMW, SLOT(setNewParStyle(QString)), Qt::UniqueConnection);
+	connect(charStyleCombo, SIGNAL(newStyle(QString)), m_ScMW, SLOT(setNewCharStyle(QString)), Qt::UniqueConnection);
 }
 
 void PropertiesPalette_Text::setDoc(ScribusDoc *d)

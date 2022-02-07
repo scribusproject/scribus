@@ -952,8 +952,8 @@ void ResourceManager::updateDownloadLists()
 void ResourceManager::downloadListFinished()
 {
 	disconnect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadListFinished()));
-	disconnect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
-	disconnect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
+	disconnect(ScQApp->dlManager(), SIGNAL(fileReceived(QString)), this, SLOT(updateProgressBar()));
+	disconnect(ScQApp->dlManager(), SIGNAL(fileFailed(QString)), this, SLOT(updateProgressBar()));
 	disconnect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64, qint64)), this, SLOT(updateProgressData(qint64, qint64)));
 
 	int category = categoryComboBox->currentData().toInt();
@@ -1005,8 +1005,8 @@ void ResourceManager::downloadListFinished()
 void ResourceManager::downloadFilesFinished()
 {
 	disconnect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadFilesFinished()));
-	disconnect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
-	disconnect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
+	disconnect(ScQApp->dlManager(), SIGNAL(fileReceived(QString)), this, SLOT(updateProgressBar()));
+	disconnect(ScQApp->dlManager(), SIGNAL(fileFailed(QString)), this, SLOT(updateProgressBar()));
 	disconnect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64, qint64)), this, SLOT(updateProgressData(qint64, qint64)));
 
 	downloadProgressBar->setValue(0);
@@ -1155,7 +1155,7 @@ void ResourceManager::downloadLicenseFinished()
 
 void ResourceManager::downloadLicenseFileFinished(const QString &licenceFileName)
 {
-	disconnect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(downloadLicenseFileFinished(const QString&)));
+	disconnect(ScQApp->dlManager(), SIGNAL(fileReceived(QString)), this, SLOT(downloadLicenseFileFinished(QString)));
 	QFile dataFile(licenceFileName);
 	QTextStream ts(&dataFile);
 	QString data;
@@ -1176,7 +1176,7 @@ void ResourceManager::downloadLicenseFileFinished(const QString &licenceFileName
 
 void ResourceManager::downloadLicenseFileFailed(const QString&)
 {
-	disconnect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(downloadLicenseFileFailed(const QString&)));
+	disconnect(ScQApp->dlManager(), SIGNAL(fileFailed(QString)), this, SLOT(downloadLicenseFileFailed(QString)));
 	QMessageBox msgBox;
 	msgBox.setText("The license file failed to download");
 	msgBox.setStandardButtons(QMessageBox::Ok);

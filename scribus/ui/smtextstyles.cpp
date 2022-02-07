@@ -631,7 +631,7 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->numNewLineEdit, SIGNAL(editingFinished()), this, SLOT(slotNumNew()));
 	disconnect(m_pwidget->numNewLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSelectionDirty()));
 	
-	disconnect(m_pwidget->parentCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotParentChanged(const QString&)));
+	disconnect(m_pwidget->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotParentChanged(QString)));
 
 	disconnect(m_pwidget->keepLinesStart, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesStart()));
 	disconnect(m_pwidget->keepLinesEnd, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesEnd()));
@@ -642,7 +642,7 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->tabList->leftIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
 	disconnect(m_pwidget->tabList->rightIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
 	disconnect(m_pwidget->tabList->firstLineSpin, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
-	disconnect(m_pwidget->backColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotBackPColor()));
+	disconnect(m_pwidget->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackPColor()));
 	disconnect(m_pwidget->backShade_, SIGNAL(clicked()), this, SLOT(slotBackPShade()));
 
 	disconnect(m_pwidget->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
@@ -654,9 +654,9 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	disconnect(m_pwidget->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	disconnect(m_pwidget->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	disconnect(m_pwidget->cpage->fillColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotFillColor()));
+	disconnect(m_pwidget->cpage->fillColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
 	disconnect(m_pwidget->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	disconnect(m_pwidget->cpage->strokeColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotStrokeColor()));
+	disconnect(m_pwidget->cpage->strokeColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotStrokeColor()));
 	disconnect(m_pwidget->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	disconnect(m_pwidget->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	disconnect(m_pwidget->cpage->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
@@ -665,8 +665,8 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->cpage->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
 	disconnect(m_pwidget->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	disconnect(m_pwidget->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
-	disconnect(m_pwidget->cpage->parentCombo, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotCharParentChanged(const QString&)));
-	disconnect(m_pwidget->cpage->backColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotBackColor()));
+	disconnect(m_pwidget->cpage->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotCharParentChanged(QString)));
+	disconnect(m_pwidget->cpage->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackColor()));
 	disconnect(m_pwidget->cpage->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
 	disconnect(m_pwidget->cpage->fontfeaturesSetting, SIGNAL(changed()), this, SLOT(slotFontFeatures()));
 	disconnect(m_pwidget->cpage->hyphenCharLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotHyphenChar()));
@@ -2313,9 +2313,9 @@ void SMCharacterStyle::removeConnections()
 	disconnect(m_page->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	disconnect(m_page->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	disconnect(m_page->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	disconnect(m_page->fillColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotFillColor()));
+	disconnect(m_page->fillColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
 	disconnect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	disconnect(m_page->strokeColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotStrokeColor()));
+	disconnect(m_page->strokeColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotStrokeColor()));
 	disconnect(m_page->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	disconnect(m_page->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	disconnect(m_page->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
@@ -2324,8 +2324,8 @@ void SMCharacterStyle::removeConnections()
 	disconnect(m_page->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
 	disconnect(m_page->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	disconnect(m_page->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
-	disconnect(m_page->parentCombo, SIGNAL(currentTextChanged(const QString&)),  this, SLOT(slotParentChanged(const QString&)));
-	disconnect(m_page->backColor_, SIGNAL(currentTextChanged(const QString&)), this, SLOT(slotBackColor()));
+	disconnect(m_page->parentCombo, SIGNAL(currentTextChanged(QString)),  this, SLOT(slotParentChanged(QString)));
+	disconnect(m_page->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackColor()));
 	disconnect(m_page->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
 	disconnect(m_page->fontfeaturesSetting, SIGNAL(changed()), this, SLOT(slotFontFeatures()));
 	disconnect(m_page->smallestWordSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotSmallestWord()));
