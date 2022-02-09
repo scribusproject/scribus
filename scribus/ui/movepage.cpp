@@ -93,7 +93,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	fromToLayout->addWidget( mvWhereData, currentRow, 0 );
 	fromToLayout->addItem(new QSpacerItem(moveLabel->fontMetrics().horizontalAdvance( tr( "Move Page(s):" )), 0), currentRow, 1);
 	fromToLayout->addWidget( mvWherePageData, currentRow, 2 );
-//	fromToLayout->addColumnSpacing(0, moveLabel->fontMetrics().width( tr( "Move Page(s):" )));
+//	fromToLayout->addColumnSpacing(0, moveLabel->fontMetrics().width( tr( "Move Page(s):")));
 	dialogLayout->addLayout( fromToLayout );
 
 	okCancelLayout = new QHBoxLayout();

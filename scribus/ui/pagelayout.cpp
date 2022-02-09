@@ -152,7 +152,7 @@ void PageLayouts::selectFirstP(int nr)
 void PageLayouts::selectItem(uint nr)
 {
 	if (modus)
-		disconnect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+		disconnect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem*)));
 	else
 		disconnect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 	disconnect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));

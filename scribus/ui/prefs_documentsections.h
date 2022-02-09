@@ -37,7 +37,7 @@ class SCRIBUS_API Prefs_DocumentSections : public Prefs_Pane, Ui::Prefs_Document
 		virtual void updateTable();
 
 	protected slots:
-		virtual void tableItemChanged(int, int);
+		virtual void tableItemChanged(int,int);
 		virtual void addEntry();
 		virtual void deleteEntry();
 };

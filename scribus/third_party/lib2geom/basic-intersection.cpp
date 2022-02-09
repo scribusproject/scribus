@@ -306,7 +306,7 @@ void recursively_intersect( OldBezier a, double t0, double t1, int deptha,
 		if( ( s < 0.0 ) || ( s > 1.0 ) || ( t < 0.0 ) || ( t > 1.0 ) )
 		    return;
 		parameters.push_back(std::pair<double, double>(t0 + s * ( t1 - t0 ),
-                                                         u0 + t * ( u1 - u0 )));
+                                                         u0 + t * ( u1 - u0)));
             }
         }
 }

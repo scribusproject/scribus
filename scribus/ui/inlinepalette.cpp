@@ -115,7 +115,7 @@ InlinePalette::InlinePalette( QWidget* parent) : ScDockPalette(parent, "Inline",
 	m_scMW  = nullptr;
 	currentEditedItem = -1;
 	languageChange();
-	connect(InlineViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+	connect(InlineViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem )), this, SLOT(handleDoubleClick(QListWidgetItem*)));
 	connect(InlineViewWidget, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(handleContextMenue(QPoint)));
 	connect(InlineViewWidget, SIGNAL(objectDropped(QString)), this, SIGNAL(objectDropped(QString)));
 }

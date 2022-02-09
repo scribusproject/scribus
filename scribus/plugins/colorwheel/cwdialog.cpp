@@ -98,16 +98,11 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	colorspaceTab_currentChanged(colorspaceTab->currentIndex());
 
 	// signals and slots that cannot be in ui file
-	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)),
-			this, SLOT(colorWheel_clicked(int, const QPoint&)));
-	connect(documentColorList, SIGNAL(currentTextChanged(QString)),
-			this, SLOT(documentColorList_currentChanged(QString)));
-	connect(colorList, SIGNAL(currentTextChanged(QString)),
-			this, SLOT(colorList_currentChanged(QString)));
-	connect(angleSpin, SIGNAL(valueChanged(int)),
-			this, SLOT(angleSpin_valueChanged(int)));
-	connect(colorspaceTab, SIGNAL(currentChanged(int)),
-			this, SLOT(colorspaceTab_currentChanged(int)));
+	connect(colorWheel, SIGNAL(clicked(int,QPoint)),this, SLOT(colorWheel_clicked(int,QPoint)));
+	connect(documentColorList, SIGNAL(currentTextChanged(QString)), this, SLOT(documentColorList_currentChanged(QString)));
+	connect(colorList, SIGNAL(currentTextChanged(QString)), this, SLOT(colorList_currentChanged(QString)));
+	connect(angleSpin, SIGNAL(valueChanged(int)), this, SLOT(angleSpin_valueChanged(int)));
+	connect(colorspaceTab, SIGNAL(currentChanged(int)), this, SLOT(colorspaceTab_currentChanged(int)));
 	connect(typeCombo, SIGNAL(activated(int)), this, SLOT(typeCombo_activated(int)));
 	connect(defectCombo, SIGNAL(activated(int)), this, SLOT(defectCombo_activated(int)));
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addButton_clicked()));

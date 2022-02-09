@@ -66,7 +66,7 @@ ShapeView::ShapeView(QWidget* parent) : QListWidget(parent)
 	setItemDelegate(delegate);
 	setIconSize(QSize(48, 48));
 
-	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleContextMenu(QPoint)));
+	connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(HandleContextMenu(QPoint)));
 }
 
 void ShapeView::HandleContextMenu(QPoint)

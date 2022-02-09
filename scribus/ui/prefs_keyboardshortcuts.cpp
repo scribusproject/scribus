@@ -71,7 +71,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* /*
 
 	clearSearchButton->setIcon(IconManager::instance().loadIcon("clear_right.png"));
 	// signals and slots connections
-	connect( keyTable, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(dispKey(QTreeWidgetItem*, QTreeWidgetItem*)));
+	connect( keyTable, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(dispKey(QTreeWidgetItem*,QTreeWidgetItem*)));
 	connect( noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
 	connect( setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
 	connect( loadSetButton, SIGNAL(clicked()), this, SLOT(loadKeySetFile()));

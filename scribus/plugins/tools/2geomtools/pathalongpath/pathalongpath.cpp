@@ -223,7 +223,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, const QString&)
 			}
 			QPainterPath tmpPath = effectPath.toQPainterPath(false);
 			PathDialog *dia = new PathDialog(m_doc->scMW(), m_doc->unitIndex(), tmpPath.length(), true);
-			connect(dia, SIGNAL(updateValues(int, double, double, double, int)), this, SLOT(updateEffectG(int, double, double, double, int)));
+			connect(dia, SIGNAL(updateValues(int,double,double,double,int)), this, SLOT(updateEffectG(int,double,double,double,int)));
 			if (dia->exec())
 			{
 				updateEffectG(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
@@ -261,7 +261,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, const QString&)
 			originalRot = patternItem->rotation();
 			QPainterPath tmpPath = effectPath.toQPainterPath(false);
 			PathDialog *dia = new PathDialog(m_doc->scMW(), m_doc->unitIndex(), tmpPath.length(), false);
-			connect(dia, SIGNAL(updateValues(int, double, double, double, int)), this, SLOT(updateEffect(int, double, double, double, int)));
+			connect(dia, SIGNAL(updateValues(int,double,double,double,int)), this, SLOT(updateEffect(int,double,double,double,int)));
 			if (dia->exec())
 			{
 				updateEffect(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
@@ -326,9 +326,8 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			PageItem* bxi = patternItemG[bx];
 			FPointArray pathP = originalPathG[bx].copy();
 			FPoint tp(getMinClipF(&pathP));
-			double deltaX, deltaY;
-			deltaX = originalXPosG[bx] - originX;
-			deltaY = originalYPosG[bx] - originY;
+			double deltaX = originalXPosG[bx] - originX;
+			double deltaY = originalYPosG[bx] - originY;
 			QTransform mm;
 			mm.rotate(originalRotG[bx]);
 			pathP.map(mm);

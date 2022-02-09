@@ -34,7 +34,7 @@ void PropertyWidget_DropCap::setMainWindow(ScribusMainWindow* mw)
 {
 	m_ScMW = mw;
 
-	connect(m_ScMW, SIGNAL(AppModeChanged(int, int)), this, SLOT(handleAppModeChanged(int, int)));
+	connect(m_ScMW, SIGNAL(AppModeChanged(int,int)), this, SLOT(handleAppModeChanged(int,int)));
 	connect(m_ScMW, SIGNAL(UpdateRequest(int)), this  , SLOT(handleUpdateRequest(int)));
 }
 

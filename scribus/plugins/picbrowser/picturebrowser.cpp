@@ -67,9 +67,9 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 //"goto page" button in documentbrowser
 	connect(gotoPageButton, SIGNAL(clicked()), this, SLOT(gotoPageButtonClicked()));
 
-	connect(folderView, SIGNAL(activated(const QModelIndex &)), this, SLOT(dirChosen(const QModelIndex &)));
-	connect(folderView, SIGNAL(clicked(const QModelIndex &)), this, SLOT(dirChosen(const QModelIndex &)));
-	connect(folderView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(dirChosen(const QModelIndex &)));
+	connect(folderView, SIGNAL(activated(QModelIndex)), this, SLOT(dirChosen(QModelIndex)));
+	connect(folderView, SIGNAL(clicked(QModelIndex)), this, SLOT(dirChosen(QModelIndex)));
+	connect(folderView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(dirChosen(QModelIndex)));
 
 //changing page
 	connect(this, SIGNAL(selectPage(int)), ScCore->primaryMainWindow(), SLOT(selectPagesFromOutlines(int)));
@@ -127,28 +127,28 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	lit = new loadImagesThread(this, pModel);
 	lit->start();
 
-	connect(imageViewArea, SIGNAL(clicked(const QModelIndex &)), this, SLOT(previewIconClicked(const QModelIndex &)));
-	connect(imageViewArea, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(previewIconDoubleClicked(const QModelIndex &)));
+	connect(imageViewArea, SIGNAL(clicked(QModelIndex)), this, SLOT(previewIconClicked(QModelIndex)));
+	connect(imageViewArea, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(previewIconDoubleClicked(QModelIndex)));
 
 	imageViewArea->SetIconSize(QSize(pbSettings.previewIconSize, pbSettings.previewIconSize));
 	imageViewArea->SetGridSize(QSize(qRound(( 1.1)*pbSettings.previewIconSize),(qRound(( 1.1)*pbSettings.previewIconSize)+ pbSettings.previewMode*10)));
 	imageViewArea->SetModel(pModel);
 
 //register item selections
-	connect(imageViewArea->SelectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), this, SLOT(previewImageSelectionChanged(const QItemSelection &, const QItemSelection &)));
+	connect(imageViewArea->SelectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(previewImageSelectionChanged(QItemSelection, QItemSelection)));
 
 //documentbrowser setup
-	connect(documentWidget, SIGNAL(itemActivated(QTreeWidgetItem * , int)), this, SLOT(documentChosen(QTreeWidgetItem * , int)));
-	connect(documentWidget, SIGNAL(itemClicked(QTreeWidgetItem * , int)), this, SLOT(documentChosen(QTreeWidgetItem * , int)));
+	connect(documentWidget, SIGNAL(itemActivated(QTreeWidgetItem*,int)), this, SLOT(documentChosen(QTreeWidgetItem*,int)));
+	connect(documentWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(documentChosen(QTreeWidgetItem*,int)));
 
 	documentWidget->setColumnCount(1);
 	documentWidget->setHeaderLabels(QStringList("Pages"));
 
 
 //collectionsbrowser setup
-	connect(collectionsWidget, SIGNAL(itemActivated(QTreeWidgetItem * , int)), this, SLOT(collectionChosen(QTreeWidgetItem * , int)));
-	connect(collectionsWidget, SIGNAL(itemClicked(QTreeWidgetItem * , int)), this, SLOT(collectionChosen(QTreeWidgetItem * , int)));
-	connect(collectionsWidget, SIGNAL(itemChanged(QTreeWidgetItem * , int)), this, SLOT(collectionsWidgetItemEdited(QTreeWidgetItem * , int)));
+	connect(collectionsWidget, SIGNAL(itemActivated(QTreeWidgetItem*,int)), this, SLOT(collectionChosen(QTreeWidgetItem*,int)));
+	connect(collectionsWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(collectionChosen(QTreeWidgetItem*,int)));
+	connect(collectionsWidget, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(collectionsWidgetItemEdited(QTreeWidgetItem*,int)));
 	connect(collectionsNewCategoryButton, SIGNAL(clicked()), this, SLOT(collectionsNewCategoryButtonClicked()));
 	connect(collectionsNewButton, SIGNAL(clicked()), this, SLOT(collectionsNewButtonClicked()));
 	connect(collectionsImportButton, SIGNAL(clicked()), this, SLOT(collectionsImportButtonClicked()));

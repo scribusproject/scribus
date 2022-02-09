@@ -480,12 +480,12 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette(parent, "Tree",
 	// signals and slots connections
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
-	connect(reportDisplay, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick(QPoint)));
+	connect(reportDisplay, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotRightClick(QPoint)));
 	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
-	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
+	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(slotDoRename(QTreeWidgetItem*,int)));
 	connect(filterEdit, SIGNAL(textChanged(QString)), this, SLOT(filterTree(QString)));
 //	connect(filterShortcut, SIGNAL(activated()), filterEdit, SLOT(setFocus()));
-	connect(reportDisplay, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(slotDoubleClick(QTreeWidgetItem*, int)));
+	connect(reportDisplay, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotDoubleClick(QTreeWidgetItem*,int)));
 }
 
 void OutlinePalette::setMainWindow(ScribusMainWindow *mw)

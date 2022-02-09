@@ -155,7 +155,7 @@ inline bool operator!=(Point const &a, Point const &b) {
 /** This is a lexicographical ordering for points.  It is remarkably useful for sweepline algorithms*/
 inline bool operator<=(Point const &a, Point const &b) {
     return ( ( a[Y] < b[Y] ) ||
-             (( a[Y] == b[Y] ) && ( a[X] < b[X] )));
+             (( a[Y] == b[Y] ) && ( a[X] < b[X])));
 }
 
 Coord L1(Point const &p);

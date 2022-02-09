@@ -797,7 +797,7 @@ Biblio::Biblio(QWidget* parent) : ScDockPalette(parent, "Sclib", Qt::WindowFlags
 	connect(upButton, SIGNAL(clicked()), this, SLOT(goOneDirUp()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeLib()));
-	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
 	connect(configMenue, SIGNAL(triggered(QAction *)), this, SLOT(updateView()));
 }
 
@@ -807,7 +807,7 @@ void Biblio::setOpenScrapbooks(const QStringList &fileNames)
 	disconnect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
 	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
 	disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
-	disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+	disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
 	for (int rd = 0; rd < fileNames.count(); ++rd)
 	{
 		QString fileName = fileNames[rd];
@@ -832,7 +832,7 @@ void Biblio::setOpenScrapbooks(const QStringList &fileNames)
 	Frame3->setCurrentIndex(0);
 	upButton->setEnabled(false);
 	updateView();
-	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(objFromMenu(QString)));
 	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
 	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
@@ -948,7 +948,7 @@ void Biblio::newLib()
 	disconnect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
 	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
 	disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
-	disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+	disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
 	QDir d(fileName);
 	activeBView = new BibView(this);
 	QFileInfo fd(fileName);
@@ -968,7 +968,7 @@ void Biblio::newLib()
 	activeBView->scrollToTop();
 	upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
 	updateView();
-	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(objFromMenu(QString)));
 	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
 	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
@@ -1010,7 +1010,7 @@ void Biblio::closeLib()
 	disconnect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
 	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
 	disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
-	disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+	disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
 	QFileInfo fi(activeBView->ScFilename);
 	ScCore->fileWatcher->removeDir(fi.absolutePath());
 	Frame3->removeItem(Frame3->indexOf(activeBView));
@@ -1018,7 +1018,7 @@ void Biblio::closeLib()
 	activeBView = (BibView*)Frame3->widget(0);
 	Frame3->setCurrentIndex(0);
 	upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
-	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(objFromMenu(QString)));
 	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
 	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
@@ -1059,12 +1059,12 @@ void Biblio::closeOnDel(const QString& libName)
 		closeLib();
 	else
 	{
-		disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+		disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
 		QFileInfo fi(bv->ScFilename);
 		ScCore->fileWatcher->removeDir(fi.absolutePath());
 		Frame3->removeItem(Frame3->indexOf(bv));
 		delete bv;
-		connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+		connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
 	}
 }
 

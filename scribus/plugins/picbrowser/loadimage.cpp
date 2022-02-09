@@ -53,9 +53,9 @@ void loadImagesThread::run()
 //	connect(&help, SIGNAL(imageLoadError(int, int, int)), pModel, SLOT(processImageLoadError(int, int, int)), Qt::QueuedConnection);
 //	connect(pictureBrowser, SIGNAL(loadImageJob(int, QString, int, int)), &help, SLOT(processLoadImageJob(int, QString, int, int)), Qt::QueuedConnection);
 
-	connect(this, SIGNAL(imageLoaded(int, const QImage, ImageInformation*, int) ), pModel, SLOT(processLoadedImage(int, const QImage, ImageInformation*, int)), Qt::QueuedConnection);
-	connect(this, SIGNAL(imageLoadError(int, int, int)), pModel, SLOT(processImageLoadError(int, int, int)), Qt::QueuedConnection);
-	connect(pictureBrowser, SIGNAL(loadImageJob(int, QString, int, int)), this, SLOT(processLoadImageJob(int, QString, int, int)), Qt::QueuedConnection);
+	connect(this, SIGNAL(imageLoaded(int,QImage,ImageInformation*,int)), pModel, SLOT(processLoadedImage(int,QImage,ImageInformation*,int)), Qt::QueuedConnection);
+	connect(this, SIGNAL(imageLoadError(int,int,int)), pModel, SLOT(processImageLoadError(int,int,int)), Qt::QueuedConnection);
+	connect(pictureBrowser, SIGNAL(loadImageJob(int,QString,int,int)), this, SLOT(processLoadImageJob(int,QString,int,int)), Qt::QueuedConnection);
 	exec();
 }
 

@@ -432,33 +432,33 @@ void FPointArray::pointDerivativesAt(int seg, double t, FPoint* p, FPoint* d1, F
 {
 	// Copy points.
 	FPoint q[ 4 ];
-	q[ 0 ] = point(seg);
-	q[ 1 ] = point(seg + 1);
-	q[ 3 ] = point(seg + 2);
-	q[ 2 ] = point(seg + 3);
+	q[0] = point(seg);
+	q[1] = point(seg + 1);
+	q[3] = point(seg + 2);
+	q[2] = point(seg + 3);
 	// The De Casteljau algorithm.
 	for (unsigned short j = 1; j <= 3; j++)
 	{
 		for (unsigned short i = 0; i <= 3 - j; i++)
 		{
-			q[ i ] = (1.0 - t) * q[ i ] + t * q[ i + 1 ];
+			q[i] = (1.0 - t) * q[i] + t * q[ i + 1 ];
 		}
 		// Save second derivative now that we have it.
 		if (j == 1)
 		{
 			if (d2)
-				*d2 = 6 * (q[ 2 ] - 2 * q[ 1 ] + q[ 0 ]);
+				*d2 = 6 * (q[2] - 2 * q[1] + q[0]);
 		}
 		// Save first derivative now that we have it.
 		else if (j == 2)
 		{
 			if (d1)
-				*d1 = 3 * (q[ 1 ] - q[ 0 ]);
+				*d1 = 3 * (q[1] - q[0]);
 		}
 	}
 	// Save point.
 	if (p)
-		*p = q[ 0 ];
+		*p = q[0];
 }
 
 bool FPointArray::isBezierClosed() const
@@ -501,7 +501,7 @@ struct SVGState
 
 QString FPointArray::svgPath(bool closed) const
 {
-	QString tmp = "";
+	QString tmp;
 	FPoint np, np1, np2, np3, np4, firstP;
 	bool nPath = true;
 	bool first = true;
@@ -719,14 +719,8 @@ void FPointArray::svgArcTo(double r1, double r2, double angle, bool largeArcFlag
 void FPointArray::calculateArc(bool relative, double &curx, double &cury, double angle, 
 							   double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag)
 {
-	double sin_th, cos_th;
-	double a00, a01, a10, a11;
-	double x0, y0, x1, y1, xc, yc;
-	double d, sfactor, sfactor_sq;
-	double th0, th1, th_arc;
-	int i, n_segs;
-	sin_th = sin(angle * (M_PI / 180.0));
-	cos_th = cos(angle * (M_PI / 180.0));
+	double sin_th = sin(angle * (M_PI / 180.0));
+	double cos_th = cos(angle * (M_PI / 180.0));
 	double dx;
 	if (!relative)
 		dx = (curx - x) / 2.0;
@@ -750,12 +744,14 @@ void FPointArray::calculateArc(bool relative, double &curx, double &cury, double
 		r1 = r1 * sqrt(check);
 		r2 = r2 * sqrt(check);
 	}
-	a00 = cos_th / r1;
-	a01 = sin_th / r1;
-	a10 = -sin_th / r2;
-	a11 = cos_th / r2;
-	x0 = a00 * curx + a01 * cury;
-	y0 = a10 * curx + a11 * cury;
+
+	double a00 = cos_th / r1;
+	double a01 = sin_th / r1;
+	double a10 = -sin_th / r2;
+	double a11 = cos_th / r2;
+	double x0 = a00 * curx + a01 * cury;
+	double y0 = a10 * curx + a11 * cury;
+	double x1, y1;
 	if (!relative)
 		x1 = a00 * x + a01 * y;
 	else
@@ -769,52 +765,46 @@ void FPointArray::calculateArc(bool relative, double &curx, double &cury, double
 		
 		The arc fits a unit-radius circle in this space.
 	    */
-	d = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0);
-	sfactor_sq = 1.0 / d - 0.25;
+	double d = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0);
+	double sfactor_sq = 1.0 / d - 0.25;
 	if (sfactor_sq < 0)
 		sfactor_sq = 0;
-	sfactor = sqrt(sfactor_sq);
+	double sfactor = sqrt(sfactor_sq);
 	if (sweepFlag == largeArcFlag)
 		sfactor = -sfactor;
-	xc = 0.5 * (x0 + x1) - sfactor * (y1 - y0);
-	yc = 0.5 * (y0 + y1) + sfactor * (x1 - x0);
+
+	double xc = 0.5 * (x0 + x1) - sfactor * (y1 - y0);
+	double yc = 0.5 * (y0 + y1) + sfactor * (x1 - x0);
 	
 	/* (xc, yc) is center of the circle. */
-	th0 = atan2(y0 - yc, x0 - xc);
-	th1 = atan2(y1 - yc, x1 - xc);
-	th_arc = th1 - th0;
+	double th0 = atan2(y0 - yc, x0 - xc);
+	double th1 = atan2(y1 - yc, x1 - xc);
+	double th_arc = th1 - th0;
 	if (th_arc < 0 && sweepFlag)
 		th_arc += 2 * M_PI;
 	else if (th_arc > 0 && !sweepFlag)
 		th_arc -= 2 * M_PI;
-	n_segs = static_cast<int>(ceil(fabs(th_arc / (M_PI * 0.5 + 0.001))));
-	for (i = 0; i < n_segs; i++)
+	int n_segs = static_cast<int>(ceil(fabs(th_arc / (M_PI * 0.5 + 0.001))));
+	for (int i = 0; i < n_segs; i++)
 	{
-	{
-		double sin_th, cos_th;
-		double a00, a01, a10, a11;
-		double x1, y1, x2, y2, x3, y3;
-		double t;
-		double th_half;
 		double _th0 = th0 + i * th_arc / n_segs;
 		double _th1 = th0 + (i + 1) * th_arc / n_segs;
-		sin_th = sin(angle * (M_PI / 180.0));
-		cos_th = cos(angle * (M_PI / 180.0));
+		double sin_th = sin(angle * (M_PI / 180.0));
+		double cos_th = cos(angle * (M_PI / 180.0));
 		/* inverse transform compared with rsvg_path_arc */
-		a00 = cos_th * r1;
-		a01 = -sin_th * r2;
-		a10 = sin_th * r1;
-		a11 = cos_th * r2;
-		th_half = 0.5 * (_th1 - _th0);
-		t = (8.0 / 3.0) * sin(th_half * 0.5) * sin(th_half * 0.5) / sin(th_half);
-		x1 = xc + cos(_th0) - t * sin(_th0);
-		y1 = yc + sin(_th0) + t * cos(_th0);
-		x3 = xc + cos(_th1);
-		y3 = yc + sin(_th1);
-		x2 = x3 + t * sin(_th1);
-		y2 = y3 - t * cos(_th1);
+		double a00 = cos_th * r1;
+		double a01 = -sin_th * r2;
+		double a10 = sin_th * r1;
+		double a11 = cos_th * r2;
+		double th_half = 0.5 * (_th1 - _th0);
+		double t = (8.0 / 3.0) * sin(th_half * 0.5) * sin(th_half * 0.5) / sin(th_half);
+		double x1 = xc + cos(_th0) - t * sin(_th0);
+		double y1 = yc + sin(_th0) + t * cos(_th0);
+		double x3 = xc + cos(_th1);
+		double y3 = yc + sin(_th1);
+		double x2 = x3 + t * sin(_th1);
+		double y2 = y3 - t * cos(_th1);
 		svgCurveToCubic(a00 * x1 + a01 * y1, a10 * x1 + a11 * y1, a00 * x2 + a01 * y2, a10 * x2 + a11 * y2, a00 * x3 + a01 * y3, a10 * x3 + a11 * y3);
-	}
 	}
 	if (!relative)
 		curx = x;
@@ -829,16 +819,12 @@ void FPointArray::calculateArc(bool relative, double &curx, double &cury, double
 
 static const char * getCoord(const char *ptr, double &number)
 {
-	int integer, exponent;
-	double decimal, frac;
-	int sign, expsign;
-	
-	exponent = 0;
-	integer = 0;
-	frac = 1.0;
-	decimal = 0;
-	sign = 1;
-	expsign = 1;
+	int exponent = 0;
+	int integer = 0;
+	double frac = 1.0;
+	double decimal = 0;
+	int sign = 1;
+	int expsign = 1;
 	
 	// read the sign
 	if (*ptr == '+')

@@ -411,7 +411,7 @@ bool PluginManager::setupPluginActions(StoryEditor *sew)
 		sew->seActions[ai.name]->setEnabled(ai.enabledForStoryEditor);
 
 		// Connect action's activated signal with the plugin's run method
-		it.value().enabled = connect(sew->seActions[ai.name], SIGNAL(triggeredData(QWidget*, ScribusDoc*)), plugin, SLOT(run(QWidget*, ScribusDoc*)));
+		it.value().enabled = connect(sew->seActions[ai.name], SIGNAL(triggeredData(QWidget*,ScribusDoc*)), plugin, SLOT(run(QWidget*,ScribusDoc*)));
 
 		//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
 		if (ai.menuAfterName.isEmpty())

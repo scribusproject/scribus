@@ -214,7 +214,7 @@ void CanvasMode_EditPolygon::activate(bool fromGesture)
 		m_view->update();
 	connect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 	
-	connect(m_VectorDialog, SIGNAL(NewVectors(int, double, bool, double, double, double, double)), this, SLOT(applyValues(int, double, bool, double, double, double, double)));
+	connect(m_VectorDialog, SIGNAL(NewVectors(int,double,bool,double,double,double,double)), this, SLOT(applyValues(int,double,bool,double,double,double,double)));
 	connect(m_VectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
 	connect(m_VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 }

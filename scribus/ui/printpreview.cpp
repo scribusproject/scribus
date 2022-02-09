@@ -191,7 +191,7 @@ PrintPreview::PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& pri
 		connect(header, SIGNAL(sectionClicked(int)), this, SLOT(toggleAllFromHeader()));
 		connect(m_ui->enableCMYK, SIGNAL(clicked()), this, SLOT(toggleCMYK()));
 		connect(m_ui->displayInkCoverage, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
-		connect(m_ui->inkTable, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(onInkTableCellDoubleClicked(int)));
+		connect(m_ui->inkTable, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(onInkTableCellDoubleClicked(int)));
 	}
 	else
 	{

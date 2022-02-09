@@ -104,7 +104,7 @@ public:
 signals:
 	void UseTemp(QString, int);
 	void NewPage(int, QString);
-	void movePage(int, int);
+	void movePage(int,int);
 	void Click(int, int, int);
 	void delPageRequest(int);
 

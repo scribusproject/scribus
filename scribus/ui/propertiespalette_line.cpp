@@ -75,10 +75,10 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	connect(lineEndStyle, SIGNAL(activated(int)), this, SLOT(handleLineEnd()));
 	connect(lineMode, SIGNAL(activated(int)), this, SLOT(handleLineMode()));
 	connect(dashEditor, SIGNAL(dashChanged()), this, SLOT(handleDashChange()));
-	connect(startArrow, SIGNAL(activated(int)), this, SLOT(handleStartArrow(int )));
-	connect(endArrow, SIGNAL(activated(int)), this, SLOT(handleEndArrow(int )));
-	connect(startArrowScale, SIGNAL(valueChanged(double)), this, SLOT(handleStartArrowScale(double )));
-	connect(endArrowScale, SIGNAL(valueChanged(double)), this, SLOT(handleEndArrowScale(double )));
+	connect(startArrow, SIGNAL(activated(int)), this, SLOT(handleStartArrow(int)));
+	connect(endArrow, SIGNAL(activated(int)), this, SLOT(handleEndArrow(int)));
+	connect(startArrowScale, SIGNAL(valueChanged(double)), this, SLOT(handleStartArrowScale(double)));
+	connect(endArrowScale, SIGNAL(valueChanged(double)), this, SLOT(handleEndArrowScale(double)));
 	connect(lineStyles, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(handleLineStyle(QListWidgetItem*)));
 }
 

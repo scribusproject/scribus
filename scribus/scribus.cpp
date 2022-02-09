@@ -4153,7 +4153,7 @@ bool ScribusMainWindow::DoFileClose()
 	doc->disconnectDocSignals();
 	disconnect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 	disconnect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
-	disconnect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), doc, SLOT(updatePictDir(QString )));
+	disconnect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), doc, SLOT(updatePictDir(QString)));
 	if (ScCore->haveCMS())
 		doc->CloseCMSProfiles();
 	//<<Palettes

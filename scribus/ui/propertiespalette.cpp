@@ -95,9 +95,9 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette(parent, "
 	connect(linePal, SIGNAL(lineModeChanged(int)), this, SLOT(NewLineMode(int)));
 	connect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
 
-	connect(colorPalette, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(NewSpGradient(double,double,double,double,double,double,double,double,double,double )));
+	connect(colorPalette, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(NewSpGradient(double,double,double,double,double,double,double,double,double,double)));
 	connect(colorPalette, SIGNAL(editGradient(int)), this, SLOT(toggleGradientEdit(int)));
-	connect(transparencyPalette, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(NewSpGradientM(double,double,double,double,double,double,double,double )));
+	connect(transparencyPalette, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(NewSpGradientM(double,double,double,double,double,double,double,double)));
 	connect(transparencyPalette, SIGNAL(editGradient()), this, SLOT(toggleGradientEditM()));
 
 	m_haveItem = false;

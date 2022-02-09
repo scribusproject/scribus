@@ -283,7 +283,7 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) :
 	viewport()->setAcceptDrops(false);
 	setAutoFillBackground(true);
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
-	connect(this->document(), SIGNAL(contentsChange(int, int, int)), this, SLOT(handleContentsChange(int, int, int)));
+	connect(this->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(handleContentsChange(int,int,int)));
 }
 
 void SEditor::setCurrentDocument(ScribusDoc *docc)
@@ -1427,9 +1427,9 @@ SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), 
 	paraStyleCombo = new ParaStyleComboBox(this);
 	paraStyleComboAction=addWidget(paraStyleCombo);
 	paraStyleComboAction->setVisible(true);
-	connect(paraStyleCombo, SIGNAL(newStyle(QString)), this, SIGNAL(newParaStyle(QString )));
-	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(newAlign(int )));
-	connect(GroupDirection, SIGNAL(State(int)), this, SIGNAL(newDirection(int )));
+	connect(paraStyleCombo, SIGNAL(newStyle(QString)), this, SIGNAL(newParaStyle(QString)));
+	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(newAlign(int)));
+	connect(GroupDirection, SIGNAL(State(int)), this, SIGNAL(newDirection(int)));
 
 	languageChange();
 }
@@ -2063,7 +2063,6 @@ void StoryEditor::languageChange()
 
 	//Unicode Actions
 	ActionManager::languageChangeUnicodeActions(&seActions);
-
 	FileTools->setWindowTitle( tr("File"));
 
 	WordCT1->setText( tr("Current Paragraph:"));
@@ -2073,7 +2072,6 @@ void StoryEditor::languageChange()
 	ParCT->setText( tr("Paragraphs: "));
 	WordCT2->setText( tr("Words: "));
 	CharCT2->setText( tr("Chars: "));
-
 }
 
 void StoryEditor::disconnectSignals()
@@ -2091,21 +2089,17 @@ void StoryEditor::disconnectSignals()
 void StoryEditor::connectSignals()
 {
 	connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
-//	connect(Editor, SIGNAL(clicked(int, int)), this, SLOT(updateProps(int, int)));
-	connect(Editor, SIGNAL(setProps(int,int)), this, SLOT(updateProps(int, int)));
+	connect(Editor, SIGNAL(setProps(int,int)), this, SLOT(updateProps(int,int)));
 	connect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 	connect(Editor, SIGNAL(copyAvailable(bool)), this, SLOT(CopyAvail(bool)));
 	connect(Editor, SIGNAL(PasteAvail()), this, SLOT(PasteAvail()));
-	connect(Editor, SIGNAL(contentsMoving(int,int)), EditorBar, SLOT(doMove(int,int )));
+	connect(Editor, SIGNAL(contentsMoving(int,int)), EditorBar, SLOT(doMove(int,int)));
 	connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
-	connect(Editor, SIGNAL(SideBarUp(bool)), EditorBar, SLOT(setRepaint(bool )));
+	connect(Editor, SIGNAL(SideBarUp(bool)), EditorBar, SLOT(setRepaint(bool)));
 	connect(Editor, SIGNAL(SideBarUpdate()), EditorBar, SLOT(doRepaint()));
 	connect(Editor->document(), SIGNAL(contentsChange(int,int,int)), Editor, SLOT(handleContentsChange(int,int,int)));
 	Editor->SuspendContentsChange = 0;
-	// 10/12/2004 - pv - #1203: wrong selection on double click
-//	connect(Editor, SIGNAL(doubleClicked(int, int)), this, SLOT(doubleClick(int, int)));
-	connect(EditorBar, SIGNAL(ChangeStyle(int, QString)), this, SLOT(changeStyleSB(int, QString)));
-//	connect(EditorBar, SIGNAL(sigEditStyles()), this, SLOT(slotEditStyles()));
+	connect(EditorBar, SIGNAL(ChangeStyle(int,QString)), this, SLOT(changeStyleSB(int,QString)));
 	connect(AlignTools, SIGNAL(newParaStyle(QString)), this, SLOT(newStyle(QString)));
 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(newDirection(int)), this, SLOT(newDirection(int)));

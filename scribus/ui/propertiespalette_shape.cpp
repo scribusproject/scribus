@@ -52,11 +52,11 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent)
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 
 	connect(textFlowBtnGroup, SIGNAL(idClicked(int)), this, SLOT(handleTextFlow()));
-	connect(editShape  , SIGNAL(clicked())                 , this, SLOT(handleShapeEdit()));
-	connect(roundRect  , SIGNAL(valueChanged(double))      , this, SLOT(handleCornerRadius()));
-	connect(evenOdd    , SIGNAL(clicked())                 , this, SLOT(handleFillRule()) );
-	connect(nonZero    , SIGNAL(clicked())                 , this, SLOT(handleFillRule()) );
-	connect(customShape, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(handleNewShape(int, int, qreal *)));
+	connect(editShape, SIGNAL(clicked()) , this, SLOT(handleShapeEdit()));
+	connect(roundRect, SIGNAL(valueChanged(double)) , this, SLOT(handleCornerRadius()));
+	connect(evenOdd, SIGNAL(clicked()), this, SLOT(handleFillRule()));
+	connect(nonZero, SIGNAL(clicked()), this, SLOT(handleFillRule()));
+	connect(customShape, SIGNAL(FormSel(int,int,qreal*)), this, SLOT(handleNewShape(int,int,qreal*)));
 
 	roundRect->showValue(0);
 }

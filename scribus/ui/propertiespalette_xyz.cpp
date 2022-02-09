@@ -117,7 +117,7 @@ void PropertiesPalette_XYZ::setMainWindow(ScribusMainWindow* mw)
 {
 	m_ScMW = mw;
 
-	connect(mw->appModeHelper, SIGNAL(AppModeChanged(int, int)), this, SLOT(handleAppModeChanged(int, int)));
+	connect(mw->appModeHelper, SIGNAL(AppModeChanged(int,int)), this, SLOT(handleAppModeChanged(int,int)));
 }
 
 void PropertiesPalette_XYZ::setDoc(ScribusDoc *d)

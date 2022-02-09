@@ -133,7 +133,7 @@ void CanvasMode_EditSpiral::activate(bool fromGesture)
 	{
 		m_view->update();
 	}
-	connect(m_VectorDialog, SIGNAL(NewVectors(double, double, double)), this, SLOT(applyValues(double, double, double)));
+	connect(m_VectorDialog, SIGNAL(NewVectors(double,double,double)), this, SLOT(applyValues(double,double,double)));
 	connect(m_VectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
 	connect(m_VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 	connect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));

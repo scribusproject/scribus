@@ -106,7 +106,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsEyeDropper"]);
 
 	languageChange();
-	connect(autoFormButtonGroup, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(SelShape(int, int, qreal *)));
+	connect(autoFormButtonGroup, SIGNAL(FormSel(int,int,qreal *)), this, SLOT(SelShape(int,int,qreal *)));
 	connect(Angle, SIGNAL(valueChanged(double)), this, SLOT(newCalValues()));
 	connect(PWidth, SIGNAL(valueChanged(double)), this, SLOT(newCalValues()));
 }

@@ -184,11 +184,11 @@ public slots:
 	void SelClipChange();
 
 signals:
-	void setProps(int, int);
+	void setProps(int,int);
 	void SideBarUp(bool);
 	void SideBarUpdate();
 	void PasteAvail();
-	void contentsMoving(int, int);
+	void contentsMoving(int,int);
 };
 
 class SCRIBUS_API SideBar : public QLabel
@@ -257,7 +257,7 @@ public slots:
 	void languageChange();
 
 signals:
-	void NewColor(int, int);
+	void NewColor(int,int);
 };
 
 class SCRIBUS_API SToolBColorS : public QToolBar
@@ -288,7 +288,7 @@ public slots:
 	void languageChange();
 
 signals:
-	void NewColor(int, int);
+	void NewColor(int,int);
 };
 
 class SCRIBUS_API SToolBStyle : public QToolBar

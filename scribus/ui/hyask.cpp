@@ -118,10 +118,10 @@ HyAsk::HyAsk ( QWidget* parent, const QString& HWort ) : QDialog ( parent )
 	Layout1->addLayout(vboxLayout3);
 	HyAskLayout->addLayout ( Layout1 );
 
-	connect ( OK, SIGNAL ( clicked() ), this, SLOT ( accept() ) );
-	connect ( Cancel, SIGNAL ( clicked() ), this, SLOT ( reject() ) );
-	connect ( Skip, SIGNAL ( clicked() ), this, SLOT ( DoSkip() ) );
-	connect ( Wort, SIGNAL ( textChanged ( const QString & ) ), this, SLOT ( Check() ) );
+	connect(OK, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(Cancel, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(Skip, SIGNAL(clicked()), this, SLOT(DoSkip()));
+	connect(Wort, SIGNAL(textChanged(QString)), this, SLOT (Check()));
 	resize(minimumSizeHint());
 }
 

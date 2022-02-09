@@ -77,7 +77,7 @@ PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeW
 
 	languageChange();
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
-	connect(this->model(), SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(handleNewValues()));
+	connect(this->model(), SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(handleNewValues()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 }
 
@@ -306,7 +306,7 @@ void PropertiesPalette_Shadow::languageChange()
 	softShadowBlendMode->setStringValue( tr("Normal"));
 	softShadowBlendMode->setText(0, tr( "Blendmode:"));
 
-	connect(this->model(), SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(handleNewValues()));
+	connect(this->model(), SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(handleNewValues()));
 }
 
 void PropertiesPalette_Shadow::updateSpinBoxConstants()
