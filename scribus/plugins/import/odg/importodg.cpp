@@ -3346,135 +3346,135 @@ QPointF OdgPlug::intersectBoundingRect(PageItem *item, QLineF gradientVector)
 
 PageItem* OdgPlug::applyStartArrow(PageItem* ite, ObjStyle &obState)
 {
-	PageItem *iteS = nullptr;
-	if (!obState.startMarkerName.isEmpty())
-	{
-		ObjStyle mStyle;
-		resovleStyle(mStyle, obState.startMarkerName);
-		QPainterPath pa = mStyle.markerPath;
-		FPointArray EndArrow;
-		EndArrow.fromQPainterPath(pa);
-		QRectF br = pa.boundingRect();
-		double EndArrowWidth = obState.startMarkerWidth;
-		if (EndArrowWidth > 0)
-		{
-			FPoint Start = ite->PoLine.point(0);
-			for (int xx = 1; xx < ite->PoLine.size(); xx += 2)
-			{
-				FPoint Vector = ite->PoLine.point(xx);
-				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
-				{
-					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-					QPointF refP;
-					if (obState.startMarkerCentered)
-						refP = QPointF(br.width() / 2.0, br.height() / 2.0);
-					else
-						refP = QPointF(br.width() / 2.0, 0);
-					QTransform m;
-					m.translate(br.width() / 2.0, br.height() / 2.0);
-					m.rotate(r + 90);
-					m.translate(-br.width() / 2.0, -br.height() / 2.0);
-					m.scale(EndArrowWidth / br.width(), EndArrowWidth / br.width());
-					EndArrow.map(m);
-					refP = m.map(refP);
-					QPainterPath pa2 = EndArrow.toQPainterPath(true);
-					QTransform m2;
-					FPoint grOffset2(getMinClipF(&EndArrow));
-					m2.translate(-grOffset2.x(), -grOffset2.y());
-					EndArrow.map(m2);
-					refP = m2.map(refP);
-					EndArrow.translate(-refP.x(), -refP.y());
-					QTransform arrowTrans;
-					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
-					arrowTrans.translate(Start.x() + ite->xPos(), Start.y() + ite->yPos());
-					EndArrow.map(arrowTrans);
-					int zS = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.currColorStroke, CommonStrings::None);
-					iteS = m_Doc->Items->at(zS);
-					iteS->PoLine = EndArrow.copy();
-					iteS->ClipEdited = true;
-					iteS->FrameType = 3;
-					FPoint wh = getMaxClipF(&iteS->PoLine);
-					iteS->setWidthHeight(wh.x(), wh.y());
-					m_Doc->adjustItemSize(iteS, true);
-					iteS->setFillEvenOdd(false);
-					iteS->OldB2 = iteS->width();
-					iteS->OldH2 = iteS->height();
-					iteS->updateClip();
-					iteS->OwnPage = m_Doc->OnPage(iteS);
-					iteS->setFillTransparency(obState.strokeOpacity);
-					m_Doc->Items->removeLast();
-					break;
-				}
-			}
-		}
+	if (obState.startMarkerName.isEmpty())
+		return nullptr;
 
+	ObjStyle mStyle;
+	resovleStyle(mStyle, obState.startMarkerName);
+	QPainterPath pa = mStyle.markerPath;
+	FPointArray startArrow;
+	startArrow.fromQPainterPath(pa);
+	QRectF br = pa.boundingRect();
+	double startArrowWidth = obState.startMarkerWidth;
+	if (startArrowWidth <= 0)
+		return nullptr;
+
+	PageItem *iteS = nullptr;
+	FPoint startPoint = ite->PoLine.point(0);
+	for (int xx = 1; xx < ite->PoLine.size(); xx += 2)
+	{
+		FPoint point = ite->PoLine.point(xx);
+		if ((startPoint.x() == point.x()) && (startPoint.y() == point.y()))
+			continue;
+
+		double r = atan2(startPoint.y() - point.y(), startPoint.x() - point.x()) * (180.0 / M_PI);
+		QPointF refP;
+		if (obState.startMarkerCentered)
+			refP = QPointF(br.width() / 2.0, br.height() / 2.0);
+		else
+			refP = QPointF(br.width() / 2.0, 0);
+		QTransform m;
+		m.translate(br.width() / 2.0, br.height() / 2.0);
+		m.rotate(r + 90);
+		m.translate(-br.width() / 2.0, -br.height() / 2.0);
+		m.scale(startArrowWidth / br.width(), startArrowWidth / br.width());
+		startArrow.map(m);
+		refP = m.map(refP);
+		QTransform m2;
+		FPoint grOffset2(getMinClipF(&startArrow));
+		m2.translate(-grOffset2.x(), -grOffset2.y());
+		startArrow.map(m2);
+		refP = m2.map(refP);
+		startArrow.translate(-refP.x(), -refP.y());
+		QTransform arrowTrans;
+		arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
+		arrowTrans.translate(startPoint.x() + ite->xPos(), startPoint.y() + ite->yPos());
+		startArrow.map(arrowTrans);
+		int zS = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.currColorStroke, CommonStrings::None);
+		iteS = m_Doc->Items->at(zS);
+		iteS->PoLine = startArrow.copy();
+		iteS->ClipEdited = true;
+		iteS->FrameType = 3;
+		FPoint wh = getMaxClipF(&iteS->PoLine);
+		iteS->setWidthHeight(wh.x(), wh.y());
+		m_Doc->adjustItemSize(iteS, true);
+		iteS->setFillEvenOdd(false);
+		iteS->OldB2 = iteS->width();
+		iteS->OldH2 = iteS->height();
+		iteS->updateClip();
+		iteS->OwnPage = m_Doc->OnPage(iteS);
+		iteS->setFillTransparency(obState.strokeOpacity);
+		m_Doc->Items->removeLast();
+		break;
 	}
+
 	return iteS;
 }
 
 PageItem* OdgPlug::applyEndArrow(PageItem* ite, ObjStyle &obState)
 {
+	if (obState.endMarkerName.isEmpty())
+		return nullptr;
+
+	ObjStyle mStyle;
+	resovleStyle(mStyle, obState.endMarkerName);
+	QPainterPath pa = mStyle.markerPath;
+	FPointArray endArrow;
+	endArrow.fromQPainterPath(pa);
+	QRectF br = pa.boundingRect();
+	double endArrowWidth = obState.endMarkerWidth;
+	if (endArrowWidth <= 0)
+		return nullptr;
+
 	PageItem *iteS = nullptr;
-	if (!obState.endMarkerName.isEmpty())
+	FPoint endPoint = ite->PoLine.point(ite->PoLine.size() - 2);
+	for (int xx = ite->PoLine.size() - 1; xx > 0; xx -= 2)
 	{
-		ObjStyle mStyle;
-		resovleStyle(mStyle, obState.endMarkerName);
-		double EndArrowWidth = obState.endMarkerWidth;
-		QPainterPath pa = mStyle.markerPath;
-		FPointArray EndArrow;
-		EndArrow.fromQPainterPath(pa);
-		QRectF br = pa.boundingRect();
-		if (EndArrowWidth > 0)
-		{
-			FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
-			for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
-			{
-				FPoint Vector = ite->PoLine.point(xx);
-				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
-				{
-					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-					QPointF refP;
-					if (obState.endMarkerCentered)
-						refP = QPointF(br.width() / 2.0, br.height() / 2.0);
-					else
-						refP = QPointF(br.width() / 2.0, 0);
-					QTransform m;
-					m.translate(br.width() / 2.0, br.height() / 2.0);
-					m.rotate(r + 90);
-					m.translate(-br.width() / 2.0, -br.height() / 2.0);
-					m.scale(EndArrowWidth / br.width(), EndArrowWidth / br.width());
-					EndArrow.map(m);
-					refP = m.map(refP);
-					QTransform m2;
-					FPoint grOffset2(getMinClipF(&EndArrow));
-					m2.translate(-grOffset2.x(), -grOffset2.y());
-					EndArrow.map(m2);
-					refP = m2.map(refP);
-					EndArrow.translate(-refP.x(), -refP.y());
-					QTransform arrowTrans;
-					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
-					arrowTrans.translate(End.x() + ite->xPos(), End.y() + ite->yPos());
-					EndArrow.map(arrowTrans);
-					int zE = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.currColorStroke, CommonStrings::None);
-					iteS = m_Doc->Items->at(zE);
-					iteS->PoLine = EndArrow.copy();
-					iteS->ClipEdited = true;
-					iteS->FrameType = 3;
-					FPoint wh = getMaxClipF(&iteS->PoLine);
-					iteS->setWidthHeight(wh.x(), wh.y());
-					m_Doc->adjustItemSize(iteS, true);
-					iteS->setFillEvenOdd(false);
-					iteS->OldB2 = iteS->width();
-					iteS->OldH2 = iteS->height();
-					iteS->updateClip();
-					iteS->OwnPage = m_Doc->OnPage(iteS);
-					iteS->setFillTransparency(obState.strokeOpacity);
-					m_Doc->Items->removeLast();
-					break;
-				}
-			}
-		}
+		FPoint point = ite->PoLine.point(xx);
+		if ((endPoint.x() == point.x()) && (endPoint.y() == point.y()))
+			continue;
+
+		double r = atan2(endPoint.y() - point.y(), endPoint.x() - point.x()) * (180.0 / M_PI);
+		QPointF refP;
+		if (obState.endMarkerCentered)
+			refP = QPointF(br.width() / 2.0, br.height() / 2.0);
+		else
+			refP = QPointF(br.width() / 2.0, 0);
+		QTransform m;
+		m.translate(br.width() / 2.0, br.height() / 2.0);
+		m.rotate(r + 90);
+		m.translate(-br.width() / 2.0, -br.height() / 2.0);
+		m.scale(endArrowWidth / br.width(), endArrowWidth / br.width());
+		endArrow.map(m);
+		refP = m.map(refP);
+		QTransform m2;
+		FPoint grOffset2(getMinClipF(&endArrow));
+		m2.translate(-grOffset2.x(), -grOffset2.y());
+		endArrow.map(m2);
+		refP = m2.map(refP);
+		endArrow.translate(-refP.x(), -refP.y());
+		QTransform arrowTrans;
+		arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
+		arrowTrans.translate(endPoint.x() + ite->xPos(), endPoint.y() + ite->yPos());
+		endArrow.map(arrowTrans);
+		int zE = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.currColorStroke, CommonStrings::None);
+		iteS = m_Doc->Items->at(zE);
+		iteS->PoLine = endArrow.copy();
+		iteS->ClipEdited = true;
+		iteS->FrameType = 3;
+		FPoint wh = getMaxClipF(&iteS->PoLine);
+		iteS->setWidthHeight(wh.x(), wh.y());
+		m_Doc->adjustItemSize(iteS, true);
+		iteS->setFillEvenOdd(false);
+		iteS->OldB2 = iteS->width();
+		iteS->OldH2 = iteS->height();
+		iteS->updateClip();
+		iteS->OwnPage = m_Doc->OnPage(iteS);
+		iteS->setFillTransparency(obState.strokeOpacity);
+		m_Doc->Items->removeLast();
+		break;
 	}
+
 	return iteS;
 }
 

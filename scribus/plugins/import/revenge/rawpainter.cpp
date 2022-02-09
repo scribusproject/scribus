@@ -3644,107 +3644,113 @@ void RawPainter::recolorItem(PageItem* ite, const QString& efVal)
 
 void RawPainter::applyArrows(PageItem* ite)
 {
-	if (m_style["draw:marker-end-path"])
+	applyStartArrow(ite);
+	applyEndArrow(ite);
+}
+
+void RawPainter::applyStartArrow(PageItem* ite)
+{
+	if (!m_style["draw:marker-start-path"])
+		return;
+
+	FPointArray startArrow;
+	double startArrowWidth;
+	QString params = QString(m_style["draw:marker-start-path"]->getStr().cstr());
+	startArrowWidth = m_lineWidth;
+	startArrow.resize(0);
+	startArrow.svgInit();
+	startArrow.parseSVG(params);
+	QPainterPath pa = startArrow.toQPainterPath(true);
+	QRectF br = pa.boundingRect();
+	if (m_style["draw:marker-start-width"])
+		startArrowWidth = valueAsPoint(m_style["draw:marker-start-width"]);
+	if (startArrowWidth <= 0)
+		return;
+
+	FPoint startPoint = ite->PoLine.point(0);
+	for (int xx = 1; xx < ite->PoLine.size(); xx += 2)
 	{
-		FPointArray EndArrow;
-		double EndArrowWidth;
-		QString params = QString(m_style["draw:marker-end-path"]->getStr().cstr());
-		EndArrowWidth = m_lineWidth;
-		EndArrow.resize(0);
-		EndArrow.svgInit();
-		EndArrow.parseSVG(params);
-		QPainterPath pa = EndArrow.toQPainterPath(true);
-		QRectF br = pa.boundingRect();
-		if (m_style["draw:marker-end-width"])
-			EndArrowWidth = valueAsPoint(m_style["draw:marker-end-width"]);
-		if (EndArrowWidth > 0)
-		{
-			FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
-			for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
-			{
-				FPoint Vector = ite->PoLine.point(xx);
-				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
-				{
-					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-					QPointF refP = QPointF(br.width() / 2.0, 0);
-					QTransform m;
-					m.translate(br.width() / 2.0, br.height() / 2.0);
-					m.rotate(r + 90);
-					m.translate(-br.width() / 2.0, -br.height() / 2.0);
-					m.scale(EndArrowWidth / br.width(), EndArrowWidth / br.width());
-					EndArrow.map(m);
-					refP = m.map(refP);
-					QPainterPath pa2 = EndArrow.toQPainterPath(true);
-					//QRectF br2 = pa2.boundingRect();
-					QTransform m2;
-					FPoint grOffset2(getMinClipF(&EndArrow));
-					m2.translate(-grOffset2.x(), -grOffset2.y());
-					EndArrow.map(m2);
-					refP = m2.map(refP);
-					EndArrow.translate(-refP.x(), -refP.y());
-					QTransform arrowTrans;
-					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
-					arrowTrans.translate(End.x() + ite->xPos(), End.y() + ite->yPos());
-					EndArrow.map(arrowTrans);
-					int zE = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currColorStroke, CommonStrings::None);
-					PageItem *iteE = m_Doc->Items->at(zE);
-					iteE->PoLine = EndArrow.copy();
-					finishItem(iteE);
-					break;
-				}
-			}
-		}
+		FPoint point = ite->PoLine.point(xx);
+		if ((startPoint.x() == point.x()) && (startPoint.y() == point.y()))
+			continue;
+
+		double r = atan2(startPoint.y() - point.y(), startPoint.x() - point.x()) * (180.0 / M_PI);
+		QPointF refP = QPointF(br.width() / 2.0, 0);
+		QTransform m;
+		m.translate(br.width() / 2.0, br.height() / 2.0);
+		m.rotate(r + 90);
+		m.translate(-br.width() / 2.0, -br.height() / 2.0);
+		m.scale(startArrowWidth / br.width(), startArrowWidth / br.width());
+		startArrow.map(m);
+		refP = m.map(refP);
+		QTransform m2;
+		FPoint grOffset2(getMinClipF(&startArrow));
+		m2.translate(-grOffset2.x(), -grOffset2.y());
+		startArrow.map(m2);
+		refP = m2.map(refP);
+		startArrow.translate(-refP.x(), -refP.y());
+		QTransform arrowTrans;
+		arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
+		arrowTrans.translate(startPoint.x() + ite->xPos(), startPoint.y() + ite->yPos());
+		startArrow.map(arrowTrans);
+		int zS = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currColorStroke, CommonStrings::None);
+		PageItem *iteS = m_Doc->Items->at(zS);
+		iteS->PoLine = startArrow.copy();
+		finishItem(iteS);
+		break;
 	}
-	if (m_style["draw:marker-start-path"])
+}
+
+void RawPainter::applyEndArrow(PageItem* ite)
+{
+	if (!m_style["draw:marker-end-path"])
+		return;
+
+	FPointArray endArrow;
+	double endArrowWidth;
+	QString params = QString(m_style["draw:marker-end-path"]->getStr().cstr());
+	endArrowWidth = m_lineWidth;
+	endArrow.resize(0);
+	endArrow.svgInit();
+	endArrow.parseSVG(params);
+	QPainterPath pa = endArrow.toQPainterPath(true);
+	QRectF br = pa.boundingRect();
+	if (m_style["draw:marker-end-width"])
+		endArrowWidth = valueAsPoint(m_style["draw:marker-end-width"]);
+	if (endArrowWidth <= 0)
+		return;
+
+	FPoint endPoint = ite->PoLine.point(ite->PoLine.size()-2);
+	for (int xx = ite->PoLine.size() - 1; xx > 0; xx -= 2)
 	{
-		FPointArray EndArrow;
-		double EndArrowWidth;
-		QString params = QString(m_style["draw:marker-start-path"]->getStr().cstr());
-		EndArrowWidth = m_lineWidth;
-		EndArrow.resize(0);
-		EndArrow.svgInit();
-		EndArrow.parseSVG(params);
-		QPainterPath pa = EndArrow.toQPainterPath(true);
-		QRectF br = pa.boundingRect();
-		if (m_style["draw:marker-start-width"])
-			EndArrowWidth = valueAsPoint(m_style["draw:marker-start-width"]);
-		if (EndArrowWidth > 0)
-		{
-			FPoint Start = ite->PoLine.point(0);
-			for (int xx = 1; xx < ite->PoLine.size(); xx += 2)
-			{
-				FPoint Vector = ite->PoLine.point(xx);
-				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
-				{
-					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-					QPointF refP = QPointF(br.width() / 2.0, 0);
-					QTransform m;
-					m.translate(br.width() / 2.0, br.height() / 2.0);
-					m.rotate(r + 90);
-					m.translate(-br.width() / 2.0, -br.height() / 2.0);
-					m.scale(EndArrowWidth / br.width(), EndArrowWidth / br.width());
-					EndArrow.map(m);
-					refP = m.map(refP);
-					QPainterPath pa2 = EndArrow.toQPainterPath(true);
-					//QRectF br2 = pa2.boundingRect();
-					QTransform m2;
-					FPoint grOffset2(getMinClipF(&EndArrow));
-					m2.translate(-grOffset2.x(), -grOffset2.y());
-					EndArrow.map(m2);
-					refP = m2.map(refP);
-					EndArrow.translate(-refP.x(), -refP.y());
-					QTransform arrowTrans;
-					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
-					arrowTrans.translate(Start.x() + ite->xPos(), Start.y() + ite->yPos());
-					EndArrow.map(arrowTrans);
-					int zS = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currColorStroke, CommonStrings::None);
-					PageItem *iteS = m_Doc->Items->at(zS);
-					iteS->PoLine = EndArrow.copy();
-					finishItem(iteS);
-					break;
-				}
-			}
-		}
+		FPoint point = ite->PoLine.point(xx);
+		if ((endPoint.x() == point.x()) && (endPoint.y() == point.y()))
+			return;
+
+		double r = atan2(endPoint.y() - point.y(), endPoint.x() - point.x()) * (180.0 / M_PI);
+		QPointF refP = QPointF(br.width() / 2.0, 0);
+		QTransform m;
+		m.translate(br.width() / 2.0, br.height() / 2.0);
+		m.rotate(r + 90);
+		m.translate(-br.width() / 2.0, -br.height() / 2.0);
+		m.scale(endArrowWidth / br.width(), endArrowWidth / br.width());
+		endArrow.map(m);
+		refP = m.map(refP);
+		QTransform m2;
+		FPoint grOffset2(getMinClipF(&endArrow));
+		m2.translate(-grOffset2.x(), -grOffset2.y());
+		endArrow.map(m2);
+		refP = m2.map(refP);
+		endArrow.translate(-refP.x(), -refP.y());
+		QTransform arrowTrans;
+		arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
+		arrowTrans.translate(endPoint.x() + ite->xPos(), endPoint.y() + ite->yPos());
+		endArrow.map(arrowTrans);
+		int zE = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currColorStroke, CommonStrings::None);
+		PageItem *iteE = m_Doc->Items->at(zE);
+		iteE->PoLine = endArrow.copy();
+		finishItem(iteE);
+		break;
 	}
 }
 

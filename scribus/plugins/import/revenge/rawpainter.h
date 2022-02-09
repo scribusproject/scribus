@@ -106,6 +106,8 @@ public:
 	void applyFlip(PageItem* ite);
 	void recolorItem(PageItem* ite, const QString& efVal);
 	void applyArrows(PageItem* ite);
+	void applyStartArrow(PageItem* ite);
+	void applyEndArrow(PageItem* ite);
 	void finishItem(PageItem* ite);
 
 private:
