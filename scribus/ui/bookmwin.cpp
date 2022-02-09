@@ -123,7 +123,7 @@ BookmarkView::BookmarkView(QWidget* parent) : QTreeWidget(parent)
 	setRootIsDecorated(true);
 	header()->hide();
 
-	connect(this, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(selectPageItem(QTreeWidgetItem *, int)));
+	connect(this, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(selectPageItem(QTreeWidgetItem*,int)));
 }
 
 void BookmarkView::addPageItem(PageItem* ite)

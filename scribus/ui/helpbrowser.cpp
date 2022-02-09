@@ -293,12 +293,12 @@ void HelpBrowser::setupLocalUI()
 	// searching
 	connect(helpNav->searchingEdit, SIGNAL(returnPressed()), this, SLOT(searchingButton_clicked()));
 	connect(helpNav->searchingButton, SIGNAL(clicked()), this, SLOT(searchingButton_clicked()));
-	connect(helpNav->searchingView, SIGNAL(itemClicked( QTreeWidgetItem *, int)), this, SLOT(itemSearchSelected(QTreeWidgetItem *, int)));
+	connect(helpNav->searchingView, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(itemSearchSelected(QTreeWidgetItem*,int)));
 	// bookmarks
 	connect(helpNav->bookmarkButton, SIGNAL(clicked()), this, SLOT(bookmarkButton_clicked()));
 	connect(helpNav->deleteBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteBookmarkButton_clicked()));
 	connect(helpNav->deleteAllBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteAllBookmarkButton_clicked()));
-	connect(helpNav->bookmarksView, SIGNAL(itemClicked( QTreeWidgetItem *, int)), this, SLOT(itemBookmarkSelected(QTreeWidgetItem *, int)));
+	connect(helpNav->bookmarksView, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(itemBookmarkSelected(QTreeWidgetItem*,int)));
 	// links hoover
 //	connect(textBrowser, SIGNAL(overLink(QString)), this, SLOT(showLinkContents(QString)));
 

@@ -18,6 +18,7 @@
 #include <QMap>
 #include <QObject>
 #include <QString>
+#include <QStringView>
 
 #include "prefsstructs.h"
 #include "scribusapi.h"

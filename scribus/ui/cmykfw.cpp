@@ -63,16 +63,16 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, const QS
 	CurrSwatch.clear();
 	alertIcon = IconManager::instance().loadPixmap("alert.png");
 	imageA = QPixmap(50,50);
-	imageA.fill( ScColorEngine::getDisplayColor(orig, m_doc) );
-	if ( ScColorEngine::isOutOfGamut(orig, m_doc) )
+	imageA.fill( ScColorEngine::getDisplayColor(orig, m_doc));
+	if ( ScColorEngine::isOutOfGamut(orig, m_doc))
 		paintAlert(alertIcon,imageA, 2, 2, false);
 	imageN = QPixmap(50,50);
-	imageN.fill( ScColorEngine::getDisplayColor(orig, m_doc) );
-	if ( ScColorEngine::isOutOfGamut(orig, m_doc) )
+	imageN.fill( ScColorEngine::getDisplayColor(orig, m_doc));
+	if ( ScColorEngine::isOutOfGamut(orig, m_doc))
 		paintAlert(alertIcon, imageN, 2, 2, false);
 
 	resize( 498, 306 );
-	setWindowTitle( tr( "Edit Color" ) );
+	setWindowTitle( tr( "Edit Color" ));
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 
 	setupUi(this);
@@ -80,11 +80,11 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, const QS
 	ColorName->setText(name);
 	ColorSwatch->setPixmapType(ColorListBox::fancyPixmap);
 	
-	ComboBox1->addItem( tr( "CMYK" ) );
-	ComboBox1->addItem( tr( "RGB" ) );
-	ComboBox1->addItem( tr( "Web Safe RGB" ) );
-	ComboBox1->addItem( tr( "Lab" ) );
-	ComboBox1->addItem( tr( "HLC" ) );
+	ComboBox1->addItem( tr( "CMYK" ));
+	ComboBox1->addItem( tr( "RGB" ));
+	ComboBox1->addItem( tr( "Web Safe RGB" ));
+	ComboBox1->addItem( tr( "Lab" ));
+	ComboBox1->addItem( tr( "HLC" ));
 
 	Separations->setChecked(orig.isSpotColor());
 
@@ -95,7 +95,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, const QS
 	buttonOK->setDefault( true );
 	buttonCancel->setText(CommonStrings::tr_Cancel);
 
-	hsvSelector = Swatches->addTopLevelItem( tr( "Color Map" ) );
+	hsvSelector = Swatches->addTopLevelItem( tr( "Color Map" ));
 	hsvSelector->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 	csm.findPaletteLocations();
 	systemSwatches = Swatches->addTopLevelItem( tr("Scribus Swatches"));
@@ -213,28 +213,28 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, const QS
 	// signals and slots connections
 //	Regist->setToolTip( "<qt>" + tr( "Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself." ) + "</qt>");
 	Separations->setToolTip( "<qt>" + tr( "Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks." ) + "</qt>");
-	connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( buttonOK, SIGNAL( clicked() ), this, SLOT( leave() ) );
-	connect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
-	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
-	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
-	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
-	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	connect( ColorMap, SIGNAL( ColorVal(int, int, bool)), this, SLOT( setColor2(int, int, bool)));
+	connect( buttonCancel, SIGNAL(clicked()), this, SLOT(reject()));
+	connect( buttonOK, SIGNAL(clicked()), this, SLOT(leave()));
+	connect( CyanSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	connect( MagentaSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	connect( YellowSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	connect( BlackSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	connect( CyanSL, SIGNAL(valueChanged(int)), this, SLOT(setValueS(int)));
+	connect( MagentaSL, SIGNAL(valueChanged(int)), this, SLOT(setValueS(int)));
+	connect( YellowSL, SIGNAL(valueChanged(int)), this, SLOT(setValueS(int)));
+	connect( BlackSL, SIGNAL(valueChanged(int)), this, SLOT(setValueS(int)));
+	connect( CyanSL, SIGNAL(valueChanged(int)), this, SLOT(setColor()));
+	connect( MagentaSL, SIGNAL(valueChanged(int)), this, SLOT(setColor()));
+	connect( YellowSL, SIGNAL(valueChanged(int)), this, SLOT(setColor()));
+	connect( BlackSL, SIGNAL(valueChanged(int)), this, SLOT(setColor()));
+	connect( ColorMap, SIGNAL(ColorVal(int,int,bool)), this, SLOT(setColor2(int,int,bool)));
 	connect( ComboBox1, SIGNAL(textActivated(QString)), this, SLOT(selModel(QString)));
 //	connect( Swatches, SIGNAL(activated(int)), this, SLOT(selSwatch(int)));
 	connect(Swatches, SIGNAL(activated(QString)), this, SLOT(selSwatch()));
-	connect(ColorSwatch, SIGNAL(itemClicked(int) ), this, SLOT( selFromSwatch(int) ) );
+	connect(ColorSwatch, SIGNAL(itemClicked(int)), this, SLOT(selFromSwatch(int)));
 	connect(Separations, SIGNAL(clicked()), this, SLOT(setSpot()));
 //	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
-	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick()));
+	connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotRightClick()));
 	layout()->activate();
 }
 
@@ -275,10 +275,10 @@ void CMYKChoose::slotRightClick()
 
 void CMYKChoose::setValueS(int val)
 {
-	disconnect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	disconnect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	disconnect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	disconnect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	disconnect( CyanSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	disconnect( MagentaSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	disconnect( YellowSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	disconnect( BlackSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
 	if (CyanSL == sender())
 		CyanSp->setValue(val / 1000.0);
 	if (MagentaSL == sender())
@@ -288,10 +288,10 @@ void CMYKChoose::setValueS(int val)
 	if (BlackSL == sender())
 		BlackSp->setValue(val / 1000.0);
 	setColor();
-	connect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	connect( CyanSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	connect( MagentaSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	connect( YellowSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	connect( BlackSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
 }
 
 void CMYKChoose::toggleSL()
@@ -506,9 +506,9 @@ QPalette CMYKChoose::sliderBlack()
 	for (int x = 0; x < 255; x += 5)
 	{
 		if (dynamic)
-			p.setBrush( ScColorEngine::getDisplayColorGC(ScColor(c, m, y, x), m_doc) );
+			p.setBrush( ScColorEngine::getDisplayColorGC(ScColor(c, m, y, x), m_doc));
 		else
-			p.setBrush( ScColorEngine::getDisplayColorGC(ScColor(0, 0, 0, x), m_doc) );
+			p.setBrush( ScColorEngine::getDisplayColorGC(ScColor(0, 0, 0, x), m_doc));
 		p.drawRect(x, 0, 5, 10);
 		val -= 5;
 	}
@@ -577,18 +577,18 @@ void CMYKChoose::selModel(const QString& mod)
 {
 	int h, s, v;
 
-	disconnect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	disconnect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	disconnect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	disconnect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	disconnect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
-	disconnect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
-	disconnect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
-	disconnect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
-	disconnect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	disconnect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	disconnect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	disconnect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
+	disconnect( CyanSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	disconnect( MagentaSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	disconnect( YellowSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	disconnect( BlackSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	disconnect( CyanSL, SIGNAL(valueChanged(int)), this, SLOT(setValueS(int)));
+	disconnect( MagentaSL, SIGNAL(valueChanged(int)), this, SLOT(setValueS(int)));
+	disconnect( YellowSL, SIGNAL(valueChanged(int)), this, SLOT(setValueS(int)));
+	disconnect( BlackSL, SIGNAL(valueChanged(int)), this, SLOT(setValueS(int)));
+	disconnect( CyanSL, SIGNAL(valueChanged(int)), this, SLOT(setColor()));
+	disconnect( MagentaSL, SIGNAL(valueChanged(int)), this, SLOT(setColor()));
+	disconnect( YellowSL, SIGNAL(valueChanged(int)), this, SLOT(setColor()));
+	disconnect( BlackSL, SIGNAL(valueChanged(int)), this, SLOT(setColor()));
 	isHLC = false;
 	if (mod == tr("CMYK"))
 	{
@@ -820,25 +820,25 @@ void CMYKChoose::selModel(const QString& mod)
 		ColorMap->drawPalette(L * 2.55);
 		ColorMap->setMark(a, b);
 	}
-	imageN.fill( ScColorEngine::getDisplayColor(Farbe, m_doc) );
+	imageN.fill( ScColorEngine::getDisplayColor(Farbe, m_doc));
 	if (ScColorEngine::isOutOfGamut(Farbe, m_doc))
 		paintAlert(alertIcon, imageN, 2, 2, false);
 	NewC->setPixmap( imageN );
 	NewC->setToolTip( "<qt>" + tr( "If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
 	OldC->setToolTip( "<qt>" + tr( "If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
 
-	connect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
-	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
-	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
-	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
-	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
+	connect( CyanSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	connect( MagentaSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	connect( YellowSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	connect( BlackSp, SIGNAL(valueChanged(double)), this, SLOT(setValSLiders(double)));
+	connect( CyanSL, SIGNAL(valueChanged(int)), this, SLOT(setValueS(int)));
+	connect( MagentaSL, SIGNAL(valueChanged(int)), this, SLOT(setValueS(int)));
+	connect( YellowSL, SIGNAL(valueChanged(int)), this, SLOT(setValueS(int)));
+	connect( BlackSL, SIGNAL(valueChanged(int)), this, SLOT(setValueS(int)));
+	connect( CyanSL, SIGNAL(valueChanged(int)), this, SLOT(setColor()));
+	connect( MagentaSL, SIGNAL(valueChanged(int)), this, SLOT(setColor()));
+	connect( YellowSL, SIGNAL(valueChanged(int)), this, SLOT(setColor()));
+	connect( BlackSL, SIGNAL(valueChanged(int)), this, SLOT(setColor()));
 }
 
 void CMYKChoose::setColor()
@@ -940,8 +940,8 @@ void CMYKChoose::setColor()
 			ColorMap->drawPalette(L * 2.55);
 		ColorMap->setMark(a, b);
 	}
-	imageN.fill(ScColorEngine::getDisplayColor(tmp, m_doc) );
-	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
+	imageN.fill(ScColorEngine::getDisplayColor(tmp, m_doc));
+	if ( ScColorEngine::isOutOfGamut(tmp, m_doc))
 		paintAlert(alertIcon, imageN, 2, 2, false);
 	NewC->setPixmap( imageN );
 }
@@ -972,7 +972,7 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 			tmp.setColorF(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
 		}
 	}
-	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
+	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc));
 	if (ScColorEngine::isOutOfGamut(tmp, m_doc))
 		paintAlert(alertIcon, imageN, 2, 2, false);
 	NewC->setPixmap( imageN );
@@ -1010,8 +1010,8 @@ void CMYKChoose::selFromSwatch(int itemIndex)
 			selModel( tr("Lab"));
 		}
 	}
-	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
-	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
+	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc));
+	if ( ScColorEngine::isOutOfGamut(tmp, m_doc))
 		paintAlert(alertIcon, imageN, 2, 2, false);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;

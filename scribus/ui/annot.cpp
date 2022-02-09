@@ -411,7 +411,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* vi
 	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetAnnotationType(int)));
 	connect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActionType(int)));
 	connect(SelAction, SIGNAL(activated(int)), this, SLOT(SetActionScript(int)));
-	connect(m_navig, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
+	connect(m_navig, SIGNAL(Coords(double,double)), this, SLOT(SetCoords(double,double)));
 	connect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPage(int)));
 	connect(SpinBox21, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
 	connect(SpinBox31, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
@@ -1068,11 +1068,11 @@ void ScAnnot::SetPage(int v)
 void ScAnnot::SetCross()
 {
 	int x, y;
-	disconnect(m_navig, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
+	disconnect(m_navig, SIGNAL(Coords(double,double)), this, SLOT(SetCoords(double,double)));
 	x = static_cast<int>(static_cast<double>(SpinBox21->value()) / static_cast<double>(Width) * m_navig->pmx.width());
 	y = static_cast<int>(static_cast<double>(SpinBox31->value()) / static_cast<double>(Height) * m_navig->pmx.height());
 	m_navig->drawMark(x, y);
-	connect(m_navig, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
+	connect(m_navig, SIGNAL(Coords(double,double)), this, SLOT(SetCoords(double,double)));
 }
 
 void ScAnnot::SetValues()

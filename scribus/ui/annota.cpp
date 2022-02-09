@@ -235,7 +235,7 @@ Annota::Annota(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(typeCombo, SIGNAL(activated(int)), this, SLOT(SetTarget(int)));
 	connect(pageSpin, SIGNAL(valueChanged(double)), this, SLOT(SetPage(double)));
-	connect(navigator, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
+	connect(navigator, SIGNAL(Coords(double,double)), this, SLOT(SetCoords(double,double)));
 	connect(xSpin, SIGNAL(valueChanged(double)), this, SLOT(SetCross()));
 	connect(ySpin, SIGNAL(valueChanged(double)), this, SLOT(SetCross()));
 	connect(changeFile, SIGNAL(clicked()), this, SLOT(GetFile()));
@@ -281,11 +281,11 @@ void Annota::SetPage(double v)
 void Annota::SetCross()
 {
 	int x,y;
-	disconnect(navigator, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
+	disconnect(navigator, SIGNAL(Coords(double,double)), this, SLOT(SetCoords(double,double)));
 	x = static_cast<int>(xSpin->value() / static_cast<double>(m_width) * navigator->pmx.width());
 	y = static_cast<int>(ySpin->value() / static_cast<double>(m_height) * navigator->pmx.height());
 	navigator->drawMark(x, y);
-	connect(navigator, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
+	connect(navigator, SIGNAL(Coords(double,double)), this, SLOT(SetCoords(double,double)));
 }
 
 void Annota::SetValues()

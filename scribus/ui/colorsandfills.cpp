@@ -1752,7 +1752,6 @@ void ColorsAndFillsDialog::addGimpColor(QString &colorName, double r, double g, 
 			if ((Rc == hR) && (Gc == hG) && (Bc == hB))
 			{
 				colorName = it.key();
-				found = true;
 				return;
 			}
 		}

@@ -43,7 +43,7 @@ CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect")
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
 	connect(m_userTable, SIGNAL(selectChar(uint,QString)), this, SLOT(userNewChar(uint,QString)));
-	connect(m_userTable->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)), this, SLOT(slot_selectionChanged(const QItemSelection&,const QItemSelection&)));
+	connect(m_userTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(slot_selectionChanged(QItemSelection,QItemSelection)));
 	connect(m_userTableModel, SIGNAL(rowAppended()),m_userTable, SLOT(resizeLastRow()));
 	connect(unicodeButton, SIGNAL(chosenUnicode(QString)), m_userTableModel, SLOT(appendUnicode(QString)));
 	connect(enhancedDialogButton, SIGNAL(toggled(bool)), this, SLOT(enhancedDialogButton_toggled(bool)));
@@ -197,7 +197,7 @@ void CharSelect::openEnhanced()
 
 	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 	m_enhanced = new CharSelectEnhanced(this);
-	connect(m_enhanced, SIGNAL(insertSpecialChars(const QVector<uint> &)), this, SLOT(slot_insertSpecialChars(const QVector<uint> &)));
+	connect(m_enhanced, SIGNAL(insertSpecialChars(QVector<uint>)), this, SLOT(slot_insertSpecialChars(QVector<uint>)));
 	connect(m_enhanced, SIGNAL(paletteShown(bool)), enhancedDialogButton, SLOT(setChecked(bool)));
 	m_enhanced->setDoc(m_doc);
 	m_enhanced->setEnabled(this->isEnabled());
@@ -214,7 +214,7 @@ void CharSelect::closeEnhanced()
 	enhancedDialogButton->setChecked(false);
 	enhancedDialogButton->blockSignals(false);
 
-	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QVector<uint> &)), this, SLOT(slot_insertSpecialChars(const QVector<uint> &)));
+	disconnect(m_enhanced, SIGNAL(insertSpecialChars(QVector<uint>)), this, SLOT(slot_insertSpecialChars(QVector<uint>)));
 	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), enhancedDialogButton, SLOT(setChecked(bool)));
 	m_enhanced->close();
 	m_enhanced->deleteLater();

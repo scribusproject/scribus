@@ -203,12 +203,10 @@ ColorListBox::ColorListBox(ColorListBox::PixmapType type, QWidget * parent)
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
-	connect(this, SIGNAL(clicked(QModelIndex)),       this, SLOT(emitItemClicked(QModelIndex)));
+	connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(emitItemClicked(QModelIndex)));
 	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(emitItemDoubleClicked(QModelIndex)));
-	connect(this->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)),
-            this, SLOT(emitCurrentChanged(QModelIndex, QModelIndex)));
-	connect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-            this, SIGNAL(itemSelectionChanged()));
+	connect(this->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(emitCurrentChanged(QModelIndex,QModelIndex)));
+	connect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SIGNAL(itemSelectionChanged()));
 	connect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
 }
 

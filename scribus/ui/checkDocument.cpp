@@ -755,7 +755,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	reportDisplay->resizeColumnToContents(COLUMN_PROBLEM);
 	reportDisplay->resizeColumnToContents(COLUMN_LAYER);
 	connect(curCheckProfile, SIGNAL(textActivated(QString)), this, SLOT(newScan(QString)));
-	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*)));
+	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(slotSelect(QTreeWidgetItem*)));
 }
 
 void CheckDocument::setIgnoreEnabled(bool state)

@@ -72,12 +72,8 @@ GuideManager::GuideManager(QWidget* parent) :
 	connect(addVerButton, SIGNAL(clicked()), this, SLOT(addVerButton_clicked()));
 	connect(delVerButton, SIGNAL(clicked()), this, SLOT(delVerButton_clicked()));
 	connect(verticalView, SIGNAL(deleteKeyPressed()), this, SLOT(delVerButton_clicked()));
-	connect(horizontalView->selectionModel(),
-			 SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
-			 this, SLOT(forceDrawGuides(const QItemSelection &, const QItemSelection &)));
-	connect(verticalView->selectionModel(),
-			 SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
-			 this, SLOT(forceDrawGuides(const QItemSelection &, const QItemSelection &)));
+	connect(horizontalView->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(forceDrawGuides(QItemSelection, QItemSelection)));
+	connect(verticalView->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(forceDrawGuides(QItemSelection, QItemSelection)));
 
 	connect(applyToAllStdButton, SIGNAL(clicked()), this, SLOT(applyToAllStdButton_clicked()));
 	connect(horizontalAutoCountSpin, SIGNAL(valueChanged(double)), this, SLOT(horizontalAutoCountSpin_valueChanged(double)));
