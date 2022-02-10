@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "iconmanager.h"
 
-TabManager::TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabRecord> inTab, double) : QDialog( parent )
+TabManager::TabManager( QWidget* parent, int dEin, const QList<ParagraphStyle::TabRecord>& inTab, double) : QDialog( parent )
 {
 	setModal(true);
 	setWindowTitle( tr( "Manage Tabulators" ) );

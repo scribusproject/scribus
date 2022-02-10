@@ -206,7 +206,7 @@ public:
 	void eraseCharStyle(int pos, uint len, const CharStyle& style);
 	void eraseStyle(int pos, const ParagraphStyle& style);
 	void replaceStyles(const QMap<QString,QString>& newNameForOld);
-	void replaceCharStyles(QMap<QString,QString> newNameForOld);
+	void replaceCharStyles(const QMap<QString,QString>& newNameForOld);
 
 	// Cleanup legacy formatting for whole story, ie remove direct
 	// formatting for parameters already set at paragraph level

@@ -510,7 +510,7 @@ QStringList sortQStringList(QStringList aList)
 	return retList;
 }
 
-bool sortingQPairOfStrings( QPair<QString, QString> aP, QPair<QString, QString> bP)
+bool sortingQPairOfStrings(const QPair<QString, QString>& aP, const QPair<QString, QString>& bP)
 {
 	if (aP.first == bP.first)
 		return (aP.second < bP.second);

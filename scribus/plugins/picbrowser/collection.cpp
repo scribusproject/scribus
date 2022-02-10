@@ -304,7 +304,7 @@ void collectionListReaderThread::collectionReaderThreadFinished()
 }
 
 
-collectionsWriterThread::collectionsWriterThread ( const QString& xmlFile2, QList<collections *> saveCollections2 )
+collectionsWriterThread::collectionsWriterThread ( const QString& xmlFile2, const QList<collections *>& saveCollections2 )
 {
 	xmlFile = xmlFile2;
 	saveCollections = saveCollections2;

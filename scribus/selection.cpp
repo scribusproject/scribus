@@ -202,7 +202,7 @@ bool Selection::addItem(PageItem *item, bool /*ignoreGUI*/)
 	return false;
 }
 
-bool Selection::addItems(const QList<PageItem *> items)
+bool Selection::addItems(const QList<PageItem *>& items)
 {
 	if (items.isEmpty())
 		return false;

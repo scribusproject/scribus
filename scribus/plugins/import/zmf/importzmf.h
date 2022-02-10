@@ -53,11 +53,11 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
+	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	QImage readThumbnail(const QString& fn);
 
 private:
-	bool convert(QString fn);
+	bool convert(const QString& fn);
 
 	QList<PageItem*> Elements;
 	double baseX, baseY;

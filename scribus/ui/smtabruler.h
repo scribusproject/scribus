@@ -19,7 +19,7 @@ public:
 	SMTabruler(QWidget* parent,
 			   bool haveFirst = true,
 			   int dEin = 1,
-			   QList<ParagraphStyle::TabRecord> Tabs = QList<ParagraphStyle::TabRecord>(),
+			   const QList<ParagraphStyle::TabRecord>& Tabs = QList<ParagraphStyle::TabRecord>(),
 			   double wid = -1);
 	~SMTabruler() {};
 

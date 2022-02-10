@@ -34,13 +34,13 @@ ScrAction::ScrAction( QObject * parent ) : QAction( parent )
 	initScrAction();
 }
 
-ScrAction::ScrAction(const QString & menuText, QKeySequence accel, QObject * parent ) : QAction(menuText, parent)
+ScrAction::ScrAction(const QString & menuText, const QKeySequence& accel, QObject * parent ) : QAction(menuText, parent)
 {
 	setShortcut(accel);
 	initScrAction();
 }
 
-ScrAction::ScrAction(ActionType aType, const QString & menuText, QKeySequence accel, QObject * parent, QVariant d) : QAction(menuText, parent)
+ScrAction::ScrAction(ActionType aType, const QString & menuText, const QKeySequence& accel, QObject * parent, const QVariant& d) : QAction(menuText, parent)
 {
 	setShortcut(accel);
 	initScrAction();
@@ -51,7 +51,7 @@ ScrAction::ScrAction(ActionType aType, const QString & menuText, QKeySequence ac
 		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
 }
 
-ScrAction::ScrAction(ActionType aType, const QPixmap& icon16, const QPixmap& icon22, const QString & menuText, QKeySequence accel, QObject * parent, QVariant d)
+ScrAction::ScrAction(ActionType aType, const QPixmap& icon16, const QPixmap& icon22, const QString & menuText, const QKeySequence& accel, QObject * parent, const QVariant& d)
           : QAction(QIcon(icon16), menuText, parent)
 {
 	setShortcut(accel);
@@ -64,7 +64,7 @@ ScrAction::ScrAction(ActionType aType, const QPixmap& icon16, const QPixmap& ico
 		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
 }
 
-ScrAction::ScrAction(ActionType aType, const QString& icon16Path, const QString& icon22Path, const QString & menuText, QKeySequence accel, QObject * parent, QVariant d)
+ScrAction::ScrAction(ActionType aType, const QString& icon16Path, const QString& icon22Path, const QString & menuText, const QKeySequence& accel, QObject * parent, const QVariant& d)
          : QAction(menuText, parent), m_iconPath16(icon16Path), m_iconPath22(icon22Path)
 {
 	setShortcut(accel);
@@ -79,7 +79,7 @@ ScrAction::ScrAction(ActionType aType, const QString& icon16Path, const QString&
 		connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(loadIcon()));
 }
 
-ScrAction::ScrAction(const QString& icon16Path, const QString& icon22Path, const QString & menuText, QKeySequence accel, QObject * parent )
+ScrAction::ScrAction(const QString& icon16Path, const QString& icon22Path, const QString & menuText, const QKeySequence& accel, QObject * parent )
          : QAction(menuText, parent), m_iconPath16(icon16Path), m_iconPath22(icon22Path)
 {
 	setShortcut(accel);
@@ -91,7 +91,7 @@ ScrAction::ScrAction(const QString& icon16Path, const QString& icon22Path, const
 }
 
 
-ScrAction::ScrAction(QKeySequence accel, QObject * parent, QVariant d)
+ScrAction::ScrAction(const QKeySequence& accel, QObject * parent, const QVariant& d)
 	: QAction( QIcon(QPixmap()), "", parent )
 {
 	setShortcut(accel);

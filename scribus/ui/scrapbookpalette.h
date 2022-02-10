@@ -102,8 +102,8 @@ public slots:
 	void iconSetChange();
 	void languageChange();
 	void objFromFile(const QString& path, int testResult);
-	void objFromMenu(QString text);
-	void objFromMainMenu(QString text, int scrapID);
+	void objFromMenu(const QString& text);
+	void objFromMainMenu(const QString& text, int scrapID);
 	void closeOnDel(const QString& libName);
 	void reloadLib(const QString& fileName);
 

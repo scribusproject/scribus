@@ -66,7 +66,7 @@ QxpPlug::QxpPlug(ScribusDoc* doc, int flags)
 	cancel = false;
 }
 
-QImage QxpPlug::readThumbnail(QString fName)
+QImage QxpPlug::readThumbnail(const QString& fName)
 {
 	QFileInfo fi = QFileInfo(fName);
 	double b, h;
@@ -126,7 +126,7 @@ QImage QxpPlug::readThumbnail(QString fName)
 	return QImage();
 }
 
-bool QxpPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool QxpPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
@@ -325,7 +325,7 @@ QxpPlug::~QxpPlug()
 	delete tmpSel;
 }
 
-bool QxpPlug::convert(QString fn)
+bool QxpPlug::convert(const QString& fn)
 {
 	importedColors.clear();
 	importedPatterns.clear();

@@ -1728,7 +1728,7 @@ void Biblio::objFromFile(const QString& path, int testResult)
 	reloadLib(activeBView->ScFilename);
 }
 
-void Biblio::objFromMenu(QString text)
+void Biblio::objFromMenu(const QString& text)
 {
 	QString tmp;
 	if (!activeBView->canWrite)
@@ -1905,7 +1905,7 @@ void Biblio::objFromCopyAction(const QString& text, const QString& name)
 	reloadLib(tempBView->ScFilename);
 }
 
-void Biblio::objFromMainMenu(QString text, int scrapID)
+void Biblio::objFromMainMenu(const QString& text, int scrapID)
 {
 	QString nam;
 	QString tmp;

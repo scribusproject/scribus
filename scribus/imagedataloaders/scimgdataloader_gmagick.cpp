@@ -409,12 +409,10 @@ QString ScImgDataLoader_GMagick::blendModeToString(int compositeOp)
 	return ret;
 }
 
-int ScImgDataLoader_GMagick::blendModeToInt(QString compositeOp)
+int ScImgDataLoader_GMagick::blendModeToInt(const QString& compositeOp)
 {
-	int ret = 1;
-	if (compositeOp == "norm")
-		ret = 1;
-	else if (compositeOp == "dark")
+	int ret = 1; // default compositeOp == "norm"
+	if (compositeOp == "dark")
 		ret = 24;
 	else if (compositeOp == "lite")
 		ret = 25;

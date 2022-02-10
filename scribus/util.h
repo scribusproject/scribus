@@ -52,7 +52,7 @@ Uses compareQStrings() as rule. There is STL used!
 \retval QStringList sorted string list
  */
 QStringList SCRIBUS_API sortQStringList(QStringList aList);
-bool SCRIBUS_API sortingQPairOfStrings( QPair<QString, QString> aP, QPair<QString, QString> bP);
+bool SCRIBUS_API sortingQPairOfStrings( const QPair<QString, QString>& aP, const QPair<QString, QString>& bP);
 void SCRIBUS_API ReOrderText(ScribusDoc *currentDoc, ScribusView *view);
 void SCRIBUS_API WordAndPara(PageItem *currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 bool SCRIBUS_API overwrite(QWidget *parent, const QString& filename);

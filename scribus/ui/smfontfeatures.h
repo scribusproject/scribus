@@ -41,8 +41,8 @@ public:
 
 	void languageChange();
 
-	void setFontFeatures(const QString& s, QStringList fontFeaturesList);
-	void setFontFeatures(const QString& val, QStringList fontFeatures, bool isParentVal);
+	void setFontFeatures(const QString& s, const QStringList& fontFeaturesList);
+	void setFontFeatures(const QString& val, const QStringList& fontFeatures, bool isParentVal);
 	QString fontFeatures();
 	void enableFontFeatures(const QStringList& fontFeatures);
 	void resetFontFeatures();

@@ -16,7 +16,7 @@
 #include "actionsearchdialog.h"
 #include "ui_actionsearchdialog.h"
 
-ActionSearchDialog::ActionSearchDialog(QMainWindow *parent, QList<QString> actionNames) :
+ActionSearchDialog::ActionSearchDialog(QMainWindow *parent, const QList<QString>& actionNames) :
 	QDialog{parent},
 	ui{new Ui::ActionSearchDialog},
 	m_actionNames{actionNames}

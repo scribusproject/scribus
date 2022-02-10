@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 
 
-SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin, QList<ParagraphStyle::TabRecord> Tabs, double wid)
+SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin, const QList<ParagraphStyle::TabRecord>& Tabs, double wid)
 	: Tabruler(parent, haveFirst, dEin, Tabs, wid)
 {
 	m_parentButton = new QToolButton(this);

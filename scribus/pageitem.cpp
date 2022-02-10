@@ -2480,7 +2480,7 @@ void PageItem::setPattern(const QString &newPattern)
 		m_patternName = newPattern;
 }
 
-void PageItem::set4ColorGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4)
+void PageItem::set4ColorGeometry(const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4)
 {
 	GrControl1 = c1;
 	GrControl2 = c2;

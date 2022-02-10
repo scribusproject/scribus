@@ -66,7 +66,7 @@ ZmfPlug::ZmfPlug(ScribusDoc* doc, int flags)
 	cancel = false;
 }
 
-QImage ZmfPlug::readThumbnail(QString fName)
+QImage ZmfPlug::readThumbnail(const QString& fName)
 {
 	QFileInfo fi = QFileInfo(fName);
 	double b, h;
@@ -126,7 +126,7 @@ QImage ZmfPlug::readThumbnail(QString fName)
 	return QImage();
 }
 
-bool ZmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool ZmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
@@ -325,7 +325,7 @@ ZmfPlug::~ZmfPlug()
 	delete tmpSel;
 }
 
-bool ZmfPlug::convert(QString fn)
+bool ZmfPlug::convert(const QString& fn)
 {
 	importedColors.clear();
 	importedPatterns.clear();

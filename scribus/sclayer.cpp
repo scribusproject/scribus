@@ -593,7 +593,7 @@ bool ScLayers::setLayerMarker(int layerID, QColor color)
 	ScLayer* layer = byID(layerID);
 	if (!layer)
 		return false;
-	layer->markerColor = std::move(color);
+	layer->markerColor = color;
 	return true;
 }
 

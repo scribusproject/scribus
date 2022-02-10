@@ -22,7 +22,7 @@ class SCRIBUS_API TabManager : public QDialog
 	Q_OBJECT
 
 public:
-	TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabRecord> inTab, double wid);
+	TabManager( QWidget* parent, int dEin, const QList<ParagraphStyle::TabRecord>& inTab, double wid);
 	~TabManager() = default;
 
 	QList<ParagraphStyle::TabRecord> tabList() const;

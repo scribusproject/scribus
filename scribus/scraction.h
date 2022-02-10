@@ -55,7 +55,7 @@ public:
 		\param accel Accelerator QKeySequence
 		\param parent Parent object of this action
 	*/
-	ScrAction(const QString &menuText, QKeySequence accel, QObject *parent);
+	ScrAction(const QString &menuText, const QKeySequence& accel, QObject *parent);
 		
 	/*!
 		\author Craig Bradney
@@ -71,9 +71,9 @@ public:
 		\param extraDouble extra double value
 		\param extraQString extra QString value
 	 */
-	ScrAction(ActionType aType, const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
-	ScrAction(ActionType aType, const QPixmap& icon16, const QPixmap& icon22, const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
-	ScrAction(ActionType aType, const QString& icon16Path, const QString& icon22Path, const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
+	ScrAction(ActionType aType, const QString &menuText, const QKeySequence& accel, QObject *parent, const QVariant& d = QVariant());
+	ScrAction(ActionType aType, const QPixmap& icon16, const QPixmap& icon22, const QString &menuText, const QKeySequence& accel, QObject *parent, const QVariant& d = QVariant());
+	ScrAction(ActionType aType, const QString& icon16Path, const QString& icon22Path, const QString &menuText, const QKeySequence& accel, QObject *parent, const QVariant& d = QVariant());
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
@@ -83,7 +83,7 @@ public:
 		\param accel Accelerator QKeySequence
 		\param parent Parent of this action
 	*/
-	ScrAction(const QString& icon16Path, const QString& icon22Path, const QString & menuText, QKeySequence accel, QObject *parent);
+	ScrAction(const QString& icon16Path, const QString& icon22Path, const QString & menuText, const QKeySequence& accel, QObject *parent);
 	/*!
 	\author Craig Bradney
 	\date Mar 2008
@@ -93,7 +93,7 @@ public:
 	\param extraInt extra int value
 	\param extraQString extra QString value
 	 */
-	ScrAction(QKeySequence accel, QObject *parent, QVariant data = QVariant());
+	ScrAction(const QKeySequence& accel, QObject *parent, const QVariant& data = QVariant());
 	~ScrAction() = default;
 	
 	/*!

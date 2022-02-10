@@ -104,7 +104,7 @@ QStringList SMFontFeatures::comboboxFeatures(QComboBox* combo) const
 	return features;
 }
 
-void SMFontFeatures::setFontFeatures(const QString& s, QStringList fontFeaturesList)
+void SMFontFeatures::setFontFeatures(const QString& s, const QStringList& fontFeaturesList)
 {
 	disconnectSignals();
 	m_hasParent = false;
@@ -134,30 +134,30 @@ void SMFontFeatures::setFontFeatures(const QString& s, QStringList fontFeaturesL
 			setCurrentComboItemFromData(positionComboBox, fontFeatures[i]);
 		}
 		// Capitals ComboBox
-		else if (fontFeatures[i] == "+smcp" || 
-		         fontFeatures[i] == "+c2sc" || 
-		         fontFeatures[i] == "+pcap" || 
-		         fontFeatures[i] == "+c2pc" || 
-		         fontFeatures[i] == "+unic" || 
-		         fontFeatures[i] == "+titl")
+		else if (fontFeatures[i] == "+smcp" ||
+				 fontFeatures[i] == "+c2sc" ||
+				 fontFeatures[i] == "+pcap" ||
+				 fontFeatures[i] == "+c2pc" ||
+				 fontFeatures[i] == "+unic" ||
+				 fontFeatures[i] == "+titl")
 		{
 			setCurrentComboItemFromData(capitalsComboBox, fontFeatures[i]);
 		}
 		// Numerals style
-		else if (fontFeatures[i] == "+lnum" || 
-		         fontFeatures[i] == "+onum")
+		else if (fontFeatures[i] == "+lnum" ||
+				 fontFeatures[i] == "+onum")
 		{
 			setCurrentComboItemFromData(numeralComboBox, fontFeatures[i]);
 		}
 		// Numerals width
-		else if (fontFeatures[i] == "+pnum" || 
-		         fontFeatures[i] == "+tnum")
+		else if (fontFeatures[i] == "+pnum" ||
+				 fontFeatures[i] == "+tnum")
 		{
 			setCurrentComboItemFromData(widthComboBox, fontFeatures[i]);
 		}
 		// Numerals Fraction
-		else if (fontFeatures[i] == "+frac" || 
-		         fontFeatures[i] == "+afrc")
+		else if (fontFeatures[i] == "+frac" ||
+				 fontFeatures[i] == "+afrc")
 		{
 			setCurrentComboItemFromData(fractionComboBox, fontFeatures[i]);
 		}
@@ -214,7 +214,7 @@ void SMFontFeatures::setFontFeatures(const QString& s, QStringList fontFeaturesL
 	}
 }
 
-void SMFontFeatures::setFontFeatures(const QString& val, QStringList fontFeatures, bool isParentVal)
+void SMFontFeatures::setFontFeatures(const QString& val, const QStringList& fontFeatures, bool isParentVal)
 {
 	disconnectSignals();
 	m_hasParent = true;

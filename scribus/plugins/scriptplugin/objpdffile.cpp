@@ -1444,6 +1444,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 	// Apply pages attribute
 	std::vector<int> pageNs;
 	int nn = PyList_Size(self->pages);
+	pageNs.reserve(nn);
 	for (int i = 0; i < nn; ++i) {
 		pageNs.push_back((int) PyLong_AsLong(PyList_GetItem(self->pages, i)));
 	}

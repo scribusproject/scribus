@@ -25,7 +25,7 @@ class ActionSearchDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit ActionSearchDialog(QMainWindow *parent, QList<QString> actionNames);
+	explicit ActionSearchDialog(QMainWindow *parent, const QList<QString> &actionNames);
 	~ActionSearchDialog();
 
 	QString getActionName() const;

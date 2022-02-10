@@ -1648,7 +1648,7 @@ void StoryText::replaceNamedResources(ResourceCollection& newNames)
 	invalidate(0, len);	
 }
 
-void StoryText::replaceCharStyles(QMap<QString,QString> newNameForOld)
+void StoryText::replaceCharStyles(const QMap<QString,QString>& newNameForOld)
 {
 	ResourceCollection newnames;
 	newnames.mapCharStyles(newNameForOld);
