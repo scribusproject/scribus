@@ -195,9 +195,8 @@ bool HTMLReader::startElement(const QString &name, const HTMLAttributesMap &attr
 		QString srcValue = attrs.value("src");
 		if (!srcValue.isEmpty())
 		{
-			QString attrValue = srcValue;
-			if (attrValue.indexOf("data:image") < 0)
-				imgline +=  " src: " + attrValue;
+			if (srcValue.indexOf("data:image") < 0)
+				imgline +=  " src: " + srcValue;
 			else
 			{
 				// TODO: correctly embed the image (just putting the source in the

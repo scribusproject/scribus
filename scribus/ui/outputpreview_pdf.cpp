@@ -875,7 +875,7 @@ void OutputPreview_PDF::setupFontEmbedding(PDFOptions& options)
 
 		for (auto itAnn = annotationFonts.begin(); itAnn != annotationFonts.end(); ++itAnn)
 		{
-			QString annotFont = itAnn.key();
+			const QString& annotFont = itAnn.key();
 			if (!m_pdfOptions.EmbedList.contains(annotFont))
 				m_pdfOptions.EmbedList.append(annotFont);
 			int subsetIndex = m_pdfOptions.SubsetList.indexOf(annotFont);

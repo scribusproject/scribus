@@ -2023,7 +2023,7 @@ void OdgPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 	bool bFirst = true;
 	for ( QStringList::Iterator it = ptList.begin(); it != ptList.end(); ++it)
 	{
-		point = FPoint(ScCLocale::toDoubleC((*it).section( ',', 0, 0 )), ScCLocale::toDoubleC((*it).section( ',', 1, 1 )));
+		point = FPoint(ScCLocale::toDoubleC((*it).section( ',', 0, 0 )), ScCLocale::toDoubleC((*it).section( ',', 1, 1)));
 		if (bFirst)
 		{
 			composite->addPoint(point);

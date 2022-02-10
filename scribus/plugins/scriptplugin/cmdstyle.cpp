@@ -454,7 +454,7 @@ PyObject *scribus_getlinestyles(PyObject* /* self */)
 	auto itEnd = lineStyles.constEnd();
 	for (auto it = lineStyles.constBegin(); it != itEnd; ++it)
 	{
-		QString lineStyleName = it.key();
+		const QString& lineStyleName = it.key();
 		if (PyList_Append(lineStyleList, PyUnicode_FromString(lineStyleName.toUtf8())))
 		{
 			// An exception will have already been set by PyList_Append apparently.

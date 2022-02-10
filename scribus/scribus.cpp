@@ -9854,10 +9854,8 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 				is->set("MARK", QString("new"));
 				if (mrk->isType(MARK2MarkType))
 				{
-					QString dName = mrk->getDestMarkName();
-					MarkType dType = mrk->getDestMarkType();
-					is->set("dName", dName);
-					is->set("dType", (int) dType);
+					is->set("dName", mrk->getDestMarkName());
+					is->set("dType", (int) mrk->getDestMarkType());
 				}
 				if (mrk->isType(MARK2ItemType))
 					is->insertItem("itemPtr", mrk->getItemPtr());
@@ -9884,7 +9882,7 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 				}
 				if (mrk->isType(MARK2MarkType))
 				{
-					QString dName = mrk->getDestMarkName();
+					const QString& dName = mrk->getDestMarkName();
 					MarkType dType = mrk->getDestMarkType();
 					if (dName != oldData.destMarkName || dType != oldData.destMarkType)
 					{

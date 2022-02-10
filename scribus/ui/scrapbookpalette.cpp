@@ -1730,11 +1730,10 @@ void Biblio::objFromFile(const QString& path, int testResult)
 
 void Biblio::objFromMenu(QString text)
 {
-	QString nam = "";
 	QString tmp;
 	if (!activeBView->canWrite)
 		return;
-	nam = getObjectName(text);
+	QString nam(getObjectName(text));
 	if (Frame3->currentIndex() == 1)
 	{
 		if (nam.isEmpty())
@@ -1758,10 +1757,9 @@ void Biblio::objFromMenu(QString text)
 		nam = dia.getEditText();
 	else
 		return;
-	QString ff = text;
-	activeBView->checkAndChange(ff, QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename)));
+	activeBView->checkAndChange(text, QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename)));
 	ScPreview *pre = new ScPreview();
-	QPixmap pm = QPixmap::fromImage(pre->createPreview(ff));
+	QPixmap pm = QPixmap::fromImage(pre->createPreview(text));
 	activeBView->addObject(nam, QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename + "/" + nam + ".sce")), pm);
 	if (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews)
 	{
@@ -1930,10 +1928,9 @@ void Biblio::objFromMainMenu(QString text, int scrapID)
 		nam = dia.getEditText();
 	else
 		return;
-	QString ff = text;
-	actBView->checkAndChange(ff, QDir::cleanPath(QDir::toNativeSeparators(actBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::toNativeSeparators(actBView->ScFilename)));
+	actBView->checkAndChange(text, QDir::cleanPath(QDir::toNativeSeparators(actBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::toNativeSeparators(actBView->ScFilename)));
 	ScPreview *pre = new ScPreview();
-	QPixmap pm = QPixmap::fromImage(pre->createPreview(ff));
+	QPixmap pm = QPixmap::fromImage(pre->createPreview(text));
 	actBView->addObject(nam, QDir::cleanPath(QDir::toNativeSeparators(actBView->ScFilename + "/" + nam + ".sce")), pm);
 	if (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews)
 	{

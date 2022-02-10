@@ -146,8 +146,7 @@ bool StyleReader::startElement(const QString &name, const SXWAttributesMap &attr
 			if (!styleLines.isEmpty())
 			{
 				bool ok = false;
-				QString sd = styleLines;
-				int dh = sd.toInt(&ok);
+				int dh = styleLines.toInt(&ok);
 				if (ok)
 				{
 					gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(currentStyle);
@@ -165,7 +164,7 @@ bool StyleReader::startElement(const QString &name, const SXWAttributesMap &attr
 		QString style;
 		for (auto attr = attrs.cbegin(); attr != attrs.cend(); ++attr)
 		{
-			QString attrName = attr.key();
+			const QString& attrName = attr.key();
 			if (attrName == "style:name")
 				key = attr.value();
 			else if (attrName == "fo:font-family")
@@ -214,8 +213,8 @@ void StyleReader::styleProperties(const SXWAttributesMap& attrs)
 	bool hasColorTag = false;
 	for (auto attr = attrs.begin(); attr != attrs.end(); ++attr)
 	{
-		QString attrName = attr.key();
-		QString attrValue = attr.value();
+		const QString& attrName = attr.key();
+		const QString& attrValue = attr.value();
 		if ((attrName == "style:font-name") && (!inList))
 			currentStyle->getFont()->setName(getFont(attrValue));
 		else if (attrName == "fo:font-size")
@@ -346,8 +345,8 @@ void StyleReader::styleStyle(const SXWAttributesMap& attrs)
 
 	for (auto attr = attrs.begin(); attr != attrs.end(); ++attr)
 	{
-		QString attrName = attr.key();
-		QString attrValue = attr.value();
+		const QString& attrName = attr.key();
+		const QString& attrValue = attr.value();
 		if (attrName == "style:family")
 		{
 			if (attrValue == "paragraph")

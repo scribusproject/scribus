@@ -127,7 +127,7 @@ bool ContentReader::startElement(const QString &name, const SXWAttributesMap &at
 		bool isTextStyle = false;
 		for (auto attr = attrs.cbegin(); attr != attrs.cend(); ++attr)
 		{
-			QString attrName = attr.key();
+			const QString& attrName = attr.key();
 			if (attrName == "style:name")
 				sname = attr.value();
 			else if ((attrName == "style:family") && (attr.value() == "text"))

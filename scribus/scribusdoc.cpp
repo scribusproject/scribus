@@ -17082,10 +17082,8 @@ void ScribusDoc::setUndoDelMark(Mark *mrk)
 			ims->set("at", findMarkCPos(mrk, master));
 			if (mrk->isType(MARK2MarkType))
 			{
-				QString dName = mrk->getDestMarkName();
-				MarkType dType = mrk->getDestMarkType();
-				ims->set("dName", dName);
-				ims->set("dType", (int) dType);
+				ims->set("dName", mrk->getDestMarkName());
+				ims->set("dType", (int) mrk->getDestMarkType());
 			}
 			if (mrk->isType(MARK2ItemType))
 				ims->insertItem("itemPtr", mrk->getItemPtr());

@@ -128,14 +128,13 @@ QImage QxpPlug::readThumbnail(QString fName)
 
 bool QxpPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
 	double b, h;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -221,7 +220,7 @@ bool QxpPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
-	if (convert(fName))
+	if (convert(fNameIn))
 	{
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);

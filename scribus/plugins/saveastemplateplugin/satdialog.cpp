@@ -119,7 +119,7 @@ void SATDialog::writePrefs()
 
 QString SATDialog::findTemplateXml(const QString& dir)
 {
-	QString lang = ScCore->getGuiLanguage();
+	const QString& lang = ScCore->getGuiLanguage();
 	QString tmp = dir + "/template." + lang + ".xml";
 	if (QFile::exists(tmp))
 		return tmp;
