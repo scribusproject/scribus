@@ -77,7 +77,6 @@
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qcursor.h>
-#include <qdesktopwidget.h>
 #include <qevent.h>
 #include <qgridlayout.h>
 #include <qimage.h>
