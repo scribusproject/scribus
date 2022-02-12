@@ -27,7 +27,7 @@ exact package names for the distro, are provided below.
 Install the below packages BEFORE running CMake or compiling Scribus:
 
 Requirements:
-    Qt >= 5.14.0
+    Qt >= 6.2
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
 	cairo >= 1.14.x
 	harfbuzz = > 0.9.42
@@ -38,16 +38,16 @@ Requirements:
 	libxml2 >= 2.6.0
 	LittleCMS (liblcms) >= 2.0 (2.1+ recommended)
 	poppler and poppler-cpp >= 0.62.0
-	
+	hunspell
+	Python >= 3.6
+
 Recommended:
 	CUPS
 	Fontconfig >= 2.0
 	GhostScript >= 8.0 (9.0+ or greater preferred)
-	Python >= 3.6
 	tkinter for the font sampler script
 	python-imaging for the font sampler preview
 	pkgconfig (to assist finding other libraries)
-	hunspell for the spell checker
 	podofo - 0.7.0+ for enhanced Illustrator AI/EPS import, svn versions
 	boost and boost-devel
 	GraphicksMagick++

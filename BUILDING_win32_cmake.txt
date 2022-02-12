@@ -36,7 +36,7 @@ You will need:
 	- Microsoft Visual C++ Express Edition 8 2005
 	- The Microsoft Platform SDK
 	- CMake 2.5.x (2.4.x WILL NOT WORK)
-	- A recent Qt 4.6 snapshot built with Visual Studio 8 2005
+	- A recent Qt 6.2 snapshot built with Visual Studio 8 2005
           (see below)
 	- cairo from cairographics.org (version >= 1.5.16)
 	- libxml2 win32 binaries from the libxml project
