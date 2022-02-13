@@ -553,8 +553,9 @@ void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
 		QString defaultCharStyle;
 		if (!newCurrent.parent().isEmpty())
 		{
-			const ParagraphStyle& paraStyle = m_doc->paragraphStyles().get(newCurrent.parent());
-			defaultCharStyle = paraStyle.charStyle().parent();
+			const ParagraphStyle* paraStyle = m_doc->paragraphStyles().getPointer(newCurrent.parent());
+			if (paraStyle)
+				defaultCharStyle = paraStyle->charStyle().parent();
 			if (defaultCharStyle.isEmpty())
 				defaultCharStyle = CommonStrings::DefaultCharacterStyle;
 		}
