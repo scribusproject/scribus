@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "autoform.h"
 #include "autoformbuttongroup.h"
+#include "scribusapp.h"
 
 Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent )
 {
@@ -14,7 +15,14 @@ Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent )
 	setMenu(buttonGroup1);
 	setPopupMode(QToolButton::InstantPopup);
 	setIcon(QIcon(buttonGroup1->getIconPixmap(0)));
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(buttonGroup1, SIGNAL(buttonClicked(int)), this, SLOT(selForm(int)));
+}
+
+void Autoforms::iconSetChange()
+{
+	setIcon(QIcon(buttonGroup1->getIconPixmap(0)));
 }
 
 void Autoforms::selForm(int a)

@@ -12,8 +12,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "autoformbuttongroup.h"
 #include "fpointarray.h"
-#include "scpainter.h"
 #include "iconmanager.h"
+#include "scpainter.h"
+#include "scribusapp.h"
 
 AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QMenu( parent )
 {
@@ -73,7 +74,9 @@ AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QMenu( parent )
 	addMenu(menu3);
 	addMenu(menu4);
 	addMenu(menu5);
-	connect(signalMapper, SIGNAL(mappedInt(int)), this, SLOT(selForm(int)));
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(selForm(int)));
 }
 
 void AutoformButtonGroup::addShape(QMenu* menu, int shapenum)
@@ -767,6 +770,21 @@ void AutoformButtonGroup::changeEvent(QEvent *e)
 		languageChange();
 	else
 		QMenu::changeEvent(e);
+}
+
+void AutoformButtonGroup::iconSetChange()
+{
+	for (int i = 0; i <= 44; ++i)
+	{
+		QObject* mappedObject = signalMapper->mapping(i);
+		if (!mappedObject)
+			continue;
+
+		QAction* action = qobject_cast<QAction*>(mappedObject);
+		if (!action)
+			continue;
+		action->setIcon(QIcon(getIconPixmap(i, 16)));
+	}
 }
 
 void AutoformButtonGroup::languageChange()

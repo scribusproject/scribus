@@ -29,6 +29,7 @@ public:
 
 public slots:
 	void selForm(int a);
+	void iconSetChange();
 	void languageChange();
 
 signals:
@@ -36,12 +37,12 @@ signals:
 	void buttonClicked(int);
 
 protected:
-	QSignalMapper *signalMapper;
-	QMenu *menu1;
-	QMenu *menu2;
-	QMenu *menu3;
-	QMenu *menu4;
-	QMenu *menu5;
+	QSignalMapper *signalMapper { nullptr };
+	QMenu *menu1 { nullptr };
+	QMenu *menu2 { nullptr };
+	QMenu *menu3 { nullptr };
+	QMenu *menu4 { nullptr };
+	QMenu *menu5 { nullptr };
 
 	void changeEvent(QEvent *e) override;
 };
