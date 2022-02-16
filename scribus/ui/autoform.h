@@ -27,12 +27,13 @@ public:
 
 public slots:
 	void selForm(int a);
+	void iconSetChange();
 
 signals:
 	void FormSel(int, int, qreal *);
 
 protected:
-	AutoformButtonGroup* buttonGroup1;
+	AutoformButtonGroup* buttonGroup1 { nullptr };
 };
 
 #endif

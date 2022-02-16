@@ -57,31 +57,31 @@ public:
 
 	void changeEvent(QEvent *e) override;
 	void setDoc(ScribusDoc* doc);
-	int SubMode;
-	int ValCount;
-	double *ShapeVals;
+
+	int SubMode { 0 };
+	int ValCount { 0 };
+	double *ShapeVals { nullptr };
 
 public slots:
 	void newCalValues();
 	void GetPolyProps();
 	void SelShape(int s, int c, qreal *vals);
-//	void getShapeValues(int& mode, double* values, int& count);
+	void iconSetChange();
 	void languageChange();
 		
 protected:
-	AutoformButtonGroup* autoFormButtonGroup;
-	QMenu* insertPolygonButtonMenu;
-	QAction* idInsertPolygonButtonMenu;
-	ScribusMainWindow* m_ScMW;
-	QWidget *propWidget;
-	QGridLayout* group1Layout;
-	QMenu* calPop;
-	QWidgetAction* calValAct;
-	QLabel *AngleTxt;
-	QLabel *PWidthTxt;
-	ScrSpinBox *Angle;
-	ScrSpinBox *PWidth;
-
+	AutoformButtonGroup* autoFormButtonGroup { nullptr };
+	QMenu* insertPolygonButtonMenu { nullptr };
+	QAction* idInsertPolygonButtonMenu { nullptr };
+	ScribusMainWindow* m_ScMW { nullptr };
+	QWidget *propWidget { nullptr };
+	QGridLayout* group1Layout { nullptr };
+	QMenu* calPop { nullptr };
+	QWidgetAction* calValAct { nullptr };
+	QLabel *AngleTxt { nullptr };
+	QLabel *PWidthTxt { nullptr };
+	ScrSpinBox *Angle { nullptr };
+	ScrSpinBox *PWidth { nullptr };
 };
 
 #endif

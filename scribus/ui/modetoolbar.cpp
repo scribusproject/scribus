@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "polyprops.h"
 #include "scraction.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scrspinbox.h"
 
@@ -44,7 +45,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 									100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 0.0, 100.0, 0.0, 100.0,
 									0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
 	ShapeVals = AutoShapes0;
-	m_ScMW=parent;
+	m_ScMW = parent;
 	this->addAction(m_ScMW->scrActions["toolsSelect"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertTextFrame"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertImageFrame"]);
@@ -106,9 +107,11 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsEyeDropper"]);
 
 	languageChange();
+
 	connect(autoFormButtonGroup, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(SelShape(int, int, qreal *)));
 	connect(Angle, SIGNAL(valueChanged(double)), this, SLOT(newCalValues()));
 	connect(PWidth, SIGNAL(valueChanged(double)), this, SLOT(newCalValues()));
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 ModeToolBar::~ModeToolBar()
@@ -136,7 +139,7 @@ void ModeToolBar::GetPolyProps()
 
 void ModeToolBar::SelShape(int s, int c, qreal *vals)
 {
-	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(autoFormButtonGroup->getIconPixmap(s,16)));
+	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(autoFormButtonGroup->getIconPixmap(s, 16)));
 	SubMode = s;
 	ValCount = c;
 	ShapeVals = vals;
@@ -158,6 +161,11 @@ void ModeToolBar::setDoc(ScribusDoc* doc)
 {
 	Angle->setValue(doc->itemToolPrefs().calligraphicPenAngle);
 	PWidth->setValue(doc->itemToolPrefs().calligraphicPenWidth);
+}
+
+void ModeToolBar::iconSetChange()
+{
+	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(autoFormButtonGroup->getIconPixmap(0, 16)));
 }
 
 void ModeToolBar::languageChange()
