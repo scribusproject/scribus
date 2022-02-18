@@ -97,7 +97,6 @@ QStringList SMStyleImport::commonStyles(QTreeWidgetItem * rootItem, int type)
 
 void SMStyleImport::checkAll(bool allChecked)
 {
-	QStringList ret;
 	QTreeWidgetItemIterator it(styleWidget);
 
 	while (*it)

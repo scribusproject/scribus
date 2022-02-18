@@ -42,7 +42,7 @@ NumFormat NumFormatCombo::currentFormat() const
 	return (NumFormat) currData.toInt();
 }
 
-void NumFormatCombo::languageChange(void)
+void NumFormatCombo::languageChange()
 {
 	if (!m_showNoneFormat)
 		return;

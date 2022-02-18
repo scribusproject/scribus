@@ -6727,7 +6727,7 @@ void PDFLibCore::encodeColor(QDataStream &vs, const QString& colName, int colSha
 
 bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 {
-	QList<double> StopVec;
+//	QList<double> StopVec;
 	QList<double> TransVec;
 	QStringList Gcolors;
 	QStringList colorNames;

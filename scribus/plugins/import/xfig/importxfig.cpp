@@ -1639,7 +1639,7 @@ bool XfigPlug::convert(const QString& fn)
 		tmp = readLineFromDataStream(ts);
 		if (tmp.startsWith("#"))
 			tmp = readLineFromDataStream(ts);
-		QString resolution = tmp;
+//		QString resolution = tmp;
 		while (!ts.atEnd())
 		{
 			tmp = readLineFromDataStream(ts);

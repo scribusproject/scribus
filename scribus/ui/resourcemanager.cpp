@@ -1035,7 +1035,7 @@ void ResourceManager::downloadFilesFinished()
 						else
 						{
 							const QStringList zipFileContents(fun->files());
-							QStringList extractFiles(d.extractfiles.split(";", Qt::SkipEmptyParts));
+//							QStringList extractFiles(d.extractfiles.split(";", Qt::SkipEmptyParts));
 							QString toDir(ScPaths::userFontDir(false)+fi.baseName()+"/");
 							QDir dir(ScPaths::userFontDir(false));
 							if (!dir.exists(fi.baseName()))
@@ -1119,7 +1119,7 @@ void ResourceManager::downloadFilesFinished()
 							else
 							{
 								const QStringList zipFileContents(fun->files());
-								QStringList extractFiles(d.extractfiles.split(";", Qt::SkipEmptyParts));
+//								QStringList extractFiles(d.extractfiles.split(";", Qt::SkipEmptyParts));
 								QString toDir(ScPaths::userHelpFilesDir(false)+d.lang+"/");
 								QDir dir(ScPaths::userHelpFilesDir(false));
 								if (!dir.exists(d.lang))

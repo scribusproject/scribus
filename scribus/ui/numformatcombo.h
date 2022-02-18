@@ -32,7 +32,7 @@ protected:
 	bool m_showNoneFormat { false };
 	
 	void changeEvent(QEvent *e) override;
-	void languageChange(void);
+	void languageChange();
 	void setupCombo();
 };
 

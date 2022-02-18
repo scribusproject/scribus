@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QObject>
 #include <QDebug>
-#include <setjmp.h>
+#include <csetjmp>
 #include "scimgdataloader_gmagick.h"
 #include "scconfig.h"
 
