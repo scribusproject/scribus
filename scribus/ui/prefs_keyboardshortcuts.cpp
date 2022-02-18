@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 
 #include "actionmanager.h"
+#include "api/api_application.h"
 #include "commonstrings.h"
 #include "iconmanager.h"
 #include "pluginmanager.h"
@@ -277,7 +278,10 @@ QStringList Prefs_KeyboardShortcuts::scanForSets()
 		if (docElem.tagName() == "shortcutset" && docElem.hasAttribute("name"))
 		{
 			QDomAttr nameAttr = docElem.attributeNode( "name" );
-			appNames.append(nameAttr.value());
+			if(nameAttr.value().contains(ScribusAPI::getVersionScribus().remove(".svn")))
+				appNames.prepend(nameAttr.value());
+			else
+				appNames.append(nameAttr.value());
 			keySetList.insert(nameAttr.value(), filename);
 		}
 	}

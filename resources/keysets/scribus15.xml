@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<shortcutset name="Scribus 1.5.8">
+<shortcutset name="Scribus 1.5.9">
     <function name="BarcodeGenerator" shortcut=""/>
     <function name="ColorWheel" shortcut=""/>
     <function name="ExportAsImage" shortcut="Ctrl+Shift+E"/>
