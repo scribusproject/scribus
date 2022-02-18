@@ -7,5 +7,6 @@ icalamus.xml
 pageplusx3.xml
 pagestream.xml
 scribus15.xml
-  DESTINATION ${SHAREDIR}keysets
+scribus17.xml
+DESTINATION ${SHAREDIR}keysets
 )
