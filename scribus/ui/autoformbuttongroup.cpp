@@ -76,7 +76,7 @@ AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QMenu( parent )
 	addMenu(menu5);
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
-	connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(selForm(int)));
+	connect(signalMapper, SIGNAL(mappedInt(int)), this, SLOT(selForm(int)));
 }
 
 void AutoformButtonGroup::addShape(QMenu* menu, int shapenum)
