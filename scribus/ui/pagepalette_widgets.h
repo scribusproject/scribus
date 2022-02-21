@@ -44,7 +44,7 @@ class SCRIBUS_API SeItem : public QTableWidgetItem
 	friend class SeView;
 
 public:
-	SeItem(const QString& text, uint pgnr, const QPixmap& Pix);
+	SeItem(const QString& text, uint pgnr, const QPixmap& pix);
 	~SeItem() {};
 
 	const QString& getPageName();
@@ -104,7 +104,7 @@ public:
 signals:
 	void UseTemp(QString, int);
 	void NewPage(int, QString);
-	void movePage(int,int);
+	void movePage(int, int);
 	void Click(int, int, int);
 	void delPageRequest(int);
 

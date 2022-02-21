@@ -29,8 +29,8 @@ for which a new license (GPL+exception) is in place.
 
 
 /* IconItems Code */
-SeItem::SeItem(const QString& text, uint nr, const QPixmap& Pix)
-	: QTableWidgetItem(QIcon(Pix), "", 1002),
+SeItem::SeItem(const QString& text, uint nr, const QPixmap& pix)
+	: QTableWidgetItem(QIcon(pix), "", 1002),
 	  pageNumber(nr),
 	  pageName(text)
 {
