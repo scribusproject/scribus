@@ -239,15 +239,16 @@ void PagePalette_Pages::rebuildPages()
 		return;
 	}
 
+	const PageSet& currentPageSet = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()];
 	pageLayout->updateLayoutSelector(currView->m_doc->pageSets());
 	pageLayout->selectItem(currView->m_doc->pagePositioning());
-	pageLayout->firstPage->setCurrentIndex(currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].FirstPage);
+	pageLayout->firstPage->setCurrentIndex(currentPageSet.FirstPage);
 	pageView->m_pageCount = currView->m_doc->DocPages.count();
 
-	int counter = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].FirstPage;
-	int cols = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns;
-	int rows = (currView->m_doc->DocPages.count()+counter) / currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns;
-	if (((currView->m_doc->DocPages.count()+counter) % currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns) != 0)
+	int counter = currentPageSet.FirstPage;
+	int cols = currentPageSet.Columns;
+	int rows = (currView->m_doc->DocPages.count()+counter) / currentPageSet.Columns;
+	if (((currView->m_doc->DocPages.count()+counter) % currentPageSet.Columns) != 0)
 		rows++;
 	int rowcounter = 0;
 	int colmult, rowmult, coladd, rowadd;
@@ -285,7 +286,7 @@ void PagePalette_Pages::rebuildPages()
 	pageView->m_rowadd = rowadd;
 	pageView->m_rowmult = rowmult;
 	pageView->m_firstPage = counter;
-	pageView->m_cols = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns;
+	pageView->m_cols = currentPageSet.Columns;
 
 	int columnWidth = pix.width() * pageView->devicePixelRatioF();
 	int rowHeight = pix.height() * pageView->devicePixelRatioF();
@@ -308,7 +309,7 @@ void PagePalette_Pages::rebuildPages()
 		else
 			pageView->setRowHeight(rowcounter * rowmult + rowadd, rowHeight + rowHeight5);
 		counter++;
-		if (counter > currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns - 1)
+		if (counter > currentPageSet.Columns - 1)
 		{
 			counter = 0;
 			rowcounter++;
