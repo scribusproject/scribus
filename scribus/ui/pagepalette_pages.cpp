@@ -199,13 +199,14 @@ void PagePalette_Pages::rebuildMasters()
 {
 	if (m_scMW->scriptIsRunning())
 		return;
+
 	masterPageList->clear();
 	if (currView == nullptr)
 		return;
+
 	QPixmap pm;
 	QListWidgetItem* item;
-	QMap<QString,int>::Iterator it;
-	for (it = currView->m_doc->MasterNames.begin(); it != currView->m_doc->MasterNames.end(); ++it)
+	for (auto it = currView->m_doc->MasterNames.cbegin(); it != currView->m_doc->MasterNames.cend(); ++it)
 	{
 		const QString& pageName = it.key();
 		QString pageLabel = (pageName == CommonStrings::masterPageNormal) ? CommonStrings::trMasterPageNormal : pageName;
@@ -224,9 +225,10 @@ void PagePalette_Pages::rebuildPages()
 {
 	if (m_scMW->scriptIsRunning())
 		return;
-	QString str;
+
 	disconnect(pageLayout, SIGNAL(selectedLayout(int)), this, SLOT(handlePageLayout(int)));
 	disconnect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
+
 	pageView->clearContents();
 	pageView->setRowCount(1);
 	pageView->setColumnCount(1);
@@ -236,10 +238,12 @@ void PagePalette_Pages::rebuildPages()
 		connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
 		return;
 	}
+
 	pageLayout->updateLayoutSelector(currView->m_doc->pageSets());
 	pageLayout->selectItem(currView->m_doc->pagePositioning());
 	pageLayout->firstPage->setCurrentIndex(currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].FirstPage);
 	pageView->m_pageCount = currView->m_doc->DocPages.count();
+
 	int counter = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].FirstPage;
 	int cols = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns;
 	int rows = (currView->m_doc->DocPages.count()+counter) / currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns;
@@ -250,7 +254,7 @@ void PagePalette_Pages::rebuildPages()
 	if (cols == 1)
 	{
 		pageView->setColumnCount(cols);
-		pageView->setRowCount(rows*2+1);
+		pageView->setRowCount(rows * 2 + 1);
 		colmult = 1;
 		coladd = 0;
 		rowmult = 2;
@@ -258,64 +262,72 @@ void PagePalette_Pages::rebuildPages()
 	}
 	else
 	{
-		pageView->setColumnCount(cols*2);
-		pageView->setRowCount(rows+1);
+		pageView->setColumnCount(cols * 2);
+		pageView->setRowCount(rows + 1);
 		colmult = 2;
 		coladd = 1;
 		rowmult = 1;
 		rowadd = 0;
 	}
-	for (int rr = 0; rr < pageView->rowCount(); rr++)
+
+	for (int row = 0; row < pageView->rowCount(); ++row)
 	{
-		for (int cc = 0; cc < pageView->columnCount(); cc++)
+		for (int column = 0; column < pageView->columnCount(); ++column)
 		{
 			QTableWidgetItem *tW = new QTableWidgetItem(1001);
 			tW->setFlags(Qt::ItemIsEnabled);
-			pageView->setItem(rr, cc, tW);
+			pageView->setItem(row, column, tW);
 		}
 	}
+
 	pageView->m_coladd = coladd;
 	pageView->m_colmult = colmult;
 	pageView->m_rowadd = rowadd;
 	pageView->m_rowmult = rowmult;
 	pageView->m_firstPage = counter;
 	pageView->m_cols = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns;
+
+	int columnWidth = pix.width() * pageView->devicePixelRatioF();
+	int rowHeight = pix.height() * pageView->devicePixelRatioF();
+	int rowHeight5 = 5 * pageView->devicePixelRatioF();
+	int rowHeight10 = 10 * pageView->devicePixelRatioF();
+
 	pageList.clear();
-	for (int a = 0; a < currView->m_doc->DocPages.count(); ++a)
+	for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)
 	{
-		str = currView->m_doc->DocPages.at(a)->masterPageName();
-		SeItem *it = new SeItem(str, a, createIcon(a, str, pix));
+		QString str = currView->m_doc->DocPages.at(i)->masterPageName();
+		SeItem *it = new SeItem(str, i, createIcon(i, str, pix));
 		pageList.append(it);
-		pageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, (QTableWidgetItem *)it);
-		pageView->setColumnWidth(counter*colmult+coladd, pix.width());
+		pageView->setItem(rowcounter * rowmult + rowadd, counter * colmult + coladd, it);
+		pageView->setColumnWidth(counter * colmult + coladd, columnWidth);
 		if (cols == 1)
 		{
-			pageView->setRowHeight(rowcounter*rowmult, 10);
-			pageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height());
+			pageView->setRowHeight(rowcounter * rowmult, 10);
+			pageView->setRowHeight(rowcounter * rowmult + rowadd, rowHeight);
 		}
 		else
-			pageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height()+5);
+			pageView->setRowHeight(rowcounter * rowmult + rowadd, rowHeight + rowHeight5);
 		counter++;
-		if (counter > currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns-1)
+		if (counter > currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns - 1)
 		{
 			counter = 0;
 			rowcounter++;
 		}
 	}
-	pageView->setRowHeight(pageView->rowCount()-1, 10);
-	counter = 0;
+	pageView->setRowHeight(pageView->rowCount() - 1, rowHeight10);
+
 	if (cols != 1)
 	{
-		for (int c = 0; c < pageView->columnCount(); ++c)
+		for (int i = 0; i < pageView->columnCount(); ++i)
 		{
-			if ((counter % 2) == 0)
-				pageView->setColumnWidth(counter, 10);
+			if ((i % 2) == 0)
+				pageView->setColumnWidth(i, rowHeight10);
 			else
-				pageView->setColumnWidth(counter, pix.width());
-			counter++;
+				pageView->setColumnWidth(i, columnWidth);
 		}
 	}
-	pageView->repaint();
+
+	pageView->update();
 	if (currView != nullptr)
 		markPage(currView->m_doc->currentPageNumber());
 	connect(pageLayout, SIGNAL(selectedLayout(int)), this, SLOT(handlePageLayout(int)));
@@ -365,34 +377,33 @@ void PagePalette_Pages::selMasterPage()
 
 QPixmap PagePalette_Pages::createIcon(int number, QString masterPage, const QPixmap& pixin)
 {
-	QPainter p;
 	// Necessary on windows to ensure the pixmap is drawable
-	QPixmap ret(pixin.width(), pixin.height()); // Qt4, pixin.depth());
-	if (p.begin(&ret))
-	{
-		p.drawPixmap( 0, 0, pixin );
-//		if( !pixin.mask().isNull() )
-//			ret.setMask( pixin.mask() );
-		p.setBrush(Qt::white);
-		p.setBackground(Qt::white);
-		p.setBackgroundMode(Qt::OpaqueMode);
-		p.setPen(QPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		//p.setFont(QFont("Helvetica", 12, QFont::Bold));
-		//QString tmp = tmp.setNum(nr+1);
-		QString tmp(currView->m_doc->getSectionPageNumberForPageIndex(number));
-		if (tmp.isEmpty())
-			tmp = tmp.setNum(number + 1);
-		QRegExp Exp ("([A-Z]*[0-9]*)( *[\\.|\\-|_] *)(.*)");
-		if (Exp.indexIn(masterPage) != -1)
-			masterPage = Exp.cap(1);
-		QRect d = QRect(0, 0, ret.width(), ret.height());
-	//	p.fillRect(d.adjusted(-1, -1, -1, -1), color);
-		p.setFont(QFont("Helvetica", 7, QFont::Normal));
-		p.drawText(d, Qt::AlignCenter, tmp+"\n"+masterPage);
-		p.end();
-		if( !pixin.mask().isNull() )
-			ret.setMask( pixin.mask() );
-	}
+	QPixmap ret(pixin.width() * devicePixelRatioF(), pixin.height() * devicePixelRatioF());
+	ret.setDevicePixelRatio(devicePixelRatioF());
+
+	QPainter p;
+	if (!p.begin(&ret))
+		return ret;
+
+	p.drawPixmap(0, 0, pixin);
+	p.setBrush(Qt::white);
+	p.setBackground(Qt::white);
+	p.setBackgroundMode(Qt::OpaqueMode);
+	p.setPen(QPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	QString tmp(currView->m_doc->getSectionPageNumberForPageIndex(number));
+	if (tmp.isEmpty())
+		tmp = tmp.setNum(number + 1);
+	QRegExp regExp ("([A-Z]*[0-9]*)( *[\\.|\\-|_] *)(.*)");
+	if (regExp.indexIn(masterPage) != -1)
+		masterPage = regExp.cap(1);
+	QRect rect(0, 0, pixin.width(), pixin.height());
+	p.setRenderHint(QPainter::TextAntialiasing, true);
+	p.setFont(QFont("Helvetica", 7, QFont::Normal));
+	p.drawText(rect, Qt::AlignCenter, tmp + "\n" + masterPage);
+	p.end();
+
+	if (!pixin.mask().isNull())
+		ret.setMask( pixin.mask() );
 	return ret;
 }
 
