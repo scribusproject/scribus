@@ -108,6 +108,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);$(POPPLER_LIB);$(ZLIB_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -133,6 +134,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);$(POPPLER_LIB);$(ZLIB_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -161,6 +163,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);$(POPPLER_LIB);$(ZLIB_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -191,6 +194,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);$(POPPLER_LIB);$(ZLIB_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
