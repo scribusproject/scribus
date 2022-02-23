@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 #include <QList>
 #include <QMimeData>
-#include <QRegExp>
 #include <QStack>
 #include <QDebug>
 

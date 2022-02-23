@@ -14,7 +14,6 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QPixmap>
 #include <QPushButton>
-#include <QRegExp>
 #include <QTextEdit>
 #include <QToolTip>
 

@@ -19,6 +19,7 @@
 #include <algorithm>
 
 #include <QPainter>
+#include <QRegExp>
 #include <QUrl>
 
 #include "previewimage.h"

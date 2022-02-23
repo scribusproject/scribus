@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QMimeData>
 #include <QPainterPath>
-#include <QRegExp>
 #include <QStack>
 #include <QTemporaryFile>
 

@@ -139,16 +139,14 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 		loadRawBytes(fileName, docBytes, 1024);
 	}
 
-	QRegExp regExp134("Version=\"1.3.[4-9]");
-	QRegExp regExp140("Version=\"1.4.[0-9]");
 	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
-	if (startElemPos >= 0)
-	{
-		bool is134 = (regExp134.indexIn(docBytes.mid(startElemPos, 64)) >= 0);
-		bool is140 = (regExp140.indexIn(docBytes.mid(startElemPos, 64)) >= 0);
-		return (is134 || is140);
-	}
-	return false;
+	if (startElemPos < 0)
+		return false;
+	QRegularExpression regExp134("Version=\"1.3.[4-9]");
+	QRegularExpression regExp140("Version=\"1.4.[0-9]");
+	QRegularExpressionMatch match134 = regExp134.match(docBytes.mid(startElemPos, 64));
+	QRegularExpressionMatch match140 = regExp140.match(docBytes.mid(startElemPos, 64));
+	return match134.hasMatch() || match140.hasMatch();
 }
 
 QIODevice* Scribus134Format::slaReader(const QString & fileName)

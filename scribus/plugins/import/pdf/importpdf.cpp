@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include <QInputDialog>
 #include <QList>
 #include <QMimeData>
-#include <QRegExp>
 #include <QStack>
 
 #include <poppler/ErrorCodes.h>

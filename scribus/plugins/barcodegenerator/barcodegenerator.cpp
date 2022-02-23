@@ -87,20 +87,21 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 		if (restype=="ENCODER")
 		{
-			QRegExp rxhead(
+			QRegularExpression rxhead(
 						"% --REQUIRES (.*)--[\\r\\n]+"
 						"% --DESC:(.*)[\\r\\n]+"
 						"% --EXAM:(.*)[\\r\\n]+"
 						"% --EXOP:(.*)[\\r\\n]+"
 						"% --RNDR:(.*)[\\r\\n]+"
 						);
-			if (rxhead.indexIn(reshead) >= 0)
+			QRegularExpressionMatch match = rxhead.match(reshead);
+			if (match.hasMatch())
 			{
-				resreqs[resname] = rxhead.cap(1).trimmed();
-				resdescs[resname] = rxhead.cap(2).trimmed();
-				resexams[resname] = rxhead.cap(3).trimmed();
-				resexops[resname] = rxhead.cap(4).trimmed();
-				resrndrs[resname] = rxhead.cap(5).trimmed();
+				resreqs[resname] = match.captured(1).trimmed();
+				resdescs[resname] = match.captured(2).trimmed();
+				resexams[resname] = match.captured(3).trimmed();
+				resexops[resname] = match.captured(4).trimmed();
+				resrndrs[resname] = match.captured(5).trimmed();
 				encoderlist.append(resname);
 			}
 		}

@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <QPainter>
 #include <QPixmap>
-#include <QRegExp>
 #include <QStringList>
 #include <QTransform>
 

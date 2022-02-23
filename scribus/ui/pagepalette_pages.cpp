@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QMessageBox>
 #include <QPainter>
+#include <QRegularExpression>
 
 #include "commonstrings.h"
 #include "iconmanager.h"
@@ -394,9 +395,10 @@ QPixmap PagePalette_Pages::createIcon(int number, QString masterPage, const QPix
 	QString tmp(currView->m_doc->getSectionPageNumberForPageIndex(number));
 	if (tmp.isEmpty())
 		tmp = tmp.setNum(number + 1);
-	QRegExp regExp ("([A-Z]*[0-9]*)( *[\\.|\\-|_] *)(.*)");
-	if (regExp.indexIn(masterPage) != -1)
-		masterPage = regExp.cap(1);
+	QRegularExpression regExp ("([A-Z]*[0-9]*)( *[\\.|\\-|_] *)(.*)");
+	QRegularExpressionMatch match = regExp.match(masterPage);
+	if (match.hasMatch())
+		masterPage = match.captured(1);
 	QRect rect(0, 0, pixin.width(), pixin.height());
 	p.setRenderHint(QPainter::TextAntialiasing, true);
 	p.setFont(QFont("Helvetica", 7, QFont::Normal));

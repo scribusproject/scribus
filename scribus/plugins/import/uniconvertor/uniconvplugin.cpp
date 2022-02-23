@@ -23,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QMimeData>
 #include <QPainterPath>
-#include <QRegExp>
 #include <cmath>
 
 #include "commonstrings.h"

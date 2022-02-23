@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPoint>
 #include <QPushButton>
 #include <QRadioButton>
-#include <QRegExp>
 #include <QSpacerItem>
 #include <QSpinBox>
 #include <QStackedWidget>

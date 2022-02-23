@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QFile>
 #include <QFileInfo>
-#include <QRegExp>
 #include <QStringView>
 
 #include "cmsettings.h"

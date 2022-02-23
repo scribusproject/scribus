@@ -26,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QLineEdit>
 #include <QRegExp>
-//Added by qt3to4:
 #include <QWheelEvent>
 #include <QKeyEvent>
 #include <QEvent>

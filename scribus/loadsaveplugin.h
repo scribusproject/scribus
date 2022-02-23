@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include "scplugin.h"
 
 #include <QString>
-#include <QRegExp>
 #include <QIODevice>
 #include <QProgressBar>
 #include <QStringList>
@@ -250,8 +249,6 @@ class SCRIBUS_API FileFormat
 		// A filter in the format used by QFileDialog that should be used to
 		// select for this format.
 		QString filter;
-		// Regexp to match filenames for this format
-	//	QRegExp nameMatch;
 		// MIME type(s) that should be matched by this format.
 		QStringList mimeTypes;
 		// Extension list supported by format

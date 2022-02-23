@@ -146,14 +146,14 @@ bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & file
 		loadRawBytes(fileName, docBytes, 1024);
 	}
 
-	QRegExp regExp150("Version=\"1.5.[0-9]");
 	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
-	if (startElemPos >= 0)
-	{
-		bool is150 = (regExp150.indexIn(docBytes.mid(startElemPos, 64)) >= 0);
-		return is150;
-	}
-	return false;
+	if (startElemPos < 0)
+		return false;
+	QRegularExpression regExp150("Version=\"1.5.[0-9]");
+	QRegularExpression regExp170("Version=\"1.7.[0-9]");
+	QRegularExpressionMatch match150 = regExp150.match(docBytes.mid(startElemPos, 64));
+	QRegularExpressionMatch match170 = regExp170.match(docBytes.mid(startElemPos, 64));
+	return match150.hasMatch() | match170.hasMatch();
 }
 
 bool Scribus150Format::paletteSupported(QIODevice* /* file */, const QString & fileName) const
@@ -182,14 +182,12 @@ bool Scribus150Format::paletteSupported(QIODevice* /* file */, const QString & f
 
 bool Scribus150Format::storySupported(const QByteArray& storyData) const
 {
-	QRegExp regExp150("Version=\"1.5.[0-9]");
 	int startElemPos = storyData.left(512).indexOf("<ScribusStory ");
-	if (startElemPos >= 0)
-	{
-		bool is150 = (regExp150.indexIn(storyData.mid(startElemPos, 64)) >= 0);
-		return is150;
-	}
-	return false;
+	if (startElemPos < 0)
+		return false;
+	QRegularExpression regExp150("Version=\"1.5.[0-9]");
+	QRegularExpressionMatch match = regExp150.match(storyData.mid(startElemPos, 64));
+	return match.hasMatch();
 }
 
 QIODevice* Scribus150Format::slaReader(const QString & fileName)

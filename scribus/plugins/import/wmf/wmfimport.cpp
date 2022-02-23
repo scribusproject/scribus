@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 #include <QMimeData>
 #include <QPainterPath>
-#include <QRegExp>
 
 #include "commonstrings.h"
 #include "fpointarray.h"

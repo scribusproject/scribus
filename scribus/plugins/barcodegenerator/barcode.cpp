@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QRegularExpression>
+
 #include "barcode.h"
 #include "barcodegenerator.h"
 #include "scribuscore.h"
@@ -58,9 +60,10 @@ const ScActionPlugin::AboutData* Barcode::getAboutData() const
 		QTextStream ts(&f);
 		QString bwipp = ts.read(150);
 		f.close();
-		QRegExp rx("\\n% Barcode Writer in Pure PostScript - Version ([\\d-]+)\\n");
-		if (rx.indexIn(bwipp) >= 0)
-			about->version = "Backend: " + rx.cap(1);
+		QRegularExpression rx("\\n% Barcode Writer in Pure PostScript - Version ([\\d-]+)\\n");
+		QRegularExpressionMatch match = rx.match(bwipp);
+		if (match.hasMatch())
+			about->version = "Backend: " + match.captured(1);
 		else
 			about->version = "Backend: Unknown";
 	}

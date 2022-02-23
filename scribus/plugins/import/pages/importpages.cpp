@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QMessageBox>
 #include <QMimeData>
-#include <QRegExp>
 #include <QStack>
 #include <QDebug>
 
@@ -418,7 +417,6 @@ bool PagesPlug::convert(QString fn)
 #include <QFile>
 #include <QList>
 #include <QMimeData>
-#include <QRegExp>
 #include <QStack>
 #include <QUrl>
 #include <QDebug>

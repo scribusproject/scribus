@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QtAlgorithms>
 #include <QCursor>
-#include <QRegExp>
 #include <QDir>
 #include <QTextCodec>
 #include <QCheckBox>

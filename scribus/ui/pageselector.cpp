@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include <QLineEdit>
 #include <QPixmap>
 #include <QPushButton>
-#include <QRegExp>
 #include <QSignalBlocker>
 #include <QToolTip>
 #include <QValidator>

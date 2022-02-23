@@ -53,14 +53,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QProgressBar>
 #include <QPushButton>
-//<<QML testing
-//#include <QQuickView>
-//#include <QQmlEngine>
-//#include <QQmlComponent>
-//#include <QQuickItem>
-//#include <QQmlProperty>
-//>>
-#include <QRegExp>
 #include <QScopedPointer>
 #include <QScreen>
 #include <QStyleFactory>

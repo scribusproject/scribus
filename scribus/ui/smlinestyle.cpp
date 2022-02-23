@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QEvent>
-#include <QRegExp>
+#include <QRegularExpression>
 
 #include "colorcombo.h"
 #include "smlinestyle.h"
@@ -216,17 +216,17 @@ QString SMLineStyle::getUniqueName(const QString &name)
 	// both the number and the text leading up to it sans brackets.
 	//     Copy of fred (5)
 	//     ^^^^^^^^^^^^  ^   (where ^ means captured)
-	static QRegExp rx("^(.*)\\s+\\((\\d+)\\)$");
-	int numMatches = rx.lastIndexIn(name);
+	static QRegularExpression rx("^(.*)\\s+\\((\\d+)\\)$");
+	QRegularExpressionMatch match = rx.match(name);
 	// Add a (number) suffix to the end of the name. We start at the
 	// old suffix's value if there was one, or at 2 if there was not.
 	int suffixNum = 1;
 	QString prefix(newName);
-	if (numMatches != -1)
+	if (match.hasMatch())
 	{
 		// Already had a suffix; use the name w/o suffix for prefix and
 		// grab the old suffix value as a starting point.
-		QStringList matches = rx.capturedTexts();
+		QStringList matches = match.capturedTexts();
 		prefix = matches[1];
 		suffixNum = matches[2].toInt();
 	}

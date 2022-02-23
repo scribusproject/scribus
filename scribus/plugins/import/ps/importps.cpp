@@ -13,14 +13,11 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QMessageBox>
 #include <QMimeData>
-#include <QRegExp>
 #include <QStack>
 
 #include <cstdlib>
 
 #include "importps.h"
-
-
 #include "commonstrings.h"
 #include "loadsaveplugin.h"
 #include "prefscontext.h"

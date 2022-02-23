@@ -11,7 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include <QLineEdit>
 #include <QPushButton>
 #include <QMessageBox>
-#include <QRegExp>
 #include <QValidator>
 #include <QRegularExpressionValidator>
 

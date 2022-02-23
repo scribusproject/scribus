@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "filesearch.h"
 #include <QTimer>
-#include <QRegExp>
+#include <QRegularExpression>
 
 
 enum FileSearchStatus
@@ -157,11 +157,12 @@ void FileSearch::addCurrentDirFiles()
 	else
 	{
 		// unix only, resp. no meaning in windows
-		QRegExp r(m_fileName, Qt::CaseInsensitive, QRegExp::Wildcard);
+		QRegularExpression r(m_fileName, QRegularExpression::CaseInsensitiveOption);
 		while (it.hasNext())
 		{
 			fi = it.next();
-			if (r.exactMatch(fi.fileName()))
+			QRegularExpressionMatch match = r.match(fi.fileName());
+			if (match.hasMatch())
 				m_matchingFiles.push_back(fi.absoluteFilePath());
 		}
 // Qt4

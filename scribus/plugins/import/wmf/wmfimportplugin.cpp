@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QCursor>
 #include <QFile>
 #include <QMessageBox>
-#include <QRegExp>
 
 #include "ui/customfdialog.h"
 

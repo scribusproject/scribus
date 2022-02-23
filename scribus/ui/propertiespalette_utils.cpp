@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 #include <QListView>
 #include <QMenu>
 #include <QObject>
-#include <QRegExp>
 #include <QToolTip>
 #include <QValidator>
 #include <QWidget>

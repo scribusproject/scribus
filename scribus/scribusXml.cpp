@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include <QCursor>
 #include <QDir>
 #include <QFile>
-#include <QRegExp>
 #include <QTextCodec>
 #include <QTextStream>
 #include <QXmlStreamReader>

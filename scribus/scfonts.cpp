@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include <QGlobalStatic>
 #include <QHash>
 #include <QMap>
-#include <QRegExp>
 #include <QRawFont>
 #ifdef Q_OS_WIN32
 #include <QSet>
