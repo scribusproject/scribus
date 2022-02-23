@@ -186,8 +186,10 @@ bool Scribus150Format::storySupported(const QByteArray& storyData) const
 	if (startElemPos < 0)
 		return false;
 	QRegularExpression regExp150("Version=\"1.5.[0-9]");
-	QRegularExpressionMatch match = regExp150.match(storyData.mid(startElemPos, 64));
-	return match.hasMatch();
+	QRegularExpression regExp170("Version=\"1.7.[0-9]");
+	QRegularExpressionMatch match150 = regExp150.match(storyData.mid(startElemPos, 64));
+	QRegularExpressionMatch match170 = regExp170.match(storyData.mid(startElemPos, 64));
+	return match150.hasMatch() | match170.hasMatch();
 }
 
 QIODevice* Scribus150Format::slaReader(const QString & fileName)
