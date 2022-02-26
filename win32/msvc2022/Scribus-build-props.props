@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets">
+  </ImportGroup>
+  <!-- Import Scribus dependencies (other than Qt) -->
+  <PropertyGroup Label="UserMacros">
+	<SCRIBUS_LIB_ROOT>F:\Scribus Libs\scribus-1.7.x-libs-msvc</SCRIBUS_LIB_ROOT>
+  </PropertyGroup>
+  <Import Project="$(SCRIBUS_LIB_ROOT)\scribus-lib-paths.props" />
+  <!-- Import Qt6 -->
+  <PropertyGroup Label="UserMacros">
+	<!-- Qt6 -->
+	<QT6_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt\6.2.3\msvc2019</QT6_DIR>
+	<QT6_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt\6.2.3\msvc2019_64</QT6_DIR>
+	<QT6_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt\6.2.3\msvc2019</QT6_DIR>
+	<QT6_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt\6.2.3\msvc2019_64</QT6_DIR>
+	<QT6CORE_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Cored.lib</QT6CORE_LIB>
+	<QT6CORE_LIB Condition="'$(Configuration)' == 'Release'">Qt6Core.lib</QT6CORE_LIB>
+	<QT6CORE5COMPAT_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Core5Compatd.lib</QT6CORE5COMPAT_LIB>
+	<QT6CORE5COMPAT_LIB Condition="'$(Configuration)' == 'Release'">Qt6Core5Compat.lib</QT6CORE5COMPAT_LIB>
+	<QT6GUI_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Guid.lib</QT6GUI_LIB>
+	<QT6GUI_LIB Condition="'$(Configuration)' == 'Release'">Qt6Gui.lib</QT6GUI_LIB>
+	<QT6NETWORK_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Networkd.lib</QT6NETWORK_LIB>
+	<QT6NETWORK_LIB Condition="'$(Configuration)' == 'Release'">Qt6Network.lib</QT6NETWORK_LIB>
+	<QT6PRINTSUPPORT_LIB Condition="'$(Configuration)' == 'Debug'">Qt6PrintSupportd.lib</QT6PRINTSUPPORT_LIB>
+	<QT6PRINTSUPPORT_LIB Condition="'$(Configuration)' == 'Release'">Qt6PrintSupport.lib</QT6PRINTSUPPORT_LIB>
+	<QT6WIDGETS_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Widgetsd.lib</QT6WIDGETS_LIB>
+	<QT6WIDGETS_LIB Condition="'$(Configuration)' == 'Release'">Qt6Widgets.lib</QT6WIDGETS_LIB>
+	<QT6XML_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Xmld.lib</QT6XML_LIB>
+	<QT6XML_LIB Condition="'$(Configuration)' == 'Release'">Qt6Xml.lib</QT6XML_LIB>
+	<!-- LittleCMS 2 -->
+	<LCMS_DIR>$(LCMS2_DIR)</LCMS_DIR>
+	<LCMS_INCLUDE_DIR>$(LCMS2_INCLUDE_DIR)</LCMS_INCLUDE_DIR>
+	<LCMS_LIB_DIR>$(LCMS2_LIB_DIR)</LCMS_LIB_DIR>
+	<LCMS_LIB>$(LCMS2_LIB)</LCMS_LIB>
+  </PropertyGroup>
+  <!-- MSVC stuff -->
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.60610.1</_ProjectFileVersion>
+  </PropertyGroup>
+</Project>
