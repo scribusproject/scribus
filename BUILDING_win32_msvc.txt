@@ -16,6 +16,7 @@ Provided solutions have been tested with following Microsoft Visual Studion edit
 - Microsoft Visual Studio 2015 Express and Professional
 - Microsoft Visual Studio 2017 Express, Community and Professional
 - Microsoft Visual Studio 2019 Community and Professional
+- Microsoft Visual Studio 2022 Community and Professional
 
 GETTING DEPENDENCIES
 ====================
@@ -43,8 +44,8 @@ https://doc.qt.io/qt-5/windows-building.html
 Start a command line and import your Visual Studio environment:
 - for building 32bit on Visual Studio 2015: \path\to\visual\studio\VC\vcvarsall.bat x86
 - for building 64bit on Visual Studio 2015: \path\to\visual\studio\VC\vcvarsall.bat x86_amd64
-- for building 32bit on Visual Studio 2017 or 2019: \path\to\visual\studio\VC\Auxiliary\Build\vcvarsall.bat x86
-- for building 64bit on Visual Studio 2017 or 2019: \path\to\visual\studio\VC\Auxiliary\Build\vcvarsall.bat x86_amd64
+- for building 32bit on Visual Studio 2017, 2019 or 2022: \path\to\visual\studio\VC\Auxiliary\Build\vcvarsall.bat x86
+- for building 64bit on Visual Studio 2017, 2019 or 2022: \path\to\visual\studio\VC\Auxiliary\Build\vcvarsall.bat x86_amd64
 
 Now cd to C:\Developer\qt-everywhere-whatever and run configure:
 configure -platform win32-msvc -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl dynamic -opensource -mp
@@ -94,6 +95,8 @@ build-all-platform-libs.bat script. For example :
 - to build with Visual Studio 2017 default toolset for Win32 platform: build-all-platform-libs.bat Win32 v141
 - to build with Visual Studio 2019 default toolset for x64 platform:   build-all-platform-libs.bat x64   v142
 - to build with Visual Studio 2019 default toolset for Win32 platform: build-all-platform-libs.bat Win32 v142
+- to build with Visual Studio 2022 default toolset for x64 platform:   build-all-platform-libs.bat x64   v143
+- to build with Visual Studio 2022 default toolset for Win32 platform: build-all-platform-libs.bat Win32 v143
 
 BUILDING SCRIBUS
 ====================
