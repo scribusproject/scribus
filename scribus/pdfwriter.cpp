@@ -329,7 +329,7 @@ namespace Pdf
 		return QByteArray::number(v);
 	}
 
-#if !defined(Q_OS_WIN) && !defined(Q_PROCESSOR_X86_32)
+#if !defined(Q_OS_WIN) && (Q_PROCESSOR_WORDSIZE != 4)
 	QByteArray toPdf(size_t v)
 	{
 		return QByteArray::number(v);

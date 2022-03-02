@@ -83,7 +83,7 @@ namespace Pdf
 	/**
 	 Cf. PDF32000-2008, 7.3.3
 	 */
-#if !defined(Q_OS_WIN) && !defined(Q_PROCESSOR_X86_32)
+#if !defined(Q_OS_WIN) && (Q_PROCESSOR_WORDSIZE != 4)
 	QByteArray toPdf(size_t v);
 #endif
 	
