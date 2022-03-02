@@ -31,6 +31,12 @@
 /* Defines if your system has the harfbuzz-subset library */
 #define HAVE_HARFBUZZ_SUBSET 1
 
+/* Defines if your system has the hunspell library */
+#define HAVE_HUNSPELL 1
+
+/* Defines hunspell version if your system has the hunspell library */
+#define HUNSPELL_VERSION "1.7.0"
+
 /* ColorManagement (Windows) */
 #define HAVE_ICM 1
 
