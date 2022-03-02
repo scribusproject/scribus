@@ -15,10 +15,10 @@ for which a new license (GPL+exception) is in place.
 #include "undotransaction.h"
 
 HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, PageItem *item)
-              : QDialog(parent),
-                m_doc(doc),
-                m_item(item),
-                m_iText(&item->itemText)
+	: QDialog(parent),
+	m_doc(doc),
+	m_item(item),
+	m_iText(&item->itemText)
 {
 	setupUi( this );
 	setModal( true );
@@ -27,13 +27,13 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, PageItem *item)
 	connect (ignoreAllPushButton, SIGNAL(clicked()), this, SLOT(ignoreAllWords()));
 	connect (changePushButton, SIGNAL(clicked()), this, SLOT(changeWord()));
 	connect (changeAllPushButton, SIGNAL(clicked()), this, SLOT(changeAllWords()));
-	connect (languagesComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(languageComboChanged(QString)));
+	connect (languagesComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(languageComboChanged(QString)));
 }
 
 HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText * itemText)
-              : QDialog(parent),
-                m_doc(doc),
-                m_iText(itemText)
+	: QDialog(parent),
+	m_doc(doc),
+	m_iText(itemText)
 {
 	setupUi( this );
 	setModal( true );
