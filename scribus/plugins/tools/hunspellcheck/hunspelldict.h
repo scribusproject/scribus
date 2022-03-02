@@ -24,8 +24,8 @@ public:
 	QStringList suggest(const QString& word);
 
 protected:
-	Hunspell*   m_hunspell;
-	QTextCodec* m_codec;
+	Hunspell* m_hunspell {nullptr};
+	QTextCodec* m_codec {nullptr};
 };
 
 #endif

@@ -680,9 +680,14 @@ QString About::generateBuildInfo()
 	buildText.append("</p><p>");
 	buildText.append(tr("cairo: %1").arg(CAIRO_VERSION_STRING));
 	buildText.append("<br>");
-	buildText.append(tr("Harfbuzz: %1").arg(HB_VERSION_STRING));
+	buildText.append(tr("harfbuzz: %1").arg(HB_VERSION_STRING));
 	buildText.append("<br>");
-	buildText.append(tr("littlcms: %1").arg(LCMS_VERSION));
+//note this is detected from cmake  at build time
+#ifdef HAVE_HUNSPELL
+	buildText.append(tr("hunspell: %1 (detected at build time)").arg(HUNSPELL_VERSION));
+	buildText.append("<br>");
+#endif
+	buildText.append(tr("littlecms: %1").arg(LCMS_VERSION));
 	buildText.append("<br>");
 	QString podofoVersion;
 #ifdef HAVE_PODOFO

@@ -9,15 +9,13 @@ for which a new license (GPL+exception) is in place.
 
 #include <hunspell/hunspell.hxx>
 #include <QDebug>
+#include <QString>
 #include <QTextCodec>
 
 #include "scconfig.h"
 
 HunspellDict::HunspellDict(const QString& affPath, const QString& dictPath)
 {
-	m_hunspell = nullptr;
-	m_codec = nullptr;
-
 	QString encoding = "ISO8859-1";
 	m_hunspell = new Hunspell(affPath.toLocal8Bit().constData(), dictPath.toLocal8Bit().constData());
 	if (m_hunspell)
