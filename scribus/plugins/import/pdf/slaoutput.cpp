@@ -332,15 +332,9 @@ LinkAction* SlaOutputDev::SC_getAction(AnnotWidget *ano)
 }
 
 /* Replacement for the crippled Poppler function LinkAction* AnnotWidget::getAdditionalAction(AdditionalActionsType type) */
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 std::unique_ptr<LinkAction> SlaOutputDev::SC_getAdditionalAction(const char *key, AnnotWidget *ano)
 {
 	std::unique_ptr<LinkAction> linkAction;
-#else
-LinkAction* SlaOutputDev::SC_getAdditionalAction(const char *key, AnnotWidget *ano)
-{
-	LinkAction *linkAction = nullptr;
-#endif
 	Object obj;
 	Ref refa = ano->getRef();
 
@@ -467,11 +461,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 				if (dst->isPageRef())
 				{
 					Ref dstr = dst->getPageRef();
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
 					pagNum = pdfDoc->findPage(dstr);
-#else
-					pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
-#endif
 				}
 				else
 					pagNum = dst->getPageNum();
@@ -485,11 +475,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 			POPPLER_CONST GooString *ndst = gto->getNamedDest();
 			if (ndst)
 			{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 				std::unique_ptr<LinkDest> dstn = pdfDoc->findDest(ndst);
-#else
-				LinkDest *dstn = pdfDoc->findDest(ndst);
-#endif
 				if (dstn)
 				{
 					if (dstn->getKind() == destXYZ)
@@ -497,11 +483,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 						if (dstn->isPageRef())
 						{
 							Ref dstr = dstn->getPageRef();
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
 							pagNum = pdfDoc->findPage(dstr);
-#else
-							pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
-#endif
 						}
 						else
 							pagNum = dstn->getPageNum();
@@ -533,11 +515,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 			POPPLER_CONST GooString *ndst = gto->getNamedDest();
 			if (ndst)
 			{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 				std::unique_ptr<LinkDest> dstn = pdfDoc->findDest(ndst);
-#else
-				LinkDest *dstn = pdfDoc->findDest(ndst);
-#endif
 				if (dstn)
 				{
 					if (dstn->getKind() == destXYZ)
@@ -985,11 +963,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 					if (dst->isPageRef())
 					{
 						Ref dstr = dst->getPageRef();
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
 						pagNum = pdfDoc->findPage(dstr);
-#else
-						pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
-#endif
 					}
 					else
 						pagNum = dst->getPageNum();
@@ -1005,11 +979,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 				POPPLER_CONST GooString *ndst = gto->getNamedDest();
 				if (ndst)
 				{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 					std::unique_ptr<LinkDest> dstn = pdfDoc->findDest(ndst);
-#else
-					LinkDest *dstn = pdfDoc->findDest(ndst);
-#endif
 					if (dstn)
 					{
 						if (dstn->getKind() == destXYZ)
@@ -1017,11 +987,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 							if (dstn->isPageRef())
 							{
 								Ref dstr = dstn->getPageRef();
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
 								pagNum = pdfDoc->findPage(dstr);
-#else
-								pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
-#endif
 							}
 							else
 								pagNum = dstn->getPageNum();
@@ -1061,11 +1027,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 				POPPLER_CONST GooString *ndst = gto->getNamedDest();
 				if (ndst)
 				{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 					std::unique_ptr<LinkDest> dstn = pdfDoc->findDest(ndst);
-#else
-					LinkDest *dstn = pdfDoc->findDest(ndst);
-#endif
 					if (dstn)
 					{
 						if (dstn->getKind() == destXYZ)
@@ -1139,143 +1101,91 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 	{
 		if (Aact->getKind() == actionJavaScript)
 		{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
-#else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
-#endif
 			if (jsa->isOk())
 			{
 				ite->annotation().setD_act(UnicodeParsedString(jsa->getScript()));
 				ite->annotation().setAAact(true);
 			}
 		}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 		Aact.reset();
-#else
-		Aact = nullptr;
-#endif
 	}
 	Aact = SC_getAdditionalAction("E", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
 		{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
-#else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
-#endif
 			if (jsa->isOk())
 			{
 				ite->annotation().setE_act(UnicodeParsedString(jsa->getScript()));
 				ite->annotation().setAAact(true);
 			}
 		}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 		Aact.reset();
-#else
-		Aact = nullptr;
-#endif
 	}
 	Aact = SC_getAdditionalAction("X", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
 		{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
-#else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
-#endif
 			if (jsa->isOk())
 			{
 				ite->annotation().setX_act(UnicodeParsedString(jsa->getScript()));
 				ite->annotation().setAAact(true);
 			}
 		}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 		Aact.reset();
-#else
-		Aact = nullptr;
-#endif
 	}
 	Aact = SC_getAdditionalAction("Fo", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
 		{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
-#else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
-#endif
 			if (jsa->isOk())
 			{
 				ite->annotation().setFo_act(UnicodeParsedString(jsa->getScript()));
 				ite->annotation().setAAact(true);
 			}
 		}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 		Aact.reset();
-#else
-		Aact = nullptr;
-#endif
 	}
 	Aact = SC_getAdditionalAction("Bl", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
 		{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
-#else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
-#endif
 			if (jsa->isOk())
 			{
 				ite->annotation().setBl_act(UnicodeParsedString(jsa->getScript()));
 				ite->annotation().setAAact(true);
 			}
 		}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 		Aact.reset();
-#else
-		Aact = nullptr;
-#endif
 	}
 	Aact = SC_getAdditionalAction("C", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
 		{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
-#else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
-#endif
 			if (jsa->isOk())
 			{
 				ite->annotation().setC_act(UnicodeParsedString(jsa->getScript()));
 				ite->annotation().setAAact(true);
 			}
 		}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 		Aact.reset();
-#else
-		Aact = nullptr;
-#endif
 	}
 	Aact = SC_getAdditionalAction("F", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
 		{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
-#else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
-#endif
 			if (jsa->isOk())
 			{
 				ite->annotation().setF_act(UnicodeParsedString(jsa->getScript()));
@@ -1283,22 +1193,14 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 				ite->annotation().setFormat(5);
 			}
 		}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 		Aact.reset();
-#else
-		Aact = nullptr;
-#endif
 	}
 	Aact = SC_getAdditionalAction("K", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
 		{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
-#else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
-#endif
 			if (jsa->isOk())
 			{
 				ite->annotation().setK_act(UnicodeParsedString(jsa->getScript()));
@@ -1306,33 +1208,21 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 				ite->annotation().setFormat(5);
 			}
 		}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 		Aact.reset();
-#else
-		Aact = nullptr;
-#endif
 	}
 	Aact = SC_getAdditionalAction("V", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
 		{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
-#else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
-#endif
 			if (jsa->isOk())
 			{
 				ite->annotation().setV_act(UnicodeParsedString(jsa->getScript()));
 				ite->annotation().setAAact(true);
 			}
 		}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 		Aact.reset();
-#else
-		Aact = nullptr;
-#endif
 	}
 }
 
@@ -1342,11 +1232,7 @@ void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 	catalog = catA;
 	pdfDoc = doc;
 	updateGUICounter = 0;
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 84, 0)
 	m_fontEngine = new SplashFontEngine(true, false, false, true);
-#else
-	m_fontEngine = new SplashFontEngine(globalParams->getEnableFreeType(), false, false, true);
-#endif
 }
 
 void SlaOutputDev::startPage(int pageNum, GfxState *, XRef *)

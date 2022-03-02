@@ -30,9 +30,6 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "vgradient.h"
 
-#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 73, 0)
-#include <poppler/goo/gtypes.h>
-#endif
 #include <poppler/Object.h>
 #include <poppler/OutputDev.h>
 #include <poppler/Gfx.h>
@@ -163,11 +160,7 @@ public:
 	virtual ~SlaOutputDev();
 
 	LinkAction* SC_getAction(AnnotWidget *ano);
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 	std::unique_ptr<LinkAction> SC_getAdditionalAction(const char *key, AnnotWidget *ano);
-#else
-	LinkAction* SC_getAdditionalAction(const char *key, AnnotWidget *ano);
-#endif
 	static GBool annotations_callback(Annot *annota, void *user_data);
 	bool handleTextAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
 	bool handleLinkAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);

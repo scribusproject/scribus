@@ -74,20 +74,15 @@ PdfPlug::PdfPlug(ScribusDoc* doc, int flags)
 
 QImage PdfPlug::readThumbnail(const QString& fName)
 {
-	QString pdfFile = QDir::toNativeSeparators(fName);
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 83, 0)
 	globalParams.reset(new GlobalParams());
-#else
-	std::unique_ptr<GlobalParams> globalParamsPtr(new GlobalParams());
-	globalParams = globalParamsPtr.get();
-#endif
+	globalParams->setErrQuiet(gTrue);
 
-#if defined(Q_OS_WIN32) && POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 62, 0)
+	QString pdfFile = QDir::toNativeSeparators(fName);
+#if defined(Q_OS_WIN32)
 	auto fname = new GooString(pdfFile.toUtf8().data());
 #else
 	auto fname = new GooString(QFile::encodeName(pdfFile).data());
 #endif
-	globalParams->setErrQuiet(gTrue);
 
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 3, 0)
 	PDFDoc pdfDoc{ std::make_unique<GooString>(fname) };
@@ -332,19 +327,15 @@ bool PdfPlug::convert(const QString& fn)
 		qApp->processEvents();
 	}
 
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 83, 0)
 	globalParams.reset(new GlobalParams());
-#else
-	std::unique_ptr<GlobalParams> globalParamsPtr(new GlobalParams());
-	globalParams = globalParamsPtr.get();
-#endif
-#if defined(Q_OS_WIN32) && POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 62, 0)
+	globalParams->setErrQuiet(gTrue);
+
+#if defined(Q_OS_WIN32)
 	auto fname = new GooString(fn.toUtf8().data());
 #else
 	auto fname = new GooString(QFile::encodeName(fn).data());
 #endif
-	globalParams->setErrQuiet(gTrue);
-//	globalParams->setPrintCommands(gTrue);
+
 	QList<OptionalContentGroup*> ocgGroups;
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 3, 0)
 	auto pdfDoc = std::make_unique<PDFDoc>(std::make_unique<GooString>(fname));
@@ -364,7 +355,7 @@ bool PdfPlug::convert(const QString& fn)
 			QString text = QInputDialog::getText(mw, tr("Open PDF-File"), tr("Password"), QLineEdit::Normal, "", &ok);
 			if (ok && !text.isEmpty())
 			{
-#if defined(Q_OS_WIN32) && POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 62, 0)
+#if defined(Q_OS_WIN32)
 				auto fname = new GooString(fn.toUtf8().data());
 #else
 				auto fname = new GooString(QFile::encodeName(fn).data());
@@ -382,9 +373,6 @@ bool PdfPlug::convert(const QString& fn)
 			{
 				if (m_progressDialog)
 					m_progressDialog->close();
-#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 83, 0)
-				delete globalParams;
-#endif
 				return false;
 			}
 			if (m_progressDialog)
@@ -494,7 +482,6 @@ bool PdfPlug::convert(const QString& fn)
 							}
 							else
 							{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 69, 0)
 								const auto& ocgs = ocg->getOCGs ();
 								for (const auto& ocg : ocgs)
 								{
@@ -506,25 +493,11 @@ bool PdfPlug::convert(const QString& fn)
 										ocgNames.append(ocgName);
 									}
 								}
-#else
-								GooList *ocgs = ocg->getOCGs ();
-								for (int i = 0; i < ocgs->getLength (); ++i)
-								{
-									OptionalContentGroup *oc = (OptionalContentGroup *)ocgs->get(i);
-									QString ocgName = UnicodeParsedString(oc->getName());
-									if (!ocgNames.contains(ocgName))
-									{
-										ocgGroups.prepend(oc);
-										ocgNames.append(ocgName);
-									}
-								}
-#endif
 							}
 						}
 					}
 					else
 					{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 69, 0)
 						const auto& ocgs = ocg->getOCGs ();
 						for (const auto& ocg : ocgs)
 						{
@@ -536,19 +509,6 @@ bool PdfPlug::convert(const QString& fn)
 								ocgNames.append(ocgName);
 							}
 						}
-#else
-						GooList *ocgs = ocg->getOCGs ();
-						for (int i = 0; i < ocgs->getLength (); ++i)
-						{
-							OptionalContentGroup *oc = (OptionalContentGroup *)ocgs->get(i);
-							QString ocgName = UnicodeParsedString(oc->getName());
-							if (!ocgNames.contains(ocgName))
-							{
-								ocgGroups.prepend(oc);
-								ocgNames.append(ocgName);
-							}
-						}
-#endif
 					}
 				}
 
@@ -787,13 +747,8 @@ bool PdfPlug::convert(const QString& fn)
 							names = catDict.dictLookup("OpenAction");
 							if (names.isDict())
 							{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 								std::unique_ptr<LinkAction> linkActionUPtr = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
 								LinkAction *linkAction = linkActionUPtr.get();
-#else
-								LinkAction *linkAction = nullptr;
-								linkAction = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
-#endif
 								if (linkAction && (linkAction->getKind() == actionJavaScript))
 								{
 									LinkJavaScript *jsa = (LinkJavaScript*) linkAction;
@@ -861,11 +816,7 @@ bool PdfPlug::convert(const QString& fn)
 		}
 		pdfDoc.reset();
 	}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 83, 0)
 	globalParams.reset();
-#else
-	globalParams = nullptr;
-#endif
 
 //	qDebug() << "converting finished";
 //	qDebug() << "Imported" << m_elements.count() << "Elements";
