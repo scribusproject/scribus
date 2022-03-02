@@ -26,10 +26,20 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QWidget>
 
+#include "scconfig.h"
 #include "about.h"
 #include "api/api_application.h"
 #include "commonstrings.h"
-#include "scconfig.h"
+#include "scpaths.h"
+#include <cairo.h>
+#include <hb.h>
+#include <lcms2.h>
+#ifdef HAVE_PODOFO
+	#include <podofo/podofo.h>
+#endif
+#ifdef HAVE_POPPLER
+	#include <poppler/cpp/poppler-version.h>
+#endif
 #include "scpaths.h"
 #ifdef HAVE_SVNVERSION
 	#include "svnversion.h"
@@ -126,34 +136,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
 	buildID->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	QString BUILD_DAY = "18";
-	QString BUILD_MONTH = CommonStrings::february;
-	QString BUILD_YEAR = "2022";
-	QString BUILD_TIME = "";
-	QString BUILD_TZ = "";
-	QString BUILD_NAME = "";
-
-	QString built = tr("%1 %2 %3").arg(BUILD_DAY, BUILD_MONTH, BUILD_YEAR);
-	QString version(ScribusAPI::getVersion());
-	if (BUILD_NAME != "")
-		version += " \"" + BUILD_NAME + "\"";
-	if (BUILD_NAME == "BleedingEdge")
-		built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY, BUILD_MONTH, BUILD_YEAR, BUILD_TIME, BUILD_TZ);
-
-	if (ScribusAPI::isSVN() && ScribusAPI::haveSVNRevision())
-	{
-		QString revText(tr("SVN Revision: "));
-		revText += ScribusAPI::getSVNRevision();
-		built += " - ";
-		built += revText;
-	}
-
-	QString gsver(getGSVersion());
-	if (!gsver.isEmpty())
-		gsver = tr("Using Ghostscript version %1").arg(gsver);
-	else
-		gsver = tr("No Ghostscript version available");
-	buildID->setText( tr("<p align=\"center\"><b>%1 %2</b></p><p align=\"center\">%3<br>%4 %5<br>%6</p>").arg( tr("Scribus Version"), version, built, tr("Build ID:"), ScribusAPI::getBuildInformation(), gsver));
+	buildID->setText( tr("<p align=\"center\"><b>%1 %2</b></p>").arg( tr("Scribus Version"), ScribusAPI::getVersion()));
 	tabLayout1->addWidget( buildID, 0, Qt::AlignHCenter );
 	tabWidget2->addTab( tab, tr("&About") );
 
@@ -221,6 +204,16 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 		textViewLicence->setPlainText(licenceText);
 	} 
 
+	/*! BUILD tab */
+	tab_build = new QWidget( tabWidget2 );
+	tabWidget2->addTab( tab_build, tr("&Build Information") );
+	buildLayout = new QVBoxLayout( tab_build );
+	buildLayout->setSpacing(6);
+	buildLayout->setContentsMargins(9, 9, 9, 9);
+	textViewBuild = new QTextBrowser( tab_build);
+	buildLayout->addWidget( textViewBuild );
+	textViewBuild->setText(generateBuildInfo());
+	
 	//Add tab widget to about window
 	aboutLayout->addWidget( tabWidget2 );
 
@@ -642,6 +635,76 @@ QString About::parseLinksFile(const QString& fileName)
 	} // else file found
 	return result;
 } // parseLinksFile()
+
+QString About::generateBuildInfo()
+{
+	QString BUILD_DAY = "6";
+	QString BUILD_MONTH = CommonStrings::february;
+	QString BUILD_YEAR = "2022";
+	QString BUILD_TIME;
+	QString BUILD_TZ;
+	QString BUILD_NAME;
+
+	QString built = tr("%1 %2 %3").arg(BUILD_DAY, BUILD_MONTH, BUILD_YEAR);
+	QString version(ScribusAPI::getVersion());
+	if (BUILD_NAME != "")
+		version += " \"" + BUILD_NAME + "\"";
+	if (BUILD_NAME == "BleedingEdge")
+		built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY, BUILD_MONTH, BUILD_YEAR, BUILD_TIME, BUILD_TZ);
+
+	QString revText;
+	if (ScribusAPI::isSVN() && ScribusAPI::haveSVNRevision())
+		revText = tr("SVN Revision: %1").arg(ScribusAPI::getSVNRevision());
+
+	QString gsver(getGSVersion());
+	if (gsver.isEmpty())
+		gsver = tr("No Ghostscript version available");
+	QString buildText;
+	buildText.append("<p>");
+	buildText.append("<b>");
+	buildText.append(tr("Scribus Version %1").arg(version));
+	buildText.append("</b>");
+	buildText.append("</p><p>");
+	buildText.append(tr("Build ID: %1").arg(ScribusAPI::getBuildInformation()));
+	buildText.append("<br>");
+	if (!revText.isEmpty())
+	{
+		buildText.append(revText);
+		buildText.append("<br>");
+	}
+	buildText.append(tr("Built: %1").arg(built));
+	buildText.append("</p>");
+	buildText.append("<b>");
+	buildText.append(tr("Companion Programs:"));
+	buildText.append("</b>");
+	buildText.append("</p><p>");
+	buildText.append(tr("Ghostscript Version: %1").arg(gsver));
+	buildText.append("</p><p>");
+	buildText.append("<b>");
+	buildText.append(tr("Libraries:"));
+	buildText.append("</b>");
+	buildText.append("</p><p>");
+	buildText.append(tr("cairo: %1").arg(CAIRO_VERSION_STRING));
+	buildText.append("<br>");
+	buildText.append(tr("Harfbuzz: %1").arg(HB_VERSION_STRING));
+	buildText.append("<br>");
+	buildText.append(tr("littlcms: %1").arg(LCMS_VERSION));
+	buildText.append("<br>");
+	QString podofoVersion;
+#ifdef HAVE_PODOFO
+	podofoVersion.append(PODOFO_VERSION_STRING);
+#endif
+	buildText.append(tr("podofo: %1").arg(podofoVersion));
+	buildText.append("<br>");
+	QString popplerVersion;
+#ifdef HAVE_POPPLER
+	popplerVersion.append(POPPLER_VERSION);
+#endif
+	buildText.append(tr("poppler: %1").arg(popplerVersion));
+	buildText.append("</p>");
+
+	return buildText;
+}
 
 void About::setVisible (bool visible)
 {
