@@ -135,7 +135,6 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
 	buildID->setTextInteractionFlags(Qt::TextSelectableByMouse);
-
 	buildID->setText( tr("<p align=\"center\"><b>%1 %2</b></p>").arg( tr("Scribus Version"), ScribusAPI::getVersion()));
 	tabLayout1->addWidget( buildID, 0, Qt::AlignHCenter );
 	tabWidget2->addTab( tab, tr("&About") );
@@ -229,10 +228,6 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 
 
 	//tooltips
-	buildID->setToolTip( "<qt>" + tr("This panel shows the version, build date and compiled in library support in Scribus.")+"<br>"
-	+ tr("The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt")+"<br>"
-	+ tr("Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.")+"<br>"
-	+ tr("The Windows version does not use fontconfig or CUPS libraries.") + "</qt>");
 	checkForUpdateButton->setToolTip( "<qt>" + tr("Check for updates to Scribus. No data from your machine will be transferred off it.") + "</qt>");
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
@@ -677,7 +672,7 @@ QString About::generateBuildInfo()
 	buildText.append(tr("Companion Programs:"));
 	buildText.append("</b>");
 	buildText.append("</p><p>");
-	buildText.append(tr("Ghostscript Version: %1").arg(gsver));
+	buildText.append(tr("Ghostscript: %1").arg(gsver));
 	buildText.append("</p><p>");
 	buildText.append("<b>");
 	buildText.append(tr("Libraries:"));
