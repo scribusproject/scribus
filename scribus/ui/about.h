@@ -48,14 +48,17 @@ protected:
 	QWidget* tab_4;
 	QWidget* tab_5;
 	QWidget* tab_Licence;
+	QWidget* tab_build;
 	QTextBrowser* authorView;
 	QTextBrowser* transView;
 	QTextBrowser* onlineView;
 	QTextBrowser* updateView;
 	QTextBrowser* textViewLicence;
+	QTextBrowser* textViewBuild;
 	QVBoxLayout* aboutLayout;
 	QVBoxLayout* updateLayout;
 	QVBoxLayout* licenceLayout;
+	QVBoxLayout* buildLayout;
 	QHBoxLayout* tabLayout;
 	QVBoxLayout* tabLayout1;
 	QHBoxLayout* tabLayout_2;
@@ -71,6 +74,7 @@ protected:
 	QString parseAuthorFile(const QString& fileName);
 	QString parseTranslationFile(const QString& fileName);
 	QString parseLinksFile(const QString& fileName);
+	QString generateBuildInfo();
 
 protected slots:
 	void runUpdateCheck();
