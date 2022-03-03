@@ -22,6 +22,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <QtGlobal>
 
+#include "util_os.h"
+
 bool os_is_osx()
 {
 #ifdef Q_OS_MACOS
