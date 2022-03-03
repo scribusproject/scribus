@@ -147,7 +147,7 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	m_importerFlags = flags;
 	m_cancel = false;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		m_interactive = false;
@@ -339,7 +339,6 @@ bool PdfPlug::convert(const QString& fn)
 #endif
 	globalParams->setErrQuiet(gTrue);
 
-
 	QList<OptionalContentGroup*> ocgGroups;
 	QByteArray encodedFileName = os_is_win() ? fn.toUtf8() : QFile::encodeName(fn);
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 3, 0)
@@ -417,7 +416,7 @@ bool PdfPlug::convert(const QString& fn)
 					m_progressDialog->hide();
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				PdfImportOptions optImp(ScCore->primaryMainWindow());
-				QFileInfo fi = QFileInfo(fn);
+				QFileInfo fi(fn);
 				optImp.setUpOptions(fi.fileName(), firstPage, lastPage, m_interactive, boxesAreDifferent, this);
 				if (!optImp.exec())
 				{
