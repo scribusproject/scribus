@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "api/api_application.h"
 #include "commonstrings.h"
 #include <cairo.h>
-#include <hb.h>
+#include <harfbuzz/hb.h>
 #include <lcms2.h>
 #ifdef HAVE_PODOFO
 	#include <podofo/podofo.h>
