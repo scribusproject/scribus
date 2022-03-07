@@ -30,7 +30,11 @@ for which a new license (GPL+exception) is in place.
 #include "about.h"
 #include "api/api_application.h"
 #include "commonstrings.h"
+#ifdef HAVE_BOOST
+#include <boost/version.hpp>
+#endif
 #include <cairo.h>
+#include <fontconfig/fontconfig.h>
 #include <harfbuzz/hb.h>
 #include <lcms2.h>
 #ifdef HAVE_PODOFO
@@ -678,7 +682,13 @@ QString About::generateBuildInfo()
 	buildText.append(tr("Libraries:"));
 	buildText.append("</b>");
 	buildText.append("</p><p>");
+#ifdef HAVE_BOOST
+	buildText.append(tr("boost: %1").arg(BOOST_LIB_VERSION).replace('_', '.'));
+	buildText.append("<br>");
+#endif
 	buildText.append(tr("cairo: %1").arg(CAIRO_VERSION_STRING));
+	buildText.append("<br>");
+	buildText.append(tr("fontconfig: %1").arg(FcGetVersion()));
 	buildText.append("<br>");
 	buildText.append(tr("harfbuzz: %1").arg(HB_VERSION_STRING));
 	buildText.append("<br>");
@@ -701,7 +711,8 @@ QString About::generateBuildInfo()
 #endif
 	buildText.append(tr("poppler: %1").arg(popplerVersion));
 	buildText.append("</p>");
-
+//	buildText.append(tr("python: %1").arg(PYTHON_VERSION));
+//	buildText.append("<br>");
 	return buildText;
 }
 
