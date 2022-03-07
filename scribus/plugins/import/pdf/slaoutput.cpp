@@ -3593,15 +3593,12 @@ void SlaOutputDev::getPenState(GfxState *state)
 			m_lineJoin = Qt::BevelJoin;
 			break;
 	}
-	double lw = state->getLineWidth();
 	double *dashPattern;
 	int dashLength;
 	state->getLineDash(&dashPattern, &dashLength, &DashOffset);
 	QVector<double> pattern(dashLength);
 	for (int i = 0; i < dashLength; ++i)
-	{
-		pattern[i] = dashPattern[i] / lw;
-	}
+		pattern[i] = dashPattern[i];
 	DashValues = pattern;
 }
 
