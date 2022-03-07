@@ -34,7 +34,9 @@ for which a new license (GPL+exception) is in place.
 #include <boost/version.hpp>
 #endif
 #include <cairo.h>
+#ifdef HAVE_FONTCONFIG
 #include <fontconfig/fontconfig.h>
+#endif
 #include <harfbuzz/hb.h>
 #include <lcms2.h>
 #ifdef HAVE_PODOFO
@@ -688,8 +690,10 @@ QString About::generateBuildInfo()
 #endif
 	buildText.append(tr("cairo: %1").arg(CAIRO_VERSION_STRING));
 	buildText.append("<br>");
+#ifdef HAVE_FONTCONFIG
 	buildText.append(tr("fontconfig: %1").arg(FcGetVersion()));
 	buildText.append("<br>");
+#endif
 	buildText.append(tr("harfbuzz: %1").arg(HB_VERSION_STRING));
 	buildText.append("<br>");
 //note this is detected from cmake  at build time
