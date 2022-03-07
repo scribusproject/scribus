@@ -335,6 +335,7 @@ namespace Pdf
 		return QByteArray::number(v);
 	}
 #endif
+
 	QByteArray toPdf(double v)
 	{
 		return QByteArray::number(v, 'f');

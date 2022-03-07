@@ -141,7 +141,7 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	m_importerFlags = flags;
 	m_cancel = false;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		m_interactive = false;
@@ -402,7 +402,7 @@ bool PdfPlug::convert(const QString& fn)
 					m_progressDialog->hide();
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				PdfImportOptions optImp(ScCore->primaryMainWindow());
-				QFileInfo fi = QFileInfo(fn);
+				QFileInfo fi(fn);
 				optImp.setUpOptions(fi.fileName(), firstPage, lastPage, m_interactive, boxesAreDifferent, this);
 				if (!optImp.exec())
 				{
