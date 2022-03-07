@@ -44,8 +44,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>808</width>
-          <height>702</height>
+          <width>744</width>
+          <height>663</height>
          </rect>
         </property>
        </widget>
@@ -107,7 +107,7 @@
              <item>
               <widget class="QCheckBox" name="mirrorV">
                <property name="text">
-                <string>Mirror Pages(s) Vertically</string>
+                <string>Mirror Page(s) Vertically</string>
                </property>
               </widget>
              </item>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>170</width>
-    <height>436</height>
+    <width>204</width>
+    <height>459</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -65,7 +65,7 @@
       <item>
        <widget class="QCheckBox" name="mirrorV">
         <property name="text">
-         <string>Mirror Pages(s) Vertically</string>
+         <string>Mirror Page(s) Vertically</string>
         </property>
        </widget>
       </item>
