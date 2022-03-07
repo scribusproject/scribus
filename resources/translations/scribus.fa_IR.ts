@@ -4,22 +4,22 @@
 <context>
     <name>AIPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="341"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="340"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: 1%</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="344"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="343"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2292"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2291"/>
         <source>Group%1</source>
         <translation>گروه 1%</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3392"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3391"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -27,239 +27,284 @@
 <context>
     <name>About</name>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="272"/>
+        <location filename="../../scribus/ui/about.cpp" line="263"/>
         <source>Contributions from:</source>
         <translation>کمک کنندگان:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="158"/>
+        <location filename="../../scribus/ui/about.cpp" line="144"/>
         <source>&amp;About</source>
         <translation>درباره</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="145"/>
-        <source>SVN Revision: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="168"/>
+        <location filename="../../scribus/ui/about.cpp" line="154"/>
         <source>A&amp;uthors</source>
         <translation>نویسندگان</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="178"/>
+        <location filename="../../scribus/ui/about.cpp" line="164"/>
         <source>&amp;Translations</source>
         <translation>ترجمه‌ها</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="189"/>
+        <location filename="../../scribus/ui/about.cpp" line="175"/>
         <source>&amp;Online</source>
         <translation>&amp;آنلاین</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="232"/>
+        <location filename="../../scribus/ui/about.cpp" line="212"/>
+        <source>&amp;Build Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="227"/>
         <source>&amp;Close</source>
         <translation>بستن</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="262"/>
+        <location filename="../../scribus/ui/about.cpp" line="253"/>
         <source>Development Team:</source>
         <translation>تیم توسعه‌دهنده:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="274"/>
+        <location filename="../../scribus/ui/about.cpp" line="265"/>
         <source>Official Documentation:</source>
         <translation>مستندات رسمی:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="278"/>
+        <location filename="../../scribus/ui/about.cpp" line="269"/>
         <source>Other Documentation:</source>
         <translation>سایر مستندات:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="288"/>
+        <location filename="../../scribus/ui/about.cpp" line="279"/>
         <source>AppImage for Linux:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="303"/>
+        <location filename="../../scribus/ui/about.cpp" line="294"/>
         <source>Official Translations and Translators (in order of locale shortcode):</source>
         <translation>ترجمه‌های رسمی و مترجمان (به ترتیب شورت‌کد لوکال)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="318"/>
+        <location filename="../../scribus/ui/about.cpp" line="309"/>
         <source>Homepage</source>
         <translation>هوم‌پیج</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="320"/>
+        <location filename="../../scribus/ui/about.cpp" line="311"/>
         <source>Online Reference</source>
         <translation>مرجع آنلاین</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="324"/>
+        <location filename="../../scribus/ui/about.cpp" line="315"/>
         <source>Bugs and Feature Requests</source>
         <translation>گزارش مشکلات و درخواست بهبود</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="328"/>
+        <location filename="../../scribus/ui/about.cpp" line="319"/>
         <source>Mailing List</source>
         <translation>لیست تماس</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="305"/>
+        <location filename="../../scribus/ui/about.cpp" line="655"/>
+        <source>SVN Revision: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="663"/>
+        <source>Scribus Version %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="666"/>
+        <source>Build ID: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="673"/>
+        <source>Built: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="676"/>
+        <source>Companion Programs:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="679"/>
+        <source>Ghostscript: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="682"/>
+        <source>Libraries:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="686"/>
+        <source>boost: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="689"/>
+        <source>cairo: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="691"/>
+        <source>fontconfig: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="693"/>
+        <source>harfbuzz: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="697"/>
+        <source>hunspell: %1 (detected at build time)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="700"/>
+        <source>littlecms: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="706"/>
+        <source>podofo: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="712"/>
+        <source>poppler: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="296"/>
         <source>Previous Translation Contributors:</source>
         <translation>مترجمان پیشین:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="95"/>
+        <location filename="../../scribus/ui/about.cpp" line="108"/>
         <source>About Scribus %1</source>
         <translation>دربارهٔ اسکریبوس 1%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="322"/>
+        <location filename="../../scribus/ui/about.cpp" line="313"/>
         <source>Wiki</source>
         <translation>ویکی</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="136"/>
+        <location filename="../../scribus/ui/about.cpp" line="646"/>
         <source>%1 %2 %3</source>
         <translation>1% 2% 3%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="141"/>
+        <location filename="../../scribus/ui/about.cpp" line="651"/>
         <source>%3-%2-%1 %4 %5</source>
         <translation>1% 2% 3% 4% 5%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="153"/>
-        <source>Using Ghostscript version %1</source>
-        <translation>استفاده از نسخهٔ اکریبوس %1</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="155"/>
+        <location filename="../../scribus/ui/about.cpp" line="659"/>
         <source>No Ghostscript version available</source>
-        <translation>هیچ نسخه ای از Ghostscript در دسترس نیست</translation>
+        <translation>هیچ نسخه&#x202f;ای از Ghostscript در دسترس نیست</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="156"/>
-        <source>Build ID:</source>
-        <translation>هویت ساخت:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="264"/>
+        <location filename="../../scribus/ui/about.cpp" line="255"/>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation>سیستم عامل مک 174؛ پورت X Aqua:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="268"/>
+        <location filename="../../scribus/ui/about.cpp" line="259"/>
         <source>Windows&amp;#174; Port:</source>
         <translation>ویندوز 174؛ پورت:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="284"/>
+        <location filename="../../scribus/ui/about.cpp" line="275"/>
         <source>Tango Project Icons:</source>
-        <translation>آیکان های پروژهٔ Tango:</translation>
+        <translation>آیکان&#x202f;های پروژهٔ Tango:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="194"/>
+        <location filename="../../scribus/ui/about.cpp" line="180"/>
         <source>&amp;Updates</source>
-        <translation>بروز رسانی ها</translation>
+        <translation>بروز رسانی&#x202f;ها</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="244"/>
+        <location filename="../../scribus/ui/about.cpp" line="235"/>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation>جستجو برای نسخهٔ جدید اسکیبوس. از این بابت، هیچ اطلاعاتی از طرف شما ارسال نخواهد شد.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="266"/>
+        <location filename="../../scribus/ui/about.cpp" line="257"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation>OS/2&amp;#174;/eComStation&amp;#8482; پورت:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="282"/>
+        <location filename="../../scribus/ui/about.cpp" line="273"/>
         <source>Splash Screen:</source>
         <translation>صفحهٔ نمایش باز شده:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="240"/>
-        <source>This panel shows the version, build date and compiled in library support in Scribus.</source>
-        <translation>این صفحه شمارهٔ نسخه، تاریخ ساخت و کامپایل در پشتیبانی لایبرری اسکیبوس را نمایش میدهد.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="241"/>
-        <source>The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="242"/>
-        <source>Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation>لایبرری های پشتیبانی مفقود با * مشخص شده اند. این همچنین شمارهٔ نسخهٔ شناسایی شدهٔ Ghostscript مورد استفادهٔ اسکریبوس را نشان میدهد. </translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="243"/>
-        <source>The Windows version does not use fontconfig or CUPS libraries.</source>
-        <translation>نسخهٔ ویندوز از fontconfig یا لایبرری های CUPS استفاده نمیکند. </translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="156"/>
-        <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</source>
-        <translation>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="156"/>
+        <location filename="../../scribus/ui/about.cpp" line="142"/>
         <source>Scribus Version</source>
         <translation>نسخهٔ اسکریبوس</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="198"/>
+        <location filename="../../scribus/ui/about.cpp" line="184"/>
         <source>Check for Updates</source>
         <translation>چک کردن برای آپدیت</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="326"/>
+        <location filename="../../scribus/ui/about.cpp" line="317"/>
         <source>Developer Blog</source>
         <translation>بلاگ دولپر</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="205"/>
+        <location filename="../../scribus/ui/about.cpp" line="191"/>
         <source>&amp;Licence</source>
         <translation>لایسنس</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="214"/>
+        <location filename="../../scribus/ui/about.cpp" line="142"/>
+        <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="200"/>
         <source>Unable to open licence file. Please check your install directory or the Scribus website for licencing information.</source>
         <translation>فایل مجوز استفاده در دسترس نیست. لطفا پوشهٔ نصب برنامه یا سایت اسکرایبوس را در مورد اطلاعات لایسنس چک کنید.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="276"/>
+        <location filename="../../scribus/ui/about.cpp" line="267"/>
         <source>Doc Translators:</source>
         <translation>مترجمان اسناد:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="280"/>
+        <location filename="../../scribus/ui/about.cpp" line="271"/>
         <source>Webmasters:</source>
         <translation>مدیران سایت:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="290"/>
+        <location filename="../../scribus/ui/about.cpp" line="281"/>
         <source>Refactoring text layout code, the new boxes model &amp; CTL text layout, Oman House of Open Source Technology team:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="419"/>
-        <location filename="../../scribus/ui/about.cpp" line="575"/>
-        <location filename="../../scribus/ui/about.cpp" line="640"/>
+        <location filename="../../scribus/ui/about.cpp" line="410"/>
+        <location filename="../../scribus/ui/about.cpp" line="566"/>
+        <location filename="../../scribus/ui/about.cpp" line="631"/>
         <source>Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.</source>
         <translation>ناتوان در باز کردن 1% فایل. لطفا پوشهٔ نصب برنامه یا سایت اسکرایبوس را در مورد اطلاعات 1% چک کنید.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="270"/>
+        <location filename="../../scribus/ui/about.cpp" line="261"/>
         <source>Haiku Port:</source>
         <translation>پورت Haiku:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="286"/>
+        <location filename="../../scribus/ui/about.cpp" line="277"/>
         <source>Scribus 1.5.1+ Icon Set:</source>
         <translation>مجموعهٔ آیکان 1.5.1:</translation>
     </message>
@@ -294,7 +339,7 @@
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="85"/>
         <source>Copyright:</source>
-        <translation>کپی رایت:</translation>
+        <translation>کپی&#x202f;رایت:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="86"/>
@@ -312,7 +357,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1571"/>
         <source>&amp;Tabulators...</source>
-        <translation>تنظیم کنندگان نوشته…</translation>
+        <translation>تنظیم&#x202f;کنندگان نوشته…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1495"/>
@@ -342,7 +387,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1500"/>
         <source>Collect for O&amp;utput...</source>
-        <translation>جمع آوری برای نشر…</translation>
+        <translation>جمع&#x202f;آوری برای نشر…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1501"/>
@@ -569,7 +614,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1588"/>
         <source>&amp;Lower</source>
-        <translation>پایین تر</translation>
+        <translation>پایین&#x202f;تر</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1589"/>
@@ -599,7 +644,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1617"/>
         <source>Is PDF A&amp;nnotation</source>
-        <translation>نت گذاری PDF است</translation>
+        <translation>نت&#x202f;گذاری PDF است</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1620"/>
@@ -619,18 +664,18 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1623"/>
         <source>&amp;Combine Polygons</source>
-        <translation>ترکیب چند ضلعی ها</translation>
+        <translation>ترکیب چند ضلعی&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1624"/>
         <source>Split &amp;Polygons</source>
-        <translation>جداسازی چند ضلعی ها</translation>
+        <translation>جداسازی چند ضلعی&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1625"/>
         <location filename="../../scribus/actionmanager.cpp" line="1734"/>
         <source>&amp;Bezier Curve</source>
-        <translation>منحنی تعریف شده</translation>
+        <translation>منحنی تعریف&#x202f;شده</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1626"/>
@@ -713,12 +758,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1671"/>
         <source>Show &amp;Margins</source>
-        <translation>نمایش حاشیه ها</translation>
+        <translation>نمایش حاشیه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1673"/>
         <source>Show &amp;Frames</source>
-        <translation>نمایش فریم های حامل</translation>
+        <translation>نمایش فریم&#x202f;های حامل</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1675"/>
@@ -768,17 +813,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1695"/>
         <source>&amp;Layers</source>
-        <translation>لایه ها</translation>
+        <translation>لایه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1697"/>
         <source>&amp;Bookmarks</source>
-        <translation>بوکمارک ها</translation>
+        <translation>بوکمارک&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1700"/>
         <source>&amp;Measurements</source>
-        <translation>اندازه گیری ها</translation>
+        <translation>اندازه&#x202f;گیری&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1701"/>
@@ -788,12 +833,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1702"/>
         <source>Preflight &amp;Verifier</source>
-        <translation>چک کنندهٔ پیش چاپ</translation>
+        <translation>چک&#x202f;کنندهٔ پیش&#x202f;چاپ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1704"/>
         <source>Symbols</source>
-        <translation>نشانه ها</translation>
+        <translation>نشانه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1706"/>
@@ -824,7 +869,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1714"/>
         <source>Zoom in</source>
-        <translation>بزرگ نمایی</translation>
+        <translation>بزرگ&#x202f;نمایی</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1715"/>
@@ -844,22 +889,22 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1718"/>
         <source>Link Text Frames</source>
-        <translation>لینک کردن قاب های نوشتار</translation>
+        <translation>لینک کردن قاب&#x202f;های نوشتار</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1719"/>
         <source>Unlink Text Frames</source>
-        <translation>شکستن لینک قاب های نوشتار</translation>
+        <translation>شکستن لینک قاب&#x202f;های نوشتار</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1720"/>
         <source>Unlink Text Frames and Cut Text</source>
-        <translation>شکستن لینک قاب های نوشتار و برداشتن نوشتار</translation>
+        <translation>شکستن لینک قاب&#x202f;های نوشتار و برداشتن نوشتار</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1721"/>
         <source>&amp;Eye Dropper</source>
-        <translation>قطره چکان</translation>
+        <translation>قطره&#x202f;چکان</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1722"/>
@@ -929,7 +974,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1859"/>
         <source>Copyright</source>
-        <translation>کپی رایت</translation>
+        <translation>کپی&#x202f;رایت</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1860"/>
@@ -1004,7 +1049,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1609"/>
         <source>Adjust Frame to Image</source>
-        <translation>هم اندازه کردن فریم به تصویر</translation>
+        <translation>هم&#x202f;اندازه کردن فریم به تصویر</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1681"/>
@@ -1180,7 +1225,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1539"/>
         <source>S&amp;tyles...</source>
-        <translation>استایل ها…</translation>
+        <translation>استایل&#x202f;ها…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1567"/>
@@ -1212,17 +1257,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1678"/>
         <source>Show Text Frame Columns</source>
-        <translation>نمایش ستون های نوشتار</translation>
+        <translation>نمایش ستون&#x202f;های نوشتار</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1668"/>
         <source>Preview Mode</source>
-        <translation>پیش نمایش صفحه</translation>
+        <translation>پیش&#x202f;نمایش صفحه</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1674"/>
         <source>Show Layer Indicators</source>
-        <translation>نمایش معرفهٔ لایه ها</translation>
+        <translation>نمایش معرفهٔ لایه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1639"/>
@@ -1237,12 +1282,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1514"/>
         <source>Print Previe&amp;w...</source>
-        <translation>پیش نمایش چاپ…</translation>
+        <translation>پیش&#x202f;نمایش چاپ…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1570"/>
         <source>&amp;Image Effects...</source>
-        <translation>افکت های تصاویر…</translation>
+        <translation>افکت&#x202f;های تصاویر…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1575"/>
@@ -1262,7 +1307,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1618"/>
         <source>Annotation P&amp;roperties...</source>
-        <translation>مختصات شرح نویسی…</translation>
+        <translation>مختصات شرح&#x202f;نویسی…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1619"/>
@@ -1277,12 +1322,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1661"/>
         <source>&amp;Fit to Height</source>
-        <translation>هم ارتفاع کردن</translation>
+        <translation>هم&#x202f;ارتفاع کردن</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1662"/>
         <source>Fit to Width</source>
-        <translation>هم عرض کردن</translation>
+        <translation>هم&#x202f;عرض کردن</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1672"/>
@@ -1425,7 +1470,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1768"/>
         <source>Scribus Homepage</source>
-        <translation>هوم پیج اسکرایبوس</translation>
+        <translation>هوم&#x202f;پیج اسکرایبوس</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1769"/>
@@ -1450,7 +1495,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1762"/>
         <source>&amp;About Plugins</source>
-        <translation>در مورد پلاگین ها</translation>
+        <translation>در مورد پلاگین&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1778"/>
@@ -1465,7 +1510,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1532"/>
         <source>Advanced Select All...</source>
-        <translation>انخاب همه چیز پیشرفته…</translation>
+        <translation>انخاب همه&#x202f;چیز پیشرفته…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1536"/>
@@ -1480,7 +1525,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1683"/>
         <source>Rulers Relative to Page</source>
-        <translation>تناسب خط کش با صفحه</translation>
+        <translation>تناسب خط&#x202f;کش با صفحه</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1772"/>
@@ -1495,7 +1540,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1610"/>
         <source>Adjust Image to Frame</source>
-        <translation>هم اندازه کردن تصویر به فریم</translation>
+        <translation>هم&#x202f;اندازه کردن تصویر به فریم</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2032"/>
@@ -1600,7 +1645,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2418"/>
         <source>Plugin Menu Items</source>
-        <translation>اجزاء منوی افزونه ها</translation>
+        <translation>اجزاء منوی افزونه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2420"/>
@@ -1640,42 +1685,42 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1598"/>
         <source>Delete Rows</source>
-        <translation>حذف ردیف ها</translation>
+        <translation>حذف ردیف&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1599"/>
         <source>Delete Columns</source>
-        <translation>حذف ستون ها</translation>
+        <translation>حذف ستون&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1600"/>
         <source>Merge Cells</source>
-        <translation>ادغام سلول ها</translation>
+        <translation>ادغام سلول&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1601"/>
         <source>Split Cells...</source>
-        <translation>شکافتن سلول ها…</translation>
+        <translation>شکافتن سلول&#x202f;ها…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1602"/>
         <source>Set Row Heights...</source>
-        <translation>تنظیم ارتفاع ردیف ها…</translation>
+        <translation>تنظیم ارتفاع ردیف&#x202f;ها…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1603"/>
         <source>Set Column Widths...</source>
-        <translation>تنظیم عرض ستون ها…</translation>
+        <translation>تنظیم عرض ستون&#x202f;ها…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1604"/>
         <source>Distribute Rows Evenly</source>
-        <translation>یکسان کردن فاصلهٔ ردیف ها</translation>
+        <translation>یکسان کردن فاصلهٔ ردیف&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1605"/>
         <source>Distribute Columns Evenly</source>
-        <translation>یکسان کردن فاصلهٔ ستون ها</translation>
+        <translation>یکسان کردن فاصلهٔ ستون&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1606"/>
@@ -1690,12 +1735,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1636"/>
         <source>&amp;Frames...</source>
-        <translation>&amp;فریم ها</translation>
+        <translation>&amp;فریم&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1608"/>
         <source>Adjust Frame Height to Text</source>
-        <translation>هم اندازه کردن فریم به نوشته</translation>
+        <translation>هم&#x202f;اندازه کردن فریم به نوشته</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1540"/>
@@ -1745,7 +1790,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1647"/>
         <source>Update Marks</source>
-        <translation>بروزرسانی مارک ها</translation>
+        <translation>بروزرسانی مارک&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1686"/>
@@ -1760,7 +1805,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1590"/>
         <source>Patterns</source>
-        <translation>طرح های زمینه</translation>
+        <translation>طرح&#x202f;های زمینه</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1591"/>
@@ -2091,7 +2136,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1740"/>
         <source>PDF Check Box</source>
-        <translation>چک باکس PDF</translation>
+        <translation>چک&#x202f;باکس PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1741"/>
@@ -2101,22 +2146,22 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1742"/>
         <source>PDF List Box</source>
-        <translation>لیست باکس PDF</translation>
+        <translation>لیست&#x202f;باکس PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1743"/>
         <source>Text Annotation</source>
-        <translation>شرح گزاری PDF</translation>
+        <translation>شرح&#x202f;گزاری PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1744"/>
         <source>Link Annotation</source>
-        <translation>شرح گزاری لینک</translation>
+        <translation>شرح&#x202f;گزاری لینک</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1746"/>
         <source>3D Annotation</source>
-        <translation>شرح گزاری 3D</translation>
+        <translation>شرح&#x202f;گزاری 3D</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1795"/>
@@ -2182,7 +2227,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="81"/>
         <source>&amp;Selected Guide:</source>
-        <translation>&amp; خط راهنمای انتخاب شده:</translation>
+        <translation>&amp; خط راهنمای انتخاب&#x202f;شده:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="94"/>
@@ -2192,7 +2237,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="113"/>
         <source>&amp;Align Sides By:</source>
-        <translation>میزان کردن کناره ها با:</translation>
+        <translation>میزان کردن کناره&#x202f;ها با:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="429"/>
@@ -2207,7 +2252,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="903"/>
         <source>Reverse Distribution</source>
-        <translation>پس گرفتن توزیع فواصل</translation>
+        <translation>پس&#x202f;گرفتن توزیع فواصل</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="945"/>
@@ -2225,12 +2270,12 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="87"/>
         <source>First Selected</source>
-        <translation>انتخاب شدهٔ اول</translation>
+        <translation>انتخاب&#x202f;شدهٔ اول</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="88"/>
         <source>Last Selected</source>
-        <translation>انتخاب شدهٔ آخر</translation>
+        <translation>انتخاب&#x202f;شدهٔ آخر</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="89"/>
@@ -2240,7 +2285,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="90"/>
         <source>Margins</source>
-        <translation>حاشیه ها</translation>
+        <translation>حاشیه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="92"/>
@@ -2280,7 +2325,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="124"/>
         <source>Distribute left sides equidistantly</source>
-        <translation>یکسان کردن فواصل کناره های سمت چپ</translation>
+        <translation>یکسان کردن فواصل کناره&#x202f;های سمت چپ</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="120"/>
@@ -2305,7 +2350,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="119"/>
         <source>Distribute right sides equidistantly</source>
-        <translation>یکسان کردن فواصل کناره های سمت راست</translation>
+        <translation>یکسان کردن فواصل کناره&#x202f;های سمت راست</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="91"/>
@@ -2375,7 +2420,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="117"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
-        <translation>یکسان کردن فواصل افقی اشیاء با اندازه ای مشخص</translation>
+        <translation>یکسان کردن فواصل افقی اشیاء با اندازه&#x202f;ای مشخص</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="122"/>
@@ -2385,22 +2430,22 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
         <source>Make vertical gaps between items equal to the value specified</source>
-        <translation>یکسان کردن فواصل عمودی اشیاء با اندازه ای مشخص</translation>
+        <translation>یکسان کردن فواصل عمودی اشیاء با اندازه&#x202f;ای مشخص</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="127"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
-        <translation>یکسان کردن فواصل افقی اشیاء و کناره های صفحه</translation>
+        <translation>یکسان کردن فواصل افقی اشیاء و کناره&#x202f;های صفحه</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
-        <translation>یکسان کردن فواصل عمودی اشیاء و حاشیه های بالا و پایین صفحه</translation>
+        <translation>یکسان کردن فواصل عمودی اشیاء و حاشیه&#x202f;های بالا و پایین صفحه</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="129"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
-        <translation>یکسان کردن فواصل افقی اشیاء و حاشیه های کناری صفحه</translation>
+        <translation>یکسان کردن فواصل افقی اشیاء و حاشیه&#x202f;های کناری صفحه</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="128"/>
@@ -2453,12 +2498,12 @@
     <message>
         <location filename="../../scribus/ui/alignselect.cpp" line="126"/>
         <source>Align Text Justified</source>
-        <translation>تمام عرض کردن نوشته</translation>
+        <translation>تمام&#x202f;عرض کردن نوشته</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/alignselect.cpp" line="127"/>
         <source>Align Text Forced Justified</source>
-        <translation>تمام عرض کردن اجباری نوشته</translation>
+        <translation>تمام&#x202f;عرض کردن اجباری نوشته</translation>
     </message>
 </context>
 <context>
@@ -2466,7 +2511,7 @@
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="53"/>
         <source>Annotation Properties</source>
-        <translation>مختصات شرح نوشته</translation>
+        <translation>مختصات شرح&#x202f;نوشته</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="83"/>
@@ -2537,7 +2582,7 @@
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="445"/>
         <source>%1;;All Files (*)</source>
-        <translation>%1;;همهٔ فایل ها (*)</translation>
+        <translation>%1;;همهٔ فایل&#x202f;ها (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="162"/>
@@ -2597,7 +2642,7 @@
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="143"/>
         <source>Annotation is Open</source>
-        <translation>شرح گزاری فعال است</translation>
+        <translation>شرح&#x202f;گزاری فعال است</translation>
     </message>
 </context>
 <context>
@@ -2656,7 +2701,7 @@
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="278"/>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
-        <translation>اعمال صفحهٔ مادر انتخاب شده به صفحات زوج، فرد و تنها یا همهٔ صفحات در محدودهٔ مذکور</translation>
+        <translation>اعمال صفحهٔ مادر انتخاب&#x202f;شده به صفحات زوج، فرد و تنها یا همهٔ صفحات در محدودهٔ مذکور</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="267"/>
@@ -2746,7 +2791,7 @@
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="37"/>
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="793"/>
         <source>Arrows</source>
-        <translation>فلش ها</translation>
+        <translation>فلش&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="45"/>
@@ -2770,87 +2815,87 @@
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="22"/>
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="792"/>
         <source>Default Shapes</source>
-        <translation>شکل های پیشفرض</translation>
+        <translation>شکل&#x202f;های پیشفرض</translation>
     </message>
 </context>
 <context>
     <name>Barcode</name>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="25"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="27"/>
         <source>Barcode</source>
         <translation>بارکد</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="26"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="28"/>
         <source>Insert a barcode</source>
         <translation>وارد کردن یک بارکد</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="51"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="53"/>
         <source>Scribus frontend for Barcode Writer in Pure PostScript</source>
-        <translation>اسکرایبوس با بارک نویس به حالت کاملا پست اسکریپت درگیر شد</translation>
+        <translation>اسکرایبوس با بارک نویس به حالت کاملا پست&#x202f;اسکریپت درگیر شد</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGenerator</name>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="402"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="403"/>
         <source>Select Type</source>
         <translation>انتخاب نوع</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="201"/>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="383"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="202"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="384"/>
         <source>Select a barcode format</source>
         <translation>انتخاب یک فرمت بارکد</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="207"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="208"/>
         <source>Point of Sale</source>
         <translation>مقطع فروش</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="213"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="214"/>
         <source>Supply Chain</source>
         <translation>زنجیرهٔ تامین</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="221"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="222"/>
         <source>Two-dimensional symbols</source>
         <translation>علائم دو بعدی</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="228"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="229"/>
         <source>One-dimensional symbols</source>
         <translation>علائم یک بعدی</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="236"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="237"/>
         <source>GS1 DataBar family</source>
         <translation>ستون اطلاعات GS1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="244"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="245"/>
         <source>Postal symbols</source>
         <translation>سمبل های پستی</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="252"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="253"/>
         <source>Pharmaceutical symbols</source>
         <translation>علائم دارویی</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="261"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="262"/>
         <source>Less-used symbols</source>
         <translation>علائم کمتر استفاده شده</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="271"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="272"/>
         <source>GS1 Composite symbols</source>
-        <translation>نشانه های ترکیبی GS1</translation>
+        <translation>نشانه&#x202f;های ترکیبی GS1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="197"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="198"/>
         <source>Select a barcode family</source>
         <translation>یک خانوادهٔ بارکد را انتخاب کنید</translation>
     </message>
@@ -2860,7 +2905,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="402"/>
         <source>Reset the barcode samples</source>
-        <translation>بازگشت به حالت پیشفرض نمونه ها</translation>
+        <translation>بازگشت به حالت پیشفرض نمونه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="277"/>
@@ -2880,12 +2925,12 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="231"/>
         <source>Draw arrows to be sure of space next the code</source>
-        <translation>برای اطمینان از وجود فاصله فاصله کنار کد، فلش ها را رسم کنید</translation>
+        <translation>برای اطمینان از وجود فاصله فاصله کنار کد، فلش&#x202f;ها را رسم کنید</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="116"/>
         <source>&amp;Background</source>
-        <translation>&amp;پس زمینه</translation>
+        <translation>&amp;پس&#x202f;زمینه</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="119"/>
@@ -2895,7 +2940,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="113"/>
         <source>Background color - under the code lines</source>
-        <translation>رنگ پس زمینه – خطوط زیر کد</translation>
+        <translation>رنگ پس&#x202f;زمینه – خطوط زیر کد</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="129"/>
@@ -2955,7 +3000,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="37"/>
         <source>Colors</source>
-        <translation>رنگ ها</translation>
+        <translation>رنگ&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="186"/>
@@ -3191,7 +3236,7 @@
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2032"/>
         <source>Go up one Directory</source>
-        <translation>یک پله بالاتر رفتن در پوشه ها</translation>
+        <translation>یک پله بالاتر رفتن در پوشه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2035"/>
@@ -3216,7 +3261,7 @@
     <message>
         <location filename="../../scribus/ui/bookmarkpalette.cpp" line="49"/>
         <source>Bookmarks</source>
-        <translation>بوکمارک ها</translation>
+        <translation>بوکمارک&#x202f;ها</translation>
     </message>
 </context>
 <context>
@@ -3229,7 +3274,7 @@
     <message>
         <location filename="../../scribus/ui/buttonicon.cpp" line="38"/>
         <source>Layout:</source>
-        <translation>لی آوت:</translation>
+        <translation>لی&#x202f;آوت:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/buttonicon.cpp" line="41"/>
@@ -3422,7 +3467,7 @@
         <location filename="../../scribus/ui/cmykfw.cpp" line="1132"/>
         <source>You cannot create a color named &quot;%1&quot;.
 It is a reserved name for transparent color</source>
-        <translation>شما نمی توانید یک رنگ با نام 1% بسازید.
+        <translation>شما نمی&#x202f;توانید یک رنگ با نام 1% بسازید.
 آن نام برای رنگ ناپیدا رزرو شده است. </translation>
     </message>
     <message>
@@ -3433,12 +3478,12 @@ It is a reserved name for transparent color</source>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="101"/>
         <source>Scribus Swatches</source>
-        <translation>رنگانه های اسکرایبوس</translation>
+        <translation>رنگانه&#x202f;های اسکرایبوس</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="105"/>
         <source>User Swatches</source>
-        <translation>رنگانه های کاربر</translation>
+        <translation>رنگانه&#x202f;های کاربر</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="827"/>
@@ -3450,7 +3495,7 @@ It is a reserved name for transparent color</source>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1125"/>
         <source>You cannot create a color without a name.
 Please give it a name</source>
-        <translation>شما نمی توانید یک رنگ را بدون نام بسازید.
+        <translation>شما نمی&#x202f;توانید یک رنگ را بدون نام بسازید.
 لطفا به آن یک نام اختصاص بدهید</translation>
     </message>
     <message>
@@ -3616,7 +3661,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="59"/>
         <source>Result Colors</source>
-        <translation>رنگ های نتیجه</translation>
+        <translation>رنگ&#x202f;های نتیجه</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="120"/>
@@ -3704,12 +3749,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="303"/>
         <source>Preview:</source>
-        <translation>پیش نمایش:</translation>
+        <translation>پیش&#x202f;نمایش:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="340"/>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation>شبیه سازی مشکلات تصیر رایج. نوع مشکل را انتخاب کنید.</translation>
+        <translation>شبیه&#x202f;سازی مشکلات تصیر رایج. نوع مشکل را انتخاب کنید.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="347"/>
@@ -3820,12 +3865,12 @@ Y: %2</source>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2548"/>
         <source>X: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">X: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2555"/>
         <source>Y: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Y: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2571"/>
@@ -3981,17 +4026,17 @@ Click to link to existing text frame or auto-create new linked text frame</sourc
 <context>
     <name>CdrPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="133"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="132"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="136"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="135"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="375"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="374"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -4002,17 +4047,17 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>CgmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="185"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="184"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="188"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="187"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="434"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="433"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -4151,7 +4196,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.cpp" line="267"/>
         <source>Arrows</source>
-        <translation>فلش ها</translation>
+        <translation>فلش&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.cpp" line="273"/>
@@ -4466,7 +4511,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="449"/>
         <source>After Marks update document was changed</source>
-        <translation>بعد از بروزرسانی مارک ها داکیومنت تغییر کرده است</translation>
+        <translation>بعد از بروزرسانی مارک&#x202f;ها داکیومنت تغییر کرده است</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="500"/>
@@ -4503,7 +4548,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="135"/>
         <source>Imported document contains non-embedded fonts</source>
-        <translation>داکیومنت وارد شده شامل فونت هایی است که در آن جاسازی نشده اند</translation>
+        <translation>داکیومنت وارد شده شامل فونت&#x202f;هایی است که در آن جاسازی نشده&#x202f;اند</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="138"/>
@@ -5014,12 +5059,12 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="96"/>
         <source>Patterns</source>
-        <translation>طره های زمینه</translation>
+        <translation>طره&#x202f;های زمینه</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="105"/>
         <source>Scribus Swatches</source>
-        <translation>رنگانه های اسکرایبوس</translation>
+        <translation>رنگانه&#x202f;های اسکرایبوس</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="109"/>
@@ -5659,7 +5704,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="320"/>
         <source>PDF Check Box</source>
-        <translation>چک باکس PDF</translation>
+        <translation>چک&#x202f;باکس PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="321"/>
@@ -5669,7 +5714,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="322"/>
         <source>PDF List Box</source>
-        <translation>لیست باکس PDF</translation>
+        <translation>لیست&#x202f;باکس PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="323"/>
@@ -6456,17 +6501,17 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CvgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="139"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="138"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="141"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="341"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="340"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -6643,22 +6688,22 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>DrwPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1223"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1222"/>
         <source>Group%1</source>
         <translation>گروه%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="155"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="154"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="158"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="157"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="366"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="365"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -6666,44 +6711,44 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>EPSPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="431"/>
+        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="428"/>
         <source>Importing File:
 %1
 failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="432"/>
+        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="429"/>
         <source>Fatal Error</source>
         <translation>اشتباه مهلک</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="771"/>
+        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="768"/>
         <source>Error</source>
         <translation>اشتباه</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="437"/>
+        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="434"/>
         <source>Generating Items</source>
         <translation>تولید اشیاء</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="87"/>
         <source>Analyzing PostScript:</source>
-        <translation>آنالیز پست اسکریپت:</translation>
+        <translation>آنالیز پست&#x202f;اسکریپت:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="770"/>
+        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="767"/>
         <source>Converting of %1 images failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="644"/>
+        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="641"/>
         <source>Group%1</source>
         <translation>گروه%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="87"/>
+        <location filename="../../scribus/plugins/import/ps/importps.cpp" line="84"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
@@ -6840,7 +6885,7 @@ failed!</source>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="51"/>
         <source>Image Effects</source>
-        <translation>افکت های تصویر</translation>
+        <translation>افکت&#x202f;های تصویر</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="597"/>
@@ -7070,17 +7115,17 @@ failed!</source>
 <context>
     <name>EmfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="552"/>
+        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="551"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="555"/>
+        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="554"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="1037"/>
+        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="1036"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -7422,14 +7467,14 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/extimageprops.cpp" line="94"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="131"/>
         <source>Color Dodge</source>
-        <translation>رنگ رفتگی</translation>
+        <translation>رنگ&#x202f;رفتگی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="74"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="95"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="132"/>
         <source>Color Burn</source>
-        <translation>رنگ سوختگی</translation>
+        <translation>رنگ&#x202f;سوختگی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="112"/>
@@ -7560,17 +7605,17 @@ a range of pages or a single page number</source>
 <context>
     <name>FhPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="140"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="143"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="350"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="349"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -7581,12 +7626,12 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>FileLoader</name>
     <message>
-        <location filename="../../scribus/fileloader.cpp" line="459"/>
+        <location filename="../../scribus/fileloader.cpp" line="458"/>
         <source>Some fonts used by this document have been substituted:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/fileloader.cpp" line="462"/>
+        <location filename="../../scribus/fileloader.cpp" line="461"/>
         <source> was replaced by: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -7787,7 +7832,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="116"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نوشته</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="126"/>
@@ -8441,7 +8486,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="342"/>
         <source>&amp;Bookmarks</source>
-        <translation>بوکمارک ها</translation>
+        <translation>بوکمارک&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="14"/>
@@ -8647,17 +8692,17 @@ Ignore List</source>
 <context>
     <name>IdmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="316"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="315"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="319"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="318"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="529"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="528"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -8737,7 +8782,7 @@ Ignore List</source>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="141"/>
         <source>Copyright:</source>
-        <translation>کپی رایت:</translation>
+        <translation>کپی&#x202f;رایت:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="142"/>
@@ -9075,7 +9120,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe InDesign's IDML packages into Scribus
+        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10297,48 +10342,48 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>JavaDocs</name>
     <message>
+        <location filename="../../scribus/ui/javadocs.cpp" line="84"/>
         <location filename="../../scribus/ui/javadocs.cpp" line="85"/>
-        <location filename="../../scribus/ui/javadocs.cpp" line="86"/>
         <source>New Script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/javadocs.cpp" line="36"/>
+        <location filename="../../scribus/ui/javadocs.cpp" line="35"/>
         <source>Edit JavaScripts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/javadocs.cpp" line="54"/>
+        <location filename="../../scribus/ui/javadocs.cpp" line="53"/>
         <source>&amp;Edit...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/javadocs.cpp" line="57"/>
+        <location filename="../../scribus/ui/javadocs.cpp" line="56"/>
         <source>&amp;Add...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/javadocs.cpp" line="60"/>
+        <location filename="../../scribus/ui/javadocs.cpp" line="59"/>
         <source>&amp;Delete</source>
         <translation>&amp;حذف</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/javadocs.cpp" line="65"/>
+        <location filename="../../scribus/ui/javadocs.cpp" line="64"/>
         <source>&amp;Close</source>
         <translation>&amp;بستن</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/javadocs.cpp" line="85"/>
+        <location filename="../../scribus/ui/javadocs.cpp" line="84"/>
         <source>&amp;New Script:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/javadocs.cpp" line="128"/>
+        <location filename="../../scribus/ui/javadocs.cpp" line="127"/>
         <source>Do you really want to delete this script?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/javadocs.cpp" line="80"/>
+        <location filename="../../scribus/ui/javadocs.cpp" line="79"/>
         <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10576,12 +10621,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="727"/>
         <source>Color Dodge</source>
-        <translation>رنگ رفتگی</translation>
+        <translation>رنگ&#x202f;رفتگی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="728"/>
         <source>Color Burn</source>
-        <translation>رنگ سوختگی</translation>
+        <translation>رنگ&#x202f;سوختگی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="726"/>
@@ -11832,7 +11877,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="159"/>
         <source>Default unit of measurement for document editing</source>
-        <translation>مقیاس پیشفرض اندازه گیری برای ویرایش داکیومنت</translation>
+        <translation>مقیاس پیشفرض اندازه&#x202f;گیری برای ویرایش داکیومنت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="160"/>
@@ -12468,12 +12513,12 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="413"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="412"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="634"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="633"/>
         <source>Group%1</source>
         <translation>گروه%1</translation>
     </message>
@@ -12481,39 +12526,39 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>OODrawImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="91"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="90"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="109"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="108"/>
         <source>Imports OpenOffice.org Draw Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="110"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="109"/>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="96"/>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="137"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="95"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="136"/>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="206"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="205"/>
         <source>This file contains some unsupported features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="204"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="203"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="97"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="96"/>
         <source>OpenOffice.org 1.x Draw (*.sxd *.SXD)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12768,17 +12813,17 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>OdgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="151"/>
+        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="150"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="154"/>
+        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="153"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="339"/>
+        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="338"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -12955,7 +13000,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="116"/>
         <source>Fit to Width</source>
-        <translation>هم عرض کردن</translation>
+        <translation>هم&#x202f;عرض کردن</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="121"/>
@@ -13007,7 +13052,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
-        <source>Mirror Pages(s) Vertically</source>
+        <source>Mirror Page(s) Vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -13130,7 +13175,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
-        <source>Mirror Pages(s) Vertically</source>
+        <source>Mirror Page(s) Vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -13440,7 +13485,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="466"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نوشته</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="470"/>
@@ -14056,22 +14101,22 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PagePalette_Pages</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="96"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="97"/>
         <source>This master page is used at least once in the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="100"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="101"/>
         <source>Do you really want to delete this master page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="164"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="165"/>
         <source>Delete Page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="165"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="166"/>
         <source>Are you sure you want to delete this page?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14210,32 +14255,32 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PageSelector</name>
     <message>
-        <location filename="../../scribus/ui/pageselector.cpp" line="222"/>
+        <location filename="../../scribus/ui/pageselector.cpp" line="221"/>
         <source>Go to the first page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pageselector.cpp" line="223"/>
+        <location filename="../../scribus/ui/pageselector.cpp" line="222"/>
         <source>Go to the previous page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pageselector.cpp" line="224"/>
+        <location filename="../../scribus/ui/pageselector.cpp" line="223"/>
         <source>Go to the next page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pageselector.cpp" line="225"/>
+        <location filename="../../scribus/ui/pageselector.cpp" line="224"/>
         <source>Go to the last page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pageselector.cpp" line="226"/>
+        <location filename="../../scribus/ui/pageselector.cpp" line="225"/>
         <source>Select the current page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pageselector.cpp" line="227"/>
+        <location filename="../../scribus/ui/pageselector.cpp" line="226"/>
         <source> of %1</source>
         <comment>number of pages in document</comment>
         <translation type="unfinished"></translation>
@@ -14244,24 +14289,24 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PagesPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="166"/>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="625"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="165"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="623"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="169"/>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="627"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="168"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="625"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="810"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="808"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="387"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="386"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -14776,17 +14821,17 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
 <context>
     <name>PctPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="143"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="146"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="450"/>
+        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="449"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -14883,27 +14928,27 @@ Please check it and try again.</source>
 <context>
     <name>PdfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="158"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="154"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="160"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="156"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="327"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="323"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="357"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="350"/>
         <source>Open PDF-File</source>
         <translation>باز کردن فایل PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="357"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="350"/>
         <source>Password</source>
         <translation>رمز عبور</translation>
     </message>
@@ -14963,7 +15008,7 @@ Please check it and try again.</source>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -14979,7 +15024,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16335,17 +16380,17 @@ Please choose another one.</source>
 <context>
     <name>PmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="137"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="136"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="139"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="346"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="345"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -16593,7 +16638,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="163"/>
         <source>Document Profiles</source>
-        <translation>پروفایل های داکیومنت</translation>
+        <translation>پروفایل&#x202f;های داکیومنت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="185"/>
@@ -16653,7 +16698,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="64"/>
         <source>Relative Colorimetric</source>
-        <translation>رنگ آمیزی تناسبی</translation>
+        <translation>رنگ&#x202f;آمیزی تناسبی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="65"/>
@@ -16663,7 +16708,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="65"/>
         <source>Absolute Colorimetric</source>
-        <translation>رنگ آمیزی مطلق</translation>
+        <translation>رنگ&#x202f;آمیزی مطلق</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="34"/>
@@ -16717,7 +16762,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="102"/>
         <source>Show Layer Indicators</source>
-        <translation>نمایش معرفهٔ لایه ها</translation>
+        <translation>نمایش معرفهٔ لایه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="109"/>
@@ -17201,7 +17246,7 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_documentsectionsbase.ui" line="14"/>
         <location filename="../../scribus/ui/prefs_documentsectionsbase.ui" line="39"/>
         <source>Document Sections</source>
-        <translation>بخش های داکیومنت</translation>
+        <translation>بخش&#x202f;های داکیومنت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsectionsbase.ui" line="60"/>
@@ -17453,7 +17498,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="383"/>
         <source>Margins</source>
-        <translation>حاشیه ها</translation>
+        <translation>حاشیه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="465"/>
@@ -17498,7 +17543,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="127"/>
         <source>Default unit of measurement for document editing</source>
-        <translation>مقیاس پیشفرض اندازه گیری برای ویرایش داکیومنت</translation>
+        <translation>مقیاس پیشفرض اندازه&#x202f;گیری برای ویرایش داکیومنت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="133"/>
@@ -17958,7 +18003,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="69"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="137"/>
         <source>Margins</source>
-        <translation>حاشیه ها</translation>
+        <translation>حاشیه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="397"/>
@@ -18280,7 +18325,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="66"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="146"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نوشته</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="209"/>
@@ -19211,7 +19256,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1204"/>
         <source>Use Document Bleeds</source>
-        <translation>اعمال حاشیه های داکیومنت</translation>
+        <translation>اعمال حاشیه&#x202f;های داکیومنت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1272"/>
@@ -19241,7 +19286,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1454"/>
         <source>Extras</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">اضافات</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1460"/>
@@ -19652,7 +19697,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="253"/>
         <source>Relative Colorimetric</source>
-        <translation>رنگ آمیزی تناسبی</translation>
+        <translation>رنگ&#x202f;آمیزی تناسبی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="253"/>
@@ -19662,7 +19707,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="253"/>
         <source>Absolute Colorimetric</source>
-        <translation>رنگ آمیزی مطلق</translation>
+        <translation>رنگ&#x202f;آمیزی مطلق</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="360"/>
@@ -19775,7 +19820,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="618"/>
         <source>Show the document in single page mode</source>
-        <translation>نمایش داکیومنت در حالت تک صفحه ای</translation>
+        <translation>نمایش داکیومنت در حالت تک&#x202f;صفحه&#x202f;ای</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="619"/>
@@ -19978,7 +20023,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pathsbase.ui" line="85"/>
         <source>Documents:</source>
-        <translation>داکیومنت ها:</translation>
+        <translation>داکیومنت&#x202f;ها:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pathsbase.ui" line="114"/>
@@ -20023,7 +20068,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pathsbase.ui" line="190"/>
         <source>Document Templates:</source>
-        <translation>داکیومنت های پیشفرض:</translation>
+        <translation>داکیومنت&#x202f;های پیشفرض:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pathsbase.ui" line="213"/>
@@ -20792,7 +20837,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="60"/>
         <source>Subscript</source>
-        <translation>ساب اسکریپت</translation>
+        <translation>ساب&#x202f;اسکریپت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="82"/>
@@ -21075,8 +21120,8 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source/>
-        <translation type="unfinished"></translation>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
@@ -21464,7 +21509,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="589"/>
         <source>Use Document Bleeds</source>
-        <translation>اعمال حاشیه های داکیومنت</translation>
+        <translation>اعمال حاشیه&#x202f;های داکیومنت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="615"/>
@@ -21641,7 +21686,7 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
-        <source>Mirror Pages(s) Vertically</source>
+        <source>Mirror Page(s) Vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -21722,7 +21767,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="280"/>
         <source>Fit to Width</source>
-        <translation>هم عرض کردن</translation>
+        <translation>هم&#x202f;عرض کردن</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="285"/>
@@ -21812,7 +21857,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="798"/>
         <source>Relative Colorimetric</source>
-        <translation>رنگ آمیزی تناسبی</translation>
+        <translation>رنگ&#x202f;آمیزی تناسبی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="799"/>
@@ -21822,7 +21867,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="800"/>
         <source>Absolute Colorimetric</source>
-        <translation>رنگ آمیزی مطلق</translation>
+        <translation>رنگ&#x202f;آمیزی مطلق</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="806"/>
@@ -22061,7 +22106,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="430"/>
         <source>Image Effects</source>
-        <translation>افکت های تصویر</translation>
+        <translation>افکت&#x202f;های تصویر</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="443"/>
@@ -22396,12 +22441,12 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="299"/>
         <source>Color Dodge</source>
-        <translation>رنگ رفتگی</translation>
+        <translation>رنگ&#x202f;رفتگی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="300"/>
         <source>Color Burn</source>
-        <translation>رنگ سوختگی</translation>
+        <translation>رنگ&#x202f;سوختگی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="301"/>
@@ -22534,12 +22579,12 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="177"/>
         <source>Color Dodge</source>
-        <translation>رنگ رفتگی</translation>
+        <translation>رنگ&#x202f;رفتگی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="182"/>
         <source>Color Burn</source>
-        <translation>رنگ سوختگی</translation>
+        <translation>رنگ&#x202f;سوختگی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="187"/>
@@ -23470,7 +23515,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="106"/>
         <source>Default Capitals</source>
-        <translation>کپیتال های پیشفرض</translation>
+        <translation>کپیتال&#x202f;های پیشفرض</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="119"/>
@@ -23480,7 +23525,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="122"/>
         <source>Small Capitals</source>
-        <translation>کپیتال های کوچک</translation>
+        <translation>کپیتال&#x202f;های کوچک</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="132"/>
@@ -23490,7 +23535,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="135"/>
         <source>Small Capitals from Capitals</source>
-        <translation>حروف کپیتال کوچک از کپیتال ها</translation>
+        <translation>حروف کپیتال کوچک از کپیتال&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="145"/>
@@ -23500,7 +23545,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="148"/>
         <source>Petite Capitals</source>
-        <translation>کپیتال های خیلی کوچک</translation>
+        <translation>کپیتال&#x202f;های خیلی کوچک</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="158"/>
@@ -23510,7 +23555,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="161"/>
         <source>Petite Capitals from Capitals</source>
-        <translation>حروف کپیتال خیلی کوچک از کپیتال ها</translation>
+        <translation>حروف کپیتال خیلی کوچک از کپیتال&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="171"/>
@@ -23620,7 +23665,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="361"/>
         <source>Stacked Fractions</source>
-        <translation>ممیز روی هم</translation>
+        <translation>ممیز روی&#x202f;هم</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="378"/>
@@ -23640,7 +23685,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="397"/>
         <source>Subscript</source>
-        <translation>ساب اسکریپت</translation>
+        <translation>ساب&#x202f;اسکریپت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="407"/>
@@ -23665,12 +23710,12 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="446"/>
         <source>Slashed Zero (zero)</source>
-        <translation>صفر خط دار (صفر)</translation>
+        <translation>صفر خط&#x202f;دار (صفر)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="449"/>
         <source>Slashed Zero</source>
-        <translation>صفر خط دار</translation>
+        <translation>صفر خط&#x202f;دار</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="463"/>
@@ -24128,17 +24173,17 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PubPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="139"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="143"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="142"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="353"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="352"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -24918,7 +24963,7 @@ Check path and filename.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1281"/>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="632"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="630"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1083"/>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1551"/>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="2204"/>
@@ -24936,7 +24981,7 @@ Check path and filename.</source>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="147"/>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="101"/>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="146"/>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="172"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="171"/>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="162"/>
@@ -24946,11 +24991,11 @@ Check path and filename.</source>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="165"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="164"/>
         <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="143"/>
         <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
         <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="123"/>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
@@ -25111,7 +25156,7 @@ Check path and filename.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/fileloader.cpp" line="83"/>
+        <location filename="../../scribus/fileloader.cpp" line="82"/>
         <location filename="../../scribus/gtgettext.cpp" line="174"/>
         <location filename="../../scribus/scgtplugin.cpp" line="57"/>
         <location filename="../../scribus/util_formats.cpp" line="273"/>
@@ -28450,7 +28495,7 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="841"/>
+        <location filename="../../scribus/scribus.cpp" line="833"/>
         <source>Scribus Development Version</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28510,8 +28555,8 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2028"/>
-        <location filename="../../scribus/scribus.cpp" line="2273"/>
+        <location filename="../../scribus/scribus.cpp" line="2020"/>
+        <location filename="../../scribus/scribus.cpp" line="2265"/>
         <source>Document Template: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -28783,7 +28828,7 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="979"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="978"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -28801,18 +28846,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can't find anything to operate
+raise a NoValidObjectError if it can&apos;t find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn't make sense, and will result
+the text color on a graphics frame doesn&apos;t make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function's documentation, though as with most Python code this list
+function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation type="unfinished"></translation>
@@ -28843,27 +28888,27 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="698"/>
+        <location filename="../../scribus/scfonts.cpp" line="697"/>
         <source>Failed to load font %1 - font type unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="895"/>
+        <location filename="../../scribus/scfonts.cpp" line="894"/>
         <source>Font %1 loaded from %2(%3)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="911"/>
+        <location filename="../../scribus/scfonts.cpp" line="910"/>
         <source>Font %1(%2) is duplicate of %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="1041"/>
+        <location filename="../../scribus/scfonts.cpp" line="1040"/>
         <source>Loading font %1 (found using fontconfig)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="1047"/>
+        <location filename="../../scribus/scfonts.cpp" line="1046"/>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28955,7 +29000,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="137"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="136"/>
         <source>Scripter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28970,12 +29015,12 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="107"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="106"/>
         <source>SVG Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="102"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="101"/>
         <source>OpenOffice.org Draw Importer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28985,78 +29030,78 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="671"/>
+        <location filename="../../scribus/scfonts.cpp" line="670"/>
         <source>Creating Font Cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="679"/>
+        <location filename="../../scribus/scfonts.cpp" line="678"/>
         <source>Font is broken: &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="681"/>
+        <location filename="../../scribus/scfonts.cpp" line="680"/>
         <source>Font %1 is broken, discarding it. Error message: &quot;%2&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="686"/>
+        <location filename="../../scribus/scfonts.cpp" line="685"/>
         <source>Failed to load font: font family unspecified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="688"/>
+        <location filename="../../scribus/scfonts.cpp" line="687"/>
         <source>Failed to load font %1 - font family unspecified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="696"/>
+        <location filename="../../scribus/scfonts.cpp" line="695"/>
         <source>Failed to load font: font type unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="707"/>
+        <location filename="../../scribus/scfonts.cpp" line="706"/>
         <source>Failed to load font: font is not scalable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="709"/>
+        <location filename="../../scribus/scfonts.cpp" line="708"/>
         <source>Failed to load font %1 - font is not scalable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="719"/>
+        <location filename="../../scribus/scfonts.cpp" line="718"/>
         <source>New Font found, checking...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="727"/>
-        <location filename="../../scribus/scfonts.cpp" line="771"/>
+        <location filename="../../scribus/scfonts.cpp" line="726"/>
+        <location filename="../../scribus/scfonts.cpp" line="770"/>
         <source>Font %1 has broken glyph %2 (charcode U+%3). Error message: &quot;%4&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="763"/>
+        <location filename="../../scribus/scfonts.cpp" line="762"/>
         <source>Modified Font found, checking...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="1228"/>
+        <location filename="../../scribus/scfonts.cpp" line="1227"/>
         <source>Reading Font Cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="1287"/>
+        <location filename="../../scribus/scfonts.cpp" line="1286"/>
         <source>Writing updated Font Cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="1303"/>
+        <location filename="../../scribus/scfonts.cpp" line="1302"/>
         <source>Searching for Fonts</source>
         <translation>جستجو برای فونت ها</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4002"/>
+        <location filename="../../scribus/scribus.cpp" line="3994"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29092,7 +29137,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="42"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="44"/>
         <source>Barcode Generator</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29542,7 +29587,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="85"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="84"/>
         <source>WMF Import</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29565,7 +29610,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="135"/>
         <source>%1;;All Files (*)</source>
-        <translation>%1;;همهٔ فایل ها (*)</translation>
+        <translation>%1;;همهٔ فایل&#x202f;ها (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="176"/>
@@ -29587,6 +29632,11 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/util_formats.cpp" line="87"/>
         <source>Krita</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/util_formats.cpp" line="88"/>
+        <source>OpenRaster</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29797,7 +29847,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_ps.cpp" line="516"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_ps.cpp" line="515"/>
         <source>The Font(s):
 %1 are not embedded or available for Scribus.
 They might be replaced by &quot;Courier&quot;, depending how your Ghostscript is configured.
@@ -29865,7 +29915,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="77"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="76"/>
         <source>Uniconvertor Import</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30403,7 +30453,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="842"/>
+        <location filename="../../scribus/scribus.cpp" line="834"/>
         <source>You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30413,7 +30463,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3183"/>
+        <location filename="../../scribus/scribus.cpp" line="3175"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30508,7 +30558,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="172"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="171"/>
         <source>OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30629,11 +30679,6 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="81"/>
         <source>Adobe Illustrator</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/util_formats.cpp" line="88"/>
-        <source>Open Raster</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -30885,19 +30930,19 @@ Therefore the image may be not correct</source>
 <context>
     <name>Query</name>
     <message>
-        <location filename="../../scribus/ui/query.cpp" line="85"/>
+        <location filename="../../scribus/ui/query.cpp" line="84"/>
         <source>Name &quot;%1&quot; already exists.
 Do you want to replace the current contents?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/query.cpp" line="95"/>
+        <location filename="../../scribus/ui/query.cpp" line="94"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/query.cpp" line="73"/>
+        <location filename="../../scribus/ui/query.cpp" line="72"/>
         <source>Name &quot;%1&quot; is not allowed.
 Please choose another.</source>
         <translation type="unfinished"></translation>
@@ -31636,27 +31681,27 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="486"/>
         <source>Default Capitals</source>
-        <translation>کپیتال های پیشفرض</translation>
+        <translation>کپیتال&#x202f;های پیشفرض</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="489"/>
         <source>Small Capitals</source>
-        <translation>کپیتال های کوچک</translation>
+        <translation>کپیتال&#x202f;های کوچک</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="491"/>
         <source>Small Capitals from Capitals</source>
-        <translation>حروف کپیتال کوچک از کپیتال ها</translation>
+        <translation>حروف کپیتال کوچک از کپیتال&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="493"/>
         <source>Petite Capitals</source>
-        <translation>کپیتال های خیلی کوچک</translation>
+        <translation>کپیتال&#x202f;های خیلی کوچک</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="495"/>
         <source>Petite Capitals from Capitals</source>
-        <translation>حروف کپیتال خیلی کوچک از کپیتال ها</translation>
+        <translation>حروف کپیتال خیلی کوچک از کپیتال&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="497"/>
@@ -31676,7 +31721,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="510"/>
         <source>Subscript</source>
-        <translation>ساب اسکریپت</translation>
+        <translation>ساب&#x202f;اسکریپت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="512"/>
@@ -31731,7 +31776,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="553"/>
         <source>Stacked Fractions</source>
-        <translation>ممیز روی هم</translation>
+        <translation>ممیز روی&#x202f;هم</translation>
     </message>
 </context>
 <context>
@@ -32553,22 +32598,22 @@ Caution: this will increase the file size!</source>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="98"/>
         <source>Import &amp;SVG...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="114"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="113"/>
         <source>Imports SVG Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="115"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="114"/>
         <source>Imports most SVG files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="198"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="197"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32576,7 +32621,7 @@ Caution: this will increase the file size!</source>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1353"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1352"/>
         <source>Group%1</source>
         <translation>گروه%1</translation>
     </message>
@@ -32748,7 +32793,7 @@ Caution: this will increase the file size!</source>
         <location filename="../../scribus/ui/annot.ui" line="128"/>
         <location filename="../../scribus/ui/annot.ui" line="408"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نوشته</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="208"/>
@@ -32877,7 +32922,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="424"/>
         <source>Text for Roll Over</source>
-        <translation>نوشتار برای رول اور</translation>
+        <translation>نوشتار برای رول&#x202f;اور</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="439"/>
@@ -32904,7 +32949,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="548"/>
         <source>Roll Over</source>
-        <translation>رول اور</translation>
+        <translation>رول&#x202f;اور</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="596"/>
@@ -32925,7 +32970,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="630"/>
         <source>Outlined</source>
-        <translation>خط دوره شده</translation>
+        <translation>خط&#x202f;دوره شده</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="635"/>
@@ -32960,7 +33005,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="726"/>
         <source>Do Not Spell Check</source>
-        <translation>غلط گیری نکن</translation>
+        <translation>غلط&#x202f;گیری نکن</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="764"/>
@@ -33771,7 +33816,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="200"/>
         <source>Symbols</source>
-        <translation>نشانه ها</translation>
+        <translation>نشانه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1402"/>
@@ -34041,7 +34086,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3928"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3926"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished"></translation>
     </message>
@@ -34289,613 +34334,613 @@ Vertical gap: %4</source>
 <context>
     <name>ScribusMainWindow</name>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="395"/>
+        <location filename="../../scribus/scribus.cpp" line="387"/>
         <source>Initializing Story Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="409"/>
+        <location filename="../../scribus/scribus.cpp" line="401"/>
         <source>Reading Scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3349"/>
+        <location filename="../../scribus/scribus.cpp" line="3341"/>
         <source>Fatal Error</source>
         <translation>اشتباه مهلک</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="875"/>
+        <location filename="../../scribus/scribus.cpp" line="867"/>
         <source>Open &amp;Recent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="883"/>
-        <location filename="../../scribus/scribus.cpp" line="3188"/>
+        <location filename="../../scribus/scribus.cpp" line="875"/>
+        <location filename="../../scribus/scribus.cpp" line="3180"/>
         <source>&amp;Import</source>
         <translation>&amp;واردکردن</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="890"/>
+        <location filename="../../scribus/scribus.cpp" line="882"/>
         <source>&amp;Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="995"/>
+        <location filename="../../scribus/scribus.cpp" line="987"/>
         <source>Preview Settings</source>
         <translation>تنظیمات پیش دید</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="970"/>
+        <location filename="../../scribus/scribus.cpp" line="962"/>
         <source>Level</source>
         <translation>سطح</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="976"/>
+        <location filename="../../scribus/scribus.cpp" line="968"/>
         <source>Send to La&amp;yer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2056"/>
-        <location filename="../../scribus/scribus.cpp" line="2096"/>
-        <location filename="../../scribus/scribus.cpp" line="3660"/>
-        <location filename="../../scribus/scribus.cpp" line="4107"/>
-        <location filename="../../scribus/scribus.cpp" line="4181"/>
-        <location filename="../../scribus/scribus.cpp" line="4336"/>
-        <location filename="../../scribus/scribus.cpp" line="6555"/>
-        <location filename="../../scribus/scribus.cpp" line="8583"/>
+        <location filename="../../scribus/scribus.cpp" line="2048"/>
+        <location filename="../../scribus/scribus.cpp" line="2088"/>
+        <location filename="../../scribus/scribus.cpp" line="3652"/>
+        <location filename="../../scribus/scribus.cpp" line="4099"/>
+        <location filename="../../scribus/scribus.cpp" line="4173"/>
+        <location filename="../../scribus/scribus.cpp" line="4328"/>
+        <location filename="../../scribus/scribus.cpp" line="6547"/>
+        <location filename="../../scribus/scribus.cpp" line="8575"/>
         <source>Ready</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3014"/>
-        <location filename="../../scribus/scribus.cpp" line="3129"/>
-        <location filename="../../scribus/scribus.cpp" line="3751"/>
+        <location filename="../../scribus/scribus.cpp" line="3006"/>
+        <location filename="../../scribus/scribus.cpp" line="3121"/>
+        <location filename="../../scribus/scribus.cpp" line="3743"/>
         <source>Open</source>
         <translation>بازکردن</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3150"/>
+        <location filename="../../scribus/scribus.cpp" line="3142"/>
         <source>Importing Pages...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3181"/>
+        <location filename="../../scribus/scribus.cpp" line="3173"/>
         <source>Import Page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3227"/>
+        <location filename="../../scribus/scribus.cpp" line="3219"/>
         <source>Import done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3231"/>
+        <location filename="../../scribus/scribus.cpp" line="3223"/>
         <source>Found nothing to import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3304"/>
+        <location filename="../../scribus/scribus.cpp" line="3296"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3350"/>
+        <location filename="../../scribus/scribus.cpp" line="3342"/>
         <source>File %1 is not in an acceptable format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3391"/>
+        <location filename="../../scribus/scribus.cpp" line="3383"/>
         <source>Loading...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3556"/>
+        <location filename="../../scribus/scribus.cpp" line="3548"/>
         <source> was replaced by: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3586"/>
+        <location filename="../../scribus/scribus.cpp" line="3578"/>
         <source>(converted)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3942"/>
+        <location filename="../../scribus/scribus.cpp" line="3934"/>
         <source>Filename and Path for Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3942"/>
+        <location filename="../../scribus/scribus.cpp" line="3934"/>
         <source>All Files (*)</source>
         <translation>همه فایل ها (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4037"/>
-        <location filename="../../scribus/scribus.cpp" line="4102"/>
-        <location filename="../../scribus/scribus.cpp" line="7029"/>
-        <location filename="../../scribus/scribus.cpp" line="7187"/>
-        <location filename="../../scribus/scribus.cpp" line="7201"/>
+        <location filename="../../scribus/scribus.cpp" line="4029"/>
+        <location filename="../../scribus/scribus.cpp" line="4094"/>
+        <location filename="../../scribus/scribus.cpp" line="7021"/>
+        <location filename="../../scribus/scribus.cpp" line="7179"/>
+        <location filename="../../scribus/scribus.cpp" line="7193"/>
         <source>Cannot write the file: 
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4087"/>
-        <location filename="../../scribus/scribus.cpp" line="7018"/>
+        <location filename="../../scribus/scribus.cpp" line="4079"/>
+        <location filename="../../scribus/scribus.cpp" line="7010"/>
         <source>Save As</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4116"/>
+        <location filename="../../scribus/scribus.cpp" line="4108"/>
         <source>Saving...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4244"/>
-        <location filename="../../scribus/scribus.cpp" line="6699"/>
-        <location filename="../../scribus/scribus.cpp" line="6776"/>
-        <location filename="../../scribus/scribus.cpp" line="6848"/>
+        <location filename="../../scribus/scribus.cpp" line="4236"/>
+        <location filename="../../scribus/scribus.cpp" line="6691"/>
+        <location filename="../../scribus/scribus.cpp" line="6768"/>
+        <location filename="../../scribus/scribus.cpp" line="6840"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4279"/>
+        <location filename="../../scribus/scribus.cpp" line="4271"/>
         <source>Printing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1210"/>
-        <location filename="../../scribus/scribus.cpp" line="2125"/>
-        <location filename="../../scribus/scribus.cpp" line="4283"/>
-        <location filename="../../scribus/scribus.cpp" line="6997"/>
-        <location filename="../../scribus/scribus.cpp" line="8318"/>
+        <location filename="../../scribus/scribus.cpp" line="1202"/>
+        <location filename="../../scribus/scribus.cpp" line="2117"/>
+        <location filename="../../scribus/scribus.cpp" line="4275"/>
+        <location filename="../../scribus/scribus.cpp" line="6989"/>
+        <location filename="../../scribus/scribus.cpp" line="8310"/>
         <source>Document</source>
         <translation>داکیومنت</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4324"/>
+        <location filename="../../scribus/scribus.cpp" line="4316"/>
         <source>Printing failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4414"/>
+        <location filename="../../scribus/scribus.cpp" line="4406"/>
         <source>Cannot Cut In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4414"/>
+        <location filename="../../scribus/scribus.cpp" line="4406"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5026"/>
+        <location filename="../../scribus/scribus.cpp" line="5018"/>
         <source>About Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5057"/>
+        <location filename="../../scribus/scribus.cpp" line="5049"/>
         <source>Scribus Manual</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6163"/>
+        <location filename="../../scribus/scribus.cpp" line="6155"/>
         <source>&amp;Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1537"/>
-        <location filename="../../scribus/scribus.cpp" line="6163"/>
+        <location filename="../../scribus/scribus.cpp" line="1529"/>
+        <location filename="../../scribus/scribus.cpp" line="6155"/>
         <source>Size</source>
         <translation>سایز</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6541"/>
+        <location filename="../../scribus/scribus.cpp" line="6533"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6964"/>
+        <location filename="../../scribus/scribus.cpp" line="6956"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7060"/>
+        <location filename="../../scribus/scribus.cpp" line="7052"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7183"/>
+        <location filename="../../scribus/scribus.cpp" line="7175"/>
         <source>-Page%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7718"/>
+        <location filename="../../scribus/scribus.cpp" line="7710"/>
         <source>Some objects are locked.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7714"/>
+        <location filename="../../scribus/scribus.cpp" line="7706"/>
         <source>&amp;Lock All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7215"/>
+        <location filename="../../scribus/scribus.cpp" line="7207"/>
         <source>Locate your PDF viewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7715"/>
+        <location filename="../../scribus/scribus.cpp" line="7707"/>
         <source>&amp;Unlock All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3861"/>
-        <location filename="../../scribus/scribus.cpp" line="8782"/>
+        <location filename="../../scribus/scribus.cpp" line="3853"/>
+        <location filename="../../scribus/scribus.cpp" line="8774"/>
         <source>Do you really want to replace your existing image?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="926"/>
+        <location filename="../../scribus/scribus.cpp" line="918"/>
         <source>Contents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1081"/>
+        <location filename="../../scribus/scribus.cpp" line="1073"/>
         <source>&amp;Character</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1102"/>
+        <location filename="../../scribus/scribus.cpp" line="1094"/>
         <source>&amp;Quote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1144"/>
+        <location filename="../../scribus/scribus.cpp" line="1136"/>
         <source>Liga&amp;ture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="924"/>
+        <location filename="../../scribus/scribus.cpp" line="916"/>
         <source>Paste Recent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4085"/>
+        <location filename="../../scribus/scribus.cpp" line="4077"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3773"/>
+        <location filename="../../scribus/scribus.cpp" line="3765"/>
         <source>Do you really want to clear all your text?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3553"/>
+        <location filename="../../scribus/scribus.cpp" line="3545"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7018"/>
+        <location filename="../../scribus/scribus.cpp" line="7010"/>
         <source>%1;;All Files (*)</source>
-        <translation>%1;;همهٔ فایل ها (*)</translation>
+        <translation>%1;;همهٔ فایل&#x202f;ها (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="381"/>
+        <location filename="../../scribus/scribus.cpp" line="373"/>
         <source>Applying User Shortcuts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6577"/>
+        <location filename="../../scribus/scribus.cpp" line="6569"/>
         <source>Updating Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4035"/>
-        <location filename="../../scribus/scribus.cpp" line="4100"/>
+        <location filename="../../scribus/scribus.cpp" line="4027"/>
+        <location filename="../../scribus/scribus.cpp" line="4092"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4387"/>
+        <location filename="../../scribus/scribus.cpp" line="4379"/>
         <source>Print engine initialization failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2987"/>
+        <location filename="../../scribus/scribus.cpp" line="2979"/>
         <source>All Supported Formats</source>
         <translation>همه فرمت های پشتیبانی شده</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9059"/>
-        <location filename="../../scribus/scribus.cpp" line="9138"/>
+        <location filename="../../scribus/scribus.cpp" line="9051"/>
+        <location filename="../../scribus/scribus.cpp" line="9130"/>
         <source>&amp;Name:</source>
         <translation>&amp;نام:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9059"/>
-        <location filename="../../scribus/scribus.cpp" line="9138"/>
+        <location filename="../../scribus/scribus.cpp" line="9051"/>
+        <location filename="../../scribus/scribus.cpp" line="9130"/>
         <source>New Entry</source>
         <translation>ورودی جدید</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6740"/>
+        <location filename="../../scribus/scribus.cpp" line="6732"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3335"/>
+        <location filename="../../scribus/scribus.cpp" line="3327"/>
         <source>Document is already opened</source>
         <translation>داکیومنت از پیش باز است</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3351"/>
+        <location filename="../../scribus/scribus.cpp" line="3343"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7481"/>
+        <location filename="../../scribus/scribus.cpp" line="7473"/>
         <source>Editing Symbol: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1491"/>
+        <location filename="../../scribus/scribus.cpp" line="1483"/>
         <source>Unknown</source>
         <translation>ناشناخته</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1542"/>
+        <location filename="../../scribus/scribus.cpp" line="1534"/>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="401"/>
+        <location filename="../../scribus/scribus.cpp" line="393"/>
         <source>Initializing Languages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="654"/>
+        <location filename="../../scribus/scribus.cpp" line="646"/>
         <source>All Supported Formats (%1);;%2All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1037"/>
-        <location filename="../../scribus/scribus.cpp" line="1157"/>
+        <location filename="../../scribus/scribus.cpp" line="1029"/>
+        <location filename="../../scribus/scribus.cpp" line="1149"/>
         <source>Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9482"/>
+        <location filename="../../scribus/scribus.cpp" line="9474"/>
         <source>Insert new </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9509"/>
-        <location filename="../../scribus/scribus.cpp" line="9737"/>
+        <location filename="../../scribus/scribus.cpp" line="9501"/>
+        <location filename="../../scribus/scribus.cpp" line="9729"/>
         <source>Anchor mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9517"/>
-        <location filename="../../scribus/scribus.cpp" line="9750"/>
+        <location filename="../../scribus/scribus.cpp" line="9509"/>
+        <location filename="../../scribus/scribus.cpp" line="9742"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9525"/>
-        <location filename="../../scribus/scribus.cpp" line="9789"/>
+        <location filename="../../scribus/scribus.cpp" line="9517"/>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
         <source>Mark to %1 item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9535"/>
-        <location filename="../../scribus/scribus.cpp" line="9810"/>
+        <location filename="../../scribus/scribus.cpp" line="9527"/>
+        <location filename="../../scribus/scribus.cpp" line="9802"/>
         <source>Mark to %1 mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="956"/>
+        <location filename="../../scribus/scribus.cpp" line="948"/>
         <source>Duplicate/Transform</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="905"/>
+        <location filename="../../scribus/scribus.cpp" line="897"/>
         <source>&amp;Output Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="961"/>
+        <location filename="../../scribus/scribus.cpp" line="953"/>
         <source>Grouping</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="966"/>
+        <location filename="../../scribus/scribus.cpp" line="958"/>
         <source>Locking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="978"/>
+        <location filename="../../scribus/scribus.cpp" line="970"/>
         <source>Send to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="980"/>
+        <location filename="../../scribus/scribus.cpp" line="972"/>
         <source>Scrapbook</source>
         <translation>دفترچهٔ نگهداری موقت اطلاعات</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="984"/>
+        <location filename="../../scribus/scribus.cpp" line="976"/>
         <source>Adjust</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="989"/>
+        <location filename="../../scribus/scribus.cpp" line="981"/>
         <source>Image</source>
         <translation>عکس</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1002"/>
+        <location filename="../../scribus/scribus.cpp" line="994"/>
         <source>P&amp;DF Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1016"/>
+        <location filename="../../scribus/scribus.cpp" line="1008"/>
         <source>Text Frame Links</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1021"/>
+        <location filename="../../scribus/scribus.cpp" line="1013"/>
         <source>Path Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1031"/>
+        <location filename="../../scribus/scribus.cpp" line="1023"/>
         <source>Welding</source>
         <translation>یکپارچگی</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1041"/>
+        <location filename="../../scribus/scribus.cpp" line="1033"/>
         <source>Text Features</source>
         <comment>Item</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1128"/>
+        <location filename="../../scribus/scribus.cpp" line="1120"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1184"/>
+        <location filename="../../scribus/scribus.cpp" line="1176"/>
         <source>Zoom</source>
         <translation>زوم</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1193"/>
+        <location filename="../../scribus/scribus.cpp" line="1185"/>
         <source>Preview</source>
         <translation>پیش دید</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1201"/>
+        <location filename="../../scribus/scribus.cpp" line="1193"/>
         <source>Text Frames</source>
         <translation>قالب های متنی</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1207"/>
+        <location filename="../../scribus/scribus.cpp" line="1199"/>
         <source>Image Frames</source>
         <translation>قالب های عکس</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1216"/>
+        <location filename="../../scribus/scribus.cpp" line="1208"/>
         <source>Grids and Guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1365"/>
+        <location filename="../../scribus/scribus.cpp" line="1357"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1406"/>
-        <location filename="../../scribus/scribus.cpp" line="8579"/>
+        <location filename="../../scribus/scribus.cpp" line="1398"/>
+        <location filename="../../scribus/scribus.cpp" line="8571"/>
         <source>X:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1408"/>
-        <location filename="../../scribus/scribus.cpp" line="8580"/>
+        <location filename="../../scribus/scribus.cpp" line="1400"/>
+        <location filename="../../scribus/scribus.cpp" line="8572"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3335"/>
+        <location filename="../../scribus/scribus.cpp" line="3327"/>
         <source>This document is already open. It will be set as the active document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5111"/>
+        <location filename="../../scribus/scribus.cpp" line="5103"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5111"/>
+        <location filename="../../scribus/scribus.cpp" line="5103"/>
         <source>Save as</source>
         <translation>ذخیره به عنوان</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6176"/>
+        <location filename="../../scribus/scribus.cpp" line="6168"/>
         <source>&amp;Language:</source>
         <translation>زبان:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6176"/>
+        <location filename="../../scribus/scribus.cpp" line="6168"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7532"/>
+        <location filename="../../scribus/scribus.cpp" line="7524"/>
         <source>Editing Inline Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8429"/>
+        <location filename="../../scribus/scribus.cpp" line="8421"/>
         <source>The program %1 is missing or failed to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8573"/>
+        <location filename="../../scribus/scribus.cpp" line="8565"/>
         <source>Current zoom level</source>
         <translation>سطح زوم فعلی</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8574"/>
+        <location filename="../../scribus/scribus.cpp" line="8566"/>
         <source>Zoom to 100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8575"/>
+        <location filename="../../scribus/scribus.cpp" line="8567"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8576"/>
+        <location filename="../../scribus/scribus.cpp" line="8568"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8577"/>
+        <location filename="../../scribus/scribus.cpp" line="8569"/>
         <source>Select the current layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8578"/>
+        <location filename="../../scribus/scribus.cpp" line="8570"/>
         <source>Select the current unit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9718"/>
+        <location filename="../../scribus/scribus.cpp" line="9710"/>
         <source>Edit %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1008"/>
+        <location filename="../../scribus/scribus.cpp" line="1000"/>
         <source>C&amp;onvert to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1537"/>
+        <location filename="../../scribus/scribus.cpp" line="1529"/>
         <source>%1 selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3187"/>
+        <location filename="../../scribus/scribus.cpp" line="3179"/>
         <source>C&amp;reate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1196"/>
+        <location filename="../../scribus/scribus.cpp" line="1188"/>
         <source>Measurement</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35289,7 +35334,7 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>ScriptPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="148"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="147"/>
         <source>Embedded Python scripting support for Python 3.x.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35407,7 +35452,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/search.cpp" line="70"/>
         <location filename="../../scribus/ui/search.cpp" line="169"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">نوشته</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="79"/>
@@ -35494,7 +35539,9 @@ Consider using the Preflight Verifier to correct them</source>
     <message numerus="yes">
         <location filename="../../scribus/ui/search.cpp" line="925"/>
         <source>%n match(es) found</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="263"/>
@@ -35660,22 +35707,22 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>ShapePlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="141"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="145"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="144"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="350"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="349"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="632"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="631"/>
         <source>Group%1</source>
         <translation>گروه%1</translation>
     </message>
@@ -35819,17 +35866,17 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>SmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="139"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="138"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="141"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="352"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="351"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -36241,7 +36288,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="109"/>
         <source>Import styles from another document</source>
-        <translation>وارد کردن استایل ها از یک داکیومنت دیگر</translation>
+        <translation>وارد کردن استایل&#x202f;ها از یک داکیومنت دیگر</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="110"/>
@@ -36396,7 +36443,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="322"/>
         <source>Subscript</source>
-        <translation>ساب اسکریپت</translation>
+        <translation>ساب&#x202f;اسکریپت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="323"/>
@@ -36465,17 +36512,17 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>SvmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="408"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="407"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="411"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="410"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="694"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="693"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -36543,7 +36590,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/symbolpalette.cpp" line="323"/>
         <source>Symbols</source>
-        <translation>نشانه ها</translation>
+        <translation>نشانه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/symbolpalette.cpp" line="182"/>
@@ -37027,7 +37074,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1247"/>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1314"/>
         <source>Relative Colorimetric</source>
-        <translation>رنگ آمیزی تناسبی</translation>
+        <translation>رنگ&#x202f;آمیزی تناسبی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1252"/>
@@ -37039,7 +37086,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1257"/>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1324"/>
         <source>Absolute Colorimetric</source>
-        <translation>رنگ آمیزی مطلق</translation>
+        <translation>رنگ&#x202f;آمیزی مطلق</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1268"/>
@@ -37426,7 +37473,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1473"/>
         <source>Use Document Bleeds</source>
-        <translation>اعمال حاشیه های داکیومنت</translation>
+        <translation>اعمال حاشیه&#x202f;های داکیومنت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1349"/>
@@ -37471,7 +37518,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="236"/>
         <source>Show the document in single page mode</source>
-        <translation>نمایش داکیومنت در حالت تک صفحه ای</translation>
+        <translation>نمایش داکیومنت در حالت تک&#x202f;صفحه&#x202f;ای</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="237"/>
@@ -39616,38 +39663,38 @@ X: %4, Y: %5</source>
 <context>
     <name>UniconvImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="84"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="83"/>
         <source>Imports Vector Files with UniConvertor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="85"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="84"/>
         <source>Converts many vector formats to SVG and then loads the resulting SVG.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="69"/>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="68"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="99"/>
         <source>Uniconvertor Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="157"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="156"/>
         <source>Starting Uniconvertor failed! The executable name in File-&gt;Preferences-&gt;External Tools may be incorrect or the software has been uninstalled since preferences were set. (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="167"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="166"/>
         <source>Uniconvertor did not exit correctly: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="174"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="173"/>
         <source>Uniconvertor failed to convert the file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="182"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="181"/>
         <source>The SVG Import plugin could not be found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -39760,7 +39807,7 @@ Would you like to start the system&apos;s default browser instead?</source>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="59"/>
         <source>Margins</source>
-        <translation>حاشیه ها</translation>
+        <translation>حاشیه&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="74"/>
@@ -39849,17 +39896,17 @@ Would you like to start the system&apos;s default browser instead?</source>
 <context>
     <name>VivaPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="218"/>
+        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="217"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="221"/>
+        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="220"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="386"/>
+        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="385"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -39867,17 +39914,17 @@ Would you like to start the system&apos;s default browser instead?</source>
 <context>
     <name>VsdPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="143"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="146"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="359"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="358"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -39888,27 +39935,27 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>WMFImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="77"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="76"/>
         <source>Import &amp;WMF...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="91"/>
         <source>Imports WMF Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="93"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="92"/>
         <source>Imports most WMF files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="176"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="175"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="178"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="177"/>
         <source>WMF file contains some unsupported features</source>
         <translation type="unfinished"></translation>
     </message>
@@ -39916,12 +39963,12 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>WpgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="505"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="504"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="508"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="507"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
@@ -39947,22 +39994,22 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>XarPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="247"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="246"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="250"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="249"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3660"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3659"/>
         <source>Group%1</source>
         <translation>گروه%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="537"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="536"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -39970,17 +40017,17 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>XfigPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="270"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="269"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="273"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="272"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="1617"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="1616"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -40021,17 +40068,17 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>XpsPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="210"/>
+        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="209"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="213"/>
+        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="212"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="404"/>
+        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="403"/>
         <source>Generating Items</source>
         <translation>تولید</translation>
     </message>
@@ -40130,17 +40177,17 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>ZmfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="146"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="145"/>
         <source>Importing: %1</source>
         <translation>وارد کردن: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="149"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="148"/>
         <source>Analyzing File:</source>
         <translation>آنالیز فایل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="356"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="355"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -40238,12 +40285,12 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="623"/>
         <source>Edit Colors</source>
-        <translation>ویرایش رنگ ها</translation>
+        <translation>ویرایش رنگ&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="1161"/>
         <source>Display only used colors</source>
-        <translation>فقط نمایش رنگ های استفاده شده</translation>
+        <translation>فقط نمایش رنگ&#x202f;های استفاده شده</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="1135"/>
@@ -40324,7 +40371,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="734"/>
         <source>Triple</source>
-        <translation>سه تایی</translation>
+        <translation>سه&#x202f;تایی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="742"/>
@@ -40357,7 +40404,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="752"/>
         <source>Background:</source>
-        <translation>پس زمینه:</translation>
+        <translation>پس&#x202f;زمینه:</translation>
     </message>
 </context>
 <context>
@@ -40546,7 +40593,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="146"/>
         <source>Colors</source>
-        <translation>رنگ ها</translation>
+        <translation>رنگ&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="148"/>
@@ -40581,7 +40628,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="173"/>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>داکیومنت های پیشفرض در آدرس http://www.scribus.net/ در بخش Downloads در دسترس هستند.</translation>
+        <translation>داکیومنت&#x202f;های پیشفرض در آدرس http://www.scribus.net/ در بخش Downloads در دسترس هستند.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="177"/>
@@ -40596,7 +40643,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="186"/>
         <source>Preparing a template</source>
-        <translation>آماده سازی یک سند پیشفرض</translation>
+        <translation>آماده&#x202f;سازی یک سند پیشفرض</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="188"/>
@@ -40720,7 +40767,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/replacecolors.ui" line="14"/>
         <source>Replace Colors</source>
-        <translation>تعویض رنگ ها</translation>
+        <translation>تعویض رنگ&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/replacecolors.ui" line="60"/>
@@ -40931,27 +40978,27 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="136"/>
         <source>Capitals &amp;&amp; Position</source>
-        <translation>کپیتال ها &amp;&amp; موقعیت</translation>
+        <translation>کپیتال&#x202f;ها &amp;&amp; موقعیت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="183"/>
         <source>Capitals:</source>
-        <translation>کپیتال ها:</translation>
+        <translation>کپیتال&#x202f;ها:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="145"/>
         <source>Default Capitals</source>
-        <translation>کپیتال های پیشفرض</translation>
+        <translation>کپیتال&#x202f;های پیشفرض</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="150"/>
         <source>Small Capitals</source>
-        <translation>کپیتال های کوچک</translation>
+        <translation>کپیتال&#x202f;های کوچک</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="155"/>
         <source>Petite Capitals</source>
-        <translation>کپیتال های خیلی کوچک</translation>
+        <translation>کپیتال&#x202f;های خیلی کوچک</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="160"/>
@@ -40996,12 +41043,12 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="170"/>
         <source>Petite Capitals from Capitals</source>
-        <translation>حروف کپیتال خیلی کوچک از کپیتال ها</translation>
+        <translation>حروف کپیتال خیلی کوچک از کپیتال&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="175"/>
         <source>Small Capitals from Capitals</source>
-        <translation>حروف کپیتال کوچک از کپیتال ها</translation>
+        <translation>حروف کپیتال کوچک از کپیتال&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="203"/>
@@ -41016,7 +41063,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="216"/>
         <source>Subscript</source>
-        <translation>ساب اسکریپت</translation>
+        <translation>ساب&#x202f;اسکریپت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="221"/>
@@ -41071,7 +41118,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="336"/>
         <source>Tabular</source>
-        <translation>هم فاصله</translation>
+        <translation>هم&#x202f;فاصله</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="344"/>
@@ -41096,17 +41143,17 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="388"/>
         <source>Slashed Zero (zero)</source>
-        <translation>صفر خط دار (صفر)</translation>
+        <translation>صفر خط&#x202f;دار (صفر)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="391"/>
         <source>Slashed Zero</source>
-        <translation>صفر خط دار</translation>
+        <translation>صفر خط&#x202f;دار</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="403"/>
         <source>Stylistic Sets:</source>
-        <translation>گروه های استایلیستیک</translation>
+        <translation>گروه&#x202f;های استایلیستیک</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="422"/>
@@ -41230,22 +41277,22 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="400"/>
         <source>all paragraphs</source>
-        <translation>همهٔ پاراگراف ها</translation>
+        <translation>همهٔ پاراگراف&#x202f;ها</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="401"/>
         <source>paragraphs starting with</source>
-        <translation>پاراگراف هایی که شروع میشود با</translation>
+        <translation>پاراگراف&#x202f;هایی که شروع میشود با</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="402"/>
         <source>paragraphs with less than</source>
-        <translation>پاراگراف های با کمتر از</translation>
+        <translation>پاراگراف&#x202f;های با کمتر از</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/tffilter.cpp" line="403"/>
         <source>paragraphs with more than</source>
-        <translation>پاراگراف های با بیش از</translation>
+        <translation>پاراگراف&#x202f;های با بیش از</translation>
     </message>
 </context>
 <context>
@@ -41348,13 +41395,13 @@ please choose another one.</source>
         <location filename="../../scribus/ui/transparencypalette.ui" line="189"/>
         <location filename="../../scribus/ui/transparencypalette.ui" line="567"/>
         <source>Color Dodge</source>
-        <translation>رنگ رفتگی</translation>
+        <translation>رنگ&#x202f;رفتگی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="194"/>
         <location filename="../../scribus/ui/transparencypalette.ui" line="572"/>
         <source>Color Burn</source>
-        <translation>رنگ سوختگی</translation>
+        <translation>رنگ&#x202f;سوختگی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="199"/>
