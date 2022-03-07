@@ -85,7 +85,7 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
 	m_fmtNames[FormatsManager::JPEG] = QObject::tr("JPEG");
 	m_fmtNames[FormatsManager::KRA]  = QObject::tr("Krita");
-	m_fmtNames[FormatsManager::ORA]  = QObject::tr("Open Raster");
+	m_fmtNames[FormatsManager::ORA]  = QObject::tr("OpenRaster");
 	m_fmtNames[FormatsManager::PAT]  = QObject::tr("Pattern Files");
 	m_fmtNames[FormatsManager::PDF]  = QObject::tr("PDF Document");
 	m_fmtNames[FormatsManager::PGF]  = QObject::tr("PGF");
