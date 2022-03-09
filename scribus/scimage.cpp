@@ -58,25 +58,16 @@ using namespace std;
 
 ScImage::ScImage(const QImage & image) : QImage(image)
 {
-	initialize();
 }
 
 
 // ScImage will use implicit sharing:
 ScImage::ScImage(const ScImage & image) : QImage(image.copy())
 {
-	initialize();
-}
-
-
-ScImage::ScImage()
-{
-	initialize();
 }
 
 ScImage::ScImage( int width, int height ) : QImage( width, height, QImage::Format_ARGB32 )
 {
-	initialize();
 }
 
 const QImage& ScImage::qImage()
@@ -92,34 +83,6 @@ QImage* ScImage::qImagePtr()
 QImage ScImage::scaled(int w, int h, Qt::AspectRatioMode mode, Qt::TransformationMode transformMode) const
 {
 	return QImage::scaled(w, h, mode, transformMode);
-}
-
-
-void ScImage::initialize()
-{
-	imgInfo.xres = 72;
-	imgInfo.yres = 72;
-	imgInfo.colorspace = ColorSpaceRGB;
-	imgInfo.valid = false;
-	imgInfo.isRequest = false;
-	imgInfo.isEmbedded = false;
-	imgInfo.progressive = false;
-	imgInfo.exifDataValid = false;
-	imgInfo.lowResType = 1;
-	imgInfo.lowResScale = 1.0;
-	imgInfo.PDSpathData.clear();
-	imgInfo.RequestProps.clear();
-	imgInfo.clipPath.clear();
-	imgInfo.usedPath.clear();
-	imgInfo.profileName.clear();
-	imgInfo.embeddedProfileName.clear();
-	imgInfo.layerInfo.clear();
-	imgInfo.duotoneColors.clear();
-	imgInfo.exifInfo.cameraName.clear();
-	imgInfo.exifInfo.cameraVendor.clear();
-	imgInfo.exifInfo.thumbnail = QImage();
-	imgInfo.BBoxX = 0;
-	imgInfo.BBoxH = 0;
 }
 
 ScImage::~ScImage()
@@ -141,8 +104,8 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			toGrayscale(cmyk);
 		if (effect.effectCode == ImageEffect::EF_COLORIZE)
 		{
-			QString tmpstr = effect.effectParameters;
-			QString col = CommonStrings::None;
+			QString tmpstr(effect.effectParameters);
+			QString col(CommonStrings::None);
 			int shading = 100;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 		//	fp >> col;
@@ -152,7 +115,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 		}
 		if (effect.effectCode == ImageEffect::EF_BRIGHTNESS)
 		{
-			QString tmpstr = effect.effectParameters;
+			QString tmpstr(effect.effectParameters);
 			int brightnessValue = 0;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> brightnessValue;
@@ -160,7 +123,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 		}
 		if (effect.effectCode == ImageEffect::EF_CONTRAST)
 		{
-			QString tmpstr = effect.effectParameters;
+			QString tmpstr(effect.effectParameters);
 			int contrastValue = 0;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> contrastValue;
@@ -168,7 +131,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 		}
 		if (effect.effectCode == ImageEffect::EF_SHARPEN)
 		{
-			QString tmpstr = effect.effectParameters;
+			QString tmpstr(effect.effectParameters);
 			double radius, sigma;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> radius;
@@ -177,7 +140,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 		}
 		if (effect.effectCode == ImageEffect::EF_BLUR)
 		{
-			QString tmpstr = effect.effectParameters;
+			QString tmpstr(effect.effectParameters);
 			double radius, sigma;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> radius;
@@ -186,7 +149,7 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 		}
 		if (effect.effectCode == ImageEffect::EF_SOLARIZE)
 		{
-			QString tmpstr = effect.effectParameters;
+			QString tmpstr(effect.effectParameters);
 			double sigma;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> sigma;
@@ -194,10 +157,10 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 		}
 		if (effect.effectCode == ImageEffect::EF_DUOTONE)
 		{
-			QString tmpstr = effect.effectParameters;
-			QString col1 = CommonStrings::None;
+			QString tmpstr(effect.effectParameters);
+			QString col1(CommonStrings::None);
+			QString col2(CommonStrings::None);
 			int shading1 = 100;
-			QString col2 = CommonStrings::None;
 			int shading2 = 100;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			col1 = fp.readLine();
@@ -207,7 +170,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int numVals;
 			double xval, yval;
 			FPointArray curve1;
-			curve1.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -218,7 +180,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int lin1;
 			fp >> lin1;
 			FPointArray curve2;
-			curve2.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -232,10 +193,10 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 		}
 		if (effect.effectCode == ImageEffect::EF_TRITONE)
 		{
-			QString tmpstr = effect.effectParameters;
-			QString col1 = CommonStrings::None;
-			QString col2 = CommonStrings::None;
-			QString col3 = CommonStrings::None;
+			QString tmpstr(effect.effectParameters);
+			QString col1(CommonStrings::None);
+			QString col2(CommonStrings::None);
+			QString col3(CommonStrings::None);
 			int shading1 = 100;
 			int shading2 = 100;
 			int shading3 = 100;
@@ -249,7 +210,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int numVals;
 			double xval, yval;
 			FPointArray curve1;
-			curve1.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -260,7 +220,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int lin1;
 			fp >> lin1;
 			FPointArray curve2;
-			curve2.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -271,7 +230,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int lin2;
 			fp >> lin2;
 			FPointArray curve3;
-			curve3.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -285,11 +243,11 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 		}
 		if (effect.effectCode == ImageEffect::EF_QUADTONE)
 		{
-			QString tmpstr = effect.effectParameters;
-			QString col1 = CommonStrings::None;
-			QString col2 = CommonStrings::None;
-			QString col3 = CommonStrings::None;
-			QString col4 = CommonStrings::None;
+			QString tmpstr(effect.effectParameters);
+			QString col1(CommonStrings::None);
+			QString col2(CommonStrings::None);
+			QString col3(CommonStrings::None);
+			QString col4(CommonStrings::None);
 			int shading1 = 100;
 			int shading2 = 100;
 			int shading3 = 100;
@@ -306,7 +264,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int numVals;
 			double xval, yval;
 			FPointArray curve1;
-			curve1.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -317,7 +274,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int lin1;
 			fp >> lin1;
 			FPointArray curve2;
-			curve2.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -328,7 +284,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int lin2;
 			fp >> lin2;
 			FPointArray curve3;
-			curve3.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -339,7 +294,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int lin3;
 			fp >> lin3;
 			FPointArray curve4;
-			curve4.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -353,11 +307,10 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 		}
 		if (effect.effectCode == ImageEffect::EF_GRADUATE)
 		{
-			QString tmpstr = effect.effectParameters;
+			QString tmpstr(effect.effectParameters);
 			int numVals;
 			double xval, yval;
 			FPointArray curve;
-			curve.resize(0);
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)

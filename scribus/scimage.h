@@ -36,7 +36,7 @@ class ScColorProfile;
 class SCRIBUS_API ScImage : private QImage
 {
 public:
-	ScImage();
+	ScImage() = default;
 	ScImage(const QImage & image);
 	ScImage(const ScImage & image);
 	ScImage( int width, int height );
@@ -50,8 +50,6 @@ public:
 		OutputProfile = 3,
 		Thumbnail = 4,
 	};
-
-	void initialize();
 
 	const QImage& qImage();
 	QImage* qImagePtr();
