@@ -77,7 +77,6 @@ PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, doubl
 	: PageItem(pa, PageItem::TextFrame, x, y, w, h, w2, fill, outline)
 {
 	init();
-	firstChar = 0;
 }
 
 PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
@@ -88,14 +87,7 @@ PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
 
 void PageItem_TextFrame::init()
 {
-	invalid = true;
-	cursorBiasBackward = false;
-	unicodeTextEditMode = false;
-	unicodeInputCount = 0;
 	m_origAnnotPos = QRectF(xPos(), yPos(), width(), height());
-	verticalAlign = 0;
-	incompleteLines = 0;
-	maxY = 0.0;
 	connect(&itemText,SIGNAL(changed(int,int)), this, SLOT(slotInvalidateLayout(int,int)));
 }
 

@@ -96,8 +96,8 @@ protected:
 	void drawUnderflowMarker(ScPainter *p);
 	void drawColumnBorders(ScPainter *p);
 
-	bool unicodeTextEditMode;
-	int unicodeInputCount;
+	bool unicodeTextEditMode {false};
+	int unicodeInputCount {0};
 	QString unicodeInputString;
 
 	void drawNoteIcon(ScPainter *p);
@@ -109,10 +109,10 @@ protected:
 	void adjustParagraphEndings ();
 
 private:
-	bool cursorBiasBackward;
+	bool cursorBiasBackward {false};
 	// If the last paragraph had to be split, this is how many lines of the paragraph are in this frame.
 	// Used for orphan/widow control
-	int incompleteLines;
+	int incompleteLines {0};
 	// This holds the line splitting positions
 	QList<int> incompletePositions;
 
@@ -156,7 +156,7 @@ private:
 	TextNote* selectedNoteMark(bool onlySelection = true);
 protected:
 	// set text frame height to last line of text
-	double maxY;
+	double maxY {0.0};
 	void setMaxY(double y);
 
 public:
