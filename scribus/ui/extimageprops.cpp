@@ -252,7 +252,6 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			else
 				pixm.fill(Qt::white);
 			FPointArray Path;
-			Path.resize(0);
 			Path = info->PDSpathData[it.key()].copy();
 			FPoint min = getMinClipF(&Path);
 			Path.translate(-min.x(), -min.y());
@@ -341,7 +340,7 @@ void ExtImageProps::leaveOK()
 		else
 		{
 			m_item->imageClip.resize(0);
-			m_item->pixm.imgInfo.usedPath = "";
+			m_item->pixm.imgInfo.usedPath.clear();
 		}
 	}
 	m_item->update();
@@ -381,7 +380,7 @@ void ExtImageProps::changePreview()
 			else
 			{
 				m_item->imageClip.resize(0);
-				m_item->pixm.imgInfo.usedPath = "";
+				m_item->pixm.imgInfo.usedPath.clear();
 			}
 		}
 		m_item->update();
@@ -484,7 +483,7 @@ void ExtImageProps::noPath()
 	if (doPreview)
 	{
 		m_item->imageClip.resize(0);
-		m_item->pixm.imgInfo.usedPath = "";
+		m_item->pixm.imgInfo.usedPath.clear();
 		m_item->update();
 	}
 	connect(pathList, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selPath(QListWidgetItem*) ) );

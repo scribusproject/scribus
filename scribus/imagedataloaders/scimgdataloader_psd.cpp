@@ -375,7 +375,6 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 					colName = getPascalString(s);
 					s.device()->seek( duoCurveStart + (28 * static_cast<uint>(cda)) );
 					FPointArray tmcu;
-					tmcu.resize(0);
 					for (int cu = 0; cu < 13; cu++)
 					{
 						short val;
@@ -411,7 +410,6 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 				{
 					s.device()->seek( duoCurveStart + (28 * static_cast<uint>(cda)) );
 					FPointArray tmcu;
-					tmcu.resize(0);
 					for (int cu = 0; cu < 13; cu++)
 					{
 						short val;

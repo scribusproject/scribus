@@ -1665,7 +1665,6 @@ int PSLib::createPS(const QString& outputFileName)
 			if (currItem->rotation() != 0)
 			{
 				FPointArray pb;
-				pb.resize(0);
 				pb.addPoint(FPoint(currItem->xPos() - lw, currItem->yPos() - lw));
 				pb.addPoint(FPoint(currItem->width() + lw * 2.0, -lw, currItem->xPos() - lw, currItem->yPos() - lw, currItem->rotation(), 1.0, 1.0));
 				pb.addPoint(FPoint(currItem->width() + lw * 2.0, currItem->height() + lw * 2.0, currItem->xPos() - lw, currItem->yPos() - lw, currItem->rotation(), 1.0, 1.0));

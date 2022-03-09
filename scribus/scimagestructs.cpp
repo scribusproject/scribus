@@ -45,7 +45,6 @@ QDataStream & operator>> (QDataStream& stream, ExifValues & exif)
 
 ExifValues::ExifValues()
 {
-	init();
 }
 
 void ExifValues::init()
@@ -70,7 +69,6 @@ constexpr qint32 ImageInfoRecord::iirVersion;
 
 ImageInfoRecord::ImageInfoRecord()
 {
-	init();
 }
 
 void ImageInfoRecord::init()

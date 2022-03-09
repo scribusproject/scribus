@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 
 ScImgDataLoader::ScImgDataLoader()
 {
-	initialize();
 }
 
 void ScImgDataLoader::initialize()
@@ -126,9 +125,9 @@ void ScImgDataLoader::parseResourceData( QDataStream & s, const PSDHeader & head
 		s >> signature;
 		offset += 4;
 		if (((signature >> 24)&0xff) != '8' ||
-		        ((signature >> 16)&0xff) != 'B' ||
-		        ((signature >> 8)&0xff) != 'I' ||
-		        ((signature )&0xff) != 'M' )
+				((signature >> 16)&0xff) != 'B' ||
+				((signature >> 8)&0xff) != 'I' ||
+				((signature )&0xff) != 'M' )
 			break;
 		s >> resID;
 		offset += 2;

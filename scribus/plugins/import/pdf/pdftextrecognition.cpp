@@ -567,7 +567,6 @@ void PdfTextOutputDev::renderTextFrame()
 	*	This code can be used to set PoLine instead of setting the FrameShape if setting the PoLine is the more correct way of doing things.
 	*	I have no idea of what the PoLine is at this time except for it changes when the shape is set and appears to be unit scales as opposed to percentage scaled
 	FPointArray boundingBoxShape;
-	boundingBoxShape.resize(0);
 	boundingBoxShape.svgInit();
 	//doubles to create a shape, it's 100% textframe width by 100% textframe height
 

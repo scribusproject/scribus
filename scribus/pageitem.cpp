@@ -3031,7 +3031,6 @@ void PageItem::resetGradientMesh()
 void PageItem::meshToShape()
 {
 	FPointArray Coords;
-	Coords.resize(0);
 	Coords.svgInit();
 	int rows = meshGradientArray.count() - 1;
 	int cols = meshGradientArray[0].count() - 1;
@@ -8695,7 +8694,6 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 	if (m_rotation != 0)
 	{
 		FPointArray pb;
-		pb.resize(0);
 		pb.addPoint(FPoint(m_xPos, m_yPos));
 		pb.addPoint(FPoint(m_width,    0.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
 		pb.addPoint(FPoint(m_width, m_height, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
@@ -8730,7 +8728,6 @@ void PageItem::getOldBoundingRect(double *x1, double *y1, double *x2, double *y2
 	if (oldRot != 0)
 	{
 		FPointArray pb;
-		pb.resize(0);
 		pb.addPoint(FPoint(oldXpos, oldYpos));
 		pb.addPoint(FPoint(oldWidth,    0.0, oldXpos, oldYpos, oldRot, 1.0, 1.0));
 		pb.addPoint(FPoint(oldWidth, oldHeight, oldXpos, oldYpos, oldRot, 1.0, 1.0));
@@ -8766,7 +8763,6 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	if (m_rotation != 0)
 	{
 		FPointArray pb;
-		pb.resize(0);
 		pb.addPoint(FPoint(-extraSpace,					-extraSpace,				xPos(), yPos(), m_rotation, 1.0, 1.0));
 		pb.addPoint(FPoint(visualWidth()-extraSpace,	-extraSpace,				xPos(), yPos(), m_rotation, 1.0, 1.0));
 		pb.addPoint(FPoint(visualWidth()-extraSpace,	visualHeight()-extraSpace,	xPos(), yPos(), m_rotation, 1.0, 1.0));

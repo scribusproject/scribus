@@ -174,10 +174,9 @@ FPointArray traceGlyph(FT_Face face, ScFace::gid_type glyphIndex, int chs, qreal
 {
 	bool error = false;
 	//AV: not threadsave, but tracechar is only used in ReadMetrics() and fontSample()
-	static FPointArray pts; 
-	FPointArray pts2;
+	static FPointArray pts;
 	pts.resize(0);
-	pts2.resize(0);
+	FPointArray pts2;
 	firstP = FPoint(0,0);
 	FirstM = true;
 	error = FT_Set_Char_Size( face, 0, chs*6400, 72, 72 );

@@ -51,8 +51,8 @@ protected:
 	QImage          m_image;
 	ImageInfoRecord m_imageInfoRecord;
 	QByteArray      m_embeddedProfile;
-	int             m_profileComponents;
-	eColorFormat    m_pixelFormat;
+	int             m_profileComponents {0};
+	eColorFormat    m_pixelFormat {Format_Undefined};
 
 	typedef enum
 	{
@@ -60,7 +60,7 @@ protected:
 		warningMsg = 1,
 		errorMsg = 2
 	} MsgType;
-	MsgType m_msgType;
+	MsgType m_msgType {noMsg};
 	QString m_message;
 
 	void swapRGBA();

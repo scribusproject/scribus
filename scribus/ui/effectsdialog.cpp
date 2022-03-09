@@ -1038,7 +1038,6 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			int numVals;
 			double xval, yval;
 			FPointArray curve;
-			curve.resize(0);
 			fp >> numVals;
 			for (int i = 0; i < numVals; i++)
 			{
@@ -1103,7 +1102,6 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			int numVals;
 			double xval, yval;
 			FPointArray curve;
-			curve.resize(0);
 			fp >> numVals;
 			for (int i = 0; i < numVals; i++)
 			{
@@ -1191,7 +1189,6 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			int numVals;
 			double xval, yval;
 			FPointArray curve;
-			curve.resize(0);
 			fp >> numVals;
 			for (int i = 0; i < numVals; i++)
 			{
@@ -1343,7 +1340,6 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			int numVals;
 			double xval, yval;
 			FPointArray curve;
-			curve.resize(0);
 			fp >> numVals;
 			for (int i = 0; i < numVals; i++)
 			{

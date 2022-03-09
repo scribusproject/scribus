@@ -194,7 +194,6 @@ void PageItem_Line::getBoundingRect(double *x1, double *y1, double *x2, double *
 	if (m_rotation != 0)
 	{
 		FPointArray pb;
-		pb.resize(0);
 		pb.addPoint(FPoint(0,       - m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
 		pb.addPoint(FPoint(m_width, - m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
 		pb.addPoint(FPoint(m_width, + m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
@@ -242,7 +241,6 @@ void PageItem_Line::getOldBoundingRect(double *x1, double *y1, double *x2, doubl
 	if (oldRot != 0)
 	{
 		FPointArray pb;
-		pb.resize(0);
 		pb.addPoint(FPoint(0,        - m_oldLineWidth / 2.0, oldXpos, oldYpos, oldRot, 1.0, 1.0));
 		pb.addPoint(FPoint(oldWidth, - m_oldLineWidth / 2.0, oldXpos, oldYpos, oldRot, 1.0, 1.0));
 		pb.addPoint(FPoint(oldWidth, + m_oldLineWidth / 2.0, oldXpos, oldYpos, oldRot, 1.0, 1.0));
@@ -291,7 +289,6 @@ void PageItem_Line::getVisualBoundingRect(double * x1, double * y1, double * x2,
 	if (m_rotation != 0)
 	{
 		FPointArray pb;
-		pb.resize(0);
 		pb.addPoint(FPoint(0.0,           -extraSpace, xPos(), yPos(), m_rotation, 1.0, 1.0));
 		pb.addPoint(FPoint(visualWidth(), -extraSpace, xPos(), yPos(), m_rotation, 1.0, 1.0));
 		pb.addPoint(FPoint(visualWidth(), +extraSpace, xPos(), yPos(), m_rotation, 1.0, 1.0));

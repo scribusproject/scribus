@@ -424,7 +424,6 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 		LineEnd = Qt::FlatCap;
 		LineJoin = Qt::MiterJoin;
 		FPointArray PoLine;
-		PoLine.resize(0);
 		QDomElement pg = DOC.toElement();
 		QString STag = pg.tagName();
 		QString style = pg.attribute( "style", "" ).simplified();
@@ -661,7 +660,6 @@ void ShapePlug::parseGroupProperties(QDomNode &DOC, double &minXCoor, double &mi
 	{
 		double x1, y1, x2, y2;
 		FPointArray PoLine;
-		PoLine.resize(0);
 		QDomElement pg = DOC.toElement();
 		QString STag = pg.tagName();
 		if (STag == "svg:line")
