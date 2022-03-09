@@ -45,7 +45,7 @@ public:
 		\brief Constructor from QAction, sets menuType to Normal
 		\param parent Parent object of this action
 	*/
-	ScrAction (QObject *parent) ;
+	ScrAction (QObject *parent);
 		
 	/*!
 		\author Craig Bradney
@@ -187,12 +187,12 @@ signals:
 	void triggeredUnicodeShortcut(int);
 	
 protected:
-	int m_menuIndex;
-	ActionType m_actionType;
-	QMenu *m_popupMenuAddedTo;
+	int m_menuIndex {-1};
+	ActionType m_actionType {ScrAction::Normal};
+	QMenu *m_popupMenuAddedTo {nullptr};
 	QKeySequence m_savedKeySequence;
-	bool m_shortcutSaved;
-	bool m_fakeToggle;
+	bool m_shortcutSaved {false};
+	bool m_fakeToggle {false};
 
 	QString m_iconPath16;
 	QString m_iconPath22;

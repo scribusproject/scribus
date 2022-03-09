@@ -31,19 +31,16 @@ for which a new license (GPL+exception) is in place.
 
 ScrAction::ScrAction( QObject * parent ) : QAction( parent )
 {
-	initScrAction();
 }
 
 ScrAction::ScrAction(const QString & menuText, const QKeySequence& accel, QObject * parent ) : QAction(menuText, parent)
 {
 	setShortcut(accel);
-	initScrAction();
 }
 
 ScrAction::ScrAction(ActionType aType, const QString & menuText, const QKeySequence& accel, QObject * parent, const QVariant& d) : QAction(menuText, parent)
 {
 	setShortcut(accel);
-	initScrAction();
 	setData(d);
 
 	m_actionType = aType;
@@ -55,7 +52,6 @@ ScrAction::ScrAction(ActionType aType, const QPixmap& icon16, const QPixmap& ico
           : QAction(QIcon(icon16), menuText, parent)
 {
 	setShortcut(accel);
-	initScrAction();
 	icon().addPixmap(icon22, QIcon::Normal, QIcon::On);
 
 	m_actionType = aType;
@@ -68,7 +64,6 @@ ScrAction::ScrAction(ActionType aType, const QString& icon16Path, const QString&
          : QAction(menuText, parent), m_iconPath16(icon16Path), m_iconPath22(icon22Path)
 {
 	setShortcut(accel);
-	initScrAction();
 	loadIcon();
 
 	m_actionType = aType;
@@ -84,7 +79,6 @@ ScrAction::ScrAction(const QString& icon16Path, const QString& icon22Path, const
 {
 	setShortcut(accel);
 	setMenuRole(QAction::NoRole);
-	initScrAction();
 	loadIcon();
 	if (!m_iconPath16.isEmpty() || !m_iconPath22.isEmpty())
 		connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(loadIcon()));
@@ -95,22 +89,10 @@ ScrAction::ScrAction(const QKeySequence& accel, QObject * parent, const QVariant
 	: QAction( QIcon(QPixmap()), "", parent )
 {
 	setShortcut(accel);
-	initScrAction();
 	icon().addPixmap(QPixmap(), QIcon::Normal, QIcon::On);
 	m_actionType = UnicodeChar;
 	setData(d);
 	connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
-}
-
-
-void ScrAction::initScrAction()
-{
-	m_actionType = ScrAction::Normal;
-	m_menuIndex = -1;
-	m_popupMenuAddedTo = nullptr;
-	m_savedKeySequence = QKeySequence("");
-	m_shortcutSaved = false;
-	m_fakeToggle = false;
 }
 
 void ScrAction::triggeredToTriggeredData()
