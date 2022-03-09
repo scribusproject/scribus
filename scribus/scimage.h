@@ -51,6 +51,8 @@ public:
 		Thumbnail = 4,
 	};
 
+	void initialize();
+
 	const QImage& qImage();
 	QImage* qImagePtr();
 	QImage scaled(int w, int h, Qt::AspectRatioMode mode = Qt::IgnoreAspectRatio, Qt::TransformationMode transformMode = Qt::FastTransformation) const;

@@ -85,6 +85,33 @@ QImage ScImage::scaled(int w, int h, Qt::AspectRatioMode mode, Qt::Transformatio
 	return QImage::scaled(w, h, mode, transformMode);
 }
 
+void ScImage::initialize()
+{
+	imgInfo.xres = 72;
+	imgInfo.yres = 72;
+	imgInfo.colorspace = ColorSpaceRGB;
+	imgInfo.valid = false;
+	imgInfo.isRequest = false;
+	imgInfo.isEmbedded = false;
+	imgInfo.progressive = false;
+	imgInfo.exifDataValid = false;
+	imgInfo.lowResType = 1;
+	imgInfo.lowResScale = 1.0;
+	imgInfo.PDSpathData.clear();
+	imgInfo.RequestProps.clear();
+	imgInfo.clipPath.clear();
+	imgInfo.usedPath.clear();
+	imgInfo.profileName.clear();
+	imgInfo.embeddedProfileName.clear();
+	imgInfo.layerInfo.clear();
+	imgInfo.duotoneColors.clear();
+	imgInfo.exifInfo.cameraName.clear();
+	imgInfo.exifInfo.cameraVendor.clear();
+	imgInfo.exifInfo.thumbnail = QImage();
+	imgInfo.BBoxX = 0;
+	imgInfo.BBoxH = 0;
+}
+
 ScImage::~ScImage()
 {
 }
