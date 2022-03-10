@@ -143,12 +143,14 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 	}
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
-	OKButton = new QPushButton( CommonStrings::tr_OK, this );
-	OKButton->setDefault( true );
-	Layout1->addWidget( OKButton );
-	CancelB = new QPushButton( CommonStrings::tr_Cancel, this );
-	CancelB->setAutoDefault( false );
-	Layout1->addWidget( CancelB );
+	buttonBox = new QDialogButtonBox();
+	Layout1->addWidget(buttonBox);
+	okButton = new QPushButton( CommonStrings::tr_OK, this );
+	okButton->setDefault( true );
+	buttonBox->addButton(okButton, QDialogButtonBox::AcceptRole);
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
+	cancelButton->setAutoDefault( false );
+	buttonBox->addButton(cancelButton, QDialogButtonBox::RejectRole);
 	TabbedNewDocLayout->addLayout( Layout1 );
 	//tooltips
 	pageSizeComboBox->setToolTip( tr( "Document page size, either a standard size or a custom size" ) );
@@ -162,8 +164,8 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 	Distance->setToolTip( tr( "Distance between automatically created columns" ) );
 
 	// signals and slots connections
-	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );
-	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(ExitOK()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize(const QString &)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrientation(int)));
 	connect(unitOfMeasureComboBox, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
@@ -690,7 +692,7 @@ void NewDocDialog::adjustTitles(int tab)
 		setWindowTitle(tr("Open Recent Document"));
 	else
 		setWindowTitle(tr("New Document"));
-	OKButton->setEnabled(tab!=2);
+	okButton->setEnabled(tab!=2);
 }
 
 void NewDocDialog::locationDropped(const QString& fileUrl)
@@ -742,5 +744,5 @@ void NewDocDialog::gotoHomeDirectory()
 
 void NewDocDialog::openFileDialogFileClicked(const QString& path)
 {
-	OKButton->setEnabled(!path.isEmpty());
+	okButton->setEnabled(!path.isEmpty());
 }

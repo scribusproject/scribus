@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include <QListWidgetItem>
+#include <QDialogButtonBox>
 #include <QMap>
 #include <QStackedWidget>
 
@@ -56,7 +57,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 
 	public:
 		PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData, ScribusDoc *doc=nullptr);
-		~PreferencesDialog();
+		~PreferencesDialog() = default;
 
 		ApplicationPrefs prefs() const { return localPrefs; }
 		void getResizeDocumentPages(bool &resizePages, bool &resizeMasterPages, bool &resizePageMargins, bool &resizeMasterPageMargins);
@@ -74,7 +75,6 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 
 	protected slots:
 		virtual void languageChange();
-		void applyButtonClicked();
 
 	protected:
 		void addWidget(Prefs_Pane* tab);

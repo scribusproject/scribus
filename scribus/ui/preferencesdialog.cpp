@@ -32,7 +32,6 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	while (prefsStackWidget->currentWidget()!=nullptr)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
 
-	applyButton->hide();
 	exportButton->hide();
 
 	if(doc)
@@ -138,14 +137,10 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 
 	connect(prefs_DocumentSetup, SIGNAL(changeToOtherSection(const QString&)), this, SLOT(setNewItemSelected(const QString&)));
 	connect(prefs_DocumentSetup, SIGNAL(prefsChangeUnits(int)), this, SLOT(changeUnits(int)));
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(applyButton, SIGNAL(clicked()), this, SLOT(applyButtonClicked()));
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 	connect(preferencesTypeList, SIGNAL(itemSelectionChanged()), this, SLOT(newItemSelected()));
 }
-
-
-PreferencesDialog::~PreferencesDialog() = default;
 
 void PreferencesDialog::restoreDefaults()
 {
@@ -223,13 +218,6 @@ void PreferencesDialog::saveGuiToPrefs()
 	if (prefs_Miscellaneous) prefs_Miscellaneous->saveGuiToPrefs(&localPrefs);
 	if (prefs_PageSizes) prefs_PageSizes->saveGuiToPrefs(&localPrefs);
 	if (prefs_ImageCache) prefs_ImageCache->saveGuiToPrefs(&localPrefs);
-}
-
-void PreferencesDialog::applyButtonClicked()
-{
-	Prefs_Pane* pp=qobject_cast<Prefs_Pane *>(prefsStackWidget->currentWidget());
-	if (pp)
-		pp->saveGuiToPrefs(&localPrefs);
 }
 
 void PreferencesDialog::accept()

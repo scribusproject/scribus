@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define NEWDOCDIALOG_H
 
 #include <QDialog>
+#include <QDialogButtonBox>
 #include <QDropEvent>
 #include <QDragEnterEvent>
 #include <QDragLeaveEvent>
@@ -108,8 +109,9 @@ public:
 	nftwidget *nftGui {nullptr};
 	QFrame* recentDocFrame {nullptr};
 	QListWidget* recentDocListBox {nullptr};
-	QPushButton* OKButton {nullptr};
-	QPushButton* CancelB {nullptr};
+	QDialogButtonBox* buttonBox {nullptr};
+	QPushButton* okButton {nullptr};
+	QPushButton* cancelButton {nullptr};
 
 	bool onStartup() const { return m_onStartup;}
 	int  tabSelected() const { return m_tabSelected;}
