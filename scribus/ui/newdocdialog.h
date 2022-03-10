@@ -110,26 +110,26 @@ public:
 	QFrame* recentDocFrame {nullptr};
 	QListWidget* recentDocListBox {nullptr};
 	QDialogButtonBox* buttonBox {nullptr};
-	QPushButton* OKButton {nullptr};
-	QPushButton* CancelB {nullptr};
+	QPushButton* okButton {nullptr};
+	QPushButton* cancelButton {nullptr};
 
 	bool onStartup() const { return m_onStartup;}
-	int  tabSelected() const { return m_tabSelected;}
+	int tabSelected() const { return m_tabSelected;}
 	QString selectedFile() const { return m_selectedFile; }
 
-	int unitIndex()   const { return m_unitIndex;}
+	int unitIndex() const { return m_unitIndex;}
 	QString unitSuffix() const { return m_unitSuffix;}
-	double unitRatio()   const { return m_unitRatio; }
+	double unitRatio() const { return m_unitRatio; }
 
-	int    orientation() const { return m_orientation;}
-	int    choosenLayout() const { return m_choosenLayout;}
+	int orientation() const { return m_orientation;}
+	int choosenLayout() const { return m_choosenLayout;}
 	double pageWidth() const { return m_pageWidth;}
 	double pageHeight() const { return m_pageHeight;}
 	double distance() const { return m_distance;}
 	double bleedBottom() const { return m_bleedBottom;}
-	double bleedTop()    const { return m_bleedTop;}
-	double bleedLeft()   const { return m_bleedLeft;}
-	double bleedRight()  const { return m_bleedRight;}
+	double bleedTop() const { return m_bleedTop;}
+	double bleedLeft() const { return m_bleedLeft;}
+	double bleedRight() const { return m_bleedRight;}
 
 public slots:
 	void setHeight(double v);

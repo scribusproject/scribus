@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QDebug>
+#include <QDialogButtonBox>
 #include <QPushButton>
 #include <QLayout>
 #include <QListWidget>
@@ -32,7 +33,6 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	while (prefsStackWidget->currentWidget()!=nullptr)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
 
-	applyButton->hide();
 	exportButton->hide();
 
 	if(doc)
@@ -138,14 +138,10 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 
 	connect(prefs_DocumentSetup, SIGNAL(changeToOtherSection(QString)), this, SLOT(setNewItemSelected(QString)));
 	connect(prefs_DocumentSetup, SIGNAL(prefsChangeUnits(int)), this, SLOT(changeUnits(int)));
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(applyButton, SIGNAL(clicked()), this, SLOT(applyButtonClicked()));
+	connect(buttonBox, &QDialogButtonBox::accepted, this, &PreferencesDialog::accept);
+	connect(buttonBox, &QDialogButtonBox::rejected, this, &PreferencesDialog::reject);
 	connect(preferencesTypeList, SIGNAL(itemSelectionChanged()), this, SLOT(newItemSelected()));
 }
-
-
-PreferencesDialog::~PreferencesDialog() = default;
 
 void PreferencesDialog::restoreDefaults()
 {
@@ -223,13 +219,6 @@ void PreferencesDialog::saveGuiToPrefs()
 	if (prefs_Miscellaneous) prefs_Miscellaneous->saveGuiToPrefs(&localPrefs);
 	if (prefs_PageSizes) prefs_PageSizes->saveGuiToPrefs(&localPrefs);
 	if (prefs_ImageCache) prefs_ImageCache->saveGuiToPrefs(&localPrefs);
-}
-
-void PreferencesDialog::applyButtonClicked()
-{
-	Prefs_Pane* pp=qobject_cast<Prefs_Pane *>(prefsStackWidget->currentWidget());
-	if (pp)
-		pp->saveGuiToPrefs(&localPrefs);
 }
 
 void PreferencesDialog::accept()
