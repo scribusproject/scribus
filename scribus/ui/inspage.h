@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include <QDialog>
+#include <QDialogButtonBox>
 #include <QList>
 #include <QStringList>
 #include <QGridLayout>
@@ -52,8 +53,7 @@ private:
 	QLabel* insCountLabel { nullptr };
 	QLabel* masterPageLabel { nullptr };
 	QLabel* pagesLabel { nullptr };
-	QPushButton* cancelButton { nullptr };
-	QPushButton* okButton { nullptr };
+	QDialogButtonBox* buttonBox { nullptr };
 	QComboBox* insWhereData { nullptr };
 	QSpinBox* insWherePageData { nullptr };
 	QSpinBox* insCountData { nullptr };

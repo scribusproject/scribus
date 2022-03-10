@@ -289,26 +289,15 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	heightSpinBox->setEnabled(b);
 	widthSpinBox->setEnabled(b);
 
-	okCancelLayout = new QHBoxLayout;
-	okCancelLayout->setSpacing(6);
-	okCancelLayout->setContentsMargins(0, 0, 0, 0);
-	QSpacerItem* spacer = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	okCancelLayout->addItem(spacer);
-
-	okButton = new QPushButton(CommonStrings::tr_OK, this);
-	okButton->setDefault(true);
-	okCancelLayout->addWidget(okButton);
-
-	cancelButton = new QPushButton(CommonStrings::tr_Cancel, this);
-	okCancelLayout->addWidget(cancelButton);
-	dialogLayout->addLayout(okCancelLayout);
+	buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+	dialogLayout->addWidget(buttonBox);
 	setMaximumSize(sizeHint());
 	m_unitRatio = m_doc->unitRatio();
 
 	// signals and slots connections
 	connect(insWhereData, SIGNAL( activated(int) ), this, SLOT( insWherePageDataDisable(int) ) );
-	connect(okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect(cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect(buttonBox, SIGNAL( accepted() ), this, SLOT( accept() ) );
+	connect(buttonBox, SIGNAL( rejected() ), this, SLOT( reject() ) );
 	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrientation(int)));
 	connect(sizeQComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSize(const QString &)));
 	connect(overrideMPSizingCheckBox, SIGNAL(stateChanged(int)), this, SLOT(enableSizingControls(int)));
