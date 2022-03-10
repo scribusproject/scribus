@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "fpointarray.h"
 #include "sccolor.h"
+#include "scimagestructs.h"
 
 class ScribusDoc;
 class ScStreamFilter;

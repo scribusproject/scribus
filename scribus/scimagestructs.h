@@ -163,7 +163,7 @@ enum ColorSpaceEnum
 	ColorSpaceMonochrome = 4
 };
 
-class ImageInfoRecord
+class SCRIBUS_API ImageInfoRecord
 {
 public:
 	ImageInfoRecord();

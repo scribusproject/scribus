@@ -62,7 +62,7 @@ PageItem_ImageFrame::PageItem_ImageFrame(ScribusDoc *pa, double x, double y, dou
 
 PageItem_ImageFrame::~PageItem_ImageFrame()
 {
-	if ((imageIsAvailable) && (!Pfile.isEmpty()))
+	if (imageIsAvailable && (!Pfile.isEmpty()))
 	{
 		ScCore->fileWatcher->removeFile(Pfile);
 		QFileInfo fi(Pfile);
