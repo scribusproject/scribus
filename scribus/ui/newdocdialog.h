@@ -8,17 +8,18 @@ for which a new license (GPL+exception) is in place.
 #define NEWDOCDIALOG_H
 
 #include <QDialog>
+#include <QDialogButtonBox>
 #include <QDropEvent>
 #include <QDragEnterEvent>
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
 #include <QListWidget>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QVBoxLayout>
 
-class QCheckBox;
-class QComboBox;
 class QGridLayout;
 class QHBoxLayout;
-class QVBoxLayout;
 class QFrame;
 class QGroupBox;
 class QLabel;
@@ -108,6 +109,7 @@ public:
 	nftwidget *nftGui {nullptr};
 	QFrame* recentDocFrame {nullptr};
 	QListWidget* recentDocListBox {nullptr};
+	QDialogButtonBox* buttonBox {nullptr};
 	QPushButton* OKButton {nullptr};
 	QPushButton* CancelB {nullptr};
 
@@ -115,7 +117,7 @@ public:
 	int  tabSelected() const { return m_tabSelected;}
 	QString selectedFile() const { return m_selectedFile; }
 
-	int    unitIndex()   const { return m_unitIndex;}
+	int unitIndex()   const { return m_unitIndex;}
 	QString unitSuffix() const { return m_unitSuffix;}
 	double unitRatio()   const { return m_unitRatio; }
 

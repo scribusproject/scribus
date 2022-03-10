@@ -10,9 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
-#include <QDir>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QDir>
 #include <QFileDialog>
 #include <QFrame>
 #include <QGroupBox>
@@ -31,18 +31,18 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include "commonstrings.h"
+#include "filedialogeventcatcher.h"
 #include "fileloader.h"
+#include "iconmanager.h"
 #include "marginwidget.h"
-#include "pagesize.h"
-#include "scribuscore.h"
 #include "pagelayout.h"
+#include "pagesize.h"
 #include "pagestructs.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "filedialogeventcatcher.h"
+#include "scribuscore.h"
 #include "scrspinbox.h"
 #include "units.h"
-#include "iconmanager.h"
 
 PageLayoutsWidget::PageLayoutsWidget(QWidget* parent) :
 	QListWidget(parent)
@@ -143,12 +143,14 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 	}
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
+	buttonBox = new QDialogButtonBox();
+	Layout1->addWidget(buttonBox);
 	OKButton = new QPushButton( CommonStrings::tr_OK, this );
 	OKButton->setDefault( true );
-	Layout1->addWidget( OKButton );
+	buttonBox->addButton(OKButton, QDialogButtonBox::AcceptRole);
 	CancelB = new QPushButton( CommonStrings::tr_Cancel, this );
 	CancelB->setAutoDefault( false );
-	Layout1->addWidget( CancelB );
+	buttonBox->addButton(CancelB, QDialogButtonBox::RejectRole);
 	TabbedNewDocLayout->addLayout( Layout1 );
 	//tooltips
 	pageSizeComboBox->setToolTip( tr( "Document page size, either a standard size or a custom size" ) );
@@ -162,8 +164,9 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 	Distance->setToolTip( tr( "Distance between automatically created columns" ) );
 
 	// signals and slots connections
-	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );
-	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect(buttonBox, &QDialogButtonBox::accepted, this, &NewDocDialog::ExitOK);
+	connect(buttonBox, &QDialogButtonBox::rejected, this, &NewDocDialog::reject);
+
 	connect(pageSizeComboBox, SIGNAL(textActivated(QString)), this, SLOT(setPageSize(QString)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrientation(int)));
 	connect(unitOfMeasureComboBox, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
