@@ -49,7 +49,7 @@ protected:
 	 * on the table grid of the currently edited table. If @a snap is <code>true</code>,
 	 * @a point is first snapped to the page grid and guides, in that order.
 	 */
-	QPointF globalToTableGrid(const QPoint& point, bool snap = true);
+	QPointF globalToTableGrid(const QPointF& point, bool snap = true);
 
 	/**
 	 * Paints the outline of the currently edited table.

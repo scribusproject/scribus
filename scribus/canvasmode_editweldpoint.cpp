@@ -354,14 +354,14 @@ void CanvasMode_EditWeldPoint::mouseMoveEvent(QMouseEvent *m)
 	m_currItem = m_doc->m_Selection->itemAt(0);
 	FPoint npf = FPoint(npfN.x(), npfN.y(), m_currItem->xPos(), m_currItem->yPos(), m_currItem->rotation(), 1, 1, true);
 	FPoint npx(m_Mxp - npfN.x(), m_Myp - npfN.y(), 0, 0, m_currItem->rotation(), 1, 1, true);
-	m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
+	m_canvas->displayXYHUD(m->globalPosition(), npf.x(), npf.y());
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && m_view->moveTimerElapsed())
 	{
 		if (m_editWeldMode)
 		{
 			if (m_selectedPoint != -1)
 			{
-				m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
+				m_canvas->displayXYHUD(m->globalPosition(), npf.x(), npf.y());
 				FPoint mp_orig = m_currItem->weldList[m_selectedPoint].weldPoint;
 				FPoint mp = mp_orig - npx;
 				double xx = mp.x();

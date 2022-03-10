@@ -105,7 +105,7 @@ void MeasurementsMode::mouseMoveEvent(QMouseEvent *m)
 	else
 	{
 		FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-		m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
+		m_canvas->displayCorrectedXYHUD(m->globalPosition(), mousePointDoc.x(), mousePointDoc.y());
 	}
 }
 

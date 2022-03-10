@@ -37,7 +37,7 @@ void TableResize::mouseReleaseEvent(QMouseEvent* event)
 {
 	event->accept();
 
-	QPointF gridPoint = globalToTableGrid(event->globalPos());
+	QPointF gridPoint = globalToTableGrid(event->globalPosition());
 
 	// Perform the actual resize of the table.
 	table()->resize(gridPoint.x(), gridPoint.y());
@@ -53,7 +53,7 @@ void TableResize::mouseMoveEvent(QMouseEvent* event)
 {
 	event->accept();
 
-	QPointF gridPoint = globalToTableGrid(event->globalPos());
+	QPointF gridPoint = globalToTableGrid(event->globalPosition());
 
 	// Set the column  geometries for the table outline.
 	double requestedWidthFactor = gridPoint.x() / table()->tableWidth();
@@ -78,7 +78,7 @@ void TableResize::mouseMoveEvent(QMouseEvent* event)
 	// Display size tooltip.
 	double actualTableWidth = table()->tableWidth() * actualWidthFactor;
 	double actualTableHeight = table()->tableHeight() * actualHeightFactor;
-	m_canvas->displaySizeHUD(event->globalPos(), actualTableWidth, actualTableHeight, false);
+	m_canvas->displaySizeHUD(event->globalPosition(), actualTableWidth, actualTableHeight, false);
 
 	m_canvas->update();
 }

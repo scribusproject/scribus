@@ -315,7 +315,7 @@ void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 				applyValues(m_startAngle,m_endAngle,item->spiralFactor);
 				item->recalcPath();
 				m_startPoint = currItem->PoLine.pointQF(0);
-				m_canvas->displayRealRotHUD(m->globalPos(), m_startAngle);
+				m_canvas->displayRealRotHUD(m->globalPosition(), m_startAngle);
 			}
 			m_VectorDialog->setValues(computeRealAngle(m_startAngle, false), computeRealAngle(m_endAngle, false), item->spiralFactor);
 		}
@@ -327,7 +327,7 @@ void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 				applyValues(m_startAngle,m_endAngle,item->spiralFactor);
 				item->recalcPath();
 				m_endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 2);
-				m_canvas->displayRealRotHUD(m->globalPos(), m_endAngle);
+				m_canvas->displayRealRotHUD(m->globalPosition(), m_endAngle);
 			}
 			m_VectorDialog->setValues(computeRealAngle(m_startAngle, false), computeRealAngle(m_endAngle, false), item->spiralFactor);
 		}

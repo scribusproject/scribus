@@ -188,7 +188,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 	{
 		case ORIGIN:
 			m_canvas->repaint();
-			m_canvas->displayCorrectedXYHUD(m->globalPos(), x, y);
+			m_canvas->displayCorrectedXYHUD(m->globalPosition(), x, y);
 			break;
 		case HORIZONTAL:
 			if (!m_ScMW->doc->guidesPrefs().guidesShown)
@@ -257,7 +257,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				}
 			}
 			m_canvas->update(0, newMousePoint.y() - 2, m_canvas->width(), 4);
-			m_canvas->displayCorrectedSingleHUD(m->globalPos(), y, false);
+			m_canvas->displayCorrectedSingleHUD(m->globalPosition(), y, false);
 			break;
 		case VERTICAL:
 			if (!m_ScMW->doc->guidesPrefs().guidesShown)
@@ -325,7 +325,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				}
 			}
 			m_canvas->update(newMousePoint.x() - 2, 0, 4, m_canvas->height());
-			m_canvas->displayCorrectedSingleHUD(m->globalPos(), x, true);
+			m_canvas->displayCorrectedSingleHUD(m->globalPosition(), x, true);
 			break;
 	}
 	m_xy = newMousePoint;

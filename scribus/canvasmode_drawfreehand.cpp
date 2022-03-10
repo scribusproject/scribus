@@ -105,7 +105,7 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	PageItem *currItem;
 	m->accept();
-	m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
+	m_canvas->displayCorrectedXYHUD(m->globalPosition(), mousePointDoc.x(), mousePointDoc.y());
 	if (commonMouseMove(m))
 		return;
 	if (m_mouseButtonPressed && (m_doc->appMode == modeDrawFreehandLine))

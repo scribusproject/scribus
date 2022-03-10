@@ -134,7 +134,7 @@ void LineMove::mousePressEvent(QMouseEvent *m)
 		bool hitsOrigin = m_canvas->hitsCanvasPoint(m->globalPosition(), line->xyPos());
 		prepare(line, hitsOrigin);
 		// now we also know the line's endpoint:
-		bool hitsEnd = m_canvas->hitsCanvasPoint(m->globalPos(), endPoint());
+		bool hitsEnd = m_canvas->hitsCanvasPoint(m->globalPosition(), endPoint());
 		m_haveLineItem = hitsOrigin || hitsEnd;
 	}
 	else

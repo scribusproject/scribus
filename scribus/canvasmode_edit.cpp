@@ -417,7 +417,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 					QPointF rotP = p.map(QPointF(0.0, 0.0));
 					double itemRotation = xy2Deg(mousePointDoc.x() - rotP.x(), mousePointDoc.y() - rotP.y());
 					currItem->setImageRotation(itemRotation);
-					m_canvas->displayRotHUD(m->globalPos(), itemRotation);
+					m_canvas->displayRotHUD(m->globalPosition(), itemRotation);
 				}
 				else
 				{
@@ -426,7 +426,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 					QTransform mm2 = mm1.inverted();
 					QPointF rota = mm2.map(QPointF(newX, newY)) - mm2.map(QPointF(Mxp, Myp));
 					currItem->moveImageInFrame(rota.x() / currItem->imageXScale(), rota.y() / currItem->imageYScale());
-					m_canvas->displayXYHUD(m->globalPos(), currItem->imageXOffset() * currItem->imageXScale(), currItem->imageYOffset() * currItem->imageYScale());
+					m_canvas->displayXYHUD(m->globalPosition(), currItem->imageXOffset() * currItem->imageXScale(), currItem->imageYOffset() * currItem->imageYScale());
 				}
 				currItem->update();
 				Mxp = newX;

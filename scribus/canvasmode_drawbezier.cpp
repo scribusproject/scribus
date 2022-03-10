@@ -239,7 +239,7 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 	
 	PageItem *currItem;
 	m->accept();
-	m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
+	m_canvas->displayCorrectedXYHUD(m->globalPosition(), mousePointDoc.x(), mousePointDoc.y());
 //	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
 //	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
 //				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());

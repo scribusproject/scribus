@@ -52,7 +52,7 @@ void RowResize::mouseReleaseEvent(QMouseEvent* event)
 {
 	event->accept();
 
-	QPointF gridPoint = globalToTableGrid(event->globalPos());
+	QPointF gridPoint = globalToTableGrid(event->globalPosition());
 
 	// Perform the actual resize of the row.
 	PageItem_Table::ResizeStrategy strategy;
@@ -87,7 +87,7 @@ void RowResize::mouseMoveEvent(QMouseEvent* event)
 {
 	event->accept();
 
-	QPointF gridPoint = globalToTableGrid(event->globalPos());
+	QPointF gridPoint = globalToTableGrid(event->globalPosition());
 
 	double requestedHeight = gridPoint.y() - m_rowPositions[m_row];
 	double actualHeight = 0.0;
@@ -98,7 +98,7 @@ void RowResize::mouseMoveEvent(QMouseEvent* event)
 		actualHeight = resizeRowResizeFollowing(requestedHeight);
 
 	// Display height tooltip.
-	m_canvas->displayDoubleHUD(event->globalPos(), tr("Height"), actualHeight);
+	m_canvas->displayDoubleHUD(event->globalPosition(), tr("Height"), actualHeight);
 
 	// Update canvas.
 	m_canvas->update();

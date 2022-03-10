@@ -577,7 +577,7 @@ void CanvasMode_EditMeshPatch::mouseMoveEvent(QMouseEvent *m)
 	if (m_view->editStrokeGradient == 11)
 	{
 		m_currentPoint = QPointF(npf.x(), npf.y());
-		m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
+		m_canvas->displayXYHUD(m->globalPosition(), npf.x(), npf.y());
 		m_currItem->update();
 		QRectF upRect;
 		upRect = QRectF(QPointF(0, 0), QPointF(m_currItem->width(), m_currItem->height())).normalized();
@@ -614,7 +614,7 @@ void CanvasMode_EditMeshPatch::mouseMoveEvent(QMouseEvent *m)
 						cP = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL.controlColor;
 						gP = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL.gridPoint;
 					}
-					m_canvas->displayXYHUD(m->globalPos(), cP.x() - gP.x(), cP.y() - gP.y());
+					m_canvas->displayXYHUD(m->globalPosition(), cP.x() - gP.x(), cP.y() - gP.y());
 					if (m_patchPoint == useTL)
 						m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TL.controlColor -= npx;
 					if (m_patchPoint == useTR)
@@ -626,7 +626,7 @@ void CanvasMode_EditMeshPatch::mouseMoveEvent(QMouseEvent *m)
 				}
 				else if (m_view->editStrokeGradient == 9)
 				{
-					m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
+					m_canvas->displayXYHUD(m->globalPosition(), npf.x(), npf.y());
 					if (m_view->editStrokeGradient == 9)
 					{
 						FPoint mp;

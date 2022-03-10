@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "canvasgesture_table.h"
 
-QPointF TableGesture::globalToTableGrid(const QPoint& point, bool snap)
+QPointF TableGesture::globalToTableGrid(const QPointF& point, bool snap)
 {
 	FPoint canvasPoint = m_canvas->globalToCanvas(point);
 

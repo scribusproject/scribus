@@ -723,7 +723,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					m_view->ensureVisible(selectionCenter.x(), selectionCenter.y(), localwidth / 2 + 20, localheight / 2 + 20);
 					m_canvas->repaint();
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-					m_canvas->displayCorrectedXYHUD(m->globalPos(), gx + m_objectDeltaPos.x(), gy + m_objectDeltaPos.y());
+					m_canvas->displayCorrectedXYHUD(m->globalPosition(), gx + m_objectDeltaPos.x(), gy + m_objectDeltaPos.y());
 				}
 			}
 		}

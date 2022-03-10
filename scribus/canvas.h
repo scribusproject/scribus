@@ -203,19 +203,20 @@ public:
 	//notesFramesPass determine if notes frames are drawn or not
 	void DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool notesFramesPass);
 	void paintEvent ( QPaintEvent * p ) override;
-	void displayXYHUD(QPoint m);
-	void displayCorrectedXYHUD(QPoint m, double x, double y);
-	void displayCorrectedSingleHUD(QPoint m, double val, bool isX);
-	void displayXYHUD(QPoint m, double x, double y);
-	void displaySizeHUD(QPoint m, double x, double y, bool isLine = false);
-	void displayRotHUD(QPoint m, double rot);
-	void displayRealRotHUD(QPoint m, double rot);
+
+	void displayXYHUD(QPointF m);
+	void displayCorrectedXYHUD(QPointF m, double x, double y);
+	void displayCorrectedSingleHUD(QPointF m, double val, bool isX);
+	void displayXYHUD(QPointF m, double x, double y);
+	void displaySizeHUD(QPointF m, double x, double y, bool isLine = false);
+	void displayRotHUD(QPointF m, double rot);
+	void displayRealRotHUD(QPointF m, double rot);
 	/**
 	 * Displays a tooltip of the format <code>{label}: {N} {unit}</code> where <code>N</code> is
 	 * @a value converted to the current document unit and <code>unit</code> the current document
 	 * unit. The tooltip will be displayed nearby the global point @a point.
 	 */
-		void displayDoubleHUD(QPoint point, const QString& label, double value);
+	void displayDoubleHUD(QPointF point, const QString& label, double value);
 
 	void setupEditHRuler(PageItem * item, bool forceAndReset = false);
 	

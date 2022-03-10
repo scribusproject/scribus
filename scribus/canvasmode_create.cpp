@@ -264,7 +264,7 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 	}
 	if ((!m_MouseButtonPressed) || !(m->buttons() & Qt::LeftButton))
 	{
-		m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
+		m_canvas->displayCorrectedXYHUD(m->globalPosition(), mousePointDoc.x(), mousePointDoc.y());
 		return;
 	}
 
@@ -319,7 +319,7 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 	{
 		if (modifiers == Qt::ControlModifier)
 			hSize = wSize;
-		m_canvas->displaySizeHUD(m->globalPos(), wSize, hSize, false);
+		m_canvas->displaySizeHUD(m->globalPosition(), wSize, hSize, false);
 	}
 	else
 	{
@@ -327,7 +327,7 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 		if (angle < 0.0)
 			angle = angle + 360;
 		double trueLength = sqrt(pow(createObjectRect.width(), 2) + pow(createObjectRect.height(), 2));
-		m_canvas->displaySizeHUD(m->globalPos(), trueLength, angle, true);
+		m_canvas->displaySizeHUD(m->globalPosition(), trueLength, angle, true);
 	}
 
 	// Necessary for drawControls to be called

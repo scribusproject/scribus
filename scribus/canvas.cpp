@@ -2474,7 +2474,7 @@ void Canvas::drawPixmap(QPainter& painter, double x, double y, const QPixmap& pi
 	painter.drawPixmap(x, y, pixmap, sx, sy, sw, sh);
 }
 
-void Canvas::displayXYHUD(QPoint m)
+void Canvas::displayXYHUD(QPointF m)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
@@ -2519,7 +2519,7 @@ void Canvas::displayXYHUD(QPoint m)
 	displayXYHUD(m, gx, gy);
 }
 
-void Canvas::displayCorrectedXYHUD(QPoint m, double x, double y)
+void Canvas::displayCorrectedXYHUD(QPointF m, double x, double y)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
@@ -2532,10 +2532,12 @@ void Canvas::displayCorrectedXYHUD(QPoint m, double x, double y)
 	}
 	gx -= m_doc->rulerXoffset;
 	gy -= m_doc->rulerYoffset;
-	QToolTip::showText(m + QPoint(5, 5), tr("X: %1\nY: %2").arg(value2String(gx, m_doc->unitIndex(), true, true), value2String(gy, m_doc->unitIndex(), true, true)), this);
+
+	QPointF tooltipPos = m + QPointF(5.0, 5.0);
+	QToolTip::showText(tooltipPos.toPoint(), tr("X: %1\nY: %2").arg(value2String(gx, m_doc->unitIndex(), true, true), value2String(gy, m_doc->unitIndex(), true, true)), this);
 }
 
-void Canvas::displayCorrectedSingleHUD(QPoint m, double val, bool isX)
+void Canvas::displayCorrectedSingleHUD(QPointF m, double val, bool isX)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
@@ -2545,35 +2547,41 @@ void Canvas::displayCorrectedSingleHUD(QPoint m, double val, bool isX)
 		if (m_doc->guidesPrefs().rulerMode)
 			gx -= m_doc->currentPage()->xOffset();
 		gx -= m_doc->rulerXoffset;
-		QToolTip::showText(m + QPoint(5, 5), tr("X: %1").arg(value2String(gx, m_doc->unitIndex(), true, true)), this);
+		QPointF tooltipPos = m + QPointF(5.0, 5.0);
+		QToolTip::showText(tooltipPos.toPoint(), tr("X: %1").arg(value2String(gx, m_doc->unitIndex(), true, true)), this);
 	}
 	else
 	{
 		if (m_doc->guidesPrefs().rulerMode)
 			gx -= m_doc->currentPage()->yOffset();
 		gx -= m_doc->rulerYoffset;
-		QToolTip::showText(m + QPoint(5, 5), tr("Y: %1").arg(value2String(gx, m_doc->unitIndex(), true, true)), this);
+		QPointF tooltipPos = m + QPointF(5.0, 5.0);
+		QToolTip::showText(tooltipPos.toPoint(), tr("Y: %1").arg(value2String(gx, m_doc->unitIndex(), true, true)), this);
 	}
 }
 
-void Canvas::displayXYHUD(QPoint m, double x, double y)
+void Canvas::displayXYHUD(QPointF m, double x, double y)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
-	QToolTip::showText(m + QPoint(5, 5), tr("X: %1\nY: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, m_doc->unitIndex(), true, true)), this);
+
+	QPointF tooltipPos = m + QPointF(5.0, 5.0);
+	QToolTip::showText(tooltipPos.toPoint(), tr("X: %1\nY: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, m_doc->unitIndex(), true, true)), this);
 }
 
-void Canvas::displaySizeHUD(QPoint m, double x, double y, bool isLine)
+void Canvas::displaySizeHUD(QPointF m, double x, double y, bool isLine)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
+
+	QPointF tooltipPos = m + QPointF(5.0, 5.0);
 	if (isLine)
-		QToolTip::showText(m + QPoint(5, 5), tr("Length: %1\nAngle: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, SC_DEGREES, true, true)), this);
+		QToolTip::showText(tooltipPos.toPoint(), tr("Length: %1\nAngle: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, SC_DEGREES, true, true)), this);
 	else
-		QToolTip::showText(m + QPoint(5, 5), tr("Width: %1\nHeight: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, m_doc->unitIndex(), true, true)), this);
+		QToolTip::showText(tooltipPos.toPoint(), tr("Width: %1\nHeight: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, m_doc->unitIndex(), true, true)), this);
 }
 
-void Canvas::displayRotHUD(QPoint m, double rot)
+void Canvas::displayRotHUD(QPointF m, double rot)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
@@ -2582,21 +2590,24 @@ void Canvas::displayRotHUD(QPoint m, double rot)
 		r = rot * -1.0;
 	else
 		r = 360.0 - rot;
-	QToolTip::showText(m + QPoint(5, 5), tr("Angle: %1").arg(value2String(r, SC_DEGREES, true, true)), this);
+	QPointF tooltipPos = m + QPointF(5.0, 5.0);
+	QToolTip::showText(tooltipPos.toPoint(), tr("Angle: %1").arg(value2String(r, SC_DEGREES, true, true)), this);
 }
 
-void Canvas::displayRealRotHUD(QPoint m, double rot)
+void Canvas::displayRealRotHUD(QPointF m, double rot)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
-	QToolTip::showText(m + QPoint(5, 5), tr("Angle: %1").arg(value2String(rot, SC_DEGREES, true, true)), this);
+	QPointF tooltipPos = m + QPointF(5.0, 5.0);
+	QToolTip::showText(tooltipPos.toPoint(), tr("Angle: %1").arg(value2String(rot, SC_DEGREES, true, true)), this);
 }
 
-void Canvas::displayDoubleHUD(QPoint point, const QString& label, double value)
+void Canvas::displayDoubleHUD(QPointF point, const QString& label, double value)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
 		return;
-	QToolTip::showText(point + QPoint(5, 5), QString("%1: %2").arg(label, value2String(value, m_doc->unitIndex(), true, true)), this);
+	QPointF tooltipPos = point + QPointF(5.0, 5.0);
+	QToolTip::showText(tooltipPos.toPoint(), QString("%1: %2").arg(label, value2String(value, m_doc->unitIndex(), true, true)), this);
 }
 
 void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)

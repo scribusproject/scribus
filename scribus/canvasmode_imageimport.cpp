@@ -161,8 +161,8 @@ void CanvasMode_ImageImport::mouseMoveEvent(QMouseEvent *m)
 {
 	m_Mx = m->globalPos().x();
 	m_My = m->globalPos().y();
-	QToolTip::showText(m->globalPos(), m_tipText, qApp->activeWindow());
-	QToolTip::showText(m->globalPos(), m_tipText + "<b></b>", qApp->activeWindow());
+	QToolTip::showText(m->globalPosition().toPoint(), m_tipText, qApp->activeWindow());
+	QToolTip::showText(m->globalPosition().toPoint(), m_tipText + "<b></b>", qApp->activeWindow());
 	m->accept();
 	PageItem *item;
 	if ((item = m_canvas->itemUnderCursor(m->globalPos())) != nullptr)

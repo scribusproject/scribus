@@ -52,7 +52,7 @@ void ColumnResize::mouseReleaseEvent(QMouseEvent* event)
 {
 	event->accept();
 
-	QPointF gridPoint = globalToTableGrid(event->globalPos());
+	QPointF gridPoint = globalToTableGrid(event->globalPosition());
 
 	// Perform the actual resize of the row.
 	PageItem_Table::ResizeStrategy strategy;
@@ -87,7 +87,7 @@ void ColumnResize::mouseMoveEvent(QMouseEvent* event)
 {
 	event->accept();
 
-	QPointF gridPoint = globalToTableGrid(event->globalPos());
+	QPointF gridPoint = globalToTableGrid(event->globalPosition());
 
 	double requestedWidth = gridPoint.x() - m_columnPositions[m_column];
 	double actualWidth = 0.0;

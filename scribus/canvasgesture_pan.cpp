@@ -47,13 +47,13 @@ void PanGesture::drawControls(QPainter* p)
 
 void PanGesture::mousePressEvent(QMouseEvent* m)
 {
-	FPoint m_canvasPoint = m_canvas->globalToCanvas(m->globalPos());
+	FPoint m_canvasPoint = m_canvas->globalToCanvas(m->globalPosition());
 	m_canvasRefPoint = QPointF(m_canvasPoint.x(), m_canvasPoint.y());
 }
 
 void PanGesture::mouseMoveEvent(QMouseEvent* m)
 {
-	FPoint m_canvasPoint = m_canvas->globalToCanvas(m->globalPos());
+	FPoint m_canvasPoint = m_canvas->globalToCanvas(m->globalPosition());
 	double scale = m_canvas->scale();
 	double dx = (m_canvasRefPoint.x() - m_canvasPoint.x()) * scale;
 	double dy = (m_canvasRefPoint.y() - m_canvasPoint.y()) * scale;

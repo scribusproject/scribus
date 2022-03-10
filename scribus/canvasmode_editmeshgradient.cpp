@@ -587,11 +587,11 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 				QPair<int, int> selP = m_selectedMeshPoints[0];
 				FPoint cP = currItem->meshGradientArray[selP.first][selP.second].controlColor;
 				FPoint gP = currItem->meshGradientArray[selP.first][selP.second].gridPoint;
-				m_canvas->displayXYHUD(m->globalPos(), cP.x() - gP.x(), cP.y() - gP.y());
+				m_canvas->displayXYHUD(m->globalPosition(), cP.x() - gP.x(), cP.y() - gP.y());
 			}
 		}
 		else
-			m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
+			m_canvas->displayXYHUD(m->globalPosition(), npf.x(), npf.y());
 		FPoint npx(m_Mxp - npfN.x(), m_Myp - npfN.y(), 0, 0, currItem->rotation(), 1, 1, true);
 		if (m_selectedMeshPoints.count() > 0)
 		{

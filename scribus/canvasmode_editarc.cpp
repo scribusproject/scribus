@@ -356,13 +356,13 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 			{
 				m_startPoint = ar.pointQF(2);
 				QLineF stLinA = QLineF(smPoint, itemMatrix.map(m_startPoint));
-				m_canvas->displayRotHUD(m->globalPos(), 360.0 - stLinA.angle());
+				m_canvas->displayRotHUD(m->globalPosition(), 360.0 - stLinA.angle());
 			}
 			else if (m_arcPoint == useControlSweep)
 			{
 				m_endPoint = ar.pointQF(ar.size() - 4);
 				QLineF stLinA = QLineF(smPoint, itemMatrix.map(m_endPoint));
-				m_canvas->displayRotHUD(m->globalPos(), 360.0 - stLinA.angle());
+				m_canvas->displayRotHUD(m->globalPosition(), 360.0 - stLinA.angle());
 			}
 			QLineF res = QLineF(m_centerPoint, m_startPoint);
 			QLineF swe = QLineF(m_centerPoint, m_endPoint);
