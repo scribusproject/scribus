@@ -238,13 +238,13 @@ void ScribusView::nativeGestureEvent(QNativeGestureEvent *e)
 	if (e->gestureType() == Qt::ZoomNativeGesture)
 	{
 		double delta = 1 + e->value();
-		FPoint mp = m_canvas->globalToCanvas(e->globalPos());
+		FPoint mp = m_canvas->globalToCanvas(e->globalPosition());
 		zoom(mp.x(), mp.y(), m_canvas->scale() * delta, true);
 	}
 	if (e->gestureType() == Qt::SmartZoomNativeGesture)
 	{
 		static bool zoomTo100 = false;
-		FPoint mp = m_canvas->globalToCanvas(e->globalPos());
+		FPoint mp = m_canvas->globalToCanvas(e->globalPosition());
 		if (zoomTo100)
 		{
 			zoom(mp.x(), mp.y(), Prefs->displayPrefs.displayScale, true);
@@ -2699,7 +2699,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 
 void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 {
-	QPoint py = viewport()->mapFromGlobal(m->globalPos());
+	QPointF py = viewport()->mapFromGlobal(m->globalPosition());
 	m_doc->rulerXoffset = (py.x() + contentsX()) / m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x();
 	m_doc->rulerYoffset = (py.y() + contentsY()) / m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y();
 	if (m_doc->guidesPrefs().rulerMode)
@@ -3312,10 +3312,10 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	if (obj == widget() && event->type() == QEvent::MouseMove)
 	{
 		auto* m = dynamic_cast<QMouseEvent*> (event);
-		m_mousePointDoc=m_canvas->globalToCanvas(m->globalPos());
+		m_mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 		FPoint p = m_canvas->localToCanvas(QPoint(m->position().x(),m->position().y()));
 		emit MousePos(p.x(),p.y());
-		horizRuler->draw(m->position().x() + qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale())); //  - 2 * contentsX());
+		horizRuler->draw(m->position().x() + qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()));
 		vertRuler->draw(m->position().y() + qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 		m_canvasMode->mouseMoveEvent(m);
 		return true;

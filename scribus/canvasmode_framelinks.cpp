@@ -150,8 +150,6 @@ void CanvasMode_FrameLinks::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 {
-	//const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
 	m->accept();
 
 	if (commonMouseMove(m))
@@ -168,7 +166,7 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 
 	double Rxp = 0;
 	double Ryp = 0;
@@ -180,9 +178,9 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 //	oldClip = 0;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
-	m_Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	m_Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	m_view->registerMousePress(m->globalPosition());
+	m_Mxp = mousePointDoc.x();
+	m_Myp = mousePointDoc.y();
 	Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
 	m_Mxp = qRound(Rxp);
 	Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
@@ -330,7 +328,7 @@ void CanvasMode_FrameLinks::mouseReleaseEvent(QMouseEvent *m)
 #ifdef GESTURE_FRAME_PREVIEW
 	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
@@ -365,9 +363,9 @@ void CanvasMode_FrameLinks::mouseReleaseEvent(QMouseEvent *m)
 void CanvasMode_FrameLinks::selectPage(QMouseEvent *m)
 {
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	m_Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
-	m_Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	m_Mxp = mousePointDoc.x();
+	m_Myp = mousePointDoc.y();
 	m_doc->nodeEdit.deselect();
 	m_view->deselectItems(false);
 	if (!m_doc->masterPageMode())
@@ -397,11 +395,11 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 	QTransform p;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	m_Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
-	m_Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
-	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	m_Mxp = mousePointDoc.x();
+	m_Myp = mousePointDoc.y();
+	int MxpS = static_cast<int>(mousePointDoc.x());
+	int MypS = static_cast<int>(mousePointDoc.y());
 	m_doc->nodeEdit.deselect();
 	if (!m_doc->masterPageMode())
 	{
@@ -469,7 +467,7 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 	{
 		m_view->deselectItems(false);
 	}
-	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
+	currItem = m_canvas->itemUnderCursor(m->globalPosition(), currItem, (m->modifiers() & SELECT_IN_GROUP));
 	if (currItem)
 	{
 		m_doc->m_Selection->delaySignalsOn();

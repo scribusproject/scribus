@@ -156,7 +156,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 	QPixmap pm;
 	QScreen *screen = QGuiApplication::primaryScreen();
 	if (screen)
-		pm = screen->grabWindow(0); // screen()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
+		pm = screen->grabWindow(0);
 	QImage i = pm.toImage();
 	QColor selectedColor = i.pixel(0, 0);
 

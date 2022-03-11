@@ -196,7 +196,7 @@ void CanvasMode_Rotate::leaveEvent(QEvent *e)
 
 void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	m_canvasPressCoord = mousePointDoc;
 	
 	m_canvas->PaintSizeRect(QRect());
@@ -207,7 +207,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	m_view->HaveSelRect = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
+	m_view->registerMousePress(m->globalPosition());
 	QRect mpo(m->position().x()-m_doc->guidesPrefs().grabRadius, m->position().y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
 	double Rxp = m_doc->ApplyGridF(m_canvasPressCoord).x();
 	m_canvasPressCoord.setX( qRound(Rxp) );
@@ -294,7 +294,7 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 #ifdef GESTURE_FRAME_PREVIEW
 	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
@@ -378,7 +378,7 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 
 void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	m_canvasCurrCoord  = mousePointDoc;
 	m_angleConstrained = false;
 	

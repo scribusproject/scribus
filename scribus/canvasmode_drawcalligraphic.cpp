@@ -106,7 +106,7 @@ void CalligraphicMode::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	
 	PageItem *currItem;
 	m->accept();
@@ -169,7 +169,8 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 		if ((m_mouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
 			QPoint startP = m_canvas->canvasToGlobal(QPointF(m_xp, m_yp));
-			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
+			QPoint globalPos = m->globalPosition().toPoint();
+			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(globalPos)).normalized());
 			m_view->setRedrawMarkerShown(true);
 			m_view->HaveSelRect = true;
 			return;
@@ -179,7 +180,7 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 
 void CalligraphicMode::mousePressEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	double Rxp = 0;
 	double Ryp = 0;
 	QTransform pm;
@@ -190,11 +191,9 @@ void CalligraphicMode::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
-
-	m_xp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	m_yp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-//	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
+	m_view->registerMousePress(m->globalPosition());
+	m_xp = mousePointDoc.x();
+	m_yp = mousePointDoc.y();
 	Rxp = m_doc->ApplyGridF(FPoint(m_xp, m_yp)).x();
 	m_xp = qRound(Rxp);
 	Ryp = m_doc->ApplyGridF(FPoint(m_xp, m_yp)).y();
@@ -324,9 +323,9 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 void CalligraphicMode::selectPage(QMouseEvent *m)
 {
 	m_mouseButtonPressed = true;
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	m_xp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
-	m_yp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	m_xp = mousePointDoc.x();
+	m_yp = mousePointDoc.y();
 	m_doc->nodeEdit.deselect();
 	m_view->deselectItems(false);
 

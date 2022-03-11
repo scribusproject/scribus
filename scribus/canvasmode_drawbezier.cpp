@@ -235,14 +235,12 @@ void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)
 
 void BezierMode::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	
 	PageItem *currItem;
 	m->accept();
 	m_canvas->displayCorrectedXYHUD(m->globalPosition(), mousePointDoc.x(), mousePointDoc.y());
-//	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
-//	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
-//				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
+
 	if (commonMouseMove(m))
 		return;
 	
@@ -250,8 +248,8 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 	{
 		if (GetItem(&currItem))
 		{
-			double newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-			double newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+			double newX = qRound(mousePointDoc.x());
+			double newY = qRound(mousePointDoc.y());
 			
 			if (m_doc->DragP)
 				return;
@@ -274,7 +272,8 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 			if ((m_mouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 			{
 				QPoint startP = m_canvas->canvasToGlobal(QPointF(m_xp, m_yp));
-				m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
+				QPoint globalPos = m->globalPosition().toPoint();
+				m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(globalPos)).normalized());
 				m_view->setRedrawMarkerShown(true);
 				m_view->HaveSelRect = true;
 				return;
@@ -285,7 +284,7 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 
 void BezierMode::mousePressEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	
 	int z;
 	double Rxp = 0;
@@ -302,9 +301,9 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
-	m_xp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	m_yp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	m_view->registerMousePress(m->globalPosition());
+	m_xp = mousePointDoc.x();
+	m_yp = mousePointDoc.y();
 	Rxp = m_doc->ApplyGridF(FPoint(m_xp, m_yp)).x();
 	Rxpd = m_xp - Rxp;
 	m_xp = qRound(Rxp);
@@ -360,7 +359,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 
 void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 
 	PageItem *currItem;
 	m_mouseButtonPressed = false;
@@ -479,9 +478,9 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 void BezierMode::selectPage(QMouseEvent *m)
 {
 	m_mouseButtonPressed = true;
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	m_xp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
-	m_yp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	m_xp = mousePointDoc.x();
+	m_yp = mousePointDoc.y();
 	m_doc->nodeEdit.deselect();
 	m_view->deselectItems(false);
 

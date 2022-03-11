@@ -128,7 +128,8 @@ void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 		m_SeRx = newX;
 		m_SeRy = newY;
 		QPoint startP = m_canvas->canvasToGlobal(QPointF(m_Mxp, m_Myp));
-		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
+		QPoint globalPos = m->globalPosition().toPoint();
+		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(globalPos)).normalized());
 		m_view->setRedrawMarkerShown(true);
 		m_view->HaveSelRect = true;
 	}
@@ -145,9 +146,9 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
-	m_Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	m_Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	m_view->registerMousePress(m->globalPosition());
+	m_Mxp = mousePointDoc.x();
+	m_Myp = mousePointDoc.y();
 	double Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
 	m_Mxp = qRound(Rxp);
 	double Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
@@ -172,11 +173,13 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 		m_view->Magnify = true;
 		m_view->setCursor(IconManager::instance().loadCursor("lupez.png"));
 	}
-	m_Mxp = mousePointDoc.x(); //m->globalPos().x();
-	m_Myp = mousePointDoc.y(); //m->globalPos().y();
+	m_Mxp = mousePointDoc.x();
+	m_Myp = mousePointDoc.y();
 	m_SeRx = m_Mxp;
 	m_SeRy = m_Myp;
-	m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
+
+	QPoint globalPos = m->globalPosition().toPoint();
+	m_view->redrawMarker->setGeometry(globalPos.x(), globalPos.y(), 1, 1);
 }
 
 void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)

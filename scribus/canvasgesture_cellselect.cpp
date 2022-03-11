@@ -86,7 +86,7 @@ void CellSelect::mouseMoveEvent(QMouseEvent* event)
 {
 	event->accept();
 
-	TableCell newCell = table()->cellAt(m_canvas->globalToCanvas(event->globalPos()).toQPointF());
+	TableCell newCell = table()->cellAt(m_canvas->globalToCanvas(event->globalPosition()).toQPointF());
 
 	if (newCell == m_endCell || !newCell.isValid() || !m_startCell.isValid())
 		return;

@@ -86,8 +86,9 @@ void CharTableView::mousePressEvent(QMouseEvent* event)
 		if (!acceptDrops())
 		{
 			hideZoomedChar();
+			QPoint globalPos = event->globalPosition().toPoint();
 			zoom = new CharZoom(this, currentChar, model()->fontFace());
-			zoom->move(event->globalPos().x()-2, event->globalPos().y()-2);
+			zoom->move(globalPos.x() - 2, globalPos.y() - 2);
 			zoom->show();
 		}
 		else

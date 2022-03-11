@@ -431,7 +431,7 @@ void ResizeGesture::doResize(bool scaleContent)
 void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 {
 	adjustBounds(m);
-	FPoint where = m_canvas->globalToCanvas(m->globalPos());
+	FPoint where = m_canvas->globalToCanvas(m->globalPosition());
 	if (// directly after a create the shape of an item isn't really usable, so we fix here
 		m_origBounds.width() < 20 || m_origBounds.height() < 20 ||
 		// and if we resize outside of the current canvas dimensions, we need to enlarge it
