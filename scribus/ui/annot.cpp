@@ -9,24 +9,25 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDateTime>
+#include <QDialogButtonBox>
 #include <QFrame>
+#include <QGridLayout>
 #include <QGroupBox>
 #include <QHBoxLayout>
-#include <QGridLayout>
-#include <QVBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
 #include <QList>
 #include <QPixmap>
 #include <QPushButton>
+#include <QRadioButton>
+#include <QSpacerItem>
 #include <QSpinBox>
+#include <QStackedWidget>
+#include <QStringList>
 #include <QTabWidget>
 #include <QTextEdit>
 #include <QToolTip>
-#include <QRadioButton>
-#include <QSpacerItem>
-#include <QStackedWidget>
-#include <QStringList>
+#include <QVBoxLayout>
 #include <QWidget>
 
 #include "annotation.h"
@@ -396,10 +397,8 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* vi
 	else
 		SetAnnotationType(m_annotation.Type()-2);
 
-	PushButton1->setDefault( true );
-
-	connect(PushButton1, SIGNAL(clicked()), this, SLOT(SetValues()));
-	connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(buttonBox, &QDialogButtonBox::accepted, this, &ScAnnot::SetValues);
+	connect(buttonBox, &QDialogButtonBox::rejected, this, &ScAnnot::reject);
 	connect(EditFormat, SIGNAL(clicked()), this, SLOT(editFormatSc()));
 	connect(EditKeystr, SIGNAL(clicked()), this, SLOT(editKeySc()));
 	connect(EditValScript, SIGNAL(clicked()), this, SLOT(editValidSc()));
@@ -1079,7 +1078,7 @@ void ScAnnot::SetValues()
 {
 	bool AAct = false;
 	QString tmp, tmp2;
-	QString Nfo("");
+	QString Nfo;
 	
 	Annotation& annotation = m_item->annotation();
 	annotation = m_annotation;

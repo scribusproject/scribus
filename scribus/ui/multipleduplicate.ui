@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>426</width>
-    <height>291</height>
+    <height>294</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -375,8 +375,7 @@
             <widget class="QLineEdit" name="lineEditPageRange"/>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButtonPageRange">
-            </widget>
+            <widget class="QToolButton" name="toolButtonPageRange"/>
            </item>
           </layout>
          </item>
@@ -411,53 +410,11 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout">
-     <item>
-      <spacer>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="buttonOk">
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-       <property name="shortcut">
-        <string/>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="buttonCancel">
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-       <property name="shortcut">
-        <string/>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -479,8 +436,6 @@
   <tabstop>gridColsSpinBox</tabstop>
   <tabstop>horizRCGapSpinBox</tabstop>
   <tabstop>vertRCGapSpinBox</tabstop>
-  <tabstop>buttonOk</tabstop>
-  <tabstop>buttonCancel</tabstop>
  </tabstops>
  <includes>
   <include location="local">ui/scrspinbox.h</include>
@@ -490,40 +445,7 @@
   <include location="local">ui/scrspinbox.h</include>
  </includes>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonOk</sender>
-   <signal>clicked()</signal>
-   <receiver>MultipleDuplicate</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>147</x>
-     <y>326</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonCancel</sender>
-   <signal>clicked()</signal>
-   <receiver>MultipleDuplicate</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>230</x>
-     <y>326</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup"/>
  </buttongroups>

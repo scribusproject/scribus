@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "usertaskstructs.h"
 
+#include <QDialogButtonBox>
 #include <QGroupBox>
 #include <QLabel>
 #include <QListWidget>
@@ -49,8 +50,8 @@ CreateRange::CreateRange(const QString& currText, int pageCount, QWidget* parent
 	connect(basicRangeUpButton, SIGNAL(clicked()), this, SLOT(basicMoveUp()));
 	connect(basicRangeDownButton, SIGNAL(clicked()), this, SLOT(basicMoveDown()));
 	connect(advPageGroupSizeSpinBox, SIGNAL(valueChanged(double)), this, SLOT(advSpinChange()));
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(buttonBox, &QDialogButtonBox::accepted, this, &CreateRange::accept);
+	connect(buttonBox, &QDialogButtonBox::rejected, this, &CreateRange::reject);
 	advPageGroupSizeSpinBox->setValue(4);
 }
 
@@ -195,7 +196,7 @@ void CreateRange::basicMoveDown()
 
 void CreateRange::advSpinChange()
 {
-	m_PageString="";
+	m_PageString.clear();
 	int mp1=m_PageCount+1;
 	//locked at 4 for now.
 	if (m_PageCount % 4 == 0)

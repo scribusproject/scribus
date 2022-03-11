@@ -20,7 +20,7 @@ class MultipleDuplicate : public QDialog, Ui::MultipleDuplicate
 		void getMultiplyData(ItemMultipleDuplicateData&);
 	protected:
 		// int m_unitIndex;
-		ScribusDoc *m_Doc;
+		ScribusDoc *m_Doc { nullptr };
 		double m_unitRatio;
 	protected slots:
 		void setCopiesShift();

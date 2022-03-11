@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #define ANNOTA_H
 
 #include <QDialog>
+#include <QDialogButtonBox>
 class QHBoxLayout;
 class QGridLayout;
 class QVBoxLayout;
@@ -68,7 +69,6 @@ protected:
 	QHBoxLayout* Layout1 { nullptr };
 	QGridLayout* GroupBox1Layout { nullptr };
 	QGridLayout* GroupBox2Layout { nullptr };
-	QHBoxLayout* Layout1_2 { nullptr };
 	
 	QStackedWidget* Fram { nullptr };
 	QLabel* typeComboLabel { nullptr };
@@ -84,13 +84,11 @@ protected:
 	ScrSpinBox* pageSpin { nullptr };
 	ScrSpinBox* xSpin { nullptr };
 	ScrSpinBox* ySpin { nullptr };
-//	QFrame* Frame9;
-	QPushButton* okButton { nullptr };
-	QPushButton* cancelButton { nullptr };
 	QGroupBox* GroupBox2 { nullptr };
 	QLabel* iconComboLabel { nullptr };
 	QComboBox* iconCombo { nullptr };
 	QCheckBox* textIsOpen { nullptr };
+	QDialogButtonBox* buttonBox { nullptr };
 };
 
 #endif // ANNOT_H

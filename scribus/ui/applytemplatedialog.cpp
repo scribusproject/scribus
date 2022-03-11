@@ -117,18 +117,8 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	applyToPageButtonGroupLayout->addLayout( rangeLayout );
 	ApplyMasterPageDialogLayout->addWidget( applyToPageButtonGroup );
 
-	layout8 = new QHBoxLayout;
-	layout8->setSpacing(6);
-	layout8->setContentsMargins(0, 0, 0, 0);
-	spacer1 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout8->addItem( spacer1 );
-
-	okButton = new QPushButton( this );
-	layout8->addWidget( okButton );
-
-	cancelButton = new QPushButton( this );
-	layout8->addWidget( cancelButton );
-	ApplyMasterPageDialogLayout->addLayout( layout8 );
+	buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+	ApplyMasterPageDialogLayout->addWidget(buttonBox);
 	languageChange();
 	resize( QSize(268, 230).expandedTo(minimumSizeHint()) );
 
@@ -140,8 +130,8 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	connect( allPagesRadioButton, SIGNAL( clicked() ), this, SLOT( rangeSelectable() ) );
 	connect( fromPageSpinBox, SIGNAL( valueChanged(double) ), this, SLOT( checkRangeFrom() ) );
 	connect( toPageSpinBox, SIGNAL( valueChanged(double) ), this, SLOT( checkRangeTo() ) );
-	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect(buttonBox, &QDialogButtonBox::accepted, this, &ApplyMasterPageDialog::accept);
+	connect(buttonBox, &QDialogButtonBox::rejected, this, &ApplyMasterPageDialog::reject);
 
 	// buddies
 	masterPageLabel->setBuddy( masterPageComboBox );
@@ -277,8 +267,4 @@ void ApplyMasterPageDialog::languageChange()
 	useRangeCheckBox->setShortcut( QKeySequence( tr( "Alt+W" ) ) );
 	useRangeCheckBox->setToolTip( "<qt>" + tr( "Apply the selected master page to even, odd or all pages within the following range") + "</qt>" );
 	toPageLabel->setText( tr( "to" ) );
-	okButton->setText( CommonStrings::tr_OK );
-	okButton->setShortcut( QKeySequence( tr( "Alt+O" ) ) );
-	cancelButton->setText( CommonStrings::tr_Cancel );
-	cancelButton->setShortcut( QKeySequence( tr( "Alt+C" ) ) );
 }

@@ -78,8 +78,8 @@ private slots:
 	void removeTransform();
 
 private:
-	QMenu *newTransformMenu;
-	ScribusDoc *m_doc;
+	QMenu *newTransformMenu { nullptr };
+	ScribusDoc *m_doc { nullptr };
 	double m_unitRatio;
 	QString m_suffix;
 };

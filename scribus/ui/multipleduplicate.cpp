@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "multipleduplicate.h"
 
+#include <QDialogButtonBox>
 #include <QGroupBox>
 #include <QLabel>
 #include <QPushButton>
@@ -63,6 +64,8 @@ MultipleDuplicate::MultipleDuplicate(QWidget* parent, ScribusDoc *doc) : QDialog
 
 	connect(lineEditPageRange, &QLineEdit::textChanged, this, &MultipleDuplicate::selectRangeOfPages);
 	connect(toolButtonPageRange, &QToolButton::clicked, this, &MultipleDuplicate::createPageNumberRange);
+	connect(buttonBox, &QDialogButtonBox::accepted, this, &MultipleDuplicate::accept);
+	connect(buttonBox, &QDialogButtonBox::rejected, this, &MultipleDuplicate::reject);
 }
 
 MultipleDuplicate::~MultipleDuplicate()

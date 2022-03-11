@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #define APPLYMASTERPAGEDIALOG_H
 
 #include <QDialog>
+#include <QDialogButtonBox>
 #include <QString>
 
 #include "scribusapi.h"
@@ -53,8 +54,6 @@ public:
 	ScrSpinBox* fromPageSpinBox { nullptr };
 	QLabel* toPageLabel { nullptr };
 	ScrSpinBox* toPageSpinBox { nullptr };
-	QPushButton* okButton { nullptr };
-	QPushButton* cancelButton { nullptr };
 
 	virtual void setup(ScribusDoc* doc, const QString& Nam);
 	virtual QString getMasterPageName();
@@ -70,8 +69,7 @@ protected:
 	QVBoxLayout* applyToPageButtonGroupLayout { nullptr };
 	QHBoxLayout* rangeLayout { nullptr };
 	QSpacerItem* spacer3 { nullptr };
-	QHBoxLayout* layout8 { nullptr };
-	QSpacerItem* spacer1 { nullptr };
+	QDialogButtonBox* buttonBox { nullptr };
 	
 	void changeEvent(QEvent *e) override;
 

@@ -97,7 +97,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	dialogLayout->addLayout( fromToLayout );
 
 	buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-	dialogLayout->addWidget( buttonBox );
+	dialogLayout->addWidget(buttonBox);
 	setMaximumSize(sizeHint());
 
 	// signals and slots connections

@@ -19,9 +19,9 @@ for which a new license (GPL+exception) is in place.
 class ColorCombo;
 class Navigator;
 class PageItem;
+class PrefsContext;
 class ScribusDoc;
 class ScribusView;
-class PrefsContext;
 
 class SCRIBUS_API ScAnnot : public QDialog, Ui::ScAnnot
 {

@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QHBoxLayout>
-#include <QVBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPixmap>
@@ -29,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSpacerItem>
 #include <QStackedWidget>
 #include <QStringList>
+#include <QVBoxLayout>
 
 #include "annota.h"
 #include "commonstrings.h"
@@ -218,21 +218,11 @@ Annota::Annota(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view
 	GroupBox1Layout->addWidget( ySpin, 4, 1 );
 	Fram->addWidget(GroupBox1);
 
-	Layout1_2 = new QHBoxLayout;
-	Layout1_2->setSpacing(6);
-	Layout1_2->setContentsMargins(0, 0, 0, 0);
+	buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+	AnnotLayout->addWidget(buttonBox);
 
-	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1_2->addItem( spacer );
-	okButton = new QPushButton( CommonStrings::tr_OK, this );
-	okButton->setDefault( true );
-	Layout1_2->addWidget( okButton );
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
-	Layout1_2->addWidget( cancelButton );
-	AnnotLayout->addLayout( Layout1_2 );
-
-	connect(okButton, SIGNAL(clicked()), this, SLOT(SetValues()));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(buttonBox, &QDialogButtonBox::accepted, this, &Annota::SetValues);
+	connect(buttonBox, &QDialogButtonBox::rejected, this, &Annota::reject);
 	connect(typeCombo, SIGNAL(activated(int)), this, SLOT(SetTarget(int)));
 	connect(pageSpin, SIGNAL(valueChanged(double)), this, SLOT(SetPage(double)));
 	connect(navigator, SIGNAL(Coords(double,double)), this, SLOT(SetCoords(double,double)));
