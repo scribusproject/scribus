@@ -284,7 +284,7 @@ private: // Private attributes
 	int m_previousMode;
 	QMenu *pmen3;
 	QMenu *pmenResolution;
-	QPoint m_pressLocation;
+	QPointF m_pressLocation;
 	QElapsedTimer m_moveTimer;
 	QTimer *m_dragTimer;
 	bool m_dragTimerFired;
@@ -320,10 +320,10 @@ public:
 	void inputMethodEvent(QInputMethodEvent * event) override;
 	QVariant inputMethodQuery(Qt::InputMethodQuery query) const override;
 	
-	inline void registerMousePress(QPoint p);
+	inline void registerMousePress(QPointF p);
 	bool mousePressed();
 	void resetMousePressed();
-	inline QPoint mousePressLocation();
+	inline QPointF mousePressLocation();
 	inline bool moveTimerElapsed();
 	inline void resetMoveTimer();
 	
@@ -375,7 +375,7 @@ signals:
 
 
 
-inline void ScribusView::registerMousePress(QPoint p)
+inline void ScribusView::registerMousePress(QPointF p)
 {
 	m_pressLocation = p;
 	m_moveTimer.start();
@@ -383,7 +383,7 @@ inline void ScribusView::registerMousePress(QPoint p)
 }
 
 
-inline QPoint ScribusView::mousePressLocation()
+inline QPointF ScribusView::mousePressLocation()
 {
 	return m_pressLocation;
 }

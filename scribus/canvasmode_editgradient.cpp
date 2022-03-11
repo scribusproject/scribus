@@ -316,7 +316,7 @@ void CanvasMode_EditGradient::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	m->accept();
 	if (m_gradientPoint == noPointDefined)
 		return;
@@ -716,7 +716,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
@@ -725,10 +725,10 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
+	m_view->registerMousePress(m->globalPosition());
 	m_gradientPoint = noPointDefined;
-	m_Mxp = mousePointDoc.x(); //m->x();
-	m_Myp = mousePointDoc.y(); //m->y();
+	m_Mxp = mousePointDoc.x();
+	m_Myp = mousePointDoc.y();
 	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
@@ -863,37 +863,37 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	gradientCenter = itemMatrix.map(gradientCenter);
 	if (m_view->editStrokeGradient == 3)
 	{
-		if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientStart))
+		if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientStart))
 			m_gradientPoint = useControl1;
-		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientEnd))
+		else if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientEnd))
 			m_gradientPoint = useControl2;
-		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientFocal))
+		else if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientFocal))
 			m_gradientPoint = useControl3;
-		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientScale))
+		else if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientScale))
 			m_gradientPoint = useControl4;
 	}
 	else if (m_view->editStrokeGradient == 4)
 	{
-		if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientStart))
+		if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientStart))
 			m_gradientPoint = useControl1;
-		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientEnd))
+		else if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientEnd))
 			m_gradientPoint = useControl2;
-		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientFocal))
+		else if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientFocal))
 			m_gradientPoint = useControl3;
-		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientScale))
+		else if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientScale))
 			m_gradientPoint = useControl4;
-		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientCenter))
+		else if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientCenter))
 			m_gradientPoint = useControl5;
 	}
 	else
 	{
-		if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientStart))
+		if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientStart))
 			m_gradientPoint = useGradientStart;
-		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientEnd))
+		else if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientEnd))
 			m_gradientPoint = useGradientEnd;
-		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientFocal))
+		else if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientFocal))
 			m_gradientPoint = useGradientFocal;
-		else if (m_canvas->hitsCanvasPoint(m->globalPos(), gradientScale))
+		else if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientScale))
 			m_gradientPoint = useGradientSkew;
 	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;

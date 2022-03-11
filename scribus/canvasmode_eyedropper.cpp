@@ -140,7 +140,7 @@ void CanvasMode_EyeDropper::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
+	m_view->registerMousePress(m->globalPosition());
 }
 
 void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)

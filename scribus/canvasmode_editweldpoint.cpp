@@ -342,7 +342,7 @@ void CanvasMode_EditWeldPoint::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_EditWeldPoint::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	m->accept();
 	FPoint npfN;
 	double nx = mousePointDoc.x();
@@ -384,7 +384,7 @@ void CanvasMode_EditWeldPoint::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_EditWeldPoint::mousePressEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
@@ -393,9 +393,9 @@ void CanvasMode_EditWeldPoint::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
-	m_Mxp = mousePointDoc.x(); //m->x();
-	m_Myp = mousePointDoc.y(); //m->y();
+	m_view->registerMousePress(m->globalPosition());
+	m_Mxp = mousePointDoc.x();
+	m_Myp = mousePointDoc.y();
 	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;

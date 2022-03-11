@@ -318,7 +318,7 @@ void CanvasMode_EditArc::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	m->accept();
 	double newX = mousePointDoc.x();
 	double newY = mousePointDoc.y();
@@ -379,7 +379,7 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_EditArc::mousePressEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
@@ -388,9 +388,9 @@ void CanvasMode_EditArc::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
-	m_Mxp = mousePointDoc.x(); //m->x();
-	m_Myp = mousePointDoc.y(); //m->y();
+	m_view->registerMousePress(m->globalPosition());
+	m_Mxp = mousePointDoc.x();
+	m_Myp = mousePointDoc.y();
 	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
@@ -408,13 +408,13 @@ void CanvasMode_EditArc::mousePressEvent(QMouseEvent *m)
 	shPoint = itemMatrix.map(shPoint);
 	QPointF sPoint = m_widthPoint;
 	sPoint = itemMatrix.map(sPoint);
-	if (m_canvas->hitsCanvasPoint(m->globalPos(), stPoint))
+	if (m_canvas->hitsCanvasPoint(m->globalPosition(), stPoint))
 		m_arcPoint = useControlStart;
-	else if (m_canvas->hitsCanvasPoint(m->globalPos(), swPoint))
+	else if (m_canvas->hitsCanvasPoint(m->globalPosition(), swPoint))
 		m_arcPoint = useControlSweep;
-	else if (m_canvas->hitsCanvasPoint(m->globalPos(), shPoint))
+	else if (m_canvas->hitsCanvasPoint(m->globalPosition(), shPoint))
 		m_arcPoint = useControlHeight;
-	else if (m_canvas->hitsCanvasPoint(m->globalPos(), sPoint))
+	else if (m_canvas->hitsCanvasPoint(m->globalPosition(), sPoint))
 		m_arcPoint = useControlWidth;
 	else
 		m_arcPoint = noPointDefined;

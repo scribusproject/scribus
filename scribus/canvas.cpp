@@ -247,13 +247,11 @@ QRectF Canvas::globalToCanvas(QRect p) const
 }
 
 
-/*
 QRectF Canvas::globalToCanvas(QRectF p) const
 {
 	FPoint org = globalToCanvas(p.topLeft());
-	return QRectF(org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale);
+	return { org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale };
 }
-*/
 
 
 // ________________________
@@ -434,10 +432,10 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& fram
 }
 
 
-PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool allowInGroup, bool allowMasterItems) const
+PageItem* Canvas::itemUnderCursor(QPointF globalPos, PageItem* itemAbove, bool allowInGroup, bool allowMasterItems) const
 {
 	PageItem* currItem;
-	QRectF mouseArea = globalToCanvas(QRect(globalPos, QSize(2*m_doc->guidesPrefs().grabRadius, 2*m_doc->guidesPrefs().grabRadius)));
+	QRectF mouseArea = globalToCanvas(QRectF(globalPos, QSizeF(2 * m_doc->guidesPrefs().grabRadius, 2 * m_doc->guidesPrefs().grabRadius)));
 	// look for masterpage items first
 	if (allowMasterItems && !m_doc->masterPageMode() && m_doc->currentPage()->FromMaster.count() != 0)
 	{

@@ -59,7 +59,7 @@ void Vruler::mousePressEvent(QMouseEvent *m)
 		return;
 	qApp->setOverrideCursor(QCursor(Qt::SplitHCursor));
 	m_view->startGesture(rulerGesture);
-	m_view->registerMousePress(m->globalPos());
+	m_view->registerMousePress(m->globalPosition());
 }
 
 void Vruler::mouseReleaseEvent(QMouseEvent *m)

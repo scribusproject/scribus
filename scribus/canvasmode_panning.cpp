@@ -104,7 +104,7 @@ void CanvasMode_Panning::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());*/
+	m_view->registerMousePress(m->globalPosition());*/
 	
 	m_view->startGesture(m_panGesture);
 	m_panGesture->mousePressEvent(m);

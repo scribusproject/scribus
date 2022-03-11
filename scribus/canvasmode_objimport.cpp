@@ -144,7 +144,7 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 {
 // 	const double mouseX = m->globalX();
 // 	const double mouseY = m->globalY();
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
@@ -154,7 +154,7 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 //	oldClip = 0;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
+	m_view->registerMousePress(m->globalPosition());
 	m_Mxp = mousePointDoc.x();
 	m_Myp = mousePointDoc.y();
 	double Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
@@ -183,8 +183,8 @@ void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
 			undoTransaction = UndoManager::instance()->beginTransaction(*m_trSettings);
 		}
 		// Creating QDragEnterEvent outside of Qt is not recommended per docs :S
-		QPoint dropPos = m_view->widget()->mapFromGlobal(m->globalPos());
-		const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+		QPointF dropPos = m_view->widget()->mapFromGlobal(m->globalPosition());
+		const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 		QDropEvent dropEvent(dropPos, Qt::CopyAction|Qt::MoveAction, m_mimeData, m->buttons(), m->modifiers());
 		m_view->contentsDropEvent(&dropEvent);
 		if (m_doc->m_Selection->count() > 0)

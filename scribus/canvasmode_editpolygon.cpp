@@ -336,7 +336,7 @@ void CanvasMode_EditPolygon::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_EditPolygon::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	m->accept();
 	double newX = mousePointDoc.x();
 	double newY = mousePointDoc.y();
@@ -406,7 +406,7 @@ void CanvasMode_EditPolygon::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_EditPolygon::mousePressEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
@@ -415,9 +415,9 @@ void CanvasMode_EditPolygon::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
-	m_Mxp = mousePointDoc.x(); //m->x();
-	m_Myp = mousePointDoc.y(); //m->y();
+	m_view->registerMousePress(m->globalPosition());
+	m_Mxp = mousePointDoc.x();
+	m_Myp = mousePointDoc.y();
 	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
@@ -435,10 +435,10 @@ void CanvasMode_EditPolygon::mousePressEvent(QMouseEvent *m)
 	shPoint = itemMatrix.map(shPoint);
 	QPointF sPoint = m_outerCPoint;
 	sPoint = itemMatrix.map(sPoint);
-	bool useOuter = m_canvas->hitsCanvasPoint(m->globalPos(), stPoint);
-	bool useInner = m_canvas->hitsCanvasPoint(m->globalPos(), swPoint);
-	bool useInnerC = m_canvas->hitsCanvasPoint(m->globalPos(), shPoint);
-	bool useOuterC = m_canvas->hitsCanvasPoint(m->globalPos(), sPoint);
+	bool useOuter = m_canvas->hitsCanvasPoint(m->globalPosition(), stPoint);
+	bool useInner = m_canvas->hitsCanvasPoint(m->globalPosition(), swPoint);
+	bool useInnerC = m_canvas->hitsCanvasPoint(m->globalPosition(), shPoint);
+	bool useOuterC = m_canvas->hitsCanvasPoint(m->globalPosition(), sPoint);
 	if (useOuter && useOuterC)
 	{
 		if (m->modifiers() == Qt::ShiftModifier)
@@ -478,7 +478,7 @@ void CanvasMode_EditPolygon::mousePressEvent(QMouseEvent *m)
 
 void CanvasMode_EditPolygon::mouseReleaseEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
@@ -490,7 +490,7 @@ void CanvasMode_EditPolygon::mouseReleaseEvent(QMouseEvent *m)
 		double newX = mousePointDoc.x();
 		double newY = mousePointDoc.y();
 		QPointF cPoint = itemMatrix.map(m_centerPoint);
-		QLineF stLinA = QLineF(cPoint, QPointF(newX, newY));
+		QLineF stLinA(cPoint, QPointF(newX, newY));
 		uint cx = m_polyUseFactor ? m_polyCorners * 2 : m_polyCorners;
 		double seg = 360.0 / cx;
 		double trueLength = sqrt(pow(sin(seg / 180.0 * M_PI) * (currItem->width() / 2.0), 2) + pow(cos(seg / 180.0 * M_PI) * (currItem->height() / 2.0) + (currItem->height()/2.0) - currItem->height(), 2));

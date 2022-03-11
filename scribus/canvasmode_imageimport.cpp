@@ -159,13 +159,13 @@ void CanvasMode_ImageImport::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_ImageImport::mouseMoveEvent(QMouseEvent *m)
 {
-	m_Mx = m->globalPos().x();
-	m_My = m->globalPos().y();
+	m_Mx = m->globalPosition().x();
+	m_My = m->globalPosition().y();
 	QToolTip::showText(m->globalPosition().toPoint(), m_tipText, qApp->activeWindow());
 	QToolTip::showText(m->globalPosition().toPoint(), m_tipText + "<b></b>", qApp->activeWindow());
 	m->accept();
 	PageItem *item;
-	if ((item = m_canvas->itemUnderCursor(m->globalPos())) != nullptr)
+	if ((item = m_canvas->itemUnderCursor(m->globalPosition())) != nullptr)
 	{
 		PageItem_ImageFrame *currItem;
 		if ((currItem = item->asImageFrame()) != nullptr)
@@ -188,11 +188,11 @@ void CanvasMode_ImageImport::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
+	m_view->registerMousePress(m->globalPosition());
 	PageItem *item;
 	if (!m_imageList.empty())
 	{
-		if ((item = m_canvas->itemUnderCursor(m->globalPos())) != nullptr)
+		if ((item = m_canvas->itemUnderCursor(m->globalPosition())) != nullptr)
 		{
 			PageItem_ImageFrame *currItem;
 			if ((currItem = item->asImageFrame()) != nullptr)

@@ -281,7 +281,7 @@ void CanvasMode_EditSpiral::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	m->accept();
 	double newX = mousePointDoc.x();
 	double newY = mousePointDoc.y();
@@ -340,7 +340,7 @@ void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_EditSpiral::mousePressEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
@@ -348,9 +348,9 @@ void CanvasMode_EditSpiral::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
-	m_Mxp = mousePointDoc.x(); //m->x();
-	m_Myp = mousePointDoc.y(); //m->y();
+	m_view->registerMousePress(m->globalPosition());
+	m_Mxp = mousePointDoc.x();
+	m_Myp = mousePointDoc.y();
 	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
@@ -364,9 +364,9 @@ void CanvasMode_EditSpiral::mousePressEvent(QMouseEvent *m)
 	stPoint = itemMatrix.map(stPoint);
 	QPointF swPoint = m_endPoint;
 	swPoint = itemMatrix.map(swPoint);
-	if (m_canvas->hitsCanvasPoint(m->globalPos(), stPoint))
+	if (m_canvas->hitsCanvasPoint(m->globalPosition(), stPoint))
 		m_arcPoint = useControlStart;
-	else if (m_canvas->hitsCanvasPoint(m->globalPos(), swPoint))
+	else if (m_canvas->hitsCanvasPoint(m->globalPosition(), swPoint))
 		m_arcPoint = useControlEnd;
 	else
 		m_arcPoint = noPointDefined;

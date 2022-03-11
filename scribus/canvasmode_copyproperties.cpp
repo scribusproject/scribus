@@ -120,7 +120,7 @@ void CanvasMode_CopyProperties::mouseMoveEvent(QMouseEvent *m)
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
 		QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
-		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
+		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPosition().toPoint()).normalized());
 		m_view->setRedrawMarkerShown(true);
 		m_view->HaveSelRect = true;
 		return;
@@ -131,7 +131,7 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 {
 // 	const double mouseX = m->globalX();
 // 	const double mouseY = m->globalY();
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
@@ -140,9 +140,9 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	m_view->registerMousePress(m->globalPosition());
+	Mxp = mousePointDoc.x();
+	Myp = mousePointDoc.y();
 	double Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
 	Mxp = qRound(Rxp);
 	double Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
@@ -221,8 +221,8 @@ void CanvasMode_CopyProperties::mouseReleaseEvent(QMouseEvent *m)
 #ifdef GESTURE_FRAME_PREVIEW
 	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	PageItem *currItem;
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	PageItem *currItem { nullptr };
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
@@ -242,11 +242,11 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 	const unsigned SELECT_BENEATH = Qt::ControlModifier;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
-	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	Mxp = mousePointDoc.x();
+	Myp = mousePointDoc.y();
+	int MxpS = static_cast<int>(mousePointDoc.x());
+	int MypS = static_cast<int>(mousePointDoc.y());
 	m_doc->nodeEdit.deselect();
 	if (!m_doc->masterPageMode())
 	{
@@ -313,7 +313,7 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 	{
 		m_view->deselectItems(false);
 	}
-	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
+	currItem = m_canvas->itemUnderCursor(m->globalPosition(), currItem, (m->modifiers() & SELECT_IN_GROUP));
 	if (currItem)
 	{
 		m_doc->m_Selection->delaySignalsOn();

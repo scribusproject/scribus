@@ -161,7 +161,7 @@ public:
 	FPoint globalToCanvas(QPoint p) const;
 	FPoint globalToCanvas(QPointF p) const;
 	QRectF globalToCanvas(QRect p) const;
-//	QRectF globalToCanvas(QRectF p) const;
+	QRectF globalToCanvas(QRectF p) const;
 	bool hitsCanvasPoint(QPoint globalPoint, const FPoint& canvasPoint) const;
 	bool hitsCanvasPoint(QPointF globalPoint, const FPoint& canvasPoint) const;
 	bool hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const;
@@ -181,7 +181,7 @@ public:
 	 The flag 'allowMasterItems' controls if items from a masterpage are considered.
 	 (this flag is ignored in masterpage mode, since all items are masterpage items then).
 	 */
-	PageItem* itemUnderCursor(QPoint globalPos, PageItem* itemAbove=nullptr, bool allowInGroup=false, bool allowMasterItems=false) const;
+	PageItem* itemUnderCursor(QPointF globalPos, PageItem* itemAbove=nullptr, bool allowInGroup=false, bool allowMasterItems=false) const;
 	PageItem* itemInGroup(PageItem* group, const QRectF& mouseArea) const;
 	PageItem* itemUnderItem(PageItem* item, int& index) const;
 	
