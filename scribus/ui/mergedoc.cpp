@@ -97,18 +97,14 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	}
 
 	dialogLayout->addLayout( fromInfoLayout );
-	importCancelLayout = new QHBoxLayout;
-	importCancelLayout->setContentsMargins(0, 0, 0, 0);
-	importCancelLayout->setSpacing(6);
-	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	importCancelLayout->addItem( spacer );
+	buttonBox = new QDialogButtonBox();
 	importButton = new QPushButton( tr( "&Import" ), this );
 	importButton->setEnabled(false);
-	importCancelLayout->addWidget( importButton );
+	buttonBox->addButton(importButton, QDialogButtonBox::AcceptRole);
 	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
 	cancelButton->setDefault(true);
-	importCancelLayout->addWidget( cancelButton );
-	dialogLayout->addLayout( importCancelLayout );
+	buttonBox->addButton(cancelButton, QDialogButtonBox::RejectRole);
+	dialogLayout->addWidget(buttonBox);
 	resize(minimumSizeHint());
 
 	connect( importButton, SIGNAL( clicked() ), this, SLOT( accept() ) );

@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #define MERGEDOC_H
 
 #include <QDialog>
+#include <QDialogButtonBox>
 #include "scribusapi.h"
 
 class QCheckBox;
@@ -49,6 +50,7 @@ private:
 	QLabel* fromLabel {nullptr};
 	QLineEdit* pageNumberData {nullptr};
 	QLineEdit* fromDocData {nullptr};
+	QDialogButtonBox* buttonBox {nullptr};
 	QPushButton* importButton {nullptr};
 	QPushButton* cancelButton {nullptr};
 	QPushButton* changeButton {nullptr};
@@ -58,7 +60,6 @@ private:
 	QSpinBox* importWherePageData {nullptr};
 	QVBoxLayout* dialogLayout {nullptr};
 	QGridLayout* fromInfoLayout {nullptr};
-	QHBoxLayout* importCancelLayout {nullptr};
 	int count {0};
 	bool masterPages {false};
 
