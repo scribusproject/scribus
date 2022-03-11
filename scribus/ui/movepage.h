@@ -7,10 +7,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef MOVEPAGES_H
 #define MOVEPAGES_H
 
-#include <QVBoxLayout>
+#include <QDialog>
+#include <QDialogButtonBox>
 #include <QGridLayout>
 #include <QHBoxLayout>
-#include <QDialog>
+#include <QVBoxLayout>
 
 class QComboBox;
 class QLabel;
@@ -43,11 +44,9 @@ private:
 	ScrSpinBox* numberOfCopiesData;
 	ScrSpinBox* mvWherePageData;
 	QComboBox* mvWhereData;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
+	QDialogButtonBox* buttonBox;
 	QVBoxLayout* dialogLayout;
 	QGridLayout* fromToLayout;
-	QHBoxLayout* okCancelLayout;
 
 	bool move;
 

@@ -96,17 +96,8 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 //	fromToLayout->addColumnSpacing(0, moveLabel->fontMetrics().width( tr( "Move Page(s):")));
 	dialogLayout->addLayout( fromToLayout );
 
-	okCancelLayout = new QHBoxLayout();
-	okCancelLayout->setSpacing(6);
-	okCancelLayout->setContentsMargins(0, 0, 0, 0);
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	okCancelLayout->addItem( spacer );
-	okButton = new QPushButton( CommonStrings::tr_OK, this );
-	okButton->setDefault( true );
-	okCancelLayout->addWidget(okButton);
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
-	okCancelLayout->addWidget(cancelButton);
-	dialogLayout->addLayout( okCancelLayout );
+	buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+	dialogLayout->addWidget( buttonBox );
 	setMaximumSize(sizeHint());
 
 	// signals and slots connections
@@ -116,8 +107,8 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 		connect( toPageData, SIGNAL( valueChanged(double) ), this, SLOT( toChanged() ) );
 	}
 	connect( mvWhereData, SIGNAL( activated(int) ), this, SLOT( mvWherePageDataDisable(int) ) );
-	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect(buttonBox, &QDialogButtonBox::accepted, this, &MovePages::accept);
+	connect(buttonBox, &QDialogButtonBox::rejected, this, &MovePages::reject);
 }
 
 void MovePages::fromChanged()

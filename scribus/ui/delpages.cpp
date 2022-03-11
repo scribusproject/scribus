@@ -46,23 +46,13 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage ) : QDialog( p
 	fromToLayout->addWidget( toPageData );
 	dialogLayout->addLayout( fromToLayout );
 
-	okCancelLayout = new QHBoxLayout;
-	okCancelLayout->setSpacing(6);
-	okCancelLayout->setContentsMargins(0, 0, 0, 0);
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	okCancelLayout->addItem( spacer );
-	okButton = new QPushButton( CommonStrings::tr_OK, this );
-	okButton->setDefault( true );
-	okCancelLayout->addWidget(okButton);
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
-	cancelButton->setDefault( false );
-	okCancelLayout->addWidget(cancelButton);
-	dialogLayout->addLayout( okCancelLayout );
+	buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+	dialogLayout->addWidget( buttonBox );
 	setMaximumSize(sizeHint());
 
 	// signals and slots connections
-	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect(buttonBox, &QDialogButtonBox::accepted, this, &DelPages::accept);
+	connect(buttonBox, &QDialogButtonBox::rejected, this, &DelPages::reject);
 	connect( fromPageData, SIGNAL( valueChanged(double) ), this, SLOT( fromChanged() ) );
 	connect( toPageData, SIGNAL( valueChanged(double) ), this, SLOT( toChanged() ) );
 }
