@@ -460,8 +460,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	m_mouseCurrentPoint = mousePointDoc;
 	if ((GetItem(&currItem)) && (!m_shiftSelItems))
 	{
-		double newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		double newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+		double newX = qRound(mousePointDoc.x());
+		double newY = qRound(mousePointDoc.y());
 		// #0007865
 		if (/*(((m_view->dragTimerElapsed()) && (m->buttons() & Qt::LeftButton)) ||*/
 			(m_view->moveTimerElapsed())
@@ -513,8 +513,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			if (!m_canvas->m_viewMode.operItemResizing)
 			{
 				//Dragging an item (plus more?)
-				newX = mousePointDoc.x(); //static_cast<int>(m->x()/sc);
-				newY = mousePointDoc.y(); //static_cast<int>(m->y()/sc);
+				newX = mousePointDoc.x();
+				newY = mousePointDoc.y();
 				m_canvas->m_viewMode.operItemMoving = true;
 				if (!(m_doc->drawAsPreview && !m_doc->editOnPreview))
 					m_view->setCursor(Qt::ClosedHandCursor);
@@ -758,7 +758,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					break;
 				QTransform p;
 				m_canvas->Transform(currItem, p);
-				QRect mpo = QRect(m->x() - m_doc->guidesPrefs().grabRadius, m->y() - m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius * 2, m_doc->guidesPrefs().grabRadius * 2);
+				QPoint mouseMoint = m->position().toPoint();
+				QRect mpo = QRect(mouseMoint.x() - m_doc->guidesPrefs().grabRadius, mouseMoint.y() - m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius * 2, m_doc->guidesPrefs().grabRadius * 2);
 				if (QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width() + 6), static_cast<int>(currItem->height() + 6))))).contains(mpo))
 				{
 					QRect tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
@@ -1562,10 +1563,8 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	m_mouseCurrentPoint  = mousePointDoc;
-//	double grabRadius = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
-	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-//	QRectF mpo(m_mouseCurrentPoint.x()-grabRadius, m_mouseCurrentPoint.y()-grabRadius, grabRadius*2, grabRadius*2);
+	int MxpS = static_cast<int>(mousePointDoc.x());
+	int MypS = static_cast<int>(mousePointDoc.y());
 	m_doc->nodeEdit.deselect();
 
 	 // Guides are on foreground and want to be processed first

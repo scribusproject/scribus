@@ -60,17 +60,17 @@ class SCRIBUS_API CanvasMode_NodeEdit : public CanvasMode
 		void handleNodeEditDrag(QMouseEvent*, PageItem*);
 		bool handleNodeEditMove(QMouseEvent*, QRect r, PageItem*, const QTransform&);
 
-		ScribusMainWindow* m_ScMW;
+		ScribusMainWindow* m_ScMW { nullptr };
+		RectSelect* m_rectangleSelect { nullptr };
 
-		RectSelect* m_rectangleSelect {nullptr};
-		int m_Mxp {-1}; // last mouse position
-		int m_Myp {-1};
-		int m_Dxp {-1}; // last mouse press position for rectangle select
-		int m_Dyp {-1};
-		int m_GxM {-1}; // guide position
-		int m_GyM {-1};
-		bool m_MoveGX {false};
-		bool m_MoveGY {false};
+		double m_Mxp { -1.0 }; // last mouse position
+		double m_Myp { -1.0 };
+		double m_Dxp { -1.0 }; // last mouse press position for rectangle select
+		double m_Dyp { -1.0 };
+		double m_GxM { -1.0 }; // guide position
+		double m_GyM { -1.0 };
+		bool m_MoveGX { false };
+		bool m_MoveGY { false };
 };
 
 

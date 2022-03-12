@@ -192,7 +192,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			m_currTab = 0;
 			m_rulerCode = rc_tab;
 			updateTabList();
-			qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor));
+			QApplication::setOverrideCursor(QCursor(Qt::SizeHorCursor));
 			emit DocChanged(false);
 		}
 	}
@@ -200,7 +200,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	{
 		if (m_doc->guidesPrefs().guidesShown)
 		{
-			qApp->setOverrideCursor(QCursor(Qt::SplitVCursor));
+			QApplication::setOverrideCursor(QCursor(Qt::SplitVCursor));
 			m_view->startGesture(rulerGesture);
 			m_view->registerMousePress(m->globalPosition());
 		}
@@ -293,19 +293,19 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 	else if (m_mousePressed && rulerGesture->isActive())
 		rulerGesture->mouseReleaseEvent(m);
 	m_mousePressed = false;
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 }
 
 void Hruler::enterEvent(QEnterEvent* e)
 {
 	if (m_textEditMode)
-		qApp->changeOverrideCursor(IconManager::instance().loadCursor("tab.png", 3));
+		QApplication::changeOverrideCursor(IconManager::instance().loadCursor("tab.png", 3));
 }
 
 void Hruler::leaveEvent(QEvent *m)
 {
 	emit MarkerMoved(0, -1);
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	m_view->m_canvasMode->setModeCursor();
 }
 
@@ -331,7 +331,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		QPointF mousePos = m->position();
 		if ((m_mousePressed) && (mousePos.y() < height()) && (mousePos.y() > 0) && (mousePos.x() > colStart - m_doc->guidesPrefs().grabRadius) && (mousePos.x() < colEnd + m_doc->guidesPrefs().grabRadius))
 		{
-			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 			double toplimit = textWidth() + m_distRight - (m_colGap * (m_cols - 1)) - 1;
 			double toplimit2 = textWidth() + m_distLeft - (m_colGap * (m_cols - 1)) - 1;
 			switch (m_rulerCode)
@@ -399,7 +399,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			m_mouseX = mousePos.x();
 			return;
 		}
-		if ((!m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > colStart - 2*m_doc->guidesPrefs().grabRadius) && (m->x() < colEnd + 2*m_doc->guidesPrefs().grabRadius))
+		if ((!m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (mousePos.x() > colStart - 2 * m_doc->guidesPrefs().grabRadius) && (mousePos.x() < colEnd + 2 * m_doc->guidesPrefs().grabRadius))
 		{
 			setCursor(IconManager::instance().loadCursor("tab.png", 3));
 			switch (findRulerHandle(m->pos(), m_doc->guidesPrefs().grabRadius))

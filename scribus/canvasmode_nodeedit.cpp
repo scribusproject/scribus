@@ -941,16 +941,16 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 	}
 	if ((m_doc->nodeEdit.selectionCount() != 0) || ((m_doc->nodeEdit.segP1() != -1) && (m_doc->nodeEdit.segP2() != -1)) || (m_doc->nodeEdit.hasNodeSelected() && (!m_doc->nodeEdit.edPoints())))
 	{
-		m_Mxp = m->x();
-		m_Myp = m->y();
+		m_Mxp = m->position().x();
+		m_Myp = m->position().y();
 		m_canvas->setRenderModeFillBuffer();
 	}
 	else
 	{
-		m_Mxp = m->x();
-		m_Myp = m->y();
-		m_Dxp = qRound(m->x() / m_canvas->scale());  // + m_doc->minCanvasCoordinate.x());
-		m_Dyp = qRound(m->y() / m_canvas->scale());  // + m_doc->minCanvasCoordinate.y());
+		m_Mxp = m->position().x();
+		m_Myp = m->position().y();
+		m_Dxp = qRound(m->position().x() / m_canvas->scale());  // + m_doc->minCanvasCoordinate.x());
+		m_Dyp = qRound(m->position().y() / m_canvas->scale());  // + m_doc->minCanvasCoordinate.y());
 		if (!m_rectangleSelect)
 			m_rectangleSelect = new RectSelect(this);
 		m_rectangleSelect->prepare(m->globalPosition());
@@ -1059,8 +1059,8 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 		m_view->startGesture(m_rectangleSelect);
 		return;
 	}
-	int newX = m->position().x();
-	int newY = m->position().y();
+	double newX = m->position().x();
+	double newY = m->position().y();
 	FPoint np(newX - m_Mxp, newY - m_Myp, 0, 0, currItem->rotation(), 1, 1, true);
 	np = np * (1.0 / m_canvas->scale());
 	m_canvas->m_viewMode.operItemMoving = true;

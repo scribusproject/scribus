@@ -75,11 +75,11 @@ void SeList::mousePressEvent(QMouseEvent* e)
 {
 	e->accept();
 	m_currItem = nullptr;
-	QListWidgetItem *i = itemAt(e->pos());
+	QListWidgetItem *i = itemAt(e->position().toPoint());
 	if (i)
 	{
 		m_currItem = i;
-		m_mousePos = e->pos();
+		m_mousePos = e->position().toPoint();
 		m_mousePressed = true;
 	}
 	QListWidget::mousePressEvent(e);
@@ -138,7 +138,7 @@ SeView::SeView(QWidget* parent) : QTableWidget(parent)
 void SeView::mousePressEvent(QMouseEvent* e)
 {
 	e->accept();
-	m_mousePos = e->pos();
+	m_mousePos = e->position().toPoint();
 	m_mousePressed = true;
 	QTableWidget::mousePressEvent(e);
 }
@@ -148,17 +148,19 @@ void SeView::mouseReleaseEvent(QMouseEvent* e)
 	e->accept();
 	m_mousePressed = false;
 
-	emit Click(rowAt(e->pos().y()), columnAt(e->pos().x()), e->button());
+	QPoint mouseEventPos = e->position().toPoint();
+	emit Click(rowAt(mouseEventPos.y()), columnAt(mouseEventPos.x()), e->button());
 	QTableWidget::mouseReleaseEvent(e);
 }
 
 void SeView::mouseMoveEvent(QMouseEvent* e)
 {
-	if ((m_mousePressed) && ((m_mousePos - e->pos()).manhattanLength() > 4))
+	QPoint mouseEventPos = e->position().toPoint();
+	if ((m_mousePressed) && ((m_mousePos - mouseEventPos).manhattanLength() > 4))
 	{
 		m_mousePressed = false;
-		int a = rowAt(e->pos().y());
-		int b = columnAt(e->pos().x());
+		int a = rowAt(mouseEventPos.y());
+		int b = columnAt(mouseEventPos.x());
 		if ((a != -1) && (b != -1))
 		{
 			QTableWidgetItem* ite = item(a, b);
@@ -191,58 +193,41 @@ void SeView::mouseMoveEvent(QMouseEvent* e)
 
 void SeView::dropEvent(QDropEvent * e)
 {
-	QString str, tmp;
+	
 	bool lastPage = false;
-	if (e->mimeData()->hasFormat("page/magic"))
+	if (!e->mimeData()->hasFormat("page/magic"))
+		return;
+
+	QPoint dropEventPos = e->position().toPoint();
+	e->setDropAction(Qt::MoveAction);
+	e->accept();
+	// HACK to prevent strange Qt4 cursor behaviour after dropping. It's examined by Trolltech now - PV.
+	// It's the one and only reason why to include QApplication here.
+	// But sadly this destroys our normal Cursors
+	// Fixed at least in Qt-4.4.2
+//	QApplication::restoreOverrideCursor();
+	clearPix();
+
+	QString tmp;
+	QString str = e->mimeData()->text();
+	if (str.startsWith("1"))
 	{
-		e->setDropAction(Qt::MoveAction);
-		e->accept();
-		// HACK to prevent strange Qt4 cursor behaviour after dropping. It's examined by Trolltech now - PV.
-		// It's the one and only reason why to include QApplication here.
-		// But sadly this destroys our normal Cursors
-		// Fixed at least in Qt-4.4.2
-//		QApplication::restoreOverrideCursor();
-		str = e->mimeData()->text();
-		clearPix();
-		if (str.startsWith("1"))
+		int a = rowAt(dropEventPos.y());
+		int b = columnAt(dropEventPos.x());
+		int p;
+		tmp = str.remove(0,1);
+		if ((a == -1) || (b == -1))
+			return;
+		if (a == rowCount() - 1)
 		{
-			int a = rowAt(e->pos().y());
-			int b = columnAt(e->pos().x());
-			int p;
-			tmp = str.remove(0,1);
-			if ((a == -1) || (b == -1))
-				return;
-			if (a == rowCount() - 1)
-			{
-				emit NewPage(m_pageCount, tmp);
-				return;
-			}
-			p = getPage(a, b, &lastPage);
-			if (columnCount() == 1)
-			{
-				if ((a % 2) == 0)
-					emit NewPage(p, tmp);
-				else
-				{
-					emit UseTemp(tmp, p);
-					QTableWidgetItem* ite = item(a, b);
-					if (ite == nullptr)
-						return;
-					if (ite->type() == 1002)
-					{
-						SeItem* it = (SeItem*)ite;
-						it->pageName = tmp;
-					}
-				}
-				return;
-			}
-			if ((b % 2) == 0)
-			{
-				if (lastPage)
-					emit NewPage(p + 1, tmp);
-				else
-					emit NewPage(p, tmp);
-			}
+			emit NewPage(m_pageCount, tmp);
+			return;
+		}
+		p = getPage(a, b, &lastPage);
+		if (columnCount() == 1)
+		{
+			if ((a % 2) == 0)
+				emit NewPage(p, tmp);
 			else
 			{
 				emit UseTemp(tmp, p);
@@ -257,52 +242,72 @@ void SeView::dropEvent(QDropEvent * e)
 			}
 			return;
 		}
-		if (str.startsWith("2"))
+		if ((b % 2) == 0)
 		{
-			int st = str.indexOf(" ");
-			int en = str.indexOf(" ", st + 1);
-			tmp = str.mid(en + 1);
-			int dr = QStringView(str).sliced(st, en - st).toInt();
-			int a = rowAt(e->pos().y());
-			int b = columnAt(e->pos().x());
-			if ((a == -1) || (b == -1))
-				return;
+			if (lastPage)
+				emit NewPage(p + 1, tmp);
+			else
+				emit NewPage(p, tmp);
+		}
+		else
+		{
+			emit UseTemp(tmp, p);
 			QTableWidgetItem* ite = item(a, b);
-			int p = getPage(a, b, &lastPage);
-			if (a == rowCount() - 1)
-			{
-				emit movePage(dr, p+1);
+			if (ite == nullptr)
 				return;
-			}
-			if (columnCount() == 1)
+			if (ite->type() == 1002)
 			{
-				if ((a % 2) == 0)
-					emit movePage(dr, p);
-				else
-				{
-					emit UseTemp(tmp, p);
-					if (ite == nullptr)
-						return;
-					SeItem* it = (SeItem*)ite;
-					it->pageName = tmp;
-				}
-				return;
+				SeItem* it = (SeItem*)ite;
+				it->pageName = tmp;
 			}
-			if ((b % 2) == 0)
-				emit movePage(dr, lastPage ? p+1 : p);
+		}
+		return;
+	}
+	if (str.startsWith("2"))
+	{
+		int st = str.indexOf(" ");
+		int en = str.indexOf(" ", st + 1);
+		tmp = str.mid(en + 1);
+		int dr = QStringView(str).sliced(st, en - st).toInt();
+		int a = rowAt(dropEventPos.y());
+		int b = columnAt(dropEventPos.x());
+		if ((a == -1) || (b == -1))
+			return;
+		QTableWidgetItem* ite = item(a, b);
+		int p = getPage(a, b, &lastPage);
+		if (a == rowCount() - 1)
+		{
+			emit movePage(dr, p+1);
+			return;
+		}
+		if (columnCount() == 1)
+		{
+			if ((a % 2) == 0)
+				emit movePage(dr, p);
 			else
 			{
 				emit UseTemp(tmp, p);
 				if (ite == nullptr)
 					return;
-				if (ite->type() == 1002)
-				{
-					SeItem* it = (SeItem*)ite;
-					it->pageName = tmp;
-				}
+				SeItem* it = (SeItem*)ite;
+				it->pageName = tmp;
 			}
 			return;
 		}
+		if ((b % 2) == 0)
+			emit movePage(dr, lastPage ? p+1 : p);
+		else
+		{
+			emit UseTemp(tmp, p);
+			if (ite == nullptr)
+				return;
+			if (ite->type() == 1002)
+			{
+				SeItem* it = (SeItem*)ite;
+				it->pageName = tmp;
+			}
+		}
+		return;
 	}
 }
 
@@ -321,12 +326,16 @@ void SeView::dragMoveEvent(QDragMoveEvent *e)
 {
 	if (!e->mimeData()->hasFormat("page/magic"))
 		return;
+
 	e->acceptProposedAction();
-	int row = rowAt(e->pos().y());
-	int col = columnAt(e->pos().x());
 	clearPix();
+
+	QPoint dragEventPos = e->position().toPoint();
+	int row = rowAt(dragEventPos.y());
+	int col = columnAt(dragEventPos.x());
 	if ((row == -1) || (col == -1))
 		return;
+
 	if (columnCount() == 1)
 	{
 		if ((row % 2) == 0)
