@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/guidemanager.h"
 
 
-RulerMover::RulerMover(ScribusView *pa) : QWidget(pa)
+RulerMover::RulerMover(ScribusView *pa) : QWidget(pa), m_currView(pa)
 {
 	setBackgroundRole(QPalette::Window);
 	setAutoFillBackground(true);
@@ -49,45 +49,43 @@ RulerMover::RulerMover(ScribusView *pa) : QWidget(pa)
 	palette.setBrush(QPalette::Window, QColor(240, 240, 240));
 	palette.setBrush(backgroundRole(), QBrush(IconManager::instance().loadPixmap("mover.png")));
 	setPalette(palette);
-	currView = pa;
-	rulerGesture = new RulerGesture(currView, RulerGesture::ORIGIN);
-	Mpressed = false;
+	m_rulerGesture = new RulerGesture(m_currView, RulerGesture::ORIGIN);
 }
 
 void RulerMover::mouseDoubleClickEvent(QMouseEvent *)
 {
-	currView->m_doc->rulerXoffset = 0;
-	currView->m_doc->rulerYoffset = 0;
-	currView->DrawNew();
+	m_currView->m_doc->rulerXoffset = 0;
+	m_currView->m_doc->rulerYoffset = 0;
+	m_currView->DrawNew();
 }
 
 void RulerMover::mousePressEvent(QMouseEvent *m)
 {
 	if (m->button() == Qt::LeftButton)
 	{
-		Mpressed = true;
-		qApp->setOverrideCursor(QCursor(Qt::CrossCursor));
-		currView->startGesture(rulerGesture);
-		currView->registerMousePress(m->globalPos());
+		m_mousePressed = true;
+		QApplication::setOverrideCursor(QCursor(Qt::CrossCursor));
+		m_currView->startGesture(m_rulerGesture);
+		m_currView->registerMousePress(m->globalPos());
 	}
 	QWidget::mousePressEvent(m);
 }
 
 void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 {
-	qApp->restoreOverrideCursor();
-	if (Mpressed)
+	QApplication::restoreOverrideCursor();
+	if (m_mousePressed)
 	{
-		rulerGesture->mouseReleaseEvent(m);
-		Mpressed = false;
+		m_rulerGesture->mouseReleaseEvent(m);
+		m_mousePressed = false;
 	}
 	else if (m->button() == Qt::RightButton)
 	{
 		QMenu *pmen = new QMenu();
 		QMenu *pmen2 = nullptr;
 		pmen->addAction( tr("Reset Rulers"), this, SLOT(resetRulers()));
-		pmen->addAction(currView->m_doc->scMW()->scrActions["viewRulerMode"]);
-		if (currView->m_doc->guidesPrefs().rulerMode)
+		pmen->addAction(m_currView->m_doc->scMW()->scrActions["viewRulerMode"]);
+		if (m_currView->m_doc->guidesPrefs().rulerMode)
 		{
 			pmen2 = new QMenu();
 			if (pmen2)
@@ -107,64 +105,64 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 		delete pmen;
 		delete pmen2;
 	}
-	if (currView->m_doc->guidesPrefs().guidesShown)
-		currView->m_doc->scMW()->guidePalette->setupPage();
+	if (m_currView->m_doc->guidesPrefs().guidesShown)
+		m_currView->m_doc->scMW()->guidePalette->setupPage();
 	QWidget::mouseReleaseEvent(m);
 }
 
 void RulerMover::mouseMoveEvent(QMouseEvent *m)
 {
-	if (Mpressed)
-		rulerGesture->mouseMoveEvent(m);
+	if (m_mousePressed)
+		m_rulerGesture->mouseMoveEvent(m);
 	QWidget::mouseMoveEvent(m);
 }
 
 void RulerMover::resetRulers()
 {
-	currView->m_doc->rulerXoffset = 0;
-	currView->m_doc->rulerYoffset = 0;
-	currView->DrawNew();
+	m_currView->m_doc->rulerXoffset = 0;
+	m_currView->m_doc->rulerYoffset = 0;
+	m_currView->DrawNew();
 }
 
 void RulerMover::moveRulerTopRight()
 {
-	currView->m_doc->rulerXoffset = currView->m_doc->currentPage()->width();
-	currView->m_doc->rulerYoffset = 0;
-	currView->DrawNew();
+	m_currView->m_doc->rulerXoffset = m_currView->m_doc->currentPage()->width();
+	m_currView->m_doc->rulerYoffset = 0;
+	m_currView->DrawNew();
 }
 
 void RulerMover::moveRulerBottomLeft()
 {
-	currView->m_doc->rulerXoffset = 0;
-	currView->m_doc->rulerYoffset = currView->m_doc->currentPage()->height();
-	currView->DrawNew();
+	m_currView->m_doc->rulerXoffset = 0;
+	m_currView->m_doc->rulerYoffset = m_currView->m_doc->currentPage()->height();
+	m_currView->DrawNew();
 }
 
 void RulerMover::moveRulerBottomRight()
 {
-	currView->m_doc->rulerXoffset = currView->m_doc->currentPage()->width();
-	currView->m_doc->rulerYoffset = currView->m_doc->currentPage()->height();
-	currView->DrawNew();
+	m_currView->m_doc->rulerXoffset = m_currView->m_doc->currentPage()->width();
+	m_currView->m_doc->rulerYoffset = m_currView->m_doc->currentPage()->height();
+	m_currView->DrawNew();
 }
 
 void RulerMover::moveRulerCenter()
 {
-	currView->m_doc->rulerXoffset = currView->m_doc->currentPage()->width() / 2.0;
-	currView->m_doc->rulerYoffset = currView->m_doc->currentPage()->height() / 2.0;
-	currView->DrawNew();
+	m_currView->m_doc->rulerXoffset = m_currView->m_doc->currentPage()->width() / 2.0;
+	m_currView->m_doc->rulerYoffset = m_currView->m_doc->currentPage()->height() / 2.0;
+	m_currView->DrawNew();
 }
 
 void RulerMover::moveRulerTopCenter()
 {
-	currView->m_doc->rulerXoffset = currView->m_doc->currentPage()->width() / 2.0;
-	currView->m_doc->rulerYoffset = 0;
-	currView->DrawNew();
+	m_currView->m_doc->rulerXoffset = m_currView->m_doc->currentPage()->width() / 2.0;
+	m_currView->m_doc->rulerYoffset = 0;
+	m_currView->DrawNew();
 }
 
 void RulerMover::moveRulerBottomCenter()
 {
-	currView->m_doc->rulerXoffset = currView->m_doc->currentPage()->width() / 2.0;
-	currView->m_doc->rulerYoffset = currView->m_doc->currentPage()->height();
-	currView->DrawNew();
+	m_currView->m_doc->rulerXoffset = m_currView->m_doc->currentPage()->width() / 2.0;
+	m_currView->m_doc->rulerYoffset = m_currView->m_doc->currentPage()->height();
+	m_currView->DrawNew();
 }
 
