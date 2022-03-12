@@ -88,7 +88,7 @@ void MeasurementsMode::mouseReleaseEvent(QMouseEvent *m)
 	if (m_active)
 	{
 		m->accept();
-		adjustPoint(m->globalPos());		
+		adjustPoint(m->globalPosition());		
 	}
 	m_active = false;
 	showValues();
@@ -99,12 +99,12 @@ void MeasurementsMode::mouseMoveEvent(QMouseEvent *m)
 	if (m_active)
 	{
 		m->accept();
-		adjustPoint(m->globalPos());
+		adjustPoint(m->globalPosition());
 		showValues();
 	}
 	else
 	{
-		FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+		FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 		m_canvas->displayCorrectedXYHUD(m->globalPosition(), mousePointDoc.x(), mousePointDoc.y());
 	}
 }
@@ -113,24 +113,24 @@ void MeasurementsMode::mousePressEvent(QMouseEvent *m)
 {
 	m->accept();
 	m_active = true;
-	adjustPoint(m->globalPos());
+	adjustPoint(m->globalPosition());
 	m_start = m_current;
 	m_startDoc = m_currentDoc;
 	showValues();
 }
 
-void MeasurementsMode::adjustPoint(QPoint globalPoint)
+void MeasurementsMode::adjustPoint(QPointF globalPoint)
 {
-	QPoint point = globalPoint - (m_canvas->mapToParent(QPoint(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPoint(0, 0)));
-	m_canvas->update(QRect(m_start, m_current).normalized().adjusted(-1,-1,1,1));
+	QPointF point = globalPoint - (m_canvas->mapToParent(QPointF(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPointF(0, 0)));
+	m_canvas->update(QRect(m_start.toPoint(), m_current.toPoint()).normalized().adjusted(-1, -1, 1, 1));
 	m_current = point;
-	m_currentDoc = m_canvas->localToCanvas(m_current) - FPoint(m_doc->currentPage()->xOffset(),m_doc->currentPage()->yOffset());
+	m_currentDoc = m_canvas->localToCanvas(m_current) - FPoint(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
 }
 
 void MeasurementsMode::showValues()
 {
 	double dx = m_currentDoc.x() - m_startDoc.x();
 	double dy = m_currentDoc.y() - m_startDoc.y();
-	m_palette->setValues(m_startDoc.x(), m_startDoc.y(), m_currentDoc.x(), m_currentDoc.y(), -xy2Deg(dx, dy), sqrt(dx*dx + dy*dy));
-	m_canvas->update(QRect(m_start, m_current).normalized());
+	m_palette->setValues(m_startDoc.x(), m_startDoc.y(), m_currentDoc.x(), m_currentDoc.y(), -xy2Deg(dx, dy), sqrt(dx * dx + dy * dy));
+	m_canvas->update(QRect(m_start.toPoint(), m_current.toPoint()).normalized());
 }

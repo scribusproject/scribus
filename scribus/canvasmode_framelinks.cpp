@@ -157,7 +157,8 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
 		QPoint startP = m_canvas->canvasToGlobal(QPointF(m_Mxp, m_Myp));
-		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
+		QPoint globalPos = m->globalPosition().toPoint();
+		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(globalPos)).normalized());
 		m_view->setRedrawMarkerShown(true);
 		m_view->HaveSelRect = true;
 		return;

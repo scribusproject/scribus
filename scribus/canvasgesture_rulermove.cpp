@@ -44,29 +44,30 @@ void RulerGesture::drawControls(QPainter* p)
 		page = m_doc->OnPage(m_mousePoint.x(), m_mousePoint.y());
 	if (page == -1)
 		return;
-	ScPage* dragToPage=m_doc->Pages->at(page);
+	ScPage* dragToPage = m_doc->Pages->at(page);
 	if (!dragToPage)
 		return;
 	if (m_haveGuide)
 		dragToPage = m_doc->Pages->at(m_page);
 	QColor color(m_doc->guidesPrefs().guideColor);
 	p->save();
+	QPoint roundedXY = m_xy.toPoint();
 	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(dragToPage->xOffset(), dragToPage->yOffset()));
 	QSize pageSize = (QSizeF(dragToPage->width(), dragToPage->height()) * m_canvas->scale()).toSize();
 	switch (m_mode)
 	{
 		case HORIZONTAL:
 			p->setPen(QPen(color, 1.0, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
-			p->drawLine(QPoint(pageOrigin.x(), m_xy.y()), QPoint(pageOrigin.x() + pageSize.width(), m_xy.y()));
+			p->drawLine(QPoint(pageOrigin.x(), roundedXY.y()), QPoint(pageOrigin.x() + pageSize.width(), roundedXY.y()));
 			break;
 		case VERTICAL:
 			p->setPen(QPen(color, 1.0, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
-			p->drawLine(QPoint(m_xy.x(), pageOrigin.y()), QPoint(m_xy.x(), pageOrigin.y() + pageSize.height()));
+			p->drawLine(QPoint(roundedXY.x(), pageOrigin.y()), QPoint(roundedXY.x(), pageOrigin.y() + pageSize.height()));
 			break;
 		case ORIGIN:
 			p->setPen(QPen(color, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-			p->drawLine(QPoint(m_xy.x(), 0), QPoint(m_xy.x(), m_canvas->height()));
-			p->drawLine(QPoint(0, m_xy.y()), QPoint(m_canvas->width(), m_xy.y()));
+			p->drawLine(QPoint(roundedXY.x(), 0), QPoint(roundedXY.x(), m_canvas->height()));
+			p->drawLine(QPoint(0, roundedXY.y()), QPoint(m_canvas->width(), roundedXY.y()));
 			break;
 	}
 	p->restore();
@@ -87,11 +88,11 @@ void RulerGesture::activate(bool fromGesture)
 {
 	CanvasGesture::activate(fromGesture);
 
-	m_haveCursor = (qApp->overrideCursor() != nullptr);
-	if ( (!fromGesture) && qApp->overrideCursor())
+	m_haveCursor = (QApplication::overrideCursor() != nullptr);
+	if ( (!fromGesture) && QApplication::overrideCursor())
 	{
 		m_haveCursor = true;
-		m_cursor = *(qApp->overrideCursor());
+		m_cursor = *(QApplication::overrideCursor());
 	}
 	else
 	{
@@ -100,13 +101,13 @@ void RulerGesture::activate(bool fromGesture)
 	switch (m_mode)
 	{
 		case HORIZONTAL:
-			qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::SplitVCursor));
 			break;
 		case VERTICAL:
-			qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::SplitHCursor));
 			break;
 		case ORIGIN:
-			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::CrossCursor));
 			break;
 	}
 	emit guideInfo(m_mode, m_guide);
@@ -115,7 +116,7 @@ void RulerGesture::activate(bool fromGesture)
 void RulerGesture::deactivate(bool fromGesture)
 {
 	if (m_haveCursor)
-		qApp->changeOverrideCursor(m_cursor);
+		QApplication::changeOverrideCursor(m_cursor);
 	m_haveGuide = false;
 	m_mousePoint = FPoint();
 
@@ -156,7 +157,7 @@ bool RulerGesture::mouseHitsGuide(const FPoint& mousePointDoc)
 
 void RulerGesture::mouseSelectGuide(QMouseEvent *m)
 {
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
 	if ((m_doc->guidesPrefs().guidesShown) && page >= 0)
 	{
@@ -178,10 +179,10 @@ void RulerGesture::mouseSelectGuide(QMouseEvent *m)
 
 void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 {
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
-	QRect  viewport(m_view->viewport()->mapToGlobal(QPoint(0,0)), QSize(m_view->visibleWidth(), m_view->visibleHeight()));
-	QPoint newMousePoint = m->globalPos() - (m_canvas->mapToParent(QPoint(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPoint(0, 0)));
+	QRectF  viewport(m_view->viewport()->mapToGlobal(QPointF(0, 0)), QSizeF(m_view->visibleWidth(), m_view->visibleHeight()));
+	QPointF newMousePoint = m->globalPosition() - (m_canvas->mapToParent(QPointF(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPointF(0, 0)));
 	double x = mousePointDoc.x();
 	double y = mousePointDoc.y();
 	switch (m_mode)
@@ -193,9 +194,9 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 		case HORIZONTAL:
 			if (!m_ScMW->doc->guidesPrefs().guidesShown)
 				break;
-			m_canvas->update(0, m_xy.y() - 2, m_canvas->width(), 4);
+			m_canvas->update(0, qRound(m_xy.y()) - 2, m_canvas->width(), 4);
 			
-			if ((page >= 0) && (viewport.contains(m->globalPos())))
+			if ((page >= 0) && (viewport.contains(m->globalPosition())))
 			{
 				ScPage* currentPage = m_doc->Pages->at(page);
 				if (m_doc->SnapElement)
@@ -211,7 +212,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				}
 				if (!m_haveGuide)
 				{
-					qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
+					QApplication::changeOverrideCursor(QCursor(Qt::SplitVCursor));
 					if (mouseRelease)
 					{
 						currentPage->guides.addHorizontal(y - currentPage->yOffset(), GuideManagerCore::Standard);
@@ -237,9 +238,9 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				}
 				else
 				{
-					QCursor* cursor = qApp->overrideCursor();
+					QCursor* cursor = QApplication::overrideCursor();
 					if (cursor && (cursor->shape() != Qt::SplitVCursor))
-						qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
+						QApplication::changeOverrideCursor(QCursor(Qt::SplitVCursor));
 				}
 				m_currentGuide = y - currentPage->yOffset();
 			}
@@ -247,7 +248,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 			{ 
 				if (m_haveGuide)
 				{
-					qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png"));
+					QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png"));
 					if (mouseRelease)
 					{
 						m_doc->Pages->at(m_page)->guides.deleteHorizontal( m_guide, GuideManagerCore::Standard);
@@ -262,8 +263,8 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 		case VERTICAL:
 			if (!m_ScMW->doc->guidesPrefs().guidesShown)
 				break;
-			m_canvas->update(m_xy.x() - 2, 0, 4, m_canvas->height());
-			if ((page >= 0) && viewport.contains(m->globalPos()))
+			m_canvas->update(qRound(m_xy.x()) - 2, 0, 4, m_canvas->height());
+			if ((page >= 0) && viewport.contains(m->globalPosition()))
 			{
 				ScPage* currentPage = m_doc->Pages->at(page);
 				if (m_doc->SnapElement)
@@ -279,7 +280,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				}
 				if (!m_haveGuide)
 				{
-					qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+					QApplication::changeOverrideCursor(QCursor(Qt::SplitHCursor));
 					if (mouseRelease)
 					{
 						currentPage->guides.addVertical(x - currentPage->xOffset(), GuideManagerCore::Standard);
@@ -305,9 +306,9 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				}
 				else
 				{
-					QCursor* cursor = qApp->overrideCursor();
+					QCursor* cursor = QApplication::overrideCursor();
 					if (cursor && (cursor->shape() != Qt::SplitHCursor))
-						qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+						QApplication::changeOverrideCursor(QCursor(Qt::SplitHCursor));
 				}
 				m_currentGuide = x - currentPage->xOffset();
 			}
@@ -315,7 +316,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 			{ 
 				if (m_haveGuide)
 				{
-					qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png"));
+					QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png"));
 					if (mouseRelease)
 					{
 						m_doc->Pages->at(m_page)->guides.deleteVertical( m_guide, GuideManagerCore::Standard);
@@ -346,7 +347,7 @@ void RulerGesture::keyPressEvent(QKeyEvent* e)
 
 void RulerGesture::mouseMoveEvent(QMouseEvent* m)
 {
-	m_mousePoint=m_canvas->globalToCanvas(m->globalPos());
+	m_mousePoint = m_canvas->globalToCanvas(m->globalPosition());
 	m->accept();
 	if (m_view->moveTimerElapsed())
 	{
@@ -386,12 +387,13 @@ void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 void RulerGesture::mousePressEvent(QMouseEvent* m)
 {
 	m->accept();
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	m_view->registerMousePress(m->globalPos());
+
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	m_view->registerMousePress(m->globalPosition());
+
 	if (mouseHitsGuide(mousePointDoc))
-	{
-		m_xy = m->globalPos() - (m_canvas->mapToParent(QPoint(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPoint(0, 0)));
-	}
+		m_xy = m->globalPosition() - (m_canvas->mapToParent(QPointF(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPointF(0, 0)));
+
 	if (m_ScMW->doc->guidesPrefs().guidesShown)
 		emit guideInfo(m_mode, m_currentGuide);
 }

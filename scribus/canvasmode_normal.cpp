@@ -138,8 +138,11 @@ void CanvasMode_Normal::deactivate(bool forGesture)
 
 void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 {
+	const QPoint globalPos = m->globalPosition().toPoint();
 	PageItem *currItem = nullptr;
+
 	m->accept();
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	if (m_doc->drawAsPreview)
 	{
@@ -225,7 +228,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 		else if (currItem->itemType() == PageItem::TextFrame)
 		{
 			// See if double click was on a frame handle
-			FPoint p = m_canvas->globalToCanvas(m->globalPos());
+			FPoint p = m_canvas->globalToCanvas(m->globalPosition());
 			Canvas::FrameHandle fh = m_canvas->frameHitTest(QPointF(p.x(),p.y()), currItem);
 			//CB if annotation, open the annotation dialog
 			if (currItem->isAnnotation())
@@ -239,7 +242,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			else if (m_doc->appMode != modeEdit)
 			{
 				m_view->requestMode(modeEdit);
-				m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
+				m_view->slotSetCurs(globalPos.x(), globalPos.y());
 				//used for updating Notes Styles Editor and menu actions for marks
 				//if cursor is in mark`s place
 				m_ScMW->setTBvals(currItem);
@@ -270,7 +273,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 		else if (currItem->isTable())
 		{
 			m_view->requestMode(modeEditTable);
-			m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
+			m_view->slotSetCurs(globalPos.x(), globalPos.y());
 			m_ScMW->setTBvals(currItem);
 		}
 	}
@@ -280,16 +283,15 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 {
 // 	qDebug()<<"CanvasMode_Normal::mouseMoveEvent";
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const QPoint globalPos = m->globalPosition().toPoint();
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	
 	bool wasLastPostOverGuide = m_lastPosWasOverGuide;
 	m_lastPosWasOverGuide = false;
-	PageItem *currItem=nullptr;
+	PageItem *currItem = nullptr;
 	bool erf = false;
 	m->accept();
-//	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
+//	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPosition()).x() << m_canvas->globalToCanvas(m->globalPosition()).y();
 //	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
 //				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
 
@@ -316,7 +318,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		}
 		else
 		{
-			PageItem* hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), nullptr, m->modifiers());
+			PageItem* hoveredItem = m_canvas->itemUnderCursor(m->globalPosition(), nullptr, m->modifiers());
 			if (hoveredItem)
 				frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), hoveredItem);
 		}
@@ -366,7 +368,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	if (!movingOrResizing && mouseIsOnPage)
 	{
 		PageItem* hoveredItem = nullptr;
-		hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), hoveredItem, m->modifiers());
+		hoveredItem = m_canvas->itemUnderCursor(m->globalPosition(), hoveredItem, m->modifiers());
 		if (hoveredItem)
 		{
 			if (m_doc->drawAsPreview)
@@ -396,7 +398,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					if (toolT.isEmpty())
 						toolT = hoveredItem->itemText.plainText();
 					if (!toolT.isEmpty())
-						QToolTip::showText(m->globalPos() + QPoint(5, 5), toolT, m_canvas);
+						QToolTip::showText(globalPos + QPoint(5, 5), toolT, m_canvas);
 					if (hoveredItem != m_hoveredItem)
 					{
 						if (m_hoveredItem)
@@ -429,9 +431,9 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			{
 				if (hoveredItem->isTextFrame() && hoveredItem->frameOverflows())
 				{
-					if (m_canvas->cursorOverTextFrameControl(m->globalPos(), hoveredItem))
+					if (m_canvas->cursorOverTextFrameControl(m->globalPosition(), hoveredItem))
 					{
-						QToolTip::showText(m->globalPos() + QPoint(5, 5), tr("Overflow Characters: %1 (%2 White Spaces)\nClick to link to existing text frame or auto-create new linked text frame").arg(hoveredItem->frameOverflowCount()).arg(hoveredItem->frameOverflowBlankCount()), m_canvas);
+						QToolTip::showText(globalPos + QPoint(5, 5), tr("Overflow Characters: %1 (%2 White Spaces)\nClick to link to existing text frame or auto-create new linked text frame").arg(hoveredItem->frameOverflowCount()).arg(hoveredItem->frameOverflowBlankCount()), m_canvas);
 					}
 				}
 				else
@@ -805,7 +807,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			double newY = qRound(mousePointDoc.y());
 			m_mouseSavedPoint.setXY(newX, newY);
 			QPoint startP = m_canvas->canvasToGlobal(m_mousePressPoint);
-			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
+			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(globalPos)).normalized());
 			m_view->setRedrawMarkerShown(true);
 			m_view->HaveSelRect = true;
 			return;
@@ -816,7 +818,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 {
 //	qDebug("CanvasMode_Normal::mousePressEvent");
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const QPoint globalPos = m->globalPosition().toPoint();
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	PageItem *currItem;
 
 	m_objectDeltaPos  = FPoint(0, 0);
@@ -828,7 +831,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
+	m_view->registerMousePress(m->globalPosition());
 
 	if (m->button() == Qt::MiddleButton)
 	{
@@ -909,7 +912,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		if (m_doc->m_Selection->isEmpty())
 		{
 			m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
-			m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
+			m_view->redrawMarker->setGeometry(globalPos.x(), globalPos.y(), 1, 1);
 			m_view->setRedrawMarkerShown(true);
 		}
 		else
@@ -962,8 +965,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 #ifdef GESTURE_FRAME_PREVIEW
 	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	PageItem *currItem;
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	PageItem *currItem { nullptr };
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
@@ -990,12 +993,12 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	// link text frames
 	//<<#10116: Click on overflow icon to get into link frame mode
 	PageItem* clickedItem = nullptr;
-	clickedItem = m_canvas->itemUnderCursor(m->globalPos(), clickedItem, m->modifiers());
+	clickedItem = m_canvas->itemUnderCursor(m->globalPosition(), clickedItem, m->modifiers());
 	if (clickedItem && clickedItem->isTextFrame() && (!clickedItem->isAnnotation()) && (!m_doc->drawAsPreview))
 	{
 		if (clickedItem->frameOverflows())
 		{
-			if (m_canvas->cursorOverTextFrameControl(m->globalPos(), clickedItem))
+			if (m_canvas->cursorOverTextFrameControl(m->globalPosition(), clickedItem))
 			{
 				m_view->requestMode(modeLinkFrames);
 				return;
@@ -1261,7 +1264,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				{
 					if (currItem->annotation().IsOpen())
 					{
-						if (m_canvas->cursorOverFrameControl(m->globalPos(), QRectF(245, 20, 11, 11), currItem))
+						if (m_canvas->cursorOverFrameControl(m->globalPosition(), QRectF(245, 20, 11, 11), currItem))
 						{
 							currItem->annotation().setOpen(false);
 							currItem->asTextFrame()->setTextAnnotationOpen(false);
@@ -1557,7 +1560,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	QTransform p;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	m_mouseCurrentPoint  = mousePointDoc;
 //	double grabRadius = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
@@ -1581,7 +1584,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		}
 		else
 		{
-			PageItem* hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), nullptr, m->modifiers());
+			PageItem* hoveredItem = m_canvas->itemUnderCursor(m->globalPosition(), nullptr, m->modifiers());
 			if (hoveredItem)
 				frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), hoveredItem);
 		}
@@ -1678,7 +1681,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		m_view->deselectItems(false);
 	}
 
-	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, ((m->modifiers() & SELECT_IN_GROUP) || (m_doc->drawAsPreview && !m_doc->editOnPreview)));
+	currItem = m_canvas->itemUnderCursor(m->globalPosition(), currItem, ((m->modifiers() & SELECT_IN_GROUP) || (m_doc->drawAsPreview && !m_doc->editOnPreview)));
 	if (currItem)
 	{
 		m_doc->m_Selection->delaySignalsOn();
@@ -1750,7 +1753,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		}
 		else
 		{
-			PageItem* hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), nullptr, m->modifiers());
+			PageItem* hoveredItem = m_canvas->itemUnderCursor(m->globalPosition(), nullptr, m->modifiers());
 			if (hoveredItem)
 				frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), hoveredItem);
 		}

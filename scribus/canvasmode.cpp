@@ -833,7 +833,7 @@ void CanvasMode::setResizeCursor(int how, double rot)
 
 bool CanvasMode::commonMouseMove(QMouseEvent *m)
 {
-	//m_mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	//m_mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MiddleButton)))
 	{
 		if (!m_panGesture)
@@ -977,7 +977,7 @@ void CanvasMode::commonkeyPressEvent_Default(QKeyEvent *e)
 			ContextMenu* cmen=nullptr;
 			if (m_doc->m_Selection->isEmpty())
 			{
-				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPos());
+				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPosition());
 				QPoint p(QCursor::pos() - mainWindow->mapToGlobal(QPoint(0,0)));
 				FPoint fp(p.x() / m_view->scale() + m_doc->minCanvasCoordinate.x(),
 				p.y() / m_view->scale() + m_doc->minCanvasCoordinate.y());
@@ -1142,7 +1142,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
 			if (m_doc->m_Selection->isEmpty())
 			{
-				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPos());
+				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPosition());
 				FPoint fp = m_canvas->globalToCanvas(QCursor::pos());
 				cmen = new ContextMenu(mainWindow, m_doc, fp.x(), fp.y());
 			}

@@ -36,20 +36,21 @@ void RectSelect::enterEvent(QEvent * e){}
 void RectSelect::leaveEvent(QEvent * e){}
 
 
-void RectSelect::prepare(QPoint globalStartPos)
+void RectSelect::prepare(QPointF globalStartPos)
 {
 	if (!m_selectionRubberBand)
 		m_selectionRubberBand = new SelectionRubberBand(QRubberBand::Rectangle, m_view);
 	setStart(globalStartPos);
 //FIXME Move to new code like SelectionRubberBand
+	QPoint selectionPoint = m_view->mapFromGlobal(globalStartPos).toPoint();
 	m_selectionRubberBand->setWindowOpacity(0.5);
-	m_selectionRubberBand->setGeometry(QRect(m_view->mapFromGlobal(globalStartPos), m_view->mapFromGlobal(globalStartPos)));
+	m_selectionRubberBand->setGeometry(QRect(selectionPoint, selectionPoint));
 }
 
 void RectSelect::clear()
 {
 	m_selectionRubberBand->hide();
-	m_start = QPoint(0,0);
+	m_start = QPointF(0,0);
 }
 
 
@@ -66,14 +67,16 @@ void RectSelect::deactivate(bool fromGesture)
 	CanvasGesture::deactivate(fromGesture);
 }
 
-void RectSelect::setStart(QPoint globalPos)
+void RectSelect::setStart(QPointF globalPos)
 {
 	m_start = globalPos;
 }
 
-void RectSelect::setEnd(QPoint globalPos)
+void RectSelect::setEnd(QPointF globalPos)
 {
-	m_selectionRubberBand->setGeometry(QRect(m_view->mapFromGlobal(m_start), m_view->mapFromGlobal(globalPos)).normalized());
+	QPointF startPoint = m_view->mapFromGlobal(m_start);
+	QPointF endPoint = m_view->mapFromGlobal(globalPos);
+	m_selectionRubberBand->setGeometry(QRect(startPoint.toPoint(), endPoint.toPoint()).normalized());
 }
 
 
@@ -86,22 +89,22 @@ QRectF RectSelect::result() const
 
 void RectSelect::mousePressEvent(QMouseEvent *m)
 {
-	prepare(m->globalPos());
+	prepare(m->globalPosition());
 	m->accept();
 }
 
 
 void RectSelect::mouseReleaseEvent(QMouseEvent *m)
 {
-//	qDebug() << "RectSelect::mouseRelease" << m->globalPos();
-	setEnd(m->globalPos());
+//	qDebug() << "RectSelect::mouseRelease" << m->globalPosition();
+	setEnd(m->globalPosition());
 	m->accept();
 	m_view->stopGesture();
 }
 
 void RectSelect::mouseMoveEvent(QMouseEvent *m)
 {
-	setEnd(m->globalPos());
+	setEnd(m->globalPosition());
 	m->accept();
 }
 

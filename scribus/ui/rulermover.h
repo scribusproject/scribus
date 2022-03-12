@@ -38,11 +38,12 @@ class SCRIBUS_API RulerMover : public QWidget
 public:
 	RulerMover(ScribusView *pa);
 	~RulerMover() {};
-	void mouseDoubleClickEvent(QMouseEvent *);
-	void mousePressEvent(QMouseEvent *m);
-	void mouseReleaseEvent(QMouseEvent *m);
-	void mouseMoveEvent(QMouseEvent *m);
-	bool Mpressed;
+
+protected:
+	void mouseDoubleClickEvent(QMouseEvent*) override;
+	void mousePressEvent(QMouseEvent* m) override;
+	void mouseReleaseEvent(QMouseEvent* m) override;
+	void mouseMoveEvent(QMouseEvent* m) override;
 
 private slots:
 	void resetRulers();
@@ -54,8 +55,9 @@ private slots:
 	void moveRulerBottomCenter();
 
 private: // Private attributes
-	ScribusView *currView;
-	RulerGesture* rulerGesture;
+	bool m_mousePressed { false };
+	ScribusView *m_currView { nullptr };
+	RulerGesture* m_rulerGesture { nullptr };
 };
 
 #endif

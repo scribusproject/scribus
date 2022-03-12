@@ -264,11 +264,12 @@ void CanvasMode_NodeEdit::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 {
-	PageItem *currItem;
-	FPoint npf;
 	double sc = m_canvas->scale();
+	FPoint npf = m_canvas->globalToCanvas(m->globalPosition());
+
 	m->accept();
-	npf = m_canvas->globalToCanvas(m->globalPos());
+
+	PageItem* currItem { nullptr };
 	if (GetItem(&currItem))
 	{
 		if (m_doc->DragP)
@@ -293,14 +294,14 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 	}
 	else // shouldn't be in nodeedit mode now, should it??
 	{
-		npf = m_canvas->globalToCanvas(m->globalPos());
+		npf = m_canvas->globalToCanvas(m->globalPosition());
 		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (m_GyM == -1) && (m_GxM == -1))
 		{
 			if (!m_rectangleSelect)
 			{
 				m_rectangleSelect = new RectSelect(this);
 			}
-			m_rectangleSelect->prepare(m->globalPos());
+			m_rectangleSelect->prepare(m->globalPosition());
 			m_view->startGesture(m_rectangleSelect);
 			return;
 		}
@@ -353,7 +354,7 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 	m_MoveGX = m_MoveGY = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
+	m_view->registerMousePress(m->globalPosition());
 	QRect mpo;
 	m_Mxp = m->position().x();
 	m_Myp = m->position().y();
@@ -407,7 +408,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		if (m_doc->nodeEdit.hasNodeSelected() && (m_doc->nodeEdit.selectionCount() == 1))
 		{
 			//FIXME:av
-			FPoint newP = m_canvas->globalToCanvas(m->globalPos());
+			FPoint newP = m_canvas->globalToCanvas(m->globalPosition());
 			currItem->OldB2 = currItem->width();
 			currItem->OldH2 = currItem->height();
 			FPointArray Clip;
@@ -507,7 +508,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 	m_doc->nodeEdit.deselect();
 
 	QTransform pm2 = currItem->getTransform();
-	npf2 = m_canvas->globalToCanvas(m->globalPos()).transformPoint(pm2, true);
+	npf2 = m_canvas->globalToCanvas(m->globalPosition()).transformPoint(pm2, true);
 	if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine()))
 	{
 		if (currItem->imageFlippedH())
@@ -526,7 +527,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 		if (((m_doc->nodeEdit.edPoints()) && (i % 2 != 0)) || ((!m_doc->nodeEdit.edPoints()) && (i % 2 == 0)))
 			continue;
 		QPointF npf = pm2.map(Clip.pointQF(i));
-		if (m_canvas->hitsCanvasPoint(m->globalPos(), npf))
+		if (m_canvas->hitsCanvasPoint(m->globalPosition(), npf))
 		{
 			m_doc->nodeEdit.setClre(i);
 			if ((m_doc->nodeEdit.edPoints()) && (m_doc->nodeEdit.selNode().contains(i) == 0))
@@ -952,7 +953,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 		m_Dyp = qRound(m->y() / m_canvas->scale());  // + m_doc->minCanvasCoordinate.y());
 		if (!m_rectangleSelect)
 			m_rectangleSelect = new RectSelect(this);
-		m_rectangleSelect->prepare(m->globalPos());
+		m_rectangleSelect->prepare(m->globalPosition());
 		m_view->startGesture(m_rectangleSelect);
 	}
 	
@@ -993,7 +994,7 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect /*r*/, PageIt
 			if (((m_doc->nodeEdit.edPoints()) && (i % 2 != 0)) || ((!m_doc->nodeEdit.edPoints()) && (i % 2 == 0)))
 				continue;
 			QPointF point = Clip.pointQF(i);
-			if (m_canvas->hitsCanvasPoint(m->globalPos(), itemPos.map(point)))
+			if (m_canvas->hitsCanvasPoint(m->globalPosition(), itemPos.map(point)))
 			{
 				if (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT)
 					m_view->setCursor(QCursor(Qt::SizeAllCursor));
@@ -1026,7 +1027,7 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect /*r*/, PageIt
 				for (double d = 0.0; d <= 1.0; d += delta)
 				{
 					QPointF pl = Bez.pointAtPercent(d);
-					if (m_canvas->hitsCanvasPoint(m->globalPos(), FPoint(pl.x(), pl.y())))
+					if (m_canvas->hitsCanvasPoint(m->globalPosition(), FPoint(pl.x(), pl.y())))
 					{
 						if (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT)
 							m_view->setCursor(IconManager::instance().loadCursor("handc.png"));
@@ -1054,7 +1055,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 	{
 		if (!m_rectangleSelect)
 			m_rectangleSelect = new RectSelect(this);
-		m_rectangleSelect->prepare(m->globalPos());
+		m_rectangleSelect->prepare(m->globalPosition());
 		m_view->startGesture(m_rectangleSelect);
 		return;
 	}
@@ -1095,7 +1096,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 			int storedClRe = m_doc->nodeEdit.clre();
 			if (m_doc->nodeEdit.selectionCount() == 1)
 			{
-				npf = m_canvas->globalToCanvas(m->globalPos());
+				npf = m_canvas->globalToCanvas(m->globalPosition());
 				double nx = npf.x();
 				double ny = npf.y();
 				if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
@@ -1199,7 +1200,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 		}
 		else
 		{
-			npf = m_canvas->globalToCanvas(m->globalPos());
+			npf = m_canvas->globalToCanvas(m->globalPosition());
 			double nx = npf.x();
 			double ny = npf.y();
 			if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))

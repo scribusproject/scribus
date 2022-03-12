@@ -54,11 +54,11 @@ public slots:
 	void setActive(bool);
 
 private:
-	void adjustPoint(QPoint point);
+	void adjustPoint(QPointF point);
 	void showValues();
 	bool m_active {false};
-	QPoint m_start;
-	QPoint m_current;
+	QPointF m_start;
+	QPointF m_current;
 	FPoint m_startDoc;
 	FPoint m_currentDoc;
 	Measurements* m_palette {nullptr};

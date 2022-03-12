@@ -85,7 +85,7 @@ class SCRIBUS_API RulerGesture : public CanvasGesture
 		FPoint m_mousePoint;
 		Mode m_mode;
 		QCursor m_cursor;
-		QPoint m_xy;
+		QPointF m_xy;
 		ScribusMainWindow* m_ScMW {nullptr};
 		bool m_haveCursor {false};
 		bool m_haveGuide {false};

@@ -94,7 +94,7 @@ void CharTableView::mousePressEvent(QMouseEvent* event)
 		else
 		{
 			deleteAct->setData(index);
-			actionMenu->popup(event->globalPos());
+			actionMenu->popup(event->globalPosition().toPoint());
 		}
 	}
 }

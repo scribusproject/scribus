@@ -217,7 +217,7 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 		//add action itemResizeToMargin for right click on item`s handlers
 		else if (m->button() == Qt::RightButton)
 		{
-			const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+			const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 			Canvas::FrameHandle fh = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 			m_doc->itemResizeToMargin(currItem, fh);
 		}
@@ -441,9 +441,9 @@ void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 		doResize(m->modifiers() & Qt::AltModifier);
 	}
 	m->accept();
-	QPoint point = m->globalPos() - (m_canvas->mapToParent(QPoint(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPoint(0, 0)));
-	m_view->ensureVisible(point.x(), point.y(), 20, 20);
-	m_canvas->repaint();
+	QPointF point = m->globalPosition() - (m_canvas->mapToParent(QPointF(0, 0)) + m_canvas->parentWidget()->mapToGlobal(QPointF(0, 0)));
+	m_view->ensureVisible(qRound(point.x()), qRound(point.y()), 20, 20);
+	m_canvas->update();
 	QRectF newBounds = m_bounds.normalized();
 	m_canvas->displaySizeHUD(m->globalPosition(), newBounds.width() - m_extraWidth, newBounds.height() - m_extraHeight);
 }
@@ -453,7 +453,7 @@ void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 void ResizeGesture::adjustBounds(QMouseEvent *m)
 {
 	QTransform rotation;
-	FPoint docPoint = m_canvas->globalToCanvas(m->globalPos());
+	FPoint docPoint = m_canvas->globalToCanvas(m->globalPosition());
 
 	// proportional resize
 	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
@@ -462,7 +462,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	bool centerPivot = ((m->modifiers() & Qt::ShiftModifier) != Qt::NoModifier);
 
 /*
-	if (m_mousePressPoint == m->globalPos())
+	if (m_mousePressPoint == m->globalPosition())
 	{
 		m_bounds = m_mousePressBounds;
 		return;
@@ -493,7 +493,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 			docPoint = FPoint(x, docPoint.y());
 		else 
 			docPoint = FPoint(x,y);
-//		qDebug() << "resize snap grid/guides:" << m->globalPos() << "-->" << m_canvas->canvasToGlobal(docPoint);
+//		qDebug() << "resize snap grid/guides:" << m->globalPosition() << "-->" << m_canvas->canvasToGlobal(docPoint);
 	}
 	
 	// un-rotate point
@@ -948,8 +948,8 @@ FPoint ResizeGesture::applyGuides(const FPoint& docPoint)
 
 void ResizeGesture::mousePressEvent(QMouseEvent *m)
 {
-	FPoint point = m_canvas->globalToCanvas(m->globalPos());
-	m_mousePressPoint = m->globalPos();
+	FPoint point = m_canvas->globalToCanvas(m->globalPosition());
+	m_mousePressPoint = m->globalPosition();
 	if (m_doc->m_Selection->isEmpty())
 	{
 		m_handle = Canvas::OUTSIDE;

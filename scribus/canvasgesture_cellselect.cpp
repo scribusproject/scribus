@@ -56,7 +56,7 @@ void CellSelect::mousePressEvent(QMouseEvent* event)
 	{
 		// Show the table popup menu.
 		m_view->setCursor(Qt::ArrowCursor);
-		m_view->m_ScMW->scrMenuMgr->runMenuAtPos("ItemTable", event->globalPos());
+		m_view->m_ScMW->scrMenuMgr->runMenuAtPos("ItemTable", event->globalPosition().toPoint());
 	}
 	else
 	{

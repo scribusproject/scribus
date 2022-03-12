@@ -139,7 +139,7 @@ void SideBar::setEditor(SEditor* editor)
 
 void SideBar::mouseReleaseEvent(QMouseEvent *m)
 {
-	QPoint globalPos = m->globalPos();
+	QPoint globalPos = m->globalPosition().toPoint();
 	QPoint viewPos   = m_editor->viewport()->mapFromGlobal(globalPos);
 	int p = m_editor->cursorForPosition(QPoint(2, viewPos.y())).position();
 	currentPar = m_editor->StyledText.nrOfParagraph(p);

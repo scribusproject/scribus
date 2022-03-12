@@ -158,7 +158,7 @@ void CanvasMode_EditTable::mouseMoveEvent(QMouseEvent* event)
 {
 	event->accept();
 
-	QPointF canvasPoint = m_canvas->globalToCanvas(event->globalPos()).toQPointF();
+	QPointF canvasPoint = m_canvas->globalToCanvas(event->globalPosition()).toQPointF();
 	double threshold = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 	TableHandle handle = m_table->hitTest(canvasPoint, threshold);
 
@@ -206,7 +206,8 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 	PageItem_TextFrame* activeFrame;
 
 	event->accept();
-	QPointF canvasPoint = m_canvas->globalToCanvas(event->globalPos()).toQPointF();
+	QPointF canvasPoint = m_canvas->globalToCanvas(event->globalPosition()).toQPointF();
+	QPoint globalPos = event->globalPosition().toPoint();
 	double threshold = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 	TableHandle handle = m_table->hitTest(canvasPoint, threshold);
 	TableCell cell;
@@ -228,7 +229,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 				// Select row and pre-position text cursor
 				m_table->moveTo(cell);
 				m_table->selectRow(cell.row());
-				m_view->slotSetCurs(event->globalPos().x(), event->globalPos().y());
+				m_view->slotSetCurs(globalPos.x(), globalPos.y());
 				m_lastCursorPos = -1;
 				updateCanvas(true);
 				break;
@@ -250,7 +251,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 				// Select column and pre-position text cursor
 				m_table->moveTo(cell);
 				m_table->selectColumn(cell.column());
-				m_view->slotSetCurs(event->globalPos().x(), event->globalPos().y());
+				m_view->slotSetCurs(globalPos.x(), globalPos.y());
 				m_lastCursorPos = -1;
 				updateCanvas(true);
 				break;
@@ -268,7 +269,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 				// Move to the pressed cell and position the text cursor.
 				m_table->clearSelection();
 				m_table->moveTo(m_table->cellAt(canvasPoint));
-				m_view->slotSetCurs(event->globalPos().x(), event->globalPos().y());
+				m_view->slotSetCurs(globalPos.x(), globalPos.y());
 				m_lastCursorPos = m_table->activeCell().textFrame()->itemText.cursorPosition();
 				m_view->m_ScMW->setTBvals(m_table->activeCell().textFrame());
 				makeLongTextCursorBlink();
@@ -292,8 +293,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 	else if (event->button() == Qt::RightButton)
 	{
 		// Show the table popup menu.
-		//m_view->m_ScMW->scrMenuMgr->runMenuAtPos("ItemTable", event->globalPos());
-		const FPoint mousePointDoc(m_canvas->globalToCanvas(event->globalPos()));
+		const FPoint mousePointDoc(m_canvas->globalToCanvas(event->globalPosition()));
 		createContextMenu(m_table, mousePointDoc.x(), mousePointDoc.y());
 	}
 }
@@ -305,7 +305,7 @@ void CanvasMode_EditTable::mouseReleaseEvent(QMouseEvent* event)
 
 void CanvasMode_EditTable::mouseDoubleClickEvent(QMouseEvent* event)
 {
-	TableCell hitCell = m_table->cellAt(m_canvas->globalToCanvas(event->globalPos()).toQPointF());
+	TableCell hitCell = m_table->cellAt(m_canvas->globalToCanvas(event->globalPosition()).toQPointF());
 	if (!hitCell.isValid())
 		return;
 
@@ -407,7 +407,7 @@ void CanvasMode_EditTable::updateCanvas(bool forceRedraw)
 
 void CanvasMode_EditTable::handleMouseDrag(QMouseEvent* event)
 {
-	TableCell hitCell = m_table->cellAt(m_canvas->globalToCanvas(event->globalPos()).toQPointF());
+	TableCell hitCell = m_table->cellAt(m_canvas->globalToCanvas(event->globalPosition()).toQPointF());
 	TableCell activeCell = m_table->activeCell();
 	PageItem_TextFrame* activeFrame = activeCell.textFrame();
 
@@ -416,7 +416,9 @@ void CanvasMode_EditTable::handleMouseDrag(QMouseEvent* event)
 		// Select text in active cell text frame.
 		activeFrame->itemText.deselectAll();
 		activeFrame->HasSel = false;
-		m_view->slotSetCurs(event->globalPos().x(), event->globalPos().y());
+
+		QPoint globalPos = event->globalPosition().toPoint();
+		m_view->slotSetCurs(globalPos.x(), globalPos.y());
 
 		PageItem_TextFrame* newActiveFrame = m_table->activeCell().textFrame();
 		if (activeFrame == newActiveFrame)

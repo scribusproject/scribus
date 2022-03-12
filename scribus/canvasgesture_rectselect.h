@@ -51,7 +51,7 @@ class SCRIBUS_API RectSelect : public CanvasGesture
 		explicit RectSelect (CanvasMode* parent) : CanvasGesture(parent), m_start(0,0), m_selectionRubberBand(nullptr) {};
 		~RectSelect() override = default;
 
-		void prepare(QPoint globalStartPos);
+		void prepare(QPointF globalStartPos);
 		void clear();
 
 		void enterEvent(QEvent * e) override;
@@ -69,10 +69,10 @@ class SCRIBUS_API RectSelect : public CanvasGesture
 		QRectF result() const ;
 
 	private:
-		void setStart(QPoint globalPos);
-		void setEnd(QPoint globalPos);
+		void setStart(QPointF globalPos);
+		void setEnd(QPointF globalPos);
 
-		QPoint m_start;
+		QPointF m_start;
 		SelectionRubberBand* m_selectionRubberBand;
 };
 

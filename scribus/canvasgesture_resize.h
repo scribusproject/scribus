@@ -78,7 +78,7 @@ class SCRIBUS_API ResizeGesture : public CanvasGesture
 		FPoint applyGuides(const FPoint& docPoint);
 
 		Canvas::FrameHandle m_handle {Canvas::INSIDE};
-		QPoint m_mousePressPoint;
+		QPointF m_mousePressPoint;
 		QRectF m_bounds;
 		QRectF m_mousePressBounds;
 		QRectF m_origBounds;

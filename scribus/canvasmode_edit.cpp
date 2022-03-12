@@ -166,7 +166,7 @@ void CanvasMode_Edit::rulerPreview(double base, double xp)
 		QPoint oldP = m_canvas->canvasToLocal(QPointF(mRulerGuide, itPos.y()));
 		mRulerGuide = base + xp;
 		QPoint p = m_canvas->canvasToLocal(QPointF(mRulerGuide, itPos.y() + currItem->height() * mm.m22()));
-		m_canvas->update(QRect(oldP.x()-2, oldP.y(), p.x()+2, p.y()));
+		m_canvas->update(QRect(oldP.x() - 2, oldP.y(), p.x() + 2, p.y()));
 	}
 }
 
@@ -392,7 +392,8 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	const QPoint globalPos = m->globalPosition().toPoint();
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	
 	double newX, newY;
 	PageItem *currItem;
@@ -438,7 +439,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				int refEndSel(currItem->asTextFrame()->itemText.endOfSelection());
 				currItem->itemText.deselectAll();
 				currItem->HasSel = false;
-				m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
+				m_view->slotSetCurs(globalPos.x(), globalPos.y());
 				//Make sure we don't go here if the old cursor position was not set
 				if (oldCp!=-1 && currItem->itemText.length() > 0)
 				{
@@ -513,7 +514,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 			SeRx = newX;
 			SeRy = newY;
 			QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
-			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
+			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(globalPos)).normalized());
 			m_view->setRedrawMarkerShown(true);
 			m_view->HaveSelRect = true;
 			return;
@@ -537,19 +538,18 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				ss->set("ETEA", QString(""));
 		}
 	}
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 
-	bool inText;
-	PageItem *currItem;
+	const QPoint globalPos = m->globalPosition().toPoint();
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	
 	m_canvas->PaintSizeRect(QRect());
-	QTransform pm;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
 	m->accept();
-	m_view->registerMousePress(m->globalPos());
+	m_view->registerMousePress(m->globalPosition());
 	Mxp = mousePointDoc.x();
 	Myp = mousePointDoc.y();
 	SeRx = Mxp;
@@ -563,13 +563,15 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	}
 
 	frameResizeHandle = 0;
-	int oldP=0;
+	int oldP = 0;
+
+	PageItem* currItem{ nullptr };
 	if (GetItem(&currItem))
 	{
 //		m_view->slotDoCurs(false);
 		if ((!currItem->locked() || currItem->isTextFrame()) && !currItem->isLine())
 		{
-			FPoint canvasPoint = m_canvas->globalToCanvas(m->globalPos());
+			FPoint canvasPoint = m_canvas->globalToCanvas(m->globalPosition());
 			if (m_canvas->frameHitTest(QPointF(canvasPoint.x(), canvasPoint.y()), currItem) < 0)
 			{
 				m_doc->m_Selection->delaySignalsOn();
@@ -590,7 +592,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 					}
 					if (currItem->isTextFrame())
 					{
-						m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
+						m_view->slotSetCurs(globalPos.x(), globalPos.y());
 						oldCp = currItem->itemText.cursorPosition();
 					}
 				}
@@ -612,7 +614,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 		//CB Where we set the cursor for a click in text frame
 		if (currItem->isTextFrame())
 		{
-			inText = m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
+			bool inText = m_view->slotSetCurs(globalPos.x(), globalPos.y());
 			//CB If we clicked outside a text frame to go out of edit mode and deselect the frame
 			if (!inText)
 			{
@@ -728,8 +730,8 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 #ifdef GESTURE_FRAME_PREVIEW
 	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	PageItem *currItem;
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	PageItem *currItem = nullptr;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
@@ -941,20 +943,18 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	const unsigned SELECT_IN_GROUP = Qt::AltModifier;
 	const unsigned SELECT_MULTIPLE = Qt::ShiftModifier;
 	const unsigned SELECT_BENEATH = Qt::ControlModifier;
-	QTransform p;
-	QRectF mpo;
-	PageItem *currItem;
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
-	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
+
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	Mxp = mousePointDoc.x();
+	Myp = mousePointDoc.y();
 	double grabRadius = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
-	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	mpo = QRectF(Mxp-grabRadius, Myp-grabRadius, grabRadius*2, grabRadius*2);
-//	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
+	int MxpS = static_cast<int>(mousePointDoc.x());
+	int MypS = static_cast<int>(mousePointDoc.y());
+	QRectF mpo(Mxp - grabRadius, Myp - grabRadius, grabRadius * 2, grabRadius * 2);
+
 	m_doc->nodeEdit.deselect();
-// 	int a;
 	if (!m_doc->masterPageMode())
 	{
 		int pgNum = -1;
@@ -1004,7 +1004,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
 	
-	currItem = nullptr;
+	PageItem* currItem = nullptr;
 	if ((m->modifiers() & SELECT_BENEATH) != 0)
 	{
 		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
@@ -1021,7 +1021,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	{
 		m_view->deselectItems(false);
 	}
-	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
+	currItem = m_canvas->itemUnderCursor(m->globalPosition(), currItem, (m->modifiers() & SELECT_IN_GROUP));
 	if (currItem)
 	{
 		m_doc->m_Selection->delaySignalsOn();
