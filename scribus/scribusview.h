@@ -123,11 +123,11 @@ public:
 	void stopGesture();
 	
   /** Vergroesserungseingabefeld */
-	RulerMover *rulerMover; //Widget between the two rulers for dragging the ruler origin
-	Hruler *horizRuler;
-	Vruler *vertRuler;
-	ClockWidget *clockLabel;
-	QPushButton *endEditButton;
+	RulerMover *rulerMover { nullptr }; //Widget between the two rulers for dragging the ruler origin
+	Hruler *horizRuler{ nullptr };
+	Vruler *vertRuler{ nullptr };
+	ClockWidget *clockLabel{ nullptr };
+	QPushButton *endEditButton{ nullptr };
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc * const m_doc;
 	Canvas * const m_canvas;
@@ -136,7 +136,7 @@ public:
 	QMap<int, CanvasMode*> modeInstances;
 	ApplicationPrefs * const Prefs;
 	UndoManager * const undoManager;
-	ScribusMainWindow* m_ScMW;
+	ScribusMainWindow* m_ScMW{ nullptr };
 	double OldScale {0.0};
 	double dragX {0.0};
 	double dragY {0.0};

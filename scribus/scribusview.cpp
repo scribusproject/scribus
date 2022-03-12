@@ -567,7 +567,7 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 	ScriXmlDoc ss;
 	if (ss.readElemHeader(text, fromFile, &gx, &gy, &gw, &gh))
 	{
-		FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
+		FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->position()));
 		dragX = dragPosDoc.x();
 		dragY = dragPosDoc.y();
 		dragW = gw;
@@ -594,9 +594,9 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 		if (DraggedGroup)
 		{
 			//			double gx, gy, gw, gh;
-			FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
-			dragX = dragPosDoc.x(); //e->pos().x() / m_canvas->scale();
-			dragY = dragPosDoc.y(); //e->pos().y() / m_canvas->scale();
+			FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->position()));
+			dragX = dragPosDoc.x();
+			dragY = dragPosDoc.y();
 			//			getDragRectScreen(&gx, &gy, &gw, &gh);
 			//			QPoint evP = viewport()->mapToGlobal(e->pos());
 			//			evP -= QPoint(contentsX(), contentsY());
@@ -662,7 +662,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	m_canvas->resetRenderMode();
 	e->accept();
 	
-	FPoint dropPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
+	FPoint dropPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->position()));
 	QPointF dropPosDocQ(dropPosDoc.x(), dropPosDoc.y());
 
 	//Loop through all items and see which one(s) were under the drop point on the current layer
