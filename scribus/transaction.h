@@ -93,7 +93,7 @@ public:
 	virtual void markFailed();
 
 	/**
-		Reset underlyng transaciton data
+		Reset underlying transaction data
 	 */
 	virtual void reset();
 

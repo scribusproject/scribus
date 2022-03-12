@@ -6347,7 +6347,7 @@ begin
         } if
     } if
    
-    % Concatinate fields
+    % Concatenate fields
     /binval [
         linkage {1} {0} ifelse 
         method {48 sub} forall
@@ -17846,7 +17846,7 @@ begin
     % Recompose the secondary parity codewords
     /secchk [ 0 1 scodes 1 sub { dup secochk exch get exch secechk exch get } for ] def
 
-    % Concatinate the data into final codewords
+    % Concatenate the data into final codewords
     /codewords [
         pri aload pop 
         pri 10 rscodes aload pop
@@ -18358,7 +18358,7 @@ begin
             /cwf msgbits m bpcw add 1 sub 1 getinterval def  % Last bit
             cwb allzero {/cwf (1) def /m m 1 sub def} if     % Flip last bit to avoid zeros
             cwb allones {/cwf (0) def /m m 1 sub def} if     % Flip last bit to avoid ones
-            % Concatinate the bits 
+            % Concatenate the bits 
             12 string dup 0 cwb putinterval 
             dup bpcw 1 sub cwf putinterval
             0 bpcw getinterval
@@ -22473,7 +22473,7 @@ begin
         } if
     } if
 
-    % Concatinate fields
+    % Concatenate fields
     /bits [
         cdf aload pop
         gpf aload pop

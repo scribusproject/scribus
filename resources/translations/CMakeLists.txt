@@ -16,7 +16,7 @@ foreach(TS_FILEPATH ${SCRIBUS_TS_FILES})
 	get_filename_component(TS_FILENAME ${TS_FILEPATH} NAME)
 	string(REGEX MATCH "\\.([0-9a-zA-Z_]*)\\." LANGSTR ${TS_FILENAME})
 	string(REPLACE "." ""  LANGSTR ${LANGSTR})
-	#append ts_filename to get the file name, appent ts_filepath to get the full path
+	#append ts_filename to get the file name, append ts_filepath to get the full path
 	if(WANT_GUI_LANG)
 		foreach(WANTED_LANG ${WANT_GUI_LANG})
 			if(LANGSTR STREQUAL WANTED_LANG)

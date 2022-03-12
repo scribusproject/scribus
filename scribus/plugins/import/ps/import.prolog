@@ -254,7 +254,7 @@ currentpagedevice /HWResolution get aload pop
 	exch pop
 } bind def
 
-% Code for reading patters is currently commented out, as it
+% Code for reading patterns is currently commented out, as it
 % doesn't seem to work correctly.
 % /makepattern { % dict matrix  makepattern patterndict
 % %/makepattern =

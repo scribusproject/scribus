@@ -263,7 +263,7 @@ class GermanLigatureSupport:
         uppercase ẞ to lowercase ß. I think the
         only relevant application of this “one-to-many
         mapping” for the german language is the sharp
-        s. As the patter is generated for
+        s. As the pattern is generated for
         both (normal german with ß and swiss
         german without ß but with ss), this “one-to-many
         folding” is not necessary. A simple
