@@ -114,7 +114,7 @@ void PropertyWidget_Hyphenation::handleSelectionChanged()
 	PageItem* currItem = currentItemFromSelection();
 	setCurrentItem(currItem);
 	updateGeometry();
-	repaint();
+	update();
 }
 
 void PropertyWidget_Hyphenation::updateCharStyle(const CharStyle& charStyle)

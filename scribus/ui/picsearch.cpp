@@ -125,7 +125,7 @@ void PicSearch::createPreview()
 			cSpace=colorSpaceText(im.imgInfo.colorspace);
 		p.drawText(2, h-5, tr("Colorspace:")+" "+cSpace);
 		p.end();
-		repaint();
+		update();
 	}
 	previewLabel->setPixmap(pm);
 }

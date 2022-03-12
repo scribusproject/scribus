@@ -57,33 +57,28 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin, const QList<Pa
 
 void SMTabruler::unitChange(int unitIndex)
 {
-	this->blockSignals(true);
-	Tabruler::setTabs(ruler->tabValues, unitIndex);
-	Tabruler::repaint();
+	QSignalBlocker thisBlocker(this);
+	QSignalBlocker firstLineSpinBlocker(firstLineSpin);
+	QSignalBlocker leftIndentSpinBlocker(leftIndentSpin);
+	QSignalBlocker rightIndentSpinBlocker(rightIndentSpin);
+	QSignalBlocker tabDataBlocker(tabData);
 
-	firstLineSpin->blockSignals(true);
-	leftIndentSpin->blockSignals(true);
-	rightIndentSpin->blockSignals(true);
-	tabData->blockSignals(true);
+	Tabruler::setTabs(ruler->tabValues, unitIndex);
+	Tabruler::update();
 
 	firstLineSpin->setNewUnit(unitIndex);
 	leftIndentSpin->setNewUnit(unitIndex);
 	rightIndentSpin->setNewUnit(unitIndex);
 	tabData->setNewUnit(unitIndex);
 
-	firstLineSpin->blockSignals(false);
-	leftIndentSpin->blockSignals(false);
-	rightIndentSpin->blockSignals(false);
-	tabData->blockSignals(false);
-
 	m_unitIndex = unitIndex;
-	this->blockSignals(false);
 }
 
 void SMTabruler::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int unitIndex)
 {
 	disconnect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	disconnect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
+
 	m_hasParent = false;
 	m_parentButton->hide();
 	Tabruler::setTabs(Tabs, unitIndex);
@@ -98,6 +93,7 @@ void SMTabruler::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int unitI
 {
 	disconnect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	disconnect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
+
 	m_hasParent  = true;
 	m_unitIndex = unitIndex;
 	if (isParentValue)
@@ -105,7 +101,7 @@ void SMTabruler::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int unitI
 	else
 		m_parentButton->show();
 	Tabruler::setTabs(Tabs, unitIndex);
-	Tabruler::repaint();
+	Tabruler::update();
 	firstLineSpin->setNewUnit(unitIndex);
 	leftIndentSpin->setNewUnit(unitIndex);
 	rightIndentSpin->setNewUnit(unitIndex);
@@ -241,7 +237,7 @@ bool SMTabruler::useParentTabs()
 	if (ret && m_hasParent)
 	{
 		setTabs(m_parentTabs, m_unitIndex, true);
-		Tabruler::repaint();
+		Tabruler::update();
 		m_parentButton->hide();
 		m_useParentTabs = false;
 	}

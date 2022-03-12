@@ -224,7 +224,6 @@ void PropertiesPalette_Line::handleSelectionChanged()
 		setCurrentItem(currItem);
 	}
 	updateGeometry();
-	//repaint();
 }
 
 void PropertiesPalette_Line::handleUpdateRequest(int updateFlags)

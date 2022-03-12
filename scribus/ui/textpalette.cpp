@@ -310,7 +310,7 @@ void TextPalette::NewLineMode(int mode)
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	updateGeometry();
-	repaint();
+	update();
 }
 
 void TextPalette::updateColorList()

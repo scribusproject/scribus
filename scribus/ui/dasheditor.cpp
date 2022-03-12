@@ -129,7 +129,7 @@ void DashPreview::mousePressEvent(QMouseEvent *m)
 		{
 			m_currentStop = i;
 			emit currStep(m_dashValues[m_currentStop]);
-			repaint();
+			update();
 			return;
 		}
 	}
@@ -154,7 +154,7 @@ void DashPreview::mouseReleaseEvent(QMouseEvent *m)
 		m_currentStop = 0;
 		m_onlySelect = true;
 		m_mousePressed = false;
-		repaint();
+		update();
 		emit currStep(m_dashValues[m_currentStop]);
 		emit dashChanged();
 		return;
@@ -195,7 +195,7 @@ void DashPreview::mouseReleaseEvent(QMouseEvent *m)
 			startX += w;
 		}
 		m_onlySelect = true;
-		repaint();
+		update();
 		emit currStep(m_dashValues[m_currentStop]);
 		emit dashChanged();
 	}
@@ -244,7 +244,7 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 			startX += w;
 		}
 		m_onlySelect = true;
-		repaint();
+		update();
 		startX = 0.0;
 		for (int i = 0; i < m_currentStop; ++i)
 		{
@@ -279,7 +279,7 @@ void DashPreview::setActStep(double t)
 		return;
 	m_dashValues[m_currentStop] = t;
 	m_onlySelect = true;
-	repaint();
+	update();
 	emit dashChanged();
 }
 

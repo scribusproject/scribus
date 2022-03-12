@@ -420,7 +420,6 @@ void PropertiesPalette_Image::handleSelectionChanged()
 		setCurrentItem(currItem);
 	}
 	updateGeometry();
-	//repaint();
 }
 
 void PropertiesPalette_Image::handleUpdateRequest(int updateFlags)

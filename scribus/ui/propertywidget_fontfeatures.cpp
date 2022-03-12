@@ -279,7 +279,7 @@ void PropertyWidget_FontFeatures::handleSelectionChanged()
 	PageItem* currItem = currentItemFromSelection();
 	setCurrentItem(currItem);
 	updateGeometry();
-	repaint();
+	update();
 }
 
 void PropertyWidget_FontFeatures::updateCharStyle(const CharStyle& charStyle)

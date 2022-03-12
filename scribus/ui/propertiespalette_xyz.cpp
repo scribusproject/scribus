@@ -511,7 +511,6 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		setCurrentItem(currItem);
 	}
 	updateGeometry();
-	//repaint();
 }
 
 void PropertiesPalette_XYZ::unitChange()

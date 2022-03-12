@@ -193,7 +193,7 @@ void FDialogPreview::genPreview(const QString& name)
 		p.drawText(2, h - 5, tr("Colorspace:") + " " + cSpace);
 		p.end();
 		setPixmap(pm);
-		repaint();
+		update();
 	}
 	else if (allFormatsV.contains(ext.toUtf8()))
 	{
@@ -223,7 +223,7 @@ void FDialogPreview::genPreview(const QString& name)
 		p.drawText(2, h - 5, desc);
 		p.end();
 		setPixmap(pm);
-		repaint();
+		update();
 	}
 	else if (ext.toUtf8() == "sce")
 	{
@@ -249,7 +249,7 @@ void FDialogPreview::genPreview(const QString& name)
 		p.drawText(2, h - 5, desc);
 		p.end();
 		setPixmap(pm);
-		repaint();
+		update();
 		delete pre;
 	}
 	else
@@ -570,9 +570,9 @@ void CustomFDialog::togglePreview()
 	filePreview->setVisible(!m_previewIsShown);
 	QCoreApplication::processEvents();
 	filePreview->setVisible(m_previewIsShown);
-	fileDialog->repaint();
+	fileDialog->update();
 	QCoreApplication::processEvents();
-	repaint();
+	update();
 }
 
 void CustomFDialog::setSelection(const QString& fileName)

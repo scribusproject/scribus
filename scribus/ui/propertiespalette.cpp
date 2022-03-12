@@ -511,7 +511,7 @@ void PropertiesPalette::NewLineMode(int mode)
 	xyzPal->setLineMode(mode);
 	xyzPal->showWH(m_item->width(), m_item->height());
 	updateGeometry();
-	repaint();
+	update();
 }
 
 void PropertiesPalette::handleNewShape(int frameType)
