@@ -82,7 +82,7 @@ except ImportError,err:
 #########################
 import csv
 
-#get information about the area where the bale should be drawn
+#get information about the area where the table should be drawn
 def getPosition():
     if scribus.selectionCount() == 1:
         areaname = scribus.getSelectedObject()

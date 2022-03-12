@@ -607,7 +607,7 @@ void XtgScanner::setXPresOwn()
 {
 
 	m_unsupported.insert(m_token+')');
-	//All these tags are unsupported in Scribus, so just ignoring them till we find close paranthesis
+	//All these tags are unsupported in Scribus, so just ignoring them till we find close parenthesis
 	while (lookAhead() != QChar(')'))
 		m_textIndex=m_textIndex+1;
 	m_textIndex=m_textIndex+1;//Ignore )

@@ -49,7 +49,7 @@ class SCRIBUS_API LoremParser
 {
 public:
 	/*! parse a XML file with given name
-	\param filename string fith the file name with full/relative path */
+	\param filename string of the file name with full/relative path */
 	LoremParser(const QString& filename);
 	~LoremParser(){};
 

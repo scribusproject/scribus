@@ -325,7 +325,7 @@
 	* CMakeLists.txt, api_example.cpp, api_example.h, api_prefs.cpp,
 	  api_prefs.h, pythonize.cpp, pythonize.h, scripterng.cpp,
 	  scripterng.h, scripterngimpl.cpp, scripterngimpl.h: Added
-	  copyright header and fixed indention with astyle
+	  copyright header and fixed indentation with astyle
 	  Forgot to add api_document to CMakeLists
 
 2008-08-06 15:15  henning
@@ -461,7 +461,7 @@
 2008-06-10 00:13  henning
 
 	* README, scripterngimpl.cpp: added README document and unified
-	  some indentions
+	  some indentations
 
 2008-06-09 22:21  henning
 
