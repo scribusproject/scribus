@@ -44,7 +44,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 	action_Open->setShortcut(tr("Ctrl+O"));
 	action_Save->setShortcut(tr("Ctrl+S"));
 	action_Run->setShortcut(Qt::Key_F9);
-	actionRun_As_Console->setShortcut(Qt::CTRL + Qt::Key_F9);
+	actionRun_As_Console->setShortcut(Qt::CTRL | Qt::Key_F9);
 
 	commandEdit->setTabStopDistance(qRound(commandEdit->fontPointSize() * 4));
 
