@@ -399,7 +399,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			m_mouseX = mousePos.x();
 			return;
 		}
-		if ((!m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (mousePos.x() > colStart - 2 * m_doc->guidesPrefs().grabRadius) && (mousePos.x() < colEnd + 2 * m_doc->guidesPrefs().grabRadius))
+		if ((!m_mousePressed) && (mousePos.y() < height()) && (mousePos.y() > 0) && (mousePos.x() > colStart - 2 * m_doc->guidesPrefs().grabRadius) && (mousePos.x() < colEnd + 2 * m_doc->guidesPrefs().grabRadius))
 		{
 			setCursor(IconManager::instance().loadCursor("tab.png", 3));
 			switch (findRulerHandle(m->pos(), m_doc->guidesPrefs().grabRadius))
