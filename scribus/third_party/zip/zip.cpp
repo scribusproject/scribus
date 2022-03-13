@@ -32,6 +32,7 @@
 // we only use this to seed the random number generator
 #include <algorithm>
 #include <ctime>
+#include <memory>
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDateTime>
@@ -755,7 +756,7 @@ Zip::ErrorCode ZipPrivate::createEntry(const QFileInfo& file, const QString& roo
 
 
 	// create header and store it to write a central directory later
-    QScopedPointer<ZipEntryP> h(new ZipEntryP);
+    auto h = std::make_unique<ZipEntryP>();
     h->absolutePath = file.absoluteFilePath().toLower();
     h->fileSize = file.size();
 
@@ -895,7 +896,7 @@ Zip::ErrorCode ZipPrivate::createEntry(const QFileInfo& file, const QString& roo
         const Zip::ErrorCode ec = deflateFile(file, crc, written, level, encrypt ? &k : 0);
         if (ec != Zip::Ok)
             return ec;
-        Q_ASSERT(!h.isNull());
+        Q_ASSERT(h.get() != nullptr);
 	}
 
 	// Store end of entry offset
@@ -943,7 +944,7 @@ Zip::ErrorCode ZipPrivate::createEntry(const QFileInfo& file, const QString& roo
 		}
 	}
 
-    headers->insert(entryName, h.take());
+    headers->insert(entryName, h.release());
 	return Zip::Ok;
 }
 
