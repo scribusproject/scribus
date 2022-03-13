@@ -41,11 +41,11 @@ class ScZipHandler
 
 		bool open(const QString& fileName);
 		bool close();
-		bool contains(const QString& fileName);
+		bool contains(const QString& fileName) const;
 		bool read(const QString& fileName, QByteArray &buf);
 		bool write(const QString& dirName);
 		bool extract(const QString& name, const QString& path, ExtractionOption eo);
-		QStringList files();
+		QStringList files() const;
 
 	private:
 		UnZip* m_uz { nullptr };

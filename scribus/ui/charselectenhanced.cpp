@@ -17,9 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 
 CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
-		: ScrPaletteBase(parent, "CharSelectEnhanced"),
-		m_doc(nullptr),
-		m_characterClass(0)
+		: ScrPaletteBase(parent, "CharSelectEnhanced")
 {
 	setupUi(this);
 
@@ -39,10 +37,6 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	connect(hexLineEdit, SIGNAL(returnPressed()), this, SLOT(hexLineEdit_returnPressed()));
-}
-
-CharSelectEnhanced::~CharSelectEnhanced()
-{
 }
 
 void CharSelectEnhanced::setDoc(ScribusDoc* doc)
@@ -437,7 +431,7 @@ void CharSelectEnhanced::delChar()
 void CharSelectEnhanced::delEdit()
 {
 	chToIns.clear();
-	QPixmap pm(1,28);
+	QPixmap pm(1, 28);
 	pm.fill(palette().color(QPalette::Window));
 	sample->setPixmap(pm);
 	insertButton->setEnabled(false);
@@ -455,7 +449,7 @@ void CharSelectEnhanced::insChar()
 
 void CharSelectEnhanced::hexLineEdit_returnPressed()
 {
-	QString tx("0x%1");;
+	QString tx("0x%1");
 	bool ok = false;
 	uint code = tx.arg(hexLineEdit->text()).toUInt(&ok, 16);
 	if ((ok) && (code > 31))
@@ -467,7 +461,7 @@ void CharSelectEnhanced::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 	{
 		Ui::CharSelectEnhanced::retranslateUi(this);
-		int i=rangeSelector->currentIndex();
+		int i = rangeSelector->currentIndex();
 		setupRangeCombo();
 		disconnect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 		rangeSelector->setCurrentIndex(i);

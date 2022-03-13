@@ -156,20 +156,16 @@ public:
 	QRectF canvasToLocalF(const QRectF& p) const;
 	QRect canvasToGlobal(const QRectF& p) const;
 	QRectF canvasToGlobalF(const QRectF& p) const;
-	FPoint localToCanvas(QPoint p) const;
 	FPoint localToCanvas(QPointF p) const;
-	FPoint globalToCanvas(QPoint p) const;
 	FPoint globalToCanvas(QPointF p) const;
 	QRectF globalToCanvas(QRect p) const;
-	QRectF globalToCanvas(QRectF p) const;
-	bool hitsCanvasPoint(QPoint globalPoint, const FPoint& canvasPoint) const;
-	bool hitsCanvasPoint(QPointF globalPoint, const FPoint& canvasPoint) const;
-	bool hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const;
-	bool hitsCanvasPoint(QPointF globalPoint, QPointF canvasPoint) const;
+	QRectF globalToCanvas(const QRectF& p) const;
+	bool hitsCanvasPoint(const QPointF& globalPoint, const FPoint& canvasPoint) const;
+	bool hitsCanvasPoint(const QPointF& globalPoint, const QPointF& canvasPoint) const;
 	bool hitsCanvasPoint(const FPoint& globalPoint, const QPointF& canvasPoint) const;
 	QRect exposedRect() const;
-	bool cursorOverTextFrameControl(QPointF globalPos, PageItem* frame);
-	bool cursorOverFrameControl(QPointF globalPos, const QRectF& targetRect, PageItem* frame);
+	bool cursorOverTextFrameControl(QPointF globalPos, const PageItem* frame) const;
+	bool cursorOverFrameControl(QPointF globalPos, const QRectF& targetRect, const PageItem* frame) const;
 	/** Returns the framehandle or INSIDE if the position falls into the frame. */
 	FrameHandle frameHitTest(QPointF canvasPoint, PageItem* item) const;
 	FrameHandle frameHitTest(QPointF canvasPoint, const QRectF& frame) const;
@@ -182,8 +178,8 @@ public:
 	 (this flag is ignored in masterpage mode, since all items are masterpage items then).
 	 */
 	PageItem* itemUnderCursor(QPointF globalPos, PageItem* itemAbove=nullptr, bool allowInGroup=false, bool allowMasterItems=false) const;
-	PageItem* itemInGroup(PageItem* group, const QRectF& mouseArea) const;
-	PageItem* itemUnderItem(PageItem* item, int& index) const;
+	PageItem* itemInGroup(const PageItem* group, const QRectF& mouseArea) const;
+	PageItem* itemUnderItem(const PageItem* item, int& index) const;
 	
 	const QPolygon& redrawPolygon() const { return m_viewMode.redrawPolygon; }
 	QPolygon& newRedrawPolygon() 
@@ -199,9 +195,9 @@ public:
 	int previewVisual() const { return m_viewMode.previewVisual; }
 	void setPreviewVisual(int mode);
 	
-	void DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, QRect clip);
+	void DrawMasterItems(ScPainter *painter, const ScPage *page, const ScLayer& layer, QRect clip);
 	//notesFramesPass determine if notes frames are drawn or not
-	void DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool notesFramesPass);
+	void DrawPageItems(ScPainter *painter, const ScLayer& layer, QRect clip, bool notesFramesPass);
 	void paintEvent ( QPaintEvent * p ) override;
 
 	void displayXYHUD(QPointF m);
@@ -221,24 +217,24 @@ public:
 	void setupEditHRuler(PageItem * item, bool forceAndReset = false);
 	
 private:
-	void DrawPageBorderSub(ScPainter *p, ScPage *page);
+	void DrawPageBorderSub(ScPainter *p, const ScPage *page);
 	void DrawPageBorder(ScPainter *p, const QRectF& clip, bool master = false);
-	void DrawPageMarginsGridSub(ScPainter *p, ScPage *page);
+	void DrawPageMarginsGridSub(ScPainter *p, const ScPage *page);
 	void DrawPageMargins(ScPainter *p, const QRectF& clip, bool master = false);
-	void DrawPageBaselineGridSub(ScPainter *p, ScPage *page);
+	void DrawPageBaselineGridSub(ScPainter *p, const ScPage *page);
 	void DrawPageBaselineGrid(ScPainter *p, const QRectF& clip, bool master = false);
-	void DrawPageGridSub(ScPainter *p, ScPage *page, const QRectF& clip);
+	void DrawPageGridSub(ScPainter *p, const ScPage *page, const QRectF& clip);
 	void DrawPageGrid(ScPainter *p, const QRectF& clip, bool master = false);
-	void DrawPageGuidesSub(ScPainter *p, ScPage *page);
+	void DrawPageGuidesSub(ScPainter *p, const ScPage *page);
 	void DrawPageGuides(ScPainter *p, const QRectF& clip, bool master = false);
-	void DrawPageIndicatorSub(ScPainter *p, ScPage *page);
+	void DrawPageIndicatorSub(ScPainter *p, const ScPage *page);
 	void DrawPageIndicator(ScPainter *p, const QRectF& clip, bool master = false);
-	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
+	void drawLinkFrameLine(ScPainter* painter, const FPoint &start, const FPoint &end);
 	void PaintSizeRect(QRect newRect);
 	void PaintSizeRect(QPolygon newRect);
-	void Transform(PageItem *currItem, QPainter *p);
-	void Transform(PageItem *currItem, QTransform& m);
-	void TransformM(PageItem *currItem, QPainter *p);
+	void Transform(const PageItem *currItem, QPainter *p) const;
+	void Transform(const PageItem *currItem, QTransform& m) const;
+	void TransformM(const PageItem *currItem, QPainter *p) const;
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
 
 	/**
@@ -256,13 +252,13 @@ private:
 	void drawFrameLinks(ScPainter* painter);
 	void drawControls(QPainter* p);
 	void drawControlsMovingItemsRect(QPainter* pp);
-	void drawControlsBezierCurve(QPainter* pp, PageItem* currItem);
+	void drawControlsBezierCurve(QPainter* pp, const PageItem* currItem);
 	void drawControlsMeasurementLine(QPainter* pp);
 	void drawControlsDrawLine(QPainter* pp);
 	void drawControlsFreehandLine(QPainter* pp);
 	void getLinkedFrames(PageItem* currItem);
 	void getClipPathForPages(FPointArray* PoLine);
-	void calculateFrameLinkPoints(PageItem* pi1, PageItem* pi2, FPoint& start, FPoint& end);
+	void calculateFrameLinkPoints(const PageItem* pi1, const PageItem* pi2, FPoint& start, FPoint& end);
 
 	// create a potentially hidpi pixmap
 	QPixmap createPixmap(double w, double h);

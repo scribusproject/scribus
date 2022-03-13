@@ -122,7 +122,7 @@ void ResizeGesture::deactivate(bool forGesture)
 
 void ResizeGesture::drawControls(QPainter* p) 
 {
-	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
+	QColor drawColor = QApplication::palette().color(QPalette::Active, QPalette::Highlight);
 
 	QRectF localRect = m_canvas->canvasToLocal(m_bounds.normalized());
 	if (m_doc->m_Selection->isMultipleSelection())
@@ -146,7 +146,7 @@ void ResizeGesture::drawControls(QPainter* p)
 		if (m_doc->m_Selection->count() == 1)
 		{
 			p->setBrush(Qt::NoBrush);
-			QPen out = QPen(Qt::gray, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			QPen out(Qt::gray, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			out.setCosmetic(true);
 			p->setPen(out);
 			PageItem *currItem = m_doc->m_Selection->itemAt(0);
@@ -176,7 +176,7 @@ void ResizeGesture::drawControls(QPainter* p)
 			double scx = localRect.width() / w;
 			double scy = localRect.height() / h;
 			uint docSelectionCount = m_doc->m_Selection->count();
-			if (docSelectionCount < m_canvas->moveWithBoxesOnlyThreshold)
+			if (docSelectionCount < Canvas::moveWithBoxesOnlyThreshold)
 			{
 				PageItem *currItem;
 				for (uint a = 0; a < docSelectionCount; ++a)

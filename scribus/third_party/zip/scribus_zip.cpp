@@ -75,7 +75,7 @@ bool ScZipHandler::close()
 	return retVal;
 }
 
-bool ScZipHandler::contains(const QString& fileName)
+bool ScZipHandler::contains(const QString& fileName) const
 {
 	if (m_uz == nullptr)
 		return false;
@@ -126,7 +126,7 @@ bool ScZipHandler::extract(const QString& name, const QString& path, ExtractionO
 	return retVal;
 }
 
-QStringList ScZipHandler::files()
+QStringList ScZipHandler::files() const
 {
 	QStringList retVal;
 	if (m_uz != nullptr)
