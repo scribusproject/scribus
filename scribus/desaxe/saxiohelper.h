@@ -34,6 +34,7 @@ Xml_string toXMLString(const QList<float>& floatlist);
 Xml_string toXMLString(const QList<int>& intlist);
 Xml_string toXMLString(const QStringList& list);
 
+char32_t parseChar32(const Xml_string& str);
 unsigned int parseUInt(const Xml_string& str);
 int parseInt(const Xml_string& str);
 unsigned long parseULong(const Xml_string& str);
@@ -79,6 +80,13 @@ inline
 Xml_string parse<Xml_string>(const Xml_string& str)
 {
 	return str;
+}
+
+template<>
+inline
+char32_t parse<char32_t>(const Xml_string& str)
+{
+	return parseChar32(str);
 }
 
 template<>

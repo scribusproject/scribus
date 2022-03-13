@@ -260,13 +260,13 @@ void SMCStyleWidget::show(const CharStyle *cstyle, const QList<CharStyle> &cstyl
 		smallestWordSpinBox->setValue(cstyle->hyphenWordMin(), cstyle->isInhHyphenWordMin());
 		smallestWordSpinBox->setParentValue(parent->hyphenWordMin());
 
-		uint hyphenChar = cstyle->hyphenChar();
+		char32_t hyphenChar = cstyle->hyphenChar();
 		QString hyphenText;
 		if (hyphenChar)
 			hyphenText = QString::fromUcs4(&hyphenChar, 1);
 		hyphenCharLineEdit->setValue(hyphenText, cstyle->isInhHyphenChar());
 
-		uint parentHyphenChar = parent->hyphenChar();
+		char32_t parentHyphenChar = parent->hyphenChar();
 		QString parentHyphenText;
 		if (parentHyphenChar)
 			parentHyphenText = QString::fromUcs4(&parentHyphenChar, 1);
@@ -291,7 +291,7 @@ void SMCStyleWidget::show(const CharStyle *cstyle, const QList<CharStyle> &cstyl
 		fontfeaturesSetting->setFontFeatures(cstyle->fontFeatures(), cstyle->font().fontFeatures());
 		smallestWordSpinBox->setValue(cstyle->hyphenWordMin());
 
-		uint hyphenChar = cstyle->hyphenChar();
+		char32_t hyphenChar = cstyle->hyphenChar();
 		QString hyphenText;
 		if (hyphenChar)
 			hyphenText = QString::fromUcs4(&hyphenChar, 1);
@@ -667,8 +667,8 @@ void SMCStyleWidget::showSmallestWord(const QList<CharStyle *> &cstyles)
 
 void SMCStyleWidget::showHyphenChar(const QList<CharStyle *> &cstyles)
 {
-	uint empty = 0;
-	uint ch(cstyles[0]->hyphenChar());
+	char32_t empty = 0;
+	char32_t ch(cstyles[0]->hyphenChar());
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (ch != cstyles[i]->hyphenChar())

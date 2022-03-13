@@ -56,6 +56,11 @@ Xml_string toXMLString(unsigned int val)
 	return QString::number(val);
 }
 
+char32_t parseChar32(const Xml_string& str)
+{
+	return static_cast<char32_t>(str.toUInt());
+}
+
 unsigned int parseUInt(const Xml_string& str)
 {
 	return str.toUInt();

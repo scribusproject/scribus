@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 #include <climits>
 #include <limits>
+#include <string>
 
 #include "commonstrings.h"
 
@@ -69,8 +70,6 @@ XpsPlug::XpsPlug(ScribusDoc* doc, int flags)
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = nullptr;
-	uz = nullptr;
 }
 
 QImage XpsPlug::readThumbnail(const QString& fName)
@@ -120,7 +119,7 @@ QImage XpsPlug::readThumbnail(const QString& fName)
 	}
 	if (!found)
 	{
-		QFileInfo fi = QFileInfo(fName);
+		QFileInfo fi(fName);
 		baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 		docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 		docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
@@ -205,7 +204,7 @@ bool XpsPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw = (m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -218,14 +217,14 @@ bool XpsPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	/* Set default Page to size defined in Preferences */
 	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
@@ -253,12 +252,12 @@ bool XpsPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 			baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 		}
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -274,7 +273,7 @@ bool XpsPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
@@ -286,7 +285,7 @@ bool XpsPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if ((Elements.count() > 0) && (!ret) && (interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
@@ -362,7 +361,7 @@ bool XpsPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		m_Doc->scMW()->setScriptRunning(false);
 		if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		success = false;
 	}
 	if (interactive)
@@ -370,10 +369,10 @@ bool XpsPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	return success;
 }
 
@@ -401,7 +400,7 @@ bool XpsPlug::convert(const QString& fn)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 
 	uz = new ScZipHandler();
@@ -505,20 +504,20 @@ bool XpsPlug::parseDocReference(const QString& designMap)
 		QString pageString = "*";
 		int pgCount = 0;
 		int maxPages = docElem.childNodes().count();
-		if (((interactive) || (importerFlags & LoadSavePlugin::lfCreateDoc)) && (maxPages > 1))
+		if ((interactive || (importerFlags & LoadSavePlugin::lfCreateDoc)) && (maxPages > 1))
 		{
 			if (progressDialog)
 				progressDialog->hide();
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			XpsImportOptions optImp(ScCore->primaryMainWindow());
 			optImp.setUpOptions(m_FileName, 1, maxPages, interactive);
 			if (optImp.exec() != QDialog::Accepted)
 				return false;
 			pageString = optImp.getPagesString();
-			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 			if (progressDialog)
 				progressDialog->show();
-			qApp->processEvents();
+			QApplication::processEvents();
 		}
 		parsePagesString(pageString, &pageNs, maxPages);
 		if (pageString != "*")
@@ -527,7 +526,7 @@ bool XpsPlug::parseDocReference(const QString& designMap)
 		{
 			progressDialog->setTotalSteps("GI", maxPages);
 			progressDialog->setProgress("GI", pgCount);
-			qApp->processEvents();
+			QApplication::processEvents();
 		}
 		QDomNodeList pgList = docElem.childNodes();
 		for (uint ap = 0; ap < pageNs.size(); ++ap)
@@ -870,11 +869,11 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 				int glInd = 0;
 				if (!utfString.isEmpty())
 				{
-					QVector<uint> ucs4 = utfString.toUcs4();
+					std::u32string ucs4 = utfString.toStdU32String();
 					// FIXME HOST: this code does not do any text layout!
 					for (int sti = 0; sti < ucs4.length(); sti++)
 					{
-						uint chr = ucs4[sti];
+						char32_t chr = ucs4.at(sti);
 						QString utfChar = QString::fromUcs4(&chr, 1);
 						uint gl = iteFont.char2CMap(chr);
 						if (gl != 0)
@@ -908,8 +907,8 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 										{
 											if (glyInd[0].startsWith("("))
 											{
-												int r = glyInd[0].indexOf(")");
-												QString comb = glyInd[0].mid(1, r-1);
+												qsizetype r = glyInd[0].indexOf(")");
+												QString comb = glyInd[0].mid(1, r - 1);
 												QStringList combInd = comb.split(":");
 												int advUtf = combInd[0].toInt() - 1;
 												sti += advUtf;
@@ -986,8 +985,8 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 							{
 								if (glyInd[0].startsWith("("))
 								{
-									int r = glyInd[0].indexOf(")");
-									QString comb = glyInd[0].mid(1, r-1);
+									qsizetype r = glyInd[0].indexOf(")");
+									QString comb = glyInd[0].mid(1, r - 1);
 									QStringList combInd = comb.split(":");
 									int advUtf = combInd[0].toInt() - 1;
 									glInd += advUtf;
@@ -1926,10 +1925,10 @@ ScFace XpsPlug::loadFontByName(const QString &fileName)
 		}
 		// Obfuscation - xor bytes in font binary with bytes from guid (font's filename)
 		const static int mapping[] = {15, 14, 13, 12, 11, 10, 9, 8, 6, 7, 4, 5, 0, 1, 2, 3};
-		for (int i = 0; i < 16; i++)
+		for (int i = 0; i < 16; ++i)
 		{
 			fontData[i] = fontData[i] ^ guid[mapping[i]];
-			fontData[i+16] = fontData[i+16] ^ guid[mapping[i]];
+			fontData[i+16] = fontData[i + 16] ^ guid[mapping[i]];
 		}
 	}
 	QFile ft(fname);
