@@ -2842,8 +2842,7 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 	int max = qMin(m_prefsManager.appPrefs.scrapbookPrefs.numScrapbookCopies, scrapbookPalette->tempBView->objectMap.count());
 	if (max > 0)
 	{
-		QMap<QString,BibView::Elem>::Iterator it;
-		it = scrapbookPalette->tempBView->objectMap.end();
+		auto it = scrapbookPalette->tempBView->objectMap.end();
 		QString strippedName;
 		for (int i = 0; i < max; ++i)
 		{
