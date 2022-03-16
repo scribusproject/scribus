@@ -38,9 +38,9 @@ public:
 	int columnCount(const QModelIndex& parent = QModelIndex()) const override;
 
 	//! \brief Get a graphics representation/pixmap of the glyph
-	QVariant data(const QModelIndex& index,
-				  int role = Qt::DisplayRole) const override;
+	QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
+	//! \brief Set current font
 	void setFontInUse(const QString& font);
 
 	//! \brief Font in use. It's used in model's view.
@@ -49,17 +49,15 @@ public:
 	void setCharacters(const CharClassDef& ch);
 	void setCharactersAndFonts(const CharClassDef& ch, const QStringList& fonts);
 	void addCharacter(const QString& ch);
-	CharClassDef characters() { return m_characters; }
-	QStringList fonts() { return m_fonts; }
+	const CharClassDef& characters() const { return m_characters; }
+	const QStringList& fonts() const { return m_fonts; }
 
 	//! \brief called to erase glyph at index from table.
 	bool removeCharacter(int index);
 
 	void setDoc(ScribusDoc *doc);
 
-	void setViewWidth(int w) {
-		m_viewWidth = w;
-	};
+	void setViewWidth(int w) { m_viewWidth = w; };
 
 public slots:
 	/*! \brief appends an unicode char into m_characters list.
@@ -87,9 +85,9 @@ private:
 		CharTextAndFontRole = Qt::UserRole + 2
 	};
 
-	ScribusDoc *m_doc;
+	ScribusDoc *m_doc { nullptr };
 	//! \brief Number of the columns for model
-	int m_cols;
+	int m_cols { 1 };
 	//! \brief View's width to compute pixmap sizes.
 	int m_viewWidth {200};
 
@@ -98,7 +96,7 @@ private:
 	QStringList m_fonts;
 
 	//! \brief Internal selection handling. See selectionChanged().
-	QItemSelectionModel * m_selectionModel;
+	QItemSelectionModel * m_selectionModel { nullptr };
 
 	/*! \brief All drag'n'drop actions are handled in this model only
 	See Qt4 docs "Using Drag and Drop with Item Views" for more info.

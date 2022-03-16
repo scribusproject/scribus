@@ -871,7 +871,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 				{
 					std::u32string ucs4 = utfString.toStdU32String();
 					// FIXME HOST: this code does not do any text layout!
-					for (int sti = 0; sti < ucs4.length(); sti++)
+					for (size_t sti = 0; sti < ucs4.length(); ++sti)
 					{
 						char32_t chr = ucs4.at(sti);
 						QString utfChar = QString::fromUcs4(&chr, 1);

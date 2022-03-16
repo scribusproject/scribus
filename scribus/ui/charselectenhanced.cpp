@@ -21,8 +21,7 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 {
 	setupUi(this);
 
-	m_charTableModel = new CharTableModel(this, 26, m_doc);//,
-//                                           PrefsManager::instance().appPrefs.toolSettings.defFont);
+	m_charTableModel = new CharTableModel(this, 26, m_doc);
 	m_charTable->setModel(m_charTableModel);
 	m_charTable->setDragEnabled(true);
 
@@ -61,7 +60,7 @@ void CharSelectEnhanced::setDoc(ScribusDoc* doc)
 //     tDebug("CharSelectEnhanced setDoc end");
 }
 
-QString CharSelectEnhanced::getUsedFont()
+QString CharSelectEnhanced::getUsedFont() const
 {
 	return m_fontInUse;
 }
