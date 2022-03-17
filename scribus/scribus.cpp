@@ -2857,16 +2857,15 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 	if (max > 0)
 	{
 		auto it = scrapbookPalette->tempBView->objectMap.end();
-		it--;
 		QString strippedName;
 		for (int m = 0; m < max; ++m)
 		{
+			it--;
 			strippedName = it.key();
 			QPixmap pm = it.value().Preview;
 			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QString(), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, it.key()));
 			connect( scrRecentPasteActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(pasteRecent(QString)) );
 			scrMenuMgr->addMenuItemString(strippedName, "EditPasteRecent");
-			it--;
 		}
 		scrMenuMgr->addMenuItemStringsToRememberedMenu("EditPasteRecent", scrRecentPasteActions);
 	}
