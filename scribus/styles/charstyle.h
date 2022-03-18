@@ -49,9 +49,9 @@ class SCRIBUS_API StyleFlag
 {
 public:
 
-	StyleFlagValue value;
+	StyleFlagValue value { ScStyle_Default };
 
-	StyleFlag(void) { value = ScStyle_Default; }
+	StyleFlag() = default;
 	StyleFlag(StyleFlagValue val) { value = val; }
 	StyleFlag(int val) { value = static_cast<StyleFlagValue>(val); }
 
@@ -62,12 +62,13 @@ public:
 	StyleFlag& operator=  (StyleFlagValue val) { value = val; return *this;}
 	StyleFlag& operator&= (const StyleFlag& right);
 	StyleFlag& operator|= (const StyleFlag& right);
-	StyleFlag  operator&  (const StyleFlag& right);
-	StyleFlag  operator&  (int right);
-	StyleFlag  operator|  (const StyleFlag& right);
-	StyleFlag  operator^  (const StyleFlag& right);
-	StyleFlag  operator^  (int right);
-	StyleFlag  operator~  ();
+	StyleFlag  operator&  (const StyleFlag& right) const;
+	StyleFlag  operator&  (int right) const;
+	StyleFlag  operator|  (const StyleFlag& right) const;
+	StyleFlag  operator|  (int right) const;
+	StyleFlag  operator^  (const StyleFlag& right) const;
+	StyleFlag  operator^  (int right) const;
+	StyleFlag  operator~  () const;
 
 	bool equivForShaping(const StyleFlag& right) const;
 	bool operator== (const StyleFlag& right) const;
@@ -75,6 +76,7 @@ public:
 	bool operator== (int right) const;
 	bool operator!= (const StyleFlag& right) const;
 	bool operator!= (const StyleFlagValue right) const;
+	bool operator!= (int right) const;
 };
 
 class SCRIBUS_API CharStyle : public BaseStyle {
@@ -121,28 +123,28 @@ public:
 	static const Xml_string saxxDefaultElem;
 	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, const Xml_string& elemtag = saxxDefaultElem);
 	
-	virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
-	virtual void saxx(SaxHandler& handler) const { saxx(handler, saxxDefaultElem); }
+	void saxx(SaxHandler& handler, const Xml_string& elemtag) const override;
+	void saxx(SaxHandler& handler) const override { saxx(handler, saxxDefaultElem); }
 	
 
 	void getNamedResources(ResourceCollection& lists) const;
 	void replaceNamedResources(ResourceCollection& newNames);
 
-	QString displayName() const;
+	QString displayName() const override;
 
-	void update(const StyleContext * b);
+	void update(const StyleContext * b) override;
 	
 	/** This method may alter any of the attributes depending on the value of 'features'.
 		Used for font effects */
 	void updateFeatures();
 	
-	bool equiv(const BaseStyle& other) const;
+	bool equiv(const BaseStyle& other) const override;
 	bool equivForShaping(const CharStyle &other) const;
 
 	void applyCharStyle(const CharStyle & other);
 	void eraseCharStyle(const CharStyle & other);
 	void setStyle(const CharStyle & other);
-	void erase() { eraseCharStyle(*this); }
+	void erase() override { eraseCharStyle(*this); }
 	void eraseDirectFormatting();
 	
 	QString asString() const;

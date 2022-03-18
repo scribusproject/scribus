@@ -86,24 +86,23 @@ public:
 	static const Xml_string saxxDefaultElem;
 	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, const Xml_string& elemtag = saxxDefaultElem);
 	
-	virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
-	virtual void saxx(SaxHandler& handler) const { saxx(handler, saxxDefaultElem); }
+	void saxx(SaxHandler& handler, const Xml_string& elemtag) const override;
+	void saxx(SaxHandler& handler) const override { saxx(handler, saxxDefaultElem); }
 	
-
 	void getNamedResources(ResourceCollection& lists) const;
 	void replaceNamedResources(ResourceCollection& newNames);
 
-	QString displayName() const;
+	QString displayName() const override;
 
-	void setContext(const StyleContext* context);
-	void update(const StyleContext*);
+	void setContext(const StyleContext* context) override;
+	void update(const StyleContext*) override;
 	
-	bool equiv(const BaseStyle& other) const;
+	bool equiv(const BaseStyle& other) const override;
 	
 	void applyStyle(const ParagraphStyle& other);
 	void eraseStyle(const ParagraphStyle& other);
 	void setStyle(const ParagraphStyle& other);
-	void erase() { eraseStyle(*this); }
+	void erase() override { eraseStyle(*this); }
 
 	StyleContext* charStyleContext() { return & m_cstyleContext; }
 	const StyleContext* charStyleContext() const { return & m_cstyleContext; }

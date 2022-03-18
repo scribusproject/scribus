@@ -35,42 +35,49 @@ StyleFlag& StyleFlag::operator|= (const StyleFlag& right)
 	return *this;
 }
 
-StyleFlag StyleFlag::operator& (const StyleFlag& right)
+StyleFlag StyleFlag::operator& (const StyleFlag& right) const
 {
 	int val = static_cast<int>(value) & static_cast<int>(right.value);
 	StyleFlag result(static_cast<StyleFlagValue>(val)); 
 	return result;
 }
 
-StyleFlag StyleFlag::operator& (int right)
+StyleFlag StyleFlag::operator& (int right) const
 {
 	int val = static_cast<int>(value) & right;
 	StyleFlag result(static_cast<StyleFlagValue>(val)); 
 	return result;
 }
 
-StyleFlag StyleFlag::operator| (const StyleFlag& right)
+StyleFlag StyleFlag::operator| (const StyleFlag& right) const
 {
 	int val = static_cast<int>(value) | static_cast<int>(right.value);
 	StyleFlag result(static_cast<StyleFlagValue>(val)); 
 	return result;
 }
 
-StyleFlag StyleFlag::operator^ (const StyleFlag& right)
+StyleFlag StyleFlag::operator| (int right) const
+{
+	int val = static_cast<int>(value) | right;
+	StyleFlag result(static_cast<StyleFlagValue>(val));
+	return result;
+}
+
+StyleFlag StyleFlag::operator^ (const StyleFlag& right) const
 {
 	int val = static_cast<int>(value) ^ static_cast<int>(right.value);
 	StyleFlag result(static_cast<StyleFlagValue>(val)); 
 	return result;
 }
 
-StyleFlag StyleFlag::operator^ (int right)
+StyleFlag StyleFlag::operator^ (int right) const
 {
 	int val = static_cast<int>(value) ^ right;
 	StyleFlag result(static_cast<StyleFlagValue>(val)); 
 	return result;
 }
 
-StyleFlag StyleFlag::operator~ ()
+StyleFlag StyleFlag::operator~ () const
 {
 	int val = ~ static_cast<int>(value);
 	StyleFlag result(static_cast<StyleFlagValue>(val)); 
@@ -111,6 +118,10 @@ bool StyleFlag::operator!= (const StyleFlagValue right) const
 	return !(*this == right);
 }
 
+bool StyleFlag::operator!= (int right) const
+{
+	return !(*this == right);
+}
 
 void CharStyle::applyCharStyle(const CharStyle & other)
 {

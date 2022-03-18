@@ -36,19 +36,17 @@
 class SCRIBUS_API BaseStyle : public SaxIO
 {
 protected:
-	bool m_isDefaultStyle;
+	bool m_isDefaultStyle { false };
 	QString m_name;
-	const StyleContext* m_context;
-	int m_contextversion;
+	const StyleContext* m_context { nullptr };
+	int m_contextversion { -1 };
 	QString m_parent;
 	QString m_shortcut;
 
 public:
-//	static const short NOVALUE = -16000;
+	BaseStyle() = default;
 
-	BaseStyle(): m_isDefaultStyle(false), m_name(""), m_context(nullptr), m_contextversion(-1), m_parent(""), m_shortcut() {}
-
-	BaseStyle(StyleContext* b, QString n): m_isDefaultStyle(false), m_name(n), m_context(b), m_contextversion(-1), m_parent(""), m_shortcut() {}
+	BaseStyle(StyleContext* b, QString n): m_name(n), m_context(b) {}
 	
 	BaseStyle& operator=(const BaseStyle& o)
 	{ //assert(typeinfo() == o.typeinfo()); 
