@@ -450,7 +450,7 @@ namespace sfnt {
 			usedNames[name] = gid;
 			m_names.append(name);
 		}
-		m_errorMsg = "";
+		m_errorMsg.clear();
 		m_usable = true;
 	}
 
@@ -478,9 +478,7 @@ namespace sfnt {
 
 		const int numFonts = word(coll, ttc_numFonts);
 		if (faceIndex >= static_cast<int>(numFonts))
-		{
 			return result;
-		}
 
 		uint faceOffset = sfnt::word(coll, ttc_OffsetTables + 4 * faceIndex);
 		uint nTables	= sfnt::word16(coll, faceOffset + ttf_numtables);
@@ -498,18 +496,12 @@ namespace sfnt {
 		}
 		result.resize(headerLength + tableLengths);
 		if (!result.data())
-		{
-			result.resize(0);
-			return result;
-		}
+			return QByteArray();
 
 		// write header
 		//		sDebug(QObject::tr("memcpy header: %1 %2 %3").arg(0).arg(faceOffset).arg(headerLength));
 		if (!copy(result, 0, coll, faceOffset, headerLength))
-		{
-			result.resize(0);
-			return result;
-		}
+			return QByteArray();
 		uint pos = headerLength;
 		for (uint i=0; i < nTables; ++i)
 		{
@@ -518,10 +510,7 @@ namespace sfnt {
 
 			int tableSize = copyTable(result, destDirEntry, pos, coll, sourceDirEntry);
 			if (tableSize < 0)
-			{
-				result.resize(0);
-				return result;
-			}
+				return QByteArray();
 			pos += tableSize;
 
 			// pad
@@ -538,9 +527,7 @@ namespace sfnt {
 		for (uint i=0; i < nTables; ++i)
 		{
 			if (ttfTag == tag(word(ttf, pos + ttf_TableRecord_tag)))
-			{
 				return pos;
-			}
 			pos += ttf_TableRecord_Size;
 		}
 		return 0;
@@ -949,9 +936,7 @@ namespace sfnt {
 				{
 					quint16 glyph = cmap[startCode + offset];
 					if (glyph != 0)
-					{
 						glyph -= idDeltas[i];
-					}
 					appendWord16(result, glyph);
 				}
 			}
@@ -992,25 +977,32 @@ namespace sfnt {
 			appendWord16(destGlyf, glyphIndex);
 			
 			/* args */
-			if ( flags & ttf_glyf_ComponentFlag_ARG_1_AND_2_ARE_WORDS) {
+			if ( flags & ttf_glyf_ComponentFlag_ARG_1_AND_2_ARE_WORDS)
+			{
 				appendWord16(destGlyf, word16(srcGlyf, pos)); // arg1
 				pos += 2;
 				appendWord16(destGlyf, word16(srcGlyf, pos)); // arg2
 				pos += 2;
 			}
-			else {
+			else
+			{
 				appendWord16(destGlyf, word16(srcGlyf, pos)); // arg1and2
 				pos += 2;
 			}
-			if ( flags & ttf_glyf_ComponentFlag_WE_HAVE_A_SCALE ) {
+			if ( flags & ttf_glyf_ComponentFlag_WE_HAVE_A_SCALE )
+			{
 				appendWord16(destGlyf, word16(srcGlyf, pos)); // scale
 				pos += 2;
-			} else if ( flags & ttf_glyf_ComponentFlag_WE_HAVE_AN_X_AND_Y_SCALE ) {
+			}
+			else if ( flags & ttf_glyf_ComponentFlag_WE_HAVE_AN_X_AND_Y_SCALE )
+			{
 				appendWord16(destGlyf, word16(srcGlyf, pos)); // xscale
 				pos += 2;
 				appendWord16(destGlyf, word16(srcGlyf, pos)); // yscale
 				pos += 2;
-			} else if ( flags & ttf_glyf_ComponentFlag_WE_HAVE_A_TWO_BY_TWO ) {
+			}
+			else if ( flags & ttf_glyf_ComponentFlag_WE_HAVE_A_TWO_BY_TWO )
+			{
 				appendWord16(destGlyf, word16(srcGlyf, pos)); // xscale
 				pos += 2;
 				appendWord16(destGlyf, word16(srcGlyf, pos)); // scale01
