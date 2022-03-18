@@ -221,9 +221,9 @@ void StoryText::setCursorPosition(int pos, bool relative)
 		if (isLowSurrogate(pos) && isHighSurrogate(pos - 1))
 		{
 			if (forward)
-				pos += 1;
+				++pos;
 			else
-				pos -= 1;
+				--pos;
 		}
 	}
 	d->cursorPosition = qMin((uint) qMax(pos, 0), d->len);
@@ -292,14 +292,14 @@ void StoryText::moveCursorWordLeft()
 		if (pos != BreakIterator::DONE)
 		{
 			while (pos < length() && text(pos).isSpace())
-				pos += 1;
+				++pos;
 		}
 	}
 	else
 	{
 		pos = cursorPosition();
 		while (pos > 0 && text(pos - 1).isSpace())
-			pos -= 1;
+			--pos;
 		pos = it->preceding(pos);
 	}
 
@@ -319,7 +319,7 @@ void StoryText::moveCursorWordRight()
 	{
 		pos = cursorPosition();
 		while (pos > 0 && text(pos - 1).isSpace())
-			pos -= 1;
+			--pos;
 		pos = it->preceding(pos);
 	}
 	else
@@ -328,7 +328,7 @@ void StoryText::moveCursorWordRight()
 		if (pos != BreakIterator::DONE)
 		{
 			while (pos < length() && text(pos).isSpace())
-				pos += 1;
+				++pos;
 		}
 	}
 
@@ -510,7 +510,7 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 			//applyStyle(pos, otherDefault);
 			applyStyle(pos, other.paragraphStyle(i));
 			cstyleStart = i+1;
-			pos += 1;
+			++pos;
 		}
 		else if (other.text(i) == SpecialChars::OBJECT)
 		{
@@ -524,7 +524,7 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 			}
 			applyCharStyle(pos, 1, other.charStyle(i));
 			cstyleStart = i+1;
-			pos += 1;
+			++pos;
 		}
 		else
 		{
@@ -635,7 +635,7 @@ void StoryText::removeChars(int pos, uint len)
 		if (i < d->selFirst)
 			--d->selFirst;
 		if (static_cast<uint>(i + 1) <= d->cursorPosition && d->cursorPosition > 0)
-			d->cursorPosition -= 1;
+			d->cursorPosition--;
 	}
 
 	if (oldMarksCount != d->marksCount)
@@ -656,8 +656,8 @@ void StoryText::trim()
 	if (length() < 2)
 		return;
 	int posCount = 0;
-	int pos = static_cast<int>(length()) - 1;
-	for ( int i = static_cast<int>(length()) - 1; i >= 0; --i )
+	int pos = length() - 1;
+	for (int i = length() - 1; i >= 0; --i)
 	{
 		ScText *it = d->at(i);
 		if ((it->ch == SpecialChars::PARSEP) || (it->ch.isSpace()))
@@ -705,7 +705,7 @@ void StoryText::insertChars(int pos, const QString& txt, bool applyNeighbourStyl
 
 	for (int i = 0; i < txt.length(); ++i)
 	{
-		ScText * item = new ScText(clone);
+		ScText* item = new ScText(clone);
 		item->ch= txt.at(i);
 		item->setContext(cStyleContext);
 		d->insert(pos + i, item);
@@ -716,7 +716,7 @@ void StoryText::insertChars(int pos, const QString& txt, bool applyNeighbourStyl
 			insertParSep(pos + i);
 		}
 		if (d->cursorPosition >= static_cast<uint>(pos + i))
-			d->cursorPosition += 1;
+			d->cursorPosition++;
 	}
 
 	d->len = d->count();
@@ -774,7 +774,7 @@ void StoryText::insertCharsWithSoftHyphens(int pos, const QString& txt, bool app
 			if (item->ch == SpecialChars::PARSEP)
 				insertParSep(index);
 			if (d->cursorPosition >= static_cast<uint>(index))
-				d->cursorPosition += 1;
+				d->cursorPosition++;
 			++inserted;
 		}
 	}
@@ -2051,9 +2051,9 @@ void StoryText::extendSelection(int oldPos, int newPos)
 void StoryText::fixSurrogateSelection()
 {
 	if (isLowSurrogate(d->selFirst) && isHighSurrogate(d->selFirst - 1))
-		d->selFirst -= 1;
+		d->selFirst--;
 	if (isHighSurrogate(d->selLast) && isLowSurrogate(d->selLast + 1))
-		d->selLast += 1;
+		d->selLast++;
 }
 
 BreakIterator* StoryText::m_graphemeIterator = nullptr;
