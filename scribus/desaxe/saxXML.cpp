@@ -13,11 +13,16 @@
 
 using namespace std;
 
-SaxXML::SaxXML(std::ostream& file, bool pretty) : m_stream(file), 
-     m_pretty(pretty), m_indentLevel(0), m_manyAttributes(false), m_pendingEmptyTag(false) {} 
+SaxXML::SaxXML(std::ostream& file, bool pretty) :
+	m_stream(file),
+	m_pretty(pretty)
+{}
 
-SaxXML::SaxXML(const char* filename, bool pretty) : m_file(filename, ios::out | ios::binary), m_stream(m_file), 
-     m_pretty(pretty), m_indentLevel(0), m_manyAttributes(false), m_pendingEmptyTag(false) {}
+SaxXML::SaxXML(const char* filename, bool pretty) :
+	m_file(filename, ios::out | ios::binary),
+	m_stream(m_file),
+	m_pretty(pretty)
+{}
 
 SaxXML::~SaxXML() { m_stream.flush(); m_file.close(); }
 
@@ -30,47 +35,49 @@ void SaxXML::beginDoc()
 void SaxXML::endDoc()
 {
 	m_stream << "\n";
-	m_stream.flush(); m_file.close();
+	m_stream.flush();
+	m_file.close();
 }
 
 
 void SaxXML::finalizePendingEmptyTag()
 {
-	if (m_pendingEmptyTag) {
-		if (m_pretty && m_manyAttributes)
-		{
-			m_stream << "\n";
-			for (int k=0; k < m_indentLevel*4; ++k)
-				m_stream << " ";
-			m_stream << ">";
-		}
-		else
-			m_stream << " >";
-		m_pendingEmptyTag = false;
+	if (!m_pendingEmptyTag)
+		return;
+	if (m_pretty && m_manyAttributes)
+	{
+		m_stream << "\n";
+		for (int i = 0; i < m_indentLevel * 4; ++i)
+			m_stream << " ";
+		m_stream << ">";
 	}
+	else
+		m_stream << " >";
+	m_pendingEmptyTag = false;
 }
 
 void SaxXML::begin(const Xml_string& tag, Xml_attr attr)
 {
 	finalizePendingEmptyTag();
-	assert( !tag.isNull() );
+	assert(!tag.isNull());
 	if (m_pretty)
 	{
 		// indent tag
 		m_stream << "\n";
-		for (int k=0; k < m_indentLevel*4; ++k)
+		for (int i = 0; i  < m_indentLevel * 4; ++i)
 			m_stream << " ";
 	}
 	m_stream << "<" << fromXMLString(tag);
 	Xml_attr::iterator it;
 	m_manyAttributes = false;
 	uint i = 0;
-	for (it=attr.begin(); it != attr.end(); ++it) {
+	for (it=attr.begin(); it != attr.end(); ++it)
+	{
 		// newline and indent every 4 attributes
-		if (i > 0 && (i%4)==0 && m_pretty)
+		if (i > 0 && (i % 4) == 0 && m_pretty)
 		{
 			m_stream << "\n";
-			for (int k=0; k < m_indentLevel*4 + 1 + tag.length(); ++k)
+			for (int j = 0; j  < m_indentLevel * 4 + 1 + tag.length(); ++j)
 				m_stream << " ";
 			m_manyAttributes = true;
 		}
@@ -95,21 +102,23 @@ void SaxXML::begin(const Xml_string& tag, Xml_attr attr)
 void SaxXML::end(const Xml_string& tag)
 {
 	--m_indentLevel;
-	if (m_pendingEmptyTag) {
+	if (m_pendingEmptyTag)
+	{
 		if (m_pretty && m_manyAttributes)
 		{
 			m_stream << "\n";
-			for (int k=0; k < m_indentLevel*4; ++k)
+			for (int i = 0; i  < m_indentLevel * 4; ++i)
 				m_stream << " ";
 		}
 		m_stream << " />"; 
 		m_pendingEmptyTag = false;
 	}
-	else {
+	else
+	{
 		if (m_pretty)
 		{
 			m_stream << "\n";
-			for (int k=0; k < m_indentLevel*4; ++k)
+			for (int i = 0; i  < m_indentLevel * 4; ++i)
 				m_stream << " ";
 		}
 		m_stream << "</" << fromXMLString(tag) << ">";
