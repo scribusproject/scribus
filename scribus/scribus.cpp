@@ -2854,21 +2854,21 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 
 	scrRecentPasteActions.clear();
 	int max = qMin(m_prefsManager.appPrefs.scrapbookPrefs.numScrapbookCopies, scrapbookPalette->tempBView->objectMap.count());
-	if (max > 0)
+	if (max <= 0)
+		return;
+	
+	auto it = scrapbookPalette->tempBView->objectMap.end();
+	QString strippedName;
+	for (int i = 0; i < max; ++i)
 	{
-		auto it = scrapbookPalette->tempBView->objectMap.end();
-		QString strippedName;
-		for (int m = 0; m < max; ++m)
-		{
-			it--;
-			strippedName = it.key();
-			QPixmap pm = it.value().Preview;
-			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QString(), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, it.key()));
-			connect( scrRecentPasteActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(pasteRecent(QString)) );
-			scrMenuMgr->addMenuItemString(strippedName, "EditPasteRecent");
-		}
-		scrMenuMgr->addMenuItemStringsToRememberedMenu("EditPasteRecent", scrRecentPasteActions);
+		it--;
+		strippedName = it.key();
+		QPixmap pm = it.value().Preview;
+		scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QString(), QString("&%1 %2").arg(i + 1).arg(strippedName), QKeySequence(), this, it.key()));
+		connect( scrRecentPasteActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(pasteRecent(QString)) );
+		scrMenuMgr->addMenuItemString(strippedName, "EditPasteRecent");
 	}
+	scrMenuMgr->addMenuItemStringsToRememberedMenu("EditPasteRecent", scrRecentPasteActions);
 }
 
 void ScribusMainWindow::rebuildScrapbookMenu()
@@ -7665,11 +7665,9 @@ void ScribusMainWindow::ApplyMasterPage()
 			//can select to eg apply to even pages with a single odd page selected
 			if (pageSelection == 1 && (pageNum %2 != 0)) //Even, %2!=0 as 1st page is numbered 0
 				Apply_MasterPage(masterPageName, pageNum, false);
-			else
-			if (pageSelection == 2 && (pageNum %2 == 0)) //Odd, %2==0 as 1st page is numbered 0
+			else if (pageSelection == 2 && (pageNum %2 == 0)) //Odd, %2==0 as 1st page is numbered 0
 				Apply_MasterPage(masterPageName, pageNum, false);
-			else
-			if (pageSelection == 3) //All
+			else if (pageSelection == 3) //All
 				Apply_MasterPage(masterPageName, pageNum, false);
 		}
 	}
@@ -9676,7 +9674,7 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 				editMDialog = (MarkInsert*) new Mark2Mark(doc->marksList(), mrk, this);
 				QString l = mrk->getDestMarkName();
 				MarkType t = mrk->getDestMarkType();
-				Mark* m = doc->getMark(l,t);
+				Mark* m = doc->getMark(l, t);
 				editMDialog->setValues(mrk->label, m);
 			}
 			break;

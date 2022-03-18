@@ -33,7 +33,7 @@ public:
 	    Writes an XML representation of this object using the default element tag, see below
 	 */
 	virtual void saxx(SaxHandler & ) const = 0;
-	virtual ~SaxIO() {}
+	virtual ~SaxIO() = default;
 	/**
 		Element tag which is usually used to serialize this object. "" means no elem is created by saxx()
 	 */
