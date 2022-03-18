@@ -329,132 +329,116 @@ void PageItem_Line::getVisualBoundingRect(double * x1, double * y1, double * x2,
 
 QRectF PageItem_Line::getStartArrowBoundingRect() const
 {
-	QRectF arrowRect;
-	if (m_startArrowIndex != 0)
+	if (m_startArrowIndex == 0)
+		return QRectF();
+	QTransform arrowTrans;
+	FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex - 1).points.copy();
+	arrowTrans.translate(m_xPos, m_yPos);
+	arrowTrans.rotate(m_rotation);
+	arrowTrans.translate(0, 0);
+	arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
+	if (NamedLStyle.isEmpty())
 	{
-		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex - 1).points.copy();
-		arrowTrans.translate(m_xPos, m_yPos);
-		arrowTrans.rotate(m_rotation);
-		arrowTrans.translate(0, 0);
-		arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
-		if (NamedLStyle.isEmpty())
-		{
-			if (m_lineWidth != 0.0)
-				arrowTrans.scale(m_lineWidth, m_lineWidth);
-		}
-		else
-		{
-			const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
-			const SingleLine& sl = ml.last();
-			if (sl.Width != 0.0)
-				arrowTrans.scale(sl.Width, sl.Width);
-		}
-		arrowTrans.scale(-1, 1);
-		arrow.map(arrowTrans);
-		FPoint minAr = getMinClipF(&arrow);
-		FPoint maxAr = getMaxClipF(&arrow);
-		arrowRect = QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
+		if (m_lineWidth != 0.0)
+			arrowTrans.scale(m_lineWidth, m_lineWidth);
 	}
-
-	return arrowRect;
+	else
+	{
+		const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
+		const SingleLine& sl = ml.last();
+		if (sl.Width != 0.0)
+			arrowTrans.scale(sl.Width, sl.Width);
+	}
+	arrowTrans.scale(-1, 1);
+	arrow.map(arrowTrans);
+	FPoint minAr = getMinClipF(&arrow);
+	FPoint maxAr = getMaxClipF(&arrow);
+	return QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));;
 }
 
 QRectF PageItem_Line::getStartArrowOldBoundingRect() const
 {
-	QRectF arrowRect;
-	if (m_startArrowIndex != 0)
+	if (m_startArrowIndex == 0)
+		return QRectF();
+	QTransform arrowTrans;
+	FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex - 1).points.copy();
+	arrowTrans.translate(oldXpos, oldYpos);
+	arrowTrans.rotate(oldRot);
+	arrowTrans.translate(0, 0);
+	arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
+	if (NamedLStyle.isEmpty())
 	{
-		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex - 1).points.copy();
-		arrowTrans.translate(oldXpos, oldYpos);
-		arrowTrans.rotate(oldRot);
-		arrowTrans.translate(0, 0);
-		arrowTrans.scale(m_startArrowScale / 100.0, m_startArrowScale / 100.0);
-		if (NamedLStyle.isEmpty())
-		{
-			if (m_oldLineWidth != 0.0)
-				arrowTrans.scale(m_oldLineWidth, m_oldLineWidth);
-		}
-		else
-		{
-			const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
-			const SingleLine& sl = ml.last();
-			if (sl.Width != 0.0)
-				arrowTrans.scale(sl.Width, sl.Width);
-		}
-		arrowTrans.scale(-1, 1);
-		arrow.map(arrowTrans);
-		FPoint minAr = getMinClipF(&arrow);
-		FPoint maxAr = getMaxClipF(&arrow);
-		arrowRect = QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
+		if (m_oldLineWidth != 0.0)
+			arrowTrans.scale(m_oldLineWidth, m_oldLineWidth);
 	}
-
-	return arrowRect;
+	else
+	{
+		const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
+		const SingleLine& sl = ml.last();
+		if (sl.Width != 0.0)
+			arrowTrans.scale(sl.Width, sl.Width);
+	}
+	arrowTrans.scale(-1, 1);
+	arrow.map(arrowTrans);
+	FPoint minAr = getMinClipF(&arrow);
+	FPoint maxAr = getMaxClipF(&arrow);
+	return QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
 }
 
 QRectF PageItem_Line::getEndArrowBoundingRect() const
 {
-	QRectF arrowRect;
-	if (m_endArrowIndex != 0)
+	if (m_startArrowIndex == 0)
+		return QRectF();
+	QTransform arrowTrans;
+	FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex - 1).points.copy();
+	arrowTrans.translate(m_xPos, m_yPos);
+	arrowTrans.rotate(m_rotation);
+	arrowTrans.translate(m_width, 0);
+	arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
+	if (NamedLStyle.isEmpty())
 	{
-		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex - 1).points.copy();
-		arrowTrans.translate(m_xPos, m_yPos);
-		arrowTrans.rotate(m_rotation);
-		arrowTrans.translate(m_width, 0);
-		arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
-		if (NamedLStyle.isEmpty())
-		{
-			if (m_lineWidth != 0.0)
-				arrowTrans.scale(m_lineWidth, m_lineWidth);
-		}
-		else
-		{
-			const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
-			const SingleLine& sl = ml.last();
-			if (sl.Width != 0.0)
-				arrowTrans.scale(sl.Width, sl.Width);
-		}
-		arrow.map(arrowTrans);
-		FPoint minAr = getMinClipF(&arrow);
-		FPoint maxAr = getMaxClipF(&arrow);
-		arrowRect = QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
+		if (m_lineWidth != 0.0)
+			arrowTrans.scale(m_lineWidth, m_lineWidth);
 	}
-
-	return arrowRect;
+	else
+	{
+		const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
+		const SingleLine& sl = ml.last();
+		if (sl.Width != 0.0)
+			arrowTrans.scale(sl.Width, sl.Width);
+	}
+	arrow.map(arrowTrans);
+	FPoint minAr = getMinClipF(&arrow);
+	FPoint maxAr = getMaxClipF(&arrow);
+	return QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
 }
 
 QRectF PageItem_Line::getEndArrowOldBoundingRect() const
 {
-	QRectF arrowRect;
-	if (m_endArrowIndex != 0)
+	if (m_startArrowIndex == 0)
+		return QRectF();
+	QTransform arrowTrans;
+	FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex - 1).points.copy();
+	arrowTrans.translate(oldXpos, oldYpos);
+	arrowTrans.rotate(oldRot);
+	arrowTrans.translate(oldWidth, 0);
+	arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
+	if (NamedLStyle.isEmpty())
 	{
-		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex - 1).points.copy();
-		arrowTrans.translate(oldXpos, oldYpos);
-		arrowTrans.rotate(oldRot);
-		arrowTrans.translate(oldWidth, 0);
-		arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
-		if (NamedLStyle.isEmpty())
-		{
-			if (m_oldLineWidth != 0.0)
-				arrowTrans.scale(m_oldLineWidth, m_oldLineWidth);
-		}
-		else
-		{
-			const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
-			const SingleLine& sl = ml.last();
-			if (sl.Width != 0.0)
-				arrowTrans.scale(sl.Width, sl.Width);
-		}
-		arrow.map(arrowTrans);
-		FPoint minAr = getMinClipF(&arrow);
-		FPoint maxAr = getMaxClipF(&arrow);
-		arrowRect = QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
+		if (m_oldLineWidth != 0.0)
+			arrowTrans.scale(m_oldLineWidth, m_oldLineWidth);
 	}
-
-	return arrowRect;
+	else
+	{
+		const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
+		const SingleLine& sl = ml.last();
+		if (sl.Width != 0.0)
+			arrowTrans.scale(sl.Width, sl.Width);
+	}
+	arrow.map(arrowTrans);
+	FPoint minAr = getMinClipF(&arrow);
+	FPoint maxAr = getMaxClipF(&arrow);
+	return QRectF(QPointF(minAr.x(), minAr.y()), QPointF(maxAr.x(), maxAr.y()));
 }
 
 double PageItem_Line::visualXPos() const
