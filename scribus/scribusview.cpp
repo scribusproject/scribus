@@ -3270,29 +3270,27 @@ void ScribusView::setRulersShown(bool isShown)
 	setViewportMargins(newTopLeftMargin, newTopLeftMargin, 0, 0);
 }
 
-void ScribusView::setScale(const double newScale)
+void ScribusView::setScale(double newScale)
 {
-	double Scale=newScale;
-	double v=m_doc->opToolPrefs().magMin*Prefs->displayPrefs.displayScale/100.0;
-	if (Scale < v)
-		Scale=v;
-	double v2=m_doc->opToolPrefs().magMax*Prefs->displayPrefs.displayScale/100.0;
-	if (Scale > v2)
-		Scale=v2;
-	double v3=320*Prefs->displayPrefs.displayScale;
-	if (Scale > v3)
-		Scale=v3;
+	double canvasScale = newScale;
+	double v = m_doc->opToolPrefs().magMin * Prefs->displayPrefs.displayScale / 100.0;
+	if (canvasScale < v)
+		canvasScale = v;
+	double v2 = m_doc->opToolPrefs().magMax * Prefs->displayPrefs.displayScale / 100.0;
+	if (canvasScale > v2)
+		canvasScale = v2;
+	double v3 = 320 * Prefs->displayPrefs.displayScale;
+	if (canvasScale > v3)
+		canvasScale = v3;
 
-	m_canvas->setScale(Scale);
+	m_canvas->setScale(canvasScale);
 
-	m_ScMW->zoomSpinBox->blockSignals(true);
-	m_ScMW->zoomSpinBox->setValue(m_canvas->scale()/Prefs->displayPrefs.displayScale*100);
-	m_ScMW->zoomSpinBox->blockSignals(false);
+	bool sigBlocked = m_ScMW->zoomSpinBox->blockSignals(true);
+	m_ScMW->zoomSpinBox->setValue(m_canvas->scale() / Prefs->displayPrefs.displayScale * 100);
+	m_ScMW->zoomSpinBox->blockSignals(sigBlocked);
 
 	unitChange();
 }
-
-
 
 double ScribusView::scale() const
 {

@@ -198,7 +198,7 @@ public:
 							   Selection* customSelection = 0);
 	void endGroupTransaction();
 	void cancelGroupTransaction();
-	void setScale(const double newScale);
+	void setScale(double newScale);
 	double scale() const;
 
 	void changed(QRectF re, bool) override;
