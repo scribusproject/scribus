@@ -387,7 +387,7 @@ QRectF PageItem_Line::getStartArrowOldBoundingRect() const
 
 QRectF PageItem_Line::getEndArrowBoundingRect() const
 {
-	if (m_startArrowIndex == 0)
+	if (m_endArrowIndex == 0)
 		return QRectF();
 	QTransform arrowTrans;
 	FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex - 1).points.copy();
@@ -415,7 +415,7 @@ QRectF PageItem_Line::getEndArrowBoundingRect() const
 
 QRectF PageItem_Line::getEndArrowOldBoundingRect() const
 {
-	if (m_startArrowIndex == 0)
+	if (m_endArrowIndex == 0)
 		return QRectF();
 	QTransform arrowTrans;
 	FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex - 1).points.copy();
