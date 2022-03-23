@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include <QPixmap>
 #include <QPushButton>
+#include <QSignalBlocker>
 #include <QSlider>
 #include <QSpacerItem>
 #include <QSpacerItem>
@@ -645,55 +646,55 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	pixmapLabel1->setPixmap( Bild );
 
 	// signals and slots connections
-	connect( okButton, SIGNAL( clicked() ), this, SLOT( leaveOK() ) );
-	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( usedEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
-	connect( usedEffects, SIGNAL( itemDoubleClicked(QListWidgetItem*) ), this, SLOT( moveFromEffects() ) );
-	connect( availableEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffect(QListWidgetItem*) ) );
-	connect( availableEffects, SIGNAL( itemDoubleClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffectDbl(QListWidgetItem*) ) );
-	connect( toEffects, SIGNAL( clicked() ), this, SLOT( moveToEffects() ) );
-	connect( fromEffects, SIGNAL( clicked() ), this, SLOT( moveFromEffects() ) );
-	connect( effectUp, SIGNAL( clicked() ), this, SLOT( moveEffectUp() ) );
-	connect( effectDown, SIGNAL( clicked() ), this, SLOT( moveEffectDown() ) );
-	connect( colData, SIGNAL(activated(int)), this, SLOT( createPreview()));
-	connect( shade, SIGNAL(clicked()), this, SLOT(createPreview()));
-	connect( colData1, SIGNAL(activated(int)), this, SLOT( createPreview()));
-	connect( shade1, SIGNAL(clicked()), this, SLOT(createPreview()));
-	connect( colData2, SIGNAL(activated(int)), this, SLOT( createPreview()));
-	connect( shade2, SIGNAL(clicked()), this, SLOT(createPreview()));
-	connect( colDatat1, SIGNAL(activated(int)), this, SLOT( createPreview()));
-	connect( shadet1, SIGNAL(clicked()), this, SLOT(createPreview()));
-	connect( colDatat2, SIGNAL(activated(int)), this, SLOT( createPreview()));
-	connect( shadet2, SIGNAL(clicked()), this, SLOT(createPreview()));
-	connect( colDatat3, SIGNAL(activated(int)), this, SLOT( createPreview()));
-	connect( shadet3, SIGNAL(clicked()), this, SLOT(createPreview()));
-	connect( colDataq1, SIGNAL(activated(int)), this, SLOT( createPreview()));
-	connect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
-	connect( colDataq2, SIGNAL(activated(int)), this, SLOT( createPreview()));
-	connect( shadeq2, SIGNAL(clicked()), this, SLOT(createPreview()));
-	connect( colDataqc3, SIGNAL(activated(int)), this, SLOT( createPreview()));
-	connect( shadeqc3, SIGNAL(clicked()), this, SLOT(createPreview()));
-	connect( colDataq4, SIGNAL(activated(int)), this, SLOT( createPreview()));
-	connect( shadeq4, SIGNAL(clicked()), this, SLOT(createPreview()));
-	connect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
-	connect( brightnessSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
-	connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
-	connect( contrastSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
-	connect( shRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
-	connect( shValue, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
-	connect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
-	connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
-	connect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
-	connect( Kdisplay->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	connect( CurveD1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	connect( CurveD2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveQ1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveQ2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveQ4->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveQc3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	connect( CurveT1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	connect( CurveT2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	connect( CurveT3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-	connect( CurveQ1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-	connect( CurveQ2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-	connect( CurveQc3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-	connect( CurveQ4->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( Kdisplay->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( availableEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffect(QListWidgetItem*) ) );
+	connect( availableEffects, SIGNAL( itemDoubleClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffectDbl(QListWidgetItem*) ) );
+	connect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
+	connect( brightnessSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
+	connect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( colData, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( colData1, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( colData2, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( colDataq1, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( colDataq2, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( colDataq4, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( colDataqc3, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( colDatat1, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( colDatat2, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( colDatat3, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( contrastSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
+	connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
+	connect( effectDown, SIGNAL( clicked() ), this, SLOT( moveEffectDown() ) );
+	connect( effectUp, SIGNAL( clicked() ), this, SLOT( moveEffectUp() ) );
+	connect( fromEffects, SIGNAL( clicked() ), this, SLOT( moveFromEffects() ) );
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( leaveOK() ) );
+	connect( shRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
+	connect( shValue, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
+	connect( shade, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( shade1, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( shade2, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( shadeq2, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( shadeq4, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( shadeqc3, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( shadet1, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( shadet2, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( shadet3, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
+	connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
+	connect( toEffects, SIGNAL( clicked() ), this, SLOT( moveToEffects() ) );
+	connect( usedEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
+	connect( usedEffects, SIGNAL( itemDoubleClicked(QListWidgetItem*) ), this, SLOT( moveFromEffects() ) );
 	m_time.start();
 }
 
@@ -840,7 +841,7 @@ void EffectsDialog::selectAvailEffectDbl(QListWidgetItem* c)
 
 void EffectsDialog::moveToEffects()
 {
-	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
+	QSignalBlocker blocker(usedEffects);
 	usedEffects->addItem(availableEffects->currentItem()->text());
 	if (availableEffects->currentItem()->text() == tr("Invert"))
 		m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
@@ -904,13 +905,12 @@ void EffectsDialog::moveToEffects()
 		m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), "2 0.0 0.0 1.0 1.0 0");
 	usedEffects->setCurrentItem(usedEffects->item(usedEffects->count()-1));
 	selectEffect(usedEffects->item(usedEffects->count()-1));
-	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 	createPreview();
 }
 
 void EffectsDialog::moveFromEffects()
 {
-	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
+	QSignalBlocker blocker(usedEffects);
 	if ((usedEffects->currentItem()->text() == tr("Colorize")) || (usedEffects->currentItem()->text() == tr("Duotone")) || (usedEffects->currentItem()->text() == tr("Tritone")) || (usedEffects->currentItem()->text() == tr("Quadtone")))
 	{
 		setItemSelectable(availableEffects, 2, true);
@@ -930,9 +930,8 @@ void EffectsDialog::moveFromEffects()
 		toEffects->setEnabled(false);
 		selectEffectHelper();
 		optionStack->setCurrentIndex(0);
-		disconnect( availableEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffect(QListWidgetItem*) ) );
+		QSignalBlocker blocker2(availableEffects);
 		availableEffects->clearSelection();
-		connect( availableEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffect(QListWidgetItem*) ) );
 	}
 	else
 	{
@@ -946,7 +945,6 @@ void EffectsDialog::moveFromEffects()
 		effectDown->setEnabled(false);
 	}
 	createPreview();
-	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 }
 
 void EffectsDialog::moveEffectUp()
@@ -954,13 +952,12 @@ void EffectsDialog::moveEffectUp()
 	int curr = usedEffects->currentRow();
 	if (curr == 0)
 		return;
-	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
+	QSignalBlocker blocker(usedEffects);
 	QListWidgetItem *it = usedEffects->takeItem(curr);
 	usedEffects->insertItem(curr-1, it);
 	usedEffects->setCurrentItem(it);
 	selectEffect(usedEffects->currentItem());
 	createPreview();
-	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 }
 
 void EffectsDialog::moveEffectDown()
@@ -968,13 +965,12 @@ void EffectsDialog::moveEffectDown()
 	int curr = usedEffects->currentRow();
 	if (curr == static_cast<int>(usedEffects->count())-1)
 		return;
-	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
+	QSignalBlocker blocker(usedEffects);
 	QListWidgetItem *it = usedEffects->takeItem(curr);
 	usedEffects->insertItem(curr+1, it);
 	usedEffects->setCurrentItem(it);
 	selectEffect(usedEffects->currentItem());
 	createPreview();
-	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 }
 
 void EffectsDialog::selectEffect(QListWidgetItem* c)
@@ -1000,8 +996,8 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			optionStack->setCurrentIndex(0);
 		else if (c->text() == tr("Colorize"))
 		{
-			disconnect( colData, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			disconnect( shade, SIGNAL(clicked()), this, SLOT(createPreview()));
+			QSignalBlocker blocker(colData);
+			QSignalBlocker blocker2(shade);
 			QString tmpstr = m_effectValMap[c];
 			QString col;
 			int shading;
@@ -1012,17 +1008,16 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			setCurrentComboItem(colData, col);
 			shade->setValue(shading);
 			optionStack->setCurrentIndex(1);
-			connect( colData, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			connect( shade, SIGNAL(clicked()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Duotone"))
 		{
-			disconnect( colData1, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			disconnect( shade1, SIGNAL(clicked()), this, SLOT(createPreview()));
-			disconnect( colData2, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			disconnect( shade2, SIGNAL(clicked()), this, SLOT(createPreview()));
-			disconnect( CurveD1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			disconnect( CurveD2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			QSignalBlocker blocker1(colData1);
+			QSignalBlocker blocker2(colData2);
+			QSignalBlocker blocker3(shade1);
+			QSignalBlocker blocker4(shade2);
+			QSignalBlocker blocker5(CurveD1->cDisplay);
+			QSignalBlocker blocker6(CurveD2->cDisplay);
+
 			QString tmpstr = m_effectValMap[c];
 			QString col1, col2;
 			int shading1, shading2;
@@ -1065,24 +1060,19 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> lin;
 			CurveD2->setLinear(lin);
 			optionStack->setCurrentIndex(7);
-			connect( colData1, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			connect( shade1, SIGNAL(clicked()), this, SLOT(createPreview()));
-			connect( colData2, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			connect( shade2, SIGNAL(clicked()), this, SLOT(createPreview()));
-			connect( CurveD1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			connect( CurveD2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Tritone"))
 		{
-			disconnect( colDatat1, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			disconnect( shadet1, SIGNAL(clicked()), this, SLOT(createPreview()));
-			disconnect( colDatat2, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			disconnect( shadet2, SIGNAL(clicked()), this, SLOT(createPreview()));
-			disconnect( colDatat3, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			disconnect( shadet3, SIGNAL(clicked()), this, SLOT(createPreview()));
-			disconnect( CurveT1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			disconnect( CurveT2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			disconnect( CurveT3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			QSignalBlocker blocker1(colDatat1);
+			QSignalBlocker blocker2(colDatat2);
+			QSignalBlocker blocker3(colDatat3);
+			QSignalBlocker blocker4(shadet1);
+			QSignalBlocker blocker5(shadet2);
+			QSignalBlocker blocker6(shadet3);
+			QSignalBlocker blocker7(CurveT1->cDisplay);
+			QSignalBlocker blocker8(CurveT2->cDisplay);
+			QSignalBlocker blocker9(CurveT3->cDisplay);
+
 			QString tmpstr = m_effectValMap[c];
 			QString col1, col2, col3;
 			int shading1, shading2, shading3;
@@ -1142,30 +1132,22 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> lin;
 			CurveT3->setLinear(lin);
 			optionStack->setCurrentIndex(8);
-			connect( colDatat1, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			connect( shadet1, SIGNAL(clicked()), this, SLOT(createPreview()));
-			connect( colDatat2, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			connect( shadet2, SIGNAL(clicked()), this, SLOT(createPreview()));
-			connect( colDatat3, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			connect( shadet3, SIGNAL(clicked()), this, SLOT(createPreview()));
-			connect( CurveT1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			connect( CurveT2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			connect( CurveT3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Quadtone"))
 		{
-			disconnect( colDataq1, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			disconnect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
-			disconnect( colDataq2, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			disconnect( shadeq2, SIGNAL(clicked()), this, SLOT(createPreview()));
-			disconnect( colDataqc3, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			disconnect( shadeqc3, SIGNAL(clicked()), this, SLOT(createPreview()));
-			disconnect( colDataq4, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			disconnect( shadeq4, SIGNAL(clicked()), this, SLOT(createPreview()));
-			disconnect( CurveQ1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			disconnect( CurveQ2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			disconnect( CurveQc3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			disconnect( CurveQ4->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			QSignalBlocker blocker1(colDataq1);
+			QSignalBlocker blocker2(colDataq2);
+			QSignalBlocker blocker3(colDataqc3);
+			QSignalBlocker blocker4(colDataq4);
+			QSignalBlocker blocker5(shadeq1);
+			QSignalBlocker blocker6(shadeq2);
+			QSignalBlocker blocker7(shadeqc3);
+			QSignalBlocker blocker8(shadeq4);
+			QSignalBlocker blocker9(CurveQ1->cDisplay);
+			QSignalBlocker blocker10(CurveQ2->cDisplay);
+			QSignalBlocker blocker11(CurveQc3->cDisplay);
+			QSignalBlocker blocker12(CurveQ4->cDisplay);
+
 			QString tmpstr = m_effectValMap[c];
 			QString col1, col2, col3, col4;
 			int shading1, shading2, shading3, shading4;
@@ -1242,23 +1224,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> lin;
 			CurveQ4->setLinear(lin);
 			optionStack->setCurrentIndex(9);
-			connect( colDataq1, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			connect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
-			connect( colDataq2, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			connect( shadeq2, SIGNAL(clicked()), this, SLOT(createPreview()));
-			connect( colDataqc3, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			connect( shadeqc3, SIGNAL(clicked()), this, SLOT(createPreview()));
-			connect( colDataq4, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			connect( shadeq4, SIGNAL(clicked()), this, SLOT(createPreview()));
-			connect( CurveQ1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			connect( CurveQ2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			connect( CurveQc3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			connect( CurveQ4->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Brightness"))
 		{
-			disconnect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
-			disconnect( brightnessSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
+			QSignalBlocker blocker(brightnessSlider);
 			QString tmpstr = m_effectValMap[c];
 			int brightness;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
@@ -1268,13 +1237,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			tmp.setNum(brightness);
 			textLabel7->setText(tmp);
 			optionStack->setCurrentIndex(2);
-			connect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
-			connect( brightnessSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Contrast"))
 		{
-			disconnect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
-			disconnect( contrastSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
+			QSignalBlocker blocker(contrastSlider);
 			QString tmpstr = m_effectValMap[c];
 			int contrast;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
@@ -1284,13 +1250,11 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			tmp.setNum(contrast);
 			textLabel9->setText(tmp);
 			optionStack->setCurrentIndex(3);
-			connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
-			connect( contrastSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Sharpen"))
 		{
-			disconnect( shRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
-			disconnect( shValue, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
+			QSignalBlocker blocker1(shRadius);
+			QSignalBlocker blocker2(shValue);
 			QString tmpstr = m_effectValMap[c];
 			double radius, sigma;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
@@ -1301,12 +1265,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			shRadius->setValue(radius);
 			shValue->setValue(sigma);
 			optionStack->setCurrentIndex(4);
-			connect( shRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
-			connect( shValue, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Blur"))
 		{
-			disconnect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
+			QSignalBlocker blocker1(blRadius);
 			QString tmpstr = m_effectValMap[c];
 			double radius;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
@@ -1314,12 +1276,10 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			radius = ScCLocale::toDoubleC(s);
 			blRadius->setValue(radius);
 			optionStack->setCurrentIndex(5);
-			connect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Posterize"))
 		{
-			disconnect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
-			disconnect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
+			QSignalBlocker blocker1(solarizeSlider);
 			QString tmpstr = m_effectValMap[c];
 			int solarize;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
@@ -1329,12 +1289,11 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			tmp.setNum(solarize);
 			textLabel15->setText(tmp);
 			optionStack->setCurrentIndex(6);
-			connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
-			connect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
+
 		}
 		else if (c->text() == tr("Curves"))
 		{
-			disconnect( Kdisplay->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			QSignalBlocker blocker1(Kdisplay->cDisplay);
 			QString tmpstr = m_effectValMap[c];
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			int numVals;
@@ -1352,12 +1311,8 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			Kdisplay->cDisplay->setCurve(curve);
 			int lin;
 			fp >> lin;
-			if (lin == 1)
-				Kdisplay->setLinear(true);
-			else
-				Kdisplay->setLinear(false);
+			Kdisplay->setLinear(lin == 1);
 			optionStack->setCurrentIndex(10);
-			connect( Kdisplay->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 		}
 		else
 			optionStack->setCurrentIndex(0);
@@ -1365,9 +1320,8 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 	}
 	else
 		optionStack->setCurrentIndex(0);
-	disconnect( availableEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffect(QListWidgetItem*) ) );
+	QSignalBlocker blocker1(availableEffects);
 	availableEffects->clearSelection();
-	connect( availableEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffect(QListWidgetItem*) ) );
 }
 
 void EffectsDialog::selectAvailEffect(QListWidgetItem* c)
@@ -1382,12 +1336,11 @@ void EffectsDialog::selectAvailEffect(QListWidgetItem* c)
 	fromEffects->setEnabled(false);
 	effectUp->setEnabled(false);
 	effectDown->setEnabled(false);
-	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
+	QSignalBlocker blocker1(usedEffects);
 	selectEffectHelper();
 	currentOptions = nullptr;
 	usedEffects->clearSelection();
 	optionStack->setCurrentIndex(0);
-	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 }
 
 void EffectsDialog::selectEffectHelper(bool finalValues)
