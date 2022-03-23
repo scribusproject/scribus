@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QFont>
 #include <QFontInfo>
+#include <QFontDatabase>
 #include <QGridLayout>
 #include <QLabel>
 #include <QPixmap>
@@ -422,8 +423,7 @@ static QFontDatabase::WritingSystem writingSystemFromLocale()
 
 QFontDatabase::WritingSystem writingSystemForFont(const QFont &font, bool *hasLatin)
 {
-	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
-	QList<QFontDatabase::WritingSystem> writingSystems = fontDb.writingSystems(font.family());
+	QList<QFontDatabase::WritingSystem> writingSystems = QFontDatabase::writingSystems(font.family());
 
 	// this just confuses the algorithm below. Vietnamese is Latin with lots of special chars
 	writingSystems.removeOne(QFontDatabase::Vietnamese);
@@ -463,7 +463,6 @@ QFontDatabase::WritingSystem writingSystemForFont(const QFont &font, bool *hasLa
 
 const ScFace& getScFace(const QString& className, const QString& text)
 {
-	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
 	SCFonts& availableFonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
 
 	// Handle FontComboH class witch has only Family names in the combo class.
@@ -483,12 +482,12 @@ const ScFace& getScFace(const QString& className, const QString& text)
 		else if (styles.contains("Book"))
 			style = "Book";
 		const ScFace& fon = availableFonts.findFont(text, style);
-		if (!fontDb.families().contains(text))
+		if (!QFontDatabase::families().contains(text))
 			QFontDatabase::addApplicationFont(fon.fontFilePath());
 		return fon;
 	}
 	const ScFace& scFace = availableFonts.findFont(text);
-	if (!fontDb.families().contains(scFace.family()))
+	if (!QFontDatabase::families().contains(scFace.family()))
 		QFontDatabase::addApplicationFont(scFace.fontFilePath());
 	return scFace;
 }
@@ -516,7 +515,6 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 		return;
 	}
 
-	const QFontDatabase& fontDb = ScQApp->qtFontDatabase();
 	const ScFace& scFace = getScFace(this->parent()->metaObject()->className(), text);
 
 	QPixmap  pixmap(pixmapW, pixmapH);
@@ -537,7 +535,7 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	QFont font2 = option.font;
 	if (!scFace.isNone())
 	{
-		font2 = fontDb.font(scFace.family(), scFace.style(), QFontInfo(option.font).pointSize());
+		font2 = QFontDatabase::font(scFace.family(), scFace.style(), QFontInfo(option.font).pointSize());
 		font2.setPointSize(QFontInfo(font2).pointSize() * 3 / 2.0);
 	}
 
