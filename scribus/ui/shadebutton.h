@@ -13,18 +13,19 @@ for which a new license (GPL+exception) is in place.
 
 class SCRIBUS_API ShadeButton : public QToolButton
 {
+	Q_OBJECT
 
-Q_OBJECT
+	public:
+		ShadeButton(QWidget* parent);
+		~ShadeButton() {};
+		int getValue();
+		void setValue(int val);
 
-public:
-	ShadeButton(QWidget* parent);
-	~ShadeButton() {};
-	QMenu *FillSh;
-	int getValue();
-	void setValue(int val);
+	protected:
+		QMenu *FillSh;
 
-private slots:
-	virtual void setShade(QAction *act);
+	private slots:
+		virtual void setShade(QAction *act);
 };
 #endif
 

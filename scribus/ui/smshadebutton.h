@@ -15,7 +15,7 @@ class SMShadeButton  : public ShadeButton
 	Q_OBJECT
 public:
 	SMShadeButton(QWidget *parent);
-	~SMShadeButton() {};
+	~SMShadeButton() = default;
 
 	void setValue(int i);
 	void setValue(int i, bool isParentValue);
@@ -24,9 +24,9 @@ public:
 	bool useParentValue();
 
 private:
-	bool   m_hasParent = false;
-	bool   m_useParentValue = false;
-	int    m_pValue = 0;
+	bool m_hasParent { false };
+	bool m_useParentValue { false };
+	int  m_pValue { 0 };
 
 	QString useParentValueText() const;
 	void setFont(bool wantBold);

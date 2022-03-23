@@ -952,7 +952,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	double grabRadius = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x());
 	int MypS = static_cast<int>(mousePointDoc.y());
-	QRectF mpo(Mxp - grabRadius, Myp - grabRadius, grabRadius * 2, grabRadius * 2);
+	//QRectF mpo(Mxp - grabRadius, Myp - grabRadius, grabRadius * 2, grabRadius * 2);
 
 	m_doc->nodeEdit.deselect();
 	if (!m_doc->masterPageMode())

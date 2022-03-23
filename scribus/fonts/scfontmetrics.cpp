@@ -84,7 +84,7 @@ int setBestEncoding(FT_Face face)
 	for (int i = 0; i < face->num_charmaps; i++)
 	{
 		FT_CharMap charmap = face->charmaps[i];
-		qDebug() << "Checking cmap " << i << "(" << charmap->platform_id << "," << charmap->encoding_id << "," << FT_Get_CMap_Language_ID(charmap) << ") format " << FT_Get_CMap_Format(charmap);
+//		qDebug() << "Checking cmap " << i << "(" << charmap->platform_id << "," << charmap->encoding_id << "," << FT_Get_CMap_Language_ID(charmap) << ") format " << FT_Get_CMap_Format(charmap);
 		if (charmap->encoding == FT_ENCODING_UNICODE)
 		{
 			FT_Set_Charmap(face, face->charmaps[i]);
@@ -96,19 +96,19 @@ int setBestEncoding(FT_Face face)
 				countUnicode++;
 				charcode = FT_Get_Next_Char(face, charcode, &gindex);
 			}
-			qDebug() << "found Unicode enc for" << face->family_name << face->style_name  << "as map" << chmapUnicode << "with" << countUnicode << "glyphs";
+//			qDebug() << "found Unicode enc for" << face->family_name << face->style_name  << "as map" << chmapUnicode << "with" << countUnicode << "glyphs";
 		}
 		if (charmap->encoding == FT_ENCODING_ADOBE_CUSTOM)
 		{
 			chmapCustom = i;
 			foundEncoding = true;
 			retVal = 1;
-			qDebug() << "found Custom enc for" << face->family_name << face->style_name;
+//			qDebug() << "found Custom enc for" << face->family_name << face->style_name;
 			break;
 		}
 		if (charmap->encoding == FT_ENCODING_MS_SYMBOL)
 		{
-			qDebug() << "found Symbol enc for" << face->family_name << face->style_name;
+//			qDebug() << "found Symbol enc for" << face->family_name << face->style_name;
 
 			chmapCustom = i;
 			foundEncoding = true;
@@ -119,19 +119,19 @@ int setBestEncoding(FT_Face face)
 	int mapToSet = defaultchmap;
 	if (chmapUnicode >= 0 && countUnicode >= face->num_glyphs-1)
 	{
-		qDebug() << "using Unicode enc for" << face->family_name << face->style_name;
+//		qDebug() << "using Unicode enc for" << face->family_name << face->style_name;
 		mapToSet = chmapUnicode;
 		retVal = 0;
 	}
 	else if (foundEncoding)
 	{
-		qDebug() << "using special enc for" << face->family_name << face->style_name;
+//		qDebug() << "using special enc for" << face->family_name << face->style_name;
 		mapToSet = chmapCustom;
 	}
 	else
 	{
-		qDebug() << "using default enc for" << face->family_name << face->style_name;
-		mapToSet = defaultchmap;
+//		qDebug() << "using default enc for" << face->family_name << face->style_name;
+//		mapToSet = defaultchmap;
 		retVal = 0;
 	}
 

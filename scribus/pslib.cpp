@@ -5,11 +5,11 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          pslib.cpp  -  description
-                             -------------------
-    begin                : Sat May 26 2001
-    copyright            : (C) 2001 by Franz Schmid
-    email                : Franz.Schmid@altmuehlnet.de
+						  pslib.cpp  -  description
+							 -------------------
+	begin                : Sat May 26 2001
+	copyright            : (C) 2001 by Franz Schmid
+	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -69,7 +69,6 @@ class PSPainter:public TextLayoutPainter
 {
 	public:
 	PSPainter(ScribusDoc* Doc, uint argh, ScPage* page, bool master, PSLib* ps):
-		m_Doc(Doc),
 		m_argh(argh),
 		m_page(page),
 		m_master(master),
@@ -83,7 +82,6 @@ class PSPainter:public TextLayoutPainter
 	void drawObject(PageItem* item) override;
 
 	private:
-		ScribusDoc* m_Doc {nullptr};
 		uint m_argh;
 		ScPage* m_page {nullptr};
 		bool m_master;
@@ -450,7 +448,7 @@ bool PSLib::PutInterleavedImageMaskToStream(const QByteArray& image, const QByte
 
 	ScASCII85EncodeFilter asciiEncode(&spoolStream);
 	ScFlateEncodeFilter   flateEncode(&asciiEncode);
-	if (!flateEncode.openFilter()) 
+	if (!flateEncode.openFilter())
 		return false;
 
 	for (int i = 0; i < pixels; ++i)
@@ -643,7 +641,7 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 		grayCalc += "              oldsetgray} bind def\n";
 		PutStream(grayCalc);
 	}
-		
+
 	Optimization optim = m_optimization;
 	m_optimization = OptimizeSize;
 	QStringList patterns = m_Doc->getPatternDependencyList(m_Doc->getUsedPatterns());
@@ -746,7 +744,7 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 			}
 			if (errorOccured) break;
 		}
-	}	
+	}
 	PutStream("%%EndSetup\n");
 
 	return (!errorOccured);
@@ -805,7 +803,7 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool clipping)
 	}
 	PutStream("Scribusdict begin\n");
 	if ((m_outputFormat == OutputPS) && (Options.setDevParam))
-  	{
+	{
 		if (pg->orientation() == 0)
 			PutStream("<< /PageSize [ " + ToStr(maxBoxX) + " " + ToStr(maxBoxY) + " ]\n");
 		else
@@ -890,7 +888,7 @@ void PSLib::PS_end_page()
 			PutStream(ToStr(maxBoxX - markDelta) + " " + ToStr(maxBoxY - Options.bleeds.top() - markOffs) + " m\n");
 			PutStream(ToStr(maxBoxX - markDelta - Options.markLength) + " " + ToStr(maxBoxY - Options.bleeds.top() - markOffs) + " li\n");
 			PutStream("st\n");
- 			PutStream(ToStr(maxBoxX - bleedRight - markOffs) + " " +  ToStr(maxBoxY - markDelta) + " m\n");
+			PutStream(ToStr(maxBoxX - bleedRight - markOffs) + " " +  ToStr(maxBoxY - markDelta) + " m\n");
 			PutStream(ToStr(maxBoxX - bleedRight - markOffs) + " " +  ToStr(maxBoxY - markDelta - Options.markLength)  + " li\n");
 			PutStream("st\n");
 		}
@@ -1706,7 +1704,7 @@ int PSLib::createPS(const QString& outputFileName)
 		}
 		errorOccured = !PS_begin_doc(0.0, 0.0, maxWidth, maxHeight, pageNs.size() * pagemult);
 	}
-	
+
 	sepac = 0;
 	uint aa = 0;
 	uint a;
@@ -1799,7 +1797,7 @@ int PSLib::createPS(const QString& outputFileName)
 		return 1;
 	if (abortExport)
 		return 2; //CB Lets leave 1 for general error condition
-	return 0; 
+	return 0;
 }
 
 bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, bool embedded, bool useTemplate)

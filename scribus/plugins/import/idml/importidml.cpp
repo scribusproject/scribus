@@ -3065,7 +3065,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		item->itemText.insertChars(posC, data);
 		item->itemText.applyStyle(posC, newStyle);
 		item->itemText.applyCharStyle(posC, data.length(), nstyle);
-		posC = item->itemText.length();
+//		posC = item->itemText.length();
 	}
 }
 

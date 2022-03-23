@@ -314,7 +314,6 @@ PdfPlug::~PdfPlug()
 bool PdfPlug::convert(const QString& fn)
 {
 	bool firstPg = true;
-	int currentLayer = m_Doc->activeLayer();
 	int baseLayer = m_Doc->activeLayer();
 	m_importedColors.clear();
 	if (m_progressDialog)
@@ -514,6 +513,7 @@ bool PdfPlug::convert(const QString& fn)
 					if (ocg && ocg->hasOCGs())
 					{
 						QString actL(m_Doc->activeLayerName());
+						int currentLayer;
 						for (int i = 0; i < ocgGroups.count(); i++)
 						{
 							OptionalContentGroup *oc = ocgGroups[i];

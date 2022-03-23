@@ -3084,7 +3084,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, const QRectF& cullingArea)
 		SetQColor(&fontColor, itemText.defaultStyle().charStyle().fillColor(), itemText.defaultStyle().charStyle().fillShade());
 		double fontSize = itemText.defaultStyle().charStyle().fontSize() / 10.0;
 		ScFace font = itemText.defaultStyle().charStyle().font();
-		QString bmUtf16("");
+		QString bmUtf16;
 		QString cc;
 		if (!((itemText.length() == 1) && (itemText.text(0, 1) == QChar(13))))
 		{

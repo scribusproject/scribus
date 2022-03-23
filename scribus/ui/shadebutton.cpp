@@ -14,8 +14,8 @@ ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent)
 	size_t array = sizeof(tmp) / sizeof(*tmp);
 	FillSh = new QMenu();
 	FillSh->addAction( tr("Other..."))->setCheckable(true);
-	for (uint a = 0; a < array; ++a)
-		FillSh->addAction(tmp[a])->setCheckable(true);
+	for (uint i = 0; i < array; ++i)
+		FillSh->addAction(tmp[i])->setCheckable(true);
 	setMenu(FillSh);
 	setPopupMode(QToolButton::InstantPopup);
 	setText("100 %");
@@ -25,30 +25,24 @@ ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent)
 
 void ShadeButton::setShade(QAction *act)
 {
-	bool ok = false;
-	int a;
-	int c;
-	int b = 100;
-	for (a = 0; a < FillSh->actions().count(); ++a)
-	{
-		FillSh->actions().at(a)->setChecked(false);
-	}
+	for (int i = 0; i < FillSh->actions().count(); ++i)
+		FillSh->actions().at(i)->setChecked(false);
 	act->setChecked(true);
 	QList<QAction*> actList = FillSh->actions();
-	c = actList.indexOf(act);
+	int b = 100;
+	int c = actList.indexOf(act);
 	if (c < 0)
 		return;
 	if (c > 0)
 		b = (c-1) * 10;
-
 	if (b > 100)
 		return; // no need for > 100%, fix needed by SM, Riku
-	
 	if (c == 0)
 	{
 		Query dia(this, "New", 1, tr("&Shade:"), tr("Shade"));
 		if (dia.exec())
 		{
+			bool ok = false;
 			c = dia.getEditText().toInt(&ok);
 			if (ok)
 				b = qMax(qMin(c, 100),0);
@@ -65,17 +59,15 @@ void ShadeButton::setShade(QAction *act)
 int ShadeButton::getValue()
 {
 	int l = text().length();
-	QString tx = text().remove(l-2,2);
+	QString tx(text().remove(l-2, 2));
 	return tx.toInt();
 }
 
 void ShadeButton::setValue(int val)
 {
 	QList<QAction*> fillActions = FillSh->actions();
-	for (int a = 0; a < fillActions.count(); ++a)
-	{
-		fillActions[a]->setChecked(false);
-	}
+	for (int i = 0; i < fillActions.count(); ++i)
+		fillActions[i]->setChecked(false);
 	if ((val % 10) == 0)
 		fillActions[val / 10 + 1]->setChecked(true);
 	else

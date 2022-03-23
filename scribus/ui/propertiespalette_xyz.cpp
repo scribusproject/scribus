@@ -652,20 +652,14 @@ void PropertiesPalette_XYZ::handleNewX()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	double x, y, gx, gy, gh, gw, base;
 	QTransform ma;
-	x = xposSpin->value() / m_unitRatio;
-	y = yposSpin->value() / m_unitRatio;
-	base = 0;
-	x += m_doc->rulerXoffset;
-	y += m_doc->rulerYoffset;
+	double x = (xposSpin->value() / m_unitRatio) + m_doc->rulerXoffset;
+	double base = 0.0;
 	if (m_doc->guidesPrefs().rulerMode)
-	{
 		x += m_doc->currentPage()->xOffset();
-		y += m_doc->currentPage()->yOffset();
-	}
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
+		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		int bp = basePointWidget->checkedId();
 		if ((bp == 0) || (bp == 3))
@@ -722,20 +716,14 @@ void PropertiesPalette_XYZ::handleNewY()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	double x, y, gx, gy, gh, gw, base;
 	QTransform ma;
-	x = xposSpin->value() / m_unitRatio;
-	y = yposSpin->value() / m_unitRatio;
-	base = 0;
-	x += m_doc->rulerXoffset;
-	y += m_doc->rulerYoffset;
+	double y = (yposSpin->value() / m_unitRatio) + m_doc->rulerYoffset;
+	double base = 0;
 	if (m_doc->guidesPrefs().rulerMode)
-	{
-		x += m_doc->currentPage()->xOffset();
 		y += m_doc->currentPage()->yOffset();
-	}
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
+		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		int bp = basePointWidget->checkedId();
 		if ((bp == 0) || (bp == 1))
@@ -792,15 +780,15 @@ void PropertiesPalette_XYZ::handleNewW()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	
-	double x, y, w, h, gx, gy, gh, gw;
-	x = xposSpin->value() / m_unitRatio;
-	y = yposSpin->value() / m_unitRatio;
-	w = widthSpin->value() / m_unitRatio;
-	h = heightSpin->value() / m_unitRatio;
+	double x = xposSpin->value() / m_unitRatio;
+	double y = yposSpin->value() / m_unitRatio;
+	double w = widthSpin->value() / m_unitRatio;
+	double h = heightSpin->value() / m_unitRatio;
 	double oldW = (m_item->width()  != 0.0) ? m_item->width()  : 1.0;
 	double oldH = (m_item->height() != 0.0) ? m_item->height() : 1.0;
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
+		double gx, gy, gh, gw;
 		if (!m_userActionOn)
 			m_ScMW->view->startGroupTransaction();
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -874,15 +862,15 @@ void PropertiesPalette_XYZ::handleNewH()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	double x,y,w,h, gx, gy, gh, gw;
-	x = xposSpin->value() / m_unitRatio;
-	y = yposSpin->value() / m_unitRatio;
-	w = widthSpin->value() / m_unitRatio;
-	h = heightSpin->value() / m_unitRatio;
+	double x = xposSpin->value() / m_unitRatio;
+	double y = yposSpin->value() / m_unitRatio;
+	double w = widthSpin->value() / m_unitRatio;
+	double h = heightSpin->value() / m_unitRatio;
 	double oldW = (m_item->width()  != 0.0) ? m_item->width()  : 1.0;
 	double oldH = (m_item->height() != 0.0) ? m_item->height() : 1.0;
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
+		double gx, gy, gh, gw;
 		if (!m_userActionOn)
 			m_ScMW->view->startGroupTransaction();
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -955,13 +943,13 @@ void PropertiesPalette_XYZ::handleRotation()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	double gx, gy, gh, gw;
 	if (m_haveDoc && m_haveItem)
 	{
 		if (!m_userActionOn)
 			m_ScMW->view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
 		if (m_doc->m_Selection->isMultipleSelection())
 		{
+			double gx, gy, gh, gw;
 			m_doc->rotateGroup((rotationSpin->value() - m_oldRotation)*(-1), m_ScMW->view->RCenter);
 			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			showXY(gx, gy);
@@ -1016,15 +1004,16 @@ void PropertiesPalette_XYZ::handleBasePoint(int m)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	double inX, inY, gx, gy, gh, gw;
-	inX = 0;
-	inY = 0;
+
+	double inX = 0;
+	double inY = 0;
 	if (m_haveDoc && m_haveItem)
 	{
 		m_haveItem = false;
 		m_doc->setRotationMode(m);
 		if (m_doc->m_Selection->isMultipleSelection())
 		{
+			double gx, gy, gh, gw;
 			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			if (m == 0)
 			{
@@ -1068,12 +1057,11 @@ void PropertiesPalette_XYZ::handleBasePoint(int m)
 		}
 		else
 		{
-			double b, h, r;
 			QTransform ma;
 			FPoint n;
-			b = m_item->width();
-			h = m_item->height();
-			r = m_item->rotation();
+			double b = m_item->width();
+			double h = m_item->height();
+			double r = m_item->rotation();
 			ma.translate(m_item->xPos(), m_item->yPos());
 			ma.rotate(r);
 			int bp = basePointWidget->checkedId();

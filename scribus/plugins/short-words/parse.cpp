@@ -40,6 +40,10 @@ SWParse::SWParse()
 
 void SWParse::parseItem(PageItem *aFrame)
 {
+	// just textframes processed
+	if (!aFrame->isTextFrame())
+		return;
+
 	// the content of the frame - text itself
 	QString content;
 	int changes = 0;
@@ -51,10 +55,6 @@ void SWParse::parseItem(PageItem *aFrame)
 	QRegularExpression rx(" ");
 	// cfg
 	SWConfig *cfg = new SWConfig();
-
-	// just textframes processed
-	if (!aFrame->isTextFrame())
-		return;
 
 	// an ugly hack to get the language code from the item language property
 	if (lang.isEmpty())

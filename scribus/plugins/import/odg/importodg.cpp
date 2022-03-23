@@ -3504,13 +3504,13 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 		else
 			gap = dStyle.stroke_dash_distance;
 		int dots1 = dStyle.stroke_dash_dots1;
-		double dots1len = item->lineWidth();
+		double dots1len;
 		if (dStyle.stroke_dash_dots1_length < 0)
 			dots1len = item->lineWidth();
 		else
 			dots1len = dStyle.stroke_dash_dots1_length;
 		int dots2 = dStyle.stroke_dash_dots2;
-		double dots2len = item->lineWidth();
+		double dots2len;
 		if (dStyle.stroke_dash_dots2_length < 0)
 			dots2len = item->lineWidth();
 		else

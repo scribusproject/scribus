@@ -224,15 +224,13 @@ void PdbIm::uncompress( buffer *m_buf )
 		}
 		else
 		{
-			int di, n;
 			unsigned int temp_c = c;
 			// c--> temp_c //tomy 2001.11.13 
 			temp_c = (temp_c << 8) ;
 			temp_c = temp_c + m_buf->buf[ i++ ];
-			di = (temp_c & 0x3FFF) >> COUNT_BITS;
-			for (n = (temp_c & ((1 << COUNT_BITS) - 1)) + 3; n-- && j < BUFFER_SIZE; ++j )
+			int di = (temp_c & 0x3FFF) >> COUNT_BITS;
+			for (int n = (temp_c & ((1 << COUNT_BITS) - 1)) + 3; n-- && j < BUFFER_SIZE; ++j )
 				m_new_buf->buf[ j ] = m_new_buf->buf[ j - di ];
-			temp_c = 0;
 		}
 	}
 	//UT_ASSERT(j <= BUFFER_SIZE);

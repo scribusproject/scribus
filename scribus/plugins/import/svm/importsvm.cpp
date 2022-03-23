@@ -710,7 +710,7 @@ bool SvmPlug::convert(const QString& fn)
 		if (magic != "VCLMTF")
 			return false;
 		recordCount = 0;
-		qint64 posi = ds.device()->pos();
+		qint64 posi;
 		SvmHeader head;
 		ds >> head.versionCompat.version;
 		ds >> head.versionCompat.length;
