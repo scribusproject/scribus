@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStyleOptionRubberBand>
 #include <QWidgetAction>
 
+#include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <utility>
@@ -3166,8 +3167,8 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 	}
 	else
 	{
-		int signOfX = (angleDelta.x() == 0) ? 0 : ((angleDelta.x() < 0) ? -1 : 1);
-		int signOfY = (angleDelta.y() == 0) ? 0 : ((angleDelta.y() < 0) ? -1 : 1);
+		int signOfX = (angleDelta.x() == 0) ? 0 : std::copysign(1.0, angleDelta.x());
+		int signOfY = (angleDelta.y() == 0) ? 0 : std::copysign(1.0, angleDelta.y());
 		int dX = -Prefs->uiPrefs.wheelJump * signOfX;
 		int dY = -Prefs->uiPrefs.wheelJump * signOfY;
 #ifndef Q_OS_MACOS
