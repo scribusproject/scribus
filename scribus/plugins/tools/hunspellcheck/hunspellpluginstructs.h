@@ -4,7 +4,8 @@
 #include <QString>
 #include <QStringList>
 
-struct WordsFound {
+struct WordsFound
+{
 	int start;
 	int end;
 	QString w;

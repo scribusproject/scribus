@@ -40,23 +40,19 @@ HunspellDict::~HunspellDict()
 int HunspellDict::spell(const QString& word)
 {
 	if (m_hunspell)
-		return m_hunspell->spell(word.toStdString());
+		return m_hunspell->spell(m_codec->fromUnicode(word).toStdString());
 	return -1;
 }
 
 QStringList HunspellDict::suggest(const QString& word)
 {
 	QStringList replacements;
-	std::vector<std::string> suggestions = m_hunspell->suggest(word.toStdString());
+	std::vector<std::string> suggestions = m_hunspell->suggest(m_codec->fromUnicode(word).toStdString());
 	replacements.reserve(suggestions.size());
 	for(size_t i = 0, l = suggestions.size(); i < l; ++i)
 		replacements << QString::fromStdString(suggestions[i]);
-
-	//	char **sugglist = nullptr;
-//	int suggCount = m_hunspell->suggest(&sugglist, m_codec->fromUnicode(word).constData());
-//	for (int j = 0; j < suggCount; ++j)
-//		replacements << m_codec->toUnicode(sugglist[j]);
-//	m_hunspell->free_list(&sugglist, suggCount);
+//	ugly but works
+//	std::transform(suggestions.begin(), suggestions.end(), std::back_inserter(replacements), [](const std::string& s) -> QString { return QString::fromStdString(s); });
 
 	return replacements;
 }
