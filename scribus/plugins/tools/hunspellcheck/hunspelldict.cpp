@@ -36,27 +36,6 @@ HunspellDict::~HunspellDict()
 	m_hunspell = nullptr;
 }
 
-#ifndef HUNSPELL_NEWAPI
-int HunspellDict::spell(const QString& word)
-{
-	if (m_hunspell)
-		return m_hunspell->spell(m_codec->fromUnicode(word).constData());
-	return -1;
-}
-
-QStringList HunspellDict::suggest(const QString& word)
-{
-	char **sugglist = nullptr;
-	QStringList replacements;
-
-	int suggCount = m_hunspell->suggest(&sugglist, m_codec->fromUnicode(word).constData());
-	for (int j = 0; j < suggCount; ++j)
-		replacements << m_codec->toUnicode(sugglist[j]);
-	m_hunspell->free_list(&sugglist, suggCount);
-
-	return replacements;
-}
-#else
 int HunspellDict::spell(const QString& word)
 {
 	if (!m_hunspell)
@@ -77,4 +56,3 @@ QStringList HunspellDict::suggest(const QString& word)
 		replacements << m_codec->toUnicode(QByteArray::fromStdString(sugglist[i]));
 	return replacements;
 }
-#endif

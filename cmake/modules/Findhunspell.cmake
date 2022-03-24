@@ -27,11 +27,20 @@ find_library(hunspell_LIBRARIES
 
 string(REGEX MATCH "1\.([1-9])\.." hunspell_MATCH ${hunspell_VERSION})
 #set(hunspell_MINOR_VERSION ${CMAKE_MATCH_1})
-if(CMAKE_MATCH_1 GREATER 4)
+if(NOT hunspell_FIND_QUIETLY)
 	set(hunspell_NEWAPI ON)
 	message(STATUS "New hunspell API found. hunspell version ${hunspell_VERSION}")
 	message(STATUS "hunspell INCLUDE ${hunspell_INCLUDE_DIRS}")
 	message(STATUS "hunspell LIBRARIES ${hunspell_LIBRARIES}")
 endif()
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(hunspell
+	FOUND_VAR hunspell_FOUND
+	REQUIRED_VARS
+	    hunspell_LIBRARIES
+		hunspell_INCLUDE_DIRS
+	VERSION_VAR hunspell_VERSION
+)
 
 mark_as_advanced(hunspell_INCLUDE_DIR hunspell_LIBRARIES)

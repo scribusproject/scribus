@@ -173,7 +173,7 @@ endif()
 #>>FontConfig
 
 #<<HUNSPELL for Spelling support
-find_package(hunspell REQUIRED)
+find_package(hunspell 1.6 QUIET REQUIRED)
 if (hunspell_FOUND)
 	message("hunspell Found OK ${hunspell_VERSION}")
 	set(HAVE_HUNSPELL ON)
