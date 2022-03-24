@@ -145,9 +145,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	setWidgetResizable(false);
 	m_canvasMode = CanvasMode::createForAppMode(this, m_doc->appMode);
 	setWidget(m_canvas);
-	//already done by QScrollArea: widget()->installEventFilter(this);
+	// already done by QScrollArea: widget()->installEventFilter(this)
 	installEventFilter(this); // FIXME:av
-	//	viewport()->setBackgroundMode(Qt::PaletteBackground);
 	setFocusPolicy(Qt::ClickFocus);
 	QFont fo = QFont(font());
 	// #8058: Better not use too small font size on Windows
@@ -426,8 +425,6 @@ void ScribusView::stopGesture()
 		if (PrefsManager::instance().appPrefs.uiPrefs.stickyTools)
 		{
 			m_canvas->setForcedRedraw(true);
-			//			Doc->m_Selection->clear();
-			//			emit HaveSel();
 			m_canvas->resetRenderMode();
 			updateContents();
 		}
@@ -574,11 +571,6 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 		dragH = gh;
 		DraggedGroup = true;
 		getDragRectScreen(&gx, &gy, &gw, &gh);
-		//		QPoint evP = viewport()->mapToGlobal(e->pos());
-		//		evP -= QPoint(contentsX(), contentsY());
-		//		redrawMarker->setGeometry(QRect(evP.x() + 1, evP.y() + 1, qRound(gw), qRound(gh)).normalized());
-		//		if (!redrawMarker->isVisible())
-		//			redrawMarker->show();
 		emit ItemGeom();
 	}
 }
@@ -593,48 +585,15 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 		text = e->mimeData()->text();
 		if (DraggedGroup)
 		{
-			//			double gx, gy, gw, gh;
 			FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->position()));
 			dragX = dragPosDoc.x();
 			dragY = dragPosDoc.y();
-			//			getDragRectScreen(&gx, &gy, &gw, &gh);
-			//			QPoint evP = viewport()->mapToGlobal(e->pos());
-			//			evP -= QPoint(contentsX(), contentsY());
-			//			redrawMarker->setGeometry(QRect(evP.x() + 2, evP.y() + 2, qRound(gw - 2), qRound(gh - 2)).normalized());
-			//			if (!redrawMarker->isVisible())
-			//				redrawMarker->show();
-			emit MousePos(dragX, dragY); //+Doc->minCanvasCoordinate.x(), dragY+Doc->minCanvasCoordinate.y());
+			emit MousePos(dragX, dragY);
 			QPoint pos = m_canvas->canvasToLocal(dragPosDoc);
 			horizRuler->draw(pos.x());
 			vertRuler->draw(pos.y());
 			//			return;
 		}
-		/*		QUrl ur(text);
-		QFileInfo fi = QFileInfo(ur.toLocalFile());
-		QString ext = fi.extension(false).toUpper();
-		QStrList imfo = QImageIO::inputFormats();
-		if (ext == "JPG")
-			ext = "JPEG";
-		img = ((imfo.contains(ext))||(ext=="PS")||(ext=="EPS")||(ext=="TIF"));
-		if (!SeleItemPos(e->pos()))
-		{
-			if (SelItem.count() != 0)
-				Deselect(true);
-		}
-		else
-		{
-			item = SelItem.at(0);
-			if (img)
-			{
-				if (item->PType != 2)
-					Deselect(true);
-			}
-			else
-			{
-				if (item->PType != 4)
-					Deselect(true);
-			}
-		} */
 	}
 }
 
@@ -644,7 +603,6 @@ void ScribusView::contentsDragLeaveEvent(QDragLeaveEvent *)
 	{
 		DraggedGroup = false;
 		m_canvas->resetRenderMode();
-		//		redrawMarker->hide();
 		updateContents();
 	}
 }
@@ -1262,7 +1220,6 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 void ScribusView::getDragRectScreen(double *x, double *y, double *w, double *h)
 {
 	QPoint in(qRound(dragX * m_canvas->scale()), qRound(dragY * m_canvas->scale()));
-	//	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	QPoint out = contentsToViewport(in);
 	*x = static_cast<double>(out.x());
 	*y = static_cast<double>(out.y());
@@ -1275,7 +1232,6 @@ void ScribusView::getGroupRectScreen(double *x, double *y, double *w, double *h)
 	double gx, gy, gh, gw;
 	m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 	QPoint in(qRound(gx * m_canvas->scale()), qRound(gy * m_canvas->scale()));
-	//	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	QPoint out = contentsToViewport(in);
 	*x = static_cast<double>(out.x());
 	*y = static_cast<double>(out.y());
@@ -1308,48 +1264,48 @@ void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
 
 
 //CB-->elsewhere, util, however, only used in the view for now
-bool ScribusView::PointOnLine(QPoint Start, QPoint End, QRect MArea)
+bool ScribusView::PointOnLine(QPoint start, QPoint end, QRect mArea)
 {
 	QPoint an, en;
-	if (Start.x() == End.x())
+	if (start.x() == end.x())
 	{
-		an = Start.y() > End.y() ? End : Start;
-		en = an == End ? Start : End;
+		an = start.y() > end.y() ? end : start;
+		en = an == end ? start : end;
 		for (int i = an.y(); i < en.y(); ++i)
 		{
-			if (MArea.contains(an.x(), i))
+			if (mArea.contains(an.x(), i))
 				return true;
 		}
 	}
-	if (Start.y() == End.y())
+	if (start.y() == end.y())
 	{
-		an = Start.x() > End.x() ? End : Start;
-		en = an == End ? Start : End;
+		an = start.x() > end.x() ? end : start;
+		en = an == end ? start : end;
 		for (int i = an.x(); i < en.x(); ++i)
 		{
-			if (MArea.contains(i, an.y()))
+			if (mArea.contains(i, an.y()))
 				return true;
 		}
 	}
-	if (abs(Start.x() - End.x()) > abs(Start.y() - End.y()))
+	if (abs(start.x() - end.x()) > abs(start.y() - end.y()))
 	{
-		an = Start.x() > End.x() ? End : Start;
-		en = an == End ? Start : End;
+		an = start.x() > end.x() ? end : start;
+		en = an == end ? start : end;
 		double stg = (en.y() - an.y()) / static_cast<double>((en.x() - an.x()));
 		for (int i = an.x(); i < en.x(); ++i)
 		{
-			if (MArea.contains(i, an.y() + qRound((i - an.x()) * stg)))
+			if (mArea.contains(i, an.y() + qRound((i - an.x()) * stg)))
 				return true;
 		}
 	}
 	else
 	{
-		an = Start.y() > End.y() ? End : Start;
-		en = an == End ? Start : End;
+		an = start.y() > end.y() ? end : start;
+		en = an == end ? start : end;
 		double stg = (en.x() - an.x()) / static_cast<double>((en.y() - an.y()));
 		for (int i = an.y(); i < en.y(); ++i)
 		{
-			if (MArea.contains(an.x() + qRound((i - an.y()) * stg), i))
+			if (mArea.contains(an.x() + qRound((i - an.y()) * stg), i))
 				return true;
 		}
 	}
@@ -1868,7 +1824,7 @@ void ScribusView::resizeEvent ( QResizeEvent * event )
 	endEditButton->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - endEditButton->minimumSizeHint().height() - 1, endEditButton->minimumSizeHint().width(), endEditButton->minimumSizeHint().height());
 	m_canvas->setForcedRedraw(true);
 	m_canvas->resetRenderMode();
-	// Per Qt doc, not painting should be done in a resizeEvent,
+	// Per Qt doc, no painting should be done in a resizeEvent,
 	// a paint event will be emitted right afterwards
 	// m_canvas->update();
 }
@@ -2013,7 +1969,6 @@ void ScribusView::setRulerPos(int x, int y)
 			int ws = static_cast<int>(m_doc->Pages->at(i)->width() * m_canvas->scale());
 			int hs = static_cast<int>(m_doc->Pages->at(i)->height() * m_canvas->scale());
 			QRect drawRect(x, y, visibleWidth(), visibleHeight());
-			//			drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(-Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 			if (drawRect.intersects(QRect(xs, ys, ws, hs)))
 				pag.append(i+1);
 		}
@@ -2186,7 +2141,8 @@ void ScribusView::slotZoom100()
 	int zoomY = qRound(y + h / 2);
 	rememberOldZoomLocation(zoomX, zoomY);
 
-	int zoomPointX(m_oldZoomX), zoomPointY(m_oldZoomY);
+	int zoomPointX(m_oldZoomX);
+	int zoomPointY(m_oldZoomY);
 	if (m_doc->m_Selection->count() != 0)
 	{
 		QRectF selRect = m_doc->m_Selection->getVisualGroupRect();
@@ -2195,7 +2151,7 @@ void ScribusView::slotZoom100()
 	}
 	else if (m_doc->currentPage() != nullptr)
 	{
-		ScPage* currentPage = m_doc->currentPage();
+		const ScPage* currentPage = m_doc->currentPage();
 		zoomPointX = qRound(currentPage->xOffset() + currentPage->width() / 2.0);
 		zoomPointY = qRound(currentPage->yOffset() + currentPage->height() / 2.0);
 	}
@@ -3140,17 +3096,17 @@ void ScribusView::TextToPath()
 		gItem->gXpos = currItem->gXpos;
 		gItem->gYpos = currItem->gYpos;
 		if (currItem->isGroupChild())
-			currItem->parentGroup()->groupItemList.insert(ind+1, gItem);
+			currItem->parentGroup()->groupItemList.insert(ind + 1, gItem);
 		else
-			m_doc->Items->insert(ind+1, gItem);
+			m_doc->Items->insert(ind + 1, gItem);
 	}
 	else if (newGroupedItems.count() > 0)
 	{
 		newGroupedItems.at(0)->Parent = currItem->Parent;
 		if (currItem->isGroupChild())
-			currItem->parentGroup()->groupItemList.insert(ind+1, newGroupedItems.at(0));
+			currItem->parentGroup()->groupItemList.insert(ind + 1, newGroupedItems.at(0));
 		else
-			m_doc->Items->insert(ind+1, newGroupedItems.at(0));
+			m_doc->Items->insert(ind + 1, newGroupedItems.at(0));
 	}
 
 	int toDeleteItemCount = delItems.count();
@@ -3296,8 +3252,6 @@ void ScribusView::setScale(double newScale)
 
 	unitChange();
 }
-
-
 
 double ScribusView::scale() const
 {
@@ -3538,7 +3492,7 @@ void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoin
 {
 	QPoint globalPoint = m_canvas->canvasToGlobal(QPointF(canvasX, canvasY));
 	double oldScale = m_canvas->scale();
-	double newScale = (scale > (Prefs->opToolPrefs.magMax / 100) * Prefs->displayPrefs.displayScale) ? ((Prefs->opToolPrefs.magMax / 100) * Prefs->displayPrefs.displayScale) : scale;
+	double newScale = (scale > (Prefs->opToolPrefs.magMax / 100.0) * Prefs->displayPrefs.displayScale) ? ((Prefs->opToolPrefs.magMax / 100.0) * Prefs->displayPrefs.displayScale) : scale;
 	undoManager->setUndoEnabled(false);
 	updatesOn(false);
 	setScale(newScale);

@@ -192,7 +192,7 @@ public:
 	 * @brief Returns true if application is in object specific undo mode, other wise returns false.
 	 * @return true if application is in object specific undo mode, other wise returns false
 	 */
-	bool isObjectSpecificUndo();
+	bool isObjectSpecificUndo() const;
 	void restore(UndoState* state, bool isUndo) override;
 	void restoreGrouping(SimpleState *state, bool isUndo);
 	void restoreUngrouping(SimpleState *state, bool isUndo);

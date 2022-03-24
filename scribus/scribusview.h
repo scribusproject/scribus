@@ -182,7 +182,7 @@ public:
 	void setNewRulerOrigin(QMouseEvent *m);
 	void getDragRectScreen(double *x, double *y, double *w, double *h);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
-	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
+	bool PointOnLine(QPoint start, QPoint end, QRect mArea);
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
 	bool slotSetCurs(int x, int y);
 	// \brief return a resize cursor if the mouse is on a handle.
