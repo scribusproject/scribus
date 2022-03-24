@@ -71,8 +71,8 @@ private:
 	} ePolygonPoint;
 
 	inline bool GetItem(PageItem** pi);
-	double GetZeroFactor();
-	double GetMaxFactor();
+	double GetZeroFactor() const;
+	double GetMaxFactor() const;
 	double getUserValFromFactor(double factor);
 
 	PolyVectorDialog *m_VectorDialog {nullptr};

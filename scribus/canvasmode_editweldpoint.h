@@ -56,7 +56,7 @@ public:
 	void mousePressEvent(QMouseEvent *m) override;
 	void keyPressEvent(QKeyEvent *e) override;
 	void drawControls(QPainter* p) override;
-	void drawControlsWeldPoint(QPainter* psx, PageItem* currItem);
+	void drawControlsWeldPoint(QPainter* psx, const PageItem* currItem);
 
 private:
 	void snapToEdgePoints(double &x, double &y);

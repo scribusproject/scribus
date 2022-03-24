@@ -174,7 +174,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 	mousePressed = true;
 	int mPosX = m->position().x();
 	int mPosY = m->position().y();
-	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	rulerCode = 0;
 	if (haveInd)
 	{
@@ -225,7 +225,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 		emit typeChanged(tabValues[actTab].tabType);
 		emit tabMoved(tabValues[actTab].tabPosition);
 		emit fillCharChanged(tabValues[actTab].tabFillChar);
-		qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 	}
 	mouseX = mPosX;
 }
@@ -233,7 +233,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 void RulerT::mouseReleaseEvent(QMouseEvent *m)
 {
 	mousePressed = false;
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	int mPosY = m->position().y();
 	if ((mPosY < height()) && (mPosY > 0))
 	{
@@ -278,7 +278,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 	int mPosY = m->position().y();
 	if ((mousePressed) && (mPosY < height()) && (mPosY > 0) && (mPosX > 0) && (mPosX < width()))
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 		switch (rulerCode)
 		{
 			case 1:
@@ -350,7 +350,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 		}
 	}
 	if ((mousePressed) && ((mPosY > height()) || (mPosY < 0) || (mPosX < 0) || (mPosX > width())))
-		qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+		QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 }
 
 void RulerT::leaveEvent(QEvent*)
@@ -358,9 +358,9 @@ void RulerT::leaveEvent(QEvent*)
 	if (mousePressed)
 	{
 		if (rulerCode == 3)
-			qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+			QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 		else
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 }
 

@@ -62,9 +62,10 @@ void CanvasMode_ImageImport::setImageList(QStringList l)
 
 void CanvasMode_ImageImport::newToolTip(const QString& name)
 {
-	QPainter p;
-	QImage pm = QImage(80, 80, QImage::Format_ARGB32_Premultiplied);
+	QImage pm(80, 80, QImage::Format_ARGB32_Premultiplied);
 	QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
+	
+	QPainter p;
 	p.begin(&pm);
 	p.fillRect(QRectF(0, 0, 80, 80), b);
 	QImage thumb;

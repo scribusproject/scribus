@@ -75,7 +75,7 @@ void CanvasMode_EditSpiral::drawControls(QPainter* p)
 	p->restore();
 }
 
-void CanvasMode_EditSpiral::drawControlsSpiral(QPainter* psx, PageItem* currItem)
+void CanvasMode_EditSpiral::drawControlsSpiral(QPainter* psx, const PageItem* currItem)
 {
 	QPen p8b = QPen(Qt::blue, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
 	QPen p8r = QPen(Qt::red, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
@@ -192,7 +192,7 @@ QPointF CanvasMode_EditSpiral::getSegment(double angle)
 		return ret;
 	while (true)
 	{
-		QLineF lin = QLineF(QPointF(wws, hh), QPointF(wwn, hh));
+		QLineF lin(QPointF(wws, hh), QPointF(wwn, hh));
 		if ((angle <= segEnd) && (angle >= segStart))
 		{
 			ret = lin.pointAt(0.5);
@@ -213,13 +213,13 @@ QPointF CanvasMode_EditSpiral::getSegment(double angle)
 
 double CanvasMode_EditSpiral::computeRealAngle(double angle, bool fromDia)
 {
-	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	const PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	double ret = angle;
 	int rev = static_cast<int>(angle / 360.0);
 	double part = angle - (rev * 360);
 	QTransform bb;
 	bb.scale(currItem->width() / currItem->height(), 1.0);
-	QLineF inp = QLineF(QPointF(currItem->width() / 2.0, currItem->height() / 2.0), QPointF(currItem->width(), currItem->height() / 2.0));
+	QLineF inp(QPointF(currItem->width() / 2.0, currItem->height() / 2.0), QPointF(currItem->width(), currItem->height() / 2.0));
 	inp.setAngle(part);
 	if (fromDia)
 	{
@@ -296,8 +296,8 @@ void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 		else if (m_arcPoint == useControlEnd)
 			sPoint = getSegment(m_endAngle);
 		QPointF smPoint = itemMatrix.map(sPoint);
-		QLineF stLinA = QLineF(smPoint, QPointF(m_Mxp, m_Myp));
-		QLineF stLinM = QLineF(smPoint, QPointF(newX, newY));
+		QLineF stLinA(smPoint, QPointF(m_Mxp, m_Myp));
+		QLineF stLinM(smPoint, QPointF(newX, newY));
 		double deltaAngle = stLinM.angle() - stLinA.angle();
 		if (deltaAngle < -180)
 			deltaAngle = deltaAngle + 360;

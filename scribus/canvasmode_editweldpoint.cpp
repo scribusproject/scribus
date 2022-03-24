@@ -92,7 +92,7 @@ void CanvasMode_EditWeldPoint::drawControls(QPainter* p)
 	p->restore();
 }
 
-void CanvasMode_EditWeldPoint::drawControlsWeldPoint(QPainter* psx, PageItem* currItem)
+void CanvasMode_EditWeldPoint::drawControlsWeldPoint(QPainter* psx, const PageItem* currItem)
 {
 	psx->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
 	psx->rotate(currItem->rotation());
@@ -352,7 +352,7 @@ void CanvasMode_EditWeldPoint::mouseMoveEvent(QMouseEvent *m)
 	else
 		npfN = FPoint(nx, ny);
 	m_currItem = m_doc->m_Selection->itemAt(0);
-	FPoint npf = FPoint(npfN.x(), npfN.y(), m_currItem->xPos(), m_currItem->yPos(), m_currItem->rotation(), 1, 1, true);
+	FPoint npf(npfN.x(), npfN.y(), m_currItem->xPos(), m_currItem->yPos(), m_currItem->rotation(), 1, 1, true);
 	FPoint npx(m_Mxp - npfN.x(), m_Myp - npfN.y(), 0, 0, m_currItem->rotation(), 1, 1, true);
 	m_canvas->displayXYHUD(m->globalPosition(), npf.x(), npf.y());
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && m_view->moveTimerElapsed())

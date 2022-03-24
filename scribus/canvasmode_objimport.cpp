@@ -142,8 +142,6 @@ void CanvasMode_ObjImport::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 {
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 
 	m_canvas->PaintSizeRect(QRect());

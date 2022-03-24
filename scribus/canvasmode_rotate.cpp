@@ -67,7 +67,7 @@ void CanvasMode_Rotate::drawItemOutlines(QPainter* p)
 	/*p->scale(m_canvas->scale(), m_canvas->scale());
 	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());*/
 
-	QColor  drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
+	QColor  drawColor = QApplication::palette().color(QPalette::Active, QPalette::Highlight);
 	p->setRenderHint(QPainter::Antialiasing);
 	p->setBrush(Qt::NoBrush);
 	p->setPen(QPen(drawColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
@@ -87,7 +87,7 @@ void CanvasMode_Rotate::drawItemOutlines(QPainter* p)
 	p->restore();
 }
 
-void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& rotation)
+void CanvasMode_Rotate::getNewItemPosition(const PageItem* item, FPoint& pos, double& rotation)
 {
 	double newAngle = xy2Deg(m_canvasCurrCoord.x() - m_rotCenter.x(), m_canvasCurrCoord.y() - m_rotCenter.y());
 	if (m_angleConstrained)
@@ -316,7 +316,7 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 			m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
 		}
 		double angle = 0;
-		double newW  = xy2Deg(mousePointDoc.x() - m_view->RCenter.x(), mousePointDoc.y() - m_view->RCenter.y()); //xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
+		double newW  = xy2Deg(mousePointDoc.x() - m_view->RCenter.x(), mousePointDoc.y() - m_view->RCenter.y());
 		if (m->modifiers() & Qt::ControlModifier)
 		{
 			newW = constrainAngle(newW, m_doc->opToolPrefs().constrain);

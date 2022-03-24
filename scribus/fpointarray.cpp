@@ -268,26 +268,26 @@ void FPointArray::map(const QTransform& m)
 
 void FPointArray::setMarker()
 {
-	double maxVal = std::numeric_limits<double>::max() / 2.0;
+	constexpr double maxVal = std::numeric_limits<double>::max() / 2.0;
 	addQuadPoint(maxVal, maxVal, maxVal, maxVal, maxVal, maxVal, maxVal, maxVal);
 }
 
 bool FPointArray::isMarker(int pos) const
 {
-	double maxVal = std::numeric_limits<double>::max() / 3.0;
+	constexpr double maxVal = std::numeric_limits<double>::max() / 3.0;
 	const FPoint& p = QVector<FPoint>::at(pos);
 	return ((p.x() >= maxVal) && (p.y() >= maxVal));
 }
 
 bool FPointArray::isMarkerI(ConstIterator p) const
 {
-	double maxVal = std::numeric_limits<double>::max() / 3.0;
+	constexpr double maxVal = std::numeric_limits<double>::max() / 3.0;
 	return ((p->xp >= maxVal) && (p->yp >= maxVal));
 }
 
 bool FPointArray::isMarkerD(double x, double y) const
 {
-	double maxVal = std::numeric_limits<double>::max() / 3.0;
+	constexpr double maxVal = std::numeric_limits<double>::max() / 3.0;
 	return ((x >= maxVal) && (y >= maxVal));
 }
 
@@ -933,6 +933,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			}
 		case 'm':
 			relative = true;
+			[[fallthrough]];
 		case 'M':
 			{
 				ptr = getCoord(ptr, tox);
@@ -946,6 +947,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			}
 		case 'l':
 			relative = true;
+			[[fallthrough]];
 		case 'L':
 			{
 				ptr = getCoord(ptr, tox);
@@ -993,6 +995,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			}
 		case 'c':
 			relative = true;
+			[[fallthrough]];
 		case 'C':
 			{
 				ptr = getCoord(ptr, x1);
@@ -1016,6 +1019,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			}
 		case 's':
 			relative = true;
+			[[fallthrough]];
 		case 'S':
 			{
 				ptr = getCoord(ptr, x2);
@@ -1037,6 +1041,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			}
 		case 'q':
 			relative = true;
+			[[fallthrough]];
 		case 'Q':
 			{
 				ptr = getCoord(ptr, x1);
@@ -1058,6 +1063,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			}
 		case 't':
 			relative = true;
+			[[fallthrough]];
 		case 'T':
 			{
 				ptr = getCoord(ptr, tox);
@@ -1079,6 +1085,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			}
 		case 'a':
 			relative = true;
+			[[fallthrough]];
 		case 'A':
 			{
 				bool largeArc, sweep;

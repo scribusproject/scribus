@@ -56,6 +56,7 @@ public slots:
 private:
 	void adjustPoint(QPointF point);
 	void showValues();
+
 	bool m_active {false};
 	QPointF m_start;
 	QPointF m_current;

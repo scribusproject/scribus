@@ -57,7 +57,7 @@ public:
 	void mouseMoveEvent(QMouseEvent *m) override;
 	void mousePressEvent(QMouseEvent *m) override;
 	void drawControls(QPainter* p) override;
-	void drawControlsSpiral(QPainter* psx, PageItem* currItem);
+	void drawControlsSpiral(QPainter* psx, const PageItem* currItem);
 
 private:
 

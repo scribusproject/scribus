@@ -196,8 +196,8 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 	}
 	m_poly.resize(0);
 	m_view->deselectItems(false);
-	m_xp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	m_yp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	m_xp = mousePointDoc.x();
+	m_yp = mousePointDoc.y();
 	m_canvas->setRenderModeFillBuffer();
 	undoManager->setUndoEnabled(false);
 }
@@ -322,7 +322,7 @@ void FreehandMode::selectPage(QMouseEvent *m)
 		return;
 
 	uint docCurrPageNo = m_doc->currentPageNumber();
-	uint j=static_cast<uint>(i);
+	uint j = static_cast<uint>(i);
 	if (docCurrPageNo != j)
 	{
 		m_doc->setCurrentPage(m_doc->Pages->at(j));

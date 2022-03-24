@@ -69,7 +69,7 @@ void CreateMode::drawControls(QPainter* p)
 
 	QPointF topLeft(createObjectPos.x(), createObjectPos.y());
 	QPointF btRight(canvasCurrCoord.x(), canvasCurrCoord.y());
-	QColor  drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
+	QColor  drawColor = QApplication::palette().color(QPalette::Active, QPalette::Highlight);
 
 	if (createObjectMode != modeDrawLine)
 	{
@@ -129,7 +129,7 @@ void CreateMode::drawControls(QPainter* p)
 		{
 			FPointArray poly;
 			int valCount = m_doc->ValCount;
-			double *vals = m_doc->ShapeValues;
+			const double *vals = m_doc->ShapeValues;
 			for (int a = 0; a < valCount-3; a += 4)
 			{
 				if (vals[a] < 0)
@@ -138,9 +138,9 @@ void CreateMode::drawControls(QPainter* p)
 					continue;
 				}
 				double x1 = localRect.width()  * vals[a] / 100.0;
-				double y1 = localRect.height() * vals[a+1] / 100.0;
-				double x2 = localRect.width()  * vals[a+2] / 100.0;
-				double y2 = localRect.height() * vals[a+3] / 100.0;
+				double y1 = localRect.height() * vals[a + 1] / 100.0;
+				double x2 = localRect.width()  * vals[a + 2] / 100.0;
+				double y2 = localRect.height() * vals[a + 3] / 100.0;
 				poly.addPoint(x1, y1);
 				poly.addPoint(x2, y2);
 			}
@@ -497,7 +497,7 @@ void CreateMode::SetupDrawNoResize(int nr)
 	//#6456 m_view->resetMoveTimer();
 }
 
-void CreateMode::getFrameItemTypes(int& itemType, int& frameType)
+void CreateMode::getFrameItemTypes(int& itemType, int& frameType) const
 {
 	itemType  = (int) PageItem::Polygon;
 	frameType = (int) PageItem::Rectangle;
@@ -928,7 +928,7 @@ bool CreateMode::doOneClick(FPoint& startPoint, FPoint& endPoint)
 	return doCreate;
 }
 
-FRect CreateMode::adjustedRect(FPoint &firstPoint, FPoint &secondPoint)
+FRect CreateMode::adjustedRect(const FPoint &firstPoint, const FPoint &secondPoint)
 {
 	// Lock to grid.
 	FPoint first = m_doc->ApplyGridF(firstPoint);

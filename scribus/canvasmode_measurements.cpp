@@ -27,7 +27,7 @@
 #include "util_math.h"
 
 
-MeasurementsMode::MeasurementsMode(ScribusView* view) : CanvasMode(view), m_start(0,0), m_current(0,0)
+MeasurementsMode::MeasurementsMode(ScribusView* view) : CanvasMode(view)
 {
 	m_palette = new Measurements(m_view);
 	m_palette->startup();
@@ -42,6 +42,7 @@ void MeasurementsMode::enterEvent(QEvent *e)
 
 void MeasurementsMode::leaveEvent(QEvent *e)
 {
+	// Nothing to do
 }
 
 void MeasurementsMode::setActive(bool active)
@@ -49,7 +50,6 @@ void MeasurementsMode::setActive(bool active)
 	if (!active)
 		m_view->requestMode(modeNormal);
 }
-
 
 void MeasurementsMode::activate(bool fromGesture)
 {

@@ -98,7 +98,7 @@ void CanvasMode_EditArc::drawControlsArc(QPainter* psx, PageItem* currItem)
 	psx->setPen(p1b);
 	psx->setBrush(Qt::NoBrush);
 	QPainterPath pp;
-	PageItem_Arc* item = currItem->asArc();
+	const PageItem_Arc* item = currItem->asArc();
 	QPointF mPoint = item->PoLine.pointQF(0);
 	double nWidth = mPoint.x() - m_widthPoint.x();
 	double nHeight = mPoint.y() - m_heightPoint.y();
@@ -170,8 +170,8 @@ void CanvasMode_EditArc::activate(bool fromGesture)
 	m_heightPoint = QPointF(m_centerPoint.x(), m_centerPoint.y() - item->arcHeight / 2.0);
 	m_startAngle = item->arcStartAngle;
 	m_endAngle = m_startAngle + item->arcSweepAngle;
-	QLineF res = QLineF(m_centerPoint, m_startPoint);
-	QLineF swe = QLineF(m_centerPoint, m_endPoint);
+	QLineF res(m_centerPoint, m_startPoint);
+	QLineF swe(m_centerPoint, m_endPoint);
 	vectorDialog->setValues(res.angle(), swe.angle(), item->arcHeight, item->arcWidth);
 	vectorDialog->unitChange(m_doc->unitIndex());
 	vectorDialog->show();
@@ -212,8 +212,8 @@ void CanvasMode_EditArc::updateFromItem()
 	m_heightPoint = QPointF(m_centerPoint.x(), m_centerPoint.y() - item->arcHeight / 2.0);
 	m_startAngle = item->arcStartAngle;
 	m_endAngle = m_startAngle + item->arcSweepAngle;
-	QLineF res = QLineF(m_centerPoint, m_startPoint);
-	QLineF swe = QLineF(m_centerPoint, m_endPoint);
+	QLineF res(m_centerPoint, m_startPoint);
+	QLineF swe(m_centerPoint, m_endPoint);
 	vectorDialog->setValues(res.angle(), swe.angle(), item->arcHeight, item->arcWidth);
 	m_view->update();
 }
@@ -236,7 +236,7 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 	PageItem_Arc *item = currItem->asArc();
 	QTransform bb;
 	bb.scale(height / width, 1.0);
-	QLineF inp = QLineF(QPointF(width / 2.0, height / 2.0), QPointF(width, height / 2.0));
+	QLineF inp(QPointF(width / 2.0, height / 2.0), QPointF(width, height / 2.0));
 	inp.setAngle(start);
 	QLineF res = bb.map(inp);
 	inp.setAngle(end);
@@ -328,8 +328,8 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 		QTransform itemMatrix = currItem->getTransform();
 		QPointF sPoint = currItem->PoLine.pointQF(0);
 		QPointF smPoint = itemMatrix.map(sPoint);
-		QLineF stLinA = QLineF(smPoint, QPointF(m_Mxp, m_Myp));
-		QLineF stLinM = QLineF(smPoint, QPointF(newX, newY));
+		QLineF stLinA(smPoint, QPointF(m_Mxp, m_Myp));
+		QLineF stLinM(smPoint, QPointF(newX, newY));
 		double deltaAngle = stLinM.angle() - stLinA.angle();
 		QPainterPath pp;
 		if (m_arcPoint == useControlStart)
@@ -355,17 +355,17 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 			if (m_arcPoint == useControlStart)
 			{
 				m_startPoint = ar.pointQF(2);
-				QLineF stLinA = QLineF(smPoint, itemMatrix.map(m_startPoint));
+				QLineF stLinA(smPoint, itemMatrix.map(m_startPoint));
 				m_canvas->displayRotHUD(m->globalPosition(), 360.0 - stLinA.angle());
 			}
 			else if (m_arcPoint == useControlSweep)
 			{
 				m_endPoint = ar.pointQF(ar.size() - 4);
-				QLineF stLinA = QLineF(smPoint, itemMatrix.map(m_endPoint));
+				QLineF stLinA(smPoint, itemMatrix.map(m_endPoint));
 				m_canvas->displayRotHUD(m->globalPosition(), 360.0 - stLinA.angle());
 			}
-			QLineF res = QLineF(m_centerPoint, m_startPoint);
-			QLineF swe = QLineF(m_centerPoint, m_endPoint);
+			QLineF res(m_centerPoint, m_startPoint);
+			QLineF swe(m_centerPoint, m_endPoint);
 			vectorDialog->setValues(res.angle(), swe.angle(), nHeight * 2, nWidth * 2);
 			blockUpdateFromItem(true);
 			currItem->update();
@@ -435,7 +435,7 @@ void CanvasMode_EditArc::mouseReleaseEvent(QMouseEvent *m)
 	{
 		QTransform bb;
 		bb.scale(item->arcHeight / item->arcWidth, 1.0);
-		QLineF inp = QLineF(QPointF(item->arcWidth / 2.0, item->arcHeight / 2.0), QPointF(item->arcWidth, item->arcHeight / 2.0));
+		QLineF inp(QPointF(item->arcWidth / 2.0, item->arcHeight / 2.0), QPointF(item->arcWidth, item->arcHeight / 2.0));
 		double start = inp.angleTo(QLineF(QPointF(item->arcWidth / 2.0, item->arcHeight / 2.0),m_startPoint));
 		inp.setAngle(start);
 		double end = inp.angleTo(QLineF(QPointF(item->arcWidth / 2.0, item->arcHeight / 2.0),m_endPoint));

@@ -324,16 +324,16 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 	if (m_canvas->m_viewMode.m_MouseButtonPressed)
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		double newX = mousePointDoc.x(); //m->x();
-		double newY = mousePointDoc.y(); //m->y();
+		double newX = mousePointDoc.x();
+		double newY = mousePointDoc.y();
 		FPoint npx(m_Mxp - newX, m_Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
-		QPointF np = QPointF(npx.x(), npx.y());
+		QPointF np(npx.x(), npx.y());
 		if (m_view->editStrokeGradient == 1)
 		{
 			if (m_gradientPoint == useGradientStart)
 			{
-				currItem->GrStrokeStartX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
-				currItem->GrStrokeStartY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+				currItem->GrStrokeStartX -= np.x();
+				currItem->GrStrokeStartY -= np.y();
 				currItem->GrStrokeFocalX -= np.x();
 				currItem->GrStrokeFocalY -= np.y();
 				if (currItem->strokeGradientType() == 7)
@@ -342,10 +342,10 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 					double radFoc = distance(currItem->GrStrokeFocalX - currItem->GrStrokeStartX, currItem->GrStrokeFocalY - currItem->GrStrokeStartY);
 					if (radFoc >= radEnd)
 					{
-						currItem->GrStrokeStartX += np.x(); // (Mxp - newX); // / m_canvas->scale();
-						currItem->GrStrokeStartY += np.y(); // (Myp - newY); // / m_canvas->scale();
-						currItem->GrStrokeFocalX += np.x(); // (Mxp - newX); // / m_canvas->scale();
-						currItem->GrStrokeFocalY += np.y(); // (Myp - newY); // / m_canvas->scale();
+						currItem->GrStrokeStartX += np.x();
+						currItem->GrStrokeStartY += np.y();
+						currItem->GrStrokeFocalX += np.x();
+						currItem->GrStrokeFocalY += np.y();
 					}
 				}
 			}
@@ -399,7 +399,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				m.rotate(currItem->GrStrokeSkew);
 				m.translate(radEnd * currItem->GrStrokeScale, 0);
 				QPointF shP = m.map(QPointF(0,0));
-				QPointF shR = QPointF(shP.x() -np.x(), shP.y() - np.y());
+				QPointF shR(shP.x() -np.x(), shP.y() - np.y());
 				double radNew = distance(shR.x() - currItem->GrStrokeStartX, shR.y() - currItem->GrStrokeStartY);
 				double rotNew = xy2Deg(shR.x() - currItem->GrStrokeStartX, shR.y() - currItem->GrStrokeStartY) + 90;
 				currItem->GrStrokeSkew = rotNew - rotEnd;
@@ -409,16 +409,16 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			}
 			if (m_gradientPoint == useGradientEnd)
 			{
-				currItem->GrStrokeEndX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
-				currItem->GrStrokeEndY -= np.y(); // (Myp - newY); // / m_canvas->scale();
+				currItem->GrStrokeEndX -= np.x();
+				currItem->GrStrokeEndY -= np.y();
 				if (currItem->strokeGradientType() == 7)
 				{
 					double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
 					double radFoc = distance(currItem->GrStrokeFocalX - currItem->GrStrokeStartX, currItem->GrStrokeFocalY - currItem->GrStrokeStartY);
 					if (radFoc >= radEnd)
 					{
-						currItem->GrStrokeEndX += np.x(); // (Mxp - newX); // / m_canvas->scale();
-						currItem->GrStrokeEndY += np.y(); // (Myp - newY); // / m_canvas->scale();
+						currItem->GrStrokeEndX += np.x();
+						currItem->GrStrokeEndY += np.y();
 					}
 				}
 			}
@@ -437,10 +437,10 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 					double radFoc = distance(currItem->GrMaskFocalX - currItem->GrMaskStartX, currItem->GrMaskFocalY - currItem->GrMaskStartY);
 					if (radFoc >= radEnd)
 					{
-						currItem->GrMaskStartX += np.x(); // (Mxp - newX); // / m_canvas->scale();
-						currItem->GrMaskStartY += np.y(); // (Myp - newY); // / m_canvas->scale();
-						currItem->GrMaskFocalX += np.x(); // (Mxp - newX); // / m_canvas->scale();
-						currItem->GrMaskFocalY += np.y(); // (Myp - newY); // / m_canvas->scale();
+						currItem->GrMaskStartX += np.x();
+						currItem->GrMaskStartY += np.y();
+						currItem->GrMaskFocalX += np.x();
+						currItem->GrMaskFocalY += np.y();
 					}
 				}
 			}
@@ -494,7 +494,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				m.rotate(currItem->GrMaskSkew);
 				m.translate(radEnd * currItem->GrMaskScale, 0);
 				QPointF shP = m.map(QPointF(0,0));
-				QPointF shR = QPointF(shP.x() -np.x(), shP.y() - np.y());
+				QPointF shR(shP.x() -np.x(), shP.y() - np.y());
 				double radNew = distance(shR.x() - currItem->GrMaskStartX, shR.y() - currItem->GrMaskStartY);
 				double rotNew = xy2Deg(shR.x() - currItem->GrMaskStartX, shR.y() - currItem->GrMaskStartY) + 90;
 				currItem->GrMaskSkew = rotNew - rotEnd;
@@ -512,8 +512,8 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 					double radFoc = distance(currItem->GrMaskFocalX - currItem->GrMaskStartX, currItem->GrMaskFocalY - currItem->GrMaskStartY);
 					if (radFoc >= radEnd)
 					{
-						currItem->GrMaskEndX += np.x(); // (Mxp - newX); // / m_canvas->scale();
-						currItem->GrMaskEndY += np.y(); // (Myp - newY); // / m_canvas->scale();
+						currItem->GrMaskEndX += np.x();
+						currItem->GrMaskEndY += np.y();
 					}
 				}
 			}
@@ -532,10 +532,10 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);
 					if (radFoc >= radEnd)
 					{
-						currItem->GrStartX += np.x(); // (Mxp - newX); // / m_canvas->scale();
-						currItem->GrStartY += np.y(); // (Myp - newY); // / m_canvas->scale();
-						currItem->GrFocalX += np.x(); // (Mxp - newX); // / m_canvas->scale();
-						currItem->GrFocalY += np.y(); // (Myp - newY); // / m_canvas->scale();
+						currItem->GrStartX += np.x();
+						currItem->GrStartY += np.y();
+						currItem->GrFocalX += np.x();
+						currItem->GrFocalY += np.y();
 					}
 				}
 			}
@@ -593,7 +593,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 					m.rotate(currItem->GrSkew);
 				m.translate(radEnd * currItem->GrScale, 0);
 				QPointF shP = m.map(QPointF(0,0));
-				QPointF shR = QPointF(shP.x() -np.x(), shP.y() - np.y());
+				QPointF shR(shP.x() -np.x(), shP.y() - np.y());
 				double radNew = distance(shR.x() - currItem->GrStartX, shR.y() - currItem->GrStartY);
 				double rotNew = xy2Deg(shR.x() - currItem->GrStartX, shR.y() - currItem->GrStartY) + 90;
 				if (currItem->GrType != Gradient_Conical)
@@ -614,8 +614,8 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);
 					if (radFoc >= radEnd)
 					{
-						currItem->GrEndX += np.x(); // (Mxp - newX); // / m_canvas->scale();
-						currItem->GrEndY += np.y(); // (Myp - newY); // / m_canvas->scale();
+						currItem->GrEndX += np.x();
+						currItem->GrEndY += np.y();
 					}
 				}
 			}

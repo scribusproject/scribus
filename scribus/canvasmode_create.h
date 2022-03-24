@@ -64,7 +64,7 @@ private:
 
 	// We do not use PageItem::ItemType and PageItem::FrameType here
 	// for the pure sake of not including pageitem.h
-	void getFrameItemTypes(int& itemType, int& frameType);
+	void getFrameItemTypes(int& itemType, int& frameType) const;
 
 	/**
 	 * Convenience function which given two points calculates and returns the
@@ -74,7 +74,7 @@ private:
 	 * @param secondPoint the second point
 	 * @return a normalized rectangle adjusted to grid and guides
 	 */
-	FRect adjustedRect(FPoint &firstPoint, FPoint &secondPoint);
+	FRect adjustedRect(const FPoint &firstPoint, const FPoint &secondPoint);
 
 	FPoint canvasCurrCoord;
 	FPoint canvasPressCoord;

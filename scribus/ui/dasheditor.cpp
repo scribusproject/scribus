@@ -120,7 +120,7 @@ void DashPreview::mousePressEvent(QMouseEvent *m)
 	m_currentStop = -1;
 
 	m->accept();
-	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 
 	for (int i = 0; i < m_stops.count(); ++i)
 	{
@@ -138,7 +138,7 @@ void DashPreview::mousePressEvent(QMouseEvent *m)
 void DashPreview::mouseReleaseEvent(QMouseEvent *m)
 {
 	m->accept();
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	QPointF mousePos = m->position();
 	if ((m_mousePressed) && (m_stops.count() > 2) && (m_outside || mousePos.y() > 30))
 	{
@@ -223,7 +223,7 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 	}
 	if ((m_mousePressed) && (mousePos.y() < height()) && (mousePos.y() > 16) && (mousePos.x() > 9) && (mousePos.x() < width() - 9) && (m_currentStop != -1))
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 		if (m_currentStop > 1)
 		{
 			if (static_cast<int>(m_stops[m_currentStop - 1] + 10) + 2 >= mousePos.x())
@@ -253,7 +253,7 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 		emit currStep(m_stops[m_currentStop] / 10.0 - startX);
 	}
 	if ((m_mousePressed) && (m_outside || mousePos.y() > 30) && (m_currentStop >= 0) && (m_stops.count() > 2))
-		qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+		QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 }
 
 void DashPreview::leaveEvent(QEvent*)
@@ -261,9 +261,9 @@ void DashPreview::leaveEvent(QEvent*)
 	if (m_mousePressed)
 	{
 		if ((m_currentStop >= 0) && (m_stops.count() > 2))
-			qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+			QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 		else
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	m_outside = true;
 }

@@ -455,8 +455,8 @@ void CanvasMode_EditTable::handleMouseDrag(QMouseEvent* event)
 
 void CanvasMode_EditTable::drawTextCursor(QPainter* p)
 {
-	if ((!m_longBlink && m_blinkTime.elapsed() > qApp->cursorFlashTime() / 2)
-		|| (m_longBlink && m_blinkTime.elapsed() > qApp->cursorFlashTime()))
+	if ((!m_longBlink && m_blinkTime.elapsed() > QApplication::cursorFlashTime() / 2)
+		|| (m_longBlink && m_blinkTime.elapsed() > QApplication::cursorFlashTime()))
 	{
 		// Reset blink timer
 		m_blinkTime.restart();

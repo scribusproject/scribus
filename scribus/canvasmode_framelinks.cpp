@@ -372,10 +372,10 @@ void CanvasMode_FrameLinks::selectPage(QMouseEvent *m)
 	if (!m_doc->masterPageMode())
 	{
 		int i = m_doc->OnPage(m_Mxp, m_Myp);
-		if (i!=-1)
+		if (i != -1)
 		{
-			uint docCurrPageNo=m_doc->currentPageNumber();
-			uint j=static_cast<uint>(i);
+			uint docCurrPageNo = m_doc->currentPageNumber();
+			uint j = static_cast<uint>(i);
 			if (docCurrPageNo != j)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(j));

@@ -57,8 +57,7 @@ class SCRIBUS_API CanvasMode_Rotate : public CanvasMode
 
 		void   createContextMenu(PageItem *currItem, double mx, double my);
 		void   drawItemOutlines(QPainter*);
-		void   getNewItemPosition(PageItem* item, FPoint& pos, double& rotation);
-		// 	void   setResizeCursor(int how);
+		void   getNewItemPosition(const PageItem* item, FPoint& pos, double& rotation);
 
 		FPoint m_canvasCurrCoord;
 		FPoint m_canvasPressCoord;

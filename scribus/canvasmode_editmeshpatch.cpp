@@ -982,7 +982,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 				if ((*m_old_mesh) == m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TL)
 				{
 					delete ss;
-					ss=nullptr;
+					ss = nullptr;
 				}
 				else
 					ss->setItem(qMakePair(*m_old_mesh,m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TL));
@@ -991,7 +991,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 				if ((*m_old_mesh) == m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TR)
 				{
 					delete ss;
-					ss=nullptr;
+					ss = nullptr;
 				}
 				else
 					ss->setItem(qMakePair(*m_old_mesh,m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TR));
@@ -1000,7 +1000,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 				if ((*m_old_mesh) == m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BR)
 				{
 					delete ss;
-					ss=nullptr;
+					ss = nullptr;
 				}
 				else
 					ss->setItem(qMakePair(*m_old_mesh,m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BR));
@@ -1009,7 +1009,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 				if ((*m_old_mesh) == m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL)
 				{
 					delete ss;
-					ss=nullptr;
+					ss = nullptr;
 				}
 				else
 					ss->setItem(qMakePair(*m_old_mesh,m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL));

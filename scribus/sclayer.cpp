@@ -70,7 +70,7 @@ bool ScLayer::operator== (const ScLayer& other) const
 		blendMode == other.blendMode;
 }
 
-int ScLayers::getMaxID()
+int ScLayers::getMaxID() const
 {
 	int maxNr = -1;
 	for (int i = 0; i < this->count(); ++i)

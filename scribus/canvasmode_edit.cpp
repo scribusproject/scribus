@@ -80,7 +80,7 @@ void CanvasMode_Edit::blinkTextCursor()
 	PageItem* currItem;
 	if (m_doc->appMode == modeEdit && GetItem(&currItem))
 	{
-		QRectF brect = QRectF(0, 0, currItem->width(), currItem->height());
+		QRectF brect(0, 0, currItem->width(), currItem->height());
 		QTransform m = currItem->getTransform();
 		brect = m.mapRect(brect);
 		m_canvas->update(QRectF(m_canvas->canvasToLocal(brect.topLeft()), QSizeF(brect.width(),brect.height())*m_canvas->scale()).toRect());
@@ -177,7 +177,7 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 	PageItem* currItem;
 	if (GetItem(&currItem))
 	{
-		QPen pp = QPen(Qt::blue, 1.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		QPen pp(Qt::blue, 1.0 / m_canvas->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		pp.setCosmetic(true);
 		PageItem_TextFrame* textframe = currItem->asTextFrame();
 		if (textframe)
@@ -221,7 +221,7 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 			p->drawRect(0, 0, currItem->OrigW*currItem->imageXScale(), currItem->OrigH*currItem->imageYScale());
 			p->translate(currItem->OrigW*currItem->imageXScale() / 2, currItem->OrigH*currItem->imageYScale() / 2);
 			p->scale(1.0 / m_canvas->scale(), 1.0 / m_canvas->scale());
-			QPen pps = QPen(Qt::blue, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			QPen pps(Qt::blue, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			pps.setCosmetic(true);
 			p->setPen(pps);
 			p->drawLine(-10, 0, 10, 0);
@@ -236,8 +236,8 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 
 void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textframe )
 {
-	if ((!m_longCursorTime && m_blinkTime.elapsed() > qApp->cursorFlashTime() / 2 ) ||
-		(m_longCursorTime && m_blinkTime.elapsed() > qApp->cursorFlashTime() )
+	if ((!m_longCursorTime && m_blinkTime.elapsed() > QApplication::cursorFlashTime() / 2 ) ||
+		(m_longCursorTime && m_blinkTime.elapsed() > QApplication::cursorFlashTime() )
 		)
 	{
 		m_cursorVisible = !m_cursorVisible;
@@ -323,7 +323,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 		//CB if annotation, open the annotation dialog
 		if (currItem->isAnnotation())
 		{
-		//	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		//	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			m_view->requestMode(submodeAnnotProps);
 		}
 		//otherwise, select between the whitespace
@@ -1076,7 +1076,7 @@ void CanvasMode_Edit::createContextMenu(PageItem* currItem, double mx, double my
 	m_view->setObjectUndoMode();
 	Mxp = mx;
 	Myp = my;
-	if (currItem!=nullptr)
+	if (currItem != nullptr)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 	else
 		cmen = new ContextMenu(m_ScMW, m_doc, mx, my);

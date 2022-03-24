@@ -840,7 +840,7 @@ QColor ScColorEngine::getShadeColorProof(const ScColor& color, const ScribusDoc*
 	return tmp;
 }
 
-QColor ScColorEngine::getColorProof(RGBColor& rgb, const ScribusDoc* doc, bool spot, bool gamutCkeck)
+QColor ScColorEngine::getColorProof(const RGBColor& rgb, const ScribusDoc* doc, bool spot, bool gamutCkeck)
 {
 	unsigned short inC[4];
 	unsigned short outC[4];
@@ -874,7 +874,7 @@ QColor ScColorEngine::getColorProof(RGBColor& rgb, const ScribusDoc* doc, bool s
 	return QColor(r, g, b);
 }
 
-QColor ScColorEngine::getColorProof(RGBColorF& rgb, const ScribusDoc* doc, bool spot, bool gamutCkeck)
+QColor ScColorEngine::getColorProof(const RGBColorF& rgb, const ScribusDoc* doc, bool spot, bool gamutCkeck)
 {
 	unsigned short inC[4];
 	unsigned short outC[4];
@@ -910,7 +910,7 @@ QColor ScColorEngine::getColorProof(RGBColorF& rgb, const ScribusDoc* doc, bool 
 	return QColor(r, g, b);
 }
 
-QColor ScColorEngine::getColorProof(CMYKColor& cmyk, const ScribusDoc* doc, bool spot, bool gamutCkeck)
+QColor ScColorEngine::getColorProof(const CMYKColor& cmyk, const ScribusDoc* doc, bool spot, bool gamutCkeck)
 {
 	int  r = 0, g = 0, b = 0;
 	unsigned short inC[4];
@@ -951,7 +951,7 @@ QColor ScColorEngine::getColorProof(CMYKColor& cmyk, const ScribusDoc* doc, bool
 	return QColor(r, g, b);
 }
 
-QColor ScColorEngine::getColorProof(CMYKColorF& cmyk, const ScribusDoc* doc, bool spot, bool gamutCkeck)
+QColor ScColorEngine::getColorProof(const CMYKColorF& cmyk, const ScribusDoc* doc, bool spot, bool gamutCkeck)
 {
 	int  r = 0, g = 0, b = 0;
 	unsigned short inC[4];
@@ -992,7 +992,7 @@ QColor ScColorEngine::getColorProof(CMYKColorF& cmyk, const ScribusDoc* doc, boo
 	return QColor(r, g, b);
 }
 
-QColor ScColorEngine::getDisplayColor(RGBColor& rgb, const ScribusDoc* doc, bool spot)
+QColor ScColorEngine::getDisplayColor(const RGBColor& rgb, const ScribusDoc* doc, bool spot)
 {
 	unsigned short inC[4];
 	unsigned short outC[4];
@@ -1013,7 +1013,7 @@ QColor ScColorEngine::getDisplayColor(RGBColor& rgb, const ScribusDoc* doc, bool
 	return QColor(r, g, b);
 }
 
-QColor ScColorEngine::getDisplayColor(RGBColorF& rgb, const ScribusDoc* doc, bool spot)
+QColor ScColorEngine::getDisplayColor(const RGBColorF& rgb, const ScribusDoc* doc, bool spot)
 {
 	unsigned short inC[4];
 	unsigned short outC[4];
@@ -1034,7 +1034,7 @@ QColor ScColorEngine::getDisplayColor(RGBColorF& rgb, const ScribusDoc* doc, boo
 	return QColor(r, g, b);
 }
 
-QColor ScColorEngine::getDisplayColor(CMYKColor& cmyk, const ScribusDoc* doc, bool spot)
+QColor ScColorEngine::getDisplayColor(const CMYKColor& cmyk, const ScribusDoc* doc, bool spot)
 {
 	int  r = 0, g = 0, b = 0;
 	unsigned short inC[4];
@@ -1060,7 +1060,7 @@ QColor ScColorEngine::getDisplayColor(CMYKColor& cmyk, const ScribusDoc* doc, bo
 	return QColor(r, g, b);
 }
 
-QColor ScColorEngine::getDisplayColor(CMYKColorF& cmyk, const ScribusDoc* doc, bool spot)
+QColor ScColorEngine::getDisplayColor(const CMYKColorF& cmyk, const ScribusDoc* doc, bool spot)
 {
 	int  r = 0, g = 0, b = 0;
 	unsigned short inC[4];

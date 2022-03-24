@@ -117,8 +117,8 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 	
 	if (m_mouseButtonPressed && (m_doc->appMode == modeDrawCalligraphicLine))
 	{
-		double newXF = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
-		double newYF = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y();
+		double newXF = mousePointDoc.x();
+		double newYF = mousePointDoc.y();
 		if (!m_poly.empty())
 		{
 			if (FPoint(newXF, newYF) != m_poly.point(m_poly.size()-1))

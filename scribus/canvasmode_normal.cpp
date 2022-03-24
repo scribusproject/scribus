@@ -759,7 +759,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				QTransform p;
 				m_canvas->Transform(currItem, p);
 				QPoint mouseMoint = m->position().toPoint();
-				QRect mpo = QRect(mouseMoint.x() - m_doc->guidesPrefs().grabRadius, mouseMoint.y() - m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius * 2, m_doc->guidesPrefs().grabRadius * 2);
+				QRect mpo(mouseMoint.x() - m_doc->guidesPrefs().grabRadius, mouseMoint.y() - m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius * 2, m_doc->guidesPrefs().grabRadius * 2);
 				if (QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width() + 6), static_cast<int>(currItem->height() + 6))))).contains(mpo))
 				{
 					QRect tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
@@ -1811,7 +1811,7 @@ void CanvasMode_Normal::importToPage()
 			int en = fmt->filter.indexOf(")");
 			while (an != -1)
 			{
-				allFormats += fmt->filter.mid(an+1, en-an-1)+" ";
+				allFormats += fmt->filter.mid(an + 1, en - an - 1)+" ";
 				an = fmt->filter.indexOf("(", en);
 				en = fmt->filter.indexOf(")", an);
 			}

@@ -43,7 +43,7 @@ public:
 	 * @brief  Get layer max identifier
 	 * @return Layer max identifier or -1 is list is empty
 	 */
-	int getMaxID(void);
+	int getMaxID(void) const;
 
 	/**
 	 * @brief  Get bottom layer

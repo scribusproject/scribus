@@ -662,7 +662,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 			for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
 			{
 				MeshPoint mp = currItem->meshGradientArray[grow][gcol];
-				QPointF gradientPoint = QPointF(mp.gridPoint.x(), mp.gridPoint.y());
+				QPointF gradientPoint(mp.gridPoint.x(), mp.gridPoint.y());
 				gradientPoint = itemMatrix.map(gradientPoint);
 				if (m_canvas->hitsCanvasPoint(mousePointDoc, gradientPoint))
 				{
@@ -686,9 +686,9 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 			for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
 			{
 				MeshPoint mp = currItem->meshGradientArray[grow][gcol];
-				QPointF gradientPoint = QPointF(mp.gridPoint.x(), mp.gridPoint.y());
+				QPointF gradientPoint(mp.gridPoint.x(), mp.gridPoint.y());
 				gradientPoint = itemMatrix.map(gradientPoint);
-				QPointF gradientColorPoint = QPointF(mp.controlColor.x(), mp.controlColor.y());
+				QPointF gradientColorPoint(mp.controlColor.x(), mp.controlColor.y());
 				gradientColorPoint = itemMatrix.map(gradientColorPoint);
 				if (m_canvas->hitsCanvasPoint(mousePointDoc, gradientPoint) || m_canvas->hitsCanvasPoint(mousePointDoc, gradientColorPoint))
 				{
@@ -911,7 +911,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 				for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
 				{
 					MeshPoint mp = currItem->meshGradientArray[grow][gcol];
-					QPointF gradientPoint = QPointF(mp.gridPoint.x(), mp.gridPoint.y());
+					QPointF gradientPoint(mp.gridPoint.x(), mp.gridPoint.y());
 					gradientPoint = itemMatrix.map(gradientPoint);
 					if (m_canvas->hitsCanvasPoint(mousePointDoc, gradientPoint))
 					{

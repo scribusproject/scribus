@@ -222,12 +222,12 @@ void CanvasMode::drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool 
 	m_pen["handle"].setCosmetic(true);
 	m_pen["selection-group-inside"] = QPen(PrefsManager::instance().appPrefs.displayPrefs.frameGroupColor, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-group-inside"].setCosmetic(true);
-	QPen ba = QPen(Qt::white, 3.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	QPen ba(Qt::white, 3.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	ba.setCosmetic(true);
 	double markWidth = 4.0 / m_canvas->scale();
 	if (insideGroup)
 		markWidth /= qMax(sx, sy);
-	QRectF handleRect = QRectF(0, 0, markWidth, markWidth);
+	QRectF handleRect(0, 0, markWidth, markWidth);
 	double x = selectionRect.x();
 	double y = selectionRect.y();
 	double w = selectionRect.width();
@@ -266,9 +266,9 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 	m_pen["selection"].setCosmetic(true);
 	m_pen["selection-group-inside"] = QPen(PrefsManager::instance().appPrefs.displayPrefs.frameGroupColor, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-group-inside"].setCosmetic(true);
-	QPen ba = QPen(Qt::white, 3.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	QPen ba(Qt::white, 3.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	ba.setCosmetic(true);
-	QPen bb = QPen(Qt::black, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+	QPen bb(Qt::black, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 	bb.setCosmetic(true);
 	psx->scale(m_canvas->scale(), m_canvas->scale());
 	psx->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
@@ -433,7 +433,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					if (currItem->isLine())
 					{
 						const double markWidth = 4.0 / m_canvas->scale();
-						QRectF handleRect = QRectF(0, 0, markWidth, markWidth);
+						QRectF handleRect(0, 0, markWidth, markWidth);
 						psx->setRenderHint(QPainter::Antialiasing);
 						psx->setBrush(Qt::white);
 						psx->setPen(m_pen["handle"]);
@@ -515,7 +515,7 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 				p->setClipRect(QRectF(0.0, 0.0, visualWidth, visualHeight));
 				PageItem_Group* gItem = currItem->asGroupFrame();
 				int itemCountG = gItem->groupItemList.count();
-				if (itemCountG < m_canvas->moveWithFullOutlinesThreshold)
+				if (itemCountG < Canvas::moveWithFullOutlinesThreshold)
 				{
 					if (gItem->imageFlippedH())
 					{
@@ -578,7 +578,7 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 		double x, y, w, h;
 		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 		int docSelectionCount = m_doc->m_Selection->count();
-		if (docSelectionCount < m_canvas->moveWithBoxesOnlyThreshold)
+		if (docSelectionCount < Canvas::moveWithBoxesOnlyThreshold)
 		{
 			PageItem *currItem;
 			for (int i = 0; i < docSelectionCount; ++i)
@@ -596,7 +596,7 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 				double matRot = getRotationDFromMatrix(itemTrans);
 
 				p->save();
-				if (docSelectionCount < m_canvas->moveWithFullOutlinesThreshold)
+				if (docSelectionCount < Canvas::moveWithFullOutlinesThreshold)
 				{
 //					QRectF br(currItem->getVisualBoundingRect());
 #ifdef GESTURE_FRAME_PREVIEW
