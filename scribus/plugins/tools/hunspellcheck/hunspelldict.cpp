@@ -72,6 +72,7 @@ QStringList HunspellDict::suggest(const QString& word)
 		return replacements;
 	std::string s = word.toStdString();
 	std::vector<std::string> sugglist = m_hunspell->suggest(s);
+	replacements.reserve(sugglist.size());
 	for (uint i = 0; i < sugglist.size(); ++i)
 		replacements << m_codec->toUnicode(QByteArray::fromStdString(sugglist[i]));
 	return replacements;
