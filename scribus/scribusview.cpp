@@ -3531,7 +3531,7 @@ void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoin
 {
 	QPoint globalPoint = m_canvas->canvasToGlobal(QPointF(canvasX, canvasY));
 	double oldScale = m_canvas->scale();
-	double newScale = (scale > (Prefs->opToolPrefs.magMax / 100) * Prefs->displayPrefs.displayScale) ? ((Prefs->opToolPrefs.magMax / 100) * Prefs->displayPrefs.displayScale) : scale;
+	double newScale = (scale > (Prefs->opToolPrefs.magMax / 100.0) * Prefs->displayPrefs.displayScale) ? ((Prefs->opToolPrefs.magMax / 100.0) * Prefs->displayPrefs.displayScale) : scale;
 	undoManager->setUndoEnabled(false);
 	updatesOn(false);
 	setScale(newScale);
