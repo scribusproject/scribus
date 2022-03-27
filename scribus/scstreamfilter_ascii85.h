@@ -14,13 +14,6 @@ for which a new license (GPL+exception) is in place.
 
 class ScASCII85EncodeFilter : public ScStreamFilter
 {
-protected:
-	QByteArray     m_buffer;
-	int            m_buffer_pending { 0 };
-
-	unsigned char  m_four_tuple[4] { 0 };
-	int            m_four_tuple_pending { 0 };
-
 public:
 	ScASCII85EncodeFilter(QDataStream* stream);
 	ScASCII85EncodeFilter(ScStreamFilter* filter);
@@ -29,6 +22,13 @@ public:
 	bool closeFilter() override;
 
 	bool writeData(const char* data, int dataLen) override;
+
+protected:
+	QByteArray     m_buffer;
+	int            m_buffer_pending { 0 };
+
+	unsigned char  m_four_tuple[4] { 0 };
+	int            m_four_tuple_pending { 0 };
 };
 
 #endif

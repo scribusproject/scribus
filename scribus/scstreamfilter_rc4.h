@@ -16,14 +16,6 @@ struct ScRC4EncodeFilterData;
 
 class ScRC4EncodeFilter : public ScStreamFilter
 {
-protected:
-
-	bool m_openedFilter { false };
-	ScRC4EncodeFilterData* m_filterData { nullptr };
-	QByteArray             m_key;
-
-	void freeData(void);
-
 public:
 	ScRC4EncodeFilter(QDataStream* stream, const char* key, unsigned int keyLen);
 	ScRC4EncodeFilter(ScStreamFilter* filter, const char* key, unsigned int keyLen);
@@ -33,6 +25,13 @@ public:
 	bool closeFilter() override;
 
 	bool writeData(const char* data, int dataLen) override;
+
+protected:
+	bool m_openedFilter { false };
+	ScRC4EncodeFilterData* m_filterData { nullptr };
+	QByteArray             m_key;
+
+	void freeData(void);
 };
 
 #endif

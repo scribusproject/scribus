@@ -14,6 +14,16 @@ struct ScFlateEncodeFilterData;
 
 class ScFlateEncodeFilter : public ScStreamFilter
 {
+public:
+	ScFlateEncodeFilter(QDataStream* stream);
+	ScFlateEncodeFilter(ScStreamFilter* filter);
+	~ScFlateEncodeFilter() override;
+
+	bool openFilter() override;
+	bool closeFilter() override;
+
+	bool writeData(const char* data, int dataLen) override;
+
 protected:
 	bool m_openedFilter { false };
 	ScFlateEncodeFilterData* m_filterData { nullptr };
@@ -21,16 +31,6 @@ protected:
 	void freeData();
 
 	bool writeDeflate(bool flush);
-
-public:
-	ScFlateEncodeFilter(QDataStream* stream);
-	ScFlateEncodeFilter(ScStreamFilter* filter);
-	~ScFlateEncodeFilter() override;
-
-	bool openFilter () override;
-	bool closeFilter() override;
-
-	bool writeData(const char* data, int dataLen) override;
 };
 
 #endif

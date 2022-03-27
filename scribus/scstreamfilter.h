@@ -13,7 +13,6 @@ class QDataStream;
 
 class ScStreamFilter
 {
-
 public:
 	ScStreamFilter(QDataStream* stream);
 	ScStreamFilter(ScStreamFilter* filter);
