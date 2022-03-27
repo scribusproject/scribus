@@ -6,6 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 #include "search.h"
 
+#include <array>
+
 #include <QCheckBox>
 #include <QComboBox>
 #include <QGroupBox>
@@ -112,10 +114,9 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* item, 
 	SearchLayout->addWidget( searchStyleValue, 1, 1 );
 	searchAlignValue = new QComboBox( searchGroupBox );
 	searchAlignValue->setEditable(false);
-	QString tmp_sty[] = { tr("Left"), tr("Center"), tr("Right"), tr("Block"), tr("Forced")};
-	size_t ar_sty = sizeof(tmp_sty) / sizeof(*tmp_sty);
-	for (uint a = 0; a < ar_sty; ++a)
-		searchAlignValue->addItem( tmp_sty[a] );
+	std::array<QString, 5> tmp_sty = { tr("Left"), tr("Center"), tr("Right"), tr("Block"), tr("Forced") };
+	for (size_t i = 0; i < tmp_sty.size(); ++i)
+		searchAlignValue->addItem( tmp_sty[i] );
 	tmpView = qobject_cast<QListView*>(searchAlignValue->view()); Q_ASSERT(tmpView);
 	tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
@@ -211,8 +212,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* item, 
 	ReplaceLayout->addWidget( replaceStyleValue, 1, 1 );
 	replaceAlignValue = new QComboBox( replaceGroupBox );
 	replaceAlignValue->setEditable(false);
-	for (uint a = 0; a < ar_sty; ++a)
-		replaceAlignValue->addItem(tmp_sty[a]);
+	for (uint i = 0; i < tmp_sty.size(); ++i)
+		replaceAlignValue->addItem(tmp_sty[i]);
 	tmpView = qobject_cast<QListView*>(replaceAlignValue->view()); Q_ASSERT(tmpView);
 	tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
@@ -592,8 +593,9 @@ void SearchReplace::doSearch()
 
 		QTextCursor cursor = storyTextEdit->textCursor();
 		int position  = cursor.position();
-		StoryText& styledText = storyTextEdit->StyledText;
-		int firstChar = -1, lastChar = styledText.length();
+		const StoryText& styledText = storyTextEdit->StyledText;
+		int firstChar = -1;
+		int lastChar = styledText.length();
 		if (searchTextCheckBox->isChecked())
 		{
 			Qt::CaseSensitivity cs = Qt::CaseSensitive;
@@ -872,7 +874,7 @@ void SearchReplace::doReplace()
 	doSearch();
 }
 
-int SearchReplace::firstMatchCursorPosition()
+int SearchReplace::firstMatchCursorPosition() const
 {
 	return m_firstMatchPosition;
 }
@@ -918,13 +920,8 @@ void SearchReplace::showNotFoundMessage()
 	if (m_found)
 		return;
 
-//	if (m_itemMode)
-//		ScMessageBox::information(this, tr("Search/Replace"), tr("Search finished));
-//	else
-//	{
 	ScMessageBox::information(this, tr("Search/Replace"), tr("Search finished. ") + tr("%n match(es) found", "", m_matchesFound));
 	m_matchesFound = 0;
-//	}
 }
 
 void SearchReplace::enableTxSearch()

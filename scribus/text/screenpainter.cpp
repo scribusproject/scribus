@@ -23,8 +23,6 @@ ScreenPainter::ScreenPainter(ScPainter *p, PageItem *item)
 	, m_item(item)
 	, m_fillColor("", -1)
 	, m_strokeColor("", -1)
-	, m_cairoFace(nullptr)
-	, m_faceIndex(-10) // ScFace::faceIndex() defaults to -1, we need a different value
 {
 	m_painter->save();
 
@@ -354,7 +352,7 @@ void ScreenPainter::drawObject(PageItem* embedded)
 	m_painter->restore();
 }
 
-void ScreenPainter::clip(QRectF rect)
+void ScreenPainter::clip(const QRectF& rect)
 {
 	m_painter->newPath();
 	m_painter->moveTo(rect.x() + x(), y());
@@ -380,14 +378,14 @@ void ScreenPainter::setupState(bool rect)
 	if (selected() && rect)
 	{
 		// we are drawing a selection rect
-		QColor color = qApp->palette().color(QPalette::Active, QPalette::Highlight);
+		QColor color = QApplication::palette().color(QPalette::Active, QPalette::Highlight);
 		m_painter->setBrush(color);
 		m_painter->setPen(color, strokeWidth(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	}
 	else if (selected())
 	{
 		// we are drawing selected text
-		QColor color = qApp->palette().color(QPalette::Active, QPalette::HighlightedText);
+		QColor color = QApplication::palette().color(QPalette::Active, QPalette::HighlightedText);
 		m_painter->setBrush(color);
 		m_painter->setPen(color, strokeWidth(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	}

@@ -18,14 +18,7 @@ ShortcutWidget::ShortcutWidget(QWidget *parent)
 {
 	setupUi(this);
 
-	Part0 = "";
-	Part1 = "";
-	Part2 = "";
-	Part3 = "";
-	keyCode = 0;
 	setKeyButton->setCheckable(true);
-	requiredModifiers=0;
-	allowedModifiers=0;
 
 	languageChange();
 
@@ -35,8 +28,8 @@ ShortcutWidget::ShortcutWidget(QWidget *parent)
 
 void ShortcutWidget::setAllowedModifiers(int allowed, int required)
 {
-	allowedModifiers=allowed;
-	requiredModifiers=required;
+	allowedModifiers = allowed;
+	requiredModifiers = required;
 }
 
 void ShortcutWidget::changeEvent(QEvent *e)
@@ -74,45 +67,45 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 		if (!keyDisplay->text().isEmpty())
 		{
 			tl = keyDisplay->text().split("+", Qt::SkipEmptyParts);
-			Part4 = tl.last();
-			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
-				Part4 = "";
+			m_part4 = tl.last();
+			if (m_part4 == tr("Alt") || m_part4 == tr("Ctrl") || m_part4 == tr("Shift") || m_part4 == tr("Meta"))
+				m_part4.clear();
 		}
 		else
-			Part4 = "";
+			m_part4.clear();
 		switch (k->key())
 		{
 			case Qt::Key_Meta:
 				if ((allowedModifiers&Qt::META)==Qt::META)
 				{
-					Part0 = tr("Meta+");
-					keyCode |= Qt::META;
+					m_part0 = tr("Meta+");
+					m_keyCode |= Qt::META;
 				}
 				break;
 			case Qt::Key_Shift:
 				if ((allowedModifiers&Qt::SHIFT)==Qt::SHIFT)
 				{
-					Part3 = tr("Shift+");
-					keyCode |= Qt::SHIFT;
+					m_part3 = tr("Shift+");
+					m_keyCode |= Qt::SHIFT;
 				}
 				break;
 			case Qt::Key_Alt:
 				if ((allowedModifiers&Qt::ALT)==Qt::ALT)
 				{
-					Part2 = tr("Alt+");
-					keyCode |= Qt::ALT;
+					m_part2 = tr("Alt+");
+					m_keyCode |= Qt::ALT;
 				}
 				break;
 			case Qt::Key_Control:
 				if ((allowedModifiers&Qt::CTRL)==Qt::CTRL)
 				{
-					Part1 = tr("Ctrl+");
-					keyCode |= Qt::CTRL;
+					m_part1 = tr("Ctrl+");
+					m_keyCode |= Qt::CTRL;
 				}
 				break;
 			default:
-				keyCode |= k->key();
-				keyDisplay->setText(getKeyText(keyCode));
+				m_keyCode |= k->key();
+				keyDisplay->setText(getKeyText(m_keyCode));
 				setKeyButton->setChecked(false);
 				userDef->setChecked(true);
 				releaseKeyboard();
@@ -121,7 +114,7 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 	}
 	if (setKeyButton->isChecked())
 	{
-		keyDisplay->setText(Part0+Part1+Part2+Part3+Part4);
+		keyDisplay->setText(m_part0 + m_part1 + m_part2 + m_part3 + m_part4);
 	}
 }
 
@@ -133,33 +126,33 @@ void ShortcutWidget::keyReleaseEvent(QKeyEvent *k)
 		{
 			QStringList tl;
 			tl = keyDisplay->text().split("+", Qt::SkipEmptyParts);
-			Part4 = tl.last();
-			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
-				Part4 = "";
+			m_part4 = tl.last();
+			if (m_part4 == tr("Alt") || m_part4 == tr("Ctrl") || m_part4 == tr("Shift") || m_part4 == tr("Meta"))
+				m_part4.clear();
 		}
 		else
-			Part4 = "";
+			m_part4.clear();
 		if (k->key() == Qt::Key_Meta)
 		{
-			Part0 = "";
-			keyCode &= ~Qt::META;
+			m_part0.clear();
+			m_keyCode &= ~Qt::META;
 		}
 		if (k->key() == Qt::Key_Shift)
 		{
-			Part3 = "";
-			keyCode &= ~Qt::SHIFT;
+			m_part3.clear();
+			m_keyCode &= ~Qt::SHIFT;
 		}
 		if (k->key() == Qt::Key_Alt)
 		{
-			Part2 = "";
-			keyCode &= ~Qt::ALT;
+			m_part2.clear();
+			m_keyCode &= ~Qt::ALT;
 		}
 		if (k->key() == Qt::Key_Control)
 		{
-			Part1 = "";
-			keyCode &= ~Qt::CTRL;
+			m_part1.clear();
+			m_keyCode &= ~Qt::CTRL;
 		}
-		keyDisplay->setText(Part0+Part1+Part2+Part3+Part4);
+		keyDisplay->setText(m_part0 + m_part1 + m_part2 + m_part3 + m_part4);
 	}
 }
 
@@ -185,12 +178,12 @@ void ShortcutWidget::setKeyText()
 {
 	if (setKeyButton->isChecked())
 	{
-		keyCode = 0;
-		Part0 = "";
-		Part1 = "";
-		Part2 = "";
-		Part3 = "";
-		Part4 = "";
+		m_keyCode = 0;
+		m_part0.clear();
+		m_part1.clear();
+		m_part2.clear();
+		m_part3.clear();
+		m_part4.clear();
 		grabKeyboard();
 	}
 	else

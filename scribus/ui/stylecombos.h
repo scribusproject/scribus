@@ -57,7 +57,7 @@ protected:
 	ScribusDoc *m_doc { nullptr };
 	QString m_defaultStyle;
 
-	QString firstItemString();
+	QString firstItemString() const;
 
 	void changeEvent(QEvent *e) override;
 	void languageChange();
@@ -91,7 +91,7 @@ protected:
 	ScribusDoc *m_doc { nullptr };
 	QString m_defaultStyle;
 
-	QString firstItemString();
+	QString firstItemString() const;
 
 	void changeEvent(QEvent *e) override;
 	void languageChange();
@@ -125,7 +125,7 @@ protected:
 	ScribusDoc *m_doc { nullptr };
 	QString m_defaultStyle;
 
-	QString firstItemString();
+	QString firstItemString() const;
 
 	void changeEvent(QEvent *e) override;
 	void languageChange();
@@ -159,7 +159,7 @@ protected:
 	ScribusDoc *m_doc { nullptr };
 	QString m_defaultStyle;
 
-	QString firstItemString();
+	QString firstItemString() const;
 
 	void changeEvent(QEvent *e) override;
 	void languageChange();

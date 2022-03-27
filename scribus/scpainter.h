@@ -49,7 +49,7 @@ public:
 
 	// matrix manipulation
 	virtual void setWorldMatrix(const QTransform &);
-	virtual const QTransform worldMatrix();
+	virtual QTransform worldMatrix();
 	virtual void setZoomFactor(double);
 	virtual double zoomFactor() { return m_zoomFactor; }
 	virtual void translate(double, double);

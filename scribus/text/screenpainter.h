@@ -27,22 +27,22 @@ public:
 	void drawRect(const QRectF& rect) override;
 	void drawObject(PageItem* embedded) override;
 
-	void clip(QRectF rect);
+	void clip(const QRectF& rect);
 	void saveState();
 	void restoreState();
 
 private:
 	void setupState(bool rect);
 
-	ScPainter *m_painter;
-	PageItem *m_item;
+	ScPainter *m_painter { nullptr };
+	PageItem *m_item { nullptr };
 	TextLayoutColor m_fillColor;
 	TextLayoutColor m_strokeColor;
 	QColor m_fillQColor;
 	QColor m_fillStrokeQColor;
-	cairo_font_face_t *m_cairoFace;
+	cairo_font_face_t *m_cairoFace { nullptr };
 	QString m_fontPath;
-	int m_faceIndex;
+	int m_faceIndex { -10 }; // ScFace::faceIndex() defaults to -1, we need a different value
 };
 
 #endif // SCREENPAINTER_H

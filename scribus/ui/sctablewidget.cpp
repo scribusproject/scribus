@@ -20,10 +20,6 @@ ScTableWidget::ScTableWidget( int rows, int columns, QWidget *parent) : QTableWi
 {
 }
 
-ScTableWidget::~ScTableWidget()
-{
-}
-
 bool ScTableWidget::eventFilter(QObject *obj, QEvent *event)
 {
 	if (event->type() == QEvent::FocusIn && obj->isWidgetType())

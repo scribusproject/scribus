@@ -94,15 +94,15 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	auto* scribus = new ScribusMainWindow();
 	Q_CHECK_PTR(scribus);
 	if (!scribus)
-		return(EXIT_FAILURE);
+		return EXIT_FAILURE;
 	m_ScMWList.append(scribus);
 	int retVal=initScribusCore(showSplash, showFontInfo, showProfileInfo, newGuiLanguage);
 	if (retVal == EXIT_FAILURE)
-		return(EXIT_FAILURE);
+		return EXIT_FAILURE;
 	
 	retVal = scribus->initScMW(true);
 	if (retVal == EXIT_FAILURE)
-		return(EXIT_FAILURE);
+		return EXIT_FAILURE;
 	
 	closeSplash();
 	m_scribusInitialized = true;
@@ -161,7 +161,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	if (!haveFonts)
 		return EXIT_FAILURE;
 	m_prefsManager.initDefaults();
-	m_prefsManager.initDefaultGUIFont(qApp->font());
+	m_prefsManager.initDefaultGUIFont(QApplication::font());
 	m_prefsManager.initArrowStyles();
 	m_undoManager = UndoManager::instance();
 	fileWatcher = new FileWatcher(this);
@@ -211,7 +211,7 @@ void ScribusCore::initSplash(bool showSplash)
 	if (!showSplash)
 		return;
 
-	QScreen* primaryScreeen = qApp->primaryScreen();
+	QScreen* primaryScreeen = QApplication::primaryScreen();
 	double pixelRatio = primaryScreeen ? primaryScreeen->devicePixelRatio() : 1.0;
 	QPixmap pix = IconManager::instance().loadPixmap("scribus_splash.png", true);
 	if (pixelRatio != 1.0)

@@ -1008,7 +1008,7 @@ public:
 	 * @brief Gets the page number to be printed based on the section it is in.
 	 * Returns QString() on failure to find the pageIndex
 	 */
-	const QString getSectionPageNumberForPageIndex(uint) const;
+	QString getSectionPageNumberForPageIndex(uint) const;
 	/**
 	 * @brief Gets the page number fill character to be printed based on the section it is in.
 	 * Returns QString() on failure to find the pageIndex

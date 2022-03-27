@@ -136,11 +136,12 @@ for which a new license (GPL+exception) is in place.
  */
 class DocUpdater : public Observer<ScPage*>, public Observer<PageItem*>
 {
-	ScribusDoc* doc;
-	int  m_updateEnabled;
-	bool m_docChangeNeeded;
+	ScribusDoc* doc { nullptr };
+	int  m_updateEnabled { 0 };
+	bool m_docChangeNeeded { false };
+
 public:
-	DocUpdater(ScribusDoc* d) : doc(d), m_updateEnabled(0), m_docChangeNeeded(false) {}
+	DocUpdater(ScribusDoc* d) : doc(d) {}
 
 	bool inUpdateSession() const
 	{ 
@@ -318,7 +319,7 @@ void ScribusDoc::init()
 	m_docPrefsData.pdfPrefs.useDocBleeds = true;
 	m_docPrefsData.pdfPrefs.bleeds = m_docPrefsData.docSetupPrefs.bleeds;
 
-	AddFont(m_appPrefsData.itemToolPrefs.textFont);//, prefsData.AvailFonts[prefsData.itemToolPrefs.textFont]->Font);
+	AddFont(m_appPrefsData.itemToolPrefs.textFont);
 	//FIXME: aren't we doing this now anyway with prefs struct copy?
 	m_docPrefsData.itemToolPrefs.textFont = m_appPrefsData.itemToolPrefs.textFont;
 	m_docPrefsData.itemToolPrefs.textSize = m_appPrefsData.itemToolPrefs.textSize;
@@ -466,7 +467,7 @@ void ScribusDoc::init()
 	if (autoSave() && ScCore->usingGUI())
 		autoSaveTimer->start(autoSaveTime());
 	//Do this after all the collections have been created and cleared!
-	m_masterPageMode = true; // quick hack to force the change of pointers in setMasterPageMode();
+	m_masterPageMode = true; // quick hack to force the change of pointers in setMasterPageMode()
 	setMasterPageMode(false);
 	addSymbols();
 	//for loading old documents where default notes style is not saved
@@ -961,7 +962,7 @@ void ScribusDoc::enableCMS(bool enable)
 	m_ScMW->mainWindowProgressBar->reset();
 	int progressBarCount = PageColors.count() + MasterItems.count() + DocItems.count() + FrameItems.count();
 	m_ScMW->mainWindowProgressBar->setMaximum(progressBarCount);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	bool oldCM = m_docPrefsData.colorPrefs.DCMSset.CMSinUse;
 	bool newCM = enable;
 	CloseCMSProfiles();
@@ -999,7 +1000,7 @@ void ScribusDoc::enableCMS(bool enable)
 		HasCMS = false;
 	}
 	m_ScMW->mainWindowProgressBar->setValue(progressBarCount);
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	m_ScMW->setStatusBarInfoText("");
 	m_ScMW->mainWindowProgressBar->reset();
 }
@@ -2361,8 +2362,8 @@ QStringList ScribusDoc::getItemAttributeNames() const
 {
 	QStringList nameList;
 
-	auto itemAttrs = itemAttributes();
-	for (ObjAttrVector::Iterator it = itemAttrs.begin(); it!= itemAttrs.end(); ++it)
+	const auto& itemAttrs = itemAttributes();
+	for (auto it = itemAttrs.cbegin(); it!= itemAttrs.cend(); ++it)
 		nameList.append((*it).name);
 	return nameList;
 }
@@ -2834,7 +2835,7 @@ void ScribusDoc::copyLayer(int layerIDToCopy, int whereToInsert)
 	if (sourceSelection.count() != 0)
 	{
 		ScriXmlDoc ss;
-		QString dataS = ss.writeElem(this, &sourceSelection);
+		QString dataS = ScriXmlDoc::writeElem(this, &sourceSelection);
 		ss.readElemToLayer(dataS, this, Pages->at(0)->xOffset(), Pages->at(0)->yOffset(), false, true, whereToInsert);
 	}
 	sourceSelection.clear();
@@ -4712,10 +4713,10 @@ void ScribusDoc::restoreCopyPage(SimpleState* ss, bool isUndo)
 	if (isUndo)
 	{
 		int destLocation=extPage + 1;
-		if (whereTo==0)
+		if (whereTo == 0)
 			--destLocation;
-		else if (whereTo==2)
-			destLocation=DocPages.count();
+		else if (whereTo == 2)
+			destLocation = DocPages.count();
 		for (int i = 0; i < copyCount; ++i)
 		{
 			m_ScMW->deletePage(destLocation, destLocation);
@@ -5403,8 +5404,8 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 					currItem->EmbeddedProfile.clear();
 					currItem->ImageProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
 					currItem->ImageIntent = m_docPrefsData.colorPrefs.DCMSset.DefaultIntentImages;
-					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
-					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+					QApplication::setOverrideCursor( QCursor(Qt::WaitCursor) );
+					QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 					loadPict(iafData.source, currItem, false, true);
 					if (iafData.sizeType==3) //Frame is size of imported image
 					{
@@ -5414,8 +5415,8 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 						currItem->OldH2 = currItem->height();
 						currItem->updateClip();
 					}
-					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-					qApp->restoreOverrideCursor();
+					QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+					QApplication::restoreOverrideCursor();
 				}
 			}
 			if (iafData.frameType==PageItem::TextFrame)
@@ -5786,16 +5787,16 @@ int ScribusDoc::OnPage(double x2, double  y2)
 	{
 		int docPageCount = Pages->count();
 		MarginStruct pageBleeds;
-		for (int a = 0; a < docPageCount; ++a)
+		for (int i = 0; i < docPageCount; ++i)
 		{
-			getBleeds(a, pageBleeds);
-			int x = static_cast<int>(Pages->at(a)->xOffset() - pageBleeds.left());
-			int y = static_cast<int>(Pages->at(a)->yOffset() - pageBleeds.top());
-			int w = static_cast<int>(Pages->at(a)->width() + pageBleeds.left() + pageBleeds.right());
-			int h = static_cast<int>(Pages->at(a)->height() + pageBleeds.bottom() + pageBleeds.top());
+			getBleeds(i, pageBleeds);
+			int x = static_cast<int>(Pages->at(i)->xOffset() - pageBleeds.left());
+			int y = static_cast<int>(Pages->at(i)->yOffset() - pageBleeds.top());
+			int w = static_cast<int>(Pages->at(i)->width() + pageBleeds.left() + pageBleeds.right());
+			int h = static_cast<int>(Pages->at(i)->height() + pageBleeds.bottom() + pageBleeds.top());
 			if (QRect(x, y, w, h).contains(qRound(x2), qRound(y2)))
 			{
-				retw = static_cast<int>(a);
+				retw = i;
 				break;
 			}
 		}
@@ -5817,7 +5818,7 @@ int ScribusDoc::OnPage(PageItem *currItem)
 
 	if (masterPageMode())
 	{
-		ScPage* currPage = m_currentPage;
+		const ScPage* currPage = m_currentPage;
 		double x1 = currPage->xOffset() - m_docPrefsData.docSetupPrefs.bleeds.left();
 		double y1 = currPage->yOffset() - m_docPrefsData.docSetupPrefs.bleeds.top();
 		double w1 = currPage->width() + m_docPrefsData.docSetupPrefs.bleeds.left() + m_docPrefsData.docSetupPrefs.bleeds.right();
@@ -5830,17 +5831,17 @@ int ScribusDoc::OnPage(PageItem *currItem)
 	{
 		MarginStruct pageBleeds;
 		int docPageCount = Pages->count();
-		for (int a = 0; a < docPageCount; ++a)
+		for (int i = 0; i < docPageCount; ++i)
 		{
-			getBleeds(a, pageBleeds);
-			double x1 = Pages->at(a)->xOffset() - pageBleeds.left();
-			double y1 = Pages->at(a)->yOffset() - pageBleeds.top();
-			double w1 = Pages->at(a)->width() + pageBleeds.left() + pageBleeds.right();
-			double h1 = Pages->at(a)->height() + pageBleeds.bottom() + pageBleeds.top();
+			getBleeds(i, pageBleeds);
+			double x1 = Pages->at(i)->xOffset() - pageBleeds.left();
+			double y1 = Pages->at(i)->yOffset() - pageBleeds.top();
+			double w1 = Pages->at(i)->width() + pageBleeds.left() + pageBleeds.right();
+			double h1 = Pages->at(i)->height() + pageBleeds.bottom() + pageBleeds.top();
 			QRectF pageRect(x1, y1, w1, h1);
 			if (itemRect.intersects(pageRect))
 			{
-				retw = static_cast<int>(a);
+				retw = i;
 				break;
 			}
 		}
@@ -6012,15 +6013,16 @@ void ScribusDoc::reformPages(bool moveObjects)
 	struct oldPageVar oldPg;
 	int counter = pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].FirstPage;
 	int rowcounter = 0;
-	double maxYPos=0.0, maxXPos=0.0;
-	double currentXPos=m_docPrefsData.displayPrefs.scratch.left();
-	double currentYPos=m_docPrefsData.displayPrefs.scratch.top();
-	double lastYPos=Pages->at(0)->initialHeight();
+	double maxXPos = 0.0;
+	double maxYPos = 0.0;
+	double currentXPos = m_docPrefsData.displayPrefs.scratch.left();
+	double currentYPos = m_docPrefsData.displayPrefs.scratch.top();
+	double lastYPos = Pages->at(0)->initialHeight();
 //	currentXPos += (pageWidth+pageSets[currentPageLayout].GapHorizontal) * counter;
 	currentXPos += (m_docPrefsData.docSetupPrefs.pageWidth+m_docPrefsData.displayPrefs.pageGapHorizontal) * counter;
 
 	ScPage* page;
-	int docPageCount=Pages->count();
+	int docPageCount = Pages->count();
 	for (int i = 0; i < docPageCount; ++i)
 	{
 		page = Pages->at(i);
@@ -6866,11 +6868,11 @@ QString ScribusDoc::getSectionNameForPageIndex(uint pageIndex) const
 }
 
 
-const QString ScribusDoc::getSectionPageNumberForPageIndex(uint pageIndex) const
+QString ScribusDoc::getSectionPageNumberForPageIndex(uint pageIndex) const
 {
 	QString retVal;
-	int key=getSectionKeyForPageIndex(pageIndex);
-	if (key==-1)
+	int key = getSectionKeyForPageIndex(pageIndex);
+	if (key == -1)
 		return retVal;
 	//If a section is inactive, there's no page numbers printed
 	if (!m_docPrefsData.docSectionMap[key].active)
@@ -7195,8 +7197,8 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 
 void ScribusDoc::setLocationBasedPageLRMargins(uint pageIndex)
 {
-	int setcol=pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].Columns;
-	if (setcol==1)
+	int setcol = pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].Columns;
+	if (setcol == 1)
 	{
 		ScPage* pageToAdjust=DocPages.at(pageIndex);
 		pageToAdjust->Margins.setLeft(pageToAdjust->initialMargins.left());
@@ -7204,9 +7206,9 @@ void ScribusDoc::setLocationBasedPageLRMargins(uint pageIndex)
 		return;
 	}
 
-	ScPage* pageToAdjust=DocPages.at(pageIndex);
-	PageLocation pageLoc=locationOfPage(pageIndex);
-	if (pageLoc==LeftPage) //Left hand page
+	ScPage* pageToAdjust = DocPages.at(pageIndex);
+	PageLocation pageLoc = locationOfPage(pageIndex);
+	if (pageLoc == LeftPage) //Left hand page
 	{
 		pageToAdjust->Margins.setLeft(pageToAdjust->initialMargins.right());
 		pageToAdjust->Margins.setRight(pageToAdjust->initialMargins.left());
@@ -7226,10 +7228,10 @@ void ScribusDoc::setLocationBasedPageLRMargins(uint pageIndex)
 
 PageLocation ScribusDoc::locationOfPage(int pageIndex) const
 {
-	int myCol=columnOfPage(pageIndex);
-	if (myCol==0) //Left hand page
+	int myCol = columnOfPage(pageIndex);
+	if (myCol == 0) //Left hand page
 		return LeftPage;
-	if (myCol>= pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].Columns-1) // Right hand page
+	if (myCol >= pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].Columns - 1) // Right hand page
 		return RightPage;
 	//Middle pages
 	return MiddlePage;
@@ -7237,7 +7239,7 @@ PageLocation ScribusDoc::locationOfPage(int pageIndex) const
 
 int ScribusDoc::columnOfPage(int pageIndex) const
 {
-	int setcol=pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].Columns;
+	int setcol = pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].Columns;
 	return ((pageIndex % setcol) + pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].FirstPage) % setcol;
 }
 
@@ -7341,7 +7343,7 @@ void ScribusDoc::insertColor(const QString& name, double c, double m, double y, 
 {
 	if (PageColors.contains(name))
 		return;
-	ScColor tmp = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+	ScColor tmp(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 	PageColors.insert(name, tmp);
 }
 
@@ -10068,7 +10070,7 @@ void ScribusDoc::recalcPicturesRes(int recalcFlags)
 		currItem->adjustPictScale();
 		progress++;
 		m_ScMW->mainWindowProgressBar->setValue(progress);
-		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+		QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 		if (!docPtr) return;
 	}
 
@@ -10104,7 +10106,7 @@ void ScribusDoc::recalcPicturesRes(int recalcFlags)
 		currItem->adjustPictScale();
 		progress++;
 		m_ScMW->mainWindowProgressBar->setValue(progress);
-		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+		QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 		if (!docPtr) return;
 	}
 
@@ -10140,7 +10142,7 @@ void ScribusDoc::recalcPicturesRes(int recalcFlags)
 		currItem->adjustPictScale();
 		progress++;
 		m_ScMW->mainWindowProgressBar->setValue(progress);
-		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+		QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 		if (!docPtr) return;
 	}
 
@@ -10182,7 +10184,7 @@ void ScribusDoc::recalcPicturesRes(int recalcFlags)
 			currItem->adjustPictScale();
 			progress++;
 			m_ScMW->mainWindowProgressBar->setValue(progress);
-			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+			QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 			if (!docPtr) return;
 		}
 		PageItem *ite = pa.items.at(0);
@@ -11814,7 +11816,7 @@ bool ScribusDoc::startAlign(uint minObjects)
 	}
 	
 	QString targetTooltip;
-	if (m_Selection->count() <= (int) Um::ItemsInvolvedLimit)
+	if (m_Selection->count() <= Um::ItemsInvolvedLimit)
 	{
 		targetTooltip = Um::ItemsInvolved + "\n";
 		for (int i = 0; i < m_Selection->count(); ++i)
@@ -14122,7 +14124,6 @@ void ScribusDoc::rotateItem(double angle, PageItem *currItem)
 	if (currItem->locked())
 		return;
 	QRectF oldR = currItem->getBoundingRect();
-//	if ((Doc->RotMode != 0) && (m_MouseButtonPressed))
 	if (m_rotMode != 0)
 	{
 		QTransform ma;
@@ -14494,7 +14495,7 @@ void ScribusDoc::moveGroup(double x, double y, Selection* customSelection)
 	PageItem* currItem;
 	double gx, gy, gw, gh;
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
-	QRectF oldRect = QRectF(gx, gy, gw, gh);
+	QRectF oldRect(gx, gy, gw, gh);
 	QList<PageItem*> weldL;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
@@ -16164,7 +16165,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 			m_ScMW->mainWindowProgressBar->reset();
 			int cc = PageColors.count() + MasterItems.count() + DocItems.count() + FrameItems.count();
 			m_ScMW->mainWindowProgressBar->setMaximum(cc);
-			qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+			QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 			bool newCM  = m_docPrefsData.colorPrefs.DCMSset.CMSinUse;
 			bool updCol = false;
 			m_docPrefsData.colorPrefs.DCMSset.CMSinUse = oldPrefsData.colorPrefs.DCMSset.CMSinUse;
@@ -16206,7 +16207,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 				RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, m_ScMW->mainWindowProgressBar);
 			}
 			m_ScMW->mainWindowProgressBar->setValue(cc);
-			qApp->restoreOverrideCursor();
+			QApplication::restoreOverrideCursor();
 			m_ScMW->setStatusBarInfoText("");
 			m_ScMW->mainWindowProgressBar->reset();
 		}

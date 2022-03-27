@@ -168,7 +168,7 @@ void SMCellStyleWidget::showColors(const QList<CellStyle*> &cellStyles)
 		fillColor->setCurrentText(s);
 }
 
-void SMCellStyleWidget::fillFillColorCombo(ColorList &colors)
+void SMCellStyleWidget::fillFillColorCombo(const ColorList &colors)
 {
 	fillColor->clear();
 

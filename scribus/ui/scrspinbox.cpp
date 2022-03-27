@@ -25,12 +25,12 @@ for which a new license (GPL+exception) is in place.
 
 static const QString FinishTag("\xA0");
 
-ScrSpinBox::ScrSpinBox(QWidget *parent, int unitIndex) : QDoubleSpinBox(parent), m_constants(nullptr)
+ScrSpinBox::ScrSpinBox(QWidget *parent, int unitIndex) : QDoubleSpinBox(parent)
 {
 	init(unitIndex);
 }
 
-ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex) : QDoubleSpinBox(pa), m_constants(nullptr)
+ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex) : QDoubleSpinBox(pa)
 {
 	init(unitIndex);
 	setMinimum(minValue);

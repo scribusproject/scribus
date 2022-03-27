@@ -56,7 +56,7 @@ QString ColorCombo::currentColor() const
 	return colorName;
 }
 
-void ColorCombo::setColors(ColorList& list, bool insertNone)
+void ColorCombo::setColors(const ColorList& list, bool insertNone)
 {
 	ColorListBox* clb = qobject_cast<ColorListBox*>(view());
 	if (!clb)

@@ -37,10 +37,11 @@ class SCRIBUS_API selectDialog : public QDialog, Ui::selectDialog
 	Q_OBJECT
 
 public:
-	selectDialog(QWidget* parent, ColorList &availableColors, int unitIndex);
+	selectDialog(QWidget* parent, const ColorList &availableColors, int unitIndex);
 	~selectDialog() {};
-	int getSelectionRange();
-	bool useAttributes();
+
+	int getSelectionRange() const;
+	bool useAttributes() const;
 	void getUsedAttributes(bool &Type, bool &Fill, bool &Line, bool &LWidth, bool &Print, bool &Locked, bool &Resize);
 	void getUsedAttributesValues(int &Type, QString &Fill, QString &Line, double &LWidth, bool &Print, bool &Locked, bool &Resize);
 };

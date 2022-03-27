@@ -139,8 +139,8 @@ public:
 	VGradientEx  m_fillGradient { VGradientEx::linear };
 	VGradientEx  m_strokeGradient { VGradientEx::linear };
 	VGradientEx  m_maskGradient;
-	ScPattern*   m_pattern;
-	ScPattern*   m_maskPattern;
+	ScPattern*   m_pattern { nullptr };
+	ScPattern*   m_maskPattern { nullptr };
 	QTransform   m_patternTransform;
 
 protected:

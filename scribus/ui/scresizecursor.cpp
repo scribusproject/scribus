@@ -23,7 +23,6 @@ QMap<unsigned int, QCursor> ScResizeCursor::m_cursors;
 
 ScResizeCursor::ScResizeCursor()
 {
-	m_currIndex = 0;
 	initCursorDb(m_currIndex);
 }
 
@@ -38,7 +37,7 @@ ScResizeCursor::ScResizeCursor(double rotation)
 	initCursorDb(m_currIndex);
 }
 
-ScResizeCursor::operator const QCursor &()
+ScResizeCursor::operator const QCursor &() const
 {
 	return m_cursors[m_currIndex];
 }

@@ -24,12 +24,12 @@ class UpgradeChecker : public QObject
 	
 public:
 	UpgradeChecker();
-	~UpgradeChecker();
+	~UpgradeChecker() = default;
 	
 	void fetch();
 	bool process();
 	void show(bool error);
-	QStringList upgradeData();
+	QStringList upgradeData() const;
 	
 private slots:
 	void downloadFinished();
@@ -60,11 +60,11 @@ class UpgradeCheckerGUI : public UpgradeChecker
 	
 public:
 	UpgradeCheckerGUI(QTextBrowser *tb=0);
-	~UpgradeCheckerGUI();
+	~UpgradeCheckerGUI() = default;
 	
 protected:
-	virtual void outputText(const QString& text, bool noLineFeed=false);
-	QTextBrowser *m_outputWidget;
+	void outputText(const QString& text, bool noLineFeed = false) override;
+	QTextBrowser *m_outputWidget { nullptr };
 };
 
 

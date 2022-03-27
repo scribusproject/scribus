@@ -51,7 +51,7 @@ QString ParaStyleComboBox::currentStyle() const
 	return currStyleName;
 }
 
-QString ParaStyleComboBox::firstItemString()
+QString ParaStyleComboBox::firstItemString() const
 {
 	QString itemString;
 	if (m_defaultStyle.isEmpty() || m_defaultStyle == CommonStrings::DefaultParagraphStyle)
@@ -182,7 +182,7 @@ QString CharStyleComboBox::currentStyle() const
 	return currStyleName;
 }
 
-QString CharStyleComboBox::firstItemString()
+QString CharStyleComboBox::firstItemString() const
 {
 	QString itemString;
 	if (m_defaultStyle.isEmpty() || m_defaultStyle == CommonStrings::DefaultCharacterStyle)
@@ -313,7 +313,7 @@ QString CellStyleComboBox::currentStyle() const
 	return currStyleName;
 }
 
-QString CellStyleComboBox::firstItemString()
+QString CellStyleComboBox::firstItemString() const
 {
 	QString itemString;
 	if (m_defaultStyle.isEmpty() || m_defaultStyle == CommonStrings::DefaultCellStyle)
@@ -445,7 +445,7 @@ QString TableStyleComboBox::currentStyle() const
 	return currStyleName;
 }
 
-QString TableStyleComboBox::firstItemString()
+QString TableStyleComboBox::firstItemString() const
 {
 	QString itemString;
 	if (m_defaultStyle.isEmpty() || m_defaultStyle == CommonStrings::DefaultTableStyle)

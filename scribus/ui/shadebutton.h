@@ -18,11 +18,12 @@ class SCRIBUS_API ShadeButton : public QToolButton
 	public:
 		ShadeButton(QWidget* parent);
 		~ShadeButton() {};
-		int getValue();
+
+		int getValue() const;
 		void setValue(int val);
 
 	protected:
-		QMenu *FillSh;
+		QMenu *fillShadeMenu { nullptr };
 
 	private slots:
 		virtual void setShade(QAction *act);

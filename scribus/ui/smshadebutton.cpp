@@ -47,9 +47,9 @@ bool SMShadeButton::useParentValue()
 	if (ret)
 	{
 		setValue(m_pValue, true);
-		QList<QAction*> actList = FillSh->actions();
+		QList<QAction*> actList = fillShadeMenu->actions();
 		if (actList.last()->text() == useParentValueText())
-			FillSh->removeAction(actList.last());
+			fillShadeMenu->removeAction(actList.last());
 	}
 
 	return ret;
@@ -65,7 +65,7 @@ void SMShadeButton::setFont(bool wantBold)
 {
 	QFont f(font());
 	f.setBold(wantBold);
-	FillSh->setFont(f);
+	fillShadeMenu->setFont(f);
 	ShadeButton::setFont(f);
 }
 
@@ -75,17 +75,17 @@ void SMShadeButton::currentChanged()
 	{
 		setFont(true);
 		QString upv = useParentValueText();
-		QList<QAction*> actList = FillSh->actions();
+		QList<QAction*> actList = fillShadeMenu->actions();
 		if (actList.last()->text() != upv)
-			FillSh->addAction(upv, this, SLOT(slotUseParent()));
+			fillShadeMenu->addAction(upv, this, SLOT(slotUseParent()));
 	}
 }
 
 void SMShadeButton::slotUseParent()
 {
 	m_useParentValue = true;
-	QList<QAction*> actList = FillSh->actions();
+	QList<QAction*> actList = fillShadeMenu->actions();
 	if (actList.last()->text() == useParentValueText())
-		FillSh->removeAction(actList.last());
+		fillShadeMenu->removeAction(actList.last());
 	emit clicked();
 }

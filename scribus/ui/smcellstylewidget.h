@@ -64,7 +64,7 @@ public:
 	 *
 	 * @param colors list of colors to populate the combo with.
 	 */
-	void fillFillColorCombo(ColorList &colors);
+	void fillFillColorCombo(const ColorList &colors);
 	void showColors(const QList<CellStyle*> &cellStyles);
 
 protected:

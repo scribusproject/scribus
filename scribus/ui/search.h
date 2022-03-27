@@ -36,7 +36,7 @@ public:
 	SearchReplace(QWidget* parent, ScribusDoc *doc, PageItem* item, bool mode = true );
 	~SearchReplace() {};
 
-	int firstMatchCursorPosition();
+	int firstMatchCursorPosition() const;
 	void setSearchedText(const QString& text);
 
 	ColorCombo* replaceFillValue;

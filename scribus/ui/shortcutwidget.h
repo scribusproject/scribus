@@ -36,14 +36,14 @@ public slots:
 	void setNoKey();
 
 protected:
-	int keyCode;
-	QString Part0;
-	QString Part1;
-	QString Part2;
-	QString Part3;
-	QString Part4;
-	int requiredModifiers;
-	int allowedModifiers;
+	int m_keyCode { 0 };
+	QString m_part0;
+	QString m_part1;
+	QString m_part2;
+	QString m_part3;
+	QString m_part4;
+	int requiredModifiers { 0 };
+	int allowedModifiers { 0 };
 
 	void changeEvent(QEvent *e) override;
 	

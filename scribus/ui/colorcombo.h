@@ -49,7 +49,7 @@ public:
 
 	QString currentColor() const;
 
-	void setColors(ColorList& list, bool insertNone = true);
+	void setColors(const ColorList& list, bool insertNone = true);
 	void setCurrentColor(QString colorName);
 	void setPixmapType(ColorCombo::PixmapType type);
 

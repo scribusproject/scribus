@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "iconmanager.h"
 
-selectDialog::selectDialog(QWidget* parent, ColorList &availableColors, int unitIndex) : QDialog(parent)
+selectDialog::selectDialog(QWidget* parent, const ColorList &availableColors, int unitIndex) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
@@ -42,7 +42,7 @@ selectDialog::selectDialog(QWidget* parent, ColorList &availableColors, int unit
 	lineWidthSpin->setMaximum(1000);
 }
 
-int selectDialog::getSelectionRange()
+int selectDialog::getSelectionRange() const
 {
 	int retval = 0;
 	if (buttonCurrentPage->isChecked())
@@ -54,7 +54,7 @@ int selectDialog::getSelectionRange()
 	return retval;
 }
 
-bool selectDialog::useAttributes()
+bool selectDialog::useAttributes() const
 {
 	return attributeGroup->isChecked();
 }

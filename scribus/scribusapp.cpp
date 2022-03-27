@@ -181,7 +181,7 @@ void ScribusQApp::parseCommandLine()
 			}
 			break;
 		}
-		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT))
+		if (arg == ARG_LANG || arg == ARG_LANG_SHORT)
 		{
 			if  (++argi < argsc)
 				m_lang = args[argi];

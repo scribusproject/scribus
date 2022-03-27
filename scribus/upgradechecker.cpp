@@ -42,10 +42,6 @@ UpgradeChecker::UpgradeChecker()
 #endif
 }
 
-UpgradeChecker::~UpgradeChecker()
-{
-}
-
 void UpgradeChecker::fetch()
 {
 	QString filename("scribusversions.xml");
@@ -58,7 +54,7 @@ void UpgradeChecker::fetch()
 	if (m_networkManager != nullptr && m_file != nullptr)
 	{
 		outputText( tr("No data on your computer will be sent to an external location"));
-		qApp->processEvents();
+		QApplication::processEvents();
 		if (m_file->open(QIODevice::ReadWrite))
 		{
 			QString hostname("services.scribus.net");
@@ -80,7 +76,7 @@ void UpgradeChecker::fetch()
 				if (m_writeToConsole)
 					std::cout << ". " << std::flush;
 				outputText( ".", true );
-				qApp->processEvents();
+				QApplication::processEvents();
 			}
 			if (m_writeToConsole)
 				std::cout << std::endl;
@@ -193,7 +189,7 @@ bool UpgradeChecker::process()
 	return true;
 }
 
-QStringList UpgradeChecker::upgradeData( )
+QStringList UpgradeChecker::upgradeData() const
 {
 	return m_updates;
 }
@@ -244,12 +240,8 @@ void UpgradeChecker::reportError(const QString& s)
 
 UpgradeCheckerGUI::UpgradeCheckerGUI(QTextBrowser *tb) : UpgradeChecker()
 {
-	m_outputWidget=tb;
-	m_writeToConsole=false;
-}
-
-UpgradeCheckerGUI::~UpgradeCheckerGUI()
-{
+	m_outputWidget = tb;
+	m_writeToConsole = false;
 }
 
 void UpgradeCheckerGUI::outputText(const QString& text, bool noLineFeed)

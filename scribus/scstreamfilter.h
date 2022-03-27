@@ -13,26 +13,11 @@ class QDataStream;
 
 class ScStreamFilter
 {
-protected:
-
-	typedef enum
-	{
-		FilterToStream = 0,
-		FilterToFilter = 1
-	} FilterMode;
-
-	int             m_writtenToStream;
-	FilterMode      m_filterMode;
-	QDataStream*    m_dataStream;
-	ScStreamFilter* m_filter;
-
-	bool writeDataInternal(const char* data, int dataLen);
 
 public:
-
 	ScStreamFilter(QDataStream* stream);
 	ScStreamFilter(ScStreamFilter* filter);
-	virtual ~ScStreamFilter() {};
+	virtual ~ScStreamFilter() = default;
 
 	virtual bool openFilter();
 	virtual bool closeFilter();
@@ -41,6 +26,20 @@ public:
 	virtual bool writeData(const char* data, int dataLen) = 0;
 
 	int writtenToStream();
+
+protected:
+	enum FilterMode
+	{
+		FilterToStream = 0,
+		FilterToFilter = 1
+	};
+
+	int             m_writtenToStream { 0 };
+	FilterMode      m_filterMode;
+	QDataStream*    m_dataStream { nullptr };
+	ScStreamFilter* m_filter { nullptr };
+
+	bool writeDataInternal(const char* data, int dataLen);
 };
 
 class ScNullEncodeFilter : public ScStreamFilter
@@ -49,7 +48,7 @@ public:
 	ScNullEncodeFilter(QDataStream* stream) : ScStreamFilter(stream) {};
 	ScNullEncodeFilter(ScStreamFilter* filter) : ScStreamFilter(filter) {};
 
-	virtual bool writeData(const char* data, int dataLen) { return writeDataInternal(data, dataLen); }
+	bool writeData(const char* data, int dataLen) override { return writeDataInternal(data, dataLen); }
 };
 
 #endif

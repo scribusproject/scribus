@@ -9,13 +9,9 @@ SelectionRubberBand::SelectionRubberBand(QRubberBand::Shape s, QWidget *p)
 {
 }
 
-SelectionRubberBand::~SelectionRubberBand()
-{
-}
-
 void SelectionRubberBand::paintEvent(QPaintEvent *p)
 {
-	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
+	QColor drawColor = QApplication::palette().color(QPalette::Active, QPalette::Highlight);
 	QPen pen(drawColor, 2, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
 	pen.setStyle(Qt::DashLine);
 

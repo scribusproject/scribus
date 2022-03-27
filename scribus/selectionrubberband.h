@@ -11,9 +11,10 @@ class SCRIBUS_API SelectionRubberBand : public QRubberBand
 	Q_OBJECT
 	public:
 		SelectionRubberBand(QRubberBand::Shape s, QWidget * p = 0);
-		~SelectionRubberBand();
+		~SelectionRubberBand() = default;
 
-		virtual void paintEvent(QPaintEvent *p);
+	protected:
+		void paintEvent(QPaintEvent *p) override;
 
 };
 

@@ -41,14 +41,14 @@ public:
 	*/
 	ScResizeCursor();
 	ScResizeCursor(double rotation);
-	~ScResizeCursor() {}
+	~ScResizeCursor() = default;
 		
-	operator const QCursor& ();
+	operator const QCursor& () const;
 
 private:
 	void initCursorDb(int idx);
 	static QMap<unsigned int, QCursor> m_cursors;
-	int m_currIndex;
+	int m_currIndex { 0 };
 };
 
 #endif // SCCURSOR_H

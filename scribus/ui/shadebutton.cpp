@@ -4,31 +4,31 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <array>
+
 #include "shadebutton.h"
 #include "query.h"
 
-
 ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent)
 {
-	QString tmp[] = {"0 %", "10 %", "20 %", "30 %", "40 %", "50 %", "60 %", "70 %", "80 %", "90 %", "100 %"};
-	size_t array = sizeof(tmp) / sizeof(*tmp);
-	FillSh = new QMenu();
-	FillSh->addAction( tr("Other..."))->setCheckable(true);
-	for (uint i = 0; i < array; ++i)
-		FillSh->addAction(tmp[i])->setCheckable(true);
-	setMenu(FillSh);
+	std::array<QString, 11> tmp = {"0 %", "10 %", "20 %", "30 %", "40 %", "50 %", "60 %", "70 %", "80 %", "90 %", "100 %"};
+	fillShadeMenu = new QMenu();
+	fillShadeMenu->addAction( tr("Other..."))->setCheckable(true);
+	for (size_t i = 0; i < tmp.size(); ++i)
+		fillShadeMenu->addAction(tmp[i])->setCheckable(true);
+	setMenu(fillShadeMenu);
 	setPopupMode(QToolButton::InstantPopup);
 	setText("100 %");
-	FillSh->actions().at(11)->setChecked(true);
-	connect( FillSh, SIGNAL(triggered(QAction *)), this, SLOT(setShade(QAction *)));
+	fillShadeMenu->actions().at(11)->setChecked(true);
+	connect( fillShadeMenu, SIGNAL(triggered(QAction *)), this, SLOT(setShade(QAction *)));
 }
 
 void ShadeButton::setShade(QAction *act)
 {
-	for (int i = 0; i < FillSh->actions().count(); ++i)
-		FillSh->actions().at(i)->setChecked(false);
+	for (int i = 0; i < fillShadeMenu->actions().count(); ++i)
+		fillShadeMenu->actions().at(i)->setChecked(false);
 	act->setChecked(true);
-	QList<QAction*> actList = FillSh->actions();
+	QList<QAction*> actList = fillShadeMenu->actions();
 	int b = 100;
 	int c = actList.indexOf(act);
 	if (c < 0)
@@ -56,7 +56,7 @@ void ShadeButton::setShade(QAction *act)
 	emit clicked();
 }
 
-int ShadeButton::getValue()
+int ShadeButton::getValue() const
 {
 	int l = text().length();
 	QString tx(text().remove(l-2, 2));
@@ -65,7 +65,7 @@ int ShadeButton::getValue()
 
 void ShadeButton::setValue(int val)
 {
-	QList<QAction*> fillActions = FillSh->actions();
+	QList<QAction*> fillActions = fillShadeMenu->actions();
 	for (int i = 0; i < fillActions.count(); ++i)
 		fillActions[i]->setChecked(false);
 	if ((val % 10) == 0)

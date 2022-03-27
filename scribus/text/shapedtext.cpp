@@ -14,7 +14,7 @@ class ShapedTextImplementation : QSharedData
 {
 	
 public:
-	ShapedTextImplementation(ITextSource* src, int firstChar, int lastChar, ITextContext* ctx) : m_needsContext(false), m_source(src), m_context(ctx)
+	ShapedTextImplementation(const ITextSource* src, int firstChar, int lastChar, const ITextContext* ctx) : m_source(src), m_context(ctx)
 	{
 		m_firstChar = firstChar;
 		m_lastChar = lastChar < 0? src->length() - 1 : lastChar;
@@ -24,9 +24,9 @@ public:
 	{}
 	
 	
-	bool m_needsContext;
-	const ITextSource* m_source;
-	const ITextContext* m_context;
+	bool m_needsContext { false };
+	const ITextSource* m_source { nullptr };
+	const ITextContext* m_context { nullptr };
 	int m_firstChar;
 	int m_lastChar;
 	QList<GlyphCluster> m_glyphs;
@@ -47,7 +47,7 @@ public:
 		result->m_firstChar = charPos;
 		result->m_glyphs.erase(result->m_glyphs.begin(), result->m_glyphs.begin() + pos);
 		return ShapedText(result);
-}
+	}
 	
 	/** only possible if they are adjacent pieces of the same text source */
 	bool canCombine(const QSharedPointer<ShapedTextImplementation>  other) const
@@ -87,7 +87,7 @@ bool ShapedText::isValid() const
 
 
 ShapedText::ShapedText(ShapedTextImplementation* my_p_impl) : p_impl(my_p_impl) {}
-ShapedText::ShapedText(ITextSource* src, int firstChar, int lastChar, ITextContext* ctx) : p_impl(new ShapedTextImplementation(src,firstChar,lastChar,ctx)) {}
+ShapedText::ShapedText(const ITextSource* src, int firstChar, int lastChar, const ITextContext* ctx) : p_impl(new ShapedTextImplementation(src, firstChar, lastChar, ctx)) {}
 ShapedText::ShapedText(const ShapedText& other) : p_impl(other.p_impl) {}
 	
 bool ShapedText::needsContext() const { return p_impl->m_needsContext; }
@@ -101,5 +101,5 @@ QList<GlyphCluster>& ShapedText::glyphs() { return p_impl->m_glyphs; }
 bool ShapedText::canSplit(int pos) const { return p_impl->canSplit(pos); }
 ShapedText ShapedText::split(int pos) { return p_impl->split(pos); }
 bool ShapedText::canCombine(const ShapedText& other) const { return p_impl->canCombine(other.p_impl); }
-void ShapedText::combine(ShapedText& other) { p_impl->combine(other.p_impl); }
+void ShapedText::combine(const ShapedText& other) { p_impl->combine(other.p_impl); }
 

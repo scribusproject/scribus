@@ -13,21 +13,17 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 ScStreamFilter::ScStreamFilter(QDataStream* stream)
+              : m_filterMode (FilterToStream), 
+                m_dataStream(stream)
 {
-	assert(stream != nullptr);
-	m_dataStream = stream;
-	m_filter     = nullptr;
-	m_filterMode = FilterToStream;
-	m_writtenToStream = 0;
+	assert(m_dataStream != nullptr);
 }
 
 ScStreamFilter::ScStreamFilter(ScStreamFilter* filter)
+              : m_filterMode(FilterToFilter),
+                m_filter(filter)
 {
-	assert(filter != nullptr);
-	m_dataStream = nullptr;
-	m_filter     = filter;
-	m_filterMode = FilterToFilter;
-	m_writtenToStream = 0;
+	assert(m_filter != nullptr);
 }
 
 bool ScStreamFilter::writeDataInternal(const char* data, int dataLen)

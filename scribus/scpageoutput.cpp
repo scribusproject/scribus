@@ -100,14 +100,14 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLay
 		return;
 	if (!layer.isViewable || !layer.isPrintable)
 		return;
-	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->masterPageName()]);
+	ScPage* masterPage = m_doc->MasterPages.at(m_doc->MasterNames[page->masterPageName()]);
 	int pageFromMasterCount = page->FromMaster.count();
 	for (int i = 0; i < pageFromMasterCount; ++i)
 	{
 		currItem = page->FromMaster.at(i);
 		if (currItem->m_layerID != layer.ID)
 			continue;
-		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
+		if ((currItem->OwnPage != -1) && (currItem->OwnPage != masterPage->pageNr()))
 			continue;
 		if (!currItem->printEnabled())
 			continue;
@@ -119,9 +119,9 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLay
 		currItem->OwnPage = page->pageNr();
 		if (!currItem->ChangedMasterItem)
 		{
-			currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
-			currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
-			currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
+			currItem->moveBy(-masterPage->xOffset() + page->xOffset(), -masterPage->yOffset() + page->yOffset(), true);
+			currItem->BoundingX = OldBX - masterPage->xOffset() + page->xOffset();
+			currItem->BoundingY = OldBY - masterPage->yOffset() + page->yOffset();
 		}
 		QRectF oldR(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0));
 		if (clip.intersects(oldR.toRect()))

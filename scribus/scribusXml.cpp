@@ -188,7 +188,7 @@ QString ScriXmlDoc::writeElem(ScribusDoc *doc, Selection* selection)
 		selectionHeight = hp = qMax(maxy, y2) - yp;
 	}
 	double scaleI = 50.0 / qMax(selectionWidth, selectionHeight);
-	QImage retImg = QImage(50, 50, QImage::Format_ARGB32_Premultiplied);
+	QImage retImg(50, 50, QImage::Format_ARGB32_Premultiplied);
 	retImg.fill( qRgba(0, 0, 0, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
 	painter->setZoomFactor(scaleI);
