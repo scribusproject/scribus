@@ -38,20 +38,22 @@ Building 3rd party libraries:
 Archives with ready-to-build solutions for scribus dependencies have been made available on Sourceforge: 
 https://sourceforge.net/projects/scribus/files/scribus-libs/
 
-Archives containing solutions for Visual Studio 2019 and 2022 are provided. These archives can be used to compile all dependencies 
-necessary for Scribus(apart from Qt). These archives allows to build libraries for 32bit and 64bit platforms using default toolsets. 
-The default configuration allows to build binaries compatible with Windows 7 and up.
+Archives for Visual Studio 2019 and 2022 are provided. These archives can be used to compile  all dependencies 
+necessary for Scribus. These archives allows to build libraries for 32bit and 64bit platforms using default toolsets. 
+The default configuration  allows to build binaries compatible with Windows Vista and up.
 
 Two different archives are needed :
 - scribus-commmon-libs-YYYYMMDD.7z : common libraries for 14x and trunk, no compilation is required here
-- scribus-17x-libs-msvc-YYYYMMDD.7z : Scribus 17x specific libraries used for current Scribus 1.7.x releases
+- scribus-17x-libs-msvcXXXX-YYYYMMDD.7z : Scribus 17x specific libraries used for current Scribus 1.7.x releases
 
-YYYYMMDD represents the date when the archive has been prepared/uploaded to Sourceforge.
+These archives are named using a scheme where:
+- msvcXXXX represents the Visual Studio version needed to compile provided Visual Studio solution
+- YYYYMMDD represents the date where the archive has been prepared/uploaded to Sourceforge.
 
 Once you downloaded the two appropriate archives :
 - decompress them in the *same* directory so as to get a layout similar to this one :
     - your_scribus_libs_directory
-       |- scribus-1.7.x-libs-msvc
+       |- scribus-1.7.x-libs-msvc2019
        |- scribus-common-libs
 - open the visual studio solution (*.sln) located in the scribus-1.7.x-libs-* directory
 - build debug and release configurations for all platforms (Win32 and/or x64) you plan to execute scribus on
