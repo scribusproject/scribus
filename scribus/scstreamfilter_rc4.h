@@ -16,23 +16,22 @@ struct ScRC4EncodeFilterData;
 
 class ScRC4EncodeFilter : public ScStreamFilter
 {
-protected:
-
-	ScRC4EncodeFilterData* m_filterData;
-	QByteArray             m_key;
-
-	void freeData(void);
-	bool m_openedFilter;
-
 public:
 	ScRC4EncodeFilter(QDataStream* stream, const char* key, unsigned int keyLen);
 	ScRC4EncodeFilter(ScStreamFilter* filter, const char* key, unsigned int keyLen);
-	~ScRC4EncodeFilter();
+	~ScRC4EncodeFilter() override;
 
-	virtual bool openFilter ();
-	virtual bool closeFilter();
+	bool openFilter () override;
+	bool closeFilter() override;
 
-	virtual bool writeData(const char* data, int dataLen);
+	bool writeData(const char* data, int dataLen) override;
+
+protected:
+	bool m_openedFilter { false };
+	ScRC4EncodeFilterData* m_filterData { nullptr };
+	QByteArray             m_key;
+
+	void freeData(void);
 };
 
 #endif

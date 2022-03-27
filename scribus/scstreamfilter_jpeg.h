@@ -18,34 +18,33 @@ class ScJpegEncodeFilter : public ScStreamFilter
 	friend struct ScJpegDestinationMgr;
 
 public:
-
-	typedef enum  {
+	enum Color
+	{
 		RGB,
 		CMYK,
 		GRAY
-	} Color;
+	};
 
 	ScJpegEncodeFilter(QDataStream* stream, unsigned int imgWidth, unsigned int imgHeight, ScJpegEncodeFilter::Color color);
 	ScJpegEncodeFilter(ScStreamFilter* filter, unsigned int imgWidth, unsigned int imgHeight, ScJpegEncodeFilter::Color color);
-	~ScJpegEncodeFilter();
+	~ScJpegEncodeFilter() override;
 
-	virtual bool openFilter ();
-	virtual bool closeFilter();
+	bool openFilter () override;
+	bool closeFilter() override;
 
-	virtual bool writeData(const char* data, int dataLen);
+	bool writeData(const char* data, int dataLen) override;
 
 	void setQuality(int quality) { m_quality = qMin(qMax(0, quality), 100); }
 
 protected:
-
-	ScJpegEncodeFilterData* m_filterData;
+	bool  m_openedFilter { false };
+	ScJpegEncodeFilterData* m_filterData { nullptr };
 
 	void  freeData();
-	bool  m_openedFilter;
 
-	unsigned int m_width;
-	unsigned int m_height;
-	int          m_quality;
+	unsigned int m_width { 0 };
+	unsigned int m_height { 0 };
+	int          m_quality { 75 };
 	Color        m_color;
 };
 

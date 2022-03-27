@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scstreamfilter_flate.h"
 
 #include <cstdlib>
+#include <cstring>
 #include <zlib.h>
 
 #include <QDataStream>
@@ -17,29 +18,27 @@ for which a new license (GPL+exception) is in place.
 #define BUFFER_SIZE 16384
 struct  ScFlateEncodeFilterData
 {
-    z_stream      zlib_stream;
-    unsigned char input_buffer [BUFFER_SIZE];
-    unsigned char output_buffer[BUFFER_SIZE];
+	z_stream      zlib_stream;
+	unsigned char input_buffer [BUFFER_SIZE];
+	unsigned char output_buffer[BUFFER_SIZE];
 };
 
 ScFlateEncodeFilter::ScFlateEncodeFilter(QDataStream* stream)
 				   : ScStreamFilter(stream)
 {
-	m_filterData   = nullptr;
-	m_openedFilter = false;
+
 }
 
 ScFlateEncodeFilter::ScFlateEncodeFilter(ScStreamFilter* filter)
 				   : ScStreamFilter(filter)
 {
-	m_filterData   = nullptr;
-	m_openedFilter = false;
+
 }
 
 ScFlateEncodeFilter::~ScFlateEncodeFilter()
 {
 	if (m_filterData && m_openedFilter)
-		closeFilter();
+		ScFlateEncodeFilter::closeFilter();
 	freeData();
 }
 
@@ -69,17 +68,18 @@ bool ScFlateEncodeFilter::openFilter()
 	}
 
 	m_filterData->zlib_stream.next_in   = m_filterData->input_buffer;
-    m_filterData->zlib_stream.avail_in  = 0;
-    m_filterData->zlib_stream.next_out  = m_filterData->output_buffer;
-    m_filterData->zlib_stream.avail_out = BUFFER_SIZE;
+	m_filterData->zlib_stream.avail_in  = 0;
+	m_filterData->zlib_stream.next_out  = m_filterData->output_buffer;
+	m_filterData->zlib_stream.avail_out = BUFFER_SIZE;
 
 	m_openedFilter = ScStreamFilter::openFilter();
 	return m_openedFilter;
 }
+
 bool ScFlateEncodeFilter::closeFilter()
 {
 	bool closeSucceed = writeDeflate(true);
-    deflateEnd (&m_filterData->zlib_stream);
+	deflateEnd (&m_filterData->zlib_stream);
 	m_openedFilter = false;
 	closeSucceed  &= ScStreamFilter::closeFilter();
 	return closeSucceed;
@@ -94,17 +94,18 @@ bool ScFlateEncodeFilter::writeData(const char* data, int dataLen)
 	if (!m_filterData)
 		return false;
 
-    while (dataLen) {
-        count = dataLen;
-        if (count > BUFFER_SIZE - m_filterData->zlib_stream.avail_in)
-            count = BUFFER_SIZE - m_filterData->zlib_stream.avail_in;
-        memcpy (m_filterData->input_buffer + m_filterData->zlib_stream.avail_in, p, count);
-        p += count;
-        m_filterData->zlib_stream.avail_in += count;
-        dataLen -= count;
+	while (dataLen)
+	{
+		count = dataLen;
+		if (count > BUFFER_SIZE - m_filterData->zlib_stream.avail_in)
+			count = BUFFER_SIZE - m_filterData->zlib_stream.avail_in;
+		memcpy (m_filterData->input_buffer + m_filterData->zlib_stream.avail_in, p, count);
+		p += count;
+		m_filterData->zlib_stream.avail_in += count;
+		dataLen -= count;
 
-        if (m_filterData->zlib_stream.avail_in == BUFFER_SIZE)
-            deflateSuccess &= writeDeflate(false);
+		if (m_filterData->zlib_stream.avail_in == BUFFER_SIZE)
+			deflateSuccess &= writeDeflate(false);
     }
 
 	return deflateSuccess;
@@ -114,25 +115,26 @@ bool ScFlateEncodeFilter::writeDeflate(bool flush)
 {
 	int  ret;
 	bool deflateSuccess = true;
-    bool finished;
+	bool finished;
 	
-	do {
+	do
+	{
 		ret = deflate (&m_filterData->zlib_stream, flush ? Z_FINISH : Z_NO_FLUSH);
-        if (flush || m_filterData->zlib_stream.avail_out == 0)
-        {
+		if (flush || m_filterData->zlib_stream.avail_out == 0)
+		{
 			deflateSuccess &= writeDataInternal((const char*) m_filterData->output_buffer, BUFFER_SIZE - m_filterData->zlib_stream.avail_out);
-            m_filterData->zlib_stream.next_out  = m_filterData->output_buffer;
-            m_filterData->zlib_stream.avail_out = BUFFER_SIZE;
-        }
+			m_filterData->zlib_stream.next_out  = m_filterData->output_buffer;
+			m_filterData->zlib_stream.avail_out = BUFFER_SIZE;
+		}
 
-        finished = true;
-        if (m_filterData->zlib_stream.avail_in != 0)
-            finished = false;
-        if (flush && ret != Z_STREAM_END)
-            finished = false;
+		finished = true;
+		if (m_filterData->zlib_stream.avail_in != 0)
+			finished = false;
+		if (flush && ret != Z_STREAM_END)
+			finished = false;
 
-    } while (!finished);
+	} while (!finished);
 
-    m_filterData->zlib_stream.next_in = m_filterData->input_buffer;
+	m_filterData->zlib_stream.next_in = m_filterData->input_buffer;
 	return deflateSuccess;
 }

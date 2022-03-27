@@ -14,24 +14,23 @@ struct ScFlateEncodeFilterData;
 
 class ScFlateEncodeFilter : public ScStreamFilter
 {
-protected:
-
-	ScFlateEncodeFilterData* m_filterData;
-
-	void freeData();
-	bool m_openedFilter;
-
-	bool writeDeflate(bool flush);
-
 public:
 	ScFlateEncodeFilter(QDataStream* stream);
 	ScFlateEncodeFilter(ScStreamFilter* filter);
-	~ScFlateEncodeFilter();
+	~ScFlateEncodeFilter() override;
 
-	virtual bool openFilter ();
-	virtual bool closeFilter();
+	bool openFilter() override;
+	bool closeFilter() override;
 
-	virtual bool writeData(const char* data, int dataLen);
+	bool writeData(const char* data, int dataLen) override;
+
+protected:
+	bool m_openedFilter { false };
+	ScFlateEncodeFilterData* m_filterData { nullptr };
+
+	void freeData();
+
+	bool writeDeflate(bool flush);
 };
 
 #endif

@@ -46,11 +46,11 @@ void ScJpegErrorMgr::jpegErrorExit (j_common_ptr cinfo)
 
 struct ScJpegDestinationMgr : public jpeg_destination_mgr 
 {
-    ScJpegEncodeFilter *filter;
-    JOCTET buffer[BUFFER_SIZE];
+	ScJpegEncodeFilter* filter { nullptr };
+	JOCTET buffer[BUFFER_SIZE];
 
 public:
-    ScJpegDestinationMgr(ScJpegEncodeFilter *);
+	ScJpegDestinationMgr(ScJpegEncodeFilter *);
 
 	static boolean jpegEmptyBuffer(j_compress_ptr cinfo);
 	static void    jpegDestinationInit(j_compress_ptr);
@@ -63,49 +63,49 @@ void ScJpegDestinationMgr::jpegDestinationInit(j_compress_ptr)
 
 boolean ScJpegDestinationMgr::jpegEmptyBuffer(j_compress_ptr cinfo)
 {
-    ScJpegDestinationMgr* dest = (ScJpegDestinationMgr*) cinfo->dest;
+	ScJpegDestinationMgr* dest = (ScJpegDestinationMgr*) cinfo->dest;
 
-    bool written = dest->filter->writeDataInternal((const char*) dest->buffer, BUFFER_SIZE);
-    if (!written)
-        (*cinfo->err->error_exit)((j_common_ptr) cinfo);
+	bool written = dest->filter->writeDataInternal((const char*) dest->buffer, BUFFER_SIZE);
+	if (!written)
+		(*cinfo->err->error_exit)((j_common_ptr) cinfo);
 
-    dest->next_output_byte = dest->buffer;
-    dest->free_in_buffer   = BUFFER_SIZE;
+	dest->next_output_byte = dest->buffer;
+	dest->free_in_buffer   = BUFFER_SIZE;
 
-    return boolean(true);
+	return boolean(true);
 }
 
 void ScJpegDestinationMgr::jpegDestinationTerm(j_compress_ptr cinfo)
 {
-    ScJpegDestinationMgr* dest = (ScJpegDestinationMgr*) cinfo->dest;
-    int n = BUFFER_SIZE - dest->free_in_buffer;
+	ScJpegDestinationMgr* dest = (ScJpegDestinationMgr*) cinfo->dest;
+	int n = BUFFER_SIZE - dest->free_in_buffer;
 
-    bool written = dest->filter->writeDataInternal((const char*) dest->buffer, n);
-    if (!written)
-        (*cinfo->err->error_exit)((j_common_ptr)cinfo);
+	bool written = dest->filter->writeDataInternal((const char*) dest->buffer, n);
+	if (!written)
+		(*cinfo->err->error_exit)((j_common_ptr)cinfo);
 }
 
 ScJpegDestinationMgr::ScJpegDestinationMgr(ScJpegEncodeFilter *filter)
 {
 	jpeg_destination_mgr::empty_output_buffer = jpegEmptyBuffer;
-    jpeg_destination_mgr::init_destination    = jpegDestinationInit;
-    jpeg_destination_mgr::term_destination    = jpegDestinationTerm;
-    this->filter     = filter;
-    next_output_byte = buffer;
-    free_in_buffer   = BUFFER_SIZE;
+	jpeg_destination_mgr::init_destination    = jpegDestinationInit;
+	jpeg_destination_mgr::term_destination    = jpegDestinationTerm;
+	this->filter     = filter;
+	next_output_byte = buffer;
+	free_in_buffer   = BUFFER_SIZE;
 }
 
 struct ScJpegEncodeFilterData
 {
 	struct   jpeg_compress_struct  cinfo;
-	struct   ScJpegDestinationMgr* cdest;
+	struct   ScJpegDestinationMgr* cdest { nullptr };
 	JSAMPROW row_pointer[1];
 
 	ScJpegEncodeFilterData();
 	~ScJpegEncodeFilterData();
 };
 
-ScJpegEncodeFilterData::ScJpegEncodeFilterData() : cdest(nullptr)
+ScJpegEncodeFilterData::ScJpegEncodeFilterData()
 {
 	row_pointer[0] = nullptr;
 }
@@ -119,24 +119,22 @@ ScJpegEncodeFilterData::~ScJpegEncodeFilterData()
 
 ScJpegEncodeFilter::ScJpegEncodeFilter(QDataStream* stream, unsigned int imgWidth, unsigned int imgHeight, 
 		            ScJpegEncodeFilter::Color color) : ScStreamFilter(stream), m_width(imgWidth), m_height(imgHeight),
-					m_quality(75), m_color(color)
+					m_color(color)
 {
-	m_filterData = nullptr;
-	m_openedFilter = false;
+
 }
 
 ScJpegEncodeFilter::ScJpegEncodeFilter(ScStreamFilter* filter, unsigned int imgWidth, unsigned int imgHeight, 
 					ScJpegEncodeFilter::Color color) : ScStreamFilter(filter), m_width(imgWidth), m_height(imgHeight),
-					m_quality(75), m_color(color)
+					m_color(color)
 {
-	m_filterData = nullptr;
-	m_openedFilter = false;
+
 }
 
 ScJpegEncodeFilter::~ScJpegEncodeFilter()
 {
 	if (m_filterData && m_openedFilter)
-		closeFilter();
+		ScJpegEncodeFilter::closeFilter();
 	freeData();
 }
 
