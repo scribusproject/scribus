@@ -1802,7 +1802,7 @@ QString XpsPlug::handleColor(QString rgbColor, double &opacity)
 	if (rgbColor.startsWith( "sc#" ))
 	{
 		QColor c;
-		rgbColor = rgbColor.remove(0,3);
+		rgbColor.remove(0,3);
 		QStringList co = rgbColor.split(",");
 		if (co.size() == 3)
 		{
@@ -1843,7 +1843,7 @@ QString XpsPlug::handleColor(QString rgbColor, double &opacity)
 			bool ok;
 			int hex = alpha.toInt(&ok, 16);
 			opacity = 1.0 - (hex / 255.0);
-			rgbColor = rgbColor.remove(1,2);
+			rgbColor.remove(1,2);
 		}
 		else
 			opacity = 0;

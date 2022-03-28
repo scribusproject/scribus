@@ -52,15 +52,15 @@ bool PaletteLoader_PS::importFile(const QString& fileName, bool /*merge*/)
 			else
 			{
 				if (tmp.startsWith("%%CMYKCustomColor"))
-					tmp = tmp.remove(0,18);
+					tmp.remove(0,18);
 				else if (tmp.startsWith("%%CMYKProcessColor"))
-					tmp = tmp.remove(0,19);
+					tmp.remove(0,19);
 				ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 				ts2 >> c >> m >> y >> k;
 				colorName = ts2.readAll();
 				colorName = colorName.trimmed();
-				colorName = colorName.remove(0,1);
-				colorName = colorName.remove(colorName.length()-1,1);
+				colorName.remove(0,1);
+				colorName.remove(colorName.length()-1,1);
 				colorName = colorName.simplified();
 				cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 				cc.setSpotColor(true);
@@ -75,13 +75,13 @@ bool PaletteLoader_PS::importFile(const QString& fileName, bool /*merge*/)
 						ts.device()->seek(oldPos);
 						break;
 					}
-					tmp = tmp.remove(0,3);
+					tmp.remove(0,3);
 					ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> y >> k;
 					colorName = ts2.readAll();
 					colorName = colorName.trimmed();
-					colorName = colorName.remove(0,1);
-					colorName = colorName.remove(colorName.length()-1,1);
+					colorName.remove(0,1);
+					colorName.remove(colorName.length()-1,1);
 					colorName = colorName.simplified();
 					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 					cc.setSpotColor(true);
@@ -97,15 +97,15 @@ bool PaletteLoader_PS::importFile(const QString& fileName, bool /*merge*/)
 			else
 			{
 				if (tmp.startsWith("%%RGBCustomColor"))
-					tmp = tmp.remove(0,17);
+					tmp.remove(0,17);
 				else if (tmp.startsWith("%%RGBProcessColor"))
-					tmp = tmp.remove(0,18);
+					tmp.remove(0,18);
 				ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 				ts2 >> c >> m >> y;
 				colorName = ts2.readAll();
 				colorName = colorName.trimmed();
-				colorName = colorName.remove(0,1);
-				colorName = colorName.remove(colorName.length()-1,1);
+				colorName.remove(0,1);
+				colorName.remove(colorName.length()-1,1);
 				colorName = colorName.simplified();
 				cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y));
 				if (!colorName.isEmpty())
@@ -119,13 +119,13 @@ bool PaletteLoader_PS::importFile(const QString& fileName, bool /*merge*/)
 						ts.device()->seek(oldPos);
 						break;
 					}
-					tmp = tmp.remove(0,3);
+					tmp.remove(0,3);
 					ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> y;
 					colorName = ts2.readAll();
 					colorName = colorName.trimmed();
-					colorName = colorName.remove(0,1);
-					colorName = colorName.remove(colorName.length()-1,1);
+					colorName.remove(0,1);
+					colorName.remove(colorName.length()-1,1);
 					colorName = colorName.simplified();
 					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y));
 					if (!colorName.isEmpty())

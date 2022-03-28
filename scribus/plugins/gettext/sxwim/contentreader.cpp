@@ -169,8 +169,8 @@ bool ContentReader::startElement(const QString &name, const SXWAttributesMap &at
 bool ContentReader::characters(const QString &ch) 
 {
 	QString tmp(ch);
-	tmp = tmp.remove("\n");
-	tmp = tmp.remove(""); // Remove all OO.o hyphenation chars
+	tmp.remove("\n");
+	tmp.remove(""); // Remove all OO.o hyphenation chars
 	// Unneeded as scribus now also use standard unicode non-breakable space
 	// tmp = tmp.replace(QChar(160), SpecialChars::NBSPACE); // replace OO.o nbsp with Scribus nbsp
 	if (append > 0)

@@ -121,7 +121,7 @@ void ScImgDataLoader_PS::scanForFonts(const QString& fn)
 		tmp = readLineFromDataStream(ts);
 		if (tmp.startsWith("%%BeginFont:"))
 		{
-			tmp = tmp.remove("%%BeginFont:");
+			tmp.remove("%%BeginFont:");
 			ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 			QString tmp2;
 			ts2 >> tmp2;
@@ -207,7 +207,7 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 				m_Creator = tmp.remove("%%Creator: ");
 			if (tmp.startsWith("%%Pages: "))
 			{
-				tmp = tmp.remove("%%Pages: ");
+				tmp.remove("%%Pages: ");
 				bool ok;
 				int pages = tmp.toInt( &ok );
 				if (ok)
@@ -259,10 +259,10 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 			}
 			if (tmp.startsWith("%%PlateFile: ("))
 			{
-				tmp = tmp.remove("%%PlateFile: (");
+				tmp.remove("%%PlateFile: (");
 				int endNam = tmp.indexOf(")");
 				QString plateNam = tmp.left(endNam);
-				tmp = tmp.remove(plateNam+")");
+				tmp.remove(plateNam+")");
 				ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 				QString posStr, dummy, lenStr;
 				ts2 >> dummy >> posStr >> lenStr;
@@ -270,7 +270,7 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 				{
 					if (posStr.startsWith("#"))
 					{
-						posStr = posStr.remove(0, 1);
+						posStr.remove(0, 1);
 						uint pos = posStr.toUInt();
 						uint len = lenStr.toUInt();
 						struct plateOffsets offs;
@@ -295,7 +295,7 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 			}
 			if (tmp.startsWith("%%DocumentFonts:"))
 			{
-				tmp = tmp.remove("%%DocumentFonts:");
+				tmp.remove("%%DocumentFonts:");
 				ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 				QString tmp2;
 				ts2 >> tmp2;
@@ -312,7 +312,7 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 							ts.device()->seek(oldPos);
 							break;
 						}
-						tmp = tmp.remove(0,3);
+						tmp.remove(0,3);
 						ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 						QString tmp2;
 						ts2 >> tmp2;
@@ -325,13 +325,13 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 			}
 			if (tmp.startsWith("%%CMYKCustomColor"))
 			{
-				tmp = tmp.remove(0,18);
+				tmp.remove(0,18);
 				ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 				ts2 >> c >> m >> y >> k;
 				FarNam = ts2.readAll();
 				FarNam = FarNam.trimmed();
-				FarNam = FarNam.remove(0,1);
-				FarNam = FarNam.remove(FarNam.length()-1,1);
+				FarNam.remove(0,1);
+				FarNam.remove(FarNam.length()-1,1);
 				cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 				cc.setSpotColor(true);
 				m_CustColors.insert(FarNam, cc);

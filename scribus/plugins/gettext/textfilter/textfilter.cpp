@@ -106,9 +106,9 @@ void TextFilter::write()
 			{
 				case REMOVE: 
 					if (useRegexp)
-						text = text.remove(rx);
+						text.remove(rx);
 					else
-						text = text.remove(regExp);
+						text.remove(regExp);
 					break;
 				case REPLACE:
 					if (useRegexp)

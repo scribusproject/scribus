@@ -170,7 +170,7 @@ bool StyleReader::startElement(const QString &name, const SXWAttributesMap &attr
 			else if (attrName == "fo:font-family")
 			{
 				family = attr.value();
-				family = family.remove("'");
+				family.remove("'");
 			}
 			else if (attrName == "style:font-style-name")
 				style += attr.value() + " ";

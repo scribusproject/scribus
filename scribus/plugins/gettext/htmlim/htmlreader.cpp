@@ -335,7 +335,7 @@ bool HTMLReader::endElement(const QString &name)
 		if ((!href.isEmpty()) && ((href.indexOf("//") != -1) ||
 		    (href.indexOf("mailto:") != -1) || (href.indexOf("www") != -1)))
 		{
-			href = href.remove("mailto:");
+			href.remove("mailto:");
 			writer->append(QString(" [%1]").arg(extIndex), pstyle);
 			extLinks += QString("[%1] ").arg(extIndex) + href + "\n";
 			++extIndex;

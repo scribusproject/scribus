@@ -803,15 +803,15 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 				else
 				{
 					if (tmp.startsWith("%%CMYKCustomColor"))
-						tmp = tmp.remove(0,18);
+						tmp.remove(0,18);
 					else if (tmp.startsWith("%%CMYKProcessColor"))
-						tmp = tmp.remove(0,19);
+						tmp.remove(0,19);
 					ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> yc >> k;
 					FarNam = ts2.readAll();
 					FarNam = FarNam.trimmed();
-					FarNam = FarNam.remove(0,1);
-					FarNam = FarNam.remove(FarNam.length()-1,1);
+					FarNam.remove(0,1);
+					FarNam.remove(FarNam.length()-1,1);
 					FarNam = FarNam.simplified();
 					QByteArray farN;
 					for (int a = 0; a < FarNam.length(); a++)
@@ -836,13 +836,13 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 							ts.device()->seek(oldPos);
 							break;
 						}
-						tmp = tmp.remove(0,3);
+						tmp.remove(0,3);
 						ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> c >> m >> yc >> k;
 						FarNam = ts2.readAll();
 						FarNam = FarNam.trimmed();
-						FarNam = FarNam.remove(0,1);
-						FarNam = FarNam.remove(FarNam.length()-1,1);
+						FarNam.remove(0,1);
+						FarNam.remove(FarNam.length()-1,1);
 						FarNam = FarNam.simplified();
 						QByteArray farN;
 						for (int a = 0; a < FarNam.length(); a++)
@@ -868,15 +868,15 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 				else
 				{
 					if (tmp.startsWith("%%RGBCustomColor"))
-						tmp = tmp.remove(0,17);
+						tmp.remove(0,17);
 					else if (tmp.startsWith("%%RGBProcessColor"))
-						tmp = tmp.remove(0,18);
+						tmp.remove(0,18);
 					ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> yc;
 					FarNam = ts2.readAll();
 					FarNam = FarNam.trimmed();
-					FarNam = FarNam.remove(0,1);
-					FarNam = FarNam.remove(FarNam.length()-1,1);
+					FarNam.remove(0,1);
+					FarNam.remove(FarNam.length()-1,1);
 					FarNam = FarNam.simplified();
 					QByteArray farN;
 					for (int a = 0; a < FarNam.length(); a++)
@@ -900,13 +900,13 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 							ts.device()->seek(oldPos);
 							break;
 						}
-						tmp = tmp.remove(0,3);
+						tmp.remove(0,3);
 						ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> c >> m >> yc;
 						FarNam = ts2.readAll();
 						FarNam = FarNam.trimmed();
-						FarNam = FarNam.remove(0,1);
-						FarNam = FarNam.remove(FarNam.length()-1,1);
+						FarNam.remove(0,1);
+						FarNam.remove(FarNam.length()-1,1);
 						FarNam = FarNam.simplified();
 						QByteArray farN;
 						for (int a = 0; a < FarNam.length(); a++)
@@ -958,7 +958,7 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 							if (!isX)
 							{
 								tmp = tmp.trimmed();
-								tmp = tmp.remove(0,1);
+								tmp.remove(0,1);
 								int en = tmp.indexOf(")");
 								FarNam = tmp.mid(0, en);
 								FarNam = FarNam.simplified();

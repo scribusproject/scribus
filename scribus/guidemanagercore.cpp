@@ -682,7 +682,7 @@ QString GuideManagerIO::writeHorizontalGuides(const ScPage *page, GuideManagerCo
 	Guides tmpGuides = page->guides.horizontals(type);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
 	{
-		tmp = tmp.setNum((*it));
+		tmp.setNum((*it));
 		retval += tmp + " ";
 	}
 	return retval;
@@ -696,7 +696,7 @@ QString GuideManagerIO::writeVerticalGuides(const ScPage *page, GuideManagerCore
 	Guides tmpGuides = page->guides.verticals(type);
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
 	{
-		tmp = tmp.setNum((*it));
+		tmp.setNum((*it));
 		retval += tmp + " ";
 	}
 	return retval;

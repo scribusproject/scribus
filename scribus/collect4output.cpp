@@ -170,7 +170,7 @@ bool CollectForOutput::collectDocument()
 	else
 	{
 		if (newName.endsWith(".gz"))
-			newName = newName.remove(".gz");
+			newName.remove(".gz");
 	}
 
 	if (!overwrite(ScCore->primaryMainWindow(), newName))

@@ -235,7 +235,7 @@ void LayerPalette::rebuildList()
 		int layerID = it->ID;
 		//TODO once "layers" is not set anymore, need to get layer number differently
 		int layerLevel = m_Doc->layerLevelFromID(layerID);
-		tmp = tmp.setNum(layerLevel);
+		tmp.setNum(layerLevel);
 		int row = layerCount-layerLevel - 1;
 		QToolButton *pb = new QToolButton(this);
 		pb->setObjectName(tmp);

@@ -134,7 +134,7 @@ QString PluginManager::getPluginName(const QString& fileName)
 	QFileInfo fi(fileName);
 	QString baseName(fi.baseName());
 	if (baseName.startsWith("lib"))
-		baseName = baseName.remove(0, 3);
+		baseName.remove(0, 3);
 	if (baseName.endsWith(platformDllExtension()))
 		baseName.chop(1 + platformDllExtension().length());
 	// check name

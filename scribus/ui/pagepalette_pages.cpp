@@ -394,7 +394,7 @@ QPixmap PagePalette_Pages::createIcon(int number, QString masterPage, const QPix
 	p.setPen(QPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	QString tmp(currView->m_doc->getSectionPageNumberForPageIndex(number));
 	if (tmp.isEmpty())
-		tmp = tmp.setNum(number + 1);
+		tmp.setNum(number + 1);
 	QRegularExpression regExp ("([A-Z]*[0-9]*)( *[\\.|\\-|_] *)(.*)");
 	QRegularExpressionMatch match = regExp.match(masterPage);
 	if (match.hasMatch())
