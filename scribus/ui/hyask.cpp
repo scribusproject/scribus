@@ -142,9 +142,9 @@ void HyAsk::reject()
 void HyAsk::Check()
 {
 	disconnect ( Wort, SIGNAL ( textChanged ( const QString & ) ), this, SLOT ( Check() ) );
-	QString in = Wort->text();
-	QString out = in.replace ( QRegularExpression ( "(-)+" ), "-" );
-	Wort->setText ( out );
+	QString newText(Wort->text());
+	newText.replace ( QRegularExpression ( "(-)+" ), "-" );
+	Wort->setText(newText);
 	addToExceptionList->setEnabled(true);
 	addToExceptionListText->setEnabled(true);
 	connect ( Wort, SIGNAL ( textChanged ( const QString & ) ), this, SLOT ( Check() ) );
@@ -153,9 +153,9 @@ void HyAsk::Check()
 void HyAsk::DoSkip()
 {
 	disconnect ( Wort, SIGNAL ( textChanged ( const QString & ) ), this, SLOT ( Check() ) );
-	QString in = Wort->text();
-	QString out = in.replace ( QRegularExpression ( "(-)+" ), "" );
-	Wort->setText ( out );
+	QString newText(Wort->text());
+	newText.replace ( QRegularExpression ( "(-)+" ), "" );
+	Wort->setText(newText);
 	accept();
 }
 

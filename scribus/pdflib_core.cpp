@@ -2316,9 +2316,9 @@ PdfId PDFLibCore::PDF_EmbedFontObject(const QString& name, ScFace& face)
 
 void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& usedFonts)
 {
-	qDebug() << "embed list:" << QStringList(Options.EmbedList).join(", ");
-	qDebug() << "subset list:" << QStringList(Options.SubsetList).join(", ");
-	qDebug() << "outline list:" << QStringList(Options.OutlineList).join(", ");
+//	qDebug() << "embed list:" << QStringList(Options.EmbedList).join(", ");
+//	qDebug() << "subset list:" << QStringList(Options.SubsetList).join(", ");
+//	qDebug() << "outline list:" << QStringList(Options.OutlineList).join(", ");
 
 	int a = 0;
 	for (auto it = usedFonts.cbegin(); it != usedFonts.cend(); ++it)

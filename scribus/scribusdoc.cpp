@@ -17480,7 +17480,7 @@ void ScribusDoc::updateItemNotesNums(PageItem_TextFrame* frame, NotesStyle* nSty
 		if (note->noteMark() != nullptr)
 		{
 			note->noteMark()->setString(numStr);
-			label = label.replace("NoteMark","NoteFrameMark");
+			label.replace("NoteMark","NoteFrameMark");
 			note->noteMark()->label = label;
 		}
 		++index;

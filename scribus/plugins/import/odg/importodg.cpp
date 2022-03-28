@@ -2854,7 +2854,7 @@ const char * OdgPlug::getCoord( const char *ptr, double &number )
 bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fill, bool &stroke)
 {
 	QString d(svgPath);
-	d = d.replace( QRegularExpression( "," ), " ");
+	d.replace( QRegularExpression( "," ), " ");
 	bool ret = false;
 	fill = true;
 	stroke = true;

@@ -860,16 +860,12 @@ double ShapePlug::parseUnit(const QString &unit)
 
 const char * ShapePlug::getCoord( const char *ptr, double &number )
 {
-	int integer, exponent;
-	double decimal, frac;
-	int sign, expsign;
-
-	exponent = 0;
-	integer = 0;
-	frac = 1.0;
-	decimal = 0;
-	sign = 1;
-	expsign = 1;
+	int exponent = 0;
+	int integer = 0;
+	double frac = 1.0;
+	double decimal = 0.0;
+	int sign = 1;
+	int expsign = 1;
 
 	// read the sign
 	if (*ptr == '+')
@@ -922,8 +918,8 @@ const char * ShapePlug::getCoord( const char *ptr, double &number )
 
 bool ShapePlug::parseSVG( const QString &s, FPointArray *ite )
 {
-	QString d = s;
-	d = d.replace( QRegularExpression( "," ), " ");
+	QString d(s);
+	d.replace( QRegularExpression( "," ), " ");
 	bool ret = false;
 	if (!d.isEmpty())
 	{

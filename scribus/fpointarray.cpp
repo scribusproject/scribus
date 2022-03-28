@@ -900,8 +900,8 @@ static const char * getCoord(const char *ptr, double &number)
 
 bool FPointArray::parseSVG(const QString& svgPath)
 {
-	QString d = svgPath;
-	d = d.replace(QRegularExpression(","), " ");
+	QString d(svgPath);
+	d.replace(QRegularExpression(","), " ");
 
 	bool ret = false;
 	if (d.isEmpty())

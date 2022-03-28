@@ -438,8 +438,8 @@ QStringList ScPaths::systemProfilesDirs()
 	osVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO); // Necessary for GetVersionEx to succeed
 	GetVersionEx(&osVersion);  // Get Windows version infos
 	GetSystemDirectoryW(sysDir, MAX_PATH); // windowsSpecialDir(CSIDL_SYSTEM) fails on Win9x
-	QString winSysDir = QString::fromUtf16((const ushort*) sysDir);
-	winSysDir = winSysDir.replace('\\','/');
+	QString winSysDir(QString::fromUtf16((const ushort*) sysDir));
+	winSysDir.replace('\\','/');
 	if (osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT) // Windows NT/2k/XP
 	{
 		if (osVersion.dwMajorVersion >= 5) // for 2k and XP dwMajorVersion == 5 

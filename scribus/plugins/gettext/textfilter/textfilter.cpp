@@ -112,9 +112,9 @@ void TextFilter::write()
 					break;
 				case REPLACE:
 					if (useRegexp)
-						text = text.replace(rx, replaceWith); 
+						text.replace(rx, replaceWith);
 					else
-						text = text.replace(regExp, replaceWith);
+						text.replace(regExp, replaceWith);
 					break;
 				case APPLY: 
 					pstyles[pstyle] = new gtParagraphStyle(*fstyle);

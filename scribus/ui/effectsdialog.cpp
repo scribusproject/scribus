@@ -1433,7 +1433,7 @@ void EffectsDialog::selectEffectHelper(bool finalValues)
 		}
 		if (currentOptions->text() == tr("Tritone"))
 		{
-			QString efval = "";
+			QString efval;
 			efval = colDatat1->currentText()+"\n";
 			efval += colDatat2->currentText()+"\n";
 			efval += colDatat3->currentText()+"\n";

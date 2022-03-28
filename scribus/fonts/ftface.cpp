@@ -82,7 +82,8 @@ void FtFace::load() const
 {
 	ScFaceData::load();
 
-	if (!m_face) {
+	if (!m_face)
+	{
 		if (FT_New_Face( m_library, QFile::encodeName(fontFile), faceIndex, & m_face ))
 		{
 			status = ScFace::BROKEN;
@@ -160,15 +161,15 @@ void FtFace::load() const
 			const_cast<FtFace*>(this)->isStroked = true;
 		charcode = FT_Get_Next_Char( m_face, charcode, &gindex );
 	}
-	if (invalidGlyph > 0) {
+	if (invalidGlyph > 0)
 		status = ScFace::BROKENGLYPHS;
-	}
 }
 
 
 void FtFace::unload() const
 {
-	if (m_face) {
+	if (m_face)
+	{
 		FT_Done_Face( m_face );
 		m_face = nullptr;
 	}

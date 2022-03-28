@@ -91,9 +91,10 @@ void AboutPlugins::displayPlugin(QListWidgetItem* currItem, QListWidgetItem* pre
 	plugin->deleteAboutData(about);
 }
 
-QString AboutPlugins::htmlize(QString s)
+QString AboutPlugins::htmlize(const QString& s)
 {
-	QString ret = s.replace('<', "&lt;");
-	ret = ret.replace('>', "&gt;");
+	QString ret(s);
+	ret.replace('<', "&lt;");
+	ret.replace('>', "&gt;");
 	return ret;
 }

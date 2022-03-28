@@ -168,7 +168,7 @@ bool ContentReader::startElement(const QString &name, const SXWAttributesMap &at
 
 bool ContentReader::characters(const QString &ch) 
 {
-	QString tmp = ch;
+	QString tmp(ch);
 	tmp = tmp.remove("\n");
 	tmp = tmp.remove(""); // Remove all OO.o hyphenation chars
 	// Unneeded as scribus now also use standard unicode non-breakable space

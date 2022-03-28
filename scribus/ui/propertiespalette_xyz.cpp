@@ -1264,14 +1264,12 @@ void PropertiesPalette_XYZ::languageChange()
 	setWindowTitle( tr("Properties"));
 	retranslateUi(this);
 
-	QString ptSuffix = tr(" pt");
+	QString suffix = m_haveDoc ? unitGetSuffixFromIndex(m_doc->unitIndex()) : tr(" pt");
 
-	QString ein = (m_haveDoc) ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
-
-	xposSpin->setSuffix(ein);
-	yposSpin->setSuffix(ein);
-	widthSpin->setSuffix(ein);
-	heightSpin->setSuffix(ein);
+	xposSpin->setSuffix(suffix);
+	yposSpin->setSuffix(suffix);
+	widthSpin->setSuffix(suffix);
+	heightSpin->setSuffix(suffix);
 }
 
 void PropertiesPalette_XYZ::updateSpinBoxConstants()

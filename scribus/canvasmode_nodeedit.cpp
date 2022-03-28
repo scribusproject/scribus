@@ -919,16 +919,15 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 	if (edited)
 	{
 		currItem->FrameType = 3;
-		double xp, yp, w, h, xp2, yp2, w2, h2;
-		xp = currItem->xPos();
-		yp = currItem->yPos();
-		w = currItem->width();
-		h = currItem->height();
+		double xp = currItem->xPos();
+		double yp = currItem->yPos();
+		double w = currItem->width();
+		double h = currItem->height();
 		m_doc->adjustItemSize(currItem, true);
-		xp2 = currItem->xPos();
-		yp2 = currItem->yPos();
-		w2 = currItem->width();
-		h2 = currItem->height();
+		double xp2 = currItem->xPos();
+		double yp2 = currItem->yPos();
+		double w2 = currItem->width();
+		double h2 = currItem->height();
 		currItem->update();
 		if ((xp != xp2) || (yp != yp2) || (w != w2) || (h != h2))
 			m_view->DrawNew();

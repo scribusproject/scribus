@@ -4746,9 +4746,9 @@ void ScribusMainWindow::slotEditPaste()
 		else
 		{
 			// K.I.S.S.:
-			QString text = QApplication::clipboard()->text(QClipboard::Clipboard);
-			text = text.replace("\r\n", SpecialChars::PARSEP);
-			text = text.replace('\n', SpecialChars::PARSEP);
+			QString text (QApplication::clipboard()->text(QClipboard::Clipboard));
+			text.replace("\r\n", SpecialChars::PARSEP);
+			text.replace('\n', SpecialChars::PARSEP);
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState *is = new SimpleState(Um::Paste, QString(), Um::IPaste);

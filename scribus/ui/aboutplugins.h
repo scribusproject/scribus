@@ -35,7 +35,7 @@ class AboutPlugins : public QDialog, Ui::AboutPlugins
 		\param s string to process
 		\retval QString a string with changed lt/gt
 		*/
-		QString htmlize(QString s);
+		QString htmlize(const QString &s);
 };
 
 #endif

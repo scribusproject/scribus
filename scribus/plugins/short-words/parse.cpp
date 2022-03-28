@@ -82,7 +82,7 @@ void SWParse::parseItem(PageItem *aFrame)
 	{
 		unbreak = (*it);
 		// replace ' ' from cfg with '~' in the replacement string
-		unbreak = unbreak.replace(SPACE, SpecialChars::NBSPACE);
+		unbreak.replace(SPACE, SpecialChars::NBSPACE);
 		/*
 		Regexp used to find the config string (*it) in content.
 		Cheat sheet:

@@ -1571,7 +1571,7 @@ const char * OODPlug::getCoord( const char *ptr, double &number )
 bool OODPlug::parseSVG(const QString &s, FPointArray *ite)
 {
 	QString d(s);
-	d = d.replace( QRegularExpression( "," ), " ");
+	d.replace( QRegularExpression( "," ), " ");
 	bool ret = false;
 	if (!d.isEmpty())
 	{
