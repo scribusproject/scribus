@@ -1432,7 +1432,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	deGuides.setAttribute("MarginColor", appPrefs.guidesPrefs.marginColor.name());
 	deGuides.setAttribute("BaselineGridColor", appPrefs.guidesPrefs.baselineGridColor.name());
 	deGuides.setAttribute("ObjectToGuideSnapRadius", ScCLocale::toQStringC(appPrefs.guidesPrefs.guideRad));
-	QString renderStack = "";
+	QString renderStack;
 	int renderStackCount = appPrefs.guidesPrefs.renderStackOrder.count();
 	for (int r = 0; r < renderStackCount; r++)
 	{

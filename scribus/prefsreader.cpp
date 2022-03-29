@@ -51,8 +51,8 @@ bool PrefsReader::startElement(const QString&, const QString&, const QString &na
 	}
 	else if (name == "attribute")
 	{
-		QString key = "";
-		QString value = "";
+		QString key;
+		QString value;
 		for (int i = 0; i < attrs.count(); ++i)
 		{
 			if (attrs.localName(i) == "key")

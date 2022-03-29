@@ -278,7 +278,7 @@ QString PageItem_OSGFrame::getPDFMatrix(QString viewName)
 		transy = 0.0;
 	if (fabs(transz) < 0.0000001)
 		transz = 0.0;
-	QString ret = "";
+	QString ret;
 	QString desc4 = "%1 %2 %3 ";
 	ret += desc4.arg(leftx).arg(lefty).arg(leftz);
 	ret += desc4.arg(upx).arg(upy).arg(upz);

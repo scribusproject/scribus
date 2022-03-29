@@ -99,7 +99,7 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 
 	Text6 = new QLabel( "", ExGroup);
 	layout2->addWidget( Text6, a+2, 0 );
-	QString tag = "";
+	QString tag;
 	if (info->exifInfo.ExposureTime != 0)
 	{
 		float exposureTime = info->exifInfo.ExposureTime;

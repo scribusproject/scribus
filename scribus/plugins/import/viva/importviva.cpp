@@ -980,7 +980,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 	double ob_rotation = 0;
 	QString fillColor = CommonStrings::None;
 	QString strokeColor = CommonStrings::None;
-	QString fillGradient = "";
+	QString fillGradient;
 	int fillGradientTyp = 6;
 	int fillTint = 100;
 	int strokeTint = 100;
@@ -1000,7 +1000,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 	bool resizable = false;
 	FPointArray Path;
 	Path.resize(0);
-	QString imageFile = "";
+	QString imageFile;
 	QByteArray imageData;
 	imageData.resize(0);
 	QVector<double> DashValues;
@@ -2044,7 +2044,7 @@ void VivaPlug::parseAttributeSetXML(const QDomElement& obNode, AttributeSet &att
 		}
 		else if (stxe.tagName() == "vta:tabulators")
 		{
-			QString tabs = "";
+			QString tabs;
 			for (QDomNode stc = stxe.firstChild(); !stc.isNull(); stc = stc.nextSibling())
 			{
 				QDomElement stce = stc.toElement();
@@ -2297,7 +2297,7 @@ void VivaPlug::applyCharacterAttrs(CharStyle &tmpCStyle, ParagraphStyle &newStyl
 
 QString VivaPlug::constructFontName(const QString& fontBaseName, const QString& fontStyle)
 {
-	QString fontName = "";
+	QString fontName;
 	bool found = false;
 	SCFontsIterator it(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts);
 	for ( ; it.hasNext(); it.next())

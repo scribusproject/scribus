@@ -3496,7 +3496,7 @@ void PDFLibCore::PDF_End_Page()
 		}
 		if (Options.docInfoMarks)
 		{
-//			QString tmp = "";
+//			QString tmp;
 //			double startX = markOffs + bleedLeft + 10.0;
 			FPointArray  textPath;
 			QPainterPath painter1, painter2;

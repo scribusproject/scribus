@@ -2496,7 +2496,7 @@ public:
 	void begin(const Xml_string& tag, Xml_attr attr)
 	{
 		StoryText* story = this->dig->top<StoryText>();
-		QString l = "";
+		QString l;
 		MarkType t = MARKNoType;
 		
 		Mark* mrk = nullptr;

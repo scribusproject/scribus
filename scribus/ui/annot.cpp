@@ -709,7 +709,7 @@ void ScAnnot::editJavaSc()
 void ScAnnot::setDateSample(const QString& ds)
 {
 	QDateTime dt = QDateTime::currentDateTime();
-	QString tmp = "";
+	QString tmp;
 	if (ds == "m/d")
 		tmp = "M/d";
 	if (ds == "m/d/yy")

@@ -450,12 +450,12 @@ void ShapePalette::Import()
 	ds >> version >> count;
 	while (!ds.atEnd())
 	{
-		QString  string = "";
-		quint32  length, dummy, shpLen, paDataLen;
+		QString string;
+		quint32 length, dummy, shpLen, paDataLen;
 		ds >> length;
 		for (uint i = 0; i < length; ++i)
 		{
-			quint16  ch;
+			quint16 ch;
 			ds >> ch;
 			if (ch > 0)
 				string += char(ch);

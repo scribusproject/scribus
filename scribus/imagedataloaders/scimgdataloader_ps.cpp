@@ -501,7 +501,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 		if (m_FontListe.count() != 0)
 		{
 			bool missing = false;
-			QString missingF = "";
+			QString missingF;
 			for (int fo = 0; fo < m_FontListe.count(); fo++)
 			{
 				if (!PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.contains(m_FontListe[fo]))

@@ -813,8 +813,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				else
 					Apage = m_Doc->addMasterPage(a, pageName);
 				Apage->LeftPg=pg.attribute("LEFT", "0").toInt();
-				QString Mus = "";
-				Mus = pg.attribute("MNAM","Normal");
+				QString Mus(pg.attribute("MNAM","Normal"));
 				if (!m_Doc->masterPageMode())
 					Apage->setMasterPageName(Mus);
 				else

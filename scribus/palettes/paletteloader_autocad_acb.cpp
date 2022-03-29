@@ -60,7 +60,7 @@ bool PaletteLoader_Autocad_acb::importFile(const QString& fileName, bool /*merge
 				if (cg.tagName() == "colorEntry")
 				{
 					int r (0), g(0), b(0);
-					QString colorName = "";
+					QString colorName;
 					QDomNode colEntry = cg.firstChild();
 					while (!colEntry.isNull())
 					{

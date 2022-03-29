@@ -125,7 +125,7 @@ void TextAPI::setText(QString text)
 
 QString TextAPI::text()
 {
-	QString text = "";
+	QString text;
 	for (int a = 0; a < item->itemText.length(); a++)
 	{
 		if (item->HasSel)

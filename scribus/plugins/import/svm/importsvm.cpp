@@ -1809,8 +1809,8 @@ void SvmPlug::handleFontDef(QDataStream &ds)
 	ds >> fontV;
 	ds >> fontL;
 	ds >> fontNL;
-	QString fName = "";
-	QString fStyle = "";
+	QString fName;
+	QString fStyle;
 	for (uint i = 0; i < fontNL; ++i)
 	{
 		quint8  ch;
@@ -1864,7 +1864,7 @@ void SvmPlug::handleFontDef(QDataStream &ds)
 
 void SvmPlug::handleSmallText(QDataStream &ds)
 {
-	QString  aTxt = "";
+	QString aTxt;
 	QPointF p1 = getPoint(ds);
 	if (currentDC.fontEnc == 0xFFFF)
 	{
@@ -1935,7 +1935,7 @@ void SvmPlug::handleSmallText(QDataStream &ds)
 
 void SvmPlug::handleText(QDataStream &ds, quint16 version)
 {
-	QString  aTxt = "";
+	QString aTxt;
 	QPointF p1 = getPoint(ds);
 	if (currentDC.fontEnc == 0xFFFF)
 	{
@@ -3317,7 +3317,7 @@ void SvmPlug::handleEMPFont(QDataStream &ds, quint16 id)
 	ds >> dummy;
 	ds >> emSize;
 	ds >> unit >> flags >> dummy >> length;
-	QString fontName = "";
+	QString fontName;
 	for (quint32 a = 0; a < length; a++)
 	{
 		quint16 cc;
@@ -3847,7 +3847,7 @@ void SvmPlug::handleEMFPDrawString(QDataStream &ds, quint8 flagsL, quint8 flagsH
 	QPainterPath painterPath;
 	ds >> brushID >> formatID >> numChars;
 	QPolygonF rect = getEMFPRect(ds, false);
-	QString stringData = "";
+	QString stringData;
 	for (quint32 a = 0; a < numChars; a++)
 	{
 		quint16 cc;

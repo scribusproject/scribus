@@ -98,8 +98,8 @@ void PicSearch::createPreview()
 		}
 		int xres = im.imgInfo.xres;
 		int yres = im.imgInfo.yres;
-		QString tmp = "";
-		QString tmp2 = "";
+		QString tmp;
+		QString tmp2;
 		QImage im2;
 		if ((ix > w-5) || (iy > h-44))
 		{

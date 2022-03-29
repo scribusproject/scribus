@@ -679,7 +679,7 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p)
 		{
 			case SC_IN:
 				{
-					QString tx = "";
+					QString tx;
 					int num1 = static_cast<int>((xl - pos) / m_iter2 / m_cor);
 					if (num1 != 0)
 						tx = QString::number(num1);

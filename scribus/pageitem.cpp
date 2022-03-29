@@ -9285,7 +9285,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	{
 		if ((pixm.imgInfo.colorspace == ColorSpaceDuotone) && (pixm.imgInfo.duotoneColors.count() != 0) && (!reload))
 		{
-			QString efVal = "";
+			QString efVal;
 			for (int cc = 0; cc < pixm.imgInfo.duotoneColors.count(); cc++)
 			{
 				if (!m_Doc->PageColors.contains(pixm.imgInfo.duotoneColors[cc].Name))

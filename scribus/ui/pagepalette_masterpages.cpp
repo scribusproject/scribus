@@ -163,7 +163,7 @@ void PagePalette_MasterPages::deleteMasterPage()
 		if (isReservedName(m_currentPage))
 			continue;
 
-		QString extraWarn = "";
+		QString extraWarn;
 
 		if (!forceDelete)
 		{

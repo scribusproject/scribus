@@ -1933,7 +1933,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			break;
 		if (item->isBookmark)
 		{
-			QString bm = "";
+			QString bm;
 			QString cc;
 			for (int d = 0; d < item->itemText.length(); ++d)
 			{
@@ -1947,7 +1947,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		{
 			if ((item->annotation().Type() == 0) || (item->annotation().Type() == 1) || (item->annotation().Type() == Annotation::Text) || (item->annotation().Type() == Annotation::Link))
 			{
-				QString bm = "";
+				QString bm;
 				QString cc;
 				for (int d = 0; d < item->itemText.length(); ++d)
 				{
@@ -2919,7 +2919,7 @@ void PSLib::HandleMeshGradient(PageItem* item)
 	}
 	for (int ac = 0; ac < cols.count(); ac++)
 	{
-		QString colorVal = "";
+		QString colorVal;
 		if ((Options.useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
 		{
 			if (spotColorSet.contains(cols.at(ac)))
@@ -3100,7 +3100,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* item)
 	}
 	for (int ac = 0; ac < cols.count(); ac++)
 	{
-		QString colorVal = "";
+		QString colorVal;
 		if ((Options.useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
 		{
 			if (spotColorSet.contains(cols.at(ac)))
@@ -3277,7 +3277,7 @@ void PSLib::HandleDiamondGradient(PageItem* item)
 	}
 	for (int ac = 0; ac < cols.count(); ac++)
 	{
-		QString colorVal = "";
+		QString colorVal;
 		if ((Options.useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
 		{
 			if (spotColorSet.contains(cols.at(ac)))
@@ -3739,7 +3739,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 	if (StopVec.count() > 2)
 	{
 		PutStream("/Bounds [");
-		QString bctx = "";
+		QString bctx;
 		for (int bc = 1; bc < StopVec.count() - 1; bc++)
 		{
 			bctx += ToStr(StopVec.at(bc)) + " ";
@@ -3748,7 +3748,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 	}
 	else
 		PutStream("/Bounds []\n");
-	QString entx = "";
+	QString entx;
 	PutStream("/Functions\n");
 	PutStream("[\n");
 	for (int cc = 0; cc < colorNames.count() - 1; cc++)

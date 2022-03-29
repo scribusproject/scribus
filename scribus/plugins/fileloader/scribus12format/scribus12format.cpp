@@ -969,8 +969,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 				a = pg.attribute("NUM").toInt();
 				pageName = "";
 				pageName = pg.attribute("NAM", "");
-				QString Mus = "";
-				Mus = pg.attribute("MNAM","Normal");
+				QString Mus(pg.attribute("MNAM","Normal"));
 				if (pageName.isEmpty())
 				{
 					//We store the pages master page but do not apply it now

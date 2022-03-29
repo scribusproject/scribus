@@ -437,7 +437,7 @@ bool XpsPlug::parseDocSequence(const QString& designMap)
 		return false;
 
 	bool parsed = false;
-	QString DocumentReference = "";
+	QString DocumentReference;
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 	{
@@ -469,7 +469,7 @@ bool XpsPlug::parseDocReference(const QString& designMap)
 	if (!designMapDom.setContent(f))
 		return false;
 
-	QString PageReference = "";
+	QString PageReference;
 	QDomElement docElem = designMapDom.documentElement();
 	if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
 	{
@@ -668,8 +668,8 @@ void XpsPlug::parsePageReference(const QString& designMap)
 						{
 							Coords.resize(0);
 							Coords.svgInit();
-							QString pdata = "";
-							QString key = dpg.attribute("x:Key");
+							QString pdata;
+							QString key(dpg.attribute("x:Key"));
 							if (dpg.hasAttribute("Figures"))
 								pdata = dpg.attribute("Figures");
 							else if (dpg.hasChildNodes())
@@ -715,8 +715,8 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 	obState.JoinStyle = Qt::MiterJoin;
 	obState.DashOffset = 0;
 	obState.DashPattern.clear();
-	QString itemName = "";
-	QString itemTarget = "";
+	QString itemName;
+	QString itemTarget;
 	if (dpg.hasAttribute("Name"))
 		itemName = dpg.attribute("Name");
 	if (dpg.hasAttribute("FixedPage.NavigateUri"))
@@ -1166,7 +1166,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 								{
 									Coords.resize(0);
 									Coords.svgInit();
-									QString pdata = "";
+									QString pdata;
 									QString key = dpg.attribute("x:Key");
 									if (dpg.hasAttribute("Figures"))
 										pdata = dpg.attribute("Figures");
@@ -1498,7 +1498,7 @@ void XpsPlug::parsePathDataXML(QDomElement &spe, ObjState &obState, bool forClip
 {
 	Coords.resize(0);
 	Coords.svgInit();
-	QString svgString = "";
+	QString svgString;
 	bool windFill = false;
 	for (QDomElement dpgp = spe.firstChildElement(); !dpgp.isNull(); dpgp = dpgp.nextSiblingElement())
 	{
@@ -1526,7 +1526,7 @@ void XpsPlug::parsePathDataXML(QDomElement &spe, ObjState &obState, bool forClip
 
 QString XpsPlug::parsePathGeometryXML(QDomElement &spe)
 {
-	QString svgString = "";
+	QString svgString;
 	for (QDomElement dpg = spe.firstChildElement(); !dpg.isNull(); dpg = dpg.nextSiblingElement())
 	{
 		if (dpg.tagName() != "PathFigure")
@@ -1590,8 +1590,8 @@ void XpsPlug::parseResourceFile(const QString& resFile)
 			continue;
 		Coords.resize(0);
 		Coords.svgInit();
-		QString pdata = "";
-		QString key = dpg.attribute("x:Key");
+		QString pdata;
+		QString key(dpg.attribute("x:Key"));
 		if (dpg.hasAttribute("Figures"))
 			pdata = dpg.attribute("Figures");
 		else if (dpg.hasChildNodes())

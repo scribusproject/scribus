@@ -899,9 +899,9 @@ void XfigPlug::processPolyline(QDataStream &ts, const QString& data)
 
 void XfigPlug::processSpline(QDataStream &ts, const QString& data)
 {
-	QString tmp = data;
-	QString fArrowData = "";
-	QString bArrowData = "";
+	QString tmp(data);
+	QString fArrowData;
+	QString bArrowData;
 	int		command;
 	int		subtype;				// 0: open approximated spline
 									// 1: closed approximated spline
@@ -1017,9 +1017,9 @@ void XfigPlug::processSpline(QDataStream &ts, const QString& data)
 
 void XfigPlug::processArc(QDataStream &ts, const QString& data)
 {
-	QString tmp = data;
-	QString fArrowData = "";
-	QString bArrowData = "";
+	QString tmp(data);
+	QString fArrowData;
+	QString bArrowData;
 	int		command;
 	int		subtype;				// (1: open ended arc, 2: pie-wedge (closed))
 	int		line_style;				// (enumeration type)

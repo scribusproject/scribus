@@ -2598,7 +2598,7 @@ void AIPlug::processGradientData(const QString& data)
 		}
 		else if ((command == "%_Bs") || (command == "%_BS"))
 		{
-			QString stopName = "";
+			QString stopName;
 			double stop = ScCLocale::toDoubleC(da2[da2.count()-2]) / 100.0;
 			double colorShade = 100.0;
 			int colortype = da2[da2.count()-4].toInt();
@@ -2656,8 +2656,8 @@ void AIPlug::processGradientData(const QString& data)
 
 void AIPlug::processPattern(QDataStream &ts)
 {
-	QString tmp = "";
-	QString tmpData = "";
+	QString tmp;
+	QString tmpData;
 	while (!ts.atEnd())
 	{
 		tmp = removeAIPrefix(readLineFromDataStream(ts));
@@ -2892,8 +2892,8 @@ void AIPlug::processRaster(QDataStream &ts)
 {
 	double m1, m2, m3, m4, m5, m6, x1, y1, x2, y2, dummy;
 	int w, h, type, alpha, bin, bits;
-	QString tmp = "";
-	QString cumulated = "";
+	QString tmp;
+	QString cumulated;
 	while (!ts.atEnd())
 	{
 		tmp = readLineFromDataStream(ts);
@@ -2904,7 +2904,7 @@ void AIPlug::processRaster(QDataStream &ts)
 		if (!tmp.isEmpty())
 			cumulated += " " + tmp;
 	}
-	QString Cdata = "";
+	QString Cdata;
 	QStringList da;
 	getCommands(cumulated, da);
 	Cdata = da.last();

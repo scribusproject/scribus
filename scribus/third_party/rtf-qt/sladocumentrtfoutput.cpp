@@ -624,7 +624,7 @@ namespace RtfReader
 
 	void SlaDocumentRtfOutput::createImage(const QByteArray &image, int width, int height, int type)
 	{
-		QString imgExt = "";
+		QString imgExt;
 		double ww = pixelsFromTwips(width);
 		double hh = pixelsFromTwips(height);
 		if ((type == 0) || (type == 3) || (type == 4))

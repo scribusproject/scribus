@@ -162,7 +162,7 @@ bool gtDialogs::runImporterDialog(const QString& fileName, const QStringList& im
 		fileExtension = ".no_extension";
 	
 	QString imp = m_prefs->get("remember"+ fileExtension, QString("false"));
-	QString res = "";
+	QString res;
 	if (imp != "false")
 	{
 		res = imp;

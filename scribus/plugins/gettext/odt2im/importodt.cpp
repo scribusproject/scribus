@@ -180,7 +180,7 @@ void ODTIm::parseRawTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &
 
 	for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 	{
-		QString txt = "";
+		QString txt;
 		QDomElement spEl = spn.toElement();
 		if (spn.nodeName() == "#text")
 			txt = spn.nodeValue();
@@ -220,7 +220,7 @@ void ODTIm::parseRawTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle
 	{
 		for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 		{
-			QString txt = "";
+			QString txt;
 			QDomElement spEl = spn.toElement();
 			if (spn.nodeName() == "#text")
 				txt = spn.nodeValue();
@@ -387,8 +387,8 @@ void ODTIm::parseStyles(QDomElement &sp, const QString& type)
 						{
 							if (spt.tagName() == "style:tab-stops")
 							{
-								QString tabDists = "";
-								QString tabTypes = "";
+								QString tabDists;
+								QString tabTypes;
 								for (QDomElement spte = spt.firstChildElement(); !spte.isNull(); spte = spte.nextSiblingElement() )
 								{
 									if (spte.tagName() == "style:tab-stop")
@@ -467,8 +467,8 @@ void ODTIm::parseStyles(QDomElement &sp, const QString& type)
 						{
 							if (spt.tagName() == "style:tab-stops")
 							{
-								QString tabDists = "";
-								QString tabTypes = "";
+								QString tabDists;
+								QString tabTypes;
 								for (QDomElement spte = spt.firstChildElement(); !spte.isNull(); spte = spte.nextSiblingElement() )
 								{
 									if (spte.tagName() == "style:tab-stop")
@@ -650,7 +650,7 @@ void ODTIm::parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmp
 
 	for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 	{
-		QString txt = "";
+		QString txt;
 		QDomElement spEl = spn.toElement();
 		if (spn.nodeName() == "#text")
 			txt = spn.nodeValue();
@@ -691,7 +691,7 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 	ParagraphStyle tmpStyle = newStyle;
 	CharStyle tmpCStyle = tmpStyle.charStyle();
 	ObjStyleODT pStyle = tmpOStyle;
-	QString parStyleName = "";
+	QString parStyleName;
 
 	QString pStyleName = elem.toElement().attribute("text:style-name");
 	if (pStyleName.length() > 0)
@@ -747,7 +747,7 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 				tmpCStyle = tmpStyle.charStyle();
 				applyCharacterStyle(tmpCStyle, pStyle);
 			}
-			QString txt = "";
+			QString txt;
 			ObjStyleODT cStyle = pStyle;
 			QDomElement spEl = spn.toElement();
 			if (spn.nodeName() == "#text")

@@ -221,7 +221,7 @@ void LatexConfigParser::parseTab()
 {
 	QString type = xml.attributes().value("type").toString();
 	bool itemstab = (type == "items");
-	QString title = "";
+	QString title;
 	QString name, text, default_value;
 	
 	while (!xml.atEnd())

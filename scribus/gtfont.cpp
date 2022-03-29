@@ -533,7 +533,7 @@ void gtFont::parseWeight()
 	for (int i = 1; i < FontWeightMAX; ++i)
 	{
 		m_index = m_name.indexOf(fontWeights[i]); // f.e. Demi Bold
-		QString tmpWeight = "";
+		QString tmpWeight;
 		if ((m_index == -1) && (fontWeights[i].indexOf(" ") != -1) && (fontWeights[i].indexOf(" ") != 1))
 		{
 			QString fw2 = fontWeights[i];
@@ -610,7 +610,7 @@ void gtFont::parseWidth()
 	for (int i = 1; i < FontWidthMAX; ++i)
 	{
 		m_index = m_name.indexOf(fontWidths[i]);
-		QString tmpWidth = "";
+		QString tmpWidth;
 		if ((m_index == -1) && (fontWidths[i].indexOf(" ") != -1) && (fontWidths[i].indexOf(" ") != 1))
 		{
 			QString fw2 = fontWidths[i];

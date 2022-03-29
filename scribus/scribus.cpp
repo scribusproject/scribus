@@ -8187,7 +8187,7 @@ void ScribusMainWindow::initHyphenator()
 	{
 		LanguageManager *langmgr(LanguageManager::instance());
 // 		langmgr.init(false);
-		QString tLang = "";
+		QString tLang;
 		for (uint dc = 0; dc < hyphDir.count(); ++dc)
 		{
 			QFileInfo fi(hyphDir[dc]);

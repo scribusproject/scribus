@@ -4408,8 +4408,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		if (tName == QLatin1String("OSGViews"))
 		{
 			currentView.angleFOV = tAtt.valueAsDouble("angleFOV");
-			QString tmp = "";
-			tmp = tAtt.valueAsString("trackM");
+			QString tmp(tAtt.valueAsString("trackM"));
 			ScTextStream fp(&tmp, QIODevice::ReadOnly);
 			double m1, m2, m3, m4;
 			double m5, m6, m7, m8;
@@ -5980,8 +5979,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 				GrShade  = attrs.valueAsInt("GRSHADE", 100);
 				GrShade2 = attrs.valueAsInt("GRSHADE2", 100);
 			}
-			QString GrName = "";
-			GrName = attrs.valueAsString("GRNAME","");
+			QString GrName(attrs.valueAsString("GRNAME",""));
 			if (!GrName.isEmpty())
 				currItem->setGradient(GrName);
 			if ((currItem->GrType == Gradient_4Colors) || (currItem->GrType == Gradient_Diamond))
@@ -6074,8 +6072,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->GrStrokeFocalY = attrs.valueAsDouble("GRFOCALYS", 0.0);
 	currItem->GrStrokeScale  = attrs.valueAsDouble("GRSCALES", 1.0);
 	currItem->GrStrokeSkew  = attrs.valueAsDouble("GRSKEWS", 0.0);
-	QString GrNameS = "";
-	GrNameS = attrs.valueAsString("GRNAMES","");
+	QString GrNameS(attrs.valueAsString("GRNAMES",""));
 	if (!GrNameS.isEmpty())
 		currItem->setStrokeGradient(GrNameS);
 
@@ -6092,8 +6089,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	bool mirrorXm = attrs.valueAsBool("pMirrorXM", false);
 	bool mirrorYm = attrs.valueAsBool("pMirrorYM", false);
 	currItem->setMaskFlip(mirrorXm, mirrorYm);
-	QString GrNameM = "";
-	GrNameM = attrs.valueAsString("GRNAMEM","");
+	QString GrNameM(attrs.valueAsString("GRNAMEM",""));
 	currItem->GrMask = attrs.valueAsInt("GRTYPM", 0);
 	if ((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_LinearLumAlpha))
 		currItem->mask_gradient = VGradient(VGradient::linear);

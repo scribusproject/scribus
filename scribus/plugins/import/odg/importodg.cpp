@@ -346,7 +346,7 @@ bool OdgPlug::convert(const QString& fn)
 		QByteArray f;
 		loadRawText(fn, f);
 		QDomDocument designMapDom;
-		QString errorMsg = "";
+		QString errorMsg;
 		int errorLine = 0;
 		int errorColumn = 0;
 		if (!designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
@@ -365,7 +365,7 @@ bool OdgPlug::convert(const QString& fn)
 			QByteArray f;
 			loadRawText(fn, f);
 			QDomDocument designMapDom;
-			QString errorMsg = "";
+			QString errorMsg;
 			int errorLine = 0;
 			int errorColumn = 0;
 			if (designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
@@ -1589,7 +1589,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 				{
 					if (nc.tagName() == "office:binary-data")
 					{
-						QString ext = "";
+						QString ext;
 						QByteArray buf = QByteArray::fromBase64(nc.text().toLatin1());
 						if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
 							ext = "eps";
@@ -1714,7 +1714,7 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 					}
 					applyCharacterStyle(tmpCStyle, cStyle);
 					maxFsize = qMax(maxFsize, cStyle.fontSize);
-					QString txt = "";
+					QString txt;
 					if (spn.isElement())
 					{
 						if (sp.tagName() == "text:span")
@@ -3900,7 +3900,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			}
 			else if (!gStyle.patternData.isEmpty())
 			{
-				QString ext = "";
+				QString ext;
 				QByteArray buf = QByteArray::fromBase64(gStyle.patternData);
 				if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
 					ext = "eps";

@@ -67,7 +67,7 @@ ScriXmlDoc::ScriXmlDoc()
 
 bool ScriXmlDoc::readElemHeader(const QString& file, bool isFile, double *x, double *y, double *w, double *h)
 {
-	QString ff = "";
+	QString ff;
 	if (isFile)
 	{
 		QByteArray f;
@@ -157,7 +157,7 @@ QString ScriXmlDoc::writeElem(ScribusDoc *doc, Selection* selection)
 		return "";
 	double xp, yp, wp, hp;
 	PageItem *item;
-	QString documentStr = "";
+	QString documentStr;
 	item = selection->itemAt(0);
 
 	auto items = getItemsFromSelection(doc, selection);

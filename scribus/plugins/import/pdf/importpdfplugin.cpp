@@ -193,7 +193,7 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 
 	bool isCleanedFile = false;
-	QString cleanFile = "";
+	QString cleanFile;
 	if (exts.contains(fi.suffix().toLower()))
 	{
 		if (!ScCore->haveGS())

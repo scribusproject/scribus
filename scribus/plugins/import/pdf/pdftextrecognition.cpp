@@ -413,7 +413,7 @@ PdfTextRegion::LineType PdfTextRegion::addGlyphAtPoint(QPointF newGlyphPoint, Pd
 void PdfTextRegion::renderToTextFrame(PageItem* textNode)
 {
 	textNode->setWidthHeight(this->maxWidth, this->maxHeight);
-	QString bodyText = "";
+	QString bodyText;
 	for (int glyphIndex = this->pdfTextRegionLines.begin()->glyphIndex; glyphIndex <= this->pdfTextRegionLines.back().segments.back().glyphIndex; glyphIndex++)
 		bodyText += glyphs[glyphIndex].code;
 

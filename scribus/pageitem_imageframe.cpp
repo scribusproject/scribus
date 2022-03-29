@@ -99,7 +99,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 		if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown))
 		{
 			p->setBrush(Qt::white);
-			QString htmlText = "";
+			QString htmlText;
 			QFileInfo fi(Pfile);
 			if (imageIsAvailable)
 			{

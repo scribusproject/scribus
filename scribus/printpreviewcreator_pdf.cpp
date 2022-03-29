@@ -527,7 +527,7 @@ int PrintPreviewCreator_PDF::renderPreviewSep(int pageIndex, int res)
 		}
 	}
 	sepInfo.close();
-	QString currSeps = "";
+	QString currSeps;
 	uint spc = 0;
 	for (int sp = 0; sp < spots.count(); ++sp)
 	{

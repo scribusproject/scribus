@@ -1170,7 +1170,7 @@ void IdmlPlug::parseCharacterStyle(const QDomElement& styleElem)
 	newStyle.setName(styleElem.attribute("Name").remove("$ID/"));
 	newStyle.setParent(CommonStrings::DefaultCharacterStyle);
 	QString fontName = m_Doc->itemToolPrefs().textFont;
-	QString fontBaseName = "";
+	QString fontBaseName;
 	QString fontStyle = styleElem.attribute("FontStyle", "");
 	for (QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling())
 	{
@@ -1211,7 +1211,7 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 	newStyle.setName(styleElem.attribute("Name").remove("$ID/"));
 	newStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	QString fontName = m_Doc->itemToolPrefs().textFont;
-	QString fontBaseName = "";
+	QString fontBaseName;
 	QString fontStyle = styleElem.attribute("FontStyle", "");
 	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	for (QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling())
@@ -1720,14 +1720,14 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 	QTransform transformation(a, b, c, d, e, f);
 	QString itemName = itElem.attribute("Self");
 	QString fillColor = def_fillColor;
-	QString fillGradient = "";
+	QString fillGradient;
 	double gstX = def_gradientX;
 	double gstY = def_gradientY;
 	double gLen = def_gradientLen;
 	double gAngle = def_gradientAngle;
 	int fillGradientTyp = 6;
 	QString strokeColor = def_strokeColor;
-	QString strokeGradient = "";
+	QString strokeGradient;
 	double gstSX = def_gradientStrokeStartX;
 	double gstSY = def_gradientStrokeStartY;
 	double gSLen = def_gradientStrokeLength;
@@ -1904,13 +1904,13 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 	bool isPathText = false;
 	if (itElem.tagName() == "Group")
 		realGroup = true;
-	QString imageType = "";
-	QByteArray imageData = "";
-	QString imageFileName = "";
+	QString imageType;
+	QByteArray imageData;
+	QString imageFileName;
 	QTransform imageTransform;
 	double imageDX = 0;
 	double imageDY = 0;
-	QString storyForPath = "";
+	QString storyForPath;
 	int pathTextType = 0;
 	double pathTextStart = 0;
 	for (QDomNode it = itElem.firstChild(); !it.isNull(); it = it.nextSibling())
@@ -2180,7 +2180,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 		GCoords.map(finalMat);
 		if (isGroup)
 		{
-			QString pre = "";
+			QString pre;
 			FPointArray gClip;
 			if (!realGroup)
 			{
@@ -2615,7 +2615,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 				getTransformValuesFromMatrix(imageTransform, scXi, scYi, roti, dxi, dyi);
 				if (imageData.count() > 0)
 				{
-					QString imgExt = "";
+					QString imgExt;
 					if (imageType.contains("EPS", Qt::CaseInsensitive))
 						imgExt = "eps";
 					else if (imageType.contains("GIF", Qt::CaseInsensitive))
@@ -2855,7 +2855,7 @@ void IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
 
 void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QString fontBase, QString fontStyle, ParagraphStyle &newStyle, int posC)
 {
-	QString data = "";
+	QString data;
 	bool hasChangedFont = false;
 	for (QDomNode stcp = stt.firstChild(); !stcp.isNull(); stcp = stcp.nextSibling())
 	{
@@ -2920,7 +2920,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		QDomElement s = stch.toElement();
 		if (s.tagName() == "Content")
 		{
-			QString ch = "";
+			QString ch;
 			for (QDomNode sh = s.firstChild(); !sh.isNull(); sh = sh.nextSibling())
 			{
 				QString p = sh.nodeValue();

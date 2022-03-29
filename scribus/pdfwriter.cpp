@@ -533,8 +533,8 @@ namespace Pdf
 	
 	void Writer::setEncryption(bool keyLen16, const QByteArray& PassOwner, const QByteArray& PassUser, int Permissions)
 	{
-		QByteArray ok = "";
-		QByteArray uk = "";
+		QByteArray ok;
+		QByteArray uk;
 		
 		if (keyLen16)
 			m_KeyLen = 16;
@@ -754,7 +754,7 @@ namespace Pdf
 			}
 		}
 		write("trailer\n<<\n/Size "+Pdf::toPdf(m_XRef.count())+"\n");
-		QByteArray IDs ="";
+		QByteArray IDs;
 		for (uint cl = 0; cl < 16; ++cl)
 			IDs += (m_FileID[cl]);
 		QByteArray IDbytes = Pdf::toHexString(IDs);

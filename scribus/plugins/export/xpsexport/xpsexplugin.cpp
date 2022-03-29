@@ -1469,7 +1469,7 @@ void XPSExPlug::paintBorder(const TableBorder& border, const QPointF& start, con
 		lineEnd.setY(end.y() + line.width() * endOffsetFactors.y());
 		QDomElement cl = p_docu.createElement("Path");
 		cl.setAttribute("Data", "M" + FToStr(lineStart.x() * conversionFactor) + "," + FToStr(lineStart.y() * conversionFactor) + " L" + FToStr(lineEnd.x() * conversionFactor) + " " + FToStr(lineEnd.y() * conversionFactor));
-		QString dashVals = "";
+		QString dashVals;
 		if (line.style() != Qt::SolidLine)
 			dashVals = getDashString(line.style(), qMax(line.width(), 1.0));
 		if (!dashVals.isEmpty())
@@ -1917,7 +1917,7 @@ void XPSExPlug::getMultiStroke(struct SingleLine *sl, QDomElement &parentElem)
 			parentElem.setAttribute("StrokeLineJoin", "Miter");
 			break;
 	}
-	QString dashVals = "";
+	QString dashVals;
 	if (static_cast<Qt::PenStyle>(sl->Dash) != Qt::SolidLine)
 		dashVals = getDashString(sl->Dash, 1);
 	if (!dashVals.isEmpty())
@@ -1967,13 +1967,11 @@ void XPSExPlug::getStrokeStyle(PageItem *item, QDomElement &parentElem, QDomElem
 			parentElem.setAttribute("StrokeLineJoin", "Miter");
 			break;
 	}
-	QString dashVals = "";
+	QString dashVals;
 	if (item->DashValues.count() != 0)
 	{
 		for (auto it = item->DashValues.cbegin(); it != item->DashValues.cend(); ++it)
-		{
 			dashVals += FToStr((*it) / item->lineWidth()) + " ";
-		}
 	}
 	else
 	{
@@ -2408,7 +2406,7 @@ QString XPSExPlug::setColor(const QString& farbe, int shad, double transparency)
 	const ScColor& col = m_Doc->PageColors[farbe];
 	QString color =  ScColorEngine::getShadeColorProof(col, m_Doc, shad).name().mid(1);
 	color = color.toUpper();
-	QString alpha = "";
+	QString alpha;
 	alpha.setNum(qRound((1.0 - transparency) * 255), 16);
 	alpha = alpha.toUpper();
 	if (alpha.length() == 1)

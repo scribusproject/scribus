@@ -139,9 +139,9 @@ void RecoverDialog::updateFilesTable()
 		QString name = fi.baseName();
 		QStringList parts;
 		parts.clear();
-		QString fName = "";
-		QString fDate = "";
-		QString fType = "";
+		QString fName;
+		QString fDate;
+		QString fType;
 		if (name.contains("_emergency_"))
 		{
 			parts = name.split("_emergency_");

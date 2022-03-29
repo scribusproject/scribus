@@ -498,7 +498,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("MAJORC",m_Doc->guidesPrefs().majorGridColor.name());
 	docu.writeAttribute("GuideC", m_Doc->guidesPrefs().guideColor.name());
 	docu.writeAttribute("BaseC", m_Doc->guidesPrefs().baselineGridColor.name());
-	QString renderStack = "";
+	QString renderStack;
 	int renderStackCount = m_Doc->guidesPrefs().renderStackOrder.count();
 	for (int r = 0; r < renderStackCount; r++)
 	{
@@ -915,7 +915,7 @@ void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 			docu.writeEmptyElement("Tabs");
 			docu.writeAttribute("Type", (style.tabValues().at(a)).tabType);
 			docu.writeAttribute("Pos", (style.tabValues().at(a)).tabPosition);
-			QString tabCh = "";
+			QString tabCh;
 			if (!(style.tabValues().at(a)).tabFillChar.isNull())
 				tabCh = QString((style.tabValues().at(a)).tabFillChar);
 			docu.writeAttribute("Fill", tabCh);
@@ -2399,7 +2399,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeStartElement("OSGViews");
 					docu.writeAttribute("viewName", itv.key());
 					docu.writeAttribute("angleFOV", itv.value().angleFOV);
-					QString trackM = "";
+					QString trackM;
 					for (uint matx = 0; matx < 4; ++matx)
 					{
 						for (uint maty = 0; maty < 4; ++maty)
@@ -2408,17 +2408,17 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 						}
 					}
 					docu.writeAttribute("trackM", trackM);
-					QString trackC = "";
+					QString trackC;
 					trackC += tmp.setNum(itv.value().trackerCenter[0])+" ";
 					trackC += tmp.setNum(itv.value().trackerCenter[1])+" ";
 					trackC += tmp.setNum(itv.value().trackerCenter[2]);
 					docu.writeAttribute("trackC", trackC);
-					QString cameraP = "";
+					QString cameraP;
 					cameraP += tmp.setNum(itv.value().cameraPosition[0])+" ";
 					cameraP += tmp.setNum(itv.value().cameraPosition[1])+" ";
 					cameraP += tmp.setNum(itv.value().cameraPosition[2]);
 					docu.writeAttribute("cameraP", cameraP);
-					QString cameraU = "";
+					QString cameraU;
 					cameraU += tmp.setNum(itv.value().cameraUp[0])+" ";
 					cameraU += tmp.setNum(itv.value().cameraUp[1])+" ";
 					cameraU += tmp.setNum(itv.value().cameraUp[2]);
@@ -2956,7 +2956,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	if (item->DashValues.count() != 0)
 	{
 		docu.writeAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
-		QString dlp = "";
+		QString dlp;
 		QVector<double>::Iterator dax;
 		for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 			dlp += tmp.setNum((*dax)) + " ";

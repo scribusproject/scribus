@@ -925,7 +925,7 @@ void PictureBrowser::insertImageButtonClicked()
 	iafData.frameType=PageItem::ImageFrame;
 	iafData.source=tmpImage->fileInformation.absoluteFilePath();
 
-	QString pageList = "";
+	QString pageList;
 
 	if (insertPagesCombobox->checkstate(1) == 1)
 	{

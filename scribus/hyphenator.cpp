@@ -138,7 +138,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		return;
 	m_doc->DoDrawing = false;
 
-	QString text = "";
+	QString text;
 
 	int startC = 0;
 	if (it->itemText.hasSelection())
@@ -197,8 +197,8 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						break;
 					}
 				}
-				QString outs = "";
-				QString input = "";
+				QString outs;
+				QString input;
 				outs += word[0];
 				for (i = 1; i < wordLower.length() - 1; ++i)
 				{

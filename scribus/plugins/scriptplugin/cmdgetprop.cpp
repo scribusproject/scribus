@@ -17,7 +17,7 @@ PyObject *scribus_getobjecttype(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	PageItem *item = nullptr;
-	QString result = "";
+	QString result;
 
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return nullptr;

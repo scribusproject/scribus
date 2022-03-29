@@ -97,7 +97,7 @@ QString LoremParser::createLorem(uint parCount, bool random)
 	if (parCount < 1)
 		return QString();
 	// first paragraph is always the same
-	QString lorem = "";
+	QString lorem;
 	if (!loremIpsum.isEmpty())
 		lorem = loremIpsum[0];
 	if (parCount > 1)

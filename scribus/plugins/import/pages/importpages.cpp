@@ -857,7 +857,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 		}
 		delete tmpFile;
 	}
-	QString errorMsg = "";
+	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
 	if (!designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))

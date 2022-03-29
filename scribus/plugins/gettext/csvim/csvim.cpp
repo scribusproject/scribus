@@ -83,7 +83,7 @@ void CsvIm::write()
 
 void CsvIm::loadFile()
 {
-	QString text = "";
+	QString text;
 	/*
 	QFile f(filename);
 	QFileInfo fi(f);
@@ -157,7 +157,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 	}
 
 	int fdIndex = line.indexOf(fieldDelimiter, vdIndexEnd + 1);
-	QString tmpCol = "";
+	QString tmpCol;
 
 	if (fdIndex < 0)
 	{

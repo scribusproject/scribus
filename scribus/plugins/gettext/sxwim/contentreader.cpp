@@ -123,7 +123,7 @@ bool ContentReader::startElement(const QString &name, const SXWAttributesMap &at
 		inNoteBody = true;
 	else if (name == "style:style")
 	{
-		QString sname = "";
+		QString sname;
 		bool isTextStyle = false;
 		for (auto attr = attrs.cbegin(); attr != attrs.cend(); ++attr)
 		{
@@ -324,7 +324,7 @@ void ContentReader::endElement(void*, const xmlChar *name)
 
 QString ContentReader::getName()
 {
-	QString s = "";
+	QString s;
 	for (uint i = 0; i < styleNames.size(); ++i)
 		s += styleNames[i];
 	return s;

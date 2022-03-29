@@ -375,7 +375,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			{
 				if (hoveredItem->isAnnotation())
 				{
-					QString toolT = "";
+					QString toolT;
 					if (!hoveredItem->annotation().ToolTip().isEmpty())
 						toolT = hoveredItem->annotation().ToolTip();
 					if (hoveredItem->annotation().Type() == Annotation::Button)
@@ -1424,7 +1424,7 @@ void CanvasMode_Normal::handleRadioButtonRelease(PageItem* currItem)
 
 void CanvasMode_Normal::handleJavaAction(PageItem* currItem, int event)
 {
-	QString scriptCode = "";
+	QString scriptCode;
 	switch (event)
 	{
 		case Annotation::Java_PressButton:

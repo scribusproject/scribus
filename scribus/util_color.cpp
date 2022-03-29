@@ -905,7 +905,7 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 		}
 		else
 		{
-			QString paletteName = "";
+			QString paletteName;
 			QString dummy;
 			if (ColorEn.startsWith("GIMP Palette"))
 			{

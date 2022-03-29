@@ -479,7 +479,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		mpg = mp.namedItem( "meta:keywords" );
 		if (!mpg.isNull())
 		{
-			QString Keys = "";
+			QString Keys;
 			for (QDomNode n = mpg.firstChild(); !n.isNull(); n = n.nextSibling())
 			{
 				Keys += n.toElement().text()+", ";

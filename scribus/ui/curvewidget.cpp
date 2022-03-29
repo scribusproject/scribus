@@ -458,7 +458,7 @@ void CurveWidget::doSave()
 		PrefsManager::instance().prefsFile->getContext("dirs")->set("curves", fileName.left(fileName.lastIndexOf("/")));
 		if (overwrite(this, fileName))
 		{
-			QString efval = "";
+			QString efval;
 			FPointArray Vals = cDisplay->getCurve();
 			QString tmp;
 			tmp.setNum(Vals.size());

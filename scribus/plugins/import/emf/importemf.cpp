@@ -1518,7 +1518,6 @@ bool EmfPlug::convert(const QString& fn)
 						{
 							quint32 foID, foFlags1, foFlags2;
 							qint32 foHeight, foWidth, foEsc, foOri, foWeight;
-							QString fontName = "";
 							ds >> foID >> foHeight >> foWidth >> foEsc >> foOri >> foWeight >> foFlags1 >> foFlags2;
 							QByteArray foNam;
 							for (int c = 0; c < 32; c++)
@@ -1529,7 +1528,7 @@ bool EmfPlug::convert(const QString& fn)
 									break;
 								foNam.append(cc);
 							}
-							fontName = QString::fromUtf8(foNam.data());
+							QString fontName(QString::fromUtf8(foNam.data()));
 							emfStyle sty;
 							sty.styType = U_OT_Font;
 							sty.fontRotation = foOri / 10.0;
@@ -2701,7 +2700,7 @@ void EmfPlug::handleSmallText(QDataStream &ds)
 	ds >> sx >> sy;
 	if (!(txOpts & 0x00000100))
 		ds >> bLeft >> bTop >> bRight >> bBottom;
-	QString aTxt = "";
+	QString aTxt;
 	for (quint32 a = 0; a < numChar; a++)
 	{
 		if (txOpts & 0x00000200)
@@ -2756,7 +2755,7 @@ void EmfPlug::handleSmallText(QDataStream &ds)
 
 void EmfPlug::handleText(QDataStream &ds, qint64 posi, bool size)
 {
-	QString aTxt = "";
+	QString aTxt;
 	QPainterPath painterPath;
 	qint32 bLeft, bTop, bRight, bBottom, oLeft, oTop, oRight, oBottom;
 	quint32 grMode, numChar, offTxt, txOpts, offDx;
@@ -4340,7 +4339,7 @@ void EmfPlug::handleEMPFont(QDataStream &ds, quint16 id)
 	ds >> dummy;
 	ds >> emSize;
 	ds >> unit >> flags >> dummy >> length;
-	QString fontName = "";
+	QString fontName;
 	for (quint32 a = 0; a < length; a++)
 	{
 		quint16 cc;
@@ -4870,7 +4869,7 @@ void EmfPlug::handleEMFPDrawString(QDataStream &ds, quint8 flagsL, quint8 flagsH
 	QPainterPath painterPath;
 	ds >> brushID >> formatID >> numChars;
 	QPolygonF rect = getEMFPRect(ds, false);
-	QString stringData = "";
+	QString stringData;
 	for (quint32 a = 0; a < numChars; a++)
 	{
 		quint16 cc;

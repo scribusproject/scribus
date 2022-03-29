@@ -582,7 +582,7 @@ void ColorsAndFillsDialog::editColorItem()
 	else if (it->parent() == patternItems)
 	{
 		QString patternName = origNames[it->text(0)];
-		QString newName = "";
+		QString newName;
 		Query dia(this, "tt", true, tr("&Name:"), tr("Rename Entry"));
 		dia.setEditText(it->text(0), true);
 		dia.setTestList(dialogPatterns.keys());
@@ -1622,7 +1622,7 @@ void ColorsAndFillsDialog::loadGimpFormat(const QString& fileName)
 	{
 		ScTextStream ts(&f);
 		QString tmp, dummy;
-		QString gradientName = "";
+		QString gradientName;
 		int numEntrys = 0;
 		int entryCount = 0;
 		int stopCount = 0;

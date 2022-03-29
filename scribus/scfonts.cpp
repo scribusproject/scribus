@@ -515,7 +515,7 @@ ScFace SCFonts::loadScalableFont(const QString &filename)
 		return t;
 	bool Subset = false;
 	char buf[128];
-	QString glyName = "";
+	QString glyName;
 	ScFace::FontFormat format;
 	ScFace::FontType   type;
 	FT_Face         face = nullptr;
@@ -648,7 +648,7 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 	static bool firstRun;
 	bool Subset = false;
 	char buf[128];
-	QString glyName = "";
+	QString glyName;
 	ScFace::FontFormat format;
 	ScFace::FontType   type;
 	FT_Face         face = nullptr;

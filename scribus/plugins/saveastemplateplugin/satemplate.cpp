@@ -239,8 +239,8 @@ void sat::appendTmplXml()
 	if (tmplXml.open(QIODevice::ReadOnly))
 	{
 		QTextStream stream(&tmplXml);
-		QString tmp = stream.readLine();
-		QString file = "";
+		QString tmp(stream.readLine());
+		QString file;
 		while (!tmp.isNull())
 		{
 			file += tmp + "\n";

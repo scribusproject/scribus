@@ -1526,7 +1526,7 @@ QString ScImgDataLoader_PSD::getLayerString(QDataStream & s)
 {
 	uchar len, tmp;
 	uint adj;
-	QString ret = "";
+	QString ret;
 	s >> len;
 	if (len == 0)
 	{

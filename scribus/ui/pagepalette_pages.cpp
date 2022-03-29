@@ -90,7 +90,7 @@ void PagePalette_Pages::deleteMasterPage(const QString& tmp)
 {
 	if (tmp == CommonStrings::trMasterPageNormal)
 		return;
-	QString extraWarn = "";
+	QString extraWarn;
 	for (int i=0; i < currView->m_doc->DocPages.count(); ++i )
 	{
 		if (currView->m_doc->DocPages[i]->masterPageName() == tmp)

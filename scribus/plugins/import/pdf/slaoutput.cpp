@@ -449,7 +449,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 	int pagNum = 0;
 	int xco = 0;
 	int yco = 0;
-	QString fileName = "";
+	QString fileName;
 	if (act->getKind() == actionGoTo)
 	{
 		LinkGoTo *gto = (LinkGoTo*) act;
@@ -678,8 +678,8 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			}
 			QString m_currColorText = "Black";
 			double fontSize = 12;
-			QString fontName = "";
-			QString itemText = "";
+			QString fontName;
+			QString itemText;
 			AnnotAppearance *apa = annota->getAppearStreams();
 			if (apa || !achar)
 			{
@@ -738,15 +738,14 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				ite->annotation().setBorderColor(CommonStrings::None);
 				ite->annotation().setBorderWidth(0);
 			}
-			QString tmTxt = "";
-			tmTxt = UnicodeParsedString(fm->getPartialName());
+			QString tmTxt(UnicodeParsedString(fm->getPartialName()));
 			if (!tmTxt.isEmpty())
 				ite->setItemName(tmTxt);
-			tmTxt = "";
+			tmTxt.clear();
 			tmTxt = UnicodeParsedString(fm->getAlternateUiName());
 			if (!tmTxt.isEmpty())
 				ite->annotation().setToolTip(tmTxt);
-			tmTxt = "";
+			tmTxt.clear();
 			if (achar)
 			{
 				tmTxt = UnicodeParsedString(achar->getRolloverCaption());

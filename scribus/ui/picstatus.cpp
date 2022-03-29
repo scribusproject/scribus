@@ -147,7 +147,7 @@ void PicStatus::fillTable()
 		{
 			item = allItems.at(ii);
 			QFileInfo fi = QFileInfo(item->Pfile);
-			QString Iname = "";
+			QString Iname;
 			if (item->isInlineImage)
 				Iname = tr("Embedded Image");
 			else
@@ -171,7 +171,7 @@ void PicStatus::fillTable()
 		{
 			item = allItems.at(ii);
 			QFileInfo fi = QFileInfo(item->Pfile);
-			QString Iname = "";
+			QString Iname;
 			if (item->isInlineImage)
 				Iname = tr("Embedded Image");
 			else
@@ -322,7 +322,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 			searchButton->setEnabled(true);
 			fileManagerButton->setEnabled(true);
 		}
-		QString format = "";
+		QString format;
 		switch (currItem->pixm.imgInfo.type)
 		{
 			case 0:

@@ -186,15 +186,14 @@ void StyleReader::defaultStyle(const SXWAttributesMap& attrs)
 {
 	currentStyle = nullptr;
 	QString styleFamily = attrs.value("style:family");
-	if (styleFamily == "paragraph")
-	{
-		gtParagraphStyle* pstyle = new gtParagraphStyle(writer->getDefaultStyle()->asGtParagraphStyle());
-		pstyle->setDefaultStyle(true);
-		currentStyle = dynamic_cast<gtStyle*>(pstyle);
-		currentStyle->setName("default-style");
-		readProperties = true;
-		defaultStyleCreated = true;
-	}
+	if (styleFamily != "paragraph")
+		return;
+	gtParagraphStyle* pstyle = new gtParagraphStyle(writer->getDefaultStyle()->asGtParagraphStyle());
+	pstyle->setDefaultStyle(true);
+	currentStyle = dynamic_cast<gtStyle*>(pstyle);
+	currentStyle->setName("default-style");
+	readProperties = true;
+	defaultStyleCreated = true;
 }
 
 void StyleReader::styleProperties(const SXWAttributesMap& attrs)
@@ -425,27 +424,25 @@ void StyleReader::styleStyle(const SXWAttributesMap& attrs)
 
 void StyleReader::tabStop(const SXWAttributesMap& attrs)
 {
-	if (currentStyle->target() == "paragraph")
-	{
-		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(currentStyle);
-		assert(pstyle != nullptr);
-		QString pos = attrs.value("style:position");
-		QString type = attrs.value("style:type");
-		if (!pos.isEmpty())
-		{
-			if (!type.isEmpty())
-				type = "left";
-			double posd = getSize(pos);
-			if (type == "left")
-				pstyle->setTabValue(posd, LEFT_T);
-			else if (type == "right")
-				pstyle->setTabValue(posd, RIGHT_T);
-			else if (type == "center")
-				pstyle->setTabValue(posd, CENTER_T);
-			else
-				pstyle->setTabValue(posd, CENTER_T);
-		}
-	}
+	if (currentStyle->target() != "paragraph")
+		return;
+	gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(currentStyle);
+	assert(pstyle != nullptr);
+	QString pos(attrs.value("style:position"));
+	if (pos.isEmpty())
+		return;
+	QString type(attrs.value("style:type"));
+	if (!type.isEmpty())
+		type = "left";
+	double posd = getSize(pos);
+	if (type == "left")
+		pstyle->setTabValue(posd, LEFT_T);
+	else if (type == "right")
+		pstyle->setTabValue(posd, RIGHT_T);
+	else if (type == "center")
+		pstyle->setTabValue(posd, CENTER_T);
+	else
+		pstyle->setTabValue(posd, CENTER_T);
 }
 
 void StyleReader::endElement(void*, const xmlChar * name)
@@ -510,16 +507,13 @@ gtStyle* StyleReader::getDefaultStyle()
 
 gtStyle* StyleReader::getStyle(const QString& name)
 {
-	if (styles.contains(name))
-	{
-		gtStyle* tmp = styles[name];
-		QString tname = tmp->getName();
-		if ((tname.indexOf(docname) == -1) && (usePrefix))
-			tmp->setName(docname + "_" + tname);
-
-		return tmp;
-	}
-	return getDefaultStyle();
+	if (!styles.contains(name))
+		return getDefaultStyle();
+	gtStyle* tmp = styles[name];
+	QString tname(tmp->getName());
+	if ((tname.indexOf(docname) == -1) && (usePrefix))
+		tmp->setName(docname + "_" + tname);
+	return tmp;
 }
 
 void StyleReader::setStyle(const QString& name, gtStyle* style)
@@ -717,7 +711,7 @@ bool StyleReader::updateStyle(gtStyle* style, gtStyle* parent2Style, const QStri
 double StyleReader::getSize(const QString& s, double parentSize)
 {
 	QString dbl("0.0");
-	QString lowerValue = s.toLower();
+	QString lowerValue(s.toLower());
 	double ret = 0.0;
 	if (lowerValue.indexOf("pt") != -1)
 	{
