@@ -52,8 +52,6 @@ using namespace std;
 
 void handleOldColorShade(ScribusDoc* doc, QString& colName, int& shade)
 {
-	int r, g, b;
-	bool found = false;
 	if (colName.isEmpty() || colName == CommonStrings::None || !doc->PageColors.contains(colName))
 		return;
 
@@ -61,6 +59,8 @@ void handleOldColorShade(ScribusDoc* doc, QString& colName, int& shade)
 	
 	if ((shade == 100) || (scCol1.getColorModel() != colorModelRGB))
 		return;
+	int r, g, b;
+	bool found = false;
 	scCol1.getRGB(&r, &g, &b);
 	QColor col1 = getOldColorShade(r, g, b, shade), col2;
 	ColorList::Iterator it, itEnd = doc->PageColors.end();
@@ -118,27 +118,15 @@ QImage ProofImage(QImage *Image, ScribusDoc* doc)
 {
 	QImage out = Image->copy();
 	bool cmsUse = doc ? doc->HasCMS : false;
-	bool softProofing = doc ? doc->SoftProofing : false;
-	if (cmsUse && softProofing)
+	if (!cmsUse)
+		return out;
+	int outHeight=out.height();
+	int outWidth=out.width();
+	ScColorTransform trans = doc->SoftProofing ? doc->stdProofImg : doc->stdTransImg;
+	for (int i=0; i < outHeight; ++i)
 	{
-		int outheight = out.height();
-		for (int i=0; i < outheight; ++i)
-		{
-			uchar* ptr = out.scanLine(i);
-			doc->stdProofImg.apply(ptr, ptr, out.width());
-		}
-	}
-	else
-	{
-		if (cmsUse)
-		{
-			int outheight=out.height();
-			for (int i=0; i < outheight; ++i)
-			{
-				uchar* ptr = out.scanLine(i);
-				doc->stdTransImg.apply(ptr, ptr, out.width());
-			}
-		}
+		uchar* ptr = out.scanLine(i);
+		trans.apply(ptr, ptr, outWidth);
 	}
 	return out;
 }
