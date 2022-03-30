@@ -278,29 +278,11 @@ QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc)
 }
 
 
-void paintAlert(const QPixmap &toPaint, QPixmap &target, int x, int y, bool useMask)
+void paintAlert(const QPixmap &toPaint, QPixmap &target, int x, int y)
 {
-	// there is no alpha mask in the beginning
-//	if (useMask)
-//	{
-//		if (target.mask().isNull())
-//			target.setMask(QBitmap(target.width(), target.height(), useMask));
-//	}
 	QPainter p;
 	p.begin(&target);
 	p.drawPixmap(x, y, toPaint);
-	if (useMask)
-	{
-// Qt4 FIXME: Qt4 can use better alpha setting. see colorlistbox.cpp
-// 		QPainter alpha; // transparency handling
-// 		alpha.begin(target.mask());
-// 		alpha.setBrush(Qt::color1);
-// 		alpha.setPen(Qt::color1);
-// 		alpha.drawRect(x, y, 15, 15);
-// 		if (!toPaint.mask().isNull())
-// 			alpha.drawPixmap(x, y, toPaint.mask());
-// 		alpha.end();
-	}
 	p.end();
 }
 

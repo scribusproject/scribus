@@ -40,7 +40,7 @@ in alpha mask too.
 \param y coordinate
 \param useMask unused now
  */
-void SCRIBUS_API paintAlert(const QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0, bool useMask = true);
+void SCRIBUS_API paintAlert(const QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0);
 QImage SCRIBUS_API ProofImage(QImage *Im, ScribusDoc* doc);
 
 /*! \brief Associate a color shade to a document color according to pre-1.3.4cvs rgb shade calculation method, 

@@ -754,7 +754,6 @@ void Scribus150Format::writeColors(ScXmlStreamWriter& docu, const QStringList& c
 
 void Scribus150Format::writeGradients(ScXmlStreamWriter& docu, bool part)
 {
-	QHash<QString, VGradient>::Iterator itGrad;
 	QHash<QString, VGradient> gradMap;
 	if (part)
 		m_Doc->getUsedGradients(gradMap);

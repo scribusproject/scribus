@@ -218,7 +218,7 @@ void CanvasMode::updateViewMode(CanvasViewMode* viewmode)
 
 void CanvasMode::drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool background, bool insideGroup, double sx, double sy)
 {
-	m_pen["handle"]		= QPen(PrefsManager::instance().appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["handle"]	= QPen(PrefsManager::instance().appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["handle"].setCosmetic(true);
 	m_pen["selection-group-inside"] = QPen(PrefsManager::instance().appPrefs.displayPrefs.frameGroupColor, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-group-inside"].setCosmetic(true);
