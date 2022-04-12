@@ -2107,28 +2107,6 @@ void PageItem_TextFrame::layout()
 			{
 				current.xPos = qMax(current.xPos, current.colLeft);
 			}
-			// remember possible break
-			if (shapedText.haveMoreText(i + 1, glyphClusters))
-			{
-				const GlyphCluster& nextCluster = glyphClusters[i + 1];
-				if (nextCluster.hasFlag(ScLayout_LineBoundary))
-				{
-					// #16100: why preventing possible line break when there are two
-					// consecutive line break opportunities? This is bad for CJK. /
-					if (/*!current.glyphs[currentIndex].hasFlag(ScLayout_LineBoundary)
-						&&*/ !current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible)
-						&& (itemText.text(a) != '-')
-						&& (itemText.text(a) != SpecialChars::SHYPHEN))
-					{
-						current.rememberBreak(i, breakPos, style.rightMargin());
-					}
-				}
-			}
-			if (HasObject)
-			{
-//				qDebug() << "rememberBreak object @" << i;
-				current.rememberBreak(i, breakPos, style.rightMargin());
-			}
 
 			//check against space before PARSEP
 			/*if (SpecialChars::isBreakingSpace(hl->ch) && (a + 1 < itemText.length()) && (itemText.item(a + 1)->ch == SpecialChars::PARSEP))
@@ -2487,6 +2465,13 @@ void PageItem_TextFrame::layout()
 				}
 				else // outs -- last char went outside the columns (or into flow-around shape)
 				{
+					// #16098 only if the last char can hang at the edge,
+					// add line break after this char.
+					// for now, such chars is only spaces but may change in the future
+					// e.g. https://www.w3.org/TR/css-text-3/#hanging
+					if (itemText.text(a).isSpace()) {
+						current.rememberBreak(i, breakPos, style.rightMargin());
+					}
 					if (current.breakIndex >= 0)
 					{
 						// go back to last break position
@@ -2733,6 +2718,33 @@ void PageItem_TextFrame::layout()
 							++m_maxChars;
 						goto NoRoom;
 					}
+				}
+			}
+			else // if (outs)
+			{
+				// moved here to fix #16098
+				// remember possible break only when the current char is not placed on the edge.
+				// white space / character hanging is not treated here anymore
+				if (shapedText.haveMoreText(i + 1, glyphClusters))
+				{
+					const GlyphCluster& nextCluster = glyphClusters[i + 1];
+					if (nextCluster.hasFlag(ScLayout_LineBoundary))
+					{
+						// #16100: why preventing possible line break when there are two
+						// consecutive line break opportunities? This is bad for CJK. /
+						if (/*!current.glyphs[currentIndex].hasFlag(ScLayout_LineBoundary)
+							&&*/ !current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible)
+							&& (itemText.text(a) != '-')
+							&& (itemText.text(a) != SpecialChars::SHYPHEN))
+						{
+							current.rememberBreak(i, breakPos, style.rightMargin());
+						}
+					}
+				}
+				if (HasObject)
+				{
+//					qDebug() << "rememberBreak object @" << i;
+					current.rememberBreak(i, breakPos, style.rightMargin());
 				}
 			}
 			if (!shapedText.haveMoreText(i + 1, glyphClusters))
