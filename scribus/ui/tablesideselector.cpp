@@ -101,14 +101,14 @@ void TableSideSelector::paintEvent(QPaintEvent* event)
 
 void TableSideSelector::mousePressEvent(QMouseEvent* event)
 {
-	m_selection ^= closestSide(event->localPos());
+	m_selection ^= closestSide(event->position());
 	update();
 	emit selectionChanged();
 }
 
 void TableSideSelector::mouseMoveEvent(QMouseEvent* event)
 {
-	m_highlighted = closestSide(event->localPos());
+	m_highlighted = closestSide(event->position());
 	update();
 }
 
