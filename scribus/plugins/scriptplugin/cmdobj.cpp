@@ -1069,6 +1069,25 @@ PyObject *scribus_pasteobjects(PyObject * /* self */, PyObject * /*args*/)
 	return pyList;
 }
 
+
+PyObject *scribus_getitempagenumber(PyObject *, PyObject *args)
+{
+	char* name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+
+	// Is there a special name given? Yes -> add this to selection
+	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
+	ScribusDoc* currentDoc = currentWin->doc;
+
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
+	if (i == nullptr)
+		return nullptr;
+	return PyLong_FromLong(i->OwnPage);
+}
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
@@ -1091,6 +1110,7 @@ void cmdobjdocwarnings()
 	  << scribus_duplicateobject__doc__
 	  << scribus_duplicateobjects__doc__
 	  << scribus_getcharacterstyle__doc__
+	  << scribus_getitempagenumber__doc__
 	  << scribus_getparagraphstyle__doc__
 	  << scribus_getstyle__doc__
 	  << scribus_gettextflowmode__doc__
@@ -1103,3 +1123,4 @@ void cmdobjdocwarnings()
 	  << scribus_settextflowmode__doc__
 	  << scribus_textflowmode__doc__;
 }
+

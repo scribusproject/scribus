@@ -401,5 +401,13 @@ Returns the names of the newly created object in a list.\n\
 "));
 PyObject *scribus_pasteobjects(PyObject * /* self */, PyObject *args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_getitempagenumber__doc__,
+QT_TR_NOOP("getItemPageNumber([name])\n\
+\n\
+Returns the page number for the given page item.\n\
+"));
+PyObject *scribus_getitempagenumber(PyObject * /* self */, PyObject *args);
+
 #endif
 
