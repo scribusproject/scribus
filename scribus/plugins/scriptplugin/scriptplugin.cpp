@@ -370,6 +370,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getImageOffset"), scribus_getimageoffset, METH_VARARGS, tr(scribus_getimageoffset__doc__)},
 	{const_cast<char*>("getImageScale"), scribus_getimagescale, METH_VARARGS, tr(scribus_getimagescale__doc__)},
 	{const_cast<char*>("getInfo"), (PyCFunction)scribus_getinfo, METH_VARARGS, tr(scribus_getinfo__doc__)},
+	{const_cast<char*>("getItemPageNumber"), scribus_getitempagenumber, METH_VARARGS, tr(scribus_getitempagenumber__doc__)},
 	{const_cast<char*>("getLastLinkedFrame"), scribus_getlastlinkedframe, METH_VARARGS, tr(scribus_getlastlinkedframe__doc__)},
 	{const_cast<char*>("getLayerBlendmode"), scribus_getlayerblendmode, METH_VARARGS, tr(scribus_getlayerblendmode__doc__)},
 	{const_cast<char*>("getLayerTransparency"), scribus_getlayertransparency, METH_VARARGS, tr(scribus_getlayertransparency__doc__)},
