@@ -819,7 +819,10 @@ void BarcodeGenerator::paintBarcode()
 				"end\n"
 				);
 	QString comm("20 10 moveto <%1> <%2> /%3 /uk.co.terryburton.bwipp findresource exec\n");
-	QString bcdata(ui.codeEdit->text().toLatin1().toHex());
+	QByteArray bcLatin1 = ui.codeEdit->text().toLatin1();
+	QByteArray bcUtf8 = ui.codeEdit->text().toUtf8();
+	QByteArray bcArray = (bcLatin1 != bcUtf8) ? ("\xef\xbb\xbf" + bcUtf8) : bcLatin1;
+	QString bcdata(bcArray.toHex());
 	QString bcopts(opts.toLatin1().toHex());
 	comm = comm.arg(bcdata, bcopts, map[ui.bcCombo->currentText()].command);
 	psCommand.append(comm);
