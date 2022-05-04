@@ -319,56 +319,76 @@
       </spacer>
      </item>
      <item>
-      <layout class="QGridLayout" name="gridLayout_2">
+      <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0,0,0" columnminimumwidth="0,0,0,0,0">
        <property name="spacing">
         <number>3</number>
        </property>
-       <item row="0" column="0">
-        <widget class="QToolButton" name="doGroup">
-         <property name="toolTip">
-          <string>Group the selected objects</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QToolButton" name="doUnGroup">
-         <property name="toolTip">
-          <string>Ungroup the selected group</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QToolButton" name="flipH">
-         <property name="toolTip">
-          <string>Flip horizontally</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QToolButton" name="flipV">
-         <property name="toolTip">
-          <string>Flip vertically</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QToolButton" name="doLock">
-         <property name="toolTip">
-          <string>Lock or unlock the object</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
+       <item row="1" column="3">
         <widget class="QToolButton" name="noPrint">
          <property name="toolTip">
           <string>Enable or disable exporting of the object</string>
          </property>
         </widget>
        </item>
+       <item row="1" column="1">
+        <widget class="QToolButton" name="doUnGroup">
+         <property name="toolTip">
+          <string>Ungroup the selected group</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QToolButton" name="flipH">
+         <property name="toolTip">
+          <string>Flip horizontally</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="3">
+        <widget class="QToolButton" name="doLock">
+         <property name="toolTip">
+          <string>Lock or unlock the object</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
         <widget class="QToolButton" name="noResize">
          <property name="toolTip">
           <string>Lock or unlock the size of the object</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QToolButton" name="doGroup">
+         <property name="toolTip">
+          <string>Group the selected objects</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QToolButton" name="flipV">
+         <property name="toolTip">
+          <string>Flip vertically</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QToolButton" name="rotateCCW">
+         <property name="toolTip">
+          <string>Rotate the selection anti-clockwise by 90º</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QToolButton" name="rotateCW">
+         <property name="toolTip">
+          <string>Rotate the selection alockwise by 90º</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>

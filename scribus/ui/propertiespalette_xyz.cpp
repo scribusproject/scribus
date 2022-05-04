@@ -91,6 +91,8 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	connect(widthSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewW()));
 	connect(heightSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewH()));
 	connect(rotationSpin, SIGNAL(valueChanged(double)), this, SLOT(handleRotation()));
+	connect(rotateCCW, SIGNAL(clicked()), this, SLOT(handleRotateCCW()));
+	connect(rotateCW, SIGNAL(clicked()), this, SLOT(handleRotateCW()));
 	connect(flipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	connect(flipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	connect(levelUp, SIGNAL(clicked()), this, SLOT(handleRaise()));
@@ -941,31 +943,89 @@ void PropertiesPalette_XYZ::handleNewH()
 
 void PropertiesPalette_XYZ::handleRotation()
 {
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if (m_haveDoc && m_haveItem)
+
+	if (!m_userActionOn)
+		m_ScMW->view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
+	if (m_doc->m_Selection->isMultipleSelection())
 	{
-		if (!m_userActionOn)
-			m_ScMW->view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
-		if (m_doc->m_Selection->isMultipleSelection())
-		{
-			double gx, gy, gh, gw;
-			m_doc->rotateGroup((rotationSpin->value() - m_oldRotation)*(-1), m_ScMW->view->RCenter);
-			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			showXY(gx, gy);
-		}
-		else
-			m_doc->rotateItem(rotationSpin->value()*(-1), m_item);
-		if (!m_userActionOn)
-		{
-			for (int i = 0; i < m_doc->m_Selection->count(); ++i)
-				m_doc->m_Selection->itemAt(i)->checkChanges(true);
-			m_ScMW->view->endGroupTransaction();
-		}
-		m_doc->changed();
-		m_doc->regionsChanged()->update(QRect());
-		m_oldRotation = rotationSpin->value();
+		double gx, gy, gh, gw;
+		m_doc->rotateGroup(m_oldRotation - rotationSpin->value(), m_ScMW->view->RCenter);
+		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		showXY(gx, gy);
 	}
+	else
+		m_doc->rotateItem(-1.0 * rotationSpin->value(), m_item);
+	if (!m_userActionOn)
+	{
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+			m_doc->m_Selection->itemAt(i)->checkChanges(true);
+		m_ScMW->view->endGroupTransaction();
+	}
+	m_doc->changed();
+	m_doc->regionsChanged()->update(QRect());
+	m_oldRotation = rotationSpin->value();
+}
+
+void PropertiesPalette_XYZ::handleRotateCCW()
+{
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	if (!m_userActionOn)
+		m_ScMW->view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
+	if (m_doc->m_Selection->isMultipleSelection())
+	{
+		double gx, gy, gh, gw;
+		m_doc->rotateGroup(-90.0, m_ScMW->view->RCenter);
+		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		showXY(gx, gy);
+	}
+	else
+	{
+		double rr = m_item->rotation() - 90.0;
+		m_doc->rotateItem(rr, m_item);
+	}
+	if (!m_userActionOn)
+	{
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+			m_doc->m_Selection->itemAt(i)->checkChanges(true);
+		m_ScMW->view->endGroupTransaction();
+	}
+	m_doc->changed();
+	m_doc->regionsChanged()->update(QRect());
+	m_oldRotation = rotationSpin->value();
+}
+
+void PropertiesPalette_XYZ::handleRotateCW()
+{
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	if (!m_userActionOn)
+		m_ScMW->view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
+	if (m_doc->m_Selection->isMultipleSelection())
+	{
+		double gx, gy, gh, gw;
+		m_doc->rotateGroup(90.0, m_ScMW->view->RCenter);
+		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		showXY(gx, gy);
+	}
+	else
+	{
+		double rr = m_item->rotation() + 90.0;
+		m_doc->rotateItem(rr, m_item);
+	}
+	if (!m_userActionOn)
+	{
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+			m_doc->m_Selection->itemAt(i)->checkChanges(true);
+		m_ScMW->view->endGroupTransaction();
+	}
+	m_doc->changed();
+	m_doc->regionsChanged()->update(QRect());
+	m_oldRotation = rotationSpin->value();
 }
 
 void PropertiesPalette_XYZ::handleLower()
@@ -1242,6 +1302,9 @@ void PropertiesPalette_XYZ::iconSetChange()
 
 	flipH->setIcon(im.loadIcon("16/flip-object-horizontal.png"));
 	flipV->setIcon(im.loadIcon("16/flip-object-vertical.png"));
+
+	rotateCCW->setIcon(im.loadIcon("rotate_ccw.png"));
+	rotateCW->setIcon(im.loadIcon("rotate_cw.png"));
 	
 	QIcon a;
 	a.addPixmap(im.loadPixmap("16/lock.png"), QIcon::Normal, QIcon::On);

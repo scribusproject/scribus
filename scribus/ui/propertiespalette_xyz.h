@@ -76,6 +76,8 @@ private slots:
 	void handleRotation();
 	void handleFlipH();
 	void handleFlipV();
+	void handleRotateCCW();
+	void handleRotateCW();
 	void handleLower();
 	void handleRaise();
 	void handleFront();
