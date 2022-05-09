@@ -707,16 +707,16 @@ def draw_selection(fontList, getSizeOnly):
     set_odd_even(pageNum)
     lineHeight = 1 # include the one point of space below top margin
     lineHeight = lineHeight + draw_horiz_line(0, dD['paperLeftSide'], dD['paperLeftSide'] + dD['paperTextWidth'], 1)
-    usuableArea = dD['paperHeight'] - \
-                  dD['paperTopMargin'] - \
-                  lineHeight - \
-                  dD['paperBottomMargin'] - \
-                  dD['paperPageNumVertOffset']
+    usableArea = dD['paperHeight'] - \
+                 dD['paperTopMargin'] - \
+                 lineHeight - \
+                 dD['paperBottomMargin'] - \
+                 dD['paperPageNumVertOffset']
 
     blockHeight = draw_sample_block(fontList[0], dD['paperLeftSide'], 0, dD['paperTextWidth'], 1)
-    pageBlocks = int(usuableArea / blockHeight)
+    pageBlocks = int(usableArea / blockHeight)
     #print blockHeight
-    #print "Usuable area %s points high" % usuableArea
+    #print "Usable area %s points high" % usableArea
     #print "Used space on page is %s points high" % (blockHeight * pageBlocks)
 
     if not getSizeOnly:

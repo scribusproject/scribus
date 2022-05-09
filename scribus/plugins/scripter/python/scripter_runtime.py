@@ -164,7 +164,7 @@ def check_python(filename):
 
     problems = checkCode(code)
     if problems and len(problems) == 1 and isinstance(problems[0], SyntaxError):
-        return True # let's ignore it and let excepthook hande the error later
+        return True # let's ignore it and let excepthook handle the error later
     elif problems:
         ok = permitdlg.ask(filename, problems)
         if ok == -2: # deny and remember

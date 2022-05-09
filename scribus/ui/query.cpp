@@ -130,6 +130,6 @@ void Query::setCheckMode(bool mode)
 
 void Query::setValidator(const QRegularExpression& rx)
 {
-	QValidator* vaild = new QRegularExpressionValidator( rx, this );
-	answerEdit->setValidator(vaild);
+	QValidator* valid = new QRegularExpressionValidator( rx, this );
+	answerEdit->setValidator(valid);
 }
