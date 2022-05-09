@@ -475,13 +475,13 @@ class TestSafeEval(unittest.TestCase):
             timed_safe_eval, "().__class__.mro()[1].__subclasses__()")
 
     def test_timeout_ok(self):
-        # attempt to exectute 'slow' code which finishes within timelimit
+        # attempt to execute 'slow' code which finishes within timelimit
         def test(): time.sleep(2)
         env = {'test':test}
         timed_safe_eval("test()", env, timeout_secs = 5)
 
     def test_timeout_exceed(self):
-        # attempt to exectute code which never teminates
+        # attempt to execute code which never teminates
         self.assertRaises(SafeEvalException, \
             timed_safe_eval, "while 1: pass")
 

@@ -702,7 +702,7 @@ private:
 	// Undo/redo row height action
 	void restoreTableRowHeight(SimpleState *state, bool isUndo);
 
-	// Undo/redo column widht action
+	// Undo/redo column width action
 	void restoreTableColumnWidth(SimpleState *state, bool isUndo);
 
 private:

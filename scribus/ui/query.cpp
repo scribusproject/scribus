@@ -129,6 +129,6 @@ void Query::setCheckMode(bool mode)
 
 void Query::setValidator(const QRegExp& rx)
 {
-	QValidator* vaild = new QRegExpValidator( rx, this );
-	answerEdit->setValidator(vaild);
+	QValidator* valid = new QRegExpValidator( rx, this );
+	answerEdit->setValidator(valid);
 }
