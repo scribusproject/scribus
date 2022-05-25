@@ -71,11 +71,9 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 				"(.*[\\r\\n]+)?"
 				"(%%BeginResource.*[\\r\\n]+)"
 				"% --END \\1 \\2--[\\r\\n]+",
-				QRegularExpression::InvertedGreedinessOption);
-	QRegularExpressionMatch match = rx.match(bwipp);
-	int n = 0;
-	int pos = match.capturedStart(n);
-	while ( pos >= 0 )
+				QRegularExpression::InvertedGreedinessOption | QRegularExpression::DotMatchesEverythingOption);
+
+	for (const QRegularExpressionMatch& match : rx.globalMatch(bwipp))
 	{
 		int len = match.capturedLength();
 		QString restype = match.captured(1);
@@ -85,7 +83,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 		resbodys[resname] = resbody;
 
-		if (restype=="ENCODER")
+		if (restype == "ENCODER")
 		{
 			QRegularExpression rxhead(
 						"% --REQUIRES (.*)--[\\r\\n]+"
@@ -105,7 +103,6 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 				encoderlist.append(resname);
 			}
 		}
-		pos = match.capturedStart(n++);
 	}
 
 	foreach (const QString& enc, encoderlist)
