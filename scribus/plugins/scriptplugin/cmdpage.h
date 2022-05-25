@@ -215,12 +215,12 @@ PyObject *scribus_getpageitems(PyObject * /*self*/);
 PyDoc_STRVAR(scribus_importpage__doc__,
 QT_TR_NOOP("importPage(\"fromDoc\", (pageList), [create, imortwhere, importwherePage])\n\
 \n\
-Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This functions maps the \"Page->Import\" dropdown menu function.\n\
+Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This function maps the \"Page->Import\" dropdown menu function.\n\
 fromDoc: string; the filename of the document to import pages from\n\
-pageList: tuple with page numbers of pages to import\n\
+pageList: tuple; page numbers of pages to import\n\
 create: number; 0 to replace existing pages, 1 (default) to insert new pages\n\
-importWhere: number; the page number (of the current document) at which import the pages\n\
-importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document\n\
+importWhere: number; used if create==1; 0 to create pages before importWherePage, 1 to create pages after importWherePage, 2 (default) to create pages at the end of the document\n\
+importWherePage: number; used if create==1 and importWhere==0|1; zero-based page number (of the current document) before or after which to import the pages\n\
 "));
 PyObject *scribus_importpage(PyObject */*self*/, PyObject* args);
 
