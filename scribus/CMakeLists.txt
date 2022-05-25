@@ -5,11 +5,7 @@ if (WANT_SVNVERSION)
 	# a custom target that is always built
 
 	if (NOT CMAKE_VERSION VERSION_LESS "3.2.0")
-		if (WANT_QT6)
-			add_custom_target(svnheader ALL COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P ${CMAKE_SOURCE_DIR}/cmake/modules/getsvn.cmake BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/svnversion.h)
-		else()
-			add_custom_target(svnheader ALL COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P ${CMAKE_MODULE_PATH}/getsvn.cmake BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/svnversion.h)
-		endif()
+		add_custom_target(svnheader ALL COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P ${CMAKE_MODULE_PATH}/getsvn.cmake BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/svnversion.h)
 	else ()
 		add_custom_target(svnheader ALL DEPENDS svn_header ) # svn_header is nothing more than a unique string
 		# creates svnheader.h using cmake script
@@ -765,28 +761,17 @@ set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};${PREFIX_cairo_LIB}")
 
 message("RPATH: ${CMAKE_INSTALL_RPATH}")
 
-IF(NOT WANT_QT6)
-	target_link_libraries(${EXE_NAME}
-		PUBLIC
-		${Qt5Core_LIBRARIES}
-		${Qt5Widgets_LIBRARIES}
-		${Qt5Gui_LIBRARIES}
-		${Qt5Xml_LIBRARIES}
-		${Qt5Network_LIBRARIES}
-		${Qt5OpenGL_LIBRARIES}
-		PRIVATE
-		${Qt5PrintSupport_LIBRARIES}
-	)
-else()
-	target_link_libraries(${EXE_NAME}
-		PUBLIC
-		Qt6::Core
-		Qt6::Core5Compat
-		Qt6::Gui
-		Qt6::Widgets
-		Qt6::Network
-		)
-endif()
+target_link_libraries(${EXE_NAME}
+	PUBLIC
+	${Qt5Core_LIBRARIES}
+	${Qt5Widgets_LIBRARIES}
+	${Qt5Gui_LIBRARIES}
+	${Qt5Xml_LIBRARIES}
+	${Qt5Network_LIBRARIES}
+	${Qt5OpenGL_LIBRARIES}
+	PRIVATE
+	${Qt5PrintSupport_LIBRARIES}
+)
 
 target_link_libraries(${EXE_NAME}
 	PUBLIC

@@ -9,9 +9,6 @@
 #Require 3.14 for new Fontconfig module
 
 cmake_minimum_required(VERSION 3.14.0 FATAL_ERROR)
-if (WANT_QT6)
-	cmake_minimum_required(VERSION 3.16.0)
-endif()
 cmake_policy(SET CMP0048 NEW)
 message(STATUS "CMake Version: ${CMAKE_VERSION}")
 if (WANT_PCH)
@@ -395,9 +392,6 @@ endif()
 
 #C++11 Support
 #as of 1.5.5.svn, require C++11
-if (WANT_QT6)
-	set (WANT_CPP17 ON)
-endif()
 if(NOT WANT_CPP14 AND NOT WANT_CPP17)
 	message(STATUS "Enabling C++11 compiler features")
 	set(CMAKE_CXX_STANDARD 11)
