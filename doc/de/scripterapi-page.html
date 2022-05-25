@@ -101,8 +101,16 @@ document's current units - see UNIT_&lt;type&gt; constants.</p></dd>
 <p>May raise IndexError if the page number is out of range.</p></dd>
 
 <dt><a name="-importPage"><strong>importPage</strong>(...)</a></dt>
-<dd><code></code>
-<p>importPage("fromDoc", (pageList), [create, importwhere, importwherePage]) Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This functions maps the "Page-&gt;Import" dropdown menu function. fromDoc: string; the filename of the document to import pages from pageList: tuple with page numbers of pages to import create: number; 0 to replace existing pages, 1 (default) to insert new pages importWhere: number; the page number (of the current document) at which import the pages importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document</p></dd>
+<dd><code>importPage("fromDoc", (pageList), [create, importWhere, importWherePage])</code>
+<p>Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This function maps the "Page-&gt;Import" dropdown menu function.</p>
+<p>The function accepts following arguments:
+<ul>
+<li>fromDoc: string; the filename of the document to import pages from</li>
+<li>pageList: tuple; page numbers of pages to import</li>
+<li>create: number; 0 to replace existing pages, 1 (default) to insert new pages</li>
+<li>importWhere: number; used if create==1; 0 to create pages before importWherePage, 1 to create pages after importWherePage, 2 (default) to create pages at the end of the document</li>
+<li>importWherePage: number; used if create==1 and importWhere==0|1; zero-based page number (of the current document) before or after which to import the pages</li>
+</ul></p></dd>
 
 <dt><a name="-newPage"><strong>newPage</strong></a>(...)</dt>
 <dd><code>newPage(where [,"masterpage"])</code>
@@ -138,7 +146,7 @@ document's current units - see UNIT_&lt;type&gt; constants.</p></dd>
 
 <dt><a name="-setVGuides"><strong>setVGuides</strong></a>(...)</dt>
 <dd><code>setVGuides()</code>
-<p>The usage is analagous to that of <a href="#-setHGuides">setHGuides</a> for either adding to existing guides or replacing them.</p></dd>
+<p>The usage is analogous to that of <a href="#-setHGuides">setHGuides</a> for either adding to existing guides or replacing them.</p></dd>
 
 </dl>
 </body>
