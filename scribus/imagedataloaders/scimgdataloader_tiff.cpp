@@ -27,9 +27,6 @@ static void TagExtender(TIFF *tiff)
 
 ScImgDataLoader_TIFF::ScImgDataLoader_TIFF()
 {
-	m_photometric = PHOTOMETRIC_MINISBLACK;
-	m_samplesPerPixel = 72;
-
 	initSupportedFormatList();
 }
 
@@ -42,11 +39,11 @@ void ScImgDataLoader_TIFF::initSupportedFormatList()
 
 void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn, int /*page*/)
 {
-	ScColorMgmtEngine engine(ScCore->defaultEngine);
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
 	if (!QFile::exists(fn))
 		return;
+
 	TIFFSetTagExtender(TagExtender);
 	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
 	if (!tif)
@@ -56,9 +53,25 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	void*  EmbedBuffer;
 	if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
 	{
+		bool profileIsValid = false;
 		QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
+		ScColorMgmtEngine engine(ScCore->defaultEngine);
 		ScColorProfile tiffProf = engine.openProfileFromMem(profArray);
 		if (tiffProf)
+		{
+			uint16_t photometric = 0;
+			uint16_t samplesPerPixel = 0;
+			TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &photometric);
+			TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesPerPixel);
+			eColorSpaceType colorSpace = tiffProf.colorSpace();
+			if (colorSpace == ColorSpace_Rgb)
+				profileIsValid = (photometric == PHOTOMETRIC_RGB);
+			if (colorSpace == ColorSpace_Cmyk)
+				profileIsValid = (photometric == PHOTOMETRIC_SEPARATED && samplesPerPixel >= 4);
+			if (colorSpace == ColorSpace_Gray)
+				profileIsValid = (photometric == PHOTOMETRIC_MINISBLACK || photometric == PHOTOMETRIC_MINISWHITE);
+		}
+		if (profileIsValid)
 		{
 			if (tiffProf.colorSpace() == ColorSpace_Rgb)
 				m_profileComponents = 3;
@@ -733,23 +746,37 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 	m_imageInfoRecord.exifInfo.artist = QString(artist);
 	m_imageInfoRecord.exifInfo.thumbnail = QImage();
 	m_imageInfoRecord.exifDataValid = true;
+
+	m_imageInfoRecord.isEmbedded = false;
+	m_imageInfoRecord.profileName.clear();
+	m_imageInfoRecord.embeddedProfileName.clear();
+
 	uint32_t EmbedLen = 0;
 	void*  EmbedBuffer;
 	if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
 	{
+		bool profileIsValid = false;
 		QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
 		ScColorProfile tiffProf = engine.openProfileFromMem(profArray);
-		m_embeddedProfile = profArray;
-		m_imageInfoRecord.profileName = tiffProf.productDescription();
-		m_imageInfoRecord.embeddedProfileName = m_imageInfoRecord.profileName;
-		m_imageInfoRecord.isEmbedded = true;
+		if (tiffProf)
+		{
+			eColorSpaceType colorSpace = tiffProf.colorSpace();
+			if (colorSpace == ColorSpace_Rgb)
+				profileIsValid = (m_photometric == PHOTOMETRIC_RGB);
+			if (colorSpace == ColorSpace_Cmyk)
+				profileIsValid = (m_photometric == PHOTOMETRIC_SEPARATED && m_samplesPerPixel >= 4);
+			if (colorSpace == ColorSpace_Gray)
+				profileIsValid = (m_photometric == PHOTOMETRIC_MINISBLACK || m_photometric == PHOTOMETRIC_MINISWHITE);
+		}
+		if (profileIsValid)
+		{
+			m_embeddedProfile = profArray;
+			m_imageInfoRecord.profileName = tiffProf.productDescription();
+			m_imageInfoRecord.embeddedProfileName = m_imageInfoRecord.profileName;
+			m_imageInfoRecord.isEmbedded = true;
+		}
 	}
-	else
-	{
-		m_imageInfoRecord.isEmbedded = false;
-		m_imageInfoRecord.profileName.clear();
-		m_imageInfoRecord.embeddedProfileName.clear();
-	}
+
 	unsigned int PhotoshopLen = 0;
 	unsigned char* PhotoshopBuffer;
 	if (TIFFGetField(tif, TIFFTAG_PHOTOSHOP, &PhotoshopLen, &PhotoshopBuffer) )

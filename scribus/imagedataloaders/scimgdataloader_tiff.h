@@ -63,8 +63,8 @@ protected:
 	void unmultiplyRGBA(RawImage *image);
 
 	int      m_random_table[4096];
-	uint16_t m_photometric;
-	uint16_t m_samplesPerPixel;
+	uint16_t m_photometric { PHOTOMETRIC_MINISBLACK };
+	uint16_t m_samplesPerPixel { 1 };
 };
 
 #endif
