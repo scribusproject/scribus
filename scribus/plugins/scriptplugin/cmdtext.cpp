@@ -1286,34 +1286,34 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *fromitem = GetUniqueItem(QString::fromUtf8(name1));
-	if (fromitem == nullptr)
+	PageItem *fromItem = GetUniqueItem(QString::fromUtf8(name1));
+	if (fromItem == nullptr)
 		return nullptr;
-	PageItem *toitem = GetUniqueItem(QString::fromUtf8(name2));
-	if (toitem == nullptr)
+	PageItem *toItem = GetUniqueItem(QString::fromUtf8(name2));
+	if (toItem == nullptr)
 		return nullptr;
-	if (!(fromitem->isTextFrame()) || !(toitem->isTextFrame()))
+	if (!(fromItem->isTextFrame()) || !(toItem->isTextFrame()))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only link text frames.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	if (fromitem->nextInChain() != nullptr)
+	if (fromItem->nextInChain() != nullptr)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Source frame is linked to another frame.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	if (toitem->prevInChain() != nullptr)
+	if (toItem->prevInChain() != nullptr)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Target frame is linked to by another frame.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	if (toitem == fromitem)
+	if (toItem == fromItem)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Source and target are the same object.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	// references to the others boxes
-	fromitem->link(toitem);
+	fromItem->link(toItem);
 	ScCore->primaryMainWindow()->view->DrawNew();
 	// enable 'save icon' stuff
 	ScCore->primaryMainWindow()->slotDocCh();
