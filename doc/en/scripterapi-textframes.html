@@ -134,7 +134,7 @@ is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
 <dd><code>linkTextFrames("fromname", "toname")</code>
-<p>Link two text frames. The frame named "fromname" is linked to the frame named "toname". The target frame must be an empty text frame and must not link to or be linked from any other frames already.</p>
+<p>Link two text frames. The frame named "fromname" is linked to the frame named "toname". The source frame must not already link to another frame. The target frame must not be linked from another frame.</p>
 <p>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</p></dd>
 
 <dt><a name="-selectFrameText"><strong>selectFrameText</strong></a>(...)</dt>

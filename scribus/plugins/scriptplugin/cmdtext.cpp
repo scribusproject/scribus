@@ -1294,27 +1294,22 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(fromitem->isTextFrame()) || !(toitem->isTextFrame()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only link text frames.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only link text frames.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-/*	if (toitem->itemText.length() > 0)
+	if (fromitem->nextInChain() != nullptr)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Target frame must be empty.","python error").toLocal8Bit().constData());
-		return nullptr;
-	}*/
-	if (toitem->nextInChain() != nullptr)
-	{
-		PyErr_SetString(ScribusException, QObject::tr("Target frame links to another frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Source frame is linked to another frame.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	if (toitem->prevInChain() != nullptr)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Target frame is linked to by another frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Target frame is linked to by another frame.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	if (toitem == fromitem)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Source and target are the same object.","python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Source and target are the same object.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	// references to the others boxes
