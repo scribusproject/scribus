@@ -33,7 +33,7 @@
 <p>Gets the number of columns of the text frame "name". If "name" is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-getFirstLineOffset"><strong>getFirstLineOffset</strong></a>(...)</dt>
-<dd><code>getFirstLineOffset(["name"]) -&gt; string</code>
+<dd><code>getFirstLineOffset(["name"]) -&gt; integer</code>
 <p>Gets the offset of the first line of text inside text frame "name". If "name" is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-getFirstLinkedFrame"><strong>getFirstLinkedFrame</strong></a>(...)</dt>
@@ -134,7 +134,7 @@ is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
 <dd><code>linkTextFrames("fromname", "toname")</code>
-<p>Link two text frames. The frame named "fromname" is linked to the frame named "toname". The target frame must be an empty text frame and must not link to or be linked from any other frames already.</p>
+<p>Link two text frames. The frame named "fromname" is linked to the frame named "toname". The source frame must not already link to another frame. The target frame must not be linked from another frame.</p>
 <p>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</p></dd>
 
 <dt><a name="-selectFrameText"><strong>selectFrameText</strong></a>(...)</dt>

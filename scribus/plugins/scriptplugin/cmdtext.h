@@ -570,8 +570,8 @@ PyDoc_STRVAR(scribus_linktextframes__doc__,
 QT_TR_NOOP("linkTextFrames(\"fromname\", \"toname\")\n\
 \n\
 Link two text frames. The frame named \"fromname\" is linked to the\n\
-frame named \"toname\". The target frame must be an empty text frame\n\
-and must not link to or be linked from any other frames already.\n\
+frame named \"toname\". The source frame must not already link to another\n\
+frame. The target frame must not be linked from another frame.\n\
 \n\
 May throw ScribusException if linking rules are violated.\n\
 "));

@@ -111,7 +111,7 @@ Insérer du texte &agrave; la position -1 l'ajoute &agrave; la fin du cadre. Si 
 
 <dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
 <dd><code>linkTextFrames("nomDepart", "nomArrivee")</code>
-<p>&Eacute;tablit un lien entre deux cadres de texte. Le cadre nommé "nomDepart" est lié au cadre "nomArrivee". Le cadre cible doit &ecirc;tre un cadre de texte vide et ne doit pas pointer vers d'autres cadres ni porter un lien provenant d'autres cadres.</p>
+<p>&Eacute;tablit un lien entre deux cadres de texte. Le cadre nommé "nomDepart" est lié au cadre "nomArrivee". Le cadre source ne doit pas déja porter un lien vers un cadre de texte suivant. Le cadre cible ne doit pas porter de lien provenant d'autres cadres.</p>
 <p>Peut générer <a href="#ScribusException">ScribusException</a> en cas d'infraction des règles de liens.</p></dd>
 
 
