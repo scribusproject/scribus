@@ -740,15 +740,16 @@ int OutputPreview_PDF::renderPreviewSep(int pageIndex, int res)
 				counter++;
 			}
 		}
+		sepInfo.close();
 	}
-	sepInfo.close();
-	QString currSeps = "";
+
+	QString currSeps;
 	uint spc = 0;
 	for (int sp = 0; sp < spots.count(); ++sp)
 	{
 		currSeps += "(" + spots[sp] + ") ";
 		spc++;
-		if (sp > 6)
+		if (spc > 6)
 		{
 			args3.clear();
 			args3.append("-sDEVICE=tiffsep");
@@ -762,7 +763,7 @@ int OutputPreview_PDF::renderPreviewSep(int pageIndex, int res)
 			args3.append("-f");
 			args3.append(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/" +  m_tempBaseName + ".sep.ps"));
 			ret = System(gsExe, args1 + args3 + args2);
-			currSeps = "";
+			currSeps.clear();
 			spc = 0;
 		}
 	}
