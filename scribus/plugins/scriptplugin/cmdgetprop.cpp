@@ -374,7 +374,7 @@ PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *
 		return true;
 	};
 
-	int returnedItemCount = std::count_if(currentDoc->DocItems.begin(), currentDoc->DocItems.end(), isReturnedItem);
+	int returnedItemCount = std::count_if(currentDoc->Items->begin(), currentDoc->Items->end(), isReturnedItem);
 
 	PyObject* pyItemList = PyList_New(returnedItemCount);
 	for (int i = 0; i < currentDoc->Items->count(); ++i)
