@@ -155,9 +155,9 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 
 	// Which options checkboxes are enabled for each encoder
-	QStringList includetextAvail = encoderlist;
-	foreach (const QString& enc, includetextAvail)
-		resincludetextAvail[enc] = true;
+	// Check whether `includetext` option is available for each encoder
+	for(const QString &enc : encoderlist)
+		resincludetextAvail[enc] = resexops[enc].contains("includetext");
 
 	QStringList guardwhitespaceAvail;
 	guardwhitespaceAvail << "ean13" << "ean8" << "isbn" << "ismn" << "issn" << "ean13composite" << "ean8composite";
