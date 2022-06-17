@@ -745,6 +745,8 @@ Biblio::Biblio(QWidget* parent) : ScDockPalette(parent, "Sclib", Qt::WindowFlags
 	closeButton->setIconSize(QSize(16, 16));
 	configButton = new QToolButton(this);
 	configButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+	configButton->setIcon(IconManager::instance().loadPixmap("16/configure.png"));
+	configButton->setIconSize(QSize(16, 16));
 
 	configMenue = new QMenu();
 	conf_HideDirs = configMenue->addAction( tr("Hide Directories"));
