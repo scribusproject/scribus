@@ -53,7 +53,7 @@ public:
 	~SymbolView() {};
 
 public slots:
-	void HandleContextMenu(QPoint p);
+	void handleContextMenu(QPoint p);
 	void changeDisplay();
 
 protected:
@@ -77,6 +77,7 @@ class SCRIBUS_API SymbolPalette : public ScDockPalette
 public:
 	SymbolPalette(QWidget* parent);
 	~SymbolPalette() {};
+
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
@@ -85,7 +86,7 @@ public:
 	void updateSymbolList();
 
 public slots:
-	void handleContextMenue(QPoint p);
+	void handleContextMenu(QPoint p);
 	void handleDoubleClick(QListWidgetItem *item);
 	void handleEditItem();
 	void handleDeleteItem();
@@ -99,12 +100,12 @@ signals:
 	void objectDropped();
 
 protected:
-	SymbolView *SymbolViewWidget;
-	QVBoxLayout* PaletteLayout;
-	ScribusDoc *m_doc;
-	ScribusMainWindow *m_scMW;
+	SymbolView* SymbolViewWidget { nullptr };
+	QVBoxLayout* PaletteLayout { nullptr };
+	ScribusDoc *m_doc { nullptr };
+	ScribusMainWindow *m_scMW { nullptr };
 	QStringList editItemNames;
-	QListWidgetItem *m_item;
+	QListWidgetItem *m_item { nullptr };
 
 	void changeEvent(QEvent *e) override;
 };

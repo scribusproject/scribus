@@ -45,23 +45,23 @@ SymbolView::SymbolView(QWidget* parent) : QListWidget(parent)
 	delegate = new ScListWidgetDelegate(this, this);
 	setItemDelegate(delegate);
 	setIconSize(QSize(48, 48));
-	connect(this, SIGNAL(customContextMenuRequested (const QPoint&)), this, SLOT(HandleContextMenu(QPoint)));
+	connect(this, SIGNAL(customContextMenuRequested (const QPoint&)), this, SLOT(handleContextMenu(QPoint)));
 }
 
-void SymbolView::HandleContextMenu(QPoint p)
+void SymbolView::handleContextMenu(QPoint p)
 {
 	QListWidgetItem *item = itemAt(p);
-	if (!item)
-	{
-		QMenu *pmenu = new QMenu();
-		QAction* viewAct;
-		viewAct = pmenu->addAction( tr("Display Icons only"));
-		viewAct->setCheckable(true);
-		viewAct->setChecked(delegate->iconOnly());
-		connect(viewAct, SIGNAL(triggered()), this, SLOT(changeDisplay()));
-		pmenu->exec(QCursor::pos());
-		delete pmenu;
-	}
+	if (item)
+		return;
+
+	QMenu *pmenu = new QMenu();
+	QAction* viewAct;
+	viewAct = pmenu->addAction( tr("Display Icons only"));
+	viewAct->setCheckable(true);
+	viewAct->setChecked(delegate->iconOnly());
+	connect(viewAct, SIGNAL(triggered()), this, SLOT(changeDisplay()));
+	pmenu->exec(QCursor::pos());
+	delete pmenu;
 }
 
 void SymbolView::changeDisplay()
@@ -166,26 +166,31 @@ SymbolPalette::SymbolPalette( QWidget* parent) : ScDockPalette(parent, "Symb", Q
 	languageChange();
 	m_item = nullptr;
 	connect(SymbolViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(handleDoubleClick(QListWidgetItem*)));
-	connect(SymbolViewWidget, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(handleContextMenue(QPoint)));
+	connect(SymbolViewWidget, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(handleContextMenu(QPoint)));
 	connect(SymbolViewWidget, SIGNAL(objectDropped()), this, SIGNAL(objectDropped()));
 }
 
-void SymbolPalette::handleContextMenue(QPoint p)
+void SymbolPalette::handleContextMenu(QPoint p)
 {
 	if (!m_doc)
 		return;
+
 	QListWidgetItem *item = SymbolViewWidget->itemAt(p);
-	if (item)
-	{
-		m_item = item;
-		QMenu *pmenu = new QMenu();
-		QAction* editAct = pmenu->addAction( tr("Edit Item"));
-		connect(editAct, SIGNAL(triggered()), this, SLOT(handleEditItem()));
-		QAction* delAct = pmenu->addAction( tr("Remove Item"));
-		connect(delAct, SIGNAL(triggered()), this, SLOT(handleDeleteItem()));
-		pmenu->exec(QCursor::pos());
-		delete pmenu;
-	}
+	if (!item)
+		return;
+	m_item = item;
+
+	QMenu *pmenu = new QMenu();
+	QAction* editAct = pmenu->addAction( tr("Edit Item"));
+	editAct->setEnabled(item->flags() & Qt::ItemIsEnabled);
+	connect(editAct, SIGNAL(triggered()), this, SLOT(handleEditItem()));
+
+	QAction* delAct = pmenu->addAction( tr("Remove Item"));
+	delAct->setEnabled(item->flags() & Qt::ItemIsEnabled);
+	connect(delAct, SIGNAL(triggered()), this, SLOT(handleDeleteItem()));
+
+	pmenu->exec(QCursor::pos());
+	delete pmenu;
 }
 
 void SymbolPalette::handleDoubleClick(QListWidgetItem *item)
@@ -205,16 +210,16 @@ void SymbolPalette::handleEditItem()
 
 void SymbolPalette::handleDeleteItem()
 {
-	if (m_item != nullptr)
+	if (m_item == nullptr)
+		return;
+
+	if (m_doc->docPatterns.contains(m_item->text()))
 	{
-		if (m_doc->docPatterns.contains(m_item->text()))
-		{
-			m_doc->removePattern(m_item->text());
-			updateSymbolList();
-			m_doc->regionsChanged()->update(QRect());
-		}
-		m_item = nullptr;
+		m_doc->removePattern(m_item->text());
+		updateSymbolList();
+		m_doc->regionsChanged()->update(QRect());
 	}
+	m_item = nullptr;
 }
 
 void SymbolPalette::editingStart(QStringList names)
