@@ -4149,7 +4149,8 @@ QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArr
 QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 {
 	if (!Options.supportsTransparency() || !ite->hasSoftShadow() || ite->softShadowColor() == CommonStrings::None || !ite->printEnabled())
-		return "";
+		return QByteArray();
+
 	double maxSize;
 	QByteArray tmp("q\n");
 	double softShadowDPI = Options.Resolution;
@@ -4196,7 +4197,23 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 
 	ite->doc()->guidesPrefs().showControls = saveControl;
 	ite->setHasSoftShadow(savedShadow);
-	ScImage img = imgC.convertToFormat(QImage::Format_Alpha8).convertToFormat(QImage::Format_RGB32);
+
+	// Unfortunately imgC.convertToFormat(QImage::Format_Alpha8).convertToFormat(QImage::Format_RGB32)
+	// won't give use the expected result
+	QImage alphaImage(imgC.width(), imgC.height(), QImage::Format_RGB32);
+	for (int j = 0; j < imgC.height(); ++j)
+	{
+		const QRgb* srcScanLine = (const QRgb*) imgC.constScanLine(j);
+		QRgb* dstScanLine = (QRgb*) alphaImage.scanLine(j);
+		for (int i = 0; i < imgC.width(); ++i)
+		{
+			int alpha = qAlpha(*srcScanLine);
+			*dstScanLine = qRgb(alpha, alpha, alpha);
+			++srcScanLine;
+			++dstScanLine;
+		}
+	}
+	ScImage img = alphaImage;
 
 	PdfId maskObj = writer.newObject();
 	writer.startObj(maskObj);
