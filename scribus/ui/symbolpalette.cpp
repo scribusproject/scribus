@@ -42,8 +42,8 @@ SymbolView::SymbolView(QWidget* parent) : QListWidget(parent)
 	setResizeMode(QListView::Adjust);
 	setSelectionMode(QAbstractItemView::SingleSelection);
 	setContextMenuPolicy(Qt::CustomContextMenu);
-	delegate = new ScListWidgetDelegate(this, this);
-	setItemDelegate(delegate);
+	m_delegate = new ScListWidgetDelegate(this, this);
+	setItemDelegate(m_delegate);
 	setIconSize(QSize(48, 48));
 	connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(handleContextMenu(QPoint)));
 }
@@ -58,16 +58,16 @@ void SymbolView::handleContextMenu(QPoint p)
 	QAction* viewAct;
 	viewAct = pmenu->addAction( tr("Display Icons only"));
 	viewAct->setCheckable(true);
-	viewAct->setChecked(delegate->iconOnly());
+	viewAct->setChecked(m_delegate->iconOnly());
 	connect(viewAct, SIGNAL(triggered()), this, SLOT(changeDisplay()));
 	pmenu->exec(QCursor::pos());
-	delete pmenu;
+	pmenu->deleteLater();
 }
 
 void SymbolView::changeDisplay()
 {
 	reset();
-	delegate->setIconOnly(!delegate->iconOnly());
+	m_delegate->setIconOnly(!m_delegate->iconOnly());
 	repaint();
 }
 
@@ -190,7 +190,7 @@ void SymbolPalette::handleContextMenu(QPoint p)
 	connect(delAct, SIGNAL(triggered()), this, SLOT(handleDeleteItem()));
 
 	pmenu->exec(QCursor::pos());
-	delete pmenu;
+	pmenu->deleteLater();
 }
 
 void SymbolPalette::handleDoubleClick(QListWidgetItem *item)
@@ -291,9 +291,10 @@ void SymbolPalette::updateSymbolList()
 
 	QStringList patK = m_doc->docPatterns.keys();
 	patK.sort();
-	for (int a = 0; a < patK.count(); a++)
+	for (int i = 0; i < patK.count(); ++i)
 	{
-		ScPattern sp = m_doc->docPatterns.value(patK[a]);
+		const QString& patternName = patK.at(i);
+		ScPattern sp = m_doc->docPatterns.value(patternName);
 		QPixmap pm;
 		if (sp.getPattern()->width() >= sp.getPattern()->height())
 			pm = QPixmap::fromImage(sp.getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
@@ -305,8 +306,8 @@ void SymbolPalette::updateSymbolList()
 		p.begin(&pm2);
 		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
 		p.end();
-		QListWidgetItem *item = new QListWidgetItem(pm2, patK[a], SymbolViewWidget);
-		if (editItemNames.contains(patK[a]))
+		QListWidgetItem *item = new QListWidgetItem(pm2, patternName, SymbolViewWidget);
+		if (editItemNames.contains(patternName))
 			item->setFlags(Qt::NoItemFlags);
 		else
 			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);

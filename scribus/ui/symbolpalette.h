@@ -67,7 +67,7 @@ signals:
 	void objectDropped();
 
 private:
-	ScListWidgetDelegate* delegate;
+	ScListWidgetDelegate* m_delegate { nullptr };
 };
 
 class SCRIBUS_API SymbolPalette : public ScDockPalette
