@@ -4149,20 +4149,23 @@ QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArr
 QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 {
 	if (!Options.supportsTransparency() || !ite->hasSoftShadow() || ite->softShadowColor() == CommonStrings::None || !ite->printEnabled())
-		return "";
-	double maxSize;
+		return QByteArray();
+
 	QByteArray tmp("q\n");
-	double softShadowDPI = Options.Resolution;
-	int pixelRadius = qRound(ite->softShadowBlurRadius() / 72.0 * softShadowDPI);
 	tmp += "1 0 0 1 " + FToStr(ite->softShadowXOffset() - ite->softShadowBlurRadius()) + " " + FToStr(-(ite->softShadowYOffset() + ite->softShadowBlurRadius())) + " cm\n";
 	if (ite->isPathText())
 		ite->updatePolyClip();
 	tmp += "1 0 0 1 " + FToStr(-(ite->xPos() - ite->visualXPos())) + " " + FToStr(ite->yPos() - ite->visualYPos()) + " cm\n";
 	tmp += "1 0 0 1 0 " + FToStr(-ite->visualHeight()) + " cm\n";
 	tmp += FToStr(ite->visualWidth() + 2 * ite->softShadowBlurRadius()) + " 0 0 " + FToStr(ite->visualHeight() + 2 * ite->softShadowBlurRadius()) + " 0 0 cm\n" ;
-	maxSize = qMax(ite->visualWidth(), ite->visualHeight());
-	maxSize = qMin(3000.0, maxSize * (softShadowDPI / 72.0));
-	maxSize = ceil(maxSize);
+
+	double softShadowDPI = Options.Resolution;
+	double maxSize1 = qMax(ite->visualWidth(), ite->visualHeight());
+	double maxSize2 = qMin(3000.0, maxSize1 * (softShadowDPI / 72.0));
+	double maxSize = ceil(maxSize2);
+	double zoomFactor = maxSize2 / maxSize1;
+	int pixelRadius = qRound(ite->softShadowBlurRadius() * zoomFactor);
+
 	bool saveControl = ite->doc()->guidesPrefs().showControls;
 	ite->doc()->guidesPrefs().showControls = false;
 	bool savedShadow = ite->hasSoftShadow();
@@ -4175,18 +4178,20 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 	ite->setFillTransparency(transF);
 	ite->setLineTransparency(transS);
 	QImage imgC = imgA.copy(-pixelRadius, -pixelRadius, imgA.width() + 2 * pixelRadius, imgA.height() + 2 * pixelRadius); // Add border
+
 	ScPainter *p = new ScPainter(&imgC, imgC.width(), imgC.height(), 1, 0);
-	p->setZoomFactor(softShadowDPI / 72.0);
+	p->setZoomFactor(zoomFactor);
 	p->save();
 	p->blur(pixelRadius);
 	p->restore();
 	p->end();
 	delete p;
+
 	if (ite->softShadowErasedByObject())
 	{
 		ScPainter *p = new ScPainter(&imgC, imgC.width(), imgC.height(), 1, 0);
 		p->translate(pixelRadius, pixelRadius);
-		p->translate(-ite->softShadowXOffset() * (softShadowDPI / 72.0), -ite->softShadowYOffset() * (softShadowDPI / 72.0));
+		p->translate(-ite->softShadowXOffset() * zoomFactor, -ite->softShadowYOffset() * zoomFactor);
 		p->beginLayer(1.0, 18);
 		p->drawImage(&imgA);
 		p->endLayer();
