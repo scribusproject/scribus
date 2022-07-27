@@ -96,7 +96,7 @@ LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 			{
 				if (obj3.isName())
 				{
-					POPPLER_CONST char *name = obj3.getName();
+					const char *name = obj3.getName();
 					if (!strcmp(name, "URL"))
 					{
 						Object obj2 = obj1.dictLookup("F");
@@ -171,7 +171,7 @@ void AnoOutputDev::stroke(GfxState *state)
 	currColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &shade);
 }
 
-void AnoOutputDev::drawString(GfxState *state, POPPLER_CONST GooString *s)
+void AnoOutputDev::drawString(GfxState *state, const GooString *s)
 {
 	int shade = 100;
 	currColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
@@ -186,7 +186,7 @@ void AnoOutputDev::drawString(GfxState *state, POPPLER_CONST GooString *s)
 	itemText = s->copy();
 }
 
-QString AnoOutputDev::getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade)
+QString AnoOutputDev::getColor(GfxColorSpace *color_space, const GfxColor *color, int *shade)
 {
 	QString fNam;
 	QString namPrefix = "FromPDF";
@@ -227,7 +227,7 @@ QString AnoOutputDev::getColor(GfxColorSpace *color_space, POPPLER_CONST_070 Gfx
 	{
 		GfxSeparationColorSpace* sepColorSpace = (GfxSeparationColorSpace*)color_space;
 		GfxColorSpace* altColorSpace = sepColorSpace->getAlt();
-		QString name = QString(sepColorSpace->getName()->getCString());
+		QString name = QString(sepColorSpace->getName()->c_str());
 		bool isRegistrationColor = (name == "All");
 		if (isRegistrationColor)
 		{
@@ -318,7 +318,7 @@ LinkAction* SlaOutputDev::SC_getAction(AnnotWidget *ano)
 	if (obj.isDict())
 	{
 		Dict* adic = obj.getDict();
-		POPPLER_CONST_075 Object POPPLER_REF additionalActions = adic->lookupNF("A");
+		const Object & additionalActions = adic->lookupNF("A");
 		Object additionalActionsObject = additionalActions.fetch(m_pdfDoc->getXRef());
 		if (additionalActionsObject.isDict())
 		{
@@ -347,7 +347,7 @@ std::unique_ptr<LinkAction> SlaOutputDev::SC_getAdditionalAction(const char *key
 	if (obj.isDict())
 	{
 		Dict* adic = obj.getDict();
-		POPPLER_CONST_075 Object POPPLER_REF additionalActions = adic->lookupNF("AA");
+		const Object & additionalActions = adic->lookupNF("AA");
 		Object additionalActionsObject = additionalActions.fetch(m_pdfDoc->getXRef());
 		if (additionalActionsObject.isDict())
 		{
@@ -359,7 +359,7 @@ std::unique_ptr<LinkAction> SlaOutputDev::SC_getAdditionalAction(const char *key
 	return linkAction;
 }
 
-GBool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
+bool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 {
 	SlaOutputDev *dev = (SlaOutputDev*)user_data;
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
@@ -463,7 +463,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 	if (act->getKind() == actionGoTo)
 	{
 		LinkGoTo *gto = (LinkGoTo*) act;
-		POPPLER_CONST LinkDest *dst = gto->getDest();
+		const LinkDest *dst = gto->getDest();
 		if (dst)
 		{
 			if (dst->getKind() == destXYZ)
@@ -482,7 +482,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 		}
 		else
 		{
-			POPPLER_CONST GooString *ndst = gto->getNamedDest();
+			const GooString *ndst = gto->getNamedDest();
 			if (ndst)
 			{
 				std::unique_ptr<LinkDest> dstn = m_pdfDoc->findDest(ndst);
@@ -509,7 +509,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 	{
 		LinkGoToR *gto = (LinkGoToR*)act;
 		fileName = UnicodeParsedString(gto->getFileName());
-		POPPLER_CONST LinkDest *dst = gto->getDest();
+		const LinkDest *dst = gto->getDest();
 		if (dst)
 		{
 			if (dst->getKind() == destXYZ)
@@ -522,7 +522,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 		}
 		else
 		{
-			POPPLER_CONST GooString *ndst = gto->getNamedDest();
+			const GooString *ndst = gto->getNamedDest();
 			if (ndst)
 			{
 				std::unique_ptr<LinkDest> dstn = m_pdfDoc->findDest(ndst);
@@ -663,7 +663,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			bool bgFound = false;
 			if (achar)
 			{
-				POPPLER_CONST AnnotColor *bgCol = achar->getBackColor();
+				const AnnotColor *bgCol = achar->getBackColor();
 				if (bgCol)
 				{
 					bgFound = true;
@@ -671,7 +671,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				}
 				else
 					m_graphicStack.top().fillColor = CommonStrings::None;
-				POPPLER_CONST AnnotColor *fgCol = achar->getBorderColor();
+				const AnnotColor *fgCol = achar->getBorderColor();
 				if (fgCol)
 				{
 					fgFound = true;
@@ -898,7 +898,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				QList<int> radList;
 				for (int i = 0; i < obj2.arrayGetLength(); i++)
 				{
-					POPPLER_CONST_075 Object POPPLER_REF childRef = obj2.arrayGetNF(i);
+					const Object & childRef = obj2.arrayGetNF(i);
 					if (!childRef.isRef())
 						continue;
 					Object childObj = obj2.arrayGet(i);
@@ -970,7 +970,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			int xco = 0;
 			int yco = 0;
 			LinkGoTo *gto = (LinkGoTo*)Lact;
-			POPPLER_CONST LinkDest *dst = gto->getDest();
+			const LinkDest *dst = gto->getDest();
 			if (dst)
 			{
 				if (dst->getKind() == destXYZ)
@@ -991,7 +991,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			}
 			else
 			{
-				POPPLER_CONST GooString *ndst = gto->getNamedDest();
+				const GooString *ndst = gto->getNamedDest();
 				if (ndst)
 				{
 					std::unique_ptr<LinkDest> dstn = m_pdfDoc->findDest(ndst);
@@ -1023,7 +1023,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			int yco = 0;
 			LinkGoToR *gto = (LinkGoToR*)Lact;
 			QString fileName = UnicodeParsedString(gto->getFileName());
-			POPPLER_CONST LinkDest *dst = gto->getDest();
+			const LinkDest *dst = gto->getDest();
 			if (dst)
 			{
 				if (dst->getKind() == destXYZ)
@@ -1039,7 +1039,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			}
 			else
 			{
-				POPPLER_CONST GooString *ndst = gto->getNamedDest();
+				const GooString *ndst = gto->getNamedDest();
 				if (ndst)
 				{
 					std::unique_ptr<LinkDest> dstn = m_pdfDoc->findDest(ndst);
@@ -1368,14 +1368,14 @@ void SlaOutputDev::restoreState(GfxState *state)
 	m_graphicStack.restore();
 }
 
-void SlaOutputDev::beginTransparencyGroup(GfxState *state, POPPLER_CONST_070 double *bbox, GfxColorSpace * /*blendingColorSpace*/, GBool isolated, GBool knockout, GBool forSoftMask)
+void SlaOutputDev::beginTransparencyGroup(GfxState *state, const double *bbox, GfxColorSpace * /*blendingColorSpace*/, bool isolated, bool knockout, bool forSoftMask)
 {
 // 	qDebug() << "SlaOutputDev::beginTransparencyGroup isolated:" << isolated << "knockout:" << knockout << "forSoftMask:" << forSoftMask;
 	pushGroup("", forSoftMask);
 	m_groupStack.top().isolated = isolated;
 }
 
-void SlaOutputDev::paintTransparencyGroup(GfxState *state, POPPLER_CONST_070 double *bbox)
+void SlaOutputDev::paintTransparencyGroup(GfxState *state, const double *bbox)
 {
 // 	qDebug() << "SlaOutputDev::paintTransparencyGroup";
 	if (m_groupStack.count() != 0)
@@ -1474,7 +1474,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 	m_tmpSel->clear();
 }
 
-void SlaOutputDev::setSoftMask(GfxState * /*state*/, POPPLER_CONST_070 double * bbox, GBool alpha, Function *transferFunc, GfxColor * /*backdropColor*/)
+void SlaOutputDev::setSoftMask(GfxState * /*state*/, const double * bbox, bool alpha, Function *transferFunc, GfxColor * /*backdropColor*/)
 {
 	if (m_groupStack.count() <= 0)
 		return;
@@ -1587,7 +1587,7 @@ void SlaOutputDev::stroke(GfxState *state)
 		return;
 
 	int z;
-	if (pathIsClosed)
+	if (m_pathIsClosed)
 		z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, state->getTransformedLineWidth(), CommonStrings::None, graphicState.strokeColor);
 	else
 		z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, xCoor, yCoor, 10, 10, state->getTransformedLineWidth(), CommonStrings::None, graphicState.strokeColor);
@@ -1688,7 +1688,7 @@ void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
 	{
 		graphicState.fillColor = getColor(state->getFillColorSpace(), state->getFillColor(), &graphicState.fillShade);
 		int z;
-		if (pathIsClosed)
+		if (m_pathIsClosed)
 			z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, graphicState.fillColor, CommonStrings::None);
 		else
 			z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, graphicState.fillColor, CommonStrings::None);
@@ -1719,7 +1719,7 @@ void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
 	}
 }
 
-GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, double tMin, double tMax)
+bool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, double tMin, double tMax)
 {
 //	qDebug() << "SlaOutputDev::axialShadedFill";
 	double GrStartX;
@@ -1727,7 +1727,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	double GrEndX;
 	double GrEndY;
 	int shade = 100;
-	POPPLER_CONST_070 Function *func = shading->getFunc(0);
+	const Function *func = shading->getFunc(0);
 	VGradient FillGradient = VGradient(VGradient::linear);
 	FillGradient.clearStops();
 	GfxColorSpace *color_space = shading->getColorSpace();
@@ -1809,7 +1809,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	output += QString("L %1 %2").arg(0.0).arg(crect.height());
 	output += QString("L %1 %2").arg(0.0).arg(0.0);
 	output += QString("Z");
-	pathIsClosed = true;
+	m_pathIsClosed = true;
 	m_coords = output;
 
 	const auto& graphicState = m_graphicStack.top();
@@ -1850,10 +1850,10 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 		m_groupStack.top().Items.append(ite);
 		applyMask(ite);
 	}
-	return gTrue;
+	return true;
 }
 
-GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading, double sMin, double sMax)
+bool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading, double sMin, double sMax)
 {
 //	qDebug() << "SlaOutputDev::radialShadedFill";
 	double GrStartX;
@@ -1861,7 +1861,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	double GrEndX;
 	double GrEndY;
 	int shade = 100;
-	POPPLER_CONST_070 Function *func = shading->getFunc(0);
+	const Function *func = shading->getFunc(0);
 	VGradient FillGradient = VGradient(VGradient::linear);
 	FillGradient.clearStops();
 	GfxColorSpace *color_space = shading->getColorSpace();
@@ -1931,7 +1931,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	output += QString("L %1 %2").arg(0.0).arg(crect.height());
 	output += QString("L %1 %2").arg(0.0).arg(0.0);
 	output += QString("Z");
-	pathIsClosed = true;
+	m_pathIsClosed = true;
 	m_coords = output;
 
 	const auto& graphicState = m_graphicStack.top();
@@ -1974,10 +1974,10 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 		m_groupStack.top().Items.append(ite);
 		applyMask(ite);
 	}
-	return gTrue;
+	return true;
 }
 
-GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangleShading *shading)
+bool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangleShading *shading)
 {
 //	qDebug() << "SlaOutputDev::gouraudTriangleShadedFill";
 	double xCoor = m_doc->currentPage()->xOffset();
@@ -1993,7 +1993,7 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 	output += QString("L %1 %2").arg(0.0).arg(crect.height());
 	output += QString("L %1 %2").arg(0.0).arg(0.0);
 	output += QString("Z");
-	pathIsClosed = true;
+	m_pathIsClosed = true;
 	m_coords = output;
 	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
@@ -2055,10 +2055,10 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 		ite->meshGradientPatches.append(patchM);
 	}
 	ite->GrType = 12;
-	return gTrue;
+	return true;
 }
 
-GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *shading)
+bool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *shading)
 {
 //	qDebug() << "SlaOutputDev::patchMeshShadedFill";
 	double xCoor = m_doc->currentPage()->xOffset();
@@ -2074,7 +2074,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	output += QString("L %1 %2").arg(0.0).arg(crect.height());
 	output += QString("L %1 %2").arg(0.0).arg(0.0);
 	output += QString("Z");
-	pathIsClosed = true;
+	m_pathIsClosed = true;
 	m_coords = output;
 	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
@@ -2205,13 +2205,13 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 		ite->meshGradientPatches.append(patchM);
 	}
 	ite->GrType = 12;
-	return gTrue;
+	return true;
 }
 
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 3, 0)
 bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *cat, GfxTilingPattern *tPat, const double *mat, int x0, int y0, int x1, int y1, double xStep, double yStep)
 #else
-GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *cat, Object *str, POPPLER_CONST_070 double *pmat, int /*paintType*/, int /*tilingType*/, Dict *resDict, POPPLER_CONST_070 double *mat, POPPLER_CONST_070 double *bbox, int x0, int y0, int x1, int y1, double xStep, double yStep)
+bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *cat, Object *str, const double *pmat, int /*paintType*/, int /*tilingType*/, Dict *resDict, const double *mat, const double *bbox, int x0, int y0, int x1, int y1, double xStep, double yStep)
 #endif
 {
 //	qDebug() << "SlaOutputDev::tilingPatternFill";
@@ -2231,7 +2231,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	width = bbox[2] - bbox[0];
 	height = bbox[3] - bbox[1];
 	if (xStep != width || yStep != height)
-		return gFalse;
+		return false;
 	box.x1 = bbox[0];
 	box.y1 = bbox[1];
 	box.x2 = bbox[2];
@@ -2305,7 +2305,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	output += QString("L %1 %2").arg(0.0).arg(crect.height());
 	output += QString("L %1 %2").arg(0.0).arg(0.0);
 	output += QString("Z");
-	pathIsClosed = true;
+	m_pathIsClosed = true;
 	m_coords = output;
 
 	const auto& graphicState = m_graphicStack.top();
@@ -2346,10 +2346,10 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 		applyMask(ite);
 	}
 	delete gfx;
-	return gTrue;
+	return true;
 }
 
-void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, GBool invert, GBool interpolate, GBool inlineImg)
+void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, bool invert, bool interpolate, bool inlineImg)
 {
 //	qDebug() << "Draw Image Mask";
 	QImage * image = nullptr;
@@ -2358,7 +2358,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	int x, y, i, bit;
 	unsigned char *dest = nullptr;
 	unsigned char *buffer;
-	Guchar *pix;
+	unsigned char *pix;
 	ImageStream * imgStr = new ImageStream(str, width, 1, 1);
 	imgStr->reset();
 #ifdef WORDS_BIGENDIAN
@@ -2430,8 +2430,8 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	delete image;
 }
 
-void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, Stream *maskStr, int maskWidth, int maskHeight,
-				   GfxImageColorMap *maskColorMap, GBool maskInterpolate)
+void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, bool interpolate, Stream *maskStr, int maskWidth, int maskHeight,
+				   GfxImageColorMap *maskColorMap, bool maskInterpolate)
 {
 //	qDebug() << "SlaOutputDev::drawSoftMaskedImage Masked Image Components" << colorMap->getNumPixelComps();
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
@@ -2442,7 +2442,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	for (int y = 0; y < height; y++)
 	{
 		dest = (unsigned int *)(buffer + y * 4 * width);
-		Guchar * pix = imgStr->getLine();
+		unsigned char * pix = imgStr->getLine();
 		colorMap->getRGBLine(pix, dest, width);
 	}
 	image = new QImage(buffer, width, height, QImage::Format_RGB32);
@@ -2455,13 +2455,13 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	}
 	ImageStream *mskStr = new ImageStream(maskStr, maskWidth, maskColorMap->getNumPixelComps(), maskColorMap->getBits());
 	mskStr->reset();
-	Guchar *mdest = nullptr;
+	unsigned char *mdest = nullptr;
 	unsigned char * mbuffer = new unsigned char[maskWidth * maskHeight];
 	memset(mbuffer, 0, maskWidth * maskHeight);
 	for (int y = 0; y < maskHeight; y++)
 	{
-		mdest = (Guchar *)(mbuffer + y * maskWidth);
-		Guchar * pix = mskStr->getLine();
+		mdest = (unsigned char *)(mbuffer + y * maskWidth);
+		unsigned char * pix = mskStr->getLine();
 		maskColorMap->getGrayLine(pix, mdest, maskWidth);
 	}
 	if ((maskWidth != width) || (maskHeight != height))
@@ -2469,7 +2469,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	QImage res = image->convertToFormat(QImage::Format_ARGB32);
 
 	int matteRc, matteGc, matteBc;
-	POPPLER_CONST_070 GfxColor *matteColor = maskColorMap->getMatteColor();
+	const GfxColor *matteColor = maskColorMap->getMatteColor();
 	if (matteColor != nullptr)
 	{
 		GfxRGB matteRgb;
@@ -2511,7 +2511,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	delete[] mbuffer;
 }
 
-void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  int width, int height, GfxImageColorMap *colorMap, GBool interpolate, Stream *maskStr, int maskWidth, int maskHeight, GBool maskInvert, GBool maskInterpolate)
+void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  int width, int height, GfxImageColorMap *colorMap, bool interpolate, Stream *maskStr, int maskWidth, int maskHeight, bool maskInvert, bool maskInterpolate)
 {
 //	qDebug() << "SlaOutputDev::drawMaskedImage";
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
@@ -2522,7 +2522,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	for (int y = 0; y < height; y++)
 	{
 		dest = (unsigned int *)(buffer + y * 4 * width);
-		Guchar * pix = imgStr->getLine();
+		unsigned char * pix = imgStr->getLine();
 		colorMap->getRGBLine(pix, dest, width);
 	}
 	image = new QImage(buffer, width, height, QImage::Format_RGB32);
@@ -2535,14 +2535,14 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	}
 	ImageStream *mskStr = new ImageStream(maskStr, maskWidth, 1, 1);
 	mskStr->reset();
-	Guchar *mdest = nullptr;
+	unsigned char *mdest = nullptr;
 	int invert_bit = maskInvert ? 1 : 0;
 	unsigned char * mbuffer = new unsigned char[maskWidth * maskHeight];
 	memset(mbuffer, 0, maskWidth * maskHeight);
 	for (int y = 0; y < maskHeight; y++)
 	{
-		mdest = (Guchar *)(mbuffer + y * maskWidth);
-		Guchar * pix = mskStr->getLine();
+		mdest = (unsigned char *)(mbuffer + y * maskWidth);
+		unsigned char * pix = mskStr->getLine();
 		for (int x = 0; x < maskWidth; x++)
 		{
 			if (pix[x] ^ invert_bit)
@@ -2580,7 +2580,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	delete[] mbuffer;
 }
 
-void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, POPPLER_CONST_082 int* maskColors, GBool inlineImg)
+void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, bool interpolate, const int* maskColors, bool inlineImg)
 {
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 //	qDebug() << "SlaOutputDev::drawImage Image Components" << colorMap->getNumPixelComps() << "Mask" << maskColors;
@@ -2592,7 +2592,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 		for (int y = 0; y < height; y++)
 		{
 			QRgb *s = (QRgb*)(image->scanLine(y));
-			Guchar *pix = imgStr->getLine();
+			unsigned char *pix = imgStr->getLine();
 			for (int x = 0; x < width; x++)
 			{
 				GfxRGB rgb;
@@ -2620,7 +2620,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 		for (int y = 0; y < height; y++)
 		{
 			QRgb *s = (QRgb*)(image->scanLine(y));
-			Guchar *pix = imgStr->getLine();
+			unsigned char *pix = imgStr->getLine();
 			for (int x = 0; x < width; x++)
 			{
 				if (colorMap->getNumPixelComps() == 4)
@@ -2808,7 +2808,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 	}
 }
 
-void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Object *dictRef)
+void SlaOutputDev::beginMarkedContent(const char *name, Object *dictRef)
 {
 	mContent mSte;
 	mSte.name = QString(name);
@@ -2854,7 +2854,7 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Object *dictRef)
 	m_mcStack.push(mSte);
 }
 
-void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties)
+void SlaOutputDev::beginMarkedContent(const char *name, Dict *properties)
 {
 //	qDebug() << "Begin Marked Content with Name " << QString(name);
 	QString nam = QString(name);
@@ -2871,7 +2871,7 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties
 			QString lName = QString("Layer_%1").arg(m_layerNum + 1);
 			Object obj = properties->lookup((char*) "Title");
 			if (obj.isString())
-				lName = QString(obj.getString()->getCString());
+				lName = QString(obj.getString()->c_str());
 			for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
 			{
 				if (it->Name == lName)
@@ -2933,12 +2933,12 @@ void SlaOutputDev::endMarkedContent(GfxState *state)
 	}
 }
 
-void SlaOutputDev::markPoint(POPPLER_CONST char *name)
+void SlaOutputDev::markPoint(const char *name)
 {
 //	qDebug() << "Begin Marked Point with Name " << QString(name);
 }
 
-void SlaOutputDev::markPoint(POPPLER_CONST char *name, Dict *properties)
+void SlaOutputDev::markPoint(const char *name, Dict *properties)
 {
 //	qDebug() << "Begin Marked Point with Name " << QString(name) << "and Properties";
 	beginMarkedContent(name, properties);
@@ -2999,7 +2999,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 		fontLoc = gfxFont->locateFont((m_xref) ? m_xref : m_pdfDoc->getXRef(), nullptr);
 		if (!fontLoc)
 		{
-			error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
+			error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
 			goto err2;
 		}
 
@@ -3039,9 +3039,9 @@ void SlaOutputDev::updateFont(GfxState *state)
 			fontsrc->setBuf(std::move(tmpBuf.value()));
 #else
 		if (fileName)
-			fontsrc->setFile(fileName, gFalse);
+			fontsrc->setFile(fileName, false);
 		else
-			fontsrc->setBuf(tmpBuf, tmpBufLen, gTrue);
+			fontsrc->setBuf(tmpBuf, tmpBufLen, true);
 #endif
 
 		// load the font file
@@ -3049,21 +3049,21 @@ void SlaOutputDev::updateFont(GfxState *state)
 		case fontType1:
 			if (!(fontFile = m_fontEngine->loadType1Font(id, fontsrc, (const char **)((Gfx8BitFont *) gfxFont)->getEncoding())))
 			{
-				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
 				goto err2;
 			}
 			break;
 		case fontType1C:
 			if (!(fontFile = m_fontEngine->loadType1CFont(id, fontsrc, (const char **)((Gfx8BitFont *) gfxFont)->getEncoding())))
 			{
-				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
 				goto err2;
 			}
 			break;
 		case fontType1COT:
 			if (!(fontFile = m_fontEngine->loadOpenTypeT1CFont(id, fontsrc, (const char **)((Gfx8BitFont *) gfxFont)->getEncoding())))
 			{
-				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
 				goto err2;
 			}
 			break;
@@ -3076,7 +3076,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 				ff = FoFiTrueType::make(fontsrc->buf.data(), fontsrc->buf.size());
 #else
 			if (fileName)
-				ff = FoFiTrueType::load(fileName->getCString());
+				ff = FoFiTrueType::load(fileName->c_str());
 			else
 				ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
 #endif
@@ -3098,7 +3098,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 			}
 			if (!(fontFile = m_fontEngine->loadTrueTypeFont(id, fontsrc, codeToGID, n)))
 			{
-				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
 				goto err2;
 			}
 			break;
@@ -3106,7 +3106,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 		case fontCIDType0C:
 			if (!(fontFile = m_fontEngine->loadCIDFont(id, fontsrc)))
 			{
-				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
 				goto err2;
 			}
 			break;
@@ -3125,7 +3125,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 			if (!(fontFile = m_fontEngine->loadOpenTypeCFFFont(id, fontsrc, codeToGID, n)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-				gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
+				gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
 				goto err2;
 			}
 			break;
@@ -3151,7 +3151,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 					ff = FoFiTrueType::make(fontsrc->buf.data(), fontsrc->buf.size());
 #else
 				if (fileName)
-					ff = FoFiTrueType::load(fileName->getCString());
+					ff = FoFiTrueType::load(fileName->c_str());
 				else
 					ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
 #endif
@@ -3167,7 +3167,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 			}
 			if (!(fontFile = m_fontEngine->loadTrueTypeFont(id, fontsrc, codeToGID, n, faceIndex)))
 			{
-				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
 				goto err2;
 			}
 			break;
@@ -3214,7 +3214,7 @@ err1:
 		fontsrc->unref();
 }
 
-void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
+void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, const Unicode* u, int uLen)
 {
 //	qDebug() << "SlaOutputDev::drawChar code:" << code << "bytes:" << nBytes << "Unicode:" << u << "ulen:" << uLen << "render:" << state->getRender();
 	double x1, y1, x2, y2;
@@ -3246,7 +3246,7 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 			qPath.setFillRule(Qt::WindingFill);
 			for (int i = 0; i < fontPath->getLength(); ++i)
 			{
-				Guchar f;
+				unsigned char f;
 				fontPath->getPoint(i, &x1, &y1, &f);
 				if (f & splashPathFirst)
 					qPath.moveTo(x1,y1);
@@ -3257,7 +3257,7 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 					fontPath->getPoint(i, &x2, &y2, &f);
 					++i;
 					fontPath->getPoint(i, &x3, &y3, &f);
-					qPath.cubicTo(x1,y1,x2,y2,x3,y3);
+					qPath.cubicTo(x1, y1, x2, y2, x3, y3);
 				}
 				else
 					qPath.lineTo(x1, y1);
@@ -3308,25 +3308,25 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 }
 
 
-GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode *u, int uLen)
+bool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, const Unicode *u, int uLen)
 {
 //	qDebug() << "beginType3Char";
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 	GfxFont *gfxFont;
 	if (!(gfxFont = state->getFont().get()))
-		return gTrue;
+		return true;
 #else
 	GfxFont* gfxFont;
 	if (!(gfxFont = state->getFont()))
-		return gTrue;
+		return true;
 #endif
 	if (gfxFont->getType() != fontType3)
-		return gTrue;
+		return true;
 	F3Entry f3e;
 	f3e.colored = false;
 	m_F3Stack.push(f3e);
 	pushGroup();
-	return gFalse;
+	return false;
 }
 
 void SlaOutputDev::endType3Char(GfxState *state)
@@ -3426,7 +3426,7 @@ void SlaOutputDev::endTextObject(GfxState *state)
 	}
 }
 
-QString SlaOutputDev::getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade)
+QString SlaOutputDev::getColor(GfxColorSpace *color_space, const GfxColor *color, int *shade)
 {
 	QString fNam;
 	QString namPrefix = "FromPDF";
@@ -3473,7 +3473,7 @@ QString SlaOutputDev::getColor(GfxColorSpace *color_space, POPPLER_CONST_070 Gfx
 	{
 		GfxSeparationColorSpace* sepColorSpace = (GfxSeparationColorSpace*) color_space;
 		GfxColorSpace* altColorSpace = sepColorSpace->getAlt();
-		QString name = QString(sepColorSpace->getName()->getCString());
+		QString name = QString(sepColorSpace->getName()->c_str());
 		bool isRegistrationColor = (name == "All");
 		if (isRegistrationColor)
 		{
@@ -3573,18 +3573,18 @@ QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 	return fNam;
 }
 
-QString SlaOutputDev::convertPath(POPPLER_CONST_083 GfxPath *path)
+QString SlaOutputDev::convertPath(const GfxPath *path)
 {
 //	qDebug() << "SlaOutputDev::convertPath";
 	if (! path)
 		return QString();
 
 	QString output;
-	pathIsClosed = false;
+	m_pathIsClosed = false;
 
 	for (int i = 0; i < path->getNumSubpaths(); ++i)
 	{
-		POPPLER_CONST_083 GfxSubpath * subpath = path->getSubpath(i);
+		const GfxSubpath * subpath = path->getSubpath(i);
 		if (subpath->getNumPoints() > 0)
 		{
 			output += QString("M %1 %2").arg(subpath->getX(0)).arg(subpath->getY(0));
@@ -3608,7 +3608,7 @@ QString SlaOutputDev::convertPath(POPPLER_CONST_083 GfxPath *path)
 			if (subpath->isClosed())
 			{
 				output += QString("Z");
-				pathIsClosed = true;
+				m_pathIsClosed = true;
 			}
 		}
 	}
@@ -3745,7 +3745,7 @@ void SlaOutputDev::applyMask(PageItem *ite)
 	}
 }
 
-void SlaOutputDev::pushGroup(const QString& maskName, GBool forSoftMask, GBool alpha, bool inverted)
+void SlaOutputDev::pushGroup(const QString& maskName, bool forSoftMask, bool alpha, bool inverted)
 {
 	groupEntry gElements;
 	gElements.forSoftMask = forSoftMask;
@@ -3755,23 +3755,23 @@ void SlaOutputDev::pushGroup(const QString& maskName, GBool forSoftMask, GBool a
 	m_groupStack.push(gElements);
 }
 
-QString SlaOutputDev::UnicodeParsedString(POPPLER_CONST GooString *s1)
+QString SlaOutputDev::UnicodeParsedString(const GooString *s1)
 {
 	if ( !s1 || s1->getLength() == 0 )
 		return QString();
-	GBool isUnicode;
+	bool isUnicode;
 	int i;
 	Unicode u;
 	QString result;
 	if ((s1->getChar(0) & 0xff) == 0xfe && (s1->getLength() > 1 && (s1->getChar(1) & 0xff) == 0xff))
 	{
-		isUnicode = gTrue;
+		isUnicode = true;
 		i = 2;
 		result.reserve((s1->getLength() - 2) / 2);
 	}
 	else
 	{
-		isUnicode = gFalse;
+		isUnicode = false;
 		i = 0;
 		result.reserve(s1->getLength());
 	}
@@ -3796,19 +3796,19 @@ QString SlaOutputDev::UnicodeParsedString(const std::string& s1)
 {
 	if (s1.length() == 0)
 		return QString();
-	GBool isUnicode;
+	bool isUnicode;
 	size_t i;
 	Unicode u;
 	QString result;
 	if ((s1.at(0) & 0xff) == 0xfe && (s1.length() > 1 && (s1.at(1) & 0xff) == 0xff))
 	{
-		isUnicode = gTrue;
+		isUnicode = true;
 		i = 2;
 		result.reserve((s1.length() - 2) / 2);
 	}
 	else
 	{
-		isUnicode = gFalse;
+		isUnicode = false;
 		i = 0;
 		result.reserve(s1.length());
 	}

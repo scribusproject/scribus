@@ -125,7 +125,7 @@ public:
 	PdfTextRegion* activePdfTextRegion = nullptr; //faster and cleaner than calling back on the vector all the time.
 
 	void addPdfTextRegion();
-	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen);
+	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, const Unicode* u, int uLen);
 	bool isNewLineOrRegion(QPointF newPosition);
 
 private:
@@ -150,8 +150,8 @@ public:
 	//----- text drawing
 	void  beginTextObject(GfxState* state) override;
 	void  endTextObject(GfxState* state) override;
-	void  drawChar(GfxState* state, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, double /*originX*/, double /*originY*/, CharCode /*code*/, int /*nBytes*/, POPPLER_CONST_082 Unicode* /*u*/, int /*uLen*/) override;
-	GBool beginType3Char(GfxState* /*state*/, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, CharCode /*code*/, POPPLER_CONST_082 Unicode* /*u*/, int /*uLen*/) override;
+	void  drawChar(GfxState* state, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, double /*originX*/, double /*originY*/, CharCode /*code*/, int /*nBytes*/, const Unicode* /*u*/, int /*uLen*/) override;
+	bool  beginType3Char(GfxState* /*state*/, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, CharCode /*code*/, const Unicode* /*u*/, int /*uLen*/) override;
 	void  endType3Char(GfxState* /*state*/) override;
 	void  type3D0(GfxState* /*state*/, double /*wx*/, double /*wy*/) override;
 	void  type3D1(GfxState* /*state*/, double /*wx*/, double /*wy*/, double /*llx*/, double /*lly*/, double /*urx*/, double /*ury*/) override;
