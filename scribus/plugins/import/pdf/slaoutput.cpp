@@ -293,17 +293,17 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	m_Elements = Elements;
 	pushGroup();
 	m_importedColors = importedColors;
-	tmpSel = new Selection(m_doc, false);
-	importerFlags = flags;
-	currentLayer = m_doc->activeLayer();
+	m_tmpSel = new Selection(m_doc, false);
+	m_importerFlags = flags;
+	m_currentLayer = m_doc->activeLayer();
 	layersSetByOCG = false;
 }
 
 SlaOutputDev::~SlaOutputDev()
 {
 	m_groupStack.clear();
-	tmpSel->clear();
-	delete tmpSel;
+	m_tmpSel->clear();
+	delete m_tmpSel;
 	delete m_fontEngine;
 }
 
@@ -314,12 +314,12 @@ LinkAction* SlaOutputDev::SC_getAction(AnnotWidget *ano)
 	Object obj;
 	Ref refa = ano->getRef();
 
-	obj = xref->fetch(refa.num, refa.gen);
+	obj = m_xref->fetch(refa.num, refa.gen);
 	if (obj.isDict())
 	{
 		Dict* adic = obj.getDict();
 		POPPLER_CONST_075 Object POPPLER_REF additionalActions = adic->lookupNF("A");
-		Object additionalActionsObject = additionalActions.fetch(pdfDoc->getXRef());
+		Object additionalActionsObject = additionalActions.fetch(m_pdfDoc->getXRef());
 		if (additionalActionsObject.isDict())
 		{
 			Object actionObject = additionalActionsObject.dictLookup("S");
@@ -343,17 +343,17 @@ std::unique_ptr<LinkAction> SlaOutputDev::SC_getAdditionalAction(const char *key
 	Object obj;
 	Ref refa = ano->getRef();
 
-	obj = xref->fetch(refa.num, refa.gen);
+	obj = m_xref->fetch(refa.num, refa.gen);
 	if (obj.isDict())
 	{
 		Dict* adic = obj.getDict();
 		POPPLER_CONST_075 Object POPPLER_REF additionalActions = adic->lookupNF("AA");
-		Object additionalActionsObject = additionalActions.fetch(pdfDoc->getXRef());
+		Object additionalActionsObject = additionalActions.fetch(m_pdfDoc->getXRef());
 		if (additionalActionsObject.isDict())
 		{
 			Object actionObject = additionalActionsObject.dictLookup(key);
 			if (actionObject.isDict())
-				linkAction = LinkAction::parseAction(&actionObject, pdfDoc->getCatalog()->getBaseURI());
+				linkAction = LinkAction::parseAction(&actionObject, m_pdfDoc->getCatalog()->getBaseURI());
 		}
 	}
 	return linkAction;
@@ -471,7 +471,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 				if (dst->isPageRef())
 				{
 					Ref dstr = dst->getPageRef();
-					pagNum = pdfDoc->findPage(dstr);
+					pagNum = m_pdfDoc->findPage(dstr);
 				}
 				else
 					pagNum = dst->getPageNum();
@@ -485,7 +485,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 			POPPLER_CONST GooString *ndst = gto->getNamedDest();
 			if (ndst)
 			{
-				std::unique_ptr<LinkDest> dstn = pdfDoc->findDest(ndst);
+				std::unique_ptr<LinkDest> dstn = m_pdfDoc->findDest(ndst);
 				if (dstn)
 				{
 					if (dstn->getKind() == destXYZ)
@@ -493,7 +493,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 						if (dstn->isPageRef())
 						{
 							Ref dstr = dstn->getPageRef();
-							pagNum = pdfDoc->findPage(dstr);
+							pagNum = m_pdfDoc->findPage(dstr);
 						}
 						else
 							pagNum = dstn->getPageNum();
@@ -525,7 +525,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 			POPPLER_CONST GooString *ndst = gto->getNamedDest();
 			if (ndst)
 			{
-				std::unique_ptr<LinkDest> dstn = pdfDoc->findDest(ndst);
+				std::unique_ptr<LinkDest> dstn = m_pdfDoc->findDest(ndst);
 				if (dstn)
 				{
 					if (dstn->getKind() == destXYZ)
@@ -686,7 +686,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 						m_graphicStack.top().strokeColor = CommonStrings::None;
 				}
 			}
-			QString m_currColorText = "Black";
+			QString currTextColor = "Black";
 			double fontSize = 12;
 			QString fontName;
 			QString itemText;
@@ -696,16 +696,16 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				AnoOutputDev *annotOutDev = new AnoOutputDev(m_doc, m_importedColors);
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 				const PDFRectangle& annotaRect = annota->getRect();
-				Gfx* gfx = new Gfx(pdfDoc, annotOutDev, pdfDoc->getPage(m_actPage)->getResourceDict(), &annotaRect, nullptr);
+				Gfx* gfx = new Gfx(m_pdfDoc, annotOutDev, m_pdfDoc->getPage(m_actPage)->getResourceDict(), &annotaRect, nullptr);
 #else
-				Gfx *gfx = new Gfx(pdfDoc, annotOutDev, pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), nullptr);
+				Gfx *gfx = new Gfx(m_pdfDoc, annotOutDev, m_pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), nullptr);
 #endif
 				ano->draw(gfx, false);
 				if (!bgFound)
 					m_graphicStack.top().fillColor = annotOutDev->currColorFill;
 				if (!fgFound)
 					m_graphicStack.top().strokeColor = annotOutDev->currColorStroke;
-				m_currColorText = annotOutDev->currColorText;
+				currTextColor = annotOutDev->currColorText;
 				fontSize = annotOutDev->fontSize;
 				fontName = UnicodeParsedString(annotOutDev->fontName);
 				itemText = UnicodeParsedString(annotOutDev->itemText);
@@ -785,7 +785,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 					ite->itemText.insertChars(UnicodeParsedString(achar->getNormalCaption()));
 				else
 					ite->itemText.insertChars(itemText);
-				applyTextStyle(ite, fontName, m_currColorText, fontSize);
+				applyTextStyle(ite, fontName, currTextColor, fontSize);
 				ite->annotation().addToFlag(Annotation::Flag_PushButton);
 				FormWidgetButton *btn = (FormWidgetButton*)fm;
 				if (!btn->isReadOnly())
@@ -798,7 +798,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				if (btn)
 				{
 					ite->itemText.insertChars(UnicodeParsedString(btn->getContent()));
-					applyTextStyle(ite, fontName, m_currColorText, fontSize);
+					applyTextStyle(ite, fontName, currTextColor, fontSize);
 					ite->itemText.trim();
 					if (btn->isMultiline())
 						ite->annotation().addToFlag(Annotation::Flag_Multiline);
@@ -861,7 +861,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 						}
 						ite->itemText.insertChars(inh);
 					}
-					applyTextStyle(ite, fontName, m_currColorText, fontSize);
+					applyTextStyle(ite, fontName, currTextColor, fontSize);
 					if (!btn->isReadOnly())
 						ite->annotation().addToFlag(Annotation::Flag_Edit);
 					handleActions(ite, ano);
@@ -886,7 +886,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 	{
 		Object obj1;
 		Ref refa = annota->getRef();
-		obj1 = xref->fetch(refa.num, refa.gen);
+		obj1 = m_xref->fetch(refa.num, refa.gen);
 		if (obj1.isDict())
 		{
 			Dict* dict = obj1.getDict();
@@ -978,7 +978,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 					if (dst->isPageRef())
 					{
 						Ref dstr = dst->getPageRef();
-						pagNum = pdfDoc->findPage(dstr);
+						pagNum = m_pdfDoc->findPage(dstr);
 					}
 					else
 						pagNum = dst->getPageNum();
@@ -994,7 +994,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 				POPPLER_CONST GooString *ndst = gto->getNamedDest();
 				if (ndst)
 				{
-					std::unique_ptr<LinkDest> dstn = pdfDoc->findDest(ndst);
+					std::unique_ptr<LinkDest> dstn = m_pdfDoc->findDest(ndst);
 					if (dstn)
 					{
 						if (dstn->getKind() == destXYZ)
@@ -1002,7 +1002,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 							if (dstn->isPageRef())
 							{
 								Ref dstr = dstn->getPageRef();
-								pagNum = pdfDoc->findPage(dstr);
+								pagNum = m_pdfDoc->findPage(dstr);
 							}
 							else
 								pagNum = dstn->getPageNum();
@@ -1042,7 +1042,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 				POPPLER_CONST GooString *ndst = gto->getNamedDest();
 				if (ndst)
 				{
-					std::unique_ptr<LinkDest> dstn = pdfDoc->findDest(ndst);
+					std::unique_ptr<LinkDest> dstn = m_pdfDoc->findDest(ndst);
 					if (dstn)
 					{
 						if (dstn->getKind() == destXYZ)
@@ -1243,16 +1243,16 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 
 void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 {
-	xref = xrefA;
-	catalog = catA;
-	pdfDoc = doc;
-	updateGUICounter = 0;
+	m_xref = xrefA;
+	m_catalog = catA;
+	m_pdfDoc = doc;
+	m_updateGUICounter = 0;
 	m_fontEngine = new SplashFontEngine(true, false, false, true);
 }
 
 void SlaOutputDev::startPage(int pageNum, GfxState *, XRef *)
 {
-	m_formWidgets = pdfDoc->getPage(pageNum)->getFormWidgets();
+	m_formWidgets = m_pdfDoc->getPage(pageNum)->getFormWidgets();
 	m_radioMap.clear();
 	m_radioButtons.clear();
 	m_actPage = pageNum;
@@ -1267,19 +1267,19 @@ void SlaOutputDev::endPage()
 	{
 		for (auto it = m_radioMap.begin(); it != m_radioMap.end(); ++it)
 		{
-			tmpSel->clear();
+			m_tmpSel->clear();
 			QList<int> refList = it.value();
 			for (int a = 0; a < refList.count(); a++)
 			{
 				if (m_radioButtons.contains(refList[a]))
 				{
-					tmpSel->addItem(m_radioButtons[refList[a]], true);
+					m_tmpSel->addItem(m_radioButtons[refList[a]], true);
 					m_Elements->removeAll(m_radioButtons[refList[a]]);
 				}
 			}
-			if (!tmpSel->isEmpty())
+			if (!m_tmpSel->isEmpty())
 			{
-				PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
+				PageItem *ite = m_doc->groupObjectsSelection(m_tmpSel);
 				ite->setItemName(it.key());
 				m_Elements->append(ite);
 				if (m_groupStack.count() != 0)
@@ -1307,13 +1307,13 @@ void SlaOutputDev::restoreState(GfxState *state)
 		{
 			if ((gElements.Items.count() > 1) && (checkClip()))
 			{
-				tmpSel->clear();
+				m_tmpSel->clear();
 				for (int dre = 0; dre < gElements.Items.count(); ++dre)
 				{
-					tmpSel->addItem(gElements.Items.at(dre), true);
+					m_tmpSel->addItem(gElements.Items.at(dre), true);
 					m_Elements->removeAll(gElements.Items.at(dre));
 				}
-				PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
+				PageItem *ite = m_doc->groupObjectsSelection(m_tmpSel);
 				if (ite)
 				{
 					QPainterPath clippath = m_graphicStack.top().clipPath;
@@ -1348,7 +1348,7 @@ void SlaOutputDev::restoreState(GfxState *state)
 						}
 					}
 				}
-				tmpSel->clear();
+				m_tmpSel->clear();
 			}
 			else
 			{
@@ -1395,7 +1395,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 	if (m_groupStack.count() <= 0)
 		return;
 
-	tmpSel->clear();
+	m_tmpSel->clear();
 
 	groupEntry gElements = m_groupStack.pop();
 	if (gElements.Items.count() <= 0)
@@ -1405,10 +1405,10 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 	{
 		for (int dre = 0; dre < gElements.Items.count(); ++dre)
 		{
-			tmpSel->addItem(gElements.Items.at(dre), true);
+			m_tmpSel->addItem(gElements.Items.at(dre), true);
 			m_Elements->removeAll(gElements.Items.at(dre));
 		}
-		PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
+		PageItem *ite = m_doc->groupObjectsSelection(m_tmpSel);
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
 		ite->setFillBlendmode(getBlendMode(state));
 		ScPattern pat(m_doc);
@@ -1428,17 +1428,17 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 		QString id = QString("Pattern_from_PDF_%1S").arg(m_doc->docPatterns.count() + 1);
 		m_doc->addPattern(id, pat);
 		m_currentMask = id;
-		tmpSel->clear();
+		m_tmpSel->clear();
 		return;
 	}
 	PageItem *ite;
 	for (int dre = 0; dre < gElements.Items.count(); ++dre)
 	{
-		tmpSel->addItem(gElements.Items.at(dre), true);
+		m_tmpSel->addItem(gElements.Items.at(dre), true);
 		m_Elements->removeAll(gElements.Items.at(dre));
 	}
 	if ((gElements.Items.count() != 1) || (gElements.isolated))
-		ite = m_doc->groupObjectsSelection(tmpSel);
+		ite = m_doc->groupObjectsSelection(m_tmpSel);
 	else
 		ite = gElements.Items.first();
 	if (ite->isGroup())
@@ -1471,7 +1471,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 		m_groupStack.top().Items.append(ite);
 	}
 
-	tmpSel->clear();
+	m_tmpSel->clear();
 }
 
 void SlaOutputDev::setSoftMask(GfxState * /*state*/, POPPLER_CONST_070 double * bbox, GBool alpha, Function *transferFunc, GfxColor * /*backdropColor*/)
@@ -1564,7 +1564,7 @@ void SlaOutputDev::stroke(GfxState *state)
 	graphicState.strokeColor = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &graphicState.strokeShade);
 
 	QString output = convertPath(state->getPath());
-	if ((m_Elements->count() != 0) && (output == Coords))			// Path is the same as in last fill
+	if ((m_Elements->count() != 0) && (output == m_coords))			// Path is the same as in last fill
 	{
 		PageItem* ite = m_Elements->last();
 		ite->setLineColor(graphicState.strokeColor);
@@ -1572,8 +1572,8 @@ void SlaOutputDev::stroke(GfxState *state)
 		ite->setLineEnd(m_lineEnd);
 		ite->setLineJoin(m_lineJoin);
 		ite->setLineWidth(state->getTransformedLineWidth());
-		ite->setDashes(DashValues);
-		ite->setDashOffset(DashOffset);
+		ite->setDashes(m_dashValues);
+		ite->setDashOffset(m_dashOffset);
 		ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 		return;
 	}
@@ -1609,8 +1609,8 @@ void SlaOutputDev::stroke(GfxState *state)
 			lItem->setLineBlendmode(getBlendMode(state));
 			lItem->setLineEnd(m_lineEnd);
 			lItem->setLineJoin(m_lineJoin);
-			lItem->setDashes(DashValues);
-			lItem->setDashOffset(DashOffset);
+			lItem->setDashes(m_dashValues);
+			lItem->setDashOffset(m_dashOffset);
 			lItem->setTextFlowMode(PageItem::TextFlowDisabled);
 			m_doc->Items->removeAll(ite);
 		}
@@ -1621,8 +1621,8 @@ void SlaOutputDev::stroke(GfxState *state)
 			ite->setLineBlendmode(getBlendMode(state));
 			ite->setLineEnd(m_lineEnd);
 			ite->setLineJoin(m_lineJoin);
-			ite->setDashes(DashValues);
-			ite->setDashOffset(DashOffset);
+			ite->setDashes(m_dashValues);
+			ite->setDashOffset(m_dashOffset);
 			ite->setTextFlowMode(PageItem::TextFlowDisabled);
 			m_Elements->append(ite);
 			if (m_groupStack.count() != 0)
@@ -1636,8 +1636,8 @@ void SlaOutputDev::stroke(GfxState *state)
 		ite->setLineBlendmode(getBlendMode(state));
 		ite->setLineEnd(m_lineEnd);
 		ite->setLineJoin(m_lineJoin);
-		ite->setDashes(DashValues);
-		ite->setDashOffset(DashOffset);
+		ite->setDashes(m_dashValues);
+		ite->setDashOffset(m_dashOffset);
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Elements->append(ite);
 		if (m_groupStack.count() != 0)
@@ -1682,7 +1682,7 @@ void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
 	mm.rotate(angle);
 	clippedPath = mm.map(clippedPath);
 
-	Coords = output;
+	m_coords = output;
 	QRectF bbox = clippedPath.boundingRect();
 	if (!clippedPath.isEmpty() && !bbox.isNull())
 	{
@@ -1810,7 +1810,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	output += QString("L %1 %2").arg(0.0).arg(0.0);
 	output += QString("Z");
 	pathIsClosed = true;
-	Coords = output;
+	m_coords = output;
 
 	const auto& graphicState = m_graphicStack.top();
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), bb.width(), bb.height(), 0, graphicState.fillColor, CommonStrings::None);
@@ -1932,7 +1932,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	output += QString("L %1 %2").arg(0.0).arg(0.0);
 	output += QString("Z");
 	pathIsClosed = true;
-	Coords = output;
+	m_coords = output;
 
 	const auto& graphicState = m_graphicStack.top();
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, graphicState.fillColor, CommonStrings::None);
@@ -1994,7 +1994,7 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 	output += QString("L %1 %2").arg(0.0).arg(0.0);
 	output += QString("Z");
 	pathIsClosed = true;
-	Coords = output;
+	m_coords = output;
 	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	const auto& graphicState = m_graphicStack.top();
@@ -2075,7 +2075,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	output += QString("L %1 %2").arg(0.0).arg(0.0);
 	output += QString("Z");
 	pathIsClosed = true;
-	Coords = output;
+	m_coords = output;
 	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	const auto& graphicState = m_graphicStack.top();
@@ -2242,8 +2242,8 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	QTransform mm = QTransform(mat[0], mat[1], mat[2], mat[3], mat[4], mat[5]);
 	QTransform mmx = mm * m_ctm;
 
-	gfx = new Gfx(pdfDoc, this, resDict, &box, nullptr);
-	inPattern++;
+	gfx = new Gfx(m_pdfDoc, this, resDict, &box, nullptr);
+	m_inPattern++;
 	// Unset the clip path as it is unrelated to the pattern's coordinate space.
 	QPainterPath savedClip = m_graphicStack.top().clipPath;
 	m_graphicStack.top().clipPath = QPainterPath();
@@ -2253,7 +2253,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	gfx->display(str);
 #endif
 	m_graphicStack.top().clipPath = savedClip;
-	inPattern--;
+	m_inPattern--;
 	gElements = m_groupStack.pop();
 	m_doc->m_Selection->clear();
 //	double pwidth = 0;
@@ -2306,7 +2306,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	output += QString("L %1 %2").arg(0.0).arg(0.0);
 	output += QString("Z");
 	pathIsClosed = true;
-	Coords = output;
+	m_coords = output;
 
 	const auto& graphicState = m_graphicStack.top();
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, graphicState.fillColor, CommonStrings::None);
@@ -2687,7 +2687,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 	outline = m_ctm.map(outline);
 	outline = intersection(outline, m_graphicStack.top().clipPath);
 
-	if ((inPattern == 0) && (outline.isEmpty() || outline.boundingRect().isNull()))
+	if ((m_inPattern == 0) && (outline.isEmpty() || outline.boundingRect().isNull()))
 		return;
 
     // Determine the width and height of the image by undoing the rotation part
@@ -2788,7 +2788,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 		}
 		delete tempFile;
 	}
-	if (inPattern == 0)
+	if (m_inPattern == 0)
 	{
 		outline.translate(xCoor - ite->xPos(), yCoor - ite->yPos());
 		// Undo the rotation of the clipping path as it is rotated together with the image.
@@ -2813,14 +2813,14 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Object *dictRef)
 	mContent mSte;
 	mSte.name = QString(name);
 	mSte.ocgName = "";
-	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 	{
 		if (dictRef->isNull())
 			return;
 		Object dictObj;
 		Dict *dict;
 		Object dictType;
-		OCGs *contentConfig = catalog->getOptContentConfig();
+		OCGs *contentConfig = m_catalog->getOptContentConfig();
 		OptionalContentGroup *oc;
 		if (dictRef->isRef())
 		{
@@ -2834,7 +2834,7 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Object *dictRef)
 		}
 		else
 		{
-			dictObj = dictRef->fetch(xref);
+			dictObj = dictRef->fetch(m_xref);
 			if (!dictObj.isDict())
 				return;
 			dict = dictObj.getDict();
@@ -2862,13 +2862,13 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties
 	mSte.name = nam;
 	mSte.ocgName = "";
 	m_mcStack.push(mSte);
-	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 	{
 		if (nam == "Layer")		// Handle Adobe Illustrator Layer command
 		{
 			if (layersSetByOCG)
 				return;
-			QString lName = QString("Layer_%1").arg(layerNum + 1);
+			QString lName = QString("Layer_%1").arg(m_layerNum + 1);
 			Object obj = properties->lookup((char*) "Title");
 			if (obj.isString())
 				lName = QString(obj.getString()->getCString());
@@ -2880,20 +2880,20 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties
 					return;
 				}
 			}
-			layerNum++;
-			if (!firstLayer)
-				currentLayer = m_doc->addLayer(lName, true);
-			firstLayer = false;
+			m_layerNum++;
+			if (!m_firstLayer)
+				m_currentLayer = m_doc->addLayer(lName, true);
+			m_firstLayer = false;
 
 			obj = properties->lookup((char*) "Visible");
 			if (obj.isBool())
-				m_doc->setLayerVisible(currentLayer, obj.getBool());
+				m_doc->setLayerVisible(m_currentLayer, obj.getBool());
 			obj = properties->lookup((char*) "Editable");
 			if (obj.isBool())
-				m_doc->setLayerLocked(currentLayer, !obj.getBool());
+				m_doc->setLayerLocked(m_currentLayer, !obj.getBool());
 			obj = properties->lookup((char*) "Printed");
 			if (obj.isBool())
-				m_doc->setLayerPrintable(currentLayer, obj.getBool());
+				m_doc->setLayerPrintable(m_currentLayer, obj.getBool());
 			obj = properties->lookup((char*)"Color");
 			if (obj.isArray())
 			{
@@ -2904,7 +2904,7 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties
 				int g = obj1.getNum() / 256;
 				obj1 = obj.arrayGet(2);
 				int b = obj1.getNum() / 256;
-				m_doc->setLayerMarker(currentLayer, QColor(r, g, b));
+				m_doc->setLayerMarker(m_currentLayer, QColor(r, g, b));
 			}
 		}
 	}
@@ -2916,7 +2916,7 @@ void SlaOutputDev::endMarkedContent(GfxState *state)
 	if (m_mcStack.count() > 0)
 	{
 		mContent mSte = m_mcStack.pop();
-		if (importerFlags & LoadSavePlugin::lfCreateDoc)
+		if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 		{
 			if (mSte.name == "OC")
 			{
@@ -2996,7 +2996,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 		delete id;
 	else
 	{
-		fontLoc = gfxFont->locateFont((xref) ? xref : pdfDoc->getXRef(), nullptr);
+		fontLoc = gfxFont->locateFont((m_xref) ? m_xref : m_pdfDoc->getXRef(), nullptr);
 		if (!fontLoc)
 		{
 			error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
@@ -3008,11 +3008,11 @@ void SlaOutputDev::updateFont(GfxState *state)
 		{
 			// if there is an embedded font, read it to memory
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
-			tmpBuf = gfxFont->readEmbFontFile((xref) ? xref : pdfDoc->getXRef());
+			tmpBuf = gfxFont->readEmbFontFile((m_xref) ? m_xref : m_pdfDoc->getXRef());
 			if (! tmpBuf)
 				goto err2;
 #else
-			tmpBuf = gfxFont->readEmbFontFile(xref, &tmpBufLen);
+			tmpBuf = gfxFont->readEmbFontFile(m_xref, &tmpBufLen);
 			if (!tmpBuf)
 				goto err2;
 #endif
@@ -3392,37 +3392,37 @@ void SlaOutputDev::endTextObject(GfxState *state)
 	if (m_groupStack.count() != 0)
 	{
 		groupEntry gElements = m_groupStack.pop();
-		tmpSel->clear();
+		m_tmpSel->clear();
 		if (gElements.Items.count() > 0)
 		{
 			for (int dre = 0; dre < gElements.Items.count(); ++dre)
 			{
-				tmpSel->addItem(gElements.Items.at(dre), true);
+				m_tmpSel->addItem(gElements.Items.at(dre), true);
 				m_Elements->removeAll(gElements.Items.at(dre));
 			}
 			PageItem *ite;
 			if (gElements.Items.count() != 1)
-				ite = m_doc->groupObjectsSelection(tmpSel);
+				ite = m_doc->groupObjectsSelection(m_tmpSel);
 			else
 				ite = gElements.Items.first();
 			ite->setGroupClipping(false);
 			ite->setFillTransparency(1.0 - state->getFillOpacity());
 			ite->setFillBlendmode(getBlendMode(state));
-			for (int as = 0; as < tmpSel->count(); ++as)
+			for (int as = 0; as < m_tmpSel->count(); ++as)
 			{
-				m_Elements->append(tmpSel->itemAt(as));
+				m_Elements->append(m_tmpSel->itemAt(as));
 			}
 			if (m_groupStack.count() != 0)
 				applyMask(ite);
 		}
 		if (m_groupStack.count() != 0)
 		{
-			for (int as = 0; as < tmpSel->count(); ++as)
+			for (int as = 0; as < m_tmpSel->count(); ++as)
 			{
-				m_groupStack.top().Items.append(tmpSel->itemAt(as));
+				m_groupStack.top().Items.append(m_tmpSel->itemAt(as));
 			}
 		}
-		tmpSel->clear();
+		m_tmpSel->clear();
 	}
 }
 
@@ -3643,11 +3643,11 @@ void SlaOutputDev::getPenState(GfxState *state)
 	}
 	double *dashPattern;
 	int dashLength;
-	state->getLineDash(&dashPattern, &dashLength, &DashOffset);
+	state->getLineDash(&dashPattern, &dashLength, &m_dashOffset);
 	QVector<double> pattern(dashLength);
 	for (int i = 0; i < dashLength; ++i)
 		pattern[i] = dashPattern[i];
-	DashValues = pattern;
+	m_dashValues = pattern;
 }
 
 int SlaOutputDev::getBlendMode(GfxState *state)
@@ -3737,11 +3737,11 @@ void SlaOutputDev::applyMask(PageItem *ite)
 	}
 	// Code for updating our Progressbar, needs to be called this way, as we have no
 	// possibility to get the current fileposition.
-	updateGUICounter++;
-	if (updateGUICounter > 20)
+	m_updateGUICounter++;
+	if (m_updateGUICounter > 20)
 	{
 		qApp->processEvents();
-		updateGUICounter = 0;
+		m_updateGUICounter = 0;
 	}
 }
 
