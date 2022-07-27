@@ -385,17 +385,17 @@ private:
 
 	void createImageFrame(QImage& image, GfxState *state, int numColorComponents);
 
-	bool pathIsClosed { false };
-	QVector<double> DashValues;
-	double DashOffset { 0.0 };
-	QString Coords;
+	bool m_pathIsClosed { false };
+	QVector<double> m_dashValues;
+	double m_dashOffset { 0.0 };
+	QString m_coords;
 
 	// Collect the paths of character glyphs for clipping of a whole text group.
 	QPainterPath  m_clipTextPath;
 
 	QString m_currentMask;
 	QPointF m_currentMaskPosition;
-	Selection* tmpSel { nullptr };
+	Selection* m_tmpSel { nullptr };
 	QStringList *m_importedColors;
 	QTransform m_ctm;
 	struct F3Entry
@@ -409,15 +409,15 @@ private:
 		QString ocgName;
 	};
 	QStack<mContent> m_mcStack;
-	int inPattern {0};
-	int layerNum {1};
-	int currentLayer { 0 };
-	bool firstLayer {true};
-	int importerFlags;
-	int updateGUICounter {0};
-	XRef *xref {nullptr};		// xref table for current document
-	PDFDoc *pdfDoc {nullptr};
-	Catalog *catalog {nullptr};
+	int m_inPattern {0};
+	int m_layerNum {1};
+	int m_currentLayer { 0 };
+	bool m_firstLayer {true};
+	int m_importerFlags;
+	int m_updateGUICounter {0};
+	XRef *m_xref {nullptr};		// xref table for current document
+	PDFDoc *m_pdfDoc {nullptr};
+	Catalog *m_catalog {nullptr};
 	SplashFontEngine *m_fontEngine {nullptr};
 	SplashFont *m_font {nullptr};
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 4, 0)
