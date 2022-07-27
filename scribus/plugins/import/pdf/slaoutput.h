@@ -293,6 +293,57 @@ protected:
 	Qt::PenJoinStyle m_lineJoin { Qt::MiterJoin };
 	QList<PageItem*>* m_Elements;
 
+	class GraphicState
+	{
+	public:
+		QString fillColor { "Black" };
+		int     fillShade { 100 };
+		QString strokeColor { "Black "};
+		int     strokeShade { 100 };
+
+		// The currently visible area. If it is empty, everything is visible.
+		// QPainterPath has the drawback that it sometimes approximates Bezier curves
+		// by line segments for numerical stability. If available, a better class
+		// should be used. However, it is important that the used class knows which
+		// areas are covered and does not rely on external information about the fill
+		// rule to use.
+		QPainterPath clipPath;
+	};
+
+	class GraphicStack
+	{
+	public:
+		GraphicStack()
+		{
+			m_stack.push(GraphicState());
+		}
+
+		void clear()
+		{
+			m_stack.clear();
+			m_stack.push(GraphicState());
+		}
+
+		void save()
+		{
+			m_stack.push(m_stack.top());
+		}
+
+		void restore()
+		{
+			if (m_stack.count() > 0)
+				m_stack.pop();
+			if (m_stack.count() == 0)
+				m_stack.push(GraphicState());
+		}
+
+		GraphicState& top() { return m_stack.top(); }
+		const GraphicState& top() const  { return m_stack.top(); }
+
+	private:
+		QStack<GraphicState> m_stack;
+	};
+
 	struct groupEntry
 	{
 		QList<PageItem*> Items;
@@ -305,10 +356,7 @@ protected:
 	};
 
 	QStack<groupEntry> m_groupStack;
-	QString m_currColorFill;
-	QString m_currColorStroke;
-	int m_currFillShade { 100 };
-	int m_currStrokeShade { 100 };
+	GraphicStack m_graphicStack;
 
 private:
 	void getPenState(GfxState *state);
@@ -334,14 +382,7 @@ private:
 	QVector<double> DashValues;
 	double DashOffset { 0.0 };
 	QString Coords;
-	// The currently visible area. If it is empty, everything is visible.
-	// QPainterPath has the drawback that it sometimes approximates Bezier curves
-	// by line segments for numerical stability. If available, a better class
-	// should be used. However, it is important that the used class knows which
-	// areas are covered and does not rely on external information about the fill
-	// rule to use.
-	QPainterPath m_currentClipPath;
-	QStack<QPainterPath> m_clipPaths;
+
 	// Collect the paths of character glyphs for clipping of a whole text group.
 	QPainterPath  m_clipTextPath;
 

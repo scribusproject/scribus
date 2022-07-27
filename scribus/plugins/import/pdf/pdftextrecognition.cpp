@@ -536,7 +536,7 @@ void PdfTextOutputDev::renderTextFrame()
 	textNode->setFillColor(CommonStrings::None);
 	textNode->setLineColor(CommonStrings::None);
 	textNode->setLineWidth(0.0);
-	textNode->setFillShade(m_currFillShade);
+	textNode->setFillShade(m_graphicStack.top().fillShade);
 
 
 	/* Oliver Stieber 2020-06-11 Set text matrix... This need to be done so that the global world view that we rite out glyphs to is transformed correctly by the context matrix for each glyph, possibly anyhow.
