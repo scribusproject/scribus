@@ -2208,18 +2208,12 @@ bool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sha
 	return true;
 }
 
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 3, 0)
 bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *cat, GfxTilingPattern *tPat, const double *mat, int x0, int y0, int x1, int y1, double xStep, double yStep)
-#else
-bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *cat, Object *str, const double *pmat, int /*paintType*/, int /*tilingType*/, Dict *resDict, const double *mat, const double *bbox, int x0, int y0, int x1, int y1, double xStep, double yStep)
-#endif
 {
 //	qDebug() << "SlaOutputDev::tilingPatternFill";
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 3, 0)
 	const double *bbox = tPat->getBBox();
 	const double *pmat = tPat->getMatrix();
 	Dict *resDict = tPat->getResDict();
-#endif
 
 	PDFRectangle box;
 	Gfx *gfx;
@@ -2247,17 +2241,12 @@ bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *ca
 	// Unset the clip path as it is unrelated to the pattern's coordinate space.
 	QPainterPath savedClip = m_graphicStack.top().clipPath;
 	m_graphicStack.top().clipPath = QPainterPath();
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 3, 0)
 	gfx->display(tPat->getContentStream());
-#else
-	gfx->display(str);
-#endif
 	m_graphicStack.top().clipPath = savedClip;
 	m_inPattern--;
-	gElements = m_groupStack.pop();
 	m_doc->m_Selection->clear();
-//	double pwidth = 0;
-//	double pheight = 0;
+
+	gElements = m_groupStack.pop();
 	if (gElements.Items.count() > 0)
 	{
 		for (int dre = 0; dre < gElements.Items.count(); ++dre)
@@ -2282,8 +2271,6 @@ bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *ca
 		m_doc->DoDrawing = false;
 		pat.width = ite->width();
 		pat.height = ite->height();
-	//	pwidth = ite->width();
-	//	pheight = ite->height();
 		ite->gXpos = 0;
 		ite->gYpos = 0;
 		ite->setXYPos(ite->gXpos, ite->gYpos, true);
