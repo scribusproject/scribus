@@ -120,6 +120,8 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	resecls["qrcode"] = "L,Q,M,H";
 	resvers["gs1qrcode"] = resvers["qrcode"];
 	resecls["gs1qrcode"] = resecls["qrcode"];
+	resvers["gs1dlqrcode"] = resvers["qrcode"];
+	resecls["gs1dlqrcode"] = resecls["qrcode"];
 	resvers["hibcqrcode"] = resvers["qrcode"];
 	resecls["hibcqrcode"] = resecls["qrcode"];
 	resvers["microqrcode"] = "M1,M2,M3,M4";
@@ -128,6 +130,8 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	resecls["datamatrix"] = "";
 	resvers["gs1datamatrix"] = resvers["datamatrix"];
 	resecls["gs1datamatrix"] = resvers["datamatrix"];
+	resvers["gs1dldatamatrix"] = resvers["datamatrix"];
+	resecls["gs1dldatamatrix"] = resvers["datamatrix"];
 	resvers["hibcdatamatrix"] = resvers["datamatrix"];
 	resecls["hibcdatamatrix"] = resecls["datamatrix"];
 	resvers["azteccode"] = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32";
@@ -207,7 +211,8 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
-	bcNames << "GS1-14" << "GS1 Data Matrix" << "GS1 QR Code" << "GS1-128" << "ITF-14" << "SSCC-18";
+	bcNames << "GS1-14" << "GS1 Data Matrix" << "GS1 QR Code" << "GS1-128" << "ITF-14" << "SSCC-18"
+			<< "GS1 Digital Link QR Code" << "GS1 Digital Link Data Matrix";
 	familyName = tr("Supply Chain");
 	familyList.append(familyName);
 	familyItems.insert(familyName, bcNames);
