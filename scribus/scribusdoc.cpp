@@ -5774,10 +5774,12 @@ int ScribusDoc::OnPage(double x2, double  y2)
 	int retw = -1;
 	if (masterPageMode())
 	{
-		int x = static_cast<int>(m_currentPage->xOffset() - m_docPrefsData.docSetupPrefs.bleeds.left());
-		int y = static_cast<int>(m_currentPage->yOffset() - m_docPrefsData.docSetupPrefs.bleeds.top());
-		int w = static_cast<int>(m_currentPage->width() + m_docPrefsData.docSetupPrefs.bleeds.left() + m_docPrefsData.docSetupPrefs.bleeds.right());
-		int h = static_cast<int>(m_currentPage->height() + m_docPrefsData.docSetupPrefs.bleeds.bottom() + m_docPrefsData.docSetupPrefs.bleeds.top());
+		MarginStruct pageBleeds;
+		getBleeds(m_currentPage, pageBleeds);
+		int x = static_cast<int>(m_currentPage->xOffset() - pageBleeds.left());
+		int y = static_cast<int>(m_currentPage->yOffset() - pageBleeds.top());
+		int w = static_cast<int>(m_currentPage->width() + pageBleeds.left() + pageBleeds.right());
+		int h = static_cast<int>(m_currentPage->height() + pageBleeds.bottom() + pageBleeds.top());
 		if (QRect(x, y, w, h).contains(qRound(x2), qRound(y2)))
 			retw = m_currentPage->pageNr();
 	}
@@ -5816,14 +5818,15 @@ int ScribusDoc::OnPage(PageItem *currItem)
 
 	if (masterPageMode())
 	{
-		ScPage* currPage = m_currentPage;
-		double x1 = currPage->xOffset() - m_docPrefsData.docSetupPrefs.bleeds.left();
-		double y1 = currPage->yOffset() - m_docPrefsData.docSetupPrefs.bleeds.top();
-		double w1 = currPage->width() + m_docPrefsData.docSetupPrefs.bleeds.left() + m_docPrefsData.docSetupPrefs.bleeds.right();
-		double h1 = currPage->height() + m_docPrefsData.docSetupPrefs.bleeds.bottom() + m_docPrefsData.docSetupPrefs.bleeds.top();
+		MarginStruct pageBleeds;
+		getBleeds(m_currentPage, pageBleeds);
+		double x1 = m_currentPage->xOffset() - pageBleeds.left();
+		double y1 = m_currentPage->yOffset() - pageBleeds.top();
+		double w1 = m_currentPage->width() + pageBleeds.left() + pageBleeds.right();
+		double h1 = m_currentPage->height() + pageBleeds.bottom() + pageBleeds.top();
 		QRectF pageRect(x1, y1, w1, h1);
 		if (itemRect.intersects(pageRect))
-			retw = currPage->pageNr();
+			retw = m_currentPage->pageNr();
 	}
 	else
 	{
