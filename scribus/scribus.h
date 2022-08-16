@@ -625,7 +625,7 @@ private:
 	QString m_statusLabelText;
 	//QPixmap noIcon;
 
-	bool m_palettesStatus[13] { false };
+	bool m_palettesStatus[14] { false };
 	bool m_guidesStatus[13] { false };
 
 	//bool m_keyrep;
