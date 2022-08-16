@@ -5429,6 +5429,8 @@ void ScribusMainWindow::ToggleAllPalettes()
 			docCheckerPalette->show();
 		if (m_palettesStatus[PAL_DOWNLOADS])
 			downloadsPalette->show();
+		if (m_palettesStatus[PAL_ALIGNDISTRIBUTE])
+			alignDistributePalette->show();
 		setUndoPalette(m_palettesStatus[PAL_UNDO]);
 	}
 	else
@@ -5443,6 +5445,7 @@ void ScribusMainWindow::ToggleAllPalettes()
 		m_palettesStatus[PAL_UNDO] = undoPalette->isVisible();
 		m_palettesStatus[PAL_VERIFIER] = docCheckerPalette->isVisible();
 		m_palettesStatus[PAL_DOWNLOADS] = downloadsPalette->isVisible();
+		m_palettesStatus[PAL_ALIGNDISTRIBUTE] = alignDistributePalette->isVisible();
 		propertiesPalette->hide();
 		contentPalette->hide();
 		outlinePalette->hide();
@@ -5452,6 +5455,7 @@ void ScribusMainWindow::ToggleAllPalettes()
 		layerPalette->hide();
 		docCheckerPalette->hide();
 		downloadsPalette->hide();
+		alignDistributePalette->hide();
 		setUndoPalette(false);
 		m_palettesStatus[PAL_ALL] = true;
 	}
