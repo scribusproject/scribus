@@ -65,18 +65,15 @@ for which a new license (GPL+exception) is in place.
 #include "sclimits.h"
 #include "scpage.h"
 #include "scpainter.h"
-#include "scpaths.h"
 #include "scpattern.h"
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "scribuswin.h"
 #include "sctextstream.h"
 #include "selection.h"
 #include "text/storytext.h"
 #include "ui/contentpalette.h"
-#include "ui/guidemanager.h"
 #include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -85,7 +82,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_file.h"
 #include "util_formats.h"
 #include "util_math.h"
-#include "util_text.h"
 
 
 
@@ -7549,7 +7545,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 		for (int a = 0; a < effectsInUse.count(); ++a)
 		{
 			QString tmpstr = effectsInUse.at(a).effectParameters;
-			QString tmpstr2 = "";
+			QString tmpstr2;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			switch (effectsInUse.at(a).effectCode)
 			{

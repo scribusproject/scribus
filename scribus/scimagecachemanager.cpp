@@ -713,9 +713,9 @@ void ScImageCacheManager::updateCache()
 					return;
 				}
 
-				connect(d2, SIGNAL(fileCreated(ScImageCacheFile*, QFileInfo)), SLOT(fileCreated(ScImageCacheFile*, QFileInfo)));
-				connect(d2, SIGNAL(fileChanged(ScImageCacheFile*, QFileInfo)), SLOT(fileChanged(ScImageCacheFile*, QFileInfo)));
-				connect(d2, SIGNAL(fileRemoved(ScImageCacheFile*)), SLOT(fileRemoved(ScImageCacheFile *)));
+				connect(d2, SIGNAL(fileCreated(ScImageCacheFile*,QFileInfo)), SLOT(fileCreated(ScImageCacheFile*,QFileInfo)));
+				connect(d2, SIGNAL(fileChanged(ScImageCacheFile*,QFileInfo)), SLOT(fileChanged(ScImageCacheFile*,QFileInfo)));
+				connect(d2, SIGNAL(fileRemoved(ScImageCacheFile*)), SLOT(fileRemoved(ScImageCacheFile*)));
 			}
 		}
 	}

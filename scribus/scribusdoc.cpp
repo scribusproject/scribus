@@ -95,24 +95,15 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "scribuswin.h"
 #include "selection.h"
 #include "serializer.h"
 #include "tableborder.h"
 #include "textnote.h"
 #include "text/textlayoutpainter.h"
-#include "text/textshaper.h"
 #include "ui/guidemanager.h"
-#include "ui/hruler.h"
 #include "ui/inserttablecolumnsdialog.h"
 #include "ui/inserttablerowsdialog.h"
 #include "ui/layers.h"
-#include "ui/mark2item.h"
-#include "ui/mark2mark.h"
-#include "ui/markanchor.h"
-#include "ui/markinsert.h"
-#include "ui/marksmanager.h"
-#include "ui/markvariabletext.h"
 #include "ui/notesstyleseditor.h"
 #include "ui/outlinepalette.h"
 #include "ui/pagepalette.h"
@@ -16311,7 +16302,7 @@ void ScribusDoc::setDocumentFileName(const QString& documentFileName)
 
 void ScribusDoc::itemSelection_UnlinkTextFrameAndCutText( Selection *customSelection)
 {
-    Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
 	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
@@ -16402,17 +16393,17 @@ void ScribusDoc::checkItemForFrames(PageItem *it, int fIndex)
 
 	int start = 0;
 	int stop  = it->itemText.length();
-	for (int e = start; e < stop; ++e)
+	for (int i = start; i < stop; ++i)
 	{
-		if (it->itemText.hasObject(e))
+		if (it->itemText.hasObject(i))
 		{
-			if (it->itemText.object(e).getInlineCharID() == fIndex)
-				deleteList.prepend(e);
+			if (it->itemText.object(i).getInlineCharID() == fIndex)
+				deleteList.prepend(i);
 		}
 	}
-	for (int a = 0; a < deleteList.count(); a++)
+	for (int i = 0; i < deleteList.count(); i++)
 	{
-		it->itemText.removeChars(deleteList[a], 1);
+		it->itemText.removeChars(deleteList[i], 1);
 	}
 	it->invalid = true;
 }

@@ -800,7 +800,7 @@ Biblio::Biblio(QWidget* parent) : ScDockPalette(parent, "Sclib", Qt::WindowFlags
 	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeLib()));
 	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
-	connect(configMenue, SIGNAL(triggered(QAction *)), this, SLOT(updateView()));
+	connect(configMenue, SIGNAL(triggered(QAction*)), this, SLOT(updateView()));
 }
 
 void Biblio::setOpenScrapbooks(const QStringList &fileNames)
@@ -836,9 +836,9 @@ void Biblio::setOpenScrapbooks(const QStringList &fileNames)
 	updateView();
 	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(objFromMenu(QString)));
-	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
-	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
-	connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+	connect(activeBView, SIGNAL(fileDropped(QString,int)), this, SLOT(objFromFile(QString,int)));
+	connect(activeBView, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(handleMouse(QPoint)));
+	connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(handleDoubleClick(QListWidgetItem*)));
 }
 
 QStringList Biblio::getOpenScrapbooks() const
@@ -1022,9 +1022,9 @@ void Biblio::closeLib()
 	upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
 	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(objFromMenu(QString)));
-	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
-	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
-	connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+	connect(activeBView, SIGNAL(fileDropped(QString,int)), this, SLOT(objFromFile(QString,int)));
+	connect(activeBView, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(handleMouse(QPoint)));
+	connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(handleDoubleClick(QListWidgetItem*)));
 	emit scrapbookListChanged();
 }
 

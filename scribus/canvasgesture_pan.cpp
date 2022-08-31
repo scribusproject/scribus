@@ -19,7 +19,6 @@
 #include "canvasgesture_pan.h"
 
 #include "canvas.h"
-#include "scribusapp.h" // for qApp
 #include "scribusview.h"
 #include "iconmanager.h"
 

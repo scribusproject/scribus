@@ -122,7 +122,7 @@ void PicSearchOptions::slotSearchPic()
 	int recurse = (recursiveSearch->isChecked()) ? -1 : 0;
 	FileSearch* search = new FileSearch(this, fileEdit->text(), m_strLastDirSearched, recurse, caseInsensitiveCheck->isChecked());
 	Q_CHECK_PTR(search);
-	connect(search, SIGNAL(searchComplete(QStringList, QString)), SLOT(slotSearchPicFinished(QStringList, QString)));
+	connect(search, SIGNAL(searchComplete(QStringList,QString)), SLOT(slotSearchPicFinished(QStringList,QString)));
 	connect(search, SIGNAL(aborted(bool)), SLOT(slotSearchPicAborted(bool)));
 	// Set up the UI to let the user cancel the search, then start it
 	setSearchButton(true, search);

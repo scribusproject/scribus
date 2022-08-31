@@ -135,7 +135,7 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	imageViewArea->SetModel(pModel);
 
 //register item selections
-	connect(imageViewArea->SelectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(previewImageSelectionChanged(QItemSelection, QItemSelection)));
+	connect(imageViewArea->SelectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(previewImageSelectionChanged(QItemSelection,QItemSelection)));
 
 //documentbrowser setup
 	connect(documentWidget, SIGNAL(itemActivated(QTreeWidgetItem*,int)), this, SLOT(documentChosen(QTreeWidgetItem*,int)));

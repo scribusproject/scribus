@@ -524,7 +524,7 @@ void CMYKChoose::selSwatch()
 	else
 	{
 		CurrSwatch.clear();
-		QString pfadC2 = "";
+		QString pfadC2;
 		QString txt = c->data(0, Qt::UserRole).toString() + "/" + c->text(0);
 		if (!customColSet.contains(txt))
 			pfadC2 = csm.paletteFileFromName(txt);

@@ -559,7 +559,7 @@ void LatexEditor::createNewItemsTab(I18nXmlStreamReader *xml)
 	iconList->setWrapping(true);
 	iconList->setResizeMode(QListView::Adjust);
 	
-	connect(iconList, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(newItemSelected(QListWidgetItem*,QListWidgetItem*)));
+	connect(iconList, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(newItemSelected(QListWidgetItem*,QListWidgetItem*)));
 	connect(iconList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(itemDoubleClicked(QListWidgetItem*)));
 	
 	QHBoxLayout *hLayout = new QHBoxLayout();

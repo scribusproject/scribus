@@ -306,7 +306,7 @@ void PropertiesPalette_Shadow::languageChange()
 	softShadowBlendMode->setStringValue( tr("Normal"));
 	softShadowBlendMode->setText(0, tr( "Blendmode:"));
 
-	connect(this->model(), SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SLOT(handleNewValues()));
+	connect(this->model(), SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(handleNewValues()));
 }
 
 void PropertiesPalette_Shadow::updateSpinBoxConstants()

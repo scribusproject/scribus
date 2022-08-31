@@ -656,7 +656,7 @@ void HelpBrowser::loadMenu()
 		helpNav->listView->setSelectionMode(QAbstractItemView::SingleSelection);
 		QItemSelectionModel *selectionModel = new QItemSelectionModel(m_menuModel);
 		helpNav->listView->setSelectionModel(selectionModel);
-		connect(helpNav->listView->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(itemSelected(QItemSelection, QItemSelection)));
+		connect(helpNav->listView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(itemSelected(QItemSelection,QItemSelection)));
 	
 		helpNav->listView->setColumnHidden(1,true);
 	}

@@ -626,7 +626,7 @@ void PropertyWidget_ParEffect::openEnhanced()
 	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 	m_enhanced = new CharSelectEnhanced(this);
 	m_enhanced->setModal(true);
-	connect(m_enhanced, SIGNAL(insertSpecialChars(const QVector<uint> &)), this, SLOT(insertSpecialChars(const QVector<uint> &)));
+	connect(m_enhanced, SIGNAL(insertSpecialChars(const QVector<uint>&)), this, SLOT(insertSpecialChars(const QVector<uint>&)));
 	connect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton, SLOT(setChecked(bool)));
 	m_enhanced->setDoc(m_doc);
 	m_enhanced->setEnabled(true);

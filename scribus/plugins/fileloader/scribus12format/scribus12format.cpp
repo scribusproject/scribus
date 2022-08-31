@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include "../../formatidlist.h"
 #include "commonstrings.h"
 #include "langmgr.h"
-#include "ui/missing.h"
 #include "prefsmanager.h"
 #include "pageitem_latexframe.h"
 #include "pageitem_line.h"

@@ -27,29 +27,15 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "importcgm.h"
 #include "loadsaveplugin.h"
-#include "pagesize.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
 #include "prefsmanager.h"
-#include "prefstable.h"
-#include "rawimage.h"
-#include "scclocale.h"
-#include "sccolorengine.h"
-#include "scconfig.h"
 #include "scmimedata.h"
-#include "scpaths.h"
 #include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribusview.h"
-#include "sctextstream.h"
 #include "selection.h"
-#include "ui/customfdialog.h"
-#include "ui/missing.h"
 #include "ui/multiprogressdialog.h"
-#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "util.h"
-#include "util_formats.h"
 #include "util_math.h"
 
 ScBitReader::ScBitReader(QByteArray &data)
@@ -198,8 +184,6 @@ bool CgmPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	else
 		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
-	b = 0.0;
-	h = 0.0;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);

@@ -110,55 +110,62 @@
         <property name="spacing">
          <number>3</number>
         </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="xposLabel">
-          <property name="text">
-           <string>&amp;X-Pos:</string>
-          </property>
-          <property name="buddy">
-           <cstring>xposSpin</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="ScrSpinBox" name="xposSpin">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>Horizontal position of current basepoint</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="widthLabel">
-          <property name="text">
-           <string>&amp;Width:</string>
-          </property>
-          <property name="buddy">
-           <cstring>widthSpin</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="yposLabel">
-          <property name="text">
-           <string>&amp;Y-Pos:</string>
-          </property>
-          <property name="buddy">
-           <cstring>yposSpin</cstring>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
          <widget class="ScrSpinBox" name="yposSpin">
           <property name="toolTip">
            <string>Vertical position of current basepoint</string>
           </property>
          </widget>
+        </item>
+        <item row="4" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="ScrSpinBox" name="rotationSpin">
+            <property name="toolTip">
+             <string>Rotation of object at current basepoint</string>
+            </property>
+            <property name="wrapping">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Minimum</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>1</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QToolButton" name="rotateCCW">
+            <property name="toolTip">
+             <string>Rotate the selection anti-clockwise by 90º</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="rotateCW">
+            <property name="toolTip">
+             <string>Rotate the selection alockwise by 90º</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item row="2" column="1">
          <widget class="ScrSpinBox" name="widthSpin">
@@ -177,27 +184,16 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="ScrSpinBox" name="heightSpin">
+        <item row="0" column="1">
+         <widget class="ScrSpinBox" name="xposSpin">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="toolTip">
-           <string>Height of current selection</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="rotationLabel">
-          <property name="text">
-           <string>&amp;Rotation:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="ScrSpinBox" name="rotationSpin">
-          <property name="toolTip">
-           <string>Rotation of object at current basepoint</string>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
+           <string>Horizontal position of current basepoint</string>
           </property>
          </widget>
         </item>
@@ -211,8 +207,49 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="BasePointWidget" name="basePointWidget" native="true"/>
+        <item row="0" column="0">
+         <widget class="QLabel" name="xposLabel">
+          <property name="text">
+           <string>&amp;X-Pos:</string>
+          </property>
+          <property name="buddy">
+           <cstring>xposSpin</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="yposLabel">
+          <property name="text">
+           <string>&amp;Y-Pos:</string>
+          </property>
+          <property name="buddy">
+           <cstring>yposSpin</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="rotationLabel">
+          <property name="text">
+           <string>&amp;Rotation:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="widthLabel">
+          <property name="text">
+           <string>&amp;Width:</string>
+          </property>
+          <property name="buddy">
+           <cstring>widthSpin</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="ScrSpinBox" name="heightSpin">
+          <property name="toolTip">
+           <string>Height of current selection</string>
+          </property>
+         </widget>
         </item>
         <item row="2" column="2" rowspan="2">
          <widget class="LinkButton" name="keepFrameWHRatioButton">
@@ -232,6 +269,9 @@
            <bool>true</bool>
           </property>
          </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="BasePointWidget" name="basePointWidget" native="true"/>
         </item>
        </layout>
       </item>
@@ -319,76 +359,56 @@
       </spacer>
      </item>
      <item>
-      <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0,0,0" columnminimumwidth="0,0,0,0,0">
+      <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0,0">
        <property name="spacing">
         <number>3</number>
        </property>
-       <item row="1" column="3">
-        <widget class="QToolButton" name="noPrint">
-         <property name="toolTip">
-          <string>Enable or disable exporting of the object</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="1">
-        <widget class="QToolButton" name="doUnGroup">
-         <property name="toolTip">
-          <string>Ungroup the selected group</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QToolButton" name="flipH">
-         <property name="toolTip">
-          <string>Flip horizontally</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QToolButton" name="doLock">
-         <property name="toolTip">
-          <string>Lock or unlock the object</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QToolButton" name="noResize">
-         <property name="toolTip">
-          <string>Lock or unlock the size of the object</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QToolButton" name="doGroup">
-         <property name="toolTip">
-          <string>Group the selected objects</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
         <widget class="QToolButton" name="flipV">
          <property name="toolTip">
           <string>Flip vertically</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QToolButton" name="rotateCCW">
+       <item row="0" column="2">
+        <widget class="QToolButton" name="doLock">
          <property name="toolTip">
-          <string>Rotate the selection anti-clockwise by 90º</string>
+          <string>Lock or unlock the object</string>
          </property>
-         <property name="text">
-          <string/>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QToolButton" name="doGroup">
+         <property name="toolTip">
+          <string>Group the selected objects</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QToolButton" name="flipH">
+         <property name="toolTip">
+          <string>Flip horizontally</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QToolButton" name="noPrint">
+         <property name="toolTip">
+          <string>Enable or disable exporting of the object</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QToolButton" name="noResize">
+         <property name="toolTip">
+          <string>Lock or unlock the size of the object</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QToolButton" name="rotateCW">
+        <widget class="QToolButton" name="doUnGroup">
          <property name="toolTip">
-          <string>Rotate the selection alockwise by 90º</string>
-         </property>
-         <property name="text">
-          <string/>
+          <string>Ungroup the selected group</string>
          </property>
         </widget>
        </item>

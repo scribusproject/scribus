@@ -149,7 +149,7 @@ bool PathCutPlugin::run(ScribusDoc* doc, const QString&)
 		QPainterPath objekt = mm.map(Item2->PoLine.toQPainterPath(true));
 		if ((objekt.contains(QPointF(start.x(), start.y()))) || (objekt.contains(QPointF(end.x(), end.y()))))
 		{
-			ScMessageBox::information(doc->scMW(), tr("Error"), tr("The cutting line must cross the polygon and\nboth end points must lie outside of the polygon"));
+			ScMessageBox::information(currDoc->scMW(), tr("Error"), tr("The cutting line must cross the polygon and\nboth end points must lie outside of the polygon"));
 			return true;
 		}
 		QPainterPath result = objekt.subtracted(cutter);

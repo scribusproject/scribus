@@ -88,7 +88,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 #include "util_ghostscript.h"
-#include "text/boxes.h"
 
 #ifdef HAVE_OSG
 	#include "third_party/prc/exportPRC.h"
@@ -789,12 +788,12 @@ bool PDFLibCore::EncodeArrayToStream(const QByteArray& in, PdfId ObjNum)
 {
 	if (in.size() < 1)
 		return true;
-	bool succeed = false;
 	if (Options.Encrypt)
 	{
 		ScStreamFilter* rc4Encode = writer.openStreamFilter(true, ObjNum);
 		if (rc4Encode->openFilter())
 		{
+			bool succeed = false;
 			succeed  = rc4Encode->writeData(in.data(), in.size());
 			succeed &= rc4Encode->closeFilter();
 		}
@@ -9128,7 +9127,6 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 				PutDoc("/BC [ " + SetColor(ite->annotation().borderColor(), 100) + " ] ");
 			else
 				PutDoc("/BC [ ] ");
-			PdfId IconOb = 0;
 			switch (ite->annotation().Type())
 			{
 				case Annotation::Button:
@@ -9139,6 +9137,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 						PutDoc("/AC " + EncStringUTF16(ite->annotation().Down(), annotationObj) + " ");
 					if (ite->annotation().UseIcons())
 					{
+						PdfId IconOb = 0;
 						if (!ite->Pfile.isEmpty())
 						{
 							IconOb += ite->pixm.hasAlpha() ? 3 : 2;

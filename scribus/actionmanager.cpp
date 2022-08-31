@@ -26,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "text/storytext.h"
 #include "undomanager.h"
 #include "urllauncher.h"
 #include "iconmanager.h"

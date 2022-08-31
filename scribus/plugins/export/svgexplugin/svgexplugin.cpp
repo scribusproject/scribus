@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "svgexplugin.h"
 
 #include "scconfig.h"
-#include "canvas.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
 #include "pageitem_table.h"
@@ -44,19 +43,17 @@ for which a new license (GPL+exception) is in place.
 #include "qtiocompressor.h"
 #include "scpage.h"
 #include "scpattern.h"
-#include "scribuscore.h"
+#include "scribus.h"
 #include "sctextstruct.h"
 #include "tableutils.h"
 #include "util.h"
 #include "ui/customfdialog.h"
-#include "ui/guidemanager.h"
 #include "ui/scmessagebox.h"
 #include "sccolorengine.h"
 #include "util_formats.h"
 #include "util_math.h"
 #include "text/textlayout.h"
 #include "text/textlayoutpainter.h"
-#include "text/boxes.h"
 
 int svgexplugin_getPluginAPIVersion()
 {

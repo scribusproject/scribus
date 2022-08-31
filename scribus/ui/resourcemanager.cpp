@@ -945,7 +945,7 @@ void ResourceManager::updateDownloadLists()
 	connect(ScQApp->dlManager(), SIGNAL(fileReceived(QString)), this, SLOT(updateProgressBar()));
 	connect(ScQApp->dlManager(), SIGNAL(fileFailed(QString)), this, SLOT(updateProgressBar()));
 	connect(ScQApp->dlManager(), SIGNAL(fileFailed(QString)), this, SLOT(updateProgressBar()));
-	connect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64, qint64)), this, SLOT(updateProgressData(qint64, qint64)));
+	connect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64,qint64)), this, SLOT(updateProgressData(qint64,qint64)));
 	ScQApp->dlManager()->startDownloads();
 }
 
@@ -954,7 +954,7 @@ void ResourceManager::downloadListFinished()
 	disconnect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadListFinished()));
 	disconnect(ScQApp->dlManager(), SIGNAL(fileReceived(QString)), this, SLOT(updateProgressBar()));
 	disconnect(ScQApp->dlManager(), SIGNAL(fileFailed(QString)), this, SLOT(updateProgressBar()));
-	disconnect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64, qint64)), this, SLOT(updateProgressData(qint64, qint64)));
+	disconnect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64,qint64)), this, SLOT(updateProgressData(qint64,qint64)));
 
 	int category = categoryComboBox->currentData().toInt();
 	bool fileOk = checkFileHash(ScPaths::downloadDir(), m_dataFiles[category], m_dataFiles[category] + ".sha256", QCryptographicHash::Sha256);

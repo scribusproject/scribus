@@ -60,7 +60,6 @@ for which a new license (GPL+exception) is in place.
 #include "alignselect.h"
 #include "directionselect.h"
 #include "colorcombo.h"
-#include "colorlistbox.h"
 #include "commonstrings.h"
 #include "fontcombo.h"
 #include "iconmanager.h"
@@ -83,16 +82,13 @@ for which a new license (GPL+exception) is in place.
 #include "serializer.h"
 #include "shadebutton.h"
 #include "storyeditor.h"
-#include "styleitem.h"
 #include "styleselect.h"
 #include "ui/charselect.h"
 #include "ui/customfdialog.h"
 #include "ui/scmessagebox.h"
 #include "ui/stylecombos.h"
-#include "ui/stylemanager.h"
 #include "units.h"
 #include "util.h"
-#include "util_debug.h"
 
 
 class StyledTextMimeData : public QMimeData

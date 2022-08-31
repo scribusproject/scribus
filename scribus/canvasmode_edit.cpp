@@ -34,30 +34,20 @@
 #include "appmodes.h"
 #include "canvas.h"
 #include "fpoint.h"
-#include "fpointarray.h"
 #include "hyphenator.h"
 #include "iconmanager.h"
 #include "pageitem_noteframe.h"
 #include "pageitem_textframe.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
-#include "prefsmanager.h"
-#include "sccolorengine.h"
 #include "scmimedata.h"
 #include "scribus.h"
-#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "ui/aligndistribute.h"
 #include "ui/contextmenu.h"
 #include "ui/hruler.h"
-#include "ui/insertTable.h"
 #include "ui/pageselector.h"
-#include "ui/propertiespalette.h"
+#include "ui/scrspinbox.h"
 #include "undomanager.h"
-#include "units.h"
-#include "util.h"
 #include "util_math.h"
 
 
@@ -949,7 +939,6 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	Mxp = mousePointDoc.x();
 	Myp = mousePointDoc.y();
-	double grabRadius = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x());
 	int MypS = static_cast<int>(mousePointDoc.y());
 	//QRectF mpo(Mxp - grabRadius, Myp - grabRadius, grabRadius * 2, grabRadius * 2);

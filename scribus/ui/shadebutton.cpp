@@ -20,7 +20,7 @@ ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent)
 	setPopupMode(QToolButton::InstantPopup);
 	setText("100 %");
 	fillShadeMenu->actions().at(11)->setChecked(true);
-	connect( fillShadeMenu, SIGNAL(triggered(QAction *)), this, SLOT(setShade(QAction *)));
+	connect( fillShadeMenu, SIGNAL(triggered(QAction*)), this, SLOT(setShade(QAction*)));
 }
 
 void ShadeButton::setShade(QAction *act)

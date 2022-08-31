@@ -202,7 +202,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 ## Do our Apple OSX version setup
 if (APPLE)
-	if ((CMAKE_SIZEOF_VOID_P EQUAL 8) AND (ARCH_ARM))
+	if ((CMAKE_SIZEOF_VOID_P EQUAL 8) AND (ARCH_ARM_64))
 		string(REGEX REPLACE ".*-darwin([0-9]+).*" "\\1" _apple_ver "${MACHINE}")
 		if (_apple_ver EQUAL "21")
 			message(STATUS "Found macOS Monterey Target: Apple, 64 bit, ARM")

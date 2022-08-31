@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <QBoxLayout>
 #include <QBuffer>
 #include <QByteArray>
 #include <QComboBox>
@@ -29,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QMessageBox>
 #include <QScopedPointer>
+#include <QSpacerItem>
 #include <QTemporaryDir>
 #include <QTextStream>
 #include <QUuid>
@@ -53,13 +55,10 @@ for which a new license (GPL+exception) is in place.
 #include "text/textlayoutpainter.h"
 #include "util.h"
 #include "ui/customfdialog.h"
-#include "ui/guidemanager.h"
 #include "ui/scmessagebox.h"
 #include "sccolorengine.h"
-#include "util_formats.h"
 #include "util_math.h"
 #include "third_party/zip/scribus_zip.h"
-#include "text/boxes.h"
 
 int xpsexplugin_getPluginAPIVersion()
 {

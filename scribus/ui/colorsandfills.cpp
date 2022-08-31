@@ -1118,8 +1118,8 @@ void ColorsAndFillsDialog::importColorItems()
 		}
 		allFormats += "*.sce *.SCE ";
 		formats.append("Scribus Objects (*.sce *.SCE)");
-		QString form1 = "";
-		QString form2 = "";
+		QString form1;
+		QString form2;
 		QStringList imgFormats;
 		bool jpgFound = false;
 		bool tiffFound = false;
@@ -1236,7 +1236,7 @@ void ColorsAndFillsDialog::loadPatternDir()
 	formats += "eps";
 	formats += "epsi";
 	formats += "pdf";
-	QString form1 = "";
+	QString form1;
 	for (int i = 0; i < QImageReader::supportedImageFormats().count(); ++i)
 	{
 		form1 = QString(QImageReader::supportedImageFormats().at(i)).toLower();
@@ -1886,7 +1886,7 @@ void ColorsAndFillsDialog::loadDefaults(QTreeWidgetItem* item)
 		dialogGradients.clear();
 		dialogPatterns.clear();
 	}
-	QString pfadC2 = "";
+	QString pfadC2;
 	if (item->text(0) == "Scribus Small")
 	{
 		m_colorList.insert("White", ScColor(0, 0, 0, 0));

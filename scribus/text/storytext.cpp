@@ -28,15 +28,12 @@ pageitem.cpp  -  description
 #include <QList>
 #include <cassert>  //added to make Fedora-5 happy
 
-#include "fpoint.h"
 #include "notesstyles.h"
-#include "scfonts.h"
 #include "scribusdoc.h"
 #include "sctext_shared.h"
 #include "selection.h"
 #include "storytext.h"
 #include "textnote.h"
-//
 #include "util.h"
 #include "resourcecollection.h"
 #include "desaxe/saxiohelper.h"
@@ -2709,7 +2706,7 @@ struct ApplyCharStyle : public MakeAction<ApplyCharStyle_body, const Xml_string&
 class Paragraph_body : public Action_body
 {
 public:
-	Paragraph_body() : lastPos(0), numPara(0), lastStyle(nullptr)
+	Paragraph_body()
 	{}
 	
 	~Paragraph_body() 
@@ -2763,9 +2760,9 @@ public:
 		}
 	}
 private:
-	int lastPos;
-	int numPara;
-	ParagraphStyle* lastStyle;
+	int lastPos {0};
+	int numPara {0};
+	ParagraphStyle* lastStyle {nullptr};
 };
 
 struct Paragraph : public MakeAction<Paragraph_body>
@@ -2777,7 +2774,7 @@ struct Paragraph : public MakeAction<Paragraph_body>
 class SpanAction_body : public Action_body
 {
 public:
-	SpanAction_body() : lastPos(0), lastStyle(nullptr)
+	SpanAction_body()
 	{}
 	
 	~SpanAction_body() 
@@ -2816,8 +2813,8 @@ public:
 		}
 	}
 private:
-	int lastPos;
-	CharStyle* lastStyle;
+	int lastPos {0};
+	CharStyle* lastStyle {nullptr};
 };
 
 struct SpanAction : public MakeAction<SpanAction_body>

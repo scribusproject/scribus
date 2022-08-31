@@ -54,7 +54,6 @@ for which a new license (GPL+exception) is in place.
 #include "scfilewidget.h"
 #include "scimage.h"
 #include "scpreview.h"
-#include "scribusstructs.h"
 #include "scslainforeader.h"
 #include "units.h"
 #include "util.h"

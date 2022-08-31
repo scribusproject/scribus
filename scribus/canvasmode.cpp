@@ -758,15 +758,14 @@ void CanvasMode::setModeCursor()
 #ifdef GESTURE_FRAME_PREVIEW
 void CanvasMode::clearPixmapCache()
 {
-	if (m_pixmapCache.count())
+	if (m_pixmapCache.isEmpty())
+		return;
+	foreach(PageItemPreview* ip, m_pixmapCache)
 	{
-		foreach(PageItemPreview* ip, m_pixmapCache)
-		{
-			if (ip)
-				delete ip;
-		}
-		m_pixmapCache.clear();
+		if (ip)
+			delete ip;
 	}
+	m_pixmapCache.clear();
 }
 #endif // GESTURE_FRAME_PREVIEW
 
