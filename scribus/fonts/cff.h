@@ -201,7 +201,7 @@ namespace cff {
 		}
 		
 		QByteArray string(sid_type sid) const {
-			return sid < m_strings.length()? m_strings[sid] : "";
+			return sid < m_strings.length()? m_strings[sid] : QByteArray();
 		}
 		
 		sid_type sid(const QByteArray str) const {

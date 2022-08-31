@@ -5789,7 +5789,7 @@ QByteArray PDFLibCore::setStrokeMulti(const SingleLine *sl)
 			FToStr(sl->Width) + " w\n"
 			);
 	QByteArray Ds =  Pdf::toAscii(getDashString(sl->Dash, sl->Width));
-	tmp += Ds.isEmpty() ? "[] 0 d\n" : "[" + Ds + "] 0 d\n";
+	tmp += Ds.isEmpty() ? QByteArray("[] 0 d\n") : QByteArray("[") + Ds + QByteArray("] 0 d\n");
 	switch (static_cast<Qt::PenCapStyle>(sl->LineEnd))
 	{
 		case Qt::FlatCap:
@@ -8802,7 +8802,7 @@ PdfId PDFLibCore::PDF_RadioButton(PageItem* ite, PdfId parent, const QString& pa
 	PutDoc("/Ff " + Pdf::toPdf(flg) + "\n");
 	PutDoc("/FT /Btn\n");
 	PutDoc("/BS << /Type /Border /W ");
-	PutDoc(ite->annotation().borderColor() != CommonStrings::None ? Pdf::toPdf(ite->annotation().borderWidth()) : "0");
+	PutDoc(ite->annotation().borderColor() != CommonStrings::None ? Pdf::toPdf(ite->annotation().borderWidth()) : QByteArray("0"));
 	PutDoc(" /S /");
 	const QByteArray xb[] = {"S", "D", "U", "B", "I"};
 	PutDoc(xb[ite->annotation().borderStyle()]);
@@ -9041,7 +9041,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 			PutDoc(mm[ite->annotation().Vis()]);
 			PutDoc("\n");
 			PutDoc("/BS << /Type /Border /W ");
-			PutDoc(ite->annotation().borderColor() != CommonStrings::None ? Pdf::toPdf(ite->annotation().borderWidth()) : "0");
+			PutDoc(ite->annotation().borderColor() != CommonStrings::None ? Pdf::toPdf(ite->annotation().borderWidth()) : QByteArray("0"));
 			PutDoc(" /S /");
 			const QByteArray x[] = {"S", "D", "U", "B", "I"};
 			PutDoc(x[ite->annotation().borderStyle()]);
