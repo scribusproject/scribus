@@ -11,7 +11,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "appmodes.h"
 #include "pageitem_table.h"
-#include "iconmanager.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "selection.h"

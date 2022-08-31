@@ -35,12 +35,10 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "iconmanager.h"
 #include "marginwidget.h"
-#include "pagelayout.h"
 #include "pagesize.h"
 #include "pagestructs.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "scribuscore.h"
 #include "scrspinbox.h"
 #include "units.h"
 

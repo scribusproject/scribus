@@ -40,10 +40,8 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "ui/customfdialog.h"
 #include "ui/scmessagebox.h"
 #include "ui/scrspinbox.h"
-#include "units.h"
 #include "util.h"
 
 

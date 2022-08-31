@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 
 PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 {
-	currView = nullptr;
 	m_scMW = ScCore->primaryMainWindow();
 	
 	setupUi(this);

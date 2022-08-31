@@ -14,34 +14,25 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include <cmath>
 
-
 #include "appmodehelper.h"
 #include "appmodes.h"
-#include "autoform.h"
 #include "basepointwidget.h"
-#include "colorlistbox.h"
 #include "commonstrings.h"
 #include "iconmanager.h"
 #include "localemgr.h"
 #include "pageitem.h"
 #include "pageitem_arc.h"
-#include "pageitem_group.h"
 #include "pageitem_line.h"
 #include "pageitem_spiral.h"
-#include "pageitem_textframe.h"
 #include "propertiespalette_utils.h"
-#include "sccolorengine.h"
 #include "scraction.h"
+#include "scribus.h"
 #include "scribusapp.h"
-#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "tabmanager.h"
 #include "undomanager.h"
 #include "units.h"
-#include "util.h"
-#include "util_math.h"
 
 //using namespace std;
 

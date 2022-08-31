@@ -103,10 +103,10 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	// signals and slots connections
 	if (move)
 	{
-		connect( fromPageData, SIGNAL( valueChanged(double) ), this, SLOT( fromChanged() ) );
-		connect( toPageData, SIGNAL( valueChanged(double) ), this, SLOT( toChanged() ) );
+		connect(fromPageData, SIGNAL(valueChanged(double)), this, SLOT(fromChanged()));
+		connect(toPageData, SIGNAL(valueChanged(double)), this, SLOT(toChanged()));
 	}
-	connect( mvWhereData, SIGNAL( activated(int) ), this, SLOT( mvWherePageDataDisable(int) ) );
+	connect(mvWhereData, SIGNAL(activated(int)), this, SLOT(mvWherePageDataDisable(int)));
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &MovePages::accept);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &MovePages::reject);
 }

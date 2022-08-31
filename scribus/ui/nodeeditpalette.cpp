@@ -26,8 +26,6 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	QSize maxButtonSize = QSize(16777215, buttonSize.height());
 	QSizePolicy::Policy buttonSizePolicy = static_cast<QSizePolicy::Policy>(QSizePolicy::GrowFlag | QSizePolicy::ExpandFlag);
 
-	m_doc = nullptr;
-	m_unitRatio = 1.0;
 	vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(6);
 	vboxLayout->setContentsMargins(6, 6, 6, 6);

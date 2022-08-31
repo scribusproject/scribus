@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include <QVariant>
 #include <QWidgetAction>
 
-#include "actionmanager.h"
 #include "appmodes.h"
 #include "canvasmode.h"
 #include "commonstrings.h"
@@ -41,11 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "undomanager.h"
 #include "units.h"
-#include "util.h"
-#include "util_color.h"
-#include "util_formats.h"
 
 OutlineTreeItem::OutlineTreeItem(OutlineTreeItem* parent, OutlineTreeItem* after) : QTreeWidgetItem(parent, after)
 {

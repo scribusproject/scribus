@@ -23,9 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribusapp.h"
 #include "scribusdoc.h"
-#include "third_party/zip/scribus_zip.h"
-#include "util.h"
-#include "util_file.h"
 
 Prefs_Spelling::Prefs_Spelling(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)

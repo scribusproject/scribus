@@ -37,10 +37,8 @@ for which a new license (GPL+exception) is in place.
 #include <QScopedPointer>
 #include <QToolButton>
 
-#include "commonstrings.h"
 #include "effectsdialog.h"
 #include "extimageprops.h"
-#include "filesearch.h"
 #include "iconmanager.h"
 #include "pageitem.h"
 #include "picsearch.h"

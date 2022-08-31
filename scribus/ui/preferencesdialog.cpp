@@ -12,7 +12,6 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidget>
 #include <QVBoxLayout>
 
-#include "commonstrings.h"
 #include "iconmanager.h"
 #include "pluginmanager.h"
 #include "prefs_pane.h"

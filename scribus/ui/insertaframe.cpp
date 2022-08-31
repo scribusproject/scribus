@@ -28,14 +28,12 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "scpaths.h"
 #include "scribusdoc.h"
 #include "ui/createrange.h"
 #include "ui/customfdialog.h"
 #include "ui/insertaframe.h"
 #include "ui/scrspinbox.h"
 #include "units.h"
-#include "util.h"
 #include "util_formats.h"
 
 

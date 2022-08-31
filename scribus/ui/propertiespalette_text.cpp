@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
-#include "propertiespalette_utils.h"
 #include "propertywidget_advanced.h"
 #include "propertywidget_distance.h"
 #include "propertywidget_flop.h"
@@ -35,18 +34,11 @@ for which a new license (GPL+exception) is in place.
 #include "propertywidget_pareffect.h"
 #include "propertywidget_pathtext.h"
 #include "propertywidget_textcolor.h"
-#include "scfonts.h"
-#include "scraction.h"
+#include "scribus.h"
 #include "scribusapp.h"
-#include "scribuscore.h"
 #include "selection.h"
 #include "stylecombos.h"
-#include "styleselect.h"
-#include "tabmanager.h"
 #include "undomanager.h"
-#include "units.h"
-#include "util.h"
-#include "util_math.h"
 #include "langmgr.h"
 
 //using namespace std;
@@ -55,7 +47,7 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 {
 	setupUi(this);
 
-	fontSize->setPrefix( "" );
+	fontSize->setPrefix("");
 	
 	iconSetChange();
 

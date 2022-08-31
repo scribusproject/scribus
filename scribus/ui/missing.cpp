@@ -17,9 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "fontcombo.h"
 #include "iconmanager.h"
 #include "prefsmanager.h"
-#include "scpage.h"
 #include "scribusdoc.h"
-#include "util.h"
 
 MissingFont::MissingFont( QWidget* parent, const QString& fon, ScribusDoc* doc ) : QDialog( parent )
 {

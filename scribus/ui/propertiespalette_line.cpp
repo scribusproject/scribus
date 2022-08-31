@@ -14,22 +14,17 @@ for which a new license (GPL+exception) is in place.
 #include <QSignalBlocker>
 
 #include "arrowchooser.h"
-#include "commonstrings.h"
 #include "dasheditor.h"
 #include "iconmanager.h"
 #include "localemgr.h"
 #include "pageitem.h"
-#include "pageitem_textframe.h"
-#include "sccolorengine.h"
-#include "scraction.h"
+#include "scribus.h"
 #include "scribusapp.h"
-#include "scribuscore.h"
+#include "scribusdoc.h"
 #include "selection.h"
 #include "ui/propertiespalette_utils.h"
-#include "undomanager.h"
 #include "units.h"
 #include "util.h"
-#include "util_math.h"
 
 
 //using namespace std;

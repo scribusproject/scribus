@@ -35,8 +35,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "canvasgesture_rulermove.h"
 #include "hruler.h"
-#include "scpage.h"
-
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"

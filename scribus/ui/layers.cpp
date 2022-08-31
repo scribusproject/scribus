@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scrspinbox.h"
 #include "undomanager.h"
 
-LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette(parent, "Layers", Qt::WindowFlags()), m_Doc(nullptr)
+LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette(parent, "Layers", Qt::WindowFlags())
 {
 	setObjectName(QString::fromLocal8Bit("Layers"));
 	setMinimumSize( QSize(220, 240) );

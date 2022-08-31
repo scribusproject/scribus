@@ -26,14 +26,9 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
-#include "commonstrings.h"
 #include "sccolorengine.h"
-#include "scraction.h"
 #include "scribusdoc.h"
-#include "selection.h"
-#include "units.h"
 #include "util.h"
-#include "util_math.h"
 
 //using namespace std;
 

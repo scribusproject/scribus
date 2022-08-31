@@ -25,8 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include <QSignalBlocker>
 
 #include "guidemanager.h"
-
-#include "commonstrings.h"
 #include "guidesdelegate.h"
 #include "guidesmodel.h"
 #include "scpage.h"
@@ -36,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 #include "units.h"
-#include "util.h"
 
 
 GuideManager::GuideManager(QWidget* parent) :

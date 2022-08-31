@@ -15,20 +15,15 @@ for which a new license (GPL+exception) is in place.
 #include <QLocale>
 #include <QSignalBlocker>
 
-#include "commonstrings.h"
 #include "localemgr.h"
 #include "pageitem.h"
 #include "propertiespalette_utils.h"
-#include "sccolorengine.h"
 #include "scribuscore.h"
-#include "scraction.h"
 #include "scribusapp.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "units.h"
 #include "undomanager.h"
-#include "util.h"
-#include "util_math.h"
 
 PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(parent)
 {

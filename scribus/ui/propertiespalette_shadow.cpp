@@ -13,18 +13,12 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 
 #include "commonstrings.h"
-#include "localemgr.h"
 #include "pageitem.h"
-#include "propertiespalette_utils.h"
-#include "sccolorengine.h"
-#include "scraction.h"
+#include "scribus.h"
 #include "scribusapp.h"
-#include "scribuscore.h"
+#include "scribusdoc.h"
 #include "selection.h"
-#include "undomanager.h"
 #include "units.h"
-#include "util.h"
-#include "util_math.h"
 
 PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeWidget(parent)
 {

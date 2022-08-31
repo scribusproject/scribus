@@ -11,16 +11,10 @@
 #include "pageitem.h"
 #include "boxes.h"
 #include "appmodes.h"
-#include "qapplication.h"
-#include "pageitem_textframe.h"
 #include "scribusdoc.h"
-#include "prefsmanager.h"
-#include "sccolorengine.h"
-#include "colorblind.h"
 #include "textlayoutpainter.h"
 #include "screenpainter.h"
 #include "itextcontext.h"
-#include "itextsource.h"
 
 using namespace icu;
 

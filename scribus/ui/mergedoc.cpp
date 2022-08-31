@@ -12,7 +12,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scconfig.h"
-#include "scpaths.h"
 #include "ui/customfdialog.h"
 
 #include <QApplication>

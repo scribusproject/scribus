@@ -19,13 +19,9 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <QStringView>
 
-#include "commonstrings.h"
 #include "iconmanager.h"
-#include "pagelayout.h"
 #include "pagepalette_widgets.h"
-#include "scpage.h"
 #include "scribusapp.h"
-#include "ui/scmessagebox.h"
 
 
 /* IconItems Code */

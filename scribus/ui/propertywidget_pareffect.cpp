@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribusdoc.h"
 #include "selection.h"
-#include "ui/sctreewidget.h"
 #include "util.h"
 
 PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(parent)

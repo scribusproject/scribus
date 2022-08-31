@@ -59,9 +59,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefsmanager.h"
 #include "scribuscore.h"
-#include "util_debug.h"
 #include "iconmanager.h"
-#include "util.h"
 
 /*! \brief XML parsed for documentation history.
 This is small helper class which reads saved bookmarks configuration
