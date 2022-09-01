@@ -3756,6 +3756,13 @@ void SlaOutputDev::getPenState(GfxState *state)
 			m_lineJoin = Qt::BevelJoin;
 			break;
 	}
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 9, 0)
+	const auto& dashPattern = state->getLineDash(&m_dashOffset);
+	QVector<double> pattern(dashPattern.size());
+	for (size_t i = 0; i < dashPattern.size(); ++i)
+		pattern[i] = dashPattern[i];
+	m_dashValues = pattern;
+#else
 	double *dashPattern;
 	int dashLength;
 	state->getLineDash(&dashPattern, &dashLength, &m_dashOffset);
@@ -3763,6 +3770,7 @@ void SlaOutputDev::getPenState(GfxState *state)
 	for (int i = 0; i < dashLength; ++i)
 		pattern[i] = dashPattern[i];
 	m_dashValues = pattern;
+#endif
 }
 
 int SlaOutputDev::getBlendMode(GfxState *state)
