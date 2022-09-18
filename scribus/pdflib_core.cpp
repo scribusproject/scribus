@@ -5005,7 +5005,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 						tmp += "q\n";
 						tmp += tmpOut;
 						tmp += SetClipPath(ite);
-						tmp += "h\nS\n";
+						tmp += "S\n";
 						tmp += "Q\n";
 					}
 					else if (ite->lineColor() != CommonStrings::None)
