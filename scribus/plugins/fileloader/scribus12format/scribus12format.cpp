@@ -772,7 +772,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	if (elem.hasAttribute("Version"))
 		newVersion = true;
 	QDomNode docNode = elem.firstChild();
-	if (m_mwProgressBar!=nullptr)
+	if (m_mwProgressBar != nullptr)
 	{
 		m_mwProgressBar->setMaximum(docNode.childNodes().count());
 		m_mwProgressBar->setValue(0);
@@ -906,7 +906,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 		while (!pageNode.isNull())
 		{
 			ObCount++;
-			if (m_mwProgressBar!=nullptr)
+			if (m_mwProgressBar != nullptr)
 				m_mwProgressBar->setValue(ObCount);
 			QDomElement pg = pageNode.toElement();
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
@@ -1376,7 +1376,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	}
 	
 	setCurrentComboItem(m_ScMW->unitSwitcher, unitGetStrFromIndex(m_Doc->unitIndex()));
-	if (m_mwProgressBar!=nullptr)
+	if (m_mwProgressBar != nullptr)
 		m_mwProgressBar->setValue(docNode.childNodes().count());
 
 	ScMessageBox::warning(ScCore->primaryMainWindow(),
@@ -1386,9 +1386,6 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	
 	return true;
 //end old ReadDoc
-	
-	
-	//return false;
 }
 
 bool Scribus12Format::saveFile(const QString & /* fileName */, const FileFormat & /* fmt */)

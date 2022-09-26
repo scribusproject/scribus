@@ -222,7 +222,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	int firstPage = 0;
 	int layerToSetActive = 0;
 	
-	if (m_mwProgressBar!=nullptr)
+	if (m_mwProgressBar != nullptr)
 	{
 		m_mwProgressBar->setMaximum(ioDevice->size());
 		m_mwProgressBar->setValue(0);
@@ -790,11 +790,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	}
 
 	// start auto save timer if needed
-	if (m_Doc->autoSave()  && ScCore->usingGUI())
+	if (m_Doc->autoSave() && ScCore->usingGUI())
 		m_Doc->restartAutoSaveTimer();
-//		m_Doc->autoSaveTimer->start(m_Doc->autoSaveTime());
 	
-	if (m_mwProgressBar!=nullptr)
+	if (m_mwProgressBar != nullptr)
 		m_mwProgressBar->setValue(reader.characterOffset());
 
 	ScMessageBox::warning(ScCore->primaryMainWindow(),
