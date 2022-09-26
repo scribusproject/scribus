@@ -796,8 +796,13 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	
 	if (m_mwProgressBar!=nullptr)
 		m_mwProgressBar->setValue(reader.characterOffset());
+
+	ScMessageBox::warning(ScCore->primaryMainWindow(),
+						  CommonStrings::trWarning,
+						  tr("You have opened a file produced by Scribus 1.3.4 - 1.3.9, or 1.4.x.\n"
+							 "If you save it in this version, it will no longer be readable by older Scribus versions."));
+
 	return true;
-//	return false;
 }
 
 // Low level plugin API
