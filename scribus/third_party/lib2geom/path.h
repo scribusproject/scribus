@@ -350,13 +350,18 @@ private:
 
 template <typename IteratorImpl>
 class BaseIterator
-: public std::iterator<std::forward_iterator_tag, Curve const>
 {
 public:
   BaseIterator() {}
 
   // default construct
   // default copy
+
+  using iterator_category = std::forward_iterator_tag;
+  using value_type = Curve const;
+  using difference_type = ptrdiff_t;
+  using pointer = Curve const*;
+  using reference = Curve const&;
 
   bool operator==(BaseIterator const &other) {
     return other.impl_ == impl_;
@@ -388,11 +393,16 @@ private:
 
 template <typename Iterator>
 class DuplicatingIterator
-: public std::iterator<std::input_iterator_tag, Curve *>
 {
 public:
   DuplicatingIterator() {}
   DuplicatingIterator(Iterator const &iter) : impl_(iter) {}
+
+  using iterator_category = std::input_iterator_tag;
+  using value_type = Curve*;
+  using difference_type = ptrdiff_t;
+  using pointer = Curve*;
+  using reference = Curve*&;
 
   bool operator==(DuplicatingIterator const &other) {
     return other.impl_ == impl_;

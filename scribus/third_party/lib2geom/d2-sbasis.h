@@ -44,10 +44,15 @@ Piecewise<D2<SBasis> > force_continuity(Piecewise<D2<SBasis> > const &f,
                                         bool closed=false);
 
 class CoordIterator
-: public std::iterator<std::input_iterator_tag, SBasis const>
 {
 public:
   CoordIterator(std::vector<D2<SBasis> >::const_iterator const &iter, unsigned d) : impl_(iter), ix_(d) {}
+
+  using iterator_category = std::input_iterator_tag;
+  using value_type = SBasis const;
+  using difference_type = ptrdiff_t;
+  using pointer = SBasis const*;
+  using reference = SBasis const&;
 
   inline bool operator==(CoordIterator const &other) { return other.impl_ == impl_; }
   inline bool operator!=(CoordIterator const &other) { return other.impl_ != impl_; }
