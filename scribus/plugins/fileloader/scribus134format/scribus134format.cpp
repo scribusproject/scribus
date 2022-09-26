@@ -121,7 +121,7 @@ void Scribus134Format::registerFormats()
 
 bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
-	QByteArray docBytes("");
+	QByteArray docBytes;
 	if (fileName.right(2) == "gz")
 	{
 		QFile file(fileName);
@@ -796,8 +796,13 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	
 	if (m_mwProgressBar!=nullptr)
 		m_mwProgressBar->setValue(reader.characterOffset());
+
+	ScMessageBox::warning(ScCore->primaryMainWindow(),
+						  CommonStrings::trWarning,
+						  tr("You have opened a file produced by Scribus 1.3.4 - 1.3.9, or 1.4.x.\n"
+							 "If you save it in this version, it will no longer be readable by older Scribus versions."));
+
 	return true;
-//	return false;
 }
 
 // Low level plugin API
@@ -2500,7 +2505,6 @@ bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 		}
 		if (ch == SpecialChars::PARSEP) {
 			ParagraphStyle pstyle;
-			// Qt4 if (last->ParaStyle >= 0) {
 			if (!last->ParaStyle.isEmpty()) {
 				pstyle.setParent( last->ParaStyle );
 			}
@@ -2514,7 +2518,7 @@ bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 	obj->itemText.setCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
 	last->StyleStart = obj->itemText.length();
 /*
-	QString dbg("");
+	QString dbg;
 	for (int i=0; i < obj->itemText.length(); ++i)
 	{
 		dbg += obj->itemText.text(i,1);

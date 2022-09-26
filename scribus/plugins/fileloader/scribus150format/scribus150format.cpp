@@ -128,7 +128,7 @@ void Scribus150Format::registerFormats()
 
 bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
-	QByteArray docBytes("");
+	QByteArray docBytes;
 	if (fileName.right(2) == "gz")
 	{
 		QFile file(fileName);
@@ -158,7 +158,7 @@ bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & file
 
 bool Scribus150Format::paletteSupported(QIODevice* /* file */, const QString & fileName) const
 {
-	QByteArray docBytes("");
+	QByteArray docBytes;
 	if (fileName.right(2) == "gz")
 	{
 		QFile file(fileName);
@@ -5179,7 +5179,7 @@ bool Scribus150Format::readItemText(StoryText& story, ScXmlStreamAttributes& att
 	story.setCharStyle(last->StyleStart, story.length()-last->StyleStart, last->Style);
 	last->StyleStart = story.length();
 /*
-	QString dbg("");
+	QString dbg;
 	for (int i=0; i < story.length(); ++i)
 	{
 		dbg += story.text(i,1);

@@ -135,7 +135,7 @@ bool Scribus13Format::fileSupported(QIODevice* /* file */, const QString & fileN
 
 QString Scribus13Format::readSLA(const QString & fileName)
 {
-	QByteArray docBytes("");
+	QByteArray docBytes;
 	if (fileName.right(2) == "gz")
 	{
 		QFile file(fileName);
@@ -152,7 +152,7 @@ QString Scribus13Format::readSLA(const QString & fileName)
 		// Not gzip encoded, just load it
 		loadRawText(fileName, docBytes);
 	}
-	QString docText("");
+	QString docText;
 	if (docBytes.left(16) == "<SCRIBUSUTF8NEW " && !docBytes.left(35).contains("Version=\"1.3.4"))
 		docText = QString::fromUtf8(docBytes);
 	else

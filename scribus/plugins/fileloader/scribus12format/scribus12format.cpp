@@ -171,7 +171,7 @@ QString Scribus12Format::readSLA(const QString & fileName)
 		// Not gzip encoded, just load it
 		loadRawText(fileName, docBytes);
 	}
-	QString docText("");
+	QString docText;
 	if (docBytes.left(16) != "<SCRIBUSUTF8NEW ") // Not a 1.3.x doc
 	{
 		if (docBytes.left(12) == "<SCRIBUSUTF8") // 1.2.x UTF8 doc
