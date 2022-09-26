@@ -1191,9 +1191,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	// start auto save timer if needed
 	if (m_Doc->autoSave() && ScCore->usingGUI())
 		m_Doc->restartAutoSaveTimer();
-//		m_Doc->autoSaveTimer->start(m_Doc->autoSaveTime());
 
-	if (m_mwProgressBar!=nullptr)
+	if (m_mwProgressBar != nullptr)
 		m_mwProgressBar->setValue(docNode.childNodes().count());
 
 	ScMessageBox::warning(ScCore->primaryMainWindow(),
@@ -1202,7 +1201,6 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						     "If you save it in this version, it will no longer be readable by older Scribus versions."));
 
 	return true;
-// 	return false;
 }
 
 // Low level plugin API

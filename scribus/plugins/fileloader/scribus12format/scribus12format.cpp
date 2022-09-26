@@ -1375,7 +1375,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	}
 	
 	setCurrentComboItem(m_ScMW->unitSwitcher, unitGetStrFromIndex(m_Doc->unitIndex()));
-	if (m_mwProgressBar!=nullptr)
+	if (m_mwProgressBar != nullptr)
 		m_mwProgressBar->setValue(docNode.childNodes().count());
 
 	ScMessageBox::warning(ScCore->primaryMainWindow(),
@@ -1385,9 +1385,6 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	
 	return true;
 //end old ReadDoc
-	
-	
-	//return false;
 }
 
 bool Scribus12Format::saveFile(const QString & /* fileName */, const FileFormat & /* fmt */)
