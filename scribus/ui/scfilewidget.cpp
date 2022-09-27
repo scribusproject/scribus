@@ -40,6 +40,12 @@ ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 	QUrl volumes(QUrl::fromLocalFile("/Volumes"));
 	if (!urls.contains(volumes))
 		urls << volumes;
+	QUrl home(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)));
+	if (!urls.contains(home))
+		urls << home;
+	QUrl documents(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)));
+	if (!urls.contains(documents))
+		urls << documents;
 	QUrl dt(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation)));
 	if (!urls.contains(dt))
 		urls << dt;
@@ -113,18 +119,17 @@ void ScFileWidget::gotoParentDirectory()
 void ScFileWidget::gotoSelectedDirectory()
 {
 	QStringList s(selectedFiles());
-	if (!s.isEmpty())
-	{
-		QFileInfo fi(s.first());
-//		qDebug()<<s.first()<<fi.absoluteFilePath();
-		if (fi.isDir())
-			setDirectory(fi.absoluteFilePath());
-	}
+	if (s.isEmpty())
+		return;
+	QFileInfo fi(s.first());
+//	qDebug()<<s.first()<<fi.absoluteFilePath();
+	if (fi.isDir())
+		setDirectory(fi.absoluteFilePath());
 }
 
 void ScFileWidget::gotoDesktopDirectory()
 {
-	QString dp=QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+	QString dp = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
 	QFileInfo fi(dp);
 	if (fi.exists())
 		setDirectory(dp);
@@ -132,7 +137,7 @@ void ScFileWidget::gotoDesktopDirectory()
 
 void ScFileWidget::gotoHomeDirectory()
 {
-	QString dp=QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+	QString dp = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 	QFileInfo fi(dp);
 	if (fi.exists())
 		setDirectory(dp);
