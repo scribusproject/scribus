@@ -40,6 +40,12 @@ ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 	QUrl volumes(QUrl::fromLocalFile("/Volumes"));
 	if (!urls.contains(volumes))
 		urls << volumes;
+	QUrl home(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)));
+	if (!urls.contains(home))
+		urls << home;
+	QUrl documents(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)));
+	if (!urls.contains(documents))
+		urls << documents;
 	QUrl dt(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation)));
 	if (!urls.contains(dt))
 		urls << dt;

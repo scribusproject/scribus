@@ -507,10 +507,11 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	QString text(index.data(Qt::DisplayRole).toString());
 	QString wh = QString("-w%1h%2").arg(pixmapW).arg(pixmapH);
 	QPixmap cachedPixmap;
-	QString cacheKey = text + wh;
+	QString cacheKey(text + wh);
+	QString findKey(cacheKey);
 	if (option.state & QStyle::State_Selected)
-		cacheKey += "-selected";
-	if (QPixmapCache::find(cacheKey, &cachedPixmap))
+		findKey += "-selected";
+	if (QPixmapCache::find(findKey, &cachedPixmap))
 	{
 		painter->drawPixmap(option.rect.x(), option.rect.y(), cachedPixmap);
 		return;
