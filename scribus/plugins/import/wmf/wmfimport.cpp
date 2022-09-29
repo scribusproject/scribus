@@ -10,11 +10,12 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "wmfimport.h"
 
-#include <QCursor>
-#include <QDrag>
 #include <QBuffer>
+#include <QCursor>
 #include <QDataStream>
+#include <QDrag>
 #include <QFile>
+#include <QGuiApplication>
 #include <QMimeData>
 #include <QPainterPath>
 
@@ -22,20 +23,13 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "loadsaveplugin.h"
 #include "pageitem.h"
-#include "prefsfile.h"
-#include "prefsmanager.h"
 #include "scmimedata.h"
-#include "scraction.h"
 #include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "ui/customfdialog.h"
-#include "ui/propertiespalette.h"
-#include "ui/scmwmenumanager.h"
 #include "undomanager.h"
-#include "util.h"
 #include "util_math.h"
 
 #include "wmfstruct.h"

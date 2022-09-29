@@ -24,12 +24,12 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 #include "importdrw.h"
-
 #include "commonstrings.h"
 #include "loadsaveplugin.h"
 #include "pageitem_imageframe.h"
 #include "prefsmanager.h"
 #include "sccolorengine.h"
+#include "scconfig.h"
 #include "scmimedata.h"
 #include "scpattern.h"
 #include "scribusXml.h"

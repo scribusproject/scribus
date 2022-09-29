@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QApplication>
 #include <QCursor>
 #include <QDir>
 #include <QDrag>
@@ -22,11 +23,9 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "fpointarray.h"
 #include "pageitem.h"
-#include "pluginmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "prefstable.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
 #include "scmimedata.h"
@@ -36,15 +35,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "serializer.h"
 #include "stylestack.h"
 #include "third_party/zip/scribus_zip.h"
 #include "ui/customfdialog.h"
-#include "ui/propertiespalette.h"
 #include "ui/scmessagebox.h"
-#include "ui/scmwmenumanager.h"
 #include "undomanager.h"
-#include "util.h"
 #include "util_math.h"
 
 

@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "importcgm.h"
 #include "loadsaveplugin.h"
 #include "prefsmanager.h"
+#include "scconfig.h"
 #include "scmimedata.h"
 #include "scribusXml.h"
 #include "scribuscore.h"
@@ -63,7 +64,7 @@ quint32 ScBitReader::getUInt(uint size)
 		{
 			actBit = 7;
 			actByte++;
-			if (actByte >= buffer.count())
+			if (actByte >= buffer.size())
 				break;
 			dat = buffer[actByte];
 		}
@@ -73,7 +74,7 @@ quint32 ScBitReader::getUInt(uint size)
 
 void ScBitReader::alignToWord()
 {
-	if (actByte < buffer.count() - 1)
+	if (actByte < buffer.size() - 1)
 	{
 		actByte++;
 		actByte += actByte % 2;

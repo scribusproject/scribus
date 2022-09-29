@@ -26,10 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "loadsaveplugin.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
 #include "prefsmanager.h"
-#include "prefstable.h"
 #include "qtiocompressor.h"
 #include "rawimage.h"
 #include "scclocale.h"
@@ -45,15 +42,11 @@ for which a new license (GPL+exception) is in place.
 #include "sctextstream.h"
 #include "selection.h"
 #include "text/specialchars.h"
-#include "ui/customfdialog.h"
 #include "ui/missing.h"
 #include "ui/multiprogressdialog.h"
-#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "util.h"
-#include "util_color.h"
 #include "util_file.h"
-#include "util_formats.h"
 #include "util_ghostscript.h"
 #include "util_math.h"
 
@@ -1165,7 +1158,7 @@ QStringList AIPlug::getStrings(const QString& data)
 	bool paran = false;
 	bool skip = false;
 	int digitCount = 0;
-	for (int i = 0; i < data.count(); i++)
+	for (int i = 0; i < data.size(); i++)
 	{
 		tmp = data[i];
 		if (skip)
@@ -1228,7 +1221,7 @@ void AIPlug::getCommands(const QString& data, QStringList &commands)
 	bool paran = false;
 	//bool arra = false;
 	bool skip = false;
-	for (int a = 0; a < data.count(); a++)
+	for (int a = 0; a < data.size(); a++)
 	{
 		tmp = data[a];
 		if (skip)

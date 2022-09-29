@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "ui/multiprogressdialog.h"
 #include "prefsmanager.h"
+#include "scconfig.h"
 #include "scmimedata.h"
 #include "scpattern.h"
 #include "scribus.h"

@@ -1659,7 +1659,7 @@ void ScPainter::drawText(const QRectF& area, const QString& text, bool filled, i
 		CharStyle style(m_font, m_fontSize * 10);
 		StoryText story;
 		story.insertChars(textList[a]);
-		story.setCharStyle(0, textList[a].count(), style);
+		story.setCharStyle(0, textList[a].size(), style);
 
 		TextShaper textShaper(story, 0);
 		const QList<GlyphCluster> glyphRuns = textShaper.shape(0, story.length()).glyphs();

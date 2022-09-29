@@ -66,7 +66,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_group.h"
 #include "pageitem_table.h"
 #include "pdfoptions.h"
-#include "prefscontext.h"
 #include "prefsmanager.h"
 #include "sccolor.h"
 #include "sccolorengine.h"
@@ -81,7 +80,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scstreamfilter_flate.h"
-#include "scstreamfilter_rc4.h"
 #include "tableutils.h"
 #include "util.h"
 #include "util_file.h"
@@ -6828,7 +6826,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 		}
 		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
 		QByteArray dat;
-		for (int vd = 0; vd < vertStreamT.count(); vd++)
+		for (int vd = 0; vd < vertStreamT.size(); vd++)
 		{
 			dat += vertStreamT[vd];
 		}
@@ -6959,7 +6957,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 	}
 	PutDoc("/Decode [-40000 40000 -40000 40000 " + entx + "]\n");
 	QByteArray dat;
-	for (int vd = 0; vd < vertStream.count(); vd++)
+	for (int vd = 0; vd < vertStream.size(); vd++)
 	{
 		dat += vertStream[vd];
 	}
@@ -7159,7 +7157,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 		}
 		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
 		QByteArray dat;
-		for (int vd = 0; vd < vertStreamT.count(); vd++)
+		for (int vd = 0; vd < vertStreamT.size(); vd++)
 		{
 			dat += vertStreamT[vd];
 		}
@@ -7287,7 +7285,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 	}
 	PutDoc("/Decode [-40000 40000 -40000 40000 " + entx + "]\n");
 	QByteArray dat;
-	for (int vd = 0; vd < vertStream.count(); vd++)
+	for (int vd = 0; vd < vertStream.size(); vd++)
 	{
 		dat += vertStream[vd];
 	}
@@ -7519,7 +7517,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 		}
 		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
 		QByteArray dat;
-		for (int vd = 0; vd < vertStreamT.count(); vd++)
+		for (int vd = 0; vd < vertStreamT.size(); vd++)
 		{
 			dat += vertStreamT[vd];
 		}
@@ -7720,7 +7718,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 	}
 	PutDoc("/Decode [-40000 40000 -40000 40000 " + entx + "]\n");
 	QByteArray dat;
-	for (int vd = 0; vd < vertStream.count(); vd++)
+	for (int vd = 0; vd < vertStream.size(); vd++)
 	{
 		dat += vertStream[vd];
 	}
@@ -7882,7 +7880,7 @@ bool PDFLibCore::PDF_TensorGradientFill(QByteArray& output, PageItem *c)
 		vst << encode16dVal(c->GrCol4transp) << encode16dVal(c->GrCol1transp) << encode16dVal(c->GrCol2transp) << encode16dVal(c->GrCol3transp);
 		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
 		QByteArray dat;
-		for (int vd = 0; vd < vertStreamT.count(); vd++)
+		for (int vd = 0; vd < vertStreamT.size(); vd++)
 		{
 			dat += vertStreamT[vd];
 		}
@@ -8040,7 +8038,7 @@ bool PDFLibCore::PDF_TensorGradientFill(QByteArray& output, PageItem *c)
 	}
 	PutDoc("/Decode [-40000 40000 -40000 40000 " + entx + "]\n");
 	QByteArray dat;
-	for (int vd = 0; vd < vertStream.count(); vd++)
+	for (int vd = 0; vd < vertStream.size(); vd++)
 	{
 		dat += vertStream[vd];
 	}

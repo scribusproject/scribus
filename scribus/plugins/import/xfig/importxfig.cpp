@@ -24,30 +24,18 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "pageitem.h"
 #include "pagesize.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
 #include "prefsmanager.h"
-#include "prefstable.h"
-#include "rawimage.h"
-#include "scclocale.h"
-#include "sccolorengine.h"
 #include "scconfig.h"
 #include "scmimedata.h"
-#include "scpaths.h"
-#include "scpattern.h"
 #include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "sctextstream.h"
 #include "selection.h"
-#include "ui/customfdialog.h"
-#include "ui/missing.h"
 #include "ui/multiprogressdialog.h"
-#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "util.h"
-#include "util_formats.h"
 #include "util_math.h"
 
 XfigPlug::XfigPlug(ScribusDoc* doc, int flags)
@@ -1203,7 +1191,7 @@ QString XfigPlug::cleanText(const QString& text)
 	QString tmp;
 	bool sep = false;
 	int sepcount = 0;
-	for (int a = 1; a < text.count(); ++a)
+	for (int a = 1; a < text.size(); ++a)
 	{
 		QString ch = text.mid(a,1);
 		if (sep)

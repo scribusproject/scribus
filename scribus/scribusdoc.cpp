@@ -47,7 +47,6 @@ for which a new license (GPL+exception) is in place.
 //#include <qtconcurrentmap.h>
 
 #include "actionmanager.h"
-#include "text/boxes.h"
 #include "canvas.h"
 #include "colorblind.h"
 #include "colormgmt/sccolormgmtenginefactory.h"
@@ -57,7 +56,6 @@ for which a new license (GPL+exception) is in place.
 #include "filewatcher.h"
 #include "fpoint.h"
 #include "hyphenator.h"
-#include "langmgr.h"
 #include "notesstyles.h"
 #include "numeration.h"
 #include "pageitem.h"
@@ -85,11 +83,8 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "resourcecollection.h"
-#include "scclocale.h"
 #include "sccolorengine.h"
-#include "sclimits.h"
 #include "scpage.h"
-#include "scpainter.h"
 #include "scraction.h"
 #include "scribusXml.h"
 #include "scribuscore.h"

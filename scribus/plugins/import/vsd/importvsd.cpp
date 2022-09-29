@@ -23,16 +23,9 @@ for which a new license (GPL+exception) is in place.
 #include <libvisio/libvisio.h>
 
 #include "commonstrings.h"
-#include "fileloader.h"
 #include "loadsaveplugin.h"
-#include "pagesize.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
 #include "prefsmanager.h"
-#include "prefstable.h"
-#include "rawimage.h"
 #include "scclocale.h"
-#include "sccolorengine.h"
 #include "scconfig.h"
 #include "scmimedata.h"
 #include "scpaths.h"

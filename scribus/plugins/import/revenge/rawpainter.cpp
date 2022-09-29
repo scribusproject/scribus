@@ -20,29 +20,17 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "fileloader.h"
 #include "loadsaveplugin.h"
-#include "pagesize.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
 #include "prefsmanager.h"
-#include "prefstable.h"
-#include "rawimage.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
-#include "scmimedata.h"
-#include "scpaths.h"
 #include "scpattern.h"
 #include "scribus.h"
-#include "scribusXml.h"
-#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "sctextstream.h"
 #include "selection.h"
 #include "ui/missing.h"
-#include "undomanager.h"
 #include "util.h"
-#include "util_formats.h"
 #include "util_math.h"
 #include "rawpainter.h"
 
@@ -1759,7 +1747,7 @@ void RawPainter::insertText(const librevenge::RVNGString &text)
 	if (m_currTextItem)
 	{
 		int posC = m_currTextItem->itemText.length();
-		if (actText.count() > 0)
+		if (actText.size() > 0)
 		{
 			actText.replace(QChar(10), SpecialChars::LINEBREAK);
 			actText.replace(QChar(12), SpecialChars::FRAMEBREAK);
