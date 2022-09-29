@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #define PDFANALYZER_H
 
 #include <QList>
+#include <QObject>
 #include <QPair>
 #include <QString>
 #include <QTransform>

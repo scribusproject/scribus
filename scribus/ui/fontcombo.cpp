@@ -517,8 +517,8 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 
 	const ScFace& scFace = getScFace(this->parent()->metaObject()->className(), text);
 
-	QPixmap  pixmap(pixmapW, pixmapH);
-	QPixmap  invPixmap(pixmapW, pixmapH);
+	QPixmap pixmap(pixmapW, pixmapH);
+	QPixmap invPixmap(pixmapW, pixmapH);
 	pixmap.setDevicePixelRatio(pixelRatio);
 	invPixmap.setDevicePixelRatio(pixelRatio);
 

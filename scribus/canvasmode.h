@@ -23,6 +23,7 @@
 #include <QBrush>
 #include <QCursor>
 #include <QMap>
+#include <QObject>
 #include <QPen>
 #include <QPointF>
 
