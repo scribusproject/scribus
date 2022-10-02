@@ -12,11 +12,9 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QStringList>
 
-#include "urllauncher.h"
 #include "prefsmanager.h"
-
 #include "scribuscore.h"
-#include "util.h"
+#include "urllauncher.h"
 
 UrlLauncher& UrlLauncher::instance()
 {

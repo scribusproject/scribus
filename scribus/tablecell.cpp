@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "scribusdoc.h"
-#include "scpainter.h"
 #include "tableutils.h"
 
 #include "tablecell.h"

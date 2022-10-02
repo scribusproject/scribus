@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDataStream>
 #include <QByteArray>
 
-#include "util.h"
 #include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"

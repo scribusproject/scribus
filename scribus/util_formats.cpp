@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QMapIterator>
 #include <QObject>
 
-#include "commonstrings.h"
 #include "util_formats.h"
 
 #ifdef GMAGICK_FOUND

@@ -45,7 +45,6 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "localemgr.h"
 #include "prefsfile.h"
-#include "prefsmanager.h"
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "upgradechecker.h"

@@ -6,9 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "notesstyles.h"
-#include "marks.h"
 #include "textnote.h"
-#include "util.h"
 
 void TextNote::clearSaxedText()
 {

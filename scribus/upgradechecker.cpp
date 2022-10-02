@@ -19,10 +19,8 @@ for which a new license (GPL+exception) is in place.
 #include <iostream>
 #include <thread>
 
-#include "prefsmanager.h"
-#include "scpaths.h"
 #include "api/api_application.h"
-#include "scribuscore.h"
+#include "scpaths.h"
 #include "upgradechecker.h"
 
 UpgradeChecker::UpgradeChecker()

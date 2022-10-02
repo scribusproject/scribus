@@ -24,10 +24,10 @@ for which a new license (GPL+exception) is in place.
   *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
   ***************************************************************************/
 
-#include "textwriter.h"
 #include "pageitem.h"
 #include "scribusdoc.h"
 #include "text/storytext.h"
+#include "textwriter.h"
 
 TextWriter::TextWriter(ScribusDoc *doc)
 {

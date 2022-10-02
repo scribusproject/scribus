@@ -36,7 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include "palettes/paletteloader_ps.h"
 #include "palettes/paletteloader_sk1.h"
 #include "palettes/paletteloader_swatchbook.h"
-#include "plugins/formatidlist.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
 #include "scconfig.h"

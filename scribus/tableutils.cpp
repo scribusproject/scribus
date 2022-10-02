@@ -9,10 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <QPointF>
 
-#include "tableborder.h"
-
-#include "tableutils.h"
 #include "pageitem_table.h"
+#include "tableborder.h"
+#include "tableutils.h"
 
 namespace TableUtils
 {

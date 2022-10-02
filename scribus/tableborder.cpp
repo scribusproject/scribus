@@ -15,8 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 #include <QtAlgorithms>
 
-#include "commonstrings.h"
-
 #include "tableborder.h"
 
 /*

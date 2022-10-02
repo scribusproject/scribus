@@ -11,15 +11,11 @@ for which a new license (GPL+exception) is in place.
 ScASCII85EncodeFilter::ScASCII85EncodeFilter(QDataStream* stream) 
 					 : ScStreamFilter(stream)
 {
-	m_buffer_pending     = 0;
-	m_four_tuple_pending = 0;
 }
 
 ScASCII85EncodeFilter::ScASCII85EncodeFilter(ScStreamFilter* filter)
 					 : ScStreamFilter(filter)
 {
-	m_buffer_pending     = 0;
-	m_four_tuple_pending = 0;
 }
 
 bool ScASCII85EncodeFilter::openFilter ()

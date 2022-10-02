@@ -154,7 +154,7 @@ bool ScriXmlDoc::readElemToLayer(const QString& fileNameOrData, ScribusDoc *doc,
 QString ScriXmlDoc::writeElem(ScribusDoc *doc, Selection* selection)
 {
 	if (selection->count()==0)
-		return "";
+		return QString();
 	double xp, yp, wp, hp;
 	PageItem *item;
 	QString documentStr;
