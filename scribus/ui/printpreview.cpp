@@ -63,6 +63,7 @@ for which a new license (GPL+exception) is in place.
 
 #if defined(_WIN32)
 #include "scprintengine_gdi.h"
+#include "util_printer.h"
 #endif
 
 #include "ui_printpreviewbase.h"
