@@ -13,9 +13,6 @@
 *                                                                         *
 ***************************************************************************/
 
-
-#include "canvasmode_panning.h"
-
 #include <QCursor>
 #include <QEvent>
 #include <QMouseEvent>
@@ -25,11 +22,9 @@
 
 #include "canvas.h"
 #include "canvasgesture_pan.h"
-#include "fpoint.h"
-#include "fpointarray.h"
-#include "scribusview.h"
+#include "canvasmode_panning.h"
 #include "scribusdoc.h"
-#include "util.h"
+#include "scribusview.h"
 
 CanvasMode_Panning::CanvasMode_Panning(ScribusView* view) : CanvasMode(view) 
 {

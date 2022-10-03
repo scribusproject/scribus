@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QInputDialog>
 #include <QProcess>
 #include <QMessageBox>
-#include "scpaths.h"
+
 #include "prefsstructs.h"
 #include "latexhelpers.h"
 #include "commonstrings.h"

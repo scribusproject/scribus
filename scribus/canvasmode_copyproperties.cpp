@@ -33,8 +33,6 @@
 #include "selection.h"
 #include "selectionrubberband.h"
 #include "ui/contextmenu.h"
-#include "util.h"
-#include "util_math.h"
 
 
 CanvasMode_CopyProperties::CanvasMode_CopyProperties(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 

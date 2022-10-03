@@ -31,12 +31,10 @@ for which a new license (GPL+exception) is in place.
 #include <QVBoxLayout>
 
 #include "annota.h"
-#include "commonstrings.h"
 #include "navigator.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "pageitem.h"
-#include "scfonts.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "util_formats.h"

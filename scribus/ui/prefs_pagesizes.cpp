@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "iconmanager.h"
 #include "pagesize.h"
-#include "prefsmanager.h"
 #include "prefsstructs.h"
 #include "scribusdoc.h"
 #include "ui/prefs_pagesizes.h"

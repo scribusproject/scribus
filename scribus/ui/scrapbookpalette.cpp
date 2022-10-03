@@ -54,7 +54,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "util.h"
-#include "util_color.h"
 #include "util_file.h"
 #include "util_formats.h"
 

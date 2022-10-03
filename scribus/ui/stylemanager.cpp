@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
 #include "shortcutwidget.h"
 #include "smcellstyle.h"
 #include "smlinestyle.h"
-#include "smlinestylewidget.h"
 #include "smreplacedia.h"
 #include "smstyleimport.h"
 #include "smtablestyle.h"

@@ -21,11 +21,11 @@
 
 #include "appmodes.h"
 #include "guidemanagercore.h"
+#include "iconmanager.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "ui/guidemanager.h"
-#include "iconmanager.h"
 
 
 RulerGesture::RulerGesture(ScribusView *view, RulerGesture::Mode mode) :

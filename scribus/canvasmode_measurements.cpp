@@ -13,7 +13,6 @@
 *                                                                         *
 ***************************************************************************/
 
-#include "canvasmode_measurements.h"
 
 #include <QApplication>
 #include <QPainter>
@@ -21,6 +20,7 @@
 
 #include "appmodes.h"
 #include "canvas.h"
+#include "canvasmode_measurements.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "ui/measurements.h"

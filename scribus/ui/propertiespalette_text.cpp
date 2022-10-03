@@ -15,8 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include <QSignalBlocker>
 
 #include "appmodes.h"
-#include "colorcombo.h"
-#include "colorlistbox.h"
 #include "commonstrings.h"
 #include "fontcombo.h"
 #include "iconmanager.h"

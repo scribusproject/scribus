@@ -13,7 +13,6 @@
 *                                                                         *
 ***************************************************************************/
 
-#include "canvasmode_nodeedit.h"
 
 #include <QMenu>
 #include <QMouseEvent>
@@ -22,21 +21,18 @@
 #include "canvas.h"
 #include "canvasgesture_pan.h"
 #include "canvasgesture_rectselect.h"
+#include "canvasmode_nodeedit.h"
 #include "fpoint.h"
 #include "iconmanager.h"
 #include "nodeeditcontext.h"
 #include "pageitem.h"
-#include "scraction.h"
 #include "scribus.h"
-#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "ui/pageselector.h"
-#include "ui/propertiespalette.h"
 #include "ui/scrspinbox.h"
-#include "undomanager.h"
-#include "util_math.h"
+
 
 CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view)
 {

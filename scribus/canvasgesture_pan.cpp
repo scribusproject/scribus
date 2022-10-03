@@ -16,11 +16,10 @@
 #include <QEvent>
 #include <QMouseEvent>
 
-#include "canvasgesture_pan.h"
-
 #include "canvas.h"
-#include "scribusview.h"
+#include "canvasgesture_pan.h"
 #include "iconmanager.h"
+#include "scribusview.h"
 
 PanGesture::PanGesture (CanvasMode* parent) : CanvasGesture(parent)
 {

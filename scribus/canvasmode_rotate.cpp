@@ -13,7 +13,7 @@
 *                                                                         *
 ***************************************************************************/
 
-#include "canvasmode_rotate.h"
+
 
 #include <QMouseEvent>
 #include <QPainter>
@@ -21,19 +21,20 @@
 
 #include "appmodes.h"
 #include "canvas.h"
+#include "canvasmode_rotate.h"
 #include "fpoint.h"
 #include "iconmanager.h"
 #include "pageitem.h"
 #include "prefsmanager.h"
-#include "ui/propertiespalette.h"
-#include "ui/propertiespalette_xyz.h"
-#include "ui/basepointwidget.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "ui/basepointwidget.h"
 #include "ui/contextmenu.h"
 #include "ui/pageselector.h"
+#include "ui/propertiespalette.h"
+#include "ui/propertiespalette_xyz.h"
 #include "ui/scrspinbox.h"
 #include "undomanager.h"
 #include "util_math.h"

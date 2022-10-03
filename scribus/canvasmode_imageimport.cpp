@@ -13,7 +13,7 @@
 *                                                                         *
 ***************************************************************************/
 
-#include "canvasmode_imageimport.h"
+
 
 #include <QApplication>
 #include <QBuffer>
@@ -29,13 +29,12 @@
 
 #include "canvas.h"
 #include "canvasmode.h"
+#include "canvasmode_imageimport.h"
 #include "iconmanager.h"
-#include "prefsmanager.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "ui/contentpalette.h"
 
 CanvasMode_ImageImport::CanvasMode_ImageImport(ScribusView *view) : CanvasMode(view), m_ScMW(view->m_ScMW)
 {

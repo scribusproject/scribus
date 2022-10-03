@@ -48,25 +48,18 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 #include <algorithm>
 
-#include "checkDocument.h"
-#include "cmsettings.h"
 #include "iconmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "prefstable.h"
 #include "printpreviewcreator.h"
 #include "printpreviewcreatorfactory.h"
-#include "pslib.h"
 #include "sccolor.h"
-#include "sccolorengine.h"
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "ui/pageselector.h"
-#include "util.h"
 #include "util_ghostscript.h"
-#include "util_printer.h"
 
 #if defined(_WIN32)
 #include "scprintengine_gdi.h"

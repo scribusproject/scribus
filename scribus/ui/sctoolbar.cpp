@@ -32,11 +32,10 @@ for which a new license (GPL+exception) is in place.
 #include <QStyle>
 #include <QToolButton>
 
-#include "sctoolbar.h"
-
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "sctoolbar.h"
 
 ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, Qt::Orientation o) : QToolBar(name, parent),
 	m_name(QString("ToolBar-%1").arg(prefName)),

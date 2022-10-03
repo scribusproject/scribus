@@ -33,10 +33,6 @@
 #include "appmodes.h"
 #include "canvas.h"
 #include "fpoint.h"
-#include "fpointarray.h"
-#include "pageitem_textframe.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scribus.h"
 #include "scribusdoc.h"
@@ -44,11 +40,7 @@
 #include "selection.h"
 #include "ui/contextmenu.h"
 #include "ui/pageselector.h"
-#include "ui/propertiespalette.h"
-#include "undomanager.h"
-#include "units.h"
-#include "util.h"
-#include "util_math.h"
+#include "ui/scrspinbox.h"
 
 
 

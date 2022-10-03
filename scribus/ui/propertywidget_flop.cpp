@@ -8,7 +8,6 @@ for which a new license (GPL+exception) is in place.
 #include "propertywidget_flop.h"
 
 #include "scribusdoc.h"
-#include "units.h"
 
 PropertyWidget_Flop::PropertyWidget_Flop(QWidget* parent) : QFrame(parent)
 {

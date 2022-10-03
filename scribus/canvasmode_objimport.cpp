@@ -13,23 +13,18 @@
 *                                                                         *
 ***************************************************************************/
 
-
-#include "canvasmode_objimport.h"
-
 #include <QApplication>
 #include <QCursor>
+#include <QDebug>
 #include <QDropEvent>
 #include <QPoint>
 #include <QRect>
-#include <QDebug>
+
 
 #include "appmodes.h"
 #include "canvas.h"
+#include "canvasmode_objimport.h"
 #include "fpoint.h"
-#include "fpointarray.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
-#include "prefsmanager.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -37,8 +32,6 @@
 #include "ui/pageselector.h"
 #include "ui/scrspinbox.h"
 #include "undomanager.h"
-#include "util.h"
-#include "util_math.h"
 
 
 CanvasMode_ObjImport::CanvasMode_ObjImport(ScribusView* view) :

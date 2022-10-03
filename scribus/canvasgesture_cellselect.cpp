@@ -18,12 +18,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "canvas.h"
 #include "fpoint.h"
-#include "pageitem.h"
 #include "pageitem_table.h"
 #include "scribus.h"
 #include "scribusview.h"
 #include "tablecell.h"
-#include "tableutils.h"
 #include "ui/scmwmenumanager.h"
 
 void CellSelect::activate(bool fromGesture)

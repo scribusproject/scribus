@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPointF>
 
 #include "canvas.h"
-#include "fpoint.h"
 #include "pageitem.h"
 #include "pageitem_table.h"
 #include "scribusdoc.h"

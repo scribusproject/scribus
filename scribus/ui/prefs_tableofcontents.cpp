@@ -8,11 +8,10 @@ for which a new license (GPL+exception) is in place.
 #include <QSignalBlocker>
 
 #include "commonstrings.h"
-#include "ui/prefs_tableofcontents.h"
 #include "pagestructs.h"
 #include "prefsstructs.h"
-#include "scpage.h"
 #include "scribusdoc.h"
+#include "ui/prefs_tableofcontents.h"
 #include "util.h"
 
 Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)

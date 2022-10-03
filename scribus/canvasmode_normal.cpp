@@ -14,8 +14,6 @@
 ***************************************************************************/
 
 
-#include "canvasmode_normal.h"
-
 #include <QApplication>
 #include <QButtonGroup>
 #include <QCheckBox>
@@ -37,15 +35,12 @@
 #include "canvasgesture_linemove.h"
 #include "canvasgesture_resize.h"
 #include "canvasgesture_rulermove.h"
+#include "canvasmode_normal.h"
 #include "fileloader.h"
 #include "fpoint.h"
-#include "fpointarray.h"
-#include "hyphenator.h"
 #include "iconmanager.h"
 #include "loadsaveplugin.h"
-#include "pageitem_arc.h"
 #include "pageitem_line.h"
-#include "pageitem_regularpolygon.h"
 #include "plugins/formatidlist.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -60,16 +55,8 @@
 #include "ui/aligndistribute.h"
 #include "ui/contextmenu.h"
 #include "ui/customfdialog.h"
-#include "ui/insertTable.h"
 #include "ui/pageselector.h"
-#include "ui/polyprops.h"
-#include "ui/propertiespalette.h"
-#include "ui/propertiespalette_line.h"
-#include "ui/propertiespalette_text.h"
-#include "ui/propertiespalette_xyz.h"
 #include "undomanager.h"
-#include "util.h"
-#include "util_math.h"
 
 CanvasMode_Normal::CanvasMode_Normal(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {

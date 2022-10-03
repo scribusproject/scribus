@@ -5,16 +5,16 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "ui/prefs_itemtools.h"
-#include "ui/arrowchooser.h"
-#include "ui/linkbutton.h"
-#include "prefsstructs.h"
-#include "scrspinbox.h"
-#include "scribusdoc.h"
-#include "units.h"
 #include "commonstrings.h"
 #include "prefsmanager.h"
+#include "prefsstructs.h"
 #include "sampleitem.h"
+#include "scribusdoc.h"
+#include "scrspinbox.h"
+#include "ui/arrowchooser.h"
+#include "ui/linkbutton.h"
+#include "ui/prefs_itemtools.h"
+#include "units.h"
 
 
 Prefs_ItemTools::Prefs_ItemTools(QWidget* parent, ScribusDoc* /*doc*/)

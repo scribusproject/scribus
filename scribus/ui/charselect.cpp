@@ -11,7 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include "appmodes.h"
 #include "charselect.h"
 #include "charselectenhanced.h"
-#include "commonstrings.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
@@ -20,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "ui/scmessagebox.h"
-#include "util.h"
 #include "iconmanager.h"
 
 CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect")

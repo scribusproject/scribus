@@ -12,16 +12,10 @@ for which a new license (GPL+exception) is in place.
 #include <QTextCodec>
 #include <QTextStream>
 
-#include "downloadmanager/scdlmgr.h"
 #include "iconmanager.h"
 #include "prefs_hyphenator.h"
 #include "prefsstructs.h"
-#include "scpaths.h"
-#include "scribusapp.h"
 #include "scribusdoc.h"
-#include "third_party/zip/scribus_zip.h"
-#include "util.h"
-#include "util_file.h"
 
 Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)

@@ -36,14 +36,11 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QVariant>
 
-#include "commonstrings.h"
 #include "iconmanager.h"
 #include "localemgr.h"
-#include "scpage.h"
 #include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
-#include "selection.h"
 #include "ui/scrspinbox.h"
 #include "undomanager.h"
 #include "units.h"

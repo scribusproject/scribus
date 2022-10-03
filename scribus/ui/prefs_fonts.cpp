@@ -31,8 +31,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scconfig.h"
 #include "util.h"
-#include "util_color.h"
-#include "scpaths.h"
 #include "fontlistmodel.h"
 #include "fontlistview.h"
 

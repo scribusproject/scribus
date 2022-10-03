@@ -26,7 +26,6 @@
 #include "appmodes.h"
 #include "canvas.h"
 #include "canvasmode.h"
-#include "pageitem_textframe.h"
 #include "scmimedata.h"
 #include "scraction.h"
 #include "scribus.h"

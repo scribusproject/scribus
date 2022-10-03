@@ -28,14 +28,12 @@
 #include "fpoint.h"
 #include "prefsmanager.h"
 #include "scribus.h"
-#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "ui/pageselector.h"
 #include "ui/scrspinbox.h"
 #include "undomanager.h"
-#include "util.h"
 #include "util_math.h"
 
 

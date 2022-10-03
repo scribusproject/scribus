@@ -14,23 +14,22 @@
 *                                                                         *
 ***************************************************************************/
 
-
-
-#include "canvasgesture_rectselect.h"
-#include "canvas.h"
-#include "scribusview.h"
-#include "selectionrubberband.h"
-
 #include <QDragEnterEvent>
-#include <QDragMoveEvent>
 #include <QDragLeaveEvent>
+#include <QDragMoveEvent>
 #include <QDropEvent>
 #include <QEvent>
 #include <QInputMethodEvent>
-#include <QMouseEvent>
 #include <QKeyEvent>
+#include <QMouseEvent>
 #include <QPainter>
 #include <QRubberBand>
+
+#include "canvas.h"
+#include "canvasgesture_rectselect.h"
+#include "scribusview.h"
+#include "selectionrubberband.h"
+
 
 void RectSelect::enterEvent(QEvent * e){}
 void RectSelect::leaveEvent(QEvent * e){}

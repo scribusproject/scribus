@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
-#include "cupsoptions.h"	
+#include "cupsoptions.h"
 #if defined(_WIN32)
 	#include <windows.h>
 	#include <winspool.h>

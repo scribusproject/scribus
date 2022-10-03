@@ -43,7 +43,6 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribusapp.h"
 #include "third_party/zip/scribus_zip.h"
-#include "util.h"
 #include "util_file.h"
 
 ResourceManager::ResourceManager(QWidget* parent)

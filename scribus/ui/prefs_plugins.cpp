@@ -18,8 +18,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 
-#include "commonstrings.h"
-
 Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {

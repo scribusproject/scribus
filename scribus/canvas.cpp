@@ -36,7 +36,6 @@
 #include "selection.h"
 #include "ui/hruler.h"
 #include "ui/vruler.h"
-#include "util.h"
 #include "util_math.h"
 #include "units.h"
 

@@ -21,7 +21,7 @@
  ***************************************************************************/
 
 
-#include "canvasmode_editarc.h"
+
 
 #include <QApplication>
 #include <QButtonGroup>
@@ -39,25 +39,16 @@
 
 #include "appmodes.h"
 #include "canvas.h"
+#include "canvasmode_editarc.h"
 #include "fpoint.h"
 #include "fpointarray.h"
-#include "hyphenator.h"
 #include "pageitem_arc.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
-#include "prefsmanager.h"
 #include "scribus.h"
-#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "ui/aligndistribute.h"
 #include "ui/contextmenu.h"
-#include "ui/pageselector.h"
-#include "ui/propertiespalette.h"
 #include "undomanager.h"
-#include "units.h"
-#include "util.h"
 #include "util_math.h"
 
 CanvasMode_EditArc::CanvasMode_EditArc(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 

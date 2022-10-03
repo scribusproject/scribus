@@ -21,8 +21,6 @@
  ***************************************************************************/
 
 
-#include "canvasmode_editmeshpatch.h"
-
 #include <QApplication>
 #include <QButtonGroup>
 #include <QCheckBox>
@@ -39,28 +37,17 @@
 
 #include "appmodes.h"
 #include "canvas.h"
+#include "canvasmode_editmeshpatch.h"
 #include "fpoint.h"
-#include "fpointarray.h"
-#include "hyphenator.h"
-#include "pageitem_textframe.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
-#include "prefsmanager.h"
 #include "sccolorengine.h"
 #include "scribus.h"
-#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "ui/aligndistribute.h"
 #include "ui/contextmenu.h"
 #include "ui/pageselector.h"
 #include "ui/propertiespalette.h"
 #include "undomanager.h"
-#include "units.h"
-#include "util.h"
-#include "util_math.h"
-
 
 CanvasMode_EditMeshPatch::CanvasMode_EditMeshPatch(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW)
 {

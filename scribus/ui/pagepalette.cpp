@@ -13,12 +13,9 @@ for which a new license (GPL+exception) is in place.
 #include <QStackedWidget>
 
 #include "appmodes.h"
-#include "commonstrings.h"
-#include "pagelayout.h"
 #include "pagepalette.h"
 #include "pagepalette_masterpages.h"
 #include "pagepalette_pages.h"
-#include "pagepalette_widgets.h"
 #include "scpage.h"
 #include "scribus.h"
 #include "scribusdoc.h"

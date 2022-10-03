@@ -8,10 +8,8 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QPixmap>
 
-#include "iconmanager.h"
 #include "sctextbrowser.h"
 #include "urllauncher.h"
-#include "util.h"
 
 ScTextBrowser::ScTextBrowser( QWidget * parent )
 	 : QTextBrowser(parent)

@@ -23,16 +23,12 @@ for which a new license (GPL+exception) is in place.
 #include <QScopedValueRollback>
 
 #include "appmodes.h"
-#include "canvas.h"
 #include "colorcombo.h"
-#include "colorlistbox.h"
-#include "commonstrings.h"
 #include "fontcombo.h"
 #include "iconmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "scpage.h"
 #include "scribus.h"
 #include "scribusview.h"
 #include "scrspinbox.h"

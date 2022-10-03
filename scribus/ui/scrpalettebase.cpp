@@ -36,7 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribuscore.h"
 #include "scrpalettebase.h"
-#include "util.h"
 
 ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, bool modal, Qt::WindowFlags f)
 	: QDialog ( parent, f | Qt::Tool | Qt::CustomizeWindowHint
