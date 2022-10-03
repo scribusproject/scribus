@@ -23,21 +23,6 @@ for which a new license (GPL+exception) is in place.
 
 DocumentInformation::DocumentInformation()
 {
-	/*m_author = "";
-	m_comments = "";
-	m_contrib = "";
-	m_cover = "";
-	m_date = "";
-	m_format = "";
-	m_ident = "";
-	m_keywords = "";
-	m_langInfo = "";
-	m_publisher = "";
-	m_relation = "";
-	m_rights = "";
-	m_source = "";
-	m_title = "";
-	m_type = "";*/
 }
 
 const QString& DocumentInformation::author()

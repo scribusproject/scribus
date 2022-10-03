@@ -21,6 +21,8 @@ for which a new license (GPL+exception) is in place.
 *																		 *
 ***************************************************************************/
 
+#include <QList>
+
 #include "commonstrings.h"
 #include "documentchecker.h"
 #include "pageitem.h"
@@ -31,11 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "text/textlayoutpainter.h"
-#include "util.h"
 #include "util_formats.h"
-
-#include <QList>
-
 
 class MissingGlyphsPainter: public TextLayoutPainter
 {

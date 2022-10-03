@@ -4,6 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <QApplication>
 #include <QDomElement>
 #include <QFile>
 #include <QFileInfo>
@@ -20,27 +22,17 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <QTextStream>
 
-#include "scconfig.h"
-
 #include "commonstrings.h"
 #include "fileloader.h"
-#include "hyphenator.h"
 #include "loadsaveplugin.h"
-#include "pagestructs.h"
-#include "pluginmanager.h"
+#include "plugins/formatidlist.h"
 #include "prefsmanager.h"
 #include "resourcecollection.h"
 #include "scclocale.h"
-#include "scpage.h"
+#include "scconfig.h"
 #include "scribuscore.h"
-#include "scribusXml.h"
-#include "units.h"
-#include "util.h"
-
-#include "plugins/formatidlist.h"
-#include "ui/guidemanager.h"
 #include "ui/fontreplacedialog.h"
-#include "ui/missing.h"
+#include "util.h"
 
 // We need to include the headers for the plugins we support until we start
 // using LoadSavePlugin to pick them for us. We only use these headers to
