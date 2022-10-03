@@ -2566,43 +2566,43 @@ void PDFLibCore::PDF_Begin_Colors()
 
 void PDFLibCore::PDF_Begin_Layers()
 {
-	if (Options.exportsLayers())
+	if (!Options.exportsLayers())
+		return;
+
+	ScLayer ll;
+	PdfOCGInfo ocg;
+	ll.isPrintable = false;
+	ll.ID = 0;
+	QByteArray ocgNam("oc");
+	int docLayersCount = doc.Layers.count();
+	for (int la = 0; la < docLayersCount; ++la)
 	{
-		ScLayer ll;
-		PdfOCGInfo ocg;
-		ll.isPrintable = false;
-		ll.ID = 0;
-		QByteArray ocgNam("oc");
-		int docLayersCount = doc.Layers.count();
-		for (int la = 0; la < docLayersCount; ++la)
-		{
-			PdfId optionalContent = writer.newObject();
-			doc.Layers.levelToLayer(ll, la);
-			ocg.Name = ocgNam + Pdf::toPdf(ll.ID);
-			ocg.ObjNum = optionalContent;
-			ocg.visible = ll.isViewable;
-			OCGEntries.insert(ll.Name, ocg);
-			writer.startObj(optionalContent);
-			PutDoc("<<\n");
-			PutDoc("/Type /OCG\n");
-			PutDoc("/Name ");
-			PutDoc(EncStringUTF16(ll.Name, optionalContent));
-			PutDoc("\n");
-			PutDoc("/Usage <</Print <</PrintState ");
-			if (ll.isPrintable)
-				PutDoc("/ON");
-			else
-				PutDoc("/OFF");
-			PutDoc(">> /View <</ViewState ");
-			if (ll.isViewable)
-				PutDoc("/ON");
-			else
-				PutDoc("/OFF");
-			PutDoc(">>>>");
-			PutDoc("\n");
-			PutDoc(">>");
-			writer.endObj(optionalContent);
-		}
+		PdfId optionalContent = writer.newObject();
+		doc.Layers.levelToLayer(ll, la);
+		ocg.Name = ocgNam + Pdf::toPdf(ll.ID);
+		ocg.ObjNum = optionalContent;
+		ocg.visible = ll.isViewable;
+		OCGEntries.insert(ll.Name, ocg);
+		writer.startObj(optionalContent);
+		PutDoc("<<\n");
+		PutDoc("/Type /OCG\n");
+		PutDoc("/Name ");
+		PutDoc(EncStringUTF16(ll.Name, optionalContent));
+		PutDoc("\n");
+		PutDoc("/Usage <</Print <</PrintState ");
+		if (ll.isPrintable)
+			PutDoc("/ON");
+		else
+			PutDoc("/OFF");
+		PutDoc(">> /View <</ViewState ");
+		if (ll.isViewable)
+			PutDoc("/ON");
+		else
+			PutDoc("/OFF");
+		PutDoc(">>>>");
+		PutDoc("\n");
+		PutDoc(">>");
+		writer.endObj(optionalContent);
 	}
 }
 
@@ -11200,15 +11200,15 @@ void PDFLibCore::PDF_End_Layers()
 	ScLayer ll;
 	ll.isPrintable = false;
 	ll.ID = 0;
-	for (int la = 0; la < doc.Layers.count(); ++la)
+	for (int i = 0; i < doc.Layers.count(); ++i)
 	{
-		doc.Layers.levelToLayer(ll, la);
+		doc.Layers.levelToLayer(ll, i);
 		if (ll.isEditable)
 			lay.prepend(Pdf::toObjRef(OCGEntries[ll.Name].ObjNum) + " ");
 	}
-	for (int layc = 0; layc < lay.count(); ++layc)
+	for (int i = 0; i < lay.count(); ++i)
 	{
-		PutDoc(lay[layc]);
+		PutDoc(lay[i]);
 	}
 	PutDoc("]\n");
 	if (Options.Version == PDFVersion::PDF_X4)
