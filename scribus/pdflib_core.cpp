@@ -2589,18 +2589,8 @@ void PDFLibCore::PDF_Begin_Layers()
 		PutDoc("/Name ");
 		PutDoc(EncStringUTF16(ll.Name, optionalContent));
 		PutDoc("\n");
-		PutDoc("/Usage <</Print <</PrintState ");
-		if (ll.isPrintable)
-			PutDoc("/ON");
-		else
-			PutDoc("/OFF");
-		PutDoc(">> /View <</ViewState ");
-		if (ll.isViewable)
-			PutDoc("/ON");
-		else
-			PutDoc("/OFF");
-		PutDoc(">>>>");
-		PutDoc("\n");
+		if (!ll.isPrintable)
+			PutDoc("/Usage <</Print <</PrintState /OFF>> >>\n");
 		PutDoc(">>");
 		writer.endObj(optionalContent);
 	}
