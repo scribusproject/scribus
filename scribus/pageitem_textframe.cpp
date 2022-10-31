@@ -4036,17 +4036,16 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 						itemText.setCursorPosition (lastInFrame() + 1);
 					ExpandSel(oldPos);
 				}
-				else
-					if ((textLayout.lines() > 0) && (oldPos >= textLayout.line(textLayout.lines() - 1)->firstChar()) && (itemText.cursorPosition() >= lastInFrame()) && (m_nextBox != nullptr))
+				else if ((textLayout.lines() > 0) && (oldPos >= textLayout.line(textLayout.lines() - 1)->firstChar()) && (itemText.cursorPosition() >= lastInFrame()) && (m_nextBox != nullptr))
+				{
+					if (m_nextBox->frameDisplays(itemText.cursorPosition()))
 					{
-						if (m_nextBox->frameDisplays(itemText.cursorPosition()))
-						{
-							view->deselectItems(true);
-							// we position the cursor at the beginning of the next frame
-							// TODO position at the right place in next frame
-							m_Doc->scMW()->selectItemsFromOutlines(m_nextBox);
-						}
+						view->deselectItems(true);
+						// we position the cursor at the beginning of the next frame
+						// TODO position at the right place in next frame
+						m_Doc->scMW()->selectItemsFromOutlines(m_nextBox);
 					}
+				}
 			}
 			else
 			{
@@ -4087,14 +4086,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 						itemText.setCursorPosition( firstInFrame() );
 					ExpandSel(oldPos);
 				}
-				else
-					if ((textLayout.lines() > 0) && (oldPos <= textLayout.line(0)->lastChar()) && (itemText.cursorPosition()  == firstInFrame()) && (m_backBox != nullptr))
-					{
-						view->deselectItems(true);
-						// TODO position at the right place in previous frame
-						m_backBox->itemText.setCursorPosition( m_backBox->lastInFrame() );
-						m_Doc->scMW()->selectItemsFromOutlines(m_backBox);
-					}
+				else if ((textLayout.lines() > 0) && (oldPos <= textLayout.line(0)->lastChar()) && (itemText.cursorPosition()  == firstInFrame()) && (m_backBox != nullptr))
+				{
+					view->deselectItems(true);
+					// TODO position at the right place in previous frame
+					m_backBox->itemText.setCursorPosition( m_backBox->lastInFrame() );
+					m_Doc->scMW()->selectItemsFromOutlines(m_backBox);
+				}
 			}
 			else
 			{
