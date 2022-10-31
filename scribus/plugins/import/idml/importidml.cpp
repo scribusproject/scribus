@@ -2603,7 +2603,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 			{
 				double scXi, scYi, roti, dxi, dyi;
 				getTransformValuesFromMatrix(imageTransform, scXi, scYi, roti, dxi, dyi);
-				if (imageData.count() > 0)
+				if (imageData.size() > 0)
 				{
 					QString imgExt;
 					if (imageType.contains("EPS", Qt::CaseInsensitive))
@@ -3050,7 +3050,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		//	}
 		}
 	}
-	if (data.count() > 0)
+	if (data.length() > 0)
 	{
 		item->itemText.insertChars(posC, data);
 		item->itemText.applyStyle(posC, newStyle);
