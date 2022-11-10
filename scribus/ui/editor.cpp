@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	#include <QPushButton>
 	#include <QVBoxLayout>
 #endif
@@ -94,7 +94,7 @@ Editor::Editor( QWidget* parent, const QString& daten, ScribusView* vie) : QDial
 	EditTex->setMinimumSize( QSize( 400, 400 ) );
 	EditTex->setPlainText(daten);
 	EditorLayout->addWidget( EditTex );
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	Layout1_2 = new QHBoxLayout;
 	Layout1_2->setSpacing(6);
 	Layout1_2->setContentsMargins(0, 0, 0, 0);

@@ -7,7 +7,7 @@
 
 
 CharZoom::CharZoom(QWidget* parent, uint currentChar, const ScFace& face)
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	: QDialog( parent, Qt::FramelessWindowHint | Qt::Popup)
 #else
 	: QDialog( parent, Qt::FramelessWindowHint)

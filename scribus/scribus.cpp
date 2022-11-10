@@ -273,7 +273,7 @@ extern bool emergencyActivated;
 ScribusMainWindow::ScribusMainWindow() :
 	m_prefsManager(PrefsManager::instance())
 {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	//commenting this out until this is resolved :https://bugreports.qt.io/browse/QTBUG-44565
 	//ScQApp->setAttribute(Qt::AA_DontShowIconsInMenus);
 	//noIcon = IconManager::instance().loadPixmap("noicon.png");
@@ -1713,7 +1713,7 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		QKeyEvent *k = dynamic_cast<QKeyEvent *>(e);
 		if (!k)
 			return false;
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
 		if ((k->key() == Qt::Key_QuoteLeft) && (k->modifiers() & Qt::ControlModifier))
 		{
 			if (k->modifiers() & Qt::ShiftModifier)

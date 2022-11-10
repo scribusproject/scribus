@@ -32,7 +32,7 @@ ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 	setContentsMargins(0, 0, 0, 0);
 	layout()->setContentsMargins(0, 0, 0, 0);
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	QList<QUrl> urls;
 	QUrl computer(QUrl::fromLocalFile(QLatin1String("")));
 	if (!urls.contains(computer))

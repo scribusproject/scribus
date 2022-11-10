@@ -334,7 +334,7 @@ QString getGSDefaultExeName()
 		}
 	}
 #endif
-#if defined Q_OS_MAC
+#if defined Q_OS_MACOS
 	QStringList gsPaths;
 	gsPaths << "/usr/bin/gs" << "/usr/local/bin/gs" << "/opt/local/bin/gs" << "/sw/bin/gs";
 	for (int i = 0; i < gsPaths.size(); ++i)

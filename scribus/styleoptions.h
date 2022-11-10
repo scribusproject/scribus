@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef STYLEOPTIONS_H
 #define STYLEOPTIONS_H
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #define AQUA_EXTRA 20
 #else
 #define AQUA_EXTRA 0

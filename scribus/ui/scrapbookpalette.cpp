@@ -971,8 +971,8 @@ void Biblio::newLib()
 	updateView();
 	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int)));
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(objFromMenu(QString)));
-	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
-	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
+	connect(activeBView, SIGNAL(fileDropped(QString,int)), this, SLOT(objFromFile(QString, int)));
+	connect(activeBView, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(handleMouse(QPoint)));
 	connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(handleDoubleClick(QListWidgetItem*)));
 	emit scrapbookListChanged();
 }

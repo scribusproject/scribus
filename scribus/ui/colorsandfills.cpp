@@ -715,9 +715,9 @@ void ColorsAndFillsDialog::removeColorItem()
 		QStringList colors;
 		QStringList gradients;
 		QStringList patterns;
-		for (int a = 0; a < selItems.count(); a++)
+		for (int i = 0; i < selItems.count(); i++)
 		{
-			QTreeWidgetItem* it = selItems[a];
+			QTreeWidgetItem* it = selItems[i];
 			if (it == gradientItems)
 				continue;
 			if (it == colorItems)
@@ -733,19 +733,19 @@ void ColorsAndFillsDialog::removeColorItem()
 			if (it->parent() == patternItems)
 				patterns.append(it->text(0));
 		}
-		for (int a = 0; a < gradients.count(); a++)
+		for (int i = 0; i < gradients.count(); i++)
 		{
-			dialogGradients.remove(gradients[a]);
-			replaceMap.insert(gradients[a], "");
+			dialogGradients.remove(gradients[i]);
+			replaceMap.insert(gradients[i], QString());
 		}
 		bool hasUsed = false;
 		ColorList UsedCG = getGradientColors();
-		for (int a = 0; a < colors.count(); a++)
+		for (int i = 0; i < colors.count(); i++)
 		{
-			if (UsedCG.contains(colors[a]) || inDocUsedColors.contains(colors[a]))
+			if (UsedCG.contains(colors[i]) || inDocUsedColors.contains(colors[i]))
 			{
 				hasUsed = true;
-				usedColors.append(colors[a]);
+				usedColors.append(colors[i]);
 			}
 		}
 		if (hasUsed)
@@ -785,10 +785,10 @@ void ColorsAndFillsDialog::removeColorItem()
 		}
 		else
 		{
-			for (int a = 0; a < colors.count(); a++)
+			for (int i = 0; i < colors.count(); i++)
 			{
-				replaceColorMap.insert(colors[a], "Black");
-				m_colorList.remove(colors[a]);
+				replaceColorMap.insert(colors[i], "Black");
+				m_colorList.remove(colors[i]);
 			}
 			modified = true;
 		}

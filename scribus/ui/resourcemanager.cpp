@@ -65,7 +65,7 @@ ResourceManager::ResourceManager(QWidget* parent)
 
 void ResourceManager::languageChange()
 {
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
 	showInFSButton->setText( tr( "Show In Finder" ) );
 #endif
 #if defined(Q_OS_WIN32)

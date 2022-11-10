@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QComboBox>
 
 /*
- *#ifdef Q_OS_MAC
+ *#ifdef Q_OS_MACOS
 #include <QMacStyle>
 #endif
 */

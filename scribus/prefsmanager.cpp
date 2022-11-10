@@ -2287,7 +2287,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.uiPrefs.mainWinSettings.screenNumber = dc.attribute("ScreenNumber", "0").toInt();
 			int minX = 0;
 			int minY = 0;
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 			// on Mac you're dead if the titlebar is not on screen
 			minY = 22;
 #endif

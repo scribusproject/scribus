@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 FontEmbeddingCombo::FontEmbeddingCombo(QWidget* parent) : QComboBox(parent)
 {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 //	setStyle( new FontEmbeddingCombo::ScMacStyle() );
 #endif
 	m_fontEmbeddingModel = new FontEmbeddingModel(this);

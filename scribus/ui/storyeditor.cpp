@@ -1567,7 +1567,7 @@ void SToolBFont::SetScaleV(double s)
 StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, Qt::Window), // WType_Dialog) //WShowModal |
 	prefsManager(PrefsManager::instance())
 {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	noIcon = IconManager::instance().loadPixmap("noicon.png");
 #endif
 	buildGUI();
@@ -1637,7 +1637,7 @@ void StoryEditor::loadPrefs()
 {
 	prefs = PrefsManager::instance().prefsFile->getPluginContext("StoryEditor");
 	int vleft   = qMax(-80, prefs->getInt("left", 10));
-#if defined(Q_OS_MAC) || defined(_WIN32)
+#if defined(Q_OS_MACOS) || defined(_WIN32)
 	int vtop	= qMax(64, prefs->getInt("top", 10));
 #else
 	int vtop	= qMax(-80, prefs->getInt("top", 10));
@@ -2013,7 +2013,7 @@ void StoryEditor::changeEvent(QEvent *e)
 void StoryEditor::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	noIcon = iconManager.loadPixmap("noicon.png");
 #endif
 	setWindowIcon(iconManager.loadPixmap("AppIcon.png"));

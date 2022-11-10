@@ -371,8 +371,7 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 	setTexts();
 }
 
-void UndoManager::action(UndoObject* target, UndoState* state,
-                         const QString &targetName, QPixmap *targetPixmap)
+void UndoManager::action(UndoObject* target, UndoState* state, const QString &targetName, QPixmap *targetPixmap)
 {
 	QString oldName = target->getUName();
 	if (!targetName.isEmpty())

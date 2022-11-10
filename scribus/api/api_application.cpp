@@ -25,7 +25,7 @@ namespace ScribusAPI {
 		// Some more information if we are not on a 32bit little endian Unix machine
 #if defined(Q_OS_WIN)
 		bu += QLatin1String("Windows");
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 		bu += QLatin1String("Mac");
 #elif defined(Q_OS_DARWIN)
 		// dunno if anyone uses this...

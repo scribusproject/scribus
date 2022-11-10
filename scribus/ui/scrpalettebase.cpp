@@ -171,7 +171,7 @@ void ScrPaletteBase::showEvent(QShowEvent *showEvent)
 			// and should be partly visible
 			int vleft   = qMin(qMax(scr.left() - vwidth, m_palettePrefs->getInt("left")), scr.right());
 			int vtop = qMin(m_palettePrefs->getInt("top"), scrSize.height());
-#if defined(Q_OS_MAC) || defined(_WIN32)
+#if defined(Q_OS_MACOS) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
 			vtop    = qMax(64, vtop);
 #else

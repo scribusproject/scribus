@@ -31,7 +31,7 @@ UpgradeChecker::UpgradeChecker()
 	minor = ScribusAPI::getVersionMinor();
 	m_patchLevel = ScribusAPI::getVersionPatch();
 	m_versionSuffix = ScribusAPI::getVersionSuffix().toLower().remove("svn").toInt();
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
 	m_platform = "MacOSX";
 #elif defined(Q_OS_WIN32)
 	m_platform = "Win32";

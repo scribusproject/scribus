@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/contextmenu.h"
 
 // TODO: We should have a preference for this instead.
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	static const Qt::KeyboardModifiers CellNavigationModifiers = Qt::AltModifier | Qt::KeypadModifier;
 #else
 	static const Qt::KeyboardModifiers CellNavigationModifiers = Qt::AltModifier;

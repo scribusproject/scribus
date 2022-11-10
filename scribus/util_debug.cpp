@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDateTime>
 #include <QtGlobal>
 
-#if !defined(_WIN32) && !defined(Q_OS_MAC)
+#if !defined(_WIN32) && !defined(Q_OS_MACOS)
 #include <execinfo.h>
 #include <cxxabi.h>
 #endif
@@ -53,7 +53,7 @@ void tDebug(const QString& message)
  */
 void printBacktrace ( int nFrames )
 {
-#if !defined(_WIN32) && !defined(Q_OS_MAC) && !defined(Q_OS_OPENBSD) && !defined(Q_OS_FREEBSD)
+#if !defined(_WIN32) && !defined(Q_OS_MACOS) && !defined(Q_OS_OPENBSD) && !defined(Q_OS_FREEBSD)
 	void ** trace = new void*[nFrames + 1];
 	char **messages = ( char ** ) nullptr;
 	int i, trace_size = 0;
