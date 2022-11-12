@@ -108,7 +108,7 @@ namespace RtfReader
 	{
 		int posC = m_item->itemText.length();
 		QString m_txt = text;
-		if (text.count() > 0)
+		if (text.length() > 0)
 		{
 			m_txt.replace(QChar(10), SpecialChars::LINEBREAK);
 			m_txt.replace(QChar(12), SpecialChars::FRAMEBREAK);
