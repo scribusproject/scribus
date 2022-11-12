@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QRegion>
 #include <QRegularExpression>
+#include <QScopedPointer>
 #include <cairo.h>
 #include <cassert>
 #include <qdrawutil.h>
@@ -10421,16 +10422,24 @@ void PageItem::makeImageInline()
 {
 	QFileInfo fi(Pfile);
 	QString ext = fi.suffix();
-	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
+
+	QScopedPointer<QTemporaryFile> tempFile(new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext));
 	tempFile->setAutoRemove(false);
-	tempFile->open();
+	if (!tempFile->open())
+		return;
 	QString fileName = getLongPathName(tempFile->fileName());
 	tempFile->close();
-	isInlineImage = true;
-	isTempFile = true;
-	copyFile(Pfile, fileName);
-	Pfile = QDir::fromNativeSeparators(fileName);
-	delete tempFile;
+
+	if (copyFile(Pfile, fileName))
+	{
+		Pfile = QDir::fromNativeSeparators(fileName);
+		isInlineImage = true;
+		isTempFile = true;
+	}
+	else
+	{
+		tempFile->setAutoRemove(true);
+	}
 }
 
 void PageItem::makeImageExternal(const QString& path)
@@ -10438,11 +10447,13 @@ void PageItem::makeImageExternal(const QString& path)
 	if ((isTempFile) && (isInlineImage) && (!path.isEmpty()))
 	{
 		QString oldF = Pfile;
-		copyFile(Pfile, path);
-		Pfile = path;
-		QFile::remove(oldF);
-		isInlineImage = false;
-		isTempFile = false;
+		if (copyFile(Pfile, path))
+		{
+			Pfile = path;
+			QFile::remove(oldF);
+			isInlineImage = false;
+			isTempFile = false;
+		}
 	}
 }
 
