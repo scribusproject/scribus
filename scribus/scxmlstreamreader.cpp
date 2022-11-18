@@ -27,8 +27,7 @@ bool ScXmlStreamAttributes::valueAsBool (const char* attrName, bool def) const
 	if (!att.isEmpty())
 	{
 		bool success = false;
-		QString strVal = QString::fromRawData(att.constData(), att.length());
-		int intVal = strVal.toInt(&success);
+		int intVal = att.toInt(&success);
 		if (success)
 			retValue = static_cast<bool>(intVal);
 	}
@@ -42,8 +41,7 @@ bool ScXmlStreamAttributes::valueAsBool (const QString& attrName, bool def) cons
 	if (!att.isEmpty())
 	{
 		bool success = false;
-		QString strVal = QString::fromRawData(att.constData(), att.length());
-		int intVal = strVal.toInt(&success);
+		int intVal = att.toInt(&success);
 		if (success)
 			retValue = static_cast<bool>(intVal);
 	}
@@ -57,8 +55,7 @@ int ScXmlStreamAttributes::valueAsInt (const char* attrName, int def) const
 	if (!att.isEmpty())
 	{
 		bool success = false;
-		QString strVal = QString::fromRawData(att.constData(), att.length());
-		int intVal = strVal.toInt(&success);
+		int intVal = att.toInt(&success);
 		if (success)
 			retValue = intVal;
 	}
@@ -72,8 +69,7 @@ int ScXmlStreamAttributes::valueAsInt (const QString& attrName, int def) const
 	if (!att.isEmpty())
 	{
 		bool success = false;
-		QString strVal = QString::fromRawData(att.constData(), att.length());
-		int intVal = strVal.toInt(&success);
+		int intVal = att.toInt(&success);
 		if (success)
 			retValue = intVal;
 	}
@@ -99,8 +95,7 @@ uint ScXmlStreamAttributes::valueAsUInt  (const char*    attrName, uint def) con
 	if (!att.isEmpty())
 	{
 		bool success = false;
-		QString strVal = QString::fromRawData(att.constData(), att.length());
-		uint intVal = strVal.toUInt(&success);
+		uint intVal = att.toUInt(&success);
 		if (success)
 			retValue = intVal;
 	}
@@ -114,8 +109,7 @@ uint ScXmlStreamAttributes::valueAsUInt  (const QString& attrName, uint def) con
 	if (!att.isEmpty())
 	{
 		bool success = false;
-		QString strVal = QString::fromRawData(att.constData(), att.length());
-		uint intVal = strVal.toUInt(&success);
+		uint intVal = att.toUInt(&success);
 		if (success)
 			retValue = intVal;
 	}
