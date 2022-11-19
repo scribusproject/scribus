@@ -18,14 +18,15 @@ for which a new license (GPL+exception) is in place.
 #include <QtCore>
 #include <QtGui>
 #include <QtOpenGL>
+#include <QOpenGLWidget>
 #include <osgViewer/Viewer>
 #include <osg/Vec3>
 
-class AdapterWidget : public QGLWidget
+class AdapterWidget : public QOpenGLWidget
 {
     Q_OBJECT
 	public:
-		AdapterWidget ( QWidget* parent = nullptr, const char * name = 0, const QGLWidget * shareWidget = 0);
+		AdapterWidget ( QWidget* parent = nullptr, const char * name = 0);
 
 		virtual ~AdapterWidget() {}
 
@@ -53,7 +54,7 @@ class AdapterWidget : public QGLWidget
 class ViewerQT : public osgViewer::Viewer, public AdapterWidget
 {
 	public:
-		ViewerQT ( QWidget* parent = nullptr, const char * name = 0, const QGLWidget * shareWidget = 0) : AdapterWidget ( parent, name, shareWidget)
+		ViewerQT ( QWidget* parent = nullptr, const char * name = 0) : AdapterWidget ( parent, name )
 		{
 			getCamera()->setViewport ( new osg::Viewport ( 0,0,width(),height() ) );
 			getCamera()->setProjectionMatrixAsPerspective ( 30.0f, static_cast<double> ( width() ) /static_cast<double> ( height() ), 1.0f, 10000.0f );

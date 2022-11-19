@@ -111,7 +111,7 @@ OSGEditorDialog::OSGEditorDialog(QWidget* parent, PageItem_OSGFrame *frame, QStr
 		drawingarea->getCamera()->getProjectionMatrixAsPerspective(fovy, aspectRatio, zNear, zFar);
 		drawingarea->getCamera()->setProjectionMatrixAsPerspective(currentView.angleFOV, aspectRatio, zNear, zFar);
 		changeRenderMode(static_cast<int>(currentView.rendermode));
-		drawingarea->updateGL();
+		drawingarea->update();
 		connect(drawingarea, SIGNAL(mouseMoved()), this, SLOT(reportCamera()));
 		connect(viewCombo, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(changeView(QString)));
 		connect(buttonAddView, SIGNAL(clicked()), this, SLOT(addView()));
@@ -185,7 +185,7 @@ void OSGEditorDialog::clearDisplay()
 void OSGEditorDialog::setCameraValues()
 {
 	drawingarea->getCamera()->setProjectionMatrixAsPerspective(fovAngle->value(), static_cast<double>(drawingarea->width()) / static_cast<double>(drawingarea->height()), 1.0f, 10000.0f );
-	drawingarea->updateGL();
+	drawingarea->update();
 	currentView.angleFOV = fovAngle->value();
 }
 
@@ -219,7 +219,7 @@ void OSGEditorDialog::changeView(QString viewName)
 	drawingarea->getCamera()->getProjectionMatrixAsPerspective(fovy, aspectRatio, zNear, zFar);
 	drawingarea->getCamera()->setProjectionMatrixAsPerspective(currentView.angleFOV, aspectRatio, zNear, zFar);
 	changeRenderMode(static_cast<int>(currentView.rendermode));
-	drawingarea->updateGL();
+	drawingarea->update();
 	connect(fovAngle, SIGNAL(valueChanged(double)), this, SLOT(setCameraValues()));
 	connect(renderStyleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeRenderMode(int)));
 	connect(lightStyleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeLightMode(int)));
@@ -649,7 +649,7 @@ void OSGEditorDialog::accept()
 		currentView.illumination = static_cast<PageItem_OSGFrame::LightType>(lightStyleCombo->currentIndex());
 		currentView.rendermode = static_cast<PageItem_OSGFrame::RenderType>(renderStyleCombo->currentIndex());
 		currItem->modelFile = modelFile;
-		QImage image = drawingarea->grabFrameBuffer();
+		QImage image = drawingarea->grabFramebuffer();
 		currItem->setImage(image);
 		viewMap[currentViewName] = currentView;
 		currItem->viewMap = viewMap;

@@ -771,6 +771,7 @@ target_link_libraries(${EXE_NAME}
 	Qt6::Xml
 	Qt6::PrintSupport
 	Qt6::OpenGL
+	Qt6::OpenGLWidgets
 	)
 
 target_link_libraries(${EXE_NAME}

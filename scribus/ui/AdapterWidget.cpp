@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "AdapterWidget.h"
 
-AdapterWidget::AdapterWidget ( QWidget * parent, const char * name, const QGLWidget * shareWidget) : QGLWidget ( parent, shareWidget)
+AdapterWidget::AdapterWidget ( QWidget * parent, const char * name) : QOpenGLWidget ( parent )
 {
 	_gw = new osgViewer::GraphicsWindowEmbedded ( 0,0,width(),height() );
 	setFocusPolicy ( Qt::ClickFocus );
@@ -81,7 +81,8 @@ void AdapterWidget::mousePressEvent ( QMouseEvent* event )
 			button = 0;
 			break;
 	}
-	_gw->getEventQueue()->mouseButtonPress ( event->x(), event->y(), button );
+	QPoint eventPos = event->position().toPoint();
+	_gw->getEventQueue()->mouseButtonPress ( eventPos.x(), eventPos.y(), button );
 }
 
 void AdapterWidget::mouseReleaseEvent ( QMouseEvent* event )
@@ -95,11 +96,13 @@ void AdapterWidget::mouseReleaseEvent ( QMouseEvent* event )
 		default: button = 0; break;
 	}
 	qApp->restoreOverrideCursor();
-	_gw->getEventQueue()->mouseButtonRelease ( event->x(), event->y(), button );
+	QPoint eventPos = event->position().toPoint();
+	_gw->getEventQueue()->mouseButtonRelease ( eventPos.x(), eventPos.y(), button );
 }
 
 void AdapterWidget::mouseMoveEvent ( QMouseEvent* event )
 {
-	_gw->getEventQueue()->mouseMotion ( event->x(), event->y() );
+	QPoint eventPos = event->position().toPoint();
+	_gw->getEventQueue()->mouseMotion ( eventPos.x(), eventPos.y() );
 	emit mouseMoved();
 }

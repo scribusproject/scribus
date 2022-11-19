@@ -31,6 +31,10 @@ find_package(Qt6 COMPONENTS OpenGL REQUIRED)
 include_directories(${Qt6OpenGL_INCLUDE_DIRS})
 add_definitions(${Qt6OpenGL_DEFINITIONS})
 
+find_package(Qt6 COMPONENTS OpenGLWidgets REQUIRED)
+include_directories(${Qt6OpenGLWidgets_INCLUDE_DIRS})
+add_definitions(${Qt6OpenGLWidgets_DEFINITIONS})
+
 find_package(Qt6 COMPONENTS PrintSupport REQUIRED)
 include_directories(${Qt6PrintSupport_INCLUDE_DIRS})
 add_definitions(${Qt6PrintSupport_DEFINITIONS})
