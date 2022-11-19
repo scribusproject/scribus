@@ -599,12 +599,12 @@ bool EmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -1678,7 +1678,7 @@ bool EmfPlug::convert(const QString& fn)
 	return true;
 }
 
-bool EmfPlug::checkClip(FPointArray &clip)
+bool EmfPlug::checkClip(const FPointArray &clip)
 {
 	bool ret = true;
 	QRectF clipRect = clip.toQPainterPath(false).boundingRect();
@@ -1914,7 +1914,7 @@ void EmfPlug::setWTransform(const QTransform& mm, quint32 how)
 		currentDC.m_WorldMap = mm;
 }
 
-QPointF EmfPlug::intersectBoundingRect(PageItem *item, const QLineF& gradientVector)
+QPointF EmfPlug::intersectBoundingRect(const PageItem *item, const QLineF& gradientVector)
 {
 	QPointF interPoint;
 	QPointF gradEnd;
@@ -2038,9 +2038,9 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 							continue;
 						}
 						const FPoint& base = gpath.point(a);
-						const FPoint& c1 = gpath.point(a+1);
-						const FPoint& base2 =  gpath.point(a+2);
-						const FPoint& c2 = gpath.point(a+3);
+						const FPoint& c1 = gpath.point(a + 1);
+						const FPoint& base2 =  gpath.point(a + 2);
+						const FPoint& c2 = gpath.point(a + 3);
 						FPoint cn1 = (1.0 - nearT) * base + nearT * c1;
 						FPoint cn2 = (1.0 - nearT) * cn1 + nearT * ((1.0 - nearT) * c1 + nearT * c2);
 						FPoint cn3 = (1.0 - nearT) * ((1.0 - nearT) * c1 + nearT * c2) + nearT * ((1.0 - nearT) * c2 + nearT * base2);
@@ -2982,7 +2982,7 @@ QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quin
 					else if (hBitCount == 1)
 						colorsUsed = 2;
 				}
-				for (quint32 pa = 0; pa < colorsUsed; pa++)
+				for (quint32 pa = 0; pa < colorsUsed; ++pa)
 				{
 					quint8 r, g, b, a;
 					dsH >> b >> g >> r >> a;
@@ -3004,7 +3004,7 @@ QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quin
 			img.fill(0);
 			if (hBitCount == 32)
 			{
-				for (qint32 yy = 0; yy < hHeight; yy++)
+				for (qint32 yy = 0; yy < hHeight; ++yy)
 				{
 					QRgb *dst = (QRgb*)img.scanLine(hHeight - yy - 1);
 					for (qint32 xx = 0; xx < hWidth; xx++)
@@ -3018,10 +3018,10 @@ QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quin
 			}
 			else if (hBitCount == 24)
 			{
-				for (qint32 yy = 0; yy < hHeight; yy++)
+				for (qint32 yy = 0; yy < hHeight; ++yy)
 				{
 					QRgb *dst = (QRgb*)img.scanLine(hHeight - yy - 1);
-					for (qint32 xx = 0; xx < hWidth; xx++)
+					for (qint32 xx = 0; xx < hWidth; ++xx)
 					{
 						quint8 r, g, b;
 						dsB >> b >> g >> r;
@@ -3033,10 +3033,10 @@ QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quin
 			}
 			else if (hBitCount == 16)
 			{
-				for (qint32 yy = 0; yy < hHeight; yy++)
+				for (qint32 yy = 0; yy < hHeight; ++yy)
 				{
 					QRgb *dst = (QRgb*)img.scanLine(hHeight - yy - 1);
-					for (qint32 xx = 0; xx < hWidth; xx++)
+					for (qint32 xx = 0; xx < hWidth; ++xx)
 					{
 						quint16 dt;
 						quint8 r, g, b;
@@ -3055,7 +3055,7 @@ QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quin
 				img = QImage(hWidth, hHeight, QImage::Format_Indexed8);
 				img.fill(0);
 				img.setColorTable(colorTbl);
-				for (qint32 yy = 0; yy < hHeight; yy++)
+				for (qint32 yy = 0; yy < hHeight; ++yy)
 				{
 					char *dst = (char*)img.scanLine(hHeight - yy - 1);
 					dsB.readRawData(dst, hWidth);
@@ -3065,7 +3065,7 @@ QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quin
 			}
 			else if (hBitCount == 4)
 			{
-				for (qint32 yy = 0; yy < hHeight; yy++)
+				for (qint32 yy = 0; yy < hHeight; ++yy)
 				{
 					QRgb *dst = (QRgb*)img.scanLine(hHeight - yy - 1);
 					for (qint32 xx = 0; xx < hWidth; xx += 2)
@@ -3092,7 +3092,7 @@ QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quin
 				img.fill(0);
 				img.setColorTable(colorTbl);
 				int bpl = img.bytesPerLine();
-				for (qint32 yy = 0; yy < hHeight; yy++)
+				for (qint32 yy = 0; yy < hHeight; ++yy)
 				{
 					char *dst = (char*)img.scanLine(hHeight - yy - 1);
 					dsB.readRawData(dst, bpl);
@@ -3106,7 +3106,7 @@ QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quin
 			pattern.resize(14);
 			pattern.fill(0);
 			quint16 bmType = 0x4D42;
-			quint32 bmSize = bitsBits.count() + headerBits.count() + 14;
+			quint32 bmSize = bitsBits.size() + headerBits.size() + 14;
 			QDataStream pa(&pattern, QIODevice::WriteOnly);
 			pa.setByteOrder(QDataStream::LittleEndian);
 			pa << bmType;
@@ -3122,10 +3122,10 @@ QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quin
 			dsB.setByteOrder(QDataStream::LittleEndian);
 			img = QImage(hWidth, hHeight, QImage::Format_ARGB32);
 			img.fill(0);
-			for (qint32 yy = 0; yy < hHeight; yy++)
+			for (qint32 yy = 0; yy < hHeight; ++yy)
 			{
 				QRgb *dst = (QRgb*)img.scanLine(hHeight - yy - 1);
-				for (qint32 xx = 0; xx < hWidth; xx++)
+				for (qint32 xx = 0; xx < hWidth; ++xx)
 				{
 					quint8 r, g, b, a;
 					dsB >> b >> g >> r >> a;
@@ -5336,19 +5336,19 @@ FPointArray EmfPlug::getEMPPathData(QDataStream &ds)
 	QList<quint8> pTypes;
 	if (!relativeCoordinates)
 	{
-		for (quint32 a = 0; a < count; a++)
+		for (quint32 a = 0; a < count; ++a)
 		{
 			QPointF p = getEMFPPoint(ds, compressedPoints);
 			points.append(p);
 		}
-		for (quint32 b = 0; b < count; b++)
+		for (quint32 b = 0; b < count; ++b)
 		{
 			if (rleEncodedType)
 			{
 				quint8 cc, flg;
 				ds >> cc >> flg;
 				cc = cc & 0x3F;
-				for (quint8 ccc = 0; ccc < cc; ccc++)
+				for (quint8 ccc = 0; ccc < cc; ++ccc)
 				{
 					pTypes.append(flg);
 				}
@@ -5361,7 +5361,7 @@ FPointArray EmfPlug::getEMPPathData(QDataStream &ds)
 				pTypes.append(val);
 			}
 		}
-		for (quint32 c = 0; c < count; c++)
+		for (quint32 c = 0; c < count; ++c)
 		{
 			QPointF p = points[c];
 			quint8 pfl = (pTypes[c] & 0xF0) >> 4;
@@ -5372,8 +5372,8 @@ FPointArray EmfPlug::getEMPPathData(QDataStream &ds)
 				polyline.svgLineTo(p.x(), p.y());
 			else if (pty == U_PPT_Bezier)
 			{
-				QPointF p2 = points[c+1];
-				QPointF p3 = points[c+2];
+				QPointF p2 = points[c + 1];
+				QPointF p3 = points[c + 2];
 				polyline.svgCurveToCubic(p.x(), p.y(), p2.x(), p2.y(), p3.x(), p3.y());
 				c += 2;
 				pfl = (pTypes[c] & 0xF0) >> 4;
@@ -5545,16 +5545,15 @@ double EmfPlug::convertEMFPLogical2Pts(double in, quint16 unit)
 	return out;
 }
 
-QPolygonF EmfPlug::gdip_open_curve_tangents(QPolygonF &points, double tension)
+QPolygonF EmfPlug::gdip_open_curve_tangents(const QPolygonF &points, double tension)
 {
 	double coefficient = tension / 3.0;
-	int i;
 	int count = points.count();
 	QPolygonF tangents;
 	tangents.fill(QPointF(0,0), count);
 	if (count <= 2)
 		return tangents;
-	for (i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		int r = i + 1;
 		int s = i - 1;
@@ -5567,16 +5566,15 @@ QPolygonF EmfPlug::gdip_open_curve_tangents(QPolygonF &points, double tension)
 	return tangents;
 }
 
-QPolygonF EmfPlug::gdip_closed_curve_tangents(QPolygonF &points, double tension)
+QPolygonF EmfPlug::gdip_closed_curve_tangents(const QPolygonF &points, double tension)
 {
 	double coefficient = tension / 3.0;
-	int i;
 	int count = points.count();
 	QPolygonF tangents;
 	tangents.fill(QPointF(0,0), count);
 	if (count <= 2)
 		return tangents;
-	for (i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		int r = i + 1;
 		int s = i - 1;
@@ -5589,7 +5587,7 @@ QPolygonF EmfPlug::gdip_closed_curve_tangents(QPolygonF &points, double tension)
 	return tangents;
 }
 
-void EmfPlug::append_curve(QPainterPath &path, QPolygonF &points, QPolygonF &tangents, bool type)
+void EmfPlug::append_curve(QPainterPath &path, const QPolygonF &points, const QPolygonF &tangents, bool type)
 {
 	int i;
 	path.moveTo(points[0]);

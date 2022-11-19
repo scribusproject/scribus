@@ -5690,10 +5690,10 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	{
 		doc->dontResize = true;
 		PageItem_Table *tableitem = currItem->asTable();
-		int rows = attrs.valueAsInt("Rows",1);
-		int cols = attrs.valueAsInt("Columns",1);
-		tableitem->insertRows(1,rows-1);
-		tableitem->insertColumns(1,cols-1);
+		int rows = attrs.valueAsInt("Rows", 1);
+		int cols = attrs.valueAsInt("Columns", 1);
+		tableitem->insertRows(1, rows - 1);
+		tableitem->insertColumns(1, cols - 1);
 		tableitem->setStyle(attrs.valueAsString("TableStyle"));
 //		QString rowPositions(attrs.valueAsString("RowPositions"));
 //		QStringList slRowPositions=rowPositions.split(" ");

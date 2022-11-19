@@ -131,27 +131,27 @@ void DocXIm::parseTheme()
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
-		if (drawPag.tagName() == "a:themeElements")
+		if (drawPag.tagName() != "a:themeElements")
+			continue;
+
+		for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 		{
-			for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
+			if (spf.tagName() != "a:fontScheme")
+				continue;
+
+			for (QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement())
 			{
-				if (spf.tagName() == "a:fontScheme")
+				if (spr.tagName() == "a:minorFont")
 				{
-					for (QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement())
-					{
-						if (spr.tagName() == "a:minorFont")
-						{
-							QDomElement sty = spr.firstChildElement("a:latin");
-							if (!sty.isNull())
-								themeFont1 = sty.attribute("typeface");
-						}
-						else if (spr.tagName() == "a:majorFont")
-						{
-							QDomElement sty = spr.firstChildElement("a:latin");
-							if (!sty.isNull())
-								themeFont2 = sty.attribute("typeface");
-						}
-					}
+					QDomElement sty = spr.firstChildElement("a:latin");
+					if (!sty.isNull())
+						themeFont1 = sty.attribute("typeface");
+				}
+				else if (spr.tagName() == "a:majorFont")
+				{
+					QDomElement sty = spr.firstChildElement("a:latin");
+					if (!sty.isNull())
+						themeFont2 = sty.attribute("typeface");
 				}
 			}
 		}
@@ -317,17 +317,17 @@ void DocXIm::parseStyledText(PageItem *textItem)
 							{
 								if (spt.tagName() == "w:t")
 								{
-									QString m_txt = spt.text();
-									if (m_txt.count() > 0)
+									QString txt = spt.text();
+									if (txt.length() > 0)
 									{
-										m_txt.replace(QChar(10), SpecialChars::LINEBREAK);
-										m_txt.replace(QChar(12), SpecialChars::FRAMEBREAK);
-										m_txt.replace(QChar(30), SpecialChars::NBHYPHEN);
-										m_txt.replace(QChar(160), SpecialChars::NBSPACE);
+										txt.replace(QChar(10), SpecialChars::LINEBREAK);
+										txt.replace(QChar(12), SpecialChars::FRAMEBREAK);
+										txt.replace(QChar(30), SpecialChars::NBHYPHEN);
+										txt.replace(QChar(160), SpecialChars::NBSPACE);
 										int posT = textItem->itemText.length();
-										textItem->itemText.insertChars(posT, m_txt);
+										textItem->itemText.insertChars(posT, txt);
 										textItem->itemText.applyStyle(posT, currentParagraphStyle);
-										textItem->itemText.applyCharStyle(posT, m_txt.length(), currentParagraphStyle.charStyle());
+										textItem->itemText.applyCharStyle(posT, txt.length(), currentParagraphStyle.charStyle());
 									}
 								}
 								else if (spt.tagName() == "w:tab")
@@ -625,16 +625,16 @@ void DocXIm::parsePlainTextOnly(PageItem *textItem)
 							{
 								if (spt.tagName() == "w:t")
 								{
-									QString m_txt = spt.text();
-									if (m_txt.count() > 0)
+									QString txt = spt.text();
+									if (txt.length() > 0)
 									{
-										m_txt.replace(QChar(10), SpecialChars::LINEBREAK);
-										m_txt.replace(QChar(12), SpecialChars::FRAMEBREAK);
-										m_txt.replace(QChar(30), SpecialChars::NBHYPHEN);
-										m_txt.replace(QChar(160), SpecialChars::NBSPACE);
-										textItem->itemText.insertChars(textItem->itemText.length(), m_txt);
+										txt.replace(QChar(10), SpecialChars::LINEBREAK);
+										txt.replace(QChar(12), SpecialChars::FRAMEBREAK);
+										txt.replace(QChar(30), SpecialChars::NBHYPHEN);
+										txt.replace(QChar(160), SpecialChars::NBSPACE);
+										textItem->itemText.insertChars(textItem->itemText.length(), txt);
 										textItem->itemText.applyStyle(textItem->itemText.length(), currentParagraphStyle);
-										textItem->itemText.applyCharStyle(textItem->itemText.length(), m_txt.length(), currentParagraphStyle.charStyle());
+										textItem->itemText.applyCharStyle(textItem->itemText.length(), txt.length(), currentParagraphStyle.charStyle());
 									}
 								}
 								else if (spt.tagName() == "w:tab")
@@ -680,10 +680,10 @@ QString DocXIm::getFontName(const QString& name)
 
 	if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(fontName))
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		MissingFont dia(nullptr, fontName, m_Doc);
 		static_cast<void>(dia.exec());
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 		PrefsManager::instance().appPrefs.fontPrefs.GFontSub[fontName] = dia.getReplacementFont();
 		fontName = dia.getReplacementFont();
 	}

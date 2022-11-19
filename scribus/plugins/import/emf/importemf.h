@@ -148,7 +148,7 @@ private:
 	void        parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
 	bool        convert(const QString& fn);
 	// Common functions
-	bool        checkClip(FPointArray &clip);
+	bool        checkClip(const FPointArray &clip);
 	void        aligntoQuadWord(QDataStream &ds);
 	double      convertDevice2Pts(double in);
 	QPointF     convertDevice2Pts(QPointF in);
@@ -160,7 +160,7 @@ private:
 	QPointF     getPoint(QDataStream &ds, bool size);
 	quint32     getColor(QDataStream &ds);
 	void        setWTransform(const QTransform& mm, quint32 how);
-	QPointF     intersectBoundingRect(PageItem *item, const QLineF& gradientVector);
+	QPointF     intersectBoundingRect(const PageItem *item, const QLineF& gradientVector);
 	void        finishItem(PageItem* ite, bool fill = true);
 	void        invalidateClipGroup();
 	void        createClipGroup();
@@ -236,9 +236,9 @@ private:
 	double      getEMFPDistance(QDataStream &ds, bool size);
 	QPointF     convertEMFPLogical2Pts(QPointF in, quint16 unit);
 	double      convertEMFPLogical2Pts(double in, quint16 unit);
-	QPolygonF   gdip_open_curve_tangents(QPolygonF &points, double tension);
-	QPolygonF   gdip_closed_curve_tangents(QPolygonF &points, double tension);
-	void        append_curve(QPainterPath &path, QPolygonF &points, QPolygonF &tangents, bool type);
+	QPolygonF   gdip_open_curve_tangents(const QPolygonF &points, double tension);
+	QPolygonF   gdip_closed_curve_tangents(const QPolygonF &points, double tension);
+	void        append_curve(QPainterPath &path, const QPolygonF &points, const QPolygonF &tangents, bool type);
 	void        GdipAddPathCurve(QPainterPath &path, QPolygonF &points, float tension);
 	void        GdipAddPathClosedCurve(QPainterPath &path, QPolygonF &points, float tension);
 	void        handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8 flagsH);

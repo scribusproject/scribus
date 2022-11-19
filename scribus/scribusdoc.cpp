@@ -2909,7 +2909,7 @@ bool ScribusDoc::setLayerPrintable(int layerID, bool isPrintable)
 	{
 		if (it->ID == layerID)
 		{
-			if (it->isPrintable!=isPrintable && UndoManager::undoEnabled())
+			if (it->isPrintable != isPrintable && UndoManager::undoEnabled())
 			{
 				auto *ss = new SimpleState(isPrintable ? Um::PrintLayer : Um::DoNotPrintLayer, "", Um::IPrint);
 				ss->set("PRINT_LAYER");
@@ -2918,7 +2918,7 @@ bool ScribusDoc::setLayerPrintable(int layerID, bool isPrintable)
 				m_undoManager->action(this, ss, it->Name, Um::ILayer);
 			}
 			it->isPrintable = isPrintable;
-			found=true;
+			found = true;
 			break;
 		}
 	}

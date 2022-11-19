@@ -1237,12 +1237,12 @@ void XarPlug::endTextLine()
 		if (!textPath.empty())
 		{
 			QPainterPath guidePath = textPath.toQPainterPath(false);
-			for (int a = 0; a < textLines.count(); a++)
+			for (int a = 0; a < textLines.count(); ++a)
 			{
 				XarTextLine txLin = textLines[a];
 				TextY += gc->LineHeight;
 				xpos = 0;
-				for (int c = 0; c < txLin.textData.count(); c++)
+				for (int c = 0; c < txLin.textData.count(); ++c)
 				{
 					XarText txDat = txLin.textData[c];
 					xpos += txDat.FontKerning * (txDat.FontSize  * 72.0 / 96.0);
@@ -1256,7 +1256,7 @@ void XarPlug::endTextLine()
 					textFont.setItalic(txDat.FontItalic);
 					textFont.setUnderline(txDat.FontUnderline);
 					textFont.setStretch(txDat.FontStretch * 100);
-					for (int b = 0; b < txDat.itemText.count(); b++)
+					for (int b = 0; b < txDat.itemText.length(); ++b)
 					{
 						painterPath = QPainterPath();
 						QString ch = txDat.itemText.at(b);
@@ -1376,12 +1376,12 @@ void XarPlug::endTextLine()
 	}
 	else
 	{
-		for (int a = 0; a < textLines.count(); a++)
+		for (int a = 0; a < textLines.count(); ++a)
 		{
 			XarTextLine txLin = textLines[a];
 			TextY += gc->LineHeight;
 			xpos = 0;
-			for (int b = 0; b < txLin.textData.count(); b++)
+			for (int b = 0; b < txLin.textData.count(); ++b)
 			{
 				XarText txDat = txLin.textData[b];
 				painterPath = QPainterPath();
