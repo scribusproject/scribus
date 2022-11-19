@@ -37,7 +37,7 @@ namespace RtfReader
 		virtual void startGroup();
 		virtual void endGroup();
 		virtual void setEncoding(const int enc);
-		virtual void appendText(const QByteArray &text);
+		virtual void appendText(const QByteArray &textBytes);
 		virtual void appendUnicodeText(const QString &text);
 		virtual void insertPar();
 		virtual void insertTab();

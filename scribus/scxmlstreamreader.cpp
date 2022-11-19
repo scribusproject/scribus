@@ -102,7 +102,7 @@ uint ScXmlStreamAttributes::valueAsUInt  (const char*    attrName, uint def) con
 	return retValue;
 }
 
-uint ScXmlStreamAttributes::valueAsUInt  (const QString& attrName, uint def) const
+uint ScXmlStreamAttributes::valueAsUInt (const QString& attrName, uint def) const
 {
 	uint retValue = def;
 	QStringView att = value(attrName);

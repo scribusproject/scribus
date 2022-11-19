@@ -5690,8 +5690,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	{
 		doc->dontResize = true;
 		PageItem_Table *tableitem = currItem->asTable();
-		int rows=attrs.valueAsInt("Rows",1);
-		int cols=attrs.valueAsInt("Columns",1);
+		int rows = attrs.valueAsInt("Rows",1);
+		int cols = attrs.valueAsInt("Columns",1);
 		tableitem->insertRows(1,rows-1);
 		tableitem->insertColumns(1,cols-1);
 		tableitem->setStyle(attrs.valueAsString("TableStyle"));
@@ -5703,7 +5703,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		QString rowHeights(attrs.valueAsString("RowHeights",""));
 		if (!rowHeights.isEmpty())
 		{
-			QStringList slRowHeights=rowHeights.split(" ");
+			QStringList slRowHeights = rowHeights.split(" ");
 			int i=0;
 			foreach(const QString& pos, slRowHeights)
 				tableitem->resizeRow(i++, pos.toDouble());
@@ -5713,24 +5713,24 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		QString colWidths(attrs.valueAsString("ColumnWidths",""));
 		if (!colWidths.isEmpty())
 		{
-			QStringList slColWidths=colWidths.split(" ");
-			int i=0;
+			QStringList slColWidths = colWidths.split(" ");
+			int i = 0;
 			foreach(const QString& pos, slColWidths)
 				tableitem->resizeColumn(i++, pos.toDouble());
 		}
 		QString cellAreas(attrs.valueAsString("CellAreas"));
 		if (!cellAreas.isEmpty())
 		{
-			QStringList slCellAreas=cellAreas.split(" ");
-			if (slCellAreas.count()%4!=0)
-				qDebug()<<"Cell Area Count on load ! % 4";
-			for (int i = 0; i < slCellAreas.size(); i+=4)
+			QStringList slCellAreas = cellAreas.split(" ");
+			if (slCellAreas.count() % 4 != 0)
+				qDebug() << "Cell Area Count on load ! % 4";
+			for (qsizetype i = 0; i < slCellAreas.size(); i += 4)
 			{
-				int rows=slCellAreas.at(i).toInt();
-				int columns=slCellAreas.at(i+1).toInt();
-				int height=slCellAreas.at(i+2).toInt();
-				int width=slCellAreas.at(i+3).toInt();
-				tableitem->mergeCells(rows,columns,height,width);
+				int rows = slCellAreas.at(i).toInt();
+				int columns = slCellAreas.at(i + 1).toInt();
+				int height = slCellAreas.at(i + 2).toInt();
+				int width = slCellAreas.at(i + 3).toInt();
+				tableitem->mergeCells(rows, columns, height, width);
 			}
 		}
 		doc->dontResize = false;

@@ -88,19 +88,19 @@ namespace RtfReader
 		m_textStyle.pop();
 	}
 
-	void SlaDocumentRtfOutput::appendText(const QByteArray &text)
+	void SlaDocumentRtfOutput::appendText(const QByteArray &textBytes)
 	{
 		int posC = m_item->itemText.length();
-		QString m_txt = m_codec->toUnicode(text);
-		if (text.count() > 0)
+		QString text = m_codec->toUnicode(textBytes);
+		if (text.size() > 0)
 		{
-			m_txt.replace(QChar(10), SpecialChars::LINEBREAK);
-			m_txt.replace(QChar(12), SpecialChars::FRAMEBREAK);
-			m_txt.replace(QChar(30), SpecialChars::NBHYPHEN);
-			m_txt.replace(QChar(160), SpecialChars::NBSPACE);
-			m_item->itemText.insertChars(posC, m_txt);
+			text.replace(QChar(10), SpecialChars::LINEBREAK);
+			text.replace(QChar(12), SpecialChars::FRAMEBREAK);
+			text.replace(QChar(30), SpecialChars::NBHYPHEN);
+			text.replace(QChar(160), SpecialChars::NBSPACE);
+			m_item->itemText.insertChars(posC, text);
 			m_item->itemText.applyStyle(posC, m_textStyle.top());
-			m_item->itemText.applyCharStyle(posC, m_txt.length(), m_textCharStyle.top());
+			m_item->itemText.applyCharStyle(posC, text.length(), m_textCharStyle.top());
 		}
 	}
 

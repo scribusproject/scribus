@@ -1000,9 +1000,9 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 	const QList<PageItem*> * itemlist = & MasterItems;
 	while (itemlist != nullptr)
 	{
-		for (int i=0; i < itemlist->count(); ++i)
+		for (int i = 0; i < itemlist->count(); ++i)
 		{
-			const PageItem * currItem = const_cast<QList<PageItem*>*>(itemlist)->at(i);
+			const PageItem * currItem = itemlist->at(i);
 			if (currItem)
 				currItem->getNamedResources(lists);
 		}
@@ -1660,7 +1660,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		{
 			int layerID = addLayer(ss->get("NAME"), false);
 			int newLayerID = ss->getInt("LAYER_NR");
-			bool renumberedOk=renumberLayer(layerID, newLayerID);
+			bool renumberedOk = renumberLayer(layerID, newLayerID);
 			Q_ASSERT(renumberedOk);
 		}
 		layersUndo = true;
@@ -1671,7 +1671,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		{
 			int layerID = addLayer(ss->get("NAME"), false);
 			int newLayerID = ss->getInt("LAYER_NR");
-			bool renumberedOk=renumberLayer(layerID, newLayerID);
+			bool renumberedOk = renumberLayer(layerID, newLayerID);
 			Q_ASSERT(renumberedOk);
 			layerID = newLayerID;
 			//Layer is at the top now, lower it until it reaches the old level
@@ -2896,7 +2896,7 @@ bool ScribusDoc::setActiveLayer(const QString& layerNameToActivate)
 	const ScLayer* ll = Layers.layerByName(layerNameToActivate);
 	Q_ASSERT(ll);
 	if (ll)
-		m_ActiveLayer=ll->ID;
+		m_ActiveLayer = ll->ID;
 	return (ll != nullptr);
 }
 
@@ -3494,24 +3494,23 @@ int ScribusDoc::firstLayerID() const
 
 bool ScribusDoc::renumberLayer(int layerID, int newLayerID)
 {
-	int layerCount=Layers.count();
+	int layerCount = Layers.count();
 	int foundIndex = 0;
-	bool found=false;
+	bool found = false;
 	//Find layer to renumber, if found the new number, return as it exists already.
-	for (int i=0; i < layerCount; ++i)
+	for (int i = 0; i < layerCount; ++i)
 	{
 		if (Layers[i].ID == layerID)
 		{
-			foundIndex=i;
-			found=true;
+			foundIndex = i;
+			found = true;
 		}
-		else
-		if (Layers[i].ID == newLayerID)
+		else if (Layers[i].ID == newLayerID)
 			return false;
 	}
 	if (!found)
 		return false;
-	Layers[foundIndex].ID=newLayerID;
+	Layers[foundIndex].ID = newLayerID;
 	return true;
 }
 
@@ -5859,12 +5858,12 @@ void ScribusDoc::GroupOnPage(PageItem* currItem)
 		if (res != -1)
 			On_Page = qMin(On_Page, res);
 	}
-	int final = -1;
+	int finalPage = -1;
 	if (Off_Page != -1)
-		final = On_Page;
+		finalPage = On_Page;
 	for (uint a = 0; a < objectCount; ++a)
 	{
-		Objects.at(a)->OwnPage = final;
+		Objects.at(a)->OwnPage = finalPage;
 	}
 	currItem->OwnPage = OnPage(currItem);
 }
@@ -11920,7 +11919,7 @@ void ScribusDoc::itemSelection_AlignLeftOut(ScribusDoc::AlignTo currAlignTo, Scr
 			break;
 		case alignLast:
 			newX = AObjects[alignObjectsCount-1].x1;
-			loopEnd = alignObjectsCount-2;
+			loopEnd = alignObjectsCount - 2;
 			break;
 		case alignPage:
 			newX = m_currentPage->xOffset();
@@ -16245,8 +16244,7 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 			pp->initialMargins = m_docPrefsData.docSetupPrefs.margins;
 			pp->marginPreset = m_docPrefsData.docSetupPrefs.marginPreset;
 		}
-		else
-		if (resizeMasterPageMargins)
+		else if (resizeMasterPageMargins)
 		{
 			//CB #6796: find the master page (*mp) for the current page (*pp)
 			//check if *pp's margins are the same as the *mp's current margins

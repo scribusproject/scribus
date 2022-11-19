@@ -67,11 +67,13 @@ enum LayoutFlags {
  */
 class SCRIBUS_API InlineFrame
 {
-	int m_object_id;
 public:
-	InlineFrame(int id) : m_object_id(id) {}
+	explicit InlineFrame(int id) : m_object_id(id) {}
 	int getInlineCharID() const { return m_object_id; }
-	PageItem* getPageItem(ScribusDoc* doc) const;
+	PageItem* getPageItem(const ScribusDoc* doc) const;
+
+private:
+	int m_object_id;
 };
 
 
@@ -95,65 +97,66 @@ public:
 		MarkCE // deprecated
 	} ;
 
-	ExpansionPoint(ExpansionType t) : m_type(t), m_name(), m_mark(0) {}
-	ExpansionPoint(ExpansionType t, QString name) : m_type(t), m_name(name), m_mark(0) {}
-	ExpansionPoint(Mark* mrk) : m_type(MarkCE), m_name(), m_mark(mrk) {}
+	ExpansionPoint(ExpansionType t) : m_type(t) {}
+	ExpansionPoint(ExpansionType t, QString name) : m_type(t), m_name(name) {}
+	ExpansionPoint(Mark* mrk) : m_type(MarkCE), m_mark(mrk) {}
 
 	ExpansionType getType() const { return m_type; }
 	QString getName() const { return m_name; }
 	Mark* getMark() const { return m_mark; }
+
 private:
-	ExpansionType m_type;
+	ExpansionType m_type { Invalid };
 	QString m_name;
-	Mark* m_mark;
+	Mark* m_mark { nullptr };
 };
 
 
 /**
  * This struct stores a positioned glyph. This is the result of the layout process.
  */
-struct SCRIBUS_API GlyphLayout {
-	float xadvance;
-	float yadvance;
-	float xoffset;
-	float yoffset;
-	double scaleV;
-	double scaleH;
-	uint glyph;
-	
-	GlyphLayout() : xadvance(0.0f), yadvance(0.0f), xoffset(0.0f), yoffset(0.0f),
-		scaleV(1.0), scaleH(1.0), glyph(0)
-	{ }
+struct SCRIBUS_API GlyphLayout
+{
+	GlyphLayout() = default;
+
+	float xadvance { 0.0f };
+	float yadvance { 0.0f };
+	float xoffset { 0.0f };
+	float yoffset { 0.0f };
+	double scaleV { 1.0 };
+	double scaleH { 1.0 };
+	uint glyph { 0 };
 };
 
 class SCRIBUS_API ScText : public CharStyle
 {
 public:
-	ParagraphStyle* parstyle; // only for parseps
-	int embedded;
-	Mark* mark;
-	QChar ch;
-	ScText() :
-		CharStyle(),
-		parstyle(nullptr),
-		embedded(0), mark(nullptr), ch() {}
+	ScText() : CharStyle() {}
+
 	ScText(const ScText& other) :
 		CharStyle(other),
-		parstyle(nullptr),
-		embedded(other.embedded), mark(nullptr), ch(other.ch)
+		embedded(other.embedded),
+		ch(other.ch)
 	{
 		if (other.parstyle)
 			parstyle = new ParagraphStyle(*other.parstyle);
 		if (other.mark)
 			setNewMark(other.mark);
 	}
-	~ScText();
 
-	bool hasObject(ScribusDoc *doc) const;
+	~ScText() override;
+
+	ParagraphStyle* parstyle { nullptr }; // only for parseps
+	int embedded { 0 };
+	Mark* mark { nullptr };
+	QChar ch;
+
+	bool hasObject(const ScribusDoc *doc) const;
 	//returns true if given MRK is found, if MRK is nullptr then any mark returns true
 	bool hasMark(const Mark * mrk = nullptr) const;
-	QList<PageItem*> getGroupedItems(ScribusDoc *doc);
-	PageItem* getItem(ScribusDoc *doc);
+	QList<PageItem*> getGroupedItems(const ScribusDoc *doc) const;
+	PageItem* getItem(const ScribusDoc *doc) const;
+
 private:
 	void setNewMark(Mark* mrk);
 };

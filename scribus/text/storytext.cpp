@@ -386,7 +386,8 @@ int StoryText::indexOf(const QString &str, int from, Qt::CaseSensitivity cs, int
 	}
 	else
 	{
-		bool qCharIsDiacritic, curCharIsDiacritic;
+		bool qCharIsDiacritic;
+		bool curCharIsDiacritic;
 		int i = indexOf(ch, from, cs);
 		while (i >= 0 && i < (int) d->len)
 		{
@@ -396,8 +397,8 @@ int StoryText::indexOf(const QString &str, int from, Qt::CaseSensitivity cs, int
 			{
 				const QChar &qChar = qStr.at(index);
 				const QChar &curChar = d->at(index + diacriticsCounter + i)->ch;
-				qCharIsDiacritic   = SpecialChars::isArabicModifierLetter(qChar.unicode()) | (qChar.category() == QChar::Mark_NonSpacing);
-				curCharIsDiacritic = SpecialChars::isArabicModifierLetter(curChar.unicode()) | (curChar.category() == QChar::Mark_NonSpacing);
+				qCharIsDiacritic   = SpecialChars::isArabicModifierLetter(qChar.unicode()) || (qChar.category() == QChar::Mark_NonSpacing);
+				curCharIsDiacritic = SpecialChars::isArabicModifierLetter(curChar.unicode()) || (curChar.category() == QChar::Mark_NonSpacing);
 				if (qCharIsDiacritic || curCharIsDiacritic)
 				{
 					if (qCharIsDiacritic)
@@ -656,7 +657,7 @@ void StoryText::trim()
 	int pos = length() - 1;
 	for (int i = length() - 1; i >= 0; --i)
 	{
-		ScText *it = d->at(i);
+		const ScText *it = d->at(i);
 		if ((it->ch == SpecialChars::PARSEP) || (it->ch.isSpace()))
 		{
 			pos--;
@@ -669,7 +670,7 @@ void StoryText::trim()
 	{
 		ParagraphStyle pst = paragraphStyle(pos);
 		if (posCount > 1)
-			removeChars(pos+1, posCount-1);
+			removeChars(pos + 1, posCount - 1);
 		applyStyle(pos, pst);
 	}
 }
@@ -902,7 +903,7 @@ void StoryText::insertObject(int pos, int ob)
 		pos += length()+1;
 
 	insertChars(pos, SpecialChars::OBJECT);
-	const_cast<StoryText *>(this)->d->at(pos)->embedded = ob;
+	this->d->at(pos)->embedded = ob;
 	m_doc->FrameItems[ob]->isEmbedded = true;   // this might not be enough...
 	m_doc->FrameItems[ob]->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
 }
@@ -929,7 +930,7 @@ void StoryText::replaceObject(int pos, int ob)
 		pos += length()+1;
 
 	replaceChar(pos, SpecialChars::OBJECT);
-	const_cast<StoryText *>(this)->d->at(pos)->embedded = ob;
+	this->d->at(pos)->embedded = ob;
 	m_doc->FrameItems[ob]->isEmbedded = true;   // this might not be enough...
 	m_doc->FrameItems[ob]->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
 }
@@ -951,9 +952,9 @@ QString StoryText::plainText() const
 	int len = length();
 	result.reserve(len);
 
-	StoryText* that(const_cast<StoryText*>(this));
-	for (int i = 0; i < len; ++i) {
-		ch = that->d->at(i)->ch;
+	for (int i = 0; i < len; ++i)
+	{
+		ch = d->at(i)->ch;
 		if (ch == SpecialChars::PARSEP)
 			ch = QLatin1Char('\n');
 		result += ch;
@@ -976,7 +977,7 @@ QChar StoryText::text(int pos) const
 	assert(pos >= 0);
 	assert(pos < length());
 
-	return const_cast<StoryText *>(this)->d->at(pos)->ch;
+	return d->at(pos)->ch;
 }
 
 QString StoryText::text(int pos, uint len) const
@@ -988,9 +989,8 @@ QString StoryText::text(int pos, uint len) const
 	assert(pos + signed(len) <= length());
 
 	QString result;
-	StoryText* that(const_cast<StoryText*>(this));
 	for (int i = pos; i < pos+signed(len); ++i)
-		result += that->d->at(i)->ch;
+		result += d->at(i)->ch;
 
 	return result;
 }
@@ -1024,8 +1024,7 @@ InlineFrame StoryText::object(int pos) const
 	assert(pos >= 0);
 	assert(pos < length());
 
-	StoryText* that = const_cast<StoryText *>(this);
-	return InlineFrame(that->d->at(pos)->embedded);
+	return InlineFrame(d->at(pos)->embedded);
 }
 
 
@@ -1107,9 +1106,8 @@ bool StoryText::hasObject(int pos) const
 	assert(pos >= 0);
 	assert(pos < length());
 
-	StoryText* that = const_cast<StoryText *>(this);
-	if (that->d->at(pos)->ch == SpecialChars::OBJECT)
-		return that->d->at(pos)->hasObject(m_doc);
+	if (d->at(pos)->ch == SpecialChars::OBJECT)
+		return d->at(pos)->hasObject(m_doc);
 	return false;
 }
 
@@ -1122,8 +1120,7 @@ PageItem* StoryText::getItem(int pos) const
 	assert(pos >= 0);
 	assert(pos < length());
 
-	StoryText* that = const_cast<StoryText *>(this);
-	return that->d->at(pos)->getItem(m_doc);
+	return d->at(pos)->getItem(m_doc);
 }
 
 int StoryText::findMark(const Mark* mrk, int startPos) const
@@ -1275,8 +1272,7 @@ LayoutFlags StoryText::flags(int pos) const
 	assert(pos >= 0);
 	assert(pos < length());
 
-	StoryText* that = const_cast<StoryText *>(this);
-	return  static_cast<LayoutFlags>((*that->d->at(pos)).effects().value & ScStyle_NonUserStyles);
+	return  static_cast<LayoutFlags>(d->at(pos)->effects().value & ScStyle_NonUserStyles);
 }
 
 bool StoryText::hasFlag(int pos, LayoutFlags flags) const
@@ -1388,7 +1384,8 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 //		current->parstyle->charStyle().setName( "cpara(paragraphStyle)" ); // DON'T TRANSLATE
 //		current->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
 	}
-	else {
+	else
+	{
 //		qDebug() << QString("using parstyle at %1").arg(pos);
 	}
 	assert (that->d->at(pos)->parstyle);
@@ -1704,12 +1701,11 @@ uint StoryText::nrOfParagraph() const
 uint StoryText::nrOfParagraph(int pos) const
 {
 	uint result = 0;
-	StoryText* that = const_cast<StoryText *>(this);
 	bool lastWasPARSEP = true;
-	pos = qMin(pos, that->length());
+	pos = qMin(pos, length());
 	for (int i=0; i < pos; ++i)
 	{
-		lastWasPARSEP = that->d->at(i)->ch == SpecialChars::PARSEP;
+		lastWasPARSEP = d->at(i)->ch == SpecialChars::PARSEP;
 		if (lastWasPARSEP)
 			++result;
 	}
@@ -1719,11 +1715,10 @@ uint StoryText::nrOfParagraph(int pos) const
 uint StoryText::nrOfParagraphs() const
 {
 	uint result = 0;
-	StoryText* that = const_cast<StoryText *>(this);
 	bool lastWasPARSEP = true;
-	for (int i=0; i < length(); ++i)
+	for (int i = 0; i < length(); ++i)
 	{
-		lastWasPARSEP = that->d->at(i)->ch == SpecialChars::PARSEP;
+		lastWasPARSEP = d->at(i)->ch == SpecialChars::PARSEP;
 		if (lastWasPARSEP)
 			++result;
 	}
@@ -1740,10 +1735,9 @@ int StoryText::startOfParagraph(uint index) const
 	if (index == 0)
 		return 0;
 
-	StoryText* that = const_cast<StoryText *>(this);
 	for (int i=0; i < length(); ++i)
 	{
-		if (that->d->at(i)->ch == SpecialChars::PARSEP && ! --index)
+		if (d->at(i)->ch == SpecialChars::PARSEP && ! --index)
 			return i + 1;
 	}
 	return length();
@@ -1757,10 +1751,9 @@ int StoryText::endOfParagraph() const
 int StoryText::endOfParagraph(uint index) const
 {
 	++index;
-	StoryText* that = const_cast<StoryText *>(this);
-	for (int i=0; i < length(); ++i)
+	for (int i = 0; i < length(); ++i)
 	{
-		if (that->d->at(i)->ch == SpecialChars::PARSEP && ! --index)
+		if (d->at(i)->ch == SpecialChars::PARSEP && ! --index)
 			return i;
 	}
 	return length();
@@ -2122,26 +2115,12 @@ BreakIterator* StoryText::getLineIterator()
 
 void StoryText::selectAll()
 {
-/*	StoryText* that = const_cast<StoryText *>(this);
-	that->at(0);
-	for (int i=0; i < length(); ++i) {
-		that->current()->cselect = true;
-		that->next();
-	}
-*/
 	d->selFirst = 0;
 	d->selLast = length() - 1;
 }
 
 void StoryText::deselectAll()
 {
-/*	StoryText* that = const_cast<StoryText *>(this);
-	that->at(0);
-	for (int i=0; i < length(); ++i) {
-		that->current()->cselect = false;
-		that->next();
-	}
-*/	
 	d->selFirst = 0;
 	d->selLast = -1;
 }
@@ -2204,13 +2183,13 @@ void StoryText::validate()
 ScText* StoryText::item(int index)
 {
 	assert( index < length() );
-	return const_cast<StoryText *>(this)->d->at(index);
+	return this->d->at(index);
 }
 
 const ScText* StoryText::item(int index) const
 {
 	assert( index < length() );
-	return const_cast<StoryText *>(this)->d->at(index);
+	return this->d->at(index);
 }
 
 
@@ -2388,7 +2367,7 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 class AppendText_body : public Action_body
 {
 public:	
-	void chars(const Xml_string& txt)
+	void chars(const Xml_string& txt) override
 	{
 		QChar chr;
 		int   lastPos = 0, len;
@@ -2431,9 +2410,9 @@ struct  AppendText : public MakeAction<AppendText_body>
 class AppendSpecial_body : public Action_body
 {
 public:
-	AppendSpecial_body(QChar sp) : chr(sp) {}
+	explicit AppendSpecial_body(QChar sp) : chr(sp) {}
 	
-	void begin(const Xml_string& tag, Xml_attr attr)
+	void begin(const Xml_string& tag, Xml_attr attr) override
 	{
 		StoryText* obj = this->dig->top<StoryText>();
 		Xml_attr::iterator code = attr.find("code");
@@ -2456,15 +2435,15 @@ private:
 
 struct AppendSpecial : public MakeAction<AppendSpecial_body, QChar>
 {
-	AppendSpecial(QChar sp) : MakeAction<AppendSpecial_body, QChar>(sp) {}
 	AppendSpecial() : MakeAction<AppendSpecial_body, QChar>(SpecialChars::BLANK) {}
+	explicit AppendSpecial(QChar sp) : MakeAction<AppendSpecial_body, QChar>(sp) {}
 };
 
 
 class AppendInlineFrame_body : public Action_body
 {
 public:
-	void end(const Xml_string& tag) // this could be a setter if we had StoryText::appendObject() ...
+	void end(const Xml_string& tag) override // this could be a setter if we had StoryText::appendObject() ...
 	{
 		StoryText* story = this->dig->top<StoryText>(1);
 		PageItem* obj = this->dig->top<PageItem>(0);
@@ -2490,7 +2469,7 @@ struct AppendInlineFrame : public MakeAction<AppendInlineFrame_body>
 class AppendMark_body : public Action_body
 {
 public:
-	void begin(const Xml_string& tag, Xml_attr attr)
+	void begin(const Xml_string& tag, Xml_attr attr) override
 	{
 		StoryText* story = this->dig->top<StoryText>();
 		QString l;
@@ -2709,17 +2688,17 @@ public:
 	Paragraph_body()
 	{}
 	
-	~Paragraph_body() 
+	~Paragraph_body() override
 	{
 		delete lastStyle;
 	}
 
-	virtual void reset()
+	void reset() override
 	{
 		numPara = 0;
 	}
 	
-	void begin(const Xml_string& tag, Xml_attr attr)
+	void begin(const Xml_string& tag, Xml_attr attr) override
 	{
 		if (tag == "text-content")
 		{
@@ -2739,7 +2718,7 @@ public:
 		}
 	}
 	
-	void end(const Xml_string& tag) 
+	void end(const Xml_string& tag) override
 	{
 		if (tag == ParagraphStyle::saxxDefaultElem)
 		{
@@ -2777,12 +2756,12 @@ public:
 	SpanAction_body()
 	{}
 	
-	~SpanAction_body() 
+	~SpanAction_body() override
 	{
 		delete lastStyle;
 	}
 	
-	void begin(const Xml_string& tag, Xml_attr attr)
+	void begin(const Xml_string& tag, Xml_attr attr) override
 	{
 //		qDebug() << QString("spanaction: begin %1").arg(tag);
 		if (tag == "span")
@@ -2794,7 +2773,7 @@ public:
 		}
 	}
 	
-	void end(const Xml_string& tag) 
+	void end(const Xml_string& tag) override
 	{
 		if (tag == CharStyle::saxxDefaultElem)
 //			qDebug() << QString("spanaction: end %1").arg(tag);

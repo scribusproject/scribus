@@ -46,11 +46,10 @@ void ScJpegErrorMgr::jpegErrorExit (j_common_ptr cinfo)
 
 struct ScJpegDestinationMgr : public jpeg_destination_mgr 
 {
-	ScJpegEncodeFilter* filter { nullptr };
-	JOCTET buffer[BUFFER_SIZE];
+	ScJpegDestinationMgr(ScJpegEncodeFilter*);
 
-public:
-	ScJpegDestinationMgr(ScJpegEncodeFilter *);
+	ScJpegEncodeFilter* filter { nullptr };
+	JOCTET buffer[BUFFER_SIZE] { 0 };
 
 	static boolean jpegEmptyBuffer(j_compress_ptr cinfo);
 	static void    jpegDestinationInit(j_compress_ptr);
@@ -97,17 +96,17 @@ ScJpegDestinationMgr::ScJpegDestinationMgr(ScJpegEncodeFilter *filter)
 
 struct ScJpegEncodeFilterData
 {
-	struct   jpeg_compress_struct  cinfo;
-	struct   ScJpegDestinationMgr* cdest { nullptr };
-	JSAMPROW row_pointer[1];
-
 	ScJpegEncodeFilterData();
 	~ScJpegEncodeFilterData();
+
+	jpeg_compress_struct  cinfo;
+	ScJpegDestinationMgr* cdest { nullptr };
+	JSAMPROW row_pointer[1] { nullptr };
 };
 
 ScJpegEncodeFilterData::ScJpegEncodeFilterData()
 {
-	row_pointer[0] = nullptr;
+	memset(&cinfo, 0, sizeof(jpeg_compress_struct));
 }
 
 ScJpegEncodeFilterData::~ScJpegEncodeFilterData()

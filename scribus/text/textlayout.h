@@ -59,7 +59,7 @@ public:
 	int startOfFrame() const;
 	int endOfFrame() const;
 
-	int pointToPosition(QPointF coord) const;
+	int pointToPosition(const QPointF& coord) const;
 	QLineF positionToPoint(int pos) const;
 
 	uint lines() const;
@@ -78,7 +78,7 @@ protected:
 	friend class FrameControl;
 	
 	StoryText* m_story;
-    ITextContext* m_frame;
+	ITextContext* m_frame;
 	GroupBox* m_box;
 	
 	bool m_validLayout;
