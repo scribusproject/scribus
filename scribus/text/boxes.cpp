@@ -24,7 +24,7 @@
 
 using namespace icu;
 
-int GroupBox::pointToPosition(QPointF coord, const StoryText &story) const
+int GroupBox::pointToPosition(const QPointF& coord, const StoryText &story) const
 {
 	QPointF rel = coord - QPointF(m_x, m_y);
 	for (const Box *box : boxes())
@@ -102,7 +102,8 @@ void GroupBox::drawSelection(ScreenPainter *p, ITextContext *ctx) const
 double GroupBox::naturalHeight() const
 {
 	double nH = 0;
-	for (const Box* box : boxes()) {
+	for (const Box* box : boxes())
+	{
 		if (m_direction == D_Horizontal)
 			nH = qMax(m_naturalHeight, box->naturalHeight());
 		else
@@ -158,7 +159,7 @@ void GroupBox::justify(const ParagraphStyle& style)
 }
 #endif
 
-int LineBox::pointToPosition(QPointF coord, const StoryText &story) const
+int LineBox::pointToPosition(const QPointF& coord, const StoryText &story) const
 {
 	int position = GroupBox::pointToPosition(coord, story);
 	if (position < 0 && containsPoint(coord))
@@ -205,7 +206,7 @@ QLineF LineBox::positionToPoint(int pos, const StoryText& story) const
 	return result;
 }
 
-bool LineBox::containsPoint(QPointF coord) const
+bool LineBox::containsPoint(const QPointF& coord) const
 {
 	return QRectF(0, m_y, m_width, height()).contains(coord);
 }
@@ -748,7 +749,7 @@ void GlyphBox::render(TextLayoutPainter *p) const
 	p->restore();
 }
 
-int GlyphBox::pointToPosition(QPointF coord, const StoryText& story) const
+int GlyphBox::pointToPosition(const QPointF& coord, const StoryText& story) const
 {
 	if (firstChar() != lastChar())
 	{

@@ -83,12 +83,12 @@ public:
 	QRectF bbox() const { return QRectF(m_x, m_y, m_width, height()); }
 
 	/// Whether the coordinate is inside the box or not.
-	virtual bool containsPoint(QPointF coord) const { return bbox().contains(coord); }
+	virtual bool containsPoint(const QPointF& coord) const { return bbox().contains(coord); }
 	/// Whether the character at index pos is inside the box or not.
 	bool containsPos(int pos) const { return firstChar() <= pos && pos <= lastChar(); }
 
 	/// Returns the character index at coorddinate.
-	virtual int pointToPosition(QPointF coord, const StoryText &story) const = 0;
+	virtual int pointToPosition(const QPointF& coord, const StoryText &story) const = 0;
 	/// Returns the position of cursor before the character at index pos.
 	virtual QLineF positionToPoint(int, const StoryText&) const { return QLineF(); }
 
@@ -162,7 +162,7 @@ public:
 		m_naturalWidth = m_naturalHeight = 0;
 	}
 
-	int pointToPosition(QPointF coord, const StoryText &story) const override;
+	int pointToPosition(const QPointF& coord, const StoryText &story) const override;
 	QLineF positionToPoint(int pos, const StoryText& story) const override;
 
 	void render(TextLayoutPainter *p) const override;
@@ -197,10 +197,10 @@ public:
 		m_type = T_Line;
 	}
 
-	int pointToPosition(QPointF coord, const StoryText &story) const override;
+	int pointToPosition(const QPointF& coord, const StoryText &story) const override;
 	QLineF positionToPoint(int pos, const StoryText& story) const override;
 
-	bool containsPoint(QPointF coord) const override;
+	bool containsPoint(const QPointF& coord) const override;
 
 	void render(TextLayoutPainter *p) const override;
 	void render(ScreenPainter *p, ITextContext *ctx) const override;
@@ -247,7 +247,7 @@ public:
 		m_naturalDescent = run.descent();
 	}
 
-	int pointToPosition(QPointF coord, const StoryText &story) const override;
+	int pointToPosition(const QPointF& coord, const StoryText &story) const override;
 	QLineF positionToPoint(int pos, const StoryText& story) const override;
 
 	void render(TextLayoutPainter *p) const override;

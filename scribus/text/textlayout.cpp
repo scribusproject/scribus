@@ -27,17 +27,10 @@
 #include "boxes.h"
 #include "itextcontext.h"
 
-
-
 TextLayout::TextLayout(StoryText* text, ITextContext* frame)
+          : m_story(text),
+            m_frame(frame)
 {
-	m_story = text;
-	m_frame = frame;
-
-	m_validLayout = false;
-	m_magicX = 0.0;
-	m_lastMagicPos = -1;
-
 	m_box = new GroupBox(Box::D_Horizontal);
 }
 
@@ -99,7 +92,7 @@ void TextLayout::appendLine(LineBox* ls)
 // Remove the last line from the list. Used when we need to backtrack on the layouting.
 void TextLayout::removeLastLine ()
 {
-	QList<Box*>& boxes = m_box->boxes();
+	const QList<Box*>& boxes = m_box->boxes();
 	if (boxes.isEmpty())
 		return;
 
@@ -362,7 +355,7 @@ int TextLayout::endOfFrame() const
 }
 
 
-int TextLayout::pointToPosition(QPointF coord) const
+int TextLayout::pointToPosition(const QPointF& coord) const
 {
 	int position = m_box->pointToPosition(coord, *m_story);
 	return position;
@@ -385,8 +378,8 @@ QLineF TextLayout::positionToPoint(int pos) const
 			Box* column = m_box->boxes().last();
 			if (column->boxes().count() > 0)
 			{
-				Box* line = column->boxes().last();
-				Box* glyph = line->boxes().empty() ? nullptr : line->boxes().last();
+				const Box* line = column->boxes().last();
+				const Box* glyph = line->boxes().empty() ? nullptr : line->boxes().last();
 				QChar ch = story()->text(line->lastChar());
 				if (ch == SpecialChars::PARSEP || ch == SpecialChars::LINEBREAK)
 				{

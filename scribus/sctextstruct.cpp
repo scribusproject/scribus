@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 
 
-PageItem* InlineFrame::getPageItem(ScribusDoc* doc) const
+PageItem* InlineFrame::getPageItem(const ScribusDoc* doc) const
 {
 	if (doc->FrameItems.contains(m_object_id))
 		return doc->FrameItems[m_object_id];
@@ -26,7 +26,7 @@ ScText::~ScText()
 	mark = nullptr;
 }
 
-bool ScText::hasObject(ScribusDoc *doc) const
+bool ScText::hasObject(const ScribusDoc *doc) const
 {
 	if (this->ch == SpecialChars::OBJECT)
 		return ((embedded > 0) && (doc->FrameItems.contains(embedded)));
@@ -44,7 +44,7 @@ bool ScText::hasMark(const Mark* mrk) const
 	return false;
 }
 
-QList<PageItem*> ScText::getGroupedItems(ScribusDoc *doc)
+QList<PageItem*> ScText::getGroupedItems(const ScribusDoc *doc) const
 {
 	QList<PageItem*> result;
 	if ((embedded > 0) && (doc->FrameItems.contains(embedded)))
@@ -57,7 +57,7 @@ QList<PageItem*> ScText::getGroupedItems(ScribusDoc *doc)
 	return result;
 }
 
-PageItem* ScText::getItem(ScribusDoc *doc)
+PageItem* ScText::getItem(const ScribusDoc *doc) const
 {
 	if ((embedded > 0) && (doc->FrameItems.contains(embedded)))
 		return doc->FrameItems[embedded];
