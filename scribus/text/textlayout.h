@@ -42,8 +42,6 @@ class SCRIBUS_API TextLayout
 public:
 	TextLayout(StoryText* text, ITextContext* frame);
 	~TextLayout();
-
-	bool overflows() const;
 	
 	StoryText* story() { return m_story; }
 	ITextContext*  frame() { return m_frame; }
@@ -77,14 +75,13 @@ public:
 protected:
 	friend class FrameControl;
 	
-	StoryText* m_story;
-	ITextContext* m_frame;
-	GroupBox* m_box;
+	StoryText* m_story { nullptr };
+	ITextContext* m_frame { nullptr };
+	GroupBox* m_box { nullptr };
 	
-	bool m_validLayout;
-	mutable qreal m_magicX;
-	mutable int m_lastMagicPos;
-
+	bool m_validLayout { false };
+	mutable qreal m_magicX { 0.0 };
+	mutable int m_lastMagicPos { -1 };
 };
 
 #endif
