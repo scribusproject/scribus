@@ -121,8 +121,10 @@ void TextLayout::render(ScreenPainter *p, ITextContext *ctx) const
 
 void TextLayout::renderBackground(TextLayoutPainter *p) const
 {
-	QString backColor, lastColor;
-	double backShade, lastShade = 100;
+	QString backColor;
+	QString lastColor;
+	double backShade;
+	double lastShade = 100.0;
 	QRectF lastRect;
 
 	p->save();
@@ -217,7 +219,8 @@ void TextLayout::setStory(StoryText *story)
 
 int TextLayout::startOfLine(int pos) const
 {
-	for (uint i=0; i < lines(); ++i) {
+	for (uint i=0; i < lines(); ++i)
+	{
 		const LineBox* ls = line(i);
 		if (ls->firstChar() <= pos && pos <= ls->lastChar())
 			return ls->firstChar();
@@ -227,7 +230,8 @@ int TextLayout::startOfLine(int pos) const
 
 int TextLayout::endOfLine(int pos) const
 {
-	for (uint i=0; i < lines(); ++i) {
+	for (uint i=0; i < lines(); ++i)
+	{
 		const LineBox* ls = line(i);
 		if (ls->containsPos(pos))
 			return story()->text(ls->lastChar()) == SpecialChars::PARSEP ? ls->lastChar() :
@@ -370,7 +374,9 @@ QLineF TextLayout::positionToPoint(int pos) const
 	result = m_box->positionToPoint(pos, *m_story);
 	if (result.isNull())
 	{
-		qreal x, y1, y2;
+		qreal x;
+		qreal y1;
+		qreal y2;
 		if (lines() > 0)
 		{
 			// TODO: move this branch to GroupBox::positionToPoint()
