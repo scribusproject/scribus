@@ -3234,6 +3234,7 @@ void Scribus150Format::readTableStyle(ScribusDoc *doc, ScXmlStreamReader& reader
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	newStyle.erase();
 	newStyle.setName(attrs.valueAsString("NAME", ""));
+
 	// The default style attribute must be correctly set before trying to assign a parent
 	if (attrs.hasAttribute("DefaultStyle"))
 		newStyle.setDefaultStyle(attrs.valueAsInt("DefaultStyle"));
@@ -3248,95 +3249,68 @@ void Scribus150Format::readTableStyle(ScribusDoc *doc, ScXmlStreamReader& reader
 		newStyle.setFillColor(attrs.valueAsString("FillColor"));
 	if (attrs.hasAttribute("FillShade"))
 		newStyle.setFillShade(attrs.valueAsDouble("FillShade"));
+
 	QStringRef tagName = reader.name();
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
 			break;
+		if (!reader.isStartElement())
+			continue;
 		if (reader.name() == "TableBorderLeft")
 		{
 			TableBorder border;
-			QStringRef tagName = reader.name();
-			while (!reader.atEnd() && !reader.hasError())
-			{
-				reader.readNext();
-				if (reader.isEndElement() && reader.name() == tagName)
-					break;
-				if (reader.isStartElement() && reader.name() == "TableBorderLine")
-				{
-					ScXmlStreamAttributes tAttB = reader.scAttributes();
-					double width = tAttB.valueAsDouble("Width", 0.0);
-					QString color = tAttB.valueAsString("Color", CommonStrings::None);
-					double shade = tAttB.valueAsDouble("Shade", 100.0);
-					int style = tAttB.valueAsInt("PenStyle", 1);
-					border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), color, shade));
-				}
-			}
+			readTableStyleBorderLines(doc, reader, border);
 			newStyle.setLeftBorder(border);
 		}
 		else if (reader.name() == "TableBorderRight")
 		{
 			TableBorder border;
-			QStringRef tagName = reader.name();
-			while (!reader.atEnd() && !reader.hasError())
-			{
-				reader.readNext();
-				if (reader.isEndElement() && reader.name() == tagName)
-					break;
-				if (reader.isStartElement() && reader.name() == "TableBorderLine")
-				{
-					ScXmlStreamAttributes tAttB = reader.scAttributes();
-					double width = tAttB.valueAsDouble("Width", 0.0);
-					QString color = tAttB.valueAsString("Color", CommonStrings::None);
-					double shade = tAttB.valueAsDouble("Shade", 100.0);
-					int style = tAttB.valueAsInt("PenStyle", 1);
-					border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), color, shade));
-				}
-			}
+			readTableStyleBorderLines(doc, reader, border);
 			newStyle.setRightBorder(border);
 		}
 		else if (reader.name() == "TableBorderTop")
 		{
 			TableBorder border;
-			QStringRef tagName = reader.name();
-			while (!reader.atEnd() && !reader.hasError())
-			{
-				reader.readNext();
-				if (reader.isEndElement() && reader.name() == tagName)
-					break;
-				if (reader.isStartElement() && reader.name() == "TableBorderLine")
-				{
-					ScXmlStreamAttributes tAttB = reader.scAttributes();
-					double width = tAttB.valueAsDouble("Width", 0.0);
-					QString color = tAttB.valueAsString("Color", CommonStrings::None);
-					double shade = tAttB.valueAsDouble("Shade", 100.0);
-					int style = tAttB.valueAsInt("PenStyle", 1);
-					border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), color, shade));
-				}
-			}
+			readTableStyleBorderLines(doc, reader, border);
 			newStyle.setTopBorder(border);
 		}
 		else if (reader.name() == "TableBorderBottom")
 		{
 			TableBorder border;
-			QStringRef tagName = reader.name();
-			while (!reader.atEnd() && !reader.hasError())
-			{
-				reader.readNext();
-				if (reader.isEndElement() && reader.name() == tagName)
-					break;
-				if (reader.isStartElement() && reader.name() == "TableBorderLine")
-				{
-					ScXmlStreamAttributes tAttB = reader.scAttributes();
-					double width = tAttB.valueAsDouble("Width", 0.0);
-					QString color = tAttB.valueAsString("Color", CommonStrings::None);
-					double shade = tAttB.valueAsDouble("Shade", 100.0);
-					int style = tAttB.valueAsInt("PenStyle", 1);
-					border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), color, shade));
-				}
-			}
+			readTableStyleBorderLines(doc, reader, border);
 			newStyle.setBottomBorder(border);
+		}
+		else
+		{
+			reader.skipCurrentElement();
+		}
+	}
+}
+
+void Scribus150Format::readTableStyleBorderLines(ScribusDoc* /*doc*/, ScXmlStreamReader& reader, TableBorder& border)
+{
+	QStringView tagName = reader.name();
+	while (!reader.atEnd() && !reader.hasError())
+	{
+		reader.readNext();
+		if (reader.isEndElement() && reader.name() == tagName)
+			break;
+		if (!reader.isStartElement())
+			continue;
+		if (reader.name() == QLatin1String("TableBorderLine"))
+		{
+			ScXmlStreamAttributes tAttB = reader.scAttributes();
+			double width = tAttB.valueAsDouble("Width", 0.0);
+			QString color = tAttB.valueAsString("Color", CommonStrings::None);
+			double shade = tAttB.valueAsDouble("Shade", 100.0);
+			int style = tAttB.valueAsInt("PenStyle", 1);
+			border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), color, shade));
+		}
+		else
+		{
+			reader.skipCurrentElement();
 		}
 	}
 }
