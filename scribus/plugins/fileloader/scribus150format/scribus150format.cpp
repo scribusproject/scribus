@@ -348,8 +348,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 				continue;
 			readColor(m_Doc->PageColors, attrs);
 		}
-		else
-		if (tagName == QLatin1String("Gradient"))
+		else if (tagName == QLatin1String("Gradient"))
 		{
 			VGradient gra;
 			QString grName = attrs.valueAsString("Name");
@@ -360,20 +359,17 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			if (!grName.isEmpty() && !m_Doc->docGradients.contains(grName))
 				m_Doc->docGradients.insert(grName, gra);
 		}
-		else
-		if (tagName == QLatin1String("STYLE"))
+		else if (tagName == QLatin1String("STYLE"))
 		{
 			ParagraphStyle pstyle;
 			getStyle(pstyle, reader, nullptr, m_Doc, true);
 		}
-		else
-		if (tagName == QLatin1String("CHARSTYLE"))
+		else if (tagName == QLatin1String("CHARSTYLE"))
 		{
 			CharStyle cstyle;
 			getStyle(cstyle, reader, nullptr, m_Doc, true);
 		}
-		else
-		if (tagName == QLatin1String("TableStyle"))
+		else if (tagName == QLatin1String("TableStyle"))
 		{
 			TableStyle tstyle;
 			readTableStyle(m_Doc, reader, tstyle);
@@ -385,8 +381,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			temp.create(tstyle);
 			m_Doc->redefineTableStyles(temp, false);
 		}
-		else
-		if (tagName == QLatin1String("CellStyle"))
+		else if (tagName == QLatin1String("CellStyle"))
 		{
 			CellStyle tstyle;
 			readCellStyle(m_Doc, reader, tstyle);
@@ -398,14 +393,12 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			temp.create(tstyle);
 			m_Doc->redefineCellStyles(temp, false);
 		}
-		else
-		if (tagName == QLatin1String("Arrows"))
+		else if (tagName == QLatin1String("Arrows"))
 		{
 			success = readArrows(m_Doc, attrs);
 			if (!success) break;
 		}
-		else
-		if (tagName == QLatin1String("MultiLine"))
+		else if (tagName == QLatin1String("MultiLine"))
 		{
 			multiLine ml;
 			QString mlName = attrs.valueAsString("Name");
@@ -415,8 +408,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			if (!mlName.isEmpty() && !m_Doc->docLineStyles.contains(mlName))
 				m_Doc->docLineStyles.insert(mlName, ml);
 		}
-		else
-		if ((tagName == QLatin1String("ITEM")) || (tagName == QLatin1String("PAGEOBJECT")) || (tagName == QLatin1String("FRAMEOBJECT")))
+		else if ((tagName == QLatin1String("ITEM")) || (tagName == QLatin1String("PAGEOBJECT")) || (tagName == QLatin1String("FRAMEOBJECT")))
 		{
 			ItemInfo itemInfo;
 			success = readObject(m_Doc, reader, readObjectParams, itemInfo);
@@ -513,35 +505,34 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 				}
 			}
 		}
-		else
-		if (tagName == QLatin1String("Pattern"))
+		else if (tagName == QLatin1String("Pattern"))
 		{
 			success = readPattern(m_Doc, reader, fileDir);
 			if (!success) break;
 		}
-		else
-		if (tagName == QLatin1String("NotesStyles"))
+		else if (tagName == QLatin1String("NotesStyles"))
 		{
 			success = readNotesStyles(m_Doc, reader);
 			if (!success) break;
 		}
-		else
-		if (tagName == QLatin1String("NotesFrames"))
+		else if (tagName == QLatin1String("NotesFrames"))
 		{
 			success = readNotesFrames(reader);
 			if (!success) break;
 		}
-		else
-		if (tagName == QLatin1String("Notes"))
+		else if (tagName == QLatin1String("Notes"))
 		{
 			success = readNotes(m_Doc, reader);
 			if (!success) break;
 		}
-		else
-		if (tagName == QLatin1String("Marks"))
+		else if (tagName == QLatin1String("Marks"))
 		{
 			success = readMarks(m_Doc, reader);
 			if (!success) break;
+		}
+		else
+		{
+			reader.skipCurrentElement();
 		}
 	}
 	if (reader.hasError())
@@ -1716,21 +1707,21 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->setCurCheckProfile(attrs.valueAsString("currentProfile"));
 			}
 		}
-		if (tagName == QLatin1String("CheckProfile"))
+		else if (tagName == QLatin1String("CheckProfile"))
 		{
 			success = readCheckProfile(m_Doc, attrs);
 			if (!success) break;
 		}
-		if (tagName == QLatin1String("PageSets"))
+		else if (tagName == QLatin1String("PageSets"))
 		{
 			success = readPageSets(m_Doc, reader);
 			if (!success) break;
 			hasPageSets = true;
 		}
 		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
-		if (tagName == QLatin1String("COLOR") && attrs.valueAsString("NAME") != CommonStrings::None)
+		else if (tagName == QLatin1String("COLOR") && attrs.valueAsString("NAME") != CommonStrings::None)
 			readColor(m_Doc->PageColors, attrs);
-		if (tagName == QLatin1String("Gradient"))
+		else if (tagName == QLatin1String("Gradient"))
 		{
 			VGradient gra;
 			QString grName = attrs.valueAsString("Name");
@@ -1741,7 +1732,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (!grName.isEmpty())
 				m_Doc->docGradients.insert(grName, gra);
 		}
-		if (tagName == QLatin1String("STYLE"))
+		else if (tagName == QLatin1String("STYLE"))
 		{
 			ParagraphStyle pstyle;
 			readParagraphStyle(m_Doc, reader, pstyle);
@@ -1749,7 +1740,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			tmp.create(pstyle);
 			m_Doc->redefineStyles(tmp, false);
 		}
-		if (tagName == QLatin1String("CHARSTYLE"))
+		else if (tagName == QLatin1String("CHARSTYLE"))
 		{
 			CharStyle cstyle;
 			ScXmlStreamAttributes attrs = reader.scAttributes();
@@ -1758,7 +1749,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			temp.create(cstyle);
 			m_Doc->redefineCharStyles(temp, false);
 		}
-		if (tagName == QLatin1String("TableStyle"))
+		else if (tagName == QLatin1String("TableStyle"))
 		{
 			TableStyle tstyle;
 			readTableStyle(m_Doc, reader, tstyle);
@@ -1766,7 +1757,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			temp.create(tstyle);
 			m_Doc->redefineTableStyles(temp, false);
 		}
-		if (tagName == QLatin1String("CellStyle"))
+		else if (tagName == QLatin1String("CellStyle"))
 		{
 			CellStyle tstyle;
 			readCellStyle(m_Doc, reader, tstyle);
@@ -1774,24 +1765,24 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			temp.create(tstyle);
 			m_Doc->redefineCellStyles(temp, false);
 		}
-		if (tagName == QLatin1String("JAVA"))
+		else if (tagName == QLatin1String("JAVA"))
 		{
 			QString name = attrs.valueAsString("NAME");
 			if (!name.isEmpty())
 				m_Doc->JavaScripts[name] = attrs.valueAsString("SCRIPT");
 		}
-		if (tagName == QLatin1String("LAYERS"))
+		else if (tagName == QLatin1String("LAYERS"))
 		{
 			ScLayer newLayer;
 			readLayers(newLayer, attrs);
 			m_Doc->Layers.append(newLayer);
 		}
-		if (tagName == QLatin1String("Arrows"))
+		else if (tagName == QLatin1String("Arrows"))
 		{
 			success = readArrows(m_Doc, attrs);
 			if (!success) break;
 		}
-		if (tagName == QLatin1String("MultiLine"))
+		else if (tagName == QLatin1String("MultiLine"))
 		{
 			multiLine ml;
 			QString mlName = attrs.valueAsString("Name");
@@ -1802,7 +1793,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->docLineStyles.insert(mlName, ml);
 			}
 		}
-		if (tagName == QLatin1String("Bookmark"))
+		else if (tagName == QLatin1String("Bookmark"))
 		{
 			int bmElem = 0;
 			struct ScribusDoc::BookMa bookmark;
@@ -1810,43 +1801,43 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (!success) break;
 			bookmarks.insert(bmElem, bookmark);
 		}
-		if (tagName == QLatin1String("PDF"))
+		else if (tagName == QLatin1String("PDF"))
 		{
 			success = readPDFOptions(m_Doc, reader);
 			if (!success) break;
 		}
-		if (tagName == QLatin1String("Printer"))
+		else if (tagName == QLatin1String("Printer"))
 		{
 			success = readPrinterOptions(m_Doc, reader);
 			if (!success) break;
 		}
-		if (tagName == QLatin1String("DocItemAttributes"))
+		else if (tagName == QLatin1String("DocItemAttributes"))
 		{
 			success = readDocItemAttributes(m_Doc, reader);
 			if (!success) break;
 		}
-		if (tagName == QLatin1String("TablesOfContents"))
+		else if (tagName == QLatin1String("TablesOfContents"))
 		{
 			success = readTableOfContents(m_Doc, reader);
 			if (!success) break;
 		}
-		if (tagName == QLatin1String("Sections"))
+		else if (tagName == QLatin1String("Sections"))
 		{
 			success = readSections(m_Doc, reader);
 			if (!success) break;
 		}
-		if (tagName == QLatin1String("HYPHEN"))
+		else if (tagName == QLatin1String("HYPHEN"))
 		{
 			success = readHyphen(m_Doc, reader);
 			if (!success) break;
 		}
-		if (tagName == QLatin1String("PAGE") || tagName == QLatin1String("MASTERPAGE"))
+		else if (tagName == QLatin1String("PAGE") || tagName == QLatin1String("MASTERPAGE"))
 		{
 			success = readPage(m_Doc, reader);
 			if (!success)
 				break;
 		}
-		if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("FRAMEOBJECT"))
+		else if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("FRAMEOBJECT"))
 		{
 			ItemInfo itemInfo;
 			success = readObject(m_Doc, reader, readObjectParams, itemInfo);
@@ -1956,31 +1947,35 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				}
 			}
 		}
-		if (tagName == QLatin1String("Pattern"))
+		else if (tagName == QLatin1String("Pattern"))
 		{
 			success = readPattern(m_Doc, reader, fileDir);
 			if (!success)
 				break;
 		}
-		if (tagName == QLatin1String("NotesStyles"))
+		else if (tagName == QLatin1String("NotesStyles"))
 		{
 			success = readNotesStyles(m_Doc, reader);
 			if (!success) break;
 		}
-		if (tagName == QLatin1String("NotesFrames"))
+		else if (tagName == QLatin1String("NotesFrames"))
 		{
 			success = readNotesFrames(reader);
 			if (!success) break;
 		}
-		if (tagName == QLatin1String("Notes"))
+		else if (tagName == QLatin1String("Notes"))
 		{
 			success = readNotes(m_Doc, reader);
 			if (!success) break;
 		}
-		if (tagName == QLatin1String("Marks"))
+		else if (tagName == QLatin1String("Marks"))
 		{
 			success = readMarks(m_Doc, reader);
 			if (!success) break;
+		}
+		else
+		{
+			reader.skipCurrentElement();
 		}
 	}
 
