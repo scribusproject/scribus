@@ -3261,25 +3261,25 @@ void Scribus150Format::readTableStyle(ScribusDoc *doc, ScXmlStreamReader& reader
 		if (reader.name() == "TableBorderLeft")
 		{
 			TableBorder border;
-			readTableStyleBorderLines(doc, reader, border);
+			readTableBorderLines(doc, reader, border);
 			newStyle.setLeftBorder(border);
 		}
 		else if (reader.name() == "TableBorderRight")
 		{
 			TableBorder border;
-			readTableStyleBorderLines(doc, reader, border);
+			readTableBorderLines(doc, reader, border);
 			newStyle.setRightBorder(border);
 		}
 		else if (reader.name() == "TableBorderTop")
 		{
 			TableBorder border;
-			readTableStyleBorderLines(doc, reader, border);
+			readTableBorderLines(doc, reader, border);
 			newStyle.setTopBorder(border);
 		}
 		else if (reader.name() == "TableBorderBottom")
 		{
 			TableBorder border;
-			readTableStyleBorderLines(doc, reader, border);
+			readTableBorderLines(doc, reader, border);
 			newStyle.setBottomBorder(border);
 		}
 		else
@@ -3289,7 +3289,7 @@ void Scribus150Format::readTableStyle(ScribusDoc *doc, ScXmlStreamReader& reader
 	}
 }
 
-void Scribus150Format::readTableStyleBorderLines(ScribusDoc* /*doc*/, ScXmlStreamReader& reader, TableBorder& border)
+void Scribus150Format::readTableBorderLines(ScribusDoc* /*doc*/, ScXmlStreamReader& reader, TableBorder& border)
 {
 	QStringView tagName = reader.name();
 	while (!reader.atEnd() && !reader.hasError())
@@ -3320,6 +3320,7 @@ void Scribus150Format::readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader,
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	newStyle.erase();
 	newStyle.setName(attrs.valueAsString("NAME", ""));
+
 	// The default style attribute must be correctly set before trying to assign a parent
 	if (attrs.hasAttribute("DefaultStyle"))
 		newStyle.setDefaultStyle(attrs.valueAsInt("DefaultStyle"));
@@ -3327,6 +3328,7 @@ void Scribus150Format::readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader,
 		newStyle.setDefaultStyle(true);
 	else
 		newStyle.setDefaultStyle(false);
+
 	QString parentStyle = attrs.valueAsString("PARENT", "");
 	if (!parentStyle.isEmpty() && (parentStyle != newStyle.name()))
 		newStyle.setParent(parentStyle);
@@ -3342,95 +3344,42 @@ void Scribus150Format::readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader,
 		newStyle.setTopPadding(attrs.valueAsDouble("TopPadding", 0.0));
 	if (attrs.hasAttribute("BottomPadding"))
 		newStyle.setBottomPadding(attrs.valueAsDouble("BottomPadding", 0.0));
+
 	QStringRef tagName = reader.name();
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
 			break;
+		if (!reader.isStartElement())
+			continue;
 		if (reader.name() == "TableBorderLeft")
 		{
 			TableBorder border;
-			QStringRef tagName = reader.name();
-			while (!reader.atEnd() && !reader.hasError())
-			{
-				reader.readNext();
-				if (reader.isEndElement() && reader.name() == tagName)
-					break;
-				if (reader.isStartElement() && reader.name() == "TableBorderLine")
-				{
-					ScXmlStreamAttributes tAttB = reader.scAttributes();
-					double width = tAttB.valueAsDouble("Width", 0.0);
-					QString color = tAttB.valueAsString("Color", CommonStrings::None);
-					double shade = tAttB.valueAsDouble("Shade", 100.0);
-					int style = tAttB.valueAsInt("PenStyle", 1);
-					border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), color, shade));
-				}
-			}
+			readTableBorderLines(doc, reader, border);
 			newStyle.setLeftBorder(border);
 		}
 		else if (reader.name() == "TableBorderRight")
 		{
 			TableBorder border;
-			QStringRef tagName = reader.name();
-			while (!reader.atEnd() && !reader.hasError())
-			{
-				reader.readNext();
-				if (reader.isEndElement() && reader.name() == tagName)
-					break;
-				if (reader.isStartElement() && reader.name() == "TableBorderLine")
-				{
-					ScXmlStreamAttributes tAttB = reader.scAttributes();
-					double width = tAttB.valueAsDouble("Width", 0.0);
-					QString color = tAttB.valueAsString("Color", CommonStrings::None);
-					double shade = tAttB.valueAsDouble("Shade", 100.0);
-					int style = tAttB.valueAsInt("PenStyle", 1);
-					border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), color, shade));
-				}
-			}
+			readTableBorderLines(doc, reader, border);
 			newStyle.setRightBorder(border);
 		}
 		else if (reader.name() == "TableBorderTop")
 		{
 			TableBorder border;
-			QStringRef tagName = reader.name();
-			while (!reader.atEnd() && !reader.hasError())
-			{
-				reader.readNext();
-				if (reader.isEndElement() && reader.name() == tagName)
-					break;
-				if (reader.isStartElement() && reader.name() == "TableBorderLine")
-				{
-					ScXmlStreamAttributes tAttB = reader.scAttributes();
-					double width = tAttB.valueAsDouble("Width", 0.0);
-					QString color = tAttB.valueAsString("Color", CommonStrings::None);
-					double shade = tAttB.valueAsDouble("Shade", 100.0);
-					int style = tAttB.valueAsInt("PenStyle", 1);
-					border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), color, shade));
-				}
-			}
+			readTableBorderLines(doc, reader, border);
 			newStyle.setTopBorder(border);
 		}
 		else if (reader.name() == "TableBorderBottom")
 		{
 			TableBorder border;
-			QStringRef tagName = reader.name();
-			while (!reader.atEnd() && !reader.hasError())
-			{
-				reader.readNext();
-				if (reader.isEndElement() && reader.name() == tagName)
-					break;
-				if (reader.isStartElement() && reader.name() == "TableBorderLine")
-				{
-					ScXmlStreamAttributes tAttB = reader.scAttributes();
-					double width = tAttB.valueAsDouble("Width", 0.0);
-					QString color = tAttB.valueAsString("Color", CommonStrings::None);
-					double shade = tAttB.valueAsDouble("Shade", 100.0);
-					int style = tAttB.valueAsInt("PenStyle", 1);
-					border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), color, shade));
-				}
-			}
+			readTableBorderLines(doc, reader, border);
 			newStyle.setBottomBorder(border);
+		}
+		else
+		{
+			reader.skipCurrentElement();
 		}
 	}
 }
