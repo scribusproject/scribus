@@ -266,7 +266,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)
 			continue;
-		QStringView tagName = reader.name();
+		QString tagName = reader.nameAsString();
 		attrs = reader.scAttributes();
 
 		if (m_mwProgressBar != nullptr)
@@ -1135,7 +1135,7 @@ bool Scribus134Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
-		QStringView tagName = reader.name();
+		QString tagName = reader.nameAsString();
 		if (reader.isStartElement())
 			attrs = reader.attributes();
 		if (reader.isEndElement() && tagName == QLatin1String("PageSets"))
@@ -1549,7 +1549,7 @@ bool Scribus134Format::readMultiline(multiLine& ml, ScXmlStreamReader& reader)
 {
 	ml = multiLine();
 	ScXmlStreamAttributes rattrs = reader.scAttributes();
-	QStringView tagName = reader.name();
+	QString tagName = reader.nameAsString();
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		ScXmlStreamReader::TokenType tType = reader.readNext();
@@ -1654,7 +1654,7 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 	doc->pdfOptions().PageLayout    = attrs.valueAsInt("PageLayout", 0);
 	doc->pdfOptions().openAction    = attrs.valueAsString("openAction", "");
 
-	QStringView tagName = reader.name();
+	QString tagName = reader.nameAsString();
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
@@ -1744,7 +1744,7 @@ bool Scribus134Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 	doc->Print_Options.printerCommand = attrs.valueAsString("printerCommand");
 	doc->Print_Options.copies = 1;
 
-	QStringView tagName = reader.name();
+	QString tagName = reader.nameAsString();
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		ScXmlStreamReader::TokenType tType = reader.readNext();
@@ -1759,7 +1759,7 @@ bool Scribus134Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 
 bool Scribus134Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader)
 {
-	QStringView tagName = reader.name();
+	QString tagName = reader.nameAsString();
 	doc->clearItemAttributes();
 	while (!reader.atEnd() && !reader.hasError())
 	{
@@ -1785,7 +1785,7 @@ bool Scribus134Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader&
 
 bool Scribus134Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader)
 {
-	QStringView tagName = reader.name();
+	QString tagName = reader.nameAsString();
 	m_Doc->clearTocSetups();
 	while (!reader.atEnd() && !reader.hasError())
 	{
@@ -1816,7 +1816,7 @@ bool Scribus134Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 
 bool Scribus134Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 {
-	QStringView tagName = reader.name();
+	QString tagName = reader.nameAsString();
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
@@ -1858,7 +1858,7 @@ bool Scribus134Format::readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader)
 	if (!doc->docHyphenator)
 		doc->createHyphenator();
 
-	QStringView tagName = reader.name();
+	QString tagName = reader.nameAsString();
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
@@ -1883,7 +1883,7 @@ bool Scribus134Format::readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader)
 
 bool Scribus134Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 {
-	QStringView tagName = reader.name();
+	QString tagName = reader.nameAsString();
 
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	int     pageNum  = attrs.valueAsInt("NUM");
@@ -1945,7 +1945,7 @@ bool Scribus134Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 
 bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, ItemInfo& info, const QString& baseDir, bool loadPage, const QString& renamedPageName)
 {
-	QStringView tagName = reader.name();
+	QString tagName = reader.nameAsString();
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 
 	if (!loadPage)
@@ -2203,7 +2203,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	m_Doc->SnapGrid  = false;
 	m_Doc->SnapGuides = false;
 
-	QStringView tagName = reader.name();
+	QString tagName = reader.nameAsString();
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
@@ -2542,7 +2542,7 @@ bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 
 bool Scribus134Format::readPageItemAttributes(PageItem* item, ScXmlStreamReader& reader)
 {
-	QStringView tagName = reader.name();
+	QString tagName = reader.nameAsString();
 	ObjAttrVector pageItemAttributes;
 	while (!reader.atEnd() && !reader.hasError())
 	{
@@ -3158,7 +3158,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 bool Scribus134Format::readLatexInfo(PageItem_LatexFrame* latexitem, ScXmlStreamReader& reader)
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
-	QStringView tagName = reader.name();
+	QString tagName = reader.nameAsString();
 
 	latexitem->setConfigFile(attrs.valueAsString("ConfigFile"), true);
 	latexitem->setDpi(attrs.valueAsInt("DPI"));
@@ -3263,7 +3263,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)
 			continue;
-		QStringView tagName = reader.name();
+		QString tagName = reader.nameAsString();
 		attrs = reader.scAttributes();
 
 		if (firstElement)
@@ -3824,7 +3824,7 @@ bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, Styl
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)
 			continue;
-		QStringView tagName = reader.name();
+		QString tagName = reader.nameAsString();
 		if (firstElement)
 		{
 			if (tagName != QLatin1String("SCRIBUSUTF8NEW"))
@@ -3864,7 +3864,7 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)
 			continue;
-		QStringView tagName = reader.name();
+		QString tagName = reader.nameAsString();
 		if (firstElement)
 		{
 			if (tagName != QLatin1String("SCRIBUSUTF8NEW"))
@@ -3902,7 +3902,7 @@ bool Scribus134Format::readLineStyles(const QString& fileName, QHash<QString,mul
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)
 			continue;
-		QStringView tagName = reader.name();
+		QString tagName = reader.nameAsString();
 		if (firstElement)
 		{
 			if (tagName != QLatin1String("SCRIBUSUTF8NEW"))
@@ -3952,7 +3952,7 @@ bool Scribus134Format::readColors(const QString& fileName, ColorList & colors)
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)
 			continue;
-		QStringView tagName = reader.name();
+		QString tagName = reader.nameAsString();
 		if (firstElement)
 		{
 			if (tagName != QLatin1String("SCRIBUSUTF8NEW"))
@@ -3994,7 +3994,7 @@ bool Scribus134Format::readPageCount(const QString& fileName, int *num1, int *nu
 		QXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType != QXmlStreamReader::StartElement)
 			continue;
-		QStringView tagName = reader.name();
+		QString tagName = reader.nameAsString();
 		if (firstElement)
 		{
 			if (tagName != QLatin1String("SCRIBUSUTF8NEW"))
