@@ -530,10 +530,6 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			success = readMarks(m_Doc, reader);
 			if (!success) break;
 		}
-		else
-		{
-			reader.skipCurrentElement();
-		}
 	}
 	if (reader.hasError())
 	{
@@ -1972,10 +1968,6 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			success = readMarks(m_Doc, reader);
 			if (!success) break;
-		}
-		else
-		{
-			reader.skipCurrentElement();
 		}
 	}
 
