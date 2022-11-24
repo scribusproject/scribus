@@ -40,6 +40,7 @@ public:
 	ScXmlStreamReader(QIODevice* device) : QXmlStreamReader(device) {};
 	ScXmlStreamAttributes scAttributes(void) const;
 
+	QString nameAsString() const { return name().toString(); }
 	void readToElementEnd(void);
 };
 
