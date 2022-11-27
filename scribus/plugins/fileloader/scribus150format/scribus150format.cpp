@@ -339,7 +339,9 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 				break;
 			}
 			firstElement = false;
+			continue;
 		}
+
 		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
 		if (tagName == QLatin1String("COLOR") && attrs.valueAsString("NAME") != CommonStrings::None)
 		{
@@ -529,6 +531,10 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 		{
 			success = readMarks(m_Doc, reader);
 			if (!success) break;
+		}
+		else
+		{
+			reader.skipCurrentElement();
 		}
 	}
 	if (reader.hasError())
@@ -1683,7 +1689,9 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				break;
 			}
 			firstElement = false;
+			continue;
 		}
+
 		if (tagName == QLatin1String("DOCUMENT"))
 		{
 			readDocAttributes(m_Doc, attrs);
@@ -1968,6 +1976,10 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			success = readMarks(m_Doc, reader);
 			if (!success) break;
+		}
+		else
+		{
+			reader.skipCurrentElement();
 		}
 	}
 
