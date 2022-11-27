@@ -632,12 +632,12 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		layerToSetActive = nl->ID;
 	}
 	m_Doc->setActiveLayer(layerToSetActive);
-	if (!EffVal.isEmpty())
+	if (!pdfPresEffects.isEmpty())
 	{
-		for (int pdoE = 0; pdoE < EffVal.count(); ++pdoE)
+		for (int pdoE = 0; pdoE < pdfPresEffects.count(); ++pdoE)
 		{
 			if (pdoE < m_Doc->Pages->count())
-				m_Doc->Pages->at(pdoE)->PresentVals = EffVal[pdoE];
+				m_Doc->Pages->at(pdoE)->PresentVals = pdfPresEffects[pdoE];
 		}
 	}
 
@@ -1693,7 +1693,7 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 			ef.Dm = attrs.valueAsInt("Dm");
 			ef.M  = attrs.valueAsInt("M");
 			ef.Di = attrs.valueAsInt("Di");
-			EffVal.append(ef);
+			pdfPresEffects.append(ef);
 		}
 	}
 	return !reader.hasError();

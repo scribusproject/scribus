@@ -121,44 +121,44 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *docParagraphStyles, ScribusDoc* doc, bool equiv);
 		void getStyle(CharStyle& style, ScXmlStreamReader& reader, StyleSet<CharStyle> *docCharStyles, ScribusDoc* doc, bool equiv);
 
-		void readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
-		void readCMSSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
-		void readDocumentInfo(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
-		void readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
-		void readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
-		void readTypographicSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
+		void readDocAttributes(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const;
+		void readCMSSettings(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const;
+		void readDocumentInfo(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const;
+		void readGuideSettings(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const;
+		void readToolSettings(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const;
+		void readTypographicSettings(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const;
 
-		bool readArrows(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
-		bool readBookMark(ScribusDoc::BookMa& bookmark, int& elem, ScXmlStreamAttributes& attrs); 
-		bool readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
-		void readColor(ColorList& colors, ScXmlStreamAttributes& attrs);
-		bool readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStreamReader& reader);
-		void readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle);
-		void readNamedCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle);
-		bool readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader);
-		bool readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader);
-		bool readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader, StoryText& story, PageItem* item);
-		bool readItemText(StoryText& story, ScXmlStreamAttributes& attrs, LastStyles* last);
-		bool readItemTableData(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc *doc);
-		bool readItemTableCell(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc *doc);
-		bool readLatexInfo(PageItem_LatexFrame* item, ScXmlStreamReader& reader);
-		void readLayers(ScLayer& layer, ScXmlStreamAttributes& attrs);
-		bool readMultiline(multiLine& ml, ScXmlStreamReader& reader);
+		bool readArrows(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const;
+		bool readBookMark(ScribusDoc::BookMa& bookmark, int& elem, const ScXmlStreamAttributes& attrs) const;
+		bool readCheckProfile(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const;
+		void readColor(ColorList& colors, const ScXmlStreamAttributes& attrs) const;
+		bool readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStreamReader& reader) const;
+		void readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStreamAttributes& attrs, CharStyle & newStyle) const;
+		void readNamedCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStreamAttributes& attrs, CharStyle & newStyle) const;
+		bool readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader) const;
+		bool readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader) const;
+		bool readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader, StoryText& story, PageItem* item) const;
+		bool readItemText(StoryText& story, const ScXmlStreamAttributes& attrs, LastStyles* last) const;
+		bool readItemTableData(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc *doc) const;
+		bool readItemTableCell(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc *doc) const;
+		bool readLatexInfo(PageItem_LatexFrame* item, ScXmlStreamReader& reader) const;
+		void readLayers(ScLayer& layer, const ScXmlStreamAttributes& attrs) const;
+		bool readMultiline(multiLine& ml, ScXmlStreamReader& reader) const;
 		bool readObject(ScribusDoc* doc, ScXmlStreamReader& reader, const ReadObjectParams& loadParams, ItemInfo& info);
 		bool readPage(ScribusDoc* doc, ScXmlStreamReader& reader);
-		bool readPageItemAttributes(PageItem* item, ScXmlStreamReader& reader);
-		bool readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader);
-		void readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle);
-		void readTableStyle(ScribusDoc *doc, ScXmlStreamReader& reader, TableStyle& newStyle);
-		void readTableBorderLines(ScribusDoc* doc, ScXmlStreamReader& reader, TableBorder& border);
-		void readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader, CellStyle& newStyle);
+		bool readPageItemAttributes(PageItem* item, ScXmlStreamReader& reader) const;
+		bool readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader) const;
+		void readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle) const;
+		void readTableStyle(ScribusDoc *doc, ScXmlStreamReader& reader, TableStyle& newStyle) const;
+		void readTableBorderLines(ScribusDoc* doc, ScXmlStreamReader& reader, TableBorder& border) const;
+		void readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader, CellStyle& newStyle) const;
 		bool readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, const QString& baseDir);
 		bool readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader);
-		bool readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& reader);
-		bool readSections(ScribusDoc* doc, ScXmlStreamReader& reader);
-		bool readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader);
+		bool readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& reader) const;
+		bool readSections(ScribusDoc* doc, ScXmlStreamReader& reader) const;
+		bool readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader) const;
 		bool readNotes(ScribusDoc* doc, ScXmlStreamReader& reader);
-		bool readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reader);
+		bool readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reader) const;
 		bool readNotesFrames(ScXmlStreamReader &reader);
 		bool readMarks(ScribusDoc* doc, ScXmlStreamReader& reader);
 
@@ -168,7 +168,8 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		QMap<QString, int> nsetRangeItemNamesMap;
 		QMap<QString, TextNote*> notesMasterMarks;
 		QMap<TextNote*, QString> notesNSets;
-		struct NoteFrameData {
+		struct NoteFrameData
+		{
 			QString NSname;
 			int myID;
 			int itemID;
@@ -176,11 +177,11 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 			NumerationRange NSrange;
 		};
 		QList<NoteFrameData> notesFramesData;
-		QList<PDFPresentationData> EffVal;
+		QList<PDFPresentationData> pdfPresEffects;
 		
 		void updateNames2Ptr(); //after document load items pointers should be updated in markeredItemList
 
-		PageItem* pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pageNr = -2 /* currentPage*/);
+		PageItem* pasteItem(ScribusDoc *doc, const ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pageNr = -2 /* currentPage*/);
 
 		void writeCheckerProfiles(ScXmlStreamWriter& docu);
 		void writeLineStyles(ScXmlStreamWriter& docu);
