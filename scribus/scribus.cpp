@@ -494,7 +494,7 @@ QScreen* ScribusMainWindow::getScreen() const
 
 void ScribusMainWindow::getScreenPosition(int& xPos, int& yPos) const
 {
-	QScreen* screen(getScreen());
+	const QScreen* screen(getScreen());
 	QRect screenGeom = screen->geometry();
 	xPos = screenGeom.left();
 	yPos = screenGeom.top();
@@ -502,7 +502,7 @@ void ScribusMainWindow::getScreenPosition(int& xPos, int& yPos) const
 
 void ScribusMainWindow::getScreenDPI(int& dpiX, int& dpiY) const
 {
-	QScreen* screen(getScreen());
+	const QScreen* screen(getScreen());
 	dpiX = screen->physicalDotsPerInchX();
 	dpiY = screen->physicalDotsPerInchY();
 }
@@ -4263,7 +4263,7 @@ void ScribusMainWindow::slotReallyPrint()
 				if (completeBaseName.length() > 3)
 					completeBaseName.chop(3);
 			}
-			doc->Print_Options.filename = fi.path()+"/"+completeBaseName+".ps";
+			doc->Print_Options.filename = fi.path() + "/" + completeBaseName + ".ps";
 		}
 		else
 		{
@@ -4856,19 +4856,19 @@ void ScribusMainWindow::SelectAllOnLayer()
 				bool Resize = false;
 				dia->getUsedAttributesValues(Type, fill, line, LWidth, Print, Locked, Resize);
 				LWidth = LWidth / doc->unitRatio();
-				if ((useType) && (Type != currItem->realItemType()))
+				if (useType && (Type != currItem->realItemType()))
 					continue;
-				if ((useFill) && ((fill != currItem->fillColor()) || (currItem->GrType != 0)))
+				if (useFill && ((fill != currItem->fillColor()) || (currItem->GrType != 0)))
 					continue;
-				if ((useLine) && (line != currItem->lineColor()))
+				if (useLine && (line != currItem->lineColor()))
 					continue;
-				if ((useLWidth) && ((LWidth != currItem->lineWidth()) || (currItem->lineColor() == CommonStrings::None)))
+				if (useLWidth && ((LWidth != currItem->lineWidth()) || (currItem->lineColor() == CommonStrings::None)))
 					continue;
-				if ((usePrint) && (Print != currItem->printEnabled()))
+				if (usePrint && (Print != currItem->printEnabled()))
 					continue;
-				if ((useLocked) && (Locked != currItem->locked()))
+				if (useLocked && (Locked != currItem->locked()))
 					continue;
-				if ((useResize) && (Resize != currItem->sizeLocked()))
+				if (useResize && (Resize != currItem->sizeLocked()))
 					continue;
 				doc->m_Selection->addItem(currItem);
 			}
@@ -5343,15 +5343,15 @@ void ScribusMainWindow::duplicateToMasterPage()
 
 void ScribusMainWindow::slotZoom(double zoomFactor)
 {
-	double finalZoomFactor=0.0;
+	double finalZoomFactor = 0.0;
 	//Zoom to Fit
 	if (zoomFactor == -100.0)
 	{
-		finalZoomFactor = (view->height() - 70) / (doc->currentPage()->height()+30);
+		finalZoomFactor = (view->height() - 70) / (doc->currentPage()->height() + 30);
 	}
 	else if (zoomFactor == -200.0)
 	{
-		finalZoomFactor = (view->width() - 50) / (doc->currentPage()->width()+30);
+		finalZoomFactor = (view->width() - 50) / (doc->currentPage()->width() + 30);
 	}
 	//Zoom to %
 	else
@@ -6352,7 +6352,7 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single, int 
 			itemPage = parentItem->OwnPage;
 			parentItem = parentItem->Parent;
 		}
-		if ((itemPage != -1) && (itemPage != static_cast<int>(doc->currentPage()->pageNr())))
+		if ((itemPage != -1) && (itemPage != doc->currentPage()->pageNr()))
 			view->GotoPage(itemPage);
 	}
 	doc->m_Selection->delaySignalsOn();
@@ -8713,10 +8713,8 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 
 void ScribusMainWindow::slotEditCopyContents()
 {
-	PageItem *currItem = nullptr;
-	if (!HaveDoc || (currItem = doc->m_Selection->itemAt(0)) == nullptr)
-		return;
-	if (currItem->itemType() != PageItem::ImageFrame)
+	PageItem* currItem = HaveDoc ? doc->m_Selection->itemAt(0) : nullptr;
+	if (!currItem || currItem->itemType() != PageItem::ImageFrame)
 		return;
 
 	const PageItem_ImageFrame* imageItem = currItem->asImageFrame();
@@ -9691,7 +9689,8 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 	editMDialog->setWindowTitle(tr("Edit %1").arg(editMDialog->windowTitle()));
 	if (editMDialog->exec())
 	{
-		QString  label, text;
+		QString  label;
+		QString  text;
 		QString  oldLabel = mrk->label;
 		MarkData oldData = mrk->getData();
 		QString  oldStr = mrk->getString();

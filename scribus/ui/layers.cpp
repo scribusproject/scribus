@@ -437,7 +437,7 @@ void LayerPalette::visibleLayer()
 	const QObject* senderBox = sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
-		bool isLayerVisible = ((QCheckBox*)(senderBox))->isChecked();
+		bool isLayerVisible = ((const QCheckBox*)(senderBox))->isChecked();
 		m_Doc->setLayerVisible(layerID, isLayerVisible);
 		if (!isLayerVisible)
 			m_Doc->m_Selection->removeItemsOfLayer(layerID);
@@ -457,7 +457,7 @@ void LayerPalette::printLayer()
 	const QObject* senderBox = sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
-		m_Doc->setLayerPrintable(layerID, ((QCheckBox*)(senderBox))->isChecked());
+		m_Doc->setLayerPrintable(layerID, ((const QCheckBox*)(senderBox))->isChecked());
 		setActiveLayer(Table->currentRow(), -1);
 		emit LayerChanged();
 	}
@@ -474,7 +474,7 @@ void LayerPalette::lockLayer()
 	const QObject* senderBox = sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
-		bool isLayerLocked = ((QCheckBox*)(senderBox))->isChecked();
+		bool isLayerLocked = ((const QCheckBox*)(senderBox))->isChecked();
 		m_Doc->setLayerLocked(layerID, isLayerLocked);
 		if (isLayerLocked)
 			m_Doc->m_Selection->removeItemsOfLayer(layerID);
@@ -495,7 +495,7 @@ void LayerPalette::flowToggleLayer()
 	const QObject* senderBox = sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
-		m_Doc->setLayerFlow(layerID, ((QCheckBox*)(senderBox))->isChecked());
+		m_Doc->setLayerFlow(layerID, ((const QCheckBox*)(senderBox))->isChecked());
 		emit LayerChanged();
 		setActiveLayer(Table->currentRow(), -1);
 	}
@@ -512,7 +512,7 @@ void LayerPalette::outlineToggleLayer()
 	const QObject* senderBox = sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
-		m_Doc->setLayerOutline(layerID, ((QCheckBox*)(senderBox))->isChecked());
+		m_Doc->setLayerOutline(layerID, ((const QCheckBox*)(senderBox))->isChecked());
 		emit LayerChanged();
 		setActiveLayer(Table->currentRow(), -1);
 	}
@@ -529,7 +529,7 @@ void LayerPalette::selectToggleLayer()
 	const QObject* senderBox = sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
-		bool isLayerSelectable = ((QCheckBox*)(senderBox))->isChecked();
+		bool isLayerSelectable = ((const QCheckBox*)(senderBox))->isChecked();
 		m_Doc->setLayerSelectable(layerID, isLayerSelectable);
 		emit LayerChanged();
 		setActiveLayer(Table->currentRow(), -1);
@@ -582,16 +582,17 @@ void LayerPalette::markLayer()
 	int layerID = m_Doc->layerIDFromLevel(level);
 	if (layerID == -1)
 		return;
+
 	const QObject* senderBox = sender();
 	if (strcmp(senderBox->metaObject()->className(), "QToolButton") == 0)
 	{
-		QColor neu(QColorDialog::getColor(m_Doc->layerMarker(layerID), this));
-		if (neu.isValid())
+		QColor newColor(QColorDialog::getColor(m_Doc->layerMarker(layerID), this));
+		if (newColor.isValid())
 		{
 			QPixmap pm(20,15);
-			pm.fill(neu);
+			pm.fill(newColor);
 			((QToolButton*)(senderBox))->setIcon(pm);
-			m_Doc->setLayerMarker(layerID, neu);
+			m_Doc->setLayerMarker(layerID, newColor);
 			m_Doc->scMW()->updateLayerMenu();
 			m_Doc->scMW()->rebuildLayersList();
 			emit LayerChanged();
