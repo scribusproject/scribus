@@ -251,7 +251,8 @@ QString CompressStr(QString *in)
 				qDebug("compress2 failed with code %i", errcode);
 				out = *in;
 			}
-			else {
+			else
+			{
 				for (uint cl = 0; cl < exlen; ++cl)
 					out += QChar(bc[cl]);
 			}
