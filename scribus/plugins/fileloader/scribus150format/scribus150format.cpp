@@ -733,7 +733,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -764,7 +764,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -795,7 +795,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -1476,7 +1476,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -1507,7 +1507,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -1538,7 +1538,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -2214,12 +2214,12 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 
 	if (m_Doc->Layers.count() == 0)
 		m_Doc->Layers.newLayer( QObject::tr("Background") );
-	if (!EffVal.isEmpty())
+	if (!pdfPresEffects.isEmpty())
 	{
-		for (int pdoE = 0; pdoE < EffVal.count(); ++pdoE)
+		for (int pdoE = 0; pdoE < pdfPresEffects.count(); ++pdoE)
 		{
 			if (pdoE < m_Doc->Pages->count())
-				m_Doc->Pages->at(pdoE)->PresentVals = EffVal[pdoE];
+				m_Doc->Pages->at(pdoE)->PresentVals = pdfPresEffects[pdoE];
 		}
 	}
 
@@ -2239,7 +2239,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -2270,7 +2270,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -2301,7 +2301,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -2428,7 +2428,7 @@ namespace {
 
 }// namespace
 
-void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
+void Scribus150Format::readDocAttributes(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const
 {
 	m_Doc->setPageSize(attrs.valueAsString("PAGESIZE"));
 	m_Doc->setPageOrientation(attrs.valueAsInt("ORIENTATION", 0));
@@ -2510,7 +2510,7 @@ void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	readTypographicSettings(doc, attrs);
 }
 
-void Scribus150Format::readCMSSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
+void Scribus150Format::readCMSSettings(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const
 {
 	doc->cmsSettings().SoftProofOn     = attrs.valueAsBool("DPSo", false);
 	doc->cmsSettings().SoftProofFullOn = attrs.valueAsBool("DPSFo", false);
@@ -2530,7 +2530,7 @@ void Scribus150Format::readCMSSettings(ScribusDoc* doc, ScXmlStreamAttributes& a
 	doc->cmsSettings().DefaultIntentImages = (eRenderIntent) attrs.valueAsInt("DIIm", 0);
 }
 
-void Scribus150Format::readDocumentInfo(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
+void Scribus150Format::readDocumentInfo(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const
 {
 	DocumentInformation di;
 	di.setAuthor(attrs.valueAsString("AUTHOR"));
@@ -2552,7 +2552,7 @@ void Scribus150Format::readDocumentInfo(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->setDocumentInfo(di);
 }
 
-void Scribus150Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
+void Scribus150Format::readGuideSettings(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const
 {
 	PrefsManager& prefsManager = PrefsManager::instance();
 	doc->guidesPrefs().minorGridSpacing = attrs.valueAsDouble("MINGRID", prefsManager.appPrefs.guidesPrefs.minorGridSpacing);
@@ -2606,7 +2606,7 @@ void Scribus150Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes&
 	doc->guidesPrefs().grabRadius  = attrs.valueAsInt("GRAB", 4);
 }
 
-void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
+void Scribus150Format::readToolSettings(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const
 {
 	const ItemToolPrefs& defToolPrefs = PrefsManager::instance().appPrefs.itemToolPrefs;
 
@@ -2692,7 +2692,7 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs().imageStrokeColorShade = attrs.valueAsInt("PICTSSHADE", 100);
 }
 
-void Scribus150Format::readTypographicSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
+void Scribus150Format::readTypographicSettings(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const
 {
 	doc->typographicPrefs().valueSuperScript   = attrs.valueAsInt("VHOCH");
 	doc->typographicPrefs().scalingSuperScript = attrs.valueAsInt("VHOCHSC");
@@ -2709,7 +2709,7 @@ void Scribus150Format::readTypographicSettings(ScribusDoc* doc, ScXmlStreamAttri
 	doc->typographicPrefs().valueStrikeThruWidth = attrs.valueAsInt("StrikeThruWidth", -1);
 }
 
-bool Scribus150Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
+bool Scribus150Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader) const
 {
 	struct PageSet pageS;
 	ScXmlStreamAttributes attrs;
@@ -2751,7 +2751,7 @@ bool Scribus150Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
+bool Scribus150Format::readCheckProfile(ScribusDoc* doc, const ScXmlStreamAttributes& attrs) const
 {
 	struct CheckerPrefs checkerSettings;
 
@@ -2783,7 +2783,7 @@ bool Scribus150Format::readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& 
 	return true;
 }
 
-void Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs)
+void Scribus150Format::readColor(ColorList& colors, const ScXmlStreamAttributes& attrs) const
 {
 	ScColor color;
 	if (attrs.hasAttribute("SPACE"))
@@ -2839,7 +2839,7 @@ void Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 		colors.insert(name, color);
 }
 
-bool Scribus150Format::readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStreamReader& reader)
+bool Scribus150Format::readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStreamReader& reader) const
 {
 	gra = VGradient(VGradient::linear);
 	gra.clearStops();
@@ -2863,7 +2863,7 @@ bool Scribus150Format::readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStream
 	return !reader.hasError();
 }
 
-void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle)
+void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStreamAttributes& attrs, CharStyle & newStyle) const
 {
 	static const QString CPARENT("CPARENT");
 	if (attrs.hasAttribute(CPARENT))
@@ -3001,7 +3001,7 @@ void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 		newStyle.setWordTracking(attrs.valueAsDouble(WORDTRACK));
 }
 
-void Scribus150Format::readNamedCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle)
+void Scribus150Format::readNamedCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStreamAttributes& attrs, CharStyle & newStyle) const
 {
 	static const QString CNAME("CNAME");
 	if (attrs.hasAttribute(CNAME))
@@ -3024,7 +3024,7 @@ void Scribus150Format::readNamedCharacterStyleAttrs(ScribusDoc *doc, ScXmlStream
 		newStyle.setParent(QString());
 }
 
-void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle)
+void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle) const
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 
@@ -3245,7 +3245,7 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	fixLegacyParStyle(newStyle);
 }
 
-void Scribus150Format::readTableStyle(ScribusDoc *doc, ScXmlStreamReader& reader, TableStyle& newStyle)
+void Scribus150Format::readTableStyle(ScribusDoc *doc, ScXmlStreamReader& reader, TableStyle& newStyle) const
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	newStyle.erase();
@@ -3304,7 +3304,7 @@ void Scribus150Format::readTableStyle(ScribusDoc *doc, ScXmlStreamReader& reader
 	}
 }
 
-void Scribus150Format::readTableBorderLines(ScribusDoc* /*doc*/, ScXmlStreamReader& reader, TableBorder& border)
+void Scribus150Format::readTableBorderLines(ScribusDoc* /*doc*/, ScXmlStreamReader& reader, TableBorder& border) const
 {
 	QStringView tagName = reader.name();
 	while (!reader.atEnd() && !reader.hasError())
@@ -3328,7 +3328,7 @@ void Scribus150Format::readTableBorderLines(ScribusDoc* /*doc*/, ScXmlStreamRead
 	}
 }
 
-void Scribus150Format::readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader, CellStyle& newStyle)
+void Scribus150Format::readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader, CellStyle& newStyle) const
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	newStyle.erase();
@@ -3396,7 +3396,7 @@ void Scribus150Format::readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader,
 	}
 }
 
-void Scribus150Format::readLayers(ScLayer& layer, ScXmlStreamAttributes& attrs)
+void Scribus150Format::readLayers(ScLayer& layer, const ScXmlStreamAttributes& attrs) const
 {
 	int lId   = attrs.valueAsInt("NUMMER");
 	int level = attrs.valueAsInt("LEVEL");
@@ -3413,9 +3413,10 @@ void Scribus150Format::readLayers(ScLayer& layer, ScXmlStreamAttributes& attrs)
 		layer.markerColor =  QColor(attrs.valueAsString("LAYERC","#000000"));
 }
 
-bool Scribus150Format::readArrows(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
+bool Scribus150Format::readArrows(ScribusDoc* doc, ScXmlStreamAttributes& attrs) const
 {
-	double xa, ya;
+	double xa;
+	double ya;
 	struct ArrowDesc arrow;
 	arrow.name = attrs.valueAsString("Name");
 	arrow.userArrow = true;
@@ -3433,7 +3434,7 @@ bool Scribus150Format::readArrows(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 	return true;
 }
 
-bool Scribus150Format::readMultiline(multiLine& ml, ScXmlStreamReader& reader)
+bool Scribus150Format::readMultiline(multiLine& ml, ScXmlStreamReader& reader) const
 {
 	ml = multiLine();
 	ScXmlStreamAttributes rattrs = reader.scAttributes();
@@ -3460,7 +3461,7 @@ bool Scribus150Format::readMultiline(multiLine& ml, ScXmlStreamReader& reader)
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readBookMark(ScribusDoc::BookMa& bookmark, int& elem, ScXmlStreamAttributes& attrs)
+bool Scribus150Format::readBookMark(ScribusDoc::BookMa& bookmark, int& elem, const ScXmlStreamAttributes& attrs) const
 {
 	elem = attrs.valueAsInt("Element");
 	bookmark.PageObject = nullptr;
@@ -3585,13 +3586,13 @@ bool Scribus150Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 			ef.Dm = attrs.valueAsInt("Dm");
 			ef.M  = attrs.valueAsInt("M");
 			ef.Di = attrs.valueAsInt("Di");
-			EffVal.append(ef);
+			pdfPresEffects.append(ef);
 		}
 	}
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& reader)
+bool Scribus150Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& reader) const
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	doc->Print_Options.firstUse = attrs.valueAsBool("firstUse");
@@ -3649,7 +3650,7 @@ bool Scribus150Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader)
+bool Scribus150Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader) const
 {
 	QString tagName(reader.nameAsString());
 	doc->clearItemAttributes();
@@ -3675,7 +3676,7 @@ bool Scribus150Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader&
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader)
+bool Scribus150Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader) const
 {
 	QString tagName(reader.nameAsString());
 	m_Doc->clearTocSetups();
@@ -3706,7 +3707,7 @@ bool Scribus150Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reader)
+bool Scribus150Format::readNotesStyles(ScribusDoc* /*doc*/, ScXmlStreamReader& reader) const
 {
 	QString tagName(reader.nameAsString());
 	while (!reader.atEnd() && !reader.hasError())
@@ -3808,7 +3809,7 @@ bool Scribus150Format::readNotesFrames(ScXmlStreamReader& reader)
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readNotes(ScribusDoc* doc, ScXmlStreamReader& reader)
+bool Scribus150Format::readNotes(ScribusDoc* /*doc*/, ScXmlStreamReader& reader)
 {
 	//read notes
 	QString tagName(reader.nameAsString());
@@ -3883,7 +3884,7 @@ bool Scribus150Format::readMarks(ScribusDoc* doc, ScXmlStreamReader& reader)
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
+bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader) const
 {
 	QString tagName(reader.nameAsString());
 	while (!reader.atEnd() && !reader.hasError())
@@ -3939,7 +3940,7 @@ bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader)
+bool Scribus150Format::readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader) const
 {
 	if (!doc->docHyphenator)
 		doc->createHyphenator();
@@ -4350,18 +4351,15 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 			fp >> m9 >> m10 >> m11 >> m12;
 			fp >> m13 >> m14 >> m15 >> m16;
 			currentView.trackerMatrix.set(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16);
-			tmp = "";
 			tmp = tAtt.valueAsString("trackC");
 			ScTextStream fp2(&tmp, QIODevice::ReadOnly);
 			double v1, v2, v3;
 			fp2 >> v1 >> v2 >> v3;
 			currentView.trackerCenter.set(v1, v2, v3);
-			tmp = "";
 			tmp = tAtt.valueAsString("cameraP");
 			ScTextStream fp3(&tmp, QIODevice::ReadOnly);
 			fp3 >> v1 >> v2 >> v3;
 			currentView.cameraPosition.set(v1, v2, v3);
-			tmp = "";
 			tmp = tAtt.valueAsString("cameraU");
 			ScTextStream fp4(&tmp, QIODevice::ReadOnly);
 			fp4 >> v1 >> v2 >> v3;
@@ -4793,7 +4791,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -4811,7 +4809,8 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	int itemCount2 = m_Doc->Items->count();
 	if (itemCount2 > itemCount1)
 	{
-		PageItem* currItem = doc->Items->at(itemCount1), *newItem;
+		PageItem* currItem = doc->Items->at(itemCount1);
+		PageItem* newItem;
 		double minx =  std::numeric_limits<double>::max();
 		double miny =  std::numeric_limits<double>::max();
 		double maxx = -std::numeric_limits<double>::max();
@@ -4847,7 +4846,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	return success;
 }
 
-bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader, StoryText& story, PageItem* item)
+bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader, StoryText& story, PageItem* item) const
 {
 	QString tagName(reader.nameAsString());
 	ScXmlStreamAttributes attrs = reader.scAttributes();
@@ -5012,7 +5011,7 @@ bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readItemText(StoryText& story, ScXmlStreamAttributes& attrs, LastStyles* last)
+bool Scribus150Format::readItemText(StoryText& story, const ScXmlStreamAttributes& attrs, LastStyles* last) const
 {
 	QString tmp2;
 	CharStyle newStyle;
@@ -5130,7 +5129,7 @@ bool Scribus150Format::readItemText(StoryText& story, ScXmlStreamAttributes& att
 	return true;
 }
 
-bool Scribus150Format::readPageItemAttributes(PageItem* item, ScXmlStreamReader& reader)
+bool Scribus150Format::readPageItemAttributes(PageItem* item, ScXmlStreamReader& reader) const
 {
 	QString tagName(reader.nameAsString());
 	ObjAttrVector pageItemAttributes;
@@ -5157,7 +5156,7 @@ bool Scribus150Format::readPageItemAttributes(PageItem* item, ScXmlStreamReader&
 	return !reader.hasError();
 }
 
-PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pageNr)
+PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pageNr)
 {
 	int z = 0;
 	struct ImageLoadRequest loadingInfo;
@@ -5168,7 +5167,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	bool isNoteFrameFlag = attrs.valueAsBool("isNoteFrame", false);
 	if (isNoteFrameFlag && (pt == PageItem::TextFrame))
 		pt = PageItem::NoteFrame;
-	double xf, yf;
+	double xf;
+	double yf;
 	double x   = attrs.valueAsDouble("XPOS");
 	double y   = attrs.valueAsDouble("YPOS");
 	x = Xp + x - GrX;
@@ -5187,8 +5187,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	if (Pcolor2.isEmpty())
 		Pcolor2 = CommonStrings::None;
 	QColor tmpc;
-	PageItem *currItem=nullptr;
-	QString tmp, clPath;
+	PageItem *currItem = nullptr;
+	QString tmp;
+	QString clPath;
 	switch (pt)
 	{
 	// OBSOLETE CR 2005-02-06
@@ -5626,29 +5627,32 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		tableitem->insertRows(1, rows - 1);
 		tableitem->insertColumns(1, cols - 1);
 		tableitem->setStyle(attrs.valueAsString("TableStyle"));
-//		QString rowPositions(attrs.valueAsString("RowPositions"));
-//		QStringList slRowPositions=rowPositions.split(" ");
-//		qDebug()<<"RowCount"<<rows<<"row positions"<<slRowPositions.count();
 		doc->dontResize = true;
 
 		QString rowHeights(attrs.valueAsString("RowHeights",""));
 		if (!rowHeights.isEmpty())
 		{
 			QStringList slRowHeights = rowHeights.split(" ");
-			int i=0;
+			int i = 0;
 			foreach(const QString& pos, slRowHeights)
-				tableitem->resizeRow(i++, pos.toDouble());
+			{
+				tableitem->resizeRow(i, pos.toDouble());
+				++i;
+			}
 		}
-//		QString colPositions(attrs.valueAsString("ColumnPositions"));
-//		QStringList slColPositions=colPositions.split(" ");
+
 		QString colWidths(attrs.valueAsString("ColumnWidths",""));
 		if (!colWidths.isEmpty())
 		{
 			QStringList slColWidths = colWidths.split(" ");
 			int i = 0;
 			foreach(const QString& pos, slColWidths)
-				tableitem->resizeColumn(i++, pos.toDouble());
+			{
+				tableitem->resizeColumn(i, pos.toDouble());
+				++i;
+			}
 		}
+
 		QString cellAreas(attrs.valueAsString("CellAreas"));
 		if (!cellAreas.isEmpty())
 		{
@@ -5721,7 +5725,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		if (!found)
 			currItem->setLayer(doc->firstLayerID());
 	}
-	tmp = "";
+	tmp.clear();
 	if ((attrs.hasAttribute("NUMDASH")) && (attrs.valueAsInt("NUMDASH", 0) != 0))
 	{
 		tmp = attrs.valueAsString("DASHS");
@@ -5733,7 +5737,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			dgv >> xf;
 			currItem->DashValues.append(xf);
 		}
-		tmp = "";
+		tmp.clear();
 	}
 	else
 		currItem->DashValues.clear();
@@ -5771,15 +5775,15 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	}
 	else
 	{
-		tmp = "";
+		tmp.clear();
 		if (attrs.hasAttribute("NUMPO"))
 		{
 			currItem->PoLine.resize(attrs.valueAsUInt("NUMPO"));
 			tmp = attrs.valueAsString("POCOOR");
-			double maxVal = std::numeric_limits<double>::max() / 2.0;
+			constexpr double maxVal = std::numeric_limits<double>::max() / 2.0;
 			ScTextStream fp(&tmp, QIODevice::ReadOnly);
 			uint numPo = attrs.valueAsUInt("NUMPO");
-			for (uint cx=0; cx < numPo; ++cx)
+			for (uint cx = 0; cx < numPo; ++cx)
 			{
 				fp >> xf;
 				fp >> yf;
@@ -5796,15 +5800,15 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->PoLine.parseSVG(attrs.valueAsString("path"));
 		}
 	}
-	tmp = "";
+	tmp.clear();
 	if (attrs.hasAttribute("NUMCO"))
 	{
 		currItem->ContourLine.resize(attrs.valueAsUInt("NUMCO"));
 		tmp = attrs.valueAsString("COCOOR");
-		double maxVal = std::numeric_limits<double>::max() / 2.0;
+		constexpr double maxVal = std::numeric_limits<double>::max() / 2.0;
 		ScTextStream fp(&tmp, QIODevice::ReadOnly);
 		uint numCo = attrs.valueAsUInt("NUMCO");
-		for (uint cx=0; cx < numCo; ++cx)
+		for (uint cx = 0; cx < numCo; ++cx)
 		{
 			fp >> xf;
 			fp >> yf;
@@ -6062,7 +6066,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	return currItem;
 }
 
-bool Scribus150Format::readItemTableData(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc* doc)
+bool Scribus150Format::readItemTableData(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc* doc) const
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	QString fColor = attrs.valueAsString("FillColor");
@@ -6179,7 +6183,7 @@ bool Scribus150Format::readItemTableData(PageItem_Table* item, ScXmlStreamReader
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc *doc)
+bool Scribus150Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc *doc) const
 {
 	QString tagName(reader.nameAsString());
 	ScXmlStreamAttributes tAtt = reader.scAttributes();
@@ -6327,7 +6331,7 @@ bool Scribus150Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readLatexInfo(PageItem_LatexFrame* latexitem, ScXmlStreamReader& reader)
+bool Scribus150Format::readLatexInfo(PageItem_LatexFrame* latexitem, ScXmlStreamReader& reader) const
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	QString tagName(reader.nameAsString());
@@ -6362,9 +6366,9 @@ bool Scribus150Format::readLatexInfo(PageItem_LatexFrame* latexitem, ScXmlStream
 bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName)
 {
 // 	qDebug() << QString("loading page %2 from file '%1' from 1.3.x plugin").arg(fileName).arg(pageNumber);
-	if (m_Doc==nullptr || m_AvailableFonts==nullptr)
+	if (m_Doc == nullptr || m_AvailableFonts == nullptr)
 	{
-		Q_ASSERT(m_Doc==nullptr || m_AvailableFonts==nullptr);
+		Q_ASSERT(m_Doc == nullptr || m_AvailableFonts == nullptr);
 		return false;
 	}
 
@@ -6390,12 +6394,14 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QStack<int> groupStackFI2;
 	QStack<int> groupStackMI2;
 	QStack<int> groupStackPI2;
-	double pageX = 0, pageY = 0;
+	double pageX = 0;
+	double pageY = 0;
 	QMap<int,int> layerTrans;
-	int maxLayer = 0, maxLevel = 0, a = 0;
+	int maxLayer = 0;
+	int maxLevel = 0;
 
 	layerTrans.clear();
-	uint layerCount=m_Doc->layerCount();
+	uint layerCount = m_Doc->layerCount();
 	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
 		maxLayer = qMax(m_Doc->Layers[la2].ID, maxLayer);
@@ -6572,8 +6578,8 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		{
 			if (Mpage && (tagName != QLatin1String("MASTERPAGE")))
 				continue;
-			a = m_Doc->currentPage()->pageNr();
-			newPage = m_Doc->Pages->at(a);
+			int pageNr = m_Doc->currentPage()->pageNr();
+			newPage = m_Doc->Pages->at(pageNr);
 			SimpleState *ss = nullptr;
 			if (UndoManager::undoEnabled())
 			{
@@ -6976,7 +6982,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -7007,7 +7013,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -7038,7 +7044,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
