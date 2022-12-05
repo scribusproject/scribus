@@ -134,7 +134,7 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn, int /*page*/)
 	{
 		char *layerName = nullptr;
 		TIFFGetField(tif, TIFFTAG_PAGENAME, &layerName);
-		QString name = QString(layerName);
+		QString name(layerName);
 		if (name.isEmpty())
 			lay.layerName = QString("Layer #%1").arg(layerNum);
 		else
@@ -304,7 +304,6 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 	{
 		uint32_t columns, rows;
 		uint32_t *tile_buf;
-		uint32_t xt, yt;
 		TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns);
 		TIFFGetField(tif, TIFFTAG_TILELENGTH, &rows);
 		tile_buf = (uint32_t*) _TIFFmalloc(columns * rows * sizeof(uint32_t));
@@ -313,20 +312,20 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 			TIFFClose(tif);
 			return false;
 		}
-		uint32_t tileW = columns, tileH = rows;
-		for (yt = 0; yt < (uint32_t) image->height(); yt += rows)
+		uint32_t tileW = columns;
+		uint32_t tileH = rows;
+		for (uint32_t yt = 0; yt < (uint32_t) image->height(); yt += rows)
 		{
 			if (yt > (uint) image->height())
 				break;
 			if (image->height() - yt < rows)
 				tileH = image->height() - yt;
 			tileW = columns;
-			uint32_t yi;
 			int chans = image->channels();
-			for (xt = 0; xt < (uint) image->width(); xt += columns)
+			for (uint32_t xt = 0; xt < (uint) image->width(); xt += columns)
 			{
 				TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
-				for (yi = 0; yi < tileH; yi++)
+				for (uint32_t yi = 0; yi < tileH; yi++)
 				{
 					_TIFFmemcpy(image->scanLine(yt + (tileH - 1 - yi)) + xt, tile_buf + tileW * yi, tileW * chans);
 				}
@@ -1131,7 +1130,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 		{
 			uint count = 0;
 			uchar *ptr = tmpImg.scanLine(hh);
-			uchar *ptr2 = ptr+tmpImg.width() * tmpImg.channels();
+			uchar *ptr2 = ptr + tmpImg.width() * tmpImg.channels();
 			ptr += component;
 			while (count < pixel_count)
 			{
