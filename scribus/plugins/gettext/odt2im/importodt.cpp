@@ -872,7 +872,7 @@ void ODTIm::insertChars(PageItem *item, QString &txt, ParagraphStyle &tmpStyle, 
 		item->itemText.applyStyle(posC, tmpStyle);
 		item->itemText.applyCharStyle(posC, txt.length(), tmpCStyle);
 		posC = item->itemText.length();
-		txt = "";
+		txt.clear();
 	}
 }
 
@@ -1263,29 +1263,29 @@ QString ODTIm::parseColor( const QString &s )
 {
 	QColor c;
 	QString ret = CommonStrings::None;
-	if ((s == "") || s.isEmpty())
+	if (s.isEmpty())
 		return ret;
 	if (s.startsWith( "rgb(" ))
 	{
 		QString parse = s.trimmed();
 		QStringList colors = parse.split( ',', Qt::SkipEmptyParts );
-		QString r = colors[0].right( ( colors[0].length() - 4 ) );
+		QString r = colors[0].right(colors[0].length() - 4);
 		QString g = colors[1];
-		QString b = colors[2].left( ( colors[2].length() - 1 ) );
+		QString b = colors[2].left(colors[2].length() - 1);
 		if (r.contains( "%" ))
 		{
 			r.chop(1);
-			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
+			r = QString::number( static_cast<int>( ( 255.0 * ScCLocale::toDoubleC(r) ) / 100.0 ) );
 		}
 		if (g.contains( "%" ))
 		{
 			g.chop(1);
-			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
+			g = QString::number( static_cast<int>( ( 255.0 * ScCLocale::toDoubleC(g)) / 100.0 ) );
 		}
 		if (b.contains( "%" ))
 		{
 			b.chop(1);
-			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
+			b = QString::number( static_cast<int>( ( 255.0 * ScCLocale::toDoubleC(b)) / 100.0 ) );
 		}
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
@@ -1343,14 +1343,14 @@ QString ODTIm::constructFontName(const QString& fontBaseName, const QString& fon
 		return fontName;
 	}
 
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	QScopedPointer<MissingFont> dia(new MissingFont(nullptr, family, m_Doc));
 	if (dia->exec())
 		fontName = dia->getReplacementFont();
 	else
 		fontName = m_Doc->itemToolPrefs().textFont;
 	PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 
 	return fontName;
 }
