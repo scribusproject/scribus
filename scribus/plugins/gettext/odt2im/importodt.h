@@ -67,7 +67,7 @@ class ODTIm
 {
 public:
 	ODTIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append);
-	~ODTIm();
+	~ODTIm() = default;
 
 private:
 	struct DrawStyle
@@ -105,22 +105,22 @@ private:
 		AttributeValue breakAfter;
 	};
 	bool parseRawDocReference(const QString& designMap);
-	bool parseRawDocReferenceXML(QDomDocument &designMapDom);
-	void parseRawTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC);
-	void parseRawTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, int &posC);
-	void parseRawText(QDomElement &elem, PageItem* item);
+	bool parseRawDocReferenceXML(const QDomDocument &designMapDom);
+	void parseRawTextSpan(const QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC);
+	void parseRawTextParagraph(const QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, int &posC);
+	void parseRawText(const QDomElement &elem, PageItem* item);
 
 	bool parseStyleSheets(const QString& designMap);
-	bool parseStyleSheetsXML(QDomDocument &designMapDom);
-	void parseStyles(QDomElement &sp, const QString& type);
+	bool parseStyleSheetsXML(const QDomDocument &designMapDom);
+	void parseStyles(const QDomElement &sp, const QString& type);
 	bool parseDocReference(const QString& designMap);
-	bool parseDocReferenceXML(QDomDocument &designMapDom);
-	void parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, ObjStyleODT& tmpOStyle, int &posC);
-	void parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, ObjStyleODT &tmpOStyle, int &posC);
-	void parseText(QDomElement &elem, PageItem* item, ObjStyleODT& tmpOStyle);
-	void insertChars(PageItem *item, QString &txt, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC);
-	void applyCharacterStyle(CharStyle &tmpCStyle, ObjStyleODT &oStyle);
-	void applyParagraphStyle(ParagraphStyle &tmpStyle, ObjStyleODT &oStyle);
+	bool parseDocReferenceXML(const QDomDocument &designMapDom);
+	void parseTextSpan(const QDomElement &elem, PageItem* item, const ParagraphStyle &tmpStyle, const CharStyle &tmpCStyle, const ObjStyleODT& tmpOStyle, int &posC);
+	void parseTextParagraph(const QDomNode &elem, PageItem* item, const ParagraphStyle &newStyle, const ObjStyleODT &tmpOStyle, int &posC);
+	void parseText(const QDomElement &elem, PageItem* item, const ObjStyleODT& tmpOStyle);
+	void insertChars(PageItem *item, QString &txt, const ParagraphStyle &tmpStyle, const CharStyle &tmpCStyle, int &posC);
+	void applyCharacterStyle(CharStyle &tmpCStyle, const ObjStyleODT &oStyle);
+	void applyParagraphStyle(ParagraphStyle &tmpStyle, const ObjStyleODT &oStyle);
 	void resolveStyle(ObjStyleODT &tmpOStyle, const QString& pAttrs);
 	double parseUnit(const QString &unit);
 	QString parseColor( const QString &s );
