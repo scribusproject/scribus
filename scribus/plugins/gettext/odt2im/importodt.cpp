@@ -39,19 +39,19 @@ QStringList FileExtensions()
 	return ret;
 }
 
-void GetText2(const QString& filename, const QString& encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
+void GetText2(const QString& filename, const QString& /*encoding*/, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
 	ODTIm* docxim = new ODTIm(filename, textItem, textOnly, prefix, append);
 	delete docxim;
 }
 
 ODTIm::ODTIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
+	: m_Doc(textItem->doc()),
+	  m_item(textItem),
+	  m_prefixName(prefix),
+	  m_append(append)
 {
-	m_Doc = textItem->doc();
-	m_item = textItem;
-	m_prefixName = prefix;
-	m_append = append;
-	QFileInfo fi = QFileInfo(fileName);
+	QFileInfo fi(fileName);
 	QString ext = fi.suffix().toLower();
 	if (ext == "fodt")
 	{
@@ -130,10 +130,6 @@ ODTIm::ODTIm(const QString& fileName, PageItem *textItem, bool textOnly, bool pr
 	textItem->itemText.invalidateLayout();
 }
 
-ODTIm::~ODTIm()
-{
-}
-
 /* Raw Text import */
 
 bool ODTIm::parseRawDocReference(const QString& designMap)
@@ -154,7 +150,7 @@ bool ODTIm::parseRawDocReference(const QString& designMap)
 	return parseRawDocReferenceXML(designMapDom);
 }
 
-bool ODTIm::parseRawDocReferenceXML(QDomDocument &designMapDom)
+bool ODTIm::parseRawDocReferenceXML(const QDomDocument &designMapDom)
 {
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
@@ -173,7 +169,7 @@ bool ODTIm::parseRawDocReferenceXML(QDomDocument &designMapDom)
 	return true;
 }
 
-void ODTIm::parseRawTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC)
+void ODTIm::parseRawTextSpan(const QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC)
 {
 	if (!elem.hasChildNodes())
 		return;
@@ -213,7 +209,7 @@ void ODTIm::parseRawTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &
 	}
 }
 
-void ODTIm::parseRawTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, int &posC)
+void ODTIm::parseRawTextParagraph(const QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, int &posC)
 {
 	CharStyle tmpCStyle = newStyle.charStyle();
 	if (elem.hasChildNodes())
@@ -257,7 +253,7 @@ void ODTIm::parseRawTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle
 	posC = item->itemText.length();
 }
 
-void ODTIm::parseRawText(QDomElement &elem, PageItem* item)
+void ODTIm::parseRawText(const QDomElement &elem, PageItem* item)
 {
 	QString pStyleD = CommonStrings::DefaultParagraphStyle;
 	ParagraphStyle newStyle;
@@ -328,7 +324,7 @@ bool ODTIm::parseStyleSheets(const QString& designMap)
 	return parseStyleSheetsXML(designMapDom);
 }
 
-bool ODTIm::parseStyleSheetsXML(QDomDocument &designMapDom)
+bool ODTIm::parseStyleSheetsXML(const QDomDocument &designMapDom)
 {
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement sp = docElem.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
@@ -359,7 +355,7 @@ bool ODTIm::parseStyleSheetsXML(QDomDocument &designMapDom)
 	return true;
 }
 
-void ODTIm::parseStyles(QDomElement &sp, const QString& type)
+void ODTIm::parseStyles(const QDomElement &sp, const QString& type)
 {
 	for (QDomElement spd = sp.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
 	{
@@ -589,7 +585,7 @@ bool ODTIm::parseDocReference(const QString& designMap)
 	return parseDocReferenceXML(designMapDom);
 }
 
-bool ODTIm::parseDocReferenceXML(QDomDocument &designMapDom)
+bool ODTIm::parseDocReferenceXML(const QDomDocument &designMapDom)
 {
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
@@ -632,7 +628,7 @@ bool ODTIm::parseDocReferenceXML(QDomDocument &designMapDom)
 	return true;
 }
 
-void ODTIm::parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, ObjStyleODT &tmpOStyle, int &posC)
+void ODTIm::parseTextSpan(const QDomElement &elem, PageItem* item, const ParagraphStyle &tmpStyle, const CharStyle &tmpCStyle, const ObjStyleODT &tmpOStyle, int &posC)
 {
 	if (!elem.hasChildNodes())
 		return;
@@ -687,7 +683,7 @@ void ODTIm::parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmp
 		m_textStylesStack.pop();
 }
 
-void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, ObjStyleODT &tmpOStyle, int &posC)
+void ODTIm::parseTextParagraph(const QDomNode &elem, PageItem* item, const ParagraphStyle &newStyle, const ObjStyleODT &tmpOStyle, int &posC)
 {
 	ParagraphStyle tmpStyle = newStyle;
 	CharStyle tmpCStyle = tmpStyle.charStyle();
@@ -809,7 +805,7 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 		m_textStylesStack.pop();
 }
 
-void ODTIm::parseText(QDomElement &elem, PageItem* item, ObjStyleODT &tmpOStyle)
+void ODTIm::parseText(const QDomElement &elem, PageItem* item, const ObjStyleODT &tmpOStyle)
 {
 	QString pStyleD = CommonStrings::DefaultParagraphStyle;
 	ParagraphStyle newStyle;
@@ -865,7 +861,7 @@ void ODTIm::parseText(QDomElement &elem, PageItem* item, ObjStyleODT &tmpOStyle)
 	}
 }
 
-void ODTIm::insertChars(PageItem *item, QString &txt, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC)
+void ODTIm::insertChars(PageItem *item, QString &txt, const ParagraphStyle &tmpStyle, const CharStyle &tmpCStyle, int &posC)
 {
 	if (txt.length() > 0)
 	{
@@ -877,7 +873,7 @@ void ODTIm::insertChars(PageItem *item, QString &txt, ParagraphStyle &tmpStyle, 
 	}
 }
 
-void ODTIm::applyCharacterStyle(CharStyle &tmpCStyle, ObjStyleODT &oStyle)
+void ODTIm::applyCharacterStyle(CharStyle &tmpCStyle, const ObjStyleODT &oStyle)
 {
 	tmpCStyle.setFont((*m_Doc->AllFonts)[oStyle.fontName]);
 	tmpCStyle.setFontSize(oStyle.fontSize * 10);
@@ -939,7 +935,7 @@ void ODTIm::applyCharacterStyle(CharStyle &tmpCStyle, ObjStyleODT &oStyle)
 		setFontstyle(tmpCStyle, 2);
 }
 
-void ODTIm::applyParagraphStyle(ParagraphStyle &tmpStyle, ObjStyleODT &oStyle)
+void ODTIm::applyParagraphStyle(ParagraphStyle &tmpStyle, const ObjStyleODT &oStyle)
 {
 	tmpStyle.setAlignment(oStyle.textAlign);
 	tmpStyle.setLeftMargin(oStyle.margin_left);
