@@ -658,7 +658,7 @@ void StoryText::trim()
 		return;
 	int posCount = 0;
 	int pos = length() - 1;
-	for ( int i = length() - 1; i >= 0; --i )
+	for (int i = length() - 1; i >= 0; --i)
 	{
 		const ScText *it = d->at(i);
 		if ((it->ch == SpecialChars::PARSEP) || (it->ch.isSpace()))
@@ -955,7 +955,8 @@ QString StoryText::plainText() const
 	int len = length();
 	result.reserve(len);
 
-	for (int i = 0; i < len; ++i) {
+	for (int i = 0; i < len; ++i)
+	{
 		ch = d->at(i)->ch;
 		if (ch == SpecialChars::PARSEP)
 			ch = QLatin1Char('\n');
@@ -1476,7 +1477,8 @@ void StoryText::eraseCharStyle(int pos, uint len, const CharStyle& style )
 		return;
 	
 	ScText* itText;
-	for (uint i=pos; i < pos+len; ++i) {
+	for (uint i = pos; i < pos + len; ++i)
+	{
 		itText = d->at(i);
 		// FIXME?? see #6165 : should we really erase charstyle of paragraph style??
 		if (itText->ch == SpecialChars::PARSEP && itText->parstyle != nullptr)
@@ -1506,7 +1508,8 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style, bool rmDirectFo
 
 	if (i < length())
 	{
-		if (!d->at(i)->parstyle) {
+		if (!d->at(i)->parstyle)
+		{
 			qDebug("PARSEP without style at pos %i", i);
 			d->at(i)->parstyle = new ParagraphStyle();
 			d->at(i)->parstyle->setContext( & d->pstyleContext);
@@ -1517,7 +1520,8 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style, bool rmDirectFo
 //		qDebug() << QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos);
 		d->at(i)->parstyle->applyStyle(style);
 	}
-	else {
+	else
+	{
 		// not happy about this but inserting a new PARSEP makes more trouble
 //		qDebug() << QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos);
 		d->trailingStyle.applyStyle(style);
@@ -1548,7 +1552,8 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 
 	if (i < length())
 	{
-		if (!d->at(i)->parstyle) {
+		if (!d->at(i)->parstyle)
+		{
 			qDebug("PARSEP without style at pos %i", i);
 			d->at(i)->parstyle = new ParagraphStyle();
 			d->at(i)->parstyle->setContext( & d->pstyleContext);
@@ -1586,7 +1591,7 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 		return;
 	
 	ScText* itText;
-	for (uint i=pos; i < pos+len; ++i)
+	for (uint i = pos; i < pos + len; ++i)
 	{
 		itText = d->at(i);
 		// #6165 : applying style on last character applies style on whole text on next open 
@@ -1603,7 +1608,7 @@ void StoryText::getNamedResources(ResourceCollection& lists) const
 	d->defaultStyle.getNamedResources(lists);
 	d->trailingStyle.getNamedResources(lists);
 
-	for (int i=0; i < length(); ++i)
+	for (int i = 0; i < length(); ++i)
 	{
 		if (text(i) == SpecialChars::PARSEP)
 			paragraphStyle(i).getNamedResources(lists);
@@ -1632,7 +1637,7 @@ void StoryText::replaceNamedResources(ResourceCollection& newNames)
 		return;
 	
 	ScText* itText;
-	for (int i=0; i < len; ++i)
+	for (int i = 0; i < len; ++i)
 	{
 		itText = d->at(i);
 		if (itText->parstyle)
@@ -1737,7 +1742,7 @@ int StoryText::startOfParagraph(uint index) const
 	if (index == 0)
 		return 0;
 
-	for (int i=0; i < length(); ++i)
+	for (int i = 0; i < length(); ++i)
 	{
 		if (d->at(i)->ch == SpecialChars::PARSEP && ! --index)
 			return i + 1;
@@ -1753,7 +1758,7 @@ int StoryText::endOfParagraph() const
 int StoryText::endOfParagraph(uint index) const
 {
 	++index;
-	for (int i=0; i < length(); ++i)
+	for (int i = 0; i < length(); ++i)
 	{
 		if (d->at(i)->ch == SpecialChars::PARSEP && ! --index)
 			return i;
@@ -2474,7 +2479,7 @@ public:
 	void begin(const Xml_string& tag, Xml_attr attr) override
 	{
 		StoryText* story = this->dig->top<StoryText>();
-		QString l = "";
+		QString l;
 		MarkType t = MARKNoType;
 		
 		Mark* mrk = nullptr;
