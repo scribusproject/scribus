@@ -634,6 +634,9 @@ bool ODTIm::parseDocReferenceXML(QDomDocument &designMapDom)
 
 void ODTIm::parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, ObjStyleODT &tmpOStyle, int &posC)
 {
+	if (!elem.hasChildNodes())
+		return;
+
 	ObjStyleODT odtStyle = tmpOStyle;
 	CharStyle cStyle = tmpCStyle;
 
@@ -645,8 +648,6 @@ void ODTIm::parseTextSpan(QDomElement &elem, PageItem* item, ParagraphStyle &tmp
 	}
 	
 	applyCharacterStyle(cStyle, odtStyle);
-	if (!elem.hasChildNodes())
-		return;
 
 	for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 	{
