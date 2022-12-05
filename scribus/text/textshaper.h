@@ -55,7 +55,7 @@ private:
 
 	void buildText(int fromPos, int toPos, QVector<int>& smallCaps);
 
-	QList<TextRun> itemizeBiDi() const;
+	QList<TextRun> itemizeBiDi(int fromPos) const;
 	QList<TextRun> itemizeScripts(const QList<TextRun> &runs) const;
 	QList<TextRun> itemizeStyles(const QList<TextRun> &runs) const;
 	QList<FeaturesRun> itemizeFeatures(const TextRun &run) const;

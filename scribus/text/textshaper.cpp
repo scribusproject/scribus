@@ -42,14 +42,14 @@ TextShaper::TextShaper(ITextSource &story, int firstChar)
 	}
 }
 
-QList<TextShaper::TextRun> TextShaper::itemizeBiDi() const
+QList<TextShaper::TextRun> TextShaper::itemizeBiDi(int fromPos) const
 {
 	QList<TextRun> textRuns;
 	UBiDi *obj = ubidi_open();
 	UErrorCode err = U_ZERO_ERROR;
 
 	UBiDiLevel parLevel = UBIDI_LTR;
-	ParagraphStyle style = m_story.paragraphStyle(m_firstChar);
+	ParagraphStyle style = m_story.paragraphStyle(fromPos);
 	if (style.direction() == ParagraphStyle::RTL)
 		parLevel = UBIDI_RTL;
 
@@ -274,7 +274,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 
 	buildText(fromPos, toPos, smallCaps);
 
-	QList<TextRun> bidiRuns = itemizeBiDi();
+	QList<TextRun> bidiRuns = itemizeBiDi(fromPos);
 	QList<TextRun> scriptRuns = itemizeScripts(bidiRuns);
 	QList<TextRun> textRuns = itemizeStyles(scriptRuns);
 
