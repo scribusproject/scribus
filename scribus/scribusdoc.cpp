@@ -135,11 +135,8 @@ for which a new license (GPL+exception) is in place.
  */
 class DocUpdater : public Observer<ScPage*>, public Observer<PageItem*>
 {
-	ScribusDoc* doc;
-	int  m_updateEnabled;
-	bool m_docChangeNeeded;
 public:
-	DocUpdater(ScribusDoc* d) : doc(d), m_updateEnabled(0), m_docChangeNeeded(false) {}
+	DocUpdater(ScribusDoc* d) : doc(d) {}
 
 	bool inUpdateSession() const
 	{ 
@@ -204,6 +201,11 @@ public:
 	{
 		m_docChangeNeeded = changeNeeded;
 	}
+
+private:
+	ScribusDoc* doc { nullptr };
+	int  m_updateEnabled { 0 };
+	bool m_docChangeNeeded { false };
 };
 
 

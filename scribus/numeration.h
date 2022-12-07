@@ -33,7 +33,7 @@ enum NumerationRange
 class Numeration
 {
 public:
-	Numeration() : numFormat(Type_1_2_3), asterix(QString()), lead('0'), range(NSRdocument) {}
+	Numeration() : numFormat(Type_1_2_3), asterix(QString()), lead('0') {}
 	Numeration(NumFormat f) : numFormat(f), asterix("*") {}
 	
 	QString numString(int num) const;
@@ -42,7 +42,7 @@ public:
 	QString asterix;
 	QChar lead;
 	int len { 0 };
-	NumerationRange range;
+	NumerationRange range { NSRdocument };
 	QString prefix;
 	QString suffix;
 	int start { 1 };
