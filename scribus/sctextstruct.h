@@ -83,7 +83,8 @@ private:
 class SCRIBUS_API ExpansionPoint 
 {
 public:
-	enum ExpansionType {
+	enum ExpansionType
+	{
 		Invalid,
 		PageNumber,
 		PageCount,

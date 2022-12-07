@@ -40,7 +40,8 @@
 class SCRIBUS_API Transaction {
 
 public:
-	enum Status {
+	enum Status
+	{
 		STATE_OPEN,
 		STATE_WILLFAIL,
 		STATE_FAILED,
@@ -52,12 +53,12 @@ public:
 	public:
 		virtual ~TransactionStateBase() = default;
 
-		Status m_status;
+		Status m_status { STATE_OPEN };
 	};
 	
 	Transaction(TransactionStateBase* data) : m_data(data)
 	{
-		if (data != 0)
+		if (data != nullptr)
 			m_data->m_status = STATE_OPEN;
 	}
 	

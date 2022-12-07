@@ -37,7 +37,7 @@ protected:
 
 	Digester* dig {nullptr};
 private:
-	int refs;
+	int refs { 0 };
 	friend class Action;
 };
 
@@ -100,7 +100,7 @@ protected:
 		body->refs = 1;
 	}
 
-	Action_body* body;
+	Action_body* body { nullptr };
 
 private:
 	Action();  // not defined

@@ -36,7 +36,7 @@ namespace PRIVATE {
 	class VarPtr
 	{
 	public:
-		void* ptr;
+		void* ptr { nullptr };
 		std::string type;
 	};
 
@@ -75,10 +75,11 @@ namespace PRIVATE {
 
 
 
-class Patch {
+class Patch
+{
 public:
 	// internal linked list
-	Patch* next;
+	Patch* next { nullptr };
 	Patch(Patch* nxt) : next(nxt) {}
 
 	virtual void run(VarPtr lnk) = 0;
@@ -284,7 +285,7 @@ namespace PRIVATE {
 		struct Patch2 : public Patch
 	{
 		typedef void (ObjType::*FunType2)(LinkType*);
-		ObjType* obj;
+		ObjType* obj { nullptr };
 		FunType2 fun;
 		
 		Patch2(ObjType* ob, FunType2 fn, Patch* nxt = nullptr) : Patch(nxt), obj(ob), fun(fn) {}
