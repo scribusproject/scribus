@@ -970,8 +970,7 @@ const ScFace& SCFonts::findFont(const QString& fontFamily, const QString& fontSt
 QMap<QString,QString> SCFonts::getSubstitutions(const QList<QString>& skip) const
 {
 	QMap<QString,QString> result;
-	QMap<QString,ScFace>::ConstIterator it;
-	for (it = begin(); it != end(); ++it)
+	for (auto it = begin(); it != end(); ++it)
 	{
 		if (it.value().isReplacement() && !skip.contains(it.key()))
 			result[it.key()] = it.value().replacementName();
@@ -982,8 +981,7 @@ QMap<QString,QString> SCFonts::getSubstitutions(const QList<QString>& skip) cons
 
 void SCFonts::setSubstitutions(const QMap<QString,QString>& substitutes, ScribusDoc* doc)
 {
-	QMap<QString,QString>::ConstIterator it;
-	for (it = substitutes.begin(); it != substitutes.end(); ++it)
+	for (auto it = substitutes.begin(); it != substitutes.end(); ++it)
 	{
 		if (it.key() == it.value())
 			continue;
