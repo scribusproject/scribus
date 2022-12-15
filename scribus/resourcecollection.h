@@ -81,17 +81,17 @@ class SCRIBUS_API ResourceCollection
 		void mapCellStyles(const QMap<QString, QString>& newnames)   { m_cellStyles = newnames; }
 		void mapNoteStyles(const QMap<QString, QString>& newnames)   { m_noteStyles = newnames; }
 
-		const QMap<QString, QString>& fonts()        { return m_fonts; }
-		const QMap<QString, QString>& fontfeatures() { return m_fontfeatures; }
-		const QMap<QString, QString>& patterns()     { return m_patterns; }
-		const QMap<QString, QString>& colors()       { return m_colors; }
-		const QMap<QString, QString>& gradients()    { return m_gradients; }
-		const QMap<QString, QString>& styles()       { return m_pstyles; }
-		const QMap<QString, QString>& charStyles()   { return m_cstyles; }
-		const QMap<QString, QString>& lineStyles()   { return m_linestyles; }
-		const QMap<QString, QString>& tableStyles()  { return m_tableStyles; }
-		const QMap<QString, QString>& cellStyles()   { return m_cellStyles; }
-		const QMap<QString, QString>& noteStyles()   { return m_noteStyles; }
+		const QMap<QString, QString>& fonts() const        { return m_fonts; }
+		const QMap<QString, QString>& fontfeatures() const { return m_fontfeatures; }
+		const QMap<QString, QString>& patterns()  const    { return m_patterns; }
+		const QMap<QString, QString>& colors() const       { return m_colors; }
+		const QMap<QString, QString>& gradients() const    { return m_gradients; }
+		const QMap<QString, QString>& styles() const       { return m_pstyles; }
+		const QMap<QString, QString>& charStyles() const   { return m_cstyles; }
+		const QMap<QString, QString>& lineStyles() const   { return m_linestyles; }
+		const QMap<QString, QString>& tableStyles() const  { return m_tableStyles; }
+		const QMap<QString, QString>& cellStyles() const   { return m_cellStyles; }
+		const QMap<QString, QString>& noteStyles() const   { return m_noteStyles; }
 
 		QList<QString> fontNames() const         { return m_fonts.keys(); }
 		QList<QString> patternNames() const      { return m_patterns.keys(); }
