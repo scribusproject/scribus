@@ -97,7 +97,7 @@ int scriptplugin_getPluginAPIVersion()
 
 ScPlugin* scriptplugin_getPlugin()
 {
-	scripterCore=nullptr;
+	scripterCore = nullptr;
 	ScriptPlugin* plug = new ScriptPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
@@ -161,7 +161,7 @@ void ScriptPlugin::deleteAboutData(const AboutData* about) const
 bool ScriptPlugin::initPlugin()
 {
 #if defined(Q_OS_WIN)
-	QString pyHome = qApp->applicationDirPath() + "/python";
+	QString pyHome = QApplication::applicationDirPath() + "/python";
 	if (QDir(pyHome).exists())
 	{
 		QString ph = QDir::toNativeSeparators(pyHome);
@@ -227,7 +227,7 @@ void run()
 /*static */PyObject *scribus_retval(PyObject* /*self*/, PyObject* args)
 {
 	char *Name = nullptr;
-	if (!PyArg_ParseTuple(args, (char*) "s", &Name))
+	if (!PyArg_ParseTuple(args, "s", &Name))
 		return nullptr;
 	// Because sysdefaultencoding is not utf-8, Python is returning utf-8 encoded
 	// 8-bit char* strings. Make sure Qt understands that the input is utf-8 not
@@ -642,13 +642,13 @@ static int scribus_extension_clear(PyObject *m)
 static struct PyModuleDef scribus_module_def = {
         PyModuleDef_HEAD_INIT,
         "scribus",
-        NULL,
+        nullptr,
         sizeof(struct scribus_module_state),
         scribus_methods,
-        NULL,
+        nullptr,
         scribus_extension_traverse,
         scribus_extension_clear,
-        NULL
+        nullptr
 };
 
 void initscribus_failed(const char* fileName, int lineNo)
@@ -677,236 +677,236 @@ PyObject* PyInit_scribus(void)
 	m = PyModule_Create(&scribus_module_def);
 
 	Py_INCREF(&Printer_Type);
-	result = PyModule_AddObject(m, (char*) "Printer", (PyObject *) &Printer_Type);
+	result = PyModule_AddObject(m, "Printer", (PyObject *) &Printer_Type);
 	if (result != 0)
 		qDebug("scriptplugin: Could not create scribus.Printer module");
 	Py_INCREF(&PDFfile_Type);
-	result = PyModule_AddObject(m, (char*) "PDFfile", (PyObject *) &PDFfile_Type);
+	result = PyModule_AddObject(m, "PDFfile", (PyObject *) &PDFfile_Type);
 	if (result != 0)
 		qDebug("scriptplugin: Could not create scribus.PDFfile module");
 	Py_INCREF(&ImageExport_Type);
-	PyModule_AddObject(m, (char*) "ImageExport", (PyObject *) &ImageExport_Type);
+	PyModule_AddObject(m, "ImageExport", (PyObject *) &ImageExport_Type);
 	if (result != 0)
 		qDebug("scriptplugin: Could not create scribus.ImageExport module");
 	d = PyModule_GetDict(m);
 
 	// Set up the module exceptions
 	// common exc.
-	ScribusException = PyErr_NewException((char*) "scribus.ScribusException", nullptr, nullptr);
+	ScribusException = PyErr_NewException("scribus.ScribusException", nullptr, nullptr);
 	Py_INCREF(ScribusException);
-	PyModule_AddObject(m, (char*) "ScribusException", ScribusException);
+	PyModule_AddObject(m, "ScribusException", ScribusException);
 	// no doc open
-	NoDocOpenError = PyErr_NewException((char*) "scribus.NoDocOpenError", ScribusException, nullptr);
+	NoDocOpenError = PyErr_NewException("scribus.NoDocOpenError", ScribusException, nullptr);
 	Py_INCREF(NoDocOpenError);
-	PyModule_AddObject(m, (char*) "NoDocOpenError", NoDocOpenError);
+	PyModule_AddObject(m, "NoDocOpenError", NoDocOpenError);
 	// wrong type of frame for operation
-	WrongFrameTypeError = PyErr_NewException((char*) "scribus.WrongFrameTypeError", ScribusException, nullptr);
+	WrongFrameTypeError = PyErr_NewException("scribus.WrongFrameTypeError", ScribusException, nullptr);
 	Py_INCREF(WrongFrameTypeError);
-	PyModule_AddObject(m, (char*) "WrongFrameTypeError", WrongFrameTypeError);
+	PyModule_AddObject(m, "WrongFrameTypeError", WrongFrameTypeError);
 	// Couldn't find named object, or no named object and no selection
-	NoValidObjectError = PyErr_NewException((char*) "scribus.NoValidObjectError", ScribusException, nullptr);
+	NoValidObjectError = PyErr_NewException("scribus.NoValidObjectError", ScribusException, nullptr);
 	Py_INCREF(NoValidObjectError);
-	PyModule_AddObject(m, (char*) "NoValidObjectError", NoValidObjectError);
+	PyModule_AddObject(m, "NoValidObjectError", NoValidObjectError);
 	// Couldn't find the specified resource - font, color, etc.
-	NotFoundError = PyErr_NewException((char*) "scribus.NotFoundError", ScribusException, nullptr);
+	NotFoundError = PyErr_NewException("scribus.NotFoundError", ScribusException, nullptr);
 	Py_INCREF(NotFoundError);
-	PyModule_AddObject(m, (char*) "NotFoundError", NotFoundError);
+	PyModule_AddObject(m, "NotFoundError", NotFoundError);
 	// Tried to create an object with the same name as one that already exists
-	NameExistsError = PyErr_NewException((char*) "scribus.NameExistsError", ScribusException, nullptr);
+	NameExistsError = PyErr_NewException("scribus.NameExistsError", ScribusException, nullptr);
 	Py_INCREF(NameExistsError);
-	PyModule_AddObject(m, (char*) "NameExistsError", NameExistsError);
+	PyModule_AddObject(m, "NameExistsError", NameExistsError);
 	// Done with exception setup
 
 	// CONSTANTS
 	// Units
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_POINTS"), PyLong_FromLong(unitIndexFromString("pt")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_MILLIMETERS"), PyLong_FromLong(unitIndexFromString("mm")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_INCHES"), PyLong_FromLong(unitIndexFromString("in")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_PICAS"), PyLong_FromLong(unitIndexFromString("p")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_CENTIMETRES"), PyLong_FromLong(unitIndexFromString("cm")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_CICERO"), PyLong_FromLong(unitIndexFromString("c")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_PT"), PyLong_FromLong(unitIndexFromString("pt")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_MM"), PyLong_FromLong(unitIndexFromString("mm")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_IN"), PyLong_FromLong(unitIndexFromString("in")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_P"), PyLong_FromLong(unitIndexFromString("p")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_CM"), PyLong_FromLong(unitIndexFromString("cm")));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_C"), PyLong_FromLong(unitIndexFromString("c")));
+	PyDict_SetItemString(d, "UNIT_POINTS", PyLong_FromLong(unitIndexFromString("pt")));
+	PyDict_SetItemString(d, "UNIT_MILLIMETERS", PyLong_FromLong(unitIndexFromString("mm")));
+	PyDict_SetItemString(d, "UNIT_INCHES", PyLong_FromLong(unitIndexFromString("in")));
+	PyDict_SetItemString(d, "UNIT_PICAS", PyLong_FromLong(unitIndexFromString("p")));
+	PyDict_SetItemString(d, "UNIT_CENTIMETRES", PyLong_FromLong(unitIndexFromString("cm")));
+	PyDict_SetItemString(d, "UNIT_CICERO", PyLong_FromLong(unitIndexFromString("c")));
+	PyDict_SetItemString(d, "UNIT_PT", PyLong_FromLong(unitIndexFromString("pt")));
+	PyDict_SetItemString(d, "UNIT_MM", PyLong_FromLong(unitIndexFromString("mm")));
+	PyDict_SetItemString(d, "UNIT_IN", PyLong_FromLong(unitIndexFromString("in")));
+	PyDict_SetItemString(d, "UNIT_P", PyLong_FromLong(unitIndexFromString("p")));
+	PyDict_SetItemString(d, "UNIT_CM", PyLong_FromLong(unitIndexFromString("cm")));
+	PyDict_SetItemString(d, "UNIT_C", PyLong_FromLong(unitIndexFromString("c")));
 	// Page orientation
-	PyDict_SetItemString(d, const_cast<char*>("PORTRAIT"), Py_BuildValue(const_cast<char*>("i"), portraitPage));
-	PyDict_SetItemString(d, const_cast<char*>("LANDSCAPE"), Py_BuildValue(const_cast<char*>("i"), landscapePage));
+	PyDict_SetItemString(d, "PORTRAIT", Py_BuildValue("i", portraitPage));
+	PyDict_SetItemString(d, "LANDSCAPE", Py_BuildValue("i", landscapePage));
 	// Page layout
-	PyDict_SetItemString(d, const_cast<char*>("NOFACINGPAGES"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("FACINGPAGES"),  Py_BuildValue(const_cast<char*>("i"), 1));
+	PyDict_SetItemString(d, "NOFACINGPAGES", Py_BuildValue("i", 0));
+	PyDict_SetItemString(d, "FACINGPAGES",  Py_BuildValue("i", 1));
 	// First page position
-	PyDict_SetItemString(d, const_cast<char*>("FIRSTPAGERIGHT"), Py_BuildValue(const_cast<char*>("i"), 1));
-	PyDict_SetItemString(d, const_cast<char*>("FIRSTPAGELEFT"), Py_BuildValue(const_cast<char*>("i"), 0));
+	PyDict_SetItemString(d, "FIRSTPAGERIGHT", Py_BuildValue("i", 1));
+	PyDict_SetItemString(d, "FIRSTPAGELEFT", Py_BuildValue("i", 0));
 	// Text horizontal alignment
-	PyDict_SetItemString(d, const_cast<char*>("ALIGN_LEFT"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("ALIGN_RIGHT"), Py_BuildValue(const_cast<char*>("i"), 2));
-	PyDict_SetItemString(d, const_cast<char*>("ALIGN_CENTERED"), Py_BuildValue(const_cast<char*>("i"), 1));
-	PyDict_SetItemString(d, const_cast<char*>("ALIGN_BLOCK"), Py_BuildValue(const_cast<char*>("i"), 3));
-	PyDict_SetItemString(d, const_cast<char*>("ALIGN_FORCED"), Py_BuildValue(const_cast<char*>("i"), 4));
+	PyDict_SetItemString(d, "ALIGN_LEFT", Py_BuildValue("i", 0));
+	PyDict_SetItemString(d, "ALIGN_RIGHT", Py_BuildValue("i", 2));
+	PyDict_SetItemString(d, "ALIGN_CENTERED", Py_BuildValue("i", 1));
+	PyDict_SetItemString(d, "ALIGN_BLOCK", Py_BuildValue("i", 3));
+	PyDict_SetItemString(d, "ALIGN_FORCED", Py_BuildValue("i", 4));
 	// Text vertical alignment
-	PyDict_SetItemString(d, const_cast<char*>("ALIGNV_TOP"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("ALIGNV_CENTERED"), Py_BuildValue(const_cast<char*>("i"), 1));
-	PyDict_SetItemString(d, const_cast<char*>("ALIGNV_BOTTOM"), Py_BuildValue(const_cast<char*>("i"), 2));
+	PyDict_SetItemString(d, "ALIGNV_TOP", Py_BuildValue("i", 0));
+	PyDict_SetItemString(d, "ALIGNV_CENTERED", Py_BuildValue("i", 1));
+	PyDict_SetItemString(d, "ALIGNV_BOTTOM", Py_BuildValue("i", 2));
 	// Text direction
-	PyDict_SetItemString(d, const_cast<char*>("DIRECTION_LTR"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("DIRECTION_RTL"), Py_BuildValue(const_cast<char*>("i"), 1));
+	PyDict_SetItemString(d, "DIRECTION_LTR", Py_BuildValue("i", 0));
+	PyDict_SetItemString(d, "DIRECTION_RTL", Py_BuildValue("i", 1));
 	// First line offset
-	PyDict_SetItemString(d, const_cast<char*>("FLOP_REALGLYPHHEIGHT"), Py_BuildValue(const_cast<char*>("i"), (int) FLOPRealGlyphHeight));
-	PyDict_SetItemString(d, const_cast<char*>("FLOP_FONTASCENT"), Py_BuildValue(const_cast<char*>("i"), (int) FLOPFontAscent));
-	PyDict_SetItemString(d, const_cast<char*>("FLOP_LINESPACING"), Py_BuildValue(const_cast<char*>("i"), (int) FLOPLineSpacing));
-	PyDict_SetItemString(d, const_cast<char*>("FLOP_BASELINEGRID"), Py_BuildValue(const_cast<char*>("i"), (int) FLOPBaselineGrid));
+	PyDict_SetItemString(d, "FLOP_REALGLYPHHEIGHT", Py_BuildValue("i", (int) FLOPRealGlyphHeight));
+	PyDict_SetItemString(d, "FLOP_FONTASCENT", Py_BuildValue("i", (int) FLOPFontAscent));
+	PyDict_SetItemString(d, "FLOP_LINESPACING", Py_BuildValue("i", (int) FLOPLineSpacing));
+	PyDict_SetItemString(d, "FLOP_BASELINEGRID", Py_BuildValue("i", (int) FLOPBaselineGrid));
 	// Fill mode
-	PyDict_SetItemString(d, const_cast<char*>("FILL_NOG"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("FILL_HORIZONTALG"), Py_BuildValue(const_cast<char*>("i"), 1));
-	PyDict_SetItemString(d, const_cast<char*>("FILL_VERTICALG"), Py_BuildValue(const_cast<char*>("i"), 2));
-	PyDict_SetItemString(d, const_cast<char*>("FILL_DIAGONALG"), Py_BuildValue(const_cast<char*>("i"), 3));
-	PyDict_SetItemString(d, const_cast<char*>("FILL_CROSSDIAGONALG"), Py_BuildValue(const_cast<char*>("i"), 4));
-	PyDict_SetItemString(d, const_cast<char*>("FILL_RADIALG"), Py_BuildValue(const_cast<char*>("i"), 5));
+	PyDict_SetItemString(d, "FILL_NOG", Py_BuildValue("i", 0));
+	PyDict_SetItemString(d, "FILL_HORIZONTALG", Py_BuildValue("i", 1));
+	PyDict_SetItemString(d, "FILL_VERTICALG", Py_BuildValue("i", 2));
+	PyDict_SetItemString(d, "FILL_DIAGONALG", Py_BuildValue("i", 3));
+	PyDict_SetItemString(d, "FILL_CROSSDIAGONALG", Py_BuildValue("i", 4));
+	PyDict_SetItemString(d, "FILL_RADIALG", Py_BuildValue("i", 5));
 	// Stroke type
-	PyDict_SetItemString(d, const_cast<char*>("LINE_SOLID"), Py_BuildValue(const_cast<char*>("i"), Qt::SolidLine));
-	PyDict_SetItemString(d, const_cast<char*>("LINE_DASH"), Py_BuildValue(const_cast<char*>("i"), Qt::DashLine));
-	PyDict_SetItemString(d, const_cast<char*>("LINE_DOT"), Py_BuildValue(const_cast<char*>("i"), Qt::DotLine));
-	PyDict_SetItemString(d, const_cast<char*>("LINE_DASHDOT"), Py_BuildValue(const_cast<char*>("i"), Qt::DashDotLine));
-	PyDict_SetItemString(d, const_cast<char*>("LINE_DASHDOTDOT"), Py_BuildValue(const_cast<char*>("i"), Qt::DashDotDotLine));
+	PyDict_SetItemString(d, "LINE_SOLID", Py_BuildValue("i", Qt::SolidLine));
+	PyDict_SetItemString(d, "LINE_DASH", Py_BuildValue("i", Qt::DashLine));
+	PyDict_SetItemString(d, "LINE_DOT", Py_BuildValue("i", Qt::DotLine));
+	PyDict_SetItemString(d, "LINE_DASHDOT", Py_BuildValue("i", Qt::DashDotLine));
+	PyDict_SetItemString(d, "LINE_DASHDOTDOT", Py_BuildValue("i", Qt::DashDotDotLine));
 	// Line join type
-	PyDict_SetItemString(d, const_cast<char*>("JOIN_MITTER"), Py_BuildValue(const_cast<char*>("i"), Qt::MiterJoin));
-	PyDict_SetItemString(d, const_cast<char*>("JOIN_BEVEL"), Py_BuildValue(const_cast<char*>("i"), Qt::BevelJoin));
-	PyDict_SetItemString(d, const_cast<char*>("JOIN_ROUND"), Py_BuildValue(const_cast<char*>("i"), Qt::RoundJoin));
+	PyDict_SetItemString(d, "JOIN_MITTER", Py_BuildValue("i", Qt::MiterJoin));
+	PyDict_SetItemString(d, "JOIN_BEVEL", Py_BuildValue("i", Qt::BevelJoin));
+	PyDict_SetItemString(d, "JOIN_ROUND", Py_BuildValue("i", Qt::RoundJoin));
 	// Line cap type
-	PyDict_SetItemString(d, const_cast<char*>("CAP_FLAT"), Py_BuildValue(const_cast<char*>("i"), Qt::FlatCap));
-	PyDict_SetItemString(d, const_cast<char*>("CAP_SQUARE"), Py_BuildValue(const_cast<char*>("i"), Qt::SquareCap));
-	PyDict_SetItemString(d, const_cast<char*>("CAP_ROUND"), Py_BuildValue(const_cast<char*>("i"), Qt::RoundCap));
+	PyDict_SetItemString(d, "CAP_FLAT", Py_BuildValue("i", Qt::FlatCap));
+	PyDict_SetItemString(d, "CAP_SQUARE", Py_BuildValue("i", Qt::SquareCap));
+	PyDict_SetItemString(d, "CAP_ROUND", Py_BuildValue("i", Qt::RoundCap));
 	// QMessageBox buttons
-	PyDict_SetItemString(d, const_cast<char*>("BUTTON_NONE"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::NoButton));
-	PyDict_SetItemString(d, const_cast<char*>("BUTTON_OK"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Ok));
-	PyDict_SetItemString(d, const_cast<char*>("BUTTON_CANCEL"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Cancel));
-	PyDict_SetItemString(d, const_cast<char*>("BUTTON_YES"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Yes));
-	PyDict_SetItemString(d, const_cast<char*>("BUTTON_NO"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::No));
-	PyDict_SetItemString(d, const_cast<char*>("BUTTON_ABORT"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Abort));
-	PyDict_SetItemString(d, const_cast<char*>("BUTTON_RETRY"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Retry));
-	PyDict_SetItemString(d, const_cast<char*>("BUTTON_IGNORE"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Ignore));
-	PyDict_SetItemString(d, const_cast<char*>("BUTTON_DEFAULT"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Default));
-	PyDict_SetItemString(d, const_cast<char*>("BUTTON_ESCAPE"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Escape));
+	PyDict_SetItemString(d, "BUTTON_NONE", Py_BuildValue("i", QMessageBox::NoButton));
+	PyDict_SetItemString(d, "BUTTON_OK", Py_BuildValue("i", QMessageBox::Ok));
+	PyDict_SetItemString(d, "BUTTON_CANCEL", Py_BuildValue("i", QMessageBox::Cancel));
+	PyDict_SetItemString(d, "BUTTON_YES", Py_BuildValue("i", QMessageBox::Yes));
+	PyDict_SetItemString(d, "BUTTON_NO", Py_BuildValue("i", QMessageBox::No));
+	PyDict_SetItemString(d, "BUTTON_ABORT", Py_BuildValue("i", QMessageBox::Abort));
+	PyDict_SetItemString(d, "BUTTON_RETRY", Py_BuildValue("i", QMessageBox::Retry));
+	PyDict_SetItemString(d, "BUTTON_IGNORE", Py_BuildValue("i", QMessageBox::Ignore));
+	PyDict_SetItemString(d, "BUTTON_DEFAULT", Py_BuildValue("i", QMessageBox::Default));
+	PyDict_SetItemString(d, "BUTTON_ESCAPE", Py_BuildValue("i", QMessageBox::Escape));
 	// QMessageBox icons
-	PyDict_SetItemString(d, const_cast<char*>("ICON_NONE"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::NoIcon));
-	PyDict_SetItemString(d, const_cast<char*>("ICON_INFORMATION"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Information));
-	PyDict_SetItemString(d, const_cast<char*>("ICON_WARNING"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Warning));
-	PyDict_SetItemString(d, const_cast<char*>("ICON_CRITICAL"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Critical));
+	PyDict_SetItemString(d, "ICON_NONE", Py_BuildValue("i", QMessageBox::NoIcon));
+	PyDict_SetItemString(d, "ICON_INFORMATION", Py_BuildValue("i", QMessageBox::Information));
+	PyDict_SetItemString(d, "ICON_WARNING", Py_BuildValue("i", QMessageBox::Warning));
+	PyDict_SetItemString(d, "ICON_CRITICAL", Py_BuildValue("i", QMessageBox::Critical));
 	// Paper formats
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A0"), Py_BuildValue(const_cast<char*>("(ff)"), 2380.0, 3368.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A1"), Py_BuildValue(const_cast<char*>("(ff)"), 1684.0, 2380.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A2"), Py_BuildValue(const_cast<char*>("(ff)"), 1190.0, 1684.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A3"), Py_BuildValue(const_cast<char*>("(ff)"), 842.0, 1190.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A4"), Py_BuildValue(const_cast<char*>("(ff)"), 595.0, 842.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A5"), Py_BuildValue(const_cast<char*>("(ff)"), 421.0, 595.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A6"), Py_BuildValue(const_cast<char*>("(ff)"), 297.0, 421.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A7"), Py_BuildValue(const_cast<char*>("(ff)"), 210.0, 297.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A8"), Py_BuildValue(const_cast<char*>("(ff)"), 148.0, 210.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A9"), Py_BuildValue(const_cast<char*>("(ff)"), 105.0, 148.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A0_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 841.0, 1189.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A1_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 594.0, 841.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A2_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 420.0, 594.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A3_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 297.0, 420.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A4_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 210.0, 297.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A5_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 148.0, 210.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A6_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 105.0, 148.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A7_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 74.0, 105.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A8_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 52.0, 74.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_A9_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 37.0, 52.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B0"), Py_BuildValue(const_cast<char*>("(ff)"), 2836.0, 4008.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B1"), Py_BuildValue(const_cast<char*>("(ff)"), 2004.0, 2836.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B2"), Py_BuildValue(const_cast<char*>("(ff)"), 1418.0, 2004.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B3"), Py_BuildValue(const_cast<char*>("(ff)"), 1002.0, 1418.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B4"), Py_BuildValue(const_cast<char*>("(ff)"), 709.0, 1002.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B5"), Py_BuildValue(const_cast<char*>("(ff)"), 501.0, 709.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B6"), Py_BuildValue(const_cast<char*>("(ff)"), 355.0, 501.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B7"), Py_BuildValue(const_cast<char*>("(ff)"), 250.0, 355.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B8"), Py_BuildValue(const_cast<char*>("(ff)"), 178.0, 250.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B9"), Py_BuildValue(const_cast<char*>("(ff)"), 125.0, 178.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B10"), Py_BuildValue(const_cast<char*>("(ff)"), 89.0, 125.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B0_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 1000.0, 1414.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B1_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 707.0, 1000.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B2_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 500.0, 707.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B3_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 353.0, 500.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B4_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 250.0, 353.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B5_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 176.0, 250.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B6_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 125.0, 176.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B7_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 88.0, 125.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B8_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 62.0, 88.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B9_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 44.0, 62.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_B10_MM"), Py_BuildValue(const_cast<char*>("(ff)"), 31.0, 44.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_C5E"), Py_BuildValue(const_cast<char*>("(ff)"), 462.0, 649.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_COMM10E"), Py_BuildValue(const_cast<char*>("(ff)"), 298.0, 683.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_DLE"),  Py_BuildValue(const_cast<char*>("(ff)"), 312.0, 624.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_EXECUTIVE"), Py_BuildValue(const_cast<char*>("(ff)"), 542.0, 720.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_FOLIO"), Py_BuildValue(const_cast<char*>("(ff)"), 595.0, 935.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_LEDGER"), Py_BuildValue(const_cast<char*>("(ff)"), 1224.0, 792.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_LEGAL"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 1008.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_LETTER"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 792.0));
-	PyDict_SetItemString(d, const_cast<char*>("PAPER_TABLOID"), Py_BuildValue(const_cast<char*>("(ff)"), 792.0, 1224.0));
+	PyDict_SetItemString(d, "PAPER_A0", Py_BuildValue("(ff)", 2380.0, 3368.0));
+	PyDict_SetItemString(d, "PAPER_A1", Py_BuildValue("(ff)", 1684.0, 2380.0));
+	PyDict_SetItemString(d, "PAPER_A2", Py_BuildValue("(ff)", 1190.0, 1684.0));
+	PyDict_SetItemString(d, "PAPER_A3", Py_BuildValue("(ff)", 842.0, 1190.0));
+	PyDict_SetItemString(d, "PAPER_A4", Py_BuildValue("(ff)", 595.0, 842.0));
+	PyDict_SetItemString(d, "PAPER_A5", Py_BuildValue("(ff)", 421.0, 595.0));
+	PyDict_SetItemString(d, "PAPER_A6", Py_BuildValue("(ff)", 297.0, 421.0));
+	PyDict_SetItemString(d, "PAPER_A7", Py_BuildValue("(ff)", 210.0, 297.0));
+	PyDict_SetItemString(d, "PAPER_A8", Py_BuildValue("(ff)", 148.0, 210.0));
+	PyDict_SetItemString(d, "PAPER_A9", Py_BuildValue("(ff)", 105.0, 148.0));
+	PyDict_SetItemString(d, "PAPER_A0_MM", Py_BuildValue("(ff)", 841.0, 1189.0));
+	PyDict_SetItemString(d, "PAPER_A1_MM", Py_BuildValue("(ff)", 594.0, 841.0));
+	PyDict_SetItemString(d, "PAPER_A2_MM", Py_BuildValue("(ff)", 420.0, 594.0));
+	PyDict_SetItemString(d, "PAPER_A3_MM", Py_BuildValue("(ff)", 297.0, 420.0));
+	PyDict_SetItemString(d, "PAPER_A4_MM", Py_BuildValue("(ff)", 210.0, 297.0));
+	PyDict_SetItemString(d, "PAPER_A5_MM", Py_BuildValue("(ff)", 148.0, 210.0));
+	PyDict_SetItemString(d, "PAPER_A6_MM", Py_BuildValue("(ff)", 105.0, 148.0));
+	PyDict_SetItemString(d, "PAPER_A7_MM", Py_BuildValue("(ff)", 74.0, 105.0));
+	PyDict_SetItemString(d, "PAPER_A8_MM", Py_BuildValue("(ff)", 52.0, 74.0));
+	PyDict_SetItemString(d, "PAPER_A9_MM", Py_BuildValue("(ff)", 37.0, 52.0));
+	PyDict_SetItemString(d, "PAPER_B0", Py_BuildValue("(ff)", 2836.0, 4008.0));
+	PyDict_SetItemString(d, "PAPER_B1", Py_BuildValue("(ff)", 2004.0, 2836.0));
+	PyDict_SetItemString(d, "PAPER_B2", Py_BuildValue("(ff)", 1418.0, 2004.0));
+	PyDict_SetItemString(d, "PAPER_B3", Py_BuildValue("(ff)", 1002.0, 1418.0));
+	PyDict_SetItemString(d, "PAPER_B4", Py_BuildValue("(ff)", 709.0, 1002.0));
+	PyDict_SetItemString(d, "PAPER_B5", Py_BuildValue("(ff)", 501.0, 709.0));
+	PyDict_SetItemString(d, "PAPER_B6", Py_BuildValue("(ff)", 355.0, 501.0));
+	PyDict_SetItemString(d, "PAPER_B7", Py_BuildValue("(ff)", 250.0, 355.0));
+	PyDict_SetItemString(d, "PAPER_B8", Py_BuildValue("(ff)", 178.0, 250.0));
+	PyDict_SetItemString(d, "PAPER_B9", Py_BuildValue("(ff)", 125.0, 178.0));
+	PyDict_SetItemString(d, "PAPER_B10", Py_BuildValue("(ff)", 89.0, 125.0));
+	PyDict_SetItemString(d, "PAPER_B0_MM", Py_BuildValue("(ff)", 1000.0, 1414.0));
+	PyDict_SetItemString(d, "PAPER_B1_MM", Py_BuildValue("(ff)", 707.0, 1000.0));
+	PyDict_SetItemString(d, "PAPER_B2_MM", Py_BuildValue("(ff)", 500.0, 707.0));
+	PyDict_SetItemString(d, "PAPER_B3_MM", Py_BuildValue("(ff)", 353.0, 500.0));
+	PyDict_SetItemString(d, "PAPER_B4_MM", Py_BuildValue("(ff)", 250.0, 353.0));
+	PyDict_SetItemString(d, "PAPER_B5_MM", Py_BuildValue("(ff)", 176.0, 250.0));
+	PyDict_SetItemString(d, "PAPER_B6_MM", Py_BuildValue("(ff)", 125.0, 176.0));
+	PyDict_SetItemString(d, "PAPER_B7_MM", Py_BuildValue("(ff)", 88.0, 125.0));
+	PyDict_SetItemString(d, "PAPER_B8_MM", Py_BuildValue("(ff)", 62.0, 88.0));
+	PyDict_SetItemString(d, "PAPER_B9_MM", Py_BuildValue("(ff)", 44.0, 62.0));
+	PyDict_SetItemString(d, "PAPER_B10_MM", Py_BuildValue("(ff)", 31.0, 44.0));
+	PyDict_SetItemString(d, "PAPER_C5E", Py_BuildValue("(ff)", 462.0, 649.0));
+	PyDict_SetItemString(d, "PAPER_COMM10E", Py_BuildValue("(ff)", 298.0, 683.0));
+	PyDict_SetItemString(d, "PAPER_DLE",  Py_BuildValue("(ff)", 312.0, 624.0));
+	PyDict_SetItemString(d, "PAPER_EXECUTIVE", Py_BuildValue("(ff)", 542.0, 720.0));
+	PyDict_SetItemString(d, "PAPER_FOLIO", Py_BuildValue("(ff)", 595.0, 935.0));
+	PyDict_SetItemString(d, "PAPER_LEDGER", Py_BuildValue("(ff)", 1224.0, 792.0));
+	PyDict_SetItemString(d, "PAPER_LEGAL", Py_BuildValue("(ff)", 612.0, 1008.0));
+	PyDict_SetItemString(d, "PAPER_LETTER", Py_BuildValue("(ff)", 612.0, 792.0));
+	PyDict_SetItemString(d, "PAPER_TABLOID", Py_BuildValue("(ff)", 792.0, 1224.0));
 	// PageItem types
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_ITEMTYPE1"),  Py_BuildValue(const_cast<char*>("i"), (int) PageItem::ItemType1));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_IMAGEFRAME"), Py_BuildValue(const_cast<char*>("i"), (int) PageItem::ImageFrame));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_ITEMTYPE3"),  Py_BuildValue(const_cast<char*>("i"), (int) PageItem::ItemType3));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_TEXTFRAME"),  Py_BuildValue(const_cast<char*>("i"), (int) PageItem::TextFrame));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_LINE"),       Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Line));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_POLYGON"),    Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Polygon));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_POLYLINE"),   Py_BuildValue(const_cast<char*>("i"), (int) PageItem::PolyLine));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_PATHTEXT"),   Py_BuildValue(const_cast<char*>("i"), (int) PageItem::PathText));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_LATEXFRAME"), Py_BuildValue(const_cast<char*>("i"), (int) PageItem::LatexFrame));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_OSGFRAME"),   Py_BuildValue(const_cast<char*>("i"), (int) PageItem::OSGFrame));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_SYMBOL"),     Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Symbol));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_GROUP"),      Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Group));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_REGULARPOLYGON"), Py_BuildValue(const_cast<char*>("i"), (int) PageItem::RegularPolygon));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_ARC"),        Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Arc));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_SPIRAL"),     Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Spiral));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_TABLE"),      Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Table));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_NOTEFRAME"),  Py_BuildValue(const_cast<char*>("i"), (int) PageItem::NoteFrame));
-	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_MULTIPLE"),   Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Multiple));
+	PyDict_SetItemString(d, "ITEMTYPE_ITEMTYPE1",  Py_BuildValue("i", (int) PageItem::ItemType1));
+	PyDict_SetItemString(d, "ITEMTYPE_IMAGEFRAME", Py_BuildValue("i", (int) PageItem::ImageFrame));
+	PyDict_SetItemString(d, "ITEMTYPE_ITEMTYPE3",  Py_BuildValue("i", (int) PageItem::ItemType3));
+	PyDict_SetItemString(d, "ITEMTYPE_TEXTFRAME",  Py_BuildValue("i", (int) PageItem::TextFrame));
+	PyDict_SetItemString(d, "ITEMTYPE_LINE",       Py_BuildValue("i", (int) PageItem::Line));
+	PyDict_SetItemString(d, "ITEMTYPE_POLYGON",    Py_BuildValue("i", (int) PageItem::Polygon));
+	PyDict_SetItemString(d, "ITEMTYPE_POLYLINE",   Py_BuildValue("i", (int) PageItem::PolyLine));
+	PyDict_SetItemString(d, "ITEMTYPE_PATHTEXT",   Py_BuildValue("i", (int) PageItem::PathText));
+	PyDict_SetItemString(d, "ITEMTYPE_LATEXFRAME", Py_BuildValue("i", (int) PageItem::LatexFrame));
+	PyDict_SetItemString(d, "ITEMTYPE_OSGFRAME",   Py_BuildValue("i", (int) PageItem::OSGFrame));
+	PyDict_SetItemString(d, "ITEMTYPE_SYMBOL",     Py_BuildValue("i", (int) PageItem::Symbol));
+	PyDict_SetItemString(d, "ITEMTYPE_GROUP",      Py_BuildValue("i", (int) PageItem::Group));
+	PyDict_SetItemString(d, "ITEMTYPE_REGULARPOLYGON", Py_BuildValue("i", (int) PageItem::RegularPolygon));
+	PyDict_SetItemString(d, "ITEMTYPE_ARC",        Py_BuildValue("i", (int) PageItem::Arc));
+	PyDict_SetItemString(d, "ITEMTYPE_SPIRAL",     Py_BuildValue("i", (int) PageItem::Spiral));
+	PyDict_SetItemString(d, "ITEMTYPE_TABLE",      Py_BuildValue("i", (int) PageItem::Table));
+	PyDict_SetItemString(d, "ITEMTYPE_NOTEFRAME",  Py_BuildValue("i", (int) PageItem::NoteFrame));
+	PyDict_SetItemString(d, "ITEMTYPE_MULTIPLE",   Py_BuildValue("i", (int) PageItem::Multiple));
 	// Colorspaces
-	PyDict_SetItemString(d, const_cast<char*>("CSPACE_UNDEFINED"), Py_BuildValue(const_cast<char*>("i"), -1));
-	PyDict_SetItemString(d, const_cast<char*>("CSPACE_RGB"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("CSPACE_CMYK"), Py_BuildValue(const_cast<char*>("i"), 1));
-	PyDict_SetItemString(d, const_cast<char*>("CSPACE_GRAY"), Py_BuildValue(const_cast<char*>("i"), 2));
-	PyDict_SetItemString(d, const_cast<char*>("CSPACE_DUOTONE"), Py_BuildValue(const_cast<char*>("i"), 3));
-	PyDict_SetItemString(d, const_cast<char*>("CSPACE_MONOCHROME"), Py_BuildValue(const_cast<char*>("i"), 4));
+	PyDict_SetItemString(d, "CSPACE_UNDEFINED", Py_BuildValue("i", -1));
+	PyDict_SetItemString(d, "CSPACE_RGB", Py_BuildValue("i", 0));
+	PyDict_SetItemString(d, "CSPACE_CMYK", Py_BuildValue("i", 1));
+	PyDict_SetItemString(d, "CSPACE_GRAY", Py_BuildValue("i", 2));
+	PyDict_SetItemString(d, "CSPACE_DUOTONE", Py_BuildValue("i", 3));
+	PyDict_SetItemString(d, "CSPACE_MONOCHROME", Py_BuildValue("i", 4));
 	// Blend modes
-	PyDict_SetItemString(d, const_cast<char*>("NORMAL"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("DARKEN"), Py_BuildValue(const_cast<char*>("i"), 1));
-	PyDict_SetItemString(d, const_cast<char*>("LIGHTEN"), Py_BuildValue(const_cast<char*>("i"), 2));
-	PyDict_SetItemString(d, const_cast<char*>("MULTIPLY"), Py_BuildValue(const_cast<char*>("i"), 3));
-	PyDict_SetItemString(d, const_cast<char*>("SCREEN"), Py_BuildValue(const_cast<char*>("i"), 4));
-	PyDict_SetItemString(d, const_cast<char*>("OVERLAY"), Py_BuildValue(const_cast<char*>("i"), 5));
-	PyDict_SetItemString(d, const_cast<char*>("HARD_LIGHT"), Py_BuildValue(const_cast<char*>("i"), 6));
-	PyDict_SetItemString(d, const_cast<char*>("SOFT_LIGHT"), Py_BuildValue(const_cast<char*>("i"), 7));
-	PyDict_SetItemString(d, const_cast<char*>("DIFFERENCE"), Py_BuildValue(const_cast<char*>("i"), 8));
-	PyDict_SetItemString(d, const_cast<char*>("EXCLUSION"), Py_BuildValue(const_cast<char*>("i"), 9));
-	PyDict_SetItemString(d, const_cast<char*>("COLOR_DODGE"), Py_BuildValue(const_cast<char*>("i"), 10));
-	PyDict_SetItemString(d, const_cast<char*>("COLOR_BURN"), Py_BuildValue(const_cast<char*>("i"), 11));
-	PyDict_SetItemString(d, const_cast<char*>("HUE"), Py_BuildValue(const_cast<char*>("i"), 12));
-	PyDict_SetItemString(d, const_cast<char*>("SATURATION"), Py_BuildValue(const_cast<char*>("i"), 13));
-	PyDict_SetItemString(d, const_cast<char*>("COLOR"), Py_BuildValue(const_cast<char*>("i"), 14));
-	PyDict_SetItemString(d, const_cast<char*>("LUMINOSITY"), Py_BuildValue(const_cast<char*>("i"), 15));
+	PyDict_SetItemString(d, "NORMAL", Py_BuildValue("i", 0));
+	PyDict_SetItemString(d, "DARKEN", Py_BuildValue("i", 1));
+	PyDict_SetItemString(d, "LIGHTEN", Py_BuildValue("i", 2));
+	PyDict_SetItemString(d, "MULTIPLY", Py_BuildValue("i", 3));
+	PyDict_SetItemString(d, "SCREEN", Py_BuildValue("i", 4));
+	PyDict_SetItemString(d, "OVERLAY", Py_BuildValue("i", 5));
+	PyDict_SetItemString(d, "HARD_LIGHT", Py_BuildValue("i", 6));
+	PyDict_SetItemString(d, "SOFT_LIGHT", Py_BuildValue("i", 7));
+	PyDict_SetItemString(d, "DIFFERENCE", Py_BuildValue("i", 8));
+	PyDict_SetItemString(d, "EXCLUSION", Py_BuildValue("i", 9));
+	PyDict_SetItemString(d, "COLOR_DODGE", Py_BuildValue("i", 10));
+	PyDict_SetItemString(d, "COLOR_BURN", Py_BuildValue("i", 11));
+	PyDict_SetItemString(d, "HUE", Py_BuildValue("i", 12));
+	PyDict_SetItemString(d, "SATURATION", Py_BuildValue("i", 13));
+	PyDict_SetItemString(d, "COLOR", Py_BuildValue("i", 14));
+	PyDict_SetItemString(d, "LUMINOSITY", Py_BuildValue("i", 15));
 	// Preset page layouts
-	PyDict_SetItemString(d, const_cast<char*>("PAGE_1"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("PAGE_2"), Py_BuildValue(const_cast<char*>("i"), 1));
-	PyDict_SetItemString(d, const_cast<char*>("PAGE_3"), Py_BuildValue(const_cast<char*>("i"), 2));
-	PyDict_SetItemString(d, const_cast<char*>("PAGE_4"), Py_BuildValue(const_cast<char*>("i"), 3));
+	PyDict_SetItemString(d, "PAGE_1", Py_BuildValue("i", 0));
+	PyDict_SetItemString(d, "PAGE_2", Py_BuildValue("i", 1));
+	PyDict_SetItemString(d, "PAGE_3", Py_BuildValue("i", 2));
+	PyDict_SetItemString(d, "PAGE_4", Py_BuildValue("i", 3));
 	// Print languages
-	PyDict_SetItemString(d, const_cast<char*>("PRNLANG_POSTSCRIPT1"), Py_BuildValue(const_cast<char*>("i"), (int) PrintLanguage::PostScript1));
-	PyDict_SetItemString(d, const_cast<char*>("PRNLANG_POSTSCRIPT2"), Py_BuildValue(const_cast<char*>("i"), (int) PrintLanguage::PostScript2));
-	PyDict_SetItemString(d, const_cast<char*>("PRNLANG_POSTSCRIPT3"), Py_BuildValue(const_cast<char*>("i"), (int) PrintLanguage::PostScript3));
-	PyDict_SetItemString(d, const_cast<char*>("PRNLANG_WINDOWSGDI"),  Py_BuildValue(const_cast<char*>("i"), (int) PrintLanguage::WindowsGDI));
-	PyDict_SetItemString(d, const_cast<char*>("PRNLANG_PDF"),         Py_BuildValue(const_cast<char*>("i"), (int) PrintLanguage::PDF));
+	PyDict_SetItemString(d, "PRNLANG_POSTSCRIPT1", Py_BuildValue("i", (int) PrintLanguage::PostScript1));
+	PyDict_SetItemString(d, "PRNLANG_POSTSCRIPT2", Py_BuildValue("i", (int) PrintLanguage::PostScript2));
+	PyDict_SetItemString(d, "PRNLANG_POSTSCRIPT3", Py_BuildValue("i", (int) PrintLanguage::PostScript3));
+	PyDict_SetItemString(d, "PRNLANG_WINDOWSGDI",  Py_BuildValue("i", (int) PrintLanguage::WindowsGDI));
+	PyDict_SetItemString(d, "PRNLANG_PDF",         Py_BuildValue("i", (int) PrintLanguage::PDF));
 	// Tab alignment
-	PyDict_SetItemString(d, const_cast<char*>("TAB_LEFT"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("TAB_RIGHT"), Py_BuildValue(const_cast<char*>("i"), 1));
-	PyDict_SetItemString(d, const_cast<char*>("TAB_PERIOD"), Py_BuildValue(const_cast<char*>("i"), 2));
-	PyDict_SetItemString(d, const_cast<char*>("TAB_COMMA"), Py_BuildValue(const_cast<char*>("i"), 3));
-	PyDict_SetItemString(d, const_cast<char*>("TAB_CENTER"), Py_BuildValue(const_cast<char*>("i"), 4));
+	PyDict_SetItemString(d, "TAB_LEFT", Py_BuildValue("i", 0));
+	PyDict_SetItemString(d, "TAB_RIGHT", Py_BuildValue("i", 1));
+	PyDict_SetItemString(d, "TAB_PERIOD", Py_BuildValue("i", 2));
+	PyDict_SetItemString(d, "TAB_COMMA", Py_BuildValue("i", 3));
+	PyDict_SetItemString(d, "TAB_CENTER", Py_BuildValue("i", 4));
 
 	// Measurement units understood by Scribus's units.cpp functions are exported as constant conversion
 	// factors to be used from Python.
@@ -945,9 +945,9 @@ PyObject* PyInit_scribus(void)
 	int patchVersion = ScribusAPI::getVersionPatch();
 	QString extraVersion = ScribusAPI::getVersionSuffix();
 
-	PyObject* versionTuple = Py_BuildValue(const_cast<char*>("(iiisi)"), majorVersion, minorVersion, patchVersion, (const char*)extraVersion.toUtf8(), 0);
+	PyObject* versionTuple = Py_BuildValue("(iiisi)", majorVersion, minorVersion, patchVersion, (const char*)extraVersion.toUtf8(), 0);
 	if (versionTuple != nullptr)
-		PyDict_SetItemString(d, const_cast<char*>("scribus_version_info"), versionTuple);
+		PyDict_SetItemString(d, "scribus_version_info", versionTuple);
 	else
 		qDebug("Failed to build version tuple for version string '%s' in scripter", VERSION);
 
@@ -957,22 +957,20 @@ PyObject* PyInit_scribus(void)
 	// the generated Python functions from inside the `scribus' module's context.
 	// This code makes it possible to extend the `scribus' module by running Python code
 	// from C in other ways too.
-	PyObject* builtinModule = PyImport_ImportModuleEx(const_cast<char*>("builtins"),
-			d, d, Py_BuildValue(const_cast<char*>("[]")));
+	PyObject* builtinModule = PyImport_ImportModuleEx("builtins", d, d, Py_BuildValue("[]"));
 	if (builtinModule == nullptr)
 	{
 		qDebug("Failed to import builtins module. Something is probably broken with your Python.");
 		return nullptr;
 	}
-	PyDict_SetItemString(d, const_cast<char*>("builtins"), builtinModule);
-	PyObject* warningsModule = PyImport_ImportModuleEx(const_cast<char*>("warnings"),
-			d, d, Py_BuildValue(const_cast<char*>("[]")));
+	PyDict_SetItemString(d, "builtins", builtinModule);
+	PyObject* warningsModule = PyImport_ImportModuleEx("warnings", d, d, Py_BuildValue("[]"));
 	if (warningsModule == nullptr)
 	{
 		qDebug("Failed to import warnings module. Something is probably broken with your Python.");
 		return nullptr;
 	}
-	PyDict_SetItemString(d, const_cast<char*>("warnings"), warningsModule);
+	PyDict_SetItemString(d, "warnings", warningsModule);
 	// Create the module-level docstring. This can be a proper unicode string, unlike
 	// the others, because we can just create a Unicode object and insert it in our
 	// module dictionary.
@@ -1012,7 +1010,7 @@ is not exhaustive due to exceptions from called functions.\n\
 	if (!docStr)
 		qDebug("Failed to create module-level docstring (couldn't make str)");
 	else
-		PyDict_SetItemString(d, const_cast<char*>("__doc__"), docStr);
+		PyDict_SetItemString(d, "__doc__", docStr);
 
 	// Wrap up pointers to the the QApp and main window and push them out
 	// to Python.
@@ -1023,7 +1021,7 @@ is not exhaustive due to exceptions from called functions.\n\
 		PyErr_Print();
 	}
 	// Push it into the module dict, stealing a ref in the process
-	PyDict_SetItemString(d, const_cast<char*>("qApp"), wrappedQApp);
+	PyDict_SetItemString(d, "qApp", wrappedQApp);
 	Py_DECREF(wrappedQApp);
 	wrappedQApp = nullptr;
 
@@ -1034,7 +1032,7 @@ is not exhaustive due to exceptions from called functions.\n\
 		PyErr_Print();
 	}
 	// Push it into the module dict, stealing a ref in the process
-	PyDict_SetItemString(d, const_cast<char*>("mainWindow"), wrappedMainWindow);
+	PyDict_SetItemString(d, "mainWindow", wrappedMainWindow);
 	Py_DECREF(wrappedMainWindow);
 	wrappedMainWindow = nullptr;
 
