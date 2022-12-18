@@ -937,7 +937,7 @@ PyObject* PyInit_scribus(void)
 	}
 
 	// Export the Scribus version into the module namespace so scripts know what they're running in
-	PyDict_SetItemString(d, const_cast<char*>("scribus_version"), PyUnicode_FromString(ScribusAPI::getVersion().toLatin1().constData()));
+	PyDict_SetItemString(d, "scribus_version", PyUnicode_FromString(ScribusAPI::getVersion().toLatin1().constData()));
 	// Now build a version tuple like that provided by Python in sys.version_info
 	// The tuple is of the form (major, minor, patchlevel, extraversion, reserved)
 	int majorVersion = ScribusAPI::getVersionMajor();

@@ -534,7 +534,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	{
 		PyObject *tmp;
 		PDFPresentationData t = currentDoc->Pages->at(i)->PresentVals;
-		tmp = Py_BuildValue(const_cast<char*>("[iiiiii]"), t.pageEffectDuration, t.pageViewDuration, t.effectType, t.Dm, t.M, t.Di );
+		tmp = Py_BuildValue("[iiiiii]", t.pageEffectDuration, t.pageViewDuration, t.effectType, t.Dm, t.M, t.Di );
 		if (tmp)
 			PyList_SetItem(effval, i, tmp);
 		else
@@ -544,7 +544,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		}
 		for (; i < num; ++i)
 		{
-			PyObject *tmp = Py_BuildValue(const_cast<char*>("[iiiiii]"), 1, 1, 0, 0, 0, 0);
+			PyObject *tmp = Py_BuildValue("[iiiiii]", 1, 1, 0, 0, 0, 0);
 			if (tmp)
 				PyList_SetItem(effval, i, tmp);
 			else
@@ -576,7 +576,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	while (it != pdfOptions.LPISettings.end())
 	{
 		PyObject *tmp;
-		tmp = Py_BuildValue(const_cast<char*>("[siii]"), it.key().toLatin1().constData(), it.value().Frequency, it.value().Angle, it.value().SpotFunc);
+		tmp = Py_BuildValue("[siii]", it.key().toLatin1().constData(), it.value().Frequency, it.value().Angle, it.value().SpotFunc);
 		if (!tmp)
 		{
 			PyErr_SetString(PyExc_SystemError, "Can not initialize 'lpival' attribute");
