@@ -1247,6 +1247,26 @@ void PrefsManager::replaceToolColors(struct ItemToolPrefs& settings, const QMap<
 		settings.calligraphicPenLineColor = replaceMap[settings.calligraphicPenLineColor];
 }
 
+void PrefsManager::replaceToolResources(const ResourceCollection& newNames)
+{
+	replaceToolResources(appPrefs.itemToolPrefs, newNames);
+}
+
+void PrefsManager::replaceToolResources(struct ItemToolPrefs& settings, const ResourceCollection& newNames)
+{
+	const auto& newFonts = newNames.fonts();
+
+	auto it = newFonts.find(settings.textFont);
+	if (it != newFonts.cend())
+	{
+		const ScFace& newFace = newNames.availableFonts->findFont(it.value(), nullptr);
+		if (!newFace.isNone())
+			settings.textFont = it.value();
+	}
+
+	PrefsManager::replaceToolColors(settings, newNames.colors());
+}
+
 void PrefsManager::setColorSet(const ColorList& colorSet)
 {
 	// Color set may have changed and tools color not be present in the new color set

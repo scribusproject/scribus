@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 
 #include "prefsstructs.h"
+#include "resourcecollection.h"
 #include "scribusapi.h"
 
 class PrefsFile;
@@ -172,6 +173,9 @@ public:
 	/*! \brief Replace used colors in tool prefs */
 	void replaceToolColors(const QMap<QString, QString>& replaceMap);
 	static void replaceToolColors(struct ItemToolPrefs& settings, const QMap<QString, QString>& replaceMap);
+	/*! \brief Replace used resources in tool prefs */
+	void replaceToolResources(const ResourceCollection& newNames);
+	static void replaceToolResources(struct ItemToolPrefs& settings, const ResourceCollection& newNames);
 	/*! \brief Finds the fonts on the system
 	Must be run after: PrefsManager::setup()
 	Must be run before: PrefsManager::initDefaults()
