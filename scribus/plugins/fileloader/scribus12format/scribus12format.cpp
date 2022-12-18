@@ -280,7 +280,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 				it++;
 				nstyle.setFont((*m_Doc->AllFonts)[*it]);
 				it++;
-				nstyle.setFontSize(qRound(ScCLocale::toDoubleC((*it)) * 10));
+				nstyle.setFontSize(qRound(ScCLocale::toDoubleC(*it) * 10));
 				it++;
 				nstyle.setFillColor(*it);
 				it++;
@@ -765,7 +765,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	// and begin loading the doc
 	m_Doc->PageColors.clear();
 	m_Doc->Layers.clear();
-	ScColor lf = ScColor();
+	ScColor lf;
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
@@ -1875,7 +1875,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		return false;
 	}
 	QString fileDir = QFileInfo(fileName).absolutePath();
-	ScColor lf = ScColor();
+	ScColor lf;
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
@@ -2276,7 +2276,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	vg->setHasDropCap(static_cast<bool>(pg->attribute("DROP", "0").toInt()));
 	vg->setDropCapLines(pg->attribute("DROPLIN", "2").toInt());
 	vg->setParEffectOffset(ScCLocale::toDoubleC(pg->attribute("DROPDIST"), 0.0));
-	vg->charStyle().setFeatures(static_cast<StyleFlag>((pg->attribute("EFFECT", "0").toInt())).featureList());
+	vg->charStyle().setFeatures(static_cast<StyleFlag>( pg->attribute("EFFECT", "0").toInt() ).featureList());
 	fColor = pg->attribute("FCOLOR", doc->itemToolPrefs().shapeFillColor);
 	fShade = pg->attribute("FSHADE", "100").toInt();
 	handleOldColorShade(doc, fColor, fShade);
@@ -2500,7 +2500,7 @@ bool Scribus12Format::readColors(const QString& fileName, ColorList & colors)
 	if (!docu.setContent(f))
 		return false;
 	colors.clear();
-	ScColor lf = ScColor();
+	ScColor lf;
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;

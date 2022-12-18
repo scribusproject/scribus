@@ -219,9 +219,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	}
 	m_Doc->PageColors.clear();
 	m_Doc->Layers.clear();
-	int layerToSetActive=0;
-	ScColor lf = ScColor();
-	QDomElement elem=docu.documentElement();
+	int layerToSetActive = 0;
+	ScColor lf;
+	QDomElement elem = docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
 	QDomNode docNode = elem.firstChild();
@@ -873,7 +873,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				{
 					itemRemap[itemCount++] = m_Doc->Items->count();
 					// member of linked chain?
-					if ((pg.attribute("NEXTITEM").toInt() != -1) )
+					if (pg.attribute("NEXTITEM").toInt() != -1)
 					{
 						itemNext[m_Doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
 					}
@@ -2080,7 +2080,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		return false;
 	}
 	QString fileDir = QFileInfo(fileName).absolutePath();
-	ScColor lf = ScColor();
+	ScColor lf;
 	QDomElement elem = docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
@@ -2188,7 +2188,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			{
 				a = m_Doc->currentPage()->pageNr();
 				Apage = m_Doc->Pages->at(a);
-				if ((pg.tagName() != "MASTERPAGE") && (Mpage))
+				if ((pg.tagName() != "MASTERPAGE") && Mpage)
 				{
 					pageNode = pageNode.nextSibling();
 					continue;
@@ -2667,7 +2667,7 @@ bool Scribus13Format::readColors(const QString& fileName, ColorList & colors)
 	QDomDocument docu("scridoc");
 	if (!docu.setContent(f))
 		return false;
-	ScColor lf = ScColor();
+	ScColor lf;
 	colors.clear();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")

@@ -105,21 +105,18 @@ ODTIm::ODTIm(const QString& fileName, PageItem *textItem, bool textOnly, bool pr
 					if (uz->contains("content.xml"))
 						parseRawDocReference("content.xml");
 				}
-				else
+				else if (uz->contains("styles.xml"))
 				{
-					if (uz->contains("styles.xml"))
-					{
-						if (parseStyleSheets("styles.xml"))
-						{
-							if (uz->contains("content.xml"))
-								parseDocReference("content.xml");
-						}
-					}
-					else
+					if (parseStyleSheets("styles.xml"))
 					{
 						if (uz->contains("content.xml"))
 							parseDocReference("content.xml");
 					}
+				}
+				else
+				{
+					if (uz->contains("content.xml"))
+						parseDocReference("content.xml");
 				}
 				uz->close();
 				delete uz;
