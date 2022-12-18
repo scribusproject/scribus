@@ -1733,15 +1733,18 @@ PyTypeObject PDFfile_Type = {
 	nullptr, //     PyObject *tp_weaklist;
 	nullptr, //     destructor tp_del;
 	0, //	 unsigned int tp_version_tag;
-	0, //	 destructor tp_finalize;
+	nullptr, //	 destructor tp_finalize;
 #if PY_VERSION_HEX >= 0x03080000
 	nullptr, // tp_vectorcall
 #endif
 #if PY_VERSION_HEX >= 0x03080000 && PY_VERSION_HEX < 0x03090000
 	nullptr, //deprecated tp_print
 #endif
+#if PY_VERSION_HEX >= 0x03120000
+	0, // char tp_watched
+#endif
 
-#ifdef COUNT_ALLOCS
+#if defined(COUNT_ALLOCS) && PY_VERSION_HEX < 0x03090000
 	/* these must be last and never explicitly initialized */
 	//    int tp_allocs;
 	//    int tp_frees;
