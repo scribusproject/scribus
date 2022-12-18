@@ -439,16 +439,17 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 	if (!dia.exec())
 		return false;
 
-	QMap<QString, QString>::Iterator itfsu;
-	for (itfsu = m_ReplacedFonts.begin(); itfsu != m_ReplacedFonts.end(); ++itfsu)
+	if (dia.stickyReplacements->isChecked())
 	{
-		if (dia.stickyReplacements->isChecked())
-			m_prefsManager.appPrefs.fontPrefs.GFontSub[itfsu.key()] = itfsu.value();
+		for (auto it = m_ReplacedFonts.begin(); it != m_ReplacedFonts.end(); ++it)
+			m_prefsManager.appPrefs.fontPrefs.GFontSub[it.key()] = it.value();
 	}
 	currDoc->AllFonts->setSubstitutions(m_ReplacedFonts, currDoc);
+
 	ResourceCollection repl;
 	repl.availableFonts = currDoc->AllFonts;
 	repl.mapFonts(m_ReplacedFonts);
+	PrefsManager::replaceToolResources(currDoc->itemToolPrefs(), repl);
 	currDoc->replaceNamedResources(repl);
 	return true;
 }
