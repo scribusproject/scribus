@@ -702,7 +702,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -733,7 +733,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -764,7 +764,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -2298,7 +2298,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -3611,7 +3611,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -3642,7 +3642,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());
@@ -3673,7 +3673,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			{
 				QTransform ma;
 				ma.rotate(-gItem->rotation());
-				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				FPoint n(cItem->gXpos, cItem->gYpos);
 				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 				cItem->setRotation(cItem->rotation() - gItem->rotation());

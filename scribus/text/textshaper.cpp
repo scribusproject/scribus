@@ -25,10 +25,8 @@ TextShaper::TextShaper(ITextContext* context, ITextSource &story, int firstChar,
 { }
 
 TextShaper::TextShaper(ITextSource &story, int firstChar)
-	: m_context(nullptr),
-	m_story(story),
-	m_firstChar(firstChar),
-	m_singlePar(false)
+	: m_story(story),
+	  m_firstChar(firstChar)
 {
 	m_text.reserve(m_story.length() - m_firstChar + 1);
 	for (int i = m_firstChar; i < m_story.length(); ++i)
@@ -49,7 +47,7 @@ QList<TextShaper::TextRun> TextShaper::itemizeBiDi(int fromPos) const
 	UErrorCode err = U_ZERO_ERROR;
 
 	UBiDiLevel parLevel = UBIDI_LTR;
-	ParagraphStyle style = m_story.paragraphStyle(fromPos);
+	const ParagraphStyle& style = m_story.paragraphStyle(fromPos);
 	if (style.direction() == ParagraphStyle::RTL)
 		parLevel = UBIDI_RTL;
 
