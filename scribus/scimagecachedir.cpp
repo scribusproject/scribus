@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 const QString ScImageCacheDir::accessFileName("access");
 
 ScImageCacheDir::ScImageCacheDir(const QString & dir, ScImageCacheDir *parent, bool scanFiles, const QStringList & suffixList)
-	: m_name(dir), m_suffix(suffixList), m_parent(parent), m_exists(false), m_lastAccessValid(false), m_dirs(nullptr), m_files(nullptr)
+	: m_name(dir), m_suffix(suffixList), m_parent(parent)
 {
 	while (m_name.endsWith('/'))
 		m_name.chop(1);
@@ -135,8 +135,10 @@ void ScImageCacheDir::update()
 	{
 		scDebug() << path() << "is modified";
 		if (m_dirs)
+		{
 			foreach (ScImageCacheDir *p, *m_dirs)
 				p->update();
+		}
 		if (m_files)
 			scan();
 	}

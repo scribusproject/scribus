@@ -75,12 +75,12 @@ private:
 
 	QString m_name;
 	const QStringList m_suffix;
-	ScImageCacheDir * const m_parent;
-	bool m_exists;
-	bool m_lastAccessValid;
-	AccessCounter m_lastAccess;
-	DirMap *m_dirs;
-	FileMap *m_files;
+	ScImageCacheDir * const m_parent { nullptr };
+	bool m_exists { false };
+	bool m_lastAccessValid { false };
+	AccessCounter m_lastAccess { 0 };
+	DirMap *m_dirs { nullptr };
+	FileMap *m_files { nullptr };
 };
 
 #endif
