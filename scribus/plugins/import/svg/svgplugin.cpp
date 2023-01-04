@@ -347,7 +347,7 @@ bool SVGPlug::loadData(const QString& fName)
 		compressor.setStreamFormat(QtIOCompressor::GzipFormat);
 		if (!compressor.open(QIODevice::ReadOnly))
 			return false;
-		success = inpdoc.setContent(&compressor);
+		success = inpdoc.setContent(&compressor, nullptr);
 		compressor.close();
 	}
 	else
@@ -355,7 +355,7 @@ bool SVGPlug::loadData(const QString& fName)
 		QFile file(fName);
 		if (!file.open(QIODevice::ReadOnly))
 			return false;
-		success = inpdoc.setContent(&file);
+		success = inpdoc.setContent(&file, nullptr);
 		file.close();
 	}
 	return success;

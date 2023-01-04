@@ -245,7 +245,7 @@ QImage OODPlug::readThumbnail(const QString& fileName)
 	if (fun->contains("meta.xml"))
 		fun->read("meta.xml", f3);
 	delete fun;
-	HaveMeta = inpMeta.setContent(f3);
+	HaveMeta = inpMeta.setContent(f3, nullptr);
 	QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
 	docname = docname.left(docname.lastIndexOf("."));
 	if (f.isEmpty())
@@ -365,7 +365,7 @@ bool OODPlug::import(const QString& fileName, const TransactionSettings& trSetti
 	if (fun->contains("meta.xml"))
 		fun->read("meta.xml", f3);
 	delete fun;
-	HaveMeta = inpMeta.setContent(f3);
+	HaveMeta = inpMeta.setContent(f3, nullptr);
 	QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
 	docname = docname.left(docname.lastIndexOf("."));
 	if (f.isEmpty())
