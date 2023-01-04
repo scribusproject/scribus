@@ -22,8 +22,7 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 {
 	setupUi(this);
 
-	m_charTableModel = new CharTableModel(this, 26, m_doc);//,
-//                                           PrefsManager::instance().appPrefs.toolSettings.defFont);
+	m_charTableModel = new CharTableModel(this, 26, m_doc);
 	m_charTable->setModel(m_charTableModel);
 	m_charTable->setDragEnabled(true);
 
@@ -436,7 +435,7 @@ void CharSelectEnhanced::delChar()
 void CharSelectEnhanced::delEdit()
 {
 	chToIns.clear();
-	QPixmap pm(1,28);
+	QPixmap pm(1, 28);
 	pm.fill(palette().color(QPalette::Window));
 	sample->setPixmap(pm);
 	insertButton->setEnabled(false);
@@ -454,7 +453,7 @@ void CharSelectEnhanced::insChar()
 
 void CharSelectEnhanced::hexLineEdit_returnPressed()
 {
-	QString tx("0x%1");;
+	QString tx("0x%1");
 	bool ok = false;
 	uint code = tx.arg(hexLineEdit->text()).toUInt(&ok, 16);
 	if ((ok) && (code > 31))
@@ -466,7 +465,7 @@ void CharSelectEnhanced::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 	{
 		Ui::CharSelectEnhanced::retranslateUi(this);
-		int i=rangeSelector->currentIndex();
+		int i = rangeSelector->currentIndex();
 		setupRangeCombo();
 		disconnect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 		rangeSelector->setCurrentIndex(i);

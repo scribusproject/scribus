@@ -57,9 +57,7 @@ public:
 
 	void setDoc(ScribusDoc *doc);
 
-	void setViewWidth(int w) {
-		m_viewWidth = w;
-	};
+	void setViewWidth(int w) { m_viewWidth = w; }
 
 public slots:
 	/*! \brief appends an unicode char into m_characters list.
@@ -87,9 +85,9 @@ private:
 		CharTextAndFontRole = Qt::UserRole + 2
 	};
 
-	ScribusDoc *m_doc;
+	ScribusDoc *m_doc { nullptr };
 	//! \brief Number of the columns for model
-	int m_cols;
+	int m_cols { 1 };
 	//! \brief View's width to compute pixmap sizes.
 	int m_viewWidth {200};
 
@@ -98,7 +96,7 @@ private:
 	QStringList m_fonts;
 
 	//! \brief Internal selection handling. See selectionChanged().
-	QItemSelectionModel * m_selectionModel;
+	QItemSelectionModel * m_selectionModel { nullptr };
 
 	/*! \brief All drag'n'drop actions are handled in this model only
 	See Qt4 docs "Using Drag and Drop with Item Views" for more info.

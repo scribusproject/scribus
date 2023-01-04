@@ -4,13 +4,14 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
 #include <QItemSelectionModel>
+#include <QWidget>
 
-#include "fonts/scface.h"
-#include "scribusdoc.h"
-#include "scpainter.h"
 #include "chartablemodel.h"
-
+#include "fonts/scface.h"
+#include "scpainter.h"
+#include "scribusdoc.h"
 
 CharTableModel::CharTableModel(QObject *parent, int cols, ScribusDoc * doc, const QString & font)
 		: QAbstractTableModel(parent),
@@ -75,28 +76,38 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 		// m_cols should not become 0. Never.
 		int baseSize = m_viewWidth / m_cols;
 		QTransform chma;
-		chma.scale(baseSize/10, baseSize/10);
+		chma.scale(baseSize / 10.0, baseSize / 10.0);
 
 		ScFace face = (*m_doc->AllFonts)[currentFont];
 		uint gl = face.char2CMap(currentChar);
 		int size = baseSize + qRound(-face.descent() * baseSize) + 1;
 		double ww = baseSize - face.glyphWidth(gl, baseSize);
 
-		QImage pix(baseSize, size, QImage::Format_ARGB32_Premultiplied);
-		ScPainter *p = new ScPainter(&pix, baseSize, size);
-		p->clear();
+		QWidget* parentWidget = qobject_cast<QWidget*>(this->parent());
+		qreal devicePixelRatio = parentWidget ? parentWidget->devicePixelRatioF() : 1.0;
+		QColor textColor = parentWidget ? parentWidget->palette().color(QPalette::Text) : Qt::black;
+		QColor windowColor = parentWidget ? parentWidget->palette().color(QPalette::Base) : Qt::white;
+
+		int pixWidth = baseSize * devicePixelRatio;
+		int pixHeight = size * devicePixelRatio;
+		QImage pix(pixWidth, pixHeight, QImage::Format_ARGB32_Premultiplied);
+		pix.setDevicePixelRatio(devicePixelRatio);
+
+		ScPainter *p = new ScPainter(&pix, pixWidth, pixHeight);
+		p->clear(windowColor);
 		FPointArray gly = face.glyphOutline(gl, 1);
 		if (gly.size() > 4)
 		{
 			gly.map(chma);
 			p->translate(ww / 2, 1);
-			p->setBrush(Qt::black);
+			p->setBrush(textColor);
 			p->setFillMode(ScPainter::Solid);
 			p->setupPolygon(&gly);
 			p->fillPath();
 			p->end();
 		}
 		delete p;
+
 		return QVariant(QPixmap::fromImage(pix));
 	}
 	// trash
