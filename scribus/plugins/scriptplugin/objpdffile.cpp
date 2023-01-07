@@ -356,94 +356,93 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	}
 
 	PyObject *file = PyUnicode_FromString(tf.toUtf8());
-	if (file)
-	{
-		Py_DECREF(self->file);
-		self->file = file;
-	}
-	else
+	if (!file)
 	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'file' attribute");
 		return -1;
 	}
+	Py_DECREF(self->file);
+	self->file = file;
 
 	// Font embedding mode
 	PyObject *embeddingMode = PyLong_FromLong(pdfOptions.FontEmbedding);
-	if (embeddingMode)
-	{
-		Py_DECREF(self->fontEmbedding);
-		self->fontEmbedding = embeddingMode;
-	}
-	else
+	if (!embeddingMode)
 	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'fontEmbedding' attribute");
 		return -1;
 	}
+	Py_DECREF(self->fontEmbedding);
+	self->fontEmbedding = embeddingMode;
 
 	// Embed all used fonts
 	PyObject *fonts = PyList_New(0);
-	if (fonts)
-	{
-		Py_DECREF(self->fonts);
-		self->fonts = fonts;
-	}
-	else
+	if (!fonts)
 	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'fonts' attribute");
 		return -1;
 	}
+	Py_DECREF(self->fonts);
+	self->fonts = fonts;
 
 	// Get all used fonts
 	QMap<QString,int> usedFonts = currentDoc->UsedFonts;
-	// Create list of all used fonts
 	QList<QString> usedFontNames = usedFonts.keys();
+
+	// Determine which fonts should be subsetted
+	// Copied from TabPDFOptions::restoreDefaults()
+	const SCFonts& availableFonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
+	PDFVersion pdfVersion = pdfOptions.Version;
+
+	QStringList subsettedFonts;
+	for (int i = 0; i < usedFontNames.count(); ++i)
+	{
+		const QString& fontName = usedFontNames.at(i);
+		if (pdfOptions.SubsetList.contains(fontName))
+		{
+			subsettedFonts.append(fontName);
+			continue;
+		}
+		const ScFace fontFace = availableFonts[fontName];
+		if (fontFace.subset() || (fontFace.isOTF() && !pdfVersion.supportsEmbeddedOpenTypeFonts()))
+			subsettedFonts.append(fontName);
+	}
+
+	// Create list of fully embedded fonts
 	for (int i = 0; i < usedFontNames.count(); ++i) 
 	{
 		const QString& fontName = usedFontNames.at(i);
+		if (subsettedFonts.contains(fontName))
+			continue;
 		PyObject *tmp = PyUnicode_FromString(fontName.toUtf8());
-		if (tmp)
-		{
-			PyList_Append(self->fonts, tmp);
-			// Do i need Py_DECREF(tmp) here?
-			// Does PyList_Append increase reference or 'steal' one from provided argument
-			// If it 'steal' reference comment next line
-			Py_DECREF(tmp);
-		}
-		else
+		if (!tmp)
 		{
 			PyErr_SetString(PyExc_SystemError, "Can not initialize 'fonts' attribute");
 			return -1;
 		}
+		PyList_Append(self->fonts, tmp);
+		Py_DECREF(tmp);
 	}
 
 	// Init subsetList
 	fonts = PyList_New(0);
-	if (fonts)
-	{
-		Py_DECREF(self->subsetList);
-		self->subsetList = fonts;
-	}
-	else
+	if (!fonts)
 	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'subsetList' attribute");
 		return -1;
 	}
+	Py_DECREF(self->subsetList);
+	self->subsetList = fonts;
 
-	// Copied from TabPDFOptions::restoreDefaults()
-	for (int fe = 0; fe < pdfOptions.SubsetList.count(); ++fe)
+	for (int i = 0; i < subsettedFonts.count(); ++i)
 	{
-		PyObject *tmp = nullptr;
-		tmp = PyUnicode_FromString(pdfOptions.SubsetList[fe].toUtf8().data());
-		if (tmp)
-		{
-			PyList_Append(self->subsetList, tmp);
-			Py_DECREF(tmp);
-		}
-		else
+		PyObject *tmp = PyUnicode_FromString(subsettedFonts.at(i).toUtf8().data());
+		if (!tmp)
 		{
 			PyErr_SetString(PyExc_SystemError, "Can not initialize 'subsetList' attribute");
 			return -1;
 		}
+		PyList_Append(self->subsetList, tmp);
+		Py_DECREF(tmp);
 	}
 
 	// Set to print all pages
@@ -1386,24 +1385,44 @@ static PyObject *PDFfile_save(PDFfile *self)
 	// Update used fonts
 	currentDoc->reorganiseFonts();
 
+	// Apply subsetList attribute
+	QStringList userFontSubsets;
+	Py_ssize_t n = PyList_Size(self->subsetList);
+	for (Py_ssize_t i = 0; i < n; ++i)
+	{
+		QString tmpFon = PyUnicode_asQString(PyList_GetItem(self->subsetList, i));
+		userFontSubsets.append(tmpFon);
+	}
+
+	const SCFonts& availableFonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
+	QStringList usedFontNames = currentDoc->UsedFonts.keys();
+	PDFVersion pdfVersion = pdfOptions.Version;
+
+	pdfOptions.SubsetList.clear();
+	for (int i = 0; i < usedFontNames.count(); ++i)
+	{
+		const QString& fontName = usedFontNames.at(i);
+		if (userFontSubsets.contains(fontName))
+		{
+			pdfOptions.SubsetList.append(fontName);
+			continue;
+		}
+		const ScFace fontFace = availableFonts[fontName];
+		if (fontFace.subset() || (fontFace.isOTF() && !pdfVersion.supportsEmbeddedOpenTypeFonts()))
+			pdfOptions.SubsetList.append(fontName);
+	}
+
 	// Apply fonts attribute
 	pdfOptions.EmbedList.clear();
-	int n = PyList_Size(self->fonts);
+	n = PyList_Size(self->fonts);
 	for (int i = 0; i < n; ++i)
 	{
-		QString tmpFon;
-		tmpFon = PyUnicode_asQString(PyList_GetItem(self->fonts, i));
+		QString tmpFon = PyUnicode_asQString(PyList_GetItem(self->fonts, i));
+		if (pdfOptions.SubsetList.contains(tmpFon))
+			continue;
 		pdfOptions.EmbedList.append(tmpFon);
 	}
-	// Apply SubsetList attribute
-	pdfOptions.SubsetList.clear();
-	n = PyList_Size(self->subsetList);
-	for (int i = 0; i < n; ++i)
-	{
-		QString tmpFon;
-		tmpFon = PyUnicode_asQString(PyList_GetItem(self->subsetList, i));
-		pdfOptions.SubsetList.append(tmpFon);
-	}
+
 	// Apply font embedding mode
 	pdfOptions.FontEmbedding = (PDFOptions::PDFFontEmbedding) PyLong_AsLong(self->fontEmbedding);
 	if (pdfOptions.Version == PDFVersion::PDF_X1a ||
@@ -1414,10 +1433,9 @@ static PyObject *PDFfile_save(PDFfile *self)
 	}
 	if (pdfOptions.FontEmbedding == PDFOptions::EmbedFonts)
 	{
-		QStringList docFonts = currentDoc->UsedFonts.keys();
-		for (int i = 0; i < docFonts.count(); ++i)
+		for (int i = 0; i < usedFontNames.count(); ++i)
 		{
-			const QString& fontName = docFonts.at(i);
+			const QString& fontName = usedFontNames.at(i);
 			if (pdfOptions.SubsetList.contains(fontName))
 				continue;
 			if (pdfOptions.EmbedList.contains(fontName))
@@ -1438,6 +1456,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 		pdfOptions.SubsetList  = QStringList();
 		pdfOptions.OutlineList = QStringList();
 	}
+
 	// Apply file attribute
 	QString fn = PyUnicode_asQString(self->file);
 	pdfOptions.fileName = fn;
