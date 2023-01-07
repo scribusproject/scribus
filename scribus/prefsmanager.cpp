@@ -761,10 +761,10 @@ void PrefsManager::setupPreferencesLocation()
 	m_prefsLocation=ScPaths::preferencesDir(true);
 }
 
-bool PrefsManager::copyOldAppConfigAndData()
+void PrefsManager::copyOldAppConfigAndData()
 {
 	if (QFile::exists(m_prefsLocation + "scribus170.rc") && QFile::exists(m_prefsLocation + "prefs170.xml"))
-		return false;
+		return;
 
 	//Move to using the ScPaths default prefs location/scribus.* from ~/.scribus.*
 	QString oldPR = QDir::toNativeSeparators(QDir::homePath() + "/.scribus.rc");
@@ -839,7 +839,9 @@ bool PrefsManager::copyOldAppConfigAndData()
 		moveFile(fiPal.absoluteFilePath(), ScPaths::userPaletteFilesDir(true) + fiPal.fileName());
 
 	//Now make copies for 1.7.0 use and leave the old ones alone for <1.7.0 usage
-	QString prefs150[5], prefs160[5], prefs170[5];
+	QString prefs150[5];
+	QString prefs160[5];
+	QString prefs170[5];
 
 	prefs150[0] = QDir::toNativeSeparators(m_prefsLocation + "scribus150.rc");
 	prefs150[1] = QDir::toNativeSeparators(m_prefsLocation + "scrap150.scs");
@@ -859,7 +861,9 @@ bool PrefsManager::copyOldAppConfigAndData()
 	prefs170[3] = QDir::toNativeSeparators(m_prefsLocation + "scripter170.rc");
 	prefs170[4] = QDir::toNativeSeparators(m_prefsLocation + "checkfonts170.xml");
 
-	bool existsPrefs150[5], existsPrefs160[5], existsPrefs170[5];
+	bool existsPrefs150[5];
+	bool existsPrefs160[5];
+	bool existsPrefs170[5];
 	for (uint i = 0; i < 5; ++i)
 	{
 		existsPrefs150[i] = QFile::exists(prefs150[i]);
@@ -867,9 +871,8 @@ bool PrefsManager::copyOldAppConfigAndData()
 		existsPrefs170[i] = QFile::exists(prefs170[i]);
 	}
 
-	bool retVal = false;
 	if (existsPrefs170[0] && existsPrefs170[2])
-		return retVal;
+		return;
 
 	//Only check for these three as they will be autocreated if they don't exist.
 	if ((existsPrefs160[0] && !existsPrefs170[0]) || (existsPrefs160[2] && !existsPrefs170[2]))
@@ -907,7 +910,6 @@ bool PrefsManager::copyOldAppConfigAndData()
 				copyFile(prefs150[i], prefs170[i]);
 		}
 	}
-	return retVal;
 }
 
 void PrefsManager::readPrefs()

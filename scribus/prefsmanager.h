@@ -84,7 +84,7 @@ public:
 	\brief Copy 1.2 prefs XML before loading, and copy rc files we don't yet convert
 	\retval bool true if prefs were imported
 	*/
-	bool copyOldAppConfigAndData();
+	void copyOldAppConfigAndData();
 	/*!
 	\brief Get the prefs location property
 	\retval QString Location of the user's preferences
@@ -186,7 +186,6 @@ public:
 	ApplicationPrefs* applicationPrefs();
 	void setNewPrefs(ApplicationPrefs& newPrefs);
 	PrefsFile* applicationPrefsFile();
-	bool importingFrom12x();
 
 	//! \brief Return the last error reported by a PrefsManager method
 	const QString & lastError() const;
