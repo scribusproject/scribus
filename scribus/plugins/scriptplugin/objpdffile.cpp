@@ -351,7 +351,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	QString tf = pdfOptions.fileName;
 	if (tf.isEmpty())
 	{
-		QFileInfo fi = QFileInfo(currentDoc->documentFileName());
+		QFileInfo fi(currentDoc->documentFileName());
 		tf = fi.path() + "/" + fi.baseName() + ".pdf";
 	}
 
@@ -394,12 +394,12 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	}
 
 	// Get all used fonts
-	QMap<QString,int> ReallyUsed = currentDoc->UsedFonts;
+	QMap<QString,int> usedFonts = currentDoc->UsedFonts;
 	// Create list of all used fonts
-	QList<QString> tmpEm = ReallyUsed.keys();
-	for (int i = 0; i < tmpEm.count(); ++i) 
+	QList<QString> usedFontNames = usedFonts.keys();
+	for (int i = 0; i < usedFontNames.count(); ++i) 
 	{
-		const QString& fontName = tmpEm.at(i);
+		const QString& fontName = usedFontNames.at(i);
 		PyObject *tmp = PyUnicode_FromString(fontName.toUtf8());
 		if (tmp)
 		{
@@ -432,7 +432,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	// Copied from TabPDFOptions::restoreDefaults()
 	for (int fe = 0; fe < pdfOptions.SubsetList.count(); ++fe)
 	{
-		PyObject *tmp= nullptr;
+		PyObject *tmp = nullptr;
 		tmp = PyUnicode_FromString(pdfOptions.SubsetList[fe].toUtf8().data());
 		if (tmp)
 		{

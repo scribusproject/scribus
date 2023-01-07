@@ -6764,14 +6764,14 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 void ScribusDoc::addSection(int number, const QString& name, const uint fromindex, const uint toindex, const NumFormat type, const uint sectionstartindex, bool reversed, bool active, const QChar fillChar, int fieldWidth)
 {
 	struct DocumentSection newSection;
-	int docPageCount=DocPages.count();
-	bool empty=m_docPrefsData.docSectionMap.isEmpty();
+	int docPageCount = DocPages.count();
+	bool empty = m_docPrefsData.docSectionMap.isEmpty();
 	if (empty)
 	{
 		newSection.number = 0;
 		newSection.name = "0";
 		newSection.fromindex = 0;
-		newSection.toindex = docPageCount-1;
+		newSection.toindex = docPageCount - 1;
 		newSection.type = Type_1_2_3;
 		newSection.sectionstartindex = 1;
 		newSection.reversed = false;
@@ -6780,7 +6780,7 @@ void ScribusDoc::addSection(int number, const QString& name, const uint frominde
 		newSection.pageNumberWidth = 0;
 		m_docPrefsData.docSectionMap.insert(newSection.number, newSection);
 	}
-	else if (number!=-1)
+	else if (number != -1)
 	{
 		newSection.number = number;
 		newSection.name = name;
