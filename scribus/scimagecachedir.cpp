@@ -64,13 +64,13 @@ ScImageCacheDir::~ScImageCacheDir()
 {
 	if (m_dirs)
 	{
-		foreach (ScImageCacheDir *p, *m_dirs)
+		for (ScImageCacheDir* p : *m_dirs)
 			delete p;
 		delete m_dirs;
 	}
 	if (m_files)
 	{
-		foreach (ScImageCacheFile *p, *m_files)
+		for (ScImageCacheFile* p : *m_files)
 			delete p;
 		delete m_files;
 	}
@@ -136,7 +136,7 @@ void ScImageCacheDir::update()
 		scDebug() << path() << "is modified";
 		if (m_dirs)
 		{
-			foreach (ScImageCacheDir *p, *m_dirs)
+			for (ScImageCacheDir* p : *m_dirs)
 				p->update();
 		}
 		if (m_files)
@@ -150,7 +150,7 @@ void ScImageCacheDir::scan()
 	{
 		if (!m_files->isEmpty())
 		{
-			foreach (ScImageCacheFile *p, *m_files)
+			for (ScImageCacheFile* p : *m_files)
 			{
 				emit fileRemoved(p);
 				delete p;
@@ -168,45 +168,44 @@ void ScImageCacheDir::scan()
 		di.next();
 
 		QFileInfo info = di.fileInfo();
+		if (!info.isFile() || !m_suffix.contains(info.suffix()))
+			continue;
 
-		if (info.isFile() && m_suffix.contains(info.suffix()))
+		FileMap::iterator i = m_files->find(info.fileName());
+		if (i != m_files->end())
 		{
-			FileMap::iterator i = m_files->find(info.fileName());
-			if (i != m_files->end())
-			{
-				// possibly changed file
-				ScImageCacheFile *p = *i;
-				if (p->hasChanged(info))
-					emit fileChanged(p, info);
-			}
-			else
-			{
-				// newly created file
-				ScImageCacheFile *p = new ScImageCacheFile(info.fileName(), this);
-				Q_CHECK_PTR(p);
-				if (p == nullptr)
-					return;
-				emit fileCreated(p, info);
-				m_files->insert(info.fileName(), p);
-			}
-			current[info.fileName()] = true;
-		}
-	}
-
-	FileMap::iterator i = m_files->begin();
-	while (i != m_files->end())
-	{
-		if (!current.contains(i.key()))
-		{
-			// removed file
+			// possibly changed file
 			ScImageCacheFile *p = *i;
-			i = m_files->erase(i);
-			emit fileRemoved(p);
-			delete p;
-			
+			if (p->hasChanged(info))
+				emit fileChanged(p, info);
 		}
 		else
-			i++;
+		{
+			// newly created file
+			ScImageCacheFile *p = new ScImageCacheFile(info.fileName(), this);
+			Q_CHECK_PTR(p);
+			if (p == nullptr)
+				return;
+			emit fileCreated(p, info);
+			m_files->insert(info.fileName(), p);
+		}
+		current[info.fileName()] = true;
+	}
+
+	FileMap::iterator it = m_files->begin();
+	while (it != m_files->end())
+	{
+		if (current.contains(it.key()))
+		{
+			it++;
+			continue;
+		}
+
+		// Remove file
+		ScImageCacheFile *p = *it;
+		it = m_files->erase(it);
+		emit fileRemoved(p);
+		delete p;
 	}
 }
 
