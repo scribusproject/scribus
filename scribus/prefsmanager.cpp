@@ -102,20 +102,13 @@ PrefsFile* PrefsManager::applicationPrefsFile()
 	return prefsFile;
 }
 
-bool PrefsManager::importingFrom12x()
-{
-	return m_importingFrom12;
-}
-
-
 void PrefsManager::setup()
 {
 	setupPreferencesLocation();
 
-	m_importingFrom12=copyOldAppConfigAndData();
+	copyOldAppConfigAndData();
 	prefsFile = new PrefsFile( m_prefsLocation + "prefs150.xml" );
-	if (m_importingFrom12)
-		convert12Preferences();
+
 	//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
 	//	 have conflicts if they don't nuke their settings.
 	// - Remove for 1.3.0 release: importingFrom12=true;
@@ -768,10 +761,10 @@ void PrefsManager::setupPreferencesLocation()
 	m_prefsLocation=ScPaths::preferencesDir(true);
 }
 
-bool PrefsManager::copyOldAppConfigAndData()
+void PrefsManager::copyOldAppConfigAndData()
 {
 	if (QFile::exists(m_prefsLocation + "scribus150.rc") && QFile::exists(m_prefsLocation + "prefs150.xml"))
-		return false;
+		return;
 
 	//Move to using the ScPaths default prefs location/scribus.* from ~/.scribus.*
 	QString oldPR = QDir::toNativeSeparators(QDir::homePath() + "/.scribus.rc");
@@ -847,7 +840,9 @@ bool PrefsManager::copyOldAppConfigAndData()
 		moveFile(fiPal.absoluteFilePath(), ScPaths::userPaletteFilesDir(true) + fiPal.fileName());
 
 	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
-	QString prefs135[5], prefs140[5], prefs150[5];
+	QString prefs135[5];
+	QString prefs140[5];
+	QString prefs150[5];
 
 	prefs135[0] = QDir::toNativeSeparators(m_prefsLocation + "scribus135.rc");
 	prefs135[1] = QDir::toNativeSeparators(m_prefsLocation + "scrap135.scs");
@@ -867,7 +862,9 @@ bool PrefsManager::copyOldAppConfigAndData()
 	prefs150[3] = QDir::toNativeSeparators(m_prefsLocation + "scripter150.rc");
 	prefs150[4] = QDir::toNativeSeparators(m_prefsLocation + "checkfonts150.xml");
 
-	bool existsPrefs135[5], existsPrefs140[5], existsPrefs150[5];
+	bool existsPrefs135[5];
+	bool existsPrefs140[5];
+	bool existsPrefs150[5];
 	for (uint i = 0; i < 5; ++i)
 	{
 		existsPrefs135[i] = QFile::exists(prefs135[i]);
@@ -875,14 +872,12 @@ bool PrefsManager::copyOldAppConfigAndData()
 		existsPrefs150[i] = QFile::exists(prefs150[i]);
 	}
 
-	bool retVal=false;
 	if (existsPrefs150[0] && existsPrefs150[2])
-		return retVal;
+		return;
+
 	//Only check for these three as they will be autocreated if they don't exist.
 	if ((existsPrefs135[0] && !existsPrefs140[0]) || (existsPrefs135[2] && !existsPrefs140[2]))
 	{
-		// Now always return false
-		// retVal=true; // converting from 1.2 prefs
 		if (ScCore->usingGUI())
 		{
 			bool splashShown = ScCore->splashShowing();
@@ -896,7 +891,7 @@ bool PrefsManager::copyOldAppConfigAndData()
 					QMessageBox::Yes	// batch default
 				)==QMessageBox::Yes )
 			{
-				for (uint i=0;i<5;++i)
+				for (uint i = 0; i < 5; ++i)
 				{
 					if (existsPrefs135[i] && !existsPrefs150[i])
 						copyFile(prefs135[i], prefs150[i]);
@@ -921,24 +916,6 @@ bool PrefsManager::copyOldAppConfigAndData()
 			if (existsPrefs135[i] && !existsPrefs150[i])
 				copyFile(prefs135[i], prefs150[i]);
 		}
-	}
-	return retVal;
-}
-
-void PrefsManager::convert12Preferences()
-{
-	// Import 1.2 font search path prefs
-	QFile fontPrefsFile12(QDir::toNativeSeparators(m_prefsLocation + "/scribusfont.rc"));
-	if (fontPrefsFile12.exists() && fontPrefsFile12.open(QIODevice::ReadOnly))
-	{
-		PrefsContext *pc = prefsFile->getContext("Fonts");
-		PrefsTable *fontPrefs = pc->getTable("ExtraFontDirs");
-		QTextStream tsx(&fontPrefsFile12);
-		QString extraPath = tsx.readAll();
-		fontPrefsFile12.close();
-		QStringList extraFonts = extraPath.split("\n", Qt::SkipEmptyParts);
-		for (int i = 0; i < extraFonts.count(); ++i)
-			fontPrefs->set(i, 0, extraFonts[i]);
 	}
 }
 
@@ -2453,7 +2430,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.colorPrefs.DCMSset.DefaultIntentColors = (eRenderIntent) dc.attribute("DefaultIntentColors", "1").toInt();
 			appPrefs.colorPrefs.DCMSset.DefaultIntentImages = (eRenderIntent) dc.attribute("DefaultIntentImages", "0").toInt();
 		}
-		if (!m_importingFrom12 && dc.tagName() == "Shortcut")
+		if (dc.tagName() == "Shortcut")
 		{
 			appPrefs.keyShortcutPrefs.KeyActions[dc.attribute("Action")].actionName = dc.attribute("Action");
 			QKeySequence newKeySequence(dc.attribute("KeySequence"));
