@@ -272,6 +272,7 @@ public:
 	static QString trPostScript3;
 	static QString WindowsGDI;
 	static QString trWindowsGDI;
+	static QString trSectionName;
 
 	//Units strings
 	static QString trStrPT;

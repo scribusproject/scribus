@@ -198,7 +198,7 @@ void Prefs_DocumentSections::addEntry()
 		struct DocumentSection blank;
 		uint count = m_localSections.count();
 		blank.number = count;
-		blank.name = QString::number(count);
+		blank.name = CommonStrings::trSectionName.arg(count + 1);
 		blank.fromindex = m_maxPageIndex + 1;
 		blank.toindex = m_maxPageIndex + 1;
 		blank.type = Type_1_2_3;
@@ -224,7 +224,7 @@ void Prefs_DocumentSections::addEntry()
 			{
 				struct DocumentSection blank;
 				blank.number = ++i;
-				blank.name = QString::number(i);
+				blank.name = CommonStrings::trSectionName.arg(i + 1);
 				blank.fromindex = it->toindex + 1;
 				blank.toindex = it->toindex + 2;
 				blank.type = Type_1_2_3;

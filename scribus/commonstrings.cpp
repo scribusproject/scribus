@@ -184,6 +184,8 @@ QString CommonStrings::trPostScript3 = "";
 QString CommonStrings::WindowsGDI    = "";
 QString CommonStrings::trWindowsGDI  = "";
 
+QString CommonStrings::trSectionName = "";
+
 QString CommonStrings::trStrPT = "";
 QString CommonStrings::trStrMM = "";
 QString CommonStrings::trStrIN = "";
@@ -455,6 +457,9 @@ void CommonStrings::languageChange()
 	CommonStrings::trPostScript3 = tr( "PostScript Level 3" );
 	CommonStrings::WindowsGDI    = "Windows GDI";
 	CommonStrings::trWindowsGDI  = tr( "Windows GDI" );
+
+	//Section Name
+	CommonStrings::trSectionName = tr("Section %1");
 
 	//Units
 	CommonStrings::trStrPT = unitGetStrFromIndex(SC_PT);

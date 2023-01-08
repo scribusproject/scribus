@@ -6780,7 +6780,7 @@ void ScribusDoc::addSection(int number, const QString& name, const uint frominde
 	if (empty)
 	{
 		newSection.number = 0;
-		newSection.name = "0";
+		newSection.name = CommonStrings::trSectionName.arg(1);
 		newSection.fromindex = 0;
 		newSection.toindex = docPageCount - 1;
 		newSection.type = Type_1_2_3;
