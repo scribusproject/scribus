@@ -82,7 +82,8 @@ void FtFace::load() const
 {
 	ScFaceData::load();
 
-	if (!m_face) {
+	if (!m_face)
+	{
 		if (FT_New_Face( m_library, QFile::encodeName(fontFile), faceIndex, & m_face ))
 		{
 			status = ScFace::BROKEN;
@@ -160,15 +161,15 @@ void FtFace::load() const
 			const_cast<FtFace*>(this)->isStroked = true;
 		charcode = FT_Get_Next_Char( m_face, charcode, &gindex );
 	}
-	if (invalidGlyph > 0) {
+	if (invalidGlyph > 0)
 		status = ScFace::BROKENGLYPHS;
-	}
 }
 
 
 void FtFace::unload() const
 {
-	if (m_face) {
+	if (m_face)
+	{
 		FT_Done_Face( m_face );
 		m_face = nullptr;
 	}
@@ -235,7 +236,8 @@ void FtFace::loadGlyph(ScFace::gid_type gl) const
 			GRec.y = y;
 			GRec.broken = false;
 		}
-		else {
+		else
+		{
 			m_glyphWidth[gl] = 1;
 		}
 	}
@@ -251,14 +253,16 @@ GlyphMetrics FtFace::glyphBBox (gid_type gl, qreal sz) const
 	FT_Face    face = ftFace();
 	GlyphMetrics result;
 	FT_Error error = FT_Load_Glyph( face, gl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-	if (!error) {
+	if (!error)
+	{
 		qreal w  = (face->glyph->metrics.width + QABS((qreal)face->glyph->metrics.horiBearingX)) / m_uniEM * sz;
 		result.width = qMax(w, face->glyph->metrics.horiAdvance / m_uniEM * sz);
 		qreal height = face->glyph->metrics.height / m_uniEM * sz;
 		result.ascent = face->glyph->metrics.horiBearingY / m_uniEM * sz;
 		result.descent = height - result.ascent;
 	}
-	else {
+	else
+	{
 		result.width = result.ascent = sz;
 		result.descent = 0;
 	}
