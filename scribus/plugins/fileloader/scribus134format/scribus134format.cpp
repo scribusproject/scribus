@@ -1832,17 +1832,17 @@ bool Scribus134Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 			newSection.toindex   = attrs.valueAsInt("To");
 			QString type = attrs.valueAsString("Type");
 			if (type == "Type_1_2_3")
-				newSection.type=Type_1_2_3;
+				newSection.type = Type_1_2_3;
 			if (type == "Type_i_ii_iii")
-				newSection.type=Type_i_ii_iii;
+				newSection.type = Type_i_ii_iii;
 			if (type == "Type_I_II_III")
-				newSection.type=Type_I_II_III;
+				newSection.type = Type_I_II_III;
 			if (type == "Type_a_b_c")
-				newSection.type=Type_a_b_c;
+				newSection.type = Type_a_b_c;
 			if (type == "Type_A_B_C")
-				newSection.type=Type_A_B_C;
+				newSection.type = Type_A_B_C;
 			if (type == "Type_None")
-				newSection.type=Type_None;
+				newSection.type = Type_None;
 			newSection.sectionstartindex = attrs.valueAsInt("Start");
 			newSection.reversed = attrs.valueAsBool("Reversed");
 			newSection.active   = attrs.valueAsBool("Active");
