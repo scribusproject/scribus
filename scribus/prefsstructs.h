@@ -95,8 +95,8 @@ struct WindowPrefs
 {
 	int xPosition {0};
 	int yPosition {0};
-	int width {640};
-	int height {480};
+	int width {800};
+	int height {600};
 	bool visible {true};
 	bool docked {false};
 	bool maximized {false};
