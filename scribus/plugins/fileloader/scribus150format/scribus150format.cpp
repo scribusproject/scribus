@@ -6690,117 +6690,118 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				reader.readToElementEnd();
 				continue;
 			}
-			if (attrs.valueAsInt("OwnPage") != pageNumber)
+
+			if ((attrs.valueAsInt("OwnPage") != pageNumber) && (tagName != "FRAMEOBJECT"))
 			{			
 				if (tagName == QLatin1String("PAGEOBJECT"))
 					itemRemap[itemCount++] = -1;
 				else if (tagName == QLatin1String("MASTEROBJECT"))
 					itemRemapM[itemCountM++] = -1;
 				reader.readToElementEnd();
+				continue;
+			}
+
+			ItemInfo itemInfo;
+			success = readObject(m_Doc, reader, readObjectParams, itemInfo);
+			if (!success)
+				break;
+
+			PageItem* newItem = itemInfo.item;
+			newItem->moveBy(-pageX + newPage->xOffset(), - pageY + newPage->yOffset());
+			newItem->setOwnerPage(m_Doc->currentPageNumber());
+			if (tagName == QLatin1String("PAGEOBJECT"))
+				newItem->setMasterPageName(QString());
+			else if (Mpage && !renamedPageName.isEmpty())
+				newItem->setMasterPageName(renamedPageName);
+			newItem->setLayer(layerTrans.value(newItem->m_layerID, newItem->m_layerID));
+			if (isNewFormat)
+			{
+				if (itemInfo.nextItem != -1)
+					itemNext[itemInfo.itemID] = itemInfo.nextItem;
+				if (itemInfo.item->isTableItem)
+					TableItems.append(itemInfo.item);
+				if (itemInfo.isWeldFlag)
+					WeldItems.append(itemInfo.item);
 			}
 			else
 			{
-				ItemInfo itemInfo;
-				success = readObject(m_Doc, reader, readObjectParams, itemInfo);
-				if (!success) break;
-
-				PageItem* newItem = itemInfo.item;
-				newItem->moveBy(-pageX + newPage->xOffset(), - pageY + newPage->yOffset());
-				newItem->setOwnerPage(m_Doc->currentPageNumber());
+				// first of linked chain?
 				if (tagName == QLatin1String("PAGEOBJECT"))
-					newItem->setMasterPageName(QString());
-				else if (Mpage && !renamedPageName.isEmpty())
-					newItem->setMasterPageName(renamedPageName);
-				newItem->setLayer(layerTrans.value(newItem->m_layerID, newItem->m_layerID));
-				if (isNewFormat)
 				{
-					if (itemInfo.nextItem != -1)
-						itemNext[itemInfo.itemID] = itemInfo.nextItem;
-					if (itemInfo.item->isTableItem)
-						TableItems.append(itemInfo.item);
-					if (itemInfo.isWeldFlag)
-						WeldItems.append(itemInfo.item);
+					itemRemap[itemCount++] = m_Doc->DocItems.count();
+					if (attrs.valueAsInt("NEXTITEM", -1) != -1)
+						itemNext[m_Doc->DocItems.count()] = attrs.valueAsInt("NEXTITEM");
+				}
+				else if (tagName == QLatin1String("MASTEROBJECT"))
+				{
+					itemRemapM[itemCountM++] = m_Doc->MasterItems.count();
+					if (attrs.valueAsInt("NEXTITEM", -1) != -1)
+						itemNextM[m_Doc->MasterItems.count()] = attrs.valueAsInt("NEXTITEM");
+				}
+				if (newItem->isTableItem)
+				{
+					TableItems.append(newItem);
+					TableID.insert(itemInfo.ownLink, newItem);
+				}
+				if (itemInfo.isWeldFlag)
+				{
+					WeldItems.append(itemInfo.item);
+					WeldID.insert(itemInfo.ownWeld, itemInfo.item);
+				}
+			}
+
+			if ((tagName == QLatin1String("PAGEOBJECT")) && (groupStackPI.count() > 0))
+			{
+				groupStackPI.top().append(itemInfo.item);
+				while (itemInfo.ownNr == groupStackPI2.top())
+				{
+					groupStackP.push(groupStackPI.pop());
+					groupStackPI2.pop();
+					if (groupStackPI2.count() == 0)
+						break;
+				}
+			}
+			else if ((tagName == QLatin1String("FRAMEOBJECT")) && (groupStackFI.count() > 0))
+			{
+				groupStackFI.top().append(itemInfo.item);
+				while (itemInfo.ownNr == groupStackFI2.top())
+				{
+					groupStackF.push(groupStackFI.pop());
+					groupStackFI2.pop();
+					if (groupStackFI2.count() == 0)
+						break;
+				}
+			}
+			else if ((tagName == QLatin1String("MASTEROBJECT")) && (groupStackMI.count() > 0))
+			{
+				groupStackMI.top().append(itemInfo.item);
+				while (itemInfo.ownNr == groupStackMI2.top())
+				{
+					groupStackM.push(groupStackMI.pop());
+					groupStackMI2.pop();
+					if (groupStackMI2.count() == 0)
+						break;
+				}
+			}
+
+			if (itemInfo.isGroupFlag)
+			{
+				QList<PageItem*> groupItems;
+				groupItems.append(itemInfo.item);
+				if (tagName == QLatin1String("PAGEOBJECT"))
+				{
+					groupStackPI.push(groupItems);
+					groupStackPI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				}
+				else if (tagName == QLatin1String("FRAMEOBJECT"))
+				{
+					groupStackFI.push(groupItems);
+					groupStackFI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 				}
 				else
 				{
-					// first of linked chain?
-					if (tagName == QLatin1String("PAGEOBJECT"))
-					{
-						itemRemap[itemCount++] = m_Doc->DocItems.count();
-						if (attrs.valueAsInt("NEXTITEM", -1) != -1)
-							itemNext[m_Doc->DocItems.count()] = attrs.valueAsInt("NEXTITEM");
-					}
-					else if (tagName == QLatin1String("MASTEROBJECT"))
-					{
-						itemRemapM[itemCountM++] = m_Doc->MasterItems.count();
-						if (attrs.valueAsInt("NEXTITEM", -1) != -1)
-							itemNextM[m_Doc->MasterItems.count()] = attrs.valueAsInt("NEXTITEM");
-					}
-					if (newItem->isTableItem)
-					{
-						TableItems.append(newItem);
-						TableID.insert(itemInfo.ownLink, newItem);
-					}
-					if (itemInfo.isWeldFlag)
-					{
-						WeldItems.append(itemInfo.item);
-						WeldID.insert(itemInfo.ownWeld, itemInfo.item);
-					}
-				}
-
-				if ((tagName == QLatin1String("PAGEOBJECT")) && (groupStackPI.count() > 0))
-				{
-					groupStackPI.top().append(itemInfo.item);
-					while (itemInfo.ownNr == groupStackPI2.top())
-					{
-						groupStackP.push(groupStackPI.pop());
-						groupStackPI2.pop();
-						if (groupStackPI2.count() == 0)
-							break;
-					}
-				}
-				else if ((tagName == QLatin1String("FRAMEOBJECT")) && (groupStackFI.count() > 0))
-				{
-					groupStackFI.top().append(itemInfo.item);
-					while (itemInfo.ownNr == groupStackFI2.top())
-					{
-						groupStackF.push(groupStackFI.pop());
-						groupStackFI2.pop();
-						if (groupStackFI2.count() == 0)
-							break;
-					}
-				}
-				else if ((tagName == QLatin1String("MASTEROBJECT")) && (groupStackMI.count() > 0))
-				{
-					groupStackMI.top().append(itemInfo.item);
-					while (itemInfo.ownNr == groupStackMI2.top())
-					{
-						groupStackM.push(groupStackMI.pop());
-						groupStackMI2.pop();
-						if (groupStackMI2.count() == 0)
-							break;
-					}
-				}
-
-				if (itemInfo.isGroupFlag)
-				{
-					QList<PageItem*> groupItems;
-					groupItems.append(itemInfo.item);
-					if (tagName == QLatin1String("PAGEOBJECT"))
-					{
-						groupStackPI.push(groupItems);
-						groupStackPI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
-					}
-					else if (tagName == QLatin1String("FRAMEOBJECT"))
-					{
-						groupStackFI.push(groupItems);
-						groupStackFI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
-					}
-					else
-					{
-						groupStackMI.push(groupItems);
-						groupStackMI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
-					}
+					groupStackMI.push(groupItems);
+					groupStackMI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 				}
 			}
 		}
