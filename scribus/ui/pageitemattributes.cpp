@@ -7,9 +7,9 @@ for which a new license (GPL+exception) is in place.
 #include "pageitemattributes.h"
 #include "commonstrings.h"
 
-#include <QString>
-#include <QPushButton>
 #include <QComboBox>
+#include <QPushButton>
+#include <QString>
 
 #include "ui/sctablewidget.h"
 
@@ -18,6 +18,10 @@ PageItemAttributes::PageItemAttributes( QWidget* parent, const char* name, bool 
 	setupUi(this);
 	setModal(modal);
 
+	attributesTable->setColumnWidth(0, 160);
+	attributesTable->setColumnWidth(1, 130);
+	attributesTable->setColumnWidth(2, 160);
+	
 	relationships << tr("None", "relationship") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
 	relationshipsData << "none" << "relation" << "parent" << "child";
 	types << tr("None", "types") << tr("Boolean") << tr("Integer") << tr("Real Number") << tr("String");
