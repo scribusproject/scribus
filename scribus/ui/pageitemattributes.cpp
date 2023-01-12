@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui/sctablewidget.h"
 
-PageItemAttributes::PageItemAttributes( QWidget* parent, const char* name, bool modal) : QDialog(parent)
+PageItemAttributes::PageItemAttributes(QWidget* parent, bool modal) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(modal);
@@ -36,19 +36,15 @@ PageItemAttributes::PageItemAttributes( QWidget* parent, const char* name, bool 
 	connect(copyButton, SIGNAL(clicked()), this, SLOT(copyEntry()));
 }
 
-PageItemAttributes::~PageItemAttributes()
-{
-}
-
 void PageItemAttributes::setup(ObjAttrVector *pageItemAttrs, ObjAttrVector *docItemAttrs)
 {
-	localAttributes=*pageItemAttrs;
-	localDocAttributes=*docItemAttrs;
+	localAttributes = *pageItemAttrs;
+	localDocAttributes = *docItemAttrs;
 
 	nameList.clear();
 	nameList.append("");
-	for (ObjAttrVector::Iterator it = localDocAttributes.begin(); it!= localDocAttributes.end(); ++it)
-		nameList.append((*it).name);
+	for (auto it = localDocAttributes.constBegin(); it != localDocAttributes.constEnd(); ++it)
+		nameList.append(it->name);
 
 	updateTable();
 }
@@ -59,20 +55,20 @@ ObjAttrVector* PageItemAttributes::getNewAttributes()
 }
 
 
-void PageItemAttributes::tableItemChanged( int row, int col )
+void PageItemAttributes::tableItemChanged(int row, int col)
 {
 	switch (col)
 	{
 		case 0:
 			{
-				QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
-				if (qcti!=nullptr)
-					localAttributes[row].name=qcti->currentText();
+				auto* qcti = dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
+				if (qcti != nullptr)
+					localAttributes[row].name = qcti->currentText();
 			}
 			break;
 		case 1:
 			{
-				QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
+				auto* qcti = dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
 				if (qcti != nullptr)
 				{
 					int index = qcti->currentIndex();
@@ -89,17 +85,17 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 			break;
 		case 4:
 		{
-			QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
-			if (qcti!=nullptr)
+			auto* qcti = dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
+			if (qcti != nullptr)
 			{
-				int index=qcti->currentIndex();
-				if (index<relationshipsData.count())
-					localAttributes[row].relationship=relationshipsData[index];
+				int index = qcti->currentIndex();
+				if (index < relationshipsData.count())
+					localAttributes[row].relationship = relationshipsData[index];
 			}
 		}
 		break;
 		case 5:
-			localAttributes[row].relationshipto=attributesTable->item(row, col)->text();
+			localAttributes[row].relationshipto = attributesTable->item(row, col)->text();
 			break;
 		case 6:
 			//AutoAddTo is not used once this gets to the page items
@@ -124,9 +120,9 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 void PageItemAttributes::addEntry()
 {
 	ObjectAttribute blank;
-	blank.name="";
-	blank.relationship=CommonStrings::None;
-	blank.autoaddto="none";
+	blank.name = "";
+	blank.relationship = CommonStrings::None;
+	blank.autoaddto = "none";
 	localAttributes.append(blank);
 	updateTable();
 }
@@ -134,15 +130,15 @@ void PageItemAttributes::addEntry()
 
 void PageItemAttributes::deleteEntry()
 {
-	int currRow=attributesTable->currentRow();
-	bool found=false;
+	int currRow = attributesTable->currentRow();
+	bool found = false;
 	ObjAttrVector::Iterator it;
-	int count=0;
-	for (it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	int count = 0;
+	for (it = localAttributes.begin(); it != localAttributes.end(); ++it)
 	{
-		if(count==currRow)
+		if (count == currRow)
 		{
-			found=true;
+			found = true;
 			break;
 		}
 		++count;
@@ -164,15 +160,15 @@ void PageItemAttributes::clearEntries()
 
 void PageItemAttributes::copyEntry()
 {
-	int currRow=attributesTable->currentRow();
-	bool found=false;
+	int currRow = attributesTable->currentRow();
+	bool found = false;
 	ObjAttrVector::Iterator it;
-	int count=0;
-	for (it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	int count = 0;
+	for (it = localAttributes.begin(); it != localAttributes.end(); ++it)
 	{
-		if(count==currRow)
+		if (count == currRow)
 		{
-			found=true;
+			found = true;
 			break;
 		}
 		++count;
@@ -211,9 +207,9 @@ void PageItemAttributes::updateTable()
 		item2->addItems(types);
 
 		listIndex = typesData.indexOf(objAttr.type);
-		if (listIndex==-1)
+		if (listIndex == -1)
 		{
-			objAttr.type="none";
+			objAttr.type = "none";
 			listIndex = 0;
 		}
 		item2->setCurrentIndex(listIndex);
@@ -230,11 +226,11 @@ void PageItemAttributes::updateTable()
 		QComboBox *item5 = new QComboBox();
 		item5->addItems(relationships);
 		attributesTable->setCellWidget(row, col++, item5);
-		int index=relationshipsData.indexOf(objAttr.relationship);
-		if (index==-1)
+		int index = relationshipsData.indexOf(objAttr.relationship);
+		if (index == -1)
 		{
-			objAttr.relationship="none";
-			index=0;
+			objAttr.relationship = "none";
+			index = 0;
 		}
 		item5->setCurrentIndex(index);
 		//Relationship to
@@ -245,21 +241,21 @@ void PageItemAttributes::updateTable()
 		QComboBox *item7 = new QComboBox();
 		item7->addItems(autoAddTo);
 		attributesTable->setCellWidget(row, col++, item7);
-		int index2=autoAddToData.indexOf(objAttr.autoaddto);
+		int index2 = autoAddToData.indexOf(objAttr.autoaddto);
 		if (index2==-1)
 		{
 			objAttr.relationship="none";
-			index2=0;
+			index2 = 0;
 		}
 		item7->setCurrentItem(index2);
 		*/
-		QTableWidgetItem *t=attributesTable->verticalHeaderItem(row);
+		QTableWidgetItem *t = attributesTable->verticalHeaderItem(row);
 		if (t != nullptr)
 			t->setText(QString("%1").arg(row));
 	}
-	deleteButton->setEnabled(localAttributes.count()!=0);
-	copyButton->setEnabled(localAttributes.count()!=0);
-	clearButton->setEnabled(localAttributes.count()!=0);
+	deleteButton->setEnabled(localAttributes.count() != 0);
+	copyButton->setEnabled(localAttributes.count() != 0);
+	clearButton->setEnabled(localAttributes.count() != 0);
 }
 
 
@@ -267,16 +263,16 @@ void PageItemAttributes::okClicked()
 {
 	//Qt hack as we will lose data if the user hasn't left a cell
 	//http://www.qtforum.org/thread.php?threadid=9078
-	if (attributesTable->rowCount()>0 && attributesTable->currentRow()!=-1)
+	if (attributesTable->rowCount() > 0 && attributesTable->currentRow() != -1)
 	{
 		//Avoid selecting 0,0 if 0,0 is current cell
 		int selectCol;
-		if(attributesTable->currentColumn()!=0)
-			selectCol=0;
+		if (attributesTable->currentColumn() != 0)
+			selectCol = 0;
 		else
-			selectCol=1;
+			selectCol = 1;
 
-		attributesTable->setCurrentCell(0,selectCol);
+		attributesTable->setCurrentCell(0, selectCol);
 		tableItemChanged(attributesTable->currentRow(), attributesTable->currentColumn());
 	}
 	accept();
