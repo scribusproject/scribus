@@ -13,8 +13,8 @@ class PageItemAttributes : public QDialog, Ui::PageItemAttributes
 {
     Q_OBJECT
 	public:
-		PageItemAttributes( QWidget* parent = nullptr, const char* name = 0, bool modal = false);
-		~PageItemAttributes();
+		PageItemAttributes(QWidget* parent = nullptr, bool modal = false);
+		~PageItemAttributes() = default;
 
 		virtual ObjAttrVector * getNewAttributes();
 
