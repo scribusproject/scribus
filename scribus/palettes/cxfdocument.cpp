@@ -73,7 +73,7 @@ bool CxfDocument::parse(const QString& fileName)
 	return (m_objects.count() > 0);
 }
 
-bool CxfDocument::parseColorSpecificationCollection(QDomElement& elem)
+bool CxfDocument::parseColorSpecificationCollection(const QDomElement& elem)
 {
 	QDomNodeList childNodes = elem.childNodes();
 	for (int i = 0; i < childNodes.count(); ++i)
@@ -94,7 +94,7 @@ bool CxfDocument::parseColorSpecificationCollection(QDomElement& elem)
 	return (m_colorSpecs.count() > 0);
 }
 
-bool CxfDocument::parseObjectCollection(QDomElement& elem)
+bool CxfDocument::parseObjectCollection(const QDomElement& elem)
 {
 	QDomNodeList childNodes = elem.childNodes();
 	for (int i = 0; i < childNodes.count(); ++i)

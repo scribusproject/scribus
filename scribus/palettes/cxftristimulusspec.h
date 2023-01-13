@@ -24,7 +24,7 @@ public:
 	
 	bool isValid() const;
 	bool isSupported() const;
-	bool parse(QDomElement& elem);
+	bool parse(const QDomElement& elem);
 	void reset();
 	
 protected:

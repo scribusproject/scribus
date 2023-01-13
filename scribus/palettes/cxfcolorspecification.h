@@ -30,7 +30,7 @@ public:
 	const CxfTristimulusSpec& tristimulusSpec() const { return m_tristimulusSpec; }
 	
 	bool isValid() const;
-	bool parse(QDomElement& elem);
+	bool parse(const QDomElement& elem);
 	
 	void reset();
 	
@@ -44,6 +44,6 @@ protected:
 	CxfTristimulusSpec m_tristimulusSpec;
 };
 
-typedef QSharedPointer<CxfColorSpecification> CxfColorSpecificationShPtr;
+using CxfColorSpecificationShPtr = QSharedPointer<CxfColorSpecification>;
 
 #endif

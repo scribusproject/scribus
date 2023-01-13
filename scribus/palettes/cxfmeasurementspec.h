@@ -19,7 +19,7 @@ public:
 	CxfMeasurementSpec();
 	
 	bool isValid() const;
-	bool parse(QDomElement& elem);
+	bool parse(const QDomElement& elem);
 	
 	CxfMeasurementType measurementType() const { return m_measurementType; }
 	
