@@ -19,14 +19,9 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_formats.h"
 
-PaletteLoader_sK1::PaletteLoader_sK1()
-{
-
-}
-
 bool PaletteLoader_sK1::isFileSupported(const QString & fileName) const
 {
-	QFileInfo fi = QFileInfo(fileName);
+	QFileInfo fi(fileName);
 	QString ext = fi.suffix().toLower();
 	if (ext != "skp")
 		return false;
@@ -67,11 +62,10 @@ bool PaletteLoader_sK1::importFile(const QString& fileName, bool /*merge*/)
 			QString colorName;
 			if (isCMYK)
 			{
-				double c, m, y, k;
-				c = pg.attribute("c", "0").toDouble();
-				m = pg.attribute("m", "0").toDouble();
-				y = pg.attribute("y", "0").toDouble();
-				k = pg.attribute("k", "0").toDouble();
+				double c = pg.attribute("c", "0").toDouble();
+				double m = pg.attribute("m", "0").toDouble();
+				double y = pg.attribute("y", "0").toDouble();
+				double k = pg.attribute("k", "0").toDouble();
 				colorName = pg.attribute("name", "");
 				if (!colorName.isEmpty())
 				{
@@ -83,10 +77,9 @@ bool PaletteLoader_sK1::importFile(const QString& fileName, bool /*merge*/)
 			}
 			else
 			{
-				double r, g, b;
-				r = pg.attribute("r", "0").toDouble();
-				g = pg.attribute("g", "0").toDouble();
-				b = pg.attribute("b", "0").toDouble();
+				double r = pg.attribute("r", "0").toDouble();
+				double g = pg.attribute("g", "0").toDouble();
+				double b = pg.attribute("b", "0").toDouble();
 				colorName = pg.attribute("name", "");
 				if (!colorName.isEmpty())
 				{

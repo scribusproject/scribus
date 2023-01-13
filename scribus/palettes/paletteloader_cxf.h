@@ -10,8 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QList>
 
-class CxfObject;
-
 #include "cxfdocument.h"
 #include "paletteloader.h"
 #include "scribusapi.h"
@@ -19,6 +17,8 @@ class CxfObject;
 
 #include "colormgmt/sccolormgmtstructs.h"
 #include "colormgmt/scspectralvaluesconvertor.h"
+
+class CxfObject;
 
 class PaletteLoader_CxF : public PaletteLoader
 {
@@ -29,12 +29,12 @@ public:
 	// loadable with this loader. This test must be quick and simple.
 	// It need not verify a file, just confirm that it looks like a 
 	// supported file type
-	virtual bool isFileSupported(const QString & fileName) const;
+	bool isFileSupported(const QString & fileName) const override;
 	
 	// Import colors from specified file
-	virtual bool importFile(const QString& fileName, bool merge);
+	bool importFile(const QString& fileName, bool merge) override;
 	
-protected:
+private:
 	CxfDocument m_cxfDoc;
 	ScSpectralValuesConvertor m_spectrumConvertor;
 
@@ -42,7 +42,7 @@ protected:
 	bool canImportObjectAsCmyk(const CxfObject* object) const;
 	bool canImportObjectAsLab(const CxfObject* object) const;
 
-	typedef bool (PaletteLoader_CxF::*ColorImportFunction)(const CxfObject*);
+	using ColorImportFunction = bool (PaletteLoader_CxF::*)(const CxfObject*);
 
 	bool importObjectAsRgbColor(const CxfObject* object);
 	bool importObjectAsCmykColor(const CxfObject* object);

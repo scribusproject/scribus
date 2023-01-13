@@ -10,25 +10,25 @@ for which a new license (GPL+exception) is in place.
 #include <QHash>
 #include <QString>
 
-class ColorList;
-
 #include "paletteloader.h"
 #include "scribusapi.h"
 #include "vgradient.h"
 
+class ColorList;
+
 class PaletteLoader_Swatchbook : public PaletteLoader
 {
 public:
-	PaletteLoader_Swatchbook();
+	PaletteLoader_Swatchbook() = default;
 	
 	// Examine the passed file and test to see whether it appears to be
 	// loadable with this loader. This test must be quick and simple.
 	// It need not verify a file, just confirm that it looks like a 
 	// supported file type
-	virtual bool isFileSupported(const QString & fileName) const;
+	bool isFileSupported(const QString & fileName) const override;
 	
 	// Import colors from specified file
-	virtual bool importFile(const QString& fileName, bool merge);
+	bool importFile(const QString& fileName, bool merge) override;
 };
 
 #endif

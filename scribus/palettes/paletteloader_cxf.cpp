@@ -29,7 +29,7 @@ PaletteLoader_CxF::PaletteLoader_CxF()
 
 bool PaletteLoader_CxF::isFileSupported(const QString & fileName) const
 {
-	QFileInfo fi = QFileInfo(fileName);
+	QFileInfo fi(fileName);
 	QString ext = fi.suffix().toLower();
 	if (ext != "cxf")
 		return false;
