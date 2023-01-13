@@ -156,7 +156,7 @@ void PrefsManager::initDefaults()
 	appPrefs.uiPrefs.wheelJump = 40;
 	appPrefs.uiPrefs.style = "";
 	/** Set Default window position and size to sane default values which should work on every screen */
-	QScreen* s = QGuiApplication::primaryScreen();
+	const QScreen* s = QGuiApplication::primaryScreen();
 	appPrefs.uiPrefs.mainWinSettings.width = s->availableGeometry().width() * (4.0 / 5.0);
 	appPrefs.uiPrefs.mainWinSettings.height = s->availableGeometry().height() * (4.0 / 5.0);
 	appPrefs.uiPrefs.mainWinSettings.xPosition = (s->availableGeometry().width() - appPrefs.uiPrefs.mainWinSettings.width) / 2;

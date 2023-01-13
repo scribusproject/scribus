@@ -17,11 +17,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_formats.h"
 
-PaletteLoader_PS::PaletteLoader_PS()
-{
-
-}
-
 bool PaletteLoader_PS::isFileSupported(const QString & fileName) const
 {
 	QFileInfo fInfo(fileName);

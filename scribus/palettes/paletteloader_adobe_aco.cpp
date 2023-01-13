@@ -18,14 +18,9 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_formats.h"
 
-PaletteLoader_Adobe_aco::PaletteLoader_Adobe_aco()
-{
-
-}
-
 bool PaletteLoader_Adobe_aco::isFileSupported(const QString & fileName) const
 {
-	QFileInfo fi = QFileInfo(fileName);
+	QFileInfo fi(fileName);
 	QString ext = fi.suffix().toLower();
 	if (ext != "aco")
 		return false;
@@ -87,10 +82,9 @@ bool PaletteLoader_Adobe_aco::importFile(const QString& fileName, bool /*merge*/
 					}
 					else if (colType == 1)		// HSB
 					{
-						uchar hc, sc, bc;
-						hc = componentR >> 8;
-						sc = componentG >> 8;
-						bc = componentB >> 8;
+						uchar hc = componentR >> 8;
+						uchar sc = componentG >> 8;
+						uchar bc = componentB >> 8;
 						HSVTORGB(hc, sc, bc);
 						lf.setRgbColor(hc, sc, bc);
 						validColor = true;
@@ -133,10 +127,9 @@ bool PaletteLoader_Adobe_aco::importFile(const QString& fileName, bool /*merge*/
 			}
 			else if (colType == 1)		// HSB
 			{
-				uchar hc, sc, bc;
-				hc = componentR >> 8;
-				sc = componentG >> 8;
-				bc = componentB >> 8;
+				uchar hc = componentR >> 8;
+				uchar sc = componentG >> 8;
+				uchar bc = componentB >> 8;
 				HSVTORGB(hc, sc, bc);
 				lf.setRgbColor(hc, sc, bc);
 				validColor = true;

@@ -21,14 +21,9 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_formats.h"
 
-PaletteLoader_Swatchbook::PaletteLoader_Swatchbook()
-{
-
-}
-
 bool PaletteLoader_Swatchbook::isFileSupported(const QString & fileName) const
 {
-	QFileInfo fi = QFileInfo(fileName);
+	QFileInfo fi(fileName);
 	QString ext = fi.suffix().toLower();
 	return ext == "sbz";
 }

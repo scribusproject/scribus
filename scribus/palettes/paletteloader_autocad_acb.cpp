@@ -19,11 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_formats.h"
 
-PaletteLoader_Autocad_acb::PaletteLoader_Autocad_acb()
-{
-
-}
-
 bool PaletteLoader_Autocad_acb::isFileSupported(const QString & fileName) const
 {
 	QFile file(fileName);

@@ -17,14 +17,9 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_formats.h"
 
-PaletteLoader_Adobe_ase::PaletteLoader_Adobe_ase()
-{
-
-}
-
 bool PaletteLoader_Adobe_ase::isFileSupported(const QString & fileName) const
 {
-	QFileInfo fi = QFileInfo(fileName);
+	QFileInfo fi(fileName);
 	QString ext = fi.suffix().toLower();
 	if (ext != "ase")
 		return false;
