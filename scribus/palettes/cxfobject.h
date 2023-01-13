@@ -31,17 +31,17 @@ public:
 	bool  hasColor(CxfColorType type) const { return m_colorMap.contains(type); }
 	const CxfColor* color(CxfColorType type) const;
 	
-	bool parse(QDomElement& elem);
+	bool parse(const QDomElement& elem);
 
-protected:
+private:
 	CxfDocument* m_cxfDoc { nullptr };
 	
 	QString m_id;
 	QString m_name;
 	QMap<CxfColorType, CxfColorShPtr> m_colorMap;
 
-	void parseColorValues(QDomElement& elem);
-	void parseDeviceColorValues(QDomElement& elem);
+	void parseColorValues(const QDomElement& elem);
+	void parseDeviceColorValues(const QDomElement& elem);
 };
 
 #endif

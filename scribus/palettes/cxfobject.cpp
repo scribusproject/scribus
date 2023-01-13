@@ -21,7 +21,7 @@ const CxfColor* CxfObject::color(CxfColorType type) const
 	return colorPtr.data();
 }
 
-bool CxfObject::parse(QDomElement& elem)
+bool CxfObject::parse(const QDomElement& elem)
 {
 	m_id = elem.attribute("Id");
 	if (m_id.isEmpty())
@@ -42,7 +42,7 @@ bool CxfObject::parse(QDomElement& elem)
 	return (m_colorMap.count() > 0);
 }
 
-void CxfObject::parseColorValues(QDomElement& elem)
+void CxfObject::parseColorValues(const QDomElement& elem)
 {
 	QDomNodeList childNodes = elem.childNodes();
 	for (int i = 0; i < childNodes.count(); ++i)
@@ -105,7 +105,7 @@ void CxfObject::parseColorValues(QDomElement& elem)
 	}
 }
 
-void CxfObject::parseDeviceColorValues(QDomElement& elem)
+void CxfObject::parseDeviceColorValues(const QDomElement& elem)
 {
 	QDomNodeList childNodes = elem.childNodes();
 	for (int i = 0; i < childNodes.count(); ++i)

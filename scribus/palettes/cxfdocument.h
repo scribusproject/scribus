@@ -33,12 +33,12 @@ public:
 	bool parse(const QString& fileName);
 	void reset();
 	
-protected:
+private:
 	QMap<QString, CxfColorSpecificationShPtr> m_colorSpecs;
 	QList<CxfObject*> m_objects;
 	
-	bool parseColorSpecificationCollection(QDomElement& elem);
-	bool parseObjectCollection(QDomElement& elem);
+	bool parseColorSpecificationCollection(const QDomElement& elem);
+	bool parseObjectCollection(const QDomElement& elem);
 };
 
 #endif

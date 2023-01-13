@@ -18,7 +18,7 @@ bool CxfColorSpecification::isValid() const
 	return valid;
 }
 
-bool CxfColorSpecification::parse(QDomElement& elem)
+bool CxfColorSpecification::parse(const QDomElement& elem)
 {
 	reset();
 	

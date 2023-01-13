@@ -25,7 +25,7 @@ bool CxfMeasurementSpec::isValid() const
 	return m_measurementType != cxfMeasurementUnknown;
 }
 
-bool CxfMeasurementSpec::parse(QDomElement& elem)
+bool CxfMeasurementSpec::parse(const QDomElement& elem)
 {
 	bool convOk = false;
 	bool parsingError = false;

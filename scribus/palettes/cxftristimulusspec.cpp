@@ -33,7 +33,7 @@ bool CxfTristimulusSpec::isSupported() const
 	return supported;
 }
 
-bool CxfTristimulusSpec::parse(QDomElement& elem)
+bool CxfTristimulusSpec::parse(const QDomElement& elem)
 {
 	bool parsingError = false;
 	reset();
