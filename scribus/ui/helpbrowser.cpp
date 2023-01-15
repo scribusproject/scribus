@@ -164,7 +164,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QSt
 	firstRun = true;
 	setupUi(this);
 	helpNav = new HelpNavigation(this);
-#if defined(Q_OS_MAC) && defined(HELP_NAV_AS_DRAWER)
+#if defined(Q_OS_MACOS) && defined(HELP_NAV_AS_DRAWER)
 	// TODO
 #else
 	QDockWidget * dckw = new QDockWidget(tr("Navigation"),this);

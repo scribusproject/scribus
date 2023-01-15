@@ -17,7 +17,7 @@
 #include <QString>
 
 #include <clocale>
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
 #include <xlocale.h>
 #endif
 

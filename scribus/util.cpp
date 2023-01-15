@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <csignal>
 
-#if !defined(_WIN32) && !defined(Q_OS_MAC) 
+#if !defined(_WIN32) && !defined(Q_OS_MACOS) 
 #include <execinfo.h>
 #include <cxxabi.h>
 #endif

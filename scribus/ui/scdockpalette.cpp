@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 ScDockPalette::ScDockPalette(QWidget * parent, const QString& prefsContext, Qt::WindowFlags f)
-#if defined(Q_OS_MAC) || defined(Q_OS_WIN)
+#if defined(Q_OS_MACOS) || defined(Q_OS_WIN)
 	: QDockWidget(parent, f | Qt::Tool | Qt::CustomizeWindowHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint)
 #else
 	: QDockWidget(parent, f | Qt::Tool | Qt::CustomizeWindowHint)
@@ -169,7 +169,7 @@ void ScDockPalette::showEvent(QShowEvent *showEvent)
 			int vleft   = qMin(qMax(scr.left() - vwidth, m_palettePrefs->getInt("left")),
 							   scr.right());
 			int vtop = qMin(m_palettePrefs->getInt("top"), d->height());
-#if defined(Q_OS_MAC) || defined(_WIN32)
+#if defined(Q_OS_MACOS) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
 			vtop    = qMax(64, vtop);
 #else

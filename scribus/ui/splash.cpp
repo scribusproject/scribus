@@ -24,7 +24,7 @@ ScSplashScreen::ScSplashScreen( const QPixmap & pixmap, Qt::WindowFlags f ) : QS
 	QFont font("Lucida Sans Unicode", 9);
 #elif defined(__INNOTEK_LIBC__)
 	QFont font("WarpSans", 8);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 	QFont font("Helvetica Regular", 11);
 #else
 	QFont font("DejaVu Sans", 8);
@@ -62,7 +62,7 @@ void ScSplashScreen::drawContents(QPainter* painter)
 	lgf.setPointSize(30);
 #elif defined(__INNOTEK_LIBC__)
 	lgf.setPointSize(29);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 	lgf.setPointSize(32);
 #else
 	lgf.setPointSize(29);
@@ -84,7 +84,7 @@ void ScSplashScreen::drawContents(QPainter* painter)
 		wf.setPointSize(10);
 #elif defined(__INNOTEK_LIBC__)
 		wf.setPointSize(9);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 		wf.setPointSize(12);
 #else
 		wf.setPointSize(9);

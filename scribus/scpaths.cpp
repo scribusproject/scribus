@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 // On Qt/Mac we need CoreFoundation to discover the location
 // of the app bundle.
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
@@ -54,7 +54,7 @@ ScPaths::ScPaths()
 {
 // On *nix, all paths are initialized to compile-time defaults passed in
 // as preprocessor macros and set by autoconf.
-#if !defined(Q_OS_MAC) && !defined(_WIN32) && defined(WANT_RELOCATABLE)
+#if !defined(Q_OS_MACOS) && !defined(_WIN32) && defined(WANT_RELOCATABLE)
 	QString appPath = qApp->applicationDirPath();
 	m_docDir = appPath + "/../" + QString(DOCDIR);
 	m_iconDir = appPath + "/../" + QString(ICONDIR);
@@ -65,7 +65,7 @@ ScPaths::ScPaths()
 	m_scriptDir = appPath + "/../" + QString(SCRIPTSDIR);
 	m_shareDir = appPath + "/../" + QString(SHAREDIR);
 	m_templateDir = appPath + "/../" + QString(TEMPLATEDIR);
-#elif !defined(Q_OS_MAC) && !defined(_WIN32)
+#elif !defined(Q_OS_MACOS) && !defined(_WIN32)
 	m_docDir = QString(DOCDIR);
 	m_iconDir = QString(ICONDIR);
 	m_libDir = QString(LIBDIR);
@@ -79,7 +79,7 @@ ScPaths::ScPaths()
 
 // On MacOS/X, override the compile-time settings with a location
 // obtained from the system.
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	QString pathPtr(bundleDir());
 	qDebug() << QString("scpaths: bundle at %1").arg(pathPtr);
 	m_shareDir = QString("%1/Contents/share/scribus/").arg(pathPtr);
@@ -146,7 +146,7 @@ QString ScPaths::bundleDir() const
 {
 	// On MacOS/X, override the compile-time settings with a location
 // obtained from the system.
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	// Set up the various app paths to look inside the app bundle
 	CFURLRef pluginRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
 	CFStringRef macPath = CFURLCopyFileSystemPath(pluginRef, kCFURLPOSIXPathStyle);
@@ -161,21 +161,25 @@ QString ScPaths::bundleDir() const
 			--p;
 		++p;
 		*p = '\0';
-		if (strcmp("/bin", p-4) == 0) {
+		if (strcmp("/bin", p-4) == 0)
+		{
 			p -= 4;
 			*p = '\0';
 		}
-		if (strcmp("/MacOS", p-6) == 0) {
+		if (strcmp("/MacOS", p-6) == 0)
+		{
 			p -= 6;
 			*p = '\0';
 		}
-		if (strcmp("/Contents", p-9) == 0) {
+		if (strcmp("/Contents", p-9) == 0)
+		{
 			p -= 9;
 			*p = '\0';
 		}
+		QString q_pathPtr(pathPtr);
 		CFRelease(pluginRef);
 		CFRelease(macPath);
-		return QString("%1").arg(pathPtr);
+		return q_pathPtr;
 	}
 	char buf[2048];
 	CFStringGetCString (macPath, buf, 2048, kCFStringEncodingUTF8);
@@ -195,7 +199,7 @@ QString ScPaths::bundleDir() const
 
 QString ScPaths::defaultImageEditorApp()
 {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	QString appName("/Applications/GIMP.app");
 	QFile app(appName);
 	if (app.exists())
@@ -270,7 +274,7 @@ QStringList ScPaths::spellDirs() const
 	QStringList spellDirs;
 	spellDirs.append(userDictDir(ScPaths::Spell, false));
 	spellDirs.append(m_shareDir + "dicts/spelling/");
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	QString macPortsPath("/opt/local/share/hunspell/");
 	QString finkPath("/sw/share/hunspell/");
 	QString osxLibreOfficePath("/Applications/LibreOffice.app/Contents/Resources/extensions");
@@ -332,7 +336,7 @@ QStringList ScPaths::hyphDirs() const
 	QStringList hyphDirs;
 	hyphDirs.append(userDictDir(ScPaths::Hyph, false));
 	hyphDirs.append(m_shareDir + "dicts/hyph/");
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	QString macPortsPath("/opt/local/share/hunspell/");
 	QString finkPath("/sw/share/hunspell/");
 	QString osxLibreOfficePath("/Applications/LibreOffice.app/Contents/Resources/extensions");
@@ -395,7 +399,7 @@ QStringList ScPaths::hyphDirs() const
 QStringList ScPaths::systemFontDirs()
 {
 	QStringList fontDirs;
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	fontDirs.append(QDir::homePath() + "/Library/Fonts/");
 	fontDirs.append("/Library/Fonts/");
 	fontDirs.append("/Network/Library/Fonts/");
@@ -418,7 +422,7 @@ QStringList ScPaths::systemFontDirs()
 QStringList ScPaths::systemProfilesDirs()
 {
 	QStringList iccProfDirs;
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	iccProfDirs.append(QDir::homePath()+"/Library/ColorSync/Profiles/");
 	iccProfDirs.append("/System/Library/ColorSync/Profiles/");
 	iccProfDirs.append("/Library/ColorSync/Profiles/");
@@ -438,8 +442,8 @@ QStringList ScPaths::systemProfilesDirs()
 	osVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO); // Necessary for GetVersionEx to succeed
 	GetVersionEx(&osVersion);  // Get Windows version infos
 	GetSystemDirectoryW(sysDir, MAX_PATH); // windowsSpecialDir(CSIDL_SYSTEM) fails on Win9x
-	QString winSysDir = QString::fromUtf16((const ushort*) sysDir);
-	winSysDir = winSysDir.replace('\\','/');
+	QString winSysDir(QString::fromUtf16((const ushort*) sysDir));
+	winSysDir.replace('\\','/');
 	if (osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT) // Windows NT/2k/XP
 	{
 		if (osVersion.dwMajorVersion >= 5) // for 2k and XP dwMajorVersion == 5 
@@ -458,7 +462,7 @@ QStringList ScPaths::dirsFromEnvVar(const QString& envVar, const QString& dirToF
 {
 	QChar sep(ScPaths::envPathSeparator);
 	QStringList dirs;
-#if defined(Q_OS_MAC) || defined(Q_OS_UNIX)
+#if defined(Q_OS_MACOS) || defined(Q_OS_UNIX)
 	const QStringList env(QProcess::systemEnvironment());
 	QString path_data;
 	for (const QString& line : env)
@@ -482,7 +486,7 @@ QStringList ScPaths::dirsFromEnvVar(const QString& envVar, const QString& dirToF
 QStringList ScPaths::systemCreatePalettesDirs()
 {
 	QStringList createDirs;
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	createDirs.append(QDir::homePath()+"/create/swatches/");
 	createDirs.append(QDir::homePath()+"/.create/swatches/");
 #elif defined(Q_OS_LINUX)
@@ -520,7 +524,7 @@ QString ScPaths::oldApplicationDataDir()
 #ifdef APPLICATION_DATA_DIR
 	return QDir::homePath() + "/" + APPLICATION_DATA_DIR + "/";
 #else
-	#ifdef Q_OS_MAC
+	#ifdef Q_OS_MACOS
 		return (QDir::homePath() + "/Library/Preferences/Scribus/");
 	#else
 		return (QDir::homePath() + "/.scribus/");

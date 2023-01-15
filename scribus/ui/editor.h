@@ -18,7 +18,7 @@ class QVBoxLayout;
 class QAction;
 class ScribusView;
 class PrefsContext;
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	class QHBoxLayout;
 	class QPushButton;
 #endif
@@ -48,7 +48,7 @@ public:
 	QAction* clearAct;
 	QAction* getFieldAct;
 	ScribusView* view;
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	QPushButton* PushButton1;
 	QPushButton* PushButton2;
 #endif
@@ -62,7 +62,7 @@ private slots:
 
 protected:
 	QVBoxLayout* EditorLayout;
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	QHBoxLayout* Layout1_2;
 #endif
 	PrefsContext* dirs;

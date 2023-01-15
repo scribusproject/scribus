@@ -44,7 +44,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "iconmanager.h"
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #define topline 1
 #else
 #define topline 3

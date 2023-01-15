@@ -481,7 +481,7 @@ void CommonStrings::languageChange()
 	CommonStrings::altModifier=tr("Alt");
 	CommonStrings::shiftModifier=tr("Shift");
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	CommonStrings::controlModifier=tr("Cmd");
 	CommonStrings::metaModifier=tr("Ctrl");
 #endif
@@ -489,7 +489,7 @@ void CommonStrings::languageChange()
 	CommonStrings::controlModifier=tr("Ctrl");
 	CommonStrings::metaModifier=tr("Windows");
 #endif
-#if !defined(Q_OS_WIN32) && !defined(Q_OS_MAC)
+#if !defined(Q_OS_WIN32) && !defined(Q_OS_MACOS)
 	CommonStrings::controlModifier=tr("Ctrl");
 	CommonStrings::metaModifier=tr("Meta");
 #endif

@@ -38,7 +38,7 @@ tfDia::tfDia()
 
 	//Get last window geometry values
 	int vleft   = qMax(0, prefs->getInt("x", 10));
-#if defined(Q_OS_MAC) || defined(_WIN32)
+#if defined(Q_OS_MACOS) || defined(_WIN32)
 	int vtop    = qMax(64, prefs->getInt("y", 10));
 #else
 	int vtop    = qMax(0, prefs->getInt("y", 10));

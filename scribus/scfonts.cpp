@@ -196,7 +196,7 @@ void SCFonts::addScalableFonts(const QString &path, const QString& DocName)
 			{
 				addScalableFont(pathfile, library, DocName);
 			}
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 			else if (ext.isEmpty() && DocName.isEmpty())
 			{
 				bool error = addScalableFont(pathfile, library, DocName);

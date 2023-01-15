@@ -8,7 +8,7 @@ DownloadsPalette::DownloadsPalette(QWidget* parent) : ScrPaletteBase(parent, "Do
 
 void DownloadsPalette::languageChange()
 {
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
 	showInButton->setText( tr( "Show In Finder" ) );
 #endif
 #if defined(Q_OS_WIN32)
