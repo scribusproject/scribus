@@ -352,7 +352,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	m_prefsManager.applyLoadedShortCuts();
 	initKeyboardShortcuts();
 
-	resize(610, 600);
+	resize(800, 600);
 	connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(newActWin(QMdiSubWindow*)));
 	//Connect windows cascade and tile actions to the workspace after its created. Only depends on mdiArea created.
 	connect( scrActions["windowsCascade"], SIGNAL(triggered()) , mdiArea, SLOT(cascadeSubWindows()) );
