@@ -338,7 +338,10 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 		hb_font_set_scale(hbFont, style.fontSize(), style.fontSize());
 		FT_Face ftFace = hb_ft_font_get_face(hbFont);
 		if (ftFace)
+		{
 			FT_Set_Char_Size(ftFace, style.fontSize(), 0, 72, 0);
+			hb_ft_font_changed(hbFont);
+		}
 
 		hb_direction_t hbDirection = (textRun.dir == UBIDI_LTR) ? HB_DIRECTION_LTR : HB_DIRECTION_RTL;
 		hb_script_t hbScript = hb_icu_script_to_script(textRun.script);

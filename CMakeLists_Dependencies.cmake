@@ -330,7 +330,7 @@ if (LIBREVENGE_FOUND)
 endif()
 
 # CTL support
-pkg_check_modules(HARFBUZZ REQUIRED harfbuzz>=0.9.42 harfbuzz-icu)
+pkg_check_modules(HARFBUZZ REQUIRED harfbuzz>=1.0.5 harfbuzz-icu)
 if (HARFBUZZ_FOUND)
 	message("Harfbuzz library Found OK")
 endif()
