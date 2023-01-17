@@ -33,7 +33,9 @@
 
 <dt><a name="-selectObject"><strong>selectObject</strong></a>(...)</dt>
 <dd><code>selectObject("name")</code>
-<p>Selects the object with the given "name". If what you wish to do is to paste a copy of the object to another page, you must first <b>copyObject()</b>, then <b>pasteObject()</b>. See <b>Manipulating Objects</b></p></dd>
+<p>Adds the object with the given "name" to the current selection.</p>
+<p>Lots of scripter function use the concept of "currently selected item" if an object name is not provided. In the case of multiple selections, the currently selected item is always the first item in the selection. As a consequence if you are planning to use object "name" as the currently selected item for following operations and current selection is not empty, you should call deselectAll() before calling this function.</p>
+<p>If what you wish to do is to paste a copy of the object to another page, you must first <b>copyObject()</b>, then <b>pasteObject()</b>. See <b>Manipulating Objects</b>.</p></dd>
 
 </dl>
 </body>
