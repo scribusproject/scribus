@@ -15,14 +15,23 @@
 <dt><a name="-getSelectedObject"><strong>getSelectedObject</strong></a>(...)</dt>
 <dd><code>getSelectedObject([nr]) -&gt; chaîne</code>
 <p>Retourne le nom de l'objet sélectionné. "nr", s'il est fourni, indique le numéro de l'objet sélectionné, par exemple 0 signifie le premier objet sélectionné, 1, le second objet sélectionné et ainsi de suite.</p></dd>
-	
+
+<dt><a name="-moveSelectionToBack"><strong>moveSelectionToBack</strong></a>(...)</dt>
+<dd><code>moveSelectionToBack()</code>
+<p>Déplace les objets contenus dans la sélection courante à l'arrière plan.</p></dd>
+
+<dt><a name="-moveSelectionToFront"><strong>moveSelectionToFront</strong></a>(...)</dt>
+<dd><code>moveSelectionToFront()</code>
+<p>Déplace les objets contenus dans la sélection courante au premier plan.</p></dd>
+
 <dt><a name="-selectionCount"><strong>selectionCount</strong></a>(...)</dt>
 <dd><code>selectionCount() -&gt; nombre entier</code>
 <p>Retourne le nombre d'objets sélectionnés.</p></dd>
 	
 <dt><a name="-selectObject"><strong>selectObject</strong></a>(...)</dt>
 <dd><code>selectObject("nom")</code>
-<p>Sélectionne l'objet nommé "nom".</p></dd>
+<p>Ajoute l'objet nommé "nom" à la sélection courante.</p>
+<p>Dans le cas où la sélection courante n'est pas vide et si vous désirez utiliser l'objet "nom" en tant qu'objet sélectionné courant pour des opérations ultérieures, vous devez appeler deselectAll() avant d'appeler cette fonction.</p></dd>
 
 </dl>
 </body>
