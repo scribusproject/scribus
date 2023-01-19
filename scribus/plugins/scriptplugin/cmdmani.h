@@ -100,7 +100,7 @@ Lots of scripter function use the concept of \"currently selected item\" if an o
 is not provided. In the case of multiple selections, the currently selected item is always\n\
 the first item in the selection. As a consequence if you are planning to use object \"name\"\n\
 as the currently selected item for following operations and current selection is not empty,\n\
-you should call deselectAll() before calling this function.\n\
+you will have to call deselectAll() before calling this function.\n\
 "));
 /*! Count selection */
 PyObject *scribus_selectobject(PyObject * /*self*/, PyObject* args);
