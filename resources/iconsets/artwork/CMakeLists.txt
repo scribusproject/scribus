@@ -16,8 +16,8 @@ if(NOT WIN32 AND NOT APPLE)
 			DESTINATION ${SYSICONDIR}/${res}/apps/
 		)
 	ENDFOREACH(res)
-	
-	FOREACH(res 64x64)
+		
+	FOREACH(res 16x16 32x32 64x64 128x128 256x256)
 		INSTALL(FILES
 			application-vnd.scribus_${res}.png
 			RENAME application-vnd.scribus.png
