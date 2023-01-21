@@ -309,13 +309,13 @@ public:
 	 * @brief Return the number of the current layer
 	 * @return Active layer number
 	 */
-	int activeLayer();
+	int activeLayer() const;
 
 	/**
 	 * @brief Return the name of the current layer
 	 * @return Name of the layer
 	 */
-	const QString& activeLayerName();
+	const QString& activeLayerName() const;
 	/**
 	 * @brief Set the active layer via the layer number
 	 * @param layerToActivate Number of the layer

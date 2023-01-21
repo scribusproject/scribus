@@ -2881,13 +2881,13 @@ bool ScribusDoc::deleteLayer(int layerID, bool deleteItems)
 }
 
 
-int ScribusDoc::activeLayer()
+int ScribusDoc::activeLayer() const
 {
 	return m_ActiveLayer;
 }
 
 
-const QString& ScribusDoc::activeLayerName()
+const QString& ScribusDoc::activeLayerName() const
 {
 	const ScLayer* ll = Layers.layerByID(m_ActiveLayer);
 	Q_ASSERT(ll);

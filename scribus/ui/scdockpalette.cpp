@@ -88,23 +88,7 @@ void ScDockPalette::startup()
 {
 	setFontSize();
 	if (m_visibleOnStartup)
-	{
-#if QT_VERSION < 0x050600
-		QMainWindow* mainWindow = dynamic_cast<QMainWindow*>(parent());
-		if (palettePrefs && mainWindow)
-		{
-			Qt::DockWidgetArea area = Qt::NoDockWidgetArea;
-			area = (Qt::DockWidgetArea) palettePrefs->getInt("area", (int) Qt::NoDockWidgetArea);
-			Qt::DockWidgetAreas areas = this->allowedAreas();
-			if (areas.testFlag(area))
-			{
-				mainWindow->addDockWidget(area, this);
-				setFloating (palettePrefs->getBool("floating"));
-			}
-		}
-#endif
 		show();
-	}
 	else
 		hide();
 	emit paletteShown(m_visibleOnStartup);

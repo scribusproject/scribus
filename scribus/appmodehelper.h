@@ -41,22 +41,22 @@ class AppModeHelper : public QObject
 		void setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc, int newMode);
 		void enableActionsForSelection(ScribusMainWindow* scmw, ScribusDoc *doc);
 		void setModeActionsPerMode(int newMode);
-		void setActionGroupEnabled(QMap<QString, QPointer<ScrAction> > *, bool enabled);
+		void setActionGroupEnabled(const QMap<QString, QPointer<ScrAction> > *, bool enabled);
 		void setTextEditMode(bool b);
 		void setSpecialEditMode(bool b);
 		void setFrameEditMode(bool b);
-		void setSymbolEditMode(bool b, ScribusDoc* doc);
-		void setInlineEditMode(bool b, ScribusDoc* doc);
-		void setMasterPageEditMode(bool b, ScribusDoc *doc);
+		void setSymbolEditMode(bool b, const ScribusDoc* doc);
+		void setInlineEditMode(bool b, const ScribusDoc* doc);
+		void setMasterPageEditMode(bool b, const ScribusDoc *doc);
 		void updateActionPluginsActions(ScribusDoc* doc);
-		void updateTableMenuActions(ScribusDoc* doc);
+		void updateTableMenuActions(const ScribusDoc* doc);
 		void changeLayer(ScribusDoc *doc, bool clipScrapHaveData);
-		void mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData);
-		void mainWindowSwitchWin(ScribusDoc *doc);
+		void mainWindowHasNewDoc(const ScribusDoc *doc, bool clipScrapHaveData);
+		void mainWindowSwitchWin(const ScribusDoc *doc);
 		void mainWindowCloseLastDoc();
 		void setPreviewMode(bool b);
 		//! \brief enable or disable the unicode actions and their menus
-		void enableTextActions(bool enabled, const QString& fontName=QString());
+		void enableTextActions(bool enabled, const QString& fontName = QString());
 		void enableTextStyleActions(bool enabled);
 		void setStartupActionsEnabled(bool enabled);
 
