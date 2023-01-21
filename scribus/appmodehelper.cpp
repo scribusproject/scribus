@@ -1008,17 +1008,17 @@ void AppModeHelper::setModeActionsPerMode(int newMode)
 #endif
 }
 
-void AppModeHelper::setActionGroupEnabled(QMap<QString, QPointer<ScrAction> >*ag, bool enabled)
+void AppModeHelper::setActionGroupEnabled(const QMap<QString, QPointer<ScrAction> >* ag, bool enabled)
 {
-	if (ag==nullptr)
+	if (ag == nullptr)
 		return;
-	for( QMap<QString, QPointer<ScrAction> >::Iterator it = ag->begin(); it!=ag->end(); ++it )
-			(*it)->setEnabled(enabled);
+	for (auto it = ag->begin(); it != ag->end(); ++it)
+		(*it)->setEnabled(enabled);
 }
 
 void AppModeHelper::setTextEditMode(bool b)
 {
-	bool b2=!b;
+	bool b2 = !b;
 
 	(*a_scrActions)["itemDuplicate"]->setEnabled(b2);
 	(*a_scrActions)["itemMulDuplicate"]->setEnabled(b2);
@@ -1150,9 +1150,9 @@ void AppModeHelper::setFrameEditMode(bool b)
 	setActionGroupEnabled(a_scrLayersActions, b2);
 }
 
-void AppModeHelper::setSymbolEditMode(bool b, ScribusDoc* doc)
+void AppModeHelper::setSymbolEditMode(bool b, const ScribusDoc* doc)
 {
-	bool b2=!b;
+	bool b2 = !b;
 	(*a_scrActions)["pageInsert"]->setEnabled(b2);
 	(*a_scrActions)["pageImport"]->setEnabled(b2);
 	(*a_scrActions)["pageCopy"]->setEnabled(b2);
@@ -1199,7 +1199,7 @@ void AppModeHelper::setSymbolEditMode(bool b, ScribusDoc* doc)
 #endif
 }
 
-void AppModeHelper::setInlineEditMode(bool b, ScribusDoc *doc)
+void AppModeHelper::setInlineEditMode(bool b, const ScribusDoc *doc)
 {
 	bool b2 = !b;
 	(*a_scrActions)["pageInsert"]->setEnabled(b2);
@@ -1254,9 +1254,9 @@ void AppModeHelper::setInlineEditMode(bool b, ScribusDoc *doc)
 #endif
 }
 
-void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
+void AppModeHelper::setMasterPageEditMode(bool b, const ScribusDoc* doc)
 {
-	bool b2=!b;
+	bool b2 = !b;
 	(*a_scrActions)["pageInsert"]->setEnabled(b2);
 	(*a_scrActions)["pageImport"]->setEnabled(b2);
 	(*a_scrActions)["pageDelete"]->setEnabled(b2);
@@ -1349,11 +1349,11 @@ void AppModeHelper::updateActionPluginsActions(ScribusDoc* doc)
 	}
 }
 
-void AppModeHelper::updateTableMenuActions(ScribusDoc* doc)
+void AppModeHelper::updateTableMenuActions(const ScribusDoc* doc)
 {
 	// Determine state.
 	PageItem* item = doc ? doc->m_Selection->itemAt(0) : nullptr;
-	PageItem_Table* table = (item && item->isTable()) ? item->asTable() : nullptr;
+	const PageItem_Table* table = (item && item->isTable()) ? item->asTable() : nullptr;
 
 	if (!doc || !table)
 	{
@@ -1427,7 +1427,7 @@ void AppModeHelper::changeLayer(ScribusDoc *doc, bool clipScrapHaveData)
 	(*a_scrActions)["toolsInsertArc"]->setEnabled(setter);
 	(*a_scrActions)["toolsInsertSpiral"]->setEnabled(setter);
 	(*a_scrActions)["toolsInsertRenderFrame"]->setEnabled(setter);
-	bool setter2=doc->masterPageMode() ? false : setter;
+	bool setter2 = doc->masterPageMode() ? false : setter;
 	(*a_scrActions)["toolsPDFPushButton"]->setEnabled(setter2);
 	(*a_scrActions)["toolsPDFRadioButton"]->setEnabled(setter2);
 	(*a_scrActions)["toolsPDFTextField"]->setEnabled(setter2);
@@ -1440,7 +1440,7 @@ void AppModeHelper::changeLayer(ScribusDoc *doc, bool clipScrapHaveData)
 	updateActionPluginsActions(doc);
 }
 
-void AppModeHelper::mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData)
+void AppModeHelper::mainWindowHasNewDoc(const ScribusDoc *doc, bool clipScrapHaveData)
 {
 	bool layerUnlocked = !doc->layerLocked(doc->activeLayer());
 
@@ -1538,7 +1538,7 @@ void AppModeHelper::mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData)
 	(*a_scrActions)["pageManageProperties"]->setEnabled(true);
 }
 
-void AppModeHelper::mainWindowSwitchWin(ScribusDoc *doc)
+void AppModeHelper::mainWindowSwitchWin(const ScribusDoc *doc)
 {
 	(*a_scrActions)["fileClose"]->setEnabled(true);
 	if (doc->masterPageMode() || doc->symbolEditMode() || doc->inlineEditMode())
