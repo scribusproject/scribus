@@ -88,19 +88,19 @@ public:
 	/*! \brief Return the color parts
 	\retval uint red part
 	*/
-	uint getRed();
+	uint getRed() const;
 	/*! \brief Return the color parts
 	\retval uint green part
 	*/
-	uint getGreen();
+	uint getGreen() const;
 	/*! \brief Return the color parts
 	\retval uint blue part
 	*/
-	uint getBlue();
+	uint getBlue() const;
 	/*! \brief Return QColor
 	\retval QColor new QColor
 	*/
-	QColor getColor();
+	QColor getColor() const;
 
 private:
 	/*! \brief Convert matrix */

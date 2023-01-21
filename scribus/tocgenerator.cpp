@@ -20,6 +20,8 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include "tocgenerator.h"
 
+#include <memory>
+
 #include <QMap>
 #include <QString>
 
@@ -32,9 +34,10 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scribusdoc.h"
 
-TOCGenerator::TOCGenerator(QObject *parent, ScribusDoc *doc) : QObject(parent)
+TOCGenerator::TOCGenerator(QObject *parent, ScribusDoc *doc)
+            : QObject(parent), m_doc(doc)
 {
-	m_doc = doc;
+
 }
 
 void TOCGenerator::setDoc(ScribusDoc *doc)
@@ -44,22 +47,18 @@ void TOCGenerator::setDoc(ScribusDoc *doc)
 
 PageItem* TOCGenerator::findTargetFrame(const QString &targetFrameName)
 {
-	PageItem* targetFrame=nullptr;
-	if (m_doc != nullptr)
+	if (!m_doc)
+		return nullptr;
+
+	for (int i = 0; i < m_doc->DocItems.count(); ++i)
 	{
-		for (int d = 0; d < m_doc->DocItems.count(); ++d)
-		{
-			if (m_doc->DocItems.at(d) != nullptr)
-			{
-				if (m_doc->DocItems.at(d)->itemType()==PageItem::TextFrame && m_doc->DocItems.at(d)->itemName()==targetFrameName)
-				{
-					targetFrame=m_doc->DocItems.at(d);
-					break;
-				}
-			}
-		}
+		PageItem* docItem = m_doc->DocItems.at(i);
+		if (docItem == nullptr)
+			continue;
+		if (docItem->itemType() == PageItem::TextFrame && docItem->itemName() == targetFrameName)
+			return docItem;
 	}
-	return targetFrame;
+	return nullptr;
 }
 
 void TOCGenerator::generateDefault()
@@ -75,15 +74,14 @@ void TOCGenerator::generateDefault()
 		if (tocFrame == nullptr)
 			continue;
 
-		PageItem *currentDocItem;
+		const PageItem *currentDocItem;
 		QMap<QString, QString> tocMap;
 
-		int *pageCounter = new int[m_doc->DocPages.count()];
-		if (pageCounter == nullptr)
-			return;
-		int pageNumberWidth = QString("%1").arg(m_doc->DocPages.count()).length();
+		std::unique_ptr<int[]> pageCounter(new int[m_doc->DocPages.count()]);
 		for (int i = 0; i < m_doc->DocPages.count(); ++i)
 			pageCounter[i] = 0;
+
+		int pageNumberWidth = QString("%1").arg(m_doc->DocPages.count()).length();
 
 		for (PageItemIterator itemIter(m_doc->DocItems); *itemIter; ++itemIter)
 		{
@@ -125,13 +123,13 @@ void TOCGenerator::generateDefault()
 		gtWriter writer(false, tocFrame);
 		writer.setUpdateParagraphStyles(false);
 		writer.setOverridePStyleFont(false);
-		gtFrameStyle* fstyle = writer.getDefaultStyle();
+		const gtFrameStyle* fstyle = writer.getDefaultStyle();
 		gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
 		pstyle->setName(tocSetupIt->textStyle);
 		writer.setParagraphStyle(pstyle);
 		
 		QString oldTocPage;
-		for (QMap<QString, QString>::Iterator tocIt=tocMap.begin(); tocIt != tocMap.end();++tocIt)
+		for (QMap<QString, QString>::Iterator tocIt = tocMap.begin(); tocIt != tocMap.end(); ++tocIt)
 		{
 			QString tocPage(tocIt.key().section( ',', 2, 2 ).trimmed());
 			QString tocLine;
@@ -150,7 +148,5 @@ void TOCGenerator::generateDefault()
 			tocLine += "\n";
 			writer.append(tocLine);
 		}
-
-		delete[] pageCounter;
 	}
 }

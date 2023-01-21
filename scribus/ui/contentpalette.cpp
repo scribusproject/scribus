@@ -167,7 +167,7 @@ void ContentPalette::AppModeChanged()
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		if (m_item->isTable())
 		{
@@ -373,7 +373,7 @@ void ContentPalette::update(const CharStyle& style)
 	textPal->updateCharStyle(style);
 }
 
-void ContentPalette::update(PageItem_TextFrame* text)
+void ContentPalette::update(PageItem_TextFrame* /*text*/)
 {
 }
 

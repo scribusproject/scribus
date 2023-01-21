@@ -92,9 +92,9 @@ ApplicationPrefs* PrefsManager::applicationPrefs()
 	return &appPrefs;
 }
 
-void PrefsManager::setNewPrefs(ApplicationPrefs& newPrefs)
+void PrefsManager::setNewPrefs(const ApplicationPrefs& newPrefs)
 {
-	appPrefs=newPrefs;
+	appPrefs = newPrefs;
 }
 
 PrefsFile* PrefsManager::applicationPrefsFile()
@@ -334,9 +334,9 @@ void PrefsManager::initDefaults()
 	appPrefs.displayPrefs.displayScale = dpi / 72.0;
 
 	appPrefs.pathPrefs.documents = ScPaths::userDocumentDir();
-	appPrefs.pathPrefs.colorProfiles = "";
-	appPrefs.pathPrefs.scripts = "";
-	appPrefs.pathPrefs.documentTemplates = "";
+	appPrefs.pathPrefs.colorProfiles.clear();
+	appPrefs.pathPrefs.scripts.clear();
+	appPrefs.pathPrefs.documentTemplates.clear();
 
 	appPrefs.printPreviewPrefs.PrPr_Mode = false;
 	appPrefs.printPreviewPrefs.PrPr_AntiAliasing = true;
@@ -749,14 +749,14 @@ void PrefsManager::initArrowStyles()
 	points.resize(0);
 }
 
-const QString PrefsManager::preferencesLocation()
+const QString& PrefsManager::preferencesLocation() const
 {
 	return m_prefsLocation;
 }
 
 void PrefsManager::setupPreferencesLocation()
 {
-	m_prefsLocation=ScPaths::preferencesDir(true);
+	m_prefsLocation = ScPaths::preferencesDir(true);
 }
 
 void PrefsManager::copyOldAppConfigAndData()
@@ -1065,32 +1065,32 @@ void PrefsManager::savePrefsXML()
 
 void PrefsManager::setGhostscriptExecutable(const QString& executableName)
 {
-	appPrefs.extToolPrefs.gs_exe=executableName;
+	appPrefs.extToolPrefs.gs_exe = executableName;
 }
 
 void PrefsManager::setImageEditorExecutable(const QString& executableName)
 {
-	appPrefs.extToolPrefs.imageEditorExecutable=executableName;
+	appPrefs.extToolPrefs.imageEditorExecutable = executableName;
 }
 
 void PrefsManager::setExtBrowserExecutable(const QString& executableName)
 {
-	appPrefs.extToolPrefs.extBrowserExecutable=executableName;
+	appPrefs.extToolPrefs.extBrowserExecutable = executableName;
 }
 
 void PrefsManager::setUniconvExecutable(const QString& executableName)
 {
-	appPrefs.extToolPrefs.uniconvExecutable=executableName;
+	appPrefs.extToolPrefs.uniconvExecutable = executableName;
 }
 
 void PrefsManager::setLatexConfigs(const QStringList& configs)
 {
-	appPrefs.extToolPrefs.latexConfigs=configs;
+	appPrefs.extToolPrefs.latexConfigs = configs;
 }
 
 void PrefsManager::setLatexCommands(const QMap<QString, QString>& commands)
 {
-	appPrefs.extToolPrefs.latexCommands=commands;
+	appPrefs.extToolPrefs.latexCommands = commands;
 }
 
 bool PrefsManager::renderFrameConfigured()
@@ -1117,7 +1117,7 @@ void PrefsManager::setLatexEditorExecutable(const QString& executableName)
 	appPrefs.extToolPrefs.latexEditorExecutable=executableName;
 }
 
-const QString PrefsManager::documentDir()
+const QString& PrefsManager::documentDir() const
 {
 	return appPrefs.pathPrefs.documents;
 }
@@ -1459,7 +1459,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	deGuides.setAttribute("MarginColor", appPrefs.guidesPrefs.marginColor.name());
 	deGuides.setAttribute("BaselineGridColor", appPrefs.guidesPrefs.baselineGridColor.name());
 	deGuides.setAttribute("ObjectToGuideSnapRadius", ScCLocale::toQStringC(appPrefs.guidesPrefs.guideRad));
-	QString renderStack = "";
+	QString renderStack;
 	int renderStackCount = appPrefs.guidesPrefs.renderStackOrder.count();
 	for (int r = 0; r < renderStackCount; r++)
 	{
@@ -1967,7 +1967,7 @@ bool PrefsManager::writePref(const QString& filePath)
 		QTextStream s(&f);
 		s.setCodec("UTF-8");
 		s<<docu.toString();
-		if (f.error()==QFile::NoError)
+		if (f.error() == QFile::NoError)
 			result = true;
 		else
 			m_lastError = tr("Writing to preferences file \"%1\" failed: QIODevice status code %2").arg(filePath, f.errorString());
@@ -1983,7 +1983,7 @@ bool PrefsManager::readPref(const QString& filePath)
 	QFile f(filePath);
 	if (!f.open(QIODevice::ReadOnly))
 	{
-		m_lastError = tr("Failed to open prefs file \"%1\": %2").arg(filePath, qApp->translate("QFile",f.errorString().toLatin1().constData()) );
+		m_lastError = tr("Failed to open prefs file \"%1\": %2").arg(filePath, QApplication::translate("QFile",f.errorString().toLatin1().constData()) );
 		return false;
 	}
 	QTextStream ts(&f);
@@ -2318,7 +2318,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			// on Mac you're dead if the titlebar is not on screen
 			minY = 22;
 #endif
-			if (QGuiApplication::screens().count()==1)
+			if (QGuiApplication::screens().count() == 1)
 			{
 				if (appPrefs.uiPrefs.mainWinSettings.xPosition < minX )
 					appPrefs.uiPrefs.mainWinSettings.xPosition = minX;
@@ -2327,7 +2327,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			}
 			int minWidth = 0;
 			int minHeight = 0;
-			QScreen* s=QGuiApplication::screens().at(qMin(appPrefs.uiPrefs.mainWinSettings.screenNumber, QGuiApplication::screens().count()-1));
+			const QScreen* s = QGuiApplication::screens().at(qMin(appPrefs.uiPrefs.mainWinSettings.screenNumber, QGuiApplication::screens().count() - 1));
 			int maxWidth = s->availableSize().width();
 			int maxHeight = s->availableSize().height();
 			if (appPrefs.uiPrefs.mainWinSettings.width > maxWidth)
@@ -2784,13 +2784,13 @@ bool PrefsManager::readPref(const QString& filePath)
 		if (availableStyles.contains(appPrefs.uiPrefs.style))
 			qtStyle = QStyleFactory::create(appPrefs.uiPrefs.style);
 		if (qtStyle)
-			qApp->setStyle(qtStyle);
+			QApplication::setStyle(qtStyle);
 		else
 			appPrefs.uiPrefs.style.clear();
 	}
-	QFont apf = qApp->font();
+	QFont apf = QApplication::font();
 	apf.setPointSize(appPrefs.uiPrefs.applicationFontSize);
-	qApp->setFont(apf);
+	QApplication::setFont(apf);
 	return true;
 }
 

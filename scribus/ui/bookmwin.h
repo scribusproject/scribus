@@ -52,15 +52,15 @@ public:
 	void setup(struct ScribusDoc::BookMa *Bm);
 	virtual QString key(int, bool) const;
 
-	PageItem *PageObject;
-	int ItemNr;
+	PageItem *PageObject { nullptr };
+	int ItemNr { 0 };
 	QString Action;
 	QString Title;
-	int First;
-	int Last;
-	int Prev;
-	int Next;
-	int Pare;
+	int First { 0 };
+	int Last { 0 };
+	int Prev { 0 };
+	int Next { 0 };
+	int Pare { 0 };
 };
 
 
@@ -84,9 +84,9 @@ public:
 	void deleteItem(PageItem *PageObject);
 	void setAction(PageItem *currItem, const QString& Act);
 
-	int NrItems;
-	int First;
-	int Last;
+	int NrItems { 0 };
+	int First { 1 };
+	int Last { 0 };
 
 	/*! \brief Build scribus bookmark structure from tree items.
 	It looks horrible as it performs full rescan of the tree, but
@@ -106,7 +106,7 @@ signals:
 
 protected:
 	void dropEvent(QDropEvent *e);
-	void getTextAndTitle(PageItem* item, QString& text, QString& title);
+	void getTextAndTitle(PageItem* item, QString& text, QString& title) const;
 
 private slots:
 	void selectPageItem(QTreeWidgetItem * current, int column);
