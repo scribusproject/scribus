@@ -89,7 +89,7 @@ public:
 	\brief Get the prefs location property
 	\retval QString Location of the user's preferences
 	*/
-	const QString preferencesLocation();
+	const QString& preferencesLocation() const;
 
 	/*! \brief Read the preferences.
 	\param fname optional filename with preferences. If is not given,
@@ -136,7 +136,7 @@ public:
 	int latexResolution() const {return appPrefs.extToolPrefs.latexResolution;}
 	bool latexForceDpi() const {return appPrefs.extToolPrefs.latexForceDpi;}
 	//! \brief Get the users preferred document directory
-	const QString documentDir();
+	const QString& documentDir() const;
 	void setDocumentDir(const QString& dirname);
 	int mouseWheelJump() const;
 	//! \brief Get the user set display scale
@@ -184,7 +184,7 @@ public:
 	bool GetAllFonts(bool showFontInfo);
 
 	ApplicationPrefs* applicationPrefs();
-	void setNewPrefs(ApplicationPrefs& newPrefs);
+	void setNewPrefs(const ApplicationPrefs& newPrefs);
 	PrefsFile* applicationPrefsFile();
 
 	//! \brief Return the last error reported by a PrefsManager method

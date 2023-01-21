@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 
-ColorChart::ColorChart(QWidget *parent) : QWidget(parent), m_doc(nullptr)
+ColorChart::ColorChart(QWidget *parent) : QWidget(parent)
 {
 	setAutoFillBackground(false);
 	drawPalette(m_currentValue);

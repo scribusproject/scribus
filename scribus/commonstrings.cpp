@@ -126,13 +126,26 @@ QString CommonStrings::trDefaultLineStyle        ="";
 QString CommonStrings::trDefaultTableStyle       ="";
 QString CommonStrings::trDefaultCellStyle        ="";
 
+QString CommonStrings::monday = "";
+QString CommonStrings::tuesday = "";
+QString CommonStrings::wednesday = "";
+QString CommonStrings::thursday = "";
+QString CommonStrings::friday = "";
+QString CommonStrings::saturday = "";
+QString CommonStrings::sunday = "";
 
-QString CommonStrings::monday="", CommonStrings::tuesday="", CommonStrings::wednesday="";
-QString CommonStrings::thursday="", CommonStrings::friday="", CommonStrings::saturday="", CommonStrings::sunday="";
-QString CommonStrings::january="", CommonStrings::february="", CommonStrings::march="";
-QString CommonStrings::april="", CommonStrings::may="", CommonStrings::june="";
-QString CommonStrings::july="", CommonStrings::august="", CommonStrings::september="";
-QString CommonStrings::october="", CommonStrings::november="", CommonStrings::december="";
+QString CommonStrings::january = "";
+QString CommonStrings::february = "";
+QString CommonStrings::march = "";
+QString CommonStrings::april = "";
+QString CommonStrings::may = "";
+QString CommonStrings::june = "";
+QString CommonStrings::july = "";
+QString CommonStrings::august = "";
+QString CommonStrings::september = "";
+QString CommonStrings::october = "";
+QString CommonStrings::november = "";
+QString CommonStrings::december = "";
 
 QString CommonStrings::trRGB       = "";
 QString CommonStrings::trCMYK      = "";

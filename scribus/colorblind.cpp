@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "colorblind.h"
 
+#include <algorithm>
 #include <cmath>
 
 //#define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
@@ -225,29 +226,28 @@ void VisionDefectColor::setupDefect()
 	}
 }
 
-uint VisionDefectColor::getRed()
+uint VisionDefectColor::getRed() const
 {
 	return (uint)m_red;
 }
 
-uint VisionDefectColor::getGreen()
+uint VisionDefectColor::getGreen() const
 {
 	return (uint)m_green;
 }
 
-uint VisionDefectColor::getBlue()
+uint VisionDefectColor::getBlue() const
 {
 	return (uint)m_blue;
 }
 
-QColor VisionDefectColor::getColor()
+QColor VisionDefectColor::getColor() const
 {
 	return QColor(getRed(), getGreen(), getBlue());
 }
 
 double VisionDefectColor::clamp(double x, double low, double high)
 {
-	double ret;
-	(x > high) ? ret = high : ((x < low) ? ret = low : ret = x);
+	double ret = std::max(low, std::min(x, high));
 	return ret;
 }
