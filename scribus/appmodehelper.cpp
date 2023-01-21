@@ -77,7 +77,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	assert(newMode < submodeFirstSubmode);
 
 	//If no doc and we end here, just reset the tool actions
-	if (doc==nullptr)
+	if (doc == nullptr)
 	{
 		resetApplicationMode(newMode);
 		return;
@@ -88,7 +88,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	setModeActionsPerMode(newMode);
 
 	int oldMode = doc->appMode;
-	PageItem *currItem=nullptr;
+	PageItem *currItem = nullptr;
 	if (!doc->m_Selection->isEmpty())
 		currItem = doc->m_Selection->itemAt(0);
 
@@ -104,7 +104,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 		ss->set("CHANGE_MODE");
 		ss->set("OLD", oldMode);
 		ss->set("NEW", newMode);
-		UndoManager::instance()->action(currItem,ss);
+		UndoManager::instance()->action(currItem, ss);
 	}
 	doc->appMode = newMode ;
 	//disable text action which work only text frame in edit mode
@@ -201,6 +201,9 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			break;
 		case modeUnlinkFrames:
 			doc->regionsChanged()->update(QRect());
+			break;
+		default:
+			//No doc open?
 			break;
 	}
 
@@ -347,7 +350,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					scmw->charPalette->setEnabled(true, currItem);
 					(*a_scrActions)["insertSampleText"]->setEnabled(true);
 					(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(true);
-					PageItem *i2 = currItem->asTable()->activeCell().textFrame();
+					const PageItem *i2 = currItem->asTable()->activeCell().textFrame();
 					enableTextActions(true, i2->currentCharStyle().font().scName());
 					setTextEditMode(true);
 					a_actMgr->saveActionShortcutsPreEditMode();
@@ -677,7 +680,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["toolsRotate"]->setEnabled(!inAnEditMode);
 			if (doc->appMode == modeEditTable)
 			{
-				PageItem *i2 = currItem->asTable()->activeCell().textFrame();
+				const PageItem *i2 = currItem->asTable()->activeCell().textFrame();
 				enableTextActions(true, i2->currentCharStyle().font().scName());
 				(*a_scrActions)["insertSampleText"]->setEnabled(true);
 				(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(true);
@@ -839,7 +842,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		bool hPoly = true;
 		for (int i = 0; i < docSelectionCount; ++i)
 		{
-			PageItem* it = doc->m_Selection->itemAt(i);
+			const PageItem* it = doc->m_Selection->itemAt(i);
 			if ((!it->isPolygon()) && (!it->isPolyLine()))
 			{
 				hPoly = false;
@@ -935,7 +938,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			if (docSelectionCount > 1)
 			{
 				bool haveSameParent = true;
-				PageItem *firstItem = doc->m_Selection->itemAt(0);
+				const PageItem *firstItem = doc->m_Selection->itemAt(0);
 				for (int i = 1; i < docSelectionCount; ++i)
 				{
 					if (doc->m_Selection->itemAt(i)->Parent != firstItem->Parent)
@@ -1315,12 +1318,12 @@ void AppModeHelper::updateActionPluginsActions(ScribusDoc* doc)
 	int selectedType = -1;
 	if (doc->m_Selection->count() > 0)
 	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
+		const PageItem *currItem = doc->m_Selection->itemAt(0);
 		selectedType = currItem->itemType();
 	}
 	bool isLayerLocked = doc->layerLocked(doc->activeLayer());
 
-	PluginManager& pluginManager(PluginManager::instance());
+	const PluginManager& pluginManager(PluginManager::instance());
 	QStringList pluginNames(pluginManager.pluginNames(false));
 	ScPlugin* plugin;
 	ScActionPlugin* actionPlug;
@@ -1339,10 +1342,10 @@ void AppModeHelper::updateActionPluginsActions(ScribusDoc* doc)
 		pluginAction = ScCore->primaryMainWindow()->scrActions[actionInfo.name];
 		if (!pluginAction)
 			continue;
-		if (isLayerLocked && !actionInfo.enabledOnStartup)
-			pluginAction->setEnabled(false);
-		else
+		if (!isLayerLocked || actionInfo.enabledOnStartup || actionInfo.exportPlugin)
 			pluginAction->setEnabled(actionPlug->handleSelection(doc, selectedType));
+		else
+			pluginAction->setEnabled(false);
 	}
 }
 

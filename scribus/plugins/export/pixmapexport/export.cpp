@@ -66,6 +66,7 @@ void PixmapExportPlugin::languageChange()
 	// Menu
 	m_actionInfo.menu = "FileExport";
 	m_actionInfo.enabledOnStartup = false;
+	m_actionInfo.exportPlugin = true;
 	m_actionInfo.needsNumObjects = -1;
 }
 

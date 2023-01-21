@@ -279,6 +279,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 											// for the Plugin Action to be enabled
 			bool enabledOnStartup {false};
 			bool enabledForStoryEditor {false};
+			bool exportPlugin {false};
 			QString seMenu;
 			QString seParentMenu;
 			QString seKeySequence;
