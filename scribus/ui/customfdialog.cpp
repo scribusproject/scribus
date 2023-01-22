@@ -481,6 +481,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 	fileDialog->forceDoubleClickActivation(m_previewIsShown);
 	fileDialog->setOption(QFileDialog::HideNameFilterDetails, true);
 	m_extZip = "gz";
+
 	connect(okButton, SIGNAL(clicked()), this, SLOT(okClicked()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(showPreview, SIGNAL(clicked()), this, SLOT(togglePreview()));
@@ -488,7 +489,6 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 	connect(fileDialog, SIGNAL(filesSelected(const QStringList &)), this, SLOT(accept()));
 	connect(fileDialog, SIGNAL(accepted()), this, SLOT(accept()));
 	connect(fileDialog, SIGNAL(rejected()), this, SLOT(reject()));
-	resize(minimumSizeHint());
 }
 
 void CustomFDialog::closeEvent(QCloseEvent *closeEvent)
