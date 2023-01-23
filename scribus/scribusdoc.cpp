@@ -7059,7 +7059,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	tempSelection.delaySignalsOn();
 	if (oldItems > 0)
 	{
-		if (Layers.count()!= 0)
+		if (Layers.count() != 0)
 		{
 			int currActiveLayer = activeLayer();
 			for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
@@ -7086,16 +7086,15 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	}
 	tempSelection.delaySignalsOff();
 
-
-	for (int copyNumber=1; copyNumber<=copyCount; ++copyNumber)
+	for (int copyNumber = 1; copyNumber <= copyCount; ++copyNumber)
 	{
 		//For multiple insertions we can insert in the same place
-		int destLocation=existingPage;
-		if (whereToInsert==0)
+		int destLocation = existingPage;
+		if (whereToInsert == 0)
 			--destLocation;
-		else if (whereToInsert==2)
-			destLocation=DocPages.count();
-		ScPage* destination = new ScPage(m_docPrefsData.displayPrefs.scratch.left(), DocPages.count()*(m_docPrefsData.docSetupPrefs.pageHeight+m_docPrefsData.displayPrefs.scratch.bottom()+m_docPrefsData.displayPrefs.scratch.top())+m_docPrefsData.displayPrefs.scratch.top(), m_docPrefsData.docSetupPrefs.pageWidth, m_docPrefsData.docSetupPrefs.pageHeight);
+		else if (whereToInsert == 2)
+			destLocation = DocPages.count();
+		ScPage* destination = new ScPage(m_docPrefsData.displayPrefs.scratch.left(), DocPages.count() * (m_docPrefsData.docSetupPrefs.pageHeight + m_docPrefsData.displayPrefs.scratch.bottom() + m_docPrefsData.displayPrefs.scratch.top()) + m_docPrefsData.displayPrefs.scratch.top(), m_docPrefsData.docSetupPrefs.pageWidth, m_docPrefsData.docSetupPrefs.pageHeight);
 		destination->setDocument(this);
 		destination->setPageNr(destLocation);
 		lastDest = destination;
@@ -7144,7 +7143,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		{
 			int lcount = 0;
 			ScLayers::iterator it;
-			if (Layers.count()!= 0)
+			if (Layers.count() != 0)
 			{
 				int currActiveLayer = activeLayer();
 				bool savedAlignGrid   = this->SnapGrid;
@@ -7172,7 +7171,16 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		from->guides.copy(&destination->guides);
 	}
 	setUsesAutomaticTextFrames(autoText);
+
+	int annotLinksInsert = existingPage;
+	if (whereToInsert == 0)
+		--annotLinksInsert;
+	else if (whereToInsert == 2)
+		annotLinksInsert = DocPages.count();
+	annotLinksInsert += copyCount;
+	addPageToAnnotLinks(annotLinksInsert, whereToInsert, copyCount);
 	addPageToSection(existingPage, whereToInsert, copyCount);
+
 	if (lastDest != nullptr)
 		setCurrentPage(lastDest);
 	else
@@ -7182,7 +7190,6 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	if (copyTransaction)
 		copyTransaction.commit();
 }
-
 
 void ScribusDoc::setLocationBasedPageLRMargins(uint pageIndex)
 {
@@ -7213,7 +7220,6 @@ void ScribusDoc::setLocationBasedPageLRMargins(uint pageIndex)
 		pageToAdjust->Margins.setRight(pageToAdjust->initialMargins.left());
 	}
 }
-
 
 PageLocation ScribusDoc::locationOfPage(int pageIndex) const
 {
