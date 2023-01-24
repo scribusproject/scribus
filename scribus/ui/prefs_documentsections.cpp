@@ -40,10 +40,6 @@ void Prefs_DocumentSections::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	m_localSections = prefsData->docSectionMap;
 	m_maxPageIndex = m_doc->DocPages.count() - 1;
-	m_styles.clear();
-	m_styles = getFormatList();
-	m_styles << CommonStrings::tr_None;
-//	styles << tr("1, 2, 3, ...") << tr("i, ii, iii, ...") << tr("I, II, III, ...") << tr("a, b, c, ...") << tr("A, B, C, ...") << tr("*") << tr("CJK") << CommonStrings::tr_None;
 
 	updateTable();
 }
@@ -81,7 +77,6 @@ void Prefs_DocumentSections::updateTable()
 		sectionsTable->setItem(row, i++, item4);
 		//Style
 		NumFormatCombo *item5 = new NumFormatCombo(nullptr, true);
-		item5->addItems(m_styles);
 		sectionsTable->setCellWidget(row, i++, item5);
 		item5->setCurrentFormat(it->type);
 		//Start Page Number

@@ -33,7 +33,6 @@ class SCRIBUS_API Prefs_DocumentSections : public Prefs_Pane, Ui::Prefs_Document
 		DocumentSectionMap m_localSections;
 		ScribusDoc* m_doc { nullptr };
 		uint m_maxPageIndex { 0 };
-		QStringList m_styles;
 		virtual void updateTable();
 
 	protected slots:
