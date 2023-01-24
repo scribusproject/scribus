@@ -21,6 +21,15 @@ PyObject *scribus_currentpage(PyObject* /* self */)
 	return PyLong_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->currentPageNumber() + 1));
 }
 
+
+PyObject *scribus_currentpagenumberforsection(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	int i = ScCore->primaryMainWindow()->doc->currentPageNumber();
+	return PyUnicode_FromString(ScCore->primaryMainWindow()->doc->getSectionPageNumberForPageIndex(i).toUtf8());
+}
+
 PyObject *scribus_redraw(PyObject* /* self */)
 {
 	if (!checkHaveDocument())

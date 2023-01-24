@@ -37,6 +37,16 @@ upwards, no matter what the displayed first page number of your document is.\n\
 /*! get actual page */
 PyObject *scribus_currentpage(PyObject * /*self*/);
 
+ /*! docstring */
+ PyDoc_STRVAR(scribus_currentpagenumberforsection__doc__,
+ QT_TR_NOOP("currentPage() -> integer\n\
+ \n\
+ Returns the number of the current working page based on the section of the document.\n\
+\n\
+ "));
+ /*! get actual page */
+ PyObject *scribus_currentpagenumberforsection(PyObject * /*self*/);
+ 
 /*! docstring */
 PyDoc_STRVAR(scribus_redraw__doc__,
 QT_TR_NOOP("redrawAll()\n\
