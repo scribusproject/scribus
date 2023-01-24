@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{2e6c620d-0103-43f7-8db4-51cad6aa2eed}</UniqueIdentifier>
-      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{b444e537-1a8e-4132-8b80-7c50827631c6}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{9b9974fe-75f6-4d17-ba46-39f4362b8a53}</UniqueIdentifier>
@@ -13,9 +13,9 @@
       <UniqueIdentifier>{339ba628-cbe8-4dee-a7e9-a66e55570476}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
-    <Filter Include="Form Files">
-      <UniqueIdentifier>{b444e537-1a8e-4132-8b80-7c50827631c6}</UniqueIdentifier>
-      <Extensions>ui</Extensions>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{2e6c620d-0103-43f7-8db4-51cad6aa2eed}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,10 +46,10 @@
     <ClCompile Include="..\..\..\scribus\plugins\picbrowser\pictview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\previewimage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\previewimage.cpp">
+    <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -76,6 +76,9 @@
     <moc Include="..\..\..\scribus\plugins\picbrowser\imagedialog.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\plugins\picbrowser\iview.h">
+      <Filter>Header Files</Filter>
+    </moc>
     <moc Include="..\..\..\scribus\plugins\picbrowser\loadimage.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -88,13 +91,10 @@
     <moc Include="..\..\..\scribus\plugins\picbrowser\picturebrowserplugin.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\plugins\picbrowser\previewimage.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\plugins\picbrowser\iview.h">
-      <Filter>Header Files</Filter>
-    </moc>
     <moc Include="..\..\..\scribus\plugins\picbrowser\pictview.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\picbrowser\previewimage.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

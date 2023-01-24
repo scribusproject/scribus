@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{620dd1b9-882c-4885-8764-777b7a66367e}</UniqueIdentifier>
-      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{e56d0fb6-48e8-4a3a-ba56-2d765cb34b28}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{fa94883d-4622-4b53-9b0f-2f2695a767ce}</UniqueIdentifier>
@@ -13,8 +12,9 @@
       <UniqueIdentifier>{6d159222-d3cf-46a4-920e-1b5f47315beb}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
-    <Filter Include="Form Files">
-      <UniqueIdentifier>{e56d0fb6-48e8-4a3a-ba56-2d765cb34b28}</UniqueIdentifier>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{620dd1b9-882c-4885-8764-777b7a66367e}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
