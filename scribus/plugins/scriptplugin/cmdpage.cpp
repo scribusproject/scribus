@@ -21,6 +21,14 @@ PyObject *scribus_currentpage(PyObject* /* self */)
 	return PyLong_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->currentPageNumber() + 1));
 }
 
+PyObject *scribus_currentpagenumberforsection(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	int i = ScCore->primaryMainWindow()->doc->currentPageNumber();
+	return PyUnicode_FromString(ScCore->primaryMainWindow()->doc->getSectionPageNumberForPageIndex(i).toUtf8());
+}
+
 PyObject *scribus_redraw(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
@@ -518,7 +526,6 @@ PyObject *scribus_importpage(PyObject* /* self */, PyObject* args)
 
 	Py_RETURN_NONE;
 }
-
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)

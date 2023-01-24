@@ -310,6 +310,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("createTable"), scribus_createtable, METH_VARARGS, tr(scribus_createtable__doc__)},
 	{const_cast<char*>("createText"), scribus_createtext, METH_VARARGS, tr(scribus_createtext__doc__)},
 	{const_cast<char*>("currentPage"), (PyCFunction)scribus_currentpage, METH_NOARGS, tr(scribus_currentpage__doc__)},
+	{const_cast<char*>("currentPageNumber"), (PyCFunction)scribus_currentpage, METH_NOARGS, tr(scribus_currentpage__doc__)},
+	{const_cast<char*>("currentPageNumberForSection"), (PyCFunction)scribus_currentpagenumberforsection, METH_NOARGS, tr(scribus_currentpage__doc__)},
 	{const_cast<char*>("defineColor"), scribus_newcolor, METH_VARARGS, tr(scribus_newcolor__doc__)},
 	{const_cast<char*>("defineColorCMYK"), scribus_newcolorcmyk, METH_VARARGS, tr(scribus_newcolorcmyk__doc__)},
 	{const_cast<char*>("defineColorCMYKFloat"), scribus_newcolorcmykfloat, METH_VARARGS, tr(scribus_newcolorcmykfloat__doc__)},

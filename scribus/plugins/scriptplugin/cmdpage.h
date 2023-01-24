@@ -37,6 +37,17 @@ upwards, no matter what the displayed first page number of your document is.\n\
 /*! get actual page */
 PyObject *scribus_currentpage(PyObject * /*self*/);
 
+ /*! docstring */
+ PyDoc_STRVAR(scribus_currentpagenumberforsection__doc__,
+ QT_TR_NOOP("currentPage() -> integer\n\
+ \n\
+ Returns the number of the current working page based on the section of the document.\n\
+\n\
+ "));
+ /*! get actual page */
+ PyObject *scribus_currentpagenumberforsection(PyObject * /*self*/);
+
+
 /*! docstring */
 PyDoc_STRVAR(scribus_redraw__doc__,
 QT_TR_NOOP("redrawAll()\n\
@@ -223,6 +234,7 @@ importWhere: number; used if create==1; 0 to create pages before importWherePage
 importWherePage: number; used if create==1 and importWhere==0|1; zero-based page number (of the current document) before or after which to import the pages\n\
 "));
 PyObject *scribus_importpage(PyObject */*self*/, PyObject* args);
+
 
 #endif
 
