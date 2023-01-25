@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Sources Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Sources Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,10 +38,10 @@
     <ClCompile Include="..\..\..\scribus\third_party\lib2geom\matrix.cpp">
       <Filter>Sources Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\third_party\lib2geom\path-intersection.cpp">
+    <ClCompile Include="..\..\..\scribus\third_party\lib2geom\path.cpp">
       <Filter>Sources Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\third_party\lib2geom\path.cpp">
+    <ClCompile Include="..\..\..\scribus\third_party\lib2geom\path-intersection.cpp">
       <Filter>Sources Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\third_party\lib2geom\piecewise.cpp">
@@ -50,19 +50,22 @@
     <ClCompile Include="..\..\..\scribus\third_party\lib2geom\point.cpp">
       <Filter>Sources Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\lib2geom\poly.cpp">
+      <Filter>Sources Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\third_party\lib2geom\poly-dk-solve.cpp">
       <Filter>Sources Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\third_party\lib2geom\poly-laguerre-solve.cpp">
       <Filter>Sources Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\third_party\lib2geom\poly.cpp">
-      <Filter>Sources Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\third_party\lib2geom\quadtree.cpp">
       <Filter>Sources Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\third_party\lib2geom\region.cpp">
+      <Filter>Sources Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\lib2geom\sbasis.cpp">
       <Filter>Sources Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\third_party\lib2geom\sbasis-2d.cpp">
@@ -81,9 +84,6 @@
       <Filter>Sources Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\third_party\lib2geom\sbasis-to-bezier.cpp">
-      <Filter>Sources Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\third_party\lib2geom\sbasis.cpp">
       <Filter>Sources Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\third_party\lib2geom\scribushelper.cpp">
@@ -115,13 +115,13 @@
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\basic-intersection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\bezier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\bezier-to-sbasis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\bezier-utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\bezier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\choose.h">
@@ -145,10 +145,10 @@
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\crossing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\d2-sbasis.h">
+    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\d2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\d2.h">
+    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\d2-sbasis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\exception.h">
@@ -172,13 +172,16 @@
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\ord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\path-intersection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\path.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\path-intersection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\piecewise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\point-l.h">
@@ -187,16 +190,13 @@
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\point-ops.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\point.h">
+    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\poly.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\poly-dk-solve.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\poly-laguerre-solve.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\poly.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\quadtree.h">
@@ -206,6 +206,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\region.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\sbasis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\sbasis-2d.h">
@@ -221,9 +224,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\sbasis-to-bezier.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\third_party\lib2geom\sbasis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\third_party\lib2geom\scribushelper.h">
