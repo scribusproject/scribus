@@ -184,15 +184,16 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		
 		if ((m_rulerCode == rc_none) && (m_currCol != 0) && (m->button() == Qt::LeftButton))
 		{
+			const QString& textTabFillChar = m_doc->itemToolPrefs().textTabFillChar;
 			ParagraphStyle::TabRecord tb;
 			tb.tabPosition = localToTextPos(m->x());
 			tb.tabType = 0;
-			tb.tabFillChar = m_doc->itemToolPrefs().textTabFillChar[0];
+			tb.tabFillChar = !textTabFillChar.isEmpty() ? textTabFillChar[0] : QChar();
 			m_tabValues.prepend(tb);
 			m_currTab = 0;
 			m_rulerCode = rc_tab;
 			updateTabList();
-			qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor));
+			QApplication::setOverrideCursor(QCursor(Qt::SizeHorCursor));
 			emit DocChanged(false);
 		}
 	}
@@ -200,7 +201,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	{
 		if (m_doc->guidesPrefs().guidesShown)
 		{
-			qApp->setOverrideCursor(QCursor(Qt::SplitVCursor));
+			QApplication::setOverrideCursor(QCursor(Qt::SplitVCursor));
 			m_view->startGesture(rulerGesture);
 			m_view->registerMousePress(m->globalPos());
 		}
