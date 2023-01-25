@@ -64,7 +64,7 @@ public:
 	Hruler(ScribusView *pa, ScribusDoc *doc);
 	~Hruler() {}
 
-	double ruleSpacing();
+	double ruleSpacing() const;
 	void   setItem(PageItem * item);
 	void   textMode(bool state) { m_textEditMode = state; }
 	double textBase() const; // left text edge in canvas coord
@@ -86,10 +86,10 @@ private:
 	void enterEvent(QEnterEvent *m) override;
 	void leaveEvent(QEvent *m) override;
 
-	void drawMarks(QPainter& p);
-	void drawTextMarks(double pos, double endPos, QPainter& p);
-	void drawMarker(QPainter& p);
-	void drawNumber(const QString& num, int startx, int starty, QPainter & p);
+	void drawMarks(QPainter& p) const;
+	void drawTextMarks(double pos, double endPos, QPainter& p) const;
+	void drawMarker(QPainter& p) const;
+	void drawNumber(const QString& num, int startx, int starty, QPainter & p) const;
 	void updateTabList();
 
 	PageItem* m_currItem {nullptr};

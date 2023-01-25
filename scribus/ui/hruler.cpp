@@ -427,7 +427,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			emit MarkerMoved(textBase(), marker);
 			return;
 		}
-		if ((m_mousePressed) && (m_rulerCode == rc_tab) && ((mousePos.y() > height()) || (mousePos.y() < 0)))
+		if (m_mousePressed && (m_rulerCode == rc_tab) && ((mousePos.y() > height()) || (mousePos.y() < 0)))
 		{
 			setCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 			return;
@@ -587,7 +587,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 }
 
 
-void Hruler::drawMarker(QPainter& p)
+void Hruler::drawMarker(QPainter& p) const
 {
 	// draw slim marker
 	QPolygon cr;
@@ -600,7 +600,7 @@ void Hruler::drawMarker(QPainter& p)
 }
 
 
-void Hruler::drawMarks(QPainter& p)
+void Hruler::drawMarks(QPainter& p) const
 {
 	const QPalette& palette = this->palette();
 	const QColor& textColor = palette.color(QPalette::Text);
@@ -659,7 +659,7 @@ void Hruler::drawMarks(QPainter& p)
 	}
 }	
 
-void Hruler::drawTextMarks(double pos, double endPos, QPainter& p)
+void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 {
 	double xl;
 	
@@ -763,13 +763,13 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p)
 	}
 }
 
-void Hruler::drawNumber(const QString& txt, int x, int y0, QPainter & p)
+void Hruler::drawNumber(const QString& txt, int x, int y0, QPainter & p) const
 {
 	const int y = y0 - 3 + topline;
 	p.drawText(x,y,txt);
 }
 
-double Hruler::ruleSpacing()
+double Hruler::ruleSpacing() const
 {
 	return m_iter;
 }
@@ -850,7 +850,7 @@ void Hruler::unitChange()
 {
 	double sc = m_view->scale();
 	m_cor = 1;
-	int docUnitIndex=m_doc->unitIndex();
+	int docUnitIndex = m_doc->unitIndex();
 	switch (docUnitIndex)
 	{
 		case SC_PT:
