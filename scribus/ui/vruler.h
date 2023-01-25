@@ -47,7 +47,7 @@ public:
 	Vruler(ScribusView *pa, ScribusDoc *doc);
 	~Vruler() {}
 	
-	double ruleSpacing();
+	double ruleSpacing() const;
 	void shift(double pos) { m_offset = pos; }
 	void shiftRel(double dist) { m_offset += dist; }
 
@@ -62,7 +62,8 @@ private:
 	virtual void mousePressEvent(QMouseEvent *m);
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	virtual void mouseMoveEvent(QMouseEvent *m);
-	void drawNumber(const QString& num, int starty, QPainter *p);
+
+	void drawNumber(const QString& num, int starty, QPainter *p) const;
 
 	RulerGesture* rulerGesture {nullptr};
 	ScribusDoc* m_doc {nullptr};

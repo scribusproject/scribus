@@ -57,7 +57,7 @@ void Vruler::mousePressEvent(QMouseEvent *m)
 	m_mousePressed = true;
 	if (!m_doc->guidesPrefs().guidesShown)
 		return;
-	qApp->setOverrideCursor(QCursor(Qt::SplitHCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::SplitHCursor));
 	m_view->startGesture(rulerGesture);
 	m_view->registerMousePress(m->globalPos());
 }
@@ -68,7 +68,7 @@ void Vruler::mouseReleaseEvent(QMouseEvent *m)
 		return;
 	if (rulerGesture->isActive())
 		rulerGesture->mouseReleaseEvent(m);
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	m_mousePressed = false;
 }
 
@@ -161,7 +161,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 	p.end();
 }
 
-void Vruler::drawNumber(const QString& num, int starty, QPainter *p)
+void Vruler::drawNumber(const QString& num, int starty, QPainter *p) const
 {
 	int textY = starty;
 	for (int i = 0; i < num.length(); ++i)
@@ -171,7 +171,7 @@ void Vruler::drawNumber(const QString& num, int starty, QPainter *p)
 	}
 }
 
-double Vruler::ruleSpacing()
+double Vruler::ruleSpacing() const
 {
 	return m_iter;
 }
@@ -190,7 +190,7 @@ void Vruler::draw(int where)
 void Vruler::unitChange()
 {
 	double sc = m_view->scale();
-	m_cor=1;
+	m_cor = 1;
 	int docUnitIndex = m_doc->unitIndex();
 	switch (docUnitIndex)
 	{

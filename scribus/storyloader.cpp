@@ -66,7 +66,7 @@ StoryLoader::StoryLoader() :
  \brief Tests if the file "FileName" exists and determines the type of the file.
  \retval int -1 if the file doesn't exist or any other error has occurred, 0 for the old Format, 1 for the new Format, 2 for EPS and PS files, 3 for SVG files and 4 for PDF files
  */
-int StoryLoader::testData(const QByteArray& storyData)
+int StoryLoader::testData(const QByteArray& storyData) const
 {
 	int ret = -1;
 
@@ -122,7 +122,7 @@ bool StoryLoader::loadStory(const QByteArray& storyData, ScribusDoc& doc, StoryT
 	return ret;
 }
 
-bool StoryLoader::saveStory(QByteArray& storyData, ScribusDoc& doc, StoryText &story, PageItem* item)
+bool StoryLoader::saveStory(QByteArray& storyData, ScribusDoc& doc, StoryText &story, PageItem* item) const
 {
 	QList<FileFormat>::const_iterator it;
 	if (!findFormat(FORMATID_SLA150EXPORT, it))
@@ -143,7 +143,7 @@ bool StoryLoader::postLoad(ScribusDoc* currDoc)
 	if (!(m_prefsManager.appPrefs.fontPrefs.askBeforeSubstitute))
 		return true;
 
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	FontReplaceDialog dia(nullptr, &m_replacedFonts);
 	if (!dia.exec())
 		return false;
@@ -162,12 +162,12 @@ bool StoryLoader::postLoad(ScribusDoc* currDoc)
 	return true;
 }
 
-void StoryLoader::informReplacementFonts()
+void StoryLoader::informReplacementFonts() const
 {
 	if (m_replacedFonts.count() == 0)
 		return;
 
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	QString mess = tr("Some fonts used by this document have been substituted:") + "\n\n";
 	for (auto it = m_replacedFonts.begin(); it != m_replacedFonts.end(); ++it)
 	{
@@ -176,7 +176,7 @@ void StoryLoader::informReplacementFonts()
 	ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, mess);
 }
 
-bool StoryLoader::findFormat(uint formatId, QList<FileFormat>::const_iterator &it)
+bool StoryLoader::findFormat(uint formatId, QList<FileFormat>::const_iterator &it) const
 {
 	QList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
 	it = fileFormats.constBegin();
@@ -189,7 +189,7 @@ bool StoryLoader::findFormat(uint formatId, QList<FileFormat>::const_iterator &i
 	return false;
 }
 
-bool StoryLoader::findFormat(const QByteArray& data, QList<FileFormat>::const_iterator &it)
+bool StoryLoader::findFormat(const QByteArray& data, QList<FileFormat>::const_iterator &it) const
 {
 	QList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
 	it = fileFormats.constBegin();

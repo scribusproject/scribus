@@ -35,13 +35,13 @@ public:
 	StoryLoader();
 	~StoryLoader() override = default;
 
-	int testData(const QByteArray& storyData);
+	int testData(const QByteArray& storyData) const;
 
 	bool loadStory(const QByteArray& storyData, ScribusDoc& doc, StoryText &story, PageItem* item = nullptr);
-	bool saveStory(QByteArray& storyData, ScribusDoc& doc, StoryText &story, PageItem* item = nullptr);
+	bool saveStory(QByteArray& storyData, ScribusDoc& doc, StoryText &story, PageItem* item = nullptr) const;
 
 	bool postLoad(ScribusDoc* currDoc);
- 	void informReplacementFonts();
+ 	void informReplacementFonts() const;
 
 	const FileFormat * const formatSLA12x;
 	const FileFormat * const formatSLA13x;
@@ -52,8 +52,8 @@ private:
 	QMap<QString, QString> m_replacedFonts;
 	PrefsManager& m_prefsManager;
 
-	bool findFormat(uint formatId, QList<FileFormat>::const_iterator &it);
-	bool findFormat(const QByteArray& data, QList<FileFormat>::const_iterator &it);
+	bool findFormat(uint formatId, QList<FileFormat>::const_iterator &it) const;
+	bool findFormat(const QByteArray& data, QList<FileFormat>::const_iterator &it) const;
 };
 
 #endif

@@ -294,19 +294,19 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 	else if (m_mousePressed && rulerGesture->isActive())
 		rulerGesture->mouseReleaseEvent(m);
 	m_mousePressed = false;
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 }
 
 void Hruler::enterEvent(QEvent* e)
 {
 	if (m_textEditMode)
-		qApp->changeOverrideCursor(IconManager::instance().loadCursor("tab.png", 3));
+		QApplication::changeOverrideCursor(IconManager::instance().loadCursor("tab.png", 3));
 }
 
 void Hruler::leaveEvent(QEvent *m)
 {
 	emit MarkerMoved(0, -1);
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	m_view->m_canvasMode->setModeCursor();
 }
 
@@ -329,9 +329,9 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			colStart = textPosToLocal((colWidth + m_colGap) * (m_currCol- 1));
 			colEnd   = textPosToLocal((colWidth + m_colGap) * (m_currCol- 1) + colWidth);
 		}
-		if ((m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > colStart - m_doc->guidesPrefs().grabRadius) && (m->x() < colEnd + m_doc->guidesPrefs().grabRadius))
+		if (m_mousePressed && (m->y() < height()) && (m->y() > 0) && (m->x() > colStart - m_doc->guidesPrefs().grabRadius) && (m->x() < colEnd + m_doc->guidesPrefs().grabRadius))
 		{
-			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 			double toplimit = textWidth() + m_distRight - (m_colGap * (m_cols - 1)) - 1;
 			double toplimit2 = textWidth() + m_distLeft - (m_colGap * (m_cols - 1)) - 1;
 			switch (m_rulerCode)
@@ -428,7 +428,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			emit MarkerMoved(textBase(), marker);
 			return;
 		}
-		if ((m_mousePressed) && (m_rulerCode == rc_tab) && ((m->y() > height()) || (m->y() < 0)))
+		if (m_mousePressed && (m_rulerCode == rc_tab) && ((m->y() > height()) || (m->y() < 0)))
 		{
 			setCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 			return;
@@ -588,7 +588,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 }
 
 
-void Hruler::drawMarker(QPainter& p)
+void Hruler::drawMarker(QPainter& p) const
 {
 	// draw slim marker
 	QPolygon cr;
@@ -601,7 +601,7 @@ void Hruler::drawMarker(QPainter& p)
 }
 
 
-void Hruler::drawMarks(QPainter& p)
+void Hruler::drawMarks(QPainter& p) const
 {
 	const QPalette& palette = this->palette();
 	const QColor& textColor = palette.color(QPalette::Text);
@@ -660,7 +660,7 @@ void Hruler::drawMarks(QPainter& p)
 	}
 }	
 
-void Hruler::drawTextMarks(double pos, double endPos, QPainter& p)
+void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 {
 	double xl;
 	
@@ -679,7 +679,7 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p)
 		{
 			case SC_IN:
 				{
-					QString tx = "";
+					QString tx;
 					int num1 = static_cast<int>((xl - pos) / m_iter2 / m_cor);
 					if (num1 != 0)
 						tx = QString::number(num1);
@@ -764,13 +764,13 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p)
 	}
 }
 
-void Hruler::drawNumber(const QString& txt, int x, int y0, QPainter & p)
+void Hruler::drawNumber(const QString& txt, int x, int y0, QPainter & p) const
 {
 	const int y = y0 - 3 + topline;
 	p.drawText(x,y,txt);
 }
 
-double Hruler::ruleSpacing()
+double Hruler::ruleSpacing() const
 {
 	return m_iter;
 }
@@ -851,7 +851,7 @@ void Hruler::unitChange()
 {
 	double sc = m_view->scale();
 	m_cor = 1;
-	int docUnitIndex=m_doc->unitIndex();
+	int docUnitIndex = m_doc->unitIndex();
 	switch (docUnitIndex)
 	{
 		case SC_PT:
