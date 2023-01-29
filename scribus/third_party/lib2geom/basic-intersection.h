@@ -1,3 +1,6 @@
+#ifndef SEEN_BASIC_INTERSECTION_H
+#define SEEN_BASIC_INTERSECTION_H
+
 #include "sbasis.h"
 #include "bezier-to-sbasis.h"
 #include "sbasis-to-bezier.h"
@@ -32,3 +35,5 @@ find_self_intersections(std::vector<Point> const & A);
   End:
 */
 // vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :
+
+#endif
