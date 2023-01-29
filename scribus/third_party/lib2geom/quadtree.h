@@ -1,3 +1,6 @@
+#ifndef SEEN_QUADTREE_H
+#define SEEN_QUADTREE_H
+
 #include <vector>
 #include <cassert>
 
@@ -39,3 +42,4 @@ public:
   vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4 :
 */
 
+#endif
