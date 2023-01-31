@@ -579,6 +579,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/resourcemanagerlicense.h \
            scribus/ui/rulermover.h \
            scribus/ui/sccolorslider.h \
+           scribus/ui/scdialog.h \
            scribus/ui/scdockpalette.h \
            scribus/ui/scescapecatcher.h \
            scribus/ui/scfilewidget.h \
@@ -1680,6 +1681,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/resourcemanagerlicense.cpp \
            scribus/ui/rulermover.cpp \
            scribus/ui/sccolorslider.cpp \
+           scribus/ui/scdialog.cpp \
            scribus/ui/scdockpalette.cpp \
            scribus/ui/scescapecatcher.cpp \
            scribus/ui/scfilewidget.cpp \
