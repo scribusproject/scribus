@@ -2296,6 +2296,9 @@
     <ClCompile Include="..\..\..\scribus\ui\sccolorslider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\scdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\scdockpalette.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -4011,6 +4014,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\sccolorslider.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\scdialog.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\scdockpalette.h">

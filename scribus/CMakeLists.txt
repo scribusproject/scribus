@@ -501,6 +501,7 @@ set(SCRIBUS_SOURCES
 	ui/resourcemanagerlicense.cpp
 	ui/rulermover.cpp
 	ui/sccolorslider.cpp
+	ui/scdialog.cpp
 	ui/scdockpalette.cpp
 	ui/scescapecatcher.cpp
 	ui/scfilewidget.cpp

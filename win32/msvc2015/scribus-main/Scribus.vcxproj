@@ -639,6 +639,7 @@
     <moc Include="..\..\..\scribus\ui\smdirectionselect.h" />
     <moc Include="..\..\..\scribus\ui\textpalette.h" />
     <moc Include="..\..\..\scribus\ui\smnumformatcombo.h" />
+    <moc Include="..\..\..\scribus\ui\scdialog.h" />
     <ClInclude Include="..\..\..\scribus\undotransaction.h" />
     <ClInclude Include="..\..\..\scribus\util_debug.h" />
     <ClInclude Include="..\..\..\scribus\util_os.h" />
@@ -1344,6 +1345,7 @@
     <ClCompile Include="..\..\..\scribus\ui\sccolorslider.cpp" />
     <ClCompile Include="..\..\..\scribus\downloadmanager\scdlmgr.cpp" />
     <ClCompile Include="..\..\..\scribus\downloadmanager\scdlthread.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\scdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\scdockpalette.cpp" />
     <ClCompile Include="..\..\..\scribus\scdocoutput.cpp" />
     <ClCompile Include="..\..\..\scribus\scdocoutput_ps2.cpp" />
