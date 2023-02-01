@@ -505,16 +505,9 @@ void ScribusMainWindow::setupMainWindow()
 int ScribusMainWindow::getScreenNumber() const
 {
 	QList<QScreen*> screens = QGuiApplication::screens();
-	int screenNumber = -1;
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-	QWindow* w = ScCore->primaryMainWindow()->windowHandle();
-	if (w != nullptr)
-		screenNumber = screens.indexOf(w->screen());
-#else
 	QScreen* s = ScCore->primaryMainWindow()->screen();
-	screenNumber = screens.indexOf(s);
-#endif
+
+	int screenNumber = screens.indexOf(s);
 	if (screenNumber < 0)
 		screenNumber = screens.indexOf(QGuiApplication::primaryScreen());
 	if (screenNumber < 0)
