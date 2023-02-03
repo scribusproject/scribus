@@ -61,53 +61,93 @@ bool PaletteLoader_Adobe_acb::importFile(const QString& fileName, bool /*merge*/
 
 	quint16 vendor, numcolors, colType;
 	ts >> vendor;
-//	QString title		= readAdobeUniCodeString(ts);
-//	QString prefix		= readAdobeUniCodeString(ts);
-//	QString postfix		= readAdobeUniCodeString(ts);
-//	QString description	= readAdobeUniCodeString(ts);
+
+	QString vendorStr;
+	if (vendor == 3000)
+		vendorStr = "ANPA";
+	else if (vendor == 3001)
+		vendorStr = "Focoltone";
+	else if (vendor == 3002)
+		vendorStr = "PantoneCoated";
+	else if (vendor == 3003)
+		vendorStr = "PantoneProcess";
+	else if (vendor == 3004)
+		vendorStr = "PantoneProSlim";
+	else if (vendor == 3005)
+		vendorStr = "PantoneUncoated";
+	else if (vendor == 3006)
+		vendorStr = "Toyo";
+	else if (vendor == 3007)
+		vendorStr = "Trumatch";
+	else if (vendor == 3008)
+		vendorStr = "HKSE";
+	else if (vendor == 3009)
+		vendorStr = "HKSK";
+	else if (vendor == 3010)
+		vendorStr = "HKSN";
+	else if (vendor == 3011)
+		vendorStr = "HKSZ";
+	else if (vendor == 3012)
+		vendorStr = "DIC";
+	else if (vendor == 3020)
+		vendorStr = "PantonePastelCoated";
+	else if (vendor == 3021)
+		vendorStr = "PantonePastelUncoated";
+	else if (vendor == 3022)
+		vendorStr = "PantoneMetallic";
+
+	QStringList metadata;
+	for (int i = 0; i < 4; i++)
+	{
+		QString metadataString = readAdobeUniCodeString(ts);
+		if (metadataString.startsWith("\""))
+			metadataString = metadataString.remove(0, 1);
+		if (metadataString.endsWith("\""))
+			metadataString.chop(1);
+		if (metadataString.startsWith("$$$/"))
+		{
+			if (metadataString.contains("="))
+				metadataString = metadataString.split("=", Qt::KeepEmptyParts).last();
+			else
+				metadataString = QString();
+		}
+		metadata.append(metadataString);
+	}
+	//QString title		= metadata.at(0);
+	QString prefix		= metadata.at(1);
+	QString postfix		= metadata.at(2);
+	//QString description	= metadata.at(3);
+
 	ts >> numcolors;
 	ts.skipRawData(4);
 	ts >> colType;
 	for (quint16 cc = 0; cc < numcolors; cc++)
 	{
 		QString name = readAdobeUniCodeString(ts);
-		if (vendor == 3000)
-			name.prepend("ANPA");
-		else if (vendor == 3001)
-			name.prepend("Focoltone");
-		else if (vendor == 3002)
-			name.prepend("PantoneCoated");
-		else if (vendor == 3003)
-			name.prepend("PantoneProcess");
-		else if (vendor == 3004)
-			name.prepend("PantoneProSlim");
-		else if (vendor == 3005)
-			name.prepend("PantoneUncoated");
-		else if (vendor == 3006)
-			name.prepend("Toyo");
-		else if (vendor == 3007)
-			name.prepend("Trumatch");
-		else if (vendor == 3008)
-			name.prepend("HKSE");
-		else if (vendor == 3009)
-			name.prepend("HKSK");
-		else if (vendor == 3010)
-			name.prepend("HKSN");
-		else if (vendor == 3011)
-			name.prepend("HKSZ");
-		else if (vendor == 3012)
-			name.prepend("DIC");
-		else if (vendor == 3020)
-			name.prepend("PantonePastelCoated");
-		else if (vendor == 3021)
-			name.prepend("PantonePastelUncoated");
-		else if (vendor == 3022)
-			name.prepend("PantoneMetallic");
+		if (name.startsWith("$$$/"))
+		{
+			if (name.contains("="))
+			{
+				QString name2 = name.split("=", Qt::KeepEmptyParts).last();
+				if (!name2.isEmpty())
+					name = name2;
+			}
+		}
+
+		if (!name.isEmpty() && !prefix.isEmpty())
+			name = prefix + " " + name;
+		else if (!name.isEmpty() && !vendorStr.isEmpty())
+			name = vendorStr + " " + name;
+		if (!name.isEmpty() && !postfix.isEmpty())
+			name = name + " " + postfix;
+		name = name.simplified();
+
 		ts.skipRawData(6);
 		quint8 componentR, componentG, componentB, componentK;
 		ts >> componentR >> componentG >> componentB;
 		if (colType == 2)
 			ts >> componentK;
+
 		if (!name.isEmpty())
 		{
 			bool validColor = false;
@@ -119,6 +159,14 @@ bool PaletteLoader_Adobe_acb::importFile(const QString& fileName, bool /*merge*/
 			else if (colType == 2)		// CMYK
 			{
 				lf.setColor(255 - componentR, 255 - componentG, 255 - componentB, 255 - componentK);
+				validColor = true;
+			}
+			else if (colType == 7)		// Lab
+			{
+				double L = (componentR / 255.0) * 100.0;
+				double a = -128.0 + componentG;
+				double b = -128.0 + componentB;
+				lf.setLabColor(L, a, b);
 				validColor = true;
 			}
 			if (validColor)

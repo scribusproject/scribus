@@ -25,12 +25,14 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include <zlib.h>
 #include <qglobal.h>
+
 #include <QApplication>
 #include <QCryptographicHash>
 #include <QDomElement>
 #include <QMessageBox>
 #include <QProcess>
 #include <QSignalBlocker>
+#include <QTextCodec>
 
 #include "pageitem.h"
 #include "pageitem_table.h"
@@ -846,13 +848,22 @@ QString readAdobeUniCodeString(QDataStream &s)
 	QString ret;
 	quint32 len;
 	s >> len;
-	for (quint32 i = 0; i < len; i++)
-	{
-		quint16 ch;
-		s >> ch;
-		if (ch != 0)
-			ret.append(QChar(ch));
-	}
+
+	quint32 bytesLen = 2 * len;
+	QByteArray strData(bytesLen, 0);
+	if (strData.size() != bytesLen)
+		return QString();
+
+	int bytesRead = s.readRawData(strData.data(), bytesLen);
+	if (bytesRead <= 0 || bytesRead != bytesLen)
+		return QString();
+
+	const QTextCodec* utf16Codec = (s.byteOrder() == QDataStream::BigEndian) ?
+	                                QTextCodec::codecForName("UTF-16BE") :
+		                            QTextCodec::codecForName("UTF-16LE");
+	ret = utf16Codec->toUnicode(strData);
+	ret.remove(QChar(0));
+
 	return ret;
 }
 
