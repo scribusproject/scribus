@@ -6087,12 +6087,14 @@ void ScribusMainWindow::copyPage()
 		return;
 	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
-	QScopedPointer<MovePages> dia(new MovePages(this, doc->currentPage()->pageNr()+1, doc->Pages->count(), false));
+
+	QScopedPointer<MovePages> dia(new MovePages(this, doc->currentPage()->pageNr() + 1, doc->Pages->count(), false));
 	if (!dia->exec())
 		return;
-	int pageNumberToCopy=dia->getFromPage()-1;
-	int whereToInsert=dia->getWhere();
-	int copyCount=dia->getCopyCount();
+
+	int pageNumberToCopy = dia->getFromPage() - 1;
+	int whereToInsert = dia->getWhere();
+	int copyCount = dia->getCopyCount();
 	int wo = dia->getWherePage();
 	doc->copyPage(pageNumberToCopy, wo, whereToInsert, copyCount);
 	view->deselectItems(true);
