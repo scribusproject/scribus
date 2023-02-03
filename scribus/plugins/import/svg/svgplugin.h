@@ -248,8 +248,8 @@ public:
 	QRectF  parseViewBox(const QDomElement &e);
 	void parseDefs(const QDomElement &e);
 	void parseClipPath(const QDomElement &e);
-	void parseClipPathAttr(const QDomElement &e, FPointArray& clipPath);
-	void parseFilterAttr(const QDomElement &e, PageItem* item);
+	void parseClipPathAttr(const QDomElement &e, FPointArray& clipPath) const;
+	void parseFilterAttr(const QDomElement &e, PageItem* item) const;
 	QList<PageItem*> parseA(const QDomElement &e);
 	QList<PageItem*> parseGroup(const QDomElement &e);
 	QList<PageItem*> parseDoc(const QDomElement &e);
@@ -267,17 +267,17 @@ public:
 	QList<PageItem*> parseSwitch(const QDomElement &e);
 	QList<PageItem*> parseSymbol(const QDomElement &e);
 	QList<PageItem*> parseUse(const QDomElement &e);
-	const char* getCoord( const char *ptr, double &number );
-	QFont       getFontFromStyle(SvgStyle& style);
-	QDomElement getReferencedNode(const QDomElement &e);
+	const char* getCoord( const char *ptr, double &number) const;
+	QFont       getFontFromStyle(const SvgStyle& style) const;
+	QDomElement getReferencedNode(const QDomElement &e) const;
 	bool        getTextChunkWidth(const QDomElement &e, double& width);
-	double  fromPercentage(const QString &s );
-	double  parseFontSize(const QString& fsize);
-	double  parseUnit(const QString &unit);
-	QTransform parseTransform(const QString &transform);
+	double  fromPercentage(const QString &s ) const;
+	double  parseFontSize(const QString& fsize) const;
+	double  parseUnit(const QString &unit) const;
+	QTransform parseTransform(const QString &transform) const;
 	QString parseColor( const QString &s );
 	QString parseIccColor( const QString &s );
-	QString parseTagName( const QDomElement &e );
+	QString parseTagName( const QDomElement &e) const;
 	void parsePA( SvgStyle *obj, const QString &command, const QString &params );
 	void parseStyle( SvgStyle *obj, const QDomElement &e );
 	void parseColorStops(GradientHelper *gradient, const QDomElement &e);
@@ -286,7 +286,7 @@ public:
 	void parsePattern(const QDomElement &b);
 	void parseGradient( const QDomElement &e );
 
-	QMap<QString, QDomElement> buildNodeMap(const QDomElement &e);
+	QMap<QString, QDomElement> buildNodeMap(const QDomElement &e) const;
 
 	QDomDocument inpdoc;
 	QString docDesc;
@@ -334,7 +334,7 @@ public:
 	QList<PageItem*> Elements;
 
 protected:
-	QVector<double> parseNumbersList(const QString& numbersStr);
+	QVector<double> parseNumbersList(const QString& numbersStr) const;
 };
 
 #endif
