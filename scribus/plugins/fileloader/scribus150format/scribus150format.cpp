@@ -1635,17 +1635,6 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	itemRemapF.clear();
 	itemNextF.clear();
 
-	FrameItems.clear();
-	TableItems.clear();
-	TableID.clear();
-	TableItemsM.clear();
-	TableIDM.clear();
-	TableItemsF.clear();
-	TableIDF.clear();
-	WeldItems.clear();
-	WeldID.clear();
-	LinkID.clear();
-
 	m_Doc->GroupCounter = 1;
 	m_Doc->LastAuto = nullptr;
 	m_Doc->PageColors.clear();
