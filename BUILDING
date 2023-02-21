@@ -1,8 +1,7 @@
 CMake Build
 ====================
 
-Scribus 1.3.5+ has replaced the traditionally used so called autotools with
-the CMake build system (cmake.org).
+Scribus 1.5+ uses the CMake build system (cmake.org).
 
 Please see install4.html in scribus/doc or:
 	http://docs.scribus.net/index.php?lang=en&page=install4
@@ -11,11 +10,6 @@ for details *after* reviewing the build requirements below.
 Note that while a QMake project file (Scribus.pro) is provided in the Scribus
 source distribution, it is not possible to build Scribus with this project
 file. It is only used for generating the translation template files.
-
-REQUIREMENTS AND BUILDING - Microsoft Windows
-=============================================
-
-See the separate file BUILDING_win32.txt
 
 REQUIREMENTS AND BUILDING - Generic *BSD/Linux/*nix
 ====================================================
@@ -27,10 +21,12 @@ exact package names for the distro, are provided below.
 Install the below packages BEFORE running CMake or compiling Scribus:
 
 Requirements:
-    Qt >= 5.14.0
+    CMake >= 3.14.0
+	Qt >= 5.14.0 for Scribus 1.5.x/1.6.x
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
 	cairo >= 1.14.x
-	harfbuzz = > 0.9.42
+	harfbuzz >= 1.0.5
+	harfbuzz-subset >= 2.4.0
 	libicu
 	libjpeg (depending on how Qt is packaged)
 	libpng >= 1.6.0
@@ -38,6 +34,7 @@ Requirements:
 	libxml2 >= 2.6.0
 	LittleCMS (liblcms) >= 2.0 (2.1+ recommended)
 	poppler and poppler-cpp >= 0.62.0
+	If poppler >= 22.01.0, the C++17 standard will be required.
 	
 Recommended:
 	CUPS
@@ -51,6 +48,14 @@ Recommended:
 	podofo - 0.7.0+ for enhanced Illustrator AI/EPS import, svn versions
 	boost and boost-devel
 	GraphicksMagick++
+	librevenge
+	libfreehand-0.1
+	libcdr-0.1 >= 0.1
+	libpagemaker-0.0
+	libmspub-0.1 >= 0.1
+	libqxp-0.0
+	libvisio-0.1 >= 0.1
+	libzmf-0.0
 
 
 If any recommended libraries (and their dev/devel packages or headers) are not
@@ -99,11 +104,10 @@ search path is the PATH environment variable.
 REQUIREMENTS - DETAILS
 ======================
 
-Qt 5.10 is now the *minimum*. Older versions of Qt are *not* supported. 
+Qt 5.14 is now the *minimum*. Older versions of Qt are *not* supported.
 If you build Qt from sources, the recommended ./configure/cmake switches are the
- same as used by KDE. Use of other switches aside from those used by distro
+same as used by KDE. Use of other switches aside from those used by distro
 packages can make trouble shooting issues very difficult at times.
-See: http://developer.kde.orgb/uild/compile_kde3_3.html
 
 Scribus requires Freetype. If you are compiling from source, you will need to
 have the freetype headers installed - these can usually be found in a -devel
@@ -157,9 +161,9 @@ In any problem report, MAKE SURE YOU INCLUDE THE FOLLOWING INFORMATION:
     - A full listing of the compile command and compiler error messages,
       obtained by running `make' with VERBOSE=1 .
     - Operating system or distro, eg "Mac OS X" or "Debian Linux"
-    - OS or distro version, eg "Panther" or "Fedora Core 3". This is NOT the
+	- OS or distro version, eg "Ventura" or "Ubuntu 20.04". This is NOT the
       Linux kernel version, though you can provide that too.
-    - Scribus version you're trying to compile, eg "1.4.6" or "1.5.3.svn". If
+	- Scribus version you're trying to compile, eg "1.5.9" or "1.5.9.svn". If
       you're building an SVN version, please make sure you've run
       "svn revert -R ." (this WILL erase any patches / custom changes you've
       made), deleted the CMake cache with `rm -f CMakeCache.txt' and re-built
@@ -173,7 +177,7 @@ In any problem report, MAKE SURE YOU INCLUDE THE FOLLOWING INFORMATION:
       "LittleCMS 2.1, compiled myself and installed in /usr/local",
       "freetype 2.1.3 from backports.org",
       "fontconfig 2.2.0 (stock Fedora Core 3 devel package)"
-      "I installed the qt-3.0.1.rpm and qt-devel-3.0.1.rpm from the CD."
+	  "I installed the qt-5.14.1.rpm and qt-devel-5.14.1.rpm from the CD."
     - Check again to make REALLY REALLY SURE you have the devel package
       installed, and list the names of the relevant installed devel packages
       in your problem report.
@@ -270,7 +274,7 @@ Recommended packages for compiling from source on OpenSuse 15.1 => :
 	cups-devel (required)
 	fontconfig-devel (required)
 	freetype2-devel (required)
-	harfbuzz-devel (required) > 0.9.42
+	harfbuzz-devel (required) > 1.0.5
 	libjpeg-devel (required)
 	liblcms-devel (required)
 	libpng16-compat-devel (required)
@@ -298,16 +302,15 @@ For proper execution, following package(s) should also be installed:
 Please note we do provide frequently updated packages including debuginfo rpms
 on the Suse Build Server at https://software.opensuse.org .
 
-Mac OS X
+Mac OS
 ========
 
-No detailed build instructions yet. Please see the README for info on MacOS/X.
+Please see the README.MacOSX for info on macOS.
 
 Microsoft Windows
-=================
+=============================================
 
-No build instructions yet. Please see the README for info on Scribus under
-Windows.
+See the separate file BUILDING_win32.txt
 
 Other distros/OSes
 ==================
