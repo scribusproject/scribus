@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2016 Peter Linnell  plinnell@scribus.net, The Scribus Team 2022> -->
+<!-- Copyright 2016 Peter Linnell  plinnell@scribus.net, The Scribus Team 2022-2023> -->
 <component>
   <id type="desktop">scribus@TAG_VERSION@.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <name>Scribus</name>
   <project_license>GPL-2.0+</project_license>
   <summary>Open Source Page Layout and Desktop Publishing (DTP)</summary>
-  <url type="homepage">http://www.scribus.net/</url>
+  <url type="homepage">https://www.scribus.net/</url>
   <description>
-    <p>Scribus is a open source page layout program which
-produces commercial grade output in PDF and Postscript, primarily,
-though not exclusively, for Linux.</p>
-    <p>
-While the goals of the program are ease of use and simple
+  <p>Scribus is a cross-platform open source page layout program which
+produces commercial grade output in PDF and Postscript.</p>
+  <p>While the goals of the program are ease of use and simple
 easy-to-understand tools, Scribus support for professional
 publishing features, such as CMYK and spot colors, easy PDF creation,
 Encapsulated Postscript import and export and creation of color
@@ -33,7 +31,7 @@ separations.</p>
     </screenshot>
   </screenshots>
   <update_contact>scribus-dev@lists.scribus.net</update_contact>
-  <content_rating type="oars-1.1"/>
+  <content_rating type="oars-1.0"/>
   <releases>
     <release version="1.5.8" date="2022-01-23" type="development"/>
 	<release version="1.5.7" date="2021-04-25" type="development"/>
