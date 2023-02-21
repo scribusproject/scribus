@@ -11,24 +11,9 @@ While we also note md5sums and sha256sums, gpg --verify are more secure and reli
 python-imaging to enable print previews. Please consider adding these as 
 requires, even though configure does not explicitly check for them:
 
-* In the past some plug-ins were distributed separately which are now 
-part of the main package. Please consider adding:
-
-	Obsoletes:      scribus-svg
-	Obsoletes:      scribus-scripting
-	Obsoletes:      scribus-short-words
-	Obsoletes:      scribus-vlna
-
-to ensure these old packages are removed on upgrade.
-
 * Currently, the full multi-linugual documentation is included in the tarball, Please
 note it is licensed differently from the application source. We may decide to 
-distribute them separately. In any case, a monolithic scribus application
-plus docs package should also obsolete all prior docs packages.
-
-	Obsoletes:      scribus-i18en
-	Obsoletes:      scribus-i18de
-	Obsoletes:      scribus-i18fr
+distribute them separately.
 
 * Some of the hyphenation dictionaries are under the LGPL or other free
 licenses, not the GPL. Details for each are in the README_XX.xx.txt for
@@ -81,9 +66,6 @@ Please file issues or enhancement requests at https://bugs.scribus.net
 Detailed notes on exact library requirements are detailed in the BUILDING file with the source tarball.
 
 There is a lively on-line community, both on IRC @ #scribus on libera.chat
-and the mailing list. Mailing list info can be found at: 
+and the forum. Mailing list archives can be found at:
 https://lists.scribus.net/mailman/listinfo/scribus
 
-For the Scribus Team,
-Peter Linnell
-in November 2016
