@@ -32,10 +32,12 @@ for which a new license (GPL+exception) is in place.
 #include <QDomDocument>
 #include <QEventLoop>
 #include <QFileDialog>
+#include <QFontMetrics>
 #include <QImageReader>
 #include <QMenu>
 #include <QMessageBox>
 #include <QScopedPointer>
+#include <QScreen>
 
 #include "cmykfw.h"
 #include "colorlistbox.h"
@@ -150,8 +152,27 @@ ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGrad
 	dataTree->setCurrentItem(dataTree->topLevelItem(0));
 	itemSelected(dataTree->currentItem());
 
-	connect(dataTree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(itemSelected(QTreeWidgetItem*)));
-	connect(dataTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(selEditColor(QTreeWidgetItem*)));
+	QFontMetrics fontMetrics(dataTree->fontMetrics());
+
+	int maxAdvance = 0;
+	for (QString colorName : m_colorList.keys())
+	{
+		QRect itemRect = dataTree->style()->itemTextRect(fontMetrics, QRect(), Qt::AlignLeft, true, colorName);
+		maxAdvance = std::max(maxAdvance, itemRect.width());
+	}
+	maxAdvance = std::max(maxAdvance, 20 * fontMetrics.averageCharWidth());
+
+	QSize treeMinSize = dataTree->minimumSize();
+	int maxTreeWidth = dataTree->screen()->size().width() * 0.5;
+	int minTreeWidth = maxAdvance + 75;
+	minTreeWidth += fontMetrics.horizontalAdvance(colorItems->child(0)->text(0)) / 2.0;
+	minTreeWidth += dataTree->verticalScrollBar()->height();
+	minTreeWidth = std::max(treeMinSize.width(), std::min(minTreeWidth, maxTreeWidth));
+	treeMinSize.setWidth(minTreeWidth);
+	dataTree->setMinimumSize(treeMinSize);
+
+	connect(dataTree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(itemSelected(QTreeWidgetItem*)));
+	connect(dataTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(selEditColor(QTreeWidgetItem*)));
 	connect(dataTree, SIGNAL(itemSelectionChanged()), this, SLOT(itemSelectionChanged()));
 	connect(dataTree, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotRightClick(QPoint)));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(createNew()));
