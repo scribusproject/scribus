@@ -29,13 +29,14 @@ for which a new license (GPL+exception) is in place.
 #include "ui_colorsandfillsbase.h"
 #include "colorsetmanager.h"
 #include "sccolor.h"
+#include "scdialog.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
 
 #include "vgradient.h"
 #include "scpattern.h"
 
-class SCRIBUS_API ColorsAndFillsDialog : public QDialog, Ui::ColorsAndFillsBase
+class SCRIBUS_API ColorsAndFillsDialog : public ScDialog, Ui::ColorsAndFillsBase
 {
 	Q_OBJECT
 
