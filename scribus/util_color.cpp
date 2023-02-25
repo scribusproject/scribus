@@ -52,15 +52,15 @@ using namespace std;
 
 void handleOldColorShade(ScribusDoc* doc, QString& colName, int& shade)
 {
-	int r, g, b;
-	bool found = false;
 	if (colName.isEmpty() || colName == CommonStrings::None || !doc->PageColors.contains(colName))
 		return;
 
 	const ScColor& scCol1(doc->PageColors[colName]);
-	
 	if ((shade == 100) || (scCol1.getColorModel() != colorModelRGB))
 		return;
+	
+	int r, g, b;
+	bool found = false;
 	scCol1.getRGB(&r, &g, &b);
 	QColor col1 = getOldColorShade(r, g, b, shade), col2;
 	ColorList::Iterator it, itEnd = doc->PageColors.end();
@@ -732,30 +732,29 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 	QFile fiC(fileName);
 	if (fiC.open(QIODevice::ReadOnly))
 	{
-		QString ColorEn, Cname;
-		int Rval, Gval, Bval, Kval;
+		QString colorName;
+		int rVal, gVal, bVal, kVal;
 		ScTextStream tsC(&fiC);
-		ColorEn = tsC.readLine();
+		QString colorEn = tsC.readLine();
 		bool cus = false;
-		if (ColorEn.contains("OpenOffice"))
+		if (colorEn.contains("OpenOffice"))
 			cus = true;
-		if ((ColorEn.startsWith("<?xml version=")) || (ColorEn.contains("VivaColors")))
+		if ((colorEn.startsWith("<?xml version=")) || (colorEn.contains("VivaColors")))
 		{
 			QByteArray docBytes("");
 			loadRawText(fileName, docBytes);
 			QString docText(QString::fromUtf8(docBytes));
 			QDomDocument docu("scridoc");
 			docu.setContent(docText);
-			ScColor lf = ScColor();
+			ScColor lf;
 			QDomElement elem = docu.documentElement();
 			QString dTag(elem.tagName());
-			QString nameMask = "%1";
-			nameMask = elem.attribute("mask", "%1");
-			QDomNode PAGE = elem.firstChild();
-			while (!PAGE.isNull())
+			QString nameMask = elem.attribute("mask", "%1");
+			QDomNode pgNode = elem.firstChild();
+			while (!pgNode.isNull())
 			{
-				QDomElement pg = PAGE.toElement();
-				if (pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+				QDomElement pg = pgNode.toElement();
+				if (pg.tagName() == "COLOR" && pg.attribute("NAME") != CommonStrings::None)
 				{
 					if (pg.hasAttribute("SPACE"))
 					{
@@ -808,7 +807,7 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 				{
 					if (dialogGradients != nullptr)
 					{
-						VGradient gra = VGradient(VGradient::linear);
+						VGradient gra(VGradient::linear);
 						gra.clearStops();
 						QDomNode grad = pg.firstChild();
 						while (!grad.isNull())
@@ -840,7 +839,7 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 						}
 					}
 				}
-				else if (pg.tagName()=="draw:color" && pg.attribute("draw:name")!=CommonStrings::None)
+				else if (pg.tagName() == "draw:color" && pg.attribute("draw:name") != CommonStrings::None)
 				{
 					if (pg.hasAttribute("draw:color"))
 						lf.setNamedColor(pg.attribute("draw:color"));
@@ -900,51 +899,51 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 							EditColors.tryAddColor(nam, lf);
 					}
 				}
-				PAGE=PAGE.nextSibling();
+				pgNode = pgNode.nextSibling();
 			}
 		}
 		else
 		{
-			QString paletteName = "";
+			QString paletteName;
 			QString dummy;
-			if (ColorEn.startsWith("GIMP Palette"))
+			if (colorEn.startsWith("GIMP Palette"))
 			{
-				ColorEn = tsC.readLine();
-				ScTextStream CoE(&ColorEn, QIODevice::ReadOnly);
+				colorEn = tsC.readLine();
+				ScTextStream CoE(&colorEn, QIODevice::ReadOnly);
 				CoE >> dummy >> paletteName;
 			}
 			while (!tsC.atEnd())
 			{
 				ScColor tmp;
-				ColorEn = tsC.readLine();
-				if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
+				colorEn = tsC.readLine();
+				if (colorEn.length() > 0 && colorEn[0] == QChar('#'))
 					continue;
-				ScTextStream CoE(&ColorEn, QIODevice::ReadOnly);
-				CoE >> Rval;
-				CoE >> Gval;
-				CoE >> Bval;
+				ScTextStream CoE(&colorEn, QIODevice::ReadOnly);
+				CoE >> rVal;
+				CoE >> gVal;
+				CoE >> bVal;
 				if (cus)
 				{
-					CoE >> Kval;
-					Cname = CoE.readAll().trimmed();
-					tmp.setColor(Rval, Gval, Bval, Kval);
+					CoE >> kVal;
+					colorName = CoE.readAll().trimmed();
+					tmp.setColor(rVal, gVal, bVal, kVal);
 				}
 				else
 				{
-					Cname = CoE.readAll().trimmed();
-					tmp.setRgbColor(Rval, Gval, Bval);
+					colorName = CoE.readAll().trimmed();
+					tmp.setRgbColor(rVal, gVal, bVal);
 				}
-				if (Cname == "Untitled")
-					Cname = "";
-				if (Cname.length() == 0)
+				if (colorName == "Untitled")
+					colorName.clear();
+				if (colorName.length() == 0)
 				{
 					if (!cus)
-						Cname = paletteName + QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).toUpper();
+						colorName = paletteName + QString("#%1%2%3").arg(rVal, 2, 16).arg(gVal, 2, 16).arg(bVal, 2, 16).toUpper();
 					else
-						Cname = paletteName + QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).toUpper();
-					Cname.replace(" ","0");
+						colorName = paletteName + QString("#%1%2%3%4").arg(rVal, 2, 16).arg(gVal, 2, 16).arg(bVal, 2, 16).arg(kVal, 2, 16).toUpper();
+					colorName.replace(" ", "0");
 				}
-				EditColors.tryAddColor(Cname, tmp);
+				EditColors.tryAddColor(colorName, tmp);
 			}
 		}
 		fiC.close();
