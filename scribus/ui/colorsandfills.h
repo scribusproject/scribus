@@ -76,7 +76,6 @@ class SCRIBUS_API ColorsAndFillsDialog : public ScDialog, Ui::ColorsAndFillsBase
 		QStringList origPatterns;
 
 	private slots:
-		void leaveDialog();
 		void slotRightClick(QPoint p);
 		void selEditColor(QTreeWidgetItem *it);
 		void itemSelectionChanged();
