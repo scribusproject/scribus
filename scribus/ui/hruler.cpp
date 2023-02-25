@@ -137,18 +137,18 @@ int Hruler::findRulerHandle(QPoint mp, double grabRadius)
 	}
 	
 	pos = textPosToLocal(m_firstIndent + m_leftMargin + (colWidth + m_colGap) * (m_currCol - 1));
-	fpo = QRect(pos - 1, topline, grabRadius + 1, rulerheight/2);
+	fpo = QRect(pos - 1, topline, grabRadius + 1, rulerheight / 2);
 	if (fpo.contains(mp))
 	{
 		return rc_indentFirst;
 	}
 	pos = textPosToLocal(m_leftMargin + (colWidth + m_colGap) * (m_currCol - 1));
-	fpo = QRect(pos - 1, midline, grabRadius + 1, rulerheight/2);
+	fpo = QRect(pos - 1, midline, grabRadius + 1, rulerheight / 2);
 	if (fpo.contains(mp))
 	{
 		return rc_leftMargin;
 	}
-	pos = textPosToLocal(m_rightMargin + (colWidth + m_colGap) * (m_currCol- 1));
+	pos = textPosToLocal(m_rightMargin + (colWidth + m_colGap) * (m_currCol - 1));
 	fpo = QRect(pos - grabRadius, midline, grabRadius, rulerheight / 2);
 	if (fpo.contains(mp))
 	{
@@ -399,7 +399,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			m_mouseX = m->x();
 			return;
 		}
-		if ((!m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > colStart - 2*m_doc->guidesPrefs().grabRadius) && (m->x() < colEnd + 2*m_doc->guidesPrefs().grabRadius))
+		if ((!m_mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > colStart - 2 * m_doc->guidesPrefs().grabRadius) && (m->x() < colEnd + 2 * m_doc->guidesPrefs().grabRadius))
 		{
 			setCursor(IconManager::instance().loadCursor("tab.png", 3));
 			switch (findRulerHandle(m->pos(), m_doc->guidesPrefs().grabRadius))
