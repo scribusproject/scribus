@@ -182,11 +182,12 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	{
 		m_rulerCode = findRulerHandle(m->pos(), m_doc->guidesPrefs().grabRadius);
 		
-		if ((m_rulerCode == rc_none) && (m_currCol != 0) && (m->button() == Qt::LeftButton))
+		double tabPos = localToTextPos(m->x());
+		if ((m_rulerCode == rc_none) && (tabPos >= 0) && (m_currCol != 0) && (m->button() == Qt::LeftButton))
 		{
 			const QString& textTabFillChar = m_doc->itemToolPrefs().textTabFillChar;
 			ParagraphStyle::TabRecord tb;
-			tb.tabPosition = localToTextPos(m->x());
+			tb.tabPosition = tabPos;
 			tb.tabType = 0;
 			tb.tabFillChar = !textTabFillChar.isEmpty() ? textTabFillChar[0] : QChar();
 			m_tabValues.prepend(tb);
