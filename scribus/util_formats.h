@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 bool SCRIBUS_API extensionIndicatesEPS(const QString &ext);
 bool SCRIBUS_API extensionIndicatesEPSorPS(const QString &ext);
 bool SCRIBUS_API extensionIndicatesJPEG(const QString &ext);
+bool SCRIBUS_API extensionIndicatesJPEGXL(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPDF(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPNG(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPSD(const QString &ext);
@@ -38,14 +39,14 @@ class SCRIBUS_API FormatsManager
 
 		enum ScImageFormatType
 		{
-            ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192|16384|32768|524288|1048576|2097152|4194304|8388608,
+			ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192|16384|32768|524288|1048576|2097152|4194304|8388608|16677216,
 #ifdef GMAGICK_FOUND
-            IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|32768|65536|1048576|2097152|4194304|8388608,  // all Types suitable for Image Frames
+			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|32768|65536|1048576|2097152|4194304|8388608|16677216,  // all Types suitable for Image Frames
 #else
-            IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|32768|262144|524288|1048576|2097152|4194304|8388608,  // all Types suitable for Image Frames
+			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|32768|262144|524288|1048576|2097152|4194304|8388608|16677216,  // all Types suitable for Image Frames
 #endif
 			VECTORIMAGES	= 1|64|1024|2048|16384|32768|131072|262144|4194304,  // All pure vector image types
-            RASTORIMAGES	= 2|4|8|32|128|256|512|65536|524288|1048576|2097152|8388608,  // All pure rastor image types
+			RASTORIMAGES	= 2|4|8|32|128|256|512|65536|524288|1048576|2097152|8388608|16677216,  // All pure rastor image types
 			EPS				= 1,      // Encapsulated PostScript
 			GIF				= 2,      // GIF files
 			JPEG			= 4,      // JPEG
@@ -70,8 +71,9 @@ class SCRIBUS_API FormatsManager
 			BMP				= 524288,  // BMP
 			PGF				= 1048576, // PGF
 			ORA				= 2097152, // ORA
-            QT				= 4194304, // Qt
-            KRA             = 8388608  // Krita
+			QT				= 4194304, // Qt
+			KRA				= 8388608, // Krita
+			JPEGXL			= 16677216  // JPEG XL
 		};
 	
 /*

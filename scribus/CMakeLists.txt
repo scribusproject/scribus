@@ -67,6 +67,12 @@ else()
 	set(SCRIBUS_GMAGICK_SRC)
 endif()
 
+if (JXL_FOUND)
+	set(SCRIBUS_JPEGXL_SRC
+		imagedataloaders/scimgdataloader_jpegxl.cpp
+	)
+endif ()
+
 set(SCRIBUS_SOURCES
 	actionmanager.cpp
 	actionsearch.cpp
@@ -582,6 +588,7 @@ set(SCRIBUS_SOURCES
 	ui/weldedit.cpp
 	${SCRIBUS_OSG_SRC}
 	${SCRIBUS_GMAGICK_SRC}
+	${SCRIBUS_JPEGXL_SRC}
 )
 
 if(NOT HAVE_HYPHEN)
@@ -833,6 +840,10 @@ if(APPLE)
 		PRIVATE
 		"-framework CoreFoundation"
 		)
+	target_link_options(${EXE_NAME}
+		PUBLIC
+		"-Wl,-no_fixup_chains"
+	)
 endif()
 
 if (WANT_SVNVERSION)
@@ -857,6 +868,13 @@ endif()
 if(HAVE_PODOFO)
 	target_link_libraries(${EXE_NAME} PRIVATE
 		${LIBPODOFO_LIBRARY}
+	)
+endif()
+
+if(HAVE_JXL)
+	target_link_libraries(${EXE_NAME} PRIVATE
+		${JXL_LIBRARY}
+		${JXL_THREADS_LIBRARY}
 	)
 endif()
 

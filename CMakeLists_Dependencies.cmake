@@ -155,6 +155,17 @@ if(LIBXML2_FOUND)
 endif()
 #>>LibXML2
 
+#<<JPEG XL
+set(JXL_DIR ${CMAKE_MODULE_PATH})
+find_package(JXL)
+if(JXL_FOUND)
+	set(HAVE_JXL ON)
+	message("JPEG XL Library Found OK")
+else()
+	message("Could not find the JPEG XL Library")
+endif()
+#>>JPEG XL
+
 #<<LittleCMS
 set(LCMS_DIR ${CMAKE_MODULE_PATH})
 find_package(LCMS2 REQUIRED)

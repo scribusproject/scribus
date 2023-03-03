@@ -32,6 +32,7 @@
 #cmakedefine HAVE_SYS_TYPES_H 1
 #cmakedefine HAVE_TIFF 1
 #cmakedefine HAVE_XML 1
+#cmakedefine HAVE_JXL 1
 #cmakedefine HUNSPELL_VERSION "@HUNSPELL_VERSION@"
 #cmakedefine HAVE_HUNSPELL "@HAVE_HUNSPELL@"
 #cmakedefine WITH_TESTS 1

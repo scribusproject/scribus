@@ -41,6 +41,9 @@ for which a new license (GPL+exception) is in place.
 #include "imagedataloaders/scimgdataloader_gmagick.h"
 #endif
 #include "imagedataloaders/scimgdataloader_jpeg.h"
+#ifdef HAVE_JXL
+#include "imagedataloaders/scimgdataloader_jpegxl.h"
+#endif
 #include "imagedataloaders/scimgdataloader_ora.h"
 #include "imagedataloaders/scimgdataloader_kra.h"
 #include "imagedataloaders/scimgdataloader_pict.h"
@@ -1971,6 +1974,8 @@ bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF,
 	}
 	if (extensionIndicatesJPEG(ext))
 		return true;
+	if (extensionIndicatesJPEGXL(ext))
+		return true;
 	if (extensionIndicatesPDF(ext))
 	{
 		pDataLoader.reset( new ScImgDataLoader_PDF() );
@@ -2273,6 +2278,10 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		pDataLoader.reset( new ScImgDataLoader_PS() );
 	else if (extensionIndicatesJPEG(ext))
 		pDataLoader.reset( new ScImgDataLoader_JPEG() );
+	#ifdef HAVE_JXL
+	else if (extensionIndicatesJPEGXL(ext))
+		pDataLoader.reset( new ScImgDataLoader_JPEGXL() );
+	#endif
 	else if (extensionIndicatesPNG(ext))
 		pDataLoader.reset( new ScImgDataLoader_PNG() );
 	else if (extensionIndicatesPSD(ext))

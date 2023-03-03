@@ -29,6 +29,9 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::EPS,  QStringList() << "eps" << "epsf" << "epsi" << "eps2" << "eps3" << "epi" << "ept");
 	m_fmts.insert(FormatsManager::GIF,  QStringList() << "gif");
 	m_fmts.insert(FormatsManager::JPEG, QStringList() << "jpg" << "jpeg");
+#ifdef HAVE_JXL
+	m_fmts.insert(FormatsManager::JPEGXL, QStringList() << "jxl");
+#endif
 	m_fmts.insert(FormatsManager::KRA,  QStringList() << "kra");
 	m_fmts.insert(FormatsManager::ORA,  QStringList() << "ora");
 	m_fmts.insert(FormatsManager::PAT,  QStringList() << "pat");
@@ -83,6 +86,7 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript");
 	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
 	m_fmtNames[FormatsManager::JPEG] = QObject::tr("JPEG");
+	m_fmtNames[FormatsManager::JPEGXL] = QObject::tr("JPEG XL");
 	m_fmtNames[FormatsManager::KRA]  = QObject::tr("Krita");
 	m_fmtNames[FormatsManager::ORA]  = QObject::tr("OpenRaster");
 	m_fmtNames[FormatsManager::PAT]  = QObject::tr("Pattern Files");
@@ -111,6 +115,7 @@ FormatsManager::FormatsManager()
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");
 	m_fmtMimeTypes.insert(FormatsManager::GIF,  QStringList() << "image/gif");
 	m_fmtMimeTypes.insert(FormatsManager::JPEG, QStringList() << "image/jpeg");
+	m_fmtMimeTypes.insert(FormatsManager::JPEG, QStringList() << "image/jxl");
 	m_fmtMimeTypes.insert(FormatsManager::KRA,  QStringList() << "application/x-krita");
 	m_fmtMimeTypes.insert(FormatsManager::ORA,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::PAT,  QStringList() << "");
@@ -337,6 +342,13 @@ bool extensionIndicatesJPEG(const QString &ext)
 {
 	QStringList strl;
 	strl << "jpg" << "jpeg";
+	return strl.contains(ext, Qt::CaseInsensitive);
+}
+
+bool extensionIndicatesJPEGXL(const QString &ext)
+{
+	QStringList strl;
+	strl << "jxl";
 	return strl.contains(ext, Qt::CaseInsensitive);
 }
 
