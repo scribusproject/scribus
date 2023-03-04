@@ -141,19 +141,19 @@ void ScDockPalette::showEvent(QShowEvent *showEvent)
 		{
 			QRect scr = s->availableGeometry();
 			// all palettes should have enough room for 3x3 min widgets
-			int vwidth  = qMin(qMax(0, m_palettePrefs->getInt("width")), scrSize.width());
-			int vheight = qMin(qMax(0, m_palettePrefs->getInt("height")), scrSize.height());
+			int vwidth  = qMax(0, qMin(m_palettePrefs->getInt("width"), scrSize.width()));
+			int vheight = qMax(0, qMin(m_palettePrefs->getInt("height"), scrSize.height()));
 			// palettes should not use too much screen space
-			if (vwidth > scrSize.width() / 3 && vheight > scrSize.height()/3)
+			if (vwidth > scrSize.width() / 3 && vheight > scrSize.height() / 3)
 				vwidth = scrSize.width() / 3;
 			// and should be partly visible
-			int vleft   = qMin(qMax(scr.left() - vwidth, m_palettePrefs->getInt("left")), scr.right());
-			int vtop = qMin(m_palettePrefs->getInt("top"), scrSize.height());
+			int vleft = qMax(scr.left() - vwidth, qMin(m_palettePrefs->getInt("left"), scr.right()));
+			int vtop  = qMin(m_palettePrefs->getInt("top"), scrSize.height());
 #if defined(Q_OS_MACOS) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
-			vtop = qMax(64, vtop);
+			vtop = qMax(scr.top() + 64, vtop);
 #else
-			vtop = qMax(-vheight, vtop);
+			vtop = qMax(scr.top() - vheight, vtop);
 #endif
 			// Check values against current screen size
 			if (vleft <= scr.left())
@@ -161,16 +161,15 @@ void ScDockPalette::showEvent(QShowEvent *showEvent)
 			if (vleft >= scr.right())
 				vleft = scr.left();
 			if (vtop >= scr.bottom())
-				vtop = 64;
+				vtop = scr.top() + 64;
 			if (vtop <= scr.top())
 				vtop = scr.top();
 			if (vwidth >= scr.width())
-				vwidth = qMax(0, scr.width() - vleft);
-			if ( vheight >= scr.height() )
-				vheight = qMax(0, scr.height() - vtop);
+				vwidth = qMax(0, scr.right() - vleft);
+			if (vheight >= scr.height())
+				vheight = qMax(0, scr.bottom() - vtop);
 //			qDebug() << QString("root %1x%2 %7 palette %3x%4 @ (%5,%6)").arg(d->width()).arg(d->height())
 //				.arg(vwidth).arg(vheight).arg(vleft).arg(vtop).arg(name());
-//			setGeometry(vleft, vtop, vwidth, vheight);
 			resize(vwidth, vheight);
 			move(vleft, vtop);
 		}
