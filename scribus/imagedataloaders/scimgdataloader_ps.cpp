@@ -125,7 +125,7 @@ void ScImgDataLoader_PS::scanForFonts(const QString& fn)
 			ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 			QString tmp2;
 			ts2 >> tmp2;
-			m_FontListe.removeAll(tmp2);
+			m_fontList.removeAll(tmp2);
 		}
 	}
 }
@@ -147,7 +147,7 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 	m_isRotated = false;
 	int plateCount = 0;
 	uint startPos = 0;
-	m_FontListe.clear();
+	m_fontList.clear();
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
@@ -302,7 +302,7 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 				if (!tmp2.contains("(atend)"))
 				{
 					if (!tmp2.isEmpty())
-						m_FontListe.append(tmp2);
+						m_fontList.append(tmp2);
 					while (!ts.atEnd())
 					{
 						uint oldPos = ts.device()->pos();
@@ -317,7 +317,7 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 						QString tmp2;
 						ts2 >> tmp2;
 						if (!tmp2.isEmpty())
-							m_FontListe.append(tmp2);
+							m_fontList.append(tmp2);
 					}
 				}
 				else
@@ -495,19 +495,19 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 	m_CustColors.insert("Yellow", ScColor(0, 0, 255, 0));
 	m_CustColors.insert("Black", ScColor(0, 0, 0, 255));
 	found = parseData(fn);
-	if (m_FontListe.count() != 0)
+	if (m_fontList.count() != 0)
 	{
 		scanForFonts(fn);
-		if (m_FontListe.count() != 0)
+		if (m_fontList.count() != 0)
 		{
 			bool missing = false;
 			QString missingF = "";
-			for (int fo = 0; fo < m_FontListe.count(); fo++)
+			for (int fo = 0; fo < m_fontList.count(); fo++)
 			{
-				if (!PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.contains(m_FontListe[fo]))
+				if (!PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.contains(m_fontList[fo]))
 				{
 					missing = true;
-					missingF += m_FontListe[fo]+"\n";
+					missingF += m_fontList[fo] + "\n";
 				}
 			}
 			if (missing)
@@ -577,8 +577,8 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 				if (!m_BBoxInTrailer)
 					args.append("-dEPSCrop");
 			}
-			args.append("-r"+QString::number(gsRes));
-			args.append("-sOutputFile="+tmpFiles);
+			args.append("-r" + QString::number(gsRes));
+			args.append("-sOutputFile=" + tmpFiles);
 			args.append(picFile);
 			h = h * gsRes / 72.0;
 			int retg = callGS(args);
@@ -614,7 +614,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 
 				QStringList files("sc*.png");
 				files = QDir(ScPaths::tempFileDir()).entryList(files);
-				for (int i=0; i < files.count(); ++i)
+				for (int i = 0; i < files.count(); ++i)
 					QFile::remove(QDir::toNativeSeparators(ScPaths::tempFileDir() + files[i]));
 				
 				if (extensionIndicatesEPS(ext))
@@ -648,8 +648,8 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 			if (extensionIndicatesEPS(ext))
 				args.append("-dEPSCrop");
 			args.append("-dGrayValues=256");
-			args.append("-r"+QString::number(gsRes));
-			args.append("-sOutputFile="+tmpFiles);
+			args.append("-r" + QString::number(gsRes));
+			args.append("-sOutputFile=" + tmpFiles);
 			args.append(picFile);
 //			qDebug() << "scimgdataloader_ps:" << args;
 			int retg = callGS(args);
@@ -693,7 +693,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 				
 				QStringList files("sc*.png");
 				files = QDir(ScPaths::tempFileDir()).entryList(files);
-				for (int i=0; i < files.count(); ++i)
+				for (int i = 0; i < files.count(); ++i)
 					QFile::remove(QDir::toNativeSeparators(ScPaths::tempFileDir() + files[i]));
 				
 				if (extensionIndicatesEPS(ext))
@@ -1691,8 +1691,8 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 			if (!m_BBoxInTrailer)
 				args.append("-dEPSCrop");
 		}
-		args.append("-r"+QString::number(gsRes));
-		args.append("-sOutputFile="+tmpFiles);
+		args.append("-r" + QString::number(gsRes));
+		args.append("-sOutputFile=" + tmpFiles);
 		args.append(picFile);
 //		qDebug() << "scimgdataloader_ps(alpha):" << args;
 		int retg = callGS(args);
@@ -1728,7 +1728,7 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 			
 			QStringList files("sc*.png");
 			files = QDir(ScPaths::tempFileDir()).entryList(files);
-			for (int i=0; i < files.count(); ++i)
+			for (int i = 0; i < files.count(); ++i)
 				QFile::remove(QDir::toNativeSeparators(ScPaths::tempFileDir() + files[i]));
 
 			hasAlpha = true;

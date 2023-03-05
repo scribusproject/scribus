@@ -62,7 +62,7 @@ protected:
 	int m_psDataType { 0 };
 	QString m_psCommand;
 	QMap<QString,ScColor> m_CustColors;
-	QStringList m_FontListe;
+	QStringList m_fontList;
 };
 
 #endif
