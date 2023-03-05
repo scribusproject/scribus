@@ -148,7 +148,7 @@ void ScDockPalette::showEvent(QShowEvent *showEvent)
 				vwidth = scrSize.width() / 3;
 			// and should be partly visible
 			int vleft = qMax(scr.left() - vwidth, qMin(m_palettePrefs->getInt("left"), scr.right()));
-			int vtop  = qMin(m_palettePrefs->getInt("top"), scrSize.bottom());
+			int vtop  = qMin(m_palettePrefs->getInt("top"), scr.bottom());
 #if defined(Q_OS_MACOS) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
 			vtop = qMax(scr.top() + 64, vtop);
