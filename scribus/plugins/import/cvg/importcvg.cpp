@@ -471,7 +471,7 @@ void CvgPlug::parseColor(quint32 dataF, quint32 dataS, bool color, quint16 flag)
 	QColor c;
 	if (color)
 	{
-		if ((flag == 0x0080) || (flag == 0x0200))
+		if ((flag == 0x0080) || (flag == 0x0200) || (flag == 0x0400))
 		{
 			c.setRgb(dataF);
 			tmp.fromQColor(c);
@@ -483,7 +483,7 @@ void CvgPlug::parseColor(quint32 dataF, quint32 dataS, bool color, quint16 flag)
 				importedColors.append(fNam);
 			CurrColorFill = fNam;
 		}
-		if ((flag == 0x0080) || (flag == 0x0100))
+		if ((flag == 0x0080) || (flag == 0x0100) || (flag == 0x0400))
 		{
 			c.setRgb(dataS);
 			tmp.fromQColor(c);
