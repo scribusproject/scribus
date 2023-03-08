@@ -53,54 +53,9 @@ class TagTable
 
 class ExifData
 {
-//	Section_t Sections[MAX_SECTIONS];
-		QString CameraMake;
-		QString CameraModel;
-		QString DateTime;
-		int Orientation;
-		int orientationCount;
-		int Height, Width;
-		int ExifImageLength;
-		int ExifImageWidth;
-		int IsColor;
-		int Process;
-		int FlashUsed;
-		float FocalLength;
-		float ExposureTime;
-		float ApertureFNumber;
-		float Distance;
-		int Whitebalance;
-		int MeteringMode;
-		float CCDWidth;
-		float ExposureBias;
-		int ExposureProgram;
-		int ISOequivalent;
-		int CompressionLevel;
-		QString UserComment;
-		QString Comment;
-		int recurseLevel;
-		unsigned char * LastExifRefd;
-		int ExifSettingsLength;
-		double FocalplaneXRes;
-		double FocalplaneUnits;
-		int MotorolaOrder;
-
-		int getch ( QFile &infile );
-		int ReadJpegSections ( QFile & infile, ReadMode_t ReadMode );
-		void DiscardData();
-		int Get16u ( void * Short );
-		int Get32s ( void * Long );
-		unsigned Get32u ( void * Long );
-		double ConvertAnyFormat ( void * ValuePtr, int Format );
-		void ProcessExifDir ( unsigned char * DirStart, unsigned char * OffsetBase, unsigned ExifLength );
-		void process_COM ( const uchar * Data, int length );
-		void process_SOFn ( const uchar * Data, int marker );
-		int Get16m ( const void * Short );
-		void process_EXIF ( unsigned char * CharBuf, unsigned int length );
-		int Exif2tm ( struct tm * timeptr, char * ExifTime );
-
 	public:
-		ExifData();
+		ExifData() = default;
+
 		bool scan ( const QString & );
 		QString getCameraMake() { return CameraMake; }
 		QString getCameraModel() { return CameraModel; }
@@ -127,8 +82,57 @@ class ExifData
 		QImage getThumbnail();
 		bool isThumbnailSane();
 		bool isNullThumbnail() { return !isThumbnailSane(); }
-		bool exifDataValid;
+
+		bool exifDataValid { false };
 		QImage Thumbnail;
+
+	private:
+		//	Section_t Sections[MAX_SECTIONS];
+		QString CameraMake;
+		QString CameraModel;
+		QString DateTime;
+		int Orientation { 0 };
+		int orientationCount { 0 };
+		int Height { 0 };
+		int Width { 0 };
+		int ExifImageLength { 0 };
+		int ExifImageWidth { 0 };
+		int IsColor { 0 };
+		int Process { 0 };
+		int FlashUsed { 0 };
+		float FocalLength { 0.0f };
+		float ExposureTime { 0.0f };
+		float ApertureFNumber { 0.0f };
+		float Distance { 0.0f };
+		int Whitebalance { -1 };
+		int MeteringMode { -1 };
+		float CCDWidth { 0.0f };
+		float ExposureBias { 0.0f };
+		int ExposureProgram { 0 };
+		int ISOequivalent { 0 };
+		int CompressionLevel { 0 };
+		QString UserComment;
+		QString Comment;
+		int recurseLevel { 0 };
+		unsigned char* LastExifRefd { nullptr };
+		int ExifSettingsLength { 0 };
+		double FocalplaneXRes { 0.0 };
+		double FocalplaneUnits { 0.0 };
+		int MotorolaOrder { 0 };
+
+		int getch(QFile& infile);
+		int ReadJpegSections(QFile& infile, ReadMode_t ReadMode);
+		void DiscardData();
+		int Get16u(void* Short);
+		int Get32s(void* Long);
+		unsigned Get32u(void* Long);
+		double ConvertAnyFormat(void* ValuePtr, int Format);
+		void ProcessExifDir(unsigned char* DirStart, unsigned char* OffsetBase, unsigned ExifLength);
+		void process_COM(const uchar* Data, int length);
+		void process_SOFn(const uchar* Data, int marker);
+		int Get16m(const void* Short);
+		void process_EXIF(unsigned char* CharBuf, unsigned int length);
+		int Exif2tm(struct tm* timeptr, char* ExifTime);
 };
 
 class FatalError

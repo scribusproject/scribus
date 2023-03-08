@@ -871,33 +871,6 @@ int ExifData::Exif2tm ( struct tm * timeptr, char * ExifTime )
 }
 
 //--------------------------------------------------------------------------
-// Constructor for initialising
-//--------------------------------------------------------------------------
-ExifData::ExifData()
-{
-	ExifData::Whitebalance = -1;
-	ExifData::MeteringMode = -1;
-	ExifData::FlashUsed = 0;
-	Orientation = 0;
-	Height = 0;
-	Width = 0;
-	IsColor = 0;
-	Process = 0;
-	FocalLength = 0;
-	ExposureTime = 0;
-	ApertureFNumber = 0;
-	Distance = 0;
-	CCDWidth = 0;
-	ExposureBias = 0;
-	ExposureProgram = 0;
-	ISOequivalent = 0;
-	CompressionLevel = 0;
-	exifDataValid = false;
-	recurseLevel = 0;
-	orientationCount = 0;
-}
-
-//--------------------------------------------------------------------------
 // process a EXIF jpeg file
 //--------------------------------------------------------------------------
 bool ExifData::scan ( const QString & path )
