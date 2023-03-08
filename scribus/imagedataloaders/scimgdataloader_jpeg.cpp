@@ -54,10 +54,9 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 		return;
 	struct jpeg_decompress_struct cinfo;
 	struct my_error_mgr         jerr;
-	FILE     *infile;
+	FILE     *infile = nullptr;
 	cinfo.err = jpeg_std_error (&jerr.pub);
 	jerr.pub.error_exit = my_error_exit;
-	infile = nullptr;
 	if (setjmp (jerr.setjmp_buffer))
 	{
 		jpeg_destroy_decompress (&cinfo);
@@ -129,10 +128,9 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	ExifData ExifInf;
 	struct jpeg_decompress_struct cinfo;
 	struct my_error_mgr         jerr;
-	FILE     *infile;
+	FILE     *infile = nullptr;
 	cinfo.err = jpeg_std_error (&jerr.pub);
 	jerr.pub.error_exit = my_error_exit;
-	infile = nullptr;
 
 	initialize();
 	m_imageInfoRecord.type = ImageTypeJPG;
@@ -158,7 +156,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	jpeg_read_header(&cinfo, true);
 	jpeg_start_decompress(&cinfo);
 	bool exi = ExifInf.scan(fn);
-	if ((exi) && (ExifInf.exifDataValid))
+	if (exi && ExifInf.exifDataValid)
 	{
 		if (cinfo.output_components == 4)
 			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
@@ -517,7 +515,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	(void) jpeg_finish_decompress(&cinfo);
 	fclose (infile);
 	jpeg_destroy_decompress (&cinfo);
-	if ((exi) && (ExifInf.exifDataValid))
+	if (exi && ExifInf.exifDataValid)
 	{
 		int ori = ExifInf.getOrientation();
 		int oxres, oyres;
@@ -621,9 +619,9 @@ bool ScImgDataLoader_JPEG::read_jpeg_marker (UINT8 requestmarker, j_decompress_p
 	JOCTET *icc_data;
 	unsigned int total_length;
 #define MAX_SEQ_NO  255		/* sufficient since marker numbers are bytes */
-	char marker_present[MAX_SEQ_NO+1];	  /* 1 if marker found */
-	unsigned int data_length[MAX_SEQ_NO+1]; /* size of profile data in marker */
-	unsigned int data_offset[MAX_SEQ_NO+1]; /* offset for data in marker */
+	char marker_present[MAX_SEQ_NO + 1];	  /* 1 if marker found */
+	unsigned int data_length[MAX_SEQ_NO + 1]; /* size of profile data in marker */
+	unsigned int data_offset[MAX_SEQ_NO + 1]; /* offset for data in marker */
 
 	*icc_data_ptr = nullptr;		/* avoid confusion if false return */
 	*icc_data_len = 0;

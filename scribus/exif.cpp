@@ -938,8 +938,8 @@ QImage ExifData::getThumbnail()
 		return Thumbnail;
 	// now fix orientation
 	QTransform M;
-	QTransform flip = QTransform ( -1,0,0,1,0,0 );
-	switch ( Orientation )
+	QTransform flip(-1, 0, 0, 1, 0, 0);
+	switch (Orientation)
 	{  // notice intentional fallthroughs
 		case 2: M = flip; break;
 		case 4: M = flip; //Q_FALLTHROUGH();
