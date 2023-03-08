@@ -930,25 +930,40 @@ bool ExifData::isThumbnailSane()
 //--------------------------------------------------------------------------
 QImage ExifData::getThumbnail()
 {
-	if ( Thumbnail.isNull() )
+	if (Thumbnail.isNull())
 		return QImage(); // Qt4 NULL->QImage() is it sane?
 	if (orientationCount > 1)
 		return Thumbnail;
-	if ( !Orientation || Orientation == 1 )
+	if (!Orientation || Orientation == 1)
 		return Thumbnail;
 	// now fix orientation
 	QTransform M;
-	QTransform flip = QTransform ( -1,0,0,1,0,0 );
-	switch ( Orientation )
+	QTransform flip(-1, 0, 0, 1, 0, 0);
+	switch (Orientation)
 	{  // notice intentional fallthroughs
-		case 2: M = flip; break;
-		case 4: M = flip; //Q_FALLTHROUGH();
-		case 3: M.rotate ( 180 ); break;
-		case 5: M = flip; //Q_FALLTHROUGH();
-		case 6: M.rotate ( 90 ); break;
-		case 7: M = flip; //Q_FALLTHROUGH();
-		case 8: M.rotate ( 270 ); break;
-		default: break; // should never happen
+		case 2:
+			M = flip;
+			break;
+		case 4:
+			M = flip;
+			[[fallthrough]];
+		case 3:
+			M.rotate(180);
+			break;
+		case 5:
+			M = flip;
+			[[fallthrough]];
+		case 6:
+			M.rotate (90);
+			break;
+		case 7:
+			M = flip;
+			[[fallthrough]];
+		case 8:
+			M.rotate(270);
+			break;
+		default:
+			break; // should never happen
 	}
-	return Thumbnail.transformed ( M );
+	return Thumbnail.transformed(M);
 }

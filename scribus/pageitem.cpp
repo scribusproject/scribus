@@ -8407,10 +8407,13 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 			{
 				case ImageEffect::EF_QUADTONE:
 					lists.collectColor(fp.readLine());
+					[[fallthrough]];
 				case ImageEffect::EF_TRITONE:
 					lists.collectColor(fp.readLine());
+					[[fallthrough]];
 				case ImageEffect::EF_DUOTONE:
 					lists.collectColor(fp.readLine());
+					[[fallthrough]];
 				case ImageEffect::EF_COLORIZE:
 					lists.collectColor(fp.readLine());
 					break;
