@@ -1366,6 +1366,7 @@ void CanvasMode_Normal::handlePushButtonRelease(PageItem* currItem)
 			break;
 		case Annotation::Action_Named:
 			handleNamedAction(currItem);
+			break;
 		default:
 			break;
 	}
