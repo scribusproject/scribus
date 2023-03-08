@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #ifdef _WIN32
 #include <windows.h>
 #include <shlobj.h>
+#include <versionhelpers.h>
 #endif
 
 #if defined(Q_OS_WIN32) || defined (Q_OS_OS2)
@@ -435,25 +436,12 @@ QStringList ScPaths::systemProfilesDirs()
 	iccProfDirs.append("/usr/local/share/color/icc/");
 	iccProfDirs.append("/var/lib/color/icc/");
 #elif defined(_WIN32)
-	// On Windows it's more complicated, profiles location depends on OS version
-	WCHAR sysDir[MAX_PATH + 1];
-	OSVERSIONINFO osVersion;
-	ZeroMemory(&osVersion, sizeof(OSVERSIONINFO));
-	osVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO); // Necessary for GetVersionEx to succeed
-	GetVersionEx(&osVersion);  // Get Windows version infos
+	WCHAR sysDir[MAX_PATH + 1] = { 0 };
 	GetSystemDirectoryW(sysDir, MAX_PATH); // windowsSpecialDir(CSIDL_SYSTEM) fails on Win9x
 	QString winSysDir(QString::fromUtf16((const ushort*) sysDir));
-	winSysDir.replace('\\','/');
-	if (osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT) // Windows NT/2k/XP
-	{
-		if (osVersion.dwMajorVersion >= 5) // for 2k and XP dwMajorVersion == 5 
-			iccProfDirs.append(winSysDir + "/Spool/Drivers/Color/");
-	}
-	else if (osVersion.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS) // Windows 9x/Me 
-	{
-		if (osVersion.dwMajorVersion >= 4 && osVersion.dwMinorVersion >= 10) // Win98 or WinMe
-			iccProfDirs.append(winSysDir + "/Color/");
-	}
+	winSysDir.replace('\\', '/');
+	if (IsWindowsVersionOrGreater(5, 0, 0)) // for 2k and XP dwMajorVersion == 5 
+		iccProfDirs.append(winSysDir + "/Spool/Drivers/Color/");
 #endif
 	return iccProfDirs;
 }
