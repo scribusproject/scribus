@@ -257,11 +257,13 @@ void ScImgDataLoader::parseResourceData( QDataStream & s, const PSDHeader & head
 					m_imageInfoRecord.exifDataValid = true;
 					free(buffer);
 				}
+				break;
 			default:
 				break;
 			}
 		}
-		if (resBase + resSize <= size) {
+		if (resBase + resSize <= size)
+		{
 			s.device()->seek( resBase + resSize );
 			offset += resSize;
 		}

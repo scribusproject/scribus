@@ -599,6 +599,7 @@ QString getStringFromSequence(NumFormat type, uint position, const QString& aste
 			break;
 		case Type_CJK:
 			retVal = numberToCJK(position);
+			break;
 		case Type_None:
 			break;
 		default:
