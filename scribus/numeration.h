@@ -60,7 +60,7 @@ struct NumStruct
 	QString m_name;
 	QList<Numeration> m_nums;
 	QList<int> m_counters;
-	int m_lastlevel;
+	int m_lastlevel { -1 };
 };
 
 //util functions for use without Numeration class
