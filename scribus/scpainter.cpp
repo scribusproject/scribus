@@ -941,14 +941,14 @@ void ScPainter::fillPathHelper()
 			cairo_set_tolerance(cr, 0.5);
 			double r, g, b, a;
 			mpat = cairo_pattern_create_mesh();
-			for (int grow = 0; grow < meshGradientArray.count()-1; grow++)
+			for (int grow = 0; grow < meshGradientArray.count() - 1; ++grow)
 			{
-				for (int gcol = 0; gcol < meshGradientArray[grow].count()-1; gcol++)
+				for (int gcol = 0; gcol < meshGradientArray[grow].count() - 1; ++gcol)
 				{
 					MeshPoint mp1 = meshGradientArray[grow][gcol];
-					MeshPoint mp2 = meshGradientArray[grow][gcol+1];
-					MeshPoint mp3 = meshGradientArray[grow+1][gcol+1];
-					MeshPoint mp4 = meshGradientArray[grow+1][gcol];
+					MeshPoint mp2 = meshGradientArray[grow][gcol + 1];
+					MeshPoint mp3 = meshGradientArray[grow + 1][gcol + 1];
+					MeshPoint mp4 = meshGradientArray[grow + 1][gcol];
 					cairo_mesh_pattern_begin_patch(mpat);
 					cairo_mesh_pattern_move_to(mpat, mp1.gridPoint.x(), mp1.gridPoint.y());
 					cairo_mesh_pattern_curve_to(mpat, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
