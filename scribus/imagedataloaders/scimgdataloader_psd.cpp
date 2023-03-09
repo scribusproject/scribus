@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scribuscore.h"
 
+#include <cstdint>
 #include <QFile>
 #include <QFileInfo>
 #include <QList>
@@ -242,7 +243,7 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, 
 	return false;
 }
 
-bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
+bool ScImgDataLoader_PSD::LoadPSD(QDataStream& s, const PSDHeader& header)
 {
 	// Create dst image.
 	m_imageInfoRecord.valid = false;
@@ -260,11 +261,12 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 	}
 	r_image.fill(0);
 	m_maxChannels = header.channel_count;
+
 	uint tmp;
-	uint cresStart;
-	uint cdataStart;
 	uint resourceDataLen;
-	uint startResource;
+	qint64 cresStart;
+	qint64 cdataStart;
+	qint64 startResource;
 
 	cresStart = s.device()->pos();
 	// Skip mode data. FIX: this is incorrect, it's the Colormap Data for indexed Images
@@ -273,7 +275,7 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 
 	LoadPSDResources(s, header, cresStart); 
 	
-	s.device()->seek( cdataStart + tmp );
+	s.device()->seek(cdataStart + tmp);
 	s >> resourceDataLen;
 	startResource = s.device()->pos();
 
@@ -283,17 +285,16 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 	return ret;
 }
 
-bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & header, uint dataOffset )
+bool ScImgDataLoader_PSD::LoadPSDResources(QDataStream& s, const PSDHeader& header, qint64 dataOffset)
 {
 	// Create dst image.
 	m_imageInfoRecord.valid = false;
 
 	uint tmp;
-	uint cdataStart;
 	uint resourceDataLen;
-//	uint startResource;
+	qint64 cdataStart;
 
-	s.device()->seek( dataOffset );
+	s.device()->seek(dataOffset);
 
 	srand(314159265);
 	for (int i = 0; i < 4096; i++)
@@ -321,7 +322,7 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 			ScColor col;
 			s >> signature;
 			s >> count;
-			uint duodataStart = s.device()->pos();
+			qint64 duodataStart = s.device()->pos();
 			bool specialColour = false;
 			for (int cda = 0; cda < count; cda++)
 			{
@@ -366,16 +367,15 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 			if (specialColour) // we will only load the grayscale image data and do the colorizing with the Image Effects;
 			{
 				s.device()->seek( duodataStart + 40 );
-				uint duoNameStart = s.device()->pos();
-				uint duoCurveStart = duoNameStart+256;
+				qint64 duoNameStart = s.device()->pos();
+				qint64 duoCurveStart = duoNameStart + 256;
 				for (int cda = 0; cda < count; cda++)
 				{
 					QString colName;
-					s.device()->seek( duoNameStart + (64 * static_cast<uint>(cda)) );
+					s.device()->seek(duoNameStart + 64 * static_cast<qint64>(cda));
 					colName = getPascalString(s);
-					s.device()->seek( duoCurveStart + (28 * static_cast<uint>(cda)) );
+					s.device()->seek(duoCurveStart + 28 * static_cast<qint64>(cda));
 					FPointArray tmcu;
-					tmcu.resize(0);
 					for (int cu = 0; cu < 13; cu++)
 					{
 						short val;
@@ -405,13 +405,12 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 			else
 			{
 				s.device()->seek( duodataStart + 40 );
-				uint duoNameStart = s.device()->pos();
-				uint duoCurveStart = duoNameStart+256;
+				qint64 duoNameStart = s.device()->pos();
+				qint64 duoCurveStart = duoNameStart + 256;
 				for (int cda = 0; cda < count; cda++)
 				{
-					s.device()->seek( duoCurveStart + (28 * static_cast<uint>(cda)) );
+					s.device()->seek(duoCurveStart + 28 * static_cast<qint64>(cda));
 					FPointArray tmcu;
-					tmcu.resize(0);
 					for (int cu = 0; cu < 13; cu++)
 					{
 						short val;
@@ -486,19 +485,18 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 			}
 		}
 	}
-	s.device()->seek( cdataStart + tmp );
+	s.device()->seek(cdataStart + tmp);
 	s >> resourceDataLen;
-//	startResource = s.device()->pos();
 	if (resourceDataLen != 0)
 		parseResourceData(s, header, resourceDataLen);
 	return true;
 }
 
-bool ScImgDataLoader_PSD::LoadPSDImgData( QDataStream & s, const PSDHeader & header, uint dataOffset )
+bool ScImgDataLoader_PSD::LoadPSDImgData(QDataStream & s, const PSDHeader & header, qint64 dataOffset)
 {
 	uint layerDataLen;
-	uint startLayers;
-	s.device()->seek( dataOffset );
+	qint64 startLayers;
+	s.device()->seek(dataOffset);
 	// Skip the reserved data. FIX: Also incorrect, this is the actual Layer Data for Images with Layers
 	s >> layerDataLen;
 	startLayers = s.device()->pos();
@@ -514,15 +512,15 @@ bool ScImgDataLoader_PSD::LoadPSDImgData( QDataStream & s, const PSDHeader & hea
 		s.device()->seek(startLayers + layerDataLen);
 		if (s.atEnd())
 			return false;
-		return loadLayer( s, header);
+		return loadLayer(s, header);
 	}
 	// Decoding simple psd file, no layers
-	s.device()->seek( s.device()->pos() + layerDataLen );
-	loadLayer( s, header);
+	s.device()->seek(s.device()->pos() + layerDataLen);
+	loadLayer(s, header);
 	return true;
 }
 
-bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header )
+bool ScImgDataLoader_PSD::parseLayer(QDataStream& s, const PSDHeader& header)
 {
 	uint addRes, layerinfo, channelLen, signature, extradata, layermasksize, layerRange, dummy;
 	int top, left, bottom, right;
@@ -655,9 +653,9 @@ bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header 
 	return true;
 }
 
-bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg)
+bool ScImgDataLoader_PSD::loadChannel(QDataStream& s, const PSDHeader& header, QList<PSDLayer>& layerInfo, uint layer, int channel, int component, RawImage& tmpImg)
 {
-	uint base = s.device()->pos();
+	qint64 base = s.device()->pos();
 	uchar cbyte;
 	ushort compression;
 	s >> compression;
@@ -707,7 +705,7 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 	}
 	else
 	{
-		s.device()->seek( s.device()->pos() + tmpImg.height() * 2 );
+		s.device()->seek(s.device()->pos() + tmpImg.height() * static_cast<qint64>(2));
 		uint pixel_count = tmpImg.width();
 		uchar *ptr;
 		uchar *ptr2;
@@ -717,7 +715,7 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 		{
 			count = 0;
 			ptr = tmpImg.scanLine(hh);
-			ptr2 = ptr+tmpImg.width() * tmpImg.channels();
+			ptr2 = ptr + (intptr_t) tmpImg.width() * tmpImg.channels();
 			ptr += component;
 			while (count < pixel_count)
 			{
@@ -821,18 +819,18 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 			}
 		}
 	}
-	s.device()->seek( base+layerInfo[layer].channelLen[channel] );
+	s.device()->seek(base + layerInfo[layer].channelLen[channel]);
 	return true;
 }
 
-bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, bool* firstLayer)
+bool ScImgDataLoader_PSD::loadLayerChannels(QDataStream& s, const PSDHeader& header, QList<PSDLayer>& layerInfo, uint layer, bool* firstLayer)
 {
 	// Find out if the data is compressed.
 	// Known values:
 	//   0: no compression
 	//   1: RLE compressed
-	uint base = s.device()->pos();
-	uint base2 = base;
+	qint64 base = s.device()->pos();
+	qint64 base2 = base;
 	uint channel_num = layerInfo[layer].channelLen.count();
 	bool hasMask = false;
 	bool hasAlpha = false;
@@ -856,10 +854,10 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 		{
 			base2 += layerInfo[layer].channelLen[channel];
 		}
-		s.device()->seek( base2 );
+		s.device()->seek(base2);
 		return false;
 	}
-	channel_num = qMin(channel_num, (uint)39);
+	channel_num = qMin(channel_num, (uint) 39);
 	uint components[40];
 	for (uint channel = 0; channel < channel_num; channel++)
 	{
@@ -935,7 +933,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 			xform.apply(ptr, ptr, r2_image.width());
 		}
 	}
-	s.device()->seek( base2 );
+	s.device()->seek(base2);
 	QImage tmpImg2;
 	if (header.color_mode == CM_CMYK)
 		tmpImg2 = r2_image.convertToQImage(true);
@@ -1038,8 +1036,8 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 			{
 				s = r2_image.scanLine( yi );
 				d = r_image.scanLine( qMin(static_cast<int>(startDstY),  r_image.height()-1) );
-				d += qMin(static_cast<int>(startDstX), r_image.width()-1) * r_image.channels();
-				s += qMin(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
+				d += (intptr_t) qMin(static_cast<int>(startDstX), r_image.width() - 1) * r_image.channels();
+				s += (intptr_t) qMin(static_cast<int>(startSrcX), r2_image.width() - 1) * r2_image.channels();
 				for (int xi = static_cast<int>(startSrcX); xi < qMin(r2_image.width(),  r_image.width()); ++xi)
 				{
 					d[0] = s[0];
@@ -1079,13 +1077,13 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 			{
 				d = r_image.scanLine(qMin(static_cast<int>(startDstY),  r_image.height()-1));
 				s = r2_image.scanLine(qMin(i, r2_image.height()-1));
-				d += qMin(static_cast<int>(startDstX),  r_image.width()-1) * r_image.channels();
-				s += qMin(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
+				d += (intptr_t) qMin(static_cast<int>(startDstX), r_image.width() - 1) * r_image.channels();
+				s += (intptr_t) qMin(static_cast<int>(startSrcX), r2_image.width() - 1) * r2_image.channels();
 				sm = nullptr;
 				if (hasMask)
 				{
 					sm = mask.scanLine(qMin(i, mask.height()-1));
-					sm += qMin(static_cast<int>(startSrcXm), mask.width()-1) * mask.channels();
+					sm += (intptr_t) qMin(static_cast<int>(startSrcXm), mask.width() - 1) * mask.channels();
 				}
 				startDstY++;
 				maxDestX = r_image.width() - startDstX + startSrcX - 1;
@@ -1329,7 +1327,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	return true;
 }
 
-bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
+bool ScImgDataLoader_PSD::loadLayer(QDataStream& s, const PSDHeader& header)
 {
 	ScColorMgmtEngine engine(ScCore->defaultEngine);
 	// Find out if the data is compressed.
@@ -1528,7 +1526,7 @@ QString ScImgDataLoader_PSD::getLayerString(QDataStream & s)
 {
 	uchar len, tmp;
 	uint adj;
-	QString ret = "";
+	QString ret;
 	s >> len;
 	if (len == 0)
 	{
@@ -1555,13 +1553,13 @@ bool ScImgDataLoader_PSD::IsValid( const PSDHeader & header ) const
 }
 
 // Check that the header is supported.
-bool ScImgDataLoader_PSD::IsSupported( const PSDHeader & header ) const
+bool ScImgDataLoader_PSD::IsSupported(const PSDHeader& header) const
 {
-	if ( header.version != 1 )
+	if (header.version != 1)
 		return false;
-	if ( header.channel_count > 16 )
+	if (header.channel_count > 16)
 		return false;
-	if ( header.depth != 8 )
+	if (header.depth != 8)
 		return false;
 	return (header.color_mode == CM_RGB) || (header.color_mode == CM_CMYK) || (header.color_mode == CM_LABCOLOR)
 	 || (header.color_mode == CM_GRAYSCALE) || (header.color_mode == CM_INDEXED) || (header.color_mode == CM_DUOTONE);
