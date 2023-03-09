@@ -898,7 +898,7 @@ void ScPainterEx_Cairo::drawDiamondGradient(VGradientEx& gradient, const QRect& 
 	cairo_fill(cr);
 	cairo_set_operator(cr, CAIRO_OPERATOR_ADD);
 	mpat = cairo_pattern_create_mesh();
-	for (int offset = 1 ; offset <  qStopRampPoints.count() ; offset++)
+	for (qsizetype offset = 1 ; offset <  qStopRampPoints.count() ; offset++)
 	{
 		QLineF e1 = edge1;
 		QLineF e1s = edge1;
@@ -1068,14 +1068,14 @@ void ScPainterEx_Cairo::drawMeshGradient(const QRect& rect)
 	cairo_set_tolerance(cr, 0.5);
 	float r, g, b, a;
 	mpat = cairo_pattern_create_mesh();
-	for (int grow = 0; grow < m_meshGradientArray.count()-1; grow++)
+	for (qsizetype grow = 0; grow < m_meshGradientArray.count() - 1; ++grow)
 	{
-		for (int gcol = 0; gcol < m_meshGradientArray[grow].count()-1; gcol++)
+		for (qsizetype gcol = 0; gcol < m_meshGradientArray[grow].count() - 1; ++gcol)
 		{
 			MeshPoint mp1 = m_meshGradientArray[grow][gcol];
-			MeshPoint mp2 = m_meshGradientArray[grow][gcol+1];
-			MeshPoint mp3 = m_meshGradientArray[grow+1][gcol+1];
-			MeshPoint mp4 = m_meshGradientArray[grow+1][gcol];
+			MeshPoint mp2 = m_meshGradientArray[grow][gcol + 1];
+			MeshPoint mp3 = m_meshGradientArray[grow + 1][gcol + 1];
+			MeshPoint mp4 = m_meshGradientArray[grow + 1][gcol];
 			cairo_mesh_pattern_begin_patch(mpat);
 			cairo_mesh_pattern_move_to(mpat, mp1.gridPoint.x(), mp1.gridPoint.y());
 			cairo_mesh_pattern_curve_to(mpat, mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());

@@ -803,7 +803,7 @@ void ScPainter::fillPathHelper()
 			cairo_fill(cr);
 			cairo_set_operator(cr, CAIRO_OPERATOR_ADD);
 			mpat = cairo_pattern_create_mesh();
-			for (int offset = 1 ; offset < qStopRampPoints.count() ; offset++)
+			for (qsizetype offset = 1 ; offset < qStopRampPoints.count() ; offset++)
 			{
 				QLineF e1 = edge1;
 				QLineF e1s = edge1;
@@ -938,9 +938,9 @@ void ScPainter::fillPathHelper()
 			cairo_set_tolerance(cr, 0.5);
 			float r, g, b, a;
 			mpat = cairo_pattern_create_mesh();
-			for (int grow = 0; grow < meshGradientArray.count()-1; grow++)
+			for (qsizetype grow = 0; grow < meshGradientArray.count() - 1; ++grow)
 			{
-				for (int gcol = 0; gcol < meshGradientArray[grow].count()-1; gcol++)
+				for (qsizetype gcol = 0; gcol < meshGradientArray[grow].count() - 1; ++gcol)
 				{
 					MeshPoint mp1 = meshGradientArray[grow][gcol];
 					MeshPoint mp2 = meshGradientArray[grow][gcol + 1];
