@@ -4546,14 +4546,20 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		{
 			double imageXOffset = newItem->imageXOffset();
 			double imageYOffset = newItem->imageYOffset();
+			QString imageProfile = newItem->ImageProfile;
+			QString embeddedProfile = newItem->EmbeddedProfile;
+			bool useEmbeddedProfile = newItem->UseEmbedded;
 			doc->loadPict(newItem->Pfile, newItem, false);
 			newItem->setImageXYOffset(imageXOffset, imageYOffset);
+			newItem->ImageProfile = imageProfile;
+			newItem->EmbeddedProfile = embeddedProfile;
+			newItem->UseEmbedded = useEmbeddedProfile;
 			if (newItem->pixm.imgInfo.PDSpathData.contains(clipPath))
 			{
 				newItem->imageClip = newItem->pixm.imgInfo.PDSpathData[clipPath].copy();
 				newItem->pixm.imgInfo.usedPath = clipPath;
 				QTransform cl;
-				cl.translate(newItem->imageXOffset()*newItem->imageXScale(), newItem->imageYOffset()*newItem->imageYScale());
+				cl.translate(newItem->imageXOffset() * newItem->imageXScale(), newItem->imageYOffset() * newItem->imageYScale());
 				cl.scale(newItem->imageXScale(), newItem->imageYScale());
 				newItem->imageClip.map(cl);
 			}
@@ -4562,6 +4568,9 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 				newItem->pixm.imgInfo.isRequest = true;
 				doc->loadPict(newItem->Pfile, newItem, true);
 				newItem->setImageXYOffset(imageXOffset, imageYOffset);
+				newItem->ImageProfile = imageProfile;
+				newItem->EmbeddedProfile = embeddedProfile;
+				newItem->UseEmbedded = useEmbeddedProfile;
 			}
 		}
 	}

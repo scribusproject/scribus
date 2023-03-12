@@ -2154,11 +2154,20 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	{
 		if (!newItem->Pfile.isEmpty())
 		{
+			QString imageProfile = newItem->ImageProfile;
+			QString embeddedProfile = newItem->EmbeddedProfile;
+			bool useEmbeddedProfile = newItem->UseEmbedded;
 			doc->loadPict(newItem->Pfile, newItem, false);
+			newItem->ImageProfile = imageProfile;
+			newItem->EmbeddedProfile = embeddedProfile;
+			newItem->UseEmbedded = useEmbeddedProfile;
 			if (layerFound)
 			{
 				newItem->pixm.imgInfo.isRequest = true;
 				doc->loadPict(newItem->Pfile, newItem, true);
+				newItem->ImageProfile = imageProfile;
+				newItem->EmbeddedProfile = embeddedProfile;
+				newItem->UseEmbedded = useEmbeddedProfile;
 			}
 		}
 	}
