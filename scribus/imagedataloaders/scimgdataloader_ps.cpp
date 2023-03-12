@@ -474,8 +474,8 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 	if (ext.isEmpty())
 		ext = getImageType(fn);
 
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + QString("sc%1.png").arg(qMax(1, page)));
-	QString tmpFiles = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc%d.png");
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + QString("sc_psld_%1.png").arg(qMax(1, page)));
+	QString tmpFiles = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc_psld_%d.png");
 	QString picFile = QDir::toNativeSeparators(fn);
 
 	float xres = gsRes;
@@ -612,7 +612,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 					}
 				}
 
-				QStringList files("sc*.png");
+				QStringList files("sc_psld_*.png");
 				files = QDir(ScPaths::tempFileDir()).entryList(files);
 				for (int i = 0; i < files.count(); ++i)
 					QFile::remove(QDir::toNativeSeparators(ScPaths::tempFileDir() + files[i]));
@@ -691,7 +691,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 					f.close();
 				}
 				
-				QStringList files("sc*.png");
+				QStringList files("sc_psld_*.png");
 				files = QDir(ScPaths::tempFileDir()).entryList(files);
 				for (int i = 0; i < files.count(); ++i)
 					QFile::remove(QDir::toNativeSeparators(ScPaths::tempFileDir() + files[i]));
@@ -1672,8 +1672,8 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 	if (!fi.exists())
 		return false;
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + QString("sc%1.png").arg(qMax(1, page)));
-	QString tmpFiles = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc%d.png");
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + QString("sc_psld_%1.png").arg(qMax(1, page)));
+	QString tmpFiles = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc_psld_%d.png");
 	QString picFile = QDir::toNativeSeparators(fn);
 	double x, y, b, h;
 	bool found = false;
@@ -1726,7 +1726,7 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 				}
 			}
 			
-			QStringList files("sc*.png");
+			QStringList files("sc_psld_*.png");
 			files = QDir(ScPaths::tempFileDir()).entryList(files);
 			for (int i = 0; i < files.count(); ++i)
 				QFile::remove(QDir::toNativeSeparators(ScPaths::tempFileDir() + files[i]));
