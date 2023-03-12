@@ -930,6 +930,7 @@ void CanvasMode::commonkeyPressEvent_Default(QKeyEvent *e)
 				case modeRotation:
 					m_view->deselectItems(false);
 					/* fall through */
+					[[fallthrough]];
 				case modeLinkFrames:
 				case modeUnlinkFrames:
 				case modeEditWeldPoint:
