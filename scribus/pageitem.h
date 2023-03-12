@@ -673,7 +673,7 @@ public: // Start public functions
 	void setMaskGradient(const VGradient& grad);
 	void setFillGradient(const VGradient& grad);
 	void setStrokeGradient(const VGradient& grad);
-	void set4ColorGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4);
+	void set4ColorGeometry(const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4);
 	void set4ColorTransparency(double t1, double t2, double t3, double t4);
 	void set4ColorShade(int t1, int t2, int t3, int t4);
 	void set4ColorColors(const QString& col1, const QString& col2, const QString& col3, const QString& col4);
