@@ -292,7 +292,7 @@ public: // Start public functions
 	QImage DrawObj_toImage(double maxSize, int options = 0);
 	QImage DrawObj_toImage(QList<PageItem*> &emG, double scaling);
 	void DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyle& style, PageItem* cembedded);
-	void DrawStrokePattern(ScPainter *p, QPainterPath &path);
+	void DrawStrokePattern(ScPainter *p, const QPainterPath &path);
 	void DrawSoftShadow(ScPainter *p);
 	/**
 	 * @brief Set or get the redraw bounding box of the item, moved from the View
@@ -392,7 +392,7 @@ public: // Start public functions
 	 * brief Returns a complete ObjectAttribute struct if 1 is found, or ObjectAttribute.name will be QString::null if 0 or >1 are found
 	 */
 	ObjectAttribute getObjectAttribute(const QString&) const;
-	void setObjectAttributes(ObjAttrVector*);
+	void setObjectAttributes(const ObjAttrVector*);
 
 	void SetFrameShape(int count, const double *vals);
 	void SetRectFrame();
@@ -663,8 +663,8 @@ public: // Start public functions
 
 	void setGradientExtend(VGradient::VGradientRepeatMethod val);
 	void setStrokeGradientExtend(VGradient::VGradientRepeatMethod val);
-	VGradient::VGradientRepeatMethod getGradientExtend();
-	VGradient::VGradientRepeatMethod getStrokeGradientExtend();
+	VGradient::VGradientRepeatMethod getGradientExtend() const;
+	VGradient::VGradientRepeatMethod getStrokeGradientExtend() const;
 
 	//>> ********* Attributes of the item *********
 
@@ -686,7 +686,7 @@ public: // Start public functions
 	void resetGradientMesh();
 	void meshToShape();
 	void createConicalMesh();
-	VColorStop computeInBetweenStop(VColorStop* last, VColorStop* actual, double t);
+	VColorStop computeInBetweenStop(const VColorStop* last, const VColorStop* actual, double t) const;
 	void gradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const;
 	void setGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew);
 
@@ -706,7 +706,7 @@ public: // Start public functions
 	void maskTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const;
 	void setMaskTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
 	void setMaskFlip(bool flipX, bool flipY);
-	void maskFlip(bool &flipX, bool &flipY);
+	void maskFlip(bool &flipX, bool &flipY) const;
 	//
 	bool fillEvenOdd() const { return fillRule; }
 	void setFillEvenOdd(bool val) { fillRule = val; }
@@ -775,7 +775,7 @@ public: // Start public functions
 	double columnGap() const { return m_columnGap; }
 	double gridOffset() const;
 	double gridDistance() const;
-	int verticalAlignment();
+	int verticalAlignment() const;
 	void setTextToFrameDistLeft(double);
 	void setTextToFrameDistRight(double);
 	void setTextToFrameDistTop(double);
@@ -868,7 +868,7 @@ public: // Start public functions
 	 */
 	void setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
 	void setPatternFlip(bool flipX, bool flipY);
-	void patternFlip(bool &flipX, bool &flipY);
+	void patternFlip(bool &flipX, bool &flipY) const;
 
 	/** @brief Get the (name of the) fill color of the object */
 	QString fillColor() const { return m_fillColor; }
@@ -953,9 +953,9 @@ public: // Start public functions
 	 */
 	void setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space);
 	void setStrokePatternFlip(bool flipX, bool flipY);
-	void strokePatternFlip(bool &flipX, bool &flipY);
+	void strokePatternFlip(bool &flipX, bool &flipY) const;
 	void setStrokePatternToPath(bool enable);
-	bool isStrokePatternToPath();
+	bool isStrokePatternToPath() const;
 
 	/** @brief Set the QColor for the line */
 	void setLineQColor();
@@ -1258,9 +1258,9 @@ public: // Start public functions
 	void unWeld();
 	void addWelded(PageItem* item);
 	void moveWelded(double dX, double dY, int weld);
-	void moveWelded(double dX, double dY, PageItem* except = nullptr);
+	void moveWelded(double dX, double dY, const PageItem* except = nullptr);
 	void rotateWelded(double dR, double oldRot);
-	void setWeldPoint(double dX, double dY, PageItem *pItem); 	///< added for autowelding feature of notes frames, setting welding point with given pItem to given coords
+	void setWeldPoint(double dX, double dY, const PageItem *pItem); 	///< added for autowelding feature of notes frames, setting welding point with given pItem to given coords
 	QString getItemTextSaxed(int selStart, int selLength); ///< used by notes frames to get content of notes from itemText
 	bool groupClipping() { return m_groupClips; }
 	void setGroupClipping(bool val) { m_groupClips = val; }
@@ -1679,7 +1679,7 @@ protected: // Start protected functions
 	 * @return true if the actions should be sent to the UndoManager based on the
 	 * state of arrow keys and mouse buttons else returns false.
 	 */
-	bool shouldCheck();
+	bool shouldCheck() const;
 	void select(); ///< Clears the current selection and selects this PageItem.
 
 		// End protected functions
