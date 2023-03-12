@@ -49,6 +49,15 @@ struct ImageEffect
 
 	int effectCode;
 	QString effectParameters;
+
+	bool operator==(const ImageEffect& other) const
+	{
+		if (effectCode != other.effectCode)
+			return false;
+		if (effectParameters != other.effectParameters)
+			return false;
+		return true;
+	}
 };
 
 class ScImageEffectList : public QList<ImageEffect>

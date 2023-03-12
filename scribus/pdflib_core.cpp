@@ -10230,9 +10230,9 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 	bool   avoidPDFXOutputIntentProf = false;
 	QString profInUse = Profil;
 	int    afl = Options.Resolution;
-	double ax, ay, a2, a1;
 	int    origWidth = 1;
 	int    origHeight = 1;
+
 	ShIm   ImInfo;
 	if (Options.RecalcPic)
 		ImInfo.reso = Options.PicRes / 72.0;
@@ -10242,23 +10242,22 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 	ImInfo.ya = y;
 	ImInfo.origXsc = item->imageXScale();
 	ImInfo.origYsc = item->imageYScale();
-	ShIm   ImInfo2;
-	ImInfo2.origXsc = item->imageXScale();
-	ImInfo2.origYsc = item->imageYScale();
-	if (SharedImages.contains(fn))
-		ImInfo2 = SharedImages[fn];
-	if ((!SharedImages.contains(fn))
-		 || (fromAN)
-		 || (item->isLatexFrame())
-		 || (item->effectsInUse.count() != 0)
-		 || ((ImInfo2.origXsc != ImInfo.origXsc) || (ImInfo2.origYsc != ImInfo.origYsc))
-		 || (ImInfo2.RequestProps != item->pixm.imgInfo.RequestProps)
-		 || (ImInfo2.Page != item->pixm.imgInfo.actualPageNumber))
+	ImInfo.Page = item->pixm.imgInfo.actualPageNumber;
+	ImInfo.useEmbeddedProfile = doc.HasCMS ? Embedded : false;
+	ImInfo.inputProfile = doc.HasCMS ? Profil : QString();
+	ImInfo.renderingIntent = Intent;
+	ImInfo.imageEffects = item->effectsInUse;
+	ImInfo.RequestProps = item->pixm.imgInfo.RequestProps;
+
+	auto sharedImageIt = SharedImages.findSuitable(fn, ImInfo);
+	if ((!SharedImages.containsSuitable(fn, ImInfo))
+		|| fromAN
+		|| item->isLatexFrame())
 	{
 		bool imageLoaded = false;
 		bool fatalError  = false;
 		QString pdfFile = fn;
-		if ((extensionIndicatesPDF(ext) || ((extensionIndicatesEPSorPS(ext)) && (item->pixm.imgInfo.type != ImageType7))) && item->effectsInUse.count() == 0)
+		if ((extensionIndicatesPDF(ext) || ((extensionIndicatesEPSorPS(ext)) && (item->pixm.imgInfo.type != ImageType7))) && item->effectsInUse.isEmpty())
 		{
 			if (extensionIndicatesEPSorPS(ext))
 			{
@@ -10287,7 +10286,7 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 			ImInfo.isEmbeddedPDF = true;
 			ImInfo.Page = item->pixm.imgInfo.actualPageNumber;
 		}
-		if (!imageLoaded && extensionIndicatesPDF(ext) && item->effectsInUse.count() == 0 && Options.embedPDF)
+		if (!imageLoaded && extensionIndicatesPDF(ext) && item->effectsInUse.isEmpty() && Options.embedPDF)
 		{
 			if (fatalError)
 			{
@@ -10422,12 +10421,12 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 				if ((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))
 				{
 					double afl = Options.PicRes;
-					a2 = (72.0 / sx) / afl;
-					a1 = (72.0 / sy) / afl;
+					double a2 = (72.0 / sx) / afl;
+					double a1 = (72.0 / sy) / afl;
 					origWidth = img.width();
 					origHeight = img.height();
-					ax = img.width() / a2;
-					ay = img.height() / a1;
+					double ax = img.width() / a2;
+					double ay = img.height() / a1;
 					// #10510 : do not use scaled() here, may cause display problem 
 					// with acrobat reader if image contains some transparency
 					img.scaleImage(qRound(ax), qRound(ay));
@@ -10668,14 +10667,14 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 			}
 			if (item->OverrideCompressionMethod)
 				compress_method = cm = (enum PDFOptions::PDFCompression) item->CompressionMethodIndex;
-			if (img.imgInfo.colorspace == ColorSpaceMonochrome && (item->effectsInUse.count() == 0))
+			if (img.imgInfo.colorspace == ColorSpaceMonochrome && item->effectsInUse.isEmpty())
 			{
 				compress_method = (compress_method != PDFOptions::Compression_None) ? PDFOptions::Compression_ZIP : compress_method;
 				cm = compress_method;
 			}
 			if (extensionIndicatesJPEG(ext) && (cm != PDFOptions::Compression_None))
 			{
-				if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && (item->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))))
+				if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && item->effectsInUse.isEmpty() && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))))
 				{
 					// #12961 : we must not rely on PDF viewers taking exif infos into account
 					// So if JPEG orientation is non default, do not use the original file
@@ -10685,7 +10684,7 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 				// We can't unfortunately use directly cmyk jpeg files. Otherwise we have to use the /Decode argument in image
 				// dictionary, which we do not quite want as this argument is simply ignored by some rips and software
 				// amongst which photoshop and illustrator
-				/*else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm == PDFOptions::Compression_Auto) && (item->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))) && (!img.imgInfo.progressive))
+				/*else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm == PDFOptions::Compression_Auto) && item->effectsInUse.isEmpty() && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))) && (!img.imgInfo.progressive))
 				{
 					jpegUseOriginal = false;
 					exportToCMYK = true;
@@ -10736,7 +10735,7 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 			int bytesWritten = 0;
 			// Fixme: outType variable should be set directly in the if/else maze above.
 			ColorSpaceEnum outType;
-			if (img.imgInfo.colorspace == ColorSpaceMonochrome && item->effectsInUse.count() == 0)
+			if (img.imgInfo.colorspace == ColorSpaceMonochrome && item->effectsInUse.isEmpty())
 				outType = ColorSpaceMonochrome;
 			else
 				outType = getOutputType(exportToGrayscale, exportToCMYK);
@@ -10809,13 +10808,13 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 			ImInfo.ya = sy;
 			ImInfo.RequestProps = item->pixm.imgInfo.RequestProps;
 		} // not embedded PDF
-		if ((item->effectsInUse.count() == 0) && (!SharedImages.contains(fn)))
+		if (!SharedImages.containsSuitable(fn, ImInfo))
 			SharedImages.insert(fn, ImInfo);
 		ResCount++;
 	}
 	else
 	{
-		ImInfo = SharedImages[fn];
+		ImInfo = *sharedImageIt;
 		ImInfo.sxa *= sx / ImInfo.xa;
 		ImInfo.sya *= sy / ImInfo.ya;
 	}
