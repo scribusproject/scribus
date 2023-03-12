@@ -20,6 +20,7 @@
 #cmakedefine HAVE_CUPS 1
 #cmakedefine HAVE_FONTCONFIG 1
 #cmakedefine HAVE_HARFBUZZ_SUBSET 1
+#cmakedefine HAVE_JXL 1
 #cmakedefine HAVE_LCMS2 1
 #cmakedefine HAVE_LIBZ 1
 #cmakedefine HAVE_MEMRCHR 1
@@ -32,7 +33,6 @@
 #cmakedefine HAVE_SYS_TYPES_H 1
 #cmakedefine HAVE_TIFF 1
 #cmakedefine HAVE_XML 1
-#cmakedefine HAVE_JXL 1
 #cmakedefine HUNSPELL_VERSION "@HUNSPELL_VERSION@"
 #cmakedefine HAVE_HUNSPELL "@HAVE_HUNSPELL@"
 #cmakedefine WITH_TESTS 1
