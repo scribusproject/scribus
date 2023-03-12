@@ -512,61 +512,60 @@ void Hruler::paintEvent(QPaintEvent *e)
 			cr3.setPoints(3, xPos, topline, xPos, bottomline, xPos - 3, midline);
 			p.drawPolygon(cr3);
 
-			if (m_tabValues.count() != 0)
+			if (!m_tabValues.isEmpty())
 			{
 				p.setPen(QPen(textColor, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-				for (int yg = 0; yg < signed(m_tabValues.count()); yg++)
+				for (int yg = 0; yg < m_tabValues.count(); ++yg)
 				{
 					xPos = textPosToLocal(pos + m_tabValues[yg].tabPosition);
-					if (pos + m_tabValues[yg].tabPosition < endPos)
+					if (pos + m_tabValues[yg].tabPosition >= endPos)
+						continue;
+					switch (m_tabValues[yg].tabType)
 					{
-						switch (static_cast<int>(m_tabValues[yg].tabType))
-						{
-							case 0:
-								if (m_reverse)
-								{
-									p.save();
-									p.translate(pos + m_tabValues[yg].tabPosition, 0);
-									p.scale(-1, 1);
-									p.drawLine(0, tabline, 0, bottomline);
-									p.drawLine(0, bottomline, 8, bottomline);
-									p.restore();
-								}
-								else
-								{
-									p.drawLine(xPos, tabline, xPos, bottomline);
-									p.drawLine(xPos, bottomline, xPos+8, bottomline);
-								}
-								break;
-							case 1:
-								if (m_reverse)
-								{
-									p.save();
-									p.translate(pos + m_tabValues[yg].tabPosition, 0);
-									p.scale(-1, 1);
-									p.drawLine(0, tabline, 0, bottomline);
-									p.drawLine(0, bottomline, -8, bottomline);
-									p.restore();
-								}
-								else
-								{
-									p.drawLine(xPos, tabline, xPos, bottomline);
-									p.drawLine(xPos, bottomline, xPos-8, bottomline);
-								}
-								break;
-							case 2:
-							case 3:
+						case 0:
+							if (m_reverse)
+							{
+								p.save();
+								p.translate(pos + m_tabValues[yg].tabPosition, 0);
+								p.scale(-1, 1);
+								p.drawLine(0, tabline, 0, bottomline);
+								p.drawLine(0, bottomline, 8, bottomline);
+								p.restore();
+							}
+							else
+							{
 								p.drawLine(xPos, tabline, xPos, bottomline);
-								p.drawLine(xPos - 4, bottomline, xPos + 4, bottomline);
-								p.drawLine(xPos + 3, bottomline - 3, xPos + 2, bottomline - 3);
-								break;
-							case 4:
+								p.drawLine(xPos, bottomline, xPos + 8, bottomline);
+							}
+							break;
+						case 1:
+							if (m_reverse)
+							{
+								p.save();
+								p.translate(pos + m_tabValues[yg].tabPosition, 0);
+								p.scale(-1, 1);
+								p.drawLine(0, tabline, 0, bottomline);
+								p.drawLine(0, bottomline, -8, bottomline);
+								p.restore();
+							}
+							else
+							{
 								p.drawLine(xPos, tabline, xPos, bottomline);
-								p.drawLine(xPos - 4, bottomline, xPos + 4, bottomline);
-								break;
-							default:
-								break;
-						}
+								p.drawLine(xPos, bottomline, xPos - 8, bottomline);
+							}
+							break;
+						case 2:
+						case 3:
+							p.drawLine(xPos, tabline, xPos, bottomline);
+							p.drawLine(xPos - 4, bottomline, xPos + 4, bottomline);
+							p.drawLine(xPos + 3, bottomline - 3, xPos + 2, bottomline - 3);
+							break;
+						case 4:
+							p.drawLine(xPos, tabline, xPos, bottomline);
+							p.drawLine(xPos - 4, bottomline, xPos + 4, bottomline);
+							break;
+						default:
+							break;
 					}
 				}
 			}
@@ -698,12 +697,10 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 						p.translate(xli - 2, 0);
 						p.scale(-1, 1);
 						drawNumber(tx, 0, 17, p);
-						//p.drawText(0, 17, tx);
 						p.restore();
 					}
 					else
 						drawNumber(tx, xli + 2, 9, p);
-					//p.drawText(qRound((xl + 2 / sc) * sc), 9, tx);
 					break;
 				}
 			case SC_P:
@@ -713,12 +710,10 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 					p.translate(xli - 2, 0);
 					p.scale(-1, 1);
 					drawNumber(QString::number((xl - pos) / m_iter / m_cor), 0, 17, p);
-					//p.drawText(0, 17, QString::number((xl - pos) / m_iter / m_cor));
 					p.restore();
 				}
 				else
 					drawNumber(QString::number((xl - pos) / m_iter / m_cor), xli + 2, 9, p);
-				//p.drawText(qRound((xl + 2 / sc) * sc), 9, QString::number((xl - pos) / m_iter / m_cor));
 				break;
 			case SC_CM:
 				if (m_reverse)
@@ -727,12 +722,10 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 					p.translate(xli - 2, 0);
 					p.scale(-1, 1);
 					drawNumber(QString::number((xl - pos) / m_iter / 10 / m_cor), 0, 9, p);
-					//p.drawText(0, 9, QString::number((xl - pos) / m_iter / 10 / m_cor));
 					p.restore();
 				}
 				else
 					drawNumber(QString::number((xl - pos) / m_iter / 10 / m_cor), xli + 2, 9, p);
-				//p.drawText(qRound((xl + 2 / sc) * sc), 9, QString::number((xl - pos) / m_iter / 10 / m_cor));
 				break;
 			case SC_C:
 				if (m_reverse)
@@ -741,12 +734,10 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 					p.translate(xli - 2, 0);
 					p.scale(-1, 1);
 					drawNumber(QString::number((xl - pos) / m_iter  / m_cor), 0, 9, p);
-					//p.drawText(0, 9, QString::number((xl - pos) / m_iter  / m_cor));
 					p.restore();
 				}
 				else
 					drawNumber(QString::number((xl - pos) / m_iter  / m_cor), xli + 2, 9, p);
-				//p.drawText(qRound((xl + 2 / sc) * sc), 9, QString::number((xl - pos) / m_iter  / m_cor));
 				break;
 			default:
 				if (m_reverse)
@@ -755,12 +746,10 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 					p.translate(xli - 2, 0);
 					p.scale(-1, 1);
 					drawNumber(QString::number((xl - pos) / m_iter * 10 / m_cor), 0, 9, p);
-					//p.drawText(0, 9, QString::number((xl - pos) / m_iter * 10 / m_cor));
 					p.restore();
 				}
 				else
 					drawNumber(QString::number((xl - pos) / m_iter * 10 / m_cor), xli + 2, 9, p);
-				//p.drawText(qRound((xl + 2 / sc) * sc), 9, QString::number((xl - pos) / m_iter * 10 / m_cor));
 				break;
 		}
 	}
