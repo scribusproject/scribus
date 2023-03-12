@@ -1554,7 +1554,7 @@ void PageItem::setColumnGap(double newColumnGap)
 	m_columnGap = newColumnGap;
 }
 
-int PageItem::verticalAlignment()
+int PageItem::verticalAlignment() const
 {
 	return verticalAlign;
 }
@@ -1945,7 +1945,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					QColor tmp;
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						struct SingleLine& sl = ml[it];
+						const SingleLine& sl = ml[it];
 						// Qt4 if ((!sl.Color != CommonStrings::None) && (sl.Width != 0))
 						if (sl.Color != CommonStrings::None) // && (sl.Width != 0))
 						{
@@ -2146,7 +2146,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 	}
 }
 
-void PageItem::DrawStrokePattern(ScPainter *p, QPainterPath &path)
+void PageItem::DrawStrokePattern(ScPainter *p, const QPainterPath &path)
 {
 	ScPattern pat = m_Doc->docPatterns[patternStrokeVal];
 	double pLen = path.length() - ((pat.width / 2.0) * (patternStrokeScaleX / 100.0));
@@ -3304,7 +3304,7 @@ void PageItem::createConicalMesh()
 	meshGradientArray.append(mgList2);
 }
 
-VColorStop PageItem::computeInBetweenStop(VColorStop* last, VColorStop* actual, double t)
+VColorStop PageItem::computeInBetweenStop(const VColorStop* last, const VColorStop* actual, double t) const
 {
 	double dist = actual->rampPoint - last->rampPoint;
 	double perc = (t - last->rampPoint) / dist;
@@ -3401,7 +3401,7 @@ void PageItem::setPatternFlip(bool flipX, bool flipY)
 	patternMirrorY = flipY;
 }
 
-void PageItem::patternFlip(bool &flipX, bool &flipY)
+void PageItem::patternFlip(bool &flipX, bool &flipY) const
 {
 	flipX = patternMirrorX;
 	flipY = patternMirrorY;
@@ -3486,7 +3486,7 @@ void PageItem::setMaskFlip(bool flipX, bool flipY)
 	patternMaskMirrorY = flipY;
 }
 
-void PageItem::maskFlip(bool &flipX, bool &flipY)
+void PageItem::maskFlip(bool &flipX, bool &flipY) const
 {
 	flipX = patternMaskMirrorX;
 	flipY = patternMaskMirrorY;
@@ -3671,7 +3671,7 @@ void PageItem::setStrokePatternToPath(bool enable)
 	patternStrokePath = enable;
 }
 
-bool PageItem::isStrokePatternToPath()
+bool PageItem::isStrokePatternToPath() const
 {
 	return patternStrokePath;
 }
@@ -3694,7 +3694,7 @@ void PageItem::setStrokePatternFlip(bool flipX, bool flipY)
 	patternStrokeMirrorY = flipY;
 }
 
-void PageItem::strokePatternFlip(bool &flipX, bool &flipY)
+void PageItem::strokePatternFlip(bool &flipX, bool &flipY) const
 {
 	flipX = patternStrokeMirrorX;
 	flipY = patternStrokeMirrorY;
@@ -4366,7 +4366,7 @@ void PageItem::checkTextFlowInteractions(const QRectF& baseRect, bool allItems)
 	if (m_Doc->isLoading())
 		return;
 
-	QList<PageItem*>* items = OnMasterPage.isEmpty() ? &m_Doc->DocItems : &m_Doc->MasterItems;
+	const QList<PageItem*>* items = OnMasterPage.isEmpty() ? &m_Doc->DocItems : &m_Doc->MasterItems;
 
 	int ids = allItems ? items->count() : items->indexOf(this);
 	for (int idx = ids - 1; idx >= 0 ; --idx)
@@ -4521,7 +4521,7 @@ void PageItem::checkChanges(bool force)
 	}
 }
 
-bool PageItem::shouldCheck()
+bool PageItem::shouldCheck() const
 {
 	return ((!m_Doc->view()->mousePressed()) &&
 			(!m_Doc->view()->canvasMode()->arrowKeyDown()) &&
@@ -4981,7 +4981,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 
 void PageItem::restoreConnectPath(SimpleState *state, bool isUndo)
 {
-	auto *is = dynamic_cast<ScItemState<QPair<FPointArray, FPointArray> > *>(state);
+	const auto *is = dynamic_cast<ScItemState<QPair<FPointArray, FPointArray> > *>(state);
 	if (isUndo)
 	{
 		PoLine = is->getItem().first;
@@ -5010,7 +5010,7 @@ void PageItem::restoreUnWeldItem(SimpleState *state, bool isUndo)
 {
 	if (isUndo)
 	{
-		auto *is = dynamic_cast<ScItemState<PageItem*>*>(state);
+		const auto *is = dynamic_cast<ScItemState<PageItem*>*>(state);
 		PageItem* wIt = is->getItem();
 		{
 			WeldingInfo wInf;
@@ -5043,7 +5043,7 @@ void PageItem::restoreWeldItems(SimpleState *state, bool isUndo)
 	}
 	else
 	{
-		auto *is = dynamic_cast<ScItemState<PageItem*>*>(state);
+		const auto *is = dynamic_cast<ScItemState<PageItem*>*>(state);
 		PageItem* wIt = is->getItem();
 		weldTo(wIt);
 	}
@@ -5470,7 +5470,7 @@ void PageItem::restorePolygon(SimpleState *ss, bool isUndo)
 
 void PageItem::restoreArc(SimpleState *state, bool isUndo)
 {
-	auto *ss = dynamic_cast<ScItemState<QPair<FPointArray, FPointArray> > *>(state);
+	const auto *ss = dynamic_cast<ScItemState<QPair<FPointArray, FPointArray> > *>(state);
 	if (!ss)
 		qFatal("PageItem::restoreArc: dynamic cast failed");
 	PageItem_Arc *item = asArc();
@@ -5510,7 +5510,7 @@ void PageItem::restoreImageNbr(SimpleState *state, bool isUndo)
 
 void PageItem::restoreTransform(SimpleState *ss, bool isUndo)
 {
-	auto *is = dynamic_cast<ScItemState<QList<QTransform > >*>(ss);
+	const auto *is = dynamic_cast<ScItemState<QList<QTransform > >*>(ss);
 	if (!is)
 		qFatal("PageItem::restoreTransform: dynamic cast failed");
 	int x = is->getDouble("DX");
@@ -6120,7 +6120,7 @@ void PageItem::restoreGradientMaskSkew(SimpleState *is, bool isUndo)
 
 void PageItem::restoreGradientControl1(SimpleState *state, bool isUndo)
 {
-	auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
+	const auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
 	if (!is)
 		qFatal("PageItem::restoreGradientControl1: dynamic cast failed");
 	if (isUndo)
@@ -6131,7 +6131,7 @@ void PageItem::restoreGradientControl1(SimpleState *state, bool isUndo)
 
 void PageItem::restoreGradientControl2(SimpleState *state, bool isUndo)
 {
-	auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
+	const auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
 	if (!is)
 		qFatal("PageItem::restoreGradientControl2: dynamic cast failed");
 	if (isUndo)
@@ -6142,7 +6142,7 @@ void PageItem::restoreGradientControl2(SimpleState *state, bool isUndo)
 
 void PageItem::restoreGradientControl3(SimpleState *state, bool isUndo)
 {
-	auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
+	const auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
 	if (!is)
 		qFatal("PageItem::restoreGradientControl3: dynamic cast failed");
 	if (isUndo)
@@ -6153,7 +6153,7 @@ void PageItem::restoreGradientControl3(SimpleState *state, bool isUndo)
 
 void PageItem::restoreGradientControl4(SimpleState *state, bool isUndo)
 {
-	auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
+	const auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
 	if (!is)
 		qFatal("PageItem::restoreGradientControl4: dynamic cast failed");
 	if (isUndo)
@@ -6164,7 +6164,7 @@ void PageItem::restoreGradientControl4(SimpleState *state, bool isUndo)
 
 void PageItem::restoreGradientControl5(SimpleState *state, bool isUndo)
 {
-	auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
+	const auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
 	if (!is)
 		qFatal("PageItem::restoreGradientControl5: dynamic cast failed");
 	if (isUndo)
@@ -6303,7 +6303,7 @@ void PageItem::restorePastePlainText(SimpleState *ss, bool isUndo)
 
 void PageItem::restorePasteText(SimpleState *ss, bool isUndo)
 {
-	auto *is = dynamic_cast<ScItemState<StoryText>*>(ss);
+	const auto *is = dynamic_cast<ScItemState<StoryText>*>(ss);
 	if (!is)
 		qFatal("PageItem::restorePasteText: dynamic cast failed");
 
@@ -6377,7 +6377,7 @@ void PageItem::restoreColumns(SimpleState *ss, bool isUndo)
 
 void PageItem::restoreFirstLineOffset(SimpleState *ss, bool isUndo)
 {
-	auto *is = dynamic_cast<ScItemState<QPair<FirstLineOffsetPolicy, FirstLineOffsetPolicy> >*>(ss);
+	const auto *is = dynamic_cast<ScItemState<QPair<FirstLineOffsetPolicy, FirstLineOffsetPolicy> >*>(ss);
 	if (!is)
 		qFatal("PageItem::restoreFirstLineOffset: dynamic cast failed");
 	if (isUndo)
@@ -6958,7 +6958,7 @@ void PageItem::restoreDropLinks(UndoState *state, bool isUndo)
 {
 	if (!isTextFrame())
 		return;
-	auto *is = dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(state);
+	const auto *is = dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(state);
 	if (!is)
 		qFatal("PageItem::restoreDropLinks: dynamic cast failed");
 	if (isUndo)
@@ -7014,13 +7014,15 @@ void PageItem::restoreLinkTextFrame(UndoState *state, bool isUndo)
 {
 	if (!isTextFrame())
 		return;
+
+	const auto* is = dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(state);
+	if (!is)
+		qFatal("PageItem::restoreLinkTextFrame: dynamic cast failed");
+
 	if (isUndo)
 	{
 		unlink(false);
 		//restore properly text if frame was linked at beginning of chain
-		auto *is = dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(state);
-		if (!is)
-			qFatal("PageItem::restoreLinkTextFrame 1: dynamic cast failed");
 		int joinPos = is->getInt("JOIN_POS");
 		int parSep = is->getBool("ADDPARSEP") ? 1 : 0;
 		if (is->getBool("FIRST"))
@@ -7056,9 +7058,6 @@ void PageItem::restoreLinkTextFrame(UndoState *state, bool isUndo)
 	}
 	else
 	{
-		auto *is = dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(state);
-		if (!is)
-			qFatal("PageItem::restoreLinkTextFrame 2: dynamic cast failed");
 		asTextFrame()->link(is->getItem().second->asTextFrame());
 	}
 }
@@ -7067,7 +7066,7 @@ void PageItem::restoreUnlinkTextFrame(UndoState *state, bool isUndo)
 {
 	if (!isTextFrame())
 		return;
-	auto *is = dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(state);
+	const auto *is = dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(state);
 	if (!is)
 		qFatal("PageItem::restoreUnlinkTextFrame: dynamic cast failed");
 	if (is->contains("CUT_TEXT"))
@@ -7107,7 +7106,7 @@ void PageItem::restoreVerticalAlign(SimpleState *ss, bool isUndo)
 void PageItem::restorePathOperation(UndoState *state, bool isUndo)
 {
 	//PATH_OPERATION
-	auto *is = dynamic_cast<ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >*>(state);
+	const auto *is = dynamic_cast<ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >*>(state);
 	if (!is)
 		qFatal("PageItem::restorePathOperation: dynamic cast failed");
 
@@ -7160,7 +7159,7 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 
 void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)
 {
-	auto *is = dynamic_cast<ScItemState< QPair<QList<PageItem*>,QList<QTransform> > >*>(state);
+	const auto *is = dynamic_cast<ScItemState< QPair<QList<PageItem*>,QList<QTransform> > >*>(state);
 	if (!is)
 		qFatal("PageItem::restoreUniteItem: dynamic cast failed");
 
@@ -7262,7 +7261,7 @@ void PageItem::restoreLayer(SimpleState *state, bool isUndo)
 
 void PageItem::restoreGetImage(UndoState *state, bool isUndo)
 {
-	auto *is = dynamic_cast<ScItemState<ScImageEffectList>*>(state);
+	const auto *is = dynamic_cast<ScItemState<ScImageEffectList>*>(state);
 	QString fn = is->get("OLD_IMAGE_PATH");
 	if (!isUndo)
 		fn = is->get("NEW_IMAGE_PATH");
@@ -7379,16 +7378,16 @@ ObjectAttribute PageItem::getObjectAttribute(const QString& attributeName) const
 {
 	int countFound = 0;
 	ObjAttrVector::const_iterator foundIt = pageItemAttributes.begin();
-	for (ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin(); objAttrIt != pageItemAttributes.end(); ++objAttrIt)
+	for (auto objAttrIt = pageItemAttributes.begin(); objAttrIt != pageItemAttributes.end(); ++objAttrIt)
 	{
 		if (objAttrIt->name == attributeName)
 		{
 			++countFound;
-			foundIt=objAttrIt;
+			foundIt = objAttrIt;
 		}
 	}
 	ObjectAttribute returnAttribute;
-	if (countFound==1)
+	if (countFound == 1)
 		returnAttribute = (*foundIt);
 	else
 		returnAttribute.name.clear();
@@ -7396,7 +7395,7 @@ ObjectAttribute PageItem::getObjectAttribute(const QString& attributeName) const
 }
 
 
-void PageItem::setObjectAttributes(ObjAttrVector* map)
+void PageItem::setObjectAttributes(const ObjAttrVector* map)
 {
 	pageItemAttributes = *map;
 }
@@ -7979,12 +7978,12 @@ void PageItem::setStrokeGradientExtend(VGradient::VGradientRepeatMethod val)
 	GrStrokeExtend = val;
 }
 
-VGradient::VGradientRepeatMethod PageItem::getGradientExtend()
+VGradient::VGradientRepeatMethod PageItem::getGradientExtend() const
 {
 	return GrExtend;
 }
 
-VGradient::VGradientRepeatMethod PageItem::getStrokeGradientExtend()
+VGradient::VGradientRepeatMethod PageItem::getStrokeGradientExtend() const
 {
 	return GrStrokeExtend;
 }
@@ -10505,7 +10504,7 @@ void PageItem::moveWelded(double dX, double dY, int weld)
 	item->moveWelded(dX, dY, this);
 }
 
-void PageItem::moveWelded(double dX, double dY, PageItem* except)
+void PageItem::moveWelded(double dX, double dY, const PageItem* except)
 {
 	//qDebug()<<"PageItem::moveWelded"<<dX<<dY;
 	if ((dX == 0) && (dY == 0))
@@ -10579,11 +10578,11 @@ QList<PageItem*> PageItem::itemsWeldedTo(PageItem* except)
 	return pageItemList;
 }
 
-void PageItem::setWeldPoint(double dX, double dY, PageItem *pItem)
+void PageItem::setWeldPoint(double dX, double dY, const PageItem *pItem)
 {
 	for (int i = 0 ; i < weldList.count(); i++)
 	{
-		PageItem *item = weldList[i].weldItem;
+		const PageItem *item = weldList[i].weldItem;
 		if (item == pItem)
 		{
 			weldList[i].weldPoint = FPoint(dX, dY);
@@ -10610,11 +10609,11 @@ void PageItem::unWeld()
 		for (int j = 0 ; j < item->weldList.count(); j++)
 		{
 			WeldingInfo wInf2 = item->weldList.at(j);
-			PageItem *item2 = wInf2.weldItem;
+			const PageItem *item2 = wInf2.weldItem;
 			if (item2 == this)
 			{
 				item->weldList.removeAt(j);
-				if (undoManager->undoEnabled())
+				if (UndoManager::undoEnabled())
 				{
 					auto *is = new ScItemState<PageItem*>(Um::UnweldItems, QString(), Um::IGroup);
 					is->set("UNWELD_ITEM");
