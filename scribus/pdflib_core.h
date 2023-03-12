@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDataStream>
 #include <QPixmap>
 #include <QList>
+#include <QMultiMap>
 #include <QStack>
 #include <string>
 #include <vector>
@@ -89,7 +90,47 @@ private:
 		double origYsc = 1.0;
 		bool isBitmapFromGS = false;
 		bool isEmbeddedPDF  = false;
+		bool useEmbeddedProfile = true;
+		QString inputProfile;
+		eRenderIntent renderingIntent { Intent_Perceptual };
+		ScImageEffectList imageEffects;
 		QMap<int, ImageLoadRequest> RequestProps;
+	};
+
+	class SharedImgRsrc : public QMultiMap<QString, ShIm>
+	{
+	public:
+
+		QMultiMap<QString, ShIm>::const_iterator findSuitable(const QString& fileName, const ShIm& shIm) const
+		{
+			auto it = this->find(fileName);
+			for ( ; (it != this->end()) && (it.key() == fileName); ++it)
+			{
+				if (it->Page != shIm.Page)
+					continue;
+				if (it->origXsc != shIm.origXsc)
+					continue;
+				if (it->origYsc != shIm.origYsc)
+					continue;
+				if (it->useEmbeddedProfile != shIm.useEmbeddedProfile)
+					continue;
+				if (it->inputProfile != shIm.inputProfile)
+					continue;
+				if (it->renderingIntent != shIm.renderingIntent)
+					continue;
+				if (it->imageEffects != shIm.imageEffects)
+					continue;
+				if (it->RequestProps != shIm.RequestProps)
+					continue;
+				return it;
+			}
+			return this->end();
+		}
+
+		bool containsSuitable(const QString& fileName, const ShIm& shIm) const
+		{
+			return (findSuitable(fileName, shIm) != this->end());
+		}
 	};
 
 	bool PDF_IsPDFX() const;
@@ -255,7 +296,7 @@ private:
 	const PDFOptions & Options;
 	BookmarkView* Bvie { nullptr };
 	//int Dokument;
-	QMap<QString,ShIm> SharedImages;
+	SharedImgRsrc SharedImages;
 	QList<PdfDest> NamedDest;
 	QList<PdfId> CalcFields;
 	Pdf::ResourceMap Patterns;
