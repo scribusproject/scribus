@@ -41,6 +41,7 @@ public:
 	~PageItem_Group();
 
 	PageItem_Group * asGroupFrame() override { return this; }
+	const PageItem_Group * asGroupFrame() const override { return this; }
 	bool isGroup() const override { return true; }
 	bool isTextContainer() const override;
 	ItemType realItemType() const override { return PageItem::Group; }

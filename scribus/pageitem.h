@@ -251,7 +251,23 @@ public: // Start public functions
 	virtual PageItem_Spiral * asSpiral()					{ return nullptr; } ///< Return self if Spiral item, otherwise null
 	virtual PageItem_Symbol * asSymbol()					{ return nullptr; } ///< Return self if Symbol item, otherwise null
 	virtual PageItem_Table * asTable()						{ return nullptr; } ///< Return self if Table item, otherwise null
-	virtual PageItem_TextFrame * asTextFrame()				{ return nullptr; } ///< Return self if Text item, otherwise null
+	virtual PageItem_TextFrame * asTextFrame()				{ return nullptr; } ///< Return self if Text item, otherwise nullvirtual PageItem_Arc * asArc()							{ return nullptr; } ///< Return self if Arc item, otherwise null
+
+	virtual const PageItem_Arc * asArc() const					{ return nullptr; } ///< Return self if Arc item, otherwise null
+	virtual const PageItem_Group * asGroupFrame() const			{ return nullptr; } ///< Return self if Group item, otherwise null
+	virtual const PageItem_ImageFrame * asImageFrame() const	{ return nullptr; } ///< Return self if Image item, otherwise null
+	virtual const PageItem_LatexFrame * asLatexFrame() const	{ return nullptr; } ///< Return self if Render frame item, otherwise null
+	virtual const PageItem_Line * asLine() const				{ return nullptr; } ///< Return self if Line item, otherwise null
+	virtual const PageItem_NoteFrame * asNoteFrame() const		{ return nullptr; } ///< Return self if Note item, otherwise null
+	virtual const PageItem_OSGFrame * asOSGFrame()  const		{ return nullptr; } ///< Return self if OSG item, otherwise null
+	virtual const PageItem_PathText * asPathText() const		{ return nullptr; } ///< Return self if Path Text item, otherwise null
+	virtual const PageItem_PolyLine * asPolyLine() const		{ return nullptr; } ///< Return self if Poly Line item, otherwise null
+	virtual const PageItem_Polygon * asPolygon() const			{ return nullptr; } ///< Return self if Polygon item, otherwise null
+	virtual const PageItem_RegularPolygon * asRegularPolygon() const { return nullptr; } ///< Return self if Regular Polygon item, otherwise null
+	virtual const PageItem_Spiral * asSpiral() const			{ return nullptr; } ///< Return self if Spiral item, otherwise null
+	virtual const PageItem_Symbol * asSymbol() const			{ return nullptr; } ///< Return self if Symbol item, otherwise null
+	virtual const PageItem_Table * asTable() const				{ return nullptr; } ///< Return self if Table item, otherwise null
+	virtual const PageItem_TextFrame * asTextFrame() const		{ return nullptr; } ///< Return self if Text item, otherwise null
 
 	virtual bool isArc()			const { return false; } ///< Return true if Arc item, otherwise false
 	virtual bool isAutoNoteFrame()	const { return false; } ///< Return true if Auto Note item, otherwise false

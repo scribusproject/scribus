@@ -41,6 +41,7 @@ public:
 	~PageItem_ImageFrame();
 
 	PageItem_ImageFrame * asImageFrame() override { return this; }
+	const PageItem_ImageFrame * asImageFrame() const override { return this; }
 	bool isImageFrame() const override { return true; }
 
 	void handleModeEditKey(QKeyEvent *k, bool& keyRepeat) override;

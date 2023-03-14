@@ -56,6 +56,27 @@ PageItem_Arc::PageItem_Arc(ScribusDoc *pa, double x, double y, double w, double 
 	recalcPath();
 }
 
+PageItem_Arc::PageItem_Arc(const PageItem& p)
+	: PageItem(p)
+{
+	const auto* otherArc = p.asArc();
+	if (otherArc)
+	{
+		arcHeight = otherArc->arcHeight;
+		arcWidth = otherArc->arcWidth;
+		arcStartAngle = otherArc->arcStartAngle;
+		arcSweepAngle = otherArc->arcSweepAngle;
+	}
+	else
+	{
+		arcHeight = m_height;
+		arcWidth = m_width;
+		arcStartAngle = m_Doc->itemToolPrefs().arcStartAngle;
+		arcSweepAngle = m_Doc->itemToolPrefs().arcSweepAngle;
+	}
+	recalcPath();
+}
+
 void PageItem_Arc::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 {
 	if (!m_Doc->RePos)

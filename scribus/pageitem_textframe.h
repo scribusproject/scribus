@@ -54,6 +54,7 @@ public:
 	void init();
 
 	PageItem_TextFrame * asTextFrame() override { return this; }
+	const PageItem_TextFrame * asTextFrame() const override { return this; }
 	bool isTextFrame() const override { return true; }
 	bool isTextContainer() const override { return true; }
 
