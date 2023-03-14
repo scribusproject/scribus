@@ -13,10 +13,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTXPS_H
 #define IMPORTXPS_H
 
-#include "pluginapi.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "fpointarray.h"
 #include <QList>
 #include <QTransform>
 #include <QMultiMap>
@@ -25,6 +21,12 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QDomDocument>
 #include <QDomElement>
+
+#include "commonstrings.h"
+#include "fpointarray.h"
+#include "pluginapi.h"
+#include "pageitem.h"
+#include "sccolor.h"
 
 class MultiProgressDialog;
 class ScribusDoc;
@@ -67,42 +69,43 @@ private:
 	struct ObjState
 	{
 		QPainterPath currentPath;
-		bool currentPathClosed;
+		bool currentPathClosed { false };
 		QPainterPath clipPath;
 		QTransform transform;
-		QString CurrColorFill;
-		double fillOpacity;
-		QString CurrColorStroke;
-		double strokeOpacity;
-		double LineW;
+		QString CurrColorFill { CommonStrings::None };
+		double fillOpacity { 0.0 };
+		QString CurrColorStroke { CommonStrings::None };
+		double strokeOpacity { 0.0 };
+		double LineW { 1.0 };
 		VGradient currentGradient;
 		QPointF gradientStart;
 		QPointF gradientEnd;
 		QPointF gradientFocus;
-		double gradientScale;
-		int fillGradientTyp;
+		double gradientScale { 1.0 };
+		int fillGradientTyp { 0 };
 		QString imagePath;
 		QString patternName;
 		VGradient gradientMask;
 		QPointF maskStart;
 		QPointF maskEnd;
 		QPointF maskFocus;
-		double maskScale;
-		int maskTyp;
+		double maskScale { 1.0 };
+		int maskTyp { 0 };
 		QString patternMask;
 		VGradient gradientStroke;
 		QPointF strokeStart;
 		QPointF strokeEnd;
 		QPointF strokeFocus;
-		double strokeScale;
-		int strokeTyp;
+		double strokeScale { 1.0 };
+		int strokeTyp { 0 };
 		QString patternStroke;
-		int itemType;
-		Qt::PenCapStyle CapStyle;
-		Qt::PenJoinStyle JoinStyle;
+		int itemType { 0 };
+		Qt::PenCapStyle CapStyle { Qt::FlatCap };
+		Qt::PenJoinStyle JoinStyle { Qt::MiterJoin };
 		QVector<double> DashPattern;
-		double DashOffset;
+		double DashOffset { 0.0 };
 	};
+
 	bool convert(const QString& fn);
 	bool parseDocSequence(const QString& designMap);
 	bool parseDocReference(const QString& designMap);
@@ -122,34 +125,36 @@ private:
 	int hex2int(char hex);
 	bool parseGUID( const QString &guidString, unsigned short guid[16]);
 	ScFace loadFontByName(const QString &fileName);
+
 	QList<PageItem*> Elements;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docWidth { 1.0 };
+	double docHeight { 1.0 };
 
 	FPointArray Coords;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
+	bool interactive { false };
+	MultiProgressDialog * progressDialog { nullptr };
+	bool cancel { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
+	int importerFlags { 0 };
 	QString baseFile;
 	QString m_FileName;
 	QStringList importedColors;
 	QStringList importedPatterns;
-	bool firstPage;
-	int pagecount;
-	double topMargin;
-	double leftMargin;
-	double rightMargin;
-	double bottomMargin;
-	double conversionFactor;
+	bool firstPage { true };
+	int pagecount { 0 };
+	double topMargin { 0.0 };
+	double leftMargin { 0.0 };
+	double rightMargin { 0.0 };
+	double bottomMargin { 0.0 };
+	double conversionFactor { 1.0 };
 	QHash<QString, QPainterPath> pathResources;
 	QHash<QString, PageItem*> linkTargets;
 	QHash<PageItem*, QString> linkSources;
 	QHash<QString, ScFace> loadedFonts;
-	ScZipHandler *uz;
+	ScZipHandler *uz { nullptr };
 	QStringList tempFontFiles;
 
 public slots:
