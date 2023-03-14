@@ -1877,7 +1877,10 @@ void ScribusDoc::restoreGrouping(SimpleState* ss, bool isUndo)
 {
 	auto* is = dynamic_cast<ScItemState<QList<QPointer<PageItem> > >*>(ss);
 	if (!is)
+	{
 		qFatal("ScribusDoc::restoreGrouping: dynamic cast failed");
+		return;
+	}
 
 	QList<QPointer<PageItem> > select = is->getItem();
 	m_Selection->delaySignalsOn();

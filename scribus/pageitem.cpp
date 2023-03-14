@@ -1143,12 +1143,16 @@ bool PageItem::canBeLinkedTo(const PageItem* nxt) const
 
 void PageItem::link(PageItem* nxt, bool addPARSEP)
 {
+	if (nxt == nullptr)
+		return;
+
 	assert( !nextInChain() );
 	assert( !nxt->prevInChain() );
-	for (PageItem* ff=nxt; ff; ff=ff->nextInChain())
+	for (PageItem* ff = nxt; ff; ff = ff->nextInChain())
 	{
-		assert (ff != this);
+		assert(ff != this);
 	}
+
 	// Append only if necessary to avoid the
 	// charstyle: access at end of text warning
 	bool first = false;
@@ -4711,13 +4715,19 @@ void PageItem::changeImageScaleUndoAction()
 
 void PageItem::restore(UndoState *state, bool isUndo)
 {
+	auto* ss = dynamic_cast<SimpleState*>(state);
+	if (!ss)
+	{
+		qFatal("PageItem::restore: dynamic cast failed");
+		return;
+	}
+
 	bool SnapGridBackup = m_Doc->SnapGrid;
 	bool SnapGuidesBackup = m_Doc->SnapGuides;
 	bool SnapElementBackup = m_Doc->SnapElement;
 	m_Doc->SnapElement = false;
 	m_Doc->SnapGrid = false;
 	m_Doc->SnapGuides = false;
-	auto *ss = dynamic_cast<SimpleState*>(state);
 	bool oldMPMode = m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!OnMasterPage.isEmpty());
 	ScPage *oldCurrentPage = m_Doc->currentPage();
@@ -4726,253 +4736,252 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		oldCurrentPage = m_Doc->currentPage();
 		m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]));
 	}
-	if (ss)
+
+	bool actionFound = checkGradientUndoRedo(ss, isUndo);
+	if (!actionFound)
 	{
-		bool actionFound = checkGradientUndoRedo(ss, isUndo);
-		if (!actionFound)
+		if (ss->contains("ARC"))
+			restoreArc(ss, isUndo);
+		else if (ss->contains("MASKTYPE"))
+			restoreMaskType(ss, isUndo);
+		else if (ss->contains("POLYGON"))
+			restorePolygon(ss, isUndo);
+		else if (ss->contains("END_ARROWSCALE"))
+			restoreEndArrowScale(ss, isUndo);
+		else if (ss->contains("START_ARROWSCALE"))
+			restoreStartArrowScale(ss, isUndo);
+		else if (ss->contains("IMAGE_ROTATION"))
+			restoreImageRotation(ss, isUndo);
+		else if (ss->contains("ITEM_RESIZE"))
+			restoreResize(ss, isUndo);
+		else if (ss->contains("ITEM_ROTATE"))
+			restoreRotate(ss, isUndo);
+		else if (ss->contains("ITEM_MOVE"))
+			restoreMove(ss, isUndo);
+		else if (ss->contains("FILL"))
+			restoreFill(ss, isUndo);
+		else if (ss->contains("SHADE"))
+			restoreShade(ss, isUndo);
+		else if (ss->contains("LINE_COLOR"))
+			restoreLineColor(ss, isUndo);
+		else if (ss->contains("VERTICAL_ALIGN"))
+			restoreVerticalAlign(ss, isUndo);
+		else if (ss->contains("COLUMNS"))
+			restoreColumns(ss, isUndo);
+		else if (ss->contains("COLUMNSGAP"))
+			restoreColumnsGap(ss, isUndo);
+		else if (ss->contains("LINE_SHADE"))
+			restoreLineShade(ss, isUndo);
+		else if (ss->contains("DELETE_FRAMETEXT"))
+			restoreDeleteFrameText(ss, isUndo);
+		else if (ss->contains("DELETE_FRAMEPARA"))
+			restoreDeleteFrameParagraph(ss, isUndo);
+		else if (ss->contains("INSERT_FRAMETEXT"))
+			restoreInsertFrameText(ss, isUndo);
+		else if (ss->contains("INSERT_FRAMEPARA"))
+			restoreInsertFrameParagraph(ss, isUndo);
+		else if (ss->contains("LOREM_FRAMETEXT"))
+			restoreInsertFrameText(ss, isUndo);
+		else if (ss->contains("APPLY_CHARSTYLE"))
+			restoreCharStyle(ss, isUndo);
+		else if (ss->contains("SET_CHARSTYLE"))
+			restoreSetCharStyle(ss, isUndo);
+		else if (ss->contains("SET_PARASTYLE"))
+			restoreSetParagraphStyle(ss, isUndo);
+		else if (ss->contains("APPLY_PARASTYLE"))
+			restoreParagraphStyle(ss, isUndo);
+		else if (ss->contains("APPLY_DEFAULTPARASTYLE"))
+			restoreDefaultParagraphStyle(ss, isUndo);
+		else if (ss->contains("LEFT_TEXTFRAMEDIST"))
+			restoreLeftTextFrameDist(ss, isUndo);
+		else if (ss->contains("RIGHT_TEXTFRAMEDIST"))
+			restoreRightTextFrameDist(ss, isUndo);
+		else if (ss->contains("TOP_TEXTFRAMEDIST"))
+			restoreTopTextFrameDist(ss, isUndo);
+		else if (ss->contains("BOTTOM_TEXTFRAMEDIST"))
+			restoreBottomTextFrameDist(ss, isUndo);
+		else if (ss->contains("FIRSTLINEOFFSET"))
+			restoreFirstLineOffset(ss, isUndo);
+		else if (ss->contains("PASTE_PLAINTEXT"))
+			restorePastePlainText(ss, isUndo);
+		else if (ss->contains("PASTE_TEXT"))
+			restorePasteText(ss, isUndo);
+		else if (ss->contains("CORNER_RADIUS"))
+			restoreCornerRadius(ss, isUndo);
+		else if (ss->contains("IMAGEFLIPH"))
+			flipImageH();
+		else if (ss->contains("IMAGEFLIPV"))
+			flipImageV();
+		else if (ss->contains("OVERPRINT"))
 		{
-			if (ss->contains("ARC"))
-				restoreArc(ss, isUndo);
-			else if (ss->contains("MASKTYPE"))
-				restoreMaskType(ss, isUndo);
-			else if (ss->contains("POLYGON"))
-				restorePolygon(ss, isUndo);
-			else if (ss->contains("END_ARROWSCALE"))
-				restoreEndArrowScale(ss, isUndo);
-			else if (ss->contains("START_ARROWSCALE"))
-				restoreStartArrowScale(ss, isUndo);
-			else if (ss->contains("IMAGE_ROTATION"))
-				restoreImageRotation(ss, isUndo);
-			else if (ss->contains("ITEM_RESIZE"))
-				restoreResize(ss, isUndo);
-			else if (ss->contains("ITEM_ROTATE"))
-				restoreRotate(ss, isUndo);
-			else if (ss->contains("ITEM_MOVE"))
-				restoreMove(ss, isUndo);
-			else if (ss->contains("FILL"))
-				restoreFill(ss, isUndo);
-			else if (ss->contains("SHADE"))
-				restoreShade(ss, isUndo);
-			else if (ss->contains("LINE_COLOR"))
-				restoreLineColor(ss, isUndo);
-			else if (ss->contains("VERTICAL_ALIGN"))
-				restoreVerticalAlign(ss, isUndo);
-			else if (ss->contains("COLUMNS"))
-				restoreColumns(ss, isUndo);
-			else if (ss->contains("COLUMNSGAP"))
-				restoreColumnsGap(ss, isUndo);
-			else if (ss->contains("LINE_SHADE"))
-				restoreLineShade(ss, isUndo);
-			else if (ss->contains("DELETE_FRAMETEXT"))
-				restoreDeleteFrameText(ss, isUndo);
-			else if (ss->contains("DELETE_FRAMEPARA"))
-				restoreDeleteFrameParagraph(ss, isUndo);
-			else if (ss->contains("INSERT_FRAMETEXT"))
-				restoreInsertFrameText(ss, isUndo);
-			else if (ss->contains("INSERT_FRAMEPARA"))
-				restoreInsertFrameParagraph(ss, isUndo);
-			else if (ss->contains("LOREM_FRAMETEXT"))
-				restoreInsertFrameText(ss, isUndo);
-			else if (ss->contains("APPLY_CHARSTYLE"))
-				restoreCharStyle(ss, isUndo);
-			else if (ss->contains("SET_CHARSTYLE"))
-				restoreSetCharStyle(ss, isUndo);
-			else if (ss->contains("SET_PARASTYLE"))
-				restoreSetParagraphStyle(ss, isUndo);
-			else if (ss->contains("APPLY_PARASTYLE"))
-				restoreParagraphStyle(ss, isUndo);
-			else if (ss->contains("APPLY_DEFAULTPARASTYLE"))
-				restoreDefaultParagraphStyle(ss, isUndo);
-			else if (ss->contains("LEFT_TEXTFRAMEDIST"))
-				restoreLeftTextFrameDist(ss, isUndo);
-			else if (ss->contains("RIGHT_TEXTFRAMEDIST"))
-				restoreRightTextFrameDist(ss, isUndo);
-			else if (ss->contains("TOP_TEXTFRAMEDIST"))
-				restoreTopTextFrameDist(ss, isUndo);
-			else if (ss->contains("BOTTOM_TEXTFRAMEDIST"))
-				restoreBottomTextFrameDist(ss, isUndo);
-			else if (ss->contains("FIRSTLINEOFFSET"))
-				restoreFirstLineOffset(ss, isUndo);
-			else if (ss->contains("PASTE_PLAINTEXT"))
-				restorePastePlainText(ss, isUndo);
-			else if (ss->contains("PASTE_TEXT"))
-				restorePasteText(ss, isUndo);
-			else if (ss->contains("CORNER_RADIUS"))
-				restoreCornerRadius(ss, isUndo);
-			else if (ss->contains("IMAGEFLIPH"))
-				flipImageH();
-			else if (ss->contains("IMAGEFLIPV"))
-				flipImageV();
-			else if (ss->contains("OVERPRINT"))
-			{
-				if (isUndo)
-					doOverprint = !ss->getBool("OVERPRINT");
-				else
-					doOverprint = ss->getBool("OVERPRINT");
-			}
-			else if (ss->contains("FILLBLENDMODE"))
-			{
-				if (isUndo)
-					m_fillBlendMode = ss->getInt("FILLBLENDMODE_OLD");
-				else
-					m_fillBlendMode = ss->getInt("FILLBLENDMODE");
-			}
-			else if (ss->contains("ACTIONPDFANNOTATION"))
-			{
-				if (isUndo)
-					m_isAnnotation = !ss->getBool("ACTIONPDFANNOTATION");
-				else
-					m_isAnnotation = ss->getBool("ACTIONPDFANNOTATION");
-			}
-			else if (ss->contains("ACTIONPDFBOOKMARK"))
-			{
-				if (isUndo)
-					isBookmark = !ss->getBool("ACTIONPDFBOOKMARK");
-				else
-					isBookmark = ss->getBool("ACTIONPDFBOOKMARK");
-			}
-			else if (ss->contains("LINEBLENDMODE"))
-			{
-				if (isUndo)
-					m_lineBlendMode = ss->getInt("LINEBLENDMODE_OLD");
-				else
-					m_lineBlendMode = ss->getInt("LINEBLENDMODE");
-			}
-			else if (ss->contains("LOCK"))
-			{
-				select();
-				m_Doc->itemSelection_ToggleLock();
-			}
-			else if (ss->contains("SIZE_LOCK"))
-			{
-				select();
-				m_Doc->itemSelection_ToggleSizeLock();
-			}
-			else if (ss->contains("PRINT_ENABLED"))
-			{
-				select();
-				m_Doc->itemSelection_TogglePrintEnabled();
-			}
-			else if (ss->contains("NEW_NAME"))
-				restoreName(ss, isUndo);
-			else if (ss->contains("SHOW_IMAGE"))
-				restoreShowImage(ss, isUndo);
-			else if (ss->contains("TRANSPARENCY"))
-				restoreFillTP(ss, isUndo);
-			else if (ss->contains("LINE_TRANSPARENCY"))
-				restoreLineTP(ss, isUndo);
-			else if (ss->contains("LINE_STYLE"))
-				restoreLineStyle(ss, isUndo);
-			else if (ss->contains("LINE_END"))
-				restoreLineEnd(ss, isUndo);
-			else if (ss->contains("LINE_JOIN"))
-				restoreLineJoin(ss, isUndo);
-			else if (ss->contains("LINE_WIDTH"))
-				restoreLineWidth(ss, isUndo);
-			else if (ss->contains("CUSTOM_LINE_STYLE"))
-				restoreCustomLineStyle(ss, isUndo);
-			else if (ss->contains("START_ARROW"))
-				restoreArrow(ss, isUndo, true);
-			else if (ss->contains("END_ARROW"))
-				restoreArrow(ss, isUndo, false);
-			else if (ss->contains("PSTYLE"))
-				restorePStyle(ss, isUndo);
-			else if (ss->contains("CONVERT"))
-				restoreType(ss, isUndo);
-			else if (ss->contains("TEXTFLOW_OLDMODE"))
-				restoreTextFlowing(ss, isUndo);
-			else if (ss->contains("SCALE_MODE"))
-				restoreImageScaleMode(ss, isUndo);
-			else if (ss->contains("IMAGE_SCALE"))
-				restoreImageScaleChange(ss, isUndo);
-			else if (ss->contains("IMAGE_OFFSET"))
-				restoreImageOffsetChange(ss, isUndo);
-			else if (ss->contains("EDIT_CONTOUR"))
-				restorePoly(ss, isUndo, true);
-			else if (ss->contains("EDIT_SHAPE"))
-				restorePoly(ss, isUndo, false);
-			else if (ss->contains("RES_TYP"))
-				restoreResTyp(ss, isUndo);
-			else if (ss->contains("RESET_CONTOUR"))
-				restoreContourLine(ss, isUndo);
-			else if (ss->contains("CHANGE_SHAPE_TYPE"))
-				restoreShapeType(ss, isUndo);
-			else if (ss->contains("UNITEITEM"))
-				restoreUniteItem(ss, isUndo);
-			else if (ss->contains("SPLITITEM"))
-				restoreSplitItem(ss, isUndo);
-			else if (ss->contains("MIRROR_PATH_H"))
-			{
-				bool editContour = m_Doc->nodeEdit.isContourLine();
-				m_Doc->nodeEdit.setIsContourLine(ss->getBool("IS_CONTOUR"));
-				select();
-				m_Doc->MirrorPolyH(m_Doc->m_Selection->itemAt(0));
-				m_Doc->nodeEdit.setIsContourLine(editContour);
-			}
-			else if (ss->contains("MIRROR_PATH_V"))
-			{
-				bool editContour = m_Doc->nodeEdit.isContourLine();
-				m_Doc->nodeEdit.setIsContourLine(ss->getBool("IS_CONTOUR"));
-				select();
-				m_Doc->MirrorPolyV(m_Doc->m_Selection->itemAt(0));
-				m_Doc->nodeEdit.setIsContourLine(editContour);
-			}
-			else if (ss->contains("SEND_TO_LAYER"))
-				restoreLayer(ss, isUndo);
-			else if (ss->contains("GET_IMAGE"))
-				restoreGetImage(ss, isUndo);
-			else if (ss->contains("EDIT_SHAPE_OR_CONTOUR"))
-				restoreShapeContour(ss, isUndo);
-			else if (ss->contains("APPLY_IMAGE_EFFECTS"))
-				restoreImageEffects(ss, isUndo);
-			else if (ss->contains("DROP_LINKS"))
-				restoreDropLinks(ss, isUndo);
-			else if (ss->contains("LINK_TEXT_FRAME"))
-				restoreLinkTextFrame(ss, isUndo);
-			else if (ss->contains("UNLINK_TEXT_FRAME"))
-				restoreUnlinkTextFrame(ss, isUndo);
-			else if (ss->contains("CLEAR_IMAGE"))
-				restoreClearImage(ss, isUndo);
-			else if (ss->contains("PASTE_INLINE"))
-				restorePasteInline(ss, isUndo);
-			else if (ss->contains("TRANSFORM"))
-				restoreTransform(ss, isUndo);
-			else if (ss->contains("PATH_OPERATION"))
-				restorePathOperation(ss, isUndo);
-			else if (ss->contains("IMAGE_NBR"))
-				restoreImageNbr(ss, isUndo);
-			else if (ss->contains("CHANGE_MODE"))
-				restoreAppMode(ss, isUndo);
-			else if (ss->contains("CONNECT_PATH"))
-				restoreConnectPath(ss, isUndo);
-			else if (ss->contains("WELD_ITEMS"))
-				restoreWeldItems(ss, isUndo);
-			else if (ss->contains("UNWELD_ITEM"))
-				restoreUnWeldItem(ss, isUndo);
-			else if (ss->contains("CLEARMARKSTRING"))
-				restoreMarkString(ss, isUndo);
-			else if (ss->contains("SOFT_SHADOW"))
-				restoreSoftShadow(ss, isUndo);
-			else if (ss->contains("SOFT_SHADOW_COLOR"))
-				restoreSoftShadowColor(ss, isUndo);
-			else if (ss->contains("SOFT_SHADOW_SHADE"))
-				restoreSoftShadowShade(ss, isUndo);
-			else if (ss->contains("SOFT_SHADOW_BLUR_RADIUS"))
-				restoreSoftShadowBlurRadius(ss, isUndo);
-			else if (ss->contains("SOFT_SHADOW_XOFFSET"))
-				restoreSoftShadowXOffset(ss, isUndo);
-			else if (ss->contains("SOFT_SHADOW_YOFFSET"))
-				restoreSoftShadowYOffset(ss, isUndo);
-			else if (ss->contains("SOFT_SHADOW_OPACITY"))
-				restoreSoftShadowOpacity(ss, isUndo);
-			else if (ss->contains("SOFT_SHADOW_BLEND_MODE"))
-				restoreSoftShadowBlendMode(ss, isUndo);
-			else if (ss->contains("SOFT_SHADOW_ERASE"))
-				restoreSoftShadowErasedByObject(ss, isUndo);
-			else if (ss->contains("SOFT_SHADOW_OBJTRANS"))
-				restoreSoftShadowHasObjectTransparency(ss, isUndo);
+			if (isUndo)
+				doOverprint = !ss->getBool("OVERPRINT");
+			else
+				doOverprint = ss->getBool("OVERPRINT");
 		}
+		else if (ss->contains("FILLBLENDMODE"))
+		{
+			if (isUndo)
+				m_fillBlendMode = ss->getInt("FILLBLENDMODE_OLD");
+			else
+				m_fillBlendMode = ss->getInt("FILLBLENDMODE");
+		}
+		else if (ss->contains("ACTIONPDFANNOTATION"))
+		{
+			if (isUndo)
+				m_isAnnotation = !ss->getBool("ACTIONPDFANNOTATION");
+			else
+				m_isAnnotation = ss->getBool("ACTIONPDFANNOTATION");
+		}
+		else if (ss->contains("ACTIONPDFBOOKMARK"))
+		{
+			if (isUndo)
+				isBookmark = !ss->getBool("ACTIONPDFBOOKMARK");
+			else
+				isBookmark = ss->getBool("ACTIONPDFBOOKMARK");
+		}
+		else if (ss->contains("LINEBLENDMODE"))
+		{
+			if (isUndo)
+				m_lineBlendMode = ss->getInt("LINEBLENDMODE_OLD");
+			else
+				m_lineBlendMode = ss->getInt("LINEBLENDMODE");
+		}
+		else if (ss->contains("LOCK"))
+		{
+			select();
+			m_Doc->itemSelection_ToggleLock();
+		}
+		else if (ss->contains("SIZE_LOCK"))
+		{
+			select();
+			m_Doc->itemSelection_ToggleSizeLock();
+		}
+		else if (ss->contains("PRINT_ENABLED"))
+		{
+			select();
+			m_Doc->itemSelection_TogglePrintEnabled();
+		}
+		else if (ss->contains("NEW_NAME"))
+			restoreName(ss, isUndo);
+		else if (ss->contains("SHOW_IMAGE"))
+			restoreShowImage(ss, isUndo);
+		else if (ss->contains("TRANSPARENCY"))
+			restoreFillTP(ss, isUndo);
+		else if (ss->contains("LINE_TRANSPARENCY"))
+			restoreLineTP(ss, isUndo);
+		else if (ss->contains("LINE_STYLE"))
+			restoreLineStyle(ss, isUndo);
+		else if (ss->contains("LINE_END"))
+			restoreLineEnd(ss, isUndo);
+		else if (ss->contains("LINE_JOIN"))
+			restoreLineJoin(ss, isUndo);
+		else if (ss->contains("LINE_WIDTH"))
+			restoreLineWidth(ss, isUndo);
+		else if (ss->contains("CUSTOM_LINE_STYLE"))
+			restoreCustomLineStyle(ss, isUndo);
+		else if (ss->contains("START_ARROW"))
+			restoreArrow(ss, isUndo, true);
+		else if (ss->contains("END_ARROW"))
+			restoreArrow(ss, isUndo, false);
+		else if (ss->contains("PSTYLE"))
+			restorePStyle(ss, isUndo);
+		else if (ss->contains("CONVERT"))
+			restoreType(ss, isUndo);
+		else if (ss->contains("TEXTFLOW_OLDMODE"))
+			restoreTextFlowing(ss, isUndo);
+		else if (ss->contains("SCALE_MODE"))
+			restoreImageScaleMode(ss, isUndo);
+		else if (ss->contains("IMAGE_SCALE"))
+			restoreImageScaleChange(ss, isUndo);
+		else if (ss->contains("IMAGE_OFFSET"))
+			restoreImageOffsetChange(ss, isUndo);
+		else if (ss->contains("EDIT_CONTOUR"))
+			restorePoly(ss, isUndo, true);
+		else if (ss->contains("EDIT_SHAPE"))
+			restorePoly(ss, isUndo, false);
+		else if (ss->contains("RES_TYP"))
+			restoreResTyp(ss, isUndo);
+		else if (ss->contains("RESET_CONTOUR"))
+			restoreContourLine(ss, isUndo);
+		else if (ss->contains("CHANGE_SHAPE_TYPE"))
+			restoreShapeType(ss, isUndo);
+		else if (ss->contains("UNITEITEM"))
+			restoreUniteItem(ss, isUndo);
+		else if (ss->contains("SPLITITEM"))
+			restoreSplitItem(ss, isUndo);
+		else if (ss->contains("MIRROR_PATH_H"))
+		{
+			bool editContour = m_Doc->nodeEdit.isContourLine();
+			m_Doc->nodeEdit.setIsContourLine(ss->getBool("IS_CONTOUR"));
+			select();
+			m_Doc->MirrorPolyH(m_Doc->m_Selection->itemAt(0));
+			m_Doc->nodeEdit.setIsContourLine(editContour);
+		}
+		else if (ss->contains("MIRROR_PATH_V"))
+		{
+			bool editContour = m_Doc->nodeEdit.isContourLine();
+			m_Doc->nodeEdit.setIsContourLine(ss->getBool("IS_CONTOUR"));
+			select();
+			m_Doc->MirrorPolyV(m_Doc->m_Selection->itemAt(0));
+			m_Doc->nodeEdit.setIsContourLine(editContour);
+		}
+		else if (ss->contains("SEND_TO_LAYER"))
+			restoreLayer(ss, isUndo);
+		else if (ss->contains("GET_IMAGE"))
+			restoreGetImage(ss, isUndo);
+		else if (ss->contains("EDIT_SHAPE_OR_CONTOUR"))
+			restoreShapeContour(ss, isUndo);
+		else if (ss->contains("APPLY_IMAGE_EFFECTS"))
+			restoreImageEffects(ss, isUndo);
+		else if (ss->contains("DROP_LINKS"))
+			restoreDropLinks(ss, isUndo);
+		else if (ss->contains("LINK_TEXT_FRAME"))
+			restoreLinkTextFrame(ss, isUndo);
+		else if (ss->contains("UNLINK_TEXT_FRAME"))
+			restoreUnlinkTextFrame(ss, isUndo);
+		else if (ss->contains("CLEAR_IMAGE"))
+			restoreClearImage(ss, isUndo);
+		else if (ss->contains("PASTE_INLINE"))
+			restorePasteInline(ss, isUndo);
+		else if (ss->contains("TRANSFORM"))
+			restoreTransform(ss, isUndo);
+		else if (ss->contains("PATH_OPERATION"))
+			restorePathOperation(ss, isUndo);
+		else if (ss->contains("IMAGE_NBR"))
+			restoreImageNbr(ss, isUndo);
+		else if (ss->contains("CHANGE_MODE"))
+			restoreAppMode(ss, isUndo);
+		else if (ss->contains("CONNECT_PATH"))
+			restoreConnectPath(ss, isUndo);
+		else if (ss->contains("WELD_ITEMS"))
+			restoreWeldItems(ss, isUndo);
+		else if (ss->contains("UNWELD_ITEM"))
+			restoreUnWeldItem(ss, isUndo);
+		else if (ss->contains("CLEARMARKSTRING"))
+			restoreMarkString(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW"))
+			restoreSoftShadow(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_COLOR"))
+			restoreSoftShadowColor(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_SHADE"))
+			restoreSoftShadowShade(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_BLUR_RADIUS"))
+			restoreSoftShadowBlurRadius(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_XOFFSET"))
+			restoreSoftShadowXOffset(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_YOFFSET"))
+			restoreSoftShadowYOffset(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_OPACITY"))
+			restoreSoftShadowOpacity(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_BLEND_MODE"))
+			restoreSoftShadowBlendMode(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_ERASE"))
+			restoreSoftShadowErasedByObject(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_OBJTRANS"))
+			restoreSoftShadowHasObjectTransparency(ss, isUndo);
 	}
+
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
 	m_Doc->setMasterPageMode(oldMPMode);
@@ -5476,7 +5485,11 @@ void PageItem::restoreArc(SimpleState *state, bool isUndo)
 {
 	const auto *ss = dynamic_cast<ScItemState<QPair<FPointArray, FPointArray> > *>(state);
 	if (!ss)
+	{
 		qFatal("PageItem::restoreArc: dynamic cast failed");
+		return;
+	}
+
 	PageItem_Arc *item = asArc();
 	if (isUndo)
 	{
@@ -5516,7 +5529,11 @@ void PageItem::restoreTransform(SimpleState *ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QList<QTransform > >*>(ss);
 	if (!is)
+	{
 		qFatal("PageItem::restoreTransform: dynamic cast failed");
+		return;
+	}
+
 	int x = is->getDouble("DX");
 	int y = is->getDouble("DY");
 	if (isUndo)
@@ -5681,7 +5698,10 @@ void PageItem::restoreGradPos(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QList<FPoint> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreGradPos: dynamic cast failed");
+		return;
+	}
 
 	if (isUndo)
 	{
@@ -5756,7 +5776,10 @@ void PageItem::restoreGradientColor1(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<QColor,QColor> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreGradientColor1: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		m_grQColorP1 = is->getItem().first;
 	else
@@ -5768,7 +5791,10 @@ void PageItem::restoreRemoveMeshPatch(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<meshGradientPatch> *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreRemoveMeshPatch: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 	{
 		selectedMeshPointX = is->getInt("POS");
@@ -5786,7 +5812,10 @@ void PageItem::restoreCreateMeshGrad(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QList<QList<MeshPoint> > > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreCreateMeshGrad: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		meshGradientArray = is->getItem();
 	else
@@ -5798,7 +5827,10 @@ void PageItem::restoreMoveMeshGrad(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<QList<QList<MeshPoint> >,FPointArray> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreMoveMeshGrad: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 	{
 		PoLine = is->getItem().second;
@@ -5821,7 +5853,10 @@ void PageItem::restoreResetMeshGrad(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QList<QList<MeshPoint> > > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreResetMeshGrad: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		meshGradientArray = is->getItem();
 	else
@@ -5833,7 +5868,10 @@ void PageItem::restoreGradientColor2(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<QColor,QColor> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreGradientColor2: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		m_grQColorP2 = is->getItem().first;
 	else
@@ -5845,7 +5883,10 @@ void PageItem::restoreGradientColor3(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<QColor,QColor> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreGradientColor3: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		m_grQColorP3 = is->getItem().first;
 	else
@@ -5857,7 +5898,10 @@ void PageItem::restoreGradientColor4(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<QColor,QColor> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreGradientColor4: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		m_grQColorP4 = is->getItem().first;
 	else
@@ -5869,7 +5913,10 @@ void PageItem::restoreMoveMeshPatch(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<MeshPoint,MeshPoint> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreMoveMeshPatch: dynamic cast failed");
+		return;
+	}
 
 	int x = is->getInt("X");
 	int y = is->getInt("Y");
@@ -5922,7 +5969,10 @@ void PageItem::restoreFillGradient(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<VGradient,VGradient> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreFillGradient: dynamic cast failed");
+		return;
+	}
 
 	if (isUndo)
 		fill_gradient = is->getItem().first;
@@ -5937,7 +5987,10 @@ void PageItem::restoreMaskGradient(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<VGradient,VGradient> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreMaskGradient: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		mask_gradient = is->getItem().first;
 	else
@@ -5950,7 +6003,10 @@ void PageItem::restoreStrokeGradient(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<VGradient,VGradient> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreStrokeGradient: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		stroke_gradient = is->getItem().first;
 	else
@@ -5962,7 +6018,10 @@ void PageItem::restoreGradientMeshColor(SimpleState *ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<QColor,QColor> > *>(ss);
 	if (!is)
+	{
 		qFatal("PageItem::restoreGradientMeshColor: dynamic cast failed");
+		return;
+	}
 
 	int x = is->getInt("X");
 	int y = is->getInt("Y");
@@ -5988,8 +6047,13 @@ void PageItem::restoreGradientMeshColor(SimpleState *ss, bool isUndo)
 	}
 	else
 		mp = &meshGradientArray[x][y];
+
 	if (mp == nullptr)
+	{
 		qFatal("PageItem::restoreGradientMeshColor: mp is a nullptr");
+		return;
+	}
+
 	if (isUndo)
 	{
 		mp->colorName = is->get("OLD_COLOR_NAME");
@@ -6126,7 +6190,10 @@ void PageItem::restoreGradientControl1(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreGradientControl1: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		GrControl1 = is->getItem().first;
 	else
@@ -6137,7 +6204,10 @@ void PageItem::restoreGradientControl2(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreGradientControl2: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		GrControl2 = is->getItem().first;
 	else
@@ -6148,7 +6218,10 @@ void PageItem::restoreGradientControl3(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreGradientControl3: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		GrControl3 = is->getItem().first;
 	else
@@ -6159,7 +6232,10 @@ void PageItem::restoreGradientControl4(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreGradientControl4: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		GrControl4 = is->getItem().first;
 	else
@@ -6170,7 +6246,10 @@ void PageItem::restoreGradientControl5(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreGradientControl5: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		GrControl5 = is->getItem().first;
 	else
@@ -6309,7 +6388,10 @@ void PageItem::restorePasteText(SimpleState *ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<StoryText>*>(ss);
 	if (!is)
+	{
 		qFatal("PageItem::restorePasteText: dynamic cast failed");
+		return;
+	}
 
 	int start = is->getInt("START");
 	itemText.deselectAll();
@@ -6383,7 +6465,10 @@ void PageItem::restoreFirstLineOffset(SimpleState *ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<FirstLineOffsetPolicy, FirstLineOffsetPolicy> >*>(ss);
 	if (!is)
+	{
 		qFatal("PageItem::restoreFirstLineOffset: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		m_firstLineOffset = is->getItem().first;
 	else
@@ -6395,7 +6480,10 @@ void PageItem::restoreDefaultParagraphStyle(SimpleState *ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<ParagraphStyle, ParagraphStyle> >*>(ss);
 	if (!is)
+	{
 		qFatal("PageItem::restoreDefaultParagraphStyle: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		itemText.setDefaultStyle(is->getItem().second);
 	else
@@ -6406,7 +6494,11 @@ void PageItem::restoreParagraphStyle(SimpleState *ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<ParagraphStyle, ParagraphStyle> >*>(ss);
 	if (!is)
+	{
 		qFatal("PageItem::restoreParagraphStyle: dynamic cast failed");
+		return;
+	}
+
 	int pos = is->getInt("POS");
 	if (isUndo)
 	{
@@ -6421,7 +6513,10 @@ void PageItem::restoreCharStyle(SimpleState *ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<CharStyle, CharStyle> >*>(ss);
 	if (!is)
+	{
 		qFatal("PageItem::restoreCharStyle: dynamic cast failed");
+		return;
+	}
 	int length = is->getInt("LENGTH");
 	int start = is->getInt("START");
 	if (isUndo)
@@ -6437,7 +6532,10 @@ void PageItem::restoreSetCharStyle(SimpleState *ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<CharStyle, CharStyle> >*>(ss);
 	if (!is)
+	{
 		qFatal("PageItem::restoreSetCharStyle: dynamic cast failed");
+		return;
+	}
 	int length = is->getInt("LENGTH");
 	int start = is->getInt("START");
 	if (isUndo)
@@ -6450,7 +6548,10 @@ void PageItem::restoreSetParagraphStyle(SimpleState *ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QPair<ParagraphStyle, ParagraphStyle> >*>(ss);
 	if (!is)
+	{
 		qFatal("PageItem::restoreSetParagraphStyle: dynamic cast failed");
+		return;
+	}
 	int pos = is->getInt("POS");
 	if (isUndo)
 		itemText.setStyle(pos, is->getItem().second);
@@ -6462,7 +6563,10 @@ void PageItem::restoreDeleteFrameText(SimpleState *ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<CharStyle> *>(ss);
 	if (!is)
+	{
 		qFatal("PageItem::restoreDeleteFrameText: dynamic cast failed");
+		return;
+	}
 
 	QString text(is->get("TEXT_STR"));
 	int start = is->getInt("START");
@@ -6487,7 +6591,10 @@ void PageItem::restoreDeleteFrameParagraph(SimpleState *ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<ParagraphStyle> *>(ss);
 	if (!is)
+	{
 		qFatal("PageItem::restoreDeleteFrameParagraph: dynamic cast failed");
+		return;
+	}
 
 	int start = is->getInt("START");
 	itemText.deselectAll();
@@ -6529,7 +6636,10 @@ void PageItem::restoreInsertFrameParagraph(SimpleState *ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<ParagraphStyle> *>(ss);
 	if (!is)
+	{
 		qFatal("PageItem::restoreInsertFrameParagraph: dynamic cast failed");
+		return;
+	}
 
 	int start = is->getInt("START");
 	itemText.deselectAll();
@@ -6932,11 +7042,15 @@ void PageItem::restoreClearImage(UndoState *state, bool isUndo)
 {
 	if (!isImageFrame())
 		return;
+
 	if (isUndo)
 	{
 		const auto *is = dynamic_cast<ScItemState<ScImageEffectList>*>(state);
 		if (!is)
+		{
 			qFatal("PageItem::restoreClearImage: dynamic cast failed");
+			return;
+		}
 		Pfile = is->get("CI_PFILE");
 		loadImage(Pfile, false);
 		effectsInUse = is->getItem();
@@ -6964,7 +7078,10 @@ void PageItem::restoreDropLinks(UndoState *state, bool isUndo)
 		return;
 	const auto *is = dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreDropLinks: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 	{
 		PageItem* prev = is->getItem().first;
@@ -7021,7 +7138,10 @@ void PageItem::restoreLinkTextFrame(UndoState *state, bool isUndo)
 
 	const auto* is = dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreLinkTextFrame: dynamic cast failed");
+		return;
+	}
 
 	if (isUndo)
 	{
@@ -7070,9 +7190,14 @@ void PageItem::restoreUnlinkTextFrame(UndoState *state, bool isUndo)
 {
 	if (!isTextFrame())
 		return;
+
 	const auto *is = dynamic_cast<ScItemState<QPair<PageItem*, PageItem*> >*>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreUnlinkTextFrame: dynamic cast failed");
+		return;
+	}
+
 	if (is->contains("CUT_TEXT"))
 	{
 		if (isUndo)
@@ -7112,7 +7237,10 @@ void PageItem::restorePathOperation(UndoState *state, bool isUndo)
 	//PATH_OPERATION
 	const auto *is = dynamic_cast<ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >*>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restorePathOperation: dynamic cast failed");
+		return;
+	}
 
 	if (isUndo)
 	{
@@ -7165,7 +7293,10 @@ void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState< QPair<QList<PageItem*>,QList<QTransform> > >*>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreUniteItem: dynamic cast failed");
+		return;
+	}
 
 	m_Doc->view()->deselectItems(true);
 	if (isUndo)
@@ -7177,7 +7308,7 @@ void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)
 			PageItem* myItem = is->getItem().first.at(i);
 			myItem->PoLine.map(is->getItem().second.at(i).inverted());
 			pts += myItem->PoLine.size();
-			pts+=4;
+			pts += 4;
 			doc()->m_Selection->addItem(myItem);
 		}
 		PoLine.resize(PoLine.size()-pts);
@@ -7203,7 +7334,10 @@ void PageItem::restoreSplitItem(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState< QList<int> >*>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreSplitItem: dynamic cast failed");
+		return;
+	}
 	
 	QList<int> itemsList = is->getItem();
 	select();
@@ -7222,7 +7356,10 @@ void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<FPointArray>*>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreContourLine: dynamic cast failed");
+		return;
+	}
 	if (isUndo)
 		ContourLine = is->getItem();
 	else
@@ -7239,7 +7376,11 @@ void PageItem::restoreShapeType(SimpleState *state, bool isUndo)
 	// binary QPair<FPointArray, FPointArray> - .first original shape, .second new shape
 	const auto *is = dynamic_cast<ScItemState<QPair<FPointArray,FPointArray> >*>(state);
 	if (!is)
+	{
 		qFatal("PageItem::restoreShapeType: dynamic cast failed");
+		return;
+	}
+
 	if (isUndo)
 	{
 		this->FrameType = is->getInt("OLD_FRAME_TYPE");
