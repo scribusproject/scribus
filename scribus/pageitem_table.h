@@ -515,6 +515,9 @@ public:
 	/// Returns this item as a PageItem_Table.
 	PageItem_Table* asTable() override { return this; }
 
+	/// Returns this item as a const PageItem_Table.
+	const PageItem_Table* asTable() const override { return this; }
+
 	/// Returns <code>true</code>.
 	bool isTable() const override { return true; }
 

@@ -37,10 +37,11 @@ class SCRIBUS_API PageItem_RegularPolygon : public PageItem
 
 public:
 	PageItem_RegularPolygon(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
-	PageItem_RegularPolygon(const PageItem & p) : PageItem(p) {}
+	PageItem_RegularPolygon(const PageItem& p);
 	~PageItem_RegularPolygon() {};
 
 	PageItem_RegularPolygon * asRegularPolygon() override { return this; }
+	const PageItem_RegularPolygon * asRegularPolygon() const override { return this; }
 	bool isRegularPolygon() const override { return true; }
 	ItemType realItemType() const override { return PageItem::RegularPolygon; }
 	void applicableActions(QStringList& actionList) override;

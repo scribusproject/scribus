@@ -41,6 +41,7 @@ public:
 	~PageItem_Line() {};
 	
 	PageItem_Line * asLine() override { return this; }
+	const PageItem_Line * asLine() const override { return this; }
 	bool isLine() const override { return true; }
 	
 	void applicableActions(QStringList& actionList) override;

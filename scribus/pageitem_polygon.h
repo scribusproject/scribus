@@ -41,6 +41,7 @@ public:
 	~PageItem_Polygon() {};
 
 	PageItem_Polygon * asPolygon() override { return this; }
+	const PageItem_Polygon * asPolygon() const override { return this; }
 	bool isPolygon() const override { return true; }
 	void applicableActions(QStringList& actionList) override;
 	QString infoDescription() const override;

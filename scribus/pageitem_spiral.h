@@ -37,10 +37,11 @@ class SCRIBUS_API PageItem_Spiral : public PageItem
 
 public:
 	PageItem_Spiral(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
-	PageItem_Spiral(const PageItem & p) : PageItem(p) {}
+	PageItem_Spiral(const PageItem& p);
 	~PageItem_Spiral() {};
 
 	PageItem_Spiral * asSpiral() override { return this; }
+	const PageItem_Spiral * asSpiral() const override { return this; }
 	bool isSpiral() const override { return true; }
 	ItemType realItemType() const override { return PageItem::Spiral; }
 	void applicableActions(QStringList& actionList) override;

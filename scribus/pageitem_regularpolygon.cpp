@@ -62,6 +62,36 @@ PageItem_RegularPolygon::PageItem_RegularPolygon(ScribusDoc *pa, double x, doubl
 	Clip = flattenPath(PoLine, Segments);
 }
 
+PageItem_RegularPolygon::PageItem_RegularPolygon(const PageItem& p)
+	: PageItem(p)
+{
+	const auto* otherPoly = p.asRegularPolygon();
+	if (otherPoly)
+	{
+		polyCorners = otherPoly->polyCorners;
+		polyFactor = otherPoly->polyFactor;
+		polyUseFactor = otherPoly->polyUseFactor;
+		polyRotation = otherPoly->polyRotation;
+		polyCurvature = otherPoly->polyCurvature;
+		polyInnerRot = otherPoly->polyInnerRot;
+		polyOuterCurvature = otherPoly->polyOuterCurvature;
+	}
+	else
+	{
+		polyCorners = m_Doc->itemToolPrefs().polyCorners;
+		polyFactor = m_Doc->itemToolPrefs().polyFactor;
+		polyUseFactor = m_Doc->itemToolPrefs().polyUseFactor;
+		polyRotation = m_Doc->itemToolPrefs().polyRotation;
+		polyCurvature = m_Doc->itemToolPrefs().polyCurvature;
+		polyInnerRot = m_Doc->itemToolPrefs().polyInnerRot;
+		polyOuterCurvature = m_Doc->itemToolPrefs().polyOuterCurvature;
+	}
+
+	QPainterPath path = regularPolygonPath(m_width, m_height, polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
+	PoLine.fromQPainterPath(path);
+	Clip = flattenPath(PoLine, Segments);
+}
+
 void PageItem_RegularPolygon::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 {
 	if (!m_Doc->RePos)

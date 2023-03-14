@@ -37,10 +37,11 @@ class SCRIBUS_API PageItem_Arc : public PageItem
 
 public:
 	PageItem_Arc(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
-	PageItem_Arc(const PageItem & p) : PageItem(p) {}
+	PageItem_Arc(const PageItem& p);
 	~PageItem_Arc() {};
 
 	PageItem_Arc * asArc() override { return this; }
+	const PageItem_Arc * asArc() const override { return this; }
 	bool isArc() const override { return true; }
 	ItemType realItemType() const override { return PageItem::Arc; }
 	void applicableActions(QStringList& actionList) override;

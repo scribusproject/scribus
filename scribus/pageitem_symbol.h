@@ -41,6 +41,7 @@ public:
 	~PageItem_Symbol() {};
 
 	PageItem_Symbol* asSymbol() override { return this; }
+	const PageItem_Symbol* asSymbol() const override { return this; }
 	bool isSymbol() const override { return true; }
 	ItemType realItemType() const override { return PageItem::Symbol; }
 	void applicableActions(QStringList& actionList) override;

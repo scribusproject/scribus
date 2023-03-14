@@ -49,6 +49,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		~PageItem_LatexFrame();
 		
 		PageItem_LatexFrame * asLatexFrame() override { return this; }
+		const PageItem_LatexFrame * asLatexFrame() const override { return this; }
 		bool isLatexFrame() const override { return true; }
 
 		void clearContents() override;

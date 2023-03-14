@@ -40,6 +40,7 @@ public:
 	~PageItem_PathText() {};
 	
 	PageItem_PathText * asPathText() override { return this; }
+	const PageItem_PathText * asPathText() const override { return this; }
 	bool isPathText() const override { return true; }
 	bool isTextContainer() const override { return true; }
 

@@ -56,6 +56,25 @@ PageItem_Spiral::PageItem_Spiral(ScribusDoc *pa, double x, double y, double w, d
 	recalcPath();
 }
 
+PageItem_Spiral::PageItem_Spiral(const PageItem& p)
+	: PageItem(p)
+{
+	const auto* otherSpiral = p.asSpiral();
+	if (otherSpiral)
+	{
+		spiralStartAngle = otherSpiral->spiralStartAngle;
+		spiralEndAngle = otherSpiral->spiralEndAngle;
+		spiralFactor = otherSpiral->spiralFactor;
+	}
+	else
+	{
+		spiralStartAngle = m_Doc->itemToolPrefs().spiralStartAngle;
+		spiralEndAngle = m_Doc->itemToolPrefs().spiralEndAngle;
+		spiralFactor = m_Doc->itemToolPrefs().spiralFactor;
+	}
+	recalcPath();
+}
+
 void PageItem_Spiral::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 {
 	if (m_Doc->RePos || PoLine.size() < 4)

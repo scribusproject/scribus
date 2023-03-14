@@ -40,6 +40,7 @@ public:
 	~PageItem_PolyLine() {};
 	
 	PageItem_PolyLine * asPolyLine() override { return this; }
+	const PageItem_PolyLine * asPolyLine() const override { return this; }
 	bool isPolyLine() const override { return true; }
 	
 	void applicableActions(QStringList& actionList) override;
