@@ -105,6 +105,7 @@ private:
 		QVector<double> DashPattern;
 		double DashOffset { 0.0 };
 	};
+	
 	bool convert(const QString& fn);
 	bool parseDocSequence(const QString& designMap);
 	bool parseDocReference(const QString& designMap);

@@ -15,12 +15,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTXAR_H
 #define IMPORTXAR_H
 
-
-#include "pluginapi.h"
-#include "commonstrings.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "fpointarray.h"
 #include <QList>
 #include <QTransform>
 #include <QMultiMap>
@@ -30,6 +24,12 @@ for which a new license (GPL+exception) is in place.
 #include <QRect>
 #include <QStack>
 
+#include "pluginapi.h"
+#include "commonstrings.h"
+#include "fpointarray.h"
+#include "pageitem.h"
+#include "sccolor.h"
+
 class MultiProgressDialog;
 class ScribusDoc;
 class Selection;
@@ -38,174 +38,82 @@ class TransactionSettings;
 class XarStyle
 {
 public:
-	XarStyle() :
-		dashOffset(0),
-		FontFamily(""),
-		FontSize(16.0),
-		LineHeight(15.0),
-		LineWidth(0.0),
-		LineWidth2(0.0),
-		FontStretch(1.0),
-		FontKerning(0.0),
-		FontBold(false),
-		FontUnderline(false),
-		FontItalic(false),
-		TextAlignment(0),
-		TextLeftIndent(0),
-		FillCol(CommonStrings::None),
-		fillRule(true),
-		FillGradient(VGradient::linear),
-		StrokeGradient(VGradient::linear),
-		MaskGradient(VGradient::linear),
-		FillGradientType(0),
-		StrokeGradientType(0),
-		GradFillX1(0),
-		GradFillX2(0),
-		GradFillY1(0),
-		GradFillY2(0),
-		GrScale(1),
-		GrSkew(0),
-		GradStrokeX1(0),
-		GradStrokeX2(0),
-		GradStrokeY1(0),
-		GradStrokeY2(0),
-		GradMask(0),
-		GradMaskX1(0),
-		GradMaskX2(0),
-		GradMaskY1(0),
-		GradMaskY2(0),
-		GradMaskScale(1),
-		GradMaskSkew(0),
-		LWidth(0.5),
-		PLineArt(Qt::SolidLine),
-		PLineEnd(Qt::FlatCap),
-		PLineJoin(Qt::BevelJoin),
-		StrokeCol("Black"),
-		FillOpacity(0.0),
-		FillBlend(0),
-		StrokeOpacity(0.0),
-		StrokeBlend(0),
-		clipPath(),
-		fillPattern(""),
-		patternScaleX(1),
-		patternScaleY(1),
-		patternOffsetX(0),
-		patternOffsetY(0),
-		patternRotation(0),
-		patternSkewX(0),
-		patternSkewY(0),
-		maskPattern(""),
-		patternMaskScaleX(1),
-		patternMaskScaleY(1),
-		patternMaskOffsetX(0),
-		patternMaskOffsetY(0),
-		patternMaskRotation(0),
-		patternMaskSkewX(0),
-		patternMaskSkewY(0),
-		strokePattern(""),
-		patternScaleXS(1),
-		patternScaleYS(1),
-		patternOffsetXS(0),
-		patternOffsetYS(0),
-		patternRotationS(0),
-		patternSkewXS(0),
-		patternSkewYS(0),
-		patternSpace(0),
-		patternStrokePath(false),
-		GrControl1(FPoint()),
-		GrControl2(FPoint()),
-		GrControl3(FPoint()),
-		GrControl4(FPoint()),
-		GrControl5(FPoint()),
-		GrColorP1(""),
-		GrColorP2(""),
-		GrColorP3(""),
-		GrColorP4(""),
-		GrCol1transp(1.0),
-		GrCol2transp(1.0),
-		GrCol3transp(1.0),
-		GrCol4transp(1.0),
-		GrCol1Shade(100),
-		GrCol2Shade(100),
-		GrCol3Shade(100),
-		GrCol4Shade(100),
-		Elements()
-		{
-		}
+	XarStyle() = default;
+
 	QVector<double> dashArray;
-	double dashOffset;
+	double dashOffset { 0 };
 	QString FontFamily;
-	double FontSize;
-	double LineHeight;
-	double LineWidth;
-	double LineWidth2;
-	double FontStretch;
-	double FontKerning;
-	bool FontBold;
-	bool FontUnderline;
-	bool FontItalic;
-	int TextAlignment;
-	double TextLeftIndent;
-	QString FillCol;
-	bool fillRule;
-	VGradient FillGradient;
-	VGradient StrokeGradient;
-	VGradient MaskGradient;
-	int    FillGradientType;
-	int    StrokeGradientType;
-	double GradFillX1;
-	double GradFillX2;
-	double GradFillY1;
-	double GradFillY2;
-	double GrScale;
-	double GrSkew;
-	double GradStrokeX1;
-	double GradStrokeX2;
-	double GradStrokeY1;
-	double GradStrokeY2;
-	int    GradMask;
-	double GradMaskX1;
-	double GradMaskX2;
-	double GradMaskY1;
-	double GradMaskY2;
-	double GradMaskScale;
-	double GradMaskSkew;
-	double LWidth;
-	Qt::PenStyle PLineArt;
-	Qt::PenCapStyle PLineEnd;
-	Qt::PenJoinStyle PLineJoin;
-	QString StrokeCol;
-	double FillOpacity;
-	int    FillBlend;
-	double StrokeOpacity;
-	int    StrokeBlend;
+	double FontSize { 16.0 };
+	double LineHeight { 15.0 };
+	double LineWidth { 0.0 };
+	double LineWidth2 { 0.0 };
+	double FontStretch { 0.0 };
+	double FontKerning { 0.0 };
+	bool FontBold { false };
+	bool FontUnderline { false };
+	bool FontItalic { false };
+	int TextAlignment { 0 };
+	double TextLeftIndent { 0 };
+	QString FillCol { CommonStrings::None };
+	bool fillRule { true };
+	VGradient FillGradient { VGradient::linear };
+	VGradient StrokeGradient { VGradient::linear };
+	VGradient MaskGradient { VGradient::linear };
+	int    FillGradientType { 0 };
+	int    StrokeGradientType { 0 };
+	double GradFillX1 { 0.0 };
+	double GradFillX2 { 0.0 };
+	double GradFillY1 { 0.0 };
+	double GradFillY2 { 0.0 };
+	double GrScale { 1.0 };
+	double GrSkew { 0.0 };
+	double GradStrokeX1 { 0.0 };
+	double GradStrokeX2 { 0.0 };
+	double GradStrokeY1 { 0.0 };
+	double GradStrokeY2 { 0.0 };
+	int    GradMask { 0 };
+	double GradMaskX1 { 0.0 };
+	double GradMaskX2 { 0.0 };
+	double GradMaskY1 { 0.0 };
+	double GradMaskY2 { 0.0 };
+	double GradMaskScale { 1.0 };
+	double GradMaskSkew { 0.0 };
+	double LWidth { 0.5 };
+	Qt::PenStyle PLineArt { Qt::SolidLine };
+	Qt::PenCapStyle PLineEnd { Qt::FlatCap };
+	Qt::PenJoinStyle PLineJoin { Qt::BevelJoin };
+	QString StrokeCol { "Black" };
+	double FillOpacity { 0.0 };
+	int    FillBlend { 0 };
+	double StrokeOpacity { 0.0 };
+	int    StrokeBlend { 0 };
 	FPointArray clipPath;
 	QString fillPattern;
-	double patternScaleX;
-	double patternScaleY;
-	double patternOffsetX;
-	double patternOffsetY;
-	double patternRotation;
-	double patternSkewX;
-	double patternSkewY;
+	double patternScaleX { 1.0 };
+	double patternScaleY { 1.0 };
+	double patternOffsetX { 0.0 };
+	double patternOffsetY { 0.0 };
+	double patternRotation { 0.0 };
+	double patternSkewX { 0.0 };
+	double patternSkewY { 0.0 };
 	QString maskPattern;
-	double patternMaskScaleX;
-	double patternMaskScaleY;
-	double patternMaskOffsetX;
-	double patternMaskOffsetY;
-	double patternMaskRotation;
-	double patternMaskSkewX;
-	double patternMaskSkewY;
+	double patternMaskScaleX { 1.0 };
+	double patternMaskScaleY { 1.0 };
+	double patternMaskOffsetX { 0.0 };
+	double patternMaskOffsetY { 0.0 };
+	double patternMaskRotation { 0.0 };
+	double patternMaskSkewX { 0.0 };
+	double patternMaskSkewY { 0.0 };
 	QString strokePattern;
-	double patternScaleXS;
-	double patternScaleYS;
-	double patternOffsetXS;
-	double patternOffsetYS;
-	double patternRotationS;
-	double patternSkewXS;
-	double patternSkewYS;
-	double patternSpace;
-	bool   patternStrokePath;
+	double patternScaleXS { 1.0 };
+	double patternScaleYS { 1.0 };
+	double patternOffsetXS { 0.0 };
+	double patternOffsetYS { 0.0 };
+	double patternRotationS { 0.0 };
+	double patternSkewXS { 0.0 };
+	double patternSkewYS { 0.0 };
+	double patternSpace { 0 };
+	bool   patternStrokePath { false };
 	FPoint GrControl1;
 	FPoint GrControl2;
 	FPoint GrControl3;
@@ -215,14 +123,14 @@ public:
 	QString GrColorP2;
 	QString GrColorP3;
 	QString GrColorP4;
-	double GrCol1transp;
-	double GrCol2transp;
-	double GrCol3transp;
-	double GrCol4transp;
-	int GrCol1Shade;
-	int GrCol2Shade;
-	int GrCol3Shade;
-	int GrCol4Shade;
+	double GrCol1transp { 1.0 };
+	double GrCol2transp { 1.0 };
+	double GrCol3transp { 1.0 };
+	double GrCol4transp { 1.0 };
+	int GrCol1Shade { 100 };
+	int GrCol2Shade { 100 };
+	int GrCol3Shade { 100 };
+	int GrCol4Shade { 100 };
 	QList<PageItem*> Elements;
 };
 
@@ -334,26 +242,27 @@ private:
 	void addGraphicContext();
 	void popGraphicContext();
 	
-	int importerFlags;
-	int recordCounter;
-	int currentLayer;
-	int pathTextType;
-	int pathGcStackIndex;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	int pagecount;
-	double TextX;
-	double TextY;
-	double textRotation;
-	double textSkew;
-	bool firstLayer;
-	bool interactive;
-	bool cancel;
-	bool inTextLine;
-	bool inTextBlock;
-	bool isPathText;
-	bool recordPath;
+	int importerFlags { 0 };
+	int recordCounter { 0 };
+	int currentLayer { 0 };
+	int pathTextType { 0 };
+	int pathGcStackIndex { 0 };
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docWidth { 1.0 };
+	double docHeight { 1.0 };
+	int pagecount { 1 };
+	double TextX { 0.0 };
+	double TextY { 0.0 };
+	double textRotation { 0.0 };
+	double textSkew { 0.0 };
+	bool firstLayer { true };
+	bool interactive { false };
+	bool cancel { false };
+	bool inTextLine { false };
+	bool inTextBlock { false };
+	bool isPathText { false };
+	bool recordPath { false };
 	QTransform textMatrix;
 	struct XarColor
 	{
@@ -379,24 +288,24 @@ private:
 	{
 		QString FontFamily;
 		QString itemText;
-		double FontSize;
-		double FontStretch;
-		double FontKerning;
-		bool FontBold;
-		bool FontUnderline;
-		bool FontItalic;
-		QString FillCol;
-		VGradient FillGradient;
-		VGradient StrokeGradient;
-		VGradient MaskGradient;
-		int    FillGradientType;
-		int    StrokeGradientType;
-		double GradFillX1;
-		double GradFillX2;
-		double GradFillY1;
-		double GradFillY2;
-		double GrScale;
-		double GrSkew;
+		double FontSize { 16.0 };
+		double FontStretch { 0.0 };
+		double FontKerning { 0.0 };
+		bool FontBold { false };
+		bool FontUnderline { false };
+		bool FontItalic { false };
+		QString FillCol { CommonStrings::None };
+		VGradient FillGradient { VGradient::linear };
+		VGradient StrokeGradient { VGradient::linear };
+		VGradient MaskGradient { VGradient::linear };
+		int    FillGradientType { 0 };
+		int    StrokeGradientType { 0 };
+		double GradFillX1 { 0.0 };
+		double GradFillX2 { 0.0 };
+		double GradFillY1 { 0.0 };
+		double GradFillY2 { 0.0 };
+		double GrScale { 1.0 };
+		double GrSkew { 0.0 };
 		FPoint GrControl1;
 		FPoint GrControl2;
 		FPoint GrControl3;
@@ -410,46 +319,46 @@ private:
 		double GrCol2transp;
 		double GrCol3transp;
 		double GrCol4transp;
-		int GrCol1Shade;
-		int GrCol2Shade;
-		int GrCol3Shade;
-		int GrCol4Shade;
-		double GradStrokeX1;
-		double GradStrokeX2;
-		double GradStrokeY1;
-		double GradStrokeY2;
-		int    GradMask;
-		double GradMaskX1;
-		double GradMaskX2;
-		double GradMaskY1;
-		double GradMaskY2;
-		double GradMaskScale;
-		double GradMaskSkew;
-		double LWidth;
-		Qt::PenStyle PLineArt;
-		Qt::PenCapStyle PLineEnd;
-		Qt::PenJoinStyle PLineJoin;
-		QString StrokeCol;
-		double FillOpacity;
-		int    FillBlend;
-		double StrokeOpacity;
-		int    StrokeBlend;
+		int GrCol1Shade { 100 };
+		int GrCol2Shade { 100 };
+		int GrCol3Shade { 100 };
+		int GrCol4Shade { 100 };
+		double GradStrokeX1 { 0.0 };
+		double GradStrokeX2 { 0.0 };
+		double GradStrokeY1 { 0.0 };
+		double GradStrokeY2 { 0.0 };
+		int    GradMask { 0 };
+		double GradMaskX1 { 0.0 };
+		double GradMaskX2 { 0.0 };
+		double GradMaskY1 { 0.0 };
+		double GradMaskY2 { 0.0 };
+		double GradMaskScale { 1.0 };
+		double GradMaskSkew { 0.0 };
+		double LWidth { 0.5 };
+		Qt::PenStyle PLineArt { Qt::SolidLine };
+		Qt::PenCapStyle PLineEnd { Qt::FlatCap };
+		Qt::PenJoinStyle PLineJoin { Qt::BevelJoin };
+		QString StrokeCol { "Black" };
+		double FillOpacity { 0.0 };
+		int    FillBlend { 0 };
+		double StrokeOpacity { 0.0 };
+		int    StrokeBlend { 0 };
 		QString fillPattern;
-		double patternScaleX;
-		double patternScaleY;
-		double patternOffsetX;
-		double patternOffsetY;
-		double patternRotation;
-		double patternSkewX;
-		double patternSkewY;
+		double patternScaleX { 1.0 };
+		double patternScaleY { 1.0 };
+		double patternOffsetX { 0.0 };
+		double patternOffsetY { 0.0 };
+		double patternRotation { 0.0 };
+		double patternSkewX { 0.0 };
+		double patternSkewY { 0.0 };
 		QString maskPattern;
-		double patternMaskScaleX;
-		double patternMaskScaleY;
-		double patternMaskOffsetX;
-		double patternMaskOffsetY;
-		double patternMaskRotation;
-		double patternMaskSkewX;
-		double patternMaskSkewY;
+		double patternMaskScaleX { 1.0 };
+		double patternMaskScaleY { 1.0 };
+		double patternMaskOffsetX { 0.0 };
+		double patternMaskOffsetY { 0.0 };
+		double patternMaskRotation { 0.0 };
+		double patternMaskSkewX { 0.0 };
+		double patternMaskSkewY { 0.0 };
 	};
 	struct XarTextLine
 	{
@@ -476,9 +385,9 @@ private:
 	FPointArray clipCoords;
 	FPointArray Coords;
 	FPointArray textPath;
-	MultiProgressDialog * progressDialog;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
+	MultiProgressDialog * progressDialog { nullptr };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
 
 public slots:
 	void cancelRequested() { cancel = true; }

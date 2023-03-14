@@ -13,12 +13,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTSVM_H
 #define IMPORTSVM_H
 
-
-#include "pluginapi.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "fpointarray.h"
-#include "commonstrings.h"
 #include <QList>
 #include <QTransform>
 #include <QMultiMap>
@@ -28,6 +22,12 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QRect>
 
+#include "pluginapi.h"
+#include "commonstrings.h"
+#include "fpointarray.h"
+#include "pageitem.h"
+#include "sccolor.h"
+
 class MultiProgressDialog;
 class ScribusDoc;
 class Selection;
@@ -36,41 +36,7 @@ class TransactionSettings;
 class emfStyle
 {
 public:
-	emfStyle() :
-		styType(0),
-		penStyle(Qt::SolidLine),
-		penCap(Qt::RoundCap),
-		penJoin(Qt::RoundJoin),
-		penWidth(0.0),
-		dashArray(),
-		dashOffset(0.0),
-		brushStyle(0),
-		hatchStyle(0),
-		gradientStart(),
-		gradientEnd(),
-		gradientAngle(0),
-		gradient(VGradient::linear),
-		gradientPath(),
-		hAlign(0),
-		vAlign(0),
-		fontUnit(0),
-		verticalText(false),
-		fontRotation(0.0),
-		fontSize(12.0),
-		fontName(""),
-		penColor(CommonStrings::None),
-		brushColor(CommonStrings::None),
-		patternName(""),
-		patternMode(0),
-		fillTrans(0.0),
-		penTrans(0.0),
-		Coords(),
-		MetaFile(false),
-		imageType(0),
-		imageWidth(0),
-		imageHeight(0),
-		imagePixelFormat(0),
-		imageData()
+	emfStyle()
 	{
 		gradientPath.resize(0);
 		gradientPath.svgInit();
@@ -78,39 +44,40 @@ public:
 		Coords.resize(0);
 		Coords.svgInit();
 	}
-	quint32          styType;
-	Qt::PenStyle     penStyle;
-	Qt::PenCapStyle  penCap;
-	Qt::PenJoinStyle penJoin;
-	double           penWidth;
+
+	quint32          styType { 0 };
+	Qt::PenStyle     penStyle { Qt::SolidLine };
+	Qt::PenCapStyle  penCap { Qt::RoundCap };
+	Qt::PenJoinStyle penJoin { Qt::RoundJoin };
+	double           penWidth { 0.0 };
 	QVector<double>  dashArray;
-	double           dashOffset;
-	quint32          brushStyle;
-	quint32          hatchStyle;
+	double           dashOffset { 0 };
+	quint32          brushStyle { 0 };
+	quint32          hatchStyle { 0 };
 	QPointF          gradientStart;
 	QPointF          gradientEnd;
-	double           gradientAngle;
-	VGradient        gradient;
+	double           gradientAngle { 0 };
+	VGradient        gradient { VGradient::linear };
 	FPointArray      gradientPath;
-	quint32          hAlign;
-	quint32          vAlign;
-	quint32          fontUnit;
-	bool             verticalText;
-	double           fontRotation;
-	double           fontSize;
+	quint32          hAlign { 0 };
+	quint32          vAlign { 0 };
+	quint32          fontUnit { 0 };
+	bool             verticalText { false };
+	double           fontRotation { 0 };
+	double           fontSize { 12.0 };
 	QString          fontName;
-	QString          penColor;
-	QString          brushColor;
+	QString          penColor { CommonStrings::None };
+	QString          brushColor { CommonStrings::None };
 	QString          patternName;
-	quint32          patternMode;
-	double           fillTrans;
-	double           penTrans;
+	quint32          patternMode { 0 };
+	double           fillTrans { 0.0 };
+	double           penTrans { 0.0 };
 	FPointArray      Coords;
-	bool             MetaFile;
-	quint32          imageType;
-	qint32           imageWidth;
-	qint32           imageHeight;
-	quint32          imagePixelFormat;
+	bool             MetaFile { false };
+	quint32          imageType { 0 };
+	qint32           imageWidth { 0 };
+	qint32           imageHeight { 0 };
+	quint32          imagePixelFormat { 0 };
 	QByteArray       imageData;
 };
 
@@ -297,25 +264,30 @@ private:
 	dcState currentDC;
 	QHash<quint32, emfStyle> emfStyleMapEMP;
 	QList<PageItem*> Elements;
-	double docWidth;
-	double docHeight;
-	double baseX, baseY;
-	double docX;
-	double docY;
-	quint32 EmfPdpiX, EmfPdpiY;
-	quint32 m_records;
-	int recordCount;
-	qint32 viewPextendX, viewPextendY;
-	qint32 winPextendX, winPextendY;
-	qint32 winOrigX, winOrigY;
+	double docWidth { 1.0 };
+	double docHeight { 1.0 };
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docX { 0.0 };
+	double docY { 0.0 };
+	quint32 EmfPdpiX { 0 };
+	quint32 EmfPdpiY { 0 };
+	quint32 m_records { 0 };
+	int recordCount { 0 };
+	qint32 viewPextendX { 0 };
+	qint32 viewPextendY { 0 };
+	qint32 winPextendX { 0 };
+	qint32 winPextendY { 0 };
+	qint32 winOrigX { 0 };
+	qint32 winOrigY { 0 };
 	QStringList importedColors;
 	QStringList importedPatterns;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
+	bool interactive { false };
+	MultiProgressDialog * progressDialog { nullptr };
+	bool cancel { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
+	int importerFlags { 0 };
 	QString baseFile;
 	struct VersionCompat
 	{
@@ -510,16 +482,16 @@ private:
 	};
 	SvmHeader head;
 
-	bool inPath;
-	bool inEMFPlus;
-	bool emfPlusDual;
-	float emfPlusScale;
-	bool SerializableObject_Valid;
+	bool inPath { false };
+	bool inEMFPlus { false };
+	bool emfPlusDual { false };
+	float emfPlusScale { 1.0 };
+	bool SerializableObject_Valid { false };
 	ScImageEffectList m_Effects;
-	quint32 m_ObjSize;
-	quint32 m_currObjSize;
-	quint16 m_objID;
-	bool seen_XGRAD_SEQ_BEGIN;
+	quint32 m_ObjSize { 0 };
+	quint32 m_currObjSize { 0 };
+	quint16 m_objID { 0 };
+	bool seen_XGRAD_SEQ_BEGIN { false };
 public slots:
 	void cancelRequested() { cancel = true; }
 };
