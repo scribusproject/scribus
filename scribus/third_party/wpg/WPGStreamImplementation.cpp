@@ -268,7 +268,10 @@ bool WPGFileStream::isOLEStream()
 		d->buffer << d->file.rdbuf();
 	Storage *tmpStorage = new Storage( d->buffer );
 	if (!tmpStorage)
+	{
 		qFatal("WPGFileStream::getDocumentOLEStream tmpStorage NULL");
+		return nullptr;
+	}
 	Stream tmpStream( tmpStorage, name );
 	if (!tmpStorage || (tmpStorage->result() != Storage::Ok)  || !tmpStream.size())
 	{

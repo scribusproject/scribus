@@ -754,7 +754,10 @@ int GlyphBox::pointToPosition(const QPointF& coord, const StoryText& story) cons
 		while (it->next() != BreakIterator::DONE)
 			count++;
 		if (count == 0)
+		{
 			qFatal("GlyphBox::pointToPosition: divide by zero error");
+			return -1;
+		}
 
 		bool rtlLayout = m_glyphRun.hasFlag(ScLayout_RightToLeft);
 		double componentWidth = width() / count;
@@ -805,7 +808,10 @@ QLineF GlyphBox::positionToPoint(int pos, const StoryText& story) const
 				index = count;
 		}
 		if (count == 0)
+		{
 			qFatal("GlyphBox::positionToPoint: divide by zero error");
+			QLineF(x(), y(), x(), y() + height());
+		}
 
 		double componentWidth = width() / count;
 		if (m_glyphRun.hasFlag(ScLayout_RightToLeft))
