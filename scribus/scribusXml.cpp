@@ -177,10 +177,10 @@ QString ScriXmlDoc::writeElem(ScribusDoc *doc, Selection* selection)
 	}
 	else
 	{
-		double minx =  std::numeric_limits<double>::max();
-		double miny =  std::numeric_limits<double>::max();
-		double maxx = -std::numeric_limits<double>::max();
-		double maxy = -std::numeric_limits<double>::max();
+		constexpr double minx =  std::numeric_limits<double>::max();
+		constexpr double miny =  std::numeric_limits<double>::max();
+		constexpr double maxx = -std::numeric_limits<double>::max();
+		constexpr double maxy = -std::numeric_limits<double>::max();
 		double x1, x2, y1, y2;
 		item->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 		xp = qMin(minx, x1);

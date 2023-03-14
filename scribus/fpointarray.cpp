@@ -268,26 +268,26 @@ void FPointArray::map(const QTransform& m)
 
 void FPointArray::setMarker()
 {
-	double maxVal = std::numeric_limits<double>::max() / 2.0;
+	constexpr double maxVal = std::numeric_limits<double>::max() / 2.0;
 	addQuadPoint(maxVal, maxVal, maxVal, maxVal, maxVal, maxVal, maxVal, maxVal);
 }
 
 bool FPointArray::isMarker(int pos) const
 {
-	double maxVal = std::numeric_limits<double>::max() / 3.0;
+	constexpr double maxVal = std::numeric_limits<double>::max() / 3.0;
 	const FPoint& p = QVector<FPoint>::at(pos);
 	return ((p.x() >= maxVal) && (p.y() >= maxVal));
 }
 
 bool FPointArray::isMarkerI(ConstIterator p) const
 {
-	double maxVal = std::numeric_limits<double>::max() / 3.0;
+	constexpr double maxVal = std::numeric_limits<double>::max() / 3.0;
 	return ((p->xp >= maxVal) && (p->yp >= maxVal));
 }
 
 bool FPointArray::isMarkerD(double x, double y) const
 {
-	double maxVal = std::numeric_limits<double>::max() / 3.0;
+	constexpr double maxVal = std::numeric_limits<double>::max() / 3.0;
 	return ((x >= maxVal) && (y >= maxVal));
 }
 
