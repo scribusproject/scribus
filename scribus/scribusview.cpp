@@ -855,7 +855,10 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 
 	ScribusWin* sw = dynamic_cast<ScribusWin*>(m_doc->WinHan);
 	if (!sw)
+	{
 		qFatal("ScribusView::contentsDropEvent !sw");
+		return;
+	}
 	m_ScMW->newActWin(sw->getSubWin());
 	updateContents();
 	//>>
@@ -3339,7 +3342,10 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 			{
 				auto* cm = qobject_cast<CanvasMode_ImageImport*>(canvasMode());
 				if (!cm)
+				{
 					qFatal("ScribusView::eventFilter cm nullptr");
+					return true;
+				}
 				cm->setImage(frame);
 				cm->updateList();
 			}

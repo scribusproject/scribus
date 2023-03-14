@@ -263,7 +263,10 @@ inline void MassObservable<OBSERVED>::updateNow(UpdateMemento* what)
 {
 	Private_Memento<OBSERVED>* memento = dynamic_cast<Private_Memento<OBSERVED>*>(what);
 	if (!memento)
+	{
 		qFatal("MassObservable<OBSERVED>::updateNow memento nullptr");
+		return;
+	}
 	foreach (Observer<OBSERVED>* obs, m_observers)
 		obs->changed(memento->m_data, memento->m_layout);
 	changedSignal->emitSignal(QVariant::fromValue(memento->m_data));

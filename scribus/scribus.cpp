@@ -6509,7 +6509,10 @@ void ScribusMainWindow::slotPrefsOrg()
 			QWidget* w = windows.at(i)->widget();
 			ScribusWin* scw = dynamic_cast<ScribusWin *>(w);
 			if (!scw)
+			{
 				qFatal("ScribusMainWindow::slotPrefsOrg !scw");
+				continue;
+			}
 			ScribusView* scw_v = scw->view();
 			if (oldPrefs.displayPrefs.displayScale != m_prefsManager.displayScale())
 			{
