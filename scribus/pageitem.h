@@ -307,7 +307,7 @@ public: // Start public functions
 	virtual void DrawObj_Item(ScPainter *p, const QRectF& e) = 0;
 	QImage DrawObj_toImage(double maxSize, int options = 0);
 	QImage DrawObj_toImage(QList<PageItem*> &emG, double scaling);
-	void DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyle& style, PageItem* cembedded);
+	void DrawObj_Embedded(ScPainter *p, const QRectF& cullingArea, const CharStyle& style, PageItem* cembedded);
 	void DrawStrokePattern(ScPainter *p, const QPainterPath &path);
 	void DrawSoftShadow(ScPainter *p);
 	/**

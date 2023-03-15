@@ -284,9 +284,6 @@ PageItem::PageItem(const PageItem & other)
 	hatchForegroundQ(other.hatchForegroundQ),
 	// protected
 	undoManager(other.undoManager),
-	firstChar(0),   // since this box is unlinked now
-	m_maxChars(0),   // since the layout is invalid now
-	m_sampleItem(false),
 	m_textDistanceMargins(other.m_textDistanceMargins),
 	verticalAlign(other.verticalAlign),
 	m_itemType(other.m_itemType),
@@ -699,7 +696,7 @@ PageItem::PageItem(ScribusDoc *doc, ItemType newType, double x, double y, double
 
 PageItem::~PageItem()
 {
-	if ((isTempFile) && (!Pfile.isEmpty()))
+	if (isTempFile && !Pfile.isEmpty())
 		QFile::remove(Pfile);
 	//remove marks
 
@@ -1867,7 +1864,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			// TODO: Investigate whether itemType() == Table should really be here. I got artifacts without it so keeping it here for now. /estan
 			if (itemType() == PathText || itemType() == PolyLine || itemType() == Spiral || itemType() == Line || itemType() == Symbol || itemType() == Group || itemType() == Table)
 				doStroke=false;
-			if ((doStroke) && (!m_Doc->RePos))
+			if (doStroke && !m_Doc->RePos)
 			{
 				p->setBlendModeStroke(lineBlendmode());
 				p->setPenOpacity(1.0 - lineTransparency());
@@ -1982,7 +1979,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 		double scpInv = 0;
 		if (!isGroup())
 		{
-			if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)) && (no_stroke))
+			if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)) && no_stroke)
 			{
 				p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if (isBookmark || m_isAnnotation)
@@ -2031,7 +2028,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				|| ((72.0 / imageYScale()) < minres) 
 				|| ((72.0 / imageXScale()) > maxres) 
 				|| ((72.0 / imageYScale()) > maxres)) 
-				&& (isRaster) && (checkres) && (!m_Doc->drawAsPreview) && (PrefsManager::instance().appPrefs.displayPrefs.showVerifierWarningsOnCanvas))
+				&& isRaster && checkres && (!m_Doc->drawAsPreview) && (PrefsManager::instance().appPrefs.displayPrefs.showVerifierWarningsOnCanvas))
 			{
 				double ofx = m_width - 22.0;
 				double ofy = m_height - 22.0;
@@ -2080,7 +2077,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 	p->restore();
 }
 
-void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyle& style, PageItem* cembedded)
+void PageItem::DrawObj_Embedded(ScPainter *p, const QRectF& cullingArea, const CharStyle& style, PageItem* cembedded)
 {
 	if (!cembedded)
 		return;
@@ -3038,26 +3035,26 @@ void PageItem::meshToShape()
 	QList<MeshPoint> mpList;
 	mpList = meshGradientArray[0];
 	Coords.svgMoveTo(mpList[0].gridPoint.x(), mpList[0].gridPoint.y());
-	for (int m = 0; m < mpList.count() - 1; ++m)
+	for (qsizetype m = 0; m < mpList.count() - 1; ++m)
 	{
 		Coords.svgCurveToCubic(mpList[m].controlRight.x(), mpList[m].controlRight.y(),
 		                       mpList[m + 1].controlLeft.x(), mpList[m + 1].controlLeft.y(),
 		                       mpList[m + 1].gridPoint.x(), mpList[m + 1].gridPoint.y());
 	}
-	for (int m = 0; m < rows; ++m)
+	for (qsizetype m = 0; m < rows; ++m)
 	{
 		Coords.svgCurveToCubic(meshGradientArray[m][cols].controlBottom.x(), meshGradientArray[m][cols].controlBottom.y(),
 		                       meshGradientArray[m + 1][cols].controlTop.x(), meshGradientArray[m + 1][cols].controlTop.y(),
 		                       meshGradientArray[m + 1][cols].gridPoint.x(), meshGradientArray[m + 1][cols].gridPoint.y());
 	}
 	mpList = meshGradientArray[rows];
-	for (int m = cols; m > 0; --m)
+	for (qsizetype m = cols; m > 0; --m)
 	{
 		Coords.svgCurveToCubic(mpList[m].controlLeft.x(), mpList[m].controlLeft.y(),
 		                       mpList[m - 1].controlRight.x(), mpList[m - 1].controlRight.y(),
 		                       mpList[m - 1].gridPoint.x(), mpList[m - 1].gridPoint.y());
 	}
-	for (int m = rows; m > 0; --m)
+	for (qsizetype m = rows; m > 0; --m)
 	{
 		Coords.svgCurveToCubic(meshGradientArray[m][0].controlTop.x(), meshGradientArray[m][0].controlTop.y(),
 		                       meshGradientArray[m - 1][0].controlBottom.x(), meshGradientArray[m - 1][0].controlBottom.y(),
@@ -3124,7 +3121,7 @@ void PageItem::createConicalMesh()
 	double lastStop = -1.0;
 	double actualStop = 0.0;
 	bool isFirst = true;
-	for (int cst = 0; cst < fill_gradient.stops(); ++cst)
+	for (qsizetype cst = 0; cst < fill_gradient.stops(); ++cst)
 	{
 		actualStop = cstops.at(cst)->rampPoint;
 		if ((actualStop == lastStop) && (!isFirst))
@@ -3162,13 +3159,13 @@ void PageItem::createConicalMesh()
 			double actDist = lastStop + 0.25;
 			do
 			{
-				gradient.addStop(computeInBetweenStop(cstops.at(cst-1), cstops.at(cst), actDist));
+				gradient.addStop(computeInBetweenStop(cstops.at(cst - 1), cstops.at(cst), actDist));
 				actDist += 0.25;
 			}
 			while (actualStop > actDist);
 			gradient.addStop(cstops.at(cst)->color, cstops.at(cst)->rampPoint, cstops.at(cst)->midPoint, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
 		}
-		if ((cst == fill_gradient.stops()-1) && (actualStop < 1.0))
+		if ((cst == fill_gradient.stops() - 1) && (actualStop < 1.0))
 		{
 			double distToGo = 1.0 - actualStop;
 			if (distToGo <= 0.25)
@@ -3267,9 +3264,9 @@ void PageItem::createConicalMesh()
 	mgP3.color.setAlphaF(mgP3.transparency);
 	mgList2.append(mgP3);
 	startAngle -= stepAngle;
-	for (int rst = 2; rst < gradient.stops(); ++rst)
+	for (qsizetype rst = 2; rst < gradient.stops(); ++rst)
 	{
-		stepAngle = 360 * (rstops.at(rst)->rampPoint - rstops.at(rst-1)->rampPoint);
+		stepAngle = 360 * (rstops.at(rst)->rampPoint - rstops.at(rst - 1)->rampPoint);
 		if (stepAngle <= 0)
 			continue;
 		path = QPainterPath();
@@ -6965,7 +6962,7 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 
 void PageItem::restoreImageScaleMode(SimpleState *state, bool isUndo)
 {
-	bool type=ScaleType;
+	bool type = ScaleType;
 	if (state->contains("SCALE_TYPE"))
 	{
 		if (isUndo)
@@ -6994,7 +6991,7 @@ void PageItem::restoreImageScaleMode(SimpleState *state, bool isUndo)
 		}
 	}
 
-	bool ratio=AspectRatio;
+	bool ratio = AspectRatio;
 	if (state->contains("ASPECT_RATIO"))
 	{
 		if (isUndo)
@@ -8957,7 +8954,7 @@ double PageItem::visualLineWidth() const
 			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 				extraSpace = 1.0 / m_Doc->view()->scale();
 		}
-		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+		if (patternStrokePath && !patternStrokeVal.isEmpty() && m_Doc->docPatterns.contains(patternStrokeVal))
 		{
 			const ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
 			QTransform mat;
@@ -10581,7 +10578,7 @@ void PageItem::makeImageInline()
 
 void PageItem::makeImageExternal(const QString& path)
 {
-	if ((isTempFile) && (isInlineImage) && (!path.isEmpty()))
+	if (isTempFile && isInlineImage && !path.isEmpty())
 	{
 		QString oldF = Pfile;
 		if (copyFile(Pfile, path))
