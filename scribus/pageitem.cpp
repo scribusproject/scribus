@@ -288,9 +288,6 @@ PageItem::PageItem(const PageItem & other)
 	hatchForegroundQ(other.hatchForegroundQ),
 	// protected
 	undoManager(other.undoManager),
-	firstChar(0),   // since this box is unlinked now
-	m_maxChars(0),   // since the layout is invalid now
-	m_sampleItem(false),
 	m_textDistanceMargins(other.m_textDistanceMargins),
 	verticalAlign(other.verticalAlign),
 	m_itemType(other.m_itemType),
@@ -703,7 +700,7 @@ PageItem::PageItem(ScribusDoc *doc, ItemType newType, double x, double y, double
 
 PageItem::~PageItem()
 {
-	if ((isTempFile) && (!Pfile.isEmpty()))
+	if (isTempFile && !Pfile.isEmpty())
 		QFile::remove(Pfile);
 	//remove marks
 
@@ -1871,7 +1868,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			// TODO: Investigate whether itemType() == Table should really be here. I got artifacts without it so keeping it here for now. /estan
 			if (itemType() == PathText || itemType() == PolyLine || itemType() == Spiral || itemType() == Line || itemType() == Symbol || itemType() == Group || itemType() == Table)
 				doStroke=false;
-			if ((doStroke) && (!m_Doc->RePos))
+			if (doStroke && !m_Doc->RePos)
 			{
 				p->setBlendModeStroke(lineBlendmode());
 				p->setPenOpacity(1.0 - lineTransparency());
@@ -1986,7 +1983,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 		double scpInv = 0;
 		if (!isGroup())
 		{
-			if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)) && (no_stroke))
+			if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)) && no_stroke)
 			{
 				p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if (isBookmark || m_isAnnotation)
@@ -2035,7 +2032,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				|| ((72.0 / imageYScale()) < minres) 
 				|| ((72.0 / imageXScale()) > maxres) 
 				|| ((72.0 / imageYScale()) > maxres)) 
-				&& (isRaster) && (checkres) && (!m_Doc->drawAsPreview) && (PrefsManager::instance().appPrefs.displayPrefs.showVerifierWarningsOnCanvas))
+				&& isRaster && checkres && (!m_Doc->drawAsPreview) && (PrefsManager::instance().appPrefs.displayPrefs.showVerifierWarningsOnCanvas))
 			{
 				double ofx = m_width - 22.0;
 				double ofy = m_height - 22.0;
@@ -2084,7 +2081,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 	p->restore();
 }
 
-void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyle& style, PageItem* cembedded)
+void PageItem::DrawObj_Embedded(ScPainter *p, const QRectF& cullingArea, const CharStyle& style, PageItem* cembedded)
 {
 	if (!cembedded)
 		return;
@@ -6969,7 +6966,7 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 
 void PageItem::restoreImageScaleMode(SimpleState *state, bool isUndo)
 {
-	bool type=ScaleType;
+	bool type = ScaleType;
 	if (state->contains("SCALE_TYPE"))
 	{
 		if (isUndo)
@@ -6998,7 +6995,7 @@ void PageItem::restoreImageScaleMode(SimpleState *state, bool isUndo)
 		}
 	}
 
-	bool ratio=AspectRatio;
+	bool ratio = AspectRatio;
 	if (state->contains("ASPECT_RATIO"))
 	{
 		if (isUndo)
@@ -8958,7 +8955,7 @@ double PageItem::visualLineWidth() const
 			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
 				extraSpace = 1.0 / m_Doc->view()->scale();
 		}
-		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+		if (patternStrokePath && !patternStrokeVal.isEmpty() && m_Doc->docPatterns.contains(patternStrokeVal))
 		{
 			const ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
 			QTransform mat;
@@ -10582,7 +10579,7 @@ void PageItem::makeImageInline()
 
 void PageItem::makeImageExternal(const QString& path)
 {
-	if ((isTempFile) && (isInlineImage) && (!path.isEmpty()))
+	if (isTempFile && isInlineImage && !path.isEmpty())
 	{
 		QString oldF = Pfile;
 		if (copyFile(Pfile, path))
