@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef OODPLUG_H
 #define OODPLUG_H
 
+#include "commonstrings.h"
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "../../formatidlist.h"
@@ -59,30 +60,20 @@ class QDomElement;
 class OODrawStyle
 {
 public:
-	OODrawStyle() :
-	  fillColor("None"),
-	  strokeColor("None"),
-	  fillTrans(0.0),
-	  strokeTrans(0.0),
-	  strokeWidth(0.0),
-	  haveGradient(false),
-	  gradientType(0),
-	  gradientAngle(0.0),
-	  gradientPointX(0.0),
-	  gradientPointY(0.0)
-	  {}
-	QString fillColor;
-	QString strokeColor;
-	double  fillTrans;
-	double  strokeTrans;
-	double  strokeWidth;
+	OODrawStyle() = default;
+
+	QString fillColor { CommonStrings::None };
+	QString strokeColor { CommonStrings::None };
+	double  fillTrans { 0.0 };
+	double  strokeTrans { 0.0 };
+	double  strokeWidth { 0.0 };
 	QVector<double> dashes;
-	bool    haveGradient;
-	int     gradientType;
+	bool    haveGradient { false };
+	int     gradientType { 0 };
 	VGradient gradient;
-	double  gradientAngle;
-	double  gradientPointX;
-	double  gradientPointY;
+	double  gradientAngle { 0.0 };
+	double  gradientPointX { 0.0 };
+	double  gradientPointY { 0.0 };
 };
 
 class OODPlug : public QObject
@@ -95,9 +86,10 @@ public:
 	~OODPlug();
 
 	//! \brief Indicator if there is any unsupported feature in imported svg.
-	bool unsupported;
-	bool importFailed;
-	bool importCanceled;
+	bool unsupported { false };
+	bool importFailed { false };
+	bool importCanceled { true };
+
 	bool import(const QString& fName, const TransactionSettings& trSettings, int flags);
 	QImage readThumbnail(const QString& fileName );
 	static double parseUnit(const QString &unit);
@@ -143,15 +135,22 @@ protected:
 	QDomDocument inpContents;
 	QDomDocument inpStyles;
 	QDomDocument inpMeta;
-	QHash<QString,QDomElement*> m_styles, m_draws;
+	QHash<QString, QDomElement*> m_styles;
+	QHash<QString, QDomElement*> m_draws;
 	StyleStack m_styleStack;
-	double CurrX, CurrY, StartX, StartY;
-	int PathLen;
-	bool FirstM, WasM, PathClosed, HaveMeta;
+	double CurrX { 0.0 };
+	double CurrY { 0.0 };
+	double StartX { 0.0 };
+	double StartY { 0.0 };
+	int PathLen { 0 };
+	bool FirstM { true };
+	bool WasM { false };
+	bool PathClosed { false };
+	bool HaveMeta { false };
 
-	bool interactive;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
+	bool interactive { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
 	QStringList importedColors;
 };
 

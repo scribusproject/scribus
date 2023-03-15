@@ -7,17 +7,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTSML_H
 #define IMPORTSML_H
 
-#include "pluginapi.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "fpointarray.h"
-#include <QList>
-#include <QTransform>
-#include <QMultiMap>
+#include <QDomElement>
 #include <QtGlobal>
+#include <QList>
+#include <QMultiMap>
 #include <QObject>
 #include <QString>
-#include <QDomElement>
+#include <QTransform>
+
+#include "pluginapi.h"
+#include "fpointarray.h"
+#include "pageitem.h"
+#include "sccolor.h"
 
 class MultiProgressDialog;
 class ScribusDoc;
@@ -67,33 +68,37 @@ private:
 	void processPointNode(QDomElement &elem);
 	
 	QList<PageItem*> Elements;
-	int currentItemNr;
+	int currentItemNr { 0 };
 	QStack<QList<PageItem*> > groupStack;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docWidth { 1.0 };
+	double docHeight { 1.0 };
 
-	double LineW;
-	QString CurrColorFill;
-	QString CurrColorStroke;
-	double CurrStrokeShade;
-	double CurrFillShade;
-	Qt::PenStyle Dash;
-	Qt::PenCapStyle LineEnd;
-	Qt::PenJoinStyle LineJoin;
-	int fillStyle;
+	double LineW { 1.0 };
+	QString CurrColorFill { "White" };
+	QString CurrColorStroke { "Black" };
+	double CurrStrokeShade { 100.0 };
+	double CurrFillShade { 100.0 };
+	Qt::PenStyle Dash { Qt::SolidLine };
+	Qt::PenCapStyle LineEnd { Qt::FlatCap };
+	Qt::PenJoinStyle LineJoin { Qt::MiterJoin };
+	int fillStyle { 1 };
 	QStringList importedColors;
-	double currx, curry, startx, starty;
-	bool first;
-	int count;
+	double currx { 0.0 };
+	double curry { 0.0 };
+	double startx { 0.0 };
+	double starty { 0.0 };
+	bool first { true };
+	int count { 0 };
 
 	FPointArray Coords;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
+	bool interactive { false };
+	MultiProgressDialog * progressDialog { nullptr };
+	bool cancel { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
+	int importerFlags { 0 };
 	QString baseFile;
 
 public slots:

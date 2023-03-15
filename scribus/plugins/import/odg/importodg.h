@@ -13,20 +13,23 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTODG_H
 #define IMPORTODG_H
 
-#include "commonstrings.h"
-#include "pluginapi.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "fpointarray.h"
-#include "scribusstructs.h"
-#include <QList>
-#include <QTransform>
-#include <QMultiMap>
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
+#include <memory>
+
 #include <QDomDocument>
 #include <QDomElement>
+#include <QtGlobal>
+#include <QList>
+#include <QMultiMap>
+#include <QObject>
+#include <QString>
+#include <QTransform>
+
+#include "commonstrings.h"
+#include "fpointarray.h"
+#include "pageitem.h"
+#include "pluginapi.h"
+#include "sccolor.h"
+#include "scribusstructs.h"
 
 class MultiProgressDialog;
 class ScribusDoc;
@@ -278,36 +281,37 @@ private:
 	PageItem* applyEndArrow(PageItem* ite, ObjStyle &obState);
 	PageItem* groupObjects(QList<PageItem*> &GElements);
 	void finishItem(PageItem* item, ObjStyle &obState);
+
 	QList<PageItem*> Elements;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	bool interactive;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docWidth { 1.0 };
+	double docHeight { 1.0 };
+	bool interactive { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
+	int importerFlags { 0 };
+	MultiProgressDialog * progressDialog { nullptr };
+	bool cancel { false };
 	QStringList importedColors;
 	QStringList importedPatterns;
-	bool firstPage;
-	bool firstLayer;
-	int pagecount;
-	int mpagecount;
-	double topMargin;
-	double leftMargin;
-	double rightMargin;
-	double bottomMargin;
-	double pgCols;
-	double pgGap;
+	bool firstPage { true };
+	bool firstLayer { true };
+	int pagecount { 0 };
+	int mpagecount { 0 };
+	double topMargin { 0.0 };
+	double leftMargin { 0.0 };
+	double rightMargin { 0.0 };
+	double bottomMargin { 0.0 };
+	double pgCols { 0.0 };
+	double pgGap { 0.0 };
 	QHash<QString, QString> m_fontMap;
 	QHash<QString, DrawStyle> m_Styles;
 	QHash<QString, int> m_Layers;
 
-
 	FPointArray Coords;
 	QHash<QString, QPainterPath> pathResources;
-	ScZipHandler *uz;
+	std::unique_ptr<ScZipHandler> uz;
 
 public slots:
 	void cancelRequested() { cancel = true; }

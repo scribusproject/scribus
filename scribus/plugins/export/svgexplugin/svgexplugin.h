@@ -74,13 +74,13 @@ public:
 	SVGOptions Options;
 
 private:
-	ScribusDoc* m_Doc;
+	ScribusDoc* m_Doc { nullptr };
 
-	int m_gradCount;
-	int m_clipCount;
-	int m_pattCount;
-	int m_maskCount;
-	int m_filterCount;
+	int m_gradCount { 0 };
+	int m_clipCount { 0 };
+	int m_pattCount { 0 };
+	int m_maskCount { 0 };
+	int m_filterCount { 0 };
 	QString m_baseDir;
 	QDomDocument m_domDoc;
 	QDomElement m_domElem;

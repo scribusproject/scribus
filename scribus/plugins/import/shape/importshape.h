@@ -7,17 +7,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTSHAPE_H
 #define IMPORTSHAPE_H
 
-#include "pluginapi.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "fpointarray.h"
+#include <QDomElement>
 #include <QList>
-#include <QTransform>
-#include <QMultiMap>
 #include <QtGlobal>
 #include <QObject>
+#include <QMultiMap>
 #include <QString>
-#include <QDomElement>
+#include <QTransform>
+
+#include "pluginapi.h"
+#include "fpointarray.h"
+#include "pageitem.h"
+#include "sccolor.h"
 
 class MultiProgressDialog;
 class ScribusDoc;
@@ -71,22 +72,27 @@ private:
 	
 	QList<PageItem*> Elements;
 	QStack<QList<PageItem*> > groupStack;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docWidth { 1.0 };
+	double docHeight { 1.0 };
 	QStringList importedColors;
-	bool first;
-	int count;
-	bool FirstM, WasM, PathClosed;
-	double CurrX, CurrY, StartX, StartY, Conversion;
-	int PathLen;
+	bool FirstM { false };
+	bool WasM { false };
+	bool PathClosed { false };
+	double CurrX { 0.0 }; 
+	double CurrY { 0.0 };
+	double StartX { 0.0 };
+	double StartY { 0.0 };
+	double Conversion { 1.0 };
+	int PathLen { 0 };
 
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
+	bool interactive { false };
+	MultiProgressDialog * progressDialog { nullptr };
+	bool cancel { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
+	int importerFlags { 0 };
 	QString baseFile;
 
 public slots:

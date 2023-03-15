@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <memory>
+
 #include <QApplication>
 #include <QCursor>
 #include <QDir>
@@ -218,45 +220,47 @@ QImage OODrawImportPlugin::readThumbnail(const QString& fileName)
 
 OODPlug::OODPlug(ScribusDoc* doc)
 {
-	m_Doc=doc;
-	unsupported = false;
-	interactive = false;
-	importFailed = false;
-	importCanceled = true;
-	importedColors.clear();
-	tmpSel=new Selection(this, false);
+	m_Doc = doc;
+	tmpSel = new Selection(this, false);
 }
 
 QImage OODPlug::readThumbnail(const QString& fileName)
 {
-	QByteArray f, f2, f3;
 	if (!QFile::exists(fileName))
 		return QImage();
-	ScZipHandler* fun = new ScZipHandler();
-	if (!fun->open(fileName))
-	{
-		delete fun;
+
+	std::unique_ptr<ScZipHandler> pZip(new ScZipHandler());
+	if (!pZip->open(fileName))
 		return QImage();
-	}
-	if (fun->contains("styles.xml"))
-		fun->read("styles.xml", f);
-	if (fun->contains("content.xml"))
-		fun->read("content.xml", f2);
-	if (fun->contains("meta.xml"))
-		fun->read("meta.xml", f3);
-	delete fun;
+
+	QByteArray f;
+	if (pZip->contains("styles.xml"))
+		pZip->read("styles.xml", f);
+	if (f.isEmpty())
+		return QImage();
+
+	QByteArray f2;
+	if (pZip->contains("content.xml"))
+		pZip->read("content.xml", f2);
+	if (f2.isEmpty())
+		return QImage();
+
+	QByteArray f3;
+	if (pZip->contains("meta.xml"))
+		pZip->read("meta.xml", f3);
+
+	pZip.reset();
+
 	HaveMeta = inpMeta.setContent(f3, nullptr);
 	QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
 	docname = docname.left(docname.lastIndexOf("."));
-	if (f.isEmpty())
-		return QImage();
-	if (f2.isEmpty())
-		return QImage();
+
 	if (!inpStyles.setContent(f))
 		return QImage();
 	if (!inpContents.setContent(f2))
 		return QImage();
-	QString CurDirP = QDir::currentPath();
+
+	QString oldCurrentPath = QDir::currentPath();
 	QFileInfo efp(fileName);
 	QDir::setCurrent(efp.path());
 	bool isOODraw2 = false;
@@ -341,7 +345,7 @@ QImage OODPlug::readThumbnail(const QString& fileName)
 	}
 	m_Doc->scMW()->setScriptRunning(false);
 	delete m_Doc;
-	QDir::setCurrent(CurDirP);
+	QDir::setCurrent(oldCurrentPath);
 	return tmpImage;
 }
 
@@ -349,38 +353,46 @@ bool OODPlug::import(const QString& fileName, const TransactionSettings& trSetti
 {
 	bool importDone = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	QByteArray f, f2, f3;
+
 	if (!QFile::exists(fileName))
 		return false;
-	ScZipHandler* fun = new ScZipHandler();
-	if (!fun->open(fileName))
-	{
-		delete fun;
+
+	std::unique_ptr<ScZipHandler> pZip(new ScZipHandler());
+	if (!pZip->open(fileName))
 		return false;
-	}
-	if (fun->contains("styles.xml"))
-		fun->read("styles.xml", f);
-	if (fun->contains("content.xml"))
-		fun->read("content.xml", f2);
-	if (fun->contains("meta.xml"))
-		fun->read("meta.xml", f3);
-	delete fun;
+
+	QByteArray f;
+	if (pZip->contains("styles.xml"))
+		pZip->read("styles.xml", f);
+	if (f.isEmpty())
+		return false;
+
+	QByteArray f2;
+	if (pZip->contains("content.xml"))
+		pZip->read("content.xml", f2);
+	if (f2.isEmpty())
+		return false;
+
+	QByteArray f3;
+	if (pZip->contains("meta.xml"))
+		pZip->read("meta.xml", f3);
+
+	pZip.reset();
+
 	HaveMeta = inpMeta.setContent(f3, nullptr);
 	QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
 	docname = docname.left(docname.lastIndexOf("."));
-	if (f.isEmpty())
-		return false;
-	if (f2.isEmpty())
-		return false;
+
 	if (!inpStyles.setContent(f))
 		return false;
 	if (!inpContents.setContent(f2))
 		return false;
-	QString CurDirP = QDir::currentPath();
+
+	QString oldCurrentPath = QDir::currentPath();
 	QFileInfo efp(fileName);
 	QDir::setCurrent(efp.path());
 	importDone = convert(trSettings, flags);
-	QDir::setCurrent(CurDirP);
+	QDir::setCurrent(oldCurrentPath);
 	return importDone;
 }
 

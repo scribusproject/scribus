@@ -47,29 +47,31 @@ public:
 	void drawImageObject(const libwpg::WPGBinaryData& binaryData);
 
 	void finishItem(PageItem* ite);
+
 	QList<PageItem*> Elements;
 	QStringList importedColors;
-	ScribusDoc* m_Doc;
-	double LineW;
-	QString CurrColorFill;
-	QString CurrColorStroke;
-	double CurrStrokeShade;
-	double CurrFillShade;
-	double CurrStrokeTrans;
-	double CurrFillTrans;
+	ScribusDoc* m_Doc { nullptr };
+	double LineW { 1.0 };
+	QString CurrColorFill { "Black" };
+	QString CurrColorStroke { "Black" };
+	double CurrStrokeShade { 100.0 };
+	double CurrFillShade { 100.0 };
+	double CurrStrokeTrans { 0.0 };
+	double CurrFillTrans { 0.0 };
 	FPointArray Coords;
-	double baseX, baseY;
-	bool fillrule;
-	double gradientAngle;
-	bool isGradient;
-	bool fillSet;
-	bool strokeSet;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	bool fillrule { true };
+	double gradientAngle { 0.0 };
+	bool isGradient { false };
+	bool fillSet { false };
+	bool strokeSet { false };
 	VGradient currentGradient;
 	QVector<double> dashArray;
-	Qt::PenJoinStyle lineJoin;
-	Qt::PenCapStyle lineEnd;
-	int flags;
-	bool firstLayer;
+	Qt::PenJoinStyle lineJoin { Qt::MiterJoin };
+	Qt::PenCapStyle lineEnd { Qt::FlatCap };
+	int flags { 0 };
+	bool firstLayer { true };
 };
 
 //! \brief WPG importer plugin
@@ -107,18 +109,19 @@ private:
 	bool convert(const QString& fn);
 	
 	QList<PageItem*> Elements;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docWidth { 1.0 };
+	double docHeight { 1.0 };
 
 	QStringList importedColors;
 
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
+	bool interactive { false };
+	MultiProgressDialog* progressDialog { nullptr };
+	bool cancel { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
+	int importerFlags { 0 };
 
 public slots:
 	void cancelRequested() { cancel = true; }
