@@ -232,12 +232,12 @@ void ScrPainter::drawRectangle(const libwpg::WPGRect& rect, double rx, double ry
 	PageItem *ite = m_Doc->Items->at(z);
 	if ((rx > 0) && (ry > 0))
 	{
-		ite->setCornerRadius(qMax(72*rx, 72*ry));
+		ite->setCornerRadius(qMax(72 * rx, 72 * ry));
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
-	QTransform mm = QTransform();
-	mm.translate(72*rect.x1, 72*rect.y1);
+	QTransform mm;
+	mm.translate(72 * rect.x1, 72 * rect.y1);
 	ite->PoLine.map(mm);
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
@@ -248,8 +248,8 @@ void ScrPainter::drawEllipse(const libwpg::WPGPoint& center, double rx, double r
 {
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, rx * 144.0, ry * 144.0, LineW, CurrColorFill, CurrColorStroke);
 	PageItem *ite = m_Doc->Items->at(z);
-	QTransform mm = QTransform();
-	mm.translate(72*(center.x - rx), 72*(center.y - ry));
+	QTransform mm;
+	mm.translate(72 * (center.x - rx), 72 * (center.y - ry));
 	ite->PoLine.map(mm);
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	finishItem(ite);
@@ -378,7 +378,7 @@ void ScrPainter::finishItem(PageItem* ite)
 
 void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double vres)
 {
-	QImage image = QImage(bitmap.width(), bitmap.height(), QImage::Format_RGB32);
+	QImage image(bitmap.width(), bitmap.height(), QImage::Format_RGB32);
 	for (int x = 0; x < bitmap.width(); x++)
 	{
 		for (int y = 0; y < bitmap.height(); y++)
@@ -417,23 +417,17 @@ void ScrPainter::drawImageObject(const libwpg::WPGBinaryData& /*binaryData*/)
 
 WpgPlug::WpgPlug(ScribusDoc* doc, int flags)
 {
-	baseX = baseY = 0;
-	docWidth = docHeight = 1;
-
 	tmpSel = new Selection(this, false);
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = nullptr;
-	cancel = false;
 }
 
 QImage WpgPlug::readThumbnail(const QString& fName)
 {
 	QFileInfo fi = QFileInfo(fName);
-	double b, h;
-	b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
-	h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
+	double b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	double h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
 	progressDialog = nullptr;

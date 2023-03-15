@@ -46,8 +46,8 @@ class ScribusDoc;
 
 struct shapeData
 {
-	int width;
-	int height;
+	int width { 0 };
+	int height { 0 };
 	QString name;
 	FPointArray path;
 };
@@ -63,7 +63,7 @@ public:
 	void updateShapeList();
 
 	QHash<QString, shapeData> shapes;
-	ScribusMainWindow *scMW;
+	ScribusMainWindow *scMW { nullptr };
 
 public slots:
 	void HandleContextMenu(QPoint);

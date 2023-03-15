@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
 
+#include <memory>
+
 #include <QByteArray>
 #include <QCursor>
 #include <QDebug>
@@ -72,8 +74,6 @@ OdgPlug::OdgPlug(ScribusDoc* doc, int flags)
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = nullptr;
-	uz = nullptr;
 }
 
 QImage OdgPlug::readThumbnail(const QString& fName)
@@ -81,29 +81,28 @@ QImage OdgPlug::readThumbnail(const QString& fName)
 	QImage tmp;
 	if (!QFile::exists(fName))
 		return QImage();
+
 	progressDialog = nullptr;
-	uz = new ScZipHandler();
-	if (!uz->open(fName))
+
+	std::unique_ptr<ScZipHandler> pZip(new ScZipHandler());
+	if (!pZip->open(fName))
 	{
-		delete uz;
 		if (progressDialog)
 			progressDialog->close();
 		return QImage();
 	}
-	if (uz->contains("Thumbnails/thumbnail.png"))
+
+	if (pZip->contains("Thumbnails/thumbnail.png"))
 	{
 		QByteArray im;
-		if (!uz->read("Thumbnails/thumbnail.png", im))
-		{
-			delete uz;
+		if (!pZip->read("Thumbnails/thumbnail.png", im))
 			return QImage();
-		}
 		tmp = QImage::fromData(im);
 		int xs = 0;
 		int ys = 0;
-	/*	if (uz->contains("index.xml"))
+	/*	if (pZip->contains("index.xml"))
 		{
-			if (uz->read("index.xml", f))
+			if (pZip->read("index.xml", f))
 			{
 				QDomDocument designMapDom;
 				QByteArray f;
@@ -124,8 +123,7 @@ QImage OdgPlug::readThumbnail(const QString& fName)
 		tmp.setText("XSize", QString("%1").arg(xs));
 		tmp.setText("YSize", QString("%1").arg(ys));
 	}
-	uz->close();
-	delete uz;
+	pZip->close();
 	return tmp;
 }
 
@@ -140,14 +138,14 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	pagecount = 1;
 	mpagecount = 0;
 	QFileInfo fi = QFileInfo(fNameIn);
-	if ( !ScCore->usingGUI() )
+	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
-	if ( showProgress )
+	if (showProgress)
 	{
-		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -347,7 +345,7 @@ bool OdgPlug::convert(const QString& fn)
 		QByteArray f;
 		loadRawText(fn, f);
 		QDomDocument designMapDom;
-		QString errorMsg = "";
+		QString errorMsg;
 		int errorLine = 0;
 		int errorColumn = 0;
 		if (!designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
@@ -356,42 +354,42 @@ bool OdgPlug::convert(const QString& fn)
 			return false;
 		}
 		retVal = parseDocReferenceXML(designMapDom);
+
+		if (progressDialog)
+			progressDialog->close();
+		return retVal;
+	}
+
+	uz.reset(new ScZipHandler());
+	if (!uz->open(fn))
+	{
+		uz.reset();
+		QByteArray f;
+		loadRawText(fn, f);
+		QDomDocument designMapDom;
+		QString errorMsg;
+		int errorLine = 0;
+		int errorColumn = 0;
+		if (!designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
+		{
+			qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
+			if (progressDialog)
+				progressDialog->close();
+			return false;
+		}
+		retVal = parseDocReferenceXML(designMapDom);
 	}
 	else
 	{
-		uz = new ScZipHandler();
-		if (!uz->open(fn))
-		{
-			delete uz;
-			QByteArray f;
-			loadRawText(fn, f);
-			QDomDocument designMapDom;
-			QString errorMsg = "";
-			int errorLine = 0;
-			int errorColumn = 0;
-			if (designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
-			{
-				retVal = parseDocReferenceXML(designMapDom);
-			}
-			else
-			{
-				qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-				if (progressDialog)
-					progressDialog->close();
-				return false;
-			}
-		}
-		else
-		{
-			retVal = false;
-			if (uz->contains("styles.xml"))
-				retVal = parseStyleSheets("styles.xml");
-			if (uz->contains("content.xml"))
-				retVal = parseDocReference("content.xml");
-			uz->close();
-			delete uz;
-		}
+		retVal = false;
+		if (uz->contains("styles.xml"))
+			retVal = parseStyleSheets("styles.xml");
+		if (uz->contains("content.xml"))
+			retVal = parseDocReference("content.xml");
+		uz->close();
+		uz.reset();
 	}
+
 	if (progressDialog)
 		progressDialog->close();
 	return retVal;
@@ -1590,7 +1588,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 				{
 					if (nc.tagName() == "office:binary-data")
 					{
-						QString ext = "";
+						QString ext;
 						QByteArray buf = QByteArray::fromBase64(nc.text().toLatin1());
 						if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
 							ext = "eps";
@@ -1715,7 +1713,7 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 					}
 					applyCharacterStyle(tmpCStyle, cStyle);
 					maxFsize = qMax(maxFsize, cStyle.fontSize);
-					QString txt = "";
+					QString txt;
 					if (spn.isElement())
 					{
 						if (sp.tagName() == "text:span")
@@ -3901,7 +3899,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			}
 			else if (!gStyle.patternData.isEmpty())
 			{
-				QString ext = "";
+				QString ext;
 				QByteArray buf = QByteArray::fromBase64(gStyle.patternData);
 				if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
 					ext = "eps";

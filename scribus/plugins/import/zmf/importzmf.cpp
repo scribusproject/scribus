@@ -55,23 +55,17 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 ZmfPlug::ZmfPlug(ScribusDoc* doc, int flags)
 {
-	baseX = baseY = 0;
-	docWidth = docHeight = 1;
-
 	tmpSel = new Selection(this, false);
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = nullptr;
-	cancel = false;
 }
 
 QImage ZmfPlug::readThumbnail(QString fName)
 {
 	QFileInfo fi = QFileInfo(fName);
-	double b, h;
-	b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
-	h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
+	double b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	double h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
 	progressDialog = nullptr;

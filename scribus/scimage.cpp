@@ -207,7 +207,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int numVals;
 			double xval, yval;
 			FPointArray curve1;
-			curve1.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -218,7 +217,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int lin1;
 			fp >> lin1;
 			FPointArray curve2;
-			curve2.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -249,7 +247,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int numVals;
 			double xval, yval;
 			FPointArray curve1;
-			curve1.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -260,7 +257,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int lin1;
 			fp >> lin1;
 			FPointArray curve2;
-			curve2.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -271,7 +267,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int lin2;
 			fp >> lin2;
 			FPointArray curve3;
-			curve3.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -306,7 +301,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int numVals;
 			double xval, yval;
 			FPointArray curve1;
-			curve1.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -317,7 +311,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int lin1;
 			fp >> lin1;
 			FPointArray curve2;
-			curve2.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -328,7 +321,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int lin2;
 			fp >> lin2;
 			FPointArray curve3;
-			curve3.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -339,7 +331,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int lin3;
 			fp >> lin3;
 			FPointArray curve4;
-			curve4.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
 			{
@@ -357,7 +348,6 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			int numVals;
 			double xval, yval;
 			FPointArray curve;
-			curve.resize(0);
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
@@ -727,20 +717,21 @@ int ScImage::getOptimalKernelWidth(double radius, double sigma)
 
 void ScImage::sharpen(double radius, double sigma)
 {
-	double alpha, normalize, *kernel;
-	int widthk;
-	long i, u, v;
-	QImage dest;
+	long u, v;
 	if (sigma == 0.0)
 		return;
-	widthk = getOptimalKernelWidth(radius, sigma);
+
+	int widthk = getOptimalKernelWidth(radius, sigma);
 	if ((widthk <= 0) || (width() < widthk))
 		return;
-	kernel = (double *) malloc(widthk * widthk * sizeof(double));
+
+	double *kernel = (double *) malloc(widthk * widthk * sizeof(double));
 	if (!kernel)
 		return;
-	i = 0;
-	normalize = 0.0;
+
+	long i = 0;
+	double alpha;
+	double normalize = 0.0;
 	for (v= (-widthk / 2); v <= (widthk / 2); v++)
 	{
 		for (u= (-widthk / 2); u <= (widthk / 2); u++)
@@ -752,6 +743,8 @@ void ScImage::sharpen(double radius, double sigma)
 		}
 	}
 	kernel[i / 2] = (-2.0) * normalize;
+
+	QImage dest;
 	convolveImage(&dest, widthk, kernel);
 	free(kernel);
 

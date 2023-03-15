@@ -7,18 +7,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTZMF_H
 #define IMPORTZMF_H
 
+#include <QList>
+#include <QMultiMap>
 #include <QObject>
 #include <QString>
+#include <QTransform>
+#include <QVector>
 
 #include "pluginapi.h"
+#include "fpointarray.h"
 #include "pageitem.h"
 #include "sccolor.h"
-#include "fpointarray.h"
 #include "vgradient.h"
-#include <QList>
-#include <QTransform>
-#include <QMultiMap>
-#include <QVector>
 
 class MultiProgressDialog;
 class ScribusDoc;
@@ -60,19 +60,20 @@ private:
 	bool convert(QString fn);
 
 	QList<PageItem*> Elements;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docWidth { 1.0 };
+	double docHeight { 1.0 };
 
 	QStringList importedColors;
 	QStringList importedPatterns;
 
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
+	bool interactive { false };
+	MultiProgressDialog * progressDialog { nullptr };
+	bool cancel { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
+	int importerFlags { 0 };
 
 public slots:
 	void cancelRequested() { cancel = true; }

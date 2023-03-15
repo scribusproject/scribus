@@ -266,13 +266,13 @@ private:
 	QTransform textMatrix;
 	struct XarColor
 	{
-		quint32 colorType;
-		quint32 colorModel;
-		quint32 colorRef;
-		double component1;
-		double component2;
-		double component3;
-		double component4;
+		quint32 colorType { 0 };
+		quint32 colorModel { 2 };
+		quint32 colorRef { 0 };
+		double component1 { 0.0 };
+		double component2 { 0.0 };
+		double component3 { 0.0 };
+		double component4 { 0.0 };
 		QString name;
 	};
 	struct XarGroup
@@ -315,10 +315,6 @@ private:
 		QString GrColorP2;
 		QString GrColorP3;
 		QString GrColorP4;
-		double GrCol1transp;
-		double GrCol2transp;
-		double GrCol3transp;
-		double GrCol4transp;
 		int GrCol1Shade { 100 };
 		int GrCol2Shade { 100 };
 		int GrCol3Shade { 100 };
