@@ -43,14 +43,14 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 
 #ifdef Q_OS_MACOS
-#define topline 1
+constexpr int topline = 1;
 #else
-#define topline 3
+constexpr int topline = 3;
 #endif
-#define bottomline 15
-#define rulerheight (bottomline - topline)
-#define midline (topline + rulerheight/2)
-#define tabline 7
+constexpr int bottomline = 15;
+constexpr int rulerheight = (bottomline - topline);
+constexpr int midline = (topline + rulerheight / 2);
+constexpr int tabline = 7;
 
 Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
 	m_doc(doc),
@@ -100,7 +100,7 @@ void Hruler::shiftRel(double dist)
 }
 
 
-int Hruler::findRulerHandle(QPoint mp, double grabRadius)
+int Hruler::findRulerHandle(QPoint mp, int grabRadius)
 {
 	int mx = mp.x();
 	QRect fpo;
@@ -134,19 +134,19 @@ int Hruler::findRulerHandle(QPoint mp, double grabRadius)
 		return result;
 	}
 	
-	pos = textPosToLocal(m_firstIndent + m_leftMargin + (colWidth + m_colGap) * (m_currCol - 1));
+	pos = textPosToLocal(m_firstIndent + m_leftMargin + (colWidth + m_colGap) * (m_currCol - 1.0));
 	fpo = QRect(pos - 1, topline, grabRadius + 1, rulerheight / 2);
 	if (fpo.contains(mp))
 	{
 		return rc_indentFirst;
 	}
-	pos = textPosToLocal(m_leftMargin + (colWidth + m_colGap) * (m_currCol - 1));
+	pos = textPosToLocal(m_leftMargin + (colWidth + m_colGap) * (m_currCol - 1.0));
 	fpo = QRect(pos - 1, midline, grabRadius + 1, rulerheight / 2);
 	if (fpo.contains(mp))
 	{
 		return rc_leftMargin;
 	}
-	pos = textPosToLocal(m_rightMargin + (colWidth + m_colGap) * (m_currCol - 1));
+	pos = textPosToLocal(m_rightMargin + (colWidth + m_colGap) * (m_currCol - 1.0));
 	fpo = QRect(pos - grabRadius, midline, grabRadius, rulerheight / 2);
 	if (fpo.contains(mp))
 	{
@@ -156,7 +156,7 @@ int Hruler::findRulerHandle(QPoint mp, double grabRadius)
 	{
 		for (int yg = 0; yg < m_tabValues.count(); yg++)
 		{
-			pos = textPosToLocal(m_tabValues[yg].tabPosition + (colWidth + m_colGap) * (m_currCol - 1));
+			pos = textPosToLocal(m_tabValues[yg].tabPosition + (colWidth + m_colGap) * (m_currCol - 1.0));
 			fpo = QRect(pos - grabRadius, tabline, 2 * grabRadius, rulerheight / 2 + 2);
 			if (fpo.contains(mp))
 			{
@@ -326,15 +326,15 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		else
 		{
-			colStart = textPosToLocal((colWidth + m_colGap) * (m_currCol- 1));
-			colEnd   = textPosToLocal((colWidth + m_colGap) * (m_currCol- 1) + colWidth);
+			colStart = textPosToLocal((colWidth + m_colGap) * (m_currCol - 1.0));
+			colEnd   = textPosToLocal((colWidth + m_colGap) * (m_currCol - 1.0) + colWidth);
 		}
 		QPointF mousePos = m->position();
 		if ((m_mousePressed) && (mousePos.y() < height()) && (mousePos.y() > 0) && (mousePos.x() > colStart - m_doc->guidesPrefs().grabRadius) && (mousePos.x() < colEnd + m_doc->guidesPrefs().grabRadius))
 		{
 			QApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-			double toplimit = textWidth() + m_distRight - (m_colGap * (m_cols - 1)) - 1;
-			double toplimit2 = textWidth() + m_distLeft - (m_colGap * (m_cols - 1)) - 1;
+			double toplimit = textWidth() + m_distRight - (m_colGap * (m_cols - 1.0)) - 1.0;
+			double toplimit2 = textWidth() + m_distLeft - (m_colGap * (m_cols - 1.0)) - 1.0;
 			switch (m_rulerCode)
 			{
 				case rc_leftFrameDist:
@@ -423,6 +423,8 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 				case rc_tab:
 					setCursor(QCursor(Qt::SizeHorCursor));
 					break;
+				default:
+					break;
 			}
 			draw(mousePos.x());
 			double marker = localToTextPos(mousePos.x());
@@ -480,7 +482,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 		}
 		for (int currCol = 0; currCol < m_cols; ++currCol)
 		{
-			double colWidth = (textWidth() - m_colGap * (m_cols - 1)) / m_cols;
+			double colWidth = (textWidth() - m_colGap * (m_cols - 1.0)) / m_cols;
 			double pos = (colWidth + m_colGap) * currCol;
 			double endPos = pos + colWidth;
 			drawTextMarks(pos, endPos, p);
@@ -693,7 +695,7 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 					if (m_reverse)
 					{
 						p.save();
-						p.translate(xli - 2, 0);
+						p.translate(xli - 2.0, 0);
 						p.scale(-1, 1);
 						drawNumber(tx, 0, 17, p);
 						p.restore();
@@ -706,7 +708,7 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 				if (m_reverse)
 				{
 					p.save();
-					p.translate(xli - 2, 0);
+					p.translate(xli - 2.0, 0);
 					p.scale(-1, 1);
 					drawNumber(QString::number((xl - pos) / m_iter / m_cor), 0, 17, p);
 					p.restore();
@@ -718,7 +720,7 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 				if (m_reverse)
 				{
 					p.save();
-					p.translate(xli - 2, 0);
+					p.translate(xli - 2.0, 0);
 					p.scale(-1, 1);
 					drawNumber(QString::number((xl - pos) / m_iter / 10 / m_cor), 0, 9, p);
 					p.restore();
@@ -730,7 +732,7 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 				if (m_reverse)
 				{
 					p.save();
-					p.translate(xli - 2, 0);
+					p.translate(xli - 2.0, 0);
 					p.scale(-1, 1);
 					drawNumber(QString::number((xl - pos) / m_iter  / m_cor), 0, 9, p);
 					p.restore();
@@ -742,7 +744,7 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 				if (m_reverse)
 				{
 					p.save();
-					p.translate(xli - 2, 0);
+					p.translate(xli - 2.0, 0);
 					p.scale(-1, 1);
 					drawNumber(QString::number((xl - pos) / m_iter * 10 / m_cor), 0, 9, p);
 					p.restore();
@@ -802,9 +804,9 @@ void Hruler::setItem(PageItem * item)
 	const ParagraphStyle& currentStyle = item->currentStyle();
 	m_firstIndent = currentStyle.firstIndent();
 	m_leftMargin = currentStyle.leftMargin();
-	double columnWidth = (item->width() - (item->columnGap() * (item->columns() - 1))
+	double columnWidth = (item->width() - (item->columnGap() * (item->columns() - 1.0))
 						  - item->textToFrameDistLeft() - item->textToFrameDistLeft()
-						  - 2*m_lineCorr) / item->columns();
+						  - 2 * m_lineCorr) / item->columns();
 	m_rightMargin = columnWidth - currentStyle.rightMargin();
 	m_reverse = item->imageFlippedH();
 	m_textEditMode = true;
