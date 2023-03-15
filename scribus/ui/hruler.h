@@ -76,7 +76,7 @@ public:
 	double offset() const { return m_offset; }
 	
 private:
-	int findRulerHandle(QPoint mp, double grabRadius);
+	int findRulerHandle(QPoint mp, int grabRadius);
 	
 	virtual void paintEvent(QPaintEvent *e);
 	virtual void mousePressEvent(QMouseEvent *m);
