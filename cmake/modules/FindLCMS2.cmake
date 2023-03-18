@@ -35,7 +35,7 @@ find_library(LCMS2_LIBRARY_DEBUG
 include(LibraryDebugAndRelease)
 SET_LIBRARY_FROM_DEBUG_AND_RELEASE(LCMS2)
 
-message("LCMS 2 ReleaseLibrary: ${LCMS2_LIBRARY_RELEASE}")
+message("LCMS 2 Release Library: ${LCMS2_LIBRARY_RELEASE}")
 message("LCMS 2 Debug Library: ${LCMS2_LIBRARY_DEBUG}")
 message("LCMS 2 Library: ${LCMS2_LIBRARY}")
 

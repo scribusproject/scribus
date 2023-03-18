@@ -1,9 +1,9 @@
 set(PLUGIN_QT_MINIMUM_VERSION 5.14.0)
 
 if(Qt5Widgets_VERSION LESS PLUGIN_QT_MINIMUM_VERSION)
-	MESSAGE(STATUS "Qt based Markdown plugin: Qt version < ${PLUGIN_QT_MINIMUM_VERSION} so skipping build, Installed version: ${Qt5Widgets_VERSION}")
+	MESSAGE(STATUS "Qt based Markdown plugin: Qt version < ${PLUGIN_QT_MINIMUM_VERSION} so skipping build, Installed version: ${Qt6Widgets_VERSION}")
 else()
-	MESSAGE(STATUS "Qt based Markdown plugin: Qt version >= ${PLUGIN_QT_MINIMUM_VERSION} Ok, Installed Qt version: ${Qt5Widgets_VERSION}")
+	MESSAGE(STATUS "Qt based Markdown plugin: Qt version >= ${PLUGIN_QT_MINIMUM_VERSION} Ok, Installed Qt version: ${Qt6Widgets_VERSION}")
 
 	include_directories(
 		${CMAKE_SOURCE_DIR}
