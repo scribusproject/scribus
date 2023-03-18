@@ -73,13 +73,13 @@ QList<TextShaper::TextRun> TextShaper::itemizeBiDi(int fromPos) const
 
 QList<TextShaper::TextRun> TextShaper::itemizeScripts(const QList<TextRun> &runs) const
 {
-	QList<TextRun> newRuns;
+	QList<TextRun> newRuns, subRuns;
 	ScriptRun scriptrun((const UChar*) m_text.utf16(), m_text.length());
 
 	for (TextRun run : runs)
 	{
 		int start = run.start;
-		QList<TextRun> subRuns;
+		subRuns.clear();
 
 		while (scriptrun.next())
 		{
@@ -134,12 +134,12 @@ QList<TextShaper::FeaturesRun> TextShaper::itemizeFeatures(const TextRun &run) c
 
 QList<TextShaper::TextRun> TextShaper::itemizeStyles(const QList<TextRun> &runs) const
 {
-	QList<TextRun> newRuns;
+	QList<TextRun> newRuns, subRuns;
 
 	for (TextRun run : runs)
 	{
 		int start = run.start;
-		QList<TextRun> subRuns;
+		subRuns.clear();
 
 		while (start < run.start + run.len)
 		{

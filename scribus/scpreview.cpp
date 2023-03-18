@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QImage>
 #include <QList>
 #include "pageitem.h"
-#include "prefsmanager.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusXml.h"
@@ -20,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 
 QImage ScPreview::createPreview(const QString& data)
 {
-//	PrefsManager& prefsManager = PrefsManager::instance();
 	double gx, gy, gw, gh;
 	ScriXmlDoc ss;
 	if (ss.readElemHeader(data, false, &gx, &gy, &gw, &gh))

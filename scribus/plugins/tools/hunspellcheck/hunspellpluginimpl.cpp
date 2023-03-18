@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 #include <QMessageBox>
 
-#ifdef Q_OS_WIN32
+#ifdef Q_OS_WIN
 #include <windows.h>
 #include <shlobj.h>
 #endif

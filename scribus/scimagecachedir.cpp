@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 #include "scimagecachedir.h"
 #include "scimagecachefile.h"
 #include "scimagecachemanager.h"
-#include "scpaths.h"
 
 #if defined(DEBUG_SCIMAGECACHE)
 #define SC_DEBUG_FILE 1
