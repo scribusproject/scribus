@@ -82,13 +82,13 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 				rlist.insert(it.currentKey().toLower(), it.currentKey());
 		}
 	}
-	for (QMap<QString,QString>::Iterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
+	for (auto it2 = rlist.cbegin(); it2 != rlist.cend(); ++it2)
 	{
 		ScFace fon = prefsManager.appPrefs.fontPrefs.AvailFonts[it2.value()];
-		if (! fon.usable() )
+		if (!fon.usable())
 			continue;
 		ScFace::FontType type = fon.type();
-		if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || fon.subset()))
+		if (forAnnotation && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || fon.subset()))
 			continue;
 		if (forSubstitute && fon.isReplacement())
 			continue;
@@ -270,9 +270,9 @@ void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 					ScFace::FontType type = fon.type();
 					if (!fon.usable() || fon.isReplacement() || !(currentDoc->documentFileName() == fon.localForDocument() || fon.localForDocument().isEmpty()))
 						continue;
-					if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || (fon.subset())))
+					if (forAnnotation && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || (fon.subset())))
 						continue;
-					if ((forSubstitute) && fon.isReplacement())
+					if (forSubstitute && fon.isReplacement())
 						continue;
 					flist.insert(*it2, fon.type());
 					break;
@@ -291,20 +291,16 @@ void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 			if ( !fon.usable() || fon.isReplacement() )
 				continue;
 			ScFace::FontType type = fon.type();
-			if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || (fon.subset())))
+			if (forAnnotation && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || (fon.subset())))
 				continue;
-			if ((forSubstitute) && fon.isReplacement())
+			if (forSubstitute && fon.isReplacement())
 				continue;
 			flist.insert(*it2, fon.type());
 		}
 	}
-	for (QMap<QString, ScFace::FontType>::Iterator it2a = flist.begin(); it2a != flist.end(); ++it2a)
+	for (auto it2a = flist.constBegin(); it2a != flist.constEnd(); ++it2a)
 	{
 		ScFace::FontType type = it2a.value();
-		// Replacement fonts were systematically discarded in previous code
-		/*if (fon.isReplacement())
-			fontFamily->addItem(substFont, it2a.value());
-		else */
 		if (type == ScFace::OTF)
 			fontFamily->addItem(otfFont, it2a.key());
 		else if (type == ScFace::TYPE1)
@@ -530,13 +526,13 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	invpixPainter.fillRect(r, option.palette.window());
 
 	QFont font = option.font;
-	font.setPointSize(QFontInfo(font).pointSize() * 3 / 2.0);
+	font.setPointSize(QFontInfo(font).pointSize() * 3.0 / 2.0);
 
 	QFont font2 = option.font;
 	if (!scFace.isNone())
 	{
 		font2 = QFontDatabase::font(scFace.family(), scFace.style(), QFontInfo(option.font).pointSize());
-		font2.setPointSize(QFontInfo(font2).pointSize() * 3 / 2.0);
+		font2.setPointSize(QFontInfo(font2).pointSize() * 3.0 / 2.0);
 	}
 
 	bool hasLatin;
@@ -646,8 +642,7 @@ bool FontFamilyDelegate::helpEvent(QHelpEvent * event, QAbstractItemView * view,
 				tooltip += QLatin1String(" ");
 				tooltip += scFace.style();
 			}
-			QHelpEvent *helpEvent = static_cast<QHelpEvent*>(event);
-			QToolTip::showText(helpEvent->globalPos(), tooltip, view);
+			QToolTip::showText(event->globalPos(), tooltip, view);
 			return true;
 		}
 	}
