@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
 *   Copyright (C) 2005 by Craig Bradney                                   *
-*   cbradney@zip.com.au                                                   *
+*   cbradney@scribus.info                                                   *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *

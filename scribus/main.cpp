@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 	copyright            : (C) 2004 by Alessandro Rimoldi
 	email                : http://ideale.ch/contact
 	copyright            : (C) 2005 by Craig Bradney
-	email                : cbradney@zip.com.au
+	email                : cbradney@scribus.info
 ***************************************************************************/
 
 /***************************************************************************

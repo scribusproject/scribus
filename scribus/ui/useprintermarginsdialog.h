@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
                           useprintermarginsdialog.cpp  -  description
                              -------------------
     copyright            : (C) 2006 by Craig Bradney
-    email                : cbradney@zip.com.au
+    email                : cbradney@scribus.info
  ***************************************************************************/
 
 #ifndef USEPRINTERMARGINSDIALOG_H

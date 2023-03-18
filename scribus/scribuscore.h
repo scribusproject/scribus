@@ -41,7 +41,7 @@ class UndoManager;
 extern SCRIBUS_API ScribusCore* ScCore;
 
 /**
-	@author Craig Bradney <cbradney@zip.com.au>
+	@author Craig Bradney <cbradney@scribus.info>
 	@brief The core functions moved from the old ScribusMainWindow class
 	NO WINDOWS
 	NO VIEWS

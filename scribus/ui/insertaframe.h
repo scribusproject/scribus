@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 //
 //
-// Author: Craig Bradney <cbradney@zip.com.au>, (C) 2006
+// Author: Craig Bradney <cbradney@scribus.info>, (C) 2006
 //
 // Copyright: See COPYING file that comes with this distribution
 //

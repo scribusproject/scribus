@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTextBrowser>
 
 /**
-	@author Craig Bradney <cbradney@zip.com.au>
+	@author Craig Bradney <cbradney@scribus.info>
 */
 class UpgradeChecker : public QObject
 {

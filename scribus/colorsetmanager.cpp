@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
 	copyright            : (C) 2006 by Craig Bradney
-	email                : cbradney@zip.com.au
+	email                : cbradney@scribus.info
 ***************************************************************************/
 
 #include "colorsetmanager.h"

@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 /***************************************************************************
     begin                : Jan 2005
     copyright            : (C) 2005 by Craig Bradney
-    email                : cbradney@zip.com.au
+    email                : cbradney@scribus.info
  ***************************************************************************/
 
 /***************************************************************************
