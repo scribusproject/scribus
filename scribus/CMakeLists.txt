@@ -70,29 +70,24 @@ link_directories(
 
 if(WITH_TESTS)
 	link_directories( ${CMAKE_CURRENT_BINARY_DIR}/tests )
-endif()
-
-if(HAVE_OSG)
-	link_directories( ${CMAKE_CURRENT_BINARY_DIR}/third_party/prc )
-endif ()
-
-if(HAVE_BOOST)
-	link_directories( ${CMAKE_CURRENT_BINARY_DIR}/third_party/lib2geom )
-endif ()
-
-if(WITH_TESTS)
 	set(SCRIBUS_TESTS_LIB "scribus_tests_lib")
 else()
 	set(SCRIBUS_TESTS_LIB "")
 endif()
 
 if(HAVE_OSG)
+	link_directories( ${CMAKE_CURRENT_BINARY_DIR}/third_party/prc )
 	set(SCRIBUS_PRC_LIB "scribus_prc_lib")
-endif ()
+else()
+	set(SCRIBUS_PRC_LIB "")
+endif()
 
 if(HAVE_BOOST)
+	link_directories( ${CMAKE_CURRENT_BINARY_DIR}/third_party/lib2geom )
 	set(SCRIBUS_2GEOM_LIB "scribus_2geom_lib")
-endif ()
+else()
+	set(SCRIBUS_2GEOM_LIB "")
+endif()
 
 set(SCRIBUS_WPG_LIB "scribus_wpg_lib")
 set(SCRIBUS_PGF_LIB "scribus_pgf_lib")
@@ -215,19 +210,20 @@ target_link_libraries(${EXE_NAME}
 
 target_link_libraries(${EXE_NAME}
 	PUBLIC
-	${ZLIB_LIBRARIES}
 	${LIBXML2_LIBRARIES}
+	${ZLIB_LIBRARIES}
 	PRIVATE
 	${CUPS_LIBRARIES}
 	${FREETYPE_LIBRARIES}
+	${GMAGICK_LIBRARIES}
 	${HARFBUZZ_LIBRARIES}
 	${HARFBUZZ_SUBSET_LIBRARIES}
 	${ICU_LIBRARIES}
-	${TIFF_LIBRARIES}
-	${PNG_LIBRARIES}
 	${JPEG_LIBRARIES}
+	${LCMS2_LIBRARIES}
+	${PNG_LIBRARIES}
+	${TIFF_LIBRARIES}
 	${WIN32_ONLY_LIBS}
-	${GMAGICK_LIBRARIES}
 )
 
 if (TARGET Fontconfig::Fontconfig)
@@ -279,7 +275,6 @@ target_link_libraries(${EXE_NAME} PRIVATE
 	${SCRIBUS_PGF_LIB}
 	${SCRIBUS_ZIP_LIB}
 	${SCRIBUS_RTF_LIB}
-	${LCMS2_LIBRARIES}
 )
 
 if(WITH_TESTS)

@@ -1,28 +1,28 @@
 if(HAVE_OSG)
-    set(SCRIBUS_OSG_CLASS
-	    ui/AdapterWidget.h
+	set(SCRIBUS_OSG_CLASS
+		ui/AdapterWidget.h
 		ui/osgeditor.h
 		pageitem_osgframe.h
 	)
 	set(SCRIBUS_OSG_SRC
-	    ui/AdapterWidget.cpp
+		ui/AdapterWidget.cpp
 		ui/osgeditor.cpp
 		pageitem_osgframe.cpp
 	)
 endif()
 
 if (GMAGICK_FOUND)
-    set(SCRIBUS_GMAGICK_SRC imagedataloaders/scimgdataloader_gmagick.cpp)
+	set(SCRIBUS_GMAGICK_SRC imagedataloaders/scimgdataloader_gmagick.cpp)
 else()
-    set(SCRIBUS_GMAGICK_SRC)
+	set(SCRIBUS_GMAGICK_SRC)
 endif()
 
 if (JXL_FOUND)
-    set(SCRIBUS_JPEGXL_SRC imagedataloaders/scimgdataloader_jpegxl.cpp	)
+	set(SCRIBUS_JPEGXL_SRC imagedataloaders/scimgdataloader_jpegxl.cpp	)
 endif()
 
 set(SCRIBUS_SOURCES
-    actionmanager.cpp
+	actionmanager.cpp
 	actionsearch.cpp
 	appmodehelper.cpp
 	canvas.cpp
@@ -540,7 +540,7 @@ set(SCRIBUS_SOURCES
 )
 
 if(NOT HAVE_HYPHEN)
-    include_directories(third_party/hyphen)
+	include_directories(third_party/hyphen)
 	set(SCRIBUS_SOURCES
 	${SCRIBUS_SOURCES}
 	third_party/hyphen/hnjalloc.c
@@ -549,13 +549,13 @@ if(NOT HAVE_HYPHEN)
 endif()
 
 if(WIN32)
-    set(SCRIBUS_WIN32_ONLY_SOURCES
-	    scpainterex_cairo.cpp
+	set(SCRIBUS_WIN32_ONLY_SOURCES
+		scpainterex_cairo.cpp
 		scprintengine_gdi.cpp
 		)
 	set(SCRIBUS_MAIN_CPP main_win32.cpp)
 else()
-    set(SCRIBUS_WIN32_ONLY_SOURCES)
+	set(SCRIBUS_WIN32_ONLY_SOURCES)
 	set(SCRIBUS_MAIN_CPP main.cpp)
 endif()
 
