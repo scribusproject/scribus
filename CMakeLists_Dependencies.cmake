@@ -235,7 +235,7 @@ if (WANT_GRAPHICSMAGICK)
 		message(" GraphicsMagick NOT found! Building without additional image format support!")
 	endif()
 else()
-	message("Building without  GraphicsMagick (use -DWANT_GRAPHICSMAGICK=1 to enable)")
+	message("Building without GraphicsMagick (use -DWANT_GRAPHICSMAGICK=1 to enable)")
 endif()
 #>> GraphicsMagick for image import
 

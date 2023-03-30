@@ -58,6 +58,11 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS ui/)
 set_property(SOURCE third_party/fparser/file.hh PROPERTY SKIP_AUTOGEN ON)
 set_property(SOURCE third_party/fparser/fparser.hh PROPERTY SKIP_AUTOGEN ON)
 
+if(WANT_QTADS)
+  MESSAGE(STATUS "Qt Advanced Docking System included")
+  link_directories(${CMAKE_CURRENT_BINARY_DIR}/third_party/Qt-Advanced-Docking-System)
+endif()
+
 link_directories(
 	${CMAKE_CURRENT_BINARY_DIR}/third_party/wpg
 	${CMAKE_CURRENT_BINARY_DIR}/third_party/pgf
@@ -270,12 +275,17 @@ if (WANT_SVNVERSION)
 	add_dependencies(${EXE_NAME} svnheader)
 endif ()
 
+
 target_link_libraries(${EXE_NAME} PRIVATE
 	${SCRIBUS_WPG_LIB}
 	${SCRIBUS_PGF_LIB}
 	${SCRIBUS_ZIP_LIB}
 	${SCRIBUS_RTF_LIB}
 )
+
+if(WANT_QTADS)
+  target_link_libraries(${EXE_NAME} PRIVATE qt6advanceddocking)
+endif()
 
 if(WITH_TESTS)
 	target_link_libraries(${EXE_NAME} PRIVATE
