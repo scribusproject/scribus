@@ -62,10 +62,13 @@ ScribusCore::ScribusCore() : defaultEngine(colorMgmtEngineFactory.createDefaultE
 
 ScribusCore::~ScribusCore()
 {
-	while (m_ScMWList.count() > 0)
+	if(!m_use_indigo_ui)
 	{
-		ScribusMainWindow *mainWindow = m_ScMWList.takeAt(0);
-		delete mainWindow;
+		while (m_ScMWList.count() > 0)
+		{
+			ScribusMainWindow *mainWindow = m_ScMWList.takeAt(0);
+			delete mainWindow;
+		}
 	}
 	delete pluginManager;
 }
@@ -79,9 +82,10 @@ static void abort_on_error(QtMsgType t, const QMessageLogContext&, const QString
 }
 #endif
 
-int ScribusCore::init(bool useGUI, const QList<QString>& filesToUse)
+int ScribusCore::init(bool useGUI, bool use_indigo_ui, const QList<QString>& filesToUse)
 {
 	m_useGUI=useGUI;
+	m_use_indigo_ui = use_indigo_ui;
 	m_Files=filesToUse;
 #if !defined(NDEBUG) && !defined(_WIN32)
 	qInstallMessageHandler( & abort_on_error );
@@ -91,55 +95,63 @@ int ScribusCore::init(bool useGUI, const QList<QString>& filesToUse)
 
 int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage)
 {
-	auto* scribus = new ScribusMainWindow();
-	Q_CHECK_PTR(scribus);
-	if (!scribus)
-		return EXIT_FAILURE;
-	m_ScMWList.append(scribus);
-	int retVal=initScribusCore(showSplash, showFontInfo, showProfileInfo, newGuiLanguage);
-	if (retVal == EXIT_FAILURE)
-		return EXIT_FAILURE;
-	
-	retVal = scribus->initScMW(true);
-	if (retVal == EXIT_FAILURE)
-		return EXIT_FAILURE;
-	
-	closeSplash();
-	m_scribusInitialized = true;
-	connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
-
-	scribus->show();
-	scribus->setupMainWindow();
-
-	QStringList recoverFiles = scribus->findRecoverableFile();
-	int subsRet = scribus->ShowSubs();
-	if (subsRet == 0)
+	if (!m_use_indigo_ui)
 	{
-		if (!m_Files.isEmpty())
+		auto* scribus = new ScribusMainWindow();
+		Q_CHECK_PTR(scribus);
+		if (!scribus)
+			return EXIT_FAILURE;
+		m_ScMWList.append(scribus);
+		int retVal=initScribusCore(showSplash, showFontInfo, showProfileInfo, newGuiLanguage);
+		if (retVal == EXIT_FAILURE)
+			return EXIT_FAILURE;
+
+		retVal = scribus->initScMW(true);
+		if (retVal == EXIT_FAILURE)
+			return EXIT_FAILURE;
+
+		closeSplash();
+		m_scribusInitialized = true;
+		connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
+
+		scribus->show();
+		scribus->setupMainWindow();
+
+		QStringList recoverFiles = scribus->findRecoverableFile();
+		int subsRet = scribus->ShowSubs();
+		if (subsRet == 0)
 		{
-			for (int i = 0; i < m_Files.size(); ++i)
-				scribus->loadDoc(m_Files.at(i));
-		}
-		else if ((recoverFiles.count() > 0) && usingGUI())
-		{
-			if (!scribus->recoverFile(recoverFiles))
+			if (!m_Files.isEmpty())
 			{
-				if (PrefsManager::instance().appPrefs.uiPrefs.showStartupDialog)
+				for (int i = 0; i < m_Files.size(); ++i)
+					scribus->loadDoc(m_Files.at(i));
+			}
+			else if ((recoverFiles.count() > 0) && usingGUI())
+			{
+				if (!scribus->recoverFile(recoverFiles))
+				{
+					if (PrefsManager::instance().appPrefs.uiPrefs.showStartupDialog)
+						scribus->startUpDialog();
+				}
+			}
+			else
+			{
+				if (PrefsManager::instance().appPrefs.uiPrefs.showStartupDialog && usingGUI())
 					scribus->startUpDialog();
+				else
+					scribus->setFocus();
 			}
 		}
-		else
+		else if (subsRet==QMessageBox::Help)
 		{
-			if (PrefsManager::instance().appPrefs.uiPrefs.showStartupDialog && usingGUI())
-				scribus->startUpDialog();
-			else
-				scribus->setFocus();
+			scribus->slotRaiseOnlineHelp();
 		}
 	}
-	else if (subsRet==QMessageBox::Help)
-	{
-		scribus->slotRaiseOnlineHelp();
-	}
+	else
+		{
+			qDebug()<<"Indigo UI - a new look";
+			return EXIT_FAILURE;
+		}
 	return EXIT_SUCCESS;
 }
 
