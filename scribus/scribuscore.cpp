@@ -77,16 +77,16 @@ ScribusCore::~ScribusCore()
 static void abort_on_error(QtMsgType t, const QMessageLogContext&, const QString & m)
 {
 	std::cerr << m.toLocal8Bit().data() << "\n";
-	if(t==QtFatalMsg) assert(false);
+	if(t == QtFatalMsg) assert(false);
 //	if(t!=QtDebugMsg) assert(false);
 }
 #endif
 
 int ScribusCore::init(bool useGUI, bool use_indigo_ui, const QList<QString>& filesToUse)
 {
-	m_useGUI=useGUI;
+	m_useGUI = useGUI;
 	m_use_indigo_ui = use_indigo_ui;
-	m_Files=filesToUse;
+	m_Files = filesToUse;
 #if !defined(NDEBUG) && !defined(_WIN32)
 	qInstallMessageHandler( & abort_on_error );
 #endif
@@ -102,7 +102,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 		if (!scribus)
 			return EXIT_FAILURE;
 		m_ScMWList.append(scribus);
-		int retVal=initScribusCore(showSplash, showFontInfo, showProfileInfo, newGuiLanguage);
+		int retVal = initScribusCore(showSplash, showFontInfo, showProfileInfo, newGuiLanguage);
 		if (retVal == EXIT_FAILURE)
 			return EXIT_FAILURE;
 
@@ -148,10 +148,10 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 		}
 	}
 	else
-		{
-			qDebug()<<"Indigo UI - a new look";
-			return EXIT_FAILURE;
-		}
+	{
+		qDebug()<<"Indigo UI - a new look";
+		return EXIT_FAILURE;
+	}
 	return EXIT_SUCCESS;
 }
 

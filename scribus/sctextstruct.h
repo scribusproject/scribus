@@ -37,7 +37,8 @@ class ScribusDoc;
  */
 
 // from charstlye.h ScStyleFlags
-enum LayoutFlags {
+enum LayoutFlags
+{
 	ScLayout_None          = 0,
 	ScLayout_BulletNum     = 1 << 0, 	// marks list layout glyphs
 	ScLayout_FixedSpace    = 1 << 1, 	// marks a fixed space
