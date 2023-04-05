@@ -52,7 +52,7 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 
 	latex = new QProcess();
 	connect(latex, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(updateImage(int,QProcess::ExitStatus)));
-	connect(latex, SIGNAL(error(QProcess::ProcessError)), this, SLOT(latexError(QProcess::ProcessError)));
+	connect(latex, SIGNAL(errorOccurred(QProcess::ProcessError)), this, SLOT(latexError(QProcess::ProcessError)));
 	latex->setProcessChannelMode(QProcess::MergedChannels);
 	
 	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_render_XXXXXX");
