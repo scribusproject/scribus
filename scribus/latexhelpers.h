@@ -79,17 +79,24 @@ class LatexConfigParser
 		QString filename() const { return m_filename; }
 		QMap<QString,QString> properties;
 		QList<LatexHighlighterRule *> highlighterRules;
+
 	protected:
 		QString m_error;
-		QString m_description, m_executable, m_imageExtension, m_emptyFrameText;
-		QString m_preamble, m_postamble, m_icon;
+		QString m_description;
+		QString m_executable;
+		QString m_imageExtension;
+		QString m_emptyFrameText;
+		QString m_preamble;
+		QString m_postamble;
+		QString m_icon;
 		QString m_filename;
-		I18nXmlStreamReader xml;
-		void formatError(const QString& message);
-		void parseElements();
-		void parseTab();
-		void parseHighlighter();
-		void ignoreList();
+
+		void formatError(const QString& message, const I18nXmlStreamReader& xml);
+		void formatUnexpectedElemError(const QString& elemName, const I18nXmlStreamReader& xml);
+		void parseElements(I18nXmlStreamReader& xml);
+		void parseTab(I18nXmlStreamReader& xml);
+		void parseHighlighter(I18nXmlStreamReader& xml);
+		void ignoreList(I18nXmlStreamReader& xml);
 		bool StrViewToBool(const QStringView& str) const;
 };
 

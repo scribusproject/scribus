@@ -51,7 +51,7 @@ void LatexHighlighter::highlightBlock(const QString &text)
 		QRegularExpressionMatch match = rule->regex.match(text);
 		int n = 0;
 		int index = match.capturedStart(n);
-		while (index>=0)
+		while (index >= 0)
 		{
 			int length = match.capturedLength(n);
 			index = match.capturedStart(n);
@@ -83,8 +83,9 @@ QString LatexConfigParser::absoluteFilename(QString fn)
 bool LatexConfigParser::parseConfigFile(QString fn)
 {
 	fn = absoluteFilename(fn);
-	m_error = "";
+	m_error.clear();
 	m_filename = fn;
+
 	QFile f(fn);
 	if (!f.open(QIODevice::ReadOnly))
 	{
@@ -93,6 +94,8 @@ bool LatexConfigParser::parseConfigFile(QString fn)
 						fn, f.errorString())
 				+ "</qt>");
 	}
+
+	I18nXmlStreamReader xml;
 	xml.setDevice(&f);
 	
 	while (!xml.atEnd())
@@ -106,18 +109,20 @@ bool LatexConfigParser::parseConfigFile(QString fn)
 			m_icon = xml.attributes().value("icon").toString();
 			if (m_description.isEmpty())
 				m_description = fn;
-			parseElements();
+			parseElements(xml);
 		}
 		else
-			formatError("Unexpected element at root level"+xml.name().toString()+", Token String: "+ xml.tokenString());
+		{
+			formatUnexpectedElemError("root level", xml);
+		}
 	}
 	if (xml.hasError())
-		formatError(xml.errorString());
+		formatError(xml.errorString(), xml);
 	f.close();
 	return m_error.isEmpty();
 }
 
-void LatexConfigParser::parseElements()
+void LatexConfigParser::parseElements(I18nXmlStreamReader& xml)
 {
 	while (!xml.atEnd())
 	{
@@ -128,37 +133,45 @@ void LatexConfigParser::parseElements()
 			continue;
 		if (!xml.isStartElement())
 		{
-			formatError("Unexpected element in <editorsettings>"+xml.name().toString()+", Token String: "+
-								 xml.tokenString());
+			formatUnexpectedElemError("editorsettings", xml);
 			continue;
 		}
 	
-		if (xml.name() == QLatin1String("executable")){
+		if (xml.name() == QLatin1String("executable"))
 			m_executable = xml.attributes().value("command").toString();
-		} else if (xml.name() == QLatin1String("imagefile")) {
+		else if (xml.name() == QLatin1String("imagefile"))
 			m_imageExtension = xml.attributes().value("extension").toString();
-		} else if (xml.name() == QLatin1String("highlighter")) {
-			parseHighlighter();
-		} else if (xml.name() == QLatin1String("empty-frame-text")) {
+		else if (xml.name() == QLatin1String("highlighter"))
+			parseHighlighter(xml);
+		else if (xml.name() == QLatin1String("empty-frame-text"))
 			m_emptyFrameText = xml.readI18nText(true);
-		} else if (xml.name() == QLatin1String("preamble")) {
+		else if (xml.name() == QLatin1String("preamble"))
 			m_preamble = xml.readElementText();
-		} else if (xml.name() == QLatin1String("postamble")) {
+		else if (xml.name() == QLatin1String("postamble"))
 			m_postamble = xml.readElementText();
-		} else if (xml.name() == QLatin1String("tab")) {
-			parseTab();
-		} else {
-			formatError("Unknown tag in <editorsettings>: "+xml.name().toString());
+		else if (xml.name() == QLatin1String("tab"))
+			parseTab(xml);
+		else
+		{
+			QString formatMsg = "Unknown tag in <editorsettings>: " + xml.name().toString();
+			formatError(formatMsg, xml);
 		}
 	}
 }
 
-void LatexConfigParser::formatError(const QString& message)
+void LatexConfigParser::formatError(const QString& message, const I18nXmlStreamReader& xml)
 {
 	QString new_error = QString::number(xml.lineNumber()) + ":" + 
 			QString::number(xml.columnNumber()) + ":" + message;
 	qWarning() << m_filename << new_error;
 	m_error += new_error + "\n";
+}
+
+void LatexConfigParser::formatUnexpectedElemError(const QString& elemName, const I18nXmlStreamReader& xml)
+{
+	QString errorMessage = QString("Unexpected element in <%1>: %2, Token String: %3")
+		.arg(elemName).arg(xml.name().toString()).arg(xml.tokenString());
+	formatError(errorMessage, xml);
 }
 
 bool LatexConfigParser::StrViewToBool(const QStringView& str) const
@@ -171,12 +184,14 @@ bool LatexConfigParser::StrViewToBool(const QStringView& str) const
 	return false;
 }
 
-void LatexConfigParser::parseHighlighter()
+void LatexConfigParser::parseHighlighter(I18nXmlStreamReader& xml)
 {
 	foreach (LatexHighlighterRule *rule, highlighterRules)
 		delete rule;
 	highlighterRules.clear();
-	while (!xml.atEnd()) {
+
+	while (!xml.atEnd())
+	{
 		xml.readNext();
 		if (xml.isWhitespace() || xml.isComment())
 			continue;
@@ -186,9 +201,7 @@ void LatexConfigParser::parseHighlighter()
 			continue;
 		if (!xml.isStartElement() || xml.name() != QLatin1String("rule"))
 		{
-			formatError("Unexpected element in <highlighter>: "+
-				xml.name().toString()+", Token String: "+
-				xml.tokenString());
+			formatUnexpectedElemError("highlighter", xml);
 			continue;
 		}
 		QString regex = xml.attributes().value("regex").toString();
@@ -217,7 +230,7 @@ void LatexConfigParser::parseHighlighter()
 }
 
 
-void LatexConfigParser::parseTab()
+void LatexConfigParser::parseTab(I18nXmlStreamReader& xml)
 {
 	QString type = xml.attributes().value("type").toString();
 	bool itemstab = (type == "items");
@@ -233,20 +246,19 @@ void LatexConfigParser::parseTab()
 			break;
 		if (!xml.isStartElement())
 		{
-			formatError("Unexpected element in <tab>: "+xml.name().toString()+", Token String: "+
-								 xml.tokenString());
+			formatUnexpectedElemError("tab", xml);
 			continue;
 		}
 		if (xml.name() == QLatin1String("title"))
 		{
 			if (!title.isEmpty())
-				formatError("Second <title> tag in <tab>");
+				formatError("Second <title> tag in <tab>", xml);
 			title = xml.readI18nText();
 		}
 		else if (xml.name() == QLatin1String("item"))
 		{
 			if (!itemstab)
-				formatError("Found <item> in a 'settings'-tab!");
+				formatError("Found <item> in a 'settings'-tab!", xml);
 //			QString value = xml.attributes().value("value").toString();
 //			QString img = xml.attributes().value("image").toString();
 			text = xml.readI18nText();
@@ -265,25 +277,25 @@ void LatexConfigParser::parseTab()
 			if (xml.name() != QLatin1String("list"))
 				text = xml.readI18nText();
 			else
-				ignoreList();
+				ignoreList(xml);
 			if (!name.isEmpty())
 			{
 				if (properties.contains(name))
-					formatError("Redeclared setting with name: " + name);
+					formatError("Redeclared setting with name: " + name, xml);
 				else
 					properties.insert(name, default_value);
 			}
 			//TODO: qDebug() << "For future use:" << tagname << name << text << default_value;
 		}
 		else
-			formatError("Unexpected element in <tab>: " + xml.name().toString());
+			formatUnexpectedElemError("tab", xml);
 	}
 	
 	if (title.isEmpty())
-		formatError("Tab ended here, but no title was found!");
+		formatError("Tab ended here, but no title was found!", xml);
 }
 
-void LatexConfigParser::ignoreList()
+void LatexConfigParser::ignoreList(I18nXmlStreamReader& xml)
 {
 	//TODO: Quick hack to avoid real parsing
 	while (!xml.atEnd())
@@ -297,7 +309,7 @@ void LatexConfigParser::ignoreList()
 QString LatexConfigParser::executable() const
 {
 	QFileInfo f(m_filename);
-	QString fileName=f.fileName();
+	QString fileName = f.fileName();
 	QString command = PrefsManager::instance().latexCommands()[fileName];
 	if (command.isEmpty())
 		return m_executable;
@@ -310,12 +322,15 @@ QString I18nXmlStreamReader::readI18nText(bool unindent)
 	QString result;
 	int matchquality = 0;
 	bool i18n = false;
-	if (!isStartElement()) raiseError("readI18nText called without startelement!");
+	if (!isStartElement())
+		raiseError("readI18nText called without startelement!");
 	
 	QString startTag = name().toString();
-	while (!atEnd()) {
+	while (!atEnd())
+	{
 		readNext();
-		if (isWhitespace() || isComment()) continue;
+		if (isWhitespace() || isComment())
+			continue;
 		if (isStartElement() && name() == startTag)
 		{
 			raiseError("Invalid nested elements.");
@@ -329,18 +344,21 @@ QString I18nXmlStreamReader::readI18nText(bool unindent)
 			int i;
 			int minspaces = 0xffff;
 			/* NOTE: First line contains no leading whitespace so we start at 1 */
-			for (i = 1; i < splitted.size(); i++) {
+			for (i = 1; i < splitted.size(); i++)
+			{
 				if (splitted[i].trimmed().isEmpty()) continue;
 				int spaces;
 				QString tmp = splitted[i];
-				for (spaces = 0; spaces < tmp.length(); spaces++) {
-					if (!tmp[spaces].isSpace()) break;
+				for (spaces = 0; spaces < tmp.length(); spaces++)
+				{
+					if (!tmp[spaces].isSpace())
+						break;
 				}
-				if (spaces < minspaces) minspaces = spaces;
+				if (spaces < minspaces)
+					minspaces = spaces;
 			}
-			for (i = 1; i < splitted.size(); i++) {
+			for (i = 1; i < splitted.size(); i++)
 				splitted[i] = splitted[i].mid(minspaces);
-			}
 			return splitted.join("\n").trimmed();
 		}
 		if (i18n)
