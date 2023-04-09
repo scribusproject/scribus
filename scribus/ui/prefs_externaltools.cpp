@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "latexhelpers.h"
 #include "commonstrings.h"
 #include "ui/scmessagebox.h"
+#include "util.h"
 #include "util_file.h"
 #include "util_ghostscript.h"
 
@@ -177,7 +178,7 @@ void Prefs_ExternalTools::rescanForTools()
 				/*Linux */ "kwrite" << "kate" << "gedit" << "gvim" <<
 				/*Windows */ "notepad" <<
 				/*Mac OS*/ "open";
-		foreach (const QString& editor, editors)
+		for (const QString& editor : editors)
 		{
 			if (fileInPath(editor))
 			{
@@ -195,7 +196,8 @@ void Prefs_ExternalTools::rescanForTools()
 			continue;
 
 		QString oldCommand = commands[config];
-		if (fileInPath(oldCommand))
+		QStringList oldCommandArgs = QProcess::splitCommand(oldCommand);
+		if (!oldCommandArgs.isEmpty() && fileInPath(oldCommandArgs.at(0)))
 			continue;
 
 		QStringList pdflatexPaths;

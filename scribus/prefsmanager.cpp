@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 #include <QList>
 #include <QMessageBox>
+#include <QProcess>
 #include <QScreen>
 #include <QString>
 #include <QStringList>
@@ -1095,7 +1096,10 @@ bool PrefsManager::renderFrameConfigured()
 	bool foundAny = false;
 	foreach (QString cmd, appPrefs.extToolPrefs.latexCommands)
 	{
-		if (fileInPath(cmd))
+		QStringList args = QProcess::splitCommand(cmd);
+		if (args.isEmpty())
+			continue;
+		if (fileInPath(args.at(0)))
 		{
 			foundAny = true;
 			break;

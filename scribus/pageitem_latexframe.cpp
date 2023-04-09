@@ -282,23 +282,34 @@ void PageItem_LatexFrame::runApplication()
 	}
 	firstWarningLatexMissing = true;
 
-	full_command.replace("%dpi", QString::number(realDpi()));
-	if (full_command.contains("%file"))
-		full_command.replace("%file", QString("\"%1\"").arg(QDir::toNativeSeparators(tempFileBase)));
-	else
-		full_command = full_command + QString(" \"%1\"").arg(QDir::toNativeSeparators(tempFileBase));
+	QStringList args = QProcess::splitCommand(full_command);
+	if (args.isEmpty())
+		return;
+	
+	QString program = args.at(0);
+	args.removeFirst();
+	if (!full_command.contains("%file"))
+		args.append(QDir::toNativeSeparators(tempFileBase));
 
-	full_command.replace("%dir", QString("\"%1\"").arg(QDir::toNativeSeparators(QDir::tempPath())));
-	latex->setWorkingDirectory(QDir::tempPath());
-
-	double lDpi = realDpi()/72.0;
-	full_command.replace("$scribus_height_px$", QString::number(qRound(m_height*lDpi)));
-	full_command.replace("$scribus_width_px$",  QString::number(qRound(m_width*lDpi)));
-	QMapIterator<QString, QString> i(editorProperties);
-	while (i.hasNext())
+	double lDpi = realDpi() / 72.0;
+	for (qsizetype i = 0; i < args.size(); ++i)
 	{
-		i.next();
-		full_command.replace("$scribus_"+i.key()+"$", i.value());
+		QString arg = args.at(i);
+		arg.replace("%dpi", QString::number(realDpi()));
+		if (arg.contains("%file"))
+			arg.replace("%file", QDir::toNativeSeparators(tempFileBase));
+		arg.replace("%dir", QDir::toNativeSeparators(QDir::tempPath()));
+
+		arg.replace("$scribus_height_px$", QString::number(qRound(m_height * lDpi)));
+		arg.replace("$scribus_width_px$", QString::number(qRound(m_width * lDpi)));
+		QMapIterator<QString, QString> it(editorProperties);
+		while (it.hasNext())
+		{
+			it.next();
+			arg.replace("$scribus_" + it.key() + "$", it.value());
+		}
+
+		args[i] = arg;
 	}
 	
 	imageFile = tempFileBase + config->imageExtension();
@@ -306,7 +317,8 @@ void PageItem_LatexFrame::runApplication()
 	writeFileContents(&tempfile);
 	tempfile.close();
 	
-	latex->start(full_command);
+	latex->setWorkingDirectory(QDir::tempPath());
+	latex->start(program, args);
 	emit stateChanged(QProcess::Starting);
 }
 
