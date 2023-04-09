@@ -1102,7 +1102,10 @@ bool PrefsManager::renderFrameConfigured()
 	bool foundAny = false;
 	foreach (QString cmd, appPrefs.extToolPrefs.latexCommands)
 	{
-		if (fileInPath(cmd))
+		QStringList args = splitCommandLineArgs(cmd);
+		if (args.isEmpty())
+			continue;
+		if (fileInPath(args.at(0)))
 		{
 			foundAny = true;
 			break;

@@ -74,6 +74,11 @@ bool SCRIBUS_API loadRawText(const QString & filename, QByteArray & buf);
 bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf);
 bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf, int maxLength);
 /**
+ * @brief Split a string representing a command line into its arguments
+ * The code of this function is copied from Qt 5.15
+ */
+QStringList splitCommandLineArgs(const QString& command);
+/**
 * @brief Synchronously execute a new process, optionally saving its output
    *
    * Create a new process via QProcess and wait until finished.  Return the
