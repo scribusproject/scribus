@@ -667,7 +667,7 @@ FontComboValidator::FontComboValidator(QObject* parent)
 
 QValidator::State FontComboValidator::validate(QString & input, int & pos) const
 {
-	QComboBox* comboBox = qobject_cast<QComboBox*>(this->parent());
+	const QComboBox* comboBox = qobject_cast<QComboBox*>(this->parent());
 	if (!comboBox)
 		return QValidator::Invalid;
 
