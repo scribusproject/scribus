@@ -129,7 +129,7 @@ void PrefsManager::initDefaults()
 	defaultFonts << "Liberation Sans Regular";
 
 	bool goodFont = false;
-	SCFonts& availableFonts = appPrefs.fontPrefs.AvailFonts;
+	const SCFonts& availableFonts = appPrefs.fontPrefs.AvailFonts;
 	for (int i = 0; i < defaultFonts.count(); ++i)
 	{
 		const QString& defCandidate = defaultFonts.at(i);
@@ -250,7 +250,7 @@ void PrefsManager::initDefaults()
 	appPrefs.opToolPrefs.dispY = 10.0;
 	appPrefs.opToolPrefs.constrain = 15.0;
 	appPrefs.displayPrefs.paperColor = QColor(Qt::white);
-	appPrefs.displayPrefs.scratchColor = qApp->palette().color(QPalette::Active, QPalette::Window);
+	appPrefs.displayPrefs.scratchColor = QApplication::palette().color(QPalette::Active, QPalette::Window);
 	appPrefs.displayPrefs.showPageShadow = true;
 	appPrefs.displayPrefs.showVerifierWarningsOnCanvas = true;
 	appPrefs.displayPrefs.showAutosaveClockOnCanvas = false;
@@ -328,7 +328,7 @@ void PrefsManager::initDefaults()
 	appPrefs.docSetupPrefs.AutoSaveLocation = true;
 	appPrefs.docSetupPrefs.AutoSaveDir = "";
 	appPrefs.miscPrefs.saveEmergencyFile = true;
-	int dpi = s->physicalDotsPerInchX();
+	qreal dpi = s->physicalDotsPerInchX();
 	if ((dpi < 60) || (dpi > 400))
 		dpi = 72;
 	appPrefs.displayPrefs.displayScale = dpi / 72.0;
@@ -530,7 +530,7 @@ void PrefsManager::initDefaults()
 void PrefsManager::initDefaultActionKeys()
 {
 	ActionManager::createDefaultShortcuts();
-	QMap<QString, QKeySequence > *map = ActionManager::defaultShortcuts();
+	const QMap<QString, QKeySequence > *map = ActionManager::defaultShortcuts();
 	for (auto it = map->constBegin(); it != map->constEnd(); ++it)
 	{
 		Keys& keyAction = appPrefs.keyShortcutPrefs.KeyActions[it.key()];
@@ -1665,21 +1665,20 @@ bool PrefsManager::writePref(const QString& filePath)
 
 
 	QDomElement pageSetAttr = docu.createElement("PageSets");
-	for (auto itpgset = appPrefs.pageSets.begin(); itpgset != appPrefs.pageSets.end(); ++itpgset)
+	for (const PageSet& pageSet : appPrefs.pageSets)
 	{
 		QDomElement pgst = docu.createElement("Set");
-		pgst.setAttribute("Name", itpgset->Name);
-		pgst.setAttribute("FirstPage", itpgset->FirstPage);
-		pgst.setAttribute("Rows", itpgset->Rows);
-		pgst.setAttribute("Columns", itpgset->Columns);
-//		pgst.setAttribute("GapHorizontal", itpgset->GapHorizontal);
-//		pgst.setAttribute("GapVertical", itpgset->GapVertical);
-//		pgst.setAttribute("GapBelow", itpgset->GapBelow);
-		QStringList pNames = itpgset->pageNames;
-		for (auto itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
+		pgst.setAttribute("Name", pageSet.Name);
+		pgst.setAttribute("FirstPage", pageSet.FirstPage);
+		pgst.setAttribute("Rows", pageSet.Rows);
+		pgst.setAttribute("Columns", pageSet.Columns);
+//		pgst.setAttribute("GapHorizontal", pageSet.GapHorizontal);
+//		pgst.setAttribute("GapVertical", pageSet.GapVertical);
+//		pgst.setAttribute("GapBelow", pageSet.GapBelow);
+		for (const QString& pageName : pageSet.pageNames)
 		{
 			QDomElement pgstN = docu.createElement("PageNames");
-			pgstN.setAttribute("Name", (*itpgsetN));
+			pgstN.setAttribute("Name", pageName);
 			pgst.appendChild(pgstN);
 		}
 		pageSetAttr.appendChild(pgst);
@@ -1772,7 +1771,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	elem.appendChild(dcPdfOutputPrev);
 
 	QDomElement dcPSOutputPrev = docu.createElement("PSOutputPreview");
-	dcPSOutputPrev.setAttribute("PSLevel", static_cast<int>(appPrefs.psOutputPreviewPrefs.psLevel));
+	dcPSOutputPrev.setAttribute("PSLevel", appPrefs.psOutputPreviewPrefs.psLevel);
 	dcPSOutputPrev.setAttribute("AntiAliasing", static_cast<int>(appPrefs.psOutputPreviewPrefs.enableAntiAliasing));
 	dcPSOutputPrev.setAttribute("Transparency", static_cast<int>(appPrefs.psOutputPreviewPrefs.showTransparency));
 	dcPSOutputPrev.setAttribute("CMYKMode", static_cast<int>(appPrefs.psOutputPreviewPrefs.cmykPreviewMode));
@@ -1817,19 +1816,19 @@ bool PrefsManager::writePref(const QString& filePath)
 		hyElem.setAttribute("Hyphenated", hyit.value());
 		rde.appendChild(hyElem);
 	}
-	for (auto hyit2 = appPrefs.hyphPrefs.ignoredWords.begin(); hyit2 != appPrefs.hyphPrefs.ignoredWords.end(); ++hyit2)
+	for (const auto& hyWord : appPrefs.hyphPrefs.ignoredWords)
 	{
 		QDomElement hyElem2 = docu.createElement("Ignore");
-		hyElem2.setAttribute("Word", (*hyit2));
+		hyElem2.setAttribute("Word", hyWord);
 		rde.appendChild(hyElem2);
 	}
 	elem.appendChild(rde);
 
 	for (int i = 0; i < appPrefs.uiPrefs.RecentDocs.count(); ++i)
 	{
-		QDomElement rde = docu.createElement("Recent");
-		rde.setAttribute("Name", appPrefs.uiPrefs.RecentDocs[i]);
-		elem.appendChild(rde);
+		QDomElement rcElem = docu.createElement("Recent");
+		rcElem.setAttribute("Name", appPrefs.uiPrefs.RecentDocs[i]);
+		elem.appendChild(rcElem);
 	}
 
 	for (auto ksc = appPrefs.keyShortcutPrefs.KeyActions.begin(); ksc!=appPrefs.keyShortcutPrefs.KeyActions.end(); ++ksc)
@@ -1857,7 +1856,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	pdf.setAttribute("MirrorPagesHorizontal", static_cast<int>(appPrefs.pdfPrefs.MirrorH));
 	pdf.setAttribute("MirrorPagesVertical", static_cast<int>(appPrefs.pdfPrefs.MirrorV));
 	pdf.setAttribute("DoClip", static_cast<int>(appPrefs.pdfPrefs.doClip));
-	pdf.setAttribute("RotateDeg", static_cast<int>(appPrefs.pdfPrefs.RotateDeg));
+	pdf.setAttribute("RotateDeg", appPrefs.pdfPrefs.RotateDeg);
 	pdf.setAttribute("PresentMode", static_cast<int>(appPrefs.pdfPrefs.PresentMode));
 	pdf.setAttribute("RecalcPic", static_cast<int>(appPrefs.pdfPrefs.RecalcPic));
 	pdf.setAttribute("Grayscale", static_cast<int>(appPrefs.pdfPrefs.isGrayscale));
@@ -1918,30 +1917,30 @@ bool PrefsManager::writePref(const QString& filePath)
 	elem.appendChild(pdf);
 
 	QDomElement docItemAttrs = docu.createElement("DefaultItemAttributes");
-	for(auto objAttrIt = appPrefs.itemAttrPrefs.defaultItemAttributes.begin() ; objAttrIt != appPrefs.itemAttrPrefs.defaultItemAttributes.end(); ++objAttrIt)
+	for (const auto& objAttr : appPrefs.itemAttrPrefs.defaultItemAttributes)
 	{
 		QDomElement itemAttr = docu.createElement("ItemAttribute");
-		itemAttr.setAttribute("Name", (*objAttrIt).name);
-		itemAttr.setAttribute("Type", (*objAttrIt).type);
-		itemAttr.setAttribute("Value", (*objAttrIt).value);
-		itemAttr.setAttribute("Parameter", (*objAttrIt).parameter);
-		itemAttr.setAttribute("Relationship", (*objAttrIt).relationship);
-		itemAttr.setAttribute("RelationshipTo", (*objAttrIt).relationshipto);
-		itemAttr.setAttribute("AutoAddTo", (*objAttrIt).autoaddto);
+		itemAttr.setAttribute("Name", objAttr.name);
+		itemAttr.setAttribute("Type", objAttr.type);
+		itemAttr.setAttribute("Value", objAttr.value);
+		itemAttr.setAttribute("Parameter", objAttr.parameter);
+		itemAttr.setAttribute("Relationship", objAttr.relationship);
+		itemAttr.setAttribute("RelationshipTo", objAttr.relationshipto);
+		itemAttr.setAttribute("AutoAddTo", objAttr.autoaddto);
 		docItemAttrs.appendChild(itemAttr);
 	}
 	elem.appendChild(docItemAttrs);
 
 	QDomElement tocElem = docu.createElement("TablesOfContents");
-	for(auto tocSetupIt = appPrefs.tocPrefs.defaultToCSetups.begin() ; tocSetupIt != appPrefs.tocPrefs.defaultToCSetups.end(); ++tocSetupIt)
+	for (const auto& tocSetup : appPrefs.tocPrefs.defaultToCSetups)
 	{
 		QDomElement tocsetup = docu.createElement("TableOfContents");
-		tocsetup.setAttribute("Name", (*tocSetupIt).name);
-		tocsetup.setAttribute("ItemAttributeName", (*tocSetupIt).itemAttrName);
-		tocsetup.setAttribute("FrameName", (*tocSetupIt).frameName);
-		tocsetup.setAttribute("ListNonPrinting", (*tocSetupIt).listNonPrintingFrames);
-		tocsetup.setAttribute("Style", (*tocSetupIt).textStyle);
-		tocsetup.setAttribute("NumberPlacement", (*tocSetupIt).pageLocation);
+		tocsetup.setAttribute("Name", tocSetup.name);
+		tocsetup.setAttribute("ItemAttributeName", tocSetup.itemAttrName);
+		tocsetup.setAttribute("FrameName", tocSetup.frameName);
+		tocsetup.setAttribute("ListNonPrinting", tocSetup.listNonPrintingFrames);
+		tocsetup.setAttribute("Style", tocSetup.textStyle);
+		tocsetup.setAttribute("NumberPlacement", tocSetup.pageLocation);
 		tocElem.appendChild(tocsetup);
 	}
 	elem.appendChild(tocElem);
@@ -1963,7 +1962,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	QFile f(filePath);
 	if (!f.open(QIODevice::WriteOnly))
 	{
-		m_lastError = tr("Could not open preferences file \"%1\" for writing: %2").arg(filePath, qApp->translate("QFile",f.errorString().toLatin1().constData()));
+		m_lastError = tr("Could not open preferences file \"%1\" for writing: %2").arg(filePath, QApplication::translate("QFile", f.errorString().toLatin1().constData()));
 	}
 	else
 	{
@@ -2098,7 +2097,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			if (dc.hasAttribute("ScratchColor"))
 				appPrefs.displayPrefs.scratchColor = QColor(dc.attribute("ScratchColor"));
 			else
-				appPrefs.displayPrefs.scratchColor = qApp->palette().color(QPalette::Active, QPalette::Window);
+				appPrefs.displayPrefs.scratchColor = QApplication::palette().color(QPalette::Active, QPalette::Window);
 			appPrefs.displayPrefs.frameColor = QColor(dc.attribute("FrameSelectedColor", "#ff0000"));
 			appPrefs.displayPrefs.frameNormColor = QColor(dc.attribute("FrameNormColor", "#000000"));
 			appPrefs.displayPrefs.frameGroupColor = QColor(dc.attribute("FrameGroupColor", "#008080"));
@@ -2277,7 +2276,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.itemToolPrefs.spiralFactor = ScCLocale::toDoubleC(dc.attribute("SpiralFactor"), 1.2);
 			if (dc.hasAttribute("FontFace"))
 			{
-				QString tmpf=dc.attribute("FontFace");
+				QString tmpf = dc.attribute("FontFace");
 				QString newFont;
 				if (!appPrefs.fontPrefs.AvailFonts.contains(tmpf) || !appPrefs.fontPrefs.AvailFonts[tmpf].usable())
 				{
@@ -2384,9 +2383,6 @@ bool PrefsManager::readPref(const QString& filePath)
 				pageS.FirstPage = pgsAttr.attribute("FirstPage", "0").toInt();
 				pageS.Rows = pgsAttr.attribute("Rows", "1").toInt();
 				pageS.Columns = pgsAttr.attribute("Columns", "1").toInt();
-//				pageS.GapHorizontal = pgsAttr.attribute("GapHorizontal", "0").toDouble();
-//				pageS.GapVertical = pgsAttr.attribute("GapVertical", "0").toDouble();
-//				pageS.GapBelow = pgsAttr.attribute("GapBelow", "0").toDouble();
 				pageS.pageNames.clear();
 
 				for (QDomNode pgsN = pgs.firstChild(); !pgsN.isNull(); pgsN = pgsN.nextSibling())
@@ -2411,7 +2407,7 @@ bool PrefsManager::readPref(const QString& filePath)
 					appPrefs.displayPrefs.pageGapVertical   = ScCLocale::toDoubleC(pgsAttr.attribute("GapBelow"), 40.0);
 				}
 			}
-			if (newPageSets.count() > 0)
+			if (!newPageSets.isEmpty())
 				appPrefs.pageSets = newPageSets;
 		}
 
@@ -2532,7 +2528,7 @@ bool PrefsManager::readPref(const QString& filePath)
 		{
 			bool gsa1 = testGSAvailability(dc.attribute("Ghostscript", "gs"));
 			bool gsa2 = testGSAvailability(ghostscriptExecutable());
-			if ((gsa1) || (!gsa2))
+			if (gsa1 || !gsa2)
 				setGhostscriptExecutable(dc.attribute("Ghostscript", "gs"));
 			appPrefs.extToolPrefs.gs_AntiAliasText = static_cast<bool>(dc.attribute("GhostscriptAntiAliasText", "0").toInt());
 			appPrefs.extToolPrefs.gs_AntiAliasGraphics = static_cast<bool>(dc.attribute("GhostscriptAntiAliasGraphics", "0").toInt());
@@ -2565,7 +2561,6 @@ bool PrefsManager::readPref(const QString& filePath)
 			else
 			{
 				qWarning() << tr("No valid renderframe config found. Using defaults!");
-//				setLatexConfigs(LatexConfigCache::defaultConfigs());
 				appPrefs.extToolPrefs.latexConfigs = LatexConfigCache::defaultConfigs();
 				appPrefs.extToolPrefs.latexCommands = LatexConfigCache::defaultCommands();
 			}
@@ -2779,7 +2774,7 @@ bool PrefsManager::readPref(const QString& filePath)
 	if ((appPrefs.docSetupPrefs.docUnitIndex < UNITMIN) || (appPrefs.docSetupPrefs.docUnitIndex > UNITMAX))
 		appPrefs.docSetupPrefs.docUnitIndex = int(SC_POINTS);
 	// Configure GUI
-	appPrefs.ui_SystemTheme = qApp->style()->objectName();
+	appPrefs.ui_SystemTheme = QApplication::style()->objectName();
 	if (appPrefs.uiPrefs.style.length() > 0)
 	{
 		QStyle* qtStyle = nullptr;

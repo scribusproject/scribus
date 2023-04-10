@@ -39,7 +39,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 	{
 		appPrefs.colorPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
 		appPrefs.colorPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
-		ScColor cc = ScColor(255, 255, 255, 255);
+		ScColor cc(255, 255, 255, 255);
 		cc.setRegistrationColor(true);
 		appPrefs.colorPrefs.DColors.insert("Registration", cc);
 		appPrefs.colorPrefs.DColors.insert("Blue", ScColor(255, 255, 0, 0));
@@ -61,19 +61,18 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 		ColorEn = tsC.readLine();
 		if (ColorEn.startsWith("<?xml version="))
 		{
-			QByteArray docBytes("");
+			QByteArray docBytes;
 			loadRawText(defaultSwatch, docBytes);
-			QString docText("");
-			docText = QString::fromUtf8(docBytes);
+			QString docText = QString::fromUtf8(docBytes);
 			QDomDocument docu("scridoc");
 			docu.setContent(docText);
-			ScColor lf = ScColor();
+			ScColor lf;
 			QDomElement elem = docu.documentElement();
-			QDomNode PAGE = elem.firstChild();
-			while (!PAGE.isNull())
+			QDomNode node = elem.firstChild();
+			while (!node.isNull())
 			{
-				QDomElement pg = PAGE.toElement();
-				if (pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+				QDomElement pg = node.toElement();
+				if (pg.tagName() == "COLOR" && pg.attribute("NAME") != CommonStrings::None)
 				{
 					if (pg.hasAttribute("SPACE"))
 					{
@@ -122,7 +121,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 						lf.setRegistrationColor(false);
 					appPrefs.colorPrefs.DColors.insert(pg.attribute("NAME"), lf);
 				}
-				PAGE=PAGE.nextSibling();
+				node = node.nextSibling();
 			}
 		}
 		else
@@ -148,26 +147,26 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 void ColorSetManager::findPaletteLocations()
 {
 	paletteLocations.clear();
-	QStringList locations=ScPaths::systemCreatePalettesDirs();
+	QStringList locations = ScPaths::systemCreatePalettesDirs();
 	locations << ScPaths::instance().shareDir()+"swatches/";
 	locations << ScPaths::dirsFromEnvVar("XDG_DATA_HOME", "scribus/swatches/");
-	for ( QStringList::Iterator it = locations.begin(); it != locations.end(); ++it )
+	for (const auto& loc : locations)
 	{
-		QFileInfo paletteDir(*it);
+		QFileInfo paletteDir(loc);
 		if (paletteDir.exists())
 		{
-			paletteLocations << (*it);
-			paletteLocationLocks.insert((*it), !paletteDir.isWritable());
+			paletteLocations << loc;
+			paletteLocationLocks.insert(loc, !paletteDir.isWritable());
 		}
 	}
-	QStringList xdgSysLocations=ScPaths::dirsFromEnvVar("XDG_DATA_DIRS", "scribus/swatches/");
-	for ( QStringList::Iterator it = xdgSysLocations.begin(); it != xdgSysLocations.end(); ++it )
+	QStringList xdgSysLocations = ScPaths::dirsFromEnvVar("XDG_DATA_DIRS", "scribus/swatches/");
+	for (const auto& loc : xdgSysLocations)
 	{
-		QFile paletteDir(*it);
+		QFile paletteDir(loc);
 		if (paletteDir.exists())
 		{
-			paletteLocations << (*it);
-			paletteLocationLocks.insert((*it), true);
+			paletteLocations << loc;
+			paletteLocationLocks.insert(loc, true);
 		}
 	}
 }
@@ -233,12 +232,8 @@ void ColorSetManager::searchDir(const QString& path, QMap<QString, QString> &pLi
 void ColorSetManager::findPalettes(QTreeWidgetItem* parent)
 {
 	palettes.clear();
-	QString path;
-	for ( QStringList::Iterator it = paletteLocations.begin(); it != paletteLocations.end(); ++it )
-	{
-		path = (*it);
-		searchDir(path, palettes, parent);
-	}
+	for (const auto& loc : paletteLocations)
+		searchDir(loc, palettes, parent);
 }
 
 void ColorSetManager::findUserPalettes(QTreeWidgetItem* parent)
@@ -247,42 +242,42 @@ void ColorSetManager::findUserPalettes(QTreeWidgetItem* parent)
 	searchDir(ScPaths::userPaletteFilesDir(true), userPalettes, parent);
 }
 
-QStringList ColorSetManager::paletteNames()
+QStringList ColorSetManager::paletteNames() const
 {
 	QStringList nameList;
-	for ( QMap<QString, QString>::Iterator it = palettes.begin(); it != palettes.end(); ++it )
+	for (auto it = palettes.cbegin(); it != palettes.cend(); ++it)
 		nameList << it.key();
 	return nameList;
 }
 
-QStringList ColorSetManager::userPaletteNames()
+QStringList ColorSetManager::userPaletteNames() const
 {
 	QStringList nameList;
-	for ( QMap<QString, QString>::Iterator it = userPalettes.begin(); it != userPalettes.end(); ++it )
+	for (auto it = userPalettes.cbegin(); it != userPalettes.cend(); ++it)
 		nameList << it.key();
 	return nameList;
 }
 
-QString ColorSetManager::paletteFileFromName(const QString& paletteName)
+QString ColorSetManager::paletteFileFromName(const QString& paletteName) const
 {
 	if (palettes.contains(paletteName))
 		return palettes[paletteName];
 	return QString();
 }
 
-QString ColorSetManager::userPaletteFileFromName(const QString& paletteName)
+QString ColorSetManager::userPaletteFileFromName(const QString& paletteName) const
 {
 	if (userPalettes.contains(paletteName))
 		return userPalettes[paletteName];
 	return QString();
 }
 
-bool ColorSetManager::paletteLocationLocked(const QString& palettePath)
+bool ColorSetManager::paletteLocationLocked(const QString& palettePath) const
 {
 	return (paletteLocationLocks.contains(palettePath) && paletteLocationLocks.value(palettePath));
 }
 
-bool ColorSetManager::checkPaletteFormat(const QString& paletteFileName)
+bool ColorSetManager::checkPaletteFormat(const QString& paletteFileName) const
 {
 	QFile f(paletteFileName);
 	if (!f.open(QIODevice::ReadOnly))

@@ -35,13 +35,13 @@ class SCRIBUS_API ColorSetManager
 		void searchDir(const QString& path, QMap<QString, QString> &pList, QTreeWidgetItem* parent = nullptr);
 		void findPalettes(QTreeWidgetItem* parent = nullptr);
 		void findUserPalettes(QTreeWidgetItem* parent = nullptr);
-		QStringList paletteNames();
-		QStringList userPaletteNames();
+		QStringList paletteNames() const;
+		QStringList userPaletteNames() const;
 		
-		QString paletteFileFromName(const QString& paletteName);
-		QString userPaletteFileFromName(const QString& paletteName);
-		bool paletteLocationLocked(const QString& palettePath);
-		bool checkPaletteFormat(const QString& paletteFileName);
+		QString paletteFileFromName(const QString& paletteName) const;
+		QString userPaletteFileFromName(const QString& paletteName) const;
+		bool paletteLocationLocked(const QString& palettePath) const;
+		bool checkPaletteFormat(const QString& paletteFileName) const;
 		bool loadPalette(const QString& paletteFileName, ScribusDoc *doc, ColorList &colors, QHash<QString,VGradient> &gradients, QHash<QString, ScPattern> &patterns, bool merge);
 		
 	protected:

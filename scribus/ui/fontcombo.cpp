@@ -417,7 +417,7 @@ static QFontDatabase::WritingSystem writingSystemFromLocale()
 
 QFontDatabase::WritingSystem writingSystemForFont(const QFont &font, bool *hasLatin)
 {
-	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
+	const QFontDatabase& fontDb = ScQApp->qtFontDatabase();
 	QList<QFontDatabase::WritingSystem> writingSystems = fontDb.writingSystems(font.family());
 
 	// this just confuses the algorithm below. Vietnamese is Latin with lots of special chars
@@ -458,7 +458,7 @@ QFontDatabase::WritingSystem writingSystemForFont(const QFont &font, bool *hasLa
 
 const ScFace& getScFace(const QString& className, const QString& text)
 {
-	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
+	const QFontDatabase& fontDb = ScQApp->qtFontDatabase();
 	SCFonts& availableFonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
 
 	// Handle FontComboH class witch has only Family names in the combo class.
@@ -669,7 +669,7 @@ FontComboValidator::FontComboValidator(QObject* parent)
 
 QValidator::State FontComboValidator::validate(QString & input, int & pos) const
 {
-	QComboBox* comboBox = qobject_cast<QComboBox*>(this->parent());
+	const QComboBox* comboBox = qobject_cast<QComboBox*>(this->parent());
 	if (!comboBox)
 		return QValidator::Invalid;
 
