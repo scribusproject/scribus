@@ -1672,9 +1672,6 @@ bool PrefsManager::writePref(const QString& filePath)
 		pgst.setAttribute("FirstPage", pageSet.FirstPage);
 		pgst.setAttribute("Rows", pageSet.Rows);
 		pgst.setAttribute("Columns", pageSet.Columns);
-//		pgst.setAttribute("GapHorizontal", pageSet.GapHorizontal);
-//		pgst.setAttribute("GapVertical", pageSet.GapVertical);
-//		pgst.setAttribute("GapBelow", pageSet.GapBelow);
 		for (const QString& pageName : pageSet.pageNames)
 		{
 			QDomElement pgstN = docu.createElement("PageNames");
