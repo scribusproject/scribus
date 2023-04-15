@@ -10,7 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include <QWidget>
 #include "scribusapi.h"
 #include "ui_spiralwidgetbase.h"
-struct toolPrefs;
+
+struct ItemToolPrefs;
 
 class SCRIBUS_API SpiralWidget : public QWidget, Ui::SpiralWidgetBase
 {
@@ -20,8 +21,8 @@ class SCRIBUS_API SpiralWidget : public QWidget, Ui::SpiralWidgetBase
 		SpiralWidget(QWidget* parent);
 		~SpiralWidget() {};
 
-		void restoreDefaults(struct ItemToolPrefs *prefsData);
-		void saveGuiToPrefs(struct ItemToolPrefs *prefsData);
+		void restoreDefaults(const ItemToolPrefs *prefsData);
+		void saveGuiToPrefs(ItemToolPrefs *prefsData);
 
 	protected slots:
 		void updatePreview();

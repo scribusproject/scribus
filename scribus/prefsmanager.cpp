@@ -1167,7 +1167,7 @@ bool PrefsManager::isToolColor(const QString& name) const
 	return isToolColor(appPrefs.itemToolPrefs, name);
 }
 
-bool PrefsManager::isToolColor(const struct ItemToolPrefs& settings, const QString& name)
+bool PrefsManager::isToolColor(const ItemToolPrefs& settings, const QString& name)
 {
 	if (settings.calligraphicPenLineColor == name)
 		return true;
@@ -1199,7 +1199,7 @@ QStringList PrefsManager::toolColorNames() const
 	return toolColorNames(appPrefs.itemToolPrefs);
 }
 
-QStringList PrefsManager::toolColorNames(const struct ItemToolPrefs& settings)
+QStringList PrefsManager::toolColorNames(const ItemToolPrefs& settings)
 {
 	QStringList names;
 	names.append(settings.textColor);
@@ -1231,7 +1231,7 @@ void PrefsManager::replaceToolColors(const QMap<QString, QString>& replaceMap)
 	replaceToolColors(appPrefs.itemToolPrefs, replaceMap);
 }
 
-void PrefsManager::replaceToolColors(struct ItemToolPrefs& settings, const QMap<QString, QString>& replaceMap)
+void PrefsManager::replaceToolColors(ItemToolPrefs& settings, const QMap<QString, QString>& replaceMap)
 {
 	if (replaceMap.contains(settings.textColor))
 		settings.textColor = replaceMap[settings.textColor];
@@ -1262,7 +1262,7 @@ void PrefsManager::replaceToolResources(const ResourceCollection& newNames)
 	replaceToolResources(appPrefs.itemToolPrefs, newNames);
 }
 
-void PrefsManager::replaceToolResources(struct ItemToolPrefs& settings, const ResourceCollection& newNames)
+void PrefsManager::replaceToolResources(ItemToolPrefs& settings, const ResourceCollection& newNames)
 {
 	const auto& newFonts = newNames.fonts();
 
