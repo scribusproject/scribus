@@ -503,7 +503,7 @@ void ScAnnot::IPlace()
 		m_item->setImageXYScale(1.0, 1.0);
 		m_item->setImageXYOffset((m_item->width() - w) * dia->IcPlaceX, (m_item->height() - h) * dia->IcPlaceY);
 	}
-	else if (dia->ScaleH->currentIndex() == 0)
+	else if (dia->scaleH() == 0)
 	{
 		m_item->setImageXYScale(sc, sc);
 		m_item->setImageXYOffset(((m_item->width() - w * sc) / sc) / 2.0 / sc, ((m_item->height() - h * sc) / sc) / 2.0 / sc);
@@ -513,8 +513,8 @@ void ScAnnot::IPlace()
 		m_item->setImageXYScale(sw, sh);
 		m_item->setImageXYOffset(0.0, 0.0);
 	}
-	m_annotation.setIPlace(dia->Place->currentIndex());
-	m_annotation.setScaleW(dia->ScaleW->currentIndex());
+	m_annotation.setIPlace(dia->place());
+	m_annotation.setScaleW(dia->scaleW());
 }
 
 void ScAnnot::RemoveNIcon()

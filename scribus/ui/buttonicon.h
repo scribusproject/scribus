@@ -30,25 +30,15 @@ public:
 	ButtonIcon(QWidget* parent, PageItem* ite);
 	~ButtonIcon() {};
 
-	QLabel* TextLabel1_2;
-	QComboBox* Place;
-	QLabel* TextLabel1;
-	QComboBox* ScaleW;
-	QLabel* TextLabel2;
-	QComboBox* ScaleH;
-	QGroupBox* GroupButton;
-	QLabel* TextLabel3;
-	QSlider* SliderX;
-	QSlider* SliderY;
-	QPushButton* OK;
-	QPushButton* Cancel;
-	QPushButton* Reset;
-	PageItem* Item;
-	int IcPlace;
-	int IcScaleW;
-	int IcScaleH;
-	qreal IcPlaceX;
-	qreal IcPlaceY;
+	int IcPlace { 0 };
+	int IcScaleW { 0 };
+	int IcScaleH { 0 };
+	qreal IcPlaceX { 0.0 };
+	qreal IcPlaceY { 0.0 };
+
+	int place() const { return Place->currentIndex(); }
+	int scaleH() const { return ScaleH->currentIndex(); }
+	int scaleW() const { return ScaleW->currentIndex(); }
 
 private slots:
 	void MoveIconY(int y);
@@ -57,11 +47,21 @@ private slots:
 	void SetScaleHow(int s);
 
 protected:
-	QVBoxLayout* ButtonIconLayout;
-	QGridLayout* Layout1;
-	QHBoxLayout* Layout5;
-	QGridLayout* Layout3;
-	QHBoxLayout* Layout4;
+	PageItem* m_item { nullptr };
+
+	QLabel* TextLabel1_2 { nullptr };
+	QComboBox* Place { nullptr };
+	QLabel* TextLabel1 { nullptr };
+	QComboBox* ScaleW { nullptr };
+	QLabel* TextLabel2 { nullptr };
+	QComboBox* ScaleH { nullptr };
+	QGroupBox* GroupButton { nullptr };
+	QLabel* TextLabel3 { nullptr };
+	QSlider* SliderX { nullptr };
+	QSlider* SliderY { nullptr };
+	QPushButton* OK { nullptr };
+	QPushButton* Cancel { nullptr };
+	QPushButton* Reset { nullptr };
 };
 
 #endif // BUTTONICON_H

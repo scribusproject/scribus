@@ -35,7 +35,7 @@ protected:
 	void setCurrentItem(PageItem *item);
 	void changeEvent(QEvent *e) override;
 
-	quint64 featureFlags();
+	quint64 featureFlags() const;
 
 	PageItem* m_item { nullptr };
 	ScribusMainWindow* m_ScMW { nullptr };
