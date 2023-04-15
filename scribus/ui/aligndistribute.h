@@ -67,7 +67,7 @@ public slots:
 	void localeChange();
 
 protected:
-	ScribusView *currView;
+	ScribusView *currView { nullptr };
 
 	void changeEvent(QEvent *e) override;
 	

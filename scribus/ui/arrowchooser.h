@@ -21,7 +21,7 @@ public:
 	ArrowChooser(QWidget* pa, ArrowDirection direction = ArrowDirection::StartArrow);
 	~ArrowChooser() {};
 
-	void rebuildList(QList<ArrowDesc> *arrowStyles);
+	void rebuildList(const QList<ArrowDesc> *arrowStyles);
 	void setArrowDirection(ArrowDirection direction);
 
 private:

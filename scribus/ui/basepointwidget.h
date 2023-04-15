@@ -28,7 +28,7 @@ public:
 	  3 => bottom left
 	  4 => bottom right
 	  */
-	int checkedId();
+	int checkedId() const;
 	void setCheckedId(int id);
 	void paintEvent(QPaintEvent *e);
 	void mousePressEvent(QMouseEvent *m);
@@ -36,10 +36,10 @@ public:
 	void mouseMoveEvent(QMouseEvent *m);
 	void leaveEvent(QEvent*);
 private:
-	int m_mode;
-	int selectedBase;
-	int hooveredBase;
-	bool Mpressed;
+	int m_mode { 0 };
+	int m_selectedBase { 0 };
+	int m_hooveredBase { -1 };
+	bool m_mousePressed { false };
 signals:
 	void buttonClicked(int);
 };

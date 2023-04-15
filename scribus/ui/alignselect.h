@@ -25,16 +25,16 @@ public:
 	~AlignSelect() {};
 
 	void setStyle(int s, int d);
-	int getStyle();
-	int selectedId();
+	int getStyle() const;
+	int selectedId() const;
 
-	QButtonGroup* buttonGroup;
-	int selected;
-	QToolButton* TextL;
-	QToolButton* TextR;
-	QToolButton* TextC;
-	QToolButton* TextB;
-	QToolButton* TextF;
+	int selected { 0 };
+	QButtonGroup* buttonGroup { nullptr };
+	QToolButton* TextL { nullptr };
+	QToolButton* TextR { nullptr };
+	QToolButton* TextC { nullptr };
+	QToolButton* TextB { nullptr };
+	QToolButton* TextF { nullptr };
 
 public slots:
 	void iconSetChange();
@@ -42,7 +42,7 @@ public slots:
 	void setTypeStyle(int a);
 
 protected:
-	QHBoxLayout* GroupAlignLayout;
+	QHBoxLayout* GroupAlignLayout { nullptr };
 
 	void changeEvent(QEvent *e) override;
 

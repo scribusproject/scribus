@@ -29,7 +29,7 @@ class SCRIBUS_API ScAnnot : public QDialog, Ui::ScAnnot
 
 public:
 	ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view);
-	~ScAnnot();
+	~ScAnnot() = default;
 
 	void DecodeNum();
 	void DecodeVali();

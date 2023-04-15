@@ -435,7 +435,8 @@ void AlignDistributePalette::enableGuideButtons()
 		unitRatio = unitGetRatioFromIndex(currDoc->unitIndex());
 		precision = unitGetPrecisionFromIndex(currDoc->unitIndex());
 	}
-	bool setterH = true, setterV = true;
+	bool setterH = true;
+	bool setterV = true;
 	switch (guideDirection)
 	{
 		case -1:

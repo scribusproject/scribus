@@ -50,7 +50,7 @@ Annota::Annota(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view
 	setModal(true);
 	setWindowTitle( tr( "Annotation Properties" ) );
 
-	m_pageCount = m_doc->DocPages.count(),
+	m_pageCount = m_doc->DocPages.count();
 	m_width = static_cast<int>(m_doc->pageWidth());
 	m_height = static_cast<int>(m_doc->pageHeight());
 	m_oriWidth = static_cast<int>(m_doc->pageWidth());
@@ -268,17 +268,17 @@ void Annota::SetPage(double v)
 
 void Annota::SetCross()
 {
-	int x,y;
 	disconnect(navigator, SIGNAL(Coords(double,double)), this, SLOT(SetCoords(double,double)));
-	x = static_cast<int>(xSpin->value() / static_cast<double>(m_width) * navigator->pmx.width());
-	y = static_cast<int>(ySpin->value() / static_cast<double>(m_height) * navigator->pmx.height());
+	int x = static_cast<int>(xSpin->value() / static_cast<double>(m_width) * navigator->pmx.width());
+	int y = static_cast<int>(ySpin->value() / static_cast<double>(m_height) * navigator->pmx.height());
 	navigator->drawMark(x, y);
 	connect(navigator, SIGNAL(Coords(double,double)), this, SLOT(SetCoords(double,double)));
 }
 
 void Annota::SetValues()
 {
-	QString tmp, tmp2;
+	QString tmp;
+	QString tmp2;
 	m_item->annotation().setZiel(pageSpin->value() - 1);
 	if (m_view->m_doc->masterPageMode())
 		m_item->annotation().setType(typeCombo->currentIndex() + 11);

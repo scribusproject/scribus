@@ -730,9 +730,8 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 	QImage Ico(32, 32, QImage::Format_ARGB32_Premultiplied);
 	Ico.fill(0);
 	int count = 0;
-	qreal* AutoShapes;
 	FPointArray Path;
-	AutoShapes = getShapeData(nr, &count);
+	qreal* AutoShapes = getShapeData(nr, &count);
 	for (int i = 0; i < count - 3; i += 4)
 	{
 		if (AutoShapes[i] < 0)

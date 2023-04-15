@@ -16,8 +16,6 @@ for which a new license (GPL+exception) is in place.
 
 AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent)
 {
-	selected = 0;
-
 	IconManager& im = IconManager::instance();
 	buttonGroup = new QButtonGroup(this);
 
@@ -72,7 +70,7 @@ void AlignSelect::setStyle(int s, int d)
 		TextB->setIcon(IconManager::instance().loadIcon("16/format-justify-fill-block.png"));
 }
 
-int AlignSelect::getStyle()
+int AlignSelect::getStyle() const
 {
 	int ret = 0;
 	if (TextL->isChecked())
@@ -94,7 +92,7 @@ void AlignSelect::setTypeStyle(int a)
 	emit State(a);
 }
 
-int AlignSelect::selectedId()
+int AlignSelect::selectedId() const
 {
 	return selected;
 }

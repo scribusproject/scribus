@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QScopedPointer>
 #include <QSpacerItem>
 #include <QSpinBox>
 #include <QStackedWidget>
@@ -54,10 +55,10 @@ for which a new license (GPL+exception) is in place.
 ScAnnot::ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view) : QDialog(parent),
 	m_item(it),
 	m_doc(doc),
-	m_view(view)
+	m_view(view),
+	m_annotation(it->annotation())
 {
 	m_prefsCtxt = PrefsManager::instance().prefsFile->getContext("dirs");
-	m_annotation = it->annotation();
 
 	setupUi(this);
 	setModal(true);
@@ -108,10 +109,9 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* vi
 
 	// PFJ - 28/02/04 - Altered to the QString/size_t/for style
 	QString borders[] = { CommonStrings::tr_NoneColor, tr("Thin"), tr("Normal"), tr("Wide") };
-	size_t bordersArray = sizeof(borders) / sizeof(*borders);
 	BorderW->clear();
-	for (uint propagate = 0; propagate < bordersArray; ++propagate)
-		BorderW->addItem(borders[propagate]);
+	for (const QString& border : borders)
+		BorderW->addItem(border);
 	BorderW->setCurrentIndex(m_annotation.borderWidth());
 
 	BorderS->setCurrentIndex(m_annotation.borderStyle());
@@ -450,11 +450,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* vi
 
 	SetPage(qMin(SpinBox11->value(), MaxPages));
 	SetCross();
-	//resize( minimumSizeHint() );
 }
-
-ScAnnot::~ScAnnot()
-{}
 
 void ScAnnot::NewName()
 {
@@ -475,7 +471,7 @@ void ScAnnot::NewName()
 			allItems.append(currItem);
 		for (int j = 0; j < allItems.count(); j++)
 		{
-			PageItem* ite = allItems.at(j);
+			const PageItem* ite = allItems.at(j);
 			if ((NameNew == ite->itemName()) && (ite != m_item))
 			{
 				found = true;
@@ -493,33 +489,32 @@ void ScAnnot::NewName()
 
 void ScAnnot::IPlace()
 {
-	ButtonIcon* dia = new ButtonIcon(this, m_item);
-	if (dia->exec())
+	QScopedPointer<ButtonIcon, QScopedPointerDeleteLater> dia(new ButtonIcon(this, m_item));
+	if (!dia->exec())
+		return;
+
+	int w = m_item->pixm.width();
+	int h = m_item->pixm.height();
+	double sw = m_item->width() / w;
+	double sh = m_item->height() / h;
+	double sc = qMin(sw, sh);
+	if (dia->IcScaleH == 3)
 	{
-		int w = m_item->pixm.width();
-		int h = m_item->pixm.height();
-		double sw = m_item->width() / w;
-		double sh = m_item->height() / h;
-		double sc = qMin(sw, sh);
-		if (dia->IcScaleH == 3)
-		{
-			m_item->setImageXYScale(1.0, 1.0);
-			m_item->setImageXYOffset((m_item->width() - w) * dia->IcPlaceX, (m_item->height() - h) * dia->IcPlaceY);
-		}
-		else if (dia->ScaleH->currentIndex() == 0)
-		{
-			m_item->setImageXYScale(sc, sc);
-			m_item->setImageXYOffset(((m_item->width() - w * sc) / sc) / 2.0 / sc, ((m_item->height() - h * sc) / sc) / 2.0 / sc);
-		}
-		else
-		{
-			m_item->setImageXYScale(sw, sh);
-			m_item->setImageXYOffset(0.0, 0.0);
-		}
-		m_annotation.setIPlace(dia->Place->currentIndex());
-		m_annotation.setScaleW(dia->ScaleW->currentIndex());
+		m_item->setImageXYScale(1.0, 1.0);
+		m_item->setImageXYOffset((m_item->width() - w) * dia->IcPlaceX, (m_item->height() - h) * dia->IcPlaceY);
 	}
-	delete dia;
+	else if (dia->ScaleH->currentIndex() == 0)
+	{
+		m_item->setImageXYScale(sc, sc);
+		m_item->setImageXYOffset(((m_item->width() - w * sc) / sc) / 2.0 / sc, ((m_item->height() - h * sc) / sc) / 2.0 / sc);
+	}
+	else
+	{
+		m_item->setImageXYScale(sw, sh);
+		m_item->setImageXYOffset(0.0, 0.0);
+	}
+	m_annotation.setIPlace(dia->Place->currentIndex());
+	m_annotation.setScaleW(dia->ScaleW->currentIndex());
 }
 
 void ScAnnot::RemoveNIcon()
@@ -645,62 +640,54 @@ void ScAnnot::GetRIcon()
 
 void ScAnnot::SelectFelder()
 {
-	SelectFields* dia = new SelectFields(this, CalcFields->text(), m_item->itemName(), m_view->m_doc, 3);
-	if (dia->exec())
-		CalcFields->setText(dia->S_Fields);
-	delete dia;
+	QScopedPointer<SelectFields, QScopedPointerDeleteLater> dia(new SelectFields(this, CalcFields->text(), m_item->itemName(), m_view->m_doc, 3));
+	if (!dia->exec())
+		return;
+	CalcFields->setText(dia->S_Fields);
 }
 
 void ScAnnot::editKeySc()
 {
-	Editor* dia = new Editor(this, m_annotation.K_act(), m_view);
-	if (dia->exec())
-	{
-		m_annotation.setK_act(dia->EditTex->toPlainText());
-		KeyScript->setPlainText( m_annotation.K_act() );
-	}
-	delete dia;
+	QScopedPointer<Editor, QScopedPointerDeleteLater> dia(new Editor(this, m_annotation.K_act(), m_view));
+	if (!dia->exec())
+		return;
+	m_annotation.setK_act(dia->EditTex->toPlainText());
+	KeyScript->setPlainText( m_annotation.K_act() );
 }
 
 void ScAnnot::editFormatSc()
 {
-	Editor* dia = new Editor(this, m_annotation.F_act(), m_view);
-	if (dia->exec())
-	{
-		m_annotation.setF_act(dia->EditTex->toPlainText());
-		FormatScript->setPlainText( m_annotation.F_act() );
-	}
-	delete dia;
+	QScopedPointer<Editor, QScopedPointerDeleteLater> dia(new Editor(this, m_annotation.F_act(), m_view));
+	if (!dia->exec())
+		return;
+	m_annotation.setF_act(dia->EditTex->toPlainText());
+	FormatScript->setPlainText( m_annotation.F_act() );
 }
 
 void ScAnnot::editValidSc()
 {
-	Editor* dia = new Editor(this, m_annotation.V_act(), m_view);
-	if (dia->exec())
-	{
-		m_annotation.setV_act(dia->EditTex->toPlainText());
-		ValidScript->setPlainText( m_annotation.V_act() );
-	}
-	delete dia;
+	QScopedPointer<Editor, QScopedPointerDeleteLater> dia(new Editor(this, m_annotation.V_act(), m_view));
+	if (!dia->exec())
+		return;
+	m_annotation.setV_act(dia->EditTex->toPlainText());
+	ValidScript->setPlainText( m_annotation.V_act() );
 }
 
 void ScAnnot::editCalcSc()
 {
-	Editor* dia = new Editor(this, m_annotation.C_act(), m_view);
-	if (dia->exec())
-	{
-		m_annotation.setC_act(dia->EditTex->toPlainText());
-		CalcScript->setPlainText( m_annotation.C_act() );
-	}
-	delete dia;
+	QScopedPointer<Editor, QScopedPointerDeleteLater> dia(new Editor(this, m_annotation.C_act(), m_view));
+	if (!dia->exec())
+		return;
+	m_annotation.setC_act(dia->EditTex->toPlainText());
+	CalcScript->setPlainText( m_annotation.C_act() );
 }
 
 void ScAnnot::editJavaSc()
 {
-	Editor* dia = new Editor(this, EditJava->toPlainText(), m_view);
-	if (dia->exec())
-		EditJava->setPlainText(dia->EditTex->toPlainText());
-	delete dia;
+	QScopedPointer<Editor, QScopedPointerDeleteLater> dia(new Editor(this, EditJava->toPlainText(), m_view));
+	if (!dia->exec())
+		return;
+	EditJava->setPlainText(dia->EditTex->toPlainText());
 }
 
 void ScAnnot::setDateSample(const QString& ds)
@@ -749,8 +736,8 @@ void ScAnnot::setDateSample(const QString& ds)
 void ScAnnot::DecodeVali()
 {
 	QString pfor = m_annotation.V_act();
-	int ss = pfor.indexOf("(");
-	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
+	qsizetype ss = pfor.indexOf("(");
+	QString pfo = pfor.mid(ss + 1, pfor.length() - ss - 2);
 	QStringList pfol;
 	pfol = pfo.split(",", Qt::SkipEmptyParts);
 	MinValid->setText(pfol[1].simplified());
@@ -762,18 +749,17 @@ void ScAnnot::DecodeCalc()
 	QString tm;
 	QString tm2;
 	QString pfor = m_annotation.C_act();
-	int ss = pfor.lastIndexOf("(");
-	QString pfo = pfor.mid(ss+1, pfor.length()-ss-3);
-	QStringList pfol;
-	pfol = pfo.split(",", Qt::SkipEmptyParts);
+	qsizetype ss = pfor.lastIndexOf("(");
+	QString pfo = pfor.mid(ss + 1, pfor.length() - ss - 3);
+	QStringList pfol = pfo.split(",", Qt::SkipEmptyParts);
 	if (pfol.count() > 1)
 	{
 		tm2 = pfol[0].simplified();
 		tm += tm2.mid(1, tm2.length() - 2);
-		for (int cfx = 1; cfx < pfol.count(); ++cfx)
+		for (qsizetype cfx = 1; cfx < pfol.count(); ++cfx)
 		{
 			tm2 = pfol[cfx].simplified();
-			tm += ", "+tm2.mid(1, tm2.length()-2);
+			tm += ", " + tm2.mid(1, tm2.length() - 2);
 		}
 	}
 	CalcFields->setText(tm);
@@ -793,10 +779,9 @@ void ScAnnot::DecodeCalc()
 void ScAnnot::DecodeNum()
 {
 	QString pfor = m_annotation.F_act();
-	int ss = pfor.indexOf("(");
-	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
-	QStringList pfol;
-	pfol = pfo.split(",", Qt::SkipEmptyParts);
+	qsizetype ss = pfor.indexOf("(");
+	QString pfo = pfor.mid(ss + 1, pfor.length() - ss - 2);
+	QStringList pfol = pfo.split(",", Qt::SkipEmptyParts);
 	if (m_annotation.Format() == 1)
 	{
 		Decim->setValue(pfol[0].toInt());
@@ -826,9 +811,9 @@ void ScAnnot::DecodeNum()
 		if (pfol[4].length() > 2)
 		{
 			if (PreCurr->isChecked())
-				CurSym->setText(pfol[4].mid(2,pfol[4].length()-4));
+				CurSym->setText(pfol[4].mid(2, pfol[4].length() - 4));
 			else
-				CurSym->setText(pfol[4].mid(3,pfol[4].length()-4));
+				CurSym->setText(pfol[4].mid(3, pfol[4].length() - 4));
 		}
 		else
 			CurSym->setText("");
@@ -1063,10 +1048,9 @@ void ScAnnot::SetPage(int v)
 
 void ScAnnot::SetCross()
 {
-	int x, y;
 	disconnect(m_navig, SIGNAL(Coords(double,double)), this, SLOT(SetCoords(double,double)));
-	x = static_cast<int>(static_cast<double>(SpinBox21->value()) / static_cast<double>(Width) * m_navig->pmx.width());
-	y = static_cast<int>(static_cast<double>(SpinBox31->value()) / static_cast<double>(Height) * m_navig->pmx.height());
+	int x = static_cast<int>(static_cast<double>(SpinBox21->value()) / static_cast<double>(Width) * m_navig->pmx.width());
+	int y = static_cast<int>(static_cast<double>(SpinBox31->value()) / static_cast<double>(Height) * m_navig->pmx.height());
 	m_navig->drawMark(x, y);
 	connect(m_navig, SIGNAL(Coords(double,double)), this, SLOT(SetCoords(double,double)));
 }
@@ -1074,7 +1058,8 @@ void ScAnnot::SetCross()
 void ScAnnot::SetValues()
 {
 	bool AAct = false;
-	QString tmp, tmp2;
+	QString tmp;
+	QString tmp2;
 	QString Nfo;
 	
 	Annotation& annotation = m_item->annotation();
@@ -1189,10 +1174,10 @@ void ScAnnot::SetValues()
 			pfol = CalcFields->text().split(",", Qt::SkipEmptyParts);
 			if (pfol.count() > 1)
 			{
-				tmpCact += "\""+pfol[0].simplified()+"\"";
-				for (int cfx = 1; cfx < pfol.count(); cfx++)
+				tmpCact += "\"" + pfol[0].simplified() + "\"";
+				for (int cfx = 1; cfx < pfol.count(); ++cfx)
 				{
-					tmpCact += ", \""+pfol[cfx].simplified()+"\"";
+					tmpCact += ", \"" + pfol[cfx].simplified() + "\"";
 				}
 			}
 			tmpCact += "))";
@@ -1343,7 +1328,7 @@ void ScAnnot::SetAnnotationType(int it)
 	disconnect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActionType(int)));
 	disconnect(TxFormat, SIGNAL(activated(int)), this, SLOT(SetFoScript(int)));
 
-	Annotation& annotation = m_annotation;
+	const Annotation& annotation = m_annotation;
 	int tmpac = annotation.ActionType();
 	if ((tmpac == 7) || (tmpac == 9))
 		tmpac = 2;
@@ -1358,12 +1343,10 @@ void ScAnnot::SetAnnotationType(int it)
 	CText1->show();
 	ChkStil->show();
 	SelAction->clear();
-	QString tmp_selact[]={tr("Mouse Up"), tr("Mouse Down"), tr("Mouse Enter"),
-	                      tr("Mouse Exit"), tr("On Focus"), tr("On Blur")};
-	size_t array_sel = sizeof(tmp_selact) / sizeof(*tmp_selact);
-	/* PFJ - 28/02/04 - Altered from uint to int and varname */
-	for (uint prop = 0; prop < array_sel; ++prop)
-		SelAction->addItem(tmp_selact[prop]);
+	QString tmp_selact[] = { tr("Mouse Up"), tr("Mouse Down"), tr("Mouse Enter"),
+	                         tr("Mouse Exit"), tr("On Focus"), tr("On Blur")};
+	for (const QString& select : tmp_selact)
+		SelAction->addItem(select);
 	bool setter;
 	switch (sela)
 	{
@@ -1380,11 +1363,9 @@ void ScAnnot::SetAnnotationType(int it)
 			ActionCombo->clear();
 			QString tmp_actcom[] = {tr("None", "action"), tr("JavaScript"), tr("Go To"),
 									tr("Submit Form"), tr("Reset Form"), tr("Import Data"), tr("Named")};
-			size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
-			/* PFJ - 28/02/04 - Altered from uint to int and varname */
-			for (uint prop = 0; prop < array_act; ++prop)
-				ActionCombo->addItem(tmp_actcom[prop]);
-			ActionCombo->setCurrentIndex(qMin(tmpac,6));
+			for (const QString& actCom : tmp_actcom)
+				ActionCombo->addItem(actCom);
+			ActionCombo->setCurrentIndex(qMin(tmpac, 6));
 			setter = (annotation.ActionType() != Annotation::Action_GoToR_FileRel) && (annotation.ActionType() != Annotation::Action_GoToR_FileAbs);
 			Destfile->setEnabled(setter);
 			ChFile->setEnabled(setter);
@@ -1461,8 +1442,6 @@ void ScAnnot::SetExternLink()
 	{
 		m_annotation.setActionType(Annotation::Action_GoTo);
 		enable = false;
-		//		Destfile->setEnabled(false);
-		//		ChFile->setEnabled(false);
 		SetPage(qMin(SpinBox11->value(), MaxPages));
 	}
 	else
@@ -1472,8 +1451,6 @@ void ScAnnot::SetExternLink()
 		else
 			m_annotation.setActionType(Annotation::Action_GoToR_FileRel);
 		enable = true;
-		//		Destfile->setEnabled(true);
-		//		ChFile->setEnabled(true);
 		if (Destfile->text().isEmpty())
 		{
 			GetFile();
@@ -1481,8 +1458,6 @@ void ScAnnot::SetExternLink()
 			{
 				m_annotation.setActionType(Annotation::Action_GoTo);
 				enable = false;
-				//				Destfile->setEnabled(false);
-				//				ChFile->setEnabled(false);
 				LExtern->setChecked(false);
 			}
 		}
