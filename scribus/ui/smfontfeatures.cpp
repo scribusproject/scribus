@@ -397,7 +397,7 @@ void SMFontFeatures::hideAllFontFeatures()
 
 void SMFontFeatures::enableFontFeatures(const QStringList& fontFeatures)
 {
-	int featureFlags = FontFeatures::fontFlagsFromList(fontFeatures);
+	quint64 featureFlags = FontFeatures::fontFlagsFromList(fontFeatures);
 
 	hideAllFontFeatures();
 

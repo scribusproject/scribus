@@ -48,7 +48,7 @@ public:
 	BookMItem(QTreeWidget* parent, int nr, PageItem *PObject);
 	~BookMItem() {};
 
-	int level();
+	int level() const;
 	void setup(struct ScribusDoc::BookMa *Bm);
 	virtual QString key(int, bool) const;
 
@@ -82,7 +82,7 @@ public:
 
 	void addItem(const QString& text, const QString& Tit, PageItem *PageObject);
 	void deleteItem(PageItem *PageObject);
-	void setAction(PageItem *currItem, const QString& Act);
+	void setAction(const PageItem *currItem, const QString& Act);
 
 	int NrItems { 0 };
 	int First { 1 };

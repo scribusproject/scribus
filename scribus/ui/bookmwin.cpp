@@ -82,10 +82,10 @@ QString BookMItem::key(int, bool) const
 	return tmp;
 }
 
-int BookMItem::level()
+int BookMItem::level() const
 {
 	int ret = 0; // 0 = top level
-	QTreeWidgetItem * p = parent();
+	const QTreeWidgetItem * p = parent();
 	while (p)
 	{
 		++ret;
@@ -172,7 +172,7 @@ void BookmarkView::rebuildTree()
 	QTreeWidgetItemIterator it1(this, QTreeWidgetItemIterator::All);
 	while (*it1)
 	{
-		BookMItem * currItem = (BookMItem*)(*it1);
+		auto* currItem = (BookMItem*) (*it1);
 		currItem->ItemNr = ++Last;
 		++it1;
 	}
@@ -181,13 +181,14 @@ void BookmarkView::rebuildTree()
 	QTreeWidgetItemIterator it2(this, QTreeWidgetItemIterator::All);
 	while (*it2)
 	{
-		BookMItem * currItem = (BookMItem*)(*it2);
+		auto* currItem = (BookMItem*) (*it2);
 		// handle parents
-		BookMItem * parent = (BookMItem*)currItem->parent();
+		const auto* parent = (BookMItem*) currItem->parent();
 		currItem->Pare = parent ? parent->ItemNr : 0;
 		if (currItem->Pare == 0) // top level item
 		{
-			BookMItem *prev   = nullptr, *next = nullptr;
+			const BookMItem* prev = nullptr;
+			const BookMItem* next = nullptr;
 			int topLevelIndex = this->indexOfTopLevelItem(currItem);
 			if (topLevelIndex >= 0)
 			{
@@ -204,9 +205,11 @@ void BookmarkView::rebuildTree()
 		int childCount  = currItem->childCount();
 		if (childCount > 0)
 		{
-			BookMItem * child = nullptr, *prev = nullptr, *next = nullptr;
-			BookMItem * firstChild = (BookMItem*) currItem->child(0);
-			BookMItem * lastChild  = (BookMItem*) currItem->child(childCount - 1);
+			BookMItem* child = nullptr;
+			const BookMItem* prev = nullptr;
+			const BookMItem* next = nullptr;
+			const auto* firstChild = (BookMItem*) currItem->child(0);
+			const auto* lastChild = (BookMItem*) currItem->child(childCount - 1);
 			currItem->First = firstChild->ItemNr;
 			currItem->Last  = lastChild->ItemNr;
 			for (int i = 0; i < childCount; ++i)
@@ -229,7 +232,7 @@ void BookmarkView::rebuildTree()
 
 void BookmarkView::addItem(const QString& text, const QString& Tit, PageItem *PageObject)
 {
-	BookMItem* ite = new BookMItem(this, NrItems + 1, PageObject);
+	auto* ite = new BookMItem(this, NrItems + 1, PageObject);
 	ite->setText(0, text);
 	ite->Title = Tit;
 	rebuildTree();
@@ -252,7 +255,7 @@ void BookmarkView::deleteItem(PageItem *pObject)
 	rebuildTree();
 }
 
-void BookmarkView::setAction(PageItem *currItem, const QString& Act)
+void BookmarkView::setAction(const PageItem *currItem, const QString& Act)
 {
 	BookMItem *ite;
 	QTreeWidgetItemIterator it(this);

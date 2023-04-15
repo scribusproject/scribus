@@ -526,7 +526,7 @@ void PropertyWidget_FontFeatures::enableFeatures(const QStringList& fontFeatures
 		emit needsRelayout();
 }
 
-quint64 PropertyWidget_FontFeatures::featureFlags()
+quint64 PropertyWidget_FontFeatures::featureFlags() const
 {
 	quint64 flags = 0;
 
