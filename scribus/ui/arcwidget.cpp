@@ -72,7 +72,7 @@ void ArcWidget::updatePreview()
 	const QColor& textColor = palette.color(QPalette::Text);
 	const QColor& windowColor = palette.color(QPalette::Base);
 
-	QPixmap pm = QPixmap(pixWidth * devicePixelRatioF(), pixHeight * devicePixelRatioF());
+	QPixmap pm(pixWidth * devicePixelRatioF(), pixHeight * devicePixelRatioF());
 	pm.setDevicePixelRatio(devicePixelRatioF());
 	pm.fill(windowColor);
 

@@ -102,7 +102,7 @@ void PolygonWidget::connectSignals(bool conn)
 }
 
 
-void PolygonWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
+void PolygonWidget::restoreDefaults(const ItemToolPrefs *prefsData)
 {
 	connectSignals(false);
 	PFactor = prefsData->polyFactor;
@@ -124,7 +124,7 @@ void PolygonWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
 	connectSignals(true);
 }
 
-void PolygonWidget::saveGuiToPrefs(struct ItemToolPrefs *prefsData)
+void PolygonWidget::saveGuiToPrefs(ItemToolPrefs *prefsData)
 {
 	prefsData->polyCorners = cornersSpinBox->value();
 	prefsData->polyFactor = PFactor;

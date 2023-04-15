@@ -46,7 +46,7 @@ void SpiralWidget::connectSignals(bool conn)
 }
 
 
-void SpiralWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
+void SpiralWidget::restoreDefaults(const ItemToolPrefs *prefsData)
 {
 	connectSignals(false);
 	startAngle->setValue(prefsData->spiralStartAngle);
@@ -56,7 +56,7 @@ void SpiralWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
 	connectSignals(true);
 }
 
-void SpiralWidget::saveGuiToPrefs(struct ItemToolPrefs *prefsData)
+void SpiralWidget::saveGuiToPrefs(ItemToolPrefs *prefsData)
 {
 	prefsData->spiralStartAngle = startAngle->value();
 	prefsData->spiralEndAngle = endAngle->value();

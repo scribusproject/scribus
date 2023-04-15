@@ -10,7 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include <QWidget>
 #include "scribusapi.h"
 #include "ui_polygonwidgetbase.h"
-struct toolPrefs;
+
+struct ItemToolPrefs;
+
 class SCRIBUS_API PolygonWidget : public QWidget, Ui::PolygonWidgetBase
 {
 	Q_OBJECT
@@ -22,8 +24,8 @@ class SCRIBUS_API PolygonWidget : public QWidget, Ui::PolygonWidgetBase
 
 		void setValues(int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
 		void getValues(int* polyCorners, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature, double* polyInnerRot, double* polyOuterCurvature);
-		void restoreDefaults(struct ItemToolPrefs *prefsData);
-		void saveGuiToPrefs(struct ItemToolPrefs *prefsData);
+		void restoreDefaults(const ItemToolPrefs *prefsData);
+		void saveGuiToPrefs(ItemToolPrefs *prefsData);
 
 	protected slots:
 		void setFactorSlider(double a);
