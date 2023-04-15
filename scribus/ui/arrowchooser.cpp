@@ -30,7 +30,7 @@ void ArrowChooser::setArrowDirection(ArrowDirection direction)
 	m_arrowDirection = direction;
 }
 
-void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
+void ArrowChooser::rebuildList(const QList<ArrowDesc> *arrowStyles)
 {
 	FPointArray path;
 

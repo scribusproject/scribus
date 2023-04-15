@@ -223,12 +223,11 @@ void AlignDistributePalette::iconSetChange()
 
 void AlignDistributePalette::unitChange()
 {
-	if (currDoc != nullptr)
-	{
-		unitRatio = unitGetRatioFromIndex(currDoc->unitIndex());
-		distributeDistSpinBox->setNewUnit(currDoc->unitIndex());
-		enableGuideButtons();
-	}
+	if (currDoc == nullptr)
+		return;
+	unitRatio = unitGetRatioFromIndex(currDoc->unitIndex());
+	distributeDistSpinBox->setNewUnit(currDoc->unitIndex());
+	enableGuideButtons();
 }
 
 void AlignDistributePalette::setDoc(ScribusDoc* newDoc)
@@ -358,7 +357,6 @@ void AlignDistributePalette::distributeDistDownMargins()
 		currDoc->itemSelection_DistributeDownPage(true);
 }
 
-
 void AlignDistributePalette::distributeBottom()
 {
 	if (currDoc != nullptr)
@@ -440,7 +438,8 @@ void AlignDistributePalette::enableGuideButtons()
 		unitRatio = unitGetRatioFromIndex(currDoc->unitIndex());
 		precision = unitGetPrecisionFromIndex(currDoc->unitIndex());
 	}
-	bool setterH = true, setterV = true;
+	bool setterH = true;
+	bool setterV = true;
 	switch (guideDirection)
 	{
 		case -1:
@@ -472,7 +471,7 @@ void AlignDistributePalette::enableGuideButtons()
 	alignLeftInToolButton->setEnabled(setterV);
 	alignLeftOutToolButton->setEnabled(setterO);
 	alignRightInToolButton->setEnabled(setterV);
-	alignRightOutToolButton->setEnabled(setterO);	
+	alignRightOutToolButton->setEnabled(setterO);
 	alignCenterHorToolButton->setEnabled(setterV);
 
 	alignTopInToolButton->setEnabled(setterH);

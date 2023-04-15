@@ -43,7 +43,7 @@ void ArcWidget::connectSignals(bool conn)
 }
 
 
-void ArcWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
+void ArcWidget::restoreDefaults(const ItemToolPrefs *prefsData)
 {
 	connectSignals(false);
 	startAngle->setValue(prefsData->arcStartAngle);
@@ -52,7 +52,7 @@ void ArcWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
 	connectSignals(true);
 }
 
-void ArcWidget::saveGuiToPrefs(struct ItemToolPrefs *prefsData)
+void ArcWidget::saveGuiToPrefs(ItemToolPrefs *prefsData)
 {
 	prefsData->arcStartAngle = startAngle->value();
 	double nSweep = endAngle->value() - startAngle->value();

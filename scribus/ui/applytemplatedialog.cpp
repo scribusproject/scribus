@@ -153,7 +153,7 @@ void ApplyMasterPageDialog::setup(ScribusDoc *doc, const QString& Nam)
 	QString in;
 
 	int cc = 0;
-	for (QMap<QString,int>::Iterator it = doc->MasterNames.begin(); it != doc->MasterNames.end(); ++it)
+	for (auto it = doc->MasterNames.cbegin(); it != doc->MasterNames.cend(); ++it)
 	{
 		in = (it.key() == CommonStrings::masterPageNormal) ? CommonStrings::trMasterPageNormal : it.key();
 		masterPageComboBox->addItem(in, it.key());

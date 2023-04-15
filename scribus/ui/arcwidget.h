@@ -19,8 +19,9 @@ class SCRIBUS_API ArcWidget : public QWidget, Ui::ArcWidgetBase
 	public:
 		ArcWidget(QWidget* parent);
 		~ArcWidget() {};
-		void restoreDefaults(struct ItemToolPrefs *prefsData);
-		void saveGuiToPrefs(struct ItemToolPrefs *prefsData);
+
+		void restoreDefaults(const ItemToolPrefs *prefsData);
+		void saveGuiToPrefs(ItemToolPrefs *prefsData);
 
 	protected slots:
 		void updatePreview();
