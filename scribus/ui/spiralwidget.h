@@ -10,7 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include <QWidget>
 #include "scribusapi.h"
 #include "ui_spiralwidgetbase.h"
-struct toolPrefs;
+
+struct ItemToolPrefs;
 
 class SCRIBUS_API SpiralWidget : public QWidget, Ui::SpiralWidgetBase
 {
