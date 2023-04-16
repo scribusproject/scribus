@@ -158,6 +158,21 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	connect(Reset, SIGNAL(clicked()), this, SLOT(SetAllVals()));
 }
 
+int ButtonIcon::place() const
+{
+	return Place->currentIndex();
+}
+
+int ButtonIcon::scaleH() const
+{
+	return ScaleH->currentIndex();
+}
+
+int ButtonIcon::scaleW() const
+{
+	return ScaleW->currentIndex();
+}
+
 void ButtonIcon::MoveIconY(int y)
 {
 	TextLabel3->setGeometry(QRect(static_cast<int>(SliderX->value() / 1000.0 * 100),
