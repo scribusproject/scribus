@@ -36,9 +36,9 @@ public:
 	qreal IcPlaceX { 0.0 };
 	qreal IcPlaceY { 0.0 };
 
-	int place() const { return Place->currentIndex(); }
-	int scaleH() const { return ScaleH->currentIndex();  }
-	int scaleW() const { return ScaleW->currentIndex();  }
+	int place() const;
+	int scaleH() const;
+	int scaleW() const;
 
 private slots:
 	void MoveIconY(int y);
