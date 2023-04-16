@@ -6,21 +6,21 @@ for which a new license (GPL+exception) is in place.
 */
 #include "buttonicon.h"
 
-#include <QPixmap>
-#include <QGridLayout>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QSpacerItem>
 #include <QComboBox>
+#include <QGridLayout>
 #include <QGroupBox>
-#include <QSlider>
-#include <QPushButton>
+#include <QHBoxLayout>
 #include <QLabel>
+#include <QPixmap>
+#include <QPushButton>
+#include <QSlider>
+#include <QSpacerItem>
+#include <QVBoxLayout>
 
+#include "iconmanager.h"
+#include "pageitem.h"
 #include "scfonts.h"
 #include "scribusstructs.h"
-#include "pageitem.h"
-#include "iconmanager.h"
 
 ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	: QDialog(parent),
