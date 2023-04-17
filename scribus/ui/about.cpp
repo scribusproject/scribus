@@ -684,7 +684,7 @@ QString About::generateBuildInfo()
 	buildText.append("<br>");
 	buildText.append(tr("Harfbuzz: %1").arg(HB_VERSION_STRING));
 	buildText.append("<br>");
-	buildText.append(tr("littlcms: %1").arg(LCMS_VERSION));
+	buildText.append(tr("littlecms: %1").arg(LCMS_VERSION));
 	buildText.append("<br>");
 	QString podofoVersion;
 #ifdef HAVE_PODOFO
