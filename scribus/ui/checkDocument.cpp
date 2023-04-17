@@ -32,10 +32,9 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 // readable constants for QTreeWidgetItem column ids
-#define COLUMN_ITEM 0
-#define COLUMN_PROBLEM 1
-#define COLUMN_LAYER 2
-// #define COLUMN_INFO 3
+constexpr int COLUMN_ITEM = 0;
+constexpr int COLUMN_PROBLEM = 1;
+constexpr int COLUMN_LAYER = 2;
 
 CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	: ScrPaletteBase( parent, "checkDocument", modal )
@@ -191,9 +190,8 @@ void CheckDocument::setDoc(ScribusDoc *doc)
 {
 	m_Doc = doc;
 	clearErrorList();
-	CheckerPrefsList::Iterator it;
-	CheckerPrefsList::Iterator itend=doc->checkerProfiles().end();
-	for (it = doc->checkerProfiles().begin(); it != itend ; ++it)
+	CheckerPrefsList::Iterator itend = doc->checkerProfiles().end();
+	for (auto it = doc->checkerProfiles().begin(); it != itend ; ++it)
 		curCheckProfile->addItem(it.key());
 	setCurrentComboItem(curCheckProfile, doc->curCheckProfile());
 }
@@ -396,7 +394,7 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 			break;
 		default:
 			break;
-	};
+	}
 	// additional information
 	const ScLayer* layer = m_Doc->Layers.layerByID(pageItem->m_layerID);
 	if (layer)
@@ -408,7 +406,6 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 
 void CheckDocument::buildErrorList(ScribusDoc *doc)
 {
-// 	bool resultError = false;
 	m_Doc = doc;
 	disconnect(curCheckProfile, SIGNAL(textActivated(QString)), this, SLOT(newScan(QString)));
 	curCheckProfile->clear();
@@ -420,9 +417,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	minResDPI = qRound(doc->checkerProfiles()[doc->curCheckProfile()].minResolution);
 	maxResDPI = qRound(doc->checkerProfiles()[doc->curCheckProfile()].maxResolution);
 	
-	CheckerPrefsList::Iterator it;
 	CheckerPrefsList::Iterator itend = doc->checkerProfiles().end();
-	for (it = doc->checkerProfiles().begin(); it != itend; ++it)
+	for (auto it = doc->checkerProfiles().begin(); it != itend; ++it)
 		curCheckProfile->addItem(it.key());
 	setCurrentComboItem(curCheckProfile, doc->curCheckProfile());
 	if (!doc->hasPreflightErrors()
@@ -441,7 +437,6 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		bool layoutGraveError = false;
 		itemError = false;
 
-
 		// MARKS ***********************************************
 		if (doc->notesChanged())
 		{
@@ -455,17 +450,14 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		QTreeWidgetItem * layerItem = new QTreeWidgetItem(reportDisplay);
 		layerItem->setText(COLUMN_ITEM, tr("Layers"));
 
-		if (doc->docLayerErrors.count() != 0)
+		if (!doc->docLayerErrors.isEmpty())
 		{
-			QMap<int, errorCodes>::Iterator docLayerErrorsIt;
-			errorCodes::Iterator layerErrorsIt;
-
-			for (docLayerErrorsIt = doc->docLayerErrors.begin();
+			for (auto docLayerErrorsIt = doc->docLayerErrors.begin();
 				 docLayerErrorsIt != doc->docLayerErrors.end();
 				 ++docLayerErrorsIt)
 			{
 				QTreeWidgetItem * layer = new QTreeWidgetItem(layerItem);
-				for (layerErrorsIt = docLayerErrorsIt.value().begin();
+				for (auto layerErrorsIt = docLayerErrorsIt.value().begin();
 					 layerErrorsIt != docLayerErrorsIt.value().end(); ++layerErrorsIt)
 				{
 					QTreeWidgetItem * errorText = new QTreeWidgetItem( layer, 0 );
@@ -521,8 +513,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				masterPageMap.insert(page, masterPage);
 			}
 
-			QMap<PageItem*, errorCodes>::Iterator masterItemErrorsIt;
-			for (masterItemErrorsIt = doc->masterItemErrors.begin();
+			for (auto masterItemErrorsIt = doc->masterItemErrors.begin();
 				 masterItemErrorsIt != doc->masterItemErrors.end();
 				 ++masterItemErrorsIt)
 			{
@@ -541,16 +532,15 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				QTreeWidgetItem* object = new QTreeWidgetItem(page);
 				masterPageItemMap.insert(object, masterItem);
 				object->setText(COLUMN_ITEM, masterItem->itemName());
-				errorCodes::Iterator it3;
 				if (masterItemErrorsIt.value().count() == 1)
 				{
-					it3 = masterItemErrorsIt.value().begin();
+					auto it3 = masterItemErrorsIt.value().begin();
 					buildItem(object, it3.key(), masterItem);
 					posMap.insert(object, it3.value());
 				}
 				else
 				{
-					for (it3 = masterItemErrorsIt.value().begin(); it3 != masterItemErrorsIt.value().end(); ++it3)
+					for (auto it3 = masterItemErrorsIt.value().begin(); it3 != masterItemErrorsIt.value().end(); ++it3)
 					{
 						QTreeWidgetItem* errorText = new QTreeWidgetItem(object, 0);
 						buildItem(errorText, it3.key(), masterItem);
@@ -592,15 +582,14 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			QString tmp;
 			hasError = false;
 			pageGraveError = false;
-			QTreeWidgetItem * page=nullptr;
+			QTreeWidgetItem* page = nullptr;
 			if (showPagesWithoutErrors)
 			{
 				page = new QTreeWidgetItem( reportDisplay);
 				pageMap.insert(page, doc->DocPages.at(aPage));
 			}
 
-			QMap<int, errorCodes>::Iterator pageErrorsIt;
-			for (pageErrorsIt = doc->pageErrors.begin();
+			for (auto pageErrorsIt = doc->pageErrors.begin();
 				 pageErrorsIt != doc->pageErrors.end();
 				 ++pageErrorsIt)
 			{
@@ -621,8 +610,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				++pageErrorCount;
 			}
 
-			QMap<PageItem*, errorCodes>::Iterator docItemErrorsIt;
-			for (docItemErrorsIt = doc->docItemErrors.begin();
+			for (auto docItemErrorsIt = doc->docItemErrors.begin();
 				 docItemErrorsIt != doc->docItemErrors.end();
 				 ++docItemErrorsIt)
 			{
@@ -642,17 +630,16 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				QTreeWidgetItem* object = new QTreeWidgetItem(page);
 				object->setText(COLUMN_ITEM, pageItem->itemName());
 				itemMap.insert(object, pageItem);
-				errorCodes::Iterator it3;
 				if (docItemErrorsIt.value().count() == 1)
 				{
-					it3 = docItemErrorsIt.value().begin();
+					auto it3 = docItemErrorsIt.value().begin();
 					buildItem(object, it3.key(), pageItem);
 					posMap.insert(object, it3.value());
 					++pageErrorCount;
 				}
 				else
 				{
-					for (it3 = docItemErrorsIt.value().begin(); it3 != docItemErrorsIt.value().end(); ++it3)
+					for (auto it3 = docItemErrorsIt.value().begin(); it3 != docItemErrorsIt.value().end(); ++it3)
 					{
 						QTreeWidgetItem* errorText = new QTreeWidgetItem(object);
 						buildItem(errorText, it3.key(), pageItem);
@@ -687,9 +674,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		// END of PAGES
 
 		// FREE ITEMS **************************************************
-		QMap<PageItem*, errorCodes>::Iterator freeItemsErrorsIt;
 		bool hasfreeItems = false;
-		for (freeItemsErrorsIt = doc->docItemErrors.begin(); freeItemsErrorsIt != doc->docItemErrors.end(); ++freeItemsErrorsIt)
+		for (auto freeItemsErrorsIt = doc->docItemErrors.begin(); freeItemsErrorsIt != doc->docItemErrors.end(); ++freeItemsErrorsIt)
 		{
 			if (doc->OnPage(freeItemsErrorsIt.key()) == -1)
 			{
@@ -702,7 +688,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			bool hasError = false;
 			bool pageGraveError = false;
 			QTreeWidgetItem * freeItem = new QTreeWidgetItem( reportDisplay);
-			for (freeItemsErrorsIt = doc->docItemErrors.begin(); freeItemsErrorsIt != doc->docItemErrors.end(); ++freeItemsErrorsIt)
+			for (auto freeItemsErrorsIt = doc->docItemErrors.begin(); freeItemsErrorsIt != doc->docItemErrors.end(); ++freeItemsErrorsIt)
 			{
 				if (doc->OnPage(freeItemsErrorsIt.key()) == -1)
 				{
@@ -710,16 +696,15 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					QTreeWidgetItem * object = new QTreeWidgetItem(freeItem);
 					object->setText(0, freeItemsErrorsIt.key()->itemName());
 					itemMap.insert(object, freeItemsErrorsIt.key());
-					errorCodes::Iterator it3;
 					if (freeItemsErrorsIt.value().count() == 1)
 					{
-						it3 = freeItemsErrorsIt.value().begin();
+						auto it3 = freeItemsErrorsIt.value().begin();
 						buildItem(object, it3.key(), freeItemsErrorsIt.key());
 						posMap.insert(object, it3.value());
 					}
 					else
 					{
-						for (it3 = freeItemsErrorsIt.value().begin(); it3 != freeItemsErrorsIt.value().end(); ++it3)
+						for (auto it3 = freeItemsErrorsIt.value().begin(); it3 != freeItemsErrorsIt.value().end(); ++it3)
 						{
 							QTreeWidgetItem* errorText = new QTreeWidgetItem(object);
 							buildItem(errorText, it3.key(), freeItemsErrorsIt.key());
@@ -764,7 +749,7 @@ void CheckDocument::setIgnoreEnabled(bool state)
 	ignoreErrors->setVisible(state);
 }
 
-bool CheckDocument::isIgnoreEnabled()
+bool CheckDocument::isIgnoreEnabled() const
 {
 	return !noButton;
 }

@@ -9,9 +9,6 @@ for which a new license (GPL+exception) is in place.
 #include <algorithm>
 #include <cmath>
 
-//#define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
-
-
 VisionDefectColor::VisionDefectColor(int r, int g, int b)
 {
 	m_red = (double)r;

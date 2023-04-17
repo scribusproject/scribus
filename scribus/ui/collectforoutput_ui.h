@@ -14,20 +14,19 @@ for which a new license (GPL+exception) is in place.
 class CollectForOutput_UI : public CollectForOutput
 {
 	Q_OBJECT
-	public:
-	CollectForOutput_UI(QWidget *parent, ScribusDoc* doc, const QString& outputDirectory=QString(), bool withFonts=false, bool withProfiles=false, bool compressDoc=false);
-	virtual QString collect(QString &newFileName);
 
-	signals:
+	public:
+		CollectForOutput_UI(QWidget *parent, ScribusDoc* doc, const QString& outputDirectory=QString(), bool withFonts=false, bool withProfiles=false, bool compressDoc=false);
+		virtual QString collect(QString &newFileName);
 
 	protected slots:
-	void collectedFonts(int);
-	void collectedItems(int);
-	void collectedPatterns(int);
-	void collectedProfiles(int);
+		void collectedFonts(int);
+		void collectedItems(int);
+		void collectedPatterns(int);
+		void collectedProfiles(int);
 
 	protected:
-	MultiProgressDialog* progressDialog;
+		MultiProgressDialog* progressDialog { nullptr };
 };
 
 #endif // COLLECTFOROUTPUT_UI_H

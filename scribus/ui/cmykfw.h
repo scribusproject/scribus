@@ -23,14 +23,14 @@ class SCRIBUS_API CMYKChoose : public QDialog, Ui::CMYKChooseBase
 	Q_OBJECT
 
 public:
-	CMYKChoose(QWidget* parent, ScribusDoc* doc, ScColor orig, const QString& name, ColorList *Colors, bool newCol );
+	CMYKChoose(QWidget* parent, ScribusDoc* doc, const ScColor& orig, const QString& name, ColorList *Colors, bool newCol);
 	~CMYKChoose() {};
 
-	QString colorName();
-	bool isSpotColor();
+	QString colorName() const;
+	bool isSpotColor() const;
 
-	QPixmap imageA;
-	QPixmap imageN;
+	QPixmap imageA { QPixmap(50, 50) };
+	QPixmap imageN { QPixmap(50, 50) };
 	QPixmap alertIcon;
 	ScColor Farbe;
 

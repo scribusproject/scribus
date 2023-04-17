@@ -65,7 +65,7 @@ public:
 	void setIgnoreEnabled(bool state);
 	/*! \brief Get the state of the "ignore" button
 	\retval true on button is visible */
-	bool isIgnoreEnabled();
+	bool isIgnoreEnabled() const;
 
 	//! \brief Current state of P.V.
 	CheckMode checkMode;

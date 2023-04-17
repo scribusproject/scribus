@@ -28,13 +28,10 @@ for which a new license (GPL+exception) is in place.
 #include "appmodes.h"
 #include "scribusdoc.h"
 
-ClockWidget::ClockWidget(QWidget *pa, ScribusDoc *doc) : QWidget(pa)
+ClockWidget::ClockWidget(QWidget* pa, ScribusDoc* doc)
+	: QWidget(pa), m_doc(doc)
 {
 	setFixedSize(60, 60);
-	m_doc = doc;
-	m_time = 0;
-	m_finalTime = 0;
-	m_expand = true;
 	connect(&m_timer, SIGNAL(timeout()), this, SLOT(updateDisplay()));
 	m_timer.start(1000);
 }
@@ -120,14 +117,13 @@ void ClockWidget::updateDisplay()
 		if (m_expand)
 			update();
 	}
-	else
+	else if (isVisible())
 	{
-		if (isVisible())
-			setVisible(false);
+		setVisible(false);
 	}
 }
 
-bool ClockWidget::isExpanded()
+bool ClockWidget::isExpanded() const
 {
 	return m_expand;
 }
