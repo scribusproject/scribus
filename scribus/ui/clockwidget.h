@@ -37,20 +37,25 @@ class SCRIBUS_API ClockWidget : public QWidget
 	Q_OBJECT
 
 public:
-	ClockWidget(QWidget *pa, ScribusDoc *doc);
+	ClockWidget(QWidget* pa, ScribusDoc* doc);
 	~ClockWidget() {}
-	void paintEvent(QPaintEvent *e);
-	void mouseReleaseEvent(QMouseEvent *);
-	bool isExpanded();
+	bool isExpanded() const;
+
+protected:
+	void paintEvent(QPaintEvent* e) override;
+	void mouseReleaseEvent(QMouseEvent*) override;
+
 private:
-	bool m_expand;
-	int m_time;
-	int m_finalTime;
+	bool m_expand { true };
+	int m_time { 0 };
+	int m_finalTime { 0 };
 	QTimer m_timer;
-	ScribusDoc* m_doc;
+	ScribusDoc* m_doc { nullptr };
+
 public slots:
 	void resetTime();
 	void updateDisplay();
+
 signals:
 	void clicked();
 };

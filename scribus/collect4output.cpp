@@ -31,14 +31,14 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 CollectForOutput::CollectForOutput(ScribusDoc* doc, const QString& outputDirectory, bool withFonts, bool withProfiles, bool compressDoc)
-	: QObject(ScCore)
+	: QObject(ScCore),
+	  m_Doc(doc),
+	  m_compressDoc(compressDoc),
+	  m_withFonts(withFonts),
+	  m_withProfiles(withProfiles)
 {
-	m_Doc=doc;
 	if (!outputDirectory.isEmpty())
-		m_outputDirectory=outputDirectory;
-	m_compressDoc = compressDoc;
-	m_withFonts = withFonts;
-	m_withProfiles = withProfiles;
+		m_outputDirectory = outputDirectory;
 	dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	collectedFiles.clear();
 
@@ -47,9 +47,9 @@ CollectForOutput::CollectForOutput(ScribusDoc* doc, const QString& outputDirecto
 	if (m_withProfiles)
 		m_Doc->getUsedProfiles(docProfiles);
 	profileCount = m_withProfiles ? docProfiles.count() : 0;
-	itemCount= m_Doc->MasterItems.count()+m_Doc->DocItems.count()+m_Doc->FrameItems.count();
+	itemCount = m_Doc->MasterItems.count() + m_Doc->DocItems.count() + m_Doc->FrameItems.count();
 	patterns = m_Doc->getUsedPatterns();
-	patternCount=patterns.count();
+	patternCount = patterns.count();
 }
 
 bool CollectForOutput::newDirDialog()
@@ -146,7 +146,7 @@ QString CollectForOutput::collect(QString &newFileName)
 
 bool CollectForOutput::collectDocument()
 {
-	QFileInfo fi = QFileInfo(m_outputDirectory);
+	QFileInfo fi(m_outputDirectory);
 	newName = m_outputDirectory;
 	if (!fi.exists())
 		return false;
@@ -269,7 +269,7 @@ void CollectForOutput::processItem(PageItem *ite)
 		if (!ite->isInlineImage)
 		{
 			QString ofName(ite->Pfile);
-			QFileInfo itf = QFileInfo(ofName);
+			QFileInfo itf(ofName);
 			if (!itf.exists())
 			{
 				ofName = QDir::toNativeSeparators(PrefsManager::instance().documentDir() + "/" + ofName);
@@ -341,10 +341,8 @@ void CollectForOutput::processItem(PageItem *ite)
 bool CollectForOutput::collectFonts()
 {
 	PrefsManager& prefsManager = PrefsManager::instance();
-	QMap<QString,int>::Iterator it3;
-	QMap<QString,int>::Iterator it3end = m_Doc->UsedFonts.end();
-	int c=0;
-	for (it3 = m_Doc->UsedFonts.begin(); it3 != it3end; ++it3)
+	int c = 0;
+	for (auto it3 = m_Doc->UsedFonts.cbegin(); it3 != m_Doc->UsedFonts.cend(); ++it3)
 	{
 		QFileInfo itf(prefsManager.appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath());
 		QString oldFileITF(prefsManager.appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath());
@@ -384,26 +382,25 @@ bool CollectForOutput::collectFonts()
 				if (dir.exists(fontDir + "/pfm") && metrics.empty())
 					metrics += findFontMetrics(fontDir + "/pfm", fontFile);
 			}
-			for (int a = 0; a < metrics.size(); a++)
+			for (const QString& origAFM : metrics)
 			{
-				QString origAFM = metrics[a];
 				QFileInfo fi(origAFM);
 				QString outFileAFM(m_outputDirectory + "fonts/" + fi.fileName());
 				bool success = copyFileAtomic(origAFM, outFileAFM);
 				if (!success)
-					qDebug()<<"CollectForOutput::collectFile copyFileAtomic failed for"<<origAFM<<"to"<<outFileAFM;
+					qDebug() << "CollectForOutput::collectFile copyFileAtomic failed for" << origAFM << "to" << outFileAFM;
 #ifndef Q_OS_WIN32
 				else
 				{
 					QFile of(outFileAFM);
 					if (of.exists())
 					{
-						bool permsSet=of.setPermissions(QFile::permissions(origAFM));
+						bool permsSet = of.setPermissions(QFile::permissions(origAFM));
 						if (!permsSet)
-							qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFileAFM;
+							qDebug() << "Unable to set permissions successfully while collecting for output on" << outFileAFM;
 					}
 					else
-						qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFileAFM<<"as the file does not exist";
+						qDebug() << "Unable to set permissions successfully while collecting for output on" << outFileAFM << "as the file does not exist";
 				}
 #endif
 			}
@@ -422,33 +419,33 @@ QStringList CollectForOutput::findFontMetrics(const QString& baseDir, const QStr
 	afnm.chop(3);
 
 	// Look for afm files
-	QString afmName(afnm+"afm");
+	QString afmName(afnm + "afm");
 	if (QFile::exists(afmName))
 		metricsFiles.append(afmName);
 	else
 	{
-		afmName = afnm+"Afm";
+		afmName = afnm + "Afm";
 		if (QFile::exists(afmName))
 			metricsFiles.append(afmName);
 		else
 		{
-			afmName = afnm+"AFM";
+			afmName = afnm + "AFM";
 			if (QFile::exists(afmName))
 				metricsFiles.append(afmName);
 		}
 	}
 	// Look for pfm files
-	QString pfmName(afnm+"pfm");
+	QString pfmName(afnm + "pfm");
 	if (QFile::exists(pfmName))
 		metricsFiles.append(pfmName);
 	else
 	{
-		pfmName = afnm+"Pfm";
+		pfmName = afnm + "Pfm";
 		if (QFile::exists(pfmName))
 			metricsFiles.append(pfmName);
 		else
 		{
-			pfmName = afnm+"PFM";
+			pfmName = afnm + "PFM";
 			if (QFile::exists(pfmName))
 				metricsFiles.append(pfmName);
 		}
@@ -459,8 +456,7 @@ QStringList CollectForOutput::findFontMetrics(const QString& baseDir, const QStr
 bool CollectForOutput::collectProfiles()
 {
 	int c = 0;
-	ProfilesL::Iterator itend = docProfiles.end();
-	for (ProfilesL::Iterator it = docProfiles.begin(); it != itend; ++it)
+	for (auto it = docProfiles.cbegin(); it != docProfiles.cend(); ++it)
 	{
 		QString oldFile(it.value());
 		QString outFile(m_outputDirectory + "profiles/" + QFileInfo(oldFile).fileName());

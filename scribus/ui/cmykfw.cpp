@@ -50,8 +50,8 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 
 
-CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, const QString& name, ColorList *Colors, bool newCol  )
-		: QDialog( parent ),
+CMYKChoose::CMYKChoose(QWidget* parent, ScribusDoc* doc, const ScColor& orig, const QString& name, ColorList *Colors, bool newCol)
+		: QDialog(parent),
 	      Farbe(orig),
 	      isNew(newCol),
 	      EColors(Colors),
@@ -62,11 +62,9 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, const QS
 
 	CurrSwatch.clear();
 	alertIcon = IconManager::instance().loadPixmap("alert.png");
-	imageA = QPixmap(50,50);
 	imageA.fill( ScColorEngine::getDisplayColor(orig, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(orig, m_doc) )
 		paintAlert(alertIcon,imageA, 2, 2, false);
-	imageN = QPixmap(50,50);
 	imageN.fill( ScColorEngine::getDisplayColor(orig, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(orig, m_doc) )
 		paintAlert(alertIcon, imageN, 2, 2, false);
@@ -229,21 +227,19 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, const QS
 	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( ColorMap, SIGNAL( ColorVal(int, int, bool)), this, SLOT( setColor2(int, int, bool)));
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
-//	connect( Swatches, SIGNAL(activated(int)), this, SLOT(selSwatch(int)));
 	connect(Swatches, SIGNAL(activated(const QString &)), this, SLOT(selSwatch()));
 	connect(ColorSwatch, SIGNAL(itemClicked(int) ), this, SLOT( selFromSwatch(int) ) );
 	connect(Separations, SIGNAL(clicked()), this, SLOT(setSpot()));
-//	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
 	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick()));
 	layout()->activate();
 }
 
-QString CMYKChoose::colorName()
+QString CMYKChoose::colorName() const
 {
 	return ColorName->text();
 }
 
-bool CMYKChoose::isSpotColor()
+bool CMYKChoose::isSpotColor() const
 {
 	return Separations->isChecked();
 }
@@ -270,7 +266,7 @@ void CMYKChoose::slotRightClick()
 		dynAct = pmen->addAction( tr("Dynamic Color Bars"));
 	connect(dynAct, SIGNAL(triggered()), this, SLOT(toggleSL()));
 	pmen->exec(QCursor::pos());
-	delete pmen;
+	pmen->deleteLater();
 }
 
 void CMYKChoose::setValueS(int val)
@@ -308,7 +304,7 @@ QPalette CMYKChoose::sliderPix(int farbe)
 {
 	RGBColor rgb;
 	CMYKColor cmyk;
-	QImage image0 = QImage(255, 10, QImage::Format_ARGB32);
+	QImage image0(255, 10, QImage::Format_ARGB32);
 	QPainter p;
 	p.begin(&image0);
 	p.setPen(Qt::NoPen);
@@ -494,9 +490,8 @@ QPalette CMYKChoose::sliderPix(int farbe)
 
 QPalette CMYKChoose::sliderBlack()
 {
-	QImage image0 = QImage(255, 10, QImage::Format_ARGB32);
+	QImage image0(255, 10, QImage::Format_ARGB32);
 	QPainter p;
-	int val = 255;
 	p.begin(&image0);
 	p.setPen(Qt::NoPen);
 	int c, m, y, k;
@@ -510,7 +505,6 @@ QPalette CMYKChoose::sliderBlack()
 		else
 			p.setBrush( ScColorEngine::getDisplayColorGC(ScColor(0, 0, 0, x), m_doc) );
 		p.drawRect(x, 0, 5, 10);
-		val -= 5;
 	}
 	p.end();
 	QPalette pal;
@@ -520,41 +514,42 @@ QPalette CMYKChoose::sliderBlack()
 
 void CMYKChoose::selSwatch()
 {
-	QTreeWidgetItem *c = Swatches->currentItem();
-	if (c == hsvSelector)
+	const QTreeWidgetItem *treeItem = Swatches->currentItem();
+	if (treeItem == hsvSelector)
+	{
 		TabStack->setCurrentIndex(0);
+		return;
+	}
+
+	CurrSwatch.clear();
+	QString pfadC2;
+	QString txt = treeItem->data(0, Qt::UserRole).toString() + "/" + treeItem->text(0);
+	if (!customColSet.contains(txt))
+		pfadC2 = csm.paletteFileFromName(txt);
+	else
+		pfadC2 = csm.userPaletteFileFromName(txt);
+	if (importColorsFromFile(pfadC2, CurrSwatch))
+	{
+		CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
+		CurrSwatch.insert("Black", ScColor(0, 0, 0, 255));
+	}
 	else
 	{
-		CurrSwatch.clear();
-		QString pfadC2 = "";
-		QString txt = c->data(0, Qt::UserRole).toString() + "/" + c->text(0);
-		if (!customColSet.contains(txt))
-			pfadC2 = csm.paletteFileFromName(txt);
-		else
-			pfadC2 = csm.userPaletteFileFromName(txt);
-		if (importColorsFromFile(pfadC2, CurrSwatch))
-		{
-			CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
-			CurrSwatch.insert("Black", ScColor(0, 0, 0, 255));
-		}
-		else
-		{
-			CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
-			CurrSwatch.insert("Black", ScColor(0, 0, 0, 255));
-			ScColor cc = ScColor(255, 255, 255, 255);
-			cc.setRegistrationColor(true);
-			CurrSwatch.insert("Registration", cc);
-			CurrSwatch.insert("Blue", ScColor(255, 255, 0, 0));
-			CurrSwatch.insert("Cyan", ScColor(255, 0, 0, 0));
-			CurrSwatch.insert("Green", ScColor(255, 0, 255, 0));
-			CurrSwatch.insert("Red", ScColor(0, 255, 255, 0));
-			CurrSwatch.insert("Yellow", ScColor(0, 0, 255, 0));
-			CurrSwatch.insert("Magenta", ScColor(0, 255, 0, 0));
-		}
-		ColorSwatch->setColors(CurrSwatch, false);
-		ColorSwatch->setCurrentRow(0);
-		TabStack->setCurrentIndex(1);
+		CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
+		CurrSwatch.insert("Black", ScColor(0, 0, 0, 255));
+		ScColor cc(255, 255, 255, 255);
+		cc.setRegistrationColor(true);
+		CurrSwatch.insert("Registration", cc);
+		CurrSwatch.insert("Blue", ScColor(255, 255, 0, 0));
+		CurrSwatch.insert("Cyan", ScColor(255, 0, 0, 0));
+		CurrSwatch.insert("Green", ScColor(255, 0, 255, 0));
+		CurrSwatch.insert("Red", ScColor(0, 255, 255, 0));
+		CurrSwatch.insert("Yellow", ScColor(0, 0, 255, 0));
+		CurrSwatch.insert("Magenta", ScColor(0, 255, 0, 0));
 	}
+	ColorSwatch->setColors(CurrSwatch, false);
+	ColorSwatch->setCurrentRow(0);
+	TabStack->setCurrentIndex(1);
 }
 
 void CMYKChoose::setSpot()
@@ -593,25 +588,25 @@ void CMYKChoose::selModel(const QString& mod)
 	if (mod == tr("CMYK"))
 	{
 		Wsave = false;
-		CyanSL->setMaximum( 100 * 1000.0);
-		CyanSL->setMinimum( 0 * 1000.0 );
-		CyanSL->setSingleStep(1 * 1000.0);
-		CyanSL->setPageStep(10 * 1000.0);
+		CyanSL->setMaximum(100 * 1000);
+		CyanSL->setMinimum(0 * 1000);
+		CyanSL->setSingleStep(1 * 1000);
+		CyanSL->setPageStep(10 * 1000);
 
-		MagentaSL->setMaximum( 100 * 1000.0 );
-		MagentaSL->setMinimum( 0 * 1000.0 );
-		MagentaSL->setSingleStep(1 * 1000.0);
-		MagentaSL->setPageStep(10 * 1000.0);
+		MagentaSL->setMaximum(100 * 1000);
+		MagentaSL->setMinimum(0 * 1000);
+		MagentaSL->setSingleStep(1 * 1000);
+		MagentaSL->setPageStep(10 * 1000);
 
-		YellowSL->setMaximum( 100 * 1000.0 );
-		YellowSL->setMinimum( 0 * 1000.0 );
-		YellowSL->setSingleStep(1 * 1000.0);
-		YellowSL->setPageStep(10 * 1000.0);
+		YellowSL->setMaximum(100 * 1000);
+		YellowSL->setMinimum(0 * 1000);
+		YellowSL->setSingleStep(1 * 1000);
+		YellowSL->setPageStep(10 * 1000);
 
-		BlackSL->setMaximum( 100 * 1000.0);
-		BlackSL->setMinimum( 0 * 1000.0);
-		BlackSL->setSingleStep(1 * 1000.0);
-		BlackSL->setPageStep(10 * 1000.0);
+		BlackSL->setMaximum(100 * 1000);
+		BlackSL->setMinimum(0 * 1000);
+		BlackSL->setSingleStep(1 * 1000);
+		BlackSL->setPageStep(10 * 1000);
 
 		CyanSp->setMaximum( 100 );
 		CyanSp->setMinimum( 0 );
@@ -654,20 +649,20 @@ void CMYKChoose::selModel(const QString& mod)
 	else if ((mod == tr("Web Safe RGB")) || (mod == tr("RGB")))
 	{
 		Wsave = false;
-		CyanSL->setMaximum( 255 * 1000.0 );
-		CyanSL->setMinimum( 0 * 1000.0 );
-		CyanSL->setSingleStep(1 * 1000.0);
-		CyanSL->setPageStep(1 * 1000.0);
+		CyanSL->setMaximum(255 * 1000);
+		CyanSL->setMinimum(0 * 1000);
+		CyanSL->setSingleStep(1 * 1000);
+		CyanSL->setPageStep(1 * 1000);
 
-		MagentaSL->setMaximum( 255 * 1000.0 );
-		MagentaSL->setMinimum( 0 * 1000.0 );
-		MagentaSL->setSingleStep(1 * 1000.0);
-		MagentaSL->setPageStep(1 * 1000.0);
+		MagentaSL->setMaximum(255 * 1000);
+		MagentaSL->setMinimum(0 * 1000);
+		MagentaSL->setSingleStep(1 * 1000);
+		MagentaSL->setPageStep(1 * 1000);
 
-		YellowSL->setMaximum( 255 * 1000.0 );
-		YellowSL->setMinimum( 0 * 1000.0 );
-		YellowSL->setSingleStep(1 * 1000.0);
-		YellowSL->setPageStep(1 * 1000.0);
+		YellowSL->setMaximum(255 * 1000);
+		YellowSL->setMinimum(0 * 1000);
+		YellowSL->setSingleStep(1 * 1000);
+		YellowSL->setPageStep(1 * 1000);
 
 		CyanSp->setSingleStep(1);
 		CyanSp->setMaximum( 255 );
@@ -696,12 +691,12 @@ void CMYKChoose::selModel(const QString& mod)
 		if (mod == tr("Web Safe RGB"))
 		{
 			Wsave = true;
-			CyanSL->setSingleStep(51 * 1000.0);
-			MagentaSL->setSingleStep(51 * 1000.0);
-			YellowSL->setSingleStep(51 * 1000.0);
-			CyanSL->setPageStep(51 * 1000.0);
-			MagentaSL->setPageStep(51 * 1000.0);
-			YellowSL->setPageStep(51 * 1000.0);
+			CyanSL->setSingleStep(51 * 1000);
+			MagentaSL->setSingleStep(51 * 1000);
+			YellowSL->setSingleStep(51 * 1000);
+			CyanSL->setPageStep(51 * 1000);
+			MagentaSL->setPageStep(51 * 1000);
+			YellowSL->setPageStep(51 * 1000);
 			CyanSp->setSingleStep(51);
 			MagentaSp->setSingleStep(51);
 			YellowSp->setSingleStep(51);
@@ -720,18 +715,18 @@ void CMYKChoose::selModel(const QString& mod)
 	else if (mod == tr("Lab"))
 	{
 		Wsave = false;
-		CyanSL->setSingleStep(1 * 1000.0);
-		CyanSL->setPageStep(10 * 1000.0);
-		CyanSL->setMaximum( 100 * 1000.0 );
-		CyanSL->setMinimum( 0 * 1000.0 );
-		MagentaSL->setSingleStep(1 * 1000.0);
-		MagentaSL->setPageStep(10 * 1000.0);
-		MagentaSL->setMaximum( 128 * 1000.0 );
-		MagentaSL->setMinimum( -128 * 1000.0 );
-		YellowSL->setSingleStep(1 * 1000.0);
-		YellowSL->setPageStep(10 * 1000.0);
-		YellowSL->setMaximum( 128 * 1000.0 );
-		YellowSL->setMinimum( -128 * 1000.0 );
+		CyanSL->setSingleStep(1 * 1000);
+		CyanSL->setPageStep(10 * 1000);
+		CyanSL->setMaximum(100 * 1000);
+		CyanSL->setMinimum(0 * 1000);
+		MagentaSL->setSingleStep(1 * 1000);
+		MagentaSL->setPageStep(10 * 1000);
+		MagentaSL->setMaximum(128 * 1000);
+		MagentaSL->setMinimum(-128 * 1000);
+		YellowSL->setSingleStep(1 * 1000);
+		YellowSL->setPageStep(10 * 1000);
+		YellowSL->setMaximum(128 * 1000);
+		YellowSL->setMinimum(-128 * 1000);
 
 		CyanSp->setDecimals(2);
 		CyanSp->setSingleStep(1);
@@ -770,18 +765,18 @@ void CMYKChoose::selModel(const QString& mod)
 	else if (mod == tr("HLC"))
 	{
 		Wsave = false;
-		CyanSL->setSingleStep(1 * 1000.0);
-		CyanSL->setPageStep(10 * 1000.0);
-		CyanSL->setMaximum( 360 * 1000.0 );
-		CyanSL->setMinimum( 0 * 1000.0 );
-		MagentaSL->setSingleStep(1 * 1000.0);
-		MagentaSL->setPageStep(10 * 1000.0);
-		MagentaSL->setMaximum( 100 * 1000.0 );
-		MagentaSL->setMinimum( 0 * 1000.0 );
-		YellowSL->setSingleStep(1 * 1000.0);
-		YellowSL->setPageStep(10 * 1000.0);
-		YellowSL->setMaximum( 128 * 1000.0 );
-		YellowSL->setMinimum( 0 * 1000.0 );
+		CyanSL->setSingleStep(1 * 1000);
+		CyanSL->setPageStep(10 * 1000);
+		CyanSL->setMaximum(360 * 1000);
+		CyanSL->setMinimum(0 * 1000);
+		MagentaSL->setSingleStep(1 * 1000);
+		MagentaSL->setPageStep(10 * 1000);
+		MagentaSL->setMaximum(100 * 1000);
+		MagentaSL->setMinimum(0 * 1000);
+		YellowSL->setSingleStep(1 * 1000);
+		YellowSL->setPageStep(10 * 1000);
+		YellowSL->setMaximum(128 * 1000);
+		YellowSL->setMinimum(0 * 1000);
 
 		CyanSp->setDecimals(2);
 		CyanSp->setSingleStep(1);
@@ -883,9 +878,9 @@ void CMYKChoose::setColor()
 			CyanSp->setValue(ic);
 			MagentaSp->setValue(im);
 			YellowSp->setValue(iy);
-			CyanSL->setValue(ic * 1000.0);
-			MagentaSL->setValue(im * 1000.0);
-			YellowSL->setValue(iy * 1000.0);
+			CyanSL->setValue(ic * 1000);
+			MagentaSL->setValue(im * 1000);
+			YellowSL->setValue(iy * 1000);
 			blockSignals(false);
 		}
 		c = ic / 255.0;
@@ -1017,7 +1012,7 @@ void CMYKChoose::selFromSwatch(int itemIndex)
 	Farbe = tmp;
 	setValues();
 	Separations->setChecked(tmp.isSpotColor());
-	if ((isNew) && (!ColorName->isModified()))
+	if (isNew && !ColorName->isModified())
 		ColorName->setText(colorName);
 }
 
@@ -1061,11 +1056,11 @@ void CMYKChoose::setValues()
 		ScColorEngine::getRGBValues(Farbe, m_doc, rgb);
 		rgb.getValues(r, g, b);
 		CyanSp->setValue(static_cast<double>(r));
-		CyanSL->setValue(r * 1000.0);
+		CyanSL->setValue(r * 1000);
 		MagentaSp->setValue(static_cast<double>(g));
-		MagentaSL->setValue(g * 1000.0);
+		MagentaSL->setValue(g * 1000);
 		YellowSp->setValue(static_cast<double>(b));
-		YellowSL->setValue(b * 1000.0);
+		YellowSL->setValue(b * 1000);
 		int h, s, v;
 		ScColorEngine::getRGBColor(Farbe, m_doc).getHsv(&h, &s, &v);
 		BlackComp = 255 - v;
@@ -1134,7 +1129,7 @@ void CMYKChoose::leave()
 		ColorName->selectAll();
 		return;
 	}
-	if ((Fnam != ColorName->text()) || (isNew))
+	if ((Fnam != ColorName->text()) || isNew)
 	{
 		if (EColors->contains(ColorName->text()))
 		{

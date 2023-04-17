@@ -23,7 +23,6 @@ CollectForOutput_UI::CollectForOutput_UI(QWidget* parent, ScribusDoc* doc, const
 	CollectForOutput(doc, outputDirectory, withFonts, withProfiles, compressDoc)
 {
 	uiCollect = true;
-	progressDialog = nullptr;
 
 	connect(this, SIGNAL(fontsCollected(int)), this, SLOT(collectedFonts(int)));
 	connect(this, SIGNAL(itemsCollected(int)), this, SLOT(collectedItems(int)));
@@ -82,7 +81,7 @@ QString CollectForOutput_UI::collect(QString &newFileName)
 
 	progressDialog->show();
 //	connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-	ScQApp->processEvents();
+	ScribusQApp::processEvents();
 
 	dirs->set("collect", m_outputDirectory.left(m_outputDirectory.lastIndexOf("/",-2)));
 	ScCore->primaryMainWindow()->setStatusBarInfoText( tr("Collecting..."));
@@ -137,23 +136,23 @@ QString CollectForOutput_UI::collect(QString &newFileName)
 void CollectForOutput_UI::collectedFonts(int c)
 {
 	progressDialog->setProgress("fonts", c);
-	ScQApp->processEvents();
+	ScribusQApp::processEvents();
 }
 
 void CollectForOutput_UI::collectedItems(int c)
 {
 	progressDialog->setProgress("items", c);
-	ScQApp->processEvents();
+	ScribusQApp::processEvents();
 }
 
 void CollectForOutput_UI::collectedPatterns(int c)
 {
 	progressDialog->setProgress("patterns", c);
-	ScQApp->processEvents();
+	ScribusQApp::processEvents();
 }
 
 void CollectForOutput_UI::collectedProfiles(int c)
 {
 	progressDialog->setProgress("profiles", c);
-	ScQApp->processEvents();
+	ScribusQApp::processEvents();
 }
