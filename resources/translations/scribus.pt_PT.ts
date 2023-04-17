@@ -153,7 +153,7 @@
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="687"/>
-        <source>littlcms: %1</source>
+        <source>littlecms: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -54,7 +54,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="209"/>
         <source>&amp;Build Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Build Information</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="225"/>
@@ -109,62 +109,62 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="653"/>
         <source>SVN Revision: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>SVN Revision: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="661"/>
         <source>Scribus Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus Version %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="664"/>
         <source>Build ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Build ID: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="671"/>
         <source>Built: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Built: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="674"/>
         <source>Companion Programs:</source>
-        <translation type="unfinished"></translation>
+        <translation>Companion Programs:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="677"/>
         <source>Ghostscript: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="680"/>
         <source>Libraries:</source>
-        <translation type="unfinished"></translation>
+        <translation>Libraries:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="683"/>
         <source>cairo: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>cairo: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="685"/>
         <source>Harfbuzz: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Harfbuzz: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="687"/>
-        <source>littlcms: %1</source>
-        <translation type="unfinished"></translation>
+        <source>littlecms: %1</source>
+        <translation>littlecms: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="693"/>
         <source>podofo: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>podofo: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="699"/>
         <source>poppler: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>poppler: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="294"/>
@@ -254,7 +254,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="139"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="197"/>
@@ -5872,7 +5872,7 @@ See the Edit Colours section of the documentation for more details.</translation
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="475"/>
         <source>Section %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Section %1</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="494"/>
@@ -28571,7 +28571,7 @@ External Links</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1302"/>
         <source>Source frame is linked to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Source frame is linked to another frame.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtext.cpp" line="1308"/>
@@ -31290,12 +31290,12 @@ Therefore the image may be not correct</source>
         <location filename="../../scribus/api/api_application.cpp" line="110"/>
         <location filename="../../scribus/api/api_application.cpp" line="115"/>
         <source>Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="137"/>
         <source>Scripter for Python 2.x</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripter for Python 2.x</translation>
     </message>
 </context>
 <context>
@@ -34604,7 +34604,8 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="801"/>
         <source>You have opened a file produced by Scribus 1.3.4 - 1.3.9, or 1.4.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>You have opened a file produced by Scribus 1.3.4 - 1.3.9, or 1.4.x.
+If you save it in this version, it will no longer be readable by older Scribus versions.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="72"/>
@@ -35859,7 +35860,7 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="148"/>
         <source>Embedded Python scripting support for Python 2.x.</source>
-        <translation type="unfinished">Embedded Python scripting support for Python 3.x. {2.?}</translation>
+        <translation>Embedded Python scripting support for Python 3.x. {2.?}</translation>
     </message>
 </context>
 <context>
@@ -36731,12 +36732,12 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/storyloader.cpp" line="171"/>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation type="unfinished">Some fonts used by this document have been substituted:</translation>
+        <translation>Some fonts used by this document have been substituted:</translation>
     </message>
     <message>
         <location filename="../../scribus/storyloader.cpp" line="174"/>
         <source> was replaced by: </source>
-        <translation type="unfinished"> was replaced by: </translation>
+        <translation> was replaced by: </translation>
     </message>
 </context>
 <context>
