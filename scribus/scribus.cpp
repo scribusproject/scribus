@@ -7649,33 +7649,41 @@ void ScribusMainWindow::ApplyMasterPage()
 
 	QString masterPageName(dia->getMasterPageName());
 	int pageSelection = dia->getPageSelection(); //0=current, 1=even, 2=odd, 3=all
-	if (pageSelection == 0) //current page only
-		Apply_MasterPage(masterPageName, doc->currentPage()->pageNr(), false);
+
+	int startPage, endPage;
+	if (pageSelection == 0)
+	{
+		startPage = doc->currentPage()->pageNr();
+		endPage = doc->currentPage()->pageNr() + 1;
+	}
+	else if (dia->usingRange())
+	{
+		startPage = dia->getFromPage() - 1; //Pages start from 0, not 1
+		endPage = dia->getToPage();
+	}
 	else
 	{
-		int startPage, endPage;
-		if (dia->usingRange())
-		{
-			startPage = dia->getFromPage()-1; //Pages start from 0, not 1
-			endPage = dia->getToPage();
-		}
-		else
-		{
-			startPage = pageSelection==1 ? 1 : 0; //if even, startPage is 1 (real page 2)
-			endPage = doc->DocPages.count();
-		}
-		for (int pageNum = startPage; pageNum < endPage; ++pageNum)// +=pageStep)
-		{
-			//Increment by 1 and not 2 even for even/odd application as user
-			//can select to eg apply to even pages with a single odd page selected
-			if (pageSelection == 1 && (pageNum %2 != 0)) //Even, %2!=0 as 1st page is numbered 0
-				Apply_MasterPage(masterPageName, pageNum, false);
-			else if (pageSelection == 2 && (pageNum %2 == 0)) //Odd, %2==0 as 1st page is numbered 0
-				Apply_MasterPage(masterPageName, pageNum, false);
-			else if (pageSelection == 3) //All
-				Apply_MasterPage(masterPageName, pageNum, false);
-		}
+		startPage = pageSelection == 1 ? 1 : 0; //if even, startPage is 1 (real page 2)
+		endPage = doc->DocPages.count();
 	}
+
+	UndoTransaction trans;
+	if (UndoManager::undoEnabled() && (startPage + 1 < endPage))
+		trans = m_undoManager->beginTransaction(QString(), nullptr, Um::ApplyMasterPage, masterPageName);
+
+	for (int pageNum = startPage; pageNum < endPage; ++pageNum)
+	{
+		//Increment by 1 and not 2 even for even/odd application as user
+		//can select to eg apply to even pages with a single odd page selected
+		if (pageSelection == 1 && (pageNum % 2 == 0)) //Even, %2!=0 as 1st page is numbered 0
+			continue;
+		if (pageSelection == 2 && (pageNum % 2 != 0))  //Odd, %2==0 as 1st page is numbered 0
+			continue;
+		Apply_MasterPage(masterPageName, pageNum, false);
+	}
+
+	if (trans)
+		trans.commit();
 
 	view->reformPages();
 	view->DrawNew();
@@ -7705,11 +7713,11 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		return;
 	bool lockObject = false;
 	bool modifyLock = false;
-	int selectedItemCount=itemSelection->count();
+	int selectedItemCount = itemSelection->count();
 	if (showLockDia)
 	{
-		int lockedCount=0;
-		for (int i=0; i<selectedItemCount; ++i)
+		int lockedCount = 0;
+		for (int i = 0; i < selectedItemCount; ++i)
 		{
 			if (itemSelection->itemAt(i)->locked())
 				++lockedCount;
