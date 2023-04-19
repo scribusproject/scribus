@@ -4691,6 +4691,7 @@ void ScribusDoc::restoreMasterPageApplying(SimpleState* ss, bool isUndo)
 		applyMasterPage(oldName, pageNumber);
 	else
 		applyMasterPage(newName, pageNumber);
+	reformPages();
 	scMW()->pagePalette->rebuildPages();
 }
 
@@ -4714,11 +4715,11 @@ void ScribusDoc::restoreCopyPage(SimpleState* ss, bool isUndo)
 
 	if (isUndo)
 	{
-		int destLocation=extPage + 1;
-		if (whereTo==0)
+		int destLocation = extPage + 1;
+		if (whereTo == 0)
 			--destLocation;
-		else if (whereTo==2)
-			destLocation=DocPages.count();
+		else if (whereTo == 2)
+			destLocation = DocPages.count();
 		for (int i = 0; i < copyCount; ++i)
 		{
 			m_ScMW->deletePage(destLocation, destLocation);
@@ -4739,10 +4740,10 @@ void ScribusDoc::restoreCopyPage(SimpleState* ss, bool isUndo)
 //TODO: Handle saving to versions of SLA, and other formats
 bool ScribusDoc::save(const QString& fileName, QString* savedFile)
 {
-	QProgressBar* mainWindowProgressBar=nullptr;
+	QProgressBar* mainWindowProgressBar = nullptr;
 	if (ScCore->usingGUI())
 	{
-		mainWindowProgressBar=m_ScMW->mainWindowProgressBar;
+		mainWindowProgressBar = m_ScMW->mainWindowProgressBar;
 		mainWindowProgressBar->reset();
 	}
 	FileLoader fl(fileName);
