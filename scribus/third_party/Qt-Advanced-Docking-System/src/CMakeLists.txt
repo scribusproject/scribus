@@ -66,7 +66,6 @@ if (UNIX AND NOT APPLE)
 endif()
 
 set(library_name "qt${QT_VERSION_MAJOR}advanceddocking")
-MESSAGE(STATUS "Qt ADS Library Name: ${library_name}")
 if(BUILD_STATIC)
     add_library(${library_name} STATIC ${ads_SRCS} ${ads_HEADERS})
     target_compile_definitions( ${library_name} PUBLIC ADS_STATIC)
