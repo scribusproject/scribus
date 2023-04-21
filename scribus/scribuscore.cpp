@@ -47,6 +47,10 @@ for which a new license (GPL+exception) is in place.
 #include "util_debug.h"
 #include "util_ghostscript.h"
 
+#ifdef HAVE_QTADS
+#include "scribusindigomainwindow.h"
+#endif
+
 
 //extern ScribusQApp* ScQApp;
 
@@ -150,7 +154,19 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	else
 	{
 		qDebug()<<"Indigo UI - a new look";
-		return EXIT_FAILURE;
+#ifdef HAVE_QTADS
+		auto* scribusi = new ScribusIndigoMainWindow();
+		Q_CHECK_PTR(scribusi);
+		if (!scribusi)
+			return EXIT_FAILURE;
+		int retVal = scribusi->initScIMW();
+		scribusi->show();
+		scribusi->resize(1024, 768);
+
+//		connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
+#endif
+		if (retVal == EXIT_FAILURE)
+			return EXIT_FAILURE;
 	}
 	return EXIT_SUCCESS;
 }

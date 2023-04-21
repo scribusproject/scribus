@@ -15,6 +15,7 @@
 #cmakedefine BUILD_WINDOWS_VERSION 1
 #cmakedefine DLL_USE_NATIVE_API 1
 #cmakedefine GMAGICK_FOUND 1
+#cmakedefine HAVE_QTADS 1
 #cmakedefine HAVE_BOOST 1
 #cmakedefine HAVE_CAIRO 1
 #cmakedefine HAVE_CUPS 1

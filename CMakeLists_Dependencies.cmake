@@ -283,3 +283,7 @@ if (HARFBUZZ_SUBSET_FOUND)
 	message("Harfbuzz subset library Found OK")
 	set (HAVE_HARFBUZZ_SUBSET ON)
 endif()
+
+if(WANT_QTADS)
+  set(HAVE_QTADS ON)
+endif()

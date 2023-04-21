@@ -539,6 +539,13 @@ set(SCRIBUS_SOURCES
 	${SCRIBUS_JPEGXL_SRC}
 )
 
+if(WANT_QTADS)
+	set(SCRIBUS_SOURCES
+	${SCRIBUS_SOURCES}
+	scribusindigomainwindow.cpp
+	)
+endif()
+
 if(NOT HAVE_HYPHEN)
 	include_directories(third_party/hyphen)
 	set(SCRIBUS_SOURCES
