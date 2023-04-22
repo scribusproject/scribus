@@ -2682,7 +2682,7 @@ void ScribusMainWindow::HaveNewSel()
 		}
 		break;
 	}
-	propertiesPalette->xyzPal->basePointWidget->setCheckedId(doc->rotationMode());
+    propertiesPalette->xyzPal->basePointWidget->setSelectedAnchor(doc->rotationMode());
 
 	if (docSelectionCount != 0)
 	{
@@ -8821,9 +8821,9 @@ void ScribusMainWindow::slotItemTransform()
 	if (UndoManager::undoEnabled())
 		trans = m_undoManager->beginTransaction(Um::Selection, Um::IPolygon, Um::Transform, QString(), Um::IMove);
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-	int count=td.getCount();
+    int count=td.getCount();
 	QTransform matrix(td.getTransformMatrix());
-	int basepoint=td.getBasepoint();
+    BasePointWidget::AnchorPoint basepoint=td.getBasepoint();
 	doc->itemSelection_Transform(count, matrix, basepoint);
 	QApplication::restoreOverrideCursor();
 	if (trans)

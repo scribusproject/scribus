@@ -17,7 +17,7 @@ class SCRIBUS_API BasePointWidget : public QWidget
 {
 	Q_OBJECT
 
-public:
+/*public:
 	BasePointWidget(QWidget *pa, int mode = 0);
 	~BasePointWidget() {}
 	/**
@@ -28,7 +28,7 @@ public:
 	  3 => bottom left
 	  4 => bottom right
 	  */
-	int checkedId() const;
+/*	int checkedId() const;
 	void setCheckedId(int id);
 	void paintEvent(QPaintEvent *e);
 	void mousePressEvent(QMouseEvent *m);
@@ -42,6 +42,52 @@ private:
 	bool m_mousePressed { false };
 signals:
 	void buttonClicked(int);
+};
+*/
+
+public:
+    enum Mode { Full = 0, Frame = 1, Line = 2 };
+    Q_ENUM(Mode)
+
+    enum AnchorPoint { None = 0, TopLeft = 1, Top = 2, TopRight = 3, Left = 4, Center = 5, Right = 6, BottomLeft = 7, Bottom = 9, BottomRight = 10 };
+    Q_ENUM(AnchorPoint)
+
+    BasePointWidget(Mode mode, QWidget *parent = nullptr);
+    BasePointWidget(QWidget *parent = nullptr);
+    ~BasePointWidget() {}
+
+
+    BasePointWidget::AnchorPoint selectedAnchor();
+    int angle();
+    BasePointWidget::Mode mode();
+
+    void paintEvent(QPaintEvent *e);
+    void mousePressEvent(QMouseEvent *m);
+    void mouseReleaseEvent(QMouseEvent *);
+    void mouseMoveEvent(QMouseEvent *m);
+    void leaveEvent(QEvent*);
+
+public slots:
+    void setAngle(int angle);
+    void setSelectedAnchor(BasePointWidget::AnchorPoint id);
+    void setMode(BasePointWidget::Mode mode);
+
+private:
+    Mode m_mode;
+    AnchorPoint m_selectedAnchor;
+    AnchorPoint m_hoveredAnchor;
+    bool m_pressed;
+    int m_angle;
+
+    QMap<AnchorPoint, QRect>anchors;
+    QTransform m_transform;
+    QRectF m_baseRect;
+
+    QPoint mapToTransformation(QPoint position);
+    void setup();
+
+signals:
+    void buttonClicked(BasePointWidget::AnchorPoint);
 };
 
 #endif

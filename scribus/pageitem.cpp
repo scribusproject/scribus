@@ -4991,8 +4991,8 @@ void PageItem::restoreConnectPath(SimpleState *state, bool isUndo)
 	if (isUndo)
 	{
 		PoLine = is->getItem().first;
-		int oldRotMode = m_Doc->rotationMode();
-		m_Doc->setRotationMode(0);
+        BasePointWidget::AnchorPoint oldRotMode = m_Doc->rotationMode();
+        m_Doc->setRotationMode(BasePointWidget::AnchorPoint::TopLeft);
 		m_Doc->adjustItemSize(this);
 		m_Doc->setRotationMode(oldRotMode);
 		moveBy(is->getDouble("OLDX") - xPos(),is->getDouble("OLDY") - yPos());
@@ -5000,8 +5000,8 @@ void PageItem::restoreConnectPath(SimpleState *state, bool isUndo)
 	else
 	{
 		PoLine = is->getItem().second;
-		int oldRotMode = m_Doc->rotationMode();
-		m_Doc->setRotationMode(0);
+        BasePointWidget::AnchorPoint oldRotMode = m_Doc->rotationMode();
+        m_Doc->setRotationMode(BasePointWidget::AnchorPoint::TopLeft);
 		m_Doc->adjustItemSize(this);
 		m_Doc->setRotationMode(oldRotMode);
 		moveBy(is->getDouble("NEWX") - xPos(),is->getDouble("NEWY") - yPos());
@@ -7308,8 +7308,8 @@ void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)
 		Segments.clear();
 		FrameType = is->getInt("FRAMETYPE");
 		ClipEdited = is->getBool("CLIPEDITED");
-		int oldRotMode = doc()->rotationMode();
-		doc()->setRotationMode(0);
+        BasePointWidget::AnchorPoint oldRotMode = doc()->rotationMode();
+        doc()->setRotationMode(BasePointWidget::AnchorPoint::TopLeft);
 		doc()->adjustItemSize(this);
 		doc()->setRotationMode(oldRotMode);
 	}

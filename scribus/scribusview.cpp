@@ -2986,8 +2986,8 @@ void ScribusView::TextToPath()
 	UndoTransaction trans(undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::ToOutlines, "", nullptr));
 	int offset = 0;
 
-	int oldRotMode = m_doc->rotationMode();
-	m_doc->setRotationMode(0);
+    BasePointWidget::AnchorPoint oldRotMode = m_doc->rotationMode();
+    m_doc->setRotationMode(BasePointWidget::AnchorPoint::TopLeft);
 
 	for (int i = 0; i < selectedItemCount; ++i)
 	{

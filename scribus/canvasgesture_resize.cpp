@@ -273,8 +273,8 @@ void ResizeGesture::doResize(bool scaleContent)
 	}
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
-		int oldRotMode = m_doc->rotationMode();
-		m_doc->setRotationMode ( 0 );
+        BasePointWidget::AnchorPoint oldRotMode = m_doc->rotationMode();
+        m_doc->setRotationMode ( BasePointWidget::AnchorPoint::TopLeft );
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		QRectF oldBounds(gx, gy, gw, gh);

@@ -82,7 +82,7 @@ private slots:
 	void handleRaise();
 	void handleFront();
 	void handleBack();
-	void handleBasePoint(int m);
+    void handleBasePoint(BasePointWidget::AnchorPoint m);
 	void handleLock();
 	void handleLockSize();
 	void handlePrint();

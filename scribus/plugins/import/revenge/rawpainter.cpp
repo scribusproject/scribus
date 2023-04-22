@@ -986,8 +986,8 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 									  FPoint tp2(getMinClipF(&m_coords));
 									  m_coords.translate(-tp2.x(), -tp2.y());
 									  ite->PoLine = m_coords.copy();
-									  int rm = m_Doc->rotationMode();
-									  m_Doc->setRotationMode(2);
+                                      BasePointWidget::AnchorPoint rm = m_Doc->rotationMode();
+                                      m_Doc->setRotationMode(BasePointWidget::AnchorPoint::Center);
 									  m_Doc->rotateItem(-rot, ite);
 									  m_Doc->setRotationMode(rm);
 								  }
@@ -1139,8 +1139,8 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 									  FPoint tp2(getMinClipF(&m_coords));
 									  m_coords.translate(-tp2.x(), -tp2.y());
 									  ite->PoLine = m_coords.copy();
-									  int rm = m_Doc->rotationMode();
-									  m_Doc->setRotationMode(2);
+                                      BasePointWidget::AnchorPoint rm = m_Doc->rotationMode();
+                                      m_Doc->setRotationMode(BasePointWidget::AnchorPoint::Center);
 									  m_Doc->rotateItem(-rot, ite);
 									  m_Doc->setRotationMode(rm);
 								  }
@@ -1279,8 +1279,8 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 									ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
 									ite->setWidthHeight(baR.width(), baR.height(), true);
 									ite->updateClip();
-									int rm = m_Doc->rotationMode();
-									m_Doc->setRotationMode(2);
+                                    BasePointWidget::AnchorPoint rm = m_Doc->rotationMode();
+                                    m_Doc->setRotationMode(BasePointWidget::AnchorPoint::Center);
 									m_Doc->rotateItem(-rot, ite);
 									m_Doc->setRotationMode(rm);
 								}
@@ -1349,8 +1349,8 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 		applyShadow(ite);
 		if (rot != 0)
 		{
-			int rm = m_Doc->rotationMode();
-			m_Doc->setRotationMode(2);
+            BasePointWidget::AnchorPoint rm = m_Doc->rotationMode();
+            m_Doc->setRotationMode(BasePointWidget::AnchorPoint::Center);
 			m_Doc->rotateItem(rot, ite);
 			m_Doc->setRotationMode(rm);
 		}

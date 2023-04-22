@@ -56,7 +56,7 @@ public:
 	~TransformDialog() {};
 	QTransform getTransformMatrix();
 	int getCount();
-	int getBasepoint();
+    BasePointWidget::AnchorPoint getBasepoint();
 
 private slots:
 	void newScaling();

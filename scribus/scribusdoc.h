@@ -65,6 +65,7 @@ for which a new license (GPL+exception) is in place.
 #include "undotransaction.h"
 #include "updatemanager.h"
 #include "usertaskstructs.h"
+#include "ui/basepointwidget.h"
 
 class DocUpdater;
 class FPoint;
@@ -1268,9 +1269,9 @@ public:
 	bool textCanvasPosition(PageItem* item, int textPos, QPointF& canvasPos);
 
 	//! \brief Get rotation mode
-	int rotationMode() const {return m_rotMode;}
+    BasePointWidget::AnchorPoint rotationMode() const {return m_rotMode;}
 	//! \brief Set rotation mode
-	void setRotationMode(int val);
+    void setRotationMode(BasePointWidget::AnchorPoint val);
 
 	//! \brief Functions which avoid doc updater and update manager to send too much
 	// unnecessary signals when doing updates on multiple items
@@ -1297,7 +1298,7 @@ protected:
 	int  m_undoRedoOngoing {0};
 	int m_ActiveLayer {0};
 	double m_docUnitRatio;
-	int m_rotMode {0};
+    BasePointWidget::AnchorPoint m_rotMode {BasePointWidget::AnchorPoint::TopLeft};
 	bool m_automaticTextFrames; // Flag for automatic Textframes
 	bool m_masterPageMode {false};
 	bool m_symbolEditMode {false};
@@ -1510,7 +1511,7 @@ public slots:
 	void itemSelection_TogglePrintEnabled();
 	void itemSelection_ToggleBookMark(Selection* customSelection = nullptr);
 	void itemSelection_ToggleAnnotation(Selection* customSelection = nullptr);
-	void itemSelection_Transform(int nrOfCopies, const QTransform& matrix, int basepoint);
+    void itemSelection_Transform(int nrOfCopies, const QTransform& matrix, BasePointWidget::AnchorPoint basepoint);
 	void itemSelection_ChangePreviewResolution(int id);
 
 	/*! \brief Change display quality of all images in document.

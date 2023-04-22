@@ -19,6 +19,7 @@
 #include "scribusapi.h"
 #include "canvasmode.h"
 #include "fpoint.h"
+#include "ui/basepointwidget.h"
 
 class QDragEnterEvent;
 class QDragMoveEvent;
@@ -66,8 +67,8 @@ class SCRIBUS_API CanvasMode_Rotate : public CanvasMode
 		bool   m_angleConstrained {false};
 		bool   m_inItemRotation {false};
 		double m_startAngle {0.0};
-		int    m_oldRotMode {0};
-		int    m_rotMode {0};
+        BasePointWidget::AnchorPoint    m_oldRotMode {BasePointWidget::AnchorPoint::TopLeft};
+        BasePointWidget::AnchorPoint    m_rotMode {BasePointWidget::AnchorPoint::TopLeft};
 };
 
 #endif
