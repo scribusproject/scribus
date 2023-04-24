@@ -6,6 +6,7 @@ set(CMAKE_PREFIX_PATH "${QT_PREFIX}/lib/cmake")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(QT_MIN_VERSION "6.2.0")
+set(QT_VERSION_MAJOR "6")
 
 find_package(Qt6 COMPONENTS Core REQUIRED)
 add_definitions(${Qt6Core_DEFINITIONS})

@@ -101,7 +101,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 ########## toplevel compiler flags                                                                  ##########
 message(STATUS "Shared Library Flags: ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
 
-
+add_link_options( -lm)
 
 
 #Set the permissions to be used when installing plugins
