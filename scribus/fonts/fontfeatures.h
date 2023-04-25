@@ -59,6 +59,8 @@ public:
 
 	static quint64 LigaturesMask;
 	static quint64 CapsMask;
+	static quint64 AllSmallCapsMask;
+	static quint64 AllPetiteCapsMask;
 	static quint64 GlyphPositionMask;
 	static quint64 NumeralStyleMask;
 	static quint64 NumeralWidthMask;
@@ -67,6 +69,7 @@ public:
 
 	static quint64 fontFlagsFromList(const QStringList& features);
 	static quint64 textFlagsFromList(const QStringList& features);
+	static QStringList textFeaturesFromFlags(quint64 flags);
 };
 
 #endif

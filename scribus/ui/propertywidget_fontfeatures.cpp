@@ -52,92 +52,104 @@ void PropertyWidget_FontFeatures::showFontFeatures(const QString& s, const QStri
 	enableFeatures(availableFeatures);
 
 	QStringList fontFeatures = s.split(',');
+	quint64 featureFlags = FontFeatures::textFlagsFromList(fontFeatures);
+
 	ContextualCheck->setChecked(true);
 	CommonCheck->setChecked(true);
 	SlashedZeroCheck->setEnabled(true);
-	for (int i = 0; i < fontFeatures.count(); i++)
-	{
-		if (fontFeatures[i] == "-clig")
-			ContextualCheck->setChecked(false);
-		else if (fontFeatures[i] == "-liga")
-			CommonCheck->setChecked(false);
-		else if (fontFeatures[i] == "+dlig")
-			DiscretionaryCheck->setChecked(true);
-		else if (fontFeatures[i] == "+hlig")
-			HistoricalCheck->setChecked(true);
-		else if (fontFeatures[i] == "+subs")
-			SubscriptRadio->setChecked(true);
-		else if (fontFeatures[i] == "+sups")
-			SuperscriptRadio->setChecked(true);
-		else if (fontFeatures[i] == "+smcp")
-			SmallRadio->setChecked(true);
-		else if (fontFeatures[i] == "+c2sc")
-			SmallFromCRadio->setChecked(true);
-		else if (fontFeatures[i] == "+pcap")
-			PetiteRadio->setChecked(true);
-		else if (fontFeatures[i] == "+c2pc")
-			PetiteCapRadio->setChecked(true);
-		else if (fontFeatures[i] == "+unic")
-			UnicaseRadio->setChecked(true);
-		else if (fontFeatures[i] == "+titl")
-			TiltingRadio->setChecked(true);
-		else if (fontFeatures[i] == "+lnum")
-			LiningRadio->setChecked(true);
-		else if (fontFeatures[i] == "+onum")
-			OldStyleRadio->setChecked(true);
-		else if (fontFeatures[i] == "+pnum")
-			ProportionalRadio->setChecked(true);
-		else if (fontFeatures[i] == "+tnum")
-			TabularRadio->setChecked(true);
-		else if (fontFeatures[i] == "+frac")
-			DiagonalRadio->setChecked(true);
-		else if (fontFeatures[i] == "+afrc")
-			StackedRadio->setChecked(true);
-		else if (fontFeatures[i] == "+ordn")
-			OrdinalCheck->setChecked(true);
-		else if (fontFeatures[i] == "+zero")
-			SlashedZeroCheck->setChecked(true);
-		else if (fontFeatures[i] == "+ss01")
-			StyleSet01->setChecked(true);
-		else if (fontFeatures[i] == "+ss02")
-			StyleSet02->setChecked(true);
-		else if (fontFeatures[i] == "+ss03")
-			StyleSet03->setChecked(true);
-		else if (fontFeatures[i] == "+ss04")
-			StyleSet04->setChecked(true);
-		else if (fontFeatures[i] == "+ss05")
-			StyleSet05->setChecked(true);
-		else if (fontFeatures[i] == "+ss06")
-			StyleSet06->setChecked(true);
-		else if (fontFeatures[i] == "+ss07")
-			StyleSet07->setChecked(true);
-		else if (fontFeatures[i] == "+ss08")
-			StyleSet08->setChecked(true);
-		else if (fontFeatures[i] == "+ss09")
-			StyleSet09->setChecked(true);
-		else if (fontFeatures[i] == "+ss10")
-			StyleSet10->setChecked(true);
-		else if (fontFeatures[i] == "+ss11")
-			StyleSet11->setChecked(true);
-		else if (fontFeatures[i] == "+ss12")
-			StyleSet12->setChecked(true);
-		else if (fontFeatures[i] == "+ss13")
-			StyleSet13->setChecked(true);
-		else if (fontFeatures[i] == "+ss14")
-			StyleSet14->setChecked(true);
-		else if (fontFeatures[i] == "+ss15")
-			StyleSet15->setChecked(true);
-		else if (fontFeatures[i] == "+ss16")
-			StyleSet16->setChecked(true);
-		else if (fontFeatures[i] == "+ss17")
-			StyleSet17->setChecked(true);
-		else if (fontFeatures[i] == "+ss18")
-			StyleSet18->setChecked(true);
-		else if (fontFeatures[i] == "+ss19")
-			StyleSet19->setChecked(true);
-		else if (fontFeatures[i] == "+ss20")
-			StyleSet20->setChecked(true);
-	}
+
+	if ((featureFlags & FontFeatures::CommonLigatures) == 0)
+		CommonCheck->setChecked(false);
+	if ((featureFlags & FontFeatures::ContextualLigatures) == 0)
+		ContextualCheck->setChecked(false);
+	if (featureFlags & FontFeatures::DiscretionaryLigatures)
+		DiscretionaryCheck->setChecked(true);
+	if (featureFlags & FontFeatures::HistoricalLigatures)
+		HistoricalCheck->setChecked(true);
+
+	if ((featureFlags & FontFeatures::AllSmallCapsMask) == FontFeatures::AllSmallCapsMask)
+		AllSmallCapsRadio->setChecked(true);
+	else if (featureFlags & FontFeatures::SmallCaps)
+		SmallRadio->setChecked(true);
+	else if (featureFlags & FontFeatures::SmallCapsFromCaps)
+		SmallFromCRadio->setChecked(true);
+	if ((featureFlags & FontFeatures::AllPetiteCapsMask) == FontFeatures::AllPetiteCapsMask)
+		AllPetiteCapsRadio->setChecked(true);
+	else if (featureFlags & FontFeatures::PetiteCaps)
+		PetiteRadio->setChecked(true);
+	else if (featureFlags & FontFeatures::PetiteCapsFromCaps)
+		PetiteCapRadio->setChecked(true);
+	if (featureFlags & FontFeatures::UnicaseCaps)
+		UnicaseRadio->setChecked(true);
+	if (featureFlags & FontFeatures::TiltingCaps)
+		TiltingRadio->setChecked(true);
+
+	if (featureFlags & FontFeatures::LiningNumerals)
+		LiningRadio->setChecked(true);
+	if (featureFlags & FontFeatures::OldStyleNumerals)
+		OldStyleRadio->setChecked(true);
+
+	if (featureFlags & FontFeatures::ProportionalNumeralWidth)
+		ProportionalRadio->setChecked(true);
+	if (featureFlags & FontFeatures::TabularNumeralWidth)
+		TabularRadio->setChecked(true);
+
+	if (featureFlags & FontFeatures::DiagonalFractions)
+		DiagonalRadio->setChecked(true);
+	if (featureFlags & FontFeatures::StackedFractions)
+		StackedRadio->setChecked(true);
+
+	if (featureFlags & FontFeatures::Subscript)
+		SubscriptRadio->setChecked(true);
+	if (featureFlags & FontFeatures::Superscript)
+		SuperscriptRadio->setChecked(true);
+	if (featureFlags & FontFeatures::Ordinals)
+		OrdinalCheck->setChecked(true);
+
+	if (featureFlags & FontFeatures::SlashedZero)
+		SlashedZeroCheck->setChecked(true);
+
+	if (featureFlags & FontFeatures::StyleSet01)
+		StyleSet01->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet02)
+		StyleSet02->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet03)
+		StyleSet03->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet04)
+		StyleSet04->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet05)
+		StyleSet05->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet06)
+		StyleSet06->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet07)
+		StyleSet07->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet08)
+		StyleSet08->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet09)
+		StyleSet09->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet10)
+		StyleSet10->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet11)
+		StyleSet11->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet12)
+		StyleSet12->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet13)
+		StyleSet13->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet14)
+		StyleSet14->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet15)
+		StyleSet15->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet16)
+		StyleSet16->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet17)
+		StyleSet17->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet18)
+		StyleSet18->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet19)
+		StyleSet19->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet20)
+		StyleSet20->setChecked(true);
+
 	if (OldStyleRadio->isChecked())
 	{
 		SlashedZeroCheck->setChecked(false);
@@ -162,13 +174,13 @@ void PropertyWidget_FontFeatures::handleFontFeatures()
 		font_feature << "+hlig";
 
 	//Capitals
-	if (SmallRadio->isChecked())
+	if (SmallRadio->isChecked() || AllSmallCapsRadio->isChecked())
 		font_feature << "+smcp";
-	if (SmallFromCRadio->isChecked())
+	if (SmallFromCRadio->isChecked() || AllSmallCapsRadio->isChecked())
 		font_feature << "+c2sc";
-	if (PetiteRadio->isChecked())
+	if (PetiteRadio->isChecked() || AllPetiteCapsRadio->isChecked())
 		font_feature << "+pcap";
-	if (PetiteCapRadio->isChecked())
+	if (PetiteCapRadio->isChecked() || AllPetiteCapsRadio->isChecked())
 		font_feature << "+c2pc";
 	if (UnicaseRadio->isChecked())
 		font_feature << "+unic";
@@ -308,8 +320,10 @@ void PropertyWidget_FontFeatures::connectSignals()
 	connect(NormalCapRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
 	connect(SmallRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
 	connect(SmallFromCRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(AllSmallCapsRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
 	connect(PetiteRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
 	connect(PetiteCapRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(AllPetiteCapsRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
 	connect(UnicaseRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
 	connect(TiltingRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
 
@@ -364,8 +378,10 @@ void PropertyWidget_FontFeatures::disconnectSignals()
 	disconnect(NormalCapRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
 	disconnect(SmallRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
 	disconnect(SmallFromCRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(AllSmallCapsRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
 	disconnect(PetiteRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
 	disconnect(PetiteCapRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(AllPetiteCapsRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
 	disconnect(UnicaseRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
 	disconnect(TiltingRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
 
@@ -460,8 +476,10 @@ void PropertyWidget_FontFeatures::enableFeatures(const QStringList& fontFeatures
 
 	SmallRadio->setVisible(newFlags & FontFeatures::SmallCaps);
 	SmallFromCRadio->setVisible(newFlags & FontFeatures::SmallCapsFromCaps);
+	AllSmallCapsRadio->setVisible((newFlags & FontFeatures::AllSmallCapsMask) == FontFeatures::AllSmallCapsMask);
 	PetiteRadio->setVisible(newFlags & FontFeatures::PetiteCaps);
 	PetiteCapRadio->setVisible(newFlags & FontFeatures::PetiteCapsFromCaps);
+	AllPetiteCapsRadio->setVisible((newFlags & FontFeatures::AllPetiteCapsMask) == FontFeatures::AllPetiteCapsMask);
 	UnicaseRadio->setVisible(newFlags & FontFeatures::UnicaseCaps);
 	TiltingRadio->setVisible(newFlags & FontFeatures::TiltingCaps);
 
@@ -648,8 +666,10 @@ void PropertyWidget_FontFeatures::initWidgets()
 	NormalCapRadio->setChecked(true);
 	SmallRadio->setChecked(false);
 	SmallFromCRadio->setChecked(false);
+	AllSmallCapsRadio->setChecked(false);
 	PetiteRadio->setChecked(false);
 	PetiteCapRadio->setChecked(false);
+	AllPetiteCapsRadio->setChecked(false);
 	UnicaseRadio->setChecked(false);
 	TiltingRadio->setChecked(false);
 

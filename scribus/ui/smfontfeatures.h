@@ -64,7 +64,7 @@ private:
 	void setupNumeralWidthCombo(quint64 featureFlags);
 	void setupNumeralFractionCombo(quint64 featureFlags);
 
-	QStringList comboboxFeatures(QComboBox* combo) const;
+	quint64 comboboxFeatures(QComboBox* combo) const;
 
 	bool m_hasParent = false;
 	bool m_useParentValue = false;
