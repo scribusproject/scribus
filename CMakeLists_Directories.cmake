@@ -171,19 +171,10 @@ else()
 endif()
 
 #LIB LOCATION - lib or lib64 normally
-#LIB
-if(WANT_LIB64)
-	if(NOT ARCH_X86_64)
-		message(STATUS "WARNING: BUILDING 64 Bit build on non 64 bit architecture")
-	endif()
-	set(LIB_SUFFIX "64" CACHE STRING "Library directory suffix")
-endif()
-
-set(LIB_DIR_NAME "lib${LIB_SUFFIX}")
 if (APPLEBUNDLE)
-	set(LIBDIR "lib/")
+	set(LIBDIR ${CMAKE_INSTALL_LIBDIR})
 else()
-	set(LIBDIR "${LIB_DIR_NAME}/${MAIN_DIR_NAME}${TAG_VERSION}/")
+	set(LIBDIR "${CMAKE_INSTALL_LIBDIR}/${MAIN_DIR_NAME}${TAG_VERSION}/")
 endif()
 
 if(IS_ABSOLUTE ${LIBDIR} AND WANT_RELOCATABLE)
@@ -200,7 +191,7 @@ if(WIN32)
 elseif (APPLEBUNDLE)
 	set(PLUGINDIR "${LIBDIR}")
 else()
-	set(PLUGINDIR "${LIB_DIR_NAME}/${MAIN_DIR_NAME}${TAG_VERSION}/plugins/")
+	set(PLUGINDIR "${CMAKE_INSTALL_LIBDIR}/${MAIN_DIR_NAME}${TAG_VERSION}/plugins/")
 endif()
 
 if(IS_ABSOLUTE ${PLUGINDIR} AND WANT_RELOCATABLE)

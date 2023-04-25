@@ -424,7 +424,7 @@ set (CMAKE_CXX_EXTENSIONS OFF)
 ########## Find Dependencies                                                                        ##########
 ### Include our Dependency finding commands
 include(CMakeLists_Dependencies.cmake)
-
+include(GNUInstallDirs)
 
 ##############################################################################################################
 ########## Include Setup                                                                            ##########
