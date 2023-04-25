@@ -835,6 +835,14 @@ void setCurrentComboItemFromData(QComboBox *box, const QString& data)
 		box->setCurrentIndex(ind);
 }
 
+void setCurrentComboItemFromData(QComboBox* box, quint64 data)
+{
+	QSignalBlocker signalBlocker(box);
+	int ind = box->findData(data);
+	if (ind > -1)
+		box->setCurrentIndex(ind);
+}
+
 void removeComboItem(QComboBox *box, const QString& text)
 {
 	QSignalBlocker signalBlocker(box);

@@ -64,11 +64,11 @@ void SMFontFeatures::languageChange()
 	QSignalBlocker blocker10(this->fractionComboBox);
 	QSignalBlocker blocker11(this->styleSetsMenu);
 
-	QStringList capitalFeatures  = comboboxFeatures(capitalsComboBox);
-	QStringList positionFeatures = comboboxFeatures(positionComboBox);
-	QStringList numeralFeatures  = comboboxFeatures(numeralComboBox);
-	QStringList widthFeatures    = comboboxFeatures(widthComboBox);
-	QStringList fractionFeatures = comboboxFeatures(fractionComboBox);
+	quint64 capitalFeatures  = comboboxFeatures(capitalsComboBox);
+	quint64 positionFeatures = comboboxFeatures(positionComboBox);
+	quint64 numeralFeatures  = comboboxFeatures(numeralComboBox);
+	quint64 widthFeatures    = comboboxFeatures(widthComboBox);
+	quint64 fractionFeatures = comboboxFeatures(fractionComboBox);
 
 	int oldCapitalIndex  = capitalsComboBox->currentIndex();
 	int oldPositionIndex = positionComboBox->currentIndex();
@@ -78,11 +78,11 @@ void SMFontFeatures::languageChange()
 
 	retranslateUi(this);
 
-	setupCapitalCombo(FontFeatures::textFlagsFromList(capitalFeatures));
-	setupPositionCombo(FontFeatures::textFlagsFromList(positionFeatures));
-	setupNumeralStyleCombo(FontFeatures::textFlagsFromList(numeralFeatures));
-	setupNumeralWidthCombo(FontFeatures::textFlagsFromList(widthFeatures));
-	setupNumeralFractionCombo(FontFeatures::textFlagsFromList(fractionFeatures));
+	setupCapitalCombo(capitalFeatures);
+	setupPositionCombo(positionFeatures);
+	setupNumeralStyleCombo(numeralFeatures);
+	setupNumeralWidthCombo(widthFeatures);
+	setupNumeralFractionCombo(fractionFeatures);
 
 	capitalsComboBox->setCurrentIndex(oldCapitalIndex);
 	positionComboBox->setCurrentIndex(oldPositionIndex);
@@ -91,15 +91,14 @@ void SMFontFeatures::languageChange()
 	fractionComboBox->setCurrentIndex(oldFractionIndex);
 }
 
-QStringList SMFontFeatures::comboboxFeatures(QComboBox* combo) const
+quint64 SMFontFeatures::comboboxFeatures(QComboBox* combo) const
 {
-	QStringList features;
+	quint64 features = 0;
 	for (int i = 0; i < combo->count(); ++i)
 	{
 		QVariant varVal = combo->itemData(i);
-		QString value = varVal.toString();
-		if (value.length() > 0)
-			features.append(value);
+		quint64 value = varVal.toULongLong();
+		features |= value;
 	}
 	return features;
 }
@@ -115,99 +114,85 @@ void SMFontFeatures::setFontFeatures(const QString& s, const QStringList& fontFe
 	SlashedZeroCheck->setEnabled(true);
 
 	QStringList fontFeatures = s.split(',');
-	for (int i = 0; i < fontFeatures.count(); i++)
-	{
-		// Ligatures
-		if (fontFeatures[i] == "-clig")
-			ContextualCheck->setChecked(false);
-		else if (fontFeatures[i] == "-liga")
-			CommonCheck->setChecked(false);
-		else if (fontFeatures[i] == "+dlig")
-			DiscretionaryCheck->setChecked(true);
-		else if (fontFeatures[i] == "+hlig")
-			HistoricalCheck->setChecked(true);
-		// position comboBox
-		else if (fontFeatures[i] == "+subs" || 
-		         fontFeatures[i] == "+sups" ||
-		         fontFeatures[i] == "+ordn")
-		{
-			setCurrentComboItemFromData(positionComboBox, fontFeatures[i]);
-		}
-		// Capitals ComboBox
-		else if (fontFeatures[i] == "+smcp" ||
-				 fontFeatures[i] == "+c2sc" ||
-				 fontFeatures[i] == "+pcap" ||
-				 fontFeatures[i] == "+c2pc" ||
-				 fontFeatures[i] == "+unic" ||
-				 fontFeatures[i] == "+titl")
-		{
-			setCurrentComboItemFromData(capitalsComboBox, fontFeatures[i]);
-		}
-		// Numerals style
-		else if (fontFeatures[i] == "+lnum" ||
-				 fontFeatures[i] == "+onum")
-		{
-			setCurrentComboItemFromData(numeralComboBox, fontFeatures[i]);
-		}
-		// Numerals width
-		else if (fontFeatures[i] == "+pnum" ||
-				 fontFeatures[i] == "+tnum")
-		{
-			setCurrentComboItemFromData(widthComboBox, fontFeatures[i]);
-		}
-		// Numerals Fraction
-		else if (fontFeatures[i] == "+frac" ||
-				 fontFeatures[i] == "+afrc")
-		{
-			setCurrentComboItemFromData(fractionComboBox, fontFeatures[i]);
-		}
-		// Numerals Zero
-		else if (fontFeatures[i] == "+zero")
-			SlashedZeroCheck->setChecked(true);
-		// Style Sets
-		else if (fontFeatures[i] == "+ss01")
-			styleSetsMenu->actions().at(0)->setChecked(true);
-		else if (fontFeatures[i] == "+ss02")
-			styleSetsMenu->actions().at(1)->setChecked(true);
-		else if (fontFeatures[i] == "+ss03")
-			styleSetsMenu->actions().at(2)->setChecked(true);
-		else if (fontFeatures[i] == "+ss04")
-			styleSetsMenu->actions().at(3)->setChecked(true);
-		else if (fontFeatures[i] == "+ss05")
-			styleSetsMenu->actions().at(4)->setChecked(true);
-		else if (fontFeatures[i] == "+ss06")
-			styleSetsMenu->actions().at(5)->setChecked(true);
-		else if (fontFeatures[i] == "+ss07")
-			styleSetsMenu->actions().at(6)->setChecked(true);
-		else if (fontFeatures[i] == "+ss08")
-			styleSetsMenu->actions().at(7)->setChecked(true);
-		else if (fontFeatures[i] == "+ss09")
-			styleSetsMenu->actions().at(8)->setChecked(true);
-		else if (fontFeatures[i] == "+ss10")
-			styleSetsMenu->actions().at(9)->setChecked(true);
-		else if (fontFeatures[i] == "+ss11")
-			styleSetsMenu->actions().at(10)->setChecked(true);
-		else if (fontFeatures[i] == "+ss12")
-			styleSetsMenu->actions().at(11)->setChecked(true);
-		else if (fontFeatures[i] == "+ss13")
-			styleSetsMenu->actions().at(12)->setChecked(true);
-		else if (fontFeatures[i] == "+ss14")
-			styleSetsMenu->actions().at(13)->setChecked(true);
-		else if (fontFeatures[i] == "+ss15")
-			styleSetsMenu->actions().at(14)->setChecked(true);
-		else if (fontFeatures[i] == "+ss16")
-			styleSetsMenu->actions().at(15)->setChecked(true);
-		else if (fontFeatures[i] == "+ss17")
-			styleSetsMenu->actions().at(16)->setChecked(true);
-		else if (fontFeatures[i] == "+ss18")
-			styleSetsMenu->actions().at(17)->setChecked(true);
-		else if (fontFeatures[i] == "+ss19")
-			styleSetsMenu->actions().at(18)->setChecked(true);
-		else if (fontFeatures[i] == "+ss20")
-			styleSetsMenu->actions().at(19)->setChecked(true);
-	}
+	quint64 featureFlags = FontFeatures::textFlagsFromList(fontFeatures);
 
-	if (numeralComboBox->currentData().toString() == "+onum")
+	// Ligatures
+	if ((featureFlags & FontFeatures::CommonLigatures) == 0)
+		CommonCheck->setChecked(false);
+	if ((featureFlags & FontFeatures::ContextualLigatures) == 0)
+		ContextualCheck->setChecked(false);
+	if (featureFlags & FontFeatures::DiscretionaryLigatures)
+		DiscretionaryCheck->setChecked(true);
+	if (featureFlags & FontFeatures::HistoricalLigatures)
+		HistoricalCheck->setChecked(true);
+
+	// Position comboBox
+	if (featureFlags & FontFeatures::GlyphPositionMask)
+		setCurrentComboItemFromData(positionComboBox, featureFlags & FontFeatures::GlyphPositionMask);
+
+	// Capitals ComboBox
+	if (featureFlags & FontFeatures::CapsMask)
+		setCurrentComboItemFromData(capitalsComboBox, featureFlags & FontFeatures::CapsMask);
+
+	// Numerals style
+	if (featureFlags & FontFeatures::NumeralStyleMask)
+		setCurrentComboItemFromData(numeralComboBox, featureFlags & FontFeatures::NumeralStyleMask);
+
+	// Numerals width
+	if (featureFlags & FontFeatures::NumeralWidthMask)
+		setCurrentComboItemFromData(widthComboBox, featureFlags & FontFeatures::NumeralWidthMask);
+
+	// Numerals Fraction
+	if (featureFlags & FontFeatures::NumeralFractionsMask)
+		setCurrentComboItemFromData(fractionComboBox, featureFlags & FontFeatures::NumeralFractionsMask);
+
+	// Numerals Zero
+	if (featureFlags & FontFeatures::SlashedZero)
+		SlashedZeroCheck->setChecked(true);
+
+	// Style Sets
+	if (featureFlags & FontFeatures::StyleSet01)
+		styleSetsMenu->actions().at(0)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet02)
+		styleSetsMenu->actions().at(1)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet03)
+		styleSetsMenu->actions().at(2)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet04)
+		styleSetsMenu->actions().at(3)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet05)
+		styleSetsMenu->actions().at(4)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet06)
+		styleSetsMenu->actions().at(5)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet07)
+		styleSetsMenu->actions().at(6)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet08)
+		styleSetsMenu->actions().at(7)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet09)
+		styleSetsMenu->actions().at(8)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet10)
+		styleSetsMenu->actions().at(9)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet11)
+		styleSetsMenu->actions().at(10)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet12)
+		styleSetsMenu->actions().at(11)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet13)
+		styleSetsMenu->actions().at(12)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet14)
+		styleSetsMenu->actions().at(13)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet15)
+		styleSetsMenu->actions().at(14)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet16)
+		styleSetsMenu->actions().at(15)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet17)
+		styleSetsMenu->actions().at(16)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet18)
+		styleSetsMenu->actions().at(17)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet19)
+		styleSetsMenu->actions().at(18)->setChecked(true);
+	if (featureFlags & FontFeatures::StyleSet20)
+		styleSetsMenu->actions().at(19)->setChecked(true);
+
+	if (numeralComboBox->currentData().toULongLong() == FontFeatures::OldStyleNumerals)
 	{
 		SlashedZeroCheck->setChecked(false);
 		SlashedZeroCheck->setEnabled(false);
@@ -227,86 +212,91 @@ void SMFontFeatures::setFontFeatures(const QString& val, const QStringList& font
 
 QString SMFontFeatures::fontFeatures()
 {
-	QStringList font_feature ;
-	if (!ContextualCheck->isChecked())
-		font_feature << "-clig";
-	if (!CommonCheck->isChecked())
-		font_feature << "-liga";
+	quint64 featureFlags = 0;
+
+	// Ligatures
+	if (CommonCheck->isChecked())
+		featureFlags |= FontFeatures::CommonLigatures;
+	if (ContextualCheck->isChecked())
+		featureFlags |= FontFeatures::ContextualLigatures;
 	if (DiscretionaryCheck->isChecked())
-		font_feature << "+dlig";
+		featureFlags |= FontFeatures::DiscretionaryLigatures;
 	if (HistoricalCheck->isChecked())
-		font_feature << "+hlig";
+		featureFlags |= FontFeatures::HistoricalLigatures;
+
 	//Position
 	QVariant varVal = positionComboBox->currentData();
-	QString  value = varVal.toString();
-	if (value.length() > 0)
-		font_feature << value;
+	quint64  value = varVal.toULongLong();
+	featureFlags |= value;
+
 	//Capitals
 	varVal = capitalsComboBox->currentData();
-	value = varVal.toString();
-	if (value.length() > 0)
-		font_feature << value;
+	value = varVal.toULongLong();
+	featureFlags |= value;
+
 	//Numerals style
 	varVal = numeralComboBox->currentData();
-	value = varVal.toString();
-	if (value.length() > 0)
-		font_feature << value;
+	value = varVal.toULongLong();
+	featureFlags |= value;
+
 	//Numerals width
 	varVal = widthComboBox->currentData();
-	value = varVal.toString();
-	if (value.length() > 0)
-		font_feature << value;
+	value = varVal.toULongLong();
+	featureFlags |= value;
+
 	//Numerals Fraction
 	varVal = fractionComboBox->currentData();
-	value = varVal.toString();
-	if (value.length() > 0)
-		font_feature << value;
+	value = varVal.toULongLong();
+	featureFlags |= value;
+
 	// Numerals Zero
 	if (SlashedZeroCheck->isChecked())
-		font_feature << "+zero";
+		featureFlags |= FontFeatures::SlashedZero;
 
 	// Stylistic sets
 	if (styleSetsMenu->actions().at(0)->isChecked())
-		font_feature << "+ss01";
+		featureFlags |= FontFeatures::StyleSet01;
 	if (styleSetsMenu->actions().at(1)->isChecked())
-		font_feature << "+ss02";
+		featureFlags |= FontFeatures::StyleSet02;
 	if (styleSetsMenu->actions().at(2)->isChecked())
-		font_feature << "+ss03";
+		featureFlags |= FontFeatures::StyleSet03;
 	if (styleSetsMenu->actions().at(3)->isChecked())
-		font_feature << "+ss04";
+		featureFlags |= FontFeatures::StyleSet04;
 	if (styleSetsMenu->actions().at(4)->isChecked())
-		font_feature << "+ss05";
+		featureFlags |= FontFeatures::StyleSet05;
 	if (styleSetsMenu->actions().at(5)->isChecked())
-		font_feature << "+ss06";
+		featureFlags |= FontFeatures::StyleSet06;
 	if (styleSetsMenu->actions().at(6)->isChecked())
-		font_feature << "+ss07";
+		featureFlags |= FontFeatures::StyleSet07;
 	if (styleSetsMenu->actions().at(7)->isChecked())
-		font_feature << "+ss08";
+		featureFlags |= FontFeatures::StyleSet08;
 	if (styleSetsMenu->actions().at(8)->isChecked())
-		font_feature << "+ss09";
+		featureFlags |= FontFeatures::StyleSet09;
 	if (styleSetsMenu->actions().at(9)->isChecked())
-		font_feature << "+ss10";
+		featureFlags |= FontFeatures::StyleSet10;
 	if (styleSetsMenu->actions().at(10)->isChecked())
-		font_feature << "+ss11";
+		featureFlags |= FontFeatures::StyleSet11;
 	if (styleSetsMenu->actions().at(11)->isChecked())
-		font_feature << "+ss12";
+		featureFlags |= FontFeatures::StyleSet12;
 	if (styleSetsMenu->actions().at(12)->isChecked())
-		font_feature << "+ss13";
+		featureFlags |= FontFeatures::StyleSet13;
 	if (styleSetsMenu->actions().at(13)->isChecked())
-		font_feature << "+ss14";
+		featureFlags |= FontFeatures::StyleSet14;
 	if (styleSetsMenu->actions().at(14)->isChecked())
-		font_feature << "+ss15";
+		featureFlags |= FontFeatures::StyleSet15;
 	if (styleSetsMenu->actions().at(15)->isChecked())
-		font_feature << "+ss16";
+		featureFlags |= FontFeatures::StyleSet16;
 	if (styleSetsMenu->actions().at(16)->isChecked())
-		font_feature << "+ss17";
+		featureFlags |= FontFeatures::StyleSet17;
 	if (styleSetsMenu->actions().at(17)->isChecked())
-		font_feature << "+ss18";
+		featureFlags |= FontFeatures::StyleSet18;
 	if (styleSetsMenu->actions().at(18)->isChecked())
-		font_feature << "+ss19";
+		featureFlags |= FontFeatures::StyleSet19;
 	if (styleSetsMenu->actions().at(19)->isChecked())
-		font_feature << "+ss20";
-	return font_feature.join(",");
+		featureFlags |= FontFeatures::StyleSet20;
+
+	QStringList font_features = FontFeatures::textFeaturesFromFlags(featureFlags);
+	return font_features.join(",");
 }
 
 void SMFontFeatures::setParentValue(const QString& val)
@@ -483,20 +473,24 @@ void SMFontFeatures::setupCapitalCombo(quint64 featureFlags)
 	QSignalBlocker blocker(capitalsComboBox);
 
 	capitalsComboBox->clear();
-	capitalsComboBox->addItem( tr("Default Capitals"));
+	capitalsComboBox->addItem( tr("Default Capitals"), QVariant(0));
 
 	if (featureFlags & FontFeatures::SmallCaps)
-		capitalsComboBox->addItem(tr("Small Capitals"), QVariant("+smcp"));
+		capitalsComboBox->addItem(tr("Small Capitals"), QVariant(FontFeatures::SmallCaps));
 	if (featureFlags & FontFeatures::SmallCapsFromCaps)
-		capitalsComboBox->addItem(tr("Small Capitals from Capitals"), QVariant("+c2sc"));
+		capitalsComboBox->addItem(tr("Small Capitals from Capitals"), QVariant(FontFeatures::SmallCapsFromCaps));
+	if ((featureFlags & FontFeatures::AllSmallCapsMask) == FontFeatures::AllSmallCapsMask)
+		capitalsComboBox->addItem(tr("All Small Capitals"), QVariant(FontFeatures::AllSmallCapsMask));
 	if (featureFlags & FontFeatures::PetiteCaps)
-		capitalsComboBox->addItem(tr("Petite Capitals"), QVariant("+pcap"));
+		capitalsComboBox->addItem(tr("Petite Capitals"), QVariant(FontFeatures::PetiteCaps));
 	if (featureFlags & FontFeatures::PetiteCapsFromCaps)
-		capitalsComboBox->addItem(tr("Petite Capitals from Capitals"), QVariant("+c2pc"));
+		capitalsComboBox->addItem(tr("Petite Capitals from Capitals"), QVariant(FontFeatures::PetiteCapsFromCaps));
+	if ((featureFlags & FontFeatures::AllPetiteCapsMask) == FontFeatures::AllPetiteCapsMask)
+		capitalsComboBox->addItem(tr("All Petite Capitals"), QVariant(FontFeatures::AllPetiteCapsMask));
 	if (featureFlags & FontFeatures::UnicaseCaps)
-		capitalsComboBox->addItem(tr("Unicase"), QVariant("+unic"));
+		capitalsComboBox->addItem(tr("Unicase"), QVariant(FontFeatures::UnicaseCaps));
 	if (featureFlags & FontFeatures::TiltingCaps)
-		capitalsComboBox->addItem(tr("Titling"), QVariant("+titl"));
+		capitalsComboBox->addItem(tr("Titling"), QVariant(FontFeatures::TiltingCaps));
 }
 
 void SMFontFeatures::setupPositionCombo(quint64 featureFlags)
@@ -504,14 +498,14 @@ void SMFontFeatures::setupPositionCombo(quint64 featureFlags)
 	QSignalBlocker blocker(positionComboBox);
 
 	positionComboBox->clear();
-	positionComboBox->addItem( tr("Default Position"));
+	positionComboBox->addItem( tr("Default Position"), QVariant(0));
 
 	if (featureFlags & FontFeatures::Subscript)
-		positionComboBox->addItem(tr("Subscript"), QVariant("+subs"));
+		positionComboBox->addItem(tr("Subscript"), QVariant(FontFeatures::Subscript));
 	if (featureFlags & FontFeatures::Superscript)
-		positionComboBox->addItem(tr("Superscript"), QVariant("+sups"));
+		positionComboBox->addItem(tr("Superscript"), QVariant(FontFeatures::Superscript));
 	if (featureFlags & FontFeatures::Ordinals)
-		positionComboBox->addItem(tr("Ordinals"), QVariant("+ordn"));
+		positionComboBox->addItem(tr("Ordinals"), QVariant(FontFeatures::Ordinals));
 }
 
 void SMFontFeatures::setupNumeralStyleCombo(quint64 featureFlags)
@@ -519,12 +513,12 @@ void SMFontFeatures::setupNumeralStyleCombo(quint64 featureFlags)
 	QSignalBlocker blocker(numeralComboBox);
 
 	numeralComboBox->clear();
-	numeralComboBox->addItem( tr("Default Numerals"));
+	numeralComboBox->addItem( tr("Default Numerals"), QVariant(0));
 
 	if (featureFlags & FontFeatures::LiningNumerals)
-		numeralComboBox->addItem(tr("Lining"), QVariant("+lnum"));
+		numeralComboBox->addItem(tr("Lining"), QVariant(FontFeatures::LiningNumerals));
 	if (featureFlags & FontFeatures::OldStyleNumerals)
-		numeralComboBox->addItem(tr("Old Style"), QVariant("+onum"));
+		numeralComboBox->addItem(tr("Old Style"), QVariant(FontFeatures::OldStyleNumerals));
 }
 
 void SMFontFeatures::setupNumeralWidthCombo(quint64 featureFlags)
@@ -532,12 +526,12 @@ void SMFontFeatures::setupNumeralWidthCombo(quint64 featureFlags)
 	QSignalBlocker blocker(widthComboBox);
 
 	widthComboBox->clear();
-	widthComboBox->addItem( tr("Default Numeral Width"));
+	widthComboBox->addItem( tr("Default Numeral Width"), QVariant(0));
 
 	if (featureFlags & FontFeatures::ProportionalNumeralWidth)
-		widthComboBox->addItem(tr("Proportional"), QVariant("+pnum"));
+		widthComboBox->addItem(tr("Proportional"), QVariant(FontFeatures::ProportionalNumeralWidth));
 	if (featureFlags & FontFeatures::TabularNumeralWidth)
-		widthComboBox->addItem(tr("Tabular"), QVariant("+tnum"));
+		widthComboBox->addItem(tr("Tabular"), QVariant(FontFeatures::TabularNumeralWidth));
 }
 
 void SMFontFeatures::setupNumeralFractionCombo(quint64 featureFlags)
@@ -545,12 +539,12 @@ void SMFontFeatures::setupNumeralFractionCombo(quint64 featureFlags)
 	QSignalBlocker blocker(fractionComboBox);
 
 	fractionComboBox->clear();
-	fractionComboBox->addItem( tr("No Fractions"));
+	fractionComboBox->addItem( tr("No Fractions"), QVariant(0));
 
 	if (featureFlags & FontFeatures::DiagonalFractions)
-		fractionComboBox->addItem(tr("Diagonal Fractions"), QVariant("+frac"));
+		fractionComboBox->addItem(tr("Diagonal Fractions"), QVariant(FontFeatures::DiagonalFractions));
 	if (featureFlags & FontFeatures::StackedFractions)
-		fractionComboBox->addItem(tr("Stacked Fractions"), QVariant("+afrc"));
+		fractionComboBox->addItem(tr("Stacked Fractions"), QVariant(FontFeatures::StackedFractions));
 }
 
 void SMFontFeatures::slotChange()
@@ -628,7 +622,7 @@ void SMFontFeatures::slotNumeralComboBox()
 	}
 
 	// Old Style numerals do not support slashed zero
-	bool oldStyleNumeral = (numeralComboBox->currentData().toString() == "+onum");
+	bool oldStyleNumeral = (numeralComboBox->currentData().toULongLong() == FontFeatures::OldStyleNumerals);
 	if (oldStyleNumeral)
 		SlashedZeroCheck->setChecked(false);
 	SlashedZeroCheck->setEnabled(!oldStyleNumeral);

@@ -54,6 +54,8 @@ quint64 FontFeatures::LigaturesMask = FontFeatures::CommonLigatures + FontFeatur
 quint64 FontFeatures::CapsMask = FontFeatures::SmallCaps + FontFeatures::SmallCapsFromCaps +
                                  FontFeatures::PetiteCaps + FontFeatures::PetiteCapsFromCaps +
                                  FontFeatures::UnicaseCaps + FontFeatures::TiltingCaps;
+quint64 FontFeatures::AllSmallCapsMask = FontFeatures::SmallCaps + FontFeatures::SmallCapsFromCaps;
+quint64 FontFeatures::AllPetiteCapsMask = FontFeatures::PetiteCaps + FontFeatures::PetiteCapsFromCaps;
 
 quint64 FontFeatures::GlyphPositionMask = FontFeatures::Subscript + FontFeatures::Superscript + FontFeatures::Ordinals;
 quint64 FontFeatures::NumeralStyleMask = FontFeatures::LiningNumerals + FontFeatures::OldStyleNumerals;
@@ -265,4 +267,100 @@ quint64 FontFeatures::textFlagsFromList(const QStringList& features)
 	}
 
 	return flags;
+}
+
+
+QStringList FontFeatures::textFeaturesFromFlags(quint64 flags)
+{
+	QStringList features;
+
+	if ((flags & FontFeatures::CommonLigatures) == 0)
+		features << "-liga";
+	if ((flags & FontFeatures::ContextualLigatures) == 0)
+		features << "-clig";
+	if (flags & FontFeatures::DiscretionaryLigatures)
+		features << "+dlig";
+	if (flags & FontFeatures::HistoricalLigatures)
+		features << "+hlig";
+
+	if (flags & FontFeatures::SmallCaps)
+		features << "+smcp";
+	if (flags & FontFeatures::SmallCapsFromCaps)
+		features << "+c2sc";
+	if (flags & FontFeatures::PetiteCaps)
+		features << "+pcap";
+	if (flags & FontFeatures::PetiteCapsFromCaps)
+		features << "+c2pc";
+	if (flags & FontFeatures::UnicaseCaps)
+		features << "+unic";
+	if (flags & FontFeatures::TiltingCaps)
+		features << "+titl";
+
+	if (flags & FontFeatures::LiningNumerals)
+		features << "+lnum";
+	if (flags & FontFeatures::OldStyleNumerals)
+		features << "+onum";
+
+	if (flags & FontFeatures::ProportionalNumeralWidth)
+		features << "+pnum";
+	if (flags & FontFeatures::TabularNumeralWidth)
+		features << "+tnum";
+
+	if (flags & FontFeatures::DiagonalFractions)
+		features << "+frac";
+	if (flags & FontFeatures::StackedFractions)
+		features << "+afrc";
+
+	if (flags & FontFeatures::Subscript)
+		features << "+subs";
+	if (flags & FontFeatures::Superscript)
+		features << "+sups";
+	if (flags & FontFeatures::Ordinals)
+		features << "+ordn";
+
+	if (flags & FontFeatures::SlashedZero)
+		features << "+zero";
+
+	if (flags & FontFeatures::StyleSet01)
+		features << "+ss01";
+	if (flags & FontFeatures::StyleSet02)
+		features << "+ss02";
+	if (flags & FontFeatures::StyleSet03)
+		features << "+ss03";
+	if (flags & FontFeatures::StyleSet04)
+		features << "+ss04";
+	if (flags & FontFeatures::StyleSet05)
+		features << "+ss04";
+	if (flags & FontFeatures::StyleSet06)
+		features << "+ss06";
+	if (flags & FontFeatures::StyleSet07)
+		features << "+ss07";
+	if (flags & FontFeatures::StyleSet08)
+		features << "+ss08";
+	if (flags & FontFeatures::StyleSet09)
+		features << "+ss09";
+	if (flags & FontFeatures::StyleSet10)
+		features << "+ss10";
+	if (flags & FontFeatures::StyleSet11)
+		features << "+ss11";
+	if (flags & FontFeatures::StyleSet12)
+		features << "+ss12";
+	if (flags & FontFeatures::StyleSet13)
+		features << "+ss13";
+	if (flags & FontFeatures::StyleSet14)
+		features << "+ss14";
+	if (flags & FontFeatures::StyleSet15)
+		features << "+ss15";
+	if (flags & FontFeatures::StyleSet16)
+		features << "+ss16";
+	if (flags & FontFeatures::StyleSet17)
+		features << "+ss17";
+	if (flags & FontFeatures::StyleSet18)
+		features << "+ss18";
+	if (flags & FontFeatures::StyleSet19)
+		features << "+ss19";
+	if (flags & FontFeatures::StyleSet20)
+		features << "+ss20";
+
+	return features;
 }
