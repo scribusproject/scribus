@@ -160,13 +160,15 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 		if (!scribusi)
 			return EXIT_FAILURE;
 		int retVal = scribusi->initScIMW();
+		if (retVal == EXIT_FAILURE)
+			return EXIT_FAILURE;
 		scribusi->show();
 		scribusi->resize(1024, 768);
 
 //		connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
+#else
+		return EXIT_FAILURE;
 #endif
-		if (retVal == EXIT_FAILURE)
-			return EXIT_FAILURE;
 	}
 	return EXIT_SUCCESS;
 }
