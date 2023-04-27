@@ -10494,7 +10494,7 @@ void ScribusDoc::itemSelection_TogglePrintEnabled( )
 	emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 }
 
-void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matrix, int basepoint)
+void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matrix, AnchorPoint basepoint)
 {
 	int docSelectionCount=m_Selection->count();
 	if (docSelectionCount == 0)
@@ -10522,19 +10522,19 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 			QTransform matrixAft;
 			switch (basepoint)
 			{
-			case 2:
+			case AnchorPoint::Center:
 				matrixPre.translate(-gw / 2.0, -gh / 2.0);
 				matrixAft.translate(gw / 2.0, gh / 2.0);
 				break;
-			case 4:
+			case AnchorPoint::BottomRight:
 				matrixPre.translate(-gw, -gh);
 				matrixAft.translate(gw, gh);
 				break;
-			case 3:
+			case AnchorPoint::BottomLeft:
 				matrixPre.translate(0, -gh);
 				matrixAft.translate(0, gh);
 				break;
-			case 1:
+			case AnchorPoint::TopRight:
 				matrixPre.translate(-gw, 0);
 				matrixAft.translate(gw, 0);
 				break;
@@ -10588,8 +10588,8 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 		QTransform comulatedMatrix = matrix;
 		PageItem *currItem = m_Selection->itemAt(0);
 		Elements.append(currItem);
-		int rotBack = rotationMode();
-		setRotationMode ( 0 );
+		AnchorPoint rotBack = rotationMode();
+		setRotationMode ( AnchorPoint::TopLeft );
 		ScriXmlDoc xmlDoc;
 		QString copyBuffer = ScriXmlDoc::writeElem(this, m_Selection);
 		view()->deselectItems(true);
@@ -10622,19 +10622,19 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 				QTransform matrixAft;
 				switch (basepoint)
 				{
-				case 2:
+				case AnchorPoint::Center:
 					matrixPre.translate(-gw / 2.0, -gh / 2.0);
 					matrixAft.translate(gw / 2.0, gh / 2.0);
 					break;
-				case 4:
+				case AnchorPoint::BottomRight:
 					matrixPre.translate(-gw, -gh);
 					matrixAft.translate(gw, gh);
 					break;
-				case 3:
+				case AnchorPoint::BottomLeft:
 					matrixPre.translate(0, -gh);
 					matrixAft.translate(0, gh);
 					break;
-				case 1:
+				case AnchorPoint::TopRight:
 					matrixPre.translate(-gw, 0);
 					matrixAft.translate(gw, 0);
 					break;
@@ -14123,7 +14123,7 @@ void ScribusDoc::rotateItem(double angle, PageItem *currItem)
 	if (currItem->locked())
 		return;
 	QRectF oldR = currItem->getBoundingRect();
-	if (m_rotMode != 0)
+	if (m_rotMode != AnchorPoint::TopLeft)
 	{
 		QTransform ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
@@ -14134,19 +14134,19 @@ void ScribusDoc::rotateItem(double angle, PageItem *currItem)
 		FPoint n(0,0);
 		switch (m_rotMode)
 		{
-		case 2:
+		case AnchorPoint::Center:
 			ma.translate(currItem->width() / 2.0, currItem->height() / 2.0);
 			n = FPoint(-currItem->width() / 2.0, -currItem->height() / 2.0);
 			break;
-		case 4:
+		case AnchorPoint::BottomRight:
 			ma.translate(currItem->width(), currItem->height());
 			n = FPoint(-currItem->width(), -currItem->height());
 			break;
-		case 3:
+		case AnchorPoint::BottomLeft:
 			ma.translate(0, currItem->height());
 			n = FPoint(0, -currItem->height());
 			break;
-		case 1:
+		case AnchorPoint::TopRight:
 			ma.translate(currItem->width(), 0);
 			n = FPoint(-currItem->width(), 0);
 			break;
@@ -14214,23 +14214,23 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 		QString transacDesc = QString(Um::ResizeFromTo).arg(owString, ohString, nwString, nhString);
 		activeTransaction = m_undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::Resize, transacDesc, Um::IResize);
 	}
-	if ((m_rotMode != 0) && (fromMP) && (!isLoading()) && (appMode == modeNormal))
+	if ((m_rotMode != AnchorPoint::TopLeft) && (fromMP) && (!isLoading()) && (appMode == modeNormal))
 	{
 		QTransform ma;
 		ma.rotate(currItem->rotation());
 		double moveX = ma.m11() * (currItem->width() - newW) + ma.m21() * (currItem->height() - newH) + ma.dx();
 		double moveY = ma.m22() * (currItem->height() - newH) + ma.m12() * (currItem->width() - newW) + ma.dy();
-		if (m_rotMode == 2)
+		if (m_rotMode == AnchorPoint::Center)
 		{
 			moveX /= 2.0;
 			moveY /= 2.0;
 		}
-		else if (m_rotMode == 1)
+		else if (m_rotMode == AnchorPoint::TopRight)
 		{
 			moveX = ma.m11() * (currItem->width() - newW);
 			moveY = ma.m12() * (currItem->width() - newW);
 		}
-		else if (m_rotMode == 3)
+		else if (m_rotMode == AnchorPoint::BottomLeft)
 		{
 			moveX = ma.m21() * (currItem->height() - newH);
 			moveY = ma.m22() * (currItem->height() - newH);
@@ -14526,15 +14526,15 @@ void ScribusDoc::rotateGroup(double angle, Selection* customSelection)
 	double gx, gy, gh, gw;
 	FPoint rotationPoint(0, 0);
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
-	if (this->m_rotMode == 0)
+	if (this->m_rotMode == AnchorPoint::TopLeft)
 		rotationPoint = FPoint(gx, gy);
-	if (this->m_rotMode == 1)
+	if (this->m_rotMode == AnchorPoint::TopRight)
 		rotationPoint = FPoint(gx, gy);
-	if (this->m_rotMode == 2)
+	if (this->m_rotMode == AnchorPoint::Center)
 		rotationPoint = FPoint(gx + gw / 2.0, gy + gh / 2.0);
-	if (this->m_rotMode == 3)
+	if (this->m_rotMode == AnchorPoint::BottomLeft)
 		rotationPoint = FPoint(gx, gy + gh);
-	if (this->m_rotMode == 4)
+	if (this->m_rotMode == AnchorPoint::BottomRight)
 		rotationPoint = FPoint(gx + gw, gy + gh);
 	rotateGroup(angle, rotationPoint, itemSelection);
 }
@@ -14580,8 +14580,8 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 	PageItem *item;
 	double gx, gy, gh, gw; //, x, y;
 	double sc = 1; //FIXME:av Scale;
-	int drm = m_rotMode;
-	m_rotMode = 0;
+	AnchorPoint drm = m_rotMode;
+	m_rotMode = AnchorPoint::TopLeft;
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	QRect oldR(static_cast<int>(gx * sc - 5), static_cast<int>(gy * sc - 5), static_cast<int>(gw * sc + 10), static_cast<int>(gh * sc + 10));
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -14771,20 +14771,20 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 	GroupOnPage(item);
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	m_rotMode = drm;
-	if ((m_rotMode != 0) && (!isLoading()))
+	if ((m_rotMode != AnchorPoint::TopLeft) && (!isLoading()))
 	{
 		switch (m_rotMode)
 		{
-		case 2:
+		case AnchorPoint::Center:
 			moveGroup((origGW - gw) / 2.0, (origGH - gh) / 2.0);
 			break;
-		case 4:
+		case AnchorPoint::BottomRight:
 			moveGroup(origGW - gw, origGH - gh);
 			break;
-		case 3:
+		case AnchorPoint::BottomLeft:
 			moveGroup(0.0, origGH - gh);
 			break;
-		case 1:
+		case AnchorPoint::TopRight:
 			moveGroup(origGW - gw, 0.0);
 			break;
 		}
@@ -15512,8 +15512,8 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 		currItem->PoLine.setMarker();
 		currItem->PoLine.putPoints(currItem->PoLine.size(), bb->PoLine.size(), bb->PoLine);
 	}
-	int oldRotMode = m_rotMode;
-	m_rotMode = 0;
+	AnchorPoint oldRotMode = m_rotMode;
+	m_rotMode = AnchorPoint::TopLeft;
 	adjustItemSize(currItem);
 	m_rotMode = oldRotMode;
 	currItem->ContourLine = currItem->PoLine.copy();
@@ -15547,8 +15547,8 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 	if (UndoManager::undoEnabled())
 		transaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SplitItem, "", Um::IGroup);
 	m_undoManager->setUndoEnabled(false);
-	int oldRotMode = m_rotMode;
-	m_rotMode = 0;
+	AnchorPoint oldRotMode = m_rotMode;
+	m_rotMode = AnchorPoint::TopLeft;
 	for (int i = 0; i < m_Selection->count(); ++i)
 	{
 		QList< int> itemsList;
@@ -16104,7 +16104,7 @@ bool ScribusDoc::textCanvasPosition(PageItem* item, int textPos, QPointF& canvas
 	return true;
 }
 
-void ScribusDoc::setRotationMode(int val)
+void ScribusDoc::setRotationMode(AnchorPoint val)
 {
 	if (m_rotMode == val)
 		return;

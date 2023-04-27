@@ -1176,8 +1176,8 @@ void XfigPlug::processEllipse(const QString& data)
 		if (line_style > 0)
 			ite->setDashes(getDashValues(LineW, line_style));
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		int rot = m_Doc->rotationMode();
-		m_Doc->setRotationMode ( 2);
+		AnchorPoint rot = m_Doc->rotationMode();
+		m_Doc->setRotationMode ( AnchorPoint::Center);
 		m_Doc->rotateItem(-angle * 180.0 / M_PI, ite);
 		m_Doc->setRotationMode( rot);
 		depthMap.insert(999 - depth, currentItemNr);

@@ -245,12 +245,12 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 		}
 		//>>#9046
 		
-		int oldRotMode = currDoc->rotationMode();
+		AnchorPoint oldRotMode = currDoc->rotationMode();
 		currItem->setRotation(0.0);
 		currItem->PoLine = points;
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
-		currDoc->setRotationMode(0);
+		currDoc->setRotationMode(AnchorPoint::TopLeft);
 		currDoc->adjustItemSize(currItem);
 		currDoc->setRotationMode(oldRotMode);
 		currItem->OldB2 = currItem->width();
@@ -300,12 +300,12 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 			}
 			//>>#9046
 
-			int oldRotMode = currDoc->rotationMode();
+			AnchorPoint oldRotMode = currDoc->rotationMode();
 			Item1->setRotation(0.0);
 			Item1->PoLine = points;
 			Item1->ClipEdited = true;
 			Item1->FrameType = 3;
-			currDoc->setRotationMode(0);
+			currDoc->setRotationMode(AnchorPoint::TopLeft);
 			currDoc->adjustItemSize(Item1);
 			currDoc->setRotationMode(oldRotMode);
 			Item1->OldB2 = Item1->width();
@@ -347,13 +347,13 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 			}
 			//>>#9046
 
-			int oldRotMode = currDoc->rotationMode();
+			AnchorPoint oldRotMode = currDoc->rotationMode();
 			Item2->setXYPos(i1x, i1y);
 			Item2->setRotation(0.0);
 			Item2->PoLine = points;
 			Item2->ClipEdited = true;
 			Item2->FrameType = 3;
-			currDoc->setRotationMode(0);
+			currDoc->setRotationMode(AnchorPoint::TopLeft);
 			currDoc->adjustItemSize(Item2);
 			currDoc->setRotationMode(oldRotMode);
 			Item2->OldB2 = Item2->width();
@@ -392,11 +392,11 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 
 			points.fromQPainterPath(path);
 
-			int oldRotMode = currDoc->rotationMode();
+			AnchorPoint oldRotMode = currDoc->rotationMode();
 			newItem->PoLine = points;
 			newItem->ClipEdited = true;
 			newItem->FrameType = 3;
-			currDoc->setRotationMode(0);
+			currDoc->setRotationMode(AnchorPoint::TopLeft);
 			currDoc->adjustItemSize(newItem);
 			currDoc->setRotationMode(oldRotMode);
 			newItem->OldB2 = newItem->width();

@@ -139,8 +139,8 @@ bool PathConnectPlugin::run(ScribusDoc* doc, const QString&)
 			m_item1->PoLine = computePath(pointOne, pointTwo, mode, originalPath1, originalPath2);
 			m_item1->ClipEdited = true;
 			m_item1->FrameType = 3;
-			int oldRotMode = m_doc->rotationMode();
-			m_doc->setRotationMode(0);
+			AnchorPoint oldRotMode = m_doc->rotationMode();
+			m_doc->setRotationMode(AnchorPoint::TopLeft);
 			m_doc->adjustItemSize(m_item1);
 			m_doc->setRotationMode(oldRotMode);
 			m_item1->OldB2 = m_item1->width();
@@ -170,8 +170,8 @@ bool PathConnectPlugin::run(ScribusDoc* doc, const QString&)
 			m_item1->ClipEdited = true;
 			m_item1->FrameType = 3;
 			m_item1->setXYPos(originalXPos, originalYPos);
-			int oldRotMode = m_doc->rotationMode();
-			m_doc->setRotationMode(0);
+			AnchorPoint oldRotMode = m_doc->rotationMode();
+			m_doc->setRotationMode(AnchorPoint::TopLeft);
 			m_doc->adjustItemSize(m_item1);
 			m_doc->setRotationMode(oldRotMode);
 			m_item1->OldB2 = m_item1->width();
@@ -204,8 +204,8 @@ void PathConnectPlugin::updateEffect(int effectType, int pointOne, int pointTwo,
 		m_item1->ClipEdited = true;
 		m_item1->FrameType = 3;
 	}
-	int oldRotMode = m_doc->rotationMode();
-	m_doc->setRotationMode(0);
+	AnchorPoint oldRotMode = m_doc->rotationMode();
+	m_doc->setRotationMode(AnchorPoint::TopLeft);
 	m_doc->adjustItemSize(m_item1);
 	m_doc->setRotationMode(oldRotMode);
 	m_item1->OldB2 = m_item1->width();

@@ -2682,7 +2682,7 @@ void ScribusMainWindow::HaveNewSel()
 		}
 		break;
 	}
-	propertiesPalette->xyzPal->basePointWidget->setCheckedId(doc->rotationMode());
+	propertiesPalette->xyzPal->basePointWidget->setSelectedAnchor(doc->rotationMode());
 
 	if (docSelectionCount != 0)
 	{
@@ -8831,7 +8831,7 @@ void ScribusMainWindow::slotItemTransform()
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	int count=td.getCount();
 	QTransform matrix(td.getTransformMatrix());
-	int basepoint=td.getBasepoint();
+	AnchorPoint basepoint=td.getBasepoint();
 	doc->itemSelection_Transform(count, matrix, basepoint);
 	QApplication::restoreOverrideCursor();
 	if (trans)

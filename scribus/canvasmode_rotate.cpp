@@ -113,7 +113,7 @@ void CanvasMode_Rotate::getNewItemPosition(const PageItem* item, FPoint& pos, do
 		pos.setXY(ma.m11() * n.x() + ma.m21() * n.y() + ma.dx(), ma.m22() * n.y() + ma.m12() * n.x() + ma.dy());
 		rotation = item->rotation() + newAngle;
 	}
-	else if (m_rotMode != 0)
+	else if (m_rotMode != AnchorPoint::TopLeft)
 	{
 		FPoint n(0,0);
 		QTransform ma;
@@ -123,19 +123,19 @@ void CanvasMode_Rotate::getNewItemPosition(const PageItem* item, FPoint& pos, do
 		double ro = newAngle - item->rotation();
 		switch (m_rotMode)
 		{
-		case 2:
+		case AnchorPoint::Center:
 			ma.translate(item->width()/2.0, item->height()/2.0);
 			n = FPoint(-item->width()/2.0, -item->height()/2.0);
 			break;
-		case 4:
+		case AnchorPoint::BottomRight:
 			ma.translate(item->width(), item->height());
 			n = FPoint(-item->width(), -item->height());
 			break;
-		case 3:
+		case AnchorPoint::BottomLeft:
 			ma.translate(0, item->height());
 			n = FPoint(0, -item->height());
 			break;
-		case 1:
+		case AnchorPoint::TopRight:
 			ma.translate(item->width(), 0);
 			n = FPoint(-item->width(), 0);
 			break;
@@ -166,7 +166,7 @@ void CanvasMode_Rotate::activate(bool fromGesture)
 	m_view->MidButt  = false;
 	m_inItemRotation = false;
 	m_canvasPressCoord.setXY(-1.0, -1.0);
-	m_oldRotMode   = m_rotMode   = 0;
+	m_oldRotMode   = m_rotMode   = AnchorPoint::TopLeft;
 	m_oldRotCenter = m_rotCenter = FPoint(0.0, 0.0);
 	m_startAngle   = 0.0;
 	setModeCursor();
@@ -237,12 +237,12 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 			m_doc->m_Selection->getGroupRect(&gxR, &gyR, &gwR, &ghR);
 			if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 			{
-				m_rotMode   = 2;
+			m_rotMode   = AnchorPoint::Center;
 				m_rotCenter = FPoint(gxR + gwR / 2.0, gyR + ghR / 2.0);
 				if (QRect(static_cast<int>(gx + gw) - 6, static_cast<int>(gy + gh) - 6, 6, 6).intersects(mpo))
 				{
 					m_rotCenter = FPoint(gxR, gyR);
-					m_rotMode   = 0;
+					m_rotMode   = AnchorPoint::TopLeft;
 				}
 				m_doc->setRotationMode(m_rotMode);
 				m_view->RCenter = m_rotCenter;
@@ -254,7 +254,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 		{
 			QTransform mat;
 			m_canvas->Transform(currItem, mat);
-			m_rotMode   = 2;
+			m_rotMode   = AnchorPoint::Center;
 			m_rotCenter = FPoint(currItem->width() / 2, currItem->height() / 2, 0, 0, currItem->rotation(), 1, 1, false);
 //			if (!currItem->asLine())
 //			{
@@ -263,22 +263,22 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 					if (mat.mapRect(QRect(0, 0, 6, 6)).intersects(mpo))
 					{
 						m_rotCenter = FPoint(currItem->width(), currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
-						m_rotMode   = 4;
+						m_rotMode   = AnchorPoint::BottomRight;
 					}
 					else if (mat.mapRect(QRect(static_cast<int>(currItem->width()) - 6, 0, 6, 6)).intersects(mpo))
 					{
 						m_rotCenter = FPoint(0, currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
-						m_rotMode   = 3;
+						m_rotMode   = AnchorPoint::BottomLeft;
 					}
 					else if (mat.mapRect(QRect(static_cast<int>(currItem->width()) - 6, static_cast<int>(currItem->height()) - 6, 6, 6)).intersects(mpo))
 					{
 						m_rotCenter = FPoint(0, 0);
-						m_rotMode   = 0;
+						m_rotMode   = AnchorPoint::TopLeft;
 					}
 					else if (mat.mapRect(QRect(0, static_cast<int>(currItem->height()) - 6, 6, 6)).intersects(mpo))
 					{
 						m_rotCenter = FPoint(currItem->width(), 0, 0, 0, currItem->rotation(), 1, 1, false);
-						m_rotMode   = 1;
+						m_rotMode   = AnchorPoint::TopRight;
 					}	
 				}
 				m_doc->setRotationMode(m_rotMode);
@@ -459,15 +459,26 @@ void CanvasMode_Rotate::keyPressEvent(QKeyEvent *e)
 		m_oldRotCenter = m_rotCenter = m_view->RCenter;
 		m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 		m_rotMode   = m_doc->rotationMode();
-		m_rotCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
-		if (m_rotMode == 0)
+
+		switch(m_rotMode){
+		case AnchorPoint::TopLeft:
 			m_rotCenter = FPoint(gx, gy);
-		else if (m_rotMode == 1)
+			break;
+		case AnchorPoint::TopRight:
 			m_rotCenter = FPoint(gx + gw, gy);
-		else if (m_rotMode == 3)
+			break;
+		case AnchorPoint::BottomLeft:
 			m_rotCenter = FPoint(gx, gy + gh);
-		else if (m_rotMode == 4)
+			break;
+		case AnchorPoint::BottomRight:
 			m_rotCenter = FPoint(gx + gw, gy + gh);
+			break;
+		case AnchorPoint::Center:
+		default:
+			m_rotCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+			break;
+		}
+
 	}
 }
 
@@ -475,17 +486,17 @@ void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
 {
 	if (e->key() == Qt::Key_Up)
 	{
-		auto id = m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->checkedId();
-		id = id > 0 ? id - 1 : 4;
-		m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->setCheckedId(id);
+		auto id = m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->selectedAnchor();
+		//id = id > 0 ? id - 1 : 4;
+		m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->setSelectedAnchor(id);
 		m_doc->setRotationMode(id);
 		return;
 	}
 	if (e->key() == Qt::Key_Down)
 	{
-		auto id = m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->checkedId();
-		id = (id + 1) % 5;
-		m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->setCheckedId(id);
+		auto id = m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->selectedAnchor();
+		//id = (id + 1) % 5;
+		m_view->m_ScMW->propertiesPalette->xyzPal->basePointWidget->setSelectedAnchor(id);
 		m_doc->setRotationMode(id);
 		return;
 	}

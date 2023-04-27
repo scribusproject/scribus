@@ -1268,9 +1268,9 @@ public:
 	bool textCanvasPosition(PageItem* item, int textPos, QPointF& canvasPos);
 
 	//! \brief Get rotation mode
-	int rotationMode() const {return m_rotMode;}
+	AnchorPoint rotationMode() const {return m_rotMode;}
 	//! \brief Set rotation mode
-	void setRotationMode(int val);
+	void setRotationMode(AnchorPoint val);
 
 	//! \brief Functions which avoid doc updater and update manager to send too much
 	// unnecessary signals when doing updates on multiple items
@@ -1297,7 +1297,7 @@ protected:
 	int  m_undoRedoOngoing {0};
 	int m_ActiveLayer {0};
 	double m_docUnitRatio;
-	int m_rotMode {0};
+	AnchorPoint m_rotMode {AnchorPoint::TopLeft};
 	bool m_automaticTextFrames; // Flag for automatic Textframes
 	bool m_masterPageMode {false};
 	bool m_symbolEditMode {false};
@@ -1510,7 +1510,7 @@ public slots:
 	void itemSelection_TogglePrintEnabled();
 	void itemSelection_ToggleBookMark(Selection* customSelection = nullptr);
 	void itemSelection_ToggleAnnotation(Selection* customSelection = nullptr);
-	void itemSelection_Transform(int nrOfCopies, const QTransform& matrix, int basepoint);
+	void itemSelection_Transform(int nrOfCopies, const QTransform& matrix, AnchorPoint basepoint);
 	void itemSelection_ChangePreviewResolution(int id);
 
 	/*! \brief Change display quality of all images in document.

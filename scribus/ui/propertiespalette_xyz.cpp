@@ -71,6 +71,8 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	noPrint->setCheckable(true);
 	noResize->setCheckable(true);
 
+	basePointWidget->setMode(BasePointWidget::Mode::Frame);
+
 	iconSetChange();
 	languageChange();
 
@@ -90,7 +92,7 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	connect(levelDown, SIGNAL(clicked()), this, SLOT(handleLower()));
 	connect(levelTop, SIGNAL(clicked()), this, SLOT(handleFront()));
 	connect(levelBottom, SIGNAL(clicked()), this, SLOT(handleBack()));
-	connect(basePointWidget, SIGNAL(buttonClicked(int)), this, SLOT(handleBasePoint(int)));
+	connect(basePointWidget, SIGNAL(buttonClicked(AnchorPoint)), this, SLOT(handleBasePoint(AnchorPoint)));
 
 	connect(nameEdit , SIGNAL(Leaved()) , this, SLOT(handleNewName()));
 	connect(doLock   , SIGNAL(clicked()), this, SLOT(handleLock()));
@@ -147,6 +149,7 @@ void PropertiesPalette_XYZ::setDoc(ScribusDoc *d)
 	heightSpin->setConstants(docConstants);
 
 	rotationSpin->setValues( 0, 359.99, 1, 0);
+	basePointWidget->setAngle(0);
 
 	updateSpinBoxConstants();
 
@@ -205,6 +208,7 @@ void PropertiesPalette_XYZ::setLineMode(int lineMode)
 		rotationSpin->setEnabled(true);
 		heightSpin->setEnabled(false);
 		m_lineMode = false;
+		basePointWidget->setMode(BasePointWidget::Mode::Frame);
 	}
 	else
 	{
@@ -215,6 +219,7 @@ void PropertiesPalette_XYZ::setLineMode(int lineMode)
 		rotationSpin->setEnabled(false);
 		heightSpin->setEnabled(true);
 		m_lineMode = true;
+		basePointWidget->setMode(BasePointWidget::Mode::Line);
 	}
 }
 
@@ -294,6 +299,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 		rr = 360 - rr;
 	m_oldRotation = fabs(rr);
 	rotationSpin->setValue(fabs(rr));
+	basePointWidget->setAngle(fabs(rr));
 
 //CB TODO reconnect PP signals from here
 	connect(xposSpin    , SIGNAL(valueChanged(double)), this, SLOT(handleNewX()), Qt::UniqueConnection);
@@ -393,16 +399,16 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		m_oldRotation = 0.0;
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		int bp = basePointWidget->checkedId();
-		if (bp == 0)
+		AnchorPoint bp = basePointWidget->selectedAnchor();
+		if (bp == AnchorPoint::TopLeft)
 			m_ScMW->view->RCenter = FPoint(gx, gy);
-		else if (bp == 1)
+		else if (bp == AnchorPoint::TopRight)
 			m_ScMW->view->RCenter = FPoint(gx + gw, gy);
-		else if (bp == 2)
+		else if (bp == AnchorPoint::Center)
 			m_ScMW->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
-		else if (bp == 3)
+		else if (bp == AnchorPoint::BottomLeft)
 			m_ScMW->view->RCenter = FPoint(gx, gy + gh);
-		else if (bp == 4)
+		else if (bp == AnchorPoint::BottomRight)
 			m_ScMW->view->RCenter = FPoint(gx + gw, gy + gh);
 		xposLabel->setText( tr( "&X-Pos:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
@@ -568,17 +574,17 @@ void PropertiesPalette_XYZ::showXY(double x, double y)
 	}
 	m_haveItem = false;
 	ma.rotate(r);
-	int bp = basePointWidget->checkedId();
+	AnchorPoint bp = basePointWidget->selectedAnchor();
 	// #8890 : basepoint is meaningless when lines use "end points" mode
-	if (bp == 0 || useLineMode)
+	if (bp == AnchorPoint::TopLeft || useLineMode)
 		n = FPoint(0.0, 0.0);
-	else if (bp == 1)
+	else if (bp == AnchorPoint::TopRight)
 		n = FPoint(b, 0.0);
-	else if (bp == 2)
+	else if (bp == AnchorPoint::Center)
 		n = FPoint(b / 2.0, h / 2.0);
-	else if (bp == 3)
+	else if (bp == AnchorPoint::BottomLeft)
 		n = FPoint(0.0, h);
-	else if (bp == 4)
+	else if (bp == AnchorPoint::BottomRight)
 		n = FPoint(b, h);
 	inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 	inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
@@ -654,12 +660,12 @@ void PropertiesPalette_XYZ::handleNewX()
 	{
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		int bp = basePointWidget->checkedId();
-		if ((bp == 0) || (bp == 3))
+		AnchorPoint bp = basePointWidget->selectedAnchor();
+		if ((bp == AnchorPoint::TopLeft) || (bp == AnchorPoint::BottomLeft))
 			base = gx;
-		else if (bp == 2)
+		else if (bp == AnchorPoint::Center)
 			base = gx + gw / 2.0;
-		else if ((bp == 1) || (bp == 4))
+		else if ((bp == AnchorPoint::TopRight) || (bp == AnchorPoint::BottomRight))
 			base = gx + gw;
 		if (!m_userActionOn)
 			m_ScMW->view->startGroupTransaction();
@@ -686,16 +692,16 @@ void PropertiesPalette_XYZ::handleNewX()
 		{
 			ma.translate(m_item->xPos(), m_item->yPos());
 			ma.rotate(m_item->rotation());
-			int bp = basePointWidget->checkedId();
-			if (bp == 0)
+			AnchorPoint bp = basePointWidget->selectedAnchor();
+			if (bp == AnchorPoint::TopLeft)
 				base = m_item->xPos();
-			else if (bp == 2)
+			else if (bp == AnchorPoint::Center)
 				base = ma.m11() * (m_item->width() / 2.0) + ma.m21() * (m_item->height() / 2.0) + ma.dx();
-			else if (bp == 1)
+			else if (bp == AnchorPoint::TopRight)
 				base = ma.m11() * m_item->width() + ma.m21() * 0.0 + ma.dx();
-			else if (bp == 4)
+			else if (bp == AnchorPoint::BottomRight)
 				base = ma.m11() * m_item->width() + ma.m21() * m_item->height() + ma.dx();
-			else if (bp == 3)
+			else if (bp == AnchorPoint::BottomLeft)
 				base = ma.m11() * 0.0 + ma.m21() * m_item->height() + ma.dx();
 			m_doc->moveItem(x - base, 0, m_item);
 		}
@@ -718,12 +724,12 @@ void PropertiesPalette_XYZ::handleNewY()
 	{
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		int bp = basePointWidget->checkedId();
-		if ((bp == 0) || (bp == 1))
+		AnchorPoint bp = basePointWidget->selectedAnchor();
+		if ((bp == AnchorPoint::TopLeft) || (bp == AnchorPoint::TopRight))
 			base = gy;
-		else if (bp == 2)
+		else if (bp == AnchorPoint::Center)
 			base = gy + gh / 2.0;
-		else if ((bp == 3) || (bp == 4))
+		else if ((bp == AnchorPoint::BottomLeft) || (bp == AnchorPoint::BottomRight))
 			base = gy + gh;
 		if (!m_userActionOn)
 			m_ScMW->view->startGroupTransaction();
@@ -750,16 +756,16 @@ void PropertiesPalette_XYZ::handleNewY()
 		{
 			ma.translate(m_item->xPos(), m_item->yPos());
 			ma.rotate(m_item->rotation());
-			int bp = basePointWidget->checkedId();
-			if (bp == 0)
+			AnchorPoint bp = basePointWidget->selectedAnchor();
+			if (bp == AnchorPoint::TopLeft)
 				base = m_item->yPos();
-			else if (bp == 2)
+			else if (bp == AnchorPoint::Center)
 				base = ma.m22() * (m_item->height() / 2.0) + ma.m12() * (m_item->width() / 2.0) + ma.dy();
-			else if (bp == 1)
+			else if (bp == AnchorPoint::TopRight)
 				base = ma.m22() * 0.0 + ma.m12() * m_item->width() + ma.dy();
-			else if (bp == 4)
+			else if (bp == AnchorPoint::BottomRight)
 				base = ma.m22() * m_item->height() + ma.m12() * m_item->width() + ma.dy();
-			else if (bp == 3)
+			else if (bp == AnchorPoint::BottomLeft)
 				base = ma.m22() * m_item->height() + ma.m12() * 0.0 + ma.dy();
 			m_doc->moveItem(0, y - base, m_item);
 		}
@@ -957,6 +963,7 @@ void PropertiesPalette_XYZ::handleRotation()
 	m_doc->changed();
 	m_doc->regionsChanged()->update(QRect());
 	m_oldRotation = rotationSpin->value();
+	basePointWidget->setAngle(m_oldRotation);
 }
 
 void PropertiesPalette_XYZ::handleRotateCCW()
@@ -987,6 +994,7 @@ void PropertiesPalette_XYZ::handleRotateCCW()
 	m_doc->changed();
 	m_doc->regionsChanged()->update(QRect());
 	m_oldRotation = rotationSpin->value();
+	basePointWidget->setAngle(m_oldRotation);
 }
 
 void PropertiesPalette_XYZ::handleRotateCW()
@@ -1017,6 +1025,7 @@ void PropertiesPalette_XYZ::handleRotateCW()
 	m_doc->changed();
 	m_doc->regionsChanged()->update(QRect());
 	m_oldRotation = rotationSpin->value();
+	basePointWidget->setAngle(m_oldRotation);
 }
 
 void PropertiesPalette_XYZ::handleLower()
@@ -1051,7 +1060,7 @@ void PropertiesPalette_XYZ::handleBack()
 	levelLabel->setText( QString::number(m_item->level()) );
 }
 
-void PropertiesPalette_XYZ::handleBasePoint(int m)
+void PropertiesPalette_XYZ::handleBasePoint(AnchorPoint m)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -1066,36 +1075,36 @@ void PropertiesPalette_XYZ::handleBasePoint(int m)
 		{
 			double gx, gy, gh, gw;
 			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			if (m == 0)
-			{
+
+			switch(m){
+			case AnchorPoint::TopLeft:
 				m_ScMW->view->RCenter = FPoint(gx, gy);
 				inX = gx;
 				inY = gy;
-			}
-			if (m == 1)
-			{
+				break;
+			case AnchorPoint::TopRight:
 				m_ScMW->view->RCenter = FPoint(gx+gw, gy);
 				inX = gx+gw;
 				inY = gy;
-			}
-			if (m == 2)
-			{
+				break;
+			case AnchorPoint::Center:
 				m_ScMW->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
 				inX = gx + gw / 2.0;
 				inY = gy + gh / 2.0;
-			}
-			if (m == 3)
-			{
+				break;
+			case AnchorPoint::BottomLeft:
 				m_ScMW->view->RCenter = FPoint(gx, gy+gh);
 				inX = gx;
 				inY = gy+gh;
-			}
-			if (m == 4)
-			{
+				break;
+			case AnchorPoint::BottomRight:
 				m_ScMW->view->RCenter = FPoint(gx+gw, gy+gh);
 				inX = gx+gw;
 				inY = gy+gh;
+				break;
+
 			}
+
 			inX -= m_doc->rulerXoffset;
 			inY -= m_doc->rulerYoffset;
 			if (m_doc->guidesPrefs().rulerMode)
@@ -1115,17 +1124,25 @@ void PropertiesPalette_XYZ::handleBasePoint(int m)
 			double r = m_item->rotation();
 			ma.translate(m_item->xPos(), m_item->yPos());
 			ma.rotate(r);
-			int bp = basePointWidget->checkedId();
-			if (bp == 0)
+
+			switch(basePointWidget->selectedAnchor()){
+			case AnchorPoint::TopLeft:
 				n = FPoint(0.0, 0.0);
-			else if (bp == 1)
+				break;
+			case AnchorPoint::TopRight:
 				n = FPoint(b, 0.0);
-			else if (bp == 2)
+				break;
+			case AnchorPoint::Center:
 				n = FPoint(b / 2.0, h / 2.0);
-			else if (bp == 3)
+				break;
+			case AnchorPoint::BottomLeft:
 				n = FPoint(0.0, h);
-			else if (bp == 4)
+				break;
+			case AnchorPoint::BottomRight:
 				n = FPoint(b, h);
+				break;
+			}
+
 			inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 			inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 			inX -= m_doc->rulerXoffset;

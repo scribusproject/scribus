@@ -1470,9 +1470,9 @@ void AIPlug::processData(const QString& data)
 			//	}
 				b->setXPos(xp + xoffset);
 				b->setYPos(yp + yoffset);
-				m_Doc->setRotationMode(3);
+				m_Doc->setRotationMode(AnchorPoint::BottomLeft);
 				m_Doc->rotateItem(rotation * 180 / M_PI, b);
-				m_Doc->setRotationMode(0);
+						m_Doc->setRotationMode(AnchorPoint::TopLeft);
 //				b->setRotation(rotation * 180 / M_PI);
 				b->setTextFlowMode(PageItem::TextFlowDisabled);
 				b->setFillTransparency(1.0 - Opacity);

@@ -473,5 +473,19 @@ enum
 	PAL_MAX
 };
 
+enum AnchorPoint
+{
+	None = 0,
+	TopLeft = 1,
+	Top = 2,
+	TopRight = 3,
+	Left = 4,
+	Center = 5,
+	Right = 6,
+	BottomLeft = 7,
+	Bottom = 9,
+	BottomRight = 10
+};
+
 #endif
 
