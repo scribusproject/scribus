@@ -10673,18 +10673,35 @@ void PageItem::rotateWelded(double dR, double oldRot)
 	ma.rotate(oldRot);
 	switch (m_Doc->rotationMode())
 	{
-		case 2:
-			ma.translate(width()/2.0, height()/2.0);
-			break;
-		case 4:
-			ma.translate(width(), height());
-			break;
-		case 3:
-			ma.translate(0, height());
-			break;
-		case 1:
-			ma.translate(width(), 0);
-			break;
+	case AnchorPoint::None:
+	case AnchorPoint::TopLeft:
+		// No translation
+		break;
+	case AnchorPoint::Top:
+		ma.translate(width()/2.0, 0);
+		break;
+	case AnchorPoint::TopRight:
+		ma.translate(width(), 0);
+		break;
+	case AnchorPoint::Left:
+		ma.translate(0, height()/2.0);
+		break;
+	case AnchorPoint::Center:
+		ma.translate(width()/2.0, height()/2.0);
+		break;
+	case AnchorPoint::Right:
+		ma.translate(width(), height()/2.0);
+		break;
+	case AnchorPoint::BottomRight:
+		ma.translate(width(), height());
+		break;
+	case AnchorPoint::Bottom:
+		ma.translate(width()/2.0, height());
+		break;
+	case AnchorPoint::BottomLeft:
+		ma.translate(0, height());
+		break;
+
 	}
 	QPointF rotCenter = ma.map(QPointF(0,0));
 	QList<PageItem*> itemList = itemsWeldedTo(this);

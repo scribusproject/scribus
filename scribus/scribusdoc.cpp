@@ -10513,6 +10513,7 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 		}
 		else
 			m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+
 		for (int a = 0; a < m_Selection->count(); ++a)
 		{
 			PageItem *currItem = m_Selection->itemAt(a);
@@ -10522,22 +10523,43 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 			QTransform matrixAft;
 			switch (basepoint)
 			{
-			case AnchorPoint::Center:
-				matrixPre.translate(-gw / 2.0, -gh / 2.0);
-				matrixAft.translate(gw / 2.0, gh / 2.0);
+			case AnchorPoint::None:
+			case AnchorPoint::TopLeft:
+				// No translation
 				break;
-			case AnchorPoint::BottomRight:
-				matrixPre.translate(-gw, -gh);
-				matrixAft.translate(gw, gh);
-				break;
-			case AnchorPoint::BottomLeft:
-				matrixPre.translate(0, -gh);
-				matrixAft.translate(0, gh);
+			case AnchorPoint::Top:
+				matrixPre.translate(-gw / 2.0, 0);
+				matrixAft.translate(gw / 2.0, 0);
 				break;
 			case AnchorPoint::TopRight:
 				matrixPre.translate(-gw, 0);
 				matrixAft.translate(gw, 0);
 				break;
+			case AnchorPoint::Left:
+				matrixPre.translate(0, -gh / 2.0);
+				matrixAft.translate(0, gh / 2.0);
+				break;
+			case AnchorPoint::Center:
+				matrixPre.translate(-gw / 2.0, -gh / 2.0);
+				matrixAft.translate(gw / 2.0, gh / 2.0);
+				break;
+			case AnchorPoint::Right:
+				matrixPre.translate(-gw, -gh / 2.0);
+				matrixAft.translate(gw, gh / 2.0);
+				break;
+			case AnchorPoint::BottomLeft:
+				matrixPre.translate(0, -gh);
+				matrixAft.translate(0, gh);
+				break;
+			case AnchorPoint::Bottom:
+				matrixPre.translate(-gw / 2.0, -gh);
+				matrixAft.translate(gw / 2.0, gh);
+				break;
+			case AnchorPoint::BottomRight:
+				matrixPre.translate(-gw, -gh);
+				matrixAft.translate(gw, gh);
+				break;
+
 			}
 			if (UndoManager::undoEnabled())
 			{
@@ -10622,22 +10644,43 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 				QTransform matrixAft;
 				switch (basepoint)
 				{
-				case AnchorPoint::Center:
-					matrixPre.translate(-gw / 2.0, -gh / 2.0);
-					matrixAft.translate(gw / 2.0, gh / 2.0);
+				case AnchorPoint::None:
+				case AnchorPoint::TopLeft:
+					//	No translation
 					break;
-				case AnchorPoint::BottomRight:
-					matrixPre.translate(-gw, -gh);
-					matrixAft.translate(gw, gh);
-					break;
-				case AnchorPoint::BottomLeft:
-					matrixPre.translate(0, -gh);
-					matrixAft.translate(0, gh);
+				case AnchorPoint::Top:
+					matrixPre.translate(-gw / 2.0, 0);
+					matrixAft.translate(gw / 2.0, 0);
 					break;
 				case AnchorPoint::TopRight:
 					matrixPre.translate(-gw, 0);
 					matrixAft.translate(gw, 0);
 					break;
+				case AnchorPoint::Left:
+					matrixPre.translate(0, -gh / 2.0);
+					matrixAft.translate(0, gh / 2.0);
+					break;
+				case AnchorPoint::Center:
+					matrixPre.translate(-gw / 2.0, -gh / 2.0);
+					matrixAft.translate(gw / 2.0, gh / 2.0);
+					break;
+				case AnchorPoint::Right:
+					matrixPre.translate(-gw, -gh / 2.0);
+					matrixAft.translate(gw, gh / 2.0);
+					break;
+				case AnchorPoint::BottomLeft:
+					matrixPre.translate(0, -gh);
+					matrixAft.translate(0, gh);
+					break;
+				case AnchorPoint::Bottom:
+					matrixPre.translate(-gw / 2.0, -gh);
+					matrixAft.translate(gw / 2.0, gh);
+					break;
+				case AnchorPoint::BottomRight:
+					matrixPre.translate(-gw, -gh);
+					matrixAft.translate(gw, gh);
+					break;
+
 				}
 
 				if (UndoManager::undoEnabled())
@@ -14134,22 +14177,43 @@ void ScribusDoc::rotateItem(double angle, PageItem *currItem)
 		FPoint n(0,0);
 		switch (m_rotMode)
 		{
-		case AnchorPoint::Center:
-			ma.translate(currItem->width() / 2.0, currItem->height() / 2.0);
-			n = FPoint(-currItem->width() / 2.0, -currItem->height() / 2.0);
+		case AnchorPoint::None:
+		case AnchorPoint::TopLeft:
+			// No translation
 			break;
-		case AnchorPoint::BottomRight:
-			ma.translate(currItem->width(), currItem->height());
-			n = FPoint(-currItem->width(), -currItem->height());
-			break;
-		case AnchorPoint::BottomLeft:
-			ma.translate(0, currItem->height());
-			n = FPoint(0, -currItem->height());
+		case AnchorPoint::Top:
+			ma.translate(currItem->width() / 2.0, 0);
+			n = FPoint(-currItem->width() / 2.0, 0);
 			break;
 		case AnchorPoint::TopRight:
 			ma.translate(currItem->width(), 0);
 			n = FPoint(-currItem->width(), 0);
 			break;
+		case AnchorPoint::Left:
+			ma.translate(0, currItem->height() / 2.0);
+			n = FPoint(0, -currItem->height() / 2.0);
+			break;
+		case AnchorPoint::Center:
+			ma.translate(currItem->width() / 2.0, currItem->height() / 2.0);
+			n = FPoint(-currItem->width() / 2.0, -currItem->height() / 2.0);
+			break;
+		case AnchorPoint::Right:
+			ma.translate(currItem->width(), currItem->height() / 2.0);
+			n = FPoint(-currItem->width(), -currItem->height() / 2.0);
+			break;
+		case AnchorPoint::BottomRight:
+			ma.translate(currItem->width(), currItem->height());
+			n = FPoint(-currItem->width(), -currItem->height());
+			break;
+		case AnchorPoint::Bottom:
+			ma.translate(currItem->width() / 2.0, currItem->height());
+			n = FPoint(-currItem->width() / 2.0, -currItem->height());
+			break;
+		case AnchorPoint::BottomLeft:
+			ma.translate(0, currItem->height());
+			n = FPoint(0, -currItem->height());
+			break;
+
 		}
 		ma.rotate(ro);
 		double x = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
@@ -14218,23 +14282,41 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 	{
 		QTransform ma;
 		ma.rotate(currItem->rotation());
-		double moveX = ma.m11() * (currItem->width() - newW) + ma.m21() * (currItem->height() - newH) + ma.dx();
-		double moveY = ma.m22() * (currItem->height() - newH) + ma.m12() * (currItem->width() - newW) + ma.dy();
-		if (m_rotMode == AnchorPoint::Center)
-		{
-			moveX /= 2.0;
-			moveY /= 2.0;
+
+		double moveX = 0.0;
+		double moveY = 0.0;
+
+		switch(m_rotMode){
+		case AnchorPoint::None:
+		case AnchorPoint::TopLeft:
+			ma.map(0, 0, &moveX, &moveY);
+			break;
+		case AnchorPoint::Top:
+			ma.map((currItem->width() - newW) / 2.0, 0, &moveX, &moveY);
+			break;
+		case AnchorPoint::TopRight:
+			ma.map(currItem->width() - newW, 0, &moveX, &moveY);
+			break;
+		case AnchorPoint::Left:
+			ma.map(0, (currItem->height() - newH) / 2.0, &moveX, &moveY);
+			break;
+		case AnchorPoint::Center:
+			ma.map((currItem->width() - newW) / 2.0, (currItem->height() - newH) / 2.0, &moveX, &moveY);
+			break;
+		case AnchorPoint::Right:
+			ma.map(currItem->width() - newW, (currItem->height() - newH) / 2.0, &moveX, &moveY);
+			break;
+		case AnchorPoint::BottomLeft:
+			ma.map(0, currItem->height() - newH, &moveX, &moveY);
+			break;
+		case AnchorPoint::Bottom:
+			ma.map((currItem->width() - newW) / 2.0, currItem->height() - newH, &moveX, &moveY);
+			break;
+		case AnchorPoint::BottomRight:
+			ma.map(currItem->width() - newW, currItem->height() - newH, &moveX, &moveY);
+			break;
 		}
-		else if (m_rotMode == AnchorPoint::TopRight)
-		{
-			moveX = ma.m11() * (currItem->width() - newW);
-			moveY = ma.m12() * (currItem->width() - newW);
-		}
-		else if (m_rotMode == AnchorPoint::BottomLeft)
-		{
-			moveX = ma.m21() * (currItem->height() - newH);
-			moveY = ma.m22() * (currItem->height() - newH);
-		}
+
 		moveItem(moveX, moveY, currItem);
 	}
 	//	#8541, #8761: "when resizing with ALT-arrow, the size values in the PP aren't updated"
@@ -14526,16 +14608,38 @@ void ScribusDoc::rotateGroup(double angle, Selection* customSelection)
 	double gx, gy, gh, gw;
 	FPoint rotationPoint(0, 0);
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
-	if (this->m_rotMode == AnchorPoint::TopLeft)
+
+	switch(m_rotMode){
+	case AnchorPoint::None:
+	case AnchorPoint::TopLeft:
 		rotationPoint = FPoint(gx, gy);
-	if (this->m_rotMode == AnchorPoint::TopRight)
-		rotationPoint = FPoint(gx, gy);
-	if (this->m_rotMode == AnchorPoint::Center)
+		break;
+	case AnchorPoint::Top:
+		rotationPoint = FPoint(gx + gw / 2.0, gy);
+		break;
+	case AnchorPoint::TopRight:
+		rotationPoint = FPoint(gx + gw, gy);
+		break;
+	case AnchorPoint::Left:
+		rotationPoint = FPoint(gx, gy + gh / 2.0);
+		break;
+	case AnchorPoint::Center:
 		rotationPoint = FPoint(gx + gw / 2.0, gy + gh / 2.0);
-	if (this->m_rotMode == AnchorPoint::BottomLeft)
+		break;
+	case AnchorPoint::Right:
+		rotationPoint = FPoint(gx + gw, gy + gh / 2.0);
+		break;
+	case AnchorPoint::BottomLeft:
 		rotationPoint = FPoint(gx, gy + gh);
-	if (this->m_rotMode == AnchorPoint::BottomRight)
+		break;
+	case AnchorPoint::Bottom:
+		rotationPoint = FPoint(gx + gw / 2.0, gy + gh);
+		break;
+	case AnchorPoint::BottomRight:
 		rotationPoint = FPoint(gx + gw, gy + gh);
+		break;
+	}
+
 	rotateGroup(angle, rotationPoint, itemSelection);
 }
 
@@ -14775,18 +14879,35 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 	{
 		switch (m_rotMode)
 		{
-		case AnchorPoint::Center:
-			moveGroup((origGW - gw) / 2.0, (origGH - gh) / 2.0);
+		case AnchorPoint::None:
+		case AnchorPoint::TopLeft:
+			// No translation
 			break;
-		case AnchorPoint::BottomRight:
-			moveGroup(origGW - gw, origGH - gh);
-			break;
-		case AnchorPoint::BottomLeft:
-			moveGroup(0.0, origGH - gh);
+		case AnchorPoint::Top:
+			moveGroup((origGW - gw) / 2.0, 0.0);
 			break;
 		case AnchorPoint::TopRight:
 			moveGroup(origGW - gw, 0.0);
 			break;
+		case AnchorPoint::Left:
+			moveGroup(0.0, (origGH - gh) / 2.0);
+			break;
+		case AnchorPoint::Center:
+			moveGroup((origGW - gw) / 2.0, (origGH - gh) / 2.0);
+			break;
+		case AnchorPoint::Right:
+			moveGroup(origGW - gw, (origGH - gh) / 2.0);
+			break;
+		case AnchorPoint::BottomLeft:
+			moveGroup(0.0, origGH - gh);
+			break;
+		case AnchorPoint::Bottom:
+			moveGroup((origGW - gw) / 2.0, origGH - gh);
+			break;
+		case AnchorPoint::BottomRight:
+			moveGroup(origGW - gw, origGH - gh);
+			break;
+
 		}
 	}
 	updateManager()->setUpdatesEnabled();

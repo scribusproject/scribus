@@ -123,21 +123,41 @@ void CanvasMode_Rotate::getNewItemPosition(const PageItem* item, FPoint& pos, do
 		double ro = newAngle - item->rotation();
 		switch (m_rotMode)
 		{
+		case AnchorPoint::None:
+		case AnchorPoint::TopLeft:
+			// No translation
+			break;
+		case AnchorPoint::Top:
+			ma.translate(item->width()/2.0, 0);
+			n = FPoint(-item->width()/2.0, 0);
+			break;
+		case AnchorPoint::TopRight:
+			ma.translate(item->width(), 0);
+			n = FPoint(-item->width(), 0);
+			break;
+		case AnchorPoint::Left:
+			ma.translate(0, item->height()/2.0);
+			n = FPoint(0, -item->height()/2.0);
+			break;
 		case AnchorPoint::Center:
 			ma.translate(item->width()/2.0, item->height()/2.0);
 			n = FPoint(-item->width()/2.0, -item->height()/2.0);
 			break;
-		case AnchorPoint::BottomRight:
-			ma.translate(item->width(), item->height());
-			n = FPoint(-item->width(), -item->height());
+		case AnchorPoint::Right:
+			ma.translate(item->width(), item->height()/2.0);
+			n = FPoint(-item->width(), -item->height()/2.0);
 			break;
 		case AnchorPoint::BottomLeft:
 			ma.translate(0, item->height());
 			n = FPoint(0, -item->height());
 			break;
-		case AnchorPoint::TopRight:
-			ma.translate(item->width(), 0);
-			n = FPoint(-item->width(), 0);
+		case AnchorPoint::Bottom:
+			ma.translate(item->width()/2.0, item->height());
+			n = FPoint(-item->width()/2.0, -item->height());
+			break;
+		case AnchorPoint::BottomRight:
+			ma.translate(item->width(), item->height());
+			n = FPoint(-item->width(), -item->height());
 			break;
 		}
 		ma.rotate(ro);
@@ -265,6 +285,11 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 						m_rotCenter = FPoint(currItem->width(), currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
 						m_rotMode   = AnchorPoint::BottomRight;
 					}
+					else if (mat.mapRect(QRect(static_cast<int>(currItem->width() / 2) - 6, 0, 6, 6)).intersects(mpo))
+					{
+						m_rotCenter = FPoint((currItem->width() / 2), currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
+						m_rotMode   = AnchorPoint::Bottom;
+					}
 					else if (mat.mapRect(QRect(static_cast<int>(currItem->width()) - 6, 0, 6, 6)).intersects(mpo))
 					{
 						m_rotCenter = FPoint(0, currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
@@ -275,11 +300,26 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 						m_rotCenter = FPoint(0, 0);
 						m_rotMode   = AnchorPoint::TopLeft;
 					}
+					else if (mat.mapRect(QRect(static_cast<int>(currItem->width() / 2) - 6, static_cast<int>(currItem->height()) - 6, 6, 6)).intersects(mpo))
+					{
+						m_rotCenter = FPoint(currItem->width() / 2, 0, 0, 0, currItem->rotation(), 1, 1, false);
+						m_rotMode   = AnchorPoint::Top;
+					}
 					else if (mat.mapRect(QRect(0, static_cast<int>(currItem->height()) - 6, 6, 6)).intersects(mpo))
 					{
 						m_rotCenter = FPoint(currItem->width(), 0, 0, 0, currItem->rotation(), 1, 1, false);
 						m_rotMode   = AnchorPoint::TopRight;
 					}	
+					else if (mat.mapRect(QRect(0, static_cast<int>(currItem->height() / 2) - 6, 6, 6)).intersects(mpo))
+					{
+						m_rotCenter = FPoint(0, currItem->height() / 2, 0, 0, currItem->rotation(), 1, 1, false);
+						m_rotMode   = AnchorPoint::Left;
+					}
+					else if (mat.mapRect(QRect(currItem->width(), static_cast<int>(currItem->height() / 2) - 6, 6, 6)).intersects(mpo))
+					{
+						m_rotCenter = FPoint(currItem->width(), currItem->height() / 2, 0, 0, currItem->rotation(), 1, 1, false);
+						m_rotMode   = AnchorPoint::Right;
+					}
 				}
 				m_doc->setRotationMode(m_rotMode);
 				m_view->RCenter = m_rotCenter;
@@ -464,11 +504,23 @@ void CanvasMode_Rotate::keyPressEvent(QKeyEvent *e)
 		case AnchorPoint::TopLeft:
 			m_rotCenter = FPoint(gx, gy);
 			break;
+		case AnchorPoint::Top:
+			m_rotCenter = FPoint(gx + gw / 2.0, gy);
+			break;
 		case AnchorPoint::TopRight:
 			m_rotCenter = FPoint(gx + gw, gy);
 			break;
+		case AnchorPoint::Left:
+			m_rotCenter = FPoint(gx, gy + gh / 2.0);
+			break;
+		case AnchorPoint::Right:
+			m_rotCenter = FPoint(gx + gw, gy + gh / 2.0);
+			break;
 		case AnchorPoint::BottomLeft:
 			m_rotCenter = FPoint(gx, gy + gh);
+			break;
+		case AnchorPoint::Bottom:
+			m_rotCenter = FPoint(gx + gw / 2.0, gy + gh);
 			break;
 		case AnchorPoint::BottomRight:
 			m_rotCenter = FPoint(gx + gw, gy + gh);
