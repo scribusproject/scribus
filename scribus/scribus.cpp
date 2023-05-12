@@ -550,7 +550,7 @@ void ScribusMainWindow::setStyleSheet()
 	QByteArray stylesheet;
 	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
 	{
-		QString downArrow(IconManager::instance().pathForIcon("16/go-down.png"));
+		QString downArrow(IconManager::instance().pathForIcon("stylesheet/go-down.png"));
 		QByteArray da;
 		da.append(downArrow.toUtf8());
 		stylesheet.replace("___downArrow___", da);

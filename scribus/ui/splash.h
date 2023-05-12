@@ -24,7 +24,7 @@ class SCRIBUS_API ScSplashScreen : public QSplashScreen
 		\author Franz Schmid
 		\brief Constructor for SplashScreen
 		 */
-		ScSplashScreen ( const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = Qt::WindowFlags() );
+		ScSplashScreen ( const QPixmap & pixmap = QPixmap(), const QRect messageRect = QRect(), Qt::WindowFlags f = Qt::WindowFlags() );
 		~ScSplashScreen() {}
 		/*!
 		\author Franz Schmid
@@ -34,6 +34,7 @@ class SCRIBUS_API ScSplashScreen : public QSplashScreen
 		void setStatus( const QString &message );
 
 	protected:
+		QRect m_messageRect;
 		void drawContents(QPainter *painter);
 };
 

@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "splash.h"
 #include "util.h"
 
-ScSplashScreen::ScSplashScreen( const QPixmap & pixmap, Qt::WindowFlags f ) : QSplashScreen( pixmap, f)
+ScSplashScreen::ScSplashScreen(const QPixmap & pixmap, const QRect messageRect, Qt::WindowFlags f ) : QSplashScreen( pixmap, f)
 {
 #if defined _WIN32
 	QFont font("Lucida Sans Unicode", 9);
@@ -32,6 +32,7 @@ ScSplashScreen::ScSplashScreen( const QPixmap & pixmap, Qt::WindowFlags f ) : QS
 		font.setFamily("Bitstream Vera Sans");
 #endif
 	setFont(font);
+	m_messageRect = messageRect;
 }
 
 void ScSplashScreen::setStatus( const QString &message )
@@ -55,8 +56,19 @@ void ScSplashScreen::setStatus( const QString &message )
 void ScSplashScreen::drawContents(QPainter* painter)
 {
 	QFont f(font());
-	QSplashScreen::drawContents(painter);
-	QRect r = rect().adjusted(0, 0, -15, -60);
+//	QSplashScreen::drawContents(painter);
+
+
+	QRect messageRect = m_messageRect.isEmpty() ? rect() : m_messageRect;
+	QRect rM = messageRect.adjusted(0, 0, -15, -5);
+
+	painter->setFont(f);
+	painter->setPen(QColor(255,255,255));
+	painter->drawText(rM, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, message());
+
+
+	QRect r = messageRect.adjusted(0, 0, -15, -60);
+
 	QFont lgf(font());
 #if defined _WIN32
 	lgf.setPointSize(30);
@@ -75,7 +87,9 @@ void ScSplashScreen::drawContents(QPainter* painter)
 		if (ScribusAPI::haveSVNRevision())
 		{
 			QString revText=QString("SVN Revision: %1").arg(ScribusAPI::getSVNRevision());
-			QRect r2 = rect().adjusted(0, 0, -15, -30);
+
+			QRect r2 = messageRect.adjusted(10, 10, -15, -30);
+
 			painter->setFont(f);
 			painter->drawText(r2, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, revText );
 		}
@@ -92,7 +106,8 @@ void ScSplashScreen::drawContents(QPainter* painter)
 		painter->setFont(wf);
 //		painter->setPen(QPen(Qt::red));
 		QString warningText("Development Version");
-		QRect r3 = rect().adjusted(0, 0, -15, -45);
+		QRect r3 = messageRect.adjusted(10, 10, -15, -45);
+
 		painter->drawText(r3, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, warningText );
 	}
 }

@@ -1626,7 +1626,7 @@ void PictureBrowser::loadIcons()
 
 	closeButton->setIcon(iconClose);
 
-	moreButton->setIcon(iconArrowDown);
+	//moreButton->setIcon(iconArrowDown);
 
 	filterSearchDirButton->setIcon(im.loadIcon("ellipsis.png"));
 }
@@ -1889,7 +1889,7 @@ void PictureBrowser::expandDialog(bool expand)
 
 		resize(872, 550);
 		moreButton->setText(tr("Hide"));
-		moreButton->setIcon(iconArrowUp);
+		//moreButton->setIcon(iconArrowUp);
 	}
 	else
 	{
@@ -1897,7 +1897,7 @@ void PictureBrowser::expandDialog(bool expand)
 
 		resize(872, 385);
 		moreButton->setText(tr("More"));
-		moreButton->setIcon(iconArrowDown);
+		//moreButton->setIcon(iconArrowDown);
 	}
 }
 

@@ -45,7 +45,7 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 	setObjectName(prefName);
 	setAllowedAreas(Qt::AllToolBarAreas);
 
-	int smallIconSize = this->style()->pixelMetric(QStyle::PM_SmallIconSize, nullptr, this);
+	int smallIconSize = 20;//this->style()->pixelMetric(QStyle::PM_SmallIconSize, nullptr, this);
 	this->setIconSize(QSize(smallIconSize, smallIconSize));
 	/*
 	setCloseMode(Q3DockWindow::Undocked);

@@ -521,6 +521,9 @@ struct ScIconSetData
 	QString author;
 	QString activeversion;
 	QString variant;
+	bool isDefault;
+	QRect splashMessgeRect;
+	QString splashScreenPath;
 	QMap<QString, QString> nameTranslations;
 };
 

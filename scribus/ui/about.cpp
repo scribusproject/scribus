@@ -120,7 +120,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tabLayout1->setContentsMargins(9, 9, 9, 9);
 
 	double pixelRatio = devicePixelRatioF();
-	QPixmap splashPixmap = IconManager::instance().loadPixmap("scribus_splash.png", true);
+	QPixmap splashPixmap = IconManager::instance().splashScreen();
 	double splashPixmapW = splashPixmap.width();
 	double splashPixmapH = splashPixmap.height();
 	if (pixelRatio != 1.0)
