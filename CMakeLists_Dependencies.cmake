@@ -47,6 +47,10 @@ find_package(Qt6 COMPONENTS LinguistTools REQUIRED)
 include_directories(${Qt6LinguistTools_INCLUDE_DIRS})
 add_definitions(${Qt6LinguistTools_DEFINITIONS})
 
+find_package(Qt6 COMPONENTS Svg REQUIRED)
+include_directories(${Qt6Svg_INCLUDE_DIRS})
+add_definitions(${Qt6Svg_DEFINITIONS})
+
 message(STATUS "Qt Version Found: ${Qt6Widgets_VERSION}")
 
 
