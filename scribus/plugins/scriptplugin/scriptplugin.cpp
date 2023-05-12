@@ -40,7 +40,6 @@ for which a new license (GPL+exception) is in place.
 #include "cmdutil.h"
 #include "cmdstyle.h"
 #include "guiapp.h"
-#include "iconmanager.h"
 #include "objimageexport.h"
 #include "objpdffile.h"
 #include "objprinter.h"

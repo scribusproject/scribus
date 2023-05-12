@@ -142,7 +142,8 @@ bool IconManager::createCache()
 	QString iconSetPath(QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, ".xml"));
 	QDomDocument document;
 
-	if(!readXMLFile(iconSetPath, document, "xml")) return false;
+	if(!readXMLFile(iconSetPath, document, "xml"))
+		return false;
 
 	QDomElement documentElement = document.documentElement();
 	QDomNodeList elements = documentElement.elementsByTagName( tagIcon );
@@ -254,23 +255,22 @@ void IconManager::applyColors(QDomDocument &doc, QString fileName, QColor color)
 
 void IconManager::applyInlineStyleToElement(const QDomElement &elem, QMap<QString, QString> *styles)
 {
+	if( elem.hasAttribute("class") )
+	{
+		QString darClass = (m_forDarkMode) ? "." + classDark : "";
+		QString style = styles->value(darClass + "." + elem.attribute("class"));
 
-  if( elem.hasAttribute("class") )
-  {
-	  QString darClass = (m_forDarkMode) ? "." + classDark : "";
-	  QString style = styles->value(darClass + "." + elem.attribute("class"));
+		if(!style.isEmpty()){
+			elem.toElement().setAttribute("style", style );
+		}
+	}
 
-	  if(!style.isEmpty()){
-		  elem.toElement().setAttribute("style", style );
-	  }
-  }
-
-  QDomElement child = elem.firstChildElement();
-  while( !child.isNull() )
-  {
-	applyInlineStyleToElement(child, styles);
-	child = child.nextSiblingElement();
-  }
+	QDomElement child = elem.firstChildElement();
+	while( !child.isNull() )
+	{
+		applyInlineStyleToElement(child, styles);
+		child = child.nextSiblingElement();
+	}
 }
 
 
@@ -286,7 +286,6 @@ void IconManager::parseStyleSheet(QString styleString, QMap<QString, QString> *s
 	QRegularExpression rx_comments("(\\/\\*[\\s\\S]*?(.*?)\\*\\/)|(\\/\\/.*)");
 	styleString.remove(rx_comments);
 
-
 	// Group 1: tags, like ".onDark .success"
 	// Group 2: strings within {}
 	QRegularExpression rx_Settings("(.*?)\\s*{([^\\}]+)}");
@@ -296,7 +295,6 @@ void IconManager::parseStyleSheet(QString styleString, QMap<QString, QString> *s
 	while (i.hasNext())
 	{
 		QRegularExpressionMatch mStyle = i.next();
-
 		styles->insert(mStyle.captured(1).trimmed().replace(" ", ""), mStyle.captured(2).trimmed());
 	}
 }
@@ -314,7 +312,6 @@ QColor IconManager::parseColor(const QString str)
 			int g = qBound(0, mRGBA.captured(2).toInt(), 255);
 			int b = qBound(0, mRGBA.captured(3).toInt(), 255);
 			qreal a = qBound(0., mRGBA.captured(4).toDouble() / 100 *255, 255.);
-
 			return QColor(r, g, b, a);
 		}
 
@@ -329,7 +326,6 @@ QColor IconManager::parseColor(const QString str)
 			int r = qBound(0, mRGB.captured(1).toInt(), 255);
 			int g = qBound(0, mRGB.captured(2).toInt(), 255);
 			int b = qBound(0, mRGB.captured(3).toInt(), 255);
-
 			return QColor(r, g, b);
 		}
 
@@ -346,7 +342,6 @@ QColor IconManager::parseColor(const QString str)
 			qreal s = qBound(0., mHSVA.captured(2).toDouble() / 100, 1.);
 			qreal v = qBound(0., mHSVA.captured(3).toDouble() / 100, 1.);
 			qreal a = qBound(0., mHSVA.captured(4).toDouble() / 100, 1.);
-
 			return QColor::fromHsvF(h, s, v, a);
 		}
 
@@ -362,14 +357,12 @@ QColor IconManager::parseColor(const QString str)
 			qreal h = qBound(0., mHSV.captured(1).toDouble() / 360, 1.);
 			qreal s = qBound(0., mHSV.captured(2).toDouble() / 100, 1.);
 			qreal v = qBound(0., mHSV.captured(3).toDouble() / 100, 1.);
-
 			return QColor::fromHsvF(h, s, v);
 		}
 
 	}
 	else if (str.startsWith("hsla"))
 	{
-
 		QRegularExpression rx_hsla("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
 		QRegularExpressionMatch mHSLA = rx_hsla.match(str);
 
@@ -379,7 +372,6 @@ QColor IconManager::parseColor(const QString str)
 			qreal s = qBound(0., mHSLA.captured(2).toDouble() / 100, 1.);
 			qreal l = qBound(0., mHSLA.captured(3).toDouble() / 100, 1.);
 			qreal a = qBound(0., mHSLA.captured(4).toDouble() / 100, 1.);
-
 			return QColor::fromHslF(h, s, l, a);
 		}
 
@@ -395,7 +387,6 @@ QColor IconManager::parseColor(const QString str)
 			qreal h = qBound(0., mHSL.captured(1).toDouble() / 360, 1.);
 			qreal s = qBound(0., mHSL.captured(2).toDouble() / 100, 1.);
 			qreal l = qBound(0., mHSL.captured(3).toDouble() / 100, 1.);
-
 			return QColor::fromHslF(h, s, l);
 		}
 
@@ -406,9 +397,7 @@ QColor IconManager::parseColor(const QString str)
 		QRegularExpressionMatch mHex = rx.match(str);
 
 		if (mHex.hasMatch())
-		{
 			return QColor(mHex.captured(0));
-		}
 	}
 	return QColor();
 }
@@ -598,7 +587,6 @@ void IconManager::readIconConfigFiles()
 					h = (e.hasAttribute("height")) ? e.attribute("height").toInt() : 0;
 					isd.splashMessgeRect = QRect(l,t,w,h);
 					isd.splashScreenPath = (e.hasAttribute("image")) ? e.attribute("image") : "";
-
 				}
 				else if (e.tagName() == "nametext")
 				{
@@ -609,7 +597,6 @@ void IconManager::readIconConfigFiles()
 							isd.baseName = e.text();
 					}
 				}
-
 			}
 
 			//just in case there's no en_US basename
@@ -651,7 +638,6 @@ void IconManager::readIconConfigFiles()
 				m_activeSetVersion = isd.activeversion;
 				m_splashScreenRect = isd.splashMessgeRect;
 				m_splashScreen = QPixmap(pathForIcon(isd.splashScreenPath));
-
 			}
 		}
 	}

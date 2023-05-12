@@ -35,10 +35,7 @@ class ScribusMainWindow;
   */
 class SCRIBUS_API IconManager: public QObject
 {
-
 	Q_OBJECT
-
-
 
 public:
 	IconManager(IconManager const&) = delete;

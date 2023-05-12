@@ -11,7 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include "barcodegenerator.h"
 #include "scribuscore.h"
 #include "scribusstructs.h"
-#include "iconmanager.h"
 #include "scpaths.h"
 
 Barcode::Barcode()

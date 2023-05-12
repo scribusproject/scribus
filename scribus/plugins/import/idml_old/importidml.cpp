@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"
-#include "scclocale.h"
 #include "scconfig.h"
 #include "sccolorengine.h"
 #include "scpattern.h"

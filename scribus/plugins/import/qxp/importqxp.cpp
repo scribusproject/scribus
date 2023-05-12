@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefstable.h"
 #include "ui/propertiespalette.h"
 #include "rawimage.h"
-#include "scclocale.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
 #include "scmimedata.h"

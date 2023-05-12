@@ -49,8 +49,6 @@ class  PageItem;
 class  PageItemPreview;
 class  PageItem_TextFrame;
 
-#include "fpoint.h"
-
 /** These aren't real appmodes but open a new window or override behaviour for a short time */
 enum SubMode
 {
@@ -181,8 +179,7 @@ private:
 	QMap<QString,QBrush> m_brush;
 
 	bool m_keyRepeat {false};
-	bool m_arrowKeyDown {false};
-	//FPoint m_mousePointDoc;
+    bool m_arrowKeyDown {false};
 };
 
 

@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "exif.h"
 #include "rawimage.h"
-#include "scclocale.h"
 #include "sccolorengine.h"
 #include "scimagecacheproxy.h"
 #include "scstreamfilter.h"

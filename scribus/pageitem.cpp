@@ -60,7 +60,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "resourcecollection.h"
-#include "scclocale.h"
 #include "sccolorengine.h"
 #include "scimagecacheproxy.h"
 #include "sclimits.h"

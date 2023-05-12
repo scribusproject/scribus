@@ -23,17 +23,17 @@ for which a new license (GPL+exception) is in place.
 *   Free Software Foundation, Inc.,                                        *
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
+#include <QMessageBox>
+#include <QPainterPathStroker>
 
+#include "appmodes.h"
 #include "pathcut.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "appmodes.h"
 #include "selection.h"
 #include "ui/scmessagebox.h"
 #include "util.h"
-#include "iconmanager.h"
-#include <QPainterPathStroker>
-#include <QMessageBox>
+
 
 int pathcut_getPluginAPIVersion()
 {

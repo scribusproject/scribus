@@ -13,17 +13,16 @@ for which a new license (GPL+exception) is in place.
 
 #include "cmsettings.h"
 #include "colormgmt/sccolormgmtengine.h"
-#include "scclocale.h"
+#include "prefsmanager.h"
+#include "scimage.h"
+#include "scimgdataloader_ps.h"
 #include "scpaths.h"
 #include "scribuscore.h"
-#include "scimgdataloader_ps.h"
 #include "sctextstream.h"
-#include "prefsmanager.h"
 #include "util.h"
 #include "util_formats.h"
 #include "util_ghostscript.h"
 #include "util_math.h"
-#include "scimage.h"
 
 extern "C"
 {

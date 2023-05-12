@@ -18,23 +18,18 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 #include "scimgdataloader_pict.h"
-#include "ui/customfdialog.h"
 #include "ui/missing.h"
 #include "pagesize.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
-#include "ui/propertiespalette.h"
-#include "scclocale.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
 #include "scmimedata.h"
-#include "scpaths.h"
 
 #include "scribusXml.h"
 #include "scribuscore.h"
-#include "sctextstream.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "util.h"

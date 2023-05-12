@@ -25,7 +25,6 @@ or documentation
 #include <QPixmap>
 
 #include "configuration.h"
-#include "iconmanager.h"
 #include "parse.h"
 #include "prefs_shortwords.h"
 #include "scpage.h"
