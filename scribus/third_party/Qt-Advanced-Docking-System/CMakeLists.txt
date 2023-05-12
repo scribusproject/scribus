@@ -41,7 +41,7 @@ endif()
 add_subdirectory(src)
 
 if(BUILD_EXAMPLES)
-    add_subdirectory(examples)
-    add_subdirectory(demo)
+#    add_subdirectory(examples)
+#    add_subdirectory(demo)
 endif()
 
