@@ -42,17 +42,14 @@ IconManager::IconManager(QObject *parent)
 
 }
 
-
 IconManager& IconManager::instance()
 {
 	static IconManager m_instance;
 	return m_instance;
 }
 
-
 bool IconManager::setup(bool forDarkMode)
 {
-
 	m_forDarkMode = forDarkMode;
 
 	if (!initIconSets())
@@ -110,7 +107,6 @@ void IconManager::addIcon(const QString &name, QPainterPath path)
 void IconManager::setIconsForDarkMode(bool forDarkMode)
 {
 	m_forDarkMode = forDarkMode;
-
 }
 
 QColor IconManager::baseColor()
@@ -139,20 +135,18 @@ void IconManager::rebuildCache()
 
 bool IconManager::createCache()
 {
-
 	QString iconSubdir(m_iconSets[m_activeSetBasename].path);
 	QString iconSetPath(QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, ".xml"));
 	QDomDocument document;
 
-	if(!readXMLFile(iconSetPath, document, "xml"))
+	if (!readXMLFile(iconSetPath, document, "xml"))
 		return false;
 
 	QDomElement documentElement = document.documentElement();
 	QDomNodeList elements = documentElement.elementsByTagName( tagIcon );
 
-	for (int i=0; i<elements.length(); i++)
+	for (int i = 0; i < elements.length(); i++)
 	{
-
 		QDomElement icon = elements.at(i).toElement();
 
 		QString iconPath = QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, "/" + icon.attribute("file"));
@@ -163,26 +157,23 @@ bool IconManager::createCache()
 			continue;
 
 		// if defined, override icon base color with color from iconset
-		if(m_forDarkMode && icon.hasAttribute(colorOnDark))
+		if (m_forDarkMode && icon.hasAttribute(colorOnDark))
 		{
 			iconColor = parseColor(icon.attribute(colorOnDark));
 		}
-		else if(!m_forDarkMode && icon.hasAttribute(colorOnLight))
+		else if (!m_forDarkMode && icon.hasAttribute(colorOnLight))
 		{
 			iconColor = parseColor(icon.attribute(colorOnLight));
 		}
 
 		m_pxCache.insert(iconName, initPixmap(iconPath, iconColor));
-
 	}
 
 	return true;
-
 }
 
 void IconManager::renderIcons()
 {
-
 	QMapIterator<QString, QPainterPath*> i(m_iconPaths);
 	while (i.hasNext())
 	{
@@ -190,33 +181,28 @@ void IconManager::renderIcons()
 		if (!m_pxCache.contains(i.key()))
 			m_pxCache.insert(i.key(), renderPath(*i.value()));
 	}
-
-
 }
 
 void IconManager::applyColors(QDomDocument &doc, QString fileName, QColor color)
 {
-
 	QDomElement rootElement = doc.documentElement();
 
 	// Add "dark" selector to root node
-	if(m_forDarkMode) rootElement.setAttribute("class", classDark);
+	if (m_forDarkMode)
+		rootElement.setAttribute("class", classDark);
 
 	// Set icon base color if not already set
-	if(!rootElement.hasAttribute("fill"))
+	if (!rootElement.hasAttribute("fill"))
 	{
 		QColor iconBaseColor = (color.isValid()) ? color : baseColor();
 		QString baseColor = "rgb(" + QString::number(iconBaseColor.red()) + "," + QString::number(iconBaseColor.green()) + "," + QString::number(iconBaseColor.blue()) + ")";
 		rootElement.setAttribute("fill", baseColor);
 	}
 
-
 	QMap<QString, QString> *styles = new QMap<QString, QString>();
 
 	QDomElement nodeStyle = rootElement.firstChildElement("style");
-
-
-	if(!nodeStyle.isNull())
+	if (!nodeStyle.isNull())
 	{
 		QString styleImport = nodeStyle.childNodes().at(0).toText().data();
 
@@ -226,15 +212,13 @@ void IconManager::applyColors(QDomDocument &doc, QString fileName, QColor color)
 		// Check if stylesheet import is available
 		if (mImport.hasMatch())
 		{
-
 			QString cssFile = mImport.captured(2).trimmed();
 			QString absFile = QDir::cleanPath(QFileInfo(fileName).absoluteDir().absolutePath() + "/" + cssFile);
 
 			// Check if css file exists and add content to node
 			QFile fileCSS(absFile);
-			if(fileCSS.exists())
+			if (fileCSS.exists())
 			{
-
 				fileCSS.open(QIODevice::ReadOnly);
 				QByteArray baData = fileCSS.readAll();
 
@@ -257,18 +241,17 @@ void IconManager::applyColors(QDomDocument &doc, QString fileName, QColor color)
 
 void IconManager::applyInlineStyleToElement(const QDomElement &elem, QMap<QString, QString> *styles)
 {
-	if( elem.hasAttribute("class") )
+	if (elem.hasAttribute("class"))
 	{
 		QString darClass = (m_forDarkMode) ? "." + classDark : "";
 		QString style = styles->value(darClass + "." + elem.attribute("class"));
 
-		if(!style.isEmpty()){
-			elem.toElement().setAttribute("style", style );
-		}
+		if (!style.isEmpty())
+			elem.toElement().setAttribute("style", style);
 	}
 
 	QDomElement child = elem.firstChildElement();
-	while( !child.isNull() )
+	while (!child.isNull())
 	{
 		applyInlineStyleToElement(child, styles);
 		child = child.nextSiblingElement();
@@ -292,7 +275,6 @@ void IconManager::parseStyleSheet(QString styleString, QMap<QString, QString> *s
 	// Group 2: strings within {}
 	QRegularExpression rx_Settings("(.*?)\\s*{([^\\}]+)}");
 	QRegularExpressionMatchIterator i = rx_Settings.globalMatch(styleString);
-
 
 	while (i.hasNext())
 	{
@@ -334,7 +316,6 @@ QColor IconManager::parseColor(const QString str)
 	}
 	else if (str.startsWith("hsva"))
 	{
-
 		QRegularExpression rx_hsva("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
 		QRegularExpressionMatch mHSVA = rx_hsva.match(str);
 
@@ -350,7 +331,6 @@ QColor IconManager::parseColor(const QString str)
 	}
 	else if (str.startsWith("hsv"))
 	{
-
 		QRegularExpression rx_hsv("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
 		QRegularExpressionMatch mHSV = rx_hsv.match(str);
 
@@ -380,7 +360,6 @@ QColor IconManager::parseColor(const QString str)
 	}
 	else if (str.startsWith("hsl"))
 	{
-
 		QRegularExpression rx_hsl("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
 		QRegularExpressionMatch mHSL = rx_hsl.match(str);
 
@@ -391,7 +370,6 @@ QColor IconManager::parseColor(const QString str)
 			qreal l = qBound(0., mHSL.captured(3).toDouble() / 100, 1.);
 			return QColor::fromHslF(h, s, l);
 		}
-
 	}
 	else
 	{
@@ -406,12 +384,11 @@ QColor IconManager::parseColor(const QString str)
 
 QPixmap *IconManager::initPixmap(const QString filePath, QColor color)
 {
-
 	QDomDocument document;
 
 	// Load SVG file
-	if(readXMLFile(filePath, document, "svg")){
-
+	if (readXMLFile(filePath, document, "svg"))
+	{
 		// process style from css file
 		applyColors(document, filePath, color);
 
@@ -446,10 +423,9 @@ QPixmap *IconManager::renderPath(QPainterPath path)
 	painter.end();
 
 	return new QPixmap(pixmap);
-
 }
 
-bool IconManager::readXMLFile(QString filePath, QDomDocument &document, QString fileExtenstion)
+bool IconManager::readXMLFile(QString filePath, QDomDocument &document, QString fileExtension)
 {
 
 //    QFileInfo file(filePath);
@@ -480,26 +456,26 @@ bool IconManager::readXMLFile(QString filePath, QDomDocument &document, QString 
 
 //    return true;
 
-		QFileInfo fileInfo(filePath);
-		if(fileInfo.completeSuffix() != fileExtenstion) return false;
+	QFileInfo fileInfo(filePath);
+	if (fileInfo.completeSuffix() != fileExtension)
+		return false;
 
+	QFile inFile( filePath );
+	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		qWarning() << "IconManager: Failed to open file '" + filePath + "' for reading.";
+		return false;
+	}
 
-		QFile inFile( filePath );
-		if( !inFile.open( QIODevice::ReadOnly | QIODevice::Text ) )
-		{
-			qWarning() << "IconManager: Failed to open file '" + filePath + "' for reading.";
-			return false;
-		}
-
-		if( !document.setContent( &inFile ) )
-		{
-			qWarning() << "IconManager: Failed to parse the file '" + filePath + "'into a DOM tree.";
-			inFile.close();
-			return false;
-		}
-
+	if (!document.setContent(&inFile))
+	{
+		qWarning() << "IconManager: Failed to parse the file '" + filePath + "'into a DOM tree.";
 		inFile.close();
-		return true;
+		return false;
+	}
+
+	inFile.close();
+	return true;
 }
 
 //void IconManager::tintPixmap(QPixmap &pixmap, QColor color)
@@ -510,8 +486,6 @@ bool IconManager::readXMLFile(QString filePath, QDomDocument &document, QString 
 //    painter.fillRect(pixmap.rect(), color);
 //    painter.end();
 //}
-
-
 
 bool IconManager::initIconSets()
 {
@@ -538,12 +512,12 @@ void IconManager::readIconConfigFiles()
 		// Read all iconset files
 		for (uint i = 0; i < id.count(); ++i)
 		{
-
 			QFileInfo file(*it + id[i]);
 			//qDebug()<<file.absoluteFilePath();
 			QDomDocument xmlData;
 
-			if(!readXMLFile(file.absoluteFilePath(), xmlData, "xml")) continue;
+			if (!readXMLFile(file.absoluteFilePath(), xmlData, "xml"))
+				continue;
 
 			QDomElement docElem = xmlData.documentElement();
 			ScIconSetData isd;
@@ -632,7 +606,7 @@ void IconManager::readIconConfigFiles()
 				if (av_fullver == curr_fullver)
 					continue;
 
-//				if(!isd.isDefault)
+//				if (!isd.isDefault)
 //					continue;
 
 				m_backupSetBasename = m_activeSetBasename;

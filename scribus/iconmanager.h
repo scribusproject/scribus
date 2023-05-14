@@ -98,7 +98,7 @@ private:
 	QPixmap *renderPath(QPainterPath path);
 	void renderIcons();
 
-	bool readXMLFile(QString filePath, QDomDocument &document, QString fileExtenstion);
+	bool readXMLFile(QString filePath, QDomDocument &document, QString fileExtension);
 //    void tintPixmap(QPixmap &pixmap, QColor color);
 
 	void applyColors(QDomDocument &doc, QString fileName, QColor color);
