@@ -19,13 +19,14 @@
 #include <QObject>
 #include <QString>
 #include <QStringView>
-#include <QDomElement>
 
 #include "prefsstructs.h"
 #include "scribusapi.h"
 #include "scpixmapcache.h"
 
 class PrefsFile;
+class QDomDocument;
+class QDomElement;
 class ScribusMainWindow;
 
 

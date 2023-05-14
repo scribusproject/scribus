@@ -15,6 +15,8 @@
 #include <QCursor>
 #include <QDebug>
 #include <QDir>
+#include <QDomDocument>
+#include <QDomElement>
 #include <QFile>
 #include <QIcon>
 #include <QTextCodec>

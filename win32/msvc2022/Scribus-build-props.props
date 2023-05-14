@@ -24,6 +24,8 @@
 	<QT6NETWORK_LIB Condition="'$(Configuration)' == 'Release'">Qt6Network.lib</QT6NETWORK_LIB>
 	<QT6PRINTSUPPORT_LIB Condition="'$(Configuration)' == 'Debug'">Qt6PrintSupportd.lib</QT6PRINTSUPPORT_LIB>
 	<QT6PRINTSUPPORT_LIB Condition="'$(Configuration)' == 'Release'">Qt6PrintSupport.lib</QT6PRINTSUPPORT_LIB>
+	<QT6SVG_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Svgd.lib</QT6SVG_LIB>
+	<QT6SVG_LIB Condition="'$(Configuration)' == 'Release'">Qt6Svg.lib</QT6SVG_LIB>
 	<QT6WIDGETS_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Widgetsd.lib</QT6WIDGETS_LIB>
 	<QT6WIDGETS_LIB Condition="'$(Configuration)' == 'Release'">Qt6Widgets.lib</QT6WIDGETS_LIB>
 	<QT6XML_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Xmld.lib</QT6XML_LIB>
