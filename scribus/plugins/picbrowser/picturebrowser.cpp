@@ -1590,18 +1590,18 @@ void PictureBrowser::loadIcons()
 	iconDocument = QIcon(im.loadIcon("doc.png"));
 	iconCollection = QIcon(im.loadIcon("cmyk.png"));
 	iconOk = QIcon(im.loadIcon("ok22.png"));
-	iconClose = QIcon(im.loadIcon("/16/close.png"));
+	iconClose = QIcon(im.loadIcon("16/close.png"));
 	iconZoomPlus = QIcon(im.loadIcon("viewmagin.png"));
 	iconZoomMinus = QIcon(im.loadIcon("viewmagout.png"));
-	iconNew = QIcon(im.loadIcon("/16/insert-table.png"));
-	iconNew2 = QIcon(im.loadIcon("/16/document-new.png"));
-	iconEdit = QIcon(im.loadIcon("/16/document-properties.png"));
-	iconRemove = QIcon(im.loadIcon("/16/edit-cut.png"));
-	iconLoad = QIcon(im.loadIcon("/16/document-open.png"));
-	iconSave = QIcon(im.loadIcon("/16/document-save.png"));
-	iconPlus = QIcon(im.loadIcon("/16/list-add.png"));
-	iconMinus = QIcon(im.loadIcon("/16/list-remove.png"));
-	iconPen = QIcon(im.loadIcon("/16/story-editor.png"));
+	iconNew = QIcon(im.loadIcon("16/insert-table.png"));
+	iconNew2 = QIcon(im.loadIcon("16/document-new.png"));
+	iconEdit = QIcon(im.loadIcon("16/document-properties.png"));
+	iconRemove = QIcon(im.loadIcon("16/edit-cut.png"));
+	iconLoad = QIcon(im.loadIcon("16/document-open.png"));
+	iconSave = QIcon(im.loadIcon("16/document-save.png"));
+	iconPlus = QIcon(im.loadIcon("16/list-add.png"));
+	iconMinus = QIcon(im.loadIcon("16/list-remove.png"));
+	iconPen = QIcon(im.loadIcon("16/story-editor.png"));
 
 	collectionsNewCategoryButton->setIcon(iconNew);
 	collectionsNewButton->setIcon(iconNew2);

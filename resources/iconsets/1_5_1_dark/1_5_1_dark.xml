@@ -9,35 +9,7 @@
 	<nametext lang="en_US">Scribus 1.5.1 Dark</nametext>
 	<nametext lang="fr">Scribus 1.5.1 Dark</nametext>
 	<nametext lang="de_DE">Scribus 1.5.1 Dark</nametext>
-		<icons>
-		<icon id="/16/close.png" file="/16/close.png" />
-		<icon id="/16/document-new.png" file="/16/document-new.png" />
-		<icon id="/16/document-open.png" file="/16/document-open.png" />
-		<icon id="/16/document-properties.png" file="/16/document-properties.png" />
-		<icon id="/16/document-save.png" file="/16/document-save.png" />
-		<icon id="/16/edit-cut.png" file="/16/edit-cut.png" />
-		<icon id="/16/insert-table.png" file="/16/insert-table.png" />
-		<icon id="/16/list-add.png" file="/16/list-add.png" />
-		<icon id="/16/list-remove.png" file="/16/list-remove.png" />
-		<icon id="/16/story-editor.png" file="/16/story-editor.png" />
-		<icon id="/draw-arrow-back.png" file="/draw-arrow-back.png" />
-		<icon id="/draw-arrow-down.png" file="/draw-arrow-down.png" />
-		<icon id="/draw-arrow-forward.png" file="/draw-arrow-forward.png" />
-		<icon id="/draw-arrow-up.png" file="/draw-arrow-up.png" />
-		<icon id="/draw-cross.png" file="/draw-cross.png" />
-		<icon id="/draw-donut.png" file="/draw-donut.png" />
-		<icon id="/draw-ellipse.png" file="/draw-ellipse.png" />
-		<icon id="/draw-halfcircle1.png" file="/draw-halfcircle1.png" />
-		<icon id="/draw-halfcircle2.png" file="/draw-halfcircle2.png" />
-		<icon id="/draw-halfcircle3.png" file="/draw-halfcircle3.png" />
-		<icon id="/draw-halfcircle4.png" file="/draw-halfcircle4.png" />
-		<icon id="/draw-rectangle.png" file="/draw-rectangle.png" />
-		<icon id="/draw-square-inverted-corners.png" file="/draw-square-inverted-corners.png" />
-		<icon id="/draw-triangle.png" file="/draw-triangle.png" />
-		<icon id="/draw-triangle1.png" file="/draw-triangle1.png" />
-		<icon id="/draw-triangle2.png" file="/draw-triangle2.png" />
-		<icon id="/draw-triangle3.png" file="/draw-triangle3.png" />
-		<icon id="/draw-triangle4.png" file="/draw-triangle4.png" />
+	<icons>
 		<icon id="16/annot3d.png" file="16/annot3d.png" />
 		<icon id="16/checkbox.png" file="16/checkbox.png" />
 		<icon id="16/close.png" file="16/close.png" />
