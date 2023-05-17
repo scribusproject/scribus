@@ -4620,8 +4620,8 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, int pageNumber)
 		}
 		else
 		{
-			PageLocation pageLoc=locationOfPage(pageNumber);
-			if (pageLoc==LeftPage) //Left hand page
+			PageLocation pageLoc = locationOfPage(pageNumber);
+			if (pageLoc == LeftPage) //Left hand page
 			{
 				if (Mp->LeftPg != 0)
 				{
@@ -4634,7 +4634,7 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, int pageNumber)
 					Ap->initialMargins.setRight(Mp->initialMargins.left());
 				}
 			}
-			else if (pageLoc==RightPage) // Right hand page
+			else if (pageLoc == RightPage) // Right hand page
 			{
 				if (Mp->LeftPg != 0)
 				{

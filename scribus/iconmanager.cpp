@@ -39,7 +39,6 @@ IconManager::IconManager(QObject *parent)
 	m_forDarkMode = false;
 	m_splashScreenRect = QRect();
 	m_splashScreen = QPixmap();
-
 }
 
 IconManager& IconManager::instance()
@@ -88,7 +87,6 @@ QPixmap IconManager::loadPixmap(const QString &name, bool forceUseColor, bool rt
 		qWarning() << "IconManager: No icon with name '" + name + "' in icon cache.";
 		return QPixmap();
 	}
-
 }
 
 void IconManager::addIcon(const QString &name, QPainterPath path)
