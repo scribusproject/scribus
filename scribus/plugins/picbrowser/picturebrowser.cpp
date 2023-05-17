@@ -1582,11 +1582,11 @@ void PictureBrowser::loadIcons()
 {
 	IconManager& im = IconManager::instance();
 
-	iconArrowUp = QIcon(im.loadIcon("pitr_green_arrows_set_1.svg"));
-	iconArrowDown = QIcon(im.loadIcon("pitr_green_arrows_set_5.svg"));
-	iconFolderBrowser = QIcon(im.loadIcon("sarxos_Simple_Folder_Seek.svg"));
-	iconCollectionsBrowser = QIcon(im.loadIcon("sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg"));
-	iconDocumentBrowser = QIcon(im.loadIcon("sarxos_Paper_Sheets.svg"));
+	iconArrowUp = QIcon(im.loadIcon("svg/pitr_green_arrows_set_1.svg"));
+	iconArrowDown = QIcon(im.loadIcon("svg/pitr_green_arrows_set_5.svg"));
+	iconFolderBrowser = QIcon(im.loadIcon("svg/sarxos_Simple_Folder_Seek.svg"));
+	iconCollectionsBrowser = QIcon(im.loadIcon("svg/sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg"));
+	iconDocumentBrowser = QIcon(im.loadIcon("svg/sarxos_Paper_Sheets.svg"));
 	iconDocument = QIcon(im.loadIcon("doc.png"));
 	iconCollection = QIcon(im.loadIcon("cmyk.png"));
 	iconOk = QIcon(im.loadIcon("ok22.png"));

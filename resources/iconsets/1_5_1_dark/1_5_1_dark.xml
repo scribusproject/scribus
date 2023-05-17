@@ -337,8 +337,6 @@
 		<icon id="pdf.png" file="pdf.png" />
 		<icon id="penciladd.png" file="penciladd.png" />
 		<icon id="pencilsub.png" file="pencilsub.png" />
-		<icon id="pitr_green_arrows_set_1.svg" file="pitr_green_arrows_set_1.svg" />
-		<icon id="pitr_green_arrows_set_5.svg" file="pitr_green_arrows_set_5.svg" />
 		<icon id="plugins_16.png" file="plugins_16.png" />
 		<icon id="PolyCut.png" file="PolyCut.png" />
 		<icon id="postscript.png" file="postscript.png" />
@@ -358,9 +356,6 @@
 		<icon id="round-corners.png" file="round-corners.png" />
 		<icon id="RoundCap.png" file="RoundCap.png" />
 		<icon id="RoundJoin.png" file="RoundJoin.png" />
-		<icon id="sarxos_Paper_Sheets.svg" file="sarxos_Paper_Sheets.svg" />
-		<icon id="sarxos_Simple_Folder_Seek.svg" file="sarxos_Simple_Folder_Seek.svg" />
-		<icon id="sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg" file="sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg" />
 		<icon id="scrap_16.png" file="scrap_16.png" />
 		<icon id="screen.png" file="screen.png" />
 		<icon id="scribus16.png" file="scribus16.png" />
@@ -378,6 +373,11 @@
 		<icon id="stift.png" file="stift.png" />
 		<icon id="Stift16.png" file="Stift16.png" />
 		<icon id="strike.png" file="strike.png" />
+		<icon id="svg/pitr_green_arrows_set_1.svg" file="svg/pitr_green_arrows_set_1.svg" />
+		<icon id="svg/pitr_green_arrows_set_5.svg" file="svg/pitr_green_arrows_set_5.svg" />
+		<icon id="svg/sarxos_Paper_Sheets.svg" file="svg/sarxos_Paper_Sheets.svg" />
+		<icon id="svg/sarxos_Simple_Folder_Seek.svg" file="svg/sarxos_Simple_Folder_Seek.svg" />
+		<icon id="svg/sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg" file="svg/sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg" />
 		<icon id="tab.png" file="tab.png" />
 		<icon id="tabtocindex_16.png" file="tabtocindex_16.png" />
 		<icon id="testfill.png" file="testfill.png" />

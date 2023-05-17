@@ -33,8 +33,15 @@ install(TARGETS ${SCRIBUS_PICTUREBROWSER_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-install(FILES icons/pitr_green_arrows_set_1.svg icons/pitr_green_arrows_set_5.svg icons/sarxos_Paper_Sheets.svg icons/sarxos_Simple_Folder_Seek.svg icons/sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg icons/testfill.png
-	DESTINATION ${SHAREDIR}/icons
-)
+file( GLOB PICBROWSER_SVG_ICONS icons/*.svg )
+
+install(FILES icons/testfill.png DESTINATION ${SHAREDIR}/icons/1_5_0)
+install(FILES ${PICBROWSER_SVG_ICONS} DESTINATION ${SHAREDIR}/icons/1_5_0/svg)
+
+install(FILES icons/testfill.png DESTINATION ${SHAREDIR}/icons/1_5_1)
+install(FILES ${PICBROWSER_SVG_ICONS} DESTINATION ${SHAREDIR}/icons/1_5_1/svg)
+
+install(FILES icons/testfill.png DESTINATION ${SHAREDIR}/icons/1_5_1_dark)
+install(FILES ${PICBROWSER_SVG_ICONS} DESTINATION ${SHAREDIR}/icons/1_5_1_dark/svg)
 
 install(FILES collectionsdb.xml DESTINATION ${SHAREDIR}/plugins)

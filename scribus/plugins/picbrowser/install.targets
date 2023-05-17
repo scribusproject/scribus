@@ -3,20 +3,51 @@
 	<ItemGroup>
 		<FilesToInstall_plugins_picbrowser Include="$(MSBuildThisFileDirectory)\icons\*.jpg" />
 		<FilesToInstall_plugins_picbrowser Include="$(MSBuildThisFileDirectory)\icons\*.png" />
-		<FilesToInstall_plugins_picbrowser Include="$(MSBuildThisFileDirectory)\icons\*.svg" />
+		<FilesToInstall_plugins_picbrowser_svg Include="$(MSBuildThisFileDirectory)\icons\*.svg" />
 	</ItemGroup>
 	
 	<PropertyGroup>
 		<AfterBuildDependsOn>
 			$(AfterBuildDependsOn);
-			Install_plugins_picbrowser;
+			Install_plugins_picbrowser_1_5_0;
+			Install_plugins_picbrowser_1_5_1;
+			Install_plugins_picbrowser_1_5_1_dark;
 		</AfterBuildDependsOn>
 	</PropertyGroup>
 	
-	<Target Name="Install_plugins_picbrowser">  
+	<Target Name="Install_plugins_picbrowser_1_5_0">
 		<Copy  
 			SourceFiles="@(FilesToInstall_plugins_picbrowser)"  
-			DestinationFiles="@(FilesToInstall_plugins_picbrowser-&gt;'$(OutDir)\share\icons\%(Filename)%(Extension)')"
+			DestinationFiles="@(FilesToInstall_plugins_picbrowser-&gt;'$(OutDir)\share\icons\1_5_0\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>  
+		<Copy  
+			SourceFiles="@(FilesToInstall_plugins_picbrowser_svg)"  
+			DestinationFiles="@(FilesToInstall_plugins_picbrowser_svg-&gt;'$(OutDir)\share\icons\1_5_0\svg\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+	<Target Name="Install_plugins_picbrowser_1_5_1">
+		<Copy  
+			SourceFiles="@(FilesToInstall_plugins_picbrowser)"  
+			DestinationFiles="@(FilesToInstall_plugins_picbrowser-&gt;'$(OutDir)\share\icons\1_5_1\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>  
+		<Copy  
+			SourceFiles="@(FilesToInstall_plugins_picbrowser_svg)"  
+			DestinationFiles="@(FilesToInstall_plugins_picbrowser_svg-&gt;'$(OutDir)\share\icons\1_5_1\svg\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+	<Target Name="Install_plugins_picbrowser_1_5_1_dark">
+		<Copy  
+			SourceFiles="@(FilesToInstall_plugins_picbrowser)"  
+			DestinationFiles="@(FilesToInstall_plugins_picbrowser-&gt;'$(OutDir)\share\icons\1_5_1_dark\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>  
+		<Copy  
+			SourceFiles="@(FilesToInstall_plugins_picbrowser_svg)"  
+			DestinationFiles="@(FilesToInstall_plugins_picbrowser_svg-&gt;'$(OutDir)\share\icons\1_5_1_dark\svg\%(Filename)%(Extension)')"
 			SkipUnchangedFiles="true"
 		/>
 	</Target>
