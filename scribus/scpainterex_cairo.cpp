@@ -538,13 +538,22 @@ void ScPainterEx_Cairo::drawImage(ScImage *image, ScPainterExBase::ImageMode mod
 	QImage qImage(image->qImage());
 	if (m_convertToGray)
 		transformImage(qImage);
-	cairo_save(m_cr);
+
+	cairo_push_group(m_cr);
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
-	cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)qImage.bits(), CAIRO_FORMAT_ARGB32, qImage.width(), qImage.height(), qImage.width()*4);
-	cairo_set_source_surface (m_cr, image2, 0, 0);
-	cairo_paint_with_alpha (m_cr, m_fillTrans);
-	cairo_surface_destroy (image2);
-	cairo_restore(m_cr);
+	cairo_surface_t* image2 = cairo_image_surface_create_for_data((uchar*) qImage.bits(), CAIRO_FORMAT_RGB24, qImage.width(), qImage.height(), qImage.width() * 4);
+	cairo_surface_t* image3 = cairo_image_surface_create_for_data((uchar*) qImage.bits(), CAIRO_FORMAT_ARGB32, qImage.width(), qImage.height(), qImage.width() * 4);
+	cairo_set_source_surface(m_cr, image2, 0, 0);
+	cairo_pattern_set_filter(cairo_get_source(m_cr), CAIRO_FILTER_GOOD);
+	cairo_mask_surface(m_cr, image3, 0, 0);
+	cairo_surface_destroy(image2);
+	cairo_surface_destroy(image3);
+	cairo_pop_group_to_source(m_cr);
+	cairo_pattern_set_filter(cairo_get_source(m_cr), CAIRO_FILTER_GOOD);
+	setRasterOp(m_blendModeFill);
+	cairo_paint_with_alpha(m_cr, m_fillTrans);
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 }
 
 void ScPainterEx_Cairo::setupPolygon(const FPointArray *points, bool closed)
