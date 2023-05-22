@@ -552,17 +552,7 @@ void ScPainterEx_Cairo::drawImage(ScImage *image, ScPainterExBase::ImageMode mod
 	cairo_pop_group_to_source(m_cr);
 	cairo_pattern_set_filter(cairo_get_source(m_cr), CAIRO_FILTER_GOOD);
 	setRasterOp(m_blendModeFill);
-	if (m_maskMode > 0)
-	{
-		/*cairo_pattern_t* patM = getMaskPattern();
-		cairo_pattern_set_filter(patM, CAIRO_FILTER_GOOD);
-		cairo_mask(m_cr, patM);
-		if ((m_maskMode == 2) || (m_maskMode == 4) || (m_maskMode == 5) || (m_maskMode == 6))
-			cairo_surface_destroy(m_imageMask);
-		cairo_pattern_destroy(patM);*/
-	}
-	else
-		cairo_paint_with_alpha(m_cr, m_fillTrans);
+	cairo_paint_with_alpha(m_cr, m_fillTrans);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 }
 
