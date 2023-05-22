@@ -25,9 +25,7 @@ for which a new license (GPL+exception) is in place.
 ScPainter::ScPainter(QImage *target, int w, int h, double transparency, int blendmode)
          : m_image(target),
 	       m_layerTransparency(transparency),
-	       m_blendMode(blendmode),
-	       m_width(w),
-	       m_height(h)
+	       m_blendMode(blendmode)
 {
 	Q_ASSERT(w >= 0);
 	Q_ASSERT(h >= 0);
