@@ -42,6 +42,7 @@
 #define _2GEOM_RECT
 
 #include "matrix.h"
+#include <algorithm>
 #include <boost/optional/optional.hpp>
 
 namespace Geom {

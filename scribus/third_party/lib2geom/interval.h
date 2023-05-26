@@ -36,6 +36,7 @@
 #ifndef SEEN_INTERVAL_H
 #define SEEN_INTERVAL_H
 
+#include <algorithm>
 #include <assert.h>
 #include "coord.h"
 
