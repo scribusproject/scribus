@@ -33,6 +33,8 @@
 
 #ifndef SEEN_SBASIS_H
 #define SEEN_SBASIS_H
+
+#include <algorithm>
 #include <vector>
 #include <cassert>
 #include <iostream>
