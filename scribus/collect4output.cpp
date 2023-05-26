@@ -349,19 +349,19 @@ bool CollectForOutput::collectFonts()
 		QString outFileITF(m_outputDirectory + "fonts/" + itf.fileName());
 		bool success = copyFileAtomic(oldFileITF, outFileITF);
 		if (!success)
-			qDebug()<<"CollectForOutput::collectFile copyFileAtomic failed for"<<oldFileITF<<"to"<<outFileITF;
+			qDebug() << "CollectForOutput::collectFile copyFileAtomic failed for" << oldFileITF << "to" << outFileITF;
 #ifndef Q_OS_WIN32
 		else
 		{
 			QFile of(outFileITF);
 			if (of.exists())
 			{
-				bool permsSet=of.setPermissions(QFile::permissions(oldFileITF));
+				bool permsSet = of.setPermissions(QFile::permissions(oldFileITF));
 				if (!permsSet)
-					qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFileITF;
+					qDebug() << "Unable to set permissions successfully while collecting for output on" << outFileITF;
 			}
 			else
-				qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFileITF<<"as the file does not exist";
+				qDebug() << "Unable to set permissions successfully while collecting for output on" << outFileITF << "as the file does not exist";
 		}
 #endif
 		if (prefsManager.appPrefs.fontPrefs.AvailFonts[it3.key()].type() == ScFace::TYPE1)
@@ -462,19 +462,19 @@ bool CollectForOutput::collectProfiles()
 		QString outFile(m_outputDirectory + "profiles/" + QFileInfo(oldFile).fileName());
 		bool success = copyFileAtomic(oldFile, outFile);
 		if (!success)
-			qDebug()<<"CollectForOutput::collectFile copyFileAtomic failed for"<<oldFile<<"to"<<outFile;
+			qDebug() << "CollectForOutput::collectFile copyFileAtomic failed for" << oldFile << "to" << outFile;
 #ifndef Q_OS_WIN32
 		else
 		{
 			QFile of(outFile);
 			if (of.exists())
 			{
-				bool permsSet=of.setPermissions(QFile::permissions(oldFile));
+				bool permsSet = of.setPermissions(QFile::permissions(oldFile));
 				if (!permsSet)
-					qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFile;
+					qDebug() << "Unable to set permissions successfully while collecting for output on" << outFile;
 			}
 			else
-				qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFile<<"as the file does not exist";
+				qDebug() << "Unable to set permissions successfully while collecting for output on" << outFile << "as the file does not exist";
 		}
 #endif
 		if (uiCollect)
@@ -506,19 +506,19 @@ QString CollectForOutput::collectFile(const QString& oldFile, QString newFile)
 		QString outFile(m_outputDirectory + "images/" + newFile);
 		bool success = copyFileAtomic(oldFile, outFile);
 		if (!success)
-			qDebug()<<"CollectForOutput::collectFile copyFileAtomic failed for"<<oldFile<<"to"<<outFile;
+			qDebug() << "CollectForOutput::collectFile copyFileAtomic failed for" << oldFile << "to" << outFile;
 #ifndef Q_OS_WIN32
 		else
 		{
 			QFile of(outFile);
 			if (of.exists())
 			{
-				bool permsSet=of.setPermissions(QFile::permissions(oldFile));
+				bool permsSet = of.setPermissions(QFile::permissions(oldFile));
 				if (!permsSet)
-					qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFile;
+					qDebug() << "Unable to set permissions successfully while collecting for output on" << outFile;
 			}
 			else
-				qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFile<<"as the file does not exist";
+				qDebug() << "Unable to set permissions successfully while collecting for output on" << outFile << "as the file does not exist";
 		}
 #endif
 	}
