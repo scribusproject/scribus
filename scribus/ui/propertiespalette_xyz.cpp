@@ -294,12 +294,16 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 	noPrint->setChecked(!item->printEnabled());
 	showFlippedH(item->imageFlippedH());
 	showFlippedV(item->imageFlippedV());
+
 	double rr = item->rotation();
 	if (item->rotation() > 0)
 		rr = 360 - rr;
 	m_oldRotation = fabs(rr);
 	rotationSpin->setValue(fabs(rr));
-	basePointWidget->setAngle(fabs(rr));
+	if (m_doc->m_Selection->count() == 1)
+		basePointWidget->setAngle(fabs(rr));
+	else
+		basePointWidget->setAngle(0);
 
 //CB TODO reconnect PP signals from here
 	connect(xposSpin    , SIGNAL(valueChanged(double)), this, SLOT(handleNewX()), Qt::UniqueConnection);
