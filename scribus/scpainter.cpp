@@ -1153,8 +1153,7 @@ void ScPainter::fillPathHelper()
 	}
 	else if (m_fillMode == 4)
 	{
-		cairo_path_t *path;
-		path = cairo_copy_path(m_cr);
+		cairo_path_t *path = cairo_copy_path(m_cr);
 		cairo_push_group(m_cr);
 		if (m_hatchUseBackground && m_hatchBackground.isValid())
 		{
