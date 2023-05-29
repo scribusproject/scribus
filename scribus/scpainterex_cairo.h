@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #define SCPAINTEREX_CAIRO_H
 
 #include <cairo.h>
+#include <QImage>
 #include "scpainterexbase.h"
 
 #include "mesh.h"
@@ -193,6 +194,10 @@ private:
 
 /* Cairo context */
 	cairo_t* m_cr { nullptr };
+
+	cairo_pattern_t* getMaskPattern();
+	cairo_surface_t* m_imageMask{ nullptr };
+	QImage m_imageQ;
 
 /* Color conversion function */
 	QColor transformColor( const ScColorShade& colorShade, double trans ) const;

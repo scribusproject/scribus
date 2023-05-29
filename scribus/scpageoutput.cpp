@@ -342,9 +342,11 @@ void ScPageOutput::drawItem_Pre(PageItem* item, ScPainterExBase* painter)
 		else
 			painter->setMaskMode(3);
 		if ((!gradientMaskVal.isEmpty()) && (!m_doc->docGradients.contains(gradientMaskVal)))
-			gradientMaskVal = "";
+			gradientMaskVal.clear();
 		if (!(gradientMaskVal.isEmpty()) && (m_doc->docGradients.contains(gradientMaskVal)))
 			painter->m_maskGradient = VGradientEx(m_doc->docGradients[gradientMaskVal], *m_doc);
+		else
+			painter->m_maskGradient = VGradientEx(item->mask_gradient, *m_doc);
 		if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_LinearLumAlpha))
 			painter->setGradientMask(VGradientEx::linear, fpMaskStart, fpMaskEnd, fpMaskStart, item->GrMaskScale, item->GrMaskSkew);
 		else
