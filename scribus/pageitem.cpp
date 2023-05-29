@@ -1784,7 +1784,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 		else
 			p->setMaskMode(3);
 		if ((!gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientMaskVal)))
-			gradientMaskVal = "";
+			gradientMaskVal.clear();
 		if (!(gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(gradientMaskVal)))
 			mask_gradient = m_Doc->docGradients[gradientMaskVal];
 		p->mask_gradient = mask_gradient;
