@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainterex_cairo.h"
 #include "sccolorengine.h"
 #include "scimage.h"
+#include "scpattern.h"
 #include "util.h"
 #include "util_math.h"
 
@@ -442,6 +443,114 @@ void ScPainterEx_Cairo::setBlendModeStroke(int blendMode)
 	m_blendModeStroke = blendMode;
 }
 
+cairo_pattern_t* ScPainterEx_Cairo::getMaskPattern()
+{
+	cairo_save(m_cr);
+	cairo_pattern_t* pat { nullptr };
+	if ((m_maskMode == 1) || (m_maskMode == 3))
+	{
+		double x1 = m_maskGradient.origin().x();
+		double y1 = m_maskGradient.origin().y();
+		double x2 = m_maskGradient.vector().x();
+		double y2 = m_maskGradient.vector().y();
+		double fx = m_maskGradient.focalPoint().x();
+		double fy = m_maskGradient.focalPoint().y();
+		if (m_maskGradient.type() == VGradientEx::linear)
+			pat = cairo_pattern_create_linear(x1, y1, x2, y2);
+		else
+			pat = cairo_pattern_create_radial(fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
+		QList<VColorStopEx*> colorStops = m_maskGradient.colorStops();
+		QColor qStopColor;
+		for (qsizetype offset = 0; offset < colorStops.count(); offset++)
+		{
+			const auto* stop = colorStops[offset];
+			qStopColor = transformColor(ScColorShade(stop->color, stop->shade), 1.0);
+			double a = colorStops[offset]->opacity;
+			float r, g, b;
+			qStopColor.getRgbF(&r, &g, &b);
+			if (m_maskMode == 3)
+				a = 0.3 * r + 0.59 * g + 0.11 * b;
+			cairo_pattern_add_color_stop_rgba(pat, colorStops[offset]->rampPoint, r, g, b, a);
+		}
+		cairo_matrix_t matrix;
+		QTransform qmatrix;
+		if (m_maskGradient.type() == VGradientEx::radial)
+		{
+			double rotEnd = xy2Deg(x2 - x1, y2 - y1);
+			qmatrix.translate(x1, y1);
+			qmatrix.rotate(rotEnd);
+			qmatrix.shear(m_maskGradientSkew, 0);
+			qmatrix.translate(0, y1 * (1.0 - m_maskGradientScale));
+			qmatrix.translate(-x1, -y1);
+			qmatrix.scale(1, m_maskGradientScale);
+		}
+		else
+		{
+			qmatrix.translate(x1, y1);
+			qmatrix.shear(-m_maskGradientSkew, 0);
+			qmatrix.translate(-x1, -y1);
+		}
+		cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+		cairo_matrix_invert(&matrix);
+		cairo_pattern_set_matrix(pat, &matrix);
+	}
+	else
+	{
+		if ((m_maskMode == 4) || (m_maskMode == 5))
+		{
+			m_imageQ = m_maskPattern->pattern.copy();
+			if (m_maskMode == 5)
+				m_imageQ.invertPixels();
+			int h = m_imageQ.height();
+			int w = m_imageQ.width();
+			int k;
+			QRgb* s;
+			QRgb r;
+			for (int yi = 0; yi < h; ++yi)
+			{
+				s = (QRgb*) (m_imageQ.scanLine(yi));
+				for (int xi = 0; xi < w; ++xi)
+				{
+					r = *s;
+					if (qAlpha(r) == 0)
+						k = 0;
+					else
+						k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+					*s = qRgba(qRed(r), qGreen(r), qBlue(r), k);
+					s++;
+				}
+			}
+			m_imageMask = cairo_image_surface_create_for_data(m_imageQ.bits(), CAIRO_FORMAT_ARGB32, w, h, w * 4);
+		}
+		else
+		{
+			m_imageQ = m_maskPattern->pattern.copy();
+			if (m_maskMode == 6)
+				m_imageQ.invertPixels(QImage::InvertRgba);
+			m_imageMask = cairo_image_surface_create_for_data(m_imageQ.bits(), CAIRO_FORMAT_ARGB32, m_maskPattern->getPattern()->width(), m_maskPattern->getPattern()->height(), m_maskPattern->getPattern()->width() * 4);
+		}
+		pat = cairo_pattern_create_for_surface(m_imageMask);
+		cairo_pattern_set_extend(pat, CAIRO_EXTEND_REPEAT);
+		cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
+		cairo_matrix_t matrix;
+		QTransform qmatrix;
+		qmatrix.translate(m_maskPatternOffsetX, m_maskPatternOffsetY);
+		qmatrix.rotate(m_maskPatternRotation);
+		qmatrix.shear(-m_maskPatternSkewX, m_maskPatternSkewY);
+		qmatrix.scale(m_maskPatternScaleX, m_maskPatternScaleY);
+		qmatrix.scale(m_maskPattern->width / static_cast<double>(m_maskPattern->getPattern()->width()), m_maskPattern->height / static_cast<double>(m_maskPattern->getPattern()->height()));
+		if (m_maskPatternMirrorX)
+			qmatrix.scale(-1, 1);
+		if (m_maskPatternMirrorY)
+			qmatrix.scale(1, -1);
+		cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+		cairo_matrix_invert(&matrix);
+		cairo_pattern_set_matrix(pat, &matrix);
+	}
+	cairo_restore(m_cr);
+	return pat;
+}
+
 void ScPainterEx_Cairo::fillPathHelper()
 {
 	cairo_save(m_cr);
@@ -457,14 +566,18 @@ void ScPainterEx_Cairo::fillPathHelper()
 		fillColor.getRgbF(&r, &g, &b);
 		if (m_maskMode > 0)
 		{
-			/*cairo_pattern_t *pat = getMaskPattern();
+			cairo_pattern_t *pat = getMaskPattern();
 			cairo_set_source_rgb(m_cr, r, g, b);
 			setRasterOp(m_blendModeFill);
 			cairo_clip_preserve(m_cr);
-			cairo_mask(m_cr, pat);
-			if ((maskMode == 2) || (maskMode == 4) || (maskMode == 5) || (maskMode == 6))
-				cairo_surface_destroy(imageMask);
-			cairo_pattern_destroy(pat);*/
+			if (pat)
+				cairo_mask(m_cr, pat);
+			if (m_imageMask)
+			{
+				cairo_surface_destroy(m_imageMask);
+				m_imageMask = nullptr;
+			}
+			cairo_pattern_destroy(pat);
 		}
 		else
 		{
@@ -552,7 +665,21 @@ void ScPainterEx_Cairo::drawImage(ScImage *image, ScPainterExBase::ImageMode mod
 	cairo_pop_group_to_source(m_cr);
 	cairo_pattern_set_filter(cairo_get_source(m_cr), CAIRO_FILTER_GOOD);
 	setRasterOp(m_blendModeFill);
-	cairo_paint_with_alpha(m_cr, m_fillTrans);
+	if (m_maskMode > 0)
+	{
+		cairo_pattern_t* patM = getMaskPattern();
+		cairo_pattern_set_filter(patM, CAIRO_FILTER_GOOD);
+		if (patM)
+			cairo_mask(m_cr, patM);
+		if (m_imageMask)
+		{
+			cairo_surface_destroy(m_imageMask);
+			m_imageMask = nullptr;
+		}
+		cairo_pattern_destroy(patM);
+	}
+	else
+		cairo_paint_with_alpha(m_cr, m_fillTrans);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 }
 
@@ -816,12 +943,16 @@ void ScPainterEx_Cairo::drawFourColorGradient(const QRect& rect)
 
 	if (m_maskMode > 0)
 	{
-		/*cairo_pattern_t *patM = getMaskPattern();
+		cairo_pattern_t *patM = getMaskPattern();
 		setRasterOp(m_blendModeFill);
-		cairo_mask(m_cr, patM);
-		if ((m_maskMode == 2) || (m_maskMode == 4) || (m_maskMode == 5) || (m_maskMode == 6))
-			cairo_surface_destroy(imageMask);
-		cairo_pattern_destroy (patM);*/
+		if (patM)
+			cairo_mask(m_cr, patM);
+		if (m_imageMask)
+		{
+			cairo_surface_destroy(m_imageMask);
+			m_imageMask = nullptr;
+		}
+		cairo_pattern_destroy (patM);
 	}
 	else
 	{
@@ -1040,12 +1171,16 @@ void ScPainterEx_Cairo::drawDiamondGradient(VGradientEx& gradient, const QRect& 
 
 	if (m_maskMode > 0)
 	{
-		/*cairo_pattern_t *patM = getMaskPattern();
+		cairo_pattern_t *patM = getMaskPattern();
 		setRasterOp(m_blendModeFill);
-		cairo_mask(m_cr, patM);
-		if ((m_maskMode == 2) || (m_maskMode == 4) || (m_maskMode == 5) || (m_maskMode == 6))
-			cairo_surface_destroy(imageMask);
-		cairo_pattern_destroy (patM);*/
+		if (patM)
+			cairo_mask(m_cr, patM);
+		if (m_imageMask)
+		{
+			cairo_surface_destroy(m_imageMask);
+			m_imageMask = nullptr;
+		}
+		cairo_pattern_destroy (patM);
 	}
 	else
 	{
@@ -1118,12 +1253,16 @@ void ScPainterEx_Cairo::drawMeshGradient(const QRect& rect)
 
 	if (m_maskMode > 0)
 	{
-		/*cairo_pattern_t *patM = getMaskPattern();
+		cairo_pattern_t *patM = getMaskPattern();
 		setRasterOp(m_blendModeFill);
-		cairo_mask(m_cr, patM);
-		if ((m_maskMode == 2) || (m_maskMode == 4) || (m_maskMode == 5) || (m_maskMode == 6))
-			cairo_surface_destroy(imageMask);
-		cairo_pattern_destroy (patM);*/
+		if (patM)
+			cairo_mask(m_cr, patM);
+		if (m_imageMask)
+		{
+			cairo_surface_destroy(m_imageMask);
+			m_imageMask = nullptr;
+		}
+		cairo_pattern_destroy (patM);
 	}
 	else
 	{
@@ -1194,12 +1333,16 @@ void ScPainterEx_Cairo::drawFreeMeshGradient(const QRect& rect)
 
 	if (m_maskMode > 0)
 	{
-		/*cairo_pattern_t *patM = getMaskPattern();
+		cairo_pattern_t *patM = getMaskPattern();
 		setRasterOp(m_blendModeFill);
-		cairo_mask(m_cr, patM);
-		if ((m_maskMode == 2) || (m_maskMode == 4) || (m_maskMode == 5) || (m_maskMode == 6))
-			cairo_surface_destroy(imageMask);
-		cairo_pattern_destroy (patM);*/
+		if (patM)
+			cairo_mask(m_cr, patM);
+		if (m_imageMask)
+		{
+			cairo_surface_destroy(m_imageMask);
+			m_imageMask = nullptr;
+		}
+		cairo_pattern_destroy (patM);
 	}
 	else
 	{
