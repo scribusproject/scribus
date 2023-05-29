@@ -12,6 +12,7 @@
 			Install_plugins_picbrowser_1_5_0;
 			Install_plugins_picbrowser_1_5_1;
 			Install_plugins_picbrowser_1_5_1_dark;
+			Install_plugins_picbrowser_1_7_0;
 		</AfterBuildDependsOn>
 	</PropertyGroup>
 	
@@ -48,6 +49,18 @@
 		<Copy  
 			SourceFiles="@(FilesToInstall_plugins_picbrowser_svg)"  
 			DestinationFiles="@(FilesToInstall_plugins_picbrowser_svg-&gt;'$(OutDir)\share\icons\1_5_1_dark\svg\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>
+	</Target>
+	<Target Name="Install_plugins_picbrowser_1_7_0">
+		<Copy  
+			SourceFiles="@(FilesToInstall_plugins_picbrowser)"  
+			DestinationFiles="@(FilesToInstall_plugins_picbrowser-&gt;'$(OutDir)\share\icons\1_7_0\%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true"
+		/>  
+		<Copy  
+			SourceFiles="@(FilesToInstall_plugins_picbrowser_svg)"  
+			DestinationFiles="@(FilesToInstall_plugins_picbrowser_svg-&gt;'$(OutDir)\share\icons\1_7_0\svg\%(Filename)%(Extension)')"
 			SkipUnchangedFiles="true"
 		/>
 	</Target>

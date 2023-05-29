@@ -44,4 +44,7 @@ install(FILES ${PICBROWSER_SVG_ICONS} DESTINATION ${SHAREDIR}/icons/1_5_1/svg)
 install(FILES icons/testfill.png DESTINATION ${SHAREDIR}/icons/1_5_1_dark)
 install(FILES ${PICBROWSER_SVG_ICONS} DESTINATION ${SHAREDIR}/icons/1_5_1_dark/svg)
 
+install(FILES icons/testfill.png DESTINATION ${SHAREDIR}/icons/1_7_0)
+install(FILES ${PICBROWSER_SVG_ICONS} DESTINATION ${SHAREDIR}/icons/1_7_0/svg)
+
 install(FILES collectionsdb.xml DESTINATION ${SHAREDIR}/plugins)
