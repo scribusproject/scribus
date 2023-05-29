@@ -102,3 +102,33 @@ install(FILES ${SCRIBUS_XML_1_5_1_DARK} DESTINATION ${ICONDIR})
 
 
 ##################
+
+#Install our 1.7.0 icons
+file( GLOB SCRIBUS_ICONS_1_7_0_UNSORTED 1_7_0/*.jpg 1_7_0/*.png 1_7_0/*.xpm 1_7_0/*.svg 1_7_0/*.css)
+install(FILES ${SCRIBUS_ICONS_1_7_0_UNSORTED} DESTINATION ${ICONDIR}/1_7_0/)
+
+#Install our 16x16 icons
+file( GLOB SCRIBUS_ICONS_1_7_0_16 1_7_0/16/*.svg )
+install(FILES ${SCRIBUS_ICONS_1_7_0_16} DESTINATION ${ICONDIR}/1_7_0/16)
+
+#Install our 24x24 icons
+file( GLOB SCRIBUS_ICONS_1_7_0_24 1_7_0/24/*.svg )
+install(FILES ${SCRIBUS_ICONS_1_7_0_24} DESTINATION ${ICONDIR}/1_7_0/24)
+
+#Install our 32x32 icons
+file( GLOB SCRIBUS_ICONS_1_7_0_32 1_7_0/32/*.svg)
+install(FILES ${SCRIBUS_ICONS_1_7_0_32} DESTINATION ${ICONDIR}/1_7_0/32)
+
+#Install our stylesheet icons
+file( GLOB SCRIBUS_ICONS_1_7_0_STYLE 1_7_0/stylesheet/*.png )
+install(FILES ${SCRIBUS_ICONS_1_7_0_STYLE} DESTINATION ${ICONDIR}/1_7_0/stylesheet)
+
+#Install our XML
+file( GLOB SCRIBUS_XML_1_7_0 1_7_0/*.xml )
+install(FILES ${SCRIBUS_XML_1_7_0} DESTINATION ${ICONDIR})
+
+#Install our tools icons
+file( GLOB SCRIBUS_ICONS_1_7_0_TOOLS 1_7_0/tools/*.svg )
+install(FILES ${SCRIBUS_ICONS_1_7_0_TOOLS} DESTINATION ${ICONDIR}/1_7_0/tools)
+
+##################

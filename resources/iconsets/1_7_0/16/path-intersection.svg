@@ -1,0 +1,14 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><style>@import '../colors.css';</style>
+<path d="M3 1V2H2V3H1V1H3Z"/>
+<path d="M7 2V1H5V2H7Z"/>
+<path d="M10 3H11V1H9V2H10V3Z"/>
+<path d="M2 5V7H1V5H2Z"/>
+<path d="M2 10V9H1V11H3V10H2Z"/>
+<path d="M14 6V7H15V5H13V6H14Z"/>
+<path d="M14 9H15V11H14V9Z"/>
+<path d="M5 13V15H7V14H6V13H5Z"/>
+<path d="M9 14V15H11V14H9Z"/>
+<path d="M13 15V14H14V13H15V15H13Z"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5 5H11V11H5V5ZM6 6H10V10H6V6Z"/>
+<rect x="6" y="6" width="4" height="4" fill-opacity="0.4"/>
+</svg>

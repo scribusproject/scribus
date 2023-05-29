@@ -1,0 +1,10 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><style>@import '../colors.css';</style>
+<g clip-path="url(#clip0_933_2513)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M3 0H0V3H1V13H0V16H3V15H13V16H16V13H15V3H16V0H13V1H3V0ZM2 13V3H3V2H13V3H14V13H13V14H3V13H2ZM12 5.17028L8 3.45599L4 5.17028V10.3297L8 12.044L12 10.3297V5.17028ZM7.5 7.32968L5 6.25825V9.67028L7.5 10.7417V7.32968ZM11 9.67028L8.5 10.7417V7.32968L11 6.25825V9.67028ZM10.2307 5.49998L8 6.45599L5.7693 5.49998L8 4.54396L10.2307 5.49998Z"/>
+</g>
+<defs>
+<clipPath id="clip0_933_2513">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>

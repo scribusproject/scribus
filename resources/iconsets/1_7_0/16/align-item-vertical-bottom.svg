@@ -1,0 +1,4 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><style>@import '../colors.css';</style>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6 3H9V12H6V3ZM2 8H5V12H2V8ZM13 6H10V12H13V6Z"/>
+<path d="M0 13H15V14H0V13Z" class="success"/>
+</svg>

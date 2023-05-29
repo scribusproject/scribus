@@ -1,0 +1,5 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><style>@import '../colors.css';</style>
+<path d="M5 1H1V15H5V1Z" fill="#FF0000"/>
+<path d="M10 1H6V15H10V1Z" fill="#00FF00"/>
+<path d="M15 1H11V15H15V1Z" fill="#0000FF"/>
+</svg>

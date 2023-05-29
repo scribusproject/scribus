@@ -1,0 +1,13 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><style>@import '../colors.css';</style>
+<g clip-path="url(#clip0_933_2813)">
+<rect opacity="0.4" x="1" y="4" width="14" height="3" class="info"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0H16V9.67133C15.7149 9.31899 15.3776 9.01056 15 8.75777V8H12.5H11H10H7.5H6V8.25606C5.64397 8.3819 5.30851 8.55127 5 8.75777V8H1V10H3.75777C3.55127 10.3085 3.3819 10.644 3.25606 11H0V0ZM10 1H6V3H10V1ZM11 1H15V3H11V1ZM15 4H1V7H15V4ZM1 1H5V3H1V1Z"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H0V8H16V3ZM15 4H1V7H15V4Z" class="info"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 9C5.567 9 4 10.567 4 12.5C4 14.433 5.567 16 7.5 16H12.5C14.433 16 16 14.433 16 12.5C16 10.567 14.433 9 12.5 9H7.5ZM5 12.5C5 11.1193 6.11929 10 7.5 10H9V11H7.5C6.67157 11 6 11.6716 6 12.5C6 13.3284 6.67157 14 7.5 14H9V15H7.5C6.11929 15 5 13.8807 5 12.5ZM11 15H12.5C13.8807 15 15 13.8807 15 12.5C15 11.1193 13.8807 10 12.5 10H11V11H12.5C13.3284 11 14 11.6716 14 12.5C14 13.3284 13.3284 14 12.5 14H11V15ZM8 12H12V13H8V12Z"/>
+</g>
+<defs>
+<clipPath id="clip0_933_2813">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -1,0 +1,11 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><style>@import '../colors.css';</style>
+<g clip-path="url(#clip0_933_2748)">
+<rect x="2.40227" y="12.1835" width="13.8055" height="2" transform="rotate(-45 2.40227 12.1835)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12 0H16V4H12V0ZM13 1H15V3H13V1ZM0 12H4V16H0V12ZM1 13H3V15H1V13Z" class="info"/>
+</g>
+<defs>
+<clipPath id="clip0_933_2748">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>
