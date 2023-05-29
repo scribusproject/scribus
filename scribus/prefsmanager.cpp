@@ -176,7 +176,7 @@ void PrefsManager::initDefaults()
 	appPrefs.uiPrefs.useTabs = false;
 	appPrefs.uiPrefs.stickyTools = false;
 	appPrefs.uiPrefs.grayscaleIcons = false;
-	appPrefs.uiPrefs.iconSet = "1_5_0";
+	appPrefs.uiPrefs.iconSet = "1_7_0";
 	appPrefs.guidesPrefs.marginsShown = true;
 	appPrefs.guidesPrefs.framesShown = true;
 	appPrefs.guidesPrefs.layerMarkersShown = false;
@@ -2032,7 +2032,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.uiPrefs.useTabs = static_cast<bool>(dc.attribute("UseDocumentTabs", "0").toInt());
 			appPrefs.uiPrefs.stickyTools = static_cast<bool>(dc.attribute("StickyTools", "0").toInt());
 			appPrefs.uiPrefs.grayscaleIcons = static_cast<bool>(dc.attribute("UseGrayscaleIcons",nullptr).toInt());
-			appPrefs.uiPrefs.iconSet = dc.attribute("IconSet", "1_5_0");
+			appPrefs.uiPrefs.iconSet = dc.attribute("IconSet", "1_7_0");
 			appPrefs.uiPrefs.userPreferredLocale = dc.attribute("UserPreferredLocale", "System");
 		}
 
