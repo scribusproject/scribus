@@ -122,6 +122,8 @@ public:
 	void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray)  override {};
 	void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches)  override {};
 
+	void setHatchParameters(int mode, double distance, double angle, bool useBackground, const ScColorShade& background, const ScColorShade& foreground, double width, double height) override {};
+
 	void setClipPath() override;
 
 	void drawImage( ScImage *image, ScPainterExBase::ImageMode mode ) override;

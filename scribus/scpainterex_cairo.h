@@ -66,6 +66,8 @@ public:
 	void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray) override;
 	void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches) override;
 
+	void setHatchParameters(int mode, double distance, double angle, bool useBackground, const ScColorShade& background, const ScColorShade& foreground, double width, double height) override;
+
 	void setClipPath() override;
 
 	void drawImage( ScImage *image, ScPainterExBase::ImageMode mode ) override;
@@ -109,6 +111,8 @@ private:
 	void drawDiamondGradient( VGradientEx& gradient, const QRect& rect );
 	void drawMeshGradient( const QRect& rect );
 	void drawFreeMeshGradient( const QRect& rect );
+
+	void drawHatch();
 
 	void strokeGradient( VGradientEx& gradient );
 	void strokeLinearGradient( VGradientEx& gradient );
@@ -157,6 +161,15 @@ private:
 	ScColorShade m_gradPatchColor4;
 	QList<QList<MeshPoint> > m_meshGradientArray;
 	QList<meshGradientPatch> m_meshGradientPatches;
+
+	double m_hatchAngle{ 0.0 };
+	double m_hatchDistance{ 0.0 };
+	int m_hatchType{ 0 };				// 0 = single 1 = double 2 = triple
+	bool m_hatchUseBackground{ false };
+	ScColorShade m_hatchBackground;
+	ScColorShade m_hatchForeground;
+	double m_hatchWidth{ 0.0 };
+	double m_hatchHeight{ 0.0 };
 
 	double m_gradientScale { 0.0 };
 	double m_gradientSkew { 0.0 };
