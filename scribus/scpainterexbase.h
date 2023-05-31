@@ -79,9 +79,9 @@ public:
 	virtual void scale(double, double) = 0;
 
 	// drawing
-	virtual void moveTo(const double &, const double &) = 0;
-	virtual void lineTo(const double &, const double &) = 0;
-	virtual void curveTo(FPoint p1, FPoint p2, FPoint p3) = 0;
+	virtual void moveTo(const double&, const double&) = 0;
+	virtual void lineTo(const double&, const double&) = 0;
+	virtual void curveTo(const FPoint& p1, const FPoint& p2, const FPoint& p3) = 0;
 	virtual void newPath() = 0;
 	virtual void fillPath() = 0;
 	virtual void strokePath() = 0;
@@ -91,18 +91,18 @@ public:
 	virtual int  fillMode() const = 0;
 	virtual void setStrokeMode(int stroke) = 0;
 	virtual int  strokeMode() const = 0;
-	virtual void setGradient(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew) = 0;
+	virtual void setGradient(VGradientEx::Type mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew) = 0;
 	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) = 0;
 
 	virtual void setMaskMode(int mask) = 0;
-	virtual void setGradientMask(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew) = 0;
+	virtual void setGradientMask(VGradientEx::Type mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew) = 0;
 	virtual void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) = 0;
 
-	virtual void set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4) = 0;
+	virtual void set4ColorGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4) = 0;
 	virtual void set4ColorColors(const ScColorShade& col1, const ScColorShade& col2, const ScColorShade& col3, const ScColorShade& col4) = 0;
-	virtual void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5) = 0;
-	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray) = 0;
-	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches) = 0;
+	virtual void setDiamondGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4, const FPoint& c5) = 0;
+	virtual void setMeshGradient(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, QList<QList<MeshPoint> > meshArray) = 0;
+	virtual void setMeshGradient(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, QList<meshGradientPatch> meshPatches) = 0;
 
 	virtual void setHatchParameters(int mode, double distance, double angle, bool useBackground, const ScColorShade& background, const ScColorShade& foreground, double width, double height) = 0;
 
@@ -112,7 +112,7 @@ public:
 	virtual void setupPolygon(const FPointArray *points, bool closed = true) = 0;
 	virtual void drawPolygon() = 0;
 	virtual void drawPolyLine() = 0;
-	virtual void drawLine(FPoint start, FPoint end) = 0;
+	virtual void drawLine(const FPoint& start, const FPoint& end) = 0;
 	virtual void drawLine(const QPointF& start, const QPointF& end) = 0;
 	virtual void drawRect(double, double, double, double) = 0;
 

@@ -192,7 +192,7 @@ void ScPainterEx_Ps2::lineTo( const double &x, const double &y )
 	m_stream << QString("%1 %2 lineto\n").arg(pp.x()).arg(pp.y());
 }
 
-void ScPainterEx_Ps2::curveTo( FPoint p1, FPoint p2, FPoint p3 )
+void ScPainterEx_Ps2::curveTo(const FPoint& p1, const FPoint& p2, const FPoint& p3)
 {
 	FPoint pps[3];
 	pps[0].setXY( p1.x(), p1.y() );
@@ -229,7 +229,7 @@ void ScPainterEx_Ps2::setStrokeMode( int stroke )
 	m_strokeMode = stroke;
 }
 
-void ScPainterEx_Ps2::setGradient(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew)
+void ScPainterEx_Ps2::setGradient(VGradientEx::Type mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew)
 {
 	m_fillGradient.setType(mode);
 	m_fillGradient.setOrigin(orig);
@@ -744,7 +744,7 @@ void ScPainterEx_Ps2::writeRGBImageToStream_Ascii85( ScImage* image )
 						m_stream << "z";
 					else
 						m_stream << ascii85;
-					written += ((allZero) ? 1 : 5);
+					written += (allZero ? 1 : 5);
 					if (written > 75)
 					{
 						m_stream << "\n";
@@ -820,7 +820,7 @@ void ScPainterEx_Ps2::writeCMYKImageToStream_Ascii85( ScImage* image )
 				m_stream << "z";
 			else
 				m_stream << ascii85;
-			written += ((allZero) ? 1 : 5);
+			written += (allZero ? 1 : 5);
 			if (written > 75)
 			{
 				m_stream << "\n";
@@ -908,7 +908,7 @@ void ScPainterEx_Ps2::drawPolyLine()
 	strokePath();
 }
 
-void ScPainterEx_Ps2::drawLine(FPoint start, FPoint end)
+void ScPainterEx_Ps2::drawLine(const FPoint& start, const FPoint& end)
 {
 	newPath();
 	moveTo(start.x(), start.y());

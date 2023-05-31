@@ -88,50 +88,50 @@ public:
 	void clear( ScColorShade & ) override;
 
 	// matrix manipulation
-	void setWorldMatrix( const QTransform & ) override;
+	void setWorldMatrix(const QTransform&) override;
 	QTransform worldMatrix() const override;
-	void translate( double, double ) override;
-	void translate( const QPointF& offset ) override;
-	void rotate( double ) override;
-	void scale( double, double ) override;
+	void translate(double, double) override;
+	void translate(const QPointF& offset) override;
+	void rotate(double) override;
+	void scale(double, double) override;
 
 	// drawing
-	void moveTo( const double &, const double & ) override;
-	void lineTo( const double &, const double & ) override;
-	void curveTo( FPoint p1, FPoint p2, FPoint p3 ) override;
+	void moveTo(const double&, const double&) override;
+	void lineTo(const double&, const double&) override;
+	void curveTo(const FPoint& p1, const FPoint& p2, const FPoint& p3) override;
 	void newPath() override;
 	virtual void closePath();
 	void fillPath() override;
 	void strokePath() override;
-	void setFillRule( bool fillRule ) override;
+	void setFillRule(bool fillRule) override;
 	bool fillRule() const override { return m_fillRule; }
-	void setFillMode( int fill ) override;
+	void setFillMode(int fill) override;
 	int  fillMode() const override { return m_fillMode; }
-	void setStrokeMode( int fill ) override;
+	void setStrokeMode(int fill) override;
 	int  strokeMode() const override { return m_strokeMode; }
-	void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew) override;
-	void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) override;
+	void setGradient(VGradientEx::Type mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew) override;
+	void setPattern(ScPattern* pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) override;
 
-	void setMaskMode( int mask ) override {};
-	void setGradientMask(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew) override  {};
+	void setMaskMode(int mask) override {};
+	void setGradientMask(VGradientEx::Type mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew) override  {};
 	void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)  override {};
 
-	void set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4)  override {};
+	void set4ColorGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4)  override {};
 	void set4ColorColors(const ScColorShade& col1, const ScColorShade& col2, const ScColorShade& col3, const ScColorShade& col4)  override {};
-	void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5)  override {};
-	void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray)  override {};
-	void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches)  override {};
+	void setDiamondGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4, const FPoint& c5)  override {};
+	void setMeshGradient(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, QList<QList<MeshPoint> > meshArray)  override {};
+	void setMeshGradient(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, QList<meshGradientPatch> meshPatches)  override {};
 
 	void setHatchParameters(int mode, double distance, double angle, bool useBackground, const ScColorShade& background, const ScColorShade& foreground, double width, double height) override {};
 
 	void setClipPath() override;
 
-	void drawImage( ScImage *image, ScPainterExBase::ImageMode mode ) override;
+	void drawImage(ScImage* image, ScPainterExBase::ImageMode mode) override;
 
 	void setupPolygon(const FPointArray *points, bool closed = true) override;
 	void drawPolygon() override;
 	void drawPolyLine() override;
-	void drawLine(FPoint start, FPoint end) override;
+	void drawLine(const FPoint& start, const FPoint& end) override;
 	void drawLine(const QPointF& start, const QPointF& end) override;
 	void drawRect(double, double, double, double) override;
 
@@ -153,9 +153,9 @@ public:
 	void save() override;
 	void restore() override;
 
-	void setRasterOp( int op ) override;
-	void setBlendModeFill( int blendMode )  override {};
-	void setBlendModeStroke( int blendMode ) override {};
+	void setRasterOp(int op) override;
+	void setBlendModeFill(int blendMode)  override {};
+	void setBlendModeStroke(int blendMode) override {};
 
 protected:
 	virtual void drawRGBImage_ps2(ScImage* image);
@@ -163,11 +163,11 @@ protected:
 
 	virtual bool hasAlphaChannel(ScImage* image);
 
-	virtual void writeRGBImageToStream_Ascii85 ( ScImage* image );
-	virtual void writeRGBImageToStream_AsciiHex ( ScImage* image );
-	virtual void writeCMYKImageToStream_Ascii85( ScImage* image );
-	virtual void writeCMYKImageToStream_AsciiHex( ScImage* image );
-	virtual void writeMaskToStream ( QImage* image ); 
+	virtual void writeRGBImageToStream_Ascii85(ScImage* image);
+	virtual void writeRGBImageToStream_AsciiHex(ScImage* image);
+	virtual void writeCMYKImageToStream_Ascii85(ScImage* image);
+	virtual void writeCMYKImageToStream_AsciiHex(ScImage* image);
+	virtual void writeMaskToStream(QImage* image);
 
 private:
 
@@ -199,8 +199,8 @@ private:
 	void drawCircularGradient_RGB(const VGradientEx& gradient, const QRect& rect);
 	void drawCircularGradient_CMYK(const VGradientEx& gradient, const QRect& rect);
 	void getPathBoundingBox(const FPointArray* points, QRect& r) const;
-	void transformPoint( const FPoint& in, FPoint& out) const;
-	void transformPoints( const FPoint* in, FPoint* out, uint length) const;
+	void transformPoint(const FPoint& in, FPoint& out) const;
+	void transformPoints(const FPoint* in, FPoint* out, uint length) const;
 
 	void putColor(const ScColorShade& colorShade, bool doFill);
 
