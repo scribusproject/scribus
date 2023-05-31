@@ -53,7 +53,7 @@ class SCRIBUS_API ScPainterExBase
 public:
 	virtual ~ScPainterExBase() = default;
 
-	enum FillMode { None, Solid, Gradient, Pattern };
+	enum FillMode { None, Solid, Gradient, Pattern, Hatch };
 	enum ColorMode { rgbMode = 1, cmykMode = 2 };
 	enum ImageMode { cmykImages, rgbImages, rawImages };
 	enum Capabilities{ basic = 0, transparencies = 1, patterns = 2 };
@@ -103,6 +103,8 @@ public:
 	virtual void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5) = 0;
 	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray) = 0;
 	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches) = 0;
+
+	virtual void setHatchParameters(int mode, double distance, double angle, bool useBackground, const ScColorShade& background, const ScColorShade& foreground, double width, double height) = 0;
 
 	virtual void setClipPath() = 0;
 

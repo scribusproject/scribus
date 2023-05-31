@@ -209,7 +209,19 @@ void ScPageOutput::drawItem_Pre(PageItem* item, ScPainterExBase* painter)
 	painter->setLineWidth(item->lineWidth());
 	if (item->isGroup())
 		return;
-	if (item->GrType == Gradient_Pattern)
+
+	if (item->GrType == Gradient_None)
+	{
+		painter->m_fillGradient = VGradientEx(VGradientEx::linear);
+		if (item->fillColor() != CommonStrings::None)
+		{
+			painter->setBrush(ScColorShade(m_doc->PageColors[item->fillColor()], (int) item->fillShade()));
+			painter->setFillMode(ScPainterExBase::Solid);
+		}
+		else
+			painter->setFillMode(ScPainterExBase::None);
+	}
+	else if (item->GrType == Gradient_Pattern)
 	{
 		QString pat = item->pattern();
 		ScPattern *pattern = m_doc->checkedPattern(pat);
@@ -249,11 +261,25 @@ void ScPageOutput::drawItem_Pre(PageItem* item, ScPainterExBase* painter)
 		painter->set4ColorGeometry(pG1, pG2, pG3, pG4, item->GrControl1, item->GrControl2, item->GrControl3, item->GrControl4);
 		painter->set4ColorColors(col1, col2, col3, col4);
 	}
-	else if (item->GrType != 0)
+	else if (item->GrType == Gradient_Hatch)
+	{
+		if (item->fillColor() != CommonStrings::None)
+			painter->setBrush(ScColorShade(m_doc->PageColors[item->fillColor()], (int) item->fillShade()));
+		painter->setFillMode(ScPainterExBase::Hatch);
+		bool hatchUseBackground = item->hatchUseBackground;
+		if ((item->hatchBackground == CommonStrings::None) || !m_doc->PageColors.contains(item->hatchBackground))
+			hatchUseBackground = false;
+		ScColorShade hatchBackgroundSh;
+		ScColorShade hatchForegroundSh(m_doc->PageColors[item->hatchForeground], 100.0);
+		if (hatchUseBackground)
+			hatchBackgroundSh = ScColorShade(m_doc->PageColors[item->hatchBackground], 100.0);
+		painter->setHatchParameters(item->hatchType, item->hatchDistance, item->hatchAngle, hatchUseBackground, hatchBackgroundSh, hatchForegroundSh, item->width(), item->height());
+	}
+	else
 	{
 		QString gradientVal = item->gradient();
 		if ((!gradientVal.isEmpty()) && (!m_doc->docGradients.contains(gradientVal)))
-			gradientVal = "";
+			gradientVal.clear();
 		if (!(gradientVal.isEmpty()) && (m_doc->docGradients.contains(gradientVal)))
 			painter->m_fillGradient = VGradientEx(m_doc->docGradients[gradientVal], *m_doc);
 		if ((painter->m_fillGradient.stops() < 2) && (item->GrType < Gradient_4Colors)) // fall back to solid filling if there are not enough colorstops in the gradient.
@@ -268,7 +294,8 @@ void ScPageOutput::drawItem_Pre(PageItem* item, ScPainterExBase* painter)
 		}
 		else
 		{
-			FPoint fpStart(item->GrStartX, item->GrStartY), fpEnd(item->GrEndX, item->GrEndY);
+			FPoint fpStart(item->GrStartX, item->GrStartY);
+			FPoint fpEnd(item->GrEndX, item->GrEndY);
 			FPoint fpFocal(item->GrFocalX, item->GrFocalY);
 			painter->setFillMode(ScPainterExBase::Gradient);
 			painter->m_fillGradient = VGradientEx(item->fill_gradient, *m_doc);
@@ -302,17 +329,7 @@ void ScPageOutput::drawItem_Pre(PageItem* item, ScPainterExBase* painter)
 			}
 		}
 	}
-	else
-	{
-		painter->m_fillGradient = VGradientEx(VGradientEx::linear);
-		if (item->fillColor() != CommonStrings::None)
-		{
-			painter->setBrush(ScColorShade(m_doc->PageColors[item->fillColor()], (int) item->fillShade()));
-			painter->setFillMode(ScPainterExBase::Solid);
-		}
-		else
-			painter->setFillMode(ScPainterExBase::None);
-	}
+
 	if (item->lineColor() != CommonStrings::None)
 	{
 		if ((item->lineWidth() == 0) && !item->asLine())
@@ -321,12 +338,13 @@ void ScPageOutput::drawItem_Pre(PageItem* item, ScPainterExBase* painter)
 		{
 			ScColorShade tmp(m_doc->PageColors[item->lineColor()], (int) item->lineShade());
 			painter->setPen(tmp , item->lineWidth(), item->PLineArt, item->PLineEnd, item->PLineJoin);
-			if (item->DashValues.count() != 0)
+			if (!item->DashValues.isEmpty())
 				painter->setDash(item->DashValues, item->DashOffset);
 		}
 	}
 	else
 		painter->setLineWidth(0);
+
 	painter->setBrushOpacity(1.0 - item->fillTransparency());
 	painter->setPenOpacity(1.0 - item->lineTransparency());
 	painter->setFillRule(item->fillRule);
