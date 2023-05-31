@@ -628,7 +628,8 @@ void ScPageOutput::drawPattern(PageItem* item, ScPainterExBase* painter, QRect c
 
 		double itx = it->xPos();
 		double ity = it->yPos();
-		double itPosX = it->gXpos, itPosY = it->gYpos;
+		double itPosX = it->gXpos;
+		double itPosY = it->gYpos;
 		for (int kx = kxMin; kx <= kxMax; kx++)
 		{
 			for (int ky = kyMin; ky <= kyMax; ky++)

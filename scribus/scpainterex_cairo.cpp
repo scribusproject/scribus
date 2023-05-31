@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 
-ScPainterEx_Cairo::ScPainterEx_Cairo(cairo_t* context, const QRect& rect,  ScribusDoc* doc, bool gray) : ScPainterExBase()
+ScPainterEx_Cairo::ScPainterEx_Cairo(cairo_t* context, const QRect& rect, ScribusDoc* doc, bool gray) : ScPainterExBase()
 {
 	m_doc    = doc;
 	m_width  = rect.width();
@@ -29,7 +29,11 @@ ScPainterEx_Cairo::ScPainterEx_Cairo(cairo_t* context, const QRect& rect,  Scrib
 
 ScPainterEx_Cairo::~ScPainterEx_Cairo()
 {
-
+	if (m_imageMask)
+	{
+		cairo_surface_destroy(m_imageMask);
+		m_imageMask = nullptr;
+	}
 }
 
 QColor ScPainterEx_Cairo::transformColor(const ScColorShade& colorShade, double trans) const
@@ -133,7 +137,7 @@ void ScPainterEx_Cairo::lineTo(const double &x, const double &y)
 	cairo_line_to(m_cr, x, y);
 }
 
-void ScPainterEx_Cairo::curveTo(FPoint p1, FPoint p2, FPoint p3)
+void ScPainterEx_Cairo::curveTo(const FPoint& p1, const FPoint& p2, const FPoint& p3)
 {
 	cairo_curve_to(m_cr, p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
 }
@@ -163,7 +167,7 @@ void ScPainterEx_Cairo::setStrokeMode(int stroke)
 	m_strokeMode = stroke;
 }
 
-void ScPainterEx_Cairo::setGradient(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew)
+void ScPainterEx_Cairo::setGradient(VGradientEx::Type mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew)
 {
 	m_fillGradient.setType(mode);
 	m_fillGradient.setOrigin(orig);
@@ -193,7 +197,7 @@ void ScPainterEx_Cairo::setMaskMode(int mask)
 	m_maskMode = mask;
 }
 
-void ScPainterEx_Cairo::setGradientMask(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew)
+void ScPainterEx_Cairo::setGradientMask(VGradientEx::Type mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew)
 {
 	m_maskGradient.setType(mode);
 	m_maskGradient.setOrigin(orig);
@@ -240,7 +244,7 @@ void ScPainterEx_Cairo::setPattern(ScPattern *pattern, double scaleX, double sca
 	m_patternMirrorY = mirrorY;
 }
 
-void ScPainterEx_Cairo::set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4)
+void ScPainterEx_Cairo::set4ColorGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4)
 {
 	m_fillGradient.setType(VGradientEx::fourcolor);
 	m_gradPatchP1 = p1;
@@ -261,7 +265,7 @@ void ScPainterEx_Cairo::set4ColorColors(const ScColorShade&  col1, const ScColor
 	m_gradPatchColor4 = col4;
 }
 
-void ScPainterEx_Cairo::setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5)
+void ScPainterEx_Cairo::setDiamondGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4, const FPoint& c5)
 {
 	m_fillGradient.setType(VGradientEx::diamond);
 	m_gradPatchP1 = p1;
@@ -275,7 +279,7 @@ void ScPainterEx_Cairo::setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoi
 	m_gradControlP5 = c5;
 }
 
-void ScPainterEx_Cairo::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray)
+void ScPainterEx_Cairo::setMeshGradient(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, QList<QList<MeshPoint> > meshArray)
 {
 	m_fillGradient.setType(VGradientEx::mesh);
 	m_meshGradientArray = meshArray;
@@ -285,7 +289,7 @@ void ScPainterEx_Cairo::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint 
 	m_gradPatchP4 = p4;
 }
 
-void ScPainterEx_Cairo::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches)
+void ScPainterEx_Cairo::setMeshGradient(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, QList<meshGradientPatch> meshPatches)
 {
 	m_fillGradient.setType(VGradientEx::freemesh);
 	m_meshGradientPatches = meshPatches;
@@ -604,7 +608,8 @@ void ScPainterEx_Cairo::fillPathHelper()
 	}
 	else if (m_fillMode == ScPainterExBase::Pattern)
 	{
-
+		// Pattern painting is emulated in ScPageOutput::drawPattern(),
+		// So we have nothing to do here
 	}
 	else if (m_fillMode == ScPainterExBase::Hatch)
 	{
@@ -720,7 +725,7 @@ void ScPainterEx_Cairo::setupPolygon(const FPointArray *points, bool closed)
 		if (nPath)
 		{
 			np = points->point(poi);
-			if ((!first) && (closed) && (np4 == firstP))
+			if (!first && closed && (np4 == firstP))
 				cairo_close_path(m_cr);
 			moveTo(np.x(), np.y());
 			first = nPath = false;
@@ -752,7 +757,7 @@ void ScPainterEx_Cairo::drawPolyLine()
 	strokePath();
 }
 
-void ScPainterEx_Cairo::drawLine(FPoint start, FPoint end)
+void ScPainterEx_Cairo::drawLine(const FPoint& start, const FPoint& end)
 {
 	newPath();
 	moveTo(start.x(), start.y());
@@ -781,30 +786,27 @@ void ScPainterEx_Cairo::drawRect(double x, double y, double w, double h)
 	strokePath();
 }
 
-void ScPainterEx_Cairo::drawGradient(VGradientEx& gradient)
+void ScPainterEx_Cairo::drawGradient(const VGradientEx& gradient)
 {
-	QRect clipPathRect;
 	save();
 	setClipPath();
-	getClipPathDimensions(clipPathRect);
 	if (gradient.type() == VGradientEx::linear)
-		drawLinearGradient(gradient, clipPathRect);
+		drawLinearGradient(gradient);
 	else if (gradient.type() == VGradientEx::radial)
-		drawCircularGradient(gradient, clipPathRect);
+		drawCircularGradient(gradient);
 	else if (gradient.type() == VGradientEx::fourcolor)
-		drawFourColorGradient(clipPathRect);
+		drawFourColorGradient();
 	else if (gradient.type() == VGradientEx::diamond)
-		drawDiamondGradient(gradient, clipPathRect);
+		drawDiamondGradient(gradient);
 	else if (gradient.type() == VGradientEx::mesh)
-		drawMeshGradient(clipPathRect);
+		drawMeshGradient();
 	else if (gradient.type() == VGradientEx::freemesh)
-		drawFreeMeshGradient(clipPathRect);
+		drawFreeMeshGradient();
 	restore();
 }
 
-void ScPainterEx_Cairo::drawLinearGradient(VGradientEx& gradient, const QRect& rect)
+void ScPainterEx_Cairo::drawLinearGradient(const VGradientEx& gradient)
 {
-	int index = 0;
 	double r, g, b;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx* stop = nullptr;
@@ -823,7 +825,7 @@ void ScPainterEx_Cairo::drawLinearGradient(VGradientEx& gradient, const QRect& r
 
 	bool   isFirst  = true;
 	double lastStop = 0.0;
-	for (int index = 0 ; index < gradient.stops(); index++)
+	for (int index = 0 ; index < gradient.stops(); ++index)
 	{
 		stop  = colorStops.at(index);
 		if ((lastStop == stop->rampPoint) && (!isFirst))
@@ -852,7 +854,7 @@ void ScPainterEx_Cairo::drawLinearGradient(VGradientEx& gradient, const QRect& r
 	cairo_pattern_destroy (pat);
 }
 
-void ScPainterEx_Cairo::drawCircularGradient(VGradientEx& gradient, const QRect& rect)
+void ScPainterEx_Cairo::drawCircularGradient(const VGradientEx& gradient)
 {
 	int offset = 0;
 	double r, g, b;
@@ -903,7 +905,7 @@ void ScPainterEx_Cairo::drawCircularGradient(VGradientEx& gradient, const QRect&
 	cairo_pattern_destroy (pat);
 }
 
-void ScPainterEx_Cairo::drawFourColorGradient(const QRect& rect)
+void ScPainterEx_Cairo::drawFourColorGradient()
 {
 	cairo_pattern_t *pat = nullptr;
 	cairo_surface_t *img = nullptr;
@@ -984,7 +986,7 @@ void ScPainterEx_Cairo::drawFourColorGradient(const QRect& rect)
 	if (cr) cairo_destroy(cr);
 }
 
-void ScPainterEx_Cairo::drawDiamondGradient(VGradientEx& gradient, const QRect& rect)
+void ScPainterEx_Cairo::drawDiamondGradient(const VGradientEx& gradient)
 {
 	cairo_pattern_t *pat = nullptr;
 	cairo_surface_t *img = nullptr;
@@ -1034,11 +1036,11 @@ void ScPainterEx_Cairo::drawDiamondGradient(VGradientEx& gradient, const QRect& 
 		qStopRampPoints.append(colorStops[offset]->rampPoint);
 	}
 	qStopColors.last().getRgbF(&r, &g, &b, &a);
-	QPointF centerP = QPointF(m_gradControlP5.x(), m_gradControlP5.y());
-	QLineF edge1 = QLineF(centerP, QPointF(p1x, p1y));
-	QLineF edge2 = QLineF(centerP, QPointF(p2x, p2y));
-	QLineF edge3 = QLineF(centerP, QPointF(p3x, p3y));
-	QLineF edge4 = QLineF(centerP, QPointF(p4x, p4y));
+	QPointF centerP(m_gradControlP5.x(), m_gradControlP5.y());
+	QLineF edge1(centerP, QPointF(p1x, p1y));
+	QLineF edge2(centerP, QPointF(p2x, p2y));
+	QLineF edge3(centerP, QPointF(p3x, p3y));
+	QLineF edge4(centerP, QPointF(p4x, p4y));
 	QPointF p1 = edge1.pointAt(colorStops.last()->rampPoint);
 	QPointF p2 = edge2.pointAt(colorStops.last()->rampPoint);
 	QPointF p3 = edge3.pointAt(colorStops.last()->rampPoint);
@@ -1212,7 +1214,7 @@ void ScPainterEx_Cairo::drawDiamondGradient(VGradientEx& gradient, const QRect& 
 	if (cr) cairo_destroy(cr);
 }
 
-void ScPainterEx_Cairo::drawMeshGradient(const QRect& rect)
+void ScPainterEx_Cairo::drawMeshGradient()
 {
 	cairo_pattern_t *pat = nullptr;
 	cairo_surface_t *img = nullptr;
@@ -1294,7 +1296,7 @@ void ScPainterEx_Cairo::drawMeshGradient(const QRect& rect)
 	if (cr) cairo_destroy(cr);
 }
 
-void ScPainterEx_Cairo::drawFreeMeshGradient(const QRect& rect)
+void ScPainterEx_Cairo::drawFreeMeshGradient()
 {
 	cairo_pattern_t *pat = nullptr;
 	cairo_surface_t *img = nullptr;
@@ -1470,7 +1472,7 @@ void ScPainterEx_Cairo::drawHatch()
 	cairo_path_destroy(path);
 }
 
-void ScPainterEx_Cairo::strokeGradient(VGradientEx& gradient)
+void ScPainterEx_Cairo::strokeGradient(const VGradientEx& gradient)
 {
 	save();
 	if (gradient.type() == VGradientEx::linear)
@@ -1480,16 +1482,15 @@ void ScPainterEx_Cairo::strokeGradient(VGradientEx& gradient)
 	restore();
 }
 
-void ScPainterEx_Cairo::strokeLinearGradient(VGradientEx& gradient)
+void ScPainterEx_Cairo::strokeLinearGradient(const VGradientEx& gradient)
 {
 	cairo_pattern_t *pat = nullptr;
-	double r, g, b, lastPoint = 0.0;
+	double r, g, b;
+	double lastPoint = 0.0;
 	double x1 = gradient.origin().x();
 	double y1 = gradient.origin().y();
 	double x2 = gradient.vector().x();
 	double y2 = gradient.vector().y();
-	double fx = gradient.focalPoint().x();
-	double fy = gradient.focalPoint().y();
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx* stop = nullptr;
 	QColor color;
@@ -1532,10 +1533,11 @@ void ScPainterEx_Cairo::strokeLinearGradient(VGradientEx& gradient)
 	cairo_paint_with_alpha (m_cr, m_strokeTrans);
 }
 
-void ScPainterEx_Cairo::strokeCircularGradient(VGradientEx& gradient)
+void ScPainterEx_Cairo::strokeCircularGradient(const VGradientEx& gradient)
 {
 	cairo_pattern_t *pat = nullptr;
-	double r, g, b, lastPoint = 0.0;
+	double r, g, b;
+	double lastPoint = 0.0;
 	double x1 = gradient.origin().x();
 	double y1 = gradient.origin().y();
 	double x2 = gradient.vector().x();
