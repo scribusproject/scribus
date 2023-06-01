@@ -4144,7 +4144,7 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, QString> > & Really)
 		PageItem *ite = allItems.takeFirst();
 		if (ite->isGroup() || ite->isTable())
 		{
-			allItems = it->getChildren() + allItems;
+			allItems = ite->getChildren() + allItems;
 			continue;
 		}
 		checkItemForFonts(ite, Really, 3);
