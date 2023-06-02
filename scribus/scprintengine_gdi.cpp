@@ -404,8 +404,10 @@ bool ScPrintEngine_GDI::printPage_GDI(ScPage* page, const PrintOptions& options,
 	scaley *= (logPixelsY / 72.0);
 	dx     *= (logPixelsX / 72.0);
 	dy     *= (logPixelsY / 72.0);
-	QTransform matrix(scalex, 0.0, 0.0, scaley, dx, dy);
-	painter.setWorldMatrix(matrix);
+
+	cairo_surface_t* targetSurface = cairo_get_target(context);
+	cairo_surface_set_device_scale(targetSurface, scalex, scaley);
+	cairo_surface_set_device_offset(targetSurface, dx, dy);
 
 	pageOutput.drawPage(page, &painter);
 
