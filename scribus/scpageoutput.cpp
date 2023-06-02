@@ -107,7 +107,7 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLay
 		currItem = page->FromMaster.at(i);
 		if (currItem->m_layerID != layer.ID)
 			continue;
-		if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
+		if ((currItem->OwnPage != -1) && (currItem->OwnPage != Mp->pageNr()))
 			continue;
 		if (!currItem->printEnabled())
 			continue;
