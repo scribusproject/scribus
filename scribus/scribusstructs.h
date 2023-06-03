@@ -483,8 +483,8 @@ enum AnchorPoint
 	Center = 5,
 	Right = 6,
 	BottomLeft = 7,
-	Bottom = 9,
-	BottomRight = 10
+	Bottom = 8,
+	BottomRight = 9
 };
 
 #endif

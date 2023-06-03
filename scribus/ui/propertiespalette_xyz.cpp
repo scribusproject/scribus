@@ -187,6 +187,7 @@ void PropertiesPalette_XYZ::unsetDoc()
 	widthSpin->showValue(0);
 	heightSpin->showValue(0);
 	rotationSpin->showValue(0);
+	basePointWidget->setAngle(0);
 	setEnabled(false);
 }
 
@@ -447,6 +448,7 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		widthSpin->showValue(gw);
 		heightSpin->showValue(gh);
 		rotationSpin->showValue(0);
+		basePointWidget->setAngle(0);
 
 		xposSpin->setEnabled(true);
 		yposSpin->setEnabled(true);
@@ -516,6 +518,7 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 			widthSpin->showValue(0);
 			heightSpin->showValue(0);
 			rotationSpin->showValue(0);
+			basePointWidget->setAngle(0);
 			levelLabel->setText("  ");
 			setEnabled(false);
 			break;
