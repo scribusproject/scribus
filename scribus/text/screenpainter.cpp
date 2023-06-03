@@ -280,7 +280,7 @@ void ScreenPainter::drawGlyphOutline(const GlyphCluster& gc, bool fill)
 	m_painter->restore();
 }
 
-void ScreenPainter::drawLine(QPointF start, QPointF end)
+void ScreenPainter::drawLine(const QPointF& start, const QPointF& end)
 {
 	m_painter->save();
 	setupState(false);

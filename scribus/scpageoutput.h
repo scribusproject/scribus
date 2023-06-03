@@ -76,37 +76,37 @@ protected:
 	bool m_useProfiles { false };
 	MarksOptions m_marksOptions;
 
-	virtual void fillPath( PageItem* item, ScPainterExBase* painter, QRect clip );
-	virtual void strokePath( PageItem* item, ScPainterExBase* painter, QRect clip );
+	virtual void fillPath(PageItem* item, ScPainterExBase* painter, const QRect& clip);
+	virtual void strokePath(PageItem* item, ScPainterExBase* painter, const QRect& clip);
 
-	virtual void drawMasterItems( ScPainterExBase *painter, ScPage *page, ScLayer& layer, QRect clip);
-	virtual void drawPageItems( ScPainterExBase *painter, ScPage *page, ScLayer& layer, QRect clip);
+	virtual void drawMasterItems(ScPainterExBase* painter, ScPage* page, ScLayer& layer, const QRect& clip);
+	virtual void drawPageItems(ScPainterExBase* painter, ScPage* page, ScLayer& layer, const QRect& clip);
 
-	virtual void drawItem( PageItem* item, ScPainterExBase* painter, QRect clip );
-	virtual void drawItem_Pre( PageItem* item, ScPainterExBase* painter );
-	virtual void drawItem_Post( PageItem* item, ScPainterExBase* painter );
+	virtual void drawItem(PageItem* item, ScPainterExBase* painter, QRect clip);
+	virtual void drawItem_Pre(PageItem* item, ScPainterExBase* painter);
+	virtual void drawItem_Post(PageItem* item, ScPainterExBase* painter);
 
-	virtual void drawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect clip, const CharStyle& style, PageItem* cembedded);
-	virtual void drawPattern(PageItem* item, ScPainterExBase* painter, QRect clip);
+	virtual void drawItem_Embedded(PageItem* item, ScPainterExBase* p, const QRect& clip, const CharStyle& style, PageItem* cembedded);
+	virtual void drawPattern(PageItem* item, ScPainterExBase* painter, const QRect& clip);
 	virtual void drawStrokePattern(PageItem* item, ScPainterExBase* painter, const QPainterPath& path);
-	
-	virtual void drawItem_Arc( PageItem_Arc* item, ScPainterExBase* painter, QRect clip );
-	virtual void drawItem_Group( PageItem_Group* item, ScPainterExBase* painter, QRect clip );
-	virtual void drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBase* painter, QRect clip );
-	virtual void drawItem_Line( PageItem_Line* item, ScPainterExBase* painter, QRect clip);
-	virtual void drawItem_Polygon ( PageItem_Polygon* item , ScPainterExBase* painter, QRect clip );
-	virtual void drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* painte, QRect clip );
-	virtual void drawItem_RegularPolygon( PageItem_RegularPolygon* item, ScPainterExBase* painte, QRect clip );
-	virtual void drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* painter, QRect clip );
-	virtual void drawItem_Table( PageItem_Table* item, ScPainterExBase* painter, QRect clip );
-	virtual void drawItem_Text( PageItem* item, ScPainterExBase* painter, QRect clip );
 
-	virtual void drawArrow(ScPainterExBase* painter, PageItem* item, QTransform &arrowTrans, int arrowIndex);
-	virtual void drawMarks( ScPage* page, ScPainterExBase* painter, const MarksOptions& options );
-	virtual void drawBoxMarks( ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset , double markSize);
-	virtual void drawRegistrationCross( ScPainterExBase* painter );
+	virtual void drawItem_Arc(PageItem_Arc* item, ScPainterExBase* painter, const QRect& clip);
+	virtual void drawItem_Group(PageItem_Group* item, ScPainterExBase* painter, const QRect& clip);
+	virtual void drawItem_ImageFrame(PageItem_ImageFrame* item, ScPainterExBase* painter, const QRect& clip);
+	virtual void drawItem_Line(PageItem_Line* item, ScPainterExBase* painter, const QRect& clip);
+	virtual void drawItem_Polygon(PageItem_Polygon* item, ScPainterExBase* painter, const QRect& clip);
+	virtual void drawItem_PolyLine(PageItem_PolyLine* item, ScPainterExBase* painte, const QRect& clip);
+	virtual void drawItem_RegularPolygon(PageItem_RegularPolygon* item, ScPainterExBase* painte, const QRect& clip);
+	virtual void drawItem_Spiral(PageItem_Spiral* item, ScPainterExBase* painter, const QRect& clip);
+	virtual void drawItem_Table(PageItem_Table* item, ScPainterExBase* painter, const QRect& clip);
+	virtual void drawItem_Text(PageItem* item, ScPainterExBase* painter, const QRect& clip);
 
-	ScImage::RequestType translateImageModeToRequest( ScPainterExBase::ImageMode mode) const;
+	virtual void drawArrow(ScPainterExBase* painter, PageItem* item, QTransform& arrowTrans, int arrowIndex);
+	virtual void drawMarks(ScPage* page, ScPainterExBase* painter, const MarksOptions& options);
+	virtual void drawBoxMarks(ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset, double markSize);
+	virtual void drawRegistrationCross(ScPainterExBase* painter);
+
+	ScImage::RequestType translateImageModeToRequest(ScPainterExBase::ImageMode mode) const;
 
 	friend class CollapsedTablePainterEx;
 };

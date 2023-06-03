@@ -117,7 +117,7 @@ public:
 	virtual void drawGlyphOutline(const GlyphCluster& gc, bool fill) = 0;
 	/// Draws a line from @start to @end relative current x and y
 	/// positions, with current stroke color and width.
-	virtual void drawLine(QPointF start, QPointF end) = 0;
+	virtual void drawLine(const QPointF& start, const QPointF& end) = 0;
 	/// Draws a rectangle at current x and y positions, using current stoke
 	/// color and width for its border, and filled with the current fill
 	/// color.

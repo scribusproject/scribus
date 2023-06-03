@@ -962,7 +962,7 @@ public:
 		m_restart = true;
 	}
 
-	void drawLine(QPointF start, QPointF end) override
+	void drawLine(const QPointF& start, const QPointF& end) override
 	{
 		QTransform transform = matrix();
 		QDomElement path = m_xps->p_docu.createElement("Path");

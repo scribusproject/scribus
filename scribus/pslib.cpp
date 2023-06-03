@@ -77,7 +77,7 @@ class PSPainter:public TextLayoutPainter
 
 	void drawGlyph(const GlyphCluster& gc) override;
 	void drawGlyphOutline(const GlyphCluster& gc, bool fill) override;
-	void drawLine(QPointF start, QPointF end) override;
+	void drawLine(const QPointF& start, const QPointF& end) override;
 	void drawRect(const QRectF& rect) override;
 	void drawObject(PageItem* item) override;
 
@@ -204,7 +204,7 @@ void PSPainter::drawRect(const QRectF& rect)
 	m_ps->PS_restore();
 }
 
-void PSPainter::drawLine(QPointF start, QPointF end)
+void PSPainter::drawLine(const QPointF& start, const QPointF& end)
 {
 	QVector<double> dum;
 	dum.clear();
