@@ -60,7 +60,7 @@ public:
 	{
 		drawGlyph(gc);
 	}
-	void drawLine(QPointF, QPointF) override { }
+	void drawLine(const QPointF&, const QPointF&) override { }
 	void drawRect(const QRectF&) override { }
 	void drawObject(PageItem*) override { }
 };

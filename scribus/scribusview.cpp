@@ -2977,7 +2977,7 @@ class TextToPathPainter: public TextLayoutPainter
 			}
 		}
 
-		void drawLine(QPointF start, QPointF end) override
+		void drawLine(const QPointF& start, const QPointF& end) override
 		{
 			QTransform transform = matrix();
 			transform.translate(x(), y());
