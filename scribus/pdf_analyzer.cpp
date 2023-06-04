@@ -75,11 +75,11 @@ PDFAnalyzer::PDFAnalyzer(QString & filename)
 		nameMapInited = true;
 	}
 
-	m_doc = nullptr;
+	m_pdfdoc = nullptr;
 
 	PdfError::EnableDebug( false );
 	try {
-		m_doc = new PdfMemDocument(filename.toLocal8Bit().data());
+		m_pdfdoc = new PdfMemDocument(filename.toLocal8Bit().data());
 	}
 	catch (PdfError & e)
 	{
@@ -91,14 +91,14 @@ PDFAnalyzer::PDFAnalyzer(QString & filename)
 
 PDFAnalyzer::~PDFAnalyzer()
 {
-	delete m_doc;
+	delete m_pdfdoc;
 }
 
 bool PDFAnalyzer::inspectPDF(int pageNum, QList<PDFColorSpace> & usedColorSpaces, bool & hasTransparency, QList<PDFFont> & usedFonts, QList<PDFImage> & imgs)
 {
-	if (!m_doc)
+	if (!m_pdfdoc)
 		return false;
-	PdfPage* page = m_doc->GetPage(pageNum);
+	PdfPage* page = m_pdfdoc->GetPage(pageNum);
 	return page?inspectCanvas(page, usedColorSpaces, hasTransparency, usedFonts, imgs):false;
 }
 
@@ -725,7 +725,7 @@ void PDFAnalyzer::inspectExtGStateObj(PdfObject* extGStateObj, QList<PDFColorSpa
 		if (arr[0].IsReference())
 		{
 			PdfReference ref = arr[0].GetReference();
-			PdfObject* fontObject = m_doc->GetObjects().GetObject(ref);
+			PdfObject* fontObject = m_pdfdoc->GetObjects().GetObject(ref);
 			if (fontObject)
 			{
 				PDFFont font = getFontInfo(fontObject);

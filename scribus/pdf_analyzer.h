@@ -163,7 +163,7 @@ public:
 #ifdef HAVE_PODOFO
 private:
 	// pointer to the PoDoFo Pdf's object
-	PoDoFo::PdfMemDocument* m_doc;
+	PoDoFo::PdfMemDocument* m_pdfdoc;
 
 	// Path to the analyzed file
 	QString m_filename;
