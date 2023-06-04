@@ -32,7 +32,14 @@ find_library(LIBPODOFO_LIBRARY
 
 if(LIBPODOFO_INCLUDE_DIR AND LIBPODOFO_LIBRARY)
 	if(NOT LIBPODOFO_CONFIG_H)
-		set(LIBPODOFO_CONFIG_H "${LIBPODOFO_INCLUDE_DIR}/podofo/base/podofo_config.h" CACHE FILEPATH "Alternative place of podofo_config.h")
+		#PoDoFo before 0.10.0
+		if (EXISTS "${LIBPODOFO_INCLUDE_DIR}/podofo/base/podofo_config.h")
+			set(LIBPODOFO_CONFIG_H "${LIBPODOFO_INCLUDE_DIR}/podofo/base/podofo_config.h" CACHE FILEPATH "Alternative place of podofo_config.h. PoDoFo <=0.10.0")
+		endif()
+		#PoDoFo 0.10.0 or higher
+		if (EXISTS "${LIBPODOFO_INCLUDE_DIR}/podofo/auxiliary/podofo_config.h")
+			set(LIBPODOFO_CONFIG_H "${LIBPODOFO_INCLUDE_DIR}/podofo/auxiliary/podofo_config.h" CACHE FILEPATH "Alternative place of podofo_config.h. PoDoFo >=0.10.0")
+		endif()
 	endif()
 
 	file(STRINGS "${LIBPODOFO_CONFIG_H}" PODOFO_MAJOR_VER_LINE REGEX "^#define[ \t]+PODOFO_VERSION_MAJOR[ \t]+[0-9]+$")
@@ -79,4 +86,6 @@ if(NOT LIBPODOFO_FIND_QUIETLY)
 		message("podofo lib: not found")
 	endif(LIBPODOFO_LIBRARY)
 	message("PoDoFo cflags: ${useshared}")
+	message("PoDoFo config file ${LIBPODOFO_CONFIG_H}")
+	message("PoDoFo version ${LIBPODOFO_VERSION}")
 endif(NOT LIBPODOFO_FIND_QUIETLY)
