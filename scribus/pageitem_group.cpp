@@ -206,7 +206,7 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 		p->translate(0, m_height);
 		p->scale(1, -1);
 	}
-	if ((maskType() == 1) || (maskType() == 2) || (maskType() == 4) || (maskType() == 5))
+	if ((maskType() == GradMask_Linear) || (maskType() == GradMask_Radial) || (maskType() == GradMask_LinearLumAlpha) || (maskType() == GradMask_RadialLumAlpha))
 	{
 		if ((maskType() == 1) || (maskType() == 2))
 			p->setMaskMode(1);
@@ -217,12 +217,12 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 		if (!(gradientMask().isEmpty()) && (m_Doc->docGradients.contains(gradientMask())))
 			mask_gradient = m_Doc->docGradients[gradientMask()];
 		p->mask_gradient = mask_gradient;
-		if ((maskType() == 1) || (maskType() == 4))
+		if ((maskType() == GradMask_Linear) || (maskType() == GradMask_LinearLumAlpha))
 			p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskStartX, GrMaskStartY), GrMaskScale, GrMaskSkew);
 		else
 			p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
 	}
-	else if ((maskType() == 3) || (maskType() == 6) || (maskType() == 7) || (maskType() == 8))
+	else if ((maskType() == GradMask_Pattern) || (maskType() == GradMask_PatternLumAlpha) || (maskType() == GradMask_PatternLumAlphaInverted) || (maskType() == GradMask_PatternInverted))
 	{
 		if ((patternMask().isEmpty()) || (!m_Doc->docPatterns.contains(patternMask())))
 			p->setMaskMode(0);
@@ -231,11 +231,11 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 			double scw = m_width / groupWidth;
 			double sch = m_height / groupHeight;
 			p->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskScaleX * scw, patternMaskScaleY * sch, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
-			if (maskType() == 3)
+			if (maskType() == GradMask_Pattern)
 				p->setMaskMode(2);
-			else if (maskType() == 6)
+			else if (maskType() == GradMask_PatternLumAlpha)
 				p->setMaskMode(4);
-			else if (maskType() == 7)
+			else if (maskType() == GradMask_PatternLumAlphaInverted)
 				p->setMaskMode(5);
 			else
 				p->setMaskMode(6);
