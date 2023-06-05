@@ -1,6 +1,48 @@
 ##############################################################################################################
 ########## Find Dependencies                                                                        ##########
 
+#<<PoDoFo for AI PDF import
+option(WITH_PODOFO "Enable support for PDF embedded in AI" ON)
+if (WITH_PODOFO)
+	find_package(LIBPODOFO)
+	if (LIBPODOFO_FOUND)
+		message("PoDoFo found OK")
+		set(HAVE_PODOFO ON)
+		if(LIBPODOFO_VERSION VERSION_GREATER "0.10.0")
+			message(STATUS "PoDoFo Version:" ${LIBPODOFO_VERSION})
+			if (CMAKE_CXX_STANDARD LESS 17)
+				message(STATUS "C++17 is the minimum C++ standard since podofo 0.10.0")
+				message(STATUS "Enabling C++17 compiler features")
+				set(CMAKE_CXX_STANDARD 17)
+			endif()
+		endif()
+	else()
+		message("PoDoFo NOT found - Disabling support for PDF embedded in AI")
+	endif()
+endif()
+#>>PoDoFo for AI PDF import
+
+#<<Poppler for PDF import
+find_package(poppler REQUIRED)
+if (poppler_FOUND)
+	set(HAVE_POPPLER ON)
+	message(STATUS "Found poppler")
+	message(STATUS "Found poppler libs: ${poppler_LIBRARY}")
+	message(STATUS "Found poppler includes: ${poppler_INCLUDE_DIR}")
+	if (poppler_VERSION VERSION_GREATER_EQUAL 22.01.0)
+		message(STATUS "Poppler Version:" ${poppler_VERSION})
+		if (CMAKE_CXX_STANDARD LESS 17)
+			message(STATUS "C++17 is the minimum C++ standard since poppler 22.01.0")
+			message(STATUS "Enabling C++17 compiler features")
+			set(CMAKE_CXX_STANDARD 17)
+		endif()
+	endif()
+else()
+	message(FATAL_ERROR "Could not find poppler library")
+endif()
+#>>Poppler for PDF import
+
+
 #<< Qt
 set(CMAKE_PREFIX_PATH "${QT_PREFIX}/lib/cmake")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -202,18 +244,7 @@ else()
 endif()
 #>>HUNSPELL for Spelling support
 
-#<<PoDoFo for AI PDF import
-option(WITH_PODOFO "Enable support for PDF embedded in AI" ON)
-if (WITH_PODOFO)
-	find_package(LIBPODOFO)
-	if (LIBPODOFO_FOUND)
-		message("PoDoFo found OK")
-		set(HAVE_PODOFO ON)
-	else()
-		message("PoDoFo NOT found - Disabling support for PDF embedded in AI")
-	endif()
-endif()
-#>>PoDoFo for AI PDF import
+
 
 #<<Boost for 2Geom Tools
 option(WITH_BOOST "Enable support for Boost based enhancements" ON)
@@ -243,24 +274,7 @@ else()
 endif()
 #>> GraphicsMagick for image import
 
-#<<Poppler for PDF import
-find_package(poppler REQUIRED)
-if (poppler_FOUND)
-	set(HAVE_POPPLER ON)
-	message(STATUS "Found poppler")
-	message(STATUS "Found poppler libs: ${poppler_LIBRARY}")
-	message(STATUS "Found poppler includes: ${poppler_INCLUDE_DIR}")
-	if (poppler_VERSION VERSION_GREATER_EQUAL 22.01.0)
-		message(STATUS "Poppler Version:" ${poppler_VERSION})
-		message(STATUS "C++17 is the minimum C++ standard since poppler 22.01.0")
-		if (CMAKE_CXX_STANDARD LESS 17)
-			message(FATAL_ERROR "Please set -DWANT_CPP17=ON on your CMake command line")
-		endif()
-	endif()
-else()
-	message(FATAL_ERROR "Could not find poppler library")
-endif()
-#>>Poppler for PDF import
+
 
 # librevenge for MsPub import
 pkg_check_modules(LIBREVENGE librevenge-0.0)
