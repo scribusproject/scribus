@@ -677,43 +677,53 @@ void ScPageOutput::drawItem_Group(PageItem_Group* item, ScPainterExBase* painter
 		painter->translate(0, item->height());
 		painter->scale(1, -1);
 	}
-	/*if ((maskType() == 1) || (maskType() == 2) || (maskType() == 4) || (maskType() == 5))
+
+	/*if ((item->maskType() == GradMask_Linear) || (item->maskType() == GradMask_Radial) || (item->maskType() == GradMask_LinearLumAlpha) || (item->maskType() == GradMask_RadialLumAlpha))
 	{
-		if ((maskType() == 1) || (maskType() == 2))
+		QString gradientMask = item->gradientMask();
+		FPoint fpMaskStart(item->GrMaskStartX, item->GrMaskStartY);
+		FPoint fpMaskEnd(item->GrMaskEndX, item->GrMaskEndY);
+		FPoint fpMaskFocal(item->GrMaskFocalX, item->GrMaskFocalY);
+		if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_Radial))
 			painter->setMaskMode(1);
 		else
 			painter->setMaskMode(3);
-		if ((!gradientMask().isEmpty()) && (!m_Doc->docGradients.contains(gradientMask())))
-			gradientMaskVal = "";
-		if (!(gradientMask().isEmpty()) && (m_Doc->docGradients.contains(gradientMask())))
-			mask_gradient = m_Doc->docGradients[gradientMask()];
-		painter->mask_gradient = mask_gradient;
-		if ((maskType() == 1) || (maskType() == 4))
-			painter->setGradientMask(VGradient::linear, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskStartX, GrMaskStartY), GrMaskScale, GrMaskSkew);
+		if ((!gradientMask.isEmpty()) && (!m_doc->docGradients.contains(gradientMask)))
+			gradientMask.clear();
+		if (!(gradientMask.isEmpty()) && (m_doc->docGradients.contains(gradientMask)))
+			painter->m_maskGradient = VGradientEx(m_doc->docGradients[gradientMask], *m_doc);
 		else
-			painter->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
+			painter->m_maskGradient = VGradientEx(item->mask_gradient, *m_doc);
+		if ((item->maskType() == GradMask_Linear) || (item->maskType() == GradMask_LinearLumAlpha))
+			painter->setGradientMask(VGradientEx::linear, fpMaskStart, fpMaskEnd, fpMaskStart, item->GrMaskScale, item->GrMaskSkew);
+		else
+			painter->setGradientMask(VGradientEx::radial, fpMaskStart, fpMaskEnd, fpMaskFocal, item->GrMaskScale, item->GrMaskSkew);
 	}
-	else if ((maskType() == 3) || (maskType() == 6) || (maskType() == 7) || (maskType() == 8))
+	else if ((item->maskType() == GradMask_Pattern) || (item->maskType() == GradMask_PatternLumAlpha) || (item->maskType() == GradMask_PatternLumAlphaInverted) || (item->maskType() == GradMask_PatternInverted))
 	{
-		if ((patternMask().isEmpty()) || (!m_Doc->docPatterns.contains(patternMask())))
-			painter->setMaskMode(0);
-		else
+		QString patternMaskVal = item->patternMask();
+		ScPattern* patternMask = m_doc->checkedPattern(patternMaskVal);
+		if (patternMask)
 		{
-			double scw = Width / groupWidth;
-			double sch = Height / groupHeight;
-			painter->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskScaleX * scw, patternMaskScaleY * sch, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
-			if (maskType() == 3)
+			painter->setPatternMask(patternMask, item->patternMaskScaleX, item->patternMaskScaleY, item->patternMaskOffsetX, item->patternMaskOffsetY,
+				item->patternMaskRotation, item->patternMaskSkewX, item->patternMaskSkewY, item->patternMaskMirrorX, item->patternMaskMirrorY);
+			if (item->GrMask == GradMask_Pattern)
 				painter->setMaskMode(2);
-			else if (maskType() == 6)
+			else if (item->GrMask == GradMask_PatternLumAlpha)
 				painter->setMaskMode(4);
-			else if (maskType() == 7)
+			else if (item->GrMask == GradMask_PatternLumAlphaInverted)
 				painter->setMaskMode(5);
 			else
 				painter->setMaskMode(6);
 		}
+		else
+		{
+			painter->setMaskMode(0);
+		}
 	}
 	else*/
 		painter->setMaskMode(0);
+
 	painter->setFillRule(item->fillRule);
 	//painter->beginLayer(1.0 - fillTransparency(), fillBlendmode(), &PoLine);
 	painter->setMaskMode(0);
