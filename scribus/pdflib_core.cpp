@@ -9856,16 +9856,12 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			char * mbuffer = nullptr;
 			long mlen = 0;
 
-#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 7, 99))
 			// seems more complicated at first, but in fact it makes the code more stable wrt podofo changes
 			PoDoFo::PdfMemoryOutputStream oStream(1);
 			stream->GetCopy(&oStream);
 			oStream.Close();
 			mlen = oStream.GetLength();
 			mbuffer = oStream.TakeBuffer();
-#else
-			stream->GetCopy(&mbuffer, &mlen);
-#endif
 			if (mbuffer[mlen-1] == '\n')
 				--mlen;
 			PutDoc("\n/Length " + Pdf::toPdf(static_cast<qlonglong>(mlen)));
@@ -10153,16 +10149,12 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, PdfId scObjID, Q
 		char * mbuffer = nullptr;
 		long mlen = 0;
 
-#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 7, 99))
 		// seems more complicated at first, but in fact it makes the code more stable wrt podofo changes
 		PoDoFo::PdfMemoryOutputStream oStream(1);
 		stream->GetCopy(&oStream);
 		oStream.Close();
 		mlen = oStream.GetLength();
 		mbuffer = oStream.TakeBuffer();
-#else
-		stream->GetCopy(&mbuffer, &mlen);
-#endif
 		if (mbuffer[mlen-1] == '\n')
 			--mlen;
 		PutDoc("\nstream\n");
