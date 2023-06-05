@@ -725,7 +725,7 @@ void PDFAnalyzer::inspectExtGStateObj(PdfObject* extGStateObj, QList<PDFColorSpa
 		if (arr[0].IsReference())
 		{
 			PdfReference ref = arr[0].GetReference();
-		PdfObject* fontObject = m_pdfdoc->GetObjects().GetObject(ref);
+			PdfObject* fontObject = m_pdfdoc->GetObjects().GetObject(ref);
 			if (fontObject)
 			{
 				PDFFont font = getFontInfo(fontObject);
