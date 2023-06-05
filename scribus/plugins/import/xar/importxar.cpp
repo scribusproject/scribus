@@ -1371,7 +1371,7 @@ void XarPlug::endTextLine()
 							if (txDat.GradMask > 0)
 							{
 								item->GrMask = txDat.GradMask;
-								if ((item->GrMask == 1) || (item->GrMask == 2))
+								if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_Radial))
 								{
 									item->mask_gradient = txDat.MaskGradient;
 									item->setMaskVector(txDat.GradMaskX1 - item->xPos(), txDat.GradMaskY1 - item->yPos(), txDat.GradMaskX2 - item->xPos(), txDat.GradMaskY2 - item->yPos(), txDat.GradMaskX1 - item->xPos(), txDat.GradMaskY1 - item->yPos(), txDat.GradMaskScale, txDat.GradMaskSkew);
