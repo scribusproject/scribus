@@ -4,7 +4,7 @@
 #<<PoDoFo for AI PDF import
 option(WITH_PODOFO "Enable support for PDF embedded in AI" ON)
 if (WITH_PODOFO)
-	find_package(LIBPODOFO)
+	find_package(LIBPODOFO 0.9.0)
 	if (LIBPODOFO_FOUND)
 		message("PoDoFo found OK")
 		set(HAVE_PODOFO ON)
