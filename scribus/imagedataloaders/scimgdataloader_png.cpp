@@ -34,7 +34,7 @@ static void ScImgDataLoader_PNG_read_fn(png_structp pngPtr, png_bytep data, png_
 
 	while (length)
 	{
-		int nr = file->read((char*) data, length);
+		qint64 nr = file->read((char*) data, length);
 		if (nr <= 0)
 		{
 			png_error(pngPtr, "Read Error");
@@ -61,7 +61,7 @@ void ScImgDataLoader_PNG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 		return;
 	}
 
-	png_structp pngPtr = png_create_read_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
+	png_structp pngPtr = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 	if (!pngPtr)
 	{
 		pngFile.close();
@@ -71,7 +71,7 @@ void ScImgDataLoader_PNG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	png_infop pngInfo = png_create_info_struct(pngPtr);
 	if (!pngInfo)
 	{
-		png_destroy_read_struct(&pngPtr, (png_infopp) NULL, (png_infopp) NULL);
+		png_destroy_read_struct(&pngPtr, (png_infopp) nullptr, (png_infopp) nullptr);
 		pngFile.close();
 		return;
 	}
@@ -79,7 +79,7 @@ void ScImgDataLoader_PNG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	// Catch errors (huh!!! we have to use setjump)
 	if (setjmp(png_jmpbuf(pngPtr)))
 	{
-		png_destroy_read_struct(&pngPtr, &pngInfo, (png_infopp) NULL);
+		png_destroy_read_struct(&pngPtr, &pngInfo, (png_infopp) nullptr);
 		pngFile.close();
 		return;
 	}
@@ -95,7 +95,7 @@ void ScImgDataLoader_PNG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 
 	if (png_get_iCCP(pngPtr, pngInfo, &profileName, &compression_type, &profileData, &profileLen))
 	{
-		QByteArray profArray = QByteArray((const char*) profileData, profileLen);
+		QByteArray profArray((const char*) profileData, profileLen);
 		ScColorProfile prof = ScCore->defaultEngine.openProfileFromMem(profArray);
 		if (prof && prof.isSuitableForOutput())
 		{
@@ -120,7 +120,7 @@ void ScImgDataLoader_PNG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	}
 
     pngFile.close();
-    png_destroy_read_struct(&pngPtr, &pngInfo, (png_infopp) NULL);
+    png_destroy_read_struct(&pngPtr, &pngInfo, (png_infopp) nullptr);
 }
 
 bool ScImgDataLoader_PNG::loadPicture(const QString& fn, int page, int res, bool thumbnail)
@@ -134,11 +134,32 @@ bool ScImgDataLoader_PNG::loadPicture(const QString& fn, int page, int res, bool
 	{
 		ScColorMgmtEngine engine(ScCore->defaultEngine);
 		ScColorProfile imgProfile = engine.openProfileFromMem(m_embeddedProfile);
-		m_imageInfoRecord.profileName = imgProfile.productDescription();
-		if (m_imageInfoRecord.profileName.isEmpty())
-			m_imageInfoRecord.profileName = "Profile #" + imgProfile.dataHash();
-		m_imageInfoRecord.embeddedProfileName = m_imageInfoRecord.profileName;
-		m_imageInfoRecord.isEmbedded = true;
+		eColorSpaceType profColorSpace = imgProfile.colorSpace();
+		// Trick to detect images with grayscale + alpha pixel format
+		// that Qt returns as ARGB 
+		if (profColorSpace == ColorSpace_Gray && m_image.allGray())
+			m_imageInfoRecord.colorspace = ColorSpaceGray;
+		// Test profile colorspace consistency with image colorspace
+		bool profileIsValid = false;
+		if (m_imageInfoRecord.colorspace == ColorSpaceRGB)
+			profileIsValid = (profColorSpace == ColorSpace_Rgb);
+		if (m_imageInfoRecord.colorspace == ColorSpaceGray)
+			profileIsValid = (profColorSpace == ColorSpace_Gray);
+		if (profileIsValid)
+		{
+			m_imageInfoRecord.profileName = imgProfile.productDescription();
+			if (m_imageInfoRecord.profileName.isEmpty())
+				m_imageInfoRecord.profileName = "Profile #" + imgProfile.dataHash();
+			m_imageInfoRecord.embeddedProfileName = m_imageInfoRecord.profileName;
+		}
+		else
+		{
+			m_embeddedProfile.clear();
+			m_imageInfoRecord.profileName.clear();
+			m_imageInfoRecord.embeddedProfileName.clear();
+			m_profileComponents = 0;
+		}
+		m_imageInfoRecord.isEmbedded = profileIsValid;
 	}
 
 	return true;
