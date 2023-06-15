@@ -467,6 +467,11 @@ struct ImageCachePrefs
 	int compressionLevel; //!< Cache image compression level (see QImage)
 };
 
+struct ExperimentalFeaturePrefs
+{
+	bool notesEnabled; //!< Enable Notes
+};
+
 struct ApplicationPrefs
 {
 	ColorPrefs colorPrefs;
@@ -497,6 +502,7 @@ struct ApplicationPrefs
 	TypoPrefs typoPrefs;
 	UIPrefs uiPrefs;
 	VerifierPrefs verifierPrefs;
+	ExperimentalFeaturePrefs experimentalFeaturePrefs;
 
 	QList<ArrowDesc> arrowStyles;
 	QHash<QString, VGradient> defaultGradients;

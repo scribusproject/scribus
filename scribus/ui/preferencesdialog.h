@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_documentitemattributes.h"
 #include "ui/prefs_documentsections.h"
 #include "ui/prefs_documentsetup.h"
+#include "ui/prefs_experimental.h"
 #include "ui/prefs_externaltools.h"
 #include "ui/prefs_fonts.h"
 #include "ui/prefs_guides.h"
@@ -93,6 +94,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		Prefs_DocumentItemAttributes *prefs_DocumentItemAttributes {nullptr};
 		Prefs_DocumentSections *prefs_DocumentSections {nullptr};
 		Prefs_DocumentSetup *prefs_DocumentSetup {nullptr};
+		Prefs_Experimental *prefs_Experimental {nullptr};
 		Prefs_ExternalTools *prefs_ExternalTools {nullptr};
 		Prefs_Fonts *prefs_Fonts {nullptr};
 		Prefs_Guides *prefs_Guides;

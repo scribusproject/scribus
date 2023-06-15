@@ -446,6 +446,7 @@ set(SCRIBUS_SOURCES
 	ui/prefs_documentinformation.cpp
 	ui/prefs_documentsections.cpp
 	ui/prefs_documentsetup.cpp
+	ui/prefs_experimental.cpp
 	ui/prefs_externaltools.cpp
 	ui/prefs_fonts.cpp
 	ui/prefs_guides.cpp
@@ -832,6 +833,10 @@ if(APPLE)
 		PRIVATE
 		"-framework CoreFoundation"
 		)
+	target_link_options(${EXE_NAME}
+		PUBLIC
+		"-Wl,-no_fixup_chains"
+	    )
 endif()
 
 if (WANT_SVNVERSION)
