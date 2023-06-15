@@ -556,6 +556,7 @@
     <moc Include="..\..\..\scribus\ui\prefs_documentitemattributes.h" />
     <moc Include="..\..\..\scribus\ui\prefs_documentsections.h" />
     <moc Include="..\..\..\scribus\ui\prefs_documentsetup.h" />
+    <moc Include="..\..\..\scribus\ui\prefs_experimental.h" />
     <moc Include="..\..\..\scribus\ui\prefs_externaltools.h" />
     <moc Include="..\..\..\scribus\ui\prefs_fonts.h" />
     <moc Include="..\..\..\scribus\ui\prefs_guides.h" />
@@ -1251,6 +1252,7 @@
     <ClCompile Include="..\..\..\scribus\ui\prefs_documentitemattributes.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_documentsections.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_documentsetup.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\prefs_experimental.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_externaltools.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_fonts.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_guides.cpp" />
@@ -1616,6 +1618,7 @@
     <uic Include="..\..\..\scribus\ui\prefs_documentitemattributesbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_documentsectionsbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_documentsetupbase.ui" />
+    <uic Include="..\..\..\scribus\ui\prefs_experimentalbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_externaltoolsbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_fontsbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_guidesbase.ui" />
