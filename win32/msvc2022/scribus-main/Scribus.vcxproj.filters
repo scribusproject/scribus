@@ -2134,6 +2134,9 @@
     <ClCompile Include="..\..\..\scribus\ui\prefs_documentsetup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\prefs_experimental.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\prefs_externaltools.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2771,6 +2774,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\prefs_documentsetupbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\prefs_experimentalbase.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\prefs_externaltoolsbase.ui">
@@ -3855,6 +3861,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\prefs_documentsetup.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\prefs_experimental.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\prefs_externaltools.h">
