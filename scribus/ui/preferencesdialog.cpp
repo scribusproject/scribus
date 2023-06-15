@@ -73,6 +73,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget, m_Doc);
 //		prefs_Spelling = new Prefs_Spelling(prefsStackWidget, m_Doc);
 		prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget, m_Doc);
+		prefs_Experimental = new Prefs_Experimental(prefsStackWidget, m_Doc);
 	}
 	// Add Stack Widgets if required
 	if (!doc)
@@ -118,6 +119,8 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 
 	if (!doc)
 		addWidget(prefs_Plugins);
+//	if (!doc)
+//		addWidget(prefs_Experimental);
 
 	arrangeIcons();
 
@@ -187,6 +190,7 @@ void PreferencesDialog::setupGui()
 	if (prefs_Miscellaneous) prefs_Miscellaneous->restoreDefaults(&localPrefs);
 	if (prefs_PageSizes) prefs_PageSizes->restoreDefaults(&localPrefs);
 	if (prefs_ImageCache) prefs_ImageCache->restoreDefaults(&localPrefs);
+	if (prefs_Experimental) prefs_Experimental->restoreDefaults(&localPrefs);
 }
 
 
@@ -218,6 +222,7 @@ void PreferencesDialog::saveGuiToPrefs()
 	if (prefs_Miscellaneous) prefs_Miscellaneous->saveGuiToPrefs(&localPrefs);
 	if (prefs_PageSizes) prefs_PageSizes->saveGuiToPrefs(&localPrefs);
 	if (prefs_ImageCache) prefs_ImageCache->saveGuiToPrefs(&localPrefs);
+	if (prefs_Experimental) prefs_Experimental->saveGuiToPrefs(&localPrefs);
 }
 
 void PreferencesDialog::accept()

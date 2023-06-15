@@ -525,6 +525,9 @@ void PrefsManager::initDefaults()
 	appPrefs.itemAttrPrefs.defaultItemAttributes.clear();
 	appPrefs.tocPrefs.defaultToCSetups.clear();
 
+	//Experimental Features
+	appPrefs.experimentalFeaturePrefs.notesEnabled = false;
+
 	initDefaultActionKeys();
 }
 
@@ -1948,6 +1951,11 @@ bool PrefsManager::writePref(const QString& filePath)
 	apsElem.setAttribute("Names", appPrefs.activePageSizes.join(","));
 	elem.appendChild(apsElem);
 
+	// experimental features
+	QDomElement experimentalElem = docu.createElement("ExperimentalFeatures");
+	experimentalElem.setAttribute("NotesEnabled", appPrefs.experimentalFeaturePrefs.notesEnabled);
+	elem.appendChild(experimentalElem);
+
 	// write file
 	bool result = false;
 	QFile f(filePath);
@@ -2754,6 +2762,12 @@ bool PrefsManager::readPref(const QString& filePath)
 		{
 			appPrefs.activePageSizes = QString(dc.attribute("Names", "")).split(",");
 		}
+		// experimental features
+		if (dc.tagName() == "ExperimentalFeatures")
+		{
+			appPrefs.experimentalFeaturePrefs.notesEnabled = static_cast<bool>(dc.attribute("NotesEnabled", "0").toInt());
+		}
+
 
 		//
 		DOC=DOC.nextSibling();

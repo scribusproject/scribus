@@ -400,6 +400,7 @@ set(SCRIBUS_SOURCES
 	ui/prefs_documentinformation.cpp
 	ui/prefs_documentsections.cpp
 	ui/prefs_documentsetup.cpp
+	ui/prefs_experimental.cpp
 	ui/prefs_externaltools.cpp
 	ui/prefs_fonts.cpp
 	ui/prefs_guides.cpp
