@@ -119,8 +119,8 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 
 	if (!doc)
 		addWidget(prefs_Plugins);
-//	if (!doc)
-//		addWidget(prefs_Experimental);
+	if (!doc)
+		addWidget(prefs_Experimental);
 
 	arrangeIcons();
 

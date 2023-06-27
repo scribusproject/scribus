@@ -93,7 +93,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		Prefs_DocumentItemAttributes *prefs_DocumentItemAttributes {nullptr};
 		Prefs_DocumentSections *prefs_DocumentSections {nullptr};
 		Prefs_DocumentSetup *prefs_DocumentSetup {nullptr};
-		Prefs_Experimental *prefs_Experimental{nullptr};
+		Prefs_Experimental *prefs_Experimental {nullptr};
 		Prefs_ExternalTools *prefs_ExternalTools {nullptr};
 		Prefs_Fonts *prefs_Fonts {nullptr};
 		Prefs_Guides *prefs_Guides {nullptr};

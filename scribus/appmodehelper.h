@@ -59,7 +59,7 @@ class AppModeHelper : public QObject
 		void enableTextActions(bool enabled, const QString& fontName = QString());
 		void enableTextStyleActions(bool enabled);
 		void setStartupActionsEnabled(bool enabled);
-
+		void enableExperimentalActions(const ScribusDoc *doc);
 
 	signals:
 		void AppModeChanged(int oldMode, int newMode);

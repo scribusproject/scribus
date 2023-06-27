@@ -1536,6 +1536,8 @@ void AppModeHelper::mainWindowHasNewDoc(const ScribusDoc *doc, bool clipScrapHav
 	(*a_scrActions)["pageCopyToMasterPage"]->setEnabled(true);
 	(*a_scrActions)["pageManageGuides"]->setEnabled(true);
 	(*a_scrActions)["pageManageProperties"]->setEnabled(true);
+
+	enableExperimentalActions(doc);
 }
 
 void AppModeHelper::mainWindowSwitchWin(const ScribusDoc *doc)
@@ -1616,6 +1618,8 @@ void AppModeHelper::mainWindowSwitchWin(const ScribusDoc *doc)
 	(*a_scrActions)["viewSnapToGrid"]->setChecked(doc->SnapGrid);
 	(*a_scrActions)["viewSnapToGuides"]->setChecked(doc->SnapGuides);
 	(*a_scrActions)["viewSnapToElements"]->setChecked(doc->SnapElement);
+
+	enableExperimentalActions(doc);
 }
 
 void AppModeHelper::mainWindowCloseLastDoc()
@@ -2000,5 +2004,22 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	scMW->zoomInToolbarButton->setEnabled(false);
 	scMW->pageSelector->setEnabled(false);
 	scMW->layerMenu->setEnabled(false);
+}
+
+void AppModeHelper::enableExperimentalActions(const ScribusDoc *doc)
+{
+	bool setter = doc->usesMarksAndNotes()
+				  || PrefsManager::instance().appPrefs.experimentalFeaturePrefs.notesEnabled;
+	(*a_scrActions)["editMark"]->setEnabled(setter);
+	(*a_scrActions)["editMarks"]->setEnabled(setter);
+	(*a_scrActions)["editNotesStyles"]->setEnabled(setter);
+	(*a_scrActions)["insertMarkAnchor"]->setEnabled(setter);
+	(*a_scrActions)["insertMarkNote"]->setEnabled(setter);
+	(*a_scrActions)["insertMarkItem"]->setEnabled(setter);
+	(*a_scrActions)["insertMark2Mark"]->setEnabled(setter);
+	(*a_scrActions)["insertMarkVariableText"]->setEnabled(setter);
+	ScribusMainWindow *scMW = ScCore->primaryMainWindow();
+	scMW->scrMenuMgr->setMenuEnabled("Marks", setter);
+	scMW->scrMenuMgr->setMenuEnabled("InsertMark", setter);
 }
 
