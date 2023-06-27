@@ -512,21 +512,25 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 		{
 			success = readNotesStyles(m_Doc, reader);
 			if (!success) break;
+			m_Doc->setUsesMarksAndNotes(true);
 		}
 		if (tagName == "NotesFrames")
 		{
 			success = readNotesFrames(reader);
 			if (!success) break;
+			m_Doc->setUsesMarksAndNotes(true);
 		}
 		if (tagName == "Notes")
 		{
 			success = readNotes(m_Doc, reader);
 			if (!success) break;
+			m_Doc->setUsesMarksAndNotes(true);
 		}
 		if (tagName == "Marks")
 		{
 			success = readMarks(m_Doc, reader);
 			if (!success) break;
+			m_Doc->setUsesMarksAndNotes(true);
 		}
 	}
 	if (reader.hasError())

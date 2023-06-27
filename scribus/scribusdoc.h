@@ -1743,19 +1743,15 @@ public slots:
 	void removePict(const QString& name);
 
 // Marks and notes
-public:
 	/**
 	 * Explanation
 	 * master frame - text frame with marks for notes
 	 * notesframe - frame with notes
 	 * master & note mark - master is mark in "master" text, note mark is at beginning of note in noteframe
 	 */
-	
-	//return page where endnotesframe should be located depending of notes style range and location of master mark
-	const ScPage* page4EndNotes(NotesStyle* NS, PageItem* item);
-
 	//data handling structures
 private:
+	bool m_docUsesMarksAndNotes {false};
 	QList<Mark*> m_docMarksList;
 	QList<TextNote*> m_docNotesList;
 	//flags used for indicating needs of updates
@@ -1764,6 +1760,10 @@ private:
 	void multipleDuplicateByPage(const ItemMultipleDuplicateData& mdData, Selection& selection, QString& tooltip);
 
 public:
+	bool usesMarksAndNotes() const { return m_docUsesMarksAndNotes; }
+	void setUsesMarksAndNotes(bool b) { m_docUsesMarksAndNotes = b; }
+	//return page where endnotesframe should be located depending of notes style range and location of master mark
+	const ScPage* page4EndNotes(NotesStyle* NS, PageItem* item);
 	const QList<Mark*>& marksList() { return m_docMarksList; }
 	const QList<TextNote*>& notesList() { return m_docNotesList; }
 	QList<NotesStyle*> m_docNotesStylesList;
