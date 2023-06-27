@@ -1953,21 +1953,25 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			success = readNotesStyles(m_Doc, reader);
 			if (!success) break;
+			m_Doc->setUsesMarksAndNotes(true);
 		}
 		else if (tagName == QLatin1String("NotesFrames"))
 		{
 			success = readNotesFrames(reader);
 			if (!success) break;
+			m_Doc->setUsesMarksAndNotes(true);
 		}
 		else if (tagName == QLatin1String("Notes"))
 		{
 			success = readNotes(m_Doc, reader);
 			if (!success) break;
+			m_Doc->setUsesMarksAndNotes(true);
 		}
 		else if (tagName == QLatin1String("Marks"))
 		{
 			success = readMarks(m_Doc, reader);
 			if (!success) break;
+			m_Doc->setUsesMarksAndNotes(true);
 		}
 		else
 		{
