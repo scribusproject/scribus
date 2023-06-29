@@ -5013,14 +5013,15 @@ void PageItem_TextFrame::toggleEditModeActions()
 {
 	bool editMode = (m_Doc->appMode == modeEdit);
 	bool masterMode = m_Doc->masterPageMode();
-	m_Doc->scMW()->scrActions["insertMarkVariableText"]->setEnabled(editMode);
-	m_Doc->scMW()->scrActions["insertMarkAnchor"]->setEnabled(editMode && !masterMode);
-	m_Doc->scMW()->scrActions["insertMarkItem"]->setEnabled(editMode && !masterMode);
-	m_Doc->scMW()->scrActions["insertMark2Mark"]->setEnabled(editMode && !masterMode);
-	m_Doc->scMW()->scrActions["insertMarkNote"]->setEnabled(editMode && !masterMode && !isNoteFrame());
+	bool notesEnabled = m_Doc->usesMarksAndNotes() || PrefsManager::instance().appPrefs.experimentalFeaturePrefs.notesEnabled;
+	m_Doc->scMW()->scrActions["insertMarkVariableText"]->setEnabled(editMode && notesEnabled);
+	m_Doc->scMW()->scrActions["insertMarkAnchor"]->setEnabled(editMode && !masterMode && notesEnabled);
+	m_Doc->scMW()->scrActions["insertMarkItem"]->setEnabled(editMode && !masterMode && notesEnabled);
+	m_Doc->scMW()->scrActions["insertMark2Mark"]->setEnabled(editMode && !masterMode && notesEnabled);
+	m_Doc->scMW()->scrActions["insertMarkNote"]->setEnabled(editMode && !masterMode && notesEnabled && !isNoteFrame());
 	//	scrActions["insertMarkIndex"]->setEnabled(editMode && !masterMode);
 	bool enableEditMark = false;
-	if (editMode && (itemText.cursorPosition() < itemText.length()))
+	if (editMode && notesEnabled && (itemText.cursorPosition() < itemText.length()))
 	{
 		if (itemText.hasMark(itemText.cursorPosition()))
 		{
