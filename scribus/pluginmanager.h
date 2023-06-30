@@ -162,10 +162,10 @@ protected:
 	{
 		QString pluginFile; // Datei;
 		QString pluginName;
-		void* pluginDLL;
-		ScPlugin* plugin;
-		bool enableOnStartup;
-		bool enabled;
+		void* pluginDLL { nullptr };
+		ScPlugin* plugin { nullptr };
+		bool enableOnStartup { false };
+		bool enabled { false };
 		QString version;
 	};
 
@@ -204,7 +204,7 @@ protected:
 	void finalizePlug(PluginData & pluginData);
 
 	/** \brief Configuration structure */
-	PrefsContext* prefs;
+	PrefsContext* prefs { nullptr };
 
 	/*! \brief Mapping of plugin names to plugin info structures. */
 	typedef QMap<QString,PluginData> PluginMap;
