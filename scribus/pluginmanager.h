@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef _PLUGIN_MANAGER_
 #define _PLUGIN_MANAGER_
 
+#include <QFunctionPointer>
 #include <QObject>
 #include <QString>
 #include <QMap>
@@ -44,7 +45,7 @@ public:
 	 These methods are platform independent, but each platform uses a different
 	 implementation. */
 	static void* loadDLL(const QString& plugin);
-	static void* resolveSym( void* plugin, const char* sym );
+	static QFunctionPointer resolveSym(void* plugin, const char* sym);
 	static void  unloadDLL( void* plugin );
 
 	/*! \brief Initialization of all plugins. It's called at scribus start.
