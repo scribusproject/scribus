@@ -77,20 +77,20 @@ void* PluginManager::loadDLL(const QString& plugin)
 	return lib;
 }
 
-void* PluginManager::resolveSym(void* plugin, const char* sym)
+QFunctionPointer PluginManager::resolveSym(void* plugin, const char* sym)
 {
-	void* symAddr = nullptr;
+	QFunctionPointer symAddr = nullptr;
 #ifdef HAVE_DLFCN_H
 	const char* error;
 	dlerror();
-	symAddr = dlsym(plugin, sym);
+	symAddr = (QFunctionPointer) dlsym(plugin, sym);
 	if ((error = dlerror()) != nullptr)
 	{
 		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(error).toLocal8Bit().data());
 		symAddr = nullptr;
 	}
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
-	symAddr = (void* ) GetProcAddress((HMODULE) plugin, sym);
+	symAddr = (QFunctionPointer) GetProcAddress((HMODULE) plugin, sym);
 	if (symAddr == nullptr)
 		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(sym).toLocal8Bit().data());
 #else
