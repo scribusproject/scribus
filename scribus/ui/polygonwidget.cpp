@@ -270,17 +270,17 @@ double PolygonWidget::getUserValFromFactor(double factor)
 
 double PolygonWidget::GetZeroFactor()
 {
-	return sqrt(pow(1.0,2.0)-pow(((sin((360.0/(cornersSpinBox->value()*2))/180* M_PI)* 2.0)/2.0),2.0));
+	return sqrt(1.0 - pow(sin(M_PI / cornersSpinBox->value()), 2.0));
 }
 
 double PolygonWidget::GetMaxFactor()
 {
-	double win = (360.0/(cornersSpinBox->value()*2)) / 180.0 * M_PI;
+	double win = M_PI / cornersSpinBox->value();
 	double ret;
-	if ((360.0/(cornersSpinBox->value()*2)) > 45)
-		ret = 1/sin(win);
+	if ((180.0 / cornersSpinBox->value()) > 45)
+		ret = 1 / sin(win);
 	else
-		ret = 1/cos(win);
+		ret = 1 / cos(win);
 	return ret;
 }
 

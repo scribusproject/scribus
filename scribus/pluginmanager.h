@@ -39,7 +39,6 @@ class SCRIBUS_API PluginManager : public QObject
 
 public:
 	PluginManager();
-	~PluginManager();
 
 	/*! \brief Static methods for loading, unloading plugins and resolving symbols
 	 These methods are platform independent, but each platform uses a different
