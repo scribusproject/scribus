@@ -55,16 +55,16 @@ public:
 	~InlineView() {};
 
 protected:
-	void dragEnterEvent(QDragEnterEvent *e);
-	void dragMoveEvent(QDragMoveEvent *e);
-	void dropEvent(QDropEvent *e);
-	void startDrag(Qt::DropActions supportedActions);
+	void dragEnterEvent(QDragEnterEvent *e) override;
+	void dragMoveEvent(QDragMoveEvent *e) override;
+	void dropEvent(QDropEvent *e) override;
+	void startDrag(Qt::DropActions supportedActions) override;
 
 signals:
 	void objectDropped(QString);
 
 private:
-	ScListWidgetDelegate* delegate;
+	ScListWidgetDelegate* delegate { nullptr };
 };
 
 class SCRIBUS_API InlinePalette : public ScDockPalette
@@ -74,6 +74,7 @@ class SCRIBUS_API InlinePalette : public ScDockPalette
 public:
 	InlinePalette(QWidget* parent);
 	~InlinePalette() {};
+
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
@@ -96,12 +97,12 @@ signals:
 	void objectDropped(QString);
 
 protected:
-	InlineView *InlineViewWidget;
-	QVBoxLayout* PaletteLayout;
-	ScribusDoc *m_doc;
-	ScribusMainWindow *m_scMW;
-	int actItem;
-	int currentEditedItem;
+	InlineView *InlineViewWidget { nullptr };
+	QVBoxLayout* PaletteLayout { nullptr };
+	ScribusDoc *m_doc { nullptr };
+	ScribusMainWindow *m_scMW { nullptr };
+	int actItem { -1 };
+	int currentEditedItem { -1 };
 
 	void changeEvent(QEvent *e) override;
 };

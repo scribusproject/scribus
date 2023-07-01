@@ -48,18 +48,19 @@ public:
 	DashPreview(QWidget *pa);
 	~DashPreview() {};
 
-	void paintEvent(QPaintEvent *e) override;
-	void mousePressEvent(QMouseEvent *m) override;
-	void mouseReleaseEvent(QMouseEvent *) override;
-	void mouseMoveEvent(QMouseEvent *m) override;
-	void leaveEvent(QEvent*) override;
-	void enterEvent(QEnterEvent*) override;
-
 	const QVector<double>& dashValues() const { return m_dashValues; }
 	void setDashValues(const QVector<double>& vals);
 
 public slots:
 	void setActStep(double t);
+
+protected:
+	void paintEvent(QPaintEvent* e) override;
+	void mousePressEvent(QMouseEvent* m) override;
+	void mouseReleaseEvent(QMouseEvent*) override;
+	void mouseMoveEvent(QMouseEvent* m) override;
+	void leaveEvent(QEvent*) override;
+	void enterEvent(QEnterEvent*) override;
 
 private:
 	bool  m_onlySelect { true };

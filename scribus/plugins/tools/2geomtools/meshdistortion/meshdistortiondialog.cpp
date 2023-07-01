@@ -51,8 +51,6 @@ NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog* parent) : QGraph
 	setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 	setZValue(9999999);
 	acceptHoverEvents();
-	mouseMoving = false;
-	mousePressed = false;
 }
 
 void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget* widget)

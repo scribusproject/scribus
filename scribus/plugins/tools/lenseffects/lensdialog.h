@@ -52,21 +52,22 @@ public:
 	void setStrength(double s);
 	void updateEffect();
 	QPainterPath lensDeform(const QPainterPath &source, const QPointF &offset, double m_radius, double s);
-	void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget);
-	double strength;
-	double scaling;
-	int handle;
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
+
+	double strength { -100.0 };
+	double scaling { 1.0 };
+	int handle { -1 };
 	QPointF mousePoint;
 
 protected:
-	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-	void mousePressEvent(QGraphicsSceneMouseEvent *event);
-	void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-	void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
-	void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
-	void hoverLeaveEvent(QGraphicsSceneHoverEvent *);
-	LensDialog *dialog;
+	QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+	void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+	void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
+	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+	void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+	void hoverMoveEvent(QGraphicsSceneHoverEvent *event) override;
+	void hoverLeaveEvent(QGraphicsSceneHoverEvent *) override;
+	LensDialog *dialog { nullptr };
 };
 
 class PLUGIN_API LensDialog : public QDialog, Ui::LensDialogBase
@@ -80,16 +81,17 @@ public:
 	void addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGraphicsPathItem* parentItem, PageItem* parent);
 	void lensSelected(LensItem *item);
 	void setLensPositionValues(QPointF p);
+
 	QGraphicsScene scene;
 	QList<QPainterPath> origPath;
 	QList<QGraphicsPathItem*> origPathItem;
 	QList<PageItem*> origPageItem;
 	QList<LensItem*> lensList;
-	int currentLens;
-	bool isFirst;
+	int currentLens { -1 };
+	bool isFirst { true };
 
 protected:
-	void showEvent(QShowEvent *e);
+	void showEvent(QShowEvent *e) override;
 
 private slots:
 	void doZoomIn();

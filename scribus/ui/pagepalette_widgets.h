@@ -74,10 +74,10 @@ signals:
 	void delMasterRequest(QString);
 
 protected:
-	void mouseReleaseEvent(QMouseEvent *m);
-	void mousePressEvent(QMouseEvent* e);
-	void mouseMoveEvent(QMouseEvent* e);
-	virtual void keyPressEvent(QKeyEvent* e);
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent* e) override;
+	void mouseMoveEvent(QMouseEvent* e) override;
+	void keyPressEvent(QKeyEvent* e) override;
 	
 	QListWidgetItem *m_currItem {nullptr};
 	QPoint m_mousePos;
@@ -109,14 +109,14 @@ signals:
 	void delPageRequest(int);
 
 protected:
-	virtual void dropEvent(QDropEvent * e);
-	virtual void dragEnterEvent(QDragEnterEvent *e);
-	virtual void dragLeaveEvent(QDragLeaveEvent *e);
-	virtual void dragMoveEvent(QDragMoveEvent *e);
-	virtual void mouseReleaseEvent(QMouseEvent *e);
-	virtual void mousePressEvent(QMouseEvent* e);
-	virtual void mouseMoveEvent(QMouseEvent* e);
-	virtual void keyPressEvent(QKeyEvent* e);
+	void dropEvent(QDropEvent * e) override;
+	void dragEnterEvent(QDragEnterEvent *e) override;
+	void dragLeaveEvent(QDragLeaveEvent *e) override;
+	void dragMoveEvent(QDragMoveEvent *e) override;
+	void mouseReleaseEvent(QMouseEvent *e) override;
+	void mousePressEvent(QMouseEvent* e) override;
+	void mouseMoveEvent(QMouseEvent* e) override;
+	void keyPressEvent(QKeyEvent* e) override;
 	
 	QPoint m_mousePos;
 	bool m_mousePressed {false};
@@ -137,13 +137,13 @@ public:
 	TrashBin( QWidget * parent );
 	~TrashBin() {};
 
-	void dragEnterEvent( QDragEnterEvent *e );
-	void dragLeaveEvent( QDragLeaveEvent * );
-	void dropEvent( QDropEvent * e );
-
 protected:
 	QPixmap Normal;
 	QPixmap Offen;
+
+	void dragEnterEvent(QDragEnterEvent* e) override;
+	void dragLeaveEvent(QDragLeaveEvent*) override;
+	void dropEvent(QDropEvent* e) override;
 
 protected slots:
 	void iconSetChange();

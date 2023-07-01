@@ -65,19 +65,20 @@ public:
 	NodeItem(QRectF geom, uint num, MeshDistortionDialog* parent);
 	~NodeItem() {};
 	
-	void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget* widget);
-	uint handle;
-	bool mouseMoving;
-	bool mousePressed;
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget* widget) override;
+
+	uint handle { 0 };
+	bool mouseMoving { false };
+	bool mousePressed { false };
 
 protected:
-	void mousePressEvent(QGraphicsSceneMouseEvent *event);
-	void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-	void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
-	void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
-	void hoverLeaveEvent(QGraphicsSceneHoverEvent *);
-	MeshDistortionDialog *dialog;
+	void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+	void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
+	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+	void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+	void hoverMoveEvent(QGraphicsSceneHoverEvent *event) override;
+	void hoverLeaveEvent(QGraphicsSceneHoverEvent *) override;
+	MeshDistortionDialog *dialog { nullptr };
 };
 
 class PLUGIN_API MeshDistortionDialog : public QDialog, Ui::MeshDistortionDialog
@@ -93,15 +94,15 @@ public:
 	void updateMesh(bool gridOnly);
 	void updateAndExit();
 
-	bool isFirst;
-	double w4;
-	double w2;
-	double ww;
-	double deltaX;
-	double deltaY;
-	ScribusDoc*  m_doc;
+	bool isFirst { true };
+	double w4 { 0.0 };
+	double w2 { 0.0 };
+	double ww { 0.0 };
+	double deltaX { 0.0 };
+	double deltaY { 0.0 };
+	ScribusDoc*  m_doc { nullptr };
 	QGraphicsScene scene;
-	QGraphicsPathItem* pItemG;
+	QGraphicsPathItem* pItemG { nullptr };
 	QList<QGraphicsPathItem*> origPathItem;
 	QList<PageItem*> origPageItem;
 	QList<NodeItem*> nodeItems;
@@ -116,7 +117,7 @@ private slots:
 	void doReset();
 
 protected:
-	void showEvent(QShowEvent *e);
+	void showEvent(QShowEvent *e) override;
 };
 
 #endif

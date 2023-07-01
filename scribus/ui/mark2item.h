@@ -14,7 +14,7 @@ public:
 	virtual void setValues(const QString label, const PageItem* ptr);
 
 protected:
-	void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 };
 
 #endif // MARK2ITEM_H

@@ -71,11 +71,11 @@ signals:
 	void tabSelected();
 
 protected:
-	virtual void paintEvent(QPaintEvent *);
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *);
-	virtual void mouseMoveEvent(QMouseEvent *m);
-	virtual void leaveEvent(QEvent*);
+	void paintEvent(QPaintEvent *) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void leaveEvent(QEvent*) override;
 	
 private:
 	double m_iter { 10.0 }; // Result of unitRulerGetIter1FromIndex() for point unit
@@ -160,8 +160,8 @@ protected:
 	QToolButton* clearButton { nullptr };
 	QToolButton* clearOneButton { nullptr };
 
-	bool   m_haveFirst;
-	double m_docUnitRatio;
+	bool   m_haveFirst { true };
+	double m_docUnitRatio { 1.0 };
 
 	void changeEvent(QEvent *e) override;
 

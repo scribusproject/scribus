@@ -31,11 +31,12 @@ public:
 	int angle();
 	BasePointWidget::Mode mode();
 
-	void paintEvent(QPaintEvent *e);
-	void mousePressEvent(QMouseEvent *m);
-	void mouseReleaseEvent(QMouseEvent *);
-	void mouseMoveEvent(QMouseEvent *m);
-	void leaveEvent(QEvent*);
+protected:
+	void paintEvent(QPaintEvent *e) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void leaveEvent(QEvent*) override;
 
 public slots:
 	void setAngle(int angle);
@@ -43,13 +44,13 @@ public slots:
 	void setMode(BasePointWidget::Mode mode);
 
 private:
-	Mode m_mode;
-	AnchorPoint m_selectedAnchor;
-	AnchorPoint m_hoveredAnchor;
-	bool m_pressed;
-	int m_angle;
+	Mode m_mode { BasePointWidget::Full };
+	AnchorPoint m_selectedAnchor { AnchorPoint::TopLeft };
+	AnchorPoint m_hoveredAnchor { AnchorPoint::None };
+	bool m_pressed { false };
+	int m_angle { 0 };
 
-	QMap<AnchorPoint, QRect>anchors;
+	QMap<AnchorPoint, QRect> anchors;
 	QTransform m_transform;
 	QRectF m_baseRect;
 

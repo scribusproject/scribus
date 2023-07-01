@@ -76,13 +76,13 @@ signals:
 
 protected:
 	/// Paints the table side selector.
-	void paintEvent(QPaintEvent* event);
+	void paintEvent(QPaintEvent* event) override;
 	/// Toggles selection of the edge closest to mouse pointer.
-	void mousePressEvent(QMouseEvent* event);
+	void mousePressEvent(QMouseEvent* event) override;
 	/// Highlights the edge closest to mouse pointer.
-	void mouseMoveEvent(QMouseEvent* event);
+	void mouseMoveEvent(QMouseEvent* event) override;
 	/// Removes any highlighted edge.
-	void leaveEvent(QEvent* event);
+	void leaveEvent(QEvent* event) override;
 
 private:
 	/// Utility function to return the side closest to @a point.

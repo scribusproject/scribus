@@ -15,7 +15,7 @@ public:
 	virtual void setValues(const NotesStyle* defaultStyle);
 
 protected:
-	void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 
 private slots:
 	void on_buttonBox_accepted();

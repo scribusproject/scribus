@@ -19,14 +19,8 @@ BasePointWidget::BasePointWidget(Mode mode, QWidget *parent) : QWidget(parent)
 	setMouseTracking(true);
 
 	m_mode = mode;
-	m_hoveredAnchor = AnchorPoint::None;
-	m_pressed = false;
-	anchors = QMap<AnchorPoint, QRect>();
-	m_angle = 0;
-	m_selectedAnchor = AnchorPoint::TopLeft;
 
 	setup();
-
 }
 
 BasePointWidget::BasePointWidget(QWidget *parent) : BasePointWidget(BasePointWidget::Full, parent){}

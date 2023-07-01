@@ -120,15 +120,19 @@ public slots:
 class SCRIBUS_API PropTreeWidget : public QTreeWidget
 {
 	Q_OBJECT
+
 public:
 	PropTreeWidget(QWidget* pa);
 	PropTreeItem* indexToItem(const QModelIndex &index);
 	~PropTreeWidget() {};
+
 protected:
-	void mousePressEvent(QMouseEvent *event);
-	void drawRow(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+	void mousePressEvent(QMouseEvent *event) override;
+	void drawRow(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+
 private:
-	PropTreeItemDelegate *delegate;
+	PropTreeItemDelegate *delegate { nullptr };
+
 private slots:
 	void handleMousePress(QTreeWidgetItem *item);
 };

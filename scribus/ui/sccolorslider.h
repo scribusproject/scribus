@@ -20,8 +20,9 @@ class SCRIBUS_API ScColorSlider : public QSlider
 
 public: 
 	ScColorSlider(QWidget* parent = nullptr);
-	
-	virtual void paintEvent(QPaintEvent * p);
+
+protected:
+	void paintEvent(QPaintEvent * p) override;
 };
 
 #endif

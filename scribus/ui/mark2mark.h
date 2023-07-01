@@ -14,7 +14,7 @@ public:
 	virtual void setValues(const QString label, const Mark* mrk);
 
 protected:
-    void changeEvent(QEvent *e);
+    void changeEvent(QEvent *e) override;
 };
 
 #endif // MARK2MARK_H
