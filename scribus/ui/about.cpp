@@ -393,7 +393,7 @@ QString About::parseAuthorFile(const QString& fileName)
 				}
 			} // else is empty line
 		} // while ! atEnd
-		result += "<table>";
+		result += "</table>";
 	} // if file found
 	else
 	{
@@ -549,7 +549,7 @@ QString About::parseTranslationFile(const QString& fileName)
 			}
 			result += "<tr><td></td><td></td></tr><tr><td></td><td></td></tr>";
 		}
-		result += "<table>";
+		result += "</table>";
 	} // if file found
 	else
 	{
@@ -616,7 +616,7 @@ QString About::parseLinksFile(const QString& fileName)
 			  isTitle = true;
 			} // else is empty line
 		} // while ! atEnd
-		result += "<table>";
+		result += "</table>";
 	} // if file found
 	else
 	{
