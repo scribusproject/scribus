@@ -154,9 +154,9 @@ void LensItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 	QPainterPath p;
 	p.addEllipse(rect());
 	if ((p.contains(event->pos())) && (isSelected()))
-		qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::SizeAllCursor));
 	else
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 void LensItem::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
@@ -166,30 +166,30 @@ void LensItem::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 	if (isSelected())
 	{
 		if (p.contains(event->pos()))
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::SizeAllCursor));
 		else
 		{
 			QRectF br = boundingRect();
 			double siz = 6.0 / scaling;
 			if (QRectF(br.x(), br.y(), siz, siz).contains(event->pos()))
-				qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+				QApplication::changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
 			else if (QRectF(br.x() + br.width(), br.y(), -siz, siz).contains(event->pos()))
-				qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
+				QApplication::changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
 			else if (QRectF(br.x() + br.width(), br.y() + br.height(), -siz, -siz).contains(event->pos()))
-				qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+				QApplication::changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
 			else if (QRectF(br.x(), br.y() + br.height(), siz, -siz).contains(event->pos()))
-				qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
+				QApplication::changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
 			else
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		}
 	}
 	else
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 void LensItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *)
 {
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 void LensItem::setStrength(double s)
@@ -258,7 +258,6 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 	addItemsToScene(doc->m_Selection, doc, nullptr, nullptr);
 	previewWidget->setRenderHint(QPainter::Antialiasing);
 	previewWidget->setScene(&scene);
-	isFirst = true;
 	addLens();
 	connect(spinXPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensX(double)));
 	connect(spinYPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensY(double)));
@@ -369,7 +368,7 @@ void LensDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGra
 					if (mirrorY)
 						qmatrix.scale(1, -1);
 					QImage pat = *doc->docPatterns[currItem->pattern()].getPattern();
-					QBrush brush = QBrush(pat);
+					QBrush brush(pat);
 					brush.setTransform(qmatrix);
 					pItem->setBrush(brush);
 				}
@@ -402,7 +401,7 @@ void LensDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGra
 				if (mirrorY)
 					qmatrix.scale(1, -1);
 				QImage pat = *doc->docPatterns[currItem->strokePattern()].getPattern();
-				QBrush brush = QBrush(pat);
+				QBrush brush(pat);
 				brush.setTransform(qmatrix);
 				pItem->setPen(QPen(brush, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
 			}

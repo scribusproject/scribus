@@ -21,7 +21,7 @@ class SCRIBUS_API CharZoom : public QDialog
 		~CharZoom() {};
 
 	private:
-		void paintEvent(QPaintEvent *);
+		void paintEvent(QPaintEvent *) override;
 		//! \brief pixmap generated in constructor
 		QPixmap m_pixm;
 		//! \brief A hex value as string

@@ -30,16 +30,20 @@ public:
 	  */
 	int checkedId() const;
 	void setCheckedId(int id);
-	void paintEvent(QPaintEvent *e);
-	void mousePressEvent(QMouseEvent *m);
-	void mouseReleaseEvent(QMouseEvent *);
-	void mouseMoveEvent(QMouseEvent *m);
-	void leaveEvent(QEvent*);
+
+protected:
+	void paintEvent(QPaintEvent *e) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void leaveEvent(QEvent*) override;
+
 private:
 	int m_mode { 0 };
 	int m_selectedBase { 0 };
 	int m_hooveredBase { -1 };
 	bool m_mousePressed { false };
+
 signals:
 	void buttonClicked(int);
 };

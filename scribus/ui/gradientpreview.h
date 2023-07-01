@@ -44,13 +44,7 @@ class SCRIBUS_API GradientPreview : public QFrame
 public:
 	GradientPreview(QWidget *pa);
 	~GradientPreview() {};
-	void paintEvent(QPaintEvent *e);
-	void keyPressEvent(QKeyEvent *);
-	void mousePressEvent(QMouseEvent *m);
-	void mouseReleaseEvent(QMouseEvent *);
-	void mouseMoveEvent(QMouseEvent *m);
-	void leaveEvent(QEvent*);
-	void enterEvent(QEvent*);
+
 	void updateDisplay();
 	void setActColor(const QColor& c, const QString& n, int s);
 	void setActTrans(double t);
@@ -61,16 +55,24 @@ public:
 	const VGradient& gradient() { return fill_gradient; }
 	
 	QList<int> StopM;
-	bool Mpressed;
-	bool outside;
-	bool onlyselect;
-	bool isEditable;
-	int ActStop;
-	int contextStop;
+	bool Mpressed { false };
+	bool outside { true };
+	bool onlyselect { true };
+	bool isEditable { true };
+	int ActStop { 0 };
+	int contextStop { 0 };
 	QPoint mPos;
 
-private:
+protected:
+	void paintEvent(QPaintEvent* e) override;
+	void keyPressEvent(QKeyEvent*)  override;
+	void mousePressEvent(QMouseEvent* m)  override;
+	void mouseReleaseEvent(QMouseEvent*)  override;
+	void mouseMoveEvent(QMouseEvent* m)  override;
+	void leaveEvent(QEvent*)  override;
+	void enterEvent(QEvent*)  override;
 
+private:
 	VGradient fill_gradient;
 
 private slots:

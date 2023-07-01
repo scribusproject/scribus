@@ -21,11 +21,8 @@
 IView::IView ( QWidget * parent )
 		:QGraphicsView ( parent )
 {
-	curImage = nullptr;
 	setScene ( new QGraphicsScene );
 	setInteractive ( true );
-	isPanning = false;
-	m_keepFitted = false;
 	setAlignment ( Qt::AlignTop | Qt::AlignLeft );
 	setTransformationAnchor ( QGraphicsView::NoAnchor );
 	setRenderHint(QPainter::SmoothPixmapTransform);

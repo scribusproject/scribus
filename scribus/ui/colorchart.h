@@ -67,11 +67,11 @@ protected:
 	void drawHsvColorMap(int val);
 	void drawLabColorMap(int val);
 
-	void mouseMoveEvent(QMouseEvent *m);
-	void mousePressEvent(QMouseEvent *m);
-	void mouseReleaseEvent(QMouseEvent *m);
-	void paintEvent(QPaintEvent *e);
-	void resizeEvent(QResizeEvent *e);
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void paintEvent(QPaintEvent *e) override;
+	void resizeEvent(QResizeEvent *e) override;
 
 signals:
 	void ColorVal(int h, int s, bool ende);

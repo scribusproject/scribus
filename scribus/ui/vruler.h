@@ -58,10 +58,10 @@ public slots: // Public slots
 	void unitChange();
 
 private:
-	virtual void paintEvent(QPaintEvent *e);
-	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
-	virtual void mouseMoveEvent(QMouseEvent *m);
+	void paintEvent(QPaintEvent *e) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
 
 	void drawNumber(const QString& num, int starty, QPainter *p) const;
 

@@ -209,8 +209,8 @@ public:
 	bool inRep { false };
 
 protected:
-	void paintEvent(QPaintEvent *e);
-	void mouseReleaseEvent(QMouseEvent *m);
+	void paintEvent(QPaintEvent *e) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
 
 private:
 	SEditor *m_editor { nullptr };

@@ -37,21 +37,19 @@ class IView: public QGraphicsView
 		double getZoom() const;
 
 	protected:
-		void mouseMoveEvent ( QMouseEvent * e );
-		void mousePressEvent ( QMouseEvent * e );
-		void mouseReleaseEvent ( QMouseEvent * e );
-		void resizeEvent ( QResizeEvent * event );
+		void mouseMoveEvent(QMouseEvent* e) override;
+		void mousePressEvent(QMouseEvent* e) override;
+		void mouseReleaseEvent(QMouseEvent* e) override;
+		void resizeEvent(QResizeEvent* event) override;
 
 	private:
-		QGraphicsPixmapItem * curImage;
+		QGraphicsPixmapItem* curImage { nullptr };
 
 		QPointF mouseStartPoint;
 		QRect theRect;
-		bool isPanning;
+		bool isPanning { false };
 
-		bool m_keepFitted;
-
-
+		bool m_keepFitted { false };
 };
 
 #endif

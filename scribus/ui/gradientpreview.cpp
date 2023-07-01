@@ -48,10 +48,6 @@ GradientPreview::GradientPreview(QWidget *pa) : QFrame(pa)
 	setMaximumSize(QSize(3000, 70));
 	setMouseTracking(true);
 	setFocusPolicy(Qt::ClickFocus);
-	Mpressed = false;
-	outside = true;
-	onlyselect = true;
-	isEditable = true;
 	fill_gradient = VGradient(VGradient::linear);
 	fill_gradient.clearStops();
 
@@ -63,8 +59,6 @@ GradientPreview::GradientPreview(QWidget *pa) : QFrame(pa)
 
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
 	StopM.clear();
-	contextStop = 0;
-	ActStop = 0;
 	for (int i = 0; i < fill_gradient.stops(); ++i)
 	{
 		int center = qRound(cstops.at(i)->rampPoint * (width() - 20)) + 10;

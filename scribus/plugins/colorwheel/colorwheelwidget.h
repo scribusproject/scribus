@@ -117,18 +117,18 @@ class ColorWheel : public QLabel
 		/** \brief An event for mouse actions handling.
 		See \see clicked() for more info.
 		\param e Mouse properties. */
-		void mouseReleaseEvent(QMouseEvent *e);
+		void mouseReleaseEvent(QMouseEvent *e) override;
 		/** \brief Mouse handling.
 		It calls mouseReleaseEvent
 		\param e Mouse properties.*/
-		void mousePressEvent(QMouseEvent *e);
+		void mousePressEvent(QMouseEvent *e) override;
 		/** \brief Mouse handling.
 		It calls mouseReleaseEvent
 		\param e Mouse properties.*/
-		void mouseMoveEvent(QMouseEvent *e);
+		void mouseMoveEvent(QMouseEvent *e) override;
 		/*! \brief Repaint the widget.
 		It prevents the bugs with another window moving over it */
-		void paintEvent(QPaintEvent *);
+		void paintEvent(QPaintEvent *) override;
 
 		/** \brief Counts the monochromatic colors.
 		The monochromatic color scheme uses variations in lightness

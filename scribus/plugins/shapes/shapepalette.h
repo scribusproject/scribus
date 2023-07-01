@@ -74,13 +74,12 @@ signals:
 	void objectDropped();
 
 protected:
-	bool viewportEvent(QEvent *event);
-	void keyPressEvent(QKeyEvent *e);
-	void dragEnterEvent(QDragEnterEvent *e);
-	void dragMoveEvent(QDragMoveEvent *e);
-	void dropEvent(QDropEvent *e);
-	void startDrag(Qt::DropActions supportedActions);
-
+	bool viewportEvent(QEvent *event) override;
+	void keyPressEvent(QKeyEvent *e) override;
+	void dragEnterEvent(QDragEnterEvent *e) override;
+	void dragMoveEvent(QDragMoveEvent *e) override;
+	void dropEvent(QDropEvent *e) override;
+	void startDrag(Qt::DropActions supportedActions) override;
 
 private:
 	ScListWidgetDelegate* delegate;
