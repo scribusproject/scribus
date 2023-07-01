@@ -42,10 +42,6 @@ PluginManager::PluginManager() :
 {
 }
 
-PluginManager::~PluginManager()
-{
-}
-
 void* PluginManager::loadDLL(const QString& plugin)
 {
 	void* lib = nullptr;
@@ -207,10 +203,10 @@ void PluginManager::initPlugs()
 	/* Re-try the failed plugins again and again until it promote
 	any progress (changes variable is changing ;)) */
 	QMap<QString, int>::Iterator it;
-	while (loaded < allPlugs.count() && changes!=0)
+	while (loaded < allPlugs.count() && changes != 0)
 	{
 		changes = 0;
-		for (it = allPlugs.begin(); it != allPlugs.end(); ++it)
+		for (auto it = allPlugs.begin(); it != allPlugs.end(); ++it)
 		{
 			if (it.value() != 0)
 				continue;
@@ -254,14 +250,7 @@ void PluginManager::enablePlugin(PluginData & pda)
 	bool isActionPlugin = false;
 	if (pda.plugin->inherits("ScActionPlugin"))
 	{
-// 		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pda.plugin);
-// 		Q_ASSERT(plugin);
 		isActionPlugin = true;
-		/*
-		pda.enabled = setupPluginActions(plugin);
-		if (!pda.enabled)
-			failReason = tr("init failed", "plugin load error");
-		*/
 	}
 	else if (pda.plugin->inherits("ScPersistentPlugin"))
 	{
@@ -285,10 +274,10 @@ void PluginManager::enablePlugin(PluginData & pda)
 
 bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 {
-	Q_CHECK_PTR(mw);
+	if (!mw)
+		return false;
 	ScActionPlugin* plugin = nullptr;
 
-	//mw->scrMenuMgr->addMenuItemString("SEPARATOR", "Extras");
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
 		if (!it.value().plugin->inherits("ScActionPlugin"))
@@ -301,6 +290,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 		//Insert DLL Action into Dictionary with values from plugin interface
 		plugin = qobject_cast<ScActionPlugin*>(it.value().plugin);
 		assert(plugin);
+
 		ScActionPlugin::ActionInfo ai(plugin->actionInfo());
 		ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.iconPath1, ai.iconPath2, ai.text, ai.keySequence, mw);
 		Q_CHECK_PTR(action);
@@ -331,11 +321,6 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 		}
 		else
 		{
-//			QString actionName(ai.menu.toLower()+ai.menuAfterName);
-		//	QString actionName(ai.menuAfterName);
-		//	ScrAction* afterAction = nullptr;
-		//	if (mw->scrActions.contains(actionName))
-		//		afterAction = mw->scrActions[actionName];
 			if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
 			{
 				if (!mw->scrMenuMgr->menuExists(ai.menu))
@@ -386,10 +371,10 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 
 bool PluginManager::setupPluginActions(StoryEditor *sew)
 {
-	Q_CHECK_PTR(sew);
+	if (!sew)
+		return false;
 	ScActionPlugin* plugin = nullptr;
 
-	//sew->seMenuMgr->addMenuSeparator("Extras");
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
 		if (!it.value().plugin->inherits("ScActionPlugin"))
@@ -399,6 +384,7 @@ bool PluginManager::setupPluginActions(StoryEditor *sew)
 		//Insert DLL Action into Dictionary with values from plugin interface
 		plugin = qobject_cast<ScActionPlugin*>(it.value().plugin);
 		assert(plugin);
+
 		ScActionPlugin::ActionInfo ai(plugin->actionInfo());
 		if (!ai.enabledForStoryEditor)
 			continue;
@@ -423,22 +409,16 @@ bool PluginManager::setupPluginActions(StoryEditor *sew)
 					if (!sew->seMenuMgr->menuExists(ai.seMenu))
 						sew->seMenuMgr->createMenu(ai.seMenu, ai.subMenuName, ai.parentMenu);
 				}
-//				sew->seMenuMgr->addMenuItem(sew->seActions[ai.name], ai.seMenu, true);
 				sew->seMenuMgr->addMenuItemString(ai.name, ai.menu);
 			}
 		}
 		else
 		{
-		//	QString actionName(ai.seMenu.toLower()+ai.menuAfterName);
-		//	ScrAction* afterAction = nullptr;
-		//	if (sew->seActions.contains(actionName))
-		//		afterAction = sew->seActions[actionName];
 			if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
 			{
 				if (!sew->seMenuMgr->menuExists(ai.seMenu))
 					sew->seMenuMgr->createMenu(ai.seMenu, ai.subMenuName, ai.parentMenu);
 			}
-//			sew->seMenuMgr->addMenuItemAfter(sew->seActions[ai.name], ai.seMenu, true, afterAction);
 			sew->seMenuMgr->addMenuItemStringAfter(ai.name, ai.menuAfterName, ai.menu);
 		}
 	}
@@ -448,7 +428,9 @@ bool PluginManager::setupPluginActions(StoryEditor *sew)
 
 void PluginManager::enableOnlyStartupPluginActions(ScribusMainWindow* mw)
 {
-	Q_CHECK_PTR(mw);
+	if (!mw)
+		return;
+
 	ScActionPlugin* plugin = nullptr;
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
@@ -464,10 +446,9 @@ void PluginManager::enableOnlyStartupPluginActions(ScribusMainWindow* mw)
 
 void PluginManager::enablePluginActionsForSelection(ScribusMainWindow* mw)
 {
-	Q_CHECK_PTR(mw);
-	ScribusDoc* doc = mw->doc;
-	if (!doc)
+	if (!mw || !mw->doc)
 		return;
+	ScribusDoc* doc = mw->doc;
 
 	int selectedType = -1;
 	if (doc->m_Selection->count() > 0)

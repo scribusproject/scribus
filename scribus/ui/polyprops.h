@@ -23,16 +23,16 @@ class SCRIBUS_API PolyVectorDialog :  public ScrPaletteBase
 public:
 	PolyVectorDialog(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
 	~PolyVectorDialog() {};
+
 	void setValues(int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
-	PolygonWidget* polyWidget;
+	PolygonWidget* polyWidget { nullptr };
 
 signals:
 	void NewVectors(int, double, bool, double, double, double, double);
 	void endEdit();
 
 protected:
-	QVBoxLayout* PolygonPropsLayout;
-
+	QVBoxLayout* PolygonPropsLayout { nullptr };
 };
 
 class SCRIBUS_API PolygonProps : public QDialog
@@ -42,15 +42,17 @@ class SCRIBUS_API PolygonProps : public QDialog
 public:
 	PolygonProps(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
 	~PolygonProps() {};
+
 	void getValues(int* polyC, double* polyF, bool* polyS, double* polyR, double* polyCurvature, double* polyInnerRot, double* polyOuterCurvature);
 	void setValues(int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
-	PolygonWidget* polyWidget;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
+	
+	PolygonWidget* polyWidget { nullptr };
+	QPushButton* okButton { nullptr };
+	QPushButton* cancelButton { nullptr };
 
 protected:
-	QVBoxLayout* PolygonPropsLayout;
-	QHBoxLayout* Layout1;
+	QVBoxLayout* PolygonPropsLayout { nullptr };
+	QHBoxLayout* Layout1 { nullptr };
 
 signals:
 	void NewVectors(int, double, bool, double, double, double, double);
