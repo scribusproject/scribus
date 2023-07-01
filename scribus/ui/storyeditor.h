@@ -113,7 +113,6 @@ public:
 	StoryText StyledText;
 
 protected:
-
 	void insertCharsInternal(const QString& t);
 	void insertCharsInternal(const QString& t, int position);
 
@@ -126,14 +125,15 @@ protected:
 	void setDirection(QTextCursor& tCursor, int style);
 	void setEffects(QTextCursor& tCursor, int effects);
 
-	void keyPressEvent(QKeyEvent *k);
-	void inputMethodEvent(QInputMethodEvent *event);
-	void focusOutEvent(QFocusEvent *e);
-	void focusInEvent(QFocusEvent *e);
-	void scrollContentsBy(int dx, int dy);
-	virtual bool canInsertFromMimeData( const QMimeData * source ) const;
-	virtual QMimeData * createMimeDataFromSelection () const;
-	virtual void insertFromMimeData ( const QMimeData * source );
+	void keyPressEvent(QKeyEvent *k) override;
+	void inputMethodEvent(QInputMethodEvent *event) override;
+	void focusOutEvent(QFocusEvent *e) override;
+	void focusInEvent(QFocusEvent *e) override;
+	void scrollContentsBy(int dx, int dy) override;
+
+	bool canInsertFromMimeData(const QMimeData* source) const override;
+	QMimeData* createMimeDataFromSelection() const override;
+	void insertFromMimeData(const QMimeData* source) override;
 
 	QList<PageItem*> FrameItems;
 	ScribusDoc* doc { nullptr };

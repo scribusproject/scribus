@@ -31,6 +31,9 @@ public:
 
 	std::vector<tfFilter*> filters;
 
+protected:
+	void resizeEvent(QResizeEvent* e) override;
+
 private:
 	PrefsContext* prefs { nullptr };
 	QBoxLayout* layout { nullptr };
@@ -63,7 +66,6 @@ private slots:
 	void cancelClicked();
 	void deleteClicked();
 	void loadFilter(const QString& name);
-	void resizeEvent(QResizeEvent* e);
 };
 
 #endif // TFDIA_H

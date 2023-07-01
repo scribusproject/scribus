@@ -58,7 +58,7 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		const QMap<QString, double>* m_constants { nullptr };
 
 		void setParameters(int s);
-		bool eventFilter ( QObject * watched, QEvent * event ) override;
+		bool eventFilter(QObject* watched, QEvent* event) override;
 		
 	protected slots:
 		void textChanged();

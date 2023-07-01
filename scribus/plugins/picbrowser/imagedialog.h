@@ -23,16 +23,15 @@ for which a new license (GPL+exception) is in place.
 //central class, manages gui
 class Imagedialog : public QDialog, Ui::imagedialog
 {
-		Q_OBJECT
+	Q_OBJECT
 
 	public:
 		Imagedialog ( const QString& imageFile, ScribusDoc* doc, QWidget* parent = nullptr );
-		void resizeEvent ( QResizeEvent * event );
 
 		ScImage image;
 
-	signals:
-
+	protected:
+		void resizeEvent(QResizeEvent* event) override;
 
 	private slots:
 		void fitToWindowRadiobuttonToggled ( bool toggled );
@@ -40,10 +39,9 @@ class Imagedialog : public QDialog, Ui::imagedialog
 		void zoomSpinboxValueChanged ( int value );
 		void showOriginalSizeButtonClicked();
 
-
 	private:
-		double m_hRatio;
-		double m_vRatio;
+		double m_hRatio { 1.0 };
+		double m_vRatio { 1.0 };
 };
 
 #endif

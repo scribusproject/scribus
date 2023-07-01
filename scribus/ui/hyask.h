@@ -24,7 +24,9 @@ class SCRIBUS_API WortEdit : public QLineEdit
 public:
 	WortEdit ( QWidget* parent );
 	~WortEdit() {};
-	void keyPressEvent ( QKeyEvent *k );
+
+protected:
+	void keyPressEvent(QKeyEvent* k) override;
 };
 
 class SCRIBUS_API HyAsk : public QDialog
@@ -35,16 +37,16 @@ public:
 	HyAsk (QWidget* parent, const QString& HWort );
 	~HyAsk() {};
 
-	WortEdit* Wort;
-	QCheckBox *addToExceptionList;
-	QCheckBox *addToIgnoreList;
-	QLabel *addToExceptionListText;
-	QLabel *addToIgnoreListText;
-	QPushButton* OK;
-	QPushButton* Skip;
-	QPushButton* Cancel;
-	int xpos;
-	int ypos;
+	WortEdit* Wort { nullptr };
+	QCheckBox* addToExceptionList { nullptr };
+	QCheckBox* addToIgnoreList { nullptr };
+	QLabel* addToExceptionListText { nullptr };
+	QLabel* addToIgnoreListText { nullptr };
+	QPushButton* OK { nullptr };
+	QPushButton* Skip { nullptr };
+	QPushButton* Cancel { nullptr };
+	int xpos { 0 };
+	int ypos { 0 };
 
 public slots:
 	void Check();
@@ -53,13 +55,13 @@ public slots:
 	void reject();
 
 protected:
-	QVBoxLayout* HyAskLayout;
-	QHBoxLayout* Layout1;
-	QVBoxLayout* vboxLayout1;
-	QVBoxLayout* vboxLayout2;
-	QVBoxLayout* vboxLayout3;
-	QHBoxLayout* hboxLayout1;
-	QHBoxLayout* hboxLayout2;
+	QVBoxLayout* HyAskLayout { nullptr };
+	QHBoxLayout* Layout1 { nullptr };
+	QVBoxLayout* vboxLayout1 { nullptr };
+	QVBoxLayout* vboxLayout2 { nullptr };
+	QVBoxLayout* vboxLayout3 { nullptr };
+	QHBoxLayout* hboxLayout1 { nullptr };
+	QHBoxLayout* hboxLayout2 { nullptr };
 };
 
 #endif // HYASK_H

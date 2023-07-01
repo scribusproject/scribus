@@ -33,10 +33,10 @@ class multiView : public QListView
 	public:
 		multiView ( QWidget* parent = nullptr );
 		multiView ( multiCombobox* parent );
-		bool eventFilter ( QObject* object, QEvent* event );
+		bool eventFilter(QObject* object, QEvent* event) override;
 
 	private:
-		multiCombobox *parentMcb;
+		multiCombobox *parentMcb { nullptr };
 };
 
 
@@ -53,8 +53,8 @@ class multiCombobox : public QComboBox
 		int addItem ( const QString& text, int checked=0 );
 
 	private:
-		multiComboboxModel *mcbModel;
-		multiView *mcbView;
+		multiComboboxModel *mcbModel { nullptr };
+		multiView *mcbView { nullptr };
 
 	signals:
 		void checkstateChanged ( int );

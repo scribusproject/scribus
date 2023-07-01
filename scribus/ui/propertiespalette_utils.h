@@ -102,7 +102,7 @@ signals:
 	void Leaved();
 
 protected:
-	virtual void focusOutEvent(QFocusEvent *);
+	void focusOutEvent(QFocusEvent *) override;
 };
 
 class SCRIBUS_API UserActionSniffer : public QObject
@@ -112,7 +112,7 @@ class SCRIBUS_API UserActionSniffer : public QObject
 public:
 	UserActionSniffer( QObject* parent );
 protected:
-	bool eventFilter( QObject *o, QEvent *e );
+	bool eventFilter(QObject* o, QEvent* e) override;
 signals:
 	void actionStart();
 	void actionEnd();

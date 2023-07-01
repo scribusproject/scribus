@@ -19,7 +19,7 @@ public:
 	ScEscapeCatcher(QObject* parent);
 
 protected:
-	virtual bool eventFilter(QObject *o, QEvent *e);
+	bool eventFilter(QObject *o, QEvent *e) override;
 	
 signals:
 	void escapePressed();

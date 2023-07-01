@@ -41,8 +41,6 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 //load settings
 	pbSettings.load();
 
-	documentChanged = false;
-
 	insertPositionXSpinbox->setNewUnit(doc->unitIndex());
 	insertPositionYSpinbox->setNewUnit(doc->unitIndex());
 	insertWidthSpinbox->setNewUnit(doc->unitIndex());
@@ -100,27 +98,8 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	folderView->scrollTo(folderView->currentIndex(), QAbstractItemView::PositionAtTop);
 	folderView->resizeColumnToContents(0);
 
-//this needs to be calculated later from height/width of QListView!
-	previewIconsVisible = 8;
-	folderBrowserIncludeSubdirs = false;
-
-	imagesDisplayed = 0;
-	imagesFiltered = 0;
-	previewIconIndex = -1;
-	insertCustomPosition = false;
-	insertCustomSize = false;
-	currentRow = 0;
-
 //set up previewimages instance, fill with last shown images later
 	pImages = new previewImages(QStringList());
-
-//set threadpointer to 0
-	fit = nullptr;
-	crt = nullptr;
-	cdbwt = nullptr;
-	clrt = nullptr;
-
-
 	pModel = new PreviewImagesModel(this);
 
 //create loadImagesThread instance, connect and run it

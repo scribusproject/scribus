@@ -26,7 +26,7 @@ class ScTableWidget : public QTableWidget
 		void removeCellWidget ( int row, int column );
 
 	protected:
-		bool eventFilter(QObject *obj, QEvent *event);
+		bool eventFilter(QObject *obj, QEvent *event) override;
 
 	private:
 		QHash<QWidget*, QPair<int, int> > widgetPositions;

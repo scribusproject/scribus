@@ -37,37 +37,38 @@ public:
 	~About() {}
 	
 protected:
-	QLabel* pixmapLabel1;
-	QLabel* buildID;
-	QPushButton* okButton;
-	QPushButton* checkForUpdateButton;
-	QTabWidget* tabWidget2;
-	QWidget* tab;
-	QWidget* tab_2;
-	QWidget* tab_3;
-	QWidget* tab_4;
-	QWidget* tab_5;
-	QWidget* tab_Licence;
-	QWidget* tab_build;
-	QTextBrowser* authorView;
-	QTextBrowser* transView;
-	QTextBrowser* onlineView;
-	QTextBrowser* updateView;
-	QTextBrowser* textViewLicence;
-	QTextBrowser* textViewBuild;
-	QVBoxLayout* aboutLayout;
-	QVBoxLayout* updateLayout;
-	QVBoxLayout* licenceLayout;
-	QVBoxLayout* buildLayout;
-	QHBoxLayout* tabLayout;
-	QVBoxLayout* tabLayout1;
-	QHBoxLayout* tabLayout_2;
-	QHBoxLayout* tabLayout_4;
-	QHBoxLayout* layout2;
+	QLabel* pixmapLabel1 { nullptr };
+	QLabel* buildID { nullptr };
+	QPushButton* okButton { nullptr };
+	QPushButton* checkForUpdateButton { nullptr };
+	QTabWidget* tabWidget2 { nullptr };
+	QWidget* tab { nullptr };
+	QWidget* tab_2 { nullptr };
+	QWidget* tab_3 { nullptr };
+	QWidget* tab_4 { nullptr };
+	QWidget* tab_5 { nullptr };
+	QWidget* tab_Licence { nullptr };
+	QWidget* tab_build { nullptr };
+	QTextBrowser* authorView { nullptr };
+	QTextBrowser* transView { nullptr };
+	QTextBrowser* onlineView { nullptr };
+	QTextBrowser* updateView { nullptr };
+	QTextBrowser* textViewLicence { nullptr };
+	QTextBrowser* textViewBuild { nullptr };
+	QVBoxLayout* aboutLayout { nullptr };
+	QVBoxLayout* updateLayout { nullptr };
+	QVBoxLayout* licenceLayout { nullptr };
+	QVBoxLayout* buildLayout { nullptr };
+	QHBoxLayout* tabLayout { nullptr };
+	QVBoxLayout* tabLayout1 { nullptr };
+	QHBoxLayout* tabLayout_2 { nullptr };
+	QHBoxLayout* tabLayout_4 { nullptr };
+	QHBoxLayout* layout2 { nullptr };
 
-	bool m_firstShow;
-	AboutMode m_mode;
-	virtual void showEvent(QShowEvent* event);
+	bool m_firstShow { true };
+	AboutMode m_mode { About::Default };
+
+	void showEvent(QShowEvent* event) override;
 	QString trAuthorTitle(const QString& title);
 	QString trTranslationTitle(const QString& title);
 	QString trLinksTitle(const QString& title);
