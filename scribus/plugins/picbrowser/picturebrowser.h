@@ -110,10 +110,11 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		PictureBrowserSettings pbSettings;
 
 		//for statusinfo, contains how many images are currently displayed/filtered
-		int imagesDisplayed, imagesFiltered;
+		int imagesDisplayed { 0 };
+		int imagesFiltered { 0 };
 		//contains how many icons are visible at once, is calculated from QListView height/width and previewIconSize
-		int previewIconsVisible;
-		int currentRow;
+		int previewIconsVisible { 8 };
+		int currentRow { 0 };
 
 	protected:
 		void closeEvent(QCloseEvent* e) override;
@@ -222,20 +223,20 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		void updateTagImagesTab();
 
 		//current document
-		ScribusDoc* m_Doc;
+		ScribusDoc* m_Doc { nullptr };
 		// Main window
-		ScribusMainWindow* m_ScMW;
+		ScribusMainWindow* m_ScMW { nullptr };
 
 		//the dirmodel for the folderbrowser
 		QFileSystemModel folderModel;
 		//model for QListView containing the previewimages
-		PreviewImagesModel *pModel;
+		PreviewImagesModel *pModel { nullptr };
 		//contains the currently selected index in folderModel
 		QModelIndex tmpindex;
 		//tells if thread searches dirs recursively
-		bool folderBrowserIncludeSubdirs;
+		bool folderBrowserIncludeSubdirs { false };
 		//index of the previewicon currently selected
-		int previewIconIndex;
+		int previewIconIndex { -1 };
 		//a list containing the items in the documentbrowser treewidget
 		QList<QTreeWidgetItem *> documentItems;
 		//contain the icons needed
@@ -260,35 +261,35 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		QIcon iconMinus;
 		QIcon iconPen;
 		//thread for searching dirs
-		findImagesThread *fit;
+		findImagesThread *fit { nullptr };
 		//the current set of previewimages
-		previewImages *pImages;
+		previewImages *pImages { nullptr };
 		//the path currently selected in folderbrowser
 		QString currPath;
 		//a thread for loading images
-		loadImagesThread *lit;
+		loadImagesThread *lit { nullptr };
 		//a thread for reading a collectionsfile
-		collectionReaderThread *crt;
-		QList<collectionReaderThread *> crtList;
+		collectionReaderThread *crt { nullptr };
+		QList<collectionReaderThread *> crtList { nullptr };
 		//the collection currently selected
 		QString currCollectionFile;
-		imageCollection *currCollection;
+		imageCollection *currCollection { nullptr };
 		//a list of threads for saving a collection
 		QList<collectionWriterThread *> cwtList;
-		collectionListReaderThread *clrt;
-		collectionsWriterThread *cdbwt;
+		collectionListReaderThread *clrt { nullptr };
+		collectionsWriterThread *cdbwt { nullptr };
 		//custom position for inserting image enabled/disabled
-		bool insertCustomPosition;
-		bool insertCustomSize;
+		bool insertCustomPosition { false };
+		bool insertCustomSize { false };
 		QStringList nameFilters;
-		imageFilters *filters;
+		imageFilters *filters { nullptr };
 		QString cdbFile;
 		QList<int> selectedIndexes;
 
 		//contains the hierarchy for the collectionsbrowser treewidget
 		QList<collections *> collectionsDb;
 
-		bool documentChanged;
+		bool documentChanged { false };
 };
 
 

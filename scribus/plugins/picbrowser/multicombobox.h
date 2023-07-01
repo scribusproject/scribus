@@ -53,8 +53,8 @@ class multiCombobox : public QComboBox
 		int addItem ( const QString& text, int checked=0 );
 
 	private:
-		multiComboboxModel *mcbModel;
-		multiView *mcbView;
+		multiComboboxModel *mcbModel { nullptr };
+		multiView *mcbView { nullptr };
 
 	signals:
 		void checkstateChanged ( int );
