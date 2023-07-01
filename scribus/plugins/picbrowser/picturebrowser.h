@@ -101,7 +101,7 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 	public:
 		PictureBrowser ( ScribusDoc* doc, QWidget* parent = nullptr );
 		~PictureBrowser();
-		void closeEvent(QCloseEvent *e);
+
 		void changedDocument ( ScribusDoc* doc );
 		void closedDocument();
 
@@ -114,6 +114,9 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		//contains how many icons are visible at once, is calculated from QListView height/width and previewIconSize
 		int previewIconsVisible;
 		int currentRow;
+
+	protected:
+		void closeEvent(QCloseEvent* e) override;
 
 	signals:
 		//signal which posts a new job to the imageloading thread

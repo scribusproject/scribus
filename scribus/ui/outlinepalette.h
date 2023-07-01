@@ -49,9 +49,9 @@ public:
 	void selectItems(const QList<QTreeWidgetItem*>& items);
 
 protected:
-	void dropEvent(QDropEvent *e);
-	void keyPressEvent(QKeyEvent *e);
-	bool viewportEvent(QEvent *event);
+	void dropEvent(QDropEvent *e) override;
+	void keyPressEvent(QKeyEvent *e) override;
+	bool viewportEvent(QEvent *event) override;
 };
 
 class SCRIBUS_API OutlinePalette : public ScDockPalette
@@ -60,8 +60,7 @@ class SCRIBUS_API OutlinePalette : public ScDockPalette
 
 public:
 	OutlinePalette( QWidget* parent );
-	
-//	void resizeEvent(QResizeEvent *r);
+
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();

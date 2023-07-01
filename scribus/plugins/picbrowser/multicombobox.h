@@ -33,10 +33,10 @@ class multiView : public QListView
 	public:
 		multiView ( QWidget* parent = nullptr );
 		multiView ( multiCombobox* parent );
-		bool eventFilter ( QObject* object, QEvent* event );
+		bool eventFilter(QObject* object, QEvent* event) override;
 
 	private:
-		multiCombobox *parentMcb;
+		multiCombobox* parentMcb { nullptr };
 };
 
 

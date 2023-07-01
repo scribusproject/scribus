@@ -21,10 +21,12 @@ class ScTableWidget : public QTableWidget
 		ScTableWidget ( QWidget* parent = nullptr );
 		ScTableWidget ( int rows, int columns, QWidget* parent = nullptr );
 		~ScTableWidget ();
+
 		void setCellWidget ( int row, int column, QWidget * widget );
 		void removeCellWidget ( int row, int column );
+
 	protected:
-		bool eventFilter(QObject *obj, QEvent *event);
+		bool eventFilter(QObject *obj, QEvent *event) override;
 
 	private:
 		QHash<QWidget*, QPair<int, int> > widgetPositions;

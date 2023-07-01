@@ -51,14 +51,14 @@ signals:
 	void modified();
 
 private:
-	double m_leftmost;
-	double m_rightmost;
+	double m_leftmost { 0.0 };
+	double m_rightmost { 0.0 };
 	FPoint m_grab_point;
-	int m_pos;
-	bool m_dragging;
-	bool m_linear;
-	double m_grabOffsetX;
-	double m_grabOffsetY;
+	int m_pos { 0 };
+	bool m_dragging { false };
+	bool m_linear { false };
+	double m_grabOffsetX { 0.0 };
+	double m_grabOffsetY { 0.0 };
 	FPointArray m_points;
 	FPointArray m_points_back;
 };
@@ -72,12 +72,13 @@ public:
 	~CurveWidget() {};
 	
 	void setLinear(bool setter);
-	QPushButton* invertButton;
-	QPushButton* resetButton;
-	QPushButton *linearButton;
-	QPushButton* loadButton;
-	QPushButton* saveButton;
-	KCurve* cDisplay;
+
+	QPushButton* invertButton { nullptr };
+	QPushButton* resetButton { nullptr };
+	QPushButton *linearButton { nullptr };
+	QPushButton* loadButton { nullptr };
+	QPushButton* saveButton { nullptr };
+	KCurve* cDisplay { nullptr };
 
 private slots:
 	void doInvert();
@@ -87,9 +88,9 @@ private slots:
 	void doSave();
 
 protected:
-	QHBoxLayout* CurveWidgetLayout;
-	QVBoxLayout* layout1;
-	QSpacerItem* spacer1;
+	QHBoxLayout* CurveWidgetLayout { nullptr };
+	QVBoxLayout* layout1 { nullptr };
+	QSpacerItem* spacer1 { nullptr };
 
 	void changeEvent(QEvent *e) override;
 

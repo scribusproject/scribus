@@ -160,8 +160,8 @@ protected:
 	QToolButton* clearButton { nullptr };
 	QToolButton* clearOneButton { nullptr };
 
-	bool   m_haveFirst;
-	double m_docUnitRatio;
+	bool   m_haveFirst { true };
+	double m_docUnitRatio { 1.0 };
 
 	void changeEvent(QEvent *e) override;
 

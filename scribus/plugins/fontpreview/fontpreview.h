@@ -73,8 +73,8 @@ protected:
 	bool allowSample();
 
 	//! \brief Paint sample on the dialog opening.
-	void showEvent(QShowEvent * event);
-	void resizeEvent(QResizeEvent * event);
+	void showEvent(QShowEvent * event) override;
+	void resizeEvent(QResizeEvent * event) override;
 
 protected slots:
 	/*! \brief Sets the strings of the subwidgets using the current

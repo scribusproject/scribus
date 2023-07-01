@@ -34,14 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 
 
-KCurve::KCurve(QWidget *parent) : QWidget(parent),
-	m_leftmost(0.0),
-	m_rightmost(0.0),
-	m_pos(0),
-	m_dragging(false),
-	m_linear(false),
-	m_grabOffsetX(0.0),
-	m_grabOffsetY(0.0)
+KCurve::KCurve(QWidget *parent) : QWidget(parent)
 {
 	setMouseTracking(true);
 	setMinimumSize(150, 150);
@@ -57,9 +50,9 @@ KCurve::~KCurve()
 
 void KCurve::paintEvent(QPaintEvent *)
 {
-	int    x = 0;
-	int    wWidth = width() - 1;
-	int    wHeight = height() - 1;
+	int x = 0;
+	int wWidth = width() - 1;
+	int wHeight = height() - 1;
 	// Drawing selection or all histogram values.
 	QPainter p1;
 	p1.begin(this);

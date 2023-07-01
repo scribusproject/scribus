@@ -56,8 +56,7 @@ class SCRIBUS_API ColorsAndFillsDialog : public ScDialog, Ui::ColorsAndFillsBase
 		*/
 		QString selectedColorName() const;
 
-		void keyPressEvent(QKeyEvent *k);
-
+		void keyPressEvent(QKeyEvent *k) override;
 
 		ScribusDoc *m_doc {nullptr};
 		ScribusMainWindow *mainWin {nullptr};
