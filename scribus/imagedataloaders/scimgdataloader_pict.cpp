@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDrag>
 #include <QFile>
 #include <QList>
-#include <QMimeData>
 #include <QTextCodec>
 #include <QStack>
 #include <QDebug>
@@ -18,23 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 #include "scimgdataloader_pict.h"
-#include "ui/missing.h"
-#include "pagesize.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
 #include "prefsmanager.h"
-#include "prefstable.h"
-#include "sccolorengine.h"
-#include "scconfig.h"
-#include "scmimedata.h"
-
-#include "scribusXml.h"
-#include "scribuscore.h"
-#include "selection.h"
-#include "undomanager.h"
-#include "util.h"
-#include "util_formats.h"
-#include "util_math.h"
 
 ScImgDataLoader_PICT::ScImgDataLoader_PICT()
 {
