@@ -202,7 +202,6 @@ void PluginManager::initPlugs()
 	}
 	/* Re-try the failed plugins again and again until it promote
 	any progress (changes variable is changing ;)) */
-	QMap<QString, int>::Iterator it;
 	while (loaded < allPlugs.count() && changes != 0)
 	{
 		changes = 0;
