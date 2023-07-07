@@ -160,7 +160,7 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 	if (imp != "false")
 	{
 		res = imp;
-		if (importers.contains(res) > 0)
+		if (importers.contains(res))
 			ok = true;
 	}
 	
