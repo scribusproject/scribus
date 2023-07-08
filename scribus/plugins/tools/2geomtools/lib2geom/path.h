@@ -251,14 +251,16 @@ public:
 
   D2<SBasis> toSBasis() const {return inner.toSBasis(); }
 
-protected:
-  BezierCurve(Point c[]) {
-    Coord x[order+1], y[order+1];
-    for(unsigned i = 0; i <= order; i++) {
-        x[i] = c[i][X]; y[i] = c[i][Y];
-    }
-    inner = Bezier(x, y);
-  }
+// #16978
+// #16605: does not seem used at triggers build error with clang 12.0.1
+//protected:
+//  BezierCurve(Point c[]) {
+//    Coord x[order+1], y[order+1];
+//    for(unsigned i = 0; i <= order; i++) {
+//        x[i] = c[i][X]; y[i] = c[i][Y];
+//    }
+//    inner = Bezier(x, y);
+//  }
 };
 
 // BezierCurve<0> is meaningless; specialize it out
