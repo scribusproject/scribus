@@ -8,25 +8,28 @@ for which a new license (GPL+exception) is in place.
 #define SEARCHREPLACE_H
 
 #include <QDialog>
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+
 class QCheckBox;
 class QComboBox;
+class QGridLayout;
 class QGroupBox;
+class QHBoxLayout;
+class QLabel;
 class QLineEdit;
 class QPushButton;
-class QLabel;
+class QVBoxLayout;
 
 #include "scribusapi.h"
-class ScrSpinBox;
-class FontCombo;
-class StyleSelect;
-class ShadeButton;
-class PrefsContext;
+
 class ColorCombo;
-class ScribusDoc;
+class FontCombo;
 class PageItem;
+class PrefsContext;
+class ScribusDoc;
+class ScrSpinBox;
+class ShadeButton;
+class StoryText;
+class StyleSelect;
 
 class SCRIBUS_API SearchReplace : public QDialog
 {
@@ -38,58 +41,6 @@ public:
 
 	int firstMatchCursorPosition();
 	void setSearchedText(const QString& text);
-
-	ColorCombo* replaceFillValue;
-	ColorCombo* replaceStrokeValue;
-	ColorCombo* searchFillValue;
-	ColorCombo* searchStrokeValue;
-	FontCombo* replaceFontValue;
-	FontCombo* searchFontValue;
-	QCheckBox* ignoreCaseCheckBox;
-	QCheckBox* replaceAlignCheckBox;
-	QCheckBox* replaceEffectCheckBox;
-	QCheckBox* replaceFillCheckBox;
-	QCheckBox* replaceFillShadeCheckBox;
-	QCheckBox* replaceFontCheckBox;
-	QCheckBox* replaceSizeCheckBox;
-	QCheckBox* replaceStrokeCheckBox;
-	QCheckBox* replaceStrokeShadeCheckBox;
-	QCheckBox* replaceStyleCheckBox;
-	QCheckBox* replaceTextCheckBox;
-	QCheckBox* searchAlignCheckBox;
-	QCheckBox* searchEffectCheckBox;
-	QCheckBox* searchFillCheckBox;
-	QCheckBox* searchFillShadeCheckBox;
-	QCheckBox* searchFontCheckBox;
-	QCheckBox* searchSizeCheckBox;
-	QCheckBox* searchStrokeCheckBox;
-	QCheckBox* searchStrokeShadeCheckBox;
-	QCheckBox* searchStyleCheckBox;
-	QCheckBox* searchTextCheckBox;
-	QCheckBox* wholeWordCheckBox;
-	QComboBox* replaceAlignValue;
-	QComboBox* replaceStyleValue;
-	QComboBox* searchAlignValue;
-	QComboBox* searchStyleValue;
-	QGroupBox* replaceGroupBox;
-	QGroupBox* searchGroupBox;
-	QLabel* replaceTextLabel;
-	QLabel* searchTextLabel;
-	QLineEdit* replaceTextLineEdit;
-	QLineEdit* searchTextLineEdit;
-	QPushButton* clearButton;
-	QPushButton* closeButton;
-	QPushButton* replaceAllButton;
-	QPushButton* replaceButton;
-	QPushButton* searchButton;
-	ScrSpinBox* replaceSizeSpinBox;
-	ScrSpinBox* searchSizeSpinBox;
-	ShadeButton *replaceFillShadeValue;
-	ShadeButton *replaceStrokeShadeValue;
-	ShadeButton *searchFillShadeValue;
-	ShadeButton *searchStrokeShadeValue;
-	StyleSelect* replaceStyleEffectsValue;
-	StyleSelect* searchStyleEffectsValue;
 
 public slots:
 	virtual void slotSearch();
@@ -121,23 +72,77 @@ public slots:
 	virtual void clear();
 
 protected:
-	PageItem* m_item;
-	ScribusDoc* m_doc;
+	PageItem* m_item { nullptr };
+	ScribusDoc* m_doc { nullptr };
 
-	uint m_replStart;
-	PrefsContext* m_prefs;
+	PrefsContext* m_prefs { nullptr };
 	bool m_found { false };
 	bool m_itemMode;
 	bool m_replacingAll { false };
 
-	QVBoxLayout* SearchReplaceLayout;
-	QHBoxLayout* SelLayout;
-	QGridLayout* SearchLayout;
-	QGridLayout* ReplaceLayout;
-	QHBoxLayout* OptsLayout;
-	QHBoxLayout* ButtonsLayout;
+	QVBoxLayout* SearchReplaceLayout { nullptr };
+	QHBoxLayout* SelLayout { nullptr };
+	QGridLayout* SearchLayout { nullptr };
+	QGridLayout* ReplaceLayout { nullptr };
+	QHBoxLayout* OptsLayout { nullptr };
+	QHBoxLayout* ButtonsLayout { nullptr };
+
+	ColorCombo* replaceFillValue { nullptr };
+	ColorCombo* replaceStrokeValue { nullptr };
+	ColorCombo* searchFillValue { nullptr };
+	ColorCombo* searchStrokeValue { nullptr };
+	FontCombo* replaceFontValue { nullptr };
+	FontCombo* searchFontValue { nullptr };
+	QCheckBox* ignoreCaseCheckBox { nullptr };
+	QCheckBox* replaceAlignCheckBox { nullptr };
+	QCheckBox* replaceEffectCheckBox { nullptr };
+	QCheckBox* replaceFillCheckBox { nullptr };
+	QCheckBox* replaceFillShadeCheckBox { nullptr };
+	QCheckBox* replaceFontCheckBox { nullptr };
+	QCheckBox* replaceSizeCheckBox { nullptr };
+	QCheckBox* replaceStrokeCheckBox { nullptr };
+	QCheckBox* replaceStrokeShadeCheckBox { nullptr };
+	QCheckBox* replaceStyleCheckBox { nullptr };
+	QCheckBox* replaceTextCheckBox { nullptr };
+	QCheckBox* searchAlignCheckBox { nullptr };
+	QCheckBox* searchEffectCheckBox { nullptr };
+	QCheckBox* searchFillCheckBox { nullptr };
+	QCheckBox* searchFillShadeCheckBox { nullptr };
+	QCheckBox* searchFontCheckBox { nullptr };
+	QCheckBox* searchSizeCheckBox { nullptr };
+	QCheckBox* searchStrokeCheckBox { nullptr };
+	QCheckBox* searchStrokeShadeCheckBox { nullptr };
+	QCheckBox* searchStyleCheckBox { nullptr };
+	QCheckBox* searchTextCheckBox { nullptr };
+	QCheckBox* wholeWordCheckBox { nullptr };
+	QComboBox* replaceAlignValue { nullptr };
+	QComboBox* replaceStyleValue { nullptr };
+	QComboBox* searchAlignValue { nullptr };
+	QComboBox* searchStyleValue { nullptr };
+	QGroupBox* replaceGroupBox { nullptr };
+	QGroupBox* searchGroupBox { nullptr };
+	QLabel* replaceTextLabel { nullptr };
+	QLabel* searchTextLabel { nullptr };
+	QLineEdit* replaceTextLineEdit { nullptr };
+	QLineEdit* searchTextLineEdit { nullptr };
+	QPushButton* clearButton { nullptr };
+	QPushButton* closeButton { nullptr };
+	QPushButton* replaceAllButton { nullptr };
+	QPushButton* replaceButton { nullptr };
+	QPushButton* searchButton { nullptr };
+	ScrSpinBox* replaceSizeSpinBox { nullptr };
+	ScrSpinBox* searchSizeSpinBox { nullptr };
+	ShadeButton* replaceFillShadeValue { nullptr };
+	ShadeButton* replaceStrokeShadeValue { nullptr };
+	ShadeButton* searchFillShadeValue { nullptr };
+	ShadeButton* searchStrokeShadeValue { nullptr };
+	StyleSelect* replaceStyleEffectsValue { nullptr };
+	StyleSelect* searchStyleEffectsValue { nullptr };
 
 	virtual void doSearch();
+	virtual void doSearch_itemMode();
+	virtual void doSearch_storyEdMode();
+	virtual int  doSearch_storyText(const StoryText& storyText, int start, int& textLen);
 	virtual void doReplace();
 	virtual void showNotFoundMessage();
 	virtual void readPrefs();
