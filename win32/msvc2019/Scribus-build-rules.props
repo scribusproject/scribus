@@ -45,7 +45,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <rcc>
-      <CommandLineTemplate>$(QT6_DIR)\bin\rcc.exe [inputs] -o "$(IntDir)rcc\rcc_%(Filename).cpp"</CommandLineTemplate>
+      <CommandLineTemplate>$(QT6_DIR)\bin\rcc.exe [inputs] -o "$(IntDir)rcc\rcc_%(Filename).cpp" -name %(FileName)</CommandLineTemplate>
       <Outputs>$(IntDir)rcc\rcc_%(Filename).cpp</Outputs>
       <ExecutionDescription>%(Filename).qrc</ExecutionDescription>
       <AdditionalDependencies>$(QT6_DIR)\bin\rcc.exe</AdditionalDependencies>

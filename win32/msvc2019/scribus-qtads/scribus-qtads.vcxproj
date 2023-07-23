@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{13E0F403-F3EA-4637-BE79-F628C9967076}</ProjectGuid>
+    <RootNamespace>scribus-qtads</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="..\Scribus-build-rules.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.60610.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>QtAdvancedDockingSystem</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>QtAdvancedDockingSystem</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>QtAdvancedDockingSystem</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>QtAdvancedDockingSystem</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;ADS_SHARED_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeaderFile>$(TargetName)_pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;ADS_SHARED_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeaderFile>$(TargetName)_pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;ADS_SHARED_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeaderFile>$(TargetName)_pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;ADS_SHARED_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeaderFile>$(TargetName)_pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ads_globals.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\AutoHideDockContainer.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\AutoHideSideBar.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\AutoHideTab.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaTabBar.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaTitleBar.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaWidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockComponentsFactory.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockContainerWidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockFocusController.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockManager.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockOverlay.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockSplitter.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockWidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockWidgetTab.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockingStateReader.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ElidingLabel.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\FloatingDockContainer.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\FloatingDragPreview.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\IconProvider.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\PushButton.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ResizeHandle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ads_globals.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\AutoHideDockContainer.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\AutoHideSideBar.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\AutoHideTab.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaTabBar.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaTitleBar.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaTitleBar_p.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaWidget.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockComponentsFactory.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockContainerWidget.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockFocusController.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockManager.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockOverlay.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockSplitter.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockWidget.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockWidgetTab.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockingStateReader.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ElidingLabel.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\FloatingDockContainer.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\FloatingDragPreview.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\IconProvider.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\PushButton.h" />
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ResizeHandle.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <rcc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ads.qrc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\Scribus-build-rules.targets" />
+  </ImportGroup>
+</Project>

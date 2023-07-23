@@ -253,6 +253,9 @@
       CommandLineTemplate="%(rcc.CommandLineTemplate)"
       AdditionalOptions="%(rcc.AdditionalOptions)"
       Inputs="%(rcc.Identity)" />
+    <ItemGroup>
+      <ClCompile Include="%(rcc.Outputs)"/>
+    </ItemGroup>
   </Target>
   <PropertyGroup>
     <ComputeLinkInputsTargets>
