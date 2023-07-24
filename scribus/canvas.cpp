@@ -967,7 +967,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	QImage img = QImage(clipw * devicePixelRatioF(), cliph * devicePixelRatioF(), QImage::Format_ARGB32_Premultiplied);
 	img.setDevicePixelRatio(devicePixelRatioF());
 	painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
-	painter->clear(palette().color(QPalette::Window));
+	painter->clear(PrefsManager::instance().appPrefs.displayPrefs.scratchColor);	
 	painter->newPath();
 	painter->moveTo(0, 0);
 	painter->lineTo(clipw, 0);
