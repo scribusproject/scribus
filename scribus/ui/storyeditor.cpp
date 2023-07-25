@@ -2009,9 +2009,9 @@ void StoryEditor::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 	{
 		languageChange();
+		return;
 	}
-	else
-		QWidget::changeEvent(e);
+	QMainWindow::changeEvent(e);
 }
 
 void StoryEditor::iconSetChange()
@@ -2026,6 +2026,7 @@ void StoryEditor::iconSetChange()
 void StoryEditor::languageChange()
 {
 	setWindowTitle( tr( "Story Editor" ) );
+
 	//File Menu
 	seMenuMgr->setText("File", tr("&File"));
 	seActions["fileNew"]->setText( tr("Clear All Text"));
@@ -2035,6 +2036,7 @@ void StoryEditor::languageChange()
 	seActions["fileSaveDocument"]->setTexts( tr("Save &Document"));
 	seActions["fileUpdateAndExit"]->setTexts( tr("&Update Text Frame and Exit"));
 	seActions["fileExit"]->setTexts( tr("&Exit Without Updating Text Frame"));
+
 	//Edit Menu
 	seMenuMgr->setText("Edit", tr("&Edit"));
 	seActions["editCut"]->setTexts( tr("Cu&t"));
@@ -2060,6 +2062,8 @@ void StoryEditor::languageChange()
 	seActions["settingsDisplayFont"]->setTexts( tr("&Display Font..."));
 	seActions["settingsSmartTextSelection"]->setTexts( tr("&Smart Text Selection"));
 
+	seMenuMgr->languageChange();
+
 	//Unicode Actions
 	ActionManager::languageChangeUnicodeActions(&seActions);
 
@@ -2072,7 +2076,6 @@ void StoryEditor::languageChange()
 	ParCT->setText( tr("Paragraphs: "));
 	WordCT2->setText( tr("Words: "));
 	CharCT2->setText( tr("Chars: "));
-
 }
 
 void StoryEditor::disconnectSignals()
