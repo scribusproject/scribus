@@ -10,8 +10,8 @@ class SCRIBUS_API Mark2Item : public MarkInsert, private Ui::Mark2ItemDlg
 
 public:
 	explicit Mark2Item(QWidget *parent = nullptr);
-	virtual void values(QString &label, PageItem* &ptr);
-	virtual void setValues(const QString label, const PageItem* ptr);
+	void values(QString &label, PageItem* &ptr) override;
+	void setValues(const QString label, const PageItem* ptr) override;
 
 protected:
 	void changeEvent(QEvent *e) override;

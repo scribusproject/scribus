@@ -11,8 +11,8 @@ class SCRIBUS_API MarkNote : public MarkInsert, private Ui::MarkNoteDlg
 	
 public:
 	explicit MarkNote(const QList<NotesStyle*>& notesStylesList, QWidget *parent = nullptr);
-	virtual NotesStyle* values();
-	virtual void setValues(const NotesStyle* defaultStyle);
+	NotesStyle* values() override;
+	void setValues(const NotesStyle* defaultStyle) override;
 
 protected:
 	void changeEvent(QEvent *e) override;
