@@ -715,7 +715,7 @@ void BibView::readContents(const QString& name)
 }
 
 /* This is the main Dialog-Class for the Scrapbook */
-Biblio::Biblio(QWidget* parent) : ScDockPalette(parent, "Sclib", Qt::WindowFlags())
+Biblio::Biblio(QWidget* parent) : DockPanelBase("Sclib", parent)
 {
 	setObjectName(QString::fromLocal8Bit("Sclib"));
 	setMinimumSize( QSize(220, 240) );
@@ -2003,7 +2003,7 @@ void Biblio::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 		languageChange();
 	else
-		ScDockPalette::changeEvent(e);
+		DockPanelBase::changeEvent(e);
 }
 
 void Biblio::iconSetChange()

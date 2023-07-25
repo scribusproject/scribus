@@ -35,6 +35,7 @@ class QEvent;
 #include "scribusapi.h"
 #include "scribusdoc.h"
 #include "ui/scdockpalette.h"
+#include "docks/dock_panelbase.h"
 
 class QComboBox;
 class QLabel;
@@ -48,15 +49,25 @@ class UndoManager;
 
 struct AlignObjs;
 
+class SCRIBUS_API AlignDistribute : public QWidget, Ui::AlignDistribute
+{
+	friend class AlignDistributePalette;
+
+public:
+	AlignDistribute( QWidget* parent = nullptr);
+	~AlignDistribute() = default;
+};
+
+
 
 /*! \brief Align/Distribute palette.
 */
-class SCRIBUS_API AlignDistributePalette : public ScDockPalette, Ui::AlignDistribute
+class SCRIBUS_API AlignDistributePalette : public DockPanelBase
 {
 	Q_OBJECT
 
 public:
-	AlignDistributePalette( QWidget* parent = nullptr, const char* name = 0);
+	AlignDistributePalette( QWidget* parent = nullptr);
 	~AlignDistributePalette() = default;
 
 	virtual void setDoc( ScribusDoc* newDoc );
@@ -68,6 +79,7 @@ public slots:
 
 protected:
 	ScribusView *currView { nullptr };
+	AlignDistribute * ad {nullptr};
 
 	void changeEvent(QEvent *e) override;
 	

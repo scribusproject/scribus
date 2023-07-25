@@ -33,7 +33,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "undoobject.h"
 #include "undostate.h"
-#include "ui/scdockpalette.h"
+//#include "ui/scdockpalette.h"
+#include "ui/docks/dock_panelbase.h"
 
 class QEvent;
 class QMenu;
@@ -56,18 +57,18 @@ class QCheckBox;
  * @author Riku Leino  tsoots@gmail.com
  * @date December 2004
  */
-class SCRIBUS_API UndoGui : public ScDockPalette
+class SCRIBUS_API UndoGui : public DockPanelBase
 {
 	Q_OBJECT
 
 public:
 	/**
-	 * @brief Creates a new UndoGui instance. 
+	 * @brief Creates a new UndoGui instance.
 	 * @param parent Parent object for UndoGui
 	 * @param name Name of the object
 	 * @param f widget flags
 	 */
-	UndoGui(QWidget* parent = nullptr, const char* name = "UndoGui", Qt::WindowFlags f = Qt::WindowFlags());
+	UndoGui(QWidget* parent = nullptr, const char* name = "UndoGui");
 
 	/** @brief Destroys the widget */
 	virtual ~UndoGui() {}
@@ -268,7 +269,7 @@ public:
 	 * Creates a new UndoPalette instance. After creation of an UndoPalette it must
 	 * be registered to the UndoManager with UndoManager's registerGui() method.
 	 */
-	UndoPalette(QWidget* parent = nullptr, const char* name = 0);
+	UndoPalette(QWidget* parent = nullptr);
 
 	/** @brief Destroys the widget */
 	~UndoPalette() = default;

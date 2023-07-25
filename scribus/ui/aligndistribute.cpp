@@ -47,14 +47,24 @@ for which a new license (GPL+exception) is in place.
 
 //TODO Distribute with 
 
-AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* name) : ScDockPalette(parent, name, Qt::WindowFlags())
+AlignDistribute::AlignDistribute(QWidget* parent) : QWidget(parent)
 {
 	setupUi(this);
-	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
-	setObjectName(name);
+}
 
+
+// =============================
+
+
+AlignDistributePalette::AlignDistributePalette(QWidget* parent) : DockPanelBase("AlignDistributePalette", parent)
+{
+	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+	setObjectName("AlignDistributePalette");
+
+	ad = new AlignDistribute(this);
+	setWidget(ad);
 	//set up scrspinboxes
-	distributeDistSpinBox->setValues(-10000.0, 10000.0, 2, 0.0);
+	ad->distributeDistSpinBox->setValues(-10000.0, 10000.0, 2, 0.0);
 
 	resize( QSize(100, 100).expandedTo(minimumSizeHint()) );
 	languageChange();
@@ -72,150 +82,150 @@ void AlignDistributePalette::changeEvent(QEvent *e)
 		languageChange();
 		return;
 	}
-	ScDockPalette::changeEvent(e);
+	DockPanelBase::changeEvent(e);
 }
 
 void AlignDistributePalette::languageChange()
 {
-	retranslateUi(this);
+	ad->retranslateUi(this);
 
-	int alignComboValue=alignRelativeToCombo->currentIndex();
-	alignRelativeToCombo->clear();
-	alignRelativeToCombo->addItem( tr( "First Selected" ) );
-	alignRelativeToCombo->addItem( tr( "Last Selected" ) );
-	alignRelativeToCombo->addItem( tr( "Page" ) );
-	alignRelativeToCombo->addItem( tr( "Margins" ) );
-	alignRelativeToCombo->addItem( tr( "Guide" ) );		
-	alignRelativeToCombo->addItem( tr( "Selection" ) );
-	alignRelativeToCombo->setCurrentIndex(alignComboValue);
-	alignRelativeToCombo->setToolTip( tr( "<qt>Align relative to the:<ul><li>First selected item</li><li>Second Selected Item</li><li>The current page</li><li>The margins of the current page</li><li>A Guide</li><li>The selection</ul></qt>" ) );
+	int alignComboValue = ad->alignRelativeToCombo->currentIndex();
+	ad->alignRelativeToCombo->clear();
+	ad->alignRelativeToCombo->addItem( tr( "First Selected" ) );
+	ad->alignRelativeToCombo->addItem( tr( "Last Selected" ) );
+	ad->alignRelativeToCombo->addItem( tr( "Page" ) );
+	ad->alignRelativeToCombo->addItem( tr( "Margins" ) );
+	ad->alignRelativeToCombo->addItem( tr( "Guide" ) );
+	ad->alignRelativeToCombo->addItem( tr( "Selection" ) );
+	ad->alignRelativeToCombo->setCurrentIndex(alignComboValue);
+	ad->alignRelativeToCombo->setToolTip( tr( "<qt>Align relative to the:<ul><li>First selected item</li><li>Second Selected Item</li><li>The current page</li><li>The margins of the current page</li><li>A Guide</li><li>The selection</ul></qt>" ) );
 	alignToChanged(alignComboValue);
 
-	int alignMethodValue=alignMoveOrResizeCombo->currentIndex();
-	alignMoveOrResizeCombo->clear();
-	alignMoveOrResizeCombo->addItem( tr("Move") );
-	alignMoveOrResizeCombo->addItem( tr("Resize") );
-	alignMoveOrResizeCombo->setToolTip( tr( "<qt>When aligning one side of an item do one of the following:<ul><li>Always move the other side too (preserve existing width and height)</li><li>Keep the other side fixed (resize the item instead of moving it) whenever possible</li></ul></qt>" ));
+	int alignMethodValue = ad->alignMoveOrResizeCombo->currentIndex();
+	ad->alignMoveOrResizeCombo->clear();
+	ad->alignMoveOrResizeCombo->addItem( tr("Move") );
+	ad->alignMoveOrResizeCombo->addItem( tr("Resize") );
+	ad->alignMoveOrResizeCombo->setToolTip( tr( "<qt>When aligning one side of an item do one of the following:<ul><li>Always move the other side too (preserve existing width and height)</li><li>Keep the other side fixed (resize the item instead of moving it) whenever possible</li></ul></qt>" ));
 	alignMethodChanged(alignMethodValue);
 
-	alignGuideLineEdit->setToolTip( tr( "The location of the selected guide to align to" ) );
-	alignLeftOutToolButton->setToolTip( tr( "Align right sides of items to left side of anchor" ) );
-	alignRightOutToolButton->setToolTip( tr( "Align left sides of items to right side of anchor" ) );
-	alignBottomInToolButton->setToolTip( tr( "Align bottoms" ) );
-	alignRightInToolButton->setToolTip( tr( "Align right sides" ) );
-	alignBottomOutToolButton->setToolTip( tr( "Align tops of items to bottom of anchor" ) );
-	alignCenterHorToolButton->setToolTip( tr( "Center on vertical axis" ) );
-	alignLeftInToolButton->setToolTip( tr( "Align left sides" ) );
-	alignCenterVerToolButton->setToolTip( tr( "Center on horizontal axis" ) );
-	alignTopOutToolButton->setToolTip( tr( "Align bottoms of items to top of anchor" ) );
-	alignTopInToolButton->setToolTip( tr( "Align tops" ) );
-		
-	distributeDistHToolButton->setToolTip( tr( "Make horizontal gaps between items equal" ) );
-	distributeDistValueHToolButton->setToolTip( tr( "Make horizontal gaps between items equal to the value specified" ) );
-	
-	distributeRightToolButton->setToolTip( tr( "Distribute right sides equidistantly" ) );
-	distributeBottomToolButton->setToolTip( tr( "Distribute bottoms equidistantly" ) );
-	distributeCenterHToolButton->setToolTip( tr( "Distribute centers equidistantly horizontally" ) );
-	distributeDistVToolButton->setToolTip( tr( "Make vertical gaps between items equal" ) );
-	distributeDistValueVToolButton->setToolTip( tr( "Make vertical gaps between items equal to the value specified" ) );
-	distributeLeftToolButton->setToolTip( tr( "Distribute left sides equidistantly" ) );
-	distributeCenterVToolButton->setToolTip( tr( "Distribute centers equidistantly vertically" ) );
-	distributeTopToolButton->setToolTip( tr( "Distribute tops equidistantly" ) );
-	distributeAcrossPageToolButton->setToolTip( tr( "Make horizontal gaps between items and sides of page equal" ) );
-	distributeDownPageToolButton->setToolTip( tr( "Make vertical gaps between items and the top and bottom of page equal" ) );
-	distributeAcrossMarginsToolButton->setToolTip( tr( "Make horizontal gaps between items and sides of page margins equal" ) );
-	distributeDownMarginsToolButton->setToolTip( tr( "Make vertical gaps between items and the top and bottom of page margins equal" ) );
+	ad->alignGuideLineEdit->setToolTip( tr( "The location of the selected guide to align to" ) );
+	ad->alignLeftOutToolButton->setToolTip( tr( "Align right sides of items to left side of anchor" ) );
+	ad->alignRightOutToolButton->setToolTip( tr( "Align left sides of items to right side of anchor" ) );
+	ad->alignBottomInToolButton->setToolTip( tr( "Align bottoms" ) );
+	ad->alignRightInToolButton->setToolTip( tr( "Align right sides" ) );
+	ad->alignBottomOutToolButton->setToolTip( tr( "Align tops of items to bottom of anchor" ) );
+	ad->alignCenterHorToolButton->setToolTip( tr( "Center on vertical axis" ) );
+	ad->alignLeftInToolButton->setToolTip( tr( "Align left sides" ) );
+	ad->alignCenterVerToolButton->setToolTip( tr( "Center on horizontal axis" ) );
+	ad->alignTopOutToolButton->setToolTip( tr( "Align bottoms of items to top of anchor" ) );
+	ad->alignTopInToolButton->setToolTip( tr( "Align tops" ) );
 
-	distributeDistSpinBox->setToolTip( tr( "Distribute the items with the distance specified" ) );
-	reverseDistributionCheckBox->setToolTip( tr("When distributing by a set distance, reverse the direction of the distribution of items") );
-	
+	ad->distributeDistHToolButton->setToolTip( tr( "Make horizontal gaps between items equal" ) );
+	ad->distributeDistValueHToolButton->setToolTip( tr( "Make horizontal gaps between items equal to the value specified" ) );
+
+	ad->distributeRightToolButton->setToolTip( tr( "Distribute right sides equidistantly" ) );
+	ad->distributeBottomToolButton->setToolTip( tr( "Distribute bottoms equidistantly" ) );
+	ad->distributeCenterHToolButton->setToolTip( tr( "Distribute centers equidistantly horizontally" ) );
+	ad->distributeDistVToolButton->setToolTip( tr( "Make vertical gaps between items equal" ) );
+	ad->distributeDistValueVToolButton->setToolTip( tr( "Make vertical gaps between items equal to the value specified" ) );
+	ad->distributeLeftToolButton->setToolTip( tr( "Distribute left sides equidistantly" ) );
+	ad->distributeCenterVToolButton->setToolTip( tr( "Distribute centers equidistantly vertically" ) );
+	ad->distributeTopToolButton->setToolTip( tr( "Distribute tops equidistantly" ) );
+	ad->distributeAcrossPageToolButton->setToolTip( tr( "Make horizontal gaps between items and sides of page equal" ) );
+	ad->distributeDownPageToolButton->setToolTip( tr( "Make vertical gaps between items and the top and bottom of page equal" ) );
+	ad->distributeAcrossMarginsToolButton->setToolTip( tr( "Make horizontal gaps between items and sides of page margins equal" ) );
+	ad->distributeDownMarginsToolButton->setToolTip( tr( "Make vertical gaps between items and the top and bottom of page margins equal" ) );
+
+	ad->distributeDistSpinBox->setToolTip( tr( "Distribute the items with the distance specified" ) );
+	ad->reverseDistributionCheckBox->setToolTip( tr("When distributing by a set distance, reverse the direction of the distribution of items") );
+
 	guideInfoTextNone = tr("None Selected");
 
-	swapLeftToolButton->setToolTip( tr( "Swap items to the left" ) );
-	swapRightToolButton->setToolTip( tr( "Swap items to the right" ) );
+	ad->swapLeftToolButton->setToolTip( tr( "Swap items to the left" ) );
+	ad->swapRightToolButton->setToolTip( tr( "Swap items to the right" ) );
 }
 
 void AlignDistributePalette::init()
 {
 	undoManager = UndoManager::instance();
-	
+
 	iconSetChange();
 
-	connect(alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
-	connect(alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));
-	connect(alignBottomInToolButton, SIGNAL(clicked()), this, SLOT(alignBottomIn()));
-	connect(alignRightInToolButton, SIGNAL(clicked()), this, SLOT(alignRightIn()));
-	connect(alignBottomOutToolButton, SIGNAL(clicked()), this, SLOT(alignBottomOut()));
-	connect(alignCenterHorToolButton, SIGNAL(clicked()), this, SLOT(alignCenterHor()));
-	connect(alignLeftInToolButton, SIGNAL(clicked()), this, SLOT(alignLeftIn()));
-	connect(alignCenterVerToolButton, SIGNAL(clicked()), this, SLOT(alignCenterVer()));
-	connect(alignTopOutToolButton, SIGNAL(clicked()), this, SLOT(alignTopOut()));
-	connect(alignTopInToolButton, SIGNAL(clicked()), this, SLOT(alignTopIn()));
-	connect(distributeDistHToolButton, SIGNAL(clicked()), this, SLOT(distributeDistH()));
-	connect(distributeDistValueHToolButton, SIGNAL(clicked()), this, SLOT(distributeDistValH()));
-	connect(distributeRightToolButton, SIGNAL(clicked()), this, SLOT(distributeRight()));
-	connect(distributeBottomToolButton, SIGNAL(clicked()), this, SLOT(distributeBottom()));
-	connect(distributeCenterHToolButton, SIGNAL(clicked()), this, SLOT(distributeCenterH()));
-	connect(distributeDistVToolButton, SIGNAL(clicked()), this, SLOT(distributeDistV()));
-	connect(distributeDistValueVToolButton, SIGNAL(clicked()), this, SLOT(distributeDistValV()));
-	connect(distributeLeftToolButton, SIGNAL(clicked()), this, SLOT(distributeLeft()));
-	connect(distributeCenterVToolButton, SIGNAL(clicked()), this, SLOT(distributeCenterV()));
-	connect(distributeTopToolButton, SIGNAL(clicked()), this, SLOT(distributeTop()));
-	connect(distributeAcrossPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossPage()));
-	connect(distributeDownPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownPage()));
-	connect(distributeAcrossMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossMargins()));
-	connect(distributeDownMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownMargins()));
-	connect(swapLeftToolButton, SIGNAL(clicked()), this, SLOT(swapLeft()));
-	connect(swapRightToolButton, SIGNAL(clicked()), this, SLOT(swapRight()));
-	
-	alignRelativeToCombo->setCurrentIndex(0);
+	connect(ad->alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
+	connect(ad->alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));
+	connect(ad->alignBottomInToolButton, SIGNAL(clicked()), this, SLOT(alignBottomIn()));
+	connect(ad->alignRightInToolButton, SIGNAL(clicked()), this, SLOT(alignRightIn()));
+	connect(ad->alignBottomOutToolButton, SIGNAL(clicked()), this, SLOT(alignBottomOut()));
+	connect(ad->alignCenterHorToolButton, SIGNAL(clicked()), this, SLOT(alignCenterHor()));
+	connect(ad->alignLeftInToolButton, SIGNAL(clicked()), this, SLOT(alignLeftIn()));
+	connect(ad->alignCenterVerToolButton, SIGNAL(clicked()), this, SLOT(alignCenterVer()));
+	connect(ad->alignTopOutToolButton, SIGNAL(clicked()), this, SLOT(alignTopOut()));
+	connect(ad->alignTopInToolButton, SIGNAL(clicked()), this, SLOT(alignTopIn()));
+	connect(ad->distributeDistHToolButton, SIGNAL(clicked()), this, SLOT(distributeDistH()));
+	connect(ad->distributeDistValueHToolButton, SIGNAL(clicked()), this, SLOT(distributeDistValH()));
+	connect(ad->distributeRightToolButton, SIGNAL(clicked()), this, SLOT(distributeRight()));
+	connect(ad->distributeBottomToolButton, SIGNAL(clicked()), this, SLOT(distributeBottom()));
+	connect(ad->distributeCenterHToolButton, SIGNAL(clicked()), this, SLOT(distributeCenterH()));
+	connect(ad->distributeDistVToolButton, SIGNAL(clicked()), this, SLOT(distributeDistV()));
+	connect(ad->distributeDistValueVToolButton, SIGNAL(clicked()), this, SLOT(distributeDistValV()));
+	connect(ad->distributeLeftToolButton, SIGNAL(clicked()), this, SLOT(distributeLeft()));
+	connect(ad->distributeCenterVToolButton, SIGNAL(clicked()), this, SLOT(distributeCenterV()));
+	connect(ad->distributeTopToolButton, SIGNAL(clicked()), this, SLOT(distributeTop()));
+	connect(ad->distributeAcrossPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossPage()));
+	connect(ad->distributeDownPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownPage()));
+	connect(ad->distributeAcrossMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossMargins()));
+	connect(ad->distributeDownMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownMargins()));
+	connect(ad->swapLeftToolButton, SIGNAL(clicked()), this, SLOT(swapLeft()));
+	connect(ad->swapRightToolButton, SIGNAL(clicked()), this, SLOT(swapRight()));
+
+	ad->alignRelativeToCombo->setCurrentIndex(0);
 	alignToChanged(0);
 	alignMethodChanged(0);
-	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
-	connect(alignMoveOrResizeCombo, SIGNAL(activated(int)), this, SLOT(alignMethodChanged(int)));
-	
+	connect(ad->alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
+	connect(ad->alignMoveOrResizeCombo, SIGNAL(activated(int)), this, SLOT(alignMethodChanged(int)));
+
 	unitRatio = 1.0;
 	guideDirection = -1;
-	
+
 	guideInfoText = guideInfoTextNone;
-	alignGuideLineEdit->setText(guideInfoTextNone);
+	ad->alignGuideLineEdit->setText(guideInfoTextNone);
 }
 
 void AlignDistributePalette::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
 
-	alignLeftOutToolButton->setIcon(im.loadIcon("22/align-horizontal-left-out.png"));
-	alignLeftInToolButton->setIcon(im.loadIcon("22/align-horizontal-left.png"));
-	alignCenterHorToolButton->setIcon(im.loadIcon("22/align-horizontal-center.png"));
-	alignRightInToolButton->setIcon(im.loadIcon("22/align-horizontal-right.png"));
-	alignRightOutToolButton->setIcon(im.loadIcon("22/align-horizontal-right-out.png"));
+	ad->alignLeftOutToolButton->setIcon(im.loadIcon("22/align-horizontal-left-out.png"));
+	ad->alignLeftInToolButton->setIcon(im.loadIcon("22/align-horizontal-left.png"));
+	ad->alignCenterHorToolButton->setIcon(im.loadIcon("22/align-horizontal-center.png"));
+	ad->alignRightInToolButton->setIcon(im.loadIcon("22/align-horizontal-right.png"));
+	ad->alignRightOutToolButton->setIcon(im.loadIcon("22/align-horizontal-right-out.png"));
 
-	alignTopOutToolButton->setIcon(im.loadIcon("22/align-vertical-top-out.png"));
-	alignTopInToolButton->setIcon(im.loadIcon("22/align-vertical-top.png"));
-	alignCenterVerToolButton->setIcon(im.loadIcon("22/align-vertical-center.png"));
-	alignBottomInToolButton->setIcon(im.loadIcon("22/align-vertical-bottom.png"));
-	alignBottomOutToolButton->setIcon(im.loadIcon("22/align-vertical-bottom-out.png"));
+	ad->alignTopOutToolButton->setIcon(im.loadIcon("22/align-vertical-top-out.png"));
+	ad->alignTopInToolButton->setIcon(im.loadIcon("22/align-vertical-top.png"));
+	ad->alignCenterVerToolButton->setIcon(im.loadIcon("22/align-vertical-center.png"));
+	ad->alignBottomInToolButton->setIcon(im.loadIcon("22/align-vertical-bottom.png"));
+	ad->alignBottomOutToolButton->setIcon(im.loadIcon("22/align-vertical-bottom-out.png"));
 
-	distributeLeftToolButton->setIcon(im.loadIcon("22/distribute-horizontal-left.png"));
-	distributeCenterHToolButton->setIcon(im.loadIcon("22/distribute-horizontal-center.png"));
-	distributeRightToolButton->setIcon(im.loadIcon("22/distribute-horizontal-right.png"));
-	distributeDistHToolButton->setIcon(im.loadIcon("22/distribute-horizontal-equal.png"));
+	ad->distributeLeftToolButton->setIcon(im.loadIcon("22/distribute-horizontal-left.png"));
+	ad->distributeCenterHToolButton->setIcon(im.loadIcon("22/distribute-horizontal-center.png"));
+	ad->distributeRightToolButton->setIcon(im.loadIcon("22/distribute-horizontal-right.png"));
+	ad->distributeDistHToolButton->setIcon(im.loadIcon("22/distribute-horizontal-equal.png"));
 
-	distributeBottomToolButton->setIcon(im.loadIcon("22/distribute-vertical-bottom.png"));
-	distributeCenterVToolButton->setIcon(im.loadIcon("22/distribute-vertical-center.png"));
-	distributeTopToolButton->setIcon(im.loadIcon("22/distribute-vertical-top.png"));
-	distributeDistVToolButton->setIcon(im.loadIcon("22/distribute-vertical-equal.png"));
+	ad->distributeBottomToolButton->setIcon(im.loadIcon("22/distribute-vertical-bottom.png"));
+	ad->distributeCenterVToolButton->setIcon(im.loadIcon("22/distribute-vertical-center.png"));
+	ad->distributeTopToolButton->setIcon(im.loadIcon("22/distribute-vertical-top.png"));
+	ad->distributeDistVToolButton->setIcon(im.loadIcon("22/distribute-vertical-equal.png"));
 
-	distributeAcrossPageToolButton->setIcon(im.loadIcon("22/distribute-horizontal-page.png"));
-	distributeDownPageToolButton->setIcon(im.loadIcon("22/distribute-vertical-page.png"));
-	distributeAcrossMarginsToolButton->setIcon(im.loadIcon("22/distribute-horizontal-margin.png"));
-	distributeDownMarginsToolButton->setIcon(im.loadIcon("22/distribute-vertical-margin.png"));
-	distributeDistValueHToolButton->setIcon(im.loadIcon("22/distribute-horizontal-x.png"));
-	distributeDistValueVToolButton->setIcon(im.loadIcon("22/distribute-vertical-y.png"));
+	ad->distributeAcrossPageToolButton->setIcon(im.loadIcon("22/distribute-horizontal-page.png"));
+	ad->distributeDownPageToolButton->setIcon(im.loadIcon("22/distribute-vertical-page.png"));
+	ad->distributeAcrossMarginsToolButton->setIcon(im.loadIcon("22/distribute-horizontal-margin.png"));
+	ad->distributeDownMarginsToolButton->setIcon(im.loadIcon("22/distribute-vertical-margin.png"));
+	ad->distributeDistValueHToolButton->setIcon(im.loadIcon("22/distribute-horizontal-x.png"));
+	ad->distributeDistValueVToolButton->setIcon(im.loadIcon("22/distribute-vertical-y.png"));
 
-	swapLeftToolButton->setIcon(im.loadIcon("22/swap-left.png"));
-	swapRightToolButton->setIcon(im.loadIcon("22/swap-right.png"));
+	ad->swapLeftToolButton->setIcon(im.loadIcon("22/swap-left.png"));
+	ad->swapRightToolButton->setIcon(im.loadIcon("22/swap-right.png"));
 }
 
 void AlignDistributePalette::unitChange()
@@ -223,7 +233,7 @@ void AlignDistributePalette::unitChange()
 	if (currDoc == nullptr)
 		return;
 	unitRatio = unitGetRatioFromIndex(currDoc->unitIndex());
-	distributeDistSpinBox->setNewUnit(currDoc->unitIndex());
+	ad->distributeDistSpinBox->setNewUnit(currDoc->unitIndex());
 	enableGuideButtons();
 }
 
@@ -320,12 +330,12 @@ void AlignDistributePalette::distributeRight()
 void AlignDistributePalette::distributeDistH(bool usingDistance)
 {
 	if (currDoc != nullptr)
-		currDoc->itemSelection_DistributeDistH(usingDistance, distributeDistSpinBox->value(), reverseDistributionCheckBox->isChecked());
+		currDoc->itemSelection_DistributeDistH(usingDistance, ad->distributeDistSpinBox->value(), ad->reverseDistributionCheckBox->isChecked());
 }
 
 void AlignDistributePalette::distributeDistValH()
 {
-	distributeDistSpinBox->interpretText();
+	ad->distributeDistSpinBox->interpretText();
 	if (currDoc != nullptr)
 		distributeDistH(true);
 }
@@ -375,12 +385,12 @@ void AlignDistributePalette::distributeTop()
 void AlignDistributePalette::distributeDistV(bool usingDistance)
 {
 	if (currDoc != nullptr)
-		currDoc->itemSelection_DistributeDistV(usingDistance, distributeDistSpinBox->value(), reverseDistributionCheckBox->isChecked());
+		currDoc->itemSelection_DistributeDistV(usingDistance, ad->distributeDistSpinBox->value(), ad->reverseDistributionCheckBox->isChecked());
 }
 
 void AlignDistributePalette::distributeDistValV()
 {
-	distributeDistSpinBox->interpretText();
+	ad->distributeDistSpinBox->interpretText();
 	if (currDoc != nullptr)
 		distributeDistV(true);
 }
@@ -421,7 +431,7 @@ void AlignDistributePalette::setGuide(int direction, qreal position)
 void AlignDistributePalette::localeChange()
 {
 	const QLocale& l(LocaleManager::instance().userPreferredLocale());
-	distributeDistSpinBox->setLocale(l);
+	ad->distributeDistSpinBox->setLocale(l);
 }
 
 void AlignDistributePalette::enableGuideButtons()
@@ -458,18 +468,19 @@ void AlignDistributePalette::enableGuideButtons()
 	bool setterO = true;
 	if (currAlignTo == ScribusDoc::alignGuide)
 		setterO = false;
-		
-	alignLeftInToolButton->setEnabled(setterV);
-	alignLeftOutToolButton->setEnabled(setterO);
-	alignRightInToolButton->setEnabled(setterV);
-	alignRightOutToolButton->setEnabled(setterO);
-	alignCenterHorToolButton->setEnabled(setterV);
 
-	alignTopInToolButton->setEnabled(setterH);
-	alignTopOutToolButton->setEnabled(setterO);
-	alignBottomInToolButton->setEnabled(setterH);
-	alignBottomOutToolButton->setEnabled(setterO);
-	alignCenterVerToolButton->setEnabled(setterH);
-	
-	alignGuideLineEdit->setText(guideInfoText);
+	ad->alignLeftInToolButton->setEnabled(setterV);
+	ad->alignLeftOutToolButton->setEnabled(setterO);
+	ad->alignRightInToolButton->setEnabled(setterV);
+	ad->alignRightOutToolButton->setEnabled(setterO);
+	ad->alignCenterHorToolButton->setEnabled(setterV);
+
+	ad->alignTopInToolButton->setEnabled(setterH);
+	ad->alignTopOutToolButton->setEnabled(setterO);
+	ad->alignBottomInToolButton->setEnabled(setterH);
+	ad->alignBottomOutToolButton->setEnabled(setterO);
+	ad->alignCenterVerToolButton->setEnabled(setterH);
+
+	ad->alignGuideLineEdit->setText(guideInfoText);
 }
+

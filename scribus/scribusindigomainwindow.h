@@ -5,6 +5,8 @@
 
 #include "scribusapi.h"
 
+//class DockManager;
+
 class SCRIBUS_API ScribusIndigoMainWindow : public QMainWindow
 	{
 		Q_OBJECT
@@ -16,7 +18,7 @@ class SCRIBUS_API ScribusIndigoMainWindow : public QMainWindow
 	signals:
 	private:
 
-
+	//DockManager *dockManager;
 
 
 	};

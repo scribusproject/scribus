@@ -46,7 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 
 
-PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette(parent, "PropertiesPalette", Qt::WindowFlags())
+PropertiesPalette::PropertiesPalette(QWidget *parent) : DockPanelBase("PropertiesPalette", parent)
 {
 	undoManager = UndoManager::instance();
 
@@ -109,7 +109,7 @@ void PropertiesPalette::closeEvent(QCloseEvent *closeEvent)
 			m_ScMW->view->RefreshGradient(m_item);
 		}
 	}
-	ScDockPalette::closeEvent(closeEvent);
+	DockPanelBase::closeEvent(closeEvent);
 }
 
 void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
@@ -735,7 +735,7 @@ void PropertiesPalette::changeEvent(QEvent *e)
 		languageChange();
 		return;
 	}
-	ScDockPalette::changeEvent(e);
+	DockPanelBase::changeEvent(e);
 }
 
 void PropertiesPalette::languageChange()

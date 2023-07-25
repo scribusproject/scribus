@@ -29,14 +29,15 @@ for which a new license (GPL+exception) is in place.
 class QEvent;
 
 #include "scribusapi.h"
-#include "scdockpalette.h"
+//#include "scdockpalette.h"
+#include "ui/docks/dock_panelbase.h"
 #include "bookmwin.h"
 /**
   *@author Franz Schmid
   */
 
 /*! \brief A Bookmark Palette */
-class SCRIBUS_API BookPalette : public ScDockPalette
+class SCRIBUS_API BookPalette : public DockPanelBase
 {
 	Q_OBJECT
 

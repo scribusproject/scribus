@@ -101,7 +101,7 @@ void InlineView::dropEvent(QDropEvent *e)
 	clearSelection();
 }
 
-InlinePalette::InlinePalette( QWidget* parent) : ScDockPalette(parent, "Inline", Qt::WindowFlags())
+InlinePalette::InlinePalette( QWidget* parent) : DockPanelBase("Inline", parent)
 {
 	setContentsMargins(3, 3, 3, 3);
 	setMinimumSize( QSize( 220, 240 ) );
@@ -282,7 +282,7 @@ void InlinePalette::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		ScDockPalette::changeEvent(e);
+		DockPanelBase::changeEvent(e);
 }
 
 void InlinePalette::languageChange()

@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "undogui.h"
 
 
-UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WindowFlags f) : ScDockPalette(parent, name, f)
+UndoGui::UndoGui(QWidget* parent, const char* name) : DockPanelBase(name, parent)
 {
 	languageChange();
 }
@@ -184,9 +184,9 @@ void UndoWidget::popBack()
 
 /*** UndoPalette **************************************************************/
 
-UndoPalette::UndoPalette(QWidget* parent, const char* name) : UndoGui(parent, name)
+UndoPalette::UndoPalette(QWidget* parent) : UndoGui(parent, "undoPalette")
 {
-	setObjectName(QString::fromLocal8Bit(name));
+	setObjectName(QString::fromLocal8Bit("undoPalette"));
 	setMinimumSize( QSize(220, 240) );
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 

@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "bookmarkpalette.h"
 
-BookPalette::BookPalette(QWidget* parent) : ScDockPalette( parent, "Books" )
+BookPalette::BookPalette(QWidget* parent) : DockPanelBase( "Books", parent )
 {
 	setObjectName(QString::fromLocal8Bit("Books"));
 	setContentsMargins(3, 3, 3, 3);
@@ -41,7 +41,7 @@ void BookPalette::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 		languageChange();
 	else
-		ScDockPalette::changeEvent(e);
+		DockPanelBase::changeEvent(e);
 }
 
 void BookPalette::languageChange()

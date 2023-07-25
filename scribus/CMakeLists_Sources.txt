@@ -240,7 +240,7 @@ set(SCRIBUS_SOURCES
 	util_printer.cpp
 	util_text.cpp
 	vgradient.cpp
-	vgradientex.cpp
+	vgradientex.cpp	
 	downloadmanager/scdlmgr.cpp
 	downloadmanager/scdlthread.cpp
 	imagedataloaders/scimgdataloader.cpp
@@ -257,6 +257,7 @@ set(SCRIBUS_SOURCES
 	imagedataloaders/scimgdataloader_qt.cpp
 	imagedataloaders/scimgdataloader_tiff.cpp
 	imagedataloaders/scimgdataloader_wpg.cpp
+	manager/dock_manager.cpp
 	palettes/cxfcolor.cpp
 	palettes/cxfcolorspecification.cpp
 	palettes/cxfdocument.cpp
@@ -535,17 +536,19 @@ set(SCRIBUS_SOURCES
 	ui/vruler.cpp
 	ui/useprintermarginsdialog.cpp
 	ui/weldedit.cpp
+	ui/docks/dock_centralwidget.cpp
+	ui/docks/dock_panelbase.cpp
 	${SCRIBUS_OSG_SRC}
 	${SCRIBUS_GMAGICK_SRC}
 	${SCRIBUS_JPEGXL_SRC}
 )
 
-if(WANT_QTADS)
+#if(WANT_QTADS)
 	set(SCRIBUS_SOURCES
 	${SCRIBUS_SOURCES}
 	scribusindigomainwindow.cpp
 	)
-endif()
+#endif()
 
 if(NOT HAVE_HYPHEN)
 	include_directories(third_party/hyphen)

@@ -1463,8 +1463,8 @@ void PropertiesPalette_XYZ::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
 
-	levelUp->setIcon(im.loadIcon("16/go-up.png"));
-	levelDown->setIcon(im.loadIcon("16/go-down.png"));
+	levelUp->setIcon(im.loadIcon("layer-move-up"));
+	levelDown->setIcon(im.loadIcon("layer-move-down"));
 	levelTop->setIcon(im.loadIcon("16/go-top.png"));
 	levelBottom->setIcon(im.loadIcon("16/go-bottom.png"));
 

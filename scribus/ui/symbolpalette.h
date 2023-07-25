@@ -41,8 +41,9 @@ class ScribusDoc;
 
 
 #include "scribusapi.h"
-#include "scdockpalette.h"
+//#include "scdockpalette.h"
 #include "sclistwidgetdelegate.h"
+#include "ui/docks/dock_panelbase.h"
 
 class SCRIBUS_API SymbolView : public QListWidget
 {
@@ -70,7 +71,7 @@ private:
 	ScListWidgetDelegate* m_delegate { nullptr };
 };
 
-class SCRIBUS_API SymbolPalette : public ScDockPalette
+class SCRIBUS_API SymbolPalette : public DockPanelBase
 {
 	Q_OBJECT
 

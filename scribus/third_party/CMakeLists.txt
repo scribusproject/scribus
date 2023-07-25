@@ -1,6 +1,6 @@
-if(WANT_QTADS)
-  add_subdirectory(Qt-Advanced-Docking-System)
-endif()
+#if(WANT_QTADS)
+add_subdirectory(Qt-Advanced-Docking-System)
+#endif()
 
 if(HAVE_OSG)
   add_subdirectory(prc)

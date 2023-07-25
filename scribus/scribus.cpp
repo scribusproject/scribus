@@ -240,6 +240,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_file.h"
 #include "util_formats.h"
+#include "third_party/Qt-Advanced-Docking-System/src/IconProvider.h"
 
 #ifdef HAVE_SVNVERSION
 	#include "svnversion.h"
@@ -259,6 +260,7 @@ for which a new license (GPL+exception) is in place.
 #include "sclimits.h"
 
 using namespace std;
+using namespace ads;
 
 bool previewDinUse;
 bool printDinUse;
@@ -273,11 +275,13 @@ extern bool emergencyActivated;
 ScribusMainWindow::ScribusMainWindow() :
 	m_prefsManager(PrefsManager::instance())
 {
+
 #ifdef Q_OS_MACOS
 	//commenting this out until this is resolved :https://bugreports.qt.io/browse/QTBUG-44565
 	//ScQApp->setAttribute(Qt::AA_DontShowIconsInMenus);
 	//noIcon = IconManager::instance().loadPixmap("noicon.png");
 #endif
+
 }
 
 /*
@@ -285,6 +289,32 @@ ScribusMainWindow::ScribusMainWindow() :
  */
 int ScribusMainWindow::initScMW(bool primaryMainWindow)
 {
+	// Documentation: https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System/blob/master/doc/user-guide.md
+	CDockManager::setConfigFlag(CDockManager::AlwaysShowTabs, false);
+	CDockManager::setConfigFlag(CDockManager::FloatingContainerHasWidgetIcon, true);
+	CDockManager::setConfigFlag(CDockManager::FloatingContainerHasWidgetTitle, true);
+	CDockManager::setConfigFlag(CDockManager::HideSingleCentralWidgetTitleBar, false);
+	CDockManager::setConfigFlag(CDockManager::OpaqueSplitterResize, true);
+	CDockManager::setConfigFlag(CDockManager::TabCloseButtonIsToolButton, true);
+	CDockManager::setConfigFlag(CDockManager::AllTabsHaveCloseButton, false);
+	CDockManager::setConfigFlag(CDockManager::DockAreaDynamicTabsMenuButtonVisibility, true);
+	CDockManager::setConfigFlag(CDockManager::DockAreaHasCloseButton, false);
+	CDockManager::setConfigFlag(CDockManager::DockAreaHasUndockButton, false);
+	CDockManager::setConfigFlag(CDockManager::DockAreaHideDisabledButtons, true);
+	CDockManager::setConfigFlag(CDockManager::FocusHighlighting, true);
+
+	// Documentation: https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System/blob/master/doc/user-guide.md#auto-hide-configuration-flags
+//	CDockManager::setAutoHideConfigFlags(CDockManager::DefaultAutoHideConfig);
+//	CDockManager::setAutoHideConfigFlag(CDockManager::AutoHideShowOnMouseOver, true);
+//	CDockManager::setAutoHideConfigFlag(CDockManager::AutoHideCloseButtonCollapsesDock, true);
+//	CDockManager::setAutoHideConfigFlag(CDockManager::AutoHideButtonTogglesArea, true);
+
+//	IconManager &iconmanager = IconManager::instance();
+//	CDockManager::iconProvider().registerCustomIcon(TabCloseIcon, iconmanager.loadPixmap("close"));
+//	CDockManager::iconProvider().registerCustomIcon(DockAreaCloseIcon, iconmanager.loadPixmap("close"));
+//	CDockManager::iconProvider().registerCustomIcon(DockAreaMenuIcon, iconmanager.loadPixmap("menu-down"));
+//	CDockManager::iconProvider().registerCustomIcon(DockAreaUndockIcon, iconmanager.loadPixmap("dock-float"));
+
 	int retVal=0;
 	//qsrand(1234);
 	QByteArray stylesheet;
@@ -323,6 +353,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	appModeHelper = new AppModeHelper();
 	appModeHelper->setup(actionManager, &scrActions, &scrRecentFileActions, &scrWindowsActions, &scrScrapActions, &scrLayersActions, &scrRecentPasteActions);
 	scrMenuMgr = new ScMWMenuManager(menuBar(), actionManager);
+	dockManager = new DockManager(this/*, QString(stylesheet)*/); // style sheet should be enabled when theme manager is implemented to handle color palettes in css file.
 	m_formatsManager = FormatsManager::instance();
 	m_objectSpecificUndo = false;
 
@@ -338,7 +369,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	QApplication::processEvents();
 
 	actionManager->init(this);
-
 	initMdiArea();
 	initMenuBar();
 	createMenuBar();
@@ -346,12 +376,10 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	ScCore->pluginManager->setupPluginActions(this);
 	ScCore->pluginManager->enableOnlyStartupPluginActions(this);
 	ScCore->pluginManager->languageChange();
-
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Applying User Shortcuts") );
 	m_prefsManager.applyLoadedShortCuts();
 	initKeyboardShortcuts();
-
 	resize(800, 600);
 	connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(newActWin(QMdiSubWindow*)));
 	//Connect windows cascade and tile actions to the workspace after its created. Only depends on mdiArea created.
@@ -359,14 +387,12 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	connect( scrActions["windowsTile"], SIGNAL(triggered()) , mdiArea, SLOT(tileSubWindows()) );
 	initPalettes();
 
-
 	viewToolBar->previewQualitySwitcher->setCurrentIndex(m_prefsManager.appPrefs.itemToolPrefs.imageLowResType);
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Initializing Story Editor") );
 	storyEditor = new StoryEditor(this);
 
 	DocDir = m_prefsManager.documentDir();
-
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Initializing Languages") );
 	LanguageManager::instance();
@@ -378,7 +404,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Reading Scrapbook") );
 	initScrapbook();
-
 	scrActions["helpTooltips"]->setChecked(m_prefsManager.appPrefs.displayPrefs.showToolTips);
 	scrActions["showMouseCoordinates"]->setChecked(m_prefsManager.appPrefs.displayPrefs.showMouseCoordinates);
 	scrActions["stickyTools"]->setChecked(m_prefsManager.appPrefs.uiPrefs.stickyTools);
@@ -646,51 +671,75 @@ void ScribusMainWindow::initPalettes()
 {
 	//CB TODO hide the publicly available members of some palettes
 	// these must be filtered too as they take control of the palettes events
-	outlinePalette = new OutlinePalette(this);
-	outlinePalette->setMainWindow(this);
-	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(setPaletteShown(bool)));
-	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setChecked(bool)));
 
-	propertiesPalette = new PropertiesPalette(this);
+	dockManager->setupDocks();
+
+	// Outliner
+	outlinePalette = dockManager->outlinePalette;
+	outlinePalette->setMainWindow(this);
+	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(toggleView(bool)));
+	connect( outlinePalette, SIGNAL(viewToggled(bool)), scrActions["toolsOutline"], SLOT(setChecked(bool)));
+
+	// Frame Properties
+	propertiesPalette = dockManager->propertiesPalette;
 	propertiesPalette->setMainWindow(this);
-	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)));
-	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setChecked(bool)));
+	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(toggleView(bool)));
+	connect( propertiesPalette, SIGNAL(viewToggled(bool)), scrActions["toolsProperties"], SLOT(setChecked(bool)));
 	emit UpdateRequest(reqDefFontListUpdate);
 	propertiesPalette->installEventFilter(this);
 
-	contentPalette = new ContentPalette(this);
+	// Content Properties
+	contentPalette = dockManager->contentPalette;
 	contentPalette->setMainWindow(this);
-	connect( scrActions["toolsContent"], &QAction::toggled, contentPalette, &ContentPalette::setPaletteShown);
-	connect( contentPalette, &ContentPalette::paletteShown, scrActions["toolsContent"], &QAction::setChecked);
+	connect( scrActions["toolsContent"], SIGNAL(toggled(bool)), contentPalette, SLOT(toggleView(bool)));
+	connect( contentPalette, SIGNAL(viewToggled(bool)), scrActions["toolsContent"], SLOT(setChecked(bool)));
 	contentPalette->installEventFilter(this);
 
+	// Nodes
 	nodePalette = new NodePalette(this);
 	nodePalette->installEventFilter(this);
-	layerPalette = new LayerPalette(this);
+
+	// Guides
 	guidePalette = new GuideManager(this);
+
+	// Character Selection
 	charPalette = new CharSelect(this);
-	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , layerPalette, SLOT(setPaletteShown(bool)));
-	connect( layerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsLayers"], SLOT(setChecked(bool)));
+
+	// Layer
+	layerPalette = dockManager->layerPalette;
+	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , layerPalette, SLOT(toggleView(bool)));
+	connect( layerPalette, SIGNAL(viewToggled(bool)), scrActions["toolsLayers"], SLOT(setChecked(bool)));
 	layerPalette->installEventFilter(this);
-	scrapbookPalette = new Biblio(this);
-	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , scrapbookPalette, SLOT(setPaletteShown(bool)));
-	connect( scrapbookPalette, SIGNAL(paletteShown(bool)), scrActions["toolsScrapbook"], SLOT(setChecked(bool)));
+
+	// Scrapbook
+	scrapbookPalette = dockManager->scrapbookPalette;
+	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , scrapbookPalette, SLOT(toggleView(bool)));
+	connect( scrapbookPalette, SIGNAL(viewToggled(bool)), scrActions["toolsScrapbook"], SLOT(setChecked(bool)));
 	connect( scrapbookPalette, SIGNAL(pasteToActualPage(QString)), this, SLOT(pasteFromScrapbook(QString)));
 	connect( scrapbookPalette, SIGNAL(scrapbookListChanged()), this, SLOT(rebuildScrapbookMenu()));
 	scrapbookPalette->installEventFilter(this);
-	pagePalette = new PagePalette(this);
-	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , pagePalette, SLOT(setPaletteShown(bool)) );
-	connect( pagePalette, SIGNAL(paletteShown(bool)), scrActions["toolsPages"], SLOT(setChecked(bool)));
+
+	// Pages
+	pagePalette = dockManager->pagePalette;
+	pagePalette->setMainWindow(this);
+	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , pagePalette, SLOT(toggleView(bool)) );
+	connect( pagePalette, SIGNAL(viewToggled(bool)), scrActions["toolsPages"], SLOT(setChecked(bool)));
 	pagePalette->installEventFilter(this);
-	bookmarkPalette = new BookPalette(this);
-	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , bookmarkPalette, SLOT(setPaletteShown(bool)) );
-	connect( bookmarkPalette, SIGNAL(paletteShown(bool)), scrActions["toolsBookmarks"], SLOT(setChecked(bool)));
+
+	// Bookmark
+	bookmarkPalette = dockManager->bookPalette;
+	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , bookmarkPalette, SLOT(toggleView(bool)) );
+	connect( bookmarkPalette, SIGNAL(viewToggled(bool)), scrActions["toolsBookmarks"], SLOT(setChecked(bool)));
 	bookmarkPalette->installEventFilter(this);
+
+	// Downloads
 	downloadsPalette = new DownloadsPalette(this);
 	connect( scrActions["toolsDownloads"], SIGNAL(toggled(bool)) , downloadsPalette, SLOT(setPaletteShown(bool)) );
 	connect( downloadsPalette, SIGNAL(paletteShown(bool)), scrActions["toolsDownloads"], SLOT(setChecked(bool)));
 	downloadsPalette->installEventFilter(this);
 	connect( scrActions["toolsMeasurements"], SIGNAL(toggledData(bool,int)) , this, SLOT(setAppModeByToggle(bool,int)) );
+
+	// Preflight
 	docCheckerPalette = new CheckDocument(this, false);
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , docCheckerPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , this, SLOT(docCheckToggle(bool)) );
@@ -699,36 +748,38 @@ void ScribusMainWindow::initPalettes()
 	docCheckerPalette->installEventFilter(this);
 	docCheckerPalette->hide();
 
-	alignDistributePalette = new AlignDistributePalette(this, "AlignDistributePalette");
-	connect( scrActions["toolsAlignDistribute"], SIGNAL(toggled(bool)) , alignDistributePalette, SLOT(setPaletteShown(bool)) );
-	connect( alignDistributePalette, SIGNAL(paletteShown(bool)), scrActions["toolsAlignDistribute"], SLOT(setChecked(bool)));
+	// Align & Distribute
+	alignDistributePalette = dockManager->alignDistributePalette;
+	connect( scrActions["toolsAlignDistribute"], SIGNAL(toggled(bool)) , alignDistributePalette, SLOT(toggleView(bool)) );
+	connect( alignDistributePalette, SIGNAL(viewToggled(bool)), scrActions["toolsAlignDistribute"], SLOT(setChecked(bool)));
 	connect( alignDistributePalette, SIGNAL(documentChanged()), this, SLOT(slotDocCh()));
 	alignDistributePalette->installEventFilter(this);
 
-	symbolPalette = new SymbolPalette(this);
+	// Symbols
+	symbolPalette = dockManager->symbolPalette;
 	symbolPalette->setMainWindow(this);
-	connect(scrActions["toolsSymbols"], SIGNAL(toggled(bool)), symbolPalette, SLOT(setPaletteShown(bool)));
-	connect(symbolPalette, SIGNAL(paletteShown(bool)), scrActions["toolsSymbols"], SLOT(setChecked(bool)));
+	connect(scrActions["toolsSymbols"], SIGNAL(toggled(bool)), symbolPalette, SLOT(toggleView(bool)) );
+	connect(symbolPalette, SIGNAL(viewToggled(bool)), scrActions["toolsSymbols"], SLOT(setChecked(bool)));
 	connect(symbolPalette, SIGNAL(startEdit(QString)), this, SLOT(editSymbolStart(QString)));
 	connect(symbolPalette, SIGNAL(endEdit()), this, SLOT(editSymbolEnd()));
 	connect(symbolPalette, SIGNAL(objectDropped()), this, SLOT(PutToPatterns()));
 	symbolPalette->installEventFilter(this);
-	symbolPalette->hide();
 
-	inlinePalette = new InlinePalette(this);
+	// Inline Elements
+	inlinePalette = dockManager->inlinePalette;
 	inlinePalette->setMainWindow(this);
-	connect(scrActions["toolsInline"], SIGNAL(toggled(bool)), inlinePalette, SLOT(setPaletteShown(bool)));
-	connect(inlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsInline"], SLOT(setChecked(bool)));
+	connect(scrActions["toolsInline"], SIGNAL(toggled(bool)), inlinePalette, SLOT(toggleView(bool)) );
+	connect(inlinePalette, SIGNAL(viewToggled(bool)), scrActions["toolsInline"], SLOT(setChecked(bool)));
 	connect(inlinePalette, SIGNAL(startEdit(int)), this, SLOT(editInlineStart(int)));
 	connect(inlinePalette, SIGNAL(endEdit()), this, SLOT(editInlineEnd()));
 	connect(inlinePalette, SIGNAL(objectDropped(QString)), this, SLOT(PutToInline(QString)));
 	inlinePalette->installEventFilter(this);
-	inlinePalette->hide();
 
-	undoPalette = new UndoPalette(this, "undoPalette");
+	// Undo
+	undoPalette = dockManager->undoPalette;
 	undoPalette->installEventFilter(this);
 	m_undoManager->registerGui(undoPalette);
-	connect(undoPalette, SIGNAL(paletteShown(bool)), this, SLOT(setUndoPalette(bool)));
+	connect(undoPalette, SIGNAL(viewToggled(bool)), this, SLOT(setUndoPalette(bool)));
 	connect(undoPalette, SIGNAL(objectMode(bool)), this, SLOT(setUndoMode(bool)));
 
 	// initializing style manager here too even it's not strictly a palette
@@ -749,6 +800,8 @@ void ScribusMainWindow::initPalettes()
 	connect( marksManager, SIGNAL(paletteShown(bool)), scrActions["editMarks"], SLOT(setChecked(bool)));
 	marksManager->installEventFilter(this);
 	// initializing notes styles manager
+
+	// Note Styles
 	nsEditor = new NotesStylesEditor(this, "notesStylesEditor");
 	connect( scrActions["editNotesStyles"], SIGNAL(toggled(bool)), nsEditor, SLOT(setPaletteShown(bool)) );
 	connect( nsEditor, SIGNAL(paletteShown(bool)), scrActions["editNotesStyles"], SLOT(setChecked(bool)));
@@ -775,6 +828,9 @@ void ScribusMainWindow::initPalettes()
 	// char palette
 	connect(scrActions["insertGlyph"], SIGNAL(toggled(bool)), charPalette, SLOT(setPaletteShown(bool)));
 	connect(charPalette, SIGNAL(paletteShown(bool)), scrActions["insertGlyph"], SLOT(setChecked(bool)));
+
+	dockManager->loadDefaultWorkspace();
+
 }
 
 
@@ -831,7 +887,8 @@ void ScribusMainWindow::initMdiArea()
 	}
 	else
 		mdiArea->setViewMode(QMdiArea::SubWindowView);
-	setCentralWidget(mdiArea);
+	//setCentralWidget(mdiArea);
+	dockManager->setCentralWidget(mdiArea);
 }
 
 void ScribusMainWindow::initMenuBar()
@@ -1782,6 +1839,9 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 		return;
 	}
 
+	// Save GUI state
+	dockManager->saveWorkspaceToFile();
+
 	disconnect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(newActWin(QMdiSubWindow*)));
 
 	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
@@ -1830,21 +1890,12 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 			m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.append(currentTab);
 	}
 
-	propertiesPalette->hide();
-	contentPalette->hide();
-	outlinePalette->hide();
-	scrapbookPalette->hide();
-	bookmarkPalette->hide();
-	downloadsPalette->hide();
-	layerPalette->hide();
-	pagePalette->hide();
-	docCheckerPalette->hide();
-	undoPalette->hide();
-	alignDistributePalette->hide();
-	guidePalette->hide();
-	charPalette->hide();
-	symbolPalette->hide();
-	inlinePalette->hide();
+	// We need to remove all docks from the DockManager to prevent a memory leak
+	// in case a plugin has added a dock in the DockManager and is simply deleted
+	// on cleanup before it is removed from the DockManager.
+	// Removed Docks are not deleted directly.
+	dockManager->removeAllDockWidgets();
+
 
 	// Clean up plugins, THEN save prefs to disk
 	ScCore->pluginManager->cleanupPlugins();
@@ -5445,7 +5496,7 @@ void ScribusMainWindow::toggleCheckPal()
 
 void ScribusMainWindow::setUndoPalette(bool visible)
 {
-	undoPalette->setPaletteShown(visible);
+	undoPalette->toggleView(visible);
 	scrActions["toolsActionHistory"]->setChecked(visible);
 }
 

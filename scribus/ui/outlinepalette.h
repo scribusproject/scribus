@@ -18,6 +18,7 @@ class QEvent;
 
 #include "scribusapi.h"
 #include "scdockpalette.h"
+#include "docks/dock_panelbase.h"
 
 class ScribusMainWindow;
 class ScribusDoc;
@@ -54,7 +55,7 @@ protected:
 	bool viewportEvent(QEvent *event) override;
 };
 
-class SCRIBUS_API OutlinePalette : public ScDockPalette
+class SCRIBUS_API OutlinePalette : public DockPanelBase
 {
 	Q_OBJECT
 
@@ -76,7 +77,7 @@ public slots:
 	void iconSetChange();
 	void languageChange();
 	void slotShowSelect(int pageNr, PageItem *pageItem);
-	void setPaletteShown(bool) override;
+	void toggleView(bool);
 	void slotRightClick(QPoint point);
 	void setActiveLayer(int layerID);
 	void setLayerVisible(int layerID);

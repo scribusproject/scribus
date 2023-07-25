@@ -23,19 +23,21 @@ class SeView;
 class TrashBin;
 
 #include "scribusapi.h"
-#include "scdockpalette.h"
+//#include "scdockpalette.h"
+#include "docks/dock_panelbase.h"
 
 class PagePalette_MasterPages;
 class PagePalette_Pages;
 class ScribusView;
 class ScribusMainWindow;
+class DockManager;
 
-class SCRIBUS_API PagePalette : public ScDockPalette
+class SCRIBUS_API PagePalette : public DockPanelBase
 {
 	Q_OBJECT
 
 public:
-	PagePalette(QWidget* parent);
+	PagePalette(QWidget *parent);
 	~PagePalette() {};
 	
 	QWidget* currentWidget();
@@ -44,9 +46,12 @@ public:
 	PagePalette_MasterPages* masterpageWidget() const;
 	PagePalette_Pages* pageWidget() const;
 
+	void setMainWindow(ScribusMainWindow * scMW);
+
 protected:
 	ScribusView       *m_view;
 	ScribusMainWindow *m_scMW;
+	PagePalette_Pages* m_pageWidget {nullptr};
 
 	void changeEvent(QEvent *e) override;
 

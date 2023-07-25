@@ -302,6 +302,6 @@ if (HARFBUZZ_SUBSET_FOUND)
 	set (HAVE_HARFBUZZ_SUBSET ON)
 endif()
 
-if(WANT_QTADS)
+#if(WANT_QTADS)
   set(HAVE_QTADS ON)
-endif()
+#endif()

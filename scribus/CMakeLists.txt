@@ -58,10 +58,10 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS ui/)
 set_property(SOURCE third_party/fparser/file.hh PROPERTY SKIP_AUTOGEN ON)
 set_property(SOURCE third_party/fparser/fparser.hh PROPERTY SKIP_AUTOGEN ON)
 
-if(WANT_QTADS)
+#if(WANT_QTADS)
   MESSAGE(STATUS "Qt Advanced Docking System included")
   link_directories(${CMAKE_CURRENT_BINARY_DIR}/third_party/Qt-Advanced-Docking-System)
-endif()
+#endif()
 
 link_directories(
 	${CMAKE_CURRENT_BINARY_DIR}/third_party/wpg
@@ -284,9 +284,9 @@ target_link_libraries(${EXE_NAME} PRIVATE
 	${SCRIBUS_RTF_LIB}
 )
 
-if(WANT_QTADS)
-  target_link_libraries(${EXE_NAME} PRIVATE qt6advanceddocking)
-endif()
+#if(WANT_QTADS)
+  target_link_libraries(${EXE_NAME} PUBLIC qt6advanceddocking)
+#endif()
 
 if(WITH_TESTS)
 	target_link_libraries(${EXE_NAME} PRIVATE

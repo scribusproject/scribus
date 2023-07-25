@@ -10,7 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 
 #include "scribusapi.h"
-#include "ui/scdockpalette.h"
+//#include "ui/scdockpalette.h"
+#include "ui/docks/dock_panelbase.h"
 #include "scribusstructs.h"
 
 class CheckBox;
@@ -27,7 +28,7 @@ class ScLayers;
 class ScrSpinBox;
 class ScribusDoc;
 
-class SCRIBUS_API LayerPalette : public ScDockPalette
+class SCRIBUS_API LayerPalette : public DockPanelBase
 {
 	Q_OBJECT
 

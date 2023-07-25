@@ -43,7 +43,7 @@ class ScribusDoc;
 
 
 #include "scribusapi.h"
-#include "scdockpalette.h"
+#include "ui/docks/dock_panelbase.h"
 #include "sclistwidgetdelegate.h"
 
 class SCRIBUS_API InlineView : public QListWidget
@@ -67,7 +67,7 @@ private:
 	ScListWidgetDelegate* delegate { nullptr };
 };
 
-class SCRIBUS_API InlinePalette : public ScDockPalette
+class SCRIBUS_API InlinePalette : public DockPanelBase
 {
 	Q_OBJECT
 

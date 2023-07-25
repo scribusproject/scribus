@@ -56,6 +56,7 @@ class QQuickView;
 // application specific includes
 #include "scribusapi.h"
 #include "scribusdoc.h"
+#include "manager/dock_manager.h"
 #include "styleoptions.h"
 #include "ui/customfdialog.h"
 #include "ui/scmessagebox.h"
@@ -69,6 +70,7 @@ class BookPalette;
 class CharSelect;
 class CheckDocument;
 class ColorCombo;
+class DockManager;
 class DownloadsPalette;
 class EditToolBar;
 class FileToolBar;
@@ -218,6 +220,7 @@ public:
 	/** \brief private doc for managing default patterns. */
 	ScribusDoc* m_doc {nullptr};
 
+	DockManager * dockManager {nullptr};
 
 	QProgressBar* mainWindowProgressBar {nullptr};
 	ScrSpinBox* zoomSpinBox {nullptr}; //zoom spinbox at bottom of view

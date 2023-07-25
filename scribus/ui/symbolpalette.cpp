@@ -150,7 +150,7 @@ bool SymbolView::viewportEvent(QEvent *event)
 	clearSelection();
 }
 
-SymbolPalette::SymbolPalette( QWidget* parent) : ScDockPalette(parent, "Symb", Qt::WindowFlags())
+SymbolPalette::SymbolPalette( QWidget* parent) : DockPanelBase("Symb", parent)
 {
 	setContentsMargins(3, 3, 3, 3);
 	setMinimumSize( QSize( 220, 240 ) );
@@ -321,7 +321,7 @@ void SymbolPalette::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		ScDockPalette::changeEvent(e);
+		DockPanelBase::changeEvent(e);
 }
 
 void SymbolPalette::languageChange()

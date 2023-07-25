@@ -30,6 +30,7 @@ class QWidget;
 #include "sctreewidget.h"
 #include "stylecombos.h"
 #include "units.h"
+#include "docks/dock_panelbase.h"
 
 class ColorCombo;
 class ColorPalette;
@@ -46,7 +47,7 @@ class Selection;
 class UndoManager;
 class TransparencyPalette;
 
-class SCRIBUS_API PropertiesPalette : public ScDockPalette
+class SCRIBUS_API PropertiesPalette : public DockPanelBase
 {
 	Q_OBJECT
 

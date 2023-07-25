@@ -11,6 +11,9 @@
 #include "third_party/Qt-Advanced-Docking-System/src/DockManager.h"
 #include "third_party/Qt-Advanced-Docking-System/src/IconProvider.h"
 
+#include "iconmanager.h"
+#include "manager/dock_manager.h"
+
 ScribusIndigoMainWindow::ScribusIndigoMainWindow(QWidget *parent)
 	: QMainWindow{parent}
 	{
@@ -29,14 +32,14 @@ ScribusIndigoMainWindow::ScribusIndigoMainWindow(QWidget *parent)
 //	ads::CDockManager::setConfigFlag(ads::CDockManager::DockAreaHasUndockButton, false);
 //	ads::CDockManager::setConfigFlag(ads::CDockManager::DockAreaHideDisabledButtons, true);
 
-	//		ads::CDockManager::iconProvider().registerCustomIcon(ads::TabCloseIcon,
-	//IconManager::instance().icon("close"));
-	//		ads::CDockManager::iconProvider().registerCustomIcon(ads::DockAreaCloseIcon,
-	//IconManager::instance().icon("close"));
-	//		ads::CDockManager::iconProvider().registerCustomIcon(ads::DockAreaMenuIcon,
-	//IconManager::instance().icon("menu-down"));
-	//		ads::CDockManager::iconProvider().registerCustomIcon(ads::DockAreaUndockIcon,
-	//IconManager::instance().icon("dock-float"));
+////	ads::CDockManager::iconProvider().registerCustomIcon(ads::TabCloseIcon, IconManager::instance().loadIcon("close"));
+////	ads::CDockManager::iconProvider().registerCustomIcon(ads::DockAreaCloseIcon, IconManager::instance().loadIcon("close"));
+////	ads::CDockManager::iconProvider().registerCustomIcon(ads::DockAreaMenuIcon, IconManager::instance().loadIcon("menu-down"));
+////	ads::CDockManager::iconProvider().registerCustomIcon(ads::DockAreaUndockIcon, IconManager::instance().loadIcon("dock-float"));
+
+//	dockManager = new DockManager(this);
+
+
 	}
 
 

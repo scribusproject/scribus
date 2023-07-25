@@ -40,7 +40,8 @@ class ScribusDoc;
 
 
 #include "pluginapi.h"
-#include "ui/scdockpalette.h"
+//#include "ui/scdockpalette.h"
+#include "ui/docks/dock_panelbase.h"
 #include "ui/sclistwidgetdelegate.h"
 #include "fpointarray.h"
 
@@ -85,12 +86,12 @@ private:
 	ScListWidgetDelegate* delegate;
 };
 
-class PLUGIN_API ShapePalette : public ScDockPalette
+class PLUGIN_API ShapePalette : public DockPanelBase
 {
 	Q_OBJECT
 
 public:
-	ShapePalette(QWidget* parent);
+	ShapePalette(QWidget *parent);
 	~ShapePalette() {};
 
 	void writeToPrefs();

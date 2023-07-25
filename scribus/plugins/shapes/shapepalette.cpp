@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "iconmanager.h"
+#include "manager/dock_manager.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scmimedata.h"
@@ -31,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "selection.h"
 #include "shapepalette.h"
+#include "third_party/Qt-Advanced-Docking-System/src/DockAreaWidget.h"
 #include "ui/scmessagebox.h"
 #include "util.h"
 #include "util_math.h"
@@ -278,7 +280,7 @@ void ShapeView::updateShapeList()
 	}
 }
 
-ShapePalette::ShapePalette( QWidget* parent) : ScDockPalette(parent, "Shap", Qt::WindowFlags())
+ShapePalette::ShapePalette(QWidget *parent) : DockPanelBase("Shap", parent)
 {
 	setMinimumSize( QSize( 220, 240 ) );
 	setObjectName(QString::fromLocal8Bit("Shap"));
@@ -560,7 +562,7 @@ void ShapePalette::Import()
 
 void ShapePalette::setMainWindow(ScribusMainWindow *mw)
 {
-	m_scMW = mw;
+	m_scMW = mw;	
 	for (int a = 0; a < Frame3->count(); a++)
 	{
 		ShapeViewWidget = (ShapeView*)Frame3->widget(a);
@@ -593,7 +595,7 @@ void ShapePalette::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		ScDockPalette::changeEvent(e);
+		DockPanelBase::changeEvent(e);
 }
 
 void ShapePalette::iconSetChange()

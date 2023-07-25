@@ -21,9 +21,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 
-PagePalette::PagePalette(QWidget* parent) : ScDockPalette(parent, "PagePalette", Qt::WindowFlags())
+PagePalette::PagePalette(QWidget *parent) : DockPanelBase("PagePalette", parent)
 {
-	m_scMW = (ScribusMainWindow*) parent;
+	m_scMW = nullptr;//(ScribusMainWindow*) parent;
 	m_view = nullptr;
 
 	setObjectName(QString::fromLocal8Bit("PagePalette"));
@@ -31,16 +31,13 @@ PagePalette::PagePalette(QWidget* parent) : ScDockPalette(parent, "PagePalette",
 	QStackedWidget* stackedWidget = new QStackedWidget(this);
 	stackedWidget->setObjectName(QString::fromLocal8Bit("stackedWidget"));
 
-	PagePalette_Pages* pageWidget = new PagePalette_Pages(stackedWidget);
-	pageWidget->setObjectName(QString::fromLocal8Bit("PagePalette_Pages"));
-	stackedWidget->addWidget(pageWidget);
+	m_pageWidget = new PagePalette_Pages(stackedWidget);
+	m_pageWidget->setObjectName(QString::fromLocal8Bit("PagePalette_Pages"));
+	stackedWidget->addWidget(m_pageWidget);
 
 	setWidget(stackedWidget);
 
-	connect(pageWidget, SIGNAL(gotoMasterPage(QString)), m_scMW, SLOT(editMasterPagesStart(QString)));
-	
-	rebuild();
-	languageChange();
+
 }
 
 QWidget* PagePalette::currentWidget()
@@ -63,6 +60,16 @@ PagePalette_Pages* PagePalette::pageWidget() const
 	if (this->stackedWidget()->count() >= 1)
 		return dynamic_cast<PagePalette_Pages*>(this->stackedWidget()->widget(0));
 	return nullptr;
+}
+
+void PagePalette::setMainWindow(ScribusMainWindow *scMW)
+{
+	m_scMW = scMW;
+
+	connect(m_pageWidget, SIGNAL(gotoMasterPage(QString)), m_scMW, SLOT(editMasterPagesStart(QString)));
+
+	rebuild();
+	languageChange();
 }
 
 QStackedWidget* PagePalette::stackedWidget() const
@@ -185,7 +192,7 @@ void PagePalette::startMasterPageMode(const QString& masterPage)
 	}
 	else
 	{
-		ScribusDoc* doc = m_view->m_doc;
+		//ScribusDoc* doc = m_view->m_doc;
 		PagePalette_MasterPages* mpWidget = this->masterpageWidget();
 		if (mpWidget->m_view != m_view)
 			mpWidget->setView(m_view, masterPage);
@@ -226,7 +233,7 @@ void PagePalette::changeEvent(QEvent *e)
 		return;
 	}
 
-	ScDockPalette::changeEvent(e);
+	DockPanelBase::changeEvent(e);
 }
 
 void PagePalette::languageChange()

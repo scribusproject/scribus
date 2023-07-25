@@ -347,13 +347,13 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="32/page-doublesided.png" file="32/page-double.svg" />
 		<icon id="32/page-simple.png" file="32/page-simple.svg" />
 		<icon id="16/go-bottom.png" file="16/object-level-background.svg" />
-		<icon id="16/go-down.png" file="16/object-level-down.svg" />
+		<icon id="16/go-down.png" file="16/action-chevron-down.svg" />
 		<icon id="16/go-top.png" file="16/object-level-foreground.svg" />
-		<icon id="16/go-up.png" file="16/object-level-up.svg" />
+		<icon id="16/go-up.png" file="16/action-chevron-up.svg" />
 		<icon id="22/go-bottom.png" file="16/object-level-background.svg" />
-		<icon id="22/go-down.png" file="16/object-level-down.svg" />
+		<icon id="22/go-down.png" file="16/action-chevron-down.svg" />
 		<icon id="22/go-top.png" file="16/object-level-foreground.svg" />
-		<icon id="22/go-up.png" file="16/object-level-up.svg" />
+		<icon id="22/go-up.png" file="16/action-chevron-up.svg" />
 		<icon id="layer-outline.png" file="16/object-outline.svg" />
 		<icon id="16/layer-flow-around.png" file="16/text-wrap-shape.svg" />
 		<icon id="16/lock-unlocked.png" file="16/action-unlock.svg" />
@@ -365,6 +365,12 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="/16/list-remove.png" file="16/action-remove.svg" />
 		<icon id="16/list-remove.png" file="16/action-remove.svg" />
 		<icon id="22/list-remove.png" file="16/action-remove.svg" />
+		<icon id="page-move" file="16/page-move.svg" />
+		<icon id="page-insert" file="16/page-insert.svg" />
+		<icon id="page-duplicate" file="16/page-duplicate.svg" />
+		<icon id="page-import" file="16/page-import.svg" />
+		<icon id="layer-move-down" file="16/object-level-down.svg" />
+		<icon id="layer-move-up" file="16/object-level-up.svg" />
     
 		<!-- PDF Tools -->
 		<icon id="16/insert-button.png" file="16/pdf-button.svg" />
@@ -551,7 +557,14 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="wizard16.png" file="16/tool-copy-style.svg" />
 		<!-- Red onLight="#E54545" onDark="#FF6666" -->
 		<icon id="16/insert-barcode.png" file="16/tool-insert-barcode.svg" />
-		<icon id="22/insert-barcode.png" file="16/tool-insert-barcode.svg" /> 
+		<icon id="22/insert-barcode.png" file="16/tool-insert-barcode.svg" />
+		
+		<!-- Windows -->
+		<!--		
+		<icon id="close" file="16/action-close.svg" />
+		<icon id="menu-down" file="16/action-chevron-down.svg" />
+		<icon id="dock-float" file="16/action-window-float.svg" />
+		-->
 		
 	</icons>
 </iconset>

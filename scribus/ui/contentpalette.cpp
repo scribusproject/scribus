@@ -25,8 +25,8 @@ for which a new license (GPL+exception) is in place.
 #include "styles/paragraphstyle.h"
 #include "styles/charstyle.h"
 
-ContentPalette::ContentPalette(QWidget* parent) :
-	ScDockPalette(parent, "ContentPalette", Qt::WindowFlags())
+ContentPalette::ContentPalette(QWidget *parent) :
+	DockPanelBase("ContentPalette", parent)
 {
 	setObjectName(QString::fromLocal8Bit("ContentPalette"));
 
@@ -276,7 +276,7 @@ void  ContentPalette::handleSelectionChanged()
 		updatePanelTitle();
 	}
 	updateGeometry();
-	ScDockPalette::update();
+	DockPanelBase::update();
 }
 
 void ContentPalette::unitChange()
@@ -320,7 +320,7 @@ void ContentPalette::changeEvent(QEvent *e)
 		languageChange();
 		return;
 	}
-	ScDockPalette::changeEvent(e);
+	DockPanelBase::changeEvent(e);
 }
 
 void ContentPalette::updatePanelTitle()

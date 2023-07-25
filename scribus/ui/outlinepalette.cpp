@@ -431,7 +431,7 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 	return true;
 }
 
-OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette(parent, "Tree", Qt::WindowFlags())
+OutlinePalette::OutlinePalette( QWidget* parent) : DockPanelBase("Tree", parent)
 {
 //	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
@@ -506,9 +506,9 @@ void OutlinePalette::unsetDoc()
 	clearPalette();
 }
 
-void OutlinePalette::setPaletteShown(bool visible)
+void OutlinePalette::toggleView(bool visible)
 {
-	ScDockPalette::setPaletteShown(visible);
+	DockPanelBase::toggleView(visible);
 	if (visible && (currDoc != nullptr))
 		BuildTree();
 }
@@ -1445,7 +1445,7 @@ void OutlinePalette::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 		languageChange();
 	else
-		ScDockPalette::changeEvent(e);
+		DockPanelBase::changeEvent(e);
 }
 
 void OutlinePalette::iconSetChange()

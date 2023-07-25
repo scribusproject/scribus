@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scdockpalette.h"
+#include "docks/dock_panelbase.h"
 #include "scguardedptr.h"
 
 class QStackedWidget;
@@ -28,7 +29,7 @@ class PageItem_ImageFrame;
 class ParagraphStyle;
 class CharStyle;
 
-class SCRIBUS_API ContentPalette : public ScDockPalette
+class SCRIBUS_API ContentPalette : public DockPanelBase
 {
 	Q_OBJECT
 

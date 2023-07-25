@@ -52,7 +52,7 @@
 #pragma comment(lib, "User32.lib")
 #endif
 #endif
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
 #include "linux/FloatingWidgetTitleBar.h"
 #include <xcb/xcb.h>
 #endif
@@ -374,10 +374,11 @@ struct FloatingDockContainerPrivate
 	QPoint DragStartPos;
 	bool Hiding = false;
 	bool AutoHideChildren = true;
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
     QWidget* MouseEventHandler = nullptr;
     CFloatingWidgetTitleBar* TitleBar = nullptr;
 	bool IsResizing = false;
+    bool MousePressed = false;
 #endif
 
 	/**
@@ -424,7 +425,7 @@ struct FloatingDockContainerPrivate
 
 	void setWindowTitle(const QString &Text)
 	{
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
 		if (TitleBar)
 		{
 			TitleBar->setTitle(Text);
@@ -540,7 +541,7 @@ void FloatingDockContainerPrivate::updateDropOverlays(const QPoint &GlobalPos)
 		return;
 	}
 
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
 	// Prevent display of drop overlays and docking as long as a model dialog
 	// is active
     if (qApp->activeModalWidget())
@@ -641,7 +642,7 @@ CFloatingDockContainer::CFloatingDockContainer(CDockManager *DockManager) :
 	connect(d->DockContainer, SIGNAL(dockAreasRemoved()), this,
 	    SLOT(onDockAreasAddedOrRemoved()));
 
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
 	QDockWidget::setWidget(d->DockContainer);
 	QDockWidget::setFloating(true);
 	QDockWidget::setFeatures(QDockWidget::DockWidgetClosable
@@ -763,18 +764,43 @@ CDockContainerWidget* CFloatingDockContainer::dockContainer() const
 void CFloatingDockContainer::changeEvent(QEvent *event)
 {
 	Super::changeEvent(event);
-	if ((event->type() == QEvent::ActivationChange) && isActiveWindow())
+	switch (event->type())
 	{
-		ADS_PRINT("FloatingWidget::changeEvent QEvent::ActivationChange ");
-		d->zOrderIndex = ++zOrderCounter;
-
-#ifdef Q_OS_LINUX
-		if (d->DraggingState == DraggingFloatingWidget)
+	case QEvent::ActivationChange:
+		if (isActiveWindow())
 		{
-			d->titleMouseReleaseEvent();
-			d->DraggingState = DraggingInactive;
-		}
+			ADS_PRINT("FloatingWidget::changeEvent QEvent::ActivationChange ");
+			d->zOrderIndex = ++zOrderCounter;
+
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
+			if (d->DraggingState == DraggingFloatingWidget)
+			{
+				d->titleMouseReleaseEvent();
+				d->DraggingState = DraggingInactive;
+			}
 #endif
+		}
+		break;
+
+	case QEvent::WindowStateChange:
+	    // If the DockManager window is restored from minimized on Windows
+		// then the FloatingWidgets are not properly restored to maximized but
+		// to normal state.
+		// We simply check here, if the FloatingWidget was maximized before
+		// and if the DockManager is just leaving the minimized state. In this
+		// case, we restore the maximized state of this floating widget
+		if (d->DockManager->isLeavingMinimizedState())
+		{
+			QWindowStateChangeEvent* ev = static_cast<QWindowStateChangeEvent*>(event);
+			if (ev->oldState().testFlag(Qt::WindowMaximized))
+			{
+				this->showMaximized();
+			}
+		}
+		break;
+
+	default:
+		break; // do nothing
 	}
 }
 
@@ -920,7 +946,7 @@ void CFloatingDockContainer::hideEvent(QHideEvent *event)
 void CFloatingDockContainer::showEvent(QShowEvent *event)
 {
 	Super::showEvent(event);
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
     if (CDockManager::testConfigFlag(CDockManager::FocusHighlighting))
     {
         this->window()->activateWindow();
@@ -933,7 +959,7 @@ void CFloatingDockContainer::showEvent(QShowEvent *event)
 void CFloatingDockContainer::startFloating(const QPoint &DragStartMousePos,
     const QSize &Size, eDragState DragState, QWidget *MouseEventHandler)
 {
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
     if (!isMaximized())
     {
 		resize(Size);
@@ -985,7 +1011,7 @@ void CFloatingDockContainer::moveFloating()
 		// the main window as the active window for some reason. This fixes
 		// that by resetting the active window to the floating widget after
 		// updating the overlays.
-		QApplication::setActiveWindow(this);
+		activateWindow();
 #endif
 		break;
 	default:
@@ -1070,7 +1096,7 @@ bool CFloatingDockContainer::restoreState(CDockingStateReader &Stream,
 		return false;
 	}
 	onDockAreasAddedOrRemoved();
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
 	if(d->TitleBar)
 	{
 		d->TitleBar->setMaximizedIcon(windowState() == Qt::WindowMaximized);
@@ -1108,13 +1134,18 @@ void CFloatingDockContainer::hideAndDeleteLater()
 	d->AutoHideChildren = false;
 	hide();
 	deleteLater();
+	if (d->DockManager)
+	{
+		d->DockManager->removeFloatingWidget(this);
+		d->DockManager->removeDockContainer(this->dockContainer());
+	}
 }
 
 //============================================================================
 void CFloatingDockContainer::finishDragging()
 {
 	ADS_PRINT("CFloatingDockContainer::finishDragging");
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
 	setWindowOpacity(1);
 	activateWindow();
 	if (d->MouseEventHandler)
@@ -1218,7 +1249,7 @@ void CFloatingDockContainer::moveEvent(QMoveEvent *event)
 		// the main window as the active window for some reason. This fixes
 		// that by resetting the active window to the floating widget after
 		// updating the overlays.
-		QApplication::setActiveWindow(this);
+		activateWindow();
 		break;
 	default:
 		break;
@@ -1229,7 +1260,7 @@ void CFloatingDockContainer::moveEvent(QMoveEvent *event)
 #endif
 
 
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
 //============================================================================
 void CFloatingDockContainer::onMaximizeRequest()
 {
@@ -1298,12 +1329,12 @@ void CFloatingDockContainer::resizeEvent(QResizeEvent *event)
 	Super::resizeEvent(event);
 }
 
-static bool s_mousePressed = false;
+
 //============================================================================
 void CFloatingDockContainer::moveEvent(QMoveEvent *event)
 {
 	Super::moveEvent(event);
-	if (!d->IsResizing && event->spontaneous() && s_mousePressed)
+    if (!d->IsResizing && event->spontaneous() && d->MousePressed)
 	{
         d->setState(DraggingFloatingWidget);
 		d->updateDropOverlays(QCursor::pos());
@@ -1319,10 +1350,10 @@ bool CFloatingDockContainer::event(QEvent *e)
 	switch (e->type())
 	{
 	case QEvent::WindowActivate:
-		s_mousePressed = false;
+        d->MousePressed = false;
 		break;
 	case QEvent::WindowDeactivate:
-		s_mousePressed = true;
+        d->MousePressed = true;
 		break;
 	default:
 		break;

@@ -39,9 +39,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "selection.h"
 #include "ui/scrspinbox.h"
+#include "docks/dock_panelbase.h"
 #include "undomanager.h"
 
-LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette(parent, "Layers", Qt::WindowFlags())
+LayerPalette::LayerPalette(QWidget* parent) : DockPanelBase("Layers", parent)
 {
 	setObjectName(QString::fromLocal8Bit("Layers"));
 	setMinimumSize( QSize(220, 240) );
@@ -172,7 +173,7 @@ LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette(parent, "Layers", Qt
 
 void LayerPalette::installEventFilter(QObject *obj)
 {
-	ScDockPalette::installEventFilter(obj);
+	DockPanelBase::installEventFilter(obj);
 	Table->installEventFilter(obj);
 }
 
@@ -686,7 +687,7 @@ void LayerPalette::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 		languageChange();
 	else
-		ScDockPalette::changeEvent(e);
+		DockPanelBase::changeEvent(e);
 }
 
 void LayerPalette::iconSetChange()
