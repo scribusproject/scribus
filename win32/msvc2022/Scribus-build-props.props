@@ -4,16 +4,16 @@
   </ImportGroup>
   <!-- Import Scribus dependencies (other than Qt) -->
   <PropertyGroup Label="UserMacros">
-	<SCRIBUS_LIB_ROOT>C:\Scribus Libs\scribus-1.7.x-libs-msvc</SCRIBUS_LIB_ROOT>
+	<SCRIBUS_LIB_ROOT>F:\Scribus Libs\scribus-1.7.x-libs-msvc</SCRIBUS_LIB_ROOT>
   </PropertyGroup>
   <Import Project="$(SCRIBUS_LIB_ROOT)\scribus-lib-paths.props" />
   <!-- Import Qt6 -->
   <PropertyGroup Label="UserMacros">
 	<!-- Qt6 -->
-	<QT6_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v142'"   >C:\Libraries\Qt\6.5.2\msvc2019</QT6_DIR>
-	<QT6_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v142'"   >C:\Libraries\Qt\6.5.2\msvc2019_64</QT6_DIR>
-	<QT6_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v143'"   >C:\Libraries\Qt\6.5.2\msvc2019</QT6_DIR>
-	<QT6_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v143'"   >C:\Libraries\Qt\6.5.2\msvc2019_64</QT6_DIR>
+	<QT6_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt\6.2.4\msvc2019</QT6_DIR>
+	<QT6_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt\6.2.4\msvc2019_64</QT6_DIR>
+	<QT6_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt\6.2.4\msvc2019</QT6_DIR>
+	<QT6_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt\6.2.4\msvc2019_64</QT6_DIR>
 	<QT6CORE_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Cored.lib</QT6CORE_LIB>
 	<QT6CORE_LIB Condition="'$(Configuration)' == 'Release'">Qt6Core.lib</QT6CORE_LIB>
 	<QT6CORE5COMPAT_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Core5Compatd.lib</QT6CORE5COMPAT_LIB>
@@ -37,9 +37,6 @@
 	<LCMS_LIB>$(LCMS2_LIB)</LCMS_LIB>
   </PropertyGroup>
   <!-- MSVC stuff -->
-  <PropertyGroup Condition="'$(Language)'=='C++'">
-    <CAExcludePath>$(QT6_DIR)\include;$(CAExcludePath)</CAExcludePath>
-  </PropertyGroup>
   <PropertyGroup>
     <_ProjectFileVersion>11.0.60610.1</_ProjectFileVersion>
   </PropertyGroup>
