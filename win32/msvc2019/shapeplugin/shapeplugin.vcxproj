@@ -113,7 +113,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);QtAdvancedDockingSystem.lib;scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(QT6_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -141,7 +141,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);QtAdvancedDockingSystem.lib;scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(QT6_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -172,7 +172,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);QtAdvancedDockingSystem.lib;scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(QT6_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -205,7 +205,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);QtAdvancedDockingSystem.lib;scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(QT6_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>

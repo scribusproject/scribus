@@ -121,7 +121,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;QtAdvancedDockingSystem.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPNG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug />
@@ -157,7 +157,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;QtAdvancedDockingSystem.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPNG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>
@@ -194,7 +194,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;QtAdvancedDockingSystem.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPNG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -232,7 +232,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;QtAdvancedDockingSystem.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPNG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -337,6 +337,7 @@
     <moc Include="..\..\..\scribus\qtiocompressor.h" />
     <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.h" />
     <moc Include="..\..\..\scribus\selectionrubberband.h" />
+    <moc Include="..\..\..\scribus\manager\dock_manager.h" />
     <ClInclude Include="..\..\..\scribus\nodeeditcontext.h" />
     <ClInclude Include="..\..\..\scribus\pageitemiterator.h" />
     <ClInclude Include="..\..\..\scribus\palettes\cxfcolor.h" />
@@ -632,6 +633,8 @@
     <moc Include="..\..\..\scribus\ui\outputpreview_pdf.h" />
     <moc Include="..\..\..\scribus\ui\outputpreview_ps.h" />
     <moc Include="..\..\..\scribus\ui\printlanguagecombo.h" />
+    <moc Include="..\..\..\scribus\ui\docks\dock_centralwidget.h" />
+    <moc Include="..\..\..\scribus\ui\docks\dock_panelbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -891,6 +894,7 @@
     <ClCompile Include="..\..\..\scribus\iconmanager.cpp" />
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_kra.cpp" />
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_png.cpp" />
+    <ClCompile Include="..\..\..\scribus\manager\dock_manager.cpp" />
     <ClCompile Include="..\..\..\scribus\marks.cpp" />
     <ClCompile Include="..\..\..\scribus\nodeeditcontext.cpp" />
     <ClCompile Include="..\..\..\scribus\pageitemiterator.cpp" />
@@ -1035,6 +1039,8 @@
     <ClCompile Include="..\..\..\scribus\documentchecker.cpp" />
     <ClCompile Include="..\..\..\scribus\documentinformation.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\directionselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\docks\dock_centralwidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\docks\dock_panelbase.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\downloadspalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\editor.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\edittoolbar.cpp" />

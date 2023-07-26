@@ -1246,6 +1246,9 @@
     <ClCompile Include="..\..\..\scribus\main_win32.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\manager\dock_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\marks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1868,6 +1871,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\directionselect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\docks\dock_centralwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\docks\dock_panelbase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\downloadspalette.cpp">
@@ -3311,6 +3320,9 @@
     <moc Include="..\..\..\scribus\loadsaveplugin.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\manager\dock_manager.h">
+      <Filter>Header Files</Filter>
+    </moc>
     <moc Include="..\..\..\scribus\menumanager.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -3594,6 +3606,12 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\directionselect.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\docks\dock_centralwidget.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\docks\dock_panelbase.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\downloadspalette.h">
