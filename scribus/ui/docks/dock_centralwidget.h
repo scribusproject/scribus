@@ -24,12 +24,10 @@
 
 class DockCentralWidget : public ads::CDockWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit DockCentralWidget(QWidget *parent = nullptr);
-
-
+	explicit DockCentralWidget(QWidget *parent = nullptr);
 };
 
 #endif // DOCK_CENTRALWIDGET_H

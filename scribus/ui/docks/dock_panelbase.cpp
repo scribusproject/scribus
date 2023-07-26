@@ -26,16 +26,16 @@
 #include "prefsfile.h"
 #include "prefsmanager.h"
 
-DockPanelBase::DockPanelBase(const QString &title, QIcon icon, QWidget *parent)  : DockPanelBase(title, parent)
+DockPanelBase::DockPanelBase(const QString &title, QIcon icon, QWidget *parent)
+	: DockPanelBase(title, parent)
 {
 	this->setIcon(icon);
 }
 
-
-DockPanelBase::DockPanelBase(const QString &title, QWidget *parent) : CDockWidget(title, parent)
+DockPanelBase::DockPanelBase(const QString &title, QWidget *parent)
+	: CDockWidget(title, parent)
 {
-	if (PrefsManager::instance().appPrefs.uiPrefs.useSmallWidgets)
-	{
+	if (PrefsManager::instance().appPrefs.uiPrefs.useSmallWidgets) {
 		setStyleSheet("	QToolButton { margin: 1px; padding: 0px; font-size: 10px; } \
 						QToolButton:pressed { padding-top: 2px; padding-left: 2px } \
 						QPushButton { margin: 1px; padding: 0px; font-size: 10px; } \
@@ -50,7 +50,7 @@ DockPanelBase::DockPanelBase(const QString &title, QWidget *parent) : CDockWidge
 					");
 	}
 	m_originalParent = parent;
-//	setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+	//	setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
 	setPrefsContext(title);
 	setObjectName(title);
@@ -59,22 +59,18 @@ DockPanelBase::DockPanelBase(const QString &title, QWidget *parent) : CDockWidge
 
 void DockPanelBase::setWidget(QWidget *widget)
 {
-    ads::CDockWidget::setWidget(widget);
-
+	ads::CDockWidget::setWidget(widget);
 }
 
-void DockPanelBase::setPrefsContext(const QString& context)
+void DockPanelBase::setPrefsContext(const QString &context)
 {
-	if (m_prefsContextName.isEmpty())
-	{
-		m_prefsContextName=context;
-		if (!m_prefsContextName.isEmpty())
-		{
-			m_palettePrefs = PrefsManager::instance().prefsFile->getContext(m_prefsContextName);
-		}
-		else
-			m_palettePrefs = nullptr;
-	}
+	if (!m_prefsContextName.isEmpty())
+		return;
+	m_prefsContextName = context;
+	if (!m_prefsContextName.isEmpty())
+		m_palettePrefs = PrefsManager::instance().prefsFile->getContext(m_prefsContextName);
+	else
+		m_palettePrefs = nullptr;
 }
 
 void DockPanelBase::startup()
@@ -88,5 +84,3 @@ void DockPanelBase::setFontSize()
 	newfont.setPointSize(PrefsManager::instance().appPrefs.uiPrefs.paletteFontSize);
 	setFont(newfont);
 }
-
-

@@ -20,8 +20,8 @@
 #ifndef DOCK_PANELBASE_H
 #define DOCK_PANELBASE_H
 
-#include "third_party/Qt-Advanced-Docking-System/src/DockWidget.h"
 #include "scribusapi.h"
+#include "third_party/Qt-Advanced-Docking-System/src/DockWidget.h"
 using namespace ads;
 
 class PrefsContext;
@@ -31,10 +31,10 @@ class SCRIBUS_API DockPanelBase : public CDockWidget
 	Q_OBJECT
 
 public:
-    DockPanelBase(const QString &title, QWidget *parent = 0);
-    DockPanelBase(const QString &title, QIcon icon, QWidget *parent = 0);
+	DockPanelBase(const QString &title, QWidget *parent = 0);
+	DockPanelBase(const QString &title, QIcon icon, QWidget *parent = 0);
 
-    void setWidget(QWidget *widget);
+	void setWidget(QWidget *widget);
 	void startup();
 
 public slots:
@@ -42,13 +42,12 @@ public slots:
 
 protected:
 	/** @brief Set the Preferences context to be used for storage of startup visibility and position and size */
-	virtual void setPrefsContext(const QString& context);
+	virtual void setPrefsContext(const QString &context);
 
-	PrefsContext* m_palettePrefs {nullptr};
+	PrefsContext *m_palettePrefs {nullptr};
 	QString m_prefsContextName;
-	QWidget* m_originalParent {nullptr};
-	QWidget* m_tempParent {nullptr};
-
+	QWidget *m_originalParent {nullptr};
+	QWidget *m_tempParent {nullptr};
 };
 
 #endif // DOCK_PANELBASE_H

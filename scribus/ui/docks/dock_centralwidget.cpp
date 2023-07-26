@@ -18,12 +18,11 @@
  ***************************************************************************/
 #include "dock_centralwidget.h"
 
-DockCentralWidget::DockCentralWidget(QWidget *parent) : ads::CDockWidget(QString(), parent)
+DockCentralWidget::DockCentralWidget(QWidget *parent)
+	: ads::CDockWidget(QString(), parent)
 {
-
 	setObjectName(QString::fromLocal8Bit("DockCentralWidget"));
 
-    setFeature(ads::CDockWidget::NoTab, true);
-    setFeature(ads::CDockWidget::DockWidgetFloatable, false);
+	setFeature(ads::CDockWidget::NoTab, true);
+	setFeature(ads::CDockWidget::DockWidgetFloatable, false);
 }
-
