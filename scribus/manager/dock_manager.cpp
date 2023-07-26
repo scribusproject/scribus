@@ -18,24 +18,24 @@
  ***************************************************************************/
 #include "dock_manager.h"
 
-#include "ui/docks/dock_centralwidget.h"
+#include <QMenu>
 #include "third_party/Qt-Advanced-Docking-System/src/DockAreaWidget.h"
 #include "third_party/Qt-Advanced-Docking-System/src/DockSplitter.h"
-#include <QMenu>
+#include "ui/docks/dock_centralwidget.h"
 
-#include "ui/pagepalette.h"
-#include "ui/outlinepalette.h"
-#include "ui/propertiespalette.h"
-#include "ui/contentpalette.h"
-#include "ui/layers.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
 #include "ui/aligndistribute.h"
-#include "ui/inlinepalette.h"
 #include "ui/bookmarkpalette.h"
+#include "ui/contentpalette.h"
+#include "ui/inlinepalette.h"
+#include "ui/layers.h"
+#include "ui/outlinepalette.h"
+#include "ui/pagepalette.h"
+#include "ui/propertiespalette.h"
 #include "ui/scrapbookpalette.h"
 #include "ui/symbolpalette.h"
 #include "undogui.h"
-#include "prefsmanager.h"
-#include "prefsfile.h"
 
 //#include "icon_manager.h"
 
@@ -45,19 +45,19 @@
  *
  * ********************************************************************************* */
 
-DockManager::DockManager(QWidget *parent) : CDockManager(parent)
+DockManager::DockManager(QWidget *parent)
+	: CDockManager(parent)
 {
 	dockCenter = new DockCentralWidget();
-	auto * areaCenter = CDockManager::setCentralWidget(dockCenter);
+	auto *areaCenter = CDockManager::setCentralWidget(dockCenter);
 	areaCenter->setAllowedAreas(DockWidgetArea::OuterDockAreas);
 
 	m_palettePrefs = PrefsManager::instance().prefsFile->getContext("user_preferences");
-
 }
 
 void DockManager::setupDocks()
 {
-	pagePalette = new PagePalette((QWidget*)this->parent());
+	pagePalette = new PagePalette((QWidget *) this->parent());
 	contentPalette = new ContentPalette(this);
 	propertiesPalette = new PropertiesPalette(this);
 	outlinePalette = new OutlinePalette(this);
@@ -69,12 +69,11 @@ void DockManager::setupDocks()
 	undoPalette = new UndoPalette(this);
 	symbolPalette = new SymbolPalette(this);
 
-    // Panel ToolProperties
-//    PanelToolProperties * panelTest = new PanelToolProperties();
-//    dockToolProperties->setWidget(panelTest);
-//    dockToolProperties->setFeature(ads::CDockWidget::NoTab, true);
+	// Panel ToolProperties
+	//    PanelToolProperties * panelTest = new PanelToolProperties();
+	//    dockToolProperties->setWidget(panelTest);
+	//    dockToolProperties->setFeature(ads::CDockWidget::NoTab, true);
 }
-
 
 void DockManager::setCentralWidget(QWidget *widget)
 {
@@ -108,8 +107,7 @@ void DockManager::loadDefaultWorkspace()
 	 *
 	 *************************************************************/
 
-
-	auto * areaCenter = dockCenter->dockAreaWidget();
+	auto *areaCenter = dockCenter->dockAreaWidget();
 
 	// Left	Center
 	areaCenterLeft = addDockWidget(LeftDockWidgetArea, inlinePalette, areaCenter);
@@ -117,35 +115,34 @@ void DockManager::loadDefaultWorkspace()
 	addDockWidget(CenterDockWidgetArea, bookPalette, areaCenterLeft);
 	addDockWidget(CenterDockWidgetArea, symbolPalette, areaCenterLeft);
 
-
 	// Left
-	auto * areaLeft = addDockWidget(LeftDockWidgetArea, pagePalette, areaCenterLeft);
+	auto *areaLeft = addDockWidget(LeftDockWidgetArea, pagePalette, areaCenterLeft);
 	addDockWidget(CenterDockWidgetArea, outlinePalette, areaLeft);
 
 	// Left Bottom
-	auto * areaLeftBottom = addDockWidget(BottomDockWidgetArea, layerPalette, areaLeft);
+	auto *areaLeftBottom = addDockWidget(BottomDockWidgetArea, layerPalette, areaLeft);
 	addDockWidget(CenterDockWidgetArea, alignDistributePalette, areaLeftBottom);
 	addDockWidget(CenterDockWidgetArea, undoPalette, areaLeftBottom);
 
 	// Right Panel
-	auto * areaRight = addDockWidget(RightDockWidgetArea, propertiesPalette, areaCenter);
+	auto *areaRight = addDockWidget(RightDockWidgetArea, propertiesPalette, areaCenter);
 	addDockWidget(CenterDockWidgetArea, contentPalette, areaRight);
 
-    // Top Panel
-//    auto * areaTop = addDockWidget(TopDockWidgetArea, dockToolProperties);
-//    areaTop->setAllowedAreas(NoDockWidgetArea);
-//    areaTop->setDockAreaFlag(CDockAreaWidget::HideSingleWidgetTitleBar, true);
+	// Top Panel
+	//    auto * areaTop = addDockWidget(TopDockWidgetArea, dockToolProperties);
+	//    areaTop->setAllowedAreas(NoDockWidgetArea);
+	//    areaTop->setDockAreaFlag(CDockAreaWidget::HideSingleWidgetTitleBar, true);
 
 	// Resizing area height of left and bottom-left
-	auto splitterL = ads::internal::findParent<ads::CDockSplitter*>(areaLeft);
+	auto splitterL = ads::internal::findParent<ads::CDockSplitter *>(areaLeft);
 	if (splitterL)
 	{
 		int heightL = splitterL->height();
-		splitterL->setSizes({heightL * 2/3, heightL * 1/3});
+		splitterL->setSizes({heightL * 2 / 3, heightL * 1 / 3});
 	}
 
 	// Resizing area width of left, center-left, center and right
-	auto splitterCL = ads::internal::findParent<ads::CDockSplitter*>(areaCenter);
+	auto splitterCL = ads::internal::findParent<ads::CDockSplitter *>(areaCenter);
 	if (splitterCL)
 	{
 		int widthCL = splitterCL->width();
@@ -168,9 +165,8 @@ void DockManager::loadDefaultWorkspace()
 	this->addPerspective("Default");
 
 	// try to load custom layout from preferences
-	if(!m_palettePrefs->get("ads_dockstate").isEmpty())
+	if (!m_palettePrefs->get("ads_dockstate").isEmpty())
 		loadWorkspaceFromFile();
-
 }
 
 void DockManager::setTheme(QString theme)
@@ -180,36 +176,31 @@ void DockManager::setTheme(QString theme)
 
 void DockManager::removeAllDockWidgets()
 {
-	QMap<QString, CDockWidget*> map = dockWidgetsMap();
-	foreach( QString key, map.keys() )
-	{
+	QMap<QString, CDockWidget *> map = dockWidgetsMap();
+	foreach (QString key, map.keys())
 		removeDockWidget(map.value(key));
-	}
 }
 
-CDockAreaWidget* DockManager::addDockFromPlugin(CDockWidget *dock, bool closed)
+CDockAreaWidget *DockManager::addDockFromPlugin(CDockWidget *dock, bool closed)
 {
-	CDockAreaWidget* a = addDockWidget(RightDockWidgetArea, dock, dockCenter->dockAreaWidget());
+	CDockAreaWidget *a = addDockWidget(RightDockWidgetArea, dock, dockCenter->dockAreaWidget());
 	dock->toggleView(!closed);
 	return a;
 }
 
 void DockManager::loadWorkspaceFromFile()
 {
-	if(m_palettePrefs)
-	{
-		QByteArray ba = QByteArray::fromHex(m_palettePrefs->get("ads_dockstate").toLatin1());
-		this->restoreState(ba);
-	}
+	if (!m_palettePrefs)
+		return;
+	QByteArray ba = QByteArray::fromHex(m_palettePrefs->get("ads_dockstate").toLatin1());
+	this->restoreState(ba);
 }
 
 void DockManager::saveWorkspaceToFile()
 {
-	if(m_palettePrefs)
-	{
-		QByteArray data = this->saveState();
-		QString s = data.toHex();
-		m_palettePrefs->set("ads_dockstate", s);
-	}
+	if (!m_palettePrefs)
+		return;
+	QByteArray data = this->saveState();
+	QString s = data.toHex();
+	m_palettePrefs->set("ads_dockstate", s);
 }
-

@@ -41,41 +41,39 @@ class DockCentralWidget;
 
 class SCRIBUS_API DockManager : public CDockManager
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
 	DockManager(QWidget *parent);
 
-	void setCentralWidget(QWidget * widget);
+	void setCentralWidget(QWidget *widget);
 	void setupDocks();
 	void loadDefaultWorkspace();
 	void setTheme(QString theme);
 	void removeAllDockWidgets();
-	CDockAreaWidget* addDockFromPlugin(CDockWidget * dock, bool closed = true);
-
+	CDockAreaWidget *addDockFromPlugin(CDockWidget *dock, bool closed = true);
 
 	PagePalette *pagePalette {nullptr};
-	OutlinePalette * outlinePalette {nullptr};
-	PropertiesPalette * propertiesPalette {nullptr};
-	ContentPalette * contentPalette {nullptr};
-	LayerPalette * layerPalette {nullptr};
-	AlignDistributePalette * alignDistributePalette {nullptr};
-	InlinePalette * inlinePalette {nullptr};
-	Biblio * scrapbookPalette {nullptr};
-	BookPalette * bookPalette {nullptr};
-	UndoPalette * undoPalette {nullptr};
-	SymbolPalette * symbolPalette {nullptr};
+	OutlinePalette *outlinePalette {nullptr};
+	PropertiesPalette *propertiesPalette {nullptr};
+	ContentPalette *contentPalette {nullptr};
+	LayerPalette *layerPalette {nullptr};
+	AlignDistributePalette *alignDistributePalette {nullptr};
+	InlinePalette *inlinePalette {nullptr};
+	Biblio *scrapbookPalette {nullptr};
+	BookPalette *bookPalette {nullptr};
+	UndoPalette *undoPalette {nullptr};
+	SymbolPalette *symbolPalette {nullptr};
 
 public slots:
 	void loadWorkspaceFromFile();
 	void saveWorkspaceToFile();
 
 private:
-	DockCentralWidget * dockCenter {nullptr};
-	PrefsContext* m_palettePrefs {nullptr};
+	DockCentralWidget *dockCenter {nullptr};
+	PrefsContext *m_palettePrefs {nullptr};
 
-	CDockAreaWidget * areaCenterLeft {nullptr};
-
+	CDockAreaWidget *areaCenterLeft {nullptr};
 };
 
 #endif // DOCK_MANAGER_H
