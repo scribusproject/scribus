@@ -363,10 +363,10 @@ public:
   using pointer = Curve const*;
   using reference = Curve const&;
 
-  bool operator==(BaseIterator const &other) {
+  bool operator==(BaseIterator const &other) const {
     return other.impl_ == impl_;
   }
-  bool operator!=(BaseIterator const &other) {
+  bool operator!=(BaseIterator const &other) const {
     return other.impl_ != impl_;
   }
 
@@ -404,10 +404,10 @@ public:
   using pointer = Curve*;
   using reference = Curve*&;
 
-  bool operator==(DuplicatingIterator const &other) {
+  bool operator==(DuplicatingIterator const &other) const {
     return other.impl_ == impl_;
   }
-  bool operator!=(DuplicatingIterator const &other) {
+  bool operator!=(DuplicatingIterator const &other) const {
     return other.impl_ != impl_;
   }
 

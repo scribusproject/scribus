@@ -54,8 +54,8 @@ public:
   using pointer = SBasis const*;
   using reference = SBasis const&;
 
-  inline bool operator==(CoordIterator const &other) { return other.impl_ == impl_; }
-  inline bool operator!=(CoordIterator const &other) { return other.impl_ != impl_; }
+  inline bool operator==(CoordIterator const &other) const { return other.impl_ == impl_; }
+  inline bool operator!=(CoordIterator const &other) const { return other.impl_ != impl_; }
 
   inline SBasis operator*() const {
         return (*impl_)[ix_];
