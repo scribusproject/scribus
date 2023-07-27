@@ -34,11 +34,13 @@ class SCRIBUS_API MeshPoint
 {
 	public:
 		MeshPoint() {};
+
 		void moveRel(double dx, double dy);
 		void moveAbs(double x, double y);
 		void transform(const QTransform& t);
 		void resetTo(const FPoint& p);
-		bool operator ==(const MeshPoint& p);
+		bool operator ==(const MeshPoint& p) const;
+
 		FPoint gridPoint;
 		FPoint controlTop;
 		FPoint controlBottom;
