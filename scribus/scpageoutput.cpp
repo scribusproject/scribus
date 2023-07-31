@@ -1047,6 +1047,7 @@ public:
 			if (outline.size() > 3)
 			{
 				m_painter->setLineWidth(strokeWidth());
+				m_painter->setStrokeMode(ScPainterExBase::Solid);
 				m_painter->strokePath();
 			}
 			m_painter->restore();
@@ -1061,6 +1062,7 @@ public:
 	{
 		m_painter->save();
 		setupState();
+		m_painter->setStrokeMode(ScPainterExBase::Solid);
 		m_painter->drawLine(start, end);
 		m_painter->restore();
 	}
