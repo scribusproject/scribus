@@ -836,7 +836,6 @@ void ScribusDoc::SetDefaultCMSParams()
 bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL  /*MoPo*/, ProfilesL PrPo)
 {
 	HasCMS = false;
-	ScColorProfile inputProf;
 
 	colorEngine = colorMgmtEngineFactory.createDefaultEngine();
 	ScColorMgmtStrategy colorStrategy;
@@ -871,13 +870,6 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL  
 	stdTransCMYKMon = colorEngine.createTransform(DocInputCMYKProf, Format_CMYK_16,
 										DocDisplayProf, Format_RGB_16,
 										IntentColors, dcmsFlags);
-	// TODO : check input profiles used for images
-	stdProofImg = colorEngine.createProofingTransform(DocInputImageRGBProf, Format_BGRA_8,
-	                  DocDisplayProf, Format_BGRA_8, DocPrinterProf,
-	                  IntentImages, Intent_Relative_Colorimetric, dcmsFlagsGC);
-	stdProofImgCMYK = colorEngine.createProofingTransform(DocInputImageCMYKProf, Format_CMYK_8,
-	                  DocDisplayProf, Format_BGRA_8, DocPrinterProf,
-	                  IntentImages, Intent_Relative_Colorimetric, dcmsFlagsGC);
 	stdTransImg = colorEngine.createTransform(DocInputRGBProf, Format_BGRA_8,
 	                  DocDisplayProf, Format_BGRA_8, 
 					  IntentImages, dcmsFlags);
@@ -888,24 +880,28 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL  
 					  DocInputCMYKProf, Format_CMYK_16,
 					  IntentColors, dcmsFlags);
 
+	bool proofConvertSimilarColorspaces = m_docPrefsData.colorPrefs.DCMSset.SoftProofOn && m_docPrefsData.colorPrefs.DCMSset.SoftProofFullOn;
 	ScColorProfile inputProfRGB;
+	ScColorProfile inputProfRGBImg;
 	ScColorProfile inputProfCMYK;
+	ScColorProfile inputProfCMYKImg;
 	if (DocPrinterProf.colorSpace() == ColorSpace_Cmyk)
 	{
-		inputProf = (m_docPrefsData.colorPrefs.DCMSset.SoftProofOn && m_docPrefsData.colorPrefs.DCMSset.SoftProofFullOn) ? DocInputCMYKProf : DocPrinterProf;
 		inputProfRGB  = DocInputRGBProf;
-		inputProfCMYK = inputProf;
+		inputProfRGBImg  = DocInputImageRGBProf;
+		inputProfCMYK = proofConvertSimilarColorspaces ? DocInputCMYKProf : DocPrinterProf;
+		inputProfCMYKImg = proofConvertSimilarColorspaces ? DocInputImageCMYKProf : DocPrinterProf;
 	}
 	else
 	{
-		inputProf = (m_docPrefsData.colorPrefs.DCMSset.SoftProofOn && m_docPrefsData.colorPrefs.DCMSset.SoftProofFullOn) ? DocInputRGBProf : DocPrinterProf;
-		inputProfRGB  = inputProf;
+		inputProfRGB  = proofConvertSimilarColorspaces ? DocInputRGBProf : DocPrinterProf;
+		inputProfRGBImg  = proofConvertSimilarColorspaces ? DocInputImageRGBProf : DocPrinterProf;
 		inputProfCMYK = DocInputCMYKProf;
+		inputProfCMYKImg = DocInputImageCMYKProf;
 	}
 	stdProof = colorEngine.createProofingTransform(inputProfRGB, Format_RGB_16,
 						DocDisplayProf, Format_RGB_16,
-						DocPrinterProf,
-						IntentColors,
+						DocPrinterProf, IntentColors,
 						Intent_Relative_Colorimetric, dcmsFlags);
 	stdProofGC = colorEngine.createProofingTransform(inputProfRGB, Format_RGB_16,
 						DocDisplayProf, Format_RGB_16,
@@ -917,18 +913,25 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL  
 						Intent_Relative_Colorimetric, dcmsFlags);
 	stdProofCMYKGC = colorEngine.createProofingTransform(inputProfCMYK, Format_CMYK_16,
 						DocDisplayProf, Format_RGB_16,
-						DocPrinterProf,
-						IntentColors,
+						DocPrinterProf, IntentColors,
 						Intent_Relative_Colorimetric, dcmsFlags | Ctf_GamutCheck);
 	stdProofLab = colorEngine.createProofingTransform(ScCore->defaultLabProfile, Format_Lab_Dbl,
 						DocDisplayProf, Format_RGB_16,
-						DocPrinterProf,
-						IntentColors,
+						DocPrinterProf, IntentColors,
 						Intent_Relative_Colorimetric, dcmsFlags);
 	stdProofLabGC = colorEngine.createProofingTransform(ScCore->defaultLabProfile, Format_Lab_Dbl,
 						DocDisplayProf, Format_RGB_16,
 						DocPrinterProf, IntentColors,
 						Intent_Relative_Colorimetric, dcmsFlags| Ctf_GamutCheck);
+
+	stdProofImg = colorEngine.createProofingTransform(inputProfRGBImg, Format_BGRA_8,
+						DocDisplayProf, Format_BGRA_8,
+						DocPrinterProf, IntentImages, 
+						Intent_Relative_Colorimetric, dcmsFlagsGC);
+	stdProofImgCMYK = colorEngine.createProofingTransform(inputProfCMYKImg, Format_CMYK_8,
+						DocDisplayProf, Format_BGRA_8, 
+						DocPrinterProf, IntentImages, 
+						Intent_Relative_Colorimetric, dcmsFlagsGC);
 
 	if (DocInputRGBProf.colorSpace() == ColorSpace_Rgb)
 			m_docPrefsData.colorPrefs.DCMSset.ComponentsInput2 = 3;
