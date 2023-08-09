@@ -231,6 +231,7 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->invalidateRegion(m_mousePressBounds.united(m_bounds));
 			m_doc->regionsChanged()->update(m_mousePressBounds.united(m_bounds));
 			m_doc->changed();
+			m_doc->changedPagePreview();
 		}
 	}
 	if (m_transaction.isStarted())

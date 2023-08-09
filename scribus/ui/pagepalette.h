@@ -52,6 +52,7 @@ protected:
 	ScribusView       *m_view;
 	ScribusMainWindow *m_scMW;
 	PagePalette_Pages* m_pageWidget {nullptr};
+	int m_selectedPageNumber {0};
 
 	void changeEvent(QEvent *e) override;
 
@@ -66,6 +67,7 @@ public slots:
 	void rebuildPages();
 	void markPage(uint nr);
 	void updateMasterPageList();
+	void updatePagePreviews();
 
 	void languageChange();
 

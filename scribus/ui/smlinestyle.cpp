@@ -286,6 +286,7 @@ void SMLineStyle::apply()
 		}
 	}
 	m_doc->changed();
+	m_doc->changedPagePreview();
 	m_doc->scMW()->requestUpdate(reqLineStylesUpdate);
 	// Better not call DrawNew() here, as this will cause several unnecessary calls
 	// m_doc->view()->DrawNew();

@@ -276,6 +276,7 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 			//FIXME	
 			m_canvas->m_viewMode.operItemResizing = false;
 			m_doc->changed();
+			m_doc->changedPagePreview();
 		}
 		if (!PrefsManager::instance().appPrefs.uiPrefs.stickyTools)
 		{

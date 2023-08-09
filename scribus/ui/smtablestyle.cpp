@@ -210,6 +210,7 @@ void SMTableStyle::apply()
 	//m_doc->scMW()->requestUpdate(reqTextStylesUpdate);
 
 	m_doc->changed();
+	m_doc->changedPagePreview();
 }
 
 void SMTableStyle::editMode(bool isOn)

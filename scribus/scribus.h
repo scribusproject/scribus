@@ -468,6 +468,8 @@ public slots:
 	void HaveNewSel();
 	/** Dokument ist geaendert worden */
 	void slotDocCh(bool reb = true);
+	/** Page preview changed */
+	void slotPreviewCh();
 	/** Setzt die Abstufung */
 	//void setItemShade(int id);
 	/** Setz die Zeichensatzgroesse */

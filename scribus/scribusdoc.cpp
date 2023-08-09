@@ -1593,6 +1593,7 @@ void ScribusDoc::undoRedoDone()
 	--m_undoRedoOngoing;
 	m_Selection->delaySignalsOff();
 	m_docUpdater->endUpdate();
+	changedPagePreview();
 }
 
 void ScribusDoc::restore(UndoState* state, bool isUndo)
@@ -2511,7 +2512,10 @@ ScPage* ScribusDoc::addMasterPage(int pageNumber, const QString& pageName)
 	MasterPages.insert(pgN, addedPage);
 	assert(MasterPages.at(pgN) != nullptr);
 	if (!isLoading())
+	{
 		changed();
+		changedPagePreview();
+	}
 	if (UndoManager::undoEnabled())
 	{
 		auto *ss = new SimpleState(Um::NewMasterPage, "", Um::IDocument);
@@ -2833,6 +2837,7 @@ void ScribusDoc::copyLayer(int layerIDToCopy, int whereToInsert)
 	}
 	sourceSelection.clear();
 	changed();
+	changedPagePreview();
 }
 
 
@@ -2870,6 +2875,7 @@ bool ScribusDoc::deleteLayer(int layerID, bool deleteItems)
 	}
 
 	changed();
+	changedPagePreview();
 	return true;
 }
 
@@ -2961,7 +2967,10 @@ bool ScribusDoc::setLayerVisible(int layerID, bool isViewable)
 		}
 	}
 	if (found)
+	{
 		changed();
+		changedPagePreview();
+	}
 	return found;
 }
 
@@ -3079,6 +3088,7 @@ bool ScribusDoc::setLayerFlow(int layerID, bool flow)
 			invalidateLayer(it->ID);
 		}
 		changed();
+		changedPagePreview();
 	}
 	return found;
 }
@@ -3119,7 +3129,10 @@ bool ScribusDoc::setLayerTransparency(int layerID, double trans)
 		}
 	}
 	if (found)
+	{
 		changed();
+		changedPagePreview();
+	}
 	return found;
 }
 
@@ -3159,7 +3172,10 @@ bool ScribusDoc::setLayerBlendMode(int layerID, int blend)
 		}
 	}
 	if (found)
+	{
 		changed();
+		changedPagePreview();
+	}
 	return found;
 }
 
@@ -3190,7 +3206,10 @@ bool ScribusDoc::setLayerOutline(int layerID, bool outline)
 		}
 	}
 	if (found)
+	{
 		changed();
+		changedPagePreview();
+	}
 	return found;
 }
 
@@ -4667,7 +4686,10 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, int pageNumber)
 	}
 	//TODO make a return false if not possible to apply the master page
 	if (!isLoading())
+	{
 		changed();
+		changedPagePreview();
+	}
 	return true;
 }
 
@@ -4805,6 +4827,7 @@ bool ScribusDoc::changePageProperties(double initialTop, double initialBottom, d
 	invalidateRegion(pagebox);
 	regionsChanged()->update(pagebox);
 	changed();
+	changedPagePreview();
 
 	return true;
 }
@@ -5439,8 +5462,9 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 	if (transaction)
 		transaction.commit();
 	setCurrentPage(oldCurrentPage);
-	changed();
+	changed();	
 	regionsChanged()->update(QRectF());
+	changedPagePreview();
 	return z;
 }
 
@@ -5662,6 +5686,7 @@ bool ScribusDoc::loadPict(const QString& fn, PageItem *pageItem, bool reload, bo
 	{
 		pageItem->update();
 		changed();
+		changedPagePreview();
 	}
 	return true;
 }
@@ -6159,6 +6184,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 		FPoint maxSize(qMax(maxXPos, maxPoint.x() + scratch.right()), qMax(maxYPos, maxPoint.y() + scratch.bottom()));
 		adjustCanvas(FPoint(qMin(0.0, minPoint.x() - scratch.left()), qMin(0.0, minPoint.y() - scratch.top())), maxSize, true);
 		changed();
+		changedPagePreview();
 	}
 	else
 	{
@@ -7418,6 +7444,7 @@ void ScribusDoc::sendItemSelectionToBack()
 		}
 	}
 	changed();
+	changedPagePreview();
 	invalidateRegion(selRect);
 	regionsChanged()->update(QRectF());
 }
@@ -7485,6 +7512,7 @@ void ScribusDoc::bringItemSelectionToFront()
 		}
 	}
 	changed();
+	changedPagePreview();
 	invalidateRegion(selRect);
 	regionsChanged()->update(QRectF());
 }
@@ -7557,6 +7585,7 @@ void ScribusDoc::itemSelection_LowerItem()
 	*m_Selection = tempSelection;
 	m_Selection->delaySignalsOff();
 	changed();
+	changedPagePreview();
 	invalidateRegion(selRect);
 	regionsChanged()->update(QRectF());
 }
@@ -7631,6 +7660,7 @@ void ScribusDoc::itemSelection_RaiseItem()
 	*m_Selection = tempSelection;
 	m_Selection->delaySignalsOff();
 	changed();
+	changedPagePreview();
 	invalidateRegion(selRect);
 	regionsChanged()->update(QRectF());
 }
@@ -7668,6 +7698,7 @@ void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx,
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 
 }
 
@@ -7703,6 +7734,7 @@ void ScribusDoc::itemSelection_SetLineWidth(double w, Selection* customSelection
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 
@@ -7727,6 +7759,7 @@ void ScribusDoc::itemSelection_SetLineArt(Qt::PenStyle w, Selection* customSelec
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 
@@ -7752,6 +7785,7 @@ void ScribusDoc::itemSelection_SetLineJoin(Qt::PenJoinStyle w, Selection* custom
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 
@@ -7777,6 +7811,7 @@ void ScribusDoc::itemSelection_SetLineEnd(Qt::PenCapStyle w, Selection* customSe
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetLineSpacing(double w, Selection* customSelection)
@@ -7880,6 +7915,7 @@ void ScribusDoc::itemSelection_SetNamedLineStyle(const QString &name, Selection*
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetNamedCellStyle(const QString & name, Selection* customSelection)
@@ -7906,6 +7942,7 @@ void ScribusDoc::itemSelection_SetNamedCellStyle(const QString & name, Selection
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetNamedTableStyle(const QString & name, Selection* customSelection)
@@ -7932,6 +7969,7 @@ void ScribusDoc::itemSelection_SetNamedTableStyle(const QString & name, Selectio
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemPen(QString color, Selection* customSelection)
@@ -7962,6 +8000,7 @@ void ScribusDoc::itemSelection_SetItemPen(QString color, Selection* customSelect
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetParBackgroundColor(QString farbe, Selection* customSelection)
@@ -8106,6 +8145,7 @@ void ScribusDoc::itemSelection_SetItemBrush(QString colorName, Selection* custom
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemBrushShade(int sha, Selection* customSelection)
@@ -8132,6 +8172,7 @@ void ScribusDoc::itemSelection_SetItemBrushShade(int sha, Selection* customSelec
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemPenShade(int sha, Selection* customSelection)
@@ -8157,6 +8198,7 @@ void ScribusDoc::itemSelection_SetItemPenShade(int sha, Selection* customSelecti
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemGradMask(int typ, Selection* customSelection)
@@ -8183,6 +8225,7 @@ void ScribusDoc::itemSelection_SetItemGradMask(int typ, Selection* customSelecti
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemGradStroke(int typ, Selection* customSelection)
@@ -8235,6 +8278,7 @@ void ScribusDoc::itemSelection_SetItemGradStroke(int typ, Selection* customSelec
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemGradFill(int typ, Selection* customSelection)
@@ -8320,6 +8364,7 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ, Selection* customSelecti
 		trans.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemPatternFill(const QString& pattern, Selection* customSelection)
@@ -8339,6 +8384,7 @@ void ScribusDoc::itemSelection_SetItemPatternFill(const QString& pattern, Select
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemPatternProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
@@ -8357,6 +8403,7 @@ void ScribusDoc::itemSelection_SetItemPatternProps(double imageScaleX, double im
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemStrokePattern(const QString& pattern, Selection* customSelection)
@@ -8376,6 +8423,7 @@ void ScribusDoc::itemSelection_SetItemStrokePattern(const QString& pattern, Sele
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemStrokePatternProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space, bool mirrorX, bool mirrorY, Selection* customSelection)
@@ -8396,6 +8444,7 @@ void ScribusDoc::itemSelection_SetItemStrokePatternProps(double imageScaleX, dou
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemStrokePatternType(bool type, Selection* customSelection)
@@ -8415,6 +8464,7 @@ void ScribusDoc::itemSelection_SetItemStrokePatternType(bool type, Selection* cu
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemPatternMask(const QString& pattern, Selection* customSelection)
@@ -8434,6 +8484,7 @@ void ScribusDoc::itemSelection_SetItemPatternMask(const QString& pattern, Select
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetItemPatternMaskProps(double imageScaleX, double imageScaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, Selection* customSelection)
@@ -8454,6 +8505,7 @@ void ScribusDoc::itemSelection_SetItemPatternMaskProps(double imageScaleX, doubl
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_InsertTableRows()
@@ -8489,6 +8541,7 @@ void ScribusDoc::itemSelection_InsertTableRows()
 
 		m_ScMW->updateTableMenuActions();
 		changed();
+		changedPagePreview();
 	}
 }
 
@@ -8525,6 +8578,7 @@ void ScribusDoc::itemSelection_InsertTableColumns()
 
 		m_ScMW->updateTableMenuActions();
 		changed();
+		changedPagePreview();
 	}
 
 	delete dialog;
@@ -8585,6 +8639,7 @@ void ScribusDoc::itemSelection_DeleteTableRows()
 
 	m_ScMW->updateTableMenuActions();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_DeleteTableColumns()
@@ -8642,6 +8697,7 @@ void ScribusDoc::itemSelection_DeleteTableColumns()
 
 	m_ScMW->updateTableMenuActions();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_MergeTableCells()
@@ -8679,6 +8735,7 @@ void ScribusDoc::itemSelection_MergeTableCells()
 
 	m_ScMW->updateTableMenuActions();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetTableRowHeights()
@@ -8733,6 +8790,7 @@ void ScribusDoc::itemSelection_SetTableRowHeights()
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetTableColumnWidths()
@@ -8790,6 +8848,7 @@ void ScribusDoc::itemSelection_SetTableColumnWidths()
 		activeTransaction.commit();
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_DistributeTableRowsEvenly()
@@ -8833,6 +8892,7 @@ void ScribusDoc::itemSelection_DistributeTableRowsEvenly()
 	table->adjustTable();
 	table->update();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_DistributeTableColumnsEvenly()
@@ -8876,6 +8936,7 @@ void ScribusDoc::itemSelection_DistributeTableColumnsEvenly()
 	table->adjustTable();
 	table->update();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
@@ -9061,6 +9122,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 		activeTransaction.commit();
 	changed();
 	regionsChanged()->update(QRectF());
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
@@ -9153,6 +9215,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 		activeTransaction.commit();
 	changed();
 	regionsChanged()->update(QRectF());
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_ClearBulNumStrings(Selection* customSelection)
@@ -9312,6 +9375,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 		activeTransaction.commit();
 	changed();
 	regionsChanged()->update(QRectF());
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Selection* customSelection, const QString& ETEA)
@@ -9450,6 +9514,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 		activeTransaction.commit();
 	changed();
 	regionsChanged()->update(QRectF());
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selection* customSelection)
@@ -9530,6 +9595,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 		activeTransaction.commit();
 	changed();
 	regionsChanged()->update(QRectF());
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
@@ -9635,6 +9701,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 		activeTransaction.commit();
 	changed();
 	regionsChanged()->update(QRectF());
+	changedPagePreview();
 }
 
 //AV -> NodeEditContext
@@ -9819,6 +9886,7 @@ void ScribusDoc::connectDocSignals()
 		if (m_hasGUI)
 		{
 			connect(this, SIGNAL(docChanged()), m_ScMW, SLOT(slotDocCh()));
+			connect(this, SIGNAL(pagePreviewChanged()), m_ScMW, SLOT(slotPreviewCh()));
 			connect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel()));
 			connect(this->m_Selection, SIGNAL(selectionChanged()), m_ScMW, SLOT(HaveNewSel()));
 			connect(autoSaveTimer, SIGNAL(timeout()), this, SLOT(slotAutoSave()));
@@ -9833,6 +9901,7 @@ void ScribusDoc::disconnectDocSignals()
 		if (m_hasGUI)
 		{
 			disconnect(this, SIGNAL(docChanged()), m_ScMW, SLOT(slotDocCh()));
+			disconnect(this, SIGNAL(pagePreviewChanged()), m_ScMW, SLOT(slotPreviewCh()));
 			disconnect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel()));
 			disconnect(this->m_Selection, SIGNAL(selectionChanged()), m_ScMW, SLOT(HaveNewSel()));
 			disconnect(autoSaveTimer, SIGNAL(timeout()), this, SLOT(slotAutoSave()));
@@ -9911,6 +9980,7 @@ void ScribusDoc::updatePict(const QString& name)
 	{
 		regionsChanged()->update(QRectF());
 		changed();
+		changedPagePreview();
 	}
 }
 
@@ -9992,6 +10062,7 @@ void ScribusDoc::updatePictDir(const QString& name)
 	{
 		regionsChanged()->update(QRectF());
 		changed();
+		changedPagePreview();
 	}
 }
 
@@ -10271,6 +10342,7 @@ void ScribusDoc::removePict(const QString& name)
 	{
 		regionsChanged()->update(QRectF());
 		changed();
+		changedPagePreview();
 	}
 }
 
@@ -10737,6 +10809,7 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 	m_updateManager.setUpdatesEnabled();
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 }
 
 
@@ -10857,7 +10930,8 @@ void ScribusDoc::itemSelection_FlipH(Selection* customSelection)
 	if (trans)
 		trans.commit();
 	regionsChanged()->update(QRectF());
-	changed();
+	changed();	
+	changedPagePreview();
 	emit firstSelectedItemType(itemSelection->itemAt(0)->itemType());
 }
 
@@ -10973,6 +11047,7 @@ void ScribusDoc::itemSelection_FlipV(Selection* customSelection)
 	if (trans)
 		trans.commit();
 	changed();
+	changedPagePreview();
 	emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 }
 
@@ -10989,6 +11064,7 @@ void ScribusDoc::itemSelection_Rotate(double angle, Selection* customSelection)
 	else if (itemSelection->count() == 1)
 		rotateItem(angle, itemSelection->itemAt(0));
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_ChangePreviewResolution(int id)
@@ -11164,6 +11240,7 @@ void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, do
 	}
 	item->update();
 	changed();
+	changedPagePreview();
 	if (activeTransaction)
 		activeTransaction.commit();
 }
@@ -11197,6 +11274,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection, bool useWar
 	}
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_TruncateItem(Selection* customSelection)
@@ -11223,6 +11301,7 @@ void ScribusDoc::itemSelection_TruncateItem(Selection* customSelection)
 
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 }
 
 QList<PageItem*>* ScribusDoc::groupOfItem(QList<PageItem*>* itemList, PageItem* item)
@@ -11402,6 +11481,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 			itemSelection->itemAt(0)->emitAllToGUI();
 	}
 	changed();
+	changedPagePreview();
 }
 
 
@@ -11421,6 +11501,7 @@ void ScribusDoc::itemSelection_SetItemFillTransparency(double t, Selection* cust
 	}
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 }
 
 
@@ -11438,6 +11519,7 @@ void ScribusDoc::itemSelection_SetItemLineTransparency(double t, Selection* cust
 	}
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 }
 
 
@@ -11458,6 +11540,7 @@ void ScribusDoc::itemSelection_SetItemFillBlend(int t)
 	}
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 	if (activeTransaction)
 	{
 		activeTransaction.commit(Um::Selection,
@@ -11484,6 +11567,7 @@ void ScribusDoc::itemSelection_SetItemLineBlend(int t)
 	}
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 	if (activeTransaction)
 		activeTransaction.commit(Um::Selection, Um::IGroup, Um::BlendMode, "", Um::IGroup);
 }
@@ -11506,6 +11590,7 @@ void ScribusDoc::itemSelection_SetLineGradient(VGradient& newGradient, Selection
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection* customSelection)
@@ -11527,6 +11612,7 @@ void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetMaskGradient(VGradient& newGradient, Selection* customSelection)
@@ -11546,6 +11632,7 @@ void ScribusDoc::itemSelection_SetMaskGradient(VGradient& newGradient, Selection
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 
@@ -11570,6 +11657,7 @@ void ScribusDoc::itemSelection_SetOverprint(bool overprint, Selection* customSel
 		activeTransaction.commit(Um::Selection, Um::IGroup, Um::Overprint, "", Um::IGroup);
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_DoHyphenate()
@@ -11585,6 +11673,7 @@ void ScribusDoc::itemSelection_DoHyphenate()
 	//FIXME: stop using m_View
 	m_View->DrawNew(); //CB draw new until NLS for redraw through text chains
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_DoDeHyphenate()
@@ -11600,6 +11689,7 @@ void ScribusDoc::itemSelection_DoDeHyphenate()
 	//FIXME: stop using m_View
 	m_View->DrawNew(); //CB draw new until NLS for redraw through text chains
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SendToLayer(int layerID)
@@ -11632,6 +11722,7 @@ void ScribusDoc::itemSelection_SendToLayer(int layerID)
 	m_View->deselectItems(true);
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetAlignment(int s, Selection* customSelection)
@@ -11684,6 +11775,7 @@ void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* cus
 		activeTransaction.commit(Um::Selection, Um::IGroup, Um::ImageOffset, tooltip, Um::IImageScaling);
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* customSelection)
@@ -11722,6 +11814,7 @@ void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* cust
 		activeTransaction.commit(Um::Selection, Um::IGroup, Um::ImageScale, tooltip, Um::IImageScaling);
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, double ox, double oy, Selection* customSelection)
@@ -11766,6 +11859,7 @@ void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, doub
 		outerTransaction.commit(Um::Selection, Um::IGroup, Um::ImageScale, tooltip, Um::IImageScaling);
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetImageRotation(double rot, Selection* customSelection)
@@ -11797,6 +11891,7 @@ void ScribusDoc::itemSelection_SetImageRotation(double rot, Selection* customSel
 	if (trans)
 		trans.commit();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::buildAlignItemList(Selection* customSelection)
@@ -11885,6 +11980,7 @@ bool ScribusDoc::startAlign(uint minObjects)
 void ScribusDoc::endAlign()
 {
 	changed();
+	changedPagePreview();
 	m_ScMW->HaveNewSel();
 	for (int i = 0; i < m_Selection->count(); ++i)
 	{
@@ -13103,6 +13199,11 @@ void ScribusDoc::changed()
 	emit docChanged();
 }
 
+void ScribusDoc::changedPagePreview()
+{
+	emit pagePreviewChanged();
+}
+
 void ScribusDoc::invalidateAll()
 {
 	QList<PageItem*> allItems;
@@ -13546,6 +13647,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::multipleDuplicateByPage(const ItemMultipleDuplicateData& dialogData, Selection& selection, QString& tooltip)
@@ -13676,6 +13778,7 @@ void ScribusDoc::itemSelection_ApplyImageEffects(ScImageEffectList& newEffectLis
 		m_undoManager->action(currItem, state);
 	}
 	changed();
+	changedPagePreview();
 }
 
 
@@ -13733,6 +13836,7 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc, Selection* customSelection)
@@ -13778,6 +13882,7 @@ void ScribusDoc::itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc,
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 
@@ -15223,7 +15328,8 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	if (needTextInteractionCheck)
 		invalidateRegion(regionToUpdate);
 	regionsChanged()->update(needTextInteractionCheck ? QRectF() : regionToUpdate);
-	emit docChanged();
+	//emit docChanged();
+	changed();
 
 	if (m_ScMW && ScCore->usingGUI())
 	{
@@ -15323,7 +15429,8 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 	double x, y, w, h;
 	itemSelection->connectItemToGUI();
 	itemSelection->getGroupRect(&x, &y, &w, &h);
-	emit docChanged();
+	//emit docChanged();
+	changed();
 	if (itemSelection->count() > 0)
 		m_ScMW->HaveNewSel();
 
@@ -15975,6 +16082,7 @@ void ScribusDoc::itemSelection_AdjustFrametoImageSize( Selection *customSelectio
 		activeTransaction.commit();
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 	itemSelection->itemAt(0)->emitAllToGUI();
 }
 void ScribusDoc::itemSelection_AdjustImagetoFrameSize( Selection *customSelection)
@@ -15996,6 +16104,7 @@ void ScribusDoc::itemSelection_AdjustImagetoFrameSize( Selection *customSelectio
 	}
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 	itemSelection->itemAt(0)->emitAllToGUI();
 }
 
@@ -16046,6 +16155,7 @@ void ScribusDoc::itemSelection_AdjustFrameToTable()
 
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_AdjustTableToFrame()
@@ -16068,6 +16178,7 @@ void ScribusDoc::itemSelection_AdjustTableToFrame()
 
 	regionsChanged()->update(QRectF());
 	changed();
+	changedPagePreview();
 }
 
 
@@ -16094,6 +16205,7 @@ void ScribusDoc::itemSelection_SetColorProfile(const QString & profileName, Sele
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_SetRenderIntent(int intentIndex, Selection * customSelection)
@@ -16117,6 +16229,7 @@ void ScribusDoc::itemSelection_SetRenderIntent(int intentIndex, Selection * cust
 	}
 	m_updateManager.setUpdatesEnabled();
 	changed();
+	changedPagePreview();
 }
  
 void ScribusDoc::itemSelection_SetCompressionMethod(int cmIndex, Selection * customSelection)
@@ -16510,6 +16623,7 @@ void ScribusDoc::removeInlineFrame(int fIndex)
 
 	changed();
 	regionsChanged()->update(QRect());
+	changedPagePreview();
 }
 
 
@@ -16588,6 +16702,7 @@ void ScribusDoc::itemResizeToMargin(PageItem* item, int direction)
 	item->invalid = true;
 	changed();
 	regionsChanged()->update(QRect());
+	changedPagePreview();
 }
 
 void ScribusDoc::restartAutoSaveTimer()

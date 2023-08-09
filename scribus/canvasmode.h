@@ -19,6 +19,7 @@
 #define CANVAS_MODE_H
 
 #include "scribusapi.h"
+#include "scribusdoc.h"
 
 #include <QBrush>
 #include <QCursor>

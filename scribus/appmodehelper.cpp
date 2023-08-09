@@ -283,7 +283,6 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					a_actMgr->saveActionShortcutsPreEditMode();
 				if (currItem != nullptr)
 				{
-					currItem->itemText.setCursorPosition(0);
 					scmw->setTBvals(currItem);
 				}
 				(*a_scrActions)["editPaste"]->setEnabled(false);

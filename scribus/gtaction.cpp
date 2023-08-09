@@ -840,6 +840,7 @@ void gtAction::finalize()
 		m_textFrame->doc()->docHyphenator->slotHyphenate(m_textFrame);
 	m_textFrame->doc()->regionsChanged()->update(QRectF());
 	m_textFrame->doc()->changed();
+	m_textFrame->doc()->changedPagePreview();
 }
 
 gtAction::~gtAction()

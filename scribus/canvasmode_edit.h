@@ -52,6 +52,7 @@ public:
 	void mousePressEvent(QMouseEvent *m) override;
 	
 	void keyPressEvent(QKeyEvent *e) override;
+	void keyReleaseEvent(QKeyEvent *e) override;
 
 	void drawControls(QPainter* p) override;
 

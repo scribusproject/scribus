@@ -25,6 +25,8 @@ class ScribusMainWindow;
 class SeItem;
 class SeList;
 class SeView;
+class PageViewer;
+class PageCell;
 
 class SCRIBUS_API PagePalette_Pages : public QWidget, Ui::PagePalette_PagesBase
 {
@@ -34,8 +36,11 @@ public:
 	PagePalette_Pages(QWidget* parent);
 	~PagePalette_Pages() {};
 
-protected:
-	void changeEvent(QEvent *e) override;
+	/**
+	 * @brief Set selected page number. Use to restore doc page number after end master page mode.
+	 * @param number
+	 */
+	void setSelectedPageNumber(int number);
 
 public slots:
 	void setView(ScribusView *view);
@@ -51,13 +56,21 @@ public slots:
 	void markPage(uint nr);
 	void selMasterPage();
 	void languageChange();
+	void updatePagePreview();
 
 private slots:
 	void iconSetChange();
 	void pageView_applyMasterPage(const QString& masterpageName, int pageIndex);
 	void pageView_movePage(int r, int c);
-	void pageView_gotoPage(int r, int c, int b);
+	void pageView_gotoPage(int pageID, int b);
 	void pageView_deletePage(int pageIndex);
+	void pageView_updatePagePreview();
+
+	void newPage();
+	void duplicatePage();
+	void importPage();
+	void movePage();
+	void deletePage();
 
 signals:
 	void gotoMasterPage(QString);
@@ -66,11 +79,12 @@ signals:
 protected:
 	ScribusView       *currView { nullptr};
 	ScribusMainWindow *m_scMW { nullptr};
+	bool m_pagePreviewUpdatePending {true};
+	int m_selectedPageNumber {0};
 
-	QList<SeItem*>    pageList;
-	QPixmap pix;
+//	QPixmap createPagePreview(const QPixmap& pixin, QSize size);
 
-	QPixmap createIcon(int number, QString masterPage, const QPixmap& pixin);
+	void changeEvent(QEvent *e) override;
 };
 
 #endif // SEITENPAL_H

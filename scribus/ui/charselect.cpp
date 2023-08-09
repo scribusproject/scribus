@@ -134,6 +134,7 @@ void CharSelect::slot_insertSpecialChar()
 	}
 	m_doc->view()->DrawNew();
 	m_doc->changed();
+	m_doc->changedPagePreview();
 // 	delEdit();
 }
 
@@ -161,6 +162,7 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch, const QString& font)
 	cItem->itemText.applyCharStyle(pot, 1, nstyle);
 	m_doc->view()->DrawNew();
 	m_doc->changed();
+	m_doc->changedPagePreview();
 }
 
 void CharSelect::slot_selectionChanged( const QItemSelection& sel, const QItemSelection& )

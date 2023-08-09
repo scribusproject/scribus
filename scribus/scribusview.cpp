@@ -2388,6 +2388,7 @@ void ScribusView::hideInlinePage()
 	resizeContents(qRound((m_doc->maxCanvasCoordinate.x() - m_doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((m_doc->maxCanvasCoordinate.y() - m_doc->minCanvasCoordinate.y()) * m_canvas->scale()));
 }
 
+
 QImage ScribusView::MPageToPixmap(const QString& name, int maxGr, bool drawFrame)
 {
 	ScLayer layer;
@@ -2460,20 +2461,27 @@ QImage ScribusView::MPageToPixmap(const QString& name, int maxGr, bool drawFrame
 
 QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 {
-	QImage im;
-	double sx = maxGr / m_doc->DocPages.at(Nr)->width();
-	double sy = maxGr / m_doc->DocPages.at(Nr)->height();
-	double sc = qMin(sx, sy);
-	int clipx = static_cast<int>(m_doc->DocPages.at(Nr)->xOffset() * sc);
-	int clipy = static_cast<int>(m_doc->DocPages.at(Nr)->yOffset() * sc);
-	int clipw = qRound(m_doc->DocPages.at(Nr)->width() * sc);
-	int cliph = qRound(m_doc->DocPages.at(Nr)->height() * sc);
-	if ((clipw <=0) || (cliph <= 0))
-		return im;
-	im = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
-	if (im.isNull())
-		return im;
-	im.fill( qRgba(0, 0, 0, 0) );
+	QImage img;
+	QMap<int, QImage> m_previews = PagesToPixmap(maxGr, Nr, flags);
+
+	if(!m_previews.isEmpty())
+		img = m_previews.first();
+
+	return img;
+}
+
+QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlags flags)
+{
+	QMap<int, QImage> m_previews;
+
+	if(m_doc == nullptr || maxGr <= 0)
+		return m_previews;
+
+	if(m_doc->DocPages.count() == 0)
+		return m_previews;
+
+	// Preserve old settings
+
 	int oldAppMode = m_doc->appMode;
 	requestMode(modeNormal);
 	double oldScale = m_canvas->scale();
@@ -2483,8 +2491,9 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 	bool oldFramesShown  = m_doc->guidesPrefs().framesShown;
 	bool oldShowControls = m_doc->guidesPrefs().showControls;
 	bool oldDrawAsPreview = m_doc->drawAsPreview;
-	m_doc->guidesPrefs().framesShown = false;
-	m_doc->guidesPrefs().showControls = false;
+	ScPage* act = m_doc->currentPage();
+	bool mMode = m_doc->masterPageMode();
+
 	bool cmsCorr = false;
 	if ((m_doc->cmsSettings().CMSinUse) && (m_doc->cmsSettings().GamutCheck))
 	{
@@ -2492,15 +2501,86 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 		m_doc->cmsSettings().GamutCheck = false;
 		m_doc->enableCMS(true);
 	}
+
+
+	// Optimize settings for rendering
+
+	m_doc->guidesPrefs().framesShown = false;
+	m_doc->guidesPrefs().showControls = false;
 	m_doc->drawAsPreview = true;
-	m_canvas->setScale(sc);
 	m_canvas->setPreviewMode(true);
 	m_canvas->setForcedRedraw(true);
-	ScPage* act = m_doc->currentPage();
-	bool mMode = m_doc->masterPageMode();
 	m_doc->setMasterPageMode(false);
 	m_doc->setLoading(true);
-	m_doc->setCurrentPage(m_doc->DocPages.at(Nr));
+
+//	QElapsedTimer timer;
+//	timer.start();
+
+	// Draw all pages
+	if(Nr == -1)
+	{
+		foreach(ScPage *page, m_doc->DocPages){
+
+			QImage im = drawPageToPixmap(maxGr, page, flags);
+			m_previews.insert(page->pageNr(), im);
+
+		}
+	}
+	// Draw single page by number
+	else
+	{
+		if(inRange(0, Nr, m_doc->DocPages.count() - 1))
+		{
+			ScPage *page = m_doc->DocPages.at(Nr);
+			QImage im = drawPageToPixmap(maxGr, page, flags);
+			m_previews.insert(page->pageNr(), im);
+
+		}
+
+	}
+
+//	qDebug() << Q_FUNC_INFO << "- draw preview in" << timer.elapsed() << "milliseconds";
+
+	// Reset settings
+
+	if (cmsCorr)
+	{
+		m_doc->cmsSettings().GamutCheck = true;
+		m_doc->enableCMS(true);
+	}
+	m_doc->drawAsPreview = oldDrawAsPreview;
+	m_doc->guidesPrefs().framesShown  = oldFramesShown;
+	m_doc->guidesPrefs().showControls = oldShowControls;
+	m_canvas->setScale(oldScale);
+	m_doc->setMasterPageMode(mMode);
+	m_doc->setCurrentPage(act);
+	m_doc->setLoading(false);
+	m_canvas->setPreviewMode(m_doc->drawAsPreview);
+	m_canvas->setForcedRedraw(false);
+	m_doc->minCanvasCoordinate = FPoint(cx, cy);
+	requestMode(oldAppMode);
+
+	return m_previews;
+}
+
+QImage ScribusView::drawPageToPixmap(int maxGr, ScPage *page, PageToPixmapFlags flags)
+{
+	QImage im;
+	double sc = maxGr / page->height();
+	int clipx = static_cast<int>(page->xOffset() * sc);
+	int clipy = static_cast<int>(page->yOffset() * sc);
+	int clipw = qRound(page->width() * sc);
+	int cliph = qRound(page->height() * sc);
+
+	m_canvas->setScale(sc);
+
+	if ((clipw <=0) || (cliph <= 0))
+		return im;
+	im = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
+	if (im.isNull())
+		return im;
+	im.fill( qRgba(0, 0, 0, 0) );
+
 	ScPainter *painter = new ScPainter(&im, im.width(), im.height(), 1.0, 0);
 	if (flags & Pixmap_DrawBackground)
 		painter->clear(m_doc->paperColor());
@@ -2518,7 +2598,6 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 	painter->setZoomFactor(m_canvas->scale());
 
 	QList<QPair<PageItem*, int> > changedList;
-	ScPage* page = m_doc->DocPages.at(Nr);
 	PageItem* currItem;
 	if ((page->FromMaster.count() != 0) && !flags.testFlag(Pixmap_DontReloadImages))
 	{
@@ -2592,7 +2671,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 	for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
 	{
 		m_doc->Layers.levelToLayer(layer, layerLevel);
-		m_canvas->DrawMasterItems(painter, m_doc->DocPages.at(Nr), layer, QRect(clipx, clipy, clipw, cliph));
+		m_canvas->DrawMasterItems(painter, page, layer, QRect(clipx, clipy, clipw, cliph));
 		m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), false);
 		m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), true);
 	}
@@ -2620,22 +2699,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 			currItem->setImageYOffset(imgY);
 		}
 	}
-	if (cmsCorr)
-	{
-		m_doc->cmsSettings().GamutCheck = true;
-		m_doc->enableCMS(true);
-	}
-	m_doc->drawAsPreview = oldDrawAsPreview;
-	m_doc->guidesPrefs().framesShown  = oldFramesShown;
-	m_doc->guidesPrefs().showControls = oldShowControls;
-	m_canvas->setScale(oldScale);
-	m_doc->setMasterPageMode(mMode);
-	m_doc->setCurrentPage(act);
-	m_doc->setLoading(false);
-	m_canvas->setPreviewMode(m_doc->drawAsPreview);
-	m_canvas->setForcedRedraw(false);
-	m_doc->minCanvasCoordinate = FPoint(cx, cy);
-	requestMode(oldAppMode);
+
 	return im;
 }
 

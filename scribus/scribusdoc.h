@@ -1214,6 +1214,7 @@ public:
 	 * certain operations.
 	 */
 	void changed();
+	void changedPagePreview();
 	/*! \brief Get pointer to the current page
 	\retval Page* current page object */
 	ScPage* currentPage();
@@ -1493,8 +1494,9 @@ signals:
 	 * @brief Let the document tell whatever is listening that it has changed
 	 */
 	void docChanged();
-	void updateContents();
-	void updateContents(const QRect &r);
+	void pagePreviewChanged();
+//	void updateContents();
+//	void updateContents(const QRect &r);
 	void firstSelectedItemType(int);
 
 	void updateEditItem();

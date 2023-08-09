@@ -621,6 +621,7 @@ void PropertiesPalette_Image::handleScaling()
 	{
 		m_item->setImageScalingMode(freeScale->isChecked(), cbProportional->isChecked());
 		m_doc->changed();
+		m_doc->changedPagePreview();
 		emit UpdtGui(PageItem::ImageFrame);
 	}
 }
@@ -730,6 +731,7 @@ void PropertiesPalette_Image::handleExtImgProperties()
 		return;
 	m_ScMW->view->editExtendedImageProperties();
 	m_doc->changed();
+	m_doc->changedPagePreview();
 }
 
 void PropertiesPalette_Image::handleImagePageNumber()

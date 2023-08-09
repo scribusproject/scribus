@@ -811,6 +811,7 @@ void PropertiesPalette_XYZ::handleNewX()
 	}
 	m_doc->regionsChanged()->update(QRect());
 	m_doc->changed();
+	m_doc->changedPagePreview();
 }
 
 void PropertiesPalette_XYZ::handleNewY()
@@ -909,6 +910,7 @@ void PropertiesPalette_XYZ::handleNewY()
 	}
 	m_doc->regionsChanged()->update(QRect());
 	m_doc->changed();
+	m_doc->changedPagePreview();
 }
 
 void PropertiesPalette_XYZ::handleNewW()
@@ -991,6 +993,7 @@ void PropertiesPalette_XYZ::handleNewW()
 	m_doc->changed();
 	m_doc->regionsChanged()->update(QRect());
 	m_ScMW->setStatusBarTextSelectedItemInfo();
+	m_doc->changedPagePreview();
 }
 
 void PropertiesPalette_XYZ::handleNewH()
@@ -1073,6 +1076,7 @@ void PropertiesPalette_XYZ::handleNewH()
 	m_doc->changed();
 	m_doc->regionsChanged()->update(QRect());
 	m_ScMW->setStatusBarTextSelectedItemInfo();
+	m_doc->changedPagePreview();
 }
 
 void PropertiesPalette_XYZ::handleRotation()
@@ -1099,6 +1103,7 @@ void PropertiesPalette_XYZ::handleRotation()
 	}
 	m_doc->changed();
 	m_doc->regionsChanged()->update(QRect());
+	m_doc->changedPagePreview();
 	m_oldRotation = rotationSpin->value();
 	basePointWidget->setAngle(m_oldRotation);
 }
@@ -1130,6 +1135,7 @@ void PropertiesPalette_XYZ::handleRotateCCW()
 	}
 	m_doc->changed();
 	m_doc->regionsChanged()->update(QRect());
+	m_doc->changedPagePreview();
 	m_oldRotation = rotationSpin->value();
 	basePointWidget->setAngle(m_oldRotation);
 }
@@ -1161,6 +1167,7 @@ void PropertiesPalette_XYZ::handleRotateCW()
 	}
 	m_doc->changed();
 	m_doc->regionsChanged()->update(QRect());
+	m_doc->changedPagePreview();
 	m_oldRotation = rotationSpin->value();
 	basePointWidget->setAngle(m_oldRotation);
 }

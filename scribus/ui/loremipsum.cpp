@@ -343,6 +343,7 @@ void LoremManager::insertLoremIpsum(const QString& name, int paraCount, bool ran
 	}
 	m_Doc->regionsChanged()->update(QRectF());
 	m_Doc->changed();
+	m_Doc->changedPagePreview();
 }
 
 QString LoremManager::loremIpsum()

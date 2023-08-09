@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGEPALETTE_WIDGETS_H
 #define PAGEPALETTE_WIDGETS_H
 
+#include "qmenu.h"
 #include <QCheckBox>
 #include <QDialog>
 #include <QDragEnterEvent>
@@ -22,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMouseEvent>
 #include <QPixmap>
 #include <QPushButton>
+#include <QScrollArea>
 #include <QSplitter>
 #include <QTableWidget>
 #include <QTableWidgetItem>
@@ -31,28 +33,18 @@ for which a new license (GPL+exception) is in place.
 class QEvent;
 
 #include "scribusapi.h"
-#include "scdockpalette.h"
+#include "pagestructs.h"
 
 class ScribusView;
 class ScribusMainWindow;
 class PageLayouts;
 
-class SCRIBUS_API SeItem : public QTableWidgetItem
-{
-	friend class PagePalette;
-	friend class PagePalette_Pages;
-	friend class SeView;
 
-public:
-	SeItem(const QString& text, uint pgnr, const QPixmap& pix);
-	~SeItem() {};
-
-	const QString& getPageName();
-	uint pageNumber;
-	
-protected:
-	QString pageName;
-};
+/* ********************************************************************************* *
+ *
+ * Master Page List
+ *
+ * ********************************************************************************* */
 
 class SCRIBUS_API SeList : public QListWidget
 {
@@ -74,11 +66,11 @@ signals:
 	void delMasterRequest(QString);
 
 protected:
-	void mouseReleaseEvent(QMouseEvent *m) override;
-	void mousePressEvent(QMouseEvent* e) override;
-	void mouseMoveEvent(QMouseEvent* e) override;
-	void keyPressEvent(QKeyEvent* e) override;
-	
+	void mouseReleaseEvent(QMouseEvent *m);
+	void mousePressEvent(QMouseEvent* e);
+	void mouseMoveEvent(QMouseEvent* e);
+	virtual void keyPressEvent(QKeyEvent* e);
+
 	QListWidgetItem *m_currItem {nullptr};
 	QPoint m_mousePos;
 	bool m_mousePressed {false};
@@ -86,48 +78,206 @@ protected:
 
 };
 
-class SCRIBUS_API SeView : public QTableWidget
+/* ********************************************************************************* *
+ *
+ * Page Cell
+ *
+ * ********************************************************************************* */
+
+class SCRIBUS_API PageCell
 {
-	Q_OBJECT
-	
-	friend class PagePalette;
-	friend class PagePalette_Pages;
+	friend class PanelPages;
+	friend class PageGrid;
 
 public:
-	SeView(QWidget* parent);
-	~SeView() {};
+	PageCell(const QString& text, uint pgnr, const QPixmap& pix, double pageRatio, const QColor color = Qt::black);
+	// ~PageCell() {};
 
-	void clearPix();
-	int  getPage(int r, int c, bool *last);
-	SeItem* getPageItem(int pageIndex);
+	const QString& pageName() {return m_pageName;}
+	QPixmap pagePreview() {return m_pagePreview;}
+	uint pageNumber() {return m_pageNumber;}
+	QColor masterPageColor() {return m_masterPageColor;}
+	int pageWidthByHeight(int height) {return qCeil(height * m_pageRatio);}
+	double pageRatio() {return m_pageRatio;}
 
-signals:
-	void UseTemp(QString, int);
-	void NewPage(int, QString);
-	void movePage(int, int);
-	void Click(int, int, int);
-	void delPageRequest(int);
+	void setPageName(const QString& name ) {m_pageName = name;}
+	void setPagePreview(QPixmap preview ) {m_pagePreview = preview;}
+	void setPageNumber(uint number ) {m_pageNumber = number;}
+	void setMasterPageColor(QColor color ) {m_masterPageColor = color;}
+	void setPageRatio(double pageRatio){m_pageRatio = pageRatio;}
+
+private:
+	uint m_pageNumber;
+	QPixmap m_pagePreview;
+	QString m_pageName;
+	QColor m_masterPageColor;
+	double m_pageRatio;
+};
+
+/* ********************************************************************************* *
+ *
+ * Page Grid
+ *
+ * ********************************************************************************* */
+
+class SCRIBUS_API PageGrid : public QWidget
+{
+	Q_OBJECT
+
+	friend class PageViewer;
+
+public:
+	explicit PageGrid(QWidget *parent = nullptr);
+
+	void setPageInGroup(int amount);
+
+	void setDocumentPageSize(QSizeF pageSize);
+
+	void setRowHeight(int size);
+	int rowHeight();
+
+	void setFontSize(int size);
+	int fontSize();
+
+	void setSelectionColor(QColor color);
+	QColor selectionColor();
+
+	void setPageLayout(PageLayout layout);
+	PageLayout pageLayout();
+
+	void setPageOffset(int pageCount);
+	int pageOffset();
+
+	QList<PageCell*> pageList;
+
+	int pageId(int r, int c, bool clampId = true);
+	int pageId(QPoint pos, bool clampId = true);
+
+	PageCell* getPageItem(int pageIndex);
+
+	int pageCount();
+	int pageHeight();
+
+	void setSelectedPage(int pageID);
+	int selectedPage();
+
+	void deleteSelectedPage();
+	void clear();
+	void calculateSize();
+
+private:
+
+	enum State {
+		None = 0,
+		StartDrag = 1,
+		StartSelection = 2
+	};
+
+	enum Mode {
+		Invalid = 0,
+		Insert = 1,
+		Add = 2,
+		Hover = 3
+	};
+
+	QSize m_pageSize;
+	QSizeF m_documentPageSize;
+	int m_rowHeight;
+	int m_cellGap;
+	int m_groupSpace;
+	int m_rowSpace;
+	int m_fontSize;
+	int m_labelGap;
+	QRect m_rectInsert;
+	QRect m_rectSelection;
+	QRect m_rectAdd;
+	QColor m_colorSelection;
+	int m_selectedPage;
+	int m_hoveredPage;
+	bool m_enableSelection;
+	QPoint m_mousePos;
+	State m_state {State::None};
+	PageLayout m_pageLayout;
+	int m_cellsInGroup;
+	int m_pageOffset;
+	QMenu *m_contextMenu;
+
+	int columns();
+	int rows();
+
+	int columnAt(QPoint pos);
+	int rowAt(QPoint pos);
+	int rowWidth(int rowId);
+	QRect rectAt(int row, int col);
+
+	QSize dummyPageSize();
+
+	QPoint mapPosToCell(QPoint pos, Mode &mode);
+	QPoint pagePosition(int pageId);
+
+	int clampPageId(int pageID, bool allowPlusOne = false);
+
+	void updateSelectedPage(QPoint pos);
+	void updateModeMarker(QPoint pos);
+	void clearUi();
+	void drawTile(QPainter &painter, QPoint cellPosition, PageCell * tile, bool selected, bool hovered);
+	void initContextMenu();
+
+private slots:
+	void showContextMenu(QPoint pos);
 
 protected:
-	void dropEvent(QDropEvent * e) override;
-	void dragEnterEvent(QDragEnterEvent *e) override;
-	void dragLeaveEvent(QDragLeaveEvent *e) override;
-	void dragMoveEvent(QDragMoveEvent *e) override;
-	void mouseReleaseEvent(QMouseEvent *e) override;
-	void mousePressEvent(QMouseEvent* e) override;
-	void mouseMoveEvent(QMouseEvent* e) override;
-	void keyPressEvent(QKeyEvent* e) override;
-	
-	QPoint m_mousePos;
-	bool m_mousePressed {false};
-	int m_coladd {0};
-	int m_colmult {1};
-	int m_cols {1};
-	int m_firstPage {0};
-	int m_pageCount {0};
-	int m_rowadd {1};
-	int m_rowmult {2};
+
+	void paintEvent(QPaintEvent *event) override;
+	void resizeEvent(QResizeEvent *event) override;
+
+	void dropEvent(QDropEvent * event) override;
+	void dragEnterEvent(QDragEnterEvent *event) override;
+	void dragLeaveEvent(QDragLeaveEvent *event) override;
+	void dragMoveEvent(QDragMoveEvent *event) override;
+	void mouseReleaseEvent(QMouseEvent *event) override;
+	void mousePressEvent(QMouseEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
+
+signals:
+	void useTemplate(QString, int);
+	void newPage(int, QString);
+	void movePage(int, int);
+	void click(int, int);
+	void delPageRequest(int);
+	void previewSizeChanged();
 };
+
+/* ********************************************************************************* *
+ *
+ * Page Viewer
+ *
+ * ********************************************************************************* */
+
+class SCRIBUS_API PageViewer : public QWidget
+{
+
+public:
+	PageViewer(QWidget *parent = nullptr);
+	~PageViewer() {};
+
+	PageGrid *pageGrid();
+	void scrollToPage(int pageId);
+
+
+protected:
+	PageGrid *m_pageGrid;
+	QScrollArea* m_scroll;
+
+	virtual void keyPressEvent(QKeyEvent* event);
+
+};
+
+/* ********************************************************************************* *
+ *
+ * Trash bin
+ *
+ * ********************************************************************************* */
 
 class SCRIBUS_API TrashBin : public QLabel
 {
@@ -137,17 +287,17 @@ public:
 	TrashBin( QWidget * parent );
 	~TrashBin() {};
 
-protected:
-	QPixmap Normal;
-	QPixmap Offen;
+	void dragEnterEvent( QDragEnterEvent *e );
+	void dragLeaveEvent( QDragLeaveEvent * );
+	void dropEvent( QDropEvent * e );
 
-	void dragEnterEvent(QDragEnterEvent* e) override;
-	void dragLeaveEvent(QDragLeaveEvent*) override;
-	void dropEvent(QDropEvent* e) override;
+protected:
+	QPixmap normal;
+	QPixmap open;
 
 protected slots:
 	void iconSetChange();
-	
+
 signals:
 	void delPageRequest(int);
 	void delMasterRequest(QString);

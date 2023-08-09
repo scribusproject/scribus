@@ -1348,3 +1348,8 @@ QChar cjkDigit(uint i)
 	}
 	return QChar::Null;
 }
+
+bool inRange(unsigned min, unsigned value, unsigned max)
+{
+	return (min <= value && value <= max);
+}

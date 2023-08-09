@@ -618,6 +618,7 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 		upRect.translate(m_item->xPos(), m_item->yPos());
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 		m_doc->changed();
+		m_doc->changedPagePreview();
 	}
 }
 
@@ -694,6 +695,7 @@ void PropertiesPalette::NewSpGradientM(double x1, double y1, double x2, double y
 		upRect.translate(m_item->xPos(), m_item->yPos());
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 		m_doc->changed();
+		m_doc->changedPagePreview();
 	}
 }
 

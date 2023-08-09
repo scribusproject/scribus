@@ -2812,6 +2812,11 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 	}
 }
 
+void ScribusMainWindow::slotPreviewCh()
+{
+	pagePalette->updatePagePreviews();
+}
+
 void ScribusMainWindow::updateRecent(const QString& fn)
 {
 	if (m_recentDocsList.indexOf(fn) != -1)
@@ -2996,6 +3001,7 @@ void ScribusMainWindow::doPasteRecent(const QString& data)
 			pasteAction.commit();
 	}
 	slotDocCh(false);
+	slotPreviewCh();
 	doc->regionsChanged()->update(QRectF());
 	view->dragX = 0;
 	view->dragY = 0;
@@ -4504,6 +4510,7 @@ void ScribusMainWindow::slotEditCut()
 		doc->itemSelection_DeleteItem();
 	}
 	slotDocCh();
+	slotPreviewCh();
 	scrActions["editPaste"]->setEnabled(true);
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
 	if (activeTransaction)
@@ -4862,6 +4869,7 @@ void ScribusMainWindow::slotEditPaste()
 
 	view->DrawNew();
 	slotDocCh(false);
+	slotPreviewCh();
 }
 
 //CB-->Doc ?????
@@ -7175,18 +7183,24 @@ void ScribusMainWindow::doSaveAsPDF()
 		doc->cmsSettings().GamutCheck = false;
 		doc->enableCMS(true);
 	}
-	pageNumbersSize = pageNs.size();
-	for (uint i = 0; i < pageNumbersSize; ++i)
-	{
-		QImage thumb(10, 10, QImage::Format_ARGB32_Premultiplied);
-		if (doc->pdfOptions().Thumbnails)
-		{
-			// No need to load full res images for drawing small thumbnail
-			PageToPixmapFlags flags = Pixmap_DontReloadImages | Pixmap_DrawWhiteBackground;
-			thumb = view->PageToPixmap(pageNs[i] - 1, 100, flags);
-		}
-		allThumbs.insert(pageNs[i], thumb);
-	}
+
+// MR: The following code has been replaced by view->PagesToPixmap(100, -1, flags);
+//	pageNumbersSize = pageNs.size();
+//	for (uint i = 0; i < pageNumbersSize; ++i)
+//	{
+//		QImage thumb(10, 10, QImage::Format_ARGB32_Premultiplied);
+//		if (doc->pdfOptions().Thumbnails)
+//		{
+//			// No need to load full res images for drawing small thumbnail
+//			PageToPixmapFlags flags = Pixmap_DontReloadImages | Pixmap_DrawWhiteBackground;
+//			thumb = view->PageToPixmap(pageNs[i] - 1, 100, flags);
+//		}
+//		allThumbs.insert(pageNs[i], thumb);
+//	}
+
+	PageToPixmapFlags flags = Pixmap_DontReloadImages | Pixmap_DrawWhiteBackground;
+	allThumbs = view->PagesToPixmap(100, -1, flags);
+
 	if (cmsCorr)
 	{
 		doc->cmsSettings().GamutCheck = true;

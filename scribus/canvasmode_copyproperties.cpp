@@ -203,6 +203,7 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 		// Update Item
 		m_doc->ElemToLink = currItem;
 		currItem->update();
+		m_doc->changedPagePreview();
 //		emit DocChanged();
 //		m_view->updateContents();
 	}

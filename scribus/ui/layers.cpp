@@ -395,6 +395,7 @@ void LayerPalette::upLayer()
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 	emit LayerChanged();
 	m_Doc->changed();
+	m_Doc->changedPagePreview();
 }
 
 void LayerPalette::downLayer()
@@ -411,6 +412,7 @@ void LayerPalette::downLayer()
 	emit LayerChanged();
 	markActiveLayer();
 	m_Doc->changed();
+	m_Doc->changedPagePreview();
 }
 
 void LayerPalette::changeName(int row, int col)

@@ -198,6 +198,7 @@ void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)
 		else
 			m_view->requestMode(m_doc->appMode);
 		m_doc->changed();
+		m_doc->changedPagePreview();
 		m_firstPoly = true;
 		m_inItemCreation = false;
 		m_canvas->setRenderModeUseBuffer(false);
@@ -426,6 +427,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 		else
 			m_view->requestMode(m_doc->appMode);
 		m_doc->changed();
+		m_doc->changedPagePreview();
 //		emit DocChanged();
 		m_firstPoly = true;
 		m_inItemCreation = false;

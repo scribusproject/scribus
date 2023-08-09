@@ -285,6 +285,7 @@ void SMParagraphStyle::apply()
 	// Better not call DrawNew() here, as this will cause several unnecessary calls
 	// m_doc->view()->DrawNew();
 	m_doc->changed();
+	m_doc->changedPagePreview();
 }
 
 void SMParagraphStyle::editMode(bool isOn)
@@ -2076,6 +2077,7 @@ void SMCharacterStyle::apply()
 
 	m_doc->scMW()->requestUpdate(reqTextStylesUpdate);
 	m_doc->changed();
+	m_doc->changedPagePreview();
 }
 
 void SMCharacterStyle::editMode(bool isOn)

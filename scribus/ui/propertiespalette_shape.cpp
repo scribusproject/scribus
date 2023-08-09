@@ -395,6 +395,7 @@ void PropertiesPalette_Shape::handleTextFlow()
 			mode = PageItem::TextFlowUsesImageClipping;
 		m_item->setTextFlowMode(mode);
 		m_doc->changed();
+		m_doc->changedPagePreview();
 		m_doc->invalidateAll();
 		m_doc->regionsChanged()->update(QRect());
 	}
@@ -429,6 +430,7 @@ void PropertiesPalette_Shape::handleShapeEdit()
 			connect(m_ScMW->nodePalette, SIGNAL(paletteClosed()), this, SLOT(handleShapeEditEnded()));
 		}
 		m_doc->changed();
+		m_doc->changedPagePreview();
 	}
 }
 
@@ -453,6 +455,7 @@ void PropertiesPalette_Shape::handleCornerRadius()
 	m_item->setCornerRadius(roundRect->value() / m_unitRatio);
 	m_doc->setFrameRounded();
 	m_doc->changed();
+	m_doc->changedPagePreview();
 	//called from setFrameRounded already!
 	m_doc->regionsChanged()->update(QRect());
 	m_item->update();

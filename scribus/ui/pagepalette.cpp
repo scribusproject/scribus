@@ -157,6 +157,14 @@ void PagePalette::updateMasterPageList()
 	}
 }
 
+void PagePalette::updatePagePreviews()
+{
+	PagePalette_Pages* pageWidget = dynamic_cast<PagePalette_Pages*>(this->currentWidget());
+	if (pageWidget)
+		pageWidget->updatePagePreview();
+
+}
+
 bool PagePalette::masterPageMode()
 {
 	PagePalette_MasterPages* mpWidget = dynamic_cast<PagePalette_MasterPages*>(this->currentWidget());
@@ -166,6 +174,7 @@ bool PagePalette::masterPageMode()
 void PagePalette::startMasterPageMode(const QString& masterPage)
 {
 	ScribusDoc* doc = m_view->m_doc;
+	m_selectedPageNumber = doc->currentPageNumber();
 	
 	bool mustDeselect = false;
 	mustDeselect |= (!doc->masterPageMode());
@@ -220,6 +229,7 @@ void PagePalette::endMasterPageMode()
 	if (pageWidget)
 	{
 		pageWidget->setView(m_view);
+		pageWidget->setSelectedPageNumber(m_selectedPageNumber);
 		pageWidget->rebuild();
 	}
 	setWindowTitle( tr( "Arrange Pages" ) );

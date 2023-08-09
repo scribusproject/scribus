@@ -403,6 +403,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 									Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
 		m_createTransaction.reset();
 		m_doc->changed();
+		m_doc->changedPagePreview();
 		/*currItem->update();
 		currItem->emitAllToGUI();*/
 	}

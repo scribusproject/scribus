@@ -144,6 +144,36 @@ void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
 	m_keyRepeat = false;
 }
 
+void CanvasMode_Edit::keyReleaseEvent(QKeyEvent *e)
+{
+	PageItem* currItem;
+	if (!GetItem(&currItem))
+	{
+		return;
+	}
+
+	if (currItem->isImageFrame() && !currItem->locked())
+	{
+		switch (e->key())
+		{
+			case Qt::Key_Up:
+			case Qt::Key_Down:
+			case Qt::Key_Left:
+			case Qt::Key_Right:
+				m_doc->changedPagePreview();
+				break;
+			default:
+				break;
+		}
+	}
+
+	if (currItem->isTextFrame())
+	{
+		m_doc->changedPagePreview();
+	}
+
+}
+
 
 
 void CanvasMode_Edit::rulerPreview(double base, double xp)
@@ -742,6 +772,8 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			m_canvas->m_viewMode.operItemResizing = false;
 			if (currItem->isLine())
 				m_view->updateContents();
+			if (currItem->isImageFrame())
+				m_doc->changedPagePreview();
 		}
 		if (m_canvas->m_viewMode.operItemMoving)
 		{
@@ -828,6 +860,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			//currItem->emitAllToGUI();
 			m_view->updatesOn(true);
 			m_view->updateContents();
+			m_doc->changedPagePreview();
 		}
 	}
 	//CB Drag selection performed here

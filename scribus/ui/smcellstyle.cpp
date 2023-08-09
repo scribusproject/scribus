@@ -210,6 +210,7 @@ void SMCellStyle::apply()
 	//m_doc->scMW()->requestUpdate(reqTextStylesUpdate);
 
 	m_doc->changed();
+	m_doc->changedPagePreview();
 }
 
 void SMCellStyle::editMode(bool isOn)

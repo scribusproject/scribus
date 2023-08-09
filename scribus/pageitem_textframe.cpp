@@ -5880,4 +5880,5 @@ void PageItem_TextFrame::setTextFrameHeight()
 	invalid = true;
 	m_Doc->changed();
 	m_Doc->regionsChanged()->update(QRect());
+	m_Doc->changedPagePreview();
 }

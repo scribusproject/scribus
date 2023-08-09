@@ -202,6 +202,7 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			result = new CanvasMode_Normal(view);
 			break;
 	}
+
 	return result;
 }
 
@@ -1745,12 +1746,13 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 						currItem->ContourLine.translate(xposOrig - currItem->xPos(),yposOrig - currItem->yPos());
 					m_doc->nodeEdit.finishTransaction(currItem);
 					currItem->update();
-					m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
+					m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());					
 				}
 				for (int i = 0; i < docSelectionCount; ++i)
 					m_doc->m_Selection->itemAt(i)->checkChanges(true);
 				if (docSelectionCount > 1 && m_view->groupTransactionStarted())
 					m_view->endGroupTransaction();
+				m_doc->changedPagePreview();
 			}
 			break;
 	}

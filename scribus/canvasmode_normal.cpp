@@ -1101,6 +1101,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			m_view->updatesOn(true);
 			m_view->updateContents();
 			m_doc->changed();
+			m_doc->changedPagePreview();
 		}
 	}
 

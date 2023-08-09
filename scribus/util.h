@@ -204,4 +204,12 @@ QString getUniqueName(const QString& name, const STRINGLIST& list)
 */
 void SCRIBUS_API getUniqueName(QString &name, const QStringList& list, const QString& separator = QString(), bool prepend = false);
 
+/*!
+ * \brief inRange check if value is in range of min and max
+ * \param min
+ * \param value
+ * \param max
+ */
+bool SCRIBUS_API inRange(unsigned min, unsigned value, unsigned max);
+
 #endif

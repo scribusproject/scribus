@@ -172,8 +172,10 @@ public:
 	void showInlinePage(int id);
 	void hideInlinePage();
 
+	QMap<int, QImage> PagesToPixmap(int maxGr, int Nr = -1, PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground);
 	QImage PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground);
 	QImage MPageToPixmap(const QString& name, int maxGr, bool drawFrame = true);
+	QImage drawPageToPixmap(int maxGr, ScPage *page, PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground);
 
 	/**
 	 * Called when the ruler origin is dragged
