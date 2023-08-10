@@ -81,11 +81,6 @@ PagePalette_Pages::PagePalette_Pages(QWidget *parent)
 	connect(this, SIGNAL(gotoPage(int)), m_scMW, SLOT(selectPagesFromOutlines(int)));
 }
 
-void PagePalette_Pages::setSelectedPageNumber(int number)
-{
-	m_selectedPageNumber = number;
-}
-
 void PagePalette_Pages::deleteMasterPage(const QString &tmp)
 {
 	if (tmp == CommonStrings::trMasterPageNormal)
@@ -291,7 +286,6 @@ void PagePalette_Pages::handlePageLayout(int layout)
 	currView->reformPages();
 	currView->DrawNew();
 	currView->GotoPage(currView->m_doc->currentPageNumber());
-	m_selectedPageNumber = currView->m_doc->currentPageNumber();
 	rebuildPages();
 }
 
@@ -301,7 +295,6 @@ void PagePalette_Pages::handleFirstPage(int fp)
 	currView->reformPages();
 	currView->DrawNew();
 	currView->GotoPage(currView->m_doc->currentPageNumber());
-	m_selectedPageNumber = currView->m_doc->currentPageNumber();
 	rebuildPages();
 }
 
@@ -382,7 +375,7 @@ void PagePalette_Pages::rebuildPages()
 		PageCell *pc = new PageCell(str, i,
 									pix,// QPixmap can replace with real page preview
 									pageRatio);
-		pageViewWidget->pageGrid()->pageList.append(pc);	
+		pageViewWidget->pageGrid()->pageList.append(pc);
 
 	}
 
@@ -395,8 +388,7 @@ void PagePalette_Pages::rebuildPages()
 
 	if (currView != nullptr)
 	{
-		int nr = currView->m_doc->DocPages.count() > m_selectedPageNumber ? m_selectedPageNumber : currView->m_doc->currentPageNumber();
-		markPage(nr);
+		markPage(currView->m_doc->currentPageNumber());
 	}
 	connect(pageLayout, SIGNAL(selectedLayout(int)), this, SLOT(handlePageLayout(int)));
 	connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));

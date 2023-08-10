@@ -36,12 +36,6 @@ public:
 	PagePalette_Pages(QWidget* parent);
 	~PagePalette_Pages() {};
 
-	/**
-	 * @brief Set selected page number. Use to restore doc page number after end master page mode.
-	 * @param number
-	 */
-	void setSelectedPageNumber(int number);
-
 public slots:
 	void setView(ScribusView *view);
 	void deleteMasterPage(const QString& tmp);
@@ -80,7 +74,6 @@ protected:
 	ScribusView       *currView { nullptr};
 	ScribusMainWindow *m_scMW { nullptr};
 	bool m_pagePreviewUpdatePending {true};
-	int m_selectedPageNumber {0};
 
 //	QPixmap createPagePreview(const QPixmap& pixin, QSize size);
 

@@ -7659,13 +7659,6 @@ void ScribusMainWindow::editMasterPagesEnd()
 	for (int i = 0; i < pageCount; ++i)
 		Apply_MasterPage(doc->DocPages.at(i)->masterPageName(), i, false);
 
-	pagePalette->endMasterPageMode();
-	if (pagePalette->isFloating())
-	{
-		pagePalette->setVisible(m_pagePalVisible);
-		scrActions["toolsPages"]->setChecked(m_pagePalVisible);
-	}
-
 	ScribusView::ViewState viewState = view->topViewState();
 	doc->setLoading(true);
 	view->restoreViewState();
@@ -7673,6 +7666,14 @@ void ScribusMainWindow::editMasterPagesEnd()
 	view->setContentsPos(viewState.contentX, viewState.contentY);
 	doc->setLoading(false);
 	view->DrawNew();
+
+	pagePalette->endMasterPageMode();
+	if (pagePalette->isFloating())
+	{
+		pagePalette->setVisible(m_pagePalVisible);
+		scrActions["toolsPages"]->setChecked(m_pagePalVisible);
+	}
+
 }
 
 void ScribusMainWindow::ApplyMasterPage()

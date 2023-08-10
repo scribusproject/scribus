@@ -174,7 +174,6 @@ bool PagePalette::masterPageMode()
 void PagePalette::startMasterPageMode(const QString& masterPage)
 {
 	ScribusDoc* doc = m_view->m_doc;
-	m_selectedPageNumber = doc->currentPageNumber();
 	
 	bool mustDeselect = false;
 	mustDeselect |= (!doc->masterPageMode());
@@ -229,7 +228,6 @@ void PagePalette::endMasterPageMode()
 	if (pageWidget)
 	{
 		pageWidget->setView(m_view);
-		pageWidget->setSelectedPageNumber(m_selectedPageNumber);
 		pageWidget->rebuild();
 	}
 	setWindowTitle( tr( "Arrange Pages" ) );
