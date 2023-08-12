@@ -167,11 +167,10 @@ PDFColorSpace PDFAnalyzer::getCSType(PdfObject* cs)
 bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedColorSpaces, bool & hasTransparency, QList<PDFFont> & usedFonts, QList<PDFImage> & imgs)
 {
 	// this method can be used to get used color spaces, detect transparency, and get used fonts in either PdfPage or PdfXObject
-	PdfObject* colorSpaceRes { nullptr };
-	PdfObject* xObjects { nullptr };
-	PdfObject* transGroup { nullptr };
-	PdfObject* extGState { nullptr };
-	PdfObject* fontRes { nullptr };
+	PdfDictionary* colorSpacesDict { nullptr };
+	PdfDictionary* xObjectsDict { nullptr };
+	PdfDictionary* extGStatesDict { nullptr };
+	PdfDictionary* fontsDict { nullptr };
 	QMap<PdfName, PDFColorSpace> processedNamedCS;
 	QMap<PdfName, PDFFont> processedNamedFont;
 	QList<PdfName> processedNamedXObj;
@@ -182,30 +181,41 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 		// needed for the finding resources code below to work
 		PdfPage* page = dynamic_cast<PdfPage*>(canvas);
 		PdfObject* canvasObject = page ? (page->GetObject()) : ((dynamic_cast<PdfXObject*>(canvas))->GetObject());
+		PdfDictionary* canvasDict = (canvasObject && canvasObject->IsDictionary()) ? &(canvasObject->GetDictionary()) : nullptr;
 
 		// find a resource with ColorSpace entry
 		PdfObject* resources = canvas->GetResources();
-		for (PdfObject* par = canvasObject; par && !resources; par = par->GetIndirectKey("Parent"))
+		for (PdfDictionary* par = canvasDict, *parentDict = nullptr; par && !resources; par = parentDict)
 		{
-			resources = par->GetIndirectKey("Resources");
+			resources = par->FindKey("Resources");
+			PdfObject* parentObj = par->FindKey("Parent");
+			parentDict = (parentObj && parentObj->IsDictionary()) ? &(parentObj->GetDictionary()) : nullptr;
 		}
-		colorSpaceRes = resources ? resources->GetIndirectKey("ColorSpace") : nullptr;
-		xObjects = resources ? resources->GetIndirectKey("XObject") : nullptr;
-		extGState = resources ? resources->GetIndirectKey("ExtGState") : nullptr;
-		fontRes = resources ? resources->GetIndirectKey("Font") : nullptr;
+
+		PdfDictionary* resourcesDict = (resources && resources->IsDictionary()) ? &(resources->GetDictionary()) : nullptr;
+		PdfObject* colorSpaceRes = resourcesDict ? resourcesDict->FindKey("ColorSpace") : nullptr;
+		PdfObject* xObjects = resourcesDict ? resourcesDict->FindKey("XObject") : nullptr;
+		PdfObject* extGState = resourcesDict ? resourcesDict->FindKey("ExtGState") : nullptr;
+		PdfObject* fontRes = resourcesDict ? resourcesDict->FindKey("Font") : nullptr;
+
+		colorSpacesDict = (colorSpaceRes && colorSpaceRes->IsDictionary()) ? &(colorSpaceRes->GetDictionary()) : nullptr;
+		xObjectsDict = (xObjects && xObjects->IsDictionary()) ? &(xObjects->GetDictionary()) : nullptr;
+		extGStatesDict = (extGState && extGState->IsDictionary()) ? &(extGState->GetDictionary()) : nullptr;
+		fontsDict = (fontRes && fontRes->IsDictionary()) ? &(fontRes->GetDictionary()) : nullptr;
 
 		// getting the transparency group of this content stream (if available)
-		transGroup = canvasObject ? canvasObject->GetIndirectKey("Group") : nullptr;
-		if (transGroup)
+		PdfObject* transGroup = canvasDict ? canvasDict->FindKey("Group") : nullptr;
+		PdfDictionary* transGroupDict = (transGroup && transGroup->IsDictionary()) ? &(transGroup->GetDictionary()) : nullptr;
+		if (transGroupDict)
 		{
-			PdfObject* subtype = transGroup->GetIndirectKey("S");
+			const PdfObject* subtype = transGroupDict->FindKey("S");
 			if (subtype && subtype->GetName() == "Transparency")
 			{
 				// having transparency group means there's transparency in the PDF
 				hasTransparency = true;
 
 				// reporting the color space used in transparency group (Section 7.5.5, PDF 1.6 Spec)
-				PdfObject* cs = transGroup->GetIndirectKey("CS");
+				PdfObject* cs = transGroupDict->FindKey("CS");
 				if (cs)
 				{
 					PDFColorSpace retval = getCSType(cs);
@@ -380,9 +390,9 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 							}
 							else
 							{
-								if (colorSpaceRes && colorSpaceRes->GetIndirectKey(args[0].GetName()))
+								if (colorSpacesDict && colorSpacesDict->FindKey(args[0].GetName()))
 								{
-									PdfObject* csEntry = colorSpaceRes->GetIndirectKey(args[0].GetName());
+									PdfObject* csEntry = colorSpacesDict->FindKey(args[0].GetName());
 									PDFColorSpace retval = getCSType(csEntry);
 									if (retval != CS_Unknown && !usedColorSpaces.contains(retval))
 										usedColorSpaces.append(retval);
@@ -449,9 +459,9 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 							}
 							else
 							{
-								if (colorSpaceRes && colorSpaceRes->GetIndirectKey(args[0].GetName()))
+								if (colorSpacesDict && colorSpacesDict->FindKey(args[0].GetName()))
 								{
-									PdfObject* csEntry = colorSpaceRes->GetIndirectKey(args[0].GetName());
+									PdfObject* csEntry = colorSpacesDict->FindKey(args[0].GetName());
 									PDFColorSpace retval = getCSType(csEntry);
 									if (retval != CS_Unknown && !usedColorSpaces.contains(retval))
 										usedColorSpaces.append(retval);
@@ -503,28 +513,29 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 					{
 					if (!processedNamedXObj.contains(args[0].GetName()))
 					{
-						if (args.size() == 1 && args[0].IsName() && xObjects)
+						if (args.size() == 1 && args[0].IsName() && xObjectsDict)
 						{
-							PdfObject* xObject = xObjects->GetIndirectKey(args[0].GetName());
-							PdfObject* subtypeObject = xObject ? xObject->GetIndirectKey("Subtype") : nullptr;
+							PdfObject* xObject = xObjectsDict->FindKey(args[0].GetName());
+							PdfDictionary* xObjectDict = (xObject && xObject->IsDictionary()) ? &(xObject->GetDictionary()) : nullptr;
+							PdfObject* subtypeObject = xObjectDict ? xObjectDict->FindKey("Subtype") : nullptr;
 							if (subtypeObject && subtypeObject->IsName())
 							{
 								if (subtypeObject->GetName() == "Image")
 								{
-									PdfObject* imgColorSpace = xObject->GetIndirectKey("ColorSpace");
+									PdfObject* imgColorSpace = xObjectDict->FindKey("ColorSpace");
 									if (imgColorSpace)
 									{
 										PDFColorSpace retval = getCSType(imgColorSpace);
 										if (retval != CS_Unknown && !usedColorSpaces.contains(retval))
 											usedColorSpaces.append(retval);
 									}
-									PdfObject* sMaskObj = xObject->GetIndirectKey("SMask");
+									PdfObject* sMaskObj = xObjectDict->FindKey("SMask");
 									if (sMaskObj)
 										hasTransparency = true;
 									PDFImage img;
 									img.imgName = args[0].GetName().GetEscapedName().c_str();
-									double width = xObject->GetIndirectKey("Width")->GetReal();
-									double height = xObject->GetIndirectKey("Height")->GetReal();
+									double width = xObjectDict->FindKey("Width")->GetReal();
+									double height = xObjectDict->FindKey("Height")->GetReal();
 									img.dpiX = qRound(width/(currGS.ctm.m11()/72));
 									img.dpiY = qRound(height/(currGS.ctm.m22()/72));
 									imgs.append(img);
@@ -573,9 +584,9 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 									usedColorSpaces.append(CS_DeviceCMYK);
 								else if (!processedNamedCS.contains(csName))
 								{
-									if (colorSpaceRes && colorSpaceRes->GetIndirectKey(csName))
+									if (colorSpacesDict && colorSpacesDict->FindKey(csName))
 									{
-										PdfObject* csEntry = colorSpaceRes->GetIndirectKey(csName);
+										PdfObject* csEntry = colorSpacesDict->FindKey(csName);
 										if (csEntry)
 										{
 											PDFColorSpace retval = getCSType(csEntry);
@@ -615,9 +626,9 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 					{
 					if (!processedNamedGS.contains(args[0].GetName()))
 					{
-						if (args.size() == 1 && args[0].IsName() && extGState)
+						if (args.size() == 1 && args[0].IsName() && extGStatesDict)
 						{
-							PdfObject* extGStateObj = extGState->GetIndirectKey(args[0].GetName());
+							PdfObject* extGStateObj = extGStatesDict->FindKey(args[0].GetName());
 							if (extGStateObj)
 							{
 								inspectExtGStateObj(extGStateObj, usedColorSpaces, hasTransparency, usedFonts, currGS);
@@ -646,9 +657,9 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 					}
 					else
 					{
-						if (args.size() == 2 && args[0].IsName() && fontRes)
+						if (args.size() == 2 && args[0].IsName() && fontsDict)
 						{
-							PdfObject* fontObj = fontRes->GetIndirectKey(args[0].GetName());
+							PdfObject* fontObj = fontsDict->FindKey(args[0].GetName());
 							if (fontObj)
 							{
 								PDFFont retval = getFontInfo(fontObj);
@@ -687,9 +698,11 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 	}
 	return true;
 }
+
 void PDFAnalyzer::inspectExtGStateObj(PdfObject* extGStateObj, QList<PDFColorSpace> & usedColorSpaces, bool & hasTransparency, QList<PDFFont> & usedFonts, PDFGraphicState & currGS)
 {
-	PdfObject* bmObj = extGStateObj->GetIndirectKey("BM");
+	PdfDictionary* extGStateDict = extGStateObj->IsDictionary() ? &(extGStateObj->GetDictionary()) : nullptr;
+	PdfObject* bmObj = extGStateDict ? extGStateDict->FindKey("BM") : nullptr;
 	if (bmObj && bmObj->IsName())
 	{
 		currGS.blendModes.clear();
@@ -706,23 +719,27 @@ void PDFAnalyzer::inspectExtGStateObj(PdfObject* extGStateObj, QList<PDFColorSpa
 		if (arr[0].IsName() && !(arr[0].GetName() == "Normal" || arr[0].GetName() == "Compatible"))
 			hasTransparency = true;
 	}
-	PdfObject* caObj = extGStateObj->GetIndirectKey("ca");
+
+	PdfObject* caObj = extGStateDict ? extGStateDict->FindKey("ca") : nullptr;
 	if (caObj && (caObj->IsReal() || caObj->IsNumber()))
 	{
 		currGS.fillAlphaConstant = caObj->GetReal();
 		if (caObj->GetReal() < 1)
 			hasTransparency = true;
 	}
-	PdfObject* cAObj = extGStateObj->GetIndirectKey("CA");
+
+	PdfObject* cAObj = extGStateDict ? extGStateDict->FindKey("CA") : nullptr;
 	if (cAObj && (cAObj->IsReal() || cAObj->IsNumber()))
 	{
 		if (cAObj->GetReal() < 1)
-		hasTransparency = true;
+			hasTransparency = true;
 	}
-	PdfObject* sMaskObj = extGStateObj->GetIndirectKey("SMask");
+
+	PdfObject* sMaskObj = extGStateDict ? extGStateDict->FindKey("SMask") : nullptr;
 	if (sMaskObj && !(sMaskObj->IsName() && sMaskObj->GetName() == "None"))
 		hasTransparency = true;
-	PdfObject* fontObj = extGStateObj->GetIndirectKey("Font");
+
+	PdfObject* fontObj = extGStateDict ? extGStateDict->FindKey("Font") : nullptr;
 	if (fontObj && fontObj->IsArray())
 	{
 		PdfArray arr = fontObj->GetArray();
@@ -740,19 +757,24 @@ void PDFAnalyzer::inspectExtGStateObj(PdfObject* extGStateObj, QList<PDFColorSpa
 
 		}
 	}
-	PdfObject* lwObj = extGStateObj->GetIndirectKey("LW");
+
+	PdfObject* lwObj = extGStateDict ? extGStateDict->FindKey("LW") : nullptr;
 	if (lwObj)
 		currGS.lineWidth = lwObj->GetReal();
-	PdfObject* lcObj = extGStateObj->GetIndirectKey("LC");
+
+	PdfObject* lcObj = extGStateDict ? extGStateDict->FindKey("LC") : nullptr;
 	if (lcObj)
 		currGS.lineCap = lcObj->GetNumber();
-	PdfObject* ljObj = extGStateObj->GetIndirectKey("LJ");
+
+	PdfObject* ljObj = extGStateDict ? extGStateDict->FindKey("LJ") : nullptr;
 	if (ljObj)
 		currGS.lineJoin = ljObj->GetNumber();
-	PdfObject* mlObj = extGStateObj->GetIndirectKey("ML");
+
+	PdfObject* mlObj = extGStateDict ? extGStateDict->FindKey("ML") : nullptr;
 	if (mlObj)
 		currGS.miterLimit = mlObj->GetReal();
-	PdfObject* dObj = extGStateObj->GetIndirectKey("D");
+
+	PdfObject* dObj = extGStateDict ? extGStateDict->FindKey("D") : nullptr;
 	if (dObj)
 	{
 		PdfObject dObjA = dObj->GetArray()[0];
@@ -767,56 +789,64 @@ void PDFAnalyzer::inspectExtGStateObj(PdfObject* extGStateObj, QList<PDFColorSpa
 PDFFont PDFAnalyzer::getFontInfo(PdfObject* fontObj)
 {
 	PDFFont currFont;
-	PdfObject* subtype = fontObj->GetIndirectKey("Subtype");
-	if (subtype && subtype->IsName())
+	const PdfDictionary* fontDict = fontObj->IsDictionary() ? &(fontObj->GetDictionary()) : nullptr;
+	if (!fontDict)
+		return currFont;
+
+	const PdfObject* subtype = fontDict->FindKey("Subtype");
+	if (!subtype || !subtype->IsName())
+		return currFont;
+
+	const PdfObject* fontDesc = fontDict->FindKey("FontDescriptor");
+	if (subtype->GetName() == "Type1")
+		currFont.fontType = F_Type1;
+	else if (subtype->GetName() == "MMType1")
+		currFont.fontType = F_MMType1;
+	else if (subtype->GetName() == "TrueType")
+		currFont.fontType = F_TrueType;
+	else if (subtype->GetName() == "Type3")
 	{
-		PdfObject* fontDesc = fontObj->GetIndirectKey("FontDescriptor");
-		if (subtype->GetName() == "Type1")
-			currFont.fontType = F_Type1;
-		else if (subtype->GetName() == "MMType1")
-			currFont.fontType = F_MMType1;
-		else if (subtype->GetName() == "TrueType")
-			currFont.fontType = F_TrueType;
-		else if (subtype->GetName() == "Type3")
+		currFont.fontType = F_Type3;
+		currFont.isEmbedded = true;
+		fontDesc = nullptr;
+	}
+	else if (subtype->GetName() == "Type0")
+	{
+		const PdfObject* descendantFonts = fontDict->FindKey("DescendantFonts");
+		if (descendantFonts && descendantFonts->IsArray())
 		{
-			currFont.fontType = F_Type3;
+			const PdfReference& refDescFont = descendantFonts->GetArray()[0].GetReference();
+			PdfObject* descendantFont = descendantFonts->GetOwner()->GetObject(refDescFont);
+			PdfDictionary* descendantFontDict = (descendantFont && descendantFont->IsDictionary()) ? &(descendantFont->GetDictionary()) : nullptr;
+			const PdfObject* subtypeDescFont = descendantFontDict->FindKey("Subtype");
+			fontDesc = &(descendantFontDict->MustGetKey("FontDescriptor"));
+			if (subtypeDescFont && subtypeDescFont->IsName())
+			{
+				if (subtypeDescFont->GetName() == "CIDFontType0")
+					currFont.fontType = F_CIDFontType0;
+				else if (subtypeDescFont->GetName() == "CIDFontType2")
+					currFont.fontType = F_CIDFontType2;
+			}
+		}
+	}
+
+	const PdfDictionary* fontDescDict = (fontDesc && fontDesc->IsDictionary()) ? &(fontDesc->GetDictionary()) : nullptr;
+	if (fontDescDict)
+	{
+		const PdfObject* fontFile = fontDescDict->FindKey("FontFile");
+		const PdfObject* fontFile2 = fontDescDict->FindKey("FontFile2");
+		const PdfObject* fontFile3 = fontDescDict->FindKey("FontFile3");
+		if (fontFile && fontFile->HasStream())
 			currFont.isEmbedded = true;
-			fontDesc = nullptr;
-		}
-		else if (subtype->GetName() == "Type0")
+		if (fontFile2 && fontFile2->HasStream())
+			currFont.isEmbedded = true;
+		if (fontFile3 && fontFile3->HasStream())
 		{
-			PdfObject* descendantFonts = fontObj->GetIndirectKey("DescendantFonts");
-			if (descendantFonts && descendantFonts->IsArray())
-			{
-				PdfReference refDescFont = descendantFonts->GetArray()[0].GetReference();
-				PdfObject* descendantFont = descendantFonts->GetOwner()->GetObject(refDescFont);
-				PdfObject* subtypeDescFont = descendantFont->GetIndirectKey("Subtype");
-				fontDesc = descendantFont->MustGetIndirectKey("FontDescriptor");
-				if (subtypeDescFont && subtypeDescFont->IsName())
-				{
-					if (subtypeDescFont->GetName() == "CIDFontType0")
-						currFont.fontType = F_CIDFontType0;
-					else if (subtypeDescFont->GetName() == "CIDFontType2")
-						currFont.fontType = F_CIDFontType2;
-				}
-			}
-		}
-		if (fontDesc)
-		{
-			PdfObject* fontFile = fontDesc->GetIndirectKey("FontFile");
-			PdfObject* fontFile2 = fontDesc->GetIndirectKey("FontFile2");
-			PdfObject* fontFile3 = fontDesc->GetIndirectKey("FontFile3");
-			if (fontFile && fontFile->HasStream())
-				currFont.isEmbedded = true;
-			if (fontFile2 && fontFile2->HasStream())
-				currFont.isEmbedded = true;
-			if (fontFile3 && fontFile3->HasStream())
-			{
-				currFont.isEmbedded = true;
-				PdfObject* ff3Subtype = fontFile3->GetIndirectKey("Subtype");
-				if (ff3Subtype && ff3Subtype->IsName() && ff3Subtype->GetName() == "OpenType")
-					currFont.isOpenType = true;
-			}
+			currFont.isEmbedded = true;
+			const PdfDictionary* fontFile3Dict = fontFile3->IsDictionary() ? &(fontFile3->GetDictionary()) : nullptr;
+			const PdfObject* ff3Subtype = fontFile3Dict ? fontFile3Dict->FindKey("Subtype") : nullptr;
+			if (ff3Subtype && ff3Subtype->IsName() && ff3Subtype->GetName() == "OpenType")
+				currFont.isOpenType = true;
 		}
 	}
 	return currFont;

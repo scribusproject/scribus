@@ -789,12 +789,12 @@ bool PDFLibCore::EncodeArrayToStream(const QByteArray& in, PdfId ObjNum)
 {
 	if (in.size() < 1)
 		return true;
-	bool succeed = false;
 	if (Options.Encrypt)
 	{
 		ScStreamFilter* rc4Encode = writer.openStreamFilter(true, ObjNum);
 		if (rc4Encode->openFilter())
 		{
+			bool succeed = false;
 			succeed  = rc4Encode->writeData(in.data(), in.size());
 			succeed &= rc4Encode->closeFilter();
 		}
@@ -3486,7 +3486,7 @@ void PDFLibCore::PDF_End_Page()
 		}
 		if (Options.docInfoMarks)
 		{
-//			QString tmp = "";
+//			QString tmp;
 //			double startX = markOffs + bleedLeft + 10.0;
 			FPointArray  textPath;
 			QPainterPath painter1, painter2;
@@ -9102,7 +9102,6 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 				PutDoc("/BC [ " + SetColor(ite->annotation().borderColor(), 100) + " ] ");
 			else
 				PutDoc("/BC [ ] ");
-			PdfId IconOb = 0;
 			switch (ite->annotation().Type())
 			{
 				case Annotation::Button:
@@ -9113,6 +9112,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 						PutDoc("/AC " + EncStringUTF16(ite->annotation().Down(), annotationObj) + " ");
 					if (ite->annotation().UseIcons())
 					{
+						PdfId IconOb = 0;
 						if (!ite->Pfile.isEmpty())
 						{
 							IconOb += ite->pixm.hasAlpha() ? 3 : 2;
@@ -9795,16 +9795,20 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 		PoDoFo::PdfObject* pageObj   = page ? page->GetObject() : nullptr;
 		PoDoFo::PdfObject* contents  = page ? page->GetContents() : nullptr;
 		PoDoFo::PdfObject* resources = page ? page->GetResources() : nullptr;
-		for (PoDoFo::PdfObject* par = pageObj; par && !resources; par = par->GetIndirectKey("Parent"))
+		PoDoFo::PdfDictionary* pageObjDict = (pageObj && pageObj->IsDictionary()) ? &(pageObj->GetDictionary()) : nullptr;
+		for (PoDoFo::PdfDictionary* par = pageObjDict, *parentDict = nullptr; par && !resources; par = parentDict)
 		{
-			resources = par->GetIndirectKey("Resources");
+			resources = par->FindKey("Resources");
+			PoDoFo::PdfObject* parentObj = par->FindKey("Parent");
+			parentDict = (parentObj && parentObj->IsDictionary()) ? &(parentObj->GetDictionary()) : nullptr;
 		}
 		if (contents && contents->GetDataType() ==  PoDoFo::ePdfDataType_Dictionary)
 		{
+			PoDoFo::PdfDictionary& contentsDict = contents->GetDictionary();
 			PoDoFo::PdfStream* stream = contents->GetStream();
 			QMap<PoDoFo::PdfReference, PdfId> importedObjects;
 			QList<PoDoFo::PdfReference> referencedObjects;
-			PoDoFo::PdfObject* nextObj;
+			PoDoFo::PdfObject* nextObj { nullptr };
 			PdfId xObj = writer.newObject();
 			PdfId xResources = writer.newObject();
 			PdfId xParents = 0;
@@ -9839,14 +9843,16 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 								 + Pdf::toPdf(pageM.dy())  + " ");
 			PutDoc("]");
 			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
-			nextObj = page->GetObject()->GetIndirectKey("Group");
+			PoDoFo::PdfObject* pageObj = page->GetObject();
+			PoDoFo::PdfDictionary* pageDict = pageObj->IsDictionary() ? &(pageObj->GetDictionary()) : nullptr;
+			nextObj = pageDict ? pageDict->FindKey("Group") : nullptr;
 			if (nextObj)
 			{
 				PutDoc("\n/Group "); // PDF 1.4
 				copyPoDoFoDirect(nextObj, referencedObjects, importedObjects);
 			}
 			/*
-			PoDoFo::PdfObject parents = page->GetObject()->GetIndirectKey("StructParents");
+			PoDoFo::PdfObject parents = pageDict->FindKey("StructParents");
 			if (parents)
 			{
 				xParents = writer.newObject();
@@ -9865,13 +9871,13 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			if (mbuffer[mlen-1] == '\n')
 				--mlen;
 			PutDoc("\n/Length " + Pdf::toPdf(static_cast<qlonglong>(mlen)));
-			nextObj = contents->GetIndirectKey("Filter");
+			nextObj = contentsDict.FindKey("Filter");
 			if (nextObj)
 			{
 				PutDoc("\n/Filter ");
 				copyPoDoFoDirect(nextObj, referencedObjects, importedObjects);
 			}
-			nextObj = contents->GetIndirectKey("DecodeParms");
+			nextObj = contentsDict.FindKey("DecodeParms");
 			if (nextObj)
 			{
 				PutDoc("\n/DecodeParms ");
@@ -9962,7 +9968,9 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 								 + Pdf::toPdf(pageM.dy())  + " ");
 			PutDoc("]");
 			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
-			nextObj = page->GetObject()->GetIndirectKey("Group");
+			PoDoFo::PdfObject* pageObj = page->GetObject();
+			PoDoFo::PdfDictionary* pageDict = pageObj->IsDictionary() ? &(pageObj->GetDictionary()) : nullptr;
+			nextObj = pageDict ? pageDict->FindKey("Group") : nullptr;
 			if (nextObj)
 			{
 				PutDoc("\n/Group "); // PDF 1.4
@@ -10007,13 +10015,13 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 //				--mlen;
 			PutDoc("\n/Length " + Pdf::toPdf(static_cast<qlonglong>(mlen)));
 /*
- nextObj = contents->GetIndirectKey("Filter");
+			nextObj = contentsDict.FindKey("Filter");
 			if (nextObj)
 			{
 				PutDoc("\n/Filter ");
 				copyPoDoFoDirect(nextObj, referencedObjects, importedObjects);
 			}
-			nextObj = contents->GetIndirectKey("DecodeParms");
+			nextObj = contentsDict.FindKey("DecodeParms");
 			if (nextObj)
 			{
 				PutDoc("\n/DecodeParms ");

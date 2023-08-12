@@ -587,36 +587,41 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 		PoDoFo::PdfPage *curPage = doc.GetPage(0);
 		if (curPage != nullptr)
 		{
-			PoDoFo::PdfObject *piece = curPage->GetObject()->GetIndirectKey("PieceInfo");
+			PoDoFo::PdfObject* pageObj = curPage->GetObject();
+			PoDoFo::PdfDictionary* pageDict = (pageObj && pageObj->IsDictionary()) ? &(pageObj->GetDictionary()) : nullptr;
+			PoDoFo::PdfObject *piece = pageDict ? pageDict->FindKey("PieceInfo") : nullptr;
 			if (piece != nullptr)
 			{
-				PoDoFo::PdfObject *illy = piece->GetIndirectKey("Illustrator");
+				PoDoFo::PdfDictionary* pieceDict = piece->IsDictionary() ? &(piece->GetDictionary()) : nullptr;
+				PoDoFo::PdfObject *illy = pieceDict ? pieceDict->FindKey("Illustrator") : nullptr;
 				if (illy != nullptr)
 				{
-					PoDoFo::PdfObject *priv = illy->GetIndirectKey("Private");
+					PoDoFo::PdfDictionary* illyDict = illy->IsDictionary() ? &(illy->GetDictionary()) : nullptr;
+					PoDoFo::PdfObject *priv = illyDict ? illyDict->FindKey("Private") : nullptr;
 					if (priv == nullptr)
 						priv = illy;
 					int num = 0;
-					PoDoFo::PdfObject *numBl = priv->GetIndirectKey("NumBlock");
+					PoDoFo::PdfDictionary* privDict = priv->IsDictionary() ? &(priv->GetDictionary()) : nullptr;
+					PoDoFo::PdfObject *numBl = privDict ? privDict->FindKey("NumBlock") : nullptr;
 					if (numBl != nullptr)
 						num = numBl->GetNumber() + 1;
 					if (num == 0)
 						num = 99999;
 					QString name = "AIPrivateData%1";
 					QString Key = name.arg(1);
-					PoDoFo::PdfObject *data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
+					PoDoFo::PdfObject *data = privDict ? privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data())) : nullptr;
 					if (data == nullptr)
 					{
 						name = "AIPDFPrivateData%1";
 						Key = name.arg(1);
-						data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
+						data = privDict ? privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data())) : nullptr;
 					}
 					if (data != nullptr)
 					{
 						if (num == 2)
 						{
 							Key = name.arg(1);
-							data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
+							data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
 							PoDoFo::PdfStream const *stream = data->GetStream();
 							PoDoFo::PdfMemoryOutputStream oStream(1);
 							stream->GetFilteredCopy(&oStream);
@@ -631,7 +636,7 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 							for (int a = 2; a < num; a++)
 							{
 								Key = name.arg(a);
-								data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
+								data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
 								if (data == nullptr)
 									break;
 								PoDoFo::PdfStream const *stream = data->GetStream();
@@ -2598,7 +2603,7 @@ void AIPlug::processGradientData(const QString& data)
 		}
 		else if ((command == "%_Bs") || (command == "%_BS"))
 		{
-			QString stopName = "";
+			QString stopName;
 			double stop = ScCLocale::toDoubleC(da2[da2.count()-2]) / 100.0;
 			double colorShade = 100.0;
 			int colortype = da2[da2.count()-4].toInt();
@@ -2656,8 +2661,8 @@ void AIPlug::processGradientData(const QString& data)
 
 void AIPlug::processPattern(QDataStream &ts)
 {
-	QString tmp = "";
-	QString tmpData = "";
+	QString tmp;
+	QString tmpData;
 	while (!ts.atEnd())
 	{
 		tmp = removeAIPrefix(readLineFromDataStream(ts));
@@ -2892,8 +2897,8 @@ void AIPlug::processRaster(QDataStream &ts)
 {
 	double m1, m2, m3, m4, m5, m6, x1, y1, x2, y2, dummy;
 	int w, h, type, alpha, bin, bits;
-	QString tmp = "";
-	QString cumulated = "";
+	QString tmp;
+	QString cumulated;
 	while (!ts.atEnd())
 	{
 		tmp = readLineFromDataStream(ts);
@@ -2904,7 +2909,7 @@ void AIPlug::processRaster(QDataStream &ts)
 		if (!tmp.isEmpty())
 			cumulated += " " + tmp;
 	}
-	QString Cdata = "";
+	QString Cdata;
 	QStringList da;
 	getCommands(cumulated, da);
 	Cdata = da.last();
