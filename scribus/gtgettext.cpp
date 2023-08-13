@@ -117,10 +117,8 @@ void gtGetText::loadImporterPlugins()
 	QString libPattern = QString("*.%1*").arg(PluginManager::platformDllExtension());
 	// Search for matches.
 	QDir d(gtdir, libPattern, QDir::Name, (QDir::Filter) PluginManager::platformDllSearchFlags());
-
 	// Initialize a structure for the importers found
 	struct ImporterData ida;
-	ida.fileFormatName = "";
 
 	// Check and see if the directory existed and if the count of files matching is greater than 0.
 	if ((d.exists()) && (d.count() != 0))
