@@ -2483,7 +2483,8 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 	// Preserve old settings
 
 	int oldAppMode = m_doc->appMode;
-	requestMode(modeNormal);
+	if (!flags.testFlag(Pixmap_NoCanvasModeChange))
+		requestMode(modeNormal);
 	double oldScale = m_canvas->scale();
 	double cx = m_doc->minCanvasCoordinate.x();
 	double cy = m_doc->minCanvasCoordinate.y();
@@ -2502,9 +2503,7 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 		m_doc->enableCMS(true);
 	}
 
-
 	// Optimize settings for rendering
-
 	m_doc->guidesPrefs().framesShown = false;
 	m_doc->guidesPrefs().showControls = false;
 	m_doc->drawAsPreview = true;
@@ -2539,7 +2538,6 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 //	qDebug() << Q_FUNC_INFO << "- draw preview in" << timer.elapsed() << "milliseconds";
 
 	// Reset settings
-
 	if (cmsCorr)
 	{
 		m_doc->cmsSettings().GamutCheck = true;
@@ -2555,7 +2553,8 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 	m_canvas->setPreviewMode(m_doc->drawAsPreview);
 	m_canvas->setForcedRedraw(false);
 	m_doc->minCanvasCoordinate = FPoint(cx, cy);
-	requestMode(oldAppMode);
+	if (!flags.testFlag(Pixmap_NoCanvasModeChange))
+		requestMode(oldAppMode);
 
 	return m_previews;
 }

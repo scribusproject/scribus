@@ -191,7 +191,7 @@ void PagePalette_Pages::pageView_updatePagePreview()
 
 //	qDebug() << Q_FUNC_INFO << "- start page preview update";
 
-	PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground | Pixmap_DontReloadImages;
+	PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground | Pixmap_DontReloadImages | Pixmap_NoCanvasModeChange;
 	QMap<int, QImage> previews = currView->PagesToPixmap(pageViewWidget->pageGrid()->pageHeight(), -1, flags);
 
 	for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)
@@ -228,7 +228,9 @@ void PagePalette_Pages::updatePagePreview()
 		return;
 	}
 
-	if (m_pagePreviewUpdatePending && currView->m_doc->DocPages.count() == pageViewWidget->pageGrid()->pageList.count())
+	if (m_pagePreviewUpdatePending &&
+		(currView->updatesEnabled()) &&
+		(currView->m_doc->DocPages.count() == pageViewWidget->pageGrid()->pageList.count()))
 	{
 		m_pagePreviewUpdatePending = false;
 
@@ -359,7 +361,7 @@ void PagePalette_Pages::rebuildPages()
 //	timer.start();
 
 	// Create all page previews
-	PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground | Pixmap_DontReloadImages;
+	PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground | Pixmap_DontReloadImages | Pixmap_NoCanvasModeChange;
 	QMap<int, QImage> previews = currView->PagesToPixmap(pageViewWidget->pageGrid()->pageHeight(), -1, flags);
 
 	for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)
@@ -375,7 +377,6 @@ void PagePalette_Pages::rebuildPages()
 									pix,// QPixmap can replace with real page preview
 									pageRatio);
 		pageViewWidget->pageGrid()->pageList.append(pc);
-
 	}
 
 //	qDebug() << Q_FUNC_INFO << "- Pages rebuilt in" << timer.elapsed() << "milliseconds";
