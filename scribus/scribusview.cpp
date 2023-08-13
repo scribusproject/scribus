@@ -2464,7 +2464,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 	QImage img;
 	QMap<int, QImage> m_previews = PagesToPixmap(maxGr, Nr, flags);
 
-	if(!m_previews.isEmpty())
+	if (!m_previews.isEmpty())
 		img = m_previews.first();
 
 	return img;
@@ -2474,10 +2474,10 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 {
 	QMap<int, QImage> m_previews;
 
-	if(m_doc == nullptr || maxGr <= 0)
+	if (m_doc == nullptr || maxGr <= 0)
 		return m_previews;
 
-	if(m_doc->DocPages.count() == 0)
+	if (m_doc->DocPages.count() == 0)
 		return m_previews;
 
 	// Preserve old settings
@@ -2517,26 +2517,23 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 //	timer.start();
 
 	// Draw all pages
-	if(Nr == -1)
+	if (Nr == -1)
 	{
-		foreach(ScPage *page, m_doc->DocPages){
-
+		for (ScPage * page : m_doc->DocPages)
+		{
 			QImage im = drawPageToPixmap(maxGr, page, flags);
 			m_previews.insert(page->pageNr(), im);
-
 		}
 	}
 	// Draw single page by number
 	else
 	{
-		if(inRange(0, Nr, m_doc->DocPages.count() - 1))
+		if (inRange(0, Nr, m_doc->DocPages.count() - 1))
 		{
 			ScPage *page = m_doc->DocPages.at(Nr);
 			QImage im = drawPageToPixmap(maxGr, page, flags);
 			m_previews.insert(page->pageNr(), im);
-
 		}
-
 	}
 
 //	qDebug() << Q_FUNC_INFO << "- draw preview in" << timer.elapsed() << "milliseconds";
@@ -3379,7 +3376,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		}
 		else
 			firstFrame = nullptr;
-		if(m_doc->appMode == modeImportImage && ImageAfterDraw)
+		if (m_doc->appMode == modeImportImage && ImageAfterDraw)
 		{
 			//switch to drawing new text frame
 			requestMode(modeDrawImage);

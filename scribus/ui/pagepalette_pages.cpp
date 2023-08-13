@@ -128,7 +128,8 @@ void PagePalette_Pages::pageView_applyMasterPage(const QString &masterpageName, 
 	currView->reformPages();
 	currView->DrawNew();
 
-	if(pageIndex < 0 && pageIndex >= currView->m_doc->DocPages.count()) return;
+	if (pageIndex < 0 && pageIndex >= currView->m_doc->DocPages.count())
+		return;
 
 	ScPage page = *currView->m_doc->DocPages.at(pageIndex);
 	double pageRatio = page.width() / page.height();
@@ -195,7 +196,7 @@ void PagePalette_Pages::pageView_updatePagePreview()
 
 	for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)
 	{
-		if(previews.contains(i) && i < pageViewWidget->pageGrid()->pageList.count())
+		if (previews.contains(i) && i < pageViewWidget->pageGrid()->pageList.count())
 		{
 			ScPage page = *currView->m_doc->DocPages.at(i);
 			double pageRatio = page.width() / page.height();
@@ -236,9 +237,7 @@ void PagePalette_Pages::updatePagePreview()
 		{
 			pageView_updatePagePreview();
 		});
-
 	}
-
 }
 
 
@@ -406,7 +405,7 @@ void PagePalette_Pages::markPage(uint nr)
 	if (currView == nullptr)
 		return;
 
-	if(pageViewWidget->pageGrid()->pageCount() > 0)
+	if (pageViewWidget->pageGrid()->pageCount() > 0)
 	{
 		pageViewWidget->pageGrid()->setSelectedPage(nr);
 		pageViewWidget->scrollToPage(nr);
@@ -420,7 +419,7 @@ void PagePalette_Pages::setView(ScribusView *view)
 
 	currView = view;
 
-//	if(currView)
+//	if (currView)
 //		connect(currView->m_doc, SIGNAL(pagePreviewChanged()), this, SLOT(updatePagePreview()));
 
 }
