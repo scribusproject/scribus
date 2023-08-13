@@ -94,7 +94,7 @@ include_directories(${Qt6Svg_INCLUDE_DIRS})
 add_definitions(${Qt6Svg_DEFINITIONS})
 
 message(STATUS "Qt Version Found: ${Qt6Widgets_VERSION}")
-
+set(QT_VERSION_MAJOR 6)
 
 #<<PNG
 if (WIN32)
