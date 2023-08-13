@@ -753,7 +753,7 @@ public: // Start public functions
 	double softShadowOpacity() const { return m_softShadowOpacity; }
 
 	void setSoftShadowBlendMode(int val);
-	double softShadowBlendMode() const { return m_softShadowBlendMode; }
+	int softShadowBlendMode() const { return m_softShadowBlendMode; }
 
 	void setSoftShadowErasedByObject(bool val);
 	bool softShadowErasedByObject() const { return m_softShadowErasedByObject; }
