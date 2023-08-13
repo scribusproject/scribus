@@ -126,7 +126,7 @@ class PdfPainter: public TextLayoutPainter
 	const ScPage* m_page;
 
 	QByteArray m_prevFontName;
-	int        m_prevFontSize { - 1 };
+	double     m_prevFontSize { -1.0 };
 
 	QByteArray transformToStr(const QTransform& tr) const
 	{
@@ -471,7 +471,7 @@ public:
 		m_pathBuffer += "Q\n";
 	}
 
-	QByteArray getBuffer()
+	QByteArray getBuffer() const
 	{
 		return m_backBuffer + "BT\n" + m_glyphBuffer + "ET\n" + m_pathBuffer;
 	}
@@ -512,7 +512,7 @@ public:
 		m_pathBuffer.clear();
 
 		m_prevFontName.clear();
-		m_prevFontSize = -1;
+		m_prevFontSize = -1.0;
 		m_glyphBuffer += "BT\n";
 	}
 };
@@ -584,8 +584,8 @@ bool PDFLibCore::doExport(const QString& fn, const std::vector<int> & pageNs, co
 {
 	QImage thumb;
 	bool ret = false, error = false;
-	int  pc_exportpages=0;
-	int  pc_exportmasterpages=0;
+	int  pc_exportpages = 0;
+	int  pc_exportmasterpages = 0;
 	if (usingGUI)
 		progressDialog->show();
 
@@ -623,7 +623,7 @@ bool PDFLibCore::doExport(const QString& fn, const std::vector<int> & pageNs, co
 			{
 				if (pageNsMpa.contains(ap))
 				{
-					qApp->processEvents();
+					QApplication::processEvents();
 					if (!PDF_TemplatePage(doc.MasterPages.at(ap)))
 						error = abortExport = true;
 					++pc_exportmasterpages;
@@ -639,16 +639,16 @@ bool PDFLibCore::doExport(const QString& fn, const std::vector<int> & pageNs, co
 		{
 			if (Options.Thumbnails)
 				thumb = thumbs[pageNs[a]];
-			qApp->processEvents();
+			QApplication::processEvents();
 			if (abortExport) break;
 
 			PDF_Begin_Page(doc.DocPages.at(pageNs[a]-1), thumb);
-			qApp->processEvents();
+			QApplication::processEvents();
 			if (abortExport) break;
 
 			if (!PDF_ProcessPage(doc.DocPages.at(pageNs[a]-1), pageNs[a]-1, Options.doClip))
 				error = abortExport = true;
-			qApp->processEvents();
+			QApplication::processEvents();
 			if (abortExport) break;
 
 			PDF_End_Page();
@@ -802,7 +802,7 @@ bool PDFLibCore::EncodeArrayToStream(const QByteArray& in, PdfId ObjNum)
 	return (writer.getOutStream().status() == QDataStream::Ok);
 }
 
-int PDFLibCore::WriteImageToStream(ScImage& image, PdfId ObjNum, ColorSpaceEnum format, bool precal)
+int PDFLibCore::WriteImageToStream(const ScImage& image, PdfId ObjNum, ColorSpaceEnum format, bool precal)
 {
 	bool fromCmyk, succeed = false;
 	int  bytesWritten = 0;
@@ -872,7 +872,7 @@ int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, PdfId 
 	return (succeed ? bytesWritten : 0);
 }
 
-int PDFLibCore::WriteFlateImageToStream(ScImage& image, PdfId ObjNum, ColorSpaceEnum format, bool precal)
+int PDFLibCore::WriteFlateImageToStream(const ScImage& image, PdfId ObjNum, ColorSpaceEnum format, bool precal)
 {
 	bool fromCmyk, succeed = false;
 	int  bytesWritten = 0;
@@ -914,7 +914,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<
 
 	PDF_Begin_Catalog();
 	PDF_Begin_MetadataAndEncrypt();
-	PDF_Begin_WriteUsedFonts(AllFonts, PDF_Begin_FindUsedFonts(AllFonts, DocFonts));
+	PDF_Begin_WriteUsedFonts(AllFonts, PDF_Begin_FindUsedFonts(DocFonts));
 	PDF_Begin_Colors();
 	PDF_Begin_Layers();
 	
@@ -964,7 +964,7 @@ void PDFLibCore::PDF_Begin_Catalog()
 		writer.OutputIntentObj = writer.newObject();
 		PutDoc("/OutputIntents [ " + Pdf::toObjRef(writer.OutputIntentObj) + " ]\n");
 	}
-	if ((Options.Version == PDFVersion::PDF_X4))
+	if (Options.Version == PDFVersion::PDF_X4)
 	{
 		writer.MetaDataObj = writer.newObject();
 		PutDoc("/Metadata " + Pdf::toObjRef(writer.MetaDataObj) + "\n");
@@ -1100,7 +1100,7 @@ void PDFLibCore::PDF_Begin_MetadataAndEncrypt()
 }
 
 QMap<QString, QMap<uint, QString> >
-PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& DocFonts)
+PDFLibCore::PDF_Begin_FindUsedFonts(const QMap<QString, QMap<uint, QString> >& DocFonts)
 {
 	QMap<QString, QMap<uint, QString> > usedFonts;
 	PageItem* pgit;
@@ -1292,8 +1292,7 @@ static QList<Pdf::Resource> asColorSpace(const QList<PdfSpotC>& spotMapValues)
 void PDFLibCore::PDF_WriteStandardFonts()
 {
 	int a = 0;
-	QMap<QString, QString>::Iterator itStd;
-	for (itStd = StdFonts.begin(); itStd != StdFonts.end(); ++itStd)
+	for (auto itStd = StdFonts.begin(); itStd != StdFonts.end(); ++itStd)
 	{
 		PdfId fontObject = writer.newObject();
 		writer.startObj(fontObject);
@@ -1553,7 +1552,7 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 }
 
 
-PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs)
+PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, const ScFace& face, const QMap<uint, QString>& usedGlyphs)
 {
 	PdfFont result;
 	result.name = Pdf::toName(fontName);
@@ -1655,7 +1654,7 @@ PdfId PDFLibCore::PDF_EmbedFontObject(const QByteArray& font, const QByteArray& 
 	return embeddedFontObject;
 }
 
-QByteArray PDFLibCore::PDF_GenerateSubsetTag(const QByteArray& fontName, const QList<uint>& usedGlyphs)
+QByteArray PDFLibCore::PDF_GenerateSubsetTag(const QByteArray& fontName, const QList<uint>& usedGlyphs) const
 {
 	size_t hash, mod;
 	QVector<uint> glyphVec = usedGlyphs.toVector();
@@ -1674,7 +1673,7 @@ QByteArray PDFLibCore::PDF_GenerateSubsetTag(const QByteArray& fontName, const Q
 	return subsetTag;
 }
 
-PdfId PDFLibCore::PDF_WriteFontDescriptor(const QByteArray& fontName, ScFace& face, ScFace::FontFormat fformat, PdfId embeddedFontObject)
+PdfId PDFLibCore::PDF_WriteFontDescriptor(const QByteArray& fontName, const ScFace& face, ScFace::FontFormat fformat, PdfId embeddedFontObject)
 {
 	PdfId fontDescriptor = writer.newObject();
 	writer.startObj(fontDescriptor);
@@ -1998,7 +1997,7 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 	return result;
 }
 
-PdfFont PDFLibCore::PDF_EncodeFormFont(const QByteArray& fontName, ScFace& face, const QByteArray& baseFont, const QByteArray& subtype, PdfId fontDes)
+PdfFont PDFLibCore::PDF_EncodeFormFont(const QByteArray& fontName, const ScFace& face, const QByteArray& baseFont, const QByteArray& subtype, PdfId fontDes)
 {
 	PdfFont formFont;
 	formFont.name = Pdf::toName(fontName) + "Form";
@@ -2234,16 +2233,16 @@ PdfId PDFLibCore::PDF_EmbedType1BinaryFontObject(const QByteArray& bb)
 	int posi;
 	for (posi = 6; posi < bb.size(); ++posi)
 	{
-		if ((bb[posi] == static_cast<char>(0x80)) && (static_cast<int>(bb[posi+1]) == 2))
+		if ((bb[posi] == static_cast<char>(0x80)) && (static_cast<int>(bb[posi + 1]) == 2))
 			break;
 		fon += bb[posi];
 	}
 	int len1 = fon.length();
 	int ulen;
-	ulen = bb[posi+2] & 0xff;
-	ulen |= (bb[posi+3] << 8) & 0xff00;
-	ulen |= (bb[posi+4] << 16) & 0xff0000;
-	ulen |= (bb[posi+5] << 24) & 0xff000000;
+	ulen = bb[posi + 2] & 0xff;
+	ulen |= (bb[posi + 3] << 8) & 0xff00;
+	ulen |= (bb[posi + 4] << 16) & 0xff0000;
+	ulen |= (bb[posi + 5] << 24) & 0xff000000;
 	if (ulen > bb.size())
 		ulen = bb.size() - 7;
 	posi += 6;
@@ -2253,7 +2252,7 @@ PdfId PDFLibCore::PDF_EmbedType1BinaryFontObject(const QByteArray& bb)
 	int len2 = fon.length() - len1;
 	for (int j = posi; j < bb.size(); ++j)
 	{
-		if ((bb[j] == static_cast<char>(0x80)) && (static_cast<int>(bb[j+1]) == 3))
+		if ((bb[j] == static_cast<char>(0x80)) && (static_cast<int>(bb[j + 1]) == 3))
 			break;
 		if (bb[j] == '\r')
 			fon += "\n";
@@ -2378,7 +2377,7 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString,
 				// required glyph names and some glyphs may not have a name anyway. So check we have
 				// ps names for all glyphs we need and if not, then use CID encoding
 				bool hasNeededGlyphNames = face.hasNames() && (gl.count() >= usedGlyphs.count());
-				if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF))
+				if (fformat == ScFace::SFNT || fformat == ScFace::TTCF)
 				{
 					for (auto it = usedGlyphs.constBegin(); it != usedGlyphs.constEnd(); ++it)
 					{
@@ -2435,8 +2434,7 @@ void PDFLibCore::PDF_Begin_Colors()
 		uint halftones = writer.newObject();
 		writer.startObj(halftones);
 		PutDoc("<<\n/Type /Halftone\n/HalftoneType 5\n");
-		QMap<QString,LPIData>::const_iterator itlp;
-		for (itlp = Options.LPISettings.constBegin(); itlp != Options.LPISettings.constEnd(); ++itlp)
+		for (auto itlp = Options.LPISettings.constBegin(); itlp != Options.LPISettings.constEnd(); ++itlp)
 		{
 			PutDoc(Pdf::toName(itlp.key()) + "\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency ");
 			PutDoc(Pdf::toPdf(itlp.value().Frequency) + "\n/Angle " + Pdf::toPdf(itlp.value().Angle) + "\n/SpotFunction ");
@@ -2789,13 +2787,13 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool)
 					}
 					PutPage("Q\n");
 					PutPage("Q\n");
-					if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)))
+					if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0))
 					{
 						if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && Options.supportsTransparency())
 							PutPage(PDF_TransparenzStroke(ite));
 						if (ite->NamedLStyle.isEmpty())
 						{
-							ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+							const ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
 							if (strokePattern)
 							{
 								if (ite->patternStrokePath)
@@ -2850,7 +2848,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool)
 						PutPage(PDF_TransparenzStroke(ite));
 					if (ite->NamedLStyle.isEmpty())
 					{
-						ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+						const ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
 						if (strokePattern)
 						{
 							if (ite->patternStrokePath)
@@ -2970,7 +2968,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool)
 							PutPage(PDF_TransparenzStroke(ite));
 						if ((ite->NamedLStyle.isEmpty()) && (ite->lineWidth() != 0.0))
 						{
-							ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+							const ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
 							if (strokePattern)
 							{
 								if (ite->patternStrokePath)
@@ -3071,7 +3069,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool)
 							PutPage(PDF_TransparenzStroke(ite));
 						if (ite->NamedLStyle.isEmpty())
 						{
-							ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+							const ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
 							if (strokePattern)
 							{
 								if (ite->patternStrokePath)
@@ -3829,7 +3827,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 	{
 		ite = pag->FromMaster.at(i);
 		if (usingGUI)
-			qApp->processEvents();
+			QApplication::processEvents();
 		if ((ite->m_layerID != layer.ID) || (!ite->printEnabled()))
 			continue;
 		if ((!pag->pageNameEmpty()) && (ite->OwnPage != pag->pageNr()) && (ite->OwnPage != -1))
@@ -3933,7 +3931,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 		if (usingGUI)
 		{
 			progressDialog->setProgress("ECPI", ++pc_exportpagesitems);
-			qApp->processEvents();
+			QApplication::processEvents();
 		}
 		if (!PDF_ProcessItem(output, ite, pag, PNr))
 			return false;
@@ -3989,7 +3987,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 	return true;
 }
 
-QByteArray PDFLibCore::Write_FormXObject(QByteArray &data, PageItem *controlItem)
+QByteArray PDFLibCore::Write_FormXObject(QByteArray &data, const PageItem *controlItem)
 {
 	PdfId formObject = writer.newObject();
 	writer.startObj(formObject);
@@ -4048,7 +4046,7 @@ QByteArray PDFLibCore::Write_FormXObject(QByteArray &data, PageItem *controlItem
 	return retString;
 }
 
-QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArray &data, PageItem *controlItem)
+QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArray &data, const PageItem *controlItem)
 {
 	QByteArray ShName;
 	QByteArray retString;
@@ -4552,13 +4550,13 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 			}
 			tmp += "Q\n";
 			tmp += "Q\n";
-			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)))
+			if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0))
 			{
 				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && Options.supportsTransparency())
 					tmp += PDF_TransparenzStroke(ite);
 				if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 				{
-					ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+					const ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
 					if (strokePattern)
 					{
 						if (ite->patternStrokePath)
@@ -4688,13 +4686,13 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				tmp += setTextSt(ite, PNr, pag);
 			tmp += "Q\n";
 			tmp += "Q\n";
-			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)))
+			if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0))
 			{
 				if (((ite->lineTransparency() != 0) || (ite->lineBlendmode() != 0)) && Options.supportsTransparency())
 					tmp += PDF_TransparenzStroke(ite);
 				if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 				{
-					ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+					const ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
 					if (strokePattern)
 					{
 						if (ite->patternStrokePath)
@@ -4747,7 +4745,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				tmp += PDF_TransparenzStroke(ite);
 			if (ite->NamedLStyle.isEmpty())
 			{
-				ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+				const ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
 				if (strokePattern)
 				{
 					if (ite->patternStrokePath)
@@ -4868,7 +4866,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					tmp += PDF_TransparenzStroke(ite);
 				if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 				{
-					ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+					const ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
 					if (strokePattern)
 					{
 						if (ite->patternStrokePath)
@@ -4970,7 +4968,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					tmp += PDF_TransparenzStroke(ite);
 				if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 				{
-					ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+					const ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
 					if (strokePattern)
 					{
 						if (ite->patternStrokePath)
@@ -5066,7 +5064,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 							tmp += PDF_TransparenzStroke(ite);
 						if (ite->NamedLStyle.isEmpty()) //&& (ite->lineWidth() != 0.0))
 						{
-							ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+							const ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
 							if (strokePattern)
 							{
 								if (ite->patternStrokePath)
@@ -5266,7 +5264,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 						QPointF start(borderX, 0.0);
 						QPointF end(borderX, 0.0);
 						QPointF startOffsetFactors, endOffsetFactors;
-						int startRow, endRow;
+						int startRow(0);
+						int endRow(0);
 						for (int row = cell.row(); row <= lastRow; row += endRow - startRow + 1)
 						{
 							TableCell rightCell = ite->asTable()->cellAt(row, lastCol + 1);
@@ -5282,7 +5281,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 							if (border.isNull())
 								continue; // Quit early if the border to paint is null.
 							start.setY(ite->asTable()->rowPosition(startRow));
-							end.setY((ite->asTable()->rowPosition(endRow) + ite->asTable()->rowHeight(endRow)));
+							end.setY(ite->asTable()->rowPosition(endRow) + ite->asTable()->rowHeight(endRow));
 							joinVertical(border, topLeft, top, topRight, bottomLeft, bottom, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
 							tmp += paintBorder(border, start, end, startOffsetFactors, endOffsetFactors);
 						}
@@ -5294,7 +5293,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 							QPointF start(borderX, 0.0);
 							QPointF end(borderX, 0.0);
 							QPointF startOffsetFactors, endOffsetFactors;
-							int startRow, endRow;
+							int startRow(0);
+							int endRow(0);
 							for (int row = cell.row(); row <= lastRow; row += endRow - startRow + 1)
 							{
 								TableCell leftCell = ite->asTable()->cellAt(row, firstCol - 1);
@@ -5310,7 +5310,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 								if (border.isNull())
 									continue; // Quit early if the border to paint is null.
 								start.setY(ite->asTable()->rowPosition(startRow));
-								end.setY((ite->asTable()->rowPosition(endRow) + ite->asTable()->rowHeight(endRow)));
+								end.setY(ite->asTable()->rowPosition(endRow) + ite->asTable()->rowHeight(endRow));
 								joinVertical(border, topLeft, top, topRight, bottomLeft, bottom, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
 								tmp += paintBorder(border, start, end, startOffsetFactors, endOffsetFactors);
 							}
@@ -5334,7 +5334,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 						QPointF start(0.0, borderY);
 						QPointF end(0.0, borderY);
 						QPointF startOffsetFactors, endOffsetFactors;
-						int startCol, endCol;
+						int startCol(0);
+						int endCol(0);
 						for (int col = cell.column(); col <= lastCol; col += endCol - startCol + 1)
 						{
 							TableCell bottomCell = ite->asTable()->cellAt(lastRow + 1, col);
@@ -5362,7 +5363,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 							QPointF start(0.0, borderY);
 							QPointF end(0.0, borderY);
 							QPointF startOffsetFactors, endOffsetFactors;
-							int startCol, endCol;
+							int startCol(0);
+							int endCol(0);
 							for (int col = cell.column(); col <= lastCol; col += endCol - startCol + 1)
 							{
 								TableCell topCell = ite->asTable()->cellAt(firstRow - 1, col);
@@ -5456,7 +5458,7 @@ QByteArray PDFLibCore::paintBorder(const TableBorder& border, const QPointF& sta
 	return tmp;
 }
 
-QByteArray PDFLibCore::handleBrushPattern(PageItem* ite, QPainterPath &path, const ScPage* pag, uint PNr)
+QByteArray PDFLibCore::handleBrushPattern(const PageItem* ite, const QPainterPath &path, const ScPage* pag, uint PNr)
 {
 	QByteArray tmp;
 
@@ -5540,7 +5542,7 @@ QByteArray PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arro
 	}
 	if (ite->NamedLStyle.isEmpty())
 	{
-		ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
+		const ScPattern* strokePattern = doc.checkedPattern(ite->strokePattern());
 		if (strokePattern)
 		{
 			tmp += SetClipPathArray(&arrow);
@@ -5825,13 +5827,13 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 	return p.getBuffer();
 }
 
-QByteArray PDFLibCore::SetColor(const QString& farbe, double Shade)
+QByteArray PDFLibCore::SetColor(const QString& farbe, double Shade) const
 {
 	const ScColor& col = doc.PageColors[farbe];
 	return SetColor(col, Shade);
 }
 
-QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade)
+QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade) const
 {
 	QByteArray tmp;
 	RGBColorF rgb;
@@ -5959,7 +5961,7 @@ QByteArray PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
 	return tmp;
 }
 
-QByteArray PDFLibCore::SetClipPath(const PageItem *ite, bool poly)
+QByteArray PDFLibCore::SetClipPath(const PageItem *ite, bool poly) const
 {
 	QByteArray tmp;
 	FPoint np, np1, np2, np3, np4, firstP;
@@ -5968,7 +5970,7 @@ QByteArray PDFLibCore::SetClipPath(const PageItem *ite, bool poly)
 	if (ite->PoLine.size() <= 3)
 		return tmp;
 
-	for (int poi=0; poi<ite->PoLine.size() - 3; poi += 4)
+	for (int poi = 0; poi < ite->PoLine.size() - 3; poi += 4)
 	{
 		if (ite->PoLine.isMarker(poi))
 		{
@@ -5978,7 +5980,7 @@ QByteArray PDFLibCore::SetClipPath(const PageItem *ite, bool poly)
 		if (nPath)
 		{
 			np = ite->PoLine.point(poi);
-			if ((!first) && (poly) && (np4 == firstP))
+			if (!first && poly && (np4 == firstP))
 				tmp += "h\n";
 			tmp += FToStr(np.x()) + " " + FToStr(-np.y()) + " m\n";
 			nPath = false;
@@ -5987,9 +5989,9 @@ QByteArray PDFLibCore::SetClipPath(const PageItem *ite, bool poly)
 			np4 = np;
 		}
 		np = ite->PoLine.point(poi);
-		np1 = ite->PoLine.point(poi+1);
-		np2 = ite->PoLine.point(poi+3);
-		np3 = ite->PoLine.point(poi+2);
+		np1 = ite->PoLine.point(poi + 1);
+		np2 = ite->PoLine.point(poi + 3);
+		np3 = ite->PoLine.point(poi + 2);
 		if ((np == np1) && (np2 == np3))
 			tmp += FToStr(np3.x()) + " " + FToStr(-np3.y()) + " l\n";
 		else
@@ -6003,7 +6005,7 @@ QByteArray PDFLibCore::SetClipPath(const PageItem *ite, bool poly)
 	return tmp;
 }
 
-QByteArray PDFLibCore::SetClipPathArray(const FPointArray *ite, bool poly)
+QByteArray PDFLibCore::SetClipPathArray(const FPointArray *ite, bool poly) const
 {
 	QByteArray tmp;
 	FPoint np, np1, np2, np3, np4, firstP;
@@ -6012,7 +6014,7 @@ QByteArray PDFLibCore::SetClipPathArray(const FPointArray *ite, bool poly)
 	if (ite->size() <= 3)
 		return tmp;
 
-	for (int poi=0; poi<ite->size() - 3; poi += 4)
+	for (int poi = 0; poi < ite->size() - 3; poi += 4)
 	{
 		if (ite->isMarker(poi))
 		{
@@ -6022,7 +6024,7 @@ QByteArray PDFLibCore::SetClipPathArray(const FPointArray *ite, bool poly)
 		if (nPath)
 		{
 			np = ite->point(poi);
-			if ((!first) && (poly) && (np4 == firstP))
+			if (!first && poly && (np4 == firstP))
 				tmp += "h\n";
 			tmp += FToStr(np.x()) + " " + FToStr(-np.y()) + " m\n";
 			nPath = false;
@@ -6031,9 +6033,9 @@ QByteArray PDFLibCore::SetClipPathArray(const FPointArray *ite, bool poly)
 			np4 = np;
 		}
 		np = ite->point(poi);
-		np1 = ite->point(poi+1);
-		np2 = ite->point(poi+3);
-		np3 = ite->point(poi+2);
+		np1 = ite->point(poi + 1);
+		np2 = ite->point(poi + 3);
+		np3 = ite->point(poi + 2);
 		if ((np == np1) && (np2 == np3))
 			tmp += FToStr(np3.x()) + " " + FToStr(-np3.y()) + " l\n";
 		else
@@ -6047,14 +6049,14 @@ QByteArray PDFLibCore::SetClipPathArray(const FPointArray *ite, bool poly)
 	return tmp;
 }
 
-QByteArray PDFLibCore::SetClipPathImage(const PageItem *ite)
+QByteArray PDFLibCore::SetClipPathImage(const PageItem *ite) const
 {
 	QByteArray tmp;
 	if (ite->imageClip.size() <= 3)
 		return tmp;
 
 	bool nPath = true;
-	for (int poi=0; poi<ite->imageClip.size() - 3; poi += 4)
+	for (int poi = 0; poi < ite->imageClip.size() - 3; poi += 4)
 	{
 		if (ite->imageClip.isMarker(poi))
 		{
@@ -6070,9 +6072,9 @@ QByteArray PDFLibCore::SetClipPathImage(const PageItem *ite)
 			nPath = false;
 		}
 		np = ite->imageClip.point(poi);
-		np1 = ite->imageClip.point(poi+1);
-		np2 = ite->imageClip.point(poi+3);
-		np3 = ite->imageClip.point(poi+2);
+		np1 = ite->imageClip.point(poi + 1);
+		np2 = ite->imageClip.point(poi + 3);
+		np3 = ite->imageClip.point(poi + 2);
 		if ((np == np1) && (np2 == np3))
 			tmp += FToStr(np3.x()) + " " + FToStr(-np3.y()) + " l\n";
 		else
@@ -6085,7 +6087,7 @@ QByteArray PDFLibCore::SetClipPathImage(const PageItem *ite)
 	return tmp;
 }
 
-QByteArray PDFLibCore::SetImagePathAndClip(PageItem *item)
+QByteArray PDFLibCore::SetImagePathAndClip(const PageItem *item) const
 {
 	QByteArray tmp = SetClipPathImage(item);
 	if (tmp.length() > 0)
@@ -6093,7 +6095,7 @@ QByteArray PDFLibCore::SetImagePathAndClip(PageItem *item)
 	return tmp;
 }
 
-QByteArray PDFLibCore::SetPathAndClip(PageItem *item)
+QByteArray PDFLibCore::SetPathAndClip(const PageItem *item) const
 {
 	QByteArray tmp = SetClipPath(item);
 	if (tmp.length() > 0)
@@ -6101,7 +6103,7 @@ QByteArray PDFLibCore::SetPathAndClip(PageItem *item)
 	return tmp;
 }
 
-QByteArray PDFLibCore::SetPathAndClip(PageItem *item, bool fillRule)
+QByteArray PDFLibCore::SetPathAndClip(const PageItem *item, bool fillRule) const
 {
 	QByteArray tmp = SetClipPath(item);
 	if (tmp.length() > 0)
@@ -6109,7 +6111,7 @@ QByteArray PDFLibCore::SetPathAndClip(PageItem *item, bool fillRule)
 	return tmp;
 }
 
-void PDFLibCore::getBleeds(const ScPage* page, double &left, double &right)
+void PDFLibCore::getBleeds(const ScPage* page, double &left, double &right) const
 {
 	MarginStruct values;
 	doc.getBleeds(page, Options.bleeds, values);
@@ -6117,7 +6119,7 @@ void PDFLibCore::getBleeds(const ScPage* page, double &left, double &right)
 	right  = values.right();
 }
 
-void PDFLibCore::getBleeds(const ScPage* page, double &left, double &right, double &bottom, double& top)
+void PDFLibCore::getBleeds(const ScPage* page, double &left, double &right, double &bottom, double& top) const
 {
 	MarginStruct values;
 	doc.getBleeds(page, Options.bleeds, values);
@@ -6127,7 +6129,7 @@ void PDFLibCore::getBleeds(const ScPage* page, double &left, double &right, doub
 	top    = values.top();
 }
 
-QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
+QByteArray PDFLibCore::PDF_TransparenzFill(const PageItem *currItem)
 {
 	QByteArray ShName = ResNam + Pdf::toPdf(ResCount);
 	ResCount++;
@@ -6425,7 +6427,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 	return tmp;
 }
 
-QByteArray PDFLibCore::PDF_TransparenzStroke(PageItem *currItem)
+QByteArray PDFLibCore::PDF_TransparenzStroke(const PageItem *currItem)
 {
 	QByteArray ShName = ResNam + Pdf::toPdf(ResCount);
 	ResCount++;
@@ -6435,7 +6437,7 @@ QByteArray PDFLibCore::PDF_TransparenzStroke(PageItem *currItem)
 	return Pdf::toName(ShName) + " gs\n";
 }
 
-bool PDFLibCore::PDF_HatchFill(QByteArray& output, PageItem *currItem)
+bool PDFLibCore::PDF_HatchFill(QByteArray& output, const PageItem *currItem)
 {
 	output += "q\n1 w\n[] 0 d\n0 J\n0 j\n";
 	if ((currItem->hatchBackground != CommonStrings::None) && (currItem->hatchUseBackground))
@@ -6518,10 +6520,10 @@ bool PDFLibCore::PDF_HatchFill(QByteArray& output, PageItem *currItem)
 	return true;
 }
 
-bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, int kind, bool forArrow)
+bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, const PageItem *currItem, int kind, bool forArrow)
 {
 	QByteArray tmp2, tmpOut;
-	ScPattern *pat = nullptr;
+	const ScPattern *pat = nullptr;
 	if (kind == 0)
 	{
 		QString itemPattern = currItem->pattern();
@@ -6604,8 +6606,16 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, i
 			mpa.rotate(-currItem->rotation());
 		}
 	}
-	double patternScaleX=0.0, patternScaleY=0.0, patternOffsetX=0.0, patternOffsetY=0.0, patternRotation=0.0, patternSkewX=0.0, patternSkewY=0.0, patternSpace=0.0;
-	bool mirrorX=false, mirrorY=false;
+
+	double patternScaleX = 0.0;
+	double patternScaleY = 0.0;
+	double patternOffsetX = 0.0;
+	double patternOffsetY = 0.0;
+	double patternRotation = 0.0;
+	double patternSkewX = 0.0;
+	double patternSkewY = 0.0;
+	double patternSpace = 0.0;
+	bool mirrorX = false, mirrorY = false;
 	if (kind == 0)
 	{
 		currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
@@ -6669,7 +6679,7 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, i
 	writer.endObj(patObject);
 	Patterns.insert("Pattern" + Pdf::toPdf(patObject), patObject);
 	QByteArray tmp;
-	if ((forArrow) || (kind != 1))
+	if (forArrow || (kind != 1))
 	{
 		tmp = "/Pattern cs\n";
 		tmp += "/Pattern" + Pdf::toPdf(patObject) + " scn\n";
@@ -6734,9 +6744,8 @@ void PDFLibCore::encodeColor(QDataStream &vs, const QString& colName, int colSha
 	}
 }
 
-bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
+bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, const PageItem *c)
 {
-//	QList<double> StopVec;
 	QList<double> TransVec;
 	QStringList Gcolors;
 	QStringList colorNames;
@@ -7042,9 +7051,8 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 	return true;
 }
 
-bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
+bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, const PageItem *c)
 {
-	QList<double> StopVec;
 	QList<double> TransVec;
 	QStringList Gcolors;
 	QStringList colorNames;
@@ -7052,11 +7060,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 	QStringList spotColorSet;
 	bool spotMode = false;
 	bool transparencyFound = false;
-	StopVec.clear();
-	TransVec.clear();
-	Gcolors.clear();
-	colorNames.clear();
-	colorShades.clear();
+
 	for (int col = 0; col < c->meshGradientPatches.count(); col++)
 	{
 		meshGradientPatch patch = c->meshGradientPatches[col];
@@ -7362,7 +7366,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 	return true;
 }
 
-bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
+bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, const PageItem *c)
 {
 	QList<double> StopVec;
 	QList<double> TransVec;
@@ -7796,7 +7800,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 
 }
 
-bool PDFLibCore::PDF_TensorGradientFill(QByteArray& output, PageItem *c)
+bool PDFLibCore::PDF_TensorGradientFill(QByteArray& output, const PageItem *c)
 {
 	QList<int> colorShades;
 	QStringList spotColorSet;
@@ -8115,7 +8119,7 @@ bool PDFLibCore::PDF_TensorGradientFill(QByteArray& output, PageItem *c)
 	return true;
 }
 
-bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, bool stroke, bool forArrow)
+bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *currItem, bool stroke, bool forArrow)
 {
 	QList<double> StopVec;
 	QList<double> TransVec;
@@ -8230,7 +8234,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		actualStop = cstops.at(cst)->rampPoint;
 		if ((actualStop == lastStop) && (!isFirst))
 			continue;
-		if ((isFirst) && (actualStop != 0.0))
+		if (isFirst && (actualStop != 0.0))
 		{
 			StopVec.append(0.0);
 			colorNames.append(cstops.at(cst)->name);
@@ -8368,7 +8372,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		else
 			stre += SetClipPath(currItem) + "h\n";
 		stre += FToStr(fabs(currItem->lineWidth())) + " w\n";
-		if ((forArrow) || (!stroke))
+		if (forArrow || !stroke)
 		{
 			stre += "/Pattern cs\n";
 			stre += "/Pattern" + Pdf::toPdf(patObject) + " scn\nf*\n";
@@ -9494,13 +9498,13 @@ QByteArray PDFLibCore::createBorderAppearance(PageItem *ite)
 			QColor light;
 			if (ite->annotation().borderStyle() == 4)
 			{
-				shade.setRgbF(tmp.redF() * 0.5, tmp.greenF() * 0.5, tmp.blueF() * 0.5);
-				light.setRgbF(tmp.redF() * 0.5 + 0.5, tmp.greenF() * 0.5 + 0.5, tmp.blueF() * 0.5 + 0.5);
+				shade.setRgbF(tmp.redF() * 0.5f, tmp.greenF() * 0.5f, tmp.blueF() * 0.5f);
+				light.setRgbF(tmp.redF() * 0.5f + 0.5f, tmp.greenF() * 0.5f + 0.5f, tmp.blueF() * 0.5f + 0.5f);
 			}
 			else
 			{
-				light.setRgbF(tmp.redF() * 0.5, tmp.greenF() * 0.5, tmp.blueF() * 0.5);
-				shade.setRgbF(tmp.redF() * 0.5 + 0.5, tmp.greenF() * 0.5 + 0.5, tmp.blueF() * 0.5 + 0.5);
+				light.setRgbF(tmp.redF() * 0.5f, tmp.greenF() * 0.5f, tmp.blueF() * 0.5f);
+				shade.setRgbF(tmp.redF() * 0.5f + 0.5f, tmp.greenF() * 0.5f + 0.5f, tmp.blueF() * 0.5f + 0.5f);
 			}
 			ret += "0 J\n";
 			ret += "0 j\n";
@@ -9560,13 +9564,13 @@ QByteArray PDFLibCore::createBorderAppearance(PageItem *ite)
 			QColor light;
 			if (ite->annotation().borderStyle() == 4)
 			{
-				shade.setRgbF(tmp.redF() * 0.5, tmp.greenF() * 0.5, tmp.blueF() * 0.5);
-				light.setRgbF(tmp.redF() * 0.5 + 0.5, tmp.greenF() * 0.5 + 0.5, tmp.blueF() * 0.5 + 0.5);
+				shade.setRgbF(tmp.redF() * 0.5f, tmp.greenF() * 0.5f, tmp.blueF() * 0.5f);
+				light.setRgbF(tmp.redF() * 0.5f + 0.5f, tmp.greenF() * 0.5f + 0.5f, tmp.blueF() * 0.5f + 0.5f);
 			}
 			else
 			{
-				light.setRgbF(tmp.redF() * 0.5, tmp.greenF() * 0.5, tmp.blueF() * 0.5);
-				shade.setRgbF(tmp.redF() * 0.5 + 0.5, tmp.greenF() * 0.5 + 0.5, tmp.blueF() * 0.5 + 0.5);
+				light.setRgbF(tmp.redF() * 0.5f, tmp.greenF() * 0.5f, tmp.blueF() * 0.5f);
+				shade.setRgbF(tmp.redF() * 0.5f + 0.5f, tmp.greenF() * 0.5f + 0.5f, tmp.blueF() * 0.5f + 0.5f);
 			}
 			int h, s, v;
 			shade.getRgb(&h, &s, &v);
@@ -9594,7 +9598,7 @@ QByteArray PDFLibCore::createBorderAppearance(PageItem *ite)
 	return ret;
 }
 
-PdfId PDFLibCore::writeActions(const Annotation&	annot, PdfId annotationObj)
+PdfId PDFLibCore::writeActions(const Annotation& annot, PdfId annotationObj)
 {
 	// write actions
 	if ((annot.Type() > 1) && (annot.AAact()))
@@ -9774,7 +9778,7 @@ void PDFLibCore::PDF_Form(const QByteArray& im) // unused? - av
 	writer.endObj(form);
 }
 
-void PDFLibCore::PDF_Bookmark(PageItem *currItem, double ypos)
+void PDFLibCore::PDF_Bookmark(const PageItem *currItem, double ypos)
 {
 	Bvie->setAction(currItem, "/XYZ 0 " + FToStr(ypos) + " 0");
 	BookMinUse = true;
@@ -9822,7 +9826,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PoDoFo::PdfStream* stream = contents->GetStream();
 			QMap<PoDoFo::PdfReference, PdfId> importedObjects;
 			QList<PoDoFo::PdfReference> referencedObjects;
-			PoDoFo::PdfObject* nextObj { nullptr };
+			const PoDoFo::PdfObject* nextObj { nullptr };
 			PdfId xObj = writer.newObject();
 			PdfId xResources = writer.newObject();
 			PdfId xParents = 0;
@@ -9922,7 +9926,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			}
 			// write referenced objects
 			PoDoFo::PdfVecObjects* allObjects = contents->GetOwner();
-			for (int i=0; i < referencedObjects.size(); ++i)
+			for (int i = 0; i < referencedObjects.size(); ++i)
 			{
 				nextObj = allObjects->GetObject(referencedObjects[i]);
 				copyPoDoFoObject(nextObj, importedObjects[nextObj->Reference()], importedObjects);
@@ -10067,7 +10071,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			}
 			// write referenced objects
 			PoDoFo::PdfVecObjects* allObjects = contents->GetOwner();
-			for (int i=0; i < referencedObjects.size(); ++i)
+			for (int i = 0; i < referencedObjects.size(); ++i)
 			{
 				nextObj = allObjects->GetObject(referencedObjects[i]);
 				copyPoDoFoObject(nextObj, importedObjects[nextObj->Reference()], importedObjects);
@@ -10129,7 +10133,7 @@ void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::P
 		{
 			const PoDoFo::PdfArray& array(obj->GetArray());
 			PutDoc("[");
-			for (uint i=0; i < array.size(); ++i)
+			for (uint i = 0; i < array.size(); ++i)
 				copyPoDoFoDirect( &(array[i]), referencedObjects, importedObjects);
 			PutDoc("]");	
 			break;
@@ -10139,7 +10143,7 @@ void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::P
 			const PoDoFo::PdfDictionary& dict(obj->GetDictionary());
 			const PoDoFo::TKeyMap& keys = dict.GetKeys();
 			PutDoc("<<");
-			for (PoDoFo::TCIKeyMap k=keys.begin(); k != keys.end(); ++k)
+			for (auto k = keys.begin(); k != keys.end(); ++k)
 			{
 				std::string str("\n/" + k->first.GetEscapedName());
 				PutDoc(QByteArray::fromRawData(str.data(), str.size()));
@@ -10190,9 +10194,9 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, PdfId scObjID, Q
 	PutDoc("");
 	writer.endObj(scObjID);
 	// recurse:
-	for (int i=0; i < referencedObjects.size(); ++i)
+	for (int i = 0; i < referencedObjects.size(); ++i)
 	{
-		PoDoFo::PdfObject* nextObj = allObjects->GetObject(referencedObjects[i]);
+		const PoDoFo::PdfObject* nextObj = allObjects->GetObject(referencedObjects[i]);
 		copyPoDoFoObject(nextObj, importedObjects[nextObj->Reference()], importedObjects);
 	}
 }
@@ -10443,9 +10447,9 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 					ScImage img3;
 					int components = 0;
 					QByteArray dataP;
-					if ((Embedded) && (!Options.EmbeddedI))
+					if (Embedded && !Options.EmbeddedI)
 						img3.getEmbeddedProfile(fn, &dataP, &components);
-					if ((dataP.isEmpty()) || ((img.imgInfo.colorspace == ColorSpaceGray) && (hasColorEffect) && (components == 1)))
+					if ((dataP.isEmpty()) || ((img.imgInfo.colorspace == ColorSpaceGray) && hasColorEffect && (components == 1)))
 					{
 						if (img.imgInfo.colorspace == ColorSpaceCMYK)
 						{
@@ -10528,7 +10532,7 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 				{
 					if (ICCProfiles[Profil].components == 1)
 					{
-						if ((img.imgInfo.colorspace == ColorSpaceGray) && (hasColorEffect))
+						if ((img.imgInfo.colorspace == ColorSpaceGray) && hasColorEffect)
 						{
 							profInUse = item->doc()->cmsSettings().DefaultImageRGBProfile;
 							if (!ICCProfiles.contains(profInUse))
@@ -10840,7 +10844,7 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 	}
 	if (!fromAN && output)
 	{
-		if (item->imageRotation())
+		if (item->imageRotation() != 0.0)
 		{
 			embedPre += "1 0 0 1 " + FToStr(x*sx) + " " + FToStr(-ImInfo.Height * ImInfo.sya + y * sy) + " cm\n";
 			QTransform mpa;
@@ -10887,7 +10891,7 @@ void PDFLibCore::PDF_End_Bookmarks()
 	
 	QByteArray content;
 	QMap<int, QByteArray> bookmarkMap;
-	BookMItem* ip = (BookMItem*) Bvie->topLevelItem(0);
+	const BookMItem* ip = (BookMItem*) Bvie->topLevelItem(0);
 	PdfId basis = writer.objectCounter() - 1;
 	Outlines.Count = Bvie->topLevelItemCount();
 	Outlines.First = ip->ItemNr + basis;
@@ -11015,8 +11019,7 @@ void PDFLibCore::PDF_End_NamedDests()
 	PutDoc("<<\n");
 	if (NamedDest.count() != 0)
 	{
-		QList<PdfDest>::Iterator vt;
-		for (vt = NamedDest.begin(); vt != NamedDest.end(); ++vt)
+		for (auto vt = NamedDest.begin(); vt != NamedDest.end(); ++vt)
 		{
 			if (PageTree.KidsMap.contains(vt->PageNr))
 				PutDoc(Pdf::toName(vt->Name) + " [" + Pdf::toObjRef(PageTree.KidsMap[vt->PageNr])
@@ -11066,12 +11069,10 @@ void PDFLibCore::PDF_End_JavaScripts()
 	if (doc.JavaScripts.count() != 0)
 	{
 		QList<PdfId> Fjav;
-		QMap<QString,QString>::Iterator itja0;
-		for (itja0 = doc.JavaScripts.begin(); itja0 != doc.JavaScripts.end(); ++itja0)
+		for (auto itja0 = doc.JavaScripts.begin(); itja0 != doc.JavaScripts.end(); ++itja0)
 			Fjav.append(WritePDFString(itja0.value()));
-		QMap<QString,QString>::Iterator itja;
 		int i = 0;
-		for (itja = doc.JavaScripts.begin(); itja != doc.JavaScripts.end(); ++itja)
+		for (auto itja = doc.JavaScripts.begin(); itja != doc.JavaScripts.end(); ++itja)
 		{
 			PdfId Fjav1 = writer.startObj();
 			Fjav.append(Fjav1);
@@ -11081,8 +11082,7 @@ void PDFLibCore::PDF_End_JavaScripts()
 		}
 		jsNameTreeObj = writer.startObj();
 		PutDoc("<< /Names [ ");
-		QMap<QString,QString>::Iterator itja2;
-		for (itja2 = doc.JavaScripts.begin(); itja2 != doc.JavaScripts.end(); ++itja2)
+		for (auto itja2 = doc.JavaScripts.begin(); itja2 != doc.JavaScripts.end(); ++itja2)
 		{
 			PutDoc(EncString(Pdf::toPdfDocEncoding(itja2.key()), jsNameTreeObj) + " " + Pdf::toObjRef(Fjav[i]) + " ");
 			++i;
@@ -11427,9 +11427,9 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 
 	xmpPacket.append(xmpDoc.toByteArray(4));
 	QByteArray tenSpaces = "          ";
-	for (int i=0; i<25; ++i)
+	for (int i = 0; i < 25; ++i)
 	{
-		for (int j=0; j<10; ++j)
+		for (int j = 0; j < 10; ++j)
 			xmpPacket.append(tenSpaces);
 		xmpPacket.append("\n");
 	}
