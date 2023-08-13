@@ -1,6 +1,7 @@
 ###<< Scribus
-set(ADS_VERSION "4.0.4")
+set(ADS_VERSION "4.1.1")
 ###>> Scribus
+
 cmake_minimum_required(VERSION 3.5)
 
 # By default, the version information is extracted from the git index. However,
@@ -41,7 +42,7 @@ endif()
 add_subdirectory(src)
 
 if(BUILD_EXAMPLES)
-#    add_subdirectory(examples)
-#    add_subdirectory(demo)
+    add_subdirectory(examples)
+    add_subdirectory(demo)
 endif()
 
