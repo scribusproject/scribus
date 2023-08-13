@@ -139,21 +139,20 @@ private:
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& DocFonts, BookmarkView* vi);
 	void PDF_Begin_Catalog();
 	void PDF_Begin_MetadataAndEncrypt();
-	QMap<QString, QMap<uint, QString> >
-	     PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& DocFonts);
+	QMap<QString, QMap<uint, QString> > PDF_Begin_FindUsedFonts(const QMap<QString, QMap<uint, QString> >& DocFonts);
 	void PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& usedFonts);
 	void PDF_WriteStandardFonts();
 	PdfFont PDF_WriteType3Font(const QByteArray& name, ScFace& face, const QMap<uint, QString>& usedGlyphs);
-	PdfFont PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs);
+	PdfFont PDF_WriteGlyphsAsXForms(const QByteArray& fontName, const ScFace& face, const QMap<uint, QString>& usedGlyphs);
 	
-	QByteArray PDF_GenerateSubsetTag(const QByteArray& fontName, const QList<uint>& usedGlyphs);
-	PdfId PDF_WriteFontDescriptor(const QByteArray& fontName, ScFace& face, ScFace::FontFormat fformat, PdfId embeddedFontObject);
+	QByteArray PDF_GenerateSubsetTag(const QByteArray& fontName, const QList<uint>& usedGlyphs) const;
+	PdfId PDF_WriteFontDescriptor(const QByteArray& fontName, const ScFace& face, ScFace::FontFormat fformat, PdfId embeddedFontObject);
 	PdfFont PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs);
 	PdfFont PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs);
 	PdfFont PDF_WriteOpenTypeSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs);
 	PdfFont PDF_EncodeSimpleFont(const QByteArray& fontname, ScFace& face,  const QByteArray& baseFont, const QByteArray& subtype, bool isEmbedded, PdfId fontDes, const QMap<uint, QString>& usedGlyphs);
 	PdfFont PDF_EncodeCidFont(const QByteArray& fontname, ScFace& face, const QByteArray& baseFont, PdfId fontDes, const QMap<uint, QString>& usedGlyphs, const QMap<uint, uint>& glyphmap);
-	PdfFont PDF_EncodeFormFont(const QByteArray& fontname, ScFace& face,  const QByteArray& baseFont, const QByteArray& subtype, PdfId fontDes);
+	PdfFont PDF_EncodeFormFont(const QByteArray& fontname, const ScFace& face,  const QByteArray& baseFont, const QByteArray& subtype, PdfId fontDes);
 	PdfId PDF_EmbedFontObject(const QString& fontName, ScFace &face);
 	PdfId PDF_EmbedFontObject(const QByteArray& font, const QByteArray& subtype);
 	PdfId PDF_EmbedType1AsciiFontObject(const QByteArray& fontData);
@@ -197,33 +196,34 @@ private:
 
 	bool       EncodeArrayToStream(const QByteArray& in, PdfId ObjNum);
 
-	int     WriteImageToStream(ScImage& image, PdfId ObjNum, ColorSpaceEnum format, bool precal);
+	int     WriteImageToStream(const ScImage& image, PdfId ObjNum, ColorSpaceEnum format, bool precal);
 	int     WriteJPEGImageToStream(ScImage& image, const QString& fn, PdfId ObjNum, int quality, ColorSpaceEnum format, bool sameFile, bool precal);
-	int     WriteFlateImageToStream(ScImage& image, PdfId ObjNum, ColorSpaceEnum format, bool precal);
+	int     WriteFlateImageToStream(const ScImage& image, PdfId ObjNum, ColorSpaceEnum format, bool precal);
 
 //	void    CalcOwnerKey(const QString & Owner, const QString & User);
 //	void    CalcUserKey(const QString & User, int Permission);
 //	QString FitKey(const QString & pass);
 
-	QByteArray SetClipPath(const PageItem *ite, bool poly = true);
-	QByteArray SetClipPathArray(const FPointArray *ite, bool poly = true);
-	QByteArray SetClipPathImage(const PageItem *ite);
+	QByteArray SetClipPath(const PageItem *ite, bool poly = true) const;
+	QByteArray SetClipPathArray(const FPointArray *ite, bool poly = true) const;
+	QByteArray SetClipPathImage(const PageItem *ite) const;
 
-	QByteArray SetImagePathAndClip(PageItem *item);
-	QByteArray SetPathAndClip(PageItem *item);
-	QByteArray SetPathAndClip(PageItem *item, bool fillRule);
+	QByteArray SetImagePathAndClip(const PageItem *item) const;
+	QByteArray SetPathAndClip(const PageItem *item) const;
+	QByteArray SetPathAndClip(const PageItem *item, bool fillRule) const;
 	
 	QByteArray setStrokeMulti(const SingleLine *sl);
-	QByteArray SetColor(const QString& farbe, double Shade);
-	QByteArray SetColor(const ScColor& farbe, double Shade);
+	QByteArray SetColor(const QString& farbe, double Shade) const;
+	QByteArray SetColor(const ScColor& farbe, double Shade) const;
 	QByteArray SetGradientColor(const QString& farbe, double Shade);
 	QByteArray putColor(const QString& color, double Shade, bool fill);
 	QByteArray putColorUncached(const QString& color, int Shade, bool fill);
-    QByteArray Write_FormXObject(QByteArray &data, PageItem *controlItem = 0);
-	QByteArray Write_TransparencyGroup(double trans, int blend, QByteArray &data, PageItem *controlItem = 0);
+    QByteArray Write_FormXObject(QByteArray &data, const PageItem *controlItem = 0);
+	QByteArray Write_TransparencyGroup(double trans, int blend, QByteArray &data, const PageItem *controlItem = 0);
 	QByteArray setTextSt(PageItem *ite, uint PNr, const ScPage* pag);
-	void    getBleeds(const ScPage* page, double &left, double &right);
-	void    getBleeds(const ScPage* page, double &left, double &right, double &bottom, double& top);
+
+	void    getBleeds(const ScPage* page, double &left, double &right) const;
+	void    getBleeds(const ScPage* page, double &left, double &right, double &bottom, double& top) const;
 
 //	// Provide a couple of PutDoc implementations to ease transition away from
 //	// QString abuse and to provide fast paths for constant strings.
@@ -241,32 +241,32 @@ private:
 	void       writeXObject(uint objNr, const QByteArray& dictionary, const QByteArray& stream);
 	uint       writeObject(const QByteArray& type, const QByteArray& dictionary);
 	uint       writeGState(QByteArray dictionary) { return writeObject("/ExtGState", dictionary); }
-	uint       writeActions(const Annotation&, uint annotationObj);
+	uint       writeActions(const Annotation&, PdfId annotationObj);
 
 	QByteArray PDF_PutSoftShadow(PageItem* ite);
 	bool    PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage* pag, uint PNr, bool embedded = false, bool pattern = false);
-	void    PDF_Bookmark(PageItem *currItem, double ypos);
-	bool	PDF_HatchFill(QByteArray& output, PageItem *currItem);
-	bool    PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, int kind = 0, bool forArrow = false);
-	bool    PDF_MeshGradientFill(QByteArray& output, PageItem *currItem);
-	bool	PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c);
-	bool    PDF_DiamondGradientFill(QByteArray& output, PageItem *currItem);
-	bool    PDF_TensorGradientFill(QByteArray& output, PageItem *currItem);
-	bool    PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, bool stroke = false, bool forArrow = false);
-	QByteArray PDF_TransparenzFill(PageItem *currItem);
-	QByteArray PDF_TransparenzStroke(PageItem *currItem);
+	void    PDF_Bookmark(const PageItem *currItem, double ypos);
+	bool	PDF_HatchFill(QByteArray& output, const PageItem *currItem);
+	bool    PDF_PatternFillStroke(QByteArray& output, const PageItem *currItem, int kind = 0, bool forArrow = false);
+	bool    PDF_MeshGradientFill(QByteArray& output, const PageItem *currItem);
+	bool	PDF_PatchMeshGradientFill(QByteArray& output, const PageItem *c);
+	bool    PDF_DiamondGradientFill(QByteArray& output, const PageItem *currItem);
+	bool    PDF_TensorGradientFill(QByteArray& output, const PageItem *currItem);
+	bool    PDF_GradientFillStroke(QByteArray& output, const PageItem *currItem, bool stroke = false, bool forArrow = false);
+	QByteArray PDF_TransparenzFill(const PageItem *currItem);
+	QByteArray PDF_TransparenzStroke(const PageItem *currItem);
 #ifdef HAVE_OSG
 	bool    PDF_3DAnnotation(PageItem *ite, uint PNr);
 #endif
 	void    PDF_RadioButtonGroups();
-	uint    PDF_RadioButton(PageItem *ite, uint parent, const QString& parentName);
+	PdfId   PDF_RadioButton(PageItem *ite, PdfId parent, const QString& parentName);
 	bool    PDF_Annotation(PageItem *ite);
 	void    PDF_Form(const QByteArray& im);
-	void    PDF_xForm(uint objNr, double w, double h, const QByteArray& im);
+	void    PDF_xForm(PdfId objNr, double w, double h, const QByteArray& im);
 	bool    PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN = false, const QString& Profil = "", bool Embedded = false, eRenderIntent Intent = Intent_Relative_Colorimetric, QByteArray* output = nullptr);
 	bool    PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, ShIm& imgInfo, bool &fatalError);
 #if HAVE_PODOFO
-	void copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QMap<PoDoFo::PdfReference, uint>& importedObjects);
+	void copyPoDoFoObject(const PoDoFo::PdfObject* obj, PdfId scObjID, QMap<PoDoFo::PdfReference, uint>& importedObjects);
 	void copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::PdfReference>& referencedObjects, QMap<PoDoFo::PdfReference, uint>& importedObjects);
 #endif
 
@@ -277,7 +277,7 @@ private:
 	QByteArray drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);
 	QByteArray createBorderAppearance(PageItem *ite);
 	QByteArray paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors);
-	QByteArray handleBrushPattern(PageItem* ite, QPainterPath &path, const ScPage* pag, uint PNr);
+	QByteArray handleBrushPattern(const PageItem* ite, const QPainterPath &path, const ScPage* pag, uint PNr);
 
 	void generateXMP(const QString& timeStamp);
 //	int bytesWritten() { return Spool.pos(); }
