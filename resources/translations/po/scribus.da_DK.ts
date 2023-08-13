@@ -31039,7 +31039,7 @@ Rotation: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3958"/>
         <source>File %1 is not in an acceptable format</source>
-        <translation>Fil %1 er ikke i et acceptabelt forat</translation>
+        <translation>Fil %1 er ikke i et acceptabelt format</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="3959"/>
