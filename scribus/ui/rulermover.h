@@ -53,6 +53,7 @@ private slots:
 	void moveRulerCenter();
 	void moveRulerTopCenter();
 	void moveRulerBottomCenter();
+	void iconSetChange();
 
 private: // Private attributes
 	bool m_mousePressed { false };

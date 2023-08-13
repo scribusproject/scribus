@@ -23,8 +23,10 @@
 #include "third_party/Qt-Advanced-Docking-System/src/DockSplitter.h"
 #include "ui/docks/dock_centralwidget.h"
 
+#include "iconmanager.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "scribusapp.h"
 #include "ui/aligndistribute.h"
 #include "ui/bookmarkpalette.h"
 #include "ui/contentpalette.h"
@@ -37,7 +39,6 @@
 #include "ui/symbolpalette.h"
 #include "undogui.h"
 
-//#include "icon_manager.h"
 
 /* ********************************************************************************* *
  *
@@ -50,9 +51,13 @@ DockManager::DockManager(QWidget *parent)
 {
 	dockCenter = new DockCentralWidget();
 	auto *areaCenter = CDockManager::setCentralWidget(dockCenter);
-	areaCenter->setAllowedAreas(DockWidgetArea::OuterDockAreas);
+	areaCenter->setAllowedAreas(LeftDockWidgetArea | RightDockWidgetArea);
 
 	m_palettePrefs = PrefsManager::instance().prefsFile->getContext("user_preferences");
+
+	setStyleSheet(""); // reset style sheet to use custom icons
+
+	connect( ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()) );
 }
 
 void DockManager::setupDocks()
@@ -155,6 +160,9 @@ void DockManager::loadDefaultWorkspace()
 	scrapbookPalette->toggleView(false);
 	bookPalette->toggleView(false);
 	symbolPalette->toggleView(false);
+	layerPalette->toggleView(false);
+	undoPalette->toggleView(false);
+	outlinePalette->toggleView(false);
 
 	// active palettes
 	areaLeft->setCurrentDockWidget(pagePalette);
@@ -167,11 +175,6 @@ void DockManager::loadDefaultWorkspace()
 	// try to load custom layout from preferences
 	if (!m_palettePrefs->get("ads_dockstate").isEmpty())
 		loadWorkspaceFromFile();
-}
-
-void DockManager::setTheme(QString theme)
-{
-	setStyleSheet(theme);
 }
 
 void DockManager::removeAllDockWidgets()
@@ -203,4 +206,24 @@ void DockManager::saveWorkspaceToFile()
 	QByteArray data = this->saveState();
 	QString s = data.toHex();
 	m_palettePrefs->set("ads_dockstate", s);
+}
+
+void DockManager::iconSetChange()
+{
+	IconManager &iconManager = IconManager::instance();
+
+	for (int i = 0; i < this->dockAreaCount(); ++i)
+	{
+		CDockAreaWidget *daw = this->dockArea(i);
+
+		daw->titleBarButton(ads::TitleBarButtonClose)->setIcon(iconManager.loadIcon("close", 12));
+		daw->titleBarButton(ads::TitleBarButtonUndock)->setIcon(iconManager.loadIcon("dock-float", 12));
+		daw->titleBarButton(ads::TitleBarButtonTabsMenu)->setIcon(iconManager.loadIcon("menu-down", 12));
+	//	daw->titleBarButton(ads::TitleBarButtonAutoHide)->setIcon(iconManager.loadIcon("dock-auto-hide", 12));
+
+		for (auto tabCloseButton : daw->findChildren<QAbstractButton*>("tabCloseButton"))
+		{
+			tabCloseButton->setIcon(iconManager.loadIcon("close", 12));
+		}
+	}
 }

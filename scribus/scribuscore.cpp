@@ -178,7 +178,8 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	CommonStrings::languageChange();
 	LanguageManager::instance()->languageChange();
 
-	if (!m_iconManager.setup())
+	qreal devicePixelRatio = QApplication::primaryScreen()->devicePixelRatio();
+	if (!m_iconManager.setup(devicePixelRatio))
 		return EXIT_FAILURE;
 
 	// FIXME: Splash needs the prefs loaded by initDefaults() to know if it must force the image to grayscale

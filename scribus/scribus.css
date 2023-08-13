@@ -46,3 +46,183 @@ QComboBox#unitSwitcher::drop-down { subcontrol-origin: padding; subcontrol-posit
 
 ScToolBar QToolButton::menu-indicator { image: url(___tb_menu_arrow___); }
 
+
+/*
+ * Dock Container
+ */
+ads--CDockContainerWidget {
+       background: palette(mid);
+}
+ads--CDockContainerWidget > QSplitter{
+       padding: 1 0 1 0;
+}
+
+ads--CDockContainerWidget ads--CDockSplitter::handle {
+       background: none;
+       height: 2px;
+}
+
+/*
+* Dock Area
+*/
+
+ads--CDockAreaWidget {
+       background: none;
+       border: none;
+       /*border: 1px solid white;*/
+}
+
+ads--CDockAreaWidget #tabsMenuButton::menu-indicator {
+       image: none;
+}
+
+/*
+* Dock Area Title bar
+*/
+
+ads--CDockAreaTitleBar
+{
+       background: palette(mid);
+       min-height: 24px;
+       /* border-bottom: 1px solid palette(window); */
+}
+
+/* Container of all tabs */
+ads--CDockAreaTabBar #tabsContainerWidget
+{
+       background: palette(mid);
+       /* border-bottom: 1px solid palette(window); */
+}
+
+/*
+* Tab
+*/
+ads--CDockWidgetTab {
+       background: none;
+       /*border-color: palette(light);
+       border-style: solid;
+       border-width: 0 1px 0 0;*/
+       padding: 0px;
+       border:none;
+}
+
+ads--CDockWidgetTab[activeTab="false"]
+{
+       background: none;
+       border-right: 1px solid palette(window);
+       /* border-bottom: 1px solid palette(window); */
+}
+
+ads--CDockWidgetTab[activeTab="true"] {
+       background: palette(window);
+}
+
+ads--CDockWidgetTab QLabel {
+       color: palette(foreground);
+}
+
+ads--CDockWidgetTab[activeTab="true"] QLabel {
+       color: palette(foreground);
+}
+
+ads--CDockWidgetTab[activeTab="false"] QLabel {
+       color: palette(foreground)
+}
+
+
+/*
+* Dock Widget
+*/
+
+ads--CDockWidget {
+       background: none;
+       border: none;
+       /*border-color: palette(light);
+       border-style: solid;
+       border-width: 1px 0 0 0;*/
+}
+
+ads--CTitleBarButton {
+       padding: 0px 0px;
+}
+
+QScrollArea#dockWidgetScrollArea {
+       padding: 0px;
+       border: none;
+}
+
+/*
+* Buttons
+*/
+
+#tabCloseButton {
+
+       margin-top: 2px;
+       padding:0px;
+       background: none;
+       border: none;
+       border-radius: 2px;
+/*	qproperty-icon: url(:/ads/images/close-button.svg),
+	       url(:/ads/images/close-button-disabled.svg) disabled;*/
+       qproperty-iconSize: 16px;
+       width: 16px;
+       height: 16px;
+}
+
+#tabCloseButton:hover {
+       border: 1px solid rgba(0, 0, 0, 32);
+       background: rgba(0, 0, 0, 16);
+}
+
+#tabCloseButton:pressed {
+       background: rgba(0, 0, 0, 32);
+}
+
+#tabsMenuButton {
+       /*qproperty-icon: url(:/ads/images/tabs-menu-button.svg);
+       qproperty-iconSize: 16px;*/
+}
+
+#dockAreaCloseButton {
+       /*qproperty-icon: url(:/ads/images/close-button.svg),
+	       url(:/ads/images/close-button-disabled.svg) disabled;*/
+       qproperty-iconSize: 16px;
+}
+
+#detachGroupButton {
+       /*qproperty-icon: url(:/ads/images/detach-button.svg),
+	       url(:/ads/images/detach-button-disabled.svg) disabled;*/
+       qproperty-iconSize: 16px;
+}
+
+/*
+* Floating Widget
+*/
+
+ads--CFloatingWidgetTitleBar {
+   background: palette(midlight);
+   /*qproperty-maximizeIcon: url(:/ads/images/maximize-button.svg);
+   qproperty-normalIcon: url(:/ads/images/restore-button.svg);*/
+}
+
+
+#floatingTitleCloseButton, #floatingTitleMaximizeButton {
+  qproperty-iconSize: 16px;
+  border: none;
+  margin: 3px;
+}
+
+
+#floatingTitleCloseButton {
+  /*qproperty-icon: url(:/ads/images/close-button.svg);*/
+  qproperty-iconSize: 16px;
+}
+
+#floatingTitleCloseButton:hover {
+   background: rgba(0, 0, 0, 24);
+   border: none;
+}
+
+#floatingTitleCloseButton:pressed {
+   background: rgba(0, 0, 0, 48);
+}

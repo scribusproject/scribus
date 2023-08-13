@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "scraction.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "ui/guidemanager.h"
@@ -43,11 +44,10 @@ RulerMover::RulerMover(ScribusView *pa) : QWidget(pa), m_currView(pa)
 {
 	setBackgroundRole(QPalette::Window);
 	setAutoFillBackground(true);
-	QPalette palette;
-	palette.setBrush(QPalette::Window, QColor(240, 240, 240));
-	palette.setBrush(backgroundRole(), QBrush(IconManager::instance().loadPixmap("mover.png")));
-	setPalette(palette);
+	iconSetChange();
 	m_rulerGesture = new RulerGesture(m_currView, RulerGesture::ORIGIN);
+
+	connect( ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()) );
 }
 
 void RulerMover::mouseDoubleClickEvent(QMouseEvent *)
@@ -162,5 +162,13 @@ void RulerMover::moveRulerBottomCenter()
 	m_currView->m_doc->rulerXoffset = m_currView->m_doc->currentPage()->width() / 2.0;
 	m_currView->m_doc->rulerYoffset = m_currView->m_doc->currentPage()->height();
 	m_currView->DrawNew();
+}
+
+void RulerMover::iconSetChange()
+{
+	QPalette palette;
+	//palette.setBrush(QPalette::Window, QColor(240, 240, 240));
+	palette.setBrush(backgroundRole(), QBrush(IconManager::instance().loadPixmap("mover.png")));
+	setPalette(palette);
 }
 

@@ -558,13 +558,11 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<!-- Red onLight="#E54545" onDark="#FF6666" -->
 		<icon id="16/insert-barcode.png" file="16/tool-insert-barcode.svg" />
 		<icon id="22/insert-barcode.png" file="16/tool-insert-barcode.svg" />
-		
+
 		<!-- Windows -->
-		<!--		
 		<icon id="close" file="16/action-close.svg" />
-		<icon id="menu-down" file="16/action-chevron-down.svg" />
 		<icon id="dock-float" file="16/action-window-float.svg" />
-		-->
-		
+		<icon id="menu-down" file="16/action-menu-down.svg" />
+
 	</icons>
 </iconset>

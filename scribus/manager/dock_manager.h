@@ -49,7 +49,6 @@ public:
 	void setCentralWidget(QWidget *widget);
 	void setupDocks();
 	void loadDefaultWorkspace();
-	void setTheme(QString theme);
 	void removeAllDockWidgets();
 	CDockAreaWidget *addDockFromPlugin(CDockWidget *dock, bool closed = true);
 
@@ -68,6 +67,8 @@ public:
 public slots:
 	void loadWorkspaceFromFile();
 	void saveWorkspaceToFile();
+
+	void iconSetChange();
 
 private:
 	DockCentralWidget *dockCenter {nullptr};

@@ -309,11 +309,12 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 //	CDockManager::setAutoHideConfigFlag(CDockManager::AutoHideCloseButtonCollapsesDock, true);
 //	CDockManager::setAutoHideConfigFlag(CDockManager::AutoHideButtonTogglesArea, true);
 
-//	IconManager &iconmanager = IconManager::instance();
-//	CDockManager::iconProvider().registerCustomIcon(TabCloseIcon, iconmanager.loadPixmap("close"));
-//	CDockManager::iconProvider().registerCustomIcon(DockAreaCloseIcon, iconmanager.loadPixmap("close"));
-//	CDockManager::iconProvider().registerCustomIcon(DockAreaMenuIcon, iconmanager.loadPixmap("menu-down"));
-//	CDockManager::iconProvider().registerCustomIcon(DockAreaUndockIcon, iconmanager.loadPixmap("dock-float"));
+	IconManager &iconmanager = IconManager::instance();
+	CDockManager::iconProvider().registerCustomIcon(TabCloseIcon, iconmanager.loadIcon("close", 12));
+	CDockManager::iconProvider().registerCustomIcon(DockAreaCloseIcon, iconmanager.loadIcon("close", 12));
+	CDockManager::iconProvider().registerCustomIcon(DockAreaMenuIcon, iconmanager.loadIcon("menu-down", 12));
+	CDockManager::iconProvider().registerCustomIcon(DockAreaUndockIcon, iconmanager.loadIcon("dock-float", 12));
+//	CDockManager::iconProvider().registerCustomIcon(AutoHideIcon, iconmanager.loadIcon("dock-auto-hide", 12));
 
 	int retVal=0;
 	//qsrand(1234);
@@ -353,7 +354,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	appModeHelper = new AppModeHelper();
 	appModeHelper->setup(actionManager, &scrActions, &scrRecentFileActions, &scrWindowsActions, &scrScrapActions, &scrLayersActions, &scrRecentPasteActions);
 	scrMenuMgr = new ScMWMenuManager(menuBar(), actionManager);
-	dockManager = new DockManager(this/*, QString(stylesheet)*/); // style sheet should be enabled when theme manager is implemented to handle color palettes in css file.
+	dockManager = new DockManager(this);
 	m_formatsManager = FormatsManager::instance();
 	m_objectSpecificUndo = false;
 
@@ -584,6 +585,8 @@ void ScribusMainWindow::setStyleSheet()
 		tba.append(toolbararrow.toUtf8());
 		stylesheet.replace("___tb_menu_arrow___", tba);
 	}
+
+	dockManager->setStyleSheet(stylesheet); // style sheet should be enabled when theme manager is implemented to handle color palettes in css file.
 
 	layerMenu->setStyleSheet(stylesheet);
 	unitSwitcher->setStyleSheet(stylesheet);
@@ -6511,7 +6514,8 @@ void ScribusMainWindow::slotPrefsOrg()
 	}
 
 	QString newIconSet = m_prefsManager.guiIconSet();
-	if (oldPrefs.uiPrefs.iconSet != newIconSet)
+	// Recreate icons if icon set or GUI changed. For GUI change the icon recreation will automatically detect light and dark themes
+	if (oldPrefs.uiPrefs.iconSet != newIconSet || oldPrefs.uiPrefs.style != newUIStyle)
 		ScQApp->changeIconSet(newIconSet);
 
 	int newUIFontSize = m_prefsManager.guiFontSize();
@@ -7163,7 +7167,7 @@ void ScribusMainWindow::doSaveAsPDF()
 	ReOrderText(doc, view);
 	QString pageString(dia.getPagesString());
 	std::vector<int> pageNs;
-	uint pageNumbersSize;
+//	uint pageNumbersSize;
 	QMap<int, QImage> allThumbs, thumbs;
 	QString fileName = doc->pdfOptions().fileName;
 	QString errorMsg;
