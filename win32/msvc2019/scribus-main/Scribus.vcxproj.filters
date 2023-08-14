@@ -1825,6 +1825,9 @@
     <ClCompile Include="..\..\..\scribus\ui\colorlistmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpalette.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\colorsandfills.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1841,9 +1844,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\copypagetomasterpagedialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\cpalette.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\createrange.cpp">
@@ -3560,6 +3560,9 @@
     <moc Include="..\..\..\scribus\ui\colorlistmodel.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\ui\colorpalette.h">
+      <Filter>Header Files</Filter>
+    </moc>
     <moc Include="..\..\..\scribus\ui\colorsandfills.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -3576,9 +3579,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\copypagetomasterpagedialog.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\ui\cpalette.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\createrange.h">

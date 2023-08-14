@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "appmodehelper.h"
 #include "appmodes.h"
-#include "cpalette.h"
+#include "colorpalette.h"
 #include "pageitem_table.h"
 #include "propertiespalette_line.h"
 #include "propertiespalette_shadow.h"

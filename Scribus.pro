@@ -416,13 +416,13 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/colorcombo.h \
            scribus/ui/colorlistbox.h \
            scribus/ui/colorlistmodel.h \
+           scribus/ui/colorpalette.h \
            scribus/ui/colorsandfills.h \
            scribus/ui/contentpalette.h \
            scribus/ui/contentpalette_default.h \
            scribus/ui/contentpalette_page.h \
            scribus/ui/contextmenu.h \
            scribus/ui/copypagetomasterpagedialog.h \
-           scribus/ui/cpalette.h \
            scribus/ui/createrange.h \
            scribus/ui/cupsoptions.h \
            scribus/ui/curvewidget.h \
@@ -1520,13 +1520,13 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/colorcombo.cpp \
            scribus/ui/colorlistbox.cpp \
            scribus/ui/colorlistmodel.cpp \
+           scribus/ui/colorpalette.cpp \
            scribus/ui/colorsandfills.cpp \
            scribus/ui/contentpalette.cpp \
            scribus/ui/contentpalette_default.cpp \
            scribus/ui/contentpalette_page.cpp \
            scribus/ui/contextmenu.cpp \
            scribus/ui/copypagetomasterpagedialog.cpp \
-           scribus/ui/cpalette.cpp \
            scribus/ui/createrange.cpp \
            scribus/ui/cupsoptions.cpp \
            scribus/ui/curvewidget.cpp \

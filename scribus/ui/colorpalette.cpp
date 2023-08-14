@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          cpalette.cpp  -  description
+                          colorpalette.cpp  -  description
                              -------------------
     begin                : Wed Apr 25 2001
     copyright            : (C) 2001 by Franz Schmid
@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "cpalette.h"
+#include "colorpalette.h"
 
 #include <QAbstractItemView>
 #include <QEvent>
@@ -671,7 +671,7 @@ void ColorPalette::fillStrokeSelector(int /*index*/)
 	updateFromItem();
 }
 
-/*void Cpalette::editLineColorSelectorButton()
+/*void ColorPalette::editLineColorSelectorButton()
 {
 	if (editLineColorSelector->isChecked())
 	{
@@ -681,7 +681,7 @@ void ColorPalette::fillStrokeSelector(int /*index*/)
 	updateFromItem();
 }
 
-void Cpalette::editFillColorSelectorButton()
+void ColorPalette::editFillColorSelectorButton()
 {
 	if (editFillColorSelector->isChecked())
 	{

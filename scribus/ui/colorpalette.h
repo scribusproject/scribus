@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          cpalette.h  -  description
+                          colorpalette.h  -  description
                              -------------------
     begin                : Wed Apr 25 2001
     copyright            : (C) 2001 by Franz Schmid
@@ -21,8 +21,8 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#ifndef CPALETTE_H
-#define CPALETTE_H
+#ifndef COLORPALETTE_H
+#define COLORPALETTE_H
 
 #include <QWidget>
 #include <QPointer>
