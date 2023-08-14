@@ -65,11 +65,33 @@ int mainApp(int argc, char **argv)
 {
 	emergencyActivated = false;
 
+#if !defined(Q_OS_MACOS)
+	qputenv("QT_QPA_PLATFORM", "xcb");
+#endif
+
 	ScribusQApp app(argc, argv);
 	initCrashHandler();
 	app.parseCommandLine();
-	int appRetVal=app.init();
-	if (appRetVal==EXIT_FAILURE)
+	
+	if (QApplication::platformName() == "wayland")
+	{
+		QString errHdr = QObject::tr("Fatal Error");
+		QString errMsg = QObject::tr("Scribus does not support the Wayland platform. Use XWayland to run Scribus on Wayland. Scribus will close now.");
+		if (app.useGUI)
+		{
+			QMessageBox::critical(nullptr, errHdr, errMsg);
+		}
+		else
+		{
+			std::cout << errHdr.toStdString() << std::endl;
+			std::cout << "-------------" << std::endl;
+			std::cout << errMsg.toStdString() << std::endl;
+		}
+		return EXIT_FAILURE;
+	}
+	
+	int appRetVal = app.init();
+	if (appRetVal == EXIT_FAILURE)
 		return(EXIT_FAILURE);
 	if (app.useGUI)
 		return app.exec();
@@ -111,11 +133,11 @@ void defaultCrashHandler(int sig)
 	signal(SIGALRM, SIG_DFL);
 	if (crashRecursionCounter < 2)
 	{
-		emergencyActivated=true;
+		emergencyActivated = true;
 		crashRecursionCounter++;
-		QString sigHdr=QObject::tr("Scribus Crash");
-		QString sigLine="-------------";
-		QString sigMsg=QObject::tr("Scribus crashes due to Signal #%1").arg(sig);
+		QString sigHdr = QObject::tr("Scribus Crash");
+		QString sigLine = "-------------";
+		QString sigMsg = QObject::tr("Scribus crashes due to Signal #%1").arg(sig);
 		std::cout << sigHdr.toStdString() << std::endl;
 		std::cout << sigLine.toStdString() << std::endl;
 		std::cout << sigMsg.toStdString() << std::endl;
