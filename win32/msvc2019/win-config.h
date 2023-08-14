@@ -35,10 +35,13 @@
 #define HAVE_HUNSPELL 1
 
 /* Defines hunspell version if your system has the hunspell library */
-#define HUNSPELL_VERSION "1.7.0"
+#define HUNSPELL_VERSION "1.7.2"
 
 /* ColorManagement (Windows) */
 #define HAVE_ICM 1
+
+/* JPEG XL support */
+#undef HAVE_JXL
 
 /* ColorManagement (LittleCms2) */
 #define HAVE_LCMS2 1
