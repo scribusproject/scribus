@@ -373,11 +373,11 @@
     <moc Include="..\..\..\scribus\ui\colorchart.h" />
     <moc Include="..\..\..\scribus\ui\colorcombo.h" />
     <moc Include="..\..\..\scribus\ui\colorlistbox.h" />
+    <moc Include="..\..\..\scribus\ui\colorpalette.h" />
     <ClInclude Include="..\..\..\scribus\colorsetmanager.h" />
     <moc Include="..\..\..\scribus\commonstrings.h" />
     <moc Include="..\..\..\scribus\ui\contextmenu.h" />
     <moc Include="..\..\..\scribus\ui\copypagetomasterpagedialog.h" />
-    <moc Include="..\..\..\scribus\ui\cpalette.h" />
     <moc Include="..\..\..\scribus\ui\createrange.h" />
     <moc Include="..\..\..\scribus\ui\cupsoptions.h" />
     <moc Include="..\..\..\scribus\ui\curvewidget.h" />
@@ -1003,13 +1003,13 @@
     <ClCompile Include="..\..\..\scribus\colorsetmanager.cpp" />
     <ClCompile Include="..\..\..\scribus\commonstrings.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\colorlistmodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\colorpalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\colorsandfills.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\contentpalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\contentpalette_default.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\contentpalette_page.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\contextmenu.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\copypagetomasterpagedialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\cpalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\createrange.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\cupsoptions.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\curvewidget.cpp" />

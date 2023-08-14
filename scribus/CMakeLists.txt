@@ -350,12 +350,12 @@ set(SCRIBUS_SOURCES
 	ui/colorcombo.cpp
 	ui/colorlistbox.cpp
 	ui/colorlistmodel.cpp
+	ui/colorpalette.cpp
 	ui/colorsandfills.cpp
 	ui/contentpalette.cpp
 	ui/contentpalette_default.cpp
 	ui/contentpalette_page.cpp
 	ui/contextmenu.cpp
-	ui/cpalette.cpp
 	ui/cupsoptions.cpp
 	ui/curvewidget.cpp
 	ui/customfdialog.cpp
