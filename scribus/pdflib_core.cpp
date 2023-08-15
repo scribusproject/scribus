@@ -9796,47 +9796,51 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 	QScopedPointer<PoDoFo::PdfMemDocument> doc;
 	try
 	{
+#if (PODOFO_VERSION < PODOFO_MAKE_VERSION(0, 10, 0))
 		PoDoFo::PdfError::EnableDebug(false);
 		PoDoFo::PdfError::EnableLogging(false);
-		doc.reset(new PoDoFo::PdfMemDocument(fn.toLocal8Bit().data()));
+#endif
+		doc.reset(new PoDoFo::PdfMemDocument());
+		doc->Load(fn.toLocal8Bit().data());
 	}
-	catch(PoDoFo::PdfError& e)
+	catch (PoDoFo::PdfError& e)
 	{
 		qDebug() << "PoDoFo error, falling back to raster!";
 		e.PrintErrorMsg();
 		return false;
 	}
 
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
 	try
 	{
-		PoDoFo::PdfPage*   page      = doc->GetPage(qMin(qMax(1, c->pixm.imgInfo.actualPageNumber), c->pixm.imgInfo.numberOfPages) - 1);
-		PoDoFo::PdfObject* pageObj   = page ? page->GetObject() : nullptr;
-		PoDoFo::PdfObject* contents  = page ? page->GetContents() : nullptr;
-		PoDoFo::PdfObject* resources = page ? page->GetResources() : nullptr;
-		PoDoFo::PdfDictionary* pageObjDict = (pageObj && pageObj->IsDictionary()) ? &(pageObj->GetDictionary()) : nullptr;
+		PoDoFo::PdfPage& page = doc->GetPages().GetPageAt(qMin(qMax(1, c->pixm.imgInfo.actualPageNumber), c->pixm.imgInfo.numberOfPages) - 1);
+		PoDoFo::PdfObject& pageObj = page.GetObject();
+		PoDoFo::PdfObject* contents = page.GetContents() ? &(page.GetContents()->GetObject()) : nullptr;
+		PoDoFo::PdfObject* resources = page.GetResources() ? &(page.GetResources()->GetObject()) : nullptr;
+		PoDoFo::PdfDictionary* pageObjDict = pageObj.IsDictionary() ? &(pageObj.GetDictionary()) : nullptr;
 		for (PoDoFo::PdfDictionary* par = pageObjDict, *parentDict = nullptr; par && !resources; par = parentDict)
 		{
 			resources = par->FindKey("Resources");
 			PoDoFo::PdfObject* parentObj = par->FindKey("Parent");
 			parentDict = (parentObj && parentObj->IsDictionary()) ? &(parentObj->GetDictionary()) : nullptr;
 		}
-		if (contents && contents->GetDataType() ==  PoDoFo::ePdfDataType_Dictionary)
+		if (contents && contents->GetDataType() == PoDoFo::PdfDataType::Dictionary)
 		{
 			PoDoFo::PdfDictionary& contentsDict = contents->GetDictionary();
-			PoDoFo::PdfStream* stream = contents->GetStream();
+			PoDoFo::PdfObjectStream* stream = contents->GetStream();
 			QMap<PoDoFo::PdfReference, PdfId> importedObjects;
 			QList<PoDoFo::PdfReference> referencedObjects;
 			const PoDoFo::PdfObject* nextObj { nullptr };
 			PdfId xObj = writer.newObject();
 			PdfId xResources = writer.newObject();
 			PdfId xParents = 0;
-			importedObjects[page->GetObject()->Reference()] = xObj;
+			importedObjects[page.GetObject().GetIndirectReference()] = xObj;
 			writer.startObj(xObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
-			PoDoFo::PdfRect pageRect = page->GetArtBox(); // Because scimagedataloader_pdf use ArtBox
-			int rotation = page->GetRotation();
-			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.GetHeight() : pageRect.GetWidth();
-			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.GetWidth() : pageRect.GetHeight();
+			PoDoFo::Rect pageRect = page.GetArtBox(); // Because scimagedataloader_pdf use ArtBox
+			int rotation = page.GetRotationRaw();
+			double imgWidth = (rotation == 90 || rotation == 270) ? pageRect.Height : pageRect.Width;
+			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.Width : pageRect.Height;
 			QTransform pageM;
 			pageM.translate(pageRect.GetLeft(), pageRect.GetBottom());
 			pageM.rotate(rotation);
@@ -9850,19 +9854,18 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			pageM = pageM.inverted();
 			PutDoc("\n/BBox [" + Pdf::toPdf(pageRect.GetLeft()));
 			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom()));
-			PutDoc(" " + Pdf::toPdf(pageRect.GetLeft() + pageRect.GetWidth()));
-			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom() + pageRect.GetHeight()));
+			PutDoc(" " + Pdf::toPdf(pageRect.GetLeft() + pageRect.Width));
+			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom() + pageRect.Height));
 			PutDoc("]");
 			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
-								 + Pdf::toPdf(pageM.m12()) + " "
-								 + Pdf::toPdf(pageM.m21()) + " "
-								 + Pdf::toPdf(pageM.m22()) + " "
-								 + Pdf::toPdf(pageM.dx())  + " "
-								 + Pdf::toPdf(pageM.dy())  + " ");
+				+ Pdf::toPdf(pageM.m12()) + " "
+				+ Pdf::toPdf(pageM.m21()) + " "
+				+ Pdf::toPdf(pageM.m22()) + " "
+				+ Pdf::toPdf(pageM.dx()) + " "
+				+ Pdf::toPdf(pageM.dy()) + " ");
 			PutDoc("]");
 			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
-			PoDoFo::PdfObject* pageObj = page->GetObject();
-			PoDoFo::PdfDictionary* pageDict = pageObj->IsDictionary() ? &(pageObj->GetDictionary()) : nullptr;
+			PoDoFo::PdfDictionary* pageDict = pageObj.IsDictionary() ? &(pageObj.GetDictionary()) : nullptr;
 			nextObj = pageDict ? pageDict->FindKey("Group") : nullptr;
 			if (nextObj)
 			{
@@ -9877,16 +9880,13 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				PutDoc("\n/StructParents " + Pdf::toPdf(xParents)); // required if page uses structured content
 			}
 			*/
-			char * mbuffer = nullptr;
-			long mlen = 0;
 
-			// seems more complicated at first, but in fact it makes the code more stable wrt podofo changes
-			PoDoFo::PdfMemoryOutputStream oStream(1);
-			stream->GetCopy(&oStream);
-			oStream.Close();
-			mlen = oStream.GetLength();
-			mbuffer = oStream.TakeBuffer();
-			if (mbuffer[mlen-1] == '\n')
+			const char* mbuffer = nullptr;
+			long mlen = 0;
+			PoDoFo::charbuff strBuff = stream->GetCopy(true);
+			mlen = strBuff.size();
+			mbuffer = strBuff.c_str();
+			if (mbuffer[mlen - 1] == '\n')
 				--mlen;
 			PutDoc("\n/Length " + Pdf::toPdf(static_cast<qlonglong>(mlen)));
 			nextObj = contentsDict.FindKey("Filter");
@@ -9906,7 +9906,6 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				QByteArray buffer = QByteArray::fromRawData(mbuffer, mlen);
 				EncodeArrayToStream(buffer, xObj);
 			}  // disconnect QByteArray from raw data
-			free (mbuffer);
 			PutDoc("\nendstream");
 			writer.endObj(xObj);
 			// write resources
@@ -9925,21 +9924,22 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				// create structured parents
 			}
 			// write referenced objects
-			PoDoFo::PdfVecObjects* allObjects = contents->GetOwner();
+			PoDoFo::PdfIndirectObjectList& allObjects = contents->GetDocument()->GetObjects();
 			for (int i = 0; i < referencedObjects.size(); ++i)
 			{
-				nextObj = allObjects->GetObject(referencedObjects[i]);
-				copyPoDoFoObject(nextObj, importedObjects[nextObj->Reference()], importedObjects);
+				const PoDoFo::PdfReference& pdfRef = referencedObjects[i];
+				nextObj = allObjects.GetObject(pdfRef);
+				copyPoDoFoObject(nextObj, importedObjects[pdfRef], importedObjects);
 			}
 
 			pageData.ImgObjects[ResNam + "I" + Pdf::toPdf(ResCount)] = xObj;
 			imgInfo.ResNum = ResCount;
 			ResCount++;
 			// Avoid a divide-by-zero if width/height are less than 1 point:
-			imgInfo.Width  = qMax(1, (int) imgWidth);
+			imgInfo.Width = qMax(1, (int) imgWidth);
 			imgInfo.Height = qMax(1, (int) imgHeight);
-			imgInfo.xa  = sx * imgWidth / imgInfo.Width;
-			imgInfo.ya  = sy * imgHeight / imgInfo.Height;
+			imgInfo.xa = sx * imgWidth / imgInfo.Width;
+			imgInfo.ya = sy * imgHeight / imgInfo.Height;
 			// Width/Height are integers and may not exactly equal pageRect.GetWidth()/
 			// pageRect.GetHeight(). Adjust scale factor to compensate for the difference.
 			imgInfo.sxa = sx * imgWidth / imgInfo.Width;
@@ -9947,11 +9947,162 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 
 			return true;
 		}
-		if (contents && contents->GetDataType() ==  PoDoFo::ePdfDataType_Array)//Page contents might be an array
+		if (contents && contents->GetDataType() == PoDoFo::PdfDataType::Array)//Page contents might be an array
 		{
 			QMap<PoDoFo::PdfReference, PdfId> importedObjects;
 			QList<PoDoFo::PdfReference> referencedObjects;
 			PoDoFo::PdfObject* nextObj;
+			PdfId xObj = writer.newObject();
+			PdfId xResources = writer.newObject();
+			PdfId xParents = 0;
+			importedObjects[page.GetObject().GetIndirectReference()] = xObj;
+			writer.startObj(xObj);
+			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
+			PoDoFo::Rect pageRect = page.GetArtBox(); // Because scimagedataloader_pdf use ArtBox
+			int rotation = page.GetRotationRaw();
+			double imgWidth = (rotation == 90 || rotation == 270) ? pageRect.Height : pageRect.Width;
+			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.Width : pageRect.Height;
+			QTransform pageM;
+			pageM.translate(pageRect.GetLeft(), pageRect.GetBottom());
+			pageM.rotate(rotation);
+			if (rotation == 90)
+				pageM.translate(0.0, -imgHeight);
+			else if (rotation == 180)
+				pageM.translate(-imgWidth, -imgHeight);
+			else if (rotation == 270)
+				pageM.translate(-imgWidth, 0.0);
+			pageM.scale(imgWidth, imgHeight);
+			pageM = pageM.inverted();
+			PutDoc("\n/BBox [" + Pdf::toPdf(pageRect.GetLeft()));
+			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom()));
+			PutDoc(" " + Pdf::toPdf(pageRect.GetLeft() + pageRect.Width));
+			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom() + pageRect.Height));
+			PutDoc("]");
+			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
+				+ Pdf::toPdf(pageM.m12()) + " "
+				+ Pdf::toPdf(pageM.m21()) + " "
+				+ Pdf::toPdf(pageM.m22()) + " "
+				+ Pdf::toPdf(pageM.dx()) + " "
+				+ Pdf::toPdf(pageM.dy()) + " ");
+			PutDoc("]");
+			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
+			PoDoFo::PdfDictionary* pageDict = pageObj.IsDictionary() ? &(pageObj.GetDictionary()) : nullptr;
+			nextObj = pageDict ? pageDict->FindKey("Group") : nullptr;
+			if (nextObj)
+			{
+				PutDoc("\n/Group "); // PDF 1.4
+				copyPoDoFoDirect(nextObj, referencedObjects, importedObjects);
+			}
+
+			const char* mbuffer = nullptr;
+			long mlen = 0;
+			PoDoFo::charbuff strBuffer;
+			PoDoFo::StringStreamDevice strStreamDev(strBuffer);
+			PoDoFo::PdfArray carray(page.GetContents()->GetObject().GetArray());
+			for (unsigned int ci = 0; ci < carray.size(); ++ci)
+			{
+				if (carray[ci].HasStream())
+				{
+					carray[ci].GetStream()->CopyTo(strStreamDev, false);
+				}
+				else if (carray[ci].IsReference())
+				{
+					nextObj = doc->GetObjects().GetObject(carray[ci].GetReference());
+
+					while (nextObj != nullptr)
+					{
+						if (nextObj->IsReference())
+						{
+							nextObj = doc->GetObjects().GetObject(nextObj->GetReference());
+						}
+						else if (nextObj->HasStream())
+						{
+							nextObj->GetStream()->CopyTo(strStreamDev, false);
+							break;
+						}
+					}
+				}
+			}
+			// end of copy
+			mlen = strBuffer.size();
+			mbuffer = strBuffer.c_str();
+
+			PutDoc("\n/Length " + Pdf::toPdf(static_cast<qlonglong>(mlen)));
+			PutDoc("\n>>\nstream\n");
+			{
+				QByteArray buffer = QByteArray::fromRawData(mbuffer, mlen);
+				EncodeArrayToStream(buffer, xObj);
+			}  // disconnect QByteArray from raw data
+			PutDoc("\nendstream");
+			writer.endObj(xObj);
+			// write resources
+			if (resources)
+			{
+				copyPoDoFoObject(resources, xResources, importedObjects);
+			}
+			else
+			{
+				writer.startObj(xResources);
+				PutDoc("<< >>");
+				writer.endObj(xResources);
+			}
+			if (xParents)
+			{
+				// create structured parents
+			}
+			// write referenced objects
+			PoDoFo::PdfIndirectObjectList& allObjects = contents->GetDocument()->GetObjects();
+			for (int i = 0; i < referencedObjects.size(); ++i)
+			{
+				const PoDoFo::PdfReference& pdfRef = referencedObjects[i];
+				nextObj = allObjects.GetObject(pdfRef);
+				copyPoDoFoObject(nextObj, importedObjects[pdfRef], importedObjects);
+			}
+
+			pageData.ImgObjects[ResNam + "I" + Pdf::toPdf(ResCount)] = xObj;
+			imgInfo.ResNum = ResCount;
+			ResCount++;
+			// Avoid a divide-by-zero if width/height are less than 1 point:
+			imgInfo.Width = qMax(1, (int) imgWidth);
+			imgInfo.Height = qMax(1, (int) imgHeight);
+			imgInfo.xa = sx * imgWidth / imgInfo.Width;
+			imgInfo.ya = sy * imgHeight / imgInfo.Height;
+			// Width/Height are integers and may not exactly equal pageRect.GetWidth()/
+			// pageRect.GetHeight(). Adjust scale factor to compensate for the difference.
+			imgInfo.sxa = sx * imgWidth / imgInfo.Width;
+			imgInfo.sya = sy * imgHeight / imgInfo.Height;
+
+			return true;
+		}
+	}
+	catch (PoDoFo::PdfError& e)
+	{
+		fatalError = true;
+		qDebug() << "PoDoFo error!";
+		e.PrintErrorMsg();
+		return false;
+	}
+#else
+	try
+	{
+		PoDoFo::PdfPage* page = doc->GetPage(qMin(qMax(1, c->pixm.imgInfo.actualPageNumber), c->pixm.imgInfo.numberOfPages) - 1);
+		PoDoFo::PdfObject* pageObj = page ? page->GetObject() : nullptr;
+		PoDoFo::PdfObject* contents = page ? page->GetContents() : nullptr;
+		PoDoFo::PdfObject* resources = page ? page->GetResources() : nullptr;
+		PoDoFo::PdfDictionary* pageObjDict = (pageObj && pageObj->IsDictionary()) ? &(pageObj->GetDictionary()) : nullptr;
+		for (PoDoFo::PdfDictionary* par = pageObjDict, *parentDict = nullptr; par && !resources; par = parentDict)
+		{
+			resources = par->FindKey("Resources");
+			PoDoFo::PdfObject* parentObj = par->FindKey("Parent");
+			parentDict = (parentObj && parentObj->IsDictionary()) ? &(parentObj->GetDictionary()) : nullptr;
+		}
+		if (contents && contents->GetDataType() == PoDoFo::ePdfDataType_Dictionary)
+		{
+			PoDoFo::PdfDictionary& contentsDict = contents->GetDictionary();
+			PoDoFo::PdfStream* stream = contents->GetStream();
+			QMap<PoDoFo::PdfReference, PdfId> importedObjects;
+			QList<PoDoFo::PdfReference> referencedObjects;
+			const PoDoFo::PdfObject* nextObj { nullptr };
 			PdfId xObj = writer.newObject();
 			PdfId xResources = writer.newObject();
 			PdfId xParents = 0;
@@ -9960,7 +10111,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
 			PoDoFo::PdfRect pageRect = page->GetArtBox(); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page->GetRotation();
-			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.GetHeight() : pageRect.GetWidth();
+			double imgWidth = (rotation == 90 || rotation == 270) ? pageRect.GetHeight() : pageRect.GetWidth();
 			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.GetWidth() : pageRect.GetHeight();
 			QTransform pageM;
 			pageM.translate(pageRect.GetLeft(), pageRect.GetBottom());
@@ -9979,14 +10130,13 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom() + pageRect.GetHeight()));
 			PutDoc("]");
 			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
-								 + Pdf::toPdf(pageM.m12()) + " "
-								 + Pdf::toPdf(pageM.m21()) + " "
-								 + Pdf::toPdf(pageM.m22()) + " "
-								 + Pdf::toPdf(pageM.dx())  + " "
-								 + Pdf::toPdf(pageM.dy())  + " ");
+				+ Pdf::toPdf(pageM.m12()) + " "
+				+ Pdf::toPdf(pageM.m21()) + " "
+				+ Pdf::toPdf(pageM.m22()) + " "
+				+ Pdf::toPdf(pageM.dx()) + " "
+				+ Pdf::toPdf(pageM.dy()) + " ");
 			PutDoc("]");
 			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
-			PoDoFo::PdfObject* pageObj = page->GetObject();
 			PoDoFo::PdfDictionary* pageDict = pageObj->IsDictionary() ? &(pageObj->GetDictionary()) : nullptr;
 			nextObj = pageDict ? pageDict->FindKey("Group") : nullptr;
 			if (nextObj)
@@ -9994,45 +10144,26 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				PutDoc("\n/Group "); // PDF 1.4
 				copyPoDoFoDirect(nextObj, referencedObjects, importedObjects);
 			}
-
-			char * mbuffer = nullptr;
-			long mlen = 0;
-			// copied from podofoimpose
-			PoDoFo::PdfMemoryOutputStream outMemStream (1);
-//			PoDoFo::PdfFilteredEncodeStream outMemStream (outMemStreamRaw, ePdfFilter_FlateDecode, false);
-			PoDoFo::PdfArray carray(page->GetContents()->GetArray());
-			for (unsigned int ci = 0; ci < carray.size(); ++ci)
+			/*
+			PoDoFo::PdfObject parents = pageDict->FindKey("StructParents");
+			if (parents)
 			{
-				if (carray[ci].HasStream())
-				{
-					carray[ci].GetStream()->GetFilteredCopy(&outMemStream);
-				}
-				else if (carray[ci].IsReference())
-				{
-					nextObj = doc->GetObjects().GetObject(carray[ci].GetReference());
-
-					while (nextObj != nullptr)
-					{
-
-						if (nextObj->IsReference())
-						{
-							nextObj = doc->GetObjects().GetObject(nextObj->GetReference());
-						}
-						else if (nextObj->HasStream())
-						{
-							nextObj->GetStream()->GetFilteredCopy(&outMemStream);
-							break;
-						}
-					}
-				}
+				xParents = writer.newObject();
+				PutDoc("\n/StructParents " + Pdf::toPdf(xParents)); // required if page uses structured content
 			}
-			// end of copy
-			mlen = outMemStream.GetLength();
-			mbuffer = outMemStream.TakeBuffer();
-//			if (mbuffer[mlen-1] == '\n')
-//				--mlen;
+			*/
+
+			// seems more complicated at first, but in fact it makes the code more stable wrt podofo changes
+			char* mbuffer = nullptr;
+			long mlen = 0;
+			PoDoFo::PdfMemoryOutputStream oStream(1);
+			stream->GetCopy(&oStream);
+			oStream.Close();
+			mlen = oStream.GetLength();
+			mbuffer = oStream.TakeBuffer();
+			if (mbuffer[mlen - 1] == '\n')
+				--mlen;
 			PutDoc("\n/Length " + Pdf::toPdf(static_cast<qlonglong>(mlen)));
-/*
 			nextObj = contentsDict.FindKey("Filter");
 			if (nextObj)
 			{
@@ -10045,13 +10176,12 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				PutDoc("\n/DecodeParms ");
 				copyPoDoFoDirect(nextObj, referencedObjects, importedObjects);
 			}
-*/
 			PutDoc("\n>>\nstream\n");
 			{
 				QByteArray buffer = QByteArray::fromRawData(mbuffer, mlen);
 				EncodeArrayToStream(buffer, xObj);
 			}  // disconnect QByteArray from raw data
-			free (mbuffer);
+			free(mbuffer);
 			PutDoc("\nendstream");
 			writer.endObj(xObj);
 			// write resources
@@ -10073,18 +10203,19 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PoDoFo::PdfVecObjects* allObjects = contents->GetOwner();
 			for (int i = 0; i < referencedObjects.size(); ++i)
 			{
-				nextObj = allObjects->GetObject(referencedObjects[i]);
-				copyPoDoFoObject(nextObj, importedObjects[nextObj->Reference()], importedObjects);
+				const PoDoFo::PdfReference& pdfRef = referencedObjects[i];
+				nextObj = allObjects->GetObject(pdfRef);
+				copyPoDoFoObject(nextObj, importedObjects[pdfRef], importedObjects);
 			}
 
 			pageData.ImgObjects[ResNam + "I" + Pdf::toPdf(ResCount)] = xObj;
 			imgInfo.ResNum = ResCount;
 			ResCount++;
 			// Avoid a divide-by-zero if width/height are less than 1 point:
-			imgInfo.Width  = qMax(1, (int) imgWidth);
+			imgInfo.Width = qMax(1, (int) imgWidth);
 			imgInfo.Height = qMax(1, (int) imgHeight);
-			imgInfo.xa  = sx * imgWidth / imgInfo.Width;
-			imgInfo.ya  = sy * imgHeight / imgInfo.Height;
+			imgInfo.xa = sx * imgWidth / imgInfo.Width;
+			imgInfo.ya = sy * imgHeight / imgInfo.Height;
 			// Width/Height are integers and may not exactly equal pageRect.GetWidth()/
 			// pageRect.GetHeight(). Adjust scale factor to compensate for the difference.
 			imgInfo.sxa = sx * imgWidth / imgInfo.Width;
@@ -10092,24 +10223,203 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 
 			return true;
 		}
+		if (contents && contents->GetDataType() == PoDoFo::ePdfDataType_Array)//Page contents might be an array
+		{
+			QMap<PoDoFo::PdfReference, PdfId> importedObjects;
+			QList<PoDoFo::PdfReference> referencedObjects;
+			PoDoFo::PdfObject* nextObj;
+			PdfId xObj = writer.newObject();
+			PdfId xResources = writer.newObject();
+			PdfId xParents = 0;
+			importedObjects[page->GetObject()->Reference()] = xObj;
+			writer.startObj(xObj);
+			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
+			PoDoFo::PdfRect pageRect = page->GetArtBox(); // Because scimagedataloader_pdf use ArtBox
+			int rotation = page->GetRotation();
+			double imgWidth = (rotation == 90 || rotation == 270) ? pageRect.GetHeight() : pageRect.GetWidth();
+			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.GetWidth() : pageRect.GetHeight();
+			QTransform pageM;
+			pageM.translate(pageRect.GetLeft(), pageRect.GetBottom());
+			pageM.rotate(rotation);
+			if (rotation == 90)
+				pageM.translate(0.0, -imgHeight);
+			else if (rotation == 180)
+				pageM.translate(-imgWidth, -imgHeight);
+			else if (rotation == 270)
+				pageM.translate(-imgWidth, 0.0);
+			pageM.scale(imgWidth, imgHeight);
+			pageM = pageM.inverted();
+			PutDoc("\n/BBox [" + Pdf::toPdf(pageRect.GetLeft()));
+			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom()));
+			PutDoc(" " + Pdf::toPdf(pageRect.GetLeft() + pageRect.GetWidth()));
+			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom() + pageRect.GetHeight()));
+			PutDoc("]");
+			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
+				+ Pdf::toPdf(pageM.m12()) + " "
+				+ Pdf::toPdf(pageM.m21()) + " "
+				+ Pdf::toPdf(pageM.m22()) + " "
+				+ Pdf::toPdf(pageM.dx()) + " "
+				+ Pdf::toPdf(pageM.dy()) + " ");
+			PutDoc("]");
+			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
+			PoDoFo::PdfDictionary* pageDict = pageObj->IsDictionary() ? &(pageObj->GetDictionary()) : nullptr;
+			nextObj = pageDict ? pageDict->FindKey("Group") : nullptr;
+			if (nextObj)
+			{
+				PutDoc("\n/Group "); // PDF 1.4
+				copyPoDoFoDirect(nextObj, referencedObjects, importedObjects);
+			}
 
+			// copied from podofoimpose
+			char* mbuffer = nullptr;
+			long mlen = 0;
+			PoDoFo::PdfMemoryOutputStream outMemStream(1);
+			PoDoFo::PdfArray carray(page->GetContents()->GetArray());
+			for (unsigned int ci = 0; ci < carray.size(); ++ci)
+			{
+				if (carray[ci].HasStream())
+				{
+					carray[ci].GetStream()->GetFilteredCopy(&outMemStream);
+				}
+				else if (carray[ci].IsReference())
+				{
+					nextObj = doc->GetObjects().GetObject(carray[ci].GetReference());
+
+					while (nextObj != nullptr)
+					{
+						if (nextObj->IsReference())
+						{
+							nextObj = doc->GetObjects().GetObject(nextObj->GetReference());
+						}
+						else if (nextObj->HasStream())
+						{
+							nextObj->GetStream()->GetFilteredCopy(&outMemStream);
+							break;
+						}
+					}
+				}
+			}
+			// end of copy
+			mlen = outMemStream.GetLength();
+			mbuffer = outMemStream.TakeBuffer();
+			PutDoc("\n/Length " + Pdf::toPdf(static_cast<qlonglong>(mlen)));
+			PutDoc("\n>>\nstream\n");
+			{
+				QByteArray buffer = QByteArray::fromRawData(mbuffer, mlen);
+				EncodeArrayToStream(buffer, xObj);
+			}  // disconnect QByteArray from raw data
+			free(mbuffer);
+			PutDoc("\nendstream");
+			writer.endObj(xObj);
+			// write resources
+			if (resources)
+			{
+				copyPoDoFoObject(resources, xResources, importedObjects);
+			}
+			else
+			{
+				writer.startObj(xResources);
+				PutDoc("<< >>");
+				writer.endObj(xResources);
+			}
+			if (xParents)
+			{
+				// create structured parents
+			}
+			// write referenced objects
+			PoDoFo::PdfVecObjects* allObjects = contents->GetOwner();
+			for (int i = 0; i < referencedObjects.size(); ++i)
+			{
+				const PoDoFo::PdfReference& pdfRef = referencedObjects[i];
+				nextObj = allObjects->GetObject(pdfRef);
+				copyPoDoFoObject(nextObj, importedObjects[pdfRef], importedObjects);
+			}
+
+			pageData.ImgObjects[ResNam + "I" + Pdf::toPdf(ResCount)] = xObj;
+			imgInfo.ResNum = ResCount;
+			ResCount++;
+			// Avoid a divide-by-zero if width/height are less than 1 point:
+			imgInfo.Width = qMax(1, (int) imgWidth);
+			imgInfo.Height = qMax(1, (int) imgHeight);
+			imgInfo.xa = sx * imgWidth / imgInfo.Width;
+			imgInfo.ya = sy * imgHeight / imgInfo.Height;
+			// Width/Height are integers and may not exactly equal pageRect.GetWidth()/
+			// pageRect.GetHeight(). Adjust scale factor to compensate for the difference.
+			imgInfo.sxa = sx * imgWidth / imgInfo.Width;
+			imgInfo.sya = sy * imgHeight / imgInfo.Height;
+
+			return true;
+		}
 	}
-	catch(PoDoFo::PdfError& e)
+	catch (PoDoFo::PdfError& e)
 	{
 		fatalError = true;
 		qDebug() << "PoDoFo error!";
 		e.PrintErrorMsg();
 		return false;
 	}
-#endif
+#endif // PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0)
+
+#endif // HAVE_PODOFO
 	return false;
 }
 
 
 #if HAVE_PODOFO
 
-void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::PdfReference>& referencedObjects, QMap<PoDoFo::PdfReference, PdfId>& importedObjects)
+void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfObject* obj, QList<PoDoFo::PdfReference>& referencedObjects, QMap<PoDoFo::PdfReference, PdfId>& importedObjects)
 {
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
+	switch (obj->GetDataType())
+	{
+	case PoDoFo::PdfDataType::Reference:
+	{
+		const PoDoFo::PdfReference& reference(obj->GetReference());
+		PdfId objNr;
+		if (!importedObjects.contains(reference))
+		{
+			objNr = writer.newObject();
+			importedObjects[reference] = objNr;
+			referencedObjects.append(reference);
+		}
+		else
+		{
+			objNr = importedObjects[reference];
+		}
+		PutDoc(" " + Pdf::toPdf(objNr) + " 0 R");
+		break;
+	}
+	case PoDoFo::PdfDataType::Array:
+	{
+		const PoDoFo::PdfArray& array(obj->GetArray());
+		PutDoc("[");
+		for (uint i = 0; i < array.size(); ++i)
+			copyPoDoFoDirect(&(array[i]), referencedObjects, importedObjects);
+		PutDoc("]");
+		break;
+	}
+	case PoDoFo::PdfDataType::Dictionary:
+	{
+		const PoDoFo::PdfDictionary& dict(obj->GetDictionary());
+		PutDoc("<<");
+		for (auto k = dict.begin(); k != dict.end(); ++k)
+		{
+			std::string str("\n/" + k->first.GetEscapedName());
+			PutDoc(QByteArray::fromRawData(str.data(), str.size()));
+			copyPoDoFoDirect(&k->second, referencedObjects, importedObjects);
+		}
+		PutDoc(" >>");
+		break;
+	}
+	default:
+	{
+		std::string str;
+		obj->GetVariant().ToString(str);
+		str = " " + str;
+		PutDoc(QByteArray::fromRawData(str.data(), str.size()));
+	}
+	}
+#else
 	switch (obj->GetDataType())
 	{
 		case PoDoFo::ePdfDataType_Reference:
@@ -10160,11 +10470,41 @@ void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::P
 			PutDoc(QByteArray::fromRawData(str.data(), str.size()));
 		}
 	}
-
+#endif
 }
 
 void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, PdfId scObjID, QMap<PoDoFo::PdfReference, PdfId>& importedObjects)
 {
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
+	const PoDoFo::PdfIndirectObjectList& allObjects = obj->GetDocument()->GetObjects();
+	QList<PoDoFo::PdfReference> referencedObjects;
+	writer.startObj(scObjID);
+	copyPoDoFoDirect(obj, referencedObjects, importedObjects);
+	if (obj->HasStream())
+	{
+		const PoDoFo::PdfObjectStream* stream = obj->GetStream();
+		PoDoFo::charbuff strBuff = stream->GetCopy(true);
+		const char* mbuffer = strBuff.c_str();
+		size_t mlen = strBuff.size();
+		if (mbuffer[mlen - 1] == '\n')
+			--mlen;
+		PutDoc("\nstream\n");
+		{
+			QByteArray buffer = QByteArray::fromRawData(mbuffer, mlen);
+			EncodeArrayToStream(buffer, scObjID);
+		}
+		PutDoc("\nendstream");
+	}
+	PutDoc("");
+	writer.endObj(scObjID);
+	// recurse:
+	for (int i = 0; i < referencedObjects.size(); ++i)
+	{
+		const PoDoFo::PdfReference& pdfRef = referencedObjects[i];
+		const PoDoFo::PdfObject* nextObj = allObjects.GetObject(pdfRef);
+		copyPoDoFoObject(nextObj, importedObjects[pdfRef], importedObjects);
+	}
+#else
 	PoDoFo::PdfVecObjects* allObjects = obj->GetOwner();
 	QList<PoDoFo::PdfReference> referencedObjects;
 	writer.startObj(scObjID);
@@ -10172,7 +10512,7 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, PdfId scObjID, Q
 	if (obj->HasStream())
 	{
 		const PoDoFo::PdfStream* stream = obj->GetStream();
-		char * mbuffer = nullptr;
+		char* mbuffer = nullptr;
 		long mlen = 0;
 
 		// seems more complicated at first, but in fact it makes the code more stable wrt podofo changes
@@ -10181,14 +10521,14 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, PdfId scObjID, Q
 		oStream.Close();
 		mlen = oStream.GetLength();
 		mbuffer = oStream.TakeBuffer();
-		if (mbuffer[mlen-1] == '\n')
+		if (mbuffer[mlen - 1] == '\n')
 			--mlen;
 		PutDoc("\nstream\n");
 		{
 			QByteArray buffer = QByteArray::fromRawData(mbuffer, mlen);
 			EncodeArrayToStream(buffer, scObjID);
 		}  // disconnect QByteArray from raw data
-		free (mbuffer);
+		free(mbuffer);
 		PutDoc("\nendstream");
 	}
 	PutDoc("");
@@ -10196,9 +10536,11 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, PdfId scObjID, Q
 	// recurse:
 	for (int i = 0; i < referencedObjects.size(); ++i)
 	{
-		const PoDoFo::PdfObject* nextObj = allObjects->GetObject(referencedObjects[i]);
-		copyPoDoFoObject(nextObj, importedObjects[nextObj->Reference()], importedObjects);
+		const PoDoFo::PdfReference& pdfRef = referencedObjects[i];
+		const PoDoFo::PdfObject* nextObj = allObjects->GetObject(pdfRef);
+		copyPoDoFoObject(nextObj, importedObjects[pdfRef], importedObjects);
 	}
+#endif
 }
 #endif
 

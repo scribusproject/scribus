@@ -55,10 +55,16 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bo
 #ifdef HAVE_PODOFO
 	try
 	{
-		PoDoFo::PdfError::EnableDebug( false );
-		PoDoFo::PdfError::EnableLogging( false );
-		PoDoFo::PdfMemDocument doc( fn.toLocal8Bit().data() );
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
+		PoDoFo::PdfMemDocument doc;
+		doc.Load(fn.toLocal8Bit().data());
+		m_imageInfoRecord.numberOfPages = doc.GetPages().GetCount();
+#else
+		PoDoFo::PdfError::EnableDebug(false);
+		PoDoFo::PdfError::EnableLogging(false);
+		PoDoFo::PdfMemDocument doc(fn.toLocal8Bit().data());
 		m_imageInfoRecord.numberOfPages = doc.GetPageCount();
+#endif
 		if (page > m_imageInfoRecord.numberOfPages)
 		{
 			qDebug() << "Incorrect page number specified!";

@@ -574,13 +574,24 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 	}
 	try
 	{
+#if (PODOFO_VERSION < PODOFO_MAKE_VERSION(0, 10, 0))
 		PoDoFo::PdfError::EnableDebug( false );
 		PoDoFo::PdfError::EnableLogging( false );
-		PoDoFo::PdfMemDocument doc( infile.toLocal8Bit().data() );
+#endif
+		PoDoFo::PdfMemDocument doc;
+		doc.Load(infile.toLocal8Bit().data());
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
+		PoDoFo::PdfPage* curPage = &(doc.GetPages().GetPageAt(0));
+#else
 		PoDoFo::PdfPage *curPage = doc.GetPage(0);
+#endif
 		if (curPage != nullptr)
 		{
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
+			PoDoFo::PdfObject* pageObj = &(curPage->GetObject());
+#else
 			PoDoFo::PdfObject* pageObj = curPage->GetObject();
+#endif
 			PoDoFo::PdfDictionary* pageDict = (pageObj && pageObj->IsDictionary()) ? &(pageObj->GetDictionary()) : nullptr;
 			PoDoFo::PdfObject *piece = pageDict ? pageDict->FindKey("PieceInfo") : nullptr;
 			if (piece != nullptr)
@@ -611,6 +622,33 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 					}
 					if (data != nullptr)
 					{
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
+						if (num == 2)
+						{
+							Key = name.arg(1);
+							data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
+							PoDoFo::PdfObjectStream const* stream = data->GetStream();
+							PoDoFo::charbuff strBuffer = stream->GetCopy(false);
+							qint64 bLen = strBuffer.size();
+							const char* Buffer = strBuffer.c_str();
+							outf.write(Buffer, bLen);
+						}
+						else
+						{
+							for (int a = 2; a < num; a++)
+							{
+								Key = name.arg(a);
+								data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
+								if (data == nullptr)
+									break;
+								PoDoFo::PdfObjectStream const* stream = data->GetStream();
+								PoDoFo::charbuff strBuffer = stream->GetCopy(false);
+								qint64 bLen = strBuffer.size();
+								const char* Buffer = strBuffer.c_str();
+								outf.write(Buffer, bLen);
+							}
+						}
+#else
 						if (num == 2)
 						{
 							Key = name.arg(1);
@@ -642,6 +680,7 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 								free( Buffer );
 							}
 						}
+#endif
 					}
 					ret = true;
 				}
@@ -1477,7 +1516,7 @@ void AIPlug::processData(const QString& data)
 				b->setYPos(yp + yoffset);
 				m_Doc->setRotationMode(AnchorPoint::BottomLeft);
 				m_Doc->rotateItem(rotation * 180 / M_PI, b);
-						m_Doc->setRotationMode(AnchorPoint::TopLeft);
+				m_Doc->setRotationMode(AnchorPoint::TopLeft);
 //				b->setRotation(rotation * 180 / M_PI);
 				b->setTextFlowMode(PageItem::TextFlowDisabled);
 				b->setFillTransparency(1.0 - Opacity);

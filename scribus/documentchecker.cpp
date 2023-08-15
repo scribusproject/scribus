@@ -107,7 +107,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc, const QString& checkerP
 void DocumentChecker::checkPages(ScribusDoc *currDoc, const CheckerPrefs& checkerSettings)
 {
 	errorCodes pageError;
-	for (int i=0; i < currDoc->DocPages.count(); ++i )
+	for (int i = 0; i < currDoc->DocPages.count(); ++i)
 	{
 		pageError.clear();
 		if (checkerSettings.checkAppliedMasterDifferentSide)
@@ -125,11 +125,11 @@ void DocumentChecker::checkPages(ScribusDoc *currDoc, const CheckerPrefs& checke
 			}
 			else
 			{
-				if (pageLoc==LeftPage && masterPageLocation==1)
+				if (pageLoc == LeftPage && masterPageLocation == 1)
 					error = false;
-				else if (pageLoc==RightPage && masterPageLocation==0)
+				else if (pageLoc == RightPage && masterPageLocation == 0)
 					error = false;
-				else if (pageLoc==MiddlePage && masterPageLocation==2)
+				else if (pageLoc == MiddlePage && masterPageLocation == 2)
 					error = false;
 				else
 					error = true;
@@ -594,7 +594,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 								}
 								if (checkerSettings.checkNotCMYKOrSpot)
 								{
-									for (int i=0; i<usedColorSpaces.size(); ++i)
+									for (int i = 0; i < usedColorSpaces.size(); ++i)
 									{
 										if (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_ICCBased || usedColorSpaces[i] == CS_CalGray
 											|| usedColorSpaces[i] == CS_CalRGB || usedColorSpaces[i] == CS_Lab)
@@ -606,7 +606,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 								}
 								if (checkerSettings.checkDeviceColorsAndOutputIntent && currDoc->HasCMS)
 								{
-									for (int i=0; i<usedColorSpaces.size(); ++i)
+									for (int i = 0; i < usedColorSpaces.size(); ++i)
 									{
 										if (currPrintProfCS == ColorSpace_Cmyk && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
 										{
@@ -625,7 +625,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 								itemError.insert(Transparency, 0);
 							if (checkerSettings.checkFontNotEmbedded || checkerSettings.checkFontIsOpenType)
 							{
-								for (int i=0; i<usedFonts.size(); ++i)
+								for (int i = 0; i < usedFonts.size(); ++i)
 								{
 									PDFFont currentFont = usedFonts[i];
 									if (!currentFont.isEmbedded && checkerSettings.checkFontNotEmbedded)
@@ -636,7 +636,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 							}
 							if (checkerSettings.checkResolution)
 							{
-								for (int i=0; i<imgs.size(); ++i)
+								for (int i = 0; i < imgs.size(); ++i)
 								{
 									if ((imgs[i].dpiX < checkerSettings.minResolution) || (imgs[i].dpiY < checkerSettings.minResolution))
 										itemError.insert(ImageDPITooLow, 0);
@@ -653,7 +653,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 				if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == Annotation::Combobox) || (currItem->annotation().Type() == Annotation::Listbox)))))
 					itemError.insert(TextOverflow, 0);
 
-				if (checkerSettings.checkEmptyTextFrames && (currItem->itemText.length()==0 || currItem->frameUnderflows()))
+				if (checkerSettings.checkEmptyTextFrames && (currItem->itemText.length() == 0 || currItem->frameUnderflows()))
 				{
 					bool isEmptyAnnotation = (currItem->isAnnotation() && 
 					                         ((currItem->annotation().Type() == Annotation::Link) ||
