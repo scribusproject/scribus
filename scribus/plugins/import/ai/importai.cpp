@@ -581,13 +581,24 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 	}
 	try
 	{
+#if (PODOFO_VERSION < PODOFO_MAKE_VERSION(0, 10, 0))
 		PoDoFo::PdfError::EnableDebug( false );
 		PoDoFo::PdfError::EnableLogging( false );
-		PoDoFo::PdfMemDocument doc( infile.toLocal8Bit().data() );
+#endif
+		PoDoFo::PdfMemDocument doc;
+		doc.Load(infile.toLocal8Bit().data());
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
+		PoDoFo::PdfPage* curPage = &(doc.GetPages().GetPageAt(0));
+#else
 		PoDoFo::PdfPage *curPage = doc.GetPage(0);
+#endif
 		if (curPage != nullptr)
 		{
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
+			PoDoFo::PdfObject* pageObj = &(curPage->GetObject());
+#else
 			PoDoFo::PdfObject* pageObj = curPage->GetObject();
+#endif
 			PoDoFo::PdfDictionary* pageDict = (pageObj && pageObj->IsDictionary()) ? &(pageObj->GetDictionary()) : nullptr;
 			PoDoFo::PdfObject *piece = pageDict ? pageDict->FindKey("PieceInfo") : nullptr;
 			if (piece != nullptr)
@@ -618,6 +629,33 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 					}
 					if (data != nullptr)
 					{
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
+						if (num == 2)
+						{
+							Key = name.arg(1);
+							data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
+							PoDoFo::PdfObjectStream const* stream = data->GetStream();
+							PoDoFo::charbuff strBuffer = stream->GetCopy(false);
+							qint64 bLen = strBuffer.size();
+							const char* Buffer = strBuffer.c_str();
+							outf.write(Buffer, bLen);
+						}
+						else
+						{
+							for (int a = 2; a < num; a++)
+							{
+								Key = name.arg(a);
+								data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
+								if (data == nullptr)
+									break;
+								PoDoFo::PdfObjectStream const* stream = data->GetStream();
+								PoDoFo::charbuff strBuffer = stream->GetCopy(false);
+								qint64 bLen = strBuffer.size();
+								const char* Buffer = strBuffer.c_str();
+								outf.write(Buffer, bLen);
+							}
+						}
+#else
 						if (num == 2)
 						{
 							Key = name.arg(1);
@@ -649,6 +687,7 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 								free( Buffer );
 							}
 						}
+#endif
 					}
 					ret = true;
 				}
@@ -808,15 +847,15 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 				else
 				{
 					if (tmp.startsWith("%%CMYKCustomColor"))
-						tmp = tmp.remove(0,18);
+						tmp.remove(0,18);
 					else if (tmp.startsWith("%%CMYKProcessColor"))
-						tmp = tmp.remove(0,19);
+						tmp.remove(0,19);
 					ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> yc >> k;
 					FarNam = ts2.readAll();
 					FarNam = FarNam.trimmed();
-					FarNam = FarNam.remove(0,1);
-					FarNam = FarNam.remove(FarNam.length()-1,1);
+					FarNam.remove(0,1);
+					FarNam.remove(FarNam.length()-1,1);
 					FarNam = FarNam.simplified();
 					QByteArray farN;
 					for (int a = 0; a < FarNam.length(); a++)
@@ -841,13 +880,13 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 							ts.device()->seek(oldPos);
 							break;
 						}
-						tmp = tmp.remove(0,3);
+						tmp.remove(0,3);
 						ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> c >> m >> yc >> k;
 						FarNam = ts2.readAll();
 						FarNam = FarNam.trimmed();
-						FarNam = FarNam.remove(0,1);
-						FarNam = FarNam.remove(FarNam.length()-1,1);
+						FarNam.remove(0,1);
+						FarNam.remove(FarNam.length()-1,1);
 						FarNam = FarNam.simplified();
 						QByteArray farN;
 						for (int a = 0; a < FarNam.length(); a++)
@@ -873,15 +912,15 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 				else
 				{
 					if (tmp.startsWith("%%RGBCustomColor"))
-						tmp = tmp.remove(0,17);
+						tmp.remove(0,17);
 					else if (tmp.startsWith("%%RGBProcessColor"))
-						tmp = tmp.remove(0,18);
+						tmp.remove(0,18);
 					ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> yc;
 					FarNam = ts2.readAll();
 					FarNam = FarNam.trimmed();
-					FarNam = FarNam.remove(0,1);
-					FarNam = FarNam.remove(FarNam.length()-1,1);
+					FarNam.remove(0,1);
+					FarNam.remove(FarNam.length()-1,1);
 					FarNam = FarNam.simplified();
 					QByteArray farN;
 					for (int a = 0; a < FarNam.length(); a++)
@@ -905,13 +944,13 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 							ts.device()->seek(oldPos);
 							break;
 						}
-						tmp = tmp.remove(0,3);
+						tmp.remove(0,3);
 						ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> c >> m >> yc;
 						FarNam = ts2.readAll();
 						FarNam = FarNam.trimmed();
-						FarNam = FarNam.remove(0,1);
-						FarNam = FarNam.remove(FarNam.length()-1,1);
+						FarNam.remove(0,1);
+						FarNam.remove(FarNam.length()-1,1);
 						FarNam = FarNam.simplified();
 						QByteArray farN;
 						for (int a = 0; a < FarNam.length(); a++)
@@ -963,7 +1002,7 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 							if (!isX)
 							{
 								tmp = tmp.trimmed();
-								tmp = tmp.remove(0,1);
+								tmp.remove(0,1);
 								int en = tmp.indexOf(")");
 								FarNam = tmp.mid(0, en);
 								FarNam = FarNam.simplified();

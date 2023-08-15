@@ -89,7 +89,7 @@ private:
 		double origXsc = 1.0;
 		double origYsc = 1.0;
 		bool isBitmapFromGS = false;
-		bool isEmbeddedPDF  = false;
+		bool isEmbeddedPDF = false;
 		bool useEmbeddedProfile = true;
 		QString inputProfile;
 		eRenderIntent renderingIntent { Intent_Perceptual };
@@ -267,7 +267,7 @@ private:
 	bool    PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, ShIm& imgInfo, bool &fatalError);
 #if HAVE_PODOFO
 	void copyPoDoFoObject(const PoDoFo::PdfObject* obj, PdfId scObjID, QMap<PoDoFo::PdfReference, uint>& importedObjects);
-	void copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::PdfReference>& referencedObjects, QMap<PoDoFo::PdfReference, uint>& importedObjects);
+	void copyPoDoFoDirect(const PoDoFo::PdfObject* obj, QList<PoDoFo::PdfReference>& referencedObjects, QMap<PoDoFo::PdfReference, uint>& importedObjects);
 #endif
 
 	quint32 encode32dVal(double val) const;
