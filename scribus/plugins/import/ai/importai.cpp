@@ -579,87 +579,115 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 		qDebug() << "Failed to open QFile outf in AIPlug::extractFromPDF";
 		return false;
 	}
+
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
 	try
 	{
-#if (PODOFO_VERSION < PODOFO_MAKE_VERSION(0, 10, 0))
-		PoDoFo::PdfError::EnableDebug( false );
-		PoDoFo::PdfError::EnableLogging( false );
-#endif
 		PoDoFo::PdfMemDocument doc;
 		doc.Load(infile.toLocal8Bit().data());
-#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
-		PoDoFo::PdfPage* curPage = &(doc.GetPages().GetPageAt(0));
-#else
-		PoDoFo::PdfPage *curPage = doc.GetPage(0);
-#endif
-		if (curPage != nullptr)
+
+		PoDoFo::PdfPage& curPage = doc.GetPages().GetPageAt(0);
+		PoDoFo::PdfObject& pageObj = curPage.GetObject();
+		PoDoFo::PdfDictionary* pageDict = pageObj.IsDictionary() ? &(pageObj.GetDictionary()) : nullptr;
+		PoDoFo::PdfObject* piece = pageDict ? pageDict->FindKey("PieceInfo") : nullptr;
+		if (piece != nullptr)
 		{
-#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
-			PoDoFo::PdfObject* pageObj = &(curPage->GetObject());
-#else
-			PoDoFo::PdfObject* pageObj = curPage->GetObject();
-#endif
-			PoDoFo::PdfDictionary* pageDict = (pageObj && pageObj->IsDictionary()) ? &(pageObj->GetDictionary()) : nullptr;
-			PoDoFo::PdfObject *piece = pageDict ? pageDict->FindKey("PieceInfo") : nullptr;
-			if (piece != nullptr)
+			PoDoFo::PdfDictionary* pieceDict = piece->IsDictionary() ? &(piece->GetDictionary()) : nullptr;
+			PoDoFo::PdfObject* illy = pieceDict ? pieceDict->FindKey("Illustrator") : nullptr;
+			if (illy != nullptr)
 			{
-				PoDoFo::PdfDictionary* pieceDict = piece->IsDictionary() ? &(piece->GetDictionary()) : nullptr;
-				PoDoFo::PdfObject *illy = pieceDict ? pieceDict->FindKey("Illustrator") : nullptr;
-				if (illy != nullptr)
+				PoDoFo::PdfDictionary* illyDict = illy->IsDictionary() ? &(illy->GetDictionary()) : nullptr;
+				PoDoFo::PdfObject* priv = illyDict ? illyDict->FindKey("Private") : nullptr;
+				if (priv == nullptr)
+					priv = illy;
+				int num = 0;
+				PoDoFo::PdfDictionary* privDict = priv->IsDictionary() ? &(priv->GetDictionary()) : nullptr;
+				PoDoFo::PdfObject* numBl = privDict ? privDict->FindKey("NumBlock") : nullptr;
+				if (numBl != nullptr)
+					num = numBl->GetNumber() + 1;
+				if (num == 0)
+					num = 99999;
+				QString name = "AIPrivateData%1";
+				QString Key = name.arg(1);
+				PoDoFo::PdfObject* data = privDict ? privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data())) : nullptr;
+				if (data == nullptr)
 				{
-					PoDoFo::PdfDictionary* illyDict = illy->IsDictionary() ? &(illy->GetDictionary()) : nullptr;
-					PoDoFo::PdfObject *priv = illyDict ? illyDict->FindKey("Private") : nullptr;
-					if (priv == nullptr)
-						priv = illy;
-					int num = 0;
-					PoDoFo::PdfDictionary* privDict = priv->IsDictionary() ? &(priv->GetDictionary()) : nullptr;
-					PoDoFo::PdfObject *numBl = privDict ? privDict->FindKey("NumBlock") : nullptr;
-					if (numBl != nullptr)
-						num = numBl->GetNumber() + 1;
-					if (num == 0)
-						num = 99999;
-					QString name = "AIPrivateData%1";
-					QString Key = name.arg(1);
-					PoDoFo::PdfObject *data = privDict ? privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data())) : nullptr;
-					if (data == nullptr)
+					name = "AIPDFPrivateData%1";
+					Key = name.arg(1);
+					data = privDict ? privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data())) : nullptr;
+				}
+				if (data != nullptr)
+				{
+					if (num == 2)
 					{
-						name = "AIPDFPrivateData%1";
 						Key = name.arg(1);
-						data = privDict ? privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data())) : nullptr;
+						data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
+						PoDoFo::PdfObjectStream const* stream = data->GetStream();
+						PoDoFo::charbuff strBuffer = stream->GetCopy(false);
+						qint64 bLen = strBuffer.size();
+						const char* Buffer = strBuffer.c_str();
+						outf.write(Buffer, bLen);
 					}
-					if (data != nullptr)
+					else
 					{
-#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
-						if (num == 2)
+						for (int a = 2; a < num; a++)
 						{
-							Key = name.arg(1);
+							Key = name.arg(a);
 							data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
+							if (data == nullptr)
+								break;
 							PoDoFo::PdfObjectStream const* stream = data->GetStream();
 							PoDoFo::charbuff strBuffer = stream->GetCopy(false);
 							qint64 bLen = strBuffer.size();
 							const char* Buffer = strBuffer.c_str();
 							outf.write(Buffer, bLen);
 						}
-						else
-						{
-							for (int a = 2; a < num; a++)
-							{
-								Key = name.arg(a);
-								data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
-								if (data == nullptr)
-									break;
-								PoDoFo::PdfObjectStream const* stream = data->GetStream();
-								PoDoFo::charbuff strBuffer = stream->GetCopy(false);
-								qint64 bLen = strBuffer.size();
-								const char* Buffer = strBuffer.c_str();
-								outf.write(Buffer, bLen);
-							}
-						}
+					}
+				}
+				ret = true;
+			}
+		}
+		outf.close();
+	}
 #else
+	try
+	{
+		PoDoFo::PdfError::EnableDebug( false );
+		PoDoFo::PdfError::EnableLogging( false );
+		PoDoFo::PdfMemDocument doc( infile.toLocal8Bit().data() );
+		PoDoFo::PdfPage *curPage = doc.GetPage(0);
+		if (curPage != nullptr)
+		{
+			PoDoFo::PdfObject *piece = curPage->GetObject()->GetIndirectKey("PieceInfo");
+			if (piece != nullptr)
+			{
+				PoDoFo::PdfObject *illy = piece->GetIndirectKey("Illustrator");
+				if (illy != nullptr)
+				{
+					PoDoFo::PdfObject *priv = illy->GetIndirectKey("Private");
+					if (priv == nullptr)
+						priv = illy;
+					int num = 0;
+					PoDoFo::PdfObject *numBl = priv->GetIndirectKey("NumBlock");
+					if (numBl != nullptr)
+						num = numBl->GetNumber() + 1;
+					if (num == 0)
+						num = 99999;
+					QString name = "AIPrivateData%1";
+					QString Key = name.arg(1);
+					PoDoFo::PdfObject *data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
+					if (data == nullptr)
+					{
+						name = "AIPDFPrivateData%1";
+						Key = name.arg(1);
+						data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
+					}
+					if (data != nullptr)
+					{
 						if (num == 2)
 						{
 							Key = name.arg(1);
-							data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
+							data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
 							PoDoFo::PdfStream const *stream = data->GetStream();
 							PoDoFo::PdfMemoryOutputStream oStream(1);
 							stream->GetFilteredCopy(&oStream);
@@ -674,7 +702,7 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 							for (int a = 2; a < num; a++)
 							{
 								Key = name.arg(a);
-								data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
+								data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
 								if (data == nullptr)
 									break;
 								PoDoFo::PdfStream const *stream = data->GetStream();
@@ -687,7 +715,6 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 								free( Buffer );
 							}
 						}
-#endif
 					}
 					ret = true;
 				}
@@ -695,6 +722,7 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 		}
 		outf.close();
 	}
+#endif // (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
 	catch (PoDoFo::PdfError& e)
 	{
 		outf.close();
@@ -704,7 +732,7 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 		QFile::remove(outfile);
 		return false;
 	}
-#endif
+#endif // HAVE_PODOFO
 	return ret;
 }
 
