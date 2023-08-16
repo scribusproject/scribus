@@ -9839,7 +9839,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
 			PoDoFo::Rect pageRect = page.GetArtBox(); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page.GetRotationRaw();
-			double imgWidth = (rotation == 90 || rotation == 270) ? pageRect.Height : pageRect.Width;
+			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.Height : pageRect.Width;
 			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.Width : pageRect.Height;
 			QTransform pageM;
 			pageM.translate(pageRect.GetLeft(), pageRect.GetBottom());
@@ -9858,11 +9858,11 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom() + pageRect.Height));
 			PutDoc("]");
 			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
-				+ Pdf::toPdf(pageM.m12()) + " "
-				+ Pdf::toPdf(pageM.m21()) + " "
-				+ Pdf::toPdf(pageM.m22()) + " "
-				+ Pdf::toPdf(pageM.dx()) + " "
-				+ Pdf::toPdf(pageM.dy()) + " ");
+								 + Pdf::toPdf(pageM.m12()) + " "
+								 + Pdf::toPdf(pageM.m21()) + " "
+								 + Pdf::toPdf(pageM.m22()) + " "
+								 + Pdf::toPdf(pageM.dx()) + " "
+								 + Pdf::toPdf(pageM.dy()) + " ");
 			PutDoc("]");
 			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
 			PoDoFo::PdfDictionary* pageDict = pageObj.IsDictionary() ? &(pageObj.GetDictionary()) : nullptr;
@@ -9960,7 +9960,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
 			PoDoFo::Rect pageRect = page.GetArtBox(); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page.GetRotationRaw();
-			double imgWidth = (rotation == 90 || rotation == 270) ? pageRect.Height : pageRect.Width;
+			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.Height : pageRect.Width;
 			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.Width : pageRect.Height;
 			QTransform pageM;
 			pageM.translate(pageRect.GetLeft(), pageRect.GetBottom());
@@ -9979,11 +9979,11 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom() + pageRect.Height));
 			PutDoc("]");
 			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
-				+ Pdf::toPdf(pageM.m12()) + " "
-				+ Pdf::toPdf(pageM.m21()) + " "
-				+ Pdf::toPdf(pageM.m22()) + " "
-				+ Pdf::toPdf(pageM.dx()) + " "
-				+ Pdf::toPdf(pageM.dy()) + " ");
+								 + Pdf::toPdf(pageM.m12()) + " "
+								 + Pdf::toPdf(pageM.m21()) + " "
+								 + Pdf::toPdf(pageM.m22()) + " "
+								 + Pdf::toPdf(pageM.dx()) + " "
+								 + Pdf::toPdf(pageM.dy()) + " ");
 			PutDoc("]");
 			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
 			PoDoFo::PdfDictionary* pageDict = pageObj.IsDictionary() ? &(pageObj.GetDictionary()) : nullptr;
@@ -10085,20 +10085,16 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 #else
 	try
 	{
-		PoDoFo::PdfPage* page = doc->GetPage(qMin(qMax(1, c->pixm.imgInfo.actualPageNumber), c->pixm.imgInfo.numberOfPages) - 1);
-		PoDoFo::PdfObject* pageObj = page ? page->GetObject() : nullptr;
-		PoDoFo::PdfObject* contents = page ? page->GetContents() : nullptr;
+		PoDoFo::PdfPage*   page      = doc->GetPage(qMin(qMax(1, c->pixm.imgInfo.actualPageNumber), c->pixm.imgInfo.numberOfPages) - 1);
+		PoDoFo::PdfObject* pageObj   = page ? page->GetObject() : nullptr;
+		PoDoFo::PdfObject* contents  = page ? page->GetContents() : nullptr;
 		PoDoFo::PdfObject* resources = page ? page->GetResources() : nullptr;
-		PoDoFo::PdfDictionary* pageObjDict = (pageObj && pageObj->IsDictionary()) ? &(pageObj->GetDictionary()) : nullptr;
-		for (PoDoFo::PdfDictionary* par = pageObjDict, *parentDict = nullptr; par && !resources; par = parentDict)
+		for (PoDoFo::PdfObject* par = pageObj; par && !resources; par = par->GetIndirectKey("Parent"))
 		{
-			resources = par->FindKey("Resources");
-			PoDoFo::PdfObject* parentObj = par->FindKey("Parent");
-			parentDict = (parentObj && parentObj->IsDictionary()) ? &(parentObj->GetDictionary()) : nullptr;
+			resources = par->GetIndirectKey("Resources");
 		}
-		if (contents && contents->GetDataType() == PoDoFo::ePdfDataType_Dictionary)
+		if (contents && contents->GetDataType() ==  PoDoFo::ePdfDataType_Dictionary)
 		{
-			PoDoFo::PdfDictionary& contentsDict = contents->GetDictionary();
 			PoDoFo::PdfStream* stream = contents->GetStream();
 			QMap<PoDoFo::PdfReference, PdfId> importedObjects;
 			QList<PoDoFo::PdfReference> referencedObjects;
@@ -10111,7 +10107,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
 			PoDoFo::PdfRect pageRect = page->GetArtBox(); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page->GetRotation();
-			double imgWidth = (rotation == 90 || rotation == 270) ? pageRect.GetHeight() : pageRect.GetWidth();
+			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.GetHeight() : pageRect.GetWidth();
 			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.GetWidth() : pageRect.GetHeight();
 			QTransform pageM;
 			pageM.translate(pageRect.GetLeft(), pageRect.GetBottom());
@@ -10130,22 +10126,21 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom() + pageRect.GetHeight()));
 			PutDoc("]");
 			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
-				+ Pdf::toPdf(pageM.m12()) + " "
-				+ Pdf::toPdf(pageM.m21()) + " "
-				+ Pdf::toPdf(pageM.m22()) + " "
-				+ Pdf::toPdf(pageM.dx()) + " "
-				+ Pdf::toPdf(pageM.dy()) + " ");
+								 + Pdf::toPdf(pageM.m12()) + " "
+								 + Pdf::toPdf(pageM.m21()) + " "
+								 + Pdf::toPdf(pageM.m22()) + " "
+								 + Pdf::toPdf(pageM.dx())  + " "
+								 + Pdf::toPdf(pageM.dy())  + " ");
 			PutDoc("]");
 			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
-			PoDoFo::PdfDictionary* pageDict = pageObj->IsDictionary() ? &(pageObj->GetDictionary()) : nullptr;
-			nextObj = pageDict ? pageDict->FindKey("Group") : nullptr;
+			nextObj = page->GetObject()->GetIndirectKey("Group");
 			if (nextObj)
 			{
 				PutDoc("\n/Group "); // PDF 1.4
 				copyPoDoFoDirect(nextObj, referencedObjects, importedObjects);
 			}
 			/*
-			PoDoFo::PdfObject parents = pageDict->FindKey("StructParents");
+			PoDoFo::PdfObject parents = page->GetObject()->GetIndirectKey("StructParents");
 			if (parents)
 			{
 				xParents = writer.newObject();
@@ -10164,13 +10159,13 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			if (mbuffer[mlen - 1] == '\n')
 				--mlen;
 			PutDoc("\n/Length " + Pdf::toPdf(static_cast<qlonglong>(mlen)));
-			nextObj = contentsDict.FindKey("Filter");
+			nextObj = contents->GetIndirectKey("Filter");
 			if (nextObj)
 			{
 				PutDoc("\n/Filter ");
 				copyPoDoFoDirect(nextObj, referencedObjects, importedObjects);
 			}
-			nextObj = contentsDict.FindKey("DecodeParms");
+			nextObj = contents->GetIndirectKey("DecodeParms");
 			if (nextObj)
 			{
 				PutDoc("\n/DecodeParms ");
@@ -10181,7 +10176,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				QByteArray buffer = QByteArray::fromRawData(mbuffer, mlen);
 				EncodeArrayToStream(buffer, xObj);
 			}  // disconnect QByteArray from raw data
-			free(mbuffer);
+			free (mbuffer);
 			PutDoc("\nendstream");
 			writer.endObj(xObj);
 			// write resources
@@ -10236,7 +10231,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
 			PoDoFo::PdfRect pageRect = page->GetArtBox(); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page->GetRotation();
-			double imgWidth = (rotation == 90 || rotation == 270) ? pageRect.GetHeight() : pageRect.GetWidth();
+			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.GetHeight() : pageRect.GetWidth();
 			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.GetWidth() : pageRect.GetHeight();
 			QTransform pageM;
 			pageM.translate(pageRect.GetLeft(), pageRect.GetBottom());
@@ -10255,15 +10250,14 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PutDoc(" " + Pdf::toPdf(pageRect.GetBottom() + pageRect.GetHeight()));
 			PutDoc("]");
 			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
-				+ Pdf::toPdf(pageM.m12()) + " "
-				+ Pdf::toPdf(pageM.m21()) + " "
-				+ Pdf::toPdf(pageM.m22()) + " "
-				+ Pdf::toPdf(pageM.dx()) + " "
-				+ Pdf::toPdf(pageM.dy()) + " ");
+								 + Pdf::toPdf(pageM.m12()) + " "
+								 + Pdf::toPdf(pageM.m21()) + " "
+								 + Pdf::toPdf(pageM.m22()) + " "
+								 + Pdf::toPdf(pageM.dx())  + " "
+								 + Pdf::toPdf(pageM.dy())  + " ");
 			PutDoc("]");
 			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
-			PoDoFo::PdfDictionary* pageDict = pageObj->IsDictionary() ? &(pageObj->GetDictionary()) : nullptr;
-			nextObj = pageDict ? pageDict->FindKey("Group") : nullptr;
+			nextObj = page->GetObject()->GetIndirectKey("Group");
 			if (nextObj)
 			{
 				PutDoc("\n/Group "); // PDF 1.4
@@ -10339,7 +10333,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			imgInfo.ResNum = ResCount;
 			ResCount++;
 			// Avoid a divide-by-zero if width/height are less than 1 point:
-			imgInfo.Width = qMax(1, (int) imgWidth);
+			imgInfo.Width  = qMax(1, (int) imgWidth);
 			imgInfo.Height = qMax(1, (int) imgHeight);
 			imgInfo.xa = sx * imgWidth / imgInfo.Width;
 			imgInfo.ya = sy * imgHeight / imgInfo.Height;
