@@ -63,6 +63,12 @@
        <property name="viewMode">
         <enum>QListView::IconMode</enum>
        </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+       <property name="itemAlignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
       </widget>
      </item>
      <item>
