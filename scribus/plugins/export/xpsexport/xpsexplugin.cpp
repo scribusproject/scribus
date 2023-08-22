@@ -1006,7 +1006,7 @@ public:
 		if (scaleV() != 1.0)
 			matrix.scale(1, scaleV());
 		canvas.setAttribute("RenderTransform", m_xps->MatrixToStr(matrix));
-		m_xps->writeItemOnPage(item->gXpos, item->gYpos, item, canvas, m_relRoot);
+		m_xps->writeItemOnPage(0.0, 0.0, item, canvas, m_relRoot);
 		m_group.appendChild(canvas);
 		m_restart = true;
 	}
