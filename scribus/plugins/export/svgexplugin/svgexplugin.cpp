@@ -1253,7 +1253,7 @@ public:
 	void drawObject(PageItem* item) override
 	{
 		QTransform transform = matrix();
-		transform.translate(x() + item->gXpos, y() + item->gYpos);
+		transform.translate(x(), y());
 		transform.rotate(item->rotation());
 		transform.scale(scaleH(), scaleV());
 		QDomElement Group = m_svg->m_domDoc.createElement("g");

@@ -233,7 +233,7 @@ void PSPainter::drawLine(const QPointF& start, const QPointF& end)
 void PSPainter::drawObject(PageItem* item)
 {
 	m_ps->PS_save();
-	m_ps->PS_translate(x() + item->gXpos, -(y() + item->gYpos));
+	m_ps->PS_translate(x(), -y());
 	applyTransform();
 	if (scaleH() != 1 || scaleV() != 1)
 		m_ps->PS_scale(scaleH(), scaleV());
