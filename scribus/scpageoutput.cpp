@@ -1084,10 +1084,9 @@ public:
 			return;
 
 		m_painter->save();
-		double pws = embedded->m_lineWidth;
 
+		double pws = embedded->m_lineWidth;
 		embedded->invalid = true;
-		m_scpage->drawItem_Pre(embedded, m_painter);
 
 		switch (embedded->itemType())
 		{
@@ -1114,8 +1113,6 @@ public:
 			break;
 		}
 
-		embedded->m_lineWidth = pws * qMin(scaleH(), scaleV());
-		m_scpage->drawItem_Post(embedded, m_painter);
 		embedded->m_lineWidth = pws;
 		m_painter->restore();
 	}
