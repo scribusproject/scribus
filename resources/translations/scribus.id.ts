@@ -4904,41 +4904,41 @@ sekarang %2 x %3 DPI.</translation>
 <context>
     <name>ColorPalette</name>
     <message>
-        <location filename="../../scribus/ui/cpalette.cpp" line="75"/>
-        <location filename="../../scribus/ui/cpalette.cpp" line="89"/>
-        <location filename="../../scribus/ui/cpalette.cpp" line="1917"/>
-        <location filename="../../scribus/ui/cpalette.cpp" line="1922"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="75"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="89"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="1917"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="1922"/>
         <source>Solid</source>
         <translation>Solid</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cpalette.cpp" line="76"/>
-        <location filename="../../scribus/ui/cpalette.cpp" line="90"/>
-        <location filename="../../scribus/ui/cpalette.cpp" line="1918"/>
-        <location filename="../../scribus/ui/cpalette.cpp" line="1923"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="76"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="90"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="1918"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="1923"/>
         <source>Gradient</source>
         <translation>Gradasi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cpalette.cpp" line="77"/>
-        <location filename="../../scribus/ui/cpalette.cpp" line="1919"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="77"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="1919"/>
         <source>Hatch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cpalette.cpp" line="427"/>
-        <location filename="../../scribus/ui/cpalette.cpp" line="429"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="427"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="429"/>
         <source>Pattern</source>
         <translation>Pola</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cpalette.cpp" line="701"/>
-        <location filename="../../scribus/ui/cpalette.cpp" line="704"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="701"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="704"/>
         <source>Custom</source>
         <translation>Atur Sendiri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cpalette.cpp" line="1330"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="1330"/>
         <source>Create Mesh</source>
         <translation type="unfinished"></translation>
     </message>
