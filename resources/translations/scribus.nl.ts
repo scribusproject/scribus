@@ -3363,44 +3363,6 @@
     </message>
 </context>
 <context>
-    <name>CImageViewer</name>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/ImageViewer.cpp" line="83"/>
-        <source>Cannot load %1: %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/ImageViewer.cpp" line="144"/>
-        <source>Open File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/ImageViewer.cpp" line="155"/>
-        <source>&amp;Open...</source>
-        <translation type="unfinished">&amp;Openen...</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/ImageViewer.cpp" line="161"/>
-        <source>Fit on Screen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/ImageViewer.cpp" line="166"/>
-        <source>Actual Pixels</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/ImageViewer.cpp" line="175"/>
-        <source>Zoom In (25%)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/ImageViewer.cpp" line="180"/>
-        <source>Zoom Out (25%)</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>CMYKChoose</name>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="73"/>
@@ -3611,100 +3573,32 @@ Kies een andere naam.</translation>
         <translation>Oud</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cmykfwbase.ui" line="585"/>
+        <location filename="../../scribus/ui/cmykfwbase.ui" line="588"/>
         <source>C:</source>
         <translation>C:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cmykfwbase.ui" line="547"/>
-        <location filename="../../scribus/ui/cmykfwbase.ui" line="598"/>
-        <location filename="../../scribus/ui/cmykfwbase.ui" line="617"/>
-        <location filename="../../scribus/ui/cmykfwbase.ui" line="649"/>
+        <location filename="../../scribus/ui/cmykfwbase.ui" line="550"/>
+        <location filename="../../scribus/ui/cmykfwbase.ui" line="601"/>
+        <location filename="../../scribus/ui/cmykfwbase.ui" line="620"/>
+        <location filename="../../scribus/ui/cmykfwbase.ui" line="652"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cmykfwbase.ui" line="636"/>
+        <location filename="../../scribus/ui/cmykfwbase.ui" line="639"/>
         <source>M:</source>
         <translation>M:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cmykfwbase.ui" line="668"/>
+        <location filename="../../scribus/ui/cmykfwbase.ui" line="671"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cmykfwbase.ui" line="515"/>
+        <location filename="../../scribus/ui/cmykfwbase.ui" line="518"/>
         <source>K:</source>
         <translation>K:</translation>
-    </message>
-</context>
-<context>
-    <name>CStatusDialogClass</name>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="20"/>
-        <source>Dock Widget Status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="35"/>
-        <source>Dock Widget:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="58"/>
-        <source>Status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="64"/>
-        <source>closed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="71"/>
-        <source>floating</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="78"/>
-        <source>tabbed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="85"/>
-        <source>is current tab</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="101"/>
-        <source>Feature Flags</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="107"/>
-        <source>DockWidgetClosable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="114"/>
-        <source>DockWidgetMovable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="121"/>
-        <source>DockWidgetFloatable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="128"/>
-        <source>DockWidgetDeleteOnClose</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/StatusDialog.ui" line="135"/>
-        <source>CustomCloseHandling</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5133,27 +5027,27 @@ huidige resolutie %2 x %3 DPI</translation>
         <translation>Huidige kleurenset:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="138"/>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="141"/>
         <source>Save the current color set</source>
         <translation>De huidige kleurenset opslaan</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="141"/>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="144"/>
         <source>&amp;Save Color Set</source>
         <translation>Kleurenset op&amp;slaan</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="166"/>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="169"/>
         <source>Make the current colorset the default color set</source>
         <translation>Stelt de huidige kleurenset in als standaard</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="169"/>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="172"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="176"/>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="179"/>
         <source>Cancel</source>
         <translation>Annuleer</translation>
     </message>
@@ -11073,54 +10967,6 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/ui/loremipsum.cpp" line="268"/>
         <source>Append to existing text</source>
         <translation>Toevoegen aan bestaande tekst</translation>
-    </message>
-</context>
-<context>
-    <name>MainWindow</name>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/mainwindow.ui" line="14"/>
-        <source>MainWindow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/mainwindow.ui" line="32"/>
-        <source>File</source>
-        <translation type="unfinished">Bestand</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/mainwindow.ui" line="39"/>
-        <source>View</source>
-        <translation type="unfinished">Beeld</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/mainwindow.ui" line="44"/>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/mainwindow.ui" line="49"/>
-        <source>Tests</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/mainwindow.ui" line="59"/>
-        <source>toolBar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/mainwindow.ui" line="70"/>
-        <source>Exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/mainwindow.ui" line="75"/>
-        <source>Save State</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/mainwindow.ui" line="80"/>
-        <source>Restore State</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23227,6 +23073,11 @@ Transparantie</translation>
         <translation>Verticale positie van het huidige basispunt</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="161"/>
+        <source>Rotate the selection clockwise by 90º</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="173"/>
         <source>Width of current selection</source>
         <translation>Breedte van huidige selectie</translation>
@@ -23254,11 +23105,6 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="151"/>
         <source>Rotate the selection anti-clockwise by 90º</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="161"/>
-        <source>Rotate the selection alockwise by 90º</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -31089,47 +30935,6 @@ Mogelijk is daarom het beeld niet correct.</translation>
         <source>MarkDown Document</source>
         <translation>MarkDown-document</translation>
     </message>
-    <message>
-        <location filename="../../scribus/api/api_application.cpp" line="98"/>
-        <location filename="../../scribus/api/api_application.cpp" line="103"/>
-        <source>Scribus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/MainWindow.cpp" line="152"/>
-        <source>Help</source>
-        <translation type="unfinished">Help</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/MainWindow.cpp" line="327"/>
-        <source>Options</source>
-        <translation type="unfinished">Opties</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/MainWindow.cpp" line="336"/>
-        <source>Clear Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/demo/MainWindow.cpp" line="503"/>
-        <source>Create Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="192"/>
-        <source>List All Tabs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="202"/>
-        <source>Detach Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="261"/>
-        <source>Close Tab</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -35483,22 +35288,22 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
         <translation>De weergave van kleuren buiten het gamma is actief. Daarom komt de kleurenweergave mogelijk niet overeen met de perceptie door slechtzienden. Schakel de optie &quot;Markeer kleuren buiten het bereik&quot; uit in Bestand - Documentinstellingen - Kleurbeheer als deze functie niet vereist is.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="903"/>
+        <location filename="../../scribus/scribusview.cpp" line="904"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Wilt u werkelijk uw tekst verwijderen?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1036"/>
+        <location filename="../../scribus/scribusview.cpp" line="1037"/>
         <source>Copy Here</source>
         <translation>Kopie hier</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1037"/>
+        <location filename="../../scribus/scribusview.cpp" line="1038"/>
         <source>Move Here</source>
         <translation>Verplaatsen hier</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1038"/>
+        <location filename="../../scribus/scribusview.cpp" line="1039"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
@@ -35518,17 +35323,17 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
         <translation>Uitgeschakeld</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3059"/>
+        <location filename="../../scribus/scribusview.cpp" line="3060"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Kan item in gebruik niet omzetten</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3059"/>
+        <location filename="../../scribus/scribusview.cpp" line="3060"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. Omzetten naar curven wordt voor dit item geannuleerd</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1961"/>
+        <location filename="../../scribus/scribusview.cpp" line="1962"/>
         <source>Page %1 to %2</source>
         <translation>Pagina %1 tot %2</translation>
     </message>
@@ -36541,19 +36346,6 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2049"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Symboolteken...</translation>
-    </message>
-</context>
-<context>
-    <name>StoryLoader</name>
-    <message>
-        <location filename="../../scribus/storyloader.cpp" line="164"/>
-        <source>Some fonts used by this document have been substituted:</source>
-        <translation type="unfinished">Enkele in dit document gebruikte lettertypen zijn vervangen:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/storyloader.cpp" line="167"/>
-        <source> was replaced by: </source>
-        <translation type="unfinished"> vervangen door: </translation>
     </message>
 </context>
 <context>
@@ -40576,182 +40368,6 @@ Document Liberation Project http://www.documentliberation.org</source>
 
 Verstuur uw bestand (indien mogelijk) naar het
 Document Liberation Project http://www.documentliberation.org</translation>
-    </message>
-</context>
-<context>
-    <name>ads::CAutoHideTab</name>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="384"/>
-        <source>Detach</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="389"/>
-        <source>Pin To...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="391"/>
-        <source>Top</source>
-        <translation type="unfinished">Boven</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="392"/>
-        <source>Left</source>
-        <translation type="unfinished">Links</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="393"/>
-        <source>Right</source>
-        <translation type="unfinished">Rechts</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="394"/>
-        <source>Bottom</source>
-        <translation type="unfinished">Onder</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="396"/>
-        <source>Unpin (Dock)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="398"/>
-        <source>Close</source>
-        <translation type="unfinished">Sluiten</translation>
-    </message>
-</context>
-<context>
-    <name>ads::CDockAreaTitleBar</name>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="717"/>
-        <source>Detach</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="717"/>
-        <source>Detach Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="722"/>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="769"/>
-        <source>Unpin (Dock)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="722"/>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="774"/>
-        <source>Pin Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="728"/>
-        <source>Pin Group To...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="730"/>
-        <source>Top</source>
-        <translation type="unfinished">Boven</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="731"/>
-        <source>Left</source>
-        <translation type="unfinished">Links</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="732"/>
-        <source>Right</source>
-        <translation type="unfinished">Rechts</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="733"/>
-        <source>Bottom</source>
-        <translation type="unfinished">Onder</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="738"/>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="785"/>
-        <source>Close</source>
-        <translation type="unfinished">Sluiten</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="738"/>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="794"/>
-        <source>Close Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="742"/>
-        <source>Close Other Groups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="778"/>
-        <source>Pin Active Tab (Press Ctrl to Pin Group)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="790"/>
-        <source>Close Active Tab</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ads::CDockManager</name>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockManager.cpp" line="504"/>
-        <source>Show View</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ads::CDockWidgetTab</name>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="536"/>
-        <source>Detach</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="540"/>
-        <source>Pin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="544"/>
-        <source>Pin To...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="546"/>
-        <source>Top</source>
-        <translation type="unfinished">Boven</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="547"/>
-        <source>Left</source>
-        <translation type="unfinished">Links</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="548"/>
-        <source>Right</source>
-        <translation type="unfinished">Rechts</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="549"/>
-        <source>Bottom</source>
-        <translation type="unfinished">Onder</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="554"/>
-        <source>Close</source>
-        <translation type="unfinished">Sluiten</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="558"/>
-        <source>Close Others</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
