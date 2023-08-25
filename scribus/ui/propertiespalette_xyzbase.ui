@@ -158,7 +158,7 @@
           <item>
            <widget class="QToolButton" name="rotateCW">
             <property name="toolTip">
-             <string>Rotate the selection alockwise by 90º</string>
+             <string>Rotate the selection clockwise by 90º</string>
             </property>
             <property name="text">
              <string/>
