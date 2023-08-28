@@ -305,9 +305,10 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 	// Documentation: https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System/blob/master/doc/user-guide.md#auto-hide-configuration-flags
 //	CDockManager::setAutoHideConfigFlags(CDockManager::DefaultAutoHideConfig);
-//	CDockManager::setAutoHideConfigFlag(CDockManager::AutoHideShowOnMouseOver, true);
+//	CDockManager::setAutoHideConfigFlag(CDockManager::AutoHideShowOnMouseOver, false);
 //	CDockManager::setAutoHideConfigFlag(CDockManager::AutoHideCloseButtonCollapsesDock, true);
 //	CDockManager::setAutoHideConfigFlag(CDockManager::AutoHideButtonTogglesArea, true);
+//	CDockManager::setAutoHideConfigFlag(CDockManager::DockAreaHasAutoHideButton, true);
 
 	IconManager &iconmanager = IconManager::instance();
 	CDockManager::iconProvider().registerCustomIcon(TabCloseIcon, iconmanager.loadIcon("close", 12));
@@ -386,7 +387,11 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	//Connect windows cascade and tile actions to the workspace after its created. Only depends on mdiArea created.
 	connect( scrActions["windowsCascade"], SIGNAL(triggered()) , mdiArea, SLOT(cascadeSubWindows()) );
 	connect( scrActions["windowsTile"], SIGNAL(triggered()) , mdiArea, SLOT(tileSubWindows()) );
+
+	if (primaryMainWindow)
+		ScCore->setSplashStatus( tr("Initializing Workspaces") );
 	initPalettes();
+	dockManager->initWorkspaces();
 
 	viewToolBar->previewQualitySwitcher->setCurrentIndex(m_prefsManager.appPrefs.itemToolPrefs.imageLowResType);
 	if (primaryMainWindow)
@@ -831,8 +836,6 @@ void ScribusMainWindow::initPalettes()
 	// char palette
 	connect(scrActions["insertGlyph"], SIGNAL(toggled(bool)), charPalette, SLOT(setPaletteShown(bool)));
 	connect(charPalette, SIGNAL(paletteShown(bool)), scrActions["insertGlyph"], SLOT(setChecked(bool)));
-
-	dockManager->loadDefaultWorkspace();
 
 }
 
@@ -1340,6 +1343,7 @@ void ScribusMainWindow::addDefaultWindowMenuItems()
 	scrMenuMgr->clearMenu("Windows");
 	scrMenuMgr->addMenuItemString("windowsCascade", "Windows");
 	scrMenuMgr->addMenuItemString("windowsTile", "Windows");
+	scrMenuMgr->addMenuItemString("specialToggleAllPalettes", "Windows");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Windows");
 	scrMenuMgr->addMenuItemString("toolsProperties", "Windows");
 	scrMenuMgr->addMenuItemString("toolsContent", "Windows");
@@ -1761,9 +1765,9 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 			return false;
 		retVal = true;
 		//Palette actions
-		if (actionManager->compareKeySeqToShortcut(currKeySeq, "specialToggleAllPalettes"))
+		/*if (actionManager->compareKeySeqToShortcut(currKeySeq, "specialToggleAllPalettes"))
 			scrActions["specialToggleAllPalettes"]->activate(QAction::Trigger);
-		else if (actionManager->compareKeySeqToShortcut(currKeySeq, "specialToggleAllGuides"))
+		else*/ if (actionManager->compareKeySeqToShortcut(currKeySeq, "specialToggleAllGuides"))
 			scrActions["specialToggleAllGuides"]->activate(QAction::Trigger);
 		else
 			retVal = false;
@@ -1842,9 +1846,6 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 		return;
 	}
 
-	// Save GUI state
-	dockManager->saveWorkspaceToFile();
-
 	disconnect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(newActWin(QMdiSubWindow*)));
 
 	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
@@ -1876,22 +1877,11 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	modeToolBar->connectPrefsSlot(false);
 	pdfToolBar->connectPrefsSlot(false);
 
-	m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.clear();
-	QList<QTabBar *> bars = findChildren<QTabBar *>(QString());
-	for (int i = 0; i < bars.count(); ++i)
-	{
-		QTabBar *bar = bars[i];
-		tabPrefs currentTab;
-		for (int ii = 0; ii < bar->count(); ii++)
-		{
-			currentTab.activeTab = bar->currentIndex();
-			QObject *obj = (QObject*)bar->tabData(ii).toULongLong();
-			if (obj != nullptr)
-				currentTab.palettes.append(obj->objectName());
-		}
-		if (!currentTab.palettes.isEmpty())
-			m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.append(currentTab);
-	}
+	// if palettes are temporary hidden restore them before saving the workspace
+	dockManager->restoreHiddenWorkspace();
+
+	// Save GUI state
+	dockManager->saveWorkspaceToPrefs();
 
 	// We need to remove all docks from the DockManager to prevent a memory leak
 	// in case a plugin has added a dock in the DockManager and is simply deleted
@@ -5447,55 +5437,57 @@ void ScribusMainWindow::ToggleStickyTools()
 
 void ScribusMainWindow::ToggleAllPalettes()
 {
+	dockManager->toggleDocksVisibility();
+
 	if (m_palettesStatus[PAL_ALL])
 	{
 		m_palettesStatus[PAL_ALL] = false;
-		if (m_palettesStatus[PAL_PROPERTIES])
-			propertiesPalette->show();
-		if (m_palettesStatus[PAL_CONTENT])
-			contentPalette->show();
-		if (m_palettesStatus[PAL_OUTLINE])
-			outlinePalette->show();
-		if (m_palettesStatus[PAL_SCRAPBOOK])
-			scrapbookPalette->show();
-		if (m_palettesStatus[PAL_LAYER])
-			layerPalette->show();
-		if (m_palettesStatus[PAL_PAGE])
-			pagePalette->show();
-		if (m_palettesStatus[PAL_BOOKMARK])
-			bookmarkPalette->show();
+//		if (m_palettesStatus[PAL_PROPERTIES])
+//			propertiesPalette->toggleView(true);
+//		if (m_palettesStatus[PAL_CONTENT])
+//			contentPalette->toggleView(true);
+//		if (m_palettesStatus[PAL_OUTLINE])
+//			outlinePalette->toggleView(true);
+//		if (m_palettesStatus[PAL_SCRAPBOOK])
+//			scrapbookPalette->toggleView(true);
+//		if (m_palettesStatus[PAL_LAYER])
+//			layerPalette->toggleView(true);
+//		if (m_palettesStatus[PAL_PAGE])
+//			pagePalette->toggleView(true);
+//		if (m_palettesStatus[PAL_BOOKMARK])
+//			bookmarkPalette->toggleView(true);
 		if (m_palettesStatus[PAL_VERIFIER])
 			docCheckerPalette->show();
 		if (m_palettesStatus[PAL_DOWNLOADS])
 			downloadsPalette->show();
-		if (m_palettesStatus[PAL_ALIGNDISTRIBUTE])
-			alignDistributePalette->show();
-		setUndoPalette(m_palettesStatus[PAL_UNDO]);
+//		if (m_palettesStatus[PAL_ALIGNDISTRIBUTE])
+//			alignDistributePalette->toggleView(true);
+//		setUndoPalette(m_palettesStatus[PAL_UNDO]);
 	}
 	else
 	{
-		m_palettesStatus[PAL_PROPERTIES] = propertiesPalette->isVisible();
-		m_palettesStatus[PAL_CONTENT] = contentPalette->isVisible();
-		m_palettesStatus[PAL_OUTLINE] = outlinePalette->isVisible();
-		m_palettesStatus[PAL_SCRAPBOOK] = scrapbookPalette->isVisible();
-		m_palettesStatus[PAL_LAYER] = layerPalette->isVisible();
-		m_palettesStatus[PAL_PAGE] = pagePalette->isVisible();
-		m_palettesStatus[PAL_BOOKMARK] = bookmarkPalette->isVisible();
-		m_palettesStatus[PAL_UNDO] = undoPalette->isVisible();
+//		m_palettesStatus[PAL_PROPERTIES] = !propertiesPalette->isClosed();
+//		m_palettesStatus[PAL_CONTENT] = !contentPalette->isClosed();
+//		m_palettesStatus[PAL_OUTLINE] = !outlinePalette->isClosed();
+//		m_palettesStatus[PAL_SCRAPBOOK] = !scrapbookPalette->isClosed();
+//		m_palettesStatus[PAL_LAYER] = !layerPalette->isClosed();
+//		m_palettesStatus[PAL_PAGE] = !pagePalette->isClosed();
+//		m_palettesStatus[PAL_BOOKMARK] = !bookmarkPalette->isClosed();
+//		m_palettesStatus[PAL_UNDO] = !undoPalette->isClosed();
 		m_palettesStatus[PAL_VERIFIER] = docCheckerPalette->isVisible();
 		m_palettesStatus[PAL_DOWNLOADS] = downloadsPalette->isVisible();
-		m_palettesStatus[PAL_ALIGNDISTRIBUTE] = alignDistributePalette->isVisible();
-		propertiesPalette->hide();
-		contentPalette->hide();
-		outlinePalette->hide();
-		scrapbookPalette->hide();
-		bookmarkPalette->hide();
-		pagePalette->hide();
-		layerPalette->hide();
+//		m_palettesStatus[PAL_ALIGNDISTRIBUTE] = !alignDistributePalette->isClosed();
+//		propertiesPalette->toggleView(false);
+//		contentPalette->toggleView(false);
+//		outlinePalette->toggleView(false);
+//		scrapbookPalette->toggleView(false);
+//		bookmarkPalette->toggleView(false);
+//		pagePalette->toggleView(false);
+//		layerPalette->toggleView(false);
 		docCheckerPalette->hide();
 		downloadsPalette->hide();
-		alignDistributePalette->hide();
-		setUndoPalette(false);
+//		alignDistributePalette->toggleView(false);
+//		setUndoPalette(false);
 		m_palettesStatus[PAL_ALL] = true;
 	}
 }
@@ -5518,7 +5510,7 @@ void ScribusMainWindow::togglePagePalette()
 
 void ScribusMainWindow::toggleUndoPalette()
 {
-	setUndoPalette(!undoPalette->isVisible());
+	setUndoPalette(undoPalette->isClosed());
 	m_palettesStatus[PAL_ALL] = false;
 }
 
@@ -6685,38 +6677,8 @@ int ScribusMainWindow::ShowSubs()
 	nsEditor->startup();
 	symbolPalette->startup();
 
-	if (!m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.isEmpty())
-	{
-		for (int i = 0; i < m_prefsManager.appPrefs.uiPrefs.tabbedPalettes.count(); i++)
-		{
-			QStringList actTab = m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[i].palettes;
-			QDockWidget *container = findChild<QDockWidget *>(actTab[0]);
-			if (!container)
-				continue;
-			QList<QTabBar *> bars = findChildren<QTabBar *>(QString());
-			bool found = false;
-			for (int j = 0; j < bars.count(); ++j)
-			{
-				QTabBar *bar = bars[j];
-				for (int k = 0; k < bar->count(); k++)
-				{
-					QObject *obj = (QObject*) bar->tabData(k).toULongLong();
-					if (obj == nullptr)
-						continue;
-					if (obj->objectName() != container->objectName())
-						continue;
-					if (m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[i].activeTab > -1)
-					{
-						bar->setCurrentIndex(m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[i].activeTab);
-						found = true;
-						break;
-					}
-				}
-				if (found)
-					break;
-			}
-		}
-	}
+	// try to load custom layout from preferences
+	dockManager->restoreWorkspaceFromPrefs();
 
 	// init the toolbars
 	fileToolBar->initVisibility();

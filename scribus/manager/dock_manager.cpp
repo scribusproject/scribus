@@ -20,11 +20,9 @@
 
 #include <QMenu>
 #include "third_party/Qt-Advanced-Docking-System/src/DockAreaWidget.h"
-#include "third_party/Qt-Advanced-Docking-System/src/DockSplitter.h"
 #include "ui/docks/dock_centralwidget.h"
 
 #include "iconmanager.h"
-#include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scribusapp.h"
 #include "ui/aligndistribute.h"
@@ -53,8 +51,6 @@ DockManager::DockManager(QWidget *parent)
 	auto *areaCenter = CDockManager::setCentralWidget(dockCenter);
 	areaCenter->setAllowedAreas(LeftDockWidgetArea | RightDockWidgetArea);
 
-	m_palettePrefs = PrefsManager::instance().prefsFile->getContext("user_preferences");
-
 	setStyleSheet(""); // reset style sheet to use custom icons
 
 	connect( ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()) );
@@ -74,6 +70,18 @@ void DockManager::setupDocks()
 	undoPalette = new UndoPalette(this);
 	symbolPalette = new SymbolPalette(this);
 
+	connect( pagePalette,				&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	connect( contentPalette,			&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	connect( propertiesPalette,			&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	connect( outlinePalette,			&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	connect( layerPalette,				&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	connect( inlinePalette,				&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	connect( alignDistributePalette,	&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	connect( scrapbookPalette,			&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	connect( bookPalette,				&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	connect( undoPalette,				&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	connect( symbolPalette,				&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+
 	// Panel ToolProperties
 	//    PanelToolProperties * panelTest = new PanelToolProperties();
 	//    dockToolProperties->setWidget(panelTest);
@@ -91,7 +99,121 @@ void DockManager::setCentralWidget(QWidget *widget)
  *
  * ********************************************************************************* */
 
-void DockManager::loadDefaultWorkspace()
+void DockManager::initWorkspaces()
+{
+	createDefaultWorkspace();
+//	restoreWorkspaceFromPrefs();
+}
+
+void DockManager::removeAllDockWidgets()
+{
+	QMap<QString, CDockWidget *> map = dockWidgetsMap();
+	foreach (QString key, map.keys())
+		removeDockWidget(map.value(key));
+}
+
+void DockManager::hideAllDocks()
+{
+	foreach (CDockWidget *dock, this->dockWidgets())
+	{
+		if(dock->isCentralWidget())
+			continue;
+		dock->closeDockWidget();
+	}
+
+	foreach (CFloatingDockContainer *dockContainer, this->floatingWidgets())
+	{
+		dockContainer->close();
+	}
+}
+
+void DockManager::toggleDocksVisibility()
+{
+	QString perspective = "_allpaletteshidden";
+
+	if(perspectiveNames().contains(perspective))
+	{
+		openPerspective(perspective);
+		removePerspective(perspective);
+		m_dockTemporaryHidden = false;
+	}
+	else
+	{
+		addPerspective(perspective);
+		hideAllDocks();
+		m_dockTemporaryHidden = true;
+
+//		qDebug() << Q_FUNC_INFO << this->dockWidgets();
+//		qDebug() << Q_FUNC_INFO << this->floatingWidgets();
+	}
+
+}
+
+bool DockManager::hasTemporaryHiddenDocks()
+{
+	return m_dockTemporaryHidden;
+}
+
+CDockAreaWidget *DockManager::addDockFromPlugin(CDockWidget *dock, bool closed)
+{
+	CDockAreaWidget *a = addDockWidget(RightDockWidgetArea, dock, dockCenter->dockAreaWidget());
+	dock->toggleView(!closed);
+	updateIcon(dock);
+	connect( dock, &CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	return a;
+}
+
+void DockManager::restoreWorkspaceFromPrefs()
+{
+	QByteArray ba = PrefsManager::instance().appPrefs.uiPrefs.adsDockState;
+
+	if(ba.isEmpty())
+		return;
+
+	this->restoreState(ba);
+}
+
+void DockManager::saveWorkspaceToPrefs()
+{
+	PrefsManager::instance().appPrefs.uiPrefs.adsDockState = this->saveState();
+}
+
+void DockManager::iconSetChange()
+{
+	// Update all icons of each docked CDockContainer
+	updateIcons(this->dockWidgets());
+
+	// Update all icons of each floating CFloatingDockContainer
+	foreach (CFloatingDockContainer *dockContainer, this->floatingWidgets())
+		updateIcons(dockContainer->dockWidgets());
+}
+
+void DockManager::restoreHiddenWorkspace()
+{
+	if (m_dockTemporaryHidden)
+		toggleDocksVisibility();
+}
+
+void DockManager::updateIcons(QList<CDockWidget *> dockWidgets)
+{
+	foreach (CDockWidget *dock, dockWidgets)
+		updateIcon(dock);
+}
+
+void DockManager::updateIcon(CDockWidget *dockWidget)
+{
+	IconManager &iconManager = IconManager::instance();
+
+	dockWidget->dockAreaWidget()->titleBarButton(ads::TitleBarButtonClose)->setIcon(iconManager.loadIcon("close", 12));
+	dockWidget->dockAreaWidget()->titleBarButton(ads::TitleBarButtonUndock)->setIcon(iconManager.loadIcon("dock-float", 12));
+	dockWidget->dockAreaWidget()->titleBarButton(ads::TitleBarButtonTabsMenu)->setIcon(iconManager.loadIcon("menu-down", 12));
+	//	dock->dockAreaWidget()->titleBarButton(ads::TitleBarButtonAutoHide)->setIcon(iconManager.loadIcon("dock-auto-hide", 12));
+
+	for (auto tabCloseButton : dockWidget->dockAreaWidget()->findChildren<QAbstractButton*>("tabCloseButton"))
+		tabCloseButton->setIcon(iconManager.loadIcon("close", 12));
+}
+
+void DockManager::createDefaultWorkspace()
 {
 	/************************************************************
 	 *
@@ -114,20 +236,20 @@ void DockManager::loadDefaultWorkspace()
 
 	auto *areaCenter = dockCenter->dockAreaWidget();
 
-	// Left	Center
-	areaCenterLeft = addDockWidget(LeftDockWidgetArea, inlinePalette, areaCenter);
-	addDockWidget(CenterDockWidgetArea, scrapbookPalette, areaCenterLeft);
-	addDockWidget(CenterDockWidgetArea, bookPalette, areaCenterLeft);
-	addDockWidget(CenterDockWidgetArea, symbolPalette, areaCenterLeft);
-
 	// Left
-	auto *areaLeft = addDockWidget(LeftDockWidgetArea, pagePalette, areaCenterLeft);
-	addDockWidget(CenterDockWidgetArea, outlinePalette, areaLeft);
+	auto *areaLeft = addDockWidget(LeftDockWidgetArea, pagePalette, areaCenter);
+	addDockWidgetTabToArea(outlinePalette, areaLeft);
+
+	// Left	Center
+	auto *areaCenterLeft = addDockWidget(LeftDockWidgetArea, inlinePalette, areaCenter);
+	addDockWidgetTabToArea(scrapbookPalette, areaCenterLeft);
+	addDockWidgetTabToArea(bookPalette, areaCenterLeft);
+	addDockWidgetTabToArea(symbolPalette, areaCenterLeft);
 
 	// Left Bottom
 	auto *areaLeftBottom = addDockWidget(BottomDockWidgetArea, layerPalette, areaLeft);
-	addDockWidget(CenterDockWidgetArea, alignDistributePalette, areaLeftBottom);
-	addDockWidget(CenterDockWidgetArea, undoPalette, areaLeftBottom);
+	addDockWidgetTabToArea(alignDistributePalette, areaLeftBottom);
+	addDockWidgetTabToArea(undoPalette, areaLeftBottom);
 
 	// Right Panel
 	auto *areaRight = addDockWidget(RightDockWidgetArea, propertiesPalette, areaCenter);
@@ -139,30 +261,23 @@ void DockManager::loadDefaultWorkspace()
 	//    areaTop->setDockAreaFlag(CDockAreaWidget::HideSingleWidgetTitleBar, true);
 
 	// Resizing area height of left and bottom-left
-	auto splitterL = ads::internal::findParent<ads::CDockSplitter *>(areaLeft);
-	if (splitterL)
-	{
-		int heightL = splitterL->height();
-		splitterL->setSizes({heightL * 2 / 3, heightL * 1 / 3});
-	}
+	int heightL = areaLeft->height();
+	setSplitterSizes(areaLeft, {heightL * 2 / 3, heightL * 1 / 3});
 
 	// Resizing area width of left, center-left, center and right
-	auto splitterCL = ads::internal::findParent<ads::CDockSplitter *>(areaCenter);
-	if (splitterCL)
-	{
-		int widthCL = splitterCL->width();
-		int panelWidth = 290;
-		splitterCL->setSizes({panelWidth, panelWidth, widthCL - 3 * panelWidth, panelWidth});
-	}
+	int widthCL = areaCenter->width();
+	int panelWidth = 290;
+	setSplitterSizes(areaCenter, {panelWidth, panelWidth, widthCL - 3 * panelWidth, panelWidth});
+
 
 	// hide panels that are not visible in default workspace
-	inlinePalette->toggleView(false);
-	scrapbookPalette->toggleView(false);
-	bookPalette->toggleView(false);
-	symbolPalette->toggleView(false);
-	layerPalette->toggleView(false);
-	undoPalette->toggleView(false);
-	outlinePalette->toggleView(false);
+	inlinePalette->closeDockWidget();
+	scrapbookPalette->closeDockWidget();
+	bookPalette->closeDockWidget();
+	symbolPalette->closeDockWidget();
+	layerPalette->closeDockWidget();
+	undoPalette->closeDockWidget();
+	outlinePalette->closeDockWidget();
 
 	// active palettes
 	areaLeft->setCurrentDockWidget(pagePalette);
@@ -171,59 +286,4 @@ void DockManager::loadDefaultWorkspace()
 
 	// add perspective for a later usage, like reset workspace to default.
 	this->addPerspective("Default");
-
-	// try to load custom layout from preferences
-	if (!m_palettePrefs->get("ads_dockstate").isEmpty())
-		loadWorkspaceFromFile();
-}
-
-void DockManager::removeAllDockWidgets()
-{
-	QMap<QString, CDockWidget *> map = dockWidgetsMap();
-	foreach (QString key, map.keys())
-		removeDockWidget(map.value(key));
-}
-
-CDockAreaWidget *DockManager::addDockFromPlugin(CDockWidget *dock, bool closed)
-{
-	CDockAreaWidget *a = addDockWidget(RightDockWidgetArea, dock, dockCenter->dockAreaWidget());
-	dock->toggleView(!closed);
-	return a;
-}
-
-void DockManager::loadWorkspaceFromFile()
-{
-	if (!m_palettePrefs)
-		return;
-	QByteArray ba = QByteArray::fromHex(m_palettePrefs->get("ads_dockstate").toLatin1());
-	this->restoreState(ba);
-}
-
-void DockManager::saveWorkspaceToFile()
-{
-	if (!m_palettePrefs)
-		return;
-	QByteArray data = this->saveState();
-	QString s = data.toHex();
-	m_palettePrefs->set("ads_dockstate", s);
-}
-
-void DockManager::iconSetChange()
-{
-	IconManager &iconManager = IconManager::instance();
-
-	for (int i = 0; i < this->dockAreaCount(); ++i)
-	{
-		CDockAreaWidget *daw = this->dockArea(i);
-
-		daw->titleBarButton(ads::TitleBarButtonClose)->setIcon(iconManager.loadIcon("close", 12));
-		daw->titleBarButton(ads::TitleBarButtonUndock)->setIcon(iconManager.loadIcon("dock-float", 12));
-		daw->titleBarButton(ads::TitleBarButtonTabsMenu)->setIcon(iconManager.loadIcon("menu-down", 12));
-	//	daw->titleBarButton(ads::TitleBarButtonAutoHide)->setIcon(iconManager.loadIcon("dock-auto-hide", 12));
-
-		for (auto tabCloseButton : daw->findChildren<QAbstractButton*>("tabCloseButton"))
-		{
-			tabCloseButton->setIcon(iconManager.loadIcon("close", 12));
-		}
-	}
 }

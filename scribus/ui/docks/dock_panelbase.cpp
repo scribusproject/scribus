@@ -49,17 +49,11 @@ DockPanelBase::DockPanelBase(const QString &title, QWidget *parent)
 						QToolBox::tab { font-size: 10px; padding: 0px; margin: 0px; } \
 					");
 	}
-	m_originalParent = parent;
-	//	setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+
 	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
 	setPrefsContext(title);
 	setObjectName(title);
 	connect(&PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
-}
-
-void DockPanelBase::setWidget(QWidget *widget)
-{
-	ads::CDockWidget::setWidget(widget);
 }
 
 void DockPanelBase::setPrefsContext(const QString &context)

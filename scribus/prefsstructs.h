@@ -130,7 +130,7 @@ struct UIPrefs
 	QString iconSet; //! Icon set name
 	WindowPrefs mainWinSettings;
 	QByteArray mainWinState;
-	QList<tabPrefs> tabbedPalettes;
+	QByteArray adsDockState;
 };
 
 //Paths

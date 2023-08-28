@@ -34,7 +34,6 @@ public:
 	DockPanelBase(const QString &title, QWidget *parent = 0);
 	DockPanelBase(const QString &title, QIcon icon, QWidget *parent = 0);
 
-	void setWidget(QWidget *widget);
 	void startup();
 
 public slots:
@@ -46,8 +45,6 @@ protected:
 
 	PrefsContext *m_palettePrefs {nullptr};
 	QString m_prefsContextName;
-	QWidget *m_originalParent {nullptr};
-	QWidget *m_tempParent {nullptr};
 };
 
 #endif // DOCK_PANELBASE_H

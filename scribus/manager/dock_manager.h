@@ -48,8 +48,33 @@ public:
 
 	void setCentralWidget(QWidget *widget);
 	void setupDocks();
-	void loadDefaultWorkspace();
+	/**
+	 * @brief Creates all preconfigured workspaces as perspectives.
+	 */
+	void initWorkspaces();
+	/**
+	 * @brief Removes all dock widgets including docks added by plugins.
+	 */
 	void removeAllDockWidgets();
+	/**
+	 * @brief Hides all docked and floating dock containers.
+	 */
+	void hideAllDocks();
+	/**
+	 * @brief Toggles the temporary visibility of all docks.
+	 */
+	void toggleDocksVisibility();
+	/**
+	 * @brief Retruns true if all docks are temporary hidden.
+	 * @return
+	 */
+	bool hasTemporaryHiddenDocks();
+	/**
+	 * @brief Adds a dock widget to dock manager. Useful for docks that are not initialized by dock manager, e.g. from plugins.
+	 * @param dock
+	 * @param closed
+	 * @return
+	 */
 	CDockAreaWidget *addDockFromPlugin(CDockWidget *dock, bool closed = true);
 
 	PagePalette *pagePalette {nullptr};
@@ -65,16 +90,38 @@ public:
 	SymbolPalette *symbolPalette {nullptr};
 
 public slots:
-	void loadWorkspaceFromFile();
-	void saveWorkspaceToFile();
+	/**
+	 * @brief Restore current workspace from local preferences file
+	 */
+	void restoreWorkspaceFromPrefs();
+	/**
+	 * @brief Save current workspace to local preferences file
+	 */
+	void saveWorkspaceToPrefs();
 
 	void iconSetChange();
+	/**
+	 * @brief Show all hidden dock palettes if temporary hidden.
+	 */
+	void restoreHiddenWorkspace();
 
-private:
+protected:
 	DockCentralWidget *dockCenter {nullptr};
-	PrefsContext *m_palettePrefs {nullptr};
+	bool m_dockTemporaryHidden {false};
+	QMap<CDockWidget *, bool> m_temporaryHiddenDocks;
 
-	CDockAreaWidget *areaCenterLeft {nullptr};
+	/**
+	 * @brief Refreshes all icons of a dock. Needed for icon set or GUI changes.
+	 * @param dockWidgets
+	 */
+	void updateIcons(QList<CDockWidget *> dockWidgets);
+	void updateIcon(CDockWidget * dockWidget);
+
+	/**
+	 * @brief Creates a default workspace as perspective.
+	 */
+	void createDefaultWorkspace();
+
 };
 
 #endif // DOCK_MANAGER_H

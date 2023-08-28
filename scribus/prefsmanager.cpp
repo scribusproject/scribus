@@ -950,27 +950,7 @@ void PrefsManager::readPrefsXML()
 				appPrefs.uiPrefs.language = "en_GB"; // If we get here, Houston, we have a problem!
 		}
 		appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate", "").toLatin1());
-		appPrefs.uiPrefs.tabbedPalettes.clear();
-		PrefsTable *tabsTable = userprefsContext->getTable("tabbedPalettes");
-		PrefsTable *actTabsTable = userprefsContext->getTable("activeTabs");
-		if (tabsTable)
-		{
-			for (int r = 0; r < tabsTable->getRowCount(); r++)
-			{
-				tabPrefs tabs;
-				for (int c = 0; c < tabsTable->getColCount(); c++)
-				{
-					QString tabName = tabsTable->get(r, c);
-					if (!tabName.isEmpty())
-						tabs.palettes.append(tabsTable->get(r, c));
-				}
-				if (actTabsTable)
-					tabs.activeTab = actTabsTable->getInt(r, 0);
-				else
-					tabs.activeTab = -1;
-				appPrefs.uiPrefs.tabbedPalettes.append(tabs);
-			}
-		}
+		appPrefs.uiPrefs.adsDockState = QByteArray::fromBase64(userprefsContext->get("ads_dockstate", "").toLatin1());
 		//continue here...
 		//Prefs."blah blah" =...
 	}
@@ -1024,35 +1004,7 @@ void PrefsManager::savePrefsXML()
 		{
 			userprefsContext->set("gui_language", appPrefs.uiPrefs.language);
 			userprefsContext->set("mainwinstate", QString::fromLatin1(appPrefs.uiPrefs.mainWinState.toBase64()));
-			if (!appPrefs.uiPrefs.tabbedPalettes.isEmpty())
-			{
-				int maxCols = 0;
-				for (int a = 0; a < appPrefs.uiPrefs.tabbedPalettes.count(); a++)
-				{
-					maxCols = qMax(maxCols, appPrefs.uiPrefs.tabbedPalettes[a].palettes.count());
-				}
-				PrefsTable *tabsTable = userprefsContext->getTable("tabbedPalettes");
-				tabsTable->clear();
-				PrefsTable *actTabsTable = userprefsContext->getTable("activeTabs");
-				actTabsTable->clear();
-				for (int a = 0; a < appPrefs.uiPrefs.tabbedPalettes.count(); a++)
-				{
-					QStringList actTab = appPrefs.uiPrefs.tabbedPalettes[a].palettes;
-					for (int i = 0; i < actTab.count(); i++)
-					{
-						tabsTable->set(a, i, actTab[i]);
-					}
-					actTabsTable->set(a, 0, appPrefs.uiPrefs.tabbedPalettes[a].activeTab);
-					if (actTab.count() < maxCols)
-					{
-						for (int i = actTab.count(); i < maxCols; i++)
-						{
-							tabsTable->set(a, i, "dummy");
-						}
-					}
-
-				}
-			}
+			userprefsContext->set("ads_dockstate", QString::fromLatin1(appPrefs.uiPrefs.adsDockState.toBase64()));
 			//continue here...
 			//Prefs."blah blah" =...
 		}

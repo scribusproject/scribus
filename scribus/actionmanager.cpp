@@ -982,6 +982,9 @@ void ActionManager::initWindowsMenuActions()
 	scrActions->insert(name, new ScrAction( "", defaultKey(name), mainWindow));
 	name = "windowsTile";
 	scrActions->insert(name, new ScrAction( "", defaultKey(name), mainWindow));
+	name = "specialToggleAllPalettes";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	connect( (*scrActions)["specialToggleAllPalettes"], SIGNAL(triggered()), mainWindow, SLOT(ToggleAllPalettes()) );
 }
 
 void ActionManager::initScriptMenuActions()
@@ -1193,13 +1196,10 @@ void ActionManager::initSpecialActions()
 {
 	QString name;
 	//GUI
-	name = "specialToggleAllPalettes";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "specialToggleAllGuides";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "specialUnicodeSequenceBegin";
 	scrActions->insert(name, new ScrAction( "", defaultKey(name), mainWindow));
-	connect( (*scrActions)["specialToggleAllPalettes"], SIGNAL(triggered()), mainWindow, SLOT(ToggleAllPalettes()) );
 	connect( (*scrActions)["specialToggleAllGuides"], SIGNAL(triggered()), mainWindow, SLOT(ToggleAllGuides()) );
 }
 
@@ -1755,6 +1755,7 @@ void ActionManager::languageChange()
 	//Windows Menu
 	(*scrActions)["windowsCascade"]->setText( tr("&Cascade"));
 	(*scrActions)["windowsTile"]->setText( tr("&Tile"));
+	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
 
 	//Help Menu
 	(*scrActions)["helpAboutScribus"]->setTexts( tr("&About Scribus"));
@@ -1772,7 +1773,6 @@ void ActionManager::languageChange()
 	(*scrActions)["helpChat"]->setTexts( tr("Chat with the Community"));
 
 	//GUI and specials
-	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
 	(*scrActions)["specialToggleAllGuides"]->setTexts( tr("Toggle Guides"));
 	(*scrActions)["specialUnicodeSequenceBegin"]->setTexts( tr("Insert Unicode Character Begin Sequence"));
 
@@ -1985,12 +1985,13 @@ void ActionManager::createDefaultShortcuts()
 	//PDF items
 	//Extras Menu
 	//Windows Menu
+	defKeys.insert("specialToggleAllPalettes", Qt::Key_F12);
+
 	//Help Menu
 	defKeys.insert("helpActionSearch", Qt::CTRL | Qt::Key_Slash);
 	defKeys.insert("helpManual", Qt::Key_F1);
 
 	//GUI and specials
-	defKeys.insert("specialToggleAllPalettes", Qt::Key_F12);
 	defKeys.insert("specialToggleAllGuides", Qt::Key_F11);
 	defKeys.insert("specialUnicodeSequenceBegin", Qt::CTRL | Qt::SHIFT | Qt::Key_U);
 
@@ -2368,6 +2369,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second
 		<< "windowsCascade"
 		<< "windowsTile"
+		<< "specialToggleAllPalettes"
 		<< "toolsProperties"
 		<< "toolsContent"
 		<< "toolsOutline"
@@ -2469,7 +2471,6 @@ void ActionManager::createDefaultNonMenuActions()
 #ifdef HAVE_OSG
 	itnmenua->second << "toolsPDFAnnot3D";
 #endif
-	itnmenua->second << "specialToggleAllPalettes";
 	itnmenua->second << "specialToggleAllGuides";
 	itnmenua->second << "specialUnicodeSequenceBegin";
 	itnmenua->second << "viewShowContextMenu";
