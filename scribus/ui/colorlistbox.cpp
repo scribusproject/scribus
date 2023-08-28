@@ -164,12 +164,12 @@ void ColorFancyItemDelegate::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
 
-	alertIcon = iconManager.loadPixmap("alert.png", true);
-	cmykIcon = iconManager.loadPixmap("cmyk.png", true);
-	rgbIcon = iconManager.loadPixmap("rgb.png", true);
-	labIcon = iconManager.loadPixmap("lab.png", true);
-	spotIcon = iconManager.loadPixmap("spot.png", true);
-	regIcon = iconManager.loadPixmap("register.png", true);
+	alertIcon = iconManager.loadPixmap("alert.png");
+	cmykIcon = iconManager.loadPixmap("cmyk.png");
+	rgbIcon = iconManager.loadPixmap("rgb.png");
+	labIcon = iconManager.loadPixmap("lab.png");
+	spotIcon = iconManager.loadPixmap("spot.png");
+	regIcon = iconManager.loadPixmap("register.png");
 }
 
 int ColorListBox::initialized;
