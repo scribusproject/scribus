@@ -5449,9 +5449,9 @@ QByteArray PDFLibCore::handleBrushPattern(const PageItem* ite, const QPainterPat
 	QByteArray tmp;
 
 	ScPattern pat = doc.docPatterns[ite->strokePattern()];
-	double pLen = path.length() - ((pat.width / 2.0) * (ite->patternStrokeScaleX / 100.0));
-	double adv = pat.width * ite->patternStrokeScaleX / 100.0 * ite->patternStrokeSpace;
-	double xpos = ite->patternStrokeOffsetX * ite->patternStrokeScaleX / 100.0;
+	double pLen = path.length() - ((pat.width / 2.0) * (ite->patternStrokeTransfrm.scaleX / 100.0));
+	double adv = pat.width * ite->patternStrokeTransfrm.scaleX / 100.0 * ite->patternStrokeTransfrm.space;
+	double xpos = ite->patternStrokeTransfrm.offsetX * ite->patternStrokeTransfrm.scaleX / 100.0;
 	while (xpos < pLen)
 	{
 		double currPerc = path.percentAtLength(xpos);
@@ -5467,10 +5467,10 @@ QByteArray PDFLibCore::handleBrushPattern(const PageItem* ite, const QPainterPat
 		base.rotate(-currAngle);
 		tmp += TransformToStr(base) + " cm\n";
 		QTransform trans;
-		trans.translate(0.0, -ite->patternStrokeOffsetY);
-		trans.rotate(-ite->patternStrokeRotation);
-		trans.shear(ite->patternStrokeSkewX, -ite->patternStrokeSkewY);
-		trans.scale(ite->patternStrokeScaleX / 100.0, ite->patternStrokeScaleY / 100.0);
+		trans.translate(0.0, -ite->patternStrokeTransfrm.offsetY);
+		trans.rotate(-ite->patternStrokeTransfrm.rotation);
+		trans.shear(ite->patternStrokeTransfrm.skewX, -ite->patternStrokeTransfrm.skewY);
+		trans.scale(ite->patternStrokeTransfrm.scaleX / 100.0, ite->patternStrokeTransfrm.scaleY / 100.0);
 		trans.translate(-pat.width / 2.0, -pat.height / 2.0);
 		if (ite->patternStrokeMirrorX)
 		{
@@ -6604,12 +6604,27 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, const PageItem *currI
 	bool mirrorX = false, mirrorY = false;
 	if (kind == 0)
 	{
-		currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+		const ScPatternTransform& patternTrans = currItem->patternTransform();
+		patternScaleX = patternTrans.scaleX;
+		patternScaleY = patternTrans.scaleY;
+		patternOffsetX = patternTrans.offsetX;
+		patternOffsetY = patternTrans.offsetY;
+		patternRotation = patternTrans.rotation;
+		patternSkewX = patternTrans.skewX;
+		patternSkewY = patternTrans.skewY;
 		currItem->patternFlip(mirrorX, mirrorY);
 	}
 	else if (kind == 1)
 	{
-		currItem->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
+		const ScStrokePatternTransform& strokePatternTrans = currItem->strokePatternTransform();
+		patternScaleX = strokePatternTrans.scaleX;
+		patternScaleY = strokePatternTrans.scaleY;
+		patternOffsetX = strokePatternTrans.offsetX;
+		patternOffsetY = strokePatternTrans.offsetY;
+		patternRotation = strokePatternTrans.rotation;
+		patternSkewX = strokePatternTrans.skewX;
+		patternSkewY = strokePatternTrans.skewY;
+		patternSpace = strokePatternTrans.space;
 		currItem->strokePatternFlip(mirrorX, mirrorY);
 	}
 	else if (kind == 2)
@@ -6619,7 +6634,14 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, const PageItem *currI
 			mpa.translate(0, currItem->height() * scaleY);
 			mpa.scale(scaleX, scaleY);
 		}
-		currItem->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+		const ScMaskTransform& maskTrans = currItem->maskTransform();
+		patternScaleX = maskTrans.scaleX;
+		patternScaleY = maskTrans.scaleY;
+		patternOffsetX = maskTrans.offsetX;
+		patternOffsetY = maskTrans.offsetY;
+		patternRotation = maskTrans.rotation;
+		patternSkewX = maskTrans.skewX;
+		patternSkewY = maskTrans.skewY;
 		currItem->maskFlip(mirrorX, mirrorY);
 	}
 	if (kind == 1)

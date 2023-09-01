@@ -54,11 +54,11 @@ public:
 	void setStrokeMode(int fill) override;
 	int  strokeMode() const override { return m_strokeMode; }
 	void setGradient(VGradientEx::Type mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew) override;
-	void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) override;
+	void setPattern(ScPattern *pattern, const ScPatternTransform& patternTrans, bool mirrorX, bool mirrorY) override;
 
 	void setMaskMode(int mask) override;
 	void setGradientMask(VGradientEx::Type mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew) override;
-	void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) override;
+	void setPatternMask(ScPattern *pattern, const ScMaskTransform& maskTrans, bool mirrorX, bool mirrorY) override;
 
 	void set4ColorGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4) override;
 	void set4ColorColors(const ScColorShade& col1, const ScColorShade& col2, const ScColorShade& col3, const ScColorShade& col4) override;

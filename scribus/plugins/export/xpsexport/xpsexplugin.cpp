@@ -1634,9 +1634,9 @@ void XPSExPlug::processSymbolStroke(double xOffset, double yOffset, PageItem *it
 	ob.setAttribute("RenderTransform", MatrixToStr(mpx));
 	QPainterPath path = item->PoLine.toQPainterPath(false);
 	ScPattern pat = m_Doc->docPatterns[item->strokePattern()];
-	double pLen = path.length() - ((pat.width / 2.0) * (item->patternStrokeScaleX / 100.0));
-	double adv = pat.width * item->patternStrokeScaleX / 100.0 * item->patternStrokeSpace;
-	double xpos = item->patternStrokeOffsetX * item->patternStrokeScaleX / 100.0;
+	double pLen = path.length() - ((pat.width / 2.0) * (item->patternStrokeTransfrm.scaleX / 100.0));
+	double adv = pat.width * item->patternStrokeTransfrm.scaleX / 100.0 * item->patternStrokeTransfrm.space;
+	double xpos = item->patternStrokeTransfrm.offsetX * item->patternStrokeTransfrm.scaleX / 100.0;
 	while (xpos < pLen)
 	{
 		double currPerc = path.percentAtLength(xpos);
@@ -1649,10 +1649,10 @@ void XPSExPlug::processSymbolStroke(double xOffset, double yOffset, PageItem *it
 		QTransform trans;
 		trans.translate(currPoint.x() * conversionFactor, currPoint.y() * conversionFactor);
 		trans.rotate(currAngle);
-		trans.translate(0.0, item->patternStrokeOffsetY);
-		trans.rotate(-item->patternStrokeRotation);
-		trans.shear(item->patternStrokeSkewX, -item->patternStrokeSkewY);
-		trans.scale(item->patternStrokeScaleX / 100.0, item->patternStrokeScaleY / 100.0);
+		trans.translate(0.0, item->patternStrokeTransfrm.offsetY);
+		trans.rotate(-item->patternStrokeTransfrm.rotation);
+		trans.shear(item->patternStrokeTransfrm.skewX, -item->patternStrokeTransfrm.skewY);
+		trans.scale(item->patternStrokeTransfrm.scaleX / 100.0, item->patternStrokeTransfrm.scaleY / 100.0);
 		trans.translate(-pat.width / 2.0, -pat.height / 2.0);
 		if (item->patternStrokeMirrorX)
 		{
@@ -2013,19 +2013,18 @@ void XPSExPlug::getStrokeStyle(PageItem *item, QDomElement &parentElem, QDomElem
 			gr.setAttribute("ViewboxUnits", "Absolute");
 			gr.setAttribute("ViewportUnits", "Absolute");
 			gr.setAttribute("Viewbox", QString("0, 0, %1, %2").arg(pa.width * conversionFactor).arg(pa.height * conversionFactor));
-			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
-			item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
-			patternScaleX /= 100.0;
-			patternScaleY /= 100.0;
+			ScStrokePatternTransform strokePatTrans = item->strokePatternTransform();
+			strokePatTrans.scaleX /= 100.0;
+			strokePatTrans.scaleY /= 100.0;
 			double lw2 = item->lineWidth() / 2.0;
-			gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((xOffset + patternOffsetX - lw2) * conversionFactor).arg((yOffset + patternOffsetY - lw2) * conversionFactor).arg((pa.width * patternScaleX) * conversionFactor).arg((pa.height * patternScaleY) * conversionFactor));
+			gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((xOffset + strokePatTrans.offsetX - lw2) * conversionFactor).arg((yOffset + strokePatTrans.offsetY - lw2) * conversionFactor).arg((pa.width * strokePatTrans.scaleX) * conversionFactor).arg((pa.height * strokePatTrans.scaleY) * conversionFactor));
 			bool mirrorX, mirrorY;
 			item->strokePatternFlip(mirrorX, mirrorY);
-			if ((patternRotation != 0) || (patternSkewX != 0) || (patternSkewY != 0) || mirrorX || mirrorY)
+			if ((strokePatTrans.rotation != 0) || (strokePatTrans.skewX != 0) || (strokePatTrans.skewY != 0) || mirrorX || mirrorY)
 			{
 				QTransform mpa;
-				mpa.rotate(patternRotation);
-				mpa.shear(-patternSkewX, patternSkewY);
+				mpa.rotate(strokePatTrans.rotation);
+				mpa.shear(-strokePatTrans.skewX, strokePatTrans.skewY);
 				mpa.scale(pa.scaleX, pa.scaleY);
 				if (mirrorX)
 					mpa.scale(-1, 1);
@@ -2241,18 +2240,17 @@ void XPSExPlug::getFillStyle(PageItem *item, QDomElement &parentElem, QDomElemen
 		gr.setAttribute("ViewboxUnits", "Absolute");
 		gr.setAttribute("ViewportUnits", "Absolute");
 		gr.setAttribute("Viewbox", QString("0, 0, %1, %2").arg(pa.width * conversionFactor).arg(pa.height * conversionFactor));
-		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-		item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
-		patternScaleX /= 100.0;
-		patternScaleY /= 100.0;
-		gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((xOffset + patternOffsetX) * conversionFactor).arg((yOffset + patternOffsetY) * conversionFactor).arg((pa.width * patternScaleX) * conversionFactor).arg((pa.height * patternScaleY) * conversionFactor));
+		ScPatternTransform patternTrans = item->patternTransform();
+		patternTrans.scaleX /= 100.0;
+		patternTrans.scaleY /= 100.0;
+		gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((xOffset + patternTrans.offsetX) * conversionFactor).arg((yOffset + patternTrans.offsetY) * conversionFactor).arg((pa.width * patternTrans.scaleX) * conversionFactor).arg((pa.height * patternTrans.scaleY) * conversionFactor));
 		bool mirrorX, mirrorY;
 		item->patternFlip(mirrorX, mirrorY);
-		if ((patternRotation != 0) || (patternSkewX != 0) || (patternSkewY != 0) || mirrorX || mirrorY)
+		if ((patternTrans.rotation != 0) || (patternTrans.skewX != 0) || (patternTrans.skewY != 0) || mirrorX || mirrorY)
 		{
 			QTransform mpa;
-			mpa.rotate(patternRotation);
-			mpa.shear(-patternSkewX, patternSkewY);
+			mpa.rotate(patternTrans.rotation);
+			mpa.shear(-patternTrans.skewX, patternTrans.skewY);
 			mpa.scale(pa.scaleX, pa.scaleY);
 			if (mirrorX)
 				mpa.scale(-1, 1);
@@ -2371,18 +2369,17 @@ void XPSExPlug::handleMask(int type, PageItem *item, QDomElement &parentElem, QD
 		gr.setAttribute("ViewboxUnits", "Absolute");
 		gr.setAttribute("ViewportUnits", "Absolute");
 		gr.setAttribute("Viewbox", QString("0, 0, %1, %2").arg(pa.width * conversionFactor).arg(pa.height * conversionFactor));
-		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-		item->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
-		patternScaleX /= 100.0;
-		patternScaleY /= 100.0;
-		gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((xOffset + patternOffsetX) * conversionFactor).arg((yOffset + patternOffsetY) * conversionFactor).arg((pa.width * patternScaleX) * conversionFactor).arg((pa.height * patternScaleY) * conversionFactor));
+		ScMaskTransform maskTrans = item->maskTransform();
+		maskTrans.scaleX /= 100.0;
+		maskTrans.scaleY /= 100.0;
+		gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((xOffset + maskTrans.offsetX) * conversionFactor).arg((yOffset + maskTrans.offsetY) * conversionFactor).arg((pa.width * maskTrans.scaleX) * conversionFactor).arg((pa.height * maskTrans.scaleY) * conversionFactor));
 		bool mirrorX, mirrorY;
 		item->maskFlip(mirrorX, mirrorY);
-		if ((patternRotation != 0) || (patternSkewX != 0) || (patternSkewY != 0) || mirrorX || mirrorY)
+		if ((maskTrans.rotation != 0) || (maskTrans.skewX != 0) || (maskTrans.skewY != 0) || mirrorX || mirrorY)
 		{
 			QTransform mpa;
-			mpa.rotate(patternRotation);
-			mpa.shear(-patternSkewX, patternSkewY);
+			mpa.rotate(maskTrans.rotation);
+			mpa.shear(-maskTrans.skewX, maskTrans.skewY);
 			mpa.scale(pa.scaleX, pa.scaleY);
 			if (mirrorX)
 				mpa.scale(-1, 1);

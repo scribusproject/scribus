@@ -190,7 +190,10 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 				p->setMaskMode(0);
 			else
 			{
-				p->setPatternMask(&m_Doc->docPatterns[patternMaskVal], patternMaskScaleX * mscalex, patternMaskScaleY * mscaley, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
+				ScMaskTransform patternMaskTrans = patternMaskTransfrm;
+				patternMaskTrans.scaleX *= mscalex;
+				patternMaskTrans.scaleY *= mscaley;
+				p->setPatternMask(&m_Doc->docPatterns[patternMaskVal], patternMaskTrans, patternMaskMirrorX, patternMaskMirrorY);
 				if (GrMask == GradMask_Pattern)
 					p->setMaskMode(2);
 				else if (GrMask == GradMask_PatternLumAlpha)

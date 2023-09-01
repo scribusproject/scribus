@@ -44,6 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "mesh.h"
 #include "vgradientex.h"
 #include "sccolorshade.h"
+#include "scpatterntransform.h"
 
 class ScImage;
 class ScPattern;
@@ -92,11 +93,11 @@ public:
 	virtual void setStrokeMode(int stroke) = 0;
 	virtual int  strokeMode() const = 0;
 	virtual void setGradient(VGradientEx::Type mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew) = 0;
-	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) = 0;
+	virtual void setPattern(ScPattern *pattern, const ScPatternTransform& patternTrans, bool mirrorX, bool mirrorY) = 0;
 
 	virtual void setMaskMode(int mask) = 0;
 	virtual void setGradientMask(VGradientEx::Type mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew) = 0;
-	virtual void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) = 0;
+	virtual void setPatternMask(ScPattern *pattern, const ScMaskTransform& maskTrans, bool mirrorX, bool mirrorY) = 0;
 
 	virtual void set4ColorGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4) = 0;
 	virtual void set4ColorColors(const ScColorShade& col1, const ScColorShade& col2, const ScColorShade& col3, const ScColorShade& col4) = 0;

@@ -17,8 +17,10 @@ for which a new license (GPL+exception) is in place.
 #include <QFont>
 #include <QImage>
 #include <QPointF>
+
 #include "scribusapi.h"
 #include "scconfig.h"
+#include "scpatterntransform.h"
 #include "sctextstruct.h"
 #include "fpoint.h"
 #include "fpointarray.h"
@@ -73,11 +75,11 @@ public:
 	virtual void setStrokeMode(int stroke);
 	virtual int  strokeMode() const  { return m_strokeMode; }
 	virtual void setGradient(VGradient::VGradientType mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew);
-	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+	virtual void setPattern(ScPattern *pattern, const ScPatternTransform& patternTrans, bool mirrorX, bool mirrorY);
 
 	virtual void setMaskMode(int mask);
 	virtual void setGradientMask(VGradient::VGradientType mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew);
-	virtual void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+	virtual void setPatternMask(ScPattern *pattern, const ScMaskTransform& maskTrans, bool mirrorX, bool mirrorY);
 
 	virtual void set4ColorGeometry(const FPoint& p1, const FPoint& p2, const FPoint& p3, const FPoint& p4, const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4);
 	virtual void set4ColorColors(const QColor& col1, const QColor& col2, const QColor& col3, const QColor& col4);

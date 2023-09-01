@@ -160,7 +160,7 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
-		double sx, sy, ex, ey, r, skx, sky, fx, fy, ss, sk, sp;
+		double sx, sy, ex, ey, fx, fy, ss, sk;
 		currItem->m_columnGap = m_doc->ElemToLink->m_columnGap;
 		currItem->m_columns = m_doc->ElemToLink->m_columns;
 		currItem->setTextToFrameDist(m_doc->ElemToLink->textToFrameDistLeft(), m_doc->ElemToLink->textToFrameDistRight(), m_doc->ElemToLink->textToFrameDistTop(), m_doc->ElemToLink->textToFrameDistBottom());
@@ -188,11 +188,9 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 		currItem->setGradientVector(sx, sy, ex, ey, fx, fy, ss, sk);
 		// Pattern Properties
 		currItem->setPattern(m_doc->ElemToLink->pattern());
-		m_doc->ElemToLink->patternTransform(sx, sy, ex, ey, r, skx, sky);
-		currItem->setPatternTransform(sx, sy, ex, ey, r, skx, sky);
+		currItem->setPatternTransform(m_doc->ElemToLink->patternTransform());
 		currItem->setStrokePattern(m_doc->ElemToLink->strokePattern());
-		m_doc->ElemToLink->strokePatternTransform(sx, sy, ex, ey, r, skx, sky, sp);
-		currItem->setStrokePatternTransform(sx, sy, ex, ey, r, skx, sky, sp);
+		currItem->setStrokePatternTransform(m_doc->ElemToLink->strokePatternTransform());
 		currItem->setStrokePatternToPath(m_doc->ElemToLink->isStrokePatternToPath());
 		// Set Gradient type after all properties
 		currItem->setGradientType(m_doc->ElemToLink->gradientType());

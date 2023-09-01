@@ -584,6 +584,9 @@
     <ClInclude Include="..\..\..\scribus\scpattern.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpatterntransform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\scpixmapcache.h">
       <Filter>Header Files</Filter>
     </ClInclude>

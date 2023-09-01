@@ -706,6 +706,7 @@
     <ClInclude Include="..\..\..\scribus\scpainterexbase.h" />
     <ClInclude Include="..\..\..\scribus\scpaths.h" />
     <ClInclude Include="..\..\..\scribus\scpattern.h" />
+    <ClInclude Include="..\..\..\scribus\scpatterntransform.h" />
     <ClInclude Include="..\..\..\scribus\scpixmapcache.h" />
     <moc Include="..\..\..\scribus\scplugin.h" />
     <ClInclude Include="..\..\..\scribus\scpreview.h" />

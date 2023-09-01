@@ -5984,15 +5984,16 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	}
 
 	currItem->setStrokePattern( attrs.valueAsString("patternS", "") );
-	double patternScaleX   = attrs.valueAsDouble("pScaleXS", 100.0);
-	double patternScaleY   = attrs.valueAsDouble("pScaleYS", 100.0);
-	double patternOffsetX  = attrs.valueAsDouble("pOffsetXS", 0.0);
-	double patternOffsetY  = attrs.valueAsDouble("pOffsetYS", 0.0);
-	double patternRotation = attrs.valueAsDouble("pRotationS", 0.0);
-	double patternSkewX    = attrs.valueAsDouble("pSkewXS", 0.0);
-	double patternSkewY    = attrs.valueAsDouble("pSkewYS", 0.0);
-	double patternSpace    = attrs.valueAsDouble("pSpaceS", 1.0);
-	currItem->setStrokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
+	ScStrokePatternTransform strokePatternTrans;
+	strokePatternTrans.scaleX   = attrs.valueAsDouble("pScaleXS", 100.0);
+	strokePatternTrans.scaleY   = attrs.valueAsDouble("pScaleYS", 100.0);
+	strokePatternTrans.offsetX  = attrs.valueAsDouble("pOffsetXS", 0.0);
+	strokePatternTrans.offsetY  = attrs.valueAsDouble("pOffsetYS", 0.0);
+	strokePatternTrans.rotation = attrs.valueAsDouble("pRotationS", 0.0);
+	strokePatternTrans.skewX    = attrs.valueAsDouble("pSkewXS", 0.0);
+	strokePatternTrans.skewY    = attrs.valueAsDouble("pSkewYS", 0.0);
+	strokePatternTrans.space    = attrs.valueAsDouble("pSpaceS", 1.0);
+	currItem->setStrokePatternTransform(strokePatternTrans);
 	bool mirrorX = attrs.valueAsBool("pMirrorXS", false);
 	bool mirrorY = attrs.valueAsBool("pMirrorYS", false);
 	bool atPath = attrs.valueAsBool("pAtPathS", false);
@@ -6016,14 +6017,15 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 
 
 	currItem->setPatternMask( attrs.valueAsString("patternM", "") );
-	double patternScaleXm   = attrs.valueAsDouble("pScaleXM", 100.0);
-	double patternScaleYm   = attrs.valueAsDouble("pScaleYM", 100.0);
-	double patternOffsetXm  = attrs.valueAsDouble("pOffsetXM", 0.0);
-	double patternOffsetYm  = attrs.valueAsDouble("pOffsetYM", 0.0);
-	double patternRotationm = attrs.valueAsDouble("pRotationM", 0.0);
-	double patternSkewXm    = attrs.valueAsDouble("pSkewXM", 0.0);
-	double patternSkewYm    = attrs.valueAsDouble("pSkewYM", 0.0);
-	currItem->setMaskTransform(patternScaleXm, patternScaleYm, patternOffsetXm, patternOffsetYm, patternRotationm, patternSkewXm, patternSkewYm);
+	ScMaskTransform maskTransform;
+	maskTransform.scaleX = attrs.valueAsDouble("pScaleXM", 100.0);
+	maskTransform.scaleY   = attrs.valueAsDouble("pScaleYM", 100.0);
+	maskTransform.offsetX  = attrs.valueAsDouble("pOffsetXM", 0.0);
+	maskTransform.offsetY  = attrs.valueAsDouble("pOffsetYM", 0.0);
+	maskTransform.rotation = attrs.valueAsDouble("pRotationM", 0.0);
+	maskTransform.skewX    = attrs.valueAsDouble("pSkewXM", 0.0);
+	maskTransform.skewY    = attrs.valueAsDouble("pSkewYM", 0.0);
+	currItem->setMaskTransform(maskTransform);
 	bool mirrorXm = attrs.valueAsBool("pMirrorXM", false);
 	bool mirrorYm = attrs.valueAsBool("pMirrorYM", false);
 	currItem->setMaskFlip(mirrorXm, mirrorYm);

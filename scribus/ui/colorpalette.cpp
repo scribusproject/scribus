@@ -327,14 +327,13 @@ void ColorPalette::setCurrentItem(PageItem* item)
 	strokeModeCombo->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
 	gradientTypeStroke->setEnabled(!gradEditButtonStroke->isChecked() && !editMeshColors->isChecked());
 
-	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
 	bool mirrorX, mirrorY;
-	currentItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	const ScPatternTransform& patternTrans = currentItem->patternTransform();
 	currentItem->patternFlip(mirrorX, mirrorY);
-	setActPattern(currentItem->pattern(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, mirrorX, mirrorY);
-	currentItem->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
+	setCurrentPattern(currentItem->pattern(), patternTrans, mirrorX, mirrorY);
+	const ScStrokePatternTransform& strokePatternTrans = currentItem->strokePatternTransform();
 	currentItem->strokePatternFlip(mirrorX, mirrorY);
-	setActPatternStroke(currentItem->strokePattern(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, mirrorX, mirrorY, patternSpace, currentItem->isStrokePatternToPath());
+	setCurrentPatternStroke(currentItem->strokePattern(), strokePatternTrans, mirrorX, mirrorY, currentItem->isStrokePatternToPath());
 
 	connectSignals();
 }
@@ -882,7 +881,7 @@ void ColorPalette::selectPatternS(QListWidgetItem *c)
 	emit NewPatternS(c->text());
 }
 
-void ColorPalette::setActPatternStroke(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF)
+void ColorPalette::setCurrentPatternStroke(const QString& pattern, const ScStrokePatternTransform& patternTrans, bool mirrorX, bool mirrorY, bool pathF)
 {
 	bool sigBlocked = patternBoxStroke->blockSignals(true);
 	QList<QListWidgetItem*> itl = patternBoxStroke->findItems(pattern, Qt::MatchExactly);
@@ -893,21 +892,14 @@ void ColorPalette::setActPatternStroke(const QString& pattern, double scaleX, do
 	}
 	else
 		patternBoxStroke->clearSelection();
-	m_Pattern_scaleXS = scaleX;
-	m_Pattern_scaleYS = scaleX;
-	m_Pattern_offsetXS = offsetX;
-	m_Pattern_offsetYS = offsetY;
-	m_Pattern_rotationS = rotation;
-	m_Pattern_skewXS = skewX;
-	m_Pattern_skewYS = skewY;
+	m_strokePatternTrans = patternTrans;
 	m_Pattern_mirrorXS = mirrorX;
 	m_Pattern_mirrorYS = mirrorY;
-	m_Pattern_spaceS = space;
 	followsPath->setChecked(pathF);
 	patternBoxStroke->blockSignals(sigBlocked);
 }
 
-void ColorPalette::setActPattern(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+void ColorPalette::setCurrentPattern(const QString& pattern, const ScPatternTransform& patternTrans, bool mirrorX, bool mirrorY)
 {
 	bool sigBlocked = patternBox->blockSignals(true);
 	QList<QListWidgetItem*> itl = patternBox->findItems(pattern, Qt::MatchExactly);
@@ -918,13 +910,7 @@ void ColorPalette::setActPattern(const QString& pattern, double scaleX, double s
 	}
 	else
 		patternBox->clearSelection();
-	m_Pattern_scaleX = scaleX;
-	m_Pattern_scaleY = scaleX;
-	m_Pattern_offsetX = offsetX;
-	m_Pattern_offsetY = offsetY;
-	m_Pattern_rotation = rotation;
-	m_Pattern_skewX = skewX;
-	m_Pattern_skewY = skewY;
+	m_patternTrans = patternTrans;
 	m_Pattern_mirrorX = mirrorX;
 	m_Pattern_mirrorY = mirrorY;
 	patternBox->blockSignals(sigBlocked);
@@ -1754,26 +1740,26 @@ void ColorPalette::setMeshPatch()
 void ColorPalette::changePatternProps()
 {
 	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, false);
-	dia->spinXscaling->setValue(m_Pattern_scaleX);
-	dia->spinYscaling->setValue(m_Pattern_scaleY);
-	if (m_Pattern_scaleX == m_Pattern_scaleY)
+	dia->spinXscaling->setValue(m_patternTrans.scaleX);
+	dia->spinYscaling->setValue(m_patternTrans.scaleY);
+	if (m_patternTrans.scaleX == m_patternTrans.scaleY)
 		dia->keepScaleRatio->setChecked(true);
-	dia->spinXoffset->setValue(m_Pattern_offsetX);
-	dia->spinYoffset->setValue(m_Pattern_offsetY);
-	dia->spinAngle->setValue(m_Pattern_rotation);
-	double asina = atan(m_Pattern_skewX);
+	dia->spinXoffset->setValue(m_patternTrans.offsetX);
+	dia->spinYoffset->setValue(m_patternTrans.offsetY);
+	dia->spinAngle->setValue(m_patternTrans.rotation);
+	double asina = atan(m_patternTrans.skewX);
 	dia->spinXSkew->setValue(asina / (M_PI / 180.0));
-	double asinb = atan(m_Pattern_skewY);
+	double asinb = atan(m_patternTrans.skewY);
 	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
 	dia->FlipH->setChecked(m_Pattern_mirrorX);
 	dia->FlipV->setChecked(m_Pattern_mirrorY);
 	connect(dia, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)), this, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)));
 	dia->exec();
-	m_Pattern_scaleX = dia->spinXscaling->value();
-	m_Pattern_scaleY = dia->spinYscaling->value();
-	m_Pattern_offsetX = dia->spinXoffset->value();
-	m_Pattern_offsetY = dia->spinYoffset->value();
-	m_Pattern_rotation = dia->spinAngle->value();
+	m_patternTrans.scaleX = dia->spinXscaling->value();
+	m_patternTrans.scaleY = dia->spinYscaling->value();
+	m_patternTrans.offsetX = dia->spinXoffset->value();
+	m_patternTrans.offsetY = dia->spinYoffset->value();
+	m_patternTrans.rotation = dia->spinAngle->value();
 	double skewX = dia->spinXSkew->value();
 	double a;
 	if (skewX == 90.0)
@@ -1786,7 +1772,7 @@ void ColorPalette::changePatternProps()
 		a = 0.0;
 	else
 		a = tan(M_PI / 180.0 * skewX);
-	m_Pattern_skewX = tan(a);
+	m_patternTrans.skewX = tan(a);
 	skewX = dia->spinYSkew->value();
 	if (skewX == 90.0)
 		a = 1.0;
@@ -1798,7 +1784,7 @@ void ColorPalette::changePatternProps()
 		a = 0.0;
 	else
 		a = tan(M_PI / 180.0 * skewX);
-	m_Pattern_skewY = tan(a);
+	m_patternTrans.skewY = tan(a);
 	m_Pattern_mirrorX = dia->FlipH->isChecked();
 	m_Pattern_mirrorY = dia->FlipV->isChecked();
 	delete dia;
@@ -1809,27 +1795,27 @@ void ColorPalette::changePatternProps()
 void ColorPalette::changePatternPropsStroke()
 {
 	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, true);
-	dia->spinXscaling->setValue(m_Pattern_scaleXS);
-	dia->spinYscaling->setValue(m_Pattern_scaleYS);
-	if (m_Pattern_scaleXS == m_Pattern_scaleYS)
+	dia->spinXscaling->setValue(m_strokePatternTrans.scaleX);
+	dia->spinYscaling->setValue(m_strokePatternTrans.scaleY);
+	if (m_strokePatternTrans.scaleX == m_strokePatternTrans.scaleY)
 		dia->keepScaleRatio->setChecked(true);
-	dia->spinXoffset->setValue(m_Pattern_offsetXS);
-	dia->spinYoffset->setValue(m_Pattern_offsetYS);
-	dia->spinAngle->setValue(m_Pattern_rotationS);
-	dia->spinSpacing->setValue(m_Pattern_spaceS * 100.0);
-	double asina = atan(m_Pattern_skewXS);
+	dia->spinXoffset->setValue(m_strokePatternTrans.offsetX);
+	dia->spinYoffset->setValue(m_strokePatternTrans.offsetY);
+	dia->spinAngle->setValue(m_strokePatternTrans.rotation);
+	dia->spinSpacing->setValue(m_strokePatternTrans.space * 100.0);
+	double asina = atan(m_strokePatternTrans.skewX);
 	dia->spinXSkew->setValue(asina / (M_PI / 180.0));
-	double asinb = atan(m_Pattern_skewYS);
+	double asinb = atan(m_strokePatternTrans.skewY);
 	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
 	dia->FlipH->setChecked(m_Pattern_mirrorXS);
 	dia->FlipV->setChecked(m_Pattern_mirrorYS);
 	connect(dia, SIGNAL(NewPatternPropsS(double,double,double,double,double,double,double,double,bool,bool)), this, SIGNAL(NewPatternPropsS(double,double,double,double,double,double,double,double,bool,bool)));
 	dia->exec();
-	m_Pattern_scaleXS = dia->spinXscaling->value();
-	m_Pattern_scaleYS = dia->spinYscaling->value();
-	m_Pattern_offsetXS = dia->spinXoffset->value();
-	m_Pattern_offsetYS = dia->spinYoffset->value();
-	m_Pattern_rotationS = dia->spinAngle->value();
+	m_strokePatternTrans.scaleX = dia->spinXscaling->value();
+	m_strokePatternTrans.scaleY = dia->spinYscaling->value();
+	m_strokePatternTrans.offsetX = dia->spinXoffset->value();
+	m_strokePatternTrans.offsetY = dia->spinYoffset->value();
+	m_strokePatternTrans.rotation = dia->spinAngle->value();
 	double skewX = dia->spinXSkew->value();
 	double a;
 	if (skewX == 90)
@@ -1842,7 +1828,7 @@ void ColorPalette::changePatternPropsStroke()
 		a = 0;
 	else
 		a = tan(M_PI / 180.0 * skewX);
-	m_Pattern_skewXS = tan(a);
+	m_strokePatternTrans.skewX = tan(a);
 	skewX = dia->spinYSkew->value();
 	if (skewX == 90)
 		a = 1;
@@ -1854,8 +1840,8 @@ void ColorPalette::changePatternPropsStroke()
 		a = 0;
 	else
 		a = tan(M_PI / 180.0 * skewX);
-	m_Pattern_skewYS = tan(a);
-	m_Pattern_spaceS = dia->spinSpacing->value() / 100.0;
+	m_strokePatternTrans.skewY = tan(a);
+	m_strokePatternTrans.space = dia->spinSpacing->value() / 100.0;
 	m_Pattern_mirrorXS = dia->FlipH->isChecked();
 	m_Pattern_mirrorYS = dia->FlipV->isChecked();
 	delete dia;

@@ -1028,13 +1028,7 @@ void XarPlug::handleTextString(QDataStream &ts, quint32 dataLen)
 	text.PLineJoin = gc->PLineJoin;
 	text.PLineEnd = gc->PLineEnd;
 	text.fillPattern = gc->fillPattern;
-	text.patternScaleX = gc->patternScaleX;
-	text.patternScaleY = gc->patternScaleY;
-	text.patternOffsetX = gc->patternOffsetX;
-	text.patternOffsetY = gc->patternOffsetY;
-	text.patternRotation = gc->patternRotation;
-	text.patternSkewX = gc->patternSkewX;
-	text.patternSkewY = gc->patternSkewY;
+	text.fillPatternTrans = gc->fillPatternTrans;
 	text.FillGradientType = gc->FillGradientType;
 	text.FillGradient = gc->FillGradient;
 	text.GradFillX1 = gc->GradFillX1;
@@ -1060,13 +1054,7 @@ void XarPlug::handleTextString(QDataStream &ts, quint32 dataLen)
 	text.GradMaskY2 = gc->GradMaskY2;
 	text.GradMaskScale = gc->GradMaskScale;
 	text.GradMaskSkew = gc->GradMaskSkew;
-	text.patternMaskScaleX = gc->patternMaskScaleX;
-	text.patternMaskScaleY = gc->patternMaskScaleY;
-	text.patternMaskOffsetX = gc->patternMaskOffsetX;
-	text.patternMaskOffsetY = gc->patternMaskOffsetY;
-	text.patternMaskRotation = gc->patternMaskRotation;
-	text.patternMaskSkewX = gc->patternMaskSkewX;
-	text.patternMaskSkewY = gc->patternMaskSkewY;
+	text.maskPatternTrans = gc->maskPatternTrans;
 	text.maskPattern = gc->maskPattern;
 	QStringList txtList = iText.split(QChar(0x0D));
 	for (int b = 0; b < txtList.count(); b++)
@@ -1105,13 +1093,7 @@ void XarPlug::handleTextChar(QDataStream &ts)
 	text.PLineJoin = gc->PLineJoin;
 	text.PLineEnd = gc->PLineEnd;
 	text.fillPattern = gc->fillPattern;
-	text.patternScaleX = gc->patternScaleX;
-	text.patternScaleY = gc->patternScaleY;
-	text.patternOffsetX = gc->patternOffsetX;
-	text.patternOffsetY = gc->patternOffsetY;
-	text.patternRotation = gc->patternRotation;
-	text.patternSkewX = gc->patternSkewX;
-	text.patternSkewY = gc->patternSkewY;
+	text.fillPatternTrans = gc->fillPatternTrans;
 	text.FillGradientType = gc->FillGradientType;
 	text.FillGradient = gc->FillGradient;
 	text.GradFillX1 = gc->GradFillX1;
@@ -1137,13 +1119,7 @@ void XarPlug::handleTextChar(QDataStream &ts)
 	text.GradMaskY2 = gc->GradMaskY2;
 	text.GradMaskScale = gc->GradMaskScale;
 	text.GradMaskSkew = gc->GradMaskSkew;
-	text.patternMaskScaleX = gc->patternMaskScaleX;
-	text.patternMaskScaleY = gc->patternMaskScaleY;
-	text.patternMaskOffsetX = gc->patternMaskOffsetX;
-	text.patternMaskOffsetY = gc->patternMaskOffsetY;
-	text.patternMaskRotation = gc->patternMaskRotation;
-	text.patternMaskSkewX = gc->patternMaskSkewX;
-	text.patternMaskSkewY = gc->patternMaskSkewY;
+	text.maskPatternTrans = gc->maskPatternTrans;
 	text.maskPattern = gc->maskPattern;
 	textLines.last().textData.append(text);
 //	qDebug() << "Char" << QChar(val);
@@ -1346,7 +1322,7 @@ void XarPlug::endTextLine()
 							if (!txDat.fillPattern.isEmpty())
 							{
 								item->setPattern(txDat.fillPattern);
-								item->setPatternTransform(txDat.patternScaleX, txDat.patternScaleY, txDat.patternOffsetX, txDat.patternOffsetY, txDat.patternRotation, txDat.patternSkewX, txDat.patternSkewY);
+								item->setPatternTransform(txDat.fillPatternTrans);
 								item->GrType = Gradient_Pattern;
 							}
 							if ((txDat.FillGradientType == Gradient_Linear) || (txDat.FillGradientType == Gradient_Radial))
@@ -1378,7 +1354,7 @@ void XarPlug::endTextLine()
 								}
 								else
 								{
-									item->setMaskTransform(txDat.patternMaskScaleX, txDat.patternMaskScaleY, txDat.patternMaskOffsetX, txDat.patternMaskOffsetY, txDat.patternMaskRotation, txDat.patternMaskSkewX, txDat.patternMaskSkewY);
+									item->setMaskTransform(txDat.maskPatternTrans);
 									item->setPatternMask(txDat.maskPattern);
 								}
 							}
@@ -1453,7 +1429,7 @@ void XarPlug::endTextLine()
 					if (!txDat.fillPattern.isEmpty())
 					{
 						item->setPattern(txDat.fillPattern);
-						item->setPatternTransform(txDat.patternScaleX, txDat.patternScaleY, txDat.patternOffsetX, txDat.patternOffsetY, txDat.patternRotation, txDat.patternSkewX, txDat.patternSkewY);
+						item->setPatternTransform(txDat.fillPatternTrans);
 						item->GrType = Gradient_Pattern;
 					}
 					if ((txDat.FillGradientType == Gradient_Linear) || (txDat.FillGradientType == Gradient_Radial))
@@ -1485,7 +1461,7 @@ void XarPlug::endTextLine()
 						}
 						else
 						{
-							item->setMaskTransform(txDat.patternMaskScaleX, txDat.patternMaskScaleY, txDat.patternMaskOffsetX, txDat.patternMaskOffsetY, txDat.patternMaskRotation, txDat.patternMaskSkewX, txDat.patternMaskSkewY);
+							item->setMaskTransform(txDat.maskPatternTrans);
 							item->setPatternMask(txDat.maskPattern);
 						}
 					}
@@ -1942,13 +1918,13 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 		m_Doc->addPattern(patternName, pat);
 		importedPatterns.append(patternName);
 		gc->maskPattern = patternName;
-		gc->patternMaskScaleX = distX / pat.width * 100;
-		gc->patternMaskScaleY = distY / pat.height * 100;
-		gc->patternMaskOffsetX = 0.0;
-		gc->patternMaskOffsetY = 0.0;
-		gc->patternMaskRotation = -rotB;
-		gc->patternMaskSkewX = rotS - 90 - rotB;
-		gc->patternMaskSkewY = 0.0;
+		gc->maskPatternTrans.scaleX = distX / pat.width * 100;
+		gc->maskPatternTrans.scaleY = distY / pat.height * 100;
+		gc->maskPatternTrans.offsetX = 0.0;
+		gc->maskPatternTrans.offsetY = 0.0;
+		gc->maskPatternTrans.rotation = -rotB;
+		gc->maskPatternTrans.skewX = rotS - 90 - rotB;
+		gc->maskPatternTrans.skewY = 0.0;
 		gc->GradMask = 3;
 		if (textLines.count() > 0)
 		{
@@ -1956,13 +1932,7 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 			{
 				textLines.last().textData.last().GradMask = gc->GradMask;
 				textLines.last().textData.last().maskPattern = gc->maskPattern;
-				textLines.last().textData.last().patternMaskScaleX = gc->patternMaskScaleX;
-				textLines.last().textData.last().patternMaskScaleY = gc->patternMaskScaleY;
-				textLines.last().textData.last().patternMaskOffsetX = gc->patternMaskOffsetX;
-				textLines.last().textData.last().patternMaskOffsetY = gc->patternMaskOffsetY;
-				textLines.last().textData.last().patternMaskRotation = gc->patternMaskRotation;
-				textLines.last().textData.last().patternMaskSkewX = gc->patternMaskSkewX;
-				textLines.last().textData.last().patternMaskSkewY = gc->patternMaskSkewY;
+				textLines.last().textData.last().maskPatternTrans = gc->maskPatternTrans;
 			}
 		}
 	}
@@ -2607,11 +2577,11 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 	{
 		ScPattern pat = m_Doc->docPatterns[patternRef[bref]];
 		gc->fillPattern = patternRef[bref];
-		gc->patternScaleX = distX / pat.width * 100;
-		gc->patternScaleY = distY / pat.height * 100;
-		gc->patternOffsetX = 0.0;
-		gc->patternOffsetY = 0.0;
-		gc->patternRotation = -rotB;
+		gc->fillPatternTrans.scaleX = distX / pat.width * 100;
+		gc->fillPatternTrans.scaleY = distY / pat.height * 100;
+		gc->fillPatternTrans.offsetX = 0.0;
+		gc->fillPatternTrans.offsetY = 0.0;
+		gc->fillPatternTrans.rotation = -rotB;
 		double skewX = rotS - 90 - rotB;
 		double a;
 		if (skewX == 90)
@@ -2624,20 +2594,14 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 			a = 0;
 		else
 			a = tan(M_PI / 180.0 * skewX);
-		gc->patternSkewX = tan(a);
-		gc->patternSkewY = 0.0;
+		gc->fillPatternTrans.skewX = tan(a);
+		gc->fillPatternTrans.skewY = 0.0;
 		if (textLines.count() > 0)
 		{
 			if (textLines.last().textData.count() > 0)
 			{
 				textLines.last().textData.last().fillPattern = gc->fillPattern;
-				textLines.last().textData.last().patternScaleX = gc->patternScaleX;
-				textLines.last().textData.last().patternScaleY = gc->patternScaleY;
-				textLines.last().textData.last().patternOffsetX = gc->patternOffsetX;
-				textLines.last().textData.last().patternOffsetY = gc->patternOffsetY;
-				textLines.last().textData.last().patternRotation = gc->patternRotation;
-				textLines.last().textData.last().patternSkewX = gc->patternSkewX;
-				textLines.last().textData.last().patternSkewY = gc->patternSkewY;
+				textLines.last().textData.last().fillPatternTrans = gc->fillPatternTrans;
 			}
 		}
 	}
@@ -2740,11 +2704,11 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 		m_Doc->addPattern(patternName, pat);
 		importedPatterns.append(patternName);
 		gc->fillPattern = patternName;
-		gc->patternScaleX = distX / pat.width * 100;
-		gc->patternScaleY = distY / pat.height * 100;
-		gc->patternOffsetX = 0.0;
-		gc->patternOffsetY = 0.0;
-		gc->patternRotation = -rotB;
+		gc->fillPatternTrans.scaleX = distX / pat.width * 100;
+		gc->fillPatternTrans.scaleY = distY / pat.height * 100;
+		gc->fillPatternTrans.offsetX = 0.0;
+		gc->fillPatternTrans.offsetY = 0.0;
+		gc->fillPatternTrans.rotation = -rotB;
 		double skewX = rotS - 90 - rotB;
 		double a;
 		if (skewX == 90)
@@ -2757,20 +2721,14 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 			a = 0;
 		else
 			a = tan(M_PI / 180.0 * skewX);
-		gc->patternSkewX = tan(a);
-		gc->patternSkewY = 0.0;
+		gc->fillPatternTrans.skewX = tan(a);
+		gc->fillPatternTrans.skewY = 0.0;
 		if (textLines.count() > 0)
 		{
 			if (textLines.last().textData.count() > 0)
 			{
 				textLines.last().textData.last().fillPattern = gc->fillPattern;
-				textLines.last().textData.last().patternScaleX = gc->patternScaleX;
-				textLines.last().textData.last().patternScaleY = gc->patternScaleY;
-				textLines.last().textData.last().patternOffsetX = gc->patternOffsetX;
-				textLines.last().textData.last().patternOffsetY = gc->patternOffsetY;
-				textLines.last().textData.last().patternRotation = gc->patternRotation;
-				textLines.last().textData.last().patternSkewX = gc->patternSkewX;
-				textLines.last().textData.last().patternSkewY = gc->patternSkewY;
+				textLines.last().textData.last().fillPatternTrans = gc->fillPatternTrans;
 			}
 		}
 	}
@@ -3082,14 +3040,14 @@ void XarPlug::handleBrushItem(QDataStream &ts)
 	ScPattern pat = m_Doc->docPatterns[brushRef[handle]];
 	XarStyle *gc = m_gc.top();
 	gc->strokePattern = brushRef[handle];
-	gc->patternScaleXS = scale * 100;
-	gc->patternScaleYS = scale * 100;
-	gc->patternOffsetXS = offsetX / 1000.0;
-	gc->patternOffsetYS = offsetY / 1000.0;
-	gc->patternRotationS = 0.0;
-	gc->patternSkewX = 0.0;
-	gc->patternSkewY = 0.0;
-	gc->patternSpace = (spacing / 1000.0) / static_cast<double>(m_Doc->docPatterns[brushRef[handle]].width);
+	gc->strokePatternTrans.scaleX = scale * 100;
+	gc->strokePatternTrans.scaleY = scale * 100;
+	gc->strokePatternTrans.offsetX = offsetX / 1000.0;
+	gc->strokePatternTrans.offsetY = offsetY / 1000.0;
+	gc->strokePatternTrans.rotation = 0.0;
+	gc->strokePatternTrans.skewX = 0.0;
+	gc->strokePatternTrans.skewY = 0.0;
+	gc->strokePatternTrans.space = (spacing / 1000.0) / static_cast<double>(m_Doc->docPatterns[brushRef[handle]].width);
 	gc->patternStrokePath = true;
 }
 
@@ -3722,7 +3680,7 @@ void XarPlug::popGraphicContext()
 			if (!gc->fillPattern.isEmpty())
 			{
 				item->setPattern(gc->fillPattern);
-				item->setPatternTransform(gc->patternScaleX, gc->patternScaleY, gc->patternOffsetX, gc->patternOffsetY, gc->patternRotation, gc->patternSkewX, gc->patternSkewY);
+				item->setPatternTransform(gc->fillPatternTrans);
 				item->GrType = Gradient_Pattern;
 			}
 			if ((gc->FillGradientType == Gradient_Linear) || (gc->FillGradientType == Gradient_Radial))
@@ -3754,7 +3712,7 @@ void XarPlug::popGraphicContext()
 				}
 				else
 				{
-					item->setMaskTransform(gc->patternMaskScaleX, gc->patternMaskScaleY, gc->patternMaskOffsetX, gc->patternMaskOffsetY, gc->patternMaskRotation, gc->patternMaskSkewX, gc->patternMaskSkewY);
+					item->setMaskTransform(gc->maskPatternTrans);
 					item->setPatternMask(gc->maskPattern);
 				}
 			}
@@ -3762,7 +3720,7 @@ void XarPlug::popGraphicContext()
 			{
 				item->setStrokePatternToPath(gc->patternStrokePath);
 				item->setStrokePattern(gc->strokePattern);
-				item->setStrokePatternTransform(gc->patternScaleXS, gc->patternScaleYS, gc->patternOffsetXS, gc->patternOffsetYS, gc->patternRotationS, gc->patternSkewXS, gc->patternSkewYS, gc->patternSpace);
+				item->setStrokePatternTransform(gc->strokePatternTrans);
 			}
 		}
 	}
