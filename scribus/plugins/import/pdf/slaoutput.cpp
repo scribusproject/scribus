@@ -3711,9 +3711,10 @@ void SlaOutputDev::applyMask(PageItem *ite)
 		{
 			ite->setPatternMask(m_groupStack.top().maskName);
 			QPointF maskPos = m_groupStack.top().maskPos;
-			double sx, sy, px, py, r, shx, shy;
-			ite->maskTransform(sx, sy, px, py, r, shx, shy);
-			ite->setMaskTransform(sx, sy, maskPos.x() - ite->xPos(), maskPos.y() - ite->yPos(), r, shx, shy);
+			ScMaskTransform maskTrans = ite->maskTransform();
+			maskTrans.offsetX = maskPos.x() - ite->xPos();
+			maskTrans.offsetY = maskPos.y() - ite->yPos();
+			ite->setMaskTransform(maskTrans);
 			if (m_groupStack.top().alpha)
 			{
 				if (m_groupStack.top().inverted)

@@ -47,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "scimage.h"
 #include "margins.h"
+#include "scpatterntransform.h"
 #include "sctextstruct.h"
 #include "text/storytext.h"
 #include "text/textlayout.h"
@@ -719,7 +720,8 @@ public: // Start public functions
 	QString patternMask() const { return patternMaskVal; }
 	void maskVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const;
 	void setMaskVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew);
-	void maskTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const;
+	const ScMaskTransform& maskTransform() const { return patternMaskTransfrm; }
+	void setMaskTransform(const ScMaskTransform& maskTrans) { patternMaskTransfrm = maskTrans; }
 	void setMaskTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
 	void setMaskFlip(bool flipX, bool flipY);
 	void maskFlip(bool &flipX, bool &flipY) const;
@@ -871,7 +873,7 @@ public: // Start public functions
 	QString pattern() const { return m_patternName; }
 
 	/** @brief Get the pattern transformation matrix of the object */
-	void patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const;
+	const ScPatternTransform& patternTransform() const { return patternTransfrm; }
 
 	/**
 	 * @brief Set the fill pattern of the object.
@@ -882,6 +884,7 @@ public: // Start public functions
 	/**
 	 * @brief Set the fill pattern transformation of the object.
 	 */
+	void setPatternTransform(const ScPatternTransform& trans) { patternTransfrm = trans; }
 	void setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
 	void setPatternFlip(bool flipX, bool flipY);
 	void patternFlip(bool &flipX, bool &flipY) const;
@@ -956,7 +959,7 @@ public: // Start public functions
 	QString strokePattern() const { return patternStrokeVal; }
 
 	/** @brief Get the stroke pattern transformation matrix of the object */
-	void strokePatternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY, double &space) const;
+	const ScStrokePatternTransform& strokePatternTransform() const { return patternStrokeTransfrm; }
 
 	/**
 	 * @brief Set the stroke pattern of the object.
@@ -967,6 +970,7 @@ public: // Start public functions
 	/**
 	 * @brief Set the stroke pattern transformation of the object.
 	 */
+	void setStrokePatternTransform(const ScStrokePatternTransform& trans) { patternStrokeTransfrm = trans; }
 	void setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space);
 	void setStrokePatternFlip(bool flipX, bool flipY);
 	void strokePatternFlip(bool &flipX, bool &flipY) const;
@@ -1449,14 +1453,7 @@ public:	// Start public variables
 	/**
 		* @brief Stroke pattern transformation matrix
 		*/
-	double patternStrokeScaleX {100.0};
-	double patternStrokeScaleY {100.0};
-	double patternStrokeOffsetX {0};
-	double patternStrokeOffsetY {0};
-	double patternStrokeRotation {0};
-	double patternStrokeSkewX {0};
-	double patternStrokeSkewY {0};
-	double patternStrokeSpace {1.0};
+	ScStrokePatternTransform patternStrokeTransfrm;
 	bool patternStrokeMirrorX {false};
 	bool patternStrokeMirrorY {false};
 	bool patternStrokePath {false};
@@ -1494,13 +1491,7 @@ public:	// Start public variables
 	double GrMaskFocalY {0.0};
 	double GrMaskScale {1.0};
 	double GrMaskSkew {0.0};
-	double patternMaskScaleX {100.0};
-	double patternMaskScaleY {100.0};
-	double patternMaskOffsetX {0.0};
-	double patternMaskOffsetY {0.0};
-	double patternMaskRotation {0.0};
-	double patternMaskSkewX {0.0};
-	double patternMaskSkewY {0.0};
+	ScMaskTransform patternMaskTransfrm;
 	bool patternMaskMirrorX {false};
 	bool patternMaskMirrorY {false};
 	QString patternMaskVal;
@@ -1747,13 +1738,7 @@ protected: // Start protected variables
 	/**
 	 * @brief Fill pattern transformation matrix
 	 */
-	double patternScaleX {100.0};
-	double patternScaleY {100.0};
-	double patternOffsetX {0.0};
-	double patternOffsetY {0.0};
-	double patternRotation {0.0};
-	double patternSkewX {0.0};
-	double patternSkewY {0.0};
+	ScPatternTransform patternTransfrm;
 	bool   patternMirrorX {false};
 	bool   patternMirrorY {false};
 

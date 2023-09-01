@@ -310,16 +310,16 @@ void ScPainter::setGradientMask(VGradient::VGradientType mode, const FPoint& ori
 		m_mask_gradientSkew = tan(M_PI / 180.0 * skew);
 }
 
-void ScPainter::setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+void ScPainter::setPatternMask(ScPattern *pattern, const ScMaskTransform& maskTrans, bool mirrorX, bool mirrorY)
 {
 	m_maskPattern = pattern;
-	m_mask_patternScaleX = scaleX / 100.0;
-	m_mask_patternScaleY = scaleY / 100.0;
-	m_mask_patternOffsetX = offsetX;
-	m_mask_patternOffsetY = offsetY;
-	m_mask_patternRotation = rotation;
-	m_mask_patternSkewX = skewX;
-	m_mask_patternSkewY = skewY;
+	m_mask_patternScaleX = maskTrans.scaleX / 100.0;
+	m_mask_patternScaleY = maskTrans.scaleY / 100.0;
+	m_mask_patternOffsetX = maskTrans.offsetX;
+	m_mask_patternOffsetY = maskTrans.offsetY;
+	m_mask_patternRotation = maskTrans.rotation;
+	m_mask_patternSkewX = maskTrans.skewX;
+	m_mask_patternSkewY = maskTrans.skewY;
 	m_mask_patternMirrorX = mirrorX;
 	m_mask_patternMirrorY = mirrorY;
 }
@@ -548,16 +548,16 @@ void ScPainter::setBlendModeStroke(int blendMode)
 	m_blendModeStroke = blendMode;
 }
 
-void ScPainter::setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+void ScPainter::setPattern(ScPattern *pattern, const ScPatternTransform& patternTrans, bool mirrorX, bool mirrorY)
 {
 	m_pattern = pattern;
-	m_patternScaleX = scaleX / 100.0;
-	m_patternScaleY = scaleY / 100.0;
-	m_patternOffsetX = offsetX;
-	m_patternOffsetY = offsetY;
-	m_patternRotation = rotation;
-	m_patternSkewX = skewX;
-	m_patternSkewY = skewY;
+	m_patternScaleX = patternTrans.scaleX / 100.0;
+	m_patternScaleY = patternTrans.scaleY / 100.0;
+	m_patternOffsetX = patternTrans.offsetX;
+	m_patternOffsetY = patternTrans.offsetY;
+	m_patternRotation = patternTrans.rotation;
+	m_patternSkewX = patternTrans.skewX;
+	m_patternSkewY = patternTrans.skewY;
 	m_patternMirrorX = mirrorX;
 	m_patternMirrorY = mirrorY;
 }

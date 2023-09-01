@@ -132,7 +132,7 @@ void PageItem_Spiral::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 				}
 				else
 				{
-					p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
+					p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeTransfrm, patternStrokeMirrorX, patternStrokeMirrorY);
 					p->setStrokeMode(ScPainter::Pattern);
 					p->strokePath();
 				}

@@ -115,7 +115,10 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 		{
 			double scw = m_width / groupWidth;
 			double sch = m_height / groupHeight;
-			p->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskScaleX * scw, patternMaskScaleY * sch, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
+			ScMaskTransform patternMaskTrans = patternMaskTransfrm;
+			patternMaskTrans.scaleX *= scw;
+			patternMaskTrans.scaleY *= sch;
+			p->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskTrans, patternMaskMirrorX, patternMaskMirrorY);
 			if (maskType() == 3)
 				p->setMaskMode(2);
 			else if (maskType() == 6)

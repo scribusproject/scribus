@@ -135,11 +135,11 @@ void TransparencyPalette::setCurrentItem(PageItem* item)
 		gradientType->setCurrentIndex(1);
 	if(TGradDia && gradEditButton->isChecked())
 		TGradDia->setValues(currentItem->GrMaskStartX, currentItem->GrMaskStartY, currentItem->GrMaskEndX, currentItem->GrMaskEndY, currentItem->GrMaskFocalX, currentItem->GrMaskFocalY, currentItem->GrMaskScale, currentItem->GrMaskSkew, 0, 0);
-	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+	
 	bool mirrorX, mirrorY;
-	currentItem->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	const ScMaskTransform& maskTrans = currentItem->maskTransform();
 	currentItem->maskFlip(mirrorX, mirrorY);
-	setActPattern(currentItem->patternMask(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, mirrorX, mirrorY);
+	setCurrentMaskPattern(currentItem->patternMask(), maskTrans, mirrorX, mirrorY);
 
 	connectSignals();
 }
@@ -496,7 +496,7 @@ void TransparencyPalette::selectPattern(QListWidgetItem *c)
 	emit NewPattern(c->text());
 }
 
-void TransparencyPalette::setActPattern(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+void TransparencyPalette::setCurrentMaskPattern(const QString& pattern, const ScMaskTransform& maskTrans, bool mirrorX, bool mirrorY)
 {
 	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	QList<QListWidgetItem*> itl = patternBox->findItems(pattern, Qt::MatchExactly);
@@ -507,13 +507,7 @@ void TransparencyPalette::setActPattern(const QString& pattern, double scaleX, d
 	}
 	else
 		patternBox->clearSelection();
-	m_Pattern_scaleX = scaleX;
-	m_Pattern_scaleY = scaleX;
-	m_Pattern_offsetX = offsetX;
-	m_Pattern_offsetY = offsetY;
-	m_Pattern_rotation = rotation;
-	m_Pattern_skewX = skewX;
-	m_Pattern_skewY = skewY;
+	m_maskTransform = maskTrans;
 	m_Pattern_mirrorX = mirrorX;
 	m_Pattern_mirrorY = mirrorY;
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
@@ -522,32 +516,32 @@ void TransparencyPalette::setActPattern(const QString& pattern, double scaleX, d
 void TransparencyPalette::changePatternProps()
 {
 	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, false);
-	dia->spinXscaling->setValue(m_Pattern_scaleX);
-	dia->spinYscaling->setValue(m_Pattern_scaleY);
-	if (m_Pattern_scaleX == m_Pattern_scaleY)
+	dia->spinXscaling->setValue(m_maskTransform.scaleX);
+	dia->spinYscaling->setValue(m_maskTransform.scaleY);
+	if (m_maskTransform.scaleX == m_maskTransform.scaleY)
 		dia->keepScaleRatio->setChecked(true);
-	dia->spinXoffset->setValue(m_Pattern_offsetX);
-	dia->spinYoffset->setValue(m_Pattern_offsetY);
-	dia->spinAngle->setValue(m_Pattern_rotation);
-	double asina = atan(m_Pattern_skewX);
+	dia->spinXoffset->setValue(m_maskTransform.offsetX);
+	dia->spinYoffset->setValue(m_maskTransform.offsetY);
+	dia->spinAngle->setValue(m_maskTransform.rotation);
+	double asina = atan(m_maskTransform.skewX);
 	dia->spinXSkew->setValue(asina / (M_PI / 180.0));
-	double asinb = atan(m_Pattern_skewY);
+	double asinb = atan(m_maskTransform.skewY);
 	dia->spinYSkew->setValue(asinb / (M_PI / 180.0));
 	dia->FlipH->setChecked(m_Pattern_mirrorX);
 	dia->FlipV->setChecked(m_Pattern_mirrorY);
 	connect(dia, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)), this, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)));
 	dia->exec();
-	m_Pattern_scaleX = dia->spinXscaling->value();
-	m_Pattern_scaleY = dia->spinYscaling->value();
-	m_Pattern_offsetX = dia->spinXoffset->value();
-	m_Pattern_offsetY = dia->spinYoffset->value();
-	m_Pattern_rotation = dia->spinAngle->value();
+	m_maskTransform.scaleX = dia->spinXscaling->value();
+	m_maskTransform.scaleY = dia->spinYscaling->value();
+	m_maskTransform.offsetX = dia->spinXoffset->value();
+	m_maskTransform.offsetY = dia->spinYoffset->value();
+	m_maskTransform.rotation = dia->spinAngle->value();
 	double a    = M_PI / 180.0 * dia->spinXSkew->value();
 	double b    = M_PI / 180.0 * dia->spinYSkew->value();
 	double sina = tan(a);
 	double sinb = tan(b);
-	m_Pattern_skewX = sina;
-	m_Pattern_skewY = sinb;
+	m_maskTransform.skewX = sina;
+	m_maskTransform.skewY = sinb;
 	m_Pattern_mirrorX = dia->FlipH->isChecked();
 	m_Pattern_mirrorY = dia->FlipV->isChecked();
 	delete dia;

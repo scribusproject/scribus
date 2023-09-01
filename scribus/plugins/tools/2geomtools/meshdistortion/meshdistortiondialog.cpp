@@ -301,13 +301,12 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 				}
 				else if ((currItem->GrType == Gradient_Pattern) && (!currItem->pattern().isEmpty()) && (doc->docPatterns.contains(currItem->pattern())))
 				{
-					double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-					currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+					const ScPatternTransform& patternTrans = currItem->patternTransform();
 					QTransform qmatrix;
-					qmatrix.translate(patternOffsetX, patternOffsetY);
-					qmatrix.rotate(patternRotation);
-					qmatrix.shear(patternSkewX, patternSkewY);
-					qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
+					qmatrix.translate(patternTrans.offsetX, patternTrans.offsetY);
+					qmatrix.rotate(patternTrans.rotation);
+					qmatrix.shear(patternTrans.skewX, patternTrans.skewY);
+					qmatrix.scale(patternTrans.scaleX / 100.0, patternTrans.scaleY / 100.0);
 					bool mirrorX, mirrorY;
 					currItem->patternFlip(mirrorX, mirrorY);
 					if (mirrorX)
@@ -315,7 +314,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 					if (mirrorY)
 						qmatrix.scale(1, -1);
 					QImage pat = *doc->docPatterns[currItem->pattern()].getPattern();
-					QBrush brush = QBrush(pat);
+					QBrush brush(pat);
 					brush.setTransform(qmatrix);
 					pItem->setBrush(brush);
 				}
@@ -333,14 +332,13 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 		{
 			if ((!currItem->strokePattern().isEmpty()) && (doc->docPatterns.contains(currItem->strokePattern())))
 			{
-				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
-				currItem->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
+				const ScStrokePatternTransform& strokePatTrans = currItem->strokePatternTransform();
 				QTransform qmatrix;
 				qmatrix.translate(-currItem->lineWidth() / 2.0, -currItem->lineWidth() / 2.0);
-				qmatrix.translate(patternOffsetX, patternOffsetY);
-				qmatrix.rotate(patternRotation);
-				qmatrix.shear(patternSkewX, patternSkewY);
-				qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
+				qmatrix.translate(strokePatTrans.offsetX, strokePatTrans.offsetY);
+				qmatrix.rotate(strokePatTrans.rotation);
+				qmatrix.shear(strokePatTrans.skewX, strokePatTrans.skewY);
+				qmatrix.scale(strokePatTrans.scaleX / 100.0, strokePatTrans.scaleY / 100.0);
 				bool mirrorX, mirrorY;
 				currItem->strokePatternFlip(mirrorX, mirrorY);
 				if (mirrorX)
@@ -348,7 +346,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 				if (mirrorY)
 					qmatrix.scale(1, -1);
 				QImage pat = *doc->docPatterns[currItem->strokePattern()].getPattern();
-				QBrush brush = QBrush(pat);
+				QBrush brush(pat);
 				brush.setTransform(qmatrix);
 				pItem->setPen(QPen(brush, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
 			}

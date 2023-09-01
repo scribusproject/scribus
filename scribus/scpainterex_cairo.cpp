@@ -216,30 +216,30 @@ void ScPainterEx_Cairo::setGradientMask(VGradientEx::Type mode, const FPoint& or
 		m_maskGradientSkew = tan(M_PI / 180.0 * skew);
 }
 
-void ScPainterEx_Cairo::setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+void ScPainterEx_Cairo::setPatternMask(ScPattern *pattern, const ScMaskTransform& maskTrans, bool mirrorX, bool mirrorY)
 {
 	m_maskPattern = pattern;
-	m_maskPatternScaleX = scaleX / 100.0;
-	m_maskPatternScaleY = scaleY / 100.0;
-	m_maskPatternOffsetX = offsetX;
-	m_maskPatternOffsetY = offsetY;
-	m_maskPatternRotation = rotation;
-	m_maskPatternSkewX = skewX;
-	m_maskPatternSkewY = skewY;
+	m_maskPatternScaleX = maskTrans.scaleX / 100.0;
+	m_maskPatternScaleY = maskTrans.scaleY / 100.0;
+	m_maskPatternOffsetX = maskTrans.offsetX;
+	m_maskPatternOffsetY = maskTrans.offsetY;
+	m_maskPatternRotation = maskTrans.rotation;
+	m_maskPatternSkewX = maskTrans.skewX;
+	m_maskPatternSkewY = maskTrans.skewY;
 	m_maskPatternMirrorX = mirrorX;
 	m_maskPatternMirrorY = mirrorY;
 }
 
-void ScPainterEx_Cairo::setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)
+void ScPainterEx_Cairo::setPattern(ScPattern *pattern, const ScPatternTransform& patternTrans, bool mirrorX, bool mirrorY)
 {
 	m_pattern = pattern;
-	m_patternScaleX = scaleX / 100.0;
-	m_patternScaleY = scaleY / 100.0;
-	m_patternOffsetX = offsetX;
-	m_patternOffsetY = offsetY;
-	m_patternRotation = rotation;
-	m_patternSkewX   = skewX;
-	m_patternSkewY   = skewY;
+	m_patternScaleX = patternTrans.scaleX / 100.0;
+	m_patternScaleY = patternTrans.scaleY / 100.0;
+	m_patternOffsetX = patternTrans.offsetX;
+	m_patternOffsetY = patternTrans.offsetY;
+	m_patternRotation = patternTrans.rotation;
+	m_patternSkewX   = patternTrans.skewX;
+	m_patternSkewY   = patternTrans.skewY;
 	m_patternMirrorX = mirrorX;
 	m_patternMirrorY = mirrorY;
 }

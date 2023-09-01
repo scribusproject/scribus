@@ -213,7 +213,7 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 		else
 			p->setMaskMode(3);
 		if ((!gradientMask().isEmpty()) && (!m_Doc->docGradients.contains(gradientMask())))
-			gradientMaskVal = "";
+			gradientMaskVal.clear();
 		if (!(gradientMask().isEmpty()) && (m_Doc->docGradients.contains(gradientMask())))
 			mask_gradient = m_Doc->docGradients[gradientMask()];
 		p->mask_gradient = mask_gradient;
@@ -230,7 +230,10 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 		{
 			double scw = m_width / groupWidth;
 			double sch = m_height / groupHeight;
-			p->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskScaleX * scw, patternMaskScaleY * sch, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
+			ScMaskTransform patternMaskTrans = patternMaskTransfrm;
+			patternMaskTrans.scaleX *= scw;
+			patternMaskTrans.scaleY *= sch;
+			p->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskTrans, patternMaskMirrorX, patternMaskMirrorY);
 			if (maskType() == GradMask_Pattern)
 				p->setMaskMode(2);
 			else if (maskType() == GradMask_PatternLumAlpha)

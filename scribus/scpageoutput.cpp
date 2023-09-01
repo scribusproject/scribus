@@ -239,11 +239,10 @@ void ScPageOutput::drawItem_Pre(PageItem* item, ScPainterExBase* painter)
 		else
 		{
 			QTransform patternTransform;
-			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 			bool   patternMirrorX, patternMirrorY;
-			item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+			const ScPatternTransform& patternTrans = item->patternTransform();
 			item->patternFlip(patternMirrorX, patternMirrorY);
-			painter->setPattern(pattern, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternMirrorX, patternMirrorY);
+			painter->setPattern(pattern, patternTrans, patternMirrorX, patternMirrorY);
 			painter->setFillMode(ScPainterExBase::Pattern);
 		}
 	}
@@ -376,8 +375,7 @@ void ScPageOutput::drawItem_Pre(PageItem* item, ScPainterExBase* painter)
 		ScPattern *patternMask = m_doc->checkedPattern(patternMaskVal);
 		if (patternMask)
 		{
-			painter->setPatternMask(patternMask, item->patternMaskScaleX, item->patternMaskScaleY, item->patternMaskOffsetX, item->patternMaskOffsetY,
-				                    item->patternMaskRotation, item->patternMaskSkewX, item->patternMaskSkewY, item->patternMaskMirrorX, item->patternMaskMirrorY);
+			painter->setPatternMask(patternMask, item->patternMaskTransfrm, item->patternMaskMirrorX, item->patternMaskMirrorY);
 			if (item->GrMask == GradMask_Pattern)
 				painter->setMaskMode(2);
 			else if (item->GrMask == GradMask_PatternLumAlpha)
@@ -432,7 +430,7 @@ void ScPageOutput::drawItem_Post(PageItem* item, ScPainterExBase* painter)
 					}
 					else
 					{
-						painter->setPattern(strokePattern, item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+						painter->setPattern(strokePattern, item->patternStrokeTransfrm, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
 						painter->setStrokeMode(ScPainterExBase::Pattern);
 						painter->strokePath();
 					}
@@ -562,26 +560,25 @@ void ScPageOutput::drawPattern(PageItem* item, ScPainterExBase* painter, const Q
 {
 	double x1, x2, y1, y2;
 	ScPattern& pattern = m_doc->docPatterns[item->pattern()];
-	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-	item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	const ScPatternTransform& patternTrans = item->patternTransform();
 
 	// Compute pattern tansformation matrix and its inverse for converting pattern coordinates
 	// to pageitem coordinates 
 	QTransform matrix, invMat;
-	matrix.translate(patternOffsetX, patternOffsetY);
-	matrix.rotate(patternRotation);
-	matrix.shear(patternSkewX, patternSkewY);
+	matrix.translate(patternTrans.offsetX, patternTrans.offsetY);
+	matrix.rotate(patternTrans.rotation);
+	matrix.shear(patternTrans.skewX, patternTrans.skewY);
 	matrix.scale(pattern.scaleX, pattern.scaleY);
-	matrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
-	invMat.scale((patternScaleX != 0) ? (100 /patternScaleX) : 1.0, (patternScaleY != 0) ? (100 /patternScaleY) : 1.0);
+	matrix.scale(patternTrans.scaleX / 100.0 , patternTrans.scaleY / 100.0);
+	invMat.scale((patternTrans.scaleX != 0) ? (100 / patternTrans.scaleX) : 1.0, (patternTrans.scaleY != 0) ? (100 / patternTrans.scaleY) : 1.0);
 	invMat.scale((pattern.scaleX != 0) ? (1 /pattern.scaleX) : 1.0, (pattern.scaleY != 0) ? (1 /pattern.scaleY) : 1.0);
-	invMat.rotate(-patternRotation);
-	invMat.translate(-patternOffsetX, -patternOffsetY);
+	invMat.rotate(-patternTrans.rotation);
+	invMat.translate(-patternTrans.offsetX, -patternTrans.offsetY);
 
 	// Compute bounding box in which pattern item will be drawn
 	double width  = item->width();
 	double height = item->height();
-	double rot    = patternRotation - floor(patternRotation / 90) * 90;
+	double rot    = patternTrans.rotation - floor(patternTrans.rotation / 90) * 90;
 	double ctheta = cos(rot * M_PI / 180);
 	double stheta = sin(rot * M_PI / 180);
 	QRectF  itemRect(0.0, 0.0, item->width(), item->height());
@@ -606,10 +603,10 @@ void ScPageOutput::drawPattern(PageItem* item, ScPainterExBase* painter, const Q
 		PageItem* it = pattern.items.at(index);
 
 		painter->save();
-		painter->translate(patternOffsetX, patternOffsetY);
-		painter->rotate(patternRotation);
+		painter->translate(patternTrans.offsetX, patternTrans.offsetY);
+		painter->rotate(patternTrans.rotation);
 		painter->scale(pattern.scaleX, pattern.scaleY);
-		painter->scale(patternScaleX / 100.0, patternScaleY / 100.0);
+		painter->scale(patternTrans.scaleX / 100.0, patternTrans.scaleY / 100.0);
 
 		double patWidth  = (pattern.width != 0.0) ? pattern.width : 1.0;
 		double patHeight = (pattern.height != 0.0) ? pattern.height : 1.0;
@@ -851,7 +848,7 @@ void ScPageOutput::drawItem_Line(PageItem_Line* item, ScPainterExBase* painter, 
 			}
 			else
 			{
-				painter->setPattern(strokePattern, item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+				painter->setPattern(strokePattern, item->patternStrokeTransfrm, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
 				painter->setStrokeMode(ScPainterExBase::Pattern);
 				painter->strokePath();
 			}
@@ -1189,7 +1186,7 @@ void ScPageOutput::drawItem_PolyLine(PageItem_PolyLine* item, ScPainterExBase* p
 			}
 			else
 			{
-				painter->setPattern(strokePattern, item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+				painter->setPattern(strokePattern, item->patternStrokeTransfrm, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
 				painter->setStrokeMode(ScPainterExBase::Pattern);
 				painter->strokePath();
 			}
@@ -1356,7 +1353,7 @@ void ScPageOutput::drawItem_Spiral(PageItem_Spiral* item, ScPainterExBase* paint
 			}
 			else
 			{
-				painter->setPattern(strokePattern, item->patternStrokeScaleX, item->patternStrokeScaleY, item->patternStrokeOffsetX, item->patternStrokeOffsetY, item->patternStrokeRotation, item->patternStrokeSkewX, item->patternStrokeSkewY, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
+				painter->setPattern(strokePattern, item->patternStrokeTransfrm, item->patternStrokeMirrorX, item->patternStrokeMirrorY);
 				painter->setStrokeMode(ScPainterExBase::Pattern);
 				painter->strokePath();
 			}

@@ -15571,15 +15571,17 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 	}
 	if (item->GrType == Gradient_Pattern)
 	{
-		double psx, psy, pox, poy, prot, pskx, psky;
-		item->patternTransform(psx, psy, pox, poy, prot, pskx, psky);
-		item->setPatternTransform(psx * grScXi, psy * grScYi, pox, poy, prot, pskx, psky);
+		ScPatternTransform patternTrans = item->patternTransform();
+		patternTrans.scaleX *= grScXi;
+		patternTrans.scaleY *= grScYi;
+		item->setPatternTransform(patternTrans);
 	}
 	if ((item->GrMask == GradMask_Pattern) || (item->GrMask == GradMask_PatternLumAlpha) || (item->GrMask == GradMask_PatternLumAlphaInverted) || (item->GrMask == GradMask_PatternInverted))
 	{
-		double psx, psy, pox, poy, prot, pskx, psky;
-		item->maskTransform(psx, psy, pox, poy, prot, pskx, psky);
-		item->setMaskTransform(psx * grScXi, psy * grScYi, pox, poy, prot, pskx, psky);
+		ScMaskTransform maskTrans = item->maskTransform();
+		maskTrans.scaleX *= grScXi;
+		maskTrans.scaleY *= grScYi;
+		item->setMaskTransform(maskTrans);
 	}
 	if (item->isArc())
 	{

@@ -231,14 +231,7 @@ PageItem::PageItem(const PageItem & other)
 	m_lineWidth(other.m_lineWidth),
 	m_oldLineWidth(other.m_oldLineWidth),
 	patternStrokeVal(other.patternStrokeVal),
-	patternStrokeScaleX(other.patternStrokeScaleX),
-	patternStrokeScaleY(other.patternStrokeScaleY),
-	patternStrokeOffsetX(other.patternStrokeOffsetX),
-	patternStrokeOffsetY(other.patternStrokeOffsetY),
-	patternStrokeRotation(other.patternStrokeRotation),
-	patternStrokeSkewX(other.patternStrokeSkewX),
-	patternStrokeSkewY(other.patternStrokeSkewY),
-	patternStrokeSpace(other.patternStrokeSpace),
+	patternStrokeTransfrm(other.patternStrokeTransfrm),
 	patternStrokeMirrorX(other.patternStrokeMirrorX),
 	patternStrokeMirrorY(other.patternStrokeMirrorY),
 	patternStrokePath(other.patternStrokePath),
@@ -262,13 +255,7 @@ PageItem::PageItem(const PageItem & other)
 	GrMaskFocalY(other.GrMaskFocalY),
 	GrMaskScale(other.GrMaskScale),
 	GrMaskSkew(other.GrMaskSkew),
-	patternMaskScaleX(other.patternMaskScaleX),
-	patternMaskScaleY(other.patternMaskScaleY),
-	patternMaskOffsetX(other.patternMaskOffsetX),
-	patternMaskOffsetY(other.patternMaskOffsetY),
-	patternMaskRotation(other.patternMaskRotation),
-	patternMaskSkewX(other.patternMaskSkewX),
-	patternMaskSkewY(other.patternMaskSkewY),
+	patternMaskTransfrm(other.patternMaskTransfrm),
 	patternMaskMirrorX(other.patternMaskMirrorX),
 	patternMaskMirrorY(other.patternMaskMirrorY),
 	patternMaskVal(other.patternMaskVal),
@@ -291,13 +278,7 @@ PageItem::PageItem(const PageItem & other)
 	m_annotation(other.m_annotation),
 	m_gradientName(other.m_gradientName),
 	m_patternName(other.m_patternName),
-	patternScaleX(other.patternScaleX),
-	patternScaleY(other.patternScaleY),
-	patternOffsetX(other.patternOffsetX),
-	patternOffsetY(other.patternOffsetY),
-	patternRotation(other.patternRotation),
-	patternSkewX(other.patternSkewX),
-	patternSkewY(other.patternSkewY),
+	patternTransfrm(other.patternTransfrm),
 	patternMirrorX(other.patternMirrorX),
 	patternMirrorY(other.patternMirrorY),
 	m_fillColor(other.m_fillColor),
@@ -1688,7 +1669,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 		}
 		else
 		{
-			p->setPattern(pattern, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternMirrorX, patternMirrorY);
+			p->setPattern(pattern, patternTransfrm, patternMirrorX, patternMirrorY);
 			p->setFillMode(ScPainter::Pattern);
 		}
 	}
@@ -1797,7 +1778,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 		ScPattern *patternMask = m_Doc->checkedPattern(patternMaskVal);
 		if (patternMask)
 		{
-			p->setPatternMask(patternMask, patternMaskScaleX, patternMaskScaleY, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
+			p->setPatternMask(patternMask, patternMaskTransfrm, patternMaskMirrorX, patternMaskMirrorY);
 			if (GrMask == GradMask_Pattern)
 				p->setMaskMode(2);
 			else if (GrMask == GradMask_PatternLumAlpha)
@@ -1888,7 +1869,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 						}
 						else
 						{
-							p->setPattern(strokePattern, patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
+							p->setPattern(strokePattern, patternStrokeTransfrm, patternStrokeMirrorX, patternStrokeMirrorY);
 							p->setStrokeMode(ScPainter::Pattern);
 							p->strokePath();
 						}
@@ -2148,9 +2129,9 @@ void PageItem::DrawObj_Embedded(ScPainter *p, const QRectF& cullingArea, const C
 void PageItem::DrawStrokePattern(ScPainter *p, const QPainterPath &path)
 {
 	ScPattern pat = m_Doc->docPatterns[patternStrokeVal];
-	double pLen = path.length() - ((pat.width / 2.0) * (patternStrokeScaleX / 100.0));
-	double adv = pat.width * patternStrokeScaleX / 100.0 * patternStrokeSpace;
-	double xpos = patternStrokeOffsetX * patternStrokeScaleX / 100.0;
+	double pLen = path.length() - ((pat.width / 2.0) * (patternStrokeTransfrm.scaleX / 100.0));
+	double adv = pat.width * patternStrokeTransfrm.scaleX / 100.0 * patternStrokeTransfrm.space;
+	double xpos = patternStrokeTransfrm.offsetX * patternStrokeTransfrm.scaleX / 100.0;
 	while (xpos < pLen)
 	{
 		double currPerc = path.percentAtLength(xpos);
@@ -2165,10 +2146,10 @@ void PageItem::DrawStrokePattern(ScPainter *p, const QPainterPath &path)
 		p->rotate(currAngle);
 		QTransform savWM = p->worldMatrix();
 		QTransform trans;
-		trans.translate(0.0, patternStrokeOffsetY);
-		trans.rotate(patternStrokeRotation);
-		trans.shear(-patternStrokeSkewX, patternStrokeSkewY);
-		trans.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
+		trans.translate(0.0, patternStrokeTransfrm.offsetY);
+		trans.rotate(patternStrokeTransfrm.rotation);
+		trans.shear(-patternStrokeTransfrm.skewX, patternStrokeTransfrm.skewY);
+		trans.scale(patternStrokeTransfrm.scaleX / 100.0, patternStrokeTransfrm.scaleY / 100.0);
 		trans.translate(-pat.width / 2.0, -pat.height / 2.0);
 		if (patternStrokeMirrorX)
 		{
@@ -3374,24 +3355,13 @@ void PageItem::setStrokeGradientVector(double startX, double startY, double endX
 
 void PageItem::setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
 {
-	patternScaleX = scaleX;
-	patternScaleY = scaleY;
-	patternOffsetX = offsetX;
-	patternOffsetY = offsetY;
-	patternRotation = rotation;
-	patternSkewX = skewX;
-	patternSkewY = skewY;
-}
-
-void PageItem::patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const
-{
-	 scaleX = patternScaleX;
-	 scaleY = patternScaleY;
-	 offsetX = patternOffsetX;
-	 offsetY = patternOffsetY;
-	 rotation = patternRotation;
-	 skewX = patternSkewX;
-	 skewY = patternSkewY;
+	patternTransfrm.scaleX = scaleX;
+	patternTransfrm.scaleY = scaleY;
+	patternTransfrm.offsetX = offsetX;
+	patternTransfrm.offsetY = offsetY;
+	patternTransfrm.rotation = rotation;
+	patternTransfrm.skewX = skewX;
+	patternTransfrm.skewY = skewY;
 }
 
 void PageItem::setPatternFlip(bool flipX, bool flipY)
@@ -3457,26 +3427,15 @@ void PageItem::setMaskVector(double startX, double startY, double endX, double e
 	GrMaskSkew   = skew;
 }
 
-void PageItem::maskTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY) const
-{
-	 scaleX = patternMaskScaleX;
-	 scaleY = patternMaskScaleY;
-	 offsetX = patternMaskOffsetX;
-	 offsetY = patternMaskOffsetY;
-	 rotation = patternMaskRotation;
-	 skewX = patternMaskSkewX;
-	 skewY = patternMaskSkewY;
-}
-
 void PageItem::setMaskTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
 {
-	patternMaskScaleX = scaleX;
-	patternMaskScaleY = scaleY;
-	patternMaskOffsetX = offsetX;
-	patternMaskOffsetY = offsetY;
-	patternMaskRotation = rotation;
-	patternMaskSkewX = skewX;
-	patternMaskSkewY = skewY;
+	patternMaskTransfrm.scaleX = scaleX;
+	patternMaskTransfrm.scaleY = scaleY;
+	patternMaskTransfrm.offsetX = offsetX;
+	patternMaskTransfrm.offsetY = offsetY;
+	patternMaskTransfrm.rotation = rotation;
+	patternMaskTransfrm.skewX = skewX;
+	patternMaskTransfrm.skewY = skewY;
 }
 
 void PageItem::setMaskFlip(bool flipX, bool flipY)
@@ -3677,14 +3636,14 @@ bool PageItem::isStrokePatternToPath() const
 
 void PageItem::setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space)
 {
-	patternStrokeScaleX = scaleX;
-	patternStrokeScaleY = scaleY;
-	patternStrokeOffsetX = offsetX;
-	patternStrokeOffsetY = offsetY;
-	patternStrokeRotation = rotation;
-	patternStrokeSkewX = skewX;
-	patternStrokeSkewY = skewY;
-	patternStrokeSpace = space;
+	patternStrokeTransfrm.scaleX = scaleX;
+	patternStrokeTransfrm.scaleY = scaleY;
+	patternStrokeTransfrm.offsetX = offsetX;
+	patternStrokeTransfrm.offsetY = offsetY;
+	patternStrokeTransfrm.rotation = rotation;
+	patternStrokeTransfrm.skewX = skewX;
+	patternStrokeTransfrm.skewY = skewY;
+	patternStrokeTransfrm.space = space;
 }
 
 void PageItem::setStrokePatternFlip(bool flipX, bool flipY)
@@ -3697,18 +3656,6 @@ void PageItem::strokePatternFlip(bool &flipX, bool &flipY) const
 {
 	flipX = patternStrokeMirrorX;
 	flipY = patternStrokeMirrorY;
-}
-
-void PageItem::strokePatternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation, double &skewX, double &skewY, double &space) const
-{
-	scaleX = patternStrokeScaleX;
-	scaleY = patternStrokeScaleY;
-	offsetX = patternStrokeOffsetX;
-	offsetY = patternStrokeOffsetY;
-	rotation = patternStrokeRotation;
-	skewX = patternStrokeSkewX;
-	skewY = patternStrokeSkewY;
-	space = patternStrokeSpace;
 }
 
 void PageItem::setLineQColor()
@@ -8956,8 +8903,8 @@ double PageItem::visualLineWidth() const
 		{
 			const ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
 			QTransform mat;
-			mat.rotate(patternStrokeRotation);
-			mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
+			mat.rotate(patternStrokeTransfrm.rotation);
+			mat.scale(patternStrokeTransfrm.scaleX / 100.0, patternStrokeTransfrm.scaleY / 100.0);
 			QRectF p1R(0, 0, pat->width, pat->height);
 			QRectF p2R = mat.map(p1R).boundingRect();
 			extraSpace = p2R.height();
@@ -9638,7 +9585,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 			ScPattern *strokePattern = m_Doc->checkedPattern(patternStrokeVal);
 			if (strokePattern)
 			{
-				p->setPattern(strokePattern, patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
+				p->setPattern(strokePattern, patternStrokeTransfrm, patternStrokeMirrorX, patternStrokeMirrorY);
 				p->setFillMode(ScPainter::Pattern);
 				p->fillPath();
 			}

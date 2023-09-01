@@ -24,21 +24,23 @@ for which a new license (GPL+exception) is in place.
 #ifndef COLORPALETTE_H
 #define COLORPALETTE_H
 
-#include <QWidget>
-#include <QPointer>
 #include <QGroupBox>
+#include <QPointer>
 #include <QPushButton>
 #include <QToolButton>
+#include <QWidget>
+
 #include "scribusapi.h"
 #include "gradienteditor.h"
 #include "scribusdoc.h"
+#include "scpatterntransform.h"
 #include "ui/scrpalettebase.h"
 #include "ui_colorpalette.h"
 #include "ui/gradientvectordialog.h"
 #include "ui/patternpropsdialog.h"
 
-class PageItem;
 class ColorListBox;
+class PageItem;
 class ScrSpinBox;
 class ScPattern;
 class UndoManager;
@@ -65,13 +67,16 @@ public:
 	void setGradients(QHash<QString, VGradient> *docGradients);
 	void setPatterns(QHash<QString, ScPattern> *docPatterns);
 
+	void setCurrentPattern(const QString& pattern, const ScPatternTransform& patternTrans, bool mirrorX, bool mirrorY);
+	void setCurrentPatternStroke(const QString& pattern, const ScStrokePatternTransform& patternTrans, bool mirrorX, bool mirrorY, bool pathF);
+	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
+
 private:
 
 	PageItem* currentItemFromSelection();
 	UndoManager* undoManager {nullptr};
 
 public slots:
-
 	void handleSelectionChanged();
 	void handleUpdateRequest(int);
 
@@ -95,8 +100,6 @@ public slots:
 	void selectPattern(QListWidgetItem *c);
 	void selectPatternS(QListWidgetItem *c);
 	void hideEditedPatterns(QStringList names);
-	void setActPattern(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
-	void setActPatternStroke(const QString& pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF);
 	void selectColorS(int row);
 	void selectColorF(int row);
 	void slotGradStroke(int number);
@@ -113,7 +116,6 @@ public slots:
 	void editGradientVector();
 	void editGradientVectorStroke();
 	void setActiveGradDia(bool active);
-	void setSpecialGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void setMeshPoint();
 	void endPatchAdd();
 	void snapToPatchGrid(bool val);
@@ -125,8 +127,7 @@ public slots:
 	void changePatternPropsStroke();
 	void toggleStrokePattern();
 	void changeHatchProps();
-	void unitChange(double, double, int unitIndex);
-	void languageChange();
+
 signals:
 	void NewPen(QString);
 	void NewBrush(QString);
@@ -145,30 +146,18 @@ signals:
 
 protected:
 	ColorList colorList;
-	GradientVectorDialog* CGradDia {nullptr};
-	PageItem* currentItem {nullptr};
-	QHash<QString, ScPattern> *patternList {nullptr};
-	QHash<QString, VGradient> *gradientList {nullptr};
+	GradientVectorDialog* CGradDia { nullptr };
+	PageItem* currentItem { nullptr };
+	QHash<QString, ScPattern> *patternList { nullptr };
+	QHash<QString, VGradient> *gradientList { nullptr };
 	QPointer<ScribusDoc> currentDoc;
-	bool   m_Pattern_mirrorX {false};
-	bool   m_Pattern_mirrorXS {false};
-	bool   m_Pattern_mirrorY {false};
-	bool   m_Pattern_mirrorYS {false};
-	double m_Pattern_offsetX {0.0};
-	double m_Pattern_offsetXS {0.0};
-	double m_Pattern_offsetY {0.0};
-	double m_Pattern_offsetYS {0.0};
-	double m_Pattern_rotation {0.0};
-	double m_Pattern_rotationS {0.0};
-	double m_Pattern_scaleX {0.0};
-	double m_Pattern_scaleXS {0.0};
-	double m_Pattern_scaleY {0.0};
-	double m_Pattern_scaleYS {0.0};
-	double m_Pattern_skewX {0.0};
-	double m_Pattern_skewXS {0.0};
-	double m_Pattern_skewY {0.0};
-	double m_Pattern_skewYS {0.0};
-	double m_Pattern_spaceS {0.0};
+
+	ScPatternTransform m_patternTrans;
+	ScStrokePatternTransform m_strokePatternTrans;
+	bool   m_Pattern_mirrorX { false };
+	bool   m_Pattern_mirrorXS { false };
+	bool   m_Pattern_mirrorY { false };
+	bool   m_Pattern_mirrorYS { false };
 	int    currentUnit {0};
 	int    editStrokeGradient {0};
 
@@ -190,6 +179,9 @@ protected:
 	void   updateCList();
 	void   updateGradientList();
 	void   updatePatternList();
+
+	void   languageChange();
+	void   unitChange(double, double, int unitIndex);
 };
 
 #endif

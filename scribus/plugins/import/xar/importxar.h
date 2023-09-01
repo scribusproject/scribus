@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "pageitem.h"
 #include "sccolor.h"
+#include "scpatterntransform.h"
 
 class MultiProgressDialog;
 class ScribusDoc;
@@ -89,30 +90,11 @@ public:
 	int    StrokeBlend { 0 };
 	FPointArray clipPath;
 	QString fillPattern;
-	double patternScaleX { 1.0 };
-	double patternScaleY { 1.0 };
-	double patternOffsetX { 0.0 };
-	double patternOffsetY { 0.0 };
-	double patternRotation { 0.0 };
-	double patternSkewX { 0.0 };
-	double patternSkewY { 0.0 };
+	ScPatternTransform fillPatternTrans;
 	QString maskPattern;
-	double patternMaskScaleX { 1.0 };
-	double patternMaskScaleY { 1.0 };
-	double patternMaskOffsetX { 0.0 };
-	double patternMaskOffsetY { 0.0 };
-	double patternMaskRotation { 0.0 };
-	double patternMaskSkewX { 0.0 };
-	double patternMaskSkewY { 0.0 };
+	ScMaskTransform maskPatternTrans;
 	QString strokePattern;
-	double patternScaleXS { 1.0 };
-	double patternScaleYS { 1.0 };
-	double patternOffsetXS { 0.0 };
-	double patternOffsetYS { 0.0 };
-	double patternRotationS { 0.0 };
-	double patternSkewXS { 0.0 };
-	double patternSkewYS { 0.0 };
-	double patternSpace { 0 };
+	ScStrokePatternTransform strokePatternTrans;
 	bool   patternStrokePath { false };
 	FPoint GrControl1;
 	FPoint GrControl2;
@@ -340,21 +322,9 @@ private:
 		double StrokeOpacity { 0.0 };
 		int    StrokeBlend { 0 };
 		QString fillPattern;
-		double patternScaleX { 1.0 };
-		double patternScaleY { 1.0 };
-		double patternOffsetX { 0.0 };
-		double patternOffsetY { 0.0 };
-		double patternRotation { 0.0 };
-		double patternSkewX { 0.0 };
-		double patternSkewY { 0.0 };
+		ScPatternTransform fillPatternTrans;
 		QString maskPattern;
-		double patternMaskScaleX { 1.0 };
-		double patternMaskScaleY { 1.0 };
-		double patternMaskOffsetX { 0.0 };
-		double patternMaskOffsetY { 0.0 };
-		double patternMaskRotation { 0.0 };
-		double patternMaskSkewX { 0.0 };
-		double patternMaskSkewY { 0.0 };
+		ScMaskTransform maskPatternTrans;
 	};
 	struct XarTextLine
 	{
