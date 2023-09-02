@@ -3104,7 +3104,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, const QRectF& cullingArea)
 		SetQColor(&fontColor, itemText.defaultStyle().charStyle().fillColor(), itemText.defaultStyle().charStyle().fillShade());
 		double fontSize = itemText.defaultStyle().charStyle().fontSize() / 10.0;
 		ScFace font = itemText.defaultStyle().charStyle().font();
-		QString bmUtf16("");
+		QString bmUtf16;
 		QString cc;
 		if (!((itemText.length() == 1) && (itemText.text(0, 1) == QChar(13))))
 		{
@@ -4043,7 +4043,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 						view->deselectItems(true);
 						// we position the cursor at the beginning of the next frame
 						// TODO position at the right place in next frame
-						m_nextBox->itemText.setCursorPosition( m_nextBox->firstInFrame() );
+						m_nextBox->itemText.setCursorPosition(m_nextBox->firstInFrame());
 						m_Doc->scMW()->selectItemsFromOutlines(m_nextBox);
 					}
 				}
@@ -4055,7 +4055,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					if (m_nextBox->frameDisplays(lastInFrame() + 1))
 					{
 						view->deselectItems(true);
-						m_nextBox->itemText.setCursorPosition( m_nextBox->firstInFrame() );
+						m_nextBox->itemText.setCursorPosition(m_nextBox->firstInFrame());
 						m_Doc->scMW()->selectItemsFromOutlines(m_nextBox);
 					}
 				}

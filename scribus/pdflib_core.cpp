@@ -2327,7 +2327,7 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString,
 		PdfFont pdfFont;
 		QByteArray fontName = QByteArray("Fo") + Pdf::toPdf(a);
 		
-		QMap<uint, QString> usedGlyphs = it.value();
+		const QMap<uint, QString>& usedGlyphs = it.value();
 		if (usedGlyphs.count() <= 0)
 			continue;
 		

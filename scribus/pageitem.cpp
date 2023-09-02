@@ -3143,13 +3143,13 @@ void PageItem::createConicalMesh()
 			double actDist = lastStop + 0.25;
 			do
 			{
-				gradient.addStop(computeInBetweenStop(cstops.at(cst-1), cstops.at(cst), actDist));
+				gradient.addStop(computeInBetweenStop(cstops.at(cst - 1), cstops.at(cst), actDist));
 				actDist += 0.25;
 			}
 			while (actualStop > actDist);
 			gradient.addStop(cstops.at(cst)->color, cstops.at(cst)->rampPoint, cstops.at(cst)->midPoint, cstops.at(cst)->opacity, cstops.at(cst)->name, cstops.at(cst)->shade);
 		}
-		if ((cst == fill_gradient.stops()-1) && (actualStop < 1.0))
+		if ((cst == fill_gradient.stops() - 1) && (actualStop < 1.0))
 		{
 			double distToGo = 1.0 - actualStop;
 			if (distToGo <= 0.25)
@@ -3250,7 +3250,7 @@ void PageItem::createConicalMesh()
 	startAngle -= stepAngle;
 	for (int rst = 2; rst < gradient.stops(); ++rst)
 	{
-		stepAngle = 360 * (rstops.at(rst)->rampPoint - rstops.at(rst-1)->rampPoint);
+		stepAngle = 360 * (rstops.at(rst)->rampPoint - rstops.at(rst - 1)->rampPoint);
 		if (stepAngle <= 0)
 			continue;
 		path = QPainterPath();

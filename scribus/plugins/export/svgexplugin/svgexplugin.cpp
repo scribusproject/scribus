@@ -651,7 +651,7 @@ void SVGExPlug::paintBorder(const TableBorder& border, const QPointF& start, con
 		lineEnd.setY(end.y() + line.width() * endOffsetFactors.y());
 		QDomElement cl = m_domDoc.createElement("path");
 		cl.setAttribute("d", "M " + FToStr(lineStart.x()) + " " + FToStr(lineStart.y()) + " L " + FToStr(lineEnd.x()) + " " + FToStr(lineEnd.y()));
-		QString stroke = "";
+		QString stroke;
 		if (line.color() != CommonStrings::None)
 			cl.setAttribute("stroke", setColor(line.color(), line.shade()));
 		if (line.width() != 0.0)
@@ -741,7 +741,7 @@ QDomElement SVGExPlug::processHatchFill(PageItem *item, const QString& transl)
 		ob2.setAttribute("fill", setColor(item->hatchBackground, 100));
 		ob.appendChild(ob2);
 	}
-	QString stroke = "";
+	QString stroke;
 	stroke += "stroke-width:1;";
 	stroke += " stroke-linecap:butt;";
 	stroke += " stroke-linejoin:miter;";
@@ -1389,7 +1389,7 @@ QDomElement SVGExPlug::processInlineItem(PageItem* embItem, const QString& trans
 		QString fill = getFillStyle(embedded);
 		QString stroke = "stroke:none";
 		stroke = getStrokeStyle(embedded);
-		QString transE = "";
+		QString transE;
 		if (embItem->isGroup())
 		{
 			transE = "translate(" + FToStr(embedded->gXpos) + ", " + FToStr(embedded->gYpos) + ")";
@@ -1838,7 +1838,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 QString SVGExPlug::handleMask(PageItem *item, double xOffset, double yOffset)
 {
 	QDomElement grad;
-	QString retVal = "";
+	QString retVal;
 	if (item->GrMask == 0)
 		return retVal;
 
@@ -2131,7 +2131,7 @@ void SVGExPlug::writeBaseSymbols()
 
 QString SVGExPlug::getStrokeStyle(PageItem *item)
 {
-	QString stroke = "";
+	QString stroke;
 	if (item->lineTransparency() != 0)
 		stroke = "stroke-opacity:" + FToStr(1.0 - item->lineTransparency()) + ";";
 	if (item->lineWidth() != 0.0)

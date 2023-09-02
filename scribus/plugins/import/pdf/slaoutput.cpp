@@ -465,7 +465,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 	int pagNum = 0;
 	int xco = 0;
 	int yco = 0;
-	QString fileName = "";
+	QString fileName;
 	if (act->getKind() == actionGoTo)
 	{
 		LinkGoTo *gto = (LinkGoTo*) act;
@@ -710,8 +710,8 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			}
 			QString currTextColor = "Black";
 			double fontSize = 12;
-			QString fontName = "";
-			QString itemText = "";
+			QString fontName;
+			QString itemText;
 			AnnotAppearance *apa = annota->getAppearStreams();
 			if (apa || !achar)
 			{
@@ -776,15 +776,14 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				ite->annotation().setBorderColor(CommonStrings::None);
 				ite->annotation().setBorderWidth(0);
 			}
-			QString tmTxt = "";
-			tmTxt = UnicodeParsedString(fm->getPartialName());
+			QString tmTxt = UnicodeParsedString(fm->getPartialName());
 			if (!tmTxt.isEmpty())
 				ite->setItemName(tmTxt);
-			tmTxt = "";
+			tmTxt.clear();
 			tmTxt = UnicodeParsedString(fm->getAlternateUiName());
 			if (!tmTxt.isEmpty())
 				ite->annotation().setToolTip(tmTxt);
-			tmTxt = "";
+			tmTxt.clear();
 			if (achar)
 			{
 				tmTxt = UnicodeParsedString(achar->getRolloverCaption());
@@ -3372,7 +3371,7 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 					fontPath->getPoint(i, &x2, &y2, &f);
 					++i;
 					fontPath->getPoint(i, &x3, &y3, &f);
-					qPath.cubicTo(x1,y1,x2,y2,x3,y3);
+					qPath.cubicTo(x1, y1, x2, y2, x3, y3);
 				}
 				else
 					qPath.lineTo(x1, y1);

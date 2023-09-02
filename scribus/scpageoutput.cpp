@@ -1614,14 +1614,12 @@ void ScPageOutput::drawMarks(ScPage* page, ScPainterExBase* painter, const Marks
 	painter->setPen(ScColorShade(Qt::black, 100), 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	if (options.cropMarks)
 	{
-		FPoint start, end;
 		double left = offsetX, right = offsetX + width;
 		double bottom = offsetY + height, top = offsetY;
 		drawBoxMarks(painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs, markLength);
 	}
 	if (options.bleedMarks)
 	{
-		FPoint start, end;
 		double left = offsetX - bleedLeft, right = offsetX + width + bleedRight;
 		double bottom = offsetY + height + bleedBottom, top = offsetY - bleedTop;
 		drawBoxMarks(painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs, markLength);

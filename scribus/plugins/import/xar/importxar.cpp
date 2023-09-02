@@ -959,7 +959,7 @@ void XarPlug::defineTextFontFace(QDataStream &ts, quint32 dataLen)
 	quint16 charC = 0;
 	ts >> charC;
 	bytesRead += 2;
-	QString FullFontName = "";
+	QString FullFontName;
 	while (charC != 0)
 	{
 		FullFontName += QChar(charC);
@@ -969,7 +969,7 @@ void XarPlug::defineTextFontFace(QDataStream &ts, quint32 dataLen)
 	charC = 0;
 	ts >> charC;
 	bytesRead += 2;
-	QString TypeFaceName = "";
+	QString TypeFaceName;
 	while (charC != 0)
 	{
 		TypeFaceName += QChar(charC);
@@ -1006,7 +1006,7 @@ void XarPlug::handleTextString(QDataStream &ts, quint32 dataLen)
 	XarStyle *gc = m_gc.top();
 	XarText text;
 	text.itemText = "";
-	QString iText = "";
+	QString iText;
 	for (quint32 a = 0; a < l; a++)
 	{
 		ts >> val;
@@ -1227,12 +1227,12 @@ void XarPlug::endTextLine()
 		if (!textPath.empty())
 		{
 			QPainterPath guidePath = textPath.toQPainterPath(false);
-			for (int a = 0; a < textLines.count(); a++)
+			for (int a = 0; a < textLines.count(); ++a)
 			{
 				XarTextLine txLin = textLines[a];
 				TextY += gc->LineHeight;
 				xpos = 0;
-				for (int c = 0; c < txLin.textData.count(); c++)
+				for (int c = 0; c < txLin.textData.count(); ++c)
 				{
 					XarText txDat = txLin.textData[c];
 					xpos += txDat.FontKerning * (txDat.FontSize  * 72.0 / 96.0);
@@ -1246,7 +1246,7 @@ void XarPlug::endTextLine()
 					textFont.setItalic(txDat.FontItalic);
 					textFont.setUnderline(txDat.FontUnderline);
 					textFont.setStretch(txDat.FontStretch * 100);
-					for (int b = 0; b < txDat.itemText.count(); b++)
+					for (int b = 0; b < txDat.itemText.count(); ++b)
 					{
 						painterPath = QPainterPath();
 						QString ch = txDat.itemText.at(b);
@@ -1366,12 +1366,12 @@ void XarPlug::endTextLine()
 	}
 	else
 	{
-		for (int a = 0; a < textLines.count(); a++)
+		for (int a = 0; a < textLines.count(); ++a)
 		{
 			XarTextLine txLin = textLines[a];
 			TextY += gc->LineHeight;
 			xpos = 0;
-			for (int b = 0; b < txLin.textData.count(); b++)
+			for (int b = 0; b < txLin.textData.count(); ++b)
 			{
 				XarText txDat = txLin.textData[b];
 				painterPath = QPainterPath();
@@ -2779,7 +2779,7 @@ void XarPlug::defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag)
 	quint16 charC = 0;
 	ts >> charC;
 	bytesRead += 2;
-	QString XarName = "";
+	QString XarName;
 	while (charC != 0)
 	{
 		XarName += QChar(charC);
@@ -3259,7 +3259,7 @@ void XarPlug::handleLayerInfo(QDataStream &ts)
 	quint8 layerFlags;
 	ts >> layerFlags;
 	ts >> charC;
-	QString XarName = "";
+	QString XarName;
 	while (charC != 0)
 	{
 		XarName += QChar(charC);
@@ -3350,13 +3350,13 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 	ts >> colorRef;
 	ts >> component1 >> component2 >> component3 >> component4;
 	ts >> charC;
-	QString XarName = "";
+	QString XarName;
 	while (charC != 0)
 	{
 		XarName += QChar(charC);
 		ts >> charC;
 	}
-/*	QString colM = "";
+/*	QString colM;
 	switch (colorModel)
 	{
 		case 2:
@@ -3372,7 +3372,7 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 			colM = "Gray";
 			break;
 	}
-	QString colT = "";
+	QString colT;
 	switch (colorType)
 	{
 		case 0:

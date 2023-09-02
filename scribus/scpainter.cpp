@@ -878,12 +878,12 @@ void ScPainter::fillPathHelper()
 					cairo_mesh_pattern_line_to(mpat, e1.x2(), e1.y2());
 					cairo_mesh_pattern_line_to(mpat, e2.x2(), e2.y2());
 					cairo_mesh_pattern_line_to(mpat, e2s.x2(), e2s.y2());
-					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					qStopColors[offset - 1].getRgbF(&r, &g, &b, &a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
 					qStopColors[offset].getRgbF(&r, &g, &b, &a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
-					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					qStopColors[offset - 1].getRgbF(&r, &g, &b, &a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
 					cairo_mesh_pattern_end_patch(mpat);
 					cairo_mesh_pattern_begin_patch(mpat);
@@ -891,12 +891,12 @@ void ScPainter::fillPathHelper()
 					cairo_mesh_pattern_line_to(mpat, e2.x2(), e2.y2());
 					cairo_mesh_pattern_line_to(mpat, e3.x2(), e3.y2());
 					cairo_mesh_pattern_line_to(mpat, e3s.x2(), e3s.y2());
-					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					qStopColors[offset - 1].getRgbF(&r, &g, &b, &a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
 					qStopColors[offset].getRgbF(&r, &g, &b, &a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
-					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					qStopColors[offset - 1].getRgbF(&r, &g, &b, &a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
 					cairo_mesh_pattern_end_patch(mpat);
 					cairo_mesh_pattern_begin_patch(mpat);
@@ -904,12 +904,12 @@ void ScPainter::fillPathHelper()
 					cairo_mesh_pattern_line_to(mpat, e3.x2(), e3.y2());
 					cairo_mesh_pattern_line_to(mpat, e4.x2(), e4.y2());
 					cairo_mesh_pattern_line_to(mpat, e4s.x2(), e4s.y2());
-					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					qStopColors[offset - 1].getRgbF(&r, &g, &b, &a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
 					qStopColors[offset].getRgbF(&r, &g, &b, &a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
-					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					qStopColors[offset - 1].getRgbF(&r, &g, &b, &a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
 					cairo_mesh_pattern_end_patch(mpat);
 					cairo_mesh_pattern_begin_patch(mpat);
@@ -917,12 +917,12 @@ void ScPainter::fillPathHelper()
 					cairo_mesh_pattern_line_to(mpat, e4.x2(), e4.y2());
 					cairo_mesh_pattern_line_to(mpat, e1.x2(), e1.y2());
 					cairo_mesh_pattern_line_to(mpat, e1s.x2(), e1s.y2());
-					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					qStopColors[offset - 1].getRgbF(&r, &g, &b, &a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 0, r, g, b, a);
 					qStopColors[offset].getRgbF(&r, &g, &b, &a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 1, r, g, b, a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 2, r, g, b, a);
-					qStopColors[offset-1].getRgbF(&r, &g, &b, &a);
+					qStopColors[offset - 1].getRgbF(&r, &g, &b, &a);
 					cairo_mesh_pattern_set_corner_color_rgba(mpat, 3, r, g, b, a);
 					cairo_mesh_pattern_end_patch(mpat);
 				}
@@ -1905,15 +1905,15 @@ void ScPainter::blurAlpha(int radius)
 	QRgb *pix = (QRgb*)cairo_image_surface_get_data(data);
 	int w   = cairo_image_surface_get_width(data);
 	int h   = cairo_image_surface_get_height(data);
-	int wm  = w-1;
-	int hm  = h-1;
-	int wh  = w*h;
+	int wm  = w - 1;
+	int hm  = h - 1;
+	int wh  = w * h;
 	int div = radius+radius+1;
 	int *a = new int[wh];
 	int asum, x, y, i, yp, yi, yw;
 	QRgb p;
-	int *vmin = new int[qMax(w,h)];
-	int divsum = (div+1)>>1;
+	int *vmin = new int[qMax(w, h)];
+	int divsum = (div + 1)>>1;
 	divsum *= divsum;
 	int *dv = new int[256 * (size_t) divsum];
 	for (i = 0; i < 256 * divsum; ++i)
@@ -1938,11 +1938,11 @@ void ScPainter::blurAlpha(int radius)
 		ainsum = aoutsum = asum = 0;
 		for (i = -radius; i <= radius; ++i)
 		{
-			p = pix[yi+qMin(wm,qMax(i,0))];
-			sir = stack[i+radius];
+			p = pix[yi + qMin(wm, qMax(i, 0))];
+			sir = stack[i + radius];
 			sir[0] = qAlpha(p);
-			rbs = r1-abs(i);
-			asum += sir[0]*rbs;
+			rbs = r1 - abs(i);
+			asum += sir[0] * rbs;
 			if (i > 0)
 				ainsum += sir[0];
 			else
@@ -1953,7 +1953,7 @@ void ScPainter::blurAlpha(int radius)
 		{
 			a[yi] = dv[asum];
 			asum -= aoutsum;
-			stackstart = stackpointer-radius+div;
+			stackstart = stackpointer - radius + div;
 			sir = stack[stackstart % div];
 			aoutsum -= sir[0];
 			if (y == 0)

@@ -69,7 +69,6 @@ class PSPainter:public TextLayoutPainter
 {
 	public:
 	PSPainter(ScribusDoc* Doc, uint argh, ScPage* page, bool master, PSLib* ps):
-		m_Doc(Doc),
 		m_argh(argh),
 		m_page(page),
 		m_master(master),
@@ -83,7 +82,6 @@ class PSPainter:public TextLayoutPainter
 	void drawObject(PageItem* item) override;
 
 	private:
-		ScribusDoc* m_Doc {nullptr};
 		uint m_argh;
 		ScPage* m_page {nullptr};
 		bool m_master;
@@ -450,7 +448,7 @@ bool PSLib::PutInterleavedImageMaskToStream(const QByteArray& image, const QByte
 
 	ScASCII85EncodeFilter asciiEncode(&spoolStream);
 	ScFlateEncodeFilter   flateEncode(&asciiEncode);
-	if (!flateEncode.openFilter()) 
+	if (!flateEncode.openFilter())
 		return false;
 
 	for (int i = 0; i < pixels; ++i)
@@ -746,7 +744,7 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 			}
 			if (errorOccured) break;
 		}
-	}	
+	}
 	PutStream("%%EndSetup\n");
 
 	return (!errorOccured);
@@ -805,7 +803,7 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool clipping)
 	}
 	PutStream("Scribusdict begin\n");
 	if ((m_outputFormat == OutputPS) && (Options.setDevParam))
-  	{
+	{
 		if (pg->orientation() == 0)
 			PutStream("<< /PageSize [ " + ToStr(maxBoxX) + " " + ToStr(maxBoxY) + " ]\n");
 		else
@@ -890,7 +888,7 @@ void PSLib::PS_end_page()
 			PutStream(ToStr(maxBoxX - markDelta) + " " + ToStr(maxBoxY - Options.bleeds.top() - markOffs) + " m\n");
 			PutStream(ToStr(maxBoxX - markDelta - Options.markLength) + " " + ToStr(maxBoxY - Options.bleeds.top() - markOffs) + " li\n");
 			PutStream("st\n");
- 			PutStream(ToStr(maxBoxX - bleedRight - markOffs) + " " +  ToStr(maxBoxY - markDelta) + " m\n");
+			PutStream(ToStr(maxBoxX - bleedRight - markOffs) + " " +  ToStr(maxBoxY - markDelta) + " m\n");
 			PutStream(ToStr(maxBoxX - bleedRight - markOffs) + " " +  ToStr(maxBoxY - markDelta - Options.markLength)  + " li\n");
 			PutStream("st\n");
 		}
@@ -1665,7 +1663,6 @@ int PSLib::createPS(const QString& outputFileName)
 			if (currItem->rotation() != 0)
 			{
 				FPointArray pb;
-				pb.resize(0);
 				pb.addPoint(FPoint(currItem->xPos() - lw, currItem->yPos() - lw));
 				pb.addPoint(FPoint(currItem->width() + lw * 2.0, -lw, currItem->xPos() - lw, currItem->yPos() - lw, currItem->rotation(), 1.0, 1.0));
 				pb.addPoint(FPoint(currItem->width() + lw * 2.0, currItem->height() + lw * 2.0, currItem->xPos() - lw, currItem->yPos() - lw, currItem->rotation(), 1.0, 1.0));
@@ -1800,7 +1797,7 @@ int PSLib::createPS(const QString& outputFileName)
 		return 1;
 	if (abortExport)
 		return 2; //CB Lets leave 1 for general error condition
-	return 0; 
+	return 0;
 }
 
 bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, bool embedded, bool useTemplate)
@@ -1936,7 +1933,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			break;
 		if (item->isBookmark)
 		{
-			QString bm = "";
+			QString bm;
 			QString cc;
 			for (int d = 0; d < item->itemText.length(); ++d)
 			{
@@ -1950,7 +1947,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		{
 			if ((item->annotation().Type() == 0) || (item->annotation().Type() == 1) || (item->annotation().Type() == Annotation::Text) || (item->annotation().Type() == Annotation::Link))
 			{
-				QString bm = "";
+				QString bm;
 				QString cc;
 				for (int d = 0; d < item->itemText.length(); ++d)
 				{
@@ -2921,7 +2918,7 @@ void PSLib::HandleMeshGradient(PageItem* item)
 	}
 	for (int ac = 0; ac < cols.count(); ac++)
 	{
-		QString colorVal = "";
+		QString colorVal;
 		if ((Options.useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
 		{
 			if (spotColorSet.contains(cols.at(ac)))
@@ -3102,7 +3099,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* item)
 	}
 	for (int ac = 0; ac < cols.count(); ac++)
 	{
-		QString colorVal = "";
+		QString colorVal;
 		if ((Options.useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
 		{
 			if (spotColorSet.contains(cols.at(ac)))
@@ -3279,7 +3276,7 @@ void PSLib::HandleDiamondGradient(PageItem* item)
 	}
 	for (int ac = 0; ac < cols.count(); ac++)
 	{
-		QString colorVal = "";
+		QString colorVal;
 		if ((Options.useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
 		{
 			if (spotColorSet.contains(cols.at(ac)))
@@ -3740,7 +3737,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 	if (StopVec.count() > 2)
 	{
 		PutStream("/Bounds [");
-		QString bctx = "";
+		QString bctx;
 		for (int bc = 1; bc < StopVec.count() - 1; bc++)
 		{
 			bctx += ToStr(StopVec.at(bc)) + " ";
@@ -3749,7 +3746,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 	}
 	else
 		PutStream("/Bounds []\n");
-	QString entx = "";
+	QString entx;
 	PutStream("/Functions\n");
 	PutStream("[\n");
 	for (int cc = 0; cc < colorNames.count() - 1; cc++)
