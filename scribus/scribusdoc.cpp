@@ -2357,7 +2357,7 @@ QStringList ScribusDoc::getItemAttributeNames() const
 	QStringList nameList;
 
 	const auto& itemAttrs = itemAttributes();
-	for (auto it = itemAttrs.cbegin(); it!= itemAttrs.cend(); ++it)
+	for (auto it = itemAttrs.cbegin(); it != itemAttrs.cend(); ++it)
 		nameList.append((*it).name);
 	return nameList;
 }
@@ -6039,8 +6039,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 	double currentXPos = m_docPrefsData.displayPrefs.scratch.left();
 	double currentYPos = m_docPrefsData.displayPrefs.scratch.top();
 	double lastYPos = Pages->at(0)->initialHeight();
-//	currentXPos += (pageWidth+pageSets[currentPageLayout].GapHorizontal) * counter;
-	currentXPos += (m_docPrefsData.docSetupPrefs.pageWidth+m_docPrefsData.displayPrefs.pageGapHorizontal) * counter;
+//	currentXPos += (pageWidth + pageSets[currentPageLayout].GapHorizontal) * counter;
+	currentXPos += (m_docPrefsData.docSetupPrefs.pageWidth + m_docPrefsData.displayPrefs.pageGapHorizontal) * counter;
 
 	ScPage* page;
 	int docPageCount = Pages->count();
@@ -7242,7 +7242,7 @@ void ScribusDoc::setLocationBasedPageLRMargins(uint pageIndex)
 		pageToAdjust->Margins.setLeft(pageToAdjust->initialMargins.right());
 		pageToAdjust->Margins.setRight(pageToAdjust->initialMargins.left());
 	}
-	else if (pageLoc==RightPage) // Right hand page
+	else if (pageLoc == RightPage) // Right hand page
 	{
 		pageToAdjust->Margins.setRight(pageToAdjust->initialMargins.right());
 		pageToAdjust->Margins.setLeft(pageToAdjust->initialMargins.left());
@@ -10930,7 +10930,7 @@ void ScribusDoc::itemSelection_FlipH(Selection* customSelection)
 	if (trans)
 		trans.commit();
 	regionsChanged()->update(QRectF());
-	changed();	
+	changed();
 	changedPagePreview();
 	emit firstSelectedItemType(itemSelection->itemAt(0)->itemType());
 }
