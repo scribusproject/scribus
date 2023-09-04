@@ -1,14 +1,15 @@
 include_directories(
 	${CMAKE_SOURCE_DIR}
 	${CMAKE_SOURCE_DIR}/scribus
-	${PODOFO_INCLUDES}
+	${LIBPODOFO_INCLUDE_DIR}
 	${SCRIBUS_AUTOGEN_INCLUDE_PATH}
 )
 
 if(HAVE_PODOFO)
-	include_directories(
-		${LIBPODOFO_INCLUDE_DIR}
-	)
+	if(OPENSSL_FOUND)
+		include_directories(${OPENSSL_INCLUDE_DIR})
+	endif()
+	include_directories(BEFORE ${LIBPODOFO_INCLUDE_DIR})
 endif()
 
 set(IMPORTAI_PLUGIN_SOURCES
@@ -32,9 +33,7 @@ else()
 endif()
 
 if(HAVE_PODOFO)
-	target_link_libraries(${SCRIBUS_IMPORTAI_PLUGIN}
-		${LIBPODOFO_LIBRARY}
-	)
+	target_link_libraries(${SCRIBUS_IMPORTAI_PLUGIN} ${LIBPODOFO_LIBRARY})
 endif()
 
 if(WANT_PCH)

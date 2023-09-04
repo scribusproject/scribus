@@ -12,23 +12,45 @@ if(WIN32)
 	endif(NOT DEFINED LIBPODOFO_SHARED)
 endif(WIN32)
 
-find_path(LIBPODOFO_INCLUDE_DIR
-	NAMES podofo/podofo.h
-	PATHS
-	"${LIBPODOFO_DIR}/include"
-	"${LIBPODOFO_DIR}/src"
-	"${LIBPODOFO_DIR}"
+set(LIBPODOFO_FIND_QUIETLY OFF)
+
+find_package(PkgConfig QUIET)
+if(DEFINED LIBPODOFO_DIR_CUSTOM)
+	set(ENV{PKG_CONFIG_PATH} "${LIBPODOFO_DIR_CUSTOM}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}")
+endif()
+pkg_search_module(libpodofo REQUIRED libpodofo podofo)
+
+if (DEFINED LIBPODOFO_DIR_CUSTOM)
+	find_path(LIBPODOFO_INCLUDE_DIR
+		NAMES podofo/podofo.h
+		PATHS
+		"${LIBPODOFO_DIR_CUSTOM}/include"
+		"${LIBPODOFO_DIR_CUSTOM}"
+		PATH_SUFFIXES podofo
+		NO_DEFAULT_PATH
 	)
 
-set(LIBPODOFO_FIND_QUIETLY ON)
-
-find_library(LIBPODOFO_LIBRARY
-	NAMES libpodofo podofo
-	PATHS
-	"${LIBPODOFO_DIR}/lib"
-	"${LIBPODOFO_DIR}/src"
-	"${LIBPODOFO_DIR}"
+	find_library(LIBPODOFO_LIBRARY
+		NAMES libpodofo podofo
+		PATHS
+		"${LIBPODOFO_DIR_CUSTOM}/lib"
+		"${LIBPODOFO_DIR_CUSTOM}"
+		NO_DEFAULT_PATH
 	)
+else()
+	find_path(LIBPODOFO_INCLUDE_DIR
+		NAMES podofo/podofo.h
+		PATHS
+		${libpodofo_INCLUDE_DIRS}
+	)
+
+	find_library(LIBPODOFO_LIBRARY
+		NAMES libpodofo podofo
+		PATHS
+		${libpodofo_LIBRARY_DIRS}
+	)
+endif()
+
 
 if(LIBPODOFO_INCLUDE_DIR AND LIBPODOFO_LIBRARY)
 	if(NOT LIBPODOFO_CONFIG_H)
