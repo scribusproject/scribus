@@ -81,7 +81,7 @@ protected slots:
 	void runUpdateCheck();
 
 public slots:
-	virtual void setVisible (bool visible); 
+	void setVisible (bool visible) override;
 };
 
 #endif // ABOUT_H

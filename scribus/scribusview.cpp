@@ -894,7 +894,6 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				{
 					ImportSetup impsetup;
 					impsetup.runDialog = true;
-					impsetup.encoding = "";
 					impsetup.prefixNames = true;
 					impsetup.textOnly = false;
 					impsetup.importer = -1;
