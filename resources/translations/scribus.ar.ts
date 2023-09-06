@@ -6386,7 +6386,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="230"/>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
-        <translation>تعرض هذه اللوحة خيارات متعددة لنظام طباعة يونكس العام (ن ط ي ع) عند الطباعة. ستعتمد المعلمات المتاحة نفسها على مشغّل طباعتك. ويمكنك أن تؤكد دعم ن ط ي ع من خلال اختيار مساعدة &gt;&#xa0;حول. ابحث عن القوائم: ع-ن-ت اختصارًا لـ ع=نظام طباعة يونكس العام ن= نظام لإدارة الألوان مفتوح المصدر (LCMS) ت= دعم تيف. يُشار إلى دعم مكتبة مفقود بـ  *.</translation>
+        <translation>تعرض هذه اللوحة خيارات متعددة لنظام طباعة يونكس العام (ن ط ي ع) عند الطباعة. ستعتمد المعلمات المتاحة نفسها على مشغّل طباعتك. ويمكنك أن تؤكد دعم ن ط ي ع من خلال اختيار مساعدة &gt; حول. ابحث عن القوائم: ع-ن-ت اختصارًا لـ ع=نظام طباعة يونكس العام ن= نظام لإدارة الألوان مفتوح المصدر (LCMS) ت= دعم تيف. يُشار إلى دعم مكتبة مفقود بـ  *.</translation>
     </message>
 </context>
 <context>
@@ -7230,7 +7230,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="122"/>
         <source>Export only the current page</source>
-        <translation>صدّر الصفحة الحالية فقط&#xa0;</translation>
+        <translation>صدّر الصفحة الحالية فقط </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="127"/>
@@ -8403,7 +8403,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="294"/>
         <source>Create the selected number of horizontal guides relative to the current selection of items</source>
-        <translation>أنشئ العدد المُختار من الأدلة الأفقية بالنسبة إلى الاختيار الحالي للعناصر&#xa0;</translation>
+        <translation>أنشئ العدد المُختار من الأدلة الأفقية بالنسبة إلى الاختيار الحالي للعناصر </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="370"/>
@@ -8943,7 +8943,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="97"/>
         <source>CGM File</source>
-        <translation>ملف CGM&#xa0;</translation>
+        <translation>ملف CGM </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="99"/>
@@ -9145,7 +9145,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
+        <source>Imports Adobe InDesign's IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12495,7 +12495,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="67"/>
         <source>Dialog is in adding new notes style mode. After pressing Cancel button dialog will be switched into normal notes styles edit mode.</source>
-        <translation>النوافذ الحوارية في وضعيّة إضافة نمط ملاحظات جديد. بعد الضغط على زر إلغاء ستتغير وضعيّة مُحرّر أنماط الملاحظات إلى وضعية تحرير أنماط الملاحظات المُعتادة.&#xa0;</translation>
+        <translation>النوافذ الحوارية في وضعيّة إضافة نمط ملاحظات جديد. بعد الضغط على زر إلغاء ستتغير وضعيّة مُحرّر أنماط الملاحظات إلى وضعية تحرير أنماط الملاحظات المُعتادة. </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="68"/>
@@ -13008,22 +13008,22 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="96"/>
         <source>50%</source>
-        <translation type="unfinished">50%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="101"/>
         <source>100%</source>
-        <translation type="unfinished">100%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="106"/>
         <source>150%</source>
-        <translation type="unfinished">150%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="111"/>
         <source>200%</source>
-        <translation type="unfinished">200%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="116"/>
@@ -13375,7 +13375,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="133"/>
         <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
-        <translation>افتح PDF المصدّر باستخدام عارض PDF&#xa0; كما هو محدد في تفضيلات الأدوات الخارجية عند عدم التصدير إلى وجهة تصدير متعددة الملفات</translation>
+        <translation>افتح PDF المصدّر باستخدام عارض PDF  كما هو محدد في تفضيلات الأدوات الخارجية عند عدم التصدير إلى وجهة تصدير متعددة الملفات</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="134"/>
@@ -13415,7 +13415,7 @@ Please check it and try again.</source>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="600"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
-        <translation>يفتقد بناء Qt كلًا من برامج الترميز النصية &quot;UTF-16&quot; و&quot;ISO-10646-UCS-2&quot;، لا يمكن تصدير pdf&#xa0;</translation>
+        <translation>يفتقد بناء Qt كلًا من برامج الترميز النصية &quot;UTF-16&quot; و&quot;ISO-10646-UCS-2&quot;، لا يمكن تصدير pdf </translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="3501"/>
@@ -15043,7 +15043,7 @@ Please check it and try again.</source>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15065,7 +15065,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -16420,7 +16420,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="234"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
-        <translation>توجد مشكلة في تحميل %1&#xa0;من %2 من الملحقات. %3 من المحتمل أن يكون السبب نوع من مشاكل التبعية أو ملحقات قديمة موجودة في الدليل المثبّت. إذا استمرت هذه المشكلة في الظهور رغم تنظيفك الدليل المثبّت وإعادة تثبيته فأبلغ عنها على الموقع الإلكتروني bugs.scribus.net</translation>
+        <translation>توجد مشكلة في تحميل %1 من %2 من الملحقات. %3 من المحتمل أن يكون السبب نوع من مشاكل التبعية أو ملحقات قديمة موجودة في الدليل المثبّت. إذا استمرت هذه المشكلة في الظهور رغم تنظيفك الدليل المثبّت وإعادة تثبيته فأبلغ عنها على الموقع الإلكتروني bugs.scribus.net</translation>
     </message>
 </context>
 <context>
@@ -16603,7 +16603,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="2004"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
-        <translation>فشلت قراءة تفضيلات XML&#xa0; من &quot;1%&quot;: 2% في السطر 3%، العمود 4% </translation>
+        <translation>فشلت قراءة تفضيلات XML  من &quot;1%&quot;: 2% في السطر 3%، العمود 4% </translation>
     </message>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="2881"/>
@@ -17630,7 +17630,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="74"/>
         <source>PostScript Interpreter</source>
-        <translation>مؤول PostScript&#xa0;</translation>
+        <translation>مؤول PostScript </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="90"/>
@@ -17684,7 +17684,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="156"/>
         <source>Antialias &amp;Graphics</source>
-        <translation>نعّم&#xa0;&amp;الرسومات</translation>
+        <translation>نعّم &amp;الرسومات</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="159"/>
@@ -17729,7 +17729,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="385"/>
         <source>PDF Viewer</source>
-        <translation>عارض PDF&#xa0;</translation>
+        <translation>عارض PDF </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="449"/>
@@ -19068,7 +19068,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="326"/>
         <source>Save Linked Text Frames as PDF Articles</source>
-        <translation>احفظ الإطارات النصية المترابطة كمقالات PDF&#xa0;</translation>
+        <translation>احفظ الإطارات النصية المترابطة كمقالات PDF </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="333"/>
@@ -20295,7 +20295,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="326"/>
         <source>Check for GIF images</source>
-        <translation>تحقق من صور GIF&#xa0;</translation>
+        <translation>تحقق من صور GIF </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="333"/>
@@ -21154,8 +21154,8 @@ Do you want to use this?</source>
         <translation>يسمح الوقت قبل بدء التحجيم أو التحريك بتأخير طفيف بين النقر والنقر وتحدث العملية لتجنب التحركات غير المقصودة. يمكن أن يكون هذا مفيدًا عند التعامل مع إعدادات حساسية الفأرة أو مشكلات إمكانية الوصول المتعلقة بأجهزة الفأرة المريحة أو الراسمات اللمسية أو حركة المعصمين واليدين.</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
@@ -21783,22 +21783,22 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="260"/>
         <source>50%</source>
-        <translation type="unfinished">50%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="265"/>
         <source>100%</source>
-        <translation type="unfinished">100%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="270"/>
         <source>150%</source>
-        <translation type="unfinished">150%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="275"/>
         <source>200%</source>
-        <translation type="unfinished">200%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="280"/>
@@ -22117,7 +22117,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="355"/>
         <source>PDF Compression</source>
-        <translation>ضغط PDF&#xa0;</translation>
+        <translation>ضغط PDF </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="376"/>
@@ -28824,7 +28824,7 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="308"/>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>تظليل التعبئة جاوز الحدود، يجب أن يكون  0 &lt;=&#xa0; تظليل &lt;= 100.</translation>
+        <translation>تظليل التعبئة جاوز الحدود، يجب أن يكون  0 &lt;=  تظليل &lt;= 100.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="401"/>
@@ -28904,18 +28904,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>وحدة واجهة لغة بايثون سكريبس
@@ -29013,7 +29013,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/main_nix.cpp" line="78"/>
         <source>Fatal Error</source>
-        <translation type="unfinished">خطأ فادح</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/main_nix.cpp" line="79"/>
@@ -29247,7 +29247,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/plugins/gettext/docim/docim.cpp" line="52"/>
         <source>Word Documents</source>
-        <translation>مستندات Word&#xa0;</translation>
+        <translation>مستندات Word </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/pdbim/pdbim.cpp" line="39"/>
@@ -29708,7 +29708,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/plugins/import/ps/importpsplugin.cpp" line="75"/>
         <source>PostScript Importer</source>
-        <translation>مستورد PostScript&#xa0;</translation>
+        <translation>مستورد PostScript </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="136"/>
@@ -30015,7 +30015,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="66"/>
         <source>Pict Importer</source>
-        <translation>مستورد Pict&#xa0;</translation>
+        <translation>مستورد Pict </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="77"/>
@@ -30025,7 +30025,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="66"/>
         <source>WPG Importer</source>
-        <translation>مستورد WPG&#xa0;</translation>
+        <translation>مستورد WPG </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="66"/>
@@ -30528,7 +30528,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="61"/>
         <source>Hunspell Plugin</source>
-        <translation>مُلحق Hunspell&#xa0;</translation>
+        <translation>مُلحق Hunspell </translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="159"/>
@@ -30563,7 +30563,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="841"/>
         <source>You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation>تعمل الآن النسخة المطوّرة من سكريبس 1.5.x. أُنشئ المستند الذي تعمل عليه في سكريبس&#xa0;1.2.x. إذا حفظت الملف الحالي بمسمى 1.5.x فلن يُمكن تحريره في إصدارات 1.2x. إذا كنت ترغب في تمكين خاصيّة التحرير في 1.2.x فاحفظ الملف بمسمى آخر وحرر الملف المسمى حديثًا أكثر ولن يتغير الملف الأصلي. هل أنت متأكد من رغبتك في إتمام هذه العملية؟</translation>
+        <translation>تعمل الآن النسخة المطوّرة من سكريبس 1.5.x. أُنشئ المستند الذي تعمل عليه في سكريبس 1.2.x. إذا حفظت الملف الحالي بمسمى 1.5.x فلن يُمكن تحريره في إصدارات 1.2x. إذا كنت ترغب في تمكين خاصيّة التحرير في 1.2.x فاحفظ الملف بمسمى آخر وحرر الملف المسمى حديثًا أكثر ولن يتغير الملف الأصلي. هل أنت متأكد من رغبتك في إتمام هذه العملية؟</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="66"/>
@@ -33578,7 +33578,7 @@ Caution: this will increase the file size!</source>
         <location filename="../../scribus/ui/annot.cpp" line="599"/>
         <location filename="../../scribus/ui/annot.cpp" line="624"/>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
-        <translation>الصور (*.tif *.png *.jpg *.xpm);;PostScript&#xa0; (*.eps *.epsi);;كل الملفات (*)</translation>
+        <translation>الصور (*.tif *.png *.jpg *.xpm);;PostScript  (*.eps *.epsi);;كل الملفات (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="736"/>
@@ -35551,7 +35551,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="538"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
-        <translation>مخطوطات بايثون&#xa0;(*.py *.PY);; جميع الملفات (*)</translation>
+        <translation>مخطوطات بايثون (*.py *.PY);; جميع الملفات (*)</translation>
     </message>
 </context>
 <context>
@@ -35689,14 +35689,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message numerus="yes">
         <location filename="../../scribus/ui/search.cpp" line="901"/>
         <source>%n match(es) found</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="263"/>
@@ -36736,7 +36729,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="62"/>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document</source>
-        <translation>اجعل هذه الإعدادات هي الإعدادات الإفتراضية ولا تستحثها مرة أخرى عند استيراد مستند OpenOffice.org 1.x&#xa0;</translation>
+        <translation>اجعل هذه الإعدادات هي الإعدادات الإفتراضية ولا تستحثها مرة أخرى عند استيراد مستند OpenOffice.org 1.x </translation>
     </message>
 </context>
 <context>
@@ -37796,7 +37789,7 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="619"/>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="814"/>
         <source>Cover</source>
-        <translation type="unfinished">غطِّ</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="620"/>
@@ -38924,7 +38917,7 @@ to %2</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="716"/>
         <source>Import OpenOffice.org Draw image</source>
-        <translation>استورد صورة OpenOffice.org Draw&#xa0;</translation>
+        <translation>استورد صورة OpenOffice.org Draw </translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="677"/>

@@ -54,7 +54,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="209"/>
         <source>&amp;Build Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Build Information</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="225"/>
@@ -109,62 +109,62 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="653"/>
         <source>SVN Revision: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>SVN-revízió: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="661"/>
         <source>Scribus Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus verzió %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="664"/>
         <source>Build ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Build ID: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="671"/>
         <source>Built: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Build dátuma: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="674"/>
         <source>Companion Programs:</source>
-        <translation type="unfinished"></translation>
+        <translation>Társprogramok:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="677"/>
         <source>Ghostscript: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="680"/>
         <source>Libraries:</source>
-        <translation type="unfinished"></translation>
+        <translation>Könyvtárak:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="683"/>
         <source>cairo: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>cairo: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="685"/>
         <source>Harfbuzz: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Harfbuzz: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="687"/>
         <source>littlecms: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>littlecms: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="693"/>
         <source>podofo: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>podofo: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="699"/>
         <source>poppler: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>poppler: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="294"/>
@@ -254,7 +254,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="139"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="197"/>
@@ -5866,7 +5866,7 @@ További információk a dokumentáció Színek szerkesztése fejezetében.</tra
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="475"/>
         <source>Section %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Szakasz %1</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="494"/>
@@ -9137,7 +9137,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
+        <source>Imports Adobe InDesign's IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>A legtöbb Adobe InDesign IDML csomagot képes az aktuális dokumentumba importálni, az InDesign objektumokat Scribus-objektumokká konvertálva; nem minden objektum támogatott, de minden támogatott importálásra kerül itt</translation>
     </message>
@@ -15033,7 +15033,7 @@ Javító ellenőrzés után érdemes újra megpróbálni.</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15055,7 +15055,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -21144,8 +21144,8 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
         <translation>Késleltetési idő a kattintás és az átméretezés, ill. a mozgatás megkezdése között, amely megakadályozza az akaratlan elmozdítást. Ez akkor lehet hasznos, ha próbáljuk beállítani az egér érzékenységét vagy az ergonomikus egér, érintőpad hozzáférhetőségét vagy a csukló és a kéz mozgathatóságát.</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
@@ -23567,7 +23567,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="145"/>
         <source>All Small Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden kiskapitális</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="155"/>
@@ -23592,7 +23592,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="181"/>
         <source>All Petite Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden apró kapitális</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="191"/>
@@ -28381,7 +28381,7 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1302"/>
         <source>Source frame is linked to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>A forráskeret már egy másik kerethez kapcsolódik.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1307"/>
@@ -28892,18 +28892,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Scribus Python felület modul
@@ -29001,12 +29001,12 @@ lista hiányos a meghívott funkciók miatt.
     <message>
         <location filename="../../scribus/main_nix.cpp" line="78"/>
         <source>Fatal Error</source>
-        <translation type="unfinished">Végzetes hiba</translation>
+        <translation>Végzetes hiba</translation>
     </message>
     <message>
         <location filename="../../scribus/main_nix.cpp" line="79"/>
         <source>Scribus does not support the Wayland platform. Use XWayland to run Scribus on Wayland. Scribus will close now.</source>
-        <translation type="unfinished"></translation>
+        <translation>A Scribus nem támogatja a Wayland platformot. Használja az XWaylandet a Scribus futtatásához Waylanden. A Scribus most bezárul.</translation>
     </message>
     <message>
         <location filename="../../scribus/main_nix.cpp" line="138"/>
@@ -31802,7 +31802,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="483"/>
         <source>All Small Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden kiskapitális</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="485"/>
@@ -31817,7 +31817,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="489"/>
         <source>All Petite Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden apró kapitális</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="491"/>
@@ -34222,7 +34222,8 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="801"/>
         <source>You have opened a file produced by Scribus 1.3.4 - 1.3.9, or 1.4.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Egy olyan fájlt nyitott meg, melyet a Scribus 1.3.4–1.3.9 hozott létre.
+Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudni megnyitni.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="72"/>
@@ -35675,9 +35676,7 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
     <message numerus="yes">
         <location filename="../../scribus/ui/search.cpp" line="901"/>
         <source>%n match(es) found</source>
-        <translation>
-            <numerusform>%n találat van</numerusform>
-        </translation>
+        <translation><numerusform>% találat</numerusform><numerusform>% találat</numerusform></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="263"/>
