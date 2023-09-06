@@ -6,9 +6,10 @@ include_directories(
 )
 
 if(HAVE_PODOFO)
-	include_directories(
-		${LIBPODOFO_INCLUDE_DIR}
-	)
+	if(OPENSSL_FOUND)
+		include_directories(${OPENSSL_INCLUDE_DIR})
+	endif()
+	include_directories(BEFORE ${LIBPODOFO_INCLUDE_DIR})
 endif()
 
 set(IMPORTAI_PLUGIN_SOURCES

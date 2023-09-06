@@ -12,23 +12,45 @@ if(WIN32)
 	endif(NOT DEFINED LIBPODOFO_SHARED)
 endif(WIN32)
 
-find_path(LIBPODOFO_INCLUDE_DIR
-	NAMES podofo/podofo.h
-	PATHS
-	"${LIBPODOFO_DIR}/include"
-	"${LIBPODOFO_DIR}/src"
-	"${LIBPODOFO_DIR}"
-	)
-
 set(LIBPODOFO_FIND_QUIETLY ON)
 
-find_library(LIBPODOFO_LIBRARY
-	NAMES libpodofo podofo
-	PATHS
-	"${LIBPODOFO_DIR}/lib"
-	"${LIBPODOFO_DIR}/src"
-	"${LIBPODOFO_DIR}"
+find_package(PkgConfig QUIET)
+if(DEFINED LIBPODOFO_DIR_PREFIX)
+	set(ENV{PKG_CONFIG_PATH} "${LIBPODOFO_DIR_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}")
+endif()
+pkg_search_module(libpodofo REQUIRED libpodofo podofo)
+
+if (DEFINED LIBPODOFO_DIR_PREFIX)
+	find_path(LIBPODOFO_INCLUDE_DIR
+		NAMES podofo/podofo.h
+		PATHS
+		"${LIBPODOFO_DIR_PREFIX}/include"
+		"${LIBPODOFO_DIR_PREFIX}"
+		PATH_SUFFIXES podofo
+		NO_DEFAULT_PATH
 	)
+
+	find_library(LIBPODOFO_LIBRARY
+		NAMES libpodofo podofo
+		PATHS
+		"${LIBPODOFO_DIR_PREFIX}/lib"
+		"${LIBPODOFO_DIR_PREFIX}"
+		NO_DEFAULT_PATH
+	)
+else()
+	find_path(LIBPODOFO_INCLUDE_DIR
+		NAMES podofo/podofo.h
+		PATHS
+		${libpodofo_INCLUDE_DIRS}
+	)
+
+	find_library(LIBPODOFO_LIBRARY
+		NAMES libpodofo podofo
+		PATHS
+		${libpodofo_LIBRARY_DIRS}
+	)
+endif()
+
 
 if(LIBPODOFO_INCLUDE_DIR AND LIBPODOFO_LIBRARY)
 	if(NOT LIBPODOFO_CONFIG_H)
@@ -60,14 +82,14 @@ if(LIBPODOFO_INCLUDE_DIR AND LIBPODOFO_LIBRARY)
 			find_package(OPENSSL)
 		endif()
 		if (OPENSSL_FOUND)
-			message("OpenSSL found OK for installed version of PoDoFo (>= 0.9.5) - Enabling support for PDF embedded in AI")
+			message(STATUS "OpenSSL found OK for installed version of PoDoFo (>= 0.9.5) - Enabling support for PDF embedded in AI")
 			set(LIBPODOFO_FOUND ON CACHE BOOL "Was libpodofo found")
 		else()
-			message("OpenSSL NOT found for installed version of PoDoFo (>= 0.9.5) - Disabling support for PDF embedded in AI")
+			message(STATUS "OpenSSL NOT found for installed version of PoDoFo (>= 0.9.5) - Disabling support for PDF embedded in AI")
 			unset(LIBPODOFO_FOUND)
 		endif()
 	else()
-		message("OpenSSL NOT required for installed version of PoDoFo (< 0.9.5) - Enabling support for PDF embedded in AI")
+		message(STATUS "OpenSSL NOT required for installed version of PoDoFo (< 0.9.5) - Enabling support for PDF embedded in AI")
 		set(LIBPODOFO_FOUND TRUE CACHE BOOL "Was libpodofo found")
 	endif()
 endif(LIBPODOFO_INCLUDE_DIR AND LIBPODOFO_LIBRARY)
@@ -81,11 +103,11 @@ if(NOT LIBPODOFO_FIND_QUIETLY)
 		message("podofo/podofo.h: not found")
 	endif(LIBPODOFO_INCLUDE_DIR)
 	if(LIBPODOFO_LIBRARY)
-		message("podofo lib: ${LIBPODOFO_LIBRARY}")
+		message("PoDoFo lib: ${LIBPODOFO_LIBRARY}")
 	else(LIBPODOFO_LIBRARY)
-		message("podofo lib: not found")
+		message("PoDoFo lib: not found")
 	endif(LIBPODOFO_LIBRARY)
 	message("PoDoFo cflags: ${useshared}")
-	message("PoDoFo config file ${LIBPODOFO_CONFIG_H}")
-	message("PoDoFo version ${LIBPODOFO_VERSION}")
+	message("PoDoFo Config File: ${LIBPODOFO_CONFIG_H}")
+	message("PoDoFo Version: ${LIBPODOFO_VERSION}")
 endif(NOT LIBPODOFO_FIND_QUIETLY)
