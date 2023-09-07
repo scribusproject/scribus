@@ -5463,9 +5463,9 @@ QByteArray PDFLibCore::handleBrushPattern(const PageItem* ite, const QPainterPat
 	QByteArray tmp;
 
 	ScPattern pat = doc.docPatterns[ite->strokePattern()];
-	double pLen = path.length() - ((pat.width / 2.0) * (ite->patternStrokeTransfrm.scaleX / 100.0));
-	double adv = pat.width * ite->patternStrokeTransfrm.scaleX / 100.0 * ite->patternStrokeTransfrm.space;
-	double xpos = ite->patternStrokeTransfrm.offsetX * ite->patternStrokeTransfrm.scaleX / 100.0;
+	double pLen = path.length() - ((pat.width / 2.0) * ite->patternStrokeTransfrm.scaleX);
+	double adv = pat.width * ite->patternStrokeTransfrm.scaleX * ite->patternStrokeTransfrm.space;
+	double xpos = ite->patternStrokeTransfrm.offsetX * ite->patternStrokeTransfrm.scaleX;
 	while (xpos < pLen)
 	{
 		double currPerc = path.percentAtLength(xpos);
@@ -5484,7 +5484,7 @@ QByteArray PDFLibCore::handleBrushPattern(const PageItem* ite, const QPainterPat
 		trans.translate(0.0, -ite->patternStrokeTransfrm.offsetY);
 		trans.rotate(-ite->patternStrokeTransfrm.rotation);
 		trans.shear(ite->patternStrokeTransfrm.skewX, -ite->patternStrokeTransfrm.skewY);
-		trans.scale(ite->patternStrokeTransfrm.scaleX / 100.0, ite->patternStrokeTransfrm.scaleY / 100.0);
+		trans.scale(ite->patternStrokeTransfrm.scaleX, ite->patternStrokeTransfrm.scaleY);
 		trans.translate(-pat.width / 2.0, -pat.height / 2.0);
 		if (ite->patternStrokeMirrorX)
 		{
@@ -6673,7 +6673,7 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, const PageItem *currI
 		mpa.rotate(-patternRotation);
 	mpa.shear(patternSkewX, -patternSkewY);
 	mpa.scale(pat->scaleX, pat->scaleY);
-	mpa.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+	mpa.scale(patternScaleX, patternScaleY);
 	if (mirrorX)
 		mpa.scale(-1, 1);
 	if (mirrorY)

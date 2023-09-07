@@ -1472,15 +1472,15 @@ void SvmPlug::finishItem(PageItem* ite, bool fill)
 							ite->setPatternFlip(true, true);
 						else if (currentDC.patternMode == 4)
 						{
-							double sx = ite->width() / pat.width * 100;
-							double sy = ite->height() / pat.height * 100;
+							double sx = ite->width() / pat.width;
+							double sy = ite->height() / pat.height;
 							ite->setPatternTransform(sx, sy, 0, 0, 0, 0, 0);
 						}
 					}
 					else
 					{
-						double sx = ite->width() / pat.width * 100;
-						double sy = ite->height() / pat.height * 100;
+						double sx = ite->width() / pat.width;
+						double sy = ite->height() / pat.height;
 						ite->setPatternTransform(sx, sy, 0, 0, 0, 0, 0);
 					}
 					ite->GrType = Gradient_Pattern;

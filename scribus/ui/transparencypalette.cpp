@@ -516,8 +516,8 @@ void TransparencyPalette::setCurrentMaskPattern(const QString& pattern, const Sc
 void TransparencyPalette::changePatternProps()
 {
 	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, false);
-	dia->spinXscaling->setValue(m_maskTransform.scaleX);
-	dia->spinYscaling->setValue(m_maskTransform.scaleY);
+	dia->spinXscaling->setValue(m_maskTransform.scaleX * 100.0);
+	dia->spinYscaling->setValue(m_maskTransform.scaleY * 100.0);
 	if (m_maskTransform.scaleX == m_maskTransform.scaleY)
 		dia->keepScaleRatio->setChecked(true);
 	dia->spinXoffset->setValue(m_maskTransform.offsetX);
@@ -531,8 +531,8 @@ void TransparencyPalette::changePatternProps()
 	dia->FlipV->setChecked(m_Pattern_mirrorY);
 	connect(dia, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)), this, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)));
 	dia->exec();
-	m_maskTransform.scaleX = dia->spinXscaling->value();
-	m_maskTransform.scaleY = dia->spinYscaling->value();
+	m_maskTransform.scaleX = dia->spinXscaling->value() / 100.0;
+	m_maskTransform.scaleY = dia->spinYscaling->value() / 100.0;
 	m_maskTransform.offsetX = dia->spinXoffset->value();
 	m_maskTransform.offsetY = dia->spinYoffset->value();
 	m_maskTransform.rotation = dia->spinAngle->value();

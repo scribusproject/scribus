@@ -569,9 +569,9 @@ void ScPageOutput::drawPattern(PageItem* item, ScPainterExBase* painter, const Q
 	matrix.rotate(patternTrans.rotation);
 	matrix.shear(patternTrans.skewX, patternTrans.skewY);
 	matrix.scale(pattern.scaleX, pattern.scaleY);
-	matrix.scale(patternTrans.scaleX / 100.0 , patternTrans.scaleY / 100.0);
-	invMat.scale((patternTrans.scaleX != 0) ? (100 / patternTrans.scaleX) : 1.0, (patternTrans.scaleY != 0) ? (100 / patternTrans.scaleY) : 1.0);
-	invMat.scale((pattern.scaleX != 0) ? (1 /pattern.scaleX) : 1.0, (pattern.scaleY != 0) ? (1 /pattern.scaleY) : 1.0);
+	matrix.scale(patternTrans.scaleX, patternTrans.scaleY);
+	invMat.scale((patternTrans.scaleX != 0) ? (1.0 / patternTrans.scaleX) : 1.0, (patternTrans.scaleY != 0) ? (1.0 / patternTrans.scaleY) : 1.0);
+	invMat.scale((pattern.scaleX != 0) ? (1.0 / pattern.scaleX) : 1.0, (pattern.scaleY != 0) ? (1.0 / pattern.scaleY) : 1.0);
 	invMat.rotate(-patternTrans.rotation);
 	invMat.translate(-patternTrans.offsetX, -patternTrans.offsetY);
 
@@ -606,7 +606,7 @@ void ScPageOutput::drawPattern(PageItem* item, ScPainterExBase* painter, const Q
 		painter->translate(patternTrans.offsetX, patternTrans.offsetY);
 		painter->rotate(patternTrans.rotation);
 		painter->scale(pattern.scaleX, pattern.scaleY);
-		painter->scale(patternTrans.scaleX / 100.0, patternTrans.scaleY / 100.0);
+		painter->scale(patternTrans.scaleX, patternTrans.scaleY);
 
 		double patWidth  = (pattern.width != 0.0) ? pattern.width : 1.0;
 		double patHeight = (pattern.height != 0.0) ? pattern.height : 1.0;

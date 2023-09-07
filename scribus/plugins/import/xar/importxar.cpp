@@ -1904,8 +1904,8 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 		m_Doc->addPattern(patternName, pat);
 		importedPatterns.append(patternName);
 		gc->maskPattern = patternName;
-		gc->maskPatternTrans.scaleX = distX / pat.width * 100;
-		gc->maskPatternTrans.scaleY = distY / pat.height * 100;
+		gc->maskPatternTrans.scaleX = distX / pat.width;
+		gc->maskPatternTrans.scaleY = distY / pat.height;
 		gc->maskPatternTrans.offsetX = 0.0;
 		gc->maskPatternTrans.offsetY = 0.0;
 		gc->maskPatternTrans.rotation = -rotB;
@@ -2563,8 +2563,8 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 	{
 		ScPattern pat = m_Doc->docPatterns[patternRef[bref]];
 		gc->fillPattern = patternRef[bref];
-		gc->fillPatternTrans.scaleX = distX / pat.width * 100;
-		gc->fillPatternTrans.scaleY = distY / pat.height * 100;
+		gc->fillPatternTrans.scaleX = distX / pat.width;
+		gc->fillPatternTrans.scaleY = distY / pat.height;
 		gc->fillPatternTrans.offsetX = 0.0;
 		gc->fillPatternTrans.offsetY = 0.0;
 		gc->fillPatternTrans.rotation = -rotB;
@@ -2690,8 +2690,8 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 		m_Doc->addPattern(patternName, pat);
 		importedPatterns.append(patternName);
 		gc->fillPattern = patternName;
-		gc->fillPatternTrans.scaleX = distX / pat.width * 100;
-		gc->fillPatternTrans.scaleY = distY / pat.height * 100;
+		gc->fillPatternTrans.scaleX = distX / pat.width;
+		gc->fillPatternTrans.scaleY = distY / pat.height;
 		gc->fillPatternTrans.offsetX = 0.0;
 		gc->fillPatternTrans.offsetY = 0.0;
 		gc->fillPatternTrans.rotation = -rotB;
@@ -3026,8 +3026,8 @@ void XarPlug::handleBrushItem(QDataStream &ts)
 	ScPattern pat = m_Doc->docPatterns[brushRef[handle]];
 	XarStyle *gc = m_gc.top();
 	gc->strokePattern = brushRef[handle];
-	gc->strokePatternTrans.scaleX = scale * 100;
-	gc->strokePatternTrans.scaleY = scale * 100;
+	gc->strokePatternTrans.scaleX = scale;
+	gc->strokePatternTrans.scaleY = scale;
 	gc->strokePatternTrans.offsetX = offsetX / 1000.0;
 	gc->strokePatternTrans.offsetY = offsetY / 1000.0;
 	gc->strokePatternTrans.rotation = 0.0;

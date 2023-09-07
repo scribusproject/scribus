@@ -5854,14 +5854,15 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		if (currItem->GrType == Gradient_Pattern)
 		{
 			currItem->setPattern( attrs.valueAsString("pattern", "") );
-			double patternScaleX   = attrs.valueAsDouble("pScaleX", 100.0);
-			double patternScaleY   = attrs.valueAsDouble("pScaleY", 100.0);
-			double patternOffsetX  = attrs.valueAsDouble("pOffsetX", 0.0);
-			double patternOffsetY  = attrs.valueAsDouble("pOffsetY", 0.0);
-			double patternRotation = attrs.valueAsDouble("pRotation", 0.0);
-			double patternSkewX    = attrs.valueAsDouble("pSkewX", 0.0);
-			double patternSkewY    = attrs.valueAsDouble("pSkewY", 0.0);
-			currItem->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+			ScPatternTransform patternTrans;
+			patternTrans.scaleX   = attrs.valueAsDouble("pScaleX", 100.0) / 100.0;
+			patternTrans.scaleY   = attrs.valueAsDouble("pScaleY", 100.0) / 100.0;
+			patternTrans.offsetX  = attrs.valueAsDouble("pOffsetX", 0.0);
+			patternTrans.offsetY  = attrs.valueAsDouble("pOffsetY", 0.0);
+			patternTrans.rotation = attrs.valueAsDouble("pRotation", 0.0);
+			patternTrans.skewX    = attrs.valueAsDouble("pSkewX", 0.0);
+			patternTrans.skewY    = attrs.valueAsDouble("pSkewY", 0.0);
+			currItem->setPatternTransform(patternTrans);
 			bool mirrorX = attrs.valueAsBool("pMirrorX", false);
 			bool mirrorY = attrs.valueAsBool("pMirrorY", false);
 			currItem->setPatternFlip(mirrorX, mirrorY);
@@ -5915,11 +5916,11 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			GrColor = attrs.valueAsString("GRCOLOR","");
 			if (!GrColor.isEmpty())
 			{
-				GrColor2 = attrs.valueAsString("GRCOLOR2","");
+				GrColor2 = attrs.valueAsString("GRCOLOR2", "");
 				GrShade  = attrs.valueAsInt("GRSHADE", 100);
 				GrShade2 = attrs.valueAsInt("GRSHADE2", 100);
 			}
-			QString GrName(attrs.valueAsString("GRNAME",""));
+			QString GrName(attrs.valueAsString("GRNAME", ""));
 			if (!GrName.isEmpty())
 				currItem->setGradient(GrName);
 			if ((currItem->GrType == Gradient_4Colors) || (currItem->GrType == Gradient_Diamond))
@@ -5988,8 +5989,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 
 	currItem->setStrokePattern( attrs.valueAsString("patternS", "") );
 	ScStrokePatternTransform strokePatternTrans;
-	strokePatternTrans.scaleX   = attrs.valueAsDouble("pScaleXS", 100.0);
-	strokePatternTrans.scaleY   = attrs.valueAsDouble("pScaleYS", 100.0);
+	strokePatternTrans.scaleX   = attrs.valueAsDouble("pScaleXS", 100.0) / 100.0;
+	strokePatternTrans.scaleY   = attrs.valueAsDouble("pScaleYS", 100.0) / 100.0;
 	strokePatternTrans.offsetX  = attrs.valueAsDouble("pOffsetXS", 0.0);
 	strokePatternTrans.offsetY  = attrs.valueAsDouble("pOffsetYS", 0.0);
 	strokePatternTrans.rotation = attrs.valueAsDouble("pRotationS", 0.0);
@@ -6013,15 +6014,15 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	currItem->GrStrokeFocalY = attrs.valueAsDouble("GRFOCALYS", 0.0);
 	currItem->GrStrokeScale  = attrs.valueAsDouble("GRSCALES", 1.0);
 	currItem->GrStrokeSkew  = attrs.valueAsDouble("GRSKEWS", 0.0);
-	QString GrNameS(attrs.valueAsString("GRNAMES",""));
+	QString GrNameS(attrs.valueAsString("GRNAMES", ""));
 	if (!GrNameS.isEmpty())
 		currItem->setStrokeGradient(GrNameS);
 
 
 	currItem->setPatternMask( attrs.valueAsString("patternM", "") );
 	ScMaskTransform maskTransform;
-	maskTransform.scaleX = attrs.valueAsDouble("pScaleXM", 100.0);
-	maskTransform.scaleY   = attrs.valueAsDouble("pScaleYM", 100.0);
+	maskTransform.scaleX = attrs.valueAsDouble("pScaleXM", 100.0) / 100.0;
+	maskTransform.scaleY   = attrs.valueAsDouble("pScaleYM", 100.0) / 100.0;
 	maskTransform.offsetX  = attrs.valueAsDouble("pOffsetXM", 0.0);
 	maskTransform.offsetY  = attrs.valueAsDouble("pOffsetYM", 0.0);
 	maskTransform.rotation = attrs.valueAsDouble("pRotationM", 0.0);
@@ -6031,7 +6032,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	bool mirrorXm = attrs.valueAsBool("pMirrorXM", false);
 	bool mirrorYm = attrs.valueAsBool("pMirrorYM", false);
 	currItem->setMaskFlip(mirrorXm, mirrorYm);
-	QString GrNameM(attrs.valueAsString("GRNAMEM",""));
+	QString GrNameM(attrs.valueAsString("GRNAMEM", ""));
 	currItem->GrMask = attrs.valueAsInt("GRTYPM", 0);
 	if ((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_LinearLumAlpha))
 		currItem->mask_gradient = VGradient(VGradient::linear);

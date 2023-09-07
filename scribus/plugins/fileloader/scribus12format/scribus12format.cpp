@@ -772,7 +772,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	if (elem.hasAttribute("Version"))
 		newVersion = true;
 	QDomNode docNode = elem.firstChild();
-	if (m_mwProgressBar!=nullptr)
+	if (m_mwProgressBar != nullptr)
 	{
 		m_mwProgressBar->setMaximum(docNode.childNodes().count());
 		m_mwProgressBar->setValue(0);
@@ -906,7 +906,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 		while (!pageNode.isNull())
 		{
 			ObCount++;
-			if (m_mwProgressBar!=nullptr)
+			if (m_mwProgressBar != nullptr)
 				m_mwProgressBar->setValue(ObCount);
 			QDomElement pg = pageNode.toElement();
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
@@ -968,7 +968,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 				a = pg.attribute("NUM").toInt();
 				pageName = "";
 				pageName = pg.attribute("NAM", "");
-				QString Mus(pg.attribute("MNAM","Normal"));
+				QString Mus(pg.attribute("MNAM", "Normal"));
 				if (pageName.isEmpty())
 				{
 					//We store the pages master page but do not apply it now
@@ -1443,8 +1443,8 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 		if (OB->GrType == Gradient_Pattern)
 		{
 			OB->pattern = obj->attribute("pattern", "");
-			OB->patternScaleX = ScCLocale::toDoubleC(obj->attribute("pScaleX"), 100.0);
-			OB->patternScaleY = ScCLocale::toDoubleC(obj->attribute("pScaleY"), 100.0);
+			OB->patternScaleX = ScCLocale::toDoubleC(obj->attribute("pScaleX"), 100.0) / 100.0;
+			OB->patternScaleY = ScCLocale::toDoubleC(obj->attribute("pScaleY"), 100.0) / 100.0;
 			OB->patternOffsetX = ScCLocale::toDoubleC(obj->attribute("pOffsetX"), 0.0);
 			OB->patternOffsetY = ScCLocale::toDoubleC(obj->attribute("pOffsetY"), 0.0);
 			OB->patternRotation = ScCLocale::toDoubleC(obj->attribute("pRotation"), 0.0);

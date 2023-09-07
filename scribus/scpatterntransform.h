@@ -12,8 +12,8 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API ScPatternTransform
 {
 public:
-	double scaleX { 100.0 };
-	double scaleY { 100.0 };
+	double scaleX { 1.0 };
+	double scaleY { 1.0 };
 	double offsetX { 0.0 };
 	double offsetY { 0.0 };
 	double rotation {0.0};

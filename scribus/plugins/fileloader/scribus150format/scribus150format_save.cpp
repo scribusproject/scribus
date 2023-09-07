@@ -2031,8 +2031,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				const ScPatternTransform& patternTrans = item->patternTransform();
 				bool mirrorX, mirrorY;
 				item->patternFlip(mirrorX, mirrorY);
-				docu.writeAttribute("pScaleX", patternTrans.scaleX);
-				docu.writeAttribute("pScaleY", patternTrans.scaleY);
+				docu.writeAttribute("pScaleX", patternTrans.scaleX * 100.0);
+				docu.writeAttribute("pScaleY", patternTrans.scaleY * 100.0);
 				docu.writeAttribute("pOffsetX", patternTrans.offsetX);
 				docu.writeAttribute("pOffsetY", patternTrans.offsetY);
 				docu.writeAttribute("pRotation", patternTrans.rotation);
@@ -2125,8 +2125,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			bool mirrorX, mirrorY;
 			item->strokePatternFlip(mirrorX, mirrorY);
 			bool atPath = item->isStrokePatternToPath();
-			docu.writeAttribute("pScaleXS", strokePatTrans.scaleX);
-			docu.writeAttribute("pScaleYS", strokePatTrans.scaleY);
+			docu.writeAttribute("pScaleXS", strokePatTrans.scaleX * 100.0);
+			docu.writeAttribute("pScaleYS", strokePatTrans.scaleY * 100.0);
 			docu.writeAttribute("pOffsetXS", strokePatTrans.offsetX);
 			docu.writeAttribute("pOffsetYS", strokePatTrans.offsetY);
 			docu.writeAttribute("pRotationS", strokePatTrans.rotation);
@@ -2156,8 +2156,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			const ScMaskTransform& maskTrans = item->maskTransform();
 			bool mirrorX, mirrorY;
 			item->maskFlip(mirrorX, mirrorY);
-			docu.writeAttribute("pScaleXM", maskTrans.scaleX);
-			docu.writeAttribute("pScaleYM", maskTrans.scaleY);
+			docu.writeAttribute("pScaleXM", maskTrans.scaleX * 100.0);
+			docu.writeAttribute("pScaleYM", maskTrans.scaleY * 100.0);
 			docu.writeAttribute("pOffsetXM", maskTrans.offsetX);
 			docu.writeAttribute("pOffsetYM", maskTrans.offsetY);
 			docu.writeAttribute("pRotationM", maskTrans.rotation);

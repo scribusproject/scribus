@@ -2812,9 +2812,9 @@ bool PSLib::ProcessPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 void PSLib::HandleBrushPattern(PageItem *item, QPainterPath &path, ScPage* page, uint PNr, bool master)
 {
 	ScPattern pat = m_Doc->docPatterns[item->strokePattern()];
-	double pLen = path.length() - ((pat.width / 2.0) * (item->patternStrokeTransfrm.scaleX / 100.0));
-	double adv = pat.width * item->patternStrokeTransfrm.scaleX / 100.0 * item->patternStrokeTransfrm.space;
-	double xpos = item->patternStrokeTransfrm.offsetX * item->patternStrokeTransfrm.scaleX / 100.0;
+	double pLen = path.length() - ((pat.width / 2.0) * item->patternStrokeTransfrm.scaleX);
+	double adv = pat.width * item->patternStrokeTransfrm.scaleX * item->patternStrokeTransfrm.space;
+	double xpos = item->patternStrokeTransfrm.offsetX * item->patternStrokeTransfrm.scaleX;
 	while (xpos < pLen)
 	{
 		double currPerc = path.percentAtLength(xpos);
@@ -2831,7 +2831,7 @@ void PSLib::HandleBrushPattern(PageItem *item, QPainterPath &path, ScPage* page,
 		trans.translate(0.0, -item->patternStrokeTransfrm.offsetY);
 		trans.rotate(-item->patternStrokeTransfrm.rotation);
 		trans.shear(item->patternStrokeTransfrm.skewX, -item->patternStrokeTransfrm.skewY);
-		trans.scale(item->patternStrokeTransfrm.scaleX / 100.0, item->patternStrokeTransfrm.scaleY / 100.0);
+		trans.scale(item->patternStrokeTransfrm.scaleX, item->patternStrokeTransfrm.scaleY);
 		trans.translate(-pat.width / 2.0, -pat.height / 2.0);
 		if (item->patternStrokeMirrorX)
 		{
@@ -2869,7 +2869,7 @@ void PSLib::HandleStrokePattern(PageItem *item)
 	patternMatrix.rotate(-patternTrans.rotation);
 	patternMatrix.shear(patternTrans.skewX, -patternTrans.skewY);
 	patternMatrix.scale(pat->scaleX, pat->scaleY);
-	patternMatrix.scale(patternTrans.scaleX / 100.0 , patternTrans.scaleY / 100.0);
+	patternMatrix.scale(patternTrans.scaleX, patternTrans.scaleY);
 	bool mirrorX, mirrorY;
 	item->strokePatternFlip(mirrorX, mirrorY);
 	if (mirrorX)
@@ -3619,7 +3619,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 			patternMatrix.rotate(-patternTrans.rotation);
 			patternMatrix.shear(patternTrans.skewX, -patternTrans.skewY);
 			patternMatrix.scale(pat->scaleX, pat->scaleY);
-			patternMatrix.scale(patternTrans.scaleX / 100.0 , patternTrans.scaleY / 100.0);
+			patternMatrix.scale(patternTrans.scaleX, patternTrans.scaleY);
 			bool mirrorX, mirrorY;
 			item->patternFlip(mirrorX, mirrorY);
 			if (mirrorX)
@@ -4011,7 +4011,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 			patternMatrix.rotate(-patternTrans.rotation);
 			patternMatrix.shear(patternTrans.skewX, -patternTrans.skewY);
 			patternMatrix.scale(pat->scaleX, pat->scaleY);
-			patternMatrix.scale(patternTrans.scaleX / 100.0 , patternTrans.scaleY / 100.0);
+			patternMatrix.scale(patternTrans.scaleX, patternTrans.scaleY);
 			bool mirrorX, mirrorY;
 			ite->strokePatternFlip(mirrorX, mirrorY);
 			if (mirrorX)

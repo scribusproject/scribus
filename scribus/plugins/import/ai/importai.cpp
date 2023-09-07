@@ -1645,14 +1645,14 @@ void AIPlug::processData(const QString& data)
 					if (!currentPatternName.isEmpty())
 					{
 						ite->setPattern(currentPatternName);
-						ite->setPatternTransform(currentPatternXScale * 100, currentPatternYScale * 100, currentPatternX, currentPatternY, currentPatternRotation, 0.0, 0.0);
+						ite->setPatternTransform(currentPatternXScale, currentPatternYScale, currentPatternX, currentPatternY, currentPatternRotation, 0.0, 0.0);
 						ite->GrType = Gradient_Pattern;
 						currentPatternName.clear();
 					}
 					if (!currentStrokePatternName.isEmpty())
 					{
 						ite->setStrokePattern(currentStrokePatternName);
-						ite->setStrokePatternTransform(currentStrokePatternXScale * 100, currentStrokePatternYScale * 100, currentStrokePatternX, currentStrokePatternY, currentStrokePatternRotation, 0.0, 0.0, 1.0);
+						ite->setStrokePatternTransform(currentStrokePatternXScale, currentStrokePatternYScale, currentStrokePatternX, currentStrokePatternY, currentStrokePatternRotation, 0.0, 0.0, 1.0);
 						currentStrokePatternName.clear();
 					}
 					ite->setLineEnd(CapStyle);

@@ -2129,9 +2129,9 @@ void PageItem::DrawObj_Embedded(ScPainter *p, const QRectF& cullingArea, const C
 void PageItem::DrawStrokePattern(ScPainter *p, const QPainterPath &path)
 {
 	ScPattern pat = m_Doc->docPatterns[patternStrokeVal];
-	double pLen = path.length() - ((pat.width / 2.0) * (patternStrokeTransfrm.scaleX / 100.0));
-	double adv = pat.width * patternStrokeTransfrm.scaleX / 100.0 * patternStrokeTransfrm.space;
-	double xpos = patternStrokeTransfrm.offsetX * patternStrokeTransfrm.scaleX / 100.0;
+	double pLen = path.length() - ((pat.width / 2.0) * patternStrokeTransfrm.scaleX);
+	double adv = pat.width * patternStrokeTransfrm.scaleX * patternStrokeTransfrm.space;
+	double xpos = patternStrokeTransfrm.offsetX * patternStrokeTransfrm.scaleX;
 	while (xpos < pLen)
 	{
 		double currPerc = path.percentAtLength(xpos);
@@ -2149,7 +2149,7 @@ void PageItem::DrawStrokePattern(ScPainter *p, const QPainterPath &path)
 		trans.translate(0.0, patternStrokeTransfrm.offsetY);
 		trans.rotate(patternStrokeTransfrm.rotation);
 		trans.shear(-patternStrokeTransfrm.skewX, patternStrokeTransfrm.skewY);
-		trans.scale(patternStrokeTransfrm.scaleX / 100.0, patternStrokeTransfrm.scaleY / 100.0);
+		trans.scale(patternStrokeTransfrm.scaleX, patternStrokeTransfrm.scaleY);
 		trans.translate(-pat.width / 2.0, -pat.height / 2.0);
 		if (patternStrokeMirrorX)
 		{
@@ -8904,7 +8904,7 @@ double PageItem::visualLineWidth() const
 			const ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
 			QTransform mat;
 			mat.rotate(patternStrokeTransfrm.rotation);
-			mat.scale(patternStrokeTransfrm.scaleX / 100.0, patternStrokeTransfrm.scaleY / 100.0);
+			mat.scale(patternStrokeTransfrm.scaleX, patternStrokeTransfrm.scaleY);
 			QRectF p1R(0, 0, pat->width, pat->height);
 			QRectF p2R = mat.map(p1R).boundingRect();
 			extraSpace = p2R.height();

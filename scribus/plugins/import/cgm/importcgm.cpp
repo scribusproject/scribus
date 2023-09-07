@@ -3373,12 +3373,12 @@ PageItem* CgmPlug::itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType 
 				PageItem *ite = m_Doc->Items->at(z);
 				ite->setPattern(patternTable[patternIndex]);
 				ScPattern pat = m_Doc->docPatterns[patternTable[patternIndex]];
-				double patSX = 100;
-				double patSY = 100;
+				double patSX = 1.0;
+				double patSY = 1.0;
 				if (patternScaleX > -1)
-					patSX = patternScaleX / pat.width * 100;
+					patSX = patternScaleX / pat.width;
 				if (patternScaleY > -1)
-					patSY = patternScaleY / pat.height * 100;
+					patSY = patternScaleY / pat.height;
 				ite->setPatternTransform(patSX, patSY, 0, 0, 0, 0.0, 0.0);
 				ite->GrType = Gradient_Pattern;
 			}
@@ -3402,12 +3402,12 @@ PageItem* CgmPlug::itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType 
 				PageItem *ite = m_Doc->Items->at(z);
 				ite->setPattern(patternTable[patternIndex]);
 				ScPattern pat = m_Doc->docPatterns[patternTable[patternIndex]];
-				double patSX = 100;
-				double patSY = 100;
+				double patSX = 1.0;
+				double patSY = 1.0;
 				if (patternScaleX > -1)
-					patSX = patternScaleX / pat.width * 100;
+					patSX = patternScaleX / pat.width;
 				if (patternScaleY > -1)
-					patSY = patternScaleY / pat.height * 100;
+					patSY = patternScaleY / pat.height;
 				ite->setPatternTransform(patSX, patSY, 0, 0, 0, 0.0, 0.0);
 				ite->GrType = Gradient_Pattern;
 			}

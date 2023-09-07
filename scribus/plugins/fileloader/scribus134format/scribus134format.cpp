@@ -3092,12 +3092,15 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		if (currItem->GrType == Gradient_Pattern)
 		{
 			currItem->setPattern( attrs.valueAsString("pattern", "") );
-			double patternScaleX   = attrs.valueAsDouble("pScaleX", 100.0);
-			double patternScaleY   = attrs.valueAsDouble("pScaleY", 100.0);
-			double patternOffsetX  = attrs.valueAsDouble("pOffsetX", 0.0);
-			double patternOffsetY  = attrs.valueAsDouble("pOffsetY", 0.0);
-			double patternRotation = attrs.valueAsDouble("pRotation", 0.0);
-			currItem->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, 0, 0);
+			ScPatternTransform patternTrans;
+			patternTrans.scaleX   = attrs.valueAsDouble("pScaleX", 100.0) / 100.0;
+			patternTrans.scaleY   = attrs.valueAsDouble("pScaleY", 100.0) / 100.0;
+			patternTrans.offsetX  = attrs.valueAsDouble("pOffsetX", 0.0);
+			patternTrans.offsetY  = attrs.valueAsDouble("pOffsetY", 0.0);
+			patternTrans.rotation = attrs.valueAsDouble("pRotation", 0.0);
+			patternTrans.skewX = 0.0;
+			patternTrans.skewY = 0.0;
+			currItem->setPatternTransform(patternTrans);
 		}
 		else
 		{

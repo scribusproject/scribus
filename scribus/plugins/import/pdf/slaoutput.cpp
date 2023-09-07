@@ -2324,7 +2324,7 @@ bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *ca
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->GrType = 8;
 	ite->setPattern(id);
-	ite->setPatternTransform(fabs(pmat[0]) * 100, fabs(pmat[3]) * 100, mmx.dx() - ctm[4], mmx.dy() - ctm[5], 0, -1 * pmat[1], pmat[2]);
+	ite->setPatternTransform(fabs(pmat[0]), fabs(pmat[3]), mmx.dx() - ctm[4], mmx.dy() - ctm[5], 0, -1 * pmat[1], pmat[2]);
 	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
 	if (m_groupStack.count() != 0)

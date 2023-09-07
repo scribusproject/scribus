@@ -832,9 +832,9 @@ QDomElement SVGExPlug::processSymbolStroke(PageItem *item, const QString& trans)
 	ob.setAttribute("transform", trans);
 	QPainterPath path = item->PoLine.toQPainterPath(false);
 	ScPattern pat = m_Doc->docPatterns[item->strokePattern()];
-	double pLen = path.length() - ((pat.width / 2.0) * (item->patternStrokeTransfrm.scaleX / 100.0));
-	double adv = pat.width * item->patternStrokeTransfrm.scaleX / 100.0 * item->patternStrokeTransfrm.space;
-	double xpos = item->patternStrokeTransfrm.offsetX * item->patternStrokeTransfrm.scaleX / 100.0;
+	double pLen = path.length() - ((pat.width / 2.0) * item->patternStrokeTransfrm.scaleX);
+	double adv = pat.width * item->patternStrokeTransfrm.scaleX * item->patternStrokeTransfrm.space;
+	double xpos = item->patternStrokeTransfrm.offsetX * item->patternStrokeTransfrm.scaleX;
 	while (xpos < pLen)
 	{
 		double currPerc = path.percentAtLength(xpos);
@@ -850,7 +850,7 @@ QDomElement SVGExPlug::processSymbolStroke(PageItem *item, const QString& trans)
 		trans.translate(0.0, item->patternStrokeTransfrm.offsetY);
 		trans.rotate(-item->patternStrokeTransfrm.rotation);
 		trans.shear(item->patternStrokeTransfrm.skewX, -item->patternStrokeTransfrm.skewY);
-		trans.scale(item->patternStrokeTransfrm.scaleX / 100.0, item->patternStrokeTransfrm.scaleY / 100.0);
+		trans.scale(item->patternStrokeTransfrm.scaleX, item->patternStrokeTransfrm.scaleY);
 		trans.translate(-pat.width / 2.0, -pat.height / 2.0);
 		QDomElement obS;
 		obS = m_domDoc.createElement("use");
@@ -1574,7 +1574,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 				mpa.rotate(strokePatTrans.rotation);
 				mpa.shear(-strokePatTrans.skewX, strokePatTrans.skewY);
 				mpa.scale(pa.scaleX, pa.scaleY);
-				mpa.scale(strokePatTrans.scaleX / 100.0 , strokePatTrans.scaleY / 100.0);
+				mpa.scale(strokePatTrans.scaleX, strokePatTrans.scaleY);
 				if (mirrorX)
 					mpa.scale(-1, 1);
 				if (mirrorY)
@@ -1738,7 +1738,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 				mpa.rotate(strokePatTrans.rotation);
 				mpa.shear(-strokePatTrans.skewX, strokePatTrans.skewY);
 				mpa.scale(pa.scaleX, pa.scaleY);
-				mpa.scale(strokePatTrans.scaleX / 100.0 , strokePatTrans.scaleY / 100.0);
+				mpa.scale(strokePatTrans.scaleX, strokePatTrans.scaleY);
 				if (mirrorX)
 					mpa.scale(-1, 1);
 				if (mirrorY)
@@ -1870,7 +1870,7 @@ QString SVGExPlug::handleMask(PageItem *item, double xOffset, double yOffset)
 		mpa.rotate(maskTrans.rotation);
 		mpa.shear(-maskTrans.skewX, maskTrans.skewY);
 		mpa.scale(pa.scaleX, pa.scaleY);
-		mpa.scale(maskTrans.scaleX / 100.0 , maskTrans.scaleY / 100.0);
+		mpa.scale(maskTrans.scaleX, maskTrans.scaleY);
 		if (mirrorX)
 			mpa.scale(-1, 1);
 		if (mirrorY)
@@ -1992,7 +1992,7 @@ QString SVGExPlug::getFillStyle(PageItem *item)
 				mpa.rotate(patternTrans.rotation);
 				mpa.shear(-patternTrans.skewX, patternTrans.skewY);
 				mpa.scale(pa.scaleX, pa.scaleY);
-				mpa.scale(patternTrans.scaleX / 100.0 , patternTrans.scaleY / 100.0);
+				mpa.scale(patternTrans.scaleX, patternTrans.scaleY);
 				if (mirrorX)
 					mpa.scale(-1, 1);
 				if (mirrorY)
@@ -2208,7 +2208,7 @@ QString SVGExPlug::getStrokeStyle(PageItem *item)
 		mpa.rotate(strokePatTrans.rotation);
 		mpa.shear(-strokePatTrans.skewX, strokePatTrans.skewY);
 		mpa.scale(pa.scaleX, pa.scaleY);
-		mpa.scale(strokePatTrans.scaleX / 100.0 , strokePatTrans.scaleY / 100.0);
+		mpa.scale(strokePatTrans.scaleX, strokePatTrans.scaleY);
 		if (mirrorX)
 			mpa.scale(-1, 1);
 		if (mirrorY)
