@@ -259,6 +259,7 @@ void ColorPalette::setCurrentItem(PageItem* item)
 	if (!currentItem)
 		return;
 
+	enablePatterns(patternList->count() != 0);
 	showOverprint(currentItem->doOverprint ? 1 : 0);
 	showColorValues(currentItem->lineColor(), currentItem->fillColor(), currentItem->lineShade(), currentItem->fillShade());
 	showGradient(currentItem->gradientType());
@@ -292,23 +293,6 @@ void ColorPalette::setCurrentItem(PageItem* item)
 		else
 			gradientTypeStroke->setCurrentIndex(1);
 	}
-	/*if (patternList->count() == 0)
-	{
-		tabWidgetStroke->setTabEnabled(2, false);
-		tabWidget->setTabEnabled(2, false);
-	}
-	else
-	{
-		tabWidgetStroke->setTabEnabled(2, true);
-		tabWidget->setTabEnabled(2, true);
-	}*/
-	enablePatterns(patternList->count() != 0);
-	/*if (!currentItem->strokePattern().isEmpty())
-		strokeModeCombo->setCurrentIndex(2);
-	else if (currentItem->GrTypeStroke > 0)
-		strokeModeCombo->setCurrentIndex(1);
-	else
-		strokeModeCombo->setCurrentIndex(0);*/
 	if (currentItem->gradientType() == 12)
 		setMeshPatchPoint();
 	else
