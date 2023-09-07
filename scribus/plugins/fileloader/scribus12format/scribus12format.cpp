@@ -171,7 +171,7 @@ QString Scribus12Format::readSLA(const QString & fileName)
 		// Not gzip encoded, just load it
 		loadRawText(fileName, docBytes);
 	}
-	QString docText("");
+	QString docText;
 	if (docBytes.left(16) != "<SCRIBUSUTF8NEW ") // Not a 1.3.x doc
 	{
 		if (docBytes.left(12) == "<SCRIBUSUTF8") // 1.2.x UTF8 doc
@@ -968,8 +968,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 				a = pg.attribute("NUM").toInt();
 				pageName = "";
 				pageName = pg.attribute("NAM", "");
-				QString Mus = "";
-				Mus = pg.attribute("MNAM","Normal");
+				QString Mus(pg.attribute("MNAM", "Normal"));
 				if (pageName.isEmpty())
 				{
 					//We store the pages master page but do not apply it now
@@ -2331,8 +2330,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 				ParagraphStyle::TabRecord tb;
 				tb.tabPosition = ScCLocale::toDoubleC(it.attribute("Pos"));
 				tb.tabType = it.attribute("Type").toInt();
-				QString tbCh = "";
-				tbCh = it.attribute("Fill","");
+				QString tbCh(it.attribute("Fill", ""));
 				if (tbCh.isEmpty())
 					tb.tabFillChar = QChar();
 				else

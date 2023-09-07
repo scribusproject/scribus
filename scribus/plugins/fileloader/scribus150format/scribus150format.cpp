@@ -4343,7 +4343,6 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 			fp >> m9 >> m10 >> m11 >> m12;
 			fp >> m13 >> m14 >> m15 >> m16;
 			currentView.trackerMatrix.set(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16);
-			tmp.clear();
 			tmp = tAtt.valueAsString("trackC");
 			ScTextStream fp2(&tmp, QIODevice::ReadOnly);
 			double v1, v2, v3;
@@ -5110,7 +5109,7 @@ bool Scribus150Format::readItemText(StoryText& story, const ScXmlStreamAttribute
 	story.setCharStyle(last->StyleStart, story.length()-last->StyleStart, last->Style);
 	last->StyleStart = story.length();
 /*
-	QString dbg("");
+	QString dbg;
 	for (int i=0; i < story.length(); ++i)
 	{
 		dbg += story.text(i,1);
@@ -5784,7 +5783,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			constexpr double maxVal = std::numeric_limits<double>::max() / 2.0;
 			ScTextStream fp(&tmp, QIODevice::ReadOnly);
 			uint numPo = attrs.valueAsUInt("NUMPO");
-			for (uint cx=0; cx < numPo; ++cx)
+			for (uint cx = 0; cx < numPo; ++cx)
 			{
 				fp >> xf;
 				fp >> yf;
@@ -5912,12 +5911,11 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			GrColor = attrs.valueAsString("GRCOLOR","");
 			if (!GrColor.isEmpty())
 			{
-				GrColor2 = attrs.valueAsString("GRCOLOR2","");
+				GrColor2 = attrs.valueAsString("GRCOLOR2", "");
 				GrShade  = attrs.valueAsInt("GRSHADE", 100);
 				GrShade2 = attrs.valueAsInt("GRSHADE2", 100);
 			}
-			QString GrName = "";
-			GrName = attrs.valueAsString("GRNAME","");
+			QString GrName(attrs.valueAsString("GRNAME", ""));
 			if (!GrName.isEmpty())
 				currItem->setGradient(GrName);
 			if ((currItem->GrType == Gradient_4Colors) || (currItem->GrType == Gradient_Diamond))
@@ -6011,8 +6009,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	currItem->GrStrokeFocalY = attrs.valueAsDouble("GRFOCALYS", 0.0);
 	currItem->GrStrokeScale  = attrs.valueAsDouble("GRSCALES", 1.0);
 	currItem->GrStrokeSkew  = attrs.valueAsDouble("GRSKEWS", 0.0);
-	QString GrNameS = "";
-	GrNameS = attrs.valueAsString("GRNAMES","");
+	QString GrNameS(attrs.valueAsString("GRNAMES", ""));
 	if (!GrNameS.isEmpty())
 		currItem->setStrokeGradient(GrNameS);
 
@@ -6030,8 +6027,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	bool mirrorXm = attrs.valueAsBool("pMirrorXM", false);
 	bool mirrorYm = attrs.valueAsBool("pMirrorYM", false);
 	currItem->setMaskFlip(mirrorXm, mirrorYm);
-	QString GrNameM = "";
-	GrNameM = attrs.valueAsString("GRNAMEM","");
+	QString GrNameM(attrs.valueAsString("GRNAMEM", ""));
 	currItem->GrMask = attrs.valueAsInt("GRTYPM", 0);
 	if ((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_LinearLumAlpha))
 		currItem->mask_gradient = VGradient(VGradient::linear);

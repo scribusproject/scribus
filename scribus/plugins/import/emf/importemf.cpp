@@ -615,12 +615,12 @@ bool EmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -2055,9 +2055,9 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 							continue;
 						}
 						const FPoint& base = gpath.point(a);
-						const FPoint& c1 = gpath.point(a+1);
-						const FPoint& base2 =  gpath.point(a+2);
-						const FPoint& c2 = gpath.point(a+3);
+						const FPoint& c1 = gpath.point(a + 1);
+						const FPoint& base2 =  gpath.point(a + 2);
+						const FPoint& c2 = gpath.point(a + 3);
 						FPoint cn1 = (1.0 - nearT) * base + nearT * c1;
 						FPoint cn2 = (1.0 - nearT) * cn1 + nearT * ((1.0 - nearT) * c1 + nearT * c2);
 						FPoint cn3 = (1.0 - nearT) * ((1.0 - nearT) * c1 + nearT * c2) + nearT * ((1.0 - nearT) * c2 + nearT * base2);
@@ -2702,7 +2702,7 @@ void EmfPlug::handleSmallText(QDataStream &ds)
 	ds >> sx >> sy;
 	if (!(txOpts & 0x00000100))
 		ds >> bLeft >> bTop >> bRight >> bBottom;
-	QString aTxt = "";
+	QString aTxt;
 	for (quint32 a = 0; a < numChar; a++)
 	{
 		if (txOpts & 0x00000200)
@@ -2757,7 +2757,7 @@ void EmfPlug::handleSmallText(QDataStream &ds)
 
 void EmfPlug::handleText(QDataStream &ds, qint64 posi, bool size)
 {
-	QString aTxt = "";
+	QString aTxt;
 	QPainterPath painterPath;
 	qint32 bLeft, bTop, bRight, bBottom, oLeft, oTop, oRight, oBottom;
 	quint32 grMode, numChar, offTxt, txOpts, offDx;
@@ -4341,7 +4341,7 @@ void EmfPlug::handleEMPFont(QDataStream &ds, quint16 id)
 	ds >> dummy;
 	ds >> emSize;
 	ds >> unit >> flags >> dummy >> length;
-	QString fontName = "";
+	QString fontName;
 	for (quint32 a = 0; a < length; a++)
 	{
 		quint16 cc;
@@ -4871,7 +4871,7 @@ void EmfPlug::handleEMFPDrawString(QDataStream &ds, quint8 flagsL, quint8 flagsH
 	QPainterPath painterPath;
 	ds >> brushID >> formatID >> numChars;
 	QPolygonF rect = getEMFPRect(ds, false);
-	QString stringData = "";
+	QString stringData;
 	for (quint32 a = 0; a < numChars; a++)
 	{
 		quint16 cc;
@@ -5389,8 +5389,8 @@ FPointArray EmfPlug::getEMPPathData(QDataStream &ds)
 				polyline.svgLineTo(p.x(), p.y());
 			else if (pty == U_PPT_Bezier)
 			{
-				QPointF p2 = points[c+1];
-				QPointF p3 = points[c+2];
+				QPointF p2 = points[c + 1];
+				QPointF p3 = points[c + 2];
 				polyline.svgCurveToCubic(p.x(), p.y(), p2.x(), p2.y(), p3.x(), p3.y());
 				c += 2;
 				pfl = (pTypes[c] & 0xF0) >> 4;
@@ -5565,13 +5565,12 @@ double EmfPlug::convertEMFPLogical2Pts(double in, quint16 unit)
 QPolygonF EmfPlug::gdip_open_curve_tangents(QPolygonF &points, double tension)
 {
 	double coefficient = tension / 3.0;
-	int i;
 	int count = points.count();
 	QPolygonF tangents;
 	tangents.fill(QPointF(0,0), count);
 	if (count <= 2)
 		return tangents;
-	for (i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		int r = i + 1;
 		int s = i - 1;
@@ -5587,13 +5586,12 @@ QPolygonF EmfPlug::gdip_open_curve_tangents(QPolygonF &points, double tension)
 QPolygonF EmfPlug::gdip_closed_curve_tangents(QPolygonF &points, double tension)
 {
 	double coefficient = tension / 3.0;
-	int i;
 	int count = points.count();
 	QPolygonF tangents;
 	tangents.fill(QPointF(0,0), count);
 	if (count <= 2)
 		return tangents;
-	for (i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		int r = i + 1;
 		int s = i - 1;

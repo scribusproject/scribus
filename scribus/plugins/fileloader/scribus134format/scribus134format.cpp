@@ -119,7 +119,7 @@ void Scribus134Format::registerFormats()
 
 bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
-	QByteArray docBytes("");
+	QByteArray docBytes;
 	if (fileName.right(2) == "gz")
 	{
 		QFile file(fileName);
@@ -1095,7 +1095,7 @@ void Scribus134Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs().shapeLineWidth      = attrs.valueAsDouble("WIDTH", 0.0);
 	doc->itemToolPrefs().lineWidth  = attrs.valueAsDouble("WIDTHLINE", 1.0);
 	doc->itemToolPrefs().shapeLineColorShade     = attrs.valueAsInt("PENSHADE", 100);
-	doc->itemToolPrefs().lineColor  = attrs.valueAsInt("LINESHADE", 100);
+	doc->itemToolPrefs().lineColorShade = attrs.valueAsInt("LINESHADE", 100);
 	doc->itemToolPrefs().shapeFillColorShade      = attrs.valueAsInt("BRUSHSHADE", 100);
 	doc->opToolPrefs().dispX       = attrs.valueAsDouble("dispX", 10.0);
 	doc->opToolPrefs().dispY       = attrs.valueAsDouble("dispY", 10.0);
@@ -2526,7 +2526,7 @@ bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 	obj->itemText.setCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
 	last->StyleStart = obj->itemText.length();
 /*
-	QString dbg("");
+	QString dbg;
 	for (int i=0; i < obj->itemText.length(); ++i)
 	{
 		dbg += obj->itemText.text(i,1);
