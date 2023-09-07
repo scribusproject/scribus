@@ -314,8 +314,8 @@ void ScPainter::setGradientMask(VGradient::VGradientType mode, const FPoint& ori
 void ScPainter::setPatternMask(ScPattern *pattern, const ScMaskTransform& maskTrans, bool mirrorX, bool mirrorY)
 {
 	m_maskPattern = pattern;
-	m_mask_patternScaleX = maskTrans.scaleX / 100.0;
-	m_mask_patternScaleY = maskTrans.scaleY / 100.0;
+	m_mask_patternScaleX = maskTrans.scaleX;
+	m_mask_patternScaleY = maskTrans.scaleY;
 	m_mask_patternOffsetX = maskTrans.offsetX;
 	m_mask_patternOffsetY = maskTrans.offsetY;
 	m_mask_patternRotation = maskTrans.rotation;
@@ -552,8 +552,8 @@ void ScPainter::setBlendModeStroke(int blendMode)
 void ScPainter::setPattern(ScPattern *pattern, const ScPatternTransform& patternTrans, bool mirrorX, bool mirrorY)
 {
 	m_pattern = pattern;
-	m_patternScaleX = patternTrans.scaleX / 100.0;
-	m_patternScaleY = patternTrans.scaleY / 100.0;
+	m_patternScaleX = patternTrans.scaleX;
+	m_patternScaleY = patternTrans.scaleY;
 	m_patternOffsetX = patternTrans.offsetX;
 	m_patternOffsetY = patternTrans.offsetY;
 	m_patternRotation = patternTrans.rotation;

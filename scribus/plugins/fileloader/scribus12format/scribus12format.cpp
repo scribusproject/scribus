@@ -1444,8 +1444,8 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 		if (OB->GrType == Gradient_Pattern)
 		{
 			OB->pattern = obj->attribute("pattern", "");
-			OB->patternScaleX = ScCLocale::toDoubleC(obj->attribute("pScaleX"), 100.0);
-			OB->patternScaleY = ScCLocale::toDoubleC(obj->attribute("pScaleY"), 100.0);
+			OB->patternScaleX = ScCLocale::toDoubleC(obj->attribute("pScaleX"), 100.0) / 100.0;
+			OB->patternScaleY = ScCLocale::toDoubleC(obj->attribute("pScaleY"), 100.0) / 100.0;
 			OB->patternOffsetX = ScCLocale::toDoubleC(obj->attribute("pOffsetX"), 0.0);
 			OB->patternOffsetY = ScCLocale::toDoubleC(obj->attribute("pOffsetY"), 0.0);
 			OB->patternRotation = ScCLocale::toDoubleC(obj->attribute("pRotation"), 0.0);

@@ -1902,7 +1902,7 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, const Q
 				patternName = patternMap[patNa];
 			importedPatterns.append(patternName);
 			currentItem->setPattern(patternName);
-			currentItem->setPatternTransform(16.6666, 16.6666, 0, 0, 0, 0, 0);
+			currentItem->setPatternTransform(0.166666, 0.166666, 0, 0, 0, 0, 0);
 			currentItem->GrType = Gradient_Pattern;
 		}
 	}

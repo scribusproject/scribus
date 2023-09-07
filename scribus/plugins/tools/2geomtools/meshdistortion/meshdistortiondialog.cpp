@@ -305,7 +305,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 					qmatrix.translate(patternTrans.offsetX, patternTrans.offsetY);
 					qmatrix.rotate(patternTrans.rotation);
 					qmatrix.shear(patternTrans.skewX, patternTrans.skewY);
-					qmatrix.scale(patternTrans.scaleX / 100.0, patternTrans.scaleY / 100.0);
+					qmatrix.scale(patternTrans.scaleX, patternTrans.scaleY);
 					bool mirrorX, mirrorY;
 					currItem->patternFlip(mirrorX, mirrorY);
 					if (mirrorX)
@@ -337,7 +337,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 				qmatrix.translate(strokePatTrans.offsetX, strokePatTrans.offsetY);
 				qmatrix.rotate(strokePatTrans.rotation);
 				qmatrix.shear(strokePatTrans.skewX, strokePatTrans.skewY);
-				qmatrix.scale(strokePatTrans.scaleX / 100.0, strokePatTrans.scaleY / 100.0);
+				qmatrix.scale(strokePatTrans.scaleX, strokePatTrans.scaleY);
 				bool mirrorX, mirrorY;
 				currItem->strokePatternFlip(mirrorX, mirrorY);
 				if (mirrorX)

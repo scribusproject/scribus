@@ -1740,8 +1740,8 @@ void ColorPalette::setMeshPatch()
 void ColorPalette::changePatternProps()
 {
 	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, false);
-	dia->spinXscaling->setValue(m_patternTrans.scaleX);
-	dia->spinYscaling->setValue(m_patternTrans.scaleY);
+	dia->spinXscaling->setValue(m_patternTrans.scaleX * 100.0);
+	dia->spinYscaling->setValue(m_patternTrans.scaleY * 100.0);
 	if (m_patternTrans.scaleX == m_patternTrans.scaleY)
 		dia->keepScaleRatio->setChecked(true);
 	dia->spinXoffset->setValue(m_patternTrans.offsetX);
@@ -1755,8 +1755,8 @@ void ColorPalette::changePatternProps()
 	dia->FlipV->setChecked(m_Pattern_mirrorY);
 	connect(dia, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)), this, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)));
 	dia->exec();
-	m_patternTrans.scaleX = dia->spinXscaling->value();
-	m_patternTrans.scaleY = dia->spinYscaling->value();
+	m_patternTrans.scaleX = dia->spinXscaling->value() / 100.0;
+	m_patternTrans.scaleY = dia->spinYscaling->value() / 100.0;
 	m_patternTrans.offsetX = dia->spinXoffset->value();
 	m_patternTrans.offsetY = dia->spinYoffset->value();
 	m_patternTrans.rotation = dia->spinAngle->value();
@@ -1795,8 +1795,8 @@ void ColorPalette::changePatternProps()
 void ColorPalette::changePatternPropsStroke()
 {
 	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, true);
-	dia->spinXscaling->setValue(m_strokePatternTrans.scaleX);
-	dia->spinYscaling->setValue(m_strokePatternTrans.scaleY);
+	dia->spinXscaling->setValue(m_strokePatternTrans.scaleX * 100.0);
+	dia->spinYscaling->setValue(m_strokePatternTrans.scaleY * 100.0);
 	if (m_strokePatternTrans.scaleX == m_strokePatternTrans.scaleY)
 		dia->keepScaleRatio->setChecked(true);
 	dia->spinXoffset->setValue(m_strokePatternTrans.offsetX);
@@ -1811,8 +1811,8 @@ void ColorPalette::changePatternPropsStroke()
 	dia->FlipV->setChecked(m_Pattern_mirrorYS);
 	connect(dia, SIGNAL(NewPatternPropsS(double,double,double,double,double,double,double,double,bool,bool)), this, SIGNAL(NewPatternPropsS(double,double,double,double,double,double,double,double,bool,bool)));
 	dia->exec();
-	m_strokePatternTrans.scaleX = dia->spinXscaling->value();
-	m_strokePatternTrans.scaleY = dia->spinYscaling->value();
+	m_strokePatternTrans.scaleX = dia->spinXscaling->value() / 100.0;
+	m_strokePatternTrans.scaleY = dia->spinYscaling->value() / 100.0;
 	m_strokePatternTrans.offsetX = dia->spinXoffset->value();
 	m_strokePatternTrans.offsetY = dia->spinYoffset->value();
 	m_strokePatternTrans.rotation = dia->spinAngle->value();

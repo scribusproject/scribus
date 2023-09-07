@@ -3786,30 +3786,30 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 		if (m_Doc->docPatterns.contains(patternName))
 		{
 			ScPattern pat = m_Doc->docPatterns[patternName];
-			double sy = 100.0;
-			double sx = 100.0;
+			double sy = 1.0;
+			double sx = 1.0;
 			double dx = 0;
 			double dy = 0;
 			if (obState.patternStretch == "stretch")
 			{
-				sx = item->width() / pat.width * 100;
-				sy = item->height() / pat.height * 100;
+				sx = item->width() / pat.width;
+				sy = item->height() / pat.height;
 			}
 			else
 			{
 				if (obState.patternDim_H_in_Percent)
-					sy = obState.patternHeight * 100.0;
+					sy = obState.patternHeight;
 				else
 				{
 					if (obState.patternHeight > 0.0)
-						sy = obState.patternHeight / pat.height * 100.0;
+						sy = obState.patternHeight / pat.height;
 				}
 				if (obState.patternDim_W_in_Percent)
-					sx = obState.patternWidth * 100.0;
+					sx = obState.patternWidth;
 				else
 				{
 					if (obState.patternWidth > 0.0)
-						sx = obState.patternWidth / pat.width * 100.0;
+						sx = obState.patternWidth / pat.width;
 				}
 				if (obState.patternX > 0.0)
 					dx = pat.width * obState.patternX;
@@ -3860,30 +3860,30 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 							patternName = patternName.trimmed().simplified().replace(" ", "_");
 							m_Doc->addPattern(patternName, pat);
 							item->setPattern(patternName);
-							double sy = 100.0;
-							double sx = 100.0;
+							double sy = 1.0;
+							double sx = 1.0;
 							double dx = 0;
 							double dy = 0;
 							if (obState.patternStretch == "stretch")
 							{
-								sx = item->width() / pat.width * 100;
-								sy = item->height() / pat.height * 100;
+								sx = item->width() / pat.width;
+								sy = item->height() / pat.height;
 							}
 							else
 							{
 								if (obState.patternDim_H_in_Percent)
-									sy = obState.patternHeight * 100.0;
+									sy = obState.patternHeight;
 								else
 								{
 									if (obState.patternHeight > 0.0)
-										sy = obState.patternHeight / pat.height * 100.0;
+										sy = obState.patternHeight / pat.height;
 								}
 								if (obState.patternDim_W_in_Percent)
-									sx = obState.patternWidth * 100.0;
+									sx = obState.patternWidth;
 								else
 								{
 									if (obState.patternWidth > 0.0)
-										sx = obState.patternWidth / pat.width * 100.0;
+										sx = obState.patternWidth / pat.width;
 								}
 								if (obState.patternX > 0.0)
 									dx = pat.width * obState.patternX;
@@ -3955,30 +3955,30 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 							patternName = patternName.trimmed().simplified().replace(" ", "_");
 							m_Doc->addPattern(patternName, pat);
 							item->setPattern(patternName);
-							double sy = 100.0;
-							double sx = 100.0;
+							double sy = 1.0;
+							double sx = 1.0;
 							double dx = 0;
 							double dy = 0;
 							if (obState.patternStretch == "stretch")
 							{
-								sx = item->width() / pat.width * 100;
-								sy = item->height() / pat.height * 100;
+								sx = item->width() / pat.width;
+								sy = item->height() / pat.height;
 							}
 							else
 							{
 								if (obState.patternDim_H_in_Percent)
-									sy = obState.patternHeight * 100.0;
+									sy = obState.patternHeight;
 								else
 								{
 									if (obState.patternHeight > 0.0)
-										sy = obState.patternHeight / pat.height * 100.0;
+										sy = obState.patternHeight / pat.height;
 								}
 								if (obState.patternDim_W_in_Percent)
-									sx = obState.patternWidth * 100.0;
+									sx = obState.patternWidth;
 								else
 								{
 									if (obState.patternWidth > 0.0)
-										sx = obState.patternWidth / pat.width * 100.0;
+										sx = obState.patternWidth / pat.width;
 								}
 								if (obState.patternX > 0.0)
 									dx = pat.width * obState.patternX;

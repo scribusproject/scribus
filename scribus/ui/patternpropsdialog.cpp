@@ -201,6 +201,8 @@ void PatternPropsDialog::languageChange()
 
 void PatternPropsDialog::changePatternProps()
 {
+	double scaleX = spinXscaling->value() / 100.0;
+	double scaleY = spinYscaling->value() / 100.0;
 	double a    = M_PI / 180.0 * spinXSkew->value();
 	double b    = M_PI / 180.0 * spinYSkew->value();
 	double sina = tan(a);
@@ -208,9 +210,9 @@ void PatternPropsDialog::changePatternProps()
 	bool fH = FlipH->isChecked();
 	bool fV = FlipV->isChecked();
 	if (forStroke)
-		emit NewPatternPropsS(spinXscaling->value(), spinYscaling->value(), spinXoffset->value(), spinYoffset->value(), spinAngle->value(), sina, sinb, spinSpacing->value() / 100.0, fH, fV);
+		emit NewPatternPropsS(scaleX, scaleY, spinXoffset->value(), spinYoffset->value(), spinAngle->value(), sina, sinb, spinSpacing->value() / 100.0, fH, fV);
 	else
-		emit NewPatternProps(spinXscaling->value(), spinYscaling->value(), spinXoffset->value(), spinYoffset->value(), spinAngle->value(), sina, sinb, fH, fV);
+		emit NewPatternProps(scaleX, scaleY, spinXoffset->value(), spinYoffset->value(), spinAngle->value(), sina, sinb, fH, fV);
 }
 
 void PatternPropsDialog::ToggleKette()
