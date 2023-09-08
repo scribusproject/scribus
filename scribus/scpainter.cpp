@@ -58,19 +58,13 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 	la.pushed = false;
 	la.groupClip.resize(0);
 	la.maskMode = m_maskMode;
-	la.mask_patternScaleX = m_mask_patternScaleX;
-	la.mask_patternScaleY = m_mask_patternScaleY;
-	la.mask_patternOffsetX = m_mask_patternOffsetX;
-	la.mask_patternOffsetY = m_mask_patternOffsetY;
-	la.mask_patternRotation = m_mask_patternRotation;
-	la.mask_patternSkewX = m_mask_patternSkewX;
-	la.mask_patternSkewY = m_mask_patternSkewY;
+	la.maskPattern = m_maskPattern;
+	la.maskPatternTrans = m_maskPatternTrans;
 	la.mask_patternMirrorX = m_mask_patternMirrorX;
 	la.mask_patternMirrorY = m_mask_patternMirrorY;
 	la.mask_gradientScale = m_mask_gradientScale;
 	la.mask_gradientSkew = m_mask_gradientSkew;
 	la.mask_gradient = mask_gradient;
-	la.maskPattern = m_maskPattern;
 	if (clipArray != nullptr)
 		la.groupClip = *clipArray;
 	la.data = cairo_get_group_target(m_cr);
@@ -87,19 +81,13 @@ void ScPainter::endLayer()
 		return;
 	la = m_Layers.pop();
 	m_maskMode = la.maskMode;
-	m_mask_patternScaleX = la.mask_patternScaleX;
-	m_mask_patternScaleY = la.mask_patternScaleY;
-	m_mask_patternOffsetX = la.mask_patternOffsetX;
-	m_mask_patternOffsetY = la.mask_patternOffsetY;
-	m_mask_patternRotation = la.mask_patternRotation;
-	m_mask_patternSkewX = la.mask_patternSkewX;
-	m_mask_patternSkewY = la.mask_patternSkewY;
+	m_maskPattern = la.maskPattern;
+	m_maskPatternTrans = la.maskPatternTrans;
 	m_mask_patternMirrorX = la.mask_patternMirrorX;
 	m_mask_patternMirrorY = la.mask_patternMirrorY;
 	m_mask_gradientScale = la.mask_gradientScale;
 	m_mask_gradientSkew = la.mask_gradientSkew;
 	mask_gradient = la.mask_gradient;
-	m_maskPattern = la.maskPattern;
 	m_fillRule = la.fillRule;
 	if (la.pushed)
 	{
@@ -313,13 +301,7 @@ void ScPainter::setGradientMask(VGradient::VGradientType mode, const FPoint& ori
 void ScPainter::setPatternMask(ScPattern *pattern, const ScMaskTransform& maskTrans, bool mirrorX, bool mirrorY)
 {
 	m_maskPattern = pattern;
-	m_mask_patternScaleX = maskTrans.scaleX;
-	m_mask_patternScaleY = maskTrans.scaleY;
-	m_mask_patternOffsetX = maskTrans.offsetX;
-	m_mask_patternOffsetY = maskTrans.offsetY;
-	m_mask_patternRotation = maskTrans.rotation;
-	m_mask_patternSkewX = maskTrans.skewX;
-	m_mask_patternSkewY = maskTrans.skewY;
+	m_maskPatternTrans = maskTrans;
 	m_mask_patternMirrorX = mirrorX;
 	m_mask_patternMirrorY = mirrorY;
 }
@@ -551,13 +533,7 @@ void ScPainter::setBlendModeStroke(int blendMode)
 void ScPainter::setPattern(ScPattern *pattern, const ScPatternTransform& patternTrans, bool mirrorX, bool mirrorY)
 {
 	m_pattern = pattern;
-	m_patternScaleX = patternTrans.scaleX;
-	m_patternScaleY = patternTrans.scaleY;
-	m_patternOffsetX = patternTrans.offsetX;
-	m_patternOffsetY = patternTrans.offsetY;
-	m_patternRotation = patternTrans.rotation;
-	m_patternSkewX = patternTrans.skewX;
-	m_patternSkewY = patternTrans.skewY;
+	m_patternTrans = patternTrans;
 	m_patternMirrorX = mirrorX;
 	m_patternMirrorY = mirrorY;
 }
@@ -652,10 +628,10 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 		cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 		cairo_matrix_t matrix;
 		QTransform qmatrix;
-		qmatrix.translate(m_mask_patternOffsetX, m_mask_patternOffsetY);
-		qmatrix.rotate(m_mask_patternRotation);
-		qmatrix.shear(-m_mask_patternSkewX, m_mask_patternSkewY);
-		qmatrix.scale(m_mask_patternScaleX, m_mask_patternScaleY);
+		qmatrix.translate(m_maskPatternTrans.offsetX, m_maskPatternTrans.offsetY);
+		qmatrix.rotate(m_maskPatternTrans.rotation);
+		qmatrix.shear(-m_maskPatternTrans.skewX, m_maskPatternTrans.skewY);
+		qmatrix.scale(m_maskPatternTrans.scaleX, m_maskPatternTrans.scaleY);
 		qmatrix.scale(m_maskPattern->width / static_cast<double>(m_maskPattern->getPattern()->width()), m_maskPattern->height / static_cast<double>(m_maskPattern->getPattern()->height()));
 		if (m_mask_patternMirrorX)
 			qmatrix.scale(-1, 1);
@@ -1115,10 +1091,10 @@ void ScPainter::fillPathHelper()
 		cairo_pattern_set_filter(m_pat, CAIRO_FILTER_GOOD);
 		cairo_matrix_t matrix;
 		QTransform qmatrix;
-		qmatrix.translate(m_patternOffsetX, m_patternOffsetY);
-		qmatrix.rotate(m_patternRotation);
-		qmatrix.shear(-m_patternSkewX, m_patternSkewY);
-		qmatrix.scale(m_patternScaleX, m_patternScaleY);
+		qmatrix.translate(m_patternTrans.offsetX, m_patternTrans.offsetY);
+		qmatrix.rotate(m_patternTrans.rotation);
+		qmatrix.shear(-m_patternTrans.skewX, m_patternTrans.skewY);
+		qmatrix.scale(m_patternTrans.scaleX, m_patternTrans.scaleY);
 		qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
 		if (m_patternMirrorX)
 			qmatrix.scale(-1, 1);
@@ -1282,10 +1258,10 @@ void ScPainter::strokePathHelper()
 		cairo_matrix_t matrix;
 		QTransform qmatrix;
 		qmatrix.translate(-m_LineWidth / 2.0, -m_LineWidth / 2.0);
-		qmatrix.translate(m_patternOffsetX, m_patternOffsetY);
-		qmatrix.rotate(m_patternRotation);
-		qmatrix.shear(-m_patternSkewX, m_patternSkewY);
-		qmatrix.scale(m_patternScaleX, m_patternScaleY);
+		qmatrix.translate(m_patternTrans.offsetX, m_patternTrans.offsetY);
+		qmatrix.rotate(m_patternTrans.rotation);
+		qmatrix.shear(-m_patternTrans.skewX, m_patternTrans.skewY);
+		qmatrix.scale(m_patternTrans.scaleX, m_patternTrans.scaleY);
 		qmatrix.scale(m_pattern->width / static_cast<double>(m_pattern->getPattern()->width()), m_pattern->height / static_cast<double>(m_pattern->getPattern()->height()));
 		if (m_patternMirrorX)
 			qmatrix.scale(-1, 1);

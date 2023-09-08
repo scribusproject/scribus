@@ -136,13 +136,7 @@ private:
 	bool   m_fillRule { true };
 	int    m_fillMode { 1 };			// 0 = none, 1 = solid, 2 = gradient
 
-	double m_patternScaleX { 0.0 };
-	double m_patternScaleY { 0.0 };
-	double m_patternOffsetX { 0.0 };
-	double m_patternOffsetY { 0.0 };
-	double m_patternRotation { 0.0 };
-	double m_patternSkewX { 0.0 };
-	double m_patternSkewY { 0.0 };
+	ScPatternTransform m_patternTrans;
 	bool   m_patternMirrorX { false };
 	bool   m_patternMirrorY { false };
 
@@ -180,13 +174,7 @@ private:
 	int    m_strokeMode { 0 };				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
 /* Masking */
 	int    m_maskMode { 0 };				// 0 = none, 1 = gradient 2 = pattern
-	double m_maskPatternScaleX { 0.0 };
-	double m_maskPatternScaleY { 0.0 };
-	double m_maskPatternOffsetX { 0.0 };
-	double m_maskPatternOffsetY { 0.0 };
-	double m_maskPatternRotation { 0.0 };
-	double m_maskPatternSkewX { 0.0 };
-	double m_maskPatternSkewY { 0.0 };
+	ScMaskTransform m_maskPatternTrans;
 	bool   m_maskPatternMirrorX { false };
 	bool   m_maskPatternMirrorY { false };
 	double m_maskGradientScale { 0.0 };
