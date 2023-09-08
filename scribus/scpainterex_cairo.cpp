@@ -219,13 +219,7 @@ void ScPainterEx_Cairo::setGradientMask(VGradientEx::Type mode, const FPoint& or
 void ScPainterEx_Cairo::setPatternMask(ScPattern *pattern, const ScMaskTransform& maskTrans, bool mirrorX, bool mirrorY)
 {
 	m_maskPattern = pattern;
-	m_maskPatternScaleX = maskTrans.scaleX;
-	m_maskPatternScaleY = maskTrans.scaleY;
-	m_maskPatternOffsetX = maskTrans.offsetX;
-	m_maskPatternOffsetY = maskTrans.offsetY;
-	m_maskPatternRotation = maskTrans.rotation;
-	m_maskPatternSkewX = maskTrans.skewX;
-	m_maskPatternSkewY = maskTrans.skewY;
+	m_maskPatternTrans = maskTrans;
 	m_maskPatternMirrorX = mirrorX;
 	m_maskPatternMirrorY = mirrorY;
 }
@@ -233,13 +227,7 @@ void ScPainterEx_Cairo::setPatternMask(ScPattern *pattern, const ScMaskTransform
 void ScPainterEx_Cairo::setPattern(ScPattern *pattern, const ScPatternTransform& patternTrans, bool mirrorX, bool mirrorY)
 {
 	m_pattern = pattern;
-	m_patternScaleX = patternTrans.scaleX;
-	m_patternScaleY = patternTrans.scaleY;
-	m_patternOffsetX = patternTrans.offsetX;
-	m_patternOffsetY = patternTrans.offsetY;
-	m_patternRotation = patternTrans.rotation;
-	m_patternSkewX   = patternTrans.skewX;
-	m_patternSkewY   = patternTrans.skewY;
+	m_patternTrans = patternTrans;
 	m_patternMirrorX = mirrorX;
 	m_patternMirrorY = mirrorY;
 }
@@ -550,10 +538,10 @@ cairo_pattern_t* ScPainterEx_Cairo::getMaskPattern()
 		cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 		cairo_matrix_t matrix;
 		QTransform qmatrix;
-		qmatrix.translate(m_maskPatternOffsetX, m_maskPatternOffsetY);
-		qmatrix.rotate(m_maskPatternRotation);
-		qmatrix.shear(-m_maskPatternSkewX, m_maskPatternSkewY);
-		qmatrix.scale(m_maskPatternScaleX, m_maskPatternScaleY);
+		qmatrix.translate(m_maskPatternTrans.offsetX, m_maskPatternTrans.offsetY);
+		qmatrix.rotate(m_maskPatternTrans.rotation);
+		qmatrix.shear(-m_maskPatternTrans.skewX, m_maskPatternTrans.skewY);
+		qmatrix.scale(m_maskPatternTrans.scaleX, m_maskPatternTrans.scaleY);
 		qmatrix.scale(m_maskPattern->width / static_cast<double>(m_maskPattern->getPattern()->width()), m_maskPattern->height / static_cast<double>(m_maskPattern->getPattern()->height()));
 		if (m_maskPatternMirrorX)
 			qmatrix.scale(-1, 1);

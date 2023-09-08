@@ -154,13 +154,7 @@ private:
 		int blendmode;
 		double tranparency;
 		int maskMode;				// 0 = none, 1 = gradient 2 = pattern
-		double mask_patternScaleX;
-		double mask_patternScaleY;
-		double mask_patternOffsetX;
-		double mask_patternOffsetY;
-		double mask_patternRotation;
-		double mask_patternSkewX;
-		double mask_patternSkewY;
+		ScMaskTransform maskPatternTrans;
 		bool mask_patternMirrorX;
 		bool mask_patternMirrorY;
 		double mask_gradientScale;
@@ -190,13 +184,7 @@ private:
 	double m_fill_trans { 1.0 };
 	bool m_fillRule { true };
 	int m_fillMode { 1 };				// 0 = none, 1 = solid, 2 = gradient 3 = pattern 4 = hatch
-	double m_patternScaleX { 0.0 };
-	double m_patternScaleY { 0.0 };
-	double m_patternOffsetX { 0.0 };
-	double m_patternOffsetY { 0.0 };
-	double m_patternRotation { 0.0 };
-	double m_patternSkewX { 0.0 };
-	double m_patternSkewY { 0.0 };
+	ScPatternTransform m_patternTrans;
 	bool m_patternMirrorX { false };
 	bool m_patternMirrorY { false };
 	double m_gradientScale { 0.0 };
@@ -230,13 +218,7 @@ private:
 	double m_LineWidth { 1.0 };
 	int m_strokeMode { 0 };				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
 	int m_maskMode { 0 };				// 0 = none, 1 = gradient 2 = pattern
-	double m_mask_patternScaleX { 0.0 };
-	double m_mask_patternScaleY { 0.0 };
-	double m_mask_patternOffsetX { 0.0 };
-	double m_mask_patternOffsetY { 0.0 };
-	double m_mask_patternRotation { 0.0 };
-	double m_mask_patternSkewX { 0.0 };
-	double m_mask_patternSkewY { 0.0 };
+	ScMaskTransform m_maskPatternTrans;
 	bool m_mask_patternMirrorX { false };
 	bool m_mask_patternMirrorY { false };
 	double m_mask_gradientScale { 0.0 };
