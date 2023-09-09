@@ -873,7 +873,7 @@ public: // Start public functions
 	QString pattern() const { return m_patternName; }
 
 	/** @brief Get the pattern transformation matrix of the object */
-	const ScPatternTransform& patternTransform() const { return patternTransfrm; }
+	const ScPatternTransform& patternTransform() const { return m_patternTransform; }
 
 	/**
 	 * @brief Set the fill pattern of the object.
@@ -884,7 +884,7 @@ public: // Start public functions
 	/**
 	 * @brief Set the fill pattern transformation of the object.
 	 */
-	void setPatternTransform(const ScPatternTransform& trans) { patternTransfrm = trans; }
+	void setPatternTransform(const ScPatternTransform& trans) { m_patternTransform = trans; }
 	void setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
 	void setPatternFlip(bool flipX, bool flipY);
 	void patternFlip(bool &flipX, bool &flipY) const;
@@ -1738,9 +1738,9 @@ protected: // Start protected variables
 	/**
 	 * @brief Fill pattern transformation matrix
 	 */
-	ScPatternTransform patternTransfrm;
-	bool   patternMirrorX {false};
-	bool   patternMirrorY {false};
+	ScPatternTransform m_patternTransform;
+	bool   m_patternMirrorX {false};
+	bool   m_patternMirrorY {false};
 
 	/**
 	 * @brief Fill color name
