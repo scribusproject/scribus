@@ -283,9 +283,9 @@ PageItem::PageItem(const PageItem & other)
 	m_annotation(other.m_annotation),
 	m_gradientName(other.m_gradientName),
 	m_patternName(other.m_patternName),
-	patternTransfrm(other.patternTransfrm),
-	patternMirrorX(other.patternMirrorX),
-	patternMirrorY(other.patternMirrorY),
+	m_patternTransform(other.m_patternTransform),
+	m_patternMirrorX(other.m_patternMirrorX),
+	m_patternMirrorY(other.m_patternMirrorY),
 	m_fillColor(other.m_fillColor),
 	m_lineColor(other.m_lineColor),
 	m_lineShade(other.m_lineShade),
@@ -1674,7 +1674,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 		}
 		else
 		{
-			p->setPattern(pattern, patternTransfrm, patternMirrorX, patternMirrorY);
+			p->setPattern(pattern, m_patternTransform, m_patternMirrorX, m_patternMirrorY);
 			p->setFillMode(ScPainter::Pattern);
 		}
 	}
@@ -3360,25 +3360,25 @@ void PageItem::setStrokeGradientVector(double startX, double startY, double endX
 
 void PageItem::setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
 {
-	patternTransfrm.scaleX = scaleX;
-	patternTransfrm.scaleY = scaleY;
-	patternTransfrm.offsetX = offsetX;
-	patternTransfrm.offsetY = offsetY;
-	patternTransfrm.rotation = rotation;
-	patternTransfrm.skewX = skewX;
-	patternTransfrm.skewY = skewY;
+	m_patternTransform.scaleX = scaleX;
+	m_patternTransform.scaleY = scaleY;
+	m_patternTransform.offsetX = offsetX;
+	m_patternTransform.offsetY = offsetY;
+	m_patternTransform.rotation = rotation;
+	m_patternTransform.skewX = skewX;
+	m_patternTransform.skewY = skewY;
 }
 
 void PageItem::setPatternFlip(bool flipX, bool flipY)
 {
-	patternMirrorX = flipX;
-	patternMirrorY = flipY;
+	m_patternMirrorX = flipX;
+	m_patternMirrorY = flipY;
 }
 
 void PageItem::patternFlip(bool &flipX, bool &flipY) const
 {
-	flipX = patternMirrorX;
-	flipY = patternMirrorY;
+	flipX = m_patternMirrorX;
+	flipY = m_patternMirrorY;
 }
 
 void PageItem::setMaskType(int val)
