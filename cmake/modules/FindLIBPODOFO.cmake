@@ -18,7 +18,7 @@ find_package(PkgConfig QUIET)
 if(DEFINED LIBPODOFO_DIR_PREFIX)
 	set(ENV{PKG_CONFIG_PATH} "${LIBPODOFO_DIR_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}")
 endif()
-pkg_search_module(libpodofo REQUIRED libpodofo podofo)
+pkg_search_module(libpodofo REQUIRED libpodofo podofo libpodofo-0)
 
 if (DEFINED LIBPODOFO_DIR_PREFIX)
 	find_path(LIBPODOFO_INCLUDE_DIR
