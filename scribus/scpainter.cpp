@@ -77,10 +77,10 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 
 void ScPainter::endLayer()
 {
-	layerProp la;
 	if (m_Layers.count() == 0)
 		return;
-	la = m_Layers.pop();
+
+	layerProp la = m_Layers.pop();
 	m_maskMode = la.maskMode;
 	m_maskPattern = la.maskPattern;
 	m_maskPatternTrans = la.maskPatternTrans;
