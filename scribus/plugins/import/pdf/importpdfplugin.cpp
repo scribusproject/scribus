@@ -199,7 +199,7 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 		if (!ScCore->haveGS())
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The Import plugin cannot handle Postscript files"));
+			ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The Import plugin cannot handle PostScript files"));
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			return false;
 		}

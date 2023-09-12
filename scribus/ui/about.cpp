@@ -188,25 +188,25 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	updateLayout->addWidget( checkForUpdateButton );
 	updateLayout->addWidget( updateView );
 	
-	/*! LICENCE tab */
-	tab_Licence = new QWidget( tabWidget2 );
-	tabWidget2->addTab( tab_Licence, tr("&Licence") );
-	licenceLayout = new QVBoxLayout( tab_Licence );
+	/*! LICENSE tab */
+	tab_License = new QWidget( tabWidget2 );
+	tabWidget2->addTab( tab_License, tr("&License") );
+	licenceLayout = new QVBoxLayout( tab_License );
 	licenceLayout->setSpacing(6);
 	licenceLayout->setContentsMargins(9, 9, 9, 9);
-	textViewLicence = new QTextBrowser( tab_Licence);
-	licenceLayout->addWidget( textViewLicence );
+	textViewLicense = new QTextBrowser( tab_License);
+	licenceLayout->addWidget( textViewLicense );
 	
 	QFile licenceFile(ScPaths::instance().docDir() + "/COPYING");
 	if (!licenceFile.open(QIODevice::ReadOnly | QIODevice::Text))
-		textViewLicence->setPlainText(tr("Unable to open licence file. Please check your install directory or the Scribus website for licencing information.") );
+		textViewLicense->setPlainText(tr("Unable to open license file. Please check your install directory or the Scribus website for licencing information.") );
 	else
 	{
 		QTextStream inTS(&licenceFile);
 		inTS.setAutoDetectUnicode(true);
 		inTS.setEncoding(QStringConverter::Utf8);
 		QString licenceText = inTS.readAll();
-		textViewLicence->setPlainText(licenceText);
+		textViewLicense->setPlainText(licenceText);
 	} 
 
 	/*! BUILD tab */

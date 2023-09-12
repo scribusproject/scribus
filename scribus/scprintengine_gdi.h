@@ -112,7 +112,7 @@ protected:
 
 	/*! \brief Send a file to printer using PostScript Passthrough
 	Send a postscript file to a printer using ps passthrough ( works on PS printers only )
-	\param filePath the Postscript file path
+	\param filePath the PostScript file path
 	\param printerDC the printer deice context
 	\param pageWidth width
 	\param pageHeight height

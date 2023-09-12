@@ -49,7 +49,7 @@ class PSPainter;
 
 /**
   *@author Franz Schmid
-  * Diese Klasse erzeugt Postscript-Dateien
+  * Diese Klasse erzeugt PostScript-Dateien
   */
 
 class SCRIBUS_API PSLib : public QObject

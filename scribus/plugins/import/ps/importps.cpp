@@ -151,7 +151,7 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 		try
 		{
 			PoDoFo::PdfError::EnableDebug( false );
-#if (PODOFO_VERSION == 0 && PODOFO_MINOR > 6)
+#if (PODOFO_VERSION == 0 && PODOFO_MINOR < 10)
 		PoDoFo::PdfError::EnableLogging( false );
 #endif
 #if (PODOFO_VERSION == 0 && PODOFO_MINOR == 5 && PODOFO_REVISION == 99) || PODOFO_MINOR > 5

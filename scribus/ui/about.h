@@ -47,13 +47,13 @@ protected:
 	QWidget* tab_3 { nullptr };
 	QWidget* tab_4 { nullptr };
 	QWidget* tab_5 { nullptr };
-	QWidget* tab_Licence { nullptr };
+	QWidget* tab_License { nullptr };
 	QWidget* tab_build { nullptr };
 	QTextBrowser* authorView { nullptr };
 	QTextBrowser* transView { nullptr };
 	QTextBrowser* onlineView { nullptr };
 	QTextBrowser* updateView { nullptr };
-	QTextBrowser* textViewLicence { nullptr };
+	QTextBrowser* textViewLicense { nullptr };
 	QTextBrowser* textViewBuild { nullptr };
 	QVBoxLayout* aboutLayout { nullptr };
 	QVBoxLayout* updateLayout { nullptr };

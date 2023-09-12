@@ -584,7 +584,7 @@ bool OutputPreview_PS::createPreviewFile(int pageIndex)
 	bool success = (psLib->createPS(psFileName) == 0);
 	delete psLib;
 
-	// TODO : Postscript level < 3
+	// TODO : PostScript level < 3
 	if (success && (m_printOptions.prnLanguage != PrintLanguage::PostScript3))
 	{
 		// use gs to convert our PS to a lower version

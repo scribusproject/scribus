@@ -375,7 +375,7 @@ void ResourceManager::updateInstalledHyph()
 	}
 
 	QStringList headers;
-	headers << tr("Language") << tr("Code") << tr("Location") << tr("Licence");
+	headers << tr("Language") << tr("Code") << tr("Location") << tr("License");
 	installedTableWidget->setHorizontalHeaderLabels(headers);
 	installedTableWidget->resizeColumnsToContents();
 	installedTableWidget->setSortingEnabled(true);
@@ -1152,10 +1152,10 @@ void ResourceManager::downloadLicenseFinished()
 	disconnect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadLicenseFinished()));
 }
 
-void ResourceManager::downloadLicenseFileFinished(const QString &licenceFileName)
+void ResourceManager::downloadLicenseFileFinished(const QString &licenseFileName)
 {
 	disconnect(ScQApp->dlManager(), SIGNAL(fileReceived(QString)), this, SLOT(downloadLicenseFileFinished(QString)));
-	QFile dataFile(licenceFileName);
+	QFile dataFile(licenseFileName);
 	QTextStream ts(&dataFile);
 	QString data;
 	if (dataFile.exists())
