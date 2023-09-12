@@ -4775,39 +4775,39 @@ currently %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/colorpalette.cpp" line="75"/>
         <location filename="../../scribus/ui/colorpalette.cpp" line="89"/>
-        <location filename="../../scribus/ui/colorpalette.cpp" line="1917"/>
-        <location filename="../../scribus/ui/colorpalette.cpp" line="1922"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="1887"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="1892"/>
         <source>Solid</source>
         <translation>Solid</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.cpp" line="76"/>
         <location filename="../../scribus/ui/colorpalette.cpp" line="90"/>
-        <location filename="../../scribus/ui/colorpalette.cpp" line="1918"/>
-        <location filename="../../scribus/ui/colorpalette.cpp" line="1923"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="1888"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="1893"/>
         <source>Gradient</source>
         <translation>Gradient</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.cpp" line="77"/>
-        <location filename="../../scribus/ui/colorpalette.cpp" line="1919"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="1889"/>
         <source>Hatch</source>
         <translation>Hatch</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.cpp" line="427"/>
-        <location filename="../../scribus/ui/colorpalette.cpp" line="429"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="410"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="412"/>
         <source>Pattern</source>
         <translation>Pattern</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.cpp" line="701"/>
-        <location filename="../../scribus/ui/colorpalette.cpp" line="704"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="684"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="687"/>
         <source>Custom</source>
         <translation>Custom</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.cpp" line="1330"/>
+        <location filename="../../scribus/ui/colorpalette.cpp" line="1300"/>
         <source>Create Mesh</source>
         <translation>Create Mesh</translation>
     </message>
@@ -9146,7 +9146,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe InDesign's IDML packages into Scribus
+        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>Imports Adobe InDesign&apos;s IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</translation>
@@ -13430,34 +13430,34 @@ Please check it and try again.</translation>
         <translation>Date:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10619"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10641"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11775"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11797"/>
         <source>Failed to load an image : %1</source>
         <translation>Failed to load an image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11780"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11802"/>
         <source>Failed to write an image : %1</source>
         <translation>Failed to write an image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11785"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11807"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Failed to load an image mask : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11790"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11812"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Insufficient memory for processing an image</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11770"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11792"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>A write error occurred, please check available disk space</translation>
     </message>
@@ -13473,37 +13473,37 @@ Please disable experimental PDF and PS embedding and try again.</translation>
 <context>
     <name>PSLib</name>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1639"/>
+        <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Processing Master Page:</source>
         <translation>Processing Master Page:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1639"/>
+        <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Exporting Page:</source>
         <translation>Exporting Page:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1578"/>
+        <location filename="../../scribus/pslib.cpp" line="1576"/>
         <source>Failed to write data for an image</source>
         <translation>Failed to write data for an image</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="528"/>
+        <location filename="../../scribus/pslib.cpp" line="526"/>
         <source>Failed to open file for writing : %1</source>
         <translation>Failed to open file for writing : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1583"/>
+        <location filename="../../scribus/pslib.cpp" line="1581"/>
         <source>Failed to load an image : %1</source>
         <translation>Failed to load an image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1588"/>
+        <location filename="../../scribus/pslib.cpp" line="1586"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Failed to load an image mask : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1593"/>
+        <location filename="../../scribus/pslib.cpp" line="1591"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Insufficient memory for processing an image</translation>
     </message>
@@ -13511,68 +13511,68 @@ Please disable experimental PDF and PS embedding and try again.</translation>
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="460"/>
+        <location filename="../../scribus/pageitem.cpp" line="441"/>
         <source>Image</source>
         <translation>Image</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="464"/>
+        <location filename="../../scribus/pageitem.cpp" line="445"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="468"/>
+        <location filename="../../scribus/pageitem.cpp" line="449"/>
         <source>Line</source>
         <translation>Line</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="472"/>
+        <location filename="../../scribus/pageitem.cpp" line="453"/>
         <source>Polygon</source>
         <translation>Polygon</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="476"/>
+        <location filename="../../scribus/pageitem.cpp" line="457"/>
         <source>Polyline</source>
         <translation>Polyline</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="480"/>
+        <location filename="../../scribus/pageitem.cpp" line="461"/>
         <source>PathText</source>
         <translation>PathText</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="484"/>
+        <location filename="../../scribus/pageitem.cpp" line="465"/>
         <source>Symbol</source>
         <translation>Symbol</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7553"/>
-        <location filename="../../scribus/pageitem.cpp" line="7554"/>
+        <location filename="../../scribus/pageitem.cpp" line="7500"/>
+        <location filename="../../scribus/pageitem.cpp" line="7501"/>
         <source>Copy of</source>
         <translation>Copy of</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="488"/>
+        <location filename="../../scribus/pageitem.cpp" line="469"/>
         <source>Group</source>
         <translation>Group</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="492"/>
+        <location filename="../../scribus/pageitem.cpp" line="473"/>
         <source>RegularPolygon</source>
         <translation>RegularPolygon</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="496"/>
+        <location filename="../../scribus/pageitem.cpp" line="477"/>
         <source>Arc</source>
         <translation>Arc</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="500"/>
+        <location filename="../../scribus/pageitem.cpp" line="481"/>
         <source>Spiral</source>
         <translation>Spiral</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="504"/>
+        <location filename="../../scribus/pageitem.cpp" line="485"/>
         <source>Table</source>
         <translation>Table</translation>
     </message>
@@ -13715,39 +13715,39 @@ Please disable experimental PDF and PS embedding and try again.</translation>
 <context>
     <name>PageItem_ImageFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="378"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="484"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="381"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="487"/>
         <source>Image</source>
         <translation>Image</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="108"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="394"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="490"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="397"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="493"/>
         <source>Embedded Image</source>
         <translation>Embedded Image</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="110"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="391"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="425"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="492"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="518"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="520"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="394"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="428"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="495"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="521"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="523"/>
         <source>File:</source>
         <translation>File:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="111"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="399"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="493"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="402"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="496"/>
         <source>Original PPI:</source>
         <translation>Original PPI:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="112"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="404"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="494"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="407"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="497"/>
         <source>Actual PPI:</source>
         <translation>Actual PPI:</translation>
     </message>
@@ -13758,51 +13758,51 @@ Please disable experimental PDF and PS embedding and try again.</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="114"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="409"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="495"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="412"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="498"/>
         <source>Colorspace:</source>
         <translation>Colourspace:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="117"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="414"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="498"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="417"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="501"/>
         <source>Unknown</source>
         <translation>Unknown</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="124"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="505"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="508"/>
         <source>Page:</source>
         <translation>Page:</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="126"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="507"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="510"/>
         <source>Pages:</source>
         <translation>Pages:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="429"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="516"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="432"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="519"/>
         <source>Embedded Image missing</source>
         <translation>Embedded Image missing</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="433"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="520"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="436"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="523"/>
         <source>missing</source>
         <translation>missing</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="438"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="523"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="441"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="526"/>
         <source>No Image Loaded</source>
         <translation>No Image Loaded</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="431"/>
-        <location filename="../../scribus/pageitem_imageframe.cpp" line="518"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="434"/>
+        <location filename="../../scribus/pageitem_imageframe.cpp" line="521"/>
         <source>missing or corrupt</source>
         <translation>missing or corrupt</translation>
     </message>
@@ -14103,6 +14103,7 @@ Please disable experimental PDF and PS embedding and try again.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="212"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
         <source>New Master Page</source>
         <translation>New Master Page</translation>
     </message>
@@ -14110,11 +14111,6 @@ Please disable experimental PDF and PS embedding and try again.</translation>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
         <source>Name:</source>
         <translation>Name:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
-        <source>New MasterPage</source>
-        <translation>New MasterPage</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
@@ -15046,7 +15042,7 @@ Please check it and try again.</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15068,7 +15064,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -21158,8 +21154,8 @@ Do you want to use this?</translation>
         <translation>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</translation>
     </message>
     <message>
-        <source/>
-        <translation type="unfinished"></translation>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
@@ -25022,7 +25018,7 @@ Check path and filename.</translation>
         <translation>Initialising...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1280"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1279"/>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="630"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1082"/>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1553"/>
@@ -28908,18 +28904,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can't find anything to operate
+raise a NoValidObjectError if it can&apos;t find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn't make sense, and will result
+the text color on a graphics frame doesn&apos;t make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function's documentation, though as with most Python code this list
+function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Scribus Python interface module
@@ -29231,12 +29227,12 @@ is not exhaustive due to exceptions from called functions.
         <translation>German (Trad.)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1631"/>
+        <location filename="../../scribus/pslib.cpp" line="1629"/>
         <source>Exporting PostScript File</source>
         <translation>Exporting PostScript File</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1633"/>
+        <location filename="../../scribus/pslib.cpp" line="1631"/>
         <source>Printing File</source>
         <translation>Printing File</translation>
     </message>
@@ -30582,7 +30578,7 @@ Therefore the image may be not correct</translation>
         <translation>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18038"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18042"/>
         <source>Unacceptable settings for note style</source>
         <translation>Unacceptable settings for note style</translation>
     </message>
@@ -34193,7 +34189,7 @@ Caution: this will increase the file size!</translation>
         <translation>Scribus 1.2.x Document</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="2480"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="2478"/>
         <source>Copy #%1 of </source>
         <translation>Copy #%1 of </translation>
     </message>
@@ -34208,7 +34204,7 @@ Caution: this will increase the file size!</translation>
         <translation>Allows Scribus to read Scribus 1.2.x formatted files.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1384"/>
+        <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1383"/>
         <source>You have opened a file produced by Scribus 1.2.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
         <translation>You have opened a file produced by Scribus 1.2.x.
@@ -34223,7 +34219,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3940"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3943"/>
         <source>Copy #%1 of </source>
         <translation>Copy #%1 of </translation>
     </message>
@@ -34291,7 +34287,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Scribus 1.5.0+ Document</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7291"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7290"/>
         <source>Copy #%1 of </source>
         <translation>Copy #%1 of </translation>
     </message>
@@ -34365,7 +34361,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="214"/>
         <location filename="../../scribus/scribusdoc.cpp" line="220"/>
         <location filename="../../scribus/scribusdoc.cpp" line="250"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16497"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16501"/>
         <source>Document</source>
         <translation>Document</translation>
     </message>
@@ -34375,27 +34371,27 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Background</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11251"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11253"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Cannot Delete In-Use Item</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11251"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11253"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11820"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11822"/>
         <source>Some objects are locked.</source>
         <translation>Some objects are locked.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11816"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11818"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Unlock All</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11817"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11819"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Skip locked objects</translation>
     </message>
@@ -34406,22 +34402,22 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="964"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16178"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16182"/>
         <source>Adjusting Colors</source>
         <translation>Adjusting Colours</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9086"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9088"/>
         <source>remove direct paragraph formatting</source>
         <translation>remove direct paragraph formatting</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9555"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9557"/>
         <source>remove direct char formatting</source>
         <translation>remove direct char formatting</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13467"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13469"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34432,7 +34428,7 @@ Vertical shift: %3
 Rotation: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13500"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13502"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34443,9 +34439,9 @@ Horizontal gap: %3
 Vertical gap: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14867"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14922"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15084"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14869"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14924"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15086"/>
         <source>Group%1</source>
         <translation>Group%1</translation>
     </message>
@@ -34456,28 +34452,28 @@ Vertical gap: %4</translation>
         <translation>Imported</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13621"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13623"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation>Copied %1 item(s) on %2 page(s)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16513"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16517"/>
         <source>File %1 autosaved</source>
         <translation>File %1 autosaved</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17665"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17704"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17669"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17708"/>
         <source>No Style</source>
         <translation>No Style</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18032"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18036"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 note style has document as range and provide same numbering style as set %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11149"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11151"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Do you really want to clear the content of all selected frames?</translation>
     </message>
@@ -35306,17 +35302,17 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10501"/>
+        <location filename="../../scribus/pageitem.cpp" line="10448"/>
         <source>Print: </source>
         <translation>Print: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10503"/>
+        <location filename="../../scribus/pageitem.cpp" line="10450"/>
         <source>Enabled</source>
         <translation>Enabled</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10505"/>
+        <location filename="../../scribus/pageitem.cpp" line="10452"/>
         <source>Disabled</source>
         <translation>Disabled</translation>
     </message>
@@ -35696,7 +35692,10 @@ Consider using the Preflight Verifier to correct them</translation>
     <message numerus="yes">
         <location filename="../../scribus/ui/search.cpp" line="901"/>
         <source>%n match(es) found</source>
-        <translation><numerusform>%n match found</numerusform><numerusform>%n matches found</numerusform></translation>
+        <translation>
+            <numerusform>%n match found</numerusform>
+            <numerusform>%n matches found</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="263"/>
@@ -40171,7 +40170,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Analysing File:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3660"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3618"/>
         <source>Group%1</source>
         <translation>Group%1</translation>
     </message>

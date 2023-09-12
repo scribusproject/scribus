@@ -139,7 +139,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="680"/>
         <source>Libraries:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bibliotek:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="683"/>
@@ -254,7 +254,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="139"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="197"/>
@@ -2360,12 +2360,12 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="137"/>
         <source>Swap items to the left</source>
-        <translation>Bytt objekt til venstre</translation>
+        <translation>Byt objekt til venstre</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="138"/>
         <source>Swap items to the right</source>
-        <translation>Bytt objekt til høgre</translation>
+        <translation>Byt objekt til høgre</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="451"/>
@@ -2985,12 +2985,12 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="37"/>
         <source>Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Fargar</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="186"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Innstillingar</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="221"/>

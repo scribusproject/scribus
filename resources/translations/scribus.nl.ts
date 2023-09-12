@@ -169,7 +169,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="294"/>
         <source>Previous Translation Contributors:</source>
-        <translation>Eerdere bijdragen van vertalingen:</translation>
+        <translation>Eerdere vertalingsbijdragen:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="105"/>
@@ -219,7 +219,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="233"/>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
-        <translation>Zoeken naar updates voor Scribus. Door deze computer wordt geen data verzonden.</translation>
+        <translation>Zoeken naar updates voor Scribus. Hierbij worden geen gegevens verzonden vanuit deze computer.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="255"/>
@@ -239,7 +239,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="181"/>
         <source>Check for Updates</source>
-        <translation>Controleer op updates</translation>
+        <translation>Controleren op updates</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="315"/>
@@ -274,7 +274,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="279"/>
         <source>Refactoring text layout code, the new boxes model &amp; CTL text layout, Oman House of Open Source Technology team:</source>
-        <translation>Herstructurering van de code voor tekstopmaak, nieuw boxmodel en CTL-tekstopmaak, het team van het Oman House of Open Source Technology:</translation>
+        <translation>Herstructurering van de code voor tekstopmaak, nieuw boxmodel en CTL-tekstopmaak, het team van Oman House of Open Source Technology:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="408"/>
@@ -309,7 +309,7 @@
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="76"/>
         <source>Release Date:</source>
-        <translation>Publicatiedatum:</translation>
+        <translation>Uitgavedatum:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="83"/>
@@ -377,7 +377,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1501"/>
         <source>Get Text...</source>
-        <translation>Tekst verkrijgen ...</translation>
+        <translation>Tekst verkrijgen...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1502"/>
@@ -387,7 +387,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1503"/>
         <source>Get Image...</source>
-        <translation>Afbeelding verkrijgen ...</translation>
+        <translation>Afbeelding verkrijgen...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1506"/>
@@ -432,19 +432,19 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1522"/>
         <source>Cu&amp;t</source>
-        <translation>Kni&amp;ppen</translation>
+        <translation>Kn&amp;ippen</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1523"/>
         <location filename="../../scribus/actionmanager.cpp" line="1525"/>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopiëren</translation>
+        <translation>K&amp;opiëren</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1524"/>
         <location filename="../../scribus/actionmanager.cpp" line="1526"/>
         <source>&amp;Paste</source>
-        <translation>Pla&amp;kken</translation>
+        <translation>Pl&amp;akken</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1531"/>
@@ -454,7 +454,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1533"/>
         <source>&amp;Deselect All</source>
-        <translation>&amp;Selectie opheffen</translation>
+        <translation>Selectie &amp;opheffen</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1534"/>
@@ -574,7 +574,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1579"/>
         <source>&amp;Ungroup</source>
-        <translation>&amp;Groep losmaken</translation>
+        <translation>Groep &amp;losmaken</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1581"/>
@@ -624,12 +624,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1616"/>
         <source>Is PDF &amp;Bookmark</source>
-        <translation>Dit is een PDF-&amp;bladwijzer</translation>
+        <translation>Is PDF-&amp;bladwijzer</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1617"/>
         <source>Is PDF A&amp;nnotation</source>
-        <translation>Dit is een PDF-a&amp;nnotatie</translation>
+        <translation>Is PDF-a&amp;nnotatie</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1620"/>
@@ -639,7 +639,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1621"/>
         <source>&amp;Attach Text to Path</source>
-        <translation>Tekst &amp;aan pad toevoegen</translation>
+        <translation>Tekst &amp;aan pad koppelen</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1622"/>
@@ -2194,7 +2194,7 @@
     <message>
         <location filename="../../scribus/ui/actionsearchdialog.ui" line="14"/>
         <source>Action Search</source>
-        <translation>Actie &amp;zoeken</translation>
+        <translation>Actie zoeken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/actionsearchdialog.ui" line="32"/>
@@ -3950,7 +3950,7 @@ Hoogte: %2</translation>
     <message>
         <location filename="../../scribus/canvasmode_framelinks.cpp" line="301"/>
         <source>You are trying to link a non-empty frame to frame which is already linked.</source>
-        <translation>U probeert een niet-leeg kader te koppelen aan kader dat al gekoppeld is</translation>
+        <translation>U probeert een niet-leeg kader te koppelen aan een kader dat al gekoppeld is.</translation>
     </message>
 </context>
 <context>
@@ -19867,12 +19867,12 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="620"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
-        <translation>Toon het document dubbelzijdig en start met eerste pagina weergegeven aan de linker kant</translation>
+        <translation>Toon het document met tegenoverliggende pagina&apos;s en start met eerste pagina op links</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="621"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
-        <translation>Toon het document dubbelzijdig en start met eerste pagina weergegeven aan de rechter kant</translation>
+        <translation>Toon het document met tegenoverliggende pagina&apos;s en start met eerste pagina op rechts</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="622"/>
@@ -37681,12 +37681,12 @@ als PDF document wordt geopend:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="238"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
-        <translation>Toon het document dubbelzijdig en start met eerste pagina weergegeven aan de linker kant</translation>
+        <translation>Toon het document met tegenoverliggende pagina&apos;s en start met eerste pagina op links</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="239"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
-        <translation>Toon het document dubbelzijdig en start met eerste pagina weergegeven aan de rechter kant</translation>
+        <translation>Toon het document met tegenoverliggende pagina&apos;s en start met eerste pagina op rechts</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="240"/>
