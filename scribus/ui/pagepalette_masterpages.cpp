@@ -316,7 +316,7 @@ void PagePalette_MasterPages::newMasterPage()
 {
 	int nr = m_doc->Pages->count();
 
-	QScopedPointer<NewTm> dia(new NewTm(this, tr("Name:"), tr("New MasterPage"), m_doc, tr("New Master Page %1").arg(nr)));
+	QScopedPointer<NewTm> dia(new NewTm(this, tr("Name:"), tr("New Master Page"), m_doc, tr("New Master Page %1").arg(nr)));
 	if (!dia->exec())
 		return;
 
