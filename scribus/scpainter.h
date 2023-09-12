@@ -132,7 +132,6 @@ public:
 	virtual void restore();
 	virtual int blendModeFill();
 
-
 	virtual void setRasterOp(int blendMode);
 	virtual void setBlendModeFill(int blendMode);
 	virtual void setBlendModeStroke(int blendMode);
@@ -150,20 +149,20 @@ private:
 	cairo_t* m_cr { nullptr };
 	struct layerProp
 	{
-		cairo_surface_t *data;
-		int blendmode;
-		double tranparency;
-		int maskMode;				// 0 = none, 1 = gradient 2 = pattern
+		cairo_surface_t *data { nullptr };
+		int blendmode { 0 };
+		double transparency { 1.0 };
+		int maskMode { 0 };				// 0 = none, 1 = gradient 2 = pattern
 		ScMaskTransform maskPatternTrans;
-		bool mask_patternMirrorX;
-		bool mask_patternMirrorY;
-		double mask_gradientScale;
-		double mask_gradientSkew;
+		bool mask_patternMirrorX { false };
+		bool mask_patternMirrorY { false };
+		double mask_gradientScale { 1.0 };
+		double mask_gradientSkew { 0.0 };
 		VGradient mask_gradient;
-		ScPattern *maskPattern;
+		ScPattern *maskPattern { nullptr };
 		FPointArray groupClip;
-		bool pushed;
-		bool fillRule;
+		bool pushed { false };
+		bool fillRule { false };
 	};
 	cairo_pattern_t *getMaskPattern();
 	cairo_surface_t *m_imageMask { nullptr };

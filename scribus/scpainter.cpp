@@ -52,11 +52,12 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 {
 	layerProp la;
 	la.blendmode = m_blendMode;
-	la.tranparency = m_layerTransparency;
+	la.transparency = m_layerTransparency;
 	m_layerTransparency = transparency;
 	m_blendMode = blendmode;
-	la.pushed = false;
 	la.groupClip.resize(0);
+	if (clipArray != nullptr)
+		la.groupClip = *clipArray;
 	la.maskMode = m_maskMode;
 	la.maskPattern = m_maskPattern;
 	la.maskPatternTrans = m_maskPatternTrans;
@@ -65,8 +66,6 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 	la.mask_gradientScale = m_mask_gradientScale;
 	la.mask_gradientSkew = m_mask_gradientSkew;
 	la.mask_gradient = mask_gradient;
-	if (clipArray != nullptr)
-		la.groupClip = *clipArray;
 	la.data = cairo_get_group_target(m_cr);
 	la.fillRule = m_fillRule;
 	cairo_push_group(m_cr);
@@ -121,7 +120,7 @@ void ScPainter::endLayer()
 		}
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	}
-	m_layerTransparency = la.tranparency;
+	m_layerTransparency = la.transparency;
 	m_blendMode = la.blendmode;
 	m_maskMode = 0;
 }
