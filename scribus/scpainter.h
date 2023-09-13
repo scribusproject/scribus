@@ -161,7 +161,6 @@ private:
 		VGradient mask_gradient;
 		ScPattern *maskPattern { nullptr };
 		FPointArray groupClip;
-		bool pushed { false };
 		bool fillRule { false };
 	};
 	cairo_pattern_t *getMaskPattern();

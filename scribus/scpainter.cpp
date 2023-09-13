@@ -70,13 +70,12 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 	la.data = cairo_get_group_target(m_cr);
 	la.fillRule = m_fillRule;
 	cairo_push_group(m_cr);
-	la.pushed = true;
 	m_Layers.push(la);
 }
 
 void ScPainter::endLayer()
 {
-	if (m_Layers.count() == 0)
+	if (m_Layers.isEmpty())
 		return;
 
 	layerProp la = m_Layers.pop();
@@ -89,38 +88,37 @@ void ScPainter::endLayer()
 	m_mask_gradientSkew = la.mask_gradientSkew;
 	mask_gradient = la.mask_gradient;
 	m_fillRule = la.fillRule;
-	if (la.pushed)
+
+	cairo_pop_group_to_source (m_cr);
+	if (!la.groupClip.empty())
 	{
-		cairo_pop_group_to_source (m_cr);
-		if (!la.groupClip.empty())
-		{
-			if (m_fillRule)
-				cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
-			else
-				cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
-			setupPolygon(&la.groupClip);
-			setClipPath();
-		}
-		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-		if (m_maskMode > 0)
-		{
-			cairo_pattern_t *patM = getMaskPattern();
-			setRasterOp(m_blendMode);
-			cairo_mask(m_cr, patM);
-			if (m_imageMask)
-			{
-				cairo_surface_destroy(m_imageMask);
-				m_imageMask = nullptr;
-			}
-			cairo_pattern_destroy(patM);
-		}
+		if (m_fillRule)
+			cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
 		else
-		{
-			setRasterOp(m_blendMode);
-			cairo_paint_with_alpha (m_cr, m_layerTransparency);
-		}
-		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+			cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
+		setupPolygon(&la.groupClip);
+		setClipPath();
 	}
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	if (m_maskMode > 0)
+	{
+		cairo_pattern_t *patM = getMaskPattern();
+		setRasterOp(m_blendMode);
+		cairo_mask(m_cr, patM);
+		if (m_imageMask)
+		{
+			cairo_surface_destroy(m_imageMask);
+			m_imageMask = nullptr;
+		}
+		cairo_pattern_destroy(patM);
+	}
+	else
+	{
+		setRasterOp(m_blendMode);
+		cairo_paint_with_alpha (m_cr, m_layerTransparency);
+	}
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+
 	m_layerTransparency = la.transparency;
 	m_blendMode = la.blendmode;
 	m_maskMode = 0;
