@@ -129,14 +129,8 @@ void ScPainter::begin()
 
 void ScPainter::end()
 {
-	if (m_svgMode)
-		cairo_show_page (m_cr);
-	if (m_layeredMode)
-	{
-		cairo_surface_flush(cairo_get_target(m_cr));
-		cairo_restore(m_cr);
-		return;
-	}
+	cairo_surface_flush(cairo_get_target(m_cr));
+	cairo_restore(m_cr);
 }
 
 void ScPainter::clear()

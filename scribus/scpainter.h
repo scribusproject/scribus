@@ -232,8 +232,6 @@ private:
 	/*! \brief Zoom Factor of the Painter */
 	double m_zoomFactor { 1.0 };
 	bool m_imageMode { true };
-	bool m_layeredMode { true };
-	bool m_svgMode { false };
 };
 
 #endif
