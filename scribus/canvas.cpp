@@ -1471,7 +1471,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 
 	PageItem *currItem;
 	int layerCount = m_doc->layerCount();
-	int docCurrPageNo=static_cast<int>(m_doc->currentPageNumber());
+	int docCurrPageNo = m_doc->currentPageNumber();
 	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
 		painter->beginLayer(layer.transparency, layer.blendMode);
 
