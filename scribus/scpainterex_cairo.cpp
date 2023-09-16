@@ -70,12 +70,79 @@ void ScPainterEx_Cairo::transformImage(QImage& image) const
 	}
 }
 
-void ScPainterEx_Cairo::begin()
+void ScPainterEx_Cairo::beginLayer(double transparency, int blendMode, FPointArray* clipArray)
 {
+	LayerProp la;
+	la.blendMode = m_blendModeLayer;
+	la.transparency = m_layerTransparency;
+	m_layerTransparency = transparency;
+	m_blendModeLayer = blendMode;
+	la.groupClip.resize(0);
+	if (clipArray != nullptr)
+		la.groupClip = *clipArray;
+	la.maskMode = m_maskMode;
+	la.maskPattern = m_maskPattern;
+	la.maskPatternTrans = m_maskPatternTrans;
+	la.maskPatternMirrorX = m_maskPatternMirrorX;
+	la.maskPatternMirrorY = m_maskPatternMirrorY;
+	la.maskGradientScale = m_maskGradientScale;
+	la.maskGradientSkew = m_maskGradientSkew;
+	la.maskGradient = m_maskGradient;
+	la.data = cairo_get_group_target(m_cr);
+	la.fillRule = m_fillRule;
+	cairo_push_group(m_cr);
+	m_layers.push(la);
 }
 
-void ScPainterEx_Cairo::end()
+void ScPainterEx_Cairo::endLayer()
 {
+	if (m_layers.isEmpty())
+		return;
+
+	LayerProp la = m_layers.pop();
+	m_maskMode = la.maskMode;
+	m_maskPattern = la.maskPattern;
+	m_maskPatternTrans = la.maskPatternTrans;
+	m_maskPatternMirrorX = la.maskPatternMirrorX;
+	m_maskPatternMirrorY = la.maskPatternMirrorY;
+	m_maskGradientScale = la.maskGradientScale;
+	m_maskGradientSkew = la.maskGradientSkew;
+	m_maskGradient = la.maskGradient;
+	m_fillRule = la.fillRule;
+
+	cairo_pop_group_to_source(m_cr);
+	if (!la.groupClip.empty())
+	{
+		if (m_fillRule)
+			cairo_set_fill_rule(m_cr, CAIRO_FILL_RULE_EVEN_ODD);
+		else
+			cairo_set_fill_rule(m_cr, CAIRO_FILL_RULE_WINDING);
+		setupPolygon(&la.groupClip);
+		setClipPath();
+	}
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	if (m_maskMode > 0)
+	{
+		cairo_pattern_t* patM = getMaskPattern();
+		setRasterOp(m_blendModeLayer);
+		cairo_mask(m_cr, patM);
+		if (m_imageMask)
+		{
+			cairo_surface_destroy(m_imageMask);
+			m_imageMask = nullptr;
+		}
+		cairo_pattern_destroy(patM);
+	}
+	else
+	{
+		setRasterOp(m_blendModeLayer);
+		cairo_paint_with_alpha(m_cr, m_layerTransparency);
+	}
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+
+	m_layerTransparency = la.transparency;
+	m_blendModeLayer = la.blendMode;
+	m_maskMode = 0;
 }
 
 void ScPainterEx_Cairo::clear()
@@ -473,7 +540,7 @@ cairo_pattern_t* ScPainterEx_Cairo::getMaskPattern()
 			double r, g, b;
 			qStopColor.getRgbF(&r, &g, &b);
 			if (m_maskMode == 3)
-				a = /* 1.0 - */(0.3 * r + 0.59 * g + 0.11 * b);
+				a = 0.3 * r + 0.59 * g + 0.11 * b;
 			cairo_pattern_add_color_stop_rgba(pat, colorStops[offset]->rampPoint, r, g, b, a);
 		}
 		cairo_matrix_t matrix;

@@ -79,8 +79,8 @@ protected:
 	virtual void fillPath(PageItem* item, ScPainterExBase* painter, const QRect& clip);
 	virtual void strokePath(PageItem* item, ScPainterExBase* painter, const QRect& clip);
 
-	virtual void drawMasterItems(ScPainterExBase* painter, ScPage* page, ScLayer& layer, const QRect& clip);
-	virtual void drawPageItems(ScPainterExBase* painter, ScPage* page, ScLayer& layer, const QRect& clip);
+	virtual void drawMasterItems(ScPainterExBase* painter, ScPage* page, const ScLayer& layer, const QRect& clip);
+	virtual void drawPageItems(ScPainterExBase* painter, ScPage* page, const ScLayer& layer, const QRect& clip);
 
 	virtual void drawItem(PageItem* item, ScPainterExBase* painter, QRect clip);
 	virtual void drawItem_Pre(PageItem* item, ScPainterExBase* painter);

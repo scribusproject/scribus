@@ -9,7 +9,10 @@ for which a new license (GPL+exception) is in place.
 #define SCPAINTEREX_CAIRO_H
 
 #include <cairo.h>
+
 #include <QImage>
+#include <QStack>
+
 #include "scpainterexbase.h"
 
 #include "mesh.h"
@@ -26,10 +29,13 @@ public:
 	ColorMode preferredColorMode() const override { return rgbMode; }
 	ImageMode imageMode() const override { return rgbImages; }
 
-	void begin() override;
-	void end() override;
+	void begin() override {};
+	void end() override {};
 	void clear() override;
 	void clear(ScColorShade &) override;
+
+	void beginLayer(double transparency, int blendMode, FPointArray* clipArray = nullptr);
+	void endLayer();
 
 	// matrix manipulation
 	void setWorldMatrix(const QTransform&) override;
@@ -195,6 +201,25 @@ private:
 
 /* Cairo context */
 	cairo_t* m_cr { nullptr };
+
+	struct LayerProp
+	{
+		cairo_surface_t* data { nullptr };
+		int blendMode { 0 };
+		double transparency { 1.0 };
+		int maskMode { 0 };				// 0 = none, 1 = gradient 2 = pattern
+		ScMaskTransform maskPatternTrans;
+		bool maskPatternMirrorX { false };
+		bool maskPatternMirrorY { false };
+		double maskGradientScale { 1.0 };
+		double maskGradientSkew { 0.0 };
+		VGradientEx maskGradient;
+		ScPattern* maskPattern { nullptr };
+		FPointArray groupClip;
+		bool fillRule { false };
+	};
+	QStack<LayerProp> m_layers;
+	double  m_layerTransparency { 1.0 };
 
 	cairo_pattern_t* getMaskPattern();
 	cairo_surface_t* m_imageMask{ nullptr };

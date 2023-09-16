@@ -71,6 +71,9 @@ public:
 	virtual void clear() = 0;
 	virtual void clear(ScColorShade&) = 0;
 
+	virtual void beginLayer(double transparency, int blendmode, FPointArray* clipArray = nullptr) = 0;
+	virtual void endLayer() = 0;
+
 	// matrix manipulation
 	virtual void setWorldMatrix(const QTransform &) = 0;
 	virtual QTransform worldMatrix() const = 0;
@@ -142,8 +145,8 @@ public:
 	VGradientEx  m_fillGradient { VGradientEx::linear };
 	VGradientEx  m_strokeGradient { VGradientEx::linear };
 	VGradientEx  m_maskGradient;
-	ScPattern*   m_pattern;
-	ScPattern*   m_maskPattern;
+	ScPattern*   m_pattern { nullptr };
+	ScPattern*   m_maskPattern { nullptr };
 	QTransform   m_patternTransform;
 
 protected:
