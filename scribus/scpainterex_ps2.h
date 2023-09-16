@@ -87,6 +87,9 @@ public:
 	void clear() override;
 	void clear( ScColorShade & ) override;
 
+	void beginLayer(double transparency, int blendmode, FPointArray* clipArray = nullptr) override {};
+	void endLayer() override {};
+
 	// matrix manipulation
 	void setWorldMatrix(const QTransform&) override;
 	QTransform worldMatrix() const override;

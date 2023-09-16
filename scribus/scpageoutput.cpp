@@ -79,32 +79,40 @@ void ScPageOutput::drawPage(ScPage* page, ScPainterExBase* painter)
 	int clipy = static_cast<int>(page->yOffset());
 	int clipw = qRound(page->width());
 	int cliph = qRound(page->height());
-	ScLayer layer;
-	layer.isViewable = false;
-	uint layerCount = m_doc->layerCount();
-	for (uint la = 0; la < layerCount; ++la)
+
+	int layerCount = m_doc->layerCount();
+	for (int i = 0; i < layerCount; ++i)
 	{
-		m_doc->Layers.levelToLayer(layer, la);
-		drawMasterItems(painter, page, layer, QRect(clipx, clipy, clipw, cliph));
-		drawPageItems(painter, page, layer, QRect(clipx, clipy, clipw, cliph));
+		const ScLayer* pLayer = m_doc->Layers.layerByLevel(i);
+		if (!pLayer)
+			continue;
+
+		if ((layerCount > 1) && ((pLayer->blendMode != 0) || (pLayer->transparency != 1.0)))
+			painter->beginLayer(pLayer->transparency, pLayer->blendMode);
+
+		drawMasterItems(painter, page, *pLayer, QRect(clipx, clipy, clipw, cliph));
+		drawPageItems(painter, page, *pLayer, QRect(clipx, clipy, clipw, cliph));
+
+		if ((layerCount > 1) && ((pLayer->blendMode != 0) || (pLayer->transparency != 1.0)))
+			painter->endLayer();
 	}
 	drawMarks(page, painter, m_marksOptions);
 }
 
-void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLayer& layer, const QRect& clip)
+void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, const ScLayer& layer, const QRect& clip)
 {
-	PageItem* currItem;
 	if (page->masterPageNameEmpty())
 		return;
 	if (page->FromMaster.count() <= 0)
 		return;
 	if (!layer.isViewable || !layer.isPrintable)
 		return;
+
 	ScPage* masterPage = m_doc->MasterPages.at(m_doc->MasterNames[page->masterPageName()]);
 	int pageFromMasterCount = page->FromMaster.count();
 	for (int i = 0; i < pageFromMasterCount; ++i)
 	{
-		currItem = page->FromMaster.at(i);
+		PageItem* currItem = page->FromMaster.at(i);
 		if (currItem->m_layerID != layer.ID)
 			continue;
 		if ((currItem->OwnPage != -1) && (currItem->OwnPage != masterPage->pageNr()))
@@ -136,17 +144,17 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLay
 	}
 }
 
-void ScPageOutput::drawPageItems(ScPainterExBase *painter, ScPage *page, ScLayer& layer, const QRect& clip)
+void ScPageOutput::drawPageItems(ScPainterExBase *painter, ScPage *page, const ScLayer& layer, const QRect& clip)
 {
-	PageItem *currItem;
 	if (m_doc->Items->count() <= 0)
 		return;
 	if (!layer.isViewable || !layer.isPrintable)
 		return;
+
 	int currentPageNr = page->pageNr();
 	for (int it = 0; it < m_doc->Items->count(); ++it)
 	{
-		currItem = m_doc->Items->at(it);
+		PageItem* currItem = m_doc->Items->at(it);
 		if (currItem->m_layerID != layer.ID)
 			continue;
 		if (!currItem->printEnabled())

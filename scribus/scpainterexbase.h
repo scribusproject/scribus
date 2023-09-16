@@ -71,6 +71,9 @@ public:
 	virtual void clear() = 0;
 	virtual void clear(ScColorShade&) = 0;
 
+	virtual void beginLayer(double transparency, int blendmode, FPointArray* clipArray = nullptr) = 0;
+	virtual void endLayer() = 0;
+
 	// matrix manipulation
 	virtual void setWorldMatrix(const QTransform &) = 0;
 	virtual QTransform worldMatrix() const = 0;
