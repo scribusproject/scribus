@@ -2418,9 +2418,9 @@ void PageItem::setMaskGradient(const VGradient& grad)
 		auto *is = new ScItemState<QPair<VGradient,VGradient> >(Um::GradVal);
 		is->set("MASK_GRAD");
 		is->setItem(qMakePair(mask_gradient, grad));
-		undoManager->action(this,is);
+		undoManager->action(this, is);
 	}
-	mask_gradient=grad;
+	mask_gradient = grad;
 }
 
 void PageItem::setFillGradient(const VGradient& grad)
@@ -2432,9 +2432,9 @@ void PageItem::setFillGradient(const VGradient& grad)
 		auto *is = new ScItemState<QPair<VGradient,VGradient> >(Um::GradVal);
 		is->set("FILL_GRAD");
 		is->setItem(qMakePair(fill_gradient, grad));
-		undoManager->action(this,is);
+		undoManager->action(this, is);
 	}
-	fill_gradient=grad;
+	fill_gradient = grad;
 }
 
 void PageItem::setStrokeGradient(const VGradient& grad)
@@ -2446,9 +2446,9 @@ void PageItem::setStrokeGradient(const VGradient& grad)
 		auto *is = new ScItemState<QPair<VGradient,VGradient> >(Um::GradVal);
 		is->set("STROKE_GRAD");
 		is->setItem(qMakePair(stroke_gradient, grad));
-		undoManager->action(this,is);
+		undoManager->action(this, is);
 	}
-	stroke_gradient=grad;
+	stroke_gradient = grad;
 }
 
 void PageItem::setPattern(const QString &newPattern)
@@ -2962,7 +2962,7 @@ void PageItem::createGradientMesh(int rows, int cols)
 		is->set("ROW", rows);
 		is->set("COL", cols);
 		is->setItem(meshGradientArray);
-		undoManager->action(this,is);
+		undoManager->action(this, is);
 	}
 	meshGradientArray.clear();
 	if (rows == 0 || cols == 0)
@@ -2996,10 +2996,10 @@ void PageItem::resetGradientMesh()
 		auto *is = new ScItemState<QList<QList<MeshPoint> > >(Um::ResetControlPoints);
 		is->set("RESET_MESH_GRAD");
 		is->setItem(meshGradientArray);
-		undoManager->action(this,is);
+		undoManager->action(this, is);
 	}
-	double xoffs = m_width / static_cast<double>(cols-1);
-	double yoffs = m_height / static_cast<double>(rows-1);
+	double xoffs = m_width / static_cast<double>(cols - 1);
+	double yoffs = m_height / static_cast<double>(rows - 1);
 	for (int x = 0; x < rows; x++)
 		for (int y = 0; y < cols; y++)
 			meshGradientArray[x][y].resetTo(FPoint(y * xoffs, x * yoffs));
@@ -3067,8 +3067,8 @@ void PageItem::meshToShape()
 	meshGradientArray = meshGradientArrayOld;
 	double dx = oldX - m_xPos;
 	double dy = oldY - m_yPos;
-	for (int x = 0; x < rows+1; x++)
-		for (int y = 0; y < cols+1; y++)
+	for (int x = 0; x < rows + 1; x++)
+		for (int y = 0; y < cols + 1; y++)
 			meshGradientArray[x][y].moveRel(dx, dy);
 	if (UndoManager::undoEnabled())
 	{
