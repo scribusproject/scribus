@@ -5320,7 +5320,10 @@ int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::I
 
 int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 {
-	double x1 = 0.0,y1 = 0.0, w1 = iafData.width, h1 = iafData.height;
+	double x1 = 0.0;
+	double y1 = 0.0;
+	double w1 = iafData.width;
+	double h1 = iafData.height;
 	std::vector<int> pageNs;
 
 	if (iafData.locationType == 0) // On the current page or on a range of pages
@@ -5331,76 +5334,78 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 		parsePagesString(iafData.pageList, &pageNs, Pages->count());
 
 	ScPage* oldCurrentPage = currentPage();
-	int z=-2;
-	PageItem *prevItem=nullptr; //Previous item for text frame linking
+	int z = -2;
+	PageItem* prevItem = nullptr; //Previous item for text frame linking
 	if (iafData.linkToExistingFrame && iafData.linkToExistingFramePtr != nullptr &&
 			iafData.linkToExistingFramePtr->itemType() == PageItem::TextFrame &&
 			DocItems.contains(iafData.linkToExistingFramePtr))
-		prevItem=iafData.linkToExistingFramePtr;
+		prevItem = iafData.linkToExistingFramePtr;
+
 	UndoTransaction transaction;
 	if (UndoManager::undoEnabled())
-		transaction = m_undoManager->beginTransaction(iafData.frameType==PageItem::TextFrame ? Um::TextFrame : Um::ImageFrame,
-													iafData.frameType==PageItem::TextFrame ? Um::ITextFrame : Um::IImageFrame,
+		transaction = m_undoManager->beginTransaction(iafData.frameType == PageItem::TextFrame ? Um::TextFrame : Um::ImageFrame,
+													iafData.frameType == PageItem::TextFrame ? Um::ITextFrame : Um::IImageFrame,
 													Um::InsertFrame, "", Um::ICreate);
-	for (uint i=0;i<pageNs.size();++i)
+	for (uint i = 0; i < pageNs.size(); ++i)
 	{
-		ScPage* targetPage = Pages->at(pageNs[i]-1);
+		ScPage* targetPage = Pages->at(pageNs[i] - 1);
 		//We need this for the itemAdd, FIXME later
 		setCurrentPage(targetPage);
 		
-		if (iafData.positionType==0) // Frame starts at top left of page margins
+		if (iafData.positionType == 0) // Frame starts at top left of page margins
 		{
 			x1 = targetPage->xOffset() + targetPage->Margins.left();
 			y1 = targetPage->yOffset() + targetPage->Margins.top();
 		}
-		else if (iafData.positionType==1) // Frame starts at top left of page
+		else if (iafData.positionType == 1) // Frame starts at top left of page
 		{
 			x1 = targetPage->xOffset();
 			y1 = targetPage->yOffset();
 		}
-		else if (iafData.positionType==2) // Frame starts at top left of page - bleeds
+		else if (iafData.positionType == 2) // Frame starts at top left of page - bleeds
 		{
 			MarginStruct values;
 			getBleeds(targetPage, m_docPrefsData.docSetupPrefs.bleeds, values);
 			x1 = targetPage->xOffset() - values.left();
 			y1 = targetPage->yOffset() - values.top();
 		}
-		else if (iafData.positionType==3) // Frame starts at custom position
+		else if (iafData.positionType == 3) // Frame starts at custom position
 		{
 			x1 = targetPage->xOffset() + iafData.x;
 			y1 = targetPage->yOffset() + iafData.y;
 		}
 		
-		if (iafData.sizeType==0) // Frame is size of page margins
+		if (iafData.sizeType == 0) // Frame is size of page margins
 		{
-			w1 = targetPage->width() - targetPage->Margins.right()- targetPage->Margins.left();
-			h1 = targetPage->height() - targetPage->Margins.bottom()- targetPage->Margins.top();
+			w1 = targetPage->width() - targetPage->Margins.right() - targetPage->Margins.left();
+			h1 = targetPage->height() - targetPage->Margins.bottom() - targetPage->Margins.top();
 		}
-		else if (iafData.sizeType==1) // Frame is size of page
+		else if (iafData.sizeType == 1) // Frame is size of page
 		{
 			w1 = targetPage->width();
 			h1 = targetPage->height();
 		}
-		else if (iafData.sizeType==2) // Frame is size of page + bleed 
+		else if (iafData.sizeType == 2) // Frame is size of page + bleed 
 		{
 			w1 = targetPage->width() + m_docPrefsData.docSetupPrefs.bleeds.right() + m_docPrefsData.docSetupPrefs.bleeds.left();
 			h1 = targetPage->height() + m_docPrefsData.docSetupPrefs.bleeds.bottom() + m_docPrefsData.docSetupPrefs.bleeds.top();
 		}
-		else if (iafData.sizeType==3) //Frame is size of imported image, we resize below when we load it
+		else if (iafData.sizeType == 3) //Frame is size of imported image, we resize below when we load it
 		{
-			w1 = h1 =1;
+			w1 = h1 = 1;
 		}
-		else if (iafData.sizeType==4) // Frame is custom size
+		else if (iafData.sizeType == 4) // Frame is custom size
 		{
 			w1 = iafData.width;
 			h1 = iafData.height;
 		}
-		z=itemAdd(iafData.frameType, PageItem::Unspecified, x1, y1, w1, h1, m_docPrefsData.itemToolPrefs.shapeLineWidth, CommonStrings::None, m_docPrefsData.itemToolPrefs.textColor);
-		if (z!=-1)
+
+		z = itemAdd(iafData.frameType, PageItem::Unspecified, x1, y1, w1, h1, m_docPrefsData.itemToolPrefs.shapeLineWidth, CommonStrings::None, m_docPrefsData.itemToolPrefs.textColor);
+		if (z != -1)
 		{
-			PageItem* currItem=Items->at(z);
+			PageItem* currItem = Items->at(z);
 			setRedrawBounding(currItem);
-			if (iafData.frameType==PageItem::ImageFrame && !iafData.source.isEmpty())
+			if (iafData.frameType == PageItem::ImageFrame && !iafData.source.isEmpty())
 			{
 				if (QFile::exists(iafData.source))
 				{
@@ -5425,15 +5430,15 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 					QApplication::restoreOverrideCursor();
 				}
 			}
-			if (iafData.frameType==PageItem::TextFrame)
+			if (iafData.frameType == PageItem::TextFrame)
 			{
 				currItem->setColumns(iafData.columnCount);
-				currItem->setColumnGap(iafData.columnGap/m_docUnitRatio);
-				if (i==0 && iafData.linkToExistingFrame && prevItem != nullptr)
+				currItem->setColumnGap(iafData.columnGap / m_docUnitRatio);
+				if (i == 0 && iafData.linkToExistingFrame && prevItem != nullptr)
 				{
 					prevItem->link(currItem);
 				}
-				if (i!=0 && iafData.linkTextFrames && prevItem != nullptr)
+				if (i != 0 && iafData.linkTextFrames && prevItem != nullptr)
 				{
 					prevItem->link(currItem);
 				}
@@ -5444,7 +5449,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 						gt->launchImporter(iafData.impsetup.importer, iafData.impsetup.filename, iafData.impsetup.textOnly, iafData.impsetup.encoding, true, iafData.impsetup.prefixNames, currItem);
 					delete gt;
 				}
-				prevItem=currItem;
+				prevItem = currItem;
 			}
 		}
 	}
