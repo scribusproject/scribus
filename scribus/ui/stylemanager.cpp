@@ -303,13 +303,16 @@ void StyleManager::slotDelete()
 			++it;
 		}
 	}
+
 	if (!m_item || selected.isEmpty())
 		return; // nothing to delete
+	selected.sort(Qt::CaseSensitive);
 
 	QStringList tmp;
 	QList<StyleName> styles = m_item->styles(false); // get list from cache
 	for (int i = 0; i < styles.count(); ++i)
 		tmp << styles[i].first;
+
 	SMReplaceDia dia(selected, tmp, this);
 	if (dia.exec() && m_item)
 	{
