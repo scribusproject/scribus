@@ -60,6 +60,7 @@ protected:
 	static int translateIntentToLcmsIntent(eRenderIntent intent, eRenderIntent defIntent = Intent_Relative_Colorimetric);
 	static eColorSpaceType translateLcmsColorSpaceType(cmsColorSpaceSignature);
 	static eProfileClass   translateLcmsProfileClass(cmsProfileClassSignature);
+	static QString         translateLcmsWCharToQString(const wchar_t* str, int size = -1);
 
 	// Exception class thrown by cmsErrorHandler
 	class lcmsException : public std::runtime_error 

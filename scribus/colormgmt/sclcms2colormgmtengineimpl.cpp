@@ -6,7 +6,9 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <cstdlib>
+#include <cwchar>
 #include <iostream>
+#include <memory>
 #include <string>
 
 #include <QDir>
@@ -529,6 +531,36 @@ eProfileClass ScLcms2ColorMgmtEngineImpl::translateLcmsProfileClass(cmsProfileCl
     if (signature == cmsSigNamedColorClass)
 		profileClass = Class_NamedColor;
 	return profileClass;
+}
+
+QString ScLcms2ColorMgmtEngineImpl::translateLcmsWCharToQString(const wchar_t* wstr, int size)
+{
+	static_assert(sizeof(wchar_t) == 2 || sizeof(wchar_t) == 4);
+
+	if constexpr (sizeof(wchar_t) == 2)
+		return QString::fromWCharArray(wstr, size);
+
+	if constexpr (sizeof(wchar_t) == 4)
+	{
+		// In this case lcms2 use wchar_t type to carry UTF16 data,
+		// so we have to convert wchar_t data to ushort type before
+		// doing the QString conversion
+		if (size < 0)
+			size = wcslen(wstr);
+		if (size <= 0)
+			return QString();
+
+		std::unique_ptr<char16_t[]> utf16Data(new (std::nothrow) char16_t[(size_t) size + 1]);
+		if (utf16Data)
+		{
+			for (int i = 0; i < size; ++i)
+				utf16Data[i] = static_cast<char16_t>(wstr[i]);
+			utf16Data[size] = 0;
+			return QString::fromUtf16(utf16Data.get(), size);
+		}
+	}
+
+	return QString();
 }
 
 void ScLcms2ColorMgmtEngineImpl::cmsErrorHandler(cmsContext contextID, cmsUInt32Number /*ErrorCode*/, 
