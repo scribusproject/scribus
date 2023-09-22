@@ -76,13 +76,12 @@ QList<StyleName> SMLineStyle::styles(bool reloadFromDoc)
 		m_tmpLines = m_doc->docLineStyles;
 	}
 
-	QList<StyleName> tmp;
-	QHash<QString,multiLine>::Iterator it;
+	QList<StyleName> tmpList;
+	for (auto it = m_tmpLines.cbegin(); it != m_tmpLines.cend(); ++it)
+		tmpList << StyleName(it.key(), QString());
+	std::sort(tmpList.begin(), tmpList.end(), sortingQPairOfStrings);
 
-	for (it = m_tmpLines.begin(); it != m_tmpLines.end(); ++it)
-		tmp << StyleName(it.key(), QString());
-
-	return tmp;
+	return tmpList;
 }
 
 void SMLineStyle::reload()

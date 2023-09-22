@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "smtablestyle.h"
 #include "smtablestylewidget.h"
 #include "ui/scmessagebox.h"
+#include "util.h"
 
 SMTableStyle::SMTableStyle()
 {
@@ -93,6 +94,7 @@ QList<StyleName> SMTableStyle::styles(bool reloadFromDoc)
 			stylesList << StyleName(styleName, parentName);
 		}
 	}
+	std::sort(stylesList.begin(), stylesList.end(), sortingQPairOfStrings);
 
 	return stylesList;
 }

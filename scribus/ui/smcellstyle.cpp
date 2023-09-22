@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "smcellstyle.h"
 #include "smcellstylewidget.h"
 #include "ui/scmessagebox.h"
+#include "util.h"
 
 SMCellStyle::SMCellStyle()
 {
@@ -93,6 +94,7 @@ QList<StyleName> SMCellStyle::styles(bool reloadFromDoc)
 			stylesList << StyleName(styleName, parentName);
 		}
 	}
+	std::sort(stylesList.begin(), stylesList.end(), sortingQPairOfStrings);
 
 	return stylesList;
 }
