@@ -1532,9 +1532,9 @@ public slots:
 	void itemSelection_SetItemLineTransparency(double t, Selection* customSelection = nullptr);
 	void itemSelection_SetItemFillBlend(int t);
 	void itemSelection_SetItemLineBlend(int t);
-	void itemSelection_SetLineGradient(VGradient& newGradient, Selection* customSelection = nullptr);
-	void itemSelection_SetFillGradient(VGradient& newGradient, Selection* customSelection = nullptr);
-	void itemSelection_SetMaskGradient(VGradient& newGradient, Selection* customSelection = nullptr);
+	void itemSelection_SetLineGradient(const VGradient& newGradient, Selection* customSelection = nullptr);
+	void itemSelection_SetFillGradient(const VGradient& newGradient, Selection* customSelection = nullptr);
+	void itemSelection_SetMaskGradient(const VGradient& newGradient, Selection* customSelection = nullptr);
 	void itemSelection_SetOverprint(bool overprint, Selection* customSelection = nullptr);
 	void itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection = nullptr);
 	void itemSelection_FlipH(Selection* customSelection = nullptr);

@@ -579,6 +579,12 @@ public:
 	static QString GradValStroke;
 	static QString GradCol;
 	static QString GradTypeStroke;
+	static QString PatternVal;
+	static QString PatternValStroke;
+	static QString PatternValMask;
+	static QString PatternStrokeToPath;
+	static QString PatternTransform;
+	static QString PatternFlip;
 	static QString MultipleDuplicate;
 	static QString Duplicate;
 	static QString Transform;
