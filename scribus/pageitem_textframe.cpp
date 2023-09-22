@@ -1299,7 +1299,7 @@ void PageItem_TextFrame::layout()
 		return;
 	}
 
-	if ((itLen != 0)) // || (NextBox != nullptr))
+	if (itLen != 0)
 	{
 		// determine layout area
 		m_availableRegion = calcAvailableRegion();
@@ -2054,11 +2054,11 @@ void PageItem_TextFrame::layout()
 					{
 						double tCurX = current.xPos;
 						double oCurX = current.xPos - current.colLeft + wide;
-						for (int yg = static_cast<int>(tTabValues.count() - 1); yg > -1; yg--)
+						for (int yg = tTabValues.count() - 1; yg > -1; yg--)
 						{
 							if (oCurX < tTabValues.at(yg).tabPosition)
 							{
-								tabs.status = static_cast<int>(tTabValues.at(yg).tabType);
+								tabs.status = tTabValues.at(yg).tabType;
 								tabs.fillChar = tTabValues.at(yg).tabFillChar;
 								current.xPos = current.colLeft + tTabValues.at(yg).tabPosition;
 							}
@@ -4342,9 +4342,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		UndoTransaction activeTransaction;
 		if (itemText.hasSelection()) //(kk < 0x1000)
 		{
-			bool x11Hack=false;
-			bool controlCharHack=false;
-			if ((k->text().size() == 1))
+			bool x11Hack = false;
+			bool controlCharHack = false;
+			if (k->text().size() == 1)
 			{
 				ushort uni = k->text().at(0).unicode();
 				controlCharHack = ((uni < 32) && (uni != SpecialChars::TAB.unicode()));
@@ -5637,7 +5637,7 @@ NotesInFrameMap PageItem_TextFrame::updateNotesFrames(QMap<int, Mark*> noteMarks
 				if (NS->isEndNotes())
 				{
 					//create new endnotes frame
-					double x,y,w,h;
+					double x, y, w, h;
 					const ScPage* scP = m_Doc->page4EndNotes(NS, this);
 					x = scP->Margins.left() + m_Doc->rulerXoffset + scP->xOffset();
 					y = scP->Margins.top() + m_Doc->rulerYoffset + scP->yOffset();

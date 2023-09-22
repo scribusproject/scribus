@@ -551,14 +551,8 @@ bool compareQStrings(const QString& s1, const QString& s2)
 
 QStringList sortQStringList(QStringList aList)
 {
-	std::vector<QString> sortList;
-	QStringList retList;
-	QStringList::Iterator it;
-	for (it = aList.begin(); it != aList.end(); ++it)
-		sortList.push_back(*it);
-	std::sort(sortList.begin(), sortList.end(), compareQStrings);
-	for (uint i = 0; i < sortList.size(); i++)
-		retList.append(sortList[i]);
+	QStringList retList = aList;
+	std::sort(retList.begin(), retList.end(), compareQStrings);
 	return retList;
 }
 
