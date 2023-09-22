@@ -2415,9 +2415,9 @@ void PageItem::setMaskGradient(const VGradient& grad)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		auto *is = new ScItemState<QPair<VGradient,VGradient> >(Um::GradVal);
+		auto *is = new ScOldNewState<VGradient>(Um::GradVal);
 		is->set("MASK_GRAD");
-		is->setItem(qMakePair(mask_gradient, grad));
+		is->setStates(mask_gradient, grad);
 		undoManager->action(this, is);
 	}
 	mask_gradient = grad;
@@ -2443,9 +2443,9 @@ void PageItem::setStrokeGradient(const VGradient& grad)
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		auto *is = new ScItemState<QPair<VGradient,VGradient> >(Um::GradVal);
+		auto *is = new ScOldNewState<VGradient>(Um::GradVal);
 		is->set("STROKE_GRAD");
-		is->setItem(qMakePair(stroke_gradient, grad));
+		is->setStates(stroke_gradient, grad);
 		undoManager->action(this, is);
 	}
 	stroke_gradient = grad;
@@ -2453,8 +2453,16 @@ void PageItem::setStrokeGradient(const VGradient& grad)
 
 void PageItem::setPattern(const QString &newPattern)
 {
-	if (m_patternName != newPattern)
-		m_patternName = newPattern;
+	if (m_patternName == newPattern)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState<QString>(Um::PatternVal);
+		is->set("FILL_PATTERN");
+		is->setStates(m_patternName, newPattern);
+		undoManager->action(this, is);
+	}
+	m_patternName = newPattern;
 }
 
 void PageItem::set4ColorGeometry(const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4)
@@ -3325,8 +3333,16 @@ void PageItem::setGradientVector(double startX, double startY, double endX, doub
 
 void PageItem::setStrokeGradient(const QString &newGradient)
 {
-	if (gradientStrokeVal != newGradient)
-		gradientStrokeVal = newGradient;
+	if (gradientStrokeVal == newGradient)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState<QString>(Um::GradVal);
+		is->set("STROKE_GRADIENT_NAME");
+		is->setStates(gradientStrokeVal, newGradient);
+		undoManager->action(this, is);
+	}
+	gradientStrokeVal = newGradient;
 }
 
 void PageItem::strokeGradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const
@@ -3353,19 +3369,44 @@ void PageItem::setStrokeGradientVector(double startX, double startY, double endX
 	GrStrokeSkew   = skew;
 }
 
+void PageItem::setPatternTransform(const ScPatternTransform& trans)
+{
+	if (m_patternTransform == trans)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState<ScPatternTransform>(Um::PatternTransform);
+		is->set("FILL_PATTERN_TRANSFORM");
+		is->setStates(m_patternTransform, trans);
+		undoManager->action(this, is);
+	}
+	m_patternTransform = trans;
+}
+
 void PageItem::setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
 {
-	m_patternTransform.scaleX = scaleX;
-	m_patternTransform.scaleY = scaleY;
-	m_patternTransform.offsetX = offsetX;
-	m_patternTransform.offsetY = offsetY;
-	m_patternTransform.rotation = rotation;
-	m_patternTransform.skewX = skewX;
-	m_patternTransform.skewY = skewY;
+	ScPatternTransform patternTrans;
+	patternTrans.scaleX = scaleX;
+	patternTrans.scaleY = scaleY;
+	patternTrans.offsetX = offsetX;
+	patternTrans.offsetY = offsetY;
+	patternTrans.rotation = rotation;
+	patternTrans.skewX = skewX;
+	patternTrans.skewY = skewY;
+	setPatternTransform(patternTrans);
 }
 
 void PageItem::setPatternFlip(bool flipX, bool flipY)
 {
+	if (m_patternMirrorX == flipX && m_patternMirrorY == flipY)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState< QPair<bool, bool> >(Um::PatternFlip);
+		is->set("FILL_PATTERN_FLIP");
+		is->setStates(qMakePair(m_patternMirrorX, m_patternMirrorY), qMakePair(flipX, flipY));
+		undoManager->action(this, is);
+	}
 	m_patternMirrorX = flipX;
 	m_patternMirrorY = flipY;
 }
@@ -3399,8 +3440,16 @@ void PageItem::setGradientMask(const QString &newMask)
 
 void PageItem::setPatternMask(const QString &newMask)
 {
-	if (patternMaskVal != newMask)
-		patternMaskVal = newMask;
+	if (patternMaskVal == newMask)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState<QString>(Um::PatternValMask);
+		is->set("MASK_PATTERN");
+		is->setStates(patternMaskVal, newMask);
+		undoManager->action(this, is);
+	}
+	patternMaskVal = newMask;
 }
 
 void PageItem::maskVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const
@@ -3427,19 +3476,44 @@ void PageItem::setMaskVector(double startX, double startY, double endX, double e
 	GrMaskSkew   = skew;
 }
 
+void PageItem::setMaskTransform(const ScMaskTransform& maskTrans)
+{
+	if (patternMaskTransfrm == maskTrans)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState<ScPatternTransform>(Um::PatternTransform);
+		is->set("MASK_TRANSFORM");
+		is->setStates(patternMaskTransfrm, maskTrans);
+		undoManager->action(this, is);
+	}
+	patternMaskTransfrm = maskTrans;
+}
+
 void PageItem::setMaskTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY)
 {
-	patternMaskTransfrm.scaleX = scaleX;
-	patternMaskTransfrm.scaleY = scaleY;
-	patternMaskTransfrm.offsetX = offsetX;
-	patternMaskTransfrm.offsetY = offsetY;
-	patternMaskTransfrm.rotation = rotation;
-	patternMaskTransfrm.skewX = skewX;
-	patternMaskTransfrm.skewY = skewY;
+	ScMaskTransform maskTransform;
+	maskTransform.scaleX = scaleX;
+	maskTransform.scaleY = scaleY;
+	maskTransform.offsetX = offsetX;
+	maskTransform.offsetY = offsetY;
+	maskTransform.rotation = rotation;
+	maskTransform.skewX = skewX;
+	maskTransform.skewY = skewY;
+	setMaskTransform(maskTransform);
 }
 
 void PageItem::setMaskFlip(bool flipX, bool flipY)
 {
+	if (patternMaskMirrorX == flipX && patternMaskMirrorY == flipY)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState< QPair<bool, bool> >(Um::PatternFlip);
+		is->set("MASK_FLIP");
+		is->setStates(qMakePair(patternMaskMirrorX, patternMaskMirrorY), qMakePair(flipX, flipY));
+		undoManager->action(this, is);
+	}
 	patternMaskMirrorX = flipX;
 	patternMaskMirrorY = flipY;
 }
@@ -3620,12 +3694,29 @@ void PageItem::setLineShade(double newShade)
 
 void PageItem::setStrokePattern(const QString &newPattern)
 {
-	if (patternStrokeVal != newPattern)
-		patternStrokeVal = newPattern;
+	if (patternStrokeVal == newPattern)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState<QString>(Um::PatternValStroke);
+		is->set("STROKE_PATTERN");
+		is->setStates(patternStrokeVal, newPattern);
+		undoManager->action(this, is);
+	}
+	patternStrokeVal = newPattern;
 }
 
 void PageItem::setStrokePatternToPath(bool enable)
 {
+	if (patternStrokePath == enable)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState<bool>(Um::PatternStrokeToPath);
+		is->set("STROKE_PATTERN_TO_PATH");
+		is->setStates(patternStrokePath, enable);
+		undoManager->action(this, is);
+	}
 	patternStrokePath = enable;
 }
 
@@ -3634,20 +3725,45 @@ bool PageItem::isStrokePatternToPath() const
 	return patternStrokePath;
 }
 
+void PageItem::setStrokePatternTransform(const ScStrokePatternTransform& trans)
+{
+	if (patternStrokeTransfrm == trans)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState<ScStrokePatternTransform>(Um::PatternTransform);
+		is->set("STROKE_PATTERN_TRANSFORM");
+		is->setStates(patternStrokeTransfrm, trans);
+		undoManager->action(this, is);
+	}
+	patternStrokeTransfrm = trans;
+}
+
 void PageItem::setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space)
 {
-	patternStrokeTransfrm.scaleX = scaleX;
-	patternStrokeTransfrm.scaleY = scaleY;
-	patternStrokeTransfrm.offsetX = offsetX;
-	patternStrokeTransfrm.offsetY = offsetY;
-	patternStrokeTransfrm.rotation = rotation;
-	patternStrokeTransfrm.skewX = skewX;
-	patternStrokeTransfrm.skewY = skewY;
-	patternStrokeTransfrm.space = space;
+	ScStrokePatternTransform strokePatternTrans;
+	strokePatternTrans.scaleX = scaleX;
+	strokePatternTrans.scaleY = scaleY;
+	strokePatternTrans.offsetX = offsetX;
+	strokePatternTrans.offsetY = offsetY;
+	strokePatternTrans.rotation = rotation;
+	strokePatternTrans.skewX = skewX;
+	strokePatternTrans.skewY = skewY;
+	strokePatternTrans.space = space;
+	setStrokePatternTransform(strokePatternTrans);
 }
 
 void PageItem::setStrokePatternFlip(bool flipX, bool flipY)
 {
+	if (patternStrokeMirrorX == flipX && patternStrokeMirrorY == flipY)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState< QPair<bool, bool> >(Um::PatternFlip);
+		is->set("STROKE_PATTERN_FLIP");
+		is->setStates(qMakePair(patternStrokeMirrorX, patternStrokeMirrorY), qMakePair(flipX, flipY));
+		undoManager->action(this, is);
+	}
 	patternStrokeMirrorX = flipX;
 	patternStrokeMirrorY = flipY;
 }
@@ -4805,7 +4921,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("SHOW_IMAGE"))
 			restoreShowImage(ss, isUndo);
 		else if (ss->contains("TRANSPARENCY"))
-			restoreFillTP(ss, isUndo);
+			restoreFillTransparency(ss, isUndo);
 		else if (ss->contains("LINE_TRANSPARENCY"))
 			restoreLineTP(ss, isUndo);
 		else if (ss->contains("LINE_STYLE"))
@@ -5213,14 +5329,69 @@ bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)
 		restoreFillGradient(ss, isUndo);
 		return true;
 	}
-	if (ss->contains("MASK_GRAD"))
+	if (ss->contains("FILL_PATTERN"))
 	{
-		restoreMaskGradient(ss, isUndo);
+		restoreFillPattern(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("FILL_PATTERN_FLIP"))
+	{
+		restoreFillPatternFlip(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("FILL_PATTERN_TRANSFORM"))
+	{
+		restoreFillPatternTransform(ss, isUndo);
 		return true;
 	}
 	if (ss->contains("STROKE_GRAD"))
 	{
 		restoreStrokeGradient(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("STROKE_GRADIENT_NAME"))
+	{
+		restoreStrokeGradientName(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("STROKE_PATTERN"))
+	{
+		restoreStrokePattern(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("STROKE_PATTERN_FLIP"))
+	{
+		restoreStrokePatternFlip(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("STROKE_PATTERN_TRANSFORM"))
+	{
+		restoreStrokePatternTransform(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("STROKE_PATTERN_TO_PATH"))
+	{
+		restoreStrokePatternToPath(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("MASK_GRAD"))
+	{
+		restoreMaskGradient(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("MASK_PATTERN"))
+	{
+		restoreMaskPattern(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("MASK_FLIP"))
+	{
+		restoreMaskFlip(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("MASK_TRANSFORM"))
+	{
+		restoreMaskTransform(ss, isUndo);
 		return true;
 	}
 	if (ss->contains("GRAD_MESH_COLOR"))
@@ -5921,34 +6092,230 @@ void PageItem::restoreFillGradient(SimpleState *state, bool isUndo)
 	update();
 }
 
+void PageItem::restoreFillPattern(SimpleState* state, bool isUndo)
+{
+	const auto* is = dynamic_cast<ScOldNewState<QString> *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreFillPattern: dynamic cast failed");
+		return;
+	}
+
+	if (isUndo)
+		m_patternName = is->getOldState();
+	else
+		m_patternName = is->getNewState();
+	update();
+}
+
+void PageItem::restoreFillPatternFlip(SimpleState* state, bool isUndo)
+{
+	const auto* is = dynamic_cast<ScOldNewState< QPair<bool, bool> > *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreFillPatternFlip: dynamic cast failed");
+		return;
+	}
+
+	if (isUndo)
+	{
+		const auto& oldFlips = is->getOldState();
+		m_patternMirrorX = oldFlips.first;
+		m_patternMirrorY = oldFlips.second;
+	}
+	else
+	{
+		const auto& newFlips = is->getNewState();
+		m_patternMirrorX = newFlips.first;
+		m_patternMirrorY = newFlips.second;
+	}
+	update();
+}
+
+void PageItem::restoreFillPatternTransform(SimpleState* state, bool isUndo)
+{
+	const auto* is = dynamic_cast<ScOldNewState<ScPatternTransform> *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreFillPatternTransform: dynamic cast failed");
+		return;
+	}
+
+	if (isUndo)
+		m_patternTransform = is->getOldState();
+	else
+		m_patternTransform = is->getNewState();
+	update();
+}
+
 void PageItem::restoreMaskGradient(SimpleState *state, bool isUndo)
 {
-	const auto *is = dynamic_cast<ScItemState<QPair<VGradient,VGradient> > *>(state);
+	const auto *is = dynamic_cast<ScOldNewState<VGradient> *>(state);
 	if (!is)
 	{
 		qFatal("PageItem::restoreMaskGradient: dynamic cast failed");
 		return;
 	}
 	if (isUndo)
-		mask_gradient = is->getItem().first;
+		mask_gradient = is->getOldState();
 	else
-		mask_gradient = is->getItem().second;
+		mask_gradient = is->getNewState();
 	update();
 }
 
+void PageItem::restoreMaskPattern(SimpleState *state, bool isUndo)
+{
+	const auto *is = dynamic_cast<ScOldNewState<QString> *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreMaskPattern: dynamic cast failed");
+		return;
+	}
+	if (isUndo)
+		patternMaskVal = is->getOldState();
+	else
+		patternMaskVal = is->getNewState();
+	update();
+}
+
+void PageItem::restoreMaskFlip(SimpleState* state, bool isUndo)
+{
+	const auto* is = dynamic_cast<ScOldNewState< QPair<bool, bool> > *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreMaskFlip: dynamic cast failed");
+		return;
+	}
+
+	if (isUndo)
+	{
+		const auto& oldFlips = is->getOldState();
+		patternMaskMirrorX = oldFlips.first;
+		patternMaskMirrorY = oldFlips.second;
+	}
+	else
+	{
+		const auto& newFlips = is->getNewState();
+		patternMaskMirrorX = newFlips.first;
+		patternMaskMirrorY = newFlips.second;
+	}
+	update();
+}
+
+void PageItem::restoreMaskTransform(SimpleState* state, bool isUndo)
+{
+	const auto* is = dynamic_cast<ScOldNewState<ScPatternTransform> *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreMaskTransform: dynamic cast failed");
+		return;
+	}
+
+	if (isUndo)
+		patternMaskTransfrm = is->getOldState();
+	else
+		patternMaskTransfrm = is->getNewState();
+	update();
+}
 
 void PageItem::restoreStrokeGradient(SimpleState *state, bool isUndo)
 {
-	const auto *is = dynamic_cast<ScItemState<QPair<VGradient,VGradient> > *>(state);
+	const auto *is = dynamic_cast<ScOldNewState<VGradient> *>(state);
 	if (!is)
 	{
 		qFatal("PageItem::restoreStrokeGradient: dynamic cast failed");
 		return;
 	}
 	if (isUndo)
-		stroke_gradient = is->getItem().first;
+		stroke_gradient = is->getOldState();
 	else
-		stroke_gradient = is->getItem().second;
+		stroke_gradient = is->getNewState();
+	update();
+}
+
+void PageItem::restoreStrokeGradientName(SimpleState* state, bool isUndo)
+{
+	const auto* is = dynamic_cast<ScOldNewState<QString> *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreStrokeGradientName: dynamic cast failed");
+		return;
+	}
+	if (isUndo)
+		gradientStrokeVal = is->getOldState();
+	else
+		gradientStrokeVal = is->getNewState();
+	update();
+}
+
+void PageItem::restoreStrokePattern(SimpleState* state, bool isUndo)
+{
+	const auto* is = dynamic_cast<ScOldNewState<QString> *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreStrokePattern: dynamic cast failed");
+		return;
+	}
+	if (isUndo)
+		patternStrokeVal = is->getOldState();
+	else
+		patternStrokeVal = is->getNewState();
+	update();
+}
+
+void PageItem::restoreStrokePatternFlip(SimpleState* state, bool isUndo)
+{
+	const auto* is = dynamic_cast<ScOldNewState< QPair<bool, bool> > *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreStrokePatternFlip: dynamic cast failed");
+		return;
+	}
+
+	if (isUndo)
+	{
+		const auto& oldFlips = is->getOldState();
+		patternStrokeMirrorX = oldFlips.first;
+		patternStrokeMirrorY = oldFlips.second;
+	}
+	else
+	{
+		const auto& newFlips = is->getNewState();
+		patternStrokeMirrorX = newFlips.first;
+		patternStrokeMirrorY = newFlips.second;
+	}
+	update();
+}
+
+void PageItem::restoreStrokePatternTransform(SimpleState* state, bool isUndo)
+{
+	const auto* is = dynamic_cast<ScOldNewState<ScStrokePatternTransform> *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreStrokePatternTransform: dynamic cast failed");
+		return;
+	}
+
+	if (isUndo)
+		patternStrokeTransfrm = is->getOldState();
+	else
+		patternStrokeTransfrm = is->getNewState();
+	update();
+}
+
+void PageItem::restoreStrokePatternToPath(SimpleState* state, bool isUndo)
+{
+	const auto* is = dynamic_cast<ScOldNewState<bool> *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreStrokePatternToPath: dynamic cast failed");
+		return;
+	}
+
+	if (isUndo)
+		patternStrokePath = is->getOldState();
+	else
+		patternStrokePath = is->getNewState();
 	update();
 }
 
@@ -6760,7 +7127,7 @@ void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
 	m_Doc->itemSelection_SetItemPenShade(shade, &tempSelection);
 }
 
-void PageItem::restoreFillTP(SimpleState *state, bool isUndo)
+void PageItem::restoreFillTransparency(SimpleState *state, bool isUndo)
 {
 	double tp = state->getDouble("OLD_TP");
 	if (!isUndo)

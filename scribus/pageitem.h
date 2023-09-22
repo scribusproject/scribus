@@ -721,7 +721,7 @@ public: // Start public functions
 	void maskVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const;
 	void setMaskVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew);
 	const ScMaskTransform& maskTransform() const { return patternMaskTransfrm; }
-	void setMaskTransform(const ScMaskTransform& maskTrans) { patternMaskTransfrm = maskTrans; }
+	void setMaskTransform(const ScMaskTransform& maskTrans);
 	void setMaskTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
 	void setMaskFlip(bool flipX, bool flipY);
 	void maskFlip(bool &flipX, bool &flipY) const;
@@ -884,7 +884,7 @@ public: // Start public functions
 	/**
 	 * @brief Set the fill pattern transformation of the object.
 	 */
-	void setPatternTransform(const ScPatternTransform& trans) { m_patternTransform = trans; }
+	void setPatternTransform(const ScPatternTransform& trans);
 	void setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY);
 	void setPatternFlip(bool flipX, bool flipY);
 	void patternFlip(bool &flipX, bool &flipY) const;
@@ -970,7 +970,7 @@ public: // Start public functions
 	/**
 	 * @brief Set the stroke pattern transformation of the object.
 	 */
-	void setStrokePatternTransform(const ScStrokePatternTransform& trans) { patternStrokeTransfrm = trans; }
+	void setStrokePatternTransform(const ScStrokePatternTransform& trans);
 	void setStrokePatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space);
 	void setStrokePatternFlip(bool flipX, bool flipY);
 	void strokePatternFlip(bool &flipX, bool &flipY) const;
@@ -1561,7 +1561,10 @@ protected: // Start protected functions
 	void restoreEndArrowScale(SimpleState *state, bool isUndo);
 	void restoreFill(SimpleState *state, bool isUndo);
 	void restoreFillGradient(SimpleState *state, bool isUndo);
-	void restoreFillTP(SimpleState *state, bool isUndo);
+	void restoreFillPattern(SimpleState *state, bool isUndo);
+	void restoreFillPatternFlip(SimpleState *state, bool isUndo);
+	void restoreFillPatternTransform(SimpleState *state, bool isUndo);
+	void restoreFillTransparency(SimpleState *state, bool isUndo);
 	void restoreFirstLineOffset(SimpleState *state, bool isUndo);
 	void restoreGetImage(UndoState *state, bool isUndo);
 	void restoreGradPos(SimpleState *state,bool isUndo);
@@ -1624,6 +1627,9 @@ protected: // Start protected functions
 	void restoreLinkTextFrame(UndoState *state, bool isUndo);
 	void restoreMarkString(SimpleState *state, bool isUndo);
 	void restoreMaskGradient(SimpleState *state, bool isUndo);
+	void restoreMaskPattern(SimpleState *state, bool isUndo);
+	void restoreMaskFlip(SimpleState *state, bool isUndo);
+	void restoreMaskTransform(SimpleState *state, bool isUndo);
 	void restoreMaskType(SimpleState *state,bool isUndo);
 	void restoreMove(SimpleState *state, bool isUndo);
 	void restoreMoveMeshGrad(SimpleState *state, bool isUndo);
@@ -1654,6 +1660,11 @@ protected: // Start protected functions
 	void restoreSplitItem(SimpleState *state, bool isUndo);
 	void restoreStartArrowScale(SimpleState *state, bool isUndo);
 	void restoreStrokeGradient(SimpleState *state, bool isUndo);
+	void restoreStrokeGradientName(SimpleState *state, bool isUndo);
+	void restoreStrokePattern(SimpleState *state, bool isUndo);
+	void restoreStrokePatternFlip(SimpleState *state, bool isUndo);
+	void restoreStrokePatternTransform(SimpleState *state, bool isUndo);
+	void restoreStrokePatternToPath(SimpleState *state, bool isUndo);
 	void restoreTextFlowing(SimpleState *state, bool isUndo);
 	void restoreTopTextFrameDist(SimpleState *state, bool isUndo);
 	void restoreTransform(SimpleState *state,bool isUndo);

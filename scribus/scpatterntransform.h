@@ -19,12 +19,45 @@ public:
 	double rotation {0.0};
 	double skewX { 0.0 };
 	double skewY { 0.0 };
+
+	bool operator==(const ScPatternTransform& other) const
+	{
+		return (scaleX == other.scaleX) &&
+			   (scaleY == other.scaleY) &&
+			   (offsetX == other.offsetX) &&
+			   (offsetY == other.offsetY) &&
+			   (rotation == other.rotation) &&
+			   (skewX == other.skewX) &&
+			   (skewY == other.skewY);
+	}
+
+	bool operator!=(const ScPatternTransform& other) const
+	{
+		return (!operator==(other));
+	}
 };
 
 class SCRIBUS_API ScStrokePatternTransform : public ScPatternTransform
 {
 public:
 	double space { 1.0 };
+
+	bool operator==(const ScStrokePatternTransform& other) const
+	{
+		return (scaleX == other.scaleX) &&
+			   (scaleY == other.scaleY) &&
+			   (offsetX == other.offsetX) &&
+			   (offsetY == other.offsetY) &&
+			   (rotation == other.rotation) &&
+			   (skewX == other.skewX) &&
+			   (skewY == other.skewY) &&
+			   (space == other.space);
+	}
+
+	bool operator!=(const ScStrokePatternTransform& other) const
+	{
+		return (!operator==(other));
+	}
 };
 
 using ScMaskTransform = ScPatternTransform;

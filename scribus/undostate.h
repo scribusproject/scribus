@@ -401,6 +401,33 @@ private:
 	QMap<QString,void*> pointerMap;
 };
 
+/*** ScOldNewState for simple storage of an old state and a new state *********************/
+
+template<class C>
+class ScOldNewState : public SimpleState
+{
+public:
+	ScOldNewState(const QString& name, const QString& description = QString(), QPixmap* pixmap = nullptr)
+		: SimpleState(name, description, pixmap)
+	{
+	}
+
+	~ScOldNewState() override = default;
+
+	void setStates(const C& oldState, const C& newState)
+	{
+		m_oldState = oldState;
+		m_newState = newState;
+	}
+
+	const C& getOldState() const { return m_oldState; }
+	const C& getNewState() const { return m_newState; }
+
+private:
+	C m_oldState;
+	C m_newState;
+};
+
 /*** TransactionState ********************************************************************/
 
 /**
