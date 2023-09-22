@@ -29,9 +29,9 @@ public:
 	QString replaceWith() const;
 
 private:
-	QHBoxLayout *layout;
-	QLabel      *deleteLabel;
-	QComboBox   *optionsCombo;
+	QHBoxLayout *layout { nullptr };
+	QLabel      *deleteLabel { nullptr };
+	QComboBox   *optionsCombo { nullptr };
 };
 
 
