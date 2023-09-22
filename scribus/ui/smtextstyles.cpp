@@ -1936,6 +1936,7 @@ QList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
 			tmpList << StyleName(styleName, parentName);
 		}
 	}
+	std::sort(tmpList.begin(), tmpList.end(), sortingQPairOfStrings);
 
 	return tmpList;
 }

@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QComboBox>
 
-
 SMRowWidget::SMRowWidget(const QString &toBeDeleted, const QStringList& replaceOptions, QWidget *parent)
 : QWidget(parent)
 {
@@ -50,12 +49,12 @@ SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &re
 	setupUi(this);
 
 	QStringList options;
-
 	for (int i = 0; i < replaceOptions.count(); ++i)
 	{
 		if (!toBeDeleted.contains(replaceOptions[i]))
 			options << replaceOptions[i];
 	}
+	options.sort(Qt::CaseSensitive);
 
 	layout = new QVBoxLayout(mainFrame);
 	layout->setContentsMargins(0, 0, 0, 0);
