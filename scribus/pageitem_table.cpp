@@ -2223,7 +2223,7 @@ void PageItem_Table::restore(UndoState *state, bool isUndo)
 
 void PageItem_Table::restoreCellBorders(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState<QMap<TableCell, TableBorderTuple > > *>(state);
+	const auto* itemState = dynamic_cast< ScItemState<QMap<TableCell, TableBorderTuple > > *>(state);
 	if (!itemState)
 		return;
 
@@ -2265,7 +2265,7 @@ void PageItem_Table::restoreCellBorders(SimpleState *state, bool isUndo)
 
 void PageItem_Table::restoreCellFillColor(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState<QMap<TableCell, QPair<QString, QString> > > *>(state);
+	const auto* itemState = dynamic_cast< ScItemState<QMap<TableCell, QPair<QString, QString> > > *>(state);
 	if (!itemState)
 		return;
 
@@ -2280,7 +2280,7 @@ void PageItem_Table::restoreCellFillColor(SimpleState *state, bool isUndo)
 
 void PageItem_Table::restoreCellFillShade(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState<QMap<TableCell, QPair<double, double> > > *>(state);
+	const auto* itemState = dynamic_cast< ScItemState<QMap<TableCell, QPair<double, double> > > *>(state);
 	if (!itemState)
 		return;
 
@@ -2295,7 +2295,7 @@ void PageItem_Table::restoreCellFillShade(SimpleState *state, bool isUndo)
 
 void PageItem_Table::restoreCellStyle(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState<QMap<TableCell, QPair<QString, QString> > > *>(state);
+	const auto* itemState = dynamic_cast< ScItemState<QMap<TableCell, QPair<QString, QString> > > *>(state);
 	if (!itemState)
 		return;
 
@@ -2348,7 +2348,7 @@ void PageItem_Table::restoreTableFillShadeReset(SimpleState *state, bool isUndo)
 
 void PageItem_Table::restoreTableBorders(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState<TableBorderTuple> *>(state);
+	const auto* itemState = dynamic_cast< ScItemState<TableBorderTuple> *>(state);
 	if (!itemState)
 		return;
 
@@ -2382,7 +2382,7 @@ void PageItem_Table::restoreTableBorders(SimpleState *state, bool isUndo)
 
 void PageItem_Table::restoreTableLeftBorder(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
+	const auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
 	if (!itemState)
 		return;
 
@@ -2395,7 +2395,7 @@ void PageItem_Table::restoreTableLeftBorder(SimpleState *state, bool isUndo)
 
 void PageItem_Table::restoreTableLeftBorderReset(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState<TableBorder> *>(state);
+	const auto* itemState = dynamic_cast< ScItemState<TableBorder> *>(state);
 	if (!itemState)
 		return;
 
@@ -2414,7 +2414,7 @@ void PageItem_Table::restoreTableLeftBorderReset(SimpleState *state, bool isUndo
 
 void PageItem_Table::restoreTableRightBorder(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
+	const auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
 	if (!itemState)
 		return;
 
@@ -2427,7 +2427,7 @@ void PageItem_Table::restoreTableRightBorder(SimpleState *state, bool isUndo)
 
 void PageItem_Table::restoreTableRightBorderReset(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState<TableBorder> *>(state);
+	const auto* itemState = dynamic_cast< ScItemState<TableBorder> *>(state);
 	if (!itemState)
 		return;
 
@@ -2446,7 +2446,7 @@ void PageItem_Table::restoreTableRightBorderReset(SimpleState *state, bool isUnd
 
 void PageItem_Table::restoreTableBottomBorder(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
+	const auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
 	if (!itemState)
 		return;
 
@@ -2459,7 +2459,7 @@ void PageItem_Table::restoreTableBottomBorder(SimpleState *state, bool isUndo)
 
 void PageItem_Table::restoreTableBottomBorderReset(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState<TableBorder> *>(state);
+	const auto* itemState = dynamic_cast< ScItemState<TableBorder> *>(state);
 	if (!itemState)
 		return;
 
@@ -2478,7 +2478,7 @@ void PageItem_Table::restoreTableBottomBorderReset(SimpleState *state, bool isUn
 
 void PageItem_Table::restoreTableTopBorder(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
+	const auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
 	if (!itemState)
 		return;
 
@@ -2491,7 +2491,7 @@ void PageItem_Table::restoreTableTopBorder(SimpleState *state, bool isUndo)
 
 void PageItem_Table::restoreTableTopBorderReset(SimpleState *state, bool isUndo)
 {
-	auto* itemState = dynamic_cast< ScItemState<TableBorder> *>(state);
+	const auto* itemState = dynamic_cast< ScItemState<TableBorder> *>(state);
 	if (!itemState)
 		return;
 
