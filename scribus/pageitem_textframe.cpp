@@ -4351,7 +4351,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			}
 #if defined (Q_OS_LINUX)
 			if ((k->text().size()==1) && (k->modifiers() & Qt::ShiftModifier) && (k->modifiers() & Qt::ControlModifier) && (k->nativeVirtualKey() < 1000))
-				x11Hack=true;
+				x11Hack = true;
 #endif
 			if (!controlCharHack && !x11Hack && !k->text().isEmpty())
 			{
