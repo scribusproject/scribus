@@ -185,7 +185,7 @@ QString SMParagraphStyle::fromSelection() const
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 	{
 		// FIXME: wth is going on here
-		PageItem *item = m_doc->m_Selection->itemAt(i);
+		const PageItem *item = m_doc->m_Selection->itemAt(i);
 
 		QString tmpName = item->itemText.defaultStyle().parent();
 
@@ -433,8 +433,7 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 			m_tmpStyles[j].setParent(newName);
 	}
 
-	QList<RemoveItem>::iterator it;
-	for (it = m_deleted.begin(); it != m_deleted.end(); ++it)
+	for (auto it = m_deleted.begin(); it != m_deleted.end(); ++it)
 	{
 		if (it->second == oldName)
 		{
@@ -746,6 +745,7 @@ void SMParagraphStyle::slotSpaceBelow()
 void SMParagraphStyle::slotAlignment()
 {
 	ParagraphStyle::AlignmentType style = static_cast<ParagraphStyle::AlignmentType>(m_pwidget->alignment->getStyle());
+
 	if (m_pwidget->alignment->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetAlignment();
@@ -1006,9 +1006,9 @@ void SMParagraphStyle::slotNumName(const QString &str)
 			m_selection[i]->setNumName(str);
 		m_pwidget->numComboBox->setCurrentItem(m_pwidget->numComboBox->findText(m_selection[0]->numName()));
 		m_pwidget->numLevelSpin->setValue(m_selection[0]->numLevel()+1);
-		NumStruct * numS = m_doc->numerations.value(m_selection[0]->numName());
+		const NumStruct * numS = m_doc->numerations.value(m_selection[0]->numName());
 		if (numS)
-			m_pwidget->numLevelSpin->setMaximum(numS->m_counters.count()+1);
+			m_pwidget->numLevelSpin->setMaximum(numS->m_counters.count() + 1);
 		else
 			m_pwidget->numLevelSpin->setMaximum(1);
 		m_doc->flag_NumUpdateRequest = true;
@@ -1981,7 +1981,7 @@ QString SMCharacterStyle::fromSelection() const
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 	{
 		// FIXME: wth is going on here
-		PageItem *item = m_doc->m_Selection->itemAt(i);
+		const PageItem *item = m_doc->m_Selection->itemAt(i);
 
 		QString tmpName = item->itemText.defaultStyle().charStyle().parent();
 
@@ -2224,8 +2224,7 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 			m_tmpStyles[j].setParent(newName);
 	}
 
-	QList<RemoveItem>::iterator it;
-	for (it = m_deleted.begin(); it != m_deleted.end(); ++it)
+	for (auto it = m_deleted.begin(); it != m_deleted.end(); ++it)
 	{
 		if (it->second == oldName)
 		{
