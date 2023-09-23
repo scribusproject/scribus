@@ -78,7 +78,9 @@ void SMCellStyleWidget::show(CellStyle *cellStyle, QList<CellStyle> &cellStyles,
 	Q_ASSERT(cellStyle);
 	if (!cellStyle)
 		return;
+
 	parentCombo->setEnabled(!cellStyle->isDefaultStyle());
+
 	const CellStyle *parent = dynamic_cast<const CellStyle*>(cellStyle->parentStyle());
 	bool hasParent =  cellStyle->hasParent() && parent != nullptr && parent->hasName() && cellStyle->parent() != "";
 	if (hasParent)
@@ -93,30 +95,28 @@ void SMCellStyleWidget::show(CellStyle *cellStyle, QList<CellStyle> &cellStyles,
 		fillColor->setCurrentText(cellStyle->fillColor());
 		fillShade->setValue(qRound(cellStyle->fillShade()));
 	}
+
 	parentCombo->clear();
 	parentCombo->addItem( cellStyle->isDefaultStyle()? tr("A default style cannot be assigned a parent style") : "");
 	if (!cellStyle->isDefaultStyle())
 	{
+		QStringList styleNames;
 		for (int i = 0; i < cellStyles.count(); ++i)
 		{
 			if (cellStyles[i].name() != cellStyle->name())
-				parentCombo->addItem(cellStyles[i].name());
+				styleNames.append(cellStyles[i].name());
 		}
+		styleNames.sort(Qt::CaseSensitive);
+		parentCombo->addItems(styleNames);
 	}
 
 	if (cellStyle->isDefaultStyle() || !hasParent)
 		parentCombo->setCurrentIndex(0);
 	else if (hasParent)
 	{
-		int index = 0;
-		for (int i = 0; i < parentCombo->count(); ++i)
-		{
-			if (parentCombo->itemText(i) == cellStyle->parentStyle()->name())
-			{
-				index = i;
-				break;
-			}
-		}
+		int index = parentCombo->findText(cellStyle->parentStyle()->name());
+		if (index < 0)
+			index = 0;
 		parentCombo->setCurrentIndex(index);
 	}
 }

@@ -311,26 +311,23 @@ void SMCStyleWidget::show(const CharStyle *cstyle, const QList<CharStyle> &cstyl
 	parentCombo->addItem( cstyle->isDefaultStyle()? tr("A default style cannot be assigned a parent style") : "");
 	if (!cstyle->isDefaultStyle())
 	{
+		QStringList styleNames;
 		for (int i = 0; i < cstyles.count(); ++i)
 		{
 			if (cstyles[i].name() != cstyle->name())
-				parentCombo->addItem(cstyles[i].name());
+				styleNames.append(cstyles[i].name());
 		}
+		styleNames.sort(Qt::CaseSensitive);
+		parentCombo->addItems(styleNames);
 	}
 
 	if (cstyle->isDefaultStyle() || !hasParent)
 		parentCombo->setCurrentIndex(0);
 	else if (hasParent)
 	{
-		int index = 0;
-		for (int i = 0; i < parentCombo->count(); ++i)
-		{
-			if (parentCombo->itemText(i) == cstyle->parentStyle()->name())
-			{
-				index = i;
-				break;
-			}
-		}
+		int index = parentCombo->findText(cstyle->parentStyle()->name());
+		if (index < 0)
+			index = 0;
 		parentCombo->setCurrentIndex(index);
 	}
 
