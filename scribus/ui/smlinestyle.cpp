@@ -144,7 +144,7 @@ QString SMLineStyle::fromSelection() const
 
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 	{
-		PageItem *item = m_doc->m_Selection->itemAt(i);
+		const PageItem *item = m_doc->m_Selection->itemAt(i);
 		QString tmpName = item->customLineStyle();
 		if (lsName.isNull() && !tmpName.isEmpty() && tmpName != "")
 		{
@@ -332,8 +332,7 @@ void SMLineStyle::setShortcut(const QString &shortcut)
 	if (m_selection.count() != 1)
 		return;
 
-	QHash<QString, multiLine*>::iterator it;
-	for (it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 		(*it)->shortcut = shortcut;
 
 	if (!m_selectionIsDirty)
@@ -370,8 +369,7 @@ void SMLineStyle::nameChanged(const QString &newName)
 	m_tmpLines.insert(newName, newLine);
 	m_selection[newName] = &m_tmpLines[newName];
 
-	QList<RemoveItem>::iterator it;
-	for (it = m_deleted.begin(); it != m_deleted.end(); ++it)
+	for (auto it = m_deleted.begin(); it != m_deleted.end(); ++it)
 	{
 		if (it->second == oldName)
 		{
@@ -438,8 +436,7 @@ void SMLineStyle::slotLineStyle(int i)
 	if (m_currentLine < 0)
 		return;
 
-	QHash<QString, multiLine*>::iterator it;
-	for (it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
 		multiLine *tmp = it.value();
 		(*tmp)[m_currentLine].Dash = i + 1;
@@ -471,8 +468,7 @@ void SMLineStyle::slotSetEnd(int i)
 			break;
 	}
 
-	QHash<QString, multiLine*>::iterator it;
-	for (it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
 		multiLine *tmp = it.value();
 		(*tmp)[m_currentLine].LineEnd = static_cast<int>(c);
@@ -508,8 +504,7 @@ void SMLineStyle::slotSetJoin(int i)
 			break;
 	}
 
-	QHash<QString, multiLine*>::iterator it;
-	for (it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
 		multiLine *tmp = it.value();
 		(*tmp)[m_currentLine].LineJoin = static_cast<int>(c);
@@ -527,8 +522,7 @@ void SMLineStyle::slotSetJoin(int i)
 
 void SMLineStyle::slotColor(const QString &s)
 {
-	QHash<QString, multiLine*>::iterator it;
-	for (it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
 		multiLine *tmp = it.value();
 		(*tmp)[m_currentLine].Color = s;
@@ -546,8 +540,7 @@ void SMLineStyle::slotColor(const QString &s)
 
 void SMLineStyle::slotShade(int i)
 {
-	QHash<QString, multiLine*>::iterator it;
-	for (it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
 		multiLine *tmp = it.value();
 		(*tmp)[m_currentLine].Shade = i;
@@ -596,9 +589,10 @@ void SMLineStyle::slotAddLine()
 	sl.LineEnd = (*tmpLine)[m_currentLine].LineEnd;
 	sl.LineJoin = (*tmpLine)[m_currentLine].LineJoin;
 	sl.Width = (*tmpLine)[m_currentLine].Width;
+
 	int cc = 0;
 	bool fo = false;
-	for (multiLine::iterator it2 = tmpLine->begin(); it2 != tmpLine->end(); ++it2)
+	for (auto it2 = tmpLine->begin(); it2 != tmpLine->end(); ++it2)
 	{
 		if (sl.Width < it2->Width)
 		{
@@ -685,30 +679,27 @@ void SMLineStyle::updateSList()
 	if  (m_currentLine < 0)
 		return;
 
-	QString tmp, tmp2;
-	QPixmap * pm;
-
-	multiLine *tmpLine = m_selection.begin().value();
+	const multiLine *tmpLine = m_selection.begin().value();
 	const SingleLine& singleLine = tmpLine->at(m_currentLine);
 
 	int decimals = m_widget->lineWidth->decimals();
 	double  unitRatio = m_widget->lineWidth->unitRatio();
 	QString unitSuffix = m_widget->lineWidth->suffix();
 	
-	pm = getWidePixmap(calcFarbe(singleLine.Color, singleLine.Shade));
-	tmp2 = " " + tmp.setNum(singleLine.Width * unitRatio, 'f', decimals) + unitSuffix + " ";
+	const QPixmap* pm = getWidePixmap(calcFarbe(singleLine.Color, singleLine.Shade));
+	QString tmp = " " + QString::number(singleLine.Width * unitRatio, 'f', decimals) + unitSuffix + " ";
 	if (singleLine.Dash < 6)
-		tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(singleLine.Dash)) + " ";
+		tmp += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(singleLine.Dash)) + " ";
 	if (m_widget->lineStyles->count() == 1)  // to avoid Bug in Qt-3.1.2
 	{
 		m_widget->lineStyles->clear();
-		m_widget->lineStyles->addItem(new QListWidgetItem(*pm, tmp2, m_widget->lineStyles));
+		m_widget->lineStyles->addItem(new QListWidgetItem(*pm, tmp, m_widget->lineStyles));
 	}
 	else
 	{
-		QListWidgetItem *i = m_widget->lineStyles->item(m_currentLine);
-		i->setIcon(*pm);
-		i->setText(tmp2);
+		QListWidgetItem *lwItem = m_widget->lineStyles->item(m_currentLine);
+		lwItem->setIcon(*pm);
+		lwItem->setText(tmp);
 	}
 }
 
@@ -778,8 +769,7 @@ void SMLineStyle::resort()
 	sl.LineJoin = (*tmpLine)[m_currentLine].LineJoin;
 	sl.Width = (*tmpLine)[m_currentLine].Width;
 
-	multiLine::iterator it3;
-	for (it3 = tmpLine->begin(); it3 != tmpLine->end(); ++it3)
+	for (auto it3 = tmpLine->begin(); it3 != tmpLine->end(); ++it3)
 	{
 		if (cc == m_currentLine)
 		{
@@ -789,8 +779,9 @@ void SMLineStyle::resort()
 		cc++;
 	}
 	cc = 0;
+
 	bool fo = false;
-	for (multiLine::iterator it2 = tmpLine->begin(); it2 != tmpLine->end(); ++it2)
+	for (auto it2 = tmpLine->begin(); it2 != tmpLine->end(); ++it2)
 	{
 		if (sl.Width < it2->Width)
 		{

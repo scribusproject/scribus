@@ -369,8 +369,7 @@ void SMTableStyle::nameChanged(const QString &newName)
 	}
 
 	// Update the deleted list to reflect the name change.
-	QList<RemoveItem>::iterator it;
-	for (it = m_deleted.begin(); it != m_deleted.end(); ++it)
+	for (auto it = m_deleted.begin(); it != m_deleted.end(); ++it)
 	{
 		if ((*it).second == oldName)
 		{
