@@ -80,30 +80,28 @@ void SMTableStyleWidget::show(TableStyle *tableStyle, QList<TableStyle> &tableSt
 		fillColor->setCurrentText(tableStyle->fillColor());
 		fillShade->setValue(qRound(tableStyle->fillShade()));
 	}
+
 	parentCombo->clear();
 	parentCombo->addItem( tableStyle->isDefaultStyle()? tr("A default style cannot be assigned a parent style") : "");
 	if (!tableStyle->isDefaultStyle())
 	{
+		QStringList styleNames;
 		for (int i = 0; i < tableStyles.count(); ++i)
 		{
 			if (tableStyles[i].name() != tableStyle->name())
-				parentCombo->addItem(tableStyles[i].name());
+				styleNames.append(tableStyles[i].name());
 		}
+		styleNames.sort(Qt::CaseSensitive);
+		parentCombo->addItems(styleNames);
 	}
 
 	if (tableStyle->isDefaultStyle() || !hasParent)
 		parentCombo->setCurrentIndex(0);
 	else if (hasParent)
 	{
-		int index = 0;
-		for (int i = 0; i < parentCombo->count(); ++i)
-		{
-			if (parentCombo->itemText(i) == tableStyle->parentStyle()->name())
-			{
-				index = i;
-				break;
-			}
-		}
+		int index = parentCombo->findText(tableStyle->parentStyle()->name());
+		if (index < 0)
+			index = 0;
 		parentCombo->setCurrentIndex(index);
 	}
 }

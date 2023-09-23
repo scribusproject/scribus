@@ -480,25 +480,23 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	parentCombo->addItem( pstyle->isDefaultStyle()? tr("A default style cannot be assigned a parent style") : "");
 	if (!pstyle->isDefaultStyle())
 	{
+		QStringList styleNames;
 		for (int i = 0; i < pstyles.count(); ++i)
 		{
 			if (pstyles[i].hasName() && pstyles[i].name() != pstyle->name())
-				parentCombo->addItem(pstyles[i].name());
+				styleNames.append(pstyles[i].name());
 		}
+		styleNames.sort(Qt::CaseSensitive);
+		parentCombo->addItems(styleNames);
 	}
+
 	if (pstyle->isDefaultStyle() || !m_hasParent)
 		parentCombo->setCurrentIndex(0);
 	else
 	{
-		int index = 0;
-		for (int i = 0; i < parentCombo->count(); ++i)
-		{
-			if (parentCombo->itemText(i) == parent->name())
-			{
-				index = i;
-				break;
-			}
-		}
+		int index = parentCombo->findText(parent->name());
+		if (index < 0)
+			index = 0;
 		parentCombo->setCurrentIndex(index);
 	}
 
