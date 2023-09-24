@@ -5509,6 +5509,16 @@ bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)
 		restoreGradientTypeStroke(ss, isUndo);
 		return true;
 	}
+	if (ss->contains("GRAD_EXTENT"))
+	{
+		restoreGradientExtent(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRADSTROKE_EXTENT"))
+	{
+		restoreGradientExtentStroke(ss, isUndo);
+		return true;
+	}
 	if (ss->contains("CREATE_MESH_GRAD"))
 	{
 		restoreCreateMeshGrad(ss, isUndo);
@@ -6633,6 +6643,36 @@ void PageItem::restoreGradientTypeStroke(SimpleState *is, bool isUndo)
 		GrTypeStroke = is->getInt("OLD");
 	else
 		GrTypeStroke = is->getInt("NEW");
+}
+
+void PageItem::restoreGradientExtent(SimpleState* is, bool isUndo)
+{
+	const auto* ss = dynamic_cast<ScOldNewState<VGradient::VGradientRepeatMethod> *>(is);
+	if (!ss)
+	{
+		qFatal("PageItem::restoreGradientExtent: dynamic cast failed");
+		return;
+	}
+
+	if (isUndo)
+		GrExtend = ss->getOldState();
+	else
+		GrExtend = ss->getNewState();
+}
+
+void PageItem::restoreGradientExtentStroke(SimpleState* is, bool isUndo)
+{
+	const auto* ss = dynamic_cast<ScOldNewState<VGradient::VGradientRepeatMethod> *>(is);
+	if (!ss)
+	{
+		qFatal("PageItem::restoreGradientExtentStroke: dynamic cast failed");
+		return;
+	}
+
+	if (isUndo)
+		GrStrokeExtend = ss->getOldState();
+	else
+		GrStrokeExtend = ss->getNewState();
 }
 
 void PageItem::restoreEndArrowScale(SimpleState *is, bool isUndo)
@@ -8420,11 +8460,29 @@ void PageItem::setGradientColor4(const QColor& val)
 
 void PageItem::setGradientExtend(VGradient::VGradientRepeatMethod val)
 {
+	if (GrExtend == val)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* ss = new ScOldNewState<VGradient::VGradientRepeatMethod>(Um::GradExtent, QString(), Um::IFill);
+		ss->set("GRAD_EXTENT");
+		ss->setStates(GrExtend, val);
+		undoManager->action(this, ss);
+	}
 	GrExtend = val;
 }
 
 void PageItem::setStrokeGradientExtend(VGradient::VGradientRepeatMethod val)
 {
+	if (GrStrokeExtend == val)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		auto* ss = new ScOldNewState<VGradient::VGradientRepeatMethod>(Um::GradExtentStroke, QString(), Um::ILine);
+		ss->set("GRADSTROKE_EXTENT");
+		ss->setStates(GrStrokeExtend, val);
+		undoManager->action(this, ss);
+	}
 	GrStrokeExtend = val;
 }
 
