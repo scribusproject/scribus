@@ -1607,6 +1607,8 @@ protected: // Start protected functions
 	void restoreGradientTrans4(SimpleState *state, bool isUndo);
 	void restoreGradientType(SimpleState *state, bool isUndo);
 	void restoreGradientTypeStroke(SimpleState *state, bool isUndo);
+	void restoreGradientExtent(SimpleState *state, bool isUndo);
+	void restoreGradientExtentStroke(SimpleState *state, bool isUndo);
 	void restoreImageEffects(UndoState *state, bool isUndo);
 	void restoreImageNbr(SimpleState *state,bool isUndo);
 	void restoreImageOffsetChange(SimpleState *state, bool isUndo);
