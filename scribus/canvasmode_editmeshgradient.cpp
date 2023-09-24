@@ -971,20 +971,20 @@ void CanvasMode_EditMeshGradient::mouseReleaseEvent(QMouseEvent *m)
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	if (currItem->selectedMeshPointX >=0 && currItem->selectedMeshPointY >=0 && UndoManager::undoEnabled())
 	{
-		ScItemState<QPair<MeshPoint,MeshPoint> > *ss = new ScItemState<QPair<MeshPoint,MeshPoint> >(Um::GradPos);
+		auto *ss = new ScOldNewState<MeshPoint>(Um::GradPos);
 		ss->set("MOVE_MESH_PATCH");
-		ss->set("ARRAY",true);
-		ss->set("X",currItem->selectedMeshPointX);
-		ss->set("Y",currItem->selectedMeshPointY);
+		ss->set("ARRAY", true);
+		ss->set("X", currItem->selectedMeshPointX);
+		ss->set("Y", currItem->selectedMeshPointY);
 		if ((*m_old_mesh) == currItem->meshGradientArray[currItem->selectedMeshPointX][currItem->selectedMeshPointY])
 		{
 			delete ss;
-			ss=nullptr;
+			ss = nullptr;
 		}
 		else
-			ss->setItem(qMakePair(*m_old_mesh,currItem->meshGradientArray[currItem->selectedMeshPointX][currItem->selectedMeshPointY]));
+			ss->setStates(*m_old_mesh, currItem->meshGradientArray[currItem->selectedMeshPointX][currItem->selectedMeshPointY]);
 		if (ss)
-			undoManager->action(currItem,ss);
+			undoManager->action(currItem, ss);
 	}
 	currItem->update();
 	QTransform itemMatrix = currItem->getTransform();

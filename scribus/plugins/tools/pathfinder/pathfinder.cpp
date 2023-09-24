@@ -230,10 +230,10 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 		//<<#9046
 		FPointArray oldPOLine = currItem->PoLine;
 		FPointArray oldContourLine = currItem->ContourLine;
-		ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >* state = nullptr;
+		ScOldNewState< QPair<FPointArray, FPointArray> >* state = nullptr;
 		if (UndoManager::undoEnabled())
 		{
-			state = new ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >(Um::PathOperation);
+			state = new ScOldNewState< QPair<FPointArray, FPointArray> >(Um::PathOperation);
 			state->set("PATH_OPERATION");
 			state->set("PATH_OP_OLD_CLIPEDITED", currItem->ClipEdited);
 			state->set("PATH_OP_OLD_FRAMETYPE", currItem->FrameType);
@@ -263,7 +263,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 		{
 			state->set("PATH_OP_NEW_OLDB2", currItem->OldB2);
 			state->set("PATH_OP_NEW_OLDH2", currItem->OldH2);
-			state->setItem(qMakePair(qMakePair(oldPOLine, oldContourLine), qMakePair(currItem->PoLine, currItem->ContourLine)));
+			state->setStates(qMakePair(oldPOLine, oldContourLine), qMakePair(currItem->PoLine, currItem->ContourLine));
 			undoManager->action(currItem, state);
 		}
 		//>>#9046
@@ -285,10 +285,10 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 			//<<#9046
 			FPointArray oldPOLine = Item1->PoLine;
 			FPointArray oldContourLine = Item1->ContourLine;
-			ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >* state = nullptr;
+			ScOldNewState< QPair<FPointArray, FPointArray> >* state = nullptr;
 			if (UndoManager::undoEnabled())
 			{
-				state = new ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >(Um::PathOperation);
+				state = new ScOldNewState< QPair<FPointArray, FPointArray> >(Um::PathOperation);
 				state->set("PATH_OPERATION");
 				state->set("PATH_OP_OLD_CLIPEDITED", Item1->ClipEdited);
 				state->set("PATH_OP_OLD_FRAMETYPE", Item1->FrameType);
@@ -318,7 +318,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 			{
 				state->set("PATH_OP_NEW_OLDB2", Item1->OldB2);
 				state->set("PATH_OP_NEW_OLDH2", Item1->OldH2);
-				state->setItem(qMakePair(qMakePair(oldPOLine, oldContourLine), qMakePair(Item1->PoLine, Item1->ContourLine)));
+				state->setStates(qMakePair(oldPOLine, oldContourLine), qMakePair(Item1->PoLine, Item1->ContourLine));
 				undoManager->action(Item1, state);
 			}
 			//>>#9046
@@ -332,10 +332,10 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 			//<<#9046
 			FPointArray oldPOLine = Item2->PoLine;
 			FPointArray oldContourLine = Item2->ContourLine;
-			ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >* state = nullptr;
+			ScOldNewState< QPair<FPointArray, FPointArray> >* state = nullptr;
 			if (UndoManager::undoEnabled())
 			{
-				state = new ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >(Um::PathOperation);
+				state = new ScOldNewState< QPair<FPointArray, FPointArray> >(Um::PathOperation);
 				state->set("PATH_OPERATION");
 				state->set("PATH_OP_OLD_CLIPEDITED", Item2->ClipEdited);
 				state->set("PATH_OP_OLD_FRAMETYPE", Item2->FrameType);
@@ -366,7 +366,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, const QString&)
 			{
 				state->set("PATH_OP_NEW_OLDB2", Item2->OldB2);
 				state->set("PATH_OP_NEW_OLDH2", Item2->OldH2);
-				state->setItem(qMakePair(qMakePair(oldPOLine, oldContourLine), qMakePair(Item2->PoLine, Item2->ContourLine)));
+				state->setStates(qMakePair(oldPOLine, oldContourLine), qMakePair(Item2->PoLine, Item2->ContourLine));
 				undoManager->action(Item2, state);
 			}
 			//>>#9046

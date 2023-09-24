@@ -402,8 +402,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		double xposOrig = currItem->xPos();
 		double yposOrig = currItem->yPos();
 
-		ScItemState<QPair<FPointArray, FPointArray> > *state = nullptr;
-		state = m_doc->nodeEdit.finishTransaction1(currItem);
+		ScOldNewState<FPointArray> *state = m_doc->nodeEdit.finishTransaction1(currItem);
 		if (m_doc->nodeEdit.hasNodeSelected() && (m_doc->nodeEdit.selectionCount() == 1))
 		{
 			//FIXME:av

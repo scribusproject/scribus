@@ -89,7 +89,6 @@ void NodeEditContext::finishTransaction(PageItem* currItem)
 {
 	ScribusDoc* Doc = currItem->doc();
 	UndoManager* undoManager = UndoManager::instance();
-	ScItemState<QPair<FPointArray, FPointArray> >* state = nullptr;
 
 	if (nodeTransaction.isNull()) // is there the old clip stored for the undo action
 		return;
@@ -98,10 +97,10 @@ void NodeEditContext::finishTransaction(PageItem* currItem)
 	if (UndoManager::undoEnabled() && oldClip && (*oldClip != newClip))
 	{
 		QString name = Doc->nodeEdit.m_isContourLine ? Um::EditContour : Um::EditShape;
-		state = new ScItemState<QPair<FPointArray, FPointArray> >(name);
+		auto *state = new ScOldNewState<FPointArray>(name);
 		state->set("EDIT_SHAPE_OR_CONTOUR");
 		state->set("IS_CONTOUR", Doc->nodeEdit.m_isContourLine);
-		state->setItem(qMakePair(*oldClip, newClip));
+		state->setStates(*oldClip, newClip);
 		state->set("OLD_X", m_oldItemX);
 		state->set("OLD_Y", m_oldItemY);
 		state->set("NEW_X", currItem->xPos());
@@ -121,11 +120,11 @@ void NodeEditContext::finishTransaction(PageItem* currItem)
 /**
   first part: create a new UndoState or cancel the current transaction
  */
-ScItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransaction1(PageItem* currItem)
+ScOldNewState<FPointArray>* NodeEditContext::finishTransaction1(PageItem* currItem)
 {
 	ScribusDoc* Doc = currItem->doc();
 	UndoManager* undoManager = UndoManager::instance();
-	ScItemState<QPair<FPointArray, FPointArray> >* state = nullptr;
+	ScOldNewState<FPointArray>* state = nullptr;
 	
 	if (nodeTransaction.isNull()) // is there the old clip stored for the undo action
 		return nullptr;
@@ -134,10 +133,10 @@ ScItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransactio
 	if (UndoManager::undoEnabled() && oldClip && (*oldClip != newClip))
 	{
 		QString name = Doc->nodeEdit.m_isContourLine ? Um::EditContour : Um::EditShape;
-		state = new ScItemState<QPair<FPointArray, FPointArray> >(name);
+		state = new ScOldNewState<FPointArray>(name);
 		state->set("EDIT_SHAPE_OR_CONTOUR");
 		state->set("IS_CONTOUR", Doc->nodeEdit.m_isContourLine);
-		state->setItem(qMakePair(*oldClip, newClip));
+		state->setStates(*oldClip, newClip);
 		undoManager->setUndoEnabled(false);
 	}
 	else
@@ -153,7 +152,7 @@ ScItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransactio
 /**
   second part: take the UndoState returned from finishTransaction1() and commit it
 */
-void NodeEditContext::finishTransaction2(PageItem* currItem, ScItemState<QPair<FPointArray, FPointArray> >* state)
+void NodeEditContext::finishTransaction2(PageItem* currItem, ScOldNewState<FPointArray>* state)
 {
 	UndoManager* undoManager = UndoManager::instance();
 
@@ -384,12 +383,10 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 	FPointArray newClip(Doc->nodeEdit.m_isContourLine ? currItem->ContourLine : currItem->PoLine);
 	if (*oldClip != newClip && UndoManager::undoEnabled())
 	{
-		ScItemState<QPair<FPointArray, FPointArray> > *state =
-		new ScItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoint, "",
-														currItem->getUPixmap());
+		auto *state = new ScOldNewState<FPointArray>(Um::ResetControlPoint, "", currItem->getUPixmap());
 		state->set("EDIT_SHAPE_OR_CONTOUR");
 		state->set("IS_CONTOUR", Doc->nodeEdit.m_isContourLine);
-		state->setItem(qMakePair(*oldClip, newClip));
+		state->setStates(*oldClip, newClip);
 		state->set("OLD_X", m_oldItemX);
 		state->set("OLD_Y", m_oldItemY);
 		state->set("NEW_X", currItem->xPos());
@@ -482,12 +479,10 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	FPointArray newClip(Doc->nodeEdit.m_isContourLine ? currItem->ContourLine : currItem->PoLine);
 	if (*oldClip != newClip && UndoManager::undoEnabled())
 	{
-		ScItemState<QPair<FPointArray, FPointArray> > *state =
-		new ScItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoints, "",
-														currItem->getUPixmap());
+		auto *state = new ScOldNewState<FPointArray>(Um::ResetControlPoints, "", currItem->getUPixmap());
 		state->set("EDIT_SHAPE_OR_CONTOUR");
 		state->set("IS_CONTOUR", Doc->nodeEdit.m_isContourLine);
-		state->setItem(qMakePair(*oldClip, newClip));
+		state->setStates(*oldClip, newClip);
 		state->set("OLD_X", m_oldItemX);
 		state->set("OLD_Y", m_oldItemY);
 		state->set("NEW_X", currItem->xPos());

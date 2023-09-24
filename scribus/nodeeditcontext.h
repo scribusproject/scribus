@@ -71,8 +71,8 @@ class SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 		void resetControl(PageItem* currItem);
 		FPointArray beginTransaction(PageItem* currItem);
 		void finishTransaction(PageItem* currItem);
-		ScItemState<QPair<FPointArray, FPointArray> >* finishTransaction1(PageItem* currItem);
-		void finishTransaction2(PageItem* currItem, ScItemState<QPair<FPointArray, FPointArray> >* state);
+		ScOldNewState<FPointArray>* finishTransaction1(PageItem* currItem);
+		void finishTransaction2(PageItem* currItem, ScOldNewState<FPointArray>* state);
 		void moveClipPoint(PageItem *currItem, const FPoint& ip);
 
 		FPointArray *oldClip { nullptr };

@@ -1260,12 +1260,9 @@ void PageItem_Table::setLeftBorder(const TableBorder& border)
 {
 	if (UndoManager::undoEnabled())
 	{
-		QPair<TableBorder, TableBorder> oldNewBorders;
-		oldNewBorders.first = m_style.leftBorder();
-		oldNewBorders.second = border;
-		auto *ss = new ScItemState< QPair<TableBorder, TableBorder> >(Um::TableLeftBorder, QString(), Um::ITable);
+		auto *ss = new ScOldNewState<TableBorder>(Um::TableLeftBorder, QString(), Um::ITable);
 		ss->set("SET_TABLE_LEFTBORDER");
-		ss->setItem(oldNewBorders);
+		ss->setStates(m_style.leftBorder(), border);
 		undoManager->action(this, ss);
 	}
 
@@ -1298,12 +1295,9 @@ void PageItem_Table::setRightBorder(const TableBorder& border)
 {
 	if (UndoManager::undoEnabled())
 	{
-		QPair<TableBorder, TableBorder> oldNewBorders;
-		oldNewBorders.first = m_style.rightBorder();
-		oldNewBorders.second = border;
-		auto *ss = new ScItemState< QPair<TableBorder, TableBorder> >(Um::TableRightBorder, QString(), Um::ITable);
+		auto *ss = new ScOldNewState<TableBorder>(Um::TableRightBorder, QString(), Um::ITable);
 		ss->set("SET_TABLE_RIGHTBORDER");
-		ss->setItem(oldNewBorders);
+		ss->setStates(m_style.rightBorder(), border);
 		undoManager->action(this, ss);
 	}
 
@@ -1336,12 +1330,9 @@ void PageItem_Table::setTopBorder(const TableBorder& border)
 {
 	if (UndoManager::undoEnabled())
 	{
-		QPair<TableBorder, TableBorder> oldNewBorders;
-		oldNewBorders.first = m_style.topBorder();
-		oldNewBorders.second = border;
-		auto *ss = new ScItemState< QPair<TableBorder, TableBorder> >(Um::TableTopBorder, QString(), Um::ITable);
+		auto *ss = new ScOldNewState<TableBorder>(Um::TableTopBorder, QString(), Um::ITable);
 		ss->set("SET_TABLE_TOPBORDER");
-		ss->setItem(oldNewBorders);
+		ss->setStates(m_style.topBorder(), border);
 		undoManager->action(this, ss);
 	}
 
@@ -1374,12 +1365,9 @@ void PageItem_Table::setBottomBorder(const TableBorder& border)
 {
 	if (UndoManager::undoEnabled())
 	{
-		QPair<TableBorder, TableBorder> oldNewBorders;
-		oldNewBorders.first = m_style.bottomBorder();
-		oldNewBorders.second = border;
-		auto *ss = new ScItemState< QPair<TableBorder, TableBorder> >(Um::TableBottomBorder, QString(), Um::ITable);
+		auto *ss = new ScOldNewState<TableBorder>(Um::TableBottomBorder, QString(), Um::ITable);
 		ss->set("SET_TABLE_BOTTOMBORDER");
-		ss->setItem(oldNewBorders);
+		ss->setStates(m_style.bottomBorder(), border);
 		undoManager->action(this, ss);
 	}
 
@@ -2382,12 +2370,11 @@ void PageItem_Table::restoreTableBorders(SimpleState *state, bool isUndo)
 
 void PageItem_Table::restoreTableLeftBorder(SimpleState *state, bool isUndo)
 {
-	const auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
+	const auto* itemState = dynamic_cast< ScOldNewState<TableBorder> *>(state);
 	if (!itemState)
 		return;
 
-	QPair<TableBorder, TableBorder> oldNewBorders = itemState->getItem();
-	TableBorder restoredBorder = isUndo ? oldNewBorders.first : oldNewBorders.second;
+	const TableBorder& restoredBorder = isUndo ? itemState->getOldState() : itemState->getNewState();
 	setLeftBorder(restoredBorder);
 
 	adjustTable();
@@ -2414,12 +2401,11 @@ void PageItem_Table::restoreTableLeftBorderReset(SimpleState *state, bool isUndo
 
 void PageItem_Table::restoreTableRightBorder(SimpleState *state, bool isUndo)
 {
-	const auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
+	const auto* itemState = dynamic_cast< ScOldNewState<TableBorder> *>(state);
 	if (!itemState)
 		return;
 
-	QPair<TableBorder, TableBorder> oldNewBorders = itemState->getItem();
-	TableBorder restoredBorder = isUndo ? oldNewBorders.first : oldNewBorders.second;
+	const TableBorder& restoredBorder = isUndo ? itemState->getOldState() : itemState->getNewState();
 	setRightBorder(restoredBorder);
 
 	adjustTable();
@@ -2446,12 +2432,11 @@ void PageItem_Table::restoreTableRightBorderReset(SimpleState *state, bool isUnd
 
 void PageItem_Table::restoreTableBottomBorder(SimpleState *state, bool isUndo)
 {
-	const auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
+	const auto* itemState = dynamic_cast< ScOldNewState<TableBorder> *>(state);
 	if (!itemState)
 		return;
 
-	QPair<TableBorder, TableBorder> oldNewBorders = itemState->getItem();
-	TableBorder restoredBorder = isUndo ? oldNewBorders.first : oldNewBorders.second;
+	const TableBorder& restoredBorder = isUndo ? itemState->getOldState() : itemState->getNewState();
 	setBottomBorder(restoredBorder);
 
 	adjustTable();
@@ -2478,12 +2463,11 @@ void PageItem_Table::restoreTableBottomBorderReset(SimpleState *state, bool isUn
 
 void PageItem_Table::restoreTableTopBorder(SimpleState *state, bool isUndo)
 {
-	const auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
+	const auto* itemState = dynamic_cast< ScOldNewState<TableBorder> *>(state);
 	if (!itemState)
 		return;
 
-	QPair<TableBorder, TableBorder> oldNewBorders = itemState->getItem();
-	TableBorder restoredBorder = isUndo ? oldNewBorders.first : oldNewBorders.second;
+	const TableBorder& restoredBorder = isUndo ? itemState->getOldState() : itemState->getNewState();
 	setTopBorder(restoredBorder);
 
 	adjustTable();

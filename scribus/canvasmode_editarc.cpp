@@ -264,7 +264,7 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 	currItem->OldH2 = currItem->height();
 	if (UndoManager::undoEnabled())
 	{
-		ScItemState<QPair<FPointArray, FPointArray> > *ss = new ScItemState<QPair<FPointArray, FPointArray> >(Um::EditArc,"",Um::IPolygon);
+		auto *ss = new ScOldNewState<FPointArray>(Um::EditArc,"",Um::IPolygon);
 		ss->set("ARC");
 		ss->set("OLD_WIDTH", item->arcWidth);
 		ss->set("NEW_WIDTH", width);
@@ -276,7 +276,7 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 		ss->set("NEW_START", m_startAngle);
 		ss->set("OLD_SWEEP", item->arcSweepAngle);
 		ss->set("NEW_SWEEP", nSweep);
-		ss->setItem(qMakePair(old, item->PoLine));
+		ss->setStates(old, item->PoLine);
 		ss->set("NEW_XPOS", item->xPos());
 		ss->set("NEW_YPOS", item->yPos());
 		undoManager->action(currItem, ss);
