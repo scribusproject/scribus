@@ -147,13 +147,13 @@ bool PathConnectPlugin::run(ScribusDoc* doc, const QString&)
 			m_item1->OldH2 = m_item1->height();
 			if (UndoManager::undoEnabled())
 			{
-				ScItemState<QPair<FPointArray,FPointArray> > *is = new ScItemState<QPair<FPointArray,FPointArray> >(Um::ConnectPath);
+				auto *is = new ScOldNewState<FPointArray>(Um::ConnectPath);
 				is->set("CONNECT_PATH");
 				is->set("OLDX", originalXPos);
 				is->set("OLDY", originalYPos);
 				is->set("NEWX", m_item1->xPos());
 				is->set("NEWY", m_item1->yPos());
-				is->setItem(qMakePair(originalPath1, m_item1->PoLine));
+				is->setStates(originalPath1, m_item1->PoLine);
 				UndoManager::instance()->action(m_item1, is);
 			}
 			m_item1->updateClip();
