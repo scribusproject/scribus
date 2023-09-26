@@ -208,7 +208,7 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 	}
 	if ((maskType() == GradMask_Linear) || (maskType() == GradMask_Radial) || (maskType() == GradMask_LinearLumAlpha) || (maskType() == GradMask_RadialLumAlpha))
 	{
-		if ((maskType() == 1) || (maskType() == 2))
+		if ((maskType() == GradMask_Linear) || (maskType() == GradMask_Radial))
 			p->setMaskMode(1);
 		else
 			p->setMaskMode(3);

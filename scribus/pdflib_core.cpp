@@ -6148,17 +6148,15 @@ QByteArray PDFLibCore::PDF_TransparenzFill(const PageItem *currItem)
 		QList<double> StopVec;
 		QList<double> TransVec;
 		VGradient gradient;
-		double StartX, StartY, EndX, EndY, FocalX, FocalY, Gscale, Gskew;
-		int GType;
-		GType = currItem->GrMask;
-		StartX = currItem->GrMaskStartX;
-		StartY = currItem->GrMaskStartY;
-		EndX = currItem->GrMaskEndX;
-		EndY = currItem->GrMaskEndY;
-		FocalX = currItem->GrMaskFocalX;
-		FocalY = currItem->GrMaskFocalY;
-		Gscale = currItem->GrMaskScale;
-		Gskew = currItem->GrMaskSkew;
+		int GType = currItem->GrMask;
+		double StartX = currItem->GrMaskStartX;
+		double StartY = currItem->GrMaskStartY;
+		double EndX = currItem->GrMaskEndX;
+		double EndY = currItem->GrMaskEndY;
+		double FocalX = currItem->GrMaskFocalX;
+		double FocalY = currItem->GrMaskFocalY;
+		double Gscale = currItem->GrMaskScale;
+		double Gskew = currItem->GrMaskSkew;
 		if (!(currItem->gradientMask().isEmpty()) && (doc.docGradients.contains(currItem->gradientMask())))
 			gradient = doc.docGradients[currItem->gradientMask()];
 		else
@@ -6198,7 +6196,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(const PageItem *currItem)
 			Gskew = 0;
 		else
 			Gskew = tan(M_PI / 180.0 * Gskew);
-		if ((GType == 1) || (GType == 4))
+		if ((GType == GradMask_Linear) || (GType == GradMask_LinearLumAlpha))
 		{
 			mpa.translate(StartX, -StartY);
 			mpa.shear(Gskew, 0);
@@ -6222,7 +6220,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(const PageItem *currItem)
 			double a = cstops.at(cst)->opacity;
 			float r, g, b;
 			qStopColor.getRgbF(&r, &g, &b);
-			if ((GType == 4) || (GType == 5))
+			if ((GType == GradMask_LinearLumAlpha) || (GType == GradMask_RadialLumAlpha))
 				a = /* 1.0 - */ (0.3 * r + 0.59 * g + 0.11 * b);
 			if ((cst == 0) && (actualStop != 0.0))
 			{
@@ -6244,7 +6242,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(const PageItem *currItem)
 		PutDoc("/Matrix [" + TransformToStr(mpa) + "]\n");
 		PutDoc("/Shading\n");
 		PutDoc("<<\n");
-		if ((GType == 1) || (GType == 4))
+		if ((GType == GradMask_Linear) || (GType == GradMask_LinearLumAlpha))
 			PutDoc("/ShadingType 2\n");
 		else
 			PutDoc("/ShadingType 3\n");
@@ -6253,7 +6251,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(const PageItem *currItem)
 			PutDoc("/Extend [false false]\n");
 		else
 			PutDoc("/Extend [true true]\n");
-		if ((GType == 1) || (GType == 4))
+		if ((GType == GradMask_Linear) || (GType == GradMask_LinearLumAlpha))
 			PutDoc("/Coords [" + FToStr(StartX) + " " + FToStr(-StartY) + " " + FToStr(EndX) + " " + FToStr(-EndY) + "]\n");
 		else
 			PutDoc("/Coords [" + FToStr(FocalX) + " " + FToStr(-FocalY) + " 0.0 " + FToStr(StartX) + " " + FToStr(-StartY) + " " + FToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))) + "]\n");
