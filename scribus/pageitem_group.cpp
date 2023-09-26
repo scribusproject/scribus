@@ -196,6 +196,7 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 	}
 
 	p->save();
+
 	if (imageFlippedH())
 	{
 		p->translate(m_width, 0);
@@ -206,9 +207,10 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 		p->translate(0, m_height);
 		p->scale(1, -1);
 	}
+
 	if ((maskType() == GradMask_Linear) || (maskType() == GradMask_Radial) || (maskType() == GradMask_LinearLumAlpha) || (maskType() == GradMask_RadialLumAlpha))
 	{
-		if ((maskType() == 1) || (maskType() == 2))
+		if ((maskType() == GradMask_Linear) || (maskType() == GradMask_Radial))
 			p->setMaskMode(1);
 		else
 			p->setMaskMode(3);
@@ -246,6 +248,7 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 	}
 	else
 		p->setMaskMode(0);
+
 	p->setFillRule(fillRule);
 	if (m_groupClips)
 		p->beginLayer(1.0 - fillTransparency(), fillBlendmode(), &PoLine);
@@ -253,6 +256,7 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 		p->beginLayer(1.0 - fillTransparency(), fillBlendmode());
 	p->setMaskMode(0);
 	p->scale(m_width / groupWidth, m_height / groupHeight);
+
 	for (int em = 0; em < groupItemList.count(); ++em)
 	{
 		PageItem* embedded = groupItemList.at(em);
@@ -285,6 +289,7 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 			p->restore();
 		}
 	}
+
 	p->endLayer();
 	p->restore();
 }
