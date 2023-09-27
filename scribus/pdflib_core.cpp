@@ -6165,6 +6165,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(const PageItem *currItem)
 		{
 			mpa.translate(0, currItem->height());
 			mpa.rotate(-currItem->rotation());
+			mpa.scale(currItem->groupWidth / currItem->width(), currItem->groupHeight / currItem->height());
 		}
 		else if (currItem->itemType() == PageItem::Symbol)
 		{
