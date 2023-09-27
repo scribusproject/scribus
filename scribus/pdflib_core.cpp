@@ -6131,8 +6131,6 @@ QByteArray PDFLibCore::PDF_TransparenzFill(const PageItem *currItem)
 	}
 	if ((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_LinearLumAlpha) || (currItem->GrMask == GradMask_RadialLumAlpha))
 	{
-		QList<double> StopVec;
-		QList<double> TransVec;
 		VGradient gradient;
 		int GType = currItem->GrMask;
 		double StartX = currItem->GrMaskStartX;
@@ -6199,6 +6197,8 @@ QByteArray PDFLibCore::PDF_TransparenzFill(const PageItem *currItem)
 			mpa.scale(1, Gscale);
 		}
 		QColor qStopColor;
+		QList<double> stopVec;
+		QList<double> transVec;
 		for (int cst = 0; cst < gradient.stops(); ++cst)
 		{
 			double actualStop = cstops.at(cst)->rampPoint;
@@ -6210,15 +6210,15 @@ QByteArray PDFLibCore::PDF_TransparenzFill(const PageItem *currItem)
 				a = 0.3 * r + 0.59 * g + 0.11 * b;
 			if ((cst == 0) && (actualStop != 0.0))
 			{
-				StopVec.append(0.0);
-				TransVec.append(a);
+				stopVec.append(0.0);
+				transVec.append(a);
 			}
-			StopVec.append(actualStop);
-			TransVec.append(a);
+			stopVec.append(actualStop);
+			transVec.append(a);
 			if ((cst == gradient.stops() - 1) && (actualStop < 1.0))
 			{
-				StopVec.append(1.0);
-				TransVec.append(a);
+				stopVec.append(1.0);
+				transVec.append(a);
 			}
 		}
 		PdfId patObject = writer.newObject();
@@ -6245,13 +6245,13 @@ QByteArray PDFLibCore::PDF_TransparenzFill(const PageItem *currItem)
 		PutDoc("<<\n");
 		PutDoc("/FunctionType 3\n");
 		PutDoc("/Domain [0 1]\n");
-		if (StopVec.count() > 2)
+		if (stopVec.count() > 2)
 		{
 			PutDoc("/Bounds [");
 			QByteArray bctx;
-			for (int bc = 1; bc < StopVec.count() - 1; bc++)
+			for (int bc = 1; bc < stopVec.count() - 1; bc++)
 			{
-				bctx += FToStr(StopVec.at(bc)) + " ";
+				bctx += FToStr(stopVec.at(bc)) + " ";
 			}
 			PutDoc(bctx.trimmed() + "]\n");
 		}
@@ -6260,14 +6260,14 @@ QByteArray PDFLibCore::PDF_TransparenzFill(const PageItem *currItem)
 		QByteArray entx;
 		PutDoc("/Functions\n");
 		PutDoc("[\n");
-		for (int cc = 0; cc < TransVec.count() - 1; cc++)
+		for (int cc = 0; cc < transVec.count() - 1; cc++)
 		{
 			entx += "0 1 ";
 			PutDoc("<<\n");
 			PutDoc("/FunctionType 2\n");
 			PutDoc("/Domain [0 1]\n");
-			PutDoc("/C0 [" + FToStr(TransVec.at(cc)) + "]\n");
-			PutDoc("/C1 [" + FToStr(TransVec.at(cc + 1)) + "]\n");
+			PutDoc("/C0 [" + FToStr(transVec.at(cc)) + "]\n");
+			PutDoc("/C1 [" + FToStr(transVec.at(cc + 1)) + "]\n");
 			PutDoc("/N 1\n");
 			PutDoc(">>\n");
 		}
