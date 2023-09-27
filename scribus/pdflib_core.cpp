@@ -8127,15 +8127,16 @@ bool PDFLibCore::PDF_TensorGradientFill(QByteArray& output, const PageItem *c)
 
 bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *currItem, bool stroke, bool forArrow)
 {
-	QList<double> StopVec;
-	QList<double> TransVec;
-	QStringList Gcolors;
+	QList<double> stopVec;
+	QList<double> transVec;
+	QStringList gColors;
 	QStringList colorNames;
 	QList<int> colorShades;
 	QStringList spotColorSet;
 	VGradient gradient;
 	double StartX, StartY, EndX, EndY, FocalX, FocalY, Gscale, Gskew;
 	int GType;
+
 	if (stroke)
 	{
 		GType = currItem->GrTypeStroke;
@@ -8178,12 +8179,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 			gradient = currItem->fill_gradient;
 		gradient.setRepeatMethod(currItem->getGradientExtend());
 	}
-	QList<VColorStop*> cstops = gradient.colorStops();
-	StopVec.clear();
-	TransVec.clear();
-	Gcolors.clear();
-	colorNames.clear();
-	colorShades.clear();
+
 	QTransform mpa;
 	bool spotMode = false;
 	if (inPattern == 0)
@@ -8205,6 +8201,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 		if (patternStackPos.count() != 0)
 			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
 	}
+
 	if (Gskew == 90)
 		Gskew = 1;
 	else if (Gskew == 180)
@@ -8215,6 +8212,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 		Gskew = 0;
 	else
 		Gskew = tan(M_PI / 180.0 * Gskew);
+
 	if (GType == Gradient_Linear)
 	{
 		mpa.translate(StartX, -StartY);
@@ -8231,10 +8229,12 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 		mpa.translate(-StartX, StartY);
 		mpa.scale(1, Gscale);
 	}
+
 	double lastStop = -1.0;
 	double actualStop = 0.0;
 	bool   isFirst = true;
 	bool   transparencyFound = false;
+	QList<VColorStop*> cstops = gradient.colorStops();
 	for (int cst = 0; cst < gradient.stops(); ++cst)
 	{
 		actualStop = cstops.at(cst)->rampPoint;
@@ -8242,23 +8242,23 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 			continue;
 		if (isFirst && (actualStop != 0.0))
 		{
-			StopVec.append(0.0);
+			stopVec.append(0.0);
 			colorNames.append(cstops.at(cst)->name);
 			colorShades.append(cstops.at(cst)->shade);
 			if (cstops.at(cst)->name == CommonStrings::None)
-				TransVec.append(0);
+				transVec.append(0);
 			else
-				TransVec.append(cstops.at(cst)->opacity);
-			Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+				transVec.append(cstops.at(cst)->opacity);
+			gColors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 		isFirst = false;
-		StopVec.append(actualStop);
+		stopVec.append(actualStop);
 		colorNames.append(cstops.at(cst)->name);
 		colorShades.append(cstops.at(cst)->shade);
 		if (cstops.at(cst)->name == CommonStrings::None)
-			TransVec.append(0);
+			transVec.append(0);
 		else
-			TransVec.append(cstops.at(cst)->opacity);
+			transVec.append(cstops.at(cst)->opacity);
 		if (cstops.at(cst)->opacity != 1.0)
 			transparencyFound = true;
 		if (spotMap.contains(cstops.at(cst)->name))
@@ -8266,20 +8266,21 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 			if (!spotColorSet.contains(cstops.at(cst)->name))
 				spotColorSet.append(cstops.at(cst)->name);
 		}
-		Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+		gColors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 		if ((cst == gradient.stops() - 1) && (actualStop < 1.0))
 		{
-			StopVec.append(1.0);
+			stopVec.append(1.0);
 			colorNames.append(cstops.at(cst)->name);
 			colorShades.append(cstops.at(cst)->shade);
 			if (cstops.at(cst)->name == CommonStrings::None)
-				TransVec.append(0);
+				transVec.append(0);
 			else
-				TransVec.append(cstops.at(cst)->opacity);
-			Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+				transVec.append(cstops.at(cst)->opacity);
+			gColors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 		lastStop = actualStop;
 	}
+
 	QByteArray TRes;
 	if (Options.supportsTransparency() && transparencyFound)
 	{
@@ -8326,13 +8327,13 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 		PutDoc("<<\n");
 		PutDoc("/FunctionType 3\n");
 		PutDoc("/Domain [0 1]\n");
-		if (StopVec.count() > 2)
+		if (stopVec.count() > 2)
 		{
 			PutDoc("/Bounds [");
 			QByteArray bctx;
-			for (int bc = 1; bc < StopVec.count() - 1; bc++)
+			for (int bc = 1; bc < stopVec.count() - 1; bc++)
 			{
-				bctx += FToStr(StopVec.at(bc)) + " ";
+				bctx += FToStr(stopVec.at(bc)) + " ";
 			}
 			PutDoc(bctx.trimmed() + "]\n");
 		}
@@ -8341,14 +8342,14 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 		QByteArray entx;
 		PutDoc("/Functions\n");
 		PutDoc("[\n");
-		for (int cc = 0; cc < TransVec.count() - 1; cc++)
+		for (int cc = 0; cc < transVec.count() - 1; cc++)
 		{
 			entx += "0 1 ";
 			PutDoc("<<\n");
 			PutDoc("/FunctionType 2\n");
 			PutDoc("/Domain [0 1]\n");
-			PutDoc("/C0 [" + FToStr(TransVec.at(cc)) + "]\n");
-			PutDoc("/C1 [" + FToStr(TransVec.at(cc+1)) + "]\n");
+			PutDoc("/C0 [" + FToStr(transVec.at(cc)) + "]\n");
+			PutDoc("/C1 [" + FToStr(transVec.at(cc + 1)) + "]\n");
 			PutDoc("/N 1\n");
 			PutDoc(">>\n");
 		}
@@ -8404,6 +8405,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/BM /" + blendMode(bmCode) + "\n");
 		TRes = GXName;
 	}
+
 	PdfId patObject = writer.newObject();
 	PdfId spotObject = 0;
 	writer.startObj(patObject);
@@ -8454,13 +8456,13 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 	PutDoc("<<\n");
 	PutDoc("/FunctionType 3\n");
 	PutDoc("/Domain [0 1]\n");
-	if (StopVec.count() > 2)
+	if (stopVec.count() > 2)
 	{
 		PutDoc("/Bounds [");
 		QByteArray bctx;
-		for (int bc = 1; bc < StopVec.count() - 1; bc++)
+		for (int bc = 1; bc < stopVec.count() - 1; bc++)
 		{
-			bctx += FToStr(StopVec.at(bc)) + " ";
+			bctx += FToStr(stopVec.at(bc)) + " ";
 		}
 		PutDoc(bctx.trimmed() + "]\n");
 	}
@@ -8490,27 +8492,27 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 			}
 			else
 			{
-				PutDoc("/C0 [" + Pdf::toAscii(Gcolors[cc]));
+				PutDoc("/C0 [" + Pdf::toAscii(gColors[cc]));
 				for (int sc = 0; sc < spotColorSet.count(); sc++)
 				{
 					PutDoc(" 0");
 				}
 			}
 			PutDoc("]\n");
-			if (spotColorSet.contains(colorNames.at(cc+1)))
+			if (spotColorSet.contains(colorNames.at(cc + 1)))
 			{
 				PutDoc("/C1 [0 0 0 0");
 				for (int sc = 0; sc < spotColorSet.count(); sc++)
 				{
-					if (spotColorSet.at(sc) == colorNames.at(cc+1))
-						PutDoc(" " + FToStr(colorShades[cc+1] / 100.0));
+					if (spotColorSet.at(sc) == colorNames.at(cc + 1))
+						PutDoc(" " + FToStr(colorShades[cc + 1] / 100.0));
 					else
 						PutDoc(" 0");
 				}
 			}
 			else
 			{
-				PutDoc("/C1 [" + Pdf::toAscii(Gcolors[cc+1]));
+				PutDoc("/C1 [" + Pdf::toAscii(gColors[cc + 1]));
 				for (int sc = 0; sc < spotColorSet.count(); sc++)
 				{
 					PutDoc(" 0");
@@ -8520,8 +8522,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 		}
 		else
 		{
-			PutDoc("/C0 [" + Pdf::toAscii(Gcolors[cc]) + "]\n");
-			PutDoc("/C1 [" + Pdf::toAscii(Gcolors[cc+1]) + "]\n");
+			PutDoc("/C0 [" + Pdf::toAscii(gColors[cc]) + "]\n");
+			PutDoc("/C1 [" + Pdf::toAscii(gColors[cc + 1]) + "]\n");
 		}
 		PutDoc("/N 1\n");
 		PutDoc(">>\n");
@@ -8533,6 +8535,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 	PutDoc(">>\n");
 	writer.endObj(patObject);
 	Patterns.insert("Pattern" + Pdf::toPdf(patObject), patObject);
+
 	if (spotMode)
 	{
 		QByteArray colorDesc;
@@ -8570,6 +8573,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, const PageItem *curr
 		PutDoc(">>\nstream\n" + EncStream(colorDesc, spotObject) + "\nendstream");
 		writer.endObj(spotObject);
 	}
+
 	QByteArray tmp;
 	if (Options.supportsTransparency() && transparencyFound)
 		tmp += Pdf::toName(TRes) + " gs\n";
