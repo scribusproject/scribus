@@ -2214,7 +2214,7 @@ PdfId PDFLibCore::PDF_EmbedType1AsciiFontObject(const QByteArray& fon)
 	if (Options.Compress)
 		fon2 = CompressArray(fon2);
 	PutDoc("<<\n/Length " + Pdf::toPdf(fon2.length() + 1) + "\n");
-	PutDoc("/Length1 " + Pdf::toPdf(len1+1) + "\n");
+	PutDoc("/Length1 " + Pdf::toPdf(len1 + 1) + "\n");
 	PutDoc("/Length2 " + Pdf::toPdf(hexData.length()) + "\n");
 	if (static_cast<int>(fon.length() - len2) == -1)
 		PutDoc("/Length3 0\n");
@@ -3497,8 +3497,8 @@ void PDFLibCore::PDF_End_Page()
 				QFileInfo fi(doc.documentFileName());
 				docTitle = fi.fileName();
 			}
-//			docTitle += "  " + tr("Page:") + " " + tmp.setNum(PgNr+1);
-			docTitle += "  " + tr("Page:") + " " + Pdf::toPdf(PgNr+1);
+//			docTitle += "  " + tr("Page:") + " " + tmp.setNum(PgNr + 1);
+			docTitle += "  " + tr("Page:") + " " + Pdf::toPdf(PgNr + 1);
 			PutPage("/" + spotMapReg["Register"].ResName + " cs 1 scn\n");
 			PutPage("q\n");
 			PutPage("1 0 0 1 " + FToStr(startX) + " " + FToStr(startY) + " cm\n");
@@ -6812,9 +6812,9 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, const PageItem *c)
 			for (int gcol = 0; gcol < c->meshGradientArray[grow].count() - 1; gcol++)
 			{
 				MeshPoint mp1 = c->meshGradientArray[grow][gcol];
-				MeshPoint mp2 = c->meshGradientArray[grow][gcol+1];
-				MeshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
-				MeshPoint mp4 = c->meshGradientArray[grow+1][gcol];
+				MeshPoint mp2 = c->meshGradientArray[grow][gcol + 1];
+				MeshPoint mp3 = c->meshGradientArray[grow + 1][gcol + 1];
+				MeshPoint mp4 = c->meshGradientArray[grow + 1][gcol];
 				int colInd1 = grow * c->meshGradientArray[grow].count() + gcol;
 				int colInd2 = grow * c->meshGradientArray[grow].count() + gcol + 1;
 				int colInd3 = (grow + 1) * c->meshGradientArray[grow].count() + gcol + 1;
@@ -6940,9 +6940,9 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, const PageItem *c)
 		for (int gcol = 0; gcol < c->meshGradientArray[grow].count() - 1; gcol++)
 		{
 			MeshPoint mp1 = c->meshGradientArray[grow][gcol];
-			MeshPoint mp2 = c->meshGradientArray[grow][gcol+1];
-			MeshPoint mp3 = c->meshGradientArray[grow+1][gcol+1];
-			MeshPoint mp4 = c->meshGradientArray[grow+1][gcol];
+			MeshPoint mp2 = c->meshGradientArray[grow][gcol + 1];
+			MeshPoint mp3 = c->meshGradientArray[grow + 1][gcol + 1];
+			MeshPoint mp4 = c->meshGradientArray[grow + 1][gcol];
 			int colInd1 = grow * c->meshGradientArray[grow].count() + gcol;
 			int colInd2 = grow * c->meshGradientArray[grow].count() + gcol + 1;
 			int colInd3 = (grow + 1) * c->meshGradientArray[grow].count() + gcol + 1;
@@ -9709,7 +9709,7 @@ PdfId PDFLibCore::WritePDFStream(const QByteArray& cc, PdfId objId)
 	if (Options.Compress)
 		tmp = CompressArray(tmp);
 	writer.startObj(objId);
-	PutDoc("<< /Length " + Pdf::toPdf(tmp.length()));  // moeglicherweise +1
+	PutDoc("<< /Length " + Pdf::toPdf(tmp.length()));  // moeglicherweise + 1
 	if (Options.Compress)
 		PutDoc("\n/Filter /FlateDecode");
 	PutDoc(" >>\nstream\n" + EncStream(tmp, objId) + "\nendstream");
