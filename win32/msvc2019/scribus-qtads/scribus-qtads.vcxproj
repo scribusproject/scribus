@@ -73,25 +73,25 @@
     <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\</OutDir>
     <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>qt6advanceddocking</TargetName>
+    <TargetName>qtadvanceddocking</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\</OutDir>
     <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>qt6advanceddocking</TargetName>
+    <TargetName>qtadvanceddocking</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\</OutDir>
     <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>qt6advanceddocking</TargetName>
+    <TargetName>qtadvanceddocking</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\</OutDir>
     <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>qt6advanceddocking</TargetName>
+    <TargetName>qtadvanceddocking</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
