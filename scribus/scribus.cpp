@@ -3611,6 +3611,11 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 			doc->setDocumentFileName(filename);
 		doc->setMasterPageMode(false);
 		doc->createHyphenator();
+		if (doc->docHyphenator)
+		{
+			doc->docHyphenator->ignoredWords = doc->hyphenatorPrefs().ignoredWords;
+			doc->docHyphenator->specialWords = doc->hyphenatorPrefs().specialWords;
+		}
 		HaveNewDoc();
 		doc->hasName = true;
 		if (doc->MasterPages.count() == 0)
