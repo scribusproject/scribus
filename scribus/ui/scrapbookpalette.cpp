@@ -139,7 +139,8 @@ void BibView::dropEvent(QDropEvent *e)
 		if (e->source() == this)
 			return;
 		QString text = e->mimeData()->text();
-		int startElemPos = QStringView(text).first(512).indexOf(QStringView(u"<SCRIBUSELEM"));
+		int maxTextSize = qMin(text.length(), 512);
+		int startElemPos = QStringView(text).first(maxTextSize).indexOf(QStringView(u"<SCRIBUSELEM"));
 		if (startElemPos >= 0)
 			emit objDropped(text);
 	}
