@@ -14,6 +14,8 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include "loremipsum.h"
 
+#include <memory>
+
 #include <QDir>
 #include <QDomDocument>
 #include <QEvent>
@@ -100,29 +102,23 @@ QString LoremParser::createLorem(uint parCount, bool random)
 	QString lorem;
 	if (!loremIpsum.isEmpty())
 		lorem = loremIpsum[0];
-	if (parCount > 1)
+	if (parCount > 1 && !loremIpsum.isEmpty())
 	{
-		if (!loremIpsum.isEmpty())
+		int maxParagraph = loremIpsum.count();
+		if (random)
 		{
-			if (random)
+			for (uint i = 1; i < parCount; ++i)
+				lorem += SpecialChars::PARSEP + loremIpsum[rand() % maxParagraph];
+		}
+		else if (maxParagraph != 0)
+		{
+			int currentParagraph = 1;
+			for (uint i = 1; i < parCount; ++i)
 			{
-				for (uint i = 1; i < parCount; ++i)
-					lorem += SpecialChars::PARSEP + loremIpsum[rand()%loremIpsum.count()];
-			}
-			else
-			{
-				int maxParagraph = loremIpsum.count()-1;
-				int currentParagraph = 1;
-				if (maxParagraph != 0)
-				{
-					for (uint i = 1; i < parCount; ++i)
-					{
-						lorem += SpecialChars::PARSEP + loremIpsum[currentParagraph];
-						currentParagraph++;
-						if (currentParagraph > maxParagraph)
-							currentParagraph = 0;
-					}
-				}
+				lorem += SpecialChars::PARSEP + loremIpsum[currentParagraph];
+				currentParagraph++;
+				if (currentParagraph >= maxParagraph)
+					currentParagraph = 0;
 			}
 		}
 	}
@@ -202,21 +198,17 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	QListIterator<QFileInfo> it(list);
 	QFileInfo fi;
 	LanguageManager * langmgr( LanguageManager::instance() );
-// 	langmgr->init(false);
 
 	while (it.hasNext())
 	{
 		fi = it.next();
 		if (langmgr->getLangFromAbbrev(fi.baseName(), false).isEmpty())
 			continue;
-		LoremParser *parser = new LoremParser(fi.fileName());
+		std::unique_ptr<LoremParser> parser(new LoremParser(fi.fileName()));
 		if (!parser->correct)
-		{
-			delete parser;
 			continue;
-		}
 		availableLorems[parser->name] = fi.fileName();
-		QTreeWidgetItem *item = new QTreeWidgetItem(loremList);
+		auto *item = new QTreeWidgetItem(loremList);
 		if (parser->name == "la")
 			item->setText(0, standardloremtext);
 		else
@@ -228,26 +220,25 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 		subItem->setText(0, tr("Get More:") + " " + parser->url);
 		subItem = new QTreeWidgetItem(item);
 		subItem->setText(0, tr("XML File:") + " " + fi.fileName());
-		delete parser;
 	}
 	loremList->sortItems(0, Qt::AscendingOrder);
 	loremList->setSortingEnabled(false);
 	resize( QSize(320, 340).expandedTo(minimumSizeHint()) );
+
 	QList<QTreeWidgetItem *> defItem;
-	defItem.clear();
 	defItem = loremList->findItems(langmgr->getLangFromAbbrev(m_Doc->language(), true), Qt::MatchExactly);
-	if (defItem.count() == 0)
+	if (defItem.isEmpty())
 		defItem = loremList->findItems(standardloremtext, Qt::MatchExactly);
-	if (defItem.count() != 0)
+	if (!defItem.isEmpty())
 	{
 		loremList->setCurrentItem(defItem[0]);
 		defItem[0]->setSelected(true);
 	}
+
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( loremList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(accept()));
-	
 }
 
 void LoremManager::changeEvent(QEvent *e)
@@ -292,54 +283,48 @@ void LoremManager::insertLoremIpsum(const QString& name, int paraCount, bool ran
 		//removing marks and notes from current text
 //		if (currItem->isTextFrame() && !currItem->asTextFrame()->removeMarksFromText(!m_Doc->hasGUI()))
 //			continue;
-		PageItem *i2 = currItem;
+		PageItem *item2 = currItem;
 		if (m_Doc->appMode == modeEditTable)
-			i2 = currItem->asTable()->activeCell().textFrame();
-		if (!i2->isTextFrame())
+			item2 = currItem->asTable()->activeCell().textFrame();
+		if (!item2->isTextFrame())
 			continue;
 		UndoTransaction activeTransaction;
-		if (!appendCheckBox->isChecked() && i2->itemText.length() != 0)
+		if (!appendCheckBox->isChecked() && item2->itemText.length() != 0)
 		{
 			if (UndoManager::undoEnabled())
 				activeTransaction = undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::AddLoremIpsum, "", Um::ICreate);
-			i2->itemText.selectAll();
-			i2->asTextFrame()->deleteSelectedTextFromFrame();
+			item2->itemText.selectAll();
+			item2->asTextFrame()->deleteSelectedTextFromFrame();
 			//We don't need to open a dialog box as the user can undo this action.
 			//Selection tempSelection(this, false);
-			//tempSelection.addItem(i2, true);
+			//tempSelection.addItem(item2, true);
 			//m_Doc->itemSelection_ClearItem(&tempSelection);
 			/* ClearItem() doesn't return true or false so
 			the following test has to be done */
-			if (i2->itemText.length() != 0)
+			if (item2->itemText.length() != 0)
 				continue;
-		}
-		LoremParser *lp = new LoremParser(name);
-		if (lp == nullptr)
-		{
-			qDebug("LoremManager::okButton_clicked() *lp == nullptr");
-			return;
 		}
 		
 		// K.I.S.S.:
+		std::unique_ptr<LoremParser> lp(new LoremParser(name));
 		QString sampleText = lp->createLorem(paraCount, random);
 		if (UndoManager::undoEnabled())
 		{
-			SimpleState *ss = new SimpleState(Um::AddLoremIpsum,"",Um::ICreate);
+			auto *ss = new SimpleState(Um::AddLoremIpsum, "", Um::ICreate);
 			ss->set("LOREM_FRAMETEXT");
 			ss->set("ETEA", QString("insert_frametext"));
-			ss->set("TEXT_STR",sampleText);
-			ss->set("START", i2->itemText.length());
-			undoManager->action(i2, ss);
+			ss->set("TEXT_STR", sampleText);
+			ss->set("START", item2->itemText.length());
+			undoManager->action(item2, ss);
 		}
 		if (activeTransaction)
 			activeTransaction.commit();
 
-		int l = i2->itemText.length();
-		i2->itemText.insertChars(l, sampleText);
-		delete lp;
+		int l = item2->itemText.length();
+		item2->itemText.insertChars(l, sampleText);
 		if (m_Doc->docHyphenator->autoCheck())
-			m_Doc->docHyphenator->slotHyphenate(i2);
-		i2->asTextFrame()->invalidateLayout(true);
+			m_Doc->docHyphenator->slotHyphenate(item2);
+		item2->asTextFrame()->invalidateLayout(true);
 	}
 	m_Doc->regionsChanged()->update(QRectF());
 	m_Doc->changed();
