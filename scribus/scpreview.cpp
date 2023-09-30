@@ -5,10 +5,12 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scpreview.h"
+
 #include <QByteArray>
 #include <QDomDocument>
 #include <QImage>
 #include <QList>
+
 #include "pageitem.h"
 #include "prefsmanager.h"
 #include "scribuscore.h"
@@ -16,7 +18,12 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "selection.h"
 
-
+QImage ScPreview::create(const QString& data)
+{
+	ScPreview preview;
+	QImage im = preview.createPreview(data);
+	return im;
+}
 
 QImage ScPreview::createPreview(const QString& data)
 {
