@@ -223,6 +223,7 @@ public:
 	ColorPrefs& colorPrefs() { return m_docPrefsData.colorPrefs; }
 	CMSData& cmsSettings() { return m_docPrefsData.colorPrefs.DCMSset; }
 	DocumentInformation& documentInfo() { return m_docPrefsData.docInfo; }
+	HyphenatorPrefs& hyphenatorPrefs() { return m_docPrefsData.hyphPrefs; }
 	void setDocumentInfo(DocumentInformation di) { m_docPrefsData.docInfo = di; }
 	DocumentSectionMap& sections() { return m_docPrefsData.docSectionMap; }
 	void setSections(DocumentSectionMap dsm) { m_docPrefsData.docSectionMap = std::move(dsm); }

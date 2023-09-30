@@ -785,14 +785,16 @@ void Scribus150Format::writeGradients(ScXmlStreamWriter & docu, const QStringLis
 
 void Scribus150Format::writeHyphenatorLists(ScXmlStreamWriter& docu)
 {
+	const auto& hyphenatorPrefs = m_Doc->hyphenatorPrefs();
+
 	docu.writeStartElement("HYPHEN");
-	for (QHash<QString, QString>::Iterator hyit = m_Doc->docHyphenator->specialWords.begin(); hyit != m_Doc->docHyphenator->specialWords.end(); ++hyit)
+	for (auto hyit = hyphenatorPrefs.specialWords.begin(); hyit != hyphenatorPrefs.specialWords.end(); ++hyit)
 	{
 		docu.writeEmptyElement("EXCEPTION");
 		docu.writeAttribute("WORD", hyit.key());
 		docu.writeAttribute("HYPHENATED", hyit.value());
 	}
-	for (QSet<QString>::Iterator hyit2 = m_Doc->docHyphenator->ignoredWords.begin(); hyit2 != m_Doc->docHyphenator->ignoredWords.end(); ++hyit2)
+	for (auto hyit2 = hyphenatorPrefs.ignoredWords.begin(); hyit2 != hyphenatorPrefs.ignoredWords.end(); ++hyit2)
 	{
 		docu.writeEmptyElement("IGNORE");
 		docu.writeAttribute("WORD", (*hyit2));

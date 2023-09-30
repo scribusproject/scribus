@@ -3934,8 +3934,7 @@ bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader) 
 
 bool Scribus150Format::readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader) const
 {
-	if (!doc->docHyphenator)
-		doc->createHyphenator();
+	auto& hyphenationPrefs = doc->hyphenatorPrefs();
 
 	QStringRef tagName = reader.name();
 	while (!reader.atEnd() && !reader.hasError())
@@ -3948,13 +3947,13 @@ bool Scribus150Format::readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader) co
 			ScXmlStreamAttributes attrs = reader.scAttributes();
 			QString word = attrs.valueAsString("WORD");
 			QString hyph = attrs.valueAsString("HYPHENATED");
-			doc->docHyphenator->specialWords.insert(word, hyph);
+			hyphenationPrefs.specialWords.insert(word, hyph);
 		}
 		else if (reader.isStartElement() && reader.name() == "IGNORE")
 		{
 			ScXmlStreamAttributes attrs = reader.scAttributes();
 			QString word = attrs.valueAsString("WORD");
-			doc->docHyphenator->ignoredWords.insert(word);
+			hyphenationPrefs.ignoredWords.insert(word);
 		}
 	}
 	return !reader.hasError();
