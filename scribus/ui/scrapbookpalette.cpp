@@ -701,6 +701,7 @@ void BibView::readContents(const QString& name)
 		itf.value().widgetItem = item;
 	}
 
+	IconManager& iconManager = IconManager::instance();
 	for (auto itf = objectMap.begin(); itf != objectMap.end(); ++itf)
 	{
 		if (itf.value().isDir)
@@ -711,6 +712,7 @@ void BibView::readContents(const QString& name)
 		pm.fill(palette().color(QPalette::Base));
 		QPainter p;
 		p.begin(&pm);
+		p.fillRect(0, 0, 60, 60, QBrush(iconManager.loadPixmap("testfill.png")));
 		p.drawPixmap(30 - preview.width() / 2, 30 - preview.height() / 2, preview);
 		p.end();
 		auto *item = new QListWidgetItem(QIcon(pm), itf.key(), this);
