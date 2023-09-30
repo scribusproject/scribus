@@ -98,16 +98,16 @@ public:
 	void insertLoremIpsum(const QString& name, int paraCount, bool random = true);
 
 	//! Lorem Ipsum as QString
-	QString loremIpsum();
+	QString loremIpsum() const;
 
 	//! Count of the paragraphs selected in GUI
-	int paragraphCount();
+	int paragraphCount() const;
 
 	//! Name of the Lorem Ipsum file including extension.
-	QString getName();
+	QString getName() const;
 
 	//! Flag if use "random" paragraphs, taken from GUI.
-	bool randomize();
+	bool randomize() const;
 
 protected:
 	void changeEvent(QEvent *e) override;
@@ -131,7 +131,7 @@ private:
 	UndoManager* undoManager {nullptr};
 
 	//! all lorems with Public Name -> filename structure
-	QMap<QString,QString> availableLorems;
+	QMap<QString, QString> availableLorems;
 
 protected slots:
 	void languageChange();

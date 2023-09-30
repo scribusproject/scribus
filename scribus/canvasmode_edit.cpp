@@ -704,7 +704,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 					{
 						// K.I.S.S.:
 						currItem->itemText.insertChars(0, cc, true);
-						if (m_doc->docHyphenator->AutoCheck)
+						if (m_doc->docHyphenator->autoCheck())
 							m_doc->docHyphenator->slotHyphenate(currItem);
 						m_ScMW->BookMarkTxT(currItem);
 						//							m_ScMW->outlinePalette->BuildTree();

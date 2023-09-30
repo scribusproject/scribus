@@ -4433,7 +4433,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 			}
 			itemText.insertChars(uc, true);
-			if ((m_Doc->docHyphenator->AutoCheck) && (itemText.cursorPosition() > 1))
+			if ((m_Doc->docHyphenator->autoCheck()) && (itemText.cursorPosition() > 1))
 			{
 				Twort = "";
 				Tcoun = 0;

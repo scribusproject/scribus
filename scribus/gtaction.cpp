@@ -836,7 +836,7 @@ QString gtAction::parseColor(const QString &s)
 
 void gtAction::finalize()
 {
-	if (m_textFrame->doc()->docHyphenator->AutoCheck)
+	if (m_textFrame->doc()->docHyphenator->autoCheck())
 		m_textFrame->doc()->docHyphenator->slotHyphenate(m_textFrame);
 	m_textFrame->doc()->regionsChanged()->update(QRectF());
 	m_textFrame->doc()->changed();
