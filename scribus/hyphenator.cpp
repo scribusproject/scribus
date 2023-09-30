@@ -149,7 +149,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	}
 
 	rememberedWords.clear();
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
 	BreakIterator* bi = StoryText::getWordIterator();
 	bi->setText((const UChar*) text.utf16());
@@ -267,14 +267,14 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						}
 						else
 						{
-							qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+							QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 							PrefsContext* prefs = PrefsManager::instance().prefsFile->getContext("hyhpen_options");
 							int xpos = prefs->getInt("Xposition", -9999);
 							int ypos = prefs->getInt("Yposition", -9999);
 							HyAsk *dia = new HyAsk((QWidget*) parent(), outs);
 							if ((xpos != -9999) && (ypos != -9999))
 								dia->move(xpos, ypos);
-							qApp->processEvents();
+							QApplication::processEvents();
 							if (dia->exec())
 							{
 								outs = dia->Wort->text();
@@ -316,7 +316,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 							prefs->set("Xposition", dia->xpos);
 							prefs->set("Yposition", dia->ypos);
 							delete dia;
-							qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+							QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 						}
 					}
 				}
@@ -332,7 +332,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 			free(cut);
 		}
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	m_doc->DoDrawing = true;
 	rememberedWords.clear();
 }
