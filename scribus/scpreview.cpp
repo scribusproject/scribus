@@ -15,7 +15,12 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "selection.h"
 
-
+QImage ScPreview::create(const QString& data)
+{
+	ScPreview preview;
+	QImage im = preview.createPreview(data);
+	return im;
+}
 
 QImage ScPreview::createPreview(const QString& data)
 {

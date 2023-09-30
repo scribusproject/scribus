@@ -234,8 +234,7 @@ void FDialogPreview::genPreview(const QString& name)
 			f = QString::fromUtf8(cf.data());
 		else
 			f = cf.data();
-		ScPreview *pre = new ScPreview();
-		QImage im = pre->createPreview(f);
+		QImage im = ScPreview::create(f);
 		im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		QPainter p;
 		QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
@@ -249,7 +248,6 @@ void FDialogPreview::genPreview(const QString& name)
 		p.end();
 		setPixmap(pm);
 		update();
-		delete pre;
 	}
 	else
 	{
