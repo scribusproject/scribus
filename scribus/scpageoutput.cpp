@@ -672,6 +672,7 @@ void ScPageOutput::drawItem_Group(PageItem_Group* item, ScPainterExBase* painter
 		return;
 
 	painter->save();
+
 	if (item->imageFlippedH())
 	{
 		painter->translate(item->width(), 0);
@@ -683,7 +684,7 @@ void ScPageOutput::drawItem_Group(PageItem_Group* item, ScPainterExBase* painter
 		painter->scale(1, -1);
 	}
 
-	/*if ((item->maskType() == GradMask_Linear) || (item->maskType() == GradMask_Radial) || (item->maskType() == GradMask_LinearLumAlpha) || (item->maskType() == GradMask_RadialLumAlpha))
+	if ((item->maskType() == GradMask_Linear) || (item->maskType() == GradMask_Radial) || (item->maskType() == GradMask_LinearLumAlpha) || (item->maskType() == GradMask_RadialLumAlpha))
 	{
 		QString gradientMask = item->gradientMask();
 		FPoint fpMaskStart(item->GrMaskStartX, item->GrMaskStartY);
@@ -710,8 +711,12 @@ void ScPageOutput::drawItem_Group(PageItem_Group* item, ScPainterExBase* painter
 		ScPattern* patternMask = m_doc->checkedPattern(patternMaskVal);
 		if (patternMask)
 		{
-			painter->setPatternMask(patternMask, item->patternMaskScaleX, item->patternMaskScaleY, item->patternMaskOffsetX, item->patternMaskOffsetY,
-				item->patternMaskRotation, item->patternMaskSkewX, item->patternMaskSkewY, item->patternMaskMirrorX, item->patternMaskMirrorY);
+			double scw = item->width() / item->groupWidth;
+			double sch = item->height() / item->groupHeight;
+			ScMaskTransform patternMaskTrans = item->patternMaskTransfrm;
+			patternMaskTrans.scaleX *= scw;
+			patternMaskTrans.scaleY *= sch;
+			painter->setPatternMask(patternMask, patternMaskTrans, item->patternMaskMirrorX, item->patternMaskMirrorY);
 			if (item->GrMask == GradMask_Pattern)
 				painter->setMaskMode(2);
 			else if (item->GrMask == GradMask_PatternLumAlpha)
@@ -726,13 +731,18 @@ void ScPageOutput::drawItem_Group(PageItem_Group* item, ScPainterExBase* painter
 			painter->setMaskMode(0);
 		}
 	}
-	else*/
+	else
 		painter->setMaskMode(0);
 
 	painter->setFillRule(item->fillRule);
-	//painter->beginLayer(1.0 - fillTransparency(), fillBlendmode(), &PoLine);
+	// Disable this for now, this does not work properly with cairo win32 printing surface
+	/*if (item->groupClipping())
+		painter->beginLayer(1.0 - item->fillTransparency(), item->fillBlendmode(), &item->PoLine);
+	else**/
+		painter->beginLayer(1.0 - item->fillTransparency(), item->fillBlendmode());
 	painter->setMaskMode(0);
 	painter->scale(item->width() / item->groupWidth, item->height() / item->groupHeight);
+
 	for (int em = 0; em < item->groupItemList.count(); ++em)
 	{
 		PageItem* embedded = item->groupItemList.at(em);
@@ -747,7 +757,8 @@ void ScPageOutput::drawItem_Group(PageItem_Group* item, ScPainterExBase* painter
 		embedded->OwnPage = embedded->savedOwnPage;
 		painter->restore();
 	}
-	//painter->endLayer();
+	
+	painter->endLayer();
 	painter->restore();
 }
 
