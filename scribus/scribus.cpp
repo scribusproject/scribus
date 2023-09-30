@@ -3785,7 +3785,7 @@ void ScribusMainWindow::slotGetContent()
 			gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false, impsetup.prefixNames);
 		}
 		delete gt;
-		if (doc->docHyphenator->AutoCheck)
+		if (doc->docHyphenator->autoCheck())
 			doc->docHyphenator->slotHyphenate(currItem);
 		for (int a = 0; a < doc->Items->count(); ++a)
 		{
@@ -3836,7 +3836,7 @@ void ScribusMainWindow::slotGetContent2() // kk2006
 		return; // not a text frame
 
 	ScGTPluginManager::instance()->run();
-	if (doc->docHyphenator->AutoCheck)
+	if (doc->docHyphenator->autoCheck())
 		doc->docHyphenator->slotHyphenate(currItem);
 	for (int a = 0; a < doc->Items->count(); ++a)
 	{
@@ -3986,7 +3986,7 @@ void ScribusMainWindow::slotFileAppend()
 		}
 		delete gt;
 		//CB Hyphenating now emits doc changed, plus we change lang as appropriate
-		if (doc->docHyphenator->AutoCheck)
+		if (doc->docHyphenator->autoCheck())
 			doc->itemSelection_DoHyphenate();
 		view->DrawNew();
 		//slotDocCh();

@@ -42,10 +42,8 @@ using namespace icu;
 
 Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok) : QObject( parent ),
 	m_doc(dok),
-	m_hdict(nullptr),
-	m_codec(nullptr),
 	m_automatic(m_doc->hyphAutomatic()),
-	AutoCheck(m_doc->hyphAutoCheck())
+	m_autoCheck(m_doc->hyphAutoCheck())
 {
 	rememberedWords.clear();
 /* Add reading these special lists from prefs or doc here */
@@ -89,9 +87,9 @@ bool Hyphenator::loadDict(const QString& name)
 
 void Hyphenator::slotNewSettings(bool Autom, bool ACheck)
 {
-	AutoCheck = ACheck;
+	m_autoCheck = ACheck;
 	m_doc->setHyphAutomatic(Autom);
-	m_doc->setHyphAutoCheck(AutoCheck);
+	m_doc->setHyphAutoCheck(m_autoCheck);
 }
 
 void Hyphenator::slotHyphenateWord(PageItem* it, const QString& text, int firstC)
@@ -137,7 +135,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		return;
 	m_doc->DoDrawing = false;
 
-	QString text = "";
+	QString text;
 
 	int startC = 0;
 	if (it->itemText.hasSelection())
@@ -188,21 +186,21 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	  			int i = 0;
 				buffer[te.length()] = '\0';
 				bool hasHyphen = false;
-				for (i = 1; i < wordLower.length()-1; ++i)
+				for (i = 1; i < wordLower.length() - 1; ++i)
 				{
-					if(buffer[i] & 1)
+					if (buffer[i] & 1)
 					{
 						hasHyphen = true;
 						break;
 					}
 				}
-				QString outs = "";
-				QString input = "";
+				QString outs;
+				QString input;
 				outs += word[0];
-				for (i = 1; i < wordLower.length()-1; ++i)
+				for (i = 1; i < wordLower.length() - 1; ++i)
 				{
 					outs += word[i];
-					if(buffer[i] & 1)
+					if (buffer[i] & 1)
 						outs += "-";
 				}
 				outs += word.rightRef(1);
@@ -217,11 +215,11 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						{
 							outs = specialWords.value(word);
 							uint ii = 1;
-							for (i = 1; i < outs.length()-1; ++i)
+							for (i = 1; i < outs.length() - 1; ++i)
 							{
 								QChar cht = outs[i];
 								if (cht == '-')
-									buffer[ii-1] = 1;
+									buffer[ii - 1] = 1;
 								else
 								{
 									buffer[ii] = 0;
@@ -237,11 +235,11 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						{
 							outs = specialWords.value(word);
 							uint ii = 1;
-							for (i = 1; i < outs.length()-1; ++i)
+							for (i = 1; i < outs.length() - 1; ++i)
 							{
 								QChar cht = outs[i];
 								if (cht == '-')
-									buffer[ii-1] = 1;
+									buffer[ii - 1] = 1;
 								else
 								{
 									buffer[ii] = 0;
@@ -253,11 +251,11 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						{
 							outs = rememberedWords.value(input);
 							uint ii = 1;
-							for (i = 1; i < outs.length()-1; ++i)
+							for (i = 1; i < outs.length() - 1; ++i)
 							{
 								QChar cht = outs[i];
 								if (cht == '-')
-									buffer[ii-1] = 1;
+									buffer[ii - 1] = 1;
 								else
 								{
 									buffer[ii] = 0;
@@ -272,7 +270,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 							PrefsContext* prefs = PrefsManager::instance().prefsFile->getContext("hyhpen_options");
 							int xpos = prefs->getInt("Xposition", -9999);
 							int ypos = prefs->getInt("Yposition", -9999);
-							HyAsk *dia = new HyAsk((QWidget*)parent(), outs);
+							HyAsk *dia = new HyAsk((QWidget*) parent(), outs);
 							if ((xpos != -9999) && (ypos != -9999))
 								dia->move(xpos, ypos);
 							qApp->processEvents();
@@ -280,11 +278,11 @@ void Hyphenator::slotHyphenate(PageItem* it)
 							{
 								outs = dia->Wort->text();
 								uint ii = 1;
-								for (i = 1; i < outs.length()-1; ++i)
+								for (i = 1; i < outs.length() - 1; ++i)
 								{
 									QChar cht = outs[i];
 									if (cht == '-')
-										buffer[ii-1] = 1;
+										buffer[ii - 1] = 1;
 									else
 									{
 										buffer[ii] = 0;

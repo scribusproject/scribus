@@ -43,20 +43,25 @@ public:
 	\author Franz Schmid
 	*/
 	~Hyphenator() override;
+
+	bool autoCheck() const { return m_autoCheck; }
 	
 private:
 
 	/*! Embedded reference to the \see ScribusDoc filled by \a dok */
-	ScribusDoc *m_doc;
+	ScribusDoc *m_doc { nullptr };
 	/*! Reference to the hyphen dictionary structure. */
-	HyphenDict *m_hdict;
+	HyphenDict *m_hdict { nullptr };
 	/*! Qt text codec which handles local characters. */
-	QTextCodec *m_codec;
+	QTextCodec *m_codec { nullptr };
 	/*! Language in use */
 	QString m_language;
 
 	/*! Flag - if user set auto hyphen processing.*/
-	bool m_automatic;
+	bool m_automatic { false };
+
+	/*! Flag - obsolete? */
+	bool m_autoCheck { false };
 
 	/*!
 		\brief Loads dictionary and fills parameters like \a m_codec, \a m_hdict.
@@ -67,8 +72,6 @@ private:
 	bool loadDict(const QString& name);
 	
 public:
-	/*! Flag - obsolete? */
-	bool AutoCheck;
 	QHash<QString, QString> rememberedWords;
 	QHash<QString, QString> specialWords;
 	QSet<QString> ignoredWords;

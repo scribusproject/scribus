@@ -985,7 +985,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						item->itemText.insertChars(txt, true);
 					}
 				}
-				if (m_doc->docHyphenator->AutoCheck)
+				if (m_doc->docHyphenator->autoCheck())
 					m_doc->docHyphenator->slotHyphenate(item);
 				item->invalidateLayout();
 				item->update();

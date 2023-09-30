@@ -97,7 +97,7 @@ QString LoremParser::createLorem(uint parCount, bool random)
 	if (parCount < 1)
 		return QString();
 	// first paragraph is always the same
-	QString lorem = "";
+	QString lorem;
 	if (!loremIpsum.isEmpty())
 		lorem = loremIpsum[0];
 	if (parCount > 1)
@@ -133,7 +133,7 @@ QString LoremParser::createLorem(uint parCount, bool random)
 LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 {
 	undoManager = UndoManager::instance();
-	m_Doc=doc;
+	m_Doc = doc;
 	setModal(true);
 	setWindowTitle( tr( "Lorem Ipsum" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
@@ -337,7 +337,7 @@ void LoremManager::insertLoremIpsum(const QString& name, int paraCount, bool ran
 		int l = i2->itemText.length();
 		i2->itemText.insertChars(l, sampleText);
 		delete lp;
-		if (m_Doc->docHyphenator->AutoCheck)
+		if (m_Doc->docHyphenator->autoCheck())
 			m_Doc->docHyphenator->slotHyphenate(i2);
 		i2->asTextFrame()->invalidateLayout(true);
 	}
@@ -345,25 +345,25 @@ void LoremManager::insertLoremIpsum(const QString& name, int paraCount, bool ran
 	m_Doc->changed();
 }
 
-QString LoremManager::loremIpsum()
+QString LoremManager::loremIpsum() const
 {
 	LoremParser lp(getName());
 	return lp.createLorem(paraBox->value(), randomCheckBox->isChecked());
 }
 
-int LoremManager::paragraphCount()
+int LoremManager::paragraphCount() const
 {
 	return paraBox->value();
 }
 
-bool LoremManager::randomize()
+bool LoremManager::randomize() const
 {
 	return randomCheckBox->isChecked();
 }
 
-QString LoremManager::getName()
+QString LoremManager::getName() const
 {
-	QTreeWidgetItem *li;
+	const QTreeWidgetItem *li;
 	if (loremList->currentItem()->parent() == nullptr)
 		li = loremList->currentItem();
 	else

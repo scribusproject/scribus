@@ -142,30 +142,30 @@ public:
 	void setMargins(MarginStruct& newMargins) { m_docPrefsData.docSetupPrefs.margins = newMargins; }
 	double pageGapHorizontal() const { return m_docPrefsData.displayPrefs.pageGapHorizontal; }
 	double pageGapVertical() const { return m_docPrefsData.displayPrefs.pageGapVertical; }
-	void setPageGapHorizontal(double h) { m_docPrefsData.displayPrefs.pageGapHorizontal=h; }
-	void setPageGapVertical(double v) { m_docPrefsData.displayPrefs.pageGapVertical=v; }
+	void setPageGapHorizontal(double h) { m_docPrefsData.displayPrefs.pageGapHorizontal = h; }
+	void setPageGapVertical(double v) { m_docPrefsData.displayPrefs.pageGapVertical = v; }
 	const QList<PageSet>& pageSets() const { return m_docPrefsData.pageSets; }
 	void setPageSetFirstPage(int layout, int fp);
 	void clearPageSets() { m_docPrefsData.pageSets.clear(); }
 	void appendToPageSets(const PageSet& ps) { m_docPrefsData.pageSets.append(ps); }
-	void setPaperColor(const QColor &c) { m_docPrefsData.displayPrefs.paperColor=c; }
+	void setPaperColor(const QColor &c) { m_docPrefsData.displayPrefs.paperColor = c; }
 	const QColor& paperColor() const { return m_docPrefsData.displayPrefs.paperColor; }
 	bool hyphAutomatic() const { return m_docPrefsData.hyphPrefs.Automatic; }
 	bool hyphAutoCheck() const { return m_docPrefsData.hyphPrefs.AutoCheck; }
-	void setHyphAutomatic(bool b) { m_docPrefsData.hyphPrefs.Automatic=b; }
-	void setHyphAutoCheck(bool b) { m_docPrefsData.hyphPrefs.AutoCheck=b; }
+	void setHyphAutomatic(bool b) { m_docPrefsData.hyphPrefs.Automatic = b; }
+	void setHyphAutoCheck(bool b) { m_docPrefsData.hyphPrefs.AutoCheck = b; }
 	bool autoSave() const { return m_docPrefsData.docSetupPrefs.AutoSave; }
-	int autoSaveTime() const  { return m_docPrefsData.docSetupPrefs.AutoSaveTime; }
-	int autoSaveCount() const  { return m_docPrefsData.docSetupPrefs.AutoSaveCount; }
-	bool autoSaveKeep() const  { return m_docPrefsData.docSetupPrefs.AutoSaveKeep; }
-	bool autoSaveInDocDir() const  { return m_docPrefsData.docSetupPrefs.AutoSaveLocation; }
+	int autoSaveTime() const { return m_docPrefsData.docSetupPrefs.AutoSaveTime; }
+	int autoSaveCount() const { return m_docPrefsData.docSetupPrefs.AutoSaveCount; }
+	bool autoSaveKeep() const { return m_docPrefsData.docSetupPrefs.AutoSaveKeep; }
+	bool autoSaveInDocDir() const { return m_docPrefsData.docSetupPrefs.AutoSaveLocation; }
 	QString autoSaveDir() const { return m_docPrefsData.docSetupPrefs.AutoSaveDir; }
-	bool autoSaveClockDisplay() const  { return m_docPrefsData.displayPrefs.showAutosaveClockOnCanvas; }
-	void setAutoSave(bool b) { m_docPrefsData.docSetupPrefs.AutoSave=b; }
-	void setAutoSaveTime(int i) { m_docPrefsData.docSetupPrefs.AutoSaveTime=i; }
-	void setAutoSaveCount(int i) { m_docPrefsData.docSetupPrefs.AutoSaveCount=i; }
-	void setAutoSaveKeep(bool i) { m_docPrefsData.docSetupPrefs.AutoSaveKeep=i; }
-	void setAutoSaveInDocDir(bool i) { m_docPrefsData.docSetupPrefs.AutoSaveLocation=i; }
+	bool autoSaveClockDisplay() const { return m_docPrefsData.displayPrefs.showAutosaveClockOnCanvas; }
+	void setAutoSave(bool b) { m_docPrefsData.docSetupPrefs.AutoSave = b; }
+	void setAutoSaveTime(int i) { m_docPrefsData.docSetupPrefs.AutoSaveTime = i; }
+	void setAutoSaveCount(int i) { m_docPrefsData.docSetupPrefs.AutoSaveCount = i; }
+	void setAutoSaveKeep(bool i) { m_docPrefsData.docSetupPrefs.AutoSaveKeep = i; }
+	void setAutoSaveInDocDir(bool i) { m_docPrefsData.docSetupPrefs.AutoSaveLocation = i; }
 	void setAutoSaveDir(const QString& autoDaveDir) { m_docPrefsData.docSetupPrefs.AutoSaveDir = autoDaveDir; }
 	//FIXME (maybe) :non const, the loaders make a mess here
 	PDFOptions& pdfOptions() { return m_docPrefsData.pdfPrefs; }
