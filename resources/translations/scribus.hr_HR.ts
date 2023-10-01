@@ -219,7 +219,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="233"/>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
-        <translation>Provjeri nadogradnje za Scribus. Tvoji podaci se ne šalju dalje.</translation>
+        <translation>Traži nove verzije za Scribus. Tvoji podaci se ne šalju dalje.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="255"/>
@@ -239,7 +239,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="181"/>
         <source>Check for Updates</source>
-        <translation>Provjeri nadogradnje</translation>
+        <translation>Traži nove verzije</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="315"/>
@@ -849,17 +849,17 @@
         <location filename="../../scribus/actionmanager.cpp" line="1713"/>
         <location filename="../../scribus/actionmanager.cpp" line="1823"/>
         <source>Zoom in or out</source>
-        <translation>Uvećaj ili umanji</translation>
+        <translation>Uvećaj ili umanji prikaz</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1714"/>
         <source>Zoom in</source>
-        <translation>Uvećaj</translation>
+        <translation>Uvećaj prikaz</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1715"/>
         <source>Zoom out</source>
-        <translation>Umanji</translation>
+        <translation>Umanji prikaz</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1716"/>
@@ -994,7 +994,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1868"/>
         <source>Quotation Dash</source>
-        <translation>― Navodnička povlaka</translation>
+        <translation>Navodnička povlaka</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1776"/>
@@ -1257,7 +1257,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1639"/>
         <source>Sticky Tools</source>
-        <translation>Pripojivi alati</translation>
+        <translation>Fiksirajući alati</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1493"/>
@@ -1515,7 +1515,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1772"/>
         <source>Check for Updates</source>
-        <translation>Provjeri nadogradnje</translation>
+        <translation>Traži nove verzije</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1853"/>
@@ -1996,12 +1996,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1816"/>
         <source>Insert PDF push button</source>
-        <translation>Umetni PDF gumb</translation>
+        <translation>Umetni PDF gumb za slanje</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1817"/>
         <source>Insert PDF radio button</source>
-        <translation>Umetni PDF isključni gumb</translation>
+        <translation>Umetni PDF gumb za biranje</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1818"/>
@@ -2106,12 +2106,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1737"/>
         <source>PDF Push Button</source>
-        <translation>PDF gumb</translation>
+        <translation>PDF gumb za slanje</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1738"/>
         <source>PDF Radio Button</source>
-        <translation>PDF isključni gumb</translation>
+        <translation>PDF gumb za biranje</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1739"/>
@@ -2782,7 +2782,7 @@
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="45"/>
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="792"/>
         <source>Flow Chart</source>
-        <translation>Dijagram tijeka</translation>
+        <translation>Dijagram toka</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="54"/>
@@ -4702,7 +4702,7 @@ trenutačno %2 × %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/collectforoutput_ui.cpp" line="45"/>
         <source>Collecting Patterns:</source>
-        <translation>Prikupljanje uzoraka:</translation>
+        <translation>Prikupljanje mustri:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/collectforoutput_ui.cpp" line="51"/>
@@ -5685,7 +5685,7 @@ Konzultiraj dokumentaciju u odjeljku za uređivanje boja.</translation>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="321"/>
         <source>Polyline</source>
-        <translation>Višestruka linija</translation>
+        <translation>Polilinija</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="322"/>
@@ -5701,7 +5701,7 @@ Konzultiraj dokumentaciju u odjeljku za uređivanje boja.</translation>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="332"/>
         <source>PDF Push Button</source>
-        <translation>PDF gumb</translation>
+        <translation>PDF gumb za slanje</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="334"/>
@@ -5821,7 +5821,7 @@ Konzultiraj dokumentaciju u odjeljku za uređivanje boja.</translation>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="333"/>
         <source>PDF Radio Button</source>
-        <translation>PDF isključni gumb</translation>
+        <translation>PDF gumb za biranje</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="340"/>
@@ -5831,7 +5831,7 @@ Konzultiraj dokumentaciju u odjeljku za uređivanje boja.</translation>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="341"/>
         <source>RadioButton</source>
-        <translation>Isključni gumb</translation>
+        <translation>Gumb za biranje</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="342"/>
@@ -7704,7 +7704,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/fontcombo.cpp" line="164"/>
         <source>Font Family of Selected Text or Text Frame</source>
-        <translation>Obitelj fonta odabranog teksta ili tekstualnog okvira</translation>
+        <translation>Obitelj fontova odabranog teksta ili tekstualnog okvira</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontcombo.cpp" line="165"/>
@@ -10798,12 +10798,12 @@ omogućuje unos i formatiranje bilo kojeg teksta na određenom položaju. Može�
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="87"/>
         <source>Zoom In</source>
-        <translation>Uvećaj</translation>
+        <translation>Uvećaj prikaz</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="97"/>
         <source>Zoom Out</source>
-        <translation>Umanji</translation>
+        <translation>Umanji prikaz</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="121"/>
@@ -11068,7 +11068,7 @@ omogućuje unos i formatiranje bilo kojeg teksta na određenom položaju. Može�
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="98"/>
         <source>Margin Guides</source>
-        <translation>Margine</translation>
+        <translation>Vodilice margina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="116"/>
@@ -11533,12 +11533,12 @@ stranica ili jedna određena stranica</translation>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="54"/>
         <source>Zoom In</source>
-        <translation>Uvećaj</translation>
+        <translation>Uvećaj prikaz</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="64"/>
         <source>Zoom Out</source>
-        <translation>Umanji</translation>
+        <translation>Umanji prikaz</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="95"/>
@@ -11970,7 +11970,7 @@ Ako nijedna ručka nije odabrana, resetirat će se sve ručke.</translation>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="270"/>
         <source>Margin Guides</source>
-        <translation>Margine</translation>
+        <translation>Vodilice margina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="286"/>
@@ -13535,7 +13535,7 @@ Deaktiviraj eksperimentalno PDF i PS ugrađivanje i pokušaj ponovo.</translatio
     <message>
         <location filename="../../scribus/pageitem.cpp" line="476"/>
         <source>Polyline</source>
-        <translation>Pololinija</translation>
+        <translation>Polilinija</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="480"/>
@@ -14248,7 +14248,7 @@ Deaktiviraj eksperimentalno PDF i PS ugrađivanje i pokušaj ponovo.</translatio
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="115"/>
         <source>Margin Guides</source>
-        <translation>Margine</translation>
+        <translation>Vodilice margina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="122"/>
@@ -15675,12 +15675,12 @@ Odaberi neki drugi.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="704"/>
         <source>Zoom in</source>
-        <translation>Uvećaj</translation>
+        <translation>Uvećaj prikaz</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="732"/>
         <source>Zoom out</source>
-        <translation>Umanji</translation>
+        <translation>Umanji prikaz</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="770"/>
@@ -16902,7 +16902,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="437"/>
         <source>Selected Page Border:</source>
-        <translation>Obrub odabrane stranice:</translation>
+        <translation>Rub odabrane stranice:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="451"/>
@@ -20244,7 +20244,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="209"/>
         <source>Automatic check before printing or exporting</source>
-        <translation>Automatski provjeri prije ispisa ili izvoza</translation>
+        <translation>Automatska provjera prije ispisa ili izvoza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="216"/>
@@ -30465,7 +30465,7 @@ Zbog toga tvoja slika možda neće odgovarati originalu</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="253"/>
         <source>Border line width must be &gt; 0.0</source>
         <comment>python error</comment>
-        <translation>Debljina linije obruba mora biti veća od 0,0</translation>
+        <translation>Debljina linije ruba mora biti veća od 0,0</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="75"/>
@@ -30476,7 +30476,7 @@ Zbog toga tvoja slika možda neće odgovarati originalu</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="247"/>
         <source>Border lines are specified as (width,style,color,shade) tuples</source>
         <comment>python error</comment>
-        <translation>Linije obruba su zadane kao n-torke (debljina,stil,boja,nijansa)</translation>
+        <translation>Linije rubova su zadane kao n-torke (debljina,stil,boja,nijansa)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="123"/>
@@ -33600,7 +33600,7 @@ Oprez: ovime se povećava veličina datoteke!</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="67"/>
         <source>Radio Button</source>
-        <translation>Isključni gumb</translation>
+        <translation>Gumb za biranje</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="940"/>
@@ -35038,7 +35038,7 @@ Ispravi greške pomoću gumba „Digitalna provjera”</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8588"/>
         <source>Current zoom level</source>
-        <translation>Trenutačni zum</translation>
+        <translation>Trenutačna razina zumiranja</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8589"/>
@@ -35048,12 +35048,12 @@ Ispravi greške pomoću gumba „Digitalna provjera”</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8590"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
-        <translation>Smanji prikaz, u koracima koji su zadani u postavkama</translation>
+        <translation>Smanji prikaz u koracima koji su zadani u postavkama alata</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8591"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
-        <translation>Povećavaj prikaz u koracima, koji su zadani u postavkama</translation>
+        <translation>Uvećavaj prikaz u koracima koji su zadani u postavkama alata</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8592"/>
@@ -38737,7 +38737,7 @@ prema %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="702"/>
         <source>Polyline</source>
-        <translation>Višestruka linija</translation>
+        <translation>Polilinija</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="704"/>
@@ -39872,7 +39872,7 @@ Greška: %2, redak: %3, stupac: %4</translation>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="206"/>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
-        <translation>Došlo je do greške prilikom traženja nadogradnji za Scribus. Provjeri tvoju vezu s internetom.</translation>
+        <translation>Došlo je do greške prilikom traženja nadogradnji za Scribus. Provjeri vezu s internetom.</translation>
     </message>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="210"/>
@@ -40708,7 +40708,7 @@ Odaberi neko drugo ime.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="67"/>
         <source>Current zoom level</source>
-        <translation>Trenutačno zumiranje</translation>
+        <translation>Trenutačna razina zumiranja</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="99"/>
@@ -40966,7 +40966,7 @@ Odaberi neko drugo ime.</translation>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="127"/>
         <source>Polyline</source>
-        <translation>Višestruka linija</translation>
+        <translation>Polilinija</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="132"/>
