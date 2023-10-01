@@ -850,9 +850,9 @@ QStringList Biblio::getOpenScrapbooks() const
 	QStringList ret;
 	if (Frame3->count() > 2) // omit the first 2 Tabs since they contain the main and temp scrapbook
 	{
-		for (int a = 2; a < Frame3->count(); a++)
+		for (int i = 2; i < Frame3->count(); i++)
 		{
-			auto bv = (BibView*) Frame3->widget(a);
+			auto bv = (BibView*) Frame3->widget(i);
 			ret.append(bv->ScFilename);
 		}
 	}
@@ -862,9 +862,9 @@ QStringList Biblio::getOpenScrapbooks() const
 QStringList Biblio::getOpenScrapbooksNames() const
 {
 	QStringList ret;
-	for (int a = 0; a < Frame3->count(); a++)
+	for (int i = 0; i < Frame3->count(); i++)
 	{
-		auto bv = (BibView*) Frame3->widget(a);
+		auto bv = (BibView*) Frame3->widget(i);
 		ret.append(bv->visibleName);
 	}
 	return ret;
@@ -872,20 +872,20 @@ QStringList Biblio::getOpenScrapbooksNames() const
 
 void Biblio::setScrapbookFileName(const QString& fileName)
 {
-	activeBView->ScFilename=fileName;
+	activeBView->ScFilename = fileName;
 }
 
-const QString& Biblio::getScrapbookFileName()
+const QString& Biblio::getScrapbookFileName() const
 {
 	return activeBView->ScFilename;
 }
 
-int Biblio::objectCount()
+int Biblio::objectCount() const
 {
 	return activeBView->objectMap.count();
 }
 
-bool Biblio::tempHasContents()
+bool Biblio::tempHasContents() const
 {
 	return (!tempBView->objectMap.isEmpty());
 }
@@ -917,9 +917,9 @@ void Biblio::installEventFilter(QObject *filterObj)
 
 void Biblio::updateView()
 {
-	for (int a = 0; a < Frame3->count(); a++)
+	for (int i = 0; i < Frame3->count(); i++)
 	{
-		BibView* bv = (BibView*) Frame3->widget(a);
+		BibView* bv = (BibView*) Frame3->widget(i);
 		for (auto itf = bv->objectMap.begin(); itf != bv->objectMap.end(); ++itf)
 		{
 			if (itf.value().isDir)
@@ -943,17 +943,19 @@ void Biblio::newLib()
 	if (fileName.isEmpty())
 		return;
 
-	for (int a = 0; a < Frame3->count(); a++)
+	for (int i = 0; i < Frame3->count(); i++)
 	{
-		BibView* bv = (BibView*)Frame3->widget(a);
+		BibView* bv = (BibView*) Frame3->widget(i);
 		if (fileName == bv->ScFilename)
 			return;
 	}
+
 	disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(objFromMenu(QString)));
 	disconnect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
 	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
 	disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
 	disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+
 	QDir d(fileName);
 	activeBView = new BibView(this);
 	QFileInfo fd(fileName);
@@ -973,11 +975,13 @@ void Biblio::newLib()
 	activeBView->scrollToTop();
 	upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
 	updateView();
+
 	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(objFromMenu(QString)));
 	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
 	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
 	connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(handleDoubleClick(QListWidgetItem*)));
+
 	emit scrapbookListChanged();
 }
 
@@ -1016,6 +1020,7 @@ void Biblio::closeLib()
 	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
 	disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
 	disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+
 	QFileInfo fi(activeBView->ScFilename);
 	ScCore->fileWatcher->removeDir(fi.absolutePath());
 	Frame3->removeItem(Frame3->indexOf(activeBView));
@@ -1023,11 +1028,13 @@ void Biblio::closeLib()
 	activeBView = (BibView*)Frame3->widget(0);
 	Frame3->setCurrentIndex(0);
 	upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
+
 	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(objFromMenu(QString)));
 	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
 	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
 	connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+
 	emit scrapbookListChanged();
 }
 
@@ -1037,8 +1044,10 @@ void Biblio::libChanged(int index)
 	disconnect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
 	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
 	disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+
 	activeBView = (BibView*)Frame3->widget(index);
 	upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
+
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(objFromMenu(QString)));
 	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(objFromFile(QString, int)));
 	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(handleMouse(QPoint)));
@@ -1048,18 +1057,21 @@ void Biblio::libChanged(int index)
 void Biblio::closeOnDel(const QString& libName)
 {
 	BibView* bv = nullptr;
+
 	int libIndex = 0;
-	for (int a = 0; a < Frame3->count(); a++)
+	for (int i = 0; i < Frame3->count(); i++)
 	{
-		bv = (BibView*)Frame3->widget(a);
+		bv = (BibView*) Frame3->widget(i);
 		if (libName == bv->ScFilename)
 		{
-			libIndex = a;
+			libIndex = i;
 			break;
 		}
 	}
+
 	if ((libIndex == 0) || (libIndex == 1))
 		return;
+
 	if (bv == activeBView)
 		closeLib();
 	else
@@ -1075,15 +1087,15 @@ void Biblio::closeOnDel(const QString& libName)
 
 void Biblio::reloadLib(const QString& fileName)
 {
-	for (int a = 0; a < Frame3->count(); a++)
+	for (int i = 0; i < Frame3->count(); i++)
 	{
-		BibView* bv = (BibView*)Frame3->widget(a);
+		BibView* bv = (BibView*) Frame3->widget(i);
 		if (bv->ScFilename == fileName)
 		{
 			bv->readContents(fileName);
 			bv->ScFilename = fileName;
 			QDir d(fileName);
-			if (a > 1)
+			if (i > 1)
 				bv->visibleName = d.dirName();
 			bv->scrollToTop();
 		}
@@ -1189,19 +1201,19 @@ void Biblio::handleMouse(QPoint p)
 		QMenu *pmenu3 = new QMenu( tr("Move To:"));
 		QSignalMapper *signalMapper2 = new QSignalMapper(this);
 		connect(signalMapper2, SIGNAL(mapped(int)), this, SLOT(moveObj(int)));
-		for (int a = 0; a < Frame3->count(); a++)
+		for (int i = 0; i < Frame3->count(); i++)
 		{
-			BibView* bv = (BibView*)Frame3->widget(a);
+			const BibView* bv = (BibView*) Frame3->widget(i);
 			if ((bv == activeBView) || (!bv->canWrite))
 				continue;
-			QAction *action = pmenu2->addAction(Frame3->itemText(Frame3->indexOf(Frame3->widget(a))));
+			QAction *action = pmenu2->addAction(Frame3->itemText(Frame3->indexOf(Frame3->widget(i))));
 			connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
-			signalMapper->setMapping(action, a);
+			signalMapper->setMapping(action, i);
 			if (activeBView->canWrite)
 			{
-				QAction *action2 = pmenu3->addAction(Frame3->itemText(Frame3->indexOf(Frame3->widget(a))));
+				QAction *action2 = pmenu3->addAction(Frame3->itemText(Frame3->indexOf(Frame3->widget(i))));
 				connect(action2, SIGNAL(triggered()), signalMapper2, SLOT(map()));
-				signalMapper2->setMapping(action2, a);
+				signalMapper2->setMapping(action2, i);
 			}
 		}
 		pmenu->addMenu(pmenu2);
@@ -1363,12 +1375,15 @@ void Biblio::deleteObj()
 {
 	if (!activeBView->canWrite)
 		return;
+
 	QListWidgetItem *ite = actItem;
 	QString name = ite->text();
 	QFile::remove(activeBView->objectMap[name].Data);
+
 	QFileInfo fi(QDir::toNativeSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + name + ".png"));
 	if (fi.exists())
 		QFile::remove(QDir::toNativeSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + name + ".png"));
+
 	QFileInfo fiD(QDir::toNativeSeparators(activeBView->ScFilename + "/" + name));
 	if ((fiD.exists()) && (fiD.isDir()))
 	{
@@ -1383,6 +1398,7 @@ void Biblio::deleteObj()
 		}
 		dd.rmdir(name);
 	}
+
 	activeBView->objectMap.remove(name);
 	delete activeBView->takeItem(activeBView->row(ite));
 	if (activeBView == tempBView)
