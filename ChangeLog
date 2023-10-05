@@ -1,5 +1,10 @@
 Scribus - 1.5.9 (Released 2023-xx-xx)
 =========================================
+0017020: [General] crash when starting the "insert > glyph" dialog (jghali)
+0015110: [Scrapbook] White objects are invisible in scrapbook (nitramr)
+0017019: [Typography] Hyphenation exceptions delete themselves (jghali)
+0017017: [Styles] Sort the styles list in style deletion dialog (jghali)
+0016987: [Printing] Page prints incorrectly on Windows when using layer blend modes (jghali)
 0016957: [Graphics / Image Frames] Export to PDF ignores coloring effect on grayscale PNG (jghali)
 0016966: [User Interface] About box: Some names formatted improperly in Authors tab (jghali)
 0016967: [Build System] Build error caused by removed 'std::unary_function' template in C++17 mode (jghali)
@@ -76,6 +81,7 @@ Scribus - 1.5.9 (Released 2023-xx-xx)
 0016890: [User Interface] Colors and Fills dialog too narrow (jghali)
 0016894: [User Interface] PageItem Attribute dialog too small by default (jghali)
 0016901: [Scripter] Provide the information about the page number being "shown" (cbradney)
+
 
 Scribus - 1.5.8 (Released 2022-01-23)
 =========================================
