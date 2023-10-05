@@ -503,9 +503,9 @@ void ScFace::checkAllGlyphs()
 		m_m->load();
 	if (m_m->status != ScFace::LOADED)
 		return;
-	for (gid_type gl=0; gl <= m_m->maxGlyph; ++gl)
+	for (gid_type gl = 0; gl <= m_m->maxGlyph; ++gl)
 	{
-		if (! m_m->m_glyphWidth.contains(gl))
+		if (!m_m->m_glyphWidth.contains(gl))
 		{
 			m_m->loadGlyph(gl);
 			m_m->m_glyphWidth.remove(gl);

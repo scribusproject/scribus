@@ -943,7 +943,7 @@ void ActionManager::initToolsMenuActions()
 #ifdef HAVE_OSG
 	*modeActionNames << "toolsPDFAnnot3D";
 #endif
-	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
+	for (auto it = modeActionNames->cbegin(); it != modeActionNames->cend(); ++it)
 	{
  		(*scrActions)[*it]->setEnabled(false);
 		(*scrActions)[*it]->setToggleAction(true);
@@ -1030,7 +1030,7 @@ void ActionManager::initHelpMenuActions()
 	connect( (*scrActions)["helpTooltips"], SIGNAL(triggered()), mainWindow, SLOT(ToggleTips()) );
 	connect( (*scrActions)["helpManual"], SIGNAL(triggered()), mainWindow, SLOT(slotOnlineHelp()) );
 	connect( (*scrActions)["helpCheckUpdates"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpCheckUpdates()) );
-	UrlLauncher& ul=UrlLauncher::instance();
+	UrlLauncher& ul = UrlLauncher::instance();
 	connect( (*scrActions)["helpOnlineWWW"], SIGNAL(triggeredData(QString)), &ul, SLOT(launchUrlExt(QString)) );
 	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(triggeredData(QString)), &ul, SLOT(launchUrlExt(QString)) );
 	connect( (*scrActions)["helpOnlineWiki"], SIGNAL(triggeredData(QString)), &ul, SLOT(launchUrlExt(QString)) );
@@ -1186,7 +1186,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *acti
 	*actionNamesList << "unicodeQuoteCJKSingleLeft" << "unicodeQuoteCJKSingleRight" << "unicodeQuoteCJKDoubleLeft" << "unicodeQuoteCJKDoubleRight";
 	//Ligatures
 	*actionNamesList << "unicodeLigature_ff" << "unicodeLigature_fi" << "unicodeLigature_fl" << "unicodeLigature_ffi" << "unicodeLigature_ffl" << "unicodeLigature_ft" << "unicodeLigature_st";
-	for ( QStringList::Iterator it = actionNamesList->begin(); it != actionNamesList->end(); ++it )
+	for (auto it = actionNamesList->cbegin(); it != actionNamesList->cend(); ++it)
 		connect( (*actionMap)[*it], SIGNAL(triggeredUnicodeShortcut(int)), actionParent, SLOT(specialActionKeyEvent(int)) );
 }
 
@@ -1206,19 +1206,19 @@ void ActionManager::initSpecialActions()
 
 void ActionManager::setActionTooltips(QMap<QString, QPointer<ScrAction> > *actionMap)
 {
-	for( QMap<QString, QPointer<ScrAction> >::Iterator it = actionMap->begin(); it!=actionMap->end(); ++it )
+	for (auto it = actionMap->begin(); it != actionMap->end(); ++it)
 		it.value()->setToolTipFromTextAndShortcut();
 }
 
 void ActionManager::disconnectModeActions()
 {
-	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
+	for (auto it = modeActionNames->cbegin(); it != modeActionNames->cend(); ++it)
 		disconnect( (*scrActions)[*it], SIGNAL(toggledData(bool,int)) , mainWindow, SLOT(setAppModeByToggle(bool,int)) );
 }
 
 void ActionManager::connectModeActions()
 {
-	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
+	for (auto it = modeActionNames->cbegin(); it != modeActionNames->cend(); ++it)
 		connect( (*scrActions)[*it], SIGNAL(toggledData(bool,int)) , mainWindow, SLOT(setAppModeByToggle(bool,int)) );
 }
 
@@ -1262,7 +1262,7 @@ void ActionManager::disconnectNewDocActions()
 
 void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 {
-	if (currDoc==nullptr)
+	if (currDoc == nullptr)
 		return;
 	connect( (*scrActions)["itemLock"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleLock()) );
 	connect( (*scrActions)["itemLockSize"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleSizeLock()));
@@ -1324,7 +1324,7 @@ void ActionManager::disconnectNewViewActions()
 
 void ActionManager::connectNewViewActions(ScribusView *currView)
 {
-	if (currView==nullptr)
+	if (currView == nullptr)
 		return;
 	//qDebug()<<"connectNewViewActions"<<currView->Doc->DocName;
 	connect( (*scrActions)["viewPreviewMode"], SIGNAL(toggled(bool)), currView, SLOT(togglePreview(bool)) );
@@ -1365,7 +1365,7 @@ void ActionManager::connectNewSelectionActions(ScribusView* /*currView*/, Scribu
 
 void ActionManager::saveActionShortcutsPreEditMode()
 {
-	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
+	for (auto it = modeActionNames->cbegin(); it != modeActionNames->cend(); ++it)
 	{
 		(*scrActions)[*it]->setShortcutContext(Qt::WidgetShortcut);  // in theory, this should be enough, but...
 		(*scrActions)[*it]->saveShortcut();
@@ -1374,7 +1374,7 @@ void ActionManager::saveActionShortcutsPreEditMode()
 			(*scrActions)[*it]->setEnabled(false);
 #endif		
 	}
-	for ( QStringList::Iterator it = nonEditActionNames->begin(); it != nonEditActionNames->end(); ++it )
+	for (auto it = nonEditActionNames->cbegin(); it != nonEditActionNames->cend(); ++it)
 	{
 		(*scrActions)[*it]->setShortcutContext(Qt::WidgetShortcut);  // in theory, this should be enough, but...
 		(*scrActions)[*it]->saveShortcut();
@@ -1383,7 +1383,7 @@ void ActionManager::saveActionShortcutsPreEditMode()
 
 void ActionManager::restoreActionShortcutsPostEditMode()
 {
-	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
+	for (auto it = modeActionNames->cbegin(); it != modeActionNames->cend(); ++it)
 	{
 		(*scrActions)[*it]->setShortcutContext(Qt::WindowShortcut);  // see above
 		(*scrActions)[*it]->restoreShortcut();
@@ -1391,7 +1391,7 @@ void ActionManager::restoreActionShortcutsPostEditMode()
 		(*scrActions)[*it]->setEnabled(true);
 #endif		
 	}
-	for ( QStringList::Iterator it = nonEditActionNames->begin(); it != nonEditActionNames->end(); ++it )
+	for (auto it = nonEditActionNames->cbegin(); it != nonEditActionNames->cend(); ++it)
 	{
 		(*scrActions)[*it]->setShortcutContext(Qt::WindowShortcut);  // see above
 		(*scrActions)[*it]->restoreShortcut();
@@ -1400,24 +1400,24 @@ void ActionManager::restoreActionShortcutsPostEditMode()
 
 void ActionManager::enableActionStringList(QMap<QString, QPointer<ScrAction> > *actionMap, QStringList *list, bool enabled, bool checkingUnicode, const QString& fontName)
 {
-	for (QStringList::Iterator it = list->begin(); it != list->end(); ++it)
+	for (auto it = list->cbegin(); it != list->cend(); ++it)
 	{
 		if (!checkingUnicode)
 			(*actionMap)[*it]->setEnabled(enabled);
 		else
 		{
 			//For UnicodeChar actions, only enable when the current font has that character.
-			if (mainWindow->HaveDoc && (*actionMap)[*it]->actionType()==ScrAction::UnicodeChar)
+			if (mainWindow->HaveDoc && (*actionMap)[*it]->actionType() == ScrAction::UnicodeChar)
 			{
-				int charCode=(*actionMap)[*it]->actionInt();
-				if (charCode==-1 ||
-					charCode==23 ||
-					charCode==24 ||
-					charCode==26 ||
-					charCode==27 ||
-					charCode==28 ||
-					charCode==29 ||
-					charCode==30 ||
+				int charCode = (*actionMap)[*it]->actionInt();
+				if (charCode == -1 ||
+					charCode == 23 ||
+					charCode == 24 ||
+					charCode == 26 ||
+					charCode == 27 ||
+					charCode == 28 ||
+					charCode == 29 ||
+					charCode == 30 ||
 					((*mainWindow->doc->AllFonts)[fontName].usable() &&
 					(*mainWindow->doc->AllFonts)[fontName].canRender(charCode)) )
 						(*actionMap)[*it]->setEnabled(true);
@@ -1436,7 +1436,7 @@ void ActionManager::enableUnicodeActions(QMap<QString, QPointer<ScrAction> > *ac
 
 void ActionManager::setPDFActions(ScribusView *currView)
 {
-	if (currView==nullptr)
+	if (currView == nullptr)
 		return;
 	PageItem* currItem = mainWindow->doc->m_Selection->itemAt(0);
 	if (currItem == nullptr)
@@ -1833,9 +1833,9 @@ void ActionManager::languageChange()
 	languageChangeActions();
 
 	//Reset tooltips on actions after the translation process
-	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrActions->begin(); it!=scrActions->end(); ++it )
+	for (auto it = scrActions->begin(); it != scrActions->end(); ++it)
 	{
-		if ((*it)!=nullptr)
+		if ((*it) != nullptr)
 			(*it)->setToolTipFromTextAndShortcut();
 	}
 }
@@ -2559,8 +2559,8 @@ void ActionManager::languageChangeActions()
 	//CB TODO make more flexible one day.
 	QString language("EN");
 	QString langpref(ScCore->getGuiLanguage().left(2));
-	if (langpref=="de" || langpref=="fr" || langpref=="po" || langpref=="pt" || langpref=="ru")
-		language=langpref.toUpper();
+	if (langpref == "de" || langpref == "fr" || langpref == "po" || langpref == "pt" || langpref == "ru")
+		language = langpref.toUpper();
 	(*scrActions)["helpOnlineTutorial1"]->setActionQString("http://wiki.scribus.net/index.php/tutorial"+language);
 }
 
