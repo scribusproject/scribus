@@ -391,17 +391,18 @@ void ScFace::unload() const
 
 ScFace::gid_type ScFace::emulateGlyph(uint ch) const
 {
-	QChar chr(ch);
-	if (chr == SpecialChars::LINEBREAK || chr == SpecialChars::PARSEP
-		|| chr == SpecialChars::FRAMEBREAK || chr == SpecialChars::COLBREAK
-		|| chr == SpecialChars::TAB || chr == SpecialChars::SHYPHEN
-		|| chr == SpecialChars::ZWSPACE || chr == SpecialChars::ZWNBSPACE || chr == SpecialChars::OBJECT)
+	// Don't create a QChar from ch, that would cause a crash if ch >= 0xFFFF
+	if (ch == SpecialChars::LINEBREAK.unicode() || ch == SpecialChars::PARSEP.unicode()
+		|| ch == SpecialChars::FRAMEBREAK.unicode() || ch == SpecialChars::COLBREAK.unicode()
+		|| ch == SpecialChars::TAB.unicode() || ch == SpecialChars::SHYPHEN.unicode()
+		|| ch == SpecialChars::ZWSPACE.unicode() || ch == SpecialChars::ZWNBSPACE.unicode()
+		|| ch == SpecialChars::OBJECT.unicode())
 		return CONTROL_GLYPHS + ch;
-	if (chr == SpecialChars::NBSPACE)
+	if (ch == SpecialChars::NBSPACE.unicode())
 		return  m_m->char2CMap(' ');
-	if (chr == SpecialChars::NNBSPACE)
+	if (ch == SpecialChars::NNBSPACE.unicode())
 		return  m_m->char2CMap(0x2009); // Use thin space
-	if (chr == SpecialChars::NBHYPHEN)
+	if (ch == SpecialChars::NBHYPHEN.unicode())
 		return hyphenGlyph();
 	return 0;
 }
@@ -441,7 +442,7 @@ ScFace::gid_type ScFace::char2CMap(uint ch) const
 	if (m_m->status == ScFace::UNKNOWN)
 		m_m->load();
 	
-	if (QChar(ch) == SpecialChars::SHYPHEN)
+	if (ch == SpecialChars::SHYPHEN.unicode())
 		return emulateGlyph(ch);
 
 	gid_type gl = m_m->char2CMap(ch);
