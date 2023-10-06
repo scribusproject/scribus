@@ -1548,7 +1548,7 @@ namespace cff {
 		}
 		result.append('\0');
 		result.append((uchar) (maxGid+1));
-		for (uint gid = 0; gid <= maxGid; ++gid);
+		for (uint gid = 0; gid <= maxGid; ++gid)
 		{
 			if (codes.contains(gid))
 				result.append(codes[gid]);
