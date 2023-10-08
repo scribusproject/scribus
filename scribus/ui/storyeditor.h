@@ -508,7 +508,7 @@ protected slots:
 	void specialActionKeyEvent(int unicodevalue);
 	/*! \brief Slot to insert special characters from charSelect widget. */
 	void slot_insertSpecialChar();
-	void slot_insertUserSpecialChar(QChar, const QString&);
+	void slot_insertUserSpecialChar(QString, const QString&);
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 	void doubleClick(int para, int pos);
 

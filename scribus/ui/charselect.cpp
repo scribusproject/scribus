@@ -45,7 +45,7 @@ CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect")
 	connect(m_userTableModel, SIGNAL(rowAppended()),m_userTable, SLOT(resizeLastRow()));
 	connect(unicodeButton, SIGNAL(chosenUnicode(QString)), m_userTableModel, SLOT(appendUnicode(QString)));
 	connect(enhancedDialogButton, SIGNAL(toggled(bool)), this, SLOT(enhancedDialogButton_toggled(bool)));
-	connect(this, SIGNAL(insertUserSpecialChar(QChar,QString)), this, SLOT(slot_insertUserSpecialChar(QChar,QString)));
+	connect(this, SIGNAL(insertUserSpecialChar(QString,QString)), this, SLOT(slot_insertUserSpecialChar(QString,QString)));
 	connect(uniLoadButton, SIGNAL(clicked()), this, SLOT(uniLoadButton_clicked()));
 	connect(uniSaveButton, SIGNAL(clicked()), this, SLOT(uniSaveButton_clicked()));
 	connect(uniClearButton, SIGNAL(clicked()), this, SLOT(uniClearButton_clicked()));
@@ -91,7 +91,8 @@ const QString & CharSelect::getCharacters()
 
 void CharSelect::userNewChar(uint i, const QString& font)
 {
-	emit insertUserSpecialChar(QChar(i), font);
+	QString str = QString::fromUcs4(&i, 1);
+	emit insertUserSpecialChar(str, font);
 }
 
 void CharSelect::slot_insertSpecialChars(const QVector<uint> & chars)
@@ -119,9 +120,9 @@ void CharSelect::slot_insertSpecialChar()
 	QString fontName = m_doc->currentStyle.charStyle().font().scName();
 	if (m_enhanced)
 		fontName = m_enhanced->getUsedFont();
-	for (int a=0; a<chToIns.length(); ++a)
+	for (int i = 0; i < chToIns.length(); ++i)
 	{
-		ch = chToIns.at(a);
+		ch = chToIns.at(i);
 		if (ch == QChar(10))
 			ch = QChar(13);
 		if (ch == QChar(9))
@@ -138,7 +139,7 @@ void CharSelect::slot_insertSpecialChar()
 // 	delEdit();
 }
 
-void CharSelect::slot_insertUserSpecialChar(QChar ch, const QString& font)
+void CharSelect::slot_insertUserSpecialChar(QString str, const QString& font)
 {
 	if (!m_Item)
 		return;
@@ -151,15 +152,20 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch, const QString& font)
 		cItem->deleteSelectedTextFromFrame();
 	cItem->invalidateLayout(false);
 // 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
-	if (ch == QChar(10))
-		ch = QChar(13);
-	if (ch == QChar(9))
-		ch = QChar(32);
-	int pot = cItem->itemText.cursorPosition();
-	cItem->itemText.insertChars(ch, true);
-	CharStyle nstyle = m_Item->itemText.charStyle(pot);
-	nstyle.setFont((*m_doc->AllFonts)[font]);
-	cItem->itemText.applyCharStyle(pot, 1, nstyle);
+	QChar ch;
+	for (int i = 0; i < str.length(); ++i)
+	{
+		ch = str.at(i);
+		if (ch == QChar(10))
+			ch = QChar(13);
+		if (ch == QChar(9))
+			ch = QChar(32);
+		int pot = cItem->itemText.cursorPosition();
+		cItem->itemText.insertChars(ch, true);
+		CharStyle nstyle = m_Item->itemText.charStyle(pot);
+		nstyle.setFont((*m_doc->AllFonts)[font]);
+		cItem->itemText.applyCharStyle(pot, 1, nstyle);
+	}
 	m_doc->view()->DrawNew();
 	m_doc->changed();
 	m_doc->changedPagePreview();
