@@ -262,9 +262,9 @@ void HelpBrowser::setupLocalUI()
 	fileMenu->addSeparator();
 	fileExit = fileMenu->addAction(iconManager.loadIcon("exit.png"), "", this, SLOT(close()), Qt::CTRL|Qt::Key_W);
 	editFind = editMenu->addAction(iconManager.loadIcon("find.png"), "", this, SLOT(find()), Qt::CTRL|Qt::Key_F);
-	editFindNext = editMenu->addAction( "", this, SLOT(findNext()), Qt::Key_F3);
-	editFindPrev = editMenu->addAction( "", this, SLOT(findPrevious()), Qt::SHIFT|Qt::Key_F3);
-	bookAdd = bookMenu->addAction( "", this, SLOT(bookmarkButton_clicked()), Qt::CTRL|Qt::Key_D);
+	editFindNext = editMenu->addAction( "", Qt::Key_F3, this, SLOT(findNext()));
+	editFindPrev = editMenu->addAction( "", Qt::SHIFT|Qt::Key_F3, this, SLOT(findPrevious()));
+	bookAdd = bookMenu->addAction( "", Qt::CTRL|Qt::Key_D), this, SLOT(bookmarkButton_clicked());
 	bookDel = bookMenu->addAction( "", this, SLOT(deleteBookmarkButton_clicked()));
 	bookDelAll = bookMenu->addAction( "", this, SLOT(deleteAllBookmarkButton_clicked()));
 
