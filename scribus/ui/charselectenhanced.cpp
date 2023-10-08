@@ -26,7 +26,7 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 	m_charTable->setDragEnabled(true);
 
 	// insert hex codes directly
-	QValidator* insValidator = new QRegularExpressionValidator(QRegularExpression("[A-F,a-f,0-9]{4}"), this);
+	const QValidator* insValidator = new QRegularExpressionValidator(QRegularExpression("[A-F,a-f,0-9]{4}"), this);
 	hexLineEdit->setValidator(insValidator);
 
 	// signals and slots connections
@@ -101,7 +101,7 @@ void CharSelectEnhanced::scanFont()
 	charactersHebrew.clear();
 	ScFace::FaceEncoding glyphs;
 	(*m_doc->AllFonts)[m_fontInUse].glyphNames(glyphs);
-	for (auto it = glyphs.begin(); it != glyphs.end(); ++it)
+	for (auto it = glyphs.cbegin(); it != glyphs.cend(); ++it)
 	{
 		charcode = it.value().charcode;
 		gname = it.value().glyphName;
@@ -451,7 +451,7 @@ void CharSelectEnhanced::hexLineEdit_returnPressed()
 	QString tx("0x%1");
 	bool ok = false;
 	uint code = tx.arg(hexLineEdit->text()).toUInt(&ok, 16);
-	if ((ok) && (code > 31))
+	if (ok && (code > 31))
 		newChar(code, m_fontInUse);
 }
 

@@ -53,7 +53,7 @@ private:
 	int m_characterClass { 0 };
 
 	//! \brief m_charTable model
-	CharTableModel * m_charTableModel;
+	CharTableModel * m_charTableModel { nullptr };
 
 	QList<CharClassDef> allClasses;
 	CharClassDef characters;
