@@ -84,7 +84,7 @@ void CharSelect::setDoc(ScribusDoc* doc)
 //     tDebug("setDoc end");
 }
 
-const QString & CharSelect::getCharacters()
+const QString& CharSelect::getCharacters() const
 {
 	return chToIns;
 }
@@ -116,27 +116,24 @@ void CharSelect::slot_insertSpecialChar()
 		cItem->deleteSelectedTextFromFrame();
 	cItem->invalidateLayout(false);
 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
-	QChar ch;
 	QString fontName = m_doc->currentStyle.charStyle().font().scName();
 	if (m_enhanced)
 		fontName = m_enhanced->getUsedFont();
-	for (int i = 0; i < chToIns.length(); ++i)
+	for (QChar ch : chToIns)
 	{
-		ch = chToIns.at(i);
 		if (ch == QChar(10))
 			ch = QChar(13);
 		if (ch == QChar(9))
 			ch = QChar(32);
-		int pot = cItem->itemText.cursorPosition();
+		int pos = cItem->itemText.cursorPosition();
 		cItem->itemText.insertChars(ch, true);
-		CharStyle nstyle = m_Item->itemText.charStyle(pot);
+		CharStyle nstyle = m_Item->itemText.charStyle(pos);
 		nstyle.setFont((*m_doc->AllFonts)[fontName]);
-		cItem->itemText.applyCharStyle(pot, 1, nstyle);
+		cItem->itemText.applyCharStyle(pos, 1, nstyle);
 	}
 	m_doc->view()->DrawNew();
 	m_doc->changed();
 	m_doc->changedPagePreview();
-// 	delEdit();
 }
 
 void CharSelect::slot_insertUserSpecialChar(QString str, const QString& font)
@@ -152,19 +149,17 @@ void CharSelect::slot_insertUserSpecialChar(QString str, const QString& font)
 		cItem->deleteSelectedTextFromFrame();
 	cItem->invalidateLayout(false);
 // 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
-	QChar ch;
-	for (int i = 0; i < str.length(); ++i)
+	for (QChar ch : str)
 	{
-		ch = str.at(i);
 		if (ch == QChar(10))
 			ch = QChar(13);
 		if (ch == QChar(9))
 			ch = QChar(32);
-		int pot = cItem->itemText.cursorPosition();
+		int pos = cItem->itemText.cursorPosition();
 		cItem->itemText.insertChars(ch, true);
-		CharStyle nstyle = m_Item->itemText.charStyle(pot);
+		CharStyle nstyle = m_Item->itemText.charStyle(pos);
 		nstyle.setFont((*m_doc->AllFonts)[font]);
-		cItem->itemText.applyCharStyle(pot, 1, nstyle);
+		cItem->itemText.applyCharStyle(pos, 1, nstyle);
 	}
 	m_doc->view()->DrawNew();
 	m_doc->changed();
@@ -340,9 +335,9 @@ void CharSelect::saveUserContent(const QString& f)
 	CharClassDef chars = m_userTableModel->characters();
 	QStringList fonts = m_userTableModel->fonts();
 	stream << "# Character palette file for Scribus\n";
-	for (int a = 0; a < chars.count(); a++)
+	for (int i = 0; i < chars.count(); ++i)
 	{
-		stream << chars[a] << " " << fonts[a] << "\n";
+		stream << chars[i] << " " << fonts[i] << "\n";
 	}
 	file.close();
 }

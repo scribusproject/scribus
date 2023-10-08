@@ -43,10 +43,10 @@ public:
 	void setDoc(ScribusDoc* doc);
 	void setEnabled(bool state, PageItem* item=0);
 
-	const QString & getCharacters();
+	const QString& getCharacters() const;
 
 	//! Used for StoryEditor
-	CharTableModel * userTableModel() { return m_userTableModel; }
+	CharTableModel* userTableModel() { return m_userTableModel; }
 
 protected:
 	void changeEvent(QEvent *e) override;
