@@ -1160,32 +1160,32 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1888"/>
         <source>En Space</source>
-        <translation>[ ] Razmak polučetverca</translation>
+        <translation>[&#x2002;] Razmak polučetverca</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1889"/>
         <source>Em Space</source>
-        <translation>[ ] Razmak četverca</translation>
+        <translation>[&#x2003;] Razmak četverca</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1890"/>
         <source>Thin Space</source>
-        <translation>[ ] Tanki razmak</translation>
+        <translation>[&#x2009;] Tanki razmak</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1891"/>
         <source>Thick Space</source>
-        <translation>[ ] Široki razmak</translation>
+        <translation>[&#x2004;] Široki razmak</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1892"/>
         <source>Mid Space</source>
-        <translation>[ ] Srednji razmak</translation>
+        <translation>[&#x2005;] Srednji razmak</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1893"/>
         <source>Hair Space</source>
-        <translation>[ ] Fini razmak</translation>
+        <translation>[&#x200a;] Fini razmak</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1895"/>
@@ -1342,7 +1342,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1850"/>
         <source>Narrow No-Break Space</source>
-        <translation>[ ] Uski nerastavni razmak</translation>
+        <translation>[&#x202f;] Uski nerastavni razmak</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1856"/>
@@ -3091,42 +3091,42 @@
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2062"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2078"/>
         <source>Scrapbook</source>
         <translation>Bilježnica skica</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1185"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1197"/>
         <source>Delete</source>
         <translation>Ukloni</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1769"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1777"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1871"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1951"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1785"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1793"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1887"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1967"/>
         <source>Object</source>
         <translation>Objekt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1247"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1646"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1782"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1955"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1259"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1662"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1798"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1971"/>
         <source>New Entry</source>
         <translation>Novi unos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1183"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1195"/>
         <source>Rename</source>
         <translation>Preimenuj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1247"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1447"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1646"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1782"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1955"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1259"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1463"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1662"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1798"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1971"/>
         <source>&amp;Name:</source>
         <translation>&amp;Ime:</translation>
     </message>
@@ -3136,112 +3136,112 @@
         <translation>Odaberi mapu za bilježnicu skica</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="990"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="994"/>
         <source>Choose a scrapbook file to import</source>
         <translation>Odaberi datoteku bilježnice skica za uvoz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2063"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2079"/>
         <source>Create a new scrapbook page</source>
         <translation>Stvori novu stranicu u bilježnici skica</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2066"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2082"/>
         <source>Close the selected scrapbook</source>
         <translation>Zatvori odabranu bilježnicu skica</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1190"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1202"/>
         <source>Copy To:</source>
         <translation>Kopiraj u:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1191"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1203"/>
         <source>Move To:</source>
         <translation>Premjesti u:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="786"/>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="787"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2076"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2077"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2092"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2093"/>
         <source>Main</source>
         <translation>Glavni</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="789"/>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="790"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2083"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2084"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2099"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2100"/>
         <source>Copied Items</source>
         <translation>Kopirani elementi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1447"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1463"/>
         <source>New Name</source>
         <translation>Novo ime</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="992"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="996"/>
         <source>Scrapbook (*.scs *.SCS)</source>
         <translation>Bilježnica skica (*.scs *.SCS)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1179"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1191"/>
         <source>Paste to Page</source>
         <translation>Zalijepi na stranicu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1225"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1237"/>
         <source>Close</source>
         <translation>Zatvori</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1228"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1240"/>
         <source>Delete Contents</source>
         <translation>Ukloni sadržaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1400"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1416"/>
         <source>Do you really want to delete all entries?</source>
         <translation>Zaista želiš ukloniti odabrane unose?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2065"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2081"/>
         <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
         <translation>Uvezi datoteku bilježnice skica iz Scribusa &lt;=1.3.2</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="763"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2069"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2085"/>
         <source>Hide Images</source>
         <translation>Sakrij slike</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="766"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2070"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2086"/>
         <source>Hide Vector files</source>
         <translation>Sakrij vektorske datoteke</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2064"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2080"/>
         <source>Go up one Directory</source>
         <translation>Prijeđi na jednu razinu prema gore</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2067"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2083"/>
         <source>Configure the scrapbook</source>
         <translation>Konfiguriraj bilježnicu skica</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="760"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2068"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2084"/>
         <source>Hide Directories</source>
         <translation>Sakrij direktorije</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="770"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2071"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2087"/>
         <source>Open Directories in a new tab</source>
         <translation>Otvori direktorije u novoj kartici</translation>
     </message>
@@ -4070,23 +4070,23 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Scribusova paleta slovnih znakova (*.ucp);;Sve datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="263"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="264"/>
         <source>Open Character Palette</source>
         <translation>Otvori paletu slovnih znakova</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="298"/>
-        <location filename="../../scribus/ui/charselect.cpp" line="327"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="299"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="328"/>
         <source>Error</source>
         <translation>Greška</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="299"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="300"/>
         <source>Error reading file %1 - file is probably corrupted.</source>
         <translation>Greška prilikom učitavanja datoteke %1 – datoteka je vjerojatno oštećena.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="328"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="329"/>
         <source>Cannot write file %1</source>
         <translation>Nije moguće zapisati datoteku %1</translation>
     </message>
@@ -4096,17 +4096,17 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Paleta slovnih znakova</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="348"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="349"/>
         <source>Empty the Palette?</source>
         <translation>Isprazniti paletu?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="349"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="350"/>
         <source>You will remove all characters from this palette. Are you sure?</source>
         <translation>Uklonit ćeš sve slovne znakove iz palete. Zaista to želiš uraditi?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="311"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="312"/>
         <source>Save Quick Character Palette</source>
         <translation>Spremi brzu paletu slovnih znakova</translation>
     </message>
@@ -4136,7 +4136,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Isprazni paletu slovnih znakova</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="190"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="191"/>
         <source>Font: %2</source>
         <translation>Font: %2</translation>
     </message>
@@ -4592,7 +4592,7 @@ trenutačno %2 × %3 DPI</translation>
         <location filename="../../scribus/ui/checkDocument.cpp" line="147"/>
         <location filename="../../scribus/ui/checkDocument.cpp" line="149"/>
         <source>This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
-        <translation>Ovaj sloj koristi transparentnost, što stvara probleme samo starijim profilima pisača. Slobodno zanemari poruku, ako koristiš moderne metode ispisa ili ako izvoziš u PDF 1.4 i noviji.</translation>
+        <translation>Ovaj sloj koristi transparentnost, što stvara probleme samo starijim profilima pisača. Slobodno zanemari poruku, ako koristiš moderne metode ispisa ili ako izvoziš u PDF&#xa0;1.4 i noviji.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="148"/>
@@ -4762,17 +4762,17 @@ trenutačno %2 × %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/colorlistmodel.cpp" line="79"/>
         <source>R: %1 G: %2 B: %3</source>
-        <translation>R: %1 G: %2 B: %3</translation>
+        <translation>R:&#xa0;%1 G:&#xa0;%2 B:&#xa0;%3</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorlistmodel.cpp" line="85"/>
         <source>C: %1% M: %2% Y: %3% K: %4%</source>
-        <translation>C: %1% M: %2% Y: %3% K: %4%</translation>
+        <translation>C:&#xa0;%1% M:&#xa0;%2% Y:&#xa0;%3% K:&#xa0;%4%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorlistmodel.cpp" line="91"/>
         <source>L: %1 a: %2 b: %3</source>
-        <translation>L: %1 a: %2 b: %3</translation>
+        <translation>L:&#xa0;%1 a:&#xa0;%2 b:&#xa0;%3</translation>
     </message>
 </context>
 <context>
@@ -5246,17 +5246,17 @@ Konzultiraj dokumentaciju u odjeljku za uređivanje boja.</translation>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="1429"/>
         <source>R: %1 G: %2 B: %3</source>
-        <translation>R: %1 G: %2 B: %3</translation>
+        <translation>R:&#xa0;%1 G:&#xa0;%2 B:&#xa0;%3</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="1435"/>
         <source>C: %1% M: %2% Y: %3% K: %4%</source>
-        <translation>C: %1% M: %2% Y: %3% K: %4%</translation>
+        <translation>C:&#xa0;%1% M:&#xa0;%2% Y:&#xa0;%3% K:&#xa0;%4%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="1441"/>
         <source>L: %1 a: %2 b: %3</source>
-        <translation>L: %1 a: %2 b: %3</translation>
+        <translation>L:&#xa0;%1 a:&#xa0;%2 b:&#xa0;%3</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="1925"/>
@@ -9131,7 +9131,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="65"/>
-        <source>Imports Adobe InDesign's IDML packages into Scribus
+        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>Uvozi Adobe IDML pakete u Scribus
 pretvaranjem InDesign objekata u Scribusove elemente stranica; Scribus ne podržava sve pakete, ali svi podržani paketi se uvoze ovdje</translation>
@@ -10675,7 +10675,7 @@ omogućuje unos i formatiranje bilo kojeg teksta na određenom položaju. Može�
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="756"/>
         <source>Layer Transparency, works only in PDF 1.4 and SVG</source>
-        <translation>Transparentost slojeva, radi samo u formatima PDF 1.4 i SVG</translation>
+        <translation>Transparentost slojeva, radi samo u formatima PDF&#xa0;1.4 i SVG</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="750"/>
@@ -15002,17 +15002,17 @@ Provjeri  raspon i pokušaj ponovo.</translation>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="38"/>
         <source>PDF 1.3 (Acrobat 4)</source>
-        <translation>PDF 1.3 (Acrobat 4)</translation>
+        <translation>PDF&#xa0;1.3 (Acrobat 4)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="40"/>
         <source>PDF 1.4 (Acrobat 5)</source>
-        <translation>PDF 1.4 (Acrobat 5)</translation>
+        <translation>PDF&#xa0;1.4 (Acrobat 5)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="42"/>
         <source>PDF 1.5 (Acrobat 6)</source>
-        <translation>PDF 1.5 (Acrobat 6)</translation>
+        <translation>PDF&#xa0;1.5 (Acrobat 6)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="44"/>
@@ -15052,7 +15052,7 @@ Provjeri  raspon i pokušaj ponovo.</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15074,7 +15074,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -16585,7 +16585,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/prefsmanager.cpp" line="890"/>
         <source>Scribus has detected existing Scribus 1.6.0 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
-        <translation>Scribus je ustanovio postojeće datoteke za postavke od Scribusa 1.3.5.
+        <translation>Scribus je ustanovio postojeće datoteke za postavke od Scribusa&#xa0;1.3.5.
 Želiš li ih promijeniti u novu Scribusovu verziju? {1.6.0 ?}</translation>
     </message>
     <message>
@@ -17283,7 +17283,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsections.cpp" line="172"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation>Unesena vrijednost se nalazi izvan raspona broja stranica u trenutačnom dokumentu (%1 – %2).</translation>
+        <translation>Unesena vrijednost se nalazi izvan raspona broja stranica u trenutačnom dokumentu (%1&#xa0;–&#xa0;%2).</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsectionsbase.ui" line="14"/>
@@ -18295,7 +18295,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="60"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</source>
-        <translation>Dijaloški okvir koji prikazuje sva moguće spojnice, kad koristiš opcije „Dodaci &gt; Rastavljanje riječi”</translation>
+        <translation>Dijaloški okvir koji prikazuje sva moguće spojnice, kad koristiš opcije „Dodaci&#xa0;&gt; Rastavljanje riječi”</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="70"/>
@@ -19476,7 +19476,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="69"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation>Određuje PDF kompatibilnost.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt; je najranija podržana verzija, osigurava najveću moguću kompatibilnost s rasterskim procesorima pisača.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt; je standardna verzija, podržava funkcije kao što su transparentnost i 128-bitno šifriranje.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; je potreban, kad želiš sačuvati objekte u zasebnim slojevima unutar PDF‑a.&lt;br/&gt;&lt;b&gt;PDF/X‑1a&lt;/b&gt; služi za razmjenu dokumenata, u kojima su boje specificirane samo CMYK ili spot bojama.&lt;br/&gt;&lt;b&gt;PDF/X‑3&lt;/b&gt; služi za izvoz PDF‑a, kad želiš upravljene RGB boje za profesionalni tisak i može se odabrati prilikom aktiviranog upravljanja bojama. Koristi po dogovoru s tiskarom ili za ispis na četverobojnom digitalnom laserskom pisaču.&lt;br/&gt;&lt;b&gt;PDF/X‑4&lt;/b&gt; je porširenje za PDF/X‑3. Podržava upotrebu transparentnosti i slojeva.</translation>
+        <translation>Određuje PDF kompatibilnost.&lt;br/&gt;&lt;b&gt;PDF&#xa0;1.3&lt;/b&gt; je najranija podržana verzija, osigurava najveću moguću kompatibilnost s rasterskim procesorima pisača.&lt;br/&gt;&lt;b&gt;PDF&#xa0;1.4&lt;/b&gt; je standardna verzija, podržava funkcije kao što su transparentnost i 128-bitno šifriranje.&lt;br/&gt;&lt;b&gt;PDF&#xa0;1.5&lt;/b&gt; je potreban, kad želiš sačuvati objekte u zasebnim slojevima unutar PDF‑a.&lt;br/&gt;&lt;b&gt;PDF/X‑1a&lt;/b&gt; služi za razmjenu dokumenata, u kojima su boje specificirane samo CMYK ili spot bojama.&lt;br/&gt;&lt;b&gt;PDF/X‑3&lt;/b&gt; služi za izvoz PDF‑a, kad želiš upravljene RGB boje za profesionalni tisak i može se odabrati prilikom aktiviranog upravljanja bojama. Koristi po dogovoru s tiskarom ili za ispis na četverobojnom digitalnom laserskom pisaču.&lt;br/&gt;&lt;b&gt;PDF/X‑4&lt;/b&gt; je porširenje za PDF/X‑3. Podržava upotrebu transparentnosti i slojeva.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="70"/>
@@ -19964,7 +19964,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
         <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
-        <translation>Slojevi u tvom dokumentu se izvoze u PDF. Dostupno je samo, ako je odabran format PDF 1.5.</translation>
+        <translation>Slojevi u tvom dokumentu se izvoze u PDF. Dostupno je samo, ako je odabran format PDF&#xa0;1.5.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="81"/>
@@ -21164,8 +21164,8 @@ Postavljanje Postscript razine 1 ili 2 može stvoriti ogromne datoteke.</transla
         <translation>Vrijeme do započinjanja skaliranja ili premještanja omogućuje lagano kašnjenje između klika i izvršavanja operacije, kako bi se izbjegli neželjeni potezi. To može biti korisno kad se radi o postavkama osjetljivosti miša ili o pitanjima dostupnosti vezanih uz ergonomske miševe, dodirne ploče ili pokretljivost zapešća i ruke.</translation>
     </message>
     <message>
-        <source/>
-        <translation type="unfinished"></translation>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
@@ -25015,7 +25015,7 @@ Provjeri stazu i ime datoteke.</translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="134"/>
         <source>%1 - [%2]</source>
-        <translation>%1 – [%2]</translation>
+        <translation>%1&#xa0;–&#xa0;[%2]</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="135"/>
@@ -28925,18 +28925,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can't find anything to operate
+raise a NoValidObjectError if it can&apos;t find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn't make sense, and will result
+the text color on a graphics frame doesn&apos;t make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function's documentation, though as with most Python code this list
+function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Scribusov modul Python sučelja
@@ -29602,7 +29602,7 @@ Pojedinosti o iznimkama koje svaka funkcija može prouzročiti, nalaze se u doku
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="69"/>
         <source>Scribus 1.2.x Support</source>
-        <translation>Podrška za Scribus 1.2.x</translation>
+        <translation>Podrška za Scribus&#xa0;1.2.x</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/pdbim/pdbim.cpp" line="117"/>
@@ -30410,7 +30410,7 @@ Zbog toga tvoja slika možda neće odgovarati originalu</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="318"/>
         <source>The area %1,%2 %3x%4 is not inside the table.</source>
         <comment>python error</comment>
-        <translation>Područje %1,%2 %3 ✕ %4 se ne nalazi u tablici.</translation>
+        <translation>Područje %1,%2 %3&#xa0;✕&#xa0;%4 se ne nalazi u tablici.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="338"/>
@@ -30568,7 +30568,7 @@ Zbog toga tvoja slika možda neće odgovarati originalu</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="874"/>
         <source>You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation>Pokrećeš razvojnu verziju za Scribus 1.5.x. Dokument s kojim radiš je stvoren Scribusom 1.2.x. Spremanjem pod vezijom 1.5.x, nećeš biti u stanju je uređivati s verzijom 1.2.x. Spremi postojeću datoteku pod novim imenom, te je nastavi uređivati. Originalni dokument će na taj način ostati netaknuta. Želiš li zaista nastaviti s ovom operacijom?</translation>
+        <translation>Pokrećeš razvojnu verziju za Scribus&#xa0;1.5.x. Dokument s kojim radiš je stvoren Scribusom&#xa0;1.2.x. Spremanjem pod vezijom 1.5.x, nećeš biti u stanju je uređivati s verzijom 1.2.x. Spremi postojeću datoteku pod novim imenom, te je nastavi uređivati. Originalni dokument će na taj način ostati netaknuta. Želiš li zaista nastaviti s ovom operacijom?</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="66"/>
@@ -30858,7 +30858,7 @@ Zbog toga tvoja slika možda neće odgovarati originalu</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="44"/>
         <source>Action must be an integer in range 0-9 </source>
-        <translation>Radnja mora biti cijeli broj u rasponu od 0 – 9 </translation>
+        <translation>Radnja mora biti cijeli broj u rasponu od 0&#xa0;–&#xa0;9 </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="58"/>
@@ -32926,7 +32926,7 @@ Oprez: ovime se povećava veličina datoteke!</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="208"/>
         <source>Font for use with PDF 1.3:</source>
-        <translation>Fontovi za PDF 1.3:</translation>
+        <translation>Fontovi za PDF&#xa0;1.3:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="220"/>
@@ -33537,7 +33537,7 @@ Oprez: ovime se povećava veličina datoteke!</translation>
         <location filename="../../scribus/ui/annot.cpp" line="446"/>
         <location filename="../../scribus/ui/annot.cpp" line="447"/>
         <source>Flag is ignored for PDF 1.3</source>
-        <translation>Upozorenje se zanemaruje za PDF 1.3</translation>
+        <translation>Upozorenje se zanemaruje za PDF&#xa0;1.3</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="448"/>
@@ -34172,7 +34172,7 @@ Oprez: ovime se povećava veličina datoteke!</translation>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="63"/>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="119"/>
         <source>Scribus 1.2.x Document</source>
-        <translation>Scribus 1.2.x dokument</translation>
+        <translation>Scribus&#xa0;1.2.x dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="2475"/>
@@ -34182,12 +34182,12 @@ Oprez: ovime se povećava veličina datoteke!</translation>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="79"/>
         <source>Scribus 1.2.x File Format Support</source>
-        <translation>Podrška Scribus 1.2.x formata datoteka</translation>
+        <translation>Podrška Scribus&#xa0;1.2.x formata datoteka</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="80"/>
         <source>Allows Scribus to read Scribus 1.2.x formatted files.</source>
-        <translation>Dozvoli Scribusu čitanje datoteka, formatiranih sa Scribus 1.2.x.</translation>
+        <translation>Dozvoli Scribusu čitanje datoteka, formatiranih sa Scribus&#xa0;1.2.x.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1383"/>
@@ -35688,7 +35688,11 @@ Ispravi greške pomoću gumba „Digitalna provjera”</translation>
     <message numerus="yes">
         <location filename="../../scribus/ui/search.cpp" line="898"/>
         <source>%n match(es) found</source>
-        <translation><numerusform>%n poklapanje pronađeno</numerusform><numerusform>%n poklapanja pronađena</numerusform><numerusform>%n poklapanja pronađeno</numerusform></translation>
+        <translation>
+            <numerusform>%n poklapanje pronađeno</numerusform>
+            <numerusform>%n poklapanja pronađena</numerusform>
+            <numerusform>%n poklapanja pronađeno</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="260"/>
@@ -37297,7 +37301,7 @@ Ispravi greške pomoću gumba „Digitalna provjera”</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="206"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation>Određuje PDF kompatibilnost.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt; je najranija podržana verzija, osigurava najveću moguću kompatibilnost s rasterskim procesorima pisača.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt; je standardna verzija, podržava funkcije kao što su transparentnost i 128-bitno šifriranje.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; je potreban, kad želiš sačuvati objekte u zasebnim slojevima unutar PDF‑a.&lt;br/&gt;&lt;b&gt;PDF/X‑1a&lt;/b&gt; služi za razmjenu dokumenata, u kojima su boje specificirane samo CMYK ili spot bojama.&lt;br/&gt;&lt;b&gt;PDF/X‑3&lt;/b&gt; služi za izvoz PDF‑a, kad želiš upravljene RGB boje za profesionalni tisak i može se odabrati prilikom aktiviranog upravljanja bojama. Koristi po dogovoru s tiskarom ili za ispis na četverobojnom digitalnom laserskom pisaču.&lt;br/&gt;&lt;b&gt;PDF/X‑4&lt;/b&gt; je porširenje za PDF/X‑3. Podržava upotrebu transparentnosti i slojeva.</translation>
+        <translation>Određuje PDF kompatibilnost.&lt;br/&gt;&lt;b&gt;PDF&#xa0;1.3&lt;/b&gt; je najranija podržana verzija, osigurava najveću moguću kompatibilnost s rasterskim procesorima pisača.&lt;br/&gt;&lt;b&gt;PDF&#xa0;1.4&lt;/b&gt; je standardna verzija, podržava funkcije kao što su transparentnost i 128-bitno šifriranje.&lt;br/&gt;&lt;b&gt;PDF&#xa0;1.5&lt;/b&gt; je potreban, kad želiš sačuvati objekte u zasebnim slojevima unutar PDF‑a.&lt;br/&gt;&lt;b&gt;PDF/X‑1a&lt;/b&gt; služi za razmjenu dokumenata, u kojima su boje specificirane samo CMYK ili spot bojama.&lt;br/&gt;&lt;b&gt;PDF/X‑3&lt;/b&gt; služi za izvoz PDF‑a, kad želiš upravljene RGB boje za profesionalni tisak i može se odabrati prilikom aktiviranog upravljanja bojama. Koristi po dogovoru s tiskarom ili za ispis na četverobojnom digitalnom laserskom pisaču.&lt;br/&gt;&lt;b&gt;PDF/X‑4&lt;/b&gt; je porširenje za PDF/X‑3. Podržava upotrebu transparentnosti i slojeva.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="259"/>
@@ -37705,7 +37709,7 @@ prilikom otvaranja PDF dokumenta:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="244"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
-        <translation>Prisiljava prikaz slojeva. Korisno samo za PDF 1.5+.</translation>
+        <translation>Prisiljava prikaz slojeva. Korisno samo za PDF&#xa0;1.5+.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="245"/>
@@ -39875,7 +39879,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="156"/>
         <source>Starting Uniconvertor failed! The executable name in File-&gt;Preferences-&gt;External Tools may be incorrect or the software has been uninstalled since preferences were set. (%1)</source>
-        <translation>Neuspješno pokretanje Uniconvertora! Ime izvršne datoteke u „Datoteka &gt; Postavke &gt; Vanjski alati” je netočno ili je softver deinstaliran, nakon zadnjih promjena u postavkama. (%1)</translation>
+        <translation>Neuspješno pokretanje Uniconvertora! Ime izvršne datoteke u „Datoteka&#xa0;&gt; Postavke&#xa0;&gt; Vanjski alati” je netočno ili je softver deinstaliran, nakon zadnjih promjena u postavkama. (%1)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="166"/>
@@ -39910,7 +39914,7 @@ X: %4, Y: %5</translation>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation>Nije moguće otvoriti datoteku verzije: %1
-Greška: %2, redak: %3, stupac: %4</translation>
+Greška:&#xa0;%2, redak:&#xa0;%3, stupac:&#xa0;%4</translation>
     </message>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="200"/>

@@ -3091,42 +3091,42 @@
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2062"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2078"/>
         <source>Scrapbook</source>
         <translation>Kladdebok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1185"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1197"/>
         <source>Delete</source>
         <translation>Slett</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1769"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1777"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1871"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1951"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1785"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1793"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1887"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1967"/>
         <source>Object</source>
         <translation>Objekt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1247"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1646"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1782"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1955"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1259"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1662"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1798"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1971"/>
         <source>New Entry</source>
         <translation>Ny oppføring</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1183"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1195"/>
         <source>Rename</source>
         <translation>Endre navn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1247"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1447"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1646"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1782"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1955"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1259"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1463"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1662"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1798"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1971"/>
         <source>&amp;Name:</source>
         <translation>&amp;Navn:</translation>
     </message>
@@ -3136,112 +3136,112 @@
         <translation>Velg en mappe for kladdebøkene</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="990"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="994"/>
         <source>Choose a scrapbook file to import</source>
         <translation>Velg hvilken kladdebok du vil importere</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2063"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2079"/>
         <source>Create a new scrapbook page</source>
         <translation>Lag en ny kladdebokside</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2066"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2082"/>
         <source>Close the selected scrapbook</source>
         <translation>Lukk den valgte kladdeboka</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1190"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1202"/>
         <source>Copy To:</source>
         <translation>Kopier til:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1191"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1203"/>
         <source>Move To:</source>
         <translation>Flytt til:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="786"/>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="787"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2076"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2077"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2092"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2093"/>
         <source>Main</source>
         <translation>Hoved</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="789"/>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="790"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2083"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2084"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2099"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2100"/>
         <source>Copied Items</source>
         <translation>Kopierte elementer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1447"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1463"/>
         <source>New Name</source>
         <translation>Nytt navn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="992"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="996"/>
         <source>Scrapbook (*.scs *.SCS)</source>
         <translation>Kladdebok (*.scs *.SCS)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1179"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1191"/>
         <source>Paste to Page</source>
         <translation>Lim inn på siden</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1225"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1237"/>
         <source>Close</source>
         <translation>Lukk</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1228"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1240"/>
         <source>Delete Contents</source>
         <translation>Slett innholdet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1400"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1416"/>
         <source>Do you really want to delete all entries?</source>
         <translation>Er du sikker på at du vil slette alle oppføringene?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2065"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2081"/>
         <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
         <translation>Importer en kladdebok fra Scribus 1.3.2 eller senere</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="763"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2069"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2085"/>
         <source>Hide Images</source>
         <translation>Skjul bilder</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="766"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2070"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2086"/>
         <source>Hide Vector files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2064"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2080"/>
         <source>Go up one Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2067"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2083"/>
         <source>Configure the scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="760"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2068"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2084"/>
         <source>Hide Directories</source>
         <translation>Skjul mapper</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="770"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2071"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2087"/>
         <source>Open Directories in a new tab</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4061,23 +4061,23 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Scribus tegnoversikt (*.ucp);;Alle filer (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="263"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="264"/>
         <source>Open Character Palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="298"/>
-        <location filename="../../scribus/ui/charselect.cpp" line="327"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="299"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="328"/>
         <source>Error</source>
         <translation>Feil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="299"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="300"/>
         <source>Error reading file %1 - file is probably corrupted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="328"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="329"/>
         <source>Cannot write file %1</source>
         <translation>Klaret ikke å lese fila %1</translation>
     </message>
@@ -4087,17 +4087,17 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Tegnoversikt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="348"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="349"/>
         <source>Empty the Palette?</source>
         <translation>Vil du tømme oversikten?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="349"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="350"/>
         <source>You will remove all characters from this palette. Are you sure?</source>
         <translation>Vil du fjerne alle tegnene fra denne oversikten?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="311"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="312"/>
         <source>Save Quick Character Palette</source>
         <translation>Lagre hurtigoversikten</translation>
     </message>
@@ -4127,7 +4127,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="190"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="191"/>
         <source>Font: %2</source>
         <translation>Skrift: %2</translation>
     </message>

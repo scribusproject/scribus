@@ -3091,42 +3091,42 @@
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2062"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2078"/>
         <source>Scrapbook</source>
         <translation>Skicirka</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1185"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1197"/>
         <source>Delete</source>
         <translation>Izbriši</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1769"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1777"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1871"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1951"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1785"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1793"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1887"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1967"/>
         <source>Object</source>
         <translation>Predmet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1247"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1646"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1782"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1955"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1259"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1662"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1798"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1971"/>
         <source>New Entry</source>
         <translation>Nov vnos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1183"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1195"/>
         <source>Rename</source>
         <translation>Preimenuj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1247"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1447"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1646"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1782"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1955"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1259"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1463"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1662"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1798"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1971"/>
         <source>&amp;Name:</source>
         <translation>&amp;Ime:</translation>
     </message>
@@ -3136,112 +3136,112 @@
         <translation>Izberite mapo za skicirko</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="990"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="994"/>
         <source>Choose a scrapbook file to import</source>
         <translation>Izberite datoteko skicirke za uvoz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2063"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2079"/>
         <source>Create a new scrapbook page</source>
         <translation>Ustvari novo stran v skicirki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2066"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2082"/>
         <source>Close the selected scrapbook</source>
         <translation>Zapri izbrano skicirko</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1190"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1202"/>
         <source>Copy To:</source>
         <translation>Skopiraj v:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1191"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1203"/>
         <source>Move To:</source>
         <translation>Premakni v:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="786"/>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="787"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2076"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2077"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2092"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2093"/>
         <source>Main</source>
         <translation>Glavno</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="789"/>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="790"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2083"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2084"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2099"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2100"/>
         <source>Copied Items</source>
         <translation>Kopirani predmeti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1447"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1463"/>
         <source>New Name</source>
         <translation>Novo ime</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="992"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="996"/>
         <source>Scrapbook (*.scs *.SCS)</source>
         <translation>Skicirka (*.scs *.SCS)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1179"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1191"/>
         <source>Paste to Page</source>
         <translation>Prilepi na stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1225"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1237"/>
         <source>Close</source>
         <translation>Zapri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1228"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1240"/>
         <source>Delete Contents</source>
         <translation>Izbriši vsebino</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1400"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1416"/>
         <source>Do you really want to delete all entries?</source>
         <translation>Resnično želite izbrisati vse vnose?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2065"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2081"/>
         <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
         <translation>Uvozi datoteko skicirke iz Scribusa &lt;=1.3.2</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="763"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2069"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2085"/>
         <source>Hide Images</source>
         <translation>Skrij slike</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="766"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2070"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2086"/>
         <source>Hide Vector files</source>
         <translation>Skrij vektorske datoteke</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2064"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2080"/>
         <source>Go up one Directory</source>
         <translation>Eno mapo navzgor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2067"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2083"/>
         <source>Configure the scrapbook</source>
         <translation>Prilagodi skicirko</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="760"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2068"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2084"/>
         <source>Hide Directories</source>
         <translation>Skrij mape</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="770"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2071"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2087"/>
         <source>Open Directories in a new tab</source>
         <translation>Odpri mape v novem zavihku</translation>
     </message>
@@ -4070,23 +4070,23 @@ Projekt reševanja dokumentov (Document Liberation Project) http://www.documentl
         <translation>Paleta znakov Scribus (*.ucp);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="263"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="264"/>
         <source>Open Character Palette</source>
         <translation>Odpri paleto znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="298"/>
-        <location filename="../../scribus/ui/charselect.cpp" line="327"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="299"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="328"/>
         <source>Error</source>
         <translation>Napaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="299"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="300"/>
         <source>Error reading file %1 - file is probably corrupted.</source>
         <translation>Napaka pri branju datoteke %1 - datoteka je najverjetneje poškodovana.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="328"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="329"/>
         <source>Cannot write file %1</source>
         <translation>Datoteke %1 ni mogoče zapisati</translation>
     </message>
@@ -4096,17 +4096,17 @@ Projekt reševanja dokumentov (Document Liberation Project) http://www.documentl
         <translation>Paleta znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="348"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="349"/>
         <source>Empty the Palette?</source>
         <translation>Želite izprazniti paleto?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="349"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="350"/>
         <source>You will remove all characters from this palette. Are you sure?</source>
         <translation>Odstranili boste vse znake s palete. Ste prepričani?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="311"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="312"/>
         <source>Save Quick Character Palette</source>
         <translation>Shrani priročno paleto znakov</translation>
     </message>
@@ -4136,7 +4136,7 @@ Projekt reševanja dokumentov (Document Liberation Project) http://www.documentl
         <translation>Izprazni paleto znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="190"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="191"/>
         <source>Font: %2</source>
         <translation>Pisava: %2</translation>
     </message>
@@ -6462,7 +6462,7 @@ Za več podrobnosti si oglejte razdelek Urejanje barv (Edit Colors) v dokumentac
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="389"/>
         <source>Compress the Scribus document on save</source>
-        <translation>Ob shranjevanju stisni Scribusov dokument </translation>
+        <translation>Ob shranjevanju stisni Scribusov dokument&#xa0;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="391"/>
@@ -9131,7 +9131,7 @@ Projekt reševanja dokumentov (Document Liberation Project) http://www.documentl
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="65"/>
-        <source>Imports Adobe InDesign's IDML packages into Scribus
+        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>Uvozi Adobe Inesign-ove IDML pakete v Sribus
 in pri tem Indesign-ove predmete pretvori v scribusove predmete strani. Niso vsi podprti, tisti ki pa so, bodo uvoženi sem.</translation>
@@ -15050,7 +15050,7 @@ Preverite in ponovno poskusite.</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15072,7 +15072,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -21162,8 +21162,8 @@ Ali ga želite uporabiti?</translation>
         <translation>Časovni zamik med klikom in začetkom prevelikostenja ali premikanja, da se izogne nehotenim dejanjem. To je lahko koristno, ko imate opravka z nastavitvami občutljivosti miške ali vprašanji dostopnosti, vezane na ergonomsko miško, sledilne ploščice oz. gibljivost zapestja in rok.</translation>
     </message>
     <message>
-        <source/>
-        <translation type="unfinished"></translation>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
@@ -28922,18 +28922,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can't find anything to operate
+raise a NoValidObjectError if it can&apos;t find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn't make sense, and will result
+the text color on a graphics frame doesn&apos;t make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function's documentation, though as with most Python code this list
+function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Scribus Python interface module
@@ -30688,7 +30688,7 @@ Zato je lahko podoba napačna</translation>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="68"/>
         <source>Corel Draw Importer</source>
-        <translation>Uvozilnik Corel Draw </translation>
+        <translation>Uvozilnik Corel Draw&#xa0;</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="537"/>
@@ -35696,7 +35696,12 @@ Uporabite Predpregled, da jih odpravite</translation>
     <message numerus="yes">
         <location filename="../../scribus/ui/search.cpp" line="898"/>
         <source>%n match(es) found</source>
-        <translation><numerusform>Najden %n zadetek</numerusform><numerusform>Najdena %n zadetka</numerusform><numerusform>Najdeni %n zadetki</numerusform><numerusform>Najdenih %n zadetkov</numerusform></translation>
+        <translation>
+            <numerusform>Najden %n zadetek</numerusform>
+            <numerusform>Najdena %n zadetka</numerusform>
+            <numerusform>Najdeni %n zadetki</numerusform>
+            <numerusform>Najdenih %n zadetkov</numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="260"/>
