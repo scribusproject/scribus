@@ -238,7 +238,6 @@ QString FormatsManager::extensionListForFormat(int type, int listType) const
 	QString separator(listType==0 ? " *." : "|");
 	QMapIterator<int, QStringList> it(m_fmts);
 	bool first=true;
-	int n=0;
 	while (it.hasNext())
 	{
 		it.next();
@@ -261,7 +260,6 @@ QString FormatsManager::extensionListForFormat(int type, int listType) const
 					nameMatch += separator;
 			}
 		}
-		++n;
 		if (listType==1 && it.hasNext() && nameMatch.length()>0 && !nameMatch.endsWith(separator))
 			nameMatch += separator;
 	}
@@ -278,7 +276,6 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 	QStringList formats;
 	QMapIterator<int, QStringList> it(m_fmts);
 	bool first=true;
-	int n=0;
 	while (it.hasNext())
 	{
 		it.next();
@@ -316,7 +313,6 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 			text += ")";
 			formats.append(text);
 		}
-		++n;
 	}
 	formatList += allFormats + ");;";
 	formats.sort(Qt::CaseInsensitive);

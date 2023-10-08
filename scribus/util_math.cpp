@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <QRegion> 
+#include <QRegion>
 #include "util_math.h"
 #include "scconfig.h"
 #include "sclimits.h"
