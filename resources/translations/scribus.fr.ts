@@ -3086,42 +3086,42 @@
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2063"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2079"/>
         <source>Scrapbook</source>
         <translation>Album</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1183"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1195"/>
         <source>Delete</source>
         <translation>Supprimer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1766"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1774"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1870"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1951"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1782"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1790"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1886"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1967"/>
         <source>Object</source>
         <translation>Objet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1245"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1643"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1779"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1955"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1257"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1659"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1795"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1971"/>
         <source>New Entry</source>
         <translation>Nouvelle entrée</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1181"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1193"/>
         <source>Rename</source>
         <translation>Renommer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1245"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1444"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1643"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1779"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1955"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1257"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1460"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1659"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1795"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1971"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nom :</translation>
     </message>
@@ -3131,112 +3131,112 @@
         <translation>Sélectionnez un dossier pour l&apos;Album</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="988"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="992"/>
         <source>Choose a scrapbook file to import</source>
         <translation>Choisir un fichier d&apos;album à importer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2064"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2080"/>
         <source>Create a new scrapbook page</source>
         <translation>Créer une nouvelle page d&apos;album</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2067"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2083"/>
         <source>Close the selected scrapbook</source>
         <translation>Fermer l&apos;album sélectionné</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1188"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1200"/>
         <source>Copy To:</source>
         <translation>Copier vers :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1189"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1201"/>
         <source>Move To:</source>
         <translation>Déplacer vers :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="784"/>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="785"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2077"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2078"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2093"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2094"/>
         <source>Main</source>
         <translation>Principal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="787"/>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="788"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2084"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2085"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2100"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2101"/>
         <source>Copied Items</source>
         <translation>Objets copiés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1444"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1460"/>
         <source>New Name</source>
         <translation>Nouveau nom</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="990"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="994"/>
         <source>Scrapbook (*.scs *.SCS)</source>
         <translation>Album (*.scs *.SCS)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1177"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1189"/>
         <source>Paste to Page</source>
         <translation>Coller sur la page</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1223"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1235"/>
         <source>Close</source>
         <translation>Fermer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1226"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1238"/>
         <source>Delete Contents</source>
         <translation>Supprimer le contenu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1397"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1413"/>
         <source>Do you really want to delete all entries?</source>
         <translation>Voulez-vous vraiment supprimer toues les entrées&#xa0;?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2066"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2082"/>
         <source>Import a scrapbook file from Scribus &lt;=1.3.2</source>
         <translation>Importer un album provenant de Scribus &lt;=1.3.2</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="761"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2070"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2086"/>
         <source>Hide Images</source>
         <translation>Cacher les images</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="764"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2071"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2087"/>
         <source>Hide Vector files</source>
         <translation>Cacher les fichiers vectoriels</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2065"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2081"/>
         <source>Go up one Directory</source>
         <translation>Aller au répertoire parent</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2068"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2084"/>
         <source>Configure the scrapbook</source>
         <translation>Configurer l&apos;album</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="758"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2069"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2085"/>
         <source>Hide Directories</source>
         <translation>Cacher les répertoires</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="768"/>
-        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2072"/>
+        <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2088"/>
         <source>Open Directories in a new tab</source>
         <translation>Ouvrir les répertoires dans un nouvel onglet</translation>
     </message>
@@ -4065,23 +4065,23 @@ Document Liberation : http://www.documentliberation.org</translation>
         <translation>Palette de caractères Scribus (*.ucp);;Tous les fichiers (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="263"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="264"/>
         <source>Open Character Palette</source>
         <translation>Ouvrir une palette de caractères</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="298"/>
-        <location filename="../../scribus/ui/charselect.cpp" line="327"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="299"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="328"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="299"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="300"/>
         <source>Error reading file %1 - file is probably corrupted.</source>
         <translation>Erreur lors de la lecture du fichier %1 - le fichier est probablement corrompu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="328"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="329"/>
         <source>Cannot write file %1</source>
         <translation>Impossible d&apos;enregistrer le fichier %1</translation>
     </message>
@@ -4091,17 +4091,17 @@ Document Liberation : http://www.documentliberation.org</translation>
         <translation>Palette de caractères</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="348"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="349"/>
         <source>Empty the Palette?</source>
         <translation>Vider la palette&#xa0;?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="349"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="350"/>
         <source>You will remove all characters from this palette. Are you sure?</source>
         <translation>Vous êtes sur le point de supprimer tous les caractères de la palette. Êtes-vous sûr ?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="311"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="312"/>
         <source>Save Quick Character Palette</source>
         <translation>Sauvegarde la palette de caractères à accès rapide</translation>
     </message>
@@ -4131,7 +4131,7 @@ Document Liberation : http://www.documentliberation.org</translation>
         <translation>Vide la palette de caractère en cours</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselect.cpp" line="190"/>
+        <location filename="../../scribus/ui/charselect.cpp" line="191"/>
         <source>Font: %2</source>
         <translation>Police&#xa0;: %2</translation>
     </message>
@@ -4139,142 +4139,142 @@ Document Liberation : http://www.documentliberation.org</translation>
 <context>
     <name>CharSelectEnhanced</name>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="206"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="200"/>
         <source>Full Character Set</source>
         <translation>Jeu de caractères complet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="211"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="205"/>
         <source>Basic Latin</source>
         <translation>Latin de base</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="217"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="211"/>
         <source>Latin-1 Supplement</source>
         <translation>Latin-1 supplémentaire</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="223"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="217"/>
         <source>Latin Extended-A</source>
         <translation>Latin étendu-A</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="229"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="223"/>
         <source>Latin Extended-B</source>
         <translation>Latin étendu-B</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="235"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="229"/>
         <source>General Punctuation</source>
         <translation>Ponctuation générale</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="241"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="235"/>
         <source>Super- and Subscripts</source>
         <translation>Exposants et indices</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="247"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="241"/>
         <source>Currency Symbols</source>
         <translation>Symboles des monnaies</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="253"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="247"/>
         <source>Letterlike Symbols</source>
         <translation>Symboles alphabétiques</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="259"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="253"/>
         <source>Number Forms</source>
         <translation>Formes numériques</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="265"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="259"/>
         <source>Arrows</source>
         <translation>Flèches</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="271"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="265"/>
         <source>Mathematical Operators</source>
         <translation>Opérateurs mathématiques</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="277"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="271"/>
         <source>Box Drawing</source>
         <translation>Tracé de rectangles</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="283"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="277"/>
         <source>Block Elements</source>
         <translation>Éléments de blocs</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="289"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="283"/>
         <source>Geometric Shapes</source>
         <translation>Formes géométriques</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="295"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="289"/>
         <source>Miscellaneous Symbols</source>
         <translation>Symboles divers</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="301"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="295"/>
         <source>Dingbats</source>
         <translation>Dingbats</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="307"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="301"/>
         <source>Small Form Variants</source>
         <translation>Petites variations de formes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="313"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="307"/>
         <source>Ligatures</source>
         <translation>Ligatures</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="319"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="313"/>
         <source>Specials</source>
         <translation>Caractères spéciaux</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="325"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="319"/>
         <source>Greek</source>
         <translation>Grec</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="331"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="325"/>
         <source>Greek Extended</source>
         <translation>Grec étendu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="337"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="331"/>
         <source>Cyrillic</source>
         <translation>Cyrillique</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="343"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="337"/>
         <source>Cyrillic Supplement</source>
         <translation>Cyrillique supplémentaire</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="349"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="343"/>
         <source>Arabic</source>
         <translation>Arabe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="355"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="349"/>
         <source>Arabic Extended A</source>
         <translation>Arabe étendu A</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="361"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="355"/>
         <source>Arabic Extended B</source>
         <translation>Arabe étendu B</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/charselectenhanced.cpp" line="367"/>
+        <location filename="../../scribus/ui/charselectenhanced.cpp" line="361"/>
         <source>Hebrew</source>
         <translation>Hébreu</translation>
     </message>
