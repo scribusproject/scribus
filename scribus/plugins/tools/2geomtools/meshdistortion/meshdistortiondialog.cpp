@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scpattern.h"
 #include "selection.h"
-#include "util_math.h"
+
 
 NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog* parent) : QGraphicsEllipseItem(geom)
 {

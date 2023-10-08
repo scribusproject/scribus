@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "api_page.h"
 #include "pageitem.h"
 #include "selection.h"
-#include "util_math.h"
+
 #include "commonstrings.h"
 #include "../formatidlist.h"
 #include "loadsaveplugin.h"

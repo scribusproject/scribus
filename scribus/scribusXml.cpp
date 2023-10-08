@@ -48,7 +48,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "util.h"
 #include "util_text.h"
-#include "util_math.h"
+
 #include "util_color.h"
 #include "sclimits.h"
 #include "scpattern.h"

@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "appmodes.h"
 #include "util.h"
-#include "util_math.h"
+
 
 int meshdistortion_getPluginAPIVersion()
 {

@@ -44,7 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/missing.h"
 #include "units.h"
 #include "util.h"
-#include "util_math.h"
+
 #include "util_color.h"
 
 QString Scribus150Format::saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData)

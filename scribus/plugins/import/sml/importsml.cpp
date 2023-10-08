@@ -45,7 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util.h"
 #include "util_formats.h"
-#include "util_math.h"
+
 
 SmlPlug::SmlPlug(ScribusDoc* doc, int flags)
 {

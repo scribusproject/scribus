@@ -63,7 +63,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
-#include "util_math.h"
+
 
 ColorPalette::ColorPalette(QWidget* parent) : QWidget(parent)
 {

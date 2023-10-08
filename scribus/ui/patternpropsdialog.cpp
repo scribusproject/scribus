@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "patternpropsdialog.h"
 #include "iconmanager.h"
-#include "util_math.h"
+
 
 PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex, bool isStroke) : QDialog( parent )
 {

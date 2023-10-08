@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimage.h"
 #include "scpattern.h"
 #include "util.h"
-#include "util_math.h"
+
 
 ScPainterEx_Cairo::ScPainterEx_Cairo(cairo_t* context, const QRect& rect, ScribusDoc* doc, bool gray) : ScPainterExBase()
 {

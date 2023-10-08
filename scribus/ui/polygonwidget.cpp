@@ -16,8 +16,8 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include <cmath>
 
-#include "util_math.h"
 #include "prefsstructs.h"
+#include "util_math.h"
 
 using namespace std;
 
