@@ -23,10 +23,10 @@ class SCRIBUS_API CharSelectEnhanced : public ScrPaletteBase, public Ui::CharSel
 
 public:
 	CharSelectEnhanced(QWidget* parent);
-	~CharSelectEnhanced();
+	~CharSelectEnhanced() = default;
 
 	void setDoc(ScribusDoc* doc);
-	QString getUsedFont();
+	QString getUsedFont() const;
 
 signals:
 	/*! \brief A signal emitted when press the "Insert" button.
@@ -46,14 +46,14 @@ protected:
 	void changeEvent(QEvent *e) override;
 
 private:
-	ScribusDoc* m_doc;
+	ScribusDoc* m_doc { nullptr };
 	//! \brief Current font name
 	QString m_fontInUse;
 	//! \brief Currently selected character category. See usedCharClasses.
-	int m_characterClass;
+	int m_characterClass { 0 };
 
 	//! \brief m_charTable model
-	CharTableModel * m_charTableModel;
+	CharTableModel* m_charTableModel { nullptr };
 
 	QList<CharClassDef> allClasses;
 	CharClassDef characters;

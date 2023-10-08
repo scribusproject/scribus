@@ -16,9 +16,7 @@ for which a new license (GPL+exception) is in place.
 
 
 CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
-		: ScrPaletteBase(parent, "CharSelectEnhanced"),
-		m_doc(nullptr),
-		m_characterClass(0)
+		: ScrPaletteBase(parent, "CharSelectEnhanced")
 {
 	setupUi(this);
 
@@ -27,7 +25,7 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 	m_charTable->setDragEnabled(true);
 
 	// insert hex codes directly
-	QValidator* insValidator = new QRegExpValidator(QRegExp("[A-F,a-f,0-9]{4}"), this);
+	const QValidator* insValidator = new QRegExpValidator(QRegExp("[A-F,a-f,0-9]{4}"), this);
 	hexLineEdit->setValidator(insValidator);
 
 	// signals and slots connections
@@ -37,10 +35,6 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	connect(hexLineEdit, SIGNAL(returnPressed()), this, SLOT(hexLineEdit_returnPressed()));
-}
-
-CharSelectEnhanced::~CharSelectEnhanced()
-{
 }
 
 void CharSelectEnhanced::setDoc(ScribusDoc* doc)
@@ -65,7 +59,7 @@ void CharSelectEnhanced::setDoc(ScribusDoc* doc)
 //     tDebug("CharSelectEnhanced setDoc end");
 }
 
-QString CharSelectEnhanced::getUsedFont()
+QString CharSelectEnhanced::getUsedFont() const
 {
 	return m_fontInUse;
 }
@@ -106,7 +100,7 @@ void CharSelectEnhanced::scanFont()
 	charactersHebrew.clear();
 	ScFace::FaceEncoding glyphs;
 	(*m_doc->AllFonts)[m_fontInUse].glyphNames(glyphs);
-	for (auto it = glyphs.begin(); it != glyphs.end(); ++it)
+	for (auto it = glyphs.cbegin(); it != glyphs.cend(); ++it)
 	{
 		charcode = it.value().charcode;
 		gname = it.value().glyphName;
@@ -456,7 +450,7 @@ void CharSelectEnhanced::hexLineEdit_returnPressed()
 	QString tx("0x%1");
 	bool ok = false;
 	uint code = tx.arg(hexLineEdit->text()).toUInt(&ok, 16);
-	if ((ok) && (code > 31))
+	if (ok && (code > 31))
 		newChar(code, m_fontInUse);
 }
 
