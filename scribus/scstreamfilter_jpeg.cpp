@@ -5,8 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "scconfig.h"
-#include "scstreamfilter_jpeg.h"
 
 #include <cstdlib>
 #include <csetjmp>
@@ -26,6 +24,14 @@ extern "C"
 #  undef const          // remove crazy C hackery in jconfig.h
 #endif
 }
+#include <QtGlobal>
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+#include <QtMinMax>
+#endif
+
+#include "scconfig.h"
+#include "scstreamfilter_jpeg.h"
 
 #define BUFFER_SIZE 65536
 
