@@ -24,11 +24,6 @@ extern "C"
 #  undef const          // remove crazy C hackery in jconfig.h
 #endif
 }
-#include <QtGlobal>
-
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-#include <QtMinMax>
-#endif
 
 #include "scconfig.h"
 #include "scstreamfilter_jpeg.h"

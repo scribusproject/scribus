@@ -9,6 +9,11 @@ for which a new license (GPL+exception) is in place.
 #define SCSTREAMFILTER_JPEG_H
 
 #include <QGlobalStatic>
+#include <QtGlobal>
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+#include <QtMinMax>
+#endif
 #include "scstreamfilter.h"
 
 struct ScJpegEncodeFilterData;
