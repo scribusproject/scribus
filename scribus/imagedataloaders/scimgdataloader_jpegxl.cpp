@@ -243,7 +243,8 @@ bool ScImgDataLoader_JPEGXL::decodeJpegXlOneShot(const uint8_t *jxl, size_t size
 				fprintf(stderr, "JxlDecoderGetICCProfileSize failed\n");
 				return false;
 			}
-			icc_profile->resize(icc_size, 0);
+			icc_profile->resize(icc_size);
+			icc_profile->fill(0);
 			if (JXL_DEC_SUCCESS != JxlDecoderGetColorAsICCProfile(
 						dec.get(), &format,
 						JXL_COLOR_PROFILE_TARGET_DATA,
