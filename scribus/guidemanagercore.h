@@ -18,7 +18,8 @@ class ScPage;
 class ScPainter;
 class UndoManager;
 class ScribusDoc;
-typedef QList<double> Guides;
+
+using Guides = QList<double>;
 
 /*! \brief Core manipulation with the guides.
 Basic idea:
@@ -40,7 +41,7 @@ public:
 	GuideManagerCore(ScPage* parentPage);
 	~GuideManagerCore() = default;
 
-	typedef enum {Standard, Auto} GuideType;
+	enum GuideType {Standard, Auto};
 
 	void addHorizontal(double value, GuideType type);
 	void addHorizontals(Guides values, GuideType type);
@@ -51,54 +52,54 @@ public:
 	void moveHorizontal(double from, double to, GuideType type);
 	void moveVertical(double from, double to, GuideType type);
 
-	Guides horizontals(GuideType type);
-	Guides verticals(GuideType type);
-	double horizontal(uint ix, GuideType type);
-	double vertical(uint ix, GuideType type);
+	Guides horizontals(GuideType type) const;
+	Guides verticals(GuideType type) const;
+	double horizontal(uint ix, GuideType type) const;
+	double vertical(uint ix, GuideType type) const;
 
-	Guides getAutoHorizontals(ScPage* page = nullptr);
-	Guides getAutoVerticals(ScPage* page = nullptr);
+	Guides getAutoHorizontals(const ScPage* page = nullptr) const;
+	Guides getAutoVerticals(const ScPage* page = nullptr) const;
 
 	void clearHorizontals(GuideType type);
 	void clearVerticals(GuideType type);
 
-	void copy(GuideManagerCore *target);
-	void copy(GuideManagerCore *target, GuideType type);
+	void copy(GuideManagerCore *target) const;
+	void copy(GuideManagerCore *target, GuideType type) const;
 
-	void drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth);
+	void drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth) const;
 
-	int isMouseOnHorizontal(double low, double high, GuideType type);
-	int isMouseOnVertical(double low, double high, GuideType type);
+	int isMouseOnHorizontal(double low, double high, GuideType type) const;
+	int isMouseOnVertical(double low, double high, GuideType type) const;
 
 	void setPage(ScPage *p);
 
-	QPair<double, double> topLeft(double x, double y);// const;
-	QPair<double, double> topRight(double x, double y);// const;
-	QPair<double, double> bottomLeft(double x, double y);// const;
-	QPair<double, double> bottomRight(double x, double y);// const;
+	QPair<double, double> topLeft(double x, double y) const;
+	QPair<double, double> topRight(double x, double y) const;
+	QPair<double, double> bottomLeft(double x, double y) const;
+	QPair<double, double> bottomRight(double x, double y) const;
 
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int horizontalAutoCount() { return m_horizontalAutoCount; }
+	int horizontalAutoCount() const { return m_horizontalAutoCount; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
 	void setHorizontalAutoCount(int val) { m_horizontalAutoCount = val; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int verticalAutoCount() { return m_verticalAutoCount; }
+	int verticalAutoCount() const { return m_verticalAutoCount; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
 	void setVerticalAutoCount(int val) { m_verticalAutoCount = val; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	double horizontalAutoGap(){ return m_horizontalAutoGap; }
+	double horizontalAutoGap() const { return m_horizontalAutoGap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	double verticalAutoGap(){return m_verticalAutoGap; }
+	double verticalAutoGap() const { return m_verticalAutoGap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setHorizontalAutoGap(double gap){ m_horizontalAutoGap = gap; }
+	void setHorizontalAutoGap(double gap) { m_horizontalAutoGap = gap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setVerticalAutoGap(double gap){ m_verticalAutoGap = gap; }
+	void setVerticalAutoGap(double gap) { m_verticalAutoGap = gap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int horizontalAutoRefer() { return m_horizontalAutoRefer; }
+	int horizontalAutoRefer() const { return m_horizontalAutoRefer; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
 	void setHorizontalAutoRefer(int val) { m_horizontalAutoRefer = val; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int verticalAutoRefer() { return m_verticalAutoRefer; }
+	int verticalAutoRefer() const { return m_verticalAutoRefer; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
 	void setVerticalAutoRefer(int val) { m_verticalAutoRefer = val; }
 
@@ -126,10 +127,10 @@ private:
 	int m_horizontalAutoRefer {0};
 	int m_verticalAutoRefer {0};
 
-	double closestHorAbove(double y);// const;
-	double closestHorBelow(double y);// const;
-	double closestVertLeft(double x);// const;
-	double closestVertRight(double x);// const;
+	double closestHorAbove(double y) const;
+	double closestHorBelow(double y) const;
+	double closestVertLeft(double x) const;
+	double closestVertRight(double x) const;
 };
 
 
@@ -171,11 +172,11 @@ class SCRIBUS_API GuideManagerIO
 									   GuideManagerCore::GuideType type,
 									   bool useOldGuides=false);
 
-		static QString writeHorizontalGuides(ScPage *page, GuideManagerCore::GuideType type);
-		static QString writeVerticalGuides(ScPage *page, GuideManagerCore::GuideType type);
+		static QString writeHorizontalGuides(const ScPage *page, GuideManagerCore::GuideType type);
+		static QString writeVerticalGuides(const ScPage *page, GuideManagerCore::GuideType type);
 
 		static void readSelection(const QString& guideString, ScPage *page);
-		static QString writeSelection(ScPage *page);
+		static QString writeSelection(const ScPage *page);
 };
 
 #endif

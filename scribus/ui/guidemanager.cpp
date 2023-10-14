@@ -40,13 +40,8 @@ for which a new license (GPL+exception) is in place.
 
 
 GuideManager::GuideManager(QWidget* parent) :
-		ScrPaletteBase(parent, "GuideManager"),
-		m_Doc(nullptr),
-		currentPage(nullptr),
-		m_drawGuides(true)
+		ScrPaletteBase(parent, "GuideManager")
 {
-	docUnitIndex = 0;
-
 	setupUi(this);
 	tabWidget->setEnabled(false);
 	horizontalAutoGapSpin->setMinimum(0.0);
@@ -213,14 +208,14 @@ void GuideManager::setupGui()
 // 	drawGuides(); let Canvas::DrawPageMarks take care of it and avoid a costly ScribusView::DrawNew()
 }
 
-void GuideManager::storePageValues(ScPage *page)
+void GuideManager::storePageValues(ScPage *page) const
 {
 	if (!page || !m_Doc)
 		return;
 
 	// Handle case where page to store values from does not belong
 	// to current doc, eg. when switching between documents
-	ScribusDoc* doc = page->doc();
+	const ScribusDoc* doc = page->doc();
 	int unitIndex   = doc->unitIndex();
 
 	double gapValue = 0.0;
@@ -551,13 +546,13 @@ void GuideManager::deleteAllGuides_clicked()
 	m_Doc->changed();
 }
 
-Guides GuideManager::getAutoVerticals(ScPage * page)
+Guides GuideManager::getAutoVerticals(const ScPage * page) const
 {
 	GuideManagerCore guides;
 
 	// Handle case where page to store values from does not belong
 	// to current doc, eg. when switching between documents
-	ScribusDoc* doc = page->doc();
+	const ScribusDoc* doc = page->doc();
 	int unitIndex = doc->unitIndex();
 
 	double gapValue = 0.0;
@@ -577,13 +572,13 @@ Guides GuideManager::getAutoVerticals(ScPage * page)
 	return guides.getAutoVerticals(page);
 }
 
-Guides GuideManager::getAutoHorizontals(ScPage * page)
+Guides GuideManager::getAutoHorizontals(const ScPage * page) const
 {
 	GuideManagerCore guides;
 
 	// Handle case where page to store values from does not belong
 	// to current doc, eg. when switching between documents
-	ScribusDoc* doc = page->doc();
+	const ScribusDoc* doc = page->doc();
 	int unitIndex = doc->unitIndex();
 
 	double gapValue = 0.0;
@@ -620,7 +615,7 @@ void GuideManager::resetSelectionForPage()
 	// only one item selected
 	else if (docSelectionCount == 1)
 	{
-		PageItem *currItem = m_Doc->m_Selection->itemAt(0);
+		const PageItem *currItem = m_Doc->m_Selection->itemAt(0);
 		currentPage->guides.gx = currItem->xPos() - currentPage->xOffset();
 		currentPage->guides.gy = currItem->yPos() - currentPage->yOffset();
 		currentPage->guides.gw = currItem->width();
@@ -659,7 +654,7 @@ void GuideManager::setHorizontalRefer(int button)
 	}
 }
 
-int GuideManager::horizontalRefer()
+int GuideManager::horizontalRefer() const
 {
 	if (horizontalPageAutoButton->isChecked())
 		return 0;
@@ -685,7 +680,7 @@ void GuideManager::setVerticalRefer(int button)
 	}
 }
 
-int GuideManager::verticalRefer()
+int GuideManager::verticalRefer() const
 {
 	if (verticalPageAutoButton->isChecked())
 		return 0;
