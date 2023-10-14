@@ -76,21 +76,21 @@ protected:
 
 private:
 	//! \brief Store the guide values in the Qt4 model
-	GuidesModel * horizontalModel;
+	GuidesModel * horizontalModel { nullptr };
 	//! \brief Store the guide values in the Qt4 model
-	GuidesModel * verticalModel;
+	GuidesModel * verticalModel { nullptr };
 
-	ScribusDoc* m_Doc;
+	ScribusDoc* m_Doc { nullptr };
 	//! \brief a reference to the current pages
-	ScPage * currentPage;
+	ScPage * currentPage { nullptr };
 	//! \brief A flag to prevent guides drawing when it's not needed
-	bool m_drawGuides;
+	bool m_drawGuides { true };
 
 	//! \brief Initialise the units. Spin boxes gets pt/mm/etc. extensions here.
 	void unitChange();
 
 	//! \brief Document measurements and metrics
-	int docUnitIndex;
+	int docUnitIndex { 0 };
 
 	//! \brief suffix of the unit [mm, ...]
 	QString suffix;
@@ -103,19 +103,19 @@ private:
 	/*! \brief Save needed (Auto) values into GuideManagerCore.
 	To be restored on the page return.
 	\param page A reference to the page to store values. */
-	void storePageValues(ScPage * page);
+	void storePageValues(ScPage * page) const;
 
 	/*! \brief Create automatic horizontal guides.
 	Calculates positions of the guides.
 	\param p a Page for what should be calculation performed
 	*/
-	Guides getAutoHorizontals(ScPage * p);
+	Guides getAutoHorizontals(const ScPage * p) const;
 
 	/*! \brief Create automatic vertical guides.
 	Calculates positions of the guides.
 	\param p a Page for what should be calculation performed
 	*/
-	Guides getAutoVerticals(ScPage * p);
+	Guides getAutoVerticals(const ScPage * p) const;
 
 	/*! \brief Recalculate the selection position and measurements for the current page.
 	It's used for automatic guides position. It's called for every
@@ -130,9 +130,9 @@ private:
 	Is there a better way to do it? QButtonGroup? It's more code...
 	*/
 	void setHorizontalRefer(int button);
-	int horizontalRefer();
+	int horizontalRefer() const;
 	void setVerticalRefer(int button);
-	int verticalRefer();
+	int verticalRefer() const;
 	void languageChange();
 
 private slots:

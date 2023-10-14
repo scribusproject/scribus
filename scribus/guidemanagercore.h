@@ -89,11 +89,11 @@ public:
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
 	double horizontalAutoGap() const { return m_horizontalAutoGap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	double verticalAutoGap() const {return m_verticalAutoGap; }
+	double verticalAutoGap() const { return m_verticalAutoGap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setHorizontalAutoGap(double gap){ m_horizontalAutoGap = gap; }
+	void setHorizontalAutoGap(double gap) { m_horizontalAutoGap = gap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setVerticalAutoGap(double gap){ m_verticalAutoGap = gap; }
+	void setVerticalAutoGap(double gap) { m_verticalAutoGap = gap; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
 	int horizontalAutoRefer() const { return m_horizontalAutoRefer; }
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
