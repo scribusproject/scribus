@@ -157,7 +157,7 @@ void CharTableModel::addCharacter(const QString& ch)
 	bool ok;
 	int i = ch.indexOf(" ");
 	QString si = ch.left(i);
-	QString sf = ch.mid(i+1);
+	QString sf = ch.mid(i + 1);
 	int val = si.toInt(&ok, 10);
 	if (!ok)
 		return;
@@ -185,7 +185,7 @@ void CharTableModel::appendUnicode(const QString & s, uint base)
 	bool ok;
 	int a = s.indexOf("#");
 	QString si = s.left(a);
-	QString sf = (a >= 0) ? s.mid(a+1) : "";
+	QString sf = (a >= 0) ? s.mid(a + 1) : "";
 	if (sf.isEmpty())
 		sf = m_fontInUse;
 	int val = si.toInt(&ok, base);
