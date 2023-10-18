@@ -341,17 +341,19 @@ void ScreenPainter::drawObject(PageItem* embedded)
 	embedded->DrawObj_Post(m_painter);
 	embedded->m_lineWidth = pws;
 
+	m_painter->restore();
+
 	if (m_item->m_Doc->guidesPrefs().framesShown)
 	{
+		m_painter->save();
 		int fm = m_painter->fillMode();
 		m_painter->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor, 0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 		m_painter->setFillMode(ScPainter::None);
 		QRectF bBox = embedded->getVisualBoundingRect();
 		m_painter->drawSharpRect(0, 0, bBox.width(), bBox.height());
 		m_painter->setFillMode(fm);
+		m_painter->restore();
 	}
-
-	m_painter->restore();
 }
 
 void ScreenPainter::clip(QRectF rect)

@@ -842,9 +842,20 @@ void ObjectBox::render(TextLayoutPainter *p) const
 	double oldX = m_object->xPos();
 	double oldY = m_object->yPos();
 	bool oldEM = m_object->isEmbedded;
-	//m_item->isEmbedded = false; // #14311: fix discrepancy of display between 1.5.1 and 1.5.2+
 	const CharStyle& charStyle = style();
 	p->translate(x(), y() - ascent());
+	if (m_object->rotation() != 0.0)
+	{
+		double lineWidth = m_object->visualLineWidth();
+		QTransform trans;
+		trans.translate(lineWidth / 2.0, lineWidth / 2.0);
+		trans.rotate(m_object->rotation());
+		QSizeF objectSize = m_object->visualSize();
+		QRectF mappedRect = trans.mapRect(QRectF(0.0, 0.0, objectSize.width(), objectSize.height()));
+		double dx = (mappedRect.left() < 0) ? -mappedRect.left() : 0.0;
+		double dy = (mappedRect.top() < 0) ? -mappedRect.top() : 0.0;
+		p->translate(dx, dy);
+	}
 	if (m_glyphRun.hasFlag(ScLayout_DropCap))
 		p->setScale(m_glyphRun.scaleH(), m_glyphRun.scaleV());
 	else
@@ -853,7 +864,6 @@ void ObjectBox::render(TextLayoutPainter *p) const
 
 	m_object->setXPos(m_object->gXpos, true);
 	m_object->setYPos(m_object->gYpos, true);
-	//	m_item->setYPos((m_object->gHeight * (charStyle.scaleV() / 1000.0)) + m_object->gYpos, true);
 
 	if (charStyle.baselineOffset() != 0)
 	{
