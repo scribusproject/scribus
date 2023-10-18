@@ -215,7 +215,7 @@ void GuideManager::storePageValues(ScPage *page) const
 	if (horizontalAutoGapCheck->isChecked())
 		gapValue = value2pts(horizontalAutoGapSpin->value(), unitIndex);
 	page->guides.setHorizontalAutoGap(gapValue);
-	page->guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
+	page->guides.setHorizontalAutoCount(static_cast<int>(horizontalAutoCountSpin->value()));
 	page->guides.setHorizontalAutoRefer(horizontalRefer());
 	page->guides.addHorizontals(getAutoHorizontals(page), GuideManagerCore::Auto);
 
@@ -223,7 +223,7 @@ void GuideManager::storePageValues(ScPage *page) const
 	if (verticalAutoGapCheck->isChecked())
 		gapValue = value2pts(verticalAutoGapSpin->value(), unitIndex);
 	page->guides.setVerticalAutoGap(gapValue);
-	page->guides.setVerticalAutoCount(verticalAutoCountSpin->value());
+	page->guides.setVerticalAutoCount(static_cast<int>(verticalAutoCountSpin->value()));
 	page->guides.setVerticalAutoRefer(verticalRefer());
 	page->guides.addVerticals(getAutoVerticals(page), GuideManagerCore::Auto);
 }
@@ -367,7 +367,7 @@ void GuideManager::horizontalAutoCountSpin_valueChanged(double val)
 		horizontalAutoGapSpin->setEnabled(true);
 	else
 		horizontalAutoGapSpin->setEnabled(false);
-	currentPage->guides.setHorizontalAutoCount(val);
+	currentPage->guides.setHorizontalAutoCount(static_cast<int>(val));
 	drawGuides();
 	m_Doc->changed();
 }
@@ -398,7 +398,7 @@ void GuideManager::verticalAutoCountSpin_valueChanged(double val)
 		verticalAutoGapSpin->setEnabled(true);
 	else
 		verticalAutoGapSpin->setEnabled(false);
-	currentPage->guides.setVerticalAutoCount(val);
+	currentPage->guides.setVerticalAutoCount(static_cast<int>(val));
 	drawGuides();
 	m_Doc->changed();
 }
@@ -552,14 +552,14 @@ Guides GuideManager::getAutoVerticals(const ScPage * page) const
 	if (horizontalAutoGapCheck->isChecked())
 		gapValue = value2pts(horizontalAutoGapSpin->value(), unitIndex);
 	guides.setHorizontalAutoGap(gapValue);
-	guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
+	guides.setHorizontalAutoCount(static_cast<int>(horizontalAutoCountSpin->value()));
 	guides.setHorizontalAutoRefer(horizontalRefer());
 
 	gapValue = 0.0;
 	if (verticalAutoGapCheck->isChecked())
 		gapValue = value2pts(verticalAutoGapSpin->value(), unitIndex);
 	guides.setVerticalAutoGap(gapValue);
-	guides.setVerticalAutoCount(verticalAutoCountSpin->value());
+	guides.setVerticalAutoCount(static_cast<int>(verticalAutoCountSpin->value()));
 	guides.setVerticalAutoRefer(verticalRefer());
 
 	return guides.getAutoVerticals(page);
@@ -578,14 +578,14 @@ Guides GuideManager::getAutoHorizontals(const ScPage * page) const
 	if (horizontalAutoGapCheck->isChecked())
 		gapValue = value2pts(horizontalAutoGapSpin->value(), unitIndex);
 	guides.setHorizontalAutoGap(gapValue);
-	guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
+	guides.setHorizontalAutoCount(static_cast<int>(horizontalAutoCountSpin->value()));
 	guides.setHorizontalAutoRefer(horizontalRefer());
 
 	gapValue = 0.0;
 	if (verticalAutoGapCheck->isChecked())
 		gapValue = value2pts(verticalAutoGapSpin->value(), unitIndex);
 	guides.setVerticalAutoGap(gapValue);
-	guides.setVerticalAutoCount(verticalAutoCountSpin->value());
+	guides.setVerticalAutoCount(static_cast<int>(verticalAutoCountSpin->value()));
 	guides.setVerticalAutoRefer(verticalRefer());
 
 	return guides.getAutoHorizontals(page);
@@ -644,6 +644,8 @@ void GuideManager::setHorizontalRefer(int button)
 			break;
 		case 2 :
 			horizontalSelectionAutoButton->setChecked(true);
+		default:
+			break;
 	}
 }
 
@@ -670,6 +672,8 @@ void GuideManager::setVerticalRefer(int button)
 			break;
 		case 2 :
 			verticalSelectionAutoButton->setChecked(true);
+		default:
+			break;
 	}
 }
 

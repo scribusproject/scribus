@@ -47,7 +47,7 @@ class GuidesModel : public QAbstractTableModel
 		//! \brief Set new values into the model.
 		void setValues(const Guides& values);
 		//! \brief Get values back to the app.
-		Guides values();
+		const Guides& values() const;
 
 		void unitChange(int docUnitIndex, int docUnitDecimals, double offset);
 #if 0
