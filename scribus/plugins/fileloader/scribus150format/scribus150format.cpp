@@ -145,11 +145,13 @@ bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & file
 	}
 
 	QRegExp regExp150("Version=\"1.5.[0-9]");
+	QRegExp regExp160("Version=\"1.6.[0-9]");
 	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
 	if (startElemPos >= 0)
 	{
 		bool is150 = (regExp150.indexIn(docBytes.mid(startElemPos, 64)) >= 0);
-		return is150;
+		bool is160 = (regExp160.indexIn(docBytes.mid(startElemPos, 64)) >= 0);
+		return (is150 || is160);
 	}
 	return false;
 }
@@ -181,11 +183,13 @@ bool Scribus150Format::paletteSupported(QIODevice* /* file */, const QString & f
 bool Scribus150Format::storySupported(const QByteArray& storyData) const
 {
 	QRegExp regExp150("Version=\"1.5.[0-9]");
+	QRegExp regExp160("Version=\"1.6.[0-9]");
 	int startElemPos = storyData.left(512).indexOf("<ScribusStory ");
 	if (startElemPos >= 0)
 	{
 		bool is150 = (regExp150.indexIn(storyData.mid(startElemPos, 64)) >= 0);
-		return is150;
+		bool is160 = (regExp160.indexIn(storyData.mid(startElemPos, 64)) >= 0);
+		return (is150 || is160);
 	}
 	return false;
 }
