@@ -130,7 +130,7 @@ void GuidesModel::setValues(const Guides& values)
 	endResetModel();
 }
 
-Guides GuidesModel::values()
+const Guides& GuidesModel::values() const
 {
 	return m_values;
 }
