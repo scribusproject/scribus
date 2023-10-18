@@ -150,10 +150,12 @@ bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & file
 	if (startElemPos < 0)
 		return false;
 	QRegularExpression regExp150("Version=\"1.5.[0-9]");
+	QRegularExpression regExp160("Version=\"1.6.[0-9]");
 	QRegularExpression regExp170("Version=\"1.7.[0-9]");
 	QRegularExpressionMatch match150 = regExp150.match(docBytes.mid(startElemPos, 64));
+	QRegularExpressionMatch match160 = regExp160.match(docBytes.mid(startElemPos, 64));
 	QRegularExpressionMatch match170 = regExp170.match(docBytes.mid(startElemPos, 64));
-	return match150.hasMatch() || match170.hasMatch();
+	return match150.hasMatch() || match160.hasMatch() || match170.hasMatch();
 }
 
 bool Scribus150Format::paletteSupported(QIODevice* /* file */, const QString & fileName) const
@@ -186,10 +188,12 @@ bool Scribus150Format::storySupported(const QByteArray& storyData) const
 	if (startElemPos < 0)
 		return false;
 	QRegularExpression regExp150("Version=\"1.5.[0-9]");
+	QRegularExpression regExp160("Version=\"1.6.[0-9]");
 	QRegularExpression regExp170("Version=\"1.7.[0-9]");
 	QRegularExpressionMatch match150 = regExp150.match(storyData.mid(startElemPos, 64));
+	QRegularExpressionMatch match160 = regExp160.match(storyData.mid(startElemPos, 64));
 	QRegularExpressionMatch match170 = regExp170.match(storyData.mid(startElemPos, 64));
-	return match150.hasMatch() || match170.hasMatch();
+	return match150.hasMatch() || match160.hasMatch() || match170.hasMatch();
 }
 
 QIODevice* Scribus150Format::slaReader(const QString & fileName)
