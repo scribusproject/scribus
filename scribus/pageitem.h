@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QObject>
 #include <QWidget>
 #include <QPolygon>
+#include <QSizeF>
 #include <QStack>
 #include <QList>
 #include <QKeyEvent>
@@ -533,6 +534,7 @@ public: // Start public functions
 	double height() const override { return m_height; }
 	virtual double visualWidth() const;
 	virtual double visualHeight() const;
+	virtual QSizeF visualSize() const;
 	double visualLineWidth() const;
 	void setWidth(double);
 	void setHeight(double);

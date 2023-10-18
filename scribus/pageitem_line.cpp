@@ -462,3 +462,9 @@ double PageItem_Line::visualHeight() const
 	double extraSpace = visualLineWidth();
 	return extraSpace;
 }
+
+QSizeF PageItem_Line::visualSize() const
+{
+	double extraSpace = visualLineWidth();
+	return QSizeF(m_width, extraSpace);
+}

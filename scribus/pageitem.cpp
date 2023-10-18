@@ -9313,6 +9313,12 @@ double PageItem::visualHeight() const
 	return m_height + extraSpace;
 }
 
+QSizeF PageItem::visualSize() const
+{
+	double extraSpace = visualLineWidth();
+	return QSizeF(m_width + extraSpace, m_height + extraSpace);
+}
+
 double PageItem::visualLineWidth() const
 {
 	double extraSpace = 0.0;
