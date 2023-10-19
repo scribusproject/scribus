@@ -32,8 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_color.h"
 
-
-
 KCurve::KCurve(QWidget *parent) : QWidget(parent)
 {
 	setMouseTracking(true);
@@ -42,10 +40,6 @@ KCurve::KCurve(QWidget *parent) : QWidget(parent)
 	m_points.addPoint(0.0, 0.0);
 	m_points.addPoint(1.0, 1.0);
 	setFocusPolicy(Qt::StrongFocus);
-}
-
-KCurve::~KCurve()
-{
 }
 
 void KCurve::paintEvent(QPaintEvent *)
@@ -140,8 +134,8 @@ void KCurve::mousePressEvent ( QMouseEvent * e )
 	double distance;
 	if (e->button() != Qt::LeftButton)
 		return;
-	double x = e->pos().x() / (float)width();
-	double y = 1.0 - e->pos().y() / (float)height();
+	double x = e->pos().x() / (float) width();
+	double y = 1.0 - e->pos().y() / (float) height();
 	distance = 1000; // just a big number
 	FPoint p = m_points.point(0);
 	int insert_pos =0;
@@ -228,8 +222,8 @@ void KCurve::mouseReleaseEvent ( QMouseEvent * e )
 
 void KCurve::mouseMoveEvent ( QMouseEvent * e )
 {
-	double x = e->pos().x() / (float)width();
-	double y = 1.0 - e->pos().y() / (float)height();
+	double x = e->pos().x() / (float) width();
+	double y = 1.0 - e->pos().y() / (float) height();
 
 	if (!m_dragging)   // If no point is selected set the the cursor shape if on top
 	{
@@ -276,7 +270,7 @@ double KCurve::getCurveValue(double x)
 	return getCurveYValue(m_points, x, m_linear);
 }
 
-FPointArray KCurve::getCurve()
+FPointArray KCurve::getCurve() const
 {
 	return m_points.copy();
 }
@@ -305,7 +299,7 @@ void KCurve::setLinear(bool setter)
 	emit modified();
 }
 
-bool KCurve::isLinear()
+bool KCurve::isLinear() const
 {
 	return m_linear;
 }
@@ -398,84 +392,83 @@ void CurveWidget::setLinear(bool setter)
 
 void CurveWidget::doLoad()
 {
-	QString fileName;
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("curves", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), tr("Curve Files (*.scu *.SCU);;All Files (*)"), fdHidePreviewCheckBox | fdExistingFiles);
-	if (dia.exec() == QDialog::Accepted)
-		fileName = dia.selectedFile();
-	else
+	if (dia.exec() != QDialog::Accepted)
 		return;
-	if (!fileName.isEmpty())
+
+	QString fileName = dia.selectedFile();
+	if (fileName.isEmpty())
+		return;
+	dirs->set("curves", fileName.left(fileName.lastIndexOf("/")));
+
+	QFile f(fileName);
+	if (!f.open(QIODevice::ReadOnly))
+		return;
+
+	QTextStream fp(&f);
+	int numVals;
+	double xval, yval;
+	FPointArray curve;
+	fp >> numVals;
+	for (int nv = 0; nv < numVals; nv++)
 	{
-		dirs->set("curves", fileName.left(fileName.lastIndexOf("/")));
-		QFile f(fileName);
-		if (f.open(QIODevice::ReadOnly))
-		{
-			QTextStream fp(&f);
-			int numVals;
-			double xval, yval;
-			FPointArray curve;
-			curve.resize(0);
-			fp >> numVals;
-			for (int nv = 0; nv < numVals; nv++)
-			{
-				QString s;
-				fp >> s;
-				xval = ScCLocale::toDoubleC(s);
-				fp >> s;
-				yval = ScCLocale::toDoubleC(s);
-				curve.addPoint(xval, yval);
-			}
-			cDisplay->setCurve(curve);
-			int lin;
-			fp >> lin;
-			cDisplay->setLinear(lin);
-		}
+		QString s;
+		fp >> s;
+		xval = ScCLocale::toDoubleC(s);
+		fp >> s;
+		yval = ScCLocale::toDoubleC(s);
+		curve.addPoint(xval, yval);
 	}
+	cDisplay->setCurve(curve);
+	int lin;
+	fp >> lin;
+	cDisplay->setLinear(lin);
 }
 
 void CurveWidget::doSave()
 {
-	QString fileName;
 	QString wdir = PrefsManager::instance().prefsFile->getContext("dirs")->get("curves", ".");
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("Curve Files (*.scu *.SCU);;All Files (*)"), fdHidePreviewCheckBox | fdNone);
-	if (dia.exec() == QDialog::Accepted)
-		fileName = dia.selectedFile();
-	else
+	if (dia.exec() != QDialog::Accepted)
 		return;
-	if (!fileName.isEmpty())
+
+	QString	fileName = dia.selectedFile();
+	if (fileName.isEmpty())
+		return;
+	if (!fileName.endsWith(".scu"))
+		fileName += ".scu";
+
+	PrefsManager::instance().prefsFile->getContext("dirs")->set("curves", fileName.left(fileName.lastIndexOf("/")));
+	if (!overwrite(this, fileName))
+		return;
+
+	QString efval;
+	FPointArray Vals = cDisplay->getCurve();
+	QString tmp;
+	tmp.setNum(Vals.size());
+	efval += tmp;
+	for (int p = 0; p < Vals.size(); p++)
 	{
-		if (!fileName.endsWith(".scu"))
-			fileName += ".scu";
-		PrefsManager::instance().prefsFile->getContext("dirs")->set("curves", fileName.left(fileName.lastIndexOf("/")));
-		if (overwrite(this, fileName))
-		{
-			QString efval = "";
-			FPointArray Vals = cDisplay->getCurve();
-			QString tmp;
-			tmp.setNum(Vals.size());
-			efval += tmp;
-			for (int p = 0; p < Vals.size(); p++)
-			{
-				const FPoint& pv = Vals.point(p);
-				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
-			}
-			if (cDisplay->isLinear())
-				efval += " 1";
-			else
-				efval += " 0";
-			QFile fx(fileName);
-			if (fx.open(QIODevice::WriteOnly))
-			{
-				QTextStream tsx(&fx);
-				tsx << efval;
-				fx.close();
-			}
-			else
-				ScMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fileName));
-		}
+		const FPoint& pv = Vals.point(p);
+		efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 	}
+
+	if (cDisplay->isLinear())
+		efval += " 1";
+	else
+		efval += " 0";
+
+	QFile fx(fileName);
+	if (!fx.open(QIODevice::WriteOnly))
+	{
+		ScMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fileName));
+		return;
+	}
+	QTextStream tsx(&fx);
+	tsx << efval;
+	fx.close();
 }
 
 void CurveWidget::changeEvent(QEvent *e)

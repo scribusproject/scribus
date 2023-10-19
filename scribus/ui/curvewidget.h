@@ -30,7 +30,7 @@ class SCRIBUS_API KCurve : public QWidget
 
 public:
 	KCurve(QWidget *parent);
-	virtual ~KCurve();
+	virtual ~KCurve() = default;
 
 protected:
 	void paintEvent(QPaintEvent*) override;
@@ -41,11 +41,11 @@ protected:
 
 public:
 	double getCurveValue(double x);
-	FPointArray getCurve();
+	FPointArray getCurve() const;
 	void setCurve(const FPointArray& inlist);
 	void resetCurve();
 	void setLinear(bool setter);
-	bool isLinear();
+	bool isLinear() const;
 
 signals:
 	void modified();
