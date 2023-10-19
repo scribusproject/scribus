@@ -548,7 +548,7 @@ void getTransformValuesFromMatrix(const QTransform &matrix, double &scX, double 
 	dy = lineX.y1();
 }
 
-QList<QPointF> catmullToBezier(QList<QPointF> inputPoints, double t)
+QList<QPointF> catmullToBezier(const QList<QPointF>& inputPoints, double t)
 {
 	// Inspired by the explanation on: https://pomax.github.io/bezierinfo/#catmullconv
 
