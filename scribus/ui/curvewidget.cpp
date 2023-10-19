@@ -30,9 +30,16 @@ for which a new license (GPL+exception) is in place.
 #include "ui/customfdialog.h"
 #include "ui/scmessagebox.h"
 #include "util.h"
-#include "util_color.h"
+#include "util_math.h"
 
+/* ********************************************************************************* *
+ *
+ * Constructor + Setup
+ *
+ * ********************************************************************************* */
 
+const qreal POINT_RADIUS = 4.0;
+const qreal TOLERANCE = 2.0; // pixel tolerance to hit a point
 
 KCurve::KCurve(QWidget *parent) : QWidget(parent)
 {
@@ -41,61 +48,65 @@ KCurve::KCurve(QWidget *parent) : QWidget(parent)
 	m_points.resize(0);
 	m_points.addPoint(0.0, 0.0);
 	m_points.addPoint(1.0, 1.0);
-	setFocusPolicy(Qt::StrongFocus);
-}
+	m_points_back = m_points.copy();
 
-KCurve::~KCurve()
-{
+	setFocusPolicy(Qt::StrongFocus);
 }
 
 void KCurve::paintEvent(QPaintEvent *)
 {
-	int x = 0;
-	int wWidth = width() - 1;
-	int wHeight = height() - 1;
-	// Drawing selection or all histogram values.
-	QPainter p1;
-	p1.begin(this);
-	//  draw background
-	p1.fillRect(QRect(0, 0, wWidth, wHeight), QColor(255, 255, 255));
-	// Draw grid separators.
-	p1.setPen(QPen(Qt::gray, 1, Qt::SolidLine));
-	p1.drawLine(wWidth/4, 0, wWidth/4, wHeight);
-	p1.drawLine(wWidth/2, 0, wWidth/2, wHeight);
-	p1.drawLine(3*wWidth/4, 0, 3*wWidth/4, wHeight);
-	p1.drawLine(0, wHeight/4, wWidth, wHeight/4);
-	p1.drawLine(0, wHeight/2, wWidth, wHeight/2);
-	p1.drawLine(0, 3*wHeight/4, wWidth, 3*wHeight/4);
+	int wWidth = width();
+	int wHeight = height();
+	QPointF offset(-.5, -.5);
+	QColor colorHandle = palette().color(QPalette::Highlight);
+	QColor colorBackground = palette().color(QPalette::Base);
+	QColor colorGraph = palette().color(QPalette::WindowText);
+	QColor colorGrid = palette().color(QPalette::Midlight); // Qt::gray
+	QPainterPath path = curvePath();
 
-	// Draw curve.
-	double curvePrevVal = getCurveValue(0.0);
-	p1.setPen(QPen(Qt::black, 1, Qt::SolidLine));
-	for (x = 0 ; x < wWidth ; x++)
+	// Drawing selection or all histogram values
+	QPainter painter;
+	painter.begin(this);
+	painter.setRenderHint(QPainter::Antialiasing, true);
+
+	// Draw background
+	painter.fillRect(this->rect(), colorBackground);
+
+	// Draw grid separators
+	painter.setPen(QPen(colorGrid, 1, Qt::SolidLine));
+	painter.drawLine( QPoint(wWidth * .25, 0) - offset, QPoint(wWidth * .25, wHeight) - offset );
+	painter.drawLine( QPoint(wWidth * .5, 0) - offset, QPoint(wWidth * .5, wHeight) - offset );
+	painter.drawLine( QPoint(wWidth * .75, 0) - offset, QPoint(wWidth * .75, wHeight) - offset );
+	painter.drawLine( QPoint(0, wHeight * .25) - offset, QPoint(wWidth, wHeight * .25) - offset );
+	painter.drawLine( QPoint(0, wHeight * .5) - offset, QPoint(wWidth, wHeight * .5) - offset );
+	painter.drawLine( QPoint(0, wHeight * .75) - offset, QPoint(wWidth, wHeight * .75) - offset );
+
+	// Draw curve
+	painter.setPen(QPen(colorGraph, 2, Qt::SolidLine));
+	painter.drawPath(path);
+	painter.setBrush(Qt::NoBrush);
+
+	// Draw handles
+	for (int i = 0; i < m_points.size(); i++)
 	{
-		double curveX;
-		double curveVal;
-		//		curveX = (x + 0.5) / wWidth;
-		curveX = x / static_cast<double>(wWidth);
-		curveVal = getCurveValue(curveX);
-		p1.drawLine(x - 1, wHeight - int(curvePrevVal * wHeight), x,     wHeight - int(curveVal * wHeight));
-		curvePrevVal = curveVal;
-	}
-	p1.drawLine(x - 1, wHeight - int(curvePrevVal * wHeight), x,     wHeight - int(getCurveValue(1.0) * wHeight));
-	for (int dh = 0; dh < m_points.size(); dh++)
-	{
-		FPoint p = m_points.point(dh);
-		if (p == m_grab_point)
+		FPoint p = m_points.point(i);
+		QPointF dot(p.x() * width(), (1 - p.y()) * height());
+
+		if (i == selectedPoint())
 		{
-			p1.setPen(QPen(Qt::red, 3, Qt::SolidLine));
-			p1.drawEllipse( int(p.x() * wWidth) - 2, wHeight - 2 - int(p.y() * wHeight), 4, 4 );
+			painter.setPen(QPen(colorHandle, 2, Qt::SolidLine));
+			painter.setBrush(colorHandle);
+			painter.drawEllipse( dot, POINT_RADIUS, POINT_RADIUS );
 		}
 		else
 		{
-			p1.setPen(QPen(Qt::red, 1, Qt::SolidLine));
-			p1.drawEllipse( int(p.x() * wWidth) - 3, wHeight - 3 - int(p.y() * wHeight), 6, 6 );
+			painter.setPen(QPen(colorGraph, 2, Qt::SolidLine));
+			painter.setBrush(colorBackground);
+			painter.drawEllipse( dot, POINT_RADIUS, POINT_RADIUS );
 		}
 	}
-	p1.end();
+
+	painter.end();
 }
 
 void KCurve::keyPressEvent(QKeyEvent *e)
@@ -104,29 +115,10 @@ void KCurve::keyPressEvent(QKeyEvent *e)
 	{
 		if (m_points.size() > 2)
 		{
-			FPoint closest_point = m_points.point(0);
-			FPoint p = m_points.point(0);
-			int pos = 0;
-			int cc = 0;
-			double distance = 1000; // just a big number
-			while (cc < m_points.size())
-			{
-				p = m_points.point(cc);
-				if (fabs (m_grab_point.x() - p.x()) < distance)
-				{
-					distance = fabs(m_grab_point.x() - p.x());
-					closest_point = p;
-					m_pos = pos;
-				}
-				cc++;
-				pos++;
-			}
-			FPointArray cli;
-			cli.putPoints(0, m_pos, m_points);
-			cli.putPoints(cli.size(), m_points.size()-m_pos-1, m_points, m_pos+1);
-			m_points.resize(0);
-			m_points = cli.copy();
-			m_grab_point = closest_point;
+			m_points.removeAt(selectedPoint());
+
+			m_selectedPoint = qBound(0, m_selectedPoint - 1, m_points.size() - 1);
+
 			repaint();
 			emit modified();
 			QWidget::keyPressEvent(e);
@@ -136,84 +128,51 @@ void KCurve::keyPressEvent(QKeyEvent *e)
 
 void KCurve::mousePressEvent ( QMouseEvent * e )
 {
-	FPoint closest_point = FPoint();
-	double distance;
 	if (e->button() != Qt::LeftButton)
 		return;
-	double x = e->pos().x() / (float)width();
-	double y = 1.0 - e->pos().y() / (float)height();
-	distance = 1000; // just a big number
-	FPoint p = m_points.point(0);
-	int insert_pos =0;
-	int pos = 0;
-	int cc = 0;
-	while (cc < m_points.size())
+
+	// invert mouseY
+	m_mousePos = QPointF( e->pos().x(), (height() - e->pos().y()));
+
+	m_leftmost = - 1;
+	m_selectedPoint = 0;
+	m_rightmost = m_points.size();
+
+	m_dragging = false;
+
+	for (int i = 0; i < m_points.size(); i++)
 	{
-		p = m_points.point(cc);
-		if (fabs (x - p.x()) < distance)
+		QPointF pt(m_points[i].x() * width(), m_points[i].y() * height());
+
+		// calculate left point of mouse position
+		if (pt.x() >= 0 && pt.x() <= m_mousePos.x())
+			m_leftmost = i;
+
+		if (manhattanDistance(pt, m_mousePos) <= POINT_RADIUS + TOLERANCE)
 		{
-			distance = fabs(x - p.x());
-			closest_point = p;
-			insert_pos = pos;
-		}
-		cc++;
-		pos++;
-	}
-	m_pos = insert_pos;
-	m_grab_point = closest_point;
-	m_grabOffsetX = m_grab_point.x() - x;
-	m_grabOffsetY = m_grab_point.y() - y;
-	m_grab_point = FPoint(x + m_grabOffsetX, y + m_grabOffsetY);
-	double curveVal = getCurveValue(x);
-	if (distance * width() > 5)
-	{
-		m_dragging = false;
-		if (fabs(y - curveVal) * width() > 5)
-			return;
-		if (m_points.size() < 14)
-		{
-			if (x > closest_point.x())
-				m_pos++;
-			FPointArray cli;
-			cli.putPoints(0, m_pos, m_points);
-			cli.resize(cli.size()+1);
-			cli.putPoints(cli.size()-1, 1, x, curveVal);
-			cli.putPoints(cli.size(), m_points.size()-m_pos, m_points, m_pos);
-			m_points.resize(0);
-			m_points = cli.copy();
+			m_selectedPoint = i;
+			m_leftmost = i - 1;
+			m_rightmost = i + 1;
+
 			m_dragging = true;
-			m_grab_point = m_points.point(m_pos);
-			m_grabOffsetX = m_grab_point.x() - x;
-			m_grabOffsetY = m_grab_point.y() - curveVal;
-			m_grab_point = FPoint(x + m_grabOffsetX, curveVal + m_grabOffsetY);
-			setCursor(QCursor(Qt::CrossCursor));
-		}
-	}
-	else
-	{
-		if (fabs(y - closest_point.y()) * width() > 5)
+			repaint();
 			return;
-		m_dragging = true;
-		setCursor(QCursor(Qt::CrossCursor));
-	}
-	// Determine the leftmost and rightmost points.
-	m_leftmost = 0;
-	m_rightmost = 1;
-	cc = 0;
-	while (cc < m_points.size())
-	{
-		p = m_points.point(cc);
-		if (p != m_grab_point)
-		{
-			if (p.x() > m_leftmost && p.x() < x)
-				m_leftmost = p.x();
-			if (p.x() < m_rightmost && p.x() > x)
-				m_rightmost = p.x();
 		}
-		cc++;
-    }
-	repaint();
-	emit modified();
+	}
+
+	// add new point
+	if (!m_dragging)
+	{
+		FPoint onCurve(m_mousePos.x() / width(), m_mousePos.y() / height());
+		m_selectedPoint = m_leftmost + 1;
+		m_rightmost = m_leftmost + 2;
+		m_points.insert(m_selectedPoint, onCurve );
+
+		m_dragging = true;
+
+		repaint();
+		emit modified();
+	}
 }
 
 void KCurve::mouseReleaseEvent ( QMouseEvent * e )
@@ -228,57 +187,107 @@ void KCurve::mouseReleaseEvent ( QMouseEvent * e )
 
 void KCurve::mouseMoveEvent ( QMouseEvent * e )
 {
-	double x = e->pos().x() / (float)width();
-	double y = 1.0 - e->pos().y() / (float)height();
+	if (!m_dragging)
+		return;
 
-	if (!m_dragging)   // If no point is selected set the the cursor shape if on top
-	{
-		double distance = 1000;
-		double ydistance = 1000;
-		int cc = 0;
-		while (cc < m_points.size())
-		{
-			FPoint p = m_points.point(cc);
-			if (fabs (x - p.x()) < distance)
-			{
-				distance = fabs(x - p.x());
-				ydistance = fabs(y - p.y());
-			}
-			cc++;
-		}
-		if (distance * width() > 5 || ydistance * height() > 5)
-			setCursor(QCursor(Qt::ArrowCursor));
-		else
-			setCursor(QCursor(Qt::CrossCursor));
-	}
-	else  // Else, drag the selected point
-	{
-		setCursor(QCursor(Qt::CrossCursor));
-		x += m_grabOffsetX;
-		y += m_grabOffsetY;
-		if (x <= m_leftmost)
-			x = m_leftmost + 1E-4; // the addition so we can grab the dot later.
-		if (x >= m_rightmost)
-			x = m_rightmost - 1E-4;
-		if (y > 1.0)
-			y = 1.0;
-		if (y < 0.0)
-			y = 0.0;
-		m_grab_point = FPoint(x, y);
-		m_points.setPoint( m_pos, m_grab_point);
-		repaint();
-		emit modified();
-	}
+	setCursor(QCursor(Qt::CrossCursor));
+
+	// invert mouseY
+	QPointF mouse(e->pos().x(), height() - e->pos().y());
+
+	// left bound
+	qreal leftBound = (m_leftmost < 0) ? 0. : m_points.at(m_leftmost).x();
+	qreal rightBound = (m_rightmost >= m_points.size()) ? 1. : m_points.at(m_rightmost).x();
+
+	// limit to bounds
+	qreal yPos = qBound(0., mouse.y() / height(), 1.);
+	qreal xPos = qBound(leftBound + 1E-4, mouse.x() / width(), rightBound - 1E-4);
+
+	QPointF pointSelectedDot(xPos, yPos );
+
+	// set new position
+	m_points.setPoint( m_selectedPoint, pointSelectedDot);
+
+	repaint();
+	emit modified();
 }
 
-double KCurve::getCurveValue(double x)
-{
-	return getCurveYValue(m_points, x, m_linear);
-}
-
-FPointArray KCurve::getCurve()
+FPointArray KCurve::getCurve() const
 {
 	return m_points.copy();
+}
+
+QPainterPath KCurve::curvePath() const
+{
+	QPainterPath path;
+
+	if (m_points.size() <= 0)
+	{
+		qWarning() << Q_FUNC_INFO << "Can't create path because there are no path nodes!";
+		return path;
+	}
+
+	QPointF pointStart( 0, (1 - m_points.at(0).y()) * height() );
+	QPointF pointEnd( width(), (1 - m_points.at(m_points.size() - 1).y()) * height() );
+
+	QList<QPointF> points;
+	points.append( pointStart );
+
+	// Calculate absolute position of each point
+	for (int i = 0; i < m_points.size(); i++)
+	{
+		FPoint p = m_points.at(i);
+		points.append(QPointF(p.x() * width(), (1 - p.y()) * height()));
+	}
+
+	points.append( pointEnd );
+
+	// Add start line
+	path.moveTo( pointStart );
+	path.lineTo( points.at(1) );
+
+	for (int id = 0; id < points.size(); id++)
+	{
+		if (m_linear)
+		{
+			path.lineTo(points.at(id).toPoint());
+			continue;
+		}
+
+		int i0 = id - 1;
+		int i1 = id;
+		int i2 = id + 1;
+		int i3 = id + 2;
+
+		if (i0 < 0 || i2 > points.size() - 1 || i3 > points.size() - 1)
+			continue;
+
+		FPoint p0 = (i0 >= 0) ? points.at(i0) : points.at(i1);
+		FPoint p1 = points.at(i1);
+		FPoint p2 = (i2 < points.size()) ? points.at(i2) : points.at(points.size() - 1);
+		FPoint p3 = (i3 < points.size()) ? points.at(i3) : points.at(points.size() - 1);
+
+		QList<QPointF> inputPoints;
+		inputPoints.append(p0.toQPointF()); // Previous point
+		inputPoints.append(p1.toQPointF()); // Point
+		inputPoints.append(p2.toQPointF()); // Next point
+		inputPoints.append(p3.toQPointF()); // Next but one point
+
+		double t = qMax(width() / (p2.x() - p1.x()) / 6, 1.);
+
+		QList<QPointF> bezPoints = catmullToBezier(inputPoints, t);
+
+		path.cubicTo(
+			bezPoints.at(1), // Control 1
+			bezPoints.at(2), // Control 2
+			bezPoints.at(3) // Next Point
+		);
+	}
+
+	// Add end line
+	path.lineTo(pointEnd);
+
+	return path;
 }
 
 void KCurve::setCurve(const FPointArray& inlist)
@@ -305,10 +314,22 @@ void KCurve::setLinear(bool setter)
 	emit modified();
 }
 
-bool KCurve::isLinear()
+bool KCurve::isLinear() const
 {
 	return m_linear;
 }
+
+int KCurve::selectedPoint() const
+{
+	return m_points.size() > 0 ? qBound(0, m_selectedPoint, m_points.size() -1) : -1;
+}
+
+
+/* ********************************************************************************* *
+ *
+ * Constructor + Setup
+ *
+ * ********************************************************************************* */
 
 CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 {
@@ -398,84 +419,83 @@ void CurveWidget::setLinear(bool setter)
 
 void CurveWidget::doLoad()
 {
-	QString fileName;
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("curves", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), tr("Curve Files (*.scu *.SCU);;All Files (*)"), fdHidePreviewCheckBox | fdExistingFiles);
-	if (dia.exec() == QDialog::Accepted)
-		fileName = dia.selectedFile();
-	else
+	if (dia.exec() != QDialog::Accepted)
 		return;
-	if (!fileName.isEmpty())
+		
+	QString fileName = dia.selectedFile();
+	if (fileName.isEmpty())
+		return;
+	dirs->set("curves", fileName.left(fileName.lastIndexOf("/")));
+
+	QFile f(fileName);
+	if (!f.open(QIODevice::ReadOnly))
+		return;
+
+	QTextStream fp(&f);
+	int numVals;
+	double xval, yval;
+	FPointArray curve;
+	fp >> numVals;
+	for (int nv = 0; nv < numVals; nv++)
 	{
-		dirs->set("curves", fileName.left(fileName.lastIndexOf("/")));
-		QFile f(fileName);
-		if (f.open(QIODevice::ReadOnly))
-		{
-			QTextStream fp(&f);
-			int numVals;
-			double xval, yval;
-			FPointArray curve;
-			curve.resize(0);
-			fp >> numVals;
-			for (int nv = 0; nv < numVals; nv++)
-			{
-				QString s;
-				fp >> s;
-				xval = ScCLocale::toDoubleC(s);
-				fp >> s;
-				yval = ScCLocale::toDoubleC(s);
-				curve.addPoint(xval, yval);
-			}
-			cDisplay->setCurve(curve);
-			int lin;
-			fp >> lin;
-			cDisplay->setLinear(lin);
-		}
+		QString s;
+		fp >> s;
+		xval = ScCLocale::toDoubleC(s);
+		fp >> s;
+		yval = ScCLocale::toDoubleC(s);
+		curve.addPoint(xval, yval);
 	}
+	cDisplay->setCurve(curve);
+	int lin;
+	fp >> lin;
+	cDisplay->setLinear(lin);
 }
 
 void CurveWidget::doSave()
 {
-	QString fileName;
 	QString wdir = PrefsManager::instance().prefsFile->getContext("dirs")->get("curves", ".");
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("Curve Files (*.scu *.SCU);;All Files (*)"), fdHidePreviewCheckBox | fdNone);
-	if (dia.exec() == QDialog::Accepted)
-		fileName = dia.selectedFile();
-	else
+	if (dia.exec() != QDialog::Accepted)
 		return;
-	if (!fileName.isEmpty())
+
+	QString fileName = dia.selectedFile();
+	if (fileName.isEmpty())
+		return;
+	if (!fileName.endsWith(".scu"))
+		fileName += ".scu";
+
+	PrefsManager::instance().prefsFile->getContext("dirs")->set("curves", fileName.left(fileName.lastIndexOf("/")));
+	if (!overwrite(this, fileName))
+		return;
+
+	QString efval;
+	FPointArray Vals = cDisplay->getCurve();
+	QString tmp;
+	tmp.setNum(Vals.size());
+	efval += tmp;
+	for (int p = 0; p < Vals.size(); p++)
 	{
-		if (!fileName.endsWith(".scu"))
-			fileName += ".scu";
-		PrefsManager::instance().prefsFile->getContext("dirs")->set("curves", fileName.left(fileName.lastIndexOf("/")));
-		if (overwrite(this, fileName))
-		{
-			QString efval;
-			FPointArray Vals = cDisplay->getCurve();
-			QString tmp;
-			tmp.setNum(Vals.size());
-			efval += tmp;
-			for (int p = 0; p < Vals.size(); p++)
-			{
-				const FPoint& pv = Vals.point(p);
-				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
-			}
-			if (cDisplay->isLinear())
-				efval += " 1";
-			else
-				efval += " 0";
-			QFile fx(fileName);
-			if (fx.open(QIODevice::WriteOnly))
-			{
-				QTextStream tsx(&fx);
-				tsx << efval;
-				fx.close();
-			}
-			else
-				ScMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fileName));
-		}
+		const FPoint& pv = Vals.point(p);
+		efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 	}
+
+	if (cDisplay->isLinear())
+		efval += " 1";
+	else
+		efval += " 0";
+
+	QFile fx(fileName);
+	if (!fx.open(QIODevice::WriteOnly))
+	{
+		ScMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fileName));
+		return;
+	}
+	QTextStream tsx(&fx);
+	tsx << efval;
+	fx.close();
 }
 
 void CurveWidget::changeEvent(QEvent *e)

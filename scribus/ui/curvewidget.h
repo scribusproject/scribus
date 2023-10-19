@@ -30,7 +30,7 @@ class SCRIBUS_API KCurve : public QWidget
 
 public:
 	KCurve(QWidget *parent);
-	virtual ~KCurve();
+	virtual ~KCurve() = default;
 
 protected:
 	void paintEvent(QPaintEvent*) override;
@@ -40,27 +40,27 @@ protected:
 	void mouseMoveEvent(QMouseEvent* e) override;
 
 public:
-	double getCurveValue(double x);
-	FPointArray getCurve();
+	FPointArray getCurve() const;
 	void setCurve(const FPointArray& inlist);
 	void resetCurve();
+	QPainterPath curvePath() const;
 	void setLinear(bool setter);
-	bool isLinear();
+	bool isLinear() const;
 
 signals:
 	void modified();
 
 private:
-	double m_leftmost { 0.0 };
-	double m_rightmost { 0.0 };
-	FPoint m_grab_point;
-	int m_pos { 0 };
+	int m_leftmost { 0 };
+	int m_rightmost { 0 };
 	bool m_dragging { false };
 	bool m_linear { false };
-	double m_grabOffsetX { 0.0 };
-	double m_grabOffsetY { 0.0 };
 	FPointArray m_points;
 	FPointArray m_points_back;
+	QPointF m_mousePos;
+	int m_selectedPoint { 0 };
+
+	int selectedPoint() const;
 };
 
 class SCRIBUS_API CurveWidget : public QWidget

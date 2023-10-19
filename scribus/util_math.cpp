@@ -547,3 +547,28 @@ void getTransformValuesFromMatrix(const QTransform &matrix, double &scX, double 
 	dx = lineX.x1();
 	dy = lineX.y1();
 }
+
+QList<QPointF> catmullToBezier(QList<QPointF> inputPoints, double t)
+{
+	// Inspired by the explanation on: https://pomax.github.io/bezierinfo/#catmullconv
+
+	QList<QPointF> result;
+
+ //   qDebug() << "t" << t;
+
+	double x0 = inputPoints[1].x();
+	double y0 = inputPoints[1].y();
+	double x1 = inputPoints[1].x() + (inputPoints[2].x() - inputPoints[0].x()) / (6 * t);
+	double y1 = inputPoints[1].y() + (inputPoints[2].y() - inputPoints[0].y()) / (6 * t);
+	double x2 = inputPoints[2].x() - (inputPoints[3].x() - inputPoints[1].x()) / (6 * t);
+	double y2 = inputPoints[2].y() - (inputPoints[3].y() - inputPoints[1].y()) / (6 * t);
+	double x3 = inputPoints[2].x();
+	double y3 = inputPoints[2].y();
+
+	result.append( QPointF(x0, y0) );
+	result.append( QPointF(x1, y1) );
+	result.append( QPointF(x2, y2) );
+	result.append( QPointF(x3, y3) );
+
+	return result;
+}

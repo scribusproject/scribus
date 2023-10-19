@@ -36,6 +36,13 @@ FPoint   SCRIBUS_API projectPointOnLine(FPoint p, QPointF lineStart, QPointF lin
 bool     SCRIBUS_API regionContainsRect(const QRegion& shape, QRect rect);
 QPolygon SCRIBUS_API flattenPath(const FPointArray& ina, QList<uint> &segments);
 QList<QPainterPath> SCRIBUS_API decomposePath(const QPainterPath &path);
+/**
+ * @brief CatmullToBezier
+ * @param inputPoints Point Array of at least 4 points (p0, p1, p2, p3). You will get cubic bezier points from p1 to p2.
+ * @param t
+ * @return
+ */
+QList<QPointF> catmullToBezier(QList<QPointF> inputPoints, double t = 1);
 QPainterPath  SCRIBUS_API regularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2 = 0.0, double innerRot = 0.0, double factor3 = 0.0);
 QPainterPath  SCRIBUS_API spiralPath(double spiralWidth, double spiralHeight, double spiralStartAngle, double spiralEndAngle, double spiralFactor);
 inline double SCRIBUS_API xy2Deg(double x, double y);
@@ -43,6 +50,7 @@ inline double SCRIBUS_API sind(double);
 inline double SCRIBUS_API cosd(double);
 inline double SCRIBUS_API square(double);
 inline double SCRIBUS_API distance(double, double);
+inline double SCRIBUS_API manhattanDistance(QPointF p1, QPointF p2);
 /*! \brief Constrains an angle of rotation to 45 degree intervals
    Will make code simpler and reduce interval or provide as a parameter
    \param angle angle Angle in degrees
@@ -76,6 +84,12 @@ inline double square(double x)
 inline double distance(double x, double y)
 {
 	return sqrt(x*x + y*y);
+}
+
+inline double manhattanDistance(QPointF p1, QPointF p2)
+{
+	QPointF point = p2 - p1;
+	return point.manhattanLength();
 }
 
 inline double xy2Deg(double x, double y)
