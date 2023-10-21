@@ -361,8 +361,8 @@ QString About::parseAuthorFile(const QString& fileName)
 			lineTS.replace(">", "&gt;");
 			lineTS.replace("�", "&#174;");
 			lineTS.replace("�", "&#8482;");
-			name = "";
-			contact = "";
+			name.clear();
+			contact.clear();
 			if (!lineTS.isEmpty())
 			{
 				if (isTitle)
@@ -638,8 +638,8 @@ QString About::parseLinksFile(const QString& fileName)
 
 QString About::generateBuildInfo()
 {
-	QString BUILD_DAY = "13";
-	QString BUILD_MONTH = CommonStrings::august;
+	QString BUILD_DAY = "21";
+	QString BUILD_MONTH = CommonStrings::october;
 	QString BUILD_YEAR = "2023";
 	QString BUILD_TIME;
 	QString BUILD_TZ;
