@@ -63,7 +63,7 @@ public:
 private:
 	QList<TreeItem*> m_childItems;
 	QList<QVariant> m_itemData;
-	TreeItem *m_parentItem;
+	TreeItem *m_parentItem { nullptr };
 };
 //! [0]
 

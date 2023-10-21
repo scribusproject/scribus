@@ -150,30 +150,29 @@ void UndoManager::setState(UndoGui* gui, int uid)
 
 	UndoStack& currentStack = m_stacks[m_currentDoc];
 
-	StateList::iterator itstartU = currentStack.m_undoActions_.begin(); // undo actions
-	StateList::iterator itendU   = currentStack.m_undoActions_.end();
+	StateList::iterator itstartU = currentStack.m_undoActions.begin(); // undo actions
+	StateList::iterator itendU   = currentStack.m_undoActions.end();
 
-	StateList::iterator itstartR = currentStack.m_redoActions_.begin(); // redo actions
-	StateList::iterator itendR   = currentStack.m_redoActions_.end();
+	StateList::iterator itstartR = currentStack.m_redoActions.begin(); // redo actions
+	StateList::iterator itendR   = currentStack.m_redoActions.end();
 
 	if (uid > -1)
-	{ // find the range from where actions are added when in obj. spec. mode
-		StateList::iterator it2;
-		for (it2  = currentStack.m_undoActions_.begin();
-			 it2 != currentStack.m_undoActions_.end(); ++it2)
+	{
+		// find the range from where actions are added when in obj. spec. mode
+		for (auto it2  = currentStack.m_undoActions.begin();
+			 it2 != currentStack.m_undoActions.end(); ++it2)
 		{
 			UndoState*  tmp  = *it2;
 			TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
 			if (ts && !ts->containsOnly(uid))
 			{
-				if (it2 != currentStack.m_undoActions_.begin())
+				if (it2 != currentStack.m_undoActions.begin())
 					itendU = --it2;
 				break;
 			}
 		}
-		StateList::iterator it3;
-		for (it3  = currentStack.m_redoActions_.begin();
-			 it3 != currentStack.m_redoActions_.end(); ++it3)
+		for (auto it3  = currentStack.m_redoActions.begin();
+			 it3 != currentStack.m_redoActions.end(); ++it3)
 		{
 			UndoState*  tmp  = *it3;
 			TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
@@ -187,7 +186,7 @@ void UndoManager::setState(UndoGui* gui, int uid)
 
 	if (currentStack.undoItems() > 0)
 	{
-		if (itendU == currentStack.m_undoActions_.end())
+		if (itendU == currentStack.m_undoActions.end())
 			--itendU;
 		for (; itendU >= itstartU; --itendU) // insert undo actions
 		{
@@ -455,9 +454,9 @@ UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 	TransactionState* transaction_ = nullptr;
 	if (!m_transactions.empty())
 		transaction_ = m_transactions.at(m_transactions.size()-1)->transactionState;
-	for (uint i = 0; i < m_stacks[m_currentDoc].m_undoActions_.size(); ++i)
+	for (uint i = 0; i < m_stacks[m_currentDoc].m_undoActions.size(); ++i)
 	{
-		UndoState *tmpState = m_stacks[m_currentDoc].m_undoActions_[i];
+		UndoState *tmpState = m_stacks[m_currentDoc].m_undoActions[i];
 		TransactionState *ts = dynamic_cast<TransactionState*>(tmpState);
 		if (ts)
 			tmp = ts->replace(uid, newUndoObject);
@@ -467,9 +466,9 @@ UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 			tmpState->setUndoObject(newUndoObject);
 		}
 	}
-	for (uint i = 0; i < m_stacks[m_currentDoc].m_redoActions_.size(); ++i)
+	for (uint i = 0; i < m_stacks[m_currentDoc].m_redoActions.size(); ++i)
 	{
-		UndoState *tmpState = m_stacks[m_currentDoc].m_redoActions_[i];
+		UndoState *tmpState = m_stacks[m_currentDoc].m_redoActions[i];
 		TransactionState *ts = dynamic_cast<TransactionState*>(tmpState);
 		if (ts)
 			tmp = ts->replace(uid, newUndoObject);

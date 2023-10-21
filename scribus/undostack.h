@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 class UndoState;
 class TransactionState;
 
-typedef std::vector<UndoState*> StateList;
+using StateList = std::vector<UndoState*>;
 
 class SCRIBUS_API UndoStack
 {
@@ -74,11 +74,11 @@ private:
     /* When an action happens it is pushed to the undoActions_ and the redoActions_
      * is cleared. When undo is requested action is popped from undoActions_ and
      * pushed to the redoActions_ (and vice versa). */
-	StateList m_undoActions_; /* stack would probably be enough for this but vector */
-	StateList m_redoActions_; /* will give more options in future */
+	StateList m_undoActions; /* stack would probably be enough for this but vector */
+	StateList m_redoActions; /* will give more options in future */
 
     /* maximum amount of actions stored, 0 for no limit */
-	uint m_maxSize_;
+    uint m_maxSize { 0 };
 
     /* returns true if an action was popped from the stack */
     /* assures that we only hold the maxSize_ number of UndoStates */

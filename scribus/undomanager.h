@@ -47,7 +47,7 @@ class TransactionData;
 class UndoTransaction;
 
 /** @brief Key is the doc name, value is it's undo stack */
-typedef QMap<QString, UndoStack> StackMap;
+using StackMap = QMap<QString, UndoStack>;
 
 class SCRIBUS_API TransactionSettings
 {
@@ -829,7 +829,7 @@ signals:
 
 };
 
-typedef UndoManager Um;
+using Um = UndoManager;
 
 class SCRIBUS_API UndoBlocker
 {

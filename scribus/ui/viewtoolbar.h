@@ -34,8 +34,9 @@ public:
 	ViewToolBar(ScribusMainWindow* parent);
 	~ViewToolBar() {};
 
-	QComboBox *previewQualitySwitcher;
-	QComboBox *visualMenu;
+	QComboBox *previewQualitySwitcher { nullptr };
+	QComboBox *visualMenu { nullptr };
+
 	void setDoc(ScribusDoc *doc);
 	void setViewPreviewMode(bool);
 
@@ -43,7 +44,7 @@ public slots:
 	void languageChange();
 
 protected:
-	bool inPreview;
+	bool inPreview { false };
 };
 
 #endif

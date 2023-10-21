@@ -43,8 +43,8 @@ class SCRIBUS_API TransformItem : public QListWidgetItem
 public:
 	TransformItem(const QString& text, QListWidget* parent, int type, double val1, double val2);
 	~TransformItem() {};
-	double firstValue;
-	double secondValue;
+	double firstValue { 0.0 };
+	double secondValue { 0.0 };
 };
 
 class SCRIBUS_API TransformDialog : public QDialog, Ui::TransformDialogBase
@@ -80,7 +80,7 @@ private slots:
 private:
 	QMenu *newTransformMenu { nullptr };
 	ScribusDoc *m_doc { nullptr };
-	double m_unitRatio;
+	double m_unitRatio { 1.0 };
 	QString m_suffix;
 };
 

@@ -130,7 +130,7 @@ private:
 	static ulong m_nextId;
 	
 	/** @brief unique id number */
-	ulong m_id;
+	ulong m_id { 1 };
 	
 	/**
 	 * @brief Name of the UndoObject
@@ -154,7 +154,8 @@ private:
 	 */
 	ScGuardedObject<UndoObject> m_objectPtr;
 };
-typedef ScGuardedPtr<UndoObject> UndoObjectPtr;
+
+using UndoObjectPtr = ScGuardedPtr<UndoObject>;
 
 class SCRIBUS_API DummyUndoObject : public UndoObject
 {
