@@ -52,7 +52,7 @@
 
 TreeModel::TreeModel(QObject *parent )
 {
-	m_rootItem = nullptr;
+
 }
 
 //! [0]

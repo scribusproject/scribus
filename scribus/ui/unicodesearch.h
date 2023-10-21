@@ -44,9 +44,9 @@ signals:
 
 private:
 	//! Searching wrapper
-	QSortFilterProxyModel * m_proxyModel;
+	QSortFilterProxyModel* m_proxyModel { nullptr };
 	//! Data model
-	UnicodeSearchModel * m_model;
+	UnicodeSearchModel* m_model { nullptr };
 
 	//! \brief Overridden hide event. Just emit the setVisibleState(false) here.
 	void hideEvent(QHideEvent * e);

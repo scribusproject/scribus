@@ -44,7 +44,7 @@ class SCRIBUS_API UsePrinterMarginsDialog : public QDialog, Ui::UsePrinterMargin
 	protected:
 		QSizeF  m_pageSize;
 		QString m_pageSizeName;
-		double  m_unitRatio;
+		double  m_unitRatio { 1.0 };
 		QString m_suffix;
 		QMarginsF m_margins;
 };
