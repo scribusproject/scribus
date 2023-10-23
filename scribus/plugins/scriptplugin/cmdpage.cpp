@@ -706,24 +706,24 @@ void cmdpagedocwarnings()
 	QStringList s;
 	s << scribus_currentpage__doc__
 	  << scribus_deletepage__doc__
+	  << scribus_getColumnGuides__doc__
 	  << scribus_getHguides__doc__
+	  << scribus_getRowGuides__doc__
 	  << scribus_getVguides__doc__
 	  << scribus_getpageitems__doc__
 	  << scribus_getpagemargins__doc__
-	  << scribus_getpagensize__doc__ 
+	  << scribus_getpagenmargins__doc__
+	  << scribus_getpagensize__doc__
+	  << scribus_getpagesize__doc__
 	  << scribus_getpagetype__doc__
 	  << scribus_gotopage__doc__
 	  << scribus_importpage__doc__
 	  << scribus_newpage__doc__
 	  << scribus_pagecount__doc__
-	  << scribus_getpagesize__doc__
-	  << scribus_getpagenmargins__doc__ 
 	  << scribus_redraw__doc__
-	  << scribus_savepageeps__doc__           
-	  << scribus_setHguides__doc__
-	  << scribus_setVguides__doc__
-	  << scribus_getColumnGuides__doc__
-	  << scribus_getRowGuides__doc__
+	  << scribus_savepageeps__doc__
 	  << scribus_setColumnGuides__doc__
-	  << scribus_setRowGuides__doc__;
+	  << scribus_setHguides__doc__
+	  << scribus_setRowGuides__doc__
+	  << scribus_setVguides__doc__;
 }
