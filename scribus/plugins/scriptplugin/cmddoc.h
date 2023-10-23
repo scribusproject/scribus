@@ -47,6 +47,8 @@ numPage = Number of pages to be created.\n\
 The values for width, height and the margins are expressed in the given unit\n\
 for the document. PAPER_* constants are expressed in points. If your document\n\
 is not in points, make sure to account for this.\n\
+Use UNIT_MM if you use PAPER_A*_MM or PAPER_B*_MM constants. PAPER_A0_MM through PAPER_A9_MM\n\
+and PAPER_B0_MM through PAPER_B10_MM are available.\n\
 \n\
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,\n\
 PAGE_4, 3, 1)\n\
