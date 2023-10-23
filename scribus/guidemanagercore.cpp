@@ -638,6 +638,31 @@ double GuideManagerCore::closestVertRight(double x) const
 	return closest;
 }
 
+void GuideManagerCore::resetSelectionForPage(ScPage* page)
+{
+	auto doc = page->doc();
+	int docSelectionCount = doc->m_Selection->count();
+
+	page->guides.gx = page->guides.gy = page->guides.gw = page->guides.gh = 0.0;
+
+	// multiselection
+	if (docSelectionCount > 1)
+	{
+		double x, y;
+		doc->m_Selection->getGroupRect(&x, &y, &page->guides.gw, &page->guides.gh);
+		page->guides.gx = x - page->xOffset();
+		page->guides.gy = y - page->yOffset();
+	}
+	// only one item selected
+	else if (docSelectionCount == 1)
+	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		page->guides.gx = currItem->xPos() - page->xOffset();
+		page->guides.gy = currItem->yPos() - page->yOffset();
+		page->guides.gw = currItem->width();
+		page->guides.gh = currItem->height();
+	}
+}
 
 void GuideManagerIO::readVerticalGuides(const QString& guideString, ScPage *page, GuideManagerCore::GuideType type, bool useOldGuides)
 {

@@ -103,6 +103,12 @@ public:
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
 	void setVerticalAutoRefer(int val) { m_verticalAutoRefer = val; }
 
+	/*! \brief Recalculate the selection position and measurements for the current page.
+	It's used for automatic guides position. It's called for every
+	selection GUI widgets change to handle selection change only
+	when needed. */
+	void resetSelectionForPage(ScPage* page);
+
 	/*! \brief Selection/group coordinates
 	It's used to simulate the original selection "freezed in time"
 	for parent page */

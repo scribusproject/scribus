@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "selection.h"
 
 #include <QApplication>
 
@@ -377,6 +378,176 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_getColumnGuides(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	auto guides = PyDict_New();
+
+	auto page = ScCore->primaryMainWindow()->doc->currentPage();
+
+	{
+		const char keyString[] = "number";
+		PyObject *key = PyUnicode_FromString(keyString);
+		PyDict_SetItem(guides, key, PyLong_FromLong((long) page->guides.verticalAutoCount()));
+	}
+	{
+		const char keyString[] = "gap";
+		PyObject *key = PyUnicode_FromString(keyString);
+		PyDict_SetItem(guides, key, Py_BuildValue("d", PointToValue(page->guides.verticalAutoGap())));
+	}
+	{
+		const char keyString[] = "refer_to";
+		PyObject *key = PyUnicode_FromString(keyString);
+		PyDict_SetItem(guides, key, PyLong_FromLong((long) page->guides.verticalAutoRefer()));
+	}
+	{
+		auto rowsList = PyList_New(0);
+		for (auto column: page->guides.getAutoVerticals(page)) // QList<double> Guides
+		{
+			PyList_Append(rowsList, Py_BuildValue("d", PointToValue(column)));
+		}
+		const char keyString[] = "guides";
+		PyObject *key = PyUnicode_FromString(keyString);
+		PyDict_SetItem(guides, key, rowsList);
+	}
+
+	return guides;
+}
+
+PyObject *scribus_getRowGuides(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	auto guides = PyDict_New();
+
+	auto page = ScCore->primaryMainWindow()->doc->currentPage();
+
+	{
+		const char keyString[] = "number";
+		PyObject *key = PyUnicode_FromString(keyString);
+		PyDict_SetItem(guides, key, PyLong_FromLong((long) page->guides.horizontalAutoCount()));
+	}
+	{
+		const char keyString[] = "gap";
+		PyObject *key = PyUnicode_FromString(keyString);
+		PyDict_SetItem(guides, key, Py_BuildValue("d", PointToValue(page->guides.horizontalAutoGap())));
+	}
+	{
+		const char keyString[] = "refer_to";
+		PyObject *key = PyUnicode_FromString(keyString);
+		PyDict_SetItem(guides, key, PyLong_FromLong((long) page->guides.horizontalAutoRefer()));
+	}
+	{
+		auto rowsList = PyList_New(0);
+		for (auto row: page->guides.getAutoHorizontals(page)) // QList<double> Guides
+		{
+			PyList_Append(rowsList, Py_BuildValue("d", PointToValue(row)));
+		}
+		const char keyString[] = "guides";
+		PyObject *key = PyUnicode_FromString(keyString);
+		PyDict_SetItem(guides, key, rowsList);
+	}
+	return guides;
+}
+
+PyObject *scribus_setColumnGuides(PyObject* /* self */, PyObject* args, PyObject* kw)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	int number;
+	double gap = 0.0;
+	int referTo = 0;
+	char* kwargs[] = {const_cast<char*>("number"), const_cast<char*>("gap"), const_cast<char*>("refer_to"), nullptr};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "i|di", kwargs, &number, &gap, &referTo))
+		return nullptr;
+
+	auto doc = ScCore->primaryMainWindow()->doc;
+
+	if (referTo < 0 || referTo > 2)
+	{
+		QString message = QObject::tr("refer_to=0|1|2.","python error");
+		PyErr_SetString(ScribusException, message.toLocal8Bit().constData());
+		return nullptr;
+	}
+	else if (referTo == 2)
+	{
+		// refertTo a selection is only active, when there is a selection in the document
+		if (doc->m_Selection->isEmpty())
+		{
+			QString message = QObject::tr("setColumnGuides() with refer_to=2 needs a selection.","python error");
+			PyErr_SetString(ScribusException, message.toLocal8Bit().constData());
+			return nullptr;
+		}
+		doc->currentPage()->guides.resetSelectionForPage(doc->currentPage());
+	}
+
+
+	// If there are no guides, reset the values for the gap and for the reference
+	if (number == 0)
+	{
+		doc->currentPage()->guides.setVerticalAutoGap(0);
+		doc->currentPage()->guides.setVerticalAutoRefer(0);
+		doc->currentPage()->guides.setVerticalAutoCount(0);
+		Py_RETURN_NONE;
+	}
+
+	doc->currentPage()->guides.setVerticalAutoGap(ValueToPoint(gap));
+	doc->currentPage()->guides.setVerticalAutoRefer(referTo);
+	doc->currentPage()->guides.setVerticalAutoCount(number);
+
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_setRowGuides(PyObject* /* self */, PyObject* args, PyObject* kw)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	int number;
+	double gap = 0.0;
+	int referTo = 0;
+	char* kwargs[] = {const_cast<char*>("number"), const_cast<char*>("gap"), const_cast<char*>("refer_to"), nullptr};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "i|di", kwargs, &number, &gap, &referTo))
+		return nullptr;
+
+	auto doc = ScCore->primaryMainWindow()->doc;
+
+	if (referTo < 0 || referTo > 2)
+	{
+		QString message = QObject::tr("refer_to=0|1|2.","python error");
+		PyErr_SetString(ScribusException, message.toLocal8Bit().constData());
+		return nullptr;
+	}
+	else if (referTo == 2)
+	{
+		if (doc->m_Selection->isEmpty())
+		{
+			// refertTo a selection is only active, when there is a selection in the document
+			QString message = QObject::tr("setRowGuides() with refer_to=2 needs a selection.","python error");
+			PyErr_SetString(ScribusException, message.toLocal8Bit().constData());
+			return nullptr;
+		}
+		doc->currentPage()->guides.resetSelectionForPage(doc->currentPage());
+	}
+
+	doc->currentPage()->guides.setHorizontalAutoCount(number);
+
+	// If there are no guides, reset the values for the gap and for the reference
+	if (number == 0)
+	{
+		doc->currentPage()->guides.setHorizontalAutoGap(0);
+		doc->currentPage()->guides.setHorizontalAutoRefer(0);
+		Py_RETURN_NONE;
+	}
+
+	doc->currentPage()->guides.setHorizontalAutoGap(ValueToPoint(gap));
+	doc->currentPage()->guides.setHorizontalAutoRefer(referTo);
+
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_getpagemargins(PyObject* /* self */)
 {
 	PyObject *margins = nullptr;
@@ -550,5 +721,9 @@ void cmdpagedocwarnings()
 	  << scribus_redraw__doc__
 	  << scribus_savepageeps__doc__           
 	  << scribus_setHguides__doc__
-	  << scribus_setVguides__doc__;
+	  << scribus_setVguides__doc__
+	  << scribus_getColumnGuides__doc__
+	  << scribus_getRowGuides__doc__
+	  << scribus_setColumnGuides__doc__
+	  << scribus_setRowGuides__doc__;
 }

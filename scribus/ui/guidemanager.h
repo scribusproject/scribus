@@ -117,12 +117,6 @@ private:
 	*/
 	Guides getAutoVerticals(const ScPage * p) const;
 
-	/*! \brief Recalculate the selection position and measurements for the current page.
-	It's used for automatic guides position. It's called for every
-	selection GUI widgets change to handle selection change only
-	when needed. */
-	void resetSelectionForPage();
-
 	/*! \brief Draw guides into painter */
 	void drawGuides();
 

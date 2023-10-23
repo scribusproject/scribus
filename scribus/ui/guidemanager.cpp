@@ -591,31 +591,6 @@ Guides GuideManager::getAutoHorizontals(const ScPage * page) const
 	return guides.getAutoHorizontals(page);
 }
 
-void GuideManager::resetSelectionForPage()
-{
-	int docSelectionCount = currentPage->doc()->m_Selection->count();
-
-	currentPage->guides.gx = currentPage->guides.gy = currentPage->guides.gw = currentPage->guides.gh = 0.0;
-
-	// multiselection
-	if (docSelectionCount > 1)
-	{
-		double x, y;
-		m_Doc->m_Selection->getGroupRect(&x, &y, &currentPage->guides.gw, &currentPage->guides.gh);
-		currentPage->guides.gx = x - currentPage->xOffset();
-		currentPage->guides.gy = y - currentPage->yOffset();
-	}
-	// only one item selected
-	else if (docSelectionCount == 1)
-	{
-		const PageItem *currItem = m_Doc->m_Selection->itemAt(0);
-		currentPage->guides.gx = currItem->xPos() - currentPage->xOffset();
-		currentPage->guides.gy = currItem->yPos() - currentPage->yOffset();
-		currentPage->guides.gw = currItem->width();
-		currentPage->guides.gh = currItem->height();
-	}
-}
-
 void GuideManager::verticalModel_valueChanged()
 {
 	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
@@ -710,7 +685,7 @@ void GuideManager::horizontalSelectionAutoButton_toggled(bool state)
 		return;
 	currentPage->guides.setHorizontalAutoRefer(2);
 	if (horizontalSelectionAutoButton->isEnabled())
-		resetSelectionForPage();
+		currentPage->guides.resetSelectionForPage(currentPage);
 	drawGuides();
 }
 
@@ -738,7 +713,7 @@ void GuideManager::verticalSelectionAutoButton_toggled(bool state)
 		return;
 	currentPage->guides.setVerticalAutoRefer(2);
 	if (verticalSelectionAutoButton->isEnabled())
-		resetSelectionForPage();
+		currentPage->guides.resetSelectionForPage(currentPage);
 	drawGuides();
 	m_Doc->changed();
 }

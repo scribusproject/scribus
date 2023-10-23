@@ -154,6 +154,56 @@ See setHGuides.\n\
 PyObject *scribus_setVguides(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getColumnGuides__doc__,
+QT_TR_NOOP("getColumnGuides()\n\
+\n\
+Return the column guides for the current page.\n\
+\n\
+The return a dictionary containing:\n\
+{'number': int, 'gap': int, 'reference': 0|1|2, guides: [real]}\n\
+"));
+/*! get column guides */
+PyObject *scribus_getColumnGuides(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getRowGuides__doc__,
+QT_TR_NOOP("getRowGuides()\n\
+\n\
+Return the row guides for the current page.\n\
+\n\
+The return a dictionary containing:\n\
+{'number': int, 'gap': int, 'reference': 0|1|2, guides: [real]}\n\
+"));
+/*! get row guides */
+PyObject *scribus_getRowGuides(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setColumnGuides__doc__,
+QT_TR_NOOP("setColumnGuides(number, gap=0.0, refer_to=0)\n\
+\n\
+Set the column guides for the current page.\n\
+\n\
+number is the number of guides to be defined (if 0, all values get reset to their default)\n\
+\n\
+refer_to can have the values 0 (page), 1 (margin), 2 (selection)\n\
+"));
+/*! set column guides */
+PyObject *scribus_setColumnGuides(PyObject * /*self*/, PyObject* args, PyObject* kw);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setRowGuides__doc__,
+QT_TR_NOOP("setRowGuides(number, gap=0.0, refer_to=0)\n\
+\n\
+Set the row guides for the current page.\n\
+\n\
+number is the number of guides to be defined (if 0, all values get reset to their default)\n\
+\n\
+refer_to can have the values 0 (page), 1 (margin), 2 (selection)\n\
+"));
+/*! set row guides */
+PyObject *scribus_setRowGuides(PyObject * /*self*/, PyObject* args, PyObject* kw);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getpagesize__doc__,
 QT_TR_NOOP("getPageSize() -> tuple\n\
 \n\
