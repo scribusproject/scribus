@@ -40,8 +40,6 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QVBoxLayout>
 
-extern QString DocDir;
-
 /********* Class gtImporterDialog*******************************************************************/
 
 gtImporterDialog::gtImporterDialog(const QString& fileName, const QStringList& importers, int currentSelection)

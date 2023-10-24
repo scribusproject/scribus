@@ -264,10 +264,7 @@ using namespace ads;
 
 bool previewDinUse;
 bool printDinUse;
-
-//extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
-
 
 ScribusMainWindow::ScribusMainWindow() :
 	m_prefsManager(PrefsManager::instance())
