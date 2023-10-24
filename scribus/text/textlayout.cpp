@@ -16,6 +16,8 @@
 #undef NDEBUG
 
 #include <cassert>
+#include <utility>
+
 #include "../styles/charstyle.h"
 #include "prefsstructs.h"
 #include "../styles/paragraphstyle.h"
@@ -42,7 +44,7 @@ TextLayout::~TextLayout()
 uint TextLayout::lines() const
 {
 	uint count = 0;
-	for (auto box : qAsConst(m_box->boxes()))
+	for (auto box : std::as_const(m_box->boxes()))
 	{
 		count += box->boxes().count();
 	}

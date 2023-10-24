@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "pageitem.h"
 
+#include <utility>
+
 #include <QDebug>
 #include <QFileInfo>
 #include <QFont>
@@ -659,7 +661,7 @@ PageItem::PageItem(ScribusDoc *doc, ItemType newType, double x, double y, double
 
 	//Page Item Attributes
 	pageItemAttributes.clear();
-	for (const ObjectAttribute& objAttr : qAsConst(m_Doc->itemAttributes()))
+	for (const ObjectAttribute& objAttr : std::as_const(m_Doc->itemAttributes()))
 	{
 		if ((objAttr.autoaddto == "textframes" && m_itemType == TextFrame) ||
 			(objAttr.autoaddto == "imageframes" && m_itemType == ImageFrame))

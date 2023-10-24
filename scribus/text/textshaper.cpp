@@ -1,5 +1,7 @@
 #include "textshaper.h"
 
+#include <utility>
+
 #include <harfbuzz/hb.h>
 #include <harfbuzz/hb-ft.h>
 #include <harfbuzz/hb-icu.h>
@@ -290,7 +292,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 
 	// Insert implicit spaces in justification between characters
 	// in scripts that do not use spaces to separate words
-	for (const TextRun& run : qAsConst(scriptRuns))
+	for (const TextRun& run : std::as_const(scriptRuns))
 	{
 		switch (run.script) {
 		// clustered scripts from https://drafts.csswg.org/css-text-3/#script-groups
@@ -326,7 +328,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 		}
 	}
 
-	for (const TextRun& textRun : qAsConst(textRuns))
+	for (const TextRun& textRun : std::as_const(textRuns))
 	{
 		const CharStyle &style = m_story.charStyle(m_textMap.value(textRun.start));
 

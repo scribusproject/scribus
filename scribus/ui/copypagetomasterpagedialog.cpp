@@ -5,9 +5,12 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <utility>
+
 #include <QAbstractButton>
 #include <QCheckBox>
 #include <QLineEdit>
+
 #include "commonstrings.h"
 #include "copypagetomasterpagedialog.h"
 
@@ -17,7 +20,7 @@ CopyPageToMasterPageDialog::CopyPageToMasterPageDialog(int existingMasterNamesCo
 	setupUi(this);
 
 	QList<QAbstractButton *> buttonList = buttonBox->buttons();
-	for (QAbstractButton* b : qAsConst(buttonList))
+	for (QAbstractButton* b : std::as_const(buttonList))
 	{
 		if (buttonBox->buttonRole(b) == QDialogButtonBox::AcceptRole)
 			b->setText(CommonStrings::tr_OK);

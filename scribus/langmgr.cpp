@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
  
 #include <iostream>
+#include <utility>
 
 #include <QDebug>
 #include <QDir>
@@ -1035,7 +1036,7 @@ void LanguageManager::findSpellingDictionarySets(QStringList &dictionaryPaths, Q
 		dictList.removeDuplicates();
 
 		//Ensure we have aff+dic file pairs, remove any hyphenation dictionaries from the list
-		for (const QString& dictName : qAsConst(dictList))
+		for (const QString& dictName : std::as_const(dictList))
 		{
 			if (!QFile::exists(dictionaryPaths.at(i) + dictName + ".aff"))
 				continue;
@@ -1110,7 +1111,7 @@ void LanguageManager::findHyphDictionarySets(QStringList& dictionaryPaths, QMap<
 		QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
 		dictList.replaceInStrings(".dic", "");
 
-		for (const QString& dn : qAsConst(dictList))
+		for (const QString& dn : std::as_const(dictList))
 		{
 //			qDebug()<<dn;
 			QString dictName;

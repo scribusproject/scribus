@@ -7,6 +7,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <utility>
+
 #include <QDebug>
 #include <QMainWindow>
 #include <QString>
@@ -110,7 +112,7 @@ void ActionSearchDialog::updateList()
 
 	if (!filter.contains(" "))
 	{
-		for (auto& name: qAsConst(m_actionNames))
+		for (auto& name: std::as_const(m_actionNames))
 		{
 			if (name.contains(filter, Qt::CaseInsensitive))
 			{
@@ -121,10 +123,10 @@ void ActionSearchDialog::updateList()
 	else
 	{
 		auto words = filter.split(" ");
-		for (auto& name: qAsConst(m_actionNames))
+		for (auto& name: std::as_const(m_actionNames))
 		{
 			bool matches(true);
-			for (auto& word: qAsConst(words))
+			for (auto& word: std::as_const(words))
 			{
 				if (!name.contains(word, Qt::CaseInsensitive))
 				{

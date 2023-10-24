@@ -19,6 +19,8 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 
+#include <utility>
+
 #include <QByteArray>
 #include <QComboBox>
 #include <QCryptographicHash>
@@ -292,7 +294,7 @@ void ResourceManager::updateInstalledFonts()
 {
 	m_dictionaryMap.clear();
 	QString fontDir(findDestinationFolder());
-	for (const DownloadItem& d : qAsConst(m_availableList))
+	for (const DownloadItem& d : std::as_const(m_availableList))
 	{
 		if (d.filetype!="zip")
 		{
@@ -434,7 +436,7 @@ void ResourceManager::updateInstalledHelp()
 {
 	m_dictionaryMap.clear();
 	QString helpDir(findDestinationFolder());
-	for (const DownloadItem &d : qAsConst(m_availableList))
+	for (const DownloadItem &d : std::as_const(m_availableList))
 	{
 		if (QFileInfo::exists(helpDir+d.lang))
 			m_dictionaryMap.insert(d.desc, helpDir+d.lang);
@@ -472,7 +474,7 @@ void ResourceManager::updateInstalledPalettes()
 {
 	m_dictionaryMap.clear();
 	QString palDir(findDestinationFolder());
-	for (const DownloadItem& d : qAsConst(m_availableList))
+	for (const DownloadItem& d : std::as_const(m_availableList))
 	{
 		if (QFileInfo::exists(palDir+d.files))
 			m_dictionaryMap.insert(d.desc, palDir+d.files);
@@ -526,7 +528,7 @@ void ResourceManager::updateAvailableFonts()
 	availableTableWidget->setSortingEnabled(false);
 
 	int row = 0;
-	for (const DownloadItem& d :  qAsConst(m_availableList))
+	for (const DownloadItem& d :  std::as_const(m_availableList))
 	{
 		int column = 0;
 //		qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;
@@ -623,7 +625,7 @@ void ResourceManager::updateAvailableHyph()
 	availableTableWidget->setSortingEnabled(false);
 
 	int row = 0;
-	for (const DownloadItem& d : qAsConst(m_availableList))
+	for (const DownloadItem& d : std::as_const(m_availableList))
 	{
 		int column = 0;
 		//qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;
@@ -723,7 +725,7 @@ void ResourceManager::updateAvailableSpell()
 	availableTableWidget->setSortingEnabled(false);
 
 	int row = 0;
-	for (const DownloadItem& d : qAsConst(m_availableList))
+	for (const DownloadItem& d : std::as_const(m_availableList))
 	{
 		int column = 0;
 		//qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;
@@ -774,7 +776,7 @@ void ResourceManager::updateAvailableHelp()
 	availableTableWidget->setSortingEnabled(false);
 
 	int row = 0;
-	for (const DownloadItem& d :  qAsConst(m_availableList))
+	for (const DownloadItem& d :  std::as_const(m_availableList))
 	{
 		int column = 0;
 		QTableWidgetItem *newItem1 = new QTableWidgetItem(d.desc);
@@ -819,7 +821,7 @@ void ResourceManager::updateAvailablePalettes()
 	availableTableWidget->setSortingEnabled(false);
 
 	int row = 0;
-	for (const DownloadItem &d : qAsConst(m_availableList))
+	for (const DownloadItem &d : std::as_const(m_availableList))
 	{
 		int column = 0;
 		QTableWidgetItem *newItem1 = new QTableWidgetItem(d.desc);
@@ -936,9 +938,9 @@ void ResourceManager::updateDownloadLists()
 	downloadProgressBar->setVisible(true);
 	dataReceivedLabel->setVisible(true);
 	downloadProgressBar->setRange(0, m_dataFiles.count());
-	for (const QString& f : qAsConst(m_dataFiles))
+	for (const QString& f : std::as_const(m_dataFiles))
 		ScQApp->dlManager()->addURL("https://services.scribus.net/" + f, true, ScPaths::downloadDir(), ScPaths::downloadDir());
-	for (const QString& f : qAsConst(m_dataFiles))
+	for (const QString& f : std::as_const(m_dataFiles))
 		ScQApp->dlManager()->addURL("https://services.scribus.net/" + f + ".sha256", true, ScPaths::downloadDir(), ScPaths::downloadDir());
 	connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadListFinished()));
 	connect(ScQApp->dlManager(), SIGNAL(fileReceived(QString)), this, SLOT(updateProgressBar()));
@@ -1017,7 +1019,7 @@ void ResourceManager::downloadFilesFinished()
 	switch (category)
 	{
 		case RM_FONTS:
-			for (const DownloadItem& d : qAsConst(m_downloadList))
+			for (const DownloadItem& d : std::as_const(m_downloadList))
 			{
 				if (d.filetype=="zip")
 				{
@@ -1057,7 +1059,7 @@ void ResourceManager::downloadFilesFinished()
 		case RM_SPELL:
 			{
 				int fileType = category == RM_HYPH ? ScPaths::Hyph : ScPaths::Spell;
-				for (const DownloadItem& d : qAsConst(m_downloadList))
+				for (const DownloadItem& d : std::as_const(m_downloadList))
 				{
 					if (d.filetype=="zip")
 					{
@@ -1095,7 +1097,7 @@ void ResourceManager::downloadFilesFinished()
 			}
 			break;
 		case RM_HELP:
-			for (const DownloadItem& d : qAsConst(m_downloadList))
+			for (const DownloadItem& d : std::as_const(m_downloadList))
 			{
 				//qDebug()<<d.desc<<d.download<<d.files<<d.type;
 				if (d.filetype=="zip")
@@ -1444,7 +1446,7 @@ void ResourceManager::showLicense()
 				case RM_SPELL:
 				case RM_PALETTES:
 */
-			for (const DownloadItem& d : qAsConst(m_availableList))
+			for (const DownloadItem& d : std::as_const(m_availableList))
 			{
 				if (!filesToDownload.contains(d.desc))
 					continue;

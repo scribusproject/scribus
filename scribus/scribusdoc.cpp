@@ -1212,7 +1212,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 		else
 			itemlist = nullptr;
 	}
-	for (NotesStyle* nStyle : qAsConst(m_docNotesStylesList))
+	for (NotesStyle* nStyle : std::as_const(m_docNotesStylesList))
 	{ //update styles names in notes styles
 		if (nStyle == nullptr)
 			continue;
@@ -2200,7 +2200,7 @@ void ScribusDoc::restoreNoteStyle(SimpleState* ss, bool isUndo)
 		if (delNF)
 		{
 			auto noteFrameList = listNotesFrames(noteStyle);
-			for (PageItem_NoteFrame* noteFrame : qAsConst(noteFrameList))
+			for (PageItem_NoteFrame* noteFrame : std::as_const(noteFrameList))
 				delNoteFrame(noteFrame, false);
 			flag_updateEndNotes = noteStyle->isEndNotes();
 		}
@@ -17134,7 +17134,7 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 
 	// Reset ALL counters
 	QList<NumStruct*> numerationValues = numerations.values();
-	for (NumStruct * numS : qAsConst(numerationValues))
+	for (NumStruct * numS : std::as_const(numerationValues))
 		for (int l = 0; l < numS->m_nums.count(); ++l)
 			numS->m_counters[l] = numS->m_nums[l].start - 1;
 
@@ -17144,7 +17144,7 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 		PageItem* item = allTextFramePos.at(i).item;
 
 		// Reset stories range counters
-		for (NumStruct * numS : qAsConst(numerationValues))
+		for (NumStruct * numS : std::as_const(numerationValues))
 			for (int l = 0; l < numS->m_nums.count(); ++l)
 				if (numS->m_nums[l].range == NSRstory)
 					numS->m_counters[l] = numS->m_nums[l].start - 1;
@@ -17247,7 +17247,7 @@ QStringList ScribusDoc::marksLabelsList(MarkType type)
 
 Mark* ScribusDoc::getMark(const QString& l, MarkType t)
 {
-	for (Mark* mrk : qAsConst(m_docMarksList))
+	for (Mark* mrk : std::as_const(m_docMarksList))
 	{
 		if ((mrk != nullptr) && (mrk->label == l) && mrk->isType(t))
 			return mrk;
@@ -17505,7 +17505,7 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 {
 	if (updateNotesMarks && !notesList().isEmpty())
 	{
-		for (PageItem* item : qAsConst(DocItems))
+		for (PageItem* item : std::as_const(DocItems))
 		{
 			if (!item->isTextFrame() || item->isNoteFrame())
 				continue;
@@ -17540,7 +17540,7 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 	if (!isLoading())
 	{
 		//run for variable text (invalidate frames with variable text)
-		for (Mark* mrk : qAsConst(m_docMarksList))
+		for (Mark* mrk : std::as_const(m_docMarksList))
 		{
 			if (mrk->isType(MARKVariableTextType))
 			{
@@ -17578,7 +17578,7 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 	}
 
 	//for all marks
-	for (Mark* mrk : qAsConst(m_docMarksList))
+	for (Mark* mrk : std::as_const(m_docMarksList))
 	{
 		//set mark page number
 		PageItem* mItem = findFirstMarkItem(mrk);
@@ -17669,7 +17669,7 @@ NotesStyle* ScribusDoc::newNotesStyle(const NotesStyle& noteStyle)
 
 void ScribusDoc::renameNotesStyle(NotesStyle* noteStyle, const QString& newName)
 {
-	for (Mark* mrk : qAsConst(m_docMarksList))
+	for (Mark* mrk : std::as_const(m_docMarksList))
 		mrk->label.replace("_" + noteStyle->name()+ "_", "_" + newName + "_");
 	noteStyle->setName(newName);
 }
@@ -17686,7 +17686,7 @@ void ScribusDoc::deleteNotesStyle(const QString& nsName)
 		activeTransaction = m_undoManager->beginTransaction(Um::DeleteNotesStyle, Um::IDelete, Um::Delete, "", Um::IDelete);
 	QList<TextNote*> toDel;
 	//search for notes to deleting
-	for (TextNote* note : qAsConst(m_docNotesList))
+	for (TextNote* note : std::as_const(m_docNotesList))
 	{
 		if (note->notesStyle() == noteStyle)
 			toDel.append(note);
@@ -17992,7 +17992,7 @@ bool ScribusDoc::updateNotesNums(NotesStyle *nStyle)
 bool ScribusDoc::updateEndNotesNums()
 {
 	bool docWasChanged = false;
-	for (NotesStyle* ns : qAsConst(m_docNotesStylesList))
+	for (NotesStyle* ns : std::as_const(m_docNotesStylesList))
 	{
 		if (ns->isEndNotes())
 		{
@@ -18045,7 +18045,7 @@ void ScribusDoc::updateItemNotesFramesStyles(PageItem* item, const ParagraphStyl
 	while (item != nullptr)
 	{
 		auto noteFrameList = item->asTextFrame()->notesFramesList();
-		for (PageItem_NoteFrame* noteFrame :  qAsConst(noteFrameList))
+		for (PageItem_NoteFrame* noteFrame :  std::as_const(noteFrameList))
 		{
 			NotesStyle* nSet = noteFrame->notesStyle();
 			if (nSet->isEndNotes())
@@ -18064,7 +18064,7 @@ void ScribusDoc::updateItemNotesFramesStyles(PageItem* item, const ParagraphStyl
 QList<PageItem_NoteFrame *> ScribusDoc::listNotesFrames(NotesStyle *noteStyle)
 {
 	QList<PageItem_NoteFrame *> list;
-	for (PageItem* item : qAsConst(DocItems))
+	for (PageItem* item : std::as_const(DocItems))
 	{
 		if (item->isNoteFrame() && item->asNoteFrame()->notesStyle() == noteStyle)
 			list.append(item->asNoteFrame());
@@ -18156,7 +18156,7 @@ bool ScribusDoc::notesFramesUpdate()
 void ScribusDoc::updateNotesFramesSettings(NotesStyle *noteStyle)
 {
 	QList<PageItem_NoteFrame*> noteFramesList = listNotesFrames(noteStyle);
-	for (PageItem_NoteFrame* nF : qAsConst(noteFramesList))
+	for (PageItem_NoteFrame* nF : std::as_const(noteFramesList))
 	{
 		if (nF->isWelded() && !noteStyle->isAutoWeldNotesFrames())
 			nF->unWeld();
@@ -18191,7 +18191,7 @@ void ScribusDoc::updateEndnotesFrames(NotesStyle* nStyle, bool invalidate)
 	else if (nStyle->isEndNotes())
 	{
 		auto noteFrameList = listNotesFrames(nStyle);
-		for (PageItem_NoteFrame* nF : qAsConst(noteFrameList))
+		for (PageItem_NoteFrame* nF : std::as_const(noteFrameList))
 			updateEndNotesFrameContent(nF);
 	}
 	flag_updateEndNotes = false;
@@ -18203,7 +18203,7 @@ bool ascendingSort(TextNote* nt1, TextNote* nt2) { return nt1->num() < nt2->num(
 void ScribusDoc::updateEndNotesFrameContent(PageItem_NoteFrame *nF, bool invalidate)
 {
 	QList<TextNote*> nList;
-	for (PageItem* item : qAsConst(DocItems))
+	for (PageItem* item : std::as_const(DocItems))
 	{
 		if (item->isTextFrame() && !item->isNoteFrame())
 		{
@@ -18237,12 +18237,12 @@ void ScribusDoc::updateEndNotesFrameContent(PageItem_NoteFrame *nF, bool invalid
 		nF->invalid = true;
 		nF->layout();
 		//layout all endnotes frames with same range
-		for (NotesStyle* noteStyle : qAsConst(m_docNotesStylesList))
+		for (NotesStyle* noteStyle : std::as_const(m_docNotesStylesList))
 		{
 			if ((noteStyle != currNS) && (noteStyle->isEndNotes() && noteStyle->range() == currNS->range()))
 			{
 				auto noteFrameList = listNotesFrames(noteStyle);
-				for (PageItem_NoteFrame* noteFrame : qAsConst(noteFrameList))
+				for (PageItem_NoteFrame* noteFrame : std::as_const(noteFrameList))
 					noteFrame->layout();
 			}
 		}
@@ -18368,7 +18368,7 @@ bool ScribusDoc::validateNSet(const NotesStyle& noteStyle, QString newName)
 {
 	//check if chosen numbering type is available with chosen range, prefix and suffix
 	QString errStr;
-	for (NotesStyle* NS2 : qAsConst(m_docNotesStylesList))
+	for (NotesStyle* NS2 : std::as_const(m_docNotesStylesList))
 	{
 		if (newName.isEmpty())
 			//hack for validate nset while its name will change
@@ -18393,14 +18393,14 @@ bool ScribusDoc::validateNSet(const NotesStyle& noteStyle, QString newName)
 void ScribusDoc::invalidateNoteFrames(NotesStyle *nStyle)
 {
 	auto noteFrameList = listNotesFrames(nStyle);
-	for (PageItem_NoteFrame* noteFrame : qAsConst(noteFrameList))
+	for (PageItem_NoteFrame* noteFrame : std::as_const(noteFrameList))
 		noteFrame->invalid = true;
 }
 
 void ScribusDoc::invalidateMasterFrames(NotesStyle *nStyle)
 {
 	QList<PageItem*> toInvalidate;
-	for (TextNote* note : qAsConst(m_docNotesList))
+	for (TextNote* note : std::as_const(m_docNotesList))
 	{
 		if (note->notesStyle() == nStyle)
 			toInvalidate.append(note->masterMark()->getItemPtr());

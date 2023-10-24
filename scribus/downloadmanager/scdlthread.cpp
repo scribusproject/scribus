@@ -3,13 +3,14 @@
 #include "scdlthread.h"
 #include "scpaths.h"
 
+#include <utility>
+
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QUrl>
-
 
 ScDLThread::ScDLThread(QObject *parent) : QThread(parent)
 {
@@ -36,11 +37,11 @@ void ScDLThread::addURL(const QUrl &url, bool overwrite, const QString& location
 void ScDLThread::addURLs(const QStringList &urlList, bool overwrite, const QString& location, const QString& destinationLocation)
 {
 	//qDebug()<<"ScDLThread::addURLs:"<<urlList;
-	m_urlList=urlList;
+	m_urlList = urlList;
 	QString l(QDir::cleanPath(location));
 	if (!l.endsWith("/"))
 		l += "/";
-	for (const QString& u : qAsConst(m_urlList))
+	for (const QString& u : std::as_const(m_urlList))
 	{
 		QUrl url(u);
 		if (!urlOK(u))

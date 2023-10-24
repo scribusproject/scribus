@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTextCodec>
 
 #include <cstdlib>
+#include <utility>
 #include <vector>
 
 #include "scfonts.h"
@@ -450,7 +451,7 @@ static QString getFamilyName(const FT_Face face)
 	if (!names.isEmpty())
 	{
 		std::sort(names.begin(), names.end(), nameComp);
-		for (const FT_SfntName& name : qAsConst(names))
+		for (const FT_SfntName& name : std::as_const(names))
 		{
 			QString string(decodeNameRecord(name));
 			if (!string.isEmpty())

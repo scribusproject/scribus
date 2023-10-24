@@ -6,6 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 #include "newdocdialog.h"
 
+#include <utility>
+
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -394,14 +396,14 @@ void NewDocDialog::createOpenDocPage()
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
 	QList<QPushButton *> pushButtons = fileDialog->findChildren<QPushButton *>();
-	for (auto pushButton : qAsConst(pushButtons))
+	for (auto pushButton : std::as_const(pushButtons))
 		pushButton->setVisible(false);
 	fileDialog->setWindowFlags(Qt::Widget);
 	openDocLayout->addWidget(fileDialog);
 
 	FileDialogEventCatcher* keyCatcher = new FileDialogEventCatcher(this);
 	QList<QListView *> listViews = fileDialog->findChildren<QListView *>();
-	for (auto listView : qAsConst(listViews))
+	for (auto listView : std::as_const(listViews))
 		listView->installEventFilter(keyCatcher);
 	connect(keyCatcher, SIGNAL(escapePressed()), this, SLOT(reject()));
 	connect(keyCatcher, SIGNAL(dropLocation(QString)), this, SLOT(locationDropped(QString)));
