@@ -265,9 +265,6 @@ using namespace ads;
 bool previewDinUse;
 bool printDinUse;
 
-QString DocDir;
-
-
 //extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
 
@@ -398,7 +395,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		ScCore->setSplashStatus( tr("Initializing Story Editor") );
 	storyEditor = new StoryEditor(this);
 
-	DocDir = m_prefsManager.documentDir();
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Initializing Languages") );
 	LanguageManager::instance();
@@ -6482,7 +6478,6 @@ void ScribusMainWindow::slotPrefsOrg()
 	m_prefsManager.applyLoadedShortCuts();
 
 	//TODO: and the other dirs?
-	DocDir = m_prefsManager.documentDir();
 	if (oldPrefs.pathPrefs.documents != newPrefs.pathPrefs.documents)
 	{
 		PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
