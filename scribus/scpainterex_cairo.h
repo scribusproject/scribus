@@ -34,8 +34,8 @@ public:
 	void clear() override;
 	void clear(ScColorShade &) override;
 
-	void beginLayer(double transparency, int blendMode, FPointArray* clipArray = nullptr);
-	void endLayer();
+	void beginLayer(double transparency, int blendMode, FPointArray* clipArray = nullptr) override;
+	void endLayer() override;
 
 	// matrix manipulation
 	void setWorldMatrix(const QTransform&) override;
@@ -44,6 +44,7 @@ public:
 	void translate(const QPointF& offset) override;
 	void rotate(double) override;
 	void scale(double, double) override;
+	void shear(double, double) override;
 
 	// drawing
 	void moveTo(const double&, const double&) override;
