@@ -178,6 +178,11 @@ void ScPainterEx_Ps2::scale( double x, double y )
 	m_matrix.scale(x, y);
 }
 
+void ScPainterEx_Ps2::shear( double x, double y )
+{
+	m_matrix.shear(x, y);
+}
+
 void ScPainterEx_Ps2::moveTo( const double &x, const double &y )
 {
 	FPoint pp( x, y );

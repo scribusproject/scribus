@@ -194,6 +194,16 @@ void ScPainterEx_Cairo::scale(double x, double y)
 	cairo_scale(m_cr, x, y);
 }
 
+void ScPainterEx_Cairo::shear(double x, double y)
+{
+	QTransform trans;
+	trans.shear(x, y);
+
+	cairo_matrix_t matrix;
+	cairo_matrix_init(&matrix, trans.m11(), trans.m12(), trans.m21(), trans.m22(), trans.dx(), trans.dy());
+	cairo_transform(m_cr, &matrix);
+}
+
 void ScPainterEx_Cairo::moveTo(const double &x, const double &y)
 {
 	cairo_move_to(m_cr, x, y);

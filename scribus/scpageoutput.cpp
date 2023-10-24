@@ -566,20 +566,22 @@ void ScPageOutput::drawItem_Embedded(PageItem* item, ScPainterExBase *p, const Q
 
 void ScPageOutput::drawPattern(PageItem* item, ScPainterExBase* painter, const QRect& clip)
 {
-	double x1, x2, y1, y2;
-	ScPattern& pattern = m_doc->docPatterns[item->pattern()];
+	const ScPattern& pattern = m_doc->docPatterns[item->pattern()];
 	const ScPatternTransform& patternTrans = item->patternTransform();
 
 	// Compute pattern tansformation matrix and its inverse for converting pattern coordinates
 	// to pageitem coordinates 
-	QTransform matrix, invMat;
+	QTransform matrix;
 	matrix.translate(patternTrans.offsetX, patternTrans.offsetY);
 	matrix.rotate(patternTrans.rotation);
-	matrix.shear(patternTrans.skewX, patternTrans.skewY);
+	matrix.shear(-patternTrans.skewX, patternTrans.skewY);
 	matrix.scale(pattern.scaleX, pattern.scaleY);
 	matrix.scale(patternTrans.scaleX, patternTrans.scaleY);
+
+	QTransform invMat;
 	invMat.scale((patternTrans.scaleX != 0) ? (1.0 / patternTrans.scaleX) : 1.0, (patternTrans.scaleY != 0) ? (1.0 / patternTrans.scaleY) : 1.0);
 	invMat.scale((pattern.scaleX != 0) ? (1.0 / pattern.scaleX) : 1.0, (pattern.scaleY != 0) ? (1.0 / pattern.scaleY) : 1.0);
+	invMat.shear(patternTrans.skewX, -patternTrans.skewY);
 	invMat.rotate(-patternTrans.rotation);
 	invMat.translate(-patternTrans.offsetX, -patternTrans.offsetY);
 
@@ -594,8 +596,10 @@ void ScPageOutput::drawPattern(PageItem* item, ScPainterExBase* painter, const Q
 	QPointF pb(width + height * ctheta * stheta, height * stheta * stheta);
 	QPointF pc(-height * ctheta * stheta, height * ctheta * ctheta);
 	QPointF pd(width * ctheta * ctheta, height + width * ctheta * stheta);
-	QPointF ipa = invMat.map(pa), ipb = invMat.map(pb);
-	QPointF ipc = invMat.map(pc), ipd = invMat.map(pd);
+	QPointF ipa = invMat.map(pa);
+	QPointF ipb = invMat.map(pb);
+	QPointF ipc = invMat.map(pc);
+	QPointF ipd = invMat.map(pd);
 
 	painter->save();
 	if (!item->imageClip.empty())
@@ -605,14 +609,15 @@ void ScPageOutput::drawPattern(PageItem* item, ScPainterExBase* painter, const Q
 	}
 	painter->setupPolygon(&item->PoLine);
 	painter->setClipPath();
+
 	for (int index = 0; index < pattern.items.count(); index++)
 	{
-		QRectF itRect;
 		PageItem* it = pattern.items.at(index);
 
 		painter->save();
 		painter->translate(patternTrans.offsetX, patternTrans.offsetY);
 		painter->rotate(patternTrans.rotation);
+		painter->shear(-patternTrans.skewX, patternTrans.skewY);
 		painter->scale(pattern.scaleX, pattern.scaleY);
 		painter->scale(patternTrans.scaleX, patternTrans.scaleY);
 
@@ -639,17 +644,15 @@ void ScPageOutput::drawPattern(PageItem* item, ScPainterExBase* painter, const Q
 		{
 			for (int ky = kyMin; ky <= kyMax; ky++)
 			{
+				painter->save();
 				itPosX = it->gXpos + kx * pattern.width;
 				itPosY = it->gYpos + ky * pattern.height;
-				it->setXYPos(itPosX, itPosY);
-				it->getBoundingRect(&x1, &y1, &x2, &y2);
-				itRect.setCoords(x1, y1, x2, y2);
-				itRect = matrix.mapRect(itRect);
-				if (itRect.intersects(itemRect))
-					drawItem(it, painter, clip);
+				it->setXYPos(itPosX, itPosY, true);
+				drawItem(it, painter, QRect());
+				painter->restore();
 			}
 		}
-		it->setXYPos(itx, ity);
+		it->setXYPos(itx, ity, true);
 		painter->restore();
 	}
 	painter->restore();
@@ -735,11 +738,14 @@ void ScPageOutput::drawItem_Group(PageItem_Group* item, ScPainterExBase* painter
 		painter->setMaskMode(0);
 
 	painter->setFillRule(item->fillRule);
-	// Disable this for now, this does not work properly with cairo win32 printing surface
-	/*if (item->groupClipping())
-		painter->beginLayer(1.0 - item->fillTransparency(), item->fillBlendmode(), &item->PoLine);
-	else**/
-		painter->beginLayer(1.0 - item->fillTransparency(), item->fillBlendmode());
+	if (item->fillTransparency() != 0.0 || item->fillBlendmode() != 0 || item->maskType() != GradMask_None)
+	{
+		// Disable this for now, this does not work properly with cairo win32 printing surface
+		/*if (item->groupClipping())
+			painter->beginLayer(1.0 - item->fillTransparency(), item->fillBlendmode(), &item->PoLine);
+		else*/
+			painter->beginLayer(1.0 - item->fillTransparency(), item->fillBlendmode());
+	}
 	painter->setMaskMode(0);
 	painter->scale(item->width() / item->groupWidth, item->height() / item->groupHeight);
 
@@ -758,7 +764,8 @@ void ScPageOutput::drawItem_Group(PageItem_Group* item, ScPainterExBase* painter
 		painter->restore();
 	}
 	
-	painter->endLayer();
+	if (item->fillTransparency() != 0.0 || item->fillBlendmode() != 0 || item->maskType() != GradMask_None)
+		painter->endLayer();
 	painter->restore();
 }
 
