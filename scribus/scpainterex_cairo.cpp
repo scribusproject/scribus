@@ -741,8 +741,8 @@ void ScPainterEx_Cairo::drawImage(ScImage *image, ScPainterExBase::ImageMode mod
 	cairo_push_group(m_cr);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
-	cairo_surface_t* image2 = cairo_image_surface_create_for_data((uchar*) qImage.bits(), CAIRO_FORMAT_RGB24, qImage.width(), qImage.height(), qImage.width() * 4);
-	cairo_surface_t* image3 = cairo_image_surface_create_for_data((uchar*) qImage.bits(), CAIRO_FORMAT_ARGB32, qImage.width(), qImage.height(), qImage.width() * 4);
+	cairo_surface_t* image2 = cairo_image_surface_create_for_data(qImage.bits(), CAIRO_FORMAT_RGB24, qImage.width(), qImage.height(), qImage.width() * 4);
+	cairo_surface_t* image3 = cairo_image_surface_create_for_data(qImage.bits(), CAIRO_FORMAT_ARGB32, qImage.width(), qImage.height(), qImage.width() * 4);
 	cairo_set_source_surface(m_cr, image2, 0, 0);
 	cairo_pattern_set_filter(cairo_get_source(m_cr), CAIRO_FILTER_GOOD);
 	cairo_mask_surface(m_cr, image3, 0, 0);
@@ -872,7 +872,7 @@ void ScPainterEx_Cairo::drawLinearGradient(const VGradientEx& gradient)
 {
 	double r, g, b;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
-	VColorStopEx* stop = nullptr;
+	const VColorStopEx* stop = nullptr;
 	QColor color;
 
 	if (gradient.stops() < 2)
@@ -919,10 +919,9 @@ void ScPainterEx_Cairo::drawLinearGradient(const VGradientEx& gradient)
 
 void ScPainterEx_Cairo::drawCircularGradient(const VGradientEx& gradient)
 {
-	int offset = 0;
 	double r, g, b;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
-	VColorStopEx* stop = nullptr;
+	const VColorStopEx* stop = nullptr;
 	QColor color;
 
 	double x1  = gradient.origin().x();
@@ -970,10 +969,6 @@ void ScPainterEx_Cairo::drawCircularGradient(const VGradientEx& gradient)
 
 void ScPainterEx_Cairo::drawFourColorGradient()
 {
-	cairo_pattern_t *pat = nullptr;
-	cairo_surface_t *img = nullptr;
-	cairo_t *cr = nullptr;
-	cairo_pattern_t *mpat = nullptr;
 	QColor color;
 
 	double p1x = m_gradPatchP1.x();
@@ -984,13 +979,15 @@ void ScPainterEx_Cairo::drawFourColorGradient()
 	double p3y = m_gradPatchP3.y();
 	double p4x = m_gradPatchP4.x();
 	double p4y = m_gradPatchP4.y();
-	img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, p3x, p3y);
-	cr = cairo_create(img);
+
+	cairo_surface_t* img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, p3x, p3y);
+	cairo_t* cr = cairo_create(img);
 	cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 	cairo_set_tolerance(cr, 0.5);
+
 	double r, g, b, a;
-	mpat = cairo_pattern_create_mesh();
+	cairo_pattern_t* mpat = cairo_pattern_create_mesh();
 	cairo_mesh_pattern_begin_patch(mpat);
 	cairo_mesh_pattern_move_to(mpat, p1x, p1y);
 	cairo_mesh_pattern_line_to(mpat, p2x, p2y);
@@ -1017,7 +1014,8 @@ void ScPainterEx_Cairo::drawFourColorGradient()
 	cairo_pattern_set_filter(mpat, CAIRO_FILTER_GOOD);
 	cairo_set_source(cr, mpat);
 	cairo_paint_with_alpha(cr, 1.0);
-	pat = cairo_pattern_create_for_surface(img);
+
+	cairo_pattern_t* pat = cairo_pattern_create_for_surface(img);
 	cairo_pattern_set_extend(pat, CAIRO_EXTEND_NONE);
 	cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 
@@ -1051,13 +1049,6 @@ void ScPainterEx_Cairo::drawFourColorGradient()
 
 void ScPainterEx_Cairo::drawDiamondGradient(const VGradientEx& gradient)
 {
-	cairo_pattern_t *pat = nullptr;
-	cairo_surface_t *img = nullptr;
-	cairo_t *cr = nullptr;
-	cairo_pattern_t *mpat = nullptr;
-	VColorStopEx* stop = nullptr;
-	QColor color;
-
 	double p1x = m_gradControlP1.x();
 	double p1y = m_gradControlP1.y();
 	double p2x = m_gradControlP2.x();
@@ -1066,12 +1057,15 @@ void ScPainterEx_Cairo::drawDiamondGradient(const VGradientEx& gradient)
 	double p3y = m_gradControlP3.y();
 	double p4x = m_gradControlP4.x();
 	double p4y = m_gradControlP4.y();
-	img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, m_gradPatchP3.x(), m_gradPatchP3.y());
-	cr = cairo_create(img);
+
+	cairo_surface_t *img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, m_gradPatchP3.x(), m_gradPatchP3.y());
+	cairo_t *cr = cairo_create(img);
 	cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 	cairo_set_tolerance(cr, 0.5);
+
 	double r, g, b, a;
+	const VColorStopEx* stop = nullptr;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	QList<QColor> qStopColors;
 	QList<double> qStopRampPoints;
@@ -1086,7 +1080,7 @@ void ScPainterEx_Cairo::drawDiamondGradient(const VGradientEx& gradient)
 		sneu = s * shad / 100;
 		vneu = 255 - ((255 - v) * shad / 100);
 		qStopColor.setHsv(h, sneu, vneu);
-		qStopColor.setAlphaF(colorStops[offset]->opacity);
+		qStopColor.setAlphaF(stop->opacity);
 		if (offset == 0)
 		{
 			if (colorStops[offset]->rampPoint > 0)
@@ -1120,7 +1114,8 @@ void ScPainterEx_Cairo::drawDiamondGradient(const VGradientEx& gradient)
 	cairo_set_source_rgba(cr, 0, 0, 0, 1);
 	cairo_fill(cr);
 	cairo_set_operator(cr, CAIRO_OPERATOR_ADD);
-	mpat = cairo_pattern_create_mesh();
+
+	cairo_pattern_t *mpat = cairo_pattern_create_mesh();
 	for (int offset = 1 ; offset <  qStopRampPoints.count() ; offset++)
 	{
 		QLineF e1 = edge1;
@@ -1245,7 +1240,8 @@ void ScPainterEx_Cairo::drawDiamondGradient(const VGradientEx& gradient)
 	cairo_pattern_set_filter(mpat, CAIRO_FILTER_GOOD);
 	cairo_set_source(cr, mpat);
 	cairo_paint_with_alpha(cr, 1.0);
-	pat = cairo_pattern_create_for_surface(img);
+
+	cairo_pattern_t *pat = cairo_pattern_create_for_surface(img);
 	cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
 	cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 
@@ -1279,22 +1275,17 @@ void ScPainterEx_Cairo::drawDiamondGradient(const VGradientEx& gradient)
 
 void ScPainterEx_Cairo::drawMeshGradient()
 {
-	cairo_pattern_t *pat = nullptr;
-	cairo_surface_t *img = nullptr;
-	cairo_t *cr = nullptr;
-	cairo_pattern_t *mpat = nullptr;
-	VColorStopEx* stop = nullptr;
-	QColor color;
-
 	double p3x = m_gradPatchP3.x();
 	double p3y = m_gradPatchP3.y();
-	img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, p3x, p3y);
-	cr  = cairo_create(img);
+
+	cairo_surface_t* img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, p3x, p3y);
+	cairo_t* cr = cairo_create(img);
 	cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 	cairo_set_tolerance(cr, 0.5);
+
 	double r, g, b, a;
-	mpat = cairo_pattern_create_mesh();
+	cairo_pattern_t* mpat = cairo_pattern_create_mesh();
 	for (int grow = 0; grow < m_meshGradientArray.count() - 1; ++grow)
 	{
 		for (int gcol = 0; gcol < m_meshGradientArray[grow].count() - 1; ++gcol)
@@ -1327,7 +1318,8 @@ void ScPainterEx_Cairo::drawMeshGradient()
 	cairo_pattern_set_filter(mpat, CAIRO_FILTER_BEST);
 	cairo_set_source(cr, mpat);
 	cairo_paint_with_alpha(cr, 1.0);
-	pat = cairo_pattern_create_for_surface(img);
+
+	cairo_pattern_t* pat = cairo_pattern_create_for_surface(img);
 	cairo_pattern_set_extend(pat, CAIRO_EXTEND_NONE);
 	cairo_pattern_set_filter(pat, CAIRO_FILTER_BEST);
 
@@ -1361,22 +1353,17 @@ void ScPainterEx_Cairo::drawMeshGradient()
 
 void ScPainterEx_Cairo::drawFreeMeshGradient()
 {
-	cairo_pattern_t *pat = nullptr;
-	cairo_surface_t *img = nullptr;
-	cairo_t *cr = nullptr;
-	cairo_pattern_t *mpat = nullptr;
-	VColorStopEx* stop = nullptr;
-	QColor color;
-
 	double p3x = m_gradPatchP3.x();
 	double p3y = m_gradPatchP3.y();
-	img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, p3x, p3y);
-	cr = cairo_create(img);
+
+	cairo_surface_t* img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, p3x, p3y);
+	cairo_t* cr = cairo_create(img);
 	cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 	cairo_set_tolerance(cr, 0.5);
+
 	double r, g, b, a;
-	mpat = cairo_pattern_create_mesh();
+	cairo_pattern_t* mpat = cairo_pattern_create_mesh();
 	for (int col = 0; col < m_meshGradientPatches.count(); col++)
 	{
 		meshGradientPatch patch = m_meshGradientPatches[col];
@@ -1407,7 +1394,8 @@ void ScPainterEx_Cairo::drawFreeMeshGradient()
 	cairo_pattern_set_filter(mpat, CAIRO_FILTER_BEST);
 	cairo_set_source(cr, mpat);
 	cairo_paint_with_alpha(cr, 1.0);
-	pat = cairo_pattern_create_for_surface(img);
+
+	cairo_pattern_t* pat = cairo_pattern_create_for_surface(img);
 	cairo_pattern_set_extend(pat, CAIRO_EXTEND_NONE);
 	cairo_pattern_set_filter(pat, CAIRO_FILTER_BEST);
 	
@@ -1571,20 +1559,18 @@ void ScPainterEx_Cairo::strokeGradient(const VGradientEx& gradient)
 
 void ScPainterEx_Cairo::strokeLinearGradient(const VGradientEx& gradient)
 {
-	cairo_pattern_t *pat = nullptr;
 	double r, g, b;
-	double lastPoint = 0.0;
 	double x1 = gradient.origin().x();
 	double y1 = gradient.origin().y();
 	double x2 = gradient.vector().x();
 	double y2 = gradient.vector().y();
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
-	VColorStopEx* stop = nullptr;
+	const VColorStopEx* stop = nullptr;
 	QColor color;
 
 	cairo_push_group(m_cr);
 
-	pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
+	cairo_pattern_t* pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 	cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
 	cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 
@@ -1622,9 +1608,7 @@ void ScPainterEx_Cairo::strokeLinearGradient(const VGradientEx& gradient)
 
 void ScPainterEx_Cairo::strokeCircularGradient(const VGradientEx& gradient)
 {
-	cairo_pattern_t *pat = nullptr;
 	double r, g, b;
-	double lastPoint = 0.0;
 	double x1 = gradient.origin().x();
 	double y1 = gradient.origin().y();
 	double x2 = gradient.vector().x();
@@ -1632,12 +1616,12 @@ void ScPainterEx_Cairo::strokeCircularGradient(const VGradientEx& gradient)
 	double fx = gradient.focalPoint().x();
 	double fy = gradient.focalPoint().y();
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
-	VColorStopEx* stop = nullptr;
+	const VColorStopEx* stop = nullptr;
 	QColor color;
 
 	cairo_push_group(m_cr);
 
-	pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+	cairo_pattern_t* pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
 	cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
 	cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 
