@@ -726,6 +726,6 @@ void cmdpagedocwarnings()
 	  << scribus_savepageeps__doc__           
 	  << scribus_setColumnGuides__doc__
 	  << scribus_setHguides__doc__
-	  << scribus_setRowGuides__doc__;
-	  << scribus_setVguides__doc__
+	  << scribus_setRowGuides__doc__
+	  << scribus_setVguides__doc__;
 }
