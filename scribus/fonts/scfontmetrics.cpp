@@ -391,11 +391,11 @@ QString adobeGlyphName(FT_ULong charcode)
 	else
 	{
 		result = QString("u");
-		for (int i= 28; i >= 0; i-=4)
-		{
-			if (charcode & (0xF << i))
-				result += HEX[charcode >> i & 0xF];
-		}
+		int first = 28;
+		while ((charcode & (0xF << first)) == 0)
+			first -= 4;
+		for (int i = first; i >= 0; i -= 4)
+			result += HEX[charcode >> i & 0xF];
 	}
 	return result;
 }
