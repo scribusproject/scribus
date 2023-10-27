@@ -511,59 +511,6 @@ void ScPageOutput::drawItem_Post(PageItem* item, ScPainterExBase* painter)
 	painter->restore();
 }
 
-void ScPageOutput::drawItem_Embedded(PageItem* item, ScPainterExBase *p, const QRect& clip, const CharStyle& style, PageItem* cembedded)
-{
-	if (!cembedded)
-		return;
-	QList<PageItem*> emG;
-	emG.append(cembedded);
-	for (int em = 0; em < emG.count(); ++em)
-	{
-		PageItem* embedded = emG.at(em);
-		p->save();
-		double x = embedded->xPos();
-		double y = embedded->yPos();
-		embedded->setXPos(embedded->gXpos, true);
-		embedded->setYPos((embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos, true);
-		p->translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
-		if (style.baselineOffset() != 0)
-		{
-			p->translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
-			embedded->setYPos(embedded->yPos() - embedded->gHeight * (style.baselineOffset() / 1000.0));
-		}
-		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-		double pws = embedded->m_lineWidth;
-		drawItem_Pre(embedded, p);
-		switch (embedded->itemType())
-		{
-			case PageItem::ImageFrame:
-			case PageItem::LatexFrame:
-			case PageItem::TextFrame:
-			case PageItem::Polygon:
-			case PageItem::PathText:
-			case PageItem::Symbol:
-			case PageItem::Group:
-			case PageItem::RegularPolygon:
-			case PageItem::Arc:
-				drawItem(embedded, p, clip);
-				break;
-			case PageItem::Line:
-			case PageItem::PolyLine:
-				embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-				drawItem(embedded, p, clip);
-				break;
-			default:
-				break;
-		}
-		embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-		drawItem_Post(embedded, p);
-		embedded->setXPos(x, true);
-		embedded->setYPos(y, true);
-		p->restore();
-		embedded->m_lineWidth = pws;
-	}
-}
-
 void ScPageOutput::drawPattern(PageItem* item, ScPainterExBase* painter, const QRect& clip)
 {
 	const ScPattern& pattern = m_doc->docPatterns[item->pattern()];
