@@ -647,6 +647,56 @@ PyObject *scribus_combinepolygons(PyObject * /* self */)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_seteditmode(PyObject * /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+
+	if (currentDoc->m_Selection->count() < 1)
+	{
+		PyErr_SetString(NoValidObjectError, QString("No item selected.").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	auto currItem = currentDoc->m_Selection->itemAt(0);
+	if (!currItem->isTextFrame() && !currItem->isImageFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QString("Only image and text frames are supported.").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	ScCore->primaryMainWindow()->view->requestMode(modeEdit);
+
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_setnormalmode(PyObject * /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+
+	if (currentDoc->m_Selection->count() < 1)
+	{
+		PyErr_SetString(NoValidObjectError, QString("No item selected.").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	auto currItem = currentDoc->m_Selection->itemAt(0);
+	if (!currItem->isTextFrame() && !currItem->isImageFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QString("Only image and text frames are supported.").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	ScCore->primaryMainWindow()->view->requestMode(modeNormal);
+
+	Py_RETURN_NONE;
+}
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
@@ -669,10 +719,12 @@ void cmdmanidocwarnings()
 	  << scribus_scaleimage__doc__
 	  << scribus_selectioncount__doc__
 	  << scribus_selectobject__doc__
+	  << scribus_seteditmode__doc__
 	  << scribus_setimagebrightness__doc__
 	  << scribus_setimagegrayscale__doc__
 	  << scribus_setimageoffset__doc__
 	  << scribus_setimagescale__doc__
+	  << scribus_setnormalmode__doc__
 	  << scribus_setscaleframetoimage__doc__
 	  << scribus_setscaleimagetoframe__doc__
 	  << scribus_sizeobject__doc__ 

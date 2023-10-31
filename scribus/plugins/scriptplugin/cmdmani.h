@@ -284,4 +284,18 @@ Combine two or more selected Polygons\n\
 "));
 PyObject *scribus_combinepolygons(PyObject * /* self */);
 
+PyDoc_STRVAR(scribus_seteditmode__doc__,
+QT_TR_NOOP("setEditMode()\n\
+\n\
+Start the edit mode for the current item.\n\
+"));
+PyObject *scribus_seteditmode(PyObject * /*self*/);
+
+PyDoc_STRVAR(scribus_setnormalmode__doc__,
+QT_TR_NOOP("setNormalMode()\n\
+\n\
+Set the current item in normal mode (out of edit mode).\n\
+"));
+PyObject *scribus_setnormalmode(PyObject * /*self*/);
+
 #endif
