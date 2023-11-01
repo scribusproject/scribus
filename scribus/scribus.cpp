@@ -294,7 +294,6 @@ bool printDinUse;
 
 extern bool emergencyActivated;
 
-
 ScribusMainWindow::ScribusMainWindow() :
 	m_prefsManager(PrefsManager::instance())
 {
@@ -1946,27 +1945,27 @@ QStringList ScribusMainWindow::findRecoverableFile()
 bool ScribusMainWindow::recoverFile(const QStringList& foundFiles)
 {
 	appModeHelper->setStartupActionsEnabled(false);
-	bool ret = false;
-	RecoverDialog* dia = new RecoverDialog(this, foundFiles);
-	if (dia->exec())
+
+	QScopedPointer<RecoverDialog> dia(new RecoverDialog(this, foundFiles));
+	if (!dia->exec())
+		return false;
+	if (dia->recoverFiles.isEmpty())
+		return false;
+
+	for (int i = 0; i < dia->recoverFiles.count(); ++i)
 	{
-		if (!dia->recoverFiles.isEmpty())
-		{
-			for (int i = 0; i < dia->recoverFiles.count(); ++i)
-			{
-				loadDoc(dia->recoverFiles[i]);
-				doc->setDocumentFileName(dia->recoverNames[i]);
-				doc->hasName = true;
-				updateActiveWindowCaption(doc->documentFileName());
-				outlinePalette->setDoc(doc);
-				if (outlinePalette->isVisible())
-					outlinePalette->BuildTree();
-			}
-			ret = true;
-		}
+		bool docLoaded = loadDoc(dia->recoverFiles[i]);
+		if (!docLoaded)
+			continue;
+		doc->setDocumentFileName(dia->recoverNames[i]);
+		doc->hasName = true;
+		updateActiveWindowCaption(doc->documentFileName());
+		outlinePalette->setDoc(doc);
+		if (outlinePalette->isVisible())
+			outlinePalette->BuildTree();
 	}
-	delete dia;
-	return ret;
+
+	return true;
 }
 
 void ScribusMainWindow::startUpDialog()
