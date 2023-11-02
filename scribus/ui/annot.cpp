@@ -997,7 +997,7 @@ void ScAnnot::SetCurr()
 
 void ScAnnot::SetFoScript(int it)
 {
-	if (it >= 0 && it <=5)
+	if (it >= 0 && it <= 5)
 		FoFram->setCurrentIndex(it);
 	if (it == 1)
 		SetCurr();

@@ -147,8 +147,8 @@ void ExportForm::readConfig()
 		default: intervalPagesRadio->setChecked(true);
 			break;
 	}
-	rangeVal->setEnabled(exportPageValue==2);
-	pageNrButton->setEnabled(exportPageValue==2);
+	rangeVal->setEnabled(exportPageValue == 2);
+	pageNrButton->setEnabled(exportPageValue == 2);
 	bitmapType->setCurrentIndex(prefs->getInt("BitmapType",1));
 
 	rangeVal->setText(prefs->get("RangeVal", ""));

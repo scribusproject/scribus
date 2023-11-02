@@ -69,7 +69,7 @@ void ViewToolBar::setDoc(ScribusDoc* doc)
 
 void ViewToolBar::setViewPreviewMode(bool b)
 {
-	inPreview=b;
+	inPreview = b;
 	visualMenu->setEnabled(b);
 }
 

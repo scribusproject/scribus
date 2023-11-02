@@ -98,9 +98,9 @@ void ScTableWidget::removeCellWidget ( int row, int column )
 	QWidget* t=nullptr;
 	while (i != widgetPositions.constEnd())
 	{
-		if (i.value().first==row && i.value().second==column)
+		if (i.value().first == row && i.value().second == column)
 		{
-			t=i.key();
+			t = i.key();
 			break;
 		}
 		++i;

@@ -146,7 +146,7 @@ public:
 	void SetShortCut();
 	void startUpDialog();
 	void setDefaultPrinter(const QString&, const QString&, const QString&);
-	void getDefaultPrinter(QString& name, QString& file, QString& command);
+	void getDefaultPrinter(QString& name, QString& file, QString& command) const;
 
 	inline bool scriptIsRunning(void) const { return (m_ScriptRunning > 0); }
 	inline void setScriptRunning(bool value) { m_ScriptRunning += (value ? 1 : -1); }
@@ -178,7 +178,7 @@ public:
 	void recalcColors();
 	void SwitchWin();
 	void RestoreBookMarks();
-	QStringList  scrapbookNames();
+	QStringList  scrapbookNames() const;
 	void updateLayerMenu();
 	void emergencySave();
 	QStringList findRecoverableFile();

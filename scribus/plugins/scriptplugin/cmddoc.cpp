@@ -99,7 +99,7 @@ PyObject *scribus_newdoc(PyObject* /* self */, PyObject* args)
 	scripter is not new-page-size ready.
 	What is it: don't allow to use wrong FSL constant in the case of
 	onesided document. */
-	if (ds!=1 && fsl>0)
+	if (ds != 1 && fsl > 0)
 		fsl = 0;
 	// end of hack
 

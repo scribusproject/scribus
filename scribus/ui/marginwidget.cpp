@@ -469,7 +469,7 @@ void MarginWidget::setNewMargins(MarginStruct &m)
 	disconnect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	disconnect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
-	marginData=m;
+	marginData = m;
 	updateMarginSpinValues();
 	connect(topR, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));

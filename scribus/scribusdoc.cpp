@@ -12265,18 +12265,19 @@ void ScribusDoc::itemSelection_AlignCenterHor(ScribusDoc::AlignTo currAlignTo, S
 	if (!startAlign())
 		return;
 	int alignObjectsCount = AObjects.count();
-	int loopStart = 0, loopEnd = alignObjectsCount - 1;
+	int loopStart = 0;
+	int loopEnd = alignObjectsCount - 1;
 	double newX = 0.0;
 	switch (currAlignTo) 
 	{
 		case alignFirst:
-			newX = AObjects[0].x1 + (AObjects[0].width) /2 ;
-			loopStart=1;
+			newX = AObjects[0].x1 + (AObjects[0].width) / 2;
+			loopStart = 1;
 			break;
 		case alignLast:
 			{
 				int objindex = alignObjectsCount - 1;
-				newX = AObjects[objindex].x1 + (AObjects[objindex].width)/2;
+				newX = AObjects[objindex].x1 + (AObjects[objindex].width) / 2;
 				loopEnd=alignObjectsCount - 2;
 			}
 			break;
@@ -12287,7 +12288,7 @@ void ScribusDoc::itemSelection_AlignCenterHor(ScribusDoc::AlignTo currAlignTo, S
 		case alignMargins:
 			newX = m_currentPage->xOffset();
 			newX += m_currentPage->Margins.left();
-			newX += (m_currentPage->width() - m_currentPage->Margins.right() - m_currentPage->Margins.left())/2;
+			newX += (m_currentPage->width() - m_currentPage->Margins.right() - m_currentPage->Margins.left()) / 2;
 			break;
 		case alignGuide:
 			newX = m_currentPage->xOffset() + guidePosition;
@@ -12305,7 +12306,7 @@ void ScribusDoc::itemSelection_AlignCenterHor(ScribusDoc::AlignTo currAlignTo, S
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
-		double diff=newX-AObjects[i].x1-(AObjects[i].width)/2;
+		double diff = newX - AObjects[i].x1 - (AObjects[i].width) / 2;
 		if (!AObjects[i].Object->locked())
 			AObjects[i].Object->moveBy(diff, 0.0);
 	}
@@ -12318,7 +12319,8 @@ void ScribusDoc::itemSelection_AlignRightIn(ScribusDoc::AlignTo currAlignTo, Scr
 	if (!startAlign())
 		return;
 	int alignObjectsCount = AObjects.count();
-	int loopStart = 0, loopEnd = alignObjectsCount - 1;
+	int loopStart = 0;
+	int loopEnd = alignObjectsCount - 1;
 	double newX = -std::numeric_limits<double>::max();
 	switch ( currAlignTo ) 
 	{
@@ -12327,8 +12329,8 @@ void ScribusDoc::itemSelection_AlignRightIn(ScribusDoc::AlignTo currAlignTo, Scr
 			loopStart=1;
 			break;
 		case alignLast:
-			newX = AObjects[alignObjectsCount-1].x2;
-			loopEnd=alignObjectsCount-2;
+			newX = AObjects[alignObjectsCount - 1].x2;
+			loopEnd = alignObjectsCount - 2;
 			break;
 		case alignPage:
 			newX = m_currentPage->xOffset();
@@ -12358,17 +12360,18 @@ void ScribusDoc::itemSelection_AlignRightOut(ScribusDoc::AlignTo currAlignTo, Sc
 	if (!startAlign())
 		return;
 	int alignObjectsCount = AObjects.count();
-	int loopStart = 0, loopEnd = alignObjectsCount - 1;
+	int loopStart = 0;
+	int loopEnd = alignObjectsCount - 1;
 	double newX = -std::numeric_limits<double>::max();
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
 			newX = AObjects[0].x2;
-			loopStart=1;
+			loopStart = 1;
 			break;
 		case alignLast:
-			newX = AObjects[alignObjectsCount-1].x2;
-			loopEnd=alignObjectsCount-2;
+			newX = AObjects[alignObjectsCount - 1].x2;
+			loopEnd = alignObjectsCount - 2;
 			break;
 		case alignPage:
 			newX = m_currentPage->xOffset();
@@ -12398,17 +12401,18 @@ void ScribusDoc::itemSelection_AlignTopOut(ScribusDoc::AlignTo currAlignTo, Scri
 	if (!startAlign())
 		return;
 	int alignObjectsCount = AObjects.count();
-	int loopStart = 0, loopEnd = alignObjectsCount - 1;
+	int loopStart = 0;
+	int loopEnd = alignObjectsCount - 1;
 	double newY = std::numeric_limits<double>::max();
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
 			newY = AObjects[0].y1;
-			loopStart=1;
+			loopStart = 1;
 			break;
 		case alignLast:
-			newY = AObjects[alignObjectsCount-1].y1;
-			loopEnd=alignObjectsCount-2;
+			newY = AObjects[alignObjectsCount - 1].y1;
+			loopEnd = alignObjectsCount - 2;
 			break;
 		case alignPage:
 			newY = m_currentPage->yOffset();
@@ -12475,29 +12479,30 @@ void ScribusDoc::itemSelection_AlignCenterVer(ScribusDoc::AlignTo currAlignTo, S
 	if (!startAlign())
 		return;
 	int alignObjectsCount = AObjects.count();
-	int loopStart = 0, loopEnd = alignObjectsCount - 1;
+	int loopStart = 0;
+	int loopEnd = alignObjectsCount - 1;
 	double newY = 0.0;
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
-			newY = AObjects[0].y1 + (AObjects[0].height)/2;
-			loopStart=1;
+			newY = AObjects[0].y1 + (AObjects[0].height) / 2;
+			loopStart = 1;
 			break;
 		case alignLast:
 			{
-				int objindex=alignObjectsCount-1;
-				newY = AObjects[objindex].y1 + (AObjects[objindex].height)/2;
-				loopEnd=alignObjectsCount-2;
+				int objindex = alignObjectsCount - 1;
+				newY = AObjects[objindex].y1 + (AObjects[objindex].height) / 2;
+				loopEnd = alignObjectsCount - 2;
 			}
 			break;
 		case alignPage:
 			newY = m_currentPage->yOffset();
-			newY += m_currentPage->height()/2;
+			newY += m_currentPage->height() / 2;
 			break;
 		case alignMargins:
 			newY = m_currentPage->yOffset();
 			newY += m_currentPage->Margins.top();
-			newY += (m_currentPage->height() - m_currentPage->Margins.bottom() - m_currentPage->Margins.top())/2;
+			newY += (m_currentPage->height() - m_currentPage->Margins.bottom() - m_currentPage->Margins.top()) / 2;
 			break;
 		case alignGuide:
 			newY = m_currentPage->yOffset() + guidePosition;
@@ -12510,12 +12515,12 @@ void ScribusDoc::itemSelection_AlignCenterVer(ScribusDoc::AlignTo currAlignTo, S
 				minY = qMin(AObjects[i].y1, minY);
 				maxY = qMax(AObjects[i].y2, maxY);
 			}
-			newY = minY + (maxY-minY)/2;
+			newY = minY + (maxY - minY) / 2;
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
-		double diff=newY-AObjects[i].y1-(AObjects[i].height)/2;
+		double diff = newY - AObjects[i].y1 - (AObjects[i].height) / 2;
 		if (!AObjects[i].Object->locked())
 			AObjects[i].Object->moveBy(0.0, diff);
 	}
@@ -12528,17 +12533,18 @@ void ScribusDoc::itemSelection_AlignBottomIn(ScribusDoc::AlignTo currAlignTo, Sc
 	if (!startAlign())
 		return;
 	int alignObjectsCount = AObjects.count();
-	int loopStart = 0, loopEnd = alignObjectsCount - 1;
+	int loopStart = 0;
+	int loopEnd = alignObjectsCount - 1;
 	double newY = -std::numeric_limits<double>::max();
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
 			newY = AObjects[0].y2;
-			loopStart=1;
+			loopStart = 1;
 			break;
 		case alignLast:
-			newY = AObjects[alignObjectsCount-1].y2;
-			loopEnd=alignObjectsCount-2;
+			newY = AObjects[alignObjectsCount - 1].y2;
+			loopEnd = alignObjectsCount - 2;
 			break;
 		case alignPage:
 			newY = m_currentPage->yOffset();
@@ -12568,13 +12574,14 @@ void ScribusDoc::itemSelection_AlignBottomOut(ScribusDoc::AlignTo currAlignTo, S
 	if (!startAlign())
 		return;
 	int alignObjectsCount = AObjects.count();
-	int loopStart = 0, loopEnd = alignObjectsCount - 1;
+	int loopStart = 0;
+	int loopEnd = alignObjectsCount - 1;
 	double newY = -std::numeric_limits<double>::max();
 	switch ( currAlignTo )
 	{
 		case alignFirst:
 			newY = AObjects[0].y2;
-			loopStart=1;
+			loopStart = 1;
 			break;
 		case alignLast:
 			newY = AObjects[alignObjectsCount - 1].y2;

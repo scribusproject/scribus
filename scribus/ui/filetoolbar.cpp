@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 FileToolBar::FileToolBar(ScribusMainWindow* p) : ScToolBar( tr("File"), "File", p)
 {
-	parent=p;
+	parent = p;
 	addAction(p->scrActions["fileNew"]);
 	addAction(p->scrActions["fileOpen"]);
 	addAction(p->scrActions["fileSave"]);

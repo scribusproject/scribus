@@ -145,7 +145,8 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 		// look for ScrAction or ScrPopupMenu from the end of the list
 //		QList< QPointer<QObject> >::Iterator it = menuItemList.end();
 		int s=menuItemList.size()-1;
-		for (int i=s; i>=0; --i) {
+		for (int i = s; i >= 0; --i)
+		{
 			QObject* menuItem = menuItemList[i];
 			QString menuItemListClassName = menuItemList[i]->metaObject()->className();
 			if (menuItemListClassName == "ScrAction")

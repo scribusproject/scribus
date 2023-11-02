@@ -612,12 +612,12 @@ namespace sfnt {
 		result.reserve(loca.length());
 		if (hasLongLocaFormat(ttf))
 		{
-			for (int i = 0; i < loca.length(); i+=4)
+			for (int i = 0; i < loca.length(); i += 4)
 				result.append(word(loca, i));
 		}
 		else
 		{
-			for (int i = 0; i < loca.length(); i+=2)
+			for (int i = 0; i < loca.length(); i += 2)
 				result.append(word16(loca, i) * 2);
 		}
 		return result;
@@ -733,7 +733,7 @@ namespace sfnt {
 					uint idRangeOffsets = idDeltas + segCount2 + ttf_cmap4_IdRangeOffsets_IdDeltas;
 					//uint glyphIndexArray = idRangeOffsets + segCount2 + ttf_cmap4_GlyphIds_IdRangeOffsets;
 
-					for (uint seg = 0; seg < segCount2; seg+=2)
+					for (uint seg = 0; seg < segCount2; seg += 2)
 					{
 						uint start = word16(cmaps, startCodes + seg);
 						uint end = word16(cmaps, endCodes + seg);

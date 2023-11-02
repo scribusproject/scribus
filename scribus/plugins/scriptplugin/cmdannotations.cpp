@@ -190,7 +190,7 @@ PyObject *scribus_isannotated(PyObject * /*self*/, PyObject* args, PyObject *key
 
 	if (item->isAnnotation())
 	{
-		if (PyObject_IsTrue(deannotate)==1)
+		if (PyObject_IsTrue(deannotate) == 1)
 		{
 			item->setIsAnnotation(false);
 			Py_RETURN_NONE;
@@ -389,7 +389,7 @@ PyObject *scribus_setfileannotation(PyObject * /*self*/, PyObject* args, PyObjec
 	a.setExtern(QString::fromUtf8(path));
 	setactioncoords(a, x, y);
 
-	if (PyObject_IsTrue(absolute)==1)
+	if (PyObject_IsTrue(absolute) == 1)
 		a.setActionType(Annotation::Action_GoToR_FileAbs);
 	else
 		a.setActionType(Annotation::Action_GoToR_FileRel);

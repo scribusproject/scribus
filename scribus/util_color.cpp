@@ -582,15 +582,15 @@ void clipColor(double& red, double& green, double& blue)
 
 QString colorSpaceText(int cs)
 {
-	if (cs==0)
+	if (cs == 0)
 		return CommonStrings::trRGB;
-	if (cs==1)
+	if (cs == 1)
 		return CommonStrings::trCMYK;
-	if (cs==2)
+	if (cs == 2)
 		return CommonStrings::trGrayscale;
-	if (cs==3)
+	if (cs == 3)
 		return CommonStrings::trDuotone;
-	if (cs==4)
+	if (cs == 4)
 		return CommonStrings::trMonochrome;
 	return CommonStrings::trUnknownCS;
 }

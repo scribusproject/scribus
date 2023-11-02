@@ -1035,7 +1035,7 @@ public:
 	 * @param location 
 	 * @param count 
 	 */
-	void addPageToSection(uint otherPageIndex, uint location, uint count=1);
+	void addPageToSection(uint otherPageIndex, uint location, uint count = 1);
 	/**
 	 * 
 	 * @param pageIndex 
@@ -1054,7 +1054,7 @@ public:
 	/**
 	 * Update annotation links when a page is added
 	 */
-	void addPageToAnnotLinks(int otherPageIndex, int location, int count=1);
+	void addPageToAnnotLinks(int otherPageIndex, int location, int count = 1);
 
 	/**
 	 * Update annotation links when a page is removed
@@ -1284,7 +1284,7 @@ public:
 	void checkItemForFrames(PageItem *it, int fIndex);
 	bool hasPreflightErrors();
 	QFileDevice::Permissions filePermissions() { return m_docFilePermissions; }
-	void saveFilePermissions(QFileDevice::Permissions p) { m_docFilePermissions=p; }
+	void saveFilePermissions(QFileDevice::Permissions p) { m_docFilePermissions = p; }
 
 protected:
 	void addSymbols();

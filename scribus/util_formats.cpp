@@ -253,19 +253,19 @@ QString FormatsManager::extensionListForFormat(int type, int listType) const
 			QStringListIterator itSL(it.value());
 			while (itSL.hasNext())
 			{
-				if (listType==0)
+				if (listType == 0)
 					nameMatch += separator;
 				nameMatch += itSL.next();
-				if (listType==1 && itSL.hasNext())
+				if (listType == 1 && itSL.hasNext())
 					nameMatch += separator;
 			}
 		}
-		if (listType==1 && it.hasNext() && nameMatch.length()>0 && !nameMatch.endsWith(separator))
+		if (listType == 1 && it.hasNext() && nameMatch.length() > 0 && !nameMatch.endsWith(separator))
 			nameMatch += separator;
 	}
-	if (listType==0 && nameMatch.startsWith(" "))
-		nameMatch.remove(0,1);
-	if (listType==1 && nameMatch.endsWith("|"))
+	if (listType == 0 && nameMatch.startsWith(" "))
+		nameMatch.remove(0, 1);
+	if (listType == 1 && nameMatch.endsWith("|"))
 		nameMatch.chop(1);
 	return nameMatch;
 }
@@ -275,7 +275,7 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 	QString allFormats = QObject::tr("All Supported Formats")+" (";
 	QStringList formats;
 	QMapIterator<int, QStringList> it(m_fmts);
-	bool first=true;
+	bool first = true;
 	while (it.hasNext())
 	{
 		it.next();
@@ -299,7 +299,7 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 				QString t("*." + itSL.next());
 				allFormats += t;
 				text += t;
-				if(!lowerCaseOnly)
+				if (!lowerCaseOnly)
 				{
 					allFormats += " " + t.toUpper();
 					text += " " + t.toUpper();

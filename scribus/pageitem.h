@@ -506,7 +506,7 @@ public: // Start public functions
 	void dropLinks();
 	void unlinkWithText();
 
-	void setSampleItem(bool b) {m_sampleItem=b;}
+	void setSampleItem(bool b) {m_sampleItem = b;}
 	const QVector<double>& dashes() const { return DashValues; }
 	QVector<double>& dashes() { return DashValues; }
 	void setDashes(const QVector<double>& val) { DashValues = val; }

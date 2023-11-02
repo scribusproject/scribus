@@ -501,8 +501,8 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		}
 		
 		//CB Why can't we do this for lines?
-//		flipH->setEnabled((itemType !=-1) && (itemType !=5));
-//		flipV->setEnabled((itemType !=-1) && (itemType !=5));
+//		flipH->setEnabled((itemType !=-1) && (itemType != 5));
+//		flipV->setEnabled((itemType !=-1) && (itemType != 5));
 		flipH->setEnabled(itemType !=-1);
 		flipV->setEnabled(itemType !=-1);
 		switch (itemType)
