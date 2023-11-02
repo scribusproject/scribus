@@ -291,7 +291,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 		m_doc->m_Selection->itemAt(i)->checkChanges(true);
 
 	//Commit drag created items to undo manager.
-	if (m_doc->m_Selection->itemAt(0)!=nullptr)
+	if (m_doc->m_Selection->itemAt(0) != nullptr)
 	{
 		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 	}
@@ -322,7 +322,7 @@ void FreehandMode::selectPage(QMouseEvent *m)
 		return;
 
 	uint docCurrPageNo = m_doc->currentPageNumber();
-	uint j=static_cast<uint>(i);
+	uint j = static_cast<uint>(i);
 	if (docCurrPageNo != j)
 	{
 		m_doc->setCurrentPage(m_doc->Pages->at(j));

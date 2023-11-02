@@ -75,12 +75,12 @@ void CreateMode::drawControls(QPainter* p)
 	{
 		QRectF bounds = QRectF(topLeft, btRight).normalized();
 		//Lock Height to Width for Control Modifier for region drawing
-		if (modifiers==Qt::ControlModifier)
+		if (modifiers == Qt::ControlModifier)
 		{
 			bounds.setHeight(bounds.width());
-			if (btRight.y()<topLeft.y())
+			if (btRight.y() < topLeft.y())
 				bounds.moveBottom(topLeft.y());
-			if (btRight.x()<topLeft.x() && btRight.y()>topLeft.y())
+			if (btRight.x() < topLeft.x() && btRight.y() > topLeft.y())
 				bounds.moveTop(topLeft.y());
 		}
 		QRect localRect = m_canvas->canvasToLocal(bounds);
@@ -450,8 +450,8 @@ void CreateMode::selectPage(QMouseEvent *m)
 		int i = m_doc->OnPage(canvasPressCoord.x(), canvasPressCoord.y());
 		if (i!=-1)
 		{
-			uint docCurrPageNo=m_doc->currentPageNumber();
-			uint j=static_cast<uint>(i);
+			uint docCurrPageNo = m_doc->currentPageNumber();
+			uint j = static_cast<uint>(i);
 			if (docCurrPageNo != j)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(j));
@@ -459,8 +459,8 @@ void CreateMode::selectPage(QMouseEvent *m)
 				m_view->DrawNew();
 			}
 		}
-/*		uint docPagesCount=m_doc->Pages->count();
-		uint docCurrPageNo=m_doc->currentPageNumber();
+/*		uint docPagesCount = m_doc->Pages->count();
+		uint docCurrPageNo = m_doc->currentPageNumber();
 		for (uint i = 0; i < docPagesCount; ++i)
 		{
 			int x = static_cast<int>(m_doc->Pages->at(i)->xOffset() * m_canvas->scale());
@@ -613,7 +613,7 @@ PageItem* CreateMode::doCreateNewObject()
 	if (createObjectMode != modeDrawLine)
 	{
 		createObjectRect = createObjectRect.normalized();
-		if (modifiers==Qt::ControlModifier)
+		if (modifiers == Qt::ControlModifier)
 		{
 			//bottom right and upper left are ok
 			//upper right

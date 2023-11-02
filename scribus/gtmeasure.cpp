@@ -33,7 +33,7 @@ double gtMeasure::m_ratio = 1.0;
 
 void gtMeasure::init(scUnit u)
 {
-	m_ratio=unitGetRatioFromIndex((int)u);
+	m_ratio = unitGetRatioFromIndex((int) u);
 }
 
 double gtMeasure::convert(double value)

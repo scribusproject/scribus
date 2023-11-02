@@ -194,14 +194,14 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
-	PageItem *currItem=nullptr, *bb=nullptr;
+	PageItem *currItem = nullptr, *bb = nullptr;
 	switch (m_doc->appMode)
 	{
 		case modeLinkFrames:
 			if (m->button() != Qt::LeftButton)
 				break;
 			currItem = m_doc->ElemToLink;
-			if (currItem==nullptr)
+			if (currItem == nullptr)
 				break;
 			// #14334: delay selection signals so that (un)link actions get properly enabled/disabled
 			m_doc->m_Selection->delaySignalsOn();
@@ -373,10 +373,10 @@ void CanvasMode_FrameLinks::selectPage(QMouseEvent *m)
 	if (!m_doc->masterPageMode())
 	{
 		int i = m_doc->OnPage(m_Mxp, m_Myp);
-		if (i!=-1)
+		if (i != -1)
 		{
-			uint docCurrPageNo=m_doc->currentPageNumber();
-			uint j=static_cast<uint>(i);
+			uint docCurrPageNo = m_doc->currentPageNumber();
+			uint j = static_cast<uint>(i);
 			if (docCurrPageNo != j)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(j));
@@ -524,11 +524,11 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 
 void CanvasMode_FrameLinks::createContextMenu(PageItem* currItem, double mx, double my)
 {
-	ContextMenu* cmen=nullptr;
+	ContextMenu* cmen = nullptr;
 	m_view->setObjectUndoMode();
 	m_Mxp = mx;
 	m_Myp = my;
-	if (currItem!=nullptr)
+	if (currItem != nullptr)
 	{
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 		cmen->exec(QCursor::pos());

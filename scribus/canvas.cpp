@@ -526,7 +526,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 
 bool Canvas::cursorOverTextFrameControl(QPoint globalPos, PageItem* frame)
 {
-	FPoint mp=globalToCanvas(globalPos);
+	FPoint mp = globalToCanvas(globalPos);
 	qreal sideLength = 10 / qMax(m_viewMode.scale, 1.0);
 	qreal left  = frame->xPos() + frame->width() - sideLength;// / 2;
 	qreal right = left + sideLength;
@@ -816,8 +816,8 @@ void Canvas::paintEvent ( QPaintEvent * p )
 #ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
 	QTime t;
 	QString dmode("");
-	int t1,t2,t3,t4,t5,t6;
-	t1 = t2=t3=t4=t5 =t6= 0;
+	int t1, t2, t3, t4, t5, t6;
+	t1 = t2 = t3 = t4 = t5 = t6 = 0;
 	t.start();
 #endif
 	// fill buffer if necessary
@@ -1094,7 +1094,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	painter->end();
 	psx->drawImage(clipx, clipy, img);
 	delete painter;
-	painter=nullptr;
+	painter = nullptr;
 // 	qDebug( "Time elapsed: %d ms, setup=%d, outlines=%d, background=%d, contents=%d, rest=%d", tim.elapsed(), Tsetup,Toutlines -Tsetup, Tbackground-Toutlines, Tcontents-Tbackground, tim.elapsed() - Tcontents );
 }
 
@@ -1606,7 +1606,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
  */
 void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy, int clipw, int cliph)
 {
-	int docPagesCount=m_doc->Pages->count();
+	int docPagesCount = m_doc->Pages->count();
 	if (PrefsManager::instance().appPrefs.displayPrefs.showPageShadow)
 	{
 		painter->setBrush(QColor(128,128,128));
@@ -1966,7 +1966,7 @@ void Canvas::DrawPageGridSub(ScPainter *p, ScPage *page, const QRectF& clip)
 			{
 				p->drawLine(FPoint(qMax(lowerBx, 0.0), b), FPoint(qMin(pageWidth, highBx), b));
 			}
-			start=floor(lowerBx/i);
+			start = floor(lowerBx / i);
 			start *= i;
 			for (double b = start; b <= highBx; b += i)
 			{
@@ -1980,7 +1980,7 @@ void Canvas::DrawPageGridSub(ScPainter *p, ScPage *page, const QRectF& clip)
 			{
 				p->drawLine(FPoint(qMax(lowerBx, 0.0), b), FPoint(qMin(pageWidth, highBx), b));
 			}
-			start=floor(lowerBx/i);
+			start = floor(lowerBx / i);
 			start *= i;
 			for (double b = start; b <= highBx; b += i)
 			{
@@ -2222,7 +2222,7 @@ void Canvas::drawFrameLinks(ScPainter* painter)
 void Canvas::drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end)
 {
 	//CB FIXME Add some checking that the painter is setup?
-	Q_ASSERT(painter!=nullptr);
+	Q_ASSERT(painter != nullptr);
 	painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	painter->setPenOpacity(1.0);
 	painter->drawLine(start, end);
@@ -2326,7 +2326,7 @@ void Canvas::TransformM(PageItem *currItem, QPainter *p)
 
 void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & start, FPoint & end)
 {
-	if (pi1==nullptr || pi2==nullptr)
+	if (pi1 == nullptr || pi2 == nullptr)
 		return;
 	//Calculate the link points of the frames
 	double x11 = pi1->xPos();
@@ -2355,14 +2355,14 @@ void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & sta
 	if (pi1->rotation()!=0.000)
 	{
 		FPoint tempPoint(0,0, x11, y11, pi1->rotation(), 1, 1);
-		x11=tempPoint.x();
-		y11=tempPoint.y();
-		FPoint tempPoint2(0,0, x12, y12, pi1->rotation(), 1, 1);
-		x12=tempPoint2.x();
-		y12=tempPoint2.y();
-		FPoint tempPoint3(0,0, x1mid, y1mid, pi1->rotation(), 1, 1);
-		x1mid=tempPoint3.x();
-		y1mid=tempPoint3.y();
+		x11 = tempPoint.x();
+		y11 = tempPoint.y();
+		FPoint tempPoint2(0, 0, x12, y12, pi1->rotation(), 1, 1);
+		x12 = tempPoint2.x();
+		y12 = tempPoint2.y();
+		FPoint tempPoint3(0, 0, x1mid, y1mid, pi1->rotation(), 1, 1);
+		x1mid = tempPoint3.x();
+		y1mid = tempPoint3.y();
 	}
 					
 					
@@ -2395,30 +2395,30 @@ void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & sta
 	if (pi2->rotation()!=0.000)
 	{
 		FPoint tempPoint(0,0, x21, y21, pi2->rotation(), 1, 1);
-		x21=tempPoint.x();
-		y21=tempPoint.y();
-		FPoint tempPoint2(0,0, x22, y22, pi2->rotation(), 1, 1);
-		x22=tempPoint2.x();
-		y22=tempPoint2.y();
-		FPoint tempPoint3(0,0, x2mid, y2mid, pi2->rotation(), 1, 1);
-		x2mid=tempPoint3.x();
-		y2mid=tempPoint3.y();
+		x21 = tempPoint.x();
+		y21 = tempPoint.y();
+		FPoint tempPoint2(0, 0, x22, y22, pi2->rotation(), 1, 1);
+		x22 = tempPoint2.x();
+		y22 = tempPoint2.y();
+		FPoint tempPoint3(0, 0, x2mid, y2mid, pi2->rotation(), 1, 1);
+		x2mid = tempPoint3.x();
+		y2mid = tempPoint3.y();
 	}
 					
-	if (x22<x11) { a1 = x11; a2 = x22; }
-	if (x21>x12) { a1 = x12; a2 = x21; }
-	if (y22<y11) { b1 = y11; b2 = y22; }
-	if (y21>y12) { b1 = y12; b2 = y21; }
-					
-	if (x21<x12 && x21>x11) { a1 = x1mid; a2 = x2mid; }
-	if (x21<x11 && x22>x11) { a1 = x1mid; a2 = x2mid; }
-					
-	if (y21<y12 && y21>y11) { b1 = y1mid; b2 = y2mid; }
-	if (y21<y11 && y22>y11) { b1 = y1mid; b2 = y2mid; }
+	if (x22 < x11) { a1 = x11; a2 = x22; }
+	if (x21 > x12) { a1 = x12; a2 = x21; }
+	if (y22 < y11) { b1 = y11; b2 = y22; }
+	if (y21 > y12) { b1 = y12; b2 = y21; }
+
+	if (x21 < x12 && x21 > x11) { a1 = x1mid; a2 = x2mid; }
+	if (x21 < x11 && x22 > x11) { a1 = x1mid; a2 = x2mid; }
+
+	if (y21 < y12 && y21 > y11) { b1 = y1mid; b2 = y2mid; }
+	if (y21 < y11 && y22 > y11) { b1 = y1mid; b2 = y2mid; }
 	
 	//When our points (in pt) are exactly the same, cover this too. #3634
-	if (x11==x21) { a1 = x1mid; a2 = x2mid; }
-	if (y11==y21) { b1 = y1mid; b2 = y2mid; }
+	if (x11 == x21) { a1 = x1mid; a2 = x2mid; }
+	if (y11 == y21) { b1 = y1mid; b2 = y2mid; }
 	
 	//Set the link frame lines' endpoints
 	start.setXY(a1-pi1->xPos(), b1-pi1->yPos());

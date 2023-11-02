@@ -572,7 +572,7 @@ void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 		actionList << "editClearContents";
 		actionList << "editCopyContents";
 	}
-	if (doc()->scMW()->contentsBuffer.sourceType==PageItem::LatexFrame)
+	if (doc()->scMW()->contentsBuffer.sourceType == PageItem::LatexFrame)
 	{
 		actionList << "editPasteContents";
 		actionList << "editPasteContentsAbs";

@@ -28,8 +28,8 @@ LangDef::LangDef(const QString& pri,
 			 const QString& name,
 			 const QString& transName)
 {
-	m_priAbbrev=pri;
-	m_altAbbrev=alt;
-	m_name=name;
-	m_transName=transName;
+	m_priAbbrev = pri;
+	m_altAbbrev = alt;
+	m_name = name;
+	m_transName = transName;
 };

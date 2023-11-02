@@ -265,17 +265,17 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	bool controlDown=(buttonModifiers & Qt::ControlModifier);
 	bool altDown=(buttonModifiers & Qt::AltModifier);
 	bool shiftDown=(buttonModifiers & Qt::ShiftModifier);
-	bool resizingImage=false;
+	bool resizingImage = false;
 	if (shiftDown && !controlDown)
-		moveBy=10.0;
+		moveBy = 10.0;
 	else if (shiftDown && controlDown && !altDown)
-		moveBy=0.1;
+		moveBy = 0.1;
 	else if (shiftDown && controlDown && altDown)
-		moveBy=0.01;
+		moveBy = 0.01;
 	else if (!shiftDown && altDown)
-		resizingImage=true;
+		resizingImage = true;
 
-	double dX=0.0,dY=0.0;
+	double dX = 0.0, dY = 0.0;
 	int kk = k->key();
 	ScribusView* view = m_Doc->view();
 
@@ -287,20 +287,20 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	}
 	else if (!resizingImage)
 	{
-		moveBy/=m_Doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
+		moveBy /= m_Doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 		switch (kk)
 		{
 			case Qt::Key_Left:
-				dX=-moveBy;
+				dX = -moveBy;
 				break;
 			case Qt::Key_Right:
-				dX=moveBy;
+				dX = moveBy;
 				break;
 			case Qt::Key_Up:
-				dY=-moveBy;
+				dY = -moveBy;
 				break;
 			case Qt::Key_Down:
-				dY=moveBy;
+				dY = moveBy;
 				break;
 		}
 		if (dX!=0.0 || dY!=0.0)
@@ -314,16 +314,16 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		switch (kk)
 		{
 			case Qt::Key_Left:
-				dX=-moveBy+100;
+				dX = -moveBy + 100;
 				break;
 			case Qt::Key_Right:
-				dX=moveBy+100;
+				dX = moveBy + 100;
 				break;
 			case Qt::Key_Up:
-				dY=-moveBy+100;
+				dY = -moveBy + 100;
 				break;
 			case Qt::Key_Down:
-				dY=moveBy+100;
+				dY = moveBy + 100;
 				break;
 			default:
 				return;
@@ -416,7 +416,7 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != ImageType7))
 			cSpace = tr("Unknown");
 		else
-			cSpace=colorSpaceText(pixm.imgInfo.colorspace);
+			cSpace = colorSpaceText(pixm.imgInfo.colorspace);
 		colT->setText(cSpace);
 		infoGroupLayout->addWidget( colT, 4, 1 );
 	}
@@ -474,7 +474,7 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 	if(!Pfile.isEmpty())
 		actionList << "editClearContents";
 	actionList << "itemConvertToPolygon";
-	if (doc()->scMW()->contentsBuffer.sourceType==PageItem::ImageFrame)
+	if (doc()->scMW()->contentsBuffer.sourceType == PageItem::ImageFrame)
 	{
 		actionList << "editPasteContents";
 		actionList << "editPasteContentsAbs";

@@ -27,14 +27,11 @@ class MarginStruct
 		MarginStruct() {}
 		MarginStruct(double top, double left, double bottom, double right) :
 			m_top(top), m_left(left), m_bottom(bottom), m_right(right) {}
-//unneeded? default compiler generated should suffice
-//		MarginStruct(const MarginStruct& rhs) {m_top=rhs.m_top;m_bottom=rhs.m_bottom;m_left=rhs.m_left;m_right=rhs.m_right;}
-//		MarginStruct& operator=(const MarginStruct& rhs) {m_top=rhs.m_top;m_bottom=rhs.m_bottom;m_left=rhs.m_left;m_right=rhs.m_right;return *this;}
-		void set(double top, double left, double bottom, double right) {m_top=top;m_bottom=bottom;m_left=left;m_right=right;}
-		void resetToZero() {m_top=0.0;m_bottom=0.0;m_left=0.0;m_right=0.0;}
+
+		void set(double top, double left, double bottom, double right) { m_top = top; m_bottom = bottom; m_left = left; m_right = right; }
+		void resetToZero() { m_top = 0.0; m_bottom = 0.0; m_left = 0.0; m_right = 0.0; }
 		bool isNull() const {return qFuzzyIsNull(m_left) && qFuzzyIsNull(m_top) && qFuzzyIsNull(m_right) && qFuzzyIsNull(m_bottom);}
-		//bool hasNonZeroValue() const { return m_top!=0.0 || m_bottom!=0.0 || m_left!=0.0 || m_right!=0.0;}
-		void print() const {qDebug() << m_top << m_left << m_bottom << m_right;}
+		void print() const { qDebug() << m_top << m_left << m_bottom << m_right; }
 		inline double left() const { return m_left; }
 		inline double top() const { return m_top; }
 		inline double bottom() const { return m_bottom; }

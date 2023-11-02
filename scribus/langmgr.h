@@ -44,10 +44,10 @@ public:
 	static void deleteInstance();
 
 	void languageChange();
-	QStringList languageList(bool getTranslated=true);
+	QStringList languageList(bool getTranslated = true);
 	
-	QString getLangFromAbbrev(QString, bool getTranslated=true);
-	QString getAbbrevFromLang(const QString&, bool useInstalled=true);
+	QString getLangFromAbbrev(QString, bool getTranslated = true);
+	QString getAbbrevFromLang(const QString&, bool useInstalled = true);
 	QString getLangFromTransLang(const QString& transLang);
 	QString getTransLangFromLang(const QString& lang);
 	QString getShortAbbrevFromAbbrev(QString langAbbrev);

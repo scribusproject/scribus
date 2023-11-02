@@ -68,10 +68,10 @@ void MenuManager::setText(const QString &menuName, const QString &menuText)
 	if (menuStringTexts.contains(menuName))
 		menuStringTexts.insert(menuName, menuText);
 	//TODO rebuild all menus
-//	if (menuList.contains(menuName) && menuList[menuName]!=nullptr)
+//	if (menuList.contains(menuName) && menuList[menuName] != nullptr)
 //	{
 //		menuList[menuName]->setText(menuText);
-//		QString parent=menuList[menuName]->getParentMenuName();
+//		QString parent = menuList[menuName]->getParentMenuName();
 //		if (!parent.isNull())
 //			menuList[parent]->repopulateLocalMenu();
 //	}
@@ -79,7 +79,7 @@ void MenuManager::setText(const QString &menuName, const QString &menuText)
 
 QMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
 {
-	if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName)!=nullptr)
+	if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName) != nullptr)
 		return menuBarMenus.value(menuName);
 	return nullptr;
 }
@@ -87,7 +87,7 @@ QMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
 void MenuManager::setMenuEnabled(const QString &menuName, bool enabled)
 {
 	// OSX UI rules don't allow this so let's not do it elsewhere.
-	//if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName)!=nullptr)
+	//if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName) != nullptr)
 	//	menuBarMenus.value(menuName)->setEnabled(enabled);
 }
 
@@ -216,7 +216,7 @@ void MenuManager::addMenuItemStringsToMenu(const QString &menuName, QMenu *menuT
 void MenuManager::addMenuItemStringsToRememberedMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
 {
 	if (rememberedMenus.contains(menuName))
-		if (rememberedMenus.value(menuName)!=nullptr)
+		if (rememberedMenus.value(menuName) != nullptr)
 			addMenuItemStringsToMenu(menuName, rememberedMenus.value(menuName), menuActions);
 }
 
@@ -258,8 +258,8 @@ bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString &parent)
 {
 	bool retVal = false;
 	/*
-	 if (menuList.contains(parent) && menuList[parent]!=nullptr)
-		retVal=menuList[parent]->removeMenuItem(menuAction);
+	 if (menuList.contains(parent) && menuList[parent] != nullptr)
+		retVal = menuList[parent]->removeMenuItem(menuAction);
 	*/
 	return retVal;
 }
@@ -267,9 +267,9 @@ bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString &parent)
 void MenuManager::runMenuAtPos(const QString &menuName, const QPoint& position)
 {
 	/*
-	if (menuList.contains(menuName) && menuList[menuName]!=nullptr)
+	if (menuList.contains(menuName) && menuList[menuName] != nullptr)
 	{	
-		QMenu *popupmenu=menuList[menuName]->getLocalPopupMenu();
+		QMenu *popupmenu = menuList[menuName]->getLocalPopupMenu();
 		if (popupmenu)
 			popupmenu->exec(position);
 	}

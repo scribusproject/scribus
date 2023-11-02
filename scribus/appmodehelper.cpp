@@ -55,13 +55,13 @@ void AppModeHelper::setup(ActionManager* am,
 						  QMap<QString, QPointer<ScrAction> > *scLA,
 						  QMap<QString, QPointer<ScrAction> > *scRPA)
 {
-	a_actMgr=am;
-	a_scrActions=scrA;
-	a_scrRecentFileActions=scrRFA;
-	a_scrWindowsActions=sWA;
-	a_scrScrapActions=scSA;
-	a_scrLayersActions=scLA;
-	a_scrRecentPasteActions=scRPA;
+	a_actMgr = am;
+	a_scrActions = scrA;
+	a_scrRecentFileActions = scrRFA;
+	a_scrWindowsActions = sWA;
+	a_scrScrapActions = scSA;
+	a_scrLayersActions = scLA;
+	a_scrRecentPasteActions = scRPA;
 }
 
 void AppModeHelper::resetApplicationMode(int newMode)
@@ -450,7 +450,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		(*a_scrActions)["editDeselectAll"]->setEnabled(SelectedType != -1);
 	}
 	(*a_scrActions)["itemDetachTextFromPath"]->setEnabled(false);
-	bool isImageFrame = SelectedType==PageItem::ImageFrame;
+	bool isImageFrame = SelectedType == PageItem::ImageFrame;
 	(*a_scrActions)["itemUpdateImage"]->setEnabled(isImageFrame && (currItem->imageIsAvailable || currItem->isLatexFrame()));
 	(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(isImageFrame && currItem->imageIsAvailable);
 	(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(isImageFrame && currItem->imageIsAvailable);
@@ -466,7 +466,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 	(*a_scrActions)["editPasteContentsAbs"]->setEnabled(isImageFrame);
 	(*a_scrActions)["editEditWithImageEditor"]->setEnabled(isImageFrame && currItem->imageIsAvailable && currItem->isRaster);
 	(*a_scrActions)["editEditRenderSource"]->setEnabled(isImageFrame && currItem && (currItem->isLatexFrame() || currItem->isOSGFrame()));
-	(*a_scrActions)["itemAdjustFrameHeightToText"]->setEnabled(SelectedType==PageItem::TextFrame && currItem->itemText.length() >0);
+	(*a_scrActions)["itemAdjustFrameHeightToText"]->setEnabled(SelectedType == PageItem::TextFrame && currItem->itemText.length() > 0);
 	if (!isImageFrame)
 	{
 		(*a_scrActions)["itemImageIsVisible"]->setChecked(false);
@@ -972,39 +972,39 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 void AppModeHelper::setModeActionsPerMode(int newMode)
 {
 	//set the actions state based on incoming mode
-	(*a_scrActions)["toolsSelect"]->setChecked(newMode==modeNormal);
-	(*a_scrActions)["toolsInsertTextFrame"]->setChecked(newMode==modeDrawText);
-	(*a_scrActions)["toolsInsertImageFrame"]->setChecked(newMode==modeDrawImage);
-	(*a_scrActions)["toolsInsertTable"]->setChecked(newMode==modeDrawTable2);
-	(*a_scrActions)["toolsInsertShape"]->setChecked(newMode==modeDrawShapes);
-	(*a_scrActions)["toolsInsertPolygon"]->setChecked(newMode==modeDrawRegularPolygon);
-	(*a_scrActions)["toolsInsertArc"]->setChecked(newMode==modeDrawArc);
-	(*a_scrActions)["toolsInsertSpiral"]->setChecked(newMode==modeDrawSpiral);
-	(*a_scrActions)["toolsInsertLine"]->setChecked(newMode==modeDrawLine);
-	(*a_scrActions)["toolsInsertBezier"]->setChecked(newMode==modeDrawBezierLine);
-	(*a_scrActions)["toolsInsertFreehandLine"]->setChecked(newMode==modeDrawFreehandLine);
+	(*a_scrActions)["toolsSelect"]->setChecked(newMode == modeNormal);
+	(*a_scrActions)["toolsInsertTextFrame"]->setChecked(newMode == modeDrawText);
+	(*a_scrActions)["toolsInsertImageFrame"]->setChecked(newMode == modeDrawImage);
+	(*a_scrActions)["toolsInsertTable"]->setChecked(newMode == modeDrawTable2);
+	(*a_scrActions)["toolsInsertShape"]->setChecked(newMode == modeDrawShapes);
+	(*a_scrActions)["toolsInsertPolygon"]->setChecked(newMode == modeDrawRegularPolygon);
+	(*a_scrActions)["toolsInsertArc"]->setChecked(newMode == modeDrawArc);
+	(*a_scrActions)["toolsInsertSpiral"]->setChecked(newMode == modeDrawSpiral);
+	(*a_scrActions)["toolsInsertLine"]->setChecked(newMode == modeDrawLine);
+	(*a_scrActions)["toolsInsertBezier"]->setChecked(newMode == modeDrawBezierLine);
+	(*a_scrActions)["toolsInsertFreehandLine"]->setChecked(newMode == modeDrawFreehandLine);
 	(*a_scrActions)["toolsInsertCalligraphicLine"]->setChecked(newMode == modeDrawCalligraphicLine);
-	(*a_scrActions)["toolsInsertRenderFrame"]->setChecked(newMode==modeDrawLatex);
-	(*a_scrActions)["toolsRotate"]->setChecked(newMode==modeRotation);
-	(*a_scrActions)["toolsZoom"]->setChecked(newMode==modeMagnifier);
-	(*a_scrActions)["toolsEditContents"]->setChecked(newMode==modeEdit);
-	(*a_scrActions)["toolsEditWithStoryEditor"]->setChecked(newMode==modeStoryEditor);
-	(*a_scrActions)["toolsLinkTextFrame"]->setChecked(newMode==modeLinkFrames);
-	(*a_scrActions)["toolsUnlinkTextFrame"]->setChecked(newMode==modeUnlinkFrames);
-//	(*a_scrActions)["toolsUnlinkTextFrameAndCutText"]->setChecked(newMode==modeUnlinkFrames);
-	(*a_scrActions)["toolsEyeDropper"]->setChecked(newMode==modeEyeDropper);
-	(*a_scrActions)["toolsMeasurements"]->setChecked(newMode==modeMeasurementTool);
-	(*a_scrActions)["toolsCopyProperties"]->setChecked(newMode==modeCopyProperties);
-	(*a_scrActions)["toolsPDFPushButton"]->setChecked(newMode==modeInsertPDFButton);
-	(*a_scrActions)["toolsPDFRadioButton"]->setChecked(newMode==modeInsertPDFRadioButton);
-	(*a_scrActions)["toolsPDFTextField"]->setChecked(newMode==modeInsertPDFTextfield);
-	(*a_scrActions)["toolsPDFCheckBox"]->setChecked(newMode==modeInsertPDFCheckbox);
-	(*a_scrActions)["toolsPDFComboBox"]->setChecked(newMode==modeInsertPDFCombobox);
-	(*a_scrActions)["toolsPDFListBox"]->setChecked(newMode==modeInsertPDFListbox);
-	(*a_scrActions)["toolsPDFAnnotText"]->setChecked(newMode==modeInsertPDFTextAnnotation);
-	(*a_scrActions)["toolsPDFAnnotLink"]->setChecked(newMode==modeInsertPDFLinkAnnotation);
+	(*a_scrActions)["toolsInsertRenderFrame"]->setChecked(newMode == modeDrawLatex);
+	(*a_scrActions)["toolsRotate"]->setChecked(newMode == modeRotation);
+	(*a_scrActions)["toolsZoom"]->setChecked(newMode == modeMagnifier);
+	(*a_scrActions)["toolsEditContents"]->setChecked(newMode == modeEdit);
+	(*a_scrActions)["toolsEditWithStoryEditor"]->setChecked(newMode == modeStoryEditor);
+	(*a_scrActions)["toolsLinkTextFrame"]->setChecked(newMode == modeLinkFrames);
+	(*a_scrActions)["toolsUnlinkTextFrame"]->setChecked(newMode == modeUnlinkFrames);
+//	(*a_scrActions)["toolsUnlinkTextFrameAndCutText"]->setChecked(newMode == modeUnlinkFrames);
+	(*a_scrActions)["toolsEyeDropper"]->setChecked(newMode == modeEyeDropper);
+	(*a_scrActions)["toolsMeasurements"]->setChecked(newMode == modeMeasurementTool);
+	(*a_scrActions)["toolsCopyProperties"]->setChecked(newMode == modeCopyProperties);
+	(*a_scrActions)["toolsPDFPushButton"]->setChecked(newMode == modeInsertPDFButton);
+	(*a_scrActions)["toolsPDFRadioButton"]->setChecked(newMode == modeInsertPDFRadioButton);
+	(*a_scrActions)["toolsPDFTextField"]->setChecked(newMode == modeInsertPDFTextfield);
+	(*a_scrActions)["toolsPDFCheckBox"]->setChecked(newMode == modeInsertPDFCheckbox);
+	(*a_scrActions)["toolsPDFComboBox"]->setChecked(newMode == modeInsertPDFCombobox);
+	(*a_scrActions)["toolsPDFListBox"]->setChecked(newMode == modeInsertPDFListbox);
+	(*a_scrActions)["toolsPDFAnnotText"]->setChecked(newMode == modeInsertPDFTextAnnotation);
+	(*a_scrActions)["toolsPDFAnnotLink"]->setChecked(newMode == modeInsertPDFLinkAnnotation);
 #ifdef HAVE_OSG
-	(*a_scrActions)["toolsPDFAnnot3D"]->setChecked(newMode==modeInsertPDF3DAnnotation);
+	(*a_scrActions)["toolsPDFAnnot3D"]->setChecked(newMode == modeInsertPDF3DAnnotation);
 #endif
 }
 

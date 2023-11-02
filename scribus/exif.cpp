@@ -534,7 +534,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 
 			case TAG_USERCOMMENT:
 				// Olympus has this padded with trailing spaces.  Remove these first.
-				for ( a=ByteCount;; )
+				for (a = ByteCount;; )
 				{
 					a--;
 					if ( ( ValuePtr ) [a] == ' ' )

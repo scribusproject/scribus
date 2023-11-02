@@ -11838,5 +11838,5 @@ bool PDFLibCore::closeAndCleanup()
 
 void PDFLibCore::cancelRequested()
 {
-	abortExport=true;
+	abortExport = true;
 }

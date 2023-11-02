@@ -1183,7 +1183,7 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 
 void PageItem_TextFrame::layout()
 {
-//	qDebug()<<"==Layout==" << itemName() ;
+//	qDebug() << "==Layout==" << itemName() ;
 // 	printBacktrace(24);
 	if (m_backBox != nullptr) {
 //		qDebug("textframe: len=%d, going back", itemText.length());
@@ -3546,7 +3546,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, const QRectF& cullingArea)
 		p->setFillMode(fm);
 		p->setStrokeMode(sm);
 	}
-	m_textDistanceMargins=savedTextDistanceMargins;
+	m_textDistanceMargins = savedTextDistanceMargins;
 	p->restore();//RE1
 }
 
@@ -4700,7 +4700,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 
 bool PageItem_TextFrame::checkKeyIsShortcut(QKeyEvent *k)
 {
-	QMap<QString, Keys> keyMap=PrefsManager::instance().appPrefs.keyShortcutPrefs.KeyActions;
+	QMap<QString, Keys> keyMap = PrefsManager::instance().appPrefs.keyShortcutPrefs.KeyActions;
 
 	bool ret = false;
 	int keyCode =0;
@@ -4713,7 +4713,7 @@ bool PageItem_TextFrame::checkKeyIsShortcut(QKeyEvent *k)
 	keyCode |= k->key();
 
 	QKeySequence key = QKeySequence(keyCode);
-	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
+	for (QMap<QString, Keys>::Iterator it = keyMap.begin(); it != keyMap.end(); ++it)
 	{
 		if (key.matches(it.value().keySequence) != QKeySequence::NoMatch)
 		{
@@ -5433,7 +5433,7 @@ bool PageItem_TextFrame::hasNoteMark(NotesStyle *NS)
 		//find any mark
 		if (!m_notesFramesMap.isEmpty())
 			return true;
-		for (int i=firstInFrame(); i <= lastInFrame(); ++i)
+		for (int i = firstInFrame(); i <= lastInFrame(); ++i)
 			if (itemText.hasMark(i))
 				return true;
 	}

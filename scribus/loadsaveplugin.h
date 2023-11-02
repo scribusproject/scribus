@@ -104,10 +104,10 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// It need not verify a file, just confirm that it looks like a supported
 		// file type (eg "XML doc with root element SCRIBUSXML and version 1.3.1").
 		// All plugins must implement this method.
-		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString()) const = 0;
+		virtual bool fileSupported(QIODevice* file, const QString & fileName = QString()) const = 0;
 
 		// Examine if the passed palette data to see whether it appears to be loadable with this plugin
-		virtual bool paletteSupported(QIODevice* file, const QString & fileName=QString()) const { return false; }
+		virtual bool paletteSupported(QIODevice* file, const QString & fileName = QString()) const { return false; }
 
 		// Examine if the passed story data to see whether it appears to be loadable with this plugin
 		virtual bool storySupported(const QByteArray& storyData) const { return false; }
@@ -119,7 +119,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 
 		virtual void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts);
 		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);
-		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString());
+		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName = QString());
 		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
 		virtual bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
 		virtual bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty);
@@ -226,7 +226,7 @@ class SCRIBUS_API FileFormat
 
 		void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const;
 		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces) const;
-		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString()) const;
+		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName = QString()) const;
 		bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) const;
 		bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles) const;
 		bool readLineStyles(const QString& fileName, QHash<QString,multiLine> *Sty) const;

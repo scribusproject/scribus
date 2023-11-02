@@ -48,7 +48,7 @@ namespace ScribusAPI {
 		if (QSysInfo::WordSize != 32)
 			bu += QString("-%1bit").arg(QSysInfo::WordSize);
 	#if Q_BYTE_ORDER == Q_BIG_ENDIAN
-		if (QSysInfo::ByteOrder==QSysInfo::BigEndian)
+		if (QSysInfo::ByteOrder == QSysInfo::BigEndian)
 			bu += "-Big";
 	#endif
 		return bu;

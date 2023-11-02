@@ -36,7 +36,7 @@ void ScDLThread::addURL(const QUrl &url, bool overwrite, const QString& location
 void ScDLThread::addURLs(const QStringList &urlList, bool overwrite, const QString& location, const QString& destinationLocation)
 {
 	//qDebug()<<"ScDLThread::addURLs:"<<urlList;
-	m_urlList=urlList;
+	m_urlList = urlList;
 	QString l(QDir::cleanPath(location));
 	if (!l.endsWith("/"))
 		l += "/";
@@ -93,11 +93,11 @@ void ScDLThread::startNextDownload()
 	if (m_downloadQueue.isEmpty())
 	{
 		//qDebug()<<downloadedCount<<"/"<<totalCount<<"files downloaded successfully";
-		m_downloadedCount=m_totalCount=0;
+		m_downloadedCount = m_totalCount = 0;
 		emit finished();
 		return;
 	}
-	QPair<QUrl, QString> urlPair=m_downloadQueue.dequeue();
+	QPair<QUrl, QString> urlPair = m_downloadQueue.dequeue();
 
 	QString filename = saveFileName(urlPair.first, urlPair.second, true);
 	if (filename.isEmpty())
@@ -116,7 +116,7 @@ void ScDLThread::startNextDownload()
 	}
 	emit fileStarted(m_output.fileName());
 	QNetworkRequest request(urlPair.first);
-	//QNetworkReply *nwr=manager.head(request);
+	//QNetworkReply *nwr = manager.head(request);
 	//qDebug()<<nwr->url()<<nwr->rawHeaderList();
 	//connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
 	m_currentDownload = m_manager.get(request);
@@ -160,7 +160,7 @@ void ScDLThread::downloadFinished()
 
 void ScDLThread::replyFinished(QNetworkReply* reply)
 {
-	QVariant possibleRedirectUrl =reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
+	QVariant possibleRedirectUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
 	QUrl urlRedirectedTo = possibleRedirectUrl.toUrl();
 	QString text;
 	/* If the URL is not empty, we're being redirected. */

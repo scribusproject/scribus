@@ -226,56 +226,56 @@ CommonStrings::CommonStrings()
 
 const QString& CommonStrings::translatePageSetString(const QString &untrString)
 {
-	if (untrString==pageSet1)
+	if (untrString == pageSet1)
 		return trPageSet1;
-	if (untrString==pageSet2)
+	if (untrString == pageSet2)
 		return trPageSet2;
-	if (untrString==pageSet3)
+	if (untrString == pageSet3)
 		return trPageSet3;
-	if (untrString==pageSet4)
+	if (untrString == pageSet4)
 		return trPageSet4;
 	return untrString;
 }
 
 const QString& CommonStrings::translatePageSetLocString(const QString &untrString)
 {
-	if (untrString==pageLocLeft)
+	if (untrString == pageLocLeft)
 		return trPageLocLeft;
-	if (untrString==pageLocMiddle)
+	if (untrString == pageLocMiddle)
 		return trPageLocMiddle;
-	if (untrString==pageLocMiddleLeft)
+	if (untrString == pageLocMiddleLeft)
 		return trPageLocMiddleLeft;
-	if (untrString==pageLocMiddleRight)
+	if (untrString == pageLocMiddleRight)
 		return trPageLocMiddleRight;
-	if (untrString==pageLocRight)
+	if (untrString == pageLocRight)
 		return trPageLocRight;
 	return untrString;
 }
 
 const QString& CommonStrings::untranslatePageSetString(const QString &trString)
 {
-	if (trString==trPageSet1)
+	if (trString == trPageSet1)
 		return pageSet1;
-	if (trString==trPageSet2)
+	if (trString == trPageSet2)
 		return pageSet2;
-	if (trString==trPageSet3)
+	if (trString == trPageSet3)
 		return pageSet3;
-	if (trString==trPageSet4)
+	if (trString == trPageSet4)
 		return pageSet4;
 	return trString;
 }
 
 const QString& CommonStrings::untranslatePageSetLocString(const QString &trString)
 {
-	if (trString==trPageLocLeft)
+	if (trString == trPageLocLeft)
 		return pageLocLeft;
-	if (trString==trPageLocMiddle)
+	if (trString == trPageLocMiddle)
 		return pageLocMiddle;
-	if (trString==trPageLocMiddleLeft)
+	if (trString == trPageLocMiddleLeft)
 		return pageLocMiddleLeft;
-	if (trString==trPageLocMiddleRight)
+	if (trString == trPageLocMiddleRight)
 		return pageLocMiddleRight;
-	if (trString==trPageLocRight)
+	if (trString == trPageLocRight)
 		return pageLocRight;
 	return trString;
 }
@@ -491,20 +491,20 @@ void CommonStrings::languageChange()
 	CommonStrings::strPX = "px";
 
 	//Keyboard Modifiers
-	CommonStrings::altModifier=tr("Alt");
-	CommonStrings::shiftModifier=tr("Shift");
+	CommonStrings::altModifier = tr("Alt");
+	CommonStrings::shiftModifier = tr("Shift");
 
 #ifdef Q_OS_MACOS
-	CommonStrings::controlModifier=tr("Cmd");
-	CommonStrings::metaModifier=tr("Ctrl");
+	CommonStrings::controlModifier = tr("Cmd");
+	CommonStrings::metaModifier = tr("Ctrl");
 #endif
 #ifdef Q_OS_WIN32
-	CommonStrings::controlModifier=tr("Ctrl");
-	CommonStrings::metaModifier=tr("Windows");
+	CommonStrings::controlModifier = tr("Ctrl");
+	CommonStrings::metaModifier = tr("Windows");
 #endif
 #if !defined(Q_OS_WIN32) && !defined(Q_OS_MACOS)
-	CommonStrings::controlModifier=tr("Ctrl");
-	CommonStrings::metaModifier=tr("Meta");
+	CommonStrings::controlModifier = tr("Ctrl");
+	CommonStrings::metaModifier = tr("Meta");
 #endif
 
 }

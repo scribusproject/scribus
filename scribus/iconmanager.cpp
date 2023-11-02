@@ -246,7 +246,7 @@ QString IconManager::baseNameForTranslation(const QString& transName) const
 		while (nameValue.hasNext())
 		{
 			nameValue.next();
-			if (nameValue.value()==transName)
+			if (nameValue.value() == transName)
 				return value.nameTranslations["en_US"];
 		}
 	}

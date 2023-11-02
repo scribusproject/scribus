@@ -33,7 +33,7 @@ copyright            : Scribus Team
 class LatexHighlighterRule
 {
 	public:
-		LatexHighlighterRule(){multiline=false;}
+		LatexHighlighterRule(){multiline = false;}
 		QRegExp regex;
 		QTextCharFormat format;
 		bool multiline;
@@ -57,7 +57,7 @@ class I18nXmlStreamReader : public QXmlStreamReader
 	public:
 		I18nXmlStreamReader() : QXmlStreamReader() {}
 		I18nXmlStreamReader(QIODevice *device) : QXmlStreamReader(device) {}
-		QString readI18nText(bool unindent=false);
+		QString readI18nText(bool unindent = false);
 };
 
 class LatexConfigParser

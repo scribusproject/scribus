@@ -525,10 +525,10 @@ public: // Start public functions
 	virtual double visualXPos() const;
 	virtual double visualYPos() const;
 	FPoint xyPos() const { return FPoint(m_xPos, m_yPos); }
-	void setXPos(double, bool drawingOnly=false);
-	void setYPos(double, bool drawingOnly=false);
-	void setXYPos(double, double, bool drawingOnly=false);
-	void moveBy(double, double, bool drawingOnly=false);
+	void setXPos(double, bool drawingOnly = false);
+	void setYPos(double, bool drawingOnly = false);
+	void setXYPos(double, double, bool drawingOnly = false);
+	void moveBy(double, double, bool drawingOnly = false);
 	//Size
 	double width() const override { return m_width; }
 	double height() const override { return m_height; }

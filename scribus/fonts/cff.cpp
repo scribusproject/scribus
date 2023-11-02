@@ -676,7 +676,7 @@ namespace cff {
 		CFF_Number result;
 		result.type = cff_varnt_Card;
 		result.exponent = 0;
-		uint start=pos;
+		uint start = pos;
 		uchar b0 = dict[pos++];
 		uchar b1,b2,b3,b4;
 		if (b0 == cff_dict_Card16)

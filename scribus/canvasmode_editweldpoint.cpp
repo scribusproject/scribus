@@ -211,7 +211,7 @@ void CanvasMode_EditWeldPoint::keyPressEvent(QKeyEvent *e)
 			double moveY = 0.0;
 			bool isMoving = false;
 			bool doUpdate = false;
-			if (m_doc->unitIndex()!=SC_INCHES)
+			if (m_doc->unitIndex() != SC_INCHES)
 			{
 				if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 					moveBy = 0.1;

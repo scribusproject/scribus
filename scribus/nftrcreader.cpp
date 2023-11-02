@@ -152,7 +152,7 @@ void nftrcreader::setSourceFile(const QString& sourceFile)
 QString nftrcreader::getCategory(const QString& cat)
 {
 	QMap<QString, QString>::iterator it = cats.find(cat);
-	if (it==cats.end())
+	if (it == cats.end())
 		cats.insert(cat, cat);
 	if (it != cats.end())
 		return it.value();

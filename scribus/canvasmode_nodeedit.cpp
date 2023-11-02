@@ -471,7 +471,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		m_view->endGroupTransaction();
 	}
 	//Commit drag created items to undo manager.
-	if (m_doc->m_Selection->itemAt(0)!=nullptr)
+	if (m_doc->m_Selection->itemAt(0) != nullptr)
 	{
 		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 	}
@@ -727,8 +727,8 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 				currItem->ClipEdited = true;
 				edited = true;
 				m_doc->nodeEdit.setSubMode(NodeEditContext::MOVE_POINT);
-				PageItem* newItem=m_doc->convertItemTo(currItem, PageItem::PolyLine);
-				currItem=newItem;
+				PageItem* newItem = m_doc->convertItemTo(currItem, PageItem::PolyLine);
+				currItem = newItem;
 				m_doc->m_Selection->clear();
 				m_doc->m_Selection->addItem(currItem);
 				emit m_view->PolyOpen();

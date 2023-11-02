@@ -702,7 +702,12 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 
 	bool isCMYK = false;
 	unsigned int widtht, heightt, size;
-	char *description=nullptr, *copyright=nullptr, *datetime=nullptr, *artist=nullptr, *scannerMake=nullptr, *scannerModel=nullptr;
+	char* description = nullptr;
+	char* copyright = nullptr;
+	char* datetime = nullptr;
+	char* artist = nullptr;
+	char* scannerMake = nullptr;
+	char* scannerModel = nullptr;
 	uint16_t bitsPerSample = 1;
 	uint16_t sampleFormat = SAMPLEFORMAT_UINT;
 	uint16_t fillorder = FILLORDER_MSB2LSB;
@@ -1548,13 +1553,13 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		}
 		if (*firstLayer)
 		{
-			for (int yi=static_cast<int>(startSrcY); yi < qMin(r2_image.height(),  r_image.height()); ++yi)
+			for (int yi = static_cast<int>(startSrcY); yi < qMin(r2_image.height(), r_image.height()); ++yi)
 			{
 				unsigned char *s = r2_image.scanLine( yi );
-				unsigned char *d = r_image.scanLine( qMin(static_cast<int>(startDstY),  r_image.height()-1) );
-				d += qMin(static_cast<int>(startDstX), r_image.width()-1) * r_image.channels();
-				s += qMin(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
-				for (int xi=static_cast<int>(startSrcX); xi < qMin(r2_image.width(),  r_image.width()); ++xi )
+				unsigned char *d = r_image.scanLine( qMin(static_cast<int>(startDstY),  r_image.height() - 1) );
+				d += qMin(static_cast<int>(startDstX), r_image.width() - 1) * r_image.channels();
+				s += qMin(static_cast<int>(startSrcX), r2_image.width() - 1) * r2_image.channels();
+				for (int xi = static_cast<int>(startSrcX); xi < qMin(r2_image.width(), r_image.width()); ++xi)
 				{
 					d[0] = s[0];
 					d[1] = s[1];

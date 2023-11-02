@@ -417,11 +417,11 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 		{
 			uchar *in;
 			QRgb *out;
-			for (uint j=0; j<cinfo.output_height; j++)
+			for (uint j = 0; j < cinfo.output_height; j++)
 			{
 				in = m_image.scanLine(j) + cinfo.output_width * 3;
 				out = (QRgb*) m_image.scanLine(j);
-				for (uint i=cinfo.output_width; i--; )
+				for (uint i = cinfo.output_width; i--; )
 				{
 					in -= 3;
 					out[i] = qRgb(in[0], in[1], in[2]);

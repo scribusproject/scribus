@@ -375,7 +375,7 @@ public:
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		Xml_attr::iterator it;
-		for(it=attr.begin(); it != attr.end(); ++it)
+		for (it = attr.begin(); it != attr.end(); ++it)
 			(obj->*set_)( Xml_key(it), Xml_data(it) ); 
 	}
 private:

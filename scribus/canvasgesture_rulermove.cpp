@@ -44,7 +44,7 @@ void RulerGesture::drawControls(QPainter* p)
 		page = m_doc->OnPage(m_mousePoint.x(), m_mousePoint.y());
 	if (page == -1)
 		return;
-	ScPage* dragToPage=m_doc->Pages->at(page);
+	ScPage* dragToPage = m_doc->Pages->at(page);
 	if (!dragToPage)
 		return;
 	if (m_haveGuide)
@@ -346,7 +346,7 @@ void RulerGesture::keyPressEvent(QKeyEvent* e)
 
 void RulerGesture::mouseMoveEvent(QMouseEvent* m)
 {
-	m_mousePoint=m_canvas->globalToCanvas(m->globalPos());
+	m_mousePoint = m_canvas->globalToCanvas(m->globalPos());
 	m->accept();
 	if (m_view->moveTimerElapsed())
 	{
@@ -377,7 +377,7 @@ void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 		m_canvas->setForcedRedraw(true);
 	m_canvas->repaint();
 	m_view->stopGesture();
-	m_mousePoint=QPoint(0,0);
+	m_mousePoint = QPoint(0, 0);
 	if (m_ScMW->doc->guidesPrefs().guidesShown)
 		emit guideInfo(m_mode, m_currentGuide);
 }
