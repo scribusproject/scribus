@@ -532,8 +532,8 @@ QString About::parseTranslationFile(const QString& fileName)
 			while (l.hasNext())
 			{
 				l.next();
-				QStringList sl=l.key().split(":");
-				if (s.key()==sl.first())
+				QStringList sl = l.key().split(":");
+				if (s.key() == sl.first())
 				{
 					result += l.value();
 
@@ -541,7 +541,7 @@ QString About::parseTranslationFile(const QString& fileName)
 					while (n.hasNext())
 					{
 						n.next();
-						if (n.key()==l.key())
+						if (n.key() == l.key())
 							result += n.value();
 					}
 					result += "<tr><td></td><td></td></tr>";

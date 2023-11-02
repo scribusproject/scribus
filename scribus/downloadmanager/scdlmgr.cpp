@@ -143,15 +143,15 @@ void ScDLManager::moveFinishedDownloads()
 		{
 			case DownloadData::Successful:
 				{
-					if (i.value().downloadLocation==i.value().destinationLocation)
+					if (i.value().downloadLocation == i.value().destinationLocation)
 						;//qDebug()<<i.value().name<<"is in"<<i.value().downloadLocation<<"which is the same as"<<i.value().destinationLocation;
 					else
 					{
 						//qDebug()<<"Need to move"<<i.value().name<<"from"<<i.value().downloadLocation<<"to"<<i.value().destinationLocation;
-						QString newName=i.value().name;
+						QString newName = i.value().name;
 						if (!i.value().destinationName.isEmpty())
-							newName=i.value().destinationName;
-						moveFile(i.value().downloadLocation+i.value().name, i.value().destinationLocation+newName);
+							newName = i.value().destinationName;
+						moveFile(i.value().downloadLocation + i.value().name, i.value().destinationLocation + newName);
 					}
 				}
 				break;

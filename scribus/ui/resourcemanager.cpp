@@ -147,17 +147,17 @@ void ResourceManager::readAvailableFonts()
 			continue;
 
 		struct DownloadItem d;
-		d.desc=e.attribute("description");
-		d.download=false;
-		d.files=e.attribute("files");
-		d.extractfiles=e.attribute("extractfiles");
-		d.url=e.attribute("URL");
-		d.version=e.attribute("version");
-		d.lang=e.attribute("language");
-		d.license=e.attribute("license");
-		d.filetype=e.attribute("filetype");
-		d.movetofile=e.attribute("movetofilename");
-		d.type=e.attribute("type").toUpper();
+		d.desc = e.attribute("description");
+		d.download = false;
+		d.files = e.attribute("files");
+		d.extractfiles = e.attribute("extractfiles");
+		d.url = e.attribute("URL");
+		d.version = e.attribute("version");
+		d.lang = e.attribute("language");
+		d.license = e.attribute("license");
+		d.filetype = e.attribute("filetype");
+		d.movetofile = e.attribute("movetofilename");
+		d.type = e.attribute("type").toUpper();
 		QUrl url(d.url);
 		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
 			m_availableList.append(d);
@@ -206,16 +206,16 @@ void ResourceManager::readAvailableHelp()
 			continue;
 
 		struct DownloadItem d;
-		d.desc=e.attribute("description");
-		d.download=false;
-		d.files=e.attribute("files");
-		d.extractfiles="";
-		d.url=e.attribute("URL");
-		d.version=e.attribute("version");
-		d.lang=e.attribute("language");
-		d.license=e.attribute("license");
-		d.filetype=e.attribute("filetype");
-		d.type=e.attribute("type");
+		d.desc = e.attribute("description");
+		d.download = false;
+		d.files = e.attribute("files");
+		d.extractfiles = "";
+		d.url = e.attribute("URL");
+		d.version = e.attribute("version");
+		d.lang = e.attribute("language");
+		d.license = e.attribute("license");
+		d.filetype = e.attribute("filetype");
+		d.type = e.attribute("type");
 		QUrl url(d.url);
 		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
 			m_availableList.append(d);
@@ -260,17 +260,17 @@ void ResourceManager::readAvailablePalettes()
 			continue;
 
 		struct DownloadItem d;
-		d.desc=e.attribute("description");
-		d.download=false;
-		d.files=e.attribute("files");
-		d.extractfiles="";
-		d.url=e.attribute("URL");
-		d.version=e.attribute("version");
-		d.lang=e.attribute("language");
-		d.license=e.attribute("license");
-		d.filetype=e.attribute("filetype");
-		d.type=e.attribute("type");
-		d.source=e.attribute("source");
+		d.desc = e.attribute("description");
+		d.download = false;
+		d.files = e.attribute("files");
+		d.extractfiles = "";
+		d.url = e.attribute("URL");
+		d.version = e.attribute("version");
+		d.lang = e.attribute("language");
+		d.license = e.attribute("license");
+		d.filetype = e.attribute("filetype");
+		d.type = e.attribute("type");
+		d.source = e.attribute("source");
 		QUrl url(d.url);
 		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
 			m_availableList.append(d);
@@ -597,16 +597,16 @@ void ResourceManager::updateAvailableHyph()
 			continue;
 
 		struct DownloadItem d;
-		d.desc=e.attribute("description");
-		d.download=false;
-		d.files=e.attribute("files");
-		d.extractfiles=e.attribute("extractfiles");
-		d.url=e.attribute("URL");
-		d.version=e.attribute("version");
-		d.lang=e.attribute("language");
-		d.license=e.attribute("license");
-		d.filetype=e.attribute("filetype");
-		d.type=e.attribute("type");
+		d.desc = e.attribute("description");
+		d.download = false;
+		d.files = e.attribute("files");
+		d.extractfiles = e.attribute("extractfiles");
+		d.url = e.attribute("URL");
+		d.version = e.attribute("version");
+		d.lang = e.attribute("language");
+		d.license = e.attribute("license");
+		d.filetype = e.attribute("filetype");
+		d.type = e.attribute("type");
 		QUrl url(d.url);
 		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
 			m_availableList.append(d);
@@ -697,16 +697,16 @@ void ResourceManager::updateAvailableSpell()
 			continue;
 
 		struct DownloadItem d;
-		d.desc=e.attribute("description");
-		d.download=false;
-		d.files=e.attribute("files");
-		d.extractfiles=e.attribute("extractfiles");
-		d.url=e.attribute("URL");
-		d.version=e.attribute("version");
-		d.lang=e.attribute("language");
-		d.license=e.attribute("license");
-		d.filetype=e.attribute("filetype");
-		d.type=e.attribute("type");
+		d.desc = e.attribute("description");
+		d.download = false;
+		d.files = e.attribute("files");
+		d.extractfiles = e.attribute("extractfiles");
+		d.url = e.attribute("URL");
+		d.version = e.attribute("version");
+		d.lang = e.attribute("language");
+		d.license = e.attribute("license");
+		d.filetype = e.attribute("filetype");
+		d.type = e.attribute("type");
 		QUrl url(d.url);
 		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
 			m_availableList.append(d);
@@ -1304,9 +1304,9 @@ void ResourceManager::startDownload()
 					const QStringList plainURLs(d.files.split(";", Qt::SkipEmptyParts));
 					for (const QString& s : plainURLs)
 					{
-						ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder);
-						ScQApp->dlManager()->addURL(d.url+"/"+s+".sha256", true, ScPaths::downloadDir(), destinationFolder);
-						dlCount+=2;
+						ScQApp->dlManager()->addURL(d.url + "/" + s, true, ScPaths::downloadDir(), destinationFolder);
+						ScQApp->dlManager()->addURL(d.url + "/" + s + ".sha256", true, ScPaths::downloadDir(), destinationFolder);
+						dlCount += 2;
 					}
 					m_downloadList.append(d);
 					d.download=true;
@@ -1325,12 +1325,12 @@ void ResourceManager::startDownload()
 					const QStringList plainURLs(d.files.split(";", Qt::SkipEmptyParts));
 					for (const QString& s : plainURLs)
 					{
-						ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder);
-						ScQApp->dlManager()->addURL(d.url+"/"+s+".sha256", true, ScPaths::downloadDir(), destinationFolder);
-						dlCount+=2;
+						ScQApp->dlManager()->addURL(d.url + "/" + s, true, ScPaths::downloadDir(), destinationFolder);
+						ScQApp->dlManager()->addURL(d.url + "/" + s + ".sha256", true, ScPaths::downloadDir(), destinationFolder);
+						dlCount += 2;
 					}
 					m_downloadList.append(d);
-					d.download=true;
+					d.download = true;
 				}
 			}
 			break;

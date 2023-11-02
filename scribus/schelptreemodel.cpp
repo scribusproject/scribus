@@ -121,12 +121,12 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent, 
 					indexToBuild->insert(textAttr.value(), fileAttr.value());
 			}
 
-			QDomNodeList nl=n.childNodes();
-			if (nl.count()>0)
-				position=1;
-			for (int i=0 ; i<= nl.count() ; i++)
+			QDomNodeList nl = n.childNodes();
+			if (nl.count() > 0)
+				position = 1;
+			for (int i = 0; i <= nl.count(); i++)
 			{
-				QDomNode child=nl.item(i);
+				QDomNode child = nl.item(i);
 				if (child.isElement())
 				{
 					QDomElement ec = child.toElement();

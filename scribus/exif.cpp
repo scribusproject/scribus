@@ -551,7 +551,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 				// Copy the comment
 				if ( memcmp ( ValuePtr, "ASCII",5 ) == 0 )
 				{
-					for ( a=5;a<10;a++ )
+					for (a = 5; a < 10; a++)
 					{
 						int c;
 						c = ( ValuePtr ) [a];

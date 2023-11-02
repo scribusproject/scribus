@@ -29,7 +29,7 @@ class SCRIBUS_API IShapedTextCache {
 
 public:
 	virtual bool contains(int charPos, uint len = 1) const = 0;
-	virtual ShapedText get(int charPos, uint minLen=1) const = 0;
+	virtual ShapedText get(int charPos, uint minLen = 1) const = 0;
 	virtual void put(const ShapedText& txt) = 0;
 	virtual void clear(int charPos = 0, uint len = -1) = 0;
 };
@@ -45,7 +45,7 @@ class SCRIBUS_API ShapedTextCache : public IShapedTextCache
 public:
 	ShapedTextCache();
 	bool contains(int charPos, uint len = 1) const;
-	ShapedText get(int charPos, uint minLen=1) const;
+	ShapedText get(int charPos, uint minLen = 1) const;
 	void put(const ShapedText& txt);
 	void clear(int charPos = 0, uint len = -1);
 };

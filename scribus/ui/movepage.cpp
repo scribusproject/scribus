@@ -144,11 +144,11 @@ void MovePages::toChanged()
 
 void MovePages::mvWherePageDataDisable(int index)
 {
-	mvWherePageData->setDisabled(index==2);
+	mvWherePageData->setDisabled(index == 2);
 	if (toPageData)
 	{
-		toPageData->setDisabled(index==3);
-		if (index==3)
+		toPageData->setDisabled(index == 3);
+		if (index == 3)
 			toPageData->setValue(fromPageData->value());
 	}
 }

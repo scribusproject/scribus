@@ -34,9 +34,9 @@ CreateRange::CreateRange(const QString& currText, int pageCount, QWidget* parent
 	advPageGroupSizeSpinBox->setMaximum(pageCount);
 	advPageGroupSizeSpinBox->setDecimals(0);
 	advPageGroupSizeSpinBox->setSuffix("");
-	if (m_PageCount==1)
+	if (m_PageCount == 1)
 		basicEvenRadioButton->setVisible(false);
-	if (currText.length()>0)
+	if (currText.length() > 0)
 		basicRangeListBox->addItem(currText);
 	// signals and slots connections
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(selectRangeType(int)));
@@ -102,25 +102,25 @@ void CreateRange::basicAddToRange( )
 		case 2:
 			{
 				QString numbers;
-				for (int i=2; i<=m_PageCount; i+=2)
+				for (int i = 2; i <= m_PageCount; i += 2)
 				{
-					if (i!=2)
-						numbers+=",";
-					numbers+=QString("%1").arg(i);
+					if (i != 2)
+						numbers += ",";
+					numbers += QString("%1").arg(i);
 				}
-				newEntry=numbers;
+				newEntry = numbers;
 			}
 			break;
 		case 3:
 			{
 				QString numbers;
-				for (int i=1; i<=m_PageCount; i+=2)
+				for (int i = 1; i <= m_PageCount; i += 2)
 				{
-					if (i!=1)
-						numbers+=",";
-					numbers+=QString("%1").arg(i);
+					if (i != 1)
+						numbers += ",";
+					numbers += QString("%1").arg(i);
 				}
-				newEntry=numbers;
+				newEntry = numbers;
 			}
 			break;
 	}
@@ -155,8 +155,8 @@ void CreateRange::basicSelectRangeTypeOdd()
 
 void CreateRange::basicSelectRangeType(int i)
 {
-	m_BasicRangeType=i;
-	bool basicRangeTypeIsConsecutive=(i==0);
+	m_BasicRangeType = i;
+	bool basicRangeTypeIsConsecutive = (i == 0);
 	basicConsecutiveFromLabel->setEnabled(basicRangeTypeIsConsecutive);
 	basicConsecutiveFromSpinBox->setEnabled(basicRangeTypeIsConsecutive);
 	basicConsecutiveToLabel->setEnabled(basicRangeTypeIsConsecutive);
@@ -201,17 +201,17 @@ void CreateRange::advSpinChange()
 	if (m_PageCount % 4 == 0)
 	{
 	//28,1,2,27, 26,3,4,25
-		for (int i=m_PageCount;i>m_PageCount/2;i-=2)
+		for (int i = m_PageCount; i > m_PageCount / 2; i -= 2)
 		{
-			if (i!=m_PageCount)
-				m_PageString+=",";
-			m_PageString+=QString("%1").arg(i);
-			m_PageString+=QString(",%1").arg(mp1-i);
-			m_PageString+=QString(",%1").arg(mp1-i+1);
-			m_PageString+=QString(",%1").arg(i-1);
+			if (i != m_PageCount)
+				m_PageString += ",";
+			m_PageString += QString("%1").arg(i);
+			m_PageString += QString(",%1").arg(mp1 - i);
+			m_PageString += QString(",%1").arg(mp1 - i + 1);
+			m_PageString += QString(",%1").arg(i - 1);
 		}
 	}
 	QString tmp(m_PageString);
 	tmp.truncate(20);
-	advSampleOrderExampleLabel->setText(tmp+"...");
+	advSampleOrderExampleLabel->setText(tmp + "...");
 }

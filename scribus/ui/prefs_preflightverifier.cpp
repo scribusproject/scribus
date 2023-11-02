@@ -231,12 +231,12 @@ void Prefs_PreflightVerifier::addProf()
 	disconnect(currentProfileComboBox, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
 	disconnect(currentProfileComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	CheckerPrefsList::Iterator it;
-	int j,i=0;
-	for (it = checkerProfiles.begin(), j=0; it != checkerProfiles.end(); ++it, ++j)
+	int j, i = 0;
+	for (it = checkerProfiles.begin(), j = 0; it != checkerProfiles.end(); ++it, ++j)
 	{
 		currentProfileComboBox->addItem(it.key());
-		if (it.key()==currentProfile)
-			i=j;
+		if (it.key() == currentProfile)
+			i = j;
 	}
 	currentProfileComboBox->setCurrentIndex(i);
 	connect(currentProfileComboBox, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));

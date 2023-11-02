@@ -138,7 +138,7 @@ void SWDialog::cancelButton_pressed()
 
 void SWDialog::selectAction(int aAction)
 {
-	if (aAction!=0 && aAction!=1 && aAction!=2)
+	if (aAction != 0 && aAction != 1 && aAction != 2)
 		aAction = 0;
 	if (aAction == 0)
 		frameRadio->setChecked(true);

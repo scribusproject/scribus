@@ -1962,13 +1962,13 @@ void Canvas::DrawPageGridSub(ScPainter *p, ScPage *page, const QRectF& clip)
 			p->setPen(m_doc->guidesPrefs().majorGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			start = floor(lowerBy / i);
 			start *= i;
-			for (double b = start; b <= highBy; b+=i)
+			for (double b = start; b <= highBy; b += i)
 			{
 				p->drawLine(FPoint(qMax(lowerBx, 0.0), b), FPoint(qMin(pageWidth, highBx), b));
 			}
 			start=floor(lowerBx/i);
-			start*=i;
-			for (double b = start; b <= highBx; b+=i)
+			start *= i;
+			for (double b = start; b <= highBx; b += i)
 			{
 				p->drawLine(FPoint(b, qMax(lowerBy, 0.0)), FPoint(b, qMin(pageHeight, highBy)));
 			}
@@ -1976,13 +1976,13 @@ void Canvas::DrawPageGridSub(ScPainter *p, ScPage *page, const QRectF& clip)
 			p->setPen(m_doc->guidesPrefs().minorGridColor, lineWidth, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			start = floor(lowerBy / i);
 			start *= i;
-			for (double b = start; b <= highBy; b+=i)
+			for (double b = start; b <= highBy; b += i)
 			{
 				p->drawLine(FPoint(qMax(lowerBx, 0.0), b), FPoint(qMin(pageWidth, highBx), b));
 			}
 			start=floor(lowerBx/i);
-			start*=i;
-			for (double b = start; b <= highBx; b+=i)
+			start *= i;
+			for (double b = start; b <= highBx; b += i)
 			{
 				p->drawLine(FPoint(b, qMax(lowerBy, 0.0)), FPoint(b, qMin(pageHeight, highBy)));
 			}

@@ -4710,7 +4710,7 @@ bool PageItem_TextFrame::checkKeyIsShortcut(QKeyEvent *k)
 		keyCode |= Qt::CTRL;
 	if (k->modifiers() & Qt::AltModifier)
 		keyCode |= Qt::ALT;
-	keyCode|=k->key();
+	keyCode |= k->key();
 
 	QKeySequence key = QKeySequence(keyCode);
 	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)

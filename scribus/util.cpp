@@ -637,7 +637,7 @@ QString getStringFromSequence(NumFormat type, uint position, const QString& aste
 			retVal = numberToRoman(position).toLower();
 			break;
 		case Type_asterix:
-			for (uint a=1; a <= position; ++a)
+			for (uint a = 1; a <= position; ++a)
 				retVal.append(asterix);
 			break;
 		case Type_CJK:
@@ -1307,35 +1307,35 @@ QString numberToHebrew(uint i)
 QString numberToCJK(uint i)
 {
 	QString result;
-	if (i<10)
+	if (i < 10)
 		result = QString(cjkDigit(i));
 
-	if (i>9 && i<=99)
+	if (i > 9 && i <= 99)
 	{
-		int tens=i/10;
-		int ones=i%10;
-		if (tens!=1)
+		int tens = i / 10;
+		int ones = i % 10;
+		if (tens != 1)
 			result.append(cjkDigit(tens));
 		result.append(cjkDigit(10));
-		if (ones!=0)
+		if (ones != 0)
 			result.append(cjkDigit(ones));
 	}
 
-	if (i>99 && i<=999)
+	if (i > 99 && i <= 999)
 	{
-		int hundreds=i/100;
-		int tens=(i-hundreds*100)/10;
-		int ones=i%10;
+		int hundreds = i / 100;
+		int tens = (i - hundreds * 100) / 10;
+		int ones = i % 10;
 		result.append(cjkDigit(hundreds));
 		result.append(cjkDigit(100));
-		if (tens!=0)
+		if (tens != 0)
 		{
 			result.append(cjkDigit(tens));
 			result.append(cjkDigit(10));
 		}
-		else if (ones!=0)
+		else if (ones != 0)
 			result.append(cjkDigit(0));
-		if (ones!=0)
+		if (ones != 0)
 			result.append(cjkDigit(ones));
 	}
 	return result;

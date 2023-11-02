@@ -127,11 +127,11 @@ void DocumentChecker::checkPages(ScribusDoc *currDoc, const CheckerPrefs& checke
 			}
 			else
 			{
-				if (pageLoc==LeftPage && masterPageLocation==1)
+				if (pageLoc == LeftPage && masterPageLocation == 1)
 					error = false;
-				else if (pageLoc==RightPage && masterPageLocation==0)
+				else if (pageLoc == RightPage && masterPageLocation == 0)
 					error = false;
-				else if (pageLoc==MiddlePage && masterPageLocation==2)
+				else if (pageLoc == MiddlePage && masterPageLocation == 2)
 					error = false;
 				else
 					error = true;

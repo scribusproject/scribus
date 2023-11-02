@@ -1097,7 +1097,7 @@ void WMFImport::setBkColor( QList<PageItem*>& /*items*/, long, const short* para
 
 void WMFImport::setBkMode(QList<PageItem*>& /*items*/, long, const short* params )
 {
-	if ( params[ 0 ]==1 ) 
+	if (params[0] == 1)
 		m_context.setBackgroundMode( Qt::TransparentMode );
 	else 
 		m_context.setBackgroundMode( Qt::OpaqueMode );
@@ -1110,7 +1110,7 @@ void WMFImport::saveDC( QList<PageItem*>& /*items*/, long, const short* )
 
 void WMFImport::restoreDC( QList<PageItem*>& /*items*/, long, const short *params )
 {
-	for ( int i=0; i > params[ 0 ] ; i-- )
+	for (int i = 0; i > params[0]; i--)
 		m_context.restore();
 }
 

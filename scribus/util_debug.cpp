@@ -62,7 +62,7 @@ void printBacktrace ( int nFrames )
 	messages = backtrace_symbols ( trace, trace_size );
 	if ( messages )
 	{
-		for ( i=1; i < trace_size; ++i )
+		for (i = 1; i < trace_size; ++i)
 		{
 			QString msg ( messages[i] );
 			int sep1 ( msg.indexOf ( "(" ) );
