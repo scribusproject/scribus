@@ -91,16 +91,16 @@ void gtGetText::launchImporter(int importer, const QString& filename, bool textO
 	}	// else - if (importer == -1)
 	
 	// Create a target text frame for the imported text and assign it to the parameter "target"
-	PageItem* targetFrame=target;
+	PageItem* targetFrame = target;
 	
 	// If the targetframe is 0 ( no frame selected/created? ) then reassign it to the 
 	// (questionable interpretation here) first frame in the documentation.
-	if (targetFrame==nullptr)
-		targetFrame=m_Doc->m_Selection->itemAt(0);
+	if (targetFrame == nullptr)
+		targetFrame = m_Doc->m_Selection->itemAt(0);
 
 	// If the targetframe is not zero, and we do need to call the importer, 
 	// Run the importer via "CallDLL" and pass it what it needs to know.
-	if (targetFrame!=nullptr && callImporter)
+	if (targetFrame != nullptr && callImporter)
 		CallDLL(ida, filename, encoding, textOnly, append, prefix, targetFrame);
 }  //void gtGetText::launchImporter(int importer, const QString& filename, bool textOnly, 
    //						const QString& encoding, bool append, PageItem* target)
@@ -209,7 +209,7 @@ ImportSetup gtGetText::run()
 	// Create a new ImportSetup struct
 	ImportSetup impsetup;
 	// INitialize runDialog to false
-	impsetup.runDialog=false;
+	impsetup.runDialog = false;
 	// If we get a true back from the File selection Dialog ( which we send our filters and extensions lists )
 	if (m_dias->runFileDialog(filters, m_ilist))
 	{

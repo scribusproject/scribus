@@ -58,7 +58,7 @@ class I18nXmlStreamReader : public QXmlStreamReader
 	public:
 		I18nXmlStreamReader() : QXmlStreamReader() {}
 		I18nXmlStreamReader(QIODevice *device) : QXmlStreamReader(device) {}
-		QString readI18nText(bool unindent=false);
+		QString readI18nText(bool unindent = false);
 };
 
 class LatexConfigParser

@@ -185,14 +185,14 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
-	PageItem *currItem=nullptr, *bb=nullptr;
+	PageItem *currItem = nullptr, *bb = nullptr;
 	switch (m_doc->appMode)
 	{
 		case modeLinkFrames:
 			if (m->button() != Qt::LeftButton)
 				break;
 			currItem = m_doc->ElemToLink;
-			if (currItem==nullptr)
+			if (currItem == nullptr)
 				break;
 			// #14334: delay selection signals so that (un)link actions get properly enabled/disabled
 			m_doc->m_Selection->delaySignalsOn();
@@ -515,11 +515,11 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 
 void CanvasMode_FrameLinks::createContextMenu(PageItem* currItem, double mx, double my)
 {
-	ContextMenu* cmen=nullptr;
+	ContextMenu* cmen = nullptr;
 	m_view->setObjectUndoMode();
 	m_Mxp = mx;
 	m_Myp = my;
-	if (currItem!=nullptr)
+	if (currItem != nullptr)
 	{
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 		cmen->exec(QCursor::pos());

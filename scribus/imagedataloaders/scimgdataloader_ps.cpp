@@ -957,11 +957,11 @@ bool ScImgDataLoader_PS::loadPSjpeg(const QString& fn)
 		{
 			uchar *in;
 			QRgb *out;
-			for (uint j=0; j<cinfo.output_height; j++)
+			for (uint j = 0; j < cinfo.output_height; j++)
 			{
 				in = m_image.scanLine(j) + cinfo.output_width * 3;
 				out = (QRgb*) m_image.scanLine(j);
-				for (uint i=cinfo.output_width; i--; )
+				for (uint i = cinfo.output_width; i--; )
 				{
 					in -= 3;
 					out[i] = qRgb(in[0], in[1], in[2]);
@@ -1083,11 +1083,11 @@ bool ScImgDataLoader_PS::loadPSjpeg(const QString& fn, QImage &tmpImg)
 		{
 			uchar *in;
 			QRgb *out;
-			for (uint j=0; j<cinfo.output_height; j++)
+			for (uint j = 0; j < cinfo.output_height; j++)
 			{
 				in = tmpImg.scanLine(j) + cinfo.output_width * 3;
 				out = (QRgb*) tmpImg.scanLine(j);
-				for (uint i=cinfo.output_width; i--; )
+				for (uint i = cinfo.output_width; i--; )
 				{
 					in -= 3;
 					out[i] = qRgb(in[0], in[1], in[2]);
@@ -1547,7 +1547,7 @@ void ScImgDataLoader_PS::loadDCS1(const QString& fn, int gsRes)
 	yres = gsRes;
 	m_image = QImage( qRound(b * gsRes / 72.0), qRound(h * gsRes / 72.0), QImage::Format_ARGB32 );
 	m_image.fill(qRgba(0, 0, 0, 0));
-	bool isEncapPS=extensionIndicatesEPS(ext);
+	bool isEncapPS = extensionIndicatesEPS(ext);
 	if (isEncapPS)
 		args.append("-dEPSCrop");
 	args.append("-r"+QString::number(gsRes));

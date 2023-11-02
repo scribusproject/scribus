@@ -36,7 +36,7 @@ namespace ScribusAPI {
 		bu += QLatin1String("-");
 		bu += QSysInfo::buildCpuArchitecture();
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-		if (QSysInfo::ByteOrder==QSysInfo::BigEndian)
+		if (QSysInfo::ByteOrder == QSysInfo::BigEndian)
 			bu += "-Big";
 #endif
 		return bu;

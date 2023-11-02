@@ -30,7 +30,7 @@ public:
 	// Check if a file is currently being watched
 	bool isWatching(const QString& fileName) const;
 	// Set the timer length in milliseconds
-	void setTimeOut(const int newTimeOut, const bool restartTimer=false);
+	void setTimeOut(const int newTimeOut, const bool restartTimer = false);
 	// Get the timer length
 	int timeOut() const;
 	// Get list of watched files and directories
@@ -38,7 +38,7 @@ public:
 	
 public slots:
 	//Add a file to the watch list for monitoring
-	void addFile(const QString& fileName, bool fast = false, ScribusDoc* doc=nullptr); //see struct note for doc var
+	void addFile(const QString& fileName, bool fast = false, ScribusDoc* doc = nullptr); //see struct note for doc var
 	//Remove a file from the watch list
 	void removeFile(const QString& fileName);
 	//Add a directory to the watch list for monitoring

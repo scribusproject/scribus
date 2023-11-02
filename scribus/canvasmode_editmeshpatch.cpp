@@ -342,7 +342,7 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 				moveBy=10.0;
 			else if ((buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 				moveBy=0.01;
-			moveBy/=m_doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
+			moveBy /= m_doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 			moveBy /= m_canvas->m_viewMode.scale;
 			PageItem *currItem = m_doc->m_Selection->itemAt(0);
 			switch (kk)
@@ -996,7 +996,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 				if ((*m_old_mesh) == m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL)
 				{
 					delete ss;
-					ss=nullptr;
+					ss = nullptr;
 				}
 				else
 					ss->setStates(*m_old_mesh,m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL);

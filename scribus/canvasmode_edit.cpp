@@ -116,10 +116,10 @@ void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
 			case Qt::Key_Down:
 			case Qt::Key_Home:
 			case Qt::Key_End:
-				m_longCursorTime=true;
+				m_longCursorTime = true;
 				break;
 			default:
-				m_longCursorTime=false;
+				m_longCursorTime = false;
 				break;
 		}
 		blinkTextCursor();
@@ -262,7 +262,7 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 	{
 		m_cursorVisible = !m_cursorVisible;
 		m_blinkTime.restart();
-		m_longCursorTime=false;
+		m_longCursorTime = false;
 	}
 	if ( m_cursorVisible )
 	{
@@ -869,8 +869,8 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 		QRectF Sele = QRectF(Dxp, Dyp, SeRx-Dxp, SeRy-Dyp).normalized();
 		if (!m_doc->masterPageMode())
 		{
-			uint docPagesCount=m_doc->Pages->count();
-			uint docCurrPageNo=m_doc->currentPageNumber();
+			uint docPagesCount = m_doc->Pages->count();
+			uint docCurrPageNo = m_doc->currentPageNumber();
 			for (uint i = 0; i < docPagesCount; ++i)
 			{
 				if (QRectF(m_doc->Pages->at(i)->xOffset(), m_doc->Pages->at(i)->yOffset(), m_doc->Pages->at(i)->width(), m_doc->Pages->at(i)->height()).intersects(Sele))
@@ -885,7 +885,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			}
 			m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 		}
-		int docItemCount=m_doc->Items->count();
+		int docItemCount = m_doc->Items->count();
 		if (docItemCount != 0)
 		{
 			m_doc->m_Selection->delaySignalsOn();
@@ -900,7 +900,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 					continue;
 				if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && m_doc->canSelectItemOnLayer(docItem->m_layerID))
 				{
-					bool redrawSelection=false;
+					bool redrawSelection = false;
 					m_view->selectItemByNumber(a, redrawSelection);
 				}
 			}
@@ -944,7 +944,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		m_doc->m_Selection->itemAt(i)->checkChanges(true);
 	//Commit drag created items to undo manager.
-	if (m_doc->m_Selection->itemAt(0)!=nullptr)
+	if (m_doc->m_Selection->itemAt(0) != nullptr)
 	{
 		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 	}
@@ -1093,7 +1093,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 
 void CanvasMode_Edit::createContextMenu(PageItem* currItem, double mx, double my)
 {
-	ContextMenu* cmen=nullptr;
+	ContextMenu* cmen = nullptr;
 	m_view->setCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
 	Mxp = mx;

@@ -678,7 +678,7 @@ void LanguageManager::generateInstalledGUILangList()
 void LanguageManager::generateInstalledHyphLangList()
 {
 	QStringList dictionaryPaths;
-	bool dictPathFound=findHyphDictionaries(dictionaryPaths);
+	bool dictPathFound = findHyphDictionaries(dictionaryPaths);
 	if (!dictPathFound)
 	{
 //		qDebug()<<"No preinstalled hyphenation dictionaries or paths found";
@@ -752,7 +752,7 @@ int LanguageManager::langTableIndex(const QString &abbrev)
 QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTranslated)
 {
 //	qDebug()<<"Trying to find:"<<langAbbrev;
-	int i=langTableIndex(langAbbrev);
+	int i = langTableIndex(langAbbrev);
 //	qDebug()<<"Index of"<<langAbbrev<<":"<<i;
 	if (i == -1)
 	{
@@ -821,7 +821,7 @@ QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev)
 		if (langAbbrev.length() > 5)
 		{
 			langAbbrev.truncate(5);
-			i=langTableIndex(langAbbrev);
+			i = langTableIndex(langAbbrev);
 		}
 	}
 	if (i != -1)
@@ -849,7 +849,7 @@ QString LanguageManager::getShortAbbrevFromAbbrevDecomposition(const QString& la
 
 QString LanguageManager::getAlternativeAbbrevfromAbbrev(const QString& langAbbrev)
 {
-	int i=langTableIndex(langAbbrev);
+	int i = langTableIndex(langAbbrev);
 	if (i != -1)
 		return m_langTable[i].m_altAbbrev;
 	return "";

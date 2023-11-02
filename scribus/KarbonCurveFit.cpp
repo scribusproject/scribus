@@ -40,25 +40,26 @@ class FitVector {
 	public:
 	FitVector(const QPointF &p)
 	{
-		m_X=p.x();
-		m_Y=p.y();
+		m_X = p.x();
+		m_Y = p.y();
 	}
 	
 	FitVector(){
-		m_X=0;
-		m_Y=0;
+		m_X = 0;
+		m_Y = 0;
 	}
 
 	FitVector(const QPointF &a, const QPointF &b){
-		m_X=a.x()-b.x();
-		m_Y=a.y()-b.y();
+		m_X = a.x() - b.x();
+		m_Y = a.y() - b.y();
 	}
 
 	void normalize(){
-		double len=length();
+		double len = length();
 		if (qFuzzyCompare(len, 0.0)) 
 			return;
-		m_X/=len; m_Y/=len;
+		m_X /= len;
+		m_Y /= len;
 	}
 
 	void negate(){
@@ -456,7 +457,7 @@ QPointF *FitCubic(const QList<QPointF> &points,int first,int last,FitVector tHat
 	width=0;
 
    
-	iterationError=error*error;
+	iterationError = error * error;
 	nPts = last-first+1;
 
 	if(nPts == 2){
@@ -517,25 +518,25 @@ QPointF *FitCubic(const QList<QPointF> &points,int first,int last,FitVector tHat
 	tHatCenter = ComputeCenterTangent(points, splitPoint);
 
 	int w1,w2;
-	QPointF *cu1=nullptr, *cu2=nullptr;
-	cu1 = FitCubic(points, first, splitPoint, tHat1, tHatCenter, error,w1);
+	QPointF *cu1 = nullptr, *cu2 = nullptr;
+	cu1 = FitCubic(points, first, splitPoint, tHat1, tHatCenter, error, w1);
 
 	tHatCenter.negate();
-	cu2 = FitCubic(points, splitPoint, last, tHatCenter, tHat2, error,w2);
+	cu2 = FitCubic(points, splitPoint, last, tHatCenter, tHat2, error, w2);
 
-	QPointF *newcurve = new QPointF[w1+w2];
-	for (int i=0;i<w1;i++)
+	QPointF *newcurve = new QPointF[w1 + w2];
+	for (int i = 0; i < w1; i++)
 	{
-		newcurve[i]=cu1[i];
+		newcurve[i] = cu1[i];
 	}
-	for (int i=0;i<w2;i++)
+	for (int i = 0; i < w2; i++)
 	{
-		newcurve[i+w1]=cu2[i];
+		newcurve[i + w1] = cu2[i];
 	}
 	
 	delete[] cu1;
 	delete[] cu2;
-	width=w1+w2;
+	width = w1 + w2;
 	return newcurve;
 }
 

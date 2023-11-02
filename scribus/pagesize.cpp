@@ -57,7 +57,7 @@ void PageSize::init(const QString& sizeName)
 	m_pageSizeName.clear();
 	m_trPageSizeName.clear();
 
-	bool valuesSet=false;
+	bool valuesSet = false;
 	generateSizeList();
 	//Build based on untranslated key value
 	if (m_pageSizeList.contains(sizeName))
@@ -68,7 +68,7 @@ void PageSize::init(const QString& sizeName)
 		m_height = it.value().height;
 		m_pageUnitIndex = it.value().pageUnitIndex;
 		m_trPageSizeName = it.value().trSizeName;
-		valuesSet=true;
+		valuesSet = true;
 	}
 	else //build based on translated value.
 	{
@@ -116,7 +116,7 @@ QStringList PageSize::sizeTRList() const
 
 QStringList PageSize::activeSizeList() const
 {
-	QStringList pageSizes=sizeList();
+	QStringList pageSizes = sizeList();
 	if (PrefsManager::instance().appPrefs.activePageSizes.count() == 0)
 		return QStringList(pageSizes);
 	QStringList activePageSizes(PrefsManager::instance().appPrefs.activePageSizes);
@@ -131,8 +131,8 @@ QStringList PageSize::activeSizeList() const
 
 QStringList PageSize::activeSizeTRList() const
 {
-	QStringList pageTRSizes=sizeTRList();
-	QStringList pageSizes=sizeList();
+	QStringList pageTRSizes = sizeTRList();
+	QStringList pageSizes = sizeList();
 	if (PrefsManager::instance().appPrefs.activePageSizes.count() == 0)
 		return QStringList(pageTRSizes);
 	QStringList activePageSizes(PrefsManager::instance().appPrefs.activePageSizes);
@@ -150,13 +150,13 @@ QStringList PageSize::activeSizeTRList() const
 
 QStringList PageSize::untransPageSizeList(const QStringList &transList)
 {
-	QStringList pageTRSizes=sizeTRList();
-	QStringList pageSizes=sizeList();
+	QStringList pageTRSizes = sizeTRList();
+	QStringList pageSizes = sizeList();
 	QStringList untranslatedList;
 	for (int i = 0; i < transList.size(); ++i)
 	{
-		int j=pageTRSizes.indexOf(transList.at(i));
-		if (j!=-1)
+		int j = pageTRSizes.indexOf(transList.at(i));
+		if (j != -1)
 		{
 			untranslatedList << pageSizes.at(j);
 		}
@@ -197,11 +197,11 @@ void PageSize::generateSizeList()
 	// do not use the formula below, as it is correct in theory,
 	// but due to rounding errors it gives incorrect results.
 /*	for (format = 0; format <= 10; format++) {
-		info.width=mm2pts(width);
-		info.height=mm2pts(height);
-		info.pageUnitIndex=SC_MM;
-		name=QString("A%1").arg(format);
-		info.trSizeName=name;
+		info.width = mm2pts(width);
+		info.height = mm2pts(height);
+		info.pageUnitIndex = SC_MM;
+		name = QString("A%1").arg(format);
+		info.trSizeName = name;
 		pageSizeList.insert(name, info);
 		tmp = height;
 		height = width;
@@ -232,7 +232,7 @@ void PageSize::generateSizeList()
 	{
 		info.width = mm2pts(Awidths[format]);
 		info.height = mm2pts(Aheights[format]);
-		info.pageUnitIndex=SC_MM;
+		info.pageUnitIndex = SC_MM;
 		name = QString("B%1").arg(format);
 		info.trSizeName = name;
 		m_pageSizeList.insert(name, info);
@@ -246,7 +246,7 @@ void PageSize::generateSizeList()
 	{
 		info.width = mm2pts(Awidths[format]);
 		info.height = mm2pts(Aheights[format]);
-		info.pageUnitIndex=SC_MM;
+		info.pageUnitIndex = SC_MM;
 		name = QString("C%1").arg(format);
 		info.trSizeName = name;
 		m_pageSizeList.insert(name, info);
@@ -256,11 +256,11 @@ void PageSize::generateSizeList()
 	height = floor(sqrt(2.0)*1000.0 + 0.5);
 
 	for (format = 0; format <= 10; format++) {
-		info.width=mm2pts(width);
-		info.height=mm2pts(height);
-		info.pageUnitIndex=SC_MM;
-		name=QString("B%1").arg(format);
-		info.trSizeName=name;
+		info.width = mm2pts(width);
+		info.height = mm2pts(height);
+		info.pageUnitIndex = SC_MM;
+		name = QString("B%1").arg(format);
+		info.trSizeName = name;
 		pageSizeList.insert(name, info);
 
 		tmp = height;
@@ -273,11 +273,11 @@ void PageSize::generateSizeList()
 	height = floor(sqrt(sqrt(sqrt(8.0)))*1000.0 + 0.5);
 
 	for (format = 0; format <= 10; format++) {
-		info.width=mm2pts(width);
-		info.height=mm2pts(height);
-		info.pageUnitIndex=SC_MM;
-		name=QString("C%1").arg(format);
-		info.trSizeName=name;
+		info.width = mm2pts(width);
+		info.height = mm2pts(height);
+		info.pageUnitIndex = SC_MM;
+		name = QString("C%1").arg(format);
+		info.trSizeName = name;
 		pageSizeList.insert(name, info);
 
 		tmp = height;
@@ -294,7 +294,7 @@ void PageSize::generateSizeList()
 		info.width = mm2pts(width);
 		info.height = mm2pts(height);
 		info.pageUnitIndex = SC_MM;
-		name=QString("PA%1").arg(format);
+		name = QString("PA%1").arg(format);
 		info.trSizeName = name;
 		m_pageSizeList.insert(name, info);
 		tmp = height;

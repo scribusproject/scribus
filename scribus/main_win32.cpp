@@ -291,7 +291,7 @@ void defaultCrashHandler(DWORD exceptionCode)
 	crashRecursionCounter++;
 	if (crashRecursionCounter < 2)
 	{
-		emergencyActivated=true;
+		emergencyActivated = true;
 		crashRecursionCounter++;
 		QString expDesc = exceptionDescription(exceptionCode);
 		QString expHdr  = QObject::tr("Scribus Crash");

@@ -57,7 +57,7 @@ class SCRIBUS_API MenuManager : public QObject
 		void setText(const QString &menuName, const QString &menuText);
 
 		QMenu *getLocalPopupMenu(const QString &menuName);
-		bool addMenuStringToMenuBar(const QString &menuName, bool rememberMenu=false);
+		bool addMenuStringToMenuBar(const QString& menuName, bool rememberMenu = false);
 		bool addMenuStringToMenuBarBefore(const QString &, const QString &beforeMenuName);
 		void clear();
 		bool clearMenu(const QString &menuName);

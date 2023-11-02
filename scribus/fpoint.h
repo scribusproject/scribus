@@ -49,7 +49,7 @@ public:
 	FPoint(const QPointF & p) : xp(p.x()), yp(p.y()) {}
 	FPoint(const FPoint & p) : xp(p.xp), yp(p.yp) {}
 	//Creates a transformed point, replaces ScribusView::transformPoint()
-	FPoint(double x, double y, double dx, double dy, double rot, double sx, double sy, bool invert=false);
+	FPoint(double x, double y, double dx, double dy, double rot, double sx, double sy, bool invert = false);
 
 	FPoint& operator=(const FPoint & rhs);
 	double x() const;

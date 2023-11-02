@@ -148,7 +148,7 @@ public:
 			// for all states in from
 			typename std::set<STATE>::const_iterator s_it;
 			typename std::map<INPUT, std::set<STATE> >::iterator tr_it;
-			for (s_it=from.begin(); s_it != from.end(); ++s_it)
+			for (s_it = from.begin(); s_it != from.end(); ++s_it)
 			{
 				// for all transitions
 				typename FA_base<STATE,INPUT,std::set<STATE> >::Transitions& 
@@ -180,7 +180,7 @@ public:
 		}
 		const std::set<INPUT>& inp(FA_base<STATE, INPUT, std::set<STATE> >::inputs());
 		typename std::set<INPUT>::const_iterator i;
-		for (i=inp.begin(); i != inp.end(); ++i)
+		for (i = inp.begin(); i != inp.end(); ++i)
 			result->addInput(*i);
 		return result;
 	}
@@ -208,7 +208,7 @@ const OUTPUT FA_base<STATE,INPUT,OUTPUT>::next(STATE from, INPUT input) const
 {
 	const Transitions& tr(transitions(from));
 	typename Transitions::const_iterator it = tr.find(input);
-	return it==tr.end() ? default_ : it->second;
+	return it == tr.end() ? default_ : it->second;
 }
 
 template<class STATE, class INPUT, class OUTPUT>

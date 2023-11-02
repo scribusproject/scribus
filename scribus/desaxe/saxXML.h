@@ -17,8 +17,8 @@
 class SCRIBUS_API SaxXML : public SaxHandler
 {
 	public:
-		SaxXML(std::ostream& file, bool pretty=false);
-		SaxXML(const char* filename, bool pretty=false);
+		SaxXML(std::ostream& file, bool pretty = false);
+		SaxXML(const char* filename, bool pretty = false);
 		~SaxXML();
 
 		void beginDoc();

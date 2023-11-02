@@ -163,7 +163,7 @@ void Digester::begin(const Xml_string& tag, Xml_attr attr)
 	m_state->open(tag);
 	const std::vector<rule_t>& rules (m_state->rulesForCurrentState());
 	std::vector<rule_t>::const_iterator it;
-	for(it=rules.begin(); it!=rules.end(); ++it)
+	for (it = rules.begin(); it != rules.end(); ++it)
 	{
 #ifdef DESAXE_DEBUG
 		std::cerr << "B " << it->first.toStdString() << " " << typeid(it->second).name() << "\n";
@@ -176,7 +176,7 @@ void Digester::end(const Xml_string& tag)
 {
 	const std::vector<rule_t>& rules (m_state->rulesForCurrentState());
 	std::vector<rule_t>::const_reverse_iterator it;
-	for(it=rules.rbegin(); it!=rules.rend(); ++it)
+	for (it = rules.rbegin(); it != rules.rend(); ++it)
 	{
 #ifdef DESAXE_DEBUG
 		std::cerr << "E " << it->first.toStdString() << " " << typeid(it->second).name() << "\n";
@@ -190,7 +190,7 @@ void Digester::chars(const Xml_string& text)
 {
 	const std::vector<rule_t>& rules (m_state->rulesForCurrentState());
 	std::vector<rule_t>::const_iterator it;
-	for(it=rules.begin(); it!=rules.end(); ++it)
+	for (it = rules.begin(); it != rules.end(); ++it)
 	{
 #ifdef DESAXE_DEBUG
 		std::cerr << "C " << it->first.toStdString() << " " << typeid(it->second).name() << "\n";
@@ -255,25 +255,25 @@ void RuleState::reset()
 void RuleState::dump()
 {
 	std::cout << "Rules:\n";
-	for (unsigned int r=0; r<rules.size(); ++r) {
+	for (unsigned int r = 0; r < rules.size(); ++r) {
 		std::cout << r << ":\t\"" << rules[r].first.toStdString() << "\" accepted in  (" << accepting[r] << ")\n";
 	}
 	std::cout << "\nTokens:\n";
-	for (std::map<Xml_string, token_t>::iterator it=tokens.begin(); it!=tokens.end(); ++it) {
+	for (std::map<Xml_string, token_t>::iterator it = tokens.begin(); it != tokens.end(); ++it) {
 		std::cout << it->first.toStdString() << ":\t--> " << it->second << "\n";
 	}
 	std::cout << "\nAutomaton:\n";
 	const std::set<dfa_state_t>& states(dfa->states());
 	const std::set<token_t>& inputs(dfa->inputs());
 	std::cout << "STATE";
-	for (std::set<token_t>::const_iterator i=inputs.begin(); i != inputs.end(); ++i) {
+	for (std::set<token_t>::const_iterator i = inputs.begin(); i != inputs.end(); ++i) {
 		std::cout << "\t" << *i;
 	}
 	std::cout << "\tRULES\n\n";
-	for (std::set<dfa_state_t>::const_iterator s=states.begin(); s!=states.end(); ++s) {
+	for (std::set<dfa_state_t>::const_iterator s = states.begin(); s != states.end(); ++s) {
 		std::cout << (*s)->ID;
-		for (std::set<token_t>::const_iterator i=inputs.begin(); i!=inputs.end(); ++i) {
-			dfa_state_t nstate = dfa->next(*s,*i);
+		for (std::set<token_t>::const_iterator i = inputs.begin(); i != inputs.end(); ++i) {
+			dfa_state_t nstate = dfa->next(*s, *i);
 			std::cout << "\t";
 			if (nstate)
 				std::cout << nstate->ID;
@@ -440,7 +440,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 		for (it = nfa->states().begin(); it != nfa->states().end(); ++it) {
 			const std::set<nfa_state_t>& anyStates(nfa->next(*it, ANY));
 			for (st = anyStates.begin(); st != anyStates.end(); ++st)
-				for (tok=inputs.begin(); tok != inputs.end(); ++tok)
+				for (tok = inputs.begin(); tok != inputs.end(); ++tok)
 					if (*tok != ANY)
 						nfa->addTransition(*it, *tok, *st);
 		}

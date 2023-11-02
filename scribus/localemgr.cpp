@@ -36,21 +36,21 @@ for which a new license (GPL+exception) is in place.
 LocaleManager& LocaleManager::instance()
 {
 	static LocaleManager m_instance;
-	static bool first=true;
+	static bool first = true;
 	if (first)
 	{
 		m_instance.init();
-		first=false;
+		first = false;
 	}
 	return m_instance;
 }
 
 void LocaleManager::init()
 {
-	m_sysLocale=QLocale::system();
-//	qDebug()<<"language:"<<QLocale::languageToString(sysLocale.language());
-//	qDebug()<<"measurement:"<<sysLocale.measurementSystem();
-//	qDebug()<<"bcp47name:"<<sysLocale.bcp47Name();
+	m_sysLocale = QLocale::system();
+//	qDebug() << "language:" << QLocale::languageToString(sysLocale.language());
+//	qDebug() << "measurement:" << sysLocale.measurementSystem();
+//	qDebug() << "bcp47name:" << sysLocale.bcp47Name();
 
 	generateLocaleList();
 }
@@ -74,20 +74,20 @@ void LocaleManager::printSelectedForLocale(const QString& locale)
 	QString selectedLocale(locale);
 	for (int i = 0; i < m_localeTable.size(); ++i)
 	{
-		if (m_localeTable[i].m_locale==selectedLocale)
+		if (m_localeTable[i].m_locale == selectedLocale)
 		{
-			qDebug()<<m_localeTable[i].m_locale.leftJustified(6) << ": " << m_localeTable[i].m_unit << ": " << m_localeTable[i].m_pageSize;
+			qDebug() << m_localeTable[i].m_locale.leftJustified(6) << ": " << m_localeTable[i].m_unit << ": " << m_localeTable[i].m_pageSize;
 			return;
 		}
 	}
 
-	qDebug()<<"No definition for locale: "<<selectedLocale;
-	selectedLocale="default";
+	qDebug() << "No definition for locale: " << selectedLocale;
+	selectedLocale = "default";
 	for (int i = 0; i < m_localeTable.size(); ++i)
 	{
-		if (m_localeTable[i].m_locale==selectedLocale)
+		if (m_localeTable[i].m_locale == selectedLocale)
 		{
-			qDebug()<<m_localeTable[i].m_locale.leftJustified(6) << ": " << m_localeTable[i].m_unit << ": " << m_localeTable[i].m_pageSize;
+			qDebug() << m_localeTable[i].m_locale.leftJustified(6) << ": " << m_localeTable[i].m_unit << ": " << m_localeTable[i].m_pageSize;
 			return;
 		}
 	}
@@ -97,7 +97,7 @@ QString LocaleManager::pageSizeForLocale(const QString& locale)
 {
 	for (int i = 0; i < m_localeTable.size(); ++i)
 	{
-		if (m_localeTable[i].m_locale==locale)
+		if (m_localeTable[i].m_locale == locale)
 			return m_localeTable[i].m_pageSize;
 	}
 
@@ -114,12 +114,12 @@ QString LocaleManager::unitForLocale(const QString &locale)
 {
 	for (int i = 0; i < m_localeTable.size(); ++i)
 	{
-		if (m_localeTable[i].m_locale==locale)
+		if (m_localeTable[i].m_locale == locale)
 			return m_localeTable[i].m_unit;
 	}
 	//qDebug()<<"No definition for locale: "<<selectedLocale;
 	//No, we don't translate these, they are internal use that don't get to the GUI
-	if (m_sysLocale.measurementSystem()==0)
+	if (m_sysLocale.measurementSystem() == 0)
 		return "mm";
 	return "in";
 //	qFatal("Unit not found in LocaleManager");

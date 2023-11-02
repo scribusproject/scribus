@@ -37,9 +37,9 @@ class SCRIBUS_API LocaleDef
 		LocaleDef();
 		LocaleDef(const QString& locale, const QString& unit, const QString& pageSize)
 		{
-			m_locale=locale;
-			m_unit=unit;
-			m_pageSize=pageSize;
+			m_locale = locale;
+			m_unit = unit;
+			m_pageSize = pageSize;
 		}
 		~LocaleDef() = default;
 

@@ -378,7 +378,7 @@ void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 		m_canvas->setForcedRedraw(true);
 	m_canvas->repaint();
 	m_view->stopGesture();
-	m_mousePoint=QPoint(0,0);
+	m_mousePoint = QPoint(0, 0);
 	if (m_ScMW->doc->guidesPrefs().guidesShown)
 		emit guideInfo(m_mode, m_currentGuide);
 }

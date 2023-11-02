@@ -177,7 +177,7 @@ public:
 	 The flag 'allowMasterItems' controls if items from a masterpage are considered.
 	 (this flag is ignored in masterpage mode, since all items are masterpage items then).
 	 */
-	PageItem* itemUnderCursor(QPointF globalPos, PageItem* itemAbove=nullptr, bool allowInGroup=false, bool allowMasterItems=false) const;
+	PageItem* itemUnderCursor(QPointF globalPos, PageItem* itemAbove = nullptr, bool allowInGroup = false, bool allowMasterItems = false) const;
 	PageItem* itemInGroup(const PageItem* group, const QRectF& mouseArea) const;
 	PageItem* itemUnderItem(const PageItem* item, int& index) const;
 	

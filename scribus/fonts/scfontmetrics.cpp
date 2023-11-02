@@ -72,7 +72,7 @@ int setBestEncoding(FT_Face face)
 	int chmapCustom = -1;
 	int retVal = 0;
 	//FT_CharMap defaultEncoding = face->charmap;
-//	int defaultchmap=face->charmap ? FT_Get_Charmap_Index(face->charmap) : 0;
+//	int defaultchmap = face->charmap ? FT_Get_Charmap_Index(face->charmap) : 0;
 // Since the above function is only available in FreeType 2.1.10 its replaced by
 // the following line, assuming that the default charmap has the index 0
 	int defaultchmap = 0;
@@ -137,7 +137,7 @@ int setBestEncoding(FT_Face face)
 
 	//Fixes #2199, missing glyphs from 1.2.1->1.2.2
 	//If the currently wanted character map is not already Unicode...
-	//if (FT_Get_Charmap_Index(face->charmap)!=chmapUnicode)
+	//if (FT_Get_Charmap_Index(face->charmap) != chmapUnicode)
 	if (mapToSet != chmapUnicode)
 	{
 		//Change map so we can count the chars in it

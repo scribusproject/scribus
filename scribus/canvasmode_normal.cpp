@@ -845,7 +845,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		}
 		else
 		{
-			bool isMS=m_doc->m_Selection->isMultipleSelection();
+			bool isMS = m_doc->m_Selection->isMultipleSelection();
 			if ((isMS || (!isMS && (!currItem->locked() && !currItem->sizeLocked()))) && (!m_doc->drawAsPreview))
 			{
 				if (!m_resizeGesture)
@@ -1225,7 +1225,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	//Commit drag created items to undo manager.
 	if (m_doc->m_Selection->count() > 0)
 	{
-		if (m_doc->m_Selection->itemAt(0)!=nullptr)
+		if (m_doc->m_Selection->itemAt(0) != nullptr)
 		{
 			m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 		}
@@ -1886,11 +1886,11 @@ void CanvasMode_Normal::importToPage()
 
 void CanvasMode_Normal::createContextMenu(PageItem* currItem, double mx, double my)
 {
-	ContextMenu* cmen=nullptr;
+	ContextMenu* cmen = nullptr;
 //	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
 	m_mouseCurrentPoint.setXY(mx, my);
-	if (currItem!=nullptr)
+	if (currItem != nullptr)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 	else
 		cmen = new ContextMenu(m_ScMW, m_doc, mx, my);

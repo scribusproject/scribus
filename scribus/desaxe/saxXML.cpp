@@ -71,7 +71,7 @@ void SaxXML::begin(const Xml_string& tag, Xml_attr attr)
 	Xml_attr::iterator it;
 	m_manyAttributes = false;
 	uint i = 0;
-	for (it=attr.begin(); it != attr.end(); ++it)
+	for (it = attr.begin(); it != attr.end(); ++it)
 	{
 		// newline and indent every 4 attributes
 		if (i > 0 && (i % 4) == 0 && m_pretty)

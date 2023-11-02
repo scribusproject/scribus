@@ -487,7 +487,7 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 
 void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 {
-	ScribusDoc* currDoc=m_textFrame->doc();
+	ScribusDoc* currDoc = m_textFrame->doc();
 	for (int i = 0; i < currDoc->paragraphStyles().count(); ++i)
 	{
 		if (currDoc->paragraphStyles()[i].name() == pstyle->getName())

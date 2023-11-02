@@ -58,12 +58,12 @@ ActionManager::~ActionManager()
 
 void ActionManager::init(ScribusMainWindow *mw)
 {
-	mainWindow=mw;
-	scrActions=&(mainWindow->scrActions);
-	scrActionGroups=&(mainWindow->scrActionGroups);
-	modeActionNames=new QStringList();
-	nonEditActionNames=new QStringList();
-	unicodeCharActionNames=new QStringList();
+	mainWindow = mw;
+	scrActions = &(mainWindow->scrActions);
+	scrActionGroups = &(mainWindow->scrActionGroups);
+	modeActionNames = new QStringList();
+	nonEditActionNames = new QStringList();
+	unicodeCharActionNames = new QStringList();
 	undoManager = UndoManager::instance();
 
 #ifdef Q_OS_MACOS
@@ -81,7 +81,7 @@ bool ActionManager::compareKeySeqToShortcut(const QKeySequence& ks, const QStrin
 {
 	if (!scrActions->contains(actionName))
 		return false;
-	return ks.matches((*scrActions)[actionName]->shortcut())==QKeySequence::ExactMatch;
+	return ks.matches((*scrActions)[actionName]->shortcut()) == QKeySequence::ExactMatch;
 }
 
 bool ActionManager::compareKeySeqToShortcut(int k, Qt::KeyboardModifiers km, const QString& actionName)
@@ -299,7 +299,7 @@ void ActionManager::initStyleMenuActions()
 	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
 	for (uint s = 0; s < f_size; ++s)
 	{
-		QString fontSizeName=QString("fontSize%1").arg(font_sizes[s]);
+		QString fontSizeName = QString("fontSize%1").arg(font_sizes[s]);
 		scrActions->insert(fontSizeName, new ScrAction(ScrAction::DataInt, QString(), QString(), "", defaultKey(name), scrActionGroups->value("fontSize"), font_sizes[s]));
 		(*scrActions)[fontSizeName]->setToggleAction(true);
 		connect( (*scrActions)[fontSizeName], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemFontSize(int)));
@@ -337,7 +337,7 @@ void ActionManager::initStyleMenuActions()
 	connect( (*scrActions)["shadeOther"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemShade(int)));
 	for (uint i=0; i<=100 ; i+=10)
 	{
-		QString shadeName=QString("shade%1").arg(i);
+		QString shadeName = QString("shade%1").arg(i);
 		scrActions->insert(shadeName, new ScrAction(ScrAction::DataInt, QString(), QString(), "", defaultKey(name), scrActionGroups->value("shade"), i));
 		(*scrActions)[shadeName]->setToggleAction(true);
 		connect( (*scrActions)[shadeName], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemShade(int)));
@@ -1461,8 +1461,8 @@ void ActionManager::setPDFActions(ScribusView *currView)
 	(*scrActions)["itemPDFIsBookmark"]->setChecked(currItem->isBookmark);
 	if (currItem->isAnnotation())
 	{
-		int aType=currItem->annotation().Type();
-		bool setter=((aType == 0) || (aType == 1) || ((aType > Annotation::Listbox) && (aType < Annotation::Annot3D)));
+		int aType = currItem->annotation().Type();
+		bool setter = ((aType == 0) || (aType == 1) || ((aType > Annotation::Listbox) && (aType < Annotation::Annot3D)));
 		(*scrActions)["itemPDFAnnotationProps"]->setEnabled(setter);
 		(*scrActions)["itemPDFFieldProps"]->setEnabled(!setter);
 	}

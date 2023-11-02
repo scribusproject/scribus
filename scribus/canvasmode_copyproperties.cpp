@@ -365,7 +365,7 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 
 void CanvasMode_CopyProperties::createContextMenu(PageItem* /*currItem*/, double mx, double my)
 {
-	ContextMenu* cmen=nullptr;
+	ContextMenu* cmen = nullptr;
 	m_view->setCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
 	Mxp = mx;

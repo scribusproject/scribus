@@ -867,7 +867,7 @@ void PageItem::rotateBy(const double dR)
 
 void PageItem::setSelected(const bool toSelect)
 {
-	m_isSelected=toSelect;
+	m_isSelected = toSelect;
 }
 
 void PageItem::setImageXScale(const double newImageXScale)
@@ -1200,7 +1200,7 @@ void PageItem::unlink(bool createUndo)
 {
 	if (m_nextBox)
 	{
-		PageItem *undoNextBox=m_nextBox;
+		PageItem* undoNextBox = m_nextBox;
 		// make sure lastInFrame is valid
 		layout();
 		/*
@@ -1569,7 +1569,7 @@ void PageItem::setCornerRadius(double newRadius)
 		state->set("NEW_RADIUS", newRadius);
 		undoManager->action(this,state);
 	}
-	m_roundedCornerRadius=newRadius;
+	m_roundedCornerRadius = newRadius;
 	//emit cornerRadius(RadRect);
 }
 
@@ -1801,13 +1801,13 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 
 void PageItem::DrawObj_Post(ScPainter *p)
 {
-	bool doStroke=true;
+	bool doStroke = true;
 	double lwCorr = m_lineWidth;
 	if ((m_lineWidth * p->zoomFactor()) < 1)
 		lwCorr = 0;
 	if (m_Doc->layerOutline(m_layerID))
 	{
-		if (itemType()!=Line)
+		if (itemType() != Line)
 		{
 			p->setPen(m_Doc->layerMarker(m_layerID), 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setFillMode(ScPainter::None);
@@ -1844,7 +1844,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 			p->setMaskMode(0);
 			// TODO: Investigate whether itemType() == Table should really be here. I got artifacts without it so keeping it here for now. /estan
 			if (itemType() == PathText || itemType() == PolyLine || itemType() == Spiral || itemType() == Line || itemType() == Symbol || itemType() == Group || itemType() == Table)
-				doStroke=false;
+				doStroke = false;
 			if (doStroke && !m_Doc->RePos)
 			{
 				p->setBlendModeStroke(lineBlendmode());
@@ -2391,7 +2391,7 @@ void PageItem::setItemName(const QString& newName)
 		return;
 	QString oldName = m_itemName;
 	m_itemName = generateUniqueCopyName(newName);
-	AutoName=false;
+	AutoName = false;
 	if (UndoManager::undoEnabled())
 	{
 		auto *ss = new SimpleState(Um::Rename, QString(Um::FromTo).arg(oldName, newName));
@@ -3954,7 +3954,7 @@ void PageItem::setLineWidth(double newWidth)
 		ss->set("NEW_LINEWIDTH", newWidth);
 		undoManager->action(this, ss);
 	}
-	m_oldLineWidth=m_lineWidth;
+	m_oldLineWidth = m_lineWidth;
 	m_lineWidth = newWidth;
 }
 
@@ -10330,11 +10330,11 @@ void PageItem::updateGradientVectors()
 		default:
 			break;
 	}
-	//if (ScMW->view->SelItem.count()!=0 && this==ScMW->view->SelItem.at(0))
+	//if (ScMW->view->SelItem.count()!=0 && this == ScMW->view->SelItem.at(0))
 	//if (m_Doc->m_Selection->count()!=0 && m_Doc->m_Selection->primarySelectionIsMyself(this))
 	//	ScMW->propertiesPalette->updateColorSpecialGradient();
 	//CB Will only emit if connected, ie is first in GUI selection
-	//unused double dur=m_Doc->unitRatio();
+	//unused double dur = m_Doc->unitRatio();
 }
 
 void PageItem::setPolyClip(int up, int down)
@@ -10434,7 +10434,7 @@ bool PageItem::disconnectFromGUI()
 		return false;
 	// Disconnecting only signals from PP will leave some remaining connections
 	// and cause progressive slowdowns
-	// PropertiesPalette* pp=m_Doc->scMW()->propertiesPalette;
+	// PropertiesPalette* pp = m_Doc->scMW()->propertiesPalette;
 	// disconnect(this, 0, pp, 0);
 	this->disconnect();
 	return true;
@@ -10448,7 +10448,7 @@ void PageItem::emitAllToGUI()
 	emit frameType(m_itemType);
 
 //CB unused in 135
-//	double dur=m_Doc->unitRatio();
+//	double dur = m_Doc->unitRatio();
 //	emit blendmode(m_fillBlendMode, m_lineBlendMode);
 /*CB using the emit myself* instead of all of these
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
@@ -10467,7 +10467,7 @@ void PageItem::emitAllToGUI()
 
 void PageItem::setIsAnnotation(bool isAnnot)
 {
-	if (m_isAnnotation==isAnnot)
+	if (m_isAnnotation == isAnnot)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
@@ -10475,7 +10475,7 @@ void PageItem::setIsAnnotation(bool isAnnot)
 		ss->set("ACTIONPDFANNOTATION", isAnnot);
 		undoManager->action(this, ss);
 	}
-	m_isAnnotation=isAnnot;
+	m_isAnnotation = isAnnot;
 }
 
 void PageItem::setIsBookMark(bool isBM)
@@ -10522,7 +10522,7 @@ void PageItem::setImageVisible(bool isShown)
 		ss->set("OLD", m_imageVisible);
 		undoManager->action(this, ss);
 	}
-	m_imageVisible=isShown;
+	m_imageVisible = isShown;
 }
 
 void PageItem::updateConstants()

@@ -14,7 +14,7 @@
 ScDLManager::ScDLManager(QObject *parent)
 	: QObject(parent)
 {
-	m_thread=new ScDLThread();
+	m_thread = new ScDLThread();
 	connect(m_thread, SIGNAL(fileReceived(QString)), this, SLOT(dlReceived(QString)));
 	connect(m_thread, SIGNAL(fileFailed(QString)), this, SLOT(dlFailed(QString)));
 	connect(m_thread, SIGNAL(fileStarted(QString)), this, SLOT(dlStarted(QString)));
@@ -89,7 +89,7 @@ void ScDLManager::dlStarted(const QString& filename)
 	while (i.hasNext())
 	{
 		i.next();
-		if (i.value().state!=DownloadData::Successful && i.value().state!=DownloadData::Failed && i.value().downloadLocation+i.value().name==filename)
+		if (i.value().state != DownloadData::Successful && i.value().state != DownloadData::Failed && i.value().downloadLocation + i.value().name == filename)
 		{
 			//qDebug()<<"starting"<<i.value().downloadLocation+i.value().name<<filename;
 			i.value().state = DownloadData::Started;

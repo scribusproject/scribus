@@ -669,7 +669,7 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 
 QCursor CanvasMode::modeCursor()
 {
-	IconManager& im=IconManager::instance();
+	IconManager& im = IconManager::instance();
 	QCursor cursor;
 	switch (m_doc->appMode)
 	{
@@ -776,7 +776,7 @@ void CanvasMode::drawSnapLine(QPainter* p)
 	if (page == -1)
 		return;
 	MarginStruct bleedValues;
-	ScPage* dragToPage=m_doc->Pages->at(page);
+	ScPage* dragToPage = m_doc->Pages->at(page);
 	if (!dragToPage)
 		return;
 	m_doc->getBleeds(dragToPage, bleedValues);
@@ -971,7 +971,7 @@ void CanvasMode::commonkeyPressEvent_Default(QKeyEvent *e)
 		//Show our context menu
 		if (mainWindow->actionManager->compareKeySeqToShortcut(kk, buttonModifiers, "viewShowContextMenu"))
 		{
-			ContextMenu* cmen=nullptr;
+			ContextMenu* cmen = nullptr;
 			if (m_doc->m_Selection->isEmpty())
 			{
 				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPosition());

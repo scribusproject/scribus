@@ -162,7 +162,7 @@ class SCRIBUS_API GuideManagerIO
 		static void readHorizontalGuides(const QString& guideString,
 										 ScPage *page,
 										 GuideManagerCore::GuideType type,
-										 bool useOldGuides=false);
+										 bool useOldGuides = false);
 
 		/*! \brief Read the guides from XML attribute (file opening).
 		It's statis method sou you can call it without instance initialized:
@@ -176,7 +176,7 @@ class SCRIBUS_API GuideManagerIO
 		static void readVerticalGuides(const QString& guideString,
 									   ScPage *page,
 									   GuideManagerCore::GuideType type,
-									   bool useOldGuides=false);
+									   bool useOldGuides = false);
 
 		static QString writeHorizontalGuides(const ScPage *page, GuideManagerCore::GuideType type);
 		static QString writeVerticalGuides(const ScPage *page, GuideManagerCore::GuideType type);
