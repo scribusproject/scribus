@@ -181,15 +181,15 @@ QIODevice* Scribus134Format::slaReader(const QString & fileName)
 
 void Scribus134Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
 {
-	getNewReplacement=false;
+	getNewReplacement = false;
 	getReplacedFonts.clear();
 }
 
 bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
 {
-	if (m_Doc==nullptr || m_AvailableFonts==nullptr)
+	if (m_Doc == nullptr || m_AvailableFonts == nullptr)
 	{
-		Q_ASSERT(m_Doc==nullptr || m_AvailableFonts==nullptr);
+		Q_ASSERT(m_Doc == nullptr || m_AvailableFonts == nullptr);
 		return false;
 	}
 
@@ -1018,7 +1018,7 @@ void Scribus134Format::readGuideSettings(ScribusDoc* doc, ScXmlStreamAttributes&
 	doc->guidesPrefs().minorGridSpacing = attrs.valueAsDouble("MINGRID", prefsManager.appPrefs.guidesPrefs.minorGridSpacing);
 	doc->guidesPrefs().majorGridSpacing = attrs.valueAsDouble("MAJGRID", prefsManager.appPrefs.guidesPrefs.majorGridSpacing);
 	doc->guidesPrefs().gridShown    = attrs.valueAsBool("SHOWGRID", false);
-	doc->guidesPrefs().guidesShown  =attrs.valueAsBool("SHOWGUIDES", true);
+	doc->guidesPrefs().guidesShown = attrs.valueAsBool("SHOWGUIDES", true);
 	doc->guidesPrefs().colBordersShown  = attrs.valueAsBool("showcolborders", false);
 	doc->guidesPrefs().framesShown  = attrs.valueAsBool("SHOWFRAME", true);
 	doc->guidesPrefs().layerMarkersShown = attrs.valueAsBool("SHOWLAYERM", false);
@@ -1086,7 +1086,7 @@ void Scribus134Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 		doc->itemToolPrefs().textStrokeColor = attrs.valueAsString("StrokeText");
 	doc->itemToolPrefs().textFillColor  = attrs.valueAsString("TextBackGround", CommonStrings::None);
 	doc->itemToolPrefs().textLineColor   = attrs.valueAsString("TextLineColor", CommonStrings::None);
-	doc->itemToolPrefs().textFillColorShade =attrs.valueAsInt("TextBackGroundShade", 100);
+	doc->itemToolPrefs().textFillColorShade = attrs.valueAsInt("TextBackGroundShade", 100);
 	doc->itemToolPrefs().textLineColorShade   = attrs.valueAsInt("TextLineShade", 100);
 	doc->itemToolPrefs().textShade    = attrs.valueAsInt("TextPenShade", 100);
 	doc->itemToolPrefs().textStrokeShade = attrs.valueAsInt("TextStrokeShade", 100);
@@ -2598,7 +2598,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	if (Pcolor2.isEmpty())
 		Pcolor2 = CommonStrings::None;
 	QColor tmpc;
-	PageItem *currItem=nullptr;
+	PageItem* currItem = nullptr;
 	QString tmp;
 	double xf, yf, xf2;
 	QString clPath;
@@ -3203,9 +3203,9 @@ bool Scribus134Format::readLatexInfo(PageItem_LatexFrame* latexitem, ScXmlStream
 bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName)
 {
 // 	qDebug() << QString("loading page %2 from file '%1' from 1.3.x plugin").arg(fileName).arg(pageNumber);
-	if (m_Doc==nullptr || m_AvailableFonts==nullptr)
+	if (m_Doc == nullptr || m_AvailableFonts == nullptr)
 	{
-		Q_ASSERT(m_Doc==nullptr || m_AvailableFonts==nullptr);
+		Q_ASSERT(m_Doc == nullptr || m_AvailableFonts == nullptr);
 		return false;
 	}
 
@@ -3231,7 +3231,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	int maxLayer = 0, maxLevel = 0, a = 0;
 
 	layerTrans.clear();
-	uint layerCount=m_Doc->layerCount();
+	uint layerCount = m_Doc->layerCount();
 	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
 		maxLayer = qMax(m_Doc->Layers[la2].ID, maxLayer);

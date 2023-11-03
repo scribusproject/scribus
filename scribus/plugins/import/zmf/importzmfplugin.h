@@ -31,7 +31,7 @@ class PLUGIN_API ImportZmfPlugin : public LoadSavePlugin
 		const AboutData* getAboutData() const override;
 		void deleteAboutData(const AboutData* about) const override;
 		void languageChange() override;
-		bool fileSupported(QIODevice* file, const QString & fileName=QString()) const override;
+		bool fileSupported(QIODevice* file, const QString& fileName = QString()) const override;
 		bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0) override;
 		QImage readThumbnail(const QString& fileName) override;
 		void addToMainWindowMenu(ScribusMainWindow *) override {};

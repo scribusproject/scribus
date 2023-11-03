@@ -609,8 +609,8 @@ void XtgScanner::setXPresOwn()
 	m_unsupported.insert(m_token+')');
 	//All these tags are unsupported in Scribus, so just ignoring them till we find close parenthesis
 	while (lookAhead() != QChar(')'))
-		m_textIndex=m_textIndex+1;
-	m_textIndex=m_textIndex+1;//Ignore )
+		m_textIndex = m_textIndex + 1;
+	m_textIndex = m_textIndex + 1;//Ignore )
 }
 
 void XtgScanner::setAlignLeft()
@@ -710,7 +710,7 @@ void XtgScanner::setPAttributes()
 void XtgScanner::setHyphenation()
 {
 	m_unsupported.insert(m_token);
-	m_token=getToken();
+	m_token = getToken();
 }
 
 void XtgScanner::setPRuleAbove()
@@ -1396,7 +1396,7 @@ QString XtgScanner::getToken()
 		else if (temp == ',')
 		{
 			m_textIndex = m_textIndex+1;
-			token=getToken();
+			token = getToken();
 		}
 		else 
 			token.append( nextSymbol() );

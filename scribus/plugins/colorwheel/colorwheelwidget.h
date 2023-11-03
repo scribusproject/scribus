@@ -187,7 +187,7 @@ class ColorWheel : public QLabel
 		\param base Draw it highlighted if it is base color
 		\param clear Draw point with white = clear it from painter
 		*/
-		void drawBorderPoint(int angle, bool base=false, bool clear=false);
+		void drawBorderPoint(int angle, bool base = false, bool clear = false);
 
 		/*! \brief Clear border marks before redrawing.
 		It redraws only small piece of the bitmap */

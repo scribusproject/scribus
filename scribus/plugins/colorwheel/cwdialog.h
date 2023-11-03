@@ -81,7 +81,7 @@ class CWDialog : public QDialog, Ui::CWDialog
 		/*! \brief Connect or disconnect rgbcmyk spinboxes signals.
 		\param conn if true perform connect. Disconnect in the case of false
 		*/
-		void connectSlots(bool conn=true);
+		void connectSlots(bool conn = true);
 
 		/*! \brief Call main color calculation.
 		It calls a ColorWheel methods to get requested harmonious colors depending
@@ -91,7 +91,7 @@ class CWDialog : public QDialog, Ui::CWDialog
 		if false don't reset any of these component spins - it's used for colorWheel
 		mouse clicked/released events.
 		*/
-		void processColors(int index, bool updateSpins=true);
+		void processColors(int index, bool updateSpins = true);
 
 		//! \brief Get a #hhssvv string for given ScColor
 		QString getHexHsv(const ScColor& c);

@@ -132,7 +132,7 @@ bool ImportCdrPlugin::import(QString fileName, int flags)
 		else
 			return true;
 	}
-	m_Doc=ScCore->primaryMainWindow()->doc;
+	m_Doc = ScCore->primaryMainWindow()->doc;
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
@@ -150,7 +150,7 @@ bool ImportCdrPlugin::import(QString fileName, int flags)
 	Q_CHECK_PTR(dia);
 	if (!dia->import(fileName, trSettings, flags, !(flags & lfScripted)))
 	{
-		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		//Import per Uniconverter
 		qDebug() << "ERROR: Parsing with libcdr failed! Trying now Uniconverter.";
 		const FileFormat *fmt = LoadSavePlugin::getFormatByExt("cdt");

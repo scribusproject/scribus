@@ -91,7 +91,7 @@ void BarcodeGeneratorRenderThread::run()
 					QRegExp rx("[\\r\\n]+BWIPP ERROR: [^\\s]+ (.*)[\\r\\n$]+");
 					rx.setMinimal(true);
 					if (rx.indexIn(err) != -1)
-						errorMsg=rx.cap(1).trimmed();
+						errorMsg = rx.cap(1).trimmed();
 				}
 			}
 		}

@@ -1222,7 +1222,7 @@ void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& pAttrs)
 
 double ODTIm::parseUnit(const QString &unit)
 {
-	QString unitval=unit;
+	QString unitval = unit;
 	if (unit.isEmpty())
 		return 0.0;
 	if (unit.right( 2 ) == "pt")

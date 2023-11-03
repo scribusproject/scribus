@@ -49,8 +49,8 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void languageChange() override;
 
 		//Not the same as readSLA. This one only reads max 4k of the file for speed.
-		bool fileSupported(QIODevice* file, const QString & fileName=QString()) const override;
-		bool paletteSupported(QIODevice* file, const QString & fileName=QString()) const override;
+		bool fileSupported(QIODevice* file, const QString& fileName = QString()) const override;
+		bool paletteSupported(QIODevice* file, const QString& fileName = QString()) const override;
 		bool storySupported(const QByteArray& storyData) const override;
 
 		bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0) override;
@@ -68,7 +68,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void addToMainWindowMenu(ScribusMainWindow *) override {};
 
 		// Special features - .sla page extraction support
-		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString()) override;
+		bool loadPage(const QString& fileName, int pageNumber, bool Mpage, const QString& renamedPageName = QString()) override;
 		bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) override;
 		bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles) override;
 		bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty) override;

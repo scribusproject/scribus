@@ -71,7 +71,7 @@ FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* d
 		searchName = fontName;
 	else
 	{
-		Q_ASSERT(m_Doc!=nullptr);
+		Q_ASSERT(m_Doc != nullptr);
 		if (m_Doc->m_Selection->count() != 0)
 			searchName = m_Doc->currentStyle.charStyle().font().scName();
 		else

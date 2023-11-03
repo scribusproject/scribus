@@ -578,7 +578,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 void Scribus150Format::writeCheckerProfiles(ScXmlStreamWriter & docu) 
 {
 	CheckerPrefsList::Iterator itcp;
-	CheckerPrefsList::Iterator itcpend=m_Doc->checkerProfiles().end();
+	CheckerPrefsList::Iterator itcpend = m_Doc->checkerProfiles().end();
 	for (itcp = m_Doc->checkerProfiles().begin(); itcp != itcpend; ++itcp)
 	{
 		docu.writeEmptyElement("CheckProfile");
@@ -1192,7 +1192,7 @@ void Scribus150Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &st
 
 void Scribus150Format::writeLayers(ScXmlStreamWriter & docu) 
 {	
-	uint layerCount=m_Doc->layerCount();
+	uint layerCount = m_Doc->layerCount();
 	for (uint lay = 0; lay < layerCount; ++lay)
 	{
 		docu.writeEmptyElement("LAYERS");
@@ -2625,7 +2625,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		}
 
 		//CB PageItemAttributes
-		ObjAttrVector *attributes=item->getObjectAttributes();
+		ObjAttrVector* attributes = item->getObjectAttributes();
 		if (attributes->count() > 0)
 		{
 			docu.writeStartElement("PageItemAttributes");

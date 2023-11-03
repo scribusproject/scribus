@@ -130,7 +130,7 @@ bool ImportFhPlugin::import(QString fileName, int flags)
 		else
 			return true;
 	}
-	m_Doc=ScCore->primaryMainWindow()->doc;
+	m_Doc = ScCore->primaryMainWindow()->doc;
 	UndoTransaction* activeTransaction = nullptr;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
