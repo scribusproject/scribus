@@ -204,10 +204,10 @@ PyObject *scribus_isannotated(PyObject * /*self*/, PyObject* args, PyObject *key
 		if (atype == Annotation::Link && (actype == Annotation::Action_GoToR_FileAbs || actype == Annotation::Action_GoToR_FileRel))
 		{
 			char *name3;
-			if (actype== Annotation::Action_GoToR_FileAbs) 
-				name3 =const_cast<char*>("Link File Absolute");
+			if (actype == Annotation::Action_GoToR_FileAbs)
+				name3 = const_cast<char*>("Link File Absolute");
 			else
-				name3 =const_cast<char*>("Link File Relative");
+				name3 = const_cast<char*>("Link File Relative");
 
 			getLinkData(drv, a.Ziel(), a.Action());
 			const char path[] = "path";
@@ -529,7 +529,7 @@ PyObject *scribus_createpdfannotation(PyObject * /*self*/, PyObject* args)
 	}
 
 	PageItem *pi = m_doc->Items->at(i);
-	pi->AutoName=false;
+	pi->AutoName = false;
 
 	if (strlen(name) > 0)
 	{
@@ -626,7 +626,7 @@ PyObject *getLinkData(PyObject *rv,int page, const QString& action)
 	PyObject *xvalue = PyLong_FromLong((long)x);
 	PyDict_SetItem(rv, xkey, xvalue);
 
-	int height =ScCore->primaryMainWindow()->doc->pageHeight();
+	int height = ScCore->primaryMainWindow()->doc->pageHeight();
 	y = height - qsl[1].toInt();
 	const char y2[] = "y";
 	PyObject *ykey = PyUnicode_FromString(y2);
@@ -650,7 +650,7 @@ static void prepareannotation(PageItem *item)
 static void setactioncoords(Annotation &a, int x, int y)
 {
 	QString xstring, ystring;
-	int height =ScCore->primaryMainWindow()->doc->pageHeight();
+	int height = ScCore->primaryMainWindow()->doc->pageHeight();
 	a.setAction(xstring.setNum(x) + " " + ystring.setNum(height - y) + " 0");
 }
 

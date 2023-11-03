@@ -101,7 +101,7 @@ public:
 		inh_##attr_NAME = true;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
-		m_isDefaultStyle=false;
+		m_isDefaultStyle = false;
 	}
 	
 	CharStyle(const ScFace& font, int size, StyleFlag style = ScStyle_Default) : BaseStyle() {
@@ -110,7 +110,7 @@ public:
 		inh_##attr_NAME = true;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
-		m_isDefaultStyle=false;
+		m_isDefaultStyle = false;
 		setFont(font);
 		setFontSize(size);
 		setEffects(style);

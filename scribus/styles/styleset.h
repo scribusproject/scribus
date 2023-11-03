@@ -63,7 +63,7 @@ public:
 	
 	inline void remove(int index);
 	
-	inline void redefine(const StyleSet<STYLE>& defs, bool removeUnused=false);
+	inline void redefine(const StyleSet<STYLE>& defs, bool removeUnused = false);
 	
 	inline void rename(const QMap<QString,QString>& newNames);
 	

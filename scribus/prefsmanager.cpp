@@ -111,7 +111,7 @@ void PrefsManager::setup()
 
 	//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
 	//	 have conflicts if they don't nuke their settings.
-	// - Remove for 1.3.0 release: importingFrom12=true;
+	// - Remove for 1.3.0 release: importingFrom12 = true;
 	//>>CB
 }
 
@@ -448,8 +448,8 @@ void PrefsManager::initDefaults()
 	appPrefs.miscPrefs.paragraphsLI = 10;
 	initDefaultCheckerPrefs(appPrefs.verifierPrefs.checkerPrefsList);
 	appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PDF_1_4;
-	appPrefs.verifierPrefs.showPagesWithoutErrors=false;
-	appPrefs.verifierPrefs.showNonPrintingLayerErrors=false;
+	appPrefs.verifierPrefs.showPagesWithoutErrors = false;
+	appPrefs.verifierPrefs.showNonPrintingLayerErrors = false;
 	appPrefs.pdfPrefs.Thumbnails = false;
 	appPrefs.pdfPrefs.Articles = false;
 	appPrefs.pdfPrefs.useLayers = false;
@@ -890,7 +890,7 @@ void PrefsManager::copyOldAppConfigAndData()
 					QMessageBox::Yes | QMessageBox::No,
 					QMessageBox::NoButton,	// GUI default
 					QMessageBox::Yes	// batch default
-				)==QMessageBox::Yes )
+				) == QMessageBox::Yes )
 			{
 				for (uint i = 0; i < 5; ++i)
 				{
@@ -1120,7 +1120,7 @@ bool PrefsManager::renderFrameConfigured()
 
 void PrefsManager::setLatexEditorExecutable(const QString& executableName)
 {
-	appPrefs.extToolPrefs.latexEditorExecutable=executableName;
+	appPrefs.extToolPrefs.latexEditorExecutable = executableName;
 }
 
 const QString& PrefsManager::documentDir() const
@@ -1147,7 +1147,7 @@ bool PrefsManager::GetAllFonts(bool showFontInfo)
 
 void PrefsManager::setShowStartupDialog(const bool showDialog)
 {
-	appPrefs.uiPrefs.showStartupDialog=showDialog;
+	appPrefs.uiPrefs.showStartupDialog = showDialog;
 }
 
 const ColorList& PrefsManager::colorSet() const
@@ -1323,7 +1323,7 @@ void PrefsManager::setColorSet(const ColorList& colorSet)
 
 void PrefsManager::setColorSetName(const QString& colorSetName)
 {
-	appPrefs.colorPrefs.DColorSet=colorSetName;
+	appPrefs.colorPrefs.DColorSet = colorSetName;
 }
 
 
@@ -1334,10 +1334,10 @@ void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuT
 	{
 		if (ScCore->primaryMainWindow()->scrActions[actName])
 		{
-			ke.actionName=actName;
+			ke.actionName = actName;
 			ke.keySequence = keyseq;
-			ke.cleanMenuText=cleanMenuText;
-			ke.tableRow=rowNumber;
+			ke.cleanMenuText = cleanMenuText;
+			ke.tableRow = rowNumber;
 			appPrefs.keyShortcutPrefs.KeyActions.insert(actName, ke);
 		}
 		else
@@ -1831,7 +1831,7 @@ bool PrefsManager::writePref(const QString& filePath)
 		elem.appendChild(rcElem);
 	}
 
-	for (auto ksc = appPrefs.keyShortcutPrefs.KeyActions.begin(); ksc!=appPrefs.keyShortcutPrefs.KeyActions.end(); ++ksc)
+	for (auto ksc = appPrefs.keyShortcutPrefs.KeyActions.begin(); ksc != appPrefs.keyShortcutPrefs.KeyActions.end(); ++ksc)
 	{
 		if (ksc.value().actionName.isEmpty())
 			continue;
@@ -2457,7 +2457,7 @@ bool PrefsManager::readPref(const QString& filePath)
 		}
 		if (dc.tagName() == "VerifierProfile")
 		{
-			QString name=dc.attribute("Name");
+			QString name = dc.attribute("Name");
 			if ((name == tr("PostScript")) ||  (name == tr("Postscript")) || (name == "Postscript"))
 				name = CommonStrings::PostScript;
 			struct CheckerPrefs checkerSettings;
@@ -2546,7 +2546,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
 			setUniconvExecutable(dc.attribute("Uniconvertor", "uniconv"));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
-			appPrefs.extToolPrefs.pdfViewerExecutable=dc.attribute("PDFViewer", "");
+			appPrefs.extToolPrefs.pdfViewerExecutable = dc.attribute("PDFViewer", "");
 			QStringList configs = appPrefs.extToolPrefs.latexConfigs;
 			QDomNodeList configNodes = dc.elementsByTagName("LatexConfig");
 			QString latexBase = LatexConfigParser::configBase();
@@ -2776,7 +2776,7 @@ bool PrefsManager::readPref(const QString& filePath)
 		}
 
 		//
-		DOC=DOC.nextSibling();
+		DOC = DOC.nextSibling();
 	}
 	// Some sanity checks
 	appPrefs.colorPrefs.DColors.ensureDefaultColors();

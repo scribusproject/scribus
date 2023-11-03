@@ -74,15 +74,15 @@ ScribusCore::~ScribusCore()
 static void abort_on_error(QtMsgType t, const QMessageLogContext&, const QString & m)
 {
 	std::cerr << m.toLocal8Bit().data() << "\n";
-	if(t==QtFatalMsg) assert(false);
-//	if(t!=QtDebugMsg) assert(false);
+	if (t == QtFatalMsg) assert(false);
+//	if (t != QtDebugMsg) assert(false);
 }
 #endif
 
 int ScribusCore::init(bool useGUI, const QList<QString>& filesToUse)
 {
-	m_useGUI=useGUI;
-	m_Files=filesToUse;
+	m_useGUI = useGUI;
+	m_Files = filesToUse;
 #if !defined(NDEBUG) && !defined(_WIN32)
 	qInstallMessageHandler( & abort_on_error );
 #endif
@@ -96,7 +96,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	if (!scribus)
 		return(EXIT_FAILURE);
 	m_ScMWList.append(scribus);
-	int retVal=initScribusCore(showSplash, showFontInfo, showProfileInfo, newGuiLanguage);
+	int retVal = initScribusCore(showSplash, showFontInfo, showProfileInfo, newGuiLanguage);
 	if (retVal == EXIT_FAILURE)
 		return(EXIT_FAILURE);
 	
@@ -136,7 +136,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 				scribus->setFocus();
 		}
 	}
-	else if (subsRet==QMessageBox::Help)
+	else if (subsRet == QMessageBox::Help)
 	{
 		scribus->slotRaiseOnlineHelp();
 	}
@@ -172,11 +172,11 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	setSplashStatus( tr("Reading Preferences") );
 	m_prefsManager.readPrefs();
 	LocaleManager::instance().setUserPreferredLocale(m_prefsManager.appPrefs.uiPrefs.userPreferredLocale);
-	m_prefsManager.appPrefs.uiPrefs.showSplashOnStartup=showSplash;
+	m_prefsManager.appPrefs.uiPrefs.showSplashOnStartup = showSplash;
 	if (!m_iconManager.setActiveFromPrefs(m_prefsManager.appPrefs.uiPrefs.iconSet))
 	{
 		//reset prefs name to chosen name based on version, when prefs is empty or not found
-		m_prefsManager.appPrefs.uiPrefs.iconSet=m_iconManager.activeSetBasename();
+		m_prefsManager.appPrefs.uiPrefs.iconSet = m_iconManager.activeSetBasename();
 	}
 
 	m_haveGS = testGSAvailability();
@@ -241,7 +241,7 @@ void ScribusCore::setSplashStatus(const QString& newText)
 
 void ScribusCore::showSplash(bool shown)
 {
-	if (m_SplashScreen!=nullptr && shown!=m_SplashScreen->isVisible())
+	if (m_SplashScreen != nullptr && shown != m_SplashScreen->isVisible())
 		m_SplashScreen->setVisible(shown);
 }
 
@@ -254,7 +254,7 @@ bool ScribusCore::splashShowing() const
 
 void ScribusCore::closeSplash()
 {
-	if (m_SplashScreen==nullptr)
+	if (m_SplashScreen == nullptr)
 		return;
 	m_SplashScreen->close();
 	delete m_SplashScreen;
@@ -290,7 +290,7 @@ bool ScribusCore::isWinGUI() const
 bool ScribusCore::initFonts(bool showFontInfo)
 {
 	setSplashStatus( tr("Searching for Fonts") );
-	bool haveFonts=m_prefsManager.GetAllFonts(showFontInfo);
+	bool haveFonts = m_prefsManager.GetAllFonts(showFontInfo);
 	if (!haveFonts)
 	{
 		closeSplash();
@@ -591,7 +591,7 @@ ScribusMainWindow * ScribusCore::primaryMainWindow()
 {
 	if (m_ScMWList.count() == 0 || m_currScMW > m_ScMWList.count())
 		return nullptr;
-	ScribusMainWindow* mw=m_ScMWList.at(m_currScMW);
+	ScribusMainWindow* mw = m_ScMWList.at(m_currScMW);
 	if (!mw)
 		return nullptr;
 	return mw;
@@ -606,7 +606,7 @@ void ScribusCore::recheckGS()
 
 bool ScribusCore::fileWatcherActive() const
 {
-	if (fileWatcher!=nullptr)
+	if (fileWatcher != nullptr)
 		return fileWatcher->isActive();
 	return false;
 }

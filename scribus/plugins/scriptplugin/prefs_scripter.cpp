@@ -103,33 +103,33 @@ void Prefs_Scripter::setColor()
 		QPixmap pm(54, 14);
 		pm.fill(color);
 		button->setIcon(pm);
-		if (button==textButton)
-			textColor=color;
-		if (button==commentButton)
-			commentColor=color;
-		if (button==keywordButton)
-			keywordColor=color;
-		if (button==errorButton)
-			errorColor=color;
-		if (button==signButton)
-			signColor=color;
-		if (button==stringButton)
-			stringColor=color;
-		if (button==numberButton)
-			numberColor=color;
+		if (button == textButton)
+			textColor = color;
+		if (button == commentButton)
+			commentColor = color;
+		if (button == keywordButton)
+			keywordColor = color;
+		if (button == errorButton)
+			errorColor = color;
+		if (button == signButton)
+			signColor = color;
+		if (button == stringButton)
+			stringColor = color;
+		if (button == numberButton)
+			numberColor = color;
 	}
 }
 
 void Prefs_Scripter::setupSyntaxColors()
 {
-	SyntaxColors *syntax = new SyntaxColors();
-	textColor=syntax->textColor;
-	commentColor=syntax->commentColor;
-	keywordColor=syntax->keywordColor;
-	errorColor=syntax->errorColor;
-	signColor=syntax->signColor;
-	stringColor=syntax->stringColor;
-	numberColor=syntax->numberColor;
+	SyntaxColors* syntax = new SyntaxColors();
+	textColor = syntax->textColor;
+	commentColor = syntax->commentColor;
+	keywordColor = syntax->keywordColor;
+	errorColor = syntax->errorColor;
+	signColor = syntax->signColor;
+	stringColor = syntax->stringColor;
+	numberColor = syntax->numberColor;
 
 	QPixmap pm(54, 14);
 	pm.fill(textColor);
@@ -152,7 +152,7 @@ void Prefs_Scripter::setupSyntaxColors()
 
 void Prefs_Scripter::changeStartupScript()
 {
-	QString currentScript=startupScriptEdit->text();
+	QString currentScript = startupScriptEdit->text();
 	QFileInfo fi(startupScriptEdit->text());
 	if (!fi.exists())
 		currentScript = QDir::homePath();

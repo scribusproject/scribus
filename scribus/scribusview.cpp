@@ -132,7 +132,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_ScMW(mw)
 {
 	setObjectName("s");
-	QPalette p=palette();
+	QPalette p = palette();
 	p.setBrush(QPalette::Window, PrefsManager::instance().appPrefs.displayPrefs.scratchColor);
 	setPalette(p);
 	setAttribute(Qt::WA_StaticContents);
@@ -1904,9 +1904,9 @@ void ScribusView::resetMousePressed()
 
 void ScribusView::startGroupTransaction(const QString& action, const QString& description, QPixmap* actionIcon, Selection* customSelection)
 {
-	Selection* itemSelection = (customSelection!=nullptr) ? customSelection : m_doc->m_Selection;
-	assert(itemSelection!=nullptr);
-	int selectedItemCount=itemSelection->count();
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_doc->m_Selection;
+	assert(itemSelection != nullptr);
+	int selectedItemCount = itemSelection->count();
 	Q_ASSERT(selectedItemCount > 0);
 	if (!m_groupTransaction)
 	{
@@ -2029,9 +2029,9 @@ void ScribusView::setRulerPos(int x, int y)
 //does NOT create a page anymore.
 ScPage* ScribusView::addPage(int nr, bool mov)
 {
-	ScPage* fe=m_doc->Pages->at(nr);
-	Q_ASSERT(fe!=nullptr);
-	if (fe==nullptr)
+	ScPage* fe = m_doc->Pages->at(nr);
+	Q_ASSERT(fe != nullptr);
+	if (fe == nullptr)
 		return nullptr;
 	//Note this picks up the new page or master page depending on the mode.
 	//	reformPages(mov);
@@ -2504,7 +2504,7 @@ QImage ScribusView::MPageToPixmap(const QString& name, int maxGr, bool drawFrame
 	else
 		im = pm.scaled(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	delete painter;
-	painter=nullptr;
+	painter = nullptr;
 	m_canvas->setPreviewMode(false);
 	m_canvas->setForcedRedraw(false);
 	m_doc->guidesPrefs().framesShown = frs;
@@ -2658,7 +2658,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 	painter->endLayer();
 	painter->end();
 	delete painter;
-	painter=nullptr;
+	painter = nullptr;
 
 	if (changedList.count() != 0)
 	{
@@ -2710,7 +2710,7 @@ void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 	}
 	setRulerPos(contentsX(), contentsY());
 	m_canvas->newRedrawPolygon();
-	int docSelectionCount=m_doc->m_Selection->count();
+	int docSelectionCount = m_doc->m_Selection->count();
 	if (docSelectionCount != 0)
 	{
 		if (docSelectionCount > 1)
@@ -3229,7 +3229,7 @@ void ScribusView::setObjectUndoMode()
 
 	//qDebug(QString("%1 %2").arg((int)m_ScMW).arg(m_ScMW->scrActions.contains("editActionMode")));
 	m_ScMW->scrActions["editActionMode"]->setChecked(true);
-	int docSelectionCount=m_doc->m_Selection->count();
+	int docSelectionCount = m_doc->m_Selection->count();
 	if (docSelectionCount == 1)
 		undoManager->showObject(m_doc->m_Selection->itemAt(0)->getUId());
 	else if (docSelectionCount > 1)
@@ -3248,7 +3248,7 @@ void ScribusView::setGlobalUndoMode()
 		undoManager->showObject(Um::GLOBAL_UNDO_MODE);
 	else
 	{
-		int docSelectionCount=m_doc->m_Selection->count();
+		int docSelectionCount = m_doc->m_Selection->count();
 		if (docSelectionCount == 1)
 			undoManager->showObject(m_doc->m_Selection->itemAt(0)->getUId());
 		else if (docSelectionCount > 1)
@@ -3308,7 +3308,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	if (obj == widget() && event->type() == QEvent::MouseMove)
 	{
 		auto* m = dynamic_cast<QMouseEvent*> (event);
-		m_mousePointDoc=m_canvas->globalToCanvas(m->globalPos());
+		m_mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 		FPoint p = m_canvas->localToCanvas(QPoint(m->x(),m->y()));
 		emit MousePos(p.x(),p.y());
 		horizRuler->draw(m->x() + qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale())); //  - 2 * contentsX());

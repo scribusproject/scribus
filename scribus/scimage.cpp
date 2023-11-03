@@ -2379,7 +2379,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		{
 			QString profilePath;
 			//CB If this is null, customfiledialog/picsearch/ScPreview might be sending it
-			Q_ASSERT(cmSettings.doc()!=nullptr);
+			Q_ASSERT(cmSettings.doc() != nullptr);
 			if (isCMYK)
 			{
 				if (ScCore->InputProfilesCMYK.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->cmsSettings().DefaultImageCMYKProfile))

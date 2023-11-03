@@ -24,7 +24,7 @@
 
 bool ParagraphStyle::TabRecord::operator==(const TabRecord& other) const
 {
-	return isequiv(tabPosition, other.tabPosition) && tabType==other.tabType && tabFillChar == other.tabFillChar;
+	return isequiv(tabPosition, other.tabPosition) && tabType == other.tabType && tabFillChar == other.tabFillChar;
 }
 
 ParagraphStyle::ParagraphStyle()
@@ -280,10 +280,8 @@ void ParagraphStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 //		parentStyle()->saxx(handler);
 	if (!isInhTabValues())
 	{
-		QList<ParagraphStyle::TabRecord>::const_iterator it;
-		for (it=m_TabValues.begin(); it != m_TabValues.end(); ++it)
+		for (const ParagraphStyle::TabRecord& tb : m_TabValues)
 		{
-			const ParagraphStyle::TabRecord& tb(*it);
 			Xml_attr tab;
 			tab.insert("pos", toXMLString(tb.tabPosition));
 			tab.insert("fillChar", toXMLString(tb.tabFillChar.unicode()));

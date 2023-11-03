@@ -565,7 +565,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	self->domulti = pdfOptions.doMultiFile;
 	// Get default values for lpival
 	int n = pdfOptions.LPISettings.size();
-	PyObject *lpival=PyList_New(n);
+	PyObject* lpival = PyList_New(n);
 	if (!lpival)
 	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'lpival' attribute");
@@ -1535,7 +1535,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 //			PyErr_SetString(PyExc_SystemError, "while parsing 'lpival'. WHY THIS HAPPENED????");
 //			return nullptr;
 //		}
-//		pdfOptions.LPISettings[QString(s)]=lpi;
+//		pdfOptions.LPISettings[QString(s)] = lpi;
 		QString st = PyUnicode_asQString(PyList_GetItem(t, 0));
 		lpi.Frequency = PyLong_AsLong(PyList_GetItem(t, 1));
 		lpi.Angle = PyLong_AsLong(PyList_GetItem(t, 2));

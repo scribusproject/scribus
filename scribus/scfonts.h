@@ -42,7 +42,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		~SCFonts() = default;
 
 		void updateFontMap();
-		void getFonts(const QString& pf, bool showFontInfo=false);
+		void getFonts(const QString& pf, bool showFontInfo = false);
 		ScFace loadScalableFont(const QString &filename);
 		void addScalableFonts(const QString& path, const QString& DocName = "");
 

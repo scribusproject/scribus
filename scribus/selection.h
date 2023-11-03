@@ -77,7 +77,7 @@ class SCRIBUS_API Selection : public QObject
 		 * @param ignoreGUI Don't connect Item To GUI even if this is a GUI selection
 		 * @return If the item was added
 		 */
-		bool addItem(PageItem *item, bool ignoreGUI=false);
+		bool addItem(PageItem *item, bool ignoreGUI = false);
 		/**
 		 * @brief Add items to the selection. 
 		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
@@ -148,7 +148,7 @@ class SCRIBUS_API Selection : public QObject
 		 * \brief See if the first selected item is "me", usually called from an item object with "this".
 		 * @param item PageItem reference
 		 */
-		bool primarySelectionIs(const PageItem* item) const { return (!m_SelList.isEmpty() && (item==m_SelList.first())); }
+		bool primarySelectionIs(const PageItem* item) const { return (!m_SelList.isEmpty() && (item == m_SelList.first())); }
 		const SelectionList& selectionList() const {return m_SelList;}
 		PageItem *itemAt(int index=0) { return itemAt_(index); }
 		const PageItem *itemAt(int index=0) const { return const_cast<Selection*>(this)->itemAt_(index); }

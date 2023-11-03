@@ -157,7 +157,7 @@ PyObject *scribus_setcolorcmyk(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList=PrefsManager::instance().colorSetPtr();
+		ColorList* colorList = PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.","python error").toLocal8Bit().constData());
@@ -196,7 +196,7 @@ PyObject *scribus_setcolorcmykfloat(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList=PrefsManager::instance().colorSetPtr();
+		ColorList* colorList = PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.","python error").toLocal8Bit().constData());
@@ -231,7 +231,7 @@ PyObject *scribus_setcolorrgb(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList=PrefsManager::instance().colorSetPtr();
+		ColorList* colorList = PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.","python error").toLocal8Bit().constData());
@@ -347,7 +347,7 @@ PyObject *scribus_newcolorcmyk(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList=PrefsManager::instance().colorSetPtr();
+		ColorList* colorList = PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 			colorList->insert(col, ScColor(c, m, y, k));
 		else
@@ -433,7 +433,7 @@ PyObject *scribus_newcolorrgb(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList=PrefsManager::instance().colorSetPtr();
+		ColorList* colorList = PrefsManager::instance().colorSetPtr();
 		if (!colorList->contains(col))
 			colorList->insert(col, ScColor(r, g, b));
 		else
@@ -574,7 +574,7 @@ PyObject *scribus_deletecolor(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		ColorList* colorList=PrefsManager::instance().colorSetPtr();
+		ColorList* colorList = PrefsManager::instance().colorSetPtr();
 		if (colorList->contains(col))
 			colorList->remove(col);
 		else

@@ -18,7 +18,7 @@ Imagedialog::Imagedialog ( const QString& imageFile, ScribusDoc* doc , QWidget *
 	m_vRatio = double(QApplication::desktop()->logicalDpiY()) / 72.0;
 
 //no realCMYK
-	bool mode=false;
+	bool mode = false;
 //no document needs to be assigned to this
 	CMSettings cms ( doc, "", Intent_Perceptual );
 	cms.setUseEmbeddedProfile(true);
@@ -27,7 +27,6 @@ Imagedialog::Imagedialog ( const QString& imageFile, ScribusDoc* doc , QWidget *
 	//load image
 	if ( image.loadPicture ( imageFile, 1, cms, ScImage::RGBData, 72 , &mode ) )
 	{
-		
 		pView->setImage(QPixmap::fromImage ( image.qImage() ));
 		pView->fitImage();
 		pView->setKeepFitted(true);

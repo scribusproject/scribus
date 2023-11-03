@@ -67,7 +67,7 @@ class SCRIBUS_API SampleItem : QObject
 		/*! \brief Set size of the font.
 		\param fontSize fontSize * 10.0 usually
 		\param autoLineSpa if true - use automatic line spacing computing */
-		void setFontSize(int fontSize, bool autoLineSpa=false);
+		void setFontSize(int fontSize, bool autoLineSpa = false);
 		//void setTabValues(QValueList<PageItem::TabRecord> tabValues);
 		void setDrop(bool drop);
 		void setBullet(bool bul);

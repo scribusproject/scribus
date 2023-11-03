@@ -485,13 +485,13 @@ FPointArray PathAlongPathPlugin::doEffect_pwd2(Geom::Piecewise<Geom::D2<Geom::SB
 	y -= (pattBndsY.max()+pattBndsY.min()) / 2.0;
 	y -= m_offsetY;
 	if (m_scaling != 1.0)
-		x*=m_scaling;
+		x *= m_scaling;
 	FPointArray pathP;
-	for (int i=0; i<nbCopies; i++)
+	for (int i = 0; i < nbCopies; i++)
 	{
 		Piecewise<D2<SBasis> > output;
-		output.concat(compose(uskeleton,x+offs)+y*compose(n,x+offs));
-		offs+=pattWidth+m_gapval;
+		output.concat(compose(uskeleton, x + offs) + y * compose(n, x + offs));
+		offs += pattWidth + m_gapval;
 		Piecewise2FPointArray(&pathP, output);
 		if (nbCopies > 1)
 			pathP.setMarker();

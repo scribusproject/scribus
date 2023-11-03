@@ -17,7 +17,7 @@ class Prefs_Scripter : public Prefs_Pane, Ui::Prefs_Scripter
 	Q_OBJECT
 
 	public:
-		Prefs_Scripter(QWidget* parent=nullptr);
+		Prefs_Scripter(QWidget* parent = nullptr);
 		~Prefs_Scripter();
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;

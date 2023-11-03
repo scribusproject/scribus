@@ -70,7 +70,7 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	// Now restore the selection.
 	currentView->deselectItems();
 	if (hadOrigSelection)
-		*currentDoc->m_Selection=tempSelection;
+		*currentDoc->m_Selection = tempSelection;
 
 	Py_RETURN_NONE;
 }
@@ -114,7 +114,7 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 	// Now restore the selection.
 	currentView->deselectItems();
 	if (hadOrigSelection)
-		*currentDoc->m_Selection=tempSelection;
+		*currentDoc->m_Selection = tempSelection;
 
 	Py_RETURN_NONE;
 }
@@ -157,7 +157,7 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	// Now restore the selection.
 	currentView->deselectItems();
 	if (hadOrigSelection)
-		*currentDoc->m_Selection=tempSelection;
+		*currentDoc->m_Selection = tempSelection;
 
 	Py_RETURN_NONE;
 }
@@ -226,7 +226,7 @@ PyObject *scribus_moveobjectrel(PyObject* /* self */, PyObject* args)
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item==nullptr)
+	if (item == nullptr)
 		return nullptr;
 
 	// Grab the old selection - but use it only where is there any
@@ -248,13 +248,14 @@ PyObject *scribus_moveobjectrel(PyObject* /* self */, PyObject* args)
 		currentDoc->moveGroup(ValueToPoint(x), ValueToPoint(y));
 		currentView->endGroupTransaction();
 	}
-	else {
+	else
+	{
 		currentDoc->moveItem(ValueToPoint(x), ValueToPoint(y), item);
-		}
+	}
 	// Now restore the selection.
 	currentView->deselectItems();
 	if (hadOrigSelection)
-		*currentDoc->m_Selection=tempSelection;
+		*currentDoc->m_Selection = tempSelection;
 	Py_RETURN_NONE;
 }
 
@@ -295,7 +296,7 @@ PyObject *scribus_moveobjectabs(PyObject* /* self */, PyObject* args)
 	// Now restore the selection.
 	currentView->deselectItems();
 	if (hadOrigSelection)
-		*currentDoc->m_Selection=tempSelection;
+		*currentDoc->m_Selection = tempSelection;
 
 	Py_RETURN_NONE;
 }
@@ -388,13 +389,13 @@ PyObject *scribus_groupobjects(PyObject* /* self */, PyObject* args)
 	{
 		// We can't very well group only one item
 		PyErr_SetString(NoValidObjectError, QObject::tr("Cannot group less than two items", "python error").toLocal8Bit().constData());
-		finalSelection=nullptr;
+		finalSelection = nullptr;
 		delete tempSelection;
 		return nullptr;
 	}
 
 	const PageItem* group = ScCore->primaryMainWindow()->doc->itemSelection_GroupObjects(false, false, finalSelection);
-	finalSelection=nullptr;
+	finalSelection = nullptr;
 	delete tempSelection;
 	
 	return (group ? PyUnicode_FromString(group->itemName().toUtf8()) : nullptr);

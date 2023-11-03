@@ -497,7 +497,7 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 		lang=(*it);
 		if (lang == "en")
 		{
-			m_GUILang=lang;
+			m_GUILang = lang;
 			break;
 		}
 

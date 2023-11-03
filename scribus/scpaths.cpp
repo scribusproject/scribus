@@ -152,7 +152,7 @@ QString ScPaths::bundleDir() const
 	CFURLRef pluginRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
 	CFStringRef macPath = CFURLCopyFileSystemPath(pluginRef, kCFURLPOSIXPathStyle);
 	const char *pathPtr = CFStringGetCStringPtr(macPath, CFStringGetSystemEncoding());
-	if (pathPtr!=nullptr && strlen(pathPtr)>0)
+	if (pathPtr != nullptr && strlen(pathPtr) > 0)
 	{
 		// make sure we get the Scribus.app directory, not some subdir
 		// strip trailing '/':
@@ -184,7 +184,7 @@ QString ScPaths::bundleDir() const
 	}
 	char buf[2048];
 	CFStringGetCString (macPath, buf, 2048, kCFStringEncodingUTF8);
-	QString q_pathPtr=QString::fromUtf8(buf);
+	QString q_pathPtr = QString::fromUtf8(buf);
 	if (q_pathPtr.endsWith("/bin"))
 		q_pathPtr.chop(4);
 	if (q_pathPtr.endsWith("/MacOS"))

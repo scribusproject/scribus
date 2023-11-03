@@ -651,7 +651,8 @@ PyObject *scribus_importpage(PyObject* /* self */, PyObject* args)
 	QString fromDoc = QString(doc);
 	bool createPage = (createPageI != 0);
 
-	int startPage=0, nrToImport=pageNs.size();
+	int startPage = 0;
+	int nrToImport = pageNs.size();
 	bool doIt = true;
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
@@ -677,7 +678,7 @@ PyObject *scribus_importpage(PyObject* /* self */, PyObject* args)
 		startPage = currentDoc->currentPage()->pageNr() + 1;
 		if (nrToImport > (currentDoc->DocPages.count() - currentDoc->currentPage()->pageNr()))
 		{
-			int tmp=nrToImport - (currentDoc->DocPages.count() - currentDoc->currentPage()->pageNr());
+			int tmp = nrToImport - (currentDoc->DocPages.count() - currentDoc->currentPage()->pageNr());
 			import_addpages(tmp, currentDoc->DocPages.count());
 		}
 	}

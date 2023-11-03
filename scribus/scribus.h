@@ -149,8 +149,8 @@ public:
 	inline bool scriptIsRunning(void) const { return (m_ScriptRunning > 0); }
 	inline void setScriptRunning(bool value) { m_ScriptRunning += (value ? 1 : -1); }
 
-	ScribusDoc *doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
-	ScribusDoc *newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
+	ScribusDoc* doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount = 1, bool showView = true, int marginPreset = 0);
+	ScribusDoc* newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount = 1, bool showView = true, int marginPreset = 0);
 	bool DoFileSave(const QString& fileName, QString* savedFileName = nullptr);
 
 	void changeEvent(QEvent *e) override;
@@ -290,7 +290,7 @@ public slots:
 	void slotStoryEditor(bool fromTable);
 	void slotCharSelect();
 	void ImageEffects();
-	QString fileCollect(const bool compress = false, const bool withFonts = false, const bool withProfiles = false, const QString& newDirectory=QString());
+	QString fileCollect(const bool compress = false, const bool withFonts = false, const bool withProfiles = false, const QString& newDirectory = QString());
 	void AddBookMark(PageItem *ite);
 	void DelBookMark(PageItem *ite);
 	void BookMarkTxT(PageItem *ite);
@@ -330,7 +330,7 @@ public slots:
 	bool slotFileNew();
 	void newFileFromTemplate();
 	bool slotPageImport();
-	bool loadPage(const QString& fileName, int Nr, bool Mpa, const QString& renamedPageName=QString());
+	bool loadPage(const QString& fileName, int Nr, bool Mpa, const QString& renamedPageName = QString());
 	void gotoLayer(int l);
 	void slotGetContent();
 	void slotGetContent2(); // kk2006
@@ -390,7 +390,7 @@ public slots:
 	void slotEditPaste();
 	void slotEditCopyContents();
 	void slotEditPasteContents(int absolute=0);
-	void SelectAll(bool docWideSelect=false);
+	void SelectAll(bool docWideSelect = false);
 	void SelectAllOnLayer();
 	void deselectAll();
 	void ClipChange();
@@ -402,7 +402,7 @@ public slots:
 	void slotHelpActionSearch();
 	void slotHelpCheckUpdates();
 	void slotRaiseOnlineHelp();
-	void slotOnlineHelp(const QString & jumpToSection=QString(), const QString & jumpToFile=QString());
+	void slotOnlineHelp(const QString& jumpToSection = QString(), const QString& jumpToFile = QString());
 	void slotOnlineHelpClosed();
 	void slotResourceManager();
 	void ToggleTips();
@@ -411,7 +411,7 @@ public slots:
 	void slotNewPageP(int wo, const QString& templ);
 	void slotNewPageM();
 	void slotNewMasterPage(int w, const QString &);
-	void slotNewPage(int w, const QString& masterPageName=QString(), bool mov = true);
+	void slotNewPage(int w, const QString& masterPageName = QString(), bool mov = true);
 	void duplicateToMasterPage();
 	/** \brief Loescht die aktuelle Seite */
 	void deletePage();
@@ -617,7 +617,7 @@ private:
 	void initKeyboardShortcuts();
 	void initPalettes();
 	void initScrapbook();
-	void updateColorMenu(QProgressBar* progressBar=nullptr);
+	void updateColorMenu(QProgressBar* progressBar = nullptr);
 
 	int m_ScriptRunning {0};
 
@@ -635,7 +635,7 @@ private:
 	bool m_objectSpecificUndo { false };
 
 	//CB: #8212: add overrideMasterPageSizing, however default to true for compatibility with other calls.. for now
-	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, const QString& siz, bool mov, QStringList* basedOn = 0, bool overrideMasterPageSizing=true);
+	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, const QString& siz, bool mov, QStringList* basedOn = 0, bool overrideMasterPageSizing = true);
 
 	int m_DocNr { 1 };
 	bool m_PrinterUsed { false };

@@ -4294,5 +4294,5 @@ const QString& PSLib::errorMessage()
 
 void PSLib::cancelRequested()
 {
-	abortExport=true;
+	abortExport = true;
 }

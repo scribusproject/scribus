@@ -128,7 +128,7 @@ bool Selection::clear()
 		SelectionList::Iterator it = m_SelList.begin();
 		while (it != itend)
 		{
-			(*it)->isSingleSel=false;
+			(*it)->isSingleSel = false;
 			if (m_isGUISelection)
 			{
 				(*it)->setSelected(false);

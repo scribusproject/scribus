@@ -273,9 +273,9 @@ PictureBrowser::~PictureBrowser()
 void PictureBrowser::closeEvent(QCloseEvent* e)
 {
 	delete pImages;
-	pImages=nullptr;
+	pImages = nullptr;
 	delete pModel;
-	pModel=nullptr;
+	pModel = nullptr;
 }
 
 
@@ -412,8 +412,8 @@ void PictureBrowser::actionsGoButtonClicked()
 		tmpImage = pModel->modelItemsList.at(previewIconIndex);
 		InsertAFrameData iafData;
 
-		iafData.frameType=PageItem::ImageFrame;
-		iafData.source=tmpImage->fileInformation.absoluteFilePath();
+		iafData.frameType = PageItem::ImageFrame;
+		iafData.source = tmpImage->fileInformation.absoluteFilePath();
 		iafData.locationType = 0;
 		iafData.pageList = QString("");
 		iafData.positionType = 0;
@@ -422,12 +422,12 @@ void PictureBrowser::actionsGoButtonClicked()
 		iafData.y = 0;
 		iafData.width = 0;
 		iafData.height = 0;
-		//iafData.impsetup=m_ImportSetup;
+		//iafData.impsetup = m_ImportSetup;
 		iafData.columnCount = 0;
 		iafData.columnGap = 0;
 		iafData.linkTextFrames = false;
 		iafData.linkToExistingFrame = false;
-		iafData.linkToExistingFramePtr=nullptr;
+		iafData.linkToExistingFramePtr = nullptr;
 
 		tmpImage->insertIntoDocument(m_Doc, iafData);
 	}
@@ -901,8 +901,8 @@ void PictureBrowser::insertImageButtonClicked()
 	tmpImage = pModel->modelItemsList.at(previewIconIndex);
 	InsertAFrameData iafData;
 
-	iafData.frameType=PageItem::ImageFrame;
-	iafData.source=tmpImage->fileInformation.absoluteFilePath();
+	iafData.frameType = PageItem::ImageFrame;
+	iafData.source = tmpImage->fileInformation.absoluteFilePath();
 
 	QString pageList = "";
 
@@ -948,12 +948,12 @@ void PictureBrowser::insertImageButtonClicked()
 	iafData.height = insertHeightSpinbox->value() / insertHeightSpinbox->unitRatio();
 
 	/*dont need all this crap */
-//iafData.impsetup=m_ImportSetup;
+//iafData.impsetup = m_ImportSetup;
 	iafData.columnCount = 0;
 	iafData.columnGap = 0;
 	iafData.linkTextFrames = false;
 	iafData.linkToExistingFrame = false;
-	iafData.linkToExistingFramePtr=nullptr;
+	iafData.linkToExistingFramePtr = nullptr;
 
 	tmpImage->insertIntoDocument(m_Doc, iafData);
 }
@@ -1655,7 +1655,7 @@ void PictureBrowser::changedDocument(ScribusDoc* doc)
 	updateDocumentBrowser();
 	actionsGoButton->setEnabled(true);
 	insertImageButton->setEnabled(true);
-	documentChanged=true;
+	documentChanged = true;
 	dirChosen(folderModel.index( QDir::currentPath()));
 }
 
@@ -1674,14 +1674,14 @@ void PictureBrowser::updateDocumentBrowser()
 {
 	documentWidget->clear();
 	documentItems.clear();
-	QTreeWidgetItem* allpages=new QTreeWidgetItem(documentWidget, QStringList("All Pages"));
+	QTreeWidgetItem* allpages = new QTreeWidgetItem(documentWidget, QStringList("All Pages"));
 	allpages->setData(0, Qt::UserRole, 0);
 	allpages->setExpanded(true);
 	documentWidget->addTopLevelItem(allpages);
 
 	QTreeWidgetItem *tmpItem;
 
-	for (int i = 0; i < (int)(m_Doc->Pages->count()); ++i)
+	for (int i = 0; i < m_Doc->Pages->count(); ++i)
 	{
 		tmpItem = new QTreeWidgetItem(allpages, QStringList(QString("Page %1").arg(i+1)));
 		tmpItem->setData(0, Qt::UserRole,(i+1));
