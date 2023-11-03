@@ -154,21 +154,21 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* vi
 		if (!m_item->Pfile.isEmpty())
 		{
 			im.loadPicture(m_item->Pfile, 1, cms, ScImage::RGBData, 72);
-			pmI1=QPixmap::fromImage(im.qImage());
+			pmI1 = QPixmap::fromImage(im.qImage());
 			NiconPrev->setPixmap(pmI1);
 			IconNR->setEnabled(true);
 		}
 		if (!m_item->Pfile2.isEmpty())
 		{
 			im.loadPicture(m_item->Pfile2, 1, cms, ScImage::RGBData, 72);
-			pmI1=QPixmap::fromImage(im.qImage());
+			pmI1 = QPixmap::fromImage(im.qImage());
 			PiconPrev->setPixmap(pmI1);
 			IconPR->setEnabled(true);
 		}
 		if (!m_item->Pfile3.isEmpty())
 		{
 			im.loadPicture(m_item->Pfile3, 1, cms, ScImage::RGBData, 72);
-			pmI1=QPixmap::fromImage(im.qImage());
+			pmI1 = QPixmap::fromImage(im.qImage());
 			RiconPrev->setPixmap(pmI1);
 			IconRR->setEnabled(true);
 		}
@@ -573,7 +573,7 @@ void ScAnnot::GetNIcon()
 		CMSettings cms(m_view->m_doc, "", Intent_Perceptual);
 		cms.allowColorManagement(false);
 		m_item->pixm.loadPicture(fileName, 1, cms, ScImage::RGBData, 72);
-		pmI1=QPixmap::fromImage(m_item->pixm.qImage());
+		pmI1 = QPixmap::fromImage(m_item->pixm.qImage());
 		NiconPrev->setPixmap(pmI1);
 		m_item->Pfile = fileName;
 		m_item->imageIsAvailable = true;

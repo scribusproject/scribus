@@ -469,8 +469,8 @@ void BibView::readOldContents(const QString& name, const QString& newName)
 	QDomNode node = elem.firstChild();
 	while (!node.isNull())
 	{
-		QDomElement dc=node.toElement();
-		if (dc.tagName()=="OBJEKT")
+		QDomElement dc = node.toElement();
+		if (dc.tagName() == "OBJEKT")
 		{
 			QFile fi(QDir::cleanPath(QDir::toNativeSeparators(newName + "/" + dc.attribute("NAME", nullptr) + ".sce")));
 			if (!fi.open(QIODevice::WriteOnly))

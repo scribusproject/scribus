@@ -232,7 +232,7 @@ void UpgradeChecker::reportError(const QString& s)
 	if (!m_errorReported)
 	{
 		outputText("<br/><b>"+ tr("Error: %1").arg(s)+"</b>");
-		m_errorReported=true;
+		m_errorReported = true;
 	}
 }
 
@@ -244,7 +244,7 @@ UpgradeCheckerGUI::UpgradeCheckerGUI(QTextBrowser *tb) : UpgradeChecker()
 
 void UpgradeCheckerGUI::outputText(const QString& text, bool noLineFeed)
 {
-	QTextBrowser* w=m_outputWidget;
+	QTextBrowser* w = m_outputWidget;
 	if (!w)
 		return;
 

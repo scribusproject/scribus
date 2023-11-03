@@ -76,28 +76,28 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 		switch (k->key())
 		{
 			case Qt::Key_Meta:
-				if ((allowedModifiers&Qt::META)==Qt::META)
+				if ((allowedModifiers & Qt::META) == Qt::META)
 				{
 					m_part0 = tr("Meta+");
 					m_keyCode |= Qt::META;
 				}
 				break;
 			case Qt::Key_Shift:
-				if ((allowedModifiers&Qt::SHIFT)==Qt::SHIFT)
+				if ((allowedModifiers & Qt::SHIFT) == Qt::SHIFT)
 				{
 					m_part3 = tr("Shift+");
 					m_keyCode |= Qt::SHIFT;
 				}
 				break;
 			case Qt::Key_Alt:
-				if ((allowedModifiers&Qt::ALT)==Qt::ALT)
+				if ((allowedModifiers & Qt::ALT) == Qt::ALT)
 				{
 					m_part2 = tr("Alt+");
 					m_keyCode |= Qt::ALT;
 				}
 				break;
 			case Qt::Key_Control:
-				if ((allowedModifiers&Qt::CTRL)==Qt::CTRL)
+				if ((allowedModifiers & Qt::CTRL) == Qt::CTRL)
 				{
 					m_part1 = tr("Ctrl+");
 					m_keyCode |= Qt::CTRL;

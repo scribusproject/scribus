@@ -136,7 +136,7 @@ void GuideManager::setupPage(bool storeValues)
 		return;
 	m_drawGuides = false;
 	setEnabled(true);
-	// store old values for current page (=page to leave)
+	// store old values for current page (= page to leave)
 	if (currentPage && storeValues)
 		storePageValues(currentPage);
 
@@ -330,7 +330,7 @@ void GuideManager::copyGuidesToAllPages(GuideManagerCore::GuideType t)
 	ScPage *tmpPage;
 	while (it.hasNext())
 	{
-		tmpPage=it.next();
+		tmpPage = it.next();
 		if (tmpPage->pageNr() == currentPage->pageNr())
 			continue;
 		tmpPage->guides.clearHorizontals(t);
@@ -457,7 +457,7 @@ Guides GuideManager::selectedVerticals() const
 
 void GuideManager::setGuideLock(bool guidesLocked)
 {
-	bool b=lockCheck->blockSignals(true);
+	bool b = lockCheck->blockSignals(true);
 	lockCheck->setChecked(guidesLocked);
 	lockCheck->blockSignals(b);
 }

@@ -78,14 +78,14 @@ void PageItemAttributes::tableItemChanged(int row, int col)
 			}
 			break;
 		case 2:
-			localAttributes[row].value=attributesTable->item(row, col)->text();
+			localAttributes[row].value = attributesTable->item(row, col)->text();
 			break;
 		case 3:
-			localAttributes[row].parameter=attributesTable->item(row, col)->text();
+			localAttributes[row].parameter = attributesTable->item(row, col)->text();
 			break;
 		case 4:
 		{
-			auto* qcti = dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
+			auto* qcti = dynamic_cast<QComboBox*>(attributesTable->cellWidget(row, col));
 			if (qcti != nullptr)
 			{
 				int index = qcti->currentIndex();
@@ -101,12 +101,12 @@ void PageItemAttributes::tableItemChanged(int row, int col)
 			//AutoAddTo is not used once this gets to the page items
 			/*
 			{
-				QComboTableItem* qcti=dynamic_cast<QComboTableItem*>(attributesTable->item(row,col));
-				if (qcti!=nullptr)
+				QComboTableItem* qcti = dynamic_cast<QComboTableItem*>(attributesTable->item(row, col));
+				if (qcti != nullptr)
 				{
-					uint index=qcti->currentItem();
+					uint index = qcti->currentItem();
 					if (index<autoAddToData.count())
-						localAttributes[row].autoaddto=autoAddToData[index];
+						localAttributes[row].autoaddto = autoAddToData[index];
 				}
 			}
 			*/
@@ -249,7 +249,7 @@ void PageItemAttributes::updateTable()
 		}
 		item7->setCurrentItem(index2);
 		*/
-		QTableWidgetItem *t=attributesTable->verticalHeaderItem(row);
+		QTableWidgetItem* t = attributesTable->verticalHeaderItem(row);
 		if (t != nullptr)
 			t->setText(QString("%1").arg(row));
 	}

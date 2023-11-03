@@ -59,16 +59,16 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage ) : QDialog( p
 
 void DelPages::fromChanged()
 {
-	int pageNumber=static_cast<int>(fromPageData->value());
+	int pageNumber = static_cast<int>(fromPageData->value());
 	if (pageNumber > toPageData->value())
 		toPageData->setValue(pageNumber);
 	if ((pageNumber == 1) && (toPageData->value() == toPageData->maximum()))
-		toPageData->setValue(toPageData->maximum()-1);
+		toPageData->setValue(toPageData->maximum() - 1);
 }
 
 void DelPages::toChanged()
 {
-	int pageNumber=toPageData->value();
+	int pageNumber = toPageData->value();
 	if (pageNumber < fromPageData->value())
 		fromPageData->setValue(pageNumber);
 	if ((fromPageData->value() == 1) && (pageNumber == toPageData->maximum()))

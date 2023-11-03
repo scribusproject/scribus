@@ -63,23 +63,23 @@ void CreateRange::getCreateRangeData(CreateRangeData& crData)
 {
 	crData.pageRange="";
 	//First tab selected
-	if (m_RangeType==0)
+	if (m_RangeType == 0)
 	{
-		int c=basicRangeListBox->count();
-		if (c==0)
+		int c = basicRangeListBox->count();
+		if (c == 0)
 		{
 			basicAddToRange();
-			c=basicRangeListBox->count();
+			c = basicRangeListBox->count();
 		}
-		for (int i=0;i<c;++i)
+		for (int i = 0; i < c; ++i)
 		{
-			if (i!=0 && i<c)
-				crData.pageRange+=",";
-			crData.pageRange+=basicRangeListBox->item(i)->text();
+			if (i != 0 && i < c)
+				crData.pageRange += ",";
+			crData.pageRange += basicRangeListBox->item(i)->text();
 		}
 	}
 	else
-		crData.pageRange=m_PageString;
+		crData.pageRange = m_PageString;
 }
 
 void CreateRange::basicAddToRange( )
@@ -89,16 +89,16 @@ void CreateRange::basicAddToRange( )
 	{
 		case 0:
 			{
-				int from=static_cast<int>(basicConsecutiveFromSpinBox->value());
-				int to=static_cast<int>(basicConsecutiveToSpinBox->value());
-				if (from==to)
-					newEntry=QString("%1").arg(from);
+				int from = static_cast<int>(basicConsecutiveFromSpinBox->value());
+				int to = static_cast<int>(basicConsecutiveToSpinBox->value());
+				if (from == to)
+					newEntry = QString("%1").arg(from);
 				else
-					newEntry=QString("%1-%2").arg(from).arg(to);
+					newEntry = QString("%1-%2").arg(from).arg(to);
 			}
 			break;
 		case 1:
-			newEntry=basicCommaSepLineEdit->text();
+			newEntry = basicCommaSepLineEdit->text();
 			break;
 		case 2:
 			{
@@ -167,29 +167,29 @@ void CreateRange::basicSelectRangeType(int i)
 
 void CreateRange::selectRangeType(int)
 {
-	m_RangeType=tabWidget->currentIndex();
+	m_RangeType = tabWidget->currentIndex();
 }
 
 
 void CreateRange::basicMoveUp()
 {
-	int index=basicRangeListBox->currentRow();
-	if (index==-1 || index==0)
+	int index = basicRangeListBox->currentRow();
+	if (index == -1 || index == 0)
 		return;
 	basicRangeListBox->clearSelection();
-	QListWidgetItem * clbi = basicRangeListBox->takeItem(index);
-	basicRangeListBox->insertItem(qMax(0, index-1), clbi);
+	QListWidgetItem* clbi = basicRangeListBox->takeItem(index);
+	basicRangeListBox->insertItem(qMax(0, index - 1), clbi);
 	basicRangeListBox->setCurrentItem(clbi);
 }
 
 void CreateRange::basicMoveDown()
 {
-	int index=basicRangeListBox->currentRow();
-	if (index==-1 || index==static_cast<int>(basicRangeListBox->count())-1)
+	int index = basicRangeListBox->currentRow();
+	if (index == -1 || index == static_cast<int>(basicRangeListBox->count()) - 1)
 		return;
 	basicRangeListBox->clearSelection();
-	QListWidgetItem * clbi = basicRangeListBox->takeItem(index);
-	basicRangeListBox->insertItem(index+1, clbi);
+	QListWidgetItem* clbi = basicRangeListBox->takeItem(index);
+	basicRangeListBox->insertItem(index + 1, clbi);
 	basicRangeListBox->setCurrentItem(clbi);
 }
 
@@ -197,7 +197,7 @@ void CreateRange::basicMoveDown()
 void CreateRange::advSpinChange()
 {
 	m_PageString.clear();
-	int mp1=m_PageCount+1;
+	int mp1 = m_PageCount + 1;
 	//locked at 4 for now.
 	if (m_PageCount % 4 == 0)
 	{

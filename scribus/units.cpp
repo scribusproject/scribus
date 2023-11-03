@@ -352,7 +352,7 @@ double value2pts(double unitValue, int unit)
  */
 double value2value(double unitValue, int primaryUnit, int secondaryUnit)
 {
-	if (primaryUnit==secondaryUnit)
+	if (primaryUnit == secondaryUnit)
 		return unitValue;
 
 	//Can make this not convert to points at a later stage, for now, the function exists and works.
@@ -370,14 +370,14 @@ QString value2String(double unitValue, int unitIndex, bool round2Precision, bool
 		int i = (static_cast<int>(unitValue))/12;
 		double d = fabs(fmod(unitValue, 12));
 		QString prefix((i == 0 && unitValue < 0.0) ? "-" : "");
-		s=QString("%1%2%3%4").arg(prefix).arg(i).arg(unitGetStrFromIndex(unitIndex)).arg(d);
+		s = QString("%1%2%3%4").arg(prefix).arg(i).arg(unitGetStrFromIndex(unitIndex)).arg(d);
 	}
 	else
 	{
 		if (round2Precision)
-			s=LocaleManager::instance().userPreferredLocale().toString(pts2value(unitValue, unitIndex), 'f', unitGetPrecisionFromIndex(unitIndex));
+			s = LocaleManager::instance().userPreferredLocale().toString(pts2value(unitValue, unitIndex), 'f', unitGetPrecisionFromIndex(unitIndex));
 		else
-			s=LocaleManager::instance().userPreferredLocale().toString(pts2value(unitValue, unitIndex));
+			s = LocaleManager::instance().userPreferredLocale().toString(pts2value(unitValue, unitIndex));
 		if (appendSuffix)
 			s += " " + unitGetStrFromIndex(unitIndex);
 	}

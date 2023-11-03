@@ -43,9 +43,9 @@ public:
 		fancyPixmaps
 	};
 
-	ColorCombo( QWidget* parent=nullptr );
-	ColorCombo( ColorCombo::PixmapType type, QWidget* parent=nullptr );
-	ColorCombo( bool rw, QWidget* parent=nullptr );
+	ColorCombo( QWidget* parent = nullptr );
+	ColorCombo( ColorCombo::PixmapType type, QWidget* parent = nullptr );
+	ColorCombo( bool rw, QWidget* parent = nullptr );
 
 	QString currentColor() const;
 

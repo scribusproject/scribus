@@ -153,7 +153,7 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 	{
 		index = m_tmpStyles.find(styleNames[i]);
 		//FIXME: #7133: Use .isDefaultStyle() instead here rather than relying on tr text comparison
-		if (index<0 && styleNames[i]==CommonStrings::trDefaultParagraphStyle)
+		if (index < 0 && styleNames[i] == CommonStrings::trDefaultParagraphStyle)
 			index = m_tmpStyles.find(CommonStrings::DefaultParagraphStyle);
 		if (index > -1)
 			m_selection.append(&m_tmpStyles[index]);
@@ -240,8 +240,8 @@ QString SMParagraphStyle::newStyle(const QString &fromStyle)
 	//#7179, do our name switch yet again to handle this properly for default styles
 	//FIXME: use isDefaultStyle somehow
 	QString copiedStyleName(fromStyle);
-	if (fromStyle==CommonStrings::trDefaultParagraphStyle)
-		copiedStyleName=CommonStrings::DefaultParagraphStyle;
+	if (fromStyle == CommonStrings::trDefaultParagraphStyle)
+		copiedStyleName = CommonStrings::DefaultParagraphStyle;
 
 	Q_ASSERT(m_tmpStyles.resolve(copiedStyleName));
 	if (!m_tmpStyles.resolve(copiedStyleName))
@@ -297,12 +297,12 @@ void SMParagraphStyle::editMode(bool isOn)
 bool SMParagraphStyle::isDefaultStyle(const QString &stylename) const
 {
 	int index = m_tmpStyles.find(stylename);
-	bool b=false;
+	bool b = false;
 	if (index > -1)
 		b = m_tmpStyles[index].isDefaultStyle();
 	else
 	{
-		if (CommonStrings::trDefaultParagraphStyle==stylename)
+		if (CommonStrings::trDefaultParagraphStyle == stylename)
 		{
 			index = m_tmpStyles.find(CommonStrings::DefaultParagraphStyle);
 			if (index > -1)
@@ -333,7 +333,7 @@ QString SMParagraphStyle::shortcut(const QString &stylename) const
 	else
 	{
 		//FIXME: Use isDefaultStyle somehow
-		if (CommonStrings::trDefaultParagraphStyle==stylename)
+		if (CommonStrings::trDefaultParagraphStyle == stylename)
 		{
 			index = m_tmpStyles.find(CommonStrings::DefaultParagraphStyle);
 			if (index > -1)
@@ -1962,7 +1962,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 	{
 		int index = m_tmpStyles.find(styleNames[i]);
 		//FIXME: #7133: Use .isDefaultStyle() instead here rather than relying on tr text comparison
-		if (index<0 && styleNames[i]==CommonStrings::trDefaultCharacterStyle)
+		if (index < 0 && styleNames[i] == CommonStrings::trDefaultCharacterStyle)
 			index = m_tmpStyles.find(CommonStrings::DefaultCharacterStyle);
 		if (index > -1)
 			m_selection.append(&m_tmpStyles[index]);
@@ -2036,8 +2036,8 @@ QString SMCharacterStyle::newStyle(const QString &fromStyle)
 	//#7179, do our name switch yet again to handle this properly for default styles
 	//FIXME: use isDefaultStyle somehow
 	QString copiedStyleName(fromStyle);
-	if (fromStyle==CommonStrings::trDefaultCharacterStyle)
-		copiedStyleName=CommonStrings::DefaultCharacterStyle;
+	if (fromStyle == CommonStrings::trDefaultCharacterStyle)
+		copiedStyleName = CommonStrings::DefaultCharacterStyle;
 
 	Q_ASSERT(m_tmpStyles.resolve(copiedStyleName));
 	if (!m_tmpStyles.resolve(copiedStyleName))
@@ -2090,12 +2090,12 @@ void SMCharacterStyle::editMode(bool isOn)
 bool SMCharacterStyle::isDefaultStyle(const QString &stylename) const
 {
 	int index = m_tmpStyles.find(stylename);
-	bool b=false;
+	bool b = false;
 	if (index > -1)
 		b = m_tmpStyles[index].isDefaultStyle();
 	else
 	{
-		if (CommonStrings::trDefaultCharacterStyle==stylename)
+		if (CommonStrings::trDefaultCharacterStyle == stylename)
 		{
 			index = m_tmpStyles.find(CommonStrings::DefaultCharacterStyle);
 			if (index > -1)
@@ -2125,7 +2125,7 @@ QString SMCharacterStyle::shortcut(const QString &stylename) const
 	else
 	{
 		//FIXME: Use isDefaultStyle somehow
-		if (CommonStrings::trDefaultCharacterStyle==stylename)
+		if (CommonStrings::trDefaultCharacterStyle == stylename)
 		{
 			index = m_tmpStyles.find(CommonStrings::DefaultCharacterStyle);
 			if (index > -1)
@@ -2554,7 +2554,7 @@ void SMCharacterStyle::slotLanguage()
 	{
 		QString tl(LanguageManager::instance()->getAbbrevFromLang(m_page->language_->currentText(), false));
 		if (!tl.isEmpty())
-			language=tl;
+			language = tl;
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setLanguage(language);
 	}

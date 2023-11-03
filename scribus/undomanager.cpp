@@ -801,7 +801,7 @@ void UndoManager::languageChange()
 	UndoManager::FlowLayer          = tr("Enable text flow around for lower layers");
 	UndoManager::DisableFlowLayer   = tr("Disable text flow around for lower layers");
 	UndoManager::SetLayerBlendMode  = tr("Set layer blend mode");
-	UndoManager::SetLayerTransparency=tr("Set layer opacity");
+	UndoManager::SetLayerTransparency = tr("Set layer opacity");
 	UndoManager::SetLayerLocked     = tr("Lock layer");
 	UndoManager::SetLayerUnlocked   = tr("Unlock layer");
 	UndoManager::GetImage           = tr("Get image");

@@ -517,15 +517,15 @@ QString checkFileExtension(const QString &currName, const QString &extension)
 {
 	QString newName(currName);
 	//If filename ends with a period, just add the extension
-	if (newName.right(1)==".")
+	if (newName.right(1) == ".")
 	{
-		newName+=extension.toLower();
+		newName += extension.toLower();
 		return newName;
 	}
 	//If filename doesn't end with the period+extension, add it on
 	QString dotExt("." + extension.toLower());
 	if (!newName.endsWith(dotExt, Qt::CaseInsensitive))
-		newName+=dotExt;
+		newName += dotExt;
 	return newName;
 }
 
@@ -533,11 +533,11 @@ QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, const QString& exten
 {
 	uint number = pageNo + currDoc->FirstPnum;
 	QString defaultName;
-	if (!prefix.isNull())
-		defaultName=prefix;
+	if (!prefix.isEmpty())
+		defaultName = prefix;
 	else
-		defaultName=currDoc->documentFileName();
-	if (defaultName.isNull())
+		defaultName = currDoc->documentFileName();
+	if (defaultName.isEmpty())
 		defaultName = "export";
 	else
 	{
@@ -558,10 +558,10 @@ QString getStringFromSequence(NumFormat type, uint position, const QString& aste
 	switch (type)
 	{
 		case Type_1_2_3:
-			retVal=QString::number(position);
+			retVal = QString::number(position);
 			break;
 		case Type_1_2_3_ar:
-			retVal=QLocale("ar").toString(position);
+			retVal = QLocale("ar").toString(position);
 			break;
 		case Type_A_B_C:
 			retVal = numberToLetterSequence(english, position).toUpper();

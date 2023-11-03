@@ -825,7 +825,7 @@ void StyleManager::slotOk()
 // 				this, SLOT(slotApplyStyle(QTreeWidgetItem*,int)));
 		if (m_isStoryEditMode)
 		{
-			m_isStoryEditMode=false;
+			m_isStoryEditMode = false;
 			hide();
 		}
 
@@ -1132,9 +1132,9 @@ bool StyleManager::shortcutExists(const QString &keys)
 			return true;
 	}
 
-	ApplicationPrefs *prefsData=&(PrefsManager::instance().appPrefs);
-	for (QMap<QString,Keys>::Iterator it=prefsData->keyShortcutPrefs.KeyActions.begin();
-		 it!=prefsData->keyShortcutPrefs.KeyActions.end(); ++it)
+	ApplicationPrefs *prefsData = &(PrefsManager::instance().appPrefs);
+	for (QMap<QString, Keys>::Iterator it = prefsData->keyShortcutPrefs.KeyActions.begin();
+		 it != prefsData->keyShortcutPrefs.KeyActions.end(); ++it)
 	{
 		if (key.matches(it.value().keySequence) != QKeySequence::NoMatch)
 			return true;
@@ -1405,7 +1405,7 @@ void StyleManager::showEvent(QShowEvent *e)
 	static bool isFirst = true;
 	if (isModal())
 	{
-		m_isStoryEditMode=true;
+		m_isStoryEditMode = true;
 		applyButton->setEnabled(false);
 		slotEdit();
 	}

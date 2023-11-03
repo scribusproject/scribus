@@ -32,7 +32,7 @@ class ScMWMenuManager : public MenuManager
 {
 	Q_OBJECT
 	public:
-		 ScMWMenuManager(QMenuBar* mb, QObject *parent=nullptr);
+		ScMWMenuManager(QMenuBar* mb, QObject* parent = nullptr);
 
 	public slots:
 		void languageChange();

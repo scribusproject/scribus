@@ -127,7 +127,7 @@ void PageLayouts::updateLayoutSelector(const QList<PageSet>& pSets)
 	layoutsCombo->clear();
 	for (int pg = 0; pg < pageSets.count(); ++pg)
 	{
-		QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
+		QString psname = CommonStrings::translatePageSetString(pageSets[pg].Name);
 		if (pg == 0)
 			layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-simple.png"), psname);
 		else if (pg == 1)
@@ -230,7 +230,7 @@ void PageLayouts::languageChange()
 		layoutsView->clear();
 		for (int pg = 0; pg < pageSets.count(); ++pg)
 		{
-			QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
+			QString psname = CommonStrings::translatePageSetString(pageSets[pg].Name);
 			QListWidgetItem *ic;
 			if (pg == 0)
 			{
@@ -263,11 +263,11 @@ void PageLayouts::languageChange()
 	else
 	{
 		disconnect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
-		int currIndex=layoutsCombo->currentIndex();
+		int currIndex = layoutsCombo->currentIndex();
 		layoutsCombo->clear();
 		for (int pg = 0; pg < pageSets.count(); ++pg)
 		{
-			QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
+			QString psname = CommonStrings::translatePageSetString(pageSets[pg].Name);
 			if (pg == 0)
 				layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-simple.png"), psname);
 			else if (pg == 1)
@@ -283,7 +283,7 @@ void PageLayouts::languageChange()
 		connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 
 		disconnect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
-		int currFirstPageIndex=firstPage->currentIndex();
+		int currFirstPageIndex = firstPage->currentIndex();
 		firstPage->clear();
 		if (currIndex >= 0 && currIndex<pageSets.count())
 			for (QStringList::Iterator pNames = pageSets[currIndex].pageNames.begin(); pNames != pageSets[currIndex].pageNames.end(); ++pNames)

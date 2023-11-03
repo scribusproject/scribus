@@ -104,7 +104,7 @@ int callGS(const QStringList& args_in, const QString& device, const QString& fil
 
 int callGS(const QString& args_in, const QString& device)
 {
-	PrefsManager& prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	QString cmd1 = getShortPathName(prefsManager.ghostscriptExecutable());
 	cmd1 += " -q -dNOPAUSE -dQUIET -dPARANOIDSAFER -dBATCH";
 	// Choose rendering device
@@ -144,7 +144,7 @@ int callGS(const QString& args_in, const QString& device)
 
 int convertPS2PS(const QString& in, const QString& out, const QStringList& opts, int level)
 {
-	PrefsManager& prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	QStringList args;
 	args.append( "-q" );
 	args.append( "-dQUIET" );
@@ -181,7 +181,7 @@ int convertPS2PS(const QString& in, const QString& out, const QStringList& opts,
 
 int convertPS2PDF(const QString& in, const QString& out, const QStringList& opts)
 {
-	PrefsManager& prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	QStringList args;
 	args.append( "-q" );
 	args.append( "-dQUIET" );

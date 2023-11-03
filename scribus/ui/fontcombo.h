@@ -70,7 +70,7 @@ class SCRIBUS_API FontComboH : public QWidget
 	Q_OBJECT
 
 public:
-	FontComboH(QWidget* parent, bool labels=false);
+	FontComboH(QWidget* parent, bool labels = false);
 	~FontComboH() {}
 	
 	QString currentFont() const;

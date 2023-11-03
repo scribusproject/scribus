@@ -485,7 +485,7 @@ QString About::parseTranslationFile(const QString& fileName)
 					//result += "<tr><td><b>"+code+"</b></td><td></td></tr>";
 					languages.insert(snum+":"+code, "<tr><td><b>"+code+"</b></td><td></td></tr>");
 					isTitle = false;
-					currLang=code;
+					currLang = code;
 
 				} // if is title
 				else

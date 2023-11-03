@@ -194,7 +194,7 @@ void LayerPalette::clearContent()
 
 void LayerPalette::setDoc(ScribusDoc* doc)
 {
-	m_Doc=doc;
+	m_Doc = doc;
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(cellClicked(int,int)), this, SLOT(setActiveLayer(int,int)));
@@ -661,8 +661,8 @@ void LayerPalette::setActiveLayer(int row, int col)
 	}
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changeOpacity()));
-	int layerID = m_Doc->layerIDFromLevel(m_Doc->layerCount()-1-row);
-	bool found=m_Doc->setActiveLayer(layerID);
+	int layerID = m_Doc->layerIDFromLevel(m_Doc->layerCount() - 1 - row);
+	bool found = m_Doc->setActiveLayer(layerID);
 	if (found)
 	{
 		m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
@@ -672,7 +672,7 @@ void LayerPalette::setActiveLayer(int row, int col)
 		if (layers->count() > 1)
 		{
 			raiseLayerButton->setEnabled(Table->currentRow()!= 0);
-			lowerLayerButton->setEnabled(Table->currentRow()!= Table->rowCount()-1);
+			lowerLayerButton->setEnabled(Table->currentRow() != Table->rowCount() - 1);
 		}
 		else
 		{

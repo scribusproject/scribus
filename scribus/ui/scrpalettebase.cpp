@@ -57,8 +57,8 @@ ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, 
 						QToolBox::tab { font-size: 10px; padding: 0px; margin: 0px; } \
 			  		");
 	}
-	m_originalParent=parent;
-	m_tempParent=nullptr;
+	m_originalParent = parent;
+	m_tempParent = nullptr;
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	setPrefsContext(prefsContext);
 	setModal(modal);
@@ -69,7 +69,7 @@ void ScrPaletteBase::setPrefsContext(const QString& context)
 {
 	if (m_prefsContextName.isEmpty())
 	{
-		m_prefsContextName=context;
+		m_prefsContextName = context;
 		if (!m_prefsContextName.isEmpty())
 		{
 			m_palettePrefs = PrefsManager::instance().prefsFile->getContext(m_prefsContextName);
@@ -131,7 +131,7 @@ void ScrPaletteBase::keyPressEvent(QKeyEvent *keyEvent)
 			break;
 	}
 	// Tell our action to be off
-	//	if (keyMod==0 && keyEvent->key()==Key_Escape)
+	//	if (keyMod == 0 && keyEvent->key() == Key_Escape)
 	//	emit paletteShown(false);
 
 	QDialog::keyPressEvent(keyEvent);
@@ -249,12 +249,12 @@ void ScrPaletteBase::storeVisibility(bool vis)
 
 int ScrPaletteBase::exec(QWidget* newParent)
 {
-	Q_ASSERT(m_tempParent==nullptr && newParent!=nullptr);
-	m_tempParent=newParent;
+	Q_ASSERT(m_tempParent == nullptr && newParent != nullptr);
+	m_tempParent = newParent;
 	Qt::WindowFlags wflags = windowFlags();
 	setParent(newParent, wflags);
-	int i=QDialog::exec();
+	int i = QDialog::exec();
 	setParent(m_originalParent, wflags);
-	m_tempParent=nullptr;
+	m_tempParent = nullptr;
 	return i;
 }

@@ -124,7 +124,7 @@ QString CollectForOutput_UI::collect(QString &newFileName)
 	ScCore->primaryMainWindow()->mainWindowProgressBar->reset();
 	ScCore->fileWatcher->start();
 	collectedFiles.clear();
-	newFileName=newName;
+	newFileName = newName;
 
 	progressDialog->close();
 	delete progressDialog;

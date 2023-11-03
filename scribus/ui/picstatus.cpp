@@ -130,8 +130,8 @@ void PicStatus::fillTable()
 {
 	PageItem *item;
 	imageViewArea->clear();
-	QListWidgetItem *firstItem=nullptr;
-	QListWidgetItem *tempItem=nullptr;
+	QListWidgetItem *firstItem = nullptr;
+	QListWidgetItem *tempItem = nullptr;
 
 	QList<PageItem*> allItems;
 	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
@@ -184,7 +184,7 @@ void PicStatus::fillTable()
 		allItems.clear();
 	}
 	imageViewArea->setCurrentItem(firstItem);
-	if (firstItem!=nullptr)
+	if (firstItem != nullptr)
 		imageSelected(firstItem);
 
 	// Disable all features when there is no image in the document.
@@ -353,7 +353,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != ImageType7))
 			cSpace = tr("Unknown");
 		else
-			cSpace=colorSpaceText(currItem->pixm.imgInfo.colorspace);
+			cSpace = colorSpaceText(currItem->pixm.imgInfo.colorspace);
 		displayColorspace->setText(cSpace);
 		displayDPI->setText(QString("%1 x %2").arg(currItem->pixm.imgInfo.xres).arg(currItem->pixm.imgInfo.yres));
 		displayEffDPI->setText(QString("%1 x %2").arg(qRound(72.0 / currItem->imageXScale())).arg(qRound(72.0 / currItem->imageYScale())));

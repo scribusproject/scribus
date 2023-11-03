@@ -101,7 +101,7 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	
 	if (m_Doc != nullptr)
 	{
-		pageItemMap=m_Doc->getDocItemNames(PageItem::TextFrame);
+		pageItemMap = m_Doc->getDocItemNames(PageItem::TextFrame);
 		comboBoxLinkToExistingFrameName->addItems(pageItemMap.values());
 	}
 	if (comboBoxLinkToExistingFrameName->count() == 0)
@@ -220,7 +220,7 @@ void InsertAFrame::locateImageFile()
 {
 	QString formatD(FormatsManager::instance()->fileDialogFormatList(FormatsManager::IMAGESIMGFRAME));
 	QString docDir = ".";
-	PrefsManager& prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	QString prefsDocDir(prefsManager.documentDir());
 	if (!prefsDocDir.isEmpty())
 		docDir = prefsManager.prefsFile->getContext("dirs")->get("images", prefsDocDir);

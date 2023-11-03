@@ -119,10 +119,10 @@ QImage ProofImage(QImage *Image, ScribusDoc* doc)
 	bool cmsUse = doc ? doc->HasCMS : false;
 	if (!cmsUse)
 		return out;
-	int outHeight=out.height();
-	int outWidth=out.width();
+	int outHeight = out.height();
+	int outWidth = out.width();
 	ScColorTransform trans = doc->SoftProofing ? doc->stdProofImg : doc->stdTransImg;
-	for (int i=0; i < outHeight; ++i)
+	for (int i = 0; i < outHeight; ++i)
 	{
 		uchar* ptr = out.scanLine(i);
 		trans.apply(ptr, ptr, outWidth);
@@ -146,7 +146,7 @@ QPixmap * getSmallPixmap(const QColor& rgb)
 {
 	static ScPixmapCache<QRgb> pxCache;
 
-	QRgb index=rgb.rgb();
+	QRgb index = rgb.rgb();
 	if (pxCache.contains(index))
 		return pxCache[index];
 
@@ -167,7 +167,7 @@ QPixmap * getWidePixmap(const QColor& rgb)
 {
 	static ScPixmapCache<QRgb> pxCache;
 
-	QRgb index=rgb.rgb();
+	QRgb index = rgb.rgb();
 	if (pxCache.contains(index))
 		return pxCache[index];
 
@@ -242,7 +242,7 @@ QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc)
 
 	if (!iconsInitialized)
 	{
-		IconManager& im=IconManager::instance();
+		IconManager& im = IconManager::instance();
 		alertIcon = im.loadPixmap("alert.png");
 		cmykIcon = im.loadPixmap("cmyk.png");
 		rgbIcon = im.loadPixmap("rgb.png");

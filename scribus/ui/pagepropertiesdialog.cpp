@@ -47,13 +47,13 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc )
 	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0, 1, 2 );
 
 	PageSize ps(doc->currentPage()->size());
-	prefsPageSizeName=ps.name();
+	prefsPageSizeName = ps.name();
 	sizeQComboBox = new QComboBox(dsGroupBox7);
 	QStringList insertList(ps.activeSizeTRList());
-	if (insertList.indexOf(prefsPageSizeName)==-1 && prefsPageSizeName!=CommonStrings::customPageSize)
-		insertList<<prefsPageSizeName;
+	if (insertList.indexOf(prefsPageSizeName) == -1 && prefsPageSizeName != CommonStrings::customPageSize)
+		insertList << prefsPageSizeName;
 	insertList.sort();
-	insertList<<CommonStrings::trCustomPageSize;
+	insertList << CommonStrings::trCustomPageSize;
 	sizeQComboBox->addItems(insertList);
 	int sizeIndex = insertList.indexOf(ps.nameTR());
 	if (sizeIndex != -1)
@@ -89,7 +89,7 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc )
 	moveObjects->setText( tr( "Move Objects with their Page" ) );
 	moveObjects->setChecked( true );
 	dsGroupBox7Layout->addWidget( moveObjects, 3, 0, 1, 4 );
-	Links=nullptr;
+	Links = nullptr;
 	if ((doc->pagePositioning() != singlePage) && (doc->masterPageMode()))
 	{
 		TextLabel3 = new QLabel( tr( "Type:" ), dsGroupBox7 );
@@ -282,11 +282,11 @@ void PagePropertiesDialog::setOrientation(int ori)
 int PagePropertiesDialog::pageOrder() const
 {
 	int lp=0;
-	if (Links!=nullptr)
+	if (Links != nullptr)
 		lp = Links->currentIndex();
 	if (lp == 0)
 		lp = 1;
-	else if (lp == static_cast<int>(Links->count()-1))
+	else if (lp == static_cast<int>(Links->count() - 1))
 		lp = 0;
 	else
 		lp++;

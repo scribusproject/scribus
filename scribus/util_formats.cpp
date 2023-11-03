@@ -54,7 +54,7 @@ FormatsManager::FormatsManager()
 	InitializeMagick(0);
 	ExceptionInfo exception;
 	MagickInfo **magick_array;
-	magick_array=GetMagickInfoArray(&exception);
+	magick_array = GetMagickInfoArray(&exception);
 	if (!magick_array)
 		return;
 	for (int i=0; magick_array[i] != 0; i++)
@@ -237,7 +237,7 @@ QString FormatsManager::extensionListForFormat(int type, int listType) const
 	QString nameMatch;
 	QString separator(listType==0 ? " *." : "|");
 	QMapIterator<int, QStringList> it(m_fmts);
-	bool first=true;
+	bool first = true;
 	while (it.hasNext())
 	{
 		it.next();
@@ -249,7 +249,7 @@ QString FormatsManager::extensionListForFormat(int type, int listType) const
 			if ((GIF & it.key()) && !m_supportedImageFormats.contains(QByteArray("gif")))
 				continue;
 			if (first)
-				first=false;
+				first = false;
 			QStringListIterator itSL(it.value());
 			while (itSL.hasNext())
 			{

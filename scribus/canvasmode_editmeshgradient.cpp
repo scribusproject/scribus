@@ -395,11 +395,11 @@ void CanvasMode_EditMeshGradient::keyPressEvent(QKeyEvent *e)
 			bool isMoving = false;
 			bool doUpdate = false;
 			if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-				moveBy=0.1;
+				moveBy = 0.1;
 			else if (!(buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-				moveBy=10.0;
+				moveBy = 10.0;
 			else if ((buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-				moveBy=0.01;
+				moveBy = 0.01;
 			moveBy /= m_doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 			moveBy /= m_canvas->m_viewMode.scale;
 			PageItem *currItem = m_doc->m_Selection->itemAt(0);

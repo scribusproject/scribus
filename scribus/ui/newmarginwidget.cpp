@@ -19,7 +19,7 @@ NewMarginWidget::NewMarginWidget(QWidget* parent)
 
 void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitIndex, int flags)
 {
-	m_marginData = m_savedMarginData=margs;
+	m_marginData = m_savedMarginData = margs;
 	m_unitIndex = unitIndex;
 	m_unitRatio = unitGetRatioFromIndex(unitIndex);
 	m_flags = flags;
@@ -109,7 +109,7 @@ void NewMarginWidget::setPageHeight(double newHeight)
 
 void NewMarginWidget::setTop()
 {
-	double newVal=topMarginSpinBox->value() / m_unitRatio;
+	double newVal = topMarginSpinBox->value() / m_unitRatio;
 	bottomMarginSpinBox->setMaximum(qMax(0.0, m_pageHeight * m_unitRatio - topMarginSpinBox->value()));
 	if (marginLinkButton->isChecked() && m_savedPresetItem == PresetLayout::none)
 	{

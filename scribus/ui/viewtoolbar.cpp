@@ -76,7 +76,7 @@ void ViewToolBar::setViewPreviewMode(bool b)
 void ViewToolBar::languageChange()
 {
 	visualMenu->blockSignals(true);
-	int iVM=visualMenu->currentIndex();
+	int iVM = visualMenu->currentIndex();
 	visualMenu->clear();
 	visualMenu->addItem(CommonStrings::trVisionNormal);
 	visualMenu->addItem(CommonStrings::trVisionProtanopia);
@@ -87,7 +87,7 @@ void ViewToolBar::languageChange()
 	visualMenu->blockSignals(false);
 
 	previewQualitySwitcher->blockSignals(true);
-	int iPQM=previewQualitySwitcher->currentIndex();
+	int iPQM = previewQualitySwitcher->currentIndex();
 	previewQualitySwitcher->clear();
 	previewQualitySwitcher->addItem(tr("High"));
 	previewQualitySwitcher->addItem(tr("Normal"));

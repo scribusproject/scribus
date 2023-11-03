@@ -36,7 +36,7 @@ private slots:
 	void downloadReadyRead();
 	
 protected:
-	virtual void outputText(const QString& text, bool noLineFeed=false);
+	virtual void outputText(const QString& text, bool noLineFeed = false);
 	void reportError(const QString& s);
 	QFile *m_file {nullptr};
 	QNetworkAccessManager* m_networkManager {nullptr};
