@@ -131,8 +131,8 @@ void Prefs_DocumentItemAttributes::updateTable()
 		QComboBox *item2 = new QComboBox();
 		item2->addItems(types);
 
-		int listIndex=typesData.indexOf(objAttr.type);
-		if (listIndex==-1)
+		int listIndex = typesData.indexOf(objAttr.type);
+		if (listIndex == -1)
 		{
 			objAttr.type = "none";
 			listIndex = 0;

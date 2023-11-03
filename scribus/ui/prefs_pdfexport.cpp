@@ -246,7 +246,7 @@ void Prefs_PDFExport::languageChange()
 	SelLPIcolor = customRenderingColorComboBox->currentText();
 
 	i = solidColorRenderingIntentComboBox->currentIndex();
-	int j=imageRenderingIntentComboBox->currentIndex();
+	int j = imageRenderingIntentComboBox->currentIndex();
 	solidColorRenderingIntentComboBox->clear();
 	imageRenderingIntentComboBox->clear();
 	
@@ -265,15 +265,15 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const ProfilesL & PDFXProfiles, bool exporting)
 {
-	exportingPDF=exporting;
+	exportingPDF = exporting;
 	enablePDFExportTabs(exportingPDF);
 	AllFonts = prefsData->fontPrefs.AvailFonts;
 	int unitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(unitIndex);
 	unitChange(unitIndex);
-	Opts=prefsData->pdfPrefs;
-	defaultSolidColorRGBProfile=prefsData->colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
-	defaultPrinterProfile=prefsData->colorPrefs.DCMSset.DefaultPrinterProfile;
+	Opts = prefsData->pdfPrefs;
+	defaultSolidColorRGBProfile = prefsData->colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
+	defaultPrinterProfile = prefsData->colorPrefs.DCMSset.DefaultPrinterProfile;
 	exportAllPagesRadioButton->setChecked(true);
 	enableRangeControls(false);
 	rotationComboBox->setCurrentIndex(prefsData->pdfPrefs.RotateDeg / 90);
@@ -449,13 +449,13 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 			tp = defaultSolidColorRGBProfile;
 	}
 	ProfilesL::Iterator itp;
-	ProfilesL::Iterator itpend=ScCore->InputProfiles.end();
+	ProfilesL::Iterator itpend = ScCore->InputProfiles.end();
 	solidColorProfileComboBox->clear();
 	for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
 	{
 		solidColorProfileComboBox->addItem(itp.key());
 		if (itp.key() == tp)
-			solidColorProfileComboBox->setCurrentIndex(solidColorProfileComboBox->count()-1);
+			solidColorProfileComboBox->setCurrentIndex(solidColorProfileComboBox->count() - 1);
 	}
 	int solidIntent = Opts.Intent;
 	if (Opts.Intent < 0)
@@ -470,13 +470,13 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 			tp1 = defaultSolidColorRGBProfile;
 	}
 	ProfilesL::Iterator itp2;
-	ProfilesL::Iterator itp2end=ScCore->InputProfiles.end();
+	ProfilesL::Iterator itp2end = ScCore->InputProfiles.end();
 	imageProfileComboBox->clear();
 	for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 	{
 		imageProfileComboBox->addItem(itp2.key());
 		if (itp2.key() == tp1)
-			imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count()-1);
+			imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count() - 1);
 	}
 	int imageIntent = Opts.Intent2;
 	if (imageIntent < 0)
@@ -749,7 +749,7 @@ void Prefs_PDFExport::enableSecurityControls(bool enabled)
 
 void Prefs_PDFExport::enableCMS(bool enabled)
 {
-	cmsEnabled=enabled;
+	cmsEnabled = enabled;
 	addPDFVersions(enabled);
 	enableProfiles(outputIntentionComboBox->currentIndex());
 }
@@ -766,7 +766,7 @@ void Prefs_PDFExport::enablePDFExportTabs(bool enabled)
 
 void Prefs_PDFExport::createPageNumberRange()
 {
-	if (m_doc!=nullptr)
+	if (m_doc != nullptr)
 	{
 		CreateRange cr(exportPageListLineEdit->text(), m_doc->DocPages.count(), this);
 		if (cr.exec())
@@ -815,14 +815,14 @@ void Prefs_PDFExport::enableLPI(int i)
 		}
 		solidColorProfileComboBox->clear();
 		ProfilesL::Iterator itp;
-		ProfilesL::Iterator itpend=ScCore->InputProfiles.end();
+		ProfilesL::Iterator itpend = ScCore->InputProfiles.end();
 		for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
 		{
 			solidColorProfileComboBox->addItem(itp.key());
 			if (itp.key() == tp)
 			{
 				if (cmsEnabled)
-					solidColorProfileComboBox->setCurrentIndex(solidColorProfileComboBox->count()-1);
+					solidColorProfileComboBox->setCurrentIndex(solidColorProfileComboBox->count() - 1);
 			}
 		}
 		if (cmsEnabled)
@@ -837,14 +837,14 @@ void Prefs_PDFExport::enableLPI(int i)
 		}
 		imageProfileComboBox->clear();
 		ProfilesL::Iterator itp2;
-		ProfilesL::Iterator itp2end=ScCore->InputProfiles.end();
+		ProfilesL::Iterator itp2end = ScCore->InputProfiles.end();
 		for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 		{
 			imageProfileComboBox->addItem(itp2.key());
 			if (itp2.key() == tp1)
 			{
 				if (cmsEnabled)
-					imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count()-1);
+					imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count() - 1);
 			}
 		}
 		if (cmsEnabled)
@@ -852,7 +852,7 @@ void Prefs_PDFExport::enableLPI(int i)
 		//Disabling vs hiding
 		enableSolidsImagesWidgets(cmsEnabled);
 		convertSpotsToProcessCheckBox->setEnabled(true);
-		if (m_doc!=nullptr)
+		if (m_doc != nullptr)
 		{
 			useCustomRenderingCheckBox->setEnabled(true);
 			enableCustomRenderingWidgets(useCustomRenderingCheckBox->isChecked());
@@ -869,7 +869,7 @@ void Prefs_PDFExport::enableLPI(int i)
 
 void Prefs_PDFExport::enableLPI2()
 {
-	if (m_doc!=nullptr)
+	if (m_doc != nullptr)
 		enableCustomRenderingWidgets(useCustomRenderingCheckBox->isChecked());
 }
 
@@ -936,7 +936,7 @@ void Prefs_PDFExport::enablePDFXWidgets(bool enabled)
 
 void Prefs_PDFExport::enablePGI()
 {
-	bool setter=false;
+	bool setter = false;
 	if (useImageProfileCheckBox->isChecked())
 		setter = doNotUseEmbeddedImageProfileCheckBox->isChecked();
 	imageProfileComboBox->setEnabled(setter);
@@ -1185,7 +1185,7 @@ void Prefs_PDFExport::doDocBleeds()
 {
 	if (useDocumentBleedsCheckBox->isChecked())
 	{
-		Opts.bleeds=bleedsWidget->margins();
+		Opts.bleeds = bleedsWidget->margins();
 		bleedsWidget->setNewValues(m_doc->bleedsVal());
 		bleedsWidget->setEnabled(false);
 	}
@@ -1301,7 +1301,7 @@ void Prefs_PDFExport::PagePr()
 	{
 		for (int pg = 0; pg < m_doc->Pages->count(); ++pg)
 		{
-			pm=QPixmap::fromImage(m_doc->view()->PageToPixmap(pg, 70));
+			pm = QPixmap::fromImage(m_doc->view()->PageToPixmap(pg, 70));
 			pgMaxX = qMax(pgMaxX, pm.width());
 			pgMaxY = qMax(pgMaxY, pm.height());
 			new QListWidgetItem( pm, tr("Page")+" "+tmp.setNum(pg+1), effectsPageListWidget);

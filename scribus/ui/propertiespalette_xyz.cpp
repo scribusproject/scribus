@@ -1548,9 +1548,9 @@ void PropertiesPalette_XYZ::showLocked(bool isLocked)
 
 void PropertiesPalette_XYZ::showSizeLocked(bool isSizeLocked)
 {
-	bool b=isSizeLocked;
+	bool b = isSizeLocked;
 	if (m_haveItem && m_item->locked())
-		b=true;
+		b = true;
 	widthSpin->setReadOnly(b);
 	heightSpin->setReadOnly(b);
 	QPalette pal(QApplication::palette());

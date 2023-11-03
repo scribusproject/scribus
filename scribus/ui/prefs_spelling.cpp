@@ -34,7 +34,7 @@ Prefs_Spelling::Prefs_Spelling(QWidget* parent, ScribusDoc* /*doc*/)
 	m_icon = "signature_16.png";
 
 	updateDictList();
-	downloadLocation=ScPaths::downloadDir();
+	downloadLocation = ScPaths::downloadDir();
 	spellDownloadButton->setEnabled(false);
 	setAvailDictsXMLFile(downloadLocation + "scribus_spell_dicts.xml");
 	downloadProgressBar->setVisible(false);
@@ -60,13 +60,13 @@ void Prefs_Spelling::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 
 void Prefs_Spelling::downloadSpellDicts()
 {
-	int rows=availDictTableWidget->rowCount();
+	int rows = availDictTableWidget->rowCount();
 	QStringList dlLangs;
-	for (int i=0; i<rows; ++i)
+	for (int i = 0; i < rows; ++i)
 	{
-		QTableWidgetItem *dlItem=availDictTableWidget->item(i,3);
-		if (dlItem->checkState()==Qt::Checked)
-			dlLangs<<availDictTableWidget->item(i,1)->text();
+		QTableWidgetItem *dlItem = availDictTableWidget->item(i, 3);
+		if (dlItem->checkState() == Qt::Checked)
+			dlLangs << availDictTableWidget->item(i, 1)->text();
 	}
 	if (dlLangs.isEmpty())
 		return;
@@ -111,7 +111,7 @@ void Prefs_Spelling::downloadSpellDicts()
 
 void Prefs_Spelling::updateDictList()
 {
-	bool dictsFound=LanguageManager::instance()->findSpellingDictionaries(dictionaryPaths);
+	bool dictsFound = LanguageManager::instance()->findSpellingDictionaries(dictionaryPaths);
 	if (!dictsFound)
 		return;
 	dictionaryMap.clear();
@@ -125,7 +125,7 @@ void Prefs_Spelling::updateDictList()
 	while (i.hasNext())
 	{
 		 i.next();
-		 int column=0;
+		 int column = 0;
 		 //qDebug()<<i.key()<<i.value()<<LanguageManager::instance()->getLangFromAbbrev(i.key(), false);
 		 QTableWidgetItem *newItem1 = new QTableWidgetItem(LanguageManager::instance()->getLangFromAbbrev(i.key()));
 		 newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable);

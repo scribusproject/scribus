@@ -147,7 +147,7 @@ void Prefs_Printer::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 
 void Prefs_Printer::selOtherComm()
 {
-	bool setter=useAltPrinterCmdCheckBox->isChecked();
+	bool setter = useAltPrinterCmdCheckBox->isChecked();
 	destinationComboBox->setEnabled(!setter);
 	altPrinterCmdLineEdit->setEnabled(setter);
 }

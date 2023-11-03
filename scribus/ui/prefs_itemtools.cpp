@@ -83,7 +83,7 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	unitChange(docUnitIndex);
 
-	PrefsManager& prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	ColorList* colorList = (m_doc != nullptr) ? (&m_doc->PageColors) : prefsManager.colorSetPtr();
 
 	//Text Tool
@@ -437,7 +437,7 @@ void Prefs_ItemTools::imageVerticalScalingChange()
 
 void Prefs_ItemTools::imageScalingTypeChange()
 {
-	bool b=imageFreeScalingRadioButton->isChecked();
+	bool b = imageFreeScalingRadioButton->isChecked();
 	imageKeepAspectRatioCheckBox->setEnabled(!b);
 	imageHorizontalScalingSpinBox->setEnabled(b);
 	imageVerticalScalingSpinBox->setEnabled(b);

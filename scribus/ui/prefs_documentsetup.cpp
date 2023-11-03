@@ -104,18 +104,18 @@ void Prefs_DocumentSetup::unitChange()
 
 void Prefs_DocumentSetup::languageChange()
 {
-	int i=0;
+	int i = 0;
 
-	i=pageOrientationComboBox->currentIndex();
+	i = pageOrientationComboBox->currentIndex();
 	pageOrientationComboBox->clear();
 	pageOrientationComboBox->addItem( tr( "Portrait" ) );
 	pageOrientationComboBox->addItem( tr( "Landscape" ) );
-	pageOrientationComboBox->setCurrentIndex(i<0?0:i);
+	pageOrientationComboBox->setCurrentIndex(i < 0 ? 0 : i);
 
-	i=pageUnitsComboBox->currentIndex();
+	i = pageUnitsComboBox->currentIndex();
 	pageUnitsComboBox->clear();
 	pageUnitsComboBox->addItems(unitGetTextUnitList());
-	pageUnitsComboBox->setCurrentIndex(i<0?0:i);
+	pageUnitsComboBox->setCurrentIndex(i < 0 ? 0 : i);
 
 	setupPageSets();
 
@@ -151,7 +151,7 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	pageH = prefsData->docSetupPrefs.pageHeight;
 	pageWidthSpinBox->setValue(pageW * unitRatio);
 	pageHeightSpinBox->setValue(pageH * unitRatio);
-	pageSets=prefsData->pageSets;
+	pageSets = prefsData->pageSets;
 	if (prefsData->docSetupPrefs.pagePositioning < 2)
 	{
 		threeFoldRadioButton->hide();
@@ -227,13 +227,13 @@ void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->docSetupPrefs.bleeds = bleedsWidget->margins();
 	prefsData->docSetupPrefs.saveCompressed = saveCompressedCheckBox->isChecked();
 	prefsData->miscPrefs.saveEmergencyFile = emergencyCheckBox->isChecked();
-	prefsData->docSetupPrefs.AutoSave=autosaveCheckBox->isChecked();
+	prefsData->docSetupPrefs.AutoSave = autosaveCheckBox->isChecked();
 	prefsData->docSetupPrefs.AutoSaveTime = autosaveIntervalSpinBox->value() * 1000 * 60;
 	prefsData->docSetupPrefs.AutoSaveCount = autosaveCountSpinBox->value();
 	prefsData->docSetupPrefs.AutoSaveKeep = autosaveKeepCheckBox->isChecked();
 	prefsData->docSetupPrefs.AutoSaveLocation = autosaveDocRadio->isChecked();
 	prefsData->docSetupPrefs.AutoSaveDir = autosaveDirEdit->text();
-	prefsData->displayPrefs.showAutosaveClockOnCanvas=showAutosaveClockOnCanvasCheckBox->isChecked();
+	prefsData->displayPrefs.showAutosaveClockOnCanvas = showAutosaveClockOnCanvasCheckBox->isChecked();
 	bool undoActive = undoCheckBox->isChecked();
 	if (!undoActive)
 		UndoManager::instance()->clearStack();
@@ -322,9 +322,9 @@ void Prefs_DocumentSetup::setPageWidth(double w)
 {
 	pageW = pageWidthSpinBox->value() / unitRatio;
 	marginsWidget->setPageWidth(pageW);
-	QString psText=pageSizeComboBox->currentText();
-	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
-		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+	QString psText = pageSizeComboBox->currentText();
+	if (psText != CommonStrings::trCustomPageSize && psText != CommonStrings::customPageSize)
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count() - 1);
 	int newOrientation = (pageWidthSpinBox->value() > pageHeightSpinBox->value()) ? landscapePage : portraitPage;
 	if (newOrientation != pageOrientationComboBox->currentIndex())
 	{
@@ -338,9 +338,9 @@ void Prefs_DocumentSetup::setPageHeight(double h)
 {
 	pageH = pageHeightSpinBox->value() / unitRatio;
 	marginsWidget->setPageHeight(pageH);
-	QString psText=pageSizeComboBox->currentText();
-	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
-		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+	QString psText = pageSizeComboBox->currentText();
+	if (psText != CommonStrings::trCustomPageSize && psText != CommonStrings::customPageSize)
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count() - 1);
 	int newOrientation = (pageWidthSpinBox->value() > pageHeightSpinBox->value()) ? landscapePage : portraitPage;
 	if (newOrientation != pageOrientationComboBox->currentIndex())
 	{
@@ -405,10 +405,10 @@ void Prefs_DocumentSetup::slotUndo(bool isEnabled)
 
 void Prefs_DocumentSetup::getResizeDocumentPages(bool &resizePages, bool &resizeMasterPages, bool &resizePageMargins, bool &resizeMasterPageMargins)
 {
-	resizePages=applySizesToAllPagesCheckBox->isChecked();
-	resizeMasterPages=applySizesToAllMasterPagesCheckBox->isChecked();
-	resizePageMargins=applyMarginsToAllPagesCheckBox->isChecked();
-	resizeMasterPageMargins=applyMarginsToAllMasterPagesCheckBox->isChecked();
+	resizePages = applySizesToAllPagesCheckBox->isChecked();
+	resizeMasterPages = applySizesToAllMasterPagesCheckBox->isChecked();
+	resizePageMargins = applyMarginsToAllPagesCheckBox->isChecked();
+	resizeMasterPageMargins = applyMarginsToAllMasterPagesCheckBox->isChecked();
 }
 
 void Prefs_DocumentSetup::changeAutoDocDir()

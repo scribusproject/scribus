@@ -19,7 +19,7 @@ class SCRIBUS_API Prefs_ItemTools : public Prefs_Pane, Ui::Prefs_ItemTools
 	Q_OBJECT
 
 	public:
-		Prefs_ItemTools(QWidget* parent, ScribusDoc* doc=nullptr);
+		Prefs_ItemTools(QWidget* parent, ScribusDoc* doc = nullptr);
 		~Prefs_ItemTools();
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;

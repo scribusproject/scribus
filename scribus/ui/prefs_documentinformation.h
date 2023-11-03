@@ -19,7 +19,7 @@ class SCRIBUS_API Prefs_DocumentInformation : public Prefs_Pane, Ui::Prefs_Docum
 	Q_OBJECT
 
 	public:
-		Prefs_DocumentInformation(QWidget* parent, ScribusDoc* doc=nullptr);
+		Prefs_DocumentInformation(QWidget* parent, ScribusDoc* doc = nullptr);
 		~Prefs_DocumentInformation() = default;
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;

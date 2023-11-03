@@ -18,7 +18,7 @@ class SCRIBUS_API Prefs_ExternalTools : public Prefs_Pane, Ui::Prefs_ExternalToo
 	Q_OBJECT
 
 	public:
-		Prefs_ExternalTools(QWidget* parent, ScribusDoc* doc=nullptr);
+		Prefs_ExternalTools(QWidget* parent, ScribusDoc* doc = nullptr);
 		~Prefs_ExternalTools() = default;
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;

@@ -721,7 +721,7 @@ void PrintDialog::doDocBleeds()
 
 void PrintDialog::createPageNumberRange( )
 {
-	if (m_doc!=nullptr)
+	if (m_doc != nullptr)
 	{
 		CreateRange cr(pageNr->text(), m_doc->DocPages.count(), this);
 		if (cr.exec())

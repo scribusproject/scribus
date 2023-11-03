@@ -180,7 +180,7 @@ void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 	textControlCharsButton->setText( QString() );
 	textControlCharsButton->setIcon(pm);
 
-	displayScale=prefsData->displayPrefs.displayScale;
+	displayScale = prefsData->displayPrefs.displayScale;
 
 	adjustDisplaySlider->setValue(qRound(100 * displayScale) - 150);
 	displayDPI->setText(QString::number(qRound(displayScale * 72.0))+ tr(" dpi"));
@@ -249,7 +249,7 @@ void Prefs_Display::drawRuler()
 				val = xl / iter;
 				break;
 			default:
-				val=xl / iter * 10;
+				val = xl / iter * 10;
 				break;
 		}
 		p.drawText(static_cast<int>((xl+qRound(2/displayScale)) * displayScale), 12, QString::number(val));
@@ -401,25 +401,25 @@ void Prefs_Display::changeControlCharsColor()
 
 void Prefs_Display::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->guidesPrefs.showPic=showImagesCheckBox->isChecked();
-	prefsData->guidesPrefs.showControls=showControlCharsCheckBox->isChecked();
-	prefsData->guidesPrefs.rulersShown=showRulersCheckBox->isChecked();
-	prefsData->guidesPrefs.rulerMode=showRulersRelativeToPageCheckBox->isChecked();
-	prefsData->guidesPrefs.linkShown=showTextChainsCheckBox->isChecked();
-	prefsData->guidesPrefs.framesShown=showFramesCheckBox->isChecked();
-	prefsData->guidesPrefs.layerMarkersShown=showLayerIndicatorsCheckBox->isChecked();
-	prefsData->displayPrefs.marginColored=showUnprintableAreaInMarginColorCheckBox->isChecked();
-	prefsData->guidesPrefs.showBleed=showBleedAreaCheckBox->isChecked();
-	prefsData->displayPrefs.showPageShadow=showPageShadowCheckBox->isChecked();
-	prefsData->displayPrefs.showVerifierWarningsOnCanvas=showVerifierWarningsOnCanvasCheckBox->isChecked();
+	prefsData->guidesPrefs.showPic = showImagesCheckBox->isChecked();
+	prefsData->guidesPrefs.showControls = showControlCharsCheckBox->isChecked();
+	prefsData->guidesPrefs.rulersShown = showRulersCheckBox->isChecked();
+	prefsData->guidesPrefs.rulerMode = showRulersRelativeToPageCheckBox->isChecked();
+	prefsData->guidesPrefs.linkShown = showTextChainsCheckBox->isChecked();
+	prefsData->guidesPrefs.framesShown = showFramesCheckBox->isChecked();
+	prefsData->guidesPrefs.layerMarkersShown = showLayerIndicatorsCheckBox->isChecked();
+	prefsData->displayPrefs.marginColored = showUnprintableAreaInMarginColorCheckBox->isChecked();
+	prefsData->guidesPrefs.showBleed = showBleedAreaCheckBox->isChecked();
+	prefsData->displayPrefs.showPageShadow = showPageShadowCheckBox->isChecked();
+	prefsData->displayPrefs.showVerifierWarningsOnCanvas = showVerifierWarningsOnCanvasCheckBox->isChecked();
 
 	double unitRatio = unitGetRatioFromIndex(prefsData->docSetupPrefs.docUnitIndex);
 	prefsData->displayPrefs.scratch.setLeft(scratchSpaceLeftSpinBox->value() / unitRatio);
 	prefsData->displayPrefs.scratch.setRight(scratchSpaceRightSpinBox->value() / unitRatio);
 	prefsData->displayPrefs.scratch.setTop(scratchSpaceTopSpinBox->value() / unitRatio);
 	prefsData->displayPrefs.scratch.setBottom(scratchSpaceBottomSpinBox->value() / unitRatio);
-	prefsData->displayPrefs.pageGapHorizontal=pageGapHorizontalSpinBox->value() / unitRatio;
-	prefsData->displayPrefs.pageGapVertical=pageGapVerticalSpinBox->value() / unitRatio;
+	prefsData->displayPrefs.pageGapHorizontal = pageGapHorizontalSpinBox->value() / unitRatio;
+	prefsData->displayPrefs.pageGapVertical = pageGapVerticalSpinBox->value() / unitRatio;
 
 	prefsData->displayPrefs.paperColor = colorPaper;
 	prefsData->displayPrefs.scratchColor = colorScratch;

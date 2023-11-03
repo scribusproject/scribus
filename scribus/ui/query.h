@@ -25,7 +25,7 @@ class SCRIBUS_API Query : public QDialog
 	Q_OBJECT
 
 public:
-	Query(QWidget* parent=nullptr, const char* name=nullptr, bool modal = false, const QString& text=0, const QString& title=0 );
+	Query(QWidget* parent = nullptr, const char* name = nullptr, bool modal = false, const QString& text = 0, const QString& title = 0);
 	~Query() {};
 
 	QString getEditText() const;

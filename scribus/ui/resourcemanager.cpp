@@ -340,7 +340,7 @@ void ResourceManager::updateInstalledFonts()
 
 void ResourceManager::updateInstalledHyph()
 {
-	bool dictsFound=LanguageManager::instance()->findHyphDictionaries(m_dictionaryPaths);
+	bool dictsFound = LanguageManager::instance()->findHyphDictionaries(m_dictionaryPaths);
 	if (!dictsFound)
 		return;
 	m_dictionaryMap.clear();
@@ -386,7 +386,7 @@ void ResourceManager::updateInstalledHyph()
 
 void ResourceManager::updateInstalledSpell()
 {
-	bool dictsFound=LanguageManager::instance()->findSpellingDictionaries(m_dictionaryPaths);
+	bool dictsFound = LanguageManager::instance()->findSpellingDictionaries(m_dictionaryPaths);
 	if (!dictsFound)
 		return;
 	m_dictionaryMap.clear();
@@ -865,27 +865,27 @@ QString ResourceManager::findDestinationFolder()
 	switch (category)
 	{
 		case RM_FONTS:
-			destinationFolder=ScPaths::userFontDir(true);
+			destinationFolder = ScPaths::userFontDir(true);
 			break;
 		case RM_HYPH:
-			destinationFolder=ScPaths::userDictDir(ScPaths::Hyph, true);
+			destinationFolder = ScPaths::userDictDir(ScPaths::Hyph, true);
 			break;
 		case RM_SPELL:
-			destinationFolder=ScPaths::userDictDir(ScPaths::Spell, true);
+			destinationFolder = ScPaths::userDictDir(ScPaths::Spell, true);
 			break;
 		case RM_TEMPLATES:
 			//temporary
-			destinationFolder=ScPaths::tempFileDir();
-			//TODO!!!! destinationFolder=ScPaths::getUserDictDir(true);
+			destinationFolder = ScPaths::tempFileDir();
+			//TODO!!!! destinationFolder = ScPaths::getUserDictDir(true);
 			break;
 		case RM_HELP:
-			destinationFolder=ScPaths::userHelpFilesDir(true);
+			destinationFolder = ScPaths::userHelpFilesDir(true);
 			break;
 		case RM_PALETTES:
-			destinationFolder=ScPaths::userPaletteFilesDir(true);
+			destinationFolder = ScPaths::userPaletteFilesDir(true);
 			break;
 		case RM_TEST:
-			destinationFolder=ScPaths::downloadDir();
+			destinationFolder = ScPaths::downloadDir();
 			break;
 	}
 	return destinationFolder;
@@ -1099,47 +1099,47 @@ void ResourceManager::downloadFilesFinished()
 		case RM_HELP:
 			for (const DownloadItem& d : std::as_const(m_downloadList))
 			{
-				//qDebug()<<d.desc<<d.download<<d.files<<d.type;
-				if (d.filetype=="zip")
+				//qDebug() << d.desc << d.download << d.files << d.type;
+				if (d.filetype == "zip")
 				{
 					QString fn(ScPaths::userHelpFilesDir(true)+d.files);
-					//qDebug()<<fn;
+					//qDebug() << fn;
 					QFile dledFile(fn);
 					QFileInfo fi(dledFile);
 					QFile dledFileSHA256(fn+".sha256");
 					QFileInfo fiSHA256(dledFileSHA256);
 					if (!dledFile.exists() || !dledFileSHA256.exists())
-						qDebug()<<"File doesn\'t exist"<<fn<<fn+".sha256";
+						qDebug() << "File doesn\'t exist" << fn << fn + ".sha256";
 					else
 					{
 						if (checkFileHash(ScPaths::userHelpFilesDir(false), fi.fileName(), fiSHA256.fileName(), QCryptographicHash::Sha256))
 						{
 							ScZipHandler* fun = new ScZipHandler();
 							if (!fun->open(fn))
-								qDebug()<<"Zip file doesn\'t open"<<fn;
+								qDebug() << "Zip file doesn\'t open" << fn;
 							else
 							{
 								const QStringList zipFileContents(fun->files());
 //								QStringList extractFiles(d.extractfiles.split(";", Qt::SkipEmptyParts));
-								QString toDir(ScPaths::userHelpFilesDir(false)+d.lang+"/");
+								QString toDir(ScPaths::userHelpFilesDir(false) + d.lang + "/");
 								QDir dir(ScPaths::userHelpFilesDir(false));
 								if (!dir.exists(d.lang))
 									dir.mkdir(d.lang);
 								for (const QString& f2e : zipFileContents)
 								{
-									//qDebug()<<"Unzipping"<<f2e<<"to"<<toDir;
+									//qDebug() << "Unzipping" << f2e << "to" << toDir;
 									fun->extract(f2e, toDir, ScZipHandler::ExtractPaths);
 								}
 							}
 							delete fun;
 						}
 						else
-							qDebug()<<"checksum failed for"<<fn + ".sha256";
+							qDebug() << "checksum failed for" << fn + ".sha256";
 						dledFile.remove();
 						dledFileSHA256.remove();
 					}
 				}
-				if (d.filetype=="plain")
+				if (d.filetype == "plain")
 				{
 					//do nothing as the file is already in place from dl mgr
 				}
@@ -1235,28 +1235,28 @@ void ResourceManager::startDownload()
 			{
 				if (!filesToDownload.contains(d.desc))
 					continue;
-				if (d.filetype=="zip")
+				if (d.filetype == "zip")
 				{
 					const QStringList plainURLs(d.files.split(";", Qt::SkipEmptyParts));
 					for (const QString& s : plainURLs)
 					{
-//							qDebug()<<"Requesting:"<<d.url+"/"+s;
-						ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder, d.files);
+//						qDebug() << "Requesting:" << d.url + "/" + s;
+						ScQApp->dlManager()->addURL(d.url + "/" + s, true, ScPaths::downloadDir(), destinationFolder, d.files);
 						++dlCount;
 					}
 					m_downloadList.append(d);
-					d.download=true;
+					d.download = true;
 				}
-				if (d.filetype=="plain")
+				if (d.filetype == "plain")
 				{
 					const QStringList plainURLs(d.files.split(";", Qt::SkipEmptyParts));
 					for (const QString& s : plainURLs)
 					{
-						ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder);
+						ScQApp->dlManager()->addURL(d.url + "/" + s, true, ScPaths::downloadDir(), destinationFolder);
 						++dlCount;
 					}
 					m_downloadList.append(d);
-					d.download=true;
+					d.download = true;
 				}
 			}
 			break;
@@ -1264,44 +1264,44 @@ void ResourceManager::startDownload()
 		case RM_SPELL:
 			foreach(DownloadItem d, m_availableList)
 			{
-//				qDebug()<<d.desc;
+//				qDebug() << d.desc;
 				if (!filesToDownload.contains(d.desc))
 					continue;
-				if (d.filetype=="zip")
+				if (d.filetype == "zip")
 				{
-//						qDebug()<<"zip type:"<<d.url<<d.files;
+//					qDebug() << "zip type:" << d.url << d.files;
 					const QStringList plainURLs(d.files.split(";", Qt::SkipEmptyParts));
 					for (const QString& s : plainURLs)
 					{
-						ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder);
+						ScQApp->dlManager()->addURL(d.url + "/" + s, true, ScPaths::downloadDir(), destinationFolder);
 						++dlCount;
 					}
 					m_downloadList.append(d);
-					d.download=true;
+					d.download = true;
 				}
-				if (d.filetype=="plain")
+				if (d.filetype == "plain")
 				{
-//						qDebug()<<"plain type:"<<d.url<<d.files;
+//					qDebug() << "plain type:" << d.url << d.files;
 					const QStringList plainURLs(d.files.split(";", Qt::SkipEmptyParts));
 					for (const QString& s : plainURLs)
 					{
-						ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder);
+						ScQApp->dlManager()->addURL(d.url + "/" + s, true, ScPaths::downloadDir(), destinationFolder);
 						++dlCount;
 					}
 					m_downloadList.append(d);
-					d.download=true;
+					d.download = true;
 				}
 			}
 			break;
 		case RM_HELP:
 			foreach(DownloadItem d, m_availableList)
 			{
-//				qDebug()<<d.desc;
+//				qDebug() << d.desc;
 				if (!filesToDownload.contains(d.desc))
 					continue;
-				if (d.filetype=="zip")
+				if (d.filetype == "zip")
 				{
-//						qDebug()<<"zip type:"<<d.url<<d.files;
+//					qDebug() << "zip type:" << d.url << d.files;
 					const QStringList plainURLs(d.files.split(";", Qt::SkipEmptyParts));
 					for (const QString& s : plainURLs)
 					{
@@ -1317,12 +1317,12 @@ void ResourceManager::startDownload()
 		case RM_PALETTES:
 			foreach(DownloadItem d, m_availableList)
 			{
-//				qDebug()<<d.desc;
+//				qDebug() << d.desc;
 				if (!filesToDownload.contains(d.desc))
 					continue;
 				if (d.filetype == "zip")
 				{
-//						qDebug()<<"zip type:"<<d.url<<d.files;
+//					qDebug() << "zip type:" << d.url << d.files;
 					const QStringList plainURLs(d.files.split(";", Qt::SkipEmptyParts));
 					for (const QString& s : plainURLs)
 					{
@@ -1331,7 +1331,7 @@ void ResourceManager::startDownload()
 						dlCount += 2;
 					}
 					m_downloadList.append(d);
-					d.download=true;
+					d.download = true;
 				}
 			}
 			break;
@@ -1399,16 +1399,16 @@ void ResourceManager::showInFileBrowser()
 
 void ResourceManager::showLicense()
 {
-	bool localFile=false;
-	int rows=availableTableWidget->rowCount();
+	bool localFile = false;
+	int rows = availableTableWidget->rowCount();
 	QString licenceFileName;
 	QString lang;
 	//Find our item we want to show the license for. If downloaded, set localFile true
-	for (int i = 0; i<rows; ++i)
+	for (int i = 0; i < rows; ++i)
 	{
-		QTableWidgetItem *dlItemI=availableTableWidget->item(i, 2);
-		QTableWidgetItem *dlItemL=availableTableWidget->item(i, 3);
-		localFile=dlItemI->checkState();
+		QTableWidgetItem* dlItemI = availableTableWidget->item(i, 2);
+		QTableWidgetItem* dlItemL = availableTableWidget->item(i, 3);
+		localFile = dlItemI->checkState();
 		if (dlItemL->isSelected())
 		{
 			licenceFileName = dlItemL->text();
@@ -1418,19 +1418,19 @@ void ResourceManager::showLicense()
 	}
 	if (!licenceFileName.isEmpty())
 	{
-		bool doDownload=true;
+		bool doDownload = true;
 		QString data;
 		//Set up destination and get from local file if it exists
 		if (localFile)
 		{
-			QString destinationFolder=findDestinationFolder();
+			QString destinationFolder = findDestinationFolder();
 			QFile dataFile(destinationFolder + licenceFileName);
 			if (dataFile.exists() && dataFile.open(QIODevice::ReadOnly))
 			{
 				QTextStream ts(&dataFile);
 				data = ts.readAll();
 				dataFile.close();
-				doDownload=false;
+				doDownload = false;
 			}
 		}
 		//If we need to download the file

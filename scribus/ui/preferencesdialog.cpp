@@ -29,7 +29,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	setupUi(this);
 	setObjectName(QString::fromLocal8Bit("PreferencesDialog"));
 	setupListWidget();
-	while (prefsStackWidget->currentWidget()!=nullptr)
+	while (prefsStackWidget->currentWidget() != nullptr)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
 
 	exportButton->hide();
@@ -126,7 +126,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 
 	//**********
 
-	localPrefs=prefsData;
+	localPrefs = prefsData;
 	initPreferenceValues();
 	setupGui();
 	if (!doc)
@@ -275,23 +275,23 @@ void PreferencesDialog::itemSelected(QListWidgetItem* ic)
 	{
 		//emit aboutToShow(prefsWidgets->widget(itemMap[ic]));
 		prefsStackWidget->setCurrentIndex(stackWidgetMap[ic]);
-		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_DocumentSetup))
+		if (prefsStackWidget->currentWidget() == dynamic_cast<QWidget*>(prefs_DocumentSetup))
 			prefs_DocumentSetup->setupPageSizes(&localPrefs);
-		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_ItemTools))
+		if (prefsStackWidget->currentWidget() == dynamic_cast<QWidget*>(prefs_ItemTools))
 			prefs_ItemTools->enableFontPreview(true);
-		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_TableOfContents))
-			prefs_TableOfContents->setupItemAttrs( prefs_DocumentItemAttributes->getDocAttributesNames() );
-		if (prefsStackWidget->currentWidget()==dynamic_cast<QWidget*>(prefs_PDFExport))
+		if (prefsStackWidget->currentWidget() == dynamic_cast<QWidget*>(prefs_TableOfContents))
+			prefs_TableOfContents->setupItemAttrs(prefs_DocumentItemAttributes->getDocAttributesNames());
+		if (prefsStackWidget->currentWidget() == dynamic_cast<QWidget*>(prefs_PDFExport))
 			prefs_PDFExport->enableCMS(prefs_ColorManagement->cmActive());
 	}
 }
 
 void PreferencesDialog::setNewItemSelected(const QString &s)
 {
-	if (s=="Prefs_PageSizes" && prefs_PageSizes!=nullptr)
+	if (s == "Prefs_PageSizes" && prefs_PageSizes != nullptr)
 	{
-		int i=prefsStackWidget->indexOf(prefs_PageSizes);
-		if (i!=-1)
+		int i = prefsStackWidget->indexOf(prefs_PageSizes);
+		if (i != -1)
 			preferencesTypeList->setCurrentRow(i);
 	}
 }
@@ -343,7 +343,7 @@ void PreferencesDialog::addPlugins()
 		panel = nullptr;
 		bool wantPanel = plugin->newPrefsPanelWidget(prefsStackWidget, panel);
 		// If it gave us one...
-		if (wantPanel && panel!=nullptr)
+		if (wantPanel && panel != nullptr)
 		{
 			// plug it in to the dialog,
 			addWidget(panel);

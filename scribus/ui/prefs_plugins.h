@@ -19,7 +19,7 @@ class SCRIBUS_API Prefs_Plugins : public Prefs_Pane, Ui::Prefs_Plugins
 	Q_OBJECT
 
 	public:
-		Prefs_Plugins(QWidget* parent, ScribusDoc* doc=nullptr);
+		Prefs_Plugins(QWidget* parent, ScribusDoc* doc = nullptr);
 		~Prefs_Plugins();
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;

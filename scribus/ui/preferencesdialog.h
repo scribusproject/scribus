@@ -56,7 +56,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 	Q_OBJECT
 
 	public:
-		PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData, ScribusDoc *doc=nullptr);
+		PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData, ScribusDoc* doc = nullptr);
 		~PreferencesDialog() = default;
 
 		ApplicationPrefs prefs() const { return localPrefs; }

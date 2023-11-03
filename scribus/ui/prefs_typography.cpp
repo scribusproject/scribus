@@ -23,7 +23,7 @@ Prefs_Typography::~Prefs_Typography() = default;
 
 void Prefs_Typography::languageChange()
 {
-	QString autoText=tr( "Auto" );
+	QString autoText = tr("Auto");
 	underlineDisplacementSpinBox->setSpecialValueText(autoText);
 	underlineLineWidthSpinBox->setSpecialValueText(autoText);
 	strikeoutDisplacementSpinBox->setSpecialValueText(autoText);
@@ -57,15 +57,15 @@ void Prefs_Typography::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_Typography::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->typoPrefs.valueSubScript=subscriptDisplacementSpinBox->value();
-	prefsData->typoPrefs.scalingSubScript=subscriptScalingSpinBox->value();
-	prefsData->typoPrefs.valueSuperScript=superscriptDisplacementSpinBox->value();
-	prefsData->typoPrefs.scalingSuperScript=superscriptScalingSpinBox->value();
-	prefsData->typoPrefs.valueUnderlinePos=underlineDisplacementSpinBox->value() * 10.0;
-	prefsData->typoPrefs.valueUnderlineWidth=underlineLineWidthSpinBox->value() * 10.0;
-	prefsData->typoPrefs.valueStrikeThruPos=strikeoutDisplacementSpinBox->value() * 10.0;
-	prefsData->typoPrefs.valueStrikeThruWidth=strikeoutLineWidthSpinBox->value() * 10.0;
-	prefsData->typoPrefs.valueSmallCaps=smallcapsScalingSpinBox->value();
-	prefsData->typoPrefs.autoLineSpacing=automaticLineSpacingSpinBox->value();
+	prefsData->typoPrefs.valueSubScript = subscriptDisplacementSpinBox->value();
+	prefsData->typoPrefs.scalingSubScript = subscriptScalingSpinBox->value();
+	prefsData->typoPrefs.valueSuperScript = superscriptDisplacementSpinBox->value();
+	prefsData->typoPrefs.scalingSuperScript = superscriptScalingSpinBox->value();
+	prefsData->typoPrefs.valueUnderlinePos = underlineDisplacementSpinBox->value() * 10.0;
+	prefsData->typoPrefs.valueUnderlineWidth = underlineLineWidthSpinBox->value() * 10.0;
+	prefsData->typoPrefs.valueStrikeThruPos = strikeoutDisplacementSpinBox->value() * 10.0;
+	prefsData->typoPrefs.valueStrikeThruWidth = strikeoutLineWidthSpinBox->value() * 10.0;
+	prefsData->typoPrefs.valueSmallCaps = smallcapsScalingSpinBox->value();
+	prefsData->typoPrefs.autoLineSpacing = automaticLineSpacingSpinBox->value();
 }
 
