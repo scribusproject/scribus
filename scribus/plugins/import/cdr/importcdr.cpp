@@ -112,7 +112,7 @@ bool CdrPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	}
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";

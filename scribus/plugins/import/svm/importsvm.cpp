@@ -281,8 +281,8 @@ for which a new license (GPL+exception) is in place.
 
 SvmPlug::SvmPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel=new Selection(this, false);
-	m_Doc=doc;
+	tmpSel = new Selection(this, false);
+	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	progressDialog = nullptr;
@@ -402,7 +402,7 @@ bool SvmPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";

@@ -1559,7 +1559,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 
 	if (m_Doc->Layers.count() == 0)
 		m_Doc->Layers.newLayer( QObject::tr("Background") );
-	if (m_mwProgressBar!=nullptr)
+	if (m_mwProgressBar != nullptr)
 	{
 		m_mwProgressBar->setValue(reader.characterOffset());
 		m_mwProgressBar->reset();
@@ -1569,9 +1569,9 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 
 bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
 {
-	if (m_Doc==nullptr || m_AvailableFonts==nullptr)
+	if (m_Doc == nullptr || m_AvailableFonts == nullptr)
 	{
-		Q_ASSERT(m_Doc==nullptr || m_AvailableFonts==nullptr);
+		Q_ASSERT(m_Doc == nullptr || m_AvailableFonts == nullptr);
 		return false;
 	}
 
@@ -2334,7 +2334,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->restartAutoSaveTimer();
 //	m_Doc->autoSaveTimer->start(m_Doc->autoSaveTime());
 
-	if (m_mwProgressBar!=nullptr)
+	if (m_mwProgressBar != nullptr)
 		m_mwProgressBar->setValue(reader.characterOffset());
 	return true;
 }
@@ -2558,7 +2558,7 @@ void Scribus150Format::readGuideSettings(ScribusDoc* doc, const ScXmlStreamAttri
 	doc->guidesPrefs().minorGridSpacing = attrs.valueAsDouble("MINGRID", prefsManager.appPrefs.guidesPrefs.minorGridSpacing);
 	doc->guidesPrefs().majorGridSpacing = attrs.valueAsDouble("MAJGRID", prefsManager.appPrefs.guidesPrefs.majorGridSpacing);
 	doc->guidesPrefs().gridShown    = attrs.valueAsBool("SHOWGRID", false);
-	doc->guidesPrefs().guidesShown  =attrs.valueAsBool("SHOWGUIDES", true);
+	doc->guidesPrefs().guidesShown = attrs.valueAsBool("SHOWGUIDES", true);
 	doc->guidesPrefs().colBordersShown  = attrs.valueAsBool("showcolborders", false);
 	doc->guidesPrefs().framesShown  = attrs.valueAsBool("SHOWFRAME", true);
 	doc->guidesPrefs().layerMarkersShown = attrs.valueAsBool("SHOWLAYERM", false);
@@ -2658,7 +2658,7 @@ void Scribus150Format::readToolSettings(ScribusDoc* doc, const ScXmlStreamAttrib
 		doc->itemToolPrefs().textStrokeColor = attrs.valueAsString("StrokeText");
 	doc->itemToolPrefs().textFillColor  = attrs.valueAsString("TextBackGround", CommonStrings::None);
 	doc->itemToolPrefs().textLineColor   = attrs.valueAsString("TextLineColor", CommonStrings::None);
-	doc->itemToolPrefs().textFillColorShade =attrs.valueAsInt("TextBackGroundShade", 100);
+	doc->itemToolPrefs().textFillColorShade = attrs.valueAsInt("TextBackGroundShade", 100);
 	doc->itemToolPrefs().textLineColorShade   = attrs.valueAsInt("TextLineShade", 100);
 	doc->itemToolPrefs().textShade    = attrs.valueAsInt("TextPenShade", 100);
 	doc->itemToolPrefs().textStrokeShade = attrs.valueAsInt("TextStrokeShade", 100);
@@ -3855,7 +3855,7 @@ bool Scribus150Format::readMarks(ScribusDoc* doc, ScXmlStreamReader& reader)
 			if (!label.isEmpty() && type != MARKNoType)
 			{
 				Mark* mark = doc->newMark();
-				mark->label=attrs.valueAsString("label");
+				mark->label = attrs.valueAsString("label");
 				mark->setType(type);
 				if (type == MARKVariableTextType && attrs.hasAttribute("str"))
 					mark->setString(attrs.valueAsString("str"));

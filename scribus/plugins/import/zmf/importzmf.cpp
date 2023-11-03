@@ -164,7 +164,7 @@ bool ZmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
 			baseX = 0;

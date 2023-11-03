@@ -174,7 +174,7 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 		else
 			return true;
 	}
-	m_Doc=ScCore->primaryMainWindow()->doc;
+	m_Doc = ScCore->primaryMainWindow()->doc;
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
@@ -450,7 +450,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc = ScCore->primaryMainWindow()->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
 		}
@@ -1332,7 +1332,7 @@ void OODPlug::storeObjectStyles(const QDomElement& object)
 
 double OODPlug::parseUnit(const QString &unit)
 {
-	QString unitval=unit;
+	QString unitval = unit;
 	if (unit.isEmpty())
 		return 0.0;
 	if (unit.right( 2 ) == "pt")

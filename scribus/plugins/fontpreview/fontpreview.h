@@ -30,7 +30,7 @@ public:
 	/*! \brief Create Font Preview window,
 	\param fontName Optional name of the font to init/select on start.
 	*/
-	FontPreview(const QString& fontName = QString(), QWidget* parent = nullptr, ScribusDoc* doc=nullptr);
+	FontPreview(const QString& fontName = QString(), QWidget* parent = nullptr, ScribusDoc* doc = nullptr);
 	~FontPreview();
 
 	/*! \brief Get the current selected font name.

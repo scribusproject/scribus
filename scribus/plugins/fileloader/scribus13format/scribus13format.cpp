@@ -170,9 +170,9 @@ void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString
 
 bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
 {
-	if (m_Doc==nullptr || m_AvailableFonts==nullptr)
+	if (m_Doc == nullptr || m_AvailableFonts == nullptr)
 	{
-		Q_ASSERT(m_Doc==nullptr || m_AvailableFonts==nullptr);
+		Q_ASSERT(m_Doc == nullptr || m_AvailableFonts == nullptr);
 		return false;
 	}
 	ReplacedFonts.clear();
@@ -222,11 +222,11 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	m_Doc->Layers.clear();
 	int layerToSetActive=0;
 	ScColor lf;
-	QDomElement elem=docu.documentElement();
+	QDomElement elem = docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
 	QDomNode docNode = elem.firstChild();
-	if (m_mwProgressBar!=nullptr)
+	if (m_mwProgressBar != nullptr)
 	{
 		m_mwProgressBar->setMaximum(docNode.childNodes().count());
 		m_mwProgressBar->setValue(0);
@@ -241,7 +241,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	TableIDM.clear();
 	TableItemsF.clear();
 	TableIDF.clear();
-	PrefsManager& prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	while (!docNode.isNull())
 	{
 		QDomElement dc = docNode.toElement();
@@ -336,9 +336,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			m_Doc->setLanguage(l); //new style storage
 		else
 		{ //old style storage
-			QString lnew=LanguageManager::instance()->getAbbrevFromLang(l, false);
+			QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
 			if (lnew.isEmpty())
-				lnew=LanguageManager::instance()->getAbbrevFromLang(l, false);
+				lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
 			m_Doc->setLanguage(lnew);
 		}
 
@@ -460,7 +460,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		while (!pageNode.isNull())
 		{
 			ObCount++;
-			if (m_mwProgressBar!=nullptr)
+			if (m_mwProgressBar != nullptr)
 				m_mwProgressBar->setValue(ObCount);
 			QDomElement pg = pageNode.toElement();
 			if (pg.tagName() == "PageSets")
@@ -722,13 +722,13 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					if (itemAttr.tagName() == "ItemAttribute")
 					{
 						ObjectAttribute objattr;
-						objattr.name=itemAttr.attribute("Name");
-						objattr.type=itemAttr.attribute("Type");
-						objattr.value=itemAttr.attribute("Value");
-						objattr.parameter=itemAttr.attribute("Parameter");
-						objattr.relationship=itemAttr.attribute("Relationship");
-						objattr.relationshipto=itemAttr.attribute("RelationshipTo");
-						objattr.autoaddto=itemAttr.attribute("AutoAddTo");
+						objattr.name = itemAttr.attribute("Name");
+						objattr.type = itemAttr.attribute("Type");
+						objattr.value = itemAttr.attribute("Value");
+						objattr.parameter = itemAttr.attribute("Parameter");
+						objattr.relationship = itemAttr.attribute("Relationship");
+						objattr.relationshipto = itemAttr.attribute("RelationshipTo");
+						objattr.autoaddto = itemAttr.attribute("AutoAddTo");
 						m_Doc->appendToItemAttributes(objattr);
 					}
 					DIA = DIA.nextSibling();
@@ -744,18 +744,18 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					if (tocElem.tagName() == "TableOfContents")
 					{
 						ToCSetup tocsetup;
-						tocsetup.name=tocElem.attribute("Name");
-						tocsetup.itemAttrName=tocElem.attribute("ItemAttributeName");
-						tocsetup.frameName=tocElem.attribute("FrameName");
-						tocsetup.listNonPrintingFrames=QVariant(tocElem.attribute("ListNonPrinting")).toBool();
-						tocsetup.textStyle=tocElem.attribute("Style");
-						QString numberPlacement=tocElem.attribute("NumberPlacement");
-						if (numberPlacement=="Beginning")
-							tocsetup.pageLocation=Beginning;
-						if (numberPlacement=="End")
-							tocsetup.pageLocation=End;
-						if (numberPlacement=="NotShown")
-							tocsetup.pageLocation=NotShown;
+						tocsetup.name = tocElem.attribute("Name");
+						tocsetup.itemAttrName = tocElem.attribute("ItemAttributeName");
+						tocsetup.frameName = tocElem.attribute("FrameName");
+						tocsetup.listNonPrintingFrames = QVariant(tocElem.attribute("ListNonPrinting")).toBool();
+						tocsetup.textStyle = tocElem.attribute("Style");
+						QString numberPlacement = tocElem.attribute("NumberPlacement");
+						if (numberPlacement == "Beginning")
+							tocsetup.pageLocation = Beginning;
+						if (numberPlacement == "End")
+							tocsetup.pageLocation = End;
+						if (numberPlacement == "NotShown")
+							tocsetup.pageLocation = NotShown;
 						m_Doc->appendToTocSetups(tocsetup);
 					}
 					TOC = TOC.nextSibling();
@@ -770,23 +770,23 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					if (sectionElem.tagName() == "Section")
 					{
 						struct DocumentSection newSection;
-						newSection.number=sectionElem.attribute("Number").toInt();
-						newSection.name=sectionElem.attribute("Name");
-						newSection.fromindex=sectionElem.attribute("From").toInt();
-						newSection.toindex=sectionElem.attribute("To").toInt();
+						newSection.number = sectionElem.attribute("Number").toInt();
+						newSection.name = sectionElem.attribute("Name");
+						newSection.fromindex = sectionElem.attribute("From").toInt();
+						newSection.toindex = sectionElem.attribute("To").toInt();
 						if (sectionElem.attribute("Type") == "Type_1_2_3")
-							newSection.type=Type_1_2_3;
+							newSection.type = Type_1_2_3;
 						if (sectionElem.attribute("Type") == "Type_i_ii_iii")
-							newSection.type=Type_i_ii_iii;
+							newSection.type = Type_i_ii_iii;
 						if (sectionElem.attribute("Type") == "Type_I_II_III")
-							newSection.type=Type_I_II_III;
+							newSection.type = Type_I_II_III;
 						if (sectionElem.attribute("Type") == "Type_a_b_c")
-							newSection.type=Type_a_b_c;
+							newSection.type = Type_a_b_c;
 						if (sectionElem.attribute("Type") == "Type_A_B_C")
-							newSection.type=Type_A_B_C;
-						newSection.sectionstartindex=sectionElem.attribute("Start").toInt();
-						newSection.reversed=static_cast<bool>(sectionElem.attribute("Reversed").toInt());
-						newSection.active=static_cast<bool>(sectionElem.attribute("Active").toInt());
+							newSection.type = Type_A_B_C;
+						newSection.sectionstartindex = sectionElem.attribute("Start").toInt();
+						newSection.reversed = static_cast<bool>(sectionElem.attribute("Reversed").toInt());
+						newSection.active = static_cast<bool>(sectionElem.attribute("Active").toInt());
 						newSection.pageNumberWidth = 0;
 						m_Doc->sections().insert(newSection.number, newSection);
 					}
@@ -812,7 +812,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					Apage = m_Doc->addPage(a);
 				else
 					Apage = m_Doc->addMasterPage(a, pageName);
-				Apage->LeftPg=pg.attribute("LEFT", "0").toInt();
+				Apage->LeftPg = pg.attribute("LEFT", "0").toInt();
 				QString Mus(pg.attribute("MNAM","Normal"));
 				if (!m_Doc->masterPageMode())
 					Apage->setMasterPageName(Mus);
@@ -1499,7 +1499,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	handleOldColorShade(doc, Pcolor, Pshade);
 	handleOldColorShade(doc, Pcolor2, Pshade2);
 	QColor tmpc;
-	PageItem *currItem=nullptr;
+	PageItem *currItem = nullptr;
 	QString tmp;
 	double xf, yf, xf2;
 	QString clPath;
@@ -2020,9 +2020,9 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName)
 {
 // 	qDebug() << QString("loading page %2 from file '%1' from 1.3.3.x plugin").arg(fileName).arg(pageNumber);
-	if (m_Doc==nullptr || m_AvailableFonts==nullptr)
+	if (m_Doc == nullptr || m_AvailableFonts == nullptr)
 	{
-		Q_ASSERT(m_Doc==nullptr || m_AvailableFonts==nullptr);
+		Q_ASSERT(m_Doc == nullptr || m_AvailableFonts == nullptr);
 		return false;
 	}
 	ParagraphStyle vg;
@@ -2045,7 +2045,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	int maxLayer = 0;
 	int maxLevel = 0;
 	layerTrans.clear();
-	uint layerCount=m_Doc->layerCount();
+	uint layerCount = m_Doc->layerCount();
 	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
 		maxLayer = qMax(m_Doc->Layers[la2].ID, maxLayer);
@@ -2188,7 +2188,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				}
 				if (Mpage)
 				{
-					Apage->LeftPg=pg.attribute("LEFT", "0").toInt();
+					Apage->LeftPg = pg.attribute("LEFT", "0").toInt();
 					
 					if (!renamedPageName.isEmpty())
 						Apage->setPageName(renamedPageName);
@@ -2572,7 +2572,7 @@ bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, Style
 		return false;
 	if (!docu.setContent(f))
 		return false;
-	QDomElement elem=docu.documentElement();
+	QDomElement elem = docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
 	QDomNode docNode = elem.firstChild();
@@ -2603,7 +2603,7 @@ bool Scribus13Format::readLineStyles(const QString& fileName, QHash<QString,mult
 		return false;
 	if (!docu.setContent(f))
 		return false;
-	QDomElement elem=docu.documentElement();
+	QDomElement elem = docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
 	QDomNode docNode = elem.firstChild();
@@ -2662,7 +2662,7 @@ bool Scribus13Format::readColors(const QString& fileName, ColorList & colors)
 		return false;
 	ScColor lf;
 	colors.clear();
-	QDomElement elem=docu.documentElement();
+	QDomElement elem = docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
 	QDomNode docNode = elem.firstChild();

@@ -906,7 +906,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 		setStyle(propList);
 	m_coords.resize(0);
 	m_coords.svgInit();
-	PageItem *ite=nullptr;
+	PageItem *ite = nullptr;
 	m_coords.svgMoveTo(valueAsPoint(vertices[0]["svg:x"]), valueAsPoint(vertices[0]["svg:y"]));
 	for (unsigned i = 1; i < vertices.count(); i++)
 	{
@@ -1065,7 +1065,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 	m_coords.resize(0);
 	m_coords.svgInit();
 	m_coords.parseSVG(svgString);
-	PageItem *ite=nullptr;
+	PageItem *ite = nullptr;
 	if (isClosed)
 	{
 		if (m_style["draw:fill"] && m_style["draw:fill"]->getStr() == "bitmap" && m_style["style:repeat"] && m_style["style:repeat"]->getStr() == "stretch")
@@ -1207,7 +1207,7 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 		setStyle(propList);
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
-		PageItem *ite=nullptr;
+		PageItem *ite = nullptr;
 		double x = valueAsPoint(propList["svg:x"]);
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);

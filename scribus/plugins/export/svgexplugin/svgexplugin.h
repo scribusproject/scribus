@@ -42,7 +42,7 @@ public:
 	\param filename a file to export to
 	\retval bool true
 	*/
-	bool run(ScribusDoc* doc=nullptr, const QString& filename = QString()) override;
+	bool run(ScribusDoc* doc = nullptr, const QString& filename = QString()) override;
 	QString fullTrName() const override;
 	const AboutData* getAboutData() const override;
 	void deleteAboutData(const AboutData* about) const override;

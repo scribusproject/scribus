@@ -119,7 +119,7 @@ bool PubPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	}
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -164,7 +164,7 @@ bool PubPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
 			baseX = 0;
@@ -331,7 +331,7 @@ bool PubPlug::convert(const QString& fn)
 			progressDialog->close();
 		if (importerFlags & LoadSavePlugin::lfCreateDoc)
 		{
-			ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+			ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			ScMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project http://www.documentliberation.org"));
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));

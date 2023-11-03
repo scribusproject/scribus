@@ -172,7 +172,7 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
 			baseX = 0;
@@ -2744,7 +2744,7 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, const QString& pAttrs)
 
 double OdgPlug::parseUnit(const QString &unit)
 {
-	QString unitval=unit;
+	QString unitval = unit;
 	if (unit.isEmpty())
 		return 0.0;
 	if (unit.right( 2 ) == "pt")

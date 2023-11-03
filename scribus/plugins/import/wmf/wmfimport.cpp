@@ -410,7 +410,8 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 		st >> pheader.reserved;
 		st >> pheader.checksum;
 		checksum = calcCheckSum( &pheader );
-		if ( pheader.checksum!=checksum ) m_IsPlaceable = false;
+		if (pheader.checksum != checksum)
+			m_IsPlaceable = false;
 
 		m_Dpi = pheader.inch;
 		m_BBox.setLeft( pheader.bbox.left );
@@ -424,7 +425,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 			cerr << "WMF Placeable Header ( " << static_cast<int>(sizeof( pheader ) ) << "):" << endl;
 			cerr << "  bbox=( " << m_BBox.left() << "; " << m_BBox.top() << "; " << m_BBox.width() << "; " << m_BBox.height() << ")" << endl;
 			cerr << "  inch=" << pheader.inch << endl;
-			cerr << "  checksum=" << pheader.checksum << "( " << (pheader.checksum==checksum?"ok":"wrong") << " )" << endl;
+			cerr << "  checksum=" << pheader.checksum << "( " << (pheader.checksum == checksum ? "ok" : "wrong") << " )" << endl;
 		}
 	}
 	else buffer.seek( 0 );
@@ -442,7 +443,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 	st >> eheader.rclFrame.right;
 	st >> eheader.rclFrame.bottom;
 	st >> eheader.dSignature;
-	m_IsEnhanced = ( eheader.dSignature==ENHMETA_SIGNATURE );
+	m_IsEnhanced = (eheader.dSignature == ENHMETA_SIGNATURE);
 	if ( m_IsEnhanced ) // is it really enhanced ?
 	{
 		st >> eheader.nVersion;
@@ -565,7 +566,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(fabs(width), fabs(height), 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc = ScCore->primaryMainWindow()->doFileNew(fabs(width), fabs(height), 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
 		}

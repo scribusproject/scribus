@@ -129,8 +129,7 @@ bool UniconvImportPlugin::import(const QString& fileName, int flags)
 		return false;
 
 	m_Doc = ScCore->primaryMainWindow()->doc;
-	ScribusMainWindow *mw =
-		(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+	ScribusMainWindow *mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 
 	//Get a temporary filename ending in .svg (sadly
 	//uniconvertor has no other way of specifying the output format

@@ -700,7 +700,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 
 void Scribus12Format::getReplacedFontData(bool& getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
 {
-	getNewReplacement=false;
+	getNewReplacement = false;
 	getReplacedFonts.clear();
 	getDummyScFaces.clear();
 }
@@ -712,9 +712,9 @@ static long long scribus12itemID(int itemNr, int pageNr)
 
 bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
 {
-	if (m_Doc==nullptr || m_View==nullptr || m_AvailableFonts==nullptr)
+	if (m_Doc == nullptr || m_View == nullptr || m_AvailableFonts == nullptr)
 	{
-		Q_ASSERT(m_Doc==nullptr || m_View==nullptr || m_AvailableFonts==nullptr);
+		Q_ASSERT(m_Doc == nullptr || m_View == nullptr || m_AvailableFonts == nullptr);
 		return false;
 	}
 // 	ReplacedFonts.clear();
@@ -766,7 +766,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	m_Doc->PageColors.clear();
 	m_Doc->Layers.clear();
 	ScColor lf;
-	QDomElement elem=docu.documentElement();
+	QDomElement elem = docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
 	if (elem.hasAttribute("Version"))
@@ -809,8 +809,8 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 			fp = 0;
 		m_Doc->setPageSetFirstPage(m_Doc->pagePositioning(), fp);
 		m_Doc->setUsesAutomaticTextFrames(dc.attribute("AUTOTEXT").toInt());
-		m_Doc->PageSp=dc.attribute("AUTOSPALTEN").toInt();
-		m_Doc->PageSpa=ScCLocale::toDoubleC(dc.attribute("ABSTSPALTEN"));
+		m_Doc->PageSp = dc.attribute("AUTOSPALTEN").toInt();
+		m_Doc->PageSpa = ScCLocale::toDoubleC(dc.attribute("ABSTSPALTEN"));
 		m_Doc->setUnitIndex(dc.attribute("UNITS", "0").toInt());
 		m_Doc->guidesPrefs().gridShown = prefsManager.appPrefs.guidesPrefs.gridShown;
 		m_Doc->guidesPrefs().guidesShown = prefsManager.appPrefs.guidesPrefs.guidesShown;
@@ -826,7 +826,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 		m_Doc->guidesPrefs().renderStackOrder << 0 << 1 << 2 << 3 << 4;
 		m_Doc->guidesPrefs().gridType = 0;
 // 		DoFonts.clear();
-		m_Doc->itemToolPrefs().textSize=qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
+		m_Doc->itemToolPrefs().textSize = qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
 		Defont = dc.attribute("DFONT");
 		m_Doc->itemToolPrefs().textFont = prefsManager.appPrefs.itemToolPrefs.textFont;
 		m_AvailableFonts->findFont(Defont, m_Doc);
@@ -989,7 +989,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 				//1.2.x docs!
 				m_View->addPage(a);
 				//emit NewPage(a);
-				m_Doc->Pages->at(a)->LeftPg=pg.attribute("LEFT", "0").toInt();
+				m_Doc->Pages->at(a)->LeftPg = pg.attribute("LEFT", "0").toInt();
 				m_Doc->Pages->at(a)->marginPreset = pg.attribute("PRESET", "0").toInt();
 
 				// guides reading
@@ -1105,7 +1105,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 						node = node.nextSibling();
 					}
 					delete lastS;
-					newItem->isAutoText=static_cast<bool>(obj.attribute("AUTOTEXT").toInt());
+					newItem->isAutoText = static_cast<bool>(obj.attribute("AUTOTEXT").toInt());
 					if (newItem->isAutoText)
 						m_Doc->LastAuto = newItem;
 //					newItem->NextIt = obj.attribute("NEXTITEM").toInt();
@@ -1398,12 +1398,12 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	int x, y;
 	double xf, yf, xf2;
 	OB->PType = static_cast<PageItem::ItemType>(obj->attribute("PTYPE").toInt());
-	OB->Width=ScCLocale::toDoubleC(obj->attribute("WIDTH"));
-	OB->Height=ScCLocale::toDoubleC(obj->attribute("HEIGHT"));
+	OB->Width = ScCLocale::toDoubleC(obj->attribute("WIDTH"));
+	OB->Height = ScCLocale::toDoubleC(obj->attribute("HEIGHT"));
 	OB->RadRect = ScCLocale::toDoubleC(obj->attribute("RADRECT"), 0.0);
 	OB->ClipEdited = obj->attribute("CLIPEDIT", "0").toInt();
 	OB->FrameType = obj->attribute("FRTYPE", "0").toInt();
-	OB->Pwidth=ScCLocale::toDoubleC(obj->attribute("PWIDTH"));
+	OB->Pwidth = ScCLocale::toDoubleC(obj->attribute("PWIDTH"));
 	OB->Pcolor = obj->attribute("PCOLOR");
 	if ((!newVersion) && (OB->PType == 4))
 	{
@@ -1420,20 +1420,20 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	OB->Shade = obj->attribute("SHADE").toInt();
 	OB->Shade2 = obj->attribute("SHADE2").toInt();
 	OB->FillRule = obj->attribute("fillRule", "1").toInt();
-	OB->TxtStroke=obj->attribute("TXTSTROKE", CommonStrings::None);
-	OB->ShTxtFill=obj->attribute("TXTFILLSH", "100").toInt();
-	OB->ShTxtStroke=obj->attribute("TXTSTRSH", "100").toInt();
-	OB->TxtScale=qRound(ScCLocale::toDoubleC(obj->attribute("TXTSCALE"), 100.0) * 10);
-	OB->TxtScaleV=qRound(ScCLocale::toDoubleC(obj->attribute("TXTSCALEV"), 100.0) * 10);
-	OB->TxTBase=qRound(ScCLocale::toDoubleC(obj->attribute("TXTBASE"), 0.0) * 10);
-	OB->TxTStyle=obj->attribute("TXTSTYLE", "0").toInt();
-	OB->TxtShadowX=qRound(ScCLocale::toDoubleC(obj->attribute("TXTSHX"), 5.0) * 10);
-	OB->TxtShadowY=qRound(ScCLocale::toDoubleC(obj->attribute("TXTSHY"), -5.0) * 10);
-	OB->TxtOutline=qRound(ScCLocale::toDoubleC(obj->attribute("TXTOUT"), 1.0) * 10);
-	OB->TxtUnderPos=qRound(ScCLocale::toDoubleC(obj->attribute("TXTULP"), -0.1) * 10);
-	OB->TxtUnderWidth=qRound(ScCLocale::toDoubleC(obj->attribute("TXTULW"), -0.1) * 10);
-	OB->TxtStrikePos=qRound(ScCLocale::toDoubleC(obj->attribute("TXTSTP"), -0.1) * 10);
-	OB->TxtStrikeWidth=qRound(ScCLocale::toDoubleC(obj->attribute("TXTSTW"), -0.1) * 10);
+	OB->TxtStroke = obj->attribute("TXTSTROKE", CommonStrings::None);
+	OB->ShTxtFill = obj->attribute("TXTFILLSH", "100").toInt();
+	OB->ShTxtStroke = obj->attribute("TXTSTRSH", "100").toInt();
+	OB->TxtScale = qRound(ScCLocale::toDoubleC(obj->attribute("TXTSCALE"), 100.0) * 10);
+	OB->TxtScaleV = qRound(ScCLocale::toDoubleC(obj->attribute("TXTSCALEV"), 100.0) * 10);
+	OB->TxTBase = qRound(ScCLocale::toDoubleC(obj->attribute("TXTBASE"), 0.0) * 10);
+	OB->TxTStyle = obj->attribute("TXTSTYLE", "0").toInt();
+	OB->TxtShadowX = qRound(ScCLocale::toDoubleC(obj->attribute("TXTSHX"), 5.0) * 10);
+	OB->TxtShadowY = qRound(ScCLocale::toDoubleC(obj->attribute("TXTSHY"), -5.0) * 10);
+	OB->TxtOutline = qRound(ScCLocale::toDoubleC(obj->attribute("TXTOUT"), 1.0) * 10);
+	OB->TxtUnderPos = qRound(ScCLocale::toDoubleC(obj->attribute("TXTULP"), -0.1) * 10);
+	OB->TxtUnderWidth = qRound(ScCLocale::toDoubleC(obj->attribute("TXTULW"), -0.1) * 10);
+	OB->TxtStrikePos = qRound(ScCLocale::toDoubleC(obj->attribute("TXTSTP"), -0.1) * 10);
+	OB->TxtStrikeWidth = qRound(ScCLocale::toDoubleC(obj->attribute("TXTSTW"), -0.1) * 10);
 	OB->Cols = obj->attribute("COLUMNS", "1").toInt();
 	OB->ColGap = ScCLocale::toDoubleC(obj->attribute("COLGAP"), 0.0);
 	OB->GrType = obj->attribute("GRTYP", "0").toInt();
@@ -1531,15 +1531,15 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	OB->LocalX     = ScCLocale::toDoubleC(obj->attribute("LOCALX"));
 	OB->LocalY     = ScCLocale::toDoubleC(obj->attribute("LOCALY"));
 	OB->LocalRot   = 0.0;
-	OB->PicArt=obj->attribute("PICART").toInt();
+	OB->PicArt = obj->attribute("PICART").toInt();
 	OB->flippedH = obj->attribute("FLIPPEDH").toInt() % 2;
 	OB->flippedV = obj->attribute("FLIPPEDV").toInt() % 2;
-/*	OB->BBoxX=ScCLocale::toDoubleC(obj->attribute("BBOXX"));
-	OB->BBoxH=ScCLocale::toDoubleC(obj->attribute("BBOXH")); */
+/*	OB->BBoxX = ScCLocale::toDoubleC(obj->attribute("BBOXX"));
+	OB->BBoxH = ScCLocale::toDoubleC(obj->attribute("BBOXH")); */
 	OB->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
 	OB->AspectRatio = obj->attribute("RATIO", "0").toInt();
-	OB->isPrintable=obj->attribute("PRINTABLE").toInt();
-	OB->m_isAnnotation=obj->attribute("ANNOTATION", "0").toInt();
+	OB->isPrintable = obj->attribute("PRINTABLE").toInt();
+	OB->m_isAnnotation = obj->attribute("ANNOTATION", "0").toInt();
 	OB->m_annotation.setType(obj->attribute("ANTYPE", "0").toInt());
 	OB->m_annotation.setAction(obj->attribute("ANACTION",""));
 	OB->m_annotation.setE_act(obj->attribute("ANEACT",""));
@@ -1559,7 +1559,7 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 		OB->m_annotation.setExtern(efp.absoluteFilePath());
 	}
 	OB->m_annotation.setZiel(obj->attribute("ANZIEL", "0").toInt());
-	OB->itemName=obj->attribute("ANNAME","");
+	OB->itemName = obj->attribute("ANNAME","");
 	OB->m_annotation.setToolTip(obj->attribute("ANTOOLTIP",""));
 	OB->m_annotation.setRollOver(obj->attribute("ANROLL",""));
 	OB->m_annotation.setDown(obj->attribute("ANDOWN",""));
@@ -1582,7 +1582,7 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	OB->m_annotation.setScaleW(obj->attribute("ANSCALE", "0").toInt());
 	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
 		OB->Pcolor = CommonStrings::None;
-	OB->textAlignment=obj->attribute("ALIGN", "0").toInt();
+	OB->textAlignment = obj->attribute("ALIGN", "0").toInt();
 	if ( obj->hasAttribute("TEXTFLOWMODE") )
 		OB->TextflowMode = (PageItem::TextFlowMode) obj->attribute("TEXTFLOWMODE", "0").toInt();
 	else if ( obj->attribute("TEXTFLOW").toInt() )
@@ -1596,10 +1596,10 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	}
 	else
 		OB->TextflowMode = PageItem::TextFlowDisabled;
-	OB->Extra=ScCLocale::toDoubleC(obj->attribute("EXTRA"));
-	OB->TExtra=ScCLocale::toDoubleC(obj->attribute("TEXTRA"), 1.0);
-	OB->BExtra=ScCLocale::toDoubleC(obj->attribute("BEXTRA"), 1.0);
-	OB->RExtra=ScCLocale::toDoubleC(obj->attribute("REXTRA"), 1.0);
+	OB->Extra = ScCLocale::toDoubleC(obj->attribute("EXTRA"));
+	OB->TExtra = ScCLocale::toDoubleC(obj->attribute("TEXTRA"), 1.0);
+	OB->BExtra = ScCLocale::toDoubleC(obj->attribute("BEXTRA"), 1.0);
+	OB->RExtra = ScCLocale::toDoubleC(obj->attribute("REXTRA"), 1.0);
 	OB->PoShow = obj->attribute("PLTSHOW", "0").toInt();
 	OB->BaseOffs = ScCLocale::toDoubleC(obj->attribute("BASEOF"), 0.0);
 	OB->textPathType =  obj->attribute("textPathType", "0").toInt();
@@ -1822,9 +1822,9 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& /*renamedPageName*/)
 {
 //	qDebug() << QString("loading page %2 from file '%1' from 1.2.x plugin").arg(fileName).arg(pageNumber);
-	if (m_Doc==nullptr || m_View==nullptr || m_AvailableFonts==nullptr)
+	if (m_Doc == nullptr || m_View == nullptr || m_AvailableFonts == nullptr)
 	{
-		Q_ASSERT(m_Doc==nullptr || m_View==nullptr|| m_AvailableFonts==nullptr);
+		Q_ASSERT(m_Doc == nullptr || m_View == nullptr || m_AvailableFonts == nullptr);
 		return false;
 	}
 
@@ -1845,7 +1845,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	int maxLayer = 0;
 	int maxLevel = 0;
 	layerTrans.clear();
-	uint layerCount=m_Doc->layerCount();
+	uint layerCount = m_Doc->layerCount();
 	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
 		maxLayer = qMax(m_Doc->Layers[la2].ID, maxLayer);
@@ -1874,7 +1874,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	}
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	ScColor lf;
-	QDomElement elem=docu.documentElement();
+	QDomElement elem = docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
 	if (elem.hasAttribute("Version"))
@@ -1979,7 +1979,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				} */
 				if (Mpage)
 				{
-					m_Doc->Pages->at(a)->LeftPg=pg.attribute("LEFT", "0").toInt();
+					m_Doc->Pages->at(a)->LeftPg = pg.attribute("LEFT", "0").toInt();
 					m_Doc->Pages->at(a)->setPageName(pg.attribute("NAM",""));
 				}
 				TableItems.clear();
@@ -2018,8 +2018,8 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						}
 					}
 					GetItemProps(&obj, &OB, fileDir, newVersion);
-					OB.Xpos = ScCLocale::toDoubleC(obj.attribute("XPOS"))+m_Doc->Pages->at(a)->xOffset();
-					OB.Ypos=ScCLocale::toDoubleC(obj.attribute("YPOS"))+m_Doc->Pages->at(a)->yOffset();
+					OB.Xpos = ScCLocale::toDoubleC(obj.attribute("XPOS")) + m_Doc->Pages->at(a)->xOffset();
+					OB.Ypos = ScCLocale::toDoubleC(obj.attribute("YPOS")) + m_Doc->Pages->at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
 					if (!m_Doc->docLineStyles.contains(OB.NamedLStyle))
 						OB.NamedLStyle = "";
@@ -2267,7 +2267,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	tmpf = pg->attribute("FONT", doc->itemToolPrefs().textFont);
 	if (tmpf.isEmpty())
 		tmpf = doc->itemToolPrefs().textFont;
-	PrefsManager& prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	prefsManager.appPrefs.fontPrefs.AvailFonts.findFont(tmpf, doc);
 	vg->charStyle().setFont(prefsManager.appPrefs.fontPrefs.AvailFonts[tmpf]);
 	vg->charStyle().setFontSize(qRound(ScCLocale::toDoubleC(pg->attribute("FONTSIZE"), 12.0) * 10.0));
@@ -2436,7 +2436,7 @@ bool Scribus12Format::readLineStyles(const QString& fileName, QHash<QString,mult
 		return false;
 	if (!docu.setContent(f))
 		return false;
-	QDomElement elem=docu.documentElement();
+	QDomElement elem = docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
 	QDomNode docNode = elem.firstChild();
@@ -2496,7 +2496,7 @@ bool Scribus12Format::readColors(const QString& fileName, ColorList & colors)
 		return false;
 	colors.clear();
 	ScColor lf;
-	QDomElement elem=docu.documentElement();
+	QDomElement elem = docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
 	QDomNode docNode = elem.firstChild();
@@ -2542,7 +2542,7 @@ bool Scribus12Format::readPageCount(const QString& fileName, int *num1, int *num
 		return false;
 	if (!docu.setContent(f))
 		return false;
-	QDomElement elem=docu.documentElement();
+	QDomElement elem = docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
 	QDomNode docNode = elem.firstChild();

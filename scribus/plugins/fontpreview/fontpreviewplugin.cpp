@@ -84,13 +84,13 @@ Create dialog and insert font into Style menu when user accepts.
 */
 bool FontPreviewPlugin::run(ScribusDoc* doc, const QString& target)
 {
-	ScribusMainWindow* scmw=(doc==nullptr)?ScCore->primaryMainWindow():doc->scMW();
+	ScribusMainWindow* scmw = (doc == nullptr) ? ScCore->primaryMainWindow() : doc->scMW();
 	return run(scmw, doc, target);
 }
 
 bool FontPreviewPlugin::run(QWidget* parent, ScribusDoc* doc, const QString& target)
 {
-	if (doc==nullptr)
+	if (doc == nullptr)
 		return false;
 	// I don't know how many fonts user has...
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));

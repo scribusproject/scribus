@@ -129,7 +129,7 @@ bool ImportPctPlugin::import(QString fileName, int flags)
 			return true;
 	}
 	if (m_Doc == nullptr)
-		m_Doc=ScCore->primaryMainWindow()->doc;
+		m_Doc = ScCore->primaryMainWindow()->doc;
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());

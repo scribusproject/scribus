@@ -131,7 +131,7 @@ bool XPSExportPlugin::run(ScribusDoc* doc, const QString& filename)
 {
 	Q_ASSERT(filename.isEmpty());
 	QString fileName;
-	if (doc!=nullptr)
+	if (doc != nullptr)
 	{
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("xpsex");
 		QString wdir = prefs->get("wdir", ".");

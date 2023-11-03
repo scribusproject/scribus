@@ -33,14 +33,14 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		void deleteAboutData(const AboutData* about) const override;
 		void languageChange() override;
 		//Not the same as readSLA. This one only reads max 4k of the file for speed.
-		bool fileSupported(QIODevice* file, const QString & fileName=QString()) const override;
+		bool fileSupported(QIODevice* file, const QString& fileName = QString()) const override;
 
 		bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0) override;
 		bool saveFile(const QString & fileName, const FileFormat & fmt) override { return false; };
 		void addToMainWindowMenu(ScribusMainWindow *) override {};
 
 		// Special features - .sla page extraction support
-		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString()) override;
+		bool loadPage(const QString& fileName, int pageNumber, bool Mpage, const QString& renamedPageName = QString()) override;
 		bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) override;
 		bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty) override;
 		bool readColors(const QString& fileName, ColorList & colors) override;
@@ -50,7 +50,7 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 	private:
 		void registerFormats();
 		//Scribus Doc vars, not plugin vars
-		void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo=false, bool VorLFound=false);
+		void GetItemText(QDomElement* it, ScribusDoc* doc, PageItem* obj, LastStyles* last, bool impo = false, bool VorLFound = false);
 		void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, ScribusDoc *doc);
 		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir, PageItem::ItemKind itemKind, int pagenr = -2 /* currentPage*/);
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl);
