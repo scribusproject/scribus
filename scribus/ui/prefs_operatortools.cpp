@@ -64,13 +64,13 @@ void Prefs_OperatorTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_OperatorTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->opToolPrefs.magMin=zoomMinimumSpinBox->value();
-	prefsData->opToolPrefs.magMax=zoomMaximumSpinBox->value();
-	prefsData->opToolPrefs.magStep=zoomSteppingSpinBox->value();
+	prefsData->opToolPrefs.magMin = zoomMinimumSpinBox->value();
+	prefsData->opToolPrefs.magMax = zoomMaximumSpinBox->value();
+	prefsData->opToolPrefs.magStep = zoomSteppingSpinBox->value();
 	double unitRatio = unitGetRatioFromIndex(prefsData->docSetupPrefs.docUnitIndex);
-	prefsData->opToolPrefs.dispX=itemDuplicateXDispSpinBox->value() / unitRatio;
-	prefsData->opToolPrefs.dispY=itemDuplicateYDispSpinBox->value() / unitRatio;
-	prefsData->opToolPrefs.constrain=rotationConstraintSpinBox->value();
+	prefsData->opToolPrefs.dispX = itemDuplicateXDispSpinBox->value() / unitRatio;
+	prefsData->opToolPrefs.dispY = itemDuplicateYDispSpinBox->value() / unitRatio;
+	prefsData->opToolPrefs.constrain = rotationConstraintSpinBox->value();
 }
 
 

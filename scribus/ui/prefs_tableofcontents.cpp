@@ -194,7 +194,7 @@ void Prefs_TableOfContents::selectToC(int numberSelected)
 
 		if (itemParagraphStyleComboBox->count() > 0)
 		{
-			if (!paragraphStyleList.contains(localToCSetupVector[numSelected].textStyle) || localToCSetupVector[numSelected].textStyle==CommonStrings::None)
+			if (!paragraphStyleList.contains(localToCSetupVector[numSelected].textStyle) || localToCSetupVector[numSelected].textStyle == CommonStrings::None)
 				setCurrentComboItem(itemParagraphStyleComboBox, CommonStrings::tr_None);
 			else
 				setCurrentComboItem(itemParagraphStyleComboBox, localToCSetupVector[numSelected].textStyle);
@@ -258,7 +258,7 @@ void Prefs_TableOfContents::updateParagraphStyleComboBox()
 	paragraphStyleList.clear();
 	paragraphStyleList.append(CommonStrings::tr_None);
 
-	if(m_Doc!=nullptr) // && m_Doc->docParagraphStyles.count()>5)
+	if (m_Doc != nullptr) // && m_Doc->docParagraphStyles.count()>5)
 	{
 		for (int i = 0; i < m_Doc->paragraphStyles().count(); ++i)
 			paragraphStyleList.append(m_Doc->paragraphStyles()[i].name());
@@ -386,7 +386,7 @@ void Prefs_TableOfContents::itemParagraphStyleSelected( const QString& itemStyle
 		return;
 
 	int i = 0;
-	ToCSetupVector::Iterator it=localToCSetupVector.begin();
+	ToCSetupVector::Iterator it = localToCSetupVector.begin();
 	while (it != localToCSetupVector.end() && i < numberSelected)
 	{
 		++it;

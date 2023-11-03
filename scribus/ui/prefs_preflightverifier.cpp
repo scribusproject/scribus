@@ -92,8 +92,8 @@ void Prefs_PreflightVerifier::restoreDefaults(struct ApplicationPrefs *prefsData
 
 void Prefs_PreflightVerifier::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->verifierPrefs.showPagesWithoutErrors=showPagesWithoutErrorsCheckBox->isChecked();
-	prefsData->verifierPrefs.showNonPrintingLayerErrors=showNonPrintingLayerErrorsCheckBox->isChecked();
+	prefsData->verifierPrefs.showPagesWithoutErrors = showPagesWithoutErrorsCheckBox->isChecked();
+	prefsData->verifierPrefs.showNonPrintingLayerErrors = showNonPrintingLayerErrorsCheckBox->isChecked();
 	prefsData->verifierPrefs.checkerPrefsList = checkerProfiles;
 	prefsData->verifierPrefs.curCheckProfile = currentProfileComboBox->currentText();
 }
@@ -130,12 +130,12 @@ void Prefs_PreflightVerifier::setProfile(const QString& name)
 	{
 		putProfile();
 		updateProfile(name);
-		tempNewProfileName="";
+		tempNewProfileName = "";
 		addProfilePushButton->setEnabled(false);
 	}
 	else
 	{
-		tempNewProfileName=name;
+		tempNewProfileName = name;
 		addProfilePushButton->setEnabled(true);
 	}
 }
@@ -252,7 +252,7 @@ void Prefs_PreflightVerifier::delProf()
 	updateProfile(checkerProfiles.begin().key());
 	currentProfileComboBox->clear();
 	CheckerPrefsList::Iterator it;
-	CheckerPrefsList::Iterator itend=checkerProfiles.end();
+	CheckerPrefsList::Iterator itend = checkerProfiles.end();
 	for (it = checkerProfiles.begin(); it != itend; ++it)
 		currentProfileComboBox->addItem(it.key());
 	setCurrentComboItem(currentProfileComboBox, currentProfile);

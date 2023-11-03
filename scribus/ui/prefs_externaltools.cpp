@@ -75,23 +75,23 @@ void Prefs_ExternalTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 {
 	prefsData->extToolPrefs.gs_AntiAliasGraphics = psAntialiasGraphicsCheckBox->isChecked();
 	prefsData->extToolPrefs.gs_AntiAliasText = psAntialiasTextCheckBox->isChecked();
-	prefsData->extToolPrefs.gs_exe=QDir::fromNativeSeparators(psToolLineEdit->text());
+	prefsData->extToolPrefs.gs_exe = QDir::fromNativeSeparators(psToolLineEdit->text());
 	prefsData->extToolPrefs.gs_Resolution = psResolutionSpinBox->value();
 
-	prefsData->extToolPrefs.imageEditorExecutable=QDir::fromNativeSeparators(imageToolLineEdit->text());
-	prefsData->extToolPrefs.extBrowserExecutable=QDir::fromNativeSeparators(webBrowserLineEdit->text());
+	prefsData->extToolPrefs.imageEditorExecutable = QDir::fromNativeSeparators(imageToolLineEdit->text());
+	prefsData->extToolPrefs.extBrowserExecutable = QDir::fromNativeSeparators(webBrowserLineEdit->text());
 
 	prefsData->extToolPrefs.latexResolution = latexResolutionSpinBox->value();
 	prefsData->extToolPrefs.latexForceDpi = latexForceDPICheckBox->checkState() == Qt::Checked;
 	prefsData->extToolPrefs.latexStartWithEmptyFrames = latexEmptyFrameCheckBox->checkState() == Qt::Checked;
 	QStringList configsList;
-	for (int i=0; i < latexConfigsListWidget->count(); i++)
+	for (int i = 0; i < latexConfigsListWidget->count(); i++)
 		configsList.append(latexConfigsListWidget->item(i)->data(Qt::UserRole).toString());
-	prefsData->extToolPrefs.latexConfigs=configsList;
-	prefsData->extToolPrefs.latexCommands=commands;
-	prefsData->extToolPrefs.latexEditorExecutable=QDir::fromNativeSeparators(latexEditorLineEdit->text());
-	prefsData->extToolPrefs.uniconvExecutable=QDir::fromNativeSeparators(uniconvertorLineEdit->text());
-	prefsData->extToolPrefs.pdfViewerExecutable=QDir::fromNativeSeparators(pdfViewerLineEdit->text());
+	prefsData->extToolPrefs.latexConfigs = configsList;
+	prefsData->extToolPrefs.latexCommands = commands;
+	prefsData->extToolPrefs.latexEditorExecutable = QDir::fromNativeSeparators(latexEditorLineEdit->text());
+	prefsData->extToolPrefs.uniconvExecutable = QDir::fromNativeSeparators(uniconvertorLineEdit->text());
+	prefsData->extToolPrefs.pdfViewerExecutable = QDir::fromNativeSeparators(pdfViewerLineEdit->text());
 }
 
 void Prefs_ExternalTools::changePostScriptTool()
@@ -276,7 +276,7 @@ void Prefs_ExternalTools::changeLatexPath()
 	QString oldCommand = commands[config];
 	if (oldCommand.isEmpty())
 		oldCommand = LatexConfigCache::instance()->parser(config)->executable();
-	bool ok=false;
+	bool ok = false;
 	QString newCommand = QInputDialog::getText(this, tr("Change Command"),
 		tr("Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)"), QLineEdit::Normal, oldCommand, &ok);
 	if (ok)

@@ -21,12 +21,12 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 	Q_OBJECT
 
 	public:
-		Prefs_PDFExport(QWidget* parent, ScribusDoc* doc=nullptr);
+		Prefs_PDFExport(QWidget* parent, ScribusDoc* doc = nullptr);
 		~Prefs_PDFExport();
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData)  override;
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData, const ProfilesL & PDFXProfiles,
-									 bool exporting=false);
+									 bool exporting = false);
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 		void enableCMS(bool);
 

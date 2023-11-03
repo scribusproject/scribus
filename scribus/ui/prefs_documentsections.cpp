@@ -240,7 +240,7 @@ void Prefs_DocumentSections::deleteEntry()
 	int currRow = sectionsTable->currentRow();
 	if (currRow == 0 && m_localSections.count() == 1)
 		return;
-	bool found=false;
+	bool found = false;
 	DocumentSectionMap::Iterator it = m_localSections.begin();
 	int count = 0;
 	for (; it!= m_localSections.end(); ++it)
@@ -274,7 +274,7 @@ void Prefs_DocumentSections::deleteEntry()
 			m_localSections.insert(i++, it.value());
 		}
 		int newCount = m_localSections.count();
-		//int preIndex=qMax(currentIndex-1, 0);
+		//int preIndex = qMax(currentIndex - 1, 0);
 		m_localSections[0].fromindex = 0;
 		m_localSections[newCount - 1].toindex = m_maxPageIndex;
 		updateTable();

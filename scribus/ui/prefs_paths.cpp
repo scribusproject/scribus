@@ -47,10 +47,10 @@ void Prefs_Paths::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_Paths::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->pathPrefs.documents=docDirLineEdit->text();
-	prefsData->pathPrefs.colorProfiles=profileDirLineEdit->text();
-	prefsData->pathPrefs.scripts=scriptDirLineEdit->text();
-	prefsData->pathPrefs.documentTemplates=templateDirLineEdit->text();
+	prefsData->pathPrefs.documents = docDirLineEdit->text();
+	prefsData->pathPrefs.colorProfiles = profileDirLineEdit->text();
+	prefsData->pathPrefs.scripts = scriptDirLineEdit->text();
+	prefsData->pathPrefs.documentTemplates = templateDirLineEdit->text();
 }
 
 void Prefs_Paths::changeDocs()

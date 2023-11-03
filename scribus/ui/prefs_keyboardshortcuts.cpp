@@ -93,7 +93,7 @@ void Prefs_KeyboardShortcuts::languageChange()
 
 void Prefs_KeyboardShortcuts::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
-	keyMap=prefsData->keyShortcutPrefs.KeyActions;
+	keyMap = prefsData->keyShortcutPrefs.KeyActions;
 	loadableSets->clear();
 	loadableSets->addItems(scanForSets());
 	insertActions();
@@ -102,17 +102,17 @@ void Prefs_KeyboardShortcuts::restoreDefaults(struct ApplicationPrefs *prefsData
 
 void Prefs_KeyboardShortcuts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->keyShortcutPrefs.KeyActions=keyMap;
+	prefsData->keyShortcutPrefs.KeyActions = keyMap;
 }
 
 void Prefs_KeyboardShortcuts::setNoKey()
 {
 	if (noKey->isChecked())
 	{
-		if (selectedLVI!=nullptr)
+		if (selectedLVI != nullptr)
 		{
-			selectedLVI->setText(1,"");
-			keyMap[lviToActionMap[selectedLVI]].keySequence=QKeySequence();
+			selectedLVI->setText(1, "");
+			keyMap[lviToActionMap[selectedLVI]].keySequence = QKeySequence();
 		}
 		keyDisplay->setText("");
 		noKey->setChecked(true);
@@ -212,11 +212,11 @@ bool Prefs_KeyboardShortcuts::exportKeySet(const QString& filename)
 			return false;
 
 		QDomDocument doc( "keymapentries" );
-		QString keyset=QString("<shortcutset name=\"%1\"></shortcutset>").arg(setName);
+		QString keyset = QString("<shortcutset name=\"%1\"></shortcutset>").arg(setName);
 		doc.setContent(keyset);
-		QDomElement keySetElement=doc.documentElement();
-		QMap<QString,Keys>::Iterator itEnd=keyMap.end();
-		for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=itEnd; ++it)
+		QDomElement keySetElement = doc.documentElement();
+		QMap<QString, Keys>::Iterator itEnd = keyMap.end();
+		for (QMap<QString, Keys>::Iterator it = keyMap.begin(); it != itEnd; ++it)
 		{
 			if (it.value().keySequence.isEmpty() && it.key().isEmpty())
 				continue;
@@ -240,8 +240,8 @@ bool Prefs_KeyboardShortcuts::exportKeySet(const QString& filename)
 
 void Prefs_KeyboardShortcuts::resetKeySet()
 {
-	QString location=ScPaths::instance().shareDir();
-	QString defaultKeySetFileName=QDir::toNativeSeparators(location+"keysets/scribus15.xml");
+	QString location = ScPaths::instance().shareDir();
+	QString defaultKeySetFileName = QDir::toNativeSeparators(location + "keysets/scribus15.xml");
 	importKeySet(defaultKeySetFileName);
 }
 
@@ -300,7 +300,7 @@ QString Prefs_KeyboardShortcuts::getTrKeyText(const QKeySequence& KeyC)
 
 void Prefs_KeyboardShortcuts::setKeyText()
 {
-	if (keyTable->currentItem()==nullptr)
+	if (keyTable->currentItem() == nullptr)
 	{
 		setKeyButton->setChecked(false);
 		return;
@@ -342,7 +342,7 @@ void Prefs_KeyboardShortcuts::insertActions()
 		currMenuLVI->setText(0, actionStrings.first);
 		currMenuLVI->setExpanded(true);
 		currMenuLVI->setFlags(Qt::ItemIsEnabled);
-		prevMenuLVI=currMenuLVI;
+		prevMenuLVI = currMenuLVI;
 		first = true;
 		currLVI = nullptr;
 		prevLVI = nullptr;
@@ -368,7 +368,7 @@ void Prefs_KeyboardShortcuts::insertActions()
 			lviToActionMap.insert(currLVI, actionName);
 			currLVI->setText(0, actionKeys.cleanMenuText);
 			currLVI->setText(1, actionKeys.keySequence.toString(QKeySequence::NativeText));
-			prevLVI=currLVI;
+			prevLVI = currLVI;
 		}
 	}
 	//Non menu actions
@@ -447,10 +447,10 @@ void Prefs_KeyboardShortcuts::dispKey(QTreeWidgetItem* qlvi, QTreeWidgetItem*)
 		releaseKeyboard();
 		setKeyButton->setChecked(false);
 	}
-	if (qlvi!=nullptr && lviToActionMap.contains(qlvi))
+	if (qlvi != nullptr && lviToActionMap.contains(qlvi))
 	{
 		selectedLVI = qlvi;
-		QString actionName=lviToActionMap[qlvi];
+		QString actionName = lviToActionMap[qlvi];
 		if (actionName.isEmpty())
 			return;
 		keyDisplay->setText(keyMap[actionName].keySequence.toString(QKeySequence::NativeText));
@@ -517,7 +517,7 @@ void Prefs_KeyboardShortcuts::keyPressEvent(QKeyEvent *k)
 				{
 					QKeySequence newKeySequence(keyCode);
 					selectedLVI->setText(1, newKeySequence.toString(QKeySequence::NativeText));
-					keyMap[actionName].keySequence=newKeySequence;
+					keyMap[actionName].keySequence = newKeySequence;
 					userDef->setChecked(true);
 				}
 			}

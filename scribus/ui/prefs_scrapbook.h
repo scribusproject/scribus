@@ -19,7 +19,7 @@ class SCRIBUS_API Prefs_Scrapbook : public Prefs_Pane, Ui::Prefs_Scrapbook
 	Q_OBJECT
 
 	public:
-		Prefs_Scrapbook(QWidget* parent, ScribusDoc* doc=nullptr);
+		Prefs_Scrapbook(QWidget* parent, ScribusDoc* doc = nullptr);
 		~Prefs_Scrapbook();
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;

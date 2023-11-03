@@ -19,7 +19,7 @@ class SCRIBUS_API Prefs_Paths : public Prefs_Pane, Ui::Prefs_Paths
 	Q_OBJECT
 
 	public:
-		Prefs_Paths(QWidget* parent, ScribusDoc* doc=nullptr);
+		Prefs_Paths(QWidget* parent, ScribusDoc* doc = nullptr);
 		~Prefs_Paths();
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;

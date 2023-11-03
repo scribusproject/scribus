@@ -19,7 +19,7 @@ class SCRIBUS_API Prefs_Experimental : public Prefs_Pane, Ui::Prefs_Experimental
 	Q_OBJECT
 
 	public:
-		Prefs_Experimental(QWidget* parent, ScribusDoc* doc=nullptr);
+		Prefs_Experimental(QWidget* parent, ScribusDoc* doc = nullptr);
 		~Prefs_Experimental();
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;

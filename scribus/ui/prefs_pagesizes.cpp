@@ -74,7 +74,7 @@ void Prefs_PageSizes::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	for (int i = 0; i < activeSizesListWidget->count(); ++i)
 		newActivePageSizes << activeSizesListWidget->item(i)->text();
 	PageSize ps(prefsData->docSetupPrefs.pageSize);
-	prefsData->activePageSizes=ps.untransPageSizeList(newActivePageSizes);
+	prefsData->activePageSizes = ps.untransPageSizeList(newActivePageSizes);
 }
 
 void Prefs_PageSizes::moveToActive()
@@ -82,7 +82,7 @@ void Prefs_PageSizes::moveToActive()
 	QList<QListWidgetItem *> si(availableSizesListWidget->selectedItems());
 	for (int i = 0; i < si.count(); ++i)
 	{
-		QListWidgetItem *it=availableSizesListWidget->takeItem(availableSizesListWidget->row(si.at(i)));
+		QListWidgetItem* it = availableSizesListWidget->takeItem(availableSizesListWidget->row(si.at(i)));
 		activeSizesListWidget->addItem(it);
 	}
 }
@@ -94,7 +94,7 @@ void Prefs_PageSizes::moveFromActive()
 	{
 		if (activeSizesListWidget->count()>1)
 		{
-			QListWidgetItem *it=activeSizesListWidget->takeItem(activeSizesListWidget->row(si.at(i)));
+			QListWidgetItem* it = activeSizesListWidget->takeItem(activeSizesListWidget->row(si.at(i)));
 			availableSizesListWidget->addItem(it);
 		}
 	}

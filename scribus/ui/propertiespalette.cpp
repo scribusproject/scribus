@@ -80,7 +80,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette(parent, "
 	idShapeItem = TabStack->addItem( shapePal, "&Shape" );
 
 	linePal = new PropertiesPalette_Line(this);
-	idLineItem=TabStack->addItem( linePal, "&Line" );
+	idLineItem = TabStack->addItem(linePal, "&Line");
 
 	colorPalette = new ColorPalette(this);
 	idColorsItem = TabStack->addItem(colorPalette, "&Colors" );
@@ -226,7 +226,7 @@ void PropertiesPalette::unsetDoc()
 	setEnabled(true);
 	m_haveDoc = false;
 	m_haveItem = false;
-	m_doc=nullptr;
+	m_doc = nullptr;
 	m_item = nullptr;
 
 	xyzPal->unsetItem();
@@ -782,7 +782,7 @@ void PropertiesPalette::updateColorSpecialGradient()
 	if(m_doc->m_Selection->isEmpty())
 		return;
 
-	PageItem *currItem=m_doc->m_Selection->itemAt(0);
+	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	if (currItem)
 	{
 		if (m_ScMW->view->editStrokeGradient == 0)
