@@ -141,7 +141,7 @@ class SCRIBUS_API FormatsManager
 		QList<QByteArray> m_supportedImageFormats;
 
 		void updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats) const;
-		void fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly=false) const;
+		void fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly = false) const;
 		
 	private:
 	/**

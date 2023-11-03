@@ -82,7 +82,7 @@ public:
 	static bool firstRun;
 
 public slots:
-	void jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile="", bool dontChangeIfAlreadyLoaded=false);
+	void jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile = "", bool dontChangeIfAlreadyLoaded = false);
 
 protected:
 	void closeEvent(QCloseEvent * event) override;

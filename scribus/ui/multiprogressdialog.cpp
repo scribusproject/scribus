@@ -52,14 +52,14 @@ void MultiProgressDialog::removeExtraProgressBars()
 
 bool MultiProgressDialog::addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts, const QList<bool>& barsNumerical)
 {
-	uint barCount=barsList.count();
-	if (barCount==0)
+	uint barCount = barsList.count();
+	if (barCount == 0)
 		return false;
-	int gridLayoutRow=gridLayout->rowCount();
-	for (uint i=0; i<barCount; ++i)
+	int gridLayoutRow = gridLayout->rowCount();
+	for (uint i = 0; i < barCount; ++i)
 	{
 		QString barName(barsList[i]);
-		if(progressBarTitles.contains(barName))
+		if (progressBarTitles.contains(barName))
 			continue;
 		progressBarTitles.append(barName);
 		progressBars.insert(barName, new QProgressBar(this));

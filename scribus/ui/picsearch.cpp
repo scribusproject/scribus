@@ -72,7 +72,7 @@ void PicSearch::createPreview()
 {
 	const auto currentImage = foundFilesBox->currentItem()->text();
 	QPixmap pm(200, 200);
-	QFileInfo fi = QFileInfo(currentImage);
+	QFileInfo fi(currentImage);
 	int w = 200;
 	int h = 200;
 	bool mode = false;
@@ -85,7 +85,7 @@ void PicSearch::createPreview()
 	cms.allowColorManagement(false);
 	if (im.loadPicture(currentImage, 1, cms, ScImage::Thumbnail, 72, &mode))
 	{
-		int ix,iy;
+		int ix, iy;
 		if ((im.imgInfo.exifDataValid) && (!im.imgInfo.exifInfo.thumbnail.isNull()))
 		{
 			ix = im.imgInfo.exifInfo.width;
@@ -101,29 +101,29 @@ void PicSearch::createPreview()
 		QString tmp = "";
 		QString tmp2 = "";
 		QImage im2;
-		if ((ix > w-5) || (iy > h-44))
+		if ((ix > w - 5) || (iy > h - 44))
 		{
-			double sx = im.width() / static_cast<double>(w-5);
-			double sy = im.height() / static_cast<double>(h-44);
+			double sx = im.width() / static_cast<double>(w - 5);
+			double sy = im.height() / static_cast<double>(h - 44);
 			im2 = sy < sx ? im.scaled(qRound(im.width() / sx), qRound(im.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation)
 						: im.scaled(qRound(im.width() / sy), qRound(im.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		}
 		else
 			im2 = im.qImage(); // no need to copy
 		QPainter p;
-		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
+		QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
 		p.begin(&pm);
-		p.fillRect(0, 0, w, h-44, b);
-		p.fillRect(0, h-44, w, 44, QColor(255, 255, 255));
+		p.fillRect(0, 0, w, h - 44, b);
+		p.fillRect(0, h - 44, w, 44, QColor(255, 255, 255));
 		p.drawImage((w - im2.width()) / 2, (h - 44 - im2.height()) / 2, im2);
-		p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
-		p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
+		p.drawText(2, h - 29, tr("Size:") + " " + tmp.setNum(ix) + " x " + tmp2.setNum(iy));
+		p.drawText(2, h - 17, tr("Resolution:") + " " + tmp.setNum(xres) + " x " + tmp2.setNum(yres) + " " + tr("DPI"));
 		QString cSpace;
 		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (im.imgInfo.type != ImageType7))
 			cSpace = tr("Unknown");
 		else
-			cSpace=colorSpaceText(im.imgInfo.colorspace);
-		p.drawText(2, h-5, tr("Colorspace:")+" "+cSpace);
+			cSpace = colorSpaceText(im.imgInfo.colorspace);
+		p.drawText(2, h - 5, tr("Colorspace:") + " " + cSpace);
 		p.end();
 		repaint();
 	}

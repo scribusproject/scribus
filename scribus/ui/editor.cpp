@@ -124,7 +124,7 @@ void Editor::del()
 
 void Editor::iconSetChange()
 {
-	IconManager& im=IconManager::instance();
+	IconManager& im = IconManager::instance();
 
 	setWindowIcon(im.loadIcon("AppIcon.png"));
 

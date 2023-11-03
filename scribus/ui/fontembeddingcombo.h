@@ -23,7 +23,7 @@ class SCRIBUS_API FontEmbeddingCombo : public QComboBox
 	Q_OBJECT
 
 public:
-	FontEmbeddingCombo(QWidget* parent=nullptr);
+	FontEmbeddingCombo(QWidget* parent = nullptr);
 	~FontEmbeddingCombo();
 
 	PDFOptions::PDFFontEmbedding embeddingMode() const;

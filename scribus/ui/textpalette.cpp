@@ -124,7 +124,7 @@ void TextPalette::unsetDoc()
 	setEnabled(true);
 	m_haveDoc = false;
 	m_haveItem = false;
-	m_doc=nullptr;
+	m_doc = nullptr;
 	m_item = nullptr;
 
 	textPal->unsetItem();

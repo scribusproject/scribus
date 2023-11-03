@@ -416,7 +416,7 @@ public:
 // 	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
 	~StoryEditor();
 
-	void setCurrentDocumentAndItem(ScribusDoc *doc=nullptr, PageItem *item=nullptr);
+	void setCurrentDocumentAndItem(ScribusDoc* doc = nullptr, PageItem* item = nullptr);
 	void setSpellActive(bool ssa);
 
 	ScribusDoc* currentDocument() const;

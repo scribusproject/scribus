@@ -122,22 +122,19 @@ QImage ProofImage(QImage *Image, ScribusDoc* doc)
 	if (cmsUse && softProofing)
 	{
 		int outheight = out.height();
-		for (int i=0; i < outheight; ++i)
+		for (int i = 0; i < outheight; ++i)
 		{
 			uchar* ptr = out.scanLine(i);
 			doc->stdProofImg.apply(ptr, ptr, out.width());
 		}
 	}
-	else
+	else if (cmsUse)
 	{
-		if (cmsUse)
+		int outheight = out.height();
+		for (int i = 0; i < outheight; ++i)
 		{
-			int outheight=out.height();
-			for (int i=0; i < outheight; ++i)
-			{
-				uchar* ptr = out.scanLine(i);
-				doc->stdTransImg.apply(ptr, ptr, out.width());
-			}
+			uchar* ptr = out.scanLine(i);
+			doc->stdTransImg.apply(ptr, ptr, out.width());
 		}
 	}
 	return out;
@@ -159,7 +156,7 @@ QPixmap * getSmallPixmap(const QColor& rgb)
 {
 	static ScPixmapCache<QRgb> pxCache;
 
-	QRgb index=rgb.rgb();
+	QRgb index = rgb.rgb();
 	if (pxCache.contains(index))
 		return pxCache[index];
 
@@ -180,7 +177,7 @@ QPixmap * getWidePixmap(const QColor& rgb)
 {
 	static ScPixmapCache<QRgb> pxCache;
 
-	QRgb index=rgb.rgb();
+	QRgb index = rgb.rgb();
 	if (pxCache.contains(index))
 		return pxCache[index];
 
@@ -255,7 +252,7 @@ QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc)
 
 	if (!iconsInitialized)
 	{
-		IconManager& im=IconManager::instance();
+		IconManager& im = IconManager::instance();
 		alertIcon = im.loadPixmap("alert.png");
 		cmykIcon = im.loadPixmap("cmyk.png");
 		rgbIcon = im.loadPixmap("rgb.png");

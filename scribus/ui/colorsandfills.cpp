@@ -1996,7 +1996,7 @@ QString ColorsAndFillsDialog::selectedColorName() const
 
 void ColorsAndFillsDialog::keyPressEvent(QKeyEvent* k)
 {
-	if (k->modifiers()!=Qt::NoModifier || (k->key()!=Qt::Key_Delete && k->key()!=Qt::Key_Backspace))
+	if (k->modifiers() != Qt::NoModifier || (k->key() != Qt::Key_Delete && k->key() != Qt::Key_Backspace))
 		return;
 
 	QString belowText;

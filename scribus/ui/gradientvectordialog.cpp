@@ -82,7 +82,7 @@ GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase(par
 	connect(resetAllPControlPoints, SIGNAL(clicked()), this, SIGNAL(resetAllControl()));
 	connect(snapToGrid, SIGNAL(clicked()), this, SLOT(handleSnapToGridBox()));
 	QSize iconSize = QSize(22, 22);
-	IconManager& im=IconManager::instance();
+	IconManager& im = IconManager::instance();
 	editPoints->setIcon(im.loadIcon("MoveNode.png"));
 	editPoints->setIconSize(iconSize);
 	editControlPoints->setIcon(im.loadIcon("MoveKontrol.png"));

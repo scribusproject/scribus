@@ -30,8 +30,8 @@ class ContextMenu : public QMenu
 {
 	Q_OBJECT
 public:
-	ContextMenu(Selection &sel, ScribusMainWindow *actionsParent, ScribusDoc* doc, QWidget* parent=nullptr);
-	ContextMenu(ScribusMainWindow *actionsParent, ScribusDoc* doc, double mx, double my, QWidget* parent=nullptr);
+	ContextMenu(Selection& sel, ScribusMainWindow* actionsParent, ScribusDoc* doc, QWidget* parent = nullptr);
+	ContextMenu(ScribusMainWindow* actionsParent, ScribusDoc* doc, double mx, double my, QWidget* parent = nullptr);
 	~ContextMenu();
 	
 protected:

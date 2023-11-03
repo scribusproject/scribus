@@ -130,7 +130,7 @@ void ScFileWidget::gotoSelectedDirectory()
 
 void ScFileWidget::gotoDesktopDirectory()
 {
-	QString dp=QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+	QString dp = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
 	QFileInfo fi(dp);
 	if (fi.exists())
 		setDirectory(dp);
@@ -138,7 +138,7 @@ void ScFileWidget::gotoDesktopDirectory()
 
 void ScFileWidget::gotoHomeDirectory()
 {
-	QString dp=QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+	QString dp = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 	QFileInfo fi(dp);
 	if (fi.exists())
 		setDirectory(dp);

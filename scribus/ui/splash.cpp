@@ -74,7 +74,7 @@ void ScSplashScreen::drawContents(QPainter* painter)
 	{
 		if (ScribusAPI::haveSVNRevision())
 		{
-			QString revText=QString("SVN Revision: %1").arg(ScribusAPI::getSVNRevision());
+			QString revText = QString("SVN Revision: %1").arg(ScribusAPI::getSVNRevision());
 			QRect r2 = rect().adjusted(0, 0, -15, -30);
 			painter->setFont(f);
 			painter->drawText(r2, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, revText );

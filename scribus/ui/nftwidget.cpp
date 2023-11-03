@@ -110,7 +110,7 @@ void nftwidget::setThumbnails()
 		tnailGrid->clear();
 		for (uint i = 0; i < iconItems.size(); ++i)
 		{
-			if (curtype==iconItems[i]->first->templateCategory)
+			if (curtype == iconItems[i]->first->templateCategory)
 			{
 				QPixmap pm(iconItems[i]->first->tnail);
 				if (pm.width() > 60)

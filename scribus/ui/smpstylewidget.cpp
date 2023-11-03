@@ -1024,7 +1024,7 @@ void SMPStyleWidget::setOpticalMargins(int o, bool inhO, const ParagraphStyle *p
 {
 	ParagraphStyle::OpticalMarginType om( static_cast<ParagraphStyle::OpticalMarginType>(o) );
 
-	if (parent==nullptr)
+	if (parent == nullptr)
 	{
 		if (om == ParagraphStyle::OM_Default)
 			optMarginRadioBoth->setChecked(true);

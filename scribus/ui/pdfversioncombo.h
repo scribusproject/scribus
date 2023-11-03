@@ -24,7 +24,7 @@ class SCRIBUS_API PdfVersionCombo : public QComboBox
 	Q_OBJECT
 
 public:
-	PdfVersionCombo(QWidget* parent=nullptr);
+	PdfVersionCombo(QWidget* parent = nullptr);
 	~PdfVersionCombo();
 
 	PDFVersion version() const;

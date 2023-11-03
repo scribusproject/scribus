@@ -525,7 +525,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	if (!ScCore->InputProfiles.contains(tp))
 		tp = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	ProfilesL::Iterator itp;
-	ProfilesL::Iterator itpend=ScCore->InputProfiles.end();
+	ProfilesL::Iterator itpend = ScCore->InputProfiles.end();
 	SolidPr->clear();
 	for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
 	{
@@ -533,7 +533,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		if (itp.key() == tp)
 		{
 			if (cmsUse)
-				SolidPr->setCurrentIndex(SolidPr->count()-1);
+				SolidPr->setCurrentIndex(SolidPr->count() - 1);
 		}
 	}
 	if (cmsUse)
@@ -542,7 +542,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	if (!ScCore->InputProfiles.contains(tp1))
 		tp1 = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	ProfilesL::Iterator itp2;
-	ProfilesL::Iterator itp2end=ScCore->InputProfiles.end();
+	ProfilesL::Iterator itp2end = ScCore->InputProfiles.end();
 	ImageP->clear();
 	for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 	{
@@ -550,7 +550,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		if (itp2.key() == tp1)
 		{
 			if (cmsUse)
-				ImageP->setCurrentIndex(ImageP->count()-1);
+				ImageP->setCurrentIndex(ImageP->count() - 1);
 		}
 	}
 	if (cmsUse)
@@ -958,14 +958,14 @@ void TabPDFOptions::EnableLPI(int a)
 			tp = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 		SolidPr->clear();
 		ProfilesL::Iterator itp;
-		ProfilesL::Iterator itpend=ScCore->InputProfiles.end();
+		ProfilesL::Iterator itpend = ScCore->InputProfiles.end();
 		for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
 		{
 			SolidPr->addItem(itp.key());
 			if (itp.key() == tp)
 			{
 				if (cms)
-					SolidPr->setCurrentIndex(SolidPr->count()-1);
+					SolidPr->setCurrentIndex(SolidPr->count() - 1);
 			}
 		}
 		if (cms)
@@ -975,14 +975,14 @@ void TabPDFOptions::EnableLPI(int a)
 			tp1 = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 		ImageP->clear();
 		ProfilesL::Iterator itp2;
-		ProfilesL::Iterator itp2end=ScCore->InputProfiles.end();
+		ProfilesL::Iterator itp2end = ScCore->InputProfiles.end();
 		for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 		{
 			ImageP->addItem(itp2.key());
 			if (itp2.key() == tp1)
 			{
 				if (cms)
-					ImageP->setCurrentIndex(ImageP->count()-1);
+					ImageP->setCurrentIndex(ImageP->count() - 1);
 			}
 		}
 		if (cms)
@@ -1184,10 +1184,10 @@ void TabPDFOptions::PagePr()
 	{
 		for (int pg = 0; pg < m_Doc->Pages->count(); ++pg)
 		{
-			pm=QPixmap::fromImage(m_Doc->view()->PageToPixmap(pg, 70));
+			pm = QPixmap::fromImage(m_Doc->view()->PageToPixmap(pg, 70));
 			pgMaxX = qMax(pgMaxX, pm.width());
 			pgMaxY = qMax(pgMaxY, pm.height());
-			new QListWidgetItem( pm, tr("Page")+" "+tmp.setNum(pg+1), Pages);
+			new QListWidgetItem(pm, tr("Page") + " " + tmp.setNum(pg + 1), Pages);
 		}
 		Pages->setIconSize(QSize(pgMaxX, pgMaxY));
 	}
@@ -1195,7 +1195,7 @@ void TabPDFOptions::PagePr()
 	{
 		for (int pg = 0; pg < m_Doc->Pages->count(); ++pg)
 		{
-			new QListWidgetItem( tr("Page")+" "+tmp.setNum(pg+1), Pages);
+			new QListWidgetItem(tr("Page") + " " + tmp.setNum(pg + 1), Pages);
 		}
 	}
 	if (ci != -1)

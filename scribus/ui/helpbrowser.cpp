@@ -467,7 +467,7 @@ void HelpBrowser::bookmarkButton_clicked()
 		return;
 	//TODO: start storing full paths
  	QString toFind(fname.remove(QDir::toNativeSeparators(m_finalBaseDir)));
-	toFind=toFind.mid(1, toFind.length()-1);
+	toFind = toFind.mid(1, toFind.length() - 1);
 	QMapIterator<QString, QString> i(m_quickHelpIndex);
 	while (i.hasNext())
 	{
@@ -762,8 +762,8 @@ QString HelpBrowser::historyFile()
 
 void HelpBrowser::displayNoHelp()
 {
-	QString noHelpMsg=tr("<h2><p>Sorry, no manual is installed!</p><p>Please see:</p><ul><li>http://docs.scribus.net for updated documentation</li><li>http://www.scribus.net for downloads</li></ul></h2>",
-						 "HTML message for no documentation available to show");
+	QString noHelpMsg = tr("<h2><p>Sorry, no manual is installed!</p><p>Please see:</p><ul><li>http://docs.scribus.net for updated documentation</li><li>http://www.scribus.net for downloads</li></ul></h2>",
+						   "HTML message for no documentation available to show");
 
 	textBrowser->setHtml(noHelpMsg);
 	

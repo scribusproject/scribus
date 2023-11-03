@@ -72,7 +72,7 @@ void ScDockPalette::setPrefsContext(const QString& context)
 {
 	if (m_prefsContextName.isEmpty())
 	{
-		m_prefsContextName=context;
+		m_prefsContextName = context;
 		if (!m_prefsContextName.isEmpty())
 		{
 			m_palettePrefs = PrefsManager::instance().prefsFile->getContext(m_prefsContextName);

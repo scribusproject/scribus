@@ -35,7 +35,7 @@ public:
 	ScPage *PageObject { nullptr };
 	ScribusDoc *DocObject { nullptr };
 	int LayerID { -1 };
-	int type { -1 }; //1=PageItem on Master Page,2=,3=PageItem,4=,5=,...
+	int type { -1 }; //1=PageItem on Master Page, 2=, 3=PageItem, 4=, 5=,...
 };
 
 class SCRIBUS_API OutlineWidget : public QTreeWidget

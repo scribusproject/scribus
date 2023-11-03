@@ -199,7 +199,7 @@ void NewDocDialog::createNewDocPage()
 	for (int i = 0; i < prefsManager.appPrefs.pageSets.count(); ++i)
 	{
 		QListWidgetItem *ic;
-		QString psname=CommonStrings::translatePageSetString(prefsManager.appPrefs.pageSets[i].Name);
+		QString psname = CommonStrings::translatePageSetString(prefsManager.appPrefs.pageSets[i].Name);
 		if (i == 0)
 		{
 			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-simple.png"), psname, layoutsView );
@@ -439,8 +439,8 @@ void NewDocDialog::setWidth(double)
 {
 	m_pageWidth = widthSpinBox->value() / m_unitRatio;
 	marginGroup->setPageWidth(m_pageWidth);
-	QString psText=pageSizeComboBox->currentText();
-	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
+	QString psText = pageSizeComboBox->currentText();
+	if (psText != CommonStrings::trCustomPageSize && psText != CommonStrings::customPageSize)
 		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count() - 1);
 	int newOrientation = (widthSpinBox->value() > heightSpinBox->value()) ? landscapePage : portraitPage;
 	if (newOrientation != m_orientation)
@@ -456,8 +456,8 @@ void NewDocDialog::setHeight(double)
 {
 	m_pageHeight = heightSpinBox->value() / m_unitRatio;
 	marginGroup->setPageHeight(m_pageHeight);
-	QString psText=pageSizeComboBox->currentText();
-	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
+	QString psText = pageSizeComboBox->currentText();
+	if (psText != CommonStrings::trCustomPageSize && psText != CommonStrings::customPageSize)
 		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count() - 1);
 	int newOrientation = (widthSpinBox->value() > heightSpinBox->value()) ? landscapePage : portraitPage;
 	if (newOrientation != m_orientation)
@@ -641,7 +641,7 @@ void NewDocDialog::setSize(const QString& gr)
 
 	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
 	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
-	if (gr==CommonStrings::trCustomPageSize || gr==CommonStrings::customPageSize)
+	if (gr == CommonStrings::trCustomPageSize || gr == CommonStrings::customPageSize)
 	{
 		widthSpinBox->setEnabled(true);
 		heightSpinBox->setEnabled(true);
@@ -653,7 +653,9 @@ void NewDocDialog::setSize(const QString& gr)
 		{
 			m_pageWidth = ps2.width();
 			m_pageHeight = ps2.height();
-		} else {
+		}
+		else
+		{
 			m_pageWidth = ps2.height();
 			m_pageHeight = ps2.width();
 		}

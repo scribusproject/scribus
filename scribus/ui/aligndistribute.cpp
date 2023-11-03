@@ -82,7 +82,7 @@ void AlignDistributePalette::languageChange()
 {
 	retranslateUi(this);
 
-	int alignComboValue=alignRelativeToCombo->currentIndex();
+	int alignComboValue = alignRelativeToCombo->currentIndex();
 	alignRelativeToCombo->clear();
 	alignRelativeToCombo->addItem( tr( "First Selected" ) );
 	alignRelativeToCombo->addItem( tr( "Last Selected" ) );
@@ -94,7 +94,7 @@ void AlignDistributePalette::languageChange()
 	alignRelativeToCombo->setToolTip( tr( "<qt>Align relative to the:<ul><li>First selected item</li><li>Second Selected Item</li><li>The current page</li><li>The margins of the current page</li><li>A Guide</li><li>The selection</ul></qt>" ) );
 	alignToChanged(alignComboValue);
 
-	int alignMethodValue=alignMoveOrResizeCombo->currentIndex();
+	int alignMethodValue = alignMoveOrResizeCombo->currentIndex();
 	alignMoveOrResizeCombo->clear();
 	alignMoveOrResizeCombo->addItem( tr("Move") );
 	alignMoveOrResizeCombo->addItem( tr("Resize") );
@@ -413,8 +413,8 @@ void AlignDistributePalette::alignMethodChanged(int newAlignMethod)
 
 void AlignDistributePalette::setGuide(int direction, qreal position)
 {
-	//direction 0=H, 1=V
-// 	qDebug()<<"AlignDistributePalette::setGuide("<<direction<<""<<position<<")";
+	//direction 0 = H, 1 = V
+// 	qDebug() << "AlignDistributePalette::setGuide(" << direction << "" << position << ")";
 	guideDirection = direction;
 	guidePosition = position;
 	enableGuideButtons();

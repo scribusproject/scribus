@@ -406,7 +406,7 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 	unitChange();
 	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
-	if (m_doc!=nullptr)
+	if (m_doc != nullptr)
 	{
 		YSpin->setNewUnit(m_doc->unitIndex());
 		XSpin->setNewUnit(m_doc->unitIndex());
@@ -823,7 +823,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 	{
 		uint cc;
 		bool leaveEd = false;
-		PageItem*currItem=m_doc->m_Selection->itemAt(0);
+		PageItem* currItem = m_doc->m_Selection->itemAt(0);
 		if (m_doc->nodeEdit.isContourLine())
 			cc = currItem->ContourLine.size();
 		else

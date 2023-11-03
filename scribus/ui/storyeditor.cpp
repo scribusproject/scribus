@@ -1056,10 +1056,10 @@ void SEditor::paste()
 		if (!data.isEmpty())
 		{
 			data.replace(QRegExp("\r"), "");
-		//	newParaCount=data.count("\n");
-		//	lengthLastPara=data.length()-data.lastIndexOf("\n");
+		//	newParaCount = data.count("\n");
+		//	lengthLastPara = data.length()-data.lastIndexOf("\n");
 			data.replace(QRegExp("\n"), SpecialChars::PARSEP);
-//			inserted=true;
+//			inserted = true;
 			advanceLen = data.length() /*- newParaCount*/;
 			insertCharsInternal(data, pos);
 			emit PasteAvail();
@@ -1299,7 +1299,7 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	Extra = new ScrSpinBox( this, SC_PERCENT );
 	Extra->setValues( -300, 300, 2, 0);
 	Extra->setSuffix( unitGetSuffixFromIndex(SC_PERCENT) );
-	extraAction=addWidget(Extra);
+	extraAction = addWidget(Extra);
 	extraAction->setVisible(true);
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
@@ -1418,13 +1418,13 @@ void SToolBStyle::SetKern(double k)
 SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), parent)
 {
 	GroupAlign = new AlignSelect(this);
-	groupAlignAction=addWidget(GroupAlign);
+	groupAlignAction = addWidget(GroupAlign);
 	groupAlignAction->setVisible(true);
 	GroupDirection = new DirectionSelect(this);
-	groupDirectionAction=addWidget(GroupDirection);
+	groupDirectionAction = addWidget(GroupDirection);
 	groupDirectionAction->setVisible(true);
 	paraStyleCombo = new ParaStyleComboBox(this);
-	paraStyleComboAction=addWidget(paraStyleCombo);
+	paraStyleComboAction = addWidget(paraStyleCombo);
 	paraStyleComboAction->setVisible(true);
 	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SIGNAL(newParaStyle(const QString& )));
 	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(newAlign(int )));
@@ -1473,7 +1473,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 {
 	Fonts = new FontCombo(this);
 	Fonts->setMaximumSize(190, 30);
-	fontsAction=addWidget(Fonts);
+	fontsAction = addWidget(Fonts);
 	fontsAction->setVisible(true);
 
 	Size = new ScrSpinBox(0.5, 2048, this, SC_POINTS);
@@ -2128,8 +2128,8 @@ void StoryEditor::connectSignals()
 void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 {
 	disconnectSignals();
-	m_doc=doc;
-	m_textChanged=false;
+	m_doc = doc;
+	m_textChanged = false;
 	AlignTools->paraStyleCombo->setDoc(m_doc);
 	FillTools->setCurrentDocument(m_doc);
 	StrokeTools->setCurrentDocument(m_doc);
@@ -2166,7 +2166,7 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 
 void StoryEditor::setSpellActive(bool ssa)
 {
-	m_spellActive=ssa;
+	m_spellActive = ssa;
 }
 
 /** 10/12/2004 - pv - #1203: wrong selection on double click
@@ -2175,7 +2175,7 @@ whitespaces on the tail) - select only one word - return
 controlling back to story editor - have rest */
 void StoryEditor::doubleClick(int para, int position)
 {
-	int indexFrom=0; //, indexTo=0;
+	int indexFrom = 0; //, indexTo=0;
 	QString selText = Editor->textCursor().selectedText();
 	if (selText.length() == 0 || !m_smartSelection)
 	{

@@ -489,18 +489,18 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette(parent, "Tree",
 
 void OutlinePalette::setMainWindow(ScribusMainWindow *mw)
 {
-	m_MainWindow=mw;
-	if (m_MainWindow==nullptr)
+	m_MainWindow = mw;
+	if (m_MainWindow == nullptr)
 		clearPalette();
 }
 
 void OutlinePalette::setDoc(ScribusDoc *newDoc)
 {
-	if (m_MainWindow==nullptr)
-		currDoc=nullptr;
+	if (m_MainWindow == nullptr)
+		currDoc = nullptr;
 	else
-		currDoc=newDoc;
-	if (currDoc==nullptr)
+		currDoc = newDoc;
+	if (currDoc == nullptr)
 		clearPalette();
 }
 
@@ -1070,7 +1070,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
-	if (currDoc==nullptr)
+	if (currDoc == nullptr)
 		return;
 	if (selectionTriggered)
 		return;

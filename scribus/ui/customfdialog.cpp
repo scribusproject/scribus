@@ -539,7 +539,7 @@ void CustomFDialog::fileClicked(const QString &path)
 
 void CustomFDialog::okClicked()
 {
-	QString selFile=selectedFile();
+	QString selFile = selectedFile();
 	if (selFile.isEmpty())
 		return;
 	QFileInfo fi(selFile);

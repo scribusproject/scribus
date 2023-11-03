@@ -41,14 +41,14 @@ bool ScTableWidget::eventFilter(QObject *obj, QEvent *event)
 	//emulation of cellChanged event from QTableWidget
 	if (event->type() == QEvent::FocusOut && obj->isWidgetType())
 	{
-		int r=-1, c=-1;
+		int r = -1, c = -1;
 		QComboBox* combobox = qobject_cast<QComboBox*>(obj);
 		if (combobox)
 		{
 			if (widgetPositions.contains(combobox))
 			{
-				r=widgetPositions.value(combobox).first;
-				c=widgetPositions.value(combobox).second;
+				r = widgetPositions.value(combobox).first;
+				c = widgetPositions.value(combobox).second;
 			}
 		}
 		else
@@ -58,12 +58,12 @@ bool ScTableWidget::eventFilter(QObject *obj, QEvent *event)
 			{
 				if (widgetPositions.contains(checkbox))
 				{
-					r=widgetPositions.value(checkbox).first;
-					c=widgetPositions.value(checkbox).second;
+					r = widgetPositions.value(checkbox).first;
+					c = widgetPositions.value(checkbox).second;
 				}
 			}
 		}
-		if (r!=-1 && c!=-1)
+		if (r != -1 && c != -1)
 			emit cellChanged(r,c);
 	}
 	return QTableWidget::eventFilter(obj, event);
@@ -78,11 +78,11 @@ void ScTableWidget::comboBoxReceiver(int i)
 		return;
 	if (!widgetPositions.contains(comboBox))
 		return;
-	int r=-1, c=-1;
-	r=widgetPositions.value(comboBox).first;
-	c=widgetPositions.value(comboBox).second;
-	if (r!=-1 && c!=-1)
-		emit cellChanged(r,c);
+	int r = -1, c = -1;
+	r = widgetPositions.value(comboBox).first;
+	c = widgetPositions.value(comboBox).second;
+	if (r != -1 && c != -1)
+		emit cellChanged(r, c);
 }
 
 void ScTableWidget::setCellWidget(int row, int column, QWidget * widget)
@@ -99,7 +99,7 @@ void ScTableWidget::removeCellWidget ( int row, int column )
 {
 	QTableWidget::removeCellWidget(row, column);
 	QHash<QWidget*, QPair<int, int> >::const_iterator i = widgetPositions.constBegin();
-	QWidget* t=nullptr;
+	QWidget* t = nullptr;
 	while (i != widgetPositions.constEnd())
 	{
 		if (i.value().first == row && i.value().second == column)
@@ -109,6 +109,6 @@ void ScTableWidget::removeCellWidget ( int row, int column )
 		}
 		++i;
 	}
-	if (t!=nullptr)
+	if (t != nullptr)
 		widgetPositions.remove(t);
 }

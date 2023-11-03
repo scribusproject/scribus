@@ -171,8 +171,8 @@ void PatternPropsDialog::changeEvent(QEvent *e)
 void PatternPropsDialog::languageChange()
 {
 	setWindowTitle( tr( "Pattern Properties" ));
-	QString ptSuffix=tr(" pt");
-	QString pctSuffix=tr(" %");
+	QString ptSuffix = tr(" pt");
+	QString pctSuffix = tr(" %");
 	groupOffset->setTitle( tr( "Offsets" ) );
 	textLabel1->setText( tr( "X:" ) );
 	spinXoffset->setSuffix( ptSuffix );

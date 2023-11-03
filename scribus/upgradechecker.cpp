@@ -238,14 +238,14 @@ void UpgradeChecker::reportError(const QString& s)
 	if (!m_errorReported)
 	{
 		outputText("<br/><b>"+ tr("Error: %1").arg(s)+"</b>");
-		m_errorReported=true;
+		m_errorReported = true;
 	}
 }
 
 UpgradeCheckerGUI::UpgradeCheckerGUI(QTextBrowser *tb) : UpgradeChecker()
 {
-	m_outputWidget=tb;
-	m_writeToConsole=false;
+	m_outputWidget = tb;
+	m_writeToConsole = false;
 }
 
 UpgradeCheckerGUI::~UpgradeCheckerGUI()
@@ -254,7 +254,7 @@ UpgradeCheckerGUI::~UpgradeCheckerGUI()
 
 void UpgradeCheckerGUI::outputText(const QString& text, bool noLineFeed)
 {
-	QTextBrowser* w=m_outputWidget;
+	QTextBrowser* w = m_outputWidget;
 	if (!w)
 		return;
 
@@ -263,9 +263,9 @@ void UpgradeCheckerGUI::outputText(const QString& text, bool noLineFeed)
 	wText.remove("<qt>");
 	wText.remove("</qt>");
 	if (noLineFeed)
-		w->setHtml("<qt>"+wText+text+"</qt>");
+		w->setHtml("<qt>" + wText + text + "</qt>");
 	else
-		w->setHtml("<qt>"+wText+text+"<br>"+"</qt>");
+		w->setHtml("<qt>" + wText + text + "<br>" + "</qt>");
 }
 
 

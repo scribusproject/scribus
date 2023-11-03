@@ -187,12 +187,12 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			QCheckBox *cp = new QCheckBox(it2->layerName, this);
 			cp->setPalette(palette);
 			QPixmap pm;
-			pm=QPixmap::fromImage(it2->thumb);
+			pm = QPixmap::fromImage(it2->thumb);
 			col1Width = qMax(col1Width, pm.width());
 			cp->setIcon(pm);
 			FlagsSicht.append(cp);
 			connect(cp, SIGNAL(clicked()), this, SLOT(changedLayer()));
-			layerTable->setCellWidget(info->layerInfo.count()-counter-1, 0, cp);
+			layerTable->setCellWidget(info->layerInfo.count() - counter - 1, 0, cp);
 			if ((info->isRequest) && (info->RequestProps.contains(counter)))
 				cp->setChecked(info->RequestProps[counter].visible);
 			else
@@ -202,11 +202,11 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 				QCheckBox *cp2 = new QCheckBox(it2->layerName, this);
 				cp2->setPalette(palette);
 				QPixmap pm2;
-				pm2=QPixmap::fromImage(it2->thumb_mask);
+				pm2 = QPixmap::fromImage(it2->thumb_mask);
 				col2Width = qMax(col2Width, pm2.width());
 				cp2->setIcon(pm2);
 				connect(cp2, SIGNAL(clicked()), this, SLOT(changedLayer()));
-				layerTable->setCellWidget(info->layerInfo.count()-counter-1, 1, cp2);
+				layerTable->setCellWidget(info->layerInfo.count() - counter - 1, 1, cp2);
 				if ((info->isRequest) && (info->RequestProps.contains(counter)))
 					cp2->setChecked(info->RequestProps[counter].useMask);
 				else
@@ -268,12 +268,11 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			p->strokePath();
 			p->end();
 			delete p;
-			QPixmap pm;
-			pm=QPixmap::fromImage(pixm);
+			QPixmap pm = QPixmap::fromImage(pixm);
 			new QListWidgetItem(QIcon(pm), it.key(), pathList);
 			if (it.key() == info->usedPath)
 			{
-				pathList->setCurrentRow(pathList->count()-1);
+				pathList->setCurrentRow(pathList->count() - 1);
 				pathList->currentItem()->setSelected(true);
 			}
 		}

@@ -49,7 +49,7 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 		void startEditor();
 		void exitEditor();
 		void revert();
-		void apply(bool force=false);
+		void apply(bool force = false);
 		void initialize();
 		static QIcon icon(const QString& config, const QString& fn);
 		static QString iconFile(QString config);
@@ -101,7 +101,7 @@ class SCRIBUS_API DataPushButton : public QPushButton
 {
 	Q_OBJECT
 	public:
-		DataPushButton(QString caption, QObject *data, bool deleteOnDestroy=false):
+		DataPushButton(QString caption, QObject *data, bool deleteOnDestroy = false) :
 				QPushButton(caption), data(data), del(deleteOnDestroy)
 		{
 			connect(this, SIGNAL(clicked(bool)), this, SLOT(buttonClicked(bool)));
@@ -147,7 +147,7 @@ class SCRIBUS_API XmlWidget
 {
 	public:
 		static XmlWidget *fromXml(I18nXmlStreamReader *xml);
-		XmlWidget(I18nXmlStreamReader *xml, bool readDescription=true);
+		XmlWidget(I18nXmlStreamReader *xml, bool readDescription = true);
 		virtual ~XmlWidget() {}
 		QString name() const { return m_name; }
 		QString description() const { return m_description; }

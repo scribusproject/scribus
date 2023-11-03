@@ -15,7 +15,7 @@ class CollectForOutput_UI : public CollectForOutput
 {
 	Q_OBJECT
 	public:
-		CollectForOutput_UI(QWidget *parent, ScribusDoc* doc, const QString& outputDirectory=QString(), bool withFonts=false, bool withProfiles=false, bool compressDoc=false);
+		CollectForOutput_UI(QWidget* parent, ScribusDoc* doc, const QString& outputDirectory = QString(), bool withFonts = false, bool withProfiles = false, bool compressDoc = false);
 		virtual QString collect(QString &newFileName);
 
 	protected slots:
