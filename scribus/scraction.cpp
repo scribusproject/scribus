@@ -104,7 +104,7 @@ void ScrAction::triggeredToTriggeredData()
 	if (m_actionType == ScrAction::DataQString)
 		emit triggeredData(data().toString());
 	if (m_actionType == ScrAction::DLL)
-		qDebug()<<"if (_actionType==ScrAction::DLL): please fix in ScrAction::triggeredToTriggeredData()";
+		qDebug() << "if (_actionType == ScrAction::DLL): please fix in ScrAction::triggeredToTriggeredData()";
 //		emit triggeredData(pluginID);
 	if (m_actionType == ScrAction::Window)
 		emit triggeredData(data().toInt());
@@ -134,7 +134,7 @@ void ScrAction::toggledToToggledData(bool ison)
 	if (m_actionType == ScrAction::DataQString)
 		emit toggledData(ison, data().toString());
 	if (m_actionType == ScrAction::DLL)
-		qDebug()<<"if (_actionType==ScrAction::DLL): please fix in ScrAction::toggledToToggledData(bool ison)";
+		qDebug() << "if (_actionType == ScrAction::DLL): please fix in ScrAction::toggledToToggledData(bool ison)";
 	//			emit toggledData(ison, pluginID);
 	if (m_actionType == ScrAction::Window)
 		emit toggledData(ison, data().toInt());
@@ -154,7 +154,7 @@ void ScrAction::addedTo(int index, QMenu * menu)
 	if (m_menuIndex == -1) // Add the first time, not for secondary popups.
 	{
 		m_menuIndex = index;
-		m_popupMenuAddedTo =menu;
+		m_popupMenuAddedTo = menu;
 	}
 }
 
@@ -229,8 +229,8 @@ void ScrAction::restoreShortcut()
 	if (m_shortcutSaved)
 	{
 		setShortcut(m_savedKeySequence);
-		m_savedKeySequence=QKeySequence("");
-		m_shortcutSaved=false;
+		m_savedKeySequence = QKeySequence("");
+		m_shortcutSaved = false;
 	}
 }
 

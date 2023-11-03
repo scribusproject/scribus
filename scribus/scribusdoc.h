@@ -173,12 +173,12 @@ public:
 	ObjAttrVector& itemAttributes() { return m_docPrefsData.itemAttrPrefs.defaultItemAttributes; }
 	const ObjAttrVector& itemAttributes() const { return m_docPrefsData.itemAttrPrefs.defaultItemAttributes; }
 
-	void setItemAttributes(ObjAttrVector& oav) { m_docPrefsData.itemAttrPrefs.defaultItemAttributes=oav;}
+	void setItemAttributes(ObjAttrVector& oav) { m_docPrefsData.itemAttrPrefs.defaultItemAttributes = oav; }
 	void clearItemAttributes() { m_docPrefsData.itemAttrPrefs.defaultItemAttributes.clear(); }
 	void appendToItemAttributes(const ObjectAttribute& oa) { m_docPrefsData.itemAttrPrefs.defaultItemAttributes.append(oa); }
 
 	ToCSetupVector& tocSetups() { return m_docPrefsData.tocPrefs.defaultToCSetups; }
-	void setTocSetups(ToCSetupVector& tsv) { m_docPrefsData.tocPrefs.defaultToCSetups=tsv; }
+	void setTocSetups(ToCSetupVector& tsv) { m_docPrefsData.tocPrefs.defaultToCSetups = tsv; }
 	void clearTocSetups() { m_docPrefsData.tocPrefs.defaultToCSetups.clear(); }
 	void appendToTocSetups(const ToCSetup& ts) { m_docPrefsData.tocPrefs.defaultToCSetups.append(ts); }
 
@@ -234,7 +234,7 @@ public:
 
 	// Add, delete and move pages
 	
-	ScPage* addPage(int pageNumber, const QString& masterPageName=QString(), bool addAutoFrame=false);
+	ScPage* addPage(int pageNumber, const QString& masterPageName = QString(), bool addAutoFrame = false);
 	void deletePage(int);
 	//! @brief Add a master page with this function, do not use addPage
 	ScPage* addMasterPage(int, const QString&);
@@ -291,7 +291,7 @@ public:
 	 * @param activate the layer active
 	 * @return Number of the layer created
 	 */
-	int addLayer(const QString& layerName, bool activate=false);
+	int addLayer(const QString& layerName, bool activate = false);
 	/**
 	 * @brief Copies a layer from the current document
 	 * @param layerIDToCopy source layer
@@ -625,7 +625,7 @@ public:
 	QList<int> getSortedTableStyleList() const;
 	QList<int> getSortedCellStyleList() const;
 	
-	void redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused=false);
+	void redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused = false);
 	/**
 	 * @brief Remove any reference to old styles and replace with new name. This needs to be
 	 *        called when a style was removed. New name may be "".
@@ -652,7 +652,7 @@ public:
 
 	const CharStyle& charStyle(const QString& name) const { return m_docCharStyles.get(name); }
 	const StyleSet<CharStyle>& charStyles() const { return m_docCharStyles; }
-	void redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool removeUnused=false);
+	void redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool removeUnused = false);
 	/**
 	 * @brief Remove any reference to old styles and replace with new name. This needs to be
 	 *        called when a style was removed. New name may be "".
@@ -954,7 +954,7 @@ public:
 	/**
 	 * @brief Item type conversion functions
 	 */
-	PageItem* convertItemTo(PageItem *currItem, PageItem::ItemType newType, PageItem* secondaryItem=nullptr);
+	PageItem* convertItemTo(PageItem* currItem, PageItem::ItemType newType, PageItem* secondaryItem = nullptr);
 	
 	/**
 	 * @brief The page number of the current page
@@ -1000,7 +1000,7 @@ public:
 	 * @brief Add a section to the document sections list
 	 * Set number to -1 to add in the default section if the map is empty
 	 */
-	void addSection(int number=0, const QString& name=QString(), const uint fromindex=0, const uint toindex=0, const  NumFormat type=Type_1_2_3, const uint sectionstartindex=0, bool reversed=false, bool active=true, const QChar fillChar=QChar(), int fieldWidth=0);
+	void addSection(int number = 0, const QString& name = QString(), const uint fromindex = 0, const uint toindex = 0, const  NumFormat type = Type_1_2_3, const uint sectionstartindex = 0, bool reversed = false, bool active = true, const QChar fillChar = QChar(), int fieldWidth = 0);
 	/**
 	 * @brief Delete a section from the document sections list
 	 */
@@ -1258,7 +1258,7 @@ public:
 	void moveGroup(double x, double y, Selection* customSelection = nullptr);
 	void rotateGroup(double angle, Selection* customSelection = nullptr);
 	void rotateGroup(double angle, const FPoint& RCenter, Selection* customSelection = nullptr);
-	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = nullptr, bool scaleLine = false);
+	void scaleGroup(double scx, double scy, bool scaleText = true, Selection* customSelection = nullptr, bool scaleLine = false);
 	//! \brief Get a list of frames of certain type
 	QHash<PageItem*, QString> getDocItemNames(PageItem::ItemType itemType);
 	//! \brief Returns a serializer for this document
@@ -1524,10 +1524,10 @@ public slots:
 	//FIXME : change to process a selection
 	void item_setFrameShape(PageItem* item, int frameType, int count, double* points); 
 
-	void itemSelection_ClearItem(Selection* customSelection = nullptr, bool useWarning=false);
+	void itemSelection_ClearItem(Selection* customSelection = nullptr, bool useWarning = false);
 	void itemSelection_TruncateItem(Selection* customSelection = nullptr);
 	//! Delete the items in the current selection. When force is true, we do not warn the user and make SE happy too. Force is used from @sa Page::restorePageItemCreation
-	void itemSelection_DeleteItem(Selection* customSelection = nullptr, bool forceDeletion=false);
+	void itemSelection_DeleteItem(Selection* customSelection = nullptr, bool forceDeletion = false);
 	void itemSelection_SetItemFillTransparency(double t, Selection* customSelection = nullptr);
 	void itemSelection_SetHyphenWordMin(int wordMin, Selection* customSelection = nullptr);
 	void itemSelection_SetHyphenConsecutiveLines(int consecutiveLines, Selection* customSelection = nullptr);
@@ -1570,13 +1570,13 @@ public slots:
 	void bringItemSelectionToFront();
 	void itemSelection_LowerItem();
 	void itemSelection_RaiseItem();
-	void itemSelection_DistributeDistH(bool usingDistance=false, double distance=0.0, bool reverseDistribute=false);
-	void itemSelection_DistributeAcrossPage(bool useMargins=false);
+	void itemSelection_DistributeDistH(bool usingDistance = false, double distance = 0.0, bool reverseDistribute = false);
+	void itemSelection_DistributeAcrossPage(bool useMargins = false);
 	void itemSelection_DistributeRight();
 	void itemSelection_DistributeBottom();
 	void itemSelection_DistributeCenterH();
-	void itemSelection_DistributeDistV(bool usingDistance=false, double distance=0.0, bool reverseDistribute=false);
-	void itemSelection_DistributeDownPage(bool useMargins=false);
+	void itemSelection_DistributeDistV(bool usingDistance = false, double distance = 0.0, bool reverseDistribute = false);
+	void itemSelection_DistributeDownPage(bool useMargins = false);
 	void itemSelection_DistributeLeft();
 	void itemSelection_DistributeCenterV();
 	void itemSelection_DistributeTop();
@@ -1796,7 +1796,7 @@ public:
 	//set cursor in text where given mark will be found
 	void setCursor2MarkPos(const Mark* mark);
 	//return false if mark was not found
-	bool eraseMark(Mark* mrk, bool fromText=false, PageItem* item = nullptr, bool force = false); //force is used only for deleting non-unique marks by MarksManager
+	bool eraseMark(Mark* mrk, bool fromText = false, PageItem* item = nullptr, bool force = false); //force is used only for deleting non-unique marks by MarksManager
 	void setUndoDelMark(Mark* mrk);
 	//invalidate all text frames where given mark will found
 	//useful spacially for variable text marks after changing its text definition
@@ -1816,7 +1816,7 @@ public:
 	PageItem_NoteFrame* createNoteFrame(PageItem_TextFrame* inFrame, NotesStyle *nStyle, int index = -1);
 	PageItem_NoteFrame* createNoteFrame(NotesStyle *nStyle, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 	//delete noteframe
-	void delNoteFrame(PageItem_NoteFrame *noteFrame, bool removeMarks=true, bool forceDeletion = true);
+	void delNoteFrame(PageItem_NoteFrame* noteFrame, bool removeMarks = true, bool forceDeletion = true);
 	//renumber notes for given notes style
 	//return true if doc needs update after changing numbers of notes
 	bool updateNotesNums(NotesStyle* nStyle);
@@ -1845,7 +1845,7 @@ public:
 
 	//finds mark position in text
 	//return true if mark was found, CPos is set for mark`s position
-	//if item==nullptr then search in all items and if mark is found than item is set
+	//if item == nullptr then search in all items and if mark is found than item is set
 	int findMarkCPos(const Mark* mrk, PageItem* &item, int start = 0) const;
 	QList<PageItem_NoteFrame*> m_docEndNotesFramesChanged;
 

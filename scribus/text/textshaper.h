@@ -21,7 +21,7 @@ using namespace icu;
 class TextShaper
 {
 public:
-	TextShaper(ITextContext* context, ITextSource& story, int firstChar, bool singlePar=false);
+	TextShaper(ITextContext* context, ITextSource& story, int firstChar, bool singlePar = false);
 	TextShaper(ITextSource &story, int firstChar);
 
 	ShapedText shape(int fromPos, int toPos);

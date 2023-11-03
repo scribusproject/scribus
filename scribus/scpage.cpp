@@ -88,7 +88,7 @@ QRectF ScPage::trimRect() const
 
 void ScPage::setDocument(ScribusDoc *doc)
 {
-	m_Doc=doc;
+	m_Doc = doc;
 	setMassObservable(doc? doc->pagesChanged() : nullptr);
 }
 
@@ -256,7 +256,7 @@ void ScPage::restorePageAttributes(SimpleState *state, bool isUndo)
 	int left_old = state->getInt("LEFT_OLD");
 	QString name_old = state->get("NAME_OLD");
 	int orientation_old = state->getInt("ORIENTATION_OLD");
-	QString size_old =state->get("SIZE_OLD");
+	QString size_old = state->get("SIZE_OLD");
 	double width_old = state->getDouble("WIDTH_OLD");
 	double height_old = state->getDouble("HEIGHT_OLD");
 	double init_height_old = state->getDouble("INIT_HEIGHT_OLD");
@@ -271,7 +271,7 @@ void ScPage::restorePageAttributes(SimpleState *state, bool isUndo)
 	int left = state->getInt("LEFT");
 	QString name = state->get("NAME");
 	int orientation = state->getInt("ORIENTATION");
-	QString size =state->get("SIZE");
+	QString size = state->get("SIZE");
 	double width = state->getDouble("WIDTH");
 	double height = state->getDouble("HEIGHT");
 	double init_height = state->getDouble("INIT_HEIGHT");
@@ -519,7 +519,7 @@ void ScPage::setOrientation(int ori)
 
 void ScPage::setPageSectionNumber(const QString& newPageSectionNumber)
 {
-	m_pageSectionNumber=newPageSectionNumber;
+	m_pageSectionNumber = newPageSectionNumber;
 }
 
 void ScPage::copySizingProperties(ScPage* sourcePage, const MarginStruct& pageMargins)

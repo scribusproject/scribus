@@ -1295,7 +1295,7 @@ void SCFonts::writeFontCache(const QString& pf)
 
 void SCFonts::getFonts(const QString& pf, bool showFontInfo)
 {
-	m_showFontInfo=showFontInfo;
+	m_showFontInfo = showFontInfo;
 	m_fontPaths.clear();
 	readFontCache(pf);
 	ScCore->setSplashStatus( QObject::tr("Searching for Fonts") );

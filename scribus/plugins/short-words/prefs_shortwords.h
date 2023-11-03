@@ -16,7 +16,7 @@ class Prefs_ShortWords : public Prefs_Pane, Ui::Prefs_ShortWords
 	Q_OBJECT
 
 	public:
-		Prefs_ShortWords(QWidget* parent=nullptr);
+		Prefs_ShortWords(QWidget* parent = nullptr);
 		~Prefs_ShortWords();
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;

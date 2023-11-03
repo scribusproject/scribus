@@ -399,7 +399,7 @@ PyObject *scribus_getobjectattributes(PyObject* /* self */, PyObject* args)
 	if (item == nullptr)
 		return nullptr;
 
-	ObjAttrVector *attributes=item->getObjectAttributes();
+	ObjAttrVector *attributes = item->getObjectAttributes();
 	PyObject *lst;
 	lst = PyList_New(attributes->count());
 	if (!lst)

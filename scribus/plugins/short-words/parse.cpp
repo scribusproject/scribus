@@ -145,7 +145,7 @@ void SWParse::parsePage(ScribusDoc* doc)
 void SWParse::parsePage(ScribusDoc* doc, int page)
 {
 	uint count = 0;
-	uint docItemsCount=doc->Items->count();
+	uint docItemsCount = doc->Items->count();
 	if (docItemsCount == 0)
 		return;
 

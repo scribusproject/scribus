@@ -876,7 +876,7 @@ void StoryText::hyphenateWord(int pos, uint len, const char* hyphens)
 	assert(pos + signed(len) <= length());
 	
 //	QString dump("");
-	for (int i=pos; i < pos+signed(len); ++i)
+	for (int i = pos; i < pos + signed(len); ++i)
 	{
 //		dump += d->at(i)->ch;
 		if (hyphens && hyphens[i-pos] & 1)
@@ -1433,7 +1433,7 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 
 //	int lastParStart = pos == 0? 0 : -1;
 	ScText* itText;
-	for (uint i=pos; i < pos+len; ++i)
+	for (uint i = pos; i < pos + len; ++i)
 	{
 		itText = d->at(i);
 		// #6165 : applying style on last character applies style on whole text on next open 
@@ -1977,7 +1977,7 @@ void StoryText::select(int pos, int len, bool on)
 //	qDebug("old selection: %d - %d", d->selFirst, d->selLast);
 
 //	StoryText* that = const_cast<StoryText *>(this);
-//	for (int i=pos; i < pos+signed(len); ++i)
+//	for (int i = pos; i < pos + signed(len); ++i)
 //		that->at(i)->cselect = on;
 
 	if (on) {

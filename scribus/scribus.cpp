@@ -653,7 +653,7 @@ void ScribusMainWindow::initDefaultValues()
 
 void ScribusMainWindow::initKeyboardShortcuts()
 {
-	for (auto it = scrActions.begin(); it!=scrActions.end(); ++it )
+	for (auto it = scrActions.begin(); it != scrActions.end(); ++it)
 	{
 		if ((ScrAction*)(it.value()) != nullptr)
 		{
@@ -2005,7 +2005,7 @@ void ScribusMainWindow::startUpDialog()
 			double numberCols = dia->numberOfCols->value();
 			bool autoframes = dia->autoTextFrame->isChecked();
 			int orientation = dia->orientation();
-			int pageCount=dia->pageCountSpinBox->value();
+			int pageCount = dia->pageCountSpinBox->value();
 			QString pagesize;
 			if (dia->pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
 				pagesize = CommonStrings::customPageSize;
@@ -2132,7 +2132,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	QString newDocName( tr("Document")+"-"+QString::number(m_DocNr));
 	ScribusDoc *tempDoc = new ScribusDoc();
 	if (requiresGUI)
-		doc=tempDoc;
+		doc = tempDoc;
 	tempDoc->setLoading(true);
 	outlinePalette->setDoc(tempDoc);
 	ColorSetManager csm;
@@ -3088,7 +3088,7 @@ void ScribusMainWindow::rebuildLayersList()
 	{
 		if ((*it).ID == currActiveLayer)
 		{
-			found=true;
+			found = true;
 			break;
 		}
 	}
@@ -3162,7 +3162,7 @@ bool ScribusMainWindow::slotPageImport()
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	std::vector<int> pageNs;
 	parsePagesString(dia->getPageNumbers(), &pageNs, dia->getPageCounter());
-	int startPage=0, nrToImport=pageNs.size();
+	int startPage = 0, nrToImport = pageNs.size();
 	bool doIt = true;
 	if (doc->masterPageMode())
 	{
@@ -3367,12 +3367,12 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 				slotOnlineHelp("", "fileproblems.html");
 			return false;
 		}
-		bool is12doc=false;
+		bool is12doc = false;
 		if (testResult == 0)
 		{
 			QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			//Scribus 1.3.x warning, remove at a later stage
-			is12doc=true;
+			is12doc = true;
 		}
 		QDir docProfileDir(fi.absolutePath() + "/profiles");
 		ScCore->getCMSProfilesDir(fi.absolutePath() + "/", false, false);
@@ -3394,7 +3394,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 			actionManager->disconnectNewViewActions();
 		doc = new ScribusDoc();
 		doc->saveFilePermissions(QFile::permissions(fileName));
-		doc->is12doc=is12doc;
+		doc->is12doc = is12doc;
 		doc->appMode = modeNormal;
 		doc->HasCMS = false;
 		doc->OpenNodes.clear();
@@ -4026,7 +4026,7 @@ void ScribusMainWindow::slotFileRevert()
 		ActWin = tw;
 		QString fn(doc->documentFileName());
 		doc->setModified(false);
-		if (doc==storyEditor->currentDocument())
+		if (doc == storyEditor->currentDocument())
 			storyEditor->close();
 		slotFileClose();
 		QApplication::processEvents();
@@ -4063,7 +4063,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 		if (!warningVersion(this))
 			return false;
 	//Turn off the warnings once the docs is saved.
-	doc->is12doc=false;
+	doc->is12doc = false;
 	bool ret = false;
 	QString filename;
 	PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
@@ -4081,7 +4081,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 	}
 	else
 	{
-		QString prefsDocDir=m_prefsManager.documentDir();
+		QString prefsDocDir = m_prefsManager.documentDir();
 		if (!prefsDocDir.isEmpty())
 			wdir = docContext->get("save_as", prefsDocDir);
 		else
@@ -4093,7 +4093,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 			filename = wdir;
 		filename += doc->documentFileName() + ".sla";
 	}
-	bool saveCompressed=m_prefsManager.appPrefs.docSetupPrefs.saveCompressed;
+	bool saveCompressed = m_prefsManager.appPrefs.docSetupPrefs.saveCompressed;
 	if (saveCompressed)
 		filename.append(".gz");
 
@@ -4429,7 +4429,7 @@ void ScribusMainWindow::slotEditCut()
 	for (int i = 0; i < docSelectionCount; ++i)
 	{
 		currItem = doc->m_Selection->itemAt(i);
-		if ((currItem->isTextFrame() || currItem->isPathText()) && currItem==storyEditor->currentItem() && doc==storyEditor->currentDocument())
+		if ((currItem->isTextFrame() || currItem->isPathText()) && currItem == storyEditor->currentItem() && doc == storyEditor->currentDocument())
 		{
 			ScMessageBox::critical(this, tr("Cannot Cut In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The cut operation will be cancelled").arg(currItem->itemName()));
 			return;
@@ -4690,7 +4690,7 @@ void ScribusMainWindow::slotEditPaste()
 				doc->Items->takeAt(ac);
 			}
 			doc->m_Selection->clear();
-			*doc->m_Selection=tempSelection;
+			*doc->m_Selection = tempSelection;
 			doc->minCanvasCoordinate = minSize;
 			doc->maxCanvasCoordinate = maxSize;
 			if (outlinePalette->isVisible())
@@ -4747,7 +4747,7 @@ void ScribusMainWindow::slotEditPaste()
 				int fIndex = doc->addToInlineFrames(retObj);
 				doc->Items->removeAll(retObj);
 				doc->m_Selection->clear();
-				*doc->m_Selection=tempSelection;
+				*doc->m_Selection = tempSelection;
 				doc->minCanvasCoordinate = minSize;
 				doc->maxCanvasCoordinate = maxSize;
 				if (outlinePalette->isVisible())
@@ -5358,7 +5358,7 @@ void ScribusMainWindow::duplicateToMasterPage()
 	CopyPageToMasterPageDialog copyDialog(doc->MasterNames.count(), doc->pageSets()[doc->pagePositioning()].pageNames, pageLocationIndex, this);
 	if (copyDialog.exec())
 	{
-		bool copyFromMaster=false;
+		bool copyFromMaster = false;
 		QString masterPageName;
 		int pageLocation = 0;
 		copyDialog.values(masterPageName, copyFromMaster, pageLocation);
@@ -5427,7 +5427,7 @@ void ScribusMainWindow::ToggleStickyTools()
 {
 	m_prefsManager.appPrefs.uiPrefs.stickyTools = !m_prefsManager.appPrefs.uiPrefs.stickyTools;
 	scrActions["stickyTools"]->setChecked(m_prefsManager.appPrefs.uiPrefs.stickyTools);
-	if (HaveDoc && doc->appMode!=modeNormal && !m_prefsManager.appPrefs.uiPrefs.stickyTools)
+	if (HaveDoc && doc->appMode != modeNormal && !m_prefsManager.appPrefs.uiPrefs.stickyTools)
 		view->requestMode(modeNormal);
 }
 
@@ -5551,7 +5551,7 @@ void ScribusMainWindow::ToggleAllGuides()
 {
 	if (!doc)
 		return;
-	//m_keyrep=false;
+	//m_keyrep = false;
 	if (m_guidesStatus[GS_ALL])
 	{
 		m_guidesStatus[GS_ALL] = false;
@@ -5897,9 +5897,9 @@ void ScribusMainWindow::slotSelect()
 
 void ScribusMainWindow::setAppModeByToggle(bool isOn, int newMode)
 {
-	//m_keyrep=false;
+	//m_keyrep = false;
 
-	if (newMode==modeDrawLatex && !m_prefsManager.renderFrameConfigured())
+	if (newMode == modeDrawLatex && !m_prefsManager.renderFrameConfigured())
 	{
 		ScMessageBox::critical(this, "Render Frames Not Configured", "Your Render Frame configuration seems to be invalid. Please check the settings in the External Tools section of the Preferences dialog.");
 		return;
@@ -6181,7 +6181,7 @@ void ScribusMainWindow::changePageProperties()
 
 void ScribusMainWindow::setItemFontSize(int fontSize)
 {
-	int fs=fontSize;
+	int fs = fontSize;
 	if (fs != -1)
 		doc->itemSelection_SetFontSize(fs*10);
 	else
@@ -7816,7 +7816,7 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 		state->set("DUMMY_ID", id);
 		deletePage(pagenr, pagenr);
 	}
-	if (currMasterPageMode!=savedMasterPageMode)
+	if (currMasterPageMode != savedMasterPageMode)
 		doc->setMasterPageMode(currMasterPageMode);
 	doc->rebuildMasterNames();
 	pagePalette->updateMasterPageList();
@@ -7897,7 +7897,7 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 			delete tmp;
 		}
 	}
-	if (currMasterPageMode!=savedMasterPageMode)
+	if (currMasterPageMode != savedMasterPageMode)
 		doc->setMasterPageMode(currMasterPageMode);
 	doc->rebuildMasterNames();
 	pagePalette->updateMasterPageList();
@@ -8163,7 +8163,7 @@ void ScribusMainWindow::initHyphenator()
 //IL		for (uint dc = 0; dc < hyphDir.count(); ++dc)
 //IL		{
 //IL			QFileInfo fi(hyphDir[dc]);
-//IL			QString fileLangAbbrev=fi.baseName().section('_', 1);
+//IL			QString fileLangAbbrev = fi.baseName().section('_', 1);
 //IL			InstLang.insert(fileLangAbbrev, QStringList());
 //<<hunspell
 //			languageOfHyphFile = LanguageManager::instance()->getLangFromAbbrev(fileLangAbbrev, false);
@@ -8187,7 +8187,7 @@ void ScribusMainWindow::initHyphenator()
 //IL				trans->load(pfad + d2[dc]);
 
 //IL				QString translatedLang;
-//IL				for (QMap<QString, QStringList>::Iterator it=InstLang.begin(); it!=InstLang.end(); ++it)
+//IL				for (QMap<QString, QStringList>::Iterator it = InstLang.begin(); it != InstLang.end(); ++it)
 //IL				{
 //IL					translatedLang="";
 //IL					translatedLang = trans->translate("QObject", LanguageManager::instance()->getLangFromAbbrev(it.key(), false).toLocal8Bit().data(), "");
@@ -8419,10 +8419,10 @@ void ScribusMainWindow::callImageEditor()
 		return;
 	}
 #endif
-	QString imageEditorExecutable=m_prefsManager.imageEditorExecutable();
+	QString imageEditorExecutable = m_prefsManager.imageEditorExecutable();
 	if (currItem->imageIsAvailable)
 	{
-		bool startFailed=false;
+		bool startFailed = false;
 	#ifdef Q_OS_MACOS
 		QString osxcmd(imageEditorExecutable);
 		if (osxcmd.endsWith(".app"))
@@ -8433,11 +8433,11 @@ void ScribusMainWindow::callImageEditor()
 		osxcmd.append(QDir::toNativeSeparators(currItem->Pfile));
 		osxcmd.append("\"");
 		if (!QProcess::startDetached(osxcmd))
-			startFailed=true;
+			startFailed = true;
 	#else
 		QStringList cmd(QDir::toNativeSeparators(currItem->Pfile));
 		if (!QProcess::startDetached(QDir::fromNativeSeparators(imageEditorExecutable), cmd))
-			startFailed=true;
+			startFailed = true;
 	#endif
 		if (startFailed)
 			ScMessageBox::critical(this, CommonStrings::trWarning, "<qt>" + tr("The program %1 is missing or failed to open").arg(imageEditorExecutable) + "</qt>");
@@ -8788,7 +8788,7 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 		return;
 
 	PageItem_ImageFrame* imageItem = currItem->asImageFrame();
-	int i=QMessageBox::Yes;
+	int i = QMessageBox::Yes;
 	if (imageItem->imageIsAvailable)
 		i = ScMessageBox::warning(this, CommonStrings::trWarning,
 								tr("Do you really want to replace your existing image?"),
@@ -8857,9 +8857,9 @@ void ScribusMainWindow::slotItemTransform()
 	if (UndoManager::undoEnabled())
 		trans = m_undoManager->beginTransaction(Um::Selection, Um::IPolygon, Um::Transform, QString(), Um::IMove);
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-	int count=td.getCount();
+	int count = td.getCount();
 	QTransform matrix(td.getTransformMatrix());
-	AnchorPoint basepoint=td.getBasepoint();
+	AnchorPoint basepoint = td.getBasepoint();
 	doc->itemSelection_Transform(count, matrix, basepoint);
 	QApplication::restoreOverrideCursor();
 	if (trans)
@@ -8916,7 +8916,7 @@ void ScribusMainWindow::PutToInline(const QString& buffer)
 	}
 	doc->m_Selection->clear();
 	doc->m_Selection->delaySignalsOff();
-	*doc->m_Selection=tempSelection;
+	*doc->m_Selection = tempSelection;
 	doc->minCanvasCoordinate = minSize;
 	doc->maxCanvasCoordinate = maxSize;
 	m_undoManager->setUndoEnabled(true);
@@ -8978,7 +8978,7 @@ void ScribusMainWindow::PutToInline()
 	}
 	doc->m_Selection->clear();
 	doc->m_Selection->delaySignalsOff();
-	*doc->m_Selection=tempSelection;
+	*doc->m_Selection = tempSelection;
 	doc->minCanvasCoordinate = minSize;
 	doc->maxCanvasCoordinate = maxSize;
 	m_undoManager->setUndoEnabled(true);
@@ -9958,7 +9958,7 @@ void ScribusMainWindow::testQT_slot4()
 	qDebug()<<"Signal data empty but received";
 	QObject *rootObject = dynamic_cast<QObject*>(m_qqview->rootObject());
 	QObject *q_xSpinBox = rootObject->findChild<QObject*>("xSpinBox");
-	//if (q_xSpinBox==sender())
+	//if (q_xSpinBox == sender())
 	{
 		qDebug()<<"qov"<<q_xSpinBox->property("value").toDouble();
 	}

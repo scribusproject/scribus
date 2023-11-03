@@ -102,8 +102,8 @@ bool SaveAsTemplatePlugin::run(ScribusDoc* doc, const QString& target)
 */
 /* jghali's fix when the new file dialog is cancelled SaT is still active in the menu - PL */
 {
-	m_Doc=doc;
- 	if ( m_Doc )
+	m_Doc = doc;
+	if (m_Doc)
 	{
 		Q_ASSERT(target.isEmpty());
 		MenuSAT* Sat = new MenuSAT();
@@ -165,7 +165,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 	doc->setDocumentFileName(currentFile);
 	doc->hasName = hasName;
 	doc->setModified(isModified);
-	QString newCaption=currentFile;
+	QString newCaption = currentFile;
 	if (isModified)
 		newCaption.append('*');
 	doc->scMW()->updateActiveWindowCaption(newCaption);

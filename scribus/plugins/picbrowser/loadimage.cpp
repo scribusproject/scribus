@@ -127,7 +127,7 @@ void loadImagesThread::processLoadImageJob(int row, const QString& path, int siz
 
 	ScImage image;
 //no realCMYK
-	bool mode=false;
+	bool mode = false;
 //no document needs to be assigned to this
 	CMSettings cms ( nullptr, "", Intent_Perceptual);
 	cms.allowColorManagement(false);

@@ -135,7 +135,7 @@ void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleConte
 	
 	if (pos < size())
 		value(pos)->setContext(newContext);
-	for (int i=pos-1; i >=0 ; --i ) 
+	for (int i = pos - 1; i >= 0; --i)
 	{
 		if ( (at(i)->ch) == SpecialChars::PARSEP)
 			break;

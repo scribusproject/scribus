@@ -97,7 +97,7 @@ public:
 	 If the document already uses a font 'name', use that. Otherwise find a match
 	 using 'family', 'variant', 'bold' and 'italic'
 	 */
-	void defineFont(const QString& name, const QString& family, const QString& variant, bool bold=false, bool italic=false);
+	void defineFont(const QString& name, const QString& family, const QString& variant, bool bold = false, bool italic = false);
 	/**
 	 Introduces a new named color into the document
 	 */

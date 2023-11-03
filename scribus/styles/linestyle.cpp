@@ -206,8 +206,7 @@ void LineStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	handler.begin(elemtag, att);
 	if (parentStyle())
 		parentStyle()->saxx(handler);	
-	Sublist::const_iterator it;
-	for (it=m_Sublines.begin(); it != m_Sublines.end(); ++it)
+	for (auto it = m_Sublines.begin(); it != m_Sublines.end(); ++it)
 	{
 		(*it).saxx(handler, "subline");
 	}

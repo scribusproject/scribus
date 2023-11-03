@@ -83,7 +83,7 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent, 
 	indentations << 0;
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
-//	bool haveTutorials=false;
+//	bool haveTutorials = false;
 	QList<QVariant> columnData;
 	int position=0;
 	while (!n.isNull())
@@ -162,7 +162,7 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent, 
 								indexToBuild->insert(textAttr.value(), fileAttr.value());
 						}
 						//3rd level
-						QDomNodeList nl2=child.childNodes();
+						QDomNodeList nl2 = child.childNodes();
 						if (nl2.count() > 0)
 							position = 2;
 						for (int i2 = 0 ; i2 <= nl2.count(); i2++)
