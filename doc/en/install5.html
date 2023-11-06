@@ -2,41 +2,39 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <title>Compiling and Installing Scribus 1.4+ on Mac&nbsp;OS&nbsp;X</title>
+  <title>Compiling and Installing Scribus 1.6+ on Mac&nbsp;OS&nbsp;X</title>
 </head>
 
 <style>
 @import "manual.css";
 </style>
 <body>
-  <h2>Compiling and Installing Scribus 1.4+ on Mac&nbsp;OS&nbsp;X</h2>
+  <h2>Compiling and Installing Scribus 1.6+ on Mac&nbsp;OS&nbsp;X</h2>
 
   <p>This document outlines the build process for Scribus 1.4 or higher from SVN on Mac&nbsp;OS&nbsp;X. This does not currently outline the process for packaging and bundling Scribus (yet).</p>
 
   <h3>What you need:</h3>
 
   <ul>
-    <li>MacPorts installer (renamed from darwinports in versions since 1.5)</li>
+    <li>MacPorts installer</li>
 
-    <li>Qt 4.4.x from Trolltech</li>
+    <li>Qt 5.14.x or higher from Qt</li>
 
-    <li>XCode from Apple, either from the OS X install DVD or downloaded from http://www.apple.com</li>
+    <li>XCode from Apple, downloaded from http://www.apple.com</li>
 
     <li>Scribus SVN</li>
   </ul>
 
   <h3>Building and Installing</h3>
 
-  <p>Steps to build and install Scribus 1.4 on OS X/Aqua</p>
+  <p>Steps to build and install Scribus 1.6 on mac OS</p>
 
   <ul>
-    <li>Install X11 (available on the OS X CDs or from the Apple site)</li>
-
-    <li>Install <a href="http://developer.apple.com/tools/xcode/">XCode</a> (available on the OS X CDs or from the Apple developer site)</li>
+    <li>Install <a href="http://developer.apple.com/tools/xcode/">XCode</a> (available from the app store or from the Apple developer site)</li>
 
     <li>Install MacPorts (downloadable from <a href="http://www.macports.org">www.macports.org</a>)</li>
 
-    <li>Install Qt 4.4.0+ for OS X (downloadable from <a href="http://www.trolltech.com">www.trolltech.com</a>)</li>
+    <li>Install Qt 5.14.0+ for mac OS (downloadable from <a href="https://www.qt.io/">www.qt.io/</a> or via MacPorts)</li>
   </ul>
 
   <p>Install a few ports from MacPorts. Any other required dependencies will be installed automatically if they are not already. If you have already installed MacPorts for other software, then you should run <code>sudo port selfupdate</code> and <code>sudo port upgrade installed</code> in order that the newest versions of your current ports and libraries are installed.</p>
@@ -53,24 +51,37 @@
     <li>Install libxml2 (<code>sudo port install libxml2</code>).</li>
 
     <li>Install Subversion (<code>sudo port install subversion</code>) OR optionally install subversion from another source.</li>
+    <li>Install hunspell and requested dictionaries, eg hunspell-en</li>
+    <li>Install harfbuzz-icu</li>
+    <li>Install libcdr-0.1</li>
+    <li>Install libetonyek</li>
+    <li>Install libfreehand</li>
+    <li>Install libjxl</li>
+    <li>Install libmspub</li>
+    <li>Install libpagemaker</li>
+    <li>Install libqxp</li>
+    <li>Install libvisio-0.1</li>
+    <li>Install libzmf</li>
+    <li>Install podofo</li>
+    <li>Install poppler</li>
 
     <li>Optionally (recommended) <code>sudo port install ghostscript</code></li>
 
-    <li>Make a directory where you want to download to (eg, in Terminal, <code>mkdir -p ~/scribus/14</code>)</li>
+    <li>Make a directory where you want to download to (eg, in Terminal, <code>mkdir -p ~/scribus/16</code>)</li>
 
-    <li>Change to this directory (<code>cd ~/scribus/14</code>)</li>
+    <li>Change to this directory (<code>cd ~/scribus/16</code>)</li>
   </ul>
 
   <p>Check out Scribus from SVN</p>
 
   <ul>
-    <li><code>svn co svn://scribus.info/Scribus/branches/Version140</code></li>
+    <li><code>svn co svn://scribus.info/Scribus/branches/Version16x</code></li>
 
     <li>Make a build directory <code>mkdir builddir</code></li>
 
     <li>Change to the build directory (<code>cd builddir</code>)</li>
 
-    <li>Run the cmake command: <code>cmake -DBUILD_OSX_BUNDLE=1 -DWANT_CAIRO=1 -DCMAKE_INSTALL_PREFIX:PATH=/Users/username/Applications/Scribus.App/Contents/ ../trunk/Scribus/</code></li>
+    <li>Run the cmake command: <code>cmake -DBUILD_OSX_BUNDLE=1 -DWANT_CAIRO=1 -DCMAKE_INSTALL_PREFIX:PATH=/Users/username/Applications/Scribus.app/Contents/ ../trunk/Scribus/</code></li>
 
     <li><code>make</code></li>
 
