@@ -1,11 +1,9 @@
-=What’s New in Scribus 1.5.x ?=
+=What’s New in Scribus 1.6.x ?=
 
 
-This is a cursory overview over the most important changes in Scribus compared to the latest stable version 1.4.x.
- 
-Please note that the file format has changed and is not backwardly compatible with any prior stable version (1.4.x or earlier). To be precise, you will not be able to open 1.5.x files with version 1.4.x or any earlier version.
+This is a cursory overview over the most important changes in Scribus compared to the last stable version 1.4.x.
 
-Also note that the 1.5.x series is not an officially stable version. Instead, all 1.5.x versions are development candidates of the upcoming stable Scribus 1.6.0! If you try to do some serious work with 1.5.x, you do so at your own peril. That being said, the Scribus Team considers Scribus 1.5.7 to be stable enough to be used for daily work. Features that are already in 1.4.x will work as reliably and in many cases even better than in 1.4.x.
+Please note that the file format has changed and is not backwardly compatible with any prior stable version (1.4.x or earlier). To be precise, you will not be able to open 1.6.x files with version 1.4.x or any earlier version.
 
 
 

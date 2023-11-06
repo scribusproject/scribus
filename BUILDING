@@ -25,8 +25,8 @@ Requirements:
 	Qt >= 5.14.0 for Scribus 1.5.x/1.6.x
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
 	cairo >= 1.14.x
-	harfbuzz >= 1.0.5
-	harfbuzz-subset >= 2.4.0
+	harfbuzz >= 8.x
+	harfbuzz-icu >= 8.x
 	libicu
 	libjpeg (depending on how Qt is packaged)
 	libpng >= 1.6.0
@@ -35,6 +35,7 @@ Requirements:
 	LittleCMS (liblcms) >= 2.0 (2.1+ recommended)
 	poppler and poppler-cpp >= 0.62.0
 	If poppler >= 22.01.0, the C++17 standard will be required.
+	podofo - 0.9.0+ for enhanced Illustrator AI/EPS import, svn versions
 	
 Recommended:
 	CUPS
@@ -45,7 +46,6 @@ Recommended:
 	python-imaging for the font sampler preview
 	pkgconfig (to assist finding other libraries)
 	hunspell for the spell checker
-	podofo - 0.7.0+ for enhanced Illustrator AI/EPS import, svn versions
 	boost and boost-devel
 	GraphicksMagick++
 	librevenge
