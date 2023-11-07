@@ -298,46 +298,16 @@ void ScreenPainter::drawRect(const QRectF& rect)
 
 void ScreenPainter::drawObject(PageItem* embedded)
 {
-	QRectF cullingArea;
 	if (!embedded)
 		return;
 
 	m_painter->save();
 	setupState(false);
 
-	double pws = embedded->m_lineWidth;
-
 	embedded->invalid = true;
 	embedded->DrawObj_Pre(m_painter);
-
-	switch (embedded->itemType())
-	{
-	case PageItem::ImageFrame:
-	case PageItem::TextFrame:
-	case PageItem::LatexFrame:
-	case PageItem::OSGFrame:
-	case PageItem::Polygon:
-	case PageItem::PathText:
-	case PageItem::Symbol:
-	case PageItem::Group:
-	case PageItem::RegularPolygon:
-	case PageItem::Arc:
-	case PageItem::Table:
-		embedded->DrawObj_Item(m_painter, cullingArea);
-		break;
-	case PageItem::Line:
-	case PageItem::PolyLine:
-	case PageItem::Spiral:
-	//	embedded->m_lineWidth = pws * qMin(scaleH(), scaleV());
-		embedded->DrawObj_Item(m_painter, cullingArea);
-		break;
-	default:
-		break;
-	}
-
-//	embedded->m_lineWidth = pws * qMin(scaleH(), scaleV());
+	embedded->DrawObj_Item(m_painter, QRectF());
 	embedded->DrawObj_Post(m_painter);
-	embedded->m_lineWidth = pws;
 
 	m_painter->restore();
 
