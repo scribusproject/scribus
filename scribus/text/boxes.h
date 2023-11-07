@@ -276,6 +276,8 @@ public:
 	void render(TextLayoutPainter *p) const override;
 	void render(ScreenPainter*, ITextContext *ctx) const override;
 
+	void update();
+
 private:
 	/* const */ PageItem* m_object;
 };
