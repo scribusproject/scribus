@@ -157,10 +157,9 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 	QScreen *screen = QGuiApplication::primaryScreen();
 	if (screen)
 		pm = screen->grabWindow( QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
-	QImage i = pm.toImage();
-	QColor selectedColor = i.pixel(0, 0);
+	QImage img = pm.toImage();
+	QColor selectedColor = img.pixel(0, 0);
 
-	bool found = false;
 	QString colorName;
 	for (auto it = m_doc->PageColors.begin(); it != m_doc->PageColors.end(); ++it)
 	{
@@ -198,10 +197,10 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 
-	uint docSelectionCount = m_doc->m_Selection->count();
+	int docSelectionCount = m_doc->m_Selection->count();
 	if (!colorName.isEmpty() && docSelectionCount > 0)
 	{
-		for (uint i = 0; i < docSelectionCount; ++i)
+		for (int i = 0; i < docSelectionCount; ++i)
 		{
 			PageItem *currItem = m_doc->m_Selection->itemAt(i);
 			if (!currItem)
