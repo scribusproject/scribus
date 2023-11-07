@@ -33,11 +33,11 @@ int GroupBox::pointToPosition(const QPointF& coord, const StoryText &story) cons
 
 	if (containsPoint(coord) && (m_boxes.count() > 0))
 	{
-		LineBox* firstLine = dynamic_cast<LineBox*>(m_boxes.first());
+		const LineBox* firstLine = dynamic_cast<LineBox*>(m_boxes.first());
 		if (firstLine && (coord.y() < firstLine->y()))
 			return firstLine->firstChar();
 
-		LineBox* lastLine = dynamic_cast<LineBox*>(m_boxes.last());
+		const LineBox* lastLine = dynamic_cast<LineBox*>(m_boxes.last());
 		if (lastLine && (coord.y() > lastLine->y() + lastLine->naturalHeight()))
 			return lastLine->lastChar() + 1;
 	}
@@ -458,7 +458,7 @@ void LineBox::justify(const ParagraphStyle& style)
 
 void PathLineBox::update()
 {
-	for (Box* box : boxes())
+	for (const Box* box : boxes())
 	{
 		m_firstChar = qMin(m_firstChar, box->firstChar());
 		m_lastChar = qMax(m_lastChar, box->lastChar());
@@ -687,7 +687,7 @@ void GlyphBox::render(TextLayoutPainter *p) const
 
 		if ((charStyle.effects() & ScStyle_Outline) && hasStrokeColor && ((charStyle.fontSize() * m_glyphRun.scaleV() * charStyle.outlineWidth() / 10000.0) != 0))
 		{
-			p->setStrokeWidth((charStyle.fontSize() * m_glyphRun.scaleV() * charStyle.outlineWidth() / 10000.0));
+			p->setStrokeWidth(charStyle.fontSize() * m_glyphRun.scaleV() * charStyle.outlineWidth() / 10000.0);
 			p->drawGlyphOutline(m_glyphRun, hasFillColor);
 		}
 		else if (hasFillColor)
