@@ -832,17 +832,32 @@ QLineF GlyphBox::positionToPoint(int pos, const StoryText& story) const
 
 void ObjectBox::render(TextLayoutPainter *p) const
 {
-	p->save();
 	double oldX = m_object->xPos();
 	double oldY = m_object->yPos();
 	bool oldEM = m_object->isEmbedded;
 	const CharStyle& charStyle = style();
+
+	double scaleH;
+	double scaleV;
+	if (m_glyphRun.hasFlag(ScLayout_DropCap))
+	{
+		scaleH = m_glyphRun.scaleH();
+		scaleV = m_glyphRun.scaleV();
+	}
+	else
+	{
+		scaleH = charStyle.scaleH() / 1000.0;
+		scaleV = charStyle.scaleV() / 1000.0;
+	}
+
+	p->save();
 	p->translate(x(), y() - ascent());
 	if (m_object->rotation() != 0.0)
 	{
 		double lineWidth = m_object->visualLineWidth();
 		QTransform trans;
 		trans.translate(lineWidth / 2.0, lineWidth / 2.0);
+		trans.scale(scaleH, scaleV);
 		trans.rotate(m_object->rotation());
 		QSizeF objectSize = m_object->visualSize();
 		QRectF mappedRect = trans.mapRect(QRectF(0.0, 0.0, objectSize.width(), objectSize.height()));
@@ -850,10 +865,7 @@ void ObjectBox::render(TextLayoutPainter *p) const
 		double dy = (mappedRect.top() < 0) ? -mappedRect.top() : 0.0;
 		p->translate(dx, dy);
 	}
-	if (m_glyphRun.hasFlag(ScLayout_DropCap))
-		p->setScale(m_glyphRun.scaleH(), m_glyphRun.scaleV());
-	else
-		p->setScale(charStyle.scaleH() / 1000.0, charStyle.scaleV() / 1000.0);
+	p->setScale(scaleH, scaleV);
 	p->setMatrix(m_matrix);
 
 	m_object->setXPos(m_object->gXpos, true);
@@ -876,4 +888,18 @@ void ObjectBox::render(TextLayoutPainter *p) const
 void ObjectBox::render(ScreenPainter *p, ITextContext *ctx) const
 {
 	render(p);
+}
+
+void ObjectBox::update()
+{
+	if (m_object)
+	{
+		m_naturalAscent = m_ascent;
+		m_naturalDescent = m_descent;
+	}
+	else
+	{
+		m_naturalAscent = m_glyphRun.ascent();
+		m_naturalDescent = m_glyphRun.descent();
+	}
 }

@@ -1007,13 +1007,15 @@ struct LineControl {
 		Box* result;
 		if (run.object().getPageItem(doc))
 		{
-			result = new ObjectBox(run, context);
+			auto* objectBox = new ObjectBox(run, context);
+			result = objectBox;
 			QRectF bBox = context->getVisualBoundingBox(run.object());
 			if (run.hasFlag(ScLayout_DropCap))
-				result->setAscent(bBox.height() * run.scaleV() - run.yoffset);
+				objectBox->setAscent(bBox.height() * run.scaleV() - run.yoffset);
 			else
-				result->setAscent(bBox.height());
-			result->setDescent(0);
+				objectBox->setAscent(bBox.height() * run.scaleV());
+			objectBox->setDescent(0);
+			objectBox->update();
 		}
 		else
 		{
@@ -1611,11 +1613,6 @@ void PageItem_TextFrame::layout()
 				GlyphCluster& glyphCluster = current.glyphs[currentIndex];
 				if (HasObject)
 				{
-				//	double itemHeight = currentObject->height() + currentObject->lineWidth();
-				//	if (itemHeight == 0)
-				//		itemHeight = font.height(style.charStyle().fontSize() / 10.0);
-				//	asce = currentObject->height() + currentObject->lineWidth();
-				//	wide = currentObject->width() + currentObject->lineWidth();
 					double itemHeight = currentObjectBox.height();
 					if (itemHeight == 0)
 						itemHeight = font.height(style.charStyle().fontSize() / 10.0);
@@ -1686,9 +1683,8 @@ void PageItem_TextFrame::layout()
 				}
 				if (HasObject)
 				{
-				//	asce = currentObject->height() + currentObject->lineWidth();
-					asce = currentObjectBox.height();
-					realAsce = asce * scaleV + offset;
+					asce = currentObjectBox.height() * scaleV;
+					realAsce = asce + offset;
 					wide = currentObjectBox.width() * scaleH;
 				}
 				else
