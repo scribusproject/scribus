@@ -999,7 +999,7 @@ public:
 	void drawObject(PageItem* item) override
 	{
 		QDomElement canvas = m_xps->p_docu.createElement("Canvas");
-		QTransform matrix = QTransform();
+		QTransform matrix;
 		matrix.translate(x() * m_xps->conversionFactor, (y() - (item->height() * (scaleV() / 1000.0))) * m_xps->conversionFactor);
 		if (scaleH() != 1.0)
 			matrix.scale(scaleH(), 1);

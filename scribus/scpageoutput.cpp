@@ -1049,41 +1049,14 @@ public:
 
 	void drawObject(PageItem* embedded) override
 	{
-		QRect cullingArea;
 		if (!embedded)
 			return;
 
 		m_painter->save();
 
-		double pws = embedded->m_lineWidth;
 		embedded->invalid = true;
+		m_scpage->drawItem(embedded, m_painter, QRect());
 
-		switch (embedded->itemType())
-		{
-		case PageItem::ImageFrame:
-		case PageItem::TextFrame:
-		case PageItem::LatexFrame:
-		case PageItem::OSGFrame:
-		case PageItem::Polygon:
-		case PageItem::PathText:
-		case PageItem::Symbol:
-		case PageItem::Group:
-		case PageItem::RegularPolygon:
-		case PageItem::Arc:
-		case PageItem::Table:
-			m_scpage->drawItem(embedded, m_painter, cullingArea);
-			break;
-		case PageItem::Line:
-		case PageItem::PolyLine:
-		case PageItem::Spiral:
-			embedded->m_lineWidth = pws * qMin(scaleH(), scaleV());
-			m_scpage->drawItem(embedded, m_painter, cullingArea);
-			break;
-		default:
-			break;
-		}
-
-		embedded->m_lineWidth = pws;
 		m_painter->restore();
 	}
 };
