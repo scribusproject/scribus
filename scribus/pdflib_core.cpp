@@ -2216,7 +2216,7 @@ PdfId PDFLibCore::PDF_EmbedType1AsciiFontObject(const QByteArray& fon)
 	PutDoc("<<\n/Length " + Pdf::toPdf(fon2.length() + 1) + "\n");
 	PutDoc("/Length1 " + Pdf::toPdf(len1 + 1) + "\n");
 	PutDoc("/Length2 " + Pdf::toPdf(hexData.length()) + "\n");
-	if (static_cast<int>(fon.length() - len2) == -1)
+	if ((fon.length() - len2) == -1)
 		PutDoc("/Length3 0\n");
 	else
 		PutDoc("/Length3 " + Pdf::toPdf(fon.length() - len2) + "\n");

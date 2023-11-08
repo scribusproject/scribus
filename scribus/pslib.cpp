@@ -65,7 +65,7 @@ for which a new license (GPL+exception) is in place.
 
 using namespace TableUtils;
 
-class PSPainter:public TextLayoutPainter
+class PSPainter : public TextLayoutPainter
 {
 	public:
 	PSPainter(ScribusDoc* Doc, uint argh, ScPage* page, bool master, PSLib* ps):
@@ -310,7 +310,7 @@ PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, Col
 		// Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed
 		// Subset also font whose postscript name conflicts with an already used font
 		// Subset always now with new boxes code.
-		ScFace &face (allFonts[it.key()]);
+		const ScFace &face (allFonts[it.key()]);
 		QMap<uint, QString>& usedGlyphs(it.value());
 		QString encodedName = face.psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" );
 
@@ -1102,10 +1102,9 @@ void PSLib::PS_setdash(Qt::PenStyle st, double offset, QVector<double> dash)
 	if (dash.count() != 0)
 	{
 		PutStream("[ ");
-		QVector<double>::iterator it;
-		for ( it = dash.begin(); it != dash.end(); ++it )
+		for (double dashValue : dash)
 		{
-			PutStream(ToStr(*it) + " ");
+			PutStream(ToStr(dashValue) + " ");
 		}
 		PutStream("] " + ToStr(offset) + " setdash\n");
 	}
@@ -1214,10 +1213,10 @@ bool PSLib::PS_ImageData(PageItem *item, const QString& fn, const QString& Name,
 			PutStream("%%BeginDocument: " + fi.fileName() + "\n");
 			if (getDouble(tmp.mid(0, 4), true) == 0xC5D0D3C6)
 			{
-				char* data = tmp.data();
+				const char* data = tmp.data();
 				uint startPos = getDouble(tmp.mid(4, 4), false);
 				uint length = getDouble(tmp.mid(8, 4), false);
-				PutStream(data+startPos, length, false);
+				PutStream(data + startPos, length, false);
 			}
 			else
 				PutStream(tmp, false);
@@ -1309,10 +1308,10 @@ bool PSLib::PS_image(PageItem *item, double x, double y, const QString& fn, doub
 				PutStream("%%BeginDocument: " + fi.fileName() + "\n");
 				if (getDouble(tmp.mid(0, 4), true) == 0xC5D0D3C6)
 				{
-					char* data = tmp.data();
+					const char* data = tmp.data();
 					uint startPos = getDouble(tmp.mid(4, 4), false);
 					uint length = getDouble(tmp.mid(8, 4), false);
-					PutStream(data+startPos, length, false);
+					PutStream(data + startPos, length, false);
 				}
 				else
 					PutStream(tmp);
@@ -1778,7 +1777,7 @@ int PSLib::createPS(const QString& outputFileName)
 				aa++;
 			else
 			{
-				if (sepac == static_cast<int>(separations.count() - 1))
+				if (sepac == (separations.count() - 1))
 				{
 					aa++;
 					sepac = 0;
@@ -1881,7 +1880,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		{
 			if (item->NamedLStyle.isEmpty()) // && (item->lineWidth() != 0.0))
 			{
-				ScPattern* strokePattern = m_Doc->checkedPattern(item->strokePattern());
+				const ScPattern* strokePattern = m_Doc->checkedPattern(item->strokePattern());
 				if (strokePattern && item->patternStrokePath)
 				{
 					QPainterPath path = item->PoLine.toQPainterPath(false);
@@ -1987,7 +1986,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			PS_setdash(item->PLineArt, item->DashOffset, item->DashValues);
 			if (item->NamedLStyle.isEmpty()) // && (item->lineWidth() != 0.0))
 			{
-				ScPattern* strokePattern = m_Doc->checkedPattern(item->strokePattern());
+				const ScPattern* strokePattern = m_Doc->checkedPattern(item->strokePattern());
 				if (strokePattern && item->patternStrokePath)
 				{
 					QPainterPath path = item->PoLine.toQPainterPath(false);
@@ -2032,7 +2031,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 	case PageItem::Line:
 		if (item->NamedLStyle.isEmpty()) // && (item->lineWidth() != 0.0))
 		{
-			ScPattern* strokePattern = m_Doc->checkedPattern(item->strokePattern());
+			const ScPattern* strokePattern = m_Doc->checkedPattern(item->strokePattern());
 			if (strokePattern)
 			{
 				if (item->patternStrokePath)
@@ -2119,7 +2118,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		{
 			if (item->NamedLStyle.isEmpty()) //&& (item->lineWidth() != 0.0))
 			{
-				ScPattern* strokePattern = m_Doc->checkedPattern(item->strokePattern());
+				const ScPattern* strokePattern = m_Doc->checkedPattern(item->strokePattern());
 				if (strokePattern && (item->patternStrokePath))
 				{
 					QPainterPath path = item->PoLine.toQPainterPath(false);
@@ -2176,7 +2175,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		{
 			if (item->NamedLStyle.isEmpty()) //&& (item->lineWidth() != 0.0))
 			{
-				ScPattern* strokePattern = m_Doc->checkedPattern(item->strokePattern());
+				const ScPattern* strokePattern = m_Doc->checkedPattern(item->strokePattern());
 				if (strokePattern && (item->patternStrokePath))
 				{
 					QPainterPath path = item->PoLine.toQPainterPath(false);
@@ -3997,7 +3996,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 	arrow.map(arrowTrans);
 	if (ite->NamedLStyle.isEmpty())
 	{
-		ScPattern* strokePattern = m_Doc->checkedPattern(ite->strokePattern());
+		const ScPattern* strokePattern = m_Doc->checkedPattern(ite->strokePattern());
 		if (strokePattern)
 		{
 			PS_newpath();
@@ -4080,7 +4079,7 @@ void PSLib::SetColor(const QString& color, double shade, double *h, double *s, d
 		*k = 0;
 		return;
 	}
-	ScColor& col = m_Doc->PageColors[color];
+	const ScColor& col = m_Doc->PageColors[color];
 	SetColor(col, shade, h, s, v, k);
 }
 
@@ -4093,7 +4092,7 @@ void PSLib::SetColor(const ScColor& color, double shade, double *c, double *m, d
 	if ((Options.doGCR) && (!color.isRegistrationColor()))
 		ScColorEngine::applyGCR(tmp, m_Doc);
 	tmp.getCMYK(&c1, &m1, &y1, &k1);
-	if ((m_Doc->HasCMS) && (ScCore->haveCMS()) && (solidTransform))
+	if (m_Doc->HasCMS && ScCore->haveCMS() && solidTransform)
 	{
 		c1 = c1 * shade / 100.0;
 		m1 = m1 * shade / 100.0;
@@ -4141,7 +4140,7 @@ void PSLib::setTextSt(PageItem* ite, uint argh, ScPage* pg, bool master)
 
 void PSLib::putColor(const QString& colorName, double shade, bool fill)
 {
-	ScColor& color(colorsToUse[colorName]);
+	const ScColor& color(colorsToUse[colorName]);
 	if (fill)
 	{
 		if (((color.isSpotColor()) || (color.isRegistrationColor())) && (Options.useSpotColors))
@@ -4200,7 +4199,7 @@ void PSLib::putColor(const QString& colorName, double shade, bool fill)
 
 void PSLib::putColorNoDraw(const QString& colorName, double shade)
 {
-	ScColor& color(colorsToUse[colorName]);
+	const ScColor& color(colorsToUse[colorName]);
 	if (((color.isSpotColor()) || (color.isRegistrationColor())) && (Options.useSpotColors))
 	{
 		if (!DoSep)
@@ -4212,7 +4211,7 @@ void PSLib::putColorNoDraw(const QString& colorName, double shade)
 	}
 	else
 	{
-		double c=0, m=0, y=0, k=0;
+		double c = 0, m = 0, y = 0, k = 0;
 		SetColor(color, shade, &c, &m, &y, &k);
 		if (!DoSep || (Plate == 0 || Plate == 1 || Plate == 2 || Plate == 3))
 			PutStream(ToStr(c) + " " + ToStr(m) + " " + ToStr(y) + " " + ToStr(k) + " cmyk\n");
@@ -4257,7 +4256,7 @@ void PSLib::SetClipPath(const FPointArray &points, bool poly)
 		if (nPath)
 		{
 			np = points.point(poi);
-			if ((!first) && (poly) && (np4 == firstP))
+			if (!first && poly && (np4 == firstP))
 				PS_closepath();
 			PS_moveto(np.x(), -np.y());
 			nPath = false;
