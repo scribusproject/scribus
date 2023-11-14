@@ -394,11 +394,12 @@ QPixmap *IconManager::initPixmap(const QString filePath, QColor color)
 
 		QSvgRenderer svgRenderer(document.toByteArray());
 
-		QPixmap *iconPixmap = new QPixmap(svgRenderer.defaultSize());
+		QRect pxRect(0, 0, svgRenderer.defaultSize().width() * m_devicePixelRatio, svgRenderer.defaultSize().height() * m_devicePixelRatio);
+		QPixmap *iconPixmap = new QPixmap(pxRect.size());
 		iconPixmap->fill(Qt::transparent);
 
 		QPainter painter(iconPixmap);
-		svgRenderer.render(&painter);
+		svgRenderer.render(&painter, pxRect);
 		painter.end();
 
 		return iconPixmap;
