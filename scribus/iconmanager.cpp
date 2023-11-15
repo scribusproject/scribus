@@ -644,17 +644,13 @@ QString IconManager::pathForIcon(const QString& name)
 	if (QFile::exists(iconFilePath))
 		return iconFilePath;
 
-	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
-	iconFilePath = QString("%1%2%3").arg(ScPaths::instance().iconDir(), primaryIconSubdir, name);
+	QString iconFilePath2(QString("%1%2%3").arg(ScPaths::instance().iconDir(), primaryIconSubdir, name));
+	if (QFile::exists(iconFilePath2))
+		return iconFilePath2;
 
-	if (QFile::exists(iconFilePath))
-	{
-		//qDebug()<<iconFilePath;
-		return iconFilePath;
-	}
-#ifdef WANT_DEBUG
 	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
-#endif
+	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath2.toLatin1().constData());
+
 	return QString();
 }
 
