@@ -469,7 +469,7 @@ public: // Start public functions
 	void setUseEmbeddedImageProfile(bool val) { UseEmbedded = val; }
 	QString embeddedImageProfile() const { return EmbeddedProfile; }
 	void setEmbeddedImageProfile(const QString& val) { EmbeddedProfile = val; }
-	bool drawFrame() { return ((m_itemType == TextFrame && !m_sampleItem) || (m_itemType == ImageFrame) || (m_itemType == PathText)); }
+	bool drawFrame() const { return ((m_itemType == TextFrame && !m_sampleItem) || (m_itemType == ImageFrame) || (m_itemType == PathText)); }
 	QString externalFile() const { return Pfile; }
 	void setExternalFile(const QString& filename, const QString& baseDir = QString());
 	void setImagePagenumber(int num) { pixm.imgInfo.actualPageNumber = num; }
@@ -763,7 +763,7 @@ public: // Start public functions
 	bool softShadowErasedByObject() const { return m_softShadowErasedByObject; }
 
 	void setSoftShadowHasObjectTransparency(bool val);
-	bool softShadowHasObjectTransparency() { return m_softShadowHasObjectTransparency; }
+	bool softShadowHasObjectTransparency() const { return m_softShadowHasObjectTransparency; }
 
 	int frameType() const { return FrameType; } ///< rect / oval / round / other
 	void setFrameType(int val) { FrameType = val; }
@@ -1274,7 +1274,7 @@ public: // Start public functions
 	void setImageVisible(bool);
 
 	void updateConstants();
-	bool isWelded()  {return !weldList.isEmpty(); }  //true if to this item some other items are welded (weldList is list of these items)
+	bool isWelded() const { return !weldList.isEmpty(); }  //true if to this item some other items are welded (weldList is list of these items)
 	void weldTo(PageItem* item);
 	QList<PageItem*> itemsWeldedTo(PageItem* except = nullptr);
 	void unWeld();
@@ -1284,10 +1284,11 @@ public: // Start public functions
 	void rotateWelded(double dR, double oldRot);
 	void setWeldPoint(double dX, double dY, const PageItem *pItem); 	///< added for autowelding feature of notes frames, setting welding point with given pItem to given coords
 	QString getItemTextSaxed(int selStart, int selLength); ///< used by notes frames to get content of notes from itemText
-	bool groupClipping() { return m_groupClips; }
+	
+	bool groupClipping() const { return m_groupClips; }
 	void setGroupClipping(bool val) { m_groupClips = val; }
-	bool hasFill() { return ((fillColor() != CommonStrings::None) || (GrType != 0)); }
-	bool hasStroke() { return ((lineColor() != CommonStrings::None) || (GrTypeStroke != 0) || (!NamedLStyle.isEmpty()) || (!patternStrokeVal.isEmpty())); }
+	bool hasFill() const { return ((fillColor() != CommonStrings::None) || (GrType != 0)); }
+	bool hasStroke() const { return ((lineColor() != CommonStrings::None) || (GrTypeStroke != 0) || (!NamedLStyle.isEmpty()) || (!patternStrokeVal.isEmpty())); }
 
 		// End public functions
 
