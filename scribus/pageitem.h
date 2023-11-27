@@ -1287,8 +1287,9 @@ public: // Start public functions
 	
 	bool groupClipping() const { return m_groupClips; }
 	void setGroupClipping(bool val) { m_groupClips = val; }
-	bool hasFill() const { return ((fillColor() != CommonStrings::None) || (GrType != 0)); }
-	bool hasStroke() const { return ((lineColor() != CommonStrings::None) || (GrTypeStroke != 0) || (!NamedLStyle.isEmpty()) || (!patternStrokeVal.isEmpty())); }
+	
+	virtual bool hasFill() const { return ((fillColor() != CommonStrings::None) || (GrType != 0)); }
+	virtual bool hasStroke() const { return ((lineColor() != CommonStrings::None) || (GrTypeStroke != 0) || (!NamedLStyle.isEmpty()) || (!patternStrokeVal.isEmpty())); }
 
 		// End public functions
 

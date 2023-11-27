@@ -67,6 +67,8 @@ public:
 	double visualWidth() const override;
 	double visualHeight() const override;
 	QSizeF visualSize() const override;
+
+	bool hasFill() const override { return false; }
 	
 protected:
 	void DrawObj_Item(ScPainter *p, const QRectF& e) override;
