@@ -1059,6 +1059,8 @@ public:
 
 		m_painter->restore();
 	}
+
+	void drawObjectDecoration(PageItem* item) override {}
 };
 
 void ScPageOutput::drawItem_Polygon(PageItem_Polygon* item , ScPainterExBase* painter, const QRect& clip)

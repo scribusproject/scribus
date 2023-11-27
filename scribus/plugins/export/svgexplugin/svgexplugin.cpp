@@ -1262,6 +1262,8 @@ public:
 		Group.setAttribute("transform", m_svg->matrixToStr(transform));
 		m_elem.appendChild(Group);
 	}
+
+	void drawObjectDecoration(PageItem* item) override {}
 };
 
 QDomElement SVGExPlug::processTextItem(PageItem *item, const QString& trans, const QString& fill, const QString& stroke)

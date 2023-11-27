@@ -26,6 +26,7 @@ public:
 	void drawLine(const QPointF& start, const QPointF& end) override;
 	void drawRect(const QRectF& rect) override;
 	void drawObject(PageItem* embedded) override;
+	void drawObjectDecoration(PageItem* embedded) override;
 
 	void clip(const QRectF& rect);
 	void saveState();

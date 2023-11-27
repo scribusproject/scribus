@@ -80,6 +80,7 @@ class PSPainter : public TextLayoutPainter
 	void drawLine(const QPointF& start, const QPointF& end) override;
 	void drawRect(const QRectF& rect) override;
 	void drawObject(PageItem* item) override;
+	void drawObjectDecoration(PageItem* item) override {}
 
 	private:
 		uint m_argh;

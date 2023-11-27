@@ -856,21 +856,19 @@ void ObjectBox::render(TextLayoutPainter *p) const
 		scaleV = charStyle.scaleV() / 1000.0;
 	}
 
+	double lineWidth = m_object->visualLineWidth();
+	QTransform trans;
+	trans.translate(lineWidth / 2.0, lineWidth / 2.0);
+	trans.scale(scaleH, scaleV);
+	trans.rotate(m_object->rotation());
+	QSizeF objectSize = m_object->visualSize();
+	QRectF mappedRect = trans.mapRect(QRectF(-lineWidth / 2.0, -lineWidth / 2.0, objectSize.width(), objectSize.height()));
+	double dx = (mappedRect.left() < lineWidth / 2.0) ? -mappedRect.left() + lineWidth / 2.0 : 0.0;
+	double dy = (mappedRect.top() < lineWidth / 2.0) ? -mappedRect.top() + lineWidth / 2.0 : 0.0;
+
 	p->save();
 	p->translate(x(), y() - ascent());
-	if (m_object->rotation() != 0.0)
-	{
-		double lineWidth = m_object->visualLineWidth();
-		QTransform trans;
-		trans.translate(lineWidth / 2.0, lineWidth / 2.0);
-		trans.scale(scaleH, scaleV);
-		trans.rotate(m_object->rotation());
-		QSizeF objectSize = m_object->visualSize();
-		QRectF mappedRect = trans.mapRect(QRectF(0.0, 0.0, objectSize.width(), objectSize.height()));
-		double dx = (mappedRect.left() < 0) ? -mappedRect.left() : 0.0;
-		double dy = (mappedRect.top() < 0) ? -mappedRect.top() : 0.0;
-		p->translate(dx, dy);
-	}
+	p->translate(dx, dy);
 	p->setScale(scaleH, scaleV);
 	p->setMatrix(m_matrix);
 
@@ -884,6 +882,9 @@ void ObjectBox::render(TextLayoutPainter *p) const
 	}
 
 	p->drawObject(m_object);
+
+	p->translate(-dx, -dy);
+	p->drawObjectDecoration(m_object);
 
 	m_object->setXPos(oldX, true);
 	m_object->setYPos(oldY, true);

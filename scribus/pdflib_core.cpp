@@ -518,6 +518,8 @@ public:
 		m_prevFontSize = -1.0;
 		m_glyphBuffer += "BT\n";
 	}
+
+	void drawObjectDecoration(PageItem* item) override { }
 };
 
 PDFLibCore::PDFLibCore(ScribusDoc & docu)
