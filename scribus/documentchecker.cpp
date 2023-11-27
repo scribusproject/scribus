@@ -61,6 +61,7 @@ public:
 	void drawLine(const QPointF&, const QPointF&) override { }
 	void drawRect(const QRectF&) override { }
 	void drawObject(PageItem*) override { }
+	void drawObjectDecoration(PageItem* item) override { }
 };
 
 bool isPartFilledImageFrame(PageItem * currItem)

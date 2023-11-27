@@ -1010,6 +1010,8 @@ public:
 		m_group.appendChild(canvas);
 		m_restart = true;
 	}
+
+	void drawObjectDecoration(PageItem* item) override {}
 };
 
 void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *item, QDomElement &parentElem, QDomElement &rel_root)

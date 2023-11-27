@@ -124,6 +124,8 @@ public:
 	virtual void drawRect(const QRectF& rect) = 0;
 	/// Draws and embedded page item at the current x and y positions.
 	virtual void drawObject(PageItem* item) = 0;
+	/// Draws embedded page item decoration at the current x and y positions.
+	virtual void drawObjectDecoration(PageItem* item) = 0;
 
 	/// Save the current painter state.
 	virtual void save();

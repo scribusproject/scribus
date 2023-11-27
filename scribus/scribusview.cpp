@@ -3008,6 +3008,7 @@ class TextToPathPainter: public TextLayoutPainter
 
 		void drawRect(const QRectF& rect) override {}
 		void drawObject(PageItem* item) override {}
+		void drawObjectDecoration(PageItem* item) override {}
 };
 
 void ScribusView::TextToPath()
