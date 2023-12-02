@@ -10,12 +10,13 @@ for which a new license (GPL+exception) is in place.
 #if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES
 #endif
+#include <QButtonGroup>
 #include <cmath>
 #include <QSignalBlocker>
 
-#include "arrowchooser.h"
 #include "dasheditor.h"
 #include "iconmanager.h"
+#include "linemarkerselector.h"
 #include "localemgr.h"
 #include "pageitem.h"
 #include "scribus.h"
@@ -23,58 +24,65 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "selection.h"
 #include "ui/propertiespalette_utils.h"
+#include "ui/widgets/popup_menu.h"
 #include "units.h"
 #include "util.h"
 
 
 //using namespace std;
 
+const double HAIRLINE = 0.001;
+
 PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(parent)
 {
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
+	buttonsCaps = new QButtonGroup();
+	buttonsCaps->addButton(buttonCapFlat, 0);
+	buttonsCaps->addButton(buttonCapSquare, 1);
+	buttonsCaps->addButton(buttonCapRound, 2);
+
+	buttonsJoins = new QButtonGroup();
+	buttonsJoins->addButton(buttonJoinMiter, 0);
+	buttonsJoins->addButton(buttonJoinBevel, 1);
+	buttonsJoins->addButton(buttonJoinRound, 2);
+
+
 	lineType->addItem( tr("Custom"));
 
-	lineModeLabel->setBuddy(lineMode);
-	lineTypeLabel->setBuddy(lineType);
+	lineMarkerSelectorStart = new LineMarkerSelector();
+	lineMarkerSelectorStart->setArrowDirection(ArrowDirection::StartArrow);
+	PopupMenu *menuLineMarkerStart = new PopupMenu(lineMarkerSelectorStart);
+	buttonMarkerStart->setMenu(menuLineMarkerStart);
 
-	startArrowLabel->setBuddy(startArrow);
-	endArrowLabel->setBuddy(endArrow);
-
-	startArrow->setArrowDirection(ArrowDirection::StartArrow);
-	startArrowScale->setMaximum(1000);
-	startArrowScale->setMinimum(1);
-	startArrowScale->setDecimals(0);
-
-	endArrow->setArrowDirection(ArrowDirection::EndArrow);
-	endArrowScale->setMaximum(1000);
-	endArrowScale->setMinimum(1);
-	endArrowScale->setDecimals(0);
-
-	lineWidthLabel->setBuddy(lineWidth);
-	lineJoinLabel->setBuddy(lineJoinStyle);
-	lineEndLabel->setBuddy(lineEndStyle);
+	lineMarkerSelectorEnd = new LineMarkerSelector();
+	lineMarkerSelectorEnd->setArrowDirection(ArrowDirection::EndArrow);
+	PopupMenu *menuLineMarkerEnd = new PopupMenu(lineMarkerSelectorEnd);
+	buttonMarkerEnd->setMenu(menuLineMarkerEnd);
 
 	lineStyles->setItemDelegate(new LineStyleItemDelegate());
 	lineStyles->addItem( "No Style" );
 
 	languageChange();
+	iconSetChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 
 	connect(lineWidth, SIGNAL(valueChanged(double)), this, SLOT(handleLineWidth()));
 	connect(lineType, SIGNAL(activated(int)), this, SLOT(handleLineStyle()));
-	connect(lineJoinStyle, SIGNAL(activated(int)), this, SLOT(handleLineJoin()));
-	connect(lineEndStyle, SIGNAL(activated(int)), this, SLOT(handleLineEnd()));
-	connect(lineMode, SIGNAL(activated(int)), this, SLOT(handleLineMode()));
+	connect(buttonsJoins, SIGNAL(idClicked(int)), this, SLOT(handleLineJoin()));
+	connect(buttonsCaps, SIGNAL(idClicked(int)), this, SLOT(handleLineEnd()));
 	connect(dashEditor, SIGNAL(dashChanged()), this, SLOT(handleDashChange()));
-	connect(startArrow, SIGNAL(activated(int)), this, SLOT(handleStartArrow(int)));
-	connect(endArrow, SIGNAL(activated(int)), this, SLOT(handleEndArrow(int)));
-	connect(startArrowScale, SIGNAL(valueChanged(double)), this, SLOT(handleStartArrowScale(double)));
-	connect(endArrowScale, SIGNAL(valueChanged(double)), this, SLOT(handleEndArrowScale(double)));
+	connect(lineMarkerSelectorStart, SIGNAL(markerChanged(int)), this, SLOT(handleStartArrow(int)));
+	connect(lineMarkerSelectorStart, SIGNAL(scaleChanged(double)), this, SLOT(handleStartArrowScale(double)));
+	connect(lineMarkerSelectorEnd, SIGNAL(markerChanged(int)), this, SLOT(handleEndArrow(int)));
+	connect(lineMarkerSelectorEnd, SIGNAL(scaleChanged(double)), this, SLOT(handleEndArrowScale(double)));
 	connect(lineStyles, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(handleLineStyle(QListWidgetItem*)));
+	connect(buttonSwapMarker, SIGNAL(clicked(bool)), this, SLOT(swapLineMarker()));
+
 }
 
 void PropertiesPalette_Line::changeEvent(QEvent *e)
@@ -92,16 +100,8 @@ PageItem* PropertiesPalette_Line::currentItemFromSelection()
 	PageItem *currentItem = nullptr;
 
 	if (m_doc)
-	{
-		if (m_doc->m_Selection->count() > 1)
-		{
-			currentItem = m_doc->m_Selection->itemAt(0);
-		}
-		else if (m_doc->m_Selection->count() == 1)
-		{
-			currentItem = m_doc->m_Selection->itemAt(0);
-		}
-	}
+		if (m_doc->m_Selection->count() >= 1)
+			currentItem = m_doc->m_Selection->itemAt(0);		
 
 	return currentItem;
 }
@@ -136,8 +136,12 @@ void PropertiesPalette_Line::setDoc(ScribusDoc *d)
 	lineWidth->setMinimum( 0 );
 
 	updateLineStyles(m_doc);
-	startArrow->rebuildList(&m_doc->arrowStyles());
-	endArrow->rebuildList(&m_doc->arrowStyles());
+
+	lineMarkerSelectorStart->rebuildList(&m_doc->arrowStyles());
+	buttonMarkerStart->setIcon(lineMarkerSelectorStart->currentIcon());
+
+	lineMarkerSelectorEnd->rebuildList(&m_doc->arrowStyles());
+	buttonMarkerEnd->setIcon(lineMarkerSelectorEnd->currentIcon());
 
 	connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
 	connect(m_doc, SIGNAL(docChanged()), this, SLOT(handleSelectionChanged()));
@@ -184,11 +188,14 @@ void PropertiesPalette_Line::handleSelectionChanged()
 		int itemType = currItem ? (int) currItem->itemType() : -1;
 		m_haveItem = (itemType != -1);
 
-		lineMode->setEnabled(false);
 		switch (itemType)
 		{
 		case -1:
 			setEnabled(false);
+			lineMarkerSelectorStart->setMarker(0);
+			buttonMarkerStart->setIcon(lineMarkerSelectorStart->currentIcon());
+			lineMarkerSelectorEnd->setMarker(0);
+			buttonMarkerEnd->setIcon(lineMarkerSelectorEnd->currentIcon());
 			break;
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
@@ -196,9 +203,6 @@ void PropertiesPalette_Line::handleSelectionChanged()
 			setEnabled(currItem->asOSGFrame() == nullptr);
 			break;
 		case PageItem::Line:
-			setEnabled(true);
-			lineMode->setEnabled(true);
-			break;
 		case PageItem::Arc:
 		case PageItem::ItemType1:
 		case PageItem::ItemType3:
@@ -247,29 +251,21 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 	m_item = item;
 
 	lineStyles->blockSignals(true);
-	startArrow->blockSignals(true);
-	endArrow->blockSignals(true);
-	startArrowScale->blockSignals(true);
-	endArrowScale->blockSignals(true);
-	lineMode->blockSignals(true);
-
+	lineMarkerSelectorStart->blockSignals(true);
+	lineMarkerSelectorEnd->blockSignals(true);
 	if ((m_item->asLine()) || (m_item->asPolyLine()) || (m_item->asSpiral()))
 	{
-		startArrow->setEnabled(true);
-		endArrow->setEnabled(true);
-		startArrow->setCurrentIndex(m_item->startArrowIndex());
-		endArrow->setCurrentIndex(m_item->endArrowIndex());
-		startArrowScale->setEnabled(true);
-		endArrowScale->setEnabled(true);
-		endArrowScale->setValue(m_item->endArrowScale());
-		startArrowScale->setValue(m_item->startArrowScale());
+		lineMarkerSelectorStart->setMarker(m_item->startArrowIndex());
+		lineMarkerSelectorStart->setScale(m_item->startArrowScale());
+		buttonMarkerStart->setIcon(lineMarkerSelectorStart->currentIcon());
+		lineMarkerSelectorEnd->setMarker(m_item->endArrowIndex());
+		lineMarkerSelectorEnd->setScale(m_item->endArrowScale());
+		buttonMarkerEnd->setIcon(lineMarkerSelectorEnd->currentIcon());
+		lineMarkerLabel->setVisible(true);
 	}
 	else
 	{
-		startArrow->setEnabled(false);
-		endArrow->setEnabled(false);
-		startArrowScale->setEnabled(false);
-		endArrowScale->setEnabled(false);
+		lineMarkerLabel->setVisible(false);
 	}
 
 	if (lineStyles->currentItem())
@@ -294,29 +290,21 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 
 	lineType->setEnabled(setter);
 	lineWidth->setEnabled(setter);
-	lineJoinStyle->setEnabled(setter);
-	lineEndStyle->setEnabled(setter);
+	lineJoinLabel->setEnabled(setter);
+	lineEndLabel->setEnabled(setter);
 
 	if (m_item->dashes().count() == 0)
 		dashEditor->hide();
 	else
 	{
 		lineType->setCurrentIndex(37);
-		dashEditor->setDashValues(m_item->dashes(), qMax(m_item->lineWidth(), 0.001), m_item->dashOffset());
+		dashEditor->setDashValues(m_item->dashes(), qMax(m_item->lineWidth(), HAIRLINE), m_item->dashOffset());
 		dashEditor->show();
 	}
 
-	if (m_lineMode)
-		lineMode->setCurrentIndex(1);
-	else
-		lineMode->setCurrentIndex(0);
-
 	lineStyles->blockSignals(false);
-	startArrow->blockSignals(false);
-	endArrow->blockSignals(false);
-	startArrowScale->blockSignals(false);
-	endArrowScale->blockSignals(false);
-	lineMode->blockSignals(false);
+	lineMarkerSelectorStart->blockSignals(false);
+	lineMarkerSelectorEnd->blockSignals(false);
 
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 		setEnabled(false);
@@ -341,8 +329,10 @@ void PropertiesPalette_Line::updateArrowStyles(ScribusDoc *doc)
 {
 	if (!doc)
 		return;
-	startArrow->rebuildList(&doc->arrowStyles());
-	endArrow->rebuildList(&doc->arrowStyles());
+	lineMarkerSelectorStart->rebuildList(&doc->arrowStyles());
+	buttonMarkerStart->setIcon(lineMarkerSelectorStart->currentIcon());
+	lineMarkerSelectorEnd->rebuildList(&doc->arrowStyles());
+	buttonMarkerEnd->setIcon(lineMarkerSelectorEnd->currentIcon());
 }
 
 void PropertiesPalette_Line::updateLineStyles()
@@ -380,7 +370,7 @@ void PropertiesPalette_Line::showLineWidth(double s)
 		if (m_item->dashes().count() != 0)
 		{
 			dashEditor->blockSignals(true);
-			if (m_item->lineWidth() != 0.0)
+			if (m_item->lineWidth() > HAIRLINE)
 			{
 				dashEditor->setDashValues(m_item->dashes(), m_item->lineWidth(), m_item->dashOffset());
 				dashEditor->setEnabled(true);
@@ -404,7 +394,7 @@ void PropertiesPalette_Line::showLineValues(Qt::PenStyle p, Qt::PenCapStyle pc, 
 		if (m_item->dashes().count() != 0)
 		{
 			lineType->setCurrentIndex(37);
-			dashEditor->setDashValues(m_item->dashes(), qMax(m_item->lineWidth(), 0.001), m_item->dashOffset());
+			dashEditor->setDashValues(m_item->dashes(), qMax(m_item->lineWidth(), HAIRLINE), m_item->dashOffset());
 		}
 		else
 			lineType->setCurrentIndex(static_cast<int>(p) - 1);
@@ -414,41 +404,37 @@ void PropertiesPalette_Line::showLineValues(Qt::PenStyle p, Qt::PenCapStyle pc, 
 	dashEditor->blockSignals(false);
 	lineType->blockSignals(false);
 
-	lineEndStyle->blockSignals(true);
+	buttonsCaps->blockSignals(true);
 	switch (pc)
 	{
 	case Qt::FlatCap:
-		lineEndStyle->setCurrentIndex(0);
+	default:
+		buttonCapFlat->setChecked(true);
 		break;
 	case Qt::SquareCap:
-		lineEndStyle->setCurrentIndex(1);
+		buttonCapSquare->setChecked(true);
 		break;
 	case Qt::RoundCap:
-		lineEndStyle->setCurrentIndex(2);
-		break;
-	default:
-		lineEndStyle->setCurrentIndex(0);
+		buttonCapRound->setChecked(true);
 		break;
 	}
-	lineEndStyle->blockSignals(false);
+	buttonsCaps->blockSignals(false);
 
-	lineJoinStyle->blockSignals(true);
+	buttonsJoins->blockSignals(true);
 	switch (pj)
 	{
 	case Qt::MiterJoin:
-		lineJoinStyle->setCurrentIndex(0);
+	default:
+		buttonJoinMiter->setChecked(true);
 		break;
 	case Qt::BevelJoin:
-		lineJoinStyle->setCurrentIndex(1);
+		buttonJoinBevel->setChecked(true);
 		break;
 	case Qt::RoundJoin:
-		lineJoinStyle->setCurrentIndex(2);
-		break;
-	default:
-		lineJoinStyle->setCurrentIndex(0);
+		buttonJoinRound->setChecked(true);
 		break;
 	}
-	lineJoinStyle->blockSignals(false);
+	buttonsJoins->blockSignals(false);
 }
 
 void PropertiesPalette_Line::handleLineWidth()
@@ -459,9 +445,10 @@ void PropertiesPalette_Line::handleLineWidth()
 	{
 		double oldL = m_item->lineWidth();
 		m_doc->itemSelection_SetLineWidth(lineWidth->value() / m_unitRatio);
+
 		if (m_item->dashes().count() != 0)
 		{
-			if ((oldL != 0.0) && (m_item->lineWidth() != 0.0))
+			if ((oldL > HAIRLINE) && (m_item->lineWidth() > HAIRLINE))
 			{
 				for (int a = 0; a < m_item->DashValues.count(); a++)
 				{
@@ -469,10 +456,10 @@ void PropertiesPalette_Line::handleLineWidth()
 				}
 				m_item->setDashOffset(m_item->dashOffset() / oldL * m_item->lineWidth());
 			}
-			if (m_item->lineWidth() != 0.0)
+			if (m_item->lineWidth() > HAIRLINE)
 			{
 				dashEditor->setDashValues(m_item->dashes(), m_item->lineWidth(), m_item->dashOffset());
-				dashEditor->setEnabled((m_item->lineWidth() != 0.0));
+				dashEditor->setEnabled((m_item->lineWidth() > HAIRLINE));
 			}
 			else
 				dashEditor->setEnabled(false);
@@ -500,7 +487,7 @@ void PropertiesPalette_Line::handleLineStyle()
 				else
 					getDashArray(m_item->lineStyle(), qMax(m_item->lineWidth(), 1.0), m_item->DashValues);
 			}
-			if (m_item->lineWidth() != 0.0)
+			if (m_item->lineWidth() > HAIRLINE)
 				dashEditor->setDashValues(m_item->dashes(), m_item->lineWidth(), m_item->dashOffset());
 			else
 			{
@@ -526,7 +513,7 @@ void PropertiesPalette_Line::handleLineJoin()
 	if (m_haveDoc && m_haveItem)
 	{
 		Qt::PenJoinStyle c = Qt::MiterJoin;
-		switch (lineJoinStyle->currentIndex())
+		switch (buttonsJoins->checkedId())
 		{
 		case 0:
 			c = Qt::MiterJoin;
@@ -549,7 +536,8 @@ void PropertiesPalette_Line::handleLineEnd()
 	if (m_haveDoc && m_haveItem)
 	{
 		Qt::PenCapStyle c = Qt::FlatCap;
-		switch (lineEndStyle->currentIndex())
+
+		switch (buttonsCaps->checkedId())
 		{
 		case 0:
 			c = Qt::FlatCap;
@@ -565,19 +553,12 @@ void PropertiesPalette_Line::handleLineEnd()
 	}
 }
 
-void PropertiesPalette_Line::handleLineMode()
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	m_lineMode = (lineMode->currentIndex() == 1); 
-	emit lineModeChanged(lineMode->currentIndex());
-}
-
 void PropertiesPalette_Line::handleStartArrow(int id)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_doc->itemSelection_ApplyArrowHead(id,-1);
+	buttonMarkerStart->setIcon(lineMarkerSelectorStart->currentIcon());
 }
 
 void PropertiesPalette_Line::handleEndArrow(int id)
@@ -585,6 +566,7 @@ void PropertiesPalette_Line::handleEndArrow(int id)
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_doc->itemSelection_ApplyArrowHead(-1, id);
+	buttonMarkerEnd->setIcon(lineMarkerSelectorEnd->currentIcon());
 }
 
 void PropertiesPalette_Line::handleStartArrowScale(double sc)
@@ -607,7 +589,7 @@ void PropertiesPalette_Line::handleDashChange()
 		return;
 	if (m_haveDoc && m_haveItem)
 	{
-		if (m_item->lineWidth() != 0.0)
+		if (m_item->lineWidth() > HAIRLINE)
 		{
 			m_item->setDashes(dashEditor->getDashValues(m_item->lineWidth()));
 			m_item->setDashOffset(dashEditor->Offset->value() * m_item->lineWidth());
@@ -624,30 +606,39 @@ void PropertiesPalette_Line::handleLineStyle(QListWidgetItem *widgetItem)
 	m_doc->itemSelection_SetNamedLineStyle(setter ? QString("") : widgetItem->text());
 	lineType->setEnabled(setter);
 	lineWidth->setEnabled(setter);
-	lineJoinStyle->setEnabled(setter);
-	lineEndStyle->setEnabled(setter);
+	lineJoinLabel->setEnabled(setter);
+	lineEndLabel->setEnabled(setter);
+
+}
+
+void PropertiesPalette_Line::swapLineMarker()
+{
+	int startID = lineMarkerSelectorStart->marker();
+	double startScale = lineMarkerSelectorStart->scale();
+	int endID = lineMarkerSelectorEnd->marker();
+	double endScale = lineMarkerSelectorEnd->scale();
+
+	// Info: Setter trigger signals like a change by user.
+	lineMarkerSelectorStart->setMarker(endID);
+	lineMarkerSelectorStart->setScale(endScale);
+	lineMarkerSelectorEnd->setMarker(startID);
+	lineMarkerSelectorEnd->setScale(startScale);
+
 }
 
 void PropertiesPalette_Line::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
 
-	QSignalBlocker lineJoinStyleBlocker(lineJoinStyle);
-	int oldLJoinStyle = lineJoinStyle->currentIndex();
-	lineJoinStyle->clear();
-	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
-	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-bevel.png"), tr("Bevel Join"));
-	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-round.png"), tr("Round Join"));
-	lineJoinStyle->setCurrentIndex(oldLJoinStyle);
+	buttonJoinMiter->setIcon(im.loadIcon("16/stroke-join-miter.png"));
+	buttonJoinBevel->setIcon(im.loadIcon("16/stroke-join-bevel.png"));
+	buttonJoinRound->setIcon(im.loadIcon("16/stroke-join-round.png"));
 
-	QSignalBlocker lineEndStyleBlocker(lineEndStyle);
-	int oldLEndStyle = lineEndStyle->currentIndex();
-	lineEndStyle->clear();
-	lineEndStyle->addItem(im.loadIcon("16/stroke-cap-butt.png"), tr("Flat Cap"));
-	lineEndStyle->addItem(im.loadIcon("16/stroke-cap-square.png"), tr("Square Cap"));
-	lineEndStyle->addItem(im.loadIcon("16/stroke-cap-round.png"), tr("Round Cap"));
-	lineEndStyle->setCurrentIndex(oldLEndStyle);
-	lineEndLabel->setText( tr("&Endings:"));
+	buttonCapFlat->setIcon(im.loadIcon("16/stroke-cap-butt.png"));
+	buttonCapRound->setIcon(im.loadIcon("16/stroke-cap-round.png"));
+	buttonCapSquare->setIcon(im.loadIcon("16/stroke-cap-square.png"));
+
+	buttonSwapMarker->setIcon(im.loadIcon("swap"));
 }
 
 void PropertiesPalette_Line::languageChange()
@@ -659,54 +650,25 @@ void PropertiesPalette_Line::languageChange()
 	lineType->addItem( tr("Custom"));
 	lineType->setCurrentIndex(oldLineStyle);
 
-	QSignalBlocker lineModeBlocker(lineMode);
-	int oldLineMode = lineMode->currentIndex();
-	lineMode->clear();
-	lineMode->addItem( tr("Left Point"));
-	lineMode->addItem( tr("End Points"));
-	lineMode->setCurrentIndex(oldLineMode);
+	lineTypeLabel->setText( tr("T&ype"));
+	lineMarkerLabel->setText( tr("&Marker"));
 
-	lineModeLabel->setText( tr("&Basepoint:"));
-	lineTypeLabel->setText( tr("T&ype of Line:"));
-	startArrowLabel->setText( tr("Start Arrow:"));
-	endArrowLabel->setText( tr("End Arrow:"));
-	startArrowScaleLabel->setText( tr("Scaling:"));
-	endArrowScaleLabel->setText( tr("Scaling:"));
 	if (m_haveDoc)
 	{
-		QSignalBlocker startArrowBlocker(startArrow);
-		int arrowItem = startArrow->currentIndex();
-		startArrow->rebuildList(&m_doc->arrowStyles());
-		startArrow->setCurrentIndex(arrowItem);
-		QSignalBlocker endArrowBlocker(endArrow);
-		arrowItem = endArrow->currentIndex();
-		endArrow->rebuildList(&m_doc->arrowStyles());
-		endArrow->setCurrentIndex(arrowItem);
+		QSignalBlocker startArrowBlocker(lineMarkerSelectorStart);
+		lineMarkerSelectorStart->rebuildList(&m_doc->arrowStyles());
+		buttonMarkerStart->setIcon(lineMarkerSelectorStart->currentIcon());
+
+		QSignalBlocker endArrowBlocker(lineMarkerSelectorEnd);
+		lineMarkerSelectorEnd->rebuildList(&m_doc->arrowStyles());
+		buttonMarkerEnd->setIcon(lineMarkerSelectorEnd->currentIcon());
 	}
-	lineWidthLabel->setText( tr("Line &Width:"));
-	lineJoinLabel->setText( tr("Ed&ges:"));
+	lineWidthLabel->setText( tr("&Width"));
+	lineJoinLabel->setText( tr("&Joins"));
+	lineEndLabel->setText( tr("&Caps"));
 
-	QSignalBlocker lineJoinStyleBlocker(lineJoinStyle);
-	int oldLJoinStyle = lineJoinStyle->currentIndex();
-	lineJoinStyle->clear();
-	IconManager& im = IconManager::instance();
-	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
-	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-bevel.png"), tr("Bevel Join"));
-	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-round.png"), tr("Round Join"));
-	lineJoinStyle->setCurrentIndex(oldLJoinStyle);
-
-	QSignalBlocker lineEndStyleBlocker(lineEndStyle);
-	int oldLEndStyle = lineEndStyle->currentIndex();
-	lineEndStyle->clear();
-	lineEndStyle->addItem(im.loadIcon("16/stroke-cap-butt.png"), tr("Flat Cap"));
-	lineEndStyle->addItem(im.loadIcon("16/stroke-cap-square.png"), tr("Square Cap"));
-	lineEndStyle->addItem(im.loadIcon("16/stroke-cap-round.png"), tr("Round Cap"));
-	lineEndStyle->setCurrentIndex(oldLEndStyle);
-	lineEndLabel->setText( tr("&Endings:"));
-
-	QString pctSuffix = tr(" %");
-	startArrowScale->setSuffix(pctSuffix);
-	endArrowScale->setSuffix(pctSuffix);
+	lineMarkerSelectorStart->languageChange();
+	lineMarkerSelectorEnd->languageChange();
 
 	QString ptSuffix = tr(" pt");
 	QString suffix = (m_doc) ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
@@ -717,16 +679,17 @@ void PropertiesPalette_Line::languageChange()
 	if(lineStyles->count() > 0)
 		lineStyles->item(0)->setText( tr("No Style") );
 
-	lineMode->setToolTip( tr("Change settings for left or end points"));
 	lineType->setToolTip( tr("Pattern of line"));
 	lineWidth->setToolTip( tr("Thickness of line"));
-	lineJoinStyle->setToolTip( tr("Type of line joins"));
-	lineEndStyle->setToolTip( tr("Type of line end"));
 	lineStyles->setToolTip( tr("Line style of current object"));
-	startArrow->setToolTip( tr("Arrow head style for start of line"));
-	endArrow->setToolTip( tr("Arrow head style for end of line"));
-	startArrowScale->setToolTip( tr("Arrow head scale for start of line"));
-	endArrowScale->setToolTip( tr("Arrow head scale for end of line"));
+	buttonCapFlat->setToolTip( tr("Line end is flat"));
+	buttonCapSquare->setToolTip( tr("Line end is squared"));
+	buttonCapRound->setToolTip( tr("Line end is rounded"));
+	buttonJoinMiter->setToolTip( tr("Line join is mitered"));
+	buttonJoinRound->setToolTip( tr("Line join is rounded"));
+	buttonJoinBevel->setToolTip( tr("Line join is beveled"));
+	buttonMarkerStart->setToolTip( tr("Arrow head style for start of line"));
+	buttonMarkerEnd->setToolTip( tr("Arrow head style for end of line"));
 }
 
 void PropertiesPalette_Line::unitChange()
@@ -746,4 +709,13 @@ void PropertiesPalette_Line::localeChange()
 {
 	const QLocale& l(LocaleManager::instance().userPreferredLocale());
 	lineWidth->setLocale(l);
+}
+
+void PropertiesPalette_Line::toggleLabelVisibility(bool v)
+{
+	lineWidthLabel->setLabelVisibility(v);
+	lineJoinLabel->setLabelVisibility(v);
+	lineTypeLabel->setLabelVisibility(v);
+	lineEndLabel->setLabelVisibility(v);
+	lineMarkerLabel->setLabelVisibility(v);
 }

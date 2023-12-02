@@ -55,6 +55,7 @@ public slots:
 	void languageChange();
 	void unitChange();
 	void localeChange();
+	void toggleLabelVisibility(bool visibility);
 
 	void showXY(double x, double y);
 	void showWH(double x, double y);
@@ -89,6 +90,7 @@ private slots:
 	void handleNewName();
 	void handleGrouping();
 	void handleUngrouping();
+	void handleLineMode();
 
 protected slots:
 	//virtual void reject();

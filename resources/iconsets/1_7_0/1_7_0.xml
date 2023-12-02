@@ -139,6 +139,14 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="u_group.png" file="16/object-group.svg" /><!-- Outliner -->
 		<icon id="u_undo16.png" file="16/action-undo.svg" /><!-- Barcode -->
 		<icon id="ungroup.png" file="16/object-ungroup.svg" />
+		<icon id="expand" file="16/action-chevron-down.svg" />
+		<icon id="collapse" file="16/action-chevron-right.svg" />
+		<icon id="inherit-opacity-on" file="16/action-inherit-opacity-on.svg" />
+		<icon id="inherit-opacity-off" file="16/action-inherit-opacity-off.svg" />
+		<icon id="erase-shadow-on" file="16/action-shadow-erase-on.svg" />
+		<icon id="erase-shadow-off" file="16/action-shadow-erase-off.svg" />
+		<icon id="swap" file="16/action-swap.svg" />
+		<icon id="toggle-object-coordination" file="16/object-xycoordination.svg" />
 			
 		<!-- Alerts -->
 		<icon onLight="#E54545" onDark="#FF6666" id="22/dialog-error.png" file="16/alert-error.svg" />
@@ -396,7 +404,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="doc.png" file="16/file-new.svg" />
 		<icon id="viewmagin.png" file="16/action-zoom-in.svg" />
 		<icon id="viewmagout.png" file="16/action-zoom-out.svg" />
-		<icon onLight="hsl(0, 0, 70)" onDark="hsl(0, 0, 30)" id="testfill.png" file="checker.svg" />
+		<icon onLight="hsl(0, 0, 80)" onDark="hsl(0, 0, 26)" id="testfill.png" file="checker.svg" />
 		<icon id="pitr_green_arrows_set_1.svg" file="16/action-sort-alphabetical-descending.svg" />
 		<icon id="pitr_green_arrows_set_5.svg" file="16/action-sort-alphabetical-ascending.svg" />
 		<icon id="sarxos_Paper_Sheets.svg" file="16/file-new.svg" /><!-- iconDocumentBrowser -->
@@ -507,7 +515,6 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="22/widow.png" file="16/paragraph-widow.svg" />
 		
 		<!-- Tools -->
-		<!-- Blue onLight="#3DA6CC" onDark="#5CC1E5" -->
 		<icon id="22/transform-crop-and-resize.png" file="16/tool-crop.svg" />
 		<icon id="16/pointer.png" file="16/tool-select.svg" />
 		<icon id="22/pointer.png" file="16/tool-select.svg" />
@@ -520,7 +527,6 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="22/insert-table.png" file="16/tool-insert-table.svg" />
 		<icon id="16/insert-text-frame.png" file="16/tool-insert-text-frame.svg" />
 		<icon id="22/insert-text-frame.png" file="16/tool-insert-text-frame.svg" />
-		<!-- Green onLight="#68B259" onDark="#88CC7A" -->
 		<icon id="16/draw-path.png" file="16/tool-draw-bezier.svg" />
 		<icon id="22/draw-path.png" file="16/tool-draw-bezier.svg" />
 		<icon id="16/draw-polygon.png" file="16/tool-insert-polygon.svg" />
@@ -534,8 +540,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="16/draw-freehand.png" file="16/tool-draw-freehand.svg" />
 		<icon id="22/draw-freehand.png" file="16/tool-draw-freehand.svg" />
 		<icon id="16/draw-calligraphic.png" file="16/tool-draw-calligraphy.svg" />
-		<icon id="22/draw-calligraphic.png" file="16/tool-draw-calligraphy.svg" />		
-		<!-- Orange onLight="#D6922B" onDark="#FFC266" -->
+		<icon id="22/draw-calligraphic.png" file="16/tool-draw-calligraphy.svg" />
 		<icon id="16/transform-rotate.png" file="16/tool-rotate.svg" />
 		<icon id="22/transform-rotate.png" file="16/tool-rotate.svg" />
 		<icon id="16/measure.png" file="16/tool-ruler.svg" />
@@ -548,14 +553,13 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="16/story-editor.png" file="16/tool-story-editor.svg" />
 		<icon id="22/story-editor.png" file="16/tool-story-editor.svg" />
 		<icon id="16/text-frame-link.png" file="16/tool-link-text-frame.svg" />
-		<icon id="22/text-frame-link.png" file="16/tool-link-text-frame" />
+		<icon id="22/text-frame-link.png" file="16/tool-link-text-frame.svg" />
 		<icon id="16/text-frame-unlink.png" file="16/tool-unlink-text-frame.svg" />    
 		<icon id="22/text-frame-unlink.png" file="16/tool-unlink-text-frame.svg" />
 		<icon id="16/zoom.png" file="16/tool-zoom.svg" />
 		<icon id="22/zoom.png" file="16/tool-zoom.svg" />
 		<icon id="wizard.png" file="16/tool-copy-style.svg" />
 		<icon id="wizard16.png" file="16/tool-copy-style.svg" />
-		<!-- Red onLight="#E54545" onDark="#FF6666" -->
 		<icon id="16/insert-barcode.png" file="16/tool-insert-barcode.svg" />
 		<icon id="22/insert-barcode.png" file="16/tool-insert-barcode.svg" />
 

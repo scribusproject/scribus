@@ -6,53 +6,210 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>265</width>
-    <height>421</height>
+    <width>312</width>
+    <height>344</height>
    </rect>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>8</number>
+   </property>
    <property name="leftMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
    <property name="topMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
    <property name="rightMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
    <property name="bottomMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
-   <property name="spacing">
-    <number>3</number>
-   </property>
-   <item row="1" column="0">
-    <widget class="QLabel" name="lineTypeLabel">
-     <property name="text">
-      <string>T&amp;ype of Line:</string>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="spacing">
+      <number>4</number>
      </property>
-    </widget>
+     <item>
+      <widget class="FormWidget" name="lineWidthLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="label" stdset="0">
+        <string>Width</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="ScrSpinBox" name="lineWidth">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="specialValueText">
+           <string>Hairline</string>
+          </property>
+          <property name="maximum">
+           <double>300.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="FormWidget" name="lineTypeLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="label" stdset="0">
+        <string>Type</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="LineCombo" name="lineType"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="FormWidget" name="lineMarkerLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="label" stdset="0">
+        <string>Marker</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="buttonMarkerStart">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::InstantPopup</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="buttonSwapMarker">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="buttonMarkerEnd">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>16</height>
+           </size>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::InstantPopup</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
    </item>
-   <item row="7" column="0">
-    <widget class="QLabel" name="lineWidthLabel">
-     <property name="text">
-      <string>Line &amp;Width:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="1">
-    <widget class="QComboBox" name="lineEndStyle"/>
-   </item>
-   <item row="8" column="1">
-    <widget class="QComboBox" name="lineJoinStyle"/>
-   </item>
-   <item row="10" column="0" colspan="2">
-    <widget class="QListWidget" name="lineStyles"/>
-   </item>
-   <item row="4" column="1">
-    <widget class="ArrowChooser" name="endArrow"/>
-   </item>
-   <item row="2" column="0" colspan="2">
+   <item>
     <widget class="DashEditor" name="dashEditor">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -62,123 +219,171 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="1">
-    <widget class="ScrSpinBox" name="lineWidth">
-     <property name="specialValueText">
-      <string>Hairline</string>
-     </property>
-     <property name="maximum">
-      <double>300.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="ArrowChooser" name="startArrow"/>
-   </item>
-   <item row="1" column="1">
-    <widget class="LineCombo" name="lineType"/>
-   </item>
-   <item row="0" column="1">
-    <widget class="QComboBox" name="lineMode"/>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="lineModeLabel">
-     <property name="text">
-      <string>&amp;Basepoint:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_10">
      <property name="spacing">
-      <number>3</number>
+      <number>16</number>
      </property>
      <item>
-      <widget class="QLabel" name="startArrowScaleLabel">
-       <property name="text">
-        <string>Scaling:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="ScrSpinBox" name="startArrowScale">
+      <widget class="FormWidget" name="lineEndLabel">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimum">
-        <double>1.000000000000000</double>
+       <property name="label" stdset="0">
+        <string>Caps</string>
        </property>
-       <property name="maximum">
-        <double>300.000000000000000</double>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
        </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="buttonCapFlat">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="buttonCapSquare">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="buttonCapRound">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
-    </layout>
-   </item>
-   <item row="5" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <property name="spacing">
-      <number>3</number>
-     </property>
      <item>
-      <widget class="QLabel" name="endArrowScaleLabel">
-       <property name="text">
-        <string>Scaling:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="ScrSpinBox" name="endArrowScale">
+      <widget class="FormWidget" name="lineJoinLabel">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimum">
-        <double>1.000000000000000</double>
+       <property name="label" stdset="0">
+        <string>Joins</string>
        </property>
-       <property name="maximum">
-        <double>300.000000000000000</double>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
        </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="buttonJoinMiter">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="buttonJoinRound">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="buttonJoinBevel">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="startArrowLabel">
-     <property name="text">
-      <string>Start Arrow:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QLabel" name="endArrowLabel">
-     <property name="text">
-      <string>End Arrow:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="0">
-    <widget class="QLabel" name="lineJoinLabel">
-     <property name="text">
-      <string>Ed&amp;ges:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="0">
-    <widget class="QLabel" name="lineEndLabel">
-     <property name="text">
-      <string>&amp;Endings:</string>
-     </property>
-    </widget>
+   <item>
+    <widget class="QListWidget" name="lineStyles"/>
    </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>FormWidget</class>
+   <extends>QWidget</extends>
+   <header>ui/widgets/form_widget.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
@@ -188,11 +393,6 @@
    <class>LineCombo</class>
    <extends>QComboBox</extends>
    <header>ui/linecombo.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ArrowChooser</class>
-   <extends>QComboBox</extends>
-   <header>ui/arrowchooser.h</header>
   </customwidget>
   <customwidget>
    <class>DashEditor</class>

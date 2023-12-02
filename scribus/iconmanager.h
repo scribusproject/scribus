@@ -46,18 +46,15 @@ public:
 	void setIconsForDarkMode(bool forDarkMode);
 	QColor baseColor() const;
 	bool iconsForDarkMode() const;
+	bool setup();
 
-	void clearCache();
 	void rebuildCache();
-	bool createCache();
-
-	bool setup(qreal devicePixelRatio);
 
 	QCursor loadCursor(const QString& name, int hotX = -1, int hotY = -1, int width = -1);
 	QIcon loadIcon(const QString& name, int width = -1);
 	QPixmap loadPixmap(const QString& name, int width = -1);
 
-	void addIcon(const QString & name, QPainterPath path);
+	void addIconFromPainterPath(const QString & name, QPainterPath path);
 
 	bool setActiveFromPrefs(const QString& prefsSet);
 	QString activeSetBasename() { return m_activeSetBasename; }
@@ -76,6 +73,12 @@ protected:
 
 private:
 
+	struct Item {
+		QString name;
+		QColor color;
+		QString filePath;
+	};
+
 	IconManager(QObject *parent = nullptr);
 	~IconManager() = default;
 
@@ -83,6 +86,7 @@ private:
 
 	QMap<QString, ScIconSetData> m_iconSets;
 	QMap<QString, QPainterPath*> m_iconPaths;
+	QMap<QString, Item> m_lookupTable;
 	ScPixmapCache<QString> m_pxCache;
 	QString m_activeSetBasename;
 	QString m_activeSetVersion;
@@ -93,15 +97,16 @@ private:
 	qreal m_devicePixelRatio { 1.0 };
 
 	bool initIconSets();
-	void readIconConfigFiles();
-
-	QPixmap *initPixmap(const QString filePath, QColor color);
-	QPixmap *renderPath(QPainterPath path);
-	void renderIcons();
-
+	bool createLookupTable();
 	bool readXMLFile(QString filePath, QDomDocument &document, QString fileExtension);
-//    void tintPixmap(QPixmap &pixmap, QColor color);
 
+	QPixmap *pixmapFromFile(const QString filePath, QColor color, int width = -1);
+	QPixmap *pixmapFromPainterPath(QPainterPath path);
+
+	QString buildName(const QString &name, const QString &prefix = "", const QString &suffix = "") const;
+
+	void insertPathIconsToCache();
+	void readIconConfigFiles();
 	void applyColors(QDomDocument &doc, QString fileName, QColor color);
 	void applyInlineStyleToElement(const QDomElement &elem, QMap<QString, QString> *styles);
 	void parseStyleSheet(QString styleString, QMap<QString, QString> *styles);

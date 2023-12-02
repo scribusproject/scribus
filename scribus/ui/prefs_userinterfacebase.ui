@@ -28,7 +28,6 @@
      <property name="font">
       <font>
        <pointsize>14</pointsize>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -58,7 +57,6 @@
         <widget class="QLabel" name="label">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -109,14 +107,14 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
+         <item row="4" column="1">
           <widget class="QCheckBox" name="useTabsForDocumentsCheckBox">
            <property name="text">
             <string>Use Tabs for Documents</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="5" column="0">
           <widget class="QLabel" name="recentDocumentsLabel">
            <property name="text">
             <string>&amp;Recent Documents:</string>
@@ -126,8 +124,15 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
+         <item row="5" column="1">
           <widget class="QSpinBox" name="recentDocumentsSpinBox"/>
+         </item>
+         <item row="3" column="1">
+          <widget class="QCheckBox" name="hideLabels">
+           <property name="text">
+            <string>Professional Mode</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -151,7 +156,6 @@
         <widget class="QLabel" name="label_4">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -217,7 +221,6 @@
         <widget class="QLabel" name="label_2">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>

@@ -44,19 +44,6 @@ public:
 	LinkButton(QWidget *pa);
 	~LinkButton() {};
 
-	/*!
-	\author Franz Schmid
-	\brief Returns size of QPixmap, see the Qt-Documentation for further explaining of that.
-	\retval QSize size
-	*/
-	virtual QSize sizeHint() const;
-	/*!
-	\author Franz Schmid
-	\brief Returns minimum size of QPixmap, see the Qt-Documentation for further explaining of that.
-	\retval QSize size
-	*/
-	virtual QSize minimumSizeHint() const;
-
 protected slots:
 	void iconSetChange();
 };

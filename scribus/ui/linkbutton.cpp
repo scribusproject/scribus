@@ -42,19 +42,7 @@ void LinkButton::iconSetChange()
 	QIcon a = QIcon();
 	IconManager& iconManager = IconManager::instance();
 
-	QPixmap closedPixmap(iconManager.loadPixmap("chain-closed.png"));
-	a.addPixmap(closedPixmap, QIcon::Normal, QIcon::On);
+	a.addPixmap(iconManager.loadPixmap("chain-closed.png"), QIcon::Normal, QIcon::On);
 	a.addPixmap(iconManager.loadPixmap("chain-open.png"), QIcon::Normal, QIcon::Off);
 	setIcon(a);
-	setIconSize(closedPixmap.size());
-}
-
-QSize LinkButton::sizeHint() const
-{
-	return iconSize();
-}
-
-QSize LinkButton::minimumSizeHint() const
-{
-	return iconSize();
 }

@@ -294,7 +294,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	CDockManager::setConfigFlag(CDockManager::AllTabsHaveCloseButton, false);
 	CDockManager::setConfigFlag(CDockManager::DockAreaDynamicTabsMenuButtonVisibility, true);
 	CDockManager::setConfigFlag(CDockManager::DockAreaHasCloseButton, false);
-	CDockManager::setConfigFlag(CDockManager::DockAreaHasUndockButton, false);
+	CDockManager::setConfigFlag(CDockManager::DockAreaHasUndockButton, false);	
 	CDockManager::setConfigFlag(CDockManager::DockAreaHideDisabledButtons, true);
 	CDockManager::setConfigFlag(CDockManager::FocusHighlighting, true);
 
@@ -444,6 +444,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		}
 	}
 	appModeHelper->setStartupActionsEnabled(false);
+
+	ScQApp->changeLabelVisibility(!m_prefsManager.appPrefs.uiPrefs.hideLabels);
 
 	setStyleSheet();
 
@@ -5432,7 +5434,7 @@ void ScribusMainWindow::ToggleStickyTools()
 }
 
 void ScribusMainWindow::ToggleAllPalettes()
-{
+{	
 	dockManager->toggleDocksVisibility();
 
 	if (m_palettesStatus[PAL_ALL])
@@ -6504,6 +6506,8 @@ void ScribusMainWindow::slotPrefsOrg()
 	// Recreate icons if icon set or GUI changed. For GUI change the icon recreation will automatically detect light and dark themes
 	if (oldPrefs.uiPrefs.iconSet != newIconSet || oldPrefs.uiPrefs.style != newUIStyle)
 		ScQApp->changeIconSet(newIconSet);
+
+	ScQApp->changeLabelVisibility(!m_prefsManager.appPrefs.uiPrefs.hideLabels);
 
 	int newUIFontSize = m_prefsManager.guiFontSize();
 	if (oldPrefs.uiPrefs.applicationFontSize != newUIFontSize)

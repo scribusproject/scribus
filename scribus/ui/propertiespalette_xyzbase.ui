@@ -6,334 +6,271 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>280</width>
-    <height>371</height>
+    <width>340</width>
+    <height>262</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="spacing">
-    <number>3</number>
-   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
    <property name="topMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
    <property name="rightMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
    <property name="bottomMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
-   <item>
-    <widget class="QGroupBox" name="nameGroup">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+   <property name="horizontalSpacing">
+    <number>4</number>
+   </property>
+   <property name="verticalSpacing">
+    <number>8</number>
+   </property>
+   <item row="2" column="6">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="title">
-      <string>Name</string>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="spacing">
-       <number>3</number>
-      </property>
-      <property name="leftMargin">
-       <number>6</number>
-      </property>
-      <property name="topMargin">
-       <number>6</number>
-      </property>
-      <property name="rightMargin">
-       <number>6</number>
-      </property>
-      <property name="bottomMargin">
-       <number>6</number>
-      </property>
-      <item>
-       <widget class="NameWidget" name="nameEdit">
-        <property name="focusPolicy">
-         <enum>Qt::ClickFocus</enum>
-        </property>
-        <property name="toolTip">
-         <string>Name of selected object</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
+    </spacer>
    </item>
-   <item>
-    <widget class="QGroupBox" name="geoGroup">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="title">
-      <string>Geometry</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="spacing">
-       <number>3</number>
-      </property>
-      <property name="leftMargin">
-       <number>6</number>
-      </property>
-      <property name="topMargin">
-       <number>6</number>
-      </property>
-      <property name="rightMargin">
-       <number>6</number>
-      </property>
-      <property name="bottomMargin">
-       <number>6</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="geoGroupLayout">
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-        <property name="spacing">
-         <number>3</number>
-        </property>
-        <item row="1" column="1">
-         <widget class="ScrSpinBox" name="yposSpin">
-          <property name="toolTip">
-           <string>Vertical position of current basepoint</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="ScrSpinBox" name="rotationSpin">
-            <property name="toolTip">
-             <string>Rotation of object at current basepoint</string>
-            </property>
-            <property name="wrapping">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Minimum</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>1</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QToolButton" name="rotateCCW">
-            <property name="toolTip">
-             <string>Rotate the selection anti-clockwise by 90º</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="rotateCW">
-            <property name="toolTip">
-             <string>Rotate the selection clockwise by 90º</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="2" column="1">
-         <widget class="ScrSpinBox" name="widthSpin">
-          <property name="toolTip">
-           <string>Width of current selection</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="heightLabel">
-          <property name="text">
-           <string>&amp;Height:</string>
-          </property>
-          <property name="buddy">
-           <cstring>heightSpin</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="ScrSpinBox" name="xposSpin">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>Horizontal position of current basepoint</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="basepointLabel">
-          <property name="toolTip">
-           <string>Point from which measurements or rotation angles are referenced</string>
-          </property>
-          <property name="text">
-           <string>Basepoint:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="xposLabel">
-          <property name="text">
-           <string>&amp;X-Pos:</string>
-          </property>
-          <property name="buddy">
-           <cstring>xposSpin</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="yposLabel">
-          <property name="text">
-           <string>&amp;Y-Pos:</string>
-          </property>
-          <property name="buddy">
-           <cstring>yposSpin</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="rotationLabel">
-          <property name="text">
-           <string>&amp;Rotation:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="widthLabel">
-          <property name="text">
-           <string>&amp;Width:</string>
-          </property>
-          <property name="buddy">
-           <cstring>widthSpin</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="ScrSpinBox" name="heightSpin">
-          <property name="toolTip">
-           <string>Height of current selection</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2" rowspan="2">
-         <widget class="LinkButton" name="keepFrameWHRatioButton">
-          <property name="maximumSize">
-           <size>
-            <width>15</width>
-            <height>32767</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Keep the aspect ratio</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="autoRaise">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="BasePointWidget" name="basePointWidget" native="true"/>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <item row="6" column="1" colspan="5">
+    <layout class="QHBoxLayout" name="horizontalLayout_16">
      <property name="spacing">
-      <number>3</number>
+      <number>16</number>
      </property>
      <item>
-      <widget class="QGroupBox" name="levelGroup">
-       <property name="title">
-        <string>Level</string>
+      <widget class="FormWidget" name="labelName">
+       <property name="label" stdset="0">
+        <string>Name</string>
        </property>
-       <layout class="QGridLayout" name="gridLayout">
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="space">
+        <number>2</number>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_18">
+        <property name="spacing">
+         <number>4</number>
+        </property>
         <property name="leftMargin">
-         <number>6</number>
+         <number>0</number>
         </property>
         <property name="topMargin">
-         <number>6</number>
+         <number>0</number>
         </property>
         <property name="rightMargin">
-         <number>6</number>
+         <number>0</number>
         </property>
         <property name="bottomMargin">
-         <number>6</number>
+         <number>0</number>
         </property>
+        <item>
+         <widget class="NameWidget" name="nameEdit">
+          <property name="focusPolicy">
+           <enum>Qt::ClickFocus</enum>
+          </property>
+          <property name="toolTip">
+           <string>Name of selected object</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="FormWidget" name="labelExport">
+       <property name="label" stdset="0">
+        <string>Export</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="space">
+        <number>2</number>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_15">
         <property name="spacing">
-         <number>3</number>
+         <number>4</number>
         </property>
-        <item row="0" column="0">
-         <widget class="QToolButton" name="levelUp">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="noPrint">
           <property name="toolTip">
-           <string>Move one level up</string>
+           <string>Enable or disable exporting of the object</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QToolButton" name="levelDown">
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="1" colspan="5">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>16</number>
+     </property>
+     <item>
+      <widget class="FormWidget" name="labelRotation">
+       <property name="label" stdset="0">
+        <string>&amp;Rotation</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="space">
+        <number>2</number>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="ScrSpinBox" name="rotationSpin">
           <property name="toolTip">
-           <string>Move one level down</string>
+           <string>Rotation of object at current basepoint</string>
+          </property>
+          <property name="wrapping">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item>
+         <widget class="QToolButton" name="rotateCCW">
+          <property name="toolTip">
+           <string>Rotate the selection anti-clockwise by 90º</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="rotateCW">
+          <property name="toolTip">
+           <string>Rotate the selection clockwise by 90º</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="FormWidget" name="labelLevel">
+       <property name="label" stdset="0">
+        <string>Level</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="space">
+        <number>2</number>
+       </property>
+       <property name="labelVisibility">
+        <bool>true</bool>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
          <widget class="QToolButton" name="levelTop">
           <property name="toolTip">
            <string>Move to front</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item>
+         <widget class="QToolButton" name="levelUp">
+          <property name="toolTip">
+           <string>Move one level up</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="levelDown">
+          <property name="toolTip">
+           <string>Move one level down</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QToolButton" name="levelBottom">
           <property name="toolTip">
            <string>Move to back</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="2" rowspan="2">
+        <item>
          <widget class="QLabel" name="levelLabel">
+          <property name="minimumSize">
+           <size>
+            <width>24</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>Indicates the level the object is on, 1 means the object is at the bottom</string>
           </property>
@@ -346,77 +283,346 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer">
+      <spacer name="horizontalSpacer_6">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
-         <height>20</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
       </spacer>
      </item>
+    </layout>
+   </item>
+   <item row="2" column="1">
+    <widget class="ScrSpinBox" name="xposSpin">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Horizontal position of current basepoint</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <spacer name="horizontalSpacer_5">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>24</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="5" rowspan="2">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <property name="spacing">
+      <number>4</number>
+     </property>
      <item>
-      <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0,0">
-       <property name="spacing">
-        <number>3</number>
+      <widget class="LinkButton" name="keepFrameWHRatioButton">
+       <property name="toolTip">
+        <string>Keep the aspect ratio</string>
        </property>
-       <item row="1" column="1">
-        <widget class="QToolButton" name="flipV">
-         <property name="toolTip">
-          <string>Flip vertically</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QToolButton" name="doLock">
-         <property name="toolTip">
-          <string>Lock or unlock the object</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QToolButton" name="doGroup">
-         <property name="toolTip">
-          <string>Group the selected objects</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QToolButton" name="flipH">
-         <property name="toolTip">
-          <string>Flip horizontally</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QToolButton" name="noPrint">
-         <property name="toolTip">
-          <string>Enable or disable exporting of the object</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QToolButton" name="noResize">
-         <property name="toolTip">
-          <string>Lock or unlock the size of the object</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QToolButton" name="doUnGroup">
-         <property name="toolTip">
-          <string>Ungroup the selected group</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="buttonLineBasePoint">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
-   <item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="xposLabel">
+     <property name="text">
+      <string>&amp;X:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buddy">
+      <cstring>xposSpin</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1" colspan="5">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>16</number>
+     </property>
+     <item>
+      <widget class="BasePointWidget" name="basePointWidget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>51</width>
+         <height>51</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>51</width>
+         <height>51</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="FormWidget" name="labelFlip">
+       <property name="label" stdset="0">
+        <string>Flip</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="space">
+        <number>2</number>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_11">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="flipH">
+          <property name="toolTip">
+           <string>Flip horizontally</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="flipV">
+          <property name="toolTip">
+           <string>Flip vertically</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="FormWidget" name="labelLock">
+       <property name="label" stdset="0">
+        <string>Lock</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="space">
+        <number>2</number>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_12">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="doLock">
+          <property name="toolTip">
+           <string>Lock or unlock the object</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="noResize">
+          <property name="toolTip">
+           <string>Lock or unlock the size of the object</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="FormWidget" name="labelGroup">
+       <property name="label" stdset="0">
+        <string>Group</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="space">
+        <number>2</number>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_17">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="doGroup">
+          <property name="toolTip">
+           <string>Group the selected objects</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="doUnGroup">
+          <property name="toolTip">
+           <string>Ungroup the selected group</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="1">
+    <widget class="ScrSpinBox" name="yposSpin">
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Vertical position of current basepoint</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="yposLabel">
+     <property name="text">
+      <string>&amp;Y:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buddy">
+      <cstring>yposSpin</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <spacer name="horizontalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>8</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="3">
+    <widget class="QLabel" name="heightLabel">
+     <property name="text">
+      <string>&amp;H:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buddy">
+      <cstring>heightSpin</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="3">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -429,13 +635,110 @@
      </property>
     </spacer>
    </item>
+   <item row="3" column="4">
+    <widget class="ScrSpinBox" name="heightSpin">
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Height of current selection</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="4">
+    <widget class="ScrSpinBox" name="widthSpin">
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Width of current selection</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QLabel" name="widthLabel">
+     <property name="text">
+      <string>&amp;W:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buddy">
+      <cstring>widthSpin</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="FormWidget" name="formWidget_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="label" stdset="0">
+      <string/>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="preserveLabelSpace">
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Z:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>NameWidget</class>
-   <extends>QLineEdit</extends>
-   <header>ui/propertiespalette_utils.h</header>
+   <class>FormWidget</class>
+   <extends>QWidget</extends>
+   <header>ui/widgets/form_widget.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>ScrSpinBox</class>
@@ -447,6 +750,11 @@
    <extends>QWidget</extends>
    <header>ui/basepointwidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>NameWidget</class>
+   <extends>QLineEdit</extends>
+   <header>ui/propertiespalette_utils.h</header>
   </customwidget>
   <customwidget>
    <class>LinkButton</class>

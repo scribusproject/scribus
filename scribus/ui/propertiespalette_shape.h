@@ -73,6 +73,7 @@ public slots:
 	void languageChange();
 	void unitChange();
 	void localeChange();
+	void toggleLabelVisibility(bool v);
 
 private slots:
 

@@ -38,7 +38,6 @@ class QEvent;
 class QLabel;
 
 #include "scribusapi.h"
-#include "vgradient.h"
 
 class SCRIBUS_API DashPreview : public QFrame
 {
@@ -61,16 +60,29 @@ protected:
 	void mouseMoveEvent(QMouseEvent* m) override;
 	void leaveEvent(QEvent*) override;
 	void enterEvent(QEnterEvent*) override;
+	void resizeEvent(QResizeEvent*e) override;
 
 private:
-	bool  m_onlySelect { true };
 	bool  m_outside { false };
-	bool  m_mousePressed { false };
+	bool  m_mousePressed { false };	
 	int   m_currentStop { 0 };
 	QElapsedTimer m_moveTimer;
 
 	QVector<double> m_dashValues;
 	QList<double>   m_stops;
+	double			m_patternLength {10.0};
+
+	QRect saveAreaRect();
+	QRect canvasRect();
+	QRect scaleRect();
+	QRect handleRect(int offset);
+	qreal ratio();
+	qreal clampStopPosition(qreal xPos);
+	int mapPositionToGrid(qreal pos);
+	QColor errorColor();
+
+	void updateDashValues();
+	void updateStops();
 
 signals:
 	void currStep(double);
@@ -94,12 +106,17 @@ public:
 	QLabel *Desc2;
 	QDoubleSpinBox *Offset;
 
+private:
+	bool  isHairline {false};
+
 protected:
 	void changeEvent(QEvent *e) override;
 
-public slots:
-	void setPos(double);
+public slots:	
 	void languageChange();
+
+private slots:
+	void setPos(double);
 
 signals:
 	void dashChanged();

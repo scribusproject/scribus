@@ -239,7 +239,7 @@ void PreferencesDialog::setupListWidget()
 	preferencesTypeList->setDragEnabled(false);
 	preferencesTypeList->setViewMode(QListView::ListMode);
 	preferencesTypeList->setFlow(QListView::TopToBottom);
-	preferencesTypeList->setIconSize(QSize(32,32));
+	preferencesTypeList->setIconSize(QSize(16,16));
 	preferencesTypeList->setSortingEnabled(false);
 	preferencesTypeList->setWrapping(false);
 	preferencesTypeList->setWordWrap(true);
@@ -255,7 +255,7 @@ void PreferencesDialog::setupListWidget()
 void PreferencesDialog::addWidget(Prefs_Pane* tab)
 {
 	//TODO: Can we avoid using this name and duplicating strings by getting it from the tab UIs
-	QListWidgetItem* newItem = new QListWidgetItem(IconManager::instance().loadIcon(tab->icon()), tab->caption(), preferencesTypeList);
+	QListWidgetItem* newItem = new QListWidgetItem(IconManager::instance().loadIcon(tab->icon(), 16), tab->caption(), preferencesTypeList);
 	newItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	int i = prefsStackWidget->addWidget(tab);
 	stackWidgetMap.insert(newItem, i);

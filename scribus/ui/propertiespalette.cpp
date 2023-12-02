@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "appmodehelper.h"
 #include "appmodes.h"
 #include "colorpalette.h"
+#include "iconmanager.h"
 #include "pageitem_table.h"
 #include "propertiespalette_line.h"
 #include "propertiespalette_shadow.h"
@@ -57,46 +58,67 @@ PropertiesPalette::PropertiesPalette(QWidget *parent) : DockPanelBase("Propertie
 	f.setPointSize(f.pointSize()-1);
 	setFont(f);
 
-	TabStack = new ScTreeWidget( this );
-//	Uncomment this line if the new behaviour makes any trouble.
-//	TabStack->setToolBoxMode(true);
-
+	// XZY
 	xyzPal = new PropertiesPalette_XYZ( this );
-	idXYZItem = TabStack->addItem( xyzPal, "X, Y, &Z" );
+	scXYZ = new SectionContainer("X, Y, &Z");
+	scXYZ->setWidget(xyzPal);
 
+	// Drop Shadow
 	shadowPal = new PropertiesPalette_Shadow( this );
-	idShadowItem = TabStack->addItem( shadowPal, "Drop Shadow" );
+	scShadow = new SectionContainer("Drop Shadow");
+	scShadow->setWidget(shadowPal);
+	scShadow->setIsCollapsed(true);
 
+	// Shape
 	shapePal = new PropertiesPalette_Shape( this );
-	idShapeItem = TabStack->addItem( shapePal, "&Shape" );
+	scShape = new SectionContainer("&Shape");
+	scShape->setWidget(shapePal);
+	scShape->setIsCollapsed(true);
 
+	// Line
 	linePal = new PropertiesPalette_Line(this);
-	idLineItem = TabStack->addItem(linePal, "&Line");
+	scLine = new SectionContainer("&Line");
+	scLine->setWidget(linePal);
+	scLine->setIsCollapsed(true);
 
+	// Color
 	colorPalette = new ColorPalette(this);
-	idColorsItem = TabStack->addItem(colorPalette, "&Colors" );
+	scColor = new SectionContainer("&Colors");
+	scColor->setWidget(colorPalette);
+	scColor->setIsCollapsed(true);
 
+	// Transparency
 	transparencyPalette = new TransparencyPalette(this);
-	idTransparencyItem = TabStack->addItem(transparencyPalette, "&Transparency" );
+	scTransparency = new SectionContainer("&Transparency");
+	scTransparency->setWidget(transparencyPalette);
+	scTransparency->setIsCollapsed(true);
 
-	setWidget( TabStack );
+	// Layout stack
+	QVBoxLayout * lyt = new QVBoxLayout();
+	lyt->setContentsMargins(0, 0, 0, 0);
+	lyt->setSpacing(0);
+	lyt->addWidget(scXYZ);
+	lyt->addWidget(scShadow);
+	lyt->addWidget(scShape);
+	lyt->addWidget(scLine);
+	lyt->addWidget(scColor);
+	lyt->addWidget(scTransparency);
+	lyt->addStretch(1);
+
+	QWidget * wdg = new QWidget();
+	wdg->setLayout(lyt);
+	setWidget(wdg);
 
 	languageChange();
+	enablePalettes(false);
 
-	connect(linePal, SIGNAL(lineModeChanged(int)), this, SLOT(NewLineMode(int)));
-	connect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
-
-	connect(colorPalette, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(NewSpGradient(double,double,double,double,double,double,double,double,double,double)));
+	connect(colorPalette, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(newSpGradient(double,double,double,double,double,double,double,double,double,double)));
 	connect(colorPalette, SIGNAL(editGradient(int)), this, SLOT(toggleGradientEdit(int)));
-	connect(transparencyPalette, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(NewSpGradientM(double,double,double,double,double,double,double,double)));
+	connect(transparencyPalette, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(newSpGradientM(double,double,double,double,double,double,double,double)));
 	connect(transparencyPalette, SIGNAL(editGradient()), this, SLOT(toggleGradientEditM()));
 
 	m_haveItem = false;
-	for (int i = 1; i < 10; ++i)
-		TabStack->setItemEnabled(i, false);
-	TabStack->setCurrentIndex(0);
-	TabStack->widget(0)->setEnabled(false);
-	TabStack->setItemEnabled(0, false);
+
 }
 
 void PropertiesPalette::closeEvent(QCloseEvent *closeEvent)
@@ -118,7 +140,7 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 
 	// For some reason, the mapToGlobal() / mapFromGlobal() roundtrip
 	// performed below does not give always good results, causing PP to
-	// not display in some situations. Moreover the reparenting is useless 
+	// not display in some situations. Moreover the reparenting is useless
 	// as PP is already created with ScribusMainWindow as parent.
 	/*QPoint p1 = mapToGlobal(pos());
 	QPoint p2 = m_ScMW->mapFromGlobal(p1);
@@ -134,39 +156,6 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 	//connect(this->Cpal, SIGNAL(strokeGradientChanged()), m_ScMW, SLOT(updtGradStroke()));
 	connect(this->transparencyPalette, SIGNAL(gradientChanged()), this, SLOT(handleGradientChanged()));
 	connect(m_ScMW->appModeHelper, SIGNAL(AppModeChanged(int,int)), this, SLOT(AppModeChanged()));
-}
-
-void PropertiesPalette::SelTab(int t)
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-
-	if (!TabStack->widget(t)->isVisible())
-		return;
-
-	bool focusNowSet = false;
-	foreach (QObject *o, TabStack->widget(t)->children())
-	{
-		// Layouts, boxes etc aren't widgets at all
-		// so let's skip them silently...
-		QWidget *w = qobject_cast<QWidget*>(o);
-		if (!w)
-			continue;
-
-		QWidget *i = TabStack->widget(t);
-		while ((i = i->nextInFocusChain()) != TabStack->widget(t))
-		{
-			if (((i->focusPolicy() & Qt::TabFocus) == Qt::TabFocus) && !i->focusProxy() && i->isEnabled())
-			{
-				focusNowSet = true;
-				i->setFocus();
-				break;
-			}
-		}
-
-		if (focusNowSet)
-			break;
-	}
 }
 
 void PropertiesPalette::setDoc(ScribusDoc *d)
@@ -235,10 +224,7 @@ void PropertiesPalette::unsetDoc()
 	transparencyPalette->setDocument(nullptr);
 
 	m_haveItem = false;
-	for (int ws = 1; ws < 10; ++ws)
-		TabStack->setItemEnabled(ws, false);
-	TabStack->widget(0)->setEnabled(false);
-	TabStack->setItemEnabled(idXYZItem, false);
+	enablePalettes(false);
 }
 
 void PropertiesPalette::unsetItem()
@@ -264,6 +250,16 @@ PageItem* PropertiesPalette::currentItemFromSelection()
 	if (m_doc && m_doc->m_Selection->count() > 0)
 		return m_doc->m_Selection->itemAt(0);
 	return nullptr;
+}
+
+void PropertiesPalette::enablePalettes(bool enable)
+{
+	scXYZ->setEnabled(enable);
+	scShape->setEnabled(enable);
+	scLine->setEnabled(enable);
+	scColor->setEnabled(enable);
+	scTransparency->setEnabled(enable);
+	scShadow->setEnabled(enable);
 }
 
 void PropertiesPalette::AppModeChanged()
@@ -300,13 +296,8 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 		return;
 	}
 
-	int oldTabIndex = TabStack->currentIndex();
-
 	if (!m_doc)
 		setDoc(item->doc());
-
-	disconnect(TabStack, SIGNAL(currentChanged2(int)) , this, SLOT(SelTab(int)));
-	disconnect(linePal , SIGNAL(lineModeChanged(int)), this, SLOT(NewLineMode(int)));
 
 	m_haveItem = false;
 	m_item = item;
@@ -315,29 +306,21 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 
 	setTextFlowMode(m_item->textFlowMode());
 
-	connect(linePal , SIGNAL(lineModeChanged(int)), this, SLOT(NewLineMode(int)));
-
 //CB replaces old emits from PageItem::emitAllToGUI()
 	setLocked(item->locked());
 
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 	{
-		TabStack->setItemEnabled(idXYZItem, true);
-		TabStack->setItemEnabled(idShadowItem, true);
-		TabStack->setItemEnabled(idShapeItem, true);
-		TabStack->setItemEnabled(idLineItem, false);
-		TabStack->setItemEnabled(idColorsItem, false);
-		TabStack->setItemEnabled(idTransparencyItem, true);
+		scXYZ->setEnabled(true);
+		scShadow->setEnabled(true);
+		scShape->setEnabled(true);
+		scLine->setEnabled(false);
+		scColor->setEnabled(false);
+		scTransparency->setEnabled(true);
+
 	}
 
 	m_haveItem = true;
-
-	if (oldTabIndex != TabStack->currentIndex())
-	{
-		//Must be called only when necessary : cause focus problem
-		//in spinboxes when processing valueChanged() signals
-		SelTab(TabStack->currentIndex());
-	}
 
 	if (!sender() || (m_doc->appMode == modeEditTable))
 	{
@@ -350,62 +333,49 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 
 	if (m_item->isOSGFrame())
 	{
-		TabStack->setItemEnabled(idXYZItem, true);
-		TabStack->setItemEnabled(idShadowItem, true);
-		TabStack->setItemEnabled(idShapeItem, true);
-		TabStack->setItemEnabled(idLineItem, false);
-		TabStack->setItemEnabled(idColorsItem, true);
-		TabStack->setItemEnabled(idTransparencyItem, false);
+		scXYZ->setEnabled(true);
+		scShadow->setEnabled(true);
+		scShape->setEnabled(true);
+		scLine->setEnabled(false);
+		scColor->setEnabled(true);
+		scTransparency->setEnabled(false);
 	}
 	if (m_item->asSymbol())
 	{
-		TabStack->setItemEnabled(idXYZItem, true);
-		TabStack->setItemEnabled(idShadowItem, true);
-		TabStack->setItemEnabled(idShapeItem, false);
-		TabStack->setItemEnabled(idLineItem, false);
-		TabStack->setItemEnabled(idColorsItem, false);
-		TabStack->setItemEnabled(idTransparencyItem, false);
+		scXYZ->setEnabled(true);
+		scShadow->setEnabled(true);
+		scShape->setEnabled(false);
+		scLine->setEnabled(false);
+		scColor->setEnabled(false);
+		scTransparency->setEnabled(false);
 	}
-	connect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
 }
 
 void PropertiesPalette::handleSelectionChanged()
 {
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	int currentTab = TabStack->currentIndex();
-	disconnect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
+
+	enablePalettes(false);
 
 	PageItem* currItem = currentItemFromSelection();
 	if (m_doc->m_Selection->count() > 1)
 	{
-		for (int ws = 1; ws < 10; ++ws)
-			TabStack->setItemEnabled(ws, false);
-		TabStack->widget(0)->setEnabled(true);
-		TabStack->setItemEnabled(idXYZItem, true);
-		TabStack->setItemEnabled(idShadowItem, true);
-		TabStack->setItemEnabled(idLineItem, true);
-		TabStack->setItemEnabled(idColorsItem, true);
-		TabStack->setItemEnabled(idTransparencyItem, true);
+		scXYZ->setEnabled(true);
+		scShadow->setEnabled(true);
+		scLine->setEnabled(true);
+		scColor->setEnabled(true);
+		scTransparency->setEnabled(true);
 	}
 	else
 	{
 		int itemType = currItem ? (int) currItem->itemType() : -1;
 		m_haveItem   = (itemType != -1);
 
-//		int visID = TabStack->currentIndex();
-		TabStack->widget(0)->setEnabled(true);
-		TabStack->setItemEnabled(idXYZItem, true);
-		TabStack->setItemEnabled(idColorsItem, true);
-		TabStack->setItemEnabled(idTransparencyItem, true);
 		switch (itemType)
 		{
 		case -1:
 			m_haveItem = false;
-			for (int ws = 1; ws < 10; ++ws)
-				TabStack->setItemEnabled(ws, false);
-			TabStack->widget(0)->setEnabled(false);
-			TabStack->setItemEnabled(idXYZItem, false);
 			colorPalette->showGradient(0);
 			break;
 		case PageItem::ImageFrame:
@@ -413,61 +383,42 @@ void PropertiesPalette::handleSelectionChanged()
 		case PageItem::OSGFrame:
 			if (currItem->isOSGFrame())
 			{
-				TabStack->setItemEnabled(idXYZItem, true);
-				TabStack->setItemEnabled(idShadowItem, true);
-				TabStack->setItemEnabled(idShapeItem, true);
-				TabStack->setItemEnabled(idLineItem, false);
-				TabStack->setItemEnabled(idColorsItem, true);
-				TabStack->setItemEnabled(idTransparencyItem, false);
+				scXYZ->setEnabled(true);
+				scShadow->setEnabled(true);
+				scShape->setEnabled(true);
+				scColor->setEnabled(true);
 			}
 			else
 			{
-				TabStack->setItemEnabled(idXYZItem, true);
-				TabStack->setItemEnabled(idShadowItem, true);
-				TabStack->setItemEnabled(idShapeItem, true);
-				TabStack->setItemEnabled(idLineItem, true);
+				enablePalettes(true);
 			}
+			break;
+		case PageItem::Line:
+			scXYZ->setEnabled(true);
+			scShadow->setEnabled(true);
+			scLine->setEnabled(true);
+			scColor->setEnabled(true);
+			scTransparency->setEnabled(true);
 			break;
 		case PageItem::Group:
 		case PageItem::Symbol:
 		case PageItem::Table:
 		case PageItem::TextFrame:
-			TabStack->setItemEnabled(idShadowItem, true);
-			TabStack->setItemEnabled(idShapeItem, true);
-			TabStack->setItemEnabled(idLineItem, true);
-			break;
-		case PageItem::Line:
-			TabStack->setItemEnabled(idShadowItem, true);
-			TabStack->setItemEnabled(idShapeItem, false);
-			TabStack->setItemEnabled(idLineItem, true);
-			break;
 		case PageItem::ItemType1:
 		case PageItem::ItemType3:
 		case PageItem::Polygon:
 		case PageItem::RegularPolygon:
 		case PageItem::Arc:
-			TabStack->setItemEnabled(idShadowItem, true);
-			TabStack->setItemEnabled(idShapeItem, true);
-			TabStack->setItemEnabled(idLineItem, true);
-			break;
 		case PageItem::PolyLine:
 		case PageItem::Spiral:
-			TabStack->setItemEnabled(idShadowItem, true);
-			TabStack->setItemEnabled(idShapeItem, true);
-			TabStack->setItemEnabled(idLineItem, true);
-			break;
 		case PageItem::PathText:
-			TabStack->setItemEnabled(idShadowItem, true);
-			TabStack->setItemEnabled(idShapeItem, true);
-			TabStack->setItemEnabled(idLineItem, true);
+			enablePalettes(true);
 			break;
 		}
 	}
-	if (TabStack->isItemEnabled(currentTab) && (TabStack->currentIndex() != currentTab))
-		TabStack->setCurrentIndex(currentTab);
+
 	updateGeometry();
 	update();
-	connect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
 
 	if (currItem)
 	{
@@ -495,16 +446,6 @@ void PropertiesPalette::unitChange()
 	m_haveItem = tmp;
 }
 
-void PropertiesPalette::NewLineMode(int mode)
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	xyzPal->setLineMode(mode);
-	xyzPal->showWH(m_item->width(), m_item->height());
-	updateGeometry();
-	update();
-}
-
 void PropertiesPalette::handleNewShape(int frameType)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
@@ -517,7 +458,7 @@ void PropertiesPalette::handleNewShape(int frameType)
 	}
 }
 
-void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy)
+void PropertiesPalette::newSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -654,7 +595,7 @@ void PropertiesPalette::toggleGradientEdit(int stroke)
 	}
 }
 
-void PropertiesPalette::NewSpGradientM(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
+void PropertiesPalette::newSpGradientM(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -744,12 +685,12 @@ void PropertiesPalette::languageChange()
 {
 	setWindowTitle( tr("Properties"));
 
-	TabStack->setItemText(idXYZItem, tr("X, Y, &Z"));
-	TabStack->setItemText(idShadowItem, tr("Drop Shadow"));
-	TabStack->setItemText(idShapeItem, tr("&Shape"));
-	TabStack->setItemText(idLineItem, tr("&Line"));
-	TabStack->setItemText(idColorsItem, tr("&Colors"));
-	TabStack->setItemText(idTransparencyItem, tr("&Transparency"));
+	scXYZ->setText(tr("X, Y, &Z"));
+	scShadow->setText(tr("Drop Shadow"));
+	scShape->setText(tr("&Shape"));
+	scLine->setText(tr("&Line"));
+	scColor->setText(tr("&Colors"));
+	scTransparency->setText(tr("&Transparency"));
 
 	xyzPal->languageChange();
 	shadowPal->languageChange();

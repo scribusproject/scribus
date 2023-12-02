@@ -326,6 +326,12 @@ endif()
 # in the CMakeLists.txt for your plugin.
 
 add_custom_target(Plugins ALL)
+
+target_sources(Plugins
+  PRIVATE
+    designer/uiwidgets.h designer/uiwidgets.cpp
+    designer/formwidget_plugin.h designer/formwidget_plugin.cpp
+)
 add_subdirectory(plugins)
 
 #do we want a lib suffix on osx? doubt it

@@ -6,254 +6,540 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>233</width>
-    <height>232</height>
+    <width>341</width>
+    <height>150</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="spacing">
-    <number>3</number>
-   </property>
+  <layout class="QGridLayout" name="gridLayout_2">
    <property name="leftMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
    <property name="topMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
    <property name="rightMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
    <property name="bottomMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
-   <item>
-    <widget class="QCheckBox" name="hasSoftShadow">
+   <property name="horizontalSpacing">
+    <number>4</number>
+   </property>
+   <property name="verticalSpacing">
+    <number>8</number>
+   </property>
+   <item row="3" column="0">
+    <spacer name="horizontalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>24</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="labelXOffset">
      <property name="text">
-      <string>Object has a drop shadow</string>
+      <string>X:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout">
+   <item row="2" column="4">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <property name="spacing">
-      <number>3</number>
+      <number>4</number>
      </property>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>X-Offset:</string>
-       </property>
-       <property name="buddy">
-        <cstring>softShadowXOffset</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="ScrSpinBox" name="softShadowXOffset"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Y-Offset:</string>
-       </property>
-       <property name="buddy">
-        <cstring>softShadowYOffset</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="ScrSpinBox" name="softShadowYOffset"/>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Color:</string>
-       </property>
-       <property name="buddy">
-        <cstring>softShadowColor</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="ColorCombo" name="softShadowColor"/>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>Shade:</string>
-       </property>
-       <property name="buddy">
-        <cstring>softShadowShade</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>Opacity:</string>
-       </property>
-       <property name="buddy">
-        <cstring>softShadowOpacity</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="ScrSpinBox" name="softShadowOpacity">
+     <item>
+      <widget class="ScrSpinBox" name="numberOpacity">
        <property name="suffix">
         <string> %</string>
        </property>
+       <property name="decimals">
+        <number>0</number>
+       </property>
        <property name="maximum">
-        <number>100</number>
+        <double>100.000000000000000</double>
        </property>
        <property name="value">
-        <number>100</number>
+        <double>100.000000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_7">
+     <item>
+      <widget class="QToolButton" name="buttonInheritOpacity">
        <property name="text">
-        <string>Blendmode:</string>
-       </property>
-       <property name="buddy">
-        <cstring>softShadowBlendMode</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QComboBox" name="softShadowBlendMode">
-       <item>
-        <property name="text">
-         <string>Normal</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Darken</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Lighten</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Multiply</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Screen</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Overlay</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Hard Light</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Soft Light</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Difference</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Exclusion</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Color Dodge</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Color Burn</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Hue</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Saturation</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Color</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Luminosity</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Blur:</string>
-       </property>
-       <property name="buddy">
-        <cstring>softShadowBlurRadius</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="ScrSpinBox" name="softShadowBlurRadius">
-       <property name="suffix">
-        <string> px</string>
-       </property>
-       <property name="maximum">
-        <number>20</number>
-       </property>
-       <property name="value">
-        <number>5</number>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="ScrSpinBox" name="softShadowShade">
-       <property name="suffix">
-        <string> %</string>
-       </property>
-       <property name="maximum">
-        <number>100</number>
-       </property>
-       <property name="value">
-        <number>100</number>
+        <string/>
        </property>
       </widget>
      </item>
     </layout>
    </item>
+   <item row="0" column="5">
+    <spacer name="horizontalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="4">
+    <widget class="ScrSpinBox" name="numberBlurRadius">
+     <property name="maximumSize">
+      <size>
+       <width>90</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="suffix">
+      <string>mm</string>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="maximum">
+      <double>20.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>5.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="labelYOffset">
+     <property name="text">
+      <string>Y:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="4">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>4</number>
+     </property>
+     <item>
+      <widget class="FormWidget" name="labelColor">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="label" stdset="0">
+        <string>Color</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="ColorButton" name="buttonColor">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="FormWidget" name="labelShade">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="label" stdset="0">
+        <string>Shade</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="ScrSpinBox" name="numberShade">
+          <property name="suffix">
+           <string> %</string>
+          </property>
+          <property name="decimals">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>100.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="FormWidget" name="labelBlendmode">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="label" stdset="0">
+        <string>Blendmode</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="ComboBlendMode" name="comboboxBlendMode">
+          <item>
+           <property name="text">
+            <string>Normal</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Darken</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Lighten</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Multiply</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Screen</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Overlay</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Hard Light</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Soft Light</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Difference</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Exclusion</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Color Dodge</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Color Burn</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Hue</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Saturation</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Color</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Luminosity</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="FormWidget" name="labelErase">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="label" stdset="0">
+        <string>Erase Fill</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_11">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolButton" name="buttonEraseShadow">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="1">
+    <widget class="ScrSpinBox" name="numberYOffset">
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="suffix">
+      <string>mm</string>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QLabel" name="labelBlurRadius">
+     <property name="text">
+      <string>Radius:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="ScrSpinBox" name="numberXOffset">
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="suffix">
+      <string>mm</string>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QLabel" name="labelOpacity">
+     <property name="text">
+      <string>Opacity:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="FormWidget" name="labelHasShadow">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="label" stdset="0">
+      <string/>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="preserveLabelSpace">
+      <bool>true</bool>
+     </property>
+     <property name="labelVisibility">
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_12">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="checkboxHasShadow">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>8</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>FormWidget</class>
+   <extends>QWidget</extends>
+   <header>ui/widgets/form_widget.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
-   <class>ColorCombo</class>
+   <class>ComboBlendMode</class>
    <extends>QComboBox</extends>
-   <header>ui/colorcombo.h</header>
+   <header>ui/widgets/combo_blendmode.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ColorButton</class>
+   <extends>QToolButton</extends>
+   <header>ui/widgets/color_button.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

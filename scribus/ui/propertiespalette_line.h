@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui_propertiespalette_linebase.h"
 
 #include "scribusapi.h"
-#include "linecombo.h"
 #include "scguardedptr.h"
 #include "units.h"
 
@@ -19,6 +18,8 @@ class DashEditor;
 class PageItem;
 class ScribusDoc;
 class ScribusMainWindow;
+class QButtonGroup;
+class LineMarkerSelector;
 
 class SCRIBUS_API PropertiesPalette_Line : public QWidget, Ui::PropertiesPalette_LineBase
 {
@@ -32,7 +33,7 @@ public:
 	void updateArrowStyles();
 
 protected:
-	bool m_lineMode {false};
+
 	bool m_haveDoc {false};
 	bool m_haveItem {false};
 	double m_unitRatio {1.0};
@@ -40,6 +41,10 @@ protected:
 	PageItem *m_item {nullptr};
 	ScribusMainWindow* m_ScMW {nullptr};
 	ScGuardedPtr<ScribusDoc> m_doc;
+	QButtonGroup *buttonsCaps;
+	QButtonGroup *buttonsJoins;
+	LineMarkerSelector *lineMarkerSelectorStart;
+	LineMarkerSelector *lineMarkerSelectorEnd;
 
 	void changeEvent(QEvent *e) override;
 
@@ -66,22 +71,21 @@ public slots:
 	void languageChange();
 	void unitChange();
 	void localeChange();
+	void toggleLabelVisibility(bool v);
 
 private slots:
 	void handleLineWidth();
 	void handleLineStyle();
 	void handleLineJoin();
 	void handleLineEnd();
-	void handleLineMode();
 	void handleDashChange();
 	void handleStartArrow(int id);
 	void handleEndArrow(int id);
 	void handleStartArrowScale(double sc);
 	void handleEndArrowScale(double sc);
 	void handleLineStyle(QListWidgetItem *c);
+	void swapLineMarker();
 
-signals:
-	void lineModeChanged(int);
 };
 
 #endif

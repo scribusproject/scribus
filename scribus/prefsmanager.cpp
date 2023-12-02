@@ -173,6 +173,7 @@ void PrefsManager::initDefaults()
 	appPrefs.uiPrefs.showStartupDialog = true;
 	appPrefs.uiPrefs.showSplashOnStartup = true;
 	appPrefs.uiPrefs.useSmallWidgets = false;
+	appPrefs.uiPrefs.hideLabels = false;
 	appPrefs.uiPrefs.useTabs = false;
 	appPrefs.uiPrefs.stickyTools = false;
 	appPrefs.uiPrefs.grayscaleIcons = false;
@@ -1343,6 +1344,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	dcUI.setAttribute("ShowStartupDialog", static_cast<int>(appPrefs.uiPrefs.showStartupDialog));
 	dcUI.setAttribute("ShowSplashOnStartup", static_cast<int>(appPrefs.uiPrefs.showSplashOnStartup));
 	dcUI.setAttribute("UseSmallWidgets", static_cast<int>(appPrefs.uiPrefs.useSmallWidgets));
+	dcUI.setAttribute("HideLabels", static_cast<int>(appPrefs.uiPrefs.hideLabels));
 	dcUI.setAttribute("UseDocumentTabs", static_cast<int>(appPrefs.uiPrefs.useTabs));
 	dcUI.setAttribute("StickyTools", static_cast<int>(appPrefs.uiPrefs.stickyTools));
 	dcUI.setAttribute("Theme", appPrefs.uiPrefs.style);
@@ -1989,6 +1991,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.uiPrefs.showStartupDialog = static_cast<bool>(dc.attribute("ShowStartupDialog", "1").toInt());
 			appPrefs.uiPrefs.showSplashOnStartup = static_cast<bool>(dc.attribute("UI_SHOWSPLASHSCREEN", "1").toInt());
 			appPrefs.uiPrefs.useSmallWidgets = dc.attribute("UseSmallWidgets").toInt();
+			appPrefs.uiPrefs.hideLabels = dc.attribute("HideLabels").toInt();
 			appPrefs.uiPrefs.useTabs = static_cast<bool>(dc.attribute("UseDocumentTabs", "0").toInt());
 			appPrefs.uiPrefs.stickyTools = static_cast<bool>(dc.attribute("StickyTools", "0").toInt());
 			appPrefs.uiPrefs.grayscaleIcons = static_cast<bool>(dc.attribute("UseGrayscaleIcons",nullptr).toInt());

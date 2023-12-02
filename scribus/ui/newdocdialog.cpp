@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scrspinbox.h"
 #include "units.h"
+#include "ui/delegates/sclistitemdelegate.h"
 
 PageLayoutsWidget::PageLayoutsWidget(QWidget* parent) :
 	QListWidget(parent)
@@ -62,6 +63,8 @@ PageLayoutsWidget::PageLayoutsWidget(QWidget* parent) :
 	setIconSize(QSize(32, 32));
 	clear();
 	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+	setGridSize(QSize(96, 96));
+	setItemDelegate(new ScListItemDelegate(QSize(32,32)));
 }
 
 void PageLayoutsWidget::arrangeIcons()

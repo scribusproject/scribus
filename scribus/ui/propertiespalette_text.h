@@ -7,8 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef PROPERTIESPALETTE_TEXT_H
 #define PROPERTIESPALETTE_TEXT_H
 
-#include "ui_propertiespalette_textbase.h"
-
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scrspinbox.h"
@@ -27,12 +25,14 @@ class PropertyWidget_Hyphenation;
 class PropertyWidget_OptMargins;
 class PropertyWidget_Orphans;
 class PropertyWidget_PathText;
+class PropertyWidget_Text;
 class PropertyWidget_TextColor;
+class SectionContainer;
 class ScribusDoc;
 class ScribusMainWindow;
 class Selection;
 
-class SCRIBUS_API PropertiesPalette_Text : public QWidget, public Ui::PropertiesPalette_TextBase
+class SCRIBUS_API PropertiesPalette_Text : public QWidget
 {
 	Q_OBJECT
 
@@ -76,43 +76,23 @@ public slots:
 	void languageChange();
 	void unitChange();
 	void localeChange();
-	void changeLang(int id);
 
 	void showAlignment(int e);
 	void showDirection(int e);
-	void showCharStyle(const QString& name);
-	void showFontFace(const QString&);
 	void showFontSize(double s);
 	void showLanguage(const QString& w);
 	void showFirstLinePolicy(FirstLineOffsetPolicy);
-	void showLineSpacing(double r);
-	void showParStyle(const QString& name);
-	
-	void setupLineSpacingSpinbox(int mode, double value);
-	
+
 	/// update TB values:
 	void updateCharStyle(const CharStyle& charStyle);
-	void updateStyle(const ParagraphStyle& newCurrent);
-	
+	void updateStyle(const ParagraphStyle& newCurrent);	
 	void updateCharStyles();
 	void updateParagraphStyles();
-	void updateTextStyles();
-	
-	void handleLineSpacingMode(int id);
-	void handleTextFont(const QString&);
-
-	// update widget layout
-	void updateTreeLayout();
+	void updateTextStyles();	
 
 private slots:
-	void handleAlignment(int a);
-	void handleDirection(int d);
+
 	void handleFirstLinePolicy(int);
-	void handleFontSize();
-	void handleLineSpacing();
-	
-	void doClearCStyle();
-	void doClearPStyle();
 
 protected:
 	PropertyWidget_Advanced* advancedWidgets;
@@ -124,18 +104,20 @@ protected:
 	PropertyWidget_Orphans* orphanBox;
 	PropertyWidget_ParEffect* parEffectWidgets;
 	PropertyWidget_PathText* pathTextWidgets;
+	PropertyWidget_Text* textWidgets;
 	PropertyWidget_TextColor* colorWidgets;
 
-	int advancedWidgetsItem;
-	int colorWidgetsItem;
-	int distanceItem;
-	int flopItem;
-	int fontfeaturesWidgetItem;
-	int hyphenationWidgetItem;
-	int optMarginsItem;
-	int orphanItem;
-	int parEffectItem;
-	int pathTextItem;
+	SectionContainer * scAdvanced = {nullptr};
+	SectionContainer * scDistance = {nullptr};
+	SectionContainer * scFlop = {nullptr};
+	SectionContainer * scFontFeatures = {nullptr};
+	SectionContainer * scHyphenation = {nullptr};
+	SectionContainer * scOptMargins = {nullptr};
+	SectionContainer * scOrphans = {nullptr};
+	SectionContainer * scParEffect = {nullptr};
+	SectionContainer * scPathText = {nullptr};
+	SectionContainer * scText = {nullptr};
+	SectionContainer * scTextColor = {nullptr};
 
 };
 

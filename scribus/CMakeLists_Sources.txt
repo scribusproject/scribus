@@ -234,6 +234,7 @@ set(SCRIBUS_SOURCES
 	util_file.cpp
 	util_formats.cpp
 	util_ghostscript.cpp
+	util_gui.cpp
 	util_layer.cpp
 	util_math.cpp
 	util_os.cpp
@@ -349,7 +350,8 @@ set(SCRIBUS_SOURCES
 	ui/latexeditor.cpp
 	ui/layers.cpp
 	ui/linecombo.cpp
-	ui/linkbutton.cpp
+	ui/linemarkerselector.cpp
+	ui/linkbutton.cpp	
 	ui/loremipsum.cpp
 	ui/mark2item.cpp
 	ui/mark2mark.cpp
@@ -445,6 +447,7 @@ set(SCRIBUS_SOURCES
 	ui/propertywidget_optmargins.cpp
 	ui/propertywidget_orphans.cpp
 	ui/propertywidget_pathtext.cpp
+	ui/propertywidget_text.cpp
 	ui/propertywidget_textcolor.cpp
 	ui/propertywidget_fontfeatures.cpp
 	ui/propertywidgetbase.cpp
@@ -536,8 +539,14 @@ set(SCRIBUS_SOURCES
 	ui/vruler.cpp
 	ui/useprintermarginsdialog.cpp
 	ui/weldedit.cpp
+	ui/delegates/sclistitemdelegate.cpp
 	ui/docks/dock_centralwidget.cpp
 	ui/docks/dock_panelbase.cpp
+	ui/widgets/color_button.cpp
+	ui/widgets/combo_blendmode.cpp
+	ui/widgets/popup_menu.cpp
+	ui/widgets/section_container.cpp
+	ui/widgets/form_widget.cpp
 	${SCRIBUS_OSG_SRC}
 	${SCRIBUS_GMAGICK_SRC}
 	${SCRIBUS_JPEGXL_SRC}

@@ -53,14 +53,12 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	installSniffer(heightSpin);
 
 	keepFrameWHRatioButton->setCheckable( true );
-	keepFrameWHRatioButton->setAutoRaise( true );
-	keepFrameWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	keepFrameWHRatioButton->setChecked(false);
 
 	rotationSpin->setNewUnit(SC_DEG);
 	rotationSpin->setWrapping( true );
 	installSniffer(rotationSpin);
-	rotationLabel->setBuddy(rotationSpin);
+//	rotationLabel->setBuddy(rotationSpin);
 
 	levelLabel->setAlignment( Qt::AlignCenter );
 
@@ -71,13 +69,14 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	noPrint->setCheckable(true);
 	noResize->setCheckable(true);
 
-//	basePointWidget->setMode(BasePointWidget::Mode::Frame);
+	buttonLineBasePoint->setVisible(false);
 
 	iconSetChange();
 	languageChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 
 	connect(xposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewX()));
 	connect(yposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewY()));
@@ -93,6 +92,7 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	connect(levelTop, SIGNAL(clicked()), this, SLOT(handleFront()));
 	connect(levelBottom, SIGNAL(clicked()), this, SLOT(handleBack()));
 	connect(basePointWidget, SIGNAL(buttonClicked(AnchorPoint)), this, SLOT(handleBasePoint(AnchorPoint)));
+	connect(buttonLineBasePoint, SIGNAL(toggled(bool)), this, SLOT(handleLineMode()));
 
 	connect(nameEdit , SIGNAL(Leaved()) , this, SLOT(handleNewName()));
 	connect(doLock   , SIGNAL(clicked()), this, SLOT(handleLock()));
@@ -178,10 +178,10 @@ void PropertiesPalette_XYZ::unsetDoc()
 	doUnGroup->setEnabled(false);
 	flipH->setEnabled(false);
 	flipV->setEnabled(false);
-	xposLabel->setText( tr( "&X-Pos:" ) );
-	yposLabel->setText( tr( "&Y-Pos:" ) );
-	widthLabel->setText( tr( "&Width:" ) );
-	heightLabel->setText( tr( "&Height:" ) );
+	xposLabel->setText( tr( "&X:" ) );
+	yposLabel->setText( tr( "&Y:" ) );
+	widthLabel->setText( tr( "&W:" ) );
+	heightLabel->setText( tr( "&H:" ) );
 	xposSpin->showValue(0);
 	yposSpin->showValue(0);
 	widthSpin->showValue(0);
@@ -202,12 +202,14 @@ void PropertiesPalette_XYZ::setLineMode(int lineMode)
 {
 	if (lineMode == 0)
 	{
-		xposLabel->setText( tr( "&X-Pos:" ) );
-		yposLabel->setText( tr( "&Y-Pos:" ) );
-		widthLabel->setText( tr( "&Width:" ) );
-		heightLabel->setText( tr( "&Height:" ) );
+		xposLabel->setText( tr( "&X:" ) );
+		yposLabel->setText( tr( "&Y:" ) );
+		widthLabel->setText( tr( "&W:" ) );
+		heightLabel->setText( tr( "&H:" ) );
 		rotationSpin->setEnabled(true);
 		heightSpin->setEnabled(false);
+		heightSpin->setVisible(false);
+		heightLabel->setVisible(false);
 		m_lineMode = false;
 		basePointWidget->setEnabled(true);
 	}
@@ -219,6 +221,8 @@ void PropertiesPalette_XYZ::setLineMode(int lineMode)
 		heightLabel->setText( tr( "&Y2:" ) );
 		rotationSpin->setEnabled(false);
 		heightSpin->setEnabled(true);
+		heightSpin->setVisible(true);
+		heightLabel->setVisible(true);
 		m_lineMode = true;
 		basePointWidget->setEnabled(false);
 	}
@@ -322,7 +326,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 	xposSpin->setEnabled(!setter);
 	yposSpin->setEnabled(!setter);
 	bool haveSameParent = m_doc->m_Selection->objectsHaveSameParent();
-	levelGroup->setEnabled(haveSameParent && !item->locked());
+	labelLevel->setEnabled(haveSameParent && !item->locked());
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 	{
 		setEnabled(true);
@@ -338,23 +342,29 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 	}
 	else
 	{
-		xposLabel->setText( tr( "&X-Pos:" ) );
-		yposLabel->setText( tr( "&Y-Pos:" ) );
-		widthLabel->setText( tr( "&Width:" ) );
-		heightLabel->setText( tr( "&Height:" ) );
+		xposLabel->setText( tr( "&X:" ) );
+		yposLabel->setText( tr( "&Y:" ) );
+		widthLabel->setText( tr( "&W:" ) );
+		heightLabel->setText( tr( "&H:" ) );
 		rotationSpin->setEnabled(true);
 		basePointWidget->setEnabled(true);
 	}
 	m_haveItem = true;
 	if (m_item->asLine())
 	{
-		keepFrameWHRatioButton->setEnabled(false);
 		heightSpin->setEnabled(m_lineMode && !m_item->locked());
+		heightSpin->setVisible(m_lineMode);
+		heightLabel->setVisible(m_lineMode);
+		buttonLineBasePoint->setVisible(true);
+		keepFrameWHRatioButton->setVisible(false);
 	}
 	else
 	{
 		heightSpin->setEnabled(true);
-		keepFrameWHRatioButton->setEnabled(true);
+		heightSpin->setVisible(true);
+		heightLabel->setVisible(true);
+		buttonLineBasePoint->setVisible(false);
+		keepFrameWHRatioButton->setVisible(true);
 	}
 	showXY(selX, selY);
 	showWH(selW, selH);
@@ -363,8 +373,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 	double rrR = item->imageRotation();
 	if (item->imageRotation() > 0)
 		rrR = 360 - rrR;
-	noResize->setEnabled(!m_item->isArc());
-	
+
 	doGroup->setEnabled(false);
 	doUnGroup->setEnabled(false);
 	if ((m_doc->m_Selection->count() > 1) && (haveSameParent))
@@ -398,7 +407,7 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	nameEdit->setEnabled(m_doc->m_Selection->count() == 1);
+//	nameEdit->setEnabled(m_doc->m_Selection->count() == 1);
 
 	PageItem* currItem = currentItemFromSelection();
 	if (m_doc->m_Selection->count() > 1)
@@ -438,10 +447,10 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 			break;
 		}
 
-		xposLabel->setText( tr( "&X-Pos:" ) );
-		yposLabel->setText( tr( "&Y-Pos:" ) );
-		widthLabel->setText( tr( "&Width:" ) );
-		heightLabel->setText( tr( "&Height:" ) );
+		xposLabel->setText( tr( "&X:" ) );
+		yposLabel->setText( tr( "&Y:" ) );
+		widthLabel->setText( tr( "&W:" ) );
+		heightLabel->setText( tr( "&H:" ) );
 
 		xposSpin->showValue(gx);
 		yposSpin->showValue(gy);
@@ -465,6 +474,9 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		flipH->setEnabled(true);
 		flipV->setEnabled(true);
 
+		keepFrameWHRatioButton->setVisible(true);
+		buttonLineBasePoint->setVisible(false);
+
 		setEnabled(true);
 	}
 	else
@@ -480,6 +492,8 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		nameEdit->setEnabled(true);
 		basePointWidget->setEnabled(true);
 		basePointWidget->setMode(BasePointWidget::Full);
+		keepFrameWHRatioButton->setVisible(true);
+		buttonLineBasePoint->setVisible(false);
 
 		setEnabled(true);
 
@@ -508,18 +522,22 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		switch (itemType)
 		{
 		case -1:
-			xposLabel->setText( tr( "&X-Pos:" ) );
-			yposLabel->setText( tr( "&Y-Pos:" ) );
-			widthLabel->setText( tr( "&Width:" ) );
-			heightLabel->setText( tr( "&Height:" ) );
+			xposLabel->setText( tr( "&X:" ) );
+			yposLabel->setText( tr( "&Y:" ) );
+			widthLabel->setText( tr( "&W:" ) );
+			heightLabel->setText( tr( "&H:" ) );
+			levelLabel->setText("  ");
 
 			xposSpin->showValue(0);
 			yposSpin->showValue(0);
 			widthSpin->showValue(0);
-			heightSpin->showValue(0);
+			heightSpin->showValue(0);			
 			rotationSpin->showValue(0);
-			basePointWidget->setAngle(0);
-			levelLabel->setText("  ");
+			basePointWidget->setAngle(0);			
+
+			heightSpin->setVisible(true);
+			heightLabel->setVisible(true);
+
 			setEnabled(false);
 			break;
 		case PageItem::ImageFrame:
@@ -534,6 +552,8 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		case PageItem::Line:
 			//basePointWidget->setEnabled(true);
 			basePointWidget->setMode(BasePointWidget::Line);
+			keepFrameWHRatioButton->setVisible(false);
+			buttonLineBasePoint->setVisible(true);
 			break;
 		}
 	}
@@ -567,6 +587,18 @@ void PropertiesPalette_XYZ::localeChange()
 	widthSpin->setLocale(l);
 	heightSpin->setLocale(l);
 	rotationSpin->setLocale(l);
+}
+
+void PropertiesPalette_XYZ::toggleLabelVisibility(bool visibility)
+{
+	labelRotation->setLabelVisibility(visibility);
+	labelFlip->setLabelVisibility(visibility);
+	labelLock->setLabelVisibility(visibility);
+	labelGroup->setLabelVisibility(visibility);
+	labelLevel->setLabelVisibility(visibility);
+	labelName->setLabelVisibility(visibility);
+	labelExport->setLabelVisibility(visibility);
+	formWidget_2->setLabelVisibility(visibility);
 }
 
 void PropertiesPalette_XYZ::showXY(double x, double y)
@@ -1483,6 +1515,8 @@ void PropertiesPalette_XYZ::iconSetChange()
 
 	rotateCCW->setIcon(im.loadIcon("rotate_ccw.png"));
 	rotateCW->setIcon(im.loadIcon("rotate_cw.png"));
+
+	buttonLineBasePoint->setIcon(im.loadIcon("toggle-object-coordination"));
 	
 	QIcon a;
 	a.addPixmap(im.loadPixmap("16/lock.png"), QIcon::Normal, QIcon::On);
@@ -1511,6 +1545,8 @@ void PropertiesPalette_XYZ::languageChange()
 	yposSpin->setSuffix(suffix);
 	widthSpin->setSuffix(suffix);
 	heightSpin->setSuffix(suffix);
+
+	buttonLineBasePoint->setToolTip( tr("Change settings for left or end points"));
 }
 
 void PropertiesPalette_XYZ::updateSpinBoxConstants()
@@ -1593,4 +1629,15 @@ void PropertiesPalette_XYZ::handleUngrouping()
 	m_ScMW->UnGroupObj();
 	m_doc->invalidateAll();
 	m_doc->regionsChanged()->update(QRect());
+}
+
+void PropertiesPalette_XYZ::handleLineMode()
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	int mode = buttonLineBasePoint->isChecked() ? 1 : 0;
+
+	setLineMode(mode);
+	showWH(m_item->width(), m_item->height());
 }

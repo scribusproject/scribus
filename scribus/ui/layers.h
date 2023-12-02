@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 //#include "ui/scdockpalette.h"
 #include "ui/docks/dock_panelbase.h"
+#include "ui/widgets/combo_blendmode.h"
 #include "scribusstructs.h"
 
 class CheckBox;
@@ -75,7 +76,7 @@ protected:
 	QHBoxLayout* Layout1 { nullptr };
 	QHBoxLayout* layout1 { nullptr };
 	QLabel* textLabel1 { nullptr };
-	QComboBox* blendMode { nullptr };
+	ComboBlendMode* blendMode { nullptr };
 	QLabel* textLabel2 { nullptr };
 	ScrSpinBox* opacitySpinBox { nullptr };
 	QHeaderView* Header { nullptr };

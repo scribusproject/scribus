@@ -31,6 +31,7 @@ class QWidget;
 #include "stylecombos.h"
 #include "units.h"
 #include "docks/dock_panelbase.h"
+#include "widgets/section_container.h"
 
 class ColorCombo;
 class ColorPalette;
@@ -80,6 +81,7 @@ protected:
 
 private:
 	PageItem* currentItemFromSelection();
+	void enablePalettes(bool enable);
 	
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);
@@ -98,19 +100,23 @@ public slots:
 	void setLocked(bool);
 
 private slots:
-	void SelTab(int t);
 
-	void NewLineMode(int mode);
 	void handleGradientChanged();
 	void handleNewShape(int frameType);
-	void NewSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
+	void newSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
 	void toggleGradientEdit(int);
-	void NewSpGradientM(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
+	void newSpGradientM(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
 	void toggleGradientEditM();
 	void handleShapeEdit();
 
 protected:
-	ScTreeWidget* TabStack {nullptr};
+
+	SectionContainer * scXYZ {nullptr};
+	SectionContainer * scShape {nullptr};
+	SectionContainer * scLine {nullptr};
+	SectionContainer * scColor {nullptr};
+	SectionContainer * scTransparency {nullptr};
+	SectionContainer * scShadow {nullptr};
 
 	bool m_haveDoc {false};
 	bool m_haveItem {false};
@@ -121,15 +127,6 @@ protected:
 	UndoManager *undoManager {nullptr};
 	
 	ScGuardedPtr<ScribusDoc> m_doc;
-
-	int idXYZItem {0};
-	int idShapeItem {0};
-	int idTableItem {0};
-	int idLineItem {0};
-	int idColorsItem {0};
-	int idTransparencyItem {0};
-	int idGroupItem {0};
-	int idShadowItem {0};
 };
 
 #endif

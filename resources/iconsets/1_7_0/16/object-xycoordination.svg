@@ -1,0 +1,5 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><style>@import '../colors.css';</style>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8 1H7V8H1V9H7V15H8V9H15V8H8V1Z" fill-opacity="0.4"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4 13.0208V15H1V12H2.89946L11.2749 3.62451L12.3356 4.68517L4 13.0208Z"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M15 1H11V5H15V1ZM14 2H12V4H14V2Z" class="info"/>
+</svg>

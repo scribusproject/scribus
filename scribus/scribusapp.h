@@ -48,6 +48,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		void changeGUILanguage(const QString & newGUILang);
 		void changeIconSet(const QString& newIconSet);
 		void setLocale();
+		void changeLabelVisibility(bool visibility);
 
 		/*!
 		\author Franz Schmid
@@ -122,6 +123,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		void appStarted();
 		void iconSetChanged();
 		void localeChanged();
+		void labelVisibilityChanged(bool);
 };
 
 extern SCRIBUS_API ScribusQApp * ScQApp;

@@ -44,6 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "localemgr.h"
 #include "prefsfile.h"
+#include "prefsmanager.h"
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "upgradechecker.h"
@@ -561,7 +562,8 @@ void ScribusQApp::changeGUILanguage(const QString & newGUILang)
 void ScribusQApp::changeIconSet(const QString& newIconSet)
 {
 	IconManager& iconManager = IconManager::instance();
-	iconManager.clearCache();
+	//iconManager.clearCache();
+	iconManager.rebuildCache();
 	iconManager.setActiveFromPrefs(newIconSet);
 	emit iconSetChanged();
 }
@@ -570,6 +572,11 @@ void ScribusQApp::setLocale()
 {
 	QLocale::setDefault(LocaleManager::instance().userPreferredLocale());
 	emit localeChanged();
+}
+
+void ScribusQApp::changeLabelVisibility(bool visibility)
+{
+	emit labelVisibilityChanged(visibility);
 }
 
 /*! \brief Format an arguments line for printing

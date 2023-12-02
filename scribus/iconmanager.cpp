@@ -28,7 +28,6 @@
 
 #include "api/api_application.h"
 #include "iconmanager.h"
-#include "prefsmanager.h"
 #include "scpaths.h"
 
 IconManager* IconManager::m_instance = nullptr;
@@ -38,6 +37,7 @@ IconManager::IconManager(QObject *parent)
 {
 	m_splashScreenRect = QRect();
 	m_splashScreen = QPixmap();
+
 }
 
 IconManager& IconManager::instance()
@@ -46,9 +46,10 @@ IconManager& IconManager::instance()
 	return m_instance;
 }
 
-bool IconManager::setup(qreal devicePixelRatio)
+bool IconManager::setup()
 {
-	m_devicePixelRatio = devicePixelRatio;
+
+	m_devicePixelRatio = qApp->devicePixelRatio();
 
 	if (!initIconSets())
 	{
@@ -56,7 +57,7 @@ bool IconManager::setup(qreal devicePixelRatio)
 		return false;
 	}
 
-	if (!createCache())
+	if (!createLookupTable())
 	{
 		qWarning()<<"Can't load icons from iconset.";
 		return false;
@@ -77,26 +78,34 @@ QIcon IconManager::loadIcon(const QString& name, int width)
 
 QPixmap IconManager::loadPixmap(const QString &name, int width)
 {
-	if (m_pxCache.contains(name))
+	QString cName = buildName(name, "icon_", QString::number(width));
+
+	// Use icon from icon cache
+	if (m_pxCache.contains(cName))
+		return *m_pxCache[cName];
+
+	// Check in item cache
+	if (m_lookupTable.contains(name))
 	{
-		QPixmap pix = *m_pxCache[name];
-		if (width > -1)
-			pix = pix.scaledToWidth(width * m_devicePixelRatio, Qt::SmoothTransformation);
-		return pix;
+		Item item = m_lookupTable[name];
+		m_pxCache.insert(cName, pixmapFromFile(item.filePath, item.color, width));
+		return *m_pxCache[cName];
 	}
-	else
-	{
-		qWarning() << "IconManager: No icon with name '" + name + "' in icon cache.";
-		return QPixmap();
-	}
+
+	// Show error only if icon file doesn't exist!
+	qWarning() << QString("IconManager: No icon with name '%1' found in %2").arg(name, m_activeSetBasename) ;
+
+	return QPixmap();
 }
 
-void IconManager::addIcon(const QString &name, QPainterPath path)
+void IconManager::addIconFromPainterPath(const QString &name, QPainterPath path)
 {
-	if (!m_pxCache.contains(name))
+	QString bn = buildName(name, "path_");
+
+	if (!m_pxCache.contains(bn))
 	{
-		m_iconPaths.insert(name, &path);
-		m_pxCache.insert(name, renderPath(path));
+		m_iconPaths.insert(bn, &path);
+		m_pxCache.insert(bn, pixmapFromPainterPath(path));
 	}
 	else
 	{
@@ -114,72 +123,77 @@ bool IconManager::iconsForDarkMode() const
 	return (baseColor().lightness() >= 128) ? true : false;
 }
 
-void IconManager::clearCache()
-{
-	m_pxCache.clear();
-}
-
 void IconManager::rebuildCache()
 {
-	clearCache();
+	m_pxCache.clear();
 
 	// add icons from icon set
-	if (!createCache())
+	if (!createLookupTable())
 	{
 		qWarning()<<"IconManager: Can't load icons from iconset.";
 	}
 
 	// add icons from path
-	renderIcons();
+	insertPathIconsToCache();
 }
 
-bool IconManager::createCache()
+bool IconManager::createLookupTable()
 {
-	QString iconSubdir(m_iconSets[m_activeSetBasename].path);
-	QString iconSetPath(QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, ".xml"));
-	QDomDocument document;
+		QString iconSubdir(m_iconSets[m_activeSetBasename].path);
+		QString iconSetPath(QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, ".xml"));
+		QDomDocument document;
 
-	if (!readXMLFile(iconSetPath, document, "xml"))
-		return false;
+		if (!readXMLFile(iconSetPath, document, "xml"))
+			return false;
 
-	QDomElement documentElement = document.documentElement();
-	QDomNodeList elements = documentElement.elementsByTagName( tagIcon );
+		m_lookupTable.clear();
 
-	for (int i = 0; i < elements.length(); i++)
-	{
-		QDomElement icon = elements.at(i).toElement();
+		QDomElement documentElement = document.documentElement();
+		QDomNodeList elements = documentElement.elementsByTagName( tagIcon );
 
-		QString iconPath = QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, "/" + icon.attribute("file"));
-		QString iconName = icon.attribute("id");
-		QColor iconColor = baseColor();
-
-		if (m_pxCache.contains(iconName))
-			continue;
-
-		// if defined, override icon base color with color from iconset
-		if (iconsForDarkMode() && icon.hasAttribute(colorOnDark))
+		for (int i = 0; i < elements.length(); i++)
 		{
-			iconColor = parseColor(icon.attribute(colorOnDark));
-		}
-		else if (!iconsForDarkMode() && icon.hasAttribute(colorOnLight))
-		{
-			iconColor = parseColor(icon.attribute(colorOnLight));
+			QDomElement icon = elements.at(i).toElement();
+
+			QString iconPath = QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, "/" + icon.attribute("file"));
+			QString iconName = icon.attribute("id");
+			QColor iconColor = baseColor();
+
+			if (m_lookupTable.contains(iconName))
+				continue;
+
+			// if defined, override icon base color with color from iconset
+			if (iconsForDarkMode() && icon.hasAttribute(colorOnDark))
+			{
+				iconColor = parseColor(icon.attribute(colorOnDark));
+			}
+			else if (!iconsForDarkMode() && icon.hasAttribute(colorOnLight))
+			{
+				iconColor = parseColor(icon.attribute(colorOnLight));
+			}
+
+			Item item;
+			item.name = iconName;
+			item.filePath = iconPath;
+			item.color = iconColor;
+
+			m_lookupTable.insert(iconName, item);
 		}
 
-		m_pxCache.insert(iconName, initPixmap(iconPath, iconColor));
-	}
-
-	return true;
+		return true;
 }
 
-void IconManager::renderIcons()
+void IconManager::insertPathIconsToCache()
 {
 	QMapIterator<QString, QPainterPath*> i(m_iconPaths);
 	while (i.hasNext())
 	{
 		i.next();
-		if (!m_pxCache.contains(i.key()))
-			m_pxCache.insert(i.key(), renderPath(*i.value()));
+
+		QString bn = buildName(i.key(), "path_");
+
+		if (!m_pxCache.contains(bn))
+			m_pxCache.insert(bn, pixmapFromPainterPath(*i.value()));
 	}
 }
 
@@ -206,7 +220,7 @@ void IconManager::applyColors(QDomDocument &doc, QString fileName, QColor color)
 	{
 		QString styleImport = nodeStyle.childNodes().at(0).toText().data();
 
-		QRegularExpression rx_css("(.*?@import.*?')(.*?)('.*)");
+		static QRegularExpression rx_css("(.*?@import.*?')(.*?)('.*)");
 		QRegularExpressionMatch mImport = rx_css.match(styleImport);
 
 		// Check if stylesheet import is available
@@ -268,12 +282,12 @@ void IconManager::parseStyleSheet(QString styleString, QMap<QString, QString> *s
 	}
 
 	// Remove C-style comments /* */ or // from stylesheet
-	QRegularExpression rx_comments("(\\/\\*[\\s\\S]*?(.*?)\\*\\/)|(\\/\\/.*)");
+	static QRegularExpression rx_comments("(\\/\\*[\\s\\S]*?(.*?)\\*\\/)|(\\/\\/.*)");
 	styleString.remove(rx_comments);
 
 	// Group 1: tags, like ".onDark .success"
 	// Group 2: strings within {}
-	QRegularExpression rx_Settings("(.*?)\\s*{([^\\}]+)}");
+	static QRegularExpression rx_Settings("(.*?)\\s*{([^\\}]+)}");
 	QRegularExpressionMatchIterator i = rx_Settings.globalMatch(styleString);
 
 	while (i.hasNext())
@@ -287,7 +301,7 @@ QColor IconManager::parseColor(const QString str)
 {
 	if (str.startsWith("rgba"))
 	{
-		QRegularExpression rx_rgba("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
+		static QRegularExpression rx_rgba("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
 		QRegularExpressionMatch mRGBA = rx_rgba.match(str);
 
 		if (mRGBA.hasMatch())
@@ -302,7 +316,7 @@ QColor IconManager::parseColor(const QString str)
 	}
 	else if (str.startsWith("rgb"))
 	{
-		QRegularExpression rx_rgb("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
+		static QRegularExpression rx_rgb("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
 		QRegularExpressionMatch mRGB = rx_rgb.match(str);
 
 		if (mRGB.hasMatch())
@@ -316,7 +330,7 @@ QColor IconManager::parseColor(const QString str)
 	}
 	else if (str.startsWith("hsva"))
 	{
-		QRegularExpression rx_hsva("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
+		static QRegularExpression rx_hsva("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
 		QRegularExpressionMatch mHSVA = rx_hsva.match(str);
 
 		if (mHSVA.hasMatch())
@@ -331,7 +345,7 @@ QColor IconManager::parseColor(const QString str)
 	}
 	else if (str.startsWith("hsv"))
 	{
-		QRegularExpression rx_hsv("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
+		static QRegularExpression rx_hsv("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
 		QRegularExpressionMatch mHSV = rx_hsv.match(str);
 
 		if (mHSV.hasMatch())
@@ -345,7 +359,7 @@ QColor IconManager::parseColor(const QString str)
 	}
 	else if (str.startsWith("hsla"))
 	{
-		QRegularExpression rx_hsla("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
+		static QRegularExpression rx_hsla("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
 		QRegularExpressionMatch mHSLA = rx_hsla.match(str);
 
 		if (mHSLA.hasMatch())
@@ -360,7 +374,7 @@ QColor IconManager::parseColor(const QString str)
 	}
 	else if (str.startsWith("hsl"))
 	{
-		QRegularExpression rx_hsl("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
+		static QRegularExpression rx_hsl("\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\)");
 		QRegularExpressionMatch mHSL = rx_hsl.match(str);
 
 		if (mHSL.hasMatch())
@@ -373,7 +387,7 @@ QColor IconManager::parseColor(const QString str)
 	}
 	else
 	{
-		QRegularExpression rx("#?[0-9A-Fa-f]+");
+		static QRegularExpression rx("#?[0-9A-Fa-f]+");
 		QRegularExpressionMatch mHex = rx.match(str);
 
 		if (mHex.hasMatch())
@@ -382,10 +396,9 @@ QColor IconManager::parseColor(const QString str)
 	return QColor();
 }
 
-QPixmap *IconManager::initPixmap(const QString filePath, QColor color)
+QPixmap *IconManager::pixmapFromFile(const QString filePath, QColor color, int width)
 {
 	QDomDocument document;
-
 	// Load SVG file
 	if (readXMLFile(filePath, document, "svg"))
 	{
@@ -394,24 +407,29 @@ QPixmap *IconManager::initPixmap(const QString filePath, QColor color)
 
 		QSvgRenderer svgRenderer(document.toByteArray());
 
-		QRect pxRect(0, 0, svgRenderer.defaultSize().width() * m_devicePixelRatio, svgRenderer.defaultSize().height() * m_devicePixelRatio);
-		QPixmap *iconPixmap = new QPixmap(pxRect.size());
+		QSize size = svgRenderer.defaultSize();
+		QPixmap *iconPixmap = new QPixmap(size * m_devicePixelRatio);
+		if (width > -1)
+		{
+			iconPixmap = new QPixmap(iconPixmap->scaledToWidth(width * m_devicePixelRatio, Qt::SmoothTransformation));
+			size = iconPixmap->size() / m_devicePixelRatio;
+		}
+		iconPixmap->setDevicePixelRatio(m_devicePixelRatio);
 		iconPixmap->fill(Qt::transparent);
 
 		QPainter painter(iconPixmap);
-		svgRenderer.render(&painter, pxRect);
+		svgRenderer.render(&painter, QRect(QPoint(0, 0), size));
 		painter.end();
 
 		return iconPixmap;
 	}
+
 	// Load any other file format
-	else
-	{
-		return new QPixmap(filePath);
-	}
+	return new QPixmap(filePath);
+
 }
 
-QPixmap *IconManager::renderPath(QPainterPath path)
+QPixmap *IconManager::pixmapFromPainterPath(QPainterPath path)
 {
 	QSize size(path.boundingRect().width(), path.boundingRect().height());
 	QPixmap pixmap(size);
@@ -426,40 +444,20 @@ QPixmap *IconManager::renderPath(QPainterPath path)
 	return new QPixmap(pixmap);
 }
 
+QString IconManager::buildName(const QString &name, const QString &prefix, const QString &suffix) const
+{
+	return prefix + name + suffix;
+}
+
+
+
 bool IconManager::readXMLFile(QString filePath, QDomDocument &document, QString fileExtension)
 {
-
-//    QFileInfo file(filePath);
-//    QFile dataFile(file.absoluteFilePath());
-//    if (!dataFile.exists())
-//        return false;
-//    if (!dataFile.open(QIODevice::ReadOnly))
-//        return false;
-//    QTextStream ts(&dataFile);
-//    ts.setEncoding(QStringConverter::Utf8); // --> Qt6
-//    //ts.setCodec(QTextCodec::codecForName("UTF-8")); // --> Qt5
-//    QString errorMsg;
-//    int eline;
-//    int ecol;
-//    document = QDomDocument( QString(file.baseName()));
-//    QString data(ts.readAll());
-//    dataFile.close();
-
-//    if (!document.setContent( data, &errorMsg, &eline, &ecol))
-//    {
-//        qDebug()<<data<<errorMsg<<eline<<ecol;
-//        if (data.contains("404 not found", Qt::CaseInsensitive))
-//            qDebug()<<"File not found on server";
-//        else
-//            qDebug()<<"Could not open file"<<dataFile.fileName();
-//        return false;
-//    }
-
-//    return true;
-
 	QFileInfo fileInfo(filePath);
 	if (fileInfo.completeSuffix() != fileExtension)
+	{
 		return false;
+	}
 
 	QFile inFile( filePath );
 	if (!inFile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -479,14 +477,6 @@ bool IconManager::readXMLFile(QString filePath, QDomDocument &document, QString 
 	return true;
 }
 
-//void IconManager::tintPixmap(QPixmap &pixmap, QColor color)
-//{
-//    //QPixmap pm = pixmap;
-//    QPainter painter(&pixmap);
-//    painter.setCompositionMode(QPainter::CompositionMode_SourceAtop);
-//    painter.fillRect(pixmap.rect(), color);
-//    painter.end();
-//}
 
 bool IconManager::initIconSets()
 {
@@ -644,13 +634,16 @@ QString IconManager::pathForIcon(const QString& name)
 	if (QFile::exists(iconFilePath))
 		return iconFilePath;
 
-	QString iconFilePath2(QString("%1%2%3").arg(ScPaths::instance().iconDir(), primaryIconSubdir, name));
-	if (QFile::exists(iconFilePath2))
-		return iconFilePath2;
-
 	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
-	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath2.toLatin1().constData());
+	iconFilePath = QString("%1%2%3").arg(ScPaths::instance().iconDir(), primaryIconSubdir, name);
 
+	if (QFile::exists(iconFilePath))
+	{
+		return iconFilePath;
+	}
+#ifdef WANT_DEBUG
+	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
+#endif
 	return QString();
 }
 

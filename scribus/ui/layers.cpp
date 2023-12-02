@@ -57,7 +57,7 @@ LayerPalette::LayerPalette(QWidget* parent) : DockPanelBase("Layers", parent)
 	layout1->setSpacing(3);
 	textLabel1 = new QLabel( this);
 	layout1->addWidget( textLabel1 );
-	blendMode = new QComboBox( this);
+	blendMode = new ComboBlendMode( this);
 	layout1->addWidget( blendMode );
 	textLabel2 = new QLabel( this);
 	textLabel2->setText( tr( "Opacity:" ) );
@@ -714,29 +714,7 @@ void LayerPalette::languageChange()
 {
 	setWindowTitle( tr( "Layers" ) );
 	textLabel1->setText( tr( "Blend Mode:" ) );
-
-	int  oldBlendMode = blendMode->currentIndex();
-	QSignalBlocker signalBlocker(blendMode);
-	blendMode->clear();
-	blendMode->addItem( tr("Normal"));
-	blendMode->addItem( tr("Darken"));
-	blendMode->addItem( tr("Lighten"));
-	blendMode->addItem( tr("Multiply"));
-	blendMode->addItem( tr("Screen"));
-	blendMode->addItem( tr("Overlay"));
-	blendMode->addItem( tr("Hard Light"));
-	blendMode->addItem( tr("Soft Light"));
-	blendMode->addItem( tr("Difference"));
-	blendMode->addItem( tr("Exclusion"));
-	blendMode->addItem( tr("Color Dodge"));
-	blendMode->addItem( tr("Color Burn"));
-	blendMode->addItem( tr("Hue"));
-	blendMode->addItem( tr("Saturation"));
-	blendMode->addItem( tr("Color"));
-	blendMode->addItem( tr("Luminosity"));
-
-	blendMode->setCurrentIndex(oldBlendMode);
-
+	blendMode->languageChange();
 	textLabel2->setText( tr( "Opacity:" ) );
 	opacitySpinBox->setSuffix( tr(" %"));
 	Table->horizontalHeaderItem(7)->setText( tr("Name"));

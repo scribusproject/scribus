@@ -72,6 +72,7 @@ void Prefs_UserInterface::languageChange()
 	//showSplashCheckBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
 	//showStartupDialogCheckBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
 	storyEditorUseSmartSelectionCheckBox->setToolTip( "<qt>" + tr( "The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space." ) + "</qt>");
+	hideLabels->setToolTip("<qt>" + tr( "Hides additional labels intended for beginners." ) + "</qt>");
 }
 
 void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -103,6 +104,7 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 	useTabsForDocumentsCheckBox->setChecked(prefsData->uiPrefs.useTabs);
 	showSplashCheckBox->setChecked(prefsData->uiPrefs.showSplashOnStartup);
 	useSmallWidgetsCheckBox->setChecked(prefsData->uiPrefs.useSmallWidgets);
+	hideLabels->setChecked(prefsData->uiPrefs.hideLabels);
 
 	storyEditorUseSmartSelectionCheckBox->setChecked(prefsData->storyEditorPrefs.smartTextSelection);
 	seFont.fromString(prefsData->storyEditorPrefs.guiFont);
@@ -124,6 +126,7 @@ void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->uiPrefs.useTabs = useTabsForDocumentsCheckBox->isChecked();
 	prefsData->uiPrefs.showSplashOnStartup = showSplashCheckBox->isChecked();
 	prefsData->uiPrefs.useSmallWidgets = useSmallWidgetsCheckBox->isChecked();
+	prefsData->uiPrefs.hideLabels = hideLabels->isChecked();
 
 	prefsData->storyEditorPrefs.guiFont = seFont.toString();
 	prefsData->storyEditorPrefs.smartTextSelection = storyEditorUseSmartSelectionCheckBox->isChecked();

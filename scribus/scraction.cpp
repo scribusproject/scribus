@@ -283,14 +283,14 @@ void ScrAction::loadIcon()
 
 	if (!m_iconPath16.isEmpty())
 	{
-		QPixmap pix = iconManager.loadPixmap(m_iconPath16);
+		QPixmap pix = iconManager.loadPixmap(m_iconPath16, 16);
 		if (!pix.isNull())
 			newIcon.addPixmap(pix, QIcon::Normal, QIcon::On);
 	}
 
 	if (!m_iconPath22.isEmpty())
 	{
-		QPixmap pix = iconManager.loadPixmap(m_iconPath22);
+		QPixmap pix = iconManager.loadPixmap(m_iconPath22, 20);
 		if (!pix.isNull())
 			newIcon.addPixmap(pix, QIcon::Normal, QIcon::On);
 	}

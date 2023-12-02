@@ -12,17 +12,19 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 
 #include "nftwidget.h"
-#include "scconfig.h"
-#include "scribusapi.h"
+//#include "scconfig.h"
+//#include "scribusapi.h"
 #include "iconmanager.h"
+#include "ui/delegates/sclistitemdelegate.h"
 
+int ICONSIZE = 64;
 
 nftwidget::nftwidget(QWidget* parent) : QWidget(parent)
 {
 	setupUi(this);
 	currentDocumentTemplate = nullptr;
 	settings = nullptr;
-	openAction = removeAction = nullptr;
+	openAction = removeAction = nullptr;	
 }
 
 void nftwidget::setupSettings(const QString& lang)
@@ -37,7 +39,10 @@ void nftwidget::setupSettings(const QString& lang)
 	toolBox->setItemIcon(0, IconManager::instance().loadIcon("16/information.png"));
 	toolBox->setItemIcon(1, IconManager::instance().loadIcon("16/image-x-generic.png"));
 	toolBox->setItemIcon(2, IconManager::instance().loadIcon("16/help-browser.png"));
-	tnailGrid->setIconSize(QSize(60, 60));
+	tnailGrid->setIconSize(QSize(ICONSIZE, ICONSIZE));
+	tnailGrid->setGridSize(QSize(220, 80));
+	tnailGrid->setResizeMode(QListView::Adjust);
+	tnailGrid->setItemDelegate(new ScListItemDelegate(QSize(ICONSIZE,ICONSIZE), ScListItemDelegate::Right));
 	// Signals and Slots Connections
 	connect(categoryList, SIGNAL(itemSelectionChanged()), this, SLOT(setThumbnails()));
 	connect(tnailGrid, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SIGNAL(leaveOK()));
@@ -87,15 +92,15 @@ void nftwidget::setThumbnails()
 		for (uint i = 0; i < iconItems.size(); ++i) 
 		{
 			QPixmap pm(iconItems[i]->first->tnail);
-			if (pm.width() > 60)
-				pm = pm.scaledToWidth(60, Qt::SmoothTransformation);
-			if (pm.height() > 60)
-				pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
-			QPixmap pmd(60, 60);
-			pmd.fill(palette().color(QPalette::Base));
+			if (pm.width() > ICONSIZE)
+				pm = pm.scaledToWidth(ICONSIZE, Qt::SmoothTransformation);
+			if (pm.height() > ICONSIZE)
+				pm = pm.scaledToHeight(ICONSIZE, Qt::SmoothTransformation);
+			QPixmap pmd(ICONSIZE, ICONSIZE);
+			pmd.fill(Qt::transparent);
 			QPainter p;
 			p.begin(&pmd);
-			p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
+			p.drawPixmap((ICONSIZE - pm.width()) / 2, (ICONSIZE - pm.height()) / 2, pm);
 			p.end();
 			QListWidgetItem* tmpQIVI = new QListWidgetItem(pmd, iconItems[i]->first->name, tnailGrid);
 			iconItems[i]->second = tmpQIVI;
@@ -113,15 +118,15 @@ void nftwidget::setThumbnails()
 			if (curtype == iconItems[i]->first->templateCategory)
 			{
 				QPixmap pm(iconItems[i]->first->tnail);
-				if (pm.width() > 60)
-					pm = pm.scaledToWidth(60, Qt::SmoothTransformation);
-				if (pm.height() > 60)
-					pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
-				QPixmap pmd(60, 60);
-				pmd.fill(palette().color(QPalette::Base));
+				if (pm.width() > ICONSIZE)
+					pm = pm.scaledToWidth(ICONSIZE, Qt::SmoothTransformation);
+				if (pm.height() > ICONSIZE)
+					pm = pm.scaledToHeight(ICONSIZE, Qt::SmoothTransformation);
+				QPixmap pmd(ICONSIZE, ICONSIZE);
+				pmd.fill(Qt::transparent);
 				QPainter p;
 				p.begin(&pmd);
-				p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
+				p.drawPixmap((ICONSIZE - pm.width()) / 2, (ICONSIZE - pm.height()) / 2, pm);
 				p.end();
 				QListWidgetItem* tmpQIVI = new QListWidgetItem(pmd, iconItems[i]->first->name, tnailGrid);
 				iconItems[i]->second = tmpQIVI;

@@ -40,6 +40,7 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent)
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 
 	connect(textFlowBtnGroup, SIGNAL(idClicked(int)), this, SLOT(handleTextFlow()));
 	connect(editShape, SIGNAL(clicked()) , this, SLOT(handleShapeEdit()));
@@ -342,6 +343,7 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 		nonZero->setEnabled(true);
 		evenOdd->setEnabled(true);
 		nonZero->setChecked(!m_item->fillRule);
+		evenOdd->setChecked(m_item->fillRule);
 	}
 	setLocked(m_item->locked());
 	setSizeLocked(m_item->sizeLocked());
@@ -553,4 +555,10 @@ void PropertiesPalette_Shape::localeChange()
 {
 	const QLocale& l(LocaleManager::instance().userPreferredLocale());
 	roundRect->setLocale(l);
+}
+
+void PropertiesPalette_Shape::toggleLabelVisibility(bool v)
+{
+	labelTextFlow->setLabelVisibility(v);
+	labelFillRule->setLabelVisibility(v);
 }

@@ -19,60 +19,61 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "selection.h"
 #include "units.h"
+#include "iconmanager.h"
 
-PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeWidget(parent)
+PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent)
+	: QWidget(parent)
 {
-	hasSoftShadow = new PropTreeItem(this, PropTreeItem::CheckBox, tr( "Has Drop Shadow"));
-	hasSoftShadow->setBoolValue(false);
+	setupUi(this);
 
-	softShadowXOffset = new PropTreeItem(this, PropTreeItem::DoubleSpinBox, tr( "X-Offset:"));
-	softShadowXOffset->setUnitValue(0);
-	softShadowXOffset->setDecimalsValue(2);
-	softShadowXOffset->setMinMaxValues(-200.0, 200.0);
-	softShadowXOffset->setDoubleValue(5.0);
+	checkboxHasShadow->setChecked(false);
 
-	softShadowYOffset = new PropTreeItem(this, PropTreeItem::DoubleSpinBox, tr( "Y-Offset:"));
-	softShadowYOffset->setUnitValue(0);
-	softShadowYOffset->setDecimalsValue(2);
-	softShadowYOffset->setMinMaxValues(-200.0, 200.0);
-	softShadowYOffset->setDoubleValue(5.0);
+	numberXOffset->setNewUnit(0);
+	numberXOffset->setDecimals(2);
+	numberXOffset->setMinimum(-200.00);
+	numberXOffset->setMaximum(200.00);
+	numberXOffset->setValue(5.0);
 
-	softShadowBlurRadius = new PropTreeItem(this, PropTreeItem::DoubleSpinBox, tr( "Blur:"));
-	softShadowBlurRadius->setUnitValue(0);
-	softShadowBlurRadius->setDecimalsValue(2);
-	softShadowBlurRadius->setMinMaxValues(-200.0, 200.0);
-	softShadowBlurRadius->setDoubleValue(2.0);
+	numberYOffset->setNewUnit(0);
+	numberYOffset->setDecimals(2);
+	numberYOffset->setMinimum(-200.00);
+	numberYOffset->setMaximum(200.00);
+	numberYOffset->setValue(5.0);
 
-	softShadowColor = new PropTreeItem(this, PropTreeItem::ColorComboBox, tr( "Color:"));
-	softShadowColor->setStringValue( tr( "Black"));
+	numberBlurRadius->setNewUnit(0);
+	numberBlurRadius->setDecimals(2);
+	numberBlurRadius->setMinimum(-200.00);
+	numberBlurRadius->setMaximum(200.00);
+	numberBlurRadius->setValue(2.0);
 
-	softShadowShade = new PropTreeItem(this, PropTreeItem::IntSpinBox, tr( "Shade:"));
-	softShadowShade->setUnitValue(7);
-	softShadowShade->setDecimalsValue(0);
-	softShadowShade->setMinMaxValues(0, 100);
-	softShadowShade->setIntValue(100);
+	buttonColor->setCurrentColor(tr( "Black"));
 
-	softShadowOpacity = new PropTreeItem(this, PropTreeItem::DoubleSpinBox, tr( "Opacity:"));
-	softShadowOpacity->setUnitValue(7);
-	softShadowOpacity->setDecimalsValue(1);
-	softShadowOpacity->setMinMaxValues(0.0, 100.0);
-	softShadowOpacity->setDoubleValue(100.0);
+	numberBlurRadius->setNewUnit(7);
+	numberShade->setDecimals(0);
+	numberShade->setMinimum(0);
+	numberShade->setMaximum(100);
+	numberShade->setValue(100);
 
-	softShadowBlendMode = new PropTreeItem(this, PropTreeItem::ComboBox, tr( "Blendmode:"));
+	numberBlurRadius->setNewUnit(7);
+	numberOpacity->setDecimals(1);
+	numberOpacity->setMinimum(0.0);
+	numberOpacity->setMaximum(100.0);
+	numberOpacity->setValue(100.0);
+
 	QStringList modes;
-	softShadowBlendMode->setComboStrings(modes);
-	softShadowBlendMode->setStringValue( tr( "Normal"));
+	modes << tr( "Normal");
+	comboboxBlendMode->addItems(modes);
 
-	softShadowErase = new PropTreeItem(this, PropTreeItem::CheckBox, tr( "Content covers\nDrop Shadow"));
-	softShadowErase->setBoolValue(false);
-
-	softShadowObjTrans = new PropTreeItem(this, PropTreeItem::CheckBox, tr( "Inherit Object\nTransparency"));
-	softShadowObjTrans->setBoolValue(false);
+	buttonEraseShadow->setCheckable(true);
+	buttonInheritOpacity->setCheckable(true);
 
 	languageChange();
-	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
-	connect(this->model(), SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(handleNewValues()));
+	iconSetChange();
+
+	connectSlots();
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 }
 
 void PropertiesPalette_Shadow::setMainWindow(ScribusMainWindow* mw)
@@ -102,32 +103,79 @@ void PropertiesPalette_Shadow::setDoc(ScribusDoc *d)
 
 	m_haveDoc = true;
 	m_haveItem = false;
-	softShadowXOffset->setUnitValue(m_unitIndex);
-	softShadowXOffset->setDecimalsValue(precision);
-	softShadowXOffset->setMinMaxValues(minXYVal, maxXYWHVal);
-	softShadowXOffset->setDoubleValue(minXYVal);
 
-	softShadowYOffset->setUnitValue(m_unitIndex);
-	softShadowYOffset->setDecimalsValue(precision);
-	softShadowYOffset->setMinMaxValues(minXYVal, maxXYWHVal);
-	softShadowYOffset->setDoubleValue(minXYVal);
+	disconnectSlots();
 
-	softShadowBlurRadius->setUnitValue(m_unitIndex);
-	softShadowBlurRadius->setDecimalsValue(precision);
-	softShadowBlurRadius->setMinMaxValues(0.0, 200.0);
-	softShadowBlurRadius->setDoubleValue(5);
+	numberXOffset->setNewUnit(m_unitIndex);
+	numberXOffset->setDecimals(precision);
+	numberXOffset->setMinimum(minXYVal);
+	numberXOffset->setMaximum(maxXYWHVal);
+	numberXOffset->setValue(minXYVal);
 
-	softShadowShade->setDecimalsValue(0);
-	softShadowShade->setMinMaxValues(0, 100);
-	softShadowShade->setIntValue(100);
+	numberYOffset->setNewUnit(m_unitIndex);
+	numberYOffset->setDecimals(precision);
+	numberYOffset->setMinimum(minXYVal);
+	numberYOffset->setMaximum(maxXYWHVal);
+	numberYOffset->setValue(minXYVal);
 
-	softShadowOpacity->setDecimalsValue(0);
-	softShadowOpacity->setMinMaxValues(0, 100);
-	softShadowOpacity->setIntValue(100);
+	numberBlurRadius->setNewUnit(m_unitIndex);
+	numberBlurRadius->setDecimals(precision);
+	numberBlurRadius->setMinimum(0.0);
+	numberBlurRadius->setMaximum(200.00);
+	numberBlurRadius->setValue(5);
+
+	numberShade->setDecimals(0);
+	numberShade->setMinimum(0);
+	numberShade->setMaximum(100);
+	numberShade->setValue(100);
+
+	numberOpacity->setDecimals(0);
+	numberOpacity->setMinimum(0);
+	numberOpacity->setMaximum(100);
+	numberOpacity->setValue(100);
+
+	buttonColor->setDoc(m_doc);
+
 	updateColorList();
+	connectSlots();
 
 	connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
 	connect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
+
+}
+
+void PropertiesPalette_Shadow::connectSlots()
+{
+	connect(numberXOffset, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+	connect(numberYOffset, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+	connect(numberBlurRadius, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+	connect(numberShade, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+	connect(numberOpacity, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+
+	connect(checkboxHasShadow, &QCheckBox::stateChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+
+	connect(comboboxBlendMode, &QComboBox::currentIndexChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+
+	connect(buttonColor, &ColorButton::colorChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+	connect(buttonEraseShadow, &QToolButton::toggled, this, &PropertiesPalette_Shadow::handleNewValues);
+	connect(buttonInheritOpacity, &QToolButton::toggled, this, &PropertiesPalette_Shadow::handleInheritOpacity);
+}
+
+void PropertiesPalette_Shadow::disconnectSlots()
+{
+	disconnect(numberXOffset, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+	disconnect(numberYOffset, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+	disconnect(numberBlurRadius, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+	disconnect(numberShade, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+	disconnect(numberOpacity, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+
+	disconnect(checkboxHasShadow, &QCheckBox::stateChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+
+	disconnect(comboboxBlendMode, &QComboBox::currentIndexChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+
+	disconnect(buttonColor, &ColorButton::colorChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+	disconnect(buttonEraseShadow, &QToolButton::toggled, this, &PropertiesPalette_Shadow::handleNewValues);
+	disconnect(buttonInheritOpacity, &QToolButton::toggled, this, &PropertiesPalette_Shadow::handleInheritOpacity);
 }
 
 void PropertiesPalette_Shadow::unsetDoc()
@@ -178,18 +226,27 @@ void PropertiesPalette_Shadow::setCurrentItem(PageItem *item)
 		setDoc(item->doc());
 	m_haveItem = false;
 	m_item = item;
-	hasSoftShadow->setBoolValue(item->hasSoftShadow());
-	softShadowXOffset->setDoubleValue(item->softShadowXOffset() * m_unitRatio);
-	softShadowYOffset->setDoubleValue(item->softShadowYOffset() * m_unitRatio);
-	softShadowBlurRadius->setDoubleValue(item->softShadowBlurRadius() * m_unitRatio);
-	softShadowColor->setStringValue(item->softShadowColor());
-	softShadowShade->setIntValue(item->softShadowShade());
-	softShadowOpacity->setDoubleValue(qRound(100 - (item->softShadowOpacity() * 100)));
-	softShadowBlendMode->setIntValue(item->softShadowBlendMode());
-	softShadowErase->setBoolValue(item->softShadowErasedByObject());
-	softShadowObjTrans->setBoolValue(item->softShadowHasObjectTransparency());
+
+	disconnectSlots();
+
+	checkboxHasShadow->setChecked(item->hasSoftShadow());
+	numberXOffset->setValue(item->softShadowXOffset() * m_unitRatio);
+	numberYOffset->setValue(item->softShadowYOffset() * m_unitRatio);
+	numberBlurRadius->setValue(item->softShadowBlurRadius() * m_unitRatio);
+	buttonColor->setCurrentColor(item->softShadowColor());
+	numberShade->setValue(item->softShadowShade());
+	numberOpacity->setValue(qRound(100 - (item->softShadowOpacity() * 100)));
+	comboboxBlendMode->setCurrentIndex(item->softShadowBlendMode());
+	buttonEraseShadow->setChecked(item->softShadowErasedByObject());
+	buttonInheritOpacity->setChecked(item->softShadowHasObjectTransparency());
+
+	labelErase->setVisible(item->itemType() != PageItem::Line);
+
+
 	m_haveItem = true;
 	updateSpinBoxConstants();
+
+	connectSlots();
 }
 
 void PropertiesPalette_Shadow::handleSelectionChanged()
@@ -210,50 +267,65 @@ void PropertiesPalette_Shadow::unitChange()
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 
-	bool sigBlocked1 = softShadowXOffset->blockSignals(true);
-	bool sigBlocked2 = softShadowYOffset->blockSignals(true);
-	bool sigBlocked3 = softShadowBlurRadius->blockSignals(true);
-	bool sigBlocked4 = this->model()->blockSignals(true);
+	disconnectSlots();
 
-	softShadowXOffset->setUnitValue(m_unitIndex);
-	softShadowYOffset->setUnitValue(m_unitIndex);
-	softShadowBlurRadius->setUnitValue(m_unitIndex);
+	numberXOffset->setNewUnit(m_unitIndex);
+	numberYOffset->setNewUnit(m_unitIndex);
+	numberBlurRadius->setNewUnit(m_unitIndex);
 
-	softShadowXOffset->blockSignals(sigBlocked1);
-	softShadowYOffset->blockSignals(sigBlocked2);
-	softShadowBlurRadius->blockSignals(sigBlocked3);
-	this->model()->blockSignals(sigBlocked4);
+	connectSlots();
 }
 
 void PropertiesPalette_Shadow::localeChange()
 {
-	softShadowXOffset->localeChange();
-	softShadowYOffset->localeChange();
-	softShadowBlurRadius->localeChange();
+//	numberXOffset->localeChange();
+//	numberYOffset->localeChange();
+	//	numberBlurRadius->localeChange();
+}
+
+void PropertiesPalette_Shadow::toggleLabelVisibility(bool v)
+{
+	labelColor->setLabelVisibility(v);
+	labelBlendmode->setLabelVisibility(v);
+	labelHasShadow->setLabelVisibility(v);
+	labelShade->setLabelVisibility(v);
+	labelErase->setLabelVisibility(v);
 }
 
 void PropertiesPalette_Shadow::updateColorList()
 {
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	softShadowColor->setColorList(m_doc->PageColors);
+	disconnectSlots();
+
+	QString color = buttonColor->currentColor();
+	buttonColor->setColors(m_doc->PageColors);
+	buttonColor->setCurrentColor(color);
+
+	connectSlots();
 }
 
 void PropertiesPalette_Shadow::handleNewValues()
 {
 	if (!m_haveItem || !m_haveDoc)
 		return;
-	double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
-	double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
-	double r = softShadowBlurRadius->valueAsDouble() / m_unitRatio;
-	QString color = softShadowColor->valueAsString();
+	double x = numberXOffset->value() / m_unitRatio;
+	double y = numberYOffset->value() / m_unitRatio;
+	double r = numberBlurRadius->value() / m_unitRatio;
+	QString color = buttonColor->currentColor();
 	if (color == CommonStrings::tr_NoneColor)
 		color = CommonStrings::None;
-	int b = softShadowBlendMode->valueAsInt();
-	double o = (100 - softShadowOpacity->valueAsDouble()) / 100.0;
-	int s = softShadowShade->valueAsInt();
+	int b = comboboxBlendMode->currentIndex();
+	double o = (100 - numberOpacity->value()) / 100.0;
+	int s = numberShade->value();
 
-	m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
+	m_doc->itemSelection_SetSoftShadow(checkboxHasShadow->isChecked(), color, x, y, r, s, o, b, buttonEraseShadow->isChecked(), buttonInheritOpacity->isChecked());
+}
+
+void PropertiesPalette_Shadow::handleInheritOpacity()
+{
+		numberOpacity->setEnabled(!buttonInheritOpacity->isChecked());
+		handleNewValues();
 }
 
 void PropertiesPalette_Shadow::changeEvent(QEvent *e)
@@ -268,39 +340,34 @@ void PropertiesPalette_Shadow::changeEvent(QEvent *e)
 
 void PropertiesPalette_Shadow::languageChange()
 {
-	disconnect(this->model(), SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(handleNewValues()));
+	labelXOffset->setText(tr( "X:"));
+	labelYOffset->setText(tr( "Y:"));
+	labelBlurRadius->setText(tr( "Radius:"));
+	labelColor->setText(tr( "Color"));
+	labelShade->setText(tr( "Shade"));
+	labelOpacity->setText(tr( "Opacity:"));
+	comboboxBlendMode->languageChange();
+	labelBlendmode->setText(tr( "Blendmode"));
+	labelErase->setText(tr( "Erase Fill"));
 
-	hasSoftShadow->setText(0, tr( "Has Drop Shadow"));
-	softShadowXOffset->setText(0, tr( "X-Offset:"));
-	softShadowYOffset->setText(0, tr( "Y-Offset:"));
-	softShadowBlurRadius->setText(0, tr( "Blur:"));
-	softShadowColor->setText(0, tr( "Color:"));
-	softShadowShade->setText(0, tr( "Shade:"));
-	softShadowOpacity->setText(0, tr( "Opacity:"));
-	softShadowErase->setText(0, tr( "Content covers\nDrop Shadow"));
-	softShadowObjTrans->setText(0, tr( "Inherit Object\nTransparency"));
-	QStringList modes;
-	modes.append( tr("Normal"));
-	modes.append( tr("Darken"));
-	modes.append( tr("Lighten"));
-	modes.append( tr("Multiply"));
-	modes.append( tr("Screen"));
-	modes.append( tr("Overlay"));
-	modes.append( tr("Hard Light"));
-	modes.append( tr("Soft Light"));
-	modes.append( tr("Difference"));
-	modes.append( tr("Exclusion"));
-	modes.append( tr("Color Dodge"));
-	modes.append( tr("Color Burn"));
-	modes.append( tr("Hue"));
-	modes.append( tr("Saturation"));
-	modes.append( tr("Color"));
-	modes.append( tr("Luminosity"));
-	softShadowBlendMode->setComboStrings(modes);
-	softShadowBlendMode->setStringValue( tr("Normal"));
-	softShadowBlendMode->setText(0, tr( "Blendmode:"));
+	buttonEraseShadow->setToolTip(tr( "Content covers Drop Shadow"));
+	buttonInheritOpacity->setToolTip(tr( "Inherit Object Transparency"));
+}
 
-	connect(this->model(), SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(handleNewValues()));
+void PropertiesPalette_Shadow::iconSetChange()
+{
+	IconManager &im = IconManager::instance();
+
+	QIcon iconErase;
+	iconErase.addPixmap(im.loadPixmap("erase-shadow-on"), QIcon::Normal, QIcon::On);
+	iconErase.addPixmap(im.loadPixmap("erase-shadow-off"), QIcon::Normal, QIcon::Off);
+	buttonEraseShadow->setIcon(iconErase);
+
+	QIcon iconTransparency;
+	iconTransparency.addPixmap(im.loadPixmap("inherit-opacity-on"), QIcon::Normal, QIcon::On);
+	iconTransparency.addPixmap(im.loadPixmap("inherit-opacity-off"), QIcon::Normal, QIcon::Off);
+	buttonInheritOpacity->setIcon(iconTransparency);
+
 }
 
 void PropertiesPalette_Shadow::updateSpinBoxConstants()
