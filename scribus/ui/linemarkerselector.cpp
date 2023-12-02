@@ -99,15 +99,14 @@ void LineMarkerSelector::setScale(double value)
 
 int LineMarkerSelector::marker()
 {
-	if(listMarker->currentItem() != nullptr)
+	if (listMarker->currentItem() != nullptr)
 		return listMarker->currentItem()->data(arrow).toInt();
-	else
-		return -1;
+	return -1;
 }
 
 void LineMarkerSelector::setMarker(int id)
 {
-	for(int i = 0; i < listMarker->count(); ++i)
+	for (int i = 0; i < listMarker->count(); ++i)
 	{
 		QListWidgetItem* item = listMarker->item(i);
 
@@ -167,7 +166,7 @@ QPixmap LineMarkerSelector::renderPixmap(FPointArray path, int width, int height
 	painter->drawLine(FPoint(lineStart, vCenter), FPoint(lineEnd, vCenter));
 
 	// paint head
-	if(!path.isEmpty())
+	if (!path.isEmpty())
 	{
 		painter->setBrush(textColor);
 		painter->setPen(textColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -192,7 +191,7 @@ QIcon LineMarkerSelector::currentIcon()
 {
 	QIcon ico;
 
-	if(listMarker->currentItem() != nullptr)
+	if (listMarker->currentItem() != nullptr)
 		ico = listMarker->currentItem()->icon();
 
 	return ico;

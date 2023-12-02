@@ -14,9 +14,9 @@
 
 class SCRIBUS_API PopupMenu : public QMenu
 {
-
 public:
 	PopupMenu(QWidget*contentWidget);
+
 protected:
 	bool eventFilter(QObject *obj, QEvent *event);
 
@@ -24,7 +24,6 @@ protected:
 #ifndef Q_OS_MACOS
 	void paintEvent(QPaintEvent *event);
 #endif
-
 };
 
 #endif // POPUP_MENU_H

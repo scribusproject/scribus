@@ -7,7 +7,6 @@ ComboBlendMode::ComboBlendMode(QWidget *parent) : QComboBox(parent)
 
 void ComboBlendMode::languageChange()
 {
-
 	int oldBlendMode = currentIndex();
 	QSignalBlocker signalBlocker(this);
 
@@ -37,5 +36,4 @@ void ComboBlendMode::initialize()
 	this->addItem( tr("Luminosity"), 15);
 
 	this->setCurrentText( tr("Normal"));
-
 }

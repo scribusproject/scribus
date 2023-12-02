@@ -35,7 +35,6 @@ ColorButton::ColorButton(QWidget *parent) : QToolButton(parent)
  *
  * ********************************************************************************* */
 
-
 bool ColorButton::hasDot()
 {
 	return m_hasDot;
@@ -45,14 +44,14 @@ QSize ColorButton::backgroundDotSize()
 {
 	int smallestSize = qMin(height(), width());
 
-	return QSize(smallestSize,smallestSize);
+	return QSize(smallestSize, smallestSize);
 }
 
 QSize ColorButton::foregroundDotSize()
 {
 	int smallestSize = qMin(height()/2, width()/2);
 
-	return QSize(smallestSize,smallestSize);
+	return QSize(smallestSize, smallestSize);
 }
 
 QString ColorButton::currentColor() const
@@ -75,12 +74,12 @@ void ColorButton::setColors(const ColorList &list, bool insertNone)
 
 void ColorButton::setCurrentColor(QString colorName)
 {
-	if(!m_doc)
+	if (!m_doc)
 		return;
 
 	m_colorName = colorName;
 
-	if(m_colorName == CommonStrings::tr_NoneColor || m_colorName == CommonStrings::None)
+	if (m_colorName == CommonStrings::tr_NoneColor || m_colorName == CommonStrings::None)
 	{
 		m_colorName = CommonStrings::tr_NoneColor;
 		setBackground( renderEmptyPattern(this->size()));
@@ -107,16 +106,15 @@ void ColorButton::setCurrentColor(QString colorName)
 
 QBrush ColorButton::background()
 {
-	if(isEnabled())
+	if (isEnabled())
 		return m_background;
 	else
 		return QBrush(palette().color(QPalette::Window));
-
 }
 
 QBrush ColorButton::foreground()
 {
-	if(isEnabled())
+	if (isEnabled())
 		return m_foreground;
 	else
 		return QBrush(palette().color(QPalette::Window));
@@ -132,7 +130,6 @@ void ColorButton::renderFill(QPainter *painter, QPointF center, qreal radius, QB
 {
 	renderCircularHandle(painter, center, radius, background);
 }
-
 
 /* ********************************************************************************* *
  *
@@ -169,7 +166,6 @@ void ColorButton::setDoc(ScribusDoc *doc)
  *
  * ********************************************************************************* */
 
-
 void ColorButton::paintEvent(QPaintEvent *e)
 {
 	Q_UNUSED(e);
@@ -181,31 +177,30 @@ void ColorButton::paintEvent(QPaintEvent *e)
 	QSize fSize = foregroundDotSize();
 	QPainterPath mask;
 
-	int m_inset = 1;
+	int inset = 1;
 
 	// Draw Background Dot
-	QRectF bDot(rect().center() - QPointF(fSize.width() - m_inset -0.5 , fSize.height() - m_inset - 0.5), QSizeF(bSize.width() - m_inset, bSize.height() - m_inset) );
-	mask.addEllipse(bDot.adjusted(m_inset,m_inset,-m_inset,-m_inset));
+	QRectF bDot(rect().center() - QPointF(fSize.width() - inset - 0.5, fSize.height() - inset - 0.5), QSizeF(bSize.width() - inset, bSize.height() - inset));
+	mask.addEllipse(bDot.adjusted(inset, inset, -inset, -inset));
 	painter.setClipPath(mask);
 	renderCheckerPattern(&painter, mask.boundingRect());
 	painter.setClipping(false);
 
-
-	renderFill(&painter, bDot.center(), bSize.width() - m_inset, background());
+	renderFill(&painter, bDot.center(), bSize.width() - inset, background());
 
 	// Draw Foreground Dot
-	if(m_hasDot){
+	if (m_hasDot)
+	{
 		mask.clear();
 		QRectF fDot(rect().center().x(), rect().center().y(), fSize.width(), fSize.height());
-		mask.addEllipse(fDot.adjusted(m_inset,m_inset,-m_inset,-m_inset));
+		mask.addEllipse(fDot.adjusted(inset, inset, -inset, -inset));
 		painter.setClipPath(mask);
 		renderCheckerPattern(&painter, mask.boundingRect());
 		painter.setClipping(false);
 
-		renderFill(&painter, fDot.center(), fSize.width() - m_inset, foreground());
+		renderFill(&painter, fDot.center(), fSize.width() - inset, foreground());
 	}
 
 	painter.end();
-
 }
 

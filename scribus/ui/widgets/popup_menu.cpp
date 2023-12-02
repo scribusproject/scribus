@@ -31,7 +31,7 @@
  */
 PopupMenu::PopupMenu(QWidget *contentWidget)
 {
-	if(contentWidget == nullptr)
+	if (contentWidget == nullptr)
 		contentWidget = new QWidget();
 
 	QVBoxLayout *layout = new QVBoxLayout();
@@ -53,17 +53,15 @@ PopupMenu::PopupMenu(QWidget *contentWidget)
 
 bool PopupMenu::eventFilter(QObject *obj, QEvent *event)
 {
-
 	// prevent that menu is close by interact with the background
 	if (event->type() == QEvent::MouseButtonPress ||
-			event->type() == QEvent::MouseButtonDblClick ||
-			event->type() == QEvent::MouseMove) {
-
+		event->type() == QEvent::MouseButtonDblClick ||
+		event->type() == QEvent::MouseMove)
+	{
 		return true;
 	}
 
-		return QObject::eventFilter(obj, event);
-
+	return QObject::eventFilter(obj, event);
 }
 
 #ifndef Q_OS_MACOS
@@ -74,7 +72,7 @@ void PopupMenu::paintEvent(QPaintEvent *event)
 
 	painter.setBrush( QBrush(palette().color(QPalette::Window)) );
 	painter.setPen( QPen(palette().color(QPalette::Mid)) );
-	painter.drawRect(this->rect().adjusted(0,0,-1,-1));
+	painter.drawRect(this->rect().adjusted(0, 0, -1, -1));
 
 }
 #endif

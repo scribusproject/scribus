@@ -10,7 +10,7 @@ Switch::Switch(QWidget *parent) : QAbstractButton(parent),
 	setSizeMode(Size::Small);
 }
 
-Switch::Size Switch::sizeMode()
+Switch::Size Switch::sizeMode() const
 {
 	return m_size;
 }
@@ -47,7 +47,7 @@ void Switch::paintEvent(QPaintEvent *event)
 	QColor cBackground;
 	QColor cHandle = palette().color(QPalette::Button);
 
-	if(isEnabled())
+	if (isEnabled())
 	{
 		if(isChecked())
 			cBackground = palette().color(QPalette::Highlight);
@@ -71,12 +71,15 @@ void Switch::paintEvent(QPaintEvent *event)
 
 void Switch::animate(bool toggled)
 {
-	if (toggled) {
+	if (toggled)
+	{
 		m_anim->setStartValue(m_margin + m_radius);
 		m_anim->setEndValue(width() - m_radius - m_margin);
 		m_anim->setDuration(120);
 		m_anim->start();
-	} else {
+	}
+	else
+	{
 		m_anim->setStartValue(position());
 		m_anim->setEndValue(m_margin + m_radius);
 		m_anim->setDuration(120);

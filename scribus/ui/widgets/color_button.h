@@ -10,8 +10,8 @@ class ColorListBox;
 class SCRIBUS_API ColorButton : public QToolButton
 {
 	Q_OBJECT
-public:
 
+public:
 	ColorButton(QWidget *parent = nullptr);
 	~ColorButton(){};
 
@@ -43,7 +43,7 @@ private:
 	ScribusDoc *m_doc {nullptr};
 	QWidget *m_context {nullptr};
 	ColorListBox *colorList {nullptr};
-	QString m_colorName {""};
+	QString m_colorName;
 
 	QBrush background();
 	QBrush foreground();

@@ -25,7 +25,7 @@ public:
 	void setTextPosition(TextPosition position);
 
 private:
-	QSize m_iconSize = {QSize(64,64)};
+	QSize m_iconSize = {QSize(64, 64)};
 	TextPosition m_textPosition = {TextPosition::Bottom};
 };
 

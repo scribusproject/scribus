@@ -25,17 +25,16 @@ public:
 	SectionContainerHeader(QWidget *parent = nullptr);
 	SectionContainerHeader(QString title, QWidget *parent = nullptr);
 
-	QPushButton * buttonCollapse;
+	QPushButton * buttonCollapse { nullptr };
 
 private:
+	QHBoxLayout * layoutHeader { nullptr };
+	QHBoxLayout * layoutHeaderPrefix { nullptr };
+	QHBoxLayout * layoutHeaderSuffix { nullptr };
 
-	QHBoxLayout * layoutHeader;
-	QHBoxLayout * layoutHeaderPrefix;
-	QHBoxLayout * layoutHeaderSuffix;
+	QLabel * labelTitle { nullptr };
 
-	QLabel * labelTitle;
-
-	bool boolHasStyle;
+	bool m_hasStyle { true };
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -71,14 +70,14 @@ public:
     QString text() const;
 
     void setFont(QFont font);
-    QFont font();
+    QFont font() const;
 
 	void setHasStyle(bool hasStyle);
-	bool hasStyle();
+	bool hasStyle() const;
 
     void setIsCollapsible(bool isCollapsible);
-    bool isCollapsible();
-    bool isCollapsed();
+    bool isCollapsible() const;
+    bool isCollapsed() const;
 
 	void setCollapseIcons(QIcon collapsed, QIcon expanded);
 
@@ -98,13 +97,13 @@ public:
 	void insertHeaderPrefixSpacing(int index, int size);
 
 private:
-	SectionContainerHeader *widgetHeader;
-	QVBoxLayout *mainLayout;
+	SectionContainerHeader *widgetHeader { nullptr };
+	QVBoxLayout *mainLayout { nullptr };
 	QIcon iconCollapsed;
 	QIcon iconExpanded;
-    bool boolIsCollapsible;
-	bool boolIsCollapsed;
-    bool boolHasStyle;
+    bool m_isCollapsible;
+	bool m_isCollapsed { false };
+    bool m_hasStyle { false };
 
     void connectSlots();
 

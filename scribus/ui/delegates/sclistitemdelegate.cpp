@@ -34,49 +34,48 @@ void ScListItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	QBrush fillNormal(QApplication::palette().alternateBase().color());
 	QBrush fillSelected(cHighlight);
 
-
 	painter->setRenderHint(QPainter::Antialiasing, true);
 
-
-	if(option.state & QStyle::State_Selected){
-		painter->setBrush( fillSelected );
+	if (option.state & QStyle::State_Selected)
+	{
+		painter->setBrush(fillSelected);
 		painter->setPen(lineMarkedPen);
 		painter->drawRoundedRect(rItem, radius, radius);
 
-	} else {
-		painter->setBrush( fillNormal );
+	}
+	else
+	{
+		painter->setBrush(fillNormal);
 		painter->setPen(linePen);
 		painter->drawRoundedRect(rItem, radius, radius);
-
 	}
 
 	// Item Data
 	QIcon ic = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
 	QString title = index.data(Qt::DisplayRole).toString();
 
-	switch(m_textPosition)
+	switch (m_textPosition)
 	{
 	default:
 	case TextPosition::Bottom:
-	{
-		int hSpace = (option.rect.width() - m_iconSize.width()) / 2;
-		int vSpace = padding;
-		QPoint p = option.rect.topLeft();
-		rIcon = QRect(p.x() + hSpace, p.y() + vSpace, m_iconSize.width(), m_iconSize.height());
+		{
+			int hSpace = (option.rect.width() - m_iconSize.width()) / 2;
+			int vSpace = padding;
+			QPoint p = option.rect.topLeft();
+			rIcon = QRect(p.x() + hSpace, p.y() + vSpace, m_iconSize.width(), m_iconSize.height());
 
-		rText = option.rect.adjusted(padding, padding + m_iconSize.height(), -padding, -padding);
-		tOptions.setFlags(QFlag(Qt::AlignBottom|Qt::AlignHCenter|Qt::TextWordWrap));
-
-	}
+			rText = option.rect.adjusted(padding, padding + m_iconSize.height(), -padding, -padding);
+			tOptions.setFlags(QFlag(Qt::AlignBottom|Qt::AlignHCenter|Qt::TextWordWrap));
+		}
 		break;
 	case TextPosition::Right:
-	{
-		QPoint p = option.rect.topLeft();
-		rIcon = QRect(p.x() + padding, p.y() + padding, m_iconSize.width(), m_iconSize.height());
+		{
+			QPoint p = option.rect.topLeft();
+			rIcon = QRect(p.x() + padding, p.y() + padding, m_iconSize.width(), m_iconSize.height());
 
-		rText = option.rect.adjusted(padding * 2 + m_iconSize.width(), padding, -padding, -padding);
-		tOptions.setFlags(QFlag(Qt::AlignVCenter|Qt::AlignLeft|Qt::TextWordWrap));
-	}
+			rText = option.rect.adjusted(padding * 2 + m_iconSize.width(), padding, -padding, -padding);
+			tOptions.setFlags(QFlag(Qt::AlignVCenter|Qt::AlignLeft|Qt::TextWordWrap));
+		}
 		break;
 	}
 
@@ -87,13 +86,12 @@ void ScListItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	}
 
 	// Label
-	if(!title.isEmpty())
+	if (!title.isEmpty())
 	{
 		painter->setPen(fontPen);
 		painter->setFont(QFont());
 		painter->drawText(rText, tOptions.flags(), title, &rText);
 	}
-
 }
 
 QSize ScListItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const{

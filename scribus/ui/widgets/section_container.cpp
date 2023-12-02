@@ -21,28 +21,25 @@ SectionContainer::SectionContainer(QString title, bool isCollapsible, QWidget *p
     : QWidget{parent}
 {
 	widgetHeader = new SectionContainerHeader(title);
-	iconCollapsed = QIcon();
-	iconExpanded = QIcon();
-	boolIsCollapsible = isCollapsible;
-	boolIsCollapsed = false;
-	boolHasStyle = true;
+	m_isCollapsible = isCollapsible;
+	m_isCollapsed = false;
+	m_hasStyle = true;
 
-    // Main Layout
+	// Main Layout
 	mainLayout = new QVBoxLayout(this);
-    mainLayout->setSpacing(0);
-    mainLayout->setContentsMargins(0,0,0,0);
+	mainLayout->setSpacing(0);
+	mainLayout->setContentsMargins(0,0,0,0);
 	mainLayout->addWidget(widgetHeader);
 
-    // Size Policy
-    QSizePolicy sizePol = QSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Maximum );
+	// Size Policy
+	QSizePolicy sizePol = QSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Maximum );
 	setSizePolicy(sizePol);
 
 	iconSetChange();
 
-    // initial Setup
-    setIsCollapsible(isCollapsible);
-    connectSlots();
-
+	// initial Setup
+	setIsCollapsible(isCollapsible);
+	connectSlots();
 }
 
 void SectionContainer::connectSlots()
@@ -71,40 +68,40 @@ QString SectionContainer::text() const
 void SectionContainer::setFont(QFont font)
 {
 	widgetHeader->labelTitle->setFont(font);
-    QWidget::setFont(font);
+	QWidget::setFont(font);
 }
 
-QFont SectionContainer::font()
+QFont SectionContainer::font() const
 {
 	return widgetHeader->font();
 }
 
 void SectionContainer::setHasStyle(bool isSimple)
 {
-    boolHasStyle = isSimple;
-	widgetHeader->boolHasStyle = isSimple;
-    update();
+	m_hasStyle = isSimple;
+	widgetHeader->m_hasStyle = isSimple;
+	update();
 }
 
-bool SectionContainer::hasStyle()
+bool SectionContainer::hasStyle() const
 {
-    return boolHasStyle;
+	return m_hasStyle;
 }
 
 void SectionContainer::setIsCollapsible(bool isCollapsible)
 {
-    boolIsCollapsible = isCollapsible;
+	m_isCollapsible = isCollapsible;
 	widgetHeader->buttonCollapse->setVisible(isCollapsible);
 }
 
-bool SectionContainer::isCollapsible()
+bool SectionContainer::isCollapsible() const
 {
-    return boolIsCollapsible;
+	return m_isCollapsible;
 }
 
-bool SectionContainer::isCollapsed()
+bool SectionContainer::isCollapsed() const
 {
-    return boolIsCollapsed;
+	return m_isCollapsed;
 }
 
 void SectionContainer::setIsCollapsed(bool state)
@@ -113,9 +110,9 @@ void SectionContainer::setIsCollapsed(bool state)
 		return;
 
 	QWidget *widget = mainLayout->itemAt(1)->widget();
-    boolIsCollapsed = state;
+	m_isCollapsed = state;
 
-	if( boolIsCollapsed )
+	if (m_isCollapsed)
 	{
 		widget->hide();
 		widgetHeader->buttonCollapse->setIcon(iconCollapsed);
@@ -126,7 +123,7 @@ void SectionContainer::setIsCollapsed(bool state)
 		widgetHeader->buttonCollapse->setIcon(iconExpanded);
     }
 
-    emit collapsedState(boolIsCollapsed);
+	emit collapsedState(m_isCollapsed);
 }
 
 void SectionContainer::setCollapseIcons(QIcon collapsed, QIcon expanded)
@@ -134,7 +131,7 @@ void SectionContainer::setCollapseIcons(QIcon collapsed, QIcon expanded)
 	iconCollapsed = collapsed;
 	iconExpanded = expanded;
 
-	if( boolIsCollapsed )
+	if (m_isCollapsed)
 		widgetHeader->buttonCollapse->setIcon(iconCollapsed);
 	else
 		widgetHeader->buttonCollapse->setIcon(iconExpanded);
@@ -143,12 +140,12 @@ void SectionContainer::setCollapseIcons(QIcon collapsed, QIcon expanded)
 void SectionContainer::setWidget(QWidget *widget)
 {
 	// Has no body widget
-	if(mainLayout->count() == 1)
+	if (mainLayout->count() == 1)
 	{
 		mainLayout->insertWidget(1, widget);
 	}
 	// Has body widget
-	else if(mainLayout->count() == 2)
+	else if (mainLayout->count() == 2)
 	{
 		QWidget *oldWidget = mainLayout->itemAt(1)->widget();
 		mainLayout->replaceWidget(oldWidget, widget);
@@ -160,7 +157,6 @@ void SectionContainer::setWidget(QWidget *widget)
 	widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
 //	widget->installEventFilter(this);
 	widget->adjustSize();
-
 }
 
 QWidget* SectionContainer::widget()
@@ -176,8 +172,9 @@ QWidget* SectionContainer::widget()
 
 void SectionContainer::toggleCollpasedState()
 {
-    if(isCollapsible() == false) return;
-	setIsCollapsed(!boolIsCollapsed);
+	if (isCollapsible() == false)
+		return;
+	setIsCollapsed(!m_isCollapsed);
 }
 
 void SectionContainer::iconSetChange()
@@ -199,9 +196,8 @@ void SectionContainer::addHeaderSuffixWidget(QWidget *widget)
 
 void SectionContainer::insertHeaderSuffixWidget(int index, QWidget *widget)
 {
-	QToolButton *toolButton = static_cast<QToolButton*>(widget);
-
-	if(toolButton)
+	QToolButton *toolButton = dynamic_cast<QToolButton*>(widget);
+	if (toolButton)
 	{
 		toolButton->setAutoRaise(true);
 		widgetHeader->layoutHeaderSuffix->insertWidget(index, toolButton);
@@ -235,9 +231,8 @@ void SectionContainer::addHeaderPrefixWidget(QWidget *widget)
 
 void SectionContainer::insertHeaderPrefixWidget(int index, QWidget *widget)
 {
-	QToolButton *toolButton = static_cast<QToolButton*>(widget);
-
-	if(toolButton)
+	QToolButton *toolButton = dynamic_cast<QToolButton*>(widget);
+	if (toolButton)
 	{
 		toolButton->setAutoRaise(true);
 		widgetHeader->layoutHeaderPrefix->insertWidget(index, toolButton);
@@ -275,18 +270,17 @@ void SectionContainer::paintEvent(QPaintEvent *event)
 {
 	QWidget::paintEvent(event);
 
-	if(!boolHasStyle)
-	{
-		int lineWidth = 1;
-		QColor bottomLineColor( palette().color(QPalette::Dark) );
+	if (m_hasStyle)
+		return;
 
-		QPainter painter( this );
+	int lineWidth = 1;
+	QColor bottomLineColor( palette().color(QPalette::Dark) );
 
-		// Bottom Line
-		painter.setPen( QPen(bottomLineColor, lineWidth) );
-		painter.drawLine( 8, this->height() - lineWidth, this->width() - 8, this->height() - lineWidth );
-	}
+	QPainter painter( this );
 
+	// Bottom Line
+	painter.setPen( QPen(bottomLineColor, lineWidth) );
+	painter.drawLine( 8, this->height() - lineWidth, this->width() - 8, this->height() - lineWidth );
 }
 
 //bool SectionContainer::eventFilter(QObject *object, QEvent *event)
@@ -328,9 +322,8 @@ SectionContainerHeader::SectionContainerHeader(QWidget *parent) : SectionContain
 
 SectionContainerHeader::SectionContainerHeader(QString title, QWidget *parent)
 {
-
 	int padding = 6;
-	boolHasStyle = true;
+	m_hasStyle = true;
 
 	layoutHeader = new QHBoxLayout;
 	layoutHeaderPrefix = new QHBoxLayout;
@@ -381,37 +374,34 @@ SectionContainerHeader::SectionContainerHeader(QString title, QWidget *parent)
 
 void SectionContainerHeader::paintEvent(QPaintEvent *event)
 {
+	if (!m_hasStyle)
+		return;
 
-	if(boolHasStyle)
-	{
-		int lineWidth = 1;
-//		QColor topLineColor( palette().color(QPalette::Mid) );
-		QColor bottomLineColor( palette().color(QPalette::Dark) );
+	int lineWidth = 1;
+//	QColor topLineColor( palette().color(QPalette::Mid) );
+	QColor bottomLineColor( palette().color(QPalette::Dark) );
 
-		QColor bgColor( palette().color(QPalette::WindowText) );
-		bgColor.setAlphaF(0.07f);
+	QColor bgColor( palette().color(QPalette::WindowText) );
+	bgColor.setAlphaF(0.07f);
 
+	int headerHeight = this->height();
+	QRect headerRect(0, 0, this->width(), headerHeight - lineWidth);
 
-		int headerheight = this->height();
-		QRect headerRect(0, 0, this->width(), headerheight - lineWidth);
+	QPainter painter( this );
 
-		QPainter painter( this );
+	painter.setPen( Qt::NoPen );
+	painter.setBrush(bgColor);
+	painter.drawRect(headerRect);
 
-		painter.setPen( Qt::NoPen );
-		painter.setBrush(bgColor);
-		painter.drawRect(headerRect);
+	painter.setBrush(Qt::NoBrush);
 
-		painter.setBrush(Qt::NoBrush);
+	// Top Line
+//	painter.setPen( QPen(topLineColor, lineWidth) );
+//	painter.drawLine( 0, 0,this->width(), 0 );
 
-		// Top Line
-//		painter.setPen( QPen(topLineColor, lineWidth) );
-//		painter.drawLine( 0, 0,this->width(), 0 );
-
-		// Bottom Line
-		painter.setPen( QPen(bottomLineColor, lineWidth) );
-		painter.drawLine( 0, headerheight - lineWidth, this->width(), headerheight - lineWidth );
-
-	}
+	// Bottom Line
+	painter.setPen(QPen(bottomLineColor, lineWidth));
+	painter.drawLine(0, headerHeight - lineWidth, this->width(), headerHeight - lineWidth);
 }
 
 void SectionContainerHeader::mouseDoubleClickEvent(QMouseEvent *mouseEvent)
