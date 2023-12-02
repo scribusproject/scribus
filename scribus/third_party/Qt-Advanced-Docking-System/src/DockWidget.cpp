@@ -95,6 +95,7 @@ struct DockWidgetPrivate
 	CDockWidget::eMinimumSizeHintMode MinimumSizeHintMode = CDockWidget::MinimumSizeHintFromDockWidget;
 	WidgetFactory* Factory = nullptr;
 	QPointer<CAutoHideTab> SideTabWidget;
+	CDockWidget::eToolBarStyleSource ToolBarStyleSource = CDockWidget::ToolBarStyleFromDockManager;
 	
 	/**
 	 * Private data constructor
@@ -139,6 +140,11 @@ struct DockWidgetPrivate
 	 * returns true on success.
 	 */
 	bool createWidgetFromFactory();
+
+	/**
+	 * Use the dock manager toolbar style and icon size for the different states
+	 */
+	void setToolBarStyleFromDockManager();
 };
 // struct DockWidgetPrivate
 
@@ -213,6 +219,12 @@ void DockWidgetPrivate::hideDockWidget()
 
 	if (Features.testFlag(CDockWidget::DeleteContentOnClose))
 	{
+		if (ScrollArea)
+		{
+			ScrollArea->takeWidget();
+			delete ScrollArea;
+			ScrollArea = nullptr;
+		}
 		Widget->deleteLater();
 		Widget = nullptr;
 	}
@@ -326,6 +338,22 @@ bool DockWidgetPrivate::createWidgetFromFactory()
 
 
 //============================================================================
+void DockWidgetPrivate::setToolBarStyleFromDockManager()
+{
+	if (!DockManager)
+	{
+		return;
+	}
+	auto State = CDockWidget::StateDocked;
+	_this->setToolBarIconSize(DockManager->dockWidgetToolBarIconSize(State), State);
+	_this->setToolBarStyle(DockManager->dockWidgetToolBarStyle(State), State);
+	State = CDockWidget::StateFloating;
+	_this->setToolBarIconSize(DockManager->dockWidgetToolBarIconSize(State), State);
+	_this->setToolBarStyle(DockManager->dockWidgetToolBarStyle(State), State);
+}
+
+
+//============================================================================
 CDockWidget::CDockWidget(const QString &title, QWidget *parent) :
 	QFrame(parent),
 	d(new DockWidgetPrivate(this))
@@ -358,6 +386,20 @@ CDockWidget::~CDockWidget()
 	delete d;
 }
 
+//============================================================================
+void CDockWidget::setToggleViewAction(QAction* action)
+{
+	if (!action)
+	{
+		return;
+	}
+
+	d->ToggleViewAction->setParent(nullptr);
+	delete d->ToggleViewAction;
+	d->ToggleViewAction = action;
+	d->ToggleViewAction->setParent(this);
+	connect(d->ToggleViewAction, &QAction::triggered, this, &CDockWidget::toggleView);
+}
 
 //============================================================================
 void CDockWidget::setToggleViewActionChecked(bool Checked)
@@ -503,6 +545,15 @@ CDockManager* CDockWidget::dockManager() const
 void CDockWidget::setDockManager(CDockManager* DockManager)
 {
 	d->DockManager = DockManager;
+	if (!DockManager)
+	{
+		return;
+	}
+
+	if (ToolBarStyleFromDockManager == d->ToolBarStyleSource)
+	{
+		d->setToolBarStyleFromDockManager();
+	}
 }
 
 
@@ -1261,6 +1312,24 @@ void CDockWidget::toggleAutoHide(SideBarLocation Location)
 	}
 
 	setAutoHide(!isAutoHide(), Location);
+}
+
+
+//============================================================================
+void CDockWidget::setToolBarStyleSource(eToolBarStyleSource Source)
+{
+	d->ToolBarStyleSource = Source;
+	if (ToolBarStyleFromDockManager == d->ToolBarStyleSource)
+	{
+		d->setToolBarStyleFromDockManager();
+	}
+}
+
+
+//============================================================================
+CDockWidget::eToolBarStyleSource CDockWidget::toolBarStyleSource() const
+{
+	return d->ToolBarStyleSource;
 }
 
 
