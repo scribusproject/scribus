@@ -568,5 +568,19 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="dock-float" file="16/action-window-float.svg" />
 		<icon id="menu-down" file="16/action-menu-down.svg" />
 
+		<!-- Panels -->
+		<icon id="panel-action-history" file="16/panel-action-history.svg" />
+		<icon id="panel-align-distribute" file="16/panel-align-distribute.svg" />
+		<icon id="panel-bookmarks" file="16/panel-bookmarks.svg" />
+		<icon id="panel-content-properties" file="16/panel-content-properties.svg" />
+		<icon id="panel-custom-shapes" file="16/panel-custom-shapes.svg" />
+		<icon id="panel-frame-properties" file="16/panel-frame-properties.svg" />
+		<icon id="panel-inline-items" file="16/panel-inline-items.svg" />
+		<icon id="panel-layers" file="16/panel-layers.svg" />
+		<icon id="panel-outline" file="16/panel-outline.svg" />
+		<icon id="panel-page" file="16/panel-page.svg" />
+		<icon id="panel-scrapbook" file="16/panel-scrapbook.svg" />
+		<icon id="panel-symbols" file="16/panel-symbols.svg" />
+
 	</icons>
 </iconset>
