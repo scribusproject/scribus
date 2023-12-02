@@ -770,10 +770,19 @@
     <ClInclude Include="..\..\..\scribus\tt\simpletreemodel\treeitem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\delegates\sclistitemdelegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\scresizecursor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\widgets\combo_blendmode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\widgets\popup_menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\undoobject.h">
@@ -813,6 +822,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\util_ghostscript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_gui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\util_image.h">
@@ -1870,6 +1882,9 @@
     <ClCompile Include="..\..\..\scribus\ui\dcolor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\delegates\sclistitemdelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\delpages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1982,6 +1997,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\linecombo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\linemarkerselector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\linkbutton.cpp">
@@ -2278,6 +2296,9 @@
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_pathtext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_textcolor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2524,6 +2545,24 @@
     <ClCompile Include="..\..\..\scribus\ui\weldedit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\color_button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\combo_blendmode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\form_widget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\popup_menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\section_container.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\switch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\undogui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2570,6 +2609,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\util_ghostscript.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\util_layer.cpp">
@@ -2693,6 +2735,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\latexeditor.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\linemarkerselector.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\mark2item.ui">
@@ -2875,9 +2920,6 @@
     <uic Include="..\..\..\scribus\ui\propertiespalette_tablebase.ui">
       <Filter>Form Files</Filter>
     </uic>
-    <uic Include="..\..\..\scribus\ui\propertiespalette_textbase.ui">
-      <Filter>Form Files</Filter>
-    </uic>
     <uic Include="..\..\..\scribus\ui\propertiespalette_xyzbase.ui">
       <Filter>Form Files</Filter>
     </uic>
@@ -2906,6 +2948,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\propertywidget_pathtextbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertywidget_textbase.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\propertywidget_textcolorbase.ui">
@@ -3719,6 +3764,9 @@
     <moc Include="..\..\..\scribus\ui\linecombo.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\ui\linemarkerselector.h">
+      <Filter>Header Files</Filter>
+    </moc>
     <moc Include="..\..\..\scribus\ui\linkbutton.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -4016,6 +4064,9 @@
     <moc Include="..\..\..\scribus\ui\propertywidget_pathtext.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\ui\propertywidget_text.h">
+      <Filter>Header Files</Filter>
+    </moc>
     <moc Include="..\..\..\scribus\ui\propertywidget_textcolor.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -4254,6 +4305,18 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\weldedit.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\color_button.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\form_widget.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\section_container.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\switch.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\undogui.h">

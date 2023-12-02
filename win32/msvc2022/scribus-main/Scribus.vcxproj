@@ -635,6 +635,8 @@
     <moc Include="..\..\..\scribus\ui\printlanguagecombo.h" />
     <moc Include="..\..\..\scribus\ui\docks\dock_centralwidget.h" />
     <moc Include="..\..\..\scribus\ui\docks\dock_panelbase.h" />
+    <moc Include="..\..\..\scribus\ui\linemarkerselector.h" />
+    <ClInclude Include="..\..\..\scribus\ui\delegates\sclistitemdelegate.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -657,8 +659,16 @@
     <moc Include="..\..\..\scribus\ui\textpalette.h" />
     <moc Include="..\..\..\scribus\ui\smnumformatcombo.h" />
     <moc Include="..\..\..\scribus\ui\scdialog.h" />
+    <moc Include="..\..\..\scribus\ui\propertywidget_text.h" />
+    <moc Include="..\..\..\scribus\ui\widgets\color_button.h" />
+    <ClInclude Include="..\..\..\scribus\ui\widgets\combo_blendmode.h" />
+    <moc Include="..\..\..\scribus\ui\widgets\form_widget.h" />
+    <ClInclude Include="..\..\..\scribus\ui\widgets\popup_menu.h" />
+    <moc Include="..\..\..\scribus\ui\widgets\section_container.h" />
+    <moc Include="..\..\..\scribus\ui\widgets\switch.h" />
     <ClInclude Include="..\..\..\scribus\undotransaction.h" />
     <ClInclude Include="..\..\..\scribus\util_debug.h" />
+    <ClInclude Include="..\..\..\scribus\util_gui.h" />
     <ClInclude Include="..\..\..\scribus\util_os.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\..\scribus\resourcecollection.h" />
@@ -1036,6 +1046,7 @@
     <ClCompile Include="..\..\..\scribus\ui\dasheditor.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\dcolor.cpp" />
     <ClCompile Include="..\..\..\scribus\deferredtask.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\delegates\sclistitemdelegate.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\delpages.cpp" />
     <ClCompile Include="..\..\..\scribus\documentchecker.cpp" />
     <ClCompile Include="..\..\..\scribus\documentinformation.cpp" />
@@ -1182,6 +1193,7 @@
     <ClCompile Include="..\..\..\scribus\ui\layers.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\linecombo.cpp" />
     <ClCompile Include="..\..\..\scribus\styles\linestyle.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\linemarkerselector.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\linkbutton.cpp" />
     <ClCompile Include="..\..\..\scribus\loadsaveplugin.cpp" />
     <ClCompile Include="..\..\..\scribus\localemgr.cpp" />
@@ -1321,6 +1333,7 @@
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_orphans.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_pareffect.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_pathtext.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_text.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_textcolor.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertywidgetbase.cpp" />
     <ClCompile Include="..\..\..\scribus\pslib.cpp" />
@@ -1432,9 +1445,16 @@
     <ClCompile Include="..\..\..\scribus\ui\smnumformatcombo.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\textpalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\viewtoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\color_button.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\combo_blendmode.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\form_widget.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\popup_menu.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\section_container.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\switch.cpp" />
     <ClCompile Include="..\..\..\scribus\undotransaction.cpp" />
     <ClCompile Include="..\..\..\scribus\upgradechecker.cpp" />
     <ClCompile Include="..\..\..\scribus\util_debug.cpp" />
+    <ClCompile Include="..\..\..\scribus\util_gui.cpp" />
     <ClCompile Include="..\..\..\scribus\util_os.cpp" />
     <ClCompile Include="scribuspch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -1607,6 +1627,7 @@
     <uic Include="..\..\..\scribus\ui\inserttablecolumnsdialog.ui" />
     <uic Include="..\..\..\scribus\ui\inserttablerowsdialog.ui" />
     <uic Include="..\..\..\scribus\ui\latexeditor.ui" />
+    <uic Include="..\..\..\scribus\ui\linemarkerselector.ui" />
     <uic Include="..\..\..\scribus\ui\mark2item.ui" />
     <uic Include="..\..\..\scribus\ui\mark2mark.ui" />
     <uic Include="..\..\..\scribus\ui\markanchor.ui" />
@@ -1667,7 +1688,6 @@
     <uic Include="..\..\..\scribus\ui\propertiespalette_shadowbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertiespalette_shapebase.ui" />
     <uic Include="..\..\..\scribus\ui\propertiespalette_tablebase.ui" />
-    <uic Include="..\..\..\scribus\ui\propertiespalette_textbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertiespalette_xyzbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertywidget_advancedbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertywidget_distancebase.ui" />
@@ -1678,6 +1698,7 @@
     <uic Include="..\..\..\scribus\ui\propertywidget_orphansbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertywidget_pareffectbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertywidget_pathtextbase.ui" />
+    <uic Include="..\..\..\scribus\ui\propertywidget_textbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertywidget_textcolorbase.ui" />
     <uic Include="..\..\..\scribus\ui\recoverdialog.ui" />
     <uic Include="..\..\..\scribus\ui\replacecolors.ui" />
