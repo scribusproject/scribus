@@ -538,7 +538,7 @@ void ScPageOutput::drawPattern(PageItem* item, ScPainterExBase* painter, const Q
 	double rot    = patternTrans.rotation - floor(patternTrans.rotation / 90) * 90;
 	double ctheta = cos(rot * M_PI / 180);
 	double stheta = sin(rot * M_PI / 180);
-	QRectF  itemRect(0.0, 0.0, item->width(), item->height());
+	//QRectF  itemRect(0.0, 0.0, item->width(), item->height());
 	QPointF pa(width * stheta * stheta, -width * stheta * ctheta);
 	QPointF pb(width + height * ctheta * stheta, height * stheta * stheta);
 	QPointF pc(-height * ctheta * stheta, height * ctheta * ctheta);
