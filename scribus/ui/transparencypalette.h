@@ -61,9 +61,6 @@ public:
 
 	void setDocument(ScribusDoc* doc);
 	void setCurrentItem(PageItem* item);
-	void showSelectionButtons();
-	void hideSelectionButtons();
-	void updateFromItem();
 
 	void updateColorList();
 
@@ -77,8 +74,6 @@ public:
 public slots:
 	void handleUpdateRequest(int);
 
-	void editLineSelectorButton();
-	void editFillSelectorButton();
 	void slotGrad(int number);
 	void slotGradType(int type);
 	void setNamedGradient(const QString &name);
@@ -89,17 +84,14 @@ public slots:
 	void hideEditedPatterns(QStringList names);
 	void selectPattern(QListWidgetItem *c);
 	void changePatternProps();
-	void setActTrans(double, double);
-	void setActBlend(int, int);
-	void slotTransS(double val);
+	void setActTrans(double);
+	void setActBlend(int);
 	void slotTransF(double val);
 	void unitChange(double, double, int unitIndex);
 
 signals:
 	void NewTrans(double);
-	void NewTransS(double);
 	void NewBlend(int);
-	void NewBlendS(int);
 	void gradientChanged();
 	void editGradient();
 	void NewGradient(int);

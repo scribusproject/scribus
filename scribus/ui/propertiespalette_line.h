@@ -84,6 +84,8 @@ private slots:
 	void handleStartArrowScale(double sc);
 	void handleEndArrowScale(double sc);
 	void handleLineStyle(QListWidgetItem *c);
+	void handleLineOpacity(double opacity);
+	void handleLineBlendmode(int mode);
 	void swapLineMarker();
 
 };

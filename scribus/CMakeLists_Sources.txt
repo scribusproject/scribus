@@ -546,6 +546,7 @@ set(SCRIBUS_SOURCES
 	ui/widgets/combo_blendmode.cpp
 	ui/widgets/popup_menu.cpp
 	ui/widgets/section_container.cpp
+	ui/widgets/switch.cpp
 	ui/widgets/form_widget.cpp
 	${SCRIBUS_OSG_SRC}
 	${SCRIBUS_GMAGICK_SRC}

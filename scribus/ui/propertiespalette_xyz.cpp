@@ -598,7 +598,7 @@ void PropertiesPalette_XYZ::toggleLabelVisibility(bool visibility)
 	labelLevel->setLabelVisibility(visibility);
 	labelName->setLabelVisibility(visibility);
 	labelExport->setLabelVisibility(visibility);
-	formWidget_2->setLabelVisibility(visibility);
+	formWidget->setLabelVisibility(visibility);
 }
 
 void PropertiesPalette_XYZ::showXY(double x, double y)

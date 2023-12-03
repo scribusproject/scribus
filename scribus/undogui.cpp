@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "undogui.h"
 
 
-UndoGui::UndoGui(QWidget* parent, const char* name) : DockPanelBase(name, parent)
+UndoGui::UndoGui(QWidget* parent, const char* name) : DockPanelBase(name, "panel-action-history", parent)
 {
 	languageChange();
 }

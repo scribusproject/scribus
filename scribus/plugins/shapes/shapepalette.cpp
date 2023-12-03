@@ -280,7 +280,7 @@ void ShapeView::updateShapeList()
 	}
 }
 
-ShapePalette::ShapePalette(QWidget *parent) : DockPanelBase("Shap", parent)
+ShapePalette::ShapePalette(QWidget *parent) : DockPanelBase("Shap", "panel-custom-shapes", parent)
 {
 	setMinimumSize( QSize( 220, 240 ) );
 	setObjectName(QString::fromLocal8Bit("Shap"));

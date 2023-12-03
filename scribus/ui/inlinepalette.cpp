@@ -101,7 +101,7 @@ void InlineView::dropEvent(QDropEvent *e)
 	clearSelection();
 }
 
-InlinePalette::InlinePalette( QWidget* parent) : DockPanelBase("Inline", parent)
+InlinePalette::InlinePalette( QWidget* parent) : DockPanelBase("Inline", "panel-inline-items", parent)
 {
 	setContentsMargins(3, 3, 3, 3);
 	setMinimumSize( QSize( 220, 240 ) );

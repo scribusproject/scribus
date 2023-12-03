@@ -150,7 +150,7 @@ bool SymbolView::viewportEvent(QEvent *event)
 	clearSelection();
 }
 
-SymbolPalette::SymbolPalette( QWidget* parent) : DockPanelBase("Symb", parent)
+SymbolPalette::SymbolPalette( QWidget* parent) : DockPanelBase("Symb", "panel-symbols", parent)
 {
 	setContentsMargins(3, 3, 3, 3);
 	setMinimumSize( QSize( 220, 240 ) );

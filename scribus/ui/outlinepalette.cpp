@@ -431,7 +431,7 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 	return true;
 }
 
-OutlinePalette::OutlinePalette( QWidget* parent) : DockPanelBase("Tree", parent)
+OutlinePalette::OutlinePalette( QWidget* parent) : DockPanelBase("Tree", "panel-outline", parent)
 {
 //	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );

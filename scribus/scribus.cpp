@@ -55,6 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QScopedPointer>
 #include <QScreen>
+#include <QSignalBlocker>
 #include <QStyleFactory>
 #include <QTableWidget>
 #include <QTextCodec>
@@ -292,11 +293,12 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	CDockManager::setConfigFlag(CDockManager::OpaqueSplitterResize, true);
 	CDockManager::setConfigFlag(CDockManager::TabCloseButtonIsToolButton, true);
 	CDockManager::setConfigFlag(CDockManager::AllTabsHaveCloseButton, false);
-	CDockManager::setConfigFlag(CDockManager::DockAreaDynamicTabsMenuButtonVisibility, true);
+//	CDockManager::setConfigFlag(CDockManager::DockAreaDynamicTabsMenuButtonVisibility, true);
 	CDockManager::setConfigFlag(CDockManager::DockAreaHasCloseButton, false);
 	CDockManager::setConfigFlag(CDockManager::DockAreaHasUndockButton, false);	
 	CDockManager::setConfigFlag(CDockManager::DockAreaHideDisabledButtons, true);
 	CDockManager::setConfigFlag(CDockManager::FocusHighlighting, true);
+	CDockManager::setConfigFlag(CDockManager::DisableTabTextEliding, true);
 
 	// Documentation: https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System/blob/master/doc/user-guide.md#auto-hide-configuration-flags
 //	CDockManager::setAutoHideConfigFlags(CDockManager::DefaultAutoHideConfig);
@@ -2467,9 +2469,8 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 			doc->m_Selection->disconnect(SIGNAL(selectionChanged()), actionManager, SLOT(handleMultipleSelections()));
 	}
 	view = ActWin->view();
-	bool b = zoomSpinBox->blockSignals(true);
+	const QSignalBlocker blocker(zoomSpinBox);
 	zoomSpinBox->setValue(view->scale() * 100.0 / PrefsManager::instance().appPrefs.displayPrefs.displayScale);
-	zoomSpinBox->blockSignals(b);
 	actionManager->connectNewViewActions(view);
 	actionManager->disconnectNewDocActions();
 	actionManager->connectNewDocActions(doc);
@@ -3453,9 +3454,8 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		outlinePalette->setDoc(doc);
 		fileLoader->informReplacementFonts();
 		setCurrentComboItem(unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
-		bool b = zoomSpinBox->blockSignals(true);
+		const QSignalBlocker blocker(zoomSpinBox);
 		zoomSpinBox->setValue(view->scale());
-		zoomSpinBox->blockSignals(b);
 		view->unitChange();
 		setScriptRunning(false);
 		view->deselectItems(true);
@@ -6060,7 +6060,7 @@ void ScribusMainWindow::deletePage(int from, int to)
 	}
 	if (tmpSelection.count() != 0)
 		doc->itemSelection_DeleteItem(&tmpSelection);
-	bool b = pageSelector->blockSignals(true);
+	const QSignalBlocker blocker(pageSelector);
 	view->updatesOn(false);
 	for (int a = to - 1; a >= from - 1; a--)
 	{
@@ -6092,7 +6092,6 @@ void ScribusMainWindow::deletePage(int from, int to)
 		}
 	}
 	pageSelector->setMaximum(doc->Pages->count());
-	pageSelector->blockSignals(b);
 	m_undoManager->setUndoEnabled(false); // ugly hack to disable object moving when undoing page deletion
 	view->reformPagesView();
 	m_undoManager->setUndoEnabled(true); // ugly hack continues
@@ -7326,13 +7325,10 @@ QStringList ScribusMainWindow::scrapbookNames() const
 
 void ScribusMainWindow::updateLayerMenu()
 {
-	bool b = layerMenu->blockSignals(true);
+	const QSignalBlocker blocker(layerMenu);
 	layerMenu->clear();
 	if (doc == nullptr)
-	{
-		layerMenu->blockSignals(b);
 		return;
-	}
 
 	QStringList newNames;
 	doc->orderedLayerList(&newNames);
@@ -7348,8 +7344,6 @@ void ScribusMainWindow::updateLayerMenu()
 		QString layerName = doc->activeLayerName();
 		setCurrentComboItem(layerMenu, layerName);
 	}
-
-	layerMenu->blockSignals(b);
 }
 
 
@@ -8116,10 +8110,9 @@ void ScribusMainWindow::changeLayer(int )
 
 void ScribusMainWindow::setLayerMenuText(const QString &layerName)
 {
-	bool b = layerMenu->blockSignals(true);
+	const QSignalBlocker blocker(layerMenu);
 	if (layerMenu->count() != 0)
 		setCurrentComboItem(layerMenu, layerName);
-	layerMenu->blockSignals(b);
 }
 
 void ScribusMainWindow::showLayer()
@@ -8132,11 +8125,10 @@ void ScribusMainWindow::slotSetCurrentPage(int pageIndex)
 {
 	if (scriptIsRunning())
 		return;
-	bool blocked = pageSelector->blockSignals(true);
+	const QSignalBlocker blocker(pageSelector);
 	pageSelector->setMaximum(doc->masterPageMode() ? 1 : doc->Pages->count());
 	if ((!doc->isLoading()) && (!doc->masterPageMode()))
 		pageSelector->setGUIForPage(pageIndex);
-	pageSelector->blockSignals(blocked);
 }
 
 void ScribusMainWindow::setCurrentPage(int p)

@@ -56,7 +56,7 @@ AlignDistribute::AlignDistribute(QWidget* parent) : QWidget(parent)
 // =============================
 
 
-AlignDistributePalette::AlignDistributePalette(QWidget* parent) : DockPanelBase("AlignDistributePalette", parent)
+AlignDistributePalette::AlignDistributePalette(QWidget* parent) : DockPanelBase("AlignDistributePalette", "panel-align-distribute", parent)
 {
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 	setObjectName("AlignDistributePalette");

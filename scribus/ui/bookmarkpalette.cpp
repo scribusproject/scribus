@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "bookmarkpalette.h"
 
-BookPalette::BookPalette(QWidget* parent) : DockPanelBase( "Books", parent )
+BookPalette::BookPalette(QWidget* parent) : DockPanelBase( "Books", "panel-bookmarks", parent )
 {
 	setObjectName(QString::fromLocal8Bit("Books"));
 	setContentsMargins(3, 3, 3, 3);

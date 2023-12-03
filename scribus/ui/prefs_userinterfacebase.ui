@@ -130,7 +130,7 @@
          <item row="3" column="1">
           <widget class="QCheckBox" name="hideLabels">
            <property name="text">
-            <string>Professional Mode</string>
+            <string>Hide Informational Labels</string>
            </property>
           </widget>
          </item>
@@ -444,16 +444,19 @@
   <tabstop>themeComboBox</tabstop>
   <tabstop>iconSetComboBox</tabstop>
   <tabstop>useSmallWidgetsCheckBox</tabstop>
+  <tabstop>hideLabels</tabstop>
   <tabstop>useTabsForDocumentsCheckBox</tabstop>
   <tabstop>recentDocumentsSpinBox</tabstop>
+  <tabstop>languageComboBox</tabstop>
+  <tabstop>numberFormatComboBox</tabstop>
   <tabstop>fontSizeMenuSpinBox</tabstop>
   <tabstop>fontSizePaletteSpinBox</tabstop>
-  <tabstop>storyEditorFontPushButton</tabstop>
-  <tabstop>storyEditorUseSmartSelectionCheckBox</tabstop>
-  <tabstop>resizeMoveDelaySpinBox</tabstop>
   <tabstop>wheelJumpSpinBox</tabstop>
   <tabstop>showSplashCheckBox</tabstop>
   <tabstop>showStartupDialogCheckBox</tabstop>
+  <tabstop>storyEditorUseSmartSelectionCheckBox</tabstop>
+  <tabstop>resizeMoveDelaySpinBox</tabstop>
+  <tabstop>storyEditorFontPushButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

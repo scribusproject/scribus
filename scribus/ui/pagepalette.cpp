@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 
-PagePalette::PagePalette(QWidget *parent) : DockPanelBase("PagePalette", parent)
+PagePalette::PagePalette(QWidget *parent) : DockPanelBase("PagePalette", "panel-page", parent)
 {
 	m_scMW = nullptr;//(ScribusMainWindow*) parent;
 	m_view = nullptr;

@@ -42,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "docks/dock_panelbase.h"
 #include "undomanager.h"
 
-LayerPalette::LayerPalette(QWidget* parent) : DockPanelBase("Layers", parent)
+LayerPalette::LayerPalette(QWidget* parent) : DockPanelBase("Layers", "panel-layers", parent)
 {
 	setObjectName(QString::fromLocal8Bit("Layers"));
 	setMinimumSize( QSize(220, 240) );

@@ -32,12 +32,13 @@ class SCRIBUS_API DockPanelBase : public CDockWidget
 
 public:
 	DockPanelBase(const QString &title, QWidget *parent = 0);
-	DockPanelBase(const QString &title, QIcon icon, QWidget *parent = 0);
+	DockPanelBase(const QString &title, QString iconName, QWidget *parent = 0);
 
 	void startup();
 
 public slots:
 	virtual void setFontSize();
+	void iconSetChange();
 
 protected:
 	/** @brief Set the Preferences context to be used for storage of startup visibility and position and size */
@@ -45,6 +46,7 @@ protected:
 
 	PrefsContext *m_palettePrefs {nullptr};
 	QString m_prefsContextName;
+	QString m_iconName;
 };
 
 #endif // DOCK_PANELBASE_H

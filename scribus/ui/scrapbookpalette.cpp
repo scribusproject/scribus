@@ -722,7 +722,7 @@ void BibView::readContents(const QString& name)
 }
 
 /* This is the main Dialog-Class for the Scrapbook */
-Biblio::Biblio(QWidget* parent) : DockPanelBase("Sclib", parent)
+Biblio::Biblio(QWidget* parent) : DockPanelBase("Sclib", "panel-scrapbook", parent)
 {
 	setObjectName(QString::fromLocal8Bit("Sclib"));
 	setMinimumSize( QSize(220, 240) );

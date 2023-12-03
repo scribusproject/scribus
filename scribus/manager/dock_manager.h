@@ -117,6 +117,8 @@ protected:
 	void updateIcons(QList<CDockWidget *> dockWidgets);
 	void updateIcon(CDockWidget * dockWidget);
 
+	void configureDock(CDockWidget *dock);
+
 	/**
 	 * @brief Creates a default workspace as perspective.
 	 */

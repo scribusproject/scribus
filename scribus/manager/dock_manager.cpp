@@ -70,22 +70,24 @@ void DockManager::setupDocks()
 	undoPalette = new UndoPalette(this);
 	symbolPalette = new SymbolPalette(this);
 
-	connect( pagePalette,				&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
-	connect( contentPalette,			&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
-	connect( propertiesPalette,			&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
-	connect( outlinePalette,			&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
-	connect( layerPalette,				&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
-	connect( inlinePalette,				&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
-	connect( alignDistributePalette,	&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
-	connect( scrapbookPalette,			&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
-	connect( bookPalette,				&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
-	connect( undoPalette,				&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
-	connect( symbolPalette,				&CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	// Apply common configuration for each palette
+	configureDock(pagePalette);
+	configureDock(contentPalette);
+	configureDock(propertiesPalette);
+	configureDock(layerPalette);
+	configureDock(pagePalette);
+	configureDock(inlinePalette);
+	configureDock(alignDistributePalette);
+	configureDock(scrapbookPalette);
+	configureDock(bookPalette);
+	configureDock(undoPalette);
+	configureDock(symbolPalette);
 
 	// Panel ToolProperties
 	//    PanelToolProperties * panelTest = new PanelToolProperties();
 	//    dockToolProperties->setWidget(panelTest);
 	//    dockToolProperties->setFeature(ads::CDockWidget::NoTab, true);
+
 }
 
 void DockManager::setCentralWidget(QWidget *widget)
@@ -157,9 +159,9 @@ bool DockManager::hasTemporaryHiddenDocks()
 CDockAreaWidget *DockManager::addDockFromPlugin(CDockWidget *dock, bool closed)
 {
 	CDockAreaWidget *a = addDockWidget(RightDockWidgetArea, dock, dockCenter->dockAreaWidget());
-	dock->toggleView(!closed);
+	dock->toggleView(!closed);	
 	updateIcon(dock);
-	connect( dock, &CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
+	configureDock(dock);
 	return a;
 }
 
@@ -211,6 +213,18 @@ void DockManager::updateIcon(CDockWidget *dockWidget)
 
 	for (auto tabCloseButton : dockWidget->dockAreaWidget()->findChildren<QAbstractButton*>("tabCloseButton"))
 		tabCloseButton->setIcon(iconManager.loadIcon("close", 12));
+}
+
+void DockManager::configureDock(CDockWidget *dock)
+{
+	/*
+	* MinimumSizeHintFromContent
+	* MinimumSizeHintFromDockWidgetMinimumSize
+	* MinimumSizeHintFromContentMinimumSize
+	*/
+
+	dock->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromContent);
+	connect( dock, &CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
 }
 
 void DockManager::createDefaultWorkspace()

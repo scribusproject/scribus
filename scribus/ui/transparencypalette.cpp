@@ -35,19 +35,10 @@ TransparencyPalette::TransparencyPalette(QWidget* parent) : QWidget(parent)
 	TGradDia = new GradientVectorDialog(this->parentWidget());
 	TGradDia->hide();
 	setupUi(this);
-	editLineSelector->setIcon(IconManager::instance().loadIcon("16/color-stroke.png"));
-	editFillSelector->setIcon(IconManager::instance().loadIcon("16/color-fill.png"));
-	editFillSelector->setChecked(true);
-	strokeOpacity->setDecimals(0);
 	fillOpacity->setDecimals(0);
-	editFillSelectorButton();
 
-	connect(editLineSelector, SIGNAL(clicked()), this, SLOT(editLineSelectorButton()));
-	connect(editFillSelector, SIGNAL(clicked()), this, SLOT(editFillSelectorButton()));
-	connect(strokeOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransS(double)));
 	connect(fillOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransF(double)));
 	connect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
-	connect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
 	connect(namedGradient, SIGNAL(textActivated(QString)), this, SLOT(setNamedGradient(QString)));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(gradEditButton, SIGNAL(clicked()), this, SLOT(editGradientVector()));
@@ -92,13 +83,8 @@ void TransparencyPalette::setCurrentItem(PageItem* item)
 	if (!currentItem || !currentDoc)
 		return;
 
-	if (currentItem->isGroup())
-		hideSelectionButtons();
-	else
-		showSelectionButtons();
-
-	setActTrans(currentItem->fillTransparency(), currentItem->lineTransparency());
-	setActBlend(currentItem->fillBlendmode(), currentItem->lineBlendmode());
+	setActTrans(currentItem->fillTransparency());
+	setActBlend(currentItem->fillBlendmode());
 	gradEdit->setGradient(currentItem->mask_gradient);
 	if (!currentItem->gradientMask().isEmpty())
 	{
@@ -147,10 +133,8 @@ void TransparencyPalette::setCurrentItem(PageItem* item)
 void TransparencyPalette::setDocument(ScribusDoc* doc)
 {
 	this->disconnect(SIGNAL(NewTrans(double)));
-	this->disconnect(SIGNAL(NewTransS(double)));
 	this->disconnect(SIGNAL(NewGradient(int)));
 	this->disconnect(SIGNAL(NewBlend(int)));
-	this->disconnect(SIGNAL(NewBlendS(int)));
 	this->disconnect(SIGNAL(NewPattern(QString)));
 	this->disconnect(SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)));
 	
@@ -169,9 +153,7 @@ void TransparencyPalette::setDocument(ScribusDoc* doc)
 		updateColorList();
 
 		connect(this, SIGNAL(NewTrans(double)), doc, SLOT(itemSelection_SetItemFillTransparency(double)));
-		connect(this, SIGNAL(NewTransS(double)), doc, SLOT(itemSelection_SetItemLineTransparency(double)));
 		connect(this, SIGNAL(NewBlend(int)), doc, SLOT(itemSelection_SetItemFillBlend(int)));
-		connect(this, SIGNAL(NewBlendS(int)), doc, SLOT(itemSelection_SetItemLineBlend(int)));
 		connect(this, SIGNAL(NewGradient(int)), doc, SLOT(itemSelection_SetItemGradMask(int)));
 		connect(this, SIGNAL(NewPattern(QString)), doc, SLOT(itemSelection_SetItemPatternMask(QString)));
 		connect(this, SIGNAL(NewPatternProps(double,double,double,double,double,double,double,bool,bool)), doc, SLOT(itemSelection_SetItemPatternMaskProps(double,double,double,double,double,double,double,bool,bool)));
@@ -199,28 +181,6 @@ void TransparencyPalette::updateColorList()
 
 	if (currentItem)
 		setCurrentItem(currentItem);
-}
-
-void TransparencyPalette::showSelectionButtons()
-{
-	editLineSelector->show();
-	editLineSelector->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	editFillSelector->show();
-	editFillSelector->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-}
-void TransparencyPalette::hideSelectionButtons()
-{
-	editLineSelector->hide();
-	editLineSelector->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	editFillSelector->hide();
-	editFillSelector->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	stackedWidget->setCurrentIndex(1);
-	editFillSelector->setChecked(true);
-}
-
-void TransparencyPalette::updateFromItem()
-{
-	setCurrentItem(currentItem);
 }
 
 void TransparencyPalette::updateCList()
@@ -547,54 +507,23 @@ void TransparencyPalette::changePatternProps()
 	delete dia;
 }
 
-void TransparencyPalette::setActTrans(double val, double val2)
-{
-	disconnect(strokeOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransS(double)));
-	disconnect(fillOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransF(double)));
-	strokeOpacity->setValue(qRound(100 - (val2 * 100)));
+void TransparencyPalette::setActTrans(double val)
+{	
+	disconnect(fillOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransF(double)));	
 	fillOpacity->setValue(qRound(100 - (val * 100)));
-	connect(strokeOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransS(double)));
 	connect(fillOpacity, SIGNAL(valueChanged(double)), this, SLOT(slotTransF(double)));
 }
 
-void TransparencyPalette::setActBlend(int val, int val2)
+void TransparencyPalette::setActBlend(int val)
 {
 	disconnect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
-	disconnect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
 	blendModeFill->setCurrentIndex(val);
-	blendModeStroke->setCurrentIndex(val2);
 	connect(blendModeFill, SIGNAL(activated(int)), this, SIGNAL(NewBlend(int)));
-	connect(blendModeStroke, SIGNAL(activated(int)), this, SIGNAL(NewBlendS(int)));
-}
-
-void TransparencyPalette::slotTransS(double val)
-{
-	emit NewTransS((100 - val) / 100.0);
 }
 
 void TransparencyPalette::slotTransF(double val)
 {
 	emit NewTrans((100 - val) / 100.0);
-}
-
-void TransparencyPalette::editLineSelectorButton()
-{
-	if (editLineSelector->isChecked())
-	{
-		stackedWidget->setCurrentIndex(0);
-		editFillSelector->setChecked(false);
-	}
-	updateFromItem();
-}
-
-void TransparencyPalette::editFillSelectorButton()
-{
-	if (editFillSelector->isChecked())
-	{
-		stackedWidget->setCurrentIndex(1);
-		editLineSelector->setChecked(false);
-	}
-	updateFromItem();
 }
 
 void TransparencyPalette::unitChange(double, double, int unitIndex)

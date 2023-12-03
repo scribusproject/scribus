@@ -26,7 +26,7 @@ PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent)
 {
 	setupUi(this);
 
-	checkboxHasShadow->setChecked(false);
+	switchHasShadow->setChecked(false);
 
 	numberXOffset->setNewUnit(0);
 	numberXOffset->setDecimals(2);
@@ -152,7 +152,7 @@ void PropertiesPalette_Shadow::connectSlots()
 	connect(numberShade, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
 	connect(numberOpacity, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
 
-	connect(checkboxHasShadow, &QCheckBox::stateChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+	connect(switchHasShadow, &Switch::toggled, this, &PropertiesPalette_Shadow::handleNewValues);
 
 	connect(comboboxBlendMode, &QComboBox::currentIndexChanged, this, &PropertiesPalette_Shadow::handleNewValues);
 
@@ -169,7 +169,7 @@ void PropertiesPalette_Shadow::disconnectSlots()
 	disconnect(numberShade, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
 	disconnect(numberOpacity, &ScrSpinBox::valueChanged, this, &PropertiesPalette_Shadow::handleNewValues);
 
-	disconnect(checkboxHasShadow, &QCheckBox::stateChanged, this, &PropertiesPalette_Shadow::handleNewValues);
+	disconnect(switchHasShadow, &Switch::toggled, this, &PropertiesPalette_Shadow::handleNewValues);
 
 	disconnect(comboboxBlendMode, &QComboBox::currentIndexChanged, this, &PropertiesPalette_Shadow::handleNewValues);
 
@@ -229,7 +229,7 @@ void PropertiesPalette_Shadow::setCurrentItem(PageItem *item)
 
 	disconnectSlots();
 
-	checkboxHasShadow->setChecked(item->hasSoftShadow());
+	switchHasShadow->setChecked(item->hasSoftShadow());
 	numberXOffset->setValue(item->softShadowXOffset() * m_unitRatio);
 	numberYOffset->setValue(item->softShadowYOffset() * m_unitRatio);
 	numberBlurRadius->setValue(item->softShadowBlurRadius() * m_unitRatio);
@@ -319,7 +319,7 @@ void PropertiesPalette_Shadow::handleNewValues()
 	double o = (100 - numberOpacity->value()) / 100.0;
 	int s = numberShade->value();
 
-	m_doc->itemSelection_SetSoftShadow(checkboxHasShadow->isChecked(), color, x, y, r, s, o, b, buttonEraseShadow->isChecked(), buttonInheritOpacity->isChecked());
+	m_doc->itemSelection_SetSoftShadow(switchHasShadow->isChecked(), color, x, y, r, s, o, b, buttonEraseShadow->isChecked(), buttonInheritOpacity->isChecked());
 }
 
 void PropertiesPalette_Shadow::handleInheritOpacity()

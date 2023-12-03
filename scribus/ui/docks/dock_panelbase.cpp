@@ -25,14 +25,9 @@
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "scribusapp.h"
 
-DockPanelBase::DockPanelBase(const QString &title, QIcon icon, QWidget *parent)
-	: DockPanelBase(title, parent)
-{
-	this->setIcon(icon);
-}
-
-DockPanelBase::DockPanelBase(const QString &title, QWidget *parent)
+DockPanelBase::DockPanelBase(const QString &title, QString iconName, QWidget *parent)
 	: CDockWidget(title, parent)
 {
 	if (PrefsManager::instance().appPrefs.uiPrefs.useSmallWidgets) {
@@ -50,11 +45,18 @@ DockPanelBase::DockPanelBase(const QString &title, QWidget *parent)
 					");
 	}
 
-	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
+	m_iconName = iconName;
+
+	iconSetChange();
+
 	setPrefsContext(title);
 	setObjectName(title);
 	connect(&PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
+
+DockPanelBase::DockPanelBase(const QString &title, QWidget *parent)
+	: DockPanelBase(title, QString(), parent){}
 
 void DockPanelBase::setPrefsContext(const QString &context)
 {
@@ -77,4 +79,21 @@ void DockPanelBase::setFontSize()
 	QFont newfont(font());
 	newfont.setPointSize(PrefsManager::instance().appPrefs.uiPrefs.paletteFontSize);
 	setFont(newfont);
+}
+
+void DockPanelBase::iconSetChange()
+{
+	IconManager &iconManager = IconManager::instance();
+
+	if(m_iconName.isEmpty())
+	{
+		setWindowIcon(iconManager.loadPixmap("AppIcon.png"));
+		setIcon(QIcon());
+	}
+	else
+	{
+		setWindowIcon(iconManager.loadPixmap(m_iconName));
+		setIcon(iconManager.loadPixmap(m_iconName));
+	}
+
 }

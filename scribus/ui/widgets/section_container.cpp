@@ -58,6 +58,7 @@ void SectionContainer::connectSlots()
 void SectionContainer::setText(QString text)
 {
 	widgetHeader->labelTitle->setText(text);
+	widgetHeader->labelTitle->adjustSize();
 }
 
 QString SectionContainer::text() const
@@ -121,7 +122,7 @@ void SectionContainer::setIsCollapsed(bool state)
 	{
 		widget->show();
 		widgetHeader->buttonCollapse->setIcon(iconExpanded);
-    }
+	}
 
 	emit collapsedState(m_isCollapsed);
 }
@@ -337,6 +338,7 @@ SectionContainerHeader::SectionContainerHeader(QString title, QWidget *parent)
 //	labelTitle->setFont(m_font);
 	labelTitle->setText(title);
 	labelTitle->setBuddy(this);
+	labelTitle->adjustSize();
 
 	// Buttons
 	buttonCollapse->setFlat(true);
@@ -404,9 +406,9 @@ void SectionContainerHeader::paintEvent(QPaintEvent *event)
 	painter.drawLine(0, headerHeight - lineWidth, this->width(), headerHeight - lineWidth);
 }
 
-void SectionContainerHeader::mouseDoubleClickEvent(QMouseEvent *mouseEvent)
+void SectionContainerHeader::mousePressEvent(QMouseEvent *mouseEvent)
 {
-	QWidget::mouseDoubleClickEvent(mouseEvent);
+	QWidget::mousePressEvent(mouseEvent);
 
 	if (mouseEvent->button() == Qt::LeftButton)
 	{

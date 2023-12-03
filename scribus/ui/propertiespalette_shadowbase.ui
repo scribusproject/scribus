@@ -90,6 +90,9 @@
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
      <property name="sizeHint" stdset="0">
       <size>
        <width>0</width>
@@ -489,13 +492,7 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="checkboxHasShadow">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
+       <widget class="Switch" name="switchHasShadow">
         <property name="text">
          <string/>
         </property>
@@ -508,6 +505,9 @@
     <spacer name="horizontalSpacer_2">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Maximum</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
@@ -541,7 +541,24 @@
    <extends>QToolButton</extends>
    <header>ui/widgets/color_button.h</header>
   </customwidget>
+  <customwidget>
+   <class>Switch</class>
+   <extends>QToolButton</extends>
+   <header>ui/widgets/switch.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>switchHasShadow</tabstop>
+  <tabstop>buttonColor</tabstop>
+  <tabstop>numberShade</tabstop>
+  <tabstop>comboboxBlendMode</tabstop>
+  <tabstop>buttonEraseShadow</tabstop>
+  <tabstop>numberXOffset</tabstop>
+  <tabstop>numberYOffset</tabstop>
+  <tabstop>numberBlurRadius</tabstop>
+  <tabstop>numberOpacity</tabstop>
+  <tabstop>buttonInheritOpacity</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

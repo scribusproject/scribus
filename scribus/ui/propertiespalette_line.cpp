@@ -48,6 +48,7 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	buttonsJoins->addButton(buttonJoinBevel, 1);
 	buttonsJoins->addButton(buttonJoinRound, 2);
 
+	numberOpacity->setDecimals(0);
 
 	lineType->addItem( tr("Custom"));
 
@@ -82,6 +83,8 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	connect(lineMarkerSelectorEnd, SIGNAL(scaleChanged(double)), this, SLOT(handleEndArrowScale(double)));
 	connect(lineStyles, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(handleLineStyle(QListWidgetItem*)));
 	connect(buttonSwapMarker, SIGNAL(clicked(bool)), this, SLOT(swapLineMarker()));
+	connect(comboBlendmode, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLineBlendmode(int)));
+	connect(numberOpacity, SIGNAL(valueChanged(double)), this, SLOT(handleLineOpacity(double)));
 
 }
 
@@ -611,6 +614,22 @@ void PropertiesPalette_Line::handleLineStyle(QListWidgetItem *widgetItem)
 
 }
 
+void PropertiesPalette_Line::handleLineOpacity(double opacity)
+{
+	if (!m_doc || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	m_doc->itemSelection_SetItemLineTransparency((100 - numberOpacity->value()) / 100.0);
+}
+
+void PropertiesPalette_Line::handleLineBlendmode(int mode)
+{
+	if (!m_doc || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	m_doc->itemSelection_SetItemLineBlend(comboBlendmode->currentIndex());
+}
+
 void PropertiesPalette_Line::swapLineMarker()
 {
 	int startID = lineMarkerSelectorStart->marker();
@@ -718,4 +737,6 @@ void PropertiesPalette_Line::toggleLabelVisibility(bool v)
 	lineTypeLabel->setLabelVisibility(v);
 	lineEndLabel->setLabelVisibility(v);
 	lineMarkerLabel->setLabelVisibility(v);
+	lineOpacityLabel->setLabelVisibility(v);
+	lineBlendmodeLabel->setLabelVisibility(v);
 }

@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "styles/charstyle.h"
 
 ContentPalette::ContentPalette(QWidget *parent) :
-	DockPanelBase("ContentPalette", parent)
+	DockPanelBase("ContentPalette", "panel-content-properties", parent)
 {
 	setObjectName(QString::fromLocal8Bit("ContentPalette"));
 
