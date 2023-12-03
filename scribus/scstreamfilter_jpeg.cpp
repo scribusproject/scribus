@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include <cstdio>
 #include <cstring>
 
+#include <qglobal.h>
+
 extern "C"
 {
 #define XMD_H           // shut JPEGlib up

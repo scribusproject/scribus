@@ -22,12 +22,12 @@ void Switch::setSizeMode(Size mode)
 
 	switch(m_size)
 	{
-	case Size::Normal:
-		m_radius = 10;
-		break;
-	case Size::Small:
-		m_radius = 6;
-		break;
+		case Size::Normal:
+			m_radius = 10;
+			break;
+		case Size::Small:
+			m_radius = 6;
+			break;
 	}
 
 	m_pos += m_radius; // add new radius
@@ -75,14 +75,12 @@ void Switch::animate(bool toggled)
 	{
 		m_anim->setStartValue(m_margin + m_radius);
 		m_anim->setEndValue(width() - m_radius - m_margin);
-		m_anim->setDuration(120);
-		m_anim->start();
 	}
 	else
 	{
 		m_anim->setStartValue(position());
 		m_anim->setEndValue(m_margin + m_radius);
-		m_anim->setDuration(120);
-		m_anim->start();
 	}
+	m_anim->setDuration(120);
+	m_anim->start();
 }

@@ -379,11 +379,8 @@ class LastStyles
 {
 public:
 	CharStyle Style;
-	int StyleStart;
+	int StyleStart {0};
 	QString ParaStyle;
-	LastStyles() {
-		StyleStart = 0;
-	}
 };
 
 class AttributeValue
@@ -421,7 +418,7 @@ struct DownloadItem
 	QString type;
 	QString movetofile;
 	QString source;
-	bool download;
+	bool download {false};
 };
 
 struct DownloadData

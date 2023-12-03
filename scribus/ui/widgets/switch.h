@@ -21,8 +21,8 @@ public:
 	int position() const {return m_pos;}
 	void setPosition(int x)
 	{
-		   m_pos = x;
-		   update();
+		m_pos = x;
+		update();
 	}
 
 	Size sizeMode() const;
@@ -37,8 +37,8 @@ private:
 	int m_radius { 10 };
 	int m_margin { 2 };
 	int m_pos {m_radius + m_margin};
-	QPropertyAnimation *m_anim = nullptr;
-	Size m_size {Size::Normal};
+	QPropertyAnimation *m_anim { nullptr };
+	Size m_size { Size::Normal };
 
 private slots:
 	void animate(bool toggled);

@@ -149,7 +149,6 @@ void ResourceManager::readAvailableFonts()
 
 		struct DownloadItem d;
 		d.desc = e.attribute("description");
-		d.download = false;
 		d.files = e.attribute("files");
 		d.extractfiles = e.attribute("extractfiles");
 		d.url = e.attribute("URL");
@@ -208,9 +207,7 @@ void ResourceManager::readAvailableHelp()
 
 		struct DownloadItem d;
 		d.desc = e.attribute("description");
-		d.download = false;
 		d.files = e.attribute("files");
-		d.extractfiles = "";
 		d.url = e.attribute("URL");
 		d.version = e.attribute("version");
 		d.lang = e.attribute("language");
@@ -262,9 +259,7 @@ void ResourceManager::readAvailablePalettes()
 
 		struct DownloadItem d;
 		d.desc = e.attribute("description");
-		d.download = false;
 		d.files = e.attribute("files");
-		d.extractfiles = "";
 		d.url = e.attribute("URL");
 		d.version = e.attribute("version");
 		d.lang = e.attribute("language");
@@ -599,7 +594,6 @@ void ResourceManager::updateAvailableHyph()
 
 		struct DownloadItem d;
 		d.desc = e.attribute("description");
-		d.download = false;
 		d.files = e.attribute("files");
 		d.extractfiles = e.attribute("extractfiles");
 		d.url = e.attribute("URL");
@@ -699,7 +693,6 @@ void ResourceManager::updateAvailableSpell()
 
 		struct DownloadItem d;
 		d.desc = e.attribute("description");
-		d.download = false;
 		d.files = e.attribute("files");
 		d.extractfiles = e.attribute("extractfiles");
 		d.url = e.attribute("URL");
