@@ -216,7 +216,6 @@ void Prefs_Spelling::setAvailDictsXMLFile(const QString& availDictsXMLDataFile)
 			{
 				struct DownloadItem d;
 				d.desc = e.attribute("description");
-				d.download = false;
 				d.files = e.attribute("files");
 				d.url = e.attribute("URL");
 				d.version = e.attribute("version");

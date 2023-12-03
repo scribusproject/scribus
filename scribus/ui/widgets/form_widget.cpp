@@ -43,19 +43,20 @@ void FormWidget::calculateFrame()
 	int w, h;
 	labelSize(w,h);
 
-	switch(m_position){
-	case Left:
-		setContentsMargins(w,0,0,0);
-		break;
-	case Right:
-		setContentsMargins(0,0,w,0);
-		break;
-	case Top:
-		setContentsMargins(0,h,0,0);
-		break;
-	case Bottom:
-		setContentsMargins(0,0,0,h);
-		break;
+	switch(m_position)
+	{
+		case Left:
+			setContentsMargins(w, 0, 0, 0);
+			break;
+		case Right:
+			setContentsMargins(0, 0, w, 0);
+			break;
+		case Top:
+			setContentsMargins(0, h, 0, 0);
+			break;
+		case Bottom:
+			setContentsMargins(0, 0, 0, h);
+			break;
 	}
 
 	update();

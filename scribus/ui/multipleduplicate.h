@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef MULTIPLEDUPLICATE
 #define MULTIPLEDUPLICATE
 
+#include <QDialog>
 #include "ui_multipleduplicate.h"
 struct ItemMultipleDuplicateData;
 class ScribusDoc;
