@@ -728,25 +728,25 @@ int OutputPreview_PDF::renderPreviewSep(int pageIndex, int res)
 	m_sepsToFileNum.clear();
 	if (sepInfo.open(QIODevice::ReadOnly))
 	{
-		QString Sname;
+		QString sepLine;
 		QTextStream tsC(&sepInfo);
 		int counter = 0;
 		while (!tsC.atEnd())
 		{
-			Sname = tsC.readLine();
-			if (Sname.startsWith("Warning"))
+			sepLine = tsC.readLine();
+			if (sepLine.startsWith("Warning"))
 				continue;
 			QString tt;
-			if (Sname.contains("%%SeparationColor:"))
+			if (sepLine.contains("%%SeparationColor:"))
 			{
-				int firstQuote = Sname.indexOf('\"');
-				int lastQuote = Sname.lastIndexOf('\"');
+				int firstQuote = sepLine.indexOf('\"');
+				int lastQuote = sepLine.lastIndexOf('\"');
 				if (firstQuote >= 0 && lastQuote >= 0 && firstQuote < lastQuote)
-					tt = Sname.mid(firstQuote + 1, lastQuote - firstQuote - 1);
+					tt = sepLine.mid(firstQuote + 1, lastQuote - firstQuote - 1);
 			}
 			else
 			{
-				tt = Sname.remove("%%SeparationName:").trimmed();
+				tt = sepLine.remove("%%SeparationName:").trimmed();
 				int cmykVals = tt.lastIndexOf("CMYK =");
 				if (cmykVals >= 0)
 					tt = tt.left(cmykVals).trimmed();
