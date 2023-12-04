@@ -359,7 +359,7 @@ bool PrintPreviewCreator_PS::createPreviewFile(int pageIndex)
 	bool success = (psLib->createPS(psFileName) == 0);
 	delete psLib;
 
-	// TODO : Postscript level < 3
+	// TODO : PostScript level < 3
 	if (success && (printOptions.prnLanguage != PrintLanguage::PostScript3))
 	{
 		// use gs to convert our PS to a lower version
@@ -516,8 +516,9 @@ int PrintPreviewCreator_PS::renderPreviewSep(int pageIndex, int res)
 	m_doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
 	args3.append( "-sDEVICE=tiffsep" );
+	if (m_gsVersion >= 954)
+		args3.append( "-dPrintSpotCMYK=true" );
 
-//	args3.append( "-c" );
 	cmd = "<< /SeparationColorNames ";
 	QString allSeps ="[ /Cyan /Magenta /Yellow /Black ";
 	for (int sp = 0; sp < spots.count(); ++sp)
@@ -547,7 +548,25 @@ int PrintPreviewCreator_PS::renderPreviewSep(int pageIndex, int res)
 		while (!tsC.atEnd())
 		{
 			Sname = tsC.readLine();
-			QString tt = Sname.remove("%%SeparationName:").trimmed();
+			if (Sname.startsWith("Warning"))
+				continue;
+			QString tt;
+			if (Sname.contains("%%SeparationColor:"))
+			{
+				int firstQuote = Sname.indexOf('\"');
+				int lastQuote = Sname.lastIndexOf('\"');
+				if (firstQuote >= 0 && lastQuote >= 0 && firstQuote < lastQuote)
+					tt = Sname.mid(firstQuote + 1, lastQuote - firstQuote - 1);
+			}
+			else
+			{
+				tt = Sname.remove("%%SeparationName:").trimmed();
+				int cmykVals = tt.lastIndexOf("CMYK =");
+				if (cmykVals >= 0)
+					tt = tt.left(cmykVals).trimmed();
+			}
+			if (tt == "Cyan" || tt == "Magenta" || tt == "Yellow" || tt == "Black")
+				tt.clear();
 			if (!tt.isEmpty())
 			{
 				m_sepsToFileNum.insert(tt, counter);
@@ -556,13 +575,14 @@ int PrintPreviewCreator_PS::renderPreviewSep(int pageIndex, int res)
 		}
 	}
 	sepInfo.close();
-	QString currSeps = "";
+
+	QString currSeps;
 	uint spc = 0;
 	for (int sp = 0; sp < spots.count(); ++sp)
 	{
 		currSeps += "(" + spots[sp] + ") ";
 		spc++;
-		if (sp > 6)
+		if (spc > 6 || sp == spots.count() - 1)
 		{
 			args3.clear();
 			args3.append("-sDEVICE=tiffsep");
@@ -576,24 +596,9 @@ int PrintPreviewCreator_PS::renderPreviewSep(int pageIndex, int res)
 			args3.append("-f");
 			args3.append(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/" +  m_tempBaseName + ".sep.ps"));
 			ret = System(gsExe, args1 + args3 + args2);
-			currSeps = "";
+			currSeps.clear();
 			spc = 0;
 		}
-	}
-	if (spc != 0)
-	{
-		args3.clear();
-		args3.append("-sDEVICE=tiffsep");
-		QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/" +  m_tempBaseName + ".sep.ps"));
-		if (fx.open(QIODevice::WriteOnly))
-		{
-			QTextStream tsx(&fx);
-			tsx << QString("<< /SeparationColorNames " + allSeps + " /SeparationOrder [ " + currSeps + " ] >> setpagedevice");
-			fx.close();
-		}
-		args3.append("-f");
-		args3.append(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/" +  m_tempBaseName + ".sep.ps"));
-		ret = System(gsExe, args1 + args3 + args2);
 	}
 	return ret;
 }
