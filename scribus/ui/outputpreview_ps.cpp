@@ -767,25 +767,25 @@ int OutputPreview_PS::renderPreviewSep(int pageIndex, int res)
 	m_sepsToFileNum.clear();
 	if (sepInfo.open(QIODevice::ReadOnly))
 	{
-		QString Sname;
+		QString sepLine;
 		QTextStream tsC(&sepInfo);
 		int counter = 0;
 		while (!tsC.atEnd())
 		{
-			Sname = tsC.readLine();
-			if (Sname.startsWith("Warning"))
+			sepLine = tsC.readLine();
+			if (sepLine.startsWith("Warning"))
 				continue;
 			QString tt;
-			if (Sname.contains("%%SeparationColor:"))
+			if (sepLine.contains("%%SeparationColor:"))
 			{
-				qsizetype firstQuote = Sname.indexOf('\"');
-				qsizetype lastQuote = Sname.lastIndexOf('\"');
+				qsizetype firstQuote = sepLine.indexOf('\"');
+				qsizetype lastQuote = sepLine.lastIndexOf('\"');
 				if (firstQuote >= 0 && lastQuote >= 0 && firstQuote < lastQuote)
-					tt = Sname.mid(firstQuote + 1, lastQuote - firstQuote - 1);
+					tt = sepLine.mid(firstQuote + 1, lastQuote - firstQuote - 1);
 			}
 			else
 			{
-				tt = Sname.remove("%%SeparationName:").trimmed();
+				tt = sepLine.remove("%%SeparationName:").trimmed();
 				qsizetype cmykVals = tt.lastIndexOf("CMYK =");
 				if (cmykVals >= 0)
 					tt = tt.left(cmykVals).trimmed();
