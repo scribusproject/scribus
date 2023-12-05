@@ -79,7 +79,7 @@ ScImage::ScImage( int width, int height ) : QImage( width, height, QImage::Forma
 	initialize();
 }
 
-const QImage& ScImage::qImage()
+const QImage& ScImage::qImage() const
 {
 	return *this;
 }

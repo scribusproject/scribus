@@ -53,7 +53,7 @@ public:
 
 	void initialize();
 
-	const QImage& qImage();
+	const QImage& qImage() const;
 	QImage* qImagePtr();
 	QImage scaled(int w, int h, Qt::AspectRatioMode mode = Qt::IgnoreAspectRatio, Qt::TransformationMode transformMode = Qt::FastTransformation) const;
 	
