@@ -519,14 +519,23 @@ int PrintPreviewCreator_PS::renderPreviewSep(int pageIndex, int res)
 	if (m_gsVersion >= 954)
 		args3.append( "-dPrintSpotCMYK=true" );
 
-	cmd = "<< /SeparationColorNames ";
 	QString allSeps ="[ /Cyan /Magenta /Yellow /Black ";
 	for (int sp = 0; sp < spots.count(); ++sp)
 	{
 		allSeps += "(" + spots[sp] + ") ";
 	}
 	allSeps += "]";
-	cmd += allSeps + " /SeparationOrder [ /Cyan /Magenta /Yellow /Black] >> setpagedevice";
+
+	// Workaround for https://bugs.ghostscript.com/show_bug.cgi?id=707365
+	// This issue causes separations rendered individually to be garbled,
+	// so render files with a reasonable number of spot colors in one go
+	constexpr int maxSpotColors = 4;
+	cmd = "<< /SeparationColorNames ";
+	if (spots.count() <= maxSpotColors)
+		cmd += allSeps + " /SeparationOrder " + allSeps + " >> setpagedevice";
+	else
+		cmd += allSeps + " /SeparationOrder [ /Cyan /Magenta /Yellow /Black] >> setpagedevice";
+
 	QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/" +  m_tempBaseName + ".sep.ps"));
 	if (fx.open(QIODevice::WriteOnly))
 	{
@@ -578,7 +587,7 @@ int PrintPreviewCreator_PS::renderPreviewSep(int pageIndex, int res)
 
 	QString currSeps;
 	uint spc = 0;
-	for (int sp = 0; sp < spots.count(); ++sp)
+	for (int sp = maxSpotColors; sp < spots.count(); ++sp)
 	{
 		currSeps += "(" + spots[sp] + ") ";
 		spc++;
