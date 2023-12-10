@@ -33,7 +33,8 @@ void ScImgDataLoader_GMagick::initSupportedFormatList()
 
 void ScImgDataLoader_GMagick::initGraphicsMagick()
 {
-	if (!gm_initialized) {
+	if (!gm_initialized)
+	{
 		InitializeMagick(0); //TODO: Get path
 		gm_initialized = true;
 	}
@@ -65,35 +66,39 @@ bool ScImgDataLoader_GMagick::readCMYK(Image *input, RawImage *output, int width
 	const PixelPacket *pixels = AcquireImagePixels(input, 0, 0, width, height, &exception);
 	if (exception.severity != UndefinedException)
 		CatchException(&exception);
-	if (!pixels) {
+	if (!pixels)
+	{
 		qCritical() << QObject::tr("Could not get pixel data!");
 		return false;
 	}
 
-    const IndexPacket *alpha = 0;
-    if (hasAlpha) {
-        alpha = AccessImmutableIndexes(input);
-        if (!alpha) {
-            qCritical() << QObject::tr("Could not get alpha channel data!");
-            return false;
-        }
-    }
+	const IndexPacket *alpha = 0;
+	if (hasAlpha)
+	{
+		alpha = AccessImmutableIndexes(input);
+		if (!alpha)
+		{
+			qCritical() << QObject::tr("Could not get alpha channel data!");
+			return false;
+		}
+	}
 
 	unsigned char *buffer = output->bits();
-	if (!buffer) {
-	   qCritical() << QObject::tr("Could not allocate output buffer!");
-	   return false;
-    }
+	if (!buffer)
+	{
+		qCritical() << QObject::tr("Could not allocate output buffer!");
+		return false;
+	}
 
 	int i;
-	for (i = 0; i < width*height; i++) {
+	for (i = 0; i < width * height; i++)
+	{
 		*buffer++ = ScaleQuantumToChar(GetCyanSample(pixels[i]));
 		*buffer++ = ScaleQuantumToChar(GetMagentaSample(pixels[i]));
 		*buffer++ = ScaleQuantumToChar(GetYellowSample(pixels[i]));
 		*buffer++ = ScaleQuantumToChar(GetCMYKBlackSample(pixels[i]));
-		if (hasAlpha) {
+		if (hasAlpha)
 			*buffer++ = 255 - ScaleQuantumToChar(GetAlphaSample(alpha[i]));
-		}
 	}
 	return true;
 }
@@ -108,13 +113,15 @@ bool ScImgDataLoader_GMagick::readRGB(Image *input, QImage *output, int width, i
 	const PixelPacket *pixels = AcquireImagePixels(input, 0, 0, width, height, &exception);
 	if (exception.severity != UndefinedException)
 		CatchException(&exception);
-	if (!pixels) {
+	if (!pixels)
+	{
 		qCritical() << QObject::tr("Could not get pixel data!");
 		return false;
 	}
 
 	unsigned char *buffer = output->bits();
-	if (!buffer) {
+	if (!buffer)
+	{
 		qCritical() << QObject::tr("Could not allocate output buffer!");
 		return false;
 	}
@@ -324,7 +331,8 @@ bool ScImgDataLoader_GMagick::preloadAlphaChannel(const QString& fn, int /*page*
 	Image *image = PingImage(image_info, &exception);
 	if (exception.severity != UndefinedException)
 		CatchException(&exception);
-	if (!image) {
+	if (!image)
+	{
 		qCritical() << "Failed to read image" << fn;
 		return false;
 	}
@@ -350,7 +358,8 @@ void ScImgDataLoader_GMagick::loadEmbeddedProfile(const QString& fn, int /*page*
 	Image *image = ReadImage(image_info, &exception);
 	if (exception.severity != UndefinedException)
 		CatchException(&exception);
-	if (!image) {
+	if (!image)
+	{
 		qCritical() << "Failed to read image" << fn;
 		return;
 	}
@@ -359,11 +368,10 @@ void ScImgDataLoader_GMagick::loadEmbeddedProfile(const QString& fn, int /*page*
 	const unsigned char *src = GetImageProfile(image, "ICM", &length);
 	char *dest = m_embeddedProfile.data();
 
-	if (image->colorspace == CMYKColorspace) {
+	if (image->colorspace == CMYKColorspace)
 		m_profileComponents = 4;
-	} else if (image->colorspace == RGBColorspace) {
+	else if (image->colorspace == RGBColorspace)
 		m_profileComponents = 3;
-	}
 
 	m_embeddedProfile.resize(length);
 	memcpy(dest, src, length);
