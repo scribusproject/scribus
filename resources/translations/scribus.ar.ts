@@ -142,13 +142,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="685"/>
-        <source>Harfbuzz: %1</source>
+        <location filename="../../scribus/ui/about.cpp" line="683"/>
+        <source>cairo: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="683"/>
-        <source>cairo: %1</source>
+        <location filename="../../scribus/ui/about.cpp" line="685"/>
+        <source>Harfbuzz: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -175,16 +175,6 @@
         <location filename="../../scribus/ui/about.cpp" line="105"/>
         <source>About Scribus %1</source>
         <translation>حول سكريبس %1</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="188"/>
-        <source>&amp;Licence</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="197"/>
-        <source>Unable to open licence file. Please check your install directory or the Scribus website for licencing information.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="311"/>
@@ -257,9 +247,19 @@
         <translation>مدونة المطور</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/about.cpp" line="188"/>
+        <source>&amp;Licence</source>
+        <translation>ال&amp;رخصة</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/about.cpp" line="139"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="197"/>
+        <source>Unable to open licence file. Please check your install directory or the Scribus website for licencing information.</source>
+        <translation>تعذر فتح ملف الرخصة. رجاء راجع مجلد التثبيت أو موقع سكريبس لمعلومات الترخيص.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="265"/>
@@ -2676,12 +2676,12 @@
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="281"/>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="283"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="278"/>
@@ -6175,26 +6175,6 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation>Alt+U</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/createrange.ui" line="416"/>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;موافق</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/createrange.ui" line="419"/>
-        <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/createrange.ui" line="426"/>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;الغاء</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/createrange.ui" line="429"/>
-        <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/createrange.ui" line="104"/>
         <source>Add a Range of Pages</source>
         <translation>أضف نطاق من الصفحات</translation>
@@ -6253,6 +6233,26 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/ui/createrange.ui" line="384"/>
         <source>Page Group Size:</source>
         <translation>حجم مجموعة الصفحات:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/createrange.ui" line="416"/>
+        <source>&amp;OK</source>
+        <translation>&amp;موافق</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/createrange.ui" line="419"/>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/createrange.ui" line="426"/>
+        <source>&amp;Cancel</source>
+        <translation>&amp;الغاء</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/createrange.ui" line="429"/>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -9359,7 +9359,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="202"/>
         <source>The Import plugin cannot handle Postscript files</source>
-        <translation type="unfinished"></translation>
+        <translation>لا يستطيع الملحق المستورد التعامل مع ملفات Postscript </translation>
     </message>
 </context>
 <context>
@@ -11752,16 +11752,6 @@ If no handle is selected all handles will be reset.</source>
         <translation>Alt+G</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/multipleduplicate.ui" line="434"/>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;موافق</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/multipleduplicate.ui" line="450"/>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;الغاء</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="156"/>
         <source>Rotation:</source>
         <translation>تدوير:</translation>
@@ -11820,6 +11810,16 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="390"/>
         <source>&amp;Link Text Frames</source>
         <translation>&amp;اِربط الأُطُر النصّية</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/multipleduplicate.ui" line="434"/>
+        <source>&amp;OK</source>
+        <translation>&amp;موافق</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/multipleduplicate.ui" line="450"/>
+        <source>&amp;Cancel</source>
+        <translation>&amp;الغاء</translation>
     </message>
 </context>
 <context>
@@ -13393,69 +13393,69 @@ Please check it and try again.</source>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="546"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="548"/>
         <source>Saving PDF</source>
         <translation>حفظ PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="550"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="552"/>
         <source>Exporting Master Page:</source>
         <translation>تصدير صفحة رئيسة:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="550"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="552"/>
         <source>Exporting Page:</source>
         <translation>تصدير صفحة:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="550"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="552"/>
         <source>Exporting Items on Current Page:</source>
         <translation>تصدير عناصر على الصفحة الحالية:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="600"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="602"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
         <translation>يفتقد بناء Qt كلًا من برامج الترميز النصية &quot;UTF-16&quot; و&quot;ISO-10646-UCS-2&quot;، لا يمكن تصدير pdf&#xa0;</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3504"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3506"/>
         <source>Page:</source>
         <translation>الصفحة:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3514"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3516"/>
         <source>Date:</source>
         <translation>التاريخ:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10647"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10649"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>فشلَ تضمين ملف PDF : %1.
 الرجاء تعطيل PDF التجريبي و PS المضمَّنَين وحاول مرة أخرى.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11803"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11805"/>
         <source>Failed to load an image : %1</source>
         <translation>فشل في تحميل صورة: 1%</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11808"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11810"/>
         <source>Failed to write an image : %1</source>
         <translation>فشل في كتابة صورة: 1%</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11813"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11815"/>
         <source>Failed to load an image mask : %1</source>
         <translation>فشل في تحميل قناع صورة: 1%</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11818"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11820"/>
         <source>Insufficient memory for processing an image</source>
         <translation>الذاكرة غير كافية لمعالجة صورة</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11798"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11800"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>حدث خطأ كتابي، الرجاء التحقق من مساحة القرص المتوفرة</translation>
     </message>
@@ -13471,37 +13471,37 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PSLib</name>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1636"/>
+        <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Processing Master Page:</source>
         <translation>معالجة الصفحة الرئيسة:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1636"/>
+        <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Exporting Page:</source>
         <translation>تصدير صفحة:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1575"/>
+        <location filename="../../scribus/pslib.cpp" line="1576"/>
         <source>Failed to write data for an image</source>
         <translation>فشل في كتابة بيانات لصورة</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="526"/>
+        <location filename="../../scribus/pslib.cpp" line="527"/>
         <source>Failed to open file for writing : %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1580"/>
+        <location filename="../../scribus/pslib.cpp" line="1581"/>
         <source>Failed to load an image : %1</source>
         <translation>فشل في تحميل صورة: 1%</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1585"/>
+        <location filename="../../scribus/pslib.cpp" line="1586"/>
         <source>Failed to load an image mask : %1</source>
         <translation>فشل في تحميل قناع صورة: 1%</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1590"/>
+        <location filename="../../scribus/pslib.cpp" line="1591"/>
         <source>Insufficient memory for processing an image</source>
         <translation>الذاكرة غير كافية لمعالجة صورة</translation>
     </message>
@@ -14172,7 +14172,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="103"/>
         <source>&lt;qt&gt;List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;قائمة الصفحات العادية في المستند معروضة مع تخطيط المستند. قد تُسحب الصفحات لإعادة ترتيبهن أو حذفهن.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="139"/>
@@ -16583,7 +16583,8 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/prefsmanager.cpp" line="888"/>
         <source>Scribus has detected existing Scribus 1.3.5 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
-        <translation type="unfinished"></translation>
+        <translation>اكتشف سكريبس وجود ملفات تفضيلات لـسكريبس 1.3.5.
+هل تريد نقلهن لإصدار سكريبس الجديد؟</translation>
     </message>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="1981"/>
@@ -28759,11 +28760,6 @@ External Links
         <translation>يفتقر العنصر &lt;lpiSettingsEntry&gt; إلى سمة `الإسم&apos;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="832"/>
-        <source>Scribus Development Version</source>
-        <translation>نسخة تطوير سكريبس</translation>
-    </message>
-    <message>
         <location filename="../../scribus/units.cpp" line="156"/>
         <source>pt</source>
         <translation>نقطة</translation>
@@ -28817,6 +28813,16 @@ External Links
         <location filename="../../scribus/util.cpp" line="432"/>
         <source>File exists</source>
         <translation>الملف موجود</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="832"/>
+        <source>Document Version Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="833"/>
+        <source>The document you are working with was created by a previous version of Scribus. Saving the current file under a newer version will render it unable to be edited by that older version. To preserve the ability to edit the file with the older version, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2019"/>
@@ -29262,6 +29268,12 @@ is not exhaustive due to exceptions from called functions.
         <translation>الخط 1% به صورة رمزية معطوبة 2% (ترميز الأحرف %3)</translation>
     </message>
     <message>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="207"/>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="227"/>
+        <source>Font %1 cannot be read, no embedding</source>
+        <translation>لا يمكن قراءة الخط 1%، بلا تضمين</translation>
+    </message>
+    <message>
         <location filename="../../scribus/scfonts.cpp" line="699"/>
         <source>Failed to load font %1 - font type unknown</source>
         <translation>فشل تحميل الخط 1% - نوع الخط مجهول</translation>
@@ -29511,12 +29523,12 @@ is not exhaustive due to exceptions from called functions.
         <translation>German (Trad.)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1628"/>
+        <location filename="../../scribus/pslib.cpp" line="1629"/>
         <source>Exporting PostScript File</source>
         <translation>تصدير ملف  PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1630"/>
+        <location filename="../../scribus/pslib.cpp" line="1631"/>
         <source>Printing File</source>
         <translation>طباعة ملف</translation>
     </message>
@@ -29686,12 +29698,6 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../scribus/fonts/scface_ps.cpp" line="126"/>
         <source>Font %1 is broken (no Face), discarding it</source>
         <translation>الخط 1% معطّل (بلا واجهة)، تجاهله</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="207"/>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="227"/>
-        <source>Font %1 cannot be read, no embedding</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="384"/>
@@ -30072,11 +30078,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>تعذّر العثور على مقاييس للخط 1%، تجاهُل الخط</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexhelpers.cpp" line="73"/>
-        <source>Highlighter error: Invalid index returned by Qt&apos;s QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/latexhelpers.cpp" line="103"/>
         <location filename="../../scribus/latexhelpers.cpp" line="442"/>
         <location filename="../../scribus/ui/latexeditor.cpp" line="408"/>
@@ -30365,19 +30366,19 @@ Therefore the image may be not correct</source>
         <translation>متصفح الصور</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="69"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="112"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="71"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="118"/>
         <source>Could not get pixel data!</source>
         <translation>تعذّر الحصول على بيانات بكسل!</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="77"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="81"/>
         <source>Could not get alpha channel data!</source>
         <translation>تعذّر الحصول على بيانات قناة ألفا!</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="84"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="118"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="89"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="125"/>
         <source>Could not allocate output buffer!</source>
         <translation>تعذّر تخصيص ذاكرة مخبأة مؤقتة للإخراج!</translation>
     </message>
@@ -30410,6 +30411,11 @@ Therefore the image may be not correct</source>
         <location filename="../../scribus/plugins/scripter/scripter.cpp" line="33"/>
         <source>Scripter Plugin</source>
         <translation>ملحق بريمجات</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/latexhelpers.cpp" line="73"/>
+        <source>Highlighter error: Invalid index returned by Qt&apos;s QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="91"/>
@@ -30958,11 +30964,6 @@ Therefore the image may be not correct</source>
         <translation>Nepali</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="833"/>
-        <source>You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation>تعمل الآن النسخة المطوّرة من سكريبس 1.5.x. أُنشئ المستند الذي تعمل عليه في سكريبس&#xa0;1.2.x. إذا حفظت الملف الحالي بمسمى 1.5.x فلن يُمكن تحريره في إصدارات 1.2x. إذا كنت ترغب في تمكين خاصيّة التحرير في 1.2.x فاحفظ الملف بمسمى آخر وحرر الملف المسمى حديثًا أكثر ولن يتغير الملف الأصلي. هل أنت متأكد من رغبتك في إتمام هذه العملية؟</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="66"/>
         <source>PUB Importer</source>
         <translation>مستورد PUB</translation>
@@ -30973,7 +30974,7 @@ Therefore the image may be not correct</source>
         <translation>&lt;p&gt;أنت تحاول استيراد صفحات أكثر من تلك المتوفرة في المستند الحالي بحسب الصفحة النشطة.&lt;/p&gt;اختر أحد الخيارات التالية:&lt;ul&gt;&lt;li&gt;&lt;b&gt;أنشئ&lt;/b&gt;صفحات مفقودة&lt;/li&gt;&lt;li&gt;&lt;b&gt;استورد&lt;/b&gt;صفحات حتى الصفحة الأخيرة&lt;/li&gt;&lt;li&gt;&lt;b&gt;ألغِ&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18174"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18175"/>
         <source>Unacceptable settings for note style</source>
         <translation>إعدادات غير مقبولة لنمط الملاحظة</translation>
     </message>
@@ -31194,7 +31195,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="88"/>
         <source>Open Raster</source>
-        <translation type="unfinished"></translation>
+        <translation>افتح رسوميات نقطية</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="103"/>
@@ -31594,11 +31595,6 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>وصف</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/resourcemanager.cpp" line="379"/>
-        <source>Licence</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="552"/>
         <source>Type</source>
         <translation>النوع</translation>
@@ -31646,6 +31642,11 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="504"/>
         <source>Location</source>
         <translation>الموقع</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/resourcemanager.cpp" line="379"/>
+        <source>Licence</source>
+        <translation>الرخصة</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="652"/>
@@ -33615,16 +33616,6 @@ Caution: this will increase the file size!</source>
         <translation>قابل للتحرير</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2276"/>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="2283"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/annot.ui" line="383"/>
         <source>Options</source>
         <translation>خيارات</translation>
@@ -33976,6 +33967,16 @@ Caution: this will increase the file size!</source>
         <location filename="../../scribus/ui/annot.ui" line="2125"/>
         <source>Calculate</source>
         <translation>احسب</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/annot.ui" line="2276"/>
+        <source>OK</source>
+        <translation>موافق</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/annot.ui" line="2283"/>
+        <source>Cancel</source>
+        <translation>الغاء</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="449"/>
@@ -34790,7 +34791,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="214"/>
         <location filename="../../scribus/scribusdoc.cpp" line="220"/>
         <location filename="../../scribus/scribusdoc.cpp" line="250"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16633"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16634"/>
         <source>Document</source>
         <translation>مستند</translation>
     </message>
@@ -34800,27 +34801,27 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>الخلفية</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11324"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11325"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>لا يمكن حذف عنصر قيد الاستخدام</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11324"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11325"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>يٌحرّر حاليًا العنصر 1% بواسطة محرر القصة. سوف تُلغى عملية الحذف</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11949"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11950"/>
         <source>Some objects are locked.</source>
         <translation>بعض العناصر مُوصدة.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11945"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11946"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;افتح الكل</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11946"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11947"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;تخطى العناصر المُوصدة</translation>
     </message>
@@ -34831,22 +34832,22 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="964"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16314"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16315"/>
         <source>Adjusting Colors</source>
         <translation>ضبط الألوان</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9159"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9160"/>
         <source>remove direct paragraph formatting</source>
         <translation>أزل تنسيق الفقرة المباشر</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9628"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9629"/>
         <source>remove direct char formatting</source>
         <translation>أزِل تنسيق الأحرف المباشر</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13603"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13604"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34857,7 +34858,7 @@ Rotation: %4</source>
 دوران: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13636"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13637"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34868,9 +34869,9 @@ Vertical gap: %4</source>
 الفجوة الرأسية: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15001"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15056"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15218"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15002"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15057"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15219"/>
         <source>Group%1</source>
         <translation> مجموعه%1</translation>
     </message>
@@ -34881,28 +34882,28 @@ Vertical gap: %4</source>
         <translation>اُستورِد</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13757"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13758"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16649"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16650"/>
         <source>File %1 autosaved</source>
         <translation>حُفظ الملف 1% تلقائيًا</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17801"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17840"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17802"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17841"/>
         <source>No Style</source>
         <translation>بلا نمط</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18168"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18169"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>يحتوي نمط الملاحظة 1% على مستند كنطاق ويوفر نفس نمط الترقيم كالمجموعة 2%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11222"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11223"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>هل حقًا تريد مسح محتويات كل الإطارات المحددة؟</translation>
     </message>
@@ -35746,12 +35747,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>تعطيل</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3059"/>
+        <location filename="../../scribus/scribusview.cpp" line="3060"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>لا يمكن تحويل عنصر قيد الاستخدام</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3059"/>
+        <location filename="../../scribus/scribusview.cpp" line="3060"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>يُحرر حاليًا العنصر 1% بواسطة محرر القصص. سيتم تخطي عملية تحويل هذا العنصر لخطوط خارجية. </translation>
     </message>

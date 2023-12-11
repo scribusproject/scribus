@@ -13397,69 +13397,69 @@ Veuillez le vérifier puis essayer à nouveau.</translation>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="546"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="548"/>
         <source>Saving PDF</source>
         <translation>Enregistrement en PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="550"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="552"/>
         <source>Exporting Master Page:</source>
         <translation>Export du gabarit :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="550"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="552"/>
         <source>Exporting Page:</source>
         <translation>Export de la page :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="550"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="552"/>
         <source>Exporting Items on Current Page:</source>
         <translation>Export des objets de la page courante :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="600"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="602"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
         <translation>Qt ne dispose pas des codecs &quot;UTF-16&quot; ou &quot;ISO-10646-UCS-2&quot;, l&apos;export PDF est impossible</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3504"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3506"/>
         <source>Page:</source>
         <translation>Page :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3514"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3516"/>
         <source>Date:</source>
         <translation>Date :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10647"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10649"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Échec d&apos;incorporation du fichier PDF : %1.
 Veuillez désactivez l&apos;option expérimentale d&apos;incorporation des fichiers PS et PDF, puis réessayer à nouveau.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11803"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11805"/>
         <source>Failed to load an image : %1</source>
         <translation>Erreur lors du chargement d&apos;une image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11808"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11810"/>
         <source>Failed to write an image : %1</source>
         <translation>Erreur lors de l&apos;écriture d&apos;une image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11813"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11815"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Erreur lors du chargement d&apos;un masque d&apos;image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11818"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11820"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Mémoire insuffisante pour traiter une image</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11798"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11800"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Une erreur d&apos;écriture s&apos;est produite, veuillez contrôler l&apos;espace disque disponible</translation>
     </message>
@@ -13475,37 +13475,37 @@ Veuillez désactivez l&apos;option expérimentale d&apos;incorporation des fichi
 <context>
     <name>PSLib</name>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1636"/>
+        <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Processing Master Page:</source>
         <translation>Traitement du gabarit :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1636"/>
+        <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Exporting Page:</source>
         <translation>Export de la page :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1575"/>
+        <location filename="../../scribus/pslib.cpp" line="1576"/>
         <source>Failed to write data for an image</source>
         <translation>Erreur lors de l&apos;écriture des données d&apos;une image</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="526"/>
+        <location filename="../../scribus/pslib.cpp" line="527"/>
         <source>Failed to open file for writing : %1</source>
         <translation>Erreur lors de l&apos;ouverture d&apos;un fichier en écriture : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1580"/>
+        <location filename="../../scribus/pslib.cpp" line="1581"/>
         <source>Failed to load an image : %1</source>
         <translation>Erreur lors du chargement d&apos;une image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1585"/>
+        <location filename="../../scribus/pslib.cpp" line="1586"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Erreur lors du chargement d&apos;un masque d&apos;image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1590"/>
+        <location filename="../../scribus/pslib.cpp" line="1591"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Mémoire insuffisante pour traiter une image</translation>
     </message>
@@ -28767,11 +28767,6 @@ Liens externes
         <translation>l&apos;élement &lt;lpiSettingsEntry&gt; n&apos;a pas d&apos;attribut &apos;nom&apos;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="832"/>
-        <source>Scribus Development Version</source>
-        <translation>Version de développement de Scribus</translation>
-    </message>
-    <message>
         <location filename="../../scribus/units.cpp" line="156"/>
         <source>pt</source>
         <translation>pt</translation>
@@ -28825,6 +28820,16 @@ Liens externes
         <location filename="../../scribus/util.cpp" line="432"/>
         <source>File exists</source>
         <translation>Fichier existant</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="832"/>
+        <source>Document Version Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="833"/>
+        <source>The document you are working with was created by a previous version of Scribus. Saving the current file under a newer version will render it unable to be edited by that older version. To preserve the ability to edit the file with the older version, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2019"/>
@@ -29520,12 +29525,12 @@ est fourni dans la documentation de ladite fonction.
         <translation>Allemand (Trad.)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1628"/>
+        <location filename="../../scribus/pslib.cpp" line="1629"/>
         <source>Exporting PostScript File</source>
         <translation>Export du fichier PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1630"/>
+        <location filename="../../scribus/pslib.cpp" line="1631"/>
         <source>Printing File</source>
         <translation>Impression du fichier</translation>
     </message>
@@ -30374,19 +30379,19 @@ Auquel cas l’image pourra ne pas être affichée correctement</translation>
         <translation type="unfinished">Navigateur d&apos;image</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="69"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="112"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="71"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="118"/>
         <source>Could not get pixel data!</source>
         <translation type="unfinished">Les données pixel n&apos;ont pu être récupérées!</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="77"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="81"/>
         <source>Could not get alpha channel data!</source>
         <translation type="unfinished">Les données du canal alpha n&apos;ont pu être récupérées!</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="84"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="118"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="89"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="125"/>
         <source>Could not allocate output buffer!</source>
         <translation type="unfinished">Le buffer de sortie n&apos;a pu être alloué!</translation>
     </message>
@@ -30967,11 +30972,6 @@ Auquel cas l’image pourra ne pas être affichée correctement</translation>
         <translation>Népalais</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="833"/>
-        <source>You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation>Vous utilisez une version de développement de Scribus 1.5.x. Le document sur lequel vous travaillez a été créé avec Scribus 1.2.x. Si vous l&apos;enregistrez avec cette version de Scribus, il ne sera plus utilisable avec les versions 1.2.x de Scribus. Afin de pouvoir ouvrir le document original avec une version 1.2.x, enregistrez-le sous un autre nom et continuez à travailler avec ce dernier ; le document original ne sera pas modifié. Êtes-vous sûr·e de vouloir continuer cette opération ?</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="66"/>
         <source>PUB Importer</source>
         <translation>Importateur PUB</translation>
@@ -30982,7 +30982,7 @@ Auquel cas l’image pourra ne pas être affichée correctement</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18174"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18175"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34801,7 +34801,7 @@ Si vous sauvez ce document, il ne sera plus lisible par les versions de Scribus 
         <location filename="../../scribus/scribusdoc.cpp" line="214"/>
         <location filename="../../scribus/scribusdoc.cpp" line="220"/>
         <location filename="../../scribus/scribusdoc.cpp" line="250"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16633"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16634"/>
         <source>Document</source>
         <translation>Document</translation>
     </message>
@@ -34811,27 +34811,27 @@ Si vous sauvez ce document, il ne sera plus lisible par les versions de Scribus 
         <translation>Fond de page</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11324"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11325"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Impossible de supprimer un objet en cours d&apos;utilisation</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11324"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11325"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>L&apos;objet %1 est en cours d&apos;édition dans l&apos;éditeur. L&apos;opération de suppression est annulée</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11949"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11950"/>
         <source>Some objects are locked.</source>
         <translation>Des objets sont verrouillés.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11945"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11946"/>
         <source>&amp;Unlock All</source>
         <translation>To&amp;ut déverrouiller</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11946"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11947"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Sauter les objets verrouillés</translation>
     </message>
@@ -34842,22 +34842,22 @@ Si vous sauvez ce document, il ne sera plus lisible par les versions de Scribus 
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="964"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16314"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16315"/>
         <source>Adjusting Colors</source>
         <translation>Ajustement des couleurs</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9159"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9160"/>
         <source>remove direct paragraph formatting</source>
         <translation>Suppression du formatage manuel des paragraphes</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9628"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9629"/>
         <source>remove direct char formatting</source>
         <translation>Suppression du formatage manuel des caractères</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13603"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13604"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34868,7 +34868,7 @@ Décalage vertical : %3
 Rotation : %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13636"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13637"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34879,9 +34879,9 @@ Gouttière horizontale&#xa0;: %3
 Gouttière verticale&#xa0;: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15001"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15056"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15218"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15002"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15057"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15219"/>
         <source>Group%1</source>
         <translation>Groupe %1</translation>
     </message>
@@ -34892,28 +34892,28 @@ Gouttière verticale&#xa0;: %4</translation>
         <translation>Importé </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13757"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13758"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation>Copie de %1 objet(s) dans %2 page(s)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16649"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16650"/>
         <source>File %1 autosaved</source>
         <translation>Fichier %1 sauvegardé automatiquement</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17801"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17840"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17802"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17841"/>
         <source>No Style</source>
         <translation>Aucun style</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18168"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18169"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>Le style de note %1 fournit le même style de numérotation que le style %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11222"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11223"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Voulez-vous vraiment effacer le contenu des cadres sélectionnés&#xa0;?</translation>
     </message>
@@ -35757,12 +35757,12 @@ Utilisez le vérificateur afin de les corriger</translation>
         <translation>Désactivé</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3059"/>
+        <location filename="../../scribus/scribusview.cpp" line="3060"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Impossible de convertir un objet en cours d&apos;utilisation</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3059"/>
+        <location filename="../../scribus/scribusview.cpp" line="3060"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>L&apos;objet %1 est en cours d&apos;édition dans l&apos;éditeur interne. L&apos;opération de conversion en contours va être annulée</translation>
     </message>
@@ -42178,7 +42178,7 @@ veuillez choisir un autre nom.</translation>
     <message>
         <location filename="../../scribus/ui/weldeditbase.ui" line="14"/>
         <source>Edit Weld</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Éditer les liens</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/weldeditbase.ui" line="32"/>

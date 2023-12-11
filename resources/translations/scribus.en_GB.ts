@@ -142,14 +142,14 @@
         <translation>Libraries:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="685"/>
-        <source>Harfbuzz: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/about.cpp" line="683"/>
         <source>cairo: %1</source>
         <translation>cairo: %1</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="685"/>
+        <source>Harfbuzz: %1</source>
+        <translation>Harfbuzz: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="687"/>
@@ -175,16 +175,6 @@
         <location filename="../../scribus/ui/about.cpp" line="105"/>
         <source>About Scribus %1</source>
         <translation>About Scribus %1</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="188"/>
-        <source>&amp;Licence</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="197"/>
-        <source>Unable to open licence file. Please check your install directory or the Scribus website for licencing information.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="311"/>
@@ -257,9 +247,19 @@
         <translation>Developer Blog</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/about.cpp" line="188"/>
+        <source>&amp;Licence</source>
+        <translation>&amp;Licence</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/about.cpp" line="139"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</source>
         <translation>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="197"/>
+        <source>Unable to open licence file. Please check your install directory or the Scribus website for licencing information.</source>
+        <translation>Unable to open licence file. Please check your install directory or the Scribus website for licencing information.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="265"/>
@@ -2676,12 +2676,12 @@
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="281"/>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="283"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="278"/>
@@ -6176,26 +6176,6 @@ See the Edit Colours section of the documentation for more details.</translation
         <translation>Alt+U</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/createrange.ui" line="416"/>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/createrange.ui" line="419"/>
-        <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/createrange.ui" line="426"/>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/createrange.ui" line="429"/>
-        <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/createrange.ui" line="104"/>
         <source>Add a Range of Pages</source>
         <translation>Add a Range of Pages</translation>
@@ -6254,6 +6234,26 @@ See the Edit Colours section of the documentation for more details.</translation
         <location filename="../../scribus/ui/createrange.ui" line="384"/>
         <source>Page Group Size:</source>
         <translation>Page Group Size:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/createrange.ui" line="416"/>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/createrange.ui" line="419"/>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/createrange.ui" line="426"/>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/createrange.ui" line="429"/>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -9361,7 +9361,7 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="202"/>
         <source>The Import plugin cannot handle Postscript files</source>
-        <translation type="unfinished"></translation>
+        <translation>The Import plugin cannot handle Postscript files</translation>
     </message>
 </context>
 <context>
@@ -11753,16 +11753,6 @@ If no handle is selected all handles will be reset.</source>
         <translation>Alt+G</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/multipleduplicate.ui" line="434"/>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/multipleduplicate.ui" line="450"/>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="156"/>
         <source>Rotation:</source>
         <translation>Rotation:</translation>
@@ -11821,6 +11811,16 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="390"/>
         <source>&amp;Link Text Frames</source>
         <translation>&amp;Link Text Frames</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/multipleduplicate.ui" line="434"/>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/multipleduplicate.ui" line="450"/>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancel</translation>
     </message>
 </context>
 <context>
@@ -13082,7 +13082,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Mirror Pages(s) Vertically</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13205,7 +13205,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Mirror Pages(s) Vertically</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -13394,69 +13394,69 @@ Please check it and try again.</translation>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="546"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="548"/>
         <source>Saving PDF</source>
         <translation>Saving PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="550"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="552"/>
         <source>Exporting Master Page:</source>
         <translation>Exporting Master Page:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="550"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="552"/>
         <source>Exporting Page:</source>
         <translation>Exporting Page:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="550"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="552"/>
         <source>Exporting Items on Current Page:</source>
         <translation>Exporting Items on Current Page:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="600"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="602"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
         <translation>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3504"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3506"/>
         <source>Page:</source>
         <translation>Page:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3514"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3516"/>
         <source>Date:</source>
         <translation>Date:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10647"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10649"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11803"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11805"/>
         <source>Failed to load an image : %1</source>
         <translation>Failed to load an image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11808"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11810"/>
         <source>Failed to write an image : %1</source>
         <translation>Failed to write an image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11813"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11815"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Failed to load an image mask : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11818"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11820"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Insufficient memory for processing an image</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11798"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11800"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>A write error occurred, please check available disk space</translation>
     </message>
@@ -13472,37 +13472,37 @@ Please disable experimental PDF and PS embedding and try again.</translation>
 <context>
     <name>PSLib</name>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1636"/>
+        <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Processing Master Page:</source>
         <translation>Processing Master Page:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1636"/>
+        <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Exporting Page:</source>
         <translation>Exporting Page:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1575"/>
+        <location filename="../../scribus/pslib.cpp" line="1576"/>
         <source>Failed to write data for an image</source>
         <translation>Failed to write data for an image</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="526"/>
+        <location filename="../../scribus/pslib.cpp" line="527"/>
         <source>Failed to open file for writing : %1</source>
         <translation>Failed to open file for writing : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1580"/>
+        <location filename="../../scribus/pslib.cpp" line="1581"/>
         <source>Failed to load an image : %1</source>
         <translation>Failed to load an image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1585"/>
+        <location filename="../../scribus/pslib.cpp" line="1586"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Failed to load an image mask : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1590"/>
+        <location filename="../../scribus/pslib.cpp" line="1591"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Insufficient memory for processing an image</translation>
     </message>
@@ -14173,7 +14173,7 @@ Please disable experimental PDF and PS embedding and try again.</translation>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="103"/>
         <source>&lt;qt&gt;List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="139"/>
@@ -16584,8 +16584,8 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/prefsmanager.cpp" line="888"/>
         <source>Scribus has detected existing Scribus 1.3.5 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
-        <translation type="unfinished">Scribus has detected existing Scribus 1.3.5 preferences files.
-Do you want to migrate them to the new Scribus version? {1.6.0 ?} {1.3.5 ?}</translation>
+        <translation>Scribus has detected existing Scribus 1.3.5 preferences files.
+Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="1981"/>
@@ -17616,17 +17616,17 @@ Do you want to migrate them to the new Scribus version? {1.6.0 ?} {1.3.5 ?}</tra
     <message>
         <location filename="../../scribus/ui/prefs_experimentalbase.ui" line="35"/>
         <source>Experimental Features</source>
-        <translation type="unfinished"></translation>
+        <translation>Experimental Features</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_experimentalbase.ui" line="79"/>
         <source>Enable Notes, Marks and other related features</source>
-        <translation type="unfinished"></translation>
+        <translation>Enable Notes, Marks and other related features</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_experimental.cpp" line="18"/>
         <source>Experimental</source>
-        <translation type="unfinished"></translation>
+        <translation>Experimental</translation>
     </message>
 </context>
 <context>
@@ -20504,7 +20504,8 @@ Do you want to use this?</translation>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="35"/>
         <source>Sets the printing language to use.
  Setting to Postscript Level 1 or 2 can create huge files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sets the printing language to use.
+ Setting to Postscript Level 1 or 2 can create huge files.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="36"/>
@@ -21753,7 +21754,7 @@ a range of pages or a single page number</translation>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Mirror Pages(s) Vertically</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>
@@ -28760,11 +28761,6 @@ External Links</translation>
         <translation>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="832"/>
-        <source>Scribus Development Version</source>
-        <translation>Scribus Development Version</translation>
-    </message>
-    <message>
         <location filename="../../scribus/units.cpp" line="156"/>
         <source>pt</source>
         <translation>pt</translation>
@@ -28818,6 +28814,16 @@ External Links</translation>
         <location filename="../../scribus/util.cpp" line="432"/>
         <source>File exists</source>
         <translation>File exists</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="832"/>
+        <source>Document Version Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="833"/>
+        <source>The document you are working with was created by a previous version of Scribus. Saving the current file under a newer version will render it unable to be edited by that older version. To preserve the ability to edit the file with the older version, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2019"/>
@@ -29041,19 +29047,19 @@ External Links</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="520"/>
         <source>refer_to=0|1|2.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>refer_to=0|1|2.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="480"/>
         <source>setColumnGuides() with refer_to=2 needs a selection.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>setColumnGuides() with refer_to=2 needs a selection.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="529"/>
         <source>setRowGuides() with refer_to=2 needs a selection.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>setRowGuides() with refer_to=2 needs a selection.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="631"/>
@@ -29263,6 +29269,12 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../scribus/fonts/ftface.cpp" line="151"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
         <translation>Font %1 has broken glyph %2 (charcode %3)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="207"/>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="227"/>
+        <source>Font %1 cannot be read, no embedding</source>
+        <translation>Font %1 cannot be read, no embedding</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="699"/>
@@ -29514,12 +29526,12 @@ is not exhaustive due to exceptions from called functions.
         <translation>German (Trad.)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1628"/>
+        <location filename="../../scribus/pslib.cpp" line="1629"/>
         <source>Exporting PostScript File</source>
         <translation>Exporting PostScript File</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1630"/>
+        <location filename="../../scribus/pslib.cpp" line="1631"/>
         <source>Printing File</source>
         <translation>Printing File</translation>
     </message>
@@ -29689,12 +29701,6 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../scribus/fonts/scface_ps.cpp" line="126"/>
         <source>Font %1 is broken (no Face), discarding it</source>
         <translation>Font %1 is broken (no Face), discarding it</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="207"/>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="227"/>
-        <source>Font %1 cannot be read, no embedding</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="384"/>
@@ -30075,11 +30081,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>No metrics found for font %1, ignoring font</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexhelpers.cpp" line="73"/>
-        <source>Highlighter error: Invalid index returned by Qt&apos;s QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/latexhelpers.cpp" line="103"/>
         <location filename="../../scribus/latexhelpers.cpp" line="442"/>
         <location filename="../../scribus/ui/latexeditor.cpp" line="408"/>
@@ -30364,19 +30365,19 @@ Therefore the image may be not correct</source>
         <translation>Picture Browser</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="69"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="112"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="71"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="118"/>
         <source>Could not get pixel data!</source>
         <translation>Could not get pixel data!</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="77"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="81"/>
         <source>Could not get alpha channel data!</source>
         <translation>Could not get alpha channel data!</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="84"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="118"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="89"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="125"/>
         <source>Could not allocate output buffer!</source>
         <translation>Could not allocate output buffer!</translation>
     </message>
@@ -30409,6 +30410,11 @@ Therefore the image may be not correct</source>
         <location filename="../../scribus/plugins/scripter/scripter.cpp" line="33"/>
         <source>Scripter Plugin</source>
         <translation>Scripter Plug-in</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/latexhelpers.cpp" line="73"/>
+        <source>Highlighter error: Invalid index returned by Qt&apos;s QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
+        <translation>Highlighter error: Invalid index returned by Qt&apos;s QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="91"/>
@@ -30957,11 +30963,6 @@ Therefore the image may be not correct</source>
         <translation>Nepali</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="833"/>
-        <source>You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation>You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="66"/>
         <source>PUB Importer</source>
         <translation>PUB Importer</translation>
@@ -30972,7 +30973,7 @@ Therefore the image may be not correct</source>
         <translation>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18174"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18175"/>
         <source>Unacceptable settings for note style</source>
         <translation>Unacceptable settings for note style</translation>
     </message>
@@ -31193,7 +31194,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="88"/>
         <source>Open Raster</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Raster</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="103"/>
@@ -31336,18 +31337,18 @@ Therefore the image may be not correct</source>
         <location filename="../../scribus/api/api_application.cpp" line="110"/>
         <location filename="../../scribus/api/api_application.cpp" line="115"/>
         <source>Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtext.cpp" line="1308"/>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Target frame links to another frame.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="137"/>
         <source>Scripter for Python 2.x</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripter for Python 2.x</translation>
     </message>
 </context>
 <context>
@@ -31593,11 +31594,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Description</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/resourcemanager.cpp" line="379"/>
-        <source>Licence</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="552"/>
         <source>Type</source>
         <translation>Type</translation>
@@ -31645,6 +31641,11 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="504"/>
         <source>Location</source>
         <translation>Location</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/resourcemanager.cpp" line="379"/>
+        <source>Licence</source>
+        <translation>Licence</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="652"/>
@@ -33614,16 +33615,6 @@ Caution: this will increase the file size!</translation>
         <translation>Editable</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2276"/>
-        <source>OK</source>
-        <translation type="unfinished">OK</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="2283"/>
-        <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/annot.ui" line="383"/>
         <source>Options</source>
         <translation>Options</translation>
@@ -33975,6 +33966,16 @@ Caution: this will increase the file size!</translation>
         <location filename="../../scribus/ui/annot.ui" line="2125"/>
         <source>Calculate</source>
         <translation>Calculate</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/annot.ui" line="2276"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/annot.ui" line="2283"/>
+        <source>Cancel</source>
+        <translation>Cancel</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="449"/>
@@ -34790,7 +34791,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="214"/>
         <location filename="../../scribus/scribusdoc.cpp" line="220"/>
         <location filename="../../scribus/scribusdoc.cpp" line="250"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16633"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16634"/>
         <source>Document</source>
         <translation>Document</translation>
     </message>
@@ -34800,27 +34801,27 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Background</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11324"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11325"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Cannot Delete In-Use Item</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11324"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11325"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11949"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11950"/>
         <source>Some objects are locked.</source>
         <translation>Some objects are locked.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11945"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11946"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Unlock All</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11946"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11947"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Skip locked objects</translation>
     </message>
@@ -34831,22 +34832,22 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="964"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16314"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16315"/>
         <source>Adjusting Colors</source>
         <translation>Adjusting Colours</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9159"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9160"/>
         <source>remove direct paragraph formatting</source>
         <translation>remove direct paragraph formatting</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9628"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9629"/>
         <source>remove direct char formatting</source>
         <translation>remove direct char formatting</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13603"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13604"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34857,7 +34858,7 @@ Vertical shift: %3
 Rotation: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13636"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13637"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34868,9 +34869,9 @@ Horizontal gap: %3
 Vertical gap: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15001"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15056"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15218"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15002"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15057"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15219"/>
         <source>Group%1</source>
         <translation>Group%1</translation>
     </message>
@@ -34881,28 +34882,28 @@ Vertical gap: %4</translation>
         <translation>Imported</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13757"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13758"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation>Copied %1 item(s) on %2 page(s)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16649"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16650"/>
         <source>File %1 autosaved</source>
         <translation>File %1 autosaved</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17801"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17840"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17802"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17841"/>
         <source>No Style</source>
         <translation>No Style</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18168"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18169"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 note style has document as range and provide same numbering style as set %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11222"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11223"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Do you really want to clear the content of all selected frames?</translation>
     </message>
@@ -35745,12 +35746,12 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Disabled</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3059"/>
+        <location filename="../../scribus/scribusview.cpp" line="3060"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Cannot Convert In-Use Item</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3059"/>
+        <location filename="../../scribus/scribusview.cpp" line="3060"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</translation>
     </message>
@@ -35922,7 +35923,7 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="148"/>
         <source>Embedded Python scripting support for Python 2.x.</source>
-        <translation type="unfinished">Embedded Python scripting support for Python 3.x. {2.?}</translation>
+        <translation>Embedded Python scripting support for Python 3.x. {2.?}</translation>
     </message>
 </context>
 <context>
@@ -36794,12 +36795,12 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/storyloader.cpp" line="171"/>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation type="unfinished">Some fonts used by this document have been substituted:</translation>
+        <translation>Some fonts used by this document have been substituted:</translation>
     </message>
     <message>
         <location filename="../../scribus/storyloader.cpp" line="174"/>
         <source> was replaced by: </source>
-        <translation type="unfinished"> was replaced by: </translation>
+        <translation> was replaced by: </translation>
     </message>
 </context>
 <context>

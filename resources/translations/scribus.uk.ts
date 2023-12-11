@@ -142,13 +142,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="685"/>
-        <source>Harfbuzz: %1</source>
+        <location filename="../../scribus/ui/about.cpp" line="683"/>
+        <source>cairo: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="683"/>
-        <source>cairo: %1</source>
+        <location filename="../../scribus/ui/about.cpp" line="685"/>
+        <source>Harfbuzz: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -175,16 +175,6 @@
         <location filename="../../scribus/ui/about.cpp" line="105"/>
         <source>About Scribus %1</source>
         <translation>Про Scribus %1</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="188"/>
-        <source>&amp;Licence</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="197"/>
-        <source>Unable to open licence file. Please check your install directory or the Scribus website for licencing information.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="311"/>
@@ -257,9 +247,19 @@
         <translation>Блог розробників</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/about.cpp" line="188"/>
+        <source>&amp;Licence</source>
+        <translation>&amp;Ліцензія</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/about.cpp" line="139"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="197"/>
+        <source>Unable to open licence file. Please check your install directory or the Scribus website for licencing information.</source>
+        <translation>Не вдалось відкрити файл з ліцензією. Перегляньте ліцензійну інформацію в теці встановлення Scribus або на сайті.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="265"/>
@@ -2676,12 +2676,12 @@
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="281"/>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="283"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="278"/>
@@ -6176,26 +6176,6 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation>Alt+U</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/createrange.ui" line="416"/>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Гаразд</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/createrange.ui" line="419"/>
-        <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/createrange.ui" line="426"/>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">Скасуват&amp;и</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/createrange.ui" line="429"/>
-        <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/createrange.ui" line="104"/>
         <source>Add a Range of Pages</source>
         <translation>Додати діапазон сторінок</translation>
@@ -6254,6 +6234,26 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/ui/createrange.ui" line="384"/>
         <source>Page Group Size:</source>
         <translation>Розмір групи сторінок:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/createrange.ui" line="416"/>
+        <source>&amp;OK</source>
+        <translation>&amp;Гаразд</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/createrange.ui" line="419"/>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/createrange.ui" line="426"/>
+        <source>&amp;Cancel</source>
+        <translation>Скасуват&amp;и</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/createrange.ui" line="429"/>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -9360,7 +9360,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="202"/>
         <source>The Import plugin cannot handle Postscript files</source>
-        <translation type="unfinished"></translation>
+        <translation>Додаток для імпорту не може обробити файли Postscript</translation>
     </message>
 </context>
 <context>
@@ -11753,16 +11753,6 @@ If no handle is selected all handles will be reset.</source>
         <translation>Alt+G</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/multipleduplicate.ui" line="434"/>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Гаразд</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/multipleduplicate.ui" line="450"/>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">Скасуват&amp;и</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="156"/>
         <source>Rotation:</source>
         <translation>Поворот:</translation>
@@ -11821,6 +11811,16 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="390"/>
         <source>&amp;Link Text Frames</source>
         <translation>&amp;Пов&apos;язати текстові рамки</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/multipleduplicate.ui" line="434"/>
+        <source>&amp;OK</source>
+        <translation>&amp;Гаразд</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/multipleduplicate.ui" line="450"/>
+        <source>&amp;Cancel</source>
+        <translation>Скасуват&amp;и</translation>
     </message>
 </context>
 <context>
@@ -13082,7 +13082,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Віддзеркалити сторінки вертикально</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13205,7 +13205,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Віддзеркалити сторінки вертикально</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -13394,69 +13394,69 @@ Please check it and try again.</source>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="546"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="548"/>
         <source>Saving PDF</source>
         <translation>Запис PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="550"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="552"/>
         <source>Exporting Master Page:</source>
         <translation>Експортування зразка сторінки:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="550"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="552"/>
         <source>Exporting Page:</source>
         <translation>Експортування сторінки:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="550"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="552"/>
         <source>Exporting Items on Current Page:</source>
         <translation>Експортування об&apos;єктів з поточної сторінки:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="600"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="602"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
         <translation>У збірці Qt відсутні текстові кодеки &quot;UTF-16&quot; й &quot;ISO-10646-UCS-2&quot;, експортувати в pdf неможливо</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3504"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3506"/>
         <source>Page:</source>
         <translation>Сторінка:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3514"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3516"/>
         <source>Date:</source>
         <translation>Дата:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10647"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10649"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Не вдалося вбудувати файл PDF : %1.
 Вимкніть експериментальну функцію вбудовування PDF і PS і спробуйте знову.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11803"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11805"/>
         <source>Failed to load an image : %1</source>
         <translation>Не вдалося завантажити зображення : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11808"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11810"/>
         <source>Failed to write an image : %1</source>
         <translation>Не вдалося записати зображення : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11813"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11815"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Не вдалося завантажити маску зображення : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11818"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11820"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Недостатньо пам&apos;яті для обробки зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11798"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11800"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Трапилась помилка запису, перевірте наявність місця на диску</translation>
     </message>
@@ -13472,37 +13472,37 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PSLib</name>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1636"/>
+        <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Processing Master Page:</source>
         <translation>Обробка зразка сторінки:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1636"/>
+        <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Exporting Page:</source>
         <translation>Експортування сторінки:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1575"/>
+        <location filename="../../scribus/pslib.cpp" line="1576"/>
         <source>Failed to write data for an image</source>
         <translation>Не вдалось записати дані зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="526"/>
+        <location filename="../../scribus/pslib.cpp" line="527"/>
         <source>Failed to open file for writing : %1</source>
         <translation>Не вдалося відкрити файл для запису: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1580"/>
+        <location filename="../../scribus/pslib.cpp" line="1581"/>
         <source>Failed to load an image : %1</source>
         <translation>Не вдалося завантажити зображення : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1585"/>
+        <location filename="../../scribus/pslib.cpp" line="1586"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Не вдалося завантажити маску зображення : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1590"/>
+        <location filename="../../scribus/pslib.cpp" line="1591"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Недостатньо пам&apos;яті для обробки зображення</translation>
     </message>
@@ -14173,7 +14173,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="103"/>
         <source>&lt;qt&gt;List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Список сторінок документа, показаний відповідно до макету. Можна перетягуванням змінювати порядок сторінок або видаляти їх.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="139"/>
@@ -16584,7 +16584,8 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/prefsmanager.cpp" line="888"/>
         <source>Scribus has detected existing Scribus 1.3.5 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus знайшов файл з установками формату Scribus 1.3.5.
+Ви бажаєте конвертувати їх у формат нової версії Scribus?</translation>
     </message>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="1981"/>
@@ -20503,7 +20504,8 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="35"/>
         <source>Sets the printing language to use.
  Setting to Postscript Level 1 or 2 can create huge files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Визначає мову друку.
+ Налаштування Postscript Рівня 1 або 2 може створити величезні файли.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="36"/>
@@ -21752,7 +21754,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Віддзеркалити сторінки вертикально</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>
@@ -28760,11 +28762,6 @@ External Links
         <translation>елемент &lt;lpiSettingsEntry&gt; не містить атрибут `name&apos;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="832"/>
-        <source>Scribus Development Version</source>
-        <translation>Версія Scribus в стадії розробки</translation>
-    </message>
-    <message>
         <location filename="../../scribus/units.cpp" line="156"/>
         <source>pt</source>
         <translation>пт</translation>
@@ -28818,6 +28815,16 @@ External Links
         <location filename="../../scribus/util.cpp" line="432"/>
         <source>File exists</source>
         <translation>Файл вже існує</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="832"/>
+        <source>Document Version Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="833"/>
+        <source>The document you are working with was created by a previous version of Scribus. Saving the current file under a newer version will render it unable to be edited by that older version. To preserve the ability to edit the file with the older version, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2019"/>
@@ -29265,6 +29272,12 @@ is not exhaustive due to exceptions from called functions.
         <translation>Шрифт %1 містить помилковий знак %2 (код символу %3)</translation>
     </message>
     <message>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="207"/>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="227"/>
+        <source>Font %1 cannot be read, no embedding</source>
+        <translation>Шрифт %1 неможливо зчитати - вставка недоступна</translation>
+    </message>
+    <message>
         <location filename="../../scribus/scfonts.cpp" line="699"/>
         <source>Failed to load font %1 - font type unknown</source>
         <translation>Неможливо завантажити шрифт %1 - невідомий тип шрифту</translation>
@@ -29514,12 +29527,12 @@ is not exhaustive due to exceptions from called functions.
         <translation>Німецька (Традиц.)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1628"/>
+        <location filename="../../scribus/pslib.cpp" line="1629"/>
         <source>Exporting PostScript File</source>
         <translation>Експортування файлу PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/pslib.cpp" line="1630"/>
+        <location filename="../../scribus/pslib.cpp" line="1631"/>
         <source>Printing File</source>
         <translation>Друк файла</translation>
     </message>
@@ -29689,12 +29702,6 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../scribus/fonts/scface_ps.cpp" line="126"/>
         <source>Font %1 is broken (no Face), discarding it</source>
         <translation>Шрифт %1 містить помилку (відсутній тип) і буде видалений</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="207"/>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="227"/>
-        <source>Font %1 cannot be read, no embedding</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="384"/>
@@ -30075,11 +30082,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Для шрифту %1 не знайдено метрики, шрифт знехтувано</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexhelpers.cpp" line="73"/>
-        <source>Highlighter error: Invalid index returned by Qt&apos;s QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/latexhelpers.cpp" line="103"/>
         <location filename="../../scribus/latexhelpers.cpp" line="442"/>
         <location filename="../../scribus/ui/latexeditor.cpp" line="408"/>
@@ -30368,19 +30370,19 @@ Therefore the image may be not correct</source>
         <translation>Оглядач зображень</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="69"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="112"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="71"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="118"/>
         <source>Could not get pixel data!</source>
         <translation>Неможливо отримати дані пікселів!</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="77"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="81"/>
         <source>Could not get alpha channel data!</source>
         <translation>Неможливо отримати дані альфа-каналу!</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="84"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="118"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="89"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="125"/>
         <source>Could not allocate output buffer!</source>
         <translation>Неможливо розмістити вихідний буфер!</translation>
     </message>
@@ -30413,6 +30415,11 @@ Therefore the image may be not correct</source>
         <location filename="../../scribus/plugins/scripter/scripter.cpp" line="33"/>
         <source>Scripter Plugin</source>
         <translation>Додаток Сценарист</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/latexhelpers.cpp" line="73"/>
+        <source>Highlighter error: Invalid index returned by Qt&apos;s QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
+        <translation>Помилка підсвічування: QString.indexOf() з QT повернула неправильний індекс. Це - наслідок несумісності різних версій QT, який можна виправити лише перекомпілювавши Scribus з такою версією QT, яку запущено на цій системі. Зараз підсвічування синтаксису вимкнено, але рамки візуалізації мають працювати без проблем.</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="91"/>
@@ -30961,11 +30968,6 @@ Therefore the image may be not correct</source>
         <translation>Непальська</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="833"/>
-        <source>You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation>Ви користуєтесь нестабільною версією Scribus 1.5.x. Відкритий вами документ було створено в Scribus 1.2.x. Якщо ви збережете його в 1.5.x, його буде неможливо відкрити в Scribus 1.2.x. Щоб зберегти можливість відкрити цей документ в 1.2.x, збережіть його під іншою назвою і далі редагуйте тільки новий файл. Справді бажаєте продовжити?</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="66"/>
         <source>PUB Importer</source>
         <translation>Імпортер PUB</translation>
@@ -30976,7 +30978,7 @@ Therefore the image may be not correct</source>
         <translation>&lt;p&gt;Ви намагаєтесь імпортувати більше сторінок, ніж доступно в документі, починаючи з поточної сторінки.&lt;/p&gt;Виберіть варіант продовження:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Створити&lt;/b&gt; відсутні сторінки&lt;/li&gt;&lt;li&gt;&lt;b&gt;Імпортувати&lt;/b&gt; лише до останньої наявної сторінки&lt;/li&gt;&lt;li&gt;&lt;b&gt;Скасувати&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18174"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18175"/>
         <source>Unacceptable settings for note style</source>
         <translation>Неприйнятні параметри для стилю примітки</translation>
     </message>
@@ -31197,7 +31199,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="88"/>
         <source>Open Raster</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Raster</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="103"/>
@@ -31597,11 +31599,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Опис</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/resourcemanager.cpp" line="379"/>
-        <source>Licence</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="552"/>
         <source>Type</source>
         <translation>Тип</translation>
@@ -31649,6 +31646,11 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="504"/>
         <source>Location</source>
         <translation>Розташування</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/resourcemanager.cpp" line="379"/>
+        <source>Licence</source>
+        <translation>Ліцензія</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="652"/>
@@ -33618,16 +33620,6 @@ Caution: this will increase the file size!</source>
         <translation>Можна редагувати</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2276"/>
-        <source>OK</source>
-        <translation type="unfinished">Гаразд</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="2283"/>
-        <source>Cancel</source>
-        <translation type="unfinished">Вихід</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/annot.ui" line="383"/>
         <source>Options</source>
         <translation>Параметри</translation>
@@ -33979,6 +33971,16 @@ Caution: this will increase the file size!</source>
         <location filename="../../scribus/ui/annot.ui" line="2125"/>
         <source>Calculate</source>
         <translation>Обчислити</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/annot.ui" line="2276"/>
+        <source>OK</source>
+        <translation>Гаразд</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/annot.ui" line="2283"/>
+        <source>Cancel</source>
+        <translation>Вихід</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="449"/>
@@ -34793,7 +34795,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="214"/>
         <location filename="../../scribus/scribusdoc.cpp" line="220"/>
         <location filename="../../scribus/scribusdoc.cpp" line="250"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16633"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16634"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
@@ -34803,27 +34805,27 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Фон</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11324"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11325"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Неможливо видалити об&apos;єкт під час його використання</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11324"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11325"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операцію видалення буде скасовано</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11949"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11950"/>
         <source>Some objects are locked.</source>
         <translation>Деякі об&quot;єкти - замкнені.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11945"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11946"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Розімкнути всі об&quot;єкти</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11946"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11947"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Пропустити заблоковані об&apos;єкти</translation>
     </message>
@@ -34834,22 +34836,22 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="964"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16314"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16315"/>
         <source>Adjusting Colors</source>
         <translation>Налаштування кольорів</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9159"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9160"/>
         <source>remove direct paragraph formatting</source>
         <translation>прибрати пряме форматування абзаців</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9628"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9629"/>
         <source>remove direct char formatting</source>
         <translation>прибрати пряме форматування знаків</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13603"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13604"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34860,7 +34862,7 @@ Rotation: %4</source>
 Поворот: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13636"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13637"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34871,9 +34873,9 @@ Vertical gap: %4</source>
 Вертикальний проміжок: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15001"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15056"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15218"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15002"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15057"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15219"/>
         <source>Group%1</source>
         <translation>Група%1</translation>
     </message>
@@ -34884,28 +34886,28 @@ Vertical gap: %4</source>
         <translation>Імпортовано</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13757"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13758"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16649"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16650"/>
         <source>File %1 autosaved</source>
         <translation>Файл %1 автоматично збережено</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17801"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17840"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17802"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17841"/>
         <source>No Style</source>
         <translation>Без стилю</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18168"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18169"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>Стиль примітки %1 має діапазоном весь документ і надає такий же стиль нумерації, як набір %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11222"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11223"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Справді очистити вміст всіх вибраних рамок?</translation>
     </message>
@@ -35749,12 +35751,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Вимкнено</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3059"/>
+        <location filename="../../scribus/scribusview.cpp" line="3060"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Неможливо конвертувати об&apos;єкт під час його використання</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3059"/>
+        <location filename="../../scribus/scribusview.cpp" line="3060"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція конвертування в контурні лінії буде пропущена</translation>
     </message>
