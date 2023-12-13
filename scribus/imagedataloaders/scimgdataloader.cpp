@@ -226,7 +226,11 @@ void ScImgDataLoader::parseResourceData( QDataStream & s, const PSDHeader & head
 				s >> vResUnit;
 				s >> dummyW;
 				m_imageInfoRecord.xres = qRound(hRes / 65536.0);
+				if (m_imageInfoRecord.xres == 0)
+					m_imageInfoRecord.xres = 72;
 				m_imageInfoRecord.yres = qRound(vRes / 65536.0);
+				if (m_imageInfoRecord.yres == 0)
+					m_imageInfoRecord.yres = 72;
 				break;
 			case 0x040f:
 				m_embeddedProfile.resize(resSize);
