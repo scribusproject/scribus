@@ -25461,17 +25461,17 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="361"/>
         <source>Konyanka Maninka</source>
-        <translation type="unfinished"/>
+        <translation>Konyanka Maninka</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="362"/>
         <source>Kpelle</source>
-        <translation type="unfinished"/>
+        <translation>Kpèllé</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="363"/>
         <source>Krio</source>
-        <translation type="unfinished"/>
+        <translation>Krio</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="364"/>
@@ -25486,17 +25486,17 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="366"/>
         <source>Kumaoni</source>
-        <translation type="unfinished"/>
+        <translation>Kumaoni</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="367"/>
         <source>Kumyk</source>
-        <translation type="unfinished"/>
+        <translation>Kumyk</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="368"/>
         <source>Kumzari</source>
-        <translation type="unfinished"/>
+        <translation>Kumzari</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="370"/>
@@ -25506,17 +25506,17 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="371"/>
         <source>Kurukh</source>
-        <translation type="unfinished"/>
+        <translation>Kurukh</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="372"/>
         <source>Kuy</source>
-        <translation type="unfinished"/>
+        <translation>Kuy</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="373"/>
         <source>Kwanyama</source>
-        <translation type="unfinished"/>
+        <translation>Kwanyama</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="374"/>
@@ -25556,7 +25556,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="381"/>
         <source>Lampung Api</source>
-        <translation type="unfinished"/>
+        <translation>Lampung Api</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="382"/>
@@ -25576,7 +25576,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="387"/>
         <source>Lezgi</source>
-        <translation type="unfinished"/>
+        <translation>Lezgi</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="388"/>
@@ -25586,7 +25586,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="389"/>
         <source>Limbu</source>
-        <translation type="unfinished"/>
+        <translation>Limbou</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="390"/>
@@ -25611,7 +25611,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="395"/>
         <source>Lomwe</source>
-        <translation type="unfinished"/>
+        <translation>Lomwe</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="396"/>
@@ -25631,7 +25631,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="400"/>
         <source>Lü</source>
-        <translation type="unfinished"/>
+        <translation>Taï Lü</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="401"/>
@@ -25686,7 +25686,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="411"/>
         <source>Majang</source>
-        <translation type="unfinished"/>
+        <translation>Majang</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="412"/>
@@ -25821,7 +25821,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="438"/>
         <source>Me&apos;en</source>
-        <translation type="unfinished"/>
+        <translation>Me&apos;en</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="439"/>
@@ -25861,12 +25861,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="446"/>
         <source>Mizo</source>
-        <translation type="unfinished"/>
+        <translation>Mizo</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="447"/>
         <source>Mon</source>
-        <translation type="unfinished"/>
+        <translation>Mon</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="448"/>
@@ -25886,7 +25886,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="452"/>
         <source>Morisyen</source>
-        <translation type="unfinished"/>
+        <translation>Morisyen</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="453"/>
@@ -25896,12 +25896,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="454"/>
         <source>Mundari</source>
-        <translation type="unfinished"/>
+        <translation>Mundari</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="455"/>
         <source>N&apos;Ko</source>
-        <translation type="unfinished"/>
+        <translation>N&apos;Ko</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="456"/>
@@ -25931,7 +25931,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="461"/>
         <source>Ndau</source>
-        <translation type="unfinished"/>
+        <translation>Ndau</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="462"/>
@@ -25961,7 +25961,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="468"/>
         <source>Ngabaka</source>
-        <translation type="unfinished"/>
+        <translation>Ngabaka</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="469"/>
@@ -25971,7 +25971,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="470"/>
         <source>Nimadi</source>
-        <translation type="unfinished"/>
+        <translation>Nimadi</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="471"/>
@@ -26011,7 +26011,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="481"/>
         <source>Occidental</source>
-        <translation type="unfinished"/>
+        <translation>Occidental</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="482"/>
@@ -26046,7 +26046,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="488"/>
         <source>Pa&apos;O</source>
-        <translation type="unfinished"/>
+        <translation>Pa&apos;O</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="489"/>
@@ -26066,7 +26066,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="492"/>
         <source>Palpa</source>
-        <translation type="unfinished"/>
+        <translation>Palpa</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="493"/>
@@ -26101,7 +26101,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="501"/>
         <source>Phake</source>
-        <translation type="unfinished"/>
+        <translation>Phake</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="502"/>
@@ -26131,7 +26131,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="511"/>
         <source>Rinconada Bikol</source>
-        <translation type="unfinished"/>
+        <translation>Rinconada Bikol</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="512"/>
@@ -26141,7 +26141,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="513"/>
         <source>Rakhine</source>
-        <translation type="unfinished"/>
+        <translation>Rakhine</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="514"/>
@@ -26151,7 +26151,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="515"/>
         <source>Rejang</source>
-        <translation type="unfinished"/>
+        <translation>Redjang</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="516"/>
@@ -26186,12 +26186,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="524"/>
         <source>Rusyn</source>
-        <translation type="unfinished"/>
+        <translation>Rusyn</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="525"/>
         <source>S&apos;gaw Karen</source>
-        <translation type="unfinished"/>
+        <translation>S&apos;gaw Karen</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="526"/>
@@ -26266,7 +26266,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="542"/>
         <source>Sebat Bet Gurage</source>
-        <translation type="unfinished"/>
+        <translation>Sebat Bet Gurage</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="543"/>
@@ -26276,12 +26276,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="544"/>
         <source>Sena</source>
-        <translation type="unfinished"/>
+        <translation>Sena</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="545"/>
         <source>Seraiki</source>
-        <translation type="unfinished"/>
+        <translation>Seraiki</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="548"/>
@@ -26296,7 +26296,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="550"/>
         <source>Shekhawati</source>
-        <translation type="unfinished"/>
+        <translation>Shekhawati</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="551"/>
@@ -26306,7 +26306,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="552"/>
         <source>Sibe</source>
-        <translation type="unfinished"/>
+        <translation>Xibe</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="553"/>
@@ -26326,7 +26326,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="556"/>
         <source>Silt&apos;e</source>
-        <translation type="unfinished"/>
+        <translation>Silt&apos;e</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="557"/>
@@ -26351,17 +26351,17 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="563"/>
         <source>Sodo Gurage</source>
-        <translation type="unfinished"/>
+        <translation>Sodo Gurage</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="565"/>
         <source>Soga</source>
-        <translation type="unfinished"/>
+        <translation>Soga</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="566"/>
         <source>Songe</source>
-        <translation type="unfinished"/>
+        <translation>Songe</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="567"/>
@@ -26456,7 +26456,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="589"/>
         <source>Tai Nüa</source>
-        <translation type="unfinished"/>
+        <translation>Tai Nüa</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="590"/>
@@ -26701,7 +26701,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="638"/>
         <source>Wolane</source>
-        <translation type="unfinished"/>
+        <translation>Wolane</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="639"/>
@@ -26997,7 +26997,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="152"/>
         <source>Baulé</source>
-        <translation type="unfinished"/>
+        <translation>Baulé</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="153"/>
@@ -27047,12 +27047,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="165"/>
         <source>Bikol</source>
-        <translation type="unfinished"/>
+        <translation>Bicol</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="166"/>
         <source>Bikol (Central)</source>
-        <translation type="unfinished"/>
+        <translation>Bicol (Central)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="167"/>
@@ -27062,17 +27062,17 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="168"/>
         <source>Bini</source>
-        <translation type="unfinished"/>
+        <translation>Bini</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="169"/>
         <source>Bishnupriya</source>
-        <translation type="unfinished"/>
+        <translation>Bishnupriya</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="170"/>
         <source>Bislama</source>
-        <translation type="unfinished"/>
+        <translation>Bichelamar</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="171"/>
@@ -27087,17 +27087,17 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="173"/>
         <source>Bouyei</source>
-        <translation type="unfinished"/>
+        <translation>Bouyei</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="175"/>
         <source>Brahui</source>
-        <translation type="unfinished"/>
+        <translation>Brahoui</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="176"/>
         <source>Braj Bhasha</source>
-        <translation type="unfinished"/>
+        <translation>Braj Bhasha</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="178"/>
@@ -27122,12 +27122,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="184"/>
         <source>Catanduanes Bikol Northern</source>
-        <translation type="unfinished"/>
+        <translation>Catanduanes Bicol Northern</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="185"/>
         <source>Catanduanes Bikol Southern</source>
-        <translation type="unfinished"/>
+        <translation>Catanduanes Bicol Southern</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="186"/>
@@ -27137,7 +27137,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="187"/>
         <source>Central Atlas Tamazight</source>
-        <translation type="unfinished"/>
+        <translation>Central Atlas Tamazight</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="188"/>
@@ -27147,12 +27147,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="189"/>
         <source>Chattisgarhi</source>
-        <translation type="unfinished"/>
+        <translation>Chattisgarhi</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="190"/>
         <source>Chavacano</source>
-        <translation type="unfinished"/>
+        <translation>Chavacano</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="191"/>
@@ -27167,7 +27167,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="193"/>
         <source>Chewa</source>
-        <translation type="unfinished"/>
+        <translation>Chewa</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="194"/>
@@ -27177,7 +27177,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="195"/>
         <source>Chiga</source>
-        <translation type="unfinished"/>
+        <translation>Chiga</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="198"/>
@@ -27197,12 +27197,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="201"/>
         <source>Chukchi</source>
-        <translation type="unfinished"/>
+        <translation>Chukchi</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="202"/>
         <source>Church Slavic</source>
-        <translation type="unfinished"/>
+        <translation>Slavon d&apos;église</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="203"/>
@@ -27263,7 +27263,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="217"/>
         <source>Dangme</source>
-        <translation type="unfinished"/>
+        <translation>Adangme</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="219"/>
@@ -27278,27 +27278,27 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="221"/>
         <source>Dhundari</source>
-        <translation type="unfinished"/>
+        <translation>Dhundari</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="222"/>
         <source>Dinka</source>
-        <translation type="unfinished"/>
+        <translation>Dinka</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="223"/>
         <source>Dimli</source>
-        <translation type="unfinished"/>
+        <translation>Zazaki</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="224"/>
         <source>Dogri</source>
-        <translation type="unfinished"/>
+        <translation>Dogri</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="227"/>
         <source>Ebira</source>
-        <translation type="unfinished"/>
+        <translation>Ebira</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="236"/>
@@ -27308,7 +27308,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="238"/>
         <source>Erzya</source>
-        <translation type="unfinished"/>
+        <translation>Erzya</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="240"/>
@@ -27393,12 +27393,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="259"/>
         <source>Garhwali</source>
-        <translation type="unfinished"/>
+        <translation>Garhwali</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="260"/>
         <source>Garo</source>
-        <translation type="unfinished"/>
+        <translation>Garo</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="261"/>
@@ -27413,17 +27413,17 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="267"/>
         <source>Gilaki</source>
-        <translation type="unfinished"/>
+        <translation>Guilaki</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="268"/>
         <source>Gilyak</source>
-        <translation type="unfinished"/>
+        <translation>Nivkhe</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="269"/>
         <source>Gogo</source>
-        <translation type="unfinished"/>
+        <translation>Gogo</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="270"/>
@@ -27443,12 +27443,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="276"/>
         <source>Gumuz</source>
-        <translation type="unfinished"/>
+        <translation>Gumuz</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="277"/>
         <source>Gusii</source>
-        <translation type="unfinished"/>
+        <translation>Gousii</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="278"/>
@@ -27463,12 +27463,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="281"/>
         <source>Harauti</source>
-        <translation type="unfinished"/>
+        <translation>Harauti</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="282"/>
         <source>Haryanvi</source>
-        <translation type="unfinished"/>
+        <translation>Haryanvi</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="283"/>
@@ -27483,12 +27483,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="285"/>
         <source>Haya</source>
-        <translation type="unfinished"/>
+        <translation>Haya</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="286"/>
         <source>Hazaragi</source>
-        <translation type="unfinished"/>
+        <translation>Hazara</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="288"/>
@@ -27523,12 +27523,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="295"/>
         <source>Hmong Daw</source>
-        <translation type="unfinished"/>
+        <translation>Hmong Daw</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="296"/>
         <source>Ho</source>
-        <translation type="unfinished"/>
+        <translation>Ho</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="297"/>
@@ -27538,7 +27538,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="298"/>
         <source>Ibibio</source>
-        <translation type="unfinished"/>
+        <translation>Ibibio</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="300"/>
@@ -27553,7 +27553,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="302"/>
         <source>Ijo</source>
-        <translation type="unfinished"/>
+        <translation>Ijo</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="303"/>
@@ -27603,7 +27603,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="312"/>
         <source>Izon</source>
-        <translation type="unfinished"/>
+        <translation>Izon</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="313"/>
@@ -27623,7 +27623,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="317"/>
         <source>K&apos;iche&apos;</source>
-        <translation type="unfinished"/>
+        <translation>K&apos;iche&apos;</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="318"/>
@@ -27668,7 +27668,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="327"/>
         <source>Kapampangan</source>
-        <translation type="unfinished"/>
+        <translation>Pampangue</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="328"/>
@@ -27703,12 +27703,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="334"/>
         <source>Kashubian</source>
-        <translation type="unfinished"/>
+        <translation>Cachoube</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="335"/>
         <source>Kayah</source>
-        <translation type="unfinished"/>
+        <translation>Kayah</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="336"/>
@@ -27718,12 +27718,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="337"/>
         <source>Khakass</source>
-        <translation type="unfinished"/>
+        <translation>Khakas</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="338"/>
         <source>Khamti</source>
-        <translation type="unfinished"/>
+        <translation>Khamti</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="339"/>
@@ -27733,7 +27733,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="341"/>
         <source>Khowar</source>
-        <translation type="unfinished"/>
+        <translation>Khowar</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="342"/>
@@ -27743,7 +27743,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="343"/>
         <source>Kildin Sami</source>
-        <translation type="unfinished"/>
+        <translation>Same de Kildin</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="344"/>
@@ -27758,7 +27758,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="346"/>
         <source>Kita Maninkakan</source>
-        <translation type="unfinished"/>
+        <translation>Malinké de Kita</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="347"/>
@@ -27768,12 +27768,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="348"/>
         <source>Kokni</source>
-        <translation type="unfinished"/>
+        <translation>Kokni</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="350"/>
         <source>Komi</source>
-        <translation type="unfinished"/>
+        <translation>Komi</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="351"/>
@@ -27798,7 +27798,7 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="355"/>
         <source>Komso</source>
-        <translation type="unfinished"/>
+        <translation>Komso</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="356"/>
@@ -27808,12 +27808,12 @@ Liens externes
     <message>
         <location filename="../../scribus/langmgr.cpp" line="357"/>
         <source>Konkani</source>
-        <translation type="unfinished"/>
+        <translation>Konkani</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="358"/>
         <source>Koorete</source>
-        <translation type="unfinished"/>
+        <translation>Koorete</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="359"/>
