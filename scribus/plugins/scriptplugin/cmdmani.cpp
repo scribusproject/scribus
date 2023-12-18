@@ -316,18 +316,39 @@ PyObject *scribus_rotateobjectrel(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_rotateobjectabs(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setrotation(PyObject* /* self */, PyObject* args, PyObject* kw)
 {
-	char *Name = const_cast<char*>("");
-	double x;
-	if (!PyArg_ParseTuple(args, "d|es", &x, "utf-8", &Name))
+	double rotation;
+	char* name = const_cast<char*>("");
+	int basepoint = (int) AnchorPoint::None;
+	char *kwargs[] = {
+					  const_cast<char *>("rotation"),
+					  const_cast<char *>("name"),
+					  const_cast<char *>("basepoint"),
+					  nullptr};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "d|esi", kwargs, &rotation, "utf-8", &name, &basepoint))
 		return nullptr;
+
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == nullptr)
 		return nullptr;
-	ScCore->primaryMainWindow()->doc->rotateItem(x * -1.0, item);
+
+	AnchorPoint oldBasePoint = AnchorPoint::None;
+	if (basepoint != (int) AnchorPoint::None)
+	{
+		oldBasePoint = ScCore->primaryMainWindow()->doc->rotationMode();
+		ScCore->primaryMainWindow()->doc->setRotationMode(static_cast<AnchorPoint>(basepoint));
+	}
+
+	ScCore->primaryMainWindow()->doc->rotateItem(rotation * -1.0, item);
+
+	if (basepoint != (int) AnchorPoint::None)
+	{
+		ScCore->primaryMainWindow()->doc->setRotationMode(oldBasePoint);
+	}
+
 	Py_RETURN_NONE;
 }
 
@@ -726,6 +747,7 @@ void cmdmanidocwarnings()
 	  << scribus_setimageoffset__doc__
 	  << scribus_setimagescale__doc__
 	  << scribus_setnormalmode__doc__
+	  << scribus_setrotation__doc__
 	  << scribus_setscaleframetoimage__doc__
 	  << scribus_setscaleimagetoframe__doc__
 	  << scribus_sizeobject__doc__ 

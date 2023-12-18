@@ -60,6 +60,22 @@ selected item is used.\n\
 /*! Rotate ABS the object */
 PyObject *scribus_rotateobjectabs(PyObject * /*self*/, PyObject* args);
 
+PyDoc_STRVAR(scribus_setrotation__doc__,
+QT_TR_NOOP("setRotation(rotation [, name=\"\", basepoint=None])\n\
+\n\
+Sets the rotation of the object \"name\" to \"rotation\". Positive values\n\
+ mean counter clockwise rotation. If \"name\" is not given the currently\n\
+ selected item is used.\n\
+\n\
+If basepoint is not set, the current basepoint is used.\n\
+Valid values for basepoint are:\n\
+BASEPOINT_TOPLEFT, BASEPOINT_TOP, BASEPOINT_TOPRIGHT,\n\
+BASEPOINT_LEFT, BASEPOINT_CENTER, BASEPOINT_RIGHT,\n\
+BASEPOINT_BOTTOMLEFT, BASEPOINT_BOTTOM, BASEPOINT_BOTTOMRIGHT\n\
+ "));
+/*! Set the rotation of the object */
+PyObject *scribus_setrotation(PyObject * /*self*/, PyObject* args, PyObject* kw);
+
 /*! docstring */
 PyDoc_STRVAR(scribus_sizeobject__doc__,
 QT_TR_NOOP("sizeObject(width, height [, \"name\"])\n\
