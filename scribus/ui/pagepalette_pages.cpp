@@ -344,7 +344,7 @@ void PagePalette_Pages::rebuildPages()
 	}
 
 	const PageSet &currentPageSet = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()];
-	pageLayout->updateLayoutSelector(currView->m_doc->pageSets());
+	pageLayout->updateLayoutSelector(currView->m_doc);
 	pageLayout->selectItem(currView->m_doc->pagePositioning());
 	pageLayout->firstPage->setCurrentIndex(currentPageSet.FirstPage);
 
