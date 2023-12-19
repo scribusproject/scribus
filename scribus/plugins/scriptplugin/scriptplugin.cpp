@@ -487,7 +487,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("resizeTableRow"), scribus_resizetablerow, METH_VARARGS, tr(scribus_resizetablerow__doc__)},
 	{const_cast<char*>("revertDoc"), (PyCFunction)scribus_revertdoc, METH_NOARGS, tr(scribus_revertdoc__doc__)},
 	{const_cast<char*>("rotateObject"), scribus_rotateobjectrel, METH_VARARGS, tr(scribus_rotateobjectrel__doc__)},
-	{const_cast<char*>("rotateObjectAbs"), scribus_rotateobjectabs, METH_VARARGS, tr(scribus_rotateobjectabs__doc__)},
+	{const_cast<char*>("rotateObjectAbs"), (PyCFunction)scribus_setrotation, METH_VARARGS|METH_KEYWORDS, tr(scribus_setrotation__doc__)}, // Deprecated, alias to setRotation
 	{const_cast<char*>("saveDoc"), (PyCFunction)scribus_savedoc, METH_NOARGS, tr(scribus_savedoc__doc__)},
 	{const_cast<char*>("saveDocAs"), scribus_savedocas, METH_VARARGS, tr(scribus_savedocas__doc__)},
 	{const_cast<char*>("savePDFOptions"), (PyCFunction)scribus_savepdfoptions, METH_VARARGS, tr(scribus_savepdfoptions__doc__)},
@@ -566,6 +566,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setPDFBookmark"), scribus_setpdfbookmark, METH_VARARGS, tr(scribus_setpdfbookmark__doc__)},
 	{const_cast<char*>("setParagraphStyle"), scribus_setparagraphstyle, METH_VARARGS, tr(scribus_setparagraphstyle__doc__)},
 	{const_cast<char*>("setRedraw"), scribus_setredraw, METH_VARARGS, tr(scribus_setredraw__doc__)},
+	{const_cast<char*>("setRotation"), (PyCFunction)scribus_setrotation, METH_VARARGS|METH_KEYWORDS, tr(scribus_setrotation__doc__)},
 	{const_cast<char*>("setRowGuides"), (PyCFunction)scribus_setRowGuides, METH_VARARGS|METH_KEYWORDS, tr(scribus_setRowGuides__doc__)},
 	{const_cast<char*>("setScaleFrameToImage"), (PyCFunction)scribus_setscaleframetoimage, METH_VARARGS, tr(scribus_setscaleframetoimage__doc__)},
 	{const_cast<char*>("setScaleImageToFrame"), (PyCFunction)scribus_setscaleimagetoframe, METH_VARARGS|METH_KEYWORDS, tr(scribus_setscaleimagetoframe__doc__)},
@@ -916,6 +917,17 @@ PyObject* PyInit_scribus(void)
 	PyDict_SetItemString(d, "TAB_PERIOD", Py_BuildValue("i", 2));
 	PyDict_SetItemString(d, "TAB_COMMA", Py_BuildValue("i", 3));
 	PyDict_SetItemString(d, "TAB_CENTER", Py_BuildValue("i", 4));
+	// Basepoint / AnchorPoint
+	PyDict_SetItemString(d, "BASEPOINT_TOPLEFT", Py_BuildValue("i", 1));
+	PyDict_SetItemString(d, "BASEPOINT_TOP", Py_BuildValue("i", 2));
+	PyDict_SetItemString(d, "BASEPOINT_TOPRIGHT", Py_BuildValue("i", 3));
+	PyDict_SetItemString(d, "BASEPOINT_LEFT", Py_BuildValue("i", 4));
+	PyDict_SetItemString(d, "BASEPOINT_CENTER", Py_BuildValue("i", 5));
+	PyDict_SetItemString(d, "BASEPOINT_RIGHT", Py_BuildValue("i", 6));
+	PyDict_SetItemString(d, "BASEPOINT_BOTTOMLEFT", Py_BuildValue("i", 7));
+	PyDict_SetItemString(d, "BASEPOINT_BOTTOM", Py_BuildValue("i", 8));
+	PyDict_SetItemString(d, "BASEPOINT_BOTTOMRIGHT", Py_BuildValue("i", 9));
+
 
 	// Measurement units understood by Scribus's units.cpp functions are exported as constant conversion
 	// factors to be used from Python.
