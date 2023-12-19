@@ -18,6 +18,7 @@ class QVBoxLayout;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
+#include "scribusdoc.h"
 
 /*! \brief A widget containing pages layout schema */
 class SCRIBUS_API PageListWidget : public QListWidget
@@ -43,7 +44,7 @@ public:
 	PageLayouts(QWidget* parent, const QList<PageSet>& pSets, bool mode = true);
 	~PageLayouts() {};
 
-	void updateLayoutSelector(const QList<PageSet>& pSets);
+	void updateLayoutSelector(const ScribusDoc* doc);
 	void selectFirstP(int nr);
 	void selectItem(uint nr);
 	PageListWidget* layoutsView;
@@ -51,6 +52,7 @@ public:
 	QLabel* layoutLabel1;
 	QComboBox* firstPage;
 	QList<PageSet> pageSets;
+	int docPagePositioning {0};
 
 public slots:
 	void itemSelected(QListWidgetItem* ic);

@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "iconmanager.h"
+#include "prefsmanager.h"
 
 PageListWidget::PageListWidget(QWidget* parent) : QListWidget(parent)
 {
@@ -120,13 +121,18 @@ PageLayouts::PageLayouts(QWidget* parent, const QList<PageSet>& pSets, bool mode
 	connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 }
 
-void PageLayouts::updateLayoutSelector(const QList<PageSet>& pSets)
+void PageLayouts::updateLayoutSelector(const ScribusDoc* doc)
 {
 	disconnect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
-	pageSets = pSets;
+	pageSets = doc->pageSets();
+	docPagePositioning = doc->pagePositioning();
 	layoutsCombo->clear();
 	for (int pg = 0; pg < pageSets.count(); ++pg)
 	{
+		//Leave the code in for 3-/4- fold but exclude from UI in case we bring it back.
+		if (pg > 1 && docPagePositioning < 2)
+			continue;
+
 		QString psname = CommonStrings::translatePageSetString(pageSets[pg].Name);
 		if (pg == 0)
 			layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-simple.png"), psname);
@@ -230,33 +236,22 @@ void PageLayouts::languageChange()
 		layoutsView->clear();
 		for (int pg = 0; pg < pageSets.count(); ++pg)
 		{
+			//Leave the code in for 3-/4- fold but exclude from UI in case we bring it back.
+			if (pg > 1 && docPagePositioning < 2)
+				continue;
 			QString psname = CommonStrings::translatePageSetString(pageSets[pg].Name);
 			QListWidgetItem *ic;
 			if (pg == 0)
-			{
 				ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-simple.png"), psname, layoutsView );
-				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-			}
 			else if (pg == 1)
-			{
 				ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-doublesided.png"), psname, layoutsView );
-				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-			}
 			else if (pg == 2)
-			{
 				ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-3fold.png"), psname, layoutsView );
-				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-			}
 			else if (pg == 3)
-			{
 				ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-4fold.png"), psname, layoutsView );
-				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-			}
 			else
-			{
 				ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-simple.png"), psname, layoutsView );
-				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-			}
+			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
 		layoutsView->arrangeIcons();
 	}
@@ -267,6 +262,10 @@ void PageLayouts::languageChange()
 		layoutsCombo->clear();
 		for (int pg = 0; pg < pageSets.count(); ++pg)
 		{
+			//Leave the code in for 3-/4- fold but exclude from UI in case we bring it back.
+			if (pg > 1 && docPagePositioning < 2)
+				continue;
+
 			QString psname = CommonStrings::translatePageSetString(pageSets[pg].Name);
 			if (pg == 0)
 				layoutsCombo->addItem(IconManager::instance().loadIcon("16/page-simple.png"), psname);
