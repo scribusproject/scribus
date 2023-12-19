@@ -28,7 +28,6 @@
      <property name="font">
       <font>
        <pointsize>14</pointsize>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -78,7 +77,6 @@
     <widget class="QLabel" name="label_6">
      <property name="font">
       <font>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -97,8 +95,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>597</width>
-        <height>591</height>
+        <width>610</width>
+        <height>615</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -111,7 +109,6 @@
           <widget class="QLabel" name="label_2">
            <property name="font">
             <font>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -180,7 +177,6 @@
         <widget class="QLabel" name="label_3">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -255,7 +251,7 @@
        <item>
         <widget class="QCheckBox" name="checkPartFilledImageFramesCheckBox">
          <property name="text">
-          <string>Check for part filled image frames</string>
+          <string>Check for partially filled image frames</string>
          </property>
         </widget>
        </item>
