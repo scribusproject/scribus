@@ -2966,7 +2966,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	QString colp = item->ContourLine.svgPath(true);
 	if (!colp.isEmpty())
 		docu.writeAttribute("copath", colp);
-	if (item->isLine() || item->isPolyLine())
+	if (item->isLine() || item->isPolyLine() || item->isSpiral())
 	{
 		if (item->startArrowIndex() != 0)
 			docu.writeAttribute("startArrowIndex", item->startArrowIndex());
