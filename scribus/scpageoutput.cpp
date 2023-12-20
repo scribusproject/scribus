@@ -806,6 +806,8 @@ void ScPageOutput::drawItem_Line(PageItem_Line* item, ScPainterExBase* painter, 
 	int startArrowIndex = item->startArrowIndex();
 	int endArrowIndex = item->endArrowIndex();
 
+	painter->setBlendModeStroke(item->lineBlendmode());
+
 	if (item->NamedLStyle.isEmpty())
 	{
 		QString patternStrokeVal = item->strokePattern();
@@ -885,6 +887,9 @@ void ScPageOutput::drawItem_Line(PageItem_Line* item, ScPainterExBase* painter, 
 			}
 		}
 	}
+
+	painter->setBlendModeStroke(0);
+
 	if (startArrowIndex != 0)
 	{
 		QTransform arrowTrans;
@@ -1077,6 +1082,8 @@ void ScPageOutput::drawItem_PolyLine(PageItem_PolyLine* item, ScPainterExBase* p
 	int startArrowIndex = item->startArrowIndex();
 	int endArrowIndex = item->endArrowIndex();
 
+	painter->setBlendModeStroke(item->lineBlendmode());
+
 	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 	{
 		FPointArray cli;
@@ -1197,6 +1204,9 @@ void ScPageOutput::drawItem_PolyLine(PageItem_PolyLine* item, ScPainterExBase* p
 			}
 		}
 	}
+
+	painter->setBlendModeStroke(0);
+
 	if (startArrowIndex != 0)
 	{
 		FPoint Start = item->PoLine.point(0);
@@ -1246,6 +1256,8 @@ void ScPageOutput::drawItem_Spiral(PageItem_Spiral* item, ScPainterExBase* paint
 
 	int startArrowIndex = item->startArrowIndex();
 	int endArrowIndex = item->endArrowIndex();
+
+	painter->setBlendModeStroke(item->lineBlendmode());
 
 	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 	{
@@ -1364,6 +1376,9 @@ void ScPageOutput::drawItem_Spiral(PageItem_Spiral* item, ScPainterExBase* paint
 			}
 		}
 	}
+
+	painter->setBlendModeStroke(0);
+
 	if (startArrowIndex != 0)
 	{
 		FPoint Start = item->PoLine.point(0);
@@ -1490,6 +1505,10 @@ void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransfor
 			arrowTrans.scale(ml[ml.size() - 1].Width, ml[ml.size() - 1].Width);
 	}
 	arrow.map(arrowTrans);
+
+	painter->setBlendModeStroke(item->lineBlendmode());
+	painter->setBlendModeFill(item->lineBlendmode()); // needed for fill in arrow shapes
+
 	painter->setupPolygon(&arrow);
 	if (item->NamedLStyle.isEmpty())
 	{
@@ -1524,6 +1543,9 @@ void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransfor
 			}
 		}
 	}
+
+	painter->setBlendModeStroke(0);
+	painter->setBlendModeFill(0);
 }
 
 void ScPageOutput::drawMarks(ScPage* page, ScPainterExBase* painter, const MarksOptions& options)
