@@ -1122,8 +1122,8 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 						npf = npf.transformPoint(p, false);
 					}
 				}
-
-				//Control Modifier to have parallele shape
+				FPoint npf1(npf);
+				//Control Modifier to have parallel shape
 				if (m->modifiers() == Qt::ControlModifier)
 				{
 					FPointArray cli;
@@ -1131,11 +1131,11 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 						cli = currItem->ContourLine;
 					else
 						cli = currItem->PoLine;
-					FPoint npf1(npf);
+					
 					int tmpNode;
 					int curr = (m_doc->nodeEdit.clre() == 0) ? cli.size() - 2 : m_doc->nodeEdit.clre();
 					int prev = (curr + cli.size() - 4) % cli.size();
-					int next = (curr+4) % cli.size();
+					int next = (curr + 4) % cli.size();
 
 					if (std::abs(cli.point(prev).x() - cli.point(curr).x()) < std::abs(cli.point(next).x() - cli.point(curr).x()))
 						tmpNode = next;
@@ -1150,7 +1150,6 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 						tmpNode = prev;
 
 					m_doc->nodeEdit.moveClipPoint(currItem, npf);
-
 					m_doc->nodeEdit.setClre(tmpNode);
 
 					if (m_doc->nodeEdit.isContourLine())
@@ -1173,8 +1172,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 
 				}
 				m_doc->nodeEdit.moveClipPoint(currItem, npf);
-
-				m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
+				m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf1.y());
 			}
 			else
 			{
