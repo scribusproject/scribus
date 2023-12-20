@@ -918,13 +918,12 @@ void PrefsManager::copyOldAppConfigAndData()
 void PrefsManager::readPrefs()
 {
 	QString prefsFile(m_prefsLocation + "scribus170.rc");
-	if (QFile::exists(prefsFile))
+	if (!QFile::exists(prefsFile))
+		return;
+	if (!readPref(prefsFile))
 	{
-		if (!readPref(prefsFile))
-		{
-			alertLoadPrefsFailed();
-			return;
-		}
+		alertLoadPrefsFailed();
+		return;
 	}
 }
 
