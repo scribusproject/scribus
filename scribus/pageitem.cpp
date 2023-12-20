@@ -10013,6 +10013,8 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 		p->strokePath();
 	else
 	{
+		p->setBlendModeStroke(lineBlendmode());
+		p->setBlendModeFill(lineBlendmode()); // needed for fill in arrow shapes
 		if (NamedLStyle.isEmpty())
 		{
 			ScPattern *strokePattern = m_Doc->checkedPattern(patternStrokeVal);
@@ -10082,6 +10084,8 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 				}
 			}
 		}
+		p->setBlendModeStroke(0);
+		p->setBlendModeFill(0);
 	}
 }
 

@@ -61,6 +61,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 		p->drawLine(FPoint(0, 0), FPoint(m_width, 0));
 	else
 	{
+		p->setBlendModeStroke(lineBlendmode());
 		if (NamedLStyle.isEmpty())
 		{
 			ScPattern *strokePattern = m_Doc->checkedPattern(patternStrokeVal);
@@ -133,6 +134,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 				}
 			}
 		}
+		p->setBlendModeStroke(0);
 	}
 	if (m_startArrowIndex != 0)
 	{

@@ -58,6 +58,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 
 	if (!m_Doc->layerOutline(m_layerID))
 	{
+		p->setBlendModeStroke(lineBlendmode());
 		if ((fillColor() != CommonStrings::None) || (GrType != 0))
 		{
 			FPointArray cli;
@@ -169,6 +170,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 				}
 			}
 		}
+		p->setBlendModeStroke(0);
 	}
 	if (m_startArrowIndex != 0)
 	{
