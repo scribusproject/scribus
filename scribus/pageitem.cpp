@@ -10143,30 +10143,6 @@ void PageItem::adjustPictScale()
 		m_imageXOffset = 0.0;
 		m_imageYOffset = 0.0;
 	}
-	// Disable broken code. Code must be independent from doc in that function
-	/*switch (m_Doc->RotMode)
-	{
-		case 0:
-			LocalX = 0;
-			LocalY = 0;
-			break;
-		case 1:
-			LocalX = (Width - static_cast<double>(OrigW) * LocalScX) / LocalScX;
-			LocalY = 0;
-			break;
-		case 2:
-			LocalX = ((Width - static_cast<double>(OrigW) * LocalScX) / LocalScX) / 2.0;
-			LocalY = ((Height - static_cast<double>(OrigH) * LocalScY) / LocalScY) / 2.0;
-			break;
-		case 3:
-			LocalX = 0;
-			LocalY = (Height - static_cast<double>(OrigH) * LocalScY) / LocalScY;
-			break;
-		case 4:
-			LocalX = (Width - static_cast<double>(OrigW) * LocalScX) / LocalScX;
-			LocalY = (Height - static_cast<double>(OrigH) * LocalScY) / LocalScY;
-			break;
-	}*/
 	if (m_Doc && m_Doc->isLoading())
 	{
 		m_imageXOffset = imgXOffs;
