@@ -10008,85 +10008,87 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 			arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size() - 1].Width);
 	}
 	arrow.map(arrowTrans);
+
 	p->setupPolygon(&arrow);
 	if (m_Doc->layerOutline(m_layerID))
-		p->strokePath();
-	else
 	{
-		p->setBlendModeStroke(lineBlendmode());
-		p->setBlendModeFill(lineBlendmode()); // needed for fill in arrow shapes
-		if (NamedLStyle.isEmpty())
+		p->strokePath();
+		return;
+	}
+
+	p->setBlendModeStroke(lineBlendmode());
+	p->setBlendModeFill(lineBlendmode()); // needed for fill in arrow shapes
+	if (NamedLStyle.isEmpty())
+	{
+		ScPattern *strokePattern = m_Doc->checkedPattern(patternStrokeVal);
+		if (strokePattern)
 		{
-			ScPattern *strokePattern = m_Doc->checkedPattern(patternStrokeVal);
-			if (strokePattern)
+			p->setPattern(strokePattern, patternStrokeTransfrm, patternStrokeMirrorX, patternStrokeMirrorY);
+			p->setFillMode(ScPainter::Pattern);
+			p->fillPath();
+		}
+		else if (GrTypeStroke > 0)
+		{
+			if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
+				gradientStrokeVal.clear();
+			if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
+				stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
+			if (stroke_gradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
 			{
-				p->setPattern(strokePattern, patternStrokeTransfrm, patternStrokeMirrorX, patternStrokeMirrorY);
-				p->setFillMode(ScPainter::Pattern);
-				p->fillPath();
-			}
-			else if (GrTypeStroke > 0)
-			{
-				if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
-					gradientStrokeVal.clear();
-				if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
-					stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
-				if (stroke_gradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+				if (lineColor() != CommonStrings::None)
 				{
-					if (lineColor() != CommonStrings::None)
-					{
-						p->setBrush(m_strokeQColor);
-						p->setBrushOpacity(1.0 - lineTransparency());
-						p->setLineWidth(0);
-						p->setFillMode(ScPainter::Solid);
-					}
-					else
-						p->setFillMode(ScPainter::None);
+					p->setBrush(m_strokeQColor);
+					p->setBrushOpacity(1.0 - lineTransparency());
+					p->setLineWidth(0);
+					p->setFillMode(ScPainter::Solid);
 				}
 				else
-				{
-					p->setFillMode(ScPainter::Gradient);
-					p->fill_gradient = stroke_gradient;
-					if (GrTypeStroke == Gradient_Linear)
-						p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
-					else
-						p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
-				}
-				p->fillPath();
+					p->setFillMode(ScPainter::None);
 			}
-			else if (lineColor() != CommonStrings::None)
+			else
 			{
-				p->setBrush(m_strokeQColor);
-				p->setBrushOpacity(1.0 - lineTransparency());
-				p->setLineWidth(0);
-				p->setFillMode(ScPainter::Solid);
-				p->fillPath();
+				p->setFillMode(ScPainter::Gradient);
+				p->fill_gradient = stroke_gradient;
+				if (GrTypeStroke == Gradient_Linear)
+					p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
+				else
+					p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
 			}
+			p->fillPath();
 		}
-		else
+		else if (lineColor() != CommonStrings::None)
 		{
-			multiLine ml = m_Doc->docLineStyles[NamedLStyle];
-			QColor tmp;
-			if (ml[0].Color != CommonStrings::None)
+			p->setBrush(m_strokeQColor);
+			p->setBrushOpacity(1.0 - lineTransparency());
+			p->setLineWidth(0);
+			p->setFillMode(ScPainter::Solid);
+			p->fillPath();
+		}
+	}
+	else
+	{
+		multiLine ml = m_Doc->docLineStyles[NamedLStyle];
+		QColor tmp;
+		if (ml[0].Color != CommonStrings::None)
+		{
+			SetQColor(&tmp, ml[0].Color, ml[0].Shade);
+			p->setBrush(tmp);
+			p->setLineWidth(0);
+			p->setFillMode(ScPainter::Solid);
+			p->fillPath();
+		}
+		for (int it = ml.size()-1; it > 0; it--)
+		{
+			if (ml[it].Color != CommonStrings::None)
 			{
-				SetQColor(&tmp, ml[0].Color, ml[0].Shade);
-				p->setBrush(tmp);
-				p->setLineWidth(0);
-				p->setFillMode(ScPainter::Solid);
-				p->fillPath();
-			}
-			for (int it = ml.size()-1; it > 0; it--)
-			{
-				if (ml[it].Color != CommonStrings::None)
-				{
-					SetQColor(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-					p->strokePath();
-				}
+				SetQColor(&tmp, ml[it].Color, ml[it].Shade);
+				p->setPen(tmp, ml[it].Width, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->strokePath();
 			}
 		}
-		p->setBlendModeStroke(0);
-		p->setBlendModeFill(0);
 	}
+	p->setBlendModeStroke(0);
+	p->setBlendModeFill(0);
 }
 
 void PageItem::adjustPictScale()
