@@ -45,8 +45,6 @@ for which a new license (GPL+exception) is in place.
 ScripterCore::ScripterCore(QWidget* parent)
 {
 	m_pyConsole = new PythonConsole(parent);
-	m_scripterActions.clear();
-	m_recentScriptActions.clear();
 	returnString = "init";
 
 	m_scripterActions.insert("scripterExecuteScript", new ScrAction(QObject::tr("&Execute Script..."), QKeySequence(), this));
@@ -145,7 +143,7 @@ void ScripterCore::rebuildRecentScriptsMenu()
 	int max = qMin(PrefsManager::instance().appPrefs.uiPrefs.recentDocCount, m_recentScripts.count());
 	for (int m = 0; m < max; ++m)
 	{
-		QString strippedName = m_recentScripts[m];
+		QString strippedName(m_recentScripts[m]);
 		strippedName.remove(QDir::separator());
 		m_recentScriptActions.insert(strippedName, new ScrAction(ScrAction::RecentScript, m_recentScripts[m], QKeySequence(), this, m_recentScripts[m]));
 		connect(m_recentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)));
@@ -181,11 +179,10 @@ void ScripterCore::finishScriptRun()
 
 void ScripterCore::runScriptDialog()
 {
-	QString fileName;
 	RunScriptDialog dia( ScCore->primaryMainWindow(), m_enableExtPython );
 	if (dia.exec())
 	{
-		fileName = dia.selectedFile();
+		QString fileName(dia.selectedFile());
 		slotRunScriptFile(fileName, dia.extensionRequested());
 
 		if (m_recentScripts.indexOf(fileName) == -1)
@@ -213,16 +210,15 @@ void ScripterCore::StdScript(const QString& baseFilename)
 	finishScriptRun();
 }
 
-void ScripterCore::RecentScript(const QString& fn)
+void ScripterCore::RecentScript(const QString& fileName)
 {
-	QFileInfo fd(fn);
-	if (!fd.exists())
+	if (QFileInfo::exists(fileName))
 	{
-		m_recentScripts.removeAll(fn);
+		m_recentScripts.removeAll(fileName);
 		rebuildRecentScriptsMenu();
 		return;
 	}
-	slotRunScriptFile(fn);
+	slotRunScriptFile(fileName);
 	finishScriptRun();
 }
 
@@ -380,11 +376,10 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 // needed for running script from CLI
 void ScripterCore::slotRunPythonScript()
 {
-	if (!ScQApp->pythonScript.isNull())
-	{
-		slotRunScriptFile(ScQApp->pythonScript, ScQApp->pythonScriptArgs, true);
-		finishScriptRun();
-	}
+	if (ScQApp->pythonScript.isNull())
+		return;
+	slotRunScriptFile(ScQApp->pythonScript, ScQApp->pythonScriptArgs, true);
+	finishScriptRun();
 }
 
 void ScripterCore::slotRunScript(const QString& Script)
@@ -399,8 +394,7 @@ void ScripterCore::slotRunScript(const QString& Script)
 	ScCore->primaryMainWindow()->pagePalette->setView(nullptr);
 	ScCore->primaryMainWindow()->setScriptRunning(true);
 	inValue = Script;
-	QString cm;
-	cm = "# -*- coding: utf8 -*- \n";
+	QString cm("# -*- coding: utf8 -*- \n");
 	if (PyThreadState_Get() != nullptr)
 	{
 		//initscribus(ScCore->primaryMainWindow());
