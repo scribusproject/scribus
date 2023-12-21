@@ -65,7 +65,7 @@ class LatexConfigParser
 {
 	public:
 		LatexConfigParser() {};
-		static QString absoluteFilename(QString fn);
+		static QString absoluteFilename(const QString& fn);
 		static QString configBase();
 		bool parseConfigFile(QString fn);
 		QString executable() const;

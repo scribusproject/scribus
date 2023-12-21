@@ -167,8 +167,7 @@ bool SVGExportPlugin::run(ScribusDoc* doc, const QString& filename)
 		if (fileName.isEmpty())
 			return true;
 		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		QFile f(fileName);
-		if (f.exists())
+		if (QFile::exists(fileName))
 		{
 			int exit = ScMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
 				QObject::tr("Do you really want to overwrite the file:\n%1 ?").arg(fileName),

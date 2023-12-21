@@ -363,12 +363,11 @@ void ShapePalette::writeToPrefs()
 void ShapePalette::readFromPrefs()
 {
 	QString prFile = QDir::toNativeSeparators(PrefsManager::instance().preferencesLocation()+"/scribusshapes.xml");
-	QFileInfo fi(prFile);
-	if (fi.exists())
+	if (QFileInfo::exists(prFile))
 	{
-		QByteArray docBytes("");
+		QByteArray docBytes;
 		loadRawText(prFile, docBytes);
-		QString docText("");
+		QString docText;
 		docText = QString::fromUtf8(docBytes);
 		QDomDocument docu("scridoc");
 		docu.setContent(docText);

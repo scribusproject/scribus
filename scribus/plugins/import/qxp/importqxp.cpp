@@ -329,8 +329,7 @@ bool QxpPlug::convert(const QString& fn)
 	importedColors.clear();
 	importedPatterns.clear();
 
-	QFile file(fn);
-	if (!file.exists())
+	if (!QFile::exists(fn))
 	{
 		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist";
 		return false;

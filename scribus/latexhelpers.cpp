@@ -71,10 +71,9 @@ QString LatexConfigParser::configBase()
 	return ScPaths::instance().shareDir() + "/editorconfig/";
 }
 
-QString LatexConfigParser::absoluteFilename(QString fn)
+QString LatexConfigParser::absoluteFilename(const QString& fn)
 {
-	QFileInfo fi(fn);
-	if (!fi.exists())
+	if (!QFileInfo::exists(fn))
 		return configBase() + fn;
 	return fn;
 }

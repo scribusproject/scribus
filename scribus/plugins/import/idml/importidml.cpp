@@ -2666,8 +2666,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 					{
 						fileName = fi.fileName().toLocal8Bit();
 						fileName.prepend("./Links/");
-						QFileInfo fi2(fileName);
-						if (!fi2.exists())
+						if (!QFileInfo::exists(fileName))
 							fileName = fi.fileName().toLocal8Bit();
 					}
 					item->AspectRatio = true;

@@ -100,8 +100,7 @@ bool ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int /*page*/, i
 	hasAlpha = false;
 	m_imageInfoRecord.RequestProps = req;
 	m_imageInfoRecord.isRequest = valid;
-	QFileInfo fi(fn);
-	if (!fi.exists())
+	if (!QFileInfo::exists(fn))
 		return false;
 
 	QFile f(fn);

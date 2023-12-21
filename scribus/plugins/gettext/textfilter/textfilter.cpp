@@ -62,12 +62,11 @@ TextFilter::TextFilter(const QString& fname, const QString& enc, gtWriter* w)
 
 void TextFilter::loadText()
 {
-	QByteArray bb;
-	text = "";
-	QFile f(filename);
-	QFileInfo fi(f);
-	if (!fi.exists())
+	if (!QFileInfo::exists(filename))
 		return;
+	QByteArray bb;
+	text.clear();
+	QFile f(filename);
 	// read file content
 	if (f.open(QIODevice::ReadOnly))
 	{

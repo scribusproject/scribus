@@ -153,8 +153,7 @@ void Prefs_Scripter::setupSyntaxColors()
 void Prefs_Scripter::changeStartupScript()
 {
 	QString currentScript = startupScriptEdit->text();
-	QFileInfo fi(startupScriptEdit->text());
-	if (!fi.exists())
+	if (!QFileInfo::exists(startupScriptEdit->text()))
 		currentScript = QDir::homePath();
 
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate Startup Script"), currentScript, "Python Scripts (*.py *.PY)");

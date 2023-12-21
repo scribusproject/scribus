@@ -124,8 +124,7 @@ bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int page, int g
 	m_imageInfoRecord.actualPageNumber = page;
 
 	hasAlpha = false;
-	QFileInfo fi(fn);
-	if (!fi.exists())
+	if (!QFileInfo::exists(fn))
 		return false;
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc.png");
 	QString picFile = QDir::toNativeSeparators(fn);
