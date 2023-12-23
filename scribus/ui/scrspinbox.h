@@ -24,7 +24,6 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 	public:
 		ScrSpinBox(QWidget *parent, int unitIndex=0);
 		ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex=0);
-		~ScrSpinBox() override;
 		
 		//overridden members
 		double valueFromText (const QString & text) const override;
