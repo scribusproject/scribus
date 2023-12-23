@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
  *   Craig Bradney, cbradney@zip.com.au                                    *
  ***************************************************************************/
 
-//#include <clocale>
+#include <algorithm>
 #include <cmath>
 
 #include <QtDebug>
@@ -82,10 +82,16 @@ void ScrSpinBox::stepBy(int steps)
 	{
 		double angle = this->value();
 		angle += steps * singleStep();
-		while (angle < 0.0)
-			angle += 360.0;
-		while (angle > 360)
-			angle -= 360.0;
+		double angleRange = maximum() - minimum();
+		if (angleRange == 360.0)
+		{
+			while (angle < minimum())
+				angle += 360.0;
+			while (angle > maximum())
+				angle -= 360.0;
+		}
+		else
+			angle = std::max(minimum(), std::min(angle, maximum()));
 		setValue(angle);
 		return;
 	}
