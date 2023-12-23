@@ -51,10 +51,6 @@ void ScrSpinBox::init(int unitIndex)
 	installEventFilter(this);
 }
 
-ScrSpinBox::~ScrSpinBox()
-{
-}
-
 double ScrSpinBox::unitRatio() const
 {
 	return unitGetRatioFromIndex(m_unitIndex); 
