@@ -42,10 +42,6 @@ UpgradeChecker::UpgradeChecker()
 #endif
 }
 
-UpgradeChecker::~UpgradeChecker()
-{
-}
-
 void UpgradeChecker::fetch()
 {
 	QString filename("scribusversions.xml");
