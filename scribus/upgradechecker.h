@@ -24,7 +24,6 @@ class UpgradeChecker : public QObject
 	
 public:
 	UpgradeChecker();
-	~UpgradeChecker() = default;
 	
 	void fetch();
 	bool process();
@@ -38,6 +37,7 @@ private slots:
 protected:
 	virtual void outputText(const QString& text, bool noLineFeed = false);
 	void reportError(const QString& s);
+
 	QFile *m_file {nullptr};
 	QNetworkAccessManager* m_networkManager {nullptr};
 	QNetworkReply *m_networkReply {nullptr};

@@ -72,7 +72,6 @@ class UnicodeSearchModel : public QAbstractTableModel
 
 	public:
 		UnicodeSearchModel(QObject* parent = nullptr);
-		~UnicodeSearchModel();
 
 		int rowCount(const QModelIndex & parent = QModelIndex()) const;
 		int columnCount(const QModelIndex & parent = QModelIndex()) const;

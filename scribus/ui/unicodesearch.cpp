@@ -111,11 +111,6 @@ UnicodeSearchModel::UnicodeSearchModel(QObject * /*parent*/)
 		qDebug("UnicodeSearchModel: error reading unicodes!");
 }
 
-
-UnicodeSearchModel::~UnicodeSearchModel()
-{
-}
-
 QString UnicodeSearchModel::descriptionFromHex(const QString& hex) const
 {
 	for (const UnicodeStruct& uni : m_unicode)
