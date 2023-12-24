@@ -39,7 +39,7 @@ void ShadeButton::setShade(QAction *act)
 		return; // no need for > 100%, fix needed by SM, Riku
 	if (c == 0)
 	{
-		Query dia(this, "New", 1, tr("&Shade:"), tr("Shade"));
+		Query dia(this, "New", true, tr("&Shade:"), tr("Shade"));
 		if (dia.exec())
 		{
 			bool ok = false;
