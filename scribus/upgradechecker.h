@@ -28,7 +28,7 @@ public:
 	void fetch();
 	bool process();
 	void show(bool error);
-	QStringList upgradeData();
+	QStringList upgradeData() const;
 	
 private slots:
 	void downloadFinished();

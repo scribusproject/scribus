@@ -54,7 +54,7 @@ void UpgradeChecker::fetch()
 	if (m_networkManager != nullptr && m_file != nullptr)
 	{
 		outputText( tr("No data on your computer will be sent to an external location"));
-		qApp->processEvents();
+		QApplication::processEvents();
 		if (m_file->open(QIODevice::ReadWrite))
 		{
 			QString hostname("services.scribus.net");
@@ -76,7 +76,7 @@ void UpgradeChecker::fetch()
 				if (m_writeToConsole)
 					std::cout << ". " << std::flush;
 				outputText( ".", true );
-				qApp->processEvents();
+				QApplication::processEvents();
 			}
 			if (m_writeToConsole)
 				std::cout << std::endl;
@@ -189,7 +189,7 @@ bool UpgradeChecker::process()
 	return true;
 }
 
-QStringList UpgradeChecker::upgradeData( )
+QStringList UpgradeChecker::upgradeData() const
 {
 	return m_updates;
 }
