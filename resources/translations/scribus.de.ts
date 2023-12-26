@@ -17626,17 +17626,17 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_experimentalbase.ui" line="35"/>
         <source>Experimental Features</source>
-        <translation type="unfinished"></translation>
+        <translation>Experimentelle Funktionen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_experimentalbase.ui" line="79"/>
         <source>Enable Notes, Marks and other related features</source>
-        <translation type="unfinished"></translation>
+        <translation>Notizen, Markierungen und andere verwandte Funktionen einschalten</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_experimental.cpp" line="18"/>
         <source>Experimental</source>
-        <translation type="unfinished"></translation>
+        <translation>Experimentell</translation>
     </message>
 </context>
 <context>
@@ -28428,7 +28428,7 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtext.cpp" line="656"/>
         <source>Alignment out of range. Use one of the scribus.ALIGN_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ausrichtung außerhalb des Bereichs. Benutzen Sie eine der scribus.ALIGN_*-Konstanten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="663"/>
@@ -28442,7 +28442,7 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtext.cpp" line="691"/>
         <source>direction out of range. Use one of the scribus.DIRECTION* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Richtung außerhalb des Bereichs. Benutzen Sie eine der scribus.DIRECTION_*-Konstanten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="698"/>
@@ -28484,7 +28484,7 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtext.cpp" line="829"/>
         <source>First line offset out of bounds, Use one of the scribus.FLOP_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Offset der ersten Zeile außerhalb des Bereichs. Benutzen Sie eine der scribus.FLOP_*-Konstanten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="836"/>
@@ -28554,7 +28554,7 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtext.cpp" line="1004"/>
         <source>Vertical alignment out of bounds, Use one of the scribus.ALIGNV_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vertikale Ausrichtung außerhalb des Bereichs. Benutzen Sie eine der scribus.ALIGNV_*-Konstanten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1011"/>
@@ -28577,7 +28577,7 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtext.cpp" line="1040"/>
         <source>Count must be positive, 0 or -1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl muss positiv, 0 oder -1 sein</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1124"/>
@@ -28618,7 +28618,7 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1302"/>
         <source>Source frame is linked to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Startrahmen verlinkt zu einem anderen Rahmen.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1307"/>
@@ -28745,7 +28745,7 @@ Externe Links
         <location filename="../../scribus/pdfoptionsio.cpp" line="335"/>
         <source>null root node</source>
         <comment>Load PDF settings</comment>
-        <translation>null root node</translation>
+        <translation>Kein Wurzelknoten</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="483"/>
@@ -28757,31 +28757,31 @@ Externe Links
         <location filename="../../scribus/pdfoptionsio.cpp" line="522"/>
         <source>found %1 &lt;%2&gt; nodes, need 1.</source>
         <comment>Load PDF settings</comment>
-        <translation>found %1 &lt;%2&gt; nodes, need 1.</translation>
+        <translation>gefunden %1 &lt;%2&gt; Knoten, benötigen 1.</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="545"/>
         <source>node &lt;%1&gt; not an element</source>
         <comment>Load PDF settings</comment>
-        <translation>node &lt;%1&gt; not an element</translation>
+        <translation>Knoten &lt;%1&gt; ist kein Element</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="565"/>
         <source>element &lt;%1&gt; lacks `value&apos; attribute</source>
         <comment>Load PDF settings</comment>
-        <translation>element &lt;%1&gt; lacks `value&apos; attribute</translation>
+        <translation>Element &lt;%1&gt; hat kein &apos;value&apos; Attribut.</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="591"/>
         <source>element &lt;%1&gt; value must be `true&apos; or `false&apos;</source>
         <comment>Load PDF settings</comment>
-        <translation>element &lt;%1&gt; value must be `true&apos; or `false&apos;</translation>
+        <translation>Element &lt;%1&gt; Wert muss `true&apos; oder `false&apos; sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="736"/>
         <source>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</source>
         <comment>Load PDF settings</comment>
-        <translation>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</translation>
+        <translation>Element &lt;lpiSettingsEntry&gt; hat kein &apos;name&apos; Attribut.</translation>
     </message>
     <message>
         <location filename="../../scribus/units.cpp" line="156"/>
@@ -28841,12 +28841,12 @@ Externe Links
     <message>
         <location filename="../../scribus/scribus.cpp" line="832"/>
         <source>Document Version Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentversion Warnung</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="833"/>
         <source>The document you are working with was created by a previous version of Scribus. Saving the current file under a newer version will render it unable to be edited by that older version. To preserve the ability to edit the file with the older version, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"></translation>
+        <translation>Das aktuelle Dokument wurde mit einer früheren Version von Scribus erstellt. Wenn Sie die aktuelle Datei mit einer neueren Version speichern, kann sie mit einer älteren Version von Scribus nicht mehr bearbeitet werden. Um die Bearbeitungsfähigkeit der Datei mit der älteren Version zu erhalten, speichern Sie diese Datei unter einem anderen Namen und bearbeiten Sie die neu benannte Datei weiter. Dadurch bleibt das Original unverändert. Sind Sie sicher, dass Sie mit dieser Operation fortfahren möchten?</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2019"/>
@@ -28903,7 +28903,7 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin/cmdgetsetprop.cpp" line="468"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetsetprop.cpp" line="469"/>
         <source>Types matched, but setting property failed.</source>
-        <translation>Types matched, but setting property failed.</translation>
+        <translation>Typen stimmen überein, aber das Setzen der Eigenschaft ist fehlgeschlagen.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="122"/>
@@ -28919,7 +28919,7 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdobj.cpp" line="235"/>
         <source>Point list must contain at least two points (four values).</source>
         <comment>python error</comment>
-        <translation>Point list must contain at least two points (four values).</translation>
+        <translation>Punktliste muss mindestens zwei Punkte (vier Werte) enthalten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="240"/>
@@ -28928,28 +28928,28 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdobj.cpp" line="317"/>
         <source>Point list must contain an even number of values.</source>
         <comment>python error</comment>
-        <translation>Point list must contain an even number of values.</translation>
+        <translation>Punkteliste muss eine gerade Anzahl von Werten enthalten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="312"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdobj.cpp" line="312"/>
         <source>Point list must contain at least three points (six values).</source>
         <comment>python error</comment>
-        <translation>Point list must contain at least three points (six values).</translation>
+        <translation>Punktliste muss mindestens drei Punkte (sechs Werte) enthalten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="393"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdobj.cpp" line="393"/>
         <source>Point list must contain at least four points (eight values).</source>
         <comment>python error</comment>
-        <translation>Point list must contain at least four points (eight values).</translation>
+        <translation>Punktliste muss mindestens vier Punkte (acht Werte) enthalten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="398"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdobj.cpp" line="398"/>
         <source>Point list must have a multiple of six values.</source>
         <comment>python error</comment>
-        <translation>Point list must have a multiple of six values.</translation>
+        <translation>Punktliste muss ein Vielfaches von sechs Werten haben.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="496"/>
@@ -29000,7 +29000,7 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdobj.cpp" line="972"/>
         <source>incorrect argument: must be a string or a list of strings</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>falsches Argument: muss eine Zeichenkette oder eine Liste von Zeichenketten sein</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="886"/>
@@ -29009,7 +29009,7 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdobj.cpp" line="994"/>
         <source>incorrect argument: must be a list of strings</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>falsches Argument: muss eine Liste von Zeichenketten sein</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="691"/>
@@ -29049,21 +29049,21 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="352"/>
         <source>argument is not list: must be list of float values.</source>
         <comment>python error</comment>
-        <translation>argument is not list: must be list of float values.</translation>
+        <translation>Argument ist keine Liste: Es muss eine Liste von Gleitkommazahlen sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="321"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="311"/>
         <source>argument contains non-numeric values: must be list of float values.</source>
         <comment>python error</comment>
-        <translation>argument contains non-numeric values: must be list of float values.</translation>
+        <translation>Argument enthält nicht-numerische Werte: Es muss eine Liste von Gleitkommazahlen sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="373"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="363"/>
         <source>argument contains no-numeric values: must be list of float values.</source>
         <comment>python error</comment>
-        <translation>argument contains no-numeric values: must be list of float values.</translation>
+        <translation>Argument enthält nicht-numerische Werte: Es muss eine Liste von Gleitkommazahlen sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="471"/>
@@ -29110,21 +29110,21 @@ Externe Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdsetprop.cpp" line="268"/>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 300.</source>
         <comment>python error</comment>
-        <translation>Line width out of bounds, must be 0 &lt;= line_width &lt;= 300.</translation>
+        <translation>Linienbreite außerhalb des zulässigen Bereichs, muss 0 &lt;= line_width &lt;= 300 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="288"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdsetprop.cpp" line="288"/>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</translation>
+        <translation>Linie Schatten außerhalb der Grenzen, muss 0 &lt;= shade &lt;= 100 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="308"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdsetprop.cpp" line="308"/>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</translation>
+        <translation>Füllen Sie den Schatten außerhalb der Grenzen aus, muss 0 &lt;= shade &lt;= 100 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="401"/>
@@ -29235,36 +29235,20 @@ Details of what exceptions each function may throw are provided on the
 function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
-        <translation>Scribus Python interface module
+        <translation>Scribus Python-Schnittstellenmodul
 
-This module is the Python interface for Scribus. It provides functions
-to control scribus and to manipulate objects on the canvas. Each
-function is documented individually below.
+Dieses Modul ist die Python-Schnittstelle für Scribus. Es stellt Funktionen zur Verfügung, um Scribus zu steuern und Objekte auf der Leinwand zu manipulieren. Jede Funktion ist unten einzeln dokumentiert.
 
-A few things are common across most of the interface.
+Einige Dinge haben die meisten Schnittstellen gemeinsam.
 
-Most functions operate on frames. Frames are identified by their name,
-a string - they are not real Python objects. Many functions take an
-optional (non-keyword) parameter, a frame name.
-Many exceptions are also common across most functions. These are
-not currently documented in the docstring for each function.
-- Many functions will raise a NoDocOpenError if you try to use them
-without a document to operate on.
-- If you do not pass a frame name to a function that requires one,
-the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
-on.
-- Many functions will raise WrongFrameTypeError if you try to use them
-on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
-in this exception being raised.
-- Errors resulting from calls to the underlying Python API will be
-passed through unaltered. As such, the list of exceptions thrown by
-any function as provided here and in its docstring is incomplete.
+Die meisten Funktionen arbeiten mit Rahmen. Rahmen werden durch ihren Namen identifiziert, eine Zeichenkette - sie sind keine echten Python-Objekte. Viele Funktionen nehmen einen optionalen (nicht-schlüsselwortbasierten) Parameter, einen Rahmen-Namen, an.
+Viele Ausnahmen sind auch bei den meisten Funktionen gemeinsam. Diese sind derzeit nicht in der Docstring für jede Funktion dokumentiert.
+- Viele Funktionen zeigen eine NoDocOpenError an, wenn Sie versuchen, sie ohne ein Dokument zu verwenden.
+- Wenn Sie einer Funktion, die einen Rahmen-Namen erfordert, keinen Rahmen-Namen übergeben, verwendet die Funktion den aktuell ausgewählten Rahmen, falls vorhanden, oder zeigt einen NoValidObjectError an, wenn sie nichts zum Bearbeiten finden kann.
+- Viele Funktionen zeigen einen WrongFrameTypeError an, wenn Sie versuchen, sie auf einen Rahmen-Typ anzuwenden, bei dem dies keinen Sinn ergibt. Das Festlegen der Textfarbe auf einen Grafikrahmen ergibt zum Beispiel keinen Sinn und führt zu dieser Ausnahme.
+- Fehler, die durch Aufrufe der zugrunde liegenden Python-API verursacht werden, werden unverändert weitergegeben. Daher ist die Liste der von jeder Funktion angezeigten Ausnahmen, wie hier und im Docstring angegeben, unvollständig.
 
-Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
-is not exhaustive due to exceptions from called functions.
+Details zu den Ausnahmen, die jede Funktion anzeigen kann, werden in der Dokumentation der Funktion angegeben, obwohl diese Liste wie bei den meisten Python-Code aufgrund von Ausnahmen aus aufgerufenen Funktionen nicht erschöpfend ist.
 </translation>
     </message>
     <message>
@@ -29753,7 +29737,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/pagesize.cpp" line="310"/>
         <source>Letter</source>
-        <translation>US-Letter</translation>
+        <translation>US-Brief</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="311"/>
@@ -29917,7 +29901,7 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdsetprop.cpp" line="228"/>
         <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
-        <translation>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</translation>
+        <translation>Transparenz außerhalb des zulässigen Bereichs, muss 0 &lt;= transparency &lt;= 1 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="171"/>
@@ -29926,7 +29910,7 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdsetprop.cpp" line="248"/>
         <source>Blendmode out of bounds, must be 0 &lt;= blendmode &lt;= 15.</source>
         <comment>python error</comment>
-        <translation>Blendmode out of bounds, must be 0 &lt;= blendmode &lt;= 15.</translation>
+        <translation>Blendmodus außerhalb des gültigen Bereichs, muss 0 &lt;= blendmodus &lt;= 15 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="69"/>
@@ -30326,21 +30310,21 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdsetprop.cpp" line="101"/>
         <source>Stop shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>Stop shade out of bounds, must be 0 &lt;= shade &lt;= 100.</translation>
+        <translation>Stop-Schattierung außerhalb der Grenzen, muss 0 &lt;= shade &lt;= 100 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="106"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdsetprop.cpp" line="106"/>
         <source>Ramp point out of bounds, must be 0 &lt;= rampPoint &lt;= 1.</source>
         <comment>python error</comment>
-        <translation>Ramp point out of bounds, must be 0 &lt;= rampPoint &lt;= 1.</translation>
+        <translation>Regler-Punkt außerhalb des zulässigen Bereichs, muss 0 &lt;= rampPoint &lt;= 1 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="111"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdsetprop.cpp" line="111"/>
         <source>Opacity out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
-        <translation>Opacity out of bounds, must be 0 &lt;= transparency &lt;= 1.</translation>
+        <translation>Die Deckkraft ist außerhalb des zulässigen Bereichs, muss 0 &lt;= transparency &lt;= 1 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1195"/>
@@ -30349,7 +30333,7 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtext.cpp" line="1232"/>
         <source>Character scaling out of bounds, must be &gt;= 10</source>
         <comment>python error</comment>
-        <translation>Character scaling out of bounds, must be &gt;= 10</translation>
+        <translation>Zeichenskalierung außerhalb des zulässigen Bereichs, muss &gt;= 10 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1203"/>
@@ -30623,7 +30607,7 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcell.cpp" line="489"/>
         <source>Cell padding must be &gt;= 0.0</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zellabstand muss &gt;= 0,0 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="413"/>
@@ -30683,14 +30667,14 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtable.cpp" line="161"/>
         <source>Table row index out of bounds, must be &gt;= 0 and &lt; %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tabellenzeilenindex außerhalb des gültigen Bereichs, muss &gt;= 0 und &lt; %1 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="78"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtable.cpp" line="78"/>
         <source>Table row count out of bounds, must be &gt;= 1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tabellenzeilenzahl außerhalb des zulässigen Bereichs, muss &gt;= 1 sein</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="99"/>
@@ -30704,14 +30688,14 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtable.cpp" line="109"/>
         <source>Table row count out of bounds, must be &gt;= 1 and &lt; %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tabellenzeilenzahl außerhalb des zulässigen Bereichs, muss &gt;= 1 und &lt; %1 sein</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="114"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtable.cpp" line="114"/>
         <source>Row deletion range out of bounds, index + numRows must be &lt;= %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zeilenlöschungsbereich außerhalb des gültigen Bereichs, Index + numRows muss &lt;= %1 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="135"/>
@@ -30732,7 +30716,7 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtable.cpp" line="166"/>
         <source>Table row height must be &gt; 0.0</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tabellenzeilenhöhe muss &gt; 0,0 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="187"/>
@@ -30778,7 +30762,7 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtable.cpp" line="233"/>
         <source>Column deletion range out of bounds, index + numColumns must be &lt;= %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Spaltenlöschungsbereich außerhalb des gültigen Bereichs, Index + numColumns muss &lt;= %1 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="254"/>
@@ -30799,7 +30783,7 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtable.cpp" line="285"/>
         <source>Table column width must be &gt; 0.0</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tabellenspaltenbreite muss &gt; 0,0 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="306"/>
@@ -30813,14 +30797,14 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtable.cpp" line="311"/>
         <source>Number of rows and columns must both be &gt; 0.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Die Anzahl der Zeilen und Spalten muss jeweils &gt; 0 sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="318"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtable.cpp" line="318"/>
         <source>The area %1,%2 %3x%4 is not inside the table.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Der Bereich %1,%2 %3x%4 befindet sich nicht innerhalb der Tabelle.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="338"/>
@@ -31016,7 +31000,7 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="356"/>
         <source>US Letter</source>
-        <translation>US Letter</translation>
+        <translation>US Brief</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="362"/>
@@ -31102,19 +31086,19 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <location filename="../../scribus/pdfoptionsio.cpp" line="537"/>
         <source>unexpected null &lt;%1&gt; node</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>Knoten &lt;%1&gt; ist unerwarteter null</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="607"/>
         <source>element &lt;%1&gt; value must be an integer</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>Element &lt;%1&gt; Wert muss eine ganze Zahl sein</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="625"/>
         <source>element &lt;%1&gt; value must be a double</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>Element &lt;%1&gt; Wert muss eine Dezimalzahl sein</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="66"/>
@@ -31363,18 +31347,18 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <location filename="../../scribus/api/api_application.cpp" line="110"/>
         <location filename="../../scribus/api/api_application.cpp" line="115"/>
         <source>Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtext.cpp" line="1308"/>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zielrahmen verlinkt zu einem anderen Rahmen.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="137"/>
         <source>Scripter for Python 2.x</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripter für Python 2.x</translation>
     </message>
 </context>
 <context>
@@ -31854,7 +31838,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="227"/>
         <source>Letter</source>
-        <translation>US-Letter</translation>
+        <translation>US-Brief</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="227"/>
@@ -34663,7 +34647,8 @@ Achtung: Die Datei wird dadurch wesentlich größer!</translation>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1383"/>
         <source>You have opened a file produced by Scribus 1.2.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
-        <translation>Sie haben eine Datei geöffnet, die mit Scribus 1.2.x erzeugt wurde.Wenn Sie diese mit der aktuellen Version speichern, können ältere Versionen sie nicht mehr öffnen.</translation>
+        <translation>Sie haben eine Datei geöffnet, die mit Scribus 1.2.x erzeugt wurde.
+Wenn Sie die Datei in einer neueren Version speichern, kann diese in älteren Scribus-Versionen nicht mehr geöffnet werden.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="492"/>
@@ -34692,8 +34677,8 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="801"/>
         <source>You have opened a file produced by Scribus 1.3.4 - 1.3.9, or 1.4.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
-        <translation>Sie haben eine von Scribus 1.3.4 - 1.3.9 oder 1.4.x erstellte Datei geöffnet.
-Wenn Sie die Datei in einer neueren Version speichern, ist diese für ältere Scribus-Versionen nicht mehr lesbar.</translation>
+        <translation>Sie haben eine Datei geöffnet, die mit Scribus 1.3.4 - 1.3.9 oder 1.4.x erstellte wurde.
+Wenn Sie die Datei in einer neueren Version speichern, kann diese in älteren Scribus-Versionen nicht mehr geöffnet werden.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="72"/>
@@ -34729,7 +34714,8 @@ Wenn Sie die Datei in einer neueren Version speichern, ist diese für ältere Sc
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1200"/>
         <source>You have opened a file produced by Scribus 1.3.3.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
-        <translation>Sie haben eine Datei geöffnet, die mit Scribus 1.3.3.x erzeugt wurde.Wenn Sie diese mit der aktuellen Version speichern, können ältere Versionen sie nicht mehr öffnen.</translation>
+        <translation>Sie haben eine Datei geöffnet, die mit Scribus 1.3.3.x erzeugt wurde.
+Wenn Sie die Datei in einer neueren Version speichern, kann diese in älteren Scribus-Versionen nicht mehr geöffnet werden.</translation>
     </message>
 </context>
 <context>
@@ -35950,7 +35936,7 @@ umgewandelt werden</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="148"/>
         <source>Embedded Python scripting support for Python 2.x.</source>
-        <translation type="unfinished">Integrierte Unterstützung für Scripting mit Python 3.x. {2.?}</translation>
+        <translation>Eingebettete Python-Skriptunterstützung für Python 3.x. {2.?}</translation>
     </message>
 </context>
 <context>
@@ -36167,9 +36153,9 @@ umgewandelt werden</translation>
     <message numerus="yes">
         <location filename="../../scribus/ui/search.cpp" line="901"/>
         <source>%n match(es) found</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n Übereinstimmung gefunden</numerusform>
+            <numerusform>%n Übereinstimmungen gefunden</numerusform>
         </translation>
     </message>
     <message>
@@ -36822,12 +36808,12 @@ umgewandelt werden</translation>
     <message>
         <location filename="../../scribus/storyloader.cpp" line="171"/>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation type="unfinished">Einige Schriften in diesem Dokument wurden ersetzt:</translation>
+        <translation>Einige Schriftarten, die von diesem Dokument verwendet wurden, wurden ersetzt:</translation>
     </message>
     <message>
         <location filename="../../scribus/storyloader.cpp" line="174"/>
         <source> was replaced by: </source>
-        <translation type="unfinished"> wurde ersetzt durch: </translation>
+        <translation>wurde ersetzt durch:</translation>
     </message>
 </context>
 <context>
