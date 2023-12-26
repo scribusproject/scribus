@@ -22098,7 +22098,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="672"/>
         <source>T&amp;ype</source>
-        <translation type="unfinished">형태(&amp;Y)</translation>
+        <translation>형태(&amp;Y)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="673"/>
@@ -22171,7 +22171,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="43"/>
         <source>Width</source>
-        <translation type="unfinished">너비</translation>
+        <translation>너비</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="75"/>
@@ -22181,7 +22181,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="94"/>
         <source>Type</source>
-        <translation type="unfinished">형태</translation>
+        <translation>형태</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="162"/>
@@ -22239,17 +22239,17 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="344"/>
         <source>Y:</source>
-        <translation type="unfinished">Y(노란색):</translation>
+        <translation>Y(노란색):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="345"/>
         <source>Radius:</source>
-        <translation type="unfinished">반경:</translation>
+        <translation>반경:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="347"/>
         <source>Shade</source>
-        <translation type="unfinished">음영</translation>
+        <translation>음영</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="350"/>
@@ -22368,7 +22368,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="426"/>
         <source>Radius:</source>
-        <translation type="unfinished">반경:</translation>
+        <translation>반경:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="150"/>
@@ -22386,17 +22386,17 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="416"/>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="442"/>
         <source>mm</source>
-        <translation type="unfinished">밀리미터</translation>
+        <translation>밀리미터</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="129"/>
         <source>Y:</source>
-        <translation type="unfinished">Y(노란색):</translation>
+        <translation>Y(노란색):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="192"/>
         <source>Shade</source>
-        <translation type="unfinished">음영</translation>
+        <translation>음영</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="243"/>
@@ -22434,7 +22434,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="252"/>
         <source>Fill Rule</source>
-        <translation type="unfinished"></translation>
+        <translation>채움 규칙</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="89"/>
@@ -22596,7 +22596,7 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="95"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="499"/>
         <source>Text</source>
-        <translation type="unfinished">문자열</translation>
+        <translation>문자열</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="100"/>
@@ -22682,7 +22682,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1549"/>
         <source>Change settings for left or end points</source>
-        <translation type="unfinished">왼쪽 또는 끝점의 설정 변경</translation>
+        <translation>왼쪽 또는 끝점의 설정 변경</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1441"/>
@@ -22780,12 +22780,12 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="333"/>
         <source>Lock</source>
-        <translation type="unfinished">잠금</translation>
+        <translation>잠금</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="382"/>
         <source>Group</source>
-        <translation type="unfinished">그룹</translation>
+        <translation>그룹</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="490"/>
@@ -30618,7 +30618,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="228"/>
         <source>Minimize</source>
-        <translation type="unfinished">최소</translation>
+        <translation>최소</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="268"/>
@@ -40190,7 +40190,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="773"/>
         <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="828"/>
         <source>Minimize</source>
-        <translation type="unfinished">최소</translation>
+        <translation>최소</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="774"/>
