@@ -585,7 +585,14 @@ void PluginManager::disablePlugin(PluginData & pda)
 		assert(plugin);
 		plugin->cleanupPlugin();
 		// FIXME: Correct way to delete action?
-		delete ScCore->primaryMainWindow()->scrActions[plugin->actionInfo().name];
+		auto& scrActions = ScCore->primaryMainWindow()->scrActions;
+		auto actionIt = scrActions.find(plugin->actionInfo().name);
+		if (actionIt != scrActions.end())
+		{
+			QPointer<ScrAction>& delAction = actionIt.value();
+			delete delAction.data();
+			scrActions.erase(actionIt);
+		}
 	}
 	else if (pda.plugin->inherits("ScPersistentPlugin"))
 	{
