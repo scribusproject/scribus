@@ -165,30 +165,30 @@
         <widget class="QLineEdit" name="SuffixEdit"/>
        </item>
        <item row="7" column="0">
-        <widget class="QCheckBox" name="SuperMasterCheck">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="1">
         <widget class="QLabel" name="SuperMasterLabel">
          <property name="text">
           <string>Superscript in text</string>
          </property>
         </widget>
        </item>
-       <item row="8" column="0">
-        <widget class="QCheckBox" name="SuperNoteCheck">
+       <item row="7" column="1">
+        <widget class="QCheckBox" name="SuperMasterCheck">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="8" column="1">
+       <item row="8" column="0">
         <widget class="QLabel" name="SuperNoteLabel">
          <property name="text">
           <string>Superscript in notes</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QCheckBox" name="SuperNoteCheck">
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>
@@ -233,58 +233,58 @@
         </widget>
        </item>
        <item row="11" column="0">
-        <widget class="QCheckBox" name="AutoH">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="1">
         <widget class="QLabel" name="AutoHLabel">
          <property name="text">
           <string>Auto Height</string>
          </property>
         </widget>
        </item>
-       <item row="12" column="0">
-        <widget class="QCheckBox" name="AutoW">
+       <item row="11" column="1">
+        <widget class="QCheckBox" name="AutoH">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="12" column="1">
+       <item row="12" column="0">
         <widget class="QLabel" name="AutoWLabel">
          <property name="text">
           <string>Auto Width</string>
          </property>
         </widget>
        </item>
-       <item row="13" column="0">
-        <widget class="QCheckBox" name="AutoWeld">
+       <item row="12" column="1">
+        <widget class="QCheckBox" name="AutoW">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="13" column="1">
+       <item row="13" column="0">
         <widget class="QLabel" name="AutoWeldLabel">
          <property name="text">
           <string>Auto Welding</string>
          </property>
         </widget>
        </item>
-       <item row="14" column="0">
-        <widget class="QCheckBox" name="AutoRemove">
+       <item row="13" column="1">
+        <widget class="QCheckBox" name="AutoWeld">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="14" column="1">
+       <item row="14" column="0">
         <widget class="QLabel" name="AutoRemoveLabel">
          <property name="text">
           <string>Remove if empty</string>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="1">
+        <widget class="QCheckBox" name="AutoRemove">
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>
