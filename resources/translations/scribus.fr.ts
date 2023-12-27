@@ -36153,7 +36153,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     <message numerus="yes">
         <location filename="../../scribus/ui/search.cpp" line="901"/>
         <source>%n match(es) found</source>
-        <translation>
+        <translation type="unfinished">
             <numerusform>%n occurence trouvée</numerusform>
             <numerusform>%n occurences trouvées</numerusform>
         </translation>
