@@ -3147,6 +3147,9 @@
     <lrelease Include="..\..\..\resources\translations\scribus.ko.ts">
       <Filter>Translation Files</Filter>
     </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.lb.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
     <lrelease Include="..\..\..\resources\translations\scribus.lt_LT.ts">
       <Filter>Translation Files</Filter>
     </lrelease>
