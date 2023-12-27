@@ -12406,12 +12406,12 @@ Ha egy sincs kijelölve, az összes alaphelyzetbe lesz állítva.</translation>
         <translation>Utótag</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="177"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="170"/>
         <source>Superscript in text</source>
         <translation>Felső index a szövegben</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="191"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="184"/>
         <source>Superscript in notes</source>
         <translation>Felső index a jegyzetben</translation>
     </message>
@@ -12426,22 +12426,22 @@ Ha egy sincs kijelölve, az összes alaphelyzetbe lesz állítva.</translation>
         <translation>Jegyzet bekezdésstílusa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="245"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="238"/>
         <source>Auto Height</source>
         <translation>Automatikus magasság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="259"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="252"/>
         <source>Auto Width</source>
         <translation>Automatikus szélesség</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="273"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="266"/>
         <source>Auto Welding</source>
         <translation>Automatikus rögzítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="287"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="280"/>
         <source>Remove if empty</source>
         <translation>Eltávolítás, ha üres</translation>
     </message>
@@ -14012,22 +14012,22 @@ A kísérleti PDF és PS beágyazás kikapcsolásával érdemes újrapróbálni.
 <context>
     <name>PageLayouts</name>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="296"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="295"/>
         <source>First Page is:</source>
         <translation>Első oldal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="227"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="233"/>
         <source>Document Layout</source>
         <translation>Dokumentum elrendezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="303"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="302"/>
         <source>Location on the canvas where the first page of the document is placed</source>
         <translation>A dokumentum első oldalának helye, a többi oldalhoz viszonyítva</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="298"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="297"/>
         <source>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</source>
         <translation>Megadja hány oldal jelenjen meg egymás mellett a rajzvásznon.
 Gyakran csak arra használatos, hogy az oldalak a teljes rajzvásznat elfoglalják.</translation>
@@ -16368,43 +16368,43 @@ Adjon meg egy másikat.</translation>
         <translation>Bővítmény betöltése: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="260"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="258"/>
         <source>init failed</source>
         <comment>plugin load error</comment>
         <translation>előkészítés sikertelen</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="266"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="264"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
         <translation>ismeretlen bővítménytípus</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="269"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="267"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
         <translation>Bővítmény betöltve: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="271"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="269"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>Bővítmény: %1 betöltése sikertelen: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="343"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="341"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
         <translation>Bővítmény előkészítve: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="345"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="343"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
         <translation>Bővítmény: %1 utó-előkészítése sikertelen</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="234"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="233"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation>Hiba történt a %1 / %2 bővítmény betöltésekor. %3 Ezt valószínűleg valamilyen függőség okozta vagy régi bővítmény található a telepítési mappában. Ha a telepítési mappa kiürítése után is fellép a hiba, kérjük jelezze ezt a bug.scribus.net-en.</translation>
     </message>
@@ -28241,7 +28241,7 @@ Külső hivatkozások
         <translation>A szín nem található az alapértelmezett színek között.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="433"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="454"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="432"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
@@ -28253,8 +28253,8 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="134"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="178"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="206"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="542"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="569"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="563"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="590"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="49"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="91"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="134"/>
@@ -29166,7 +29166,7 @@ Külső hivatkozások
         <translation>Parancsfájl névjegye</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="986"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1002"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="945"/>
         <source>Scribus Python interface module
 
@@ -29314,21 +29314,21 @@ lista hiányos a meghívott funkciók miatt.
         <translation>A Scribus a következő jel miatt omlott össze: #%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="359"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="380"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="358"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Hiányzik a kijelölés vagy az elemek argumentumlistája a csoportosításhoz</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="391"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="412"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="390"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Kettőnél kevesebb elem nem csoportosítható</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="643"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="664"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
@@ -32431,7 +32431,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
         <translation>Igazítás alaprácshoz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1105"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1075"/>
         <source>Drop Caps</source>
         <translation>Iniciálé</translation>
     </message>
@@ -32441,32 +32441,32 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
         <translation>Tulajdonságok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1175"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1145"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
         <translation>Üresen hagyva az alapértelmezett stílus lesz alkalmazva, egyébként pedig a kijelölt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1211"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1181"/>
         <source>Paragraph Effects characters offset</source>
         <translation>Bekezdéseffektus karaktertávolsága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1240"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1210"/>
         <source>Auto-Indent</source>
         <translation>Automatikus behúzás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1267"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1237"/>
         <source>Use Parent Values</source>
         <translation>Szülő értékek alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1293"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1263"/>
         <source>Character Style</source>
         <translation>Karakterstílus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1201"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1171"/>
         <source>Distance from Text:</source>
         <translation>Távolság a szövegtől:</translation>
     </message>
@@ -32546,7 +32546,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
         <translation>Számozás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1129"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1099"/>
         <source>Drop Cap Lines</source>
         <translation>Iniciálé sorai</translation>
     </message>
@@ -32685,7 +32685,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
         <translation>Nincs stílus megadva</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1119"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1089"/>
         <source>Lines:</source>
         <translation>Sor:</translation>
     </message>
@@ -32695,32 +32695,32 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
         <translation>Bekezdéseffektusok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1168"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1138"/>
         <source>Character Style for Effect:</source>
         <translation>Effektus karakterstílusa:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="937"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1030"/>
         <source>Set:</source>
         <translation>Készlet:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1014"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1047"/>
         <source>Create New Set:</source>
         <translation>Új készlet létrehozása:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1065"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1057"/>
         <source>Restart after other format</source>
         <translation>Újrakezdés más formátum után</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1085"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1006"/>
         <source>Restart after higher level</source>
         <translation>Újrakezdés magasabb szint után</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1237"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1207"/>
         <source>Hang Paragraph Effect before paragraph indent</source>
         <translation>A bekezdéseffektus elhelyezése a bekezdés behúzása elé</translation>
     </message>
@@ -32765,32 +32765,32 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
         <translation>Árnyalat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1007"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1013"/>
         <source>Level:</source>
         <translation>Szint:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="947"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="937"/>
         <source>Numbering Style:</source>
         <translation>Számozási stílus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="927"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="999"/>
         <source>Start with:</source>
         <translation>Kezdés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="987"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1040"/>
         <source>Prefix:</source>
         <translation>Előtag:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="957"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1023"/>
         <source>Suffix:</source>
         <translation>Utótag:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1042"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="969"/>
         <source>Restart:</source>
         <translation>Újrakezdés:</translation>
     </message>
@@ -35719,17 +35719,17 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
         <translation>Mégse</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10879"/>
+        <location filename="../../scribus/pageitem.cpp" line="10861"/>
         <source>Print: </source>
         <translation>Nyomtatás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10881"/>
+        <location filename="../../scribus/pageitem.cpp" line="10863"/>
         <source>Enabled</source>
         <translation>Engedélyezve</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10883"/>
+        <location filename="../../scribus/pageitem.cpp" line="10865"/>
         <source>Disabled</source>
         <translation>Tiltva</translation>
     </message>
@@ -40350,69 +40350,69 @@ X: %4, Y: %5</translation>
 <context>
     <name>UpgradeChecker</name>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="88"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="84"/>
         <source>Timed out when attempting to get update file.</source>
         <translation>Időtúllépés a frissítési fájl letöltési kísérlete közben.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="132"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="128"/>
         <source>File not found on server</source>
         <translation>Nem található a fájl a szerveren</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="134"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="130"/>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation>Verzióinformációs fájl megnyitása nem sikerült: %1
 Hiba: %2 (%3. sor, %4. oszlop)</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="206"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="202"/>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
         <translation>Hiba történt a Scribus verziójának lekérdezése közben, kérem, ellenőrizze az internetelérést.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="210"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="206"/>
         <source>No updates are available for your version of Scribus %1</source>
         <translation>Nincs elérhető frissítés a Scribus %1 verziójához</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="213"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="209"/>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
         <translation>Egy vagy több frissítés érhető el a Scribus %1 verziójához:</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="217"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="213"/>
         <source>Please visit www.scribus.net for details.</source>
         <translation>További információk a www.scribus.net weboldalon.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="95"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="91"/>
         <source>Finished</source>
         <translation>Befejezve</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="214"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="210"/>
         <source>This list may contain development/unstable versions.</source>
         <translation>A lista fejlesztői vagy instabil verziót is tartalmazhat.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="218"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="214"/>
         <source>If you have installed Scribus from a package management system, for example on a Linux-based operating system, your package manager may have this upgrade available.</source>
         <translation>Ha a Scribust egy csomagkezelő rendszerből telepítette, például egy Linux-alapú operációs rendszerre, akkor a csomagkezelőben elérhető lehet ez a frissítés.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="240"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="236"/>
         <source>Error: %1</source>
         <translation>Hiba: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="60"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="56"/>
         <source>No data on your computer will be sent to an external location</source>
         <translation>Semmilyen adat nem kerül elküldésre erről a számítógépről</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="67"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="63"/>
         <source>Attempting to get the Scribus version update file:</source>
         <translation>Kísérlet a Scribus verziófrissítési fájljának a lekérésére:</translation>
     </message>

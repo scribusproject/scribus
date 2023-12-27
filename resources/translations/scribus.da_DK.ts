@@ -12414,12 +12414,12 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
         <translation>Suffiks</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="177"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="170"/>
         <source>Superscript in text</source>
         <translation>Hævet skrift i tekst</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="191"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="184"/>
         <source>Superscript in notes</source>
         <translation>Hævet skrift i noter</translation>
     </message>
@@ -12434,22 +12434,22 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
         <translation>Note-afsnitstypografi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="245"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="238"/>
         <source>Auto Height</source>
         <translation>Auto Højde</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="259"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="252"/>
         <source>Auto Width</source>
         <translation>Auto Bredde</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="273"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="266"/>
         <source>Auto Welding</source>
         <translation>Auto Svejsning</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="287"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="280"/>
         <source>Remove if empty</source>
         <translation>Fjern hvis tom</translation>
     </message>
@@ -14020,22 +14020,22 @@ Deaktiver venligst eksperimentel PDF og PS indlejring, og prøv igen.</translati
 <context>
     <name>PageLayouts</name>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="296"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="295"/>
         <source>First Page is:</source>
         <translation>Første side er:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="227"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="233"/>
         <source>Document Layout</source>
         <translation>Dokument layout</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="303"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="302"/>
         <source>Location on the canvas where the first page of the document is placed</source>
         <translation>Stedet på dokumentområdet, hvor den første side af dokumentet er placeret</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="298"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="297"/>
         <source>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</source>
         <translation>Antal sider der skal vises side-om-side på dokumentområdet. Ofte brugt for at tillade elementer at blive placeret over flere sider.</translation>
     </message>
@@ -16376,43 +16376,43 @@ Vælg venligst en anden.</translation>
         <translation>Plugin: indlæser %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="260"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="258"/>
         <source>init failed</source>
         <comment>plugin load error</comment>
         <translation>init fejlede</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="266"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="264"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
         <translation>ukendt plugin type</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="269"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="267"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
         <translation>Plugin: %1 indlæst</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="271"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="269"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>Plugin: %1 kunne ikke indlæse: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="343"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="341"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
         <translation>Plugin: %1 initialiserede ok </translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="345"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="343"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
         <translation>Plugin: %1 fejlede post-initialisering</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="234"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="233"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation>Der er problemer med at indlæse %1 af %2 plugins. %3 Dette er sandsynligvis forårsaget af en slags afhængighed eller der findes gamle plugins i din installations-mappe. Hvis du sletter denne mappe og problemet stadig er der, reporter det da venligst på bugs.scribus.net.</translation>
     </message>
@@ -28247,7 +28247,7 @@ Ekstern Links</translation>
         <translation>Farve ikke fundet i standardfarver.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="433"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="454"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="432"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
@@ -28259,8 +28259,8 @@ Ekstern Links</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="134"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="178"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="206"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="542"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="569"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="563"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="590"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="49"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="91"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="134"/>
@@ -29172,7 +29172,7 @@ Ekstern Links</translation>
         <translation>Om skript</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="986"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1002"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="945"/>
         <source>Scribus Python interface module
 
@@ -29321,21 +29321,21 @@ er denne liste ikke udtømmende, på grund af indsigelser fra kaldte funktioner.
         <translation>Scribus nedbrud pga Signal #%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="359"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="380"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="358"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Behøver udvalg eller argument-liste af elementer, der skal laves til gruppe</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="391"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="412"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="390"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Kan ikke lave gruppe af mindre end to elementer</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="643"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="664"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
@@ -32439,7 +32439,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Ret ind efter grundlinjenet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1105"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1075"/>
         <source>Drop Caps</source>
         <translation>Initialer</translation>
     </message>
@@ -32449,32 +32449,32 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Egenskaber</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1175"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1145"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1211"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1181"/>
         <source>Paragraph Effects characters offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1240"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1210"/>
         <source>Auto-Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1267"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1237"/>
         <source>Use Parent Values</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1293"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1263"/>
         <source>Character Style</source>
         <translation>Tegnformat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1201"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1171"/>
         <source>Distance from Text:</source>
         <translation>Afstand fra tekst:</translation>
     </message>
@@ -32554,7 +32554,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation type="unfinished">Nummereret liste</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1129"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1099"/>
         <source>Drop Cap Lines</source>
         <translation>Initialers linjer</translation>
     </message>
@@ -32693,7 +32693,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Intet format</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1119"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1089"/>
         <source>Lines:</source>
         <translation>Linjer:</translation>
     </message>
@@ -32703,32 +32703,32 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Afsnitseffekter</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1168"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1138"/>
         <source>Character Style for Effect:</source>
         <translation>Tegnformat for effekt:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="937"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1030"/>
         <source>Set:</source>
         <translation>Sæt:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1014"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1047"/>
         <source>Create New Set:</source>
         <translation>Opret nyt sæt:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1065"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1057"/>
         <source>Restart after other format</source>
         <translation>Genstart efter andet format</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1085"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1006"/>
         <source>Restart after higher level</source>
         <translation>Genstart efter højere niveau</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1237"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1207"/>
         <source>Hang Paragraph Effect before paragraph indent</source>
         <translation>Hængende afsnitseffekt før afsnitsindrykning</translation>
     </message>
@@ -32773,32 +32773,32 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Farvetone</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1007"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1013"/>
         <source>Level:</source>
         <translation>Niveau:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="947"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="937"/>
         <source>Numbering Style:</source>
         <translation>Nummereringsformat:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="927"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="999"/>
         <source>Start with:</source>
         <translation>Begynd med:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="987"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1040"/>
         <source>Prefix:</source>
         <translation>Præfiks:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="957"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1023"/>
         <source>Suffix:</source>
         <translation>Suffiks:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1042"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="969"/>
         <source>Restart:</source>
         <translation>Genstart:</translation>
     </message>
@@ -35724,17 +35724,17 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>Annuller</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10879"/>
+        <location filename="../../scribus/pageitem.cpp" line="10861"/>
         <source>Print: </source>
         <translation>Udskriv: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10881"/>
+        <location filename="../../scribus/pageitem.cpp" line="10863"/>
         <source>Enabled</source>
         <translation>Aktiv</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10883"/>
+        <location filename="../../scribus/pageitem.cpp" line="10865"/>
         <source>Disabled</source>
         <translation>Deaktiveret</translation>
     </message>
@@ -40358,69 +40358,69 @@ X: %4, Y: %5</translation>
 <context>
     <name>UpgradeChecker</name>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="88"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="84"/>
         <source>Timed out when attempting to get update file.</source>
         <translation>Tidsudløb i forsøget på at hente opdaterings-fil.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="132"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="128"/>
         <source>File not found on server</source>
         <translation>Fil findes ikke på server</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="134"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="130"/>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation>Kunne ikke åbne versions-fil: %1
 Fejl:%2 på linje: %3, række: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="206"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="202"/>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
         <translation>En fejl opstod ved søgning efter opdateringer for Scribus, kontroller venligst din internet-forbindelse.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="210"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="206"/>
         <source>No updates are available for your version of Scribus %1</source>
         <translation>Der er ingen opdateringer tilgængelig for din version af Scribus %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="213"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="209"/>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
         <translation>der er en eller flere opdateringer for din version af Scribus (%1) tilgængelig:</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="217"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="213"/>
         <source>Please visit www.scribus.net for details.</source>
         <translation>Besøg venligst www.scribus.net for detaljer.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="95"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="91"/>
         <source>Finished</source>
         <translation>Afsluttet</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="214"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="210"/>
         <source>This list may contain development/unstable versions.</source>
         <translation>Denne liste kan indeholde udviklings/ustabile versioner.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="218"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="214"/>
         <source>If you have installed Scribus from a package management system, for example on a Linux-based operating system, your package manager may have this upgrade available.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="240"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="236"/>
         <source>Error: %1</source>
         <translation>Fejl: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="60"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="56"/>
         <source>No data on your computer will be sent to an external location</source>
         <translation>Der vil ikke blive sendt nogen data fra din computer til et eksternt sted</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="67"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="63"/>
         <source>Attempting to get the Scribus version update file:</source>
         <translation>Forsøger at hente Scribus versions-opdaterings-fil:</translation>
     </message>

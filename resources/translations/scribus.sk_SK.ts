@@ -12399,12 +12399,12 @@ Ak nie je vybraný  žiadny riadiacich bod, všetky budú vynulované.</translat
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="177"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="170"/>
         <source>Superscript in text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="191"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="184"/>
         <source>Superscript in notes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12419,22 +12419,22 @@ Ak nie je vybraný  žiadny riadiacich bod, všetky budú vynulované.</translat
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="245"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="238"/>
         <source>Auto Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="259"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="252"/>
         <source>Auto Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="273"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="266"/>
         <source>Auto Welding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="287"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="280"/>
         <source>Remove if empty</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14003,22 +14003,22 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PageLayouts</name>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="296"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="295"/>
         <source>First Page is:</source>
         <translation>Prvá strana je:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="227"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="233"/>
         <source>Document Layout</source>
         <translation>Rozloženie dokumentu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="303"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="302"/>
         <source>Location on the canvas where the first page of the document is placed</source>
         <translation>Umiestnenie na plátne, kde prvá strana je umiestnená</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="298"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="297"/>
         <source>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16346,43 +16346,43 @@ Vyberte si iný.</translation>
         <translation>Modul: načítavanie %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="260"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="258"/>
         <source>init failed</source>
         <comment>plugin load error</comment>
         <translation>inicializácia zlyhala</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="266"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="264"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
         <translation>neznámy typ modulu</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="269"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="267"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
         <translation>Modul: %1 načítaný</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="271"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="269"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>Modul: %1 sa nepodarilo načítať: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="343"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="341"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
         <translation>Modul: %1 inicializácia ok </translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="345"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="343"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
         <translation>Modul: %1 neporadila sa post-inicializácia</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="234"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="233"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation>Je problém s načítaním %1 z %2 zo zásuvného modulu %3. Toto je pravdepodobne spôsobné nejakým druhom závislosti alebo starým zásuvným modulom vo vašom inštalačnom priečinku. Ak sa po vyčistení inštalačného priečinku a reinštalácií Scribusu chyba stále vyskytuje, tak ju nahláste na bugs.scribus.net.</translation>
     </message>
@@ -28205,7 +28205,7 @@ Externé odkazy
         <translation>Farba nebol nájdená medzi štandardnými farbami.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="433"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="454"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="432"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
@@ -28217,8 +28217,8 @@ Externé odkazy
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="134"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="178"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="206"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="542"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="569"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="563"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="590"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="49"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="91"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="134"/>
@@ -29132,7 +29132,7 @@ Externé odkazy
         <translation>O skripte</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="986"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1002"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="945"/>
         <source>Scribus Python interface module
 
@@ -29252,21 +29252,21 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="359"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="380"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="358"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Potrebný je výber alebo zoznam položiek na zoskupenie</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="391"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="412"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="390"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Nie je možné zoskupiť menej ako dve položky</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="643"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="664"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
@@ -32363,7 +32363,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Zarovnať k pomocnej mriežke</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1105"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1075"/>
         <source>Drop Caps</source>
         <translation>Iniciály</translation>
     </message>
@@ -32373,32 +32373,32 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Vlastnosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1175"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1145"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1211"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1181"/>
         <source>Paragraph Effects characters offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1240"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1210"/>
         <source>Auto-Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1267"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1237"/>
         <source>Use Parent Values</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1293"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1263"/>
         <source>Character Style</source>
         <translation>Štýl znaku</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1201"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1171"/>
         <source>Distance from Text:</source>
         <translation>Vzdialenosť od textu:</translation>
     </message>
@@ -32478,7 +32478,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1129"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1099"/>
         <source>Drop Cap Lines</source>
         <translation>Počet riadkov iniciál</translation>
     </message>
@@ -32617,7 +32617,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Bez štýlu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1119"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1089"/>
         <source>Lines:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32627,32 +32627,32 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1168"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1138"/>
         <source>Character Style for Effect:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="937"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1030"/>
         <source>Set:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1014"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1047"/>
         <source>Create New Set:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1065"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1057"/>
         <source>Restart after other format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1085"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1006"/>
         <source>Restart after higher level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1237"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1207"/>
         <source>Hang Paragraph Effect before paragraph indent</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32697,32 +32697,32 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Tieň</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1007"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1013"/>
         <source>Level:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="947"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="937"/>
         <source>Numbering Style:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="927"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="999"/>
         <source>Start with:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="987"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1040"/>
         <source>Prefix:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="957"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1023"/>
         <source>Suffix:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1042"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="969"/>
         <source>Restart:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35647,17 +35647,17 @@ Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
         <translation>Zrušiť</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10879"/>
+        <location filename="../../scribus/pageitem.cpp" line="10861"/>
         <source>Print: </source>
         <translation> Tlačiť: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10881"/>
+        <location filename="../../scribus/pageitem.cpp" line="10863"/>
         <source>Enabled</source>
         <translation>Povolené</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10883"/>
+        <location filename="../../scribus/pageitem.cpp" line="10865"/>
         <source>Disabled</source>
         <translation>Zakázané</translation>
     </message>
@@ -40281,69 +40281,69 @@ X: %4, Y: %5</translation>
 <context>
     <name>UpgradeChecker</name>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="88"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="84"/>
         <source>Timed out when attempting to get update file.</source>
         <translation>Vypršal čas pri pokuse o získanie aktualizačného súboru.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="132"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="128"/>
         <source>File not found on server</source>
         <translation>Súbor nebol nájdený na serveri</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="134"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="130"/>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation>Nie je možné otvoriť súbor s verziou: %1
 Chyba: %2 na riadku: %3, stĺpci: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="206"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="202"/>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
         <translation>Vyskytla sa chyba pri hľadaní aktualizácie pre Scribus, prosím skontrolujte svoje internetové pripojenie.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="210"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="206"/>
         <source>No updates are available for your version of Scribus %1</source>
         <translation>Nie sú dostupné aktualizácie pre vašu verziu Scribusu %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="213"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="209"/>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
         <translation>Jedna alebo viac aktualizácií je dostupná pre vašu verziu Scribusu (%1):</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="217"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="213"/>
         <source>Please visit www.scribus.net for details.</source>
         <translation>Na stránke www.scribus.net nájdete viac detailov.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="95"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="91"/>
         <source>Finished</source>
         <translation>Dokončené</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="214"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="210"/>
         <source>This list may contain development/unstable versions.</source>
         <translation>Tento zoznam môže obsahovať vývojárske/nestabilné verzie.</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="218"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="214"/>
         <source>If you have installed Scribus from a package management system, for example on a Linux-based operating system, your package manager may have this upgrade available.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="240"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="236"/>
         <source>Error: %1</source>
         <translation>Chyba: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="60"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="56"/>
         <source>No data on your computer will be sent to an external location</source>
         <translation>Žiadne dáta o vašom počítači nebudú odoslané na externú adresu</translation>
     </message>
     <message>
-        <location filename="../../scribus/upgradechecker.cpp" line="67"/>
+        <location filename="../../scribus/upgradechecker.cpp" line="63"/>
         <source>Attempting to get the Scribus version update file:</source>
         <translation>Pokus o získanie aktualizačného súboru so Scribus verziou:</translation>
     </message>
