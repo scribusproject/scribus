@@ -134,9 +134,9 @@ QString PluginManager::getPluginName(const QString& fileName)
 	if (baseName.endsWith(platformDllExtension()))
 		baseName.chop(1 + platformDllExtension().length());
 	// check name
-	for (int i = 0; i < (int) baseName.length(); i++)
+	for (QChar c : baseName)
 	{
-		if (! baseName[i].isLetterOrNumber() && baseName[i] != '_' )
+		if (!c.isLetterOrNumber() && c != '_' )
 		{
 			qDebug("Invalid character in plugin name for %s; skipping",
 					fileName.toLocal8Bit().data());
@@ -219,24 +219,22 @@ void PluginManager::initPlugs()
 			}
 		}
 	}
-	if (loaded != allPlugs.count())
+
+	if (ScCore->usingGUI() && (loaded != allPlugs.count()))
 	{
-		if (ScCore->usingGUI())
-		{
-			bool splashShown = ScCore->splashShowing();
-			QString failedStr("<ul>");
-			for (QStringList::Iterator it = failedPlugs.begin(); it != failedPlugs.end(); ++it)
-				failedStr += "<li>" + *it + "</li>";
-			failedStr += "</ul>";
-			if (splashShown)
-				ScCore->showSplash(false);
-			ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
-								 "<qt>" + tr("There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net."
-										).arg(allPlugs.count() - loaded).arg(allPlugs.count()).arg(failedStr)
-									 + "</qt>");
-			if (splashShown)
-				ScCore->showSplash(true);
-		}
+		bool splashShown = ScCore->splashShowing();
+		QString failedStr("<ul>");
+		for (const QString& failedPlug :  failedPlugs)
+			failedStr += "<li>" + failedPlug + "</li>";
+		failedStr += "</ul>";
+		if (splashShown)
+			ScCore->showSplash(false);
+		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
+								"<qt>" + tr("There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net."
+									).arg(allPlugs.count() - loaded).arg(allPlugs.count()).arg(failedStr)
+									+ "</qt>");
+		if (splashShown)
+			ScCore->showSplash(true);
 	}
 }
 
@@ -277,7 +275,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 		return false;
 	ScActionPlugin* plugin = nullptr;
 
-	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+	for (auto it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
 		if (!it.value().plugin->inherits("ScActionPlugin"))
 		{
@@ -374,7 +372,7 @@ bool PluginManager::setupPluginActions(StoryEditor *sew)
 		return false;
 	ScActionPlugin* plugin = nullptr;
 
-	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+	for (auto it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
 		if (!it.value().plugin->inherits("ScActionPlugin"))
 			continue;
@@ -431,7 +429,7 @@ void PluginManager::enableOnlyStartupPluginActions(ScribusMainWindow* mw)
 		return;
 
 	ScActionPlugin* plugin = nullptr;
-	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+	for (auto it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
 		if (!it.value().plugin->inherits("ScActionPlugin"))
 			continue;
@@ -452,14 +450,14 @@ void PluginManager::enablePluginActionsForSelection(ScribusMainWindow* mw)
 	int selectedType = -1;
 	if (doc->m_Selection->count() > 0)
 	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
+		const PageItem *currItem = doc->m_Selection->itemAt(0);
 		selectedType = currItem->itemType();
 	}
 	bool isLayerLocked = doc->layerLocked(doc->activeLayer());
 
 	ScActionPlugin* actionPlug = nullptr;
 	ScrAction* pluginAction = nullptr;
-	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+	for (auto it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
 		if (!it.value().plugin->inherits("ScActionPlugin"))
 			continue;
@@ -497,8 +495,8 @@ bool PluginManager::DLLexists(const QString& name, bool includeDisabled) const
 
 bool PluginManager::loadPlugin(PluginData& pluginData)
 {
-	typedef int (*getPluginAPIVersionPtr)();
-	typedef ScPlugin* (*getPluginPtr)();
+	using getPluginAPIVersionPtr = int (*)();
+	using getPluginPtr = ScPlugin* (*)();
 	getPluginAPIVersionPtr getPluginAPIVersion;
 	getPluginPtr getPlugin;
 
@@ -546,7 +544,7 @@ bool PluginManager::loadPlugin(PluginData& pluginData)
 
 void PluginManager::cleanupPlugins()
 {
-	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+	for (auto it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
 		if (!it.value().enabled)
 			continue;
@@ -556,7 +554,7 @@ void PluginManager::cleanupPlugins()
 
 void PluginManager::finalizePlug(PluginData & pluginData)
 {
-	typedef void (*freePluginPtr)(ScPlugin* plugin);
+	using freePluginPtr = void (*)(ScPlugin* plugin);
 	if (pluginData.plugin)
 	{
 		if (pluginData.enabled)
@@ -645,7 +643,7 @@ void PluginManager::languageChange()
 	ScPlugin* plugin = nullptr;
 	ScActionPlugin* ixplug = nullptr;
 	ScrAction* pluginAction = nullptr;
-	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+	for (auto it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
 		plugin = it.value().plugin;
 		if (!plugin)
