@@ -77,122 +77,137 @@
         <translation>Equip de desenvolupament:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/about.cpp" line="257"/>
+        <source>Mac OS&amp;#174; X Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/about.cpp" line="267"/>
+        <source>Contributions from, and Previous Developers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="269"/>
         <source>Official Documentation:</source>
         <translation>Documentació oficial:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="271"/>
+        <location filename="../../scribus/ui/about.cpp" line="273"/>
         <source>Other Documentation:</source>
         <translation>Altra documentació:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="281"/>
+        <location filename="../../scribus/ui/about.cpp" line="283"/>
         <source>AppImage for Linux:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="296"/>
+        <location filename="../../scribus/ui/about.cpp" line="298"/>
         <source>Official Translations and Translators (in order of locale shortcode):</source>
         <translation>Traduccions i traductors oficials (en ordre del codi curt de la configuració regional):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="311"/>
+        <location filename="../../scribus/ui/about.cpp" line="313"/>
         <source>Homepage</source>
         <translation>Pàgina principal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="313"/>
+        <location filename="../../scribus/ui/about.cpp" line="315"/>
         <source>Online Reference</source>
         <translation>Referència en línia</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="317"/>
+        <location filename="../../scribus/ui/about.cpp" line="319"/>
         <source>Bugs and Feature Requests</source>
         <translation>Errors i sol·licitud de característiques</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="321"/>
+        <location filename="../../scribus/ui/about.cpp" line="323"/>
         <source>Mailing List</source>
         <translation>Llista de correu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="657"/>
+        <location filename="../../scribus/ui/about.cpp" line="325"/>
+        <source>Forum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="661"/>
         <source>SVN Revision: %1</source>
         <translation>Revisió SVN: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="665"/>
+        <location filename="../../scribus/ui/about.cpp" line="669"/>
         <source>Scribus Version %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="668"/>
+        <location filename="../../scribus/ui/about.cpp" line="672"/>
         <source>Build ID: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="675"/>
+        <location filename="../../scribus/ui/about.cpp" line="679"/>
         <source>Built: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="678"/>
+        <location filename="../../scribus/ui/about.cpp" line="682"/>
         <source>Companion Programs:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="681"/>
+        <location filename="../../scribus/ui/about.cpp" line="685"/>
         <source>Ghostscript: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="684"/>
+        <location filename="../../scribus/ui/about.cpp" line="688"/>
         <source>Libraries:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="688"/>
+        <location filename="../../scribus/ui/about.cpp" line="692"/>
         <source>boost: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="691"/>
+        <location filename="../../scribus/ui/about.cpp" line="695"/>
         <source>cairo: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="694"/>
+        <location filename="../../scribus/ui/about.cpp" line="698"/>
         <source>fontconfig: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="697"/>
+        <location filename="../../scribus/ui/about.cpp" line="701"/>
         <source>harfbuzz: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="701"/>
+        <location filename="../../scribus/ui/about.cpp" line="705"/>
         <source>hunspell: %1 (detected at build time)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="704"/>
+        <location filename="../../scribus/ui/about.cpp" line="708"/>
         <source>littlecms: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="710"/>
+        <location filename="../../scribus/ui/about.cpp" line="714"/>
         <source>podofo: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="716"/>
+        <location filename="../../scribus/ui/about.cpp" line="720"/>
         <source>poppler: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="298"/>
+        <location filename="../../scribus/ui/about.cpp" line="300"/>
         <source>Previous Translation Contributors:</source>
         <translation>Antics col·laboradors en les traduccions:</translation>
     </message>
@@ -202,29 +217,24 @@
         <translation>Quant a Scribus %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="315"/>
+        <location filename="../../scribus/ui/about.cpp" line="317"/>
         <source>Wiki</source>
         <translation>Wiki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="648"/>
+        <location filename="../../scribus/ui/about.cpp" line="652"/>
         <source>%1 %2 %3</source>
         <translation>%1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="653"/>
+        <location filename="../../scribus/ui/about.cpp" line="657"/>
         <source>%3-%2-%1 %4 %5</source>
         <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="661"/>
+        <location filename="../../scribus/ui/about.cpp" line="665"/>
         <source>No Ghostscript version available</source>
         <translation>No hi ha disponible cap versió de Ghostscript </translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="257"/>
-        <source>Mac OS&amp;#174; X Aqua Port:</source>
-        <translation>Port de Mac OS&amp;#174; X Aqua:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="261"/>
@@ -232,7 +242,7 @@
         <translation>Port de Windows&amp;#174;:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="277"/>
+        <location filename="../../scribus/ui/about.cpp" line="279"/>
         <source>Tango Project Icons:</source>
         <translation>Icones del projecte Tango:</translation>
     </message>
@@ -252,7 +262,7 @@
         <translation> Port d&apos;OS/2&amp;#174;/eComStation&amp;#8482;:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="275"/>
+        <location filename="../../scribus/ui/about.cpp" line="277"/>
         <source>Splash Screen:</source>
         <translation>Pantalla de presentació:</translation>
     </message>
@@ -267,7 +277,7 @@
         <translation>Comprova si hi ha actualitzacions</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="319"/>
+        <location filename="../../scribus/ui/about.cpp" line="321"/>
         <source>Developer Blog</source>
         <translation>Bloc del desenvolupador</translation>
     </message>
@@ -277,24 +287,24 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="269"/>
+        <location filename="../../scribus/ui/about.cpp" line="271"/>
         <source>Doc Translators:</source>
         <translation>Traductors de la documentació:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="273"/>
+        <location filename="../../scribus/ui/about.cpp" line="275"/>
         <source>Webmasters:</source>
         <translation>Administradors web:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="283"/>
+        <location filename="../../scribus/ui/about.cpp" line="285"/>
         <source>Refactoring text layout code, the new boxes model &amp; CTL text layout, Oman House of Open Source Technology team:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="412"/>
-        <location filename="../../scribus/ui/about.cpp" line="568"/>
-        <location filename="../../scribus/ui/about.cpp" line="633"/>
+        <location filename="../../scribus/ui/about.cpp" line="416"/>
+        <location filename="../../scribus/ui/about.cpp" line="572"/>
+        <location filename="../../scribus/ui/about.cpp" line="637"/>
         <source>Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.</source>
         <translation>No es pot obrir el fitxer %1. Reviseu el directori d&apos;instal·lació o la web principal de Scribus per informació de %1.</translation>
     </message>
@@ -304,7 +314,7 @@
         <translation>Port de Haiku:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="279"/>
+        <location filename="../../scribus/ui/about.cpp" line="281"/>
         <source>Scribus 1.5.1+ Icon Set:</source>
         <translation>Conjunt d&apos;icones de Scribus 1.5.1+:</translation>
     </message>
@@ -4028,7 +4038,7 @@ Feu clic per enllaçar-ho amb un marc de text existent o amb la creació automà
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="358"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="357"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -5421,6 +5431,11 @@ Per a més detalls consulteu la secció Edició dels colors de la documentació.
         <translation>Desembre</translation>
     </message>
     <message>
+        <location filename="../../scribus/commonstrings.cpp" line="503"/>
+        <source>WindowsWindows key on keyboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/commonstrings.cpp" line="312"/>
         <source>Yes</source>
         <translation>Si</translation>
@@ -5889,11 +5904,6 @@ Per a més detalls consulteu la secció Edició dels colors de la documentació.
         <location filename="../../scribus/commonstrings.cpp" line="506"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/commonstrings.cpp" line="503"/>
-        <source>Windows</source>
-        <translation>Finestres</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="507"/>
@@ -7607,7 +7617,7 @@ a range of pages or a single page number</source>
         <translation>Anàlisis de fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="333"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="332"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -12293,12 +12303,12 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
         <translation>Sufix</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="177"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="170"/>
         <source>Superscript in text</source>
         <translation>Superíndex al text</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="191"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="184"/>
         <source>Superscript in notes</source>
         <translation>Superíndex a les notes</translation>
     </message>
@@ -12313,22 +12323,22 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
         <translation>Estil de paràgraf de la nota</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="245"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="238"/>
         <source>Auto Height</source>
         <translation>Alçada automàtica</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="259"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="252"/>
         <source>Auto Width</source>
         <translation>Amplada automàtica</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="273"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="266"/>
         <source>Auto Welding</source>
         <translation>Soldadura automàtica</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="287"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="280"/>
         <source>Remove if empty</source>
         <translation>Suprimeix si està buit</translation>
     </message>
@@ -13916,22 +13926,22 @@ Inhabiliteu la incrustació PDF i PS experimental i torneu-ho a intentar.</trans
 <context>
     <name>PageLayouts</name>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="296"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="299"/>
         <source>First Page is:</source>
         <translation>La primera pàgina és:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="227"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="233"/>
         <source>Document Layout</source>
         <translation>Disposició del document</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="303"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="306"/>
         <source>Location on the canvas where the first page of the document is placed</source>
         <translation>Ubicació en el llenç on es col·loca la primera pàgina del document</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="298"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="301"/>
         <source>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14225,23 +14235,23 @@ Inhabiliteu la incrustació PDF i PS experimental i torneu-ho a intentar.</trans
     <name>PagesPlug</name>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="165"/>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="623"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="622"/>
         <source>Importing: %1</source>
         <translation>Importació: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="168"/>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="625"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="624"/>
         <source>Analyzing File:</source>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="808"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="807"/>
         <source>Generating Items</source>
         <translation>Generació dels ítems</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="386"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="385"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -16274,43 +16284,43 @@ Trieu-ne un altre.</translation>
         <translation>Connector: s&apos;està carregant %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="260"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="258"/>
         <source>init failed</source>
         <comment>plugin load error</comment>
         <translation>ha fallat la inicialització</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="266"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="264"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
         <translation>tipus de connector desconegut</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="269"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="267"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
         <translation>Connector: %1 carregat</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="271"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="269"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>Connector: %1 no s&apos;ha pogut carregar: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="343"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="341"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
         <translation>Connector: %1 s&apos;ha inicialitzat correctament</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="345"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="343"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
         <translation>Connector: %1 ha fallat la post inicialització</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="234"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="233"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation>Hi ha un problema en carregar %1 dels connectors %2. %3 És causat probablement per algun tipus de problema de dependència o connectors vells existents al vostre directori d&apos;instal·lació. Si voleu netejar-lo i reinstal·lar-lo i això encara passa, informeu-ho a bugs.scribus.net.</translation>
     </message>
@@ -16328,7 +16338,7 @@ Trieu-ne un altre.</translation>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="329"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="328"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -16451,8 +16461,8 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2400"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2409"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2399"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2408"/>
         <source>Postscript</source>
         <translation>Postscript</translation>
     </message>
@@ -16468,54 +16478,54 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2399"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2409"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2398"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2408"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1918"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1917"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>No s&apos;ha pogut obrir el fitxer de preferències &quot;%1&quot; per a l&apos;escriptura: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1928"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1927"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Ha fallat l&apos;escriptura al fitxer de les preferències &quot;%1&quot;: codi d&apos;estat QIODevice %2 </translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1941"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1940"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>No s&apos;ha pogut obrir el fitxer de preferències &quot;%1&quot;:%2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1951"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1950"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>No s&apos;ha pogut llegir l&apos;XML de les preferències de &quot;%1&quot;:%2 a la línia %3, columna %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2830"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2829"/>
         <source>Error Writing Preferences</source>
         <translation>Error en l&apos;escriptura de les preferències</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2832"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2831"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus no ha pogut desar les seves preferències: &lt;br&gt;%1&lt;br&gt;Comproveu els permisos del directori i del fitxer així com l&apos;espai de disc disponible.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2847"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2846"/>
         <source>Error Loading Preferences</source>
         <translation>Error carregant les preferències</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2849"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2848"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus no ha pogut carregar els ajusts:&lt;br&gt;%1&lt;br&gt;Es carregaran els ajusts predeterminats.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2517"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2516"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>No s&apos;ha trobat una configuració vàlida de renderframe. S&apos;utilitzen els valors predeterminats!</translation>
     </message>
@@ -20097,139 +20107,139 @@ Voleu utilitzar-la?</translation>
 <context>
     <name>Prefs_PreflightVerifier</name>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="36"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="35"/>
         <location filename="../../scribus/ui/prefs_preflightverifier.cpp" line="18"/>
         <source>Preflight Verifier</source>
         <translation>Verificador</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="50"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="49"/>
         <source>Show pages without errors</source>
         <translation>Mostra les pàgines sense errors</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="56"/>
         <source>Show errors for items on layers that will not print</source>
         <translation>Mostra els errors per als ítems en les capes que no s&apos;imprimiran</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="86"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="84"/>
         <source>Profile Setup</source>
         <translation>Configuració del perfil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="119"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="116"/>
         <source>Output Profile:</source>
         <translation>Perfil de la sortida:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="137"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="134"/>
         <source>Add New Profile</source>
         <translation>Afegeix un perfil nou</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="144"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="141"/>
         <source>Remove Profile</source>
         <translation>Suprimeix el perfil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="188"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="184"/>
         <source>Profile Options</source>
         <translation>Opcions del perfil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="202"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="198"/>
         <source>Ignore all errors</source>
         <translation>Ignora tots els errors</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="209"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="205"/>
         <source>Automatic check before printing or exporting</source>
         <translation>Comprova automàticament abans d&apos;imprimir o exportar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="216"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="212"/>
         <source>Check for missing glyphs</source>
         <translation>Comprova si falten glifs</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="223"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="219"/>
         <source>Check for items not on a page</source>
         <translation>Comprova si hi ha ítems fora de la pàgina</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="237"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="233"/>
         <source>Check for overflow in text frames</source>
         <translation>Comprova si hi ha sobreeiximent als marcs de text</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="244"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="240"/>
         <source>Check for used transparencies</source>
         <translation>Comprova si hi ha transparències en ús</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="251"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="247"/>
         <source>Check for missing images</source>
         <translation>Comprova si falten imatges</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="265"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="254"/>
+        <source>Check for partially filled image frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="261"/>
         <source>Check image resolution</source>
         <translation>Comprova la resolució de la imatge</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="277"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="273"/>
         <source>Minimum Resolution:</source>
         <translation>Resolució mínima:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="284"/>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="297"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="280"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="293"/>
         <source> dpi</source>
         <translation> ppp</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="310"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="306"/>
         <source>Maximum Resolution:</source>
         <translation>Resolució màxima:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="319"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="315"/>
         <source>Check for placed PDF files</source>
         <translation>Comprova si hi ha fitxers PDF posicionats</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="326"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="322"/>
         <source>Check for GIF images</source>
         <translation>Comprova si hi ha imatges GIF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="333"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="329"/>
         <source>Check for PDF Annotations and Fields</source>
         <translation>Comprova si hi ha anotacions i camps PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="340"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="336"/>
         <source>Check for Visible/Printable mismatch in layers</source>
         <translation>Comprova si hi ha incongruència visible/imprimible a les capes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="347"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="343"/>
         <source>Ignore non-printable layers</source>
         <translation>Ignora les capes no imprimibles</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="258"/>
-        <source>Check for part filled image frames</source>
-        <translation>Comprova si hi ha marcs d&apos;imatge omplerts parcialment</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="230"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="226"/>
         <source>Check for empty text frames</source>
         <translation>Comprova si hi ha marcs de text buits</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="354"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="350"/>
         <source>Check if applied master page location is the same as each page&apos;s location</source>
         <translation>Comprova si la ubicació de la pàgina mestra aplicada és la mateixa que la ubicació de cada pàgina</translation>
     </message>
@@ -20536,7 +20546,7 @@ Voleu utilitzar-la?</translation>
         <translation>Números:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="160"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="159"/>
         <source>Locate Startup Script</source>
         <translation>Localitza el script d&apos;inici</translation>
     </message>
@@ -23937,7 +23947,7 @@ Un valor de 0 significa particions il·limitades.</translation>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="336"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="335"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -27826,7 +27836,7 @@ Enllaços externs
         <translation>Color no trobat als colors predeterminats.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="433"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="454"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
         <translation>No es pot escalar un 0%.</translation>
@@ -27837,8 +27847,8 @@ Enllaços externs
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="134"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="178"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="206"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="542"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="569"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="563"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="590"/>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
         <translation>L&apos;Ítem especificat no és un marc d&apos;imatges.</translation>
@@ -28569,48 +28579,48 @@ Enllaços externs
         <translation>Només es pot comprovar el sobreeiximent en marcs de text </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="52"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="589"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="50"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="583"/>
         <source>&amp;Execute Script...</source>
         <translation>&amp;Executa el script...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="53"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="590"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="51"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="584"/>
         <source>Show &amp;Console</source>
         <translation>Mostra la &amp;consola</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="54"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="591"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="52"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="585"/>
         <source>&amp;About Script...</source>
         <translation>Quant &amp;al script...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="86"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="593"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="84"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="587"/>
         <source>&amp;Script</source>
         <translation>&amp;Script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="87"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="594"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="85"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="588"/>
         <source>&amp;Scribus Scripts</source>
         <translation>Scripts de &amp;Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="90"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="595"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="88"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="589"/>
         <source>&amp;Recent Scripts</source>
         <translation>Scripts &amp;recents</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="561"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="555"/>
         <source>About Script</source>
         <translation>Quant al script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="984"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="995"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -28752,19 +28762,19 @@ detallats exhaustivament per a les funcions cridades.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="359"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="380"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Heu de seleccionar una llista d&apos;ítems per agrupar-los</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="391"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="412"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>No es poden agrupar menys de dos ítems</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="643"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="664"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -29435,8 +29445,8 @@ detallats exhaustivament per a les funcions cridades.
         <translation>%1;;Tots els fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="174"/>
-        <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="190"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="173"/>
+        <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="189"/>
         <source>Do you really want to overwrite the file:
 %1 ?</source>
         <translation>Esteu segur que voleu sobreescriure el fitxer:
@@ -29503,8 +29513,8 @@ detallats exhaustivament per a les funcions cridades.
         <translation>No s&apos;ha trobat la mètrica per a la lletra %1 i s&apos;ignorarà</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexhelpers.cpp" line="92"/>
-        <location filename="../../scribus/latexhelpers.cpp" line="456"/>
+        <location filename="../../scribus/latexhelpers.cpp" line="91"/>
+        <location filename="../../scribus/latexhelpers.cpp" line="455"/>
         <location filename="../../scribus/ui/latexeditor.cpp" line="408"/>
         <source>Error</source>
         <translation>Error</translation>
@@ -29621,7 +29631,7 @@ detallats exhaustivament per a les funcions cridades.
         <translation>noruec (bokmål)</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexhelpers.cpp" line="457"/>
+        <location filename="../../scribus/latexhelpers.cpp" line="456"/>
         <source>Parsing the configfile %1 failed! Depending on the type of the error render frames might not work correctly!
 %2</source>
         <translation>L&apos;anàlisi del fitxer de configuració %1 ha fallat. En funció del tipus d&apos;error, la renderització dels marcs pot no funcionar correctament!%2</translation>
@@ -29736,7 +29746,7 @@ De tota manera, la imatge pot no ser correcta</translation>
         <translation>No es pot establir el canvi d&apos;escala del caràcter en un marc que no és de text.</translation>
     </message>
     <message>
-        <location filename="../../scribus/latexhelpers.cpp" line="93"/>
+        <location filename="../../scribus/latexhelpers.cpp" line="92"/>
         <source>Opening the configfile %1 failed! %2</source>
         <translation>L&apos;obertura del fitxer de configuració %1 ha fallat! %2</translation>
     </message>
@@ -30816,7 +30826,7 @@ Trieu-ne un altre.</translation>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="361"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="360"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -31743,7 +31753,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Alinea a la graella base</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1105"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1075"/>
         <source>Drop Caps</source>
         <translation>Caplletres</translation>
     </message>
@@ -31753,32 +31763,32 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Propietats</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1175"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1145"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1211"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1181"/>
         <source>Paragraph Effects characters offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1240"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1210"/>
         <source>Auto-Indent</source>
         <translation>Sagnat automàtic</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1267"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1237"/>
         <source>Use Parent Values</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1293"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1263"/>
         <source>Character Style</source>
         <translation>Estil de caràcter</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1201"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1171"/>
         <source>Distance from Text:</source>
         <translation>Distància des del text:</translation>
     </message>
@@ -31858,7 +31868,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Llista numerada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1129"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1099"/>
         <source>Drop Cap Lines</source>
         <translation>Línies caplletres</translation>
     </message>
@@ -31997,7 +32007,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Sense estil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1119"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1089"/>
         <source>Lines:</source>
         <translation>Línies: </translation>
     </message>
@@ -32007,32 +32017,32 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Efectes de paràgraf</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1168"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1138"/>
         <source>Character Style for Effect:</source>
         <translation>Estil de caràcter per a l&apos;efecte:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="937"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="967"/>
         <source>Set:</source>
         <translation>Conjunt:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1014"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1021"/>
         <source>Create New Set:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1065"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1004"/>
         <source>Restart after other format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1085"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="940"/>
         <source>Restart after higher level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1237"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1207"/>
         <source>Hang Paragraph Effect before paragraph indent</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32077,32 +32087,32 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Intensitat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1007"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1038"/>
         <source>Level:</source>
         <translation>Nivell:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="947"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1011"/>
         <source>Numbering Style:</source>
         <translation>Estil de numeració:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="927"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="994"/>
         <source>Start with:</source>
         <translation>Comença amb:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="987"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1054"/>
         <source>Prefix:</source>
         <translation>Prefix:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="957"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="974"/>
         <source>Suffix:</source>
         <translation>Sufix:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1042"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="987"/>
         <source>Restart:</source>
         <translation>Reinici:</translation>
     </message>
@@ -35027,17 +35037,17 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
         <translation>Cancel·la</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10879"/>
+        <location filename="../../scribus/pageitem.cpp" line="10861"/>
         <source>Print: </source>
         <translation>Impressió: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10881"/>
+        <location filename="../../scribus/pageitem.cpp" line="10863"/>
         <source>Enabled</source>
         <translation>Habilitada</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10883"/>
+        <location filename="../../scribus/pageitem.cpp" line="10865"/>
         <source>Disabled</source>
         <translation>Inhabilitada</translation>
     </message>
@@ -35220,64 +35230,64 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
 <context>
     <name>ScripterCore</name>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="355"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="452"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="616"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="351"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="446"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="610"/>
         <source>Script error</source>
         <translation>Error de script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="357"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="353"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation>Si esteu executant un script oficial, si us plau, informeu-ne a &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="359"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="355"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Aquest missatge també està al vostre porta-retalls. Utilitzeu Ctrl+V per a enganxar-ho al seguidor d&apos;errors.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="538"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="532"/>
         <source>Examine Script</source>
         <translation>Examina el script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="453"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="447"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>S&apos;ha produït un error intern mentre s&apos;intentava l&apos;ordre que heu introduït. Els detalls han sortit per stderr.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="582"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="576"/>
         <source>Startup Script error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="583"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="577"/>
         <source>Could not find script: %1.</source>
         <translation>No s&apos;ha pogut trobar el script: %1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="617"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="611"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>La preparació del connector de Python ha fallat. Els detalls han sortit per stderr. </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="551"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="545"/>
         <source>Documentation for:</source>
         <translation>Documentació per:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="556"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="550"/>
         <source>Script</source>
         <translation>Script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="556"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="550"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation> no conté cap cadena!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="538"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="532"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation>Scripts de Python (*.py *.PY);;Tots els fitxers (*)</translation>
     </message>
@@ -35558,27 +35568,27 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
 <context>
     <name>ShapePalette</name>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="431"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="430"/>
         <source>Choose a shape file to import</source>
         <translation>Trieu un fitxer de forma a importar</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="431"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="430"/>
         <source>Photoshop Custom Shape (*.csh *.CSH)</source>
         <translation>Forma personalitzada de Photoshop (*.csh *.CSH)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="614"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="613"/>
         <source>Custom Shapes</source>
         <translation>Formes personalitzades</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="615"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="614"/>
         <source>Load Photoshop Custom Shapes</source>
         <translation>Carrega formes personalitzades de Photoshop</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="616"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="615"/>
         <source>Close current Tab</source>
         <translation>Tanca la pestanya actual</translation>
     </message>
@@ -39865,7 +39875,7 @@ Voleu iniciar el navegador predeterminat del sistema en lloc seu?</translation>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="350"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="348"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -40128,7 +40138,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="333"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="332"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the

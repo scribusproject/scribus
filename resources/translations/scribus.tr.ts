@@ -77,122 +77,137 @@
         <translation>Geliştirme ekibi:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/about.cpp" line="257"/>
+        <source>Mac OS&amp;#174; X Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/about.cpp" line="267"/>
+        <source>Contributions from, and Previous Developers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="269"/>
         <source>Official Documentation:</source>
         <translation>Resmi Belgelendirme:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="271"/>
+        <location filename="../../scribus/ui/about.cpp" line="273"/>
         <source>Other Documentation:</source>
         <translation>Diğer belgelendirme:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="281"/>
+        <location filename="../../scribus/ui/about.cpp" line="283"/>
         <source>AppImage for Linux:</source>
         <translation>Linux için AppImage:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="296"/>
+        <location filename="../../scribus/ui/about.cpp" line="298"/>
         <source>Official Translations and Translators (in order of locale shortcode):</source>
         <translation>Resmi Çeviriler ve Çevirmenler (yerel kısakod isimleri sırasına göre):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="311"/>
+        <location filename="../../scribus/ui/about.cpp" line="313"/>
         <source>Homepage</source>
         <translation>Anasayfa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="313"/>
+        <location filename="../../scribus/ui/about.cpp" line="315"/>
         <source>Online Reference</source>
         <translation>Çevrimiçi Dokümanlar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="317"/>
+        <location filename="../../scribus/ui/about.cpp" line="319"/>
         <source>Bugs and Feature Requests</source>
         <translation>Hatalar ve Özellik İstekleri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="321"/>
+        <location filename="../../scribus/ui/about.cpp" line="323"/>
         <source>Mailing List</source>
         <translation>Posta Listesi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="657"/>
+        <location filename="../../scribus/ui/about.cpp" line="325"/>
+        <source>Forum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="661"/>
         <source>SVN Revision: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="665"/>
+        <location filename="../../scribus/ui/about.cpp" line="669"/>
         <source>Scribus Version %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="668"/>
+        <location filename="../../scribus/ui/about.cpp" line="672"/>
         <source>Build ID: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="675"/>
+        <location filename="../../scribus/ui/about.cpp" line="679"/>
         <source>Built: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="678"/>
+        <location filename="../../scribus/ui/about.cpp" line="682"/>
         <source>Companion Programs:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="681"/>
+        <location filename="../../scribus/ui/about.cpp" line="685"/>
         <source>Ghostscript: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="684"/>
+        <location filename="../../scribus/ui/about.cpp" line="688"/>
         <source>Libraries:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="688"/>
+        <location filename="../../scribus/ui/about.cpp" line="692"/>
         <source>boost: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="691"/>
+        <location filename="../../scribus/ui/about.cpp" line="695"/>
         <source>cairo: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="694"/>
+        <location filename="../../scribus/ui/about.cpp" line="698"/>
         <source>fontconfig: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="697"/>
+        <location filename="../../scribus/ui/about.cpp" line="701"/>
         <source>harfbuzz: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="701"/>
+        <location filename="../../scribus/ui/about.cpp" line="705"/>
         <source>hunspell: %1 (detected at build time)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="704"/>
+        <location filename="../../scribus/ui/about.cpp" line="708"/>
         <source>littlecms: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="710"/>
+        <location filename="../../scribus/ui/about.cpp" line="714"/>
         <source>podofo: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="716"/>
+        <location filename="../../scribus/ui/about.cpp" line="720"/>
         <source>poppler: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="298"/>
+        <location filename="../../scribus/ui/about.cpp" line="300"/>
         <source>Previous Translation Contributors:</source>
         <translation>Önceki Çevirilere Katkıda Bulunanlar:</translation>
     </message>
@@ -202,29 +217,24 @@
         <translation>Scribus Hakkında %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="315"/>
+        <location filename="../../scribus/ui/about.cpp" line="317"/>
         <source>Wiki</source>
         <translation>Viki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="648"/>
+        <location filename="../../scribus/ui/about.cpp" line="652"/>
         <source>%1 %2 %3</source>
         <translation>%1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="653"/>
+        <location filename="../../scribus/ui/about.cpp" line="657"/>
         <source>%3-%2-%1 %4 %5</source>
         <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="661"/>
+        <location filename="../../scribus/ui/about.cpp" line="665"/>
         <source>No Ghostscript version available</source>
         <translation>Ghostscript sürümü mevcut değil</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="257"/>
-        <source>Mac OS&amp;#174; X Aqua Port:</source>
-        <translation>Mac OS&amp;#174; X Aqua Sürümü:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="261"/>
@@ -232,7 +242,7 @@
         <translation>Windows&amp;#174; Sürümü:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="277"/>
+        <location filename="../../scribus/ui/about.cpp" line="279"/>
         <source>Tango Project Icons:</source>
         <translation>Tango Project Simgeleri:</translation>
     </message>
@@ -252,7 +262,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="275"/>
+        <location filename="../../scribus/ui/about.cpp" line="277"/>
         <source>Splash Screen:</source>
         <translation>Başlangıç ekranı:</translation>
     </message>
@@ -267,7 +277,7 @@
         <translation>Güncellemeleri Kontrol Et</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="319"/>
+        <location filename="../../scribus/ui/about.cpp" line="321"/>
         <source>Developer Blog</source>
         <translation>Yapımcı Günlüğü</translation>
     </message>
@@ -277,24 +287,24 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="269"/>
+        <location filename="../../scribus/ui/about.cpp" line="271"/>
         <source>Doc Translators:</source>
         <translation>Belge Çevirmenleri:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="273"/>
+        <location filename="../../scribus/ui/about.cpp" line="275"/>
         <source>Webmasters:</source>
         <translation>Web Geliştiricileri:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="283"/>
+        <location filename="../../scribus/ui/about.cpp" line="285"/>
         <source>Refactoring text layout code, the new boxes model &amp; CTL text layout, Oman House of Open Source Technology team:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="412"/>
-        <location filename="../../scribus/ui/about.cpp" line="568"/>
-        <location filename="../../scribus/ui/about.cpp" line="633"/>
+        <location filename="../../scribus/ui/about.cpp" line="416"/>
+        <location filename="../../scribus/ui/about.cpp" line="572"/>
+        <location filename="../../scribus/ui/about.cpp" line="637"/>
         <source>Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.</source>
         <translation>%1 dosyası açılamıyor. Lütfen %1 bilgileri için kurulum dizininizi veya Scribus web sitesini kontrol edin.</translation>
     </message>
@@ -304,7 +314,7 @@
         <translation>Haiku Sürümü:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="279"/>
+        <location filename="../../scribus/ui/about.cpp" line="281"/>
         <source>Scribus 1.5.1+ Icon Set:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4033,7 +4043,7 @@ Mevcut metin çerçevesine bağlanmak veya yeni bağlantılı metin çerçevesin
         <translation>Dosya Analizi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="358"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="357"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -5428,6 +5438,11 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation>Aralık</translation>
     </message>
     <message>
+        <location filename="../../scribus/commonstrings.cpp" line="503"/>
+        <source>WindowsWindows key on keyboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/commonstrings.cpp" line="312"/>
         <source>Yes</source>
         <translation>Evet</translation>
@@ -5896,11 +5911,6 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/commonstrings.cpp" line="506"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/commonstrings.cpp" line="503"/>
-        <source>Windows</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="507"/>
@@ -7615,7 +7625,7 @@ virgülle ayrılmış belirteçler listesi ekleyin</translation>
         <translation type="unfinished">Dosya Analizi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="333"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="332"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -12307,12 +12317,12 @@ If no handle is selected all handles will be reset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="177"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="170"/>
         <source>Superscript in text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="191"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="184"/>
         <source>Superscript in notes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12327,22 +12337,22 @@ If no handle is selected all handles will be reset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="245"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="238"/>
         <source>Auto Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="259"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="252"/>
         <source>Auto Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="273"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="266"/>
         <source>Auto Welding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.ui" line="287"/>
+        <location filename="../../scribus/ui/notesstyleseditor.ui" line="280"/>
         <source>Remove if empty</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13928,22 +13938,22 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PageLayouts</name>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="296"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="299"/>
         <source>First Page is:</source>
         <translation>İlk sayfa:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="227"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="233"/>
         <source>Document Layout</source>
         <translation>Belge Düzeni</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="303"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="306"/>
         <source>Location on the canvas where the first page of the document is placed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagelayout.cpp" line="298"/>
+        <location filename="../../scribus/ui/pagelayout.cpp" line="301"/>
         <source>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14237,23 +14247,23 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <name>PagesPlug</name>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="165"/>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="623"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="622"/>
         <source>Importing: %1</source>
         <translation>İçe Aktarılıyor: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="168"/>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="625"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="624"/>
         <source>Analyzing File:</source>
         <translation>Dosya Analizi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="808"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="807"/>
         <source>Generating Items</source>
         <translation>Öğeler oluşturuluyor</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="386"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="385"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -16286,43 +16296,43 @@ Please choose another one.</source>
         <translation>Eklenti: %1 yükleniyor</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="260"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="258"/>
         <source>init failed</source>
         <comment>plugin load error</comment>
         <translation>başlatma başarısız</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="266"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="264"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
         <translation>bilinmeyen eklenti türü</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="269"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="267"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
         <translation>Eklenti: %1 yüklendi</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="271"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="269"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>Eklenti: %1 yüklenemedi: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="343"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="341"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="345"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="343"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pluginmanager.cpp" line="234"/>
+        <location filename="../../scribus/pluginmanager.cpp" line="233"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16340,7 +16350,7 @@ Please choose another one.</source>
         <translation>Dosya Analizi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="329"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="328"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -16466,8 +16476,8 @@ Document Liberation Projesine gönderin: http://www.documentliberation.org</tran
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2400"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2409"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2399"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2408"/>
         <source>Postscript</source>
         <translation>Dipnot</translation>
     </message>
@@ -16483,54 +16493,54 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2399"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2409"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2398"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2408"/>
         <source>PostScript</source>
         <translation>Dipnot</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1918"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1917"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Tercihler dosyası &quot;%1&quot; yazma işlemi için açılamıyor: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1928"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1927"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Tercihler dosyası &quot;%1&quot; yazılamadı: QIODevice durum kodu %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1941"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1940"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Tercihler dosyaso &quot;%1&quot; açılamadı: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1951"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1950"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Tercihler XML okunamadı &quot;%1&quot;: %2 satır %3, sütun %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2830"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2829"/>
         <source>Error Writing Preferences</source>
         <translation>Tercihler Yazılırken Hata Oluştu</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2832"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2831"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2847"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2846"/>
         <source>Error Loading Preferences</source>
         <translation>Tercihlerin Yüklenmesinde Hata Oluştu</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2849"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2848"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus tercihleri yükleyemedi:&lt;br&gt;%1&lt;br&gt;Öntanımlı ayarlarla devam ediliyor.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2517"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2516"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20110,139 +20120,139 @@ Do you want to use this?</source>
 <context>
     <name>Prefs_PreflightVerifier</name>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="36"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="35"/>
         <location filename="../../scribus/ui/prefs_preflightverifier.cpp" line="18"/>
         <source>Preflight Verifier</source>
         <translation>Baskı Denetleyicisi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="50"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="49"/>
         <source>Show pages without errors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="56"/>
         <source>Show errors for items on layers that will not print</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="86"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="84"/>
         <source>Profile Setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="119"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="116"/>
         <source>Output Profile:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="137"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="134"/>
         <source>Add New Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="144"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="141"/>
         <source>Remove Profile</source>
         <translation>Profil Kaldır</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="188"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="184"/>
         <source>Profile Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="202"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="198"/>
         <source>Ignore all errors</source>
         <translation>Tüm hataları görmezden gel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="209"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="205"/>
         <source>Automatic check before printing or exporting</source>
         <translation>İhraç veya yazdırmadan önce otomatik kontrol</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="216"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="212"/>
         <source>Check for missing glyphs</source>
         <translation>Eksik glyphleri kontrol et</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="223"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="219"/>
         <source>Check for items not on a page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="237"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="233"/>
         <source>Check for overflow in text frames</source>
         <translation>Metin Çerçevelerindeki taşmaları kontrol et</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="244"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="240"/>
         <source>Check for used transparencies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="251"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="247"/>
         <source>Check for missing images</source>
         <translation>Eksik görüntüleri kontrol et</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="265"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="254"/>
+        <source>Check for partially filled image frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="261"/>
         <source>Check image resolution</source>
         <translation>Görüntü çözünürlüğünü kontrol et</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="277"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="273"/>
         <source>Minimum Resolution:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="284"/>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="297"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="280"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="293"/>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="310"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="306"/>
         <source>Maximum Resolution:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="319"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="315"/>
         <source>Check for placed PDF files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="326"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="322"/>
         <source>Check for GIF images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="333"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="329"/>
         <source>Check for PDF Annotations and Fields</source>
         <translation>PDF not ve alanlarını kontrol et</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="340"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="336"/>
         <source>Check for Visible/Printable mismatch in layers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="347"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="343"/>
         <source>Ignore non-printable layers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="258"/>
-        <source>Check for part filled image frames</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="230"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="226"/>
         <source>Check for empty text frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="354"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="350"/>
         <source>Check if applied master page location is the same as each page&apos;s location</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20549,7 +20559,7 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="160"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="159"/>
         <source>Locate Startup Script</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23950,7 +23960,7 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Dosya Analizi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="336"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="335"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -27840,7 +27850,7 @@ Dışarı Link</translation>
         <translation>Renk, öntanımlı renkler arasında bulunamıyor.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="433"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="454"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
         <translation>% 0 ölçeklenemez.</translation>
@@ -27851,8 +27861,8 @@ Dışarı Link</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="134"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="178"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="206"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="542"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="569"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="563"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="590"/>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
         <translation>Belirtilen öğe görüntü çerçevesi değil.</translation>
@@ -28583,48 +28593,48 @@ Dışarı Link</translation>
         <translation>Sadece metin çerçeveleri taşma için kontrol edilebilirler</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="52"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="589"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="50"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="583"/>
         <source>&amp;Execute Script...</source>
         <translation>Komut Dosyasını &amp;Yürüt...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="53"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="590"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="51"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="584"/>
         <source>Show &amp;Console</source>
         <translation>&amp;Konsolu Göster</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="54"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="591"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="52"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="585"/>
         <source>&amp;About Script...</source>
         <translation>Betik &amp;Hakkında...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="86"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="593"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="84"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="587"/>
         <source>&amp;Script</source>
         <translation>&amp;Betik</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="87"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="594"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="85"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="588"/>
         <source>&amp;Scribus Scripts</source>
         <translation>&amp;Scribus Komut Dosyaları</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="90"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="595"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="88"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="589"/>
         <source>&amp;Recent Scripts</source>
         <translation>&amp;Son Komut Dosyaları</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="561"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="555"/>
         <source>About Script</source>
         <translation>Komut Dosyaları Hakkında</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="984"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="995"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -28736,19 +28746,19 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="359"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="380"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="391"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="412"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>İki öğeden azı gruplanamaz</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="643"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="664"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -29419,8 +29429,8 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="174"/>
-        <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="190"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="173"/>
+        <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="189"/>
         <source>Do you really want to overwrite the file:
 %1 ?</source>
         <translation type="unfinished"></translation>
@@ -29486,8 +29496,8 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/latexhelpers.cpp" line="92"/>
-        <location filename="../../scribus/latexhelpers.cpp" line="456"/>
+        <location filename="../../scribus/latexhelpers.cpp" line="91"/>
+        <location filename="../../scribus/latexhelpers.cpp" line="455"/>
         <location filename="../../scribus/ui/latexeditor.cpp" line="408"/>
         <source>Error</source>
         <translation>Hata</translation>
@@ -29604,7 +29614,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/latexhelpers.cpp" line="457"/>
+        <location filename="../../scribus/latexhelpers.cpp" line="456"/>
         <source>Parsing the configfile %1 failed! Depending on the type of the error render frames might not work correctly!
 %2</source>
         <translation type="unfinished"></translation>
@@ -29716,7 +29726,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/latexhelpers.cpp" line="93"/>
+        <location filename="../../scribus/latexhelpers.cpp" line="92"/>
         <source>Opening the configfile %1 failed! %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30793,7 +30803,7 @@ Please choose another.</source>
         <translation>Dosya Analizi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="361"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="360"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -31723,7 +31733,7 @@ Document Liberation Projesine gönderin: http://www.documentliberation.org</tran
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1105"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1075"/>
         <source>Drop Caps</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31733,32 +31743,32 @@ Document Liberation Projesine gönderin: http://www.documentliberation.org</tran
         <translation>Özellikler</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1175"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1145"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1211"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1181"/>
         <source>Paragraph Effects characters offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1240"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1210"/>
         <source>Auto-Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1267"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1237"/>
         <source>Use Parent Values</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1293"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1263"/>
         <source>Character Style</source>
         <translation>Karakter Stili</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1201"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1171"/>
         <source>Distance from Text:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31838,7 +31848,7 @@ Document Liberation Projesine gönderin: http://www.documentliberation.org</tran
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1129"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1099"/>
         <source>Drop Cap Lines</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31977,7 +31987,7 @@ Document Liberation Projesine gönderin: http://www.documentliberation.org</tran
         <translation>Stil Yok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1119"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1089"/>
         <source>Lines:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31987,32 +31997,32 @@ Document Liberation Projesine gönderin: http://www.documentliberation.org</tran
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1168"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1138"/>
         <source>Character Style for Effect:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="937"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="967"/>
         <source>Set:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1014"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1021"/>
         <source>Create New Set:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1065"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1004"/>
         <source>Restart after other format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1085"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="940"/>
         <source>Restart after higher level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1237"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1207"/>
         <source>Hang Paragraph Effect before paragraph indent</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32057,32 +32067,32 @@ Document Liberation Projesine gönderin: http://www.documentliberation.org</tran
         <translation>Gölge</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1007"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1038"/>
         <source>Level:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="947"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1011"/>
         <source>Numbering Style:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="927"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="994"/>
         <source>Start with:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="987"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1054"/>
         <source>Prefix:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="957"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="974"/>
         <source>Suffix:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1042"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="987"/>
         <source>Restart:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34999,17 +35009,17 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
         <translation>İptal</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10879"/>
+        <location filename="../../scribus/pageitem.cpp" line="10861"/>
         <source>Print: </source>
         <translation>Yazdır: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10881"/>
+        <location filename="../../scribus/pageitem.cpp" line="10863"/>
         <source>Enabled</source>
         <translation>Etkin</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10883"/>
+        <location filename="../../scribus/pageitem.cpp" line="10865"/>
         <source>Disabled</source>
         <translation>Devredışı</translation>
     </message>
@@ -35192,64 +35202,64 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
 <context>
     <name>ScripterCore</name>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="355"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="452"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="616"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="351"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="446"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="610"/>
         <source>Script error</source>
         <translation>Script hatası</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="357"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="353"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="359"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="355"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Bu mesaj panoda da var. Hata bildirimi olarak eklemek için Ctrl+V kullanın.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="538"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="532"/>
         <source>Examine Script</source>
         <translation>Scripti analiz et</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="453"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="447"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="582"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="576"/>
         <source>Startup Script error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="583"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="577"/>
         <source>Could not find script: %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="617"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="611"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Python eklentisinin kurulumu başarısız oldu. Hata ayrıntıları stderr&apos;e yazdırıldı. </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="551"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="545"/>
         <source>Documentation for:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="556"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="550"/>
         <source>Script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="556"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="550"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="538"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="532"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35529,27 +35539,27 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
 <context>
     <name>ShapePalette</name>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="431"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="430"/>
         <source>Choose a shape file to import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="431"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="430"/>
         <source>Photoshop Custom Shape (*.csh *.CSH)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="614"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="613"/>
         <source>Custom Shapes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="615"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="614"/>
         <source>Load Photoshop Custom Shapes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="616"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="615"/>
         <source>Close current Tab</source>
         <translation type="unfinished"></translation>
     </message>
@@ -39832,7 +39842,7 @@ Would you like to start the system&apos;s default browser instead?</source>
         <translation>Dosya Analizi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="350"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="348"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -40098,7 +40108,7 @@ Document Liberation Projesine gönderin: http://www.documentliberation.org</tran
         <translation>Dosya Analizi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="333"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="332"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
