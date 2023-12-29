@@ -3677,9 +3677,9 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		m_mainWindowStatusLabel->setText( tr("Ready"));
 		ret = true;
 		doc->setLoading(true);
-		for (int p = 0; p < doc->DocPages.count(); ++p)
+		for (int i = 0; i < doc->DocPages.count(); ++i)
 		{
-			Apply_MasterPage(doc->DocPages.at(p)->masterPageName(), p, false);
+			Apply_MasterPage(doc->DocPages.at(i)->masterPageName(), i, false);
 		}
 		view->reformPages(false);
 		doc->setLoading(false);
