@@ -4,16 +4,16 @@
   </ImportGroup>
   <!-- Import Scribus dependencies (other than Qt) -->
   <PropertyGroup Label="UserMacros">
-	<SCRIBUS_LIB_ROOT>F:\Scribus Libs\scribus-1.5.x-libs-msvc</SCRIBUS_LIB_ROOT>
+	<SCRIBUS_LIB_ROOT>F:\Scribus Libs\scribus-1.6.x-libs-msvc</SCRIBUS_LIB_ROOT>
   </PropertyGroup>
   <Import Project="$(SCRIBUS_LIB_ROOT)\scribus-lib-paths.props" />
   <!-- Import Qt5 -->
   <PropertyGroup Label="UserMacros">
 	<!-- Qt5 -->
-	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt\5.15.2\msvc2019</QT5_DIR>
-	<QT5_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt\5.15.2\msvc2019_64</QT5_DIR>
-	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt\5.15.2\msvc2019</QT5_DIR>
-	<QT5_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt\5.15.2\msvc2019_64</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt-5.15.12\msvc2019</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt-5.15.12\msvc2019_64</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt-5.15.12\msvc2019</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt-5.15.12\msvc2019_64</QT5_DIR>
 	<QT5CORE_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Cored.lib</QT5CORE_LIB>
 	<QT5CORE_LIB Condition="'$(Configuration)' == 'Release'">Qt5Core.lib</QT5CORE_LIB>
 	<QT5GUI_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Guid.lib</QT5GUI_LIB>
