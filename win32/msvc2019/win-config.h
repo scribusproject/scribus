@@ -7,9 +7,6 @@
 /* Are we building an executable to be included in MacOS/X .app bundle? */
 #undef BUILD_MAC_BUNDLE
 
-/* Are we building win32 native version. */
-#define BUILD_WINDOWS_VERSION 1
-
 /* Are we using native api for dll management */
 #define DLL_USE_NATIVE_API 1
 

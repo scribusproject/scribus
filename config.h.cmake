@@ -12,7 +12,6 @@
 #cmakedefine VERSION "1.7.0.svn"
 
 #cmakedefine BUILD_MAC_BUNDLE
-#cmakedefine BUILD_WINDOWS_VERSION 1
 #cmakedefine DLL_USE_NATIVE_API 1
 #cmakedefine GMAGICK_FOUND 1
 #cmakedefine HAVE_QTADS 1
