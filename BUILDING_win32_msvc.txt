@@ -6,10 +6,9 @@ Microsoft Visual Studio. No help regarding use of Visual Studio and
 related tools will be provided.
 
 You will need:
-- Microsoft Vista, 7 or a more recent version
+- Microsoft Windows 7 or a more recent version
 - Microsoft Visual Studio 2015 or later (for 32/64bit build)
-- A recent Qt release built with corresponding Visual Studio version (minimum 5.11, recommended >= 5.12.0)
-- Scribus common libraries kit downloaded from https://sourceforge.net/projects/scribus/files/scribus-libs/
+- A recent Qt release built with corresponding Visual Studio version (minimum 5.14, recommended >= 5.15.2)
 - Scribus 15x libraries kit downloaded from https://sourceforge.net/projects/scribus/files/scribus-libs/
 
 Provided solutions have been tested with following Microsoft Visual Studion editions:
@@ -67,43 +66,29 @@ Building 3rd party libraries:
 Archives with ready-to-build solutions for scribus dependencies have been made available on Sourceforge: 
 https://sourceforge.net/projects/scribus/files/scribus-libs/
 
-Archives for Visual Studio 2015 and Visual Studio 2017 are provided. These archives can be used to compile  all dependencies 
-necessary for Scribus. These archives allows to build libraries for 32bit and 64bit platforms using default toolsets. 
-The default configuration  allows to build binaries compatible with Windows Vista and up.
+Archives containing solutions for Visual Studio 2015 to 2022 are provided. These archives can be used to compile all dependencies 
+necessary for Scribus (apart from Qt). These archives allows to build libraries for 32bit and 64bit platforms using default toolsets. 
+The default configuration allows to build binaries compatible with Windows 7 and up.
 
-Two different archives are needed :
-- scribus-commmon-libs-YYYYMMDD.7z : common libraries for 14x and trunk, no compilation is required here
-- scribus-15x-libs-msvcXXXX-YYYYMMDD.7z : Scribus 15x specific libraries used for current Scribus 1.5.x releases
+Download the scribus-15x-libs-msvc-YYYYMMDD.7z archive where YYYYMMDD represents the date when the archive has been prepared/uploaded to Sourceforge.
+This archive contains Scribus 1.5.x specific libraries used for current Scribus 1.5.x releases.
 
-These archives are named using a scheme where:
-- msvcXXXX represents the Visual Studio version needed to compile provided Visual Studio solution
-- YYYYMMDD represents the date where the archive has been prepared/uploaded to Sourceforge.
-
-Once you downloaded the two appropriate archives :
-- decompress them in the *same* directory so as to get a layout similar to this one :
-    - your_scribus_libs_directory
-       |- scribus-1.5.x-libs-msvc2015
-       |- scribus-common-libs
+Then follow these steps :
+- uncompress the downloaded archive in the directory of your choice. The path of this directory should be as short as possible as
+  Visual Studio compiler and linker cannot handle paths of more than about 250 characters
 - open the visual studio solution (*.sln) located in the scribus-1.5.x-libs-* directory
 - build debug and release configurations for all platforms (Win32 and/or x64) you plan to execute scribus on
 
-If you want to build using a different toolset, you can use msbuild through the command line. To do so you can use the provided 
-build-all-platform-libs.bat script. For example :
-- to build with Visual Studio 2015 default toolset for x64 platform:   build-all-platform-libs.bat x64   v140
-- to build with Visual Studio 2015 default toolset for Win32 platform: build-all-platform-libs.bat Win32 v140
-- to build with Visual Studio 2017 default toolset for x64 platform:   build-all-platform-libs.bat x64   v141
-- to build with Visual Studio 2017 default toolset for Win32 platform: build-all-platform-libs.bat Win32 v141
-- to build with Visual Studio 2019 default toolset for x64 platform:   build-all-platform-libs.bat x64   v142
-- to build with Visual Studio 2019 default toolset for Win32 platform: build-all-platform-libs.bat Win32 v142
-- to build with Visual Studio 2022 default toolset for x64 platform:   build-all-platform-libs.bat x64   v143
-- to build with Visual Studio 2022 default toolset for Win32 platform: build-all-platform-libs.bat Win32 v143
+You can also use msbuild through the command line. To do so you can use the provided build-libs.bat script. 
+Execute the script and a menu will allow you to choose amongst the different supported Microsoft Visual Studio
+versions and platforms.
 
 BUILDING SCRIBUS
 ====================
 
 After having compiled all dependencies, open the Scribus-build-props.props file located in Scribus\win32\msvc2015,
-Scribus\win32\msvc2017 or Scribus\win32\msvc2019 depending on the Visual Studio version you are using in a text editor.
-Update the dependency paths to match your system.
+Scribus\win32\msvc2017, Scribus\win32\msvc2019 or Scribus\win32\msvc2022 depending on the Visual Studio version 
+you are using in a text editor. Update the dependency paths to match your system.
 
 Open the Visual Studio solution located in same directory and start building. Note: if you built dependencies with a different 
 toolset than the default one, you should either modify toolset directly in all projects or build the solution through command 
@@ -120,16 +105,10 @@ The provided Visual Studio solutions are configured in such a way that resources
 to appropriate directories during the build process. Before being able to run Scribus, you will have however to copy dependency 
 dlls to build directories.
 
-To install common libs:
-- open the scribus-common-libs directory where you uncompressed common libraries
-- open the copy-dlls-to-15x-build-dir.bat file from scribus-common-libs directory in a text editor
-- modify the SCRIBUS_BUILDS_DIR, SCRIBUS_LIB_TOOLSET variables appropriately
-- execute batch file
-
-To install version specific libs:
+To install Scribus dependency dlls:
 - open the scribus-15x-libs-msvc* directory where you uncompressed Scribus 15x libs
-- open the copy-dlls-to-build-dir file in a text editor
-- modify the SCRIBUS_BUILDS_DIR and SCRIBUS_LIB_TOOLSET variables appropriately
+- open the copy-dlls-to-build-dir.bat file in a text editor
+- modify the SCRIBUS_BUILDS_DIR variable appropriately
 - execute batch file
 
 Finally copy Qt DLLs to build directory and Qt plugins directory to "qtplugins" directory.
