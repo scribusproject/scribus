@@ -9,7 +9,6 @@ You will need:
 - Microsoft Windows 10 build 1809 or a more recent version
 - Microsoft Visual Studio 2019 or later (for 32/64bit build)
 - A recent Qt release built with corresponding Visual Studio version (minimum 6.2, recommended >= 6.2.3)
-- Scribus common libraries kit downloaded from https://sourceforge.net/projects/scribus/files/scribus-libs/
 - Scribus 17x libraries kit downloaded from https://sourceforge.net/projects/scribus/files/scribus-libs/
 
 Provided solutions have been tested with following Microsoft Visual Studion editions:
@@ -42,19 +41,12 @@ Archives for Visual Studio 2019 and 2022 are provided. These archives can be use
 necessary for Scribus. These archives allows to build libraries for 32bit and 64bit platforms using default toolsets. 
 The default configuration  allows to build binaries compatible with Windows Vista and up.
 
-Two different archives are needed :
-- scribus-commmon-libs-YYYYMMDD.7z : common libraries for 14x and trunk, no compilation is required here
-- scribus-17x-libs-msvcXXXX-YYYYMMDD.7z : Scribus 17x specific libraries used for current Scribus 1.7.x releases
+Download the scribus-17x-libs-msvc-YYYYMMDD.7z archive where YYYYMMDD represents the date when the archive has been prepared/uploaded to Sourceforge.
+This archive contains Scribus 1.7.x specific libraries used for current Scribus 1.7.x releases.
 
-These archives are named using a scheme where:
-- msvcXXXX represents the Visual Studio version needed to compile provided Visual Studio solution
-- YYYYMMDD represents the date where the archive has been prepared/uploaded to Sourceforge.
-
-Once you downloaded the two appropriate archives :
-- decompress them in the *same* directory so as to get a layout similar to this one :
-    - your_scribus_libs_directory
-       |- scribus-1.7.x-libs-msvc2019
-       |- scribus-common-libs
+Then follow these steps :
+- uncompress the downloaded archive in the directory of your choice. The path of this directory should be as short as possible as
+  Visual Studio compiler and linker cannot handle paths of more than about 250 characters
 - open the visual studio solution (*.sln) located in the scribus-1.7.x-libs-* directory
 - build debug and release configurations for all platforms (Win32 and/or x64) you plan to execute scribus on
 
@@ -84,16 +76,10 @@ The provided Visual Studio solutions are configured in such a way that resources
 to appropriate directories during the build process. Before being able to run Scribus, you will have however to copy dependency 
 dlls to build directories.
 
-To install common libs:
-- open the scribus-common-libs directory where you uncompressed common libraries
-- open the copy-dlls-to-17x-build-dir.bat file from scribus-common-libs directory in a text editor
-- modify the SCRIBUS_BUILDS_DIR, SCRIBUS_LIB_TOOLSET variables appropriately
-- execute batch file
-
-To install version specific libs:
-- open the scribus-17x-libs-msvc* directory where you uncompressed Scribus 17x libs
-- open the copy-dlls-to-build-dir file in a text editor
-- modify the SCRIBUS_BUILDS_DIR and SCRIBUS_LIB_TOOLSET variables appropriately
+To install Scribus dependency dlls:
+- open the scribus-1.7.x-libs-msvc directory where you uncompressed Scribus 1.7.x libs
+- open the copy-dlls-to-build-dir.bat file in a text editor
+- modify the SCRIBUS_BUILDS_DIR variable appropriately
 - execute batch file
 
 Finally copy Qt DLLs to build directory and Qt plugins directory to "qtplugins" directory.
