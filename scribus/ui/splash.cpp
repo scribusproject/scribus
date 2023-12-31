@@ -56,17 +56,11 @@ void ScSplashScreen::setStatus( const QString &message )
 void ScSplashScreen::drawContents(QPainter* painter)
 {
 	QFont f(font());
-//	QSplashScreen::drawContents(painter);
-
-
 	QRect messageRect = m_messageRect.isEmpty() ? rect() : m_messageRect;
 	QRect rM = messageRect.adjusted(0, 0, -15, -5);
-
 	painter->setFont(f);
-	painter->setPen(QColor(255,255,255));
+	painter->setPen(QColor(255, 255, 255));
 	painter->drawText(rM, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, message());
-
-
 	QRect r = messageRect.adjusted(0, 0, -15, -60);
 
 	QFont lgf(font());
@@ -80,33 +74,34 @@ void ScSplashScreen::drawContents(QPainter* painter)
 	lgf.setPointSize(29);
 #endif
 	painter->setFont(lgf);
-	painter->drawText(r, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, ScribusAPI::getVersion() );
+	painter->drawText(r,
+					  Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom,
+					  ScribusAPI::getVersion());
 
-	if (ScribusAPI::isSVN())
+	if (!ScribusAPI::isSVN())
+		return;
+
+	if (ScribusAPI::haveSVNRevision())
 	{
-		if (ScribusAPI::haveSVNRevision())
-		{
-			QString revText = QString("SVN Revision: %1").arg(ScribusAPI::getSVNRevision());
-			QRect r2 = messageRect.adjusted(10, 10, -15, -30);
-			painter->setFont(f);
-			painter->drawText(r2, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, revText );
-		}
-		QFont wf(font());
-#if defined _WIN32
-		wf.setPointSize(10);
-#elif defined(__INNOTEK_LIBC__)
-		wf.setPointSize(9);
-#elif defined(Q_OS_MACOS)
-		wf.setPointSize(12);
-#else
-		wf.setPointSize(9);
-#endif
-		painter->setFont(wf);
-//		painter->setPen(QPen(Qt::red));
-		QString warningText("Development Version");
-		QRect r3 = messageRect.adjusted(10, 10, -15, -45);
-
-		painter->drawText(r3, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, warningText );
+		QString revText = QString("SVN Revision: %1").arg(ScribusAPI::getSVNRevision());
+		QRect r2 = messageRect.adjusted(10, 10, -15, -30);
+		painter->setFont(f);
+		painter->drawText(r2, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, revText);
 	}
+
+	QFont wf(font());
+#if defined _WIN32
+	wf.setPointSize(10);
+#elif defined(__INNOTEK_LIBC__)
+	wf.setPointSize(9);
+#elif defined(Q_OS_MACOS)
+	wf.setPointSize(12);
+#else
+	wf.setPointSize(9);
+#endif
+	painter->setFont(wf);
+	QString warningText("Development Version");
+	QRect r3 = messageRect.adjusted(10, 10, -15, -45);
+	painter->drawText(r3, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, warningText);
 }
 
