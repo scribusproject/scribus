@@ -22,7 +22,7 @@ Scribus - 1.7.0 (Released 2024-xx-xx)
 0016861: [Build System] Port of AdapterWidget to Qt6 (jghali)
 0016864: [Import / Export] Scribus crashes opening sla files (cbradney)
 
-Scribus - 1.5.9 (Released 2023-xx-xx)
+Scribus - 1.6.0 (Released 2024-01-01)
 =========================================
 0015380: [Language Tools] Can´t paste Spanish content (cbradney)
 0011810: [Story Editor / Text Frames] center alignment unprecise in circles (cbradney)
