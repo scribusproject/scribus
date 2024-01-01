@@ -279,7 +279,7 @@ QString About::trAuthorTitle(const QString& title)
 		result = tr("Refactoring text layout code, the new boxes model & CTL text layout, Oman House of Open Source Technology team:");
 	else
 	{
-		//std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trAuthorTitle()" << std::endl;
+		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trAuthorTitle()" << std::endl;
 		result = title;
 	}
 	return result;
@@ -294,7 +294,7 @@ QString About::trTranslationTitle(const QString& title)
 		result = tr("Previous Translation Contributors:");
 	else
 	{
-		//std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trTranslationTitle()" << std::endl;
+		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trTranslationTitle()" << std::endl;
 		result = title;
 	}
 	return result;
@@ -317,7 +317,7 @@ QString About::trLinksTitle(const QString& title)
 		result = tr("Mailing List");
 	else
 	{
-		//std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trLinksTitle()" << std::endl;
+		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trLinksTitle()" << std::endl;
 		result = title;
 	}
 	return result;
