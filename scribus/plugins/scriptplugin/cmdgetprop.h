@@ -17,6 +17,15 @@ PyDoc_STRVAR(scribus_getobjecttype__doc__,
 QT_TR_NOOP("getObjectType([\"name\"]) -> string\n\
 \n\
 Get type of object \"name\" as a string.\n\
+\n\
+The possible return values are:\n\
+\n\
+'TextFrame', 'PathText', 'ImageFrame',\n\
+'Line', 'Polygon', 'Polyline',\n\
+'LatexFrame', 'OSGFrame', 'Symbol',\n\
+'Group', 'RegularPolygon', 'Arc',\n\
+'Spiral', 'Table', 'NoteFrame',\n\
+'Multiple'\n\
 "));
 /** Get Object Type of name. */
 PyObject *scribus_getobjecttype(PyObject * /*self*/, PyObject* args);
@@ -168,6 +177,7 @@ PyObject *scribus_getcornerradius(PyObject * /*self*/, PyObject* args);
 /*! docstring */
 PyDoc_STRVAR(scribus_getimagecolorspace__doc__,
 QT_TR_NOOP("getImageColorSpace([\"name\"]) -> integer\n\
+\n\
 Returns the color space for the image loaded in image frame \"name\" as \n\
 one of following integer constants: CSPACE_RGB (0), CSPACE_CMYK (1), \n\
 CSPACE_GRAY (2), CSPACE_DUOTONE (3) or CSPACE_MONOCHROME (4).\n\
@@ -261,6 +271,7 @@ PyObject *scribus_getallobjects(PyObject * /*self*/, PyObject* args, PyObject *k
 /*! docstring */
 PyDoc_STRVAR(scribus_getobjectattributes__doc__,
 QT_TR_NOOP("getObjectAttributes([\"name\"]) -> list\n\
+\n\
 Returns a list containing all attributes of object \"name\".\n\
 "));
 PyObject *scribus_getobjectattributes(PyObject * /*self*/, PyObject* args);
