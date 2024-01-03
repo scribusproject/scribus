@@ -558,7 +558,7 @@ struct LineControl {
 		double maxX = colRight - morespace;
 		if (legacy) maxX -= lineCorr;
 
-		double StartX = floor(qMax(line.x, qMin(maxX, breakXPos - maxShrink - 1)) - 1);
+		double startX = floor(qMax(line.x, qMin(maxX, breakXPos - maxShrink - 1)) - 1);
 		int xPos  = static_cast<int>(ceil(maxX));
 
 		QPoint  pt12 (xPos, Yasc);
@@ -566,18 +566,18 @@ struct LineControl {
 		QRect   pt(pt12,pt22);
 		QRegion region;
 
-		double EndX2 = StartX;
+		double endX2 = startX;
 		double Interval = 0.25;
 		do {
-			int xP = static_cast<int>(ceil(EndX2 + morespace));
+			int xP = static_cast<int>(ceil(endX2 + morespace));
 			pt.moveTopLeft(QPoint(xP, Yasc));
 			region = QRegion(pf2.mapToPolygon(pt)).subtracted(shape);
 			if (!region.isEmpty())
 				break;
-			EndX2 += Interval;
-		} while ((EndX2 < maxX) && region.isEmpty());
+			endX2 += Interval;
+		} while ((endX2 < maxX) && region.isEmpty());
 
-		return qMin(EndX2, maxX);
+		return qMin(endX2, maxX);
 	}*/
 
 	/// find x position where this line must end
@@ -585,18 +585,19 @@ struct LineControl {
 	{
 		// if we aren't restricted further, we'll end at this maxX:
 		double maxX = colRight - morespace;
-		if (legacy) maxX -= lineCorr;
+		if (legacy)
+			maxX -= lineCorr;
 
-		double StartX = floor(qMax(lineData.x, qMin(maxX, breakXPos - maxShrink - 1)) - 1);
-		StartX = qMax(0.0, StartX);
+		double startX = floor(qMax(lineData.x, qMin(maxX, breakXPos - maxShrink - 1)) - 1);
+		startX = qMax(0.0, startX);
 
 		int xPos  = static_cast<int>(ceil(maxX));
 		QPoint  pt12 (xPos, yAsc);
 		QPoint  pt22 (xPos, yDesc);
 
 		QPolygon p;
-		p.append (QPoint (StartX, yAsc));
-		p.append (QPoint (StartX, yDesc));
+		p.append (QPoint (startX, yAsc));
+		p.append (QPoint (startX, yDesc));
 		p.append (pt12);
 		p.append (pt22);
 		// check if something gets in the way
@@ -604,40 +605,42 @@ struct LineControl {
 		// if the intersection only has 1 rectangle, then nothing gets in the way
 		if (lineI.rectCount() == 1)
 		{
-			int   cPos = static_cast<int>(ceil(StartX + morespace));
+			int   cPos = static_cast<int>(ceil(startX + morespace));
 			QRect cRect (QPoint(cPos, yAsc), QPoint(cPos, yDesc));
 			QRegion qr2 = QRegion(cRect).subtracted(shape);
 			if (qr2.isEmpty()) // qr2 == 0 <=> cRect subset of shape
 			{
 				QRegion::const_iterator rect = lineI.cbegin();
 				double  mx = qMax(rect->left(), rect->right()) /*- pf2.dx()*/;
-				int steps  = static_cast<int>((mx - StartX - morespace - 2) / 0.25);
+				int steps  = static_cast<int>((mx - startX - morespace - 2) / 0.25);
 				if (steps > 0)
 				{
-					StartX += steps * 0.25;
+					startX += steps * 0.25;
 				}
 			}
 		}
 
 		QRect   pt(pt12, pt22);
 
-		double EndX2 = StartX;
+		double endX2 = startX;
 		double Interval = 0.25;
-		do {
-			int xP = static_cast<int>(ceil(EndX2 + morespace));
+		do
+		{
+			int xP = static_cast<int>(ceil(endX2 + morespace));
 			pt.moveTopLeft(QPoint(xP, yAsc));
 			if (!regionContainsRect(shape, pt))
 				break;
-			EndX2 += Interval;
-		} while ((EndX2 < maxX) && regionContainsRect(shape, pt));
+			endX2 += Interval;
+		}
+		while ((endX2 < maxX) && regionContainsRect(shape, pt));
 
 		/*double oldEndX2 = endOfLine_old(shape, pf2, morespace, yAsc, yDesc);
-		if (oldEndX2 != qMin(EndX2, maxX))
+		if (oldEndX2 != qMin(endX2, maxX))
 		{
-			qDebug() << "Different EndX : " << oldEndX2 << " (old) " << EndX2 << " (new) ";
+			qDebug() << "Different EndX : " << oldEndX2 << " (old) " << endX2 << " (new) ";
 		}*/
 
-		return qMin(EndX2, maxX);
+		return qMin(endX2, maxX);
 	}
 
 	void updateHeightMetrics()
@@ -648,8 +651,8 @@ struct LineControl {
 		const CharStyle& cStyle(glyphs.at(0).style());
 		double scaleV = cStyle.scaleV() / 1000.0;
 		double offset = (cStyle.fontSize() / 10) * (cStyle.baselineOffset() / 1000.0);
-		lineData.ascent = cStyle.font().ascent(cStyle.fontSize()/10.00) * scaleV + offset;
-		lineData.descent = cStyle.font().descent(cStyle.fontSize()/10.00) * scaleV - offset;
+		lineData.ascent = cStyle.font().ascent(cStyle.fontSize() / 10.00) * scaleV + offset;
+		lineData.descent = cStyle.font().descent(cStyle.fontSize() / 10.00) * scaleV - offset;
 	}
 
 // yPos should not be changed when all line is already calculated - at new y position there can be overflow!!!
@@ -696,7 +699,6 @@ struct LineControl {
 	/// called when line length is known and line is to be justified
 	void justifyLine(const ParagraphStyle& style)
 	{
-
 		double glyphNatural = 0;
 		double spaceNatural = 0;
 		double glyphExtension;
@@ -2323,9 +2325,8 @@ void PageItem_TextFrame::layout()
 				}
 
 				double rightHang = 0;
-				if (opticalMargins & ParagraphStyle::OM_RightHangingPunct) {
+				if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
 					rightHang = 0.7 * hyphWidth;
-				}
 
 				if (legacy || (breakPos - rightHang < current.colRight - style.rightMargin()))
 				{
@@ -2458,7 +2459,7 @@ void PageItem_TextFrame::layout()
 						{
 							if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
 								current.lineData.naturalWidth += current.opticalRightMargin(itemText);
-							double optiWidth = current.colRight - style.rightMargin() - style.lineSpacing()/2.0 - current.lineData.x;
+							double optiWidth = current.colRight - style.rightMargin() - style.lineSpacing() / 2.0 - current.lineData.x;
 							if (current.lineData.naturalWidth > optiWidth)
 								current.lineData.width = qMax(current.lineData.width - current.maxShrink, optiWidth);
 							// simple offset
@@ -3713,8 +3714,8 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 			p->setBrushOpacity(1.0);
 			p->setFillMode(ScPainter::Solid);
 			double ofwh = 10;
-			double ofx = m_width - ofwh/2;
-			double ofy = m_height - ofwh*3;
+			double ofx = m_width - ofwh / 2;
+			double ofy = m_height - ofwh * 3;
 			p->drawSharpRect(ofx, ofy, ofwh, ofwh);
 		}
 		if (no_fill && no_stroke && m_Doc->guidesPrefs().framesShown)
