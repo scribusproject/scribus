@@ -485,8 +485,8 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="16/format-justify-right.png" file="16/paragraph-align-right.svg" />
 		<icon id="textbase.png" file="16/character-offset-baseline.svg" />
 		<icon id="textkern.png" file="16/character-letter-spacing.svg" />
-		<icon id="textscaleh.png" file="16/character-scale-height.svg" />
-		<icon id="textscalev.png" file="16/character-scale-width.svg" />
+		<icon id="textscaleh.png" file="16/character-scale-width.svg" />
+		<icon id="textscalev.png" file="16/character-scale-height.svg" />
 		<icon id="tief.png" file="16/character-subscript.svg" />
 		<icon id="hoch.png" file="16/character-superscript.svg" />
 		<icon id="kapital.png" file="16/character-capitals-small.svg" />
