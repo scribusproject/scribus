@@ -643,6 +643,13 @@ struct LineControl {
 		return qMin(endX2, maxX);
 	}
 
+	void updateBreakXPos()
+	{
+		breakXPos = lineData.x;
+		for (int i = 0; i <= breakIndex - lineData.firstCluster; i++)
+			breakXPos += glyphs.at(i).width();
+	}
+
 	void updateHeightMetrics()
 	{
 		lineData.ascent = lineData.descent = 0;
@@ -2507,6 +2514,7 @@ void PageItem_TextFrame::layout()
 							--supSpace;
 						}
 
+						current.updateBreakXPos();
 						current.updateHeightMetrics();
 						//current.updateLineOffset(itemText, style, firstLineOffset());
 						//current.xPos = current.breakXPos;
@@ -2526,6 +2534,8 @@ void PageItem_TextFrame::layout()
 							hyphen.xadvance = font.hyphenWidth(charStyle, charStyle.fontSize() / 10.0);
 							hyphWidth = hyphen.xadvance * scaleH;
 							current.glyphs[currentIndex].append(hyphen);
+							current.breakXPos += hyphWidth;
+							current.lineData.naturalWidth += hyphWidth;
 						}
 						else
 						{
