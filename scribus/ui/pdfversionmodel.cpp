@@ -5,15 +5,12 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QDebug>
 #include "pdfversionmodel.h"
 
-#include "commonstrings.h"
-#include "pdfoptions.h"
-
 PdfVersionModel::PdfVersionModel(QObject *parent)
-	          : QAbstractItemModel(parent)
+				: QAbstractItemModel(parent)
 {
-	
 	m_enabledVec << true << true << true << true << false << false << false;
 }
 
@@ -43,9 +40,9 @@ QVariant PdfVersionModel::data(const QModelIndex &index, int role) const
 		if (row == ItemPDF_16)
 			return tr("PDF 1.6 (Acrobat 7)");
 		if (row == ItemPDFX_1a)
-			return tr("PDF/X-1a");
+			return tr("PDF/X-1a:2001");
 		if (row == ItemPDFX_3)
-			return tr("PDF/X-3");
+			return tr("PDF/X-3:2002");
 		if (row == ItemPDFX_4)
 			return tr("PDF/X-4");
 		return QVariant();
