@@ -99,7 +99,11 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QTextEdit" name="keywordsTextEdit"/>
+        <widget class="QTextEdit" name="keywordsTextEdit">
+         <property name="tabChangesFocus">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_6">
@@ -109,7 +113,11 @@
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QTextEdit" name="descriptionTextEdit"/>
+        <widget class="QTextEdit" name="descriptionTextEdit">
+         <property name="tabChangesFocus">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -171,7 +179,11 @@
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QTextEdit" name="contributorsTextEdit"/>
+              <widget class="QTextEdit" name="contributorsTextEdit">
+               <property name="tabChangesFocus">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
              <item row="2" column="0">
               <widget class="QLabel" name="label_9">
@@ -181,7 +193,11 @@
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QLineEdit" name="dateLineEdit"/>
+              <widget class="QComboBox" name="dateLineEdit">
+               <property name="editable">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
              <item row="3" column="0">
               <widget class="QLabel" name="label_10">
@@ -191,7 +207,11 @@
               </widget>
              </item>
              <item row="3" column="1">
-              <widget class="QLineEdit" name="typeLineEdit"/>
+              <widget class="QComboBox" name="typeLineEdit">
+               <property name="editable">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
              <item row="4" column="0">
               <widget class="QLabel" name="label_11">
@@ -231,7 +251,11 @@
               </widget>
              </item>
              <item row="7" column="1">
-              <widget class="QLineEdit" name="languageLineEdit"/>
+              <widget class="QComboBox" name="languageLineEdit">
+               <property name="editable">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
              <item row="8" column="0">
               <widget class="QLabel" name="label_15">
@@ -251,7 +275,11 @@
               </widget>
              </item>
              <item row="9" column="1">
-              <widget class="QLineEdit" name="coverageLineEdit"/>
+              <widget class="QComboBox" name="coverageLineEdit">
+               <property name="editable">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
              <item row="10" column="0">
               <widget class="QLabel" name="label_17">
@@ -261,7 +289,11 @@
               </widget>
              </item>
              <item row="10" column="1">
-              <widget class="QLineEdit" name="rightsLineEdit"/>
+              <widget class="QComboBox" name="rightsLineEdit">
+               <property name="editable">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
