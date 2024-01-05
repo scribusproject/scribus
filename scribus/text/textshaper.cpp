@@ -281,7 +281,8 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 	// FIXME-HOST: add some fallback code if the iterator failed
 	if (lineIt)
 	{
-		lineIt->setText((const UChar*) m_text.utf16());
+		icu::UnicodeString unicodeStr(true, (const UChar*) m_text.utf16(), m_text.length());
+		lineIt->setText(unicodeStr);
 		for (int32_t pos = lineIt->first(); pos != BreakIterator::DONE; pos = lineIt->next())
 			lineBreaks.append(pos);
 	}
@@ -306,7 +307,8 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 			if (charIt)
 			{
 				const QString text = m_text.mid(run.start, run.len);
-				charIt->setText((const UChar*) text.utf16());
+				icu::UnicodeString unicodeStr((const UChar*) text.utf16());
+				charIt->setText(unicodeStr);
 				int32_t pos = charIt->first();
 				while (pos != BreakIterator::DONE && pos < text.length())
 				{

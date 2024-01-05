@@ -151,7 +151,9 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
 	BreakIterator* bi = StoryText::getWordIterator();
-	bi->setText((const UChar*) text.utf16());
+	icu::UnicodeString unicodeStr((const UChar*) text.utf16(), text.length());
+	bi->setText(unicodeStr);
+
 	int pos = bi->first();
 	while (pos != BreakIterator::DONE)
 	{
@@ -176,6 +178,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 			char *buffer = static_cast<char*>(malloc(te.length() + 5));
 			if (buffer == nullptr)
 				break;
+			memset(buffer, 0, te.length() + 5);
 
 			char **rep = nullptr;
 			int *pos = nullptr;
