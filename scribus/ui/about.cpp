@@ -321,8 +321,8 @@ QString About::trLinksTitle(const QString& title)
 		result = tr("Developer Blog");
 	else if (title == "Mailing List")
 		result = tr("Mailing List");
-	else if (title == "Forum")
-		result = tr("Forum");
+	else if (title == "Forums")
+		result = tr("Forums");
 	else
 	{
 		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trLinksTitle()" << std::endl;
