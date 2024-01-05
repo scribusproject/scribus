@@ -133,6 +133,7 @@ private:
 		}
 	};
 
+	bool PDF_HasXMP() const;
 	bool PDF_IsPDFX() const;
 	bool PDF_IsPDFX(const PDFVersion& ver) const;
 

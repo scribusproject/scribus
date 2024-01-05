@@ -559,6 +559,14 @@ PDFLibCore::~PDFLibCore()
 	delete progressDialog;
 }
 
+bool PDFLibCore::PDF_HasXMP() const
+{
+	if (Options.Version == PDFVersion::PDF_16)
+		return true;
+	if (Options.Version == PDFVersion::PDF_X4)
+		return true;
+	return false;
+}
 
 bool PDFLibCore::PDF_IsPDFX() const
 {
@@ -966,7 +974,7 @@ void PDFLibCore::PDF_Begin_Catalog()
 		writer.OutputIntentObj = writer.newObject();
 		PutDoc("/OutputIntents [ " + Pdf::toObjRef(writer.OutputIntentObj) + " ]\n");
 	}
-	if (Options.Version == PDFVersion::PDF_X4)
+	if (PDF_HasXMP())
 	{
 		writer.MetaDataObj = writer.newObject();
 		PutDoc("/Metadata " + Pdf::toObjRef(writer.MetaDataObj) + "\n");
@@ -1017,8 +1025,7 @@ void PDFLibCore::PDF_Begin_Catalog()
 //	Datum += tmp;
 //	Datum += "Z";
 
-	// only include XMP to PDF/X-4 at the moment, could easily be extended to include it to any PDF
-	if (Options.Version == PDFVersion::PDF_X4)
+	if (PDF_HasXMP())
 		generateXMP(dt.toString("yyyy-MM-ddThh:mm:ssZ"));
 
 /* The following code makes the resulting PDF "Reader enabled" in Acrobat Reader 8
@@ -11667,7 +11674,7 @@ bool PDFLibCore::PDF_End_OutputProfile(const QString& profilePath)
 
 void PDFLibCore::PDF_End_Metadata()
 {
-	if (Options.Version == PDFVersion::PDF_X4)
+	if (PDF_HasXMP())
 	{
 //		if (Options.useLayers) // OCProperties dictionary was included as '9 0 obj', OutputIntents was included as '10 0 obj'
 //		{
