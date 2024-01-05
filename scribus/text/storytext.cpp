@@ -242,7 +242,10 @@ void StoryText::moveCursorForward()
 	if (!it)
 		return;
 
-	it->setText((const UChar*) plainText().utf16());
+	QString fullText = plainText();
+	icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
+	it->setText(unicodeStr);
+
 	int pos = it->following(cursorPosition());
 	if (pos != BreakIterator::DONE)
 		setCursorPosition(pos);
@@ -254,7 +257,10 @@ void StoryText::moveCursorBackward()
 	if (!it)
 		return;
 
-	it->setText((const UChar*) plainText().utf16());
+	QString fullText = plainText();
+	icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
+	it->setText(unicodeStr);
+
 	int pos = it->preceding(cursorPosition());
 	if (pos != BreakIterator::DONE)
 		setCursorPosition(pos);
@@ -281,7 +287,11 @@ void StoryText::moveCursorWordLeft()
 	BreakIterator* it = getWordIterator();
 	if (!it)
 		return;
-	it->setText((const UChar*) plainText().utf16());
+
+	QString fullText = plainText();
+	icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
+	it->setText(unicodeStr);
+
 	int pos = cursorPosition();
 	if (paragraphStyle().direction() == ParagraphStyle::RTL)
 	{
@@ -310,7 +320,10 @@ void StoryText::moveCursorWordRight()
 	if (!it)
 		return;
 
-	it->setText((const UChar*) plainText().utf16());
+	QString fullText = plainText();
+	icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
+	it->setText(unicodeStr);
+
 	int pos = cursorPosition();
 	if (paragraphStyle().direction() == ParagraphStyle::RTL)
 	{
@@ -1059,7 +1072,9 @@ QString StoryText::word(int pos)
 	BreakIterator* it = getWordIterator();
 	if (it)
 	{
-		it->setText((const UChar*) plainText().utf16());
+		QString fullText = plainText();
+		icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
+		it->setText(unicodeStr);
 		int end = it->following(pos);
 		return text(pos, end - pos);
 	}
@@ -1814,7 +1829,10 @@ int StoryText::nextWord(int pos)
 	if (!it)
 		return pos;
 
-	it->setText((const UChar*) plainText().utf16());
+	QString fullText = plainText();
+	icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
+	it->setText(unicodeStr);
+
 	pos = it->following(pos);
 	
 	int len = length();
@@ -1829,7 +1847,10 @@ int StoryText::prevWord(int pos)
 	if (!it)
 		return pos;
 
-	it->setText((const UChar*) plainText().utf16());
+	QString fullText = plainText();
+	icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
+	it->setText(unicodeStr);
+
 	pos = it->preceding(pos);
 	return pos;
 }
@@ -1840,7 +1861,10 @@ int StoryText::endOfWord(int pos) const
 	if (!it)
 		return pos;
 
-	it->setText((const UChar*) plainText().utf16());
+	QString fullText = plainText();
+	icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
+	it->setText(unicodeStr);
+
 	pos = it->following(pos);
 	return pos;
 }
@@ -1851,7 +1875,10 @@ int StoryText::endOfSentence(int pos) const
 	if (!it)
 		return pos;
 
-	it->setText((const UChar*) plainText().utf16());
+	QString fullText = plainText();
+	icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
+	it->setText(unicodeStr);
+
 	int end = it->following(pos);
 	return end;
 }
@@ -1862,7 +1889,10 @@ int StoryText::nextSentence(int pos)
 	if (!it)
 		return pos;
 
-	it->setText((const UChar*) plainText().utf16());
+	QString fullText = plainText();
+	icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
+	it->setText(unicodeStr);
+
 	pos = it->following(pos);
 	pos = it->next();
 	return pos;
@@ -1877,7 +1907,10 @@ int StoryText::prevSentence(int pos)
 	if (!it)
 		return pos;
 
-	it->setText((const UChar*) plainText().utf16());
+	QString fullText = plainText();
+	icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
+	it->setText(unicodeStr);
+
 	pos = it->preceding(pos);
 	return pos;
 }
@@ -1946,7 +1979,11 @@ int StoryText::selectWord(int pos)
 	BreakIterator* it = getWordIterator();
 	if (!it)
 		return pos;
-	it->setText((const UChar*) plainText().utf16());
+
+	QString fullText = plainText();
+	icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
+	it->setText(unicodeStr);
+
 	int start = it->preceding(pos + 1);
 	int end = it->next();
 	int wordLength = end - start;
