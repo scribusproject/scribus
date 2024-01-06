@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QRect>
 #include <QRegExp>
+#include <QRegularExpression>
 #include <QScopedPointer>
 #include <QStack>
 #include <QString>
@@ -11728,34 +11729,167 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 	QDomElement descDC = desc.cloneNode().toElement();
 	rdf.appendChild(descDC);
 	QString dcNS = "http://purl.org/dc/elements/1.1/";
+
 	descDC.setAttributeNS(dcNS, "dc:format", "application/pdf");
+
+	if (!doc.documentInfo().cover().isEmpty())
+		descDC.setAttributeNS(dcNS, "dc:coverage", doc.documentInfo().cover());
+
+	if (!doc.documentInfo().langInfo().isEmpty())
+	{
+		QDomElement language = xmpDoc.createElement("dc:language");
+		descDC.appendChild(language);
+		QDomElement bag1 = xmpDoc.createElement("rdf:Bag");
+		language.appendChild(bag1);
+		QDomElement li1 = xmpDoc.createElement("rdf:li");
+		bag1.appendChild(li1);
+		li1.appendChild(xmpDoc.createTextNode(doc.documentInfo().langInfo()));
+	}
+
 	QDomElement title = xmpDoc.createElement("dc:title");
 	descDC.appendChild(title);
-	QDomElement alt1 = xmpDoc.createElement("rdf:Alt");
-	title.appendChild(alt1);
-	QDomElement li1 = xmpDoc.createElement("rdf:li");
-	li1.setAttribute("xml:lang", "x-default");
-	alt1.appendChild(li1);
+	QDomElement alt2 = xmpDoc.createElement("rdf:Alt");
+	title.appendChild(alt2);
+	QDomElement li2 = xmpDoc.createElement("rdf:li");
+	li2.setAttribute("xml:lang", "x-default");
+	alt2.appendChild(li2);
 	QString docTitle = doc.documentInfo().title();
 	if ((PDF_IsPDFX()) && (docTitle.isEmpty()))
 		docTitle = doc.documentFileName();
-	li1.appendChild(xmpDoc.createTextNode(docTitle));
+	li2.appendChild(xmpDoc.createTextNode(docTitle));
+
+	if (!doc.documentInfo().publisher().isEmpty())
+	{
+		QDomElement publisher = xmpDoc.createElement("dc:publisher");
+		descDC.appendChild(publisher);
+		QDomElement bag3 = xmpDoc.createElement("rdf:Bag");
+		publisher.appendChild(bag3);
+		QDomElement li3 = xmpDoc.createElement("rdf:li");
+		bag3.appendChild(li3);
+		li3.appendChild(xmpDoc.createTextNode(doc.documentInfo().publisher()));
+	}
+
 	QDomElement creator = xmpDoc.createElement("dc:creator");
 	descDC.appendChild(creator);
-	QDomElement seq = xmpDoc.createElement("rdf:Seq");
-	creator.appendChild(seq);
-	QDomElement li2 = xmpDoc.createElement("rdf:li");
-	seq.appendChild(li2);
-	li2.appendChild(xmpDoc.createTextNode(doc.documentInfo().author()));
+	QDomElement seq4 = xmpDoc.createElement("rdf:Seq");
+	creator.appendChild(seq4);
+	QDomElement li4 = xmpDoc.createElement("rdf:li");
+	seq4.appendChild(li4);
+	li4.appendChild(xmpDoc.createTextNode(doc.documentInfo().author()));
+
+	if (!doc.documentInfo().contrib().isEmpty())
+	{
+		QDomElement contributor = xmpDoc.createElement("dc:contributor");
+		descDC.appendChild(contributor);
+		QDomElement bag5 = xmpDoc.createElement("rdf:Bag");
+		contributor.appendChild(bag5);
+
+		QStringList contributors = doc.documentInfo().contrib().split(QRegularExpression(" *[;\n] *"), Qt::SkipEmptyParts);
+		for (const QString &contrib : contributors)
+		{
+			QDomElement li5 = xmpDoc.createElement("rdf:li");
+			bag5.appendChild(li5);
+			li5.appendChild(xmpDoc.createTextNode(contrib));
+		}
+	}
+
 	// Subject's entry in Document Info dictionary is actually dc:description in XMP, not dc:subject.
 	QDomElement description = xmpDoc.createElement("dc:description");
 	descDC.appendChild(description);
-	QDomElement alt2 = xmpDoc.createElement("rdf:Alt");
-	description.appendChild(alt2);
-	QDomElement li3 = xmpDoc.createElement("rdf:li");
-	li3.setAttribute("xml:lang", "x-default");
-	alt2.appendChild(li3);
-	li3.appendChild(xmpDoc.createTextNode(doc.documentInfo().subject()));
+	QDomElement alt6 = xmpDoc.createElement("rdf:Alt");
+	description.appendChild(alt6);
+	QDomElement li6 = xmpDoc.createElement("rdf:li");
+	li6.setAttribute("xml:lang", "x-default");
+	alt6.appendChild(li6);
+	li6.appendChild(xmpDoc.createTextNode(doc.documentInfo().subject()));
+
+	if (!doc.documentInfo().type().isEmpty())
+	{
+		QDomElement type = xmpDoc.createElement("dc:type");
+		descDC.appendChild(type);
+		QDomElement bag7 = xmpDoc.createElement("rdf:Bag");
+		type.appendChild(bag7);
+		QDomElement li7 = xmpDoc.createElement("rdf:li");
+		bag7.appendChild(li7);
+		li7.appendChild(xmpDoc.createTextNode(doc.documentInfo().type()));
+	}
+
+	if (!doc.documentInfo().rights().isEmpty())
+	{
+		QDomElement rights = xmpDoc.createElement("dc:rights");
+		descDC.appendChild(rights);
+		QDomElement alt8 = xmpDoc.createElement("rdf:Alt");
+		rights.appendChild(alt8);
+		QDomElement li8 = xmpDoc.createElement("rdf:li");
+		li8.setAttribute("xml:lang", "x-default");
+		alt8.appendChild(li8);
+		li8.appendChild(xmpDoc.createTextNode(doc.documentInfo().rights()));
+
+		QString xmpRightsMarked = "True";
+		if (doc.documentInfo().rights() == "Creative Commons Zero 1.0 Universal Public Domain Dedication")
+			xmpRightsMarked = "False";
+		QDomElement descXMPrights = xmpDoc.createElement("rdf:Description");
+		descXMPrights.setAttribute("rdf:about", "");
+		rdf.appendChild(descXMPrights);
+		QString xmpRightsNS = "http://ns.adobe.com/xap/1.0/rights/";
+		QDomElement marked = xmpDoc.createElementNS(xmpRightsNS, "xmpRights:Marked");
+		descXMPrights.appendChild(marked);
+		marked.appendChild(xmpDoc.createTextNode(xmpRightsMarked));
+
+		QString ccLicenseURL;
+		if (doc.documentInfo().rights() == "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International")
+			ccLicenseURL = "http://creativecommons.org/licenses/by-nc-nd/4.0/";
+		if (doc.documentInfo().rights() == "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International")
+			ccLicenseURL = "https://creativecommons.org/licenses/by-nc-sa/4.0/";
+		if (doc.documentInfo().rights() == "Creative Commons Attribution-NonCommercial 4.0 International")
+			ccLicenseURL = "https://creativecommons.org/licenses/by-nc/4.0/";
+		if (doc.documentInfo().rights() == "Creative Commons Attribution-NoDerivatives 4.0 International")
+			ccLicenseURL = "https://creativecommons.org/licenses/by-nd/4.0/";
+		if (doc.documentInfo().rights() == "Creative Commons Attribution-ShareAlike 4.0 International")
+			ccLicenseURL = "https://creativecommons.org/licenses/by-sa/4.0/";
+		if (doc.documentInfo().rights() == "Creative Commons Attribution 4.0 International")
+			ccLicenseURL = "https://creativecommons.org/licenses/by/4.0/";
+		if (doc.documentInfo().rights() == "Creative Commons Zero 1.0 Universal Public Domain Dedication")
+			ccLicenseURL = "https://creativecommons.org/publicdomain/zero/1.0/";
+		if (!ccLicenseURL.isEmpty())
+		{
+			QString ccNS = "http://creativecommons.org/ns#";
+			QDomElement cc = xmpDoc.createElement("rdf:Description");
+			cc.setAttribute("rdf:about", "");
+			rdf.appendChild(cc);
+			QDomElement ccLicense = xmpDoc.createElementNS(ccNS, "cc:license");
+			ccLicense.setAttribute("rdf:resource", ccLicenseURL);
+			cc.appendChild(ccLicense);
+		}
+	}
+
+	if (!doc.documentInfo().date().isEmpty())
+	{
+		QDomElement date = xmpDoc.createElement("dc:date");
+		descDC.appendChild(date);
+		QDomElement seq9 = xmpDoc.createElement("rdf:Seq");
+		date.appendChild(seq9);
+		QDomElement li9 = xmpDoc.createElement("rdf:li");
+		seq9.appendChild(li9);
+		li9.appendChild(xmpDoc.createTextNode(doc.documentInfo().date()));
+	}
+
+	if (!doc.documentInfo().ident().isEmpty())
+		descDC.setAttributeNS(dcNS, "dc:identifier", doc.documentInfo().ident());
+
+	if (!doc.documentInfo().source().isEmpty())
+		descDC.setAttributeNS(dcNS, "dc:source", doc.documentInfo().source());
+
+	if (!doc.documentInfo().relation().isEmpty())
+	{
+		QDomElement relation = xmpDoc.createElement("dc:relation");
+		descDC.appendChild(relation);
+		QDomElement bag10 = xmpDoc.createElement("rdf:Bag");
+		relation.appendChild(bag10);
+		QDomElement li10 = xmpDoc.createElement("rdf:li");
+		bag10.appendChild(li10);
+		li10.appendChild(xmpDoc.createTextNode(doc.documentInfo().relation()));
+	}
 
 	if (PDF_IsPDFX())
 	{
