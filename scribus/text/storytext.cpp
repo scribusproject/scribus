@@ -1914,6 +1914,7 @@ int StoryText::prevSentence(int pos)
 	pos = it->preceding(pos);
 	return pos;
 }
+
 int StoryText::nextParagraph(int pos)
 {
 	int len = length();
@@ -1922,6 +1923,7 @@ int StoryText::nextParagraph(int pos)
 		++pos;
 	return pos;
 }
+
 int StoryText::prevParagraph(int pos)
 {
 	pos = qMax(0, pos - 1);
@@ -2017,18 +2019,21 @@ void StoryText::select(int pos, int len, bool on)
 //	for (int i = pos; i < pos + signed(len); ++i)
 //		that->at(i)->cselect = on;
 
-	if (on) {
+	if (on)
+	{
 		// extend if possible
 		if (selected(pos - 1))
 			d->selLast = qMax(d->selLast, pos + len - 1);
 		else if (selected(pos + len))
 			d->selFirst = qMin(d->selFirst, pos);
-		else {
+		else
+		{
 			d->selFirst = pos;
 			d->selLast = pos + len - 1;
 		}
 	}
-	else {
+	else
+	{
 		if (pos <= d->selFirst && d->selLast < pos + signed(len))
 			deselectAll();
 		// shrink
