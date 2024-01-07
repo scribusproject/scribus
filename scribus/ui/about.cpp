@@ -249,8 +249,8 @@ QString About::trAuthorTitle(const QString& title)
 	QString result;
 	if (title == "Development Team:")
 		result = tr("Development Team:");
-	else if (title == "Mac OS&#174; X Aqua Port:")
-		result = tr("Mac OS&#174; X Aqua Port:");
+	else if (title == "Mac OS&#174; X Port:")
+		result = tr("Mac OS&#174; X Port:");
 	else if (title == "OS/2&#174;/eComStation&#8482; Port:")
 		result = tr("OS/2&#174;/eComStation&#8482; Port:");
 	else if (title == "Windows&#174; Port:")
@@ -259,6 +259,8 @@ QString About::trAuthorTitle(const QString& title)
 		result = tr("Haiku Port:");
 	else if (title == "Contributions from:")
 		result = tr("Contributions from:");
+	else if (title == "Contributions from, and Previous Developers:")
+		result = tr("Contributions from, and Previous Developers:");
 	else if (title == "Official Documentation:")
 		result = tr("Official Documentation:");
 	else if (title == "Doc Translators:")
@@ -315,6 +317,8 @@ QString About::trLinksTitle(const QString& title)
 		result = tr("Developer Blog");
 	else if (title == "Mailing List")
 		result = tr("Mailing List");
+	else if (title == "Forums")
+		result = tr("Forums");
 	else
 	{
 		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trLinksTitle()" << std::endl;
@@ -634,7 +638,7 @@ QString About::parseLinksFile(const QString& fileName)
 
 QString About::generateBuildInfo()
 {
-	QString BUILD_DAY = "1";
+	QString BUILD_DAY = "7";
 	QString BUILD_MONTH = CommonStrings::january;
 	QString BUILD_YEAR = "2024";
 	QString BUILD_TIME;
