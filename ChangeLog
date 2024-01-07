@@ -1,5 +1,7 @@
 Scribus - 1.7.0 (Released 2024-xx-xx)
 =========================================
+https://bugs.scribus.net/changelog_page.php?version_id=117
+
 0016988: [User Interface] Implement IndigoUI collapsible section container as UI widget (nitramr)
 0017022: [User Interface] Improve UI of CurveEditWidget (nitramr)
 0017027: [Scripter] scripter: document that newDocument()'s size must be in the unit specified (cbradney)
@@ -21,6 +23,19 @@ Scribus - 1.7.0 (Released 2024-xx-xx)
 0016822: [Import / Export] Image Drop Shadow no longer exported to PDF (jghali)
 0016861: [Build System] Port of AdapterWidget to Qt6 (jghali)
 0016864: [Import / Export] Scribus crashes opening sla files (cbradney)
+
+Scribus - 1.6.1 (Released 2024-01-07)
+=========================================
+https://bugs.scribus.net/changelog_page.php?version_id=120
+
+0017052: [Scripter] Scripter: add functions to get the items in a group (ale)
+0017095: [Scripter] Scripter: add the return values for getObjectType (ale)
+0017099: [Story Editor / Text Frames] Wrapped text appears outside text frame (jghali)
+0017100: [Typography] Hyphenated text is rendering incorrectly in text boxes (jghali)
+0017102: [Usability] DublinCore DocInfo ComboBoxes (jghali)
+0017105: [Usability] PDF/X accurate versions (cbradney)
+0017106: [OS-Win32] Windows installer causes reboot on some systems part way through installation (jghali)
+0017101: [User Interface] new document icon in 22x22 is garbage... (cbradney)
 
 Scribus - 1.6.0 (Released 2024-01-01)
 =========================================
