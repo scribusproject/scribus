@@ -165,6 +165,24 @@ May raise ValueError if an invalid scale factor is passed.\n\
 PyObject *scribus_scalegroup(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getGroupItems__doc__,
+QT_TR_NOOP("getGroupItems([\"name\", recursive=False, type=0]) -> list\n\n\
+Return the list of items in the group.\n\
+\n\
+`recursive`: if True and some of the items are groups, also include their items (recursively).\n\
+`type`: if not 0, only retain items of this type.\n\
+\n\
+Each item is defined as a tuple containing:\n\
+`(name : str, objectType : int, order : int)`\n\
+E.g. [('Text1', 4, 0), ('Image1', 2, 1)]\n\
+means that object named 'Text1' is a text frame (type 4) and is the first at\n\
+the page...\n\
+\n\
+If \"name\" is not given the currently selected item is used."));
+/*! List the items in a group. */
+PyObject *scribus_getGroupItems(PyObject * /*self*/, PyObject* args, PyObject* kw);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_loadimage__doc__,
 QT_TR_NOOP("loadImage(\"filename\" [, \"name\"])\n\
 \n\
