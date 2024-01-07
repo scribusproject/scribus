@@ -4,6 +4,9 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <QQueue>
+
 #include "cmdmani.h"
 #include "cmdutil.h"
 #include "scribuscore.h"
@@ -472,6 +475,52 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_getGroupItems(PyObject * /*self*/, PyObject* args, PyObject* kw)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	char *name = const_cast<char*>("");
+	unsigned int recursive = 0;
+	unsigned int type = 0;
+	char* kwargs[] = {const_cast<char*>("name"), const_cast<char*>("recursive"), const_cast<char*>("type"), nullptr};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "|espi", kwargs, "utf-8", &name, &recursive, &type))
+		return nullptr;
+
+	PageItem *pageItem = GetUniqueItem(QString::fromUtf8(name));
+	if (pageItem == nullptr)
+		return nullptr;
+
+	if (!pageItem->isGroup())
+		return nullptr;
+
+	auto items = PyList_New(0);
+
+	QQueue<PageItem*> queue;
+	queue.enqueue(pageItem);
+
+	while (!queue.isEmpty())
+	{
+		const auto pageItem = queue.dequeue();
+		for (auto groupItem: pageItem->groupItemList)
+		{
+			if (type == 0 || groupItem->itemType() == type)
+			{
+				auto itemObj = Py_BuildValue("(sii)",
+					groupItem->itemName().toUtf8().constData(),
+					groupItem->itemType(),
+					groupItem->uniqueNr
+				);
+				PyList_Append(items, itemObj);
+			}
+			if (recursive && groupItem->isGroup())
+				queue.enqueue(groupItem);
+		}
+	}
+
+	return items;
+}
+
 PyObject *scribus_getselectedobject(PyObject* /* self */, PyObject* args)
 {
 	int i = 0;
@@ -728,6 +777,7 @@ void cmdmanidocwarnings()
 	s << scribus_combinepolygons__doc__
 	  << scribus_deselectall__doc__
 	  << scribus_flipobject__doc__
+	  << scribus_getGroupItems__doc__
 	  << scribus_getselectedobject__doc__
 	  << scribus_groupobjects__doc__
 	  << scribus_islocked__doc__

@@ -366,6 +366,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getFontNames"), (PyCFunction)scribus_getfontnames, METH_NOARGS, tr(scribus_getfontnames__doc__)},
 	{const_cast<char*>("getFontSize"), scribus_getfontsize, METH_VARARGS, tr(scribus_getfontsize__doc__)},
 	{const_cast<char*>("getFrameText"), scribus_getframetext, METH_VARARGS, tr(scribus_getframetext__doc__)},
+	{const_cast<char*>("getGroupItems"), (PyCFunction)scribus_getGroupItems, METH_VARARGS|METH_KEYWORDS, tr(scribus_getGroupItems__doc__)},
 	{const_cast<char*>("getGuiLanguage"), (PyCFunction)scribus_getlanguage, METH_NOARGS, tr(scribus_getlanguage__doc__)},
 	{const_cast<char*>("getHGuides"), (PyCFunction)scribus_getHguides, METH_NOARGS, tr(scribus_getHguides__doc__)},
 	{const_cast<char*>("getImageColorSpace"), scribus_getimagecolorspace, METH_VARARGS, tr(scribus_getimagecolorspace__doc__) },
