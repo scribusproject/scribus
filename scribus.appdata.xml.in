@@ -33,6 +33,7 @@ separations.</p>
   <update_contact>scribus-dev@lists.scribus.net</update_contact>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="1.6.1" date="2024-01-07" type="stable"/>
     <release version="1.6.0" date="2024-01-01" type="stable"/>
     <release version="1.5.8" date="2022-01-23" type="development"/>
     <release version="1.5.7" date="2021-04-25" type="development"/>

@@ -1,5 +1,10 @@
+Scribus - 1.6.2 (Released 2024-xx-xx)
+=========================================
+
 Scribus - 1.6.1 (Released 2024-01-07)
 =========================================
+https://bugs.scribus.net/changelog_page.php?version_id=120
+
 0017052: [Scripter] Scripter: add functions to get the items in a group (ale)
 0017095: [Scripter] Scripter: add the return values for getObjectType (ale)
 0017099: [Story Editor / Text Frames] Wrapped text appears outside text frame (jghali)
