@@ -62,7 +62,7 @@ PyObject *scribus_xfontnames(PyObject* /* self */)
 	PyObject *row;
 	for ( ; it.hasNext() ; it.next())
 	{
-		row = Py_BuildValue((char*)"(sssiis)",
+		row = Py_BuildValue("(sssiis)",
 							it.currentKey().toUtf8().data(),
 							it.current().family().toUtf8().data(),
 							it.current().psName().toUtf8().data(),

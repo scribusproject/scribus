@@ -247,7 +247,7 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 
 	if (currentDoc->Items->count() == 0)
-		return Py_BuildValue((char*)"[]");
+		return Py_BuildValue("[]");
 	uint counter = 0;
 	int pageNr = currentDoc->currentPageNumber();
 	for (int lam2 = 0; lam2 < currentDoc->Items->count(); ++lam2)
@@ -262,7 +262,7 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 	{
 		if (pageNr == currentDoc->Items->at(i)->OwnPage)
 		{
-			row = Py_BuildValue((char*)"(sii)",
+			row = Py_BuildValue("(sii)",
 			                    currentDoc->Items->at(i)->itemName().toUtf8().constData(),
 			                    currentDoc->Items->at(i)->itemType(),
 								currentDoc->Items->at(i)->uniqueNr
@@ -281,7 +281,7 @@ PyObject *scribus_getHguides(PyObject* /* self */)
 	Guides g = ScCore->primaryMainWindow()->doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
 	int n = g.count();//ScCore->primaryMainWindow()->doc->currentPage->YGuides.count();
 	if (n == 0)
-		return Py_BuildValue((char*)"[]");
+		return Py_BuildValue("[]");
 	int i;
 	double tmp;
 	PyObject *l, *guide;
@@ -333,7 +333,7 @@ PyObject *scribus_getVguides(PyObject* /* self */)
 	Guides g = ScCore->primaryMainWindow()->doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
 	int n = g.count();//ScCore->primaryMainWindow()->doc->currentPage->XGuides.count();
 	if (n == 0)
-		return Py_BuildValue((char*)"[]");
+		return Py_BuildValue("[]");
 	int i;
 	double tmp;
 	PyObject *l, *guide;
