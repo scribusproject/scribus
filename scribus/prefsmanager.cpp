@@ -997,19 +997,19 @@ void PrefsManager::savePrefs()
 
 void PrefsManager::savePrefsXML()
 {
-	if (prefsFile)
+	if (!prefsFile)
+		return;
+
+	PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
+	if (userprefsContext)
 	{
-		PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
-		if (userprefsContext)
-		{
-			userprefsContext->set("gui_language", appPrefs.uiPrefs.language);
-			userprefsContext->set("mainwinstate", QString::fromLatin1(appPrefs.uiPrefs.mainWinState.toBase64()));
-			userprefsContext->set("ads_dockstate", QString::fromLatin1(appPrefs.uiPrefs.adsDockState.toBase64()));
-			//continue here...
-			//Prefs."blah blah" =...
-		}
-		prefsFile->write();
+		userprefsContext->set("gui_language", appPrefs.uiPrefs.language);
+		userprefsContext->set("mainwinstate", QString::fromLatin1(appPrefs.uiPrefs.mainWinState.toBase64()));
+		userprefsContext->set("ads_dockstate", QString::fromLatin1(appPrefs.uiPrefs.adsDockState.toBase64()));
+		//continue here...
+		//Prefs."blah blah" =...
 	}
+	prefsFile->write();
 }
 
 void PrefsManager::setGhostscriptExecutable(const QString& executableName)
