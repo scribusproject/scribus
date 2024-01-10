@@ -1023,47 +1023,47 @@ void PrefsManager::savePrefs()
 
 void PrefsManager::savePrefsXML()
 {
-	if (prefsFile)
-	{
-		PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
-		if (userprefsContext)
-		{
-			userprefsContext->set("gui_language", appPrefs.uiPrefs.language);
-			userprefsContext->set("mainwinstate", QString::fromLatin1(appPrefs.uiPrefs.mainWinState.toBase64()));
-			if (!appPrefs.uiPrefs.tabbedPalettes.isEmpty())
-			{
-				int maxCols = 0;
-				for (int a = 0; a < appPrefs.uiPrefs.tabbedPalettes.count(); a++)
-				{
-					maxCols = qMax(maxCols, appPrefs.uiPrefs.tabbedPalettes[a].palettes.count());
-				}
-				PrefsTable *tabsTable = userprefsContext->getTable("tabbedPalettes");
-				tabsTable->clear();
-				PrefsTable *actTabsTable = userprefsContext->getTable("activeTabs");
-				actTabsTable->clear();
-				for (int a = 0; a < appPrefs.uiPrefs.tabbedPalettes.count(); a++)
-				{
-					QStringList actTab = appPrefs.uiPrefs.tabbedPalettes[a].palettes;
-					for (int i = 0; i < actTab.count(); i++)
-					{
-						tabsTable->set(a, i, actTab[i]);
-					}
-					actTabsTable->set(a, 0, appPrefs.uiPrefs.tabbedPalettes[a].activeTab);
-					if (actTab.count() < maxCols)
-					{
-						for (int i = actTab.count(); i < maxCols; i++)
-						{
-							tabsTable->set(a, i, "dummy");
-						}
-					}
+	if (!prefsFile)
+		return;
 
-				}
+	PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
+	if (userprefsContext)
+	{
+		userprefsContext->set("gui_language", appPrefs.uiPrefs.language);
+		userprefsContext->set("mainwinstate", QString::fromLatin1(appPrefs.uiPrefs.mainWinState.toBase64()));
+		if (!appPrefs.uiPrefs.tabbedPalettes.isEmpty())
+		{
+			int maxCols = 0;
+			for (int a = 0; a < appPrefs.uiPrefs.tabbedPalettes.count(); a++)
+			{
+				maxCols = qMax(maxCols, appPrefs.uiPrefs.tabbedPalettes[a].palettes.count());
 			}
-			//continue here...
-			//Prefs."blah blah" =...
+			PrefsTable *tabsTable = userprefsContext->getTable("tabbedPalettes");
+			tabsTable->clear();
+			PrefsTable *actTabsTable = userprefsContext->getTable("activeTabs");
+			actTabsTable->clear();
+			for (int a = 0; a < appPrefs.uiPrefs.tabbedPalettes.count(); a++)
+			{
+				QStringList actTab = appPrefs.uiPrefs.tabbedPalettes[a].palettes;
+				for (int i = 0; i < actTab.count(); i++)
+				{
+					tabsTable->set(a, i, actTab[i]);
+				}
+				actTabsTable->set(a, 0, appPrefs.uiPrefs.tabbedPalettes[a].activeTab);
+				if (actTab.count() < maxCols)
+				{
+					for (int i = actTab.count(); i < maxCols; i++)
+					{
+						tabsTable->set(a, i, "dummy");
+					}
+				}
+
+			}
 		}
-		prefsFile->write();
+		//continue here...
+		//Prefs."blah blah" =...
 	}
+	prefsFile->write();
 }
 
 void PrefsManager::setGhostscriptExecutable(const QString& executableName)
