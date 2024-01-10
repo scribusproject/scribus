@@ -520,7 +520,7 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
 	connect(m_pwidget->bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
 	connect(m_pwidget->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
-	connect(m_pwidget->numComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(slotNumName(QString)));
+	connect(m_pwidget->numComboBox, SIGNAL(textActivated(QString)), this, SLOT(slotNumName(QString)));
 	connect(m_pwidget->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
 	connect(m_pwidget->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
 	connect(m_pwidget->numStartSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumStart(int)));
@@ -619,7 +619,7 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
 	disconnect(m_pwidget->bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
 	disconnect(m_pwidget->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
-	disconnect(m_pwidget->numComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(slotNumName(QString)));
+	disconnect(m_pwidget->numComboBox, SIGNAL(textActivated(QString)), this, SLOT(slotNumName(QString)));
 	disconnect(m_pwidget->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
 	disconnect(m_pwidget->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
 	disconnect(m_pwidget->numStartSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumStart(int)));
