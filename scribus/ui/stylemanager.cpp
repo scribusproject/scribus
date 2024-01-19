@@ -317,14 +317,14 @@ void StyleManager::slotDelete()
 		tmp << styles[i].first;
 
 	SMReplaceDia dia(selected, tmp, this);
-	if (dia.exec() && m_item)
-	{
-		m_item->deleteStyles(dia.items());
-		applyButton->setEnabled(true);
-		resetButton->setEnabled(true);
-		reloadStyleView(false);
-		slotOk();
-	}
+	if (!dia.exec())
+		return;
+
+	m_item->deleteStyles(dia.items());
+	applyButton->setEnabled(true);
+	resetButton->setEnabled(true);
+	reloadStyleView(false);
+	slotOk();
 }
 
 
