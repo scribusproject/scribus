@@ -1466,7 +1466,7 @@ void ScribusDoc::loadStylesFromFile(const QString& fileName)
 {
 	StyleSet<ParagraphStyle> *wrkStyles     = &m_docParagraphStyles;
 	StyleSet<CharStyle> *wrkCharStyles      = &m_docCharStyles;
-	QHash<QString, multiLine> *wrkLineStyles = &docLineStyles;
+	QHash<QString, MultiLine> *wrkLineStyles = &docLineStyles;
 	
 	int oldStyles = wrkStyles->count();
 	int oldCharStyles = wrkCharStyles->count();
@@ -1503,11 +1503,11 @@ void ScribusDoc::loadStylesFromFile(const QString& fileName)
 
 void ScribusDoc::loadStylesFromFile(const QString& fileName, StyleSet<ParagraphStyle> *tempStyles,
                                                       StyleSet<CharStyle> *tempCharStyles,
-													  QHash<QString, multiLine> *tempLineStyles)
+													  QHash<QString, MultiLine> *tempLineStyles)
 {
 	StyleSet<ParagraphStyle> *wrkStyles     = tempStyles;
 	StyleSet<CharStyle> *wrkCharStyles      = tempCharStyles;
-	QHash<QString, multiLine> *wrkLineStyles = tempLineStyles;
+	QHash<QString, MultiLine> *wrkLineStyles = tempLineStyles;
 	
 	if (fileName.isEmpty())
 		return;
@@ -3538,11 +3538,11 @@ bool ScribusDoc::renumberLayer(int layerID, int newLayerID)
 
 void ScribusDoc::replaceLineStyleColors(const QMap<QString, QString>& colorMap)
 {
-	multiLine::iterator its;
+	MultiLine::iterator its;
 	QMap<QString, QString>::const_iterator it;
 	for (auto itl = docLineStyles.begin(); itl != docLineStyles.end(); ++itl)
 	{
-		multiLine& mline = itl.value();
+		MultiLine& mline = itl.value();
 		for (its = mline.begin(); its != mline.end(); ++its)
 		{
 			struct SingleLine& sline = *its;
@@ -3625,11 +3625,11 @@ bool ScribusDoc::hasArrowStyle(const QString& name) const
 bool ScribusDoc::lineStylesUseColor(const QString& colorName) const
 {
 	bool found = false;
-	multiLine::const_iterator its, itsend;
+	MultiLine::const_iterator its, itsend;
 	auto itmend = docLineStyles.constEnd();
 	for (auto itm = docLineStyles.constBegin(); itm != itmend && !found; ++itm)
 	{
-		const multiLine& ml = itm.value();
+		const MultiLine& ml = itm.value();
 		itsend = ml.constEnd();
 		for (its = ml.constBegin(); its != itsend; ++its)
 		{

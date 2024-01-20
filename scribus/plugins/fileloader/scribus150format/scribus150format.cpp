@@ -402,7 +402,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 		}
 		if (tagName == "MultiLine")
 		{
-			multiLine ml;
+			MultiLine ml;
 			QString mlName = attrs.valueAsString("Name");
 			success = readMultiline(ml, reader);
 			if (!success)
@@ -940,7 +940,7 @@ bool Scribus150Format::loadStory(const QByteArray& data, StoryText& story, PageI
 		}
 		if (tagName == "MultiLine")
 		{
-			multiLine ml;
+			MultiLine ml;
 			QString mlName = attrs.valueAsString("Name");
 			success = readMultiline(ml, reader);
 			if (!success)
@@ -1123,7 +1123,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 		}
 		if (tagName == "MultiLine")
 		{
-			multiLine ml;
+			MultiLine ml;
 			QString mlName = attrs.valueAsString("Name");
 			success = readMultiline(ml, reader);
 			if (!success) break;
@@ -1786,7 +1786,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		if (tagName == "MultiLine")
 		{
-			multiLine ml;
+			MultiLine ml;
 			QString mlName = attrs.valueAsString("Name");
 			success = readMultiline(ml, reader);
 			if (!success) break;
@@ -3430,9 +3430,9 @@ bool Scribus150Format::readArrows(ScribusDoc* doc, const ScXmlStreamAttributes& 
 	return true;
 }
 
-bool Scribus150Format::readMultiline(multiLine& ml, ScXmlStreamReader& reader) const
+bool Scribus150Format::readMultiline(MultiLine& ml, ScXmlStreamReader& reader) const
 {
-	ml = multiLine();
+	ml = MultiLine();
 	ScXmlStreamAttributes rattrs = reader.scAttributes();
 	QStringRef tagName = reader.name();
 	while (!reader.atEnd() && !reader.hasError())
@@ -6524,11 +6524,11 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 		if (tagName == "MultiLine")
 		{
-			multiLine ml;
+			MultiLine ml;
 			QString mlName  = attrs.valueAsString("Name");
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
-			QHash<QString, multiLine>::ConstIterator mlit = m_Doc->docLineStyles.constFind(mlName2);
+			QHash<QString, MultiLine>::ConstIterator mlit = m_Doc->docLineStyles.constFind(mlName2);
 			if (mlit != m_Doc->docLineStyles.constEnd() && ml != mlit.value())
 				mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
 			m_Doc->docLineStyles.insert(mlName2, ml);
@@ -7250,7 +7250,7 @@ bool Scribus150Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 	return true;
 }
 
-bool Scribus150Format::readLineStyles(const QString& fileName, QHash<QString,multiLine> *styles)
+bool Scribus150Format::readLineStyles(const QString& fileName, QHash<QString,MultiLine> *styles)
 {
 	bool firstElement = true;
 	bool success = true;
@@ -7279,13 +7279,13 @@ bool Scribus150Format::readLineStyles(const QString& fileName, QHash<QString,mul
 		}
 		if (tagName == "MultiLine")
 		{
-			multiLine ml;
+			MultiLine ml;
 			attrs = reader.scAttributes();
 			QString mlName  = attrs.valueAsString("Name");
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
 			int copyC = 1;
-			QHash<QString,multiLine>::ConstIterator mlit = styles->find(mlName2);
+			QHash<QString,MultiLine>::ConstIterator mlit = styles->find(mlName2);
 			if (mlit != styles->constEnd() && ml != mlit.value())
 			{
 				while (styles->contains(mlName2))

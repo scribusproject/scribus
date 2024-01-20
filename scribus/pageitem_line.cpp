@@ -122,7 +122,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 		else
 		{
 			p->setStrokeMode(ScPainter::Solid);
-			multiLine ml = m_Doc->docLineStyles[NamedLStyle];
+			MultiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			QColor tmp;
 			for (int it = ml.size()-1; it > -1; it--)
 			{
@@ -350,7 +350,7 @@ QRectF PageItem_Line::getStartArrowBoundingRect() const
 		}
 		else
 		{
-			const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
+			const MultiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			const SingleLine& sl = ml.last();
 			if (sl.Width != 0.0)
 				arrowTrans.scale(sl.Width, sl.Width);
@@ -383,7 +383,7 @@ QRectF PageItem_Line::getStartArrowOldBoundingRect() const
 		}
 		else
 		{
-			const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
+			const MultiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			const SingleLine& sl = ml.last();
 			if (sl.Width != 0.0)
 				arrowTrans.scale(sl.Width, sl.Width);
@@ -416,7 +416,7 @@ QRectF PageItem_Line::getEndArrowBoundingRect() const
 		}
 		else
 		{
-			const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
+			const MultiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			const SingleLine& sl = ml.last();
 			if (sl.Width != 0.0)
 				arrowTrans.scale(sl.Width, sl.Width);
@@ -448,7 +448,7 @@ QRectF PageItem_Line::getEndArrowOldBoundingRect() const
 		}
 		else
 		{
-			const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
+			const MultiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			const SingleLine& sl = ml.last();
 			if (sl.Width != 0.0)
 				arrowTrans.scale(sl.Width, sl.Width);

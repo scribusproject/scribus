@@ -577,7 +577,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			} */
 			if (pg.tagName() == "MultiLine")
 			{
-				multiLine ml;
+				MultiLine ml;
 				QDomNode MuLn = pageNode.firstChild();
 				while (!MuLn.isNull())
 				{
@@ -2146,7 +2146,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			}
 			if (pg.tagName() == "MultiLine")
 			{
-				multiLine ml;
+				MultiLine ml;
 				QDomNode MuLn = pageNode.firstChild();
 				while (!MuLn.isNull())
 				{
@@ -2163,7 +2163,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				}
 				QString mlName = pg.attribute("Name");
 				QString mlName2 = mlName;
-				QHash<QString,multiLine>::ConstIterator mlit = m_Doc->docLineStyles.find(mlName2);
+				QHash<QString,MultiLine>::ConstIterator mlit = m_Doc->docLineStyles.find(mlName2);
 				if (mlit != m_Doc->docLineStyles.constEnd() && ml != mlit.value())
 					mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
 				m_Doc->docLineStyles.insert(mlName2, ml);
@@ -2602,7 +2602,7 @@ bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, Style
 	return true;
 }
 
-bool Scribus13Format::readLineStyles(const QString& fileName, QHash<QString,multiLine> *Sty)
+bool Scribus13Format::readLineStyles(const QString& fileName, QHash<QString,MultiLine> *Sty)
 {
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
@@ -2623,7 +2623,7 @@ bool Scribus13Format::readLineStyles(const QString& fileName, QHash<QString,mult
 			QDomElement pg = pageNode.toElement();
 			if (pg.tagName() == "MultiLine")
 			{
-				multiLine ml;
+				MultiLine ml;
 				QDomNode MuLn = pageNode.firstChild();
 				while (!MuLn.isNull())
 				{
@@ -2641,7 +2641,7 @@ bool Scribus13Format::readLineStyles(const QString& fileName, QHash<QString,mult
 				QString Nam = pg.attribute("Name");
 				QString Nam2 = Nam;
 				int copyC = 1;
-				QHash<QString,multiLine>::ConstIterator mlit = Sty->find(Nam2);
+				QHash<QString,MultiLine>::ConstIterator mlit = Sty->find(Nam2);
 				if (mlit != Sty->constEnd() && ml != mlit.value())
 				{
 					while (Sty->contains(Nam2))

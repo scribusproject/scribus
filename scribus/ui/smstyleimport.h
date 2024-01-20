@@ -27,7 +27,7 @@ class SCRIBUS_API SMStyleImport : public QDialog, public Ui::SMStyleImport
 		SMStyleImport(QWidget* parent,
 					StyleSet<ParagraphStyle> *pstyleList,
 					StyleSet<CharStyle> *cstyleList,
-					QHash<QString, multiLine> *lstyleList);
+					QHash<QString, MultiLine> *lstyleList);
 		~SMStyleImport() {};
 
 		//! \brief True if the rename feature is ON.

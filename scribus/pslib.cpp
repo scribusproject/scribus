@@ -1908,7 +1908,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			}
 			else
 			{
-				multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) // && (ml[it].Width != 0))
@@ -2011,7 +2011,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			}
 			else
 			{
-				multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -2064,7 +2064,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		}
 		else
 		{
-			multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+			MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 			for (int it = ml.size() - 1; it > -1; it--)
 			{
 				if (ml[it].Color == CommonStrings::None)
@@ -2139,7 +2139,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			}
 			else
 			{
-				multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -2195,7 +2195,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			}
 			else
 			{
-				multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -2275,7 +2275,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			}
 			else
 			{
-				multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -2737,7 +2737,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 				}
 				else
 				{
-					multiLine ml = m_Doc->docLineStyles[ite->NamedLStyle];
+					MultiLine ml = m_Doc->docLineStyles[ite->NamedLStyle];
 					for (int it = ml.size() - 1; it > -1; it--)
 					{
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -3990,7 +3990,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 	}
 	else
 	{
-		multiLine ml = m_Doc->docLineStyles[ite->NamedLStyle];
+		MultiLine ml = m_Doc->docLineStyles[ite->NamedLStyle];
 		if (ml[ml.size() - 1].Width != 0.0)
 			arrowTrans.scale(ml[ml.size() - 1].Width, ml[ml.size() - 1].Width);
 	}
@@ -4043,7 +4043,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 	}
 	else
 	{
-		multiLine ml = m_Doc->docLineStyles[ite->NamedLStyle];
+		MultiLine ml = m_Doc->docLineStyles[ite->NamedLStyle];
 		if (ml[0].Color != CommonStrings::None)
 		{
 			SetColor(ml[0].Color, ml[0].Shade, &h, &s, &v, &k);

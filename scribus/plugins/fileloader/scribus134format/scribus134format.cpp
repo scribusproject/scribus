@@ -360,7 +360,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		if (tagName == "MultiLine")
 		{
-			multiLine ml;
+			MultiLine ml;
 			QString mlName = attrs.valueAsString("Name");
 			success = readMultiline(ml, reader);
 			if (!success) break;
@@ -1545,9 +1545,9 @@ bool Scribus134Format::readArrows(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 	return true;
 }
 
-bool Scribus134Format::readMultiline(multiLine& ml, ScXmlStreamReader& reader)
+bool Scribus134Format::readMultiline(MultiLine& ml, ScXmlStreamReader& reader)
 {
-	ml = multiLine();
+	ml = MultiLine();
 	ScXmlStreamAttributes rattrs = reader.scAttributes();
 	QStringRef tagName = reader.name();
 	while (!reader.atEnd() && !reader.hasError())
@@ -3324,11 +3324,11 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 		if (tagName == "MultiLine")
 		{
-			multiLine ml;
+			MultiLine ml;
 			QString mlName  = attrs.valueAsString("Name");
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
-			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->docLineStyles.constFind(mlName2);
+			QHash<QString, MultiLine>::ConstIterator mlit = m_Doc->docLineStyles.constFind(mlName2);
 			if (mlit != m_Doc->docLineStyles.constEnd() && ml != mlit.value())
 				mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
 			m_Doc->docLineStyles.insert(mlName2, ml);
@@ -3900,7 +3900,7 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 	return success;
 }
 
-bool Scribus134Format::readLineStyles(const QString& fileName, QHash<QString,multiLine> *styles)
+bool Scribus134Format::readLineStyles(const QString& fileName, QHash<QString, MultiLine> *styles)
 {
 	bool firstElement = true;
 	bool success = true;
@@ -3929,13 +3929,13 @@ bool Scribus134Format::readLineStyles(const QString& fileName, QHash<QString,mul
 		}
 		if (tagName == "MultiLine")
 		{
-			multiLine ml;
+			MultiLine ml;
 			attrs = reader.scAttributes();
 			QString mlName  = attrs.valueAsString("Name");
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
 			int copyC = 1;
-			QHash<QString,multiLine>::ConstIterator mlit = styles->constFind(mlName2);
+			QHash<QString,MultiLine>::ConstIterator mlit = styles->constFind(mlName2);
 			if (mlit != styles->constEnd() && ml != mlit.value())
 			{
 				while (styles->contains(mlName2))

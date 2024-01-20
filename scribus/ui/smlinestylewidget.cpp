@@ -123,7 +123,7 @@ void SMLineStyleWidget::fillJoinCombo()
 	joinCombo->addItem(im.loadIcon("RoundJoin.png"), tr( "Round Join" ) );
 }
 
-void SMLineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine)
+void SMLineStyleWidget::showStyle(const MultiLine &lineStyle, ColorList &colorList, int subLine)
 {
 // 	disconnect(lineStyles, SIGNAL(highlighted(int)), this, SLOT(slotEditNewLine(int)));
 	disconnect(lineStyles, SIGNAL(currentRowChanged(int)), this, SLOT(slotEditNewLine(int)));
@@ -193,7 +193,7 @@ void SMLineStyleWidget::updateLineList()
 	QPixmap * pm2;
 	double unitRatio = lineWidth->unitRatio();
 	int decimals = lineWidth->decimals();
-	for (multiLine::iterator it = m_currentStyle.begin(); it != m_currentStyle.end(); ++it)
+	for (MultiLine::iterator it = m_currentStyle.begin(); it != m_currentStyle.end(); ++it)
 	{
 		pm2 = getWidePixmap(getColor(it->Color, it->Shade));
 		tmp2 = " "+ tmp.setNum(it->Width * unitRatio, 'f', decimals) + lineWidth->suffix() + " ";

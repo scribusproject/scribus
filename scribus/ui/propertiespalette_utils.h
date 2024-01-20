@@ -44,12 +44,12 @@ class ScribusMainWindow;
 
 struct SCRIBUS_API LineStyleValue
 {
-	multiLine m_Line;
+	MultiLine m_Line;
 	ScGuardedPtr<ScribusDoc> m_doc;
 	QString m_name;
 	
 	LineStyleValue() = default;
-	LineStyleValue(const multiLine& line, ScribusDoc* doc, const QString& name);
+	LineStyleValue(const MultiLine& line, ScribusDoc* doc, const QString& name);
 	LineStyleValue(const LineStyleValue& other);
 	LineStyleValue& operator= (const LineStyleValue& other);
 };
@@ -65,7 +65,7 @@ class SCRIBUS_API LineStyleItem : public QListWidgetItem
 	};
 	
 public:	
-	LineStyleItem( ScribusDoc* doc, const multiLine& line, const QString& name ) : QListWidgetItem(NULL, LineStyleUserType)
+	LineStyleItem( ScribusDoc* doc, const MultiLine& line, const QString& name ) : QListWidgetItem(NULL, LineStyleUserType)
 	{		
 		setText(name);
 		setData(Qt::UserRole, QVariant::fromValue(LineStyleValue(line, doc, name))); 

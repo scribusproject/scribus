@@ -25,7 +25,7 @@ class ScribusView;
 class SCFonts;
 class PrefsManager;
 class FileFormat;
-class multiLine;
+class MultiLine;
 
 class SCRIBUS_API FileLoader : public QObject
 {
@@ -44,7 +44,7 @@ public:
 	bool readCharStyles(ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
 	bool readPageCount(int *num1, int *num2, QStringList & masterPageNames);
 	bool readColors(ColorList & colors);
-	bool readLineStyles(QHash<QString, multiLine> *Sty);
+	bool readLineStyles(QHash<QString, MultiLine> *Sty);
 	QImage readThumbnail();
 	bool postLoad(ScribusDoc* currDoc);
  	void informReplacementFonts();
