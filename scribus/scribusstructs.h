@@ -188,16 +188,24 @@ public:
 
 struct Bullet  //used by style reader while importing ODT files
 {
+	Bullet() = default;
+	Bullet(QString n, QString ch) : name(n), charStr(ch) {}
+	Bullet(QString n, QString ch, double first, double ind, double tab, CharStyle* chStyle)
+	{
+		name = n;
+		charStr = ch;
+		firstLineIndent = first;
+		indent = ind;
+		tabPosition = tab;
+		style = chStyle;
+	}
+
 	QString name;
 	QString charStr;
-	double indent;
-	double firstLineIndent;
-	double tabPosition;
-	CharStyle* style;
-	Bullet() : indent(0.0), firstLineIndent(0.0), tabPosition(0.0), style(nullptr) {}
-	Bullet(QString n, QString ch) : name(n), charStr(ch), indent(0.0), firstLineIndent(0.0), tabPosition(0.0), style(nullptr) {}
-	Bullet(QString n, QString ch, double first, double ind, double tab, CharStyle* chStyle)
-	    { name = n; charStr = ch; firstLineIndent = first; indent = ind; tabPosition = tab; style = chStyle; }
+	double indent { 0.0 };
+	double firstLineIndent { 0.0 };
+	double tabPosition { 0.0 };
+	CharStyle* style { nullptr };
 };
 
 enum class ArrowDirection
@@ -249,7 +257,7 @@ enum class PrintLanguage
 	WindowsGDI  = 4,
 	PDF         = 5
 };
-typedef QMap<QString, PrintLanguage> PrintLanguageMap;
+using PrintLanguageMap = QMap<QString, PrintLanguage>;
 
 struct PrintOptions
 {
@@ -285,7 +293,7 @@ struct PrintOptions
 	QByteArray devMode; // printer specific options on Windows
 };
 
-typedef QMap<QString,QString> ProfilesL;
+using ProfilesL = QMap<QString,QString>;
 
 enum PreflightError
 {
@@ -312,8 +320,7 @@ enum PreflightError
 	EmptyTextFrame = 21
 };
 
-typedef QMap<PreflightError, int> errorCodes;
-
+using errorCodes = QMap<PreflightError, int>;
 
 struct AlignObjs
 {
@@ -373,7 +380,7 @@ enum UpdateRequests
 };
 
 //! \brief Common type for guides list
-typedef QList<double> Guides;
+using Guides = QList<double>;
 
 // this is a quick hack to combine runs until I've thought of something better -- AV
 class LastStyles
@@ -430,7 +437,7 @@ struct DownloadData
 	QString downloadLocation;
 	QString destinationLocation;
 	QString destinationName;
-	typedef enum {New, Started, Paused, Finished, Successful, Failed} DownloadState;
+	using DownloadState = enum {New, Started, Paused, Finished, Successful, Failed};
 	DownloadState state;
 };
 
