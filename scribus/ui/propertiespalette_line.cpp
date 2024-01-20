@@ -352,7 +352,7 @@ void PropertiesPalette_Line::updateLineStyles(ScribusDoc *doc)
 	lineStyles->clear();
 	if (doc != nullptr)
 	{
-		QHash<QString,multiLine>::Iterator it;
+		QHash<QString, MultiLine>::Iterator it;
 		for (it = doc->docLineStyles.begin(); it != doc->docLineStyles.end(); ++it)
 			lineStyles->addItem( new LineStyleItem(doc, it.value(), it.key()) );
 		lineStyles->sortItems();

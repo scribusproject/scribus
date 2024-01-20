@@ -158,7 +158,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 		else
 		{
 			p->setStrokeMode(ScPainter::Solid);
-			multiLine ml = m_Doc->docLineStyles[NamedLStyle];
+			MultiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			QColor tmp;
 			for (int it = ml.size()-1; it > -1; it--)
 			{

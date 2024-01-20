@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 class QIODevice;
 
 class  ColorList;
-class  multiLine;
+class  MultiLine;
 class  ScLayer;
 class  ScribusDoc;
 //struct ScribusDoc::BookMa;
@@ -54,7 +54,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		bool loadPage(const QString& fileName, int pageNumber, bool Mpage, const QString& renamedPageName = QString()) override;
 		bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) override;
 		bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles) override;
-		bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty) override;
+		bool readLineStyles(const QString& fileName, QHash<QString, MultiLine> *Sty) override;
 		bool readColors(const QString& fileName, ColorList & colors) override;
 		bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames) override;
 		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces) override;
@@ -105,7 +105,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		bool readItemText(PageItem* item, ScXmlStreamAttributes& attrs, LastStyles* last);
 		bool readLatexInfo(PageItem_LatexFrame* item, ScXmlStreamReader& reader);
 		void readLayers(ScLayer& layer, ScXmlStreamAttributes& attrs);
-		bool readMultiline(multiLine& ml, ScXmlStreamReader& reader);
+		bool readMultiline(MultiLine& ml, ScXmlStreamReader& reader);
 		bool readObject(ScribusDoc* doc, ScXmlStreamReader& reader, ItemInfo& info, const QString& baseDir, bool loadPage, const QString& renamedPageName = QString());
 		bool readPage(ScribusDoc* doc, ScXmlStreamReader& reader);
 		bool readPageItemAttributes(PageItem* item, ScXmlStreamReader& reader);

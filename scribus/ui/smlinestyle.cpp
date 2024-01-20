@@ -186,7 +186,7 @@ QString SMLineStyle::newStyle()
 	sl.LineEnd = Qt::FlatCap;//Docu->itemToolPrefs.;
 	sl.LineJoin = Qt::MiterJoin;//Docu->itemToolPrefs.;
 	sl.Width = m_doc->itemToolPrefs().lineWidth;
-	multiLine ml;
+	MultiLine ml;
 	ml.push_back(sl);
 	QString name = getUniqueName( tr("New Style"));
 	m_tmpLines[name] = ml;
@@ -197,7 +197,7 @@ QString SMLineStyle::newStyle(const QString &fromStyle)
 {
 	Q_ASSERT(m_tmpLines.contains(fromStyle));
 
-	multiLine ml(m_tmpLines[fromStyle]);
+	MultiLine ml(m_tmpLines[fromStyle]);
 	QString name = getUniqueName(fromStyle);
 	m_tmpLines[name] = ml;
 	return name;
@@ -306,7 +306,7 @@ void SMLineStyle::setDefaultStyle(bool ids)
 	if (m_selection.count() != 1)
 		return;
 
-	QMap<QString, multiLine*>::iterator it;
+	QMap<QString, MultiLine*>::iterator it;
 	for (it = m_selection.begin(); it != m_selection.end(); ++it)
 		(*it)->setDefaultStyle(ids);
 	
@@ -321,7 +321,7 @@ void SMLineStyle::setDefaultStyle(bool ids)
 QString SMLineStyle::shortcut(const QString &stylename) const
 {
 	QString s;
-	QHash<QString, multiLine>::ConstIterator it = m_tmpLines.find(stylename);
+	QHash<QString, MultiLine>::ConstIterator it = m_tmpLines.find(stylename);
 	if (it != m_tmpLines.end())
 		s = it.value().shortcut;
 	return s;
@@ -361,8 +361,8 @@ void SMLineStyle::nameChanged(const QString &newName)
 		return;
 	}
 	QString oldName = m_selection.begin().key();
-	multiLine *tmpLine = m_selection.begin().value();
-	multiLine newLine(*tmpLine);
+	MultiLine *tmpLine = m_selection.begin().value();
+	MultiLine newLine(*tmpLine);
 	
 	m_selection.clear();
 	m_tmpLines.remove(oldName);
@@ -439,7 +439,7 @@ void SMLineStyle::slotLineStyle(int i)
 
 	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
-		multiLine *tmp = it.value();
+		MultiLine *tmp = it.value();
 		(*tmp)[m_currentLine].Dash = i + 1;
 	}
 
@@ -471,7 +471,7 @@ void SMLineStyle::slotSetEnd(int i)
 
 	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
-		multiLine *tmp = it.value();
+		MultiLine *tmp = it.value();
 		(*tmp)[m_currentLine].LineEnd = static_cast<int>(c);
 	}
 
@@ -507,7 +507,7 @@ void SMLineStyle::slotSetJoin(int i)
 
 	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
-		multiLine *tmp = it.value();
+		MultiLine *tmp = it.value();
 		(*tmp)[m_currentLine].LineJoin = static_cast<int>(c);
 	}
 
@@ -525,7 +525,7 @@ void SMLineStyle::slotColor(const QString &s)
 {
 	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
-		multiLine *tmp = it.value();
+		MultiLine *tmp = it.value();
 		(*tmp)[m_currentLine].Color = s;
 	}
 
@@ -543,7 +543,7 @@ void SMLineStyle::slotShade(int i)
 {
 	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
-		multiLine *tmp = it.value();
+		MultiLine *tmp = it.value();
 		(*tmp)[m_currentLine].Shade = i;
 	}
 
@@ -563,7 +563,7 @@ void SMLineStyle::slotLineWidth()
 
 	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
-		multiLine *tmp = it.value();
+		MultiLine *tmp = it.value();
 		(*tmp)[m_currentLine].Width = m_widget->lineWidth->value() / unitRatio;
 	}
 
@@ -582,7 +582,7 @@ void SMLineStyle::slotAddLine()
 	if (!m_doc || m_selection.count() != 1)
 		return;
 
-	multiLine *tmpLine = m_selection.begin().value();
+	MultiLine *tmpLine = m_selection.begin().value();
 	struct SingleLine sl;
 	sl.Color = (*tmpLine)[m_currentLine].Color;
 	sl.Shade = (*tmpLine)[m_currentLine].Shade;
@@ -628,7 +628,7 @@ void SMLineStyle::rebuildList()
 
 	m_widget->lineStyles->clear();
 
-	const multiLine *tmpLine = m_selection.begin().value();
+	const MultiLine *tmpLine = m_selection.begin().value();
 	for (auto it = tmpLine->begin(); it != tmpLine->end(); ++it)
 	{
 		pm2 = getWidePixmap(calcFarbe(it->Color, it->Shade));
@@ -644,12 +644,12 @@ void SMLineStyle::slotDeleteLine()
 	if (!m_doc || m_selection.count() != 1)
 		return;
 
-	multiLine *tmpLine = m_selection.begin().value();
+	MultiLine *tmpLine = m_selection.begin().value();
 	if (tmpLine->size() == 1)
 		return;
 
 	int cc = 0;
-	for (multiLine::iterator it3 = tmpLine->begin(); it3 != tmpLine->end(); ++it3)
+	for (MultiLine::iterator it3 = tmpLine->begin(); it3 != tmpLine->end(); ++it3)
 	{
 		if (cc == m_currentLine)
 		{
@@ -680,7 +680,7 @@ void SMLineStyle::updateSList()
 	if  (m_currentLine < 0)
 		return;
 
-	const multiLine *tmpLine = m_selection.begin().value();
+	const MultiLine *tmpLine = m_selection.begin().value();
 	const SingleLine& singleLine = tmpLine->at(m_currentLine);
 
 	int decimals = m_widget->lineWidth->decimals();
@@ -714,7 +714,7 @@ void SMLineStyle::updatePreview()
 	QPainter p;
 	p.begin(&pm);
 
-	multiLine *tmpLine = m_selection.begin().value();
+	MultiLine *tmpLine = m_selection.begin().value();
 	for (int it = tmpLine->size()-1; it > -1; it--)
 	{
 		QPen pen;
@@ -762,7 +762,7 @@ void SMLineStyle::resort()
 
 	int cc = 0;
 	struct SingleLine sl;
-	multiLine *tmpLine = m_selection.begin().value();
+	MultiLine *tmpLine = m_selection.begin().value();
 	sl.Color = (*tmpLine)[m_currentLine].Color;
 	sl.Shade = (*tmpLine)[m_currentLine].Shade;
 	sl.Dash = (*tmpLine)[m_currentLine].Dash;

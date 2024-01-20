@@ -176,10 +176,11 @@ struct SingleLine
 	}
 };
 
-class multiLine : public QList<SingleLine> {
+class MultiLine : public QList<SingleLine>
+{
 public:
 	QString shortcut;
-	bool operator!=(const multiLine& other) const
+	bool operator!=(const MultiLine& other) const
 	{
 		return !(this->operator ==(other));
 	}
@@ -196,7 +197,7 @@ struct Bullet  //used by style reader while importing ODT files
 	Bullet() : indent(0.0), firstLineIndent(0.0), tabPosition(0.0), style(nullptr) {}
 	Bullet(QString n, QString ch) : name(n), charStr(ch), indent(0.0), firstLineIndent(0.0), tabPosition(0.0), style(nullptr) {}
 	Bullet(QString n, QString ch, double first, double ind, double tab, CharStyle* chStyle)
-	    { name = n; charStr = ch, firstLineIndent = first; indent = ind; tabPosition = tab; style = chStyle; }
+	    { name = n; charStr = ch; firstLineIndent = first; indent = ind; tabPosition = tab; style = chStyle; }
 };
 
 enum class ArrowDirection

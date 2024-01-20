@@ -216,7 +216,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, const QString&)
 		else
 		{
 			currDoc->m_Selection->clear();
-			multiLine ml = currDoc->docLineStyles[currItem->NamedLStyle];
+			MultiLine ml = currDoc->docLineStyles[currItem->NamedLStyle];
 			bool first = true;
 			for (int it = ml.size()-1; it > -1; it--)
 			{

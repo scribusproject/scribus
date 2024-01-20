@@ -627,7 +627,7 @@ void Scribus150Format::writeLineStyles(ScXmlStreamWriter& docu, const QStringLis
 			continue;
 		docu.writeStartElement("MultiLine");
 		docu.writeAttribute("Name", itMU.key());
-		multiLine ml = itMU.value();
+		MultiLine ml = itMU.value();
 		for (auto itMU2 = ml.cbegin(); itMU2 != ml.cend(); ++itMU2)
 		{
 			docu.writeEmptyElement("SubLine");

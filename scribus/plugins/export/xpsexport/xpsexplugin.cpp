@@ -618,7 +618,7 @@ void XPSExPlug::processPolyItem(double xOffset, double yOffset, PageItem *item, 
 	else
 	{
 		QDomElement grp2 = p_docu.createElement("Canvas");
-		multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+		MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 		for (int it = ml.size()-1; it > -1; it--)
 		{
 			if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -657,7 +657,7 @@ void XPSExPlug::processLineItem(double xOffset, double yOffset, PageItem *item, 
 		else
 		{
 			ob = p_docu.createElement("Canvas");
-			multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+			MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
 			{
 				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -784,7 +784,7 @@ void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *item,
 		else
 		{
 			QDomElement grp2 = p_docu.createElement("Canvas");
-			multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+			MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
 			{
 				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -1112,7 +1112,7 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *item, 
 			else
 			{
 				QDomElement grp2 = p_docu.createElement("Canvas");
-				multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 				for (int it = ml.size()-1; it > -1; it--)
 				{
 					if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -1169,7 +1169,7 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *item, 
 			else
 			{
 				QDomElement grp2 = p_docu.createElement("Canvas");
-				multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 				for (int it = ml.size()-1; it > -1; it--)
 				{
 					if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -1694,7 +1694,7 @@ void XPSExPlug::processArrows(double xOffset, double yOffset, PageItem *item, QD
 			}
 			else
 			{
-				multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 				if (ml[ml.size()-1].Width != 0.0)
 					arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
 			}
@@ -1719,7 +1719,7 @@ void XPSExPlug::processArrows(double xOffset, double yOffset, PageItem *item, QD
 					}
 					else
 					{
-						multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+						MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 						if (ml[ml.size()-1].Width != 0.0)
 							arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
 					}
@@ -1745,7 +1745,7 @@ void XPSExPlug::processArrows(double xOffset, double yOffset, PageItem *item, QD
 			}
 			else
 			{
-				multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 				if (ml[ml.size()-1].Width != 0.0)
 					arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
 			}
@@ -1769,7 +1769,7 @@ void XPSExPlug::processArrows(double xOffset, double yOffset, PageItem *item, QD
 					}
 					else
 					{
-						multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+						MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 						if (ml[ml.size()-1].Width != 0.0)
 							arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
 					}
@@ -1806,7 +1806,7 @@ void XPSExPlug::drawArrow(double xOffset, double yOffset, PageItem *item, QDomEl
 	{
 		QDomElement grp2 = p_docu.createElement("Canvas");
 		grp2.setAttribute("RenderTransform", MatrixToStr(mpx));
-		multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+		MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 		if (ml[0].Color != CommonStrings::None)
 		{
 			QDomElement ob3 = p_docu.createElement("Path");

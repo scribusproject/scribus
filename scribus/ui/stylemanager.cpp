@@ -341,7 +341,7 @@ void StyleManager::slotImport()
 
 	StyleSet<ParagraphStyle> tmpParaStyles;
 	StyleSet<CharStyle> tmpCharStyles;
-	QHash<QString, multiLine> tmpLineStyles;
+	QHash<QString, MultiLine> tmpLineStyles;
 
 	m_doc->loadStylesFromFile(selectedFile, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
 
@@ -430,7 +430,7 @@ void StyleManager::slotImport()
 
 		foreach (const QString& aStyle, dia2->lineStyles())
 		{
-			multiLine &sty = tmpLineStyles[/*it.data()*/aStyle];
+			MultiLine &sty = tmpLineStyles[/*it.data()*/aStyle];
 			QString styName = aStyle;
 
 			if (dia2->clashRename())

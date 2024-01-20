@@ -26,14 +26,14 @@ public:
 	SMLineStyleWidget();
 	~SMLineStyleWidget() = default;
 	
-	void showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine = 0);
+	void showStyle(const MultiLine &lineStyle, ColorList &colorList, int subLine = 0);
 	void unitChange(int unitIndex);
 
 protected:
 	void changeEvent(QEvent *e) override;
 
 private:
-	multiLine  m_currentStyle;
+	MultiLine  m_currentStyle;
 	ColorList  m_colors;
 
 	void fillEndCombo();

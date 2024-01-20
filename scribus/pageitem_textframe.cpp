@@ -3638,7 +3638,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			else
 			{
 				p->setStrokeMode(ScPainter::Solid);
-				multiLine ml = m_Doc->docLineStyles[NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles[NamedLStyle];
 				QColor tmp;
 				for (int it = ml.size() - 1; it > -1; it--)
 				{

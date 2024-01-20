@@ -49,7 +49,7 @@ struct Collection
 	ColorList colors;
 	StyleSet<ParagraphStyle> pstyles;
 	StyleSet<CharStyle> cstyles;
-	QHash<QString,multiLine> lstyles;
+	QHash<QString, MultiLine> lstyles;
 	QList<QString> fonts;
 	QList<QString> patterns;
 
@@ -57,7 +57,7 @@ struct Collection
 	void collectColor(const QString& name, ScColor c) { colors[name] = c; }
 	void collectStyle(ParagraphStyle* style) { if (style && !style->name().isEmpty()) pstyles.append(style); }
 	void collectCharStyle(CharStyle* style) { if (style && !style->name().isEmpty()) cstyles.append(style); }
-	void collectLineStyle(const QString& name, multiLine& m) { lstyles[name] = m; }
+	void collectLineStyle(const QString& name, MultiLine& m) { lstyles[name] = m; }
 	void collectFont(QString name) { fonts.append(name); }
 	void collectPattern(QString name) { patterns.append(name); }
 };
@@ -95,7 +95,7 @@ class CollectMultiLine_body : public Action_body
 	{
 //		qDebug() << QString("collect %1").arg(tagname);
 		Collection* coll  = this->dig->lookup<Collection>("<collection>");
-		multiLine*  mline = this->dig->top<multiLine>();
+		MultiLine*  mline = this->dig->top<MultiLine>();
 		coll->collectLineStyle(m_name, *mline);
 	}
 private:
@@ -115,7 +115,7 @@ class CollectSingleLine_body : public Action_body
 	{
 //		qDebug() << QString("collect %1").arg(tagname);
 //		Collection* coll  = this->dig->lookup<Collection>("<collection>");
-		multiLine*  mline = this->dig->lookup<multiLine>("<multiline>");
+		MultiLine*  mline = this->dig->lookup<MultiLine>("<multiline>");
 		SingleLine* sline = this->dig->top<SingleLine>();
 		mline->append(*sline);
 	}
@@ -158,8 +158,8 @@ Q_UNUSED(m_Doc)
 	ParagraphStyle::desaxeRules("/SCRIBUSFRAGMENT/", *this);
 	addRule("/SCRIBUSFRAGMENT/style", SetterP<Collection, ParagraphStyle>( & Collection::collectStyle ));
 
-	addRule("/SCRIBUSFRAGMENT/MultiLine", Factory<multiLine>());
-	addRule("/SCRIBUSFRAGMENT/MultiLine", Store<multiLine>("<multiline>"));
+	addRule("/SCRIBUSFRAGMENT/MultiLine", Factory<MultiLine>());
+	addRule("/SCRIBUSFRAGMENT/MultiLine", Store<MultiLine>("<multiline>"));
 	addRule("/SCRIBUSFRAGMENT/MultiLine", CollectMultiLine());
 
 	addRule("/SCRIBUSFRAGMENT/MultiLine/SubLine", Factory<SingleLine>());
