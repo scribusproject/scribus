@@ -328,7 +328,7 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 		return nullptr;
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 
-	multiLine ml;
+	MultiLine ml;
 	const ColorList& docColors = currentDoc->PageColors;
 
 	for (int i = 0; i < PyList_Size(obj); i++)
