@@ -148,12 +148,12 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(TableSides)
 
 struct SingleLine
 {
-	double Width;
-	int Dash;
-	int LineEnd;
-	int LineJoin;
-	QString Color;
-	int Shade;
+	double Width { 1.0 };
+	int Dash { Qt::SolidLine };
+	int LineEnd { Qt::FlatCap };
+	int LineJoin { Qt::MiterJoin };
+	QString Color { "Black" };
+	int Shade { 100 };
 	// setter necessary for use with serializer/digester
 	void setLineWidth(double value) { Width = value; }
 	void setDash(int value)         { Dash = value; }
