@@ -180,10 +180,10 @@ class MultiLine : public QList<SingleLine>
 {
 public:
 	QString shortcut;
-	bool operator!=(const MultiLine& other) const
-	{
-		return !(this->operator ==(other));
-	}
+	// Notice following removal of operator != :
+	// MultiLine inherits operator == and != from QList. As a consequence, shortcut
+	// will not be taken into account during the comparison, but that was also the
+	// case of former operator !=
 };
 
 struct Bullet  //used by style reader while importing ODT files
