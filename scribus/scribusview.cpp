@@ -1260,7 +1260,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	}
 }
 
-void ScribusView::getDragRectScreen(double *x, double *y, double *w, double *h)
+void ScribusView::getDragRectScreen(double *x, double *y, double *w, double *h) const
 {
 	QPoint in(qRound(dragX * m_canvas->scale()), qRound(dragY * m_canvas->scale()));
 	//	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
@@ -1271,7 +1271,7 @@ void ScribusView::getDragRectScreen(double *x, double *y, double *w, double *h)
 	*h = dragH * m_canvas->scale();
 }
 
-void ScribusView::getGroupRectScreen(double *x, double *y, double *w, double *h)
+void ScribusView::getGroupRectScreen(double *x, double *y, double *w, double *h) const
 {
 	double gx, gy, gh, gw;
 	m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -1309,7 +1309,7 @@ void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
 
 
 //CB-->elsewhere, util, however, only used in the view for now
-bool ScribusView::PointOnLine(QPoint Start, QPoint End, QRect MArea)
+bool ScribusView::PointOnLine(QPoint Start, QPoint End, QRect MArea) const
 {
 	QPoint an, en;
 	if (Start.x() == End.x())
@@ -1891,7 +1891,7 @@ void ScribusView::setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 	}
 }
 
-bool ScribusView::mousePressed()
+bool ScribusView::mousePressed() const
 {
 	return m_canvas->m_viewMode.m_MouseButtonPressed;
 }
@@ -2196,7 +2196,7 @@ void ScribusView::slotZoom100()
 	}
 	else if (m_doc->currentPage() != nullptr)
 	{
-		ScPage* currentPage = m_doc->currentPage();
+		const ScPage* currentPage = m_doc->currentPage();
 		zoomPointX = qRound(currentPage->xOffset() + currentPage->width() / 2.0);
 		zoomPointY = qRound(currentPage->yOffset() + currentPage->height() / 2.0);
 	}
@@ -2577,7 +2577,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 	painter->setZoomFactor(m_canvas->scale());
 
 	QList<QPair<PageItem*, int> > changedList;
-	ScPage* page = m_doc->DocPages.at(Nr);
+	const ScPage* page = m_doc->DocPages.at(Nr);
 	PageItem* currItem;
 	if ((page->FromMaster.count() != 0) && !flags.testFlag(Pixmap_DontReloadImages))
 	{
@@ -3468,34 +3468,34 @@ void ScribusView::resizeContents(int w, int h)  // deprecated
 	widget()->resize(w - 0*originX, h - 0*originY);
 }
 
-QPoint ScribusView::contentsToViewport(QPoint p) // deprecated
+QPoint ScribusView::contentsToViewport(QPoint p) const // deprecated
 {
 	return p + viewport()->pos();
 }
 
-QPoint ScribusView::viewportToContents(QPoint p) // deprecated
+QPoint ScribusView::viewportToContents(QPoint p) const  // deprecated
 {
 	return p - viewport()->pos();
 }
 
-int ScribusView::contentsX() // deprecated
+int ScribusView::contentsX() const // deprecated
 {
 	int originX = qRound(m_doc->minCanvasCoordinate.x() * scale());
 	return horizontalScrollBar()->value() + originX;
 }
 
-int ScribusView::contentsY() // deprecated
+int ScribusView::contentsY() const // deprecated
 {
 	int originY = qRound(m_doc->minCanvasCoordinate.y() * scale());
 	return verticalScrollBar()->value() + originY;
 }
 
-int ScribusView::contentsWidth()
+int ScribusView::contentsWidth() const
 {
 	return horizontalScrollBar()->maximum() - horizontalScrollBar()->minimum();
 }
 
-int ScribusView::contentsHeight()
+int ScribusView::contentsHeight() const
 {
 	return verticalScrollBar()->maximum() - verticalScrollBar()->minimum();
 }
@@ -3527,7 +3527,7 @@ void ScribusView::zoom(double scale)
 		scale = m_canvas->scale();
 	if (!m_doc->m_Selection->isEmpty())
 	{
-		PageItem *currItem = m_doc->m_Selection->itemAt(0);
+		const PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		zPointX = currItem->xPos() + currItem->width() / 2.0;
 		zPointY = currItem->yPos() + currItem->height() / 2.0;
 	}

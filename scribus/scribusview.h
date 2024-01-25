@@ -180,9 +180,9 @@ public:
 	 * @param m mouse event
 	 */
 	void setNewRulerOrigin(QMouseEvent *m);
-	void getDragRectScreen(double *x, double *y, double *w, double *h);
-	void getGroupRectScreen(double *x, double *y, double *w, double *h);
-	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
+	void getDragRectScreen(double *x, double *y, double *w, double *h) const;
+	void getGroupRectScreen(double *x, double *y, double *w, double *h) const;
+	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea) const;
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
 	bool slotSetCurs(int x, int y);
 	// \brief return a resize cursor if the mouse is on a handle.
@@ -217,16 +217,16 @@ private:
 	void updateContents(int x, int y, int w, int h);
 	void repaintContents(QRect box);
 	void resizeContents(int w, int h);
-	QPoint contentsToViewport(QPoint p);
-	QPoint viewportToContents(QPoint p);
+	QPoint contentsToViewport(QPoint p) const;
+	QPoint viewportToContents(QPoint p) const;
 
 public: // for now
-	int contentsX();
-	int contentsY();
-	int contentsWidth();
-	int contentsHeight();
-	int visibleWidth() { return viewport()->size().width(); };
-	int visibleHeight() { return viewport()->size().height(); };
+	int contentsX() const;
+	int contentsY() const;
+	int contentsWidth() const;
+	int contentsHeight() const;
+	int visibleWidth() const { return viewport()->size().width(); };
+	int visibleHeight() const { return viewport()->size().height(); };
 
 	void setCanvasPos(double x, double y);
 	void setCanvasCenterPos(double x, double y);
@@ -321,7 +321,7 @@ public:
 	QVariant inputMethodQuery(Qt::InputMethodQuery query) const override;
 	
 	inline void registerMousePress(QPoint p);
-	bool mousePressed();
+	bool mousePressed() const;
 	void resetMousePressed();
 	inline QPoint mousePressLocation();
 	inline bool moveTimerElapsed();
