@@ -182,18 +182,18 @@ public:
 	 * @param m mouse event
 	 */
 	void setNewRulerOrigin(QMouseEvent *m);
-	void getDragRectScreen(double *x, double *y, double *w, double *h);
-	void getGroupRectScreen(double *x, double *y, double *w, double *h);
-	bool PointOnLine(QPoint start, QPoint end, QRect mArea);
+	void getDragRectScreen(double *x, double *y, double *w, double *h) const;
+	void getGroupRectScreen(double *x, double *y, double *w, double *h) const;
+	bool PointOnLine(QPoint start, QPoint end, QRect mArea) const;
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
 	bool slotSetCurs(int x, int y);
 	// \brief return a resize cursor if the mouse is on a handle.
-	Qt::CursorShape getResizeCursor(PageItem *currItem, QRect mpo, Qt::CursorShape cursorShape = Qt::ArrowCursor);
+	Qt::CursorShape getResizeCursor(PageItem *currItem, QRect mpo, Qt::CursorShape cursorShape = Qt::ArrowCursor) const;
 	void deselectItems(bool prop = true);
 	void selectItemByNumber(int nr, bool draw = true, bool single = false);
 	void selectItem(PageItem *pi, bool draw = true, bool single = false);
 	void rememberOldZoomLocation(int mx=0, int my=0);
-	bool groupTransactionStarted() { return m_groupTransactions > 0; }
+	bool groupTransactionStarted() const { return m_groupTransactions > 0; }
 	void startGroupTransaction(const QString &actionName = "",
 							   const QString &description = "",
 							   QPixmap *actionPixmap = 0,
@@ -219,16 +219,16 @@ private:
 	void updateContents(int x, int y, int w, int h);
 	void repaintContents(QRect box);
 	void resizeContents(int w, int h);
-	QPoint contentsToViewport(QPoint p);
-	QPoint viewportToContents(QPoint p);
+	QPoint contentsToViewport(QPoint p) const;
+	QPoint viewportToContents(QPoint p) const;
 
 public: // for now
-	int contentsX();
-	int contentsY();
-	int contentsWidth();
-	int contentsHeight();
-	int visibleWidth() { return viewport()->size().width(); };
-	int visibleHeight() { return viewport()->size().height(); };
+	int contentsX() const;
+	int contentsY() const;
+	int contentsWidth() const;
+	int contentsHeight() const;
+	int visibleWidth() const { return viewport()->size().width(); };
+	int visibleHeight() const { return viewport()->size().height(); };
 
 	void setCanvasPos(double x, double y);
 	void setCanvasCenterPos(double x, double y);
@@ -323,16 +323,16 @@ public:
 	QVariant inputMethodQuery(Qt::InputMethodQuery query) const override;
 	
 	inline void registerMousePress(QPointF p);
-	bool mousePressed();
+	bool mousePressed() const;
 	void resetMousePressed();
-	inline QPointF mousePressLocation();
+	inline QPointF mousePressLocation() const;
 	inline bool moveTimerElapsed();
 	inline void resetMoveTimer();
 	
 	inline void startDragTimer();
 	inline void stopDragTimer();
 	inline void resetDragTimer();
-	inline bool dragTimerElapsed();
+	inline bool dragTimerElapsed() const;
 	void stopAllDrags();
 
 	bool handleObjectImport(QMimeData* mimeData, TransactionSettings* trSettings = nullptr);
@@ -385,7 +385,7 @@ inline void ScribusView::registerMousePress(QPointF p)
 }
 
 
-inline QPointF ScribusView::mousePressLocation()
+inline QPointF ScribusView::mousePressLocation() const
 {
 	return m_pressLocation;
 }
@@ -422,7 +422,7 @@ inline void ScribusView::resetDragTimer()
 }
 
 
-inline bool ScribusView::dragTimerElapsed()
+inline bool ScribusView::dragTimerElapsed() const
 {
 	return m_dragTimerFired;
 }
