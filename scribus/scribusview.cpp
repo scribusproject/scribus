@@ -3626,8 +3626,7 @@ void ScribusView::restoreViewState()
 		return;
 
 	ViewState viewState = m_viewStates.pop();
-	m_doc->minCanvasCoordinate = viewState.minCanvasCoordinate;
-	m_doc->maxCanvasCoordinate = viewState.maxCanvasCoordinate;
+	m_doc->adjustCanvas(viewState.minCanvasCoordinate, viewState.maxCanvasCoordinate, true);
 	setScale(viewState.canvasScale);
 
 	// #12857 : the number of pages may change when undoing/redoing
