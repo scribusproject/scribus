@@ -124,40 +124,41 @@ public:
 	
   /** Vergroesserungseingabefeld */
 	RulerMover *rulerMover { nullptr }; //Widget between the two rulers for dragging the ruler origin
-	Hruler *horizRuler{ nullptr };
-	Vruler *vertRuler{ nullptr };
-	ClockWidget *clockLabel{ nullptr };
-	QPushButton *endEditButton{ nullptr };
+	Hruler *horizRuler { nullptr };
+	Vruler *vertRuler { nullptr };
+	ClockWidget *clockLabel { nullptr };
+	QPushButton *endEditButton { nullptr };
   /** Dokument zu dem die Seite gehoert */
-	ScribusDoc * const m_doc;
-	Canvas * const m_canvas;
-	CanvasMode* m_canvasMode; // might be a CanvasGesture FIXME make private
+	ScribusDoc * const m_doc { nullptr };
+	Canvas * const m_canvas { nullptr };
+	CanvasMode* m_canvasMode { nullptr }; // might be a CanvasGesture FIXME make private
 	CanvasMode* canvasMode();
 	QMap<int, CanvasMode*> modeInstances;
-	ApplicationPrefs * const Prefs;
-	UndoManager * const undoManager;
-	ScribusMainWindow* m_ScMW{ nullptr };
-	double OldScale {0.0};
-	double dragX {0.0};
-	double dragY {0.0};
-	double dragW {0.0};
-	double dragH {0.0};
-	double oldW {-1.0};
-	int RotMode {0};
-	bool HaveSelRect {false};
-	bool DraggedGroup {false};
-	bool MidButt {false};
-	bool updateOn {true};
-	bool Magnify {false};
-	bool storedFramesShown;
-	bool storedShowControls;
-	int editStrokeGradient;
-	bool m_AnnotChanged;
-	bool m_EditModeWasOn;
-	bool m_ChangedState;
-	SelectionRubberBand *redrawMarker;
+	ApplicationPrefs * const Prefs { nullptr };
+	UndoManager * const undoManager { nullptr };
+	ScribusMainWindow* m_ScMW { nullptr };
+	double OldScale { 0.0 };
+	double dragX { 0.0 };
+	double dragY { 0.0 };
+	double dragW { 0.0 };
+	double dragH { 0.0 };
+	double oldW { -1.0 };
+	int RotMode { 0 };
+	bool HaveSelRect { false };
+	bool DraggedGroup { false };
+	bool MidButt { false };
+	bool updateOn { true };
+	bool Magnify { false };
+	bool storedFramesShown { false };
+	bool storedShowControls { false };
+	int editStrokeGradient { 0 };
+	bool m_AnnotChanged { false };
+	bool m_EditModeWasOn { false };
+	bool m_ChangedState { false };
+	SelectionRubberBand *redrawMarker { nullptr };
 	FPoint RCenter { -1.0, -1.0 };
 	FPoint m_mousePointDoc;
+
 	void updatesOn(bool on);
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 	//does NOT create a page anymore.
@@ -278,27 +279,26 @@ public slots: // Public slots
 	void PasteToPage();
 	void TextToPath();
 
-	//for linking frame after draw new frame
 private:
-	PageItem * firstFrame;
+	//for linking frame after draw new frame
+	PageItem* firstFrame { nullptr };
 
-private: // Private attributes
-	int m_previousMode;
-	QMenu *pmen3;
-	QMenu *pmenResolution;
+	int m_previousMode { -1 };
+	QMenu *pmen3 { nullptr };
+	QMenu *pmenResolution { nullptr };
 	QPointF m_pressLocation;
 	QElapsedTimer m_moveTimer;
-	QTimer *m_dragTimer;
-	bool m_dragTimerFired;
-	bool m_ready {false};
-	int m_oldZoomX {0};
-	int m_oldZoomY {0};
+	QTimer *m_dragTimer { nullptr };
+	bool m_dragTimerFired { false };
+	bool m_ready { false };
+	int m_oldZoomX { 0 };
+	int m_oldZoomY { 0 };
 	QSize m_oldCanvasSize;
-	int m_groupTransactions {0};
+	int m_groupTransactions { 0 };
 	UndoTransaction m_groupTransaction;
-	bool _isGlobalMode {true};
-	bool linkAfterDraw {false};
-	bool ImageAfterDraw {false};
+	bool m_isGlobalMode { true };
+	bool linkAfterDraw { false };
+	bool ImageAfterDraw { false };
 	QStack<ViewState> m_viewStates;
 
 private slots:
@@ -375,8 +375,6 @@ signals:
 };
 
 
-
-
 inline void ScribusView::registerMousePress(QPointF p)
 {
 	m_pressLocation = p;
@@ -384,24 +382,20 @@ inline void ScribusView::registerMousePress(QPointF p)
 	m_dragTimerFired = false;
 }
 
-
 inline QPointF ScribusView::mousePressLocation() const
 {
 	return m_pressLocation;
 }
-
 
 inline bool ScribusView::moveTimerElapsed()
 {
 	return (m_moveTimer.elapsed() > Prefs->uiPrefs.mouseMoveTimeout);
 }
 
-
 inline void ScribusView::resetMoveTimer()
 {
 	m_moveTimer.start();
 }
-
 
 inline void ScribusView::startDragTimer()
 {
@@ -415,12 +409,10 @@ inline void ScribusView::stopDragTimer()
 	m_dragTimer->stop();
 }
 
-
 inline void ScribusView::resetDragTimer()
 {
 	m_dragTimerFired = false;
 }
-
 
 inline bool ScribusView::dragTimerElapsed() const
 {

@@ -131,7 +131,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	// already done by QScrollArea: widget()->installEventFilter(this)
 	installEventFilter(this); // FIXME:av
 	setFocusPolicy(Qt::ClickFocus);
-	QFont fo = QFont(font());
+
+	QFont fo(font());
 	// #8058: Better not use too small font size on Windows
 	// in case ClearType is not enabled
 	int posi = fo.pointSize() - (ScCore->isWinGUI() ? 1 : 2);
@@ -162,7 +163,6 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 
 	m_canvas->m_viewMode.viewAsPreview = false;
 	m_canvas->setPreviewVisual(-1);
-	m_previousMode = -1;
 
 	redrawMarker = new SelectionRubberBand(QRubberBand::Rectangle, this);
 	redrawMarker->hide();
@@ -176,11 +176,6 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_mousePointDoc = FPoint(0,0);
 	m_doc->regionsChanged()->connectObserver(this);
 	connect(this, SIGNAL(HaveSel()), m_doc, SLOT(selectionChanged()));
-	// Commented out to fix bug #7865
-	//	m_dragTimer = new QTimer(this);
-	//	connect(m_dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
-	//	m_dragTimer->stop();
-	m_dragTimerFired = false;
 
 	clockLabel = new ClockWidget(this, m_doc);
 	clockLabel->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - 61, 60, 60);
@@ -1955,7 +1950,7 @@ void ScribusView::setRulerPos(int x, int y)
 			int hs = static_cast<int>(m_doc->Pages->at(i)->height() * m_canvas->scale());
 			QRect drawRect(x, y, visibleWidth(), visibleHeight());
 			if (drawRect.intersects(QRect(xs, ys, ws, hs)))
-				pag.append(i+1);
+				pag.append(i + 1);
 		}
 		if (!pag.isEmpty())
 			newStatusBarText=( tr("Page %1 to %2").arg(pag.first()).arg(pag.last()));
@@ -3227,7 +3222,7 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 
 void ScribusView::setObjectUndoMode()
 {
-	_isGlobalMode = undoManager->isGlobalMode();
+	m_isGlobalMode = undoManager->isGlobalMode();
 	if (!m_ScMW->HaveDoc)
 		return;
 
@@ -3247,8 +3242,8 @@ void ScribusView::setGlobalUndoMode()
 	if (!m_ScMW->HaveDoc)
 		return;
 
-	m_ScMW->scrActions["editActionMode"]->setChecked(!_isGlobalMode);
-	if (_isGlobalMode)
+	m_ScMW->scrActions["editActionMode"]->setChecked(!m_isGlobalMode);
+	if (m_isGlobalMode)
 		undoManager->showObject(Um::GLOBAL_UNDO_MODE);
 	else
 	{
@@ -3280,10 +3275,10 @@ void ScribusView::setRulersShown(bool isShown)
 void ScribusView::setScale(double newScale)
 {
 	double canvasScale = newScale;
-	double v = m_doc->opToolPrefs().magMin*Prefs->displayPrefs.displayScale / 100.0;
+	double v = m_doc->opToolPrefs().magMin * Prefs->displayPrefs.displayScale / 100.0;
 	if (canvasScale < v)
 		canvasScale = v;
-	double v2 = m_doc->opToolPrefs().magMax*Prefs->displayPrefs.displayScale / 100.0;
+	double v2 = m_doc->opToolPrefs().magMax * Prefs->displayPrefs.displayScale / 100.0;
 	if (canvasScale > v2)
 		canvasScale = v2;
 	double v3 = 320 * Prefs->displayPrefs.displayScale;
@@ -3468,7 +3463,7 @@ void ScribusView::resizeContents(int w, int h)  // deprecated
 	//	qDebug() << "ScribusView::resizeContents(" << w << "," << h << ")";
 	int originX = qRound(m_doc->minCanvasCoordinate.x() * scale());
 	int originY = qRound(m_doc->minCanvasCoordinate.y() * scale());
-	widget()->resize(w - 0*originX, h - 0*originY);
+	widget()->resize(w - 0 * originX, h - 0 * originY);
 }
 
 QPoint ScribusView::contentsToViewport(QPoint p) const // deprecated
