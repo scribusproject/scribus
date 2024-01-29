@@ -8880,6 +8880,12 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 			lists.collectColor(meshGradientPatches[col].BR.colorName);
 		}
 	}
+	else if (GrType == Gradient_Hatch)
+	{
+		lists.collectColor(hatchForeground);
+		lists.collectColor(hatchBackground);
+	}
+
 	if (GrTypeStroke == 0)
 		lists.collectColor(lineColor());
 	else if (GrTypeStroke < Gradient_Pattern)
