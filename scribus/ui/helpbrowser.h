@@ -88,6 +88,8 @@ protected:
 	void closeEvent(QCloseEvent * event) override;
 
 	void setupLocalUI();
+	/*! \brief Get bookmarks file path. */
+	QString bookmarkFile() const;
 	/*! \brief Reads saved bookmarks from external file */
 	void readBookmarks();
 	/*! \brief Search in doc files in spec. dir.
@@ -96,28 +98,30 @@ protected:
 	\author Petr Vanek <petr@yarpen.cz> */
 	void searchingInDirectory(const QString&);
 
+	/*! \brief Get history file path. */
+	QString historyFile() const;
 	/*! \brief Reads saved history of browsing. */
 	void readHistory();
 
 	/*! \brief Tell the user there is no help available */
 	void displayNoHelp();
 
-	HelpNavigation * helpNav;
+	HelpNavigation * helpNav { nullptr };
 	
-	QMenu* fileMenu;
-	QMenu* editMenu;
-	QMenu* bookMenu;
-	QAction* filePrint;
-	QAction* fileExit;
-	QAction* editFind;
-	QAction* editFindNext;
-	QAction* editFindPrev;
-	QAction* bookAdd;
-	QAction* bookDel;
-	QAction* bookDelAll;
-	QAction* goHome;
-	QAction* goBack;
-	QAction* goFwd;
+	QMenu* fileMenu { nullptr };
+	QMenu* editMenu { nullptr };
+	QMenu* bookMenu { nullptr };
+	QAction* filePrint { nullptr };
+	QAction* fileExit { nullptr };
+	QAction* editFind { nullptr };
+	QAction* editFindNext { nullptr };
+	QAction* editFindPrev { nullptr };
+	QAction* bookAdd { nullptr };
+	QAction* bookDel { nullptr };
+	QAction* bookDelAll { nullptr };
+	QAction* goHome { nullptr };
+	QAction* goBack { nullptr };
+	QAction* goFwd { nullptr };
 
 	QProgressBar * progressBar { nullptr };
 	QMenu* histMenu { nullptr };
@@ -145,8 +149,6 @@ protected slots:
 	void loadHelp(const QString& fileName);
 	void loadMenu();
 //	void showLinkContents(const QString &link);
-	QString bookmarkFile();
-	QString historyFile();
 
 	/*! \brief Load doc file when user select filename in content view. */
 	void itemSelected(const QItemSelection & selected, const QItemSelection & deselected);
