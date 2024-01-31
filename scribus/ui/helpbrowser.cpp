@@ -598,7 +598,7 @@ void HelpBrowser::loadHelp(const QString& fileName)
 
 void HelpBrowser::loadMenu()
 {
-	QString baseHelpDir = ScPaths::instance().userHelpFilesDir(false);
+	QString baseHelpDir = ScPaths::userHelpFilesDir(false);
 	QString installHelpDir  = ScPaths::instance().docDir();
 
 	QVector<QPair<QString, QString> > helpMenuFiles;
@@ -637,7 +637,7 @@ void HelpBrowser::loadMenu()
 	}
 
 	//Set our final location for loading the help files
-	QFileInfo baseFi = QFileInfo(toLoad);
+	QFileInfo baseFi(toLoad);
 	m_finalBaseDir = baseFi.path();
 	QStringList searchPaths;
 	searchPaths << m_finalBaseDir;
@@ -731,7 +731,7 @@ void HelpBrowser::itemBookmarkSelected(QTreeWidgetItem *twi, int i)
 A helper function.
 \author Petr Vanek <petr@yarpen.cz>
 */
-QString HelpBrowser::bookmarkFile()
+QString HelpBrowser::bookmarkFile() const
 {
 	QString appDataDir(ScPaths::applicationDataDir());
 	QString fname(appDataDir + "doc/bookmarks.xml");
@@ -748,7 +748,7 @@ QString HelpBrowser::bookmarkFile()
 A helper function.
 \author Petr Vanek <petr@yarpen.cz>
 */
-QString HelpBrowser::historyFile()
+QString HelpBrowser::historyFile() const
 {
 	QString appDataDir(ScPaths::applicationDataDir());
 	QString fname(appDataDir + "doc/history.xml");
