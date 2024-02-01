@@ -78,28 +78,22 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(nullptr)
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
-bool SxwDialog::shouldUpdate()
+bool SxwDialog::shouldUpdate() const
 {
 	return updateCheck->isChecked();
 }
 
-bool SxwDialog::usePrefix()
+bool SxwDialog::usePrefix() const
 {
 	return prefixCheck->isChecked();
 }
 
-bool SxwDialog::askAgain()
+bool SxwDialog::askAgain() const
 {
 	return !(doNotAskCheck->isChecked());
 }
 
-bool SxwDialog::packStyles()
+bool SxwDialog::packStyles() const
 {
 	return packCheck->isChecked();
 }
-
-SxwDialog::~SxwDialog()
-{
-
-}
-

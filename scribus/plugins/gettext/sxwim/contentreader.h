@@ -45,9 +45,9 @@ for which a new license (GPL+exception) is in place.
 #include <gtwriter.h>
 #include "stylereader.h"
 
-typedef std::vector<std::pair<QString, QString> > Properties;
-typedef QMap<QString, QString> SXWAttributesMap;
-typedef QMap<QString, Properties > TMap;
+using Properties = std::vector<std::pair<QString, QString> >;
+using SXWAttributesMap = QMap<QString, QString>;
+using TMap = QMap<QString, Properties>;
 
 class ContentReader
 {
@@ -91,7 +91,7 @@ private:
 	QString currentList;
 
 	void write(const QString& text);
-	QString getName();
+	QString getName() const;
 	void getStyle();
 };
 

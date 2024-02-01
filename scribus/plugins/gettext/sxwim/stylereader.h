@@ -39,10 +39,10 @@ for which a new license (GPL+exception) is in place.
 #include <gtstyle.h>
 #include <gtwriter.h>
 
-typedef QMap<QString, gtStyle*> StyleMap;
-typedef QMap<QString, QString> FontMap;
-typedef QMap<QString, QString> SXWAttributesMap;
-typedef QMap<QString, int> CounterMap;
+using StyleMap = QMap<QString, gtStyle*>;
+using FontMap = QMap<QString, QString>;
+using SXWAttributesMap = QMap<QString, QString>;
+using CounterMap = QMap<QString, int>;
 
 class StyleReader
 {
@@ -84,7 +84,7 @@ private:
 	QString currentList;
 	bool defaultStyleCreated { false };
 
-	double getSize(const QString& s, double parentSize = -1);
+	double getSize(const QString& s, double parentSize = -1) const;
 	void styleProperties(const SXWAttributesMap& attrs);
 	void defaultStyle(const SXWAttributesMap& attrs);
 	void styleStyle(const SXWAttributesMap& attrs);
