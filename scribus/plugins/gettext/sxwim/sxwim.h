@@ -41,17 +41,12 @@ extern "C" PLUGIN_API QStringList FileExtensions();
 class SxwIm
 {
 	public:
-		SxwIm(const QString& fileName, const QString& encoding, gtWriter* w, bool textOnly);
-		~SxwIm();
+		explicit SxwIm(gtWriter* w);
+
+		void importFile(const QString& fileName, bool textOnly);
 
 	private:
-		gtWriter* writer { nullptr };
-		QString encoding;
-		QString filename;
-		QString stylePath;
-		QString contentPath;
-
-		bool decompress();
+		gtWriter* m_writer { nullptr };
 };
 
 #endif // SXWIM_H
