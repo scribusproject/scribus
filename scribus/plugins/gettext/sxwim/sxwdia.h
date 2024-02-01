@@ -19,12 +19,11 @@ class SxwDialog : public QDialog
 
 public:
 	SxwDialog(bool update, bool prefix, bool pack);
-	~SxwDialog();
 
-	bool shouldUpdate();
-	bool usePrefix();
-	bool askAgain();
-	bool packStyles();
+	bool shouldUpdate() const;
+	bool usePrefix() const;
+	bool askAgain() const;
+	bool packStyles() const;
 
 private:
 	QCheckBox* updateCheck { nullptr };

@@ -139,7 +139,7 @@ bool ContentReader::startElement(const QString &name, const SXWAttributesMap &at
 			inT = true;
 		}
 	}
-	else if ((name == "style:properties") && (inT))
+	else if ((name == "style:properties") && inT)
 	{
 		Properties p;
 		for (auto attr = attrs.cbegin(); attr != attrs.cend(); ++attr)
@@ -223,7 +223,7 @@ bool ContentReader::endElement(const QString &name)
 			styleNames.push_back(QString(currentList + "_%1").arg(listLevel));
 		}
 	}
-	else if ((name == "style:style") && (inT))
+	else if ((name == "style:style") && inT)
 	{
 		inT = false;
 		tName = "";
@@ -322,7 +322,7 @@ void ContentReader::endElement(void*, const xmlChar *name)
 	creader->endElement(nname);
 }
 
-QString ContentReader::getName()
+QString ContentReader::getName() const
 {
 	QString s;
 	for (uint i = 0; i < styleNames.size(); ++i)
