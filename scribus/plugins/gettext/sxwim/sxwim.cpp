@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "sxwim.h"
+
+#include <memory>
 #include <QStringList>
 #include <QTemporaryDir>
 
@@ -33,9 +35,9 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include "prefsmanager.h"
-#include <prefsfile.h>
-#include <prefscontext.h>
-#include <prefstable.h>
+#include "prefsfile.h"
+#include "prefscontext.h"
+#include "prefstable.h"
 #include "stylereader.h"
 #include "contentreader.h"
 #include "sxwdia.h"
@@ -51,73 +53,66 @@ QStringList FileExtensions()
 	return QStringList("sxw");
 }
 
-void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer)
+void GetText(const QString& filename, const QString& /*encoding*/, bool textOnly, gtWriter *writer)
 {
-	SxwIm* sim = new SxwIm(filename, encoding, writer, textOnly);
-	delete sim;
+	auto sim = std::make_unique<SxwIm>(writer);
+	sim->importFile(filename, textOnly);
 }
 
 /********** Class SxwIm ************************************************************/
 
-SxwIm::SxwIm(const QString& fileName, const QString& enc, gtWriter* w, bool textOnly)
+SxwIm::SxwIm(gtWriter* w)
+	: m_writer(w)
+{
+
+}
+
+void SxwIm::importFile(const QString& fileName, bool textOnly)
 {
 	PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("SxwIm");
 	bool update = prefs->getBool("update", true);
 	bool prefix = prefs->getBool("prefix", true);
 	bool ask = prefs->getBool("askAgain", true);
 	bool pack = prefs->getBool("pack", true);
-	encoding = enc;
-	writer = w;
-	if (!textOnly)
-	{
-		if (ask)
-		{
-			SxwDialog* sxwdia = new SxwDialog(update, prefix, pack);
-			if (sxwdia->exec()) {
-				update = sxwdia->shouldUpdate();
-				prefix = sxwdia->usePrefix();
-				pack = sxwdia->packStyles();
-				prefs->set("update", update);
-				prefs->set("prefix", sxwdia->usePrefix());
-				prefs->set("askAgain", sxwdia->askAgain());
-				prefs->set("pack", sxwdia->packStyles());
-				delete sxwdia;
-			} else {
-				delete sxwdia;
-				return;
-			}
-		}
-	}
-	filename = fileName;
-	writer->setUpdateParagraphStyles(update);
-	ScZipHandler* fun = new ScZipHandler();
-	if (fun->open(fileName))
-	{
-		const QString STYLE   = "styles.xml";
-		const QString CONTENT = "content.xml";
-		QTemporaryDir *dir = new QTemporaryDir();
-		QString baseDir = dir->path();
-		fun->extract(STYLE, baseDir, ScZipHandler::SkipPaths);
-		fun->extract(CONTENT, baseDir, ScZipHandler::SkipPaths);
-		stylePath   = baseDir + "/" + STYLE;
-		contentPath = baseDir + "/" + CONTENT;
-		if ((!stylePath.isNull()) && (!contentPath.isNull()))
-		{
-			QString docname = filename.right(filename.length() - filename.lastIndexOf("/") - 1);
-			docname = docname.left(docname.lastIndexOf("."));
-			StyleReader *sreader = new StyleReader(docname, writer, textOnly, prefix, pack);
-			sreader->parse(stylePath);
-			ContentReader *creader = new ContentReader(docname, sreader, writer, textOnly);
-			creader->parse(contentPath);
-			delete sreader;
-			delete creader;
-		}
-		delete dir;
-	}
-	delete fun;
-}
 
-SxwIm::~SxwIm()
-{
+	if (!textOnly && ask)
+	{
+		auto sxwdia = std::make_unique<SxwDialog>(update, prefix, pack);
+		if (!sxwdia->exec())
+			return;
+		update = sxwdia->shouldUpdate();
+		prefix = sxwdia->usePrefix();
+		pack = sxwdia->packStyles();
+		prefs->set("update", update);
+		prefs->set("prefix", sxwdia->usePrefix());
+		prefs->set("askAgain", sxwdia->askAgain());
+		prefs->set("pack", sxwdia->packStyles());
+	}
+	m_writer->setUpdateParagraphStyles(update);
 
+	auto fun = std::make_unique<ScZipHandler>();
+	if (!fun->open(fileName))
+		return;
+
+	QTemporaryDir dir;
+	if (!dir.isValid())
+		return;
+	QString baseDir = dir.path();
+
+	const QString STYLE = "styles.xml";
+	const QString CONTENT = "content.xml";
+	fun->extract(STYLE, baseDir, ScZipHandler::SkipPaths);
+	fun->extract(CONTENT, baseDir, ScZipHandler::SkipPaths);
+
+	QString stylePath = baseDir + "/" + STYLE;
+	QString contentPath = baseDir + "/" + CONTENT;
+	if (stylePath.isEmpty() || contentPath.isEmpty())
+		return;
+
+	QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
+	docname = docname.left(docname.lastIndexOf("."));
+	auto sreader = std::make_unique<StyleReader>(docname, m_writer, textOnly, prefix, pack);
+	sreader->parse(stylePath);
+	auto creader = std::make_unique<ContentReader>(docname, sreader.get(), m_writer, textOnly);
+	creader->parse(contentPath);
 }
