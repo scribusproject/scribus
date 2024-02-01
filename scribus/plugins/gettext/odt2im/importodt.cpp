@@ -41,101 +41,89 @@ QStringList FileExtensions()
 
 void GetText2(const QString& filename, const QString& /*encoding*/, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
-	ODTIm* docxim = new ODTIm(filename, textItem, textOnly, prefix, append);
-	delete docxim;
+	auto docxim = std::make_unique<ODTIm>(textItem, prefix, append);
+	docxim->importFile(filename, textOnly);
 }
 
-ODTIm::ODTIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
+ODTIm::ODTIm(PageItem *textItem, bool prefix, bool append)
 	: m_Doc(textItem->doc()),
 	  m_item(textItem),
 	  m_prefixName(prefix),
 	  m_append(append)
 {
+	// Nothing else to do
+}
+
+bool ODTIm::importFile(const QString& fileName, bool textOnly)
+{
 	QFileInfo fi(fileName);
 	QString ext = fi.suffix().toLower();
 	if (ext == "fodt")
 	{
-		QByteArray f;
-		loadRawText(fileName, f);
-		QDomDocument designMapDom;
-		QString errorMsg;
-		int errorLine = 0;
-		int errorColumn = 0;
-		if (!designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
-		{
-			qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-			return;
-		}
+		parseContent(fileName, textOnly);
+		m_item->itemText.trim();
+		m_item->itemText.invalidateLayout();
+		return true;
+	}
+
+	m_zip = std::make_unique<ScZipHandler>();
+	if (!m_zip)
+		return false;
+
+	bool result = false;
+	if (m_zip->open(fileName))
+	{
 		if (textOnly)
-			parseRawDocReferenceXML(designMapDom);
+		{
+			if (m_zip->contains("content.xml"))
+				result = parseRawDocReference("content.xml");
+		}
+		else if (m_zip->contains("styles.xml"))
+		{
+			if (parseStyleSheets("styles.xml"))
+			{
+				if (m_zip->contains("content.xml"))
+					result = parseDocReference("content.xml");
+			}
+		}
 		else
-			parseDocReferenceXML(designMapDom);
+		{
+			if (m_zip->contains("content.xml"))
+				result = parseDocReference("content.xml");
+		}
+		m_zip->close();
 	}
 	else
 	{
-		uz = new ScZipHandler();
-		if (uz)
-		{
-			if (!uz->open(fileName))
-			{
-				delete uz;
-				QByteArray f;
-				loadRawText(fileName, f);
-				QDomDocument designMapDom;
-				QString errorMsg;
-				int errorLine = 0;
-				int errorColumn = 0;
-				if (designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
-				{
-					if (textOnly)
-						parseRawDocReferenceXML(designMapDom);
-					else
-						parseDocReferenceXML(designMapDom);
-				}
-				else
-				{
-					qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-					return;
-				}
-			}
-			else
-			{
-				if (textOnly)
-				{
-					if (uz->contains("content.xml"))
-						parseRawDocReference("content.xml");
-				}
-				else if (uz->contains("styles.xml"))
-				{
-					if (parseStyleSheets("styles.xml"))
-					{
-						if (uz->contains("content.xml"))
-							parseDocReference("content.xml");
-					}
-				}
-				else
-				{
-					if (uz->contains("content.xml"))
-						parseDocReference("content.xml");
-				}
-				uz->close();
-				delete uz;
-			}
-		}
+		result = parseContent(fileName, textOnly);
 	}
-	textItem->itemText.trim();
-	textItem->itemText.invalidateLayout();
+	m_zip.reset();
+
+	if (!result)
+		return false;
+
+	m_item->itemText.trim();
+	m_item->itemText.invalidateLayout();
+
+	return true;
 }
 
-/* Raw Text import */
-
-bool ODTIm::parseRawDocReference(const QString& designMap)
+bool ODTIm::parseContent(const QString& fileName, bool textOnly)
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(designMap, xmlData))
+	if (!loadRawText(fileName, xmlData))
 		return false;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
+	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
+	if (!parseResult)
+	{
+		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
+		return false;
+	}
+#else
 	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
@@ -144,6 +132,43 @@ bool ODTIm::parseRawDocReference(const QString& designMap)
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return false;
 	}
+#endif
+
+	bool result = false;
+	if (textOnly)
+		result = parseRawDocReferenceXML(designMapDom);
+	else
+		result = parseDocReferenceXML(designMapDom);
+	return result;
+}
+
+/* Raw Text import */
+
+bool ODTIm::parseRawDocReference(const QString& designMap)
+{
+	QByteArray xmlData;
+	QDomDocument designMapDom;
+	if (!m_zip->read(designMap, xmlData))
+		return false;
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
+	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
+	if (!parseResult)
+	{
+		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
+		return false;
+	}
+#else
+	QString errorMsg;
+	int errorLine = 0;
+	int errorColumn = 0;
+	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
+	{
+		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
+		return false;
+	}
+#endif
 	return parseRawDocReferenceXML(designMapDom);
 }
 
@@ -307,7 +332,7 @@ bool ODTIm::parseStyleSheets(const QString& designMap)
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(designMap, xmlData))
+	if (!m_zip->read(designMap, xmlData))
 		return false;
 
 	QString errorMsg;
@@ -568,9 +593,18 @@ bool ODTIm::parseDocReference(const QString& designMap)
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(designMap, xmlData))
+	if (!m_zip->read(designMap, xmlData))
 		return false;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
+	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
+	if (!parseResult)
+	{
+		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
+		return false;
+	}
+#else
 	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
@@ -579,6 +613,7 @@ bool ODTIm::parseDocReference(const QString& designMap)
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return false;
 	}
+#endif
 	return parseDocReferenceXML(designMapDom);
 }
 

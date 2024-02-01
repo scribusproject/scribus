@@ -17,6 +17,8 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "scribusstructs.h"
 
+#include <memory>
+
 #include <QDomDocument>
 #include <QDomElement>
 #include <QHash>
@@ -66,8 +68,13 @@ public:
 class ODTIm
 {
 public:
-	ODTIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append);
+	ODTIm(PageItem *textItem, bool prefix, bool append);
 	~ODTIm() = default;
+
+	ODTIm(ODTIm&) = delete;
+	ODTIm& operator=(const ODTIm&) = delete;
+
+	bool importFile(const QString& fileName, bool textOnly);
 
 private:
 	struct DrawStyle
@@ -104,6 +111,9 @@ private:
 		AttributeValue breakBefore;
 		AttributeValue breakAfter;
 	};
+
+	bool parseContent(const QString& fileName, bool textOnly);
+
 	bool parseRawDocReference(const QString& designMap);
 	bool parseRawDocReferenceXML(const QDomDocument &designMapDom);
 	void parseRawTextSpan(const QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC);
@@ -127,7 +137,7 @@ private:
 	QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
 	void setFontstyle(CharStyle &tmpCStyle, int kind);
 
-	ScZipHandler *uz {nullptr};
+	std::unique_ptr<ScZipHandler> m_zip;
 	ScribusDoc* m_Doc {nullptr};
 	PageItem* m_item {nullptr};
 	bool m_prefixName {false};
