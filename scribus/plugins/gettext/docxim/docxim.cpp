@@ -33,48 +33,59 @@ QStringList FileExtensions()
 	return QStringList("docx");
 }
 
-void GetText2(const QString& filename, const QString& encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
+void GetText2(const QString& filename, const QString& /*encoding*/, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
-	DocXIm* docxim = new DocXIm(filename, textItem, textOnly, prefix, append);
-	delete docxim;
+	auto docxim = std::make_unique<DocXIm>(textItem, prefix, append);
+	docxim->importFile(filename, textOnly);
 }
 
-DocXIm::DocXIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
+DocXIm::DocXIm(PageItem *textItem, bool prefix, bool append)
 {
 	m_Doc = textItem->doc();
 	m_item = textItem;
 	m_prefixName = prefix;
 	m_append = append;
+}
 
-	uz = new ScZipHandler();
-	if (!uz->open(fileName))
-	{
-		delete uz;
+void DocXIm::importFile(const QString& fileName, bool textOnly)
+{
+	m_zip = std::make_unique<ScZipHandler>();
+	if (!m_zip->open(fileName))
 		return;
-	}
+
 	parseContentTypes();
 	if (textOnly)
-		parsePlainTextOnly(textItem);
+		parsePlainTextOnly(m_item);
 	else
 	{
 		if (!themePart.isEmpty())
 			parseTheme();
 		parseStyles();
-		parseStyledText(textItem);
+		parseStyledText(m_item);
 	}
-	uz->close();
-	delete uz;
-	textItem->itemText.trim();
-	textItem->itemText.invalidateLayout();
+	m_zip->close();
+	m_zip.reset();
+
+	m_item->itemText.trim();
+	m_item->itemText.invalidateLayout();
 }
 
 void DocXIm::parseContentTypes()
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read("[Content_Types].xml", xmlData))
+	if (!m_zip->read("[Content_Types].xml", xmlData))
 		return;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
+	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
+	if (!parseResult)
+	{
+		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
+		return;
+	}
+#else
 	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
@@ -83,6 +94,7 @@ void DocXIm::parseContentTypes()
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return;
 	}
+#endif
 
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
@@ -116,9 +128,18 @@ void DocXIm::parseTheme()
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(themePart, xmlData))
+	if (!m_zip->read(themePart, xmlData))
 		return;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
+	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
+	if (!parseResult)
+	{
+		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
+		return;
+	}
+#else
 	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
@@ -127,6 +148,7 @@ void DocXIm::parseTheme()
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return;
 	}
+#endif
 
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
@@ -162,9 +184,18 @@ void DocXIm::parseStyles()
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(stylePart, xmlData))
+	if (!m_zip->read(stylePart, xmlData))
 		return;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
+	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
+	if (!parseResult)
+	{
+		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
+		return;
+	}
+#else
 	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
@@ -173,6 +204,7 @@ void DocXIm::parseStyles()
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return;
 	}
+#endif
 
 	defaultParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	defaultParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
@@ -252,9 +284,18 @@ void DocXIm::parseStyledText(PageItem *textItem)
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(docPart, xmlData))
+	if (!m_zip->read(docPart, xmlData))
 		return;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
+	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
+	if (!parseResult)
+	{
+		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
+		return;
+	}
+#else
 	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
@@ -263,6 +304,7 @@ void DocXIm::parseStyledText(PageItem *textItem)
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return;
 	}
+#endif
 
 	if (!m_append)
 	{
@@ -583,9 +625,18 @@ void DocXIm::parsePlainTextOnly(PageItem *textItem)
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(docPart, xmlData))
+	if (!m_zip->read(docPart, xmlData))
 		return;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
+	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
+	if (!parseResult)
+	{
+		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
+		return;
+	}
+#else
 	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
@@ -594,6 +645,7 @@ void DocXIm::parsePlainTextOnly(PageItem *textItem)
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return;
 	}
+#endif
 
 	if (!m_append)
 	{
@@ -693,11 +745,7 @@ QString DocXIm::getFontName(const QString& name)
 	return fontName;
 }
 
-double DocXIm::pixelsFromTwips(double twips)
+double DocXIm::pixelsFromTwips(double twips) const
 {
 	return twips / 1440.0 * 72.0;
-}
-
-DocXIm::~DocXIm()
-{
 }

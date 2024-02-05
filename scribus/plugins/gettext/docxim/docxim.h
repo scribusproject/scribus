@@ -16,6 +16,8 @@ for which a new license (GPL+exception) is in place.
 #include "pluginapi.h"
 #include "pageitem.h"
 
+#include <memory>
+
 #include <QDomDocument>
 #include <QDomElement>
 #include <QString>
@@ -29,8 +31,9 @@ extern "C" PLUGIN_API QStringList FileExtensions();
 class DocXIm
 {
 	public:
-		DocXIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append);
-		~DocXIm();
+		DocXIm(PageItem *textItem, bool prefix, bool append);
+
+		void importFile(const QString& fileName, bool textOnly);
 
 	private:
 		void parseContentTypes();
@@ -41,18 +44,18 @@ class DocXIm
 		void parseCharProps(QDomElement &props, ParagraphStyle &pStyle);
 		void parsePlainTextOnly(PageItem *textItem);
 		QString getFontName(const QString& name);
-		double pixelsFromTwips(double twips);
+		double pixelsFromTwips(double twips) const;
 
 		QString themePart;
 		QString docPart;
 		QString stylePart;
 		QString themeFont1;
 		QString themeFont2;
-		ScZipHandler *uz { nullptr };
+		std::unique_ptr<ScZipHandler> m_zip { nullptr };
 		ScribusDoc* m_Doc { nullptr };
 		PageItem* m_item { nullptr };
-		bool m_prefixName { false};
-		bool m_append { false};
+		bool m_prefixName { false };
+		bool m_append { false };
 		ParagraphStyle defaultParagraphStyle;
 		ParagraphStyle currentParagraphStyle;
 		QHash<QString, QString> map_ID_to_Name;
