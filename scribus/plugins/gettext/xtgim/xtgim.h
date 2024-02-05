@@ -46,7 +46,7 @@ public:
 	XtgIm(PageItem *textItem, bool textOnly, bool prefix, bool append);
 	~XtgIm();
 
-	bool import(const QString& fileName);
+	bool importFile(const QString& fileName);
 
 protected:
 	XtgScanner* m_scanner { nullptr };
