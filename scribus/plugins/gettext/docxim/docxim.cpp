@@ -35,44 +35,47 @@ QStringList FileExtensions()
 
 void GetText2(const QString& filename, const QString& encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
-	DocXIm* docxim = new DocXIm(filename, textItem, textOnly, prefix, append);
+	DocXIm* docxim = new DocXIm(textItem, prefix, append);
+	docxim->importFile(filename, textOnly);
 	delete docxim;
 }
 
-DocXIm::DocXIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
+DocXIm::DocXIm(PageItem *textItem, bool prefix, bool append)
 {
 	m_Doc = textItem->doc();
 	m_item = textItem;
 	m_prefixName = prefix;
 	m_append = append;
+}
 
-	uz = new ScZipHandler();
-	if (!uz->open(fileName))
-	{
-		delete uz;
+void DocXIm::importFile(const QString& fileName, bool textOnly)
+{
+	m_zip.reset(new ScZipHandler());
+	if (!m_zip->open(fileName))
 		return;
-	}
+
 	parseContentTypes();
 	if (textOnly)
-		parsePlainTextOnly(textItem);
+		parsePlainTextOnly(m_item);
 	else
 	{
 		if (!themePart.isEmpty())
 			parseTheme();
 		parseStyles();
-		parseStyledText(textItem);
+		parseStyledText(m_item);
 	}
-	uz->close();
-	delete uz;
-	textItem->itemText.trim();
-	textItem->itemText.invalidateLayout();
+	m_zip->close();
+	m_zip.reset();
+
+	m_item->itemText.trim();
+	m_item->itemText.invalidateLayout();
 }
 
 void DocXIm::parseContentTypes()
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read("[Content_Types].xml", xmlData))
+	if (!m_zip->read("[Content_Types].xml", xmlData))
 		return;
 
 	QString errorMsg;
@@ -116,7 +119,7 @@ void DocXIm::parseTheme()
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(themePart, xmlData))
+	if (!m_zip->read(themePart, xmlData))
 		return;
 
 	QString errorMsg;
@@ -162,7 +165,7 @@ void DocXIm::parseStyles()
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(stylePart, xmlData))
+	if (!m_zip->read(stylePart, xmlData))
 		return;
 
 	QString errorMsg;
@@ -252,7 +255,7 @@ void DocXIm::parseStyledText(PageItem *textItem)
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(docPart, xmlData))
+	if (!m_zip->read(docPart, xmlData))
 		return;
 
 	QString errorMsg;
@@ -583,7 +586,7 @@ void DocXIm::parsePlainTextOnly(PageItem *textItem)
 {
 	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(docPart, xmlData))
+	if (!m_zip->read(docPart, xmlData))
 		return;
 
 	QString errorMsg;
@@ -680,10 +683,10 @@ QString DocXIm::getFontName(const QString& name)
 
 	if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(fontName))
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		MissingFont dia(nullptr, fontName, m_Doc);
 		static_cast<void>(dia.exec());
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 		PrefsManager::instance().appPrefs.fontPrefs.GFontSub[fontName] = dia.getReplacementFont();
 		fontName = dia.getReplacementFont();
 	}
@@ -693,11 +696,7 @@ QString DocXIm::getFontName(const QString& name)
 	return fontName;
 }
 
-double DocXIm::pixelsFromTwips(double twips)
+double DocXIm::pixelsFromTwips(double twips) const
 {
 	return twips / 1440.0 * 72.0;
-}
-
-DocXIm::~DocXIm()
-{
 }
