@@ -700,19 +700,16 @@ PyObject *scribus_combinepolygons(PyObject * /* self */)
 	if (curSelection->count() <= 1)
 		Py_RETURN_NONE;
 
-	bool canUniteItems = true;
 	for (int i = 0; i < curSelection->count(); ++i)
 	{
-		PageItem* it = currentDoc->m_Selection->itemAt(i);
-		if ((!it->isPolygon()) || (!it->isPolyLine()))
-			canUniteItems = false;
+		const PageItem* it = currentDoc->m_Selection->itemAt(i);
+		if (!it->isPolygon() && !it->isPolyLine())
+		{
+			PyErr_SetString(WrongFrameTypeError, QObject::tr("Selection must contain only shapes or bezier curves.", "python error").toLocal8Bit().constData());
+			return nullptr;
+		}
 	}
 
-	if (!canUniteItems)
-	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Selection must contain only shapes or bezier curves.", "python error").toLocal8Bit().constData());
-		return nullptr;
-	}
 	currentDoc->itemSelection_UniteItems(nullptr);
 
 	Py_RETURN_NONE;
