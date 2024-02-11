@@ -6625,7 +6625,6 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, const PageItem *currI
 	double patternRotation = 0.0;
 	double patternSkewX = 0.0;
 	double patternSkewY = 0.0;
-	double patternSpace = 0.0;
 	bool mirrorX = false, mirrorY = false;
 	if (kind == 0)
 	{
@@ -6649,7 +6648,6 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, const PageItem *currI
 		patternRotation = strokePatternTrans.rotation;
 		patternSkewX = strokePatternTrans.skewX;
 		patternSkewY = strokePatternTrans.skewY;
-		patternSpace = strokePatternTrans.space;
 		currItem->strokePatternFlip(mirrorX, mirrorY);
 	}
 	else if (kind == 2)
