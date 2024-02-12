@@ -43,7 +43,7 @@ void ScrSpinBox::init(int unitIndex)
 	setSuffix(unitGetSuffixFromIndex(m_unitIndex));
 	setDecimals(unitGetPrecisionFromIndex(m_unitIndex));
 	setLocale(LocaleManager::instance().userPreferredLocale());
-	setSingleStep(1.0);
+	setSingleStep((m_unitIndex == SC_INCHES) ? 0.125 : 1.0);
 	lineEdit()->setValidator(nullptr);
 // just for testing
 //	disconnect(this, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
@@ -53,7 +53,7 @@ void ScrSpinBox::init(int unitIndex)
 
 double ScrSpinBox::unitRatio() const
 {
-	return unitGetRatioFromIndex(m_unitIndex); 
+	return unitGetRatioFromIndex(m_unitIndex);
 }
 
 void ScrSpinBox::setValue(int val)
@@ -114,7 +114,7 @@ void ScrSpinBox::setNewUnit(int unitIndex)
 	double newUnitRatio = unitGetRatioFromIndex(unitIndex);
 	setMinimum(oldMin * newUnitRatio);
 	setMaximum(oldMax * newUnitRatio);
-	setSingleStep(1.0);
+	setSingleStep((m_unitIndex == SC_INCHES) ? 0.125 : 1.0);
 	m_unitIndex = unitIndex;
  	setValue(oldVal * newUnitRatio);
 }
@@ -343,22 +343,22 @@ bool ScrSpinBox::eventFilter(QObject* watched, QEvent* event)
 		bool altB = wheelEvent->modifiers() & Qt::AltModifier;
 		if (shiftB && !altB)
 		{
-			setSingleStep(0.1);
+			setSingleStep((m_unitIndex == SC_INCHES) ? 0.0625 : 0.1);
 			retval = QAbstractSpinBox::event(event);
-		} 
+		}
 		else if (!shiftB && altB)
 		{
-			setSingleStep(10.0);
+			setSingleStep((m_unitIndex == SC_INCHES) ? 1.0 : 10.0);
 			retval = QAbstractSpinBox::event(event);
 		}
 		else if (shiftB && altB)
 		{
-			setSingleStep(0.01);
+			setSingleStep((m_unitIndex == SC_INCHES) ? 0.03125 : 0.01);
 			retval = QAbstractSpinBox::event(event);
 		}
 		else
 		{
-			setSingleStep(1.0);
+			setSingleStep((m_unitIndex == SC_INCHES) ? 0.125 : 1.0);
 			retval = QAbstractSpinBox::event(event);
 		}
 		return retval;
