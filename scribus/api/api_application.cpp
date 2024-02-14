@@ -22,35 +22,21 @@ namespace ScribusAPI {
 	QString getBuildInformation()
 	{
 		QString bu;
-		bu += "C";
-		bu += "-";
-		bu += "-";
-		bu += "T";
-		bu += "-";
-	#ifdef HAVE_FONTCONFIG
-		bu += "F";
-	#else
-		bu += "*";
-	#endif
-		bu += "-";
-		bu += "C";
-		bu += cairo_version_string();
-
 	// Some more information if we are not on a 32bit little endian Unix machine
-	#if defined(Q_OS_WIN)
-		bu += "-Windows";
-	#elif defined(Q_OS_MACOS)
-		bu += "-Mac";
-	#elif defined(Q_OS_DARWIN)
+#if defined(Q_OS_WIN)
+		bu += "Windows";
+#elif defined(Q_OS_MACOS)
+		bu += "Mac";
+#elif defined(Q_OS_DARWIN)
 		// dunno if anyone uses this...
-		bu += "-Darwin";
-	#endif
+		bu += "Darwin";
+#endif
 		if (QSysInfo::WordSize != 32)
 			bu += QString("-%1bit").arg(QSysInfo::WordSize);
-	#if Q_BYTE_ORDER == Q_BIG_ENDIAN
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
 		if (QSysInfo::ByteOrder == QSysInfo::BigEndian)
 			bu += "-Big";
-	#endif
+#endif
 		return bu;
 	}
 
