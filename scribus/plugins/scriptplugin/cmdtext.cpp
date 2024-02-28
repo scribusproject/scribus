@@ -1109,6 +1109,24 @@ PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_getselectedtextindexes(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text selection for non-text frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	return Py_BuildValue("(ii)", item->itemText.startOfSelection(), item->itemText.endOfSelection());
+}
+
 PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
