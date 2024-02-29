@@ -504,7 +504,8 @@ PyObject *scribus_selecttext(PyObject * /*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_getselectedtextrange__doc__,
 QT_TR_NOOP("getSelectedTextRange([\"name\"])\n\
 \n\
-Gets the start index and length of the current text selection.\n\
+Gets the start index and length of the current text selection in the text chain.\n\
+Results relate to the entire story across multiple text frames.\n\
 Start will be 0 if none is selected\n\
 Length will be 0 if none is selected\n\
 \n\
@@ -512,6 +513,19 @@ May throw IndexError if the selection is outside the bounds of the text.\n\
 "));
 /*! Select text */
 PyObject *scribus_getselectedtextrange(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getframeselectedtextrange__doc__,
+QT_TR_NOOP("getFrameSelectedTextRange([\"name\"])\n\
+\n\
+Gets the start index and length of the current text selection of the currently selected frame.\n\
+Start will be 0 if none is selected\n\
+Length will be 0 if none is selected\n\
+\n\
+May throw IndexError if the selection is outside the bounds of the text.\n\
+"));
+/*! Select text */
+PyObject *scribus_getframeselectedtextrange(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_deletetext__doc__,
