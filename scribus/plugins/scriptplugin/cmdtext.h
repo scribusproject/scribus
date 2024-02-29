@@ -501,17 +501,17 @@ May throw IndexError if the selection is outside the bounds of the text.\n\
 PyObject *scribus_selecttext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getselectedtextindexes__doc__,
-QT_TR_NOOP("getSelectedTextIndexes([\"name\"])\n\
+PyDoc_STRVAR(scribus_getselectedtextrange__doc__,
+QT_TR_NOOP("getSelectedTextRange([\"name\"])\n\
 \n\
-Gets the start and end index of the current text selection.\n\
+Gets the start index and length of the current text selection.\n\
 Start will be 0 if none is selected\n\
-End will be -1 if none is selected\n\
+Length will be 0 if none is selected\n\
 \n\
 May throw IndexError if the selection is outside the bounds of the text.\n\
 "));
 /*! Select text */
-PyObject *scribus_getselectedtextindexes(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getselectedtextrange(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_deletetext__doc__,

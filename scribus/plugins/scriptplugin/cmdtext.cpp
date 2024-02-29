@@ -1109,7 +1109,7 @@ PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_getselectedtextindexes(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getselectedtextrange(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -1124,7 +1124,7 @@ PyObject *scribus_getselectedtextindexes(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text selection for non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return Py_BuildValue("(ii)", item->itemText.startOfSelection(), item->itemText.endOfSelection());
+	return Py_BuildValue("(ii)", item->itemText.startOfSelection(), item->itemText.selectionLength());
 }
 
 PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)

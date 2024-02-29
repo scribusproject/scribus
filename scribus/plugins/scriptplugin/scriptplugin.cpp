@@ -405,7 +405,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getRotation"), scribus_getrotation, METH_VARARGS, tr(scribus_getrotation__doc__)},
 	{const_cast<char*>("getRowGuides"), (PyCFunction)scribus_getRowGuides, METH_VARARGS|METH_KEYWORDS, tr(scribus_getRowGuides__doc__)},
 	{const_cast<char*>("getSelectedObject"), scribus_getselectedobject, METH_VARARGS, tr(scribus_getselectedobject__doc__)},
-	{const_cast<char*>("getSelectedTextIndexes"), scribus_getselectedtextindexes, METH_VARARGS, tr(scribus_getselectedtextindexes__doc__)},
+	{const_cast<char*>("getSelectedTextRange"), scribus_getselectedtextrange, METH_VARARGS, tr(scribus_getselectedtextrange__doc__)},
 	{const_cast<char*>("getSize"), scribus_getsize, METH_VARARGS, tr(scribus_getsize__doc__)},
 	{const_cast<char*>("getStyle"), scribus_getparagraphstyle, METH_VARARGS, tr(scribus_getstyle__doc__) }, // Deprecated
 	{const_cast<char*>("getTableColumnWidth"), scribus_gettablecolumnwidth, METH_VARARGS, tr(scribus_gettablecolumnwidth__doc__)},
