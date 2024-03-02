@@ -366,6 +366,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getFontNames"), (PyCFunction)scribus_getfontnames, METH_NOARGS, tr(scribus_getfontnames__doc__)},
 	{const_cast<char*>("getFontSize"), scribus_getfontsize, METH_VARARGS, tr(scribus_getfontsize__doc__)},
 	{const_cast<char*>("getFrameText"), scribus_getframetext, METH_VARARGS, tr(scribus_getframetext__doc__)},
+	{const_cast<char*>("getFrameSelectedTextRange"), scribus_getframeselectedtextrange, METH_VARARGS, tr(scribus_getframeselectedtextrange__doc__)},
 	{const_cast<char*>("getGroupItems"), (PyCFunction)scribus_getGroupItems, METH_VARARGS|METH_KEYWORDS, tr(scribus_getGroupItems__doc__)},
 	{const_cast<char*>("getGuiLanguage"), (PyCFunction)scribus_getlanguage, METH_NOARGS, tr(scribus_getlanguage__doc__)},
 	{const_cast<char*>("getHGuides"), (PyCFunction)scribus_getHguides, METH_NOARGS, tr(scribus_getHguides__doc__)},
@@ -407,6 +408,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getRotation"), scribus_getrotation, METH_VARARGS, tr(scribus_getrotation__doc__)},
 	{const_cast<char*>("getRowGuides"), (PyCFunction)scribus_getRowGuides, METH_VARARGS|METH_KEYWORDS, tr(scribus_getRowGuides__doc__)},
 	{const_cast<char*>("getSelectedObject"), scribus_getselectedobject, METH_VARARGS, tr(scribus_getselectedobject__doc__)},
+	{const_cast<char*>("getSelectedTextRange"), scribus_getselectedtextrange, METH_VARARGS, tr(scribus_getselectedtextrange__doc__)},
 	{const_cast<char*>("getSize"), scribus_getsize, METH_VARARGS, tr(scribus_getsize__doc__)},
 	{const_cast<char*>("getStyle"), scribus_getparagraphstyle, METH_VARARGS, tr(scribus_getstyle__doc__) }, // Deprecated
 	{const_cast<char*>("getTableColumnWidth"), scribus_gettablecolumnwidth, METH_VARARGS, tr(scribus_gettablecolumnwidth__doc__)},
