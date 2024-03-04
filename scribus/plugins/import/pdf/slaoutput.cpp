@@ -1728,8 +1728,8 @@ bool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, do
 	double GrEndY;
 	int shade = 100;
 	const Function *func = shading->getFunc(0);
-	VGradient FillGradient = VGradient(VGradient::linear);
-	FillGradient.clearStops();
+	VGradient fillGradient = VGradient(VGradient::linear);
+	fillGradient.clearStops();
 	GfxColorSpace *color_space = shading->getColorSpace();
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 3, 0)
 	if (func->getType() == Function::Type::Stitching)
@@ -1754,7 +1754,7 @@ bool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, do
 			shading->getColor(bounds[i], &temp);
 			QString stopColor = getColor(color_space, &temp, &shade);
 			double stopPoint = (bounds[i] - domain_min) / (domain_max - domain_min);
-			FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor], m_doc, shade), stopPoint, 0.5, 1.0, stopColor, shade );
+			fillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor], m_doc, shade), stopPoint, 0.5, 1.0, stopColor, shade );
 		}
 	}
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 3, 0)
@@ -1766,11 +1766,11 @@ bool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, do
 		GfxColor stop1;
 		shading->getColor(0.0, &stop1);
 		QString stopColor1 = getColor(color_space, &stop1, &shade);
-		FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor1], m_doc, shade), 0.0, 0.5, 1.0, stopColor1, shade );
+		fillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor1], m_doc, shade), 0.0, 0.5, 1.0, stopColor1, shade );
 		GfxColor stop2;
 		shading->getColor(1.0, &stop2);
 		QString stopColor2 = getColor(color_space, &stop2, &shade);
-		FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor2], m_doc, shade), 1.0, 0.5, 1.0, stopColor2, shade );
+		fillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor2], m_doc, shade), 1.0, 0.5, 1.0, stopColor2, shade );
 	}
 	shading->getCoords(&GrStartX, &GrStartY, &GrEndX, &GrEndY);
 	double xmin, ymin, xmax, ymax;
@@ -1841,15 +1841,15 @@ bool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, do
 	ite->GrType = 6;
 	if (!shading->getExtend0() || !shading->getExtend1())
 	{
-		FillGradient.setRepeatMethod(VGradient::none);
+		fillGradient.setRepeatMethod(VGradient::none);
 		ite->setGradientExtend(VGradient::none);
 	}
 	else
 	{
-		FillGradient.setRepeatMethod(VGradient::pad);
+		fillGradient.setRepeatMethod(VGradient::pad);
 		ite->setGradientExtend(VGradient::pad);
 	}
-	ite->fill_gradient = FillGradient;
+	ite->fill_gradient = fillGradient;
 	ite->setGradientVector(GrStartX, GrStartY, GrEndX, GrEndY, 0, 0, 1, 0);
 	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
@@ -1870,8 +1870,8 @@ bool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading, 
 	double GrEndY;
 	int shade = 100;
 	const Function *func = shading->getFunc(0);
-	VGradient FillGradient = VGradient(VGradient::linear);
-	FillGradient.clearStops();
+	VGradient fillGradient = VGradient(VGradient::linear);
+	fillGradient.clearStops();
 	GfxColorSpace *color_space = shading->getColorSpace();
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 3, 0)
 	if (func->getType() == Function::Type::Stitching)
@@ -1896,7 +1896,7 @@ bool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading, 
 			shading->getColor(bounds[i], &temp);
 			QString stopColor = getColor(color_space, &temp, &shade);
 			double stopPoint = (bounds[i] - domain_min) / (domain_max - domain_min);
-			FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor], m_doc, shade), stopPoint, 0.5, 1.0, stopColor, shade );
+			fillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor], m_doc, shade), stopPoint, 0.5, 1.0, stopColor, shade );
 		}
 	}
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 3, 0)
@@ -1908,11 +1908,11 @@ bool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading, 
 		GfxColor stop1;
 		shading->getColor(0.0, &stop1);
 		QString stopColor1 = getColor(color_space, &stop1, &shade);
-		FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor1], m_doc, shade), 0.0, 0.5, 1.0, stopColor1, shade );
+		fillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor1], m_doc, shade), 0.0, 0.5, 1.0, stopColor1, shade );
 		GfxColor stop2;
 		shading->getColor(1.0, &stop2);
 		QString stopColor2 = getColor(color_space, &stop2, &shade);
-		FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor2], m_doc, shade), 1.0, 0.5, 1.0, stopColor2, shade );
+		fillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor2], m_doc, shade), 1.0, 0.5, 1.0, stopColor2, shade );
 	}
 
 	double r0, x1, y1, r1;
@@ -1973,15 +1973,15 @@ bool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading, 
 	ite->GrType = 7;
 	if (!shading->getExtend0() || !shading->getExtend1())
 	{
-		FillGradient.setRepeatMethod(VGradient::none);
+		fillGradient.setRepeatMethod(VGradient::none);
 		ite->setGradientExtend(VGradient::none);
 	}
 	else
 	{
-		FillGradient.setRepeatMethod(VGradient::pad);
+		fillGradient.setRepeatMethod(VGradient::pad);
 		ite->setGradientExtend(VGradient::pad);
 	}
-	ite->fill_gradient = FillGradient;
+	ite->fill_gradient = fillGradient;
 	ite->setGradientVector(GrStartX, GrStartY, GrEndX, GrEndY, GrFocalX, GrFocalY, 1, 0);
 	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
