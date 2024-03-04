@@ -370,9 +370,9 @@ private:
 	QString getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade);
 	QString getAnnotationColor(const AnnotColor *color);
 	QString convertPath(POPPLER_CONST_083 GfxPath *path);
-	int getBlendMode(GfxState *state);
-	QString UnicodeParsedString(POPPLER_CONST GooString *s1);
-	QString UnicodeParsedString(const std::string& s1);
+	int getBlendMode(GfxState *state) const;
+	QString UnicodeParsedString(POPPLER_CONST GooString *s1) const;
+	QString UnicodeParsedString(const std::string& s1) const;
 	bool checkClip();
 
 	// Intersect the current clip path with the new path in state where filled areas

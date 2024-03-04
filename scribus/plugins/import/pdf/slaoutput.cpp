@@ -369,7 +369,7 @@ GBool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 {
 	SlaOutputDev *dev = (SlaOutputDev*)user_data;
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
-	const PDFRectangle& annotRect = annota->getRect();;
+	const PDFRectangle& annotRect = annota->getRect();
 	const PDFRectangle* box = &annotRect;
 #else
 	PDFRectangle *box = annota->getRect();
@@ -3126,7 +3126,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 		delete id;
 	else
 	{
-		fontLoc = gfxFont->locateFont((m_xref) ? m_xref : m_pdfDoc->getXRef(), nullptr);
+		fontLoc = gfxFont->locateFont(m_xref ? m_xref : m_pdfDoc->getXRef(), nullptr);
 		if (!fontLoc)
 		{
 			error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
@@ -3138,7 +3138,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 		{
 			// if there is an embedded font, read it to memory
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
-			tmpBuf = gfxFont->readEmbFontFile((m_xref) ? m_xref : m_pdfDoc->getXRef());
+			tmpBuf = gfxFont->readEmbFontFile(m_xref ? m_xref : m_pdfDoc->getXRef());
 			if (! tmpBuf)
 				goto err2;
 #else
@@ -3788,7 +3788,7 @@ void SlaOutputDev::getPenState(GfxState *state)
 #endif
 }
 
-int SlaOutputDev::getBlendMode(GfxState *state)
+int SlaOutputDev::getBlendMode(GfxState *state) const
 {
 	int mode = 0;
 	switch (state->getBlendMode())
@@ -3879,7 +3879,7 @@ void SlaOutputDev::applyMask(PageItem *ite)
 	m_updateGUICounter++;
 	if (m_updateGUICounter > 20)
 	{
-		qApp->processEvents();
+		QApplication::processEvents();
 		m_updateGUICounter = 0;
 	}
 }
@@ -3894,7 +3894,7 @@ void SlaOutputDev::pushGroup(const QString& maskName, GBool forSoftMask, GBool a
 	m_groupStack.push(gElements);
 }
 
-QString SlaOutputDev::UnicodeParsedString(POPPLER_CONST GooString *s1)
+QString SlaOutputDev::UnicodeParsedString(POPPLER_CONST GooString *s1) const
 {
 	if ( !s1 || s1->getLength() == 0 )
 		return QString();
@@ -3931,7 +3931,7 @@ QString SlaOutputDev::UnicodeParsedString(POPPLER_CONST GooString *s1)
 	return result;
 }
 
-QString SlaOutputDev::UnicodeParsedString(const std::string& s1)
+QString SlaOutputDev::UnicodeParsedString(const std::string& s1) const
 {
 	if (s1.length() == 0)
 		return QString();
