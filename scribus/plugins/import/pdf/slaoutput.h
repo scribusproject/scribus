@@ -359,9 +359,9 @@ private:
 	QString getColor(GfxColorSpace *color_space, const GfxColor *color, int *shade);
 	QString getAnnotationColor(const AnnotColor *color);
 	QString convertPath(const GfxPath *path);
-	int getBlendMode(GfxState *state);
-	QString UnicodeParsedString(const GooString *s1);
-	QString UnicodeParsedString(const std::string& s1);
+	int getBlendMode(GfxState *state) const;
+	QString UnicodeParsedString(const GooString *s1) const;
+	QString UnicodeParsedString(const std::string& s1) const;
 	bool checkClip();
 
 	// Intersect the current clip path with the new path in state where filled areas

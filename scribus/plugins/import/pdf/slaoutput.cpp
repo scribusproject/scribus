@@ -363,7 +363,7 @@ bool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 {
 	SlaOutputDev *dev = (SlaOutputDev*)user_data;
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
-	const PDFRectangle& annotRect = annota->getRect();;
+	const PDFRectangle& annotRect = annota->getRect();
 	const PDFRectangle* box = &annotRect;
 #else
 	PDFRectangle *box = annota->getRect();
@@ -2463,7 +2463,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	memset(mbuffer, 0, maskWidth * maskHeight);
 	for (int y = 0; y < maskHeight; y++)
 	{
-		mdest = (unsigned char *)(mbuffer + y * maskWidth);
+		mdest = mbuffer + y * maskWidth;
 		unsigned char * pix = mskStr->getLine();
 		maskColorMap->getGrayLine(pix, mdest, maskWidth);
 	}
@@ -2544,7 +2544,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	memset(mbuffer, 0, maskWidth * maskHeight);
 	for (int y = 0; y < maskHeight; y++)
 	{
-		mdest = (unsigned char *)(mbuffer + y * maskWidth);
+		mdest = mbuffer + y * maskWidth;
 		unsigned char * pix = mskStr->getLine();
 		for (int x = 0; x < maskWidth; x++)
 		{
@@ -3661,7 +3661,7 @@ void SlaOutputDev::getPenState(GfxState *state)
 #endif
 }
 
-int SlaOutputDev::getBlendMode(GfxState *state)
+int SlaOutputDev::getBlendMode(GfxState *state) const
 {
 	int mode = 0;
 	switch (state->getBlendMode())
@@ -3752,7 +3752,7 @@ void SlaOutputDev::applyMask(PageItem *ite)
 	m_updateGUICounter++;
 	if (m_updateGUICounter > 20)
 	{
-		qApp->processEvents();
+		QApplication::processEvents();
 		m_updateGUICounter = 0;
 	}
 }
@@ -3767,7 +3767,7 @@ void SlaOutputDev::pushGroup(const QString& maskName, bool forSoftMask, bool alp
 	m_groupStack.push(gElements);
 }
 
-QString SlaOutputDev::UnicodeParsedString(const GooString *s1)
+QString SlaOutputDev::UnicodeParsedString(const GooString *s1) const
 {
 	if ( !s1 || s1->getLength() == 0 )
 		return QString();
@@ -3804,7 +3804,7 @@ QString SlaOutputDev::UnicodeParsedString(const GooString *s1)
 	return result;
 }
 
-QString SlaOutputDev::UnicodeParsedString(const std::string& s1)
+QString SlaOutputDev::UnicodeParsedString(const std::string& s1) const
 {
 	if (s1.length() == 0)
 		return QString();
