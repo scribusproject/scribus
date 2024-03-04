@@ -1845,7 +1845,11 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	VGradient FillGradient = VGradient(VGradient::linear);
 	FillGradient.clearStops();
 	GfxColorSpace *color_space = shading->getColorSpace();
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 3, 0)
+	if (func->getType() == Function::Type::Stitching)
+#else
 	if (func->getType() == 3)
+#endif
 	{
 		StitchingFunction *stitchingFunc = (StitchingFunction*)func;
 		const double *bounds = stitchingFunc->getBounds();
@@ -1867,7 +1871,11 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 			FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor], m_doc, shade), stopPoint, 0.5, 1.0, stopColor, shade );
 		}
 	}
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 3, 0)
+	else if ((func->getType() == Function::Type::Exponential) || (func->getType() == Function::Type::Identity))
+#else
 	else if ((func->getType() == 2) || (func->getType() == 0))
+#endif
 	{
 		GfxColor stop1;
 		shading->getColor(0.0, &stop1);
@@ -1979,7 +1987,11 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	VGradient FillGradient = VGradient(VGradient::linear);
 	FillGradient.clearStops();
 	GfxColorSpace *color_space = shading->getColorSpace();
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 3, 0)
+	if (func->getType() == Function::Type::Stitching)
+#else
 	if (func->getType() == 3)
+#endif
 	{
 		StitchingFunction *stitchingFunc = (StitchingFunction*)func;
 		const double *bounds = stitchingFunc->getBounds();
@@ -2001,7 +2013,11 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 			FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor], m_doc, shade), stopPoint, 0.5, 1.0, stopColor, shade );
 		}
 	}
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 3, 0)
+	else if ((func->getType() == Function::Type::Exponential) || (func->getType() == Function::Type::Identity))
+#else
 	else if ((func->getType() == 2) || (func->getType() == 0))
+#endif
 	{
 		GfxColor stop1;
 		shading->getColor(0.0, &stop1);
