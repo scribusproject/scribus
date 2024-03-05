@@ -1872,7 +1872,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 		}
 	}
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 3, 0)
-	else if ((func->getType() == Function::Type::Exponential) || (func->getType() == Function::Type::Identity))
+	else if ((func->getType() == Function::Type::Exponential) || (func->getType() == Function::Type::Sampled))
 #else
 	else if ((func->getType() == 2) || (func->getType() == 0))
 #endif
@@ -2014,7 +2014,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 		}
 	}
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 3, 0)
-	else if ((func->getType() == Function::Type::Exponential) || (func->getType() == Function::Type::Identity))
+	else if ((func->getType() == Function::Type::Exponential) || (func->getType() == Function::Type::Sampled))
 #else
 	else if ((func->getType() == 2) || (func->getType() == 0))
 #endif
