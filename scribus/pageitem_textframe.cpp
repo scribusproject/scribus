@@ -2113,13 +2113,6 @@ void PageItem_TextFrame::layout()
 				current.xPos = qMax(current.xPos, current.colLeft);
 			}
 
-			//check against space before PARSEP
-			/*if (SpecialChars::isBreakingSpace(hl->ch) && (a + 1 < itemText.length()) && (itemText.item(a + 1)->ch == SpecialChars::PARSEP))
-			{
-				a++;
-				hl = itemText.item(a);
-			}*/
-
 			// test if end of line reached
 			double overflowWidth = 0.0;
 			double hyphWidth = 0.0;
@@ -2473,9 +2466,10 @@ void PageItem_TextFrame::layout()
 					// add line break after this char.
 					// for now, such chars is only spaces but may change in the future
 					// e.g. https://www.w3.org/TR/css-text-3/#hanging
-					if (itemText.text(a).isSpace()) {
+					QChar ch = itemText.text(a);
+					if (ch.isSpace() && SpecialChars::isBreakingSpace(ch))
 						current.rememberBreak(i, breakPos, style.rightMargin());
-					}
+
 					if (current.breakIndex >= 0)
 					{
 						// go back to last break position
