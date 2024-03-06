@@ -87,32 +87,23 @@ LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 		return;
 
 	Object obj1 = actionObj->dictLookup("F");
-	if (!obj1.isNull())
+	if (!obj1.isNull() && obj1.isDict())
 	{
-		if (obj1.isDict())
+		Object obj3 = obj1.dictLookup("FS");
+		if (!obj3.isNull() && obj3.isName())
 		{
-			Object obj3 = obj1.dictLookup("FS");
-			if (!obj3.isNull())
+			POPPLER_CONST char *name = obj3.getName();
+			if (!strcmp(name, "URL"))
 			{
-				if (obj3.isName())
-				{
-					POPPLER_CONST char *name = obj3.getName();
-					if (!strcmp(name, "URL"))
-					{
-						Object obj2 = obj1.dictLookup("F");
-						if (!obj2.isNull())
-							fileName = obj2.getString()->copy();
-					}
-				}
+				Object obj2 = obj1.dictLookup("F");
+				if (!obj2.isNull())
+					fileName = obj2.getString()->copy();
 			}
 		}
 	}
 	obj1 = actionObj->dictLookup("Flags");
-	if (!obj1.isNull())
-	{
-		if (obj1.isNum())
-			m_flags = obj1.getInt();
-	}
+	if (!obj1.isNull() && obj1.isNum())
+		m_flags = obj1.getInt();
 }
 
 LinkSubmitForm::~LinkSubmitForm()
@@ -225,9 +216,9 @@ QString AnoOutputDev::getColor(GfxColorSpace *color_space, POPPLER_CONST_070 Gfx
 	}
 	else if (color_space->getMode() == csSeparation)
 	{
-		GfxSeparationColorSpace* sepColorSpace = (GfxSeparationColorSpace*)color_space;
+		GfxSeparationColorSpace* sepColorSpace = (GfxSeparationColorSpace*) color_space;
 		GfxColorSpace* altColorSpace = sepColorSpace->getAlt();
-		QString name = QString(sepColorSpace->getName()->getCString());
+		QString name(sepColorSpace->getName()->getCString());
 		bool isRegistrationColor = (name == "All");
 		if (isRegistrationColor)
 		{
@@ -367,7 +358,7 @@ LinkAction* SlaOutputDev::SC_getAdditionalAction(const char *key, AnnotWidget *a
 
 GBool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 {
-	SlaOutputDev *dev = (SlaOutputDev*)user_data;
+	SlaOutputDev *dev = (SlaOutputDev*) user_data;
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 	const PDFRectangle& annotRect = annota->getRect();
 	const PDFRectangle* box = &annotRect;
@@ -405,7 +396,7 @@ GBool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 
 bool SlaOutputDev::handleTextAnnot(Annot* annota, double xCoor, double yCoor, double width, double height)
 {
-	AnnotText *anl = (AnnotText*)annota;
+	AnnotText *anl = (AnnotText*) annota;
 	int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CommonStrings::None, CommonStrings::None);
 	PageItem *ite = m_doc->Items->at(z);
 	int flg = annota->getFlags();
@@ -457,7 +448,7 @@ bool SlaOutputDev::handleTextAnnot(Annot* annota, double xCoor, double yCoor, do
 
 bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, double width, double height)
 {
-	AnnotLink *anl = (AnnotLink*)annota;
+	AnnotLink *anl = (AnnotLink*) annota;
 	LinkAction *act = anl->getAction();
 	if (!act)
 		return false;
@@ -500,32 +491,29 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 #else
 				LinkDest *dstn = m_pdfDoc->findDest(ndst);
 #endif
-				if (dstn)
+				if (dstn && (dstn->getKind() == destXYZ))
 				{
-					if (dstn->getKind() == destXYZ)
+					if (dstn->isPageRef())
 					{
-						if (dstn->isPageRef())
-						{
-							Ref dstr = dstn->getPageRef();
+						Ref dstr = dstn->getPageRef();
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
-							pagNum = m_pdfDoc->findPage(dstr);
+						pagNum = m_pdfDoc->findPage(dstr);
 #else
-							pagNum = m_pdfDoc->findPage(dstr.num, dstr.gen);
+						pagNum = m_pdfDoc->findPage(dstr.num, dstr.gen);
 #endif
-						}
-						else
-							pagNum = dstn->getPageNum();
-						xco = dstn->getLeft();
-						yco = dstn->getTop();
-						validLink = true;
 					}
+					else
+						pagNum = dstn->getPageNum();
+					xco = dstn->getLeft();
+					yco = dstn->getTop();
+					validLink = true;
 				}
 			}
 		}
 	}
 	else if (act->getKind() == actionGoToR)
 	{
-		LinkGoToR *gto = (LinkGoToR*)act;
+		LinkGoToR *gto = (LinkGoToR*) act;
 		fileName = UnicodeParsedString(gto->getFileName());
 		POPPLER_CONST LinkDest *dst = gto->getDest();
 		if (dst)
@@ -548,22 +536,19 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 #else
 				LinkDest *dstn = m_pdfDoc->findDest(ndst);
 #endif
-				if (dstn)
+				if (dstn && (dstn->getKind() == destXYZ))
 				{
-					if (dstn->getKind() == destXYZ)
-					{
-						pagNum = dstn->getPageNum();
-						xco = dstn->getLeft();
-						yco = dstn->getTop();
-						validLink = true;
-					}
+					pagNum = dstn->getPageNum();
+					xco = dstn->getLeft();
+					yco = dstn->getTop();
+					validLink = true;
 				}
 			}
 		}
 	}
 	else if (act->getKind() == actionURI)
 	{
-		LinkURI *gto = (LinkURI*)act;
+		LinkURI *gto = (LinkURI*) act;
 		validLink = true;
 		fileName = UnicodeParsedString(gto->getURI());
 	}
@@ -636,7 +621,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 		int wtyp = -1;
 		if (fm->getType() == formButton)
 		{
-			FormWidgetButton *btn = (FormWidgetButton*)fm;
+			FormWidgetButton *btn = (FormWidgetButton*) fm;
 			if (btn)
 			{
 				if (btn->getButtonType() == formButtonCheck)
@@ -663,7 +648,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 		}
 		else if (fm->getType() == formChoice)
 		{
-			FormWidgetChoice *btn = (FormWidgetChoice*)fm;
+			FormWidgetChoice *btn = (FormWidgetChoice*) fm;
 			if (btn)
 			{
 				if (btn->isCombo())
@@ -809,14 +794,14 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 					ite->itemText.insertChars(itemText);
 				applyTextStyle(ite, fontName, currTextColor, fontSize);
 				ite->annotation().addToFlag(Annotation::Flag_PushButton);
-				FormWidgetButton *btn = (FormWidgetButton*)fm;
+				FormWidgetButton *btn = (FormWidgetButton*) fm;
 				if (!btn->isReadOnly())
 					ite->annotation().addToFlag(Annotation::Flag_Edit);
 				handleActions(ite, ano);
 			}
 			else if (wtyp == Annotation::Textfield)
 			{
-				FormWidgetText *btn = (FormWidgetText*)fm;
+				FormWidgetText *btn = (FormWidgetText*) fm;
 				if (btn)
 				{
 					ite->itemText.insertChars(UnicodeParsedString(btn->getContent()));
@@ -842,7 +827,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			}
 			else if (wtyp == Annotation::Checkbox)
 			{
-				FormWidgetButton *btn = (FormWidgetButton*)fm;
+				FormWidgetButton *btn = (FormWidgetButton*) fm;
 				if (btn)
 				{
 					ite->annotation().setIsChk(btn->getState());
@@ -868,7 +853,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			}
 			else if ((wtyp == Annotation::Combobox) || (wtyp == Annotation::Listbox))
 			{
-				FormWidgetChoice *btn = (FormWidgetChoice*)fm;
+				FormWidgetChoice *btn = (FormWidgetChoice*) fm;
 				if (btn)
 				{
 					if (wtyp == 5)
@@ -891,7 +876,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			}
 			else if (wtyp == Annotation::RadioButton)
 			{
-				FormWidgetButton *btn = (FormWidgetButton*)fm;
+				FormWidgetButton *btn = (FormWidgetButton*) fm;
 				if (btn)
 				{
 					ite->setItemName( CommonStrings::itemName_RadioButton + QString("%1").arg(m_doc->TotalItems));
@@ -979,7 +964,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 	{
 		if (Lact->getKind() == actionJavaScript)
 		{
-			LinkJavaScript *jsa = (LinkJavaScript*)Lact;
+			LinkJavaScript *jsa = (LinkJavaScript*) Lact;
 			if (jsa->isOk())
 			{
 				ite->annotation().setActionType(1);
@@ -991,7 +976,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			int pagNum = 0;
 			int xco = 0;
 			int yco = 0;
-			LinkGoTo *gto = (LinkGoTo*)Lact;
+			LinkGoTo *gto = (LinkGoTo*) Lact;
 			POPPLER_CONST LinkDest *dst = gto->getDest();
 			if (dst)
 			{
@@ -1025,27 +1010,24 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 #else
 					LinkDest *dstn = m_pdfDoc->findDest(ndst);
 #endif
-					if (dstn)
+					if (dstn && (dstn->getKind() == destXYZ))
 					{
-						if (dstn->getKind() == destXYZ)
+						if (dstn->isPageRef())
 						{
-							if (dstn->isPageRef())
-							{
-								Ref dstr = dstn->getPageRef();
+							Ref dstr = dstn->getPageRef();
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
-								pagNum = m_pdfDoc->findPage(dstr);
+							pagNum = m_pdfDoc->findPage(dstr);
 #else
-								pagNum = m_pdfDoc->findPage(dstr.num, dstr.gen);
+							pagNum = m_pdfDoc->findPage(dstr.num, dstr.gen);
 #endif
-							}
-							else
-								pagNum = dstn->getPageNum();
-							xco = dstn->getLeft();
-							yco = dstn->getTop();
-							ite->annotation().setZiel((pagNum > 0) ? (pagNum - 1) : (m_actPage - 1));
-							ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
-							ite->annotation().setActionType(2);
 						}
+						else
+							pagNum = dstn->getPageNum();
+						xco = dstn->getLeft();
+						yco = dstn->getTop();
+						ite->annotation().setZiel((pagNum > 0) ? (pagNum - 1) : (m_actPage - 1));
+						ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
+						ite->annotation().setActionType(2);
 					}
 				}
 			}
@@ -1055,7 +1037,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			int pagNum = 0;
 			int xco = 0;
 			int yco = 0;
-			LinkGoToR *gto = (LinkGoToR*)Lact;
+			LinkGoToR *gto = (LinkGoToR*) Lact;
 			QString fileName = UnicodeParsedString(gto->getFileName());
 			POPPLER_CONST LinkDest *dst = gto->getDest();
 			if (dst)
@@ -1081,25 +1063,22 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 #else
 					LinkDest *dstn = m_pdfDoc->findDest(ndst);
 #endif
-					if (dstn)
+					if (dstn && (dstn->getKind() == destXYZ))
 					{
-						if (dstn->getKind() == destXYZ)
-						{
-							pagNum = dstn->getPageNum();
-							xco = dstn->getLeft();
-							yco = dstn->getTop();
-							ite->annotation().setZiel((pagNum > 0) ? (pagNum - 1) : (m_actPage - 1));
-							ite->annotation().setExtern(fileName);
-							ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
-							ite->annotation().setActionType(9);
-						}
+						pagNum = dstn->getPageNum();
+						xco = dstn->getLeft();
+						yco = dstn->getTop();
+						ite->annotation().setZiel((pagNum > 0) ? (pagNum - 1) : (m_actPage - 1));
+						ite->annotation().setExtern(fileName);
+						ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
+						ite->annotation().setActionType(9);
 					}
 				}
 			}
 		}
 		else if (Lact->getKind() == actionUnknown)
 		{
-			LinkUnknown *uno = (LinkUnknown*)Lact;
+			LinkUnknown *uno = (LinkUnknown*) Lact;
 			QString actString = UnicodeParsedString(uno->getAction());
 			if (actString == "ResetForm")
 			{
@@ -1112,7 +1091,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 				{
 					if (actString == "ImportData")
 					{
-						LinkImportData *impo = (LinkImportData*)scact;
+						LinkImportData *impo = (LinkImportData*) scact;
 						if (impo->isOk())
 						{
 							ite->annotation().setActionType(5);
@@ -1121,7 +1100,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 					}
 					else if (actString == "SubmitForm")
 					{
-						LinkSubmitForm *impo = (LinkSubmitForm*)scact;
+						LinkSubmitForm *impo = (LinkSubmitForm*) scact;
 						if (impo->isOk())
 						{
 							ite->annotation().setActionType(3);
@@ -1142,7 +1121,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		}
 		else if (Lact->getKind() == actionNamed)
 		{
-			LinkNamed *uno = (LinkNamed*)Lact;
+			LinkNamed *uno = (LinkNamed*) Lact;
 			ite->annotation().setActionType(10);
 			ite->annotation().setAction(UnicodeParsedString(uno->getName()));
 		}
@@ -1842,7 +1821,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	double GrEndY;
 	int shade = 100;
 	POPPLER_CONST_070 Function *func = shading->getFunc(0);
-	VGradient fillGradient = VGradient(VGradient::linear);
+	VGradient fillGradient(VGradient::linear);
 	fillGradient.clearStops();
 	GfxColorSpace *color_space = shading->getColorSpace();
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 3, 0)
@@ -1851,7 +1830,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	if (func->getType() == 3)
 #endif
 	{
-		StitchingFunction *stitchingFunc = (StitchingFunction*)func;
+		StitchingFunction *stitchingFunc = (StitchingFunction*) func;
 		const double *bounds = stitchingFunc->getBounds();
 		int num_funcs = stitchingFunc->getNumFuncs();
 		double domain_min = stitchingFunc->getDomainMin(0);
@@ -1890,7 +1869,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	double xmin, ymin, xmax, ymax;
 	// get the clip region bbox
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
-	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
+	QRectF crect(QPointF(xmin, ymin), QPointF(xmax, ymax));
 	crect = crect.normalized();
 	QPainterPath out;
 	out.addRect(crect);
@@ -1984,7 +1963,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	double GrEndY;
 	int shade = 100;
 	POPPLER_CONST_070 Function *func = shading->getFunc(0);
-	VGradient fillGradient = VGradient(VGradient::linear);
+	VGradient fillGradient(VGradient::linear);
 	fillGradient.clearStops();
 	GfxColorSpace *color_space = shading->getColorSpace();
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 3, 0)
@@ -1993,7 +1972,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	if (func->getType() == 3)
 #endif
 	{
-		StitchingFunction *stitchingFunc = (StitchingFunction*)func;
+		StitchingFunction *stitchingFunc = (StitchingFunction*) func;
 		const double *bounds = stitchingFunc->getBounds();
 		int num_funcs = stitchingFunc->getNumFuncs();
 		double domain_min = stitchingFunc->getDomainMin(0);
@@ -2034,7 +2013,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	double xmin, ymin, xmax, ymax;
 	// get the clip region bbox
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
-	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
+	QRectF crect(QPointF(xmin, ymin), QPointF(xmax, ymax));
 	crect = crect.normalized();
 	double GrFocalX = x1;
 	double GrFocalY = y1;
@@ -2115,7 +2094,7 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 	double xmin, ymin, xmax, ymax;
 	// get the clip region bbox
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
-	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
+	QRectF crect(QPointF(xmin, ymin), QPointF(xmax, ymax));
 	crect = crect.normalized();
 	QString output = QString("M %1 %2").arg(0.0).arg(0.0);
 	output += QString("L %1 %2").arg(crect.width()).arg(0.0);
@@ -2196,7 +2175,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	double xmin, ymin, xmax, ymax;
 	// get the clip region bbox
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
-	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
+	QRectF crect(QPointF(xmin, ymin), QPointF(xmax, ymax));
 	crect = crect.normalized();
 	QString output = QString("M %1 %2").arg(0.0).arg(0.0);
 	output += QString("L %1 %2").arg(crect.width()).arg(0.0);
@@ -2369,7 +2348,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 
 	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
-	QTransform mm = QTransform(mat[0], mat[1], mat[2], mat[3], mat[4], mat[5]);
+	QTransform mm(mat[0], mat[1], mat[2], mat[3], mat[4], mat[5]);
 	QTransform mmx = mm * m_ctm;
 
 	gfx = new Gfx(m_pdfDoc, this, resDict, &box, nullptr);
@@ -2427,7 +2406,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	double xmin, ymin, xmax, ymax;
 	// get the clip region bbox
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
-	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
+	QRectF crect(QPointF(xmin, ymin), QPointF(xmax, ymax));
 	crect = crect.normalized();
 	QString output = QString("M %1 %2").arg(0.0).arg(0.0);
 	output += QString("L %1 %2").arg(crect.width()).arg(0.0);
@@ -2533,7 +2512,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	}
 	const auto& graphicState = m_graphicStack.top();
 	QColor backColor = ScColorEngine::getShadeColorProof(m_doc->PageColors[graphicState.fillColor], m_doc, graphicState.fillShade);
-	QImage res = QImage(width, height, QImage::Format_ARGB32);
+	QImage res(width, height, QImage::Format_ARGB32);
 	res.fill(backColor.rgb());
 	unsigned char cc, cm, cy, ck;
 	for (int yi = 0; yi < res.height(); ++yi)
@@ -2611,10 +2590,10 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 
 	unsigned char cr, cg, cb, ca;
 	int s = 0;
-	for (int yi=0; yi < res.height(); ++yi)
+	for (int yi = 0; yi < res.height(); ++yi)
 	{
 		QRgb *t = (QRgb*)(res.scanLine( yi ));
-		for (int xi=0; xi < res.width(); ++xi)
+		for (int xi = 0; xi < res.width(); ++xi)
 		{
 			cr = qRed(*t);
 			cg = qGreen(*t);
@@ -2686,10 +2665,10 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	QImage res = image->convertToFormat(QImage::Format_ARGB32);
 	unsigned char cc, cm, cy, ck;
 	int s = 0;
-	for (int yi=0; yi < res.height(); ++yi)
+	for (int yi = 0; yi < res.height(); ++yi)
 	{
 		QRgb *t = (QRgb*)(res.scanLine( yi ));
-		for (int xi=0; xi < res.width(); ++xi)
+		for (int xi = 0; xi < res.width(); ++xi)
 		{
 			cc = qRed(*t);
 			cm = qGreen(*t);
@@ -2987,7 +2966,7 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Object *dictRef)
 void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties)
 {
 //	qDebug() << "Begin Marked Content with Name " << QString(name);
-	QString nam = QString(name);
+	QString nam(name);
 	mContent mSte;
 	mSte.name = nam;
 	mSte.ocgName = "";
@@ -2999,10 +2978,10 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties
 			if (layersSetByOCG)
 				return;
 			QString lName = QString("Layer_%1").arg(m_layerNum + 1);
-			Object obj = properties->lookup((char*) "Title");
+			Object obj = properties->lookup("Title");
 			if (obj.isString())
 				lName = QString(obj.getString()->getCString());
-			for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
+			for (auto it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
 			{
 				if (it->Name == lName)
 				{
@@ -3015,16 +2994,16 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties
 				m_currentLayer = m_doc->addLayer(lName, true);
 			m_firstLayer = false;
 
-			obj = properties->lookup((char*) "Visible");
+			obj = properties->lookup("Visible");
 			if (obj.isBool())
 				m_doc->setLayerVisible(m_currentLayer, obj.getBool());
-			obj = properties->lookup((char*) "Editable");
+			obj = properties->lookup("Editable");
 			if (obj.isBool())
 				m_doc->setLayerLocked(m_currentLayer, !obj.getBool());
-			obj = properties->lookup((char*) "Printed");
+			obj = properties->lookup("Printed");
 			if (obj.isBool())
 				m_doc->setLayerPrintable(m_currentLayer, obj.getBool());
-			obj = properties->lookup((char*)"Color");
+			obj = properties->lookup("Color");
 			if (obj.isArray())
 			{
 				Object obj1;
@@ -3050,7 +3029,7 @@ void SlaOutputDev::endMarkedContent(GfxState *state)
 		{
 			if (mSte.name == "OC")
 			{
-				for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
+				for (auto it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
 				{
 					if (it->Name == mSte.ocgName)
 					{
@@ -3603,7 +3582,7 @@ QString SlaOutputDev::getColor(GfxColorSpace *color_space, POPPLER_CONST_070 Gfx
 	{
 		GfxSeparationColorSpace* sepColorSpace = (GfxSeparationColorSpace*) color_space;
 		GfxColorSpace* altColorSpace = sepColorSpace->getAlt();
-		QString name = QString(sepColorSpace->getName()->getCString());
+		QString name(sepColorSpace->getName()->getCString());
 		bool isRegistrationColor = (name == "All");
 		if (isRegistrationColor)
 		{
