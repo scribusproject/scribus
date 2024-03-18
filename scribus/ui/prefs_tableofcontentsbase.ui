@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>610</width>
-    <height>561</height>
+    <width>824</width>
+    <height>790</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -60,8 +60,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>610</width>
-        <height>519</height>
+        <width>824</width>
+        <height>748</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -132,7 +132,7 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <layout class="QFormLayout" name="formLayout">
            <property name="formAlignment">
@@ -233,7 +233,21 @@
           </layout>
          </item>
          <item>
+          <widget class="Line" name="line_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Styles included in Table of Contents:</string>
+             </property>
+            </widget>
+           </item>
            <item>
             <widget class="QListWidget" name="styleListWidget">
              <property name="sortingEnabled">
@@ -242,7 +256,25 @@
             </widget>
            </item>
            <item>
-            <widget class="ParaStyleComboBox" name="paragraphStyleComboBox"/>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Document Styles:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="ParaStyleComboBox" name="paragraphStyleComboBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout">

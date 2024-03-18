@@ -65,10 +65,10 @@ public:
 	void setStyle(Style style) { m_style = style; }
 
 	/// Returns the size hint of the table side selector.
-	QSize sizeHint() const { return QSize(80, 80); }
+	QSize sizeHint() const override { return QSize(80, 80); }
 
 	/// Returns @a width, as the selector is supposed to be square shaped.
-	int heightForWidth(int width) const { return width; }
+	int heightForWidth(int width) const override { return width; }
 
 signals:
 	/// Emitted when the selections has changed.
