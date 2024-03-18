@@ -30,11 +30,13 @@ typedef enum {Beginning, End, NotShown} TOCPageLocation;
 struct ToCSetup
 {
 	QString name; //Name of ToC
-	QString itemAttrName; //Attribute to Scan for
+	QString tocSource;
+	QString itemAttrName; //If the ToC is based on attributes, this is the attribute to scan for
 	QString frameName; //Destination frame
 	TOCPageLocation pageLocation; //Place the page number for the TOC at the beginning, end or not at all
 	bool listNonPrintingFrames; //List non printing frames in the TOC
 	QString textStyle; //Paragraph style for text
+	QStringList styleListToFind; //If the ToC is based on styles, this is the list of styles we'll search for
 	//QString leaderParaStyle; //Paragraph style for leaders
 	//QString pageNumberParaStyle; //Paragraph style for page numbers
 };

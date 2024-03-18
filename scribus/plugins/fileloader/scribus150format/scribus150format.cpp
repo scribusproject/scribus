@@ -2713,7 +2713,6 @@ bool Scribus150Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader) 
 {
 	struct PageSet pageS;
 	ScXmlStreamAttributes attrs;
-
 	doc->clearPageSets();
 	while (!reader.atEnd() && !reader.hasError())
 	{
@@ -3678,18 +3677,25 @@ bool Scribus150Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader&
 
 bool Scribus150Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader) const
 {
-	QString tagName(reader.nameAsString());
-	m_Doc->clearTocSetups();
+	ToCSetup tocsetup;
+	ScXmlStreamAttributes attrs;
+	doc->clearTocSetups();
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
-		if (reader.isEndElement() && reader.name() == tagName)
+		QString tagName(reader.nameAsString());
+		if (reader.isStartElement())
+			attrs = reader.attributes();
+		if (reader.isEndElement() && tagName == QLatin1String("TablesOfContents"))
 			break;
 		if (reader.isStartElement() && reader.name() == QLatin1String("TableOfContents"))
 		{
 			ScXmlStreamAttributes attrs = reader.scAttributes();
-			ToCSetup tocsetup;
 			tocsetup.name = attrs.valueAsString("Name");
+			tocsetup.tocSource = attrs.valueAsString("ToCSource");
+			//Up to 1.6/1.7, only Attributes were used for TOCs
+			if (tocsetup.tocSource.isEmpty())
+				tocsetup.tocSource = "Attribute";
 			tocsetup.itemAttrName = attrs.valueAsString("ItemAttributeName");
 			tocsetup.frameName    = attrs.valueAsString("FrameName");
 			tocsetup.textStyle    = attrs.valueAsString("Style");
@@ -3701,7 +3707,13 @@ bool Scribus150Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 				tocsetup.pageLocation = End;
 			if (numberPlacement == "NotShown")
 				tocsetup.pageLocation = NotShown;
+		}
+		if (reader.isStartElement() && tagName == QLatin1String("StyleInTOC"))
+			tocsetup.styleListToFind.append(attrs.valueAsString("StyleName"));
+		if (reader.isEndElement() && tagName == QLatin1String("TableOfContents"))
+		{
 			doc->appendToTocSetups(tocsetup);
+			tocsetup.styleListToFind.clear();
 		}
 	}
 	return !reader.hasError();

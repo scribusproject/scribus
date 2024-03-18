@@ -8502,8 +8502,11 @@ void ScribusMainWindow::objectAttributes()
 
 void ScribusMainWindow::generateTableOfContents()
 {
-	if (HaveDoc)
-		m_tocGenerator->generateDefault();
+	if (!HaveDoc)
+		return;
+
+	m_tocGenerator->generateByAttribute();
+	m_tocGenerator->generateByStyle();
 }
 
 void ScribusMainWindow::updateDocument()

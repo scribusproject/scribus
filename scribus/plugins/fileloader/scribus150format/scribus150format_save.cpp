@@ -1368,8 +1368,9 @@ void Scribus150Format::writeTOC(ScXmlStreamWriter & docu)
 	docu.writeStartElement("TablesOfContents");
 	for (ToCSetupVector::Iterator tocSetupIt = m_Doc->tocSetups().begin() ; tocSetupIt != m_Doc->tocSetups().end(); ++tocSetupIt )
 	{
-		docu.writeEmptyElement("TableOfContents");
+		docu.writeStartElement("TableOfContents");
 		docu.writeAttribute("Name", tocSetupIt->name);
+		docu.writeAttribute("ToCSource", tocSetupIt->tocSource);
 		docu.writeAttribute("ItemAttributeName", tocSetupIt->itemAttrName);
 		docu.writeAttribute("FrameName", tocSetupIt->frameName);
 		docu.writeAttribute("ListNonPrinting", tocSetupIt->listNonPrintingFrames);
@@ -1386,6 +1387,20 @@ void Scribus150Format::writeTOC(ScXmlStreamWriter & docu)
 				docu.writeAttribute("NumberPlacement", "NotShown");
 				break;
 		}
+		if (tocSetupIt->tocSource == "Style")
+		{
+			QStringList::Iterator tocStyleListIterator;
+			for (tocStyleListIterator = tocSetupIt->styleListToFind.begin();
+				 tocStyleListIterator != tocSetupIt->styleListToFind.end();
+				 ++tocStyleListIterator)
+			{
+				if ((*tocStyleListIterator).isEmpty())
+					continue;
+				docu.writeEmptyElement("StyleInTOC");
+				docu.writeAttribute("StyleName", (*tocStyleListIterator));
+			}
+		}
+		docu.writeEndElement();
 	}
 	docu.writeEndElement();
 }

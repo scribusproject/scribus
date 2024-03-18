@@ -2687,6 +2687,10 @@ bool PrefsManager::readPref(const QString& filePath)
 				{
 					ToCSetup tocsetup;
 					tocsetup.name = tocElem.attribute("Name");
+					tocsetup.tocSource = tocElem.attribute("ToCSource");
+					//Up to 1.6/1.7, only Attributes were used for TOCs
+					if (tocsetup.tocSource.isEmpty())
+						tocsetup.tocSource = "Attribute";
 					tocsetup.itemAttrName = tocElem.attribute("ItemAttributeName");
 					tocsetup.frameName = tocElem.attribute("FrameName");
 					tocsetup.listNonPrintingFrames = static_cast<bool>(tocElem.attribute("ListNonPrinting").toInt());

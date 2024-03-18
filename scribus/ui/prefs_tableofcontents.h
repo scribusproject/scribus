@@ -44,21 +44,29 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 		virtual void updateToCListBox();
 		virtual void updateParagraphStyleComboBox();
 		virtual void deleteToC();
+		virtual void tocSourceSelected( const QString & tocSource );
 		virtual void itemAttributeSelected( const QString & itemAttributeName );
 		virtual void itemFrameSelected( const QString & frameName );
 		virtual void itemPageNumberPlacedSelected( const QString & pageLocation );
 		virtual void itemParagraphStyleSelected( const QString & itemStyle );
 		virtual void setToCName( const QString & newName );
 		virtual void nonPrintingFramesSelected( bool showNonPrinting );
+		void styleListUpdate();
+		void addStyleClicked();
+		void removeStyleClicked();
 
 	protected:
 		int numSelected { 999 };
 		QString strPNNotShown;
 		QString strPNEnd;
 		QString strPNBeginning;
+		QString strTOCSrcStyle;
+		QString strTOCSrcAttribute;
 		QString trStrPNNotShown;
 		QString trStrPNEnd;
 		QString trStrPNBeginning;
+		QString trStrTOCSrcStyle;
+		QString trStrTOCSrcAttribute;
 		ToCSetupVector localToCSetupVector;
 		ScribusDoc* m_Doc { nullptr };
 		QString selectedTOCAttrName;

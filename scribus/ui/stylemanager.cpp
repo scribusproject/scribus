@@ -1055,8 +1055,21 @@ void StyleManager::slotNameChanged(const QString& name)
 
 	if (m_item)
 	{
+		if (m_doc == nullptr)
+			return;
+		QString oldName(styleView->currentItem()->text(NAME_COL));
+		ToCSetupVector &tocSetups = m_doc->tocSetups();
+		for (auto tocSetupIt = tocSetups.begin(); tocSetupIt != tocSetups.end(); ++tocSetupIt)
+		{
+			if (tocSetupIt->tocSource == "Attribute")
+				continue;
+			int i = tocSetupIt->styleListToFind.indexOf(oldName);
+			if (i >= 0)
+				tocSetupIt->styleListToFind[i]=name;
+		}
+
 		m_item->nameChanged(name);
-		updateActionName(styleView->currentItem()->text(NAME_COL), name);
+		updateActionName(oldName, name);
 		styleView->currentItem()->setText(NAME_COL, name);
 		applyButton->setEnabled(true);
 		resetButton->setEnabled(true);

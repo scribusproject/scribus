@@ -745,6 +745,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					{
 						ToCSetup tocsetup;
 						tocsetup.name = tocElem.attribute("Name");
+						tocsetup.tocSource = tocElem.attribute("ToCSource");
+						//Up to 1.6/1.7, only Attributes were used for TOCs
+						if (tocsetup.tocSource.isEmpty())
+							tocsetup.tocSource = "Attribute";
 						tocsetup.itemAttrName = tocElem.attribute("ItemAttributeName");
 						tocsetup.frameName = tocElem.attribute("FrameName");
 						tocsetup.listNonPrintingFrames = QVariant(tocElem.attribute("ListNonPrinting")).toBool();

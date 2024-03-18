@@ -1797,6 +1797,10 @@ bool Scribus134Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 			ScXmlStreamAttributes attrs = reader.scAttributes();
 			ToCSetup tocsetup;
 			tocsetup.name = attrs.valueAsString("Name");
+			tocsetup.tocSource = attrs.valueAsString("ToCSource");
+			//Up to 1.6/1.7, only Attributes were used for TOCs
+			if (tocsetup.tocSource.isEmpty())
+				tocsetup.tocSource = "Attribute";
 			tocsetup.itemAttrName = attrs.valueAsString("ItemAttributeName");
 			tocsetup.frameName    = attrs.valueAsString("FrameName");
 			tocsetup.textStyle    = attrs.valueAsString("Style");
