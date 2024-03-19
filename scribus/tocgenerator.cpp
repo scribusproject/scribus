@@ -171,7 +171,7 @@ void TOCGenerator::generateByStyle()
 		PageItem *tocFrame = findTargetFrame(tocSetupIt->frameName);
 		if (tocFrame == nullptr)
 			continue;
-
+		tocFrame->clearContents();
 		PageItem *item;
 		QMap<QString, QString> tocMap;
 
@@ -184,6 +184,10 @@ void TOCGenerator::generateByStyle()
 		{
 			item = itemIter.current();
 			if (item == nullptr)
+				continue;
+			if (item->itemType() != PageItem::TextFrame)
+				continue;
+			if (item->itemName() == tocSetupIt->frameName)
 				continue;
 			//Item not on a page, continue
 			if (item->OwnPage == -1)
@@ -202,20 +206,15 @@ void TOCGenerator::generateByStyle()
 				int pno = item->itemText.nrOfParagraph(i);
 				int pstart = item->itemText.startOfParagraph(pno);
 				int pend = item->itemText.endOfParagraph(pno);
-
 				QString pname(item->itemText.paragraphStyle(i).parentStyle()->name());
 				if (tocSetupIt->styleListToFind.contains(pname))
 				{
-					QString testText = item->itemText.text(pstart, pend - pstart);
-
-					QString tocID = QString("%1").arg(pageCounter[item->OwnPage]++,
-													  3,
-													  10,
-													  QChar('0'));
+					QString paraText = item->itemText.text(pstart, pend - pstart);
+					QString tocID = QString("%1").arg(pageCounter[item->OwnPage]++, 3, 10, QChar('0'));
 					QString key = QString("%1,%2,%3").arg(pageID, tocID, sectionID);
-					tocMap.insert(key, testText);
+					tocMap.insert(key, paraText);
 				}
-				i = item->itemText.nextParagraph(i);
+				i = item->itemText.nextParagraph(i) + 1;
 			}
 		}
 
