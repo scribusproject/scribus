@@ -40,9 +40,13 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	connect( itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
 	connect( tocNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT( setToCName(QString)));
 	connect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool)));
+	connect(removeLineBreaksCheckBox, SIGNAL(toggled(bool)), this, SLOT(removeLineBreaksSelected(bool)));
 	connect(styleListWidget, SIGNAL(itemChanged(QListWidgetItem *)), this, SLOT(styleListUpdate()));
+	connect(styleListTOCWidget, SIGNAL(itemChanged(QListWidgetItem *)), this, SLOT(styleListTOCUpdate()));
 	connect(addStyleButton, SIGNAL(clicked()), this, SLOT(addStyleClicked()));
-	connect(removeStyleButton, SIGNAL(clicked()), this, SLOT(removeStyleClicked()));
+	connect(deleteStyleButton, SIGNAL(clicked()), this, SLOT(removeStyleClicked()));
+	connect(addStyleTOCButton, SIGNAL(clicked()), this, SLOT(addStyleTOCClicked()));
+	connect(deleteStyleTOCButton, SIGNAL(clicked()), this, SLOT(removeStyleTOCClicked()));
 
 	itemToCSource->setEnabled(false);
 	itemAttrComboBox->setEnabled(false);
@@ -50,11 +54,15 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	itemParagraphStyleComboBox->setEnabled(false);
 	itemNumberPlacementComboBox->setEnabled(false);
 	itemListNonPrintingCheckBox->setEnabled(false);
+	removeLineBreaksCheckBox->setEnabled(false);
 	styleListWidget->setEnabled(false);
+	styleListTOCWidget->setEnabled(false);
 	paragraphStyleComboBox->setEnabled(false);
-	paragraphStyleComboBox->setDoc(m_Doc);
+	paragraphStyleTOCComboBox->setEnabled(false);
 	addStyleButton->setEnabled(false);
-	removeStyleButton->setEnabled(false);
+	deleteStyleButton->setEnabled(false);
+	addStyleTOCButton->setEnabled(false);
+	deleteStyleTOCButton->setEnabled(false);
 
 	setCurrentComboItem(itemNumberPlacementComboBox, trStrPNEnd);
 }
@@ -79,6 +87,7 @@ void Prefs_TableOfContents::restoreDefaults(struct ApplicationPrefs *prefsData)
 	{
 		updateToCListBox();
 		updateParagraphStyleComboBox();
+		updateDocParagraphStyleComboBox();
 		tocListBox->setCurrentRow(0);
 		selectToC(0);
 	}
@@ -108,16 +117,11 @@ void Prefs_TableOfContents::languageChange()
 
 	disconnect(itemToCSource, SIGNAL(currentTextChanged(QString)), this, SLOT(tocSourceSelected(QString)));
 	int i = itemToCSource->currentIndex();
-	bool isStyle = (i == 0);
 	itemToCSource->clear();
 	itemToCSource->addItem(trStrTOCSrcStyle);
 	itemToCSource->addItem(trStrTOCSrcAttribute);
 	itemToCSource->setCurrentIndex(i);
 	connect(itemToCSource, SIGNAL(currentTextChanged(QString)), this, SLOT(tocSourceSelected(QString)));
-	styleListWidget->setEnabled(isStyle);
-	paragraphStyleComboBox->setEnabled(isStyle);
-	addStyleButton->setEnabled(isStyle);
-	removeStyleButton->setEnabled(isStyle);
 
 	disconnect(itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
 	i = itemNumberPlacementComboBox->currentIndex();
@@ -179,6 +183,15 @@ void Prefs_TableOfContents::setupItemAttrs(const QStringList& newNames)
 
 void Prefs_TableOfContents::selectToC(int numberSelected)
 {
+	disconnect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
+	disconnect( itemToCSource, SIGNAL(currentTextChanged(QString)), this, SLOT(tocSourceSelected(QString)));
+	disconnect( itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)) );
+	disconnect( itemDestFrameComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemFrameSelected(QString)) );
+	disconnect( itemParagraphStyleComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemParagraphStyleSelected(QString)));
+	disconnect( itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
+	disconnect( tocNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(setToCName(QString)));
+	disconnect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
+
 	numSelected = numberSelected;
 	if (numSelected < 0)
 	{
@@ -190,21 +203,10 @@ void Prefs_TableOfContents::selectToC(int numberSelected)
 	if (localToCSetupVector.count() < numSelected)
 		numSelected = 0;
 
-	disconnect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
-	disconnect( itemToCSource, SIGNAL(currentTextChanged(QString)), this, SLOT(tocSourceSelected(QString)));
-	disconnect( itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)) );
-	disconnect( itemDestFrameComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemFrameSelected(QString)) );
-	disconnect( itemParagraphStyleComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemParagraphStyleSelected(QString)));
-	disconnect( itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
-	disconnect( tocNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(setToCName(QString)));
-	disconnect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
-
 	setCurrentComboItem(itemToCSource, localToCSetupVector[numSelected].tocSource);
-	bool isStyle = localToCSetupVector[numSelected].tocSource == strTOCSrcStyle;
-	styleListWidget->setEnabled(isStyle);
-	paragraphStyleComboBox->setEnabled(isStyle);
-	addStyleButton->setEnabled(isStyle);
-	removeStyleButton->setEnabled(isStyle);
+
+	enableGUIWidgets();
+
 	if (localToCSetupVector[numSelected].itemAttrName == CommonStrings::None)
 		setCurrentComboItem(itemAttrComboBox, CommonStrings::tr_None);
 	else
@@ -218,6 +220,7 @@ void Prefs_TableOfContents::selectToC(int numberSelected)
 		setCurrentComboItem(itemNumberPlacementComboBox, trStrPNEnd);
 
 	itemListNonPrintingCheckBox->setChecked(localToCSetupVector[numSelected].listNonPrintingFrames);
+	removeLineBreaksCheckBox->setChecked(localToCSetupVector[numSelected].removeLineBreaks);
 	if (m_Doc != nullptr)
 	{
 		if (localToCSetupVector[numSelected].frameName == CommonStrings::None)
@@ -234,9 +237,13 @@ void Prefs_TableOfContents::selectToC(int numberSelected)
 		}
 	}
 	styleListWidget->clear();
+	styleListTOCWidget->clear();
 	//load styles if its a style toc
 	if (localToCSetupVector[numSelected].tocSource == strTOCSrcStyle)
+	{
 		styleListWidget->addItems(localToCSetupVector[numSelected].styleListToFind);
+		styleListTOCWidget->addItems(localToCSetupVector[numSelected].styleListForTOC);
+	}
 
 	if (tocListBox->currentItem())
 		tocNameLineEdit->setText(tocListBox->currentItem()->text());
@@ -262,7 +269,12 @@ void Prefs_TableOfContents::addToC()
 			found = true;
 	}
 	if (found || newName.isEmpty())
-		newName = tr("Table of Contents %1").arg(localToCSetupVector.count()+1);
+	{
+		if(localToCSetupVector.isEmpty())
+			newName = tr("Table of Contents");
+		else
+			newName = tr("Table of Contents %1").arg(localToCSetupVector.count() + 1);
+	}
 	ToCSetup newToCEntry;
 	newToCEntry.name = newName;
 	newToCEntry.tocSource = trStrTOCSrcStyle;
@@ -271,6 +283,7 @@ void Prefs_TableOfContents::addToC()
 	newToCEntry.textStyle = CommonStrings::None;
 	newToCEntry.pageLocation = End;
 	newToCEntry.listNonPrintingFrames = false;
+	newToCEntry.removeLineBreaks = false;
 	localToCSetupVector.append(newToCEntry);
 	disconnect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
 	updateToCListBox();
@@ -306,7 +319,21 @@ void Prefs_TableOfContents::updateParagraphStyleComboBox()
 	itemParagraphStyleComboBox->addItems(paragraphStyleList);
 }
 
-
+void Prefs_TableOfContents::updateDocParagraphStyleComboBox()
+{
+	QStringList stylesList;
+	paragraphStyleComboBox->clear();
+	paragraphStyleComboBox->addItem( CommonStrings::trDefaultParagraphStyle );
+	for (int i = 0; i < m_Doc->paragraphStyles().count(); ++i)
+	{
+		const ParagraphStyle &paraStyle = m_Doc->paragraphStyles()[i];
+		if (!paraStyle.name().isEmpty() && !paraStyle.isDefaultStyle())
+			stylesList.append(paraStyle.name());
+	}
+	stylesList.sort();
+	paragraphStyleComboBox->addItems(stylesList);
+	paragraphStyleTOCComboBox->addItems(stylesList);
+}
 void Prefs_TableOfContents::enableGUIWidgets()
 {
 	bool enabled = (localToCSetupVector.count() > 0);
@@ -318,10 +345,24 @@ void Prefs_TableOfContents::enableGUIWidgets()
 	itemAttrComboBox->setEnabled(haveCurrToc);
 	itemNumberPlacementComboBox->setEnabled(haveCurrToc);
 	itemListNonPrintingCheckBox->setEnabled(haveCurrToc);
-
+	removeLineBreaksCheckBox->setEnabled(haveCurrToc);
 	bool haveDoc = (haveCurrToc && m_Doc != nullptr);
 	itemDestFrameComboBox->setEnabled(haveDoc);
 	itemParagraphStyleComboBox->setEnabled(haveDoc);
+
+	int i = itemToCSource->currentIndex();
+	bool isStyle = (haveCurrToc && (i == 0));
+
+	itemAttrComboBox->setEnabled(haveDoc && !isStyle);
+	itemParagraphStyleComboBox->setEnabled(haveDoc && isStyle);
+	styleListWidget->setEnabled(isStyle);
+	styleListTOCWidget->setEnabled(isStyle);
+	paragraphStyleComboBox->setEnabled(isStyle);
+	paragraphStyleTOCComboBox->setEnabled(isStyle);
+	addStyleButton->setEnabled(isStyle);
+	deleteStyleButton->setEnabled(isStyle && (styleListWidget->count() > 0));
+	addStyleTOCButton->setEnabled(isStyle);
+	deleteStyleTOCButton->setEnabled(isStyle && (styleListTOCWidget->count() > 0));
 }
 
 
@@ -369,11 +410,7 @@ void Prefs_TableOfContents::tocSourceSelected(const QString &tocSource)
 		++i;
 	}
 	(*it).tocSource = tocSource;
-	bool isStyle = tocSource == strTOCSrcStyle;
-	styleListWidget->setEnabled(isStyle);
-	paragraphStyleComboBox->setEnabled(isStyle);
-	addStyleButton->setEnabled(isStyle);
-	removeStyleButton->setEnabled(isStyle && (styleListWidget->count() > 0));
+	enableGUIWidgets();
 }
 
 void Prefs_TableOfContents::itemAttributeSelected( const QString& itemAttributeName )
@@ -492,6 +529,22 @@ void Prefs_TableOfContents::nonPrintingFramesSelected( bool showNonPrinting )
 	(*it).listNonPrintingFrames = showNonPrinting;
 }
 
+void Prefs_TableOfContents::removeLineBreaksSelected(bool removeLineBreaks)
+{
+	int numberSelected = tocListBox->currentRow();
+	if (numberSelected < 0)
+		return;
+
+	int i = 0;
+	ToCSetupVector::Iterator it = localToCSetupVector.begin();
+	while (it != localToCSetupVector.end() && i < numberSelected)
+	{
+		++it;
+		++i;
+	}
+	(*it).removeLineBreaks = removeLineBreaks;
+}
+
 void Prefs_TableOfContents::styleListUpdate()
 {
 	int numberSelected = tocListBox->currentRow();
@@ -509,12 +562,32 @@ void Prefs_TableOfContents::styleListUpdate()
 	for (int i = 0; i < styleListWidget->count(); i++)
 		(*it).styleListToFind.append(styleListWidget->item(i)->text());
 	if (styleListWidget->count() == 0)
-		removeStyleButton->setEnabled(false);
+		deleteStyleButton->setEnabled(false);
+}
+
+void Prefs_TableOfContents::styleListTOCUpdate()
+{
+	int numberSelected = tocListBox->currentRow();
+	if (numberSelected < 0)
+		return;
+
+	int i = 0;
+	ToCSetupVector::Iterator it = localToCSetupVector.begin();
+	while (it != localToCSetupVector.end() && i < numberSelected)
+	{
+		++it;
+		++i;
+	}
+	(*it).styleListForTOC.clear();
+	for (int i = 0; i < styleListTOCWidget->count(); i++)
+		(*it).styleListForTOC.append(styleListTOCWidget->item(i)->text());
+	if (styleListTOCWidget->count() == 0)
+		deleteStyleTOCButton->setEnabled(false);
 }
 
 void Prefs_TableOfContents::addStyleClicked()
 {
-	QString paraStyleToAdd(paragraphStyleComboBox->currentStyle());
+	QString paraStyleToAdd(paragraphStyleComboBox->currentText());
 	QList<QListWidgetItem *> items = styleListWidget->findItems(paraStyleToAdd, Qt::MatchExactly);
 	if (items.isEmpty())
 		styleListWidget->addItem(paraStyleToAdd);
@@ -525,4 +598,19 @@ void Prefs_TableOfContents::removeStyleClicked()
 {
 	delete styleListWidget->takeItem(styleListWidget->currentRow());
 	styleListUpdate();
+}
+
+void Prefs_TableOfContents::addStyleTOCClicked()
+{
+	QString paraStyleToAdd(paragraphStyleTOCComboBox->currentText());
+	QList<QListWidgetItem *> items = styleListTOCWidget->findItems(paraStyleToAdd, Qt::MatchExactly);
+	if (items.isEmpty())
+		styleListTOCWidget->addItem(paraStyleToAdd);
+	styleListTOCUpdate();
+}
+
+void Prefs_TableOfContents::removeStyleTOCClicked()
+{
+	delete styleListTOCWidget->takeItem(styleListTOCWidget->currentRow());
+	styleListTOCUpdate();
 }

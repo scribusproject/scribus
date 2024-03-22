@@ -43,6 +43,7 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 		virtual void addToC();
 		virtual void updateToCListBox();
 		virtual void updateParagraphStyleComboBox();
+		virtual void updateDocParagraphStyleComboBox();
 		virtual void deleteToC();
 		virtual void tocSourceSelected( const QString & tocSource );
 		virtual void itemAttributeSelected( const QString & itemAttributeName );
@@ -50,10 +51,14 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 		virtual void itemPageNumberPlacedSelected( const QString & pageLocation );
 		virtual void itemParagraphStyleSelected( const QString & itemStyle );
 		virtual void setToCName( const QString & newName );
-		virtual void nonPrintingFramesSelected( bool showNonPrinting );
+		void nonPrintingFramesSelected( bool showNonPrinting );
+		void removeLineBreaksSelected( bool removeLineBreaks );
 		void styleListUpdate();
+		void styleListTOCUpdate();
 		void addStyleClicked();
 		void removeStyleClicked();
+		void addStyleTOCClicked();
+		void removeStyleTOCClicked();
 
 	protected:
 		int numSelected { 999 };

@@ -1886,6 +1886,7 @@ bool PrefsManager::writePref(const QString& filePath)
 		tocsetup.setAttribute("ItemAttributeName", tocSetup.itemAttrName);
 		tocsetup.setAttribute("FrameName", tocSetup.frameName);
 		tocsetup.setAttribute("ListNonPrinting", tocSetup.listNonPrintingFrames);
+		tocsetup.setAttribute("RemoveLineBreaks", tocSetup.removeLineBreaks);
 		tocsetup.setAttribute("Style", tocSetup.textStyle);
 		tocsetup.setAttribute("NumberPlacement", tocSetup.pageLocation);
 		tocElem.appendChild(tocsetup);
@@ -2694,6 +2695,7 @@ bool PrefsManager::readPref(const QString& filePath)
 					tocsetup.itemAttrName = tocElem.attribute("ItemAttributeName");
 					tocsetup.frameName = tocElem.attribute("FrameName");
 					tocsetup.listNonPrintingFrames = static_cast<bool>(tocElem.attribute("ListNonPrinting").toInt());
+					tocsetup.removeLineBreaks = static_cast<bool>(tocElem.attribute("RemoveLineBreaks").toInt());
 					tocsetup.textStyle = tocElem.attribute("Style");
 					QString numberPlacement = tocElem.attribute("NumberPlacement");
 					if (numberPlacement == "Beginning")

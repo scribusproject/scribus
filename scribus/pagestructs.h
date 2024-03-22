@@ -35,8 +35,10 @@ struct ToCSetup
 	QString frameName; //Destination frame
 	TOCPageLocation pageLocation; //Place the page number for the TOC at the beginning, end or not at all
 	bool listNonPrintingFrames; //List non printing frames in the TOC
+	bool removeLineBreaks; //Remove line breaks if they are in the text of the TOC entry
 	QString textStyle; //Paragraph style for text
 	QStringList styleListToFind; //If the ToC is based on styles, this is the list of styles we'll search for
+	QStringList styleListForTOC; //If the ToC is based on styles, this is the list of styles we'll set on the TOC entries
 	//QString leaderParaStyle; //Paragraph style for leaders
 	//QString pageNumberParaStyle; //Paragraph style for page numbers
 };

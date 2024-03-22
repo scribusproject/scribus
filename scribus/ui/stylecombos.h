@@ -39,7 +39,7 @@ class SCRIBUS_API ParaStyleComboBox : public QComboBox
 {
 	Q_OBJECT
 
-public: 
+public:
 	ParaStyleComboBox(QWidget* parent);
 	~ParaStyleComboBox() {};
 

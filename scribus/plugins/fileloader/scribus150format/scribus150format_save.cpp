@@ -1374,6 +1374,7 @@ void Scribus150Format::writeTOC(ScXmlStreamWriter & docu)
 		docu.writeAttribute("ItemAttributeName", tocSetupIt->itemAttrName);
 		docu.writeAttribute("FrameName", tocSetupIt->frameName);
 		docu.writeAttribute("ListNonPrinting", tocSetupIt->listNonPrintingFrames);
+		docu.writeAttribute("RemoveLineBreaks", tocSetupIt->removeLineBreaks);
 		docu.writeAttribute("Style", tocSetupIt->textStyle);
 		switch (tocSetupIt->pageLocation)
 		{
@@ -1389,15 +1390,19 @@ void Scribus150Format::writeTOC(ScXmlStreamWriter & docu)
 		}
 		if (tocSetupIt->tocSource == "Style")
 		{
-			QStringList::Iterator tocStyleListIterator;
-			for (tocStyleListIterator = tocSetupIt->styleListToFind.begin();
-				 tocStyleListIterator != tocSetupIt->styleListToFind.end();
-				 ++tocStyleListIterator)
+			QStringList::Iterator tocStyleListIterator = tocSetupIt->styleListToFind.begin();
+			QStringList::Iterator tocStyleListTOCIterator = tocSetupIt->styleListForTOC.begin();
+			for (; tocStyleListIterator != tocSetupIt->styleListToFind.end()
+				   && tocStyleListTOCIterator != tocSetupIt->styleListForTOC.end();
+				 ++tocStyleListIterator, ++tocStyleListTOCIterator)
 			{
 				if ((*tocStyleListIterator).isEmpty())
 					continue;
+				if ((*tocStyleListTOCIterator).isEmpty())
+					continue;
 				docu.writeEmptyElement("StyleInTOC");
 				docu.writeAttribute("StyleName", (*tocStyleListIterator));
+				docu.writeAttribute("TOCStyle", (*tocStyleListTOCIterator));
 			}
 		}
 		docu.writeEndElement();

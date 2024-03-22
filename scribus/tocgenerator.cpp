@@ -179,6 +179,11 @@ void TOCGenerator::generateByStyle()
 		for (int i = 0; i < m_doc->DocPages.count(); ++i)
 			pageCounter[i] = 0;
 
+		//Set up the gtWriter instance with the selected paragraph style
+		gtWriter writer(false, tocFrame);
+		writer.setUpdateParagraphStyles(false);
+		writer.setOverridePStyleFont(false);
+
 		int pageNumberWidth = QString("%1").arg(m_doc->DocPages.count()).length();
 		for (PageItemIterator itemIter(m_doc->DocItems); *itemIter; ++itemIter)
 		{
@@ -199,7 +204,7 @@ void TOCGenerator::generateByStyle()
 			StoryText story = item->itemText;
 			QString pageID = QString("%1").arg(item->OwnPage + m_doc->FirstPnum, pageNumberWidth);
 			QString sectionID = m_doc->getSectionPageNumberForPageIndex(item->OwnPage);
-
+			QString oldTocPage;
 			int i = 0;
 			while (i <= item->lastInFrame())
 			{
@@ -209,43 +214,45 @@ void TOCGenerator::generateByStyle()
 				QString pname(item->itemText.paragraphStyle(i).parentStyle()->name());
 				if (tocSetupIt->styleListToFind.contains(pname))
 				{
-					QString paraText = item->itemText.text(pstart, pend - pstart);
-					QString tocID = QString("%1").arg(pageCounter[item->OwnPage]++, 3, 10, QChar('0'));
+					int styleIndex = tocSetupIt->styleListToFind.indexOf(pname);
+					QString tocID = QString("%1").arg(pageCounter[item->OwnPage]++,
+													  3,
+													  10,
+													  QChar('0'));
 					QString key = QString("%1,%2,%3").arg(pageID, tocID, sectionID);
-					tocMap.insert(key, paraText);
+					QString paraText = item->itemText.text(pstart, pend - pstart);
+					// if (tocSetupIt->removeLineBreaks)
+					// 	paraText.remove("\n");
+
+
+					// tocMap.insert(key, paraText);
+					const gtFrameStyle *fstyle = writer.getDefaultStyle();
+					gtParagraphStyle *pstyle = new gtParagraphStyle(*fstyle);
+					if (styleIndex<tocSetupIt->styleListForTOC.count())
+						pstyle->setName(tocSetupIt->styleListForTOC[styleIndex]);
+					else
+						pstyle->setName(tocSetupIt->textStyle);
+					writer.setParagraphStyle(pstyle);
+
+					QString tocPage(key.section(',', 2, 2).trimmed());
+					QString tocLine;
+					//Start with text or numbers
+					if (tocSetupIt->pageLocation == End || tocSetupIt->pageLocation == NotShown)
+						tocLine = paraText;
+					if (tocSetupIt->pageLocation == Beginning && oldTocPage != tocPage)
+						tocLine = tocPage;
+					//Add in the tab for the leaders
+					tocLine += "\t";
+					//End with text or numbers
+					if (tocSetupIt->pageLocation == Beginning)
+						tocLine += paraText;
+					if (tocSetupIt->pageLocation == End && oldTocPage != tocPage)
+						tocLine += tocPage;
+					tocLine += "\n";
+					writer.append(tocLine);
 				}
 				i = item->itemText.nextParagraph(i) + 1;
 			}
-		}
-
-		//Set up the gtWriter instance with the selected paragraph style
-		gtWriter writer(false, tocFrame);
-		writer.setUpdateParagraphStyles(false);
-		writer.setOverridePStyleFont(false);
-		const gtFrameStyle *fstyle = writer.getDefaultStyle();
-		gtParagraphStyle *pstyle = new gtParagraphStyle(*fstyle);
-		pstyle->setName(tocSetupIt->textStyle);
-		writer.setParagraphStyle(pstyle);
-
-		QString oldTocPage;
-		for (QMap<QString, QString>::Iterator tocIt = tocMap.begin(); tocIt != tocMap.end(); ++tocIt)
-		{
-			QString tocPage(tocIt.key().section(',', 2, 2).trimmed());
-			QString tocLine;
-			//Start with text or numbers
-			if (tocSetupIt->pageLocation == End || tocSetupIt->pageLocation == NotShown)
-				tocLine = tocIt.value();
-			if (tocSetupIt->pageLocation == Beginning && oldTocPage != tocPage)
-				tocLine = tocPage;
-			//Add in the tab for the leaders
-			tocLine += "\t";
-			//End with text or numbers
-			if (tocSetupIt->pageLocation == Beginning)
-				tocLine += tocIt.value();
-			if (tocSetupIt->pageLocation == End && oldTocPage != tocPage)
-				tocLine += tocPage;
-			tocLine += "\n";
-			writer.append(tocLine);
 		}
 	}
 }
