@@ -57,7 +57,9 @@ PageItem* TOCGenerator::findTargetFrame(const QString &targetFrameName)
 		PageItem* docItem = m_doc->DocItems.at(i);
 		if (docItem == nullptr)
 			continue;
-		if (docItem->itemType() == PageItem::TextFrame && docItem->itemName() == targetFrameName)
+		if (docItem->itemType() != PageItem::TextFrame)
+			continue;
+		if (docItem->itemName() == targetFrameName)
 			return docItem;
 	}
 	return nullptr;

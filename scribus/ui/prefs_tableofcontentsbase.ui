@@ -73,9 +73,6 @@
             <widget class="QListWidget" name="tocListBox"/>
            </item>
            <item>
-            <widget class="QLineEdit" name="tocNameLineEdit"/>
-           </item>
-           <item>
             <layout class="QHBoxLayout" name="_2">
              <item>
               <widget class="QPushButton" name="tocAddButton">

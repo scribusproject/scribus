@@ -9,6 +9,8 @@ for which a new license (GPL+exception) is in place.
 #define PREFS_TABLEOFCONTENTS_H
 
 #include <QStringList>
+#include <QListWidget>
+#include <QListWidgetItem>
 
 #include "ui_prefs_tableofcontentsbase.h"
 //#include "page.h"
@@ -51,14 +53,15 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 		virtual void itemPageNumberPlacedSelected( const QString & pageLocation );
 		virtual void itemParagraphStyleSelected( const QString & itemStyle );
 		virtual void setToCName( const QString & newName );
-		void nonPrintingFramesSelected( bool showNonPrinting );
-		void removeLineBreaksSelected( bool removeLineBreaks );
+		void nonPrintingFramesSelected(bool showNonPrinting);
+		void removeLineBreaksSelected(bool removeLineBreaks);
 		void styleListUpdate();
 		void styleListTOCUpdate();
 		void addStyleClicked();
 		void removeStyleClicked();
 		void addStyleTOCClicked();
 		void removeStyleTOCClicked();
+		void tocListWidgetItemEdited(QListWidgetItem* qlwi);
 
 	protected:
 		int numSelected { 999 };
