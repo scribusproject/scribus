@@ -206,7 +206,7 @@ void TOCGenerator::generateByStyle()
 			StoryText story = item->itemText;
 			QString pageID = QString("%1").arg(item->OwnPage + m_doc->FirstPnum, pageNumberWidth);
 			QString sectionID = m_doc->getSectionPageNumberForPageIndex(item->OwnPage);
-			int i = 0;
+			int i = item->firstInFrame();
 			while (i <= item->lastInFrame())
 			{
 				int pno = item->itemText.nrOfParagraph(i);
