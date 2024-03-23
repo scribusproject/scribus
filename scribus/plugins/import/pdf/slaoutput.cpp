@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "slaoutput.h"
 
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 2, 0)
 #include <memory>
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 2, 0)
 #include <optional>
 #endif
 
@@ -2461,24 +2461,20 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, GBool invert, GBool interpolate, GBool inlineImg)
 {
 //	qDebug() << "Draw Image Mask";
-	auto* imgStr = new ImageStream(str, width, 1, 1);
+	auto imgStr = std::make_shared<ImageStream>(str, width, 1, 1);
 	imgStr->reset();
 #ifdef WORDS_BIGENDIAN
-	QImage* image = new QImage(width, height, QImage::Format_Mono);
+	QImage image(width, height, QImage::Format_Mono);
 #else
-	QImage* image = new QImage(width, height, QImage::Format_MonoLSB);
+	QImage image(width, height, QImage::Format_MonoLSB);
 #endif
-	if (image == nullptr || image->isNull())
-	{
-		delete imgStr;
-		delete image;
+	if (image.isNull())
 		return;
-	}
 
 	int invertBit = invert ? 1 : 0;
-	unsigned char* buffer = image->bits();
+	unsigned char* buffer = image.bits();
 	unsigned char* dest = nullptr;
-	int rowStride = image->bytesPerLine();
+	int rowStride = image.bytesPerLine();
 	int i, bit;
 	Guchar* pix;
 
@@ -2521,7 +2517,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 			cc = static_cast<unsigned char>( qRed(*t) );
 			cm = static_cast<unsigned char>( qGreen(*t) );
 			cy = static_cast<unsigned char>( qBlue(*t) );
-			ck = static_cast<unsigned char>( image->pixel(xi, yi) );
+			ck = static_cast<unsigned char>( image.pixel(xi, yi) );
 			if (ck == 0)
 				(*t) = qRgba(cc, cm, cy, 0);
 			else
@@ -2533,34 +2529,31 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	createImageFrame(res, state, 3);
 
 	imgStr->close();
-	delete imgStr;
-	delete image;
 }
 
 void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, Stream *maskStr, int maskWidth, int maskHeight,
 				   GfxImageColorMap *maskColorMap, GBool maskInterpolate)
 {
 //	qDebug() << "SlaOutputDev::drawSoftMaskedImage Masked Image Components" << colorMap->getNumPixelComps();
-	auto * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
+	auto imgStr = std::make_shared<ImageStream>(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
 	unsigned int *dest = nullptr;
 	unsigned char * buffer = new unsigned char[width * height * 4];
-	QImage * image = nullptr;
 	for (int y = 0; y < height; y++)
 	{
 		dest = (unsigned int *)(buffer + y * 4 * width);
 		Guchar * pix = imgStr->getLine();
 		colorMap->getRGBLine(pix, dest, width);
 	}
-	image = new QImage(buffer, width, height, QImage::Format_RGB32);
-	if (image == nullptr || image->isNull())
+
+	QImage image(buffer, width, height, QImage::Format_RGB32);
+	if (image.isNull())
 	{
-		delete imgStr;
 		delete[] buffer;
-		delete image;
 		return;
 	}
-	auto *mskStr = new ImageStream(maskStr, maskWidth, maskColorMap->getNumPixelComps(), maskColorMap->getBits());
+
+	auto mskStr = std::make_shared<ImageStream>(maskStr, maskWidth, maskColorMap->getNumPixelComps(), maskColorMap->getBits());
 	mskStr->reset();
 	Guchar *mdest = nullptr;
 	unsigned char * mbuffer = new unsigned char[maskWidth * maskHeight];
@@ -2572,8 +2565,8 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 		maskColorMap->getGrayLine(pix, mdest, maskWidth);
 	}
 	if ((maskWidth != width) || (maskHeight != height))
-		*image = image->scaled(maskWidth, maskHeight, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-	QImage res = image->convertToFormat(QImage::Format_ARGB32);
+		image = image.scaled(maskWidth, maskHeight, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+	QImage res = image.convertToFormat(QImage::Format_ARGB32);
 
 	int matteRc, matteGc, matteBc;
 	POPPLER_CONST_070 GfxColor *matteColor = maskColorMap->getMatteColor();
@@ -2611,36 +2604,32 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 
 	createImageFrame(res, state, 3);
 
-	delete imgStr;
 	delete[] buffer;
-	delete image;
-	delete mskStr;
 	delete[] mbuffer;
 }
 
 void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  int width, int height, GfxImageColorMap *colorMap, GBool interpolate, Stream *maskStr, int maskWidth, int maskHeight, GBool maskInvert, GBool maskInterpolate)
 {
 //	qDebug() << "SlaOutputDev::drawMaskedImage";
-	auto* imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
+	auto imgStr = std::make_shared<ImageStream>(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
 	unsigned int *dest = nullptr;
 	unsigned char * buffer = new unsigned char[width * height * 4];
-	QImage * image = nullptr;
 	for (int y = 0; y < height; y++)
 	{
 		dest = (unsigned int *)(buffer + y * 4 * width);
 		Guchar * pix = imgStr->getLine();
 		colorMap->getRGBLine(pix, dest, width);
 	}
-	image = new QImage(buffer, width, height, QImage::Format_RGB32);
-	if (image == nullptr || image->isNull())
+
+	QImage image(buffer, width, height, QImage::Format_RGB32);
+	if (image.isNull())
 	{
-		delete imgStr;
 		delete[] buffer;
-		delete image;
 		return;
 	}
-	auto *mskStr = new ImageStream(maskStr, maskWidth, 1, 1);
+
+	auto mskStr = std::make_shared<ImageStream>(maskStr, maskWidth, 1, 1);
 	mskStr->reset();
 	Guchar *mdest = nullptr;
 	int invert_bit = maskInvert ? 1 : 0;
@@ -2659,8 +2648,8 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 		}
 	}
 	if ((maskWidth != width) || (maskHeight != height))
-		*image = image->scaled(maskWidth, maskHeight, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-	QImage res = image->convertToFormat(QImage::Format_ARGB32);
+		image = image.scaled(maskWidth, maskHeight, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+	QImage res = image.convertToFormat(QImage::Format_ARGB32);
 	unsigned char cc, cm, cy, ck;
 	int s = 0;
 	for (int yi = 0; yi < res.height(); ++yi)
@@ -2680,25 +2669,24 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 
 	createImageFrame(res, state, colorMap->getNumPixelComps());
 
-	delete imgStr;
 	delete[] buffer;
-	delete image;
-	delete mskStr;
 	delete[] mbuffer;
 }
 
 void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, POPPLER_CONST_082 int* maskColors, GBool inlineImg)
 {
-	auto * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
-//	qDebug() << "SlaOutputDev::drawImage Image Components" << colorMap->getNumPixelComps() << "Mask" << maskColors;
+	auto imgStr = std::make_shared<ImageStream>(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
-	QImage* image = nullptr;
+
+	QImage image(width, height, QImage::Format_ARGB32);
+	if (image.isNull())
+		return;
+
 	if (maskColors)
 	{
-		image = new QImage(width, height, QImage::Format_ARGB32);
 		for (int y = 0; y < height; y++)
 		{
-			QRgb *s = (QRgb*)(image->scanLine(y));
+			QRgb *s = (QRgb*)(image.scanLine(y));
 			Guchar *pix = imgStr->getLine();
 			for (int x = 0; x < width; x++)
 			{
@@ -2723,10 +2711,9 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	}
 	else
 	{
-		image = new QImage(width, height, QImage::Format_ARGB32);
 		for (int y = 0; y < height; y++)
 		{
-			QRgb *s = (QRgb*)(image->scanLine(y));
+			QRgb *s = (QRgb*)(image.scanLine(y));
 			Guchar *pix = imgStr->getLine();
 			for (int x = 0; x < width; x++)
 			{
@@ -2755,12 +2742,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 		}
 	}
 
-	if (image != nullptr && !image->isNull()) {
-		createImageFrame(*image, state, colorMap->getNumPixelComps());
-	}
-
-	delete imgStr;
-	delete image;
+	createImageFrame(image, state, colorMap->getNumPixelComps());
 }
 
 void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColorComponents)
@@ -2924,9 +2906,6 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Object *dictRef)
 	{
 		if (dictRef->isNull())
 			return;
-		Object dictObj;
-		Dict *dict;
-		Object dictType;
 		OCGs *contentConfig = m_catalog->getOptContentConfig();
 		OptionalContentGroup *oc;
 		if (dictRef->isRef())
@@ -2941,11 +2920,11 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Object *dictRef)
 		}
 		else
 		{
-			dictObj = dictRef->fetch(m_xref);
+			Object dictObj = dictRef->fetch(m_xref);
 			if (!dictObj.isDict())
 				return;
-			dict = dictObj.getDict();
-			dictType = dict->lookup("Type");
+			Dict* dict = dictObj.getDict();
+			Object dictType = dict->lookup("Type");
 			if (dictType.isName("OCG"))
 			{
 				oc = contentConfig->findOcgByRef(dictRef->getRef());
