@@ -216,7 +216,7 @@ QString AnoOutputDev::getColor(GfxColorSpace *color_space, POPPLER_CONST_070 Gfx
 	}
 	else if (color_space->getMode() == csSeparation)
 	{
-		GfxSeparationColorSpace* sepColorSpace = (GfxSeparationColorSpace*) color_space;
+		auto* sepColorSpace = (GfxSeparationColorSpace*) color_space;
 		GfxColorSpace* altColorSpace = sepColorSpace->getAlt();
 		QString name(sepColorSpace->getName()->getCString());
 		bool isRegistrationColor = (name == "All");
@@ -358,7 +358,7 @@ LinkAction* SlaOutputDev::SC_getAdditionalAction(const char *key, AnnotWidget *a
 
 GBool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 {
-	SlaOutputDev *dev = (SlaOutputDev*) user_data;
+	auto *dev = (SlaOutputDev*) user_data;
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 	const PDFRectangle& annotRect = annota->getRect();
 	const PDFRectangle* box = &annotRect;
@@ -396,7 +396,7 @@ GBool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 
 bool SlaOutputDev::handleTextAnnot(Annot* annota, double xCoor, double yCoor, double width, double height)
 {
-	AnnotText *anl = (AnnotText*) annota;
+	auto *anl = (AnnotText*) annota;
 	int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CommonStrings::None, CommonStrings::None);
 	PageItem *ite = m_doc->Items->at(z);
 	int flg = annota->getFlags();
@@ -448,7 +448,7 @@ bool SlaOutputDev::handleTextAnnot(Annot* annota, double xCoor, double yCoor, do
 
 bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, double width, double height)
 {
-	AnnotLink *anl = (AnnotLink*) annota;
+	auto *anl = (AnnotLink*) annota;
 	LinkAction *act = anl->getAction();
 	if (!act)
 		return false;
@@ -459,7 +459,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 	QString fileName;
 	if (act->getKind() == actionGoTo)
 	{
-		LinkGoTo *gto = (LinkGoTo*) act;
+		auto *gto = (LinkGoTo*) act;
 		POPPLER_CONST LinkDest *dst = gto->getDest();
 		if (dst)
 		{
@@ -513,7 +513,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 	}
 	else if (act->getKind() == actionGoToR)
 	{
-		LinkGoToR *gto = (LinkGoToR*) act;
+		auto *gto = (LinkGoToR*) act;
 		fileName = UnicodeParsedString(gto->getFileName());
 		POPPLER_CONST LinkDest *dst = gto->getDest();
 		if (dst)
@@ -548,7 +548,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 	}
 	else if (act->getKind() == actionURI)
 	{
-		LinkURI *gto = (LinkURI*) act;
+		auto *gto = (LinkURI*) act;
 		validLink = true;
 		fileName = UnicodeParsedString(gto->getURI());
 	}
@@ -621,7 +621,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 		int wtyp = -1;
 		if (fm->getType() == formButton)
 		{
-			FormWidgetButton *btn = (FormWidgetButton*) fm;
+			auto *btn = (FormWidgetButton*) fm;
 			if (btn)
 			{
 				if (btn->getButtonType() == formButtonCheck)
@@ -648,7 +648,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 		}
 		else if (fm->getType() == formChoice)
 		{
-			FormWidgetChoice *btn = (FormWidgetChoice*) fm;
+			auto *btn = (FormWidgetChoice*) fm;
 			if (btn)
 			{
 				if (btn->isCombo())
@@ -700,12 +700,12 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			AnnotAppearance *apa = annota->getAppearStreams();
 			if (apa || !achar)
 			{
-				AnoOutputDev *annotOutDev = new AnoOutputDev(m_doc, m_importedColors);
+				auto *annotOutDev = new AnoOutputDev(m_doc, m_importedColors);
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 				const PDFRectangle& annotaRect = annota->getRect();
-				Gfx* gfx = new Gfx(m_pdfDoc, annotOutDev, m_pdfDoc->getPage(m_actPage)->getResourceDict(), &annotaRect, nullptr);
+				auto* gfx = new Gfx(m_pdfDoc, annotOutDev, m_pdfDoc->getPage(m_actPage)->getResourceDict(), &annotaRect, nullptr);
 #else
-				Gfx *gfx = new Gfx(m_pdfDoc, annotOutDev, m_pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), nullptr);
+				auto* gfx = new Gfx(m_pdfDoc, annotOutDev, m_pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), nullptr);
 #endif
 				ano->draw(gfx, false);
 				if (!bgFound)
@@ -794,14 +794,14 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 					ite->itemText.insertChars(itemText);
 				applyTextStyle(ite, fontName, currTextColor, fontSize);
 				ite->annotation().addToFlag(Annotation::Flag_PushButton);
-				FormWidgetButton *btn = (FormWidgetButton*) fm;
+				auto *btn = (FormWidgetButton*) fm;
 				if (!btn->isReadOnly())
 					ite->annotation().addToFlag(Annotation::Flag_Edit);
 				handleActions(ite, ano);
 			}
 			else if (wtyp == Annotation::Textfield)
 			{
-				FormWidgetText *btn = (FormWidgetText*) fm;
+				auto *btn = (FormWidgetText*) fm;
 				if (btn)
 				{
 					ite->itemText.insertChars(UnicodeParsedString(btn->getContent()));
@@ -827,7 +827,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			}
 			else if (wtyp == Annotation::Checkbox)
 			{
-				FormWidgetButton *btn = (FormWidgetButton*) fm;
+				auto *btn = (FormWidgetButton*) fm;
 				if (btn)
 				{
 					ite->annotation().setIsChk(btn->getState());
@@ -853,7 +853,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			}
 			else if ((wtyp == Annotation::Combobox) || (wtyp == Annotation::Listbox))
 			{
-				FormWidgetChoice *btn = (FormWidgetChoice*) fm;
+				auto *btn = (FormWidgetChoice*) fm;
 				if (btn)
 				{
 					if (wtyp == 5)
@@ -876,7 +876,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			}
 			else if (wtyp == Annotation::RadioButton)
 			{
-				FormWidgetButton *btn = (FormWidgetButton*) fm;
+				auto *btn = (FormWidgetButton*) fm;
 				if (btn)
 				{
 					ite->setItemName( CommonStrings::itemName_RadioButton + QString("%1").arg(m_doc->TotalItems));
@@ -964,7 +964,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 	{
 		if (Lact->getKind() == actionJavaScript)
 		{
-			LinkJavaScript *jsa = (LinkJavaScript*) Lact;
+			auto *jsa = (LinkJavaScript*) Lact;
 			if (jsa->isOk())
 			{
 				ite->annotation().setActionType(1);
@@ -976,7 +976,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			int pagNum = 0;
 			int xco = 0;
 			int yco = 0;
-			LinkGoTo *gto = (LinkGoTo*) Lact;
+			auto *gto = (LinkGoTo*) Lact;
 			POPPLER_CONST LinkDest *dst = gto->getDest();
 			if (dst)
 			{
@@ -1037,7 +1037,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			int pagNum = 0;
 			int xco = 0;
 			int yco = 0;
-			LinkGoToR *gto = (LinkGoToR*) Lact;
+			auto *gto = (LinkGoToR*) Lact;
 			QString fileName = UnicodeParsedString(gto->getFileName());
 			POPPLER_CONST LinkDest *dst = gto->getDest();
 			if (dst)
@@ -1078,7 +1078,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		}
 		else if (Lact->getKind() == actionUnknown)
 		{
-			LinkUnknown *uno = (LinkUnknown*) Lact;
+			auto *uno = (LinkUnknown*) Lact;
 			QString actString = UnicodeParsedString(uno->getAction());
 			if (actString == "ResetForm")
 			{
@@ -1091,7 +1091,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 				{
 					if (actString == "ImportData")
 					{
-						LinkImportData *impo = (LinkImportData*) scact;
+						auto *impo = (LinkImportData*) scact;
 						if (impo->isOk())
 						{
 							ite->annotation().setActionType(5);
@@ -1100,7 +1100,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 					}
 					else if (actString == "SubmitForm")
 					{
-						LinkSubmitForm *impo = (LinkSubmitForm*) scact;
+						auto *impo = (LinkSubmitForm*) scact;
 						if (impo->isOk())
 						{
 							ite->annotation().setActionType(3);
@@ -1121,7 +1121,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		}
 		else if (Lact->getKind() == actionNamed)
 		{
-			LinkNamed *uno = (LinkNamed*) Lact;
+			auto *uno = (LinkNamed*) Lact;
 			ite->annotation().setActionType(10);
 			ite->annotation().setAction(UnicodeParsedString(uno->getName()));
 		}
@@ -1134,9 +1134,9 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		if (Aact->getKind() == actionJavaScript)
 		{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
+			auto *jsa = (LinkJavaScript*) Aact.get();
 #else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
+			auto *jsa = (LinkJavaScript*) Aact;
 #endif
 			if (jsa->isOk())
 			{
@@ -1156,9 +1156,9 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		if (Aact->getKind() == actionJavaScript)
 		{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
+			auto *jsa = (LinkJavaScript*) Aact.get();
 #else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
+			auto *jsa = (LinkJavaScript*) Aact;
 #endif
 			if (jsa->isOk())
 			{
@@ -1178,9 +1178,9 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		if (Aact->getKind() == actionJavaScript)
 		{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
+			auto *jsa = (LinkJavaScript*) Aact.get();
 #else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
+			auto *jsa = (LinkJavaScript*) Aact;
 #endif
 			if (jsa->isOk())
 			{
@@ -1200,9 +1200,9 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		if (Aact->getKind() == actionJavaScript)
 		{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
+			auto *jsa = (LinkJavaScript*) Aact.get();
 #else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
+			auto *jsa = (LinkJavaScript*) Aact;
 #endif
 			if (jsa->isOk())
 			{
@@ -1222,9 +1222,9 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		if (Aact->getKind() == actionJavaScript)
 		{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
+			auto *jsa = (LinkJavaScript*) Aact.get();
 #else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
+			auto *jsa = (LinkJavaScript*) Aact;
 #endif
 			if (jsa->isOk())
 			{
@@ -1244,9 +1244,9 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		if (Aact->getKind() == actionJavaScript)
 		{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
+			auto *jsa = (LinkJavaScript*) Aact.get();
 #else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
+			auto *jsa = (LinkJavaScript*) Aact;
 #endif
 			if (jsa->isOk())
 			{
@@ -1266,9 +1266,9 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		if (Aact->getKind() == actionJavaScript)
 		{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
+			auto *jsa = (LinkJavaScript*) Aact.get();
 #else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
+			autoz*jsa = (LinkJavaScript*) Aact;
 #endif
 			if (jsa->isOk())
 			{
@@ -1289,9 +1289,9 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		if (Aact->getKind() == actionJavaScript)
 		{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
+			auto *jsa = (LinkJavaScript*) Aact.get();
 #else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
+			auto *jsa = (LinkJavaScript*) Aact;
 #endif
 			if (jsa->isOk())
 			{
@@ -1312,9 +1312,9 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		if (Aact->getKind() == actionJavaScript)
 		{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact.get();
+			auto *jsa = (LinkJavaScript*) Aact.get();
 #else
-			LinkJavaScript *jsa = (LinkJavaScript*) Aact;
+			auto *jsa = (LinkJavaScript*) Aact;
 #endif
 			if (jsa->isOk())
 			{
@@ -1830,7 +1830,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	if (func->getType() == 3)
 #endif
 	{
-		StitchingFunction *stitchingFunc = (StitchingFunction*) func;
+		auto *stitchingFunc = (StitchingFunction*) func;
 		const double *bounds = stitchingFunc->getBounds();
 		int num_funcs = stitchingFunc->getNumFuncs();
 		double domain_min = stitchingFunc->getDomainMin(0);
@@ -1972,7 +1972,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	if (func->getType() == 3)
 #endif
 	{
-		StitchingFunction *stitchingFunc = (StitchingFunction*) func;
+		auto *stitchingFunc = (StitchingFunction*) func;
 		const double *bounds = stitchingFunc->getBounds();
 		int num_funcs = stitchingFunc->getNumFuncs();
 		double domain_min = stitchingFunc->getDomainMin(0);
@@ -2461,19 +2461,12 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, GBool invert, GBool interpolate, GBool inlineImg)
 {
 //	qDebug() << "Draw Image Mask";
-	QImage * image = nullptr;
-	int invert_bit;
-	int row_stride;
-	int x, y, i, bit;
-	unsigned char *dest = nullptr;
-	unsigned char *buffer;
-	Guchar *pix;
-	ImageStream * imgStr = new ImageStream(str, width, 1, 1);
+	auto* imgStr = new ImageStream(str, width, 1, 1);
 	imgStr->reset();
 #ifdef WORDS_BIGENDIAN
-	image = new QImage(width, height, QImage::Format_Mono);
+	QImage* image = new QImage(width, height, QImage::Format_Mono);
 #else
-	image = new QImage(width, height, QImage::Format_MonoLSB);
+	QImage* image = new QImage(width, height, QImage::Format_MonoLSB);
 #endif
 	if (image == nullptr || image->isNull())
 	{
@@ -2481,20 +2474,25 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 		delete image;
 		return;
 	}
-	invert_bit = invert ? 1 : 0;
-	buffer = image->bits();
-	row_stride = image->bytesPerLine();
-	for (y = 0; y < height; y++)
+
+	int invertBit = invert ? 1 : 0;
+	unsigned char* buffer = image->bits();
+	unsigned char* dest = nullptr;
+	int rowStride = image->bytesPerLine();
+	int i, bit;
+	Guchar* pix;
+
+	for (int y = 0; y < height; y++)
 	{
 		pix = imgStr->getLine();
-		dest = buffer + y * row_stride;
+		dest = buffer + y * rowStride;
 		i = 0;
 		bit = 0;
-		for (x = 0; x < width; x++)
+		for (int x = 0; x < width; x++)
 		{
 			if (bit == 0)
 				dest[i] = 0;
-			if (!(pix[x] ^ invert_bit))
+			if (!(pix[x] ^ invertBit))
 			{
 #ifdef WORDS_BIGENDIAN
 				dest[i] |= (1 << (7 - bit));
@@ -2520,10 +2518,10 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 		QRgb *t = (QRgb*)(res.scanLine( yi ));
 		for (int xi = 0; xi < res.width(); ++xi)
 		{
-			cc = qRed(*t);
-			cm = qGreen(*t);
-			cy = qBlue(*t);
-			ck = image->pixel(xi, yi);
+			cc = static_cast<unsigned char>( qRed(*t) );
+			cm = static_cast<unsigned char>( qGreen(*t) );
+			cy = static_cast<unsigned char>( qBlue(*t) );
+			ck = static_cast<unsigned char>( image->pixel(xi, yi) );
 			if (ck == 0)
 				(*t) = qRgba(cc, cm, cy, 0);
 			else
@@ -2543,7 +2541,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 				   GfxImageColorMap *maskColorMap, GBool maskInterpolate)
 {
 //	qDebug() << "SlaOutputDev::drawSoftMaskedImage Masked Image Components" << colorMap->getNumPixelComps();
-	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
+	auto * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
 	unsigned int *dest = nullptr;
 	unsigned char * buffer = new unsigned char[width * height * 4];
@@ -2562,7 +2560,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 		delete image;
 		return;
 	}
-	ImageStream *mskStr = new ImageStream(maskStr, maskWidth, maskColorMap->getNumPixelComps(), maskColorMap->getBits());
+	auto *mskStr = new ImageStream(maskStr, maskWidth, maskColorMap->getNumPixelComps(), maskColorMap->getBits());
 	mskStr->reset();
 	Guchar *mdest = nullptr;
 	unsigned char * mbuffer = new unsigned char[maskWidth * maskHeight];
@@ -2595,15 +2593,15 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 		QRgb *t = (QRgb*)(res.scanLine( yi ));
 		for (int xi = 0; xi < res.width(); ++xi)
 		{
-			cr = qRed(*t);
-			cg = qGreen(*t);
-			cb = qBlue(*t);
+			cr = static_cast<unsigned char>( qRed(*t) );
+			cg = static_cast<unsigned char>( qGreen(*t) );
+			cb = static_cast<unsigned char>( qBlue(*t) );
 			ca = mbuffer[s];
 			if (matteColor != nullptr)
 			{
-				cr = unblendMatte(cr, ca, matteRc);
-				cg = unblendMatte(cg, ca, matteGc);
-				cb = unblendMatte(cb, ca, matteBc);
+				cr = static_cast<unsigned char>( unblendMatte(cr, ca, matteRc) );
+				cg = static_cast<unsigned char>( unblendMatte(cg, ca, matteGc) );
+				cb = static_cast<unsigned char>( unblendMatte(cb, ca, matteBc) );
 			}
 			(*t) = qRgba(cr, cg, cb, ca);
 			s++;
@@ -2623,7 +2621,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  int width, int height, GfxImageColorMap *colorMap, GBool interpolate, Stream *maskStr, int maskWidth, int maskHeight, GBool maskInvert, GBool maskInterpolate)
 {
 //	qDebug() << "SlaOutputDev::drawMaskedImage";
-	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
+	auto* imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
 	unsigned int *dest = nullptr;
 	unsigned char * buffer = new unsigned char[width * height * 4];
@@ -2642,7 +2640,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 		delete image;
 		return;
 	}
-	ImageStream *mskStr = new ImageStream(maskStr, maskWidth, 1, 1);
+	auto *mskStr = new ImageStream(maskStr, maskWidth, 1, 1);
 	mskStr->reset();
 	Guchar *mdest = nullptr;
 	int invert_bit = maskInvert ? 1 : 0;
@@ -2670,9 +2668,9 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 		QRgb *t = (QRgb*)(res.scanLine( yi ));
 		for (int xi = 0; xi < res.width(); ++xi)
 		{
-			cc = qRed(*t);
-			cm = qGreen(*t);
-			cy = qBlue(*t);
+			cc = static_cast<unsigned char>( qRed(*t) );
+			cm = static_cast<unsigned char>( qGreen(*t) );
+			cy = static_cast<unsigned char>( qBlue(*t) );
 			ck = mbuffer[s];
 			(*t) = qRgba(cc, cm, cy, ck);
 			s++;
@@ -2691,7 +2689,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 
 void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, POPPLER_CONST_082 int* maskColors, GBool inlineImg)
 {
-	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
+	auto * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 //	qDebug() << "SlaOutputDev::drawImage Image Components" << colorMap->getNumPixelComps() << "Mask" << maskColors;
 	imgStr->reset();
 	QImage* image = nullptr;
@@ -2828,7 +2826,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 
 	if (numColorComponents == 4)
 	{
-		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.tif");
+		auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.tif");
 		tempFile->setAutoRemove(false);
 		if (tempFile->open())
 		{
@@ -2871,7 +2869,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 	}
 	else
 	{
-		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
+		auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
 		tempFile->setAutoRemove(false);
 		if (tempFile->open())
 		{
@@ -2981,9 +2979,9 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties
 			Object obj = properties->lookup("Title");
 			if (obj.isString())
 				lName = QString(obj.getString()->getCString());
-			for (auto it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
+			for (const auto& layer : m_doc->Layers)
 			{
-				if (it->Name == lName)
+				if (layer.Name == lName)
 				{
 					m_doc->setActiveLayer(lName);
 					return;
@@ -3021,23 +3019,21 @@ void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Dict *properties
 
 void SlaOutputDev::endMarkedContent(GfxState *state)
 {
-//	qDebug() << "End Marked Content";
-	if (m_mcStack.count() > 0)
+	if (m_mcStack.isEmpty())
+		return;
+
+	mContent mSte = m_mcStack.pop();
+	if ((m_importerFlags & LoadSavePlugin::lfCreateDoc) == 0)
+		return;
+	if (mSte.name != "OC")
+		return;
+
+	for (const auto& layer : m_doc->Layers)
 	{
-		mContent mSte = m_mcStack.pop();
-		if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
+		if (layer.Name == mSte.ocgName)
 		{
-			if (mSte.name == "OC")
-			{
-				for (auto it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
-				{
-					if (it->Name == mSte.ocgName)
-					{
-						m_doc->setActiveLayer(mSte.ocgName);
-						return;
-					}
-				}
-			}
+			m_doc->setActiveLayer(mSte.ocgName);
+			return;
 		}
 	}
 }
@@ -3580,7 +3576,7 @@ QString SlaOutputDev::getColor(GfxColorSpace *color_space, POPPLER_CONST_070 Gfx
 	}
 	else if (color_space->getMode() == csSeparation)
 	{
-		GfxSeparationColorSpace* sepColorSpace = (GfxSeparationColorSpace*) color_space;
+		auto* sepColorSpace = (GfxSeparationColorSpace*) color_space;
 		GfxColorSpace* altColorSpace = sepColorSpace->getAlt();
 		QString name(sepColorSpace->getName()->getCString());
 		bool isRegistrationColor = (name == "All");
