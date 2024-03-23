@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSignalBlocker>
 
 #include "commonstrings.h"
+#include "iconmanager.h"
 #include "pagestructs.h"
 #include "prefsstructs.h"
 #include "scribusdoc.h"
@@ -23,6 +24,11 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 
 	m_caption = tr("Tables of Contents");
 	m_icon = "tabtocindex_16.png";
+
+	tocStyleUpButton->setIcon(IconManager::instance().loadIcon("16/go-up.png"));
+	tocStyleDownButton->setIcon(IconManager::instance().loadIcon("16/go-down.png"));
+	tocEntryStyleUpButton->setIcon(IconManager::instance().loadIcon("16/go-up.png"));
+	tocEntryStyleDownButton->setIcon(IconManager::instance().loadIcon("16/go-down.png"));
 
 	itemDestFrameComboBox->setMaximumWidth(fontMetrics().horizontalAdvance( "This is a very long Name" ));
 	itemAttrComboBox->setMaximumWidth(fontMetrics().horizontalAdvance( "This is a very long Name" ));
@@ -46,6 +52,11 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	connect(deleteStyleButton, SIGNAL(clicked()), this, SLOT(removeStyleClicked()));
 	connect(addStyleTOCButton, SIGNAL(clicked()), this, SLOT(addStyleTOCClicked()));
 	connect(deleteStyleTOCButton, SIGNAL(clicked()), this, SLOT(removeStyleTOCClicked()));
+	connect(tocStyleUpButton, SIGNAL(clicked()), this, SLOT(tocStyleMoveUp()));
+	connect(tocStyleDownButton, SIGNAL(clicked()), this, SLOT(tocStyleMoveDown()));
+	connect(tocEntryStyleUpButton, SIGNAL(clicked()), this, SLOT(tocEntryStyleMoveUp()));
+	connect(tocEntryStyleDownButton, SIGNAL(clicked()), this, SLOT(tocEntryStyleMoveDown()));
+
 
 	itemToCSource->setEnabled(false);
 	itemAttrComboBox->setEnabled(false);
@@ -290,8 +301,6 @@ void Prefs_TableOfContents::updateParagraphStyleComboBox()
 void Prefs_TableOfContents::updateDocParagraphStyleComboBox()
 {
 	QStringList stylesList;
-	paragraphStyleComboBox->clear();
-	paragraphStyleComboBox->addItem( CommonStrings::trDefaultParagraphStyle );
 	for (int i = 0; i < m_Doc->paragraphStyles().count(); ++i)
 	{
 		const ParagraphStyle &paraStyle = m_Doc->paragraphStyles()[i];
@@ -299,7 +308,11 @@ void Prefs_TableOfContents::updateDocParagraphStyleComboBox()
 			stylesList.append(paraStyle.name());
 	}
 	stylesList.sort();
+	paragraphStyleComboBox->clear();
+	paragraphStyleComboBox->addItem(CommonStrings::trDefaultParagraphStyle);
 	paragraphStyleComboBox->addItems(stylesList);
+	paragraphStyleTOCComboBox->clear();
+	paragraphStyleTOCComboBox->addItem(CommonStrings::trDefaultParagraphStyle);
 	paragraphStyleTOCComboBox->addItems(stylesList);
 }
 void Prefs_TableOfContents::enableGUIWidgets()
@@ -559,7 +572,7 @@ void Prefs_TableOfContents::styleListUpdate()
 	(*it).styleListToFind.clear();
 	for (int i = 0; i < styleListWidget->count(); i++)
 		(*it).styleListToFind.append(styleListWidget->item(i)->text());
-	deleteStyleButton->setEnabled(styleListWidget->count());
+	deleteStyleButton->setEnabled(styleListWidget->count() != 0);
 }
 
 void Prefs_TableOfContents::styleListTOCUpdate()
@@ -614,4 +627,48 @@ void Prefs_TableOfContents::removeStyleTOCClicked()
 void Prefs_TableOfContents::tocListWidgetItemEdited(QListWidgetItem* qlwi)
 {
 	setToCName(qlwi->text());
+}
+
+void Prefs_TableOfContents::tocStyleMoveUp()
+{
+	int curr = styleListWidget->currentRow();
+	if (curr == 0)
+		return;
+	QListWidgetItem *it = styleListWidget->takeItem(curr);
+	styleListWidget->insertItem(curr - 1, it);
+	styleListWidget->setCurrentItem(it);
+	styleListUpdate();
+}
+
+void Prefs_TableOfContents::tocStyleMoveDown()
+{
+	int curr = styleListWidget->currentRow();
+	if (curr == styleListWidget->count() - 1)
+		return;
+	QListWidgetItem *it = styleListWidget->takeItem(curr);
+	styleListWidget->insertItem(curr + 1, it);
+	styleListWidget->setCurrentItem(it);
+	styleListUpdate();
+}
+
+void Prefs_TableOfContents::tocEntryStyleMoveUp()
+{
+	int curr = styleListTOCWidget->currentRow();
+	if (curr == 0)
+		return;
+	QListWidgetItem *it = styleListTOCWidget->takeItem(curr);
+	styleListTOCWidget->insertItem(curr - 1, it);
+	styleListTOCWidget->setCurrentItem(it);
+	styleListTOCUpdate();
+}
+
+void Prefs_TableOfContents::tocEntryStyleMoveDown()
+{
+	int curr = styleListTOCWidget->currentRow();
+	if (curr == styleListTOCWidget->count() - 1)
+		return;
+	QListWidgetItem *it = styleListTOCWidget->takeItem(curr);
+	styleListTOCWidget->insertItem(curr + 1, it);
+	styleListTOCWidget->setCurrentItem(it);
+	styleListTOCUpdate();
 }

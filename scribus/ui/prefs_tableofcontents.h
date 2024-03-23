@@ -61,7 +61,12 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 		void removeStyleClicked();
 		void addStyleTOCClicked();
 		void removeStyleTOCClicked();
-		void tocListWidgetItemEdited(QListWidgetItem* qlwi);
+		void tocListWidgetItemEdited(QListWidgetItem *qlwi);
+		void tocStyleMoveUp();
+		void tocStyleMoveDown();
+		void tocEntryStyleMoveUp();
+		void tocEntryStyleMoveDown();
+
 
 	protected:
 		int numSelected { 999 };
