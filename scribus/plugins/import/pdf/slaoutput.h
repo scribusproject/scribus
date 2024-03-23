@@ -409,11 +409,7 @@ private:
 	Catalog *m_catalog {nullptr};
 	SplashFontEngine *m_fontEngine {nullptr};
 	SplashFont *m_font {nullptr};
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 4, 0)
 	std::unique_ptr<FormPageWidgets> m_formWidgets;
-#else
-	FormPageWidgets *m_formWidgets {nullptr};
-#endif
 	QHash<QString, QList<int> > m_radioMap;
 	QHash<int, PageItem*> m_radioButtons;
 	int m_actPage { 1 };
