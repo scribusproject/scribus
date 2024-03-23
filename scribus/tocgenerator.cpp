@@ -221,8 +221,12 @@ void TOCGenerator::generateByStyle()
 													  QChar('0'));
 					QString key = QString("%1,%2,%3").arg(pageID, tocID, sectionID);
 					QString paraText = item->itemText.text(pstart, pend - pstart);
-					// if (tocSetupIt->removeLineBreaks)
-					// 	paraText.remove("\n");
+					if (tocSetupIt->removeLineBreaks)
+					{
+						paraText.remove(SpecialChars::COLBREAK);
+						paraText.remove(SpecialChars::LINEBREAK);
+						paraText.remove(SpecialChars::FRAMEBREAK);
+					}
 					tocMap.insert(key, paraText);
 					int styleIndex = tocSetupIt->styleListToFind.indexOf(pname);
 					if (styleIndex < tocSetupIt->styleListForTOC.count())

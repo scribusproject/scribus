@@ -304,7 +304,7 @@ void Prefs_Guides::moveUp()
 void Prefs_Guides::moveDown()
 {
 	int curr = guidePlacementListBox->currentRow();
-	if (curr == static_cast<int>(guidePlacementListBox->count()) - 1)
+	if (curr == guidePlacementListBox->count() - 1)
 		return;
 	QListWidgetItem *it = guidePlacementListBox->takeItem(curr);
 	guidePlacementListBox->insertItem(curr + 1, it);

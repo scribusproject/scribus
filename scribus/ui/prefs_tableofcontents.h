@@ -66,6 +66,8 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 		void tocStyleMoveDown();
 		void tocEntryStyleMoveUp();
 		void tocEntryStyleMoveDown();
+		void styleListWidgetClicked();
+		void styleListTOCWidgetClicked();
 
 
 	protected:

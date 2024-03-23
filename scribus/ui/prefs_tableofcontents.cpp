@@ -48,6 +48,8 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	connect(removeLineBreaksCheckBox, SIGNAL(toggled(bool)), this, SLOT(removeLineBreaksSelected(bool)));
 	connect(styleListWidget, SIGNAL(itemChanged(QListWidgetItem *)), this, SLOT(styleListUpdate()));
 	connect(styleListTOCWidget, SIGNAL(itemChanged(QListWidgetItem *)), this, SLOT(styleListTOCUpdate()));
+	connect(styleListWidget, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(styleListWidgetClicked()));
+	connect(styleListTOCWidget, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(styleListTOCWidgetClicked()));
 	connect(addStyleButton, SIGNAL(clicked()), this, SLOT(addStyleClicked()));
 	connect(deleteStyleButton, SIGNAL(clicked()), this, SLOT(removeStyleClicked()));
 	connect(addStyleTOCButton, SIGNAL(clicked()), this, SLOT(addStyleTOCClicked()));
@@ -344,6 +346,10 @@ void Prefs_TableOfContents::enableGUIWidgets()
 	deleteStyleButton->setEnabled(isStyle && (styleListWidget->count() > 0));
 	addStyleTOCButton->setEnabled(isStyle);
 	deleteStyleTOCButton->setEnabled(isStyle && (styleListTOCWidget->count() > 0));
+	tocStyleUpButton->setEnabled(isStyle);
+	tocStyleDownButton->setEnabled(isStyle);
+	tocEntryStyleUpButton->setEnabled(isStyle);
+	tocEntryStyleDownButton->setEnabled(isStyle);
 }
 
 
@@ -671,4 +677,14 @@ void Prefs_TableOfContents::tocEntryStyleMoveDown()
 	styleListTOCWidget->insertItem(curr + 1, it);
 	styleListTOCWidget->setCurrentItem(it);
 	styleListTOCUpdate();
+}
+
+void Prefs_TableOfContents::styleListWidgetClicked()
+{
+	deleteStyleButton->setEnabled(true);
+}
+
+void Prefs_TableOfContents::styleListTOCWidgetClicked()
+{
+	deleteStyleTOCButton->setEnabled(true);
 }

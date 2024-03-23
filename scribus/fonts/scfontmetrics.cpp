@@ -79,7 +79,7 @@ int setBestEncoding(FT_Face face)
 	FT_ULong dbgInfo = 0;
 
 	FT_Load_Sfnt_Table( face, FT_MAKE_TAG('p','o','s','t'), 0, nullptr, &dbgInfo );
-	qDebug() << "setBestEncoding for " << FT_Get_Postscript_Name(face) << " with " << face->num_glyphs << "glyphs, hasNames=" << FT_HAS_GLYPH_NAMES(face) << ", POST size=" << dbgInfo ;
+	// qDebug() << "setBestEncoding for " << FT_Get_Postscript_Name(face) << " with " << face->num_glyphs << "glyphs, hasNames=" << FT_HAS_GLYPH_NAMES(face) << ", POST size=" << dbgInfo ;
 	
 	for (int i = 0; i < face->num_charmaps; i++)
 	{
