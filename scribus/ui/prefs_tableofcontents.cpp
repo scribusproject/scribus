@@ -302,6 +302,8 @@ void Prefs_TableOfContents::updateParagraphStyleComboBox()
 
 void Prefs_TableOfContents::updateDocParagraphStyleComboBox()
 {
+	if (m_Doc != nullptr)
+		return;
 	QStringList stylesList;
 	for (int i = 0; i < m_Doc->paragraphStyles().count(); ++i)
 	{
