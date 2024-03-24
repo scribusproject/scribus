@@ -27,6 +27,16 @@ typedef QList<ObjectAttribute> ObjAttrVector;
 
 typedef enum {Beginning, End, NotShown} TOCPageLocation;
 
+
+struct ToCSetupEntryStyleData
+{
+	QString styleToFind; //Style we'll search for
+	QString styleForText; //Style we'll set on the TOC entry
+	// QString styleForNumber; //Character style for page numbers
+	bool removeLineBreaks; //Remove line breaks if they are in the text of the TOC entry
+	TOCPageLocation pageLocation; //Place the page number for the TOC at the beginning, end or not at all
+};
+
 struct ToCSetup
 {
 	QString name; //Name of ToC
@@ -35,13 +45,12 @@ struct ToCSetup
 	QString frameName; //Destination frame
 	TOCPageLocation pageLocation; //Place the page number for the TOC at the beginning, end or not at all
 	bool listNonPrintingFrames; //List non printing frames in the TOC
-	bool removeLineBreaks; //Remove line breaks if they are in the text of the TOC entry
 	QString textStyle; //Paragraph style for text
 	QStringList styleListToFind; //If the ToC is based on styles, this is the list of styles we'll search for
 	QStringList styleListForTOC; //If the ToC is based on styles, this is the list of styles we'll set on the TOC entries
-	//QString leaderParaStyle; //Paragraph style for leaders
-	//QString pageNumberParaStyle; //Paragraph style for page numbers
+	QList<ToCSetupEntryStyleData> entryData;
 };
+
 
 typedef QList<ToCSetup> ToCSetupVector;
 

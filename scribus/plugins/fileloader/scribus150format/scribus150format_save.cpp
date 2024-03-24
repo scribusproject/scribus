@@ -1374,7 +1374,6 @@ void Scribus150Format::writeTOC(ScXmlStreamWriter & docu)
 		docu.writeAttribute("ItemAttributeName", tocSetupIt->itemAttrName);
 		docu.writeAttribute("FrameName", tocSetupIt->frameName);
 		docu.writeAttribute("ListNonPrinting", tocSetupIt->listNonPrintingFrames);
-		docu.writeAttribute("RemoveLineBreaks", tocSetupIt->removeLineBreaks);
 		docu.writeAttribute("Style", tocSetupIt->textStyle);
 		switch (tocSetupIt->pageLocation)
 		{
@@ -1390,19 +1389,25 @@ void Scribus150Format::writeTOC(ScXmlStreamWriter & docu)
 		}
 		if (tocSetupIt->tocSource == "Style")
 		{
-			QStringList::Iterator tocStyleListIterator = tocSetupIt->styleListToFind.begin();
-			QStringList::Iterator tocStyleListTOCIterator = tocSetupIt->styleListForTOC.begin();
-			for (; tocStyleListIterator != tocSetupIt->styleListToFind.end()
-				   && tocStyleListTOCIterator != tocSetupIt->styleListForTOC.end();
-				 ++tocStyleListIterator, ++tocStyleListTOCIterator)
+			for (QList<ToCSetupEntryStyleData>::Iterator tocEntryIterator = tocSetupIt->entryData.begin();
+				 tocEntryIterator != tocSetupIt->entryData.end(); ++tocEntryIterator)
 			{
-				if ((*tocStyleListIterator).isEmpty())
-					continue;
-				if ((*tocStyleListTOCIterator).isEmpty())
-					continue;
 				docu.writeEmptyElement("StyleInTOC");
-				docu.writeAttribute("StyleName", (*tocStyleListIterator));
-				docu.writeAttribute("TOCStyle", (*tocStyleListTOCIterator));
+				docu.writeAttribute("StyleName", (*tocEntryIterator).styleToFind);
+				docu.writeAttribute("TOCStyle", (*tocEntryIterator).styleForText);
+				docu.writeAttribute("RemoveLineBreaks", (*tocEntryIterator).removeLineBreaks);
+				switch ((*tocEntryIterator).pageLocation)
+				{
+					case Beginning:
+						docu.writeAttribute("NumberPlacement", "Beginning");
+						break;
+					case End:
+						docu.writeAttribute("NumberPlacement", "End");
+						break;
+					case NotShown:
+						docu.writeAttribute("NumberPlacement", "NotShown");
+						break;
+				}
 			}
 		}
 		docu.writeEndElement();

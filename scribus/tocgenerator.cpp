@@ -165,8 +165,8 @@ void TOCGenerator::generateByStyle()
 
 	bool listNonPrintingFrames = false;
 
-	const ToCSetupVector &tocSetups = m_doc->tocSetups();
-	for (auto tocSetupIt = tocSetups.cbegin(); tocSetupIt != tocSetups.cend(); ++tocSetupIt)
+	ToCSetupVector &tocSetups = m_doc->tocSetups();
+	for (auto tocSetupIt = tocSetups.begin(); tocSetupIt != tocSetups.end(); ++tocSetupIt)
 	{
 		if (tocSetupIt->tocSource == "Attribute")
 			continue;
@@ -177,6 +177,7 @@ void TOCGenerator::generateByStyle()
 		PageItem *item;
 		QMap<QString, QString> tocMap;
 		QMap<QString, QString> styleMap;
+		QMap<QString, TOCPageLocation> pageLocationMap;
 
 		std::unique_ptr<int[]> pageCounter(new int[m_doc->DocPages.count()]);
 		for (int i = 0; i < m_doc->DocPages.count(); ++i)
@@ -213,26 +214,21 @@ void TOCGenerator::generateByStyle()
 				int pstart = item->itemText.startOfParagraph(pno);
 				int pend = item->itemText.endOfParagraph(pno);
 				QString pname(item->itemText.paragraphStyle(i).parentStyle()->name());
-				if (tocSetupIt->styleListToFind.contains(pname))
+				for (QList<ToCSetupEntryStyleData>::Iterator tocEntryIterator = tocSetupIt->entryData.begin(); tocEntryIterator != tocSetupIt->entryData.end(); ++tocEntryIterator)
 				{
-					QString tocID = QString("%1").arg(pageCounter[item->OwnPage]++,
-													  3,
-													  10,
-													  QChar('0'));
-					QString key = QString("%1,%2,%3").arg(pageID, tocID, sectionID);
-					QString paraText = item->itemText.text(pstart, pend - pstart);
-					if (tocSetupIt->removeLineBreaks)
+					if ((*tocEntryIterator).styleToFind == pname)
 					{
+						QString tocID = QString("%1").arg(pageCounter[item->OwnPage]++, 3, 10, QChar('0'));
+						QString key = QString("%1,%2,%3").arg(pageID, tocID, sectionID);
+						QString paraText = item->itemText.text(pstart, pend - pstart);
+						if ((*tocEntryIterator).removeLineBreaks)
+							paraText.remove(SpecialChars::LINEBREAK);
 						paraText.remove(SpecialChars::COLBREAK);
-						paraText.remove(SpecialChars::LINEBREAK);
 						paraText.remove(SpecialChars::FRAMEBREAK);
+						tocMap.insert(key, paraText);
+						styleMap.insert(key, (*tocEntryIterator).styleForText);
+						pageLocationMap.insert(key, (*tocEntryIterator).pageLocation);
 					}
-					tocMap.insert(key, paraText);
-					int styleIndex = tocSetupIt->styleListToFind.indexOf(pname);
-					if (styleIndex < tocSetupIt->styleListForTOC.count())
-						styleMap.insert(key, tocSetupIt->styleListForTOC[styleIndex]);
-					else
-						styleMap.insert(key, tocSetupIt->textStyle);
 				}
 				i = item->itemText.nextParagraph(i) + 1;
 			}
@@ -245,16 +241,17 @@ void TOCGenerator::generateByStyle()
 			QString tocPage(tocIt.key().section(',', 2, 2).trimmed());
 			QString tocLine;
 			//Start with text or numbers
-			if (tocSetupIt->pageLocation == End || tocSetupIt->pageLocation == NotShown)
+			TOCPageLocation tpl = pageLocationMap.value(tocIt.key());
+			if (tpl == End || tpl == NotShown)
 				tocLine = tocIt.value();
-			if (tocSetupIt->pageLocation == Beginning && oldTocPage != tocPage)
+			if (tpl == Beginning && oldTocPage != tocPage)
 				tocLine = tocPage;
 			//Add in the tab for the leaders
 			tocLine += "\t";
 			//End with text or numbers
-			if (tocSetupIt->pageLocation == Beginning)
+			if (tpl == Beginning)
 				tocLine += tocIt.value();
-			if (tocSetupIt->pageLocation == End && oldTocPage != tocPage)
+			if (tpl == End && oldTocPage != tocPage)
 				tocLine += tocPage;
 			tocLine += "\n";
 

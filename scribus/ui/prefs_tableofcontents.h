@@ -54,20 +54,16 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 		virtual void itemParagraphStyleSelected( const QString & itemStyle );
 		virtual void setToCName( const QString & newName );
 		void nonPrintingFramesSelected(bool showNonPrinting);
-		void removeLineBreaksSelected(bool removeLineBreaks);
 		void styleListUpdate();
-		void styleListTOCUpdate();
 		void addStyleClicked();
 		void removeStyleClicked();
-		void addStyleTOCClicked();
-		void removeStyleTOCClicked();
 		void tocListWidgetItemEdited(QListWidgetItem *qlwi);
 		void tocStyleMoveUp();
 		void tocStyleMoveDown();
-		void tocEntryStyleMoveUp();
-		void tocEntryStyleMoveDown();
 		void styleListWidgetClicked();
-		void styleListTOCWidgetClicked();
+		void tocEntryParagraphStyleSelected(const QString& style);
+		void tocEntryPageNumberPlacedSelected(const QString& pageLocation);
+		void tocEntryRemoveLineBreaksSelected(bool removeLineBreaks);
 
 
 	protected:

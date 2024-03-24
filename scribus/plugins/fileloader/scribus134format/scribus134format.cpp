@@ -1805,7 +1805,6 @@ bool Scribus134Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 			tocsetup.frameName    = attrs.valueAsString("FrameName");
 			tocsetup.textStyle    = attrs.valueAsString("Style");
 			tocsetup.listNonPrintingFrames = QVariant(attrs.valueAsString("ListNonPrinting")).toBool();
-			tocsetup.removeLineBreaks = false;
 			QString numberPlacement = attrs.valueAsString("NumberPlacement");
 			if (numberPlacement == "Beginning")
 				tocsetup.pageLocation = Beginning;

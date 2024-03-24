@@ -752,7 +752,6 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						tocsetup.itemAttrName = tocElem.attribute("ItemAttributeName");
 						tocsetup.frameName = tocElem.attribute("FrameName");
 						tocsetup.listNonPrintingFrames = QVariant(tocElem.attribute("ListNonPrinting")).toBool();
-						tocsetup.removeLineBreaks = false;
 						tocsetup.textStyle = tocElem.attribute("Style");
 						QString numberPlacement = tocElem.attribute("NumberPlacement");
 						if (numberPlacement == "Beginning")
