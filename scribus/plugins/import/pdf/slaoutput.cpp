@@ -3051,7 +3051,9 @@ void SlaOutputDev::updateFont(GfxState *state)
 	SplashFontFile *fontFile;
 	SplashFontSrc *fontsrc = nullptr;
 	Object refObj, strObj;
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(22, 4, 0)
 	int tmpBufLen = 0;
+#endif
 	int *codeToGID = nullptr;
 	const double *textMat = nullptr;
 	double m11, m12, m21, m22, fontSize;
