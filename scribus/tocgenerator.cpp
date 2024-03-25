@@ -163,7 +163,57 @@ void TOCGenerator::generateByStyle()
 		return;
 	Q_ASSERT(!m_doc->masterPageMode());
 
-	bool listNonPrintingFrames = false;
+	struct ItemPosInfo
+	{
+		PageItem* item;
+		double xPos; // Absolute x position in document
+		double yPos; // Absolute y position in document
+	};
+
+	// Collect all text frames including those placed inside groups;
+	QVector<ItemPosInfo> allTextFramePos;
+	allTextFramePos.reserve(100);
+
+	QStack<QList<PageItem*> > itemsStack;
+	itemsStack.push(m_doc->DocItems);
+
+	while (!itemsStack.isEmpty())
+	{
+		QList<PageItem*> itemList = itemsStack.pop();
+		for (int i = 0; i < itemList.count(); ++i)
+		{
+			PageItem* item = itemList.at(i);
+			if (item->isGroup())
+			{
+				itemsStack.push(item->asGroupFrame()->groupItemList);
+				continue;
+			}
+			if (!item->isTextFrame())
+				continue;
+
+			ItemPosInfo itemPos { item, item->xPos(), item->yPos() };
+			if (item->Parent)
+			{
+				QTransform itemTrans = item->getTransform();
+				QPointF itemPoint = itemTrans.map(QPointF(0.0, 0.0));
+				itemPos.xPos = itemPoint.x();
+				itemPos.yPos = itemPoint.y();
+			}
+			allTextFramePos.append(itemPos);
+		}
+	}
+
+	// Start items by y position, x ascending
+	// Note : this will have to be changed once we support document binding on the right
+	std::stable_sort(allTextFramePos.begin(), allTextFramePos.end(), [](const ItemPosInfo & pos1, const ItemPosInfo & pos2) -> bool
+					 {
+						 if (pos1.yPos < pos2.yPos)
+							 return true;
+						 if (pos1.yPos == pos2.yPos)
+							 return (pos1.xPos < pos2.xPos);
+						 return false;
+					 });
+
 
 	ToCSetupVector &tocSetups = m_doc->tocSetups();
 	for (auto tocSetupIt = tocSetups.begin(); tocSetupIt != tocSetups.end(); ++tocSetupIt)
@@ -174,7 +224,6 @@ void TOCGenerator::generateByStyle()
 		if (tocFrame == nullptr)
 			continue;
 		tocFrame->clearContents();
-		PageItem *item;
 		QMap<QString, QString> tocMap;
 		QMap<QString, QString> styleMap;
 		QMap<QString, TOCPageLocation> pageLocationMap;
@@ -188,9 +237,10 @@ void TOCGenerator::generateByStyle()
 		writer.setUpdateParagraphStyles(false);
 		writer.setOverridePStyleFont(false);
 		int pageNumberWidth = QString("%1").arg(m_doc->DocPages.count()).length();
-		for (PageItemIterator itemIter(m_doc->DocItems); *itemIter; ++itemIter)
+		for (int j = 0; j < allTextFramePos.count(); ++j)
 		{
-			item = itemIter.current();
+			PageItem* item = allTextFramePos.at(j).item;
+
 			if (item == nullptr)
 				continue;
 			if (item->itemType() != PageItem::TextFrame)
@@ -201,7 +251,7 @@ void TOCGenerator::generateByStyle()
 			if (item->OwnPage == -1)
 				continue;
 			//If we don't want to list non printing frames and this one is set to not print, continue
-			if (!listNonPrintingFrames && !item->printEnabled())
+			if (!tocSetupIt->listNonPrintingFrames && !item->printEnabled())
 				continue;
 			//get the frame text
 			StoryText story = item->itemText;
@@ -214,7 +264,8 @@ void TOCGenerator::generateByStyle()
 				int pstart = item->itemText.startOfParagraph(pno);
 				int pend = item->itemText.endOfParagraph(pno);
 				QString pname(item->itemText.paragraphStyle(i).parentStyle()->name());
-				for (QList<ToCSetupEntryStyleData>::Iterator tocEntryIterator = tocSetupIt->entryData.begin(); tocEntryIterator != tocSetupIt->entryData.end(); ++tocEntryIterator)
+				for (QList<ToCSetupEntryStyleData>::Iterator tocEntryIterator = tocSetupIt->entryData.begin();
+					 tocEntryIterator != tocSetupIt->entryData.end(); ++tocEntryIterator)
 				{
 					if ((*tocEntryIterator).styleToFind == pname)
 					{
