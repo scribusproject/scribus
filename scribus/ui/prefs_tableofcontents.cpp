@@ -63,6 +63,9 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	paragraphStyleComboBox->setEnabled(false);
 	addStyleButton->setEnabled(false);
 	deleteStyleButton->setEnabled(false);
+	tocEntryStyleComboBox->setEnabled(false);
+	tocEntryNumberPlacementComboBox->setEnabled(false);
+
 
 	setCurrentComboItem(itemNumberPlacementComboBox, trStrPNEnd);
 }
@@ -294,8 +297,6 @@ void Prefs_TableOfContents::updateParagraphStyleComboBox()
 	}
 	itemParagraphStyleComboBox->clear();
 	itemParagraphStyleComboBox->addItems(paragraphStyleList);
-	tocEntryStyleComboBox->clear();
-	tocEntryStyleComboBox->addItems(paragraphStyleList);
 }
 
 void Prefs_TableOfContents::updateDocParagraphStyleComboBox()
@@ -308,6 +309,9 @@ void Prefs_TableOfContents::updateDocParagraphStyleComboBox()
 			stylesList.append(paraStyle.name());
 	}
 	stylesList.sort();
+	tocEntryStyleComboBox->clear();
+	tocEntryStyleComboBox->addItem(CommonStrings::trDefaultParagraphStyle);
+	tocEntryStyleComboBox->addItems(stylesList);
 	paragraphStyleComboBox->clear();
 	paragraphStyleComboBox->addItem(CommonStrings::trDefaultParagraphStyle);
 	paragraphStyleComboBox->addItems(stylesList);
@@ -316,6 +320,7 @@ void Prefs_TableOfContents::enableGUIWidgets()
 {
 	bool tocExists = (localToCSetupVector.count() > 0);
 	tocListBox->setEnabled(tocExists);
+
 
 	bool haveTocSelected = (tocExists && (tocListBox->currentRow() >=0));
 	tocDeleteButton->setEnabled(haveTocSelected);
@@ -327,7 +332,7 @@ void Prefs_TableOfContents::enableGUIWidgets()
 
 	int i = itemToCSource->currentIndex();
 	bool isStyle = (haveTocSelected && (i == 0));
-
+	stackedWidget->setCurrentIndex(i);
 	itemAttrComboBox->setEnabled(haveDoc && !isStyle);
 	itemNumberPlacementComboBox->setEnabled(haveDoc && !isStyle);
 	itemParagraphStyleComboBox->setEnabled(haveDoc && !isStyle);
@@ -337,9 +342,9 @@ void Prefs_TableOfContents::enableGUIWidgets()
 	deleteStyleButton->setEnabled(isStyle && (styleListWidget->count() > 0));
 	tocStyleUpButton->setEnabled(isStyle);
 	tocStyleDownButton->setEnabled(isStyle);
-	tocEntryStyleComboBox->setEnabled(isStyle);
-	tocEntryNumberPlacementComboBox->setEnabled(isStyle);
-	tocEntryRemoveLineBreaksCheckBox->setEnabled(isStyle);
+	tocEntryStyleComboBox->setEnabled(isStyle && styleListWidget->currentItem() != nullptr);
+	tocEntryNumberPlacementComboBox->setEnabled(isStyle && styleListWidget->currentItem() != nullptr);
+	tocEntryRemoveLineBreaksCheckBox->setEnabled(isStyle && styleListWidget->currentItem() != nullptr);
 }
 
 
@@ -637,6 +642,10 @@ void Prefs_TableOfContents::styleListWidgetClicked()
 	else
 		setCurrentComboItem(tocEntryNumberPlacementComboBox, trStrPNEnd);
 	tocEntryRemoveLineBreaksCheckBox->setChecked(localToCSetupVector[numSelected].entryData[curr].removeLineBreaks);
+	bool isStyle = (itemToCSource->currentIndex() == 0);
+	tocEntryStyleComboBox->setEnabled(isStyle);
+	tocEntryNumberPlacementComboBox->setEnabled(isStyle);
+	tocEntryRemoveLineBreaksCheckBox->setEnabled(isStyle);
 	deleteStyleButton->setEnabled(true);
 }
 
