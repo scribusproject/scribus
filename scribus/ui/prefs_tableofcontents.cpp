@@ -35,14 +35,14 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 
 	// signals and slots connections
 	//do not connect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
-	connect( tocAddButton, SIGNAL( clicked() ), this, SLOT( addToC() ) );
-	connect( tocDeleteButton, SIGNAL( clicked() ), this, SLOT( deleteToC() ) );
-	connect( itemToCSource, SIGNAL(currentTextChanged(QString)), this, SLOT(tocSourceSelected(QString)));
-	connect( itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)));
-	connect( itemDestFrameComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemFrameSelected(QString)));
-	connect( itemParagraphStyleComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemParagraphStyleSelected(QString)));
-	connect( itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
-	connect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool)));
+	connect(tocAddButton, SIGNAL(clicked()), this, SLOT(addToC()));
+	connect(tocDeleteButton, SIGNAL(clicked()), this, SLOT(deleteToC()));
+	connect(itemToCSource, SIGNAL(currentTextChanged(QString)), this, SLOT(tocSourceSelected(QString)));
+	connect(itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)));
+	connect(itemDestFrameComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemFrameSelected(QString)));
+	connect(itemParagraphStyleComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemParagraphStyleSelected(QString)));
+	connect(itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
+	connect(itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool)));
 	connect(styleListWidget, SIGNAL(itemChanged(QListWidgetItem *)), this, SLOT(styleListUpdate()));
 	connect(styleListWidget, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(styleListWidgetClicked()));
 	connect(addStyleButton, SIGNAL(clicked()), this, SLOT(addStyleClicked()));
@@ -367,8 +367,8 @@ void Prefs_TableOfContents::addToC()
 	disconnect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
 	disconnect( tocListBox, SIGNAL( itemChanged(QListWidgetItem*) ), this, SLOT( tocListWidgetItemEdited(QListWidgetItem*)));
 	updateToCListBox();
-	if (localToCSetupVector.count() == 1) //reinit parastyles if we are adding the first TOC
-		updateParagraphStyleComboBox();
+	updateParagraphStyleComboBox();
+	updateDocParagraphStyleComboBox();
 	tocListBox->setCurrentRow(localToCSetupVector.count() - 1);
 	selectToC(localToCSetupVector.count() - 1);
 	enableGUIWidgets();

@@ -240,42 +240,46 @@ void TOCGenerator::generateByStyle()
 		for (int j = 0; j < allTextFramePos.count(); ++j)
 		{
 			PageItem* item = allTextFramePos.at(j).item;
-
+			//If the item doesn't exist, of it not a text frame, or if the name is the same as the TOC destination, or its not on a page continue.
 			if (item == nullptr)
 				continue;
 			if (item->itemType() != PageItem::TextFrame)
 				continue;
 			if (item->itemName() == tocSetupIt->frameName)
 				continue;
-			//Item not on a page, continue
 			if (item->OwnPage == -1)
 				continue;
 			//If we don't want to list non printing frames and this one is set to not print, continue
 			if (!tocSetupIt->listNonPrintingFrames && !item->printEnabled())
 				continue;
-			//get the frame text
-			StoryText story = item->itemText;
-			QString pageID = QString("%1").arg(item->OwnPage + m_doc->FirstPnum, pageNumberWidth);
-			QString sectionID = m_doc->getSectionPageNumberForPageIndex(item->OwnPage);
 			int i = item->firstInFrame();
 			while (i <= item->lastInFrame())
 			{
 				int pno = item->itemText.nrOfParagraph(i);
 				int pstart = item->itemText.startOfParagraph(pno);
 				int pend = item->itemText.endOfParagraph(pno);
+				QString paraText = item->itemText.text(pstart, pend - pstart);
+				//If the index is already the last in the frame and its a frame break, move to the next paragraph and continue
+				//Frame break Scribus goodness!
+				if (i == item->lastInFrame() && paraText.startsWith(SpecialChars::FRAMEBREAK))
+				{
+					i = item->itemText.nextParagraph(i) + 1;
+					continue;
+				}
 				QString pname(item->itemText.paragraphStyle(i).parentStyle()->name());
+				QString pageID = QString("%1").arg(item->OwnPage + m_doc->FirstPnum, pageNumberWidth);
+				QString sectionID = m_doc->getSectionPageNumberForPageIndex(item->OwnPage);
+				QString tocID = QString("%1").arg(pageCounter[item->OwnPage]++, 3, 10, QChar('0'));
+				QString key = QString("%1,%2,%3").arg(pageID, tocID, sectionID);
+				paraText.remove(SpecialChars::COLBREAK);
+				paraText.remove(SpecialChars::FRAMEBREAK);
 				for (QList<ToCSetupEntryStyleData>::Iterator tocEntryIterator = tocSetupIt->entryData.begin();
 					 tocEntryIterator != tocSetupIt->entryData.end(); ++tocEntryIterator)
 				{
 					if ((*tocEntryIterator).styleToFind == pname)
 					{
-						QString tocID = QString("%1").arg(pageCounter[item->OwnPage]++, 3, 10, QChar('0'));
-						QString key = QString("%1,%2,%3").arg(pageID, tocID, sectionID);
-						QString paraText = item->itemText.text(pstart, pend - pstart);
 						if ((*tocEntryIterator).removeLineBreaks)
 							paraText.remove(SpecialChars::LINEBREAK);
-						paraText.remove(SpecialChars::COLBREAK);
-						paraText.remove(SpecialChars::FRAMEBREAK);
 						tocMap.insert(key, paraText);
 						styleMap.insert(key, (*tocEntryIterator).styleForText);
 						pageLocationMap.insert(key, (*tocEntryIterator).pageLocation);
