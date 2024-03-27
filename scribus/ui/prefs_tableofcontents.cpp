@@ -119,27 +119,29 @@ void Prefs_TableOfContents::languageChange()
 	strTOCSrcAttribute = "Attribute";
 	trStrTOCSrcAttribute = tr("Attribute");
 
-	disconnect(itemToCSource, SIGNAL(currentTextChanged(QString)), this, SLOT(tocSourceSelected(QString)));
+	QSignalBlocker sigBlocker1(itemToCSource);
+	QSignalBlocker sigBlocker2(itemNumberPlacementComboBox);
+	QSignalBlocker sigBlocker3(tocEntryNumberPlacementComboBox);
+
 	int i = itemToCSource->currentIndex();
 	itemToCSource->clear();
 	itemToCSource->addItem(trStrTOCSrcStyle);
 	itemToCSource->addItem(trStrTOCSrcAttribute);
 	itemToCSource->setCurrentIndex(i);
-	connect(itemToCSource, SIGNAL(currentTextChanged(QString)), this, SLOT(tocSourceSelected(QString)));
 
-	disconnect(itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
 	i = itemNumberPlacementComboBox->currentIndex();
 	itemNumberPlacementComboBox->clear();
 	itemNumberPlacementComboBox->addItem(trStrPNEnd);
 	itemNumberPlacementComboBox->addItem(trStrPNBeginning);
 	itemNumberPlacementComboBox->addItem(trStrPNNotShown);
 	itemNumberPlacementComboBox->setCurrentIndex(i);
-	connect(itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
+
+	i = tocEntryNumberPlacementComboBox->currentIndex();
 	tocEntryNumberPlacementComboBox->clear();
 	tocEntryNumberPlacementComboBox->addItem(trStrPNEnd);
 	tocEntryNumberPlacementComboBox->addItem(trStrPNBeginning);
 	tocEntryNumberPlacementComboBox->addItem(trStrPNNotShown);
-	tocEntryNumberPlacementComboBox->setCurrentIndex(0);
+	tocEntryNumberPlacementComboBox->setCurrentIndex(i);
 }
 
 void Prefs_TableOfContents::destroy()
@@ -176,7 +178,7 @@ void Prefs_TableOfContents::generatePageItemList()
 
 void Prefs_TableOfContents::setupItemAttrs(const QStringList& newNames)
 {
-	disconnect(itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)));
+	QSignalBlocker sigBlocker1(itemAttrComboBox);
 	itemAttrComboBox->clear();
 	itemAttrComboBox->addItem(CommonStrings::tr_None);
 	itemAttrComboBox->addItems(newNames);
@@ -187,19 +189,17 @@ void Prefs_TableOfContents::setupItemAttrs(const QStringList& newNames)
 		else
 			setCurrentComboItem(itemAttrComboBox, localToCSetupVector[numSelected].itemAttrName);
 	}
-	connect(itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)));
 }
 
 void Prefs_TableOfContents::selectToC(int numberSelected)
 {
-	disconnect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
-	disconnect( tocListBox, SIGNAL( itemChanged(QListWidgetItem*) ), this, SLOT( tocListWidgetItemEdited(QListWidgetItem*)));
-	disconnect( itemToCSource, SIGNAL(currentTextChanged(QString)), this, SLOT(tocSourceSelected(QString)));
-	disconnect( itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)) );
-	disconnect( itemDestFrameComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemFrameSelected(QString)) );
-	disconnect( itemParagraphStyleComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemParagraphStyleSelected(QString)));
-	disconnect( itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
-	disconnect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
+	QSignalBlocker sigBlocker1(tocListBox);
+	QSignalBlocker sigBlocker2(itemToCSource);
+	QSignalBlocker sigBlocker3(itemAttrComboBox);
+	QSignalBlocker sigBlocker4(itemDestFrameComboBox);
+	QSignalBlocker sigBlocker5(itemParagraphStyleComboBox);
+	QSignalBlocker sigBlocker6(itemNumberPlacementComboBox);
+	QSignalBlocker sigBlocker7(itemListNonPrintingCheckBox);
 
 	numSelected = numberSelected;
 	if (numSelected < 0)
@@ -256,15 +256,6 @@ void Prefs_TableOfContents::selectToC(int numberSelected)
 			styleListWidget->addItem((*tocEntryIterator).styleToFind);
 		}
 	}
-
-	connect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
-	connect( tocListBox, SIGNAL( itemChanged(QListWidgetItem*) ), this, SLOT( tocListWidgetItemEdited(QListWidgetItem*)));
-	connect( itemToCSource, SIGNAL(currentTextChanged(QString)), this, SLOT(tocSourceSelected(QString)));
-	connect( itemAttrComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemAttributeSelected(QString)) );
-	connect( itemDestFrameComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemFrameSelected(QString)) );
-	connect( itemParagraphStyleComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemParagraphStyleSelected(QString)));
-	connect( itemNumberPlacementComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemPageNumberPlacedSelected(QString)));
-	connect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
 }
 
 
@@ -364,16 +355,13 @@ void Prefs_TableOfContents::addToC()
 	newToCEntry.pageLocation = End;
 	newToCEntry.listNonPrintingFrames = false;
 	localToCSetupVector.append(newToCEntry);
-	disconnect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
-	disconnect( tocListBox, SIGNAL( itemChanged(QListWidgetItem*) ), this, SLOT( tocListWidgetItemEdited(QListWidgetItem*)));
+	QSignalBlocker sigBlocker1(tocListBox);
 	updateToCListBox();
 	updateParagraphStyleComboBox();
 	updateDocParagraphStyleComboBox();
 	tocListBox->setCurrentRow(localToCSetupVector.count() - 1);
 	selectToC(localToCSetupVector.count() - 1);
 	enableGUIWidgets();
-	connect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
-	connect( tocListBox, SIGNAL( itemChanged(QListWidgetItem*) ), this, SLOT( tocListWidgetItemEdited(QListWidgetItem*)));
 }
 
 
