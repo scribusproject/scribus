@@ -205,15 +205,14 @@ void TOCGenerator::generateByStyle()
 
 	// Start items by y position, x ascending
 	// Note : this will have to be changed once we support document binding on the right
-	std::stable_sort(allTextFramePos.begin(), allTextFramePos.end(), [](const ItemPosInfo & pos1, const ItemPosInfo & pos2) -> bool
-					 {
-						 if (pos1.yPos < pos2.yPos)
-							 return true;
-						 if (pos1.yPos == pos2.yPos)
-							 return (pos1.xPos < pos2.xPos);
-						 return false;
-					 });
-
+	std::stable_sort(allTextFramePos.begin(), allTextFramePos.end(), [](const ItemPosInfo &pos1, const ItemPosInfo &pos2) -> bool
+	{
+		if (pos1.yPos < pos2.yPos)
+			return true;
+		if (pos1.yPos == pos2.yPos)
+			return (pos1.xPos < pos2.xPos);
+		return false;
+	});
 
 	ToCSetupVector &tocSetups = m_doc->tocSetups();
 	for (auto tocSetupIt = tocSetups.begin(); tocSetupIt != tocSetups.end(); ++tocSetupIt)
@@ -255,11 +254,23 @@ void TOCGenerator::generateByStyle()
 			int i = item->firstInFrame();
 			while (i <= item->lastInFrame())
 			{
-				int pno = item->itemText.nrOfParagraph(i);
-				int pstart = item->itemText.startOfParagraph(pno);
-				int pend = item->itemText.endOfParagraph(pno);
-				QString paraText = item->itemText.text(pstart, pend - pstart);
-				//If the index is already the last in the frame and its a frame break, move to the next paragraph and continue
+				int para_no = item->itemText.nrOfParagraph(i);
+				int para_start = item->itemText.startOfParagraph(para_no);
+				int para_end = item->itemText.endOfParagraph(para_no);
+				//Empty paragraph, continue
+				if (para_start == para_end)
+				{
+					i = item->itemText.nextParagraph(i);
+					continue;
+				}
+				QString paraText = item->itemText.text(para_start, para_end - para_start);
+				//Paragraph starts before this frame, eg paragraph wrapped into next frame in chain but is not caused by a FRAMEBREAK, continue
+				if (para_start < item->firstInFrame() && !paraText.startsWith(SpecialChars::FRAMEBREAK))
+				{
+					i = item->itemText.nextParagraph(i);
+					continue;
+				}
+				//If the index is already the last in the frame and its a frame break, move to the next paragraph, continue
 				//Frame break Scribus goodness!
 				if (i == item->lastInFrame() && paraText.startsWith(SpecialChars::FRAMEBREAK))
 				{
@@ -285,7 +296,20 @@ void TOCGenerator::generateByStyle()
 						pageLocationMap.insert(key, (*tocEntryIterator).pageLocation);
 					}
 				}
-				i = item->itemText.nextParagraph(i) + 1;
+				//Go looking for when the next paragraph is following a paragraph break within text.
+				int j = item->itemText.nextParagraph(i);
+				if (j < item->lastInFrame())
+				{
+					int pno = item->itemText.nrOfParagraph(j);
+					int pstart = item->itemText.startOfParagraph(pno);
+					int pend = item->itemText.endOfParagraph(pno);
+					if ((para_start != pstart) && (para_end != pend))
+					{
+						i = j;
+						continue;
+					}
+				}
+				i = j + 1;
 			}
 		}
 		QString oldTocPage;
