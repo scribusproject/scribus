@@ -83,7 +83,7 @@ void TOCGenerator::generateByAttribute()
 		const PageItem *currentDocItem;
 		QMap<QString, QString> tocMap;
 
-		std::unique_ptr<int[]> pageCounter(new int[m_doc->DocPages.count()]);
+		auto pageCounter = std::make_unique<int[]>(m_doc->DocPages.count());
 		for (int i = 0; i < m_doc->DocPages.count(); ++i)
 			pageCounter[i] = 0;
 
@@ -227,7 +227,7 @@ void TOCGenerator::generateByStyle()
 		QMap<QString, QString> styleMap;
 		QMap<QString, TOCPageLocation> pageLocationMap;
 
-		std::unique_ptr<int[]> pageCounter(new int[m_doc->DocPages.count()]);
+		auto pageCounter = std::make_unique<int[]>(m_doc->DocPages.count());
 		for (int i = 0; i < m_doc->DocPages.count(); ++i)
 			pageCounter[i] = 0;
 
