@@ -52,7 +52,7 @@ Prefs_DocumentInformation::Prefs_DocumentInformation(QWidget* parent, ScribusDoc
 
 	QStringList countries;
 	for (const QLocale &locale : allLocales)
-		countries << QLocale::countryToString(locale.country());
+		countries << QLocale::territoryToString(locale.territory());
 	countries.sort();
 	countries.removeDuplicates();
 	coverageLineEdit->addItem("Worldwide");
