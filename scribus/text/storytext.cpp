@@ -1762,6 +1762,14 @@ int StoryText::startOfParagraph(uint index) const
 	return length();
 }
 
+int StoryText::startOfNextParagraph(uint index) const
+{
+	if (d->at(index)->ch == SpecialChars::PARSEP)
+		return index + 1;
+
+	return nextParagraph(index) + 1;
+}
+
 int StoryText::endOfParagraph() const
 {
 	return endOfParagraph(nrOfParagraph());
@@ -1915,7 +1923,7 @@ int StoryText::prevSentence(int pos)
 	return pos;
 }
 
-int StoryText::nextParagraph(int pos)
+int StoryText::nextParagraph(int pos) const
 {
 	int len = length();
 	pos = qMin(len, pos + 1);
@@ -1924,7 +1932,7 @@ int StoryText::nextParagraph(int pos)
 	return pos;
 }
 
-int StoryText::prevParagraph(int pos)
+int StoryText::prevParagraph(int pos) const
 {
 	pos = qMax(0, pos - 1);
 	while (pos > 0 && text(pos) != SpecialChars::PARSEP)

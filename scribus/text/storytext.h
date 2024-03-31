@@ -221,6 +221,7 @@ public:
 	uint nrOfParagraphs() const;
 	int startOfParagraph() const;
 	int startOfParagraph(uint index) const;
+	int startOfNextParagraph(uint index) const;
 	int endOfParagraph() const;
 	int endOfParagraph(uint index) const;
 	uint nrOfParagraph() const;
@@ -240,8 +241,8 @@ public:
 	int nextSentence(int pos);
 	int prevSentence(int pos);
 	int endOfSentence(int pos) const;
-	int nextParagraph(int pos);
-	int prevParagraph(int pos);
+	int nextParagraph(int pos) const;
+	int prevParagraph(int pos) const;
 
 // these need valid layout:
 
