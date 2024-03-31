@@ -56,14 +56,14 @@ class D2<Interval> {
   private:
     Interval f[2];
   public:
-    D2<Interval>() { f[X] = f[Y] = Interval(0, 0); }
+    D2() { f[X] = f[Y] = Interval(0, 0); }
     
-    D2<Interval>(Interval const &a, Interval const &b) {
+    D2(Interval const &a, Interval const &b) {
         f[X] = a;
         f[Y] = b;
     }
 
-    D2<Interval>(Point const & a, Point const & b) {
+    D2(Point const & a, Point const & b) {
         f[X] = Interval(a[X], b[X]);
         f[Y] = Interval(a[Y], b[Y]);
     }
