@@ -3699,14 +3699,22 @@ bool Scribus150Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 			tocsetup.itemAttrName = attrs.valueAsString("ItemAttributeName");
 			tocsetup.frameName    = attrs.valueAsString("FrameName");
 			tocsetup.textStyle    = attrs.valueAsString("Style");
-			tocsetup.listNonPrintingFrames = QVariant(attrs.valueAsString("ListNonPrinting")).toBool();
-			QString numberPlacement(attrs.valueAsString("NumberPlacement"));
-			if (numberPlacement == "Beginning")
-				tocsetup.pageLocation = Beginning;
-			if (numberPlacement == "End")
+			if (attrs.hasAttribute("ListNonPrinting"))
+				tocsetup.listNonPrintingFrames = QVariant(attrs.valueAsString("ListNonPrinting")).toBool();
+			else
+				tocsetup.listNonPrintingFrames = false;
+			if (attrs.hasAttribute("NumberPlacement"))
+			{
+				QString numberPlacement(attrs.valueAsString("NumberPlacement"));
+				if (numberPlacement == "Beginning")
+					tocsetup.pageLocation = Beginning;
+				if (numberPlacement == "End")
+					tocsetup.pageLocation = End;
+				if (numberPlacement == "NotShown")
+					tocsetup.pageLocation = NotShown;
+			}
+			else
 				tocsetup.pageLocation = End;
-			if (numberPlacement == "NotShown")
-				tocsetup.pageLocation = NotShown;
 		}
 		if (reader.isStartElement() && tagName == QLatin1String("StyleInTOC"))
 		{
@@ -3714,13 +3722,18 @@ bool Scribus150Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 			entryData.styleToFind = attrs.valueAsString("StyleName");
 			entryData.styleForText = attrs.valueAsString("TOCStyle");
 			entryData.removeLineBreaks = QVariant(attrs.valueAsString("RemoveLineBreaks")).toBool();
-			QString numberPlacement(attrs.valueAsString("NumberPlacement"));
-			if (numberPlacement == "Beginning")
-				entryData.pageLocation = Beginning;
-			if (numberPlacement == "End")
+			if (attrs.hasAttribute("NumberPlacement"))
+			{
+				QString numberPlacement(attrs.valueAsString("NumberPlacement"));
+				if (numberPlacement == "Beginning")
+					entryData.pageLocation = Beginning;
+				if (numberPlacement == "End")
+					entryData.pageLocation = End;
+				if (numberPlacement == "NotShown")
+					entryData.pageLocation = NotShown;
+			}
+			else
 				entryData.pageLocation = End;
-			if (numberPlacement == "NotShown")
-				entryData.pageLocation = NotShown;
 			tocsetup.entryData.append(entryData);
 		}
 		if (reader.isEndElement() && tagName == QLatin1String("TableOfContents"))
