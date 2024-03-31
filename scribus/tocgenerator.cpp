@@ -257,26 +257,35 @@ void TOCGenerator::generateByStyle()
 				int para_no = item->itemText.nrOfParagraph(i);
 				int para_start = item->itemText.startOfParagraph(para_no);
 				int para_end = item->itemText.endOfParagraph(para_no);
+				// qDebug() << "Paragraph Text:" << item->itemText.text(para_start, para_end - para_start);
+				// qDebug() << "Paragraph start/end:" << para_start << para_end;
+
 				//Empty paragraph, continue
-				if (para_start == para_end)
+				if (item->itemText.text(i) == SpecialChars::PARSEP)
 				{
-					i = item->itemText.nextParagraph(i);
+					// qDebug() << i << "Empty paragraph, continuing, PARSEP";
+					++i;
 					continue;
 				}
+
 				QString paraText = item->itemText.text(para_start, para_end - para_start);
-				//Paragraph starts before this frame, eg paragraph wrapped into next frame in chain but is not caused by a FRAMEBREAK, continue
+				//Paragraph starts before this frame, eg paragraph wrapped into next frame in chain but is not caused by a FRAMEBREAK, continu
 				if (para_start < item->firstInFrame() && !paraText.startsWith(SpecialChars::FRAMEBREAK))
 				{
+					// qDebug() << "Paragraph starts before this frame and text doesn't start with a frame break, continuing";
 					i = item->itemText.nextParagraph(i);
 					continue;
 				}
-				//If the index is already the last in the frame and its a frame break, move to the next paragraph, continue
+
+				//If the index is already the last in the frame and its a frame break, move to the next paragraph and continue
 				//Frame break Scribus goodness!
 				if (i == item->lastInFrame() && paraText.startsWith(SpecialChars::FRAMEBREAK))
 				{
+					// qDebug() << "Frame break goodness, continuing";
 					i = item->itemText.nextParagraph(i) + 1;
 					continue;
 				}
+
 				QString pname(item->itemText.paragraphStyle(i).parentStyle()->name());
 				QString pageID = QString("%1").arg(item->OwnPage + m_doc->FirstPnum, pageNumberWidth);
 				QString sectionID = m_doc->getSectionPageNumberForPageIndex(item->OwnPage);
@@ -296,20 +305,7 @@ void TOCGenerator::generateByStyle()
 						pageLocationMap.insert(key, (*tocEntryIterator).pageLocation);
 					}
 				}
-				//Go looking for when the next paragraph is following a paragraph break within text.
-				int j = item->itemText.nextParagraph(i);
-				if (j < item->lastInFrame())
-				{
-					int pno = item->itemText.nrOfParagraph(j);
-					int pstart = item->itemText.startOfParagraph(pno);
-					int pend = item->itemText.endOfParagraph(pno);
-					if ((para_start != pstart) && (para_end != pend))
-					{
-						i = j;
-						continue;
-					}
-				}
-				i = j + 1;
+				i = item->itemText.startOfNextParagraph(i);
 			}
 		}
 		QString oldTocPage;
