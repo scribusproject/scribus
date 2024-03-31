@@ -2923,10 +2923,10 @@ void SlaOutputDev::updateFont(GfxState *state)
 	int *codeToGID = nullptr;
 	const double *textMat = nullptr;
 	double m11, m12, m21, m22, fontSize;
-	SplashCoord mat[4];
+	SplashCoord mat[4] = { 1.0, 0.0, 0.0, 1.0 };
 	int n = 0;
 	int faceIndex = 0;
-	SplashCoord matrix[6];
+	SplashCoord matrix[6] = { 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 };
 
 	m_font = nullptr;
 
