@@ -1938,7 +1938,7 @@ void ColorsAndFillsDialog::doSaveDefaults(const QString& name, bool changed)
 	filename.replace(" ", "_");
 	filename  = QDir::toNativeSeparators(ScPaths::userPaletteFilesDir(true)) + filename;
 	filename += ".xml";
-	const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150EXPORT);
+	const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA170EXPORT);
 	if (fmt)
 	{
 		std::unique_ptr<ScribusDoc> s_doc(new ScribusDoc());

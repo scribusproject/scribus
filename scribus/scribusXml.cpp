@@ -213,7 +213,7 @@ QString ScriXmlDoc::writeElem(ScribusDoc *doc, Selection* selection)
 	retImg.save(&buffer, "PNG");
 	QByteArray ba = buffer.buffer().toBase64();
 	buffer.close();
-	const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150EXPORT);
+	const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA170EXPORT);
 	if (fmt)
 	{
 		fmt->setupTargets(doc, nullptr, doc->scMW(), nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));

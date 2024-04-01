@@ -266,7 +266,7 @@ bool FileLoader::saveFile(const QString& fileName, ScribusDoc *doc, QString *sav
 {
 	bool ret = false;
 	QList<FileFormat>::const_iterator it;
-	if (findFormat(FORMATID_SLA150EXPORT, it))
+	if (findFormat(FORMATID_SLA170EXPORT, it))
 	{
 		it->setupTargets(doc, doc->view(), doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 		ret = it->saveFile(fileName);

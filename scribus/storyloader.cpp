@@ -118,7 +118,7 @@ bool StoryLoader::loadStory(const QByteArray& storyData, ScribusDoc& doc, StoryT
 bool StoryLoader::saveStory(QByteArray& storyData, ScribusDoc& doc, StoryText &story, PageItem* item) const
 {
 	QList<FileFormat>::const_iterator it;
-	if (!findFormat(FORMATID_SLA150EXPORT, it))
+	if (!findFormat(FORMATID_SLA170EXPORT, it))
 		return false;
 
 	it->setupTargets(&doc, doc.view(), doc.scMW(), doc.scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
