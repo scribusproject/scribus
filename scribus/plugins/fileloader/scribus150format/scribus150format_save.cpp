@@ -1368,9 +1368,8 @@ void Scribus150Format::writeTOC(ScXmlStreamWriter & docu)
 	docu.writeStartElement("TablesOfContents");
 	for (ToCSetupVector::Iterator tocSetupIt = m_Doc->tocSetups().begin() ; tocSetupIt != m_Doc->tocSetups().end(); ++tocSetupIt )
 	{
-		docu.writeStartElement("TableOfContents");
+		docu.writeEmptyElement("TableOfContents");
 		docu.writeAttribute("Name", tocSetupIt->name);
-		docu.writeAttribute("ToCSource", tocSetupIt->tocSource);
 		docu.writeAttribute("ItemAttributeName", tocSetupIt->itemAttrName);
 		docu.writeAttribute("FrameName", tocSetupIt->frameName);
 		docu.writeAttribute("ListNonPrinting", tocSetupIt->listNonPrintingFrames);
@@ -1387,30 +1386,6 @@ void Scribus150Format::writeTOC(ScXmlStreamWriter & docu)
 				docu.writeAttribute("NumberPlacement", "NotShown");
 				break;
 		}
-		if (tocSetupIt->tocSource == "Style")
-		{
-			for (QList<ToCSetupEntryStyleData>::Iterator tocEntryIterator = tocSetupIt->entryData.begin();
-				 tocEntryIterator != tocSetupIt->entryData.end(); ++tocEntryIterator)
-			{
-				docu.writeEmptyElement("StyleInTOC");
-				docu.writeAttribute("StyleName", (*tocEntryIterator).styleToFind);
-				docu.writeAttribute("TOCStyle", (*tocEntryIterator).styleForText);
-				docu.writeAttribute("RemoveLineBreaks", (*tocEntryIterator).removeLineBreaks);
-				switch ((*tocEntryIterator).pageLocation)
-				{
-					case Beginning:
-						docu.writeAttribute("NumberPlacement", "Beginning");
-						break;
-					case End:
-						docu.writeAttribute("NumberPlacement", "End");
-						break;
-					case NotShown:
-						docu.writeAttribute("NumberPlacement", "NotShown");
-						break;
-				}
-			}
-		}
-		docu.writeEndElement();
 	}
 	docu.writeEndElement();
 }

@@ -78,13 +78,13 @@ Scribus150Format::~Scribus150Format()
 void Scribus150Format::languageChange()
 {
 	FileFormat* fmt = getFormatByID(FORMATID_SLA150IMPORT);
-	fmt->trName = tr("Scribus 1.5.0+ Document");
+	fmt->trName = tr("Scribus 1.5.x-1.6.x Document");
 	fmt->filter = fmt->trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 }
 
 QString Scribus150Format::fullTrName() const
 {
-	return QObject::tr("Scribus 1.5.0+ Support");
+	return QObject::tr("Scribus 1.5.x-1.6.x Support");
 }
 
 const ScActionPlugin::AboutData* Scribus150Format::getAboutData() const
@@ -94,8 +94,8 @@ const ScActionPlugin::AboutData* Scribus150Format::getAboutData() const
 	about->authors = QString::fromUtf8(
 			"Franz Schmid <franz@scribus.info>, "
 			"The Scribus Team");
-	about->shortDescription = tr("Scribus 1.5.0+ File Format Support");
-	about->description = tr("Allows Scribus to read Scribus 1.5.0 and higher formatted files.");
+	about->shortDescription = tr("Scribus 1.5.x-1.6.x File Format Support");
+	about->description = tr("Allows Scribus to read Scribus 1.5.x-1.6.x formatted files.");
 	// about->version
 	// about->releaseDate
 	// about->copyright
@@ -112,7 +112,7 @@ void Scribus150Format::deleteAboutData(const AboutData* about) const
 void Scribus150Format::registerFormats()
 {
 	FileFormat fmt(this);
-	fmt.trName = tr("Scribus 1.5.0+ Document");
+	fmt.trName = tr("Scribus 1.5.x-1.6.x Document");
 	fmt.formatId = FORMATID_SLA150IMPORT;
 	fmt.load = true;
 	fmt.save = true;
@@ -151,11 +151,9 @@ bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & file
 		return false;
 	QRegularExpression regExp150("Version=\"1.5.[0-9]");
 	QRegularExpression regExp160("Version=\"1.6.[0-9]");
-	QRegularExpression regExp170("Version=\"1.7.[0-9]");
 	QRegularExpressionMatch match150 = regExp150.match(docBytes.mid(startElemPos, 64));
 	QRegularExpressionMatch match160 = regExp160.match(docBytes.mid(startElemPos, 64));
-	QRegularExpressionMatch match170 = regExp170.match(docBytes.mid(startElemPos, 64));
-	return match150.hasMatch() || match160.hasMatch() || match170.hasMatch();
+	return match150.hasMatch() || match160.hasMatch();
 }
 
 bool Scribus150Format::paletteSupported(QIODevice* /* file */, const QString & fileName) const
@@ -189,11 +187,9 @@ bool Scribus150Format::storySupported(const QByteArray& storyData) const
 		return false;
 	QRegularExpression regExp150("Version=\"1.5.[0-9]");
 	QRegularExpression regExp160("Version=\"1.6.[0-9]");
-	QRegularExpression regExp170("Version=\"1.7.[0-9]");
 	QRegularExpressionMatch match150 = regExp150.match(storyData.mid(startElemPos, 64));
 	QRegularExpressionMatch match160 = regExp160.match(storyData.mid(startElemPos, 64));
-	QRegularExpressionMatch match170 = regExp170.match(storyData.mid(startElemPos, 64));
-	return match150.hasMatch() || match160.hasMatch() || match170.hasMatch();
+	return match150.hasMatch() || match160.hasMatch();
 }
 
 QIODevice* Scribus150Format::slaReader(const QString & fileName)
@@ -2713,6 +2709,7 @@ bool Scribus150Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader) 
 {
 	struct PageSet pageS;
 	ScXmlStreamAttributes attrs;
+
 	doc->clearPageSets();
 	while (!reader.atEnd() && !reader.hasError())
 	{
@@ -3677,20 +3674,17 @@ bool Scribus150Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader&
 
 bool Scribus150Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader) const
 {
-	ToCSetup tocsetup;
-	ScXmlStreamAttributes attrs;
-	doc->clearTocSetups();
+	QString tagName(reader.nameAsString());
+	m_Doc->clearTocSetups();
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		reader.readNext();
-		QString tagName(reader.nameAsString());
-		if (reader.isStartElement())
-			attrs = reader.attributes();
-		if (reader.isEndElement() && tagName == QLatin1String("TablesOfContents"))
+		if (reader.isEndElement() && reader.name() == tagName)
 			break;
 		if (reader.isStartElement() && reader.name() == QLatin1String("TableOfContents"))
 		{
 			ScXmlStreamAttributes attrs = reader.scAttributes();
+			ToCSetup tocsetup;
 			tocsetup.name = attrs.valueAsString("Name");
 			tocsetup.tocSource = attrs.valueAsString("ToCSource");
 			//Up to 1.6/1.7, only Attributes were used for TOCs
@@ -3699,48 +3693,15 @@ bool Scribus150Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 			tocsetup.itemAttrName = attrs.valueAsString("ItemAttributeName");
 			tocsetup.frameName    = attrs.valueAsString("FrameName");
 			tocsetup.textStyle    = attrs.valueAsString("Style");
-			if (attrs.hasAttribute("ListNonPrinting"))
-				tocsetup.listNonPrintingFrames = QVariant(attrs.valueAsString("ListNonPrinting")).toBool();
-			else
-				tocsetup.listNonPrintingFrames = false;
-			if (attrs.hasAttribute("NumberPlacement"))
-			{
-				QString numberPlacement(attrs.valueAsString("NumberPlacement"));
-				if (numberPlacement == "Beginning")
-					tocsetup.pageLocation = Beginning;
-				if (numberPlacement == "End")
-					tocsetup.pageLocation = End;
-				if (numberPlacement == "NotShown")
-					tocsetup.pageLocation = NotShown;
-			}
-			else
+			tocsetup.listNonPrintingFrames = QVariant(attrs.valueAsString("ListNonPrinting")).toBool();
+			QString numberPlacement(attrs.valueAsString("NumberPlacement"));
+			if (numberPlacement == "Beginning")
+				tocsetup.pageLocation = Beginning;
+			if (numberPlacement == "End")
 				tocsetup.pageLocation = End;
-		}
-		if (reader.isStartElement() && tagName == QLatin1String("StyleInTOC"))
-		{
-			ToCSetupEntryStyleData entryData;
-			entryData.styleToFind = attrs.valueAsString("StyleName");
-			entryData.styleForText = attrs.valueAsString("TOCStyle");
-			entryData.removeLineBreaks = QVariant(attrs.valueAsString("RemoveLineBreaks")).toBool();
-			if (attrs.hasAttribute("NumberPlacement"))
-			{
-				QString numberPlacement(attrs.valueAsString("NumberPlacement"));
-				if (numberPlacement == "Beginning")
-					entryData.pageLocation = Beginning;
-				if (numberPlacement == "End")
-					entryData.pageLocation = End;
-				if (numberPlacement == "NotShown")
-					entryData.pageLocation = NotShown;
-			}
-			else
-				entryData.pageLocation = End;
-			tocsetup.entryData.append(entryData);
-		}
-		if (reader.isEndElement() && tagName == QLatin1String("TableOfContents"))
-		{
+			if (numberPlacement == "NotShown")
+				tocsetup.pageLocation = NotShown;
 			doc->appendToTocSetups(tocsetup);
-			tocsetup.styleListToFind.clear();
-			tocsetup.styleListForTOC.clear();
 		}
 	}
 	return !reader.hasError();
