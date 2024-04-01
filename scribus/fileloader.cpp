@@ -55,6 +55,7 @@ FileLoader::FileLoader(const QString & fileName) :
 	formatSLA13x(LoadSavePlugin::getFormatById(FORMATID_SLA13XIMPORT)),
 	formatSLA134(LoadSavePlugin::getFormatById(FORMATID_SLA134IMPORT)),
 	formatSLA150(LoadSavePlugin::getFormatById(FORMATID_SLA150IMPORT)),
+	formatSLA170(LoadSavePlugin::getFormatById(FORMATID_SLA170IMPORT)),
 	m_prefsManager(PrefsManager::instance()),
 	m_fileName(fileName),
 	m_fileType(-1)
@@ -180,7 +181,8 @@ bool FileLoader::loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, const
 // 			if (ret)
 // 				it->plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 		}
-		if (m_fileType == FORMATID_SLA13XIMPORT || m_fileType == FORMATID_SLA134IMPORT || m_fileType == FORMATID_SLA150IMPORT)
+		if (m_fileType == FORMATID_SLA13XIMPORT || m_fileType == FORMATID_SLA134IMPORT || 
+			m_fileType == FORMATID_SLA150IMPORT || m_fileType == FORMATID_SLA170IMPORT)
 		{
 			it->plug->setupTargets(currDoc, nullptr, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 			ret = it->plug->loadPage(m_fileName, PageToLoad, Mpage, renamedPageName);
@@ -246,6 +248,7 @@ bool FileLoader::loadFile(ScribusDoc* currDoc)
 			case FORMATID_SLA13XIMPORT:
 			case FORMATID_SLA134IMPORT:
 			case FORMATID_SLA150IMPORT:
+			case FORMATID_SLA170IMPORT:
 				{
 					it->setupTargets(currDoc, nullptr, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 					ret = it->loadFile(m_fileName, LoadSavePlugin::lfCreateDoc);
