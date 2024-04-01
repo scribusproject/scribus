@@ -282,7 +282,8 @@ void TOCGenerator::generateByStyle()
 				if (i == item->lastInFrame() && paraText.startsWith(SpecialChars::FRAMEBREAK))
 				{
 					// qDebug() << "Frame break goodness, continuing";
-					i = item->itemText.nextParagraph(i) + 1;
+					// i = item->itemText.nextParagraph(i) + 1;
+					++i;
 					continue;
 				}
 
