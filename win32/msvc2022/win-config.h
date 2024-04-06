@@ -88,9 +88,6 @@
 /* Defines if your system has the libxml2 library */
 #define HAVE_XML 1
 
-/* Defines if your system has the libxml2 library6 */
-#define HAVE_XML26 1
-
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 

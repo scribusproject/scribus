@@ -640,14 +640,11 @@ htmlSAXHandler mySAXHandlerStruct = {
 	nullptr, // getParameterEntity,
 	nullptr, // cdata,
 	nullptr, // externalSubset
-	1 // initialized
-#ifdef HAVE_XML26
-	,
+	1, // initialized
 	nullptr, // _private
 	nullptr, // startElementNs
 	nullptr, // endElementNs
 	nullptr // serror
-#endif
 };
 
 htmlSAXHandlerPtr mySAXHandler = &mySAXHandlerStruct;

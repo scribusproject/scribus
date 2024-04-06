@@ -193,7 +193,7 @@ endif()
 #>>CUPS
 
 #<<LibXML2
-find_package(LibXml2 REQUIRED)
+find_package(LibXml2 2.6.0 REQUIRED)
 if(LIBXML2_FOUND)
 	set(HAVE_XML ON)
 	message("LIBXML2 Library Found OK")
