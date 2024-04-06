@@ -33,12 +33,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <utility>
 #include <vector>
-#ifdef HAVE_XML26
- #include <libxml/SAX2.h>
-#else
- #include <libxml/SAX.h>
-#endif
 
+#include <libxml/SAX2.h>
 #include <QMap>
 
 #include <gtstyle.h>

@@ -284,15 +284,12 @@ xmlSAXHandler cSAXHandlerStruct = {
 	nullptr, // fatalError,
 	nullptr, // getParameterEntity,
 	nullptr, // cdata,
-	nullptr,
-	1
-#ifdef HAVE_XML26
-	,
-	nullptr,
-	nullptr,
-	nullptr,
-	nullptr
-#endif
+	nullptr, // externalSubset
+	1, // initialized
+	nullptr, // _private
+	nullptr, // startElementNs
+	nullptr, // endElementNs
+	nullptr // serror
 };
 
 xmlSAXHandlerPtr cSAXHandler = &cSAXHandlerStruct;
