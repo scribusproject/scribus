@@ -18,7 +18,7 @@ void ScListItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	qreal margin = 4.5;
 	int radius = 2;
 	QColor cHighlight = QApplication::palette().highlight().color();
-	cHighlight.setAlphaF(0.2);
+	cHighlight.setAlphaF(0.2f);
 
 	QTextOption tOptions;
 
