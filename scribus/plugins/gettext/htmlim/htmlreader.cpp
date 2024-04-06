@@ -116,8 +116,8 @@ void HTMLReader::startElement(void*, const xmlChar * fullname, const xmlChar ** 
 	{
 		for (const xmlChar** cur = atts; cur && *cur; cur += 2)
 		{
-			QString attrName((char*)*cur);
-			QString attrValue((char*)*(cur + 1));
+			QString attrName((const char*)*cur);
+			QString attrValue((const char*)*(cur + 1));
 			attrs[attrName] = attrValue;
 		}
 	}
@@ -257,14 +257,13 @@ bool HTMLReader::characters(const QString &ch)
 		if (tmp.isEmpty())
 			return true;
 
-		if (!lastCharWasSpace)
-			if (fcis)
-				tmp = " " + tmp;
+		if (!lastCharWasSpace && fcis)
+			tmp = " " + tmp;
 
 		if (lcis && !(fcis && tmp.length() <= 1))
 			tmp = tmp + " ";
 		lastCharWasSpace = lcis;
-		if ((inLI) && (!addedLI))
+		if (inLI && !addedLI)
 		{
 			if (inUL)
 				tmp = "- " + tmp;
@@ -488,8 +487,8 @@ void HTMLReader::toggleEffect(FontEffect e)
 {
 	pstyle->getFont()->toggleEffect(e);
 	pstylec->getFont()->toggleEffect(e);
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->toggleEffect(e);
+	for (gtParagraphStyle* pGtStyle : listStyles)
+		pGtStyle->getFont()->toggleEffect(e);
 	pstyleh1->getFont()->toggleEffect(e);
 	pstyleh2->getFont()->toggleEffect(e);
 	pstyleh3->getFont()->toggleEffect(e);
@@ -505,8 +504,8 @@ void HTMLReader::setItalicFont()
 {
 	pstyle->getFont()->setSlant(ITALIC);
 	pstylec->getFont()->setSlant(ITALIC);
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->setSlant(ITALIC);
+	for (gtParagraphStyle* pGtStyle : listStyles)
+		pGtStyle->getFont()->setSlant(ITALIC);
 	pstyleh1->getFont()->setSlant(ITALIC);
 	pstyleh2->getFont()->setSlant(ITALIC);
 	pstyleh3->getFont()->setSlant(ITALIC);
@@ -522,8 +521,8 @@ void HTMLReader::unsetItalicFont()
 {
 	pstyle->getFont()->setSlant(defaultSlant);
 	pstylec->getFont()->setSlant(defaultSlant);
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->setSlant(defaultSlant);
+	for (gtParagraphStyle* pGtStyle : listStyles)
+		pGtStyle->getFont()->setSlant(defaultSlant);
 	pstyleh1->getFont()->setSlant(defaultSlant);
 	pstyleh2->getFont()->setSlant(defaultSlant);
 	pstyleh3->getFont()->setSlant(defaultSlant);
@@ -539,8 +538,8 @@ void HTMLReader::setBlueFont()
 {
 	pstyle->getFont()->setColor("Blue");
 	pstylec->getFont()->setColor("Blue");
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->setColor("Blue");
+	for (gtParagraphStyle* pGtStyle : listStyles)
+		pGtStyle->getFont()->setColor("Blue");
 	pstyleh1->getFont()->setColor("Blue");
 	pstyleh2->getFont()->setColor("Blue");
 	pstyleh3->getFont()->setColor("Blue");
@@ -556,8 +555,8 @@ void HTMLReader::setDefaultColor()
 {
 	pstyle->getFont()->setColor(defaultColor);
 	pstylec->getFont()->setColor(defaultColor);
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->setColor(defaultColor);
+	for (gtParagraphStyle* pGtStyle : listStyles)
+		pGtStyle->getFont()->setColor(defaultColor);
 	pstyleh1->getFont()->setColor(defaultColor);
 	pstyleh2->getFont()->setColor(defaultColor);
 	pstyleh3->getFont()->setColor(defaultColor);
@@ -573,8 +572,8 @@ void HTMLReader::setBoldFont()
 {
 	pstyle->getFont()->setWeight(BOLD);
 	pstylec->getFont()->setWeight(BOLD);
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->setWeight(BOLD);
+	for (gtParagraphStyle* pGtStyle : listStyles)
+		pGtStyle->getFont()->setWeight(BOLD);
 	pstylecode->getFont()->setWeight(BOLD);
 	pstylep->getFont()->setWeight(BOLD);
 	pstylepre->getFont()->setWeight(BOLD);
@@ -584,8 +583,8 @@ void HTMLReader::unSetBoldFont()
 {
 	pstyle->getFont()->setWeight(defaultWeight);
 	pstylec->getFont()->setWeight(defaultWeight);
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->setWeight(defaultWeight);
+	for (gtParagraphStyle* pGtStyle : listStyles)
+		pGtStyle->getFont()->setWeight(defaultWeight);
 	pstylecode->getFont()->setWeight(REGULAR);
 	pstylep->getFont()->setWeight(defaultWeight);
 	pstylepre->getFont()->setWeight(defaultWeight);
@@ -595,7 +594,7 @@ void HTMLReader::parse(const QString& filename)
 {
 #if defined(_WIN32)
 	QString fname = QDir::toNativeSeparators(filename);
-	QByteArray fn = (QSysInfo::WindowsVersion & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
+	QByteArray fn = fname.toUtf8();
 #else
 	QByteArray fn(filename.toLocal8Bit());
 #endif
