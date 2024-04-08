@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include "tocgenerator.h"
 
-#include <memory>
+#include <vector>
 
 #include <QDebug>
 #include <QMap>
@@ -83,9 +83,7 @@ void TOCGenerator::generateByAttribute()
 		const PageItem *currentDocItem;
 		QMap<QString, QString> tocMap;
 
-		auto pageCounter = std::make_unique<int[]>(m_doc->DocPages.count());
-		for (int i = 0; i < m_doc->DocPages.count(); ++i)
-			pageCounter[i] = 0;
+		auto pageCounter = std::vector<int>(m_doc->DocPages.count(), 0);
 
 		int pageNumberWidth = QString("%1").arg(m_doc->DocPages.count()).length();
 
@@ -119,7 +117,7 @@ void TOCGenerator::generateByAttribute()
 				//First is the page of the item
 				//Second is an incremented counter for the item so multiple per page works
 				//Third is the section based page number which is actually used in the TOC.
-				QString tocID = QString("%1").arg(pageCounter[currentDocItem->OwnPage]++, 3 , 10, QChar('0'));
+				QString tocID = QString("%1").arg(pageCounter.at(currentDocItem->OwnPage)++, 3 , 10, QChar('0'));
 				QString key = QString("%1,%2,%3").arg(pageID, tocID, sectionID);
 				tocMap.insert(key, objAttr.value);
 			}
@@ -168,6 +166,13 @@ void TOCGenerator::generateByStyle()
 		PageItem* item;
 		double xPos; // Absolute x position in document
 		double yPos; // Absolute y position in document
+	};
+
+	struct TOCEntryData
+	{
+		QString entryText;
+		QString entryStyle;
+		TOCPageLocation entryPageLocation;
 	};
 
 	// Collect all text frames including those placed inside groups;
@@ -223,13 +228,8 @@ void TOCGenerator::generateByStyle()
 		if (tocFrame == nullptr)
 			continue;
 		tocFrame->clearContents();
-		QMap<QString, QString> tocMap;
-		QMap<QString, QString> styleMap;
-		QMap<QString, TOCPageLocation> pageLocationMap;
-
-		auto pageCounter = std::make_unique<int[]>(m_doc->DocPages.count());
-		for (int i = 0; i < m_doc->DocPages.count(); ++i)
-			pageCounter[i] = 0;
+		QMap<QString, TOCEntryData> tocMap;
+		auto pageCounter = std::vector<int>(m_doc->DocPages.count(), 0);
 
 		//Set up the gtWriter instance with the selected paragraph style
 		gtWriter writer(false, tocFrame);
@@ -254,12 +254,6 @@ void TOCGenerator::generateByStyle()
 			int i = item->firstInFrame();
 			while (i <= item->lastInFrame())
 			{
-				int para_no = item->itemText.nrOfParagraph(i);
-				int para_start = item->itemText.startOfParagraph(para_no);
-				int para_end = item->itemText.endOfParagraph(para_no);
-				// qDebug() << "Paragraph Text:" << item->itemText.text(para_start, para_end - para_start);
-				// qDebug() << "Paragraph start/end:" << para_start << para_end;
-
 				//Empty paragraph, continue
 				if (item->itemText.text(i) == SpecialChars::PARSEP)
 				{
@@ -267,8 +261,13 @@ void TOCGenerator::generateByStyle()
 					++i;
 					continue;
 				}
-
+				int para_no = item->itemText.nrOfParagraph(i);
+				int para_start = item->itemText.startOfParagraph(para_no);
+				int para_end = item->itemText.endOfParagraph(para_no);
 				QString paraText = item->itemText.text(para_start, para_end - para_start);
+				// qDebug() << "Paragraph Text:" << paraText;
+				// qDebug() << "Paragraph start/end:" << para_start << para_end;
+
 				//Paragraph starts before this frame, eg paragraph wrapped into next frame in chain but is not caused by a FRAMEBREAK, continu
 				if (para_start < item->firstInFrame() && !paraText.startsWith(SpecialChars::FRAMEBREAK))
 				{
@@ -290,50 +289,49 @@ void TOCGenerator::generateByStyle()
 				QString pname(item->itemText.paragraphStyle(i).parentStyle()->name());
 				QString pageID = QString("%1").arg(item->OwnPage + m_doc->FirstPnum, pageNumberWidth);
 				QString sectionID = m_doc->getSectionPageNumberForPageIndex(item->OwnPage);
-				QString tocID = QString("%1").arg(pageCounter[item->OwnPage]++, 3, 10, QChar('0'));
+				QString tocID = QString("%1").arg(pageCounter.at(item->OwnPage)++, 3, 10, QChar('0'));
 				QString key = QString("%1,%2,%3").arg(pageID, tocID, sectionID);
 				paraText.remove(SpecialChars::COLBREAK);
 				paraText.remove(SpecialChars::FRAMEBREAK);
-				for (QList<ToCSetupEntryStyleData>::Iterator tocEntryIterator = tocSetupIt->entryData.begin();
-					 tocEntryIterator != tocSetupIt->entryData.end(); ++tocEntryIterator)
+				for (auto tocEntryIterator = tocSetupIt->entryData.begin(); tocEntryIterator != tocSetupIt->entryData.end(); ++tocEntryIterator)
 				{
 					if ((*tocEntryIterator).styleToFind == pname)
 					{
 						if ((*tocEntryIterator).removeLineBreaks)
 							paraText.remove(SpecialChars::LINEBREAK);
-						tocMap.insert(key, paraText);
-						styleMap.insert(key, (*tocEntryIterator).styleForText);
-						pageLocationMap.insert(key, (*tocEntryIterator).pageLocation);
+						TOCEntryData ted;
+						ted.entryText = paraText;
+						ted.entryStyle = (*tocEntryIterator).styleForText;
+						ted.entryPageLocation = (*tocEntryIterator).pageLocation;
+						tocMap.insert(key, ted);
 					}
 				}
 				i = item->itemText.startOfNextParagraph(i);
 			}
 		}
 		QString oldTocPage;
-		for (QMap<QString, QString>::Iterator tocIt = tocMap.begin(); tocIt != tocMap.end(); ++tocIt)
+		for (auto tocIt = tocMap.begin(); tocIt != tocMap.end(); ++tocIt)
 		{
-			QString t = tocIt.key();
-			QString t2 = tocIt.value();
 			QString tocPage(tocIt.key().section(',', 2, 2).trimmed());
 			QString tocLine;
 			//Start with text or numbers
-			TOCPageLocation tpl = pageLocationMap.value(tocIt.key());
+			TOCPageLocation tpl = tocMap.value(tocIt.key()).entryPageLocation;
 			if (tpl == End || tpl == NotShown)
-				tocLine = tocIt.value();
+				tocLine = tocMap.value(tocIt.key()).entryText;
 			if (tpl == Beginning && oldTocPage != tocPage)
 				tocLine = tocPage;
 			//Add in the tab for the leaders
 			tocLine += "\t";
 			//End with text or numbers
 			if (tpl == Beginning)
-				tocLine += tocIt.value();
+				tocLine += tocMap.value(tocIt.key()).entryText;
 			if (tpl == End && oldTocPage != tocPage)
 				tocLine += tocPage;
 			tocLine += "\n";
 
 			const gtFrameStyle *fstyle = writer.getDefaultStyle();
 			gtParagraphStyle *pstyle = new gtParagraphStyle(*fstyle);
-			pstyle->setName(styleMap.value(tocIt.key()));
+			pstyle->setName(tocMap.value(tocIt.key()).entryStyle);
 			writer.setParagraphStyle(pstyle);
 			writer.append(tocLine);
 		}
