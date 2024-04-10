@@ -75,7 +75,6 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 	for (const QRegularExpressionMatch& match : rx.globalMatch(bwipp))
 	{
-		int len = match.capturedLength();
 		QString restype = match.captured(1);
 		QString resname = match.captured(2);
 		QString reshead = match.captured(3);

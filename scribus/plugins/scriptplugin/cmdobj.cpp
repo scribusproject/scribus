@@ -1078,10 +1078,6 @@ PyObject *scribus_getitempagenumber(PyObject *, PyObject *args)
 	if (!checkHaveDocument())
 		return nullptr;
 
-	// Is there a special name given? Yes -> add this to selection
-	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
-	ScribusDoc* currentDoc = currentWin->doc;
-
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
 	if (i == nullptr)
 		return nullptr;

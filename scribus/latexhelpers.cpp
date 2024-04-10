@@ -207,7 +207,6 @@ void LatexConfigParser::parseHighlighter(I18nXmlStreamReader& xml)
 		bool bold = StrViewToBool(xml.attributes().value("bold"));
 		bool italic = StrViewToBool(xml.attributes().value("italic"));
 		bool underline = StrViewToBool(xml.attributes().value("underline"));
-		bool minimal = StrViewToBool(xml.attributes().value("minimal"));
 		QString colorStr = xml.attributes().value("color").toString();
 		QColor color(colorStr);
 		if (!color.isValid())

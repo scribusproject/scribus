@@ -173,7 +173,6 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 	QRect fpo;
 	mousePressed = true;
 	int mPosX = m->position().x();
-	int mPosY = m->position().y();
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	rulerCode = 0;
 	if (haveInd)
