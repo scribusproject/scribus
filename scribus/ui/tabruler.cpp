@@ -129,7 +129,7 @@ void RulerT::paintEvent(QPaintEvent *)
 			p.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		else
 			p.setPen(QPen(textColor, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		switch (static_cast<int>(tabValues[i].tabType))
+		switch (tabValues[i].tabType)
 		{
 			case 0:
 				p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
@@ -172,7 +172,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 {
 	QRect fpo;
 	mousePressed = true;
-	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	rulerCode = 0;
 	if (haveInd)
 	{
@@ -225,7 +225,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 		emit typeChanged(tabValues[actTab].tabType);
 		emit tabMoved(tabValues[actTab].tabPosition);
 		emit fillCharChanged(tabValues[actTab].tabFillChar);
-		qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 	}
 	mouseX = m->x();
 }
@@ -233,7 +233,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 void RulerT::mouseReleaseEvent(QMouseEvent *m)
 {
 	mousePressed = false;
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	if ((m->y() < height()) && (m->y() > 0))
 	{
 		if (rulerCode == 3)
@@ -273,9 +273,9 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 {
 	double oldInd;
 	QRect fpo;
-	if ((mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > 0) && (m->x() < width()))
+	if (mousePressed && (m->y() < height()) && (m->y() > 0) && (m->x() > 0) && (m->x() < width()))
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 		switch (rulerCode)
 		{
 			case 1:
@@ -335,9 +335,9 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 		}
 		if (tabValues.count() != 0)
 		{
-			for (int i = 0; i < static_cast<int>(tabValues.count()); ++i)
+			for (int i = 0; i < tabValues.count(); ++i)
 			{
-				fpo = QRect(static_cast<int>(tabValues[i].tabPosition-offset) - 3, 15, 8, 8);
+				fpo = QRect(static_cast<int>(tabValues[i].tabPosition - offset) - 3, 15, 8, 8);
 				if (fpo.contains(m->pos()))
 				{
 					setCursor(QCursor(Qt::SizeHorCursor));
@@ -346,9 +346,9 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 			}
 		}
 	}
-	if ((mousePressed) && ((m->y() > height()) || (m->y() < 0) || (m->x() < 0) || (m->x() > width())))
+	if (mousePressed && ((m->y() > height()) || (m->y() < 0) || (m->x() < 0) || (m->x() > width())))
 	{
-		qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+		QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 	}
 }
 
@@ -357,9 +357,9 @@ void RulerT::leaveEvent(QEvent*)
 	if (mousePressed)
 	{
 		if (rulerCode == 3)
-			qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+			QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 		else
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 }
 
@@ -369,7 +369,7 @@ void RulerT::updateTabList()
 	tb.tabPosition = tabValues[actTab].tabPosition;
 	tb.tabType = tabValues[actTab].tabType;
 	tb.tabFillChar =  tabValues[actTab].tabFillChar;
-	int gg = static_cast<int>(tabValues.count()-1);
+	int gg = tabValues.count() - 1;
 	int g = gg;
 	tabValues.removeAt(actTab);
 	for (int i = tabValues.count() - 1; i > -1; --i)
@@ -381,7 +381,7 @@ void RulerT::updateTabList()
 	if (gg == g)
 	{
 		tabValues.append(tb);
-		actTab = static_cast<int>(tabValues.count()-1);
+		actTab = tabValues.count() - 1;
 	}
 	else
 	{
@@ -976,17 +976,17 @@ void Tabruler::setLeftIndent()
 	emit leftIndentChanged(value);
 }
 
-QList<ParagraphStyle::TabRecord> Tabruler::getTabVals()
+QList<ParagraphStyle::TabRecord> Tabruler::getTabVals() const
 {
 	return ruler->tabValues;
 }
 
-double Tabruler::getFirstLine()
+double Tabruler::getFirstLine() const
 {
 	return firstLineData->value() / m_docUnitRatio;
 }
 
-double Tabruler::getLeftIndent()
+double Tabruler::getLeftIndent() const
 {
 	return leftIndentData->value() / m_docUnitRatio;
 }
@@ -1015,7 +1015,7 @@ void Tabruler::setRightIndent()
 	emit rightIndentChanged(value);
 }
 
-double Tabruler::getRightIndent()
+double Tabruler::getRightIndent() const
 {
 	return rightIndentData->value() / m_docUnitRatio;
 }
