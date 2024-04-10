@@ -147,6 +147,13 @@ protected:
 	virtual void finishDragging() override;
 
 	/**
+	 * This function deletes all dock widgets in it.
+	 * This functions should be called only from dock manager in its
+	 * destructor before deleting the floating widget
+     */
+	void deleteContent();
+
+	/**
 	 * Call this function if you just want to initialize the position
 	 * and size of the floating widget
 	 */
@@ -258,9 +265,9 @@ public:
     QList<CDockWidget*> dockWidgets() const;
 
 	/**
-	 * This function hides the floating bar instantely and delete it later.
+	 * This function hides the floating widget instantly and delete it later.
 	 */
-	void hideAndDeleteLater();
+	void finishDropOperation();
 
 #if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
     /**

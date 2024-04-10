@@ -44,7 +44,6 @@
 
 namespace ads
 {
-static const char* const LocationProperty = "Location";
 
 /**
  * Private data class of CDockWidgetTab class (pimpl)
@@ -102,7 +101,7 @@ struct AutoHideTabPrivate
 		QMenu* Menu)
 	{
 		auto Action = Menu->addAction(Title);
-		Action->setProperty("Location", Location);
+		Action->setProperty(internal::LocationProperty, Location);
 		QObject::connect(Action, &QAction::triggered, _this, &CAutoHideTab::onAutoHideToActionClicked);
 		Action->setEnabled(Location != _this->sideBarLocation());
 		return Action;
@@ -174,7 +173,7 @@ void AutoHideTabPrivate::updateOrientation()
 bool AutoHideTabPrivate::startFloating(eDragState DraggingState)
 {
 	auto DockArea = DockWidget->dockAreaWidget();
-    ADS_PRINT("isFloating " << dockContainer->isFloating());
+    ADS_PRINT("isFloating " << dockContainer()->isFloating());
 
     ADS_PRINT("startFloating");
 	DragState = DraggingState;
@@ -419,7 +418,7 @@ void CAutoHideTab::unpinDockWidget()
 //===========================================================================
 void CAutoHideTab::onAutoHideToActionClicked()
 {
-	int Location = sender()->property(LocationProperty).toInt();
+	int Location = sender()->property(internal::LocationProperty).toInt();
 	d->DockWidget->setAutoHide(true, (SideBarLocation)Location);
 }
 

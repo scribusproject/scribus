@@ -81,7 +81,7 @@ class CDockAreaLayout
 {
 private:
 	QBoxLayout* m_ParentLayout;
-	QList<QWidget*> m_Widgets;
+	QList<QPointer<QWidget>> m_Widgets;
 	int m_CurrentIndex = -1;
 	QWidget* m_CurrentWidget = nullptr;
 
@@ -370,10 +370,21 @@ void DockAreaWidgetPrivate::updateTitleBarButtonStates()
 		return;
 	}
 
-	TitleBar->button(TitleBarButtonClose)->setEnabled(
-		_this->features().testFlag(CDockWidget::DockWidgetClosable));
-	TitleBar->button(TitleBarButtonUndock)->setEnabled(
-		_this->features().testFlag(CDockWidget::DockWidgetFloatable));
+	if (_this->isAutoHide())
+	{
+		if (CDockManager::testAutoHideConfigFlag(CDockManager::AutoHideHasCloseButton))
+        {
+			TitleBar->button(TitleBarButtonClose)->setEnabled(
+				_this->features().testFlag(CDockWidget::DockWidgetClosable));
+        }
+	}
+	else
+	{
+		TitleBar->button(TitleBarButtonUndock)->setEnabled(
+			_this->features().testFlag(CDockWidget::DockWidgetFloatable));
+		TitleBar->button(TitleBarButtonClose)->setEnabled(
+			_this->features().testFlag(CDockWidget::DockWidgetClosable));
+	}
 	TitleBar->button(TitleBarButtonAutoHide)->setEnabled(
 		_this->features().testFlag(CDockWidget::DockWidgetPinnable));
 	TitleBar->updateDockWidgetActionsButtons();
@@ -393,7 +404,7 @@ void DockAreaWidgetPrivate::updateTitleBarButtonVisibility(bool IsTopLevel)
 	bool IsAutoHide = _this->isAutoHide();
 	if (IsAutoHide)
 	{
-		bool ShowCloseButton = CDockManager::autoHideConfigFlags().testFlag(CDockManager::AutoHideHasCloseButton);
+		bool ShowCloseButton = CDockManager::testAutoHideConfigFlag(CDockManager::AutoHideHasCloseButton);
 		TitleBar->button(TitleBarButtonClose)->setVisible(ShowCloseButton);
 		TitleBar->button(TitleBarButtonAutoHide)->setVisible(true);
 		TitleBar->button(TitleBarButtonUndock)->setVisible(false);
@@ -410,7 +421,8 @@ void DockAreaWidgetPrivate::updateTitleBarButtonVisibility(bool IsTopLevel)
 	else
 	{
 		TitleBar->button(TitleBarButtonClose)->setVisible(true);
-		TitleBar->button(TitleBarButtonAutoHide)->setVisible(true);
+		bool ShowAutoHideButton = CDockManager::testAutoHideConfigFlag(CDockManager::DockAreaHasAutoHideButton);
+		TitleBar->button(TitleBarButtonAutoHide)->setVisible(ShowAutoHideButton);
 		TitleBar->button(TitleBarButtonUndock)->setVisible(true);
         TitleBar->button(TitleBarButtonTabsMenu)->setVisible(true);
 	}
@@ -462,6 +474,13 @@ CDockContainerWidget* CDockAreaWidget::dockContainer() const
 CAutoHideDockContainer* CDockAreaWidget::autoHideDockContainer() const
 {
 	return d->AutoHideDockContainer;
+}
+
+
+//============================================================================
+CDockSplitter* CDockAreaWidget::parentSplitter() const
+{
+	return internal::findParent<CDockSplitter*>(this);
 }
 
 //============================================================================
@@ -600,7 +619,7 @@ void CDockAreaWidget::hideAreaWithNoVisibleContent()
 	this->toggleView(false);
 
 	// Hide empty parent splitters
-	auto Splitter = internal::findParent<CDockSplitter*>(this);
+	auto Splitter = parentSplitter();
 	internal::hideEmptyParentSplitters(Splitter);
 
 	//Hide empty floating widget
@@ -749,7 +768,7 @@ int CDockAreaWidget::openDockWidgetsCount() const
 	int Count = 0;
 	for (int i = 0; i < d->ContentsLayout->count(); ++i)
 	{
-		if (!dockWidget(i)->isClosed())
+		if (dockWidget(i) && !dockWidget(i)->isClosed())
 		{
 			++Count;
 		}
@@ -765,7 +784,7 @@ QList<CDockWidget*> CDockAreaWidget::openedDockWidgets() const
 	for (int i = 0; i < d->ContentsLayout->count(); ++i)
 	{
 		CDockWidget* DockWidget = dockWidget(i);
-		if (!DockWidget->isClosed())
+		if (DockWidget && !DockWidget->isClosed())
 		{
 			DockWidgetList.append(dockWidget(i));
 		}
@@ -779,7 +798,7 @@ int CDockAreaWidget::indexOfFirstOpenDockWidget() const
 {
 	for (int i = 0; i < d->ContentsLayout->count(); ++i)
 	{
-		if (!dockWidget(i)->isClosed())
+		if (dockWidget(i) && !dockWidget(i)->isClosed())
 		{
 			return i;
 		}
@@ -801,7 +820,6 @@ CDockWidget* CDockAreaWidget::dockWidget(int Index) const
 {
 	return qobject_cast<CDockWidget*>(d->ContentsLayout->widget(Index));
 }
-
 
 //============================================================================
 void CDockAreaWidget::reorderDockWidget(int fromIndex, int toIndex)

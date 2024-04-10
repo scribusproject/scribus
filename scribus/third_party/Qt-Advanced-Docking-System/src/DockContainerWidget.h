@@ -53,6 +53,7 @@ struct FloatingDragPreviewPrivate;
 class CDockingStateReader;
 class CAutoHideSideBar;
 class CAutoHideTab;
+class CDockSplitter;
 struct AutoHideTabPrivate;
 struct AutoHideDockContainerPrivate;
 
@@ -94,7 +95,7 @@ protected:
 	/**
 	 * Access function for the internal root splitter
 	 */
-	QSplitter* rootSplitter() const;
+	CDockSplitter* rootSplitter() const;
 
 	/**
 	 * Creates and initializes a dockwidget auto hide container into the given area.
@@ -137,6 +138,11 @@ protected:
 	 * Removes the given dock area from this container
 	 */
 	void removeDockArea(CDockAreaWidget* area);
+
+	/**
+	 * Remove all dock areas and returns the list of removed dock areas
+	 */
+	QList<QPointer<CDockAreaWidget>> removeAllDockAreas();
 
 	/**
 	 * Saves the state into the given stream

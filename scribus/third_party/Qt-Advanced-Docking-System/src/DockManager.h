@@ -214,6 +214,7 @@ public:
 														 //! Users can overwrite this by setting the environment variable ADS_UseNativeTitle to "1" or "0".
 		MiddleMouseButtonClosesTab = 0x2000000, //! If the flag is set, the user can use the mouse middle button to close the tab under the mouse
 		DisableTabTextEliding =      0x4000000, //! Set this flag to disable eliding of tab texts in dock area tabs
+		ShowTabTextOnlyForActiveTab =0x8000000, //! Set this flag to show label texts in dock area tabs only for active tabs
 
         DefaultDockAreaButtons = DockAreaHasCloseButton
 							   | DockAreaHasUndockButton
@@ -256,8 +257,7 @@ public:
 
 		DefaultAutoHideConfig = AutoHideFeatureEnabled
 			                  | DockAreaHasAutoHideButton
-			                  | AutoHideCloseButtonCollapsesDock
-			                  | AutoHideHasCloseButton
+			                  | AutoHideHasMinimizeButton
 
 	};
     Q_DECLARE_FLAGS(AutoHideFlags, eAutoHideFlag)
@@ -659,6 +659,38 @@ public:
      * \see setToolBarIconSize()
      */
     QSize dockWidgetToolBarIconSize(CDockWidget::eState State) const;
+
+    /**
+     * Returns all dock widget features that are globally locked by the dock
+     * manager.
+     * Globally locked features are removed from the features of all dock
+     * widgets.
+     */
+    CDockWidget::DockWidgetFeatures globallyLockedDockWidgetFeatures() const;
+
+    /**
+     * Globally Lock features of all dock widgets to "freeze" the current
+     * workspace layout.
+     * For example, it is now possible to lock the workspace to avoid
+     * accidentally dragging a docked view. Locking wasn’t possible before.
+     * So, users had to manually dock it back to the desired place after
+     * each accidental undock.
+     * You can use a combination of the following feature flags:
+     * - CDockWidget::DockWidgetClosable
+     * - CDockWidget::DockWidgetMovable
+     * - CDockWidget::DockWidgetFloatable
+     * - CDockWidget::DockWidgetPinable
+     *
+     * To clear the locked features, you can use CDockWidget::NoDockWidgetFeatures
+     * The following code shows how to lock and unlock dock widget features
+     * globally.
+     *
+     * \code
+     * DockManager->lockDockWidgetFeaturesGlobally();
+     * DockManager->lockDockWidgetFeaturesGlobally(CDockWidget::NoDockWidgetFeatures);
+     * \code
+     */
+    void lockDockWidgetFeaturesGlobally(CDockWidget::DockWidgetFeatures Features = CDockWidget::GloballyLockableFeatures);
 
 public Q_SLOTS:
 	/**

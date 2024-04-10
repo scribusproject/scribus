@@ -103,8 +103,8 @@ static QString FloatingContainersTitle;
 struct DockManagerPrivate
 {
 	CDockManager* _this;
-	QList<CFloatingDockContainer*> FloatingWidgets;
-	QList<CFloatingDockContainer*> HiddenFloatingWidgets;
+	QList<QPointer<CFloatingDockContainer>> FloatingWidgets;
+	QList<QPointer<CFloatingDockContainer>> HiddenFloatingWidgets;
 	QList<CDockContainerWidget*> Containers;
 	CDockOverlay* ContainerOverlay;
 	CDockOverlay* DockAreaOverlay;
@@ -122,6 +122,7 @@ struct DockManagerPrivate
 	Qt::ToolButtonStyle ToolBarStyleFloating = Qt::ToolButtonTextUnderIcon;
 	QSize ToolBarIconSizeDocked = QSize(16, 16);
 	QSize ToolBarIconSizeFloating = QSize(24, 24);
+	CDockWidget::DockWidgetFeatures LockedDockWidgetFeatures;
 
 	/**
 	 * Private data constructor
@@ -153,7 +154,10 @@ struct DockManagerPrivate
 		// Hide updates of floating widgets from user
 		for (auto FloatingWidget : FloatingWidgets)
 		{
-			FloatingWidget->hide();
+			if (FloatingWidget)
+			{
+			  FloatingWidget->hide();
+			}
 		}
 	}
 
@@ -333,7 +337,8 @@ bool DockManagerPrivate::restoreStateFromXml(const QByteArray &state,  int versi
 		int FloatingWidgetIndex = DockContainerCount - 1;
 		for (int i = FloatingWidgetIndex; i < FloatingWidgets.count(); ++i)
 		{
-			auto* floatingWidget = FloatingWidgets[i];
+			CFloatingDockContainer* floatingWidget = FloatingWidgets[i];
+			if (!floatingWidget) continue;
 			_this->removeDockContainer(floatingWidget->dockContainer());
 			floatingWidget->deleteLater();
 		}
@@ -536,23 +541,39 @@ CDockManager::CDockManager(QWidget *parent) :
 CDockManager::~CDockManager()
 {
     // fix memory leaks, see https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System/issues/307
-    std::vector<ads::CDockAreaWidget*> areas;
-    for ( int i = 0; i != dockAreaCount(); ++i )
-    {
-        areas.push_back( dockArea(i) );
-    }
-    for ( auto area : areas )
-    {
-        for ( auto widget : area->dockWidgets() )
-            delete widget;
+	std::vector<QPointer<ads::CDockAreaWidget>> areas;
+	for (int i = 0; i != dockAreaCount(); ++i)
+	{
+		areas.push_back( dockArea(i) );
+	}
+	for ( auto area : areas )
+	{
+		if (!area || area->dockManager() != this) continue;
 
-        delete area;
-    }
+		// QPointer delete safety - just in case some dock wigdet in destruction
+		// deletes another related/twin or child dock widget.
+		std::vector<QPointer<QWidget>> deleteWidgets;
+		for ( auto widget : area->dockWidgets() )
+		{
+			deleteWidgets.push_back(widget);
+		}
+		for ( auto ptrWdg : deleteWidgets)
+		{
+			delete ptrWdg;
+		}
+	}
 
 	auto FloatingWidgets = d->FloatingWidgets;
 	for (auto FloatingWidget : FloatingWidgets)
 	{
+		FloatingWidget->deleteContent();
 		delete FloatingWidget;
+	}
+
+	// Delete Dock Widgets before Areas so widgets can access them late (like dtor)
+	for ( auto area : areas )
+	{
+		delete area;
 	}
 
 	delete d;
@@ -568,7 +589,7 @@ bool CDockManager::eventFilter(QObject *obj, QEvent *e)
 	// Window always on top of the MainWindow.
 	if (e->type() == QEvent::WindowActivate)
 	{
-		for (auto _window : floatingWidgets())
+        for (auto _window : d->FloatingWidgets)
 		{
 			if (!_window->isVisible() || window()->isMinimized())
 			{
@@ -590,7 +611,7 @@ bool CDockManager::eventFilter(QObject *obj, QEvent *e)
 	}
 	else if (e->type() == QEvent::WindowDeactivate)
 	{
-		for (auto _window : floatingWidgets())
+        for (auto _window : d->FloatingWidgets)
 		{
 			if (!_window->isVisible() || window()->isMinimized())
 			{
@@ -613,7 +634,7 @@ bool CDockManager::eventFilter(QObject *obj, QEvent *e)
 	// Sync minimize with MainWindow
 	if (e->type() == QEvent::WindowStateChange)
 	{
-		for (auto _window : floatingWidgets())
+        for (auto _window : d->FloatingWidgets)
 		{
 			if (! _window->isVisible())
 			{
@@ -725,7 +746,12 @@ const QList<CDockContainerWidget*> CDockManager::dockContainers() const
 //============================================================================
 const QList<CFloatingDockContainer*> CDockManager::floatingWidgets() const
 {
-	return d->FloatingWidgets;
+	QList<CFloatingDockContainer*> res;
+	for (auto &fl : d->FloatingWidgets)
+	{
+		if (fl) res.append(fl);
+	}
+	return res;
 }
 
 
@@ -1125,7 +1151,7 @@ QAction* CDockManager::addToggleViewActionToMenu(QAction* ToggleViewAction,
 	bool AlphabeticallySorted = (MenuAlphabeticallySorted == d->MenuInsertionOrder);
 	if (!Group.isEmpty())
 	{
-		QMenu* GroupMenu = d->ViewMenuGroups.value(Group, 0);
+		QMenu* GroupMenu = d->ViewMenuGroups.value(Group, nullptr);
 		if (!GroupMenu)
 		{
 			GroupMenu = new QMenu(Group, this);
@@ -1318,7 +1344,7 @@ QList<int> CDockManager::splitterSizes(CDockAreaWidget *ContainedArea) const
 {
     if (ContainedArea)
     {
-        auto Splitter = internal::findParent<CDockSplitter*>(ContainedArea);
+        auto Splitter = ContainedArea->parentSplitter();
         if (Splitter)
         {
             return Splitter->sizes();
@@ -1335,7 +1361,7 @@ void CDockManager::setSplitterSizes(CDockAreaWidget *ContainedArea, const QList<
         return;
     }
 
-    auto Splitter = internal::findParent<CDockSplitter*>(ContainedArea);
+    auto Splitter = ContainedArea->parentSplitter();
     if (Splitter && Splitter->count() == sizes.count())
     {
         Splitter->setSizes(sizes);
@@ -1419,6 +1445,33 @@ QSize CDockManager::dockWidgetToolBarIconSize(CDockWidget::eState State) const
 	{
 		return d->ToolBarIconSizeDocked;
 	}
+}
+
+
+//===========================================================================
+void CDockManager::lockDockWidgetFeaturesGlobally(CDockWidget::DockWidgetFeatures Value)
+{
+	// Limit the features to CDockWidget::GloballyLockableFeatures
+	Value &= CDockWidget::GloballyLockableFeatures;
+	if (d->LockedDockWidgetFeatures == Value)
+	{
+		return;
+	}
+
+	d->LockedDockWidgetFeatures = Value;
+	// Call the notifyFeaturesChanged() function for all dock widgets to update
+	// the state of the close and detach buttons
+    for (auto DockWidget : d->DockWidgetsMap)
+    {
+    	DockWidget->notifyFeaturesChanged();
+    }
+}
+
+
+//===========================================================================
+CDockWidget::DockWidgetFeatures CDockManager::globallyLockedDockWidgetFeatures() const
+{
+	return d->LockedDockWidgetFeatures;
 }
 
 

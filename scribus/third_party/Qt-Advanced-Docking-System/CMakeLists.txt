@@ -1,5 +1,5 @@
 ###<< Scribus
-set(ADS_VERSION "4.2.0")
+set(ADS_VERSION "4.3.0")
 ###>> Scribus
 
 cmake_minimum_required(VERSION 3.5)

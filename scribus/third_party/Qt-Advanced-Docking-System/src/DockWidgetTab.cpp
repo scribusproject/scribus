@@ -56,7 +56,6 @@
 
 namespace ads
 {
-static const char* const LocationProperty = "Location";
 using tTabLabel = CElidingLabel;
 
 /**
@@ -225,7 +224,7 @@ struct DockWidgetTabPrivate
 		QMenu* Menu)
 	{
 		auto Action = Menu->addAction(Title);
-		Action->setProperty("Location", Location);
+		Action->setProperty(internal::LocationProperty, Location);
 		QObject::connect(Action, &QAction::triggered, _this, &CDockWidgetTab::onAutoHideToActionClicked);
 		return Action;
 	}
@@ -421,11 +420,12 @@ void CDockWidgetTab::mouseReleaseEvent(QMouseEvent* ev)
 			 break;
 
 		default:
-			if (CDockManager::testConfigFlag(CDockManager::FocusHighlighting))
-			{
-				d->focusController()->setDockWidgetTabPressed(false);
-			}
-			break; // do nothing
+			break;
+		}
+
+		if (CDockManager::testConfigFlag(CDockManager::FocusHighlighting))
+		{
+			d->focusController()->setDockWidgetTabPressed(false);
 		}
 	} 
 	else if (ev->button() == Qt::MiddleButton)
@@ -579,6 +579,14 @@ bool CDockWidgetTab::isActiveTab() const
 void CDockWidgetTab::setActiveTab(bool active)
 {
     d->updateCloseButtonVisibility(active);
+
+	if(CDockManager::testConfigFlag(CDockManager::ShowTabTextOnlyForActiveTab) && !d->Icon.isNull())
+	{
+		if(active)
+			d->TitleLabel->setVisible(true);
+		else
+			d->TitleLabel->setVisible(false);
+	}
 
 	// Focus related stuff
 	if (CDockManager::testConfigFlag(CDockManager::FocusHighlighting) && !d->DockWidget->dockManager()->isRestoringState())
@@ -755,7 +763,7 @@ void CDockWidgetTab::autoHideDockWidget()
 //===========================================================================
 void CDockWidgetTab::onAutoHideToActionClicked()
 {
-	int Location = sender()->property(LocationProperty).toInt();
+	int Location = sender()->property(internal::LocationProperty).toInt();
 	d->DockWidget->toggleAutoHide((SideBarLocation)Location);
 }
 
