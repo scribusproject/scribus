@@ -2350,7 +2350,6 @@ const char * SVGPlug::getCoord(const char *ptr, double &number) const
 QString SVGPlug::parseColor(const QString &s)
 {
 	QColor c;
-	QString ret = CommonStrings::None;
 	if (s.length() > 11) // icc-color()
 	{
 		int iccColorIndex  = s.indexOf("icc-color");
@@ -2393,11 +2392,10 @@ QString SVGPlug::parseColor(const QString &s)
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	QString newColorName = "FromSVG" + c.name();
-	QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
-	if (fNam == newColorName)
+	QString colorName = m_Doc->PageColors.tryAddColor(newColorName, tmp);
+	if (colorName == newColorName)
 		importedColors.append(newColorName);
-	ret = fNam;
-	return ret;
+	return colorName;
 }
 
 QString SVGPlug::parseIccColor(const QString &s)
