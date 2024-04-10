@@ -97,10 +97,10 @@ public:
 
 	virtual void setTabs(const QList<ParagraphStyle::TabRecord>& tabs, int unit);
 
-	QList<ParagraphStyle::TabRecord> getTabVals();
-	double getFirstLine();
-	double getLeftIndent();
-	double getRightIndent();
+	QList<ParagraphStyle::TabRecord> getTabVals() const;
+	double getFirstLine() const;
+	double getLeftIndent() const;
+	double getRightIndent() const;
 
 public slots:
 	void resetOFfL();

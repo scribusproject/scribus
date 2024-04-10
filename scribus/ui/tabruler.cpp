@@ -129,7 +129,7 @@ void RulerT::paintEvent(QPaintEvent *)
 			p.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		else
 			p.setPen(QPen(textColor, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		switch (static_cast<int>(tabValues[i].tabType))
+		switch (tabValues[i].tabType)
 		{
 			case 0:
 				p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
@@ -275,7 +275,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 	QRect fpo;
 	int mPosX = m->position().x();
 	int mPosY = m->position().y();
-	if ((mousePressed) && (mPosY < height()) && (mPosY > 0) && (mPosX > 0) && (mPosX < width()))
+	if (mousePressed && (mPosY < height()) && (mPosY > 0) && (mPosX > 0) && (mPosX < width()))
 	{
 		QApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 		switch (rulerCode)
@@ -348,7 +348,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 			}
 		}
 	}
-	if ((mousePressed) && ((mPosY > height()) || (mPosY < 0) || (mPosX < 0) || (mPosX > width())))
+	if (mousePressed && ((mPosY > height()) || (mPosY < 0) || (mPosX < 0) || (mPosX > width())))
 		QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 }
 
@@ -369,10 +369,10 @@ void RulerT::updateTabList()
 	tb.tabPosition = tabValues[actTab].tabPosition;
 	tb.tabType = tabValues[actTab].tabType;
 	tb.tabFillChar =  tabValues[actTab].tabFillChar;
-	int gg = static_cast<int>(tabValues.count()-1);
-	int g = gg;
+	qsizetype gg = tabValues.count() - 1;
+	qsizetype g = gg;
 	tabValues.removeAt(actTab);
-	for (int i = tabValues.count() - 1; i > -1; --i)
+	for (qsizetype i = tabValues.count() - 1; i > -1; --i)
 	{
 		if (tb.tabPosition < tabValues[i].tabPosition)
 			g = i;
@@ -381,7 +381,7 @@ void RulerT::updateTabList()
 	if (gg == g)
 	{
 		tabValues.append(tb);
-		actTab = static_cast<int>(tabValues.count()-1);
+		actTab = static_cast<int>(tabValues.count() - 1);
 	}
 	else
 	{
@@ -976,17 +976,17 @@ void Tabruler::setLeftIndent()
 	emit leftIndentChanged(value);
 }
 
-QList<ParagraphStyle::TabRecord> Tabruler::getTabVals()
+QList<ParagraphStyle::TabRecord> Tabruler::getTabVals() const
 {
 	return ruler->tabValues;
 }
 
-double Tabruler::getFirstLine()
+double Tabruler::getFirstLine() const
 {
 	return firstLineData->value() / m_docUnitRatio;
 }
 
-double Tabruler::getLeftIndent()
+double Tabruler::getLeftIndent() const
 {
 	return leftIndentData->value() / m_docUnitRatio;
 }
@@ -1015,7 +1015,7 @@ void Tabruler::setRightIndent()
 	emit rightIndentChanged(value);
 }
 
-double Tabruler::getRightIndent()
+double Tabruler::getRightIndent() const
 {
 	return rightIndentData->value() / m_docUnitRatio;
 }
