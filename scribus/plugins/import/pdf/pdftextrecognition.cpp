@@ -56,6 +56,8 @@ void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx,
 	case AddCharMode::ADDCHARWITHPREVIOUSSTYLE:
 		AddCharWithPreviousStyle(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
 		break;
+	case AddCharMode::ADDCHARWITHBASESTLYE:
+		break;
 	}
 }
 
@@ -325,8 +327,9 @@ PdfTextRegion::LineType PdfTextRegion::moveToPoint(QPointF newPoint)
 	}
 
 	pdfTextRegionLine = &pdfTextRegionLines.back();
-	if ((mode == LineType::FIRSTPOINT && pdfTextRegionLine->segments.empty()) || mode == LineType::NEWLINE
-		|| mode != LineType::FIRSTPOINT && pdfTextRegionLine->segments[0].glyphIndex != pdfTextRegionLine->glyphIndex)
+	if ((mode == LineType::FIRSTPOINT && pdfTextRegionLine->segments.empty())
+		|| mode == LineType::NEWLINE
+		|| (mode != LineType::FIRSTPOINT && pdfTextRegionLine->segments[0].glyphIndex != pdfTextRegionLine->glyphIndex))
 	{
 		PdfTextRegionLine newSegment = PdfTextRegionLine();
 		pdfTextRegionLine->segments.push_back(newSegment);

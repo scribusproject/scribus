@@ -547,22 +547,10 @@ int SearchReplace::doSearch_storyText(const StoryText& storyText, int start, int
 	int sEff = 0;
 	int sFillSh = 100;
 	int sStrokeSh = 100;
-	bool searchForReplace = false;
-	bool rep = false;
 	bool found = true;
 
 	int maxChar = storyText.length() - 1;
 	textLen = 0;
-
-	if ((replaceFillCheckBox->isChecked()) || (replaceStrokeCheckBox->isChecked()) || (replaceStyleCheckBox->isChecked()) || (replaceFontCheckBox->isChecked())
-		|| (replaceStrokeShadeCheckBox->isChecked()) || (replaceFillShadeCheckBox->isChecked()) || (replaceSizeCheckBox->isChecked()) || (replaceTextCheckBox->isChecked())
-		|| (replaceEffectCheckBox->isChecked()) || (replaceAlignCheckBox->isChecked()))
-		rep = true;
-
-	if ((searchFillCheckBox->isChecked()) || (searchStrokeCheckBox->isChecked()) || (searchStyleCheckBox->isChecked()) || (searchFontCheckBox->isChecked())
-		|| (searchStrokeShadeCheckBox->isChecked()) || (searchFillShadeCheckBox->isChecked()) || (searchSizeCheckBox->isChecked()) || (searchTextCheckBox->isChecked())
-		|| (searchEffectCheckBox->isChecked()) || (searchAlignCheckBox->isChecked()))
-		searchForReplace = true;
 
 	if (searchTextCheckBox->isChecked())
 		sText = searchTextLineEdit->text();
