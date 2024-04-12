@@ -520,8 +520,8 @@ class TkCalendar(Frame):
         # start of week
         self.weekStartsLabel = Label(self, text='Week begins with:')
         self.weekVar = IntVar()
-        self.weekMondayRadio = Radiobutton(self, text='Mon', variable=self.weekVar, value=calendar.MONDAY)
-        self.weekSundayRadio = Radiobutton(self, text='Sun', variable=self.weekVar, value=calendar.SUNDAY)
+        self.weekMondayRadio = Radiobutton(self, text='Mon', variable=self.weekVar, value=int(calendar.MONDAY))
+        self.weekSundayRadio = Radiobutton(self, text='Sun', variable=self.weekVar, value=int(calendar.SUNDAY))
         # year
         self.yearLabel = Label(self, text='Year:')
         self.yearVar = StringVar()
