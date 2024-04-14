@@ -192,23 +192,20 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 			return;
 		}
 	}
-	if (tabValues.count() != 0)
+	for (qsizetype i = 0; i < tabValues.count(); ++i)
 	{
-		for (int i = 0; i < tabValues.count(); ++i)
+		fpo = QRect(static_cast<int>(tabValues[i].tabPosition - offset) - 3, 15, 8, 8);
+		if (fpo.contains(m->pos()))
 		{
-			fpo = QRect(static_cast<int>(tabValues[i].tabPosition - offset) - 3, 15, 8, 8);
-			if (fpo.contains(m->pos()))
-			{
-				rulerCode = 3;
-				actTab = i;
-				mouseX = mPosX;
-				emit tabSelected();
-				emit typeChanged(tabValues[actTab].tabType);
-				emit tabMoved(tabValues[actTab].tabPosition);
-				emit fillCharChanged(tabValues[actTab].tabFillChar);
-				update();
-				return;
-			}
+			rulerCode = 3;
+			actTab = static_cast<int>(i);
+			mouseX = mPosX;
+			emit tabSelected();
+			emit typeChanged(tabValues[actTab].tabType);
+			emit tabMoved(tabValues[actTab].tabPosition);
+			emit fillCharChanged(tabValues[actTab].tabFillChar);
+			update();
+			return;
 		}
 	}
 	if ((rulerCode == 0) && (m->button() == Qt::LeftButton))
@@ -236,34 +233,28 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 	int mPosY = m->position().y();
 	if ((mPosY < height()) && (mPosY > 0))
 	{
-		if (rulerCode == 3)
+		if (rulerCode == 3  && (m->button() == Qt::RightButton))
 		{
-			if (m->button() == Qt::RightButton)
-			{
-				tabValues[actTab].tabType += 1;
-				if (tabValues[actTab].tabType > 4)
-					tabValues[actTab].tabType = 0;
-				emit typeChanged(tabValues[actTab].tabType);
-				update();
-			}
-		}
-	}
-	else
-	{
-		if (rulerCode == 3)
-		{
-			tabValues.removeAt(actTab);
-			actTab = 0;
-			if (tabValues.count() != 0)
-			{
-				emit typeChanged(tabValues[actTab].tabType);
-				emit tabMoved(tabValues[actTab].tabPosition);
-				emit fillCharChanged(tabValues[actTab].tabFillChar);
-			}
-			else
-				emit noTabs();
+			tabValues[actTab].tabType += 1;
+			if (tabValues[actTab].tabType > 4)
+				tabValues[actTab].tabType = 0;
+			emit typeChanged(tabValues[actTab].tabType);
 			update();
 		}
+	}
+	else if (rulerCode == 3)
+	{
+		tabValues.removeAt(actTab);
+		actTab = 0;
+		if (tabValues.count() != 0)
+		{
+			emit typeChanged(tabValues[actTab].tabType);
+			emit tabMoved(tabValues[actTab].tabPosition);
+			emit fillCharChanged(tabValues[actTab].tabFillChar);
+		}
+		else
+			emit noTabs();
+		update();
 	}
 	rulerCode = 0;
 	emit mouseReleased();
@@ -335,16 +326,13 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 				return;
 			}
 		}
-		if (tabValues.count() != 0)
+		for (qsizetype i = 0; i < tabValues.count(); ++i)
 		{
-			for (int i = 0; i < static_cast<int>(tabValues.count()); ++i)
+			fpo = QRect(static_cast<int>(tabValues[i].tabPosition-offset) - 3, 15, 8, 8);
+			if (fpo.contains(m->pos()))
 			{
-				fpo = QRect(static_cast<int>(tabValues[i].tabPosition-offset) - 3, 15, 8, 8);
-				if (fpo.contains(m->pos()))
-				{
-					setCursor(QCursor(Qt::SizeHorCursor));
-					return;
-				}
+				setCursor(QCursor(Qt::SizeHorCursor));
+				return;
 			}
 		}
 	}
@@ -579,8 +567,8 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int unit, const QList<Parag
 	}
 	if (!haveFirst)
 	{
-		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-		layout1->addItem( spacer );
+		auto* spacer = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+		layout1->addItem(spacer);
 	}
 	
 	layout1->addStretch( 10 );
@@ -592,7 +580,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int unit, const QList<Parag
 	tabData->setEnabled(false);
 	tabFillCombo->setEnabled(false);
 	typeCombo->setEnabled(false);
-	if (tabs.count() == 0)
+	if (tabs.isEmpty())
 		clearButton->setEnabled(false);
 	clearOneButton->setEnabled(false);
 	resize( minimumSizeHint() );
@@ -747,7 +735,7 @@ void Tabruler::setTabs(const QList<ParagraphStyle::TabRecord>& tabs, int unit)
 		rightIndentData->setNewUnit(unit);
 	}
 	ruler->setTabs(tabs, unit);
-	if (tabs.count() == 0)
+	if (tabs.isEmpty())
 		clearButton->setEnabled(false);
 	clearOneButton->setEnabled(false);
 	tabData->setEnabled(false);
