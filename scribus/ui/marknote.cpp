@@ -28,7 +28,8 @@ void MarkNote::setValues(const NotesStyle* defaultStyle)
 void MarkNote::changeEvent(QEvent *e)
 {
 	QDialog::changeEvent(e);
-	switch (e->type()) {
+	switch (e->type())
+	{
 		case QEvent::LanguageChange:
 			retranslateUi(this);
 			break;

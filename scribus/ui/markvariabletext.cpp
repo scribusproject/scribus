@@ -19,7 +19,7 @@ MarkVariableText::MarkVariableText(const QList<Mark*>& marks, QWidget *parent) :
 	connect(((QComboBox*) labelEditWidget), SIGNAL(currentIndexChanged(int)),this,SLOT(onLabelList_currentIndexChanged(int)));
 	labelLayout->addWidget(labelEditWidget);
 	textEdit->setToolTip(tr("Edit variable text"));
-	setWindowTitle(tr("Mark with Variable Text"));
+	setWindowTitle(tr("Mark With Variable Text"));
 }
 
 MarkVariableText::MarkVariableText(const Mark* mark, QWidget *parent) : MarkInsert(mark, parent), m_widgetType(LineEdit), m_mark(mark)
@@ -32,7 +32,7 @@ MarkVariableText::MarkVariableText(const Mark* mark, QWidget *parent) : MarkInse
 
 	labelLayout->addWidget(labelEditWidget);
 	textEdit->setToolTip(tr("Edit variable text"));
-	setWindowTitle(tr("Mark with Variable Text"));
+	setWindowTitle(tr("Mark With Variable Text"));
 }
 
 MarkVariableText::~MarkVariableText()
@@ -75,7 +75,8 @@ void MarkVariableText::setValues(QString label, QString text)
 void MarkVariableText::changeEvent(QEvent *e)
 {
 	QDialog::changeEvent(e);
-	switch (e->type()) {
+	switch (e->type())
+	{
 		case QEvent::LanguageChange:
 			retranslateUi(this);
 			break;

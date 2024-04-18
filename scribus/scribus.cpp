@@ -9490,7 +9490,7 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 	}
 	bool docWasChanged = false;
 	
-	insertMDialog->setWindowTitle(tr("Insert new ") + insertMDialog->windowTitle());
+	insertMDialog->setWindowTitle(tr("Insert New ") + insertMDialog->windowTitle());
 	if (insertMDialog->exec() != QDialog::Accepted)
 		return false;
 

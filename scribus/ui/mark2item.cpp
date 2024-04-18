@@ -16,7 +16,7 @@ Mark2Item::Mark2Item(QWidget *parent) : MarkInsert(parent)
 		itemsList.append(item->itemName());
 	}
 	ItemList->addItems(itemsList);
-	setWindowTitle(tr("Mark to Item"));
+	setWindowTitle(tr("Reference To Item"));
 }
 
 void Mark2Item::values(QString &label, PageItem* &ptr)
@@ -39,12 +39,13 @@ void Mark2Item::setValues(const QString label, const PageItem* ptr)
 
 void Mark2Item::changeEvent(QEvent *e)
 {
-    QDialog::changeEvent(e);
-    switch (e->type()) {
-    case QEvent::LanguageChange:
-        retranslateUi(this);
-        break;
-    default:
-        break;
-    }
+	QDialog::changeEvent(e);
+	switch (e->type())
+	{
+		case QEvent::LanguageChange:
+			retranslateUi(this);
+			break;
+		default:
+			break;
+	}
 }

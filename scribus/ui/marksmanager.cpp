@@ -167,9 +167,9 @@ void MarksManager::paletteChange()
 
 void MarksManager::handleUpdateRequest(int updateFlags)
 {
-	if (updateFlags & reqMarksUpdate) {
+	if (updateFlags & reqMarksUpdate)
 		updateListView();
-	}
+
 	m_Doc->flag_updateMarksLabels = false;
 }
 
