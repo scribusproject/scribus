@@ -16,20 +16,8 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>0</width>
-    <height>117</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>16777215</width>
-    <height>117</height>
-   </size>
-  </property>
   <property name="windowTitle">
-   <string>Add new Mark for Variable Text</string>
+   <string>Add New Mark for Variable Text</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
