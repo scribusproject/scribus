@@ -9,7 +9,7 @@
 #include <QStandardItemModel>
 
 MarksManager::MarksManager(QWidget *parent, const char *name)
-	: ScrPaletteBase(parent, name), m_Doc(nullptr)
+	: ScrPaletteBase(parent, name)
 {
 	setupUi(this);
 	listView->setSelectionMode(QAbstractItemView::SingleSelection);

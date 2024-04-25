@@ -281,7 +281,7 @@ bool Scribus170Format::saveFile(const QString & fileName, const FileFormat & /* 
 
 	// #11279: Image links get corrupted when symlinks involved
 	// We have to proceed in tow steps here as QFileInfo::canonicalPath()
-	// may no return correct result if fileName does not exists
+	// may not return correct result if fileName does not exists
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	QString canonicalPath = QFileInfo(fileDir).canonicalFilePath();
 	if (!canonicalPath.isEmpty())
@@ -1795,7 +1795,7 @@ void Scribus170Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QPro
 namespace { // anon
 	QString textWithSoftHyphens(StoryText& itemText, int from, int to)
 	{
-		QString result("");
+		QString result;
 		int lastPos = from;
 		for (int i = from; i < to; ++i)
 		{

@@ -80,7 +80,7 @@ void Mark2Mark::values(QString& label, Mark* &mrk)
 	label = this->labelEdit->text();
 	int labelID = LabelList->currentIndex();
 	if (labelID == 0)
-		mrk= nullptr;
+		mrk = nullptr;
 	else
 		mrk = (Mark*) LabelList->itemData(labelID).value<void*>();
 }

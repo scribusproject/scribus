@@ -292,6 +292,8 @@ void Prefs_TableOfContents::updateParagraphStyleComboBox()
 
 void Prefs_TableOfContents::updateDocParagraphStyleComboBox()
 {
+	if (!m_Doc)
+		return;
 	QStringList stylesList;
 	for (int i = 0; i < m_Doc->paragraphStyles().count(); ++i)
 	{
@@ -300,11 +302,10 @@ void Prefs_TableOfContents::updateDocParagraphStyleComboBox()
 			stylesList.append(paraStyle.name());
 	}
 	stylesList.sort();
+	stylesList.prepend(CommonStrings::trDefaultParagraphStyle);
 	tocEntryStyleComboBox->clear();
-	tocEntryStyleComboBox->addItem(CommonStrings::trDefaultParagraphStyle);
-	tocEntryStyleComboBox->addItems(stylesList);
 	paragraphStyleComboBox->clear();
-	paragraphStyleComboBox->addItem(CommonStrings::trDefaultParagraphStyle);
+	tocEntryStyleComboBox->addItems(stylesList);
 	paragraphStyleComboBox->addItems(stylesList);
 }
 void Prefs_TableOfContents::enableGUIWidgets()

@@ -37,7 +37,6 @@ MarkVariableText::MarkVariableText(const Mark* mark, QWidget *parent) : MarkInse
 
 MarkVariableText::~MarkVariableText()
 {
-	//delete ui;
 	delete labelEditWidget;
 }
 
