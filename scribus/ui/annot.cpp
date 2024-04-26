@@ -187,6 +187,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* vi
 	MaxChars->setEnabled(setter);
 	NoScroll->setChecked(m_annotation.Flag() & Annotation::Flag_DoNotScroll);
 	NoSpell->setChecked(m_annotation.Flag() & Annotation::Flag_DoNotSpellCheck);
+	AutoTextSize->setChecked(m_annotation.Flag() & Annotation::Flag_AutoTextSize);
 
 	ChkStil->setCurrentIndex(m_annotation.ChkStil());
 	isChkd->setChecked(m_annotation.IsChk());
@@ -1137,6 +1138,8 @@ void ScAnnot::SetValues()
 			annotation.addToFlag(Annotation::Flag_DoNotSpellCheck);
 		if (NoScroll->isChecked())
 			annotation.addToFlag(Annotation::Flag_DoNotScroll);
+		if (AutoTextSize->isChecked())
+			annotation.addToFlag(Annotation::Flag_AutoTextSize);
 	}
 	if ((annotation.Type() == Annotation::Textfield) || (annotation.Type() == Annotation::Combobox))
 	{
@@ -1419,6 +1422,7 @@ void ScAnnot::SetAnnotationType(int it)
 	CanEdit->setChecked(annotation.Flag() & Annotation::Flag_Edit);
 	NoSpell->setChecked(annotation.Flag() & Annotation::Flag_DoNotSpellCheck);
 	NoScroll->setChecked(annotation.Flag() & Annotation::Flag_DoNotScroll);
+	AutoTextSize->setChecked(annotation.Flag() & Annotation::Flag_AutoTextSize);
 	ChkStil->setCurrentIndex(annotation.ChkStil());
 	isChkd->setChecked(annotation.IsChk());
 	setter = annotation.MaxChar() != -1;

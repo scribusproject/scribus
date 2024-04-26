@@ -9084,7 +9084,10 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 					cnx += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()].name;
 //					cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()] + "Form";
 			}
-			cnx += " " + FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0) + " Tf";
+			if (ite->annotation().Flag() & Annotation::Flag_AutoTextSize)
+				cnx += " " + FToStr(0) + " Tf";
+			else
+				cnx += " " + FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0) + " Tf";
 			if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 				cnx += " " + putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
 			if (ite->fillColor() != CommonStrings::None)

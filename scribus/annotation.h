@@ -106,7 +106,8 @@ class SCRIBUS_API Annotation // : public SaxIO
 			Flag_Comb				=	16777216,	// Bit 25
 			Flag_RichText			=	33554432,	// Bit 26 for Textfields only
 			Flag_RadiosInUnison		=	33554432,	// Bit 26 for Radio Buttons only
-			Flag_CommitOnSelChange	=	67108864	// Bit 27
+			Flag_CommitOnSelChange	=	67108864,	// Bit 27
+			Flag_AutoTextSize	    =  134217728	// Bit 28
 		};
 
 		bool isAcroFormField() const
