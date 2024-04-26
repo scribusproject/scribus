@@ -1106,6 +1106,8 @@ bool PageItem::canBeLinkedTo(const PageItem* nxt) const
 		return false;
 	if (!nxt || nxt->prevInChain() )
 		return false;
+	if (this->isAnnotation() || nxt->isAnnotation())
+		return false;
 	for (const PageItem* ff = nxt; ff; ff = ff->nextInChain())
 	{
 		if (ff == this)
