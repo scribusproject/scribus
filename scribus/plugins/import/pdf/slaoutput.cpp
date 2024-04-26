@@ -822,6 +822,8 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 						ite->annotation().setMaxChar(-1);
 					if (!btn->isReadOnly())
 						ite->annotation().addToFlag(Annotation::Flag_Edit);
+					if (btn->getTextFontSize() == 0)
+						ite->annotation().addToFlag(Annotation::Flag_AutoTextSize);
 					handleActions(ite, ano);
 				}
 			}
