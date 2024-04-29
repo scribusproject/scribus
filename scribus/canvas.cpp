@@ -1408,7 +1408,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, const ScPage *page, const ScLay
 			for ( ; *itemIt; ++itemIt)
 			{
 				PageItem* item = *itemIt;
-				item->savedOwnPage = currItem->OwnPage;
+				item->savedOwnPage = item->OwnPage;
 				item->OwnPage = page->pageNr();
 			}
 		}
