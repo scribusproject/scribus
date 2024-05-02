@@ -232,17 +232,14 @@ QRectF Canvas::globalToCanvas(QRect p) const
 	return { org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale };
 }
 
-
 QRectF Canvas::globalToCanvas(const QRectF& p) const
 {
 	FPoint org = globalToCanvas(p.topLeft());
 	return { org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale };
 }
 
-
 // ________________________
 // Tests for Finding Things:
-
 
 bool Canvas::hitsCanvasPoint(const QPointF& globalPoint, const FPoint& canvasPoint) const
 {
@@ -411,7 +408,7 @@ PageItem* Canvas::itemUnderCursor(QPointF globalPos, PageItem* itemAbove, bool a
 	{
 		const ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[m_doc->currentPage()->masterPageName()]);
 		// if itemAbove is given, we expect to find it among the masterpage items of this page
-		int currNr = itemAbove? m_doc->currentPage()->FromMaster.indexOf(itemAbove)-1 : m_doc->currentPage()->FromMaster.count()-1;
+		int currNr = itemAbove ? m_doc->currentPage()->FromMaster.indexOf(itemAbove) - 1 : m_doc->currentPage()->FromMaster.count() - 1;
 		if (currNr < 0)
 			return nullptr;
 		while (currNr >= 0)
@@ -527,9 +524,9 @@ bool Canvas::cursorOverTextFrameControl(QPointF globalPos, const PageItem* frame
 {
 	FPoint mp = globalToCanvas(globalPos);
 	qreal sideLength = 10 / qMax(m_viewMode.scale, 1.0);
-	qreal left  = frame->xPos() + frame->width() - sideLength;// / 2;
+	qreal left  = frame->xPos() + frame->width() - sideLength;
 	qreal right = left + sideLength;
-	qreal top   = frame->yPos() + frame->height() - sideLength;// * 1.5;
+	qreal top   = frame->yPos() + frame->height() - sideLength;
 	qreal bottom = top + sideLength;
 	return mp.x() > left && mp.x() < right && mp.y() > top && mp.y() < bottom;
 }
@@ -742,10 +739,10 @@ bool Canvas::adjustBuffer()
 			drawPixmap(p, xpos, ypos, m_buffer, x, y, width + 1, height + 1);
 #if DRAW_DEBUG_LINES
 			p.setPen(Qt::blue);
-			p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos);
-			p.drawLine(xpos+width, ypos+height/2, xpos+width/2, ypos);
-			p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos+height);
-			p.drawLine(xpos+width, ypos+height/2, xpos+width/2, ypos+height);
+			p.drawLine(xpos, ypos + height / 2, xpos + width / 2, ypos);
+			p.drawLine(xpos + width, ypos + height / 2, xpos + width / 2, ypos);
+			p.drawLine(xpos, ypos + height / 2, xpos + width / 2, ypos + height);
+			p.drawLine(xpos + width, ypos + height / 2, xpos + width / 2, ypos + height);
 //			qDebug() << "adjust buffer old" << m_bufferRect << "@" << xpos << ypos << "--> new" << newRect;
 #endif
 			p.end();
@@ -1365,8 +1362,8 @@ void Canvas::DrawMasterItems(ScPainter *painter, const ScPage *page, const ScLay
 		return;
 
 	FPoint orig = localToCanvas(clip.topLeft());
-	QRectF cullingArea = QRectF(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
-							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
+	QRectF cullingArea(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
+	                   qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 
 	PageItem *currItem;
 	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->masterPageName()]);
@@ -1465,8 +1462,8 @@ void Canvas::DrawPageItems(ScPainter *painter, const ScLayer& layer, QRect clip,
 
 // 	qDebug()<<"Canvas::DrawPageItems"<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
 	FPoint orig = localToCanvas(clip.topLeft());
-	QRectF cullingArea = QRectF(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
-							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
+	QRectF cullingArea(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
+	                   qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 
 	PageItem *currItem { nullptr };
 	int layerCount = m_doc->layerCount();
@@ -1516,7 +1513,7 @@ void Canvas::DrawPageItems(ScPainter *painter, const ScLayer& layer, QRect clip,
 		}
 		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
 		{
-			if (((m_viewMode.operItemMoving || m_viewMode.drawSelectedItemsWithControls) && currItem->isSelected()))
+			if ((m_viewMode.operItemMoving || m_viewMode.drawSelectedItemsWithControls) && currItem->isSelected())
 			{
 //					qDebug() << "skipping pageitem (move/resizeEdit/selected)" << m_viewMode.operItemMoving << currItem->isSelected();
 			}
@@ -1536,22 +1533,6 @@ void Canvas::DrawPageItems(ScPainter *painter, const ScLayer& layer, QRect clip,
 				currItem->DrawObj_Decoration(painter);
 			}
 			getLinkedFrames(currItem);
-/*			if ((currItem->isTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
-			{
-				PageItem *nextItem = currItem;
-				while (nextItem != 0)
-				{
-					if (nextItem->prevInChain() != 0)
-						nextItem = nextItem->prevInChain();
-					else
-						break;
-				}
-				if (!m_viewMode.linkedFramesToShow.contains(nextItem))
-					m_viewMode.linkedFramesToShow.append(nextItem);
-			}*/
-			/* FIXME:av -
-			what to fix exactly? - pm
-			*/
 			if ((m_doc->appMode == modeEdit) && (currItem->isSelected()) && (currItem->itemType() == PageItem::TextFrame))
 			{
 				setupEditHRuler(currItem);
@@ -1915,7 +1896,7 @@ void Canvas::DrawPageBaselineGrid(ScPainter *p, const QRectF& clip, bool master)
 		for (int a = 0; a < docPagesCount; ++a)
 		{
 			const ScPage *page = m_doc->Pages->at(a);
-			QRectF drawRect = QRectF(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
+			QRectF drawRect(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale, page->width() * m_viewMode.scale + 5, page->height() * m_viewMode.scale + 5);
 			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 			if (drawRect.intersects(clip))
 				DrawPageBaselineGridSub(p, page);
@@ -2269,9 +2250,7 @@ void Canvas::PaintSizeRect(QPolygon newRect)
 	{
 		if (!oldRect.isNull())
 			newRect = newRect.united(oldRect);
-//		newR.moveBy(qRound(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(-m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
 		m_viewMode.redrawPolygon = newRect;
-//		m_viewMode.redrawPolygon.translate(qRound(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(-m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
 		repaint(newR.adjusted(-20, -20, 40, 40));
 	}
 	oldRect = newR;
