@@ -206,45 +206,84 @@ void ODTIm::parseRawTextSpan(const QDomElement &elem, PageItem* item, ParagraphS
 	}
 }
 
+void ODTIm::parseRawTextHyperlink(const QDomElement& elem, PageItem* item, ParagraphStyle& tmpStyle, CharStyle& tmpCStyle, int& posC)
+{
+	if (!elem.hasChildNodes())
+		return;
+
+	for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+	{
+		QString txt;
+		QDomElement spEl = spn.toElement();
+		if (spn.nodeName() == "#text")
+			txt = spn.nodeValue();
+		else if (spn.nodeName() == "text:s")
+		{
+			if (spEl.hasAttribute("text:c"))
+			{
+				int n = spEl.attribute("text:c").toInt();
+				for (int nn = 0; nn < n; nn++)
+				{
+					txt += " ";
+				}
+			}
+			else
+				txt = " ";
+		}
+		else if (spn.nodeName() == "text:tab")
+			txt = SpecialChars::TAB;
+		else if (spn.nodeName() == "text:line-break")
+			txt = SpecialChars::LINEBREAK;
+		if (!txt.isEmpty())
+		{
+			txt.replace(QChar(0xAD), SpecialChars::SHYPHEN);
+			txt.replace(QChar(0x2011), SpecialChars::NBHYPHEN);
+			txt.replace(QChar(0xA0), SpecialChars::NBSPACE);
+			insertChars(item, txt, tmpStyle, tmpCStyle, posC);
+		}
+	}
+}
+
 void ODTIm::parseRawTextParagraph(const QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, int &posC)
 {
 	CharStyle tmpCStyle = newStyle.charStyle();
-	if (elem.hasChildNodes())
+
+	for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 	{
-		for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+		QString txt;
+		QDomElement spEl = spn.toElement();
+		if (spn.nodeName() == "#text")
+			txt = spn.nodeValue();
+		else if (spn.nodeName() == "text:span")
+			parseRawTextSpan(spEl, item, newStyle, tmpCStyle, posC);
+		else if (spn.nodeName() == "text:a")
+			parseRawTextHyperlink(spEl, item, newStyle, tmpCStyle, posC);
+		else if (spn.nodeName() == "text:s")
 		{
-			QString txt;
-			QDomElement spEl = spn.toElement();
-			if (spn.nodeName() == "#text")
-				txt = spn.nodeValue();
-			else if (spn.nodeName() == "text:span")
-				parseRawTextSpan(spEl, item, newStyle, tmpCStyle, posC);
-			else if (spn.nodeName() == "text:s")
+			if (spEl.hasAttribute("text:c"))
 			{
-				if (spEl.hasAttribute("text:c"))
+				int n = spEl.attribute("text:c").toInt();
+				for (int nn = 0; nn < n; nn++)
 				{
-					int n = spEl.attribute("text:c").toInt();
-					for (int nn = 0; nn < n; nn++)
-					{
-						txt += " ";
-					}
+					txt += " ";
 				}
-				else
-					txt = " ";
 			}
-			else if (spn.nodeName() == "text:tab")
-				txt = SpecialChars::TAB;
-			else if (spn.nodeName() == "text:line-break")
-				txt = SpecialChars::LINEBREAK;
-			if (!txt.isEmpty())
-			{
-				txt.replace(QChar(0xAD), SpecialChars::SHYPHEN);
-				txt.replace(QChar(0x2011), SpecialChars::NBHYPHEN);
-				txt.replace(QChar(0xA0), SpecialChars::NBSPACE);
-				insertChars(item, txt, newStyle, tmpCStyle, posC);
-			}
+			else
+				txt = " ";
+		}
+		else if (spn.nodeName() == "text:tab")
+			txt = SpecialChars::TAB;
+		else if (spn.nodeName() == "text:line-break")
+			txt = SpecialChars::LINEBREAK;
+		if (!txt.isEmpty())
+		{
+			txt.replace(QChar(0xAD), SpecialChars::SHYPHEN);
+			txt.replace(QChar(0x2011), SpecialChars::NBHYPHEN);
+			txt.replace(QChar(0xA0), SpecialChars::NBSPACE);
+			insertChars(item, txt, newStyle, tmpCStyle, posC);
 		}
 	}
+
 	item->itemText.insertChars(posC, SpecialChars::PARSEP);
 	item->itemText.applyStyle(posC, newStyle);
 	posC = item->itemText.length();
@@ -680,6 +719,59 @@ void ODTIm::parseTextSpan(const QDomElement &elem, PageItem* item, const Paragra
 		m_textStylesStack.pop();
 }
 
+void ODTIm::parseTextHyperlink(const QDomElement& elem, PageItem* item, const ParagraphStyle& tmpStyle, const CharStyle& tmpCStyle, const ObjStyleODT& tmpOStyle, int& posC)
+{
+	if (!elem.hasChildNodes())
+		return;
+
+	ObjStyleODT odtStyle = tmpOStyle;
+	CharStyle cStyle = tmpCStyle;
+
+	QString textStyleName = elem.attribute("text:style-name");
+	if (textStyleName.length() > 0)
+	{
+		resolveStyle(odtStyle, textStyleName);
+		m_textStylesStack.push(textStyleName);
+	}
+
+	applyCharacterStyle(cStyle, odtStyle);
+
+	for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+	{
+		QString txt;
+		QDomElement spEl = spn.toElement();
+		if (spn.nodeName() == "#text")
+			txt = spn.nodeValue();
+		else if (spn.nodeName() == "text:s")
+		{
+			if (spEl.hasAttribute("text:c"))
+			{
+				int n = spEl.attribute("text:c").toInt();
+				for (int nn = 0; nn < n; nn++)
+				{
+					txt += " ";
+				}
+			}
+			else
+				txt = " ";
+		}
+		else if (spn.nodeName() == "text:tab")
+			txt = SpecialChars::TAB;
+		else if (spn.nodeName() == "text:line-break")
+			txt = SpecialChars::LINEBREAK;
+		if (!txt.isEmpty())
+		{
+			txt.replace(QChar(0xAD), SpecialChars::SHYPHEN);
+			txt.replace(QChar(0x2011), SpecialChars::NBHYPHEN);
+			txt.replace(QChar(0xA0), SpecialChars::NBSPACE);
+			insertChars(item, txt, tmpStyle, cStyle, posC);
+		}
+	}
+
+	if (textStyleName.length() > 0)
+		m_textStylesStack.pop();
+}
+
 void ODTIm::parseTextParagraph(const QDomNode &elem, PageItem* item, const ParagraphStyle &newStyle, const ObjStyleODT &tmpOStyle, int &posC)
 {
 	ParagraphStyle tmpStyle = newStyle;
@@ -723,57 +815,58 @@ void ODTIm::parseTextParagraph(const QDomNode &elem, PageItem* item, const Parag
 		insertChars(item, txt, tmpStyle, tmpCStyle, posC);
 	}
 	applyParagraphStyle(tmpStyle, pStyle);
-	if (elem.hasChildNodes())
+
+	for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 	{
-		for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+		if (!parStyleName.isEmpty())
 		{
-			if (!parStyleName.isEmpty())
+			tmpStyle.setParent(parStyleName);
+			applyParagraphStyle(tmpStyle, pStyle);
+			tmpCStyle = tmpStyle.charStyle();
+			applyCharacterStyle(tmpCStyle, pStyle);
+		}
+		else
+		{
+			tmpStyle = newStyle;
+			applyParagraphStyle(tmpStyle, pStyle);
+			tmpCStyle = tmpStyle.charStyle();
+			applyCharacterStyle(tmpCStyle, pStyle);
+		}
+		QString txt;
+		ObjStyleODT cStyle = pStyle;
+		QDomElement spEl = spn.toElement();
+		if (spn.nodeName() == "#text")
+			txt = spn.nodeValue();
+		else if (spn.nodeName() == "text:span")
+			parseTextSpan(spEl, item, tmpStyle, tmpCStyle, cStyle, posC);
+		else if (spn.nodeName() == "text:a")
+			parseTextHyperlink(spEl, item, tmpStyle, tmpCStyle, cStyle, posC);
+		else if (spn.nodeName() == "text:s")
+		{
+			if (spEl.hasAttribute("text:c"))
 			{
-				tmpStyle.setParent(parStyleName);
-				applyParagraphStyle(tmpStyle, pStyle);
-				tmpCStyle = tmpStyle.charStyle();
-				applyCharacterStyle(tmpCStyle, pStyle);
+				int n = spEl.attribute("text:c").toInt();
+				for (int nn = 0; nn < n; nn++)
+				{
+					txt += " ";
+				}
 			}
 			else
-			{
-				tmpStyle = newStyle;
-				applyParagraphStyle(tmpStyle, pStyle);
-				tmpCStyle = tmpStyle.charStyle();
-				applyCharacterStyle(tmpCStyle, pStyle);
-			}
-			QString txt;
-			ObjStyleODT cStyle = pStyle;
-			QDomElement spEl = spn.toElement();
-			if (spn.nodeName() == "#text")
-				txt = spn.nodeValue();
-			else if (spn.nodeName() == "text:span")
-				parseTextSpan(spEl, item, tmpStyle, tmpCStyle, cStyle, posC);
-			else if (spn.nodeName() == "text:s")
-			{
-				if (spEl.hasAttribute("text:c"))
-				{
-					int n = spEl.attribute("text:c").toInt();
-					for (int nn = 0; nn < n; nn++)
-					{
-						txt += " ";
-					}
-				}
-				else
-					txt = " ";
-			}
-			else if (spn.nodeName() == "text:tab")
-				txt = SpecialChars::TAB;
-			else if (spn.nodeName() == "text:line-break")
-				txt = SpecialChars::LINEBREAK;
-			if (!txt.isEmpty())
-			{
-				txt.replace(QChar(0xAD), SpecialChars::SHYPHEN);
-				txt.replace(QChar(0x2011), SpecialChars::NBHYPHEN);
-				txt.replace(QChar(0xA0), SpecialChars::NBSPACE);
-				insertChars(item, txt, tmpStyle, tmpCStyle, posC);
-			}
+				txt = " ";
+		}
+		else if (spn.nodeName() == "text:tab")
+			txt = SpecialChars::TAB;
+		else if (spn.nodeName() == "text:line-break")
+			txt = SpecialChars::LINEBREAK;
+		if (!txt.isEmpty())
+		{
+			txt.replace(QChar(0xAD), SpecialChars::SHYPHEN);
+			txt.replace(QChar(0x2011), SpecialChars::NBHYPHEN);
+			txt.replace(QChar(0xA0), SpecialChars::NBSPACE);
+			insertChars(item, txt, tmpStyle, tmpCStyle, posC);
 		}
 	}
+
 /*	if (pStyle.lineHeight < 0.0)
 		tmpStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	else
