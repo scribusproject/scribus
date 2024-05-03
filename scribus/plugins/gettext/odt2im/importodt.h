@@ -117,6 +117,7 @@ private:
 	bool parseRawDocReference(const QString& designMap);
 	bool parseRawDocReferenceXML(const QDomDocument &designMapDom);
 	void parseRawTextSpan(const QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC);
+	void parseRawTextHyperlink(const QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC);
 	void parseRawTextParagraph(const QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, int &posC);
 	void parseRawText(const QDomElement &elem, PageItem* item);
 
@@ -126,6 +127,7 @@ private:
 	bool parseDocReference(const QString& designMap);
 	bool parseDocReferenceXML(const QDomDocument &designMapDom);
 	void parseTextSpan(const QDomElement &elem, PageItem* item, const ParagraphStyle &tmpStyle, const CharStyle &tmpCStyle, const ObjStyleODT& tmpOStyle, int &posC);
+	void parseTextHyperlink(const QDomElement &elem, PageItem* item, const ParagraphStyle &tmpStyle, const CharStyle &tmpCStyle, const ObjStyleODT& tmpOStyle, int &posC);
 	void parseTextParagraph(const QDomNode &elem, PageItem* item, const ParagraphStyle &newStyle, const ObjStyleODT &tmpOStyle, int &posC);
 	void parseText(const QDomElement &elem, PageItem* item, const ObjStyleODT& tmpOStyle);
 	void insertChars(PageItem *item, QString &txt, const ParagraphStyle &tmpStyle, const CharStyle &tmpCStyle, int &posC);
