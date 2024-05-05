@@ -1037,13 +1037,13 @@ void ODTIm::applyParagraphStyle(ParagraphStyle &tmpStyle, const ObjStyleODT &oSt
 	tmpStyle.setTabValues(oStyle.tabStops);
 }
 
-void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& pAttrs)
+void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& styleName)
 {
-	if (!m_Styles.contains(pAttrs))
+	if (!m_Styles.contains(styleName))
 		return;
 
 	DrawStyle actStyle;
-	DrawStyle currStyle = m_Styles[pAttrs];
+	DrawStyle currStyle = m_Styles[styleName];
 	QStringList parents;
 	while (currStyle.parentStyle.valid)
 	{
@@ -1055,7 +1055,7 @@ void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& pAttrs)
 		else
 			break;
 	}
-	parents.append(pAttrs);
+	parents.append(styleName);
 
 	for (int p = 0; p < parents.count(); p++)
 	{
