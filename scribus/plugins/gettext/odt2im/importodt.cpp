@@ -1074,278 +1074,279 @@ void ODTIm::applyParagraphStyle(ParagraphStyle &tmpStyle, const ObjStyleODT &oSt
 
 void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& pAttrs)
 {
-	if (m_Styles.contains(pAttrs))
+	if (!m_Styles.contains(pAttrs))
+		return;
+
+	DrawStyle actStyle;
+	DrawStyle currStyle = m_Styles[pAttrs];
+	QStringList parents;
+	while (currStyle.parentStyle.valid)
 	{
-		DrawStyle actStyle;
-		DrawStyle currStyle = m_Styles[pAttrs];
-		QStringList parents;
-		while (currStyle.parentStyle.valid)
+		if (m_Styles.contains(currStyle.parentStyle.value))
 		{
-			if (m_Styles.contains(currStyle.parentStyle.value))
-			{
-				parents.prepend(currStyle.parentStyle.value);
-				currStyle = m_Styles[currStyle.parentStyle.value];
-			}
-			else
-				break;
-		}
-		parents.append(pAttrs);
-		if (!parents.isEmpty())
-		{
-			for (int p = 0; p < parents.count(); p++)
-			{
-				currStyle = m_Styles[parents[p]];
-				if (currStyle.fontName.valid)
-					actStyle.fontName = AttributeValue(currStyle.fontName.value);
-				if (currStyle.fontSize.valid)
-				{
-					if (currStyle.fontSize.value.right(1) == "%")
-					{
-						double perc = parseUnit(currStyle.fontSize.value);
-						if (actStyle.fontSize.valid)
-						{
-							double value = parseUnit(actStyle.fontSize.value) * perc;
-							actStyle.fontSize = AttributeValue(QString("%1pt").arg(value));
-						}
-					}
-					else
-						actStyle.fontSize = AttributeValue(currStyle.fontSize.value);
-				}
-				if (currStyle.fontStyle.valid)
-					actStyle.fontStyle = AttributeValue(currStyle.fontStyle.value);
-				if (currStyle.fontWeight.valid)
-					actStyle.fontWeight = AttributeValue(currStyle.fontWeight.value);
-				if (currStyle.margin_top.valid)
-					actStyle.margin_top = AttributeValue(currStyle.margin_top.value);
-				if (currStyle.margin_bottom.valid)
-					actStyle.margin_bottom = AttributeValue(currStyle.margin_bottom.value);
-				if (currStyle.margin_left.valid)
-					actStyle.margin_left = AttributeValue(currStyle.margin_left.value);
-				if (currStyle.margin_right.valid)
-					actStyle.margin_right = AttributeValue(currStyle.margin_right.value);
-				if (currStyle.textIndent.valid)
-					actStyle.textIndent = AttributeValue(currStyle.textIndent.value);
-				if (currStyle.textAlign.valid)
-					actStyle.textAlign = AttributeValue(currStyle.textAlign.value);
-				if (currStyle.textPos.valid)
-					actStyle.textPos = AttributeValue(currStyle.textPos.value);
-				if (currStyle.textOutline.valid)
-					actStyle.textOutline = AttributeValue(currStyle.textOutline.value);
-				if (currStyle.textUnderline.valid)
-					actStyle.textUnderline = AttributeValue(currStyle.textUnderline.value);
-				if (currStyle.textUnderlineWords.valid)
-					actStyle.textUnderlineWords = AttributeValue(currStyle.textUnderlineWords.value);
-				if (currStyle.textUnderlineColor.valid)
-					actStyle.textUnderlineColor = AttributeValue(currStyle.textUnderlineColor.value);
-				if (currStyle.textStrikeThrough.valid)
-					actStyle.textStrikeThrough = AttributeValue(currStyle.textStrikeThrough.value);
-				if (currStyle.textShadow.valid)
-					actStyle.textShadow = AttributeValue(currStyle.textShadow.value);
-				if (currStyle.fontVariant.valid)
-					actStyle.fontVariant = AttributeValue(currStyle.fontVariant.value);
-				if (currStyle.lineHeight.valid)
-					actStyle.lineHeight = AttributeValue(currStyle.lineHeight.value);
-				if (currStyle.fontColor.valid)
-					actStyle.fontColor = AttributeValue(currStyle.fontColor.value);
-				if (currStyle.textBackgroundColor.valid)
-					actStyle.textBackgroundColor = AttributeValue(currStyle.textBackgroundColor.value);
-				if (currStyle.parBackgroundColor.valid)
-					actStyle.parBackgroundColor = AttributeValue(currStyle.parBackgroundColor.value);
-				if (currStyle.verticalAlignment.valid)
-					actStyle.verticalAlignment = AttributeValue(currStyle.verticalAlignment.value);
-				if (currStyle.tabDists.valid)
-					actStyle.tabDists = AttributeValue(currStyle.tabDists.value);
-				if (currStyle.tabTypes.valid)
-					actStyle.tabTypes = AttributeValue(currStyle.tabTypes.value);
-				if (currStyle.breakAfter.valid)
-					actStyle.breakAfter = AttributeValue(currStyle.breakAfter.value);
-				if (currStyle.breakBefore.valid)
-					actStyle.breakBefore = AttributeValue(currStyle.breakBefore.value);
-			}
-		}
-		if (actStyle.textBackgroundColor.valid)
-		{
-			if (actStyle.textBackgroundColor.value == "transparent")
-				tmpOStyle.CurrColorBText = CommonStrings::None;
-			else
-				tmpOStyle.CurrColorBText = parseColor(actStyle.textBackgroundColor.value);
+			parents.prepend(currStyle.parentStyle.value);
+			currStyle = m_Styles[currStyle.parentStyle.value];
 		}
 		else
-			tmpOStyle.CurrColorBText = CommonStrings::None;
-		if (actStyle.parBackgroundColor.valid)
-		{
-			if (actStyle.parBackgroundColor.value == "transparent")
-				tmpOStyle.CurrColorBPara = CommonStrings::None;
-			else
-				tmpOStyle.CurrColorBPara = parseColor(actStyle.parBackgroundColor.value);
-		}
-		else
-			tmpOStyle.CurrColorBPara = CommonStrings::None;
-		if (actStyle.fontName.valid)
-		{
-			if (m_fontMap.contains(actStyle.fontName.value))
-				tmpOStyle.fontName = m_fontMap[actStyle.fontName.value];
-			else
-				tmpOStyle.fontName = actStyle.fontName.value;
-			if (!PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.contains(tmpOStyle.fontName))
-			{
-				tmpOStyle.fontName = constructFontName(tmpOStyle.fontName, "");
-				m_fontMap[actStyle.fontName.value] = tmpOStyle.fontName;
-			}
-		}
-		else
-		{
-			QString fontName;
-			QStack<QString> textStyleStack = m_textStylesStack;
-			while (!textStyleStack.isEmpty())
-			{
-				QString styleName = textStyleStack.pop();
-				if (!m_Styles.contains(styleName))
-					continue;
-				const DrawStyle& odtStyle = m_Styles[styleName];
-				if (odtStyle.fontName.valid)
-				{
-					if (m_fontMap.contains(odtStyle.fontName.value))
-						tmpOStyle.fontName = m_fontMap[odtStyle.fontName.value];
-					else
-						tmpOStyle.fontName = constructFontName(odtStyle.fontName.value, "");
-					if (!PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.contains(tmpOStyle.fontName))
-					{
-						tmpOStyle.fontName = constructFontName(tmpOStyle.fontName, "");
-						m_fontMap[odtStyle.fontName.value] = tmpOStyle.fontName;
-					}
-					fontName = tmpOStyle.fontName;
-					break;
-				}
-				if (odtStyle.parentStyle.valid)
-				{
-					QVector<QString> parentStyles;
-					DrawStyle drawStyle = odtStyle;
-					while (drawStyle.parentStyle.valid)
-					{
-						if (!m_Styles.contains(drawStyle.parentStyle.value))
-							break;
-						parentStyles.prepend(drawStyle.parentStyle.value);
-						drawStyle = m_Styles[drawStyle.parentStyle.value];
-					}
-					if (parentStyles.count() > 0)
-						textStyleStack += parentStyles;
-				}
-			}
-			if (txtDefaultStyle.fontName.valid && fontName.isEmpty())
-			{
-				tmpOStyle.fontName = constructFontName(txtDefaultStyle.fontName.value, "");
-				m_fontMap[txtDefaultStyle.fontName.value] = tmpOStyle.fontName;
-				fontName = tmpOStyle.fontName;
-			}
-			if (parDefaultStyle.fontName.valid && fontName.isEmpty())
-			{
-				tmpOStyle.fontName = constructFontName(parDefaultStyle.fontName.value, "");
-				m_fontMap[parDefaultStyle.fontName.value] = tmpOStyle.fontName;
-				fontName = tmpOStyle.fontName;
-			}
-		}
-		if (actStyle.fontStyle.valid)
-			tmpOStyle.fontStyle = actStyle.fontStyle.value;
-		if (actStyle.fontWeight.valid)
-			tmpOStyle.fontWeight = actStyle.fontWeight.value;
-		if (actStyle.fontSize.valid)
-			tmpOStyle.fontSize = parseUnit(actStyle.fontSize.value);
-		if (actStyle.fontColor.valid)
-			tmpOStyle.CurrColorText = parseColor(actStyle.fontColor.value);
-		if (actStyle.margin_top.valid)
-			tmpOStyle.margin_top = parseUnit(actStyle.margin_top.value);
-		if (actStyle.margin_bottom.valid)
-			tmpOStyle.margin_bottom = parseUnit(actStyle.margin_bottom.value);
-		if (actStyle.margin_left.valid)
-			tmpOStyle.margin_left = parseUnit(actStyle.margin_left.value);
-		if (actStyle.margin_right.valid)
-			tmpOStyle.margin_right = parseUnit(actStyle.margin_right.value);
-		if (actStyle.textIndent.valid)
-			tmpOStyle.textIndent = parseUnit(actStyle.textIndent.value);
-		if (actStyle.textAlign.valid)
-		{
-			QString attValue = actStyle.textAlign.value;
-			if ((attValue == "left") || (attValue == "start"))
-				tmpOStyle.textAlign = ParagraphStyle::LeftAligned;
-			else if (attValue == "center")
-				tmpOStyle.textAlign = ParagraphStyle::Centered;
-			else if ((attValue == "right") || (attValue == "end"))
-				tmpOStyle.textAlign = ParagraphStyle::RightAligned;
-			else if (attValue == "justify")
-				tmpOStyle.textAlign = ParagraphStyle::Justified;
-		}
-		if (actStyle.verticalAlignment.valid)
-		{
-			if (actStyle.verticalAlignment.value == "middle")
-				tmpOStyle.verticalAlignment = 1;
-			else if (actStyle.verticalAlignment.value == "bottom")
-				tmpOStyle.verticalAlignment = 2;
-		}
-		if (actStyle.textPos.valid)
-			tmpOStyle.textPos = actStyle.textPos.value;
-		if (actStyle.textOutline.valid)
-			tmpOStyle.textOutline = actStyle.textOutline.value;
-		if (actStyle.textUnderline.valid)
-			tmpOStyle.textUnderline = actStyle.textUnderline.value != "none";
-		if (actStyle.textUnderlineWords.valid)
-			tmpOStyle.textUnderlineWords = actStyle.textUnderlineWords.value != "continuous";
-		if (actStyle.textUnderlineColor.valid)
-		{
-			if (actStyle.textUnderlineColor.value == "font-color")
-				tmpOStyle.textUnderlineColor = tmpOStyle.CurrColorText;
-			else
-				tmpOStyle.textUnderlineColor = parseColor(actStyle.textUnderlineColor.value);
-		}
-		if (actStyle.textStrikeThrough.valid)
-			tmpOStyle.textStrikeThrough = actStyle.textStrikeThrough.value != "none";
-		if (actStyle.textShadow.valid)
-			tmpOStyle.textShadow = actStyle.textShadow.value != "none";
-		if (actStyle.fontVariant.valid)
-			tmpOStyle.textSmallCaps = actStyle.fontVariant.value == "small-caps";
-		if (actStyle.lineHeight.valid)
-		{
-			if (actStyle.lineHeight.value == "normal")
-				tmpOStyle.lineHeight = -1.0;
-			else if (actStyle.lineHeight.value.right(1) != "%")
-			{
-				tmpOStyle.lineHeight = parseUnit(actStyle.lineHeight.value);
-				tmpOStyle.absLineHeight = true;
-			}
-			else
-			{
-				tmpOStyle.lineHeight = parseUnit(actStyle.lineHeight.value) * tmpOStyle.fontSize;
-				tmpOStyle.absLineHeight = false;
-			}
-		}
-		if ((actStyle.tabDists.valid) && (actStyle.tabTypes.valid))
-		{
-			QStringList dists = actStyle.tabDists.value.split(";", Qt::SkipEmptyParts);
-			QStringList types = actStyle.tabTypes.value.split(" ", Qt::SkipEmptyParts);
-			if (dists.count() == types.count())
-			{
-				tmpOStyle.tabStops.clear();
-				ParagraphStyle::TabRecord tb;
-				for (int a = 0; a < dists.count(); a++)
-				{
-					tb.tabPosition = parseUnit(dists[a]);
-					if (types[a] == "left")
-						tb.tabType = 0;
-					else if (types[a] == "center")
-						tb.tabType = 4;
-					else if (types[a] == "right")
-						tb.tabType = 1;
-					else if (types[a] == "char")
-						tb.tabType = 3;
-					tmpOStyle.tabStops.append(tb);
-				}
-			}
-		}
-		if (actStyle.breakAfter.valid)
-			tmpOStyle.breakAfter = actStyle.breakAfter.value;
-		if (actStyle.breakBefore.valid)
-			tmpOStyle.breakBefore = actStyle.breakBefore.value;
+			break;
 	}
+	parents.append(pAttrs);
+
+	for (int p = 0; p < parents.count(); p++)
+	{
+		currStyle = m_Styles[parents[p]];
+		if (currStyle.fontName.valid)
+			actStyle.fontName = AttributeValue(currStyle.fontName.value);
+		if (currStyle.fontSize.valid)
+		{
+			if (currStyle.fontSize.value.right(1) == "%")
+			{
+				double perc = parseUnit(currStyle.fontSize.value);
+				if (actStyle.fontSize.valid)
+				{
+					double value = parseUnit(actStyle.fontSize.value) * perc;
+					actStyle.fontSize = AttributeValue(QString("%1pt").arg(value));
+				}
+			}
+			else
+				actStyle.fontSize = AttributeValue(currStyle.fontSize.value);
+		}
+		if (currStyle.fontStyle.valid)
+			actStyle.fontStyle = AttributeValue(currStyle.fontStyle.value);
+		if (currStyle.fontWeight.valid)
+			actStyle.fontWeight = AttributeValue(currStyle.fontWeight.value);
+		if (currStyle.margin_top.valid)
+			actStyle.margin_top = AttributeValue(currStyle.margin_top.value);
+		if (currStyle.margin_bottom.valid)
+			actStyle.margin_bottom = AttributeValue(currStyle.margin_bottom.value);
+		if (currStyle.margin_left.valid)
+			actStyle.margin_left = AttributeValue(currStyle.margin_left.value);
+		if (currStyle.margin_right.valid)
+			actStyle.margin_right = AttributeValue(currStyle.margin_right.value);
+		if (currStyle.textIndent.valid)
+			actStyle.textIndent = AttributeValue(currStyle.textIndent.value);
+		if (currStyle.textAlign.valid)
+			actStyle.textAlign = AttributeValue(currStyle.textAlign.value);
+		if (currStyle.textPos.valid)
+			actStyle.textPos = AttributeValue(currStyle.textPos.value);
+		if (currStyle.textOutline.valid)
+			actStyle.textOutline = AttributeValue(currStyle.textOutline.value);
+		if (currStyle.textUnderline.valid)
+			actStyle.textUnderline = AttributeValue(currStyle.textUnderline.value);
+		if (currStyle.textUnderlineWords.valid)
+			actStyle.textUnderlineWords = AttributeValue(currStyle.textUnderlineWords.value);
+		if (currStyle.textUnderlineColor.valid)
+			actStyle.textUnderlineColor = AttributeValue(currStyle.textUnderlineColor.value);
+		if (currStyle.textStrikeThrough.valid)
+			actStyle.textStrikeThrough = AttributeValue(currStyle.textStrikeThrough.value);
+		if (currStyle.textShadow.valid)
+			actStyle.textShadow = AttributeValue(currStyle.textShadow.value);
+		if (currStyle.fontVariant.valid)
+			actStyle.fontVariant = AttributeValue(currStyle.fontVariant.value);
+		if (currStyle.lineHeight.valid)
+			actStyle.lineHeight = AttributeValue(currStyle.lineHeight.value);
+		if (currStyle.fontColor.valid)
+			actStyle.fontColor = AttributeValue(currStyle.fontColor.value);
+		if (currStyle.textBackgroundColor.valid)
+			actStyle.textBackgroundColor = AttributeValue(currStyle.textBackgroundColor.value);
+		if (currStyle.parBackgroundColor.valid)
+			actStyle.parBackgroundColor = AttributeValue(currStyle.parBackgroundColor.value);
+		if (currStyle.verticalAlignment.valid)
+			actStyle.verticalAlignment = AttributeValue(currStyle.verticalAlignment.value);
+		if (currStyle.tabDists.valid)
+			actStyle.tabDists = AttributeValue(currStyle.tabDists.value);
+		if (currStyle.tabTypes.valid)
+			actStyle.tabTypes = AttributeValue(currStyle.tabTypes.value);
+		if (currStyle.breakAfter.valid)
+			actStyle.breakAfter = AttributeValue(currStyle.breakAfter.value);
+		if (currStyle.breakBefore.valid)
+			actStyle.breakBefore = AttributeValue(currStyle.breakBefore.value);
+	}
+
+	if (actStyle.textBackgroundColor.valid)
+	{
+		if (actStyle.textBackgroundColor.value == "transparent")
+			tmpOStyle.CurrColorBText = CommonStrings::None;
+		else
+			tmpOStyle.CurrColorBText = parseColor(actStyle.textBackgroundColor.value);
+	}
+	else
+		tmpOStyle.CurrColorBText = CommonStrings::None;
+
+	if (actStyle.parBackgroundColor.valid)
+	{
+		if (actStyle.parBackgroundColor.value == "transparent")
+			tmpOStyle.CurrColorBPara = CommonStrings::None;
+		else
+			tmpOStyle.CurrColorBPara = parseColor(actStyle.parBackgroundColor.value);
+	}
+	else
+		tmpOStyle.CurrColorBPara = CommonStrings::None;
+
+	if (actStyle.fontName.valid)
+	{
+		if (m_fontMap.contains(actStyle.fontName.value))
+			tmpOStyle.fontName = m_fontMap[actStyle.fontName.value];
+		else
+			tmpOStyle.fontName = actStyle.fontName.value;
+		if (!PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.contains(tmpOStyle.fontName))
+		{
+			tmpOStyle.fontName = constructFontName(tmpOStyle.fontName, "");
+			m_fontMap[actStyle.fontName.value] = tmpOStyle.fontName;
+		}
+	}
+	else
+	{
+		QString fontName;
+		QStack<QString> textStyleStack = m_textStylesStack;
+		while (!textStyleStack.isEmpty())
+		{
+			QString styleName = textStyleStack.pop();
+			if (!m_Styles.contains(styleName))
+				continue;
+			const DrawStyle& odtStyle = m_Styles[styleName];
+			if (odtStyle.fontName.valid)
+			{
+				if (m_fontMap.contains(odtStyle.fontName.value))
+					tmpOStyle.fontName = m_fontMap[odtStyle.fontName.value];
+				else
+					tmpOStyle.fontName = constructFontName(odtStyle.fontName.value, "");
+				if (!PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.contains(tmpOStyle.fontName))
+				{
+					tmpOStyle.fontName = constructFontName(tmpOStyle.fontName, "");
+					m_fontMap[odtStyle.fontName.value] = tmpOStyle.fontName;
+				}
+				fontName = tmpOStyle.fontName;
+				break;
+			}
+			if (odtStyle.parentStyle.valid)
+			{
+				QVector<QString> parentStyles;
+				DrawStyle drawStyle = odtStyle;
+				while (drawStyle.parentStyle.valid)
+				{
+					if (!m_Styles.contains(drawStyle.parentStyle.value))
+						break;
+					parentStyles.prepend(drawStyle.parentStyle.value);
+					drawStyle = m_Styles[drawStyle.parentStyle.value];
+				}
+				if (parentStyles.count() > 0)
+					textStyleStack += parentStyles;
+			}
+		}
+		if (txtDefaultStyle.fontName.valid && fontName.isEmpty())
+		{
+			tmpOStyle.fontName = constructFontName(txtDefaultStyle.fontName.value, "");
+			m_fontMap[txtDefaultStyle.fontName.value] = tmpOStyle.fontName;
+			fontName = tmpOStyle.fontName;
+		}
+		if (parDefaultStyle.fontName.valid && fontName.isEmpty())
+		{
+			tmpOStyle.fontName = constructFontName(parDefaultStyle.fontName.value, "");
+			m_fontMap[parDefaultStyle.fontName.value] = tmpOStyle.fontName;
+			fontName = tmpOStyle.fontName;
+		}
+	}
+	if (actStyle.fontStyle.valid)
+		tmpOStyle.fontStyle = actStyle.fontStyle.value;
+	if (actStyle.fontWeight.valid)
+		tmpOStyle.fontWeight = actStyle.fontWeight.value;
+	if (actStyle.fontSize.valid)
+		tmpOStyle.fontSize = parseUnit(actStyle.fontSize.value);
+	if (actStyle.fontColor.valid)
+		tmpOStyle.CurrColorText = parseColor(actStyle.fontColor.value);
+	if (actStyle.margin_top.valid)
+		tmpOStyle.margin_top = parseUnit(actStyle.margin_top.value);
+	if (actStyle.margin_bottom.valid)
+		tmpOStyle.margin_bottom = parseUnit(actStyle.margin_bottom.value);
+	if (actStyle.margin_left.valid)
+		tmpOStyle.margin_left = parseUnit(actStyle.margin_left.value);
+	if (actStyle.margin_right.valid)
+		tmpOStyle.margin_right = parseUnit(actStyle.margin_right.value);
+	if (actStyle.textIndent.valid)
+		tmpOStyle.textIndent = parseUnit(actStyle.textIndent.value);
+	if (actStyle.textAlign.valid)
+	{
+		QString attValue = actStyle.textAlign.value;
+		if ((attValue == "left") || (attValue == "start"))
+			tmpOStyle.textAlign = ParagraphStyle::LeftAligned;
+		else if (attValue == "center")
+			tmpOStyle.textAlign = ParagraphStyle::Centered;
+		else if ((attValue == "right") || (attValue == "end"))
+			tmpOStyle.textAlign = ParagraphStyle::RightAligned;
+		else if (attValue == "justify")
+			tmpOStyle.textAlign = ParagraphStyle::Justified;
+	}
+	if (actStyle.verticalAlignment.valid)
+	{
+		if (actStyle.verticalAlignment.value == "middle")
+			tmpOStyle.verticalAlignment = 1;
+		else if (actStyle.verticalAlignment.value == "bottom")
+			tmpOStyle.verticalAlignment = 2;
+	}
+	if (actStyle.textPos.valid)
+		tmpOStyle.textPos = actStyle.textPos.value;
+	if (actStyle.textOutline.valid)
+		tmpOStyle.textOutline = actStyle.textOutline.value;
+	if (actStyle.textUnderline.valid)
+		tmpOStyle.textUnderline = actStyle.textUnderline.value != "none";
+	if (actStyle.textUnderlineWords.valid)
+		tmpOStyle.textUnderlineWords = actStyle.textUnderlineWords.value != "continuous";
+	if (actStyle.textUnderlineColor.valid)
+	{
+		if (actStyle.textUnderlineColor.value == "font-color")
+			tmpOStyle.textUnderlineColor = tmpOStyle.CurrColorText;
+		else
+			tmpOStyle.textUnderlineColor = parseColor(actStyle.textUnderlineColor.value);
+	}
+	if (actStyle.textStrikeThrough.valid)
+		tmpOStyle.textStrikeThrough = actStyle.textStrikeThrough.value != "none";
+	if (actStyle.textShadow.valid)
+		tmpOStyle.textShadow = actStyle.textShadow.value != "none";
+	if (actStyle.fontVariant.valid)
+		tmpOStyle.textSmallCaps = actStyle.fontVariant.value == "small-caps";
+	if (actStyle.lineHeight.valid)
+	{
+		if (actStyle.lineHeight.value == "normal")
+			tmpOStyle.lineHeight = -1.0;
+		else if (actStyle.lineHeight.value.right(1) != "%")
+		{
+			tmpOStyle.lineHeight = parseUnit(actStyle.lineHeight.value);
+			tmpOStyle.absLineHeight = true;
+		}
+		else
+		{
+			tmpOStyle.lineHeight = parseUnit(actStyle.lineHeight.value) * tmpOStyle.fontSize;
+			tmpOStyle.absLineHeight = false;
+		}
+	}
+	if ((actStyle.tabDists.valid) && (actStyle.tabTypes.valid))
+	{
+		QStringList dists = actStyle.tabDists.value.split(";", Qt::SkipEmptyParts);
+		QStringList types = actStyle.tabTypes.value.split(" ", Qt::SkipEmptyParts);
+		if (dists.count() == types.count())
+		{
+			tmpOStyle.tabStops.clear();
+			ParagraphStyle::TabRecord tb;
+			for (int a = 0; a < dists.count(); a++)
+			{
+				tb.tabPosition = parseUnit(dists[a]);
+				if (types[a] == "left")
+					tb.tabType = 0;
+				else if (types[a] == "center")
+					tb.tabType = 4;
+				else if (types[a] == "right")
+					tb.tabType = 1;
+				else if (types[a] == "char")
+					tb.tabType = 3;
+				tmpOStyle.tabStops.append(tb);
+			}
+		}
+	}
+	if (actStyle.breakAfter.valid)
+		tmpOStyle.breakAfter = actStyle.breakAfter.value;
+	if (actStyle.breakBefore.valid)
+		tmpOStyle.breakBefore = actStyle.breakBefore.value;
 }
 
 double ODTIm::parseUnit(const QString &unit)
