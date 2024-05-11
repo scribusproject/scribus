@@ -1443,7 +1443,16 @@ void PageItem_TextFrame::layout()
 			BulNumMode = false;
 			if (itemText.isBlockStart(a))
 			{
-				autoLeftIndent = 0.0;
+				if (currentIndex > 0)
+				{
+					int prevA = current.glyphs[currentIndex - 1].firstChar();
+					if (a != prevA)
+						autoLeftIndent = 0.0;
+				}
+				else
+				{
+					autoLeftIndent = 0.0;
+				}
 				style = itemText.paragraphStyle(a);
 				if (style.hasBullet() || style.hasNum())
 				{
@@ -1792,7 +1801,15 @@ void PageItem_TextFrame::layout()
 						{
 							if (style.parEffectIndent())
 							{
-								current.leftIndent -= style.parEffectOffset() + wide;
+								double effectWidth = 0.0;
+								for (int j = i; shapedText.haveMoreText(j, glyphClusters); ++j)
+								{
+									const auto& glyph = glyphClusters[j];
+									if (glyph.firstChar() != a)
+										break;
+									effectWidth += glyph.width();
+								}
+								current.leftIndent -= style.parEffectOffset() + effectWidth;
 								if (current.leftIndent < 0.0)
 								{
 									autoLeftIndent = abs(current.leftIndent);
@@ -2365,18 +2382,16 @@ void PageItem_TextFrame::layout()
 			if ((DropCmode || BulNumMode) && !outs)
 			{
 				current.xPos += style.parEffectOffset();
-				if (style.hasNum())
+				// for bulleted lists, make sure offset is applied only after last bullet char
+				// for numbered lists, make sure that offset is applied only after the suffix
+				// loop over previous current.glyphs and set their extraWidth to 0.0
+				for (int j = 0; j < current.glyphs.size(); j++)
 				{
-					// make sure that Offset inserted only after the suffix
-					// loop over previous current.glyphs and set their extraWidth to 0.0
-					for (int j = 0; j < current.glyphs.size(); j++)
+					if (j != currentIndex)
 					{
-						if (j != currentIndex)
-						{
-							GlyphCluster& currentGlyph = current.glyphs[j];
-							current.xPos -= currentGlyph.extraWidth;
-							currentGlyph.extraWidth = 0.0;
-						}
+						GlyphCluster& currentGlyph = current.glyphs[j];
+						current.xPos -= currentGlyph.extraWidth;
+						currentGlyph.extraWidth = 0.0;
 					}
 				}
 				// set the offset for Drop Cap, Bullet & Number List
