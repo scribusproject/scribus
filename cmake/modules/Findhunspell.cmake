@@ -31,6 +31,7 @@ if(NOT hunspell_FIND_QUIETLY)
 	set(hunspell_NEWAPI ON)
 	message(STATUS "New hunspell API found. hunspell version ${hunspell_VERSION}")
 	message(STATUS "hunspell INCLUDE ${hunspell_INCLUDE_DIRS}")
+	message(STATUS "hunspell LIBRARY DIRS ${hunspell_LIBRARY_DIRS}")
 	message(STATUS "hunspell LIBRARIES ${hunspell_LIBRARIES}")
 endif()
 
@@ -38,8 +39,9 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(hunspell
 	FOUND_VAR hunspell_FOUND
 	REQUIRED_VARS
-	    hunspell_LIBRARIES
+		hunspell_LIBRARIES
 		hunspell_INCLUDE_DIRS
+		hunspell_LIBRARY_DIRS
 	VERSION_VAR hunspell_VERSION
 )
 
