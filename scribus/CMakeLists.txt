@@ -29,6 +29,7 @@ include_directories(
 	${FREETYPE_INCLUDE_DIRS}
 	${HARFBUZZ_INCLUDE_DIRS}
 	${HARFBUZZ_SUBSET_INCLUDE_DIRS}
+	${hunspell_INCLUDE_DIRS}
 )
 
 include(api/CMakeLists.txt)
@@ -39,7 +40,7 @@ include(styles/CMakeLists.txt)
 include(text/CMakeLists.txt)
 
 add_subdirectory(dtd)
-add_subdirectory(ui/qml)
+#add_subdirectory(ui/qml)
 if(WITH_TESTS)
 	add_subdirectory(tests)
 endif()
@@ -620,6 +621,7 @@ link_directories(
 	${CMAKE_CURRENT_BINARY_DIR}/third_party/zip
 	${HARFBUZZ_LIBRARY_DIRS}
 	${HARFBUZZ_SUBSET_LIBRARY_DIRS}
+	${hunspell_LIBRARY_DIRS}
 	${ICU_LIBRARY_DIRS}
 )
 
