@@ -2406,11 +2406,23 @@ void PageItem::setItemName(const QString& newName)
 
 void PageItem::setGradient(const QString &newGradient)
 {
+	using ActionState = QPair<QString, VGradient>;
 	if (m_gradientName == newGradient)
 		return;
+
+	bool hasNamedGradient = m_Doc->docGradients.contains(newGradient);
+	VGradient newFillGradient = hasNamedGradient ? m_Doc->docGradients[m_gradientName] : fill_gradient;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState<ActionState>(Um::GradVal);
+		ActionState oldState = qMakePair(m_gradientName, fill_gradient);
+		ActionState newState = qMakePair(newGradient, newFillGradient);
+		is->set("FILL_GRADIENT_NAME");
+		is->setStates(oldState, newState);
+		undoManager->action(this, is);
+	}
 	m_gradientName = newGradient;
-	if (m_Doc->docGradients.contains(m_gradientName))
-		fill_gradient = m_Doc->docGradients[m_gradientName];
+	fill_gradient = newFillGradient;
 }
 
 void PageItem::setMaskGradient(const VGradient& grad)
@@ -3337,16 +3349,23 @@ void PageItem::setGradientVector(double startX, double startY, double endX, doub
 
 void PageItem::setStrokeGradient(const QString &newGradient)
 {
+	using ActionState = QPair<QString, VGradient>;
 	if (gradientStrokeVal == newGradient)
 		return;
+
+	bool hasNamedGradient = m_Doc->docGradients.contains(newGradient);
+	VGradient newStrokeGradient = hasNamedGradient ? m_Doc->docGradients[m_gradientName] : stroke_gradient;
 	if (UndoManager::undoEnabled())
 	{
-		auto* is = new ScOldNewState<QString>(Um::GradVal);
+		auto* is = new ScOldNewState<ActionState>(Um::GradVal);
+		ActionState oldState = qMakePair(m_gradientName, stroke_gradient);
+		ActionState newState = qMakePair(newGradient, newStrokeGradient);
 		is->set("STROKE_GRADIENT_NAME");
-		is->setStates(gradientStrokeVal, newGradient);
+		is->setStates(oldState, newState);
 		undoManager->action(this, is);
 	}
 	gradientStrokeVal = newGradient;
+	stroke_gradient = newStrokeGradient;
 }
 
 void PageItem::strokeGradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const
@@ -3438,8 +3457,23 @@ void PageItem::setMaskType(int val)
 
 void PageItem::setGradientMask(const QString &newMask)
 {
-	if (gradientMaskVal != newMask)
-		gradientMaskVal = newMask;
+	using ActionState = QPair<QString, VGradient>;
+	if (gradientMaskVal == newMask)
+		return;
+
+	bool hasNamedGradient = m_Doc->docGradients.contains(newMask);
+	VGradient newMaskGradient = hasNamedGradient ? m_Doc->docGradients[m_gradientName] : mask_gradient;
+	if (UndoManager::undoEnabled())
+	{
+		auto* is = new ScOldNewState<ActionState>(Um::GradValMask);
+		ActionState oldState = qMakePair(m_gradientName, mask_gradient);
+		ActionState newState = qMakePair(newMask, newMaskGradient);
+		is->set("MASK_GRADIENT_NAME");
+		is->setStates(oldState, newState);
+		undoManager->action(this, is);
+	}
+	gradientMaskVal = newMask;
+	mask_gradient = newMaskGradient;
 }
 
 void PageItem::setPatternMask(const QString &newMask)
@@ -5333,6 +5367,11 @@ bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)
 		restoreFillGradient(ss, isUndo);
 		return true;
 	}
+	if (ss->contains("FILL_GRADIENT_NAME"))
+	{
+		restoreFillGradientName(ss, isUndo);
+		return true;
+	}
 	if (ss->contains("FILL_PATTERN"))
 	{
 		restoreFillPattern(ss, isUndo);
@@ -5381,6 +5420,11 @@ bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)
 	if (ss->contains("MASK_GRAD"))
 	{
 		restoreMaskGradient(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("MASK_GRADIENT_NAME"))
+	{
+		restoreMaskGradientName(ss, isUndo);
 		return true;
 	}
 	if (ss->contains("MASK_PATTERN"))
@@ -6106,6 +6150,30 @@ void PageItem::restoreFillGradient(SimpleState *state, bool isUndo)
 	update();
 }
 
+void PageItem::restoreFillGradientName(SimpleState* state, bool isUndo)
+{
+	using ActionState = QPair<QString, VGradient>;
+	const auto* is = dynamic_cast<ScOldNewState<ActionState> *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreFillGradientName: dynamic cast failed");
+		return;
+	}
+	if (isUndo)
+	{
+		const auto& oldState = is->getOldState();
+		m_gradientName = oldState.first;
+		fill_gradient = oldState.second;
+	}
+	else
+	{
+		const auto& newState = is->getNewState();
+		m_gradientName = newState.first;
+		fill_gradient = newState.second;
+	}
+	update();
+}
+
 void PageItem::restoreFillPattern(SimpleState* state, bool isUndo)
 {
 	const auto* is = dynamic_cast<ScOldNewState<QString> *>(state);
@@ -6174,6 +6242,30 @@ void PageItem::restoreMaskGradient(SimpleState *state, bool isUndo)
 		mask_gradient = is->getOldState();
 	else
 		mask_gradient = is->getNewState();
+	update();
+}
+
+void PageItem::restoreMaskGradientName(SimpleState* state, bool isUndo)
+{
+	using ActionState = QPair<QString, VGradient>;
+	const auto* is = dynamic_cast<ScOldNewState<ActionState> *>(state);
+	if (!is)
+	{
+		qFatal("PageItem::restoreMaskGradientName: dynamic cast failed");
+		return;
+	}
+	if (isUndo)
+	{
+		const auto& oldState = is->getOldState();
+		gradientMaskVal = oldState.first;
+		mask_gradient = oldState.second;
+	}
+	else
+	{
+		const auto& newState = is->getNewState();
+		gradientMaskVal = newState.first;
+		mask_gradient = newState.second;
+	}
 	update();
 }
 
@@ -6249,16 +6341,25 @@ void PageItem::restoreStrokeGradient(SimpleState *state, bool isUndo)
 
 void PageItem::restoreStrokeGradientName(SimpleState* state, bool isUndo)
 {
-	const auto* is = dynamic_cast<ScOldNewState<QString> *>(state);
+	using ActionState = QPair<QString, VGradient>;
+	const auto* is = dynamic_cast<ScOldNewState<ActionState> *>(state);
 	if (!is)
 	{
 		qFatal("PageItem::restoreStrokeGradientName: dynamic cast failed");
 		return;
 	}
 	if (isUndo)
-		gradientStrokeVal = is->getOldState();
+	{
+		const auto& oldState = is->getOldState();
+		gradientStrokeVal = oldState.first;
+		stroke_gradient = oldState.second;
+	}
 	else
-		gradientStrokeVal = is->getNewState();
+	{
+		const auto& newState = is->getNewState();
+		gradientStrokeVal = newState.first;
+		stroke_gradient = newState.second;
+	}
 	update();
 }
 

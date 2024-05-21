@@ -1536,8 +1536,13 @@ public slots:
 	void itemSelection_SetItemFillBlend(int t);
 	void itemSelection_SetItemLineBlend(int t);
 	void itemSelection_SetLineGradient(const VGradient& newGradient, Selection* customSelection = nullptr);
+	void itemSelection_SetLineGradientExtend(VGradient::VGradientRepeatMethod repeatMethod, Selection* customSelection = nullptr);
+	void itemSelection_SetLineGradientName(const QString& gradientName, Selection* customSelection = nullptr);
 	void itemSelection_SetFillGradient(const VGradient& newGradient, Selection* customSelection = nullptr);
+	void itemSelection_SetFillGradientExtend(VGradient::VGradientRepeatMethod repeatMethod, Selection* customSelection = nullptr);
+	void itemSelection_SetFillGradientName(const QString& gradientName, Selection* customSelection = nullptr);
 	void itemSelection_SetMaskGradient(const VGradient& newGradient, Selection* customSelection = nullptr);
+	void itemSelection_SetMaskGradientName(const QString& gradientName, Selection* customSelection = nullptr);
 	void itemSelection_SetOverprint(bool overprint, Selection* customSelection = nullptr);
 	void itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection = nullptr);
 	void itemSelection_FlipH(Selection* customSelection = nullptr);

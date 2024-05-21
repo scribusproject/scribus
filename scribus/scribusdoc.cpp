@@ -11698,6 +11698,64 @@ void ScribusDoc::itemSelection_SetLineGradient(const VGradient& newGradient, Sel
 	changedPagePreview();
 }
 
+
+void ScribusDoc::itemSelection_SetLineGradientExtend(VGradient::VGradientRepeatMethod repeatMethod, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	assert(itemSelection != nullptr);
+	int selectedItemCount = itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	m_updateManager.setUpdatesDisabled();
+
+	UndoTransaction activeTransaction;
+	if (selectedItemCount > 1 && UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::GradExtentStroke, "", Um::IGroup);
+
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem* currItem = itemSelection->itemAt(i);
+		currItem->setStrokeGradientExtend(repeatMethod);
+		currItem->update();
+	}
+
+	if (activeTransaction)
+		activeTransaction.commit();
+
+	m_updateManager.setUpdatesEnabled();
+	changed();
+}
+
+
+void ScribusDoc::itemSelection_SetLineGradientName(const QString& gradientName, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	assert(itemSelection != nullptr);
+	int selectedItemCount = itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	m_updateManager.setUpdatesDisabled();
+
+	UndoTransaction activeTransaction;
+	if (selectedItemCount > 1 && UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::GradValStroke, "", Um::IGroup);
+
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem* currItem = itemSelection->itemAt(i);
+		currItem->setStrokeGradient(gradientName);
+		currItem->update();
+	}
+
+	if (activeTransaction)
+		activeTransaction.commit();
+
+	m_updateManager.setUpdatesEnabled();
+	changed();
+}
+
 void ScribusDoc::itemSelection_SetFillGradient(const VGradient& newGradient, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
@@ -11729,6 +11787,62 @@ void ScribusDoc::itemSelection_SetFillGradient(const VGradient& newGradient, Sel
 	changedPagePreview();
 }
 
+void ScribusDoc::itemSelection_SetFillGradientExtend(VGradient::VGradientRepeatMethod repeatMethod, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	assert(itemSelection != nullptr);
+	int selectedItemCount = itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	m_updateManager.setUpdatesDisabled();
+
+	UndoTransaction activeTransaction;
+	if (selectedItemCount > 1 && UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::GradExtent, "", Um::IGroup);
+
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem* currItem = itemSelection->itemAt(i);
+		currItem->setGradientExtend(repeatMethod);
+		currItem->update();
+	}
+
+	if (activeTransaction)
+		activeTransaction.commit();
+
+	m_updateManager.setUpdatesEnabled();
+	changed();
+}
+
+void ScribusDoc::itemSelection_SetFillGradientName(const QString& gradientName, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	assert(itemSelection != nullptr);
+	int selectedItemCount = itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	m_updateManager.setUpdatesDisabled();
+
+	UndoTransaction activeTransaction;
+	if (selectedItemCount > 1 && UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::GradVal, "", Um::IGroup);
+
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem* currItem = itemSelection->itemAt(i);
+		currItem->setGradient(gradientName);
+		currItem->update();
+	}
+
+	if (activeTransaction)
+		activeTransaction.commit();
+
+	m_updateManager.setUpdatesEnabled();
+	changed();
+}
+
 void ScribusDoc::itemSelection_SetMaskGradient(const VGradient& newGradient, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
@@ -11756,6 +11870,34 @@ void ScribusDoc::itemSelection_SetMaskGradient(const VGradient& newGradient, Sel
 	m_updateManager.setUpdatesEnabled();
 	changed();
 	changedPagePreview();
+}
+
+void ScribusDoc::itemSelection_SetMaskGradientName(const QString& newGradient, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	assert(itemSelection != nullptr);
+	int selectedItemCount = itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	m_updateManager.setUpdatesDisabled();
+
+	UndoTransaction activeTransaction;
+	if (selectedItemCount > 1 && UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::GradValMask, "", Um::IGroup);
+
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem* currItem = itemSelection->itemAt(i);
+		currItem->setGradientMask(newGradient);
+		currItem->update();
+	}
+
+	if (activeTransaction)
+		activeTransaction.commit();
+
+	m_updateManager.setUpdatesEnabled();
+	changed();
 }
 
 

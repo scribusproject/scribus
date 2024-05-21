@@ -553,10 +553,9 @@ void ColorPalette::handleStrokeGradientExtend(int val)
 	if (!currentDoc)
 		return;
 	if (val == 0)
-		currentItem->setStrokeGradientExtend(VGradient::none);
+		currentDoc->itemSelection_SetLineGradientExtend(VGradient::none);
 	else
-		currentItem->setStrokeGradientExtend(VGradient::pad);
-	currentItem->update();
+		currentDoc->itemSelection_SetLineGradientExtend(VGradient::pad);
 	currentDoc->regionsChanged()->update(QRect());
 }
 
@@ -565,10 +564,9 @@ void ColorPalette::handleGradientExtend(int val)
 	if (!currentDoc)
 		return;
 	if (val == 0)
-		currentItem->setGradientExtend(VGradient::none);
+		currentDoc->itemSelection_SetFillGradientExtend(VGradient::none);
 	else
-		currentItem->setGradientExtend(VGradient::pad);
-	currentItem->update();
+		currentDoc->itemSelection_SetFillGradientExtend(VGradient::pad);
 	currentDoc->regionsChanged()->update(QRect());
 }
 
@@ -750,18 +748,28 @@ void ColorPalette::setGradientColors()
 
 void ColorPalette::setNamedGradient(const QString &name)
 {
+	if (!currentDoc)
+		return;
+
+	UndoTransaction trans;
+	if (UndoManager::undoEnabled())
+		trans = undoManager->beginTransaction(Um::Selection, Um::IFill, Um::GradVal, QString(), Um::IFill);
+
+	QString gradientName;
 	if (namedGradient->currentIndex() == 0)
 	{
+		gradientName.clear();
 		gradEdit->setGradient(currentItem->fill_gradient);
-		currentItem->setGradient("");
 		gradEdit->setGradientEditable(true);
 	}
 	else
 	{
+		gradientName = name;
 		gradEdit->setGradient(gradientList->value(name));
 		gradEdit->setGradientEditable(false);
-		currentItem->setGradient(name);
 	}
+	currentDoc->itemSelection_SetFillGradientName(gradientName);
+
 	if (gradientType->currentIndex() == 0)
 		emit NewGradient(Gradient_Linear);
 	else if (gradientType->currentIndex() == 1)
@@ -777,26 +785,42 @@ void ColorPalette::setNamedGradient(const QString &name)
 		emit NewGradient(Gradient_Diamond);
 	else if (gradientType->currentIndex() == 5)
 		emit NewGradient(Gradient_Mesh);
+
+	if (trans)
+		trans.commit();
 }
 
 void ColorPalette::setNamedGradientStroke(const QString &name)
 {
+	if (!currentDoc)
+		return;
+
+	UndoTransaction trans;
+	if (UndoManager::undoEnabled())
+		trans = undoManager->beginTransaction(Um::Selection, Um::ILine, Um::GradValStroke, QString(), Um::ILine);
+
+	QString gradientName;
 	if (namedGradientStroke->currentIndex() == 0)
 	{
+		gradientName.clear();
 		gradEditStroke->setGradient(currentItem->stroke_gradient);
-		currentItem->setStrokeGradient("");
 		gradEditStroke->setGradientEditable(true);
 	}
 	else
 	{
+		gradientName = name;
 		gradEditStroke->setGradient(gradientList->value(name));
 		gradEditStroke->setGradientEditable(false);
-		currentItem->setStrokeGradient(name);
 	}
+	currentDoc->itemSelection_SetLineGradientName(gradientName);
+
 	if (gradientTypeStroke->currentIndex() == 0)
 		emit NewGradientS(Gradient_Linear);
 	else
 		emit NewGradientS(Gradient_Radial);
+
+	if (trans)
+		trans.commit();
 }
 
 void ColorPalette::updatePatternList()

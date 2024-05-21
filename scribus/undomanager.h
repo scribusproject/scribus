@@ -577,6 +577,7 @@ public:
 	static QString GradPos;
 	static QString GradVal;
 	static QString GradValStroke;
+	static QString GradValMask;
 	static QString GradCol;
 	static QString GradTypeStroke;
 	static QString GradExtent;
