@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "scribus.h"
 #include "iconmanager.h"
+#include "undomanager.h"
 #include "util.h"
 #include "util_math.h"
 
@@ -347,18 +348,28 @@ void TransparencyPalette::slotGradType(int type)
 
 void TransparencyPalette::setNamedGradient(const QString &name)
 {
+	if (!currentDoc)
+		return;
+
+	UndoTransaction trans;
+	if (UndoManager::undoEnabled())
+		trans = UndoManager::instance()->beginTransaction(Um::Selection, Um::IFill, Um::GradValMask, QString(), Um::IFill);
+
+	QString gradientName;
 	if (namedGradient->currentIndex() == 0)
 	{
+		gradientName.clear();
 		gradEdit->setGradient(currentItem->mask_gradient);
-		currentItem->setGradientMask("");
 		gradEdit->setGradientEditable(true);
 	}
 	else
 	{
+		gradientName = name;
 		gradEdit->setGradient(gradientList->value(name));
 		gradEdit->setGradientEditable(false);
-		currentItem->setGradientMask(name);
 	}
+	currentDoc->itemSelection_SetMaskGradientName(gradientName);
+
 	if (gradientType->currentIndex() == 0)
 	{
 		if (transpCalcGradient->isChecked())
@@ -373,6 +384,9 @@ void TransparencyPalette::setNamedGradient(const QString &name)
 		else
 			emit NewGradient(GradMask_Radial);
 	}
+
+	if (trans)
+		trans.commit();
 }
 
 void TransparencyPalette::switchGradientMode()

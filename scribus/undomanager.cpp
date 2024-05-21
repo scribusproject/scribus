@@ -677,6 +677,7 @@ void UndoManager::languageChange()
 	UndoManager::GradType           = tr("Change fill gradient type");
 	UndoManager::GradVal            = tr("Change fill gradient values");
 	UndoManager::GradValStroke      = tr("Change stroke gradient values");
+	UndoManager::GradValMask        = tr("Change mask gradient values");
 	UndoManager::GradCol            = tr("Change gradient color");
 	UndoManager::GradTypeStroke     = tr("Change stroke gradient type");
 	UndoManager::GradExtent         = tr("Change gradient extent");
@@ -925,6 +926,7 @@ QString UndoManager::GradType           = "";
 QString UndoManager::GradPos            = "";
 QString UndoManager::GradVal            = "";
 QString UndoManager::GradValStroke      = "";
+QString UndoManager::GradValMask        = "";
 QString UndoManager::GradCol            = "";
 QString UndoManager::GradTypeStroke     = "";
 QString UndoManager::GradExtent         = "";

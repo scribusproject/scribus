@@ -1565,6 +1565,7 @@ protected: // Start protected functions
 	void restoreEndArrowScale(SimpleState *state, bool isUndo);
 	void restoreFill(SimpleState *state, bool isUndo);
 	void restoreFillGradient(SimpleState *state, bool isUndo);
+	void restoreFillGradientName(SimpleState *state, bool isUndo);
 	void restoreFillPattern(SimpleState *state, bool isUndo);
 	void restoreFillPatternFlip(SimpleState *state, bool isUndo);
 	void restoreFillPatternTransform(SimpleState *state, bool isUndo);
@@ -1633,6 +1634,7 @@ protected: // Start protected functions
 	void restoreLinkTextFrame(UndoState *state, bool isUndo);
 	void restoreMarkString(SimpleState *state, bool isUndo);
 	void restoreMaskGradient(SimpleState *state, bool isUndo);
+	void restoreMaskGradientName(SimpleState *state, bool isUndo);
 	void restoreMaskPattern(SimpleState *state, bool isUndo);
 	void restoreMaskFlip(SimpleState *state, bool isUndo);
 	void restoreMaskTransform(SimpleState *state, bool isUndo);
