@@ -854,8 +854,9 @@ void ScAnnot::DecodeNum()
 	}
 	if (m_annotation.Format() == 3)
 	{
-		setCurrentComboItem(Format0c, pfol[0].remove("\""));
-		setDateSample(pfol[0]);
+		pfo.remove("\"");
+		setCurrentComboItem(Format0c, pfo);
+		setDateSample(pfo);
 	}
 	if (m_annotation.Format() == 4)
 	{
