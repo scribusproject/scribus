@@ -153,15 +153,14 @@ const QList<VColorStop*>& VGradient::colorStops() const
 	return m_colorStops;
 }
 
-const QList<QGradientStop> &VGradient::toQGradientStops() const
+QList<QGradientStop> VGradient::toQGradientStops() const
 {
-	QList<QGradientStop> *list = new QList<QGradientStop>;
+	QList<QGradientStop> stopList;
 
-	foreach (VColorStop *stop, m_colorStops) {
-		list->append(QGradientStop(stop->rampPoint, stop->color));
-	}
+	for (VColorStop *stop : m_colorStops)
+		stopList.append(QGradientStop(stop->rampPoint, stop->color));
 
-	return *list;
+	return stopList;
 }
 
 void VGradient::clearStops()
@@ -187,7 +186,7 @@ void VGradient::addStop(const QColor &color, double rampPoint, double midPoint, 
 	inSort( new VColorStop( rampPoint, midPoint, color, opa, name, shade ) );
 }
 
-void  VGradient::setStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name, int shade)
+void VGradient::setStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name, int shade)
 {
 	for (int i = 0; i < m_colorStops.count(); ++i)
 	{

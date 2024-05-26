@@ -119,7 +119,7 @@ public:
 	void setRepeatMethod(VGradientRepeatMethod repeatMethod) { m_repeatMethod = repeatMethod; }
 
 	const QList<VColorStop*>& colorStops() const;
-	const QList<QGradientStop>& toQGradientStops() const;
+	QList<QGradientStop> toQGradientStops() const;
 	void addStop(const VColorStop& colorStop);
 	void addStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = QString(), int shade = 100);
 	void setStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = QString(), int shade = 100);
