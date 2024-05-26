@@ -16,6 +16,13 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
+
+/*
+For general Scribus copyright and licensing information please refer
+to the COPYING file provided with the program.
+*/
+
+
 #ifndef DOCK_MANAGER_H
 #define DOCK_MANAGER_H
 
