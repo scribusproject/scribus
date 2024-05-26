@@ -1742,7 +1742,7 @@ void CanvasMode::setStyle()
 	m_color["node-handle"]		= QColor(229, 85, 69);
 	m_color["test"]				= Qt::magenta;
 	QColor selectionAlpha		= m_color["frame-selection"];
-	selectionAlpha.setAlphaF(.05);
+	selectionAlpha.setAlphaF(.05f);
 
 	m_pen["frame-move"]				= QPen(m_color["frame-move"], 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["frame-move"].setCosmetic(true);
