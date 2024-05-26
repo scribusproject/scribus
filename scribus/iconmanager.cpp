@@ -131,12 +131,11 @@ bool IconManager::iconsForDarkMode() const
 	case Qt::ColorScheme::Unknown:
 	case Qt::ColorScheme::Light:
 		return false;
-		break;
 	case Qt::ColorScheme::Dark:
 		return true;
-		break;
+	default:
+		return false;
 	}
-
 #else
 	return (baseColor().lightness() >= 128) ? true : false;
 #endif
