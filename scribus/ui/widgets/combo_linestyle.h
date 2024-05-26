@@ -7,7 +7,7 @@
 #include "scribusapi.h"
 #include "scribusdoc.h"
 
-class LineStyleValue;
+struct LineStyleValue;
 
 class SCRIBUS_API ComboLineStyle : public QComboBox
 {

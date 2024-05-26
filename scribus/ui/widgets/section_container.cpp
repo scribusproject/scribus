@@ -200,7 +200,7 @@ QLayout *SectionContainer::layout() const
 	return body->layout();
 }
 
-QSize SectionContainer::minimumSizeHint()
+QSize SectionContainer::minimumSizeHint() const
 {
 	QSize s(200, childrenRect().height());
 

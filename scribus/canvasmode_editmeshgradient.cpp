@@ -50,7 +50,8 @@
 #include "undomanager.h"
 
 
-CanvasMode_EditMeshGradient::CanvasMode_EditMeshGradient(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
+CanvasMode_EditMeshGradient::CanvasMode_EditMeshGradient(ScribusView* view) : CanvasMode(view)
+	//, m_ScMW(view->m_ScMW)
 {
 	m_old_mesh = new MeshPoint();
 }

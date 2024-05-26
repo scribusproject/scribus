@@ -38,7 +38,7 @@ class MarkDownIm
 		ScribusDoc* m_Doc { nullptr };
 		PageItem* m_item { nullptr };
 		bool m_prefixName { false };
-		bool m_append { false };
+		// bool m_append { false };
 		bool m_textOnly { false };
 		ParagraphStyle defaultParagraphStyle;
 		ParagraphStyle currentParagraphStyle;

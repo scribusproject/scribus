@@ -21,9 +21,9 @@ public:
 
 	virtual void values(QString &label) {}
 	virtual void values(QString &label, PageItem* &item) {}
-	virtual Mark* values(QString& label, QString& text) { return NULL; }
+	virtual Mark* values(QString& label, QString& text) { return nullptr; }
 	virtual void values(QString& label, Mark* &mrk) {}
-	virtual NotesStyle* values() { return NULL; }
+	virtual NotesStyle* values() { return nullptr; }
 
 	virtual void setValues(const QString label) {}
 	virtual void setValues(const QString label, const QString text) {}

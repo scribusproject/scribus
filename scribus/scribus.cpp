@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "ui/colorpicker/colorpicker.h"
+
 #include <QAction>
 #include <QApplication>
 #include <QByteArray>
@@ -163,6 +163,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/charselect.h"
 #include "ui/checkDocument.h"
 #include "ui/collectforoutput_ui.h"
+#include "ui/colorpicker/colorpicker.h"
 #include "ui/contentpalette.h"
 #include "ui/contextmenu.h"
 #include "ui/copypagetomasterpagedialog.h"
@@ -9333,7 +9334,7 @@ void ScribusMainWindow::insertMark(MarkType mType)
 		return;
 	if (doc->m_Selection->count() != 1)
 		return;
-	if  (doc->appMode != modeEdit)
+	if (doc->appMode != modeEdit)
 		return;
 
 	PageItem* currItem = doc->m_Selection->itemAt(0);

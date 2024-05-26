@@ -89,7 +89,7 @@ public:
 	void setLayout(QLayout *layout);
 	QLayout *layout() const;
 
-	QSize minimumSizeHint();
+	QSize minimumSizeHint() const override;
 
 	void addHeaderSuffixWidget(QWidget *widget);
 	void insertHeaderSuffixWidget(int index, QWidget *widget);
@@ -114,11 +114,11 @@ private:
 	bool m_hasStyle { false };
 	bool m_hasBody {false};
 
-	bool eventFilter(QObject *object, QEvent *event);
+	bool eventFilter(QObject *object, QEvent *event) override;
 
 	void connectSlots();
 
-	void paintEvent(QPaintEvent *event);
+	void paintEvent(QPaintEvent *event) override;
 
 protected:
 	QSize calculateSize();

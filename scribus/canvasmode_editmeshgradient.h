@@ -72,7 +72,7 @@ class CanvasMode_EditMeshGradient :  public CanvasMode
 
 		MeshPoint *m_old_mesh {nullptr};
 		QList<QPair<int, int> > m_selectedMeshPoints;
-		ScribusMainWindow* m_ScMW {nullptr};
+		// ScribusMainWindow* m_ScMW {nullptr};
 		bool m_keyRepeat {false};
 		double m_Mxp {-1.0};
 		double m_Myp {-1.0};

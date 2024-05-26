@@ -48,7 +48,7 @@ MarkDownIm::MarkDownIm(const QString& fileName, PageItem *textItem, bool textOnl
           : m_Doc(textItem->doc()),
 	        m_item(textItem),
 	        m_prefixName(prefix),
-	        m_append(append),
+			// m_append(append),
 	        m_textOnly(textOnly)
 {
 	QFile f(fileName);
