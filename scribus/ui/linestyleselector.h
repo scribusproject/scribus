@@ -8,7 +8,7 @@
 
 
 
-class LineStyleValue;
+struct LineStyleValue;
 
 class SCRIBUS_API LineStyleSelector : public QWidget, private Ui::LineStyleSelector
 {

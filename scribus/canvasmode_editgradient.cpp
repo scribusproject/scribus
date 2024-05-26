@@ -43,7 +43,8 @@
 #include "util_gui.h"
 
 
-CanvasMode_EditGradient::CanvasMode_EditGradient(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
+CanvasMode_EditGradient::CanvasMode_EditGradient(ScribusView* view) : CanvasMode(view)
+	// , m_ScMW(view->m_ScMW)
 {
 
 }

@@ -77,7 +77,7 @@ class CanvasMode_EditGradient :  public CanvasMode
 		FPoint OldGrControl3;
 		FPoint OldGrControl4;
 		FPoint OldGrControl5;
-		ScribusMainWindow* m_ScMW {nullptr};
+		// ScribusMainWindow* m_ScMW {nullptr};
 		double OldGrEndX {0.0};
 		double OldGrEndY {0.0};
 		double OldGrFocalX {0.0};
