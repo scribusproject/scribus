@@ -2780,6 +2780,9 @@ void PageItem::setMeshPointColor(int x, int y, const QString& color, int shade, 
 				break;
 		}
 
+		if(mp == nullptr)
+			return;
+
 		UndoTransaction trans;
 		if (UndoManager::undoEnabled())
 		{

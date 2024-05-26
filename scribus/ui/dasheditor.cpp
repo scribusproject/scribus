@@ -82,7 +82,14 @@ void DashPreview::paintEvent(QPaintEvent *e)
 	int pWidth = canvasRect().width();
 	int pHeight = canvasRect().height();
 	QImage pixm(pWidth, pHeight, QImage::Format_ARGB32_Premultiplied);
-	QColor cHandle(palette().color(QPalette::WindowText));
+	QColor cFont(palette().color(QPalette::WindowText));
+	QColor cHandle = cFont;
+	QColor cHandleActive(colorByRole(QPalette::Highlight, 1, isEnabled()));
+	QColor cHandleError(isEnabled() ? errorColor() : disabledColor(errorColor()));
+	QColor cDash(isEnabled() ? Qt::black : disabledColor(Qt::black));
+	QColor cGap(isEnabled() ? Qt::white : disabledColor(Qt::white));
+	QColor cBorder(palette().color(QPalette::Midlight));
+
 
 	// Render line pattern
 	QPainter *p = new QPainter(&pixm);
@@ -92,9 +99,9 @@ void DashPreview::paintEvent(QPaintEvent *e)
 	for (int i = 0; i < m_stops.count(); ++i)
 	{
 		if (i % 2 == 0)
-			p->setBrush(Qt::black);
+			p->setBrush(cDash);
 		else
-			p->setBrush(Qt::white);
+			p->setBrush(cGap);
 
 		int xPos = mapPositionToGrid(m_stops[i]);
 
@@ -112,12 +119,7 @@ void DashPreview::paintEvent(QPaintEvent *e)
 	// Draw Scale
 	QFont scaleFont(this->font());
 	scaleFont.setPointSize(6);
-	pw.setPen(QPen(palette().color(QPalette::WindowText)));
-
-	//	constexpr int topline = 3;
-	//	constexpr int bottomline = 15;
-	//	constexpr int rulerheight = (bottomline - topline);
-	//	constexpr int midline = (topline + rulerheight / 2);
+	pw.setPen(QPen(cFont));
 
 	for (int i = 0; i < m_patternLength * 10; i++)
 	{
@@ -140,7 +142,7 @@ void DashPreview::paintEvent(QPaintEvent *e)
 
 	// Draw Pattern
 	pw.drawImage(canvasRect(), pixm);
-	pw.setPen(palette().color(QPalette::Midlight));
+	pw.setPen(cBorder);
 	pw.setBrush(Qt::NoBrush);
 	pw.drawRect(QRectF(canvasRect()).adjusted(.5, .5, -.5, -.5));
 
@@ -161,21 +163,21 @@ void DashPreview::paintEvent(QPaintEvent *e)
 			marker.closeSubpath();
 
 			pw.setPen(QPen(palette().color(QPalette::Window), 1));
-			pw.setBrush(palette().color(QPalette::Highlight));
+			pw.setBrush(cHandleActive);
 			pw.drawPath(marker);
 
-			cHandle = palette().color(QPalette::Highlight);
+			cHandle = cHandleActive;
 		}
 		else
 		{
 			// Set error color for last handle
 			if( (m_dashValues.count() % 2 != 0) && (i == m_stops.count() - 1) )
-				cHandle = errorColor();
+				cHandle = cHandleError;
 			else
-				cHandle = palette().color(QPalette::WindowText);
+				cHandle = cFont;
 		}
 
-		renderPointerHandle(&pw, QPointF(xPos, yPos), RADIUS * 2 - 2, cHandle );
+		drawPointerHandle(&pw, QPointF(xPos, yPos), RADIUS * 2 - 2, cHandle,  isEnabled() );
 
 	}
 
@@ -390,10 +392,7 @@ qreal DashPreview::ratio()
 
 QColor DashPreview::errorColor()
 {
-	if(isEnabled())
-		return QColor(229, 85, 69);
-	else
-		return QColor(palette().color(QPalette::WindowText));
+	return QColor(229, 85, 69);
 }
 
 /* ********************************************************************************* *

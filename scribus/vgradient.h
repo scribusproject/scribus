@@ -29,9 +29,14 @@ for which a new license (GPL+exception) is in place.
 #include <QColor>
 #include <QList>
 #include <QTransform>
+#include <QMap>
+#include <QPointer>
+#include <QGradient>
 
 #include "fpoint.h"
 #include "scribusapi.h"
+
+class  ScribusDoc;
 
 class SCRIBUS_API VColorStop
 {
@@ -114,6 +119,7 @@ public:
 	void setRepeatMethod(VGradientRepeatMethod repeatMethod) { m_repeatMethod = repeatMethod; }
 
 	const QList<VColorStop*>& colorStops() const;
+	const QList<QGradientStop>& toQGradientStops() const;
 	void addStop(const VColorStop& colorStop);
 	void addStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = QString(), int shade = 100);
 	void setStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = QString(), int shade = 100);
@@ -137,6 +143,7 @@ public:
 
 	void transform(const QTransform& m);
 
+
 protected:
 	QList<VColorStop*> m_colorStops;
 
@@ -151,6 +158,34 @@ private:
 	FPoint m_origin;
 	FPoint m_focalPoint;
 	FPoint m_vector;
+};
+
+class SCRIBUS_API GradientList : public QMap<QString, VGradient>
+{
+public:
+	GradientList(ScribusDoc* doc = nullptr, bool retainDoc = false);
+
+	GradientList& operator= (const GradientList& list);
+
+	/** \brief Get the document the list is related , return in cpp due to scribusdoc class delcaration */
+	ScribusDoc* document() const;
+
+	/** \brief Assign the doc to which the list belong to.*/
+	void setDocument(ScribusDoc* doc);
+
+	/** \brief Add colors from the specified list. Colors are added using shadow copy.*/
+	void addGradients(const GradientList& gradientList, bool overwrite = true);
+	void addGradients(const QHash<QString, VGradient>& gradientList, bool overwrite = true);
+
+	/** \brief Copy colors from the specified list.*/
+	void copyGradients(const GradientList& gradientList, bool overwrite = true);
+
+	/** \brief Try to add ScColor col to the list, if col already exists either by name or by value the existing color name is returned. */
+	QString tryAddGradient(QString name, const VGradient& col);
+
+protected:
+	QPointer<ScribusDoc> m_doc;
+	bool m_retainDoc { false };
 };
 
 #endif /* __VGRADIENT_H__ */

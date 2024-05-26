@@ -59,7 +59,7 @@ void ScSplashScreen::drawContents(QPainter* painter)
 	QRect messageRect = m_messageRect.isEmpty() ? rect() : m_messageRect;
 	QRect rM = messageRect.adjusted(0, 0, -15, -5);
 	painter->setFont(f);
-	painter->setPen(QColor(255, 255, 255));
+	painter->setPen(palette().windowText().color());
 	painter->drawText(rM, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, message());
 	QRect r = messageRect.adjusted(0, 0, -15, -60);
 

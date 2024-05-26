@@ -259,6 +259,8 @@ set(SCRIBUS_SOURCES
 	imagedataloaders/scimgdataloader_tiff.cpp
 	imagedataloaders/scimgdataloader_wpg.cpp
 	manager/dock_manager.cpp
+	manager/widget_manager.cpp
+	models/gradientlistmodel.cpp
 	palettes/cxfcolor.cpp
 	palettes/cxfcolorspecification.cpp
 	palettes/cxfdocument.cpp
@@ -306,7 +308,6 @@ set(SCRIBUS_SOURCES
 	ui/colorcombo.cpp
 	ui/colorlistbox.cpp
 	ui/colorlistmodel.cpp
-	ui/colorpalette.cpp
 	ui/colorsandfills.cpp
 	ui/contentpalette.cpp
 	ui/contentpalette_default.cpp
@@ -331,7 +332,6 @@ set(SCRIBUS_SOURCES
 	ui/fontreplacedialog.cpp
 	ui/gradientaddedit.cpp
 	ui/gradienteditor.cpp
-	ui/gradientvectordialog.cpp
 	ui/gradientpreview.cpp
 	ui/gtdialogs.cpp
 	ui/gtfiledialog.cpp
@@ -351,6 +351,7 @@ set(SCRIBUS_SOURCES
 	ui/layers.cpp
 	ui/linecombo.cpp
 	ui/linemarkerselector.cpp
+	ui/linestyleselector.cpp
 	ui/linkbutton.cpp	
 	ui/loremipsum.cpp
 	ui/mark2item.cpp
@@ -430,7 +431,9 @@ set(SCRIBUS_SOURCES
 	ui/printlanguagecombo.cpp
 	ui/printpreview.cpp
 	ui/propertiespalette.cpp
+	ui/propertiespalette_attributes.cpp
 	ui/propertiespalette_image.cpp
+	ui/propertiespalette_fill.cpp
 	ui/propertiespalette_group.cpp
 	ui/propertiespalette_line.cpp
 	ui/propertiespalette_shadow.cpp
@@ -524,7 +527,6 @@ set(SCRIBUS_SOURCES
 	ui/tabpdfoptions.cpp
 	ui/tabruler.cpp
 	ui/transformdialog.cpp
-	ui/transparencypalette.cpp
 	tt/simpletreemodel/treeitem.cpp
 	tt/simpletreemodel/treemodel.cpp
 	ui/copypagetomasterpagedialog.cpp
@@ -539,15 +541,27 @@ set(SCRIBUS_SOURCES
 	ui/vruler.cpp
 	ui/useprintermarginsdialog.cpp
 	ui/weldedit.cpp
+	ui/colorpicker/colorpicker.cpp
+	ui/colorpicker/colorpicker_color.cpp	
+	ui/colorpicker/colorpicker_color_swatches.cpp
+	ui/colorpicker/colorpicker_gradient.cpp
+	ui/colorpicker/colorpicker_gradient_properties.cpp
+	ui/colorpicker/colorpicker_gradient_swatches.cpp
+	ui/colorpicker/colorpicker_hatch.cpp
+	ui/colorpicker/colorpicker_pattern.cpp
 	ui/delegates/sclistitemdelegate.cpp
 	ui/docks/dock_centralwidget.cpp
 	ui/docks/dock_panelbase.cpp
 	ui/widgets/color_button.cpp
 	ui/widgets/combo_blendmode.cpp
+	ui/widgets/combo_linestyle.cpp
+	ui/widgets/floatingwindow.cpp
+	ui/widgets/form_widget.cpp
+	ui/widgets/gradientlistbox.cpp
 	ui/widgets/popup_menu.cpp
 	ui/widgets/section_container.cpp
+	ui/widgets/stacked_container.cpp
 	ui/widgets/switch.cpp
-	ui/widgets/form_widget.cpp
 	${SCRIBUS_OSG_SRC}
 	${SCRIBUS_GMAGICK_SRC}
 	${SCRIBUS_JPEGXL_SRC}

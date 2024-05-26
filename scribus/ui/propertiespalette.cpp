@@ -32,20 +32,19 @@ for which a new license (GPL+exception) is in place.
 
 #include "appmodehelper.h"
 #include "appmodes.h"
-#include "colorpalette.h"
-#include "iconmanager.h"
+#include "colorpicker/colorpicker.h"
+#include "insertTable.h"
 #include "pageitem_table.h"
+#include "propertiespalette_attributes.h"
 #include "propertiespalette_line.h"
+#include "propertiespalette_fill.h"
 #include "propertiespalette_shadow.h"
 #include "propertiespalette_shape.h"
 #include "propertiespalette_xyz.h"
-#include "transparencypalette.h"
 #include "scribus.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "undomanager.h"
-#include "util_math.h"
-
 
 PropertiesPalette::PropertiesPalette(QWidget *parent) : DockPanelBase("PropertiesPalette", "panel-frame-properties", parent)
 {
@@ -53,10 +52,6 @@ PropertiesPalette::PropertiesPalette(QWidget *parent) : DockPanelBase("Propertie
 
 	setObjectName(QString::fromLocal8Bit("PropertiesPalette"));
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
-
-	QFont f(font());
-	f.setPointSize(f.pointSize()-1);
-	setFont(f);
 
 	// XZY
 	xyzPal = new PropertiesPalette_XYZ( this );
@@ -75,34 +70,34 @@ PropertiesPalette::PropertiesPalette(QWidget *parent) : DockPanelBase("Propertie
 	scShape->setWidget(shapePal);
 	scShape->setIsCollapsed(true);
 
+	// Fill
+	fillPal = new PropertiesPalette_Fill(this);
+	scFill = new SectionContainer("&Fill");
+	scFill->setWidget(fillPal);
+	scFill->setIsCollapsed(true);
+
 	// Line
 	linePal = new PropertiesPalette_Line(this);
 	scLine = new SectionContainer("&Line");
 	scLine->setWidget(linePal);
 	scLine->setIsCollapsed(true);
 
-	// Color
-	colorPalette = new ColorPalette(this);
-	scColor = new SectionContainer("&Colors");
-	scColor->setWidget(colorPalette);
-	scColor->setIsCollapsed(true);
-
-	// Transparency
-	transparencyPalette = new TransparencyPalette(this);
-	scTransparency = new SectionContainer("&Transparency");
-	scTransparency->setWidget(transparencyPalette);
-	scTransparency->setIsCollapsed(true);
+	// Attributes
+	attributesPal = new PropertiesPalette_Attributes(this);
+	scAttributes = new SectionContainer("&Attributes");
+	scAttributes->setWidget(attributesPal);
+	scAttributes->setIsCollapsed(true);
 
 	// Layout stack
 	QVBoxLayout * lyt = new QVBoxLayout();
 	lyt->setContentsMargins(0, 0, 0, 0);
 	lyt->setSpacing(0);
 	lyt->addWidget(scXYZ);
-	lyt->addWidget(scShadow);
 	lyt->addWidget(scShape);
+	lyt->addWidget(scFill);
 	lyt->addWidget(scLine);
-	lyt->addWidget(scColor);
-	lyt->addWidget(scTransparency);
+	lyt->addWidget(scShadow);
+	lyt->addWidget(scAttributes);
 	lyt->addStretch(1);
 
 	QWidget * wdg = new QWidget();
@@ -112,10 +107,16 @@ PropertiesPalette::PropertiesPalette(QWidget *parent) : DockPanelBase("Propertie
 	languageChange();
 	enablePalettes(false);
 
-	connect(colorPalette, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(newSpGradient(double,double,double,double,double,double,double,double,double,double)));
-	connect(colorPalette, SIGNAL(editGradient(int)), this, SLOT(toggleGradientEdit(int)));
-	connect(transparencyPalette, SIGNAL(NewSpecial(double,double,double,double,double,double,double,double,double,double)), this, SLOT(newSpGradientM(double,double,double,double,double,double,double,double)));
-	connect(transparencyPalette, SIGNAL(editGradient()), this, SLOT(toggleGradientEditM()));
+	ColorPicker *colorPicker = WidgetManager::instance().colorPicker();
+	if(colorPicker){
+		connect(colorPicker, SIGNAL(meshToShape()), this, SLOT(meshGradientToShape()));
+		connect(colorPicker, SIGNAL(createNewMesh()), this, SLOT(createNewMeshGradient()));
+		connect(colorPicker, SIGNAL(resetMesh()), this, SLOT(resetMeshGradient()));
+		connect(colorPicker, SIGNAL(reset1Control()), this, SLOT(resetOneControlPoint()));
+		connect(colorPicker, SIGNAL(resetAllControl()), this, SLOT(resetAllControlPoints()));
+		connect(colorPicker, SIGNAL(snapToMGrid(bool)), this, SLOT(snapToPatchGrid(bool)));
+		connect(colorPicker, SIGNAL(removePatch()), this, SLOT(handleRemovePatch()));
+	}
 
 	m_haveItem = false;
 
@@ -125,7 +126,7 @@ void PropertiesPalette::closeEvent(QCloseEvent *closeEvent)
 {
 	if (m_ScMW && !m_ScMW->scriptIsRunning())
 	{
-		if (m_haveDoc && m_haveItem && colorPalette->gradEditButton->isChecked())
+		if (m_haveDoc && m_haveItem /*&& colorPalette->gradEditButton->isChecked()*/)
 		{
 			m_ScMW->view->requestMode(modeNormal);
 			m_ScMW->view->RefreshGradient(m_item);
@@ -151,10 +152,9 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 	this->shadowPal->setMainWindow(mw);
 	this->shapePal->setMainWindow(mw);
 	this->linePal->setMainWindow(mw);
+	this->fillPal->setMainWindow(mw);
+	this->attributesPal->setMainWindow(mw);
 
-	//connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
-	//connect(this->Cpal, SIGNAL(strokeGradientChanged()), m_ScMW, SLOT(updtGradStroke()));
-	connect(this->transparencyPalette, SIGNAL(gradientChanged()), this, SLOT(handleGradientChanged()));
 	connect(m_ScMW->appModeHelper, SIGNAL(AppModeChanged(int,int)), this, SLOT(AppModeChanged()));
 }
 
@@ -172,10 +172,6 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	m_doc = d;
 	m_item = nullptr;
 	setEnabled(!m_doc->drawAsPreview);
-	colorPalette->setDocument(m_doc);
-	colorPalette->setCurrentItem(nullptr);
-	transparencyPalette->setDocument(m_doc);
-	transparencyPalette->setCurrentItem(nullptr);
 
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
@@ -186,8 +182,8 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 	shadowPal->setDoc(m_doc);
 	shapePal->setDoc(m_doc);
 	linePal->setDoc(m_doc);
-
-	updateColorList();
+	fillPal->setDoc(m_doc);
+	attributesPal->setDoc(m_doc);
 
 	connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
 	connect(m_doc, SIGNAL(docChanged()), this, SLOT(handleSelectionChanged()));
@@ -217,11 +213,10 @@ void PropertiesPalette::unsetDoc()
 	shapePal->unsetDoc();
 	linePal->unsetItem();
 	linePal->unsetDoc();
-
-	colorPalette->setCurrentItem(nullptr);
-	colorPalette->setDocument(nullptr);
-	transparencyPalette->setCurrentItem(nullptr);
-	transparencyPalette->setDocument(nullptr);
+	fillPal->unsetItem();
+	fillPal->unsetDoc();
+	attributesPal->unsetItem();
+	attributesPal->unsetDoc();
 
 	m_haveItem = false;
 	enablePalettes(false);
@@ -231,10 +226,9 @@ void PropertiesPalette::unsetItem()
 {
 	m_haveItem = false;
 	m_item = nullptr;
-	colorPalette->setCurrentItem(nullptr);
-	transparencyPalette->setCurrentItem(nullptr);
 	shapePal->unsetItem();
 	linePal->unsetItem();
+	fillPal->unsetItem();
 	handleSelectionChanged();
 }
 
@@ -254,12 +248,12 @@ PageItem* PropertiesPalette::currentItemFromSelection()
 
 void PropertiesPalette::enablePalettes(bool enable)
 {
-	scXYZ->setEnabled(enable);
-	scShape->setEnabled(enable);
-	scLine->setEnabled(enable);
-	scColor->setEnabled(enable);
-	scTransparency->setEnabled(enable);
-	scShadow->setEnabled(enable);
+	scXYZ->setBodyEnabled(enable);
+	scShape->setBodyEnabled(enable);
+	scFill->setBodyEnabled(enable);
+	scLine->setBodyEnabled(enable);
+	scShadow->setBodyEnabled(enable);
+	scAttributes->setBodyEnabled(enable);
 }
 
 void PropertiesPalette::AppModeChanged()
@@ -302,8 +296,6 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 	m_haveItem = false;
 	m_item = item;
 
-	transparencyPalette->setCurrentItem(m_item);
-
 	setTextFlowMode(m_item->textFlowMode());
 
 //CB replaces old emits from PageItem::emitAllToGUI()
@@ -311,13 +303,12 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 	{
-		scXYZ->setEnabled(true);
-		scShadow->setEnabled(true);
-		scShape->setEnabled(true);
-		scLine->setEnabled(false);
-		scColor->setEnabled(false);
-		scTransparency->setEnabled(true);
-
+		scXYZ->setBodyEnabled(true);
+		scShadow->setBodyEnabled(true);
+		scShape->setBodyEnabled(true);
+		scLine->setBodyEnabled(true);
+		scFill->setBodyEnabled(true);
+		scAttributes->setBodyEnabled(true);
 	}
 
 	m_haveItem = true;
@@ -328,26 +319,26 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 		shadowPal->handleSelectionChanged();
 		shapePal->handleSelectionChanged();
 		linePal->handleSelectionChanged();
-		colorPalette->handleSelectionChanged();
+		fillPal->handleSelectionChanged();
+		attributesPal->handleSelectionChanged();
 	}
-
 	if (m_item->isOSGFrame())
 	{
-		scXYZ->setEnabled(true);
-		scShadow->setEnabled(true);
-		scShape->setEnabled(true);
-		scLine->setEnabled(false);
-		scColor->setEnabled(true);
-		scTransparency->setEnabled(false);
+		scXYZ->setBodyEnabled(true);
+		scShadow->setBodyEnabled(true);
+		scShape->setBodyEnabled(true);
+		scLine->setBodyEnabled(false);
+		scFill->setBodyEnabled(true);
+		scAttributes->setBodyEnabled(true);
 	}
 	if (m_item->asSymbol())
 	{
-		scXYZ->setEnabled(true);
-		scShadow->setEnabled(true);
-		scShape->setEnabled(false);
-		scLine->setEnabled(false);
-		scColor->setEnabled(false);
-		scTransparency->setEnabled(false);
+		scXYZ->setBodyEnabled(true);
+		scShadow->setBodyEnabled(true);
+		scShape->setBodyEnabled(false);
+		scLine->setBodyEnabled(false);
+		scFill->setBodyEnabled(false);
+		scAttributes->setBodyEnabled(true);
 	}
 }
 
@@ -356,16 +347,15 @@ void PropertiesPalette::handleSelectionChanged()
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	enablePalettes(false);
-
 	PageItem* currItem = currentItemFromSelection();
 	if (m_doc->m_Selection->count() > 1)
 	{
-		scXYZ->setEnabled(true);
-		scShadow->setEnabled(true);
-		scLine->setEnabled(true);
-		scColor->setEnabled(true);
-		scTransparency->setEnabled(true);
+		scXYZ->setBodyEnabled(true);
+		scShape->setBodyEnabled(false);
+		scShadow->setBodyEnabled(true);
+		scLine->setBodyEnabled(true);
+		scFill->setBodyEnabled(true);
+		scAttributes->setBodyEnabled(true);
 	}
 	else
 	{
@@ -376,29 +366,37 @@ void PropertiesPalette::handleSelectionChanged()
 		{
 		case -1:
 			m_haveItem = false;
-			colorPalette->showGradient(0);
+			scXYZ->setBodyEnabled(false);
+			scShape->setBodyEnabled(false);
+			scLine->setBodyEnabled(false);
+			scFill->setBodyEnabled(false);
+			scShadow->setBodyEnabled(false);
+			scAttributes->setBodyEnabled(false);
 			break;
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
+			scXYZ->setBodyEnabled(true);
+			scShadow->setBodyEnabled(true);
+			scShape->setBodyEnabled(true);
+			scLine->setBodyEnabled(true);
+			scFill->setBodyEnabled(true);
+			scAttributes->setBodyEnabled(true);
+			break;
 		case PageItem::OSGFrame:
-			if (currItem->isOSGFrame())
-			{
-				scXYZ->setEnabled(true);
-				scShadow->setEnabled(true);
-				scShape->setEnabled(true);
-				scColor->setEnabled(true);
-			}
-			else
-			{
-				enablePalettes(true);
-			}
+			scXYZ->setBodyEnabled(true);
+			scShadow->setBodyEnabled(true);
+			scShape->setBodyEnabled(true);
+			scLine->setBodyEnabled(false);
+			scFill->setBodyEnabled(true);
+			scAttributes->setBodyEnabled(true);
 			break;
 		case PageItem::Line:
-			scXYZ->setEnabled(true);
-			scShadow->setEnabled(true);
-			scLine->setEnabled(true);
-			scColor->setEnabled(true);
-			scTransparency->setEnabled(true);
+			scXYZ->setBodyEnabled(true);
+			scShadow->setBodyEnabled(true);
+			scShape->setBodyEnabled(false);
+			scLine->setBodyEnabled(true);
+			scFill->setBodyEnabled(false);
+			scAttributes->setBodyEnabled(true);
 			break;
 		case PageItem::Group:
 		case PageItem::Symbol:
@@ -412,7 +410,12 @@ void PropertiesPalette::handleSelectionChanged()
 		case PageItem::PolyLine:
 		case PageItem::Spiral:
 		case PageItem::PathText:
-			enablePalettes(true);
+			scXYZ->setBodyEnabled(true);
+			scShadow->setBodyEnabled(true);
+			scShape->setBodyEnabled(true);
+			scLine->setBodyEnabled(true);
+			scFill->setBodyEnabled(true);
+			scAttributes->setBodyEnabled(true);
 			break;
 		}
 	}
@@ -424,6 +427,7 @@ void PropertiesPalette::handleSelectionChanged()
 	{
 		setCurrentItem(currItem);
 	}
+
 }
 
 void PropertiesPalette::unitChange()
@@ -432,7 +436,6 @@ void PropertiesPalette::unitChange()
 		return;
 	bool tmp = m_haveItem;
 	m_haveItem = false;
-	double oldRatio = m_unitRatio;
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 
@@ -440,9 +443,8 @@ void PropertiesPalette::unitChange()
 	shadowPal->unitChange();
 	shapePal->unitChange();
 	linePal->unitChange();
+	fillPal->unitChange();
 
-	colorPalette->unitChange(oldRatio, m_unitRatio, m_doc->unitIndex());
-	transparencyPalette->unitChange(oldRatio, m_unitRatio, m_doc->unitIndex());
 	m_haveItem = tmp;
 }
 
@@ -458,210 +460,10 @@ void PropertiesPalette::handleNewShape(int frameType)
 	}
 }
 
-void PropertiesPalette::newSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy)
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	if ((m_haveDoc) && (m_haveItem))
-	{
-		QRectF upRect;
-		UndoTransaction trans;
-		if (UndoManager::undoEnabled())
-			trans = undoManager->beginTransaction(Um::Selection, Um::ILine, Um::GradPos + "p", "", Um::ILine);
-		if (m_ScMW->view->editStrokeGradient == 1)
-		{
-			m_item->setGradientStrokeStart(x1 / m_unitRatio, y1 / m_unitRatio);
-			m_item->setGradientStrokeEnd(x2 / m_unitRatio, y2 / m_unitRatio);
-			m_item->setGradientStrokeFocal(fx / m_unitRatio, fy / m_unitRatio);
-			m_item->setGradientStrokeScale(sg);
-			m_item->setGradientStrokeSkew(sk);
-			if (m_item->strokeGradientType() == 6)
-			{
-				m_item->setGradientStrokeFocal(m_item->gradientStrokeStartX(), m_item->gradientStrokeStartY());
-			}
-			m_item->update();
-			upRect = QRectF(m_item->gradientStrokeStart(), m_item->gradientStrokeEnd());
-			double radEnd = distance(m_item->gradientStrokeEndX() - m_item->gradientStrokeStartX(), m_item->gradientStrokeEndY() - m_item->gradientStrokeStartY());
-			double rotEnd = xy2Deg(m_item->gradientStrokeEndX() - m_item->gradientStrokeStartX(), m_item->gradientStrokeEndY() - m_item->gradientStrokeStartY());
-			QTransform m;
-			m.translate(m_item->gradientStrokeStartX(), m_item->gradientStrokeStartY());
-			m.rotate(rotEnd);
-			m.rotate(-90);
-			m.rotate(m_item->gradientStrokeSkew());
-			m.translate(radEnd * m_item->gradientStrokeScale(), 0);
-			QPointF shP = m.map(QPointF(0,0));
-			upRect = upRect.united(QRectF(shP, m_item->gradientStrokeEnd()).normalized());
-			upRect = upRect.united(QRectF(shP, m_item->gradientStrokeStart()).normalized());
-			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
-			upRect |= QRectF(shP, QPointF(m_item->width(), m_item->height())).normalized();
-		}
-		else if (m_ScMW->view->editStrokeGradient == 3)
-		{
-			m_item->setGradientControl1(FPoint(x1 / m_unitRatio, y1 / m_unitRatio));
-			m_item->setGradientControl2(FPoint(x2 / m_unitRatio, y2 / m_unitRatio));
-			m_item->setGradientControl3(FPoint(fx / m_unitRatio, fy / m_unitRatio));
-			m_item->setGradientControl4(FPoint(sg / m_unitRatio, sk / m_unitRatio));
-			m_item->update();
-			upRect = QRectF(QPointF(-m_item->width(), -m_item->height()), QPointF(m_item->width() * 2, m_item->height() * 2)).normalized();
-		}
-		else if (m_ScMW->view->editStrokeGradient == 4)
-		{
-			m_item->setGradientControl1(FPoint(x1 / m_unitRatio, y1 / m_unitRatio));
-			m_item->setGradientControl2(FPoint(x2 / m_unitRatio, y2 / m_unitRatio));
-			m_item->setGradientControl3(FPoint(fx / m_unitRatio, fy / m_unitRatio));
-			m_item->setGradientControl4(FPoint(sg / m_unitRatio, sk / m_unitRatio));
-			m_item->setGradientControl5(FPoint(cx / m_unitRatio, cy / m_unitRatio));
-			m_item->update();
-			upRect = QRectF(QPointF(-m_item->width(), -m_item->height()), QPointF(m_item->width() * 2, m_item->height() * 2)).normalized();
-		}
-		else
-		{
-			if (m_item->gradientType() == 13 && UndoManager::undoEnabled())
-			{
-				SimpleState *ss= new SimpleState("Refresh");
-				ss->set("UNDO_UPDATE_CONICAL");
-				undoManager->action(m_item,ss);
-			}
-			m_item->setGradientStart(x1 / m_unitRatio, y1 / m_unitRatio);
-			m_item->setGradientEnd(x2 / m_unitRatio, y2 / m_unitRatio);
-			m_item->setGradientFocal(fx / m_unitRatio, fy / m_unitRatio);
-			m_item->setGradientScale(sg);
-			m_item->setGradientSkew(sk);
-			if (m_item->strokeGradientType() == 6)
-			{
-				m_item->setGradientFocal(m_item->gradientStartX(), m_item->gradientStartY());
-			}
-			if (m_item->gradientType() == 13 && UndoManager::undoEnabled())
-			{
-				m_item->createConicalMesh();
-				SimpleState *ss= new SimpleState("Refresh");
-				ss->set("REDO_UPDATE_CONICAL");
-				undoManager->action(m_item,ss);
-			}
-			m_item->update();
-			upRect = QRectF(m_item->gradientStart(), m_item->gradientEnd());
-			double radEnd = distance(m_item->gradientEndX() - m_item->gradientStartX(), m_item->gradientEndY() - m_item->gradientStartY());
-			double rotEnd = xy2Deg(m_item->gradientEndX() - m_item->gradientStartX(), m_item->gradientEndY() - m_item->gradientStartY());
-			QTransform m;
-			m.translate(m_item->gradientStartX(), m_item->gradientStartY());
-			m.rotate(rotEnd);
-			m.rotate(-90);
-			m.rotate(m_item->gradientSkew());
-			m.translate(radEnd * m_item->gradientScale(), 0);
-			QPointF shP = m.map(QPointF(0,0));
-			upRect |= QRectF(shP, m_item->gradientEnd()).normalized();
-			upRect |= QRectF(shP, m_item->gradientStart()).normalized();
-			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
-			upRect |= QRectF(shP, QPointF(m_item->width(), m_item->height())).normalized();
-		}
-		if (trans)
-			trans.commit();
-		upRect.translate(m_item->xPos(), m_item->yPos());
-		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
-		m_doc->changed();
-		m_doc->changedPagePreview();
-	}
-}
-
-void PropertiesPalette::toggleGradientEdit(int stroke)
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	if ((m_haveDoc) && (m_haveItem))
-	{
-		m_ScMW->view->editStrokeGradient = stroke;
-		if (stroke == 1)
-		{
-			if (colorPalette->gradEditButtonStroke->isChecked())
-				m_ScMW->view->requestMode(modeEditGradientVectors);
-			else
-				m_ScMW->view->requestMode(modeNormal);
-		}
-		else
-		{
-			if ((colorPalette->gradEditButton->isChecked()) || (colorPalette->editMeshColors->isChecked()))
-			{
-				if ((stroke == 5) || (stroke == 6) || (stroke == 7))
-					m_ScMW->view->requestMode(modeEditMeshGradient);
-				else if ((stroke == 8) || (stroke == 9) || (stroke == 10) || (stroke == 11))
-					m_ScMW->view->requestMode(modeEditMeshPatch);
-				else
-					m_ScMW->view->requestMode(modeEditGradientVectors);
-			}
-			else
-				m_ScMW->view->requestMode(modeNormal);
-		}
-		m_ScMW->view->RefreshGradient(m_item);
-	}
-}
-
-void PropertiesPalette::newSpGradientM(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk)
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	if ((m_haveDoc) && (m_haveItem))
-	{
-		QRectF upRect;
-		UndoTransaction trans;
-		if (UndoManager::undoEnabled())
-			trans = undoManager->beginTransaction(Um::Selection, Um::ILine, Um::GradPos + "o", "", Um::ILine);
-		m_item->setGradientMaskStart(x1 / m_unitRatio, y1 / m_unitRatio);
-		m_item->setGradientMaskEnd(x2 / m_unitRatio, y2 / m_unitRatio);
-		m_item->setGradientMaskFocal(fx / m_unitRatio, fy / m_unitRatio);
-		m_item->setGradientMaskScale(sg);
-		m_item->setGradientMaskSkew(sk);
-		if ((m_item->GrMask == GradMask_Linear) || (m_item->GrMask == GradMask_LinearLumAlpha))
-		{
-			m_item->setGradientMaskFocal(m_item->GrMaskStartX, m_item->GrMaskStartY);
-		}
-		m_item->update();
-		if (trans)
-		{
-			trans.commit();
-		}
-		upRect = QRectF(m_item->gradientMaskStart(), m_item->gradientMaskEnd());
-		double radEnd = distance(m_item->GrMaskEndX - m_item->GrMaskStartX, m_item->GrMaskEndY - m_item->GrMaskStartY);
-		double rotEnd = xy2Deg(m_item->GrMaskEndX - m_item->GrMaskStartX, m_item->GrMaskEndY - m_item->GrMaskStartY);
-		QTransform m;
-		m.translate(m_item->GrMaskStartX, m_item->GrMaskStartY);
-		m.rotate(rotEnd);
-		m.rotate(-90);
-		m.rotate(m_item->GrMaskSkew);
-		m.translate(radEnd * m_item->GrMaskScale, 0);
-		QPointF shP = m.map(QPointF(0,0));
-		upRect |= QRectF(shP, m_item->gradientMaskEnd()).normalized();
-		upRect |= QRectF(shP, m_item->gradientMaskStart()).normalized();
-		upRect |= QRectF(shP, QPointF(0, 0)).normalized();
-		upRect |= QRectF(shP, QPointF(m_item->width(), m_item->height())).normalized();
-		upRect.translate(m_item->xPos(), m_item->yPos());
-		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
-		m_doc->changed();
-		m_doc->changedPagePreview();
-	}
-}
-
-void PropertiesPalette::toggleGradientEditM()
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	if ((m_haveDoc) && (m_haveItem))
-	{
-		m_ScMW->view->editStrokeGradient = 2;
-		if (transparencyPalette->gradEditButton->isChecked())
-			m_ScMW->view->requestMode(modeEditGradientVectors);
-		else
-			m_ScMW->view->requestMode(modeNormal);
-	}
-}
-
 void PropertiesPalette::updateColorList()
 {
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-
-	colorPalette->updateColorList();
-	transparencyPalette->updateColorList();
-	shadowPal->updateColorList();
 
 	assert (m_doc->PageColors.document());
 }
@@ -686,56 +488,23 @@ void PropertiesPalette::languageChange()
 	setWindowTitle( tr("Properties"));
 
 	scXYZ->setText(tr("X, Y, &Z"));
-	scShadow->setText(tr("Drop Shadow"));
+	scShadow->setText(tr("&Drop Shadow"));
 	scShape->setText(tr("&Shape"));
 	scLine->setText(tr("&Line"));
-	scColor->setText(tr("&Colors"));
-	scTransparency->setText(tr("&Transparency"));
+	scFill->setText(tr("&Fill"));
+	scAttributes->setText(tr("&Attributes"));
 
 	xyzPal->languageChange();
 	shadowPal->languageChange();
 	shapePal->languageChange();
-	colorPalette->languageChange();
 	linePal->languageChange();
+	fillPal->languageChange();
+	attributesPal->languageChange();
 }
 
 void PropertiesPalette::setGradientEditMode(bool on)
 {
-	colorPalette->gradEditButton->setChecked(on);
-}
-
-void PropertiesPalette::endPatchAdd()
-{
-	colorPalette->endPatchAdd();
-}
-
-void PropertiesPalette::updateColorSpecialGradient()
-{
-	if (!m_haveDoc)
-		return;
-	if(m_doc->m_Selection->isEmpty())
-		return;
-
-	PageItem* currItem = m_doc->m_Selection->itemAt(0);
-	if (currItem)
-	{
-		if (m_ScMW->view->editStrokeGradient == 0)
-			colorPalette->setSpecialGradient(currItem->GrStartX, currItem->GrStartY, currItem->GrEndX, currItem->GrEndY, currItem->GrFocalX, currItem->GrFocalY, currItem->GrScale, currItem->GrSkew, 0, 0);
-		else if (m_ScMW->view->editStrokeGradient == 1)
-			colorPalette->setSpecialGradient(currItem->GrStrokeStartX, currItem->GrStrokeStartY, currItem->GrStrokeEndX, currItem->GrStrokeEndY, currItem->GrStrokeFocalX, currItem->GrStrokeFocalY, currItem->GrStrokeScale, currItem->GrStrokeSkew, 0, 0);
-		else if (m_ScMW->view->editStrokeGradient == 3)
-			colorPalette->setSpecialGradient(currItem->GrControl1.x(), currItem->GrControl1.y(), currItem->GrControl2.x(), currItem->GrControl2.y(), currItem->GrControl3.x(), currItem->GrControl3.y(), currItem->GrControl4.x(), currItem->GrControl4.y(), 0, 0);
-		else if (m_ScMW->view->editStrokeGradient == 4)
-			colorPalette->setSpecialGradient(currItem->GrControl1.x(), currItem->GrControl1.y(), currItem->GrControl2.x(), currItem->GrControl2.y(), currItem->GrControl3.x(), currItem->GrControl3.y(), currItem->GrControl4.x(), currItem->GrControl4.y(), currItem->GrControl5.x(), currItem->GrControl5.y());
-		else if ((m_ScMW->view->editStrokeGradient == 5) || (m_ScMW->view->editStrokeGradient == 6))
-			colorPalette->setMeshPoint();
-		else if (m_ScMW->view->editStrokeGradient == 8)
-			colorPalette->setMeshPatchPoint();
-		else if (m_ScMW->view->editStrokeGradient == 9)
-			colorPalette->setMeshPatch();
-		else if (currItem->isGroup())
-			transparencyPalette->setSpecialGradient(currItem->GrMaskStartX, currItem->GrMaskStartY, currItem->GrMaskEndX, currItem->GrMaskEndY, currItem->GrMaskFocalX, currItem->GrMaskFocalY, currItem->GrMaskScale, currItem->GrMaskSkew);
-	}
+	WidgetManager::instance().colorPicker()->setGradientEditPropertiesEnabled(on);
 }
 
 void PropertiesPalette::setLocked(bool isLocked)
@@ -751,13 +520,274 @@ void PropertiesPalette::handleShapeEdit()
 		shapePal->setRoundRectEnabled(false);
 }
 
-void PropertiesPalette::handleGradientChanged()
+/* ********************************************************************************* *
+ *
+ * Mesh Gradient Methods
+ *
+ * ********************************************************************************* */
+
+void PropertiesPalette::endPatchAdd()
 {
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
+	WidgetManager::instance().colorPicker()->endPatchAdd();
+}
+
+void PropertiesPalette::meshGradientToShape()
+{
+
+	if (!m_doc || !m_item)
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+
+	m_item->meshToShape();
+	m_item->update();
+	m_doc->regionsChanged()->update(QRect());
+
+}
+
+void PropertiesPalette::createNewMeshGradient()
+{
+	if (!m_doc || !m_item)
+		return;
+
+	InsertTable* dia = new InsertTable(this, 255, 255);
+	dia->setWindowTitle( tr( "Create Mesh" ) );
+	if (dia->exec())
 	{
-		VGradient vg(transparencyPalette->gradEdit->gradient());
-		m_doc->itemSelection_SetMaskGradient(vg);
+		m_item->createGradientMesh(dia->Rows->value(), dia->Cols->value());
+		m_item->update();
+		m_doc->regionsChanged()->update(QRect());
+	}
+	delete dia;
+}
+
+void PropertiesPalette::resetMeshGradient()
+{
+	if (!m_doc || !m_item)
+		return;
+
+	m_item->resetGradientMesh();
+	m_item->update();
+	m_doc->regionsChanged()->update(QRect());
+}
+
+void PropertiesPalette::resetOneControlPoint()
+{
+	if (!m_doc || !m_item)
+		return;
+
+	int grow = m_item->selectedMeshPointX;
+	int gcol = m_item->selectedMeshPointY;
+	int cont = m_item->selectedMeshControlPoint;
+	MeshPoint tmp;
+	if (m_item->gradientType() == Gradient_PatchMesh)
+	{
+		if ((grow == -1) || (gcol == 0))
+			return;
+		ScOldNewState<MeshPoint> *ss = nullptr;
+		if (UndoManager::undoEnabled())
+		{
+			ss = new ScOldNewState<MeshPoint>(Um::GradPos);
+			ss->set("MOVE_MESH_PATCH");
+			ss->set("ARRAY", false);
+			ss->set("X", grow);
+			ss->set("Y", gcol);
+		}
+		switch (gcol)
+		{
+			case 1:
+				tmp = m_item->meshGradientPatches[grow].TL;
+				if (cont == 2)
+					tmp.controlBottom = tmp.gridPoint;
+				if (cont == 4)
+					tmp.controlRight  = tmp.gridPoint;
+				if (UndoManager::undoEnabled())
+					ss->setStates(m_item->meshGradientPatches[grow].TL, tmp);
+				m_item->meshGradientPatches[grow].TL = tmp;
+				break;
+			case 2:
+				tmp = m_item->meshGradientPatches[grow].TR;
+				if (cont == 2)
+					tmp.controlBottom = tmp.gridPoint;
+				if (cont == 3)
+					tmp.controlLeft   = tmp.gridPoint;
+				if (UndoManager::undoEnabled())
+					ss->setStates(m_item->meshGradientPatches[grow].TR, tmp);
+				m_item->meshGradientPatches[grow].TR = tmp;
+				break;
+			case 3:
+				tmp = m_item->meshGradientPatches[grow].BR;
+				if (cont == 1)
+					tmp.controlTop  = tmp.gridPoint;
+				if (cont == 3)
+					tmp.controlLeft = tmp.gridPoint;
+				if (UndoManager::undoEnabled())
+					ss->setStates(m_item->meshGradientPatches[grow].BR, tmp);
+				m_item->meshGradientPatches[grow].BR = tmp;
+				break;
+			case 4:
+				tmp = m_item->meshGradientPatches[grow].BL;
+				if (cont == 1)
+					tmp.controlTop   = tmp.gridPoint;
+				if (cont == 4)
+					tmp.controlRight = tmp.gridPoint;
+				if (UndoManager::undoEnabled())
+					ss->setStates(m_item->meshGradientPatches[grow].BL, tmp);
+				m_item->meshGradientPatches[grow].BL = tmp;
+				break;
+		}
+		if (UndoManager::undoEnabled())
+			undoManager->action(m_item,ss);
+	}
+	else // if (m_item->gradientType() == Gradient_Mesh)
+	{
+		if ((grow == -1) || (gcol == -1))
+			return;
+
+		tmp = m_item->meshGradientArray[grow][gcol];
+		if (cont == 1)
+			tmp.controlTop    = tmp.gridPoint;
+		else if (cont == 2)
+			tmp.controlBottom = tmp.gridPoint;
+		else if (cont == 3)
+			tmp.controlLeft   = tmp.gridPoint;
+		else if (cont == 4)
+			tmp.controlRight  = tmp.gridPoint;
+
+		if (UndoManager::undoEnabled())
+		{
+			auto *ss = new ScOldNewState<MeshPoint>(Um::GradPos);
+			ss->set("MOVE_MESH_PATCH");
+			ss->set("ARRAY", true);
+			ss->set("X", grow);
+			ss->set("Y", gcol);
+			ss->setStates(m_item->meshGradientArray[grow][gcol], tmp);
+			undoManager->action(m_item,ss);
+		}
+		m_item->meshGradientArray[grow][gcol] = tmp;
+	}
+	m_item->update();
+	m_doc->regionsChanged()->update(QRect());
+}
+
+void PropertiesPalette::resetAllControlPoints()
+{
+	if (!m_doc || !m_item)
+		return;
+
+	int grow = m_item->selectedMeshPointX;
+	int gcol = m_item->selectedMeshPointY;
+	MeshPoint tmp;
+	if (m_item->gradientType() == Gradient_PatchMesh)
+	{
+		if ((grow == -1) || (gcol == 0))
+			return;
+		ScOldNewState<MeshPoint> *ss = nullptr;
+		if (UndoManager::undoEnabled())
+		{
+			ss = new ScOldNewState<MeshPoint>(Um::GradPos);
+			ss->set("MOVE_MESH_PATCH");
+			ss->set("ARRAY", false);
+			ss->set("X", grow);
+			ss->set("Y", gcol);
+		}
+		switch (gcol)
+		{
+			case 1:
+				tmp = m_item->meshGradientPatches[grow].TL;
+				tmp.controlTop    = tmp.gridPoint;
+				tmp.controlLeft   = tmp.gridPoint;
+				tmp.controlRight  = tmp.gridPoint;
+				tmp.controlBottom = tmp.gridPoint;
+				if (UndoManager::undoEnabled())
+					ss->setStates(m_item->meshGradientPatches[grow].TL, tmp);
+				m_item->meshGradientPatches[grow].TL = tmp;
+		break;
+			case 2:
+				tmp = m_item->meshGradientPatches[grow].TR;
+				tmp.controlTop    = tmp.gridPoint;
+				tmp.controlLeft   = tmp.gridPoint;
+				tmp.controlRight  = tmp.gridPoint;
+				tmp.controlBottom = tmp.gridPoint;
+				if (UndoManager::undoEnabled())
+					ss->setStates(m_item->meshGradientPatches[grow].TR, tmp);
+				m_item->meshGradientPatches[grow].TR = tmp;
+		break;
+			case 3:
+				tmp = m_item->meshGradientPatches[grow].BR;
+				tmp.controlTop    = tmp.gridPoint;
+				tmp.controlLeft   = tmp.gridPoint;
+				tmp.controlRight  = tmp.gridPoint;
+				tmp.controlBottom = tmp.gridPoint;
+				if (UndoManager::undoEnabled())
+					ss->setStates(m_item->meshGradientPatches[grow].BR, tmp);
+				m_item->meshGradientPatches[grow].BR = tmp;
+		break;
+			case 4:
+				tmp = m_item->meshGradientPatches[grow].BL;
+				tmp.controlTop    = tmp.gridPoint;
+				tmp.controlLeft   = tmp.gridPoint;
+				tmp.controlRight  = tmp.gridPoint;
+				tmp.controlBottom = tmp.gridPoint;
+				if (UndoManager::undoEnabled())
+					ss->setStates(m_item->meshGradientPatches[grow].BL, tmp);
+				m_item->meshGradientPatches[grow].BL = tmp;
+		break;
+		}
+		if (UndoManager::undoEnabled())
+			undoManager->action(m_item,ss);
+	}
+	else //if (m_item->gradientType() == Gradient_Mesh)
+	{
+		if ((grow == -1) || (gcol == -1))
+			return;
+		tmp = m_item->meshGradientArray[grow][gcol];
+		tmp.controlTop    = tmp.gridPoint;
+		tmp.controlLeft   = tmp.gridPoint;
+		tmp.controlRight  = tmp.gridPoint;
+		tmp.controlBottom = tmp.gridPoint;
+		if (UndoManager::undoEnabled())
+		{
+			auto *ss = new ScOldNewState<MeshPoint>(Um::GradPos);
+			ss->set("MOVE_MESH_PATCH");
+			ss->set("ARRAY", true);
+			ss->set("X", grow);
+			ss->set("Y", gcol);
+			ss->setStates(m_item->meshGradientArray[grow][gcol], tmp);
+			undoManager->action(m_item,ss);
+		}
+		m_item->meshGradientArray[grow][gcol] = tmp;
+	}
+	m_item->update();
+	m_doc->regionsChanged()->update(QRect());
+}
+
+void PropertiesPalette::snapToPatchGrid(bool val)
+{
+	if (!m_item)
+		return;
+
+	m_item->setSnapToPatchGrid(val);
+}
+
+void PropertiesPalette::handleRemovePatch()
+{
+	if (!m_doc || !m_item)
+		return;
+
+	if ((m_item->selectedMeshPointX > -1) && (m_item->meshGradientPatches.count() > 1))
+	{
+		if (UndoManager::undoEnabled())
+		{
+			ScItemState<meshGradientPatch> *ss = new ScItemState<meshGradientPatch>(Um::RemoveMeshPatch,"",Um::ILine);
+			ss->set("REMOVE_MESH_PATCH");
+			ss->setItem(m_item->meshGradientPatches.takeAt(m_item->selectedMeshPointX));
+			ss->set("POS", m_item->selectedMeshPointX);
+			undoManager->action(m_item,ss);
+		}
+		m_item->selectedMeshPointX = -1;
+
+		WidgetManager::instance().colorPicker()->enableButtonRemovePatch( (m_item->selectedMeshPointX > -1) && (m_item->meshGradientPatches.count() > 1) );
+
+		m_item->update();
+		m_doc->regionsChanged()->update(QRect());
 	}
 }

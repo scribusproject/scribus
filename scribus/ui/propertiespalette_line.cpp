@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribusdoc.h"
 #include "selection.h"
-#include "ui/propertiespalette_utils.h"
+#include "ui/colorpicker/colorpicker_enum.h"
 #include "ui/widgets/popup_menu.h"
 #include "units.h"
 #include "util.h"
@@ -48,8 +48,6 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	buttonsJoins->addButton(buttonJoinBevel, 1);
 	buttonsJoins->addButton(buttonJoinRound, 2);
 
-	numberOpacity->setDecimals(0);
-
 	lineType->addItem( tr("Custom"));
 
 	lineMarkerSelectorStart = new LineMarkerSelector();
@@ -62,8 +60,10 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	PopupMenu *menuLineMarkerEnd = new PopupMenu(lineMarkerSelectorEnd);
 	buttonMarkerEnd->setMenu(menuLineMarkerEnd);
 
-	lineStyles->setItemDelegate(new LineStyleItemDelegate());
-	lineStyles->addItem( "No Style" );
+	buttonLineColor->setContext(Context::Line);
+	buttonLineColor->setMenuContextType(ColorButton::Floating);
+	buttonLineMask->setContext(Context::LineMask);
+	buttonLineMask->setMenuContextType(ColorButton::Floating);
 
 	languageChange();
 	iconSetChange();
@@ -73,7 +73,7 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 
 	connect(lineWidth, SIGNAL(valueChanged(double)), this, SLOT(handleLineWidth()));
-	connect(lineType, SIGNAL(activated(int)), this, SLOT(handleLineStyle()));
+	connect(lineType, SIGNAL(activated(int)), this, SLOT(handleLineType()));
 	connect(buttonsJoins, SIGNAL(idClicked(int)), this, SLOT(handleLineJoin()));
 	connect(buttonsCaps, SIGNAL(idClicked(int)), this, SLOT(handleLineEnd()));
 	connect(dashEditor, SIGNAL(dashChanged()), this, SLOT(handleDashChange()));
@@ -81,10 +81,12 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	connect(lineMarkerSelectorStart, SIGNAL(scaleChanged(double)), this, SLOT(handleStartArrowScale(double)));
 	connect(lineMarkerSelectorEnd, SIGNAL(markerChanged(int)), this, SLOT(handleEndArrow(int)));
 	connect(lineMarkerSelectorEnd, SIGNAL(scaleChanged(double)), this, SLOT(handleEndArrowScale(double)));
-	connect(lineStyles, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(handleLineStyle(QListWidgetItem*)));
 	connect(buttonSwapMarker, SIGNAL(clicked(bool)), this, SLOT(swapLineMarker()));
 	connect(comboBlendmode, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLineBlendmode(int)));
-	connect(numberOpacity, SIGNAL(valueChanged(double)), this, SLOT(handleLineOpacity(double)));
+	connect(comboLineStyle, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLineStyle(int)));
+	connect(buttonLineColor, SIGNAL(changed()), this, SLOT(handleLineColor()));
+	connect(buttonLineColor, SIGNAL(gradientVectorChanged()), this, SLOT(handleLineColorVector()));
+	connect(buttonLineMask, SIGNAL(changed()), this, SLOT(handleLineOpacity()));
 
 }
 
@@ -104,7 +106,7 @@ PageItem* PropertiesPalette_Line::currentItemFromSelection()
 
 	if (m_doc)
 		if (m_doc->m_Selection->count() >= 1)
-			currentItem = m_doc->m_Selection->itemAt(0);		
+			currentItem = m_doc->m_Selection->itemAt(0);
 
 	return currentItem;
 }
@@ -138,6 +140,7 @@ void PropertiesPalette_Line::setDoc(ScribusDoc *d)
 	lineWidth->setMaximum( 300 );
 	lineWidth->setMinimum( 0 );
 
+	comboLineStyle->setDoc(m_doc);
 	updateLineStyles(m_doc);
 
 	lineMarkerSelectorStart->rebuildList(&m_doc->arrowStyles());
@@ -145,6 +148,9 @@ void PropertiesPalette_Line::setDoc(ScribusDoc *d)
 
 	lineMarkerSelectorEnd->rebuildList(&m_doc->arrowStyles());
 	buttonMarkerEnd->setIcon(lineMarkerSelectorEnd->currentIcon());
+
+	buttonLineColor->setDoc(m_doc);
+	buttonLineMask->setDoc(m_doc);
 
 	connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
 	connect(m_doc, SIGNAL(docChanged()), this, SLOT(handleSelectionChanged()));
@@ -163,6 +169,9 @@ void PropertiesPalette_Line::unsetDoc()
 	m_doc   = nullptr;
 	m_item  = nullptr;
 
+	comboLineStyle->setDoc(m_doc);
+	buttonLineColor->unsetDoc();
+	buttonLineMask->unsetDoc();
 	updateLineStyles(nullptr);
 
 	setEnabled(false);
@@ -179,6 +188,9 @@ void PropertiesPalette_Line::unsetItem()
 void PropertiesPalette_Line::handleSelectionChanged()
 {
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	if (updatesBlocked())
 		return;
 
 	PageItem* currItem = currentItemFromSelection();
@@ -214,6 +226,8 @@ void PropertiesPalette_Line::handleSelectionChanged()
 		case PageItem::PathText:
 		case PageItem::RegularPolygon:
 		case PageItem::TextFrame:
+		case PageItem::Spiral:
+		case PageItem::Table:
 			setEnabled(true);
 			break;
 		case PageItem::Symbol:
@@ -253,9 +267,11 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 	m_haveItem = false;
 	m_item = item;
 
-	lineStyles->blockSignals(true);
-	lineMarkerSelectorStart->blockSignals(true);
-	lineMarkerSelectorEnd->blockSignals(true);
+	QSignalBlocker sigLineStyle(comboLineStyle);
+	QSignalBlocker sigMarkerSelectorStart(lineMarkerSelectorStart);
+	QSignalBlocker sigMarkerSelectorEnd(lineMarkerSelectorEnd);
+	QSignalBlocker sigLineBlendMode(comboBlendmode);
+
 	if ((m_item->asLine()) || (m_item->asPolyLine()) || (m_item->asSpiral()))
 	{
 		lineMarkerSelectorStart->setMarker(m_item->startArrowIndex());
@@ -267,36 +283,34 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 		lineMarkerLabel->setVisible(true);
 	}
 	else
-	{
 		lineMarkerLabel->setVisible(false);
-	}
 
-	if (lineStyles->currentItem())
-		lineStyles->currentItem()->setSelected(false);
+	if ((m_item->isGroup()) && (!m_item->isSingleSel))
+		setEnabled(false);
+	if (m_item->isOSGFrame())
+		setEnabled(false);
+	if (m_item->isSymbol())
+		setEnabled(false);
 
-	bool setter = false;
+	bool hasStyle = false;
 	if (m_item->NamedLStyle.isEmpty())
 	{
-		setter = true;
-		QListWidgetItem *itemStl = nullptr;
-		itemStl = lineStyles->item(0);
-		if (itemStl != nullptr)
-			itemStl->setSelected(true);
+		hasStyle = false;
+		comboLineStyle->setCurrentIndex(0);
 	}
 	else
 	{
-		QList<QListWidgetItem*> results (lineStyles->findItems(m_item->NamedLStyle, Qt::MatchFixedString|Qt::MatchCaseSensitive));
-		if (results.count() > 0)
-			results[0]->setSelected(true);
-		setter = false;
+		hasStyle = true;
+		comboLineStyle->setCurrentText(m_item->NamedLStyle);
 	}
 
-	lineType->setEnabled(setter);
-	lineWidth->setEnabled(setter);
-	lineJoinLabel->setEnabled(setter);
-	lineEndLabel->setEnabled(setter);
+	lineTypeLabel->setVisible(!hasStyle);
+	lineWidthLabel->setVisible(!hasStyle);
+	lineJoinLabel->setVisible(!hasStyle);
+	lineEndLabel->setVisible(!hasStyle);
+	lineColorLabel->setVisible(!hasStyle);
 
-	if (m_item->dashes().count() == 0)
+	if (m_item->dashes().count() == 0 || hasStyle)
 		dashEditor->hide();
 	else
 	{
@@ -305,22 +319,16 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 		dashEditor->show();
 	}
 
-	lineStyles->blockSignals(false);
-	lineMarkerSelectorStart->blockSignals(false);
-	lineMarkerSelectorEnd->blockSignals(false);
-
-	if ((m_item->isGroup()) && (!m_item->isSingleSel))
-		setEnabled(false);
+	comboBlendmode->setCurrentIndex(m_item->lineBlendmode());
 
 	m_haveItem = true;
+
+	setCurrentItem_Line(m_item);
+	setCurrentItem_LineMask(m_item);
 
 	showLineWidth(m_item->lineWidth());
 	showLineValues(m_item->lineStyle(), m_item->lineEnd(), m_item->lineJoin());
 
-	if (m_item->isOSGFrame())
-		setEnabled(false);
-	if (m_item->isSymbol())
-		setEnabled(false);
 }
 
 void PropertiesPalette_Line::updateArrowStyles()
@@ -345,22 +353,76 @@ void PropertiesPalette_Line::updateLineStyles()
 
 void PropertiesPalette_Line::updateLineStyles(ScribusDoc *doc)
 {
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
+	if (!m_ScMW || m_ScMW->scriptIsRunning() || !doc)
 		return;
-	
-	lineStyles->blockSignals(true);
-	lineStyles->clear();
-	if (doc != nullptr)
-	{
-		QHash<QString, MultiLine>::Iterator it;
-		for (it = doc->docLineStyles.begin(); it != doc->docLineStyles.end(); ++it)
-			lineStyles->addItem( new LineStyleItem(doc, it.value(), it.key()) );
-		lineStyles->sortItems();
-		lineStyles->insertItem( 0, tr("No Style"));
-		if (lineStyles->currentItem())
-			lineStyles->currentItem()->setSelected(false);
-	}
-	lineStyles->blockSignals(false);
+
+	comboLineStyle->updateLineStyles();
+}
+
+void PropertiesPalette_Line::setCurrentItem_Line(PageItem *item)
+{
+	buttonLineColor->setType(item->strokeGradientType());
+	// Gradient
+	buttonLineColor->setGradient(
+				item->strokeGradient(),
+				item->stroke_gradient,
+				item->getStrokeGradientExtend()
+				);
+
+	// Gradient Vector
+	buttonLineColor->setGradientVector(
+				item->gradientStrokeStartX(),
+				item->gradientStrokeStartY(),
+				item->gradientStrokeEndX(),
+				item->gradientStrokeEndY(),
+				item->gradientStrokeFocalX(),
+				item->gradientStrokeFocalY(),
+				item->gradientStrokeScale(),
+				item->gradientStrokeSkew()
+				);
+
+	// Pattern
+	bool mirrorX, mirrorY;
+	item->strokePatternFlip(mirrorX, mirrorY);
+	buttonLineColor->setPattern(
+				item->strokePattern(),
+				item->strokePatternTransform().offsetX,
+				item->strokePatternTransform().offsetY,
+				item->strokePatternTransform().scaleX,
+				item->strokePatternTransform().scaleY,
+				item->strokePatternTransform().skewX,
+				item->strokePatternTransform().skewY,
+				item->strokePatternTransform().rotation,
+				item->strokePatternTransform().space,
+				mirrorX, mirrorY,
+				item->isStrokePatternToPath()
+				);
+	// Color
+	buttonLineColor->setColor(
+				item->lineColor(),
+				item->lineShade()
+				);
+	// General
+	buttonLineColor->setGeneral(item->overprint());
+
+	buttonLineColor->updatePreview();
+	buttonLineColor->updateFloatingContext();
+
+}
+
+void PropertiesPalette_Line::setCurrentItem_LineMask(PageItem *item)
+{
+	buttonLineMask->setType(Gradient_None);
+	// Color
+	buttonLineMask->setColor(
+				"",
+				100,
+				item->lineTransparency()
+				);
+
+	buttonLineMask->updatePreview();
+	buttonLineMask->updateFloatingContext();
+
 }
 
 void PropertiesPalette_Line::showLineWidth(double s)
@@ -472,7 +534,7 @@ void PropertiesPalette_Line::handleLineWidth()
 	}
 }
 
-void PropertiesPalette_Line::handleLineStyle()
+void PropertiesPalette_Line::handleLineType()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -601,25 +663,35 @@ void PropertiesPalette_Line::handleDashChange()
 	}
 }
 
-void PropertiesPalette_Line::handleLineStyle(QListWidgetItem *widgetItem)
+void PropertiesPalette_Line::handleLineStyle(int c)
 {
-	if (!m_doc || !m_ScMW || m_ScMW->scriptIsRunning() || !widgetItem)
+	if (!m_doc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	bool setter = (widgetItem->listWidget()->currentRow() == 0);
-	m_doc->itemSelection_SetNamedLineStyle(setter ? QString("") : widgetItem->text());
-	lineType->setEnabled(setter);
-	lineWidth->setEnabled(setter);
-	lineJoinLabel->setEnabled(setter);
-	lineEndLabel->setEnabled(setter);
+	bool setter = (c == 0);
+	m_doc->itemSelection_SetNamedLineStyle(setter ? QString("") : comboLineStyle->currentText());
 
 }
 
-void PropertiesPalette_Line::handleLineOpacity(double opacity)
+void PropertiesPalette_Line::handleLineOpacity(/*double opacity*/)
 {
 	if (!m_doc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	m_doc->itemSelection_SetItemLineTransparency((100 - numberOpacity->value()) / 100.0);
+	blockUpdates(true);
+
+	switch(buttonLineMask->mode())
+	{
+	default:
+	case Mode::Solid:
+		m_doc->itemSelection_SetItemLineTransparency(buttonLineMask->colorData().Opacity);
+		break;
+	case Mode::Gradient:
+	case Mode::Hatch:
+	case Mode::Pattern:
+		// Do nothing
+		break;
+	}
+	blockUpdates(false);
 }
 
 void PropertiesPalette_Line::handleLineBlendmode(int mode)
@@ -629,6 +701,117 @@ void PropertiesPalette_Line::handleLineBlendmode(int mode)
 
 	m_doc->itemSelection_SetItemLineBlend(comboBlendmode->currentIndex());
 }
+
+void PropertiesPalette_Line::handleLineColor()
+{
+	if (!m_doc || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	blockUpdates(true);
+	m_doc->itemSelection_SetItemGradStroke(buttonLineColor->type());
+
+	switch(buttonLineColor->mode())
+	{
+	default:
+	case Mode::Solid:
+		m_doc->itemSelection_SetItemStrokePattern(""); // reset pattern
+		m_doc->itemSelection_SetItemPen(buttonLineColor->colorName());
+		m_doc->itemSelection_SetItemPenShade(static_cast<int>(buttonLineColor->colorData().Shade));
+		break;
+	case Mode::Gradient:
+
+		m_doc->itemSelection_SetItemStrokePattern(""); // reset pattern
+
+		if(buttonLineColor->gradientData().Name.isEmpty())
+		{
+			m_item->setStrokeGradient("");
+			m_doc->itemSelection_SetLineGradient(buttonLineColor->gradientData().Gradient);
+		}
+		else
+		{
+			m_item->setStrokeGradient(buttonLineColor->gradientData().Name);
+		}
+
+		m_item->setStrokeGradientExtend(buttonLineColor->gradientData().repeatMethod);
+		m_item->update();
+		m_doc->regionsChanged()->update(QRect());
+
+		break;
+	case Mode::Hatch:
+		// Do nothing
+		break;
+	case Mode::Pattern:
+		m_doc->itemSelection_SetItemStrokePattern(buttonLineColor->patternData().Name);
+		m_doc->itemSelection_SetItemStrokePatternType(buttonLineColor->patternData().OnPath);
+		m_doc->itemSelection_SetItemStrokePatternProps(
+					buttonLineColor->patternData().ScaleX,
+					buttonLineColor->patternData().ScaleY,
+					buttonLineColor->patternData().OffsetX,
+					buttonLineColor->patternData().OffsetY,
+					buttonLineColor->patternData().Angle,
+					buttonLineColor->patternData().SkewX,
+					buttonLineColor->patternData().SkewY,
+					buttonLineColor->patternData().Spacing,
+					buttonLineColor->patternData().MirrorX,
+					buttonLineColor->patternData().MirrorY
+					);
+		break;
+	}
+
+	m_doc->itemSelection_SetOverprint(buttonLineColor->generalData().overprint);
+
+	//	m_item->update();
+	//	m_doc->regionsChanged()->update(QRect());
+	blockUpdates(false);
+
+}
+
+void PropertiesPalette_Line::handleLineColorVector()
+{
+	if (!m_doc ||!m_item || !m_ScMW || m_ScMW->scriptIsRunning() || buttonLineColor->mode() != Mode::Gradient)
+		return;
+
+	CPGradientVectorData gvd = buttonLineColor->gradientVectorData();
+
+	QRectF upRect;
+
+	switch (buttonLineColor->type())
+	{
+	case Gradient_Linear:
+	case Gradient_Radial:
+		m_item->setGradientStrokeStart(gvd.StartX, gvd.StartY);
+		m_item->setGradientStrokeEnd(gvd.EndX, gvd.EndY);
+		m_item->setGradientStrokeFocal(gvd.FocalX, gvd.FocalY);
+		m_item->setGradientStrokeScale(gvd.Scale);
+		m_item->setGradientStrokeSkew(gvd.Skew);
+		if (m_item->strokeGradientType() == Gradient_Linear)
+		{
+			m_item->setGradientStrokeFocal(m_item->gradientStrokeStartX(), m_item->gradientStrokeStartY());
+		}
+		m_item->update();
+		upRect = QRectF(m_item->gradientStrokeStart(), m_item->gradientStrokeEnd());
+		double radEnd = distance(m_item->gradientStrokeEndX() - m_item->gradientStrokeStartX(), m_item->gradientStrokeEndY() - m_item->gradientStrokeStartY());
+		double rotEnd = xy2Deg(m_item->gradientStrokeEndX() - m_item->gradientStrokeStartX(), m_item->gradientStrokeEndY() - m_item->gradientStrokeStartY());
+		QTransform m;
+		m.translate(m_item->gradientStrokeStartX(), m_item->gradientStrokeStartY());
+		m.rotate(rotEnd);
+		m.rotate(-90);
+		m.rotate(m_item->gradientStrokeSkew());
+		m.translate(radEnd * m_item->gradientStrokeScale(), 0);
+		QPointF shP = m.map(QPointF(0,0));
+		upRect = upRect.united(QRectF(shP, m_item->gradientStrokeEnd()).normalized());
+		upRect = upRect.united(QRectF(shP, m_item->gradientStrokeStart()).normalized());
+		upRect |= QRectF(shP, QPointF(0, 0)).normalized();
+		upRect |= QRectF(shP, QPointF(m_item->width(), m_item->height())).normalized();
+		break;
+	}
+
+	upRect.translate(m_item->xPos(), m_item->yPos());
+	m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
+	m_doc->changed();
+	m_doc->changedPagePreview();
+}
+
 
 void PropertiesPalette_Line::swapLineMarker()
 {
@@ -658,6 +841,12 @@ void PropertiesPalette_Line::iconSetChange()
 	buttonCapSquare->setIcon(im.loadIcon("16/stroke-cap-square.png"));
 
 	buttonSwapMarker->setIcon(im.loadIcon("swap"));
+
+	if(lineMaskLabel->labelVisibility())
+		buttonLineMask->setIcon(QIcon());
+	else
+		buttonLineMask->setIcon(im.loadIcon("mask", 8));
+
 }
 
 void PropertiesPalette_Line::languageChange()
@@ -688,6 +877,7 @@ void PropertiesPalette_Line::languageChange()
 
 	lineMarkerSelectorStart->languageChange();
 	lineMarkerSelectorEnd->languageChange();
+	comboLineStyle->languageChange();
 
 	QString ptSuffix = tr(" pt");
 	QString suffix = (m_doc) ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
@@ -695,20 +885,18 @@ void PropertiesPalette_Line::languageChange()
 	lineWidth->setSuffix(suffix);
 	lineWidth->setSpecialValueText( tr("Hairline"));
 
-	if(lineStyles->count() > 0)
-		lineStyles->item(0)->setText( tr("No Style") );
-
 	lineType->setToolTip( tr("Pattern of line"));
 	lineWidth->setToolTip( tr("Thickness of line"));
-	lineStyles->setToolTip( tr("Line style of current object"));
 	buttonCapFlat->setToolTip( tr("Line end is flat"));
 	buttonCapSquare->setToolTip( tr("Line end is squared"));
 	buttonCapRound->setToolTip( tr("Line end is rounded"));
 	buttonJoinMiter->setToolTip( tr("Line join is mitered"));
 	buttonJoinRound->setToolTip( tr("Line join is rounded"));
 	buttonJoinBevel->setToolTip( tr("Line join is beveled"));
-	buttonMarkerStart->setToolTip( tr("Arrow head style for start of line"));
-	buttonMarkerEnd->setToolTip( tr("Arrow head style for end of line"));
+	buttonMarkerStart->setToolTip( tr("Marker style for start of line"));
+	buttonMarkerEnd->setToolTip( tr("Marker style for end of line"));
+	buttonSwapMarker->setToolTip( tr("Swap start and end markers"));
+	comboBlendmode->setToolTip( tr("Blendmode of line"));
 }
 
 void PropertiesPalette_Line::unitChange()
@@ -732,11 +920,14 @@ void PropertiesPalette_Line::localeChange()
 
 void PropertiesPalette_Line::toggleLabelVisibility(bool v)
 {
+	lineColorLabel->setLabelVisibility(v);
 	lineWidthLabel->setLabelVisibility(v);
 	lineJoinLabel->setLabelVisibility(v);
 	lineTypeLabel->setLabelVisibility(v);
 	lineEndLabel->setLabelVisibility(v);
 	lineMarkerLabel->setLabelVisibility(v);
-	lineOpacityLabel->setLabelVisibility(v);
+	lineMaskLabel->setLabelVisibility(v);
 	lineBlendmodeLabel->setLabelVisibility(v);
+
+	iconSetChange();
 }

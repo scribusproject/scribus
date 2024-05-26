@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QFont>
 
-#include "scribusapi.h"
+//#include "scribusapi.h"
 
 /* ********************************************************************************* *
  *
@@ -12,7 +12,7 @@
  *
  * ********************************************************************************* */
 
-class SCRIBUS_API FormWidget : public QWidget
+class FormWidget : public QWidget
 {
     Q_OBJECT
     Q_CLASSINFO("Version", "1.0.0")

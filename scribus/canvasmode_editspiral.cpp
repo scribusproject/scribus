@@ -71,21 +71,16 @@ void CanvasMode_EditSpiral::drawControls(QPainter* p)
 
 void CanvasMode_EditSpiral::drawControlsSpiral(QPainter* psx, const PageItem* currItem)
 {
-	QPen p8b = QPen(Qt::blue, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	QPen p8r = QPen(Qt::red, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
+	qreal scale = m_canvas->m_viewMode.scale;
 	psx->setTransform(currItem->getTransform(), true);
-	psx->setBrush(Qt::NoBrush);
-	psx->setPen(p8b);
-	if (m_arcPoint == useControlStart)
-		psx->setPen(p8r);
+
+	if (currItem->rotation() == 0 || currItem->rotation() == 90 || currItem->rotation() == 180 || currItem->rotation() == 270)
+		psx->setRenderHint(QPainter::Antialiasing, false);
 	else
-		psx->setPen(p8b);
-	psx->drawPoint(m_startPoint);
-	if (m_arcPoint == useControlEnd)
-		psx->setPen(p8r);
-	else
-		psx->setPen(p8b);
-	psx->drawPoint(m_endPoint);
+		psx->setRenderHint(QPainter::Antialiasing, true);
+
+	drawNodeHandle(psx, m_startPoint, pens().value("node"), scale, m_arcPoint == useControlStart);
+	drawNodeHandle(psx, m_endPoint, pens().value("node"), scale, m_arcPoint == useControlEnd);
 }
 
 void CanvasMode_EditSpiral::enterEvent(QEvent *e)

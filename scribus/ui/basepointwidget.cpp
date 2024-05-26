@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "basepointwidget.h"
+#include "util_gui.h"
 
 /* ********************************************************************************* *
  *
@@ -109,24 +110,18 @@ void BasePointWidget::paintEvent(QPaintEvent *e)
 	p.setRenderHint(QPainter::Antialiasing, true);
 	p.setTransform(m_transform, true);
 
-	//    QColor normal( ColorUtils::colorBlend( palette().color(QPalette::WindowText), QColor(128,128,128), 0.8 ));
-	//    QColor dark( ColorUtils::colorAlpha( palette().color(QPalette::WindowText), 0.15 ));
-
-	QColor normal( palette().color(QPalette::WindowText) );
-	normal = QColor::fromHslF(normal.hslHueF(), normal.hslSaturationF(), (normal.lightnessF() < 0.5) ? 0.4 : 0.6);
-
-	QColor dark( palette().color(QPalette::WindowText) );
-	dark.setAlphaF(0.15f);
+	QColor frame = colorByRole(QPalette::WindowText, 0.6, isEnabled());
+	QColor bg = colorByRole(QPalette::WindowText, 0.15, isEnabled());
 
 	// Base
-	p.setBrush(QBrush( dark ));
-	p.setPen(QPen( normal, 1) );
+	p.setBrush(QBrush( bg ));
+	p.setPen(QPen( frame, 1) );
 	p.drawRect(m_baseRect);
 
 	p.setPen(Qt::NoPen);
 
 	// Anchor Normal
-	p.setBrush(QBrush( normal ));
+	p.setBrush(QBrush( frame ));
 
 	QMapIterator<AnchorPoint, QRect> i(anchors);
 	while (i.hasNext()) {

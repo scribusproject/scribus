@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include "ui/colorpicker/colorpicker.h"
 #include <QAction>
 #include <QApplication>
 #include <QByteArray>
@@ -57,11 +58,13 @@ for which a new license (GPL+exception) is in place.
 #include <QScreen>
 #include <QSignalBlocker>
 #include <QStyleFactory>
+#include <QStyleHints>
 #include <QTableWidget>
 #include <QTextCodec>
 #include <QTranslator>
 #include <QWindow>
 #include <QWheelEvent>
+
 
 #ifdef DEBUG_LOAD_TIMES
 #include <QDebug>
@@ -160,7 +163,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/charselect.h"
 #include "ui/checkDocument.h"
 #include "ui/collectforoutput_ui.h"
-#include "ui/colorpalette.h"
 #include "ui/contentpalette.h"
 #include "ui/contextmenu.h"
 #include "ui/copypagetomasterpagedialog.h"
@@ -232,7 +234,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/symbolpalette.h"
 #include "ui/tabmanager.h"
 #include "ui/transformdialog.h"
-#include "ui/transparencypalette.h"
 #include "ui/viewtoolbar.h"
 #include "undogui.h"
 #include "undomanager.h"
@@ -269,7 +270,8 @@ bool printDinUse;
 extern bool emergencyActivated;
 
 ScribusMainWindow::ScribusMainWindow() :
-	m_prefsManager(PrefsManager::instance())
+	m_prefsManager(PrefsManager::instance()),
+	m_widgetManager(WidgetManager::instance())
 {
 
 #ifdef Q_OS_MACOS
@@ -295,10 +297,11 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	CDockManager::setConfigFlag(CDockManager::AllTabsHaveCloseButton, false);
 //	CDockManager::setConfigFlag(CDockManager::DockAreaDynamicTabsMenuButtonVisibility, true);
 	CDockManager::setConfigFlag(CDockManager::DockAreaHasCloseButton, false);
-	CDockManager::setConfigFlag(CDockManager::DockAreaHasUndockButton, false);	
+	CDockManager::setConfigFlag(CDockManager::DockAreaHasUndockButton, false);
 	CDockManager::setConfigFlag(CDockManager::DockAreaHideDisabledButtons, true);
 	CDockManager::setConfigFlag(CDockManager::FocusHighlighting, true);
 	CDockManager::setConfigFlag(CDockManager::DisableTabTextEliding, true);
+	CDockManager::setConfigFlag(CDockManager::ShowTabTextOnlyForActiveTab, m_prefsManager.appPrefs.uiPrefs.hideLabelsOfInactiveTabs);
 
 	// Documentation: https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System/blob/master/doc/user-guide.md#auto-hide-configuration-flags
 //	CDockManager::setAutoHideConfigFlags(CDockManager::DefaultAutoHideConfig);
@@ -349,6 +352,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	scrLayersActions.clear();
 	scrScrapActions.clear();
 	actionManager = new ActionManager(this);
+	m_widgetManager.setup(m_doc);
 	appModeHelper = new AppModeHelper();
 	appModeHelper->setup(actionManager, &scrActions, &scrRecentFileActions, &scrWindowsActions, &scrScrapActions, &scrLayersActions, &scrRecentPasteActions);
 	scrMenuMgr = new ScMWMenuManager(menuBar(), actionManager);
@@ -450,6 +454,17 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	ScQApp->changeLabelVisibility(!m_prefsManager.appPrefs.uiPrefs.hideLabels);
 
 	setStyleSheet();
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, [this]()
+	{
+		emit ScQApp->iconSetChanged();
+		// THIS IS A WORKAROUND!
+		// It seems like once a widget has a custom style it doesn't redraw automatically with dark or light theme.
+		// If we set the style sheet again it forces a redrawing with the current theme.
+		setStyleSheet();
+	});
+#endif
 
 	return retVal;
 }
@@ -7424,6 +7439,7 @@ void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 	alignDistributePalette->unitChange();
 	guidePalette->setupPage();
 	m_styleManager->unitChange();
+	m_widgetManager.unitChange();
 	if (draw)
 		view->DrawNew();
 }
@@ -7480,8 +7496,9 @@ void ScribusMainWindow::editSymbolStart(const QString& temp)
 	}
 	patternsDependingOnThis.prepend(temp);
 	symbolPalette->editingStart(patternsDependingOnThis);
-	propertiesPalette->colorPalette->hideEditedPatterns(patternsDependingOnThis);
-	propertiesPalette->transparencyPalette->hideEditedPatterns(patternsDependingOnThis);
+//	propertiesPalette->colorPalette->hideEditedPatterns(patternsDependingOnThis);
+	WidgetManager::instance().colorPicker()->hideEditedPatterns(patternsDependingOnThis);
+//	propertiesPalette->transparencyPalette->hideEditedPatterns(patternsDependingOnThis);
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree(false);
 	updateActiveWindowCaption( tr("Editing Symbol: %1").arg(temp));
@@ -9241,7 +9258,8 @@ void ScribusMainWindow::manageColorsAndFills()
 			// Update tools colors if needed
 			m_prefsManager.replaceToolColors(dia->replaceColorMap);
 			m_prefsManager.setColorSet(dia->m_colorList);
-			propertiesPalette->colorPalette->setColors(m_prefsManager.colorSet());
+//			propertiesPalette->colorPalette->setColors(m_prefsManager.colorSet());
+			WidgetManager::instance().colorPicker()->setColorList(m_prefsManager.colorSet());
 			m_prefsManager.appPrefs.defaultGradients = dia->dialogGradients;
 			m_prefsManager.appPrefs.defaultPatterns = dia->dialogPatterns;
 			QString Cpfad = QDir::toNativeSeparators(ScPaths::applicationDataDir())+"DefaultColors.xml";

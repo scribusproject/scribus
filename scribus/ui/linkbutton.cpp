@@ -27,11 +27,11 @@ for which a new license (GPL+exception) is in place.
 #include "linkbutton.h"
 #include "iconmanager.h"
 #include "scribusapp.h"
-#include "scribuscore.h"
 
 LinkButton::LinkButton(QWidget *pa) : QToolButton(pa)
 {
 	setBackgroundRole(QPalette::Window);
+	setCheckable(true);
 	iconSetChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));

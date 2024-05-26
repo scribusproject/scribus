@@ -37,6 +37,7 @@ QString CommonStrings::_Save;
 QString CommonStrings::tr_Save;
 QString CommonStrings::Warning;
 QString CommonStrings::trWarning;
+QString CommonStrings::trCustom;
 
 QString CommonStrings::trYes;
 QString CommonStrings::trNo;
@@ -313,6 +314,8 @@ void CommonStrings::languageChange()
 	CommonStrings::trNo       = tr("No");
 	CommonStrings::trYesKey   = tr("&Yes");
 	CommonStrings::trNoKey    = tr("&No");
+
+	CommonStrings::trCustom = "Custom";
 
 	CommonStrings::itemType_TextFrame		= tr("Text Frame");
 	CommonStrings::itemType_ImageFrame		= tr("Image Frame");

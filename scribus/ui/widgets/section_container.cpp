@@ -1,26 +1,32 @@
 #include "section_container.h"
 
+#include <QMouseEvent>
 #include <QPainter>
 #include <QPen>
-#include <QMouseEvent>
 #include <QToolButton>
+
+#ifndef EXCLUDE_FOR_DESIGNER_PLUGIN
 #include "iconmanager.h"
 #include "scribusapp.h"
+#include "util_gui.h"
+#endif
 
-
-
-/* ********************************************************************************* *
+/* *********************************************************************************
+ * *
  *
  * Constructor + Setup
  *
- * ********************************************************************************* */
+ * *********************************************************************************
+ */
 
-SectionContainer::SectionContainer(QWidget *parent) : SectionContainer("Title", true, parent){}
+SectionContainer::SectionContainer(QWidget *parent)
+	: SectionContainer("Title", true, parent) {}
 
-SectionContainer::SectionContainer(QString title, bool isCollapsible, QWidget *parent)
-    : QWidget{parent}
+SectionContainer::SectionContainer(QString title, bool isCollapsible,
+								   QWidget *parent)
+	: QWidget{parent}
 {
-	widgetHeader = new SectionContainerHeader(title);
+	header = new SectionContainerHeader(title);
 	m_isCollapsible = isCollapsible;
 	m_isCollapsed = false;
 	m_hasStyle = true;
@@ -28,11 +34,13 @@ SectionContainer::SectionContainer(QString title, bool isCollapsible, QWidget *p
 	// Main Layout
 	mainLayout = new QVBoxLayout(this);
 	mainLayout->setSpacing(0);
-	mainLayout->setContentsMargins(0,0,0,0);
-	mainLayout->addWidget(widgetHeader);
+	mainLayout->setContentsMargins(0, 0, 0, 0);
+	mainLayout->addWidget(header);
+	mainLayout->addWidget(body);
 
 	// Size Policy
-	QSizePolicy sizePol = QSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Maximum );
+	QSizePolicy sizePol =
+			QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
 	setSizePolicy(sizePol);
 
 	iconSetChange();
@@ -44,43 +52,49 @@ SectionContainer::SectionContainer(QString title, bool isCollapsible, QWidget *p
 
 void SectionContainer::connectSlots()
 {
-	connect( widgetHeader->buttonCollapse, &QPushButton::clicked,this, &SectionContainer::toggleCollpasedState );
-	connect( widgetHeader, &SectionContainerHeader::toggleCollpasedState,this, &SectionContainer::toggleCollpasedState );
-	connect( ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()) );
+	connect(header->buttonCollapse, &QPushButton::clicked, this,
+			&SectionContainer::toggleCollpasedState);
+	connect(header, &SectionContainerHeader::toggleCollpasedState, this,
+			&SectionContainer::toggleCollpasedState);
+
+#ifndef EXCLUDE_FOR_DESIGNER_PLUGIN
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+#endif
 }
 
-/* ********************************************************************************* *
+/* *********************************************************************************
+ * *
  *
  * Properties
  *
- * ********************************************************************************* */
+ * *********************************************************************************
+ */
 
 void SectionContainer::setText(QString text)
 {
-	widgetHeader->labelTitle->setText(text);
-	widgetHeader->labelTitle->adjustSize();
+	header->labelTitle->setText(text);
+	header->labelTitle->adjustSize();
 }
 
-QString SectionContainer::text() const
-{
-	return widgetHeader->labelTitle->text();
+QString SectionContainer::text() const {
+	return header->labelTitle->text();
 }
 
 void SectionContainer::setFont(QFont font)
 {
-	widgetHeader->labelTitle->setFont(font);
+	header->labelTitle->setFont(font);
 	QWidget::setFont(font);
 }
 
 QFont SectionContainer::font() const
 {
-	return widgetHeader->font();
+	return header->font();
 }
 
 void SectionContainer::setHasStyle(bool isSimple)
 {
 	m_hasStyle = isSimple;
-	widgetHeader->m_hasStyle = isSimple;
+	header->m_hasStyle = isSimple;
 	update();
 }
 
@@ -92,7 +106,7 @@ bool SectionContainer::hasStyle() const
 void SectionContainer::setIsCollapsible(bool isCollapsible)
 {
 	m_isCollapsible = isCollapsible;
-	widgetHeader->buttonCollapse->setVisible(isCollapsible);
+	header->buttonCollapse->setVisible(isCollapsible);
 }
 
 bool SectionContainer::isCollapsible() const
@@ -107,24 +121,27 @@ bool SectionContainer::isCollapsed() const
 
 void SectionContainer::setIsCollapsed(bool state)
 {
-	if(isCollapsible() == false || mainLayout->count() != 2)
+	if (isCollapsible() == false)
 		return;
 
-	QWidget *widget = mainLayout->itemAt(1)->widget();
 	m_isCollapsed = state;
 
-	if (m_isCollapsed)
-	{
-		widget->hide();
-		widgetHeader->buttonCollapse->setIcon(iconCollapsed);
-	}
-	else
-	{
-		widget->show();
-		widgetHeader->buttonCollapse->setIcon(iconExpanded);
-	}
+	header->buttonCollapse->setIcon(m_isCollapsed ? iconCollapsed : iconExpanded);
+	body->setVisible(!m_isCollapsed);
 
-	emit collapsedState(m_isCollapsed);
+	resize(calculateSize());
+	emit collapsedStateChanged(m_isCollapsed);
+	emit sizeChanged();
+}
+
+void SectionContainer::collapse()
+{
+	setIsCollapsed(true);
+}
+
+void SectionContainer::expand()
+{
+	setIsCollapsed(false);
 }
 
 void SectionContainer::setCollapseIcons(QIcon collapsed, QIcon expanded)
@@ -132,44 +149,82 @@ void SectionContainer::setCollapseIcons(QIcon collapsed, QIcon expanded)
 	iconCollapsed = collapsed;
 	iconExpanded = expanded;
 
-	if (m_isCollapsed)
-		widgetHeader->buttonCollapse->setIcon(iconCollapsed);
-	else
-		widgetHeader->buttonCollapse->setIcon(iconExpanded);
+	header->buttonCollapse->setIcon(m_isCollapsed ? iconCollapsed : iconExpanded);
+}
+
+void SectionContainer::setBodyEnabled(bool enabled)
+{
+	body->setEnabled(enabled);
+}
+
+void SectionContainer::removeWidget()
+{
+	if (body)
+		body->removeEventFilter(this);
+	body = new QWidget;
+	mainLayout->addWidget(body);
+	m_hasBody = false;
 }
 
 void SectionContainer::setWidget(QWidget *widget)
 {
-	// Has no body widget
-	if (mainLayout->count() == 1)
-	{
-		mainLayout->insertWidget(1, widget);
-	}
-	// Has body widget
-	else if (mainLayout->count() == 2)
-	{
-		QWidget *oldWidget = mainLayout->itemAt(1)->widget();
-		mainLayout->replaceWidget(oldWidget, widget);
-	}
-	else
-		return;
+	body = widget;
+	body->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
+	body->adjustSize();
+	body->installEventFilter(this);
 
-	// Override widget policy to fit into the body container
-	widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
-//	widget->installEventFilter(this);
-	widget->adjustSize();
+	mainLayout->addWidget(body);
+	m_hasBody = true;
+
+	resize(calculateSize());
+	emit sizeChanged();
 }
 
-QWidget* SectionContainer::widget()
+QWidget *SectionContainer::widget()
 {
-	 return mainLayout->count() == 2 ? mainLayout->itemAt(1)->widget() : nullptr;
+	return body;
 }
 
-/* ********************************************************************************* *
+bool SectionContainer::hasWidget()
+{
+	return m_hasBody;
+}
+
+void SectionContainer::setLayout(QLayout *layout)
+{
+	body->setLayout(layout);
+}
+
+QLayout *SectionContainer::layout() const
+{
+	return body->layout();
+}
+
+QSize SectionContainer::minimumSizeHint()
+{
+	QSize s(200, childrenRect().height());
+
+	if (isCollapsed())
+		s.setHeight(header->height());
+
+	return s;
+}
+
+QSize SectionContainer::calculateSize()
+{
+	QSize s = minimumSizeHint();
+	s.setWidth(this->width());
+
+	return s;
+}
+
+/* *********************************************************************************
+ * *
  *
  * Slots
  *
- * ********************************************************************************* */
+ * *********************************************************************************
+ */
 
 void SectionContainer::toggleCollpasedState()
 {
@@ -180,15 +235,20 @@ void SectionContainer::toggleCollpasedState()
 
 void SectionContainer::iconSetChange()
 {
+#ifndef EXCLUDE_FOR_DESIGNER_PLUGIN
 	IconManager &iconManager = IconManager::instance();
-	setCollapseIcons(iconManager.loadPixmap("collapse"), iconManager.loadPixmap("expand"));
+	setCollapseIcons(iconManager.loadPixmap("collapse"),
+					 iconManager.loadPixmap("expand"));
+#endif
 }
 
-/* ********************************************************************************* *
+/* *********************************************************************************
+ * *
  *
  * Header
  *
- * ********************************************************************************* */
+ * *********************************************************************************
+ */
 
 void SectionContainer::addHeaderSuffixWidget(QWidget *widget)
 {
@@ -197,21 +257,18 @@ void SectionContainer::addHeaderSuffixWidget(QWidget *widget)
 
 void SectionContainer::insertHeaderSuffixWidget(int index, QWidget *widget)
 {
-	QToolButton *toolButton = dynamic_cast<QToolButton*>(widget);
-	if (toolButton)
-	{
+	QToolButton *toolButton = dynamic_cast<QToolButton *>(widget);
+	if (toolButton) {
 		toolButton->setAutoRaise(true);
-		widgetHeader->layoutHeaderSuffix->insertWidget(index, toolButton);
+		header->layoutHeaderSuffix->insertWidget(index, toolButton);
 	}
 	else
-	{
-		widgetHeader->layoutHeaderSuffix->insertWidget(index, widget);
-	}
+		header->layoutHeaderSuffix->insertWidget(index, widget);
 }
 
 void SectionContainer::removeHeaderSuffixWidget(QWidget *widget)
 {
-	widgetHeader->layoutHeaderSuffix->removeWidget( widget );
+	header->layoutHeaderSuffix->removeWidget(widget);
 	widget->deleteLater();
 }
 
@@ -222,31 +279,28 @@ void SectionContainer::addHeaderSuffixSpacing(int size)
 
 void SectionContainer::insertHeaderSuffixSpacing(int index, int size)
 {
-	widgetHeader->layoutHeaderSuffix->insertSpacing(index, size);
+	header->layoutHeaderSuffix->insertSpacing(index, size);
 }
 
-void SectionContainer::addHeaderPrefixWidget(QWidget *widget)
-{
+void SectionContainer::addHeaderPrefixWidget(QWidget *widget) {
 	insertHeaderPrefixWidget(-1, widget);
 }
 
 void SectionContainer::insertHeaderPrefixWidget(int index, QWidget *widget)
 {
-	QToolButton *toolButton = dynamic_cast<QToolButton*>(widget);
+	QToolButton *toolButton = dynamic_cast<QToolButton *>(widget);
 	if (toolButton)
 	{
 		toolButton->setAutoRaise(true);
-		widgetHeader->layoutHeaderPrefix->insertWidget(index, toolButton);
+		header->layoutHeaderPrefix->insertWidget(index, toolButton);
 	}
 	else
-	{
-		widgetHeader->layoutHeaderPrefix->insertWidget(index, widget);
-	}
+		header->layoutHeaderPrefix->insertWidget(index, widget);
 }
 
 void SectionContainer::removeHeaderPrefixWidget(QWidget *widget)
 {
-	widgetHeader->layoutHeaderPrefix->removeWidget( widget );
+	header->layoutHeaderPrefix->removeWidget(widget);
 	widget->deleteLater();
 }
 
@@ -257,15 +311,30 @@ void SectionContainer::addHeaderPrefixSpacing(int size)
 
 void SectionContainer::insertHeaderPrefixSpacing(int index, int size)
 {
-	widgetHeader->layoutHeaderPrefix->insertSpacing(index, size);
+	header->layoutHeaderPrefix->insertSpacing(index, size);
 }
 
+bool SectionContainer::eventFilter(QObject *object, QEvent *event)
+{
+	if (event->type() == QEvent::EnabledChange)
+	{
+		QWidget *wdg = qobject_cast<QWidget*>(object);
+		header->labelTitle->setEnabled(wdg->isEnabled());
 
-/* ********************************************************************************* *
+		return true;
+	}
+
+	return false;
+
+}
+
+/* *********************************************************************************
+ * *
  *
  * Events
  *
- * ********************************************************************************* */
+ * *********************************************************************************
+ */
 
 void SectionContainer::paintEvent(QPaintEvent *event)
 {
@@ -275,51 +344,36 @@ void SectionContainer::paintEvent(QPaintEvent *event)
 		return;
 
 	int lineWidth = 1;
-	QColor bottomLineColor( palette().color(QPalette::Dark) );
+	QColor bottomLineColor(palette().color(QPalette::Dark));
 
-	QPainter painter( this );
+	QPainter painter(this);
 
 	// Bottom Line
-	painter.setPen( QPen(bottomLineColor, lineWidth) );
-	painter.drawLine( 8, this->height() - lineWidth, this->width() - 8, this->height() - lineWidth );
+	painter.setPen(QPen(bottomLineColor, lineWidth));
+	painter.drawLine(8, this->height() - lineWidth, this->width() - 8,
+					 this->height() - lineWidth);
 }
 
-//bool SectionContainer::eventFilter(QObject *object, QEvent *event)
-//{
-//	QWidget *widget = qobject_cast<QWidget*>(object);
-
-//	switch(event->type())
-//	{
-//	case QEvent::Resize:
-//	{
-//		if(widget)
-//			qDebug() << "height" << widget->height() << widget->objectName();
-
-//		qDebug() << "resize body widget";
-//		break;
-//	}
-//	default:
-//		break;
-//	}
-
-//	return false;
-//}
-
-/* ********************************************************************************* *
+/* *********************************************************************************
+ * *
  *
  *
  * SECTION CONTAINER HEADER
  *
  *
- * ********************************************************************************* */
+ * *********************************************************************************
+ */
 
-/* ********************************************************************************* *
+/* *********************************************************************************
+ * *
  *
  * Constructor + Setup
  *
- * ********************************************************************************* */
+ * *********************************************************************************
+ */
 
-SectionContainerHeader::SectionContainerHeader(QWidget *parent) : SectionContainerHeader("Title", parent){}
+SectionContainerHeader::SectionContainerHeader(QWidget *parent)
+	: SectionContainerHeader("Title", parent) {}
 
 SectionContainerHeader::SectionContainerHeader(QString title, QWidget *parent)
 {
@@ -333,9 +387,9 @@ SectionContainerHeader::SectionContainerHeader(QString title, QWidget *parent)
 	buttonCollapse = new QPushButton;
 
 	// Label
-//	QFont m_font(this->font());
-//	m_font.setBold( true );
-//	labelTitle->setFont(m_font);
+	//	QFont m_font(this->font());
+	//	m_font.setBold( true );
+	//	labelTitle->setFont(m_font);
 	labelTitle->setText(title);
 	labelTitle->setBuddy(this);
 	labelTitle->adjustSize();
@@ -343,36 +397,36 @@ SectionContainerHeader::SectionContainerHeader(QString title, QWidget *parent)
 	// Buttons
 	buttonCollapse->setFlat(true);
 	buttonCollapse->setFixedSize(20, 20);
-//	buttonCollapse->adjustSize(); // needed to calculate the header height later
-//	buttonCollapse->setMaximumWidth(buttonCollapse->height());
 
 	// Header Prefix layout
-	layoutHeaderPrefix->setContentsMargins( 0,0,0,0 );
+	layoutHeaderPrefix->setContentsMargins(0, 0, 0, 0);
 	layoutHeaderPrefix->setSpacing(padding);
 
 	// Header Suffix Layout
-	layoutHeaderSuffix->setContentsMargins( 0,0,0,0 );
+	layoutHeaderSuffix->setContentsMargins(0, 0, 0, 0);
 	layoutHeaderSuffix->setSpacing(padding);
 
 	// Header Layout
-	layoutHeader->addWidget( buttonCollapse );
-	layoutHeader->addLayout( layoutHeaderPrefix );
-	layoutHeader->addWidget( labelTitle );
-	layoutHeader->addStretch( 0 );
-	layoutHeader->addLayout( layoutHeaderSuffix );
-	layoutHeader->setContentsMargins( 4, padding / 2, 4, padding / 2 );
+	layoutHeader->addWidget(buttonCollapse);
+	layoutHeader->addLayout(layoutHeaderPrefix);
+	layoutHeader->addWidget(labelTitle);
+	layoutHeader->addStretch(0);
+	layoutHeader->addLayout(layoutHeaderSuffix);
+	layoutHeader->setContentsMargins(4, padding / 2, 4, padding / 2);
 
 	// Header Widget
 	this->setLayout(layoutHeader);
-	this->setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Maximum );
-	this->setMaximumHeight(buttonCollapse->height() + padding);
+	this->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
+	this->setFixedHeight(buttonCollapse->height() + padding);
 }
 
-/* ********************************************************************************* *
+/* *********************************************************************************
+ * *
  *
  * Events
  *
- * ********************************************************************************* */
+ * *********************************************************************************
+ */
 
 void SectionContainerHeader::paintEvent(QPaintEvent *event)
 {
@@ -380,30 +434,35 @@ void SectionContainerHeader::paintEvent(QPaintEvent *event)
 		return;
 
 	int lineWidth = 1;
-//	QColor topLineColor( palette().color(QPalette::Mid) );
-	QColor bottomLineColor( palette().color(QPalette::Dark) );
+	//	QColor topLineColor( palette().color(QPalette::Mid) );
+	QColor bottomLineColor(palette().color(QPalette::Dark));
 
-	QColor bgColor( palette().color(QPalette::WindowText) );
+#ifndef EXCLUDE_FOR_DESIGNER_PLUGIN
+	QColor bgColor = colorByRole(QPalette::WindowText, 0.07, isEnabled());
+#else
+	QColor bgColor(palette().color(QPalette::WindowText));
 	bgColor.setAlphaF(0.07f);
+#endif
 
 	int headerHeight = this->height();
 	QRect headerRect(0, 0, this->width(), headerHeight - lineWidth);
 
-	QPainter painter( this );
+	QPainter painter(this);
 
-	painter.setPen( Qt::NoPen );
+	painter.setPen(Qt::NoPen);
 	painter.setBrush(bgColor);
 	painter.drawRect(headerRect);
 
 	painter.setBrush(Qt::NoBrush);
 
 	// Top Line
-//	painter.setPen( QPen(topLineColor, lineWidth) );
-//	painter.drawLine( 0, 0,this->width(), 0 );
+	//	painter.setPen( QPen(topLineColor, lineWidth) );
+	//	painter.drawLine( 0, 0,this->width(), 0 );
 
 	// Bottom Line
 	painter.setPen(QPen(bottomLineColor, lineWidth));
-	painter.drawLine(0, headerHeight - lineWidth, this->width(), headerHeight - lineWidth);
+	painter.drawLine(0, headerHeight - lineWidth, this->width(),
+					 headerHeight - lineWidth);
 }
 
 void SectionContainerHeader::mousePressEvent(QMouseEvent *mouseEvent)
@@ -411,7 +470,6 @@ void SectionContainerHeader::mousePressEvent(QMouseEvent *mouseEvent)
 	QWidget::mousePressEvent(mouseEvent);
 
 	if (mouseEvent->button() == Qt::LeftButton)
-	{
 		emit toggleCollpasedState();
-	}
+
 }

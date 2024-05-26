@@ -28,11 +28,11 @@ static const QString FinishTag("\xA0");
 ScrSpinBox::ScrSpinBox(QWidget *parent, int unitIndex) : QDoubleSpinBox(parent)
 {
 	init(unitIndex);
+	setFocusPolicy(Qt::StrongFocus);
 }
 
-ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex) : QDoubleSpinBox(pa)
+ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex) : ScrSpinBox(pa, unitIndex)
 {
-	init(unitIndex);
 	setMinimum(minValue);
 	setMaximum(maxValue);
 }
@@ -90,9 +90,11 @@ void ScrSpinBox::stepBy(int steps)
 		else
 			angle = std::clamp(angle, minimum(), maximum());
 		setValue(angle);
+//		lineEdit()->deselect();
 		return;
 	}
 	QDoubleSpinBox::stepBy(steps);
+//	lineEdit()->deselect();
 }
 
 void ScrSpinBox::setParameters( int s )
@@ -335,9 +337,9 @@ bool ScrSpinBox::eventFilter(QObject* watched, QEvent* event)
 
 	if (event->type() == QEvent::Wheel)
 	{
-		//If read only don't spin
-		if (isReadOnly())
-			return false;
+		// If read only don't spin OR avoid value changes if widget has no focus
+		if (isReadOnly() || !hasFocus())
+			return true;
 		auto* wheelEvent = dynamic_cast<QWheelEvent*>(event);
 		bool shiftB = wheelEvent->modifiers() & Qt::ShiftModifier;
 		bool altB = wheelEvent->modifiers() & Qt::AltModifier;

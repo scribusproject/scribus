@@ -42,7 +42,7 @@ void nftwidget::setupSettings(const QString& lang)
 	tnailGrid->setIconSize(QSize(ICONSIZE, ICONSIZE));
 	tnailGrid->setGridSize(QSize(220, 80));
 	tnailGrid->setResizeMode(QListView::Adjust);
-	tnailGrid->setItemDelegate(new ScListItemDelegate(QSize(ICONSIZE,ICONSIZE), ScListItemDelegate::Right));
+	tnailGrid->setItemDelegate(new ScListItemDelegate(QListWidget::IconMode, QSize(ICONSIZE,ICONSIZE), ScListItemDelegate::Right));
 	// Signals and Slots Connections
 	connect(categoryList, SIGNAL(itemSelectionChanged()), this, SLOT(setThumbnails()));
 	connect(tnailGrid, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SIGNAL(leaveOK()));

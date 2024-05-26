@@ -429,8 +429,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/colorchart.h \
            scribus/ui/colorcombo.h \
            scribus/ui/colorlistbox.h \
-           scribus/ui/colorlistmodel.h \
-           scribus/ui/colorpalette.h \
+	   scribus/ui/colorlistmodel.h \
            scribus/ui/colorsandfills.h \
            scribus/ui/contentpalette.h \
            scribus/ui/contentpalette_default.h \
@@ -462,7 +461,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/gradientaddedit.h \
            scribus/ui/gradienteditor.h \
            scribus/ui/gradientpreview.h \
-           scribus/ui/gradientvectordialog.h \
            scribus/ui/gtdialogs.h \
            scribus/ui/gtfiledialog.h \
            scribus/ui/guidemanager.h \
@@ -658,8 +656,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/tabpdfoptions.h \
            scribus/ui/tabruler.h \
            scribus/ui/textpalette.h \
-           scribus/ui/transformdialog.h \
-           scribus/ui/transparencypalette.h \
+	   scribus/ui/transformdialog.h \
            scribus/ui/unicodesearch.h \
            scribus/ui/useprintermarginsdialog.h \
            scribus/ui/viewtoolbar.h \
@@ -1609,8 +1606,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/fontreplacedialog.cpp \
            scribus/ui/gradientaddedit.cpp \
            scribus/ui/gradienteditor.cpp \
-           scribus/ui/gradientpreview.cpp \
-           scribus/ui/gradientvectordialog.cpp \
+	   scribus/ui/gradientpreview.cpp \
            scribus/ui/gtdialogs.cpp \
            scribus/ui/gtfiledialog.cpp \
            scribus/ui/guidemanager.cpp \

@@ -1,5 +1,6 @@
 #include "switch.h"
 #include <QPainter>
+#include "util_gui.h"
 
 Switch::Switch(QWidget *parent) : QAbstractButton(parent),
 	m_anim(new QPropertyAnimation(this, "position", this))
@@ -45,20 +46,12 @@ QSize Switch::sizeHint() const
 void Switch::paintEvent(QPaintEvent *event)
 {
 	QColor cBackground;
-	QColor cHandle = palette().color(QPalette::Button);
+	QColor cHandle = colorByRole(QPalette::Button, 1, isEnabled());
 
-	if (isEnabled())
-	{
-		if(isChecked())
-			cBackground = palette().color(QPalette::Highlight);
-		else
-			cBackground = palette().color(QPalette::Dark);
-	}
+	if(isChecked())
+		cBackground = colorByRole(QPalette::Highlight, 1, isEnabled());
 	else
-	{
-		cBackground = palette().color(QPalette::Disabled, QPalette::Highlight);
-		cHandle = palette().color(QPalette::Disabled, QPalette::Button);
-	}
+		cBackground = colorByRole(QPalette::WindowText, 0.6, isEnabled());
 
 	QPainter p(this);
 	p.setRenderHint(QPainter::Antialiasing, true);

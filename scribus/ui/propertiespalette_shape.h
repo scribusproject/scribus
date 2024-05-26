@@ -81,7 +81,6 @@ private slots:
 	void handleShapeEdit();
 	void handleShapeEditEnded();
 	void handleCornerRadius();
-	void handleFillRule();
 	void handleNewShape(int, int, qreal *);
 };
 

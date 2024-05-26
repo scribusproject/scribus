@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 #include "appmodehelper.h"
 #include "appmodes.h"
 #include "basepointwidget.h"
-#include "commonstrings.h"
 #include "iconmanager.h"
 #include "localemgr.h"
 #include "pageitem.h"
@@ -45,8 +44,6 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	connect(userActionSniffer, SIGNAL(actionStart()), this, SLOT(spinboxStartUserAction()));
 	connect(userActionSniffer, SIGNAL(actionEnd()), this, SLOT(spinboxFinishUserAction()));
 
-	nameEdit->setFocusPolicy(Qt::ClickFocus);
-
 	installSniffer(xposSpin);
 	installSniffer(yposSpin);
 	installSniffer(widthSpin);
@@ -66,7 +63,6 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	flipV->setCheckable(true);
 	
 	doLock->setCheckable(true);
-	noPrint->setCheckable(true);
 	noResize->setCheckable(true);
 
 	buttonLineBasePoint->setVisible(false);
@@ -94,9 +90,7 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	connect(basePointWidget, SIGNAL(buttonClicked(AnchorPoint)), this, SLOT(handleBasePoint(AnchorPoint)));
 	connect(buttonLineBasePoint, SIGNAL(toggled(bool)), this, SLOT(handleLineMode()));
 
-	connect(nameEdit , SIGNAL(Leaved()) , this, SLOT(handleNewName()));
 	connect(doLock   , SIGNAL(clicked()), this, SLOT(handleLock()));
-	connect(noPrint  , SIGNAL(clicked()), this, SLOT(handlePrint()));
 	connect(noResize , SIGNAL(clicked()), this, SLOT(handleLockSize()));
 	connect(doGroup  , SIGNAL(clicked()), this, SLOT(handleGrouping()) );
 	connect(doUnGroup, SIGNAL(clicked()), this, SLOT(handleUngrouping()) );
@@ -169,7 +163,6 @@ void PropertiesPalette_XYZ::unsetDoc()
 	m_haveItem = false;
 	m_doc   = nullptr;
 	m_item  = nullptr;
-	nameEdit->clear();
 	xposSpin->setConstants(nullptr);
 	yposSpin->setConstants(nullptr);
 	widthSpin->setConstants(nullptr);
@@ -261,15 +254,10 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 	if (!m_doc)
 		setDoc(item->doc());
 
-	disconnect(nameEdit, SIGNAL(Leaved()), this, SLOT(handleNewName()));
-
 	m_haveItem = false;
 	m_item = item;
 
-	nameEdit->setText(m_item->itemName());
 	levelLabel->setText( QString::number(m_item->level()) );
-
-	connect(nameEdit, SIGNAL(Leaved()), this, SLOT(handleNewName()));
 
 //CB replaces old emits from PageItem::emitAllToGUI()
 	disconnect(xposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewX()));
@@ -277,7 +265,6 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 	disconnect(widthSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewW()));
 	disconnect(heightSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewH()));
 	disconnect(doLock, SIGNAL(clicked()), this, SLOT(handleLock()));
-	disconnect(noPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
 	disconnect(noResize, SIGNAL(clicked()), this, SLOT(handleLockSize()));
 	disconnect(flipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	disconnect(flipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
@@ -296,7 +283,6 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 	flipH->setCheckable(checkableFlip);
 	flipV->setCheckable(checkableFlip);
 
-	noPrint->setChecked(!item->printEnabled());
 	showFlippedH(item->imageFlippedH());
 	showFlippedV(item->imageFlippedV());
 
@@ -316,7 +302,6 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 	connect(widthSpin   , SIGNAL(valueChanged(double)), this, SLOT(handleNewW()), Qt::UniqueConnection);
 	connect(heightSpin  , SIGNAL(valueChanged(double)), this, SLOT(handleNewH()), Qt::UniqueConnection);
 	connect(doLock  , SIGNAL(clicked()), this, SLOT(handleLock()), Qt::UniqueConnection);
-	connect(noPrint , SIGNAL(clicked()), this, SLOT(handlePrint()), Qt::UniqueConnection);
 	connect(noResize, SIGNAL(clicked()), this, SLOT(handleLockSize()), Qt::UniqueConnection);
 	connect(flipH   , SIGNAL(clicked()), this, SLOT(handleFlipH()), Qt::UniqueConnection);
 	connect(flipV   , SIGNAL(clicked()), this, SLOT(handleFlipV()), Qt::UniqueConnection);
@@ -407,8 +392,6 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-//	nameEdit->setEnabled(m_doc->m_Selection->count() == 1);
-
 	PageItem* currItem = currentItemFromSelection();
 	if (m_doc->m_Selection->count() > 1)
 	{
@@ -465,7 +448,6 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		heightSpin->setEnabled(true);
 		rotationSpin->setEnabled(true);
 
-		nameEdit->setEnabled(false);
 		flipH->setCheckable( false );
 		flipV->setCheckable( false );
 		flipH->setChecked(false);
@@ -489,7 +471,6 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 			doGroup->setEnabled(false);
 			doUnGroup->setEnabled(false);
 		}
-		nameEdit->setEnabled(true);
 		basePointWidget->setEnabled(true);
 		basePointWidget->setMode(BasePointWidget::Full);
 		keepFrameWHRatioButton->setVisible(true);
@@ -596,8 +577,6 @@ void PropertiesPalette_XYZ::toggleLabelVisibility(bool visibility)
 	labelLock->setLabelVisibility(visibility);
 	labelGroup->setLabelVisibility(visibility);
 	labelLevel->setLabelVisibility(visibility);
-	labelName->setLabelVisibility(visibility);
-	labelExport->setLabelVisibility(visibility);
 	formWidget->setLabelVisibility(visibility);
 }
 
@@ -1384,13 +1363,6 @@ void PropertiesPalette_XYZ::handleLockSize()
 	m_ScMW->scrActions["itemLockSize"]->toggle();
 }
 
-void PropertiesPalette_XYZ::handlePrint()
-{
-	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	m_ScMW->scrActions["itemPrintingEnabled"]->toggle();
-}
-
 void PropertiesPalette_XYZ::handleFlipH()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
@@ -1403,53 +1375,6 @@ void PropertiesPalette_XYZ::handleFlipV()
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_ScMW->scrActions["itemFlipV"]->toggle();
-}
-
-void PropertiesPalette_XYZ::handleNewName()
-{
-	if (m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
-		return;
-	QString NameOld = m_item->itemName();
-	QString NameNew = nameEdit->text();
-	if (NameNew.isEmpty())
-	{
-		nameEdit->setText(NameOld);
-		return;
-	}
-	bool found = false;
-	QList<PageItem*> allItems;
-	for (int a = 0; a < m_doc->Items->count(); ++a)
-	{
-		PageItem *currItem = m_doc->Items->at(a);
-		if (currItem->isGroup())
-			allItems = currItem->getAllChildren();
-		else
-			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
-		{
-			PageItem* item = allItems.at(ii);
-			if ((NameNew == item->itemName()) && (item != m_item))
-			{
-				found = true;
-				break;
-			}
-		}
-		allItems.clear();
-	}
-	if (found)
-	{
-		ScMessageBox::warning(this, CommonStrings::trWarning, "<qt>"+ tr("Name \"%1\" isn't unique.<br/>Please choose another.").arg(NameNew)+"</qt>");
-		nameEdit->setText(NameOld);
-		nameEdit->setFocus();
-	}
-	else
-	{
-		if (m_item->itemName() != nameEdit->text())
-		{
-			m_item->setItemName(nameEdit->text());
-			m_doc->changed();
-		}
-	}
 }
 
 void PropertiesPalette_XYZ::installSniffer(ScrSpinBox *spinBox)
@@ -1523,11 +1448,6 @@ void PropertiesPalette_XYZ::iconSetChange()
 	a.addPixmap(im.loadPixmap("16/lock-unlocked.png"), QIcon::Normal, QIcon::Off);
 	doLock->setIcon(a);
 
-	QIcon a2;
-	a2.addPixmap(im.loadPixmap("NoPrint.png"), QIcon::Normal, QIcon::On);
-	a2.addPixmap(im.loadPixmap("16/document-print.png"), QIcon::Normal, QIcon::Off);
-	noPrint->setIcon(a2);
-
 	QIcon a3;
 	a3.addPixmap(im.loadPixmap("framenoresize.png"), QIcon::Normal, QIcon::On);
 	a3.addPixmap(im.loadPixmap("frameresize.png"), QIcon::Normal, QIcon::Off);
@@ -1536,7 +1456,6 @@ void PropertiesPalette_XYZ::iconSetChange()
 
 void PropertiesPalette_XYZ::languageChange()
 {
-	setWindowTitle( tr("Properties"));
 	retranslateUi(this);
 
 	QString suffix = m_haveDoc ? unitGetSuffixFromIndex(m_doc->unitIndex()) : tr(" pt");
@@ -1597,11 +1516,6 @@ void PropertiesPalette_XYZ::showSizeLocked(bool isSizeLocked)
 	widthSpin->setPalette(pal);
 	heightSpin->setPalette(pal);
 	noResize->setChecked(isSizeLocked);
-}
-
-void PropertiesPalette_XYZ::showPrintingEnabled(bool isPrintingEnabled)
-{
-	noPrint->setChecked(!isPrintingEnabled);
 }
 
 void PropertiesPalette_XYZ::showFlippedH(bool isFlippedH)

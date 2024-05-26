@@ -30,7 +30,7 @@ public:
 	void showTextFlowMode(PageItem::TextFlowMode mode);
 
 	void updateColorList();
-	void updateColorSpecialGradient();
+//	void updateColorSpecialGradient();
 
 protected:
 	bool m_haveDoc {false};

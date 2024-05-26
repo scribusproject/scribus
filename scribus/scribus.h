@@ -57,6 +57,7 @@ class QQuickView;
 #include "scribusapi.h"
 #include "scribusdoc.h"
 #include "manager/dock_manager.h"
+#include "manager/widget_manager.h"
 #include "styleoptions.h"
 #include "ui/customfdialog.h"
 #include "ui/scmessagebox.h"
@@ -654,7 +655,8 @@ private:
 	StyleManager *m_styleManager {nullptr};
 	UndoManager *m_undoManager {nullptr};
 	PrefsManager& m_prefsManager;
-	FormatsManager *m_formatsManager {nullptr};
+	WidgetManager &m_widgetManager;
+	FormatsManager *m_formatsManager {nullptr};	
 
 	QPointer<HelpBrowser> m_helpBrowser;
 	QString m_osgFilterString;

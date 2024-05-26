@@ -5,11 +5,11 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          gradienteditor  -  description
-                             -------------------
-    begin                : Mit Mai 26 2004
-    copyright            : (C) 2004 by Franz Schmid
-    email                : Franz.Schmid@altmuehlnet.de
+						  gradienteditor  -  description
+							 -------------------
+	begin                : Mit Mai 26 2004
+	copyright            : (C) 2004 by Franz Schmid
+	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QEvent>
 #include <QToolTip>
-#include "util.h"
+#include "util_gui.h"
 
 // Note : use temporarily editingFinished() signal to track value changes in stopPos, stopOpacity and
 // stopShade spinboxes. valueChanged() cause focus problems in these widgets due to signals emitted
@@ -34,18 +34,24 @@ for which a new license (GPL+exception) is in place.
 GradientEditor::GradientEditor(QWidget *pa) : QFrame(pa)
 {
 	setupUi(this);
-	stopColor->setPixmapType(ColorCombo::fancyPixmaps);
+
 	stopPos->setDecimals(0);
 	stopOpacity->setDecimals(0);
 	stopShade->setDecimals(0);
+
+	colorListBox = new ColorListBox(ColorListBox::fancyPixmap);
+	buttonColor->setContextWidget(colorListBox);
+	setExtendVisible(false);
+	initExtend();
+
 	connect(stopPos    , SIGNAL(valueChanged(double)), this, SLOT(changePos(double)));
-	connect(stopColor  , SIGNAL(textActivated(QString)), this, SLOT(setStopColor(QString)));
-	connect(stopOpacity, SIGNAL(valueChanged(double)), this, SLOT(setStopTrans(double)));
-	connect(stopShade  , SIGNAL(valueChanged(double)), this, SLOT(setStopShade(double)));
+	connect(stopOpacity, SIGNAL(valueChanged(double)), this, SLOT(setStopColor()));
+	connect(stopShade  , SIGNAL(valueChanged(double)), this, SLOT(setStopColor()));
 	connect(Preview, SIGNAL(selectedStop(VColorStop*)), this, SLOT(slotDisplayStop(VColorStop*)));
-	connect(Preview, SIGNAL(currStep(double)), this, SLOT(setPos(double)));
-	connect(Preview, SIGNAL(currStep(double)), this, SIGNAL(gradientChanged()));
-	connect(Preview, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+	connect(Preview, SIGNAL(selectedPosition(double)), this, SLOT(setPos(double)));
+	connect(colorListBox, SIGNAL(itemSelectionChanged()), this, SLOT(setStopColor()));
+	connect(this, SIGNAL(gradientChanged()), this, SLOT(updateColorButton()));
+	connect(comboExtend, &QComboBox::currentIndexChanged, this, &GradientEditor::repeatMethodChanged);
 }
 
 void GradientEditor::setGradient(const VGradient& grad)
@@ -62,21 +68,19 @@ const VGradient& GradientEditor::gradient()
 void GradientEditor::setColors(ColorList &colorList)
 {
 	m_colorList = colorList;
-	stopColor->setColors(colorList, true);
+	colorListBox->setColors(colorList, true);
 }
 
 void GradientEditor::setPos(double p)
 {
-	stopPos->blockSignals(true);
+	QSignalBlocker sig1(stopPos);
 	stopPos->setValue(qRound(p * 100));
-	stopPos->blockSignals(false);
 }
 
 void GradientEditor::setGradTrans(double val)
 {
-	stopOpacity->blockSignals(true);
+	QSignalBlocker sig1(stopOpacity);
 	stopOpacity->setValue(qRound(val * 100));
-	stopOpacity->blockSignals(false);
 }
 
 void GradientEditor::slotDisplayStop(VColorStop* stop)
@@ -84,12 +88,15 @@ void GradientEditor::slotDisplayStop(VColorStop* stop)
 	setPos(stop->rampPoint);
 	slotColor(stop->name, stop->shade);
 	setGradTrans(stop->opacity);
+	updateColorButton();
+	emit gradientChanged();
 }
 
 void GradientEditor::slotColor(const QString& name, int shade)
 {
-	stopColor->blockSignals(true);
-	stopShade->blockSignals(true);
+	QSignalBlocker sig1(colorListBox);
+	QSignalBlocker sig2(stopShade);
+
 	stopShade->setValue(shade);
 	QString nam = name;
 	if (name == CommonStrings::None)
@@ -100,26 +107,46 @@ void GradientEditor::slotColor(const QString& name, int shade)
 	}
 	else
 	{
-		stopShade->setEnabled(true);
-		stopOpacity->setEnabled(true);
+		stopShade->setEnabled(Preview->isEditable());
+		stopOpacity->setEnabled(Preview->isEditable());
 	}
-	setCurrentComboItem(stopColor, nam);
-	stopColor->blockSignals(false);
-	stopShade->blockSignals(false);
+	colorListBox->setCurrentColor(nam);
 }
 
 void GradientEditor::setGradientEditable(bool val)
 {
 	stopShade->setEnabled(val);
 	stopOpacity->setEnabled(val);
-	stopColor->setEnabled(val);
+	buttonColor->setEnabled(val);
 	stopPos->setEnabled(val);
-	Preview->setGradientEditable(val);
+	Preview->setIsEditable(val);
+}
+
+VGradient::VGradientRepeatMethod GradientEditor::repeatMethod()
+{
+	return qvariant_cast<VGradient::VGradientRepeatMethod>(comboExtend->currentData());
+}
+
+void GradientEditor::setRepeatMethod(VGradient::VGradientRepeatMethod method)
+{
+	QSignalBlocker sigExtend(comboExtend);
+
+	int index = comboExtend->findData(method);
+	if ( index != -1 )
+		comboExtend->setCurrentIndex(index);
+	else
+		comboExtend->setCurrentIndex(0);
+
+}
+
+void GradientEditor::setExtendVisible(bool visible)
+{
+	extendLabel->setVisible(visible);
 }
 
 void GradientEditor::changePos(double v)
 {
-	Preview->setActStep(v / 100.0);
+	Preview->setActiveStopPosition(v / 100.0);
 	emit gradientChanged();
 }
 
@@ -129,34 +156,22 @@ QColor GradientEditor::setColor(const QString& colorName, int shad)
 	return ScColorEngine::getShadeColorProof(color, m_colorList.document(), shad);
 }
 
-void GradientEditor::setStopColor(const QString &Color)
+void GradientEditor::setStopColor()
 {
+	QString Color = colorListBox->currentColor();
+
 	if (Color == CommonStrings::tr_NoneColor)
 	{
-		Preview->setActColor(QColor(0, 0, 0, 0), CommonStrings::None, 100);
-		Preview->setActTrans(0.0);
+		Preview->setActiveStopColor(QColor(0, 0, 0, 0), CommonStrings::None, 100, 0.0);
 		stopShade->setEnabled(false);
 		stopOpacity->setEnabled(false);
 	}
 	else
 	{
-		Preview->setActColor(setColor(Color, stopShade->value()), Color, stopShade->value());
-		Preview->setActTrans(stopOpacity->value() / 100.0);
-		stopShade->setEnabled(true);
-		stopOpacity->setEnabled(true);
+		Preview->setActiveStopColor(setColor(Color, stopShade->value()), Color, stopShade->value(), stopOpacity->value() / 100.0);
+		stopShade->setEnabled(Preview->isEditable());
+		stopOpacity->setEnabled(Preview->isEditable());
 	}
-	emit gradientChanged();
-}
-
-void GradientEditor::setStopTrans(double val)
-{
-	Preview->setActTrans(val / 100.0);
-	emit gradientChanged();
-}
-
-void GradientEditor::setStopShade(double val)
-{
-	Preview->setActColor(setColor(stopColor->currentText(), val), stopColor->currentText(), val);
 	emit gradientChanged();
 }
 
@@ -172,12 +187,43 @@ void GradientEditor::changeEvent(QEvent *e)
 
 void GradientEditor::languageChange()
 {
+	initExtend();
 	retranslateUi(this);
+}
+
+void GradientEditor::updateColorButton()
+{
+	QString colorName = colorListBox->currentColor();
+	QBrush brush;
+
+	if (colorName == CommonStrings::tr_NoneColor || colorName == CommonStrings::None)
+		brush = renderEmptyPattern(buttonColor->backgroundDotSize());
+	else
+	{
+		const ScColor& color = m_colorList[colorName];
+
+		QColor qColorShade = ScColorEngine::getDisplayColor(color, m_colorList.document(), stopShade->value());
+		QColor qColor = ScColorEngine::getDisplayColor(color, m_colorList.document(), 100.0);
+
+		brush = QBrush(renderColor(buttonColor->backgroundDotSize(), qColor, qColorShade, stopOpacity->value() / 100.0));
+	}
+
+	buttonColor->setBackground(brush);
+}
+
+void GradientEditor::initExtend()
+{
+	int oldGradientExtendIndex = comboExtend->currentIndex();
+	QSignalBlocker sigExtend(comboExtend);
+	comboExtend->clear();
+	comboExtend->addItem( tr("None"), VGradient::none );
+	comboExtend->addItem( tr("Pad"), VGradient::pad );
+	comboExtend->setCurrentIndex(oldGradientExtendIndex);
 }
 
 bool GradientEditor::event(QEvent * event)
 {
-	if (event->type() == QEvent::ToolTip) 
+	if (event->type() == QEvent::ToolTip)
 	{
 		QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
 		QToolTip::showText(helpEvent->globalPos(), tr( "Add, change or remove color stops here" ), Preview, QRect(10,43, Preview->width()-20, 13));

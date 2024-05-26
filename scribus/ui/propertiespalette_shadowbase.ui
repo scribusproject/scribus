@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>341</width>
+    <width>324</width>
     <height>150</height>
    </rect>
   </property>
@@ -103,12 +103,6 @@
    </item>
    <item row="1" column="4">
     <widget class="ScrSpinBox" name="numberBlurRadius">
-     <property name="maximumSize">
-      <size>
-       <width>90</width>
-       <height>16777215</height>
-      </size>
-     </property>
      <property name="suffix">
       <string>mm</string>
      </property>
@@ -174,57 +168,6 @@
          <widget class="ColorButton" name="buttonColor">
           <property name="text">
            <string/>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="FormWidget" name="labelShade">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="label" stdset="0">
-        <string>Shade</string>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>8</pointsize>
-        </font>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <property name="spacing">
-         <number>4</number>
-        </property>
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="ScrSpinBox" name="numberShade">
-          <property name="suffix">
-           <string> %</string>
-          </property>
-          <property name="decimals">
-           <number>0</number>
-          </property>
-          <property name="maximum">
-           <double>100.000000000000000</double>
-          </property>
-          <property name="value">
-           <double>100.000000000000000</double>
           </property>
          </widget>
         </item>
@@ -351,6 +294,22 @@
       </widget>
      </item>
      <item>
+      <spacer name="horizontalSpacer_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>8</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <widget class="FormWidget" name="labelErase">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -406,12 +365,6 @@
    </item>
    <item row="2" column="1">
     <widget class="ScrSpinBox" name="numberYOffset">
-     <property name="maximumSize">
-      <size>
-       <width>100</width>
-       <height>16777215</height>
-      </size>
-     </property>
      <property name="suffix">
       <string>mm</string>
      </property>
@@ -432,12 +385,6 @@
    </item>
    <item row="1" column="1">
     <widget class="ScrSpinBox" name="numberXOffset">
-     <property name="maximumSize">
-      <size>
-       <width>100</width>
-       <height>16777215</height>
-      </size>
-     </property>
      <property name="suffix">
       <string>mm</string>
      </property>
@@ -527,19 +474,19 @@
    <container>1</container>
   </customwidget>
   <customwidget>
+   <class>ColorButton</class>
+   <extends>QToolButton</extends>
+   <header>ui/widgets/color_button.h</header>
+  </customwidget>
+  <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>ui/scrspinbox.h</header>
+   <header location="global">ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>ComboBlendMode</class>
    <extends>QComboBox</extends>
    <header>ui/widgets/combo_blendmode.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ColorButton</class>
-   <extends>QToolButton</extends>
-   <header>ui/widgets/color_button.h</header>
   </customwidget>
   <customwidget>
    <class>Switch</class>
@@ -550,7 +497,6 @@
  <tabstops>
   <tabstop>switchHasShadow</tabstop>
   <tabstop>buttonColor</tabstop>
-  <tabstop>numberShade</tabstop>
   <tabstop>comboboxBlendMode</tabstop>
   <tabstop>buttonEraseShadow</tabstop>
   <tabstop>numberXOffset</tabstop>

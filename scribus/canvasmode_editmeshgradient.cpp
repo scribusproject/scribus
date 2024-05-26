@@ -87,16 +87,18 @@ void CanvasMode_EditMeshGradient::drawControls(QPainter* p)
 
 void CanvasMode_EditMeshGradient::drawControlsMeshGradient(QPainter* psx, PageItem* currItem)
 {
-	QPen p1b = QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	QPen p1bd = QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
-	QPen p8b = QPen(Qt::blue, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	QPen p8r = QPen(Qt::red, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	QPen p8m = QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	QPen p14r = QPen(Qt::red, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	QPen p14w = QPen(Qt::white, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
+//	QPen p14r = QPen(Qt::red, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
+//	QPen p14w = QPen(Qt::white, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
+	qreal scale = m_canvas->m_viewMode.scale;
+
+	psx->save();
+	psx->setRenderHint(QPainter::Antialiasing);
+
 	psx->setTransform(currItem->getTransform(), true);
-	psx->setPen(p1b);
+	psx->setPen(pens().value("vector"));
 	psx->setBrush(Qt::NoBrush);
+
+	// Draw Vector Path
 	for (int grow = 0; grow < currItem->meshGradientArray.count()-1; grow++)
 	{
 		for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count()-1; gcol++)
@@ -111,10 +113,124 @@ void CanvasMode_EditMeshGradient::drawControlsMeshGradient(QPainter* psx, PageIt
 			Bez.cubicTo(mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
 			Bez.cubicTo(mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
 			Bez.cubicTo(mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
-			psx->setPen(p1b);
 			psx->drawPath(Bez);
 		}
 	}
+
+	// Draw Node Controls
+	if ((m_selectedMeshPoints.count() > 0) && (m_view->editStrokeGradient == GradientEdit::Mesh_ControlPoints))
+	{
+		int grow = m_selectedMeshPoints[0].first;
+		int gcol = m_selectedMeshPoints[0].second;
+		MeshPoint mp1 = currItem->meshGradientArray[grow][gcol];
+		if (grow == 0)
+		{
+			if (gcol == 0)
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+
+				drawNodeControl(psx, QPointF(mp1.controlRight.x(), mp1.controlRight.y()), pens().value("node"), scale, m_gradientPoint == useControlR);
+				drawNodeControl(psx, QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()), pens().value("node"), scale, m_gradientPoint == useControlB);
+			}
+			else if (gcol == currItem->meshGradientArray[grow].count()-1)
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+
+				drawNodeControl(psx, QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()), pens().value("node"), scale, m_gradientPoint == useControlL);
+				drawNodeControl(psx, QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()), pens().value("node"), scale, m_gradientPoint == useControlB);
+			}
+			else
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+
+				drawNodeControl(psx, QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()), pens().value("node"), scale, m_gradientPoint == useControlL);
+				drawNodeControl(psx, QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()), pens().value("node"), scale, m_gradientPoint == useControlB);
+				drawNodeControl(psx, QPointF(mp1.controlRight.x(), mp1.controlRight.y()), pens().value("node"), scale, m_gradientPoint == useControlR);
+			}
+		}
+		else if (grow == currItem->meshGradientArray.count()-1)
+		{
+			if (gcol == 0)
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+
+				drawNodeControl(psx, QPointF(mp1.controlRight.x(), mp1.controlRight.y()), pens().value("node"), scale, m_gradientPoint == useControlR);
+				drawNodeControl(psx, QPointF(mp1.controlTop.x(), mp1.controlTop.y()), pens().value("node"), scale, m_gradientPoint == useControlT);
+			}
+			else if (gcol == currItem->meshGradientArray[grow].count()-1)
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+
+				drawNodeControl(psx, QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()), pens().value("node"), scale, m_gradientPoint == useControlL);
+				drawNodeControl(psx, QPointF(mp1.controlTop.x(), mp1.controlTop.y()), pens().value("node"), scale, m_gradientPoint == useControlT);
+			}
+			else
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+
+				drawNodeControl(psx, QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()), pens().value("node"), scale, m_gradientPoint == useControlL);
+				drawNodeControl(psx, QPointF(mp1.controlTop.x(), mp1.controlTop.y()), pens().value("node"), scale, m_gradientPoint == useControlT);
+				drawNodeControl(psx, QPointF(mp1.controlRight.x(), mp1.controlRight.y()), pens().value("node"), scale, m_gradientPoint == useControlR);
+			}
+		}
+		else
+		{
+			if (gcol == 0)
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+
+				drawNodeControl(psx, QPointF(mp1.controlRight.x(), mp1.controlRight.y()), pens().value("node"), scale, m_gradientPoint == useControlR);
+				drawNodeControl(psx, QPointF(mp1.controlTop.x(), mp1.controlTop.y()), pens().value("node"), scale, m_gradientPoint == useControlT);
+				drawNodeControl(psx, QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()), pens().value("node"), scale, m_gradientPoint == useControlB);
+			}
+			else if (gcol == currItem->meshGradientArray[grow].count()-1)
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+
+				drawNodeControl(psx, QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()), pens().value("node"), scale, m_gradientPoint == useControlL);
+				drawNodeControl(psx, QPointF(mp1.controlTop.x(), mp1.controlTop.y()), pens().value("node"), scale, m_gradientPoint == useControlT);
+				drawNodeControl(psx, QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()), pens().value("node"), scale, m_gradientPoint == useControlB);
+			}
+			else
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+
+				drawNodeControl(psx, QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()), pens().value("node"), scale, m_gradientPoint == useControlL);
+				drawNodeControl(psx, QPointF(mp1.controlTop.x(), mp1.controlTop.y()), pens().value("node"), scale, m_gradientPoint == useControlT);
+				drawNodeControl(psx, QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()), pens().value("node"), scale, m_gradientPoint == useControlB);
+				drawNodeControl(psx, QPointF(mp1.controlRight.x(), mp1.controlRight.y()), pens().value("node"), scale, m_gradientPoint == useControlR);
+			}
+		}
+	}
+
+	if (currItem->rotation() == 0 || currItem->rotation() == 90 || currItem->rotation() == 180 || currItem->rotation() == 270)
+		psx->setRenderHint(QPainter::Antialiasing, false);
+
+	// Draw Nodes
 	for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
 	{
 		for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
@@ -129,206 +245,31 @@ void CanvasMode_EditMeshGradient::drawControlsMeshGradient(QPainter* psx, PageIt
 				}
 			}
 			MeshPoint mp1 = currItem->meshGradientArray[grow][gcol];
-			if (m_view->editStrokeGradient == 5)
+			if (m_view->editStrokeGradient == GradientEdit::Mesh_Point)
+				drawNodeHandle(psx, QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), pens().value("node"), scale, isSelected);
+//			else if (m_view->editStrokeGradient == GradientEdit::Mesh_Color)
+//			{
+//				if (isSelected)
+//					psx->setPen(p14r);
+//				else
+//					psx->setPen(p14w);
+//				psx->drawPoint(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()));
+//				psx->setPen(QPen(mp1.color, 14.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+//				psx->drawPoint(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()));
+//				if (isSelected)
+//					psx->setPen(p8r);
+//				else
+//					psx->setPen(p8m);
+//				psx->drawPoint(QPointF(mp1.controlColor.x(), mp1.controlColor.y()));
+//			}
+			else if (m_view->editStrokeGradient == GradientEdit::Mesh_ControlPoints)
 			{
-				if (isSelected)
-					psx->setPen(p8r);
-				else
-					psx->setPen(p8m);
-				psx->drawPoint(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()));
-			}
-			else if (m_view->editStrokeGradient == 6)
-			{
-				if (isSelected)
-					psx->setPen(p14r);
-				else
-					psx->setPen(p14w);
-				psx->drawPoint(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()));
-				psx->setPen(QPen(mp1.color, 14.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-				psx->drawPoint(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()));
-				if (isSelected)
-					psx->setPen(p8r);
-				else
-					psx->setPen(p8m);
-				psx->drawPoint(QPointF(mp1.controlColor.x(), mp1.controlColor.y()));
-			}
-			else if (m_view->editStrokeGradient == 7)
-			{
-				psx->setPen(p8b);
-				psx->drawPoint(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()));
+				drawNodeHandle(psx, QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), pens().value("node"), scale);
 			}
 		}
 	}
-	if ((m_selectedMeshPoints.count() > 0) && (m_view->editStrokeGradient == 7))
-	{
-		int grow = m_selectedMeshPoints[0].first;
-		int gcol = m_selectedMeshPoints[0].second;
-		MeshPoint mp1 = currItem->meshGradientArray[grow][gcol];
-		psx->setPen(p8m);
-		if (grow == 0)
-		{
-			if (gcol == 0)
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlR)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlB)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-			}
-			else if (gcol == currItem->meshGradientArray[grow].count()-1)
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlL)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlB)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-			}
-			else
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlL)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlB)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-				if (m_gradientPoint == useControlR)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-			}
-		}
-		else if (grow == currItem->meshGradientArray.count()-1)
-		{
-			if (gcol == 0)
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlR)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlT)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
-			}
-			else if (gcol == currItem->meshGradientArray[grow].count()-1)
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlL)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlT)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
-			}
-			else
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlL)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlT)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
-				if (m_gradientPoint == useControlR)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-			}
-		}
-		else
-		{
-			if (gcol == 0)
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlR)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlT)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlB)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-			}
-			else if (gcol == currItem->meshGradientArray[grow].count()-1)
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlL)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlT)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlB)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-			}
-			else
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlL)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlLeft.x(), mp1.controlLeft.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlT)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlTop.x(), mp1.controlTop.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlB)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-				psx->setPen(p8m);
-				if (m_gradientPoint == useControlR)
-					psx->setPen(p8r);
-				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-			}
-		}
-	}
+
+	psx->restore();
 }
 
 void CanvasMode_EditMeshGradient::enterEvent(QEvent *e)
@@ -370,7 +311,7 @@ void CanvasMode_EditMeshGradient::deactivate(bool forGesture)
 	m_view->setRedrawMarkerShown(false);
 	m_selectedMeshPoints.clear();
 	m_gradientPoint = noPointDefined;
-	m_ScMW->propertiesPalette->updateColorSpecialGradient();
+//	m_ScMW->propertiesPalette->updateColorSpecialGradient();
 
 	CanvasMode::deactivate(forGesture);
 }
@@ -454,13 +395,13 @@ void CanvasMode_EditMeshGradient::keyPressEvent(QKeyEvent *e)
 					doUpdate = true;
 					break;
 				case Qt::Key_5:
-					if (m_view->editStrokeGradient == 6)
+					if (m_view->editStrokeGradient == GradientEdit::Mesh_Color)
 					{
 						QPair<int, int> selP = m_selectedMeshPoints[0];
 						currItem->meshGradientArray[selP.first][selP.second].controlColor = currItem->meshGradientArray[selP.first][selP.second].gridPoint;
 						doUpdate = true;
 					}
-					else if (m_view->editStrokeGradient == 7)
+					else if (m_view->editStrokeGradient == GradientEdit::Mesh_ControlPoints)
 					{
 						QPair<int, int> selP = m_selectedMeshPoints[0];
 						if (m_gradientPoint == useControlT)
@@ -477,7 +418,7 @@ void CanvasMode_EditMeshGradient::keyPressEvent(QKeyEvent *e)
 			}
 			if (isMoving)
 			{
-				if (m_view->editStrokeGradient == 5)
+				if (m_view->editStrokeGradient == GradientEdit::Mesh_Point)
 				{
 					for (int mo = 0; mo < m_selectedMeshPoints.count(); mo++)
 					{
@@ -485,12 +426,12 @@ void CanvasMode_EditMeshGradient::keyPressEvent(QKeyEvent *e)
 						currItem->meshGradientArray[selP.first][selP.second].moveRel(moveX, moveY);
 					}
 				}
-				else if (m_view->editStrokeGradient == 6)
+				else if (m_view->editStrokeGradient == GradientEdit::Mesh_Color)
 				{
 					QPair<int, int> selP = m_selectedMeshPoints[0];
 					currItem->meshGradientArray[selP.first][selP.second].controlColor += FPoint(moveX, moveY);
 				}
-				else if (m_view->editStrokeGradient == 7)
+				else if (m_view->editStrokeGradient == GradientEdit::Mesh_ControlPoints)
 				{
 					QPair<int, int> selP = m_selectedMeshPoints[0];
 					if (m_gradientPoint == useControlT)
@@ -569,7 +510,7 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		QTransform pp = currItem->getTransform();
 		FPoint npf = npfN.transformPoint(pp, true);
-		if (m_view->editStrokeGradient == 6)
+		if (m_view->editStrokeGradient == GradientEdit::Mesh_Color)
 		{
 			if (m_selectedMeshPoints.count() > 0)
 			{
@@ -584,7 +525,7 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 		FPoint npx(m_Mxp - npfN.x(), m_Myp - npfN.y(), 0, 0, currItem->rotation(), 1, 1, true);
 		if (m_selectedMeshPoints.count() > 0)
 		{
-			if (m_view->editStrokeGradient == 5)
+			if (m_view->editStrokeGradient == GradientEdit::Mesh_Point)
 			{
 				for (int mo = 0; mo < m_selectedMeshPoints.count(); mo++)
 				{
@@ -592,12 +533,12 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 					currItem->meshGradientArray[selP.first][selP.second].moveRel(-npx.x(), -npx.y());
 				}
 			}
-			else if (m_view->editStrokeGradient == 6)
+			else if (m_view->editStrokeGradient == GradientEdit::Mesh_Color)
 			{
 				QPair<int, int> selP = m_selectedMeshPoints[0];
 				currItem->meshGradientArray[selP.first][selP.second].controlColor -= npx;
 			}
-			else if (m_view->editStrokeGradient == 7)
+			else if (m_view->editStrokeGradient == GradientEdit::Mesh_ControlPoints)
 			{
 				QPair<int, int> selP = m_selectedMeshPoints[0];
 				if (m_gradientPoint == useControlT)
@@ -643,9 +584,31 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 	QTransform itemMatrix = currItem->getTransform();
 	bool found = false;
 	QPair<int, int> selPoint;
-	if (m_view->editStrokeGradient == 5)
+	if (m_view->editStrokeGradient == GradientEdit::Mesh_Point)
 	{
+//		m_gradientPoint = noPointDefined;
+//		for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
+//		{
+//			for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
+//			{
+//				MeshPoint mp = currItem->meshGradientArray[grow][gcol];
+//				QPointF gradientPoint(mp.gridPoint.x(), mp.gridPoint.y());
+//				gradientPoint = itemMatrix.map(gradientPoint);
+//				if (m_canvas->hitsCanvasPoint(mousePointDoc, gradientPoint))
+//				{
+//					selPoint.first = grow;
+//					selPoint.second = gcol;
+//					found = true;
+//					*m_old_mesh = mp;
+//					break;
+//				}
+//			}
+//			if (found)
+//				break;
+//		}
+
 		m_gradientPoint = noPointDefined;
+		m_selectedMeshPoints.clear();
 		for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
 		{
 			for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
@@ -653,12 +616,16 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 				MeshPoint mp = currItem->meshGradientArray[grow][gcol];
 				QPointF gradientPoint(mp.gridPoint.x(), mp.gridPoint.y());
 				gradientPoint = itemMatrix.map(gradientPoint);
-				if (m_canvas->hitsCanvasPoint(mousePointDoc, gradientPoint))
+				QPointF gradientColorPoint(mp.controlColor.x(), mp.controlColor.y());
+				gradientColorPoint = itemMatrix.map(gradientColorPoint);
+				if (m_canvas->hitsCanvasPoint(mousePointDoc, gradientPoint) || m_canvas->hitsCanvasPoint(mousePointDoc, gradientColorPoint))
 				{
 					selPoint.first = grow;
 					selPoint.second = gcol;
-					found = true;
+					currItem->selectedMeshPointX = grow;
+					currItem->selectedMeshPointY = gcol;
 					*m_old_mesh = mp;
+					found = true;
 					break;
 				}
 			}
@@ -666,7 +633,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 				break;
 		}
 	}
-	else if (m_view->editStrokeGradient == 6)
+	else if (m_view->editStrokeGradient == GradientEdit::Mesh_Color)
 	{
 		m_gradientPoint = noPointDefined;
 		m_selectedMeshPoints.clear();
@@ -694,7 +661,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 				break;
 		}
 	}
-	else if (m_view->editStrokeGradient == 7)
+	else if (m_view->editStrokeGradient == GradientEdit::Mesh_ControlPoints)
 	{
 		for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
 		{
@@ -947,7 +914,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 		currItem->selectedMeshControlPoint = static_cast<int>(m_gradientPoint);
 	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
-	m_ScMW->propertiesPalette->updateColorSpecialGradient();
+//	m_ScMW->propertiesPalette->updateColorSpecialGradient();
 	m_view->setCursor(QCursor(Qt::CrossCursor));
 	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 }

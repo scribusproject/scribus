@@ -6,19 +6,40 @@
 #include <QFlags>
 
 
-ScListItemDelegate::ScListItemDelegate(QSize iconSize, TextPosition textPosition, QObject *parent) : QAbstractItemDelegate (parent)
+ScListItemDelegate::ScListItemDelegate(QListView::ViewMode mode, QSize iconSize, TextPosition textPosition, Style style, QObject *parent) : QItemDelegate (parent)
 {
 	setIconSize(iconSize);
 	setTextPosition(textPosition);
+	setStyle(style);
+	setViewMode(mode);
 }
 
 void ScListItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const{
 
 	int padding = 8;
-	qreal margin = 4.5;
+	qreal margin = 2.5;
 	int radius = 2;
-	QColor cHighlight = QApplication::palette().highlight().color();
+	QPalette::ColorGroup cg = option.state & QStyle::State_Enabled ? QPalette::Normal : QPalette::Disabled;
+	QColor cBaseFill = option.palette.brush(cg, QPalette::AlternateBase).color();
+	QColor cLinePen = option.palette.brush(cg, QPalette::Mid).color();
+	QColor cText = option.palette.brush(cg, QPalette::Text).color();
+	QColor cHighlight = option.palette.brush(cg, QPalette::Highlight).color();
+
+	QPen linePen(cLinePen, 1, Qt::SolidLine);
+	QPen lineMarkedPen(cHighlight, 1, Qt::SolidLine);
+	QPen fontPen(cText, 1, Qt::SolidLine);
+
+	QBrush fillNormal(cBaseFill);
 	cHighlight.setAlphaF(0.2f);
+	QBrush fillSelected(cHighlight);
+
+	if(m_style == Style::Simple)
+	{
+		radius = 0;
+		margin = 0;
+		linePen = Qt::NoPen;
+		lineMarkedPen = Qt::NoPen;
+	}
 
 	QTextOption tOptions;
 
@@ -27,13 +48,7 @@ void ScListItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	QRectF rItem = option.rect;
 	rItem = rItem.adjusted(margin, margin, -margin, -margin);
 
-	QPen linePen(QApplication::palette().mid().color(), 1, Qt::SolidLine);
-	QPen lineMarkedPen(QApplication::palette().highlight().color(), 1, Qt::SolidLine);
-	QPen fontPen(QApplication::palette().text().color(), 1, Qt::SolidLine);
-
-	QBrush fillNormal(QApplication::palette().alternateBase().color());
-	QBrush fillSelected(cHighlight);
-
+	painter->save();
 	painter->setRenderHint(QPainter::Antialiasing, true);
 
 	if (option.state & QStyle::State_Selected)
@@ -92,10 +107,29 @@ void ScListItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 		painter->setFont(QFont());
 		painter->drawText(rText, tOptions.flags(), title, &rText);
 	}
+
+	painter->restore();
 }
 
 QSize ScListItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const{
-	return option.rect.size();
+
+	QSize sh = option.rect.size();
+
+	switch(m_mode){
+	default:
+	case QListView::ViewMode::IconMode:
+		{
+		}
+		break;
+	case QListView::ViewMode::ListMode:
+		{
+			sh.setWidth(0);
+			sh.setHeight(m_iconSize.height() + 16);
+		}
+		break;
+	}
+
+	return sh;//QSize(sh.width(), sh.height());
 }
 
 QSize ScListItemDelegate::iconSize()
@@ -116,4 +150,24 @@ ScListItemDelegate::TextPosition ScListItemDelegate::textPosition()
 void ScListItemDelegate::setTextPosition(TextPosition position)
 {
 	m_textPosition = position;
+}
+
+ScListItemDelegate::Style ScListItemDelegate::style()
+{
+	return m_style;
+}
+
+void ScListItemDelegate::setStyle(Style style)
+{
+	m_style = style;
+}
+
+QListView::ViewMode ScListItemDelegate::viewMode()
+{
+	return m_mode;
+}
+
+void ScListItemDelegate::setViewMode(QListView::ViewMode mode)
+{
+	m_mode = mode;
 }

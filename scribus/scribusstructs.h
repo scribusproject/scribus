@@ -117,6 +117,64 @@ enum
 	Gradient_Hatch = 14
 };
 
+/*
+ * Uncomment if you need a readable string during debugging
+static QString gradientTypeDebug(int type)
+{
+	switch(type)
+	{
+	case Gradient_None:
+		return "Gradient_None";
+		break;
+	case Gradient_LinearLegacy1:
+		return "Gradient_LinearLegacy1";
+		break;
+	case Gradient_LinearLegacy2:
+		return "Gradient_LinearLegacy2";
+		break;
+	case Gradient_LinearLegacy3:
+		return "Gradient_LinearLegacy3";
+		break;
+	case Gradient_LinearLegacy4:
+		return "Gradient_LinearLegacy4";
+		break;
+	case Gradient_RadialLegacy5:
+		return "Gradient_RadialLegacy5";
+		break;
+	case Gradient_Linear:
+		return "Gradient_Linear";
+		break;
+	case Gradient_Radial:
+		return "Gradient_Radial";
+		break;
+	case Gradient_Pattern:
+		return "Gradient_Pattern";
+		break;
+	case Gradient_4Colors:
+		return "Gradient_4Colors";
+		break;
+	case Gradient_Diamond:
+		return "Gradient_Diamond";
+		break;
+	case Gradient_Mesh:
+		return "Gradient_Mesh";
+		break;
+	case Gradient_PatchMesh:
+		return "Gradient_PatchMesh";
+		break;
+	case Gradient_Conical:
+		return "Gradient_Conical";
+		break;
+	case Gradient_Hatch:
+		return "Gradient_Hatch";
+		break;
+	default:
+		return "undefinded type: " + QString::number(type);
+		break;
+	}
+};
+*/
+
 enum
 {
 	GradMask_None = 0,
@@ -129,6 +187,114 @@ enum
 	GradMask_PatternLumAlphaInverted = 7,
 	GradMask_PatternInverted = 8
 };
+
+/*
+ * Uncomment if you need a readable string during debugging
+static QString gradientMaskDebug(int type)
+{
+	switch(type)
+	{
+	case GradMask_None:
+		return "GradMask_None";
+		break;
+	case GradMask_Linear:
+		return "GradMask_Linear";
+		break;
+	case GradMask_Radial:
+		return "GradMask_Radial";
+		break;
+	case GradMask_Pattern:
+		return "GradMask_Pattern";
+		break;
+	case GradMask_LinearLumAlpha:
+		return "GradMask_LinearLumAlpha";
+		break;
+	case GradMask_RadialLumAlpha:
+		return "GradMask_RadialLumAlpha";
+		break;
+	case GradMask_PatternLumAlpha:
+		return "GradMask_PatternLumAlpha";
+		break;
+	case GradMask_PatternLumAlphaInverted:
+		return "GradMask_PatternLumAlphaInverted";
+		break;
+	case GradMask_PatternInverted:
+		return "GradMask_PatternInverted";
+		break;
+	default:
+		return "undefinded type: " + QString::number(type);
+		break;
+	}
+};
+*/
+
+enum class GradientEdit
+{
+	// Gradients
+	Gradient = 0,
+	Gradient_Stroke = 1,
+	Gradient_Mask = 2,
+	FourColors = 3,
+	Diamond = 4,
+	// Mesh
+	Mesh_Point = 5,
+	Mesh_Color = 6,
+	Mesh_ControlPoints = 7,
+	// Patch Mesh
+	PatchMesh_Color = 8,
+	PatchMesh_Point = 9,
+	PatchMesh_ControlPoints = 10,
+	PatchMesh_Polygon = 11
+};
+Q_DECLARE_METATYPE(GradientEdit)
+
+/*
+ * Uncomment if you need a readable string during debugging
+static QString gradientEditDebug(GradientEdit type)
+{
+	switch(type)
+	{
+	case GradientEdit::Gradient:
+		return "Gradient";
+		break;
+	case GradientEdit::Gradient_Stroke:
+		return "Gradient_Stroke";
+		break;
+	case GradientEdit::Gradient_Mask:
+		return "Gradient_Mask";
+		break;
+	case GradientEdit::FourColors:
+		return "FourColors";
+		break;
+	case GradientEdit::Diamond:
+		return "Diamond";
+		break;
+	case GradientEdit::Mesh_Point:
+		return "Mesh_Point";
+		break;
+	case GradientEdit::Mesh_Color:
+		return "Mesh_Color";
+		break;
+	case GradientEdit::Mesh_ControlPoints:
+		return "Mesh_ControlPoints";
+		break;
+	case GradientEdit::PatchMesh_Color:
+		return "PatchMesh_Color";
+		break;
+	case GradientEdit::PatchMesh_Point:
+		return "PatchMesh_Point";
+		break;
+	case GradientEdit::PatchMesh_ControlPoints:
+		return "PatchMesh_ControlPoints";
+		break;
+	case GradientEdit::PatchMesh_Polygon:
+		return "PatchMesh_Polygon";
+		break;
+	default:
+		return "missing type";
+	}
+};
+*/
 
 /**
  * This enum describes the sides that can be selected. A selection can be

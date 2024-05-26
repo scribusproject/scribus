@@ -6,12 +6,6 @@
 
 #include "scribusapi.h"
 
-/* ********************************************************************************* *
- *
- * Section Container Header
- *
- * ********************************************************************************* */
-
 class SCRIBUS_API ComboBlendMode : public QComboBox
 {
 public:

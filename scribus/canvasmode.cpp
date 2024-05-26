@@ -76,22 +76,7 @@ CanvasMode::CanvasMode (ScribusView* view) :
 	m_doc(view->m_doc),
 	undoManager(UndoManager::instance())
 {
-	m_pen["outline"]	= QPen(Qt::gray, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	m_pen["outline"].setCosmetic(true);
-	m_pen["selection"]	= QPen(PrefsManager::instance().appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	m_pen["selection"].setCosmetic(true);
-	m_pen["selection-group"] = QPen(Qt::red, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	m_pen["selection-group"].setCosmetic(true);
-	m_pen["selection-group-inside"] = QPen(PrefsManager::instance().appPrefs.displayPrefs.frameGroupColor, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	m_pen["selection-group-inside"].setCosmetic(true);
-	m_pen["handle"]		= QPen(PrefsManager::instance().appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	m_pen["handle"].setCosmetic(true);
-	
-	m_brush["outline"]	= Qt::NoBrush;
-	m_brush["selection"]	= Qt::NoBrush;
-	m_brush["selection-group"] = QColor(255,0,0,10);
-	m_brush["selection-group-inside"] = Qt::NoBrush;
-	m_brush["handle"]	= PrefsManager::instance().appPrefs.displayPrefs.frameColor;
+	setStyle();
 }
 
 CanvasMode::~CanvasMode()
@@ -215,58 +200,38 @@ void CanvasMode::updateViewMode(CanvasViewMode* viewmode)
 
 void CanvasMode::drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool background, bool insideGroup, double sx, double sy)
 {
-	m_pen["handle"]	= QPen(PrefsManager::instance().appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	m_pen["handle"].setCosmetic(true);
-	m_pen["selection-group-inside"] = QPen(PrefsManager::instance().appPrefs.displayPrefs.frameGroupColor, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	m_pen["selection-group-inside"].setCosmetic(true);
-	QPen ba(Qt::white, 3.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	ba.setCosmetic(true);
-	double markWidth = 4.0 / m_canvas->scale();
-	if (insideGroup)
-		markWidth /= qMax(sx, sy);
-	QRectF handleRect(0, 0, markWidth, markWidth);
+//	double markWidth = 4.0 / m_canvas->scale();
+//	if (insideGroup)
+//		markWidth /= qMax(sx, sy);
+//	QRectF handleRect(0, 0, markWidth, markWidth);
 	double x = selectionRect.x();
 	double y = selectionRect.y();
 	double w = selectionRect.width();
 	double h = selectionRect.height();
-	psx->setBrush(Qt::white);
-	if (background)
-		psx->setPen(ba);
-	else
-	{
+//	psx->setBrush(Qt::white);
+
+	QPen p = m_pen["selection-handle"];
+
+//	if (background)
+//		p = m_pen["frame-outline"];
+//	else
+//	{
 		if (insideGroup)
-			psx->setPen(m_pen["selection-group-inside"]);
-		else
-			psx->setPen(m_pen["handle"]);
-	}
-	handleRect.moveCenter(QPointF(x, y));
-	psx->drawRect(handleRect);
-	handleRect.moveCenter(QPointF(x+w/2.0, y));
-	psx->drawRect(handleRect);
-	handleRect.moveCenter(QPointF(x+w, y));
-	psx->drawRect(handleRect);
-	handleRect.moveCenter(QPointF(x+w, y+h/2.0));
-	psx->drawRect(handleRect);
-	handleRect.moveCenter(QPointF(x+w, y+h));
-	psx->drawRect(handleRect);
-	handleRect.moveCenter(QPointF(x+w/2.0, y+h));
-	psx->drawRect(handleRect);
-	handleRect.moveCenter(QPointF(x, y+h));
-	psx->drawRect(handleRect);
-	handleRect.moveCenter(QPointF(x, y+h/2.0));
-	psx->drawRect(handleRect);
+			p = m_pen["selection-group-inside"];
+//	}
+
+	drawSelectionHandle(psx, QPointF(x, y), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x+w/2.0, y), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x+w, y), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x+w, y+h/2.0), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x+w, y+h), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x+w/2.0, y+h), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x, y+h), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x, y+h/2.0), p, m_canvas->scale());
 }
 
 void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 {
-	m_pen["selection"]	= QPen(PrefsManager::instance().appPrefs.displayPrefs.frameColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	m_pen["selection"].setCosmetic(true);
-	m_pen["selection-group-inside"] = QPen(PrefsManager::instance().appPrefs.displayPrefs.frameGroupColor, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	m_pen["selection-group-inside"].setCosmetic(true);
-	QPen ba(Qt::white, 3.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	ba.setCosmetic(true);
-	QPen bb(Qt::black, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
-	bb.setCosmetic(true);
 	psx->scale(m_canvas->scale(), m_canvas->scale());
 	psx->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	psx->setClipping(true);
@@ -310,9 +275,9 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					x = currItem->asLine() ? 0 : -lineAdjust;
 					y = currItem->asLine() ? 0 : -lineAdjust;
 				}
-				psx->setBrush(Qt::NoBrush);
-				psx->setPen(ba);
-				psx->drawRect(QRectF(x, y, w, h));
+//				psx->setBrush(Qt::NoBrush);
+//				psx->setPen(m_pen["frame-outline"]);
+//				psx->drawRect(QRectF(x, y, w, h));
 				psx->setPen(m_pen["selection-group-inside"]);
 				psx->setBrush(m_brush["selection-group-inside"]);
 				psx->drawRect(QRectF(x, y, w, h));
@@ -329,11 +294,11 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		x = -lineAdjust;
 		y = -lineAdjust;
 
-		psx->setBrush(Qt::NoBrush);
-		psx->setPen(ba);
-		psx->drawRect(QRectF(x, y, w, h));
-		if (drawHandles)
-			drawSelectionHandles(psx, QRectF(x, y, w, h), true);
+//		psx->setBrush(Qt::NoBrush);
+//		psx->setPen(m_pen["frame-outline"]);
+//		psx->drawRect(QRectF(x, y, w, h));
+//		if (drawHandles)
+//			drawSelectionHandles(psx, QRectF(x, y, w, h), true);
 		psx->setPen(m_pen["selection-group"]);
 		psx->setBrush(m_brush["selection-group"]);
 		psx->drawRect(QRectF(x, y, w, h));
@@ -363,23 +328,23 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				h = currItem->visualHeight();
 				x = currItem->asLine() ? 0 : (-currItem->visualLineWidth() / 2.0);
 				y = -currItem->visualLineWidth() / 2.0;
-				psx->setBrush(Qt::NoBrush);
+//				psx->setBrush(Qt::NoBrush);
 				QRectF drRect = QRectF(x, y, w, h).normalized();
 				if (m_doc->drawAsPreview && !m_doc->editOnPreview)
 				{
 					if (!currItem->annotation().IsOpen())
 					{
-						psx->setPen(bb);
+						psx->setPen(m_pen["frame-preview"]);
 						psx->setBrush(Qt::NoBrush);
 						psx->drawRect(drRect.adjusted(-1, -1, 1, 1));
 					}
 				}
 				else
 				{
-					psx->setPen(ba);
-					psx->drawRect(drRect);
-					if (drawHandles)
-						drawSelectionHandles(psx, QRectF(x, y, w, h), true, true, sx, sy);
+//					psx->setPen(m_pen["frame-outline"]);
+//					psx->drawRect(drRect);
+//					if (drawHandles)
+//						drawSelectionHandles(psx, QRectF(x, y, w, h), true, true, sx, sy);
 					psx->setPen(m_pen["selection-group-inside"]);
 					psx->setBrush(m_brush["selection-group-inside"]);
 					psx->drawRect(drRect);
@@ -405,22 +370,22 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					x = currItem->asLine() ? 0 : -lineAdjust;
 					y = currItem->asLine() ? 0 : -lineAdjust;
 				}
-				psx->setBrush(Qt::NoBrush);
+//				psx->setBrush(Qt::NoBrush);
 				if (m_doc->drawAsPreview && !m_doc->editOnPreview)
 				{
 					if (!currItem->annotation().IsOpen())
 					{
-						psx->setPen(bb);
+						psx->setPen(m_pen["frame-preview"]);
 						psx->setBrush(Qt::NoBrush);
 						psx->drawRect(QRectF(x, y, w, h).adjusted(-1, -1, 1, 1));
 					}
 				}
 				else
 				{
-					psx->setPen(ba);
-					psx->drawRect(QRectF(x, y, w, h));
-					if (drawHandles && !currItem->locked() && !currItem->isLine())
-						drawSelectionHandles(psx, QRectF(x, y, w, h), true);
+//					psx->setPen(m_pen["frame-outline"]);
+//					psx->drawRect(QRectF(x, y, w, h));
+//					if (drawHandles && !currItem->locked() && !currItem->isLine())
+//						drawSelectionHandles(psx, QRectF(x, y, w, h), true);
 					psx->setPen(m_pen["selection"]);
 					psx->setBrush(m_brush["selection"]);
 					psx->drawRect(QRectF(x, y, w, h));
@@ -429,26 +394,19 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				{
 					if (currItem->isLine())
 					{
-						const double markWidth = 4.0 / m_canvas->scale();
-						QRectF handleRect(0, 0, markWidth, markWidth);
 						psx->setRenderHint(QPainter::Antialiasing);
-						psx->setBrush(Qt::white);
-						psx->setPen(m_pen["handle"]);
-						handleRect.moveCenter(QPointF(x, y + h / 2.0));
-						psx->drawRect(handleRect);
-						handleRect.moveCenter(QPointF(x + w, y + h / 2.0));
-						psx->drawRect(handleRect);
+						drawSelectionHandle(psx, QPointF(x, y + h / 2.0), m_pen["selection-handle"], m_canvas->scale());
+						drawSelectionHandle(psx, QPointF(x + w, y + h / 2.0), m_pen["selection-handle"], m_canvas->scale());
 					}
 					else
 						drawSelectionHandles(psx, QRectF(x, y, w, h), false);
 				}
 				if (currItem->isWelded())
 				{
-					psx->setPen(QPen(Qt::yellow, 8.0 / m_canvas->scale(), Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 					for (int i = 0 ; i <  currItem->weldList.count(); i++)
 					{
 						PageItem::WeldingInfo wInf =  currItem->weldList.at(i);
-						psx->drawPoint(QPointF(wInf.weldPoint.x(), wInf.weldPoint.y()));
+						drawWeldMarker(psx, QPointF(wInf.weldPoint.x(), wInf.weldPoint.y()), m_color["weld"], m_canvas->scale());
 					}
 				}
 			}
@@ -502,8 +460,8 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 			if (currItem->isGroup())
 			{
 				p->save();
-				p->setBrush(m_brush["outline"]);
-				p->setPen(m_pen["outline"]);
+				p->setBrush(m_brush["frame-move"]);
+				p->setPen(m_pen["frame-move"]);
 				p->setWorldTransform(itemTrans, true);
 				if (matRot != 0)
 					p->setRenderHint(QPainter::Antialiasing);
@@ -548,8 +506,8 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 			else
 			{
 				p->save();
-				p->setBrush(m_brush["outline"]);
-				p->setPen(m_pen["outline"]);
+				p->setBrush(m_brush["frame-move"]);
+				p->setPen(m_pen["frame-move"]);
 				p->setWorldTransform(itemTrans, true);
 				if (matRot != 0)
 					p->setRenderHint(QPainter::Antialiasing);
@@ -560,8 +518,8 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 				p->restore();
 
 				p->save();
-				p->setBrush(m_brush["outline"]);
-				p->setPen(m_pen["outline"]);
+				p->setBrush(m_brush["frame-move"]);
+				p->setPen(m_pen["frame-move"]);
 				p->setWorldTransform(itemTrans, true);
 				if (matRot != 0)
 					p->setRenderHint(QPainter::Antialiasing);
@@ -619,8 +577,8 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 #endif  // GESTURE_FRAME_PREVIEW
 					{
 						p->save();
-						p->setBrush(m_brush["outline"]);
-						p->setPen(m_pen["outline"]);
+						p->setBrush(m_brush["frame-move"]);
+						p->setPen(m_pen["frame-move"]);
 						p->setWorldTransform(itemTrans, true);
 						if (matRot != 0)
 							p->setRenderHint(QPainter::Antialiasing);
@@ -631,8 +589,8 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 						p->restore();
 
 						p->save();
-						p->setBrush(m_brush["outline"]);
-						p->setPen(m_pen["outline"]);
+						p->setBrush(m_brush["frame-move"]);
+						p->setPen(m_pen["frame-move"]);
 						p->setWorldTransform(itemTrans, true);
 						if (matRot != 0)
 							p->setRenderHint(QPainter::Antialiasing);
@@ -642,8 +600,8 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 				}
 				else
 				{
-					p->setBrush(m_brush["outline"]);
-					p->setPen(m_pen["outline"]);
+					p->setBrush(m_brush["frame-move"]);
+					p->setPen(m_pen["frame-move"]);
 					p->setWorldTransform(itemTrans, true);
 					if (matRot != 0)
 						p->setRenderHint(QPainter::Antialiasing);
@@ -657,8 +615,8 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 		}
 		else
 		{
-			p->setBrush(m_brush["outline"]);
-			p->setPen(m_pen["outline"]);
+			p->setBrush(m_brush["frame-move"]);
+			p->setPen(m_pen["frame-move"]);
 			p->translate(deltax, deltay);
 			p->translate(x, y);
 			p->drawRect(QRectF(0, 0, w, h));
@@ -845,6 +803,8 @@ bool CanvasMode::commonMouseMove(QMouseEvent *m)
 
 void CanvasMode::commonDrawControls(QPainter* p, bool drawHandles)
 {
+	setStyle(); // reload pen and brush styles
+
 	if (m_canvas->m_viewMode.operItemMoving)
 		drawOutline(p);
 	else
@@ -1756,4 +1716,56 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 			}
 			break;
 	}
+}
+
+void CanvasMode::setStyle()
+{
+	/*
+	Paper Fill				= prefsData->displayPrefs.paperColor; // white
+	Scratch Space			= prefsData->displayPrefs.scratchColor; // light grey
+	Selected Page Border	= prefsData->displayPrefs.pageBorderColor; // red
+	Frames					= prefsData->displayPrefs.frameNormColor; // black
+	Locked Frames			= prefsData->displayPrefs.frameLockColor; // brown
+	Selected Frames			= prefsData->displayPrefs.frameColor; // red
+	Linked Frames			= prefsData->displayPrefs.frameLinkColor; // red
+	Grouped Frames			= prefsData->displayPrefs.frameGroupColor; // dark teal
+	Annotation Frames		= prefsData->displayPrefs.frameAnnotationColor; // blue
+	Text Control Characters = prefsData->displayPrefs.controlCharColor; // brown
+	*/
+
+	m_color["frame-selection"]	= QColor(229, 85, 69);//PrefsManager::instance().appPrefs.displayPrefs.frameColor;
+	m_color["frame-group"]		= PrefsManager::instance().appPrefs.displayPrefs.frameGroupColor;
+	m_color["frame"]			= PrefsManager::instance().appPrefs.displayPrefs.frameNormColor;
+	m_color["frame-move"]		= Qt::gray;
+	m_color["weld"]				= QColor(214, 146, 43);
+	m_color["node"]				= QColor(51, 132, 204);
+	m_color["node-handle"]		= QColor(229, 85, 69);
+	m_color["test"]				= Qt::magenta;
+	QColor selectionAlpha		= m_color["frame-selection"];
+	selectionAlpha.setAlphaF(.05);
+
+	m_pen["frame-move"]				= QPen(m_color["frame-move"], 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["frame-move"].setCosmetic(true);
+	m_pen["frame-preview"]			= QPen(Qt::black, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["frame-preview"].setCosmetic(true);
+	m_pen["selection"]				= QPen(m_color["frame-selection"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection"].setCosmetic(true);
+	m_pen["selection-handle"]		= QPen(m_color["frame-selection"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection-handle"].setCosmetic(true);
+	m_pen["selection-group"]		= m_pen["selection"];
+	m_pen["selection-group-inside"] = QPen(m_color["frame-group"], 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection-group-inside"].setCosmetic(true);
+	m_pen["vector"]					= QPen(m_color["node"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["vector"].setCosmetic(true);
+	m_pen["node"]					= QPen(m_color["node"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["node"].setCosmetic(true);
+	m_pen["node-handle"]			= QPen(m_color["node-handle"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["node-handle"].setCosmetic(true);
+	m_pen["node-dash"]				= QPen(m_color["node-handle"], 1.0, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["node-dash"].setCosmetic(true);
+
+	m_brush["frame-move"]				= Qt::NoBrush;
+	m_brush["selection"]				= Qt::NoBrush;
+	m_brush["selection-group"]			= selectionAlpha;
+	m_brush["selection-group-inside"]	= Qt::NoBrush;
 }

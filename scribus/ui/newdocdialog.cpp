@@ -64,7 +64,7 @@ PageLayoutsWidget::PageLayoutsWidget(QWidget* parent) :
 	clear();
 	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 	setGridSize(QSize(96, 96));
-	setItemDelegate(new ScListItemDelegate(QSize(32,32)));
+	setItemDelegate(new ScListItemDelegate(QListWidget::IconMode, QSize(32,32)));
 }
 
 void PageLayoutsWidget::arrangeIcons()

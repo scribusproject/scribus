@@ -123,6 +123,7 @@ struct UIPrefs
 	QString userPreferredLocale; //! System or interface language number formats
 	bool useSmallWidgets {false}; //! Use small widgets in the palettes
 	bool hideLabels {false}; //! Hide UI additional labels (Professional Mode)
+	bool hideLabelsOfInactiveTabs {false}; //! Hide text label of inactive tabs of Adavanced Docking System
 	bool useTabs {false}; //! Use a tabbed MainWidget a la FireFox
 	bool showStartupDialog {true}; //! Whether to show the startup dialog or not
 	bool showSplashOnStartup {true}; //! Whether to show the splashscreen or not

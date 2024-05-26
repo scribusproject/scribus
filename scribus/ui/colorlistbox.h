@@ -93,7 +93,7 @@ class SCRIBUS_API ColorListBox : public QListView
 		The list is cleared itself. Then is rendered an icon with
 		color attributes (RGB/CMYK/Spot etc.).
 		\param list a ColorList to present. */
-		void setColors(ColorList& list, bool insertNone);
+		void setColors(ColorList &list, bool insertNone);
 
 		/*! \brief Set the current color */
 		void setCurrentColor(QString colorName);

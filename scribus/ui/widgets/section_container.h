@@ -2,12 +2,9 @@
 #define SECTIONCONTAINER_H
 
 #include <QLabel>
-#include <QStackedWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
-
-#include "scribusapi.h"
 
 /* ********************************************************************************* *
  *
@@ -15,7 +12,7 @@
  *
  * ********************************************************************************* */
 
-class SCRIBUS_API SectionContainerHeader : public QWidget
+class SectionContainerHeader : public QWidget
 {
 	Q_OBJECT
 
@@ -41,7 +38,7 @@ protected:
 	void mousePressEvent(QMouseEvent *mouseEvent);
 
 signals:
-	 void toggleCollpasedState();
+	void toggleCollpasedState();
 
 };
 
@@ -51,7 +48,7 @@ signals:
  *
  * ********************************************************************************* */
 
-class SCRIBUS_API SectionContainer : public QWidget
+class SectionContainer : public QWidget
 {
 	Q_OBJECT
 	Q_CLASSINFO("Version", "1.0.0")
@@ -62,62 +59,87 @@ class SCRIBUS_API SectionContainer : public QWidget
 	Q_PROPERTY(bool hasStyle READ hasStyle WRITE setHasStyle)
 
 
-	public:
-		SectionContainer(QWidget *parent = nullptr);
-		SectionContainer(QString title, bool isCollapsible = true, QWidget *parent = nullptr);
+public:
+	SectionContainer(QWidget *parent = nullptr);
+	SectionContainer(QString title, bool isCollapsible = true, QWidget *parent = nullptr);
 
-		void setText(QString text);
-		QString text() const;
+	void setText(QString text);
+	QString text() const;
 
-		void setFont(QFont font);
-		QFont font() const;
+	void setFont(QFont font);
+	QFont font() const;
 
-		void setHasStyle(bool hasStyle);
-		bool hasStyle() const;
+	void setHasStyle(bool hasStyle);
+	bool hasStyle() const;
 
-		void setIsCollapsible(bool isCollapsible);
-		bool isCollapsible() const;
-		bool isCollapsed() const;
+	void setIsCollapsible(bool isCollapsible);
+	bool isCollapsible() const;
+	bool isCollapsed() const;
 
-		void setCollapseIcons(QIcon collapsed, QIcon expanded);
+	void setCollapseIcons(QIcon collapsed, QIcon expanded);
 
-		void setWidget(QWidget * widget);
-		QWidget *widget();
+	void setBodyEnabled(bool enabled);
 
-		void addHeaderSuffixWidget(QWidget *widget);
-		void insertHeaderSuffixWidget(int index, QWidget *widget);
-		void removeHeaderSuffixWidget(QWidget *widget);
-		void addHeaderSuffixSpacing(int size);
-		void insertHeaderSuffixSpacing(int index, int size);
+	void removeWidget();
+	void setWidget(QWidget *widget);
+	QWidget *widget();
 
-		void addHeaderPrefixWidget(QWidget *widget);
-		void insertHeaderPrefixWidget(int index, QWidget *widget);
-		void removeHeaderPrefixWidget(QWidget *widget);
-		void addHeaderPrefixSpacing(int size);
-		void insertHeaderPrefixSpacing(int index, int size);
+	bool hasWidget();
 
-	private:
-		SectionContainerHeader *widgetHeader { nullptr };
-		QVBoxLayout *mainLayout { nullptr };
-		QIcon iconCollapsed;
-		QIcon iconExpanded;
-		bool m_isCollapsible;
-		bool m_isCollapsed { false };
-		bool m_hasStyle { false };
+	void setLayout(QLayout *layout);
+	QLayout *layout() const;
 
-		void connectSlots();
+	QSize minimumSizeHint();
 
-		void paintEvent(QPaintEvent *event);
-		//	bool eventFilter(QObject *object, QEvent *event);
+	void addHeaderSuffixWidget(QWidget *widget);
+	void insertHeaderSuffixWidget(int index, QWidget *widget);
+	void removeHeaderSuffixWidget(QWidget *widget);
+	void addHeaderSuffixSpacing(int size);
+	void insertHeaderSuffixSpacing(int index, int size);
 
-	public slots:
-		void toggleCollpasedState();
-		void setIsCollapsed(bool state);
-		void iconSetChange();
+	void addHeaderPrefixWidget(QWidget *widget);
+	void insertHeaderPrefixWidget(int index, QWidget *widget);
+	void removeHeaderPrefixWidget(QWidget *widget);
+	void addHeaderPrefixSpacing(int size);
+	void insertHeaderPrefixSpacing(int index, int size);
 
-		signals:
-		void collapsedState(bool);
-		void currentIndexChanged(int index);
+private:
+	SectionContainerHeader *header { nullptr };
+	QWidget* body {new QWidget()};
+	QVBoxLayout *mainLayout { nullptr };
+	QIcon iconCollapsed;
+	QIcon iconExpanded;
+	bool m_isCollapsible;
+	bool m_isCollapsed { false };
+	bool m_hasStyle { false };
+	bool m_hasBody {false};
+
+	bool eventFilter(QObject *object, QEvent *event);
+
+	void connectSlots();
+
+	void paintEvent(QPaintEvent *event);
+
+protected:
+	QSize calculateSize();
+
+public slots:
+	void toggleCollpasedState();
+	void setIsCollapsed(bool state);
+	/**
+	 * @brief collapse widget. Same as setIsCollapsed(true)
+	 */
+	void collapse();
+	/**
+	 * @brief expand widget. Same as setIsCollapsed(false)
+	 */
+	void expand();
+	void iconSetChange();
+
+signals:
+	void collapsedStateChanged(bool);
+	void currentIndexChanged(int index);
+	void sizeChanged();
 };
 
 #endif // SECTIONCONTAINER_H

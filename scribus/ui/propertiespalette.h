@@ -36,7 +36,9 @@ class QWidget;
 class ColorCombo;
 class ColorPalette;
 class NameWidget;
+class PropertiesPalette_Attributes;
 class PropertiesPalette_Group;
+class PropertiesPalette_Fill;
 class PropertiesPalette_Line;
 class PropertiesPalette_Shadow;
 class PropertiesPalette_Shape;
@@ -57,7 +59,7 @@ public:
 	~PropertiesPalette() {}
 
 	void endPatchAdd();
-	void updateColorSpecialGradient();
+//	void updateColorSpecialGradient();
 	void updateColorList();
 	void setGradientEditMode(bool);
 	void setTextFlowMode(PageItem::TextFlowMode mode);
@@ -69,11 +71,11 @@ public:
                          // committed
 
 	PropertiesPalette_Line* linePal {nullptr};
+	PropertiesPalette_Fill* fillPal {nullptr};
 	PropertiesPalette_Shadow* shadowPal {nullptr};
 	PropertiesPalette_Shape* shapePal {nullptr};
 	PropertiesPalette_XYZ* xyzPal {nullptr};
-	ColorPalette *colorPalette {nullptr};
-	TransparencyPalette *transparencyPalette {nullptr};
+	PropertiesPalette_Attributes* attributesPal {nullptr};
 
 protected:
 	void changeEvent(QEvent *e) override;
@@ -101,22 +103,26 @@ public slots:
 
 private slots:
 
-	void handleGradientChanged();
 	void handleNewShape(int frameType);
-	void newSpGradient(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk, double cx, double cy);
-	void toggleGradientEdit(int);
-	void newSpGradientM(double x1, double y1, double x2, double y2, double fx, double fy, double sg, double sk);
-	void toggleGradientEditM();
 	void handleShapeEdit();
+
+	// Gradient Properties
+	void meshGradientToShape();
+	void createNewMeshGradient();
+	void resetMeshGradient();
+	void resetOneControlPoint();
+	void resetAllControlPoints();
+	void snapToPatchGrid(bool val);
+	void handleRemovePatch();
 
 protected:
 
 	SectionContainer * scXYZ {nullptr};
 	SectionContainer * scShape {nullptr};
 	SectionContainer * scLine {nullptr};
-	SectionContainer * scColor {nullptr};
-	SectionContainer * scTransparency {nullptr};
+	SectionContainer * scFill {nullptr};
 	SectionContainer * scShadow {nullptr};
+	SectionContainer * scAttributes {nullptr};
 
 	bool m_haveDoc {false};
 	bool m_haveItem {false};

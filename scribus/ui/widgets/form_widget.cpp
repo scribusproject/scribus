@@ -156,8 +156,6 @@ void FormWidget::paintEvent(QPaintEvent *e)
 		break;
 	}
 
-	// painter.drawRect(rect().adjusted(0,0,-1,-1));
-
 }
 
 bool FormWidget::event(QEvent *e)

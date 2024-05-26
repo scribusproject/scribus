@@ -33,7 +33,6 @@
 #include "ui/pageselector.h"
 #include "ui/scrspinbox.h"
 
-
 CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view)
 {
 	m_ScMW = m_view->m_ScMW;
@@ -52,7 +51,6 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	p->scale(m_canvas->scale(), m_canvas->scale());
 	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	p->setTransform(currItem->getTransform(), true);
-	p->setPen(QPen(Qt::blue, 1 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p->setBrush(Qt::NoBrush);
 
 	if ((m_doc->nodeEdit.isContourLine()) && (!currItem->ContourLine.empty()))
@@ -73,17 +71,20 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 				p->scale(1, -1);
 			}
 		}
-	}
-	// draw curve
+	}	
 	const double scale = m_canvas->m_viewMode.scale;
-	const double onePerScale = 1 / scale;
+
+	// Draw Vector Path
 	if (cli.size() > 3)
 	{
+		p->save();
+		p->setRenderHint(QPainter::Antialiasing);
+
 		for (int i = 0; i < cli.size() - 3; i += 4)
 		{
 			if (cli.isMarker(i))
 				continue;
-			p->setPen(QPen(Qt::blue, onePerScale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+
 			const FPoint& a1 = cli.point(i);
 			const FPoint& a2 = cli.point(i + 1);
 			const FPoint& a3 = cli.point(i + 3);
@@ -91,52 +92,51 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 			QPainterPath Bez;
 			Bez.moveTo(a1.x(), a1.y());
 			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
+			p->setPen(pens().value("vector"));
 			p->drawPath(Bez);
-			p->setPen(QPen(Qt::blue, onePerScale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setPen(pens().value("node-handle"));
 			p->drawLine(QPointF(a1.x(), a1.y()), QPointF(a2.x(), a2.y()));
 			p->drawLine(QPointF(a3.x(), a3.y()), QPointF(a4.x(), a4.y()));
 		}
+		p->restore();
 	}
 	double x = 0.0;
 	double y = 0.0;
-	// draw points
+	// Draw Nodes
 	for (int i = 0; i < cli.size() - 1; i += 2)
 	{
 		if (cli.isMarker(i))
 			continue;
-		Qt::GlobalColor color1 = (m_doc->nodeEdit.clre() == (i + 1)) ? Qt::red : Qt::magenta;
-		Qt::GlobalColor color2 = (m_doc->nodeEdit.clre() == i) ? Qt::red : Qt::blue;
+
 		if (m_doc->nodeEdit.edPoints())
 		{
-			p->setPen(QPen(color1, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			cli.point(i + 1, &x, &y);
-			p->drawPoint(QPointF(x, y));
-			p->setPen(QPen(color2, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			drawNodeControl(p, QPointF(x, y), pens().value("node"), scale);
+
 			cli.point(i, &x, &y);
-			p->drawPoint(QPointF(x, y));
+			drawNodeHandle(p, QPointF(x, y), pens().value("node"), scale);
 		}
 		else
 		{
-			p->setPen(QPen(color2, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			cli.point(i, &x, &y);
-			p->drawPoint(QPointF(x, y));
-			p->setPen(QPen(color1, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			drawNodeHandle(p, QPointF(x, y), pens().value("node"), scale);
+
 			cli.point(i + 1, &x, &y);
-			p->drawPoint(QPointF(x, y));
+			drawNodeControl(p, QPointF(x, y), pens().value("node"), scale);
 		}
 	}
 	
 	if (m_doc->nodeEdit.clre() != -1)
 	{
-		p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 		cli.point(m_doc->nodeEdit.clre(), &x, &y);
-		p->drawPoint(QPointF(x, y));
+		drawNodeControl(p, QPointF(x, y), pens().value("node"), scale, true);
+
 		const auto& selectedNodes = m_doc->nodeEdit.selNode();
 		for (int i = 0; i < selectedNodes.count(); ++i)
 		{
 			int selectedNode = selectedNodes.at(i);
 			cli.point(selectedNode, &x, &y);
-			p->drawPoint(QPointF(x, y));
+			drawNodeHandle(p, QPointF(x, y), pens().value("node"), scale, true);
 		}
 	}
 

@@ -23,7 +23,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "iconmanager.h"
 #include "pagepalette_widgets.h"
+#include "prefsmanager.h"
 #include "scribusapp.h"
+#include "util_gui.h"
 
 const QString MIMETYPE = "page/magic";
 
@@ -237,7 +239,7 @@ PageGrid::PageGrid(QWidget *parent)
 	m_rowSpace = 12;
 	m_fontSize = 7; // font size of number label and masterpage label
 	m_labelGap = 8; // gap between page and number label
-	m_colorSelection = QColor(255, 51, 51);
+	m_colorSelection = PrefsManager::instance().appPrefs.displayPrefs.pageBorderColor;
 	m_pageOffset = 0;
 	m_pageLayout = PageLayout::singlePage;
 	m_cellsInGroup = 1; // single page
@@ -928,7 +930,7 @@ void PageGrid::paintEvent(QPaintEvent *event)
 	// Draw selected page
 	if(!selectedPageRect.isEmpty())
 	{
-		QColor colorSelection = (this->isEnabled()) ? m_colorSelection : palette().highlight().color();
+		QColor colorSelection = (this->isEnabled()) ? m_colorSelection : disabledColor(m_colorSelection);
 		painter.setPen( QPen(colorSelection, 2) );
 		painter.setBrush(Qt::NoBrush);
 		painter.drawRect(selectedPageRect);

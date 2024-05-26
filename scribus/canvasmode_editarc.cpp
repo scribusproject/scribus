@@ -81,13 +81,8 @@ void CanvasMode_EditArc::drawControls(QPainter* p)
 
 void CanvasMode_EditArc::drawControlsArc(QPainter* psx, PageItem* currItem)
 {
-	QPen p1b = QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	QPen p1bd = QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
-	QPen p8b = QPen(Qt::blue, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	QPen p8r = QPen(Qt::red, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	psx->setTransform(currItem->getTransform(), true);
-	psx->setPen(p1b);
-	psx->setBrush(Qt::NoBrush);
+	qreal scale = m_canvas->m_viewMode.scale;
+
 	QPainterPath pp;
 	const PageItem_Arc* item = currItem->asArc();
 	QPointF mPoint = item->PoLine.pointQF(0);
@@ -99,31 +94,31 @@ void CanvasMode_EditArc::drawControlsArc(QPainter* psx, PageItem* currItem)
 	pp.moveTo(mPoint);
 	pp.arcTo(QRectF(mPoint.x() - nWidth, mPoint.y() - nHeight, nWidth * 2, nHeight * 2), m_startAngle, nSweep);
 	pp.closeSubpath();
+
+	psx->save();
+	psx->setRenderHint(QPainter::Antialiasing);
+
+	// Draw Vector Path
+	psx->setTransform(currItem->getTransform(), true);
+	psx->setPen(pens().value("vector"));
+	psx->setBrush(Qt::NoBrush);
 	psx->drawPath(pp);
-	psx->setPen(p1bd);
+
+	if (currItem->rotation() == 0 || currItem->rotation() == 90 || currItem->rotation() == 180 || currItem->rotation() == 270)
+		psx->setRenderHint(QPainter::Antialiasing, false);
+
+	// Draw Handle lines
+	psx->setPen(pens().value("node-dash"));
 	psx->drawLine(mPoint, m_widthPoint);
 	psx->drawLine(mPoint, m_heightPoint);
-	psx->setPen(p8b);
-	if (m_arcPoint == useControlStart)
-		psx->setPen(p8r);
-	else
-		psx->setPen(p8b);
-	psx->drawPoint(m_startPoint);
-	if (m_arcPoint == useControlSweep)
-		psx->setPen(p8r);
-	else
-		psx->setPen(p8b);
-	psx->drawPoint(m_endPoint);
-	if (m_arcPoint == useControlWidth)
-		psx->setPen(p8r);
-	else
-		psx->setPen(p8b);
-	psx->drawPoint(m_widthPoint);
-	if (m_arcPoint == useControlHeight)
-		psx->setPen(p8r);
-	else
-		psx->setPen(p8b);
-	psx->drawPoint(m_heightPoint);
+
+	// Draw Nodes
+	drawNodeHandle(psx, m_startPoint, pens().value("node"), scale, m_arcPoint == useControlStart);
+	drawNodeHandle(psx, m_endPoint, pens().value("node"), scale, m_arcPoint == useControlSweep);
+	drawNodeHandle(psx, m_widthPoint, pens().value("node"), scale, m_arcPoint == useControlWidth);
+	drawNodeHandle(psx, m_heightPoint, pens().value("node"), scale, m_arcPoint == useControlHeight);
+
+	psx->restore();
 }
 
 void CanvasMode_EditArc::enterEvent(QEvent *e)

@@ -11,13 +11,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scrspinbox.h"
-#include "linkbutton.h"
-#include "sclistboxpixmap.h"
 #include "scguardedptr.h"
 #include "units.h"
 
 class BasePointWidget;
-class NameWidget;
 class PageItem;
 class ScribusDoc;
 class Selection;
@@ -62,7 +59,6 @@ public slots:
 	void showRotation(double r);
 	void showLocked(bool);
 	void showSizeLocked(bool);
-	void showPrintingEnabled(bool);
 	void showFlippedH(bool);
 	void showFlippedV(bool);
 
@@ -86,8 +82,6 @@ private slots:
 	void handleBasePoint(AnchorPoint m);
 	void handleLock();
 	void handleLockSize();
-	void handlePrint();
-	void handleNewName();
 	void handleGrouping();
 	void handleUngrouping();
 	void handleLineMode();

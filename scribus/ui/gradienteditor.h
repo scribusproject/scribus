@@ -37,6 +37,7 @@ class QEvent;
 #include "gradientpreview.h"
 #include "ui_gradienteditor.h"
 #include "sccolorengine.h"
+#include "colorlistbox.h"
 
 class SCRIBUS_API GradientEditor : public QFrame, Ui::GradientEditorBase
 {
@@ -52,22 +53,34 @@ public:
 	QColor setColor(const QString& colorName, int shad);
 	void setGradientEditable(bool val);
 
+	VGradient::VGradientRepeatMethod repeatMethod();
+	void setRepeatMethod(VGradient::VGradientRepeatMethod method);
+
+	void setExtendVisible(bool visible);
+
 public slots:
 	void setPos(double);
 	void changePos(double);
 	void slotColor(const QString& name, int shade);
 	void slotDisplayStop(VColorStop* stop);
 	void setGradTrans(double val);
-	void setStopColor(const QString &);
-	void setStopTrans(double val);
-	void setStopShade(double val);
+	void setStopColor();
+//	void setStopTrans(double val);
+//	void setStopShade(double val);
 	void languageChange();
+
+private slots:
+	void updateColorButton();
 
 signals:
 	void gradientChanged();
+	void repeatMethodChanged();
 
 protected:
 	ColorList m_colorList;
+	ColorListBox *colorListBox;
+
+	void initExtend();
 
 	void changeEvent(QEvent *e) override;
 	bool event(QEvent * event ) override;

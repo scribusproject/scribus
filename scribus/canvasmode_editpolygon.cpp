@@ -87,47 +87,44 @@ void CanvasMode_EditPolygon::drawControls(QPainter* p)
 
 void CanvasMode_EditPolygon::drawControlsPolygon(QPainter* psx, PageItem* currItem)
 {
-	QPen p1b = QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	QPen p1bd = QPen(Qt::red, 1.0 / m_canvas->m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
-	QPen p8b = QPen(Qt::blue, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	QPen p8r = QPen(Qt::red, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	psx->setTransform(currItem->getTransform(), true);
-	psx->setPen(p1b);
-	psx->setBrush(Qt::NoBrush);
+	qreal scale = m_canvas->m_viewMode.scale;
 	PageItem_RegularPolygon* item = currItem->asRegularPolygon();
 	QPainterPath path = regularPolygonPath(item->width(), item->height(), m_polyCorners, m_polyUseFactor, m_polyFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature);
+
+	psx->save();
+	psx->setTransform(currItem->getTransform(), true);
+	psx->setRenderHint(QPainter::Antialiasing);
+
+	// Draw Vector path
+	psx->setPen(pens().value("vector"));
+	psx->setBrush(Qt::NoBrush);
 	psx->drawPath(path);
-	psx->setPen(p1bd);
-	psx->drawLine(m_startPoint, m_endPoint);
+
+	// Draw Control Lines
 	if (m_polyUseFactor)
 	{
+		psx->setPen(pens().value("node-handle"));
 		psx->drawLine(m_endPoint, m_innerCPoint);
 		psx->drawLine(m_startPoint, m_outerCPoint);
 	}
-	psx->setPen(p8b);
-	if (m_polygonPoint == useControlOuter)
-		psx->setPen(p8r);
-	else
-		psx->setPen(p8b);
-	psx->drawPoint(m_startPoint);
-	if (m_polygonPoint == useControlInner)
-		psx->setPen(p8r);
-	else
-		psx->setPen(p8b);
-	psx->drawPoint(m_endPoint);
+	psx->setPen(pens().value("node-dash"));
+	psx->drawLine(m_startPoint, m_endPoint);
+
+	if (currItem->rotation() == 0 || currItem->rotation() == 90 || currItem->rotation() == 180 || currItem->rotation() == 270)
+		psx->setRenderHint(QPainter::Antialiasing, false);
+
+	// Draw Node Handle
+	drawNodeHandle(psx, m_startPoint, pens().value("node"), scale, m_polygonPoint == useControlOuter);
+	drawNodeHandle(psx, m_endPoint, pens().value("node"), scale, m_polygonPoint == useControlInner);
+
+	// Draw Node Controls
 	if (m_polyUseFactor)
 	{
-		if (m_polygonPoint == useControlInnerCurve)
-			psx->setPen(p8r);
-		else
-			psx->setPen(p8b);
-		psx->drawPoint(m_innerCPoint);
-		if (m_polygonPoint == useControlOuterCurve)
-			psx->setPen(p8r);
-		else
-			psx->setPen(p8b);
-		psx->drawPoint(m_outerCPoint);
+		drawNodeControl(psx, m_innerCPoint, pens().value("node"), scale, m_polygonPoint == useControlInnerCurve);
+		drawNodeControl(psx, m_outerCPoint, pens().value("node"), scale, m_polygonPoint == useControlOuterCurve);
 	}
+
+	psx->restore();
 }
 
 void CanvasMode_EditPolygon::enterEvent(QEvent *e)

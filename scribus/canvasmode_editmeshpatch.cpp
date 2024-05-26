@@ -86,11 +86,13 @@ void CanvasMode_EditMeshPatch::drawControls(QPainter* p)
 
 void CanvasMode_EditMeshPatch::drawControlsMeshPoint(QPainter* psx, const MeshPoint& mp, bool isSelected)
 {
-	QPen p8r = QPen(Qt::red, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	QPen p8m = QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	QPen p14r = QPen(Qt::red, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	QPen p14w = QPen(Qt::white, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	if (m_view->editStrokeGradient == 8)
+//	QPen p14r = QPen(Qt::red, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
+//	QPen p14w = QPen(Qt::white, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
+	qreal scale = m_canvas->m_viewMode.scale;
+
+	drawNodeHandle(psx, QPointF(mp.gridPoint.x(), mp.gridPoint.y()), pens().value("node"), scale, isSelected);
+
+/*	if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Color)
 	{
 		if (isSelected)
 			psx->setPen(p14r);
@@ -105,29 +107,29 @@ void CanvasMode_EditMeshPatch::drawControlsMeshPoint(QPainter* psx, const MeshPo
 			psx->setPen(p8m);
 		psx->drawPoint(QPointF(mp.controlColor.x(), mp.controlColor.y()));
 	}
-	else if (m_view->editStrokeGradient == 9)
+	else */if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Point)
 	{
-		if (isSelected)
-			psx->setPen(p8r);
-		else
-			psx->setPen(p8m);
-		psx->drawPoint(QPointF(mp.gridPoint.x(), mp.gridPoint.y()));
+//		if (isSelected)
+//			psx->setPen(p8r);
+//		else
+//			psx->setPen(p8m);
+//		psx->drawPoint(QPointF(mp.gridPoint.x(), mp.gridPoint.y()));
+
+
 	}
 }
 
 void CanvasMode_EditMeshPatch::drawControlsMeshPatch(QPainter* psx, PageItem* currItem)
 {
-	QPen p1b = QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	QPen p1bd = QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
-//	QPen p8b = QPen(Qt::blue, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	QPen p8r = QPen(Qt::red, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-	QPen p8m = QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-//	QPen p14r = QPen(Qt::red, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
-//	QPen p14w = QPen(Qt::white, 18.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
+	qreal scale = m_canvas->m_viewMode.scale;
+
+	psx->save();
 	psx->setTransform(currItem->getTransform(), true);
-	psx->setPen(p1b);
+	psx->setRenderHint(QPainter::Antialiasing);
+	psx->setPen(pens().value("vector"));
 	psx->setBrush(Qt::NoBrush);
 
+	// Draw Vector Path
 	for (int col = 0; col < currItem->meshGradientPatches.count(); col++)
 	{
 		meshGradientPatch patch = currItem->meshGradientPatches[col];
@@ -143,10 +145,11 @@ void CanvasMode_EditMeshPatch::drawControlsMeshPatch(QPainter* psx, PageItem* cu
 			Bez.cubicTo(mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
 			Bez.cubicTo(mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
 			Bez.cubicTo(mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
-			psx->setPen(p1b);
 			psx->drawPath(Bez);
 		}
 	}
+
+	// Draw Selected Patch Mesh
 	if (currItem->selectedMeshPointX >= 0)
 	{
 		meshGradientPatch patch = currItem->meshGradientPatches[currItem->selectedMeshPointX];
@@ -154,108 +157,92 @@ void CanvasMode_EditMeshPatch::drawControlsMeshPatch(QPainter* psx, PageItem* cu
 		MeshPoint mp2 = patch.TR;
 		MeshPoint mp3 = patch.BR;
 		MeshPoint mp4 = patch.BL;
+
+		// Draw Node Controls
+		if (m_view->editStrokeGradient == GradientEdit::PatchMesh_ControlPoints)
+		{
+			if (m_patchPoint == useTL)
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
+				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
+
+				drawNodeControl(psx, QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()), pens().value("node"), scale, m_gradientPoint == useControlB);
+				drawNodeControl(psx, QPointF(mp1.controlRight.x(), mp1.controlRight.y()), pens().value("node"), scale, m_gradientPoint == useControlR);
+			}
+			else if (m_patchPoint == useTR)
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp2.gridPoint.x(), mp2.gridPoint.y()), QPointF(mp2.controlBottom.x(), mp2.controlBottom.y()));
+				psx->drawLine(QPointF(mp2.gridPoint.x(), mp2.gridPoint.y()), QPointF(mp2.controlLeft.x(), mp2.controlLeft.y()));
+
+				drawNodeControl(psx, QPointF(mp2.controlLeft.x(), mp2.controlLeft.y()), pens().value("node"), scale, m_gradientPoint == useControlL);
+				drawNodeControl(psx, QPointF(mp2.controlBottom.x(), mp2.controlBottom.y()), pens().value("node"), scale, m_gradientPoint == useControlB);
+			}
+			else if (m_patchPoint == useBR)
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp3.gridPoint.x(), mp3.gridPoint.y()), QPointF(mp3.controlTop.x(), mp3.controlTop.y()));
+				psx->drawLine(QPointF(mp3.gridPoint.x(), mp3.gridPoint.y()), QPointF(mp3.controlLeft.x(), mp3.controlLeft.y()));
+
+				drawNodeControl(psx, QPointF(mp3.controlTop.x(), mp3.controlTop.y()), pens().value("node"), scale, m_gradientPoint == useControlT);
+				drawNodeControl(psx, QPointF(mp3.controlLeft.x(), mp3.controlLeft.y()), pens().value("node"), scale, m_gradientPoint == useControlL);
+			}
+			else if (m_patchPoint == useBL)
+			{
+				psx->setPen(pens().value("node-handle"));
+				psx->drawLine(QPointF(mp4.gridPoint.x(), mp4.gridPoint.y()), QPointF(mp4.controlTop.x(), mp4.controlTop.y()));
+				psx->drawLine(QPointF(mp4.gridPoint.x(), mp4.gridPoint.y()), QPointF(mp4.controlRight.x(), mp4.controlRight.y()));
+
+				drawNodeControl(psx, QPointF(mp4.controlRight.x(), mp4.controlRight.y()), pens().value("node"), scale, m_gradientPoint == useControlR);
+				drawNodeControl(psx, QPointF(mp4.controlTop.x(), mp4.controlTop.y()), pens().value("node"), scale, m_gradientPoint == useControlT);
+			}
+		}
+
+		if (currItem->rotation() == 0 || currItem->rotation() == 90 || currItem->rotation() == 180 || currItem->rotation() == 270)
+			psx->setRenderHint(QPainter::Antialiasing, false);
+
+		// Draw Nodes
 		QPainterPath Bez;
 		Bez.moveTo(mp1.gridPoint.x(), mp1.gridPoint.y());
 		Bez.cubicTo(mp1.controlRight.x(), mp1.controlRight.y(), mp2.controlLeft.x(), mp2.controlLeft.y(), mp2.gridPoint.x(), mp2.gridPoint.y());
 		Bez.cubicTo(mp2.controlBottom.x(), mp2.controlBottom.y(), mp3.controlTop.x(), mp3.controlTop.y(), mp3.gridPoint.x(), mp3.gridPoint.y());
 		Bez.cubicTo(mp3.controlLeft.x(), mp3.controlLeft.y(), mp4.controlRight.x(), mp4.controlRight.y(), mp4.gridPoint.x(), mp4.gridPoint.y());
 		Bez.cubicTo(mp4.controlTop.x(), mp4.controlTop.y(), mp1.controlBottom.x(), mp1.controlBottom.y(), mp1.gridPoint.x(), mp1.gridPoint.y());
-		psx->setPen(QPen(Qt::red, 1.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		psx->setPen(pens().value("selection-group-inside"));
+		psx->setBrush(Qt::NoBrush);
 		psx->drawPath(Bez);
 		drawControlsMeshPoint(psx, mp1, m_patchPoint == useTL);
 		drawControlsMeshPoint(psx, mp2, m_patchPoint == useTR);
 		drawControlsMeshPoint(psx, mp3, m_patchPoint == useBR);
 		drawControlsMeshPoint(psx, mp4, m_patchPoint == useBL);
-		if (m_view->editStrokeGradient == 10)
-		{
-			if (m_patchPoint == useTL)
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-				psx->drawLine(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()), QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-				if (m_gradientPoint == useControlB)
-					psx->setPen(p8r);
-				else
-					psx->setPen(p8m);
-				psx->drawPoint(QPointF(mp1.controlBottom.x(), mp1.controlBottom.y()));
-				if (m_gradientPoint == useControlR)
-					psx->setPen(p8r);
-				else
-					psx->setPen(p8m);
-				psx->drawPoint(QPointF(mp1.controlRight.x(), mp1.controlRight.y()));
-			}
-			else if (m_patchPoint == useTR)
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp2.gridPoint.x(), mp2.gridPoint.y()), QPointF(mp2.controlBottom.x(), mp2.controlBottom.y()));
-				psx->drawLine(QPointF(mp2.gridPoint.x(), mp2.gridPoint.y()), QPointF(mp2.controlLeft.x(), mp2.controlLeft.y()));
-				if (m_gradientPoint == useControlL)
-					psx->setPen(p8r);
-				else
-					psx->setPen(p8m);
-				psx->drawPoint(QPointF(mp2.controlLeft.x(), mp2.controlLeft.y()));
-				if (m_gradientPoint == useControlB)
-					psx->setPen(p8r);
-				else
-					psx->setPen(p8m);
-				psx->drawPoint(QPointF(mp2.controlBottom.x(), mp2.controlBottom.y()));
-			}
-			else if (m_patchPoint == useBR)
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp3.gridPoint.x(), mp3.gridPoint.y()), QPointF(mp3.controlTop.x(), mp3.controlTop.y()));
-				psx->drawLine(QPointF(mp3.gridPoint.x(), mp3.gridPoint.y()), QPointF(mp3.controlLeft.x(), mp3.controlLeft.y()));
-				if (m_gradientPoint == useControlL)
-					psx->setPen(p8r);
-				else
-					psx->setPen(p8m);
-				psx->drawPoint(QPointF(mp3.controlLeft.x(), mp3.controlLeft.y()));
-				if (m_gradientPoint == useControlT)
-					psx->setPen(p8r);
-				else
-					psx->setPen(p8m);
-				psx->drawPoint(QPointF(mp3.controlTop.x(), mp3.controlTop.y()));
-			}
-			else if (m_patchPoint == useBL)
-			{
-				psx->setPen(p1bd);
-				psx->drawLine(QPointF(mp4.gridPoint.x(), mp4.gridPoint.y()), QPointF(mp4.controlTop.x(), mp4.controlTop.y()));
-				psx->drawLine(QPointF(mp4.gridPoint.x(), mp4.gridPoint.y()), QPointF(mp4.controlRight.x(), mp4.controlRight.y()));
-				if (m_gradientPoint == useControlR)
-					psx->setPen(p8r);
-				else
-					psx->setPen(p8m);
-				psx->drawPoint(QPointF(mp4.controlRight.x(), mp4.controlRight.y()));
-				if (m_gradientPoint == useControlT)
-					psx->setPen(p8r);
-				else
-					psx->setPen(p8m);
-				psx->drawPoint(QPointF(mp4.controlTop.x(), mp4.controlTop.y()));
-			}
-		}
+
 	}
-	if (m_view->editStrokeGradient == 11)
+	if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Polygon)
 	{
+		psx->setBrush(Qt::NoBrush);
+
 		if (m_clickPointPolygon.size() > 1)
 		{
-			psx->setPen(p1b);
+			psx->setPen(pens().value("vector"));
 			psx->drawPolyline(m_clickPointPolygon);
 		}
-		psx->setPen(p8r);
+
 		for (int col = 0; col < m_clickPointPolygon.size(); col++)
-		{
-			psx->drawPoint(m_clickPointPolygon.value(col));
-		}
+			drawNodeHandle(psx, m_clickPointPolygon.value(col), pens().value("node"), scale, true);
+
 		if (!m_clickPointPolygon.empty())
 		{
-			psx->setPen(p1bd);
+			psx->setPen(pens().value("vector"));
 			psx->drawLine(m_clickPointPolygon.value(m_clickPointPolygon.count() - 1), m_currentPoint);
 			if (m_clickPointPolygon.size() == 3)
 				psx->drawLine(m_clickPointPolygon.value(0), m_currentPoint);
 		}
-		psx->setPen(p8r);
-		psx->drawPoint(m_currentPoint);
+
+		drawNodeHandle(psx, m_currentPoint, pens().value("node"), scale, true);
 	}
+
+	psx->restore();
 }
 
 void CanvasMode_EditMeshPatch::enterEvent(QEvent *e)
@@ -303,7 +290,7 @@ void CanvasMode_EditMeshPatch::deactivate(bool forGesture)
 	m_currItem->selectedMeshPointX = -1;
 	m_currItem->selectedMeshPointY = m_patchPoint;
 	m_currItem->selectedMeshControlPoint = m_gradientPoint;
-	m_ScMW->propertiesPalette->updateColorSpecialGradient();
+//	m_ScMW->propertiesPalette->updateColorSpecialGradient();
 	m_currItem->snapToPatchGrid = false;
 
 	CanvasMode::deactivate(forGesture);
@@ -396,7 +383,7 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 					doUpdate = true;
 					break;
 				case Qt::Key_5:
-					if (m_view->editStrokeGradient == 8)
+					if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Color)
 					{
 						if (m_patchPoint == useTL)
 							currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.controlColor = currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.gridPoint;
@@ -408,7 +395,7 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 							currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.controlColor = currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.gridPoint;
 						doUpdate = true;
 					}
-					else if (m_view->editStrokeGradient == 10)
+					else if (m_view->editStrokeGradient == GradientEdit::PatchMesh_ControlPoints)
 					{
 						if (m_patchPoint == useTL)
 						{
@@ -446,7 +433,7 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 			{
 				if (m_patchPoint != noPointDefined)
 				{
-					if (m_view->editStrokeGradient == 8)
+					if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Color)
 					{
 						if (m_patchPoint == useTL)
 							currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.controlColor += FPoint(moveX, moveY);
@@ -457,7 +444,7 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 						if (m_patchPoint == useBL)
 							currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.controlColor += FPoint(moveX, moveY);
 					}
-					else if (m_view->editStrokeGradient == 9)
+					else if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Point)
 					{
 						if (m_patchPoint == useTL)
 							currItem->meshGradientPatches[currItem->selectedMeshPointX].TL.moveRel(moveX, moveY);
@@ -468,7 +455,7 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 						if (m_patchPoint == useBL)
 							currItem->meshGradientPatches[currItem->selectedMeshPointX].BL.moveRel(moveX, moveY);
 					}
-					else if (m_view->editStrokeGradient == 10)
+					else if (m_view->editStrokeGradient == GradientEdit::PatchMesh_ControlPoints)
 					{
 						if (m_patchPoint == useTL)
 						{
@@ -561,7 +548,7 @@ void CanvasMode_EditMeshPatch::mouseMoveEvent(QMouseEvent *m)
 	QTransform pp = m_currItem->getTransform();
 	FPoint npf = npfN.transformPoint(pp, true);
 	FPoint npx(m_Mxp - npfN.x(), m_Myp - npfN.y(), 0, 0, m_currItem->rotation(), 1, 1, true);
-	if (m_view->editStrokeGradient == 11)
+	if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Polygon)
 	{
 		m_currentPoint = QPointF(npf.x(), npf.y());
 		m_canvas->displayXYHUD(m->globalPosition(), npf.x(), npf.y());
@@ -577,7 +564,7 @@ void CanvasMode_EditMeshPatch::mouseMoveEvent(QMouseEvent *m)
 		{
 			if (m_patchPoint != noPointDefined)
 			{
-				if (m_view->editStrokeGradient == 8)
+				if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Color)
 				{
 					FPoint cP;
 					FPoint gP;
@@ -611,75 +598,74 @@ void CanvasMode_EditMeshPatch::mouseMoveEvent(QMouseEvent *m)
 					if (m_patchPoint == useBL)
 						m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL.controlColor -= npx;
 				}
-				else if (m_view->editStrokeGradient == 9)
+				else if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Point)
 				{
 					m_canvas->displayXYHUD(m->globalPosition(), npf.x(), npf.y());
-					if (m_view->editStrokeGradient == 9)
+
+					FPoint mp;
+					FPoint mp_orig;
+					double xx = 0.0;
+					double yy = 0.0;
+					if (m_patchPoint == useTL)
 					{
-						FPoint mp;
-						FPoint mp_orig;
-						double xx = 0.0;
-						double yy = 0.0;
-						if (m_patchPoint == useTL)
+						mp_orig = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TL.gridPoint;
+						mp = mp_orig - npx;
+						xx = mp.x();
+						yy = mp.y();
+						if (m_currItem->snapToPatchGrid)
+							snapToOtherPatch(xx, yy);
+						m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TL.moveAbs(xx, yy);
+					}
+					if (m_patchPoint == useTR)
+					{
+						mp_orig = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TR.gridPoint;
+						mp = mp_orig - npx;
+						xx = mp.x();
+						yy = mp.y();
+						if (m_currItem->snapToPatchGrid)
+							snapToOtherPatch(xx, yy);
+						m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TR.moveAbs(xx, yy);
+					}
+					if (m_patchPoint == useBR)
+					{
+						mp_orig = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BR.gridPoint;
+						mp = mp_orig - npx;
+						xx = mp.x();
+						yy = mp.y();
+						if (m_currItem->snapToPatchGrid)
+							snapToOtherPatch(xx, yy);
+						m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BR.moveAbs(xx, yy);
+					}
+					if (m_patchPoint == useBL)
+					{
+						mp_orig = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL.gridPoint;
+						mp = mp_orig - npx;
+						xx = mp.x();
+						yy = mp.y();
+						if (m_currItem->snapToPatchGrid)
+							snapToOtherPatch(xx, yy);
+						m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL.moveAbs(xx, yy);
+					}
+					if (m->modifiers() & Qt::ShiftModifier)
+					{
+						for (int col = 0; col < m_currItem->meshGradientPatches.count(); col++)
 						{
-							mp_orig = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TL.gridPoint;
-							mp = mp_orig - npx;
-							xx = mp.x();
-							yy = mp.y();
-							if (m_currItem->snapToPatchGrid)
-								snapToOtherPatch(xx, yy);
-							m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TL.moveAbs(xx, yy);
-						}
-						if (m_patchPoint == useTR)
-						{
-							mp_orig = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TR.gridPoint;
-							mp = mp_orig - npx;
-							xx = mp.x();
-							yy = mp.y();
-							if (m_currItem->snapToPatchGrid)
-								snapToOtherPatch(xx, yy);
-							m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TR.moveAbs(xx, yy);
-						}
-						if (m_patchPoint == useBR)
-						{
-							mp_orig = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BR.gridPoint;
-							mp = mp_orig - npx;
-							xx = mp.x();
-							yy = mp.y();
-							if (m_currItem->snapToPatchGrid)
-								snapToOtherPatch(xx, yy);
-							m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BR.moveAbs(xx, yy);
-						}
-						if (m_patchPoint == useBL)
-						{
-							mp_orig = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL.gridPoint;
-							mp = mp_orig - npx;
-							xx = mp.x();
-							yy = mp.y();
-							if (m_currItem->snapToPatchGrid)
-								snapToOtherPatch(xx, yy);
-							m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].BL.moveAbs(xx, yy);
-						}
-						if (m->modifiers() & Qt::ShiftModifier)
-						{
-							for (int col = 0; col < m_currItem->meshGradientPatches.count(); col++)
+							if (col != m_currItem->selectedMeshPointX)
 							{
-								if (col != m_currItem->selectedMeshPointX)
-								{
-									if (m_currItem->meshGradientPatches[col].TL.gridPoint == mp_orig)
-										m_currItem->meshGradientPatches[col].TL.moveAbs(xx, yy);
-									if (m_currItem->meshGradientPatches[col].TR.gridPoint == mp_orig)
-										m_currItem->meshGradientPatches[col].TR.moveAbs(xx, yy);
-									if (m_currItem->meshGradientPatches[col].BR.gridPoint == mp_orig)
-										m_currItem->meshGradientPatches[col].BR.moveAbs(xx, yy);
-									if (m_currItem->meshGradientPatches[col].BL.gridPoint == mp_orig)
-										m_currItem->meshGradientPatches[col].BL.moveAbs(xx, yy);
-								}
+								if (m_currItem->meshGradientPatches[col].TL.gridPoint == mp_orig)
+									m_currItem->meshGradientPatches[col].TL.moveAbs(xx, yy);
+								if (m_currItem->meshGradientPatches[col].TR.gridPoint == mp_orig)
+									m_currItem->meshGradientPatches[col].TR.moveAbs(xx, yy);
+								if (m_currItem->meshGradientPatches[col].BR.gridPoint == mp_orig)
+									m_currItem->meshGradientPatches[col].BR.moveAbs(xx, yy);
+								if (m_currItem->meshGradientPatches[col].BL.gridPoint == mp_orig)
+									m_currItem->meshGradientPatches[col].BL.moveAbs(xx, yy);
 							}
 						}
 					}
+
 				}
-				else if (m_view->editStrokeGradient == 10)
+				else if (m_view->editStrokeGradient == GradientEdit::PatchMesh_ControlPoints)
 				{
 					if (m_patchPoint == useTL)
 					{
@@ -744,7 +730,7 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 	m_currItem = m_doc->m_Selection->itemAt(0);
 	QTransform itemMatrix = m_currItem->getTransform();
 	bool found = false;
-	if (m_view->editStrokeGradient == 11)
+	if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Polygon)
 	{
 		m_gradientPoint = noControlPointDefined;
 		m_patchPoint = noPointDefined;
@@ -775,7 +761,7 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 			patch.BL = mgP;
 			m_currItem->meshGradientPatches.append(patch);
 			m_currItem->selectedMeshPointX = m_currItem->meshGradientPatches.count() - 1;
-			m_view->editStrokeGradient = 9;
+			m_view->editStrokeGradient = GradientEdit::PatchMesh_Point;
 			m_click_count = 0;
 			m_clickPointPolygon.clear();
 			m_ScMW->propertiesPalette->endPatchAdd();
@@ -785,7 +771,7 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 	{
 		if (m_currItem->selectedMeshPointX >= 0)
 		{
-			if (m_view->editStrokeGradient == 8)
+			if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Color)
 			{
 				meshGradientPatch patch = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX];
 				MeshPoint mp1 = patch.TL;
@@ -815,7 +801,7 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 				else
 					m_patchPoint = noPointDefined;
 			}
-			else if (m_view->editStrokeGradient == 9)
+			else if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Point)
 			{
 				meshGradientPatch patch = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX];
 				MeshPoint mp1 = patch.TL;
@@ -845,7 +831,7 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 				else
 					m_patchPoint = noPointDefined;
 			}
-			else if (m_view->editStrokeGradient == 10)
+			else if (m_view->editStrokeGradient == GradientEdit::PatchMesh_ControlPoints)
 			{
 				if (m_patchPoint != noPointDefined)
 				{
@@ -945,8 +931,8 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 		m_currItem->selectedMeshPointY = m_patchPoint;
 		m_currItem->selectedMeshControlPoint = m_gradientPoint;
 	}
-	m_canvas->m_viewMode.m_MouseButtonPressed = true;
-	m_ScMW->propertiesPalette->updateColorSpecialGradient();
+	m_canvas->m_viewMode.m_MouseButtonPressed = true;	
+//	m_ScMW->propertiesPalette->updateColorSpecialGradient();
 	m_view->setCursor(QCursor(Qt::CrossCursor));
 	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, m_currItem->width(), m_currItem->height())).adjusted(-m_currItem->width() / 2.0, -m_currItem->height() / 2.0, m_currItem->width(), m_currItem->height()));
 
@@ -957,7 +943,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	if (m_view->editStrokeGradient != 11 && m_currItem->selectedMeshPointX >=0 && m_patchPoint != noPointDefined && UndoManager::undoEnabled())
+	if (m_view->editStrokeGradient != GradientEdit::PatchMesh_Polygon && m_currItem->selectedMeshPointX >=0 && m_patchPoint != noPointDefined && UndoManager::undoEnabled())
 	{
 		auto *ss = new ScOldNewState<MeshPoint>(Um::GradPos);
 		ss->set("MOVE_MESH_PATCH");

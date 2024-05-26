@@ -31,7 +31,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 	<license>Apache 2.0</license>
 	<path default="yes">1_7_0</path>
 	<activeversion>1.7.0</activeversion>
-	<splashscreen left="0" top="0" width="476" height="410" image="scribus_splash_dark.png"></splashscreen>
+	<splashscreen left="0" top="0" width="476" height="410" imageDark="scribus_splash_dark.png" imageLight="scribus_splash_light.png"></splashscreen>
 <!--	<variant>Dark</variant>-->
 	<nametext lang="en_US">Scribus 1.7.0</nametext>
 	<nametext lang="fr">Scribus 1.7.0</nametext>
@@ -147,6 +147,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="erase-shadow-off" file="16/action-shadow-erase-off.svg" />
 		<icon id="swap" file="16/action-swap.svg" />
 		<icon id="toggle-object-coordination" file="16/object-xycoordination.svg" />
+		<icon id="context-menu" file="16/action-menu.svg" />
 			
 		<!-- Alerts -->
 		<icon onLight="#E54545" onDark="#FF6666" id="22/dialog-error.png" file="16/alert-error.svg" />
@@ -217,6 +218,11 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="rgb.png" file="16/color-rgb.svg" />
 		<icon id="cmyk.png" file="16/color-cmyk.svg" />
 		<icon id="lab.png" file="16/color-lab.svg" />
+		<icon id="colorpicker-gradient" file="16/colorpicker-gradient.svg" />
+		<icon id="colorpicker-hatch" file="16/colorpicker-hatch.svg" />
+		<icon id="colorpicker-pattern" file="16/colorpicker-pattern.svg" />
+		<icon id="colorpicker-solid" file="16/colorpicker-solid.svg" />
+		<icon id="mask" file="16/color-mask.svg" />
 		
 		<!-- Cursor -->
 		<icon id="LinkTextFrame.png" file="32/cursor-link-text-frame.svg" />
@@ -552,6 +558,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="/16/story-editor.png" file="16/tool-story-editor.svg" />
 		<icon id="16/story-editor.png" file="16/tool-story-editor.svg" />
 		<icon id="22/story-editor.png" file="16/tool-story-editor.svg" />
+		<icon id="gradient-edit" file="16/colorpicker-gradient.svg" />
 		<icon id="16/text-frame-link.png" file="16/tool-link-text-frame.svg" />
 		<icon id="22/text-frame-link.png" file="16/tool-link-text-frame.svg" />
 		<icon id="16/text-frame-unlink.png" file="16/tool-unlink-text-frame.svg" />    

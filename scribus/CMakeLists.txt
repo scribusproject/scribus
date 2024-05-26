@@ -333,6 +333,9 @@ target_sources(Plugins
   PRIVATE
     designer/uiwidgets.h designer/uiwidgets.cpp
     designer/formwidget_plugin.h designer/formwidget_plugin.cpp
+    designer/sectioncontainer_extension.h designer/sectioncontainer_extension.cpp
+    designer/sectioncontainer_extensionfactory.h designer/sectioncontainer_extensionfactory.cpp
+    designer/sectioncontainer_plugin.h designer/sectioncontainer_plugin.cpp
 )
 add_subdirectory(plugins)
 

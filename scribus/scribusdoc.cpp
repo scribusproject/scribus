@@ -8437,6 +8437,35 @@ void ScribusDoc::itemSelection_SetItemPatternProps(double scaleX, double scaleY,
 	changedPagePreview();
 }
 
+void ScribusDoc::itemSelection_SetItemHatchFill(int mode, double distance, double angle, bool useBackground, const QString &background, const QString &foreground, Selection *customSelection)
+{
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	int selectedItemCount = itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	m_updateManager.setUpdatesDisabled();
+
+	UndoTransaction activeTransaction;
+	if (selectedItemCount > 1 && UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IPolygon, Um::SetFill, "", Um::IFill);
+
+	PageItem *currItem;
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		currItem = itemSelection->itemAt(i);
+		currItem->setHatchParameters(mode, distance, angle, useBackground, background, foreground);
+		currItem->update();
+	}
+
+	if (activeTransaction)
+		activeTransaction.commit();
+
+	m_updateManager.setUpdatesEnabled();
+	changed();
+	changedPagePreview();
+}
+
 void ScribusDoc::itemSelection_SetItemStrokePattern(const QString& pattern, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;

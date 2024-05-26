@@ -45,8 +45,6 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent)
 	connect(textFlowBtnGroup, SIGNAL(idClicked(int)), this, SLOT(handleTextFlow()));
 	connect(editShape, SIGNAL(clicked()) , this, SLOT(handleShapeEdit()));
 	connect(roundRect, SIGNAL(valueChanged(double)) , this, SLOT(handleCornerRadius()));
-	connect(evenOdd, SIGNAL(clicked()), this, SLOT(handleFillRule()));
-	connect(nonZero, SIGNAL(clicked()), this, SLOT(handleFillRule()));
 	connect(customShape, SIGNAL(FormSel(int,int,qreal*)), this, SLOT(handleNewShape(int,int,qreal*)));
 
 	roundRect->showValue(0);
@@ -330,21 +328,6 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 
 	roundRect->setValue(m_item->cornerRadius()*m_unitRatio);
 	showTextFlowMode(m_item->textFlowMode());
-
-	if (m_item->isPathText() || m_item->isTextFrame() || m_item->isImageFrame())
-	{
-		nonZero->setChecked(false);
-		nonZero->setEnabled(false);
-		evenOdd->setChecked(false);
-		evenOdd->setEnabled(false);
-	}
-	else
-	{
-		nonZero->setEnabled(true);
-		evenOdd->setEnabled(true);
-		nonZero->setChecked(!m_item->fillRule);
-		evenOdd->setChecked(m_item->fillRule);
-	}
 	setLocked(m_item->locked());
 	setSizeLocked(m_item->sizeLocked());
 
@@ -463,14 +446,6 @@ void PropertiesPalette_Shape::handleCornerRadius()
 	m_item->update();
 }
 
-void PropertiesPalette_Shape::handleFillRule()
-{
-	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	m_item->fillRule = evenOdd->isChecked();
-	m_item->update();
-}
-
 void PropertiesPalette_Shape::handleNewShape(int f, int c, qreal *vals)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
@@ -524,9 +499,6 @@ void PropertiesPalette_Shape::iconSetChange()
 	textFlowUsesBoundingBox->setIcon(iconManager.loadIcon("flow-bounding.png"));
 	textFlowUsesContourLine->setIcon(iconManager.loadIcon("flow-contour.png"));
 	textFlowUsesImageClipping->setIcon(iconManager.loadIcon("flow-contour.png"));
-
-	evenOdd->setIcon(iconManager.loadIcon("fill-rule-even-odd.png"));
-	nonZero->setIcon(iconManager.loadIcon("fill-rule-nonzero.png"));
 }
 
 void PropertiesPalette_Shape::languageChange()
@@ -560,5 +532,4 @@ void PropertiesPalette_Shape::localeChange()
 void PropertiesPalette_Shape::toggleLabelVisibility(bool v)
 {
 	labelTextFlow->setLabelVisibility(v);
-	labelFillRule->setLabelVisibility(v);
 }

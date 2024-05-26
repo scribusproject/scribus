@@ -105,6 +105,7 @@ public:
 	static QString trYesKey;
 	//! \brief Translated "No" with key accelerator "&No"
 	static QString trNoKey;
+	static QString trCustom;
 
 	//Item Types
 	static QString itemType_TextFrame;

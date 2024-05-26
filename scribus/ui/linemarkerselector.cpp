@@ -15,7 +15,7 @@ LineMarkerSelector::LineMarkerSelector(QWidget *parent) :
 	listMarker->setIconSize(QSize(60,48));
 	listMarker->setGridSize(QSize(76,64));
 	listMarker->setSpacing(4);
-	listMarker->setItemDelegate(new ScListItemDelegate(QSize(60,48)));
+	listMarker->setItemDelegate(new ScListItemDelegate(QListWidget::IconMode, QSize(60,48)));
 
 	connect(listMarker, &QListWidget::itemSelectionChanged, this, [this]() {
 		emit markerChanged(marker());

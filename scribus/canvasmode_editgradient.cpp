@@ -38,9 +38,9 @@
 #include "scribusview.h"
 #include "selection.h"
 #include "ui/contextmenu.h"
-#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "util_math.h"
+#include "util_gui.h"
 
 
 CanvasMode_EditGradient::CanvasMode_EditGradient(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
@@ -50,7 +50,7 @@ CanvasMode_EditGradient::CanvasMode_EditGradient(ScribusView* view) : CanvasMode
 
 inline bool CanvasMode_EditGradient::GetItem(PageItem** pi)
 { 
-	*pi = m_doc->m_Selection->itemAt(0); 
+	*pi = m_doc->m_Selection->itemAt(0);
 	return (*pi) != nullptr;
 }
 
@@ -73,36 +73,48 @@ void CanvasMode_EditGradient::drawControls(QPainter* p)
 void CanvasMode_EditGradient::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 {
 	psx->setTransform(currItem->getTransform(), true);
-	psx->setPen(QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	psx->setRenderHint(QPainter::Antialiasing);
+	psx->setPen(pens().value("vector"));
 	psx->setBrush(Qt::NoBrush);
-	if (m_view->editStrokeGradient == 1)
+	if (m_view->editStrokeGradient == GradientEdit::Gradient_Stroke)
 	{
+		// Draw Start + End Nodes
 		psx->drawLine(QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY), QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY));
-		psx->setPen(QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-		psx->drawPoint(QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY));
-		psx->drawPoint(QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY));
+		drawNodeHandle(psx, QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY), pens().value("node"), m_canvas->m_viewMode.scale);
+		drawNodeHandle(psx, QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY), pens().value("node"), m_canvas->m_viewMode.scale);
+
 		double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
 		double rotEnd = xy2Deg(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
-		QTransform qmatrix;
-		qmatrix.translate(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
-		qmatrix.rotate(rotEnd);
-		double mask_gradientSkew = 0.0;
-		if (currItem->GrStrokeSkew == 90)
-			mask_gradientSkew = 1;
-		else if (currItem->GrStrokeSkew == 180)
-			mask_gradientSkew = 0;
-		else if (currItem->GrStrokeSkew == 270)
-			mask_gradientSkew = -1;
-		else if (currItem->GrStrokeSkew == 390)
-			mask_gradientSkew = 0;
-		else
-			mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrStrokeSkew);
-		qmatrix.shear(mask_gradientSkew, 0);
-		qmatrix.translate(0, currItem->GrStrokeStartY * (1.0 - currItem->GrStrokeScale));
-		qmatrix.translate(-currItem->GrStrokeStartX, -currItem->GrStrokeStartY);
-		qmatrix.scale(1, currItem->GrStrokeScale);
+
+		// Draw Focal Control
 		if (currItem->GrTypeStroke == Gradient_Radial)
-			psx->drawPoint(qmatrix.map(QPointF(currItem->GrStrokeFocalX, currItem->GrStrokeFocalY)));
+		{
+			QTransform qmatrix;
+			qmatrix.translate(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
+			qmatrix.rotate(rotEnd);
+			double mask_gradientSkew = 0.0;
+			if (currItem->GrStrokeSkew == 90)
+				mask_gradientSkew = 1;
+			else if (currItem->GrStrokeSkew == 180)
+				mask_gradientSkew = 0;
+			else if (currItem->GrStrokeSkew == 270)
+				mask_gradientSkew = -1;
+			else if (currItem->GrStrokeSkew == 360)
+				mask_gradientSkew = 0;
+			else
+				mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrStrokeSkew);
+			qmatrix.shear(mask_gradientSkew, 0);
+			qmatrix.translate(0, currItem->GrStrokeStartY * (1.0 - currItem->GrStrokeScale));
+			qmatrix.translate(-currItem->GrStrokeStartX, -currItem->GrStrokeStartY);
+			qmatrix.scale(1, currItem->GrStrokeScale);
+
+			QPointF focal = qmatrix.map(QPointF(currItem->GrStrokeFocalX, currItem->GrStrokeFocalY));
+			psx->setPen(pens().value("node-dash"));
+			psx->drawLine(QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY), focal);
+			drawNodeControl(psx, focal, pens().value("node"), m_canvas->m_viewMode.scale);
+		}
+
+		// Draw Shear Control
 		QTransform m;
 		m.translate(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
 		m.rotate(rotEnd);
@@ -110,39 +122,49 @@ void CanvasMode_EditGradient::drawControlsGradientVectors(QPainter* psx, PageIte
 		m.rotate(currItem->GrStrokeSkew);
 		m.translate(radEnd * currItem->GrStrokeScale, 0);
 		QPointF shP = m.map(QPointF(0,0));
-		psx->setPen(QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		psx->setPen(pens().value("node-handle"));
 		psx->drawLine(QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY), shP);
-		psx->setPen(QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-		psx->drawPoint(shP);
+		drawNodeControl(psx, shP, pens().value("node"), m_canvas->m_viewMode.scale);
+
 	}
-	else if (m_view->editStrokeGradient == 2)
+	else if (m_view->editStrokeGradient == GradientEdit::Gradient_Mask)
 	{
+		// Draw Start + End Nodes
 		psx->drawLine(QPointF(currItem->GrMaskStartX, currItem->GrMaskStartY), QPointF(currItem->GrMaskEndX, currItem->GrMaskEndY));
-		psx->setPen(QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-		psx->drawPoint(QPointF(currItem->GrMaskStartX, currItem->GrMaskStartY));
-		psx->drawPoint(QPointF(currItem->GrMaskEndX, currItem->GrMaskEndY));
+		drawNodeHandle(psx, QPointF(currItem->GrMaskStartX, currItem->GrMaskStartY), pens().value("node"), m_canvas->m_viewMode.scale);
+		drawNodeHandle(psx, QPointF(currItem->GrMaskEndX, currItem->GrMaskEndY), pens().value("node"), m_canvas->m_viewMode.scale);
+
 		double radEnd = distance(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
 		double rotEnd = xy2Deg(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
-		QTransform qmatrix;
-		qmatrix.translate(currItem->GrMaskStartX, currItem->GrMaskStartY);
-		qmatrix.rotate(rotEnd);
-		double mask_gradientSkew = 0.0;
-		if (currItem->GrMaskSkew == 90)
-			mask_gradientSkew = 1;
-		else if (currItem->GrMaskSkew == 180)
-			mask_gradientSkew = 0;
-		else if (currItem->GrMaskSkew == 270)
-			mask_gradientSkew = -1;
-		else if (currItem->GrMaskSkew == 390)
-			mask_gradientSkew = 0;
-		else
-			mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrMaskSkew);
-		qmatrix.shear(mask_gradientSkew, 0);
-		qmatrix.translate(0, currItem->GrMaskStartY * (1.0 - currItem->GrMaskScale));
-		qmatrix.translate(-currItem->GrMaskStartX, -currItem->GrMaskStartY);
-		qmatrix.scale(1, currItem->GrMaskScale);
+
+		// Draw Focal Control
 		if ((currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_RadialLumAlpha))
-			psx->drawPoint(qmatrix.map(QPointF(currItem->GrMaskFocalX, currItem->GrMaskFocalY)));
+		{
+			QTransform qmatrix;
+			qmatrix.translate(currItem->GrMaskStartX, currItem->GrMaskStartY);
+			qmatrix.rotate(rotEnd);
+			double mask_gradientSkew = 0.0;
+			if (currItem->GrMaskSkew == 90)
+				mask_gradientSkew = 1;
+			else if (currItem->GrMaskSkew == 180)
+				mask_gradientSkew = 0;
+			else if (currItem->GrMaskSkew == 270)
+				mask_gradientSkew = -1;
+			else if (currItem->GrMaskSkew == 360)
+				mask_gradientSkew = 0;
+			else
+				mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrMaskSkew);
+			qmatrix.shear(mask_gradientSkew, 0);
+			qmatrix.translate(0, currItem->GrMaskStartY * (1.0 - currItem->GrMaskScale));
+			qmatrix.translate(-currItem->GrMaskStartX, -currItem->GrMaskStartY);
+			qmatrix.scale(1, currItem->GrMaskScale);
+
+			QPointF focal = qmatrix.map(QPointF(currItem->GrMaskFocalX, currItem->GrMaskFocalY));
+			psx->setPen(pens().value("node-dash"));
+			psx->drawLine(QPointF(currItem->GrMaskStartX, currItem->GrMaskStartY), focal);
+			drawNodeControl(psx, focal, pens().value("node"), m_canvas->m_viewMode.scale);
+		}
+		// Draw Shear Control
 		QTransform m;
 		m.translate(currItem->GrMaskStartX, currItem->GrMaskStartY);
 		m.rotate(rotEnd);
@@ -150,42 +172,52 @@ void CanvasMode_EditGradient::drawControlsGradientVectors(QPainter* psx, PageIte
 		m.rotate(currItem->GrMaskSkew);
 		m.translate(radEnd * currItem->GrMaskScale, 0);
 		QPointF shP = m.map(QPointF(0,0));
-		psx->setPen(QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		psx->setPen(pens().value("node-handle"));
 		psx->drawLine(QPointF(currItem->GrMaskStartX, currItem->GrMaskStartY), shP);
-		psx->setPen(QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-		psx->drawPoint(shP);
+		drawNodeControl(psx, shP, pens().value("node"), m_canvas->m_viewMode.scale);
 	}
-	else if (m_view->editStrokeGradient == 0)
+	else if (m_view->editStrokeGradient == GradientEdit::Gradient)
 	{
+		// Draw Start + End Nodes
 		psx->drawLine(QPointF(currItem->GrStartX, currItem->GrStartY), QPointF(currItem->GrEndX, currItem->GrEndY));
-		psx->setPen(QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-		psx->drawPoint(QPointF(currItem->GrStartX, currItem->GrStartY));
-		psx->drawPoint(QPointF(currItem->GrEndX, currItem->GrEndY));
+		drawNodeHandle(psx, QPointF(currItem->GrStartX, currItem->GrStartY), pens().value("node"), m_canvas->m_viewMode.scale);
+		drawNodeHandle(psx, QPointF(currItem->GrEndX, currItem->GrEndY), pens().value("node"), m_canvas->m_viewMode.scale);
+
 		double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
 		double rotEnd = xy2Deg(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
-		QTransform qmatrix;
-		qmatrix.translate(currItem->GrStartX, currItem->GrStartY);
-		qmatrix.rotate(rotEnd);
-		if (currItem->GrType != Gradient_Conical)
-		{
-			double mask_gradientSkew = 0.0;
-			if (currItem->GrSkew == 90)
-				mask_gradientSkew = 1;
-			else if (currItem->GrSkew == 180)
-				mask_gradientSkew = 0;
-			else if (currItem->GrSkew == 270)
-				mask_gradientSkew = -1;
-			else if (currItem->GrSkew == 390)
-				mask_gradientSkew = 0;
-			else
-				mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrSkew);
-			qmatrix.shear(mask_gradientSkew, 0);
-		}
-		qmatrix.translate(0, currItem->GrStartY * (1.0 - currItem->GrScale));
-		qmatrix.translate(-currItem->GrStartX, -currItem->GrStartY);
-		qmatrix.scale(1, currItem->GrScale);
+
+		// Draw Focal Control
 		if ((currItem->GrType == Gradient_Radial) || (currItem->GrType == Gradient_Conical))
-			psx->drawPoint(qmatrix.map(QPointF(currItem->GrFocalX, currItem->GrFocalY)));
+		{
+			QTransform qmatrix;
+			qmatrix.translate(currItem->GrStartX, currItem->GrStartY);
+			qmatrix.rotate(rotEnd);
+			if (currItem->GrType != Gradient_Conical)
+			{
+				double mask_gradientSkew = 0.0;
+				if (currItem->GrSkew == 90)
+					mask_gradientSkew = 1;
+				else if (currItem->GrSkew == 180)
+					mask_gradientSkew = 0;
+				else if (currItem->GrSkew == 270)
+					mask_gradientSkew = -1;
+				else if (currItem->GrSkew == 360)
+					mask_gradientSkew = 0;
+				else
+					mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrSkew);
+				qmatrix.shear(mask_gradientSkew, 0);
+			}
+			qmatrix.translate(0, currItem->GrStartY * (1.0 - currItem->GrScale));
+			qmatrix.translate(-currItem->GrStartX, -currItem->GrStartY);
+			qmatrix.scale(1, currItem->GrScale);
+
+			QPointF focal = qmatrix.map(QPointF(currItem->GrFocalX, currItem->GrFocalY));
+			psx->setPen(pens().value("node-dash"));
+			psx->drawLine(QPointF(currItem->GrStartX, currItem->GrStartY), focal);
+			drawNodeControl(psx, focal, pens().value("node"), m_canvas->m_viewMode.scale);
+		}
+
+		// Draw Shear Control
 		QTransform m;
 		m.translate(currItem->GrStartX, currItem->GrStartY);
 		m.rotate(rotEnd);
@@ -193,27 +225,25 @@ void CanvasMode_EditGradient::drawControlsGradientVectors(QPainter* psx, PageIte
 		m.rotate(currItem->GrSkew);
 		m.translate(radEnd * currItem->GrScale, 0);
 		QPointF shP = m.map(QPointF(0,0));
-		psx->setPen(QPen(Qt::blue, 1.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		psx->setPen(pens().value("node-handle"));
 		psx->drawLine(QPointF(currItem->GrStartX, currItem->GrStartY), shP);
-		psx->setPen(QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-		psx->drawPoint(shP);
+		drawNodeControl(psx, shP, pens().value("node"), m_canvas->m_viewMode.scale);
+
 	}
-	else if (m_view->editStrokeGradient == 3)
+	else if (m_view->editStrokeGradient == GradientEdit::FourColors)
 	{
-		psx->setPen(QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-		psx->drawPoint(QPointF(currItem->GrControl1.x(), currItem->GrControl1.y()));
-		psx->drawPoint(QPointF(currItem->GrControl2.x(), currItem->GrControl2.y()));
-		psx->drawPoint(QPointF(currItem->GrControl3.x(), currItem->GrControl3.y()));
-		psx->drawPoint(QPointF(currItem->GrControl4.x(), currItem->GrControl4.y()));
+		drawNodeHandle(psx, QPointF(currItem->GrControl1.x(), currItem->GrControl1.y()), pens().value("node"), m_canvas->m_viewMode.scale);
+		drawNodeHandle(psx, QPointF(currItem->GrControl2.x(), currItem->GrControl2.y()), pens().value("node"), m_canvas->m_viewMode.scale);
+		drawNodeHandle(psx, QPointF(currItem->GrControl3.x(), currItem->GrControl3.y()), pens().value("node"), m_canvas->m_viewMode.scale);
+		drawNodeHandle(psx, QPointF(currItem->GrControl4.x(), currItem->GrControl4.y()), pens().value("node"), m_canvas->m_viewMode.scale);
 	}
-	else if (m_view->editStrokeGradient == 4)
+	else if (m_view->editStrokeGradient == GradientEdit::Diamond)
 	{
-		psx->setPen(QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-		psx->drawPoint(QPointF(currItem->GrControl1.x(), currItem->GrControl1.y()));
-		psx->drawPoint(QPointF(currItem->GrControl2.x(), currItem->GrControl2.y()));
-		psx->drawPoint(QPointF(currItem->GrControl3.x(), currItem->GrControl3.y()));
-		psx->drawPoint(QPointF(currItem->GrControl4.x(), currItem->GrControl4.y()));
-		psx->drawPoint(QPointF(currItem->GrControl5.x(), currItem->GrControl5.y()));
+		drawNodeHandle(psx, QPointF(currItem->GrControl1.x(), currItem->GrControl1.y()), pens().value("node"), m_canvas->m_viewMode.scale);
+		drawNodeHandle(psx, QPointF(currItem->GrControl2.x(), currItem->GrControl2.y()), pens().value("node"), m_canvas->m_viewMode.scale);
+		drawNodeHandle(psx, QPointF(currItem->GrControl3.x(), currItem->GrControl3.y()), pens().value("node"), m_canvas->m_viewMode.scale);
+		drawNodeHandle(psx, QPointF(currItem->GrControl4.x(), currItem->GrControl4.y()), pens().value("node"), m_canvas->m_viewMode.scale);
+		drawNodeHandle(psx, QPointF(currItem->GrControl5.x(), currItem->GrControl5.y()), pens().value("node"), m_canvas->m_viewMode.scale);
 	}
 }
 
@@ -232,7 +262,7 @@ void CanvasMode_EditGradient::leaveEvent(QEvent* /*e*/)
 
 void CanvasMode_EditGradient::activate(bool fromGesture)
 {
-//	qDebug() << "CanvasMode_EditGradient::activate" << fromGesture;
+	//	qDebug() << "CanvasMode_EditGradient::activate" << fromGesture;
 	CanvasMode::activate(fromGesture);
 
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
@@ -252,7 +282,7 @@ void CanvasMode_EditGradient::activate(bool fromGesture)
 
 void CanvasMode_EditGradient::deactivate(bool forGesture)
 {
-//	qDebug() << "CanvasMode_EditGradient::deactivate" << forGesture;
+	//	qDebug() << "CanvasMode_EditGradient::deactivate" << forGesture;
 	m_view->setRedrawMarkerShown(false);
 	CanvasMode::deactivate(forGesture);
 }
@@ -272,7 +302,7 @@ void CanvasMode_EditGradient::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-//	m_view->stopDragTimer();
+	//	m_view->stopDragTimer();
 	PageItem *currItem = nullptr;
 	if ((m_doc->m_Selection->isMultipleSelection()) || (m_doc->appMode != modeNormal))
 	{
@@ -317,7 +347,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		double newY = mousePointDoc.y();
 		FPoint npx(m_Mxp - newX, m_Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
 		QPointF np(npx.x(), npx.y());
-		if (m_view->editStrokeGradient == 1)
+		if (m_view->editStrokeGradient == GradientEdit::Gradient_Stroke)
 		{
 			if (m_gradientPoint == useGradientStart)
 			{
@@ -351,7 +381,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 					mask_gradientSkew = 0;
 				else if (currItem->GrStrokeSkew == 270)
 					mask_gradientSkew = -1;
-				else if (currItem->GrStrokeSkew == 390)
+				else if (currItem->GrStrokeSkew == 360)
 					mask_gradientSkew = 0;
 				else
 					mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrStrokeSkew);
@@ -412,7 +442,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				}
 			}
 		}
-		else if (m_view->editStrokeGradient == 2)
+		else if (m_view->editStrokeGradient == GradientEdit::Gradient_Mask)
 		{
 			if (m_gradientPoint == useGradientStart)
 			{
@@ -446,7 +476,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 					mask_gradientSkew = 0;
 				else if (currItem->GrMaskSkew == 270)
 					mask_gradientSkew = -1;
-				else if (currItem->GrMaskSkew == 390)
+				else if (currItem->GrMaskSkew == 360)
 					mask_gradientSkew = 0;
 				else
 					mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrMaskSkew);
@@ -507,7 +537,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				}
 			}
 		}
-		else if (m_view->editStrokeGradient == 0)
+		else if (m_view->editStrokeGradient == GradientEdit::Gradient)
 		{
 			if (m_gradientPoint == useGradientStart)
 			{
@@ -543,7 +573,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 						mask_gradientSkew = 0;
 					else if (currItem->GrSkew == 270)
 						mask_gradientSkew = -1;
-					else if (currItem->GrSkew == 390)
+					else if (currItem->GrSkew == 360)
 						mask_gradientSkew = 0;
 					else
 						mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrSkew);
@@ -609,7 +639,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				}
 			}
 		}
-		else if (m_view->editStrokeGradient == 3)
+		else if (m_view->editStrokeGradient == GradientEdit::FourColors)
 		{
 			if (m_gradientPoint == useControl1)
 				currItem->GrControl1 -= npx;
@@ -620,7 +650,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			else if (m_gradientPoint == useControl4)
 				currItem->GrControl4 -= npx;
 		}
-		else if (m_view->editStrokeGradient == 4)
+		else if (m_view->editStrokeGradient == GradientEdit::Diamond)
 		{
 			if (m_gradientPoint == useControl1)
 				currItem->GrControl1 -= npx;
@@ -635,10 +665,10 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		}
 		m_Mxp = newX;
 		m_Myp = newY;
-//		m_view->RefreshGradient(currItem, dx * m_canvas->scale(), dy * m_canvas->scale());
-		m_ScMW->propertiesPalette->updateColorSpecialGradient();
+		//		m_view->RefreshGradient(currItem, dx * m_canvas->scale(), dy * m_canvas->scale());
+		//		m_ScMW->propertiesPalette->updateColorSpecialGradient();
 		currItem->update();
-/*		QRectF upRect;
+		/*		QRectF upRect;
 		if (m_view->editStrokeGradient == 1)
 		{
 			upRect = QRectF(QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY), QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY));
@@ -728,7 +758,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	QTransform itemMatrix = currItem->getTransform();
 	QPointF gradientStart, gradientEnd, gradientFocal, gradientScale, gradientCenter;
-	if (m_view->editStrokeGradient == 1)
+	if (m_view->editStrokeGradient == GradientEdit::Gradient_Stroke)
 	{
 		gradientStart = QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
 		gradientEnd = QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY);
@@ -751,7 +781,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 			mask_gradientSkew = 0;
 		else if (currItem->GrStrokeSkew == 270)
 			mask_gradientSkew = -1;
-		else if (currItem->GrStrokeSkew == 390)
+		else if (currItem->GrStrokeSkew == 360)
 			mask_gradientSkew = 0;
 		else
 			mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrStrokeSkew);
@@ -761,7 +791,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 		qmatrix.scale(1, currItem->GrStrokeScale);
 		gradientFocal = qmatrix.map(QPointF(currItem->GrStrokeFocalX, currItem->GrStrokeFocalY));
 	}
-	else if (m_view->editStrokeGradient == 2)
+	else if (m_view->editStrokeGradient == GradientEdit::Gradient_Mask)
 	{
 		gradientStart = QPointF(currItem->GrMaskStartX, currItem->GrMaskStartY);
 		gradientEnd = QPointF(currItem->GrMaskEndX, currItem->GrMaskEndY);
@@ -784,7 +814,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 			mask_gradientSkew = 0;
 		else if (currItem->GrMaskSkew == 270)
 			mask_gradientSkew = -1;
-		else if (currItem->GrMaskSkew == 390)
+		else if (currItem->GrMaskSkew == 360)
 			mask_gradientSkew = 0;
 		else
 			mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrMaskSkew);
@@ -794,7 +824,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 		qmatrix.scale(1, currItem->GrMaskScale);
 		gradientFocal = qmatrix.map(QPointF(currItem->GrMaskFocalX, currItem->GrMaskFocalY));
 	}
-	else if (m_view->editStrokeGradient == 0)
+	else if (m_view->editStrokeGradient == GradientEdit::Gradient)
 	{
 		gradientStart = QPointF(currItem->GrStartX, currItem->GrStartY);
 		gradientEnd = QPointF(currItem->GrEndX, currItem->GrEndY);
@@ -819,7 +849,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 				mask_gradientSkew = 0;
 			else if (currItem->GrSkew == 270)
 				mask_gradientSkew = -1;
-			else if (currItem->GrSkew == 390)
+			else if (currItem->GrSkew == 360)
 				mask_gradientSkew = 0;
 			else
 				mask_gradientSkew = tan(M_PI / 180.0 * currItem->GrSkew);
@@ -830,14 +860,14 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 		qmatrix.scale(1, currItem->GrScale);
 		gradientFocal = qmatrix.map(QPointF(currItem->GrFocalX, currItem->GrFocalY));
 	}
-	else if (m_view->editStrokeGradient == 3)
+	else if (m_view->editStrokeGradient == GradientEdit::FourColors)
 	{
 		gradientStart = QPointF(currItem->GrControl1.x(), currItem->GrControl1.y());
 		gradientEnd = QPointF(currItem->GrControl2.x(), currItem->GrControl2.y());
 		gradientFocal = QPointF(currItem->GrControl3.x(), currItem->GrControl3.y());
 		gradientScale = QPointF(currItem->GrControl4.x(), currItem->GrControl4.y());
 	}
-	else if (m_view->editStrokeGradient == 4)
+	else if (m_view->editStrokeGradient == GradientEdit::Diamond)
 	{
 		gradientStart = QPointF(currItem->GrControl1.x(), currItem->GrControl1.y());
 		gradientEnd = QPointF(currItem->GrControl2.x(), currItem->GrControl2.y());
@@ -850,7 +880,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	gradientFocal = itemMatrix.map(gradientFocal);
 	gradientScale = itemMatrix.map(gradientScale);
 	gradientCenter = itemMatrix.map(gradientCenter);
-	if (m_view->editStrokeGradient == 3)
+	if (m_view->editStrokeGradient == GradientEdit::FourColors)
 	{
 		if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientStart))
 			m_gradientPoint = useControl1;
@@ -861,7 +891,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 		else if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientScale))
 			m_gradientPoint = useControl4;
 	}
-	else if (m_view->editStrokeGradient == 4)
+	else if (m_view->editStrokeGradient == GradientEdit::Diamond)
 	{
 		if (m_canvas->hitsCanvasPoint(m->globalPosition(), gradientStart))
 			m_gradientPoint = useControl1;
@@ -996,5 +1026,5 @@ void CanvasMode_EditGradient::mouseReleaseEvent(QMouseEvent *m)
 		undoManager->action(currItem, is);
 	}
 	m_gradientPoint = noPointDefined;
-//	m_view->stopDragTimer();
+	//	m_view->stopDragTimer();
 }

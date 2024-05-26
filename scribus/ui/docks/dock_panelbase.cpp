@@ -30,7 +30,7 @@
 DockPanelBase::DockPanelBase(const QString &title, QString iconName, QWidget *parent)
 	: CDockWidget(title, parent)
 {
-	if (PrefsManager::instance().appPrefs.uiPrefs.useSmallWidgets) {
+	/*if (PrefsManager::instance().appPrefs.uiPrefs.useSmallWidgets) {
 		setStyleSheet("	QToolButton { margin: 1px; padding: 0px; font-size: 10px; } \
 						QToolButton:pressed { padding-top: 2px; padding-left: 2px } \
 						QPushButton { margin: 1px; padding: 0px; font-size: 10px; } \
@@ -43,7 +43,7 @@ DockPanelBase::DockPanelBase(const QString &title, QString iconName, QWidget *pa
 							{ font-size: 10px ; } \
 						QToolBox::tab { font-size: 10px; padding: 0px; margin: 0px; } \
 					");
-	}
+	}*/
 
 	m_iconName = iconName;
 

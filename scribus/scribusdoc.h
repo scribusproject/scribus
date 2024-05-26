@@ -1613,6 +1613,7 @@ public slots:
 	void itemSelection_SetItemGradFill(int typp, Selection* customSelection = nullptr);
 	void itemSelection_SetItemPatternFill(const QString& pattern, Selection* customSelection = nullptr);
 	void itemSelection_SetItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+	void itemSelection_SetItemHatchFill(int mode, double distance, double angle, bool useBackground, const QString& background, const QString& foreground, Selection* customSelection = nullptr);
 	void itemSelection_SetItemStrokePattern(const QString& pattern, Selection* customSelection = nullptr);
 	void itemSelection_SetItemStrokePatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, double space, bool mirrorX, bool mirrorY, Selection* customSelection = nullptr);
 	void itemSelection_SetItemStrokePatternType(bool type, Selection* customSelection = nullptr);

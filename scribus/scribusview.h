@@ -151,7 +151,7 @@ public:
 	bool Magnify { false };
 	bool storedFramesShown { false };
 	bool storedShowControls { false };
-	int editStrokeGradient { 0 };
+	GradientEdit editStrokeGradient { GradientEdit::Gradient };
 	bool m_AnnotChanged { false };
 	bool m_EditModeWasOn { false };
 	bool m_ChangedState { false };

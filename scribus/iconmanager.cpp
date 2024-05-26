@@ -25,6 +25,7 @@
 #include <QApplication>
 #include <QtSvg/QSvgRenderer>
 #include <QRegularExpression>
+#include <QStyleHints>
 
 #include "api/api_application.h"
 #include "iconmanager.h"
@@ -62,6 +63,10 @@ bool IconManager::setup()
 		qWarning()<<"Can't load icons from iconset.";
 		return false;
 	}
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, &IconManager::changeColorScheme);
+#endif
 
 	return true;
 }
@@ -119,8 +124,22 @@ QColor IconManager::baseColor() const
 }
 
 bool IconManager::iconsForDarkMode() const
-{
+{	
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	switch(qApp->styleHints()->colorScheme())
+	{
+	case Qt::ColorScheme::Unknown:
+	case Qt::ColorScheme::Light:
+		return false;
+		break;
+	case Qt::ColorScheme::Dark:
+		return true;
+		break;
+	}
+
+#else
 	return (baseColor().lightness() >= 128) ? true : false;
+#endif
 }
 
 void IconManager::rebuildCache()
@@ -396,6 +415,14 @@ QColor IconManager::parseColor(const QString str)
 	return QColor();
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+void IconManager::changeColorScheme(Qt::ColorScheme colorScheme)
+{
+	Q_UNUSED(colorScheme);
+	rebuildCache();
+}
+#endif
+
 QPixmap *IconManager::pixmapFromFile(const QString filePath, QColor color, int width)
 {
 	QDomDocument document;
@@ -553,7 +580,11 @@ void IconManager::readIconConfigFiles()
 					w = (e.hasAttribute("width")) ? e.attribute("width").toInt() : 0;
 					h = (e.hasAttribute("height")) ? e.attribute("height").toInt() : 0;
 					isd.splashMessgeRect = QRect(l,t,w,h);
-					isd.splashScreenPath = (e.hasAttribute("image")) ? e.attribute("image") : "";
+					if (iconsForDarkMode())
+						isd.splashScreenPath = (e.hasAttribute("imageDark")) ? e.attribute("imageDark") : "";
+					else
+						isd.splashScreenPath = (e.hasAttribute("imageLight")) ? e.attribute("imageLight") : "";
+
 				}
 				else if (e.tagName() == "nametext")
 				{

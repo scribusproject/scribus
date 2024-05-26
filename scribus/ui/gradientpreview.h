@@ -34,11 +34,13 @@ for which a new license (GPL+exception) is in place.
 #include <QHBoxLayout>
 
 class QEvent;
+class ScColor;
 
 #include "scribusapi.h"
 #include "vgradient.h"
 
-class SCRIBUS_API GradientPreview : public QFrame
+
+/*class SCRIBUS_API GradientPreview : public QFrame
 {
 	Q_OBJECT
 
@@ -86,5 +88,65 @@ signals:
 	void currTrans(double);
 	void currStep(double);
 	void gradientChanged();
+};
+*/
+
+class SCRIBUS_API GradientPreview : public QWidget
+{
+	Q_OBJECT
+public:
+	explicit GradientPreview(QWidget *parent = nullptr);
+	~GradientPreview() {};
+	void paintEvent(QPaintEvent *e);
+	void keyPressEvent(QKeyEvent *e);
+	void mousePressEvent(QMouseEvent *m);
+	void mouseReleaseEvent(QMouseEvent *m);
+	void mouseMoveEvent(QMouseEvent *m);
+
+	void setActiveStopColor(const QColor& c, const QString& n, int s, double a);
+	QColor activeStopColor();
+
+	void setActiveStopPosition(double t);
+
+	void setIsEditable(bool isEditable);
+	bool isEditable();
+
+	void setGradient(const VGradient& gradient);
+	const VGradient& gradient();
+
+	void updateDisplay();
+
+private:
+	VGradient fill_gradient;
+	QPointF m_mousePos;
+	bool m_isEditable;
+	int m_activeStop;
+	int m_tmpStop;
+
+	QRect saveAreaRect();
+	QRect canvasRect();
+	QRect scaleRect();
+	QRect handleRect(int center);
+	QRect stopRect(int center);
+	qreal ratio();
+	bool isMouseOutside(QPoint mouse);
+	int mapPositionToGrid(qreal pos);
+	int stopAtPosition(QPoint position);
+	VColorStop *activeStop(int offset = 0) const;
+	double percentFromPosition(QPointF position);
+	int percentToPosition(double t);
+
+	void setup();
+	void addStop(QPoint mousePosition);
+	void removeStop();
+	void emitStopPosition();
+	void emitStop();
+	void updateTmpStop(double t);
+	void sortStops();
+
+signals:
+	void selectedStop(VColorStop*);
+	void selectedPosition(double);
+
 };
 #endif

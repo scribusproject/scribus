@@ -20,6 +20,7 @@
 
 #include "scribusapi.h"
 #include "scribusdoc.h"
+#include "util_gui.h"
 
 #include <QBrush>
 #include <QCursor>
@@ -155,6 +156,9 @@ public:
 	ScribusView* view() const { return m_view; }
 	~CanvasMode() override;
 
+	QMap<QString,QPen> pens() const { return m_pen; };
+	QMap<QString,QBrush> brushes() const { return m_brush; };
+
 protected:
 	ScribusView* const m_view;
 	Canvas* const m_canvas;
@@ -175,9 +179,12 @@ protected:
 	void commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e);
 	void commonkeyReleaseEvent(QKeyEvent *e);
 
+	void setStyle();
+
 private:
 	QMap<QString,QPen> m_pen;
 	QMap<QString,QBrush> m_brush;
+	QMap<QString,QColor> m_color;
 
 	bool m_keyRepeat {false};
     bool m_arrowKeyDown {false};

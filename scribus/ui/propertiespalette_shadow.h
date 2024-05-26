@@ -11,13 +11,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scguardedptr.h"
-
 #include "units.h"
 
 class PageItem;
 class ScribusDoc;
 class Selection;
 class ScribusMainWindow;
+//class ColorPicker;
 
 class SCRIBUS_API PropertiesPalette_Shadow : public QWidget, Ui::PropertiesPalette_ShadowBase
 {
@@ -27,7 +27,7 @@ public:
 	PropertiesPalette_Shadow(QWidget* parent);
 	~PropertiesPalette_Shadow() {};
 
-	void updateColorList();
+//	void updateColorList();
 
 private:
 	PageItem* currentItemFromSelection();
@@ -50,7 +50,7 @@ public slots:
 	void toggleLabelVisibility(bool v);
 
 	void handleSelectionChanged();
-	void handleUpdateRequest(int);
+//	void handleUpdateRequest(int);
 
 private slots:
 	void handleNewValues();

@@ -25,8 +25,10 @@ for which a new license (GPL+exception) is in place.
 
 #include <algorithm>
 #include <QMutableListIterator>
+#include <QHash>
 
 #include "vgradient.h"
+#include "scribusdoc.h"
 
 // colorStop comparison function for stable_sort function
 bool compareStops(const VColorStop* item1, const VColorStop* item2 ) 
@@ -151,6 +153,17 @@ const QList<VColorStop*>& VGradient::colorStops() const
 	return m_colorStops;
 }
 
+const QList<QGradientStop> &VGradient::toQGradientStops() const
+{
+	QList<QGradientStop> *list = new QList<QGradientStop>;
+
+	foreach (VColorStop *stop, m_colorStops) {
+		list->append(QGradientStop(stop->rampPoint, stop->color));
+	}
+
+	return *list;
+}
+
 void VGradient::clearStops()
 {
 	while (!m_colorStops.isEmpty())
@@ -243,4 +256,82 @@ void VGradient::transform( const QTransform &m )
 	mx = m.m11() * m_vector.x() + m.m21() * m_vector.y() + m.dx();
 	my = m.m22() * m_vector.y() + m.m12() * m_vector.x() + m.dy();
 	m_vector = FPoint(mx, my);
+}
+
+
+GradientList::GradientList(ScribusDoc* doc, bool retainDoc)
+		 : m_doc(doc),
+		   m_retainDoc(retainDoc)
+{
+
+}
+
+void GradientList::setDocument(ScribusDoc* doc)
+{
+	m_doc = doc;
+}
+
+GradientList& GradientList::operator= (const GradientList& list)
+{
+	clear();
+	if (!m_retainDoc)
+		m_doc = list.m_doc;
+	addGradients(list);
+	return *this;
+}
+
+void GradientList::addGradients(const GradientList& gradientList, bool overwrite)
+{
+	GradientList::ConstIterator it;
+	GradientList::ConstIterator itend;
+	itend = gradientList.end();
+	for (it = gradientList.begin(); it != itend; ++it)
+	{
+		if (overwrite || !contains(it.key()))
+			insert(it.key(), it.value());
+	}
+}
+
+void GradientList::addGradients(const QHash<QString, VGradient> &gradientList, bool overwrite)
+{
+	QHash<QString, VGradient>::const_iterator it;
+
+	for (it = gradientList.begin(); it != gradientList.end(); ++it)
+	{
+		if (overwrite || !contains(it.key()))
+			insert(it.key(), it.value());
+	}
+}
+
+void GradientList::copyGradients(const GradientList& gradientList, bool overwrite)
+{
+	clear();
+	addGradients(gradientList, overwrite);
+}
+
+ScribusDoc* GradientList::document() const
+{
+	return m_doc;
+}
+
+
+QString GradientList::tryAddGradient(QString name, const VGradient& col)
+{
+	if (contains(name))
+		return name;
+	bool found = false;
+	QString ret = name;
+	GradientList::Iterator it;
+	for (it = begin(); it != end(); ++it)
+	{
+		if (it.value() == col)
+		{
+			ret = it.key();
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+		insert(name, col);
+	return ret;
 }
