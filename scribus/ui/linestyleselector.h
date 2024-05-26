@@ -6,8 +6,6 @@
 #include "scribusdoc.h"
 #include "ui_linestyleselector.h"
 
-
-
 struct LineStyleValue;
 
 class SCRIBUS_API LineStyleSelector : public QWidget, private Ui::LineStyleSelector
@@ -21,7 +19,7 @@ public:
 	void setDoc(ScribusDoc *doc);
 	void updateLineStyles();
 
-	QListWidget *list() {return lineStyles;};
+	QListWidget *list() { return lineStyles; }
 	QSize iconSize();
 
 private:
@@ -37,7 +35,6 @@ private slots:
 
 signals:
 	void itemClicked(QListWidgetItem*);
-
 };
 
 #endif // LINESTYLESELECTOR_H
