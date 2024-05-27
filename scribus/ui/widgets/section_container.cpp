@@ -202,7 +202,7 @@ QLayout *SectionContainer::layout() const
 
 QSize SectionContainer::minimumSizeHint() const
 {
-	QSize s(200, childrenRect().height());
+	QSize s(QWidget::minimumSizeHint());
 
 	if (isCollapsed())
 		s.setHeight(header->height());

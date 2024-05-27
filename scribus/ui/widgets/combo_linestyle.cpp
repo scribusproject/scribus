@@ -20,8 +20,8 @@ ComboLineStyle::ComboLineStyle(QWidget *parent) : QComboBox(parent)
 	m_list->setViewMode(QListWidget::ListMode);
 	m_list->setItemDelegate(new ScListItemDelegate(QListWidget::ListMode, m_size, ScListItemDelegate::Right, ScListItemDelegate::Simple));
 
-	this->setView(m_list);
 	this->setModel(m_list->model());
+	this->setView(m_list);
 	this->setIconSize(m_size);
 
 	languageChange();
