@@ -770,6 +770,9 @@
     <ClInclude Include="..\..\..\scribus\tt\simpletreemodel\treeitem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\colorpicker\colorpicker_enum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\delegates\sclistitemdelegate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -782,7 +785,13 @@
     <ClInclude Include="..\..\..\scribus\ui\widgets\combo_blendmode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\widgets\combo_linestyle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\widgets\popup_menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\widgets\stacked_container.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\undoobject.h">
@@ -1264,6 +1273,9 @@
     <ClCompile Include="..\..\..\scribus\manager\dock_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\manager\widget_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\marks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1271,6 +1283,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\models\gradientlistmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\navigator.cpp">
@@ -1840,7 +1855,28 @@
     <ClCompile Include="..\..\..\scribus\ui\colorlistmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\colorpalette.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_color_swatches.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient_properties.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient_swatches.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_hatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_pattern.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\colorsandfills.cpp">
@@ -1942,9 +1978,6 @@
     <ClCompile Include="..\..\..\scribus\ui\gradientpreview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\gradientvectordialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\gtdialogs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2000,6 +2033,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\linemarkerselector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\linestyleselector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\linkbutton.cpp">
@@ -2240,6 +2276,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_attributes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_fill.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_group.cpp">
@@ -2527,9 +2569,6 @@
     <ClCompile Include="..\..\..\scribus\ui\transformdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\transparencypalette.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\unicodesearch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2551,13 +2590,25 @@
     <ClCompile Include="..\..\..\scribus\ui\widgets\combo_blendmode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\combo_linestyle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\floatingwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\widgets\form_widget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\gradientlistbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\widgets\popup_menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\widgets\section_container.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\stacked_container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\widgets\switch.cpp">
@@ -2680,7 +2731,28 @@
     <uic Include="..\..\..\scribus\ui\cmykfwbase.ui">
       <Filter>Form Files</Filter>
     </uic>
-    <uic Include="..\..\..\scribus\ui\colorpalette.ui">
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_color.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_color_swatches.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient_properties.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient_swatches.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_hatch.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_pattern.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\colorsandfillsbase.ui">
@@ -2710,9 +2782,6 @@
     <uic Include="..\..\..\scribus\ui\gradienteditor.ui">
       <Filter>Form Files</Filter>
     </uic>
-    <uic Include="..\..\..\scribus\ui\gradientvectorbase.ui">
-      <Filter>Form Files</Filter>
-    </uic>
     <uic Include="..\..\..\scribus\ui\gtfiledialog.ui">
       <Filter>Form Files</Filter>
     </uic>
@@ -2738,6 +2807,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\linemarkerselector.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\linestyleselector.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\mark2item.ui">
@@ -2902,6 +2974,12 @@
     <uic Include="..\..\..\scribus\ui\printpreviewbase.ui">
       <Filter>Form Files</Filter>
     </uic>
+    <uic Include="..\..\..\scribus\ui\propertiespalette_attributes.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertiespalette_fill.ui">
+      <Filter>Form Files</Filter>
+    </uic>
     <uic Include="..\..\..\scribus\ui\propertiespalette_groupbase.ui">
       <Filter>Form Files</Filter>
     </uic>
@@ -3020,9 +3098,6 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\transformdialogbase.ui">
-      <Filter>Form Files</Filter>
-    </uic>
-    <uic Include="..\..\..\scribus\ui\transparencypalette.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\unicodesearch.ui">
@@ -3374,7 +3449,13 @@
     <moc Include="..\..\..\scribus\manager\dock_manager.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\manager\widget_manager.h">
+      <Filter>Header Files</Filter>
+    </moc>
     <moc Include="..\..\..\scribus\menumanager.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\models\gradientlistmodel.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\navigator.h">
@@ -3611,7 +3692,28 @@
     <moc Include="..\..\..\scribus\ui\colorlistmodel.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\colorpalette.h">
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_color.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_color_swatches.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient_properties.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient_swatches.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_hatch.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_pattern.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\colorsandfills.h">
@@ -3710,9 +3812,6 @@
     <moc Include="..\..\..\scribus\ui\gradientpreview.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\gradientvectordialog.h">
-      <Filter>Header Files</Filter>
-    </moc>
     <moc Include="..\..\..\scribus\ui\gtdialogs.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -3768,6 +3867,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\linemarkerselector.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\linestyleselector.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\linkbutton.h">
@@ -4011,6 +4113,12 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\propertiespalette.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_attributes.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_fill.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\propertiespalette_group.h">
@@ -4292,9 +4400,6 @@
     <moc Include="..\..\..\scribus\ui\transformdialog.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\transparencypalette.h">
-      <Filter>Header Files</Filter>
-    </moc>
     <moc Include="..\..\..\scribus\ui\unicodesearch.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -4313,7 +4418,13 @@
     <moc Include="..\..\..\scribus\ui\widgets\color_button.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\floatingwindow.h">
+      <Filter>Header Files</Filter>
+    </moc>
     <moc Include="..\..\..\scribus\ui\widgets\form_widget.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\gradientlistbox.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\widgets\section_container.h">
