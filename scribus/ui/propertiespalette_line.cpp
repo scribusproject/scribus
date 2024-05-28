@@ -669,7 +669,6 @@ void PropertiesPalette_Line::handleLineStyle(int c)
 		return;
 	bool setter = (c == 0);
 	m_doc->itemSelection_SetNamedLineStyle(setter ? QString("") : comboLineStyle->currentText());
-
 }
 
 void PropertiesPalette_Line::handleLineOpacity(/*double opacity*/)
@@ -679,7 +678,7 @@ void PropertiesPalette_Line::handleLineOpacity(/*double opacity*/)
 
 	blockUpdates(true);
 
-	switch(buttonLineMask->mode())
+	switch (buttonLineMask->mode())
 	{
 	default:
 	case Mode::Solid:
