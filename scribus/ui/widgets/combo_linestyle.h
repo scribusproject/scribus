@@ -26,7 +26,6 @@ private:
 	QSize m_size { QSize(128, 16) };
 	QListWidget *m_list {nullptr};
 	QPixmap renderPixmap(LineStyleValue item);
-
 };
 
 #endif // COMBOLINESTYLE_H

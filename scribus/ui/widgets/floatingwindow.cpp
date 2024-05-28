@@ -15,9 +15,8 @@ FloatingWindow::FloatingWindow(QWidget *child, QWidget *reference, QWidget *pare
 	  m_reference(reference)
 {
 
-	if (m_child == nullptr) m_child = new QWidget();
-
-
+	if (m_child == nullptr)
+		m_child = new QWidget();
 
 	m_handle = new QWidget();
 	m_handle->installEventFilter(this);
@@ -43,8 +42,6 @@ FloatingWindow::FloatingWindow(QWidget *child, QWidget *reference, QWidget *pare
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(buttonClose, &QToolButton::pressed, this, &FloatingWindow::hide);
-
-
 }
 
 QWidget *FloatingWindow::child()
@@ -65,7 +62,6 @@ void FloatingWindow::iconSetChange()
 
 bool FloatingWindow::eventFilter(QObject *obj, QEvent *event)
 {
-
 	QWidget *wdg = dynamic_cast<QWidget*>(obj);
 
 	if (!wdg)
@@ -117,7 +113,6 @@ QSize FloatingWindow::screenSize()
 		bounds = bounds.united(screen->geometry());
 
 	return bounds.size();
-
 }
 
 void FloatingWindow::calculatePosition()
@@ -188,7 +183,6 @@ void FloatingWindow::calculatePosition()
 		position.setY( parentGlobalPos.y() + m_reference->height());
 */
 	setGeometry(position.x(),position.y(), this->width(), this->height() );
-
 }
 
 void FloatingWindow::show(QWidget *reference)

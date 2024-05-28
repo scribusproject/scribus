@@ -108,7 +108,8 @@ PropertiesPalette::PropertiesPalette(QWidget *parent) : DockPanelBase("Propertie
 	enablePalettes(false);
 
 	ColorPicker *colorPicker = WidgetManager::instance().colorPicker();
-	if(colorPicker){
+	if(colorPicker)
+	{
 		connect(colorPicker, SIGNAL(meshToShape()), this, SLOT(meshGradientToShape()));
 		connect(colorPicker, SIGNAL(createNewMesh()), this, SLOT(createNewMeshGradient()));
 		connect(colorPicker, SIGNAL(resetMesh()), this, SLOT(resetMeshGradient()));
@@ -119,7 +120,6 @@ PropertiesPalette::PropertiesPalette(QWidget *parent) : DockPanelBase("Propertie
 	}
 
 	m_haveItem = false;
-
 }
 
 void PropertiesPalette::closeEvent(QCloseEvent *closeEvent)
@@ -533,14 +533,12 @@ void PropertiesPalette::endPatchAdd()
 
 void PropertiesPalette::meshGradientToShape()
 {
-
 	if (!m_doc || !m_item)
 		return;
 
 	m_item->meshToShape();
 	m_item->update();
 	m_doc->regionsChanged()->update(QRect());
-
 }
 
 void PropertiesPalette::createNewMeshGradient()

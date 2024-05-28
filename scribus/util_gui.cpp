@@ -3,9 +3,9 @@
 #include <QPainterPath>
 #include <QPalette>
 #include "scpainter.h"
-#include "vgradient.h"
 #include "scpattern.h"
 #include "scribusapp.h"
+#include "vgradient.h"
 
 void drawCircularHandle(QPainter *painter, QPointF center, qreal width, QBrush background, bool isEnabled)
 {
@@ -209,7 +209,7 @@ QPixmap renderEmptyPattern(QSize size)
 	return pixmap;
 }
 
-QPixmap renderGradientLinear(QSize size, VGradient gradient)
+QPixmap renderGradientLinear(QSize size, const VGradient& gradient)
 {
 	int w = size.width();
 	int h = size.height();
@@ -229,7 +229,7 @@ QPixmap renderGradientLinear(QSize size, VGradient gradient)
 	return QPixmap::fromImage(pixm);
 }
 
-QPixmap renderGradientRadial(QSize size, VGradient gradient)
+QPixmap renderGradientRadial(QSize size, const VGradient& gradient)
 {
 	int w = size.width();
 	int h = size.height();
@@ -251,7 +251,7 @@ QPixmap renderGradientRadial(QSize size, VGradient gradient)
 	return QPixmap::fromImage(pixm);
 }
 
-QPixmap renderGradientConical(QSize size, VGradient gradient)
+QPixmap renderGradientConical(QSize size, const VGradient& gradient)
 {
 	int w = size.width();
 	int h = size.height();
@@ -296,7 +296,7 @@ QPixmap renderGradient4Colors(QSize size, QColor col1, QColor col2, QColor col3,
 	return QPixmap::fromImage(pixm);
 }
 
-QPixmap renderGradientDiamond(QSize size, VGradient gradient)
+QPixmap renderGradientDiamond(QSize size, const VGradient& gradient)
 {
 	int w = size.width();
 	int h = size.height();

@@ -39,8 +39,7 @@ SectionContainer::SectionContainer(QString title, bool isCollapsible,
 	mainLayout->addWidget(body);
 
 	// Size Policy
-	QSizePolicy sizePol =
-			QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
+	QSizePolicy sizePol(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
 	setSizePolicy(sizePol);
 
 	iconSetChange();
@@ -76,7 +75,8 @@ void SectionContainer::setText(QString text)
 	header->labelTitle->adjustSize();
 }
 
-QString SectionContainer::text() const {
+QString SectionContainer::text() const
+{
 	return header->labelTitle->text();
 }
 
@@ -258,7 +258,8 @@ void SectionContainer::addHeaderSuffixWidget(QWidget *widget)
 void SectionContainer::insertHeaderSuffixWidget(int index, QWidget *widget)
 {
 	QToolButton *toolButton = dynamic_cast<QToolButton *>(widget);
-	if (toolButton) {
+	if (toolButton)
+	{
 		toolButton->setAutoRaise(true);
 		header->layoutHeaderSuffix->insertWidget(index, toolButton);
 	}
@@ -282,7 +283,8 @@ void SectionContainer::insertHeaderSuffixSpacing(int index, int size)
 	header->layoutHeaderSuffix->insertSpacing(index, size);
 }
 
-void SectionContainer::addHeaderPrefixWidget(QWidget *widget) {
+void SectionContainer::addHeaderPrefixWidget(QWidget *widget)
+{
 	insertHeaderPrefixWidget(-1, widget);
 }
 
@@ -325,7 +327,6 @@ bool SectionContainer::eventFilter(QObject *object, QEvent *event)
 	}
 
 	return false;
-
 }
 
 /* *********************************************************************************
@@ -471,5 +472,4 @@ void SectionContainerHeader::mousePressEvent(QMouseEvent *mouseEvent)
 
 	if (mouseEvent->button() == Qt::LeftButton)
 		emit toggleCollpasedState();
-
 }

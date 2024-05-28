@@ -40,7 +40,6 @@ void WidgetManager::setup(ScribusDoc *doc)
 	m_colorPicker->setDoc(m_doc);
 	m_colorPickerWindow = new FloatingWindow(m_colorPicker, new QWidget());
 	connect(m_colorPickerWindow, &FloatingWindow::closed, m_colorPicker, &ColorPicker::parentClosed);
-
 }
 
 

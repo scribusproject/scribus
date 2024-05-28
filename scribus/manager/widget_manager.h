@@ -47,7 +47,6 @@ private:
 	ScribusDoc *m_doc;
 	FloatingWindow * m_colorPickerWindow;
 	ColorPicker * m_colorPicker;
-
 };
 
 #endif // WIDGETMANAGER_H

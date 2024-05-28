@@ -21,12 +21,13 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "gradientpreview.h"
 #include <QPainter>
 #include <QPaintEvent>
 #include <QApplication>
-#include "util_gui.h"
+
 #include "iconmanager.h"
+#include "gradientpreview.h"
+#include "util_gui.h"
 
 const int RADIUS = 6;
 const int GRADIENT_HEIGHT = 20;
@@ -40,7 +41,6 @@ const int GRADIENT_HEIGHT = 20;
 GradientPreview::GradientPreview(QWidget *parent)
 	: QWidget{parent}
 {
-
 	int h = scaleRect().height() + canvasRect().height() + RADIUS * 3;
 
 	setMinimumSize(QSize(200, h));
@@ -48,7 +48,6 @@ GradientPreview::GradientPreview(QWidget *parent)
 	setFocusPolicy(Qt::ClickFocus);
 
 	setup();
-
 }
 
 void GradientPreview::setup()
@@ -66,7 +65,6 @@ void GradientPreview::setup()
 
 	color = QColor(0,0,0);
 	fill_gradient.addStop( color, 1.0, 0.5, 1.0 );
-
 }
 
 
@@ -170,12 +168,10 @@ void GradientPreview::addStop(QPoint mousePosition)
 	// Update UI
 	repaint();
 
-	if(m_activeStop > -1)
+	if (m_activeStop > -1)
 	{
 		emitStop();
 	}
-
-
 }
 
 void GradientPreview::removeStop()
@@ -183,7 +179,7 @@ void GradientPreview::removeStop()
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
 
 	// Remove stop if it is not first or last one
-	if ( m_activeStop != -1 && cstops.count() > 2)
+	if (m_activeStop != -1 && cstops.count() > 2)
 	{
 		fill_gradient.removeStop(m_activeStop);
 		m_activeStop = qMax(m_activeStop - 1, 0);
@@ -223,7 +219,6 @@ void GradientPreview::updateTmpStop(double t)
 		}
 
 		repaint();
-
 	}
 }
 

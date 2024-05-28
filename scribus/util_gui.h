@@ -18,11 +18,11 @@ void SCRIBUS_API drawNodeControl(QPainter *painter, QPointF point, QPen pen, qre
 void SCRIBUS_API drawWeldMarker(QPainter *painter, QPointF point, QColor color, qreal scaleFactor);
 QPixmap SCRIBUS_API renderEmptyPattern(QSize size);
 QPixmap SCRIBUS_API renderColor(QSize size, QColor color, QColor colorShade, double alpha = 1.0);
-QPixmap SCRIBUS_API renderGradientLinear(QSize size, VGradient gradient);
-QPixmap SCRIBUS_API renderGradientRadial(QSize size, VGradient gradient);
-QPixmap SCRIBUS_API renderGradientConical(QSize size, VGradient gradient);
+QPixmap SCRIBUS_API renderGradientLinear(QSize size, const VGradient& gradient);
+QPixmap SCRIBUS_API renderGradientRadial(QSize size, const VGradient& gradient);
+QPixmap SCRIBUS_API renderGradientConical(QSize size, const VGradient& gradient);
 QPixmap SCRIBUS_API renderGradient4Colors(QSize size, QColor col1, QColor col2, QColor col3, QColor col4);
-QPixmap SCRIBUS_API renderGradientDiamond(QSize size, VGradient gradient);
+QPixmap SCRIBUS_API renderGradientDiamond(QSize size, const VGradient& gradient);
 QPixmap SCRIBUS_API renderGradientMesh(QSize size);
 QPixmap SCRIBUS_API renderGradientPatchMesh(QSize size);
 QPixmap SCRIBUS_API renderHatch(QSize size, int type, double distance, double angle, bool hasBackground, QColor backgroundColor, QColor foregroundColor);

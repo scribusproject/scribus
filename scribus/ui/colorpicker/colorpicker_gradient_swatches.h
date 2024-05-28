@@ -24,7 +24,6 @@ class ColorPickerGradientSwatches : public QWidget, Ui::ColorPickerGradientSwatc
 	Q_OBJECT
 
 public:
-
 	explicit ColorPickerGradientSwatches(QWidget *parent = nullptr);
 	~ColorPickerGradientSwatches() {};
 
@@ -41,7 +40,6 @@ private:
 
 signals:
 	void gradientChanged(QString name, VGradient gradient);
-
 };
 
 #endif // COLORPICKER_GRADIENT_SWATCHES_H
