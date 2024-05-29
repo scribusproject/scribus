@@ -256,8 +256,8 @@ bool HTMLReader::characters(const QString &ch)
 		if (tmp.isEmpty())
 			return true;
 
-		if (!lastCharWasSpace &&& fcis)
-			tmp = " " + tmp;
+		if (!lastCharWasSpace && fcis)
+			tmp.prepend(" ");
 
 		if (lcis && !(fcis && tmp.length() <= 1))
 			tmp = tmp + " ";
