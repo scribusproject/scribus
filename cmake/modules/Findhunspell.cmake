@@ -31,7 +31,7 @@ if(CMAKE_MATCH_1 GREATER 4)
 	set(hunspell_NEWAPI ON)
 	message(STATUS "New hunspell API found. hunspell version ${hunspell_VERSION}")
 	message(STATUS "hunspell INCLUDE ${hunspell_INCLUDE_DIRS}")
-  message(STATUS "hunspell LIBRARY DIRS ${hunspell_LIBRARY_DIRS}")
+	message(STATUS "hunspell LIBRARY DIRS ${hunspell_LIBRARY_DIRS}")
 	message(STATUS "hunspell LIBRARIES ${hunspell_LIBRARIES}")
 endif()
 
