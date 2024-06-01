@@ -121,8 +121,12 @@ class Point {
 
     Point &operator*=(Matrix const &m);
 
-    inline int operator == (const Point &in_pnt) {
+    inline bool operator==(const Point &in_pnt) const {
         return ((_pt[X] == in_pnt[X]) && (_pt[Y] == in_pnt[Y]));
+    }
+
+    inline bool operator!=(const Point &in_pnt) const {
+        return ((_pt[X] != in_pnt[X]) || (_pt[Y] != in_pnt[Y]));
     }
 
     friend inline std::ostream &operator<< (std::ostream &out_file, const Geom::Point &in_pnt);
@@ -142,14 +146,6 @@ inline Point operator^(Point const &a, Point const &b) {
     Point const ret(a[0] * b[0] - a[1] * b[1],
                     a[1] * b[0] + a[0] * b[1]);
     return ret;
-}
-
-//IMPL: boost::EqualityComparableConcept
-inline bool operator==(Point const &a, Point const &b) {
-    return (a[X] == b[X]) && (a[Y] == b[Y]);
-}
-inline bool operator!=(Point const &a, Point const &b) {
-    return (a[X] != b[X]) || (a[Y] != b[Y]);
 }
 
 /** This is a lexicographical ordering for points.  It is remarkably useful for sweepline algorithms*/
