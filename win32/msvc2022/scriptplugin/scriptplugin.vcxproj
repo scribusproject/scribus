@@ -280,7 +280,7 @@
     <moc Include="..\..\..\scribus\plugins\scriptplugin\pconsole.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
     <moc Include="..\..\..\scribus\plugins\scriptplugin\prefs_scripter.h" />
-    <moc Include="..\..\..\scribus\plugins\scriptplugin\pyesstring.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\pyesstring.h" />
     <moc Include="..\..\..\scribus\plugins\scriptplugin\runscriptdialog.h" />
     <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptercore.h" />
     <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.h" />
