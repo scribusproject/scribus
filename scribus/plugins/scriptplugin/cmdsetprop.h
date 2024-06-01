@@ -35,6 +35,18 @@ must have been called previously for the gradient fill to be visible.\n\
 PyObject *scribus_setgradstop(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setgradvector__doc__,
+QT_TR_NOOP("setGradientVector(startX, startY, endX, endY, [\"name\"])\n\
+\n\
+Sets the gradient vectors of the object \"name\" to (startX, startY) -> (endX, endY).\n\
+The coordinates are given in the current measurement units of the document\n\
+(see UNIT constants).\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Set gradient vector */
+PyObject* scribus_setgradvector(PyObject* /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setfillcolor__doc__,
 QT_TR_NOOP("setFillColor(\"color\", [\"name\"])\n\
 \n\
@@ -44,6 +56,20 @@ currently selected item is used.\n\
 "));
 /*! Set fill color */
 PyObject *scribus_setfillcolor(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setfillshade__doc__,
+QT_TR_NOOP("setFillShade(shade, [\"name\"])\n\
+\n\
+Sets the shading of the fill color of the object \"name\" to \"shade\".\n\
+\"shade\" must be an integer value in the range from 0 (lightest) to 100\n\
+(full Color intensity). If \"name\" is not given the currently selected\n\
+Item is used.\n\
+\n\
+May raise ValueError if the fill shade is out of bounds.\n\
+"));
+/*! Set fill shade */
+PyObject* scribus_setfillshade(PyObject* /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setfilltrans__doc__,
@@ -167,20 +193,6 @@ In Property Palette this feature is selected in box named 'Type of line'\n\
 "));
 /*! Set line end */
 PyObject *scribus_setlinestyle(PyObject * /*self*/, PyObject* args);
-
-/*! docstring */
-PyDoc_STRVAR(scribus_setfillshade__doc__,
-QT_TR_NOOP("setFillShade(shade, [\"name\"])\n\
-\n\
-Sets the shading of the fill color of the object \"name\" to \"shade\".\n\
-\"shade\" must be an integer value in the range from 0 (lightest) to 100\n\
-(full Color intensity). If \"name\" is not given the currently selected\n\
-Item is used.\n\
-\n\
-May raise ValueError if the fill shade is out of bounds.\n\
-"));
-/*! Set fill shade */
-PyObject *scribus_setfillshade(PyObject * /*self*/, PyObject* args);
 
 /*! docstringscribus_setmultiline__doc__ */
 PyDoc_STRVAR(scribus_setcornerradius__doc__,

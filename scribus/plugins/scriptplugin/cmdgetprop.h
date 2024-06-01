@@ -41,6 +41,16 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getfillcolor(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getfillshade__doc__,
+QT_TR_NOOP("getFillShade([\"name\"]) -> integer\n\
+\n\
+Returns the shading value of the fill color of the object \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Returns fill shade of the object */
+PyObject* scribus_getfillshade(PyObject* /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getfilltransparency__doc__,
 QT_TR_NOOP("getFillTransparency([\"name\"]) -> float\n\
 \n\
@@ -59,6 +69,30 @@ is not given the currently selected Item is used.\n\
 "));
 /*! Returns fill blendmode of the object */
 PyObject *scribus_getfillblendmode(PyObject * /*self*/, PyObject* args);
+
+PyDoc_STRVAR(scribus_getgradstop__doc__,
+QT_TR_NOOP("getGradientStop(index, [\"name\"]) -> (\"color\", opacity, shade)\n\
+\n\
+Returns a (\"color\", opacity, shade) tuple containing the stop at index on the gradient of the object\n\
+\"name\". If \"name\" is not given the currently selected item is used.\n\
+"));
+PyObject* scribus_getgradstop(PyObject* /*self*/, PyObject* args);
+
+PyDoc_STRVAR(scribus_getgradstopscount__doc__,
+QT_TR_NOOP("getGradientStopsCount([\"name\"]) -> integer\n\
+\n\
+Returns the number of stops on the gradient of the object\n\
+\"name\". If \"name\" is not given the currently selected item is used.\n\
+"));
+PyObject* scribus_getgradstopscount(PyObject* /*self*/, PyObject* args);
+
+PyDoc_STRVAR(scribus_getgradvector__doc__,
+QT_TR_NOOP("getGradientVector([\"name\"]) -> (startX, startY, endX, endY)\n\
+\n\
+Returns a (startX, startY, endX, endY) tuple containing the gradient vector of the object\n\
+\"name\". If \"name\" is not given the currently selected item is used.\n\
+"));
+PyObject* scribus_getgradvector(PyObject* /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getcustomlinestyle__doc__,
@@ -152,16 +186,6 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID\n\
 "));
 /*! Returns style type of the line */
 PyObject *scribus_getlinestyle(PyObject * /*self*/, PyObject* args);
-
-/*! docstring */
-PyDoc_STRVAR(scribus_getfillshade__doc__,
-QT_TR_NOOP("getFillShade([\"name\"]) -> integer\n\
-\n\
-Returns the shading value of the fill color of the object \"name\".\n\
-If \"name\" is not given the currently selected item is used.\n\
-"));
-/*! Returns fill shade of the object */
-PyObject *scribus_getfillshade(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getcornerradius__doc__,

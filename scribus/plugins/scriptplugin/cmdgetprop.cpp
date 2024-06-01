@@ -79,6 +79,19 @@ PyObject *scribus_getfillcolor(PyObject* /* self */, PyObject* args)
 	return PyUnicode_FromString(item->fillColor().toUtf8());
 }
 
+PyObject* scribus_getfillshade(PyObject* /* self */, PyObject* args)
+{
+	char* Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem* item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	return PyLong_FromLong(static_cast<long>(item->fillShade()));
+}
+
 PyObject *scribus_getfilltransparency(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -103,6 +116,58 @@ PyObject *scribus_getfillblendmode(PyObject* /* self */, PyObject* args)
 	if (item == nullptr)
 		return nullptr;
 	return PyLong_FromLong(static_cast<long>(item->fillBlendmode()));
+}
+
+PyObject* scribus_getgradstop(PyObject* /* self */, PyObject* args)
+{
+	char* Name = const_cast<char*>("");
+	int stopIndex = 0;
+	if (!PyArg_ParseTuple(args, "i|es", &stopIndex, "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem* item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+
+	int gradStopsCount = item->fill_gradient.stops();
+
+	if (stopIndex < 0 || stopIndex >= gradStopsCount)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Stop index out of bounds, must be 0 <= index <= stopsCount.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	VColorStop* stop = item->fill_gradient.colorStops()[stopIndex];
+	QByteArray stopName = stop->name.toUtf8();
+
+	return Py_BuildValue("(sdi)", stopName.constData(), stop->opacity, stop->shade);
+}
+
+PyObject* scribus_getgradstopscount(PyObject* /* self */, PyObject* args)
+{
+	char* Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem* item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	return PyLong_FromLong(static_cast<long>(item->fill_gradient.stops()));
+}
+
+PyObject* scribus_getgradvector(PyObject* /* self */, PyObject* args)
+{
+	char* Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem* item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	return Py_BuildValue("(ffff)", PointToValue(item->GrStartX), PointToValue(item->GrStartY), PointToValue(item->GrEndX), PointToValue(item->GrEndY));
 }
 
 PyObject *scribus_getcustomlinestyle(PyObject* /* self */, PyObject* args)
@@ -220,19 +285,6 @@ PyObject *scribus_getlinestyle(PyObject* /* self */, PyObject* args)
 	if (item == nullptr)
 		return nullptr;
 	return PyLong_FromLong(static_cast<long>(item->PLineArt));
-}
-
-PyObject *scribus_getfillshade(PyObject* /* self */, PyObject* args)
-{
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
-		return nullptr;
-	if (!checkHaveDocument())
-		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == nullptr)
-		return nullptr;
-	return PyLong_FromLong(static_cast<long>(item->fillShade()));
 }
 
 PyObject *scribus_getcornerradius(PyObject* /* self */, PyObject* args)
@@ -475,6 +527,9 @@ void cmdgetpropdocwarnings()
 	  << scribus_getfillblendmode__doc__
 	  << scribus_getfillshade__doc__ 
 	  << scribus_getfilltransparency__doc__
+	  << scribus_getgradstop__doc__ 
+	  << scribus_getgradstopscount__doc__ 
+	  << scribus_getgradvector__doc__ 
 	  << scribus_getimagecolorspace__doc__
 	  << scribus_getimagefile__doc__
 	  << scribus_getimageoffset__doc__

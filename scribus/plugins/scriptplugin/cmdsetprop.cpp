@@ -123,6 +123,25 @@ PyObject *scribus_setgradstop(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject* scribus_setgradvector(PyObject* /* self */, PyObject* args)
+{
+	char* Name = const_cast<char*>("");
+	double startX, startY, endX, endY;
+	if (!PyArg_ParseTuple(args, "dddd|es", &startX, &startY, &endX, &endY, "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+
+	PageItem* currItem = GetUniqueItem(QString::fromUtf8(Name));
+	if (currItem == nullptr)
+		return nullptr;
+
+	currItem->setGradientStart(ValueToPoint(startX), ValueToPoint(startY));
+	currItem->setGradientEnd(ValueToPoint(endX), ValueToPoint(endY));
+	currItem->update();
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_setfillcolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -135,6 +154,26 @@ PyObject *scribus_setfillcolor(PyObject* /* self */, PyObject* args)
 	if (i == nullptr)
 		return nullptr;
 	i->setFillColor(QString::fromUtf8(Color));
+	Py_RETURN_NONE;
+}
+
+PyObject* scribus_setfillshade(PyObject* /* self */, PyObject* args)
+{
+	char* Name = const_cast<char*>("");
+	int w;
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	if ((w < 0) || (w > 100))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Fill shade out of bounds, must be 0 <= shade <= 100.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	PageItem* i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == nullptr)
+		return nullptr;
+	i->setFillShade(w);
 	Py_RETURN_NONE;
 }
 
@@ -292,26 +331,6 @@ PyObject *scribus_setlineshade(PyObject* /* self */, PyObject* args)
 	if (it == nullptr)
 		return nullptr;
 	it->setLineShade(w);
-	Py_RETURN_NONE;
-}
-
-PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
-{
-	char *Name = const_cast<char*>("");
-	int w;
-	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
-		return nullptr;
-	if (!checkHaveDocument())
-		return nullptr;
-	if ((w < 0) || (w > 100))
-	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Fill shade out of bounds, must be 0 <= shade <= 100.","python error").toLocal8Bit().constData());
-		return nullptr;
-	}
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	if (i == nullptr)
-		return nullptr;
-	i->setFillShade(w);
 	Py_RETURN_NONE;
 }
 
@@ -552,6 +571,7 @@ void cmdsetpropdocwarnings()
 	  << scribus_setfilltrans__doc__
 	  << scribus_setgradfill__doc__ 
 	  << scribus_setgradstop__doc__
+	  << scribus_setgradvector__doc__ 
 	  << scribus_setitemname__doc__
 	  << scribus_setlineblend__doc__
 	  << scribus_setlinecap__doc__ 
