@@ -237,6 +237,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">plugins_pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\prefs_scripter.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\pyesstring.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\runscriptdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptercore.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.cpp" />
@@ -267,6 +268,7 @@
     <moc Include="..\..\..\scribus\plugins\scriptplugin\pconsole.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
     <moc Include="..\..\..\scribus\plugins\scriptplugin\prefs_scripter.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\pyesstring.h" />
     <moc Include="..\..\..\scribus\plugins\scriptplugin\runscriptdialog.h" />
     <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptercore.h" />
     <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.h" />

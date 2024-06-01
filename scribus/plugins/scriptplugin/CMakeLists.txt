@@ -34,6 +34,7 @@ set(SCRIPTER_PLUGIN_SOURCES
 	objprinter.cpp
 	pconsole.cpp
 	prefs_scripter.cpp
+	pyesstring.cpp
 	runscriptdialog.cpp
 	scriptercore.cpp
 	scriptplugin.cpp
