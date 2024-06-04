@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "../formatidlist.h"
 #include "loadsaveplugin.h"
+#include "pyesstring.h"
 #include "scribuscore.h"
 #include "scribusview.h"
 #include "selection.h"
@@ -23,15 +24,15 @@ for which a new license (GPL+exception) is in place.
 
 PyObject *scribus_placevec(PyObject* /* self */, PyObject* args)
 {
-	char *Image;
+	PyESString image;
 	double x = 0.0;
 	double y = 0.0;
-	if (!PyArg_ParseTuple(args, "es|dd", "utf-8", &Image, &x, &y))
+	if (!PyArg_ParseTuple(args, "es|dd", "utf-8", image.ptr(), &x, &y))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
 	QStringList allFormatsV = LoadSavePlugin::getExtensionsForImport(FORMATID_FIRSTUSER);
-	QString fName = QString::fromUtf8(Image);
+	QString fName = QString::fromUtf8(image.c_str());
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.suffix().toLower();
 	if (!allFormatsV.contains(ext))

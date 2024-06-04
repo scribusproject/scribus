@@ -6,11 +6,12 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmddoc.h"
 #include "cmdutil.h"
-#include "units.h"
 #include "documentinformation.h"
+#include "pyesstring.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "units.h"
 
 #include <QApplication>
 
@@ -188,13 +189,13 @@ PyObject *scribus_havedoc(PyObject* /* self */)
 
 PyObject *scribus_opendoc(PyObject* /* self */, PyObject* args)
 {
-	char *Name;
-	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
 		return nullptr;
-	bool ret = ScCore->primaryMainWindow()->loadDoc(QString::fromUtf8(Name));
+	bool ret = ScCore->primaryMainWindow()->loadDoc(QString::fromUtf8(name.c_str()));
 	if (!ret)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to open document: %1","python error").arg(Name).toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Failed to open document: %1","python error").arg(name.c_str()).toLocal8Bit().constData());
 		return nullptr;
 	}
 	return PyBool_FromLong(static_cast<long>(true));
@@ -232,12 +233,12 @@ PyObject *scribus_getdocname(PyObject* /* self */)
 
 PyObject *scribus_savedocas(PyObject* /* self */, PyObject* args)
 {
-	char *Name;
-	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+	PyESString fileName;
+	if (!PyArg_ParseTuple(args, "es", "utf-8", fileName.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	bool ret = ScCore->primaryMainWindow()->DoFileSave(QString::fromUtf8(Name));
+	bool ret = ScCore->primaryMainWindow()->DoFileSave(QString::fromUtf8(fileName.c_str()));
 	if (!ret)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to save document.","python error").toLocal8Bit().constData());
@@ -312,12 +313,12 @@ PyObject *scribus_getunit(PyObject* /* self */)
 
 PyObject *scribus_loadstylesfromfile(PyObject* /* self */, PyObject *args)
 {
-	char *fileName;
-	if (!PyArg_ParseTuple(args, "es", "utf-8", &fileName))
+	PyESString fileName;
+	if (!PyArg_ParseTuple(args, "es", "utf-8", fileName.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	ScCore->primaryMainWindow()->doc->loadStylesFromFile(QString::fromUtf8(fileName));
+	ScCore->primaryMainWindow()->doc->loadStylesFromFile(QString::fromUtf8(fileName.c_str()));
 
 	Py_RETURN_NONE;
 }
@@ -372,12 +373,12 @@ PyObject *scribus_masterpagenames(PyObject* /* self */)
 
 PyObject *scribus_editmasterpage(PyObject* /* self */, PyObject* args)
 {
-	char* name = nullptr;
-	if (!PyArg_ParseTuple(args, "es", const_cast<char*>("utf-8"), &name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	const QString masterPageName(name);
+	const QString masterPageName(name.c_str());
 	const QMap<QString,int>& masterNames(ScCore->primaryMainWindow()->doc->MasterNames);
 	const QMap<QString,int>::const_iterator it(masterNames.find(masterPageName));
 	if ( it == masterNames.constEnd() )
@@ -392,12 +393,12 @@ PyObject *scribus_editmasterpage(PyObject* /* self */, PyObject* args)
 
 PyObject* scribus_createmasterpage(PyObject* /* self */, PyObject* args)
 {
-	char* name = nullptr;
-	if (!PyArg_ParseTuple(args, "es", const_cast<char*>("utf-8"), &name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	const QString masterPageName(name);
+	const QString masterPageName(name.c_str());
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	if (currentDoc->MasterNames.contains(masterPageName))
@@ -412,12 +413,12 @@ PyObject* scribus_createmasterpage(PyObject* /* self */, PyObject* args)
 
 PyObject* scribus_deletemasterpage(PyObject* /* self */, PyObject* args)
 {
-	char* name = nullptr;
-	if (!PyArg_ParseTuple(args, "es", const_cast<char*>("utf-8"), &name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	const QString masterPageName(name);
+	const QString masterPageName(name.c_str());
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	if (!currentDoc->MasterNames.contains(masterPageName))
@@ -458,13 +459,13 @@ PyObject *scribus_getmasterpage(PyObject* /* self */, PyObject* args)
 
 PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)
 {
-	char* name = nullptr;
+	PyESString name;
 	int page = 0;
-	if (!PyArg_ParseTuple(args, "esi", const_cast<char*>("utf-8"), &name, &page))
+	if (!PyArg_ParseTuple(args, "esi", "utf-8", name.ptr(), &page))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	const QString masterPageName(name);
+	const QString masterPageName(name.c_str());
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	if (!currentDoc->MasterNames.contains(masterPageName))

@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdutil.h"
 #include "commonstrings.h"
 #include "pageitem_table.h"
+#include "pyesstring.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -20,13 +21,13 @@ for which a new license (GPL+exception) is in place.
 PyObject *scribus_createrect(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
-	char *Name = const_cast<char*>("");
+	PyESString name;
 
-	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-//	if (ItemExists(QString::fromUtf8(Name)))
+//	if (ItemExists(QString::fromUtf8(name.c_str())))
 //	{
 //		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 //		return nullptr;
@@ -38,9 +39,9 @@ PyObject *scribus_createrect(PyObject* /* self */, PyObject* args)
 						doc->itemToolPrefs().shapeLineWidth,
 						doc->itemToolPrefs().shapeFillColor, doc->itemToolPrefs().shapeLineColor);
 //	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
-	if (strlen(Name) > 0)
+	if (name.length() > 0)
 	{
-		QString objName = QString::fromUtf8(Name);
+		QString objName = QString::fromUtf8(name.c_str());
 		if (!ItemExists(objName))
 			doc->Items->at(i)->setItemName(objName);
 	}
@@ -51,8 +52,8 @@ PyObject *scribus_createrect(PyObject* /* self */, PyObject* args)
 PyObject *scribus_createellipse(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -64,9 +65,9 @@ PyObject *scribus_createellipse(PyObject* /* self */, PyObject* args)
 										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
 										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
 										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
-	if (strlen(Name) > 0)
+	if (name.length() > 0)
 	{
-		QString objName = QString::fromUtf8(Name);
+		QString objName = QString::fromUtf8(name.c_str());
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
 	}
@@ -77,8 +78,8 @@ PyObject *scribus_createellipse(PyObject* /* self */, PyObject* args)
 PyObject *scribus_createimage(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -89,9 +90,9 @@ PyObject *scribus_createimage(PyObject* /* self */, PyObject* args)
 									ValueToPoint(h),
 									1, ScCore->primaryMainWindow()->doc->itemToolPrefs().imageFillColor,
 									ScCore->primaryMainWindow()->doc->itemToolPrefs().imageStrokeColor);
-	if (strlen(Name) > 0)
+	if (name.length() > 0)
 	{
-		QString objName = QString::fromUtf8(Name);
+		QString objName = QString::fromUtf8(name.c_str());
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
 	}
@@ -102,8 +103,8 @@ PyObject *scribus_createimage(PyObject* /* self */, PyObject* args)
 PyObject *scribus_createtext(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -114,9 +115,9 @@ PyObject *scribus_createtext(PyObject* /* self */, PyObject* args)
 								ValueToPoint(h),
 								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, CommonStrings::None,
 								ScCore->primaryMainWindow()->doc->itemToolPrefs().textColor);
-	if (strlen(Name) > 0)
+	if (name.length() > 0)
 	{
-		QString objName = QString::fromUtf8(Name);
+		QString objName = QString::fromUtf8(name.c_str());
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
 	}
@@ -127,8 +128,8 @@ PyObject *scribus_createtable(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
 	int numRows, numColumns;
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "ddddii|es", &x, &y, &w, &h, &numRows, &numColumns, "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "ddddii|es", &x, &y, &w, &h, &numRows, &numColumns, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -150,9 +151,9 @@ PyObject *scribus_createtable(PyObject* /* self */, PyObject* args)
 	table->insertColumns(0, numColumns - 1);
 	table->adjustTableToFrame();
 	table->adjustFrameToTable();
-	if (strlen(Name) > 0)
+	if (name.length() > 0)
 	{
-		QString objName = QString::fromUtf8(Name);
+		QString objName = QString::fromUtf8(name.c_str());
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
 	}
@@ -162,8 +163,8 @@ PyObject *scribus_createtable(PyObject* /* self */, PyObject* args)
 PyObject *scribus_createline(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -171,7 +172,7 @@ PyObject *scribus_createline(PyObject* /* self */, PyObject* args)
 	y = pageUnitYToDocY(y);
 	w = pageUnitXToDocX(w);
 	h = pageUnitYToDocY(h);
-//	if (ItemExists(QString::fromUtf8(Name)))
+//	if (ItemExists(QString::fromUtf8(name.c_str())))
 //	{
 //		PyErr_SetString(NameExistsError,
 //						QObject::tr("An object with the requested name already exists.",
@@ -210,9 +211,9 @@ PyObject *scribus_createline(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->SizeItem(it->PoLine.widthHeight().x(),
 						 it->PoLine.widthHeight().y(), i, false, false, false);
 	ScCore->primaryMainWindow()->view->AdjustItemSize(it);*/
-	if (strlen(Name) > 0)
+	if (name.length() > 0)
 	{
-		QString objName = QString::fromUtf8(Name);
+		QString objName = QString::fromUtf8(name.c_str());
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(objName);
 	}
@@ -222,10 +223,10 @@ PyObject *scribus_createline(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_createpolyline(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	PyObject *il;
 	// FIXME: PyList_Check failing will cause the function to return nullptr w/o an exception. Separarate out the check.
-	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", &Name)) || (!PyList_Check(il)))
+	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", name.ptr())) || (!PyList_Check(il)))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -240,7 +241,7 @@ PyObject *scribus_createpolyline(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-//	if (ItemExists(QString::fromUtf8(Name)))
+//	if (ItemExists(QString::fromUtf8(name.c_str())))
 //	{
 //		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error").toLocal8Bit().constData());
 //		return nullptr;
@@ -287,9 +288,9 @@ PyObject *scribus_createpolyline(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->sizeItem(it->PoLine.widthHeight().x(), it->PoLine.widthHeight().y(), it, false, false, false);
 	ScCore->primaryMainWindow()->doc->adjustItemSize(it);
-	if (strlen(Name) > 0)
+	if (name.length() > 0)
 	{
-		QString objName = QString::fromUtf8(Name);
+		QString objName = QString::fromUtf8(name.c_str());
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(ic)->setItemName(objName);
 	}
@@ -299,10 +300,10 @@ PyObject *scribus_createpolyline(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_createpolygon(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	PyObject *il;
 	// FIXME: PyList_Check failing will cause the function to return nullptr w/o an exception. Separarate out the check.
-	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", &Name)) || (!PyList_Check(il)))
+	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", name.ptr())) || (!PyList_Check(il)))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -317,7 +318,7 @@ PyObject *scribus_createpolygon(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-//	if (ItemExists(QString::fromUtf8(Name)))
+//	if (ItemExists(QString::fromUtf8(name.c_str())))
 //	{
 //		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error").toLocal8Bit().constData());
 //		return nullptr;
@@ -369,9 +370,9 @@ PyObject *scribus_createpolygon(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->sizeItem(it->PoLine.widthHeight().x(), it->PoLine.widthHeight().y(), it, false, false, false);
 	ScCore->primaryMainWindow()->doc->adjustItemSize(it);
-	if (strlen(Name) > 0)
+	if (name.length() > 0)
 	{
-		QString objName = QString::fromUtf8(Name);
+		QString objName = QString::fromUtf8(name.c_str());
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(ic)->setItemName(objName);
 	}
@@ -380,10 +381,10 @@ PyObject *scribus_createpolygon(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_createbezierline(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	PyObject *il;
 	// FIXME: PyList_Check failing will cause the function to return nullptr w/o an exception. Separarate out the check.
-	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", &Name)) || (!PyList_Check(il)))
+	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", name.ptr())) || (!PyList_Check(il)))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -398,7 +399,7 @@ PyObject *scribus_createbezierline(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must have a multiple of six values.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-//	if (ItemExists(QString::fromUtf8(Name)))
+//	if (ItemExists(QString::fromUtf8(name.c_str())))
 //	{
 //		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error").toLocal8Bit().constData());
 //		return nullptr;
@@ -460,9 +461,9 @@ PyObject *scribus_createbezierline(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->sizeItem(it->PoLine.widthHeight().x(), it->PoLine.widthHeight().y(), it, false, false, false);
 	ScCore->primaryMainWindow()->doc->adjustItemSize(it);
-	if (strlen(Name) > 0)
+	if (name.length() > 0)
 	{
-		QString objName = QString::fromUtf8(Name);
+		QString objName = QString::fromUtf8(name.c_str());
 		if (!ItemExists(objName))
 			ScCore->primaryMainWindow()->doc->Items->at(ic)->setItemName(objName);
 	}
@@ -475,22 +476,22 @@ PyObject *scribus_createbezierline(PyObject* /* self */, PyObject* args)
 PyObject *scribus_createpathtext(PyObject* /* self */, PyObject* args)
 {
 	double x, y;
-	char *Name = const_cast<char*>("");
-	char *TextB = const_cast<char*>("");
-	char *PolyB = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "ddeses|es", &x, &y, "utf-8", &TextB, "utf-8", &PolyB, "utf-8", &Name))
+	PyESString name;
+	PyESString textB;
+	PyESString polyB;
+	if (!PyArg_ParseTuple(args, "ddeses|es", &x, &y, "utf-8", textB.ptr(), "utf-8", polyB.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-//	if (ItemExists(QString::fromUtf8(Name)))
+//	if (ItemExists(QString::fromUtf8(name.c_str())))
 //	{
 //		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 //		return nullptr;
 //	}
 	//FIXME: Why use GetItem not GetUniqueItem? Maybe use GetUniqueItem and use the exceptions
 	// its sets for us?
-	PageItem *i = GetItem(QString::fromUtf8(TextB));
-	PageItem *ii = GetItem(QString::fromUtf8(PolyB));
+	PageItem *i = GetItem(QString::fromUtf8(textB.c_str()));
+	PageItem *ii = GetItem(QString::fromUtf8(polyB.c_str()));
 	if ((i == nullptr) || (ii == nullptr))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Object not found.","python error").toLocal8Bit().constData());
@@ -501,9 +502,9 @@ PyObject *scribus_createpathtext(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->doc->m_Selection->addItem(ii);
 	ScCore->primaryMainWindow()->view->ToPathText();
 	ScCore->primaryMainWindow()->doc->moveItem(pageUnitXToDocX(x) - i->xPos(), pageUnitYToDocY(y) - i->yPos(), i);
-	if (strlen(Name) > 0)
+	if (name.length() > 0)
 	{
-		QString objName = QString::fromUtf8(Name);
+		QString objName = QString::fromUtf8(name.c_str());
 		if (!ItemExists(objName))
 			i->setItemName(objName);
 	}
@@ -515,12 +516,12 @@ PyObject *scribus_createpathtext(PyObject* /* self */, PyObject* args)
  */
 PyObject *scribus_deleteobject(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	ScCore->primaryMainWindow()->doc->m_Selection->clear();
@@ -532,14 +533,14 @@ PyObject *scribus_deleteobject(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_gettextflowmode(PyObject* /* self */, PyObject* args)
 {
-	char *name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
-		return NULL;
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
 	if (!checkHaveDocument())
-		return NULL;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
-	if (item == NULL)
-		return NULL;
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
 
 	return PyLong_FromLong(static_cast<int>(item->textFlowMode()));
 };
@@ -548,14 +549,14 @@ PyObject *scribus_gettextflowmode(PyObject* /* self */, PyObject* args)
  */
 PyObject *scribus_settextflowmode(PyObject* /* self */, PyObject* args)
 {
-	char *name = const_cast<char*>("");
+	PyESString name;
 	int state = -1;
 
-	if (!PyArg_ParseTuple(args, "es|i", "utf-8", &name, &state))
+	if (!PyArg_ParseTuple(args, "es|i", "utf-8", name.ptr(), &state))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	if (state == -1)
@@ -582,30 +583,30 @@ PyObject *scribus_settextflowmode(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_objectexists(PyObject* /* self */, PyObject* args)
 {
-	char* name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	if (ItemExists(QString::fromUtf8(name)))
+	if (ItemExists(QString::fromUtf8(name.c_str())))
 		return PyBool_FromLong(static_cast<long>(true));
 	return PyBool_FromLong(static_cast<long>(false));
 }
 
 PyObject *scribus_getcharacterstyle(PyObject* /* self */, PyObject* args)
 {
-	char *name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
-		return NULL;
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
 	if (!checkHaveDocument())
-		return NULL;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
-	if (item == NULL)
-		return NULL;
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
 	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get character style of a non-text frame.", "python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
@@ -634,18 +635,18 @@ PyObject *scribus_getcharacterstyle(PyObject* /* self */, PyObject* args)
  */
 PyObject *scribus_getparagraphstyle(PyObject* /* self */, PyObject* args)
 {
-	char *name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
-		return NULL;
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
 	if (!checkHaveDocument())
-		return NULL;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
-	if (item == NULL)
-		return NULL;
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
 	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get style of a non-text frame.", "python error").toLocal8Bit().constData());
-		return NULL;
+		return nullptr;
 	}
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
@@ -677,13 +678,13 @@ PyObject *scribus_getparagraphstyle(PyObject* /* self */, PyObject* args)
  */
 PyObject *scribus_setparagraphstyle(PyObject* /* self */, PyObject* args)
 {
-	char *style = const_cast<char*>("");
-	char *name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &style, "utf-8", &name))
+	PyESString name;
+	PyESString style;
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", style.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
@@ -697,7 +698,7 @@ PyObject *scribus_setparagraphstyle(PyObject* /* self */, PyObject* args)
 	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
 
 	// First, check if style name provided by user is available in document
-	QString paraStyleName = QString::fromUtf8(style);
+	QString paraStyleName = QString::fromUtf8(style.c_str());
 	if (!currentDoc->paragraphStyles().contains(paraStyleName))
 	{
 		// whoops, the user specified an invalid style, complain loudly.
@@ -753,13 +754,13 @@ PyObject *scribus_setparagraphstyle(PyObject* /* self */, PyObject* args)
 */
 PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 {
-	char *style = const_cast<char*>("");
-	char *name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &style, "utf-8", &name))
+	PyESString name;
+	PyESString style;
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", style.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
@@ -773,7 +774,7 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
 
 	// First, check if style name provided by user is available in document
-	QString charStyleName = QString::fromUtf8(style);
+	QString charStyleName = QString::fromUtf8(style.c_str());
 	if (!currentDoc->charStyles().contains(charStyleName))
 	{
 		// whoops, the user specified an invalid style, complain loudly.
@@ -825,8 +826,8 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 {
-	char* name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -835,7 +836,7 @@ PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
 	ScribusDoc* currentDoc = currentWin->doc;
 
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	currentDoc->m_Selection->clear();
@@ -868,10 +869,10 @@ PyObject *scribus_duplicateobjects(PyObject * /* self */, PyObject *args)
 	QStringList itemNames;
 	if ((pyObject != nullptr) && PyUnicode_Check(pyObject))
 	{
-		char* name = const_cast<char*>("");
-		if (!PyArg_Parse(pyObject, "es", "utf-8", &name))
+		PyESString name;
+		if (!PyArg_Parse(pyObject, "es", "utf-8", name.ptr()))
 			return nullptr;
-		QString itemName = QString::fromUtf8(name);
+		QString itemName = QString::fromUtf8(name.c_str());
 		if (!itemName.isEmpty())
 			itemNames.append(itemName);
 	}
@@ -933,8 +934,8 @@ PyObject *scribus_duplicateobjects(PyObject * /* self */, PyObject *args)
 
 PyObject *scribus_copyobject(PyObject * /* self */, PyObject *args)
 {
-	char* name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -943,7 +944,7 @@ PyObject *scribus_copyobject(PyObject * /* self */, PyObject *args)
 	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
 	ScribusDoc* currentDoc = currentWin->doc;
 
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	currentDoc->m_Selection->clear();
@@ -976,10 +977,10 @@ PyObject *scribus_copyobjects(PyObject * /* self */, PyObject *args)
 	QStringList itemNames;
 	if ((pyObject != nullptr) && PyUnicode_Check(pyObject))
 	{
-		char* name = const_cast<char*>("");
-		if (!PyArg_Parse(pyObject, "es", "utf-8", &name))
+		PyESString name;
+		if (!PyArg_Parse(pyObject, "es", "utf-8", name.ptr()))
 			return nullptr;
-		QString itemName = QString::fromUtf8(name);
+		QString itemName = QString::fromUtf8(name.c_str());
 		if (!itemName.isEmpty())
 			itemNames.append(itemName);
 	}
@@ -1072,13 +1073,13 @@ PyObject *scribus_pasteobjects(PyObject * /* self */, PyObject * /*args*/)
 
 PyObject *scribus_getitempagenumber(PyObject *, PyObject *args)
 {
-	char* name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
 
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	return PyLong_FromLong(i->OwnPage);

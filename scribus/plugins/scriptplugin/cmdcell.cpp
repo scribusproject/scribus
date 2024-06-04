@@ -11,17 +11,18 @@
 #include "cmdutil.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
+#include "pyesstring.h"
 #include "tableborder.h"
 
 PyObject *scribus_getcelltext(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
-	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -57,14 +58,14 @@ PyObject *scribus_getcelltext(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcelltext(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
+	PyESString text;
 	int row, column;
-	char *text;
-	if (!PyArg_ParseTuple(args, "iies|es", &row, &column, "utf-8", &text, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iies|es", &row, &column, "utf-8", text.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -78,19 +79,19 @@ PyObject *scribus_setcelltext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
 		return nullptr;
 	}
-	table->cellAt(row, column).setText(QString::fromUtf8(text));
+	table->cellAt(row, column).setText(QString::fromUtf8(text.c_str()));
 	Py_RETURN_NONE;
 }
 
 PyObject *scribus_getcellstyle(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
-	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -109,14 +110,14 @@ PyObject *scribus_getcellstyle(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcellstyle(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
+	PyESString style;
 	int row, column;
-	char *style;
-	if (!PyArg_ParseTuple(args, "iies|es", &row, &column, "utf-8", &style, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iies|es", &row, &column, "utf-8", style.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -130,19 +131,19 @@ PyObject *scribus_setcellstyle(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
 		return nullptr;
 	}
-	table->cellAt(row, column).setStyle(QString::fromUtf8(style));
+	table->cellAt(row, column).setStyle(QString::fromUtf8(style.c_str()));
 	Py_RETURN_NONE;
 }
 
 PyObject *scribus_getcellrowspan(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
-	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -156,13 +157,13 @@ PyObject *scribus_getcellrowspan(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_getcellcolumnspan(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
-	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -176,13 +177,13 @@ PyObject *scribus_getcellcolumnspan(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_getcellfillcolor(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
-	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -201,14 +202,14 @@ PyObject *scribus_getcellfillcolor(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcellfillcolor(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
+	PyESString color;
 	int row, column;
-	char *color;
-	if (!PyArg_ParseTuple(args, "iies|es", &row, &column, "utf-8", &color, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iies|es", &row, &column, "utf-8", color.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -222,20 +223,20 @@ PyObject *scribus_setcellfillcolor(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
 		return nullptr;
 	}
-	table->cellAt(row, column).setFillColor(QString::fromUtf8(color));
+	table->cellAt(row, column).setFillColor(QString::fromUtf8(color.c_str()));
 	Py_RETURN_NONE;
 }
 
 PyObject *scribus_setcellleftborder(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
 	PyObject* borderLines;
-	if (!PyArg_ParseTuple(args, "iiO|es", &row, &column, &borderLines, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iiO|es", &row, &column, &borderLines, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -262,14 +263,14 @@ PyObject *scribus_setcellleftborder(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcellrightborder(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
 	PyObject* borderLines;
-	if (!PyArg_ParseTuple(args, "iiO|es", &row, &column, &borderLines, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iiO|es", &row, &column, &borderLines, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -296,14 +297,14 @@ PyObject *scribus_setcellrightborder(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcelltopborder(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
 	PyObject* borderLines;
-	if (!PyArg_ParseTuple(args, "iiO|es", &row, &column, &borderLines, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iiO|es", &row, &column, &borderLines, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -330,14 +331,14 @@ PyObject *scribus_setcelltopborder(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcellbottomborder(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
 	PyObject* borderLines;
-	if (!PyArg_ParseTuple(args, "iiO|es", &row, &column, &borderLines, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iiO|es", &row, &column, &borderLines, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -364,14 +365,14 @@ PyObject *scribus_setcellbottomborder(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcellleftpadding(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
 	double padding;
-	if (!PyArg_ParseTuple(args, "iid|es", &row, &column, &padding, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iid|es", &row, &column, &padding, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -397,14 +398,14 @@ PyObject *scribus_setcellleftpadding(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcellrightpadding(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
 	double padding;
-	if (!PyArg_ParseTuple(args, "iid|es", &row, &column, &padding, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iid|es", &row, &column, &padding, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -430,14 +431,14 @@ PyObject *scribus_setcellrightpadding(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcelltoppadding(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
 	double padding;
-	if (!PyArg_ParseTuple(args, "iid|es", &row, &column, &padding, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iid|es", &row, &column, &padding, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -463,14 +464,14 @@ PyObject *scribus_setcelltoppadding(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcellbottompadding(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column;
 	double padding;
-	if (!PyArg_ParseTuple(args, "iid|es", &row, &column, &padding, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iid|es", &row, &column, &padding, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();

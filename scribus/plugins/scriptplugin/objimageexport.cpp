@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 
 #include "cmdutil.h"
+#include "pyesstring.h"
 #include "scpage.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -175,10 +176,10 @@ static PyObject *ImageExport_save(ImageExport *self)
 
 static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 {
-	char* value;
+	PyESString value;
 	if (!checkHaveDocument())
 		return nullptr;
-	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), "utf-8", &value))
+	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), "utf-8", value.ptr()))
 		return nullptr;
 
 	ScribusDoc*  doc = ScCore->primaryMainWindow()->doc;
@@ -197,7 +198,7 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	im.setDotsPerMeterY(dpi);
 	im.setDotsPerMeterX(dpi);
 
-	QString outputFileName = QString::fromUtf8(value);
+	QString outputFileName = QString::fromUtf8(value.c_str());
 	if (!im.save(outputFileName, PyUnicode_AsUTF8(self->type)))
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
