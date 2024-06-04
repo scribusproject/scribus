@@ -6,8 +6,9 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdcolor.h"
 #include "cmdutil.h"
-#include "prefsmanager.h"
 #include "commonstrings.h"
+#include "prefsmanager.h"
+#include "pyesstring.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "sccolorengine.h"
@@ -31,18 +32,18 @@ PyObject *scribus_getcolornames(PyObject* /* self */)
 PyObject *scribus_getcolor(PyObject* /* self */, PyObject* args)
 {
 	ColorList edc;
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int c, m, y, k;
-	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	if (!edc.contains(col))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error").toLocal8Bit().constData());
@@ -57,18 +58,18 @@ PyObject *scribus_getcolor(PyObject* /* self */, PyObject* args)
 PyObject *scribus_getcolorfloat(PyObject* /* self */, PyObject* args)
 {
 	ColorList edc;
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	double c, m, y, k;
-	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	if (!edc.contains(col))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error").toLocal8Bit().constData());
@@ -83,17 +84,17 @@ PyObject *scribus_getcolorfloat(PyObject* /* self */, PyObject* args)
 PyObject *scribus_getcolorasrgb(PyObject* /* self */, PyObject* args)
 {
 	ColorList edc;
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	if (!edc.contains(col))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error").toLocal8Bit().constData());
@@ -107,17 +108,17 @@ PyObject *scribus_getcolorasrgbfloat(PyObject* /* self */, PyObject* args)
 {
 	ColorList edc;
 	double r, g, b;
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	if (!edc.contains(col))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error").toLocal8Bit().constData());
@@ -136,16 +137,16 @@ PyObject *scribus_setcolor(PyObject*  self, PyObject* args)
 
 PyObject *scribus_setcolorcmyk(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int c, m, y, k;
-	if (!PyArg_ParseTuple(args, "esiiii", "utf-8", &Name, &c, &m, &y, &k))
+	if (!PyArg_ParseTuple(args, "esiiii", "utf-8", name.ptr(), &c, &m, &y, &k))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	if (ScCore->primaryMainWindow()->HaveDoc)
 	{
 		if (!ScCore->primaryMainWindow()->doc->PageColors.contains(col))
@@ -171,16 +172,16 @@ PyObject *scribus_setcolorcmyk(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcolorcmykfloat(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	double c, m, y, k;
-	if (!PyArg_ParseTuple(args, "esdddd", "utf-8", &Name, &c, &m, &y, &k))
+	if (!PyArg_ParseTuple(args, "esdddd", "utf-8", name.ptr(), &c, &m, &y, &k))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	c = qMax(0.0, qMin(c , 100.0)) / 100.0;
 	m = qMax(0.0, qMin(m , 100.0)) / 100.0;
 	y = qMax(0.0, qMin(y , 100.0)) / 100.0;
@@ -210,16 +211,16 @@ PyObject *scribus_setcolorcmykfloat(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcolorrgb(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int r, g, b;
-	if (!PyArg_ParseTuple(args, "esiii", "utf-8", &Name, &r, &g, &b))
+	if (!PyArg_ParseTuple(args, "esiii", "utf-8", name.ptr(), &r, &g, &b))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	if (ScCore->primaryMainWindow()->HaveDoc)
 	{
 		if (!ScCore->primaryMainWindow()->doc->PageColors.contains(col))
@@ -245,16 +246,16 @@ PyObject *scribus_setcolorrgb(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcolorrgbfloat(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	double r, g, b;
-	if (!PyArg_ParseTuple(args, "esddd", "utf-8", &Name, &r, &g, &b))
+	if (!PyArg_ParseTuple(args, "esddd", "utf-8", name.ptr(), &r, &g, &b))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	r = qMax(0.0, qMin(r, 255.0)) / 255.0;
 	g = qMax(0.0, qMin(g, 255.0)) / 255.0;
 	b = qMax(0.0, qMin(b, 255.0)) / 255.0;
@@ -283,16 +284,16 @@ PyObject *scribus_setcolorrgbfloat(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcolorlab(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	double L, a, b;
-	if (!PyArg_ParseTuple(args, "esddd", "utf-8", &Name, &L, &a, &b))
+	if (!PyArg_ParseTuple(args, "esddd", "utf-8", name.ptr(), &L, &a, &b))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	L = qMax(0.0, qMin(L, 100.0));
 	a = qMax(-128.0, qMin(a, 128.0));
 	b = qMax(-128.0, qMin(b, 128.0));
@@ -326,16 +327,16 @@ PyObject *scribus_newcolor(PyObject* self, PyObject* args)
 
 PyObject *scribus_newcolorcmyk(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int c, m, y, k;
-	if (!PyArg_ParseTuple(args, "esiiii", "utf-8", &Name, &c, &m, &y, &k))
+	if (!PyArg_ParseTuple(args, "esiiii", "utf-8", name.ptr(), &c, &m, &y, &k))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	if (ScCore->primaryMainWindow()->HaveDoc)
 	{
 		if (!ScCore->primaryMainWindow()->doc->PageColors.contains(col))
@@ -361,16 +362,16 @@ PyObject *scribus_newcolorcmyk(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_newcolorcmykfloat(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	double c, m, y, k;
-	if (!PyArg_ParseTuple(args, "esdddd", "utf-8", &Name, &c, &m, &y, &k))
+	if (!PyArg_ParseTuple(args, "esdddd", "utf-8", name.ptr(), &c, &m, &y, &k))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	c = qMax(0.0, qMin(c , 100.0)) / 100.0;
 	m = qMax(0.0, qMin(m , 100.0)) / 100.0;
 	y = qMax(0.0, qMin(y , 100.0)) / 100.0;
@@ -412,16 +413,16 @@ PyObject *scribus_newcolorcmykfloat(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_newcolorrgb(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int r, g, b;
-	if (!PyArg_ParseTuple(args, "esiii", "utf-8", &Name, &r, &g, &b))
+	if (!PyArg_ParseTuple(args, "esiii", "utf-8", name.ptr(), &r, &g, &b))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	if (ScCore->primaryMainWindow()->HaveDoc)
 	{
 		if (!ScCore->primaryMainWindow()->doc->PageColors.contains(col))
@@ -447,16 +448,16 @@ PyObject *scribus_newcolorrgb(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_newcolorrgbfloat(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	double r, g, b;
-	if (!PyArg_ParseTuple(args, "esddd", "utf-8", &Name, &r, &g, &b))
+	if (!PyArg_ParseTuple(args, "esddd", "utf-8", name.ptr(), &r, &g, &b))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	r = qMax(0.0, qMin(r, 255.0)) / 255.0;
 	g = qMax(0.0, qMin(g, 255.0)) / 255.0;
 	b = qMax(0.0, qMin(b, 255.0)) / 255.0;
@@ -497,16 +498,16 @@ PyObject *scribus_newcolorrgbfloat(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_newcolorlab(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	double L, a, b;
-	if (!PyArg_ParseTuple(args, "esddd", "utf-8", &Name, &L, &a, &b))
+	if (!PyArg_ParseTuple(args, "esddd", "utf-8", name.ptr(), &L, &a, &b))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	L = qMax(0.0, qMin(L, 100.0));
 	a = qMax(-128.0, qMin(a, 128.0));
 	b = qMax(-128.0, qMin(b, 128.0));
@@ -547,17 +548,19 @@ PyObject *scribus_newcolorlab(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_deletecolor(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	char *Repl = const_cast<char*>(CommonStrings::None.toLatin1().constData());
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Name, "utf-8", &Repl))
+	PyESString name;
+	PyESString repl;
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", name.ptr(), "utf-8", repl.ptr()))
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot delete a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
-	QString rep = QString::fromUtf8(Repl);
+	QString col = QString::fromUtf8(name.c_str());
+	QString rep = QString::fromUtf8(repl.c_str());
+	if (rep.isEmpty())
+		rep = CommonStrings::None;
 	if (ScCore->primaryMainWindow()->HaveDoc)
 	{
 		ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
@@ -589,20 +592,22 @@ PyObject *scribus_deletecolor(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	char *Repl = const_cast<char*>(CommonStrings::None.toLatin1().constData());
+	PyESString name;
+	PyESString repl;
 	//FIXME: this should definitely use keyword arguments
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Name, "utf-8", &Repl))
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", name.ptr(), "utf-8", repl.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot replace a color with an empty name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
-	QString rep = QString::fromUtf8(Repl);
+	QString col = QString::fromUtf8(name.c_str());
+	QString rep = QString::fromUtf8(repl.c_str());
+	if (rep.isEmpty())
+		rep = CommonStrings::None;
 	if (ScCore->primaryMainWindow()->doc->PageColors.contains(col) && (ScCore->primaryMainWindow()->doc->PageColors.contains(rep) || (rep == CommonStrings::None)))
 		ReplaceColor(col, rep);
 	else
@@ -616,18 +621,18 @@ PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_isspotcolor(PyObject * /*self*/, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	
-	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Color name cannot be an empty string.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	if (ScCore->primaryMainWindow()->doc->PageColors.contains(col))
 		return PyBool_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->PageColors[col].isSpotColor()));
 	PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error").toLocal8Bit().constData());
@@ -637,19 +642,19 @@ PyObject *scribus_isspotcolor(PyObject * /*self*/, PyObject* args)
 
 PyObject *scribus_setspotcolor(PyObject * /*self*/, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int enable;
 
-	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &enable))
+	if (!PyArg_ParseTuple(args, "esi", "utf-8", name.ptr(), &enable))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	if (strcmp(Name, "") == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Color name cannot be an empty string.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString col = QString::fromUtf8(Name);
+	QString col = QString::fromUtf8(name.c_str());
 	if (ScCore->primaryMainWindow()->doc->PageColors.contains(col))
 	{
 		ScCore->primaryMainWindow()->doc->PageColors[col].setSpotColor(static_cast<bool>(enable));

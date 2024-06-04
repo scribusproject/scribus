@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QPixmap>
 
+#include "pyesstring.h"
 #include "scribuscore.h"
 #include "styles/paragraphstyle.h"
 #include "styles/charstyle.h"
@@ -41,21 +42,22 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 			const_cast<char*>("bullet"),
 			const_cast<char*>("tabs"),
 			nullptr};
-	char *name = const_cast<char*>(""), *charStyle = const_cast<char*>("");
-	char *bullet = const_cast<char*>("");
+	PyESString name;
+	PyESString charStyle;
+	PyESString bullet;
 	int lineSpacingMode = 0, alignment = 0, dropCapLines = 2, hasDropCap = 0;
 	double lineSpacing = 15.0, leftMargin = 0.0, rightMargin = 0.0;
 	double gapBefore = 0.0, gapAfter = 0.0, firstIndent = 0.0, peOffset = 0;
 	PyObject *tabDefinitions = nullptr;
 	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|ididddddiidesesO",
-		 keywordargs, "utf-8", &name, &lineSpacingMode, &lineSpacing, &alignment,
+		 keywordargs, "utf-8", name.ptr(), &lineSpacingMode, &lineSpacing, &alignment,
 		&leftMargin, &rightMargin, &gapBefore, &gapAfter, &firstIndent,
-		&hasDropCap, &dropCapLines, &peOffset, "utf-8", &charStyle,
-		"utf-8", &bullet, &tabDefinitions))
+		&hasDropCap, &dropCapLines, &peOffset, "utf-8", charStyle.ptr(),
+		"utf-8", bullet.ptr(), &tabDefinitions))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	if (strlen(name) == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty paragraph style name.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -67,14 +69,14 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 		return nullptr;
 	}
 	
-	if (strlen(bullet) > 0 && (hasDropCap  != 0))
+	if (bullet.length() > 0 && (hasDropCap  != 0))
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("hasdropcap and bullet are not allowed to be specified together.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
 	ParagraphStyle tmpParagraphStyle;
-	tmpParagraphStyle.setName(name);
+	tmpParagraphStyle.setName(name.c_str());
 	tmpParagraphStyle.setLineSpacingMode((ParagraphStyle::LineSpacingMode) lineSpacingMode);
 	tmpParagraphStyle.setLineSpacing(lineSpacing);
 	tmpParagraphStyle.setAlignment((ParagraphStyle::AlignmentType) alignment);
@@ -96,9 +98,9 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 		tmpParagraphStyle.setHasDropCap(false);
 	}
 	
-	if (strlen(bullet) > 0)
+	if (bullet.length() > 0)
 	{
-		tmpParagraphStyle.setBulletStr(QString::fromUtf8(bullet));
+		tmpParagraphStyle.setBulletStr(QString::fromUtf8(bullet.c_str()));
 		tmpParagraphStyle.setHasDropCap(false);
 		tmpParagraphStyle.setHasBullet(true);
 		tmpParagraphStyle.setHasNum(false);
@@ -109,7 +111,7 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 	}
 
 	tmpParagraphStyle.setParEffectOffset(peOffset);
-	tmpParagraphStyle.charStyle().setParent(charStyle);
+	tmpParagraphStyle.charStyle().setParent(charStyle.c_str());
 
 	if (tabDefinitions != nullptr)
 	{
@@ -196,7 +198,13 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	const StyleSet<CharStyle>& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
 	const CharStyle* defaultStyle = charStyles.getDefault();
 
-	char *name = const_cast<char*>(""), *font = const_cast<char*>(""), *features = const_cast<char*>("inherit"), *fillColor = const_cast<char*>(""), *fontFeatures = const_cast<char*>(""), *strokeColor = const_cast<char*>("Black"), *language = const_cast<char*>("");
+	PyESString name;
+	PyESString font;
+	PyESString features;
+	PyESString fillColor;
+	PyESString fontFeatures;
+	PyESString strokeColor;
+	PyESString language;
 	double fontSize = -1;
 	double fillShade = -1, strokeShade = -1;
 	double scaleH = -1, scaleV = -1;
@@ -207,19 +215,19 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	double tracking = dbl_min;
 	
 	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddeses", keywordargs,
-									"utf-8", &name, "utf-8", &font, &fontSize, "utf-8", &features,
-									"utf-8", &fillColor, &fillShade, "utf-8", &strokeColor, &strokeShade, &baselineOffset, &shadowXOffset,
+									"utf-8", name.ptr(), "utf-8", font.ptr(), &fontSize, "utf-8", features.ptr(),
+									"utf-8", fillColor.ptr(), &fillShade, "utf-8", strokeColor.ptr(), &strokeShade, &baselineOffset, &shadowXOffset,
 									&shadowYOffset, &outlineWidth, &underlineOffset, &underlineWidth, &strikethruOffset, &strikethruWidth,
-									&scaleH, &scaleV, &tracking, "utf-8", &language, "utf-8", &fontFeatures))
+									&scaleH, &scaleV, &tracking, "utf-8", language.ptr(), "utf-8", fontFeatures.ptr()))
 		return nullptr;
 	
-	if (strlen(name) == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty char style name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
-	QString realFont = QString(font);
+	QString realFont = QString(font.c_str());
 	if (!realFont.isEmpty())
 	{
 		if (!currentDoc->AllFonts->contains(realFont))
@@ -230,8 +238,8 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	}
 
 	const ColorList& docColors = currentDoc->PageColors;
-	QString qFillColor = QString(fillColor);
-	QString qStrokeColor = QString(strokeColor);
+	QString qFillColor = QString(fillColor.c_str());
+	QString qStrokeColor = QString(strokeColor.defaulted("Black"));
 	if (!qFillColor.isEmpty())
 	{
 		if ((qFillColor != CommonStrings::None) && (!docColors.contains(qFillColor)))
@@ -253,17 +261,18 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		fillShade = qMax(0.0, qMin(fillShade, 1.0));
 	if (strokeShade >= 0)
 		strokeShade = qMax(0.0, qMin(strokeShade, 1.0));
-	QStringList featuresList = QString(features).split(',', Qt::SkipEmptyParts);
-	QString qLanguage = QString(language);
+	QStringList featuresList = QString(features.defaulted("inherit")).split(',', Qt::SkipEmptyParts);
+	QString qFontFeatures = QString::fromUtf8(fontFeatures.c_str());
+	QString qLanguage = QString(language.c_str());
 
 	CharStyle tmpCharStyle;
-	tmpCharStyle.setName(name);
+	tmpCharStyle.setName(name.c_str());
 	if (!realFont.isEmpty())
 		tmpCharStyle.setFont((*currentDoc->AllFonts)[realFont]);
 	if (fontSize > 0)
 		tmpCharStyle.setFontSize(fontSize * 10);
-	if (fontFeatures != defaultStyle->fontFeatures())
-		tmpCharStyle.setFontFeatures(fontFeatures);
+	if (qFontFeatures != defaultStyle->fontFeatures())
+		tmpCharStyle.setFontFeatures(qFontFeatures);
 	if (featuresList != defaultStyle->features())
 		tmpCharStyle.setFeatures(featuresList);
 	if (!qFillColor.isEmpty())
@@ -313,10 +322,10 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 
 PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	PyObject *obj;
 
-	if (!PyArg_ParseTuple(args, "esO", "utf-8", &Name, &obj))
+	if (!PyArg_ParseTuple(args, "esO", "utf-8", name.ptr(), &obj))
 		return nullptr;
 
 	if (!PyList_Check(obj)) {
@@ -392,7 +401,7 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 		ml.push_back(sl);
 	}
 	if (!ml.empty())
-		currentDoc->docLineStyles[Name] = ml;
+		currentDoc->docLineStyles[name.c_str()] = ml;
 	Py_RETURN_NONE;
 }
 

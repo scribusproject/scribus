@@ -6,16 +6,17 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdsetprop.h"
 #include "cmdutil.h"
+#include "pyesstring.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 
 PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	char *Color1;
-	char *Color2;
+	PyESString name;
+	PyESString color1;
+	PyESString color2;
 	int typ, shade1, shade2;
-	if (!PyArg_ParseTuple(args, "iesiesi|es", &typ, "utf-8", &Color1, &shade1, "utf-8", &Color2, &shade2, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iesiesi|es", &typ, "utf-8", color1.ptr(), &shade1, "utf-8", color2.ptr(), &shade2, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -24,13 +25,13 @@ PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Stop shade out of bounds, must be 0 <= shade <= 100.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *currItem = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (currItem == nullptr)
 		return nullptr;
 	QColor tmp;
 	currItem->fill_gradient.clearStops();
-	QString c1 = QString::fromUtf8(Color1);
-	QString c2 = QString::fromUtf8(Color2);
+	QString c1 = QString::fromUtf8(color1.c_str());
+	QString c2 = QString::fromUtf8(color2.c_str());
 	currItem->SetQColor(&tmp, c1, shade1);
 	currItem->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, c1, shade1);
 	currItem->SetQColor(&tmp, c2, shade2);
@@ -88,11 +89,11 @@ PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setgradstop(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	char *Color1;
+	PyESString name;
+	PyESString color1;
 	int  shade1;
 	double rampPoint, opacity;
-	if (!PyArg_ParseTuple(args, "esidd|es", "utf-8", &Color1, &shade1, &opacity, &rampPoint, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "esidd|es", "utf-8", color1.ptr(), &shade1, &opacity, &rampPoint, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -111,11 +112,11 @@ PyObject *scribus_setgradstop(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Opacity out of bounds, must be 0 <= transparency <= 1.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *currItem = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (currItem == nullptr)
 		return nullptr;
 	QColor tmp;
-	QString c1 = QString::fromUtf8(Color1);
+	QString c1 = QString::fromUtf8(color1.c_str());
 	currItem->SetQColor(&tmp, c1, shade1);
 	currItem->fill_gradient.setStop(tmp, rampPoint, 0.5, opacity, c1, shade1);
 	currItem->updateGradientVectors();
@@ -125,24 +126,24 @@ PyObject *scribus_setgradstop(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setfillcolor(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	char *Color;
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Color, "utf-8", &Name))
+	PyESString name;
+	PyESString color;
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", color.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	i->setFillColor(QString::fromUtf8(Color));
+	i->setFillColor(QString::fromUtf8(color.c_str()));
 	Py_RETURN_NONE;
 }
 
 PyObject *scribus_setfilltrans(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	double w;
-	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -151,7 +152,7 @@ PyObject *scribus_setfilltrans(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Transparency out of bounds, must be 0 <= transparency <= 1.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	i->setFillTransparency(1.0 - w);
@@ -160,9 +161,9 @@ PyObject *scribus_setfilltrans(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setfillblend(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int w;
-	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -171,7 +172,7 @@ PyObject *scribus_setfillblend(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Blendmode out of bounds, must be 0 <= blendmode <= 15.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	i->setFillBlendmode(w);
@@ -180,16 +181,16 @@ PyObject *scribus_setfillblend(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcustomlinestyle(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	char *Style;
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Style, "utf-8", &Name))
+	PyESString name;
+	PyESString style;
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", style.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *it = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (it == nullptr)
 		return nullptr;
-	QString qStyle = QString::fromUtf8(Style);
+	QString qStyle = QString::fromUtf8(style.c_str());
 	if (! ScCore->primaryMainWindow()->doc->docLineStyles.contains(qStyle))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Line Style not found.","python error").toLocal8Bit().constData());
@@ -202,24 +203,24 @@ PyObject *scribus_setcustomlinestyle(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setlinecolor(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	char *Color;
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Color, "utf-8", &Name))
+	PyESString name;
+	PyESString color;
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", color.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *it = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (it == nullptr)
 		return nullptr;
-	it->setLineColor(QString::fromUtf8(Color));
+	it->setLineColor(QString::fromUtf8(color.c_str()));
 	Py_RETURN_NONE;
 }
 
 PyObject *scribus_setlinetrans(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	double w;
-	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -228,7 +229,7 @@ PyObject *scribus_setlinetrans(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Transparency out of bounds, must be 0 <= transparency <= 1.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	i->setLineTransparency(1.0 - w);
@@ -237,9 +238,9 @@ PyObject *scribus_setlinetrans(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setlineblend(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int w;
-	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -248,7 +249,7 @@ PyObject *scribus_setlineblend(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Blendmode out of bounds, must be 0 <= blendmode <= 15.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	i->setLineBlendmode(w);
@@ -257,9 +258,9 @@ PyObject *scribus_setlineblend(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setlinewidth(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	double w;
-	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -268,7 +269,7 @@ PyObject *scribus_setlinewidth(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Line width out of bounds, must be 0 <= line_width <= 300.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	i->setLineWidth(w);
@@ -277,9 +278,9 @@ PyObject *scribus_setlinewidth(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setlineshade(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int w;
-	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -288,7 +289,7 @@ PyObject *scribus_setlineshade(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Line shade out of bounds, must be 0 <= shade <= 100.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *it = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (it == nullptr)
 		return nullptr;
 	it->setLineShade(w);
@@ -297,9 +298,9 @@ PyObject *scribus_setlineshade(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int w;
-	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -308,7 +309,7 @@ PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Fill shade out of bounds, must be 0 <= shade <= 100.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	i->setFillShade(w);
@@ -317,13 +318,13 @@ PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setlinejoin(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int w;
-	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	i->PLineJoin = Qt::PenJoinStyle(w);
@@ -332,13 +333,13 @@ PyObject *scribus_setlinejoin(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setlinecap(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int w;
-	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	i->PLineEnd = Qt::PenCapStyle(w);
@@ -347,13 +348,13 @@ PyObject *scribus_setlinecap(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setlinestyle(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int w;
-	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	i->PLineArt = Qt::PenStyle(w);
@@ -362,9 +363,9 @@ PyObject *scribus_setlinestyle(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcornerradius(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int w;
-	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -373,7 +374,7 @@ PyObject *scribus_setcornerradius(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Corner radius must be a positive number.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *currItem = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (currItem == nullptr)
 		return nullptr;
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
@@ -387,37 +388,37 @@ PyObject *scribus_setcornerradius(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	char *Style = nullptr;
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Style, "utf-8", &Name))
+	PyESString name;
+	PyESString style;
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", style.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *currItem = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (currItem == nullptr)
 		return nullptr;
-	if (!ScCore->primaryMainWindow()->doc->docLineStyles.contains(QString::fromUtf8(Style)))
+	if (!ScCore->primaryMainWindow()->doc->docLineStyles.contains(QString::fromUtf8(style.c_str())))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Line style not found.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	currItem->NamedLStyle = QString::fromUtf8(Style);
+	currItem->NamedLStyle = QString::fromUtf8(style.c_str());
 	Py_RETURN_NONE;
 }
 
 PyObject *scribus_setitemname(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	char *newName = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &newName, "utf-8", &Name))
+	PyESString name;
+	PyESString newName;
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &newName, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
 
-	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *currItem = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (currItem == nullptr)
 		return nullptr;
-	currItem->setItemName(newName);
+	currItem->setItemName(newName.c_str());
 
 	return PyUnicode_FromString(currItem->itemName().toUtf8());
 }
@@ -426,11 +427,11 @@ PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
 {
 	if (!checkHaveDocument())
 		return nullptr;
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	PyObject *attr;
-	if (!PyArg_ParseTuple(args, "O|es", &attr, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "O|es", &attr, "utf-8", name.ptr()))
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 

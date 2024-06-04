@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "cmdutil.h"
 #include "prefsmanager.h"
+#include "pyesstring.h"
 #include "resourcecollection.h"
 #include "scpage.h"
 #include "scribuscore.h"
@@ -240,9 +241,9 @@ TableBorder parseBorder(PyObject* borderLines, bool* ok)
 		double width = 0.0;
 		double shade = 100.0;
 		int style;
-		char* color;
+		PyESString color;
 		PyObject* props = PyList_GET_ITEM(borderLinesList, i);
-		if (!PyArg_ParseTuple(props, "dies|d", &width, &style, "utf-8", &color, &shade))
+		if (!PyArg_ParseTuple(props, "dies|d", &width, &style, "utf-8", color.ptr(), &shade))
 		{
 			PyErr_SetString(PyExc_ValueError, QObject::tr("Border lines are specified as (width,style,color,shade) tuples", "python error").toLocal8Bit().constData());
 			*ok = false;
@@ -254,7 +255,7 @@ TableBorder parseBorder(PyObject* borderLines, bool* ok)
 			*ok = false;
 			return border;
 		}
-		border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), QString::fromUtf8(color), shade));
+		border.addBorderLine(TableBorderLine(width, static_cast<Qt::PenStyle>(style), QString::fromUtf8(color.c_str()), shade));
 	}
 	Py_DECREF(borderLinesList);
 

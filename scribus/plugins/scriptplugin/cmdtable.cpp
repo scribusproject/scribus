@@ -10,15 +10,16 @@
 #include "cmdtable.h"
 #include "cmdutil.h"
 #include "pageitem_table.h"
+#include "pyesstring.h"
 
 PyObject *scribus_gettablerows(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 
@@ -33,12 +34,12 @@ PyObject *scribus_gettablerows(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_gettablecolumns(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 
@@ -53,13 +54,13 @@ PyObject *scribus_gettablecolumns(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_inserttablerows(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int index, numRows;
-	if (!PyArg_ParseTuple(args, "ii|es", &index, &numRows, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "ii|es", &index, &numRows, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -84,13 +85,13 @@ PyObject *scribus_inserttablerows(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_removetablerows(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int index, numRows;
-	if (!PyArg_ParseTuple(args, "ii|es", &index, &numRows, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "ii|es", &index, &numRows, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -120,13 +121,13 @@ PyObject *scribus_removetablerows(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_gettablerowheight(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row;
-	if (!PyArg_ParseTuple(args, "i|es", &row, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "i|es", &row, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -140,14 +141,14 @@ PyObject *scribus_gettablerowheight(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_resizetablerow(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row;
 	double height;
-	if (!PyArg_ParseTuple(args, "id|es", &row, &height, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "id|es", &row, &height, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -172,13 +173,13 @@ PyObject *scribus_resizetablerow(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_inserttablecolumns(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int index, numColumns;
-	if (!PyArg_ParseTuple(args, "ii|es", &index, &numColumns, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "ii|es", &index, &numColumns, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -203,13 +204,13 @@ PyObject *scribus_inserttablecolumns(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_removetablecolumns(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int index, numColumns;
-	if (!PyArg_ParseTuple(args, "ii|es", &index, &numColumns, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "ii|es", &index, &numColumns, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -239,13 +240,13 @@ PyObject *scribus_removetablecolumns(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_gettablecolumnwidth(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int column;
-	if (!PyArg_ParseTuple(args, "i|es", &column, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "i|es", &column, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -259,14 +260,14 @@ PyObject *scribus_gettablecolumnwidth(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_resizetablecolumn(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int column;
 	double width;
-	if (!PyArg_ParseTuple(args, "id|es", &column, &width, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "id|es", &column, &width, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -291,13 +292,13 @@ PyObject *scribus_resizetablecolumn(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_mergetablecells(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	int row, column, numRows, numColumns;
-	if (!PyArg_ParseTuple(args, "iiii|es", &row, &column, &numRows, &numColumns, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "iiii|es", &row, &column, &numRows, &numColumns, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -324,12 +325,12 @@ PyObject *scribus_mergetablecells(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_gettablestyle(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -343,13 +344,13 @@ PyObject *scribus_gettablestyle(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_settablestyle(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	char *style;
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &style, "utf-8", &Name))
+	PyESString name;
+	PyESString style;
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", style.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -358,18 +359,18 @@ PyObject *scribus_settablestyle(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table style on a non-table item.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	table->setStyle(QString::fromUtf8(style));
+	table->setStyle(QString::fromUtf8(style.c_str()));
 	Py_RETURN_NONE;
 }
 
 PyObject *scribus_gettablefillcolor(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -383,13 +384,13 @@ PyObject *scribus_gettablefillcolor(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_settablefillcolor(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
-	char *color;
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &color, "utf-8", &Name))
+	PyESString name;
+	PyESString color;
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", color.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -398,19 +399,19 @@ PyObject *scribus_settablefillcolor(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table fill color on a non-table item.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	table->setFillColor(QString::fromUtf8(color));
+	table->setFillColor(QString::fromUtf8(color.c_str()));
 	Py_RETURN_NONE;
 }
 
 PyObject *scribus_settableleftborder(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	PyObject* borderLines;
-	if (!PyArg_ParseTuple(args, "O|es", &borderLines, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "O|es", &borderLines, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -432,13 +433,13 @@ PyObject *scribus_settableleftborder(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_settablerightborder(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	PyObject* borderLines;
-	if (!PyArg_ParseTuple(args, "O|es", &borderLines, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "O|es", &borderLines, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -460,13 +461,13 @@ PyObject *scribus_settablerightborder(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_settabletopborder(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	PyObject* borderLines;
-	if (!PyArg_ParseTuple(args, "O|es", &borderLines, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "O|es", &borderLines, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();
@@ -488,13 +489,13 @@ PyObject *scribus_settabletopborder(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_settablebottomborder(PyObject* /* self */, PyObject* args)
 {
-	char *Name = const_cast<char*>("");
+	PyESString name;
 	PyObject* borderLines;
-	if (!PyArg_ParseTuple(args, "O|es", &borderLines, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "O|es", &borderLines, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	PageItem_Table *table = i->asTable();

@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdpage.h"
 #include "cmdutil.h"
 #include "commonstrings.h"
+#include "pyesstring.h"
 #include "scpage.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -59,13 +60,13 @@ PyObject *scribus_getpagetype(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_savepageeps(PyObject* /* self */, PyObject* args)
 {
-	char *Name;
-	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
 	QString epsError;
-	bool ret = ScCore->primaryMainWindow()->DoSaveAsEps(QString::fromUtf8(Name), epsError);
+	bool ret = ScCore->primaryMainWindow()->DoSaveAsEps(QString::fromUtf8(name.c_str()), epsError);
 	if (!ret)
 	{
 		QString message = QObject::tr("Failed to save EPS.","python error");
@@ -121,9 +122,9 @@ PyObject *scribus_gotopage(PyObject* /* self */, PyObject* args)
 PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 {
 	int e;
-	char *name = const_cast<char*>("");
+	PyESString name;
 	QString qName(CommonStrings::trMasterPageNormal);
-	if (!PyArg_ParseTuple(args, "i|es", &e, "utf-8", &name))
+	if (!PyArg_ParseTuple(args, "i|es", &e, "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -147,8 +148,8 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 				break;
 		}
 	}
-	if (QString(name).length() != 0)
-		qName = QString::fromUtf8(name);
+	if (name.length() != 0)
+		qName = QString::fromUtf8(name.c_str());
 
 	if (!currentDoc->MasterNames.contains(qName))
 	{

@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "guiapp.h"
 #include "cmdutil.h"
+#include "pyesstring.h"
 #include "scribuscore.h"
 #include "scribusview.h"
 
@@ -16,10 +17,10 @@ for which a new license (GPL+exception) is in place.
 
 PyObject *scribus_statusmessage(PyObject* /* self */, PyObject* args)
 {
-	char *aText;
-	if (!PyArg_ParseTuple(args, "es", "utf-8", &aText))
+	PyESString aText;
+	if (!PyArg_ParseTuple(args, "es", "utf-8", aText.ptr()))
 		return nullptr;
-	ScCore->primaryMainWindow()->setStatusBarInfoText(QString::fromUtf8(aText));
+	ScCore->primaryMainWindow()->setStatusBarInfoText(QString::fromUtf8(aText.c_str()));
 	Py_RETURN_NONE;
 }
 
@@ -59,11 +60,11 @@ PyObject *scribus_progresssetprogress(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_setcursor(PyObject* /* self */, PyObject* args)
 {
-	char *aCursor;
+	PyESString aCursor;
 	qDebug("WARNING! SetCursor() is not stable!");
-	if (!PyArg_ParseTuple(args, "es", "ascii", &aCursor))
+	if (!PyArg_ParseTuple(args, "es", "ascii", aCursor.ptr()))
 		return nullptr;
-	if (strcmp(aCursor, "wait") == 0)
+	if (strcmp(aCursor.c_str(), "wait") == 0)
 		qApp->changeOverrideCursor(Qt::WaitCursor);
 //	else
 //		qApp->restoreOverrideCursor();

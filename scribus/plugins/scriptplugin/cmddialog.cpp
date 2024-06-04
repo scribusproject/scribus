@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmddialog.h"
 #include "cmdutil.h"
+#include "pyesstring.h"
 #include "scribuscore.h"
 #include "ui/customfdialog.h"
 #include "ui/scmessagebox.h"
@@ -26,9 +27,9 @@ PyObject *scribus_newdocdialog(PyObject* /* self */)
 
 PyObject *scribus_filedialog(PyObject* /* self */, PyObject* args, PyObject* kw)
 {
-	char *caption = const_cast<char*>("");
-	char *filter = const_cast<char*>("");
-	char *defName = const_cast<char*>("");
+	PyESString caption;
+	PyESString filter;
+	PyESString defName;
 	int haspreview = 0;
 	int issave = 0;
 	int isdir = 0;
@@ -40,7 +41,7 @@ PyObject *scribus_filedialog(PyObject* /* self */, PyObject* args, PyObject* kw)
 						const_cast<char*>("issave"), const_cast<char*>("isdir"),
 						nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "es|esesiii", kwargs,
-									 "utf-8", &caption, "utf-8", &filter, "utf-8", &defName,
+									 "utf-8", caption.ptr(), "utf-8", filter.ptr(), "utf-8", defName.ptr(),
 									 &haspreview, &issave, &isdir))
 	{
 		return nullptr;
@@ -58,9 +59,9 @@ PyObject *scribus_filedialog(PyObject* /* self */, PyObject* args, PyObject* kw)
 	if (isdir)
 		optionFlags |= fdDirectoriesOnly;
 	QString fName = ScCore->primaryMainWindow()->CFileDialog(".",
-										 QString::fromUtf8(caption),
-										 QString::fromUtf8(filter),
-										 QString::fromUtf8(defName),
+										 QString::fromUtf8(caption.c_str()),
+										 QString::fromUtf8(filter.c_str()),
+										 QString::fromUtf8(defName.c_str()),
 										 optionFlags,
 										 &nobool,
 										 &nobool,
@@ -73,9 +74,8 @@ PyObject *scribus_filedialog(PyObject* /* self */, PyObject* args, PyObject* kw)
 
 PyObject *scribus_messagebox(PyObject* /* self */, PyObject* args, PyObject* kw)
 {
-	char *caption = const_cast<char*>("");
-	char *message = const_cast<char*>("");
-	uint result;
+	PyESString caption;
+	PyESString message;
 	QMessageBox::Icon ico = QMessageBox::NoIcon;
 	int butt[3] = { QMessageBox::Ok|QMessageBox::Default, QMessageBox::NoButton, QMessageBox::NoButton };
 	QMessageBox::StandardButtons buttons;
@@ -83,42 +83,43 @@ PyObject *scribus_messagebox(PyObject* /* self */, PyObject* args, PyObject* kw)
 	char* kwargs[] = {const_cast<char*>("caption"), const_cast<char*>("message"),
 						const_cast<char*>("icon"), const_cast<char*>("button1"),
 						const_cast<char*>("button2"), const_cast<char*>("button3"), nullptr};
-	if (!PyArg_ParseTupleAndKeywords(args, kw, "eses|iiii", kwargs, "utf-8", &caption, "utf-8", &message, &ico, &butt[0], &butt[1], &butt[2]))
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "eses|iiii", kwargs, "utf-8", caption.ptr(), "utf-8", message.ptr(), &ico, &butt[0], &butt[1], &butt[2]))
 		return nullptr;
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	// ScMessageBox mb(ico, butt1, butt2, butt3, ScCore->primaryMainWindow());
-	for (int bi = 0; bi < 3; bi++) {
-		enum QMessageBox::StandardButton b = static_cast<QMessageBox::StandardButton>(butt[bi]);
-		if (b != QMessageBox::NoButton) {
-			if ((b & QMessageBox::Default) != 0) {
+	for (int bi = 0; bi < 3; bi++)
+	{
+		auto b = static_cast<QMessageBox::StandardButton>(butt[bi]);
+		if (b != QMessageBox::NoButton)
+		{
+			if ((b & QMessageBox::Default) != 0)
+			{
 				b = QMessageBox::StandardButton(b & ~QMessageBox::Default);
 				defaultButton = b;
 			}
 			buttons |= b;
 		}
 	}
-	ScMessageBox mb(ico, QString::fromUtf8(caption), QString::fromUtf8(message), buttons, ScCore->primaryMainWindow());
-	if (defaultButton != QMessageBox::NoButton) {
+	ScMessageBox mb(ico, QString::fromUtf8(caption.c_str()), QString::fromUtf8(message.c_str()), buttons, ScCore->primaryMainWindow());
+	if (defaultButton != QMessageBox::NoButton)
 		mb.setDefaultButton(defaultButton);
-	}
-	result = mb.exec();
+	int result = mb.exec();
 //	QApplication::restoreOverrideCursor();
 	return PyLong_FromLong(static_cast<long>(result));
 }
 
 PyObject *scribus_valuedialog(PyObject* /* self */, PyObject* args)
 {
-	char *caption = const_cast<char*>("");
-	char *message = const_cast<char*>("");
-	char *value = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "eses|es", "utf-8", &caption, "utf-8", &message, "utf-8", &value))
+	PyESString caption;
+	PyESString message;
+	PyESString value;
+	if (!PyArg_ParseTuple(args, "eses|es", "utf-8", caption.ptr(), "utf-8", message.ptr(), "utf-8", value.ptr()))
 		return nullptr;
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	QString txt = QInputDialog::getText(ScCore->primaryMainWindow(),
-										QString::fromUtf8(caption),
-										QString::fromUtf8(message),
+										QString::fromUtf8(caption.c_str()),
+										QString::fromUtf8(message.c_str()),
 										QLineEdit::Normal,
-										QString::fromUtf8(value));
+										QString::fromUtf8(value.c_str()));
 //	QApplication::restoreOverrideCursor();
 	return PyUnicode_FromString(txt.toUtf8());
 }

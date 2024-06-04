@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdgetsetprop.h"
 #include "cmdutil.h"
+#include "pyesstring.h"
 
 #include <QMetaObject>
 #include <QMetaProperty>
@@ -61,14 +62,14 @@ const char* getpropertytype(QObject* obj, const char* propname, bool includesupe
 PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw)
 {
 	PyObject* objArg = nullptr;
-	char* propertyname = nullptr;
+	PyESString propertyname;
 	int includesuper = 1;
 	char* kwargs[] = {const_cast<char*>("object"),
 					  const_cast<char*>("property"),
 					  const_cast<char*>("includesuper"),
 					  nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "Oes|i", kwargs,
-				&objArg, "ascii", &propertyname, &includesuper))
+				&objArg, "ascii", propertyname.ptr(), &includesuper))
 		return nullptr;
 
 	// Get the QObject* the object argument refers to
@@ -78,7 +79,7 @@ PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw
 	objArg = nullptr; // no need to decref, it's borrowed
 
 	// Look up the property and retrieve its type information
-	const char* type = getpropertytype( (QObject*) obj, propertyname, includesuper);
+	const char* type = getpropertytype( (QObject*) obj, propertyname.c_str(), includesuper);
 	if (type == nullptr)
 	{
 		PyErr_SetString(PyExc_KeyError, QObject::tr("Property not found").toLocal8Bit().constData());
@@ -235,12 +236,12 @@ PyObject* scribus_getpropertynames(PyObject* /*self*/, PyObject* args, PyObject*
 PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 {
 	PyObject* objArg = nullptr;
-	char* propertyName = nullptr;
+	PyESString propertyName;
 	char* kwargs[] = {const_cast<char*>("object"),
 					  const_cast<char*>("property"),
 					  nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "Oes", kwargs,
-				&objArg, "ascii", &propertyName))
+				&objArg, "ascii", propertyName.ptr()))
 		return nullptr;
 
 	// Get the QObject* the object argument refers to
@@ -252,7 +253,7 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	// Get the QMetaProperty for the property, so we can check
 	// if it's a set/enum and do name/value translation.
 	const QMetaObject* objmeta = obj->metaObject();
-	int i = objmeta->indexOfProperty(propertyName);
+	int i = objmeta->indexOfProperty(propertyName.c_str());
 	if (i == -1)
 	{
 		PyErr_SetString(PyExc_ValueError,
@@ -269,7 +270,7 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	}
 
 	// Get the property value as a variant type
-	QVariant prop = obj->property(propertyName);
+	QVariant prop = obj->property(propertyName.c_str());
 
 	// Convert the property to an instance of the closest matching Python type.
 	PyObject* resultobj = nullptr;
@@ -332,14 +333,14 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 {
 	PyObject* objArg = nullptr;
-	char* propertyName = nullptr;
+	PyESString propertyName;
 	PyObject* objValue = nullptr;
 	char* kwargs[] = {const_cast<char*>("object"),
 					  const_cast<char*>("property"),
 					  const_cast<char*>("value"),
 					  nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "OesO", kwargs,
-				&objArg, "ascii", &propertyName, &objValue))
+				&objArg, "ascii", propertyName.ptr(), &objValue))
 		return nullptr;
 
 	// We're going to hang on to the value object for a while, so
@@ -352,7 +353,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		return nullptr;
 	objArg = nullptr; // no need to decref, it's borrowed
 
-	const char* propertyTypeName = getpropertytype(obj, propertyName, true);
+	const char* propertyTypeName = getpropertytype(obj, propertyName.c_str(), true);
 	if (propertyTypeName == nullptr)
 		return nullptr;
 	QString propertyType = QString::fromLatin1(propertyTypeName);
@@ -372,13 +373,13 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	{
 		matched = true;
 		if (PyObject_IsTrue(objValue) == 0)
-			success = obj->setProperty(propertyName, 0);
+			success = obj->setProperty(propertyName.c_str(), 0);
 		else if (PyObject_IsTrue(objValue) == 1)
-			success = obj->setProperty(propertyName, 1);
+			success = obj->setProperty(propertyName.c_str(), 1);
 		else if (PyLong_Check(objValue))
-			success = obj->setProperty(propertyName, PyLong_AsLong(objValue) == 0);
+			success = obj->setProperty(propertyName.c_str(), PyLong_AsLong(objValue) == 0);
 		else if (PyLong_Check(objValue))
-			success = obj->setProperty(propertyName, PyLong_AsLong(objValue) == 0);
+			success = obj->setProperty(propertyName.c_str(), PyLong_AsLong(objValue) == 0);
 		else
 			matched = false;
 	}
@@ -386,9 +387,9 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	{
 		matched = true;
 		if (PyLong_Check(objValue))
-			success = obj->setProperty(propertyName, (int) PyLong_AsLong(objValue));
+			success = obj->setProperty(propertyName.c_str(), (int) PyLong_AsLong(objValue));
 		else if (PyLong_Check(objValue))
-			success = obj->setProperty(propertyName, (int) PyLong_AsLong(objValue));
+			success = obj->setProperty(propertyName.c_str(), (int) PyLong_AsLong(objValue));
 		else
 			matched = false;
 	}
@@ -397,7 +398,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		matched = true;
 		// FIXME: handle int, long  and bool too
 		if (PyFloat_Check(objValue))
-			success = obj->setProperty(propertyName, PyFloat_AsDouble(objValue));
+			success = obj->setProperty(propertyName.c_str(), PyFloat_AsDouble(objValue));
 		else
 			matched = false;
 	}
@@ -406,11 +407,11 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	{
 		matched = true;
 		if (PyBytes_Check(objValue))
-			success = obj->setProperty(propertyName, QString::fromUtf8(PyBytes_AsString(objValue)));
+			success = obj->setProperty(propertyName.c_str(), QString::fromUtf8(PyBytes_AsString(objValue)));
 		else if (PyUnicode_Check(objValue))
 		{
 			QString qStrValue = PyUnicode_asQString(objValue);
-			success = obj->setProperty(propertyName, qStrValue);
+			success = obj->setProperty(propertyName.c_str(), qStrValue);
 		}
 		else
 			matched = false;
@@ -423,12 +424,12 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 			// FIXME: should raise an exception instead of mangling the string when
 			// out of charset chars present.
 			QString utfString = QString::fromUtf8(PyBytes_AsString(objValue));
-			success = obj->setProperty(propertyName, utfString.toLatin1());
+			success = obj->setProperty(propertyName.c_str(), utfString.toLatin1());
 		}
 		else if (PyUnicode_Check(objValue))
 		{
 			QString qStrValue = PyUnicode_asQString(objValue);
-			success = obj->setProperty(propertyName, qStrValue.toLatin1());
+			success = obj->setProperty(propertyName.c_str(), qStrValue.toLatin1());
 		}
 		else
 			matched = false;
