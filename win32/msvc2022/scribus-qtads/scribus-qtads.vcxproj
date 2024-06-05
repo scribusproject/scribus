@@ -107,7 +107,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>$(TargetName)_pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -134,7 +134,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>$(TargetName)_pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -164,7 +164,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>$(TargetName)_pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -196,7 +196,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>$(TargetName)_pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>

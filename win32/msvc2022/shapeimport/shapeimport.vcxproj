@@ -108,7 +108,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -137,7 +137,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -169,7 +169,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -203,7 +203,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>

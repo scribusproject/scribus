@@ -186,7 +186,7 @@
       <PrecompiledHeaderFile>.\scribus-rtf-pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>.\scribus-rtf-pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -205,7 +205,7 @@
       <PrecompiledHeaderFile>.\scribus-rtf-pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>.\scribus-rtf-pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -225,7 +225,7 @@
       <PrecompiledHeaderFile>.\scribus-rtf-pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>.\scribus-rtf-pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -245,7 +245,7 @@
       <PrecompiledHeaderFile>.\scribus-rtf-pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>.\scribus-rtf-pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>

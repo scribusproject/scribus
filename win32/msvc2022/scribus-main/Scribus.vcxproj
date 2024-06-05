@@ -116,7 +116,7 @@
       <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>.\scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -152,7 +152,7 @@
       <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>.\scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -189,7 +189,7 @@
       <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>.\scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -227,7 +227,7 @@
       <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>.\scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
