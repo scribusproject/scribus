@@ -55,38 +55,45 @@ PropertiesPalette::PropertiesPalette(QWidget *parent) : DockPanelBase("Propertie
 
 	// XZY
 	xyzPal = new PropertiesPalette_XYZ( this );
-	scXYZ = new SectionContainer("X, Y, &Z");
+	scXYZ = new SectionContainer("X, Y, &Z", "SectionPPXYZ", true, true);
+	scXYZ->setCanSaveState(true);
 	scXYZ->setWidget(xyzPal);
+	scXYZ->restorePreferences();
 
 	// Drop Shadow
 	shadowPal = new PropertiesPalette_Shadow( this );
-	scShadow = new SectionContainer("Drop Shadow");
+	scShadow = new SectionContainer("Drop Shadow", "SectionPPDropShadow", true, false);
+	scShadow->setCanSaveState(true);
 	scShadow->setWidget(shadowPal);
-	scShadow->setIsCollapsed(true);
+	scShadow->restorePreferences();
 
 	// Shape
 	shapePal = new PropertiesPalette_Shape( this );
-	scShape = new SectionContainer("&Shape");
+	scShape = new SectionContainer("&Shape", "SectionPPShape", true, false);
+	scShape->setCanSaveState(true);
 	scShape->setWidget(shapePal);
-	scShape->setIsCollapsed(true);
+	scShape->restorePreferences();
 
 	// Fill
 	fillPal = new PropertiesPalette_Fill(this);
-	scFill = new SectionContainer("&Fill");
+	scFill = new SectionContainer("&Fill", "SectionPPFill", true, false);
+	scFill->setCanSaveState(true);
 	scFill->setWidget(fillPal);
-	scFill->setIsCollapsed(true);
+	scFill->restorePreferences();
 
 	// Line
 	linePal = new PropertiesPalette_Line(this);
-	scLine = new SectionContainer("&Line");
+	scLine = new SectionContainer("&Line", "SectionPPLine", true, false);
+	scLine->setCanSaveState(true);
 	scLine->setWidget(linePal);
-	scLine->setIsCollapsed(true);
+	scLine->restorePreferences();
 
 	// Attributes
 	attributesPal = new PropertiesPalette_Attributes(this);
-	scAttributes = new SectionContainer("&Attributes");
+	scAttributes = new SectionContainer("&Attributes", "SectionPPAttributes", true, false);
+	scAttributes->setCanSaveState(true);
 	scAttributes->setWidget(attributesPal);
-	scAttributes->setIsCollapsed(true);
+	scAttributes->restorePreferences();
 
 	// Layout stack
 	QVBoxLayout * lyt = new QVBoxLayout();
@@ -106,6 +113,8 @@ PropertiesPalette::PropertiesPalette(QWidget *parent) : DockPanelBase("Propertie
 
 	languageChange();
 	enablePalettes(false);
+
+
 
 	ColorPicker *colorPicker = WidgetManager::instance().colorPicker();
 	if(colorPicker)

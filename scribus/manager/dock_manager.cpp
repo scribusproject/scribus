@@ -230,7 +230,8 @@ void DockManager::configureDock(CDockWidget *dock)
 	* MinimumSizeHintFromContentMinimumSize
 	*/
 
-	dock->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromContent);
+	dock->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidgetMinimumSize);
+	dock->setMinimumWidth(dock->widget()->minimumSizeHint().width());
 	connect( dock, &CDockWidget::viewToggled, this, &DockManager::restoreHiddenWorkspace);
 }
 

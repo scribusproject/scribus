@@ -47,59 +47,70 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 {
 
 	advancedWidgets = new PropertyWidget_Advanced(this);
-	scAdvanced = new SectionContainer(tr("Advanced Settings"));
-	scAdvanced->setWidget(advancedWidgets);
-	scAdvanced->setIsCollapsed(true);
+	scAdvanced = new SectionContainer(tr("Advanced Settings"), "SectionTXAdvanced", true, false);
+	scAdvanced->setCanSaveState(true);
+	scAdvanced->setWidget(advancedWidgets);	
+	scAdvanced->restorePreferences();
 
 	distanceWidgets = new PropertyWidget_Distance(this);
-	scDistance = new SectionContainer(tr("Columns && Text Distances"));
+	scDistance = new SectionContainer(tr("Columns && Text Distances"), "SectionTXColDist", true, false);
+	scDistance->setCanSaveState(true);
 	scDistance->setWidget(distanceWidgets);
-	scDistance->setIsCollapsed(true);
+	scDistance->restorePreferences();
 
 	flopBox = new PropertyWidget_Flop(this);
-	scFlop = new SectionContainer(tr("First Line Offset"));
+	scFlop = new SectionContainer(tr("First Line Offset"), "SectionTXLineOffset", true, false);
+	scFlop->setCanSaveState(true);
 	scFlop->setWidget(flopBox);
-	scFlop->setIsCollapsed(true);
+	scFlop->restorePreferences();
 
 	fontfeaturesWidget = new PropertyWidget_FontFeatures(this);
-	scFontFeatures = new SectionContainer(tr("Font Features"));
+	scFontFeatures = new SectionContainer(tr("Font Features"), "SectionTXFontFeatures", true, false);
+	scFontFeatures->setCanSaveState(true);
 	scFontFeatures->setWidget(fontfeaturesWidget);
-	scFontFeatures->setIsCollapsed(true);
+	scFontFeatures->restorePreferences();
 
 	hyphenationWidget = new PropertyWidget_Hyphenation(this);
-	scHyphenation = new SectionContainer(tr("Hyphenation"));
+	scHyphenation = new SectionContainer(tr("Hyphenation"), "SectionTXHyphenation", true, false);
+	scHyphenation->setCanSaveState(true);
 	scHyphenation->setWidget(hyphenationWidget);
-	scHyphenation->setIsCollapsed(true);
+	scHyphenation->restorePreferences();
 
 	optMargins = new PropertyWidget_OptMargins(this);
-	scOptMargins = new SectionContainer(tr("Optical Margins"));
+	scOptMargins = new SectionContainer(tr("Optical Margins"), "SectionTXMargins", true, false);
+	scOptMargins->setCanSaveState(true);
 	scOptMargins->setWidget(optMargins);
-	scOptMargins->setIsCollapsed(true);
+	scOptMargins->restorePreferences();
 
 	orphanBox = new PropertyWidget_Orphans(this);
-	scOrphans = new SectionContainer(tr("Orphans and Widows"));
+	scOrphans = new SectionContainer(tr("Orphans and Widows"), "SectionTXOrphansWidow", true, false);
+	scOrphans->setCanSaveState(true);
 	scOrphans->setWidget(orphanBox);
-	scOrphans->setIsCollapsed(true);
+	scOrphans->restorePreferences();
 
 	parEffectWidgets = new PropertyWidget_ParEffect(this);
-	scParEffect = new SectionContainer(tr("Paragraph Effects"));
+	scParEffect = new SectionContainer(tr("Paragraph Effects"), "SectionTXEffects", true, false);
+	scParEffect->setCanSaveState(true);
 	scParEffect->setWidget(parEffectWidgets);
-	scParEffect->setIsCollapsed(true);
+	scParEffect->restorePreferences();
 
 	pathTextWidgets = new PropertyWidget_PathText(this);
-	scPathText = new SectionContainer(tr("Path Text Properties"));
+	scPathText = new SectionContainer(tr("Path Text Properties"), "SectionTXPathText", true, false);
+	scPathText->setCanSaveState(true);
 	scPathText->setWidget(pathTextWidgets);
-	scPathText->setIsCollapsed(true);
+	scPathText->restorePreferences();
 
 	textWidgets = new PropertyWidget_Text(this);
-	scText = new SectionContainer(tr("Text"));
+	scText = new SectionContainer(tr("Text"), "SectionTXText", true, true);
+	scText->setCanSaveState(true);
 	scText->setWidget(textWidgets);
-	scText->setIsCollapsed(false);
+	scText->restorePreferences();
 
 	colorWidgets = new PropertyWidget_TextColor(this);
-	scTextColor = new SectionContainer(tr("Color && Effects"));
+	scTextColor = new SectionContainer(tr("Color && Effects"), "SectionTXColorEffects", true, false);
+	scTextColor->setCanSaveState(true);
 	scTextColor->setWidget(colorWidgets);
-	scTextColor->setIsCollapsed(true);
+	scTextColor->restorePreferences();
 
 	// Layout stack
 	QVBoxLayout * lyt = new QVBoxLayout();

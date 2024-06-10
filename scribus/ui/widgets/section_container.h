@@ -6,6 +6,10 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
+#ifndef EXCLUDE_FOR_DESIGNER_PLUGIN
+class PrefsContext;
+#endif
+
 /* ********************************************************************************* *
  *
  * Section Container Header
@@ -61,7 +65,7 @@ class SectionContainer : public QWidget
 
 public:
 	SectionContainer(QWidget *parent = nullptr);
-	SectionContainer(QString title, bool isCollapsible = true, QWidget *parent = nullptr);
+	SectionContainer(QString title, QString objectName, bool isCollapsible = true, bool isExpanded = true, QWidget *parent = nullptr);
 
 	void setText(QString text);
 	QString text() const;
@@ -71,6 +75,9 @@ public:
 
 	void setHasStyle(bool hasStyle);
 	bool hasStyle() const;
+
+	void setCanSaveState(bool saveState);
+	bool canSaveState();
 
 	void setIsCollapsible(bool isCollapsible);
 	bool isCollapsible() const;
@@ -103,16 +110,22 @@ public:
 	void addHeaderPrefixSpacing(int size);
 	void insertHeaderPrefixSpacing(int index, int size);
 
+#ifndef EXCLUDE_FOR_DESIGNER_PLUGIN
+	void savePreferences();
+	void restorePreferences();
+#endif
+
 private:
 	SectionContainerHeader *header { nullptr };
 	QWidget* body {new QWidget()};
 	QVBoxLayout *mainLayout { nullptr };
 	QIcon iconCollapsed;
 	QIcon iconExpanded;
-	bool m_isCollapsible;
+	bool m_isCollapsible {true};
 	bool m_isCollapsed { false };
-	bool m_hasStyle { false };
+	bool m_hasStyle { true };
 	bool m_hasBody {false};
+	bool m_canSaveState {false};
 
 	bool eventFilter(QObject *object, QEvent *event) override;
 
@@ -122,6 +135,7 @@ private:
 
 protected:
 	QSize calculateSize();
+	void setIsCollapsedInternal(bool state);
 
 public slots:
 	void toggleCollpasedState();

@@ -9,6 +9,8 @@
 #include "iconmanager.h"
 #include "scribusapp.h"
 #include "util_gui.h"
+#include "prefsmanager.h"
+#include "prefsfile.h"
 #endif
 
 /* *********************************************************************************
@@ -20,16 +22,18 @@
  */
 
 SectionContainer::SectionContainer(QWidget *parent)
-	: SectionContainer("Title", true, parent) {}
+	: SectionContainer("Title", "", true, parent) {}
 
-SectionContainer::SectionContainer(QString title, bool isCollapsible,
+SectionContainer::SectionContainer(QString title, QString objectName, bool isCollapsible, bool isExpanded,
 								   QWidget *parent)
 	: QWidget{parent}
 {
+
+	if(!objectName.isEmpty())
+		setObjectName(objectName);
+
 	header = new SectionContainerHeader(title);
-	m_isCollapsible = isCollapsible;
-	m_isCollapsed = false;
-	m_hasStyle = true;
+	m_isCollapsed = !isExpanded;
 
 	// Main Layout
 	mainLayout = new QVBoxLayout(this);
@@ -46,6 +50,7 @@ SectionContainer::SectionContainer(QString title, bool isCollapsible,
 
 	// initial Setup
 	setIsCollapsible(isCollapsible);
+	setIsCollapsedInternal(m_isCollapsed);
 	connectSlots();
 }
 
@@ -103,6 +108,16 @@ bool SectionContainer::hasStyle() const
 	return m_hasStyle;
 }
 
+void SectionContainer::setCanSaveState(bool saveState)
+{
+	m_canSaveState = saveState;
+}
+
+bool SectionContainer::canSaveState()
+{
+	return m_canSaveState;
+}
+
 void SectionContainer::setIsCollapsible(bool isCollapsible)
 {
 	m_isCollapsible = isCollapsible;
@@ -124,14 +139,28 @@ void SectionContainer::setIsCollapsed(bool state)
 	if (isCollapsible() == false)
 		return;
 
+	setIsCollapsedInternal(state);
+
+#ifndef EXCLUDE_FOR_DESIGNER_PLUGIN
+	savePreferences();
+#endif
+
+	emit collapsedStateChanged(m_isCollapsed);
+	emit sizeChanged();
+
+}
+
+void SectionContainer::setIsCollapsedInternal(bool state)
+{
+	if (isCollapsible() == false)
+		return;
+
 	m_isCollapsed = state;
 
 	header->buttonCollapse->setIcon(m_isCollapsed ? iconCollapsed : iconExpanded);
 	body->setVisible(!m_isCollapsed);
 
 	resize(calculateSize());
-	emit collapsedStateChanged(m_isCollapsed);
-	emit sizeChanged();
 }
 
 void SectionContainer::collapse()
@@ -354,6 +383,36 @@ void SectionContainer::paintEvent(QPaintEvent *event)
 	painter.drawLine(8, this->height() - lineWidth, this->width() - 8,
 					 this->height() - lineWidth);
 }
+
+#ifndef EXCLUDE_FOR_DESIGNER_PLUGIN
+void SectionContainer::savePreferences()
+{
+	if(!canSaveState())
+		return;
+
+	if(objectName().isEmpty())
+		return;
+
+	PrefsContext *prefCollapse = PrefsManager::instance().prefsFile->getContext(objectName());
+	prefCollapse->set("collapsed", m_isCollapsed);
+
+	PrefsManager::instance().prefsFile->write();
+}
+
+void SectionContainer::restorePreferences()
+{
+	if(!canSaveState())
+		return;
+
+	if(objectName().isEmpty())
+		return;
+
+	PrefsContext *prefCollapse = PrefsManager::instance().prefsFile->getContext(objectName());
+	bool isCollapsed = prefCollapse->getBool("collapsed", m_isCollapsed);
+
+	setIsCollapsedInternal(isCollapsed);
+}
+#endif
 
 /* *********************************************************************************
  * *
