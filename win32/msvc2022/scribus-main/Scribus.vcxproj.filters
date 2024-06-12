@@ -2218,6 +2218,9 @@
     <ClCompile Include="..\..\..\scribus\ui\prefs_imagecache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\prefs_indexes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\prefs_itemtools.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2921,6 +2924,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\prefs_imagecachebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\prefs_indexesbase.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\prefs_itemtoolsbase.ui">
@@ -4053,6 +4059,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\prefs_imagecache.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\prefs_indexes.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\prefs_itemtools.h">

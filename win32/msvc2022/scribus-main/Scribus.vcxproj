@@ -649,6 +649,7 @@
     <moc Include="..\..\..\scribus\ui\linestyleselector.h" />
     <moc Include="..\..\..\scribus\ui\propertiespalette_attributes.h" />
     <moc Include="..\..\..\scribus\ui\propertiespalette_fill.h" />
+    <moc Include="..\..\..\scribus\ui\prefs_indexes.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -1314,6 +1315,7 @@
     <ClCompile Include="..\..\..\scribus\ui\prefs_guides.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_hyphenator.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_imagecache.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\prefs_indexes.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_itemtools.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_keyboardshortcuts.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_miscellaneous.cpp" />
@@ -1701,6 +1703,7 @@
     <uic Include="..\..\..\scribus\ui\prefs_guidesbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_hyphenatorbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_imagecachebase.ui" />
+    <uic Include="..\..\..\scribus\ui\prefs_indexesbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_itemtoolsbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_keyboardshortcutsbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_miscellaneousbase.ui" />
