@@ -156,6 +156,7 @@ class PLUGIN_API Scribus170Format : public LoadSavePlugin
 		bool readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader);
 		bool readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& reader) const;
 		bool readSections(ScribusDoc* doc, ScXmlStreamReader& reader) const;
+		bool readIndexes(ScribusDoc* doc, ScXmlStreamReader& reader) const;
 		bool readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader) const;
 		bool readNotes(ScribusDoc* doc, ScXmlStreamReader& reader);
 		bool readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reader) const;
@@ -209,6 +210,7 @@ class PLUGIN_API Scribus170Format : public LoadSavePlugin
 		void writePrintOptions(ScXmlStreamWriter& docu);
 		void writePdfOptions(ScXmlStreamWriter& docu);
 		void writeDocItemAttributes(ScXmlStreamWriter& docu);
+		void writeIndexes(ScXmlStreamWriter& docu);
 		void writeTOC(ScXmlStreamWriter& docu);
 		void writeMarks(ScXmlStreamWriter & docu);
 		void writeNotesStyles(ScXmlStreamWriter & docu);

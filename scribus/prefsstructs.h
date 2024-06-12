@@ -330,6 +330,11 @@ struct ItemAttrPrefs
 	ObjAttrVector defaultItemAttributes; //! The default item attributes
 };
 
+struct IndexPrefs
+{
+	IndexSetupVector defaultIndexSetup; //! Default Indexes
+};
+
 struct TOCPrefs
 {
 	ToCSetupVector defaultToCSetups; //! Default Tables of Contents
@@ -484,6 +489,7 @@ struct ApplicationPrefs
 	GuidesPrefs guidesPrefs;
 	HyphenatorPrefs hyphPrefs;
 	ImageCachePrefs imageCachePrefs;
+	IndexPrefs indexPrefs;
 	ItemAttrPrefs itemAttrPrefs;
 	ItemToolPrefs itemToolPrefs;
 	KeyboardShortcutsPrefs keyShortcutPrefs;

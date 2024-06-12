@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_guides.h"
 #include "ui/prefs_hyphenator.h"
 #include "ui/prefs_imagecache.h"
+#include "ui/prefs_indexes.h"
 #include "ui/prefs_itemtools.h"
 #include "ui/prefs_keyboardshortcuts.h"
 #include "ui/prefs_miscellaneous.h"
@@ -99,6 +100,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		Prefs_Guides *prefs_Guides {nullptr};
 		Prefs_Hyphenator *prefs_Hyphenator {nullptr};
 		Prefs_ImageCache *prefs_ImageCache {nullptr};
+		Prefs_Indexes *prefs_Indexes {nullptr};
 		Prefs_ItemTools *prefs_ItemTools {nullptr};
 		Prefs_KeyboardShortcuts *prefs_KeyboardShortcuts {nullptr};
 		Prefs_Miscellaneous *prefs_Miscellaneous {nullptr};

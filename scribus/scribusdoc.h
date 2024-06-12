@@ -177,6 +177,11 @@ public:
 	void clearItemAttributes() { m_docPrefsData.itemAttrPrefs.defaultItemAttributes.clear(); }
 	void appendToItemAttributes(const ObjectAttribute& oa) { m_docPrefsData.itemAttrPrefs.defaultItemAttributes.append(oa); }
 
+	IndexSetupVector& indexSetups() { return m_docPrefsData.indexPrefs.defaultIndexSetup; }
+	void setIndexSetups(IndexSetupVector& isv) { m_docPrefsData.indexPrefs.defaultIndexSetup = isv; }
+	void clearIndexSetups() { m_docPrefsData.indexPrefs.defaultIndexSetup.clear(); }
+	void appendToIndexSetups(const IndexSetup& is) { m_docPrefsData.indexPrefs.defaultIndexSetup.append(is); }
+
 	ToCSetupVector& tocSetups() { return m_docPrefsData.tocPrefs.defaultToCSetups; }
 	void setTocSetups(ToCSetupVector& tsv) { m_docPrefsData.tocPrefs.defaultToCSetups = tsv; }
 	void clearTocSetups() { m_docPrefsData.tocPrefs.defaultToCSetups.clear(); }

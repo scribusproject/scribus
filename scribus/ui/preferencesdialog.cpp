@@ -31,7 +31,6 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	setupListWidget();
 	while (prefsStackWidget->currentWidget() != nullptr)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
-
 	exportButton->hide();
 
 	if(doc)
@@ -41,6 +40,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	}
 	else
 		connect(defaultsButton, SIGNAL(clicked()), SLOT(restoreDefaults()));
+
 	// Create Stack Widgets if required
 	prefs_ColorManagement = new Prefs_ColorManagement(prefsStackWidget, m_Doc);
 	prefs_Display = new Prefs_Display(prefsStackWidget, m_Doc);
@@ -54,12 +54,14 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	prefs_PDFExport = new Prefs_PDFExport(prefsStackWidget, m_Doc);
 	prefs_PreflightVerifier = new Prefs_PreflightVerifier(prefsStackWidget, m_Doc);
 	prefs_Printer = new Prefs_Printer(prefsStackWidget, m_Doc);
-	prefs_TableOfContents = new Prefs_TableOfContents(prefsStackWidget, m_Doc);
+
 	prefs_Typography = new Prefs_Typography(prefsStackWidget, m_Doc);
 	if (doc)
 	{
 		prefs_DocumentInformation = new Prefs_DocumentInformation(prefsStackWidget, m_Doc);
 		prefs_DocumentSections  = new Prefs_DocumentSections(prefsStackWidget, m_Doc);
+		prefs_Indexes = new Prefs_Indexes(prefsStackWidget, m_Doc);
+		prefs_TableOfContents = new Prefs_TableOfContents(prefsStackWidget, m_Doc);
 	}
 	if (!doc)
 	{
@@ -115,7 +117,12 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	if (!doc)
 		addWidget(prefs_Miscellaneous);
 	addWidget(prefs_DocumentItemAttributes);
-	addWidget(prefs_TableOfContents);
+	if (doc)
+	{
+		//Commented out for now until some more Index code is added.
+		//addWidget(prefs_Indexes);
+		addWidget(prefs_TableOfContents);
+	}
 
 	if (!doc)
 		addWidget(prefs_Plugins);
@@ -174,6 +181,7 @@ void PreferencesDialog::setupGui()
 	if (prefs_PDFExport) prefs_PDFExport->restoreDefaults(&localPrefs, ScCore->PDFXProfiles);
 	if (prefs_PreflightVerifier) prefs_PreflightVerifier->restoreDefaults(&localPrefs);
 	if (prefs_DocumentItemAttributes) prefs_DocumentItemAttributes->restoreDefaults(&localPrefs);
+	if (prefs_Indexes) prefs_Indexes->restoreDefaults(&localPrefs);
 	if (prefs_TableOfContents) prefs_TableOfContents->restoreDefaults(&localPrefs);
 	if (prefs_DocumentSections) prefs_DocumentSections->restoreDefaults(&localPrefs);
 	if (prefs_KeyboardShortcuts) prefs_KeyboardShortcuts->restoreDefaults(&localPrefs);
@@ -196,33 +204,34 @@ void PreferencesDialog::setupGui()
 
 void PreferencesDialog::saveGuiToPrefs()
 {
-	if (prefs_UserInterface) prefs_UserInterface->saveGuiToPrefs(&localPrefs);
-	if (prefs_Paths) prefs_Paths->saveGuiToPrefs(&localPrefs);
-	if (prefs_DocumentSetup) prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
-	if (prefs_DocumentInformation) prefs_DocumentInformation->saveGuiToPrefs(&localPrefs);
-	if (prefs_Guides) prefs_Guides->saveGuiToPrefs(&localPrefs);
-	if (prefs_Typography) prefs_Typography->saveGuiToPrefs(&localPrefs);
-	if (prefs_ItemTools) prefs_ItemTools->saveGuiToPrefs(&localPrefs);
-	if (prefs_OperatorTools) prefs_OperatorTools->saveGuiToPrefs(&localPrefs);
-	if (prefs_Hyphenator) prefs_Hyphenator->saveGuiToPrefs(&localPrefs);
-	if (prefs_Fonts) prefs_Fonts->saveGuiToPrefs(&localPrefs);
-	if (prefs_Printer) prefs_Printer->saveGuiToPrefs(&localPrefs);
-	if (prefs_PDFExport) prefs_PDFExport->saveGuiToPrefs(&localPrefs);
-	if (prefs_PreflightVerifier) prefs_PreflightVerifier->saveGuiToPrefs(&localPrefs);
-	if (prefs_DocumentItemAttributes) prefs_DocumentItemAttributes->saveGuiToPrefs(&localPrefs);
-	if (prefs_TableOfContents) prefs_TableOfContents->saveGuiToPrefs(&localPrefs);
-	if (prefs_DocumentSections) prefs_DocumentSections->saveGuiToPrefs(&localPrefs);
-	if (prefs_KeyboardShortcuts) prefs_KeyboardShortcuts->saveGuiToPrefs(&localPrefs);
 	if (prefs_ColorManagement) prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
-	if (prefs_Scrapbook) prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
-//	if (prefs_Spelling) prefs_Spelling->saveGuiToPrefs(&localPrefs);
 	if (prefs_Display) prefs_Display->saveGuiToPrefs(&localPrefs);
-	if (prefs_ExternalTools) prefs_ExternalTools->saveGuiToPrefs(&localPrefs);
-	if (prefs_Plugins) prefs_Plugins->saveGuiToPrefs(&localPrefs);
-	if (prefs_Miscellaneous) prefs_Miscellaneous->saveGuiToPrefs(&localPrefs);
-	if (prefs_PageSizes) prefs_PageSizes->saveGuiToPrefs(&localPrefs);
-	if (prefs_ImageCache) prefs_ImageCache->saveGuiToPrefs(&localPrefs);
+	if (prefs_DocumentInformation) prefs_DocumentInformation->saveGuiToPrefs(&localPrefs);
+	if (prefs_DocumentItemAttributes) prefs_DocumentItemAttributes->saveGuiToPrefs(&localPrefs);
+	if (prefs_DocumentSections) prefs_DocumentSections->saveGuiToPrefs(&localPrefs);
+	if (prefs_DocumentSetup) prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
 	if (prefs_Experimental) prefs_Experimental->saveGuiToPrefs(&localPrefs);
+	if (prefs_ExternalTools) prefs_ExternalTools->saveGuiToPrefs(&localPrefs);
+	if (prefs_Fonts) prefs_Fonts->saveGuiToPrefs(&localPrefs);
+	if (prefs_Guides) prefs_Guides->saveGuiToPrefs(&localPrefs);
+	if (prefs_Hyphenator) prefs_Hyphenator->saveGuiToPrefs(&localPrefs);
+	if (prefs_ImageCache) prefs_ImageCache->saveGuiToPrefs(&localPrefs);
+	if (prefs_Indexes) prefs_Indexes->saveGuiToPrefs(&localPrefs);
+	if (prefs_ItemTools) prefs_ItemTools->saveGuiToPrefs(&localPrefs);
+	if (prefs_KeyboardShortcuts) prefs_KeyboardShortcuts->saveGuiToPrefs(&localPrefs);
+	if (prefs_Miscellaneous) prefs_Miscellaneous->saveGuiToPrefs(&localPrefs);
+	if (prefs_OperatorTools) prefs_OperatorTools->saveGuiToPrefs(&localPrefs);
+	if (prefs_PDFExport) prefs_PDFExport->saveGuiToPrefs(&localPrefs);
+	if (prefs_PageSizes) prefs_PageSizes->saveGuiToPrefs(&localPrefs);
+	if (prefs_Paths) prefs_Paths->saveGuiToPrefs(&localPrefs);
+	if (prefs_Plugins) prefs_Plugins->saveGuiToPrefs(&localPrefs);
+	if (prefs_PreflightVerifier) prefs_PreflightVerifier->saveGuiToPrefs(&localPrefs);
+	if (prefs_Printer) prefs_Printer->saveGuiToPrefs(&localPrefs);
+	if (prefs_Scrapbook) prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
+	if (prefs_TableOfContents) prefs_TableOfContents->saveGuiToPrefs(&localPrefs);
+	if (prefs_Typography) prefs_Typography->saveGuiToPrefs(&localPrefs);
+	if (prefs_UserInterface) prefs_UserInterface->saveGuiToPrefs(&localPrefs);
+//	if (prefs_Spelling) prefs_Spelling->saveGuiToPrefs(&localPrefs);
 }
 
 void PreferencesDialog::accept()

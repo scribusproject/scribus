@@ -51,8 +51,26 @@ struct ToCSetup
 	QList<ToCSetupEntryStyleData> entryData;
 };
 
-
 typedef QList<ToCSetup> ToCSetupVector;
+
+struct IndexSetup
+{
+	QString name; //Name of Index
+	QString frameName; //Destination frame
+	bool listNonPrintingFrames{false}; //List non printing frames in the index
+	bool combineIdenticalEntries{false};
+	bool caseSensitiveCombination{false};
+	bool autoCapitalizeEntries{false};
+	bool addAlphaSeparators{false};
+	QString headingStyle;
+	QString separatorStyle;
+	QString level1Style;
+	QString level2Style;
+	QString level3Style;
+
+};
+
+typedef QList<IndexSetup> IndexSetupVector;
 
 struct DocumentSection
 {

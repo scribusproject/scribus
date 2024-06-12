@@ -1808,6 +1808,11 @@ bool Scribus170Format::loadFile(const QString & fileName, const FileFormat & /* 
 			success = readDocItemAttributes(m_Doc, reader);
 			if (!success) break;
 		}
+		else if (tagName == QLatin1String("Indexes"))
+		{
+			success = readIndexes(m_Doc, reader);
+			if (!success) break;
+		}
 		else if (tagName == QLatin1String("TablesOfContents"))
 		{
 			success = readTableOfContents(m_Doc, reader);
@@ -3662,6 +3667,59 @@ bool Scribus170Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader&
 			objattr.relationshipto = attrs.valueAsString("RelationshipTo");
 			objattr.autoaddto = attrs.valueAsString("AutoAddTo");
 			doc->appendToItemAttributes(objattr);
+		}
+	}
+	return !reader.hasError();
+}
+
+bool Scribus170Format::readIndexes(ScribusDoc* doc, ScXmlStreamReader& reader) const
+{
+	IndexSetup indexSetup;
+	ScXmlStreamAttributes attrs;
+	doc->clearIndexSetups();
+	while (!reader.atEnd() && !reader.hasError())
+	{
+		reader.readNext();
+		QString tagName(reader.nameAsString());
+		if (reader.isStartElement())
+			attrs = reader.attributes();
+		if (reader.isEndElement() && tagName == QLatin1String("Indexes"))
+			break;
+		if (reader.isStartElement() && reader.name() == QLatin1String("Index"))
+		{
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+			indexSetup.name = attrs.valueAsString("Name");
+			indexSetup.frameName = attrs.valueAsString("FrameName");
+
+			if (attrs.hasAttribute("ListNonPrinting"))
+				indexSetup.listNonPrintingFrames = QVariant(attrs.valueAsString("ListNonPrinting")).toBool();
+			else
+				indexSetup.listNonPrintingFrames = false;
+			if (attrs.hasAttribute("CombineIdenticalEntries"))
+				indexSetup.combineIdenticalEntries = QVariant(attrs.valueAsString("CombineIdenticalEntries")).toBool();
+			else
+				indexSetup.combineIdenticalEntries = false;
+			if (attrs.hasAttribute("CaseSensitiveCombination"))
+				indexSetup.caseSensitiveCombination = QVariant(attrs.valueAsString("CaseSensitiveCombination")).toBool();
+			else
+				indexSetup.caseSensitiveCombination = false;
+			if (attrs.hasAttribute("AutoCapitalizeEntries"))
+				indexSetup.autoCapitalizeEntries = QVariant(attrs.valueAsString("AutoCapitalizeEntries")).toBool();
+			else
+				indexSetup.autoCapitalizeEntries = false;
+			if (attrs.hasAttribute("AddAlphaSeparators"))
+				indexSetup.addAlphaSeparators = QVariant(attrs.valueAsString("AddAlphaSeparators")).toBool();
+			else
+				indexSetup.addAlphaSeparators = false;
+			indexSetup.headingStyle = attrs.valueAsString("HeadingStyle");
+			indexSetup.separatorStyle = attrs.valueAsString("SeparatorStyle");
+			indexSetup.level1Style = attrs.valueAsString("Level1Style");
+			indexSetup.level2Style = attrs.valueAsString("Level2Style");
+			indexSetup.level3Style = attrs.valueAsString("Level3Style");
+		}
+		if (reader.isEndElement() && tagName == QLatin1String("Index"))
+		{
+			doc->appendToIndexSetups(indexSetup);
 		}
 	}
 	return !reader.hasError();

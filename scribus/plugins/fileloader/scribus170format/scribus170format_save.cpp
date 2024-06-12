@@ -536,6 +536,7 @@ bool Scribus170Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writePrintOptions(docu);
 	writePdfOptions(docu);
 	writeDocItemAttributes(docu);
+	writeIndexes(docu);
 	writeTOC(docu);
 	writeMarks(docu);
 	writeNotesStyles(docu);
@@ -1362,6 +1363,28 @@ void Scribus170Format::writeDocItemAttributes(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
+void Scribus170Format::writeIndexes(ScXmlStreamWriter & docu)
+{
+	docu.writeStartElement("Indexes");
+	for (IndexSetupVector::Iterator indexSetupIt = m_Doc->indexSetups().begin() ; indexSetupIt != m_Doc->indexSetups().end(); ++indexSetupIt )
+	{
+		docu.writeStartElement("Index");
+		docu.writeAttribute("Name", indexSetupIt->name);
+		docu.writeAttribute("FrameName", indexSetupIt->frameName);
+		docu.writeAttribute("ListNonPrinting", indexSetupIt->listNonPrintingFrames);
+		docu.writeAttribute("CombineIdenticalEntries", indexSetupIt->combineIdenticalEntries);
+		docu.writeAttribute("CaseSensitiveCombination", indexSetupIt->caseSensitiveCombination);
+		docu.writeAttribute("AutoCapitalizeEntries", indexSetupIt->autoCapitalizeEntries);
+		docu.writeAttribute("AddAlphaSeparators", indexSetupIt->addAlphaSeparators);
+		docu.writeAttribute("HeadingStyle", indexSetupIt->headingStyle);
+		docu.writeAttribute("SeparatorStyle", indexSetupIt->separatorStyle);
+		docu.writeAttribute("Level1Style", indexSetupIt->level1Style);
+		docu.writeAttribute("Level2Style", indexSetupIt->level2Style);
+		docu.writeAttribute("Level3Style", indexSetupIt->level3Style);
+		docu.writeEndElement();
+	}
+	docu.writeEndElement();
+}
 
 void Scribus170Format::writeTOC(ScXmlStreamWriter & docu)
 {
