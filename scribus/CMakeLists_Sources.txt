@@ -409,6 +409,7 @@ set(SCRIBUS_SOURCES
 	ui/prefs_fonts.cpp
 	ui/prefs_guides.cpp
 	ui/prefs_hyphenator.cpp
+	ui/prefs_indexes.cpp
 	ui/prefs_imagecache.cpp
 	ui/prefs_keyboardshortcuts.cpp
 	ui/prefs_miscellaneous.cpp
