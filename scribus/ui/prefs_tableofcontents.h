@@ -67,7 +67,7 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 
 
 	protected:
-		int numSelected { 999 };
+		int numSelected {-1};
 		QString strPNNotShown;
 		QString strPNEnd;
 		QString strPNBeginning;
@@ -79,7 +79,7 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 		QString trStrTOCSrcStyle;
 		QString trStrTOCSrcAttribute;
 		ToCSetupVector localToCSetupVector;
-		ScribusDoc* m_Doc { nullptr };
+		ScribusDoc* m_Doc {nullptr};
 		QString selectedTOCAttrName;
 		QStringList paragraphStyleList;
 

@@ -264,6 +264,8 @@ void Prefs_TableOfContents::selectToC(int numberSelected)
 void Prefs_TableOfContents::updateToCListBox()
 {
 	tocListBox->clear();
+	if (localToCSetupVector.isEmpty())
+		return;
 	QStringList sl;
 	for (ToCSetupVector::Iterator it = localToCSetupVector.begin(); it!= localToCSetupVector.end(); ++it)
 		sl << (*it).name;
@@ -312,8 +314,6 @@ void Prefs_TableOfContents::enableGUIWidgets()
 {
 	bool tocExists = (localToCSetupVector.count() > 0);
 	tocListBox->setEnabled(tocExists);
-
-
 	bool haveTocSelected = (tocExists && (tocListBox->currentRow() >=0));
 	tocDeleteButton->setEnabled(haveTocSelected);
 	itemToCSource->setEnabled(haveTocSelected);
@@ -393,6 +393,8 @@ void Prefs_TableOfContents::deleteToC()
 		tocListBox->setCurrentRow(localToCSetupVector.count() - 1);
 		selectToC(localToCSetupVector.count() - 1);
 	}
+	if (localToCSetupVector.isEmpty())
+		numSelected = -1;
 	enableGUIWidgets();
 }
 
@@ -531,6 +533,8 @@ void Prefs_TableOfContents::nonPrintingFramesSelected( bool showNonPrinting )
 
 void Prefs_TableOfContents::styleListUpdate()
 {
+	if (numSelected < 0 || numSelected >= localToCSetupVector.count())
+		return;
 	styleListWidget->clear();
 	for (QList<ToCSetupEntryStyleData>::Iterator tocEntryIterator = localToCSetupVector[numSelected].entryData.begin();
 		 tocEntryIterator != localToCSetupVector[numSelected].entryData.end();
@@ -543,6 +547,8 @@ void Prefs_TableOfContents::styleListUpdate()
 
 void Prefs_TableOfContents::addStyleClicked()
 {
+	if (numSelected < 0 || numSelected >= localToCSetupVector.count())
+		return;
 	QString paraStyleToAdd(paragraphStyleComboBox->currentText());
 	bool found = false;
 	for (QList<ToCSetupEntryStyleData>::Iterator tocEntryIterator = localToCSetupVector[numSelected]
@@ -567,6 +573,8 @@ void Prefs_TableOfContents::addStyleClicked()
 
 void Prefs_TableOfContents::removeStyleClicked()
 {
+	if (numSelected < 0 || numSelected >= localToCSetupVector.count())
+		return;
 	QListWidgetItem *qlwi = styleListWidget->currentItem();
 	if (qlwi == nullptr)
 		return;
@@ -593,6 +601,8 @@ void Prefs_TableOfContents::tocListWidgetItemEdited(QListWidgetItem* qlwi)
 
 void Prefs_TableOfContents::tocStyleMoveUp()
 {
+	if (numSelected < 0 || numSelected >= localToCSetupVector.count())
+		return;
 	int curr = styleListWidget->currentRow();
 	if (curr <= 0)
 		return;
@@ -603,6 +613,8 @@ void Prefs_TableOfContents::tocStyleMoveUp()
 
 void Prefs_TableOfContents::tocStyleMoveDown()
 {
+	if (numSelected < 0 || numSelected >= localToCSetupVector.count())
+		return;
 	int curr = styleListWidget->currentRow();
 	if (curr == styleListWidget->count() - 1)
 		return;
@@ -613,6 +625,8 @@ void Prefs_TableOfContents::tocStyleMoveDown()
 
 void Prefs_TableOfContents::styleListWidgetClicked()
 {
+	if (numSelected < 0 || numSelected >= localToCSetupVector.count())
+		return;
 	int curr = styleListWidget->currentRow();
 	if (curr < 0)
 		return;
@@ -640,6 +654,8 @@ void Prefs_TableOfContents::styleListWidgetClicked()
 
 void Prefs_TableOfContents::tocEntryParagraphStyleSelected(const QString &style)
 {
+	if (numSelected < 0 || numSelected >= localToCSetupVector.count())
+		return;
 	int curr = styleListWidget->currentRow();
 	if (curr < 0)
 		return;
@@ -648,6 +664,8 @@ void Prefs_TableOfContents::tocEntryParagraphStyleSelected(const QString &style)
 
 void Prefs_TableOfContents::tocEntryPageNumberPlacedSelected(const QString &pageLocation)
 {
+	if (numSelected < 0 || numSelected >= localToCSetupVector.count())
+		return;
 	int curr = styleListWidget->currentRow();
 	if (curr < 0)
 		return;
@@ -660,6 +678,8 @@ void Prefs_TableOfContents::tocEntryPageNumberPlacedSelected(const QString &page
 }
 void Prefs_TableOfContents::tocEntryRemoveLineBreaksSelected(bool removeLineBreaks)
 {
+	if (numSelected < 0 || numSelected >= localToCSetupVector.count())
+		return;
 	int curr = styleListWidget->currentRow();
 	if (curr < 0)
 		return;
