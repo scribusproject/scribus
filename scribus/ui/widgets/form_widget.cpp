@@ -9,7 +9,7 @@
 FormWidget::FormWidget(QWidget *parent)
 	: QWidget(parent)
 {
-	QSizePolicy policy(QSizePolicy::Preferred, QSizePolicy::Maximum);
+	QSizePolicy policy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 	m_font = this->font();
 
 	setSizePolicy(policy);

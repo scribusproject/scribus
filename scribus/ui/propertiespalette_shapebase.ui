@@ -112,12 +112,6 @@
      </property>
      <item>
       <widget class="FormWidget" name="labelTextFlow">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="label" stdset="0">
         <string>Text Flow</string>
        </property>
@@ -292,6 +286,5 @@
  <connections/>
  <buttongroups>
   <buttongroup name="textFlowBtnGroup"/>
-  <buttongroup name="fillRuleBtnGroup"/>
  </buttongroups>
 </ui>

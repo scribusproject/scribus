@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>335</width>
-    <height>66</height>
+    <height>68</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,12 +36,6 @@
      </property>
      <item>
       <widget class="FormWidget" name="labelFillColor">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="label" stdset="0">
         <string>Color</string>
        </property>
@@ -80,12 +74,6 @@
        </property>
        <item>
         <widget class="FormWidget" name="labelFillMask">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="label" stdset="0">
           <string>Mask</string>
          </property>
@@ -122,12 +110,6 @@
        </item>
        <item>
         <widget class="FormWidget" name="labelBlendmode">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="label" stdset="0">
           <string>Blendmode</string>
          </property>
@@ -159,12 +141,6 @@
      </item>
      <item>
       <widget class="FormWidget" name="labelFillRule">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="label" stdset="0">
         <string>Fill Rule</string>
        </property>

@@ -134,12 +134,6 @@
      </property>
      <item>
       <widget class="FormWidget" name="labelColor">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="label" stdset="0">
         <string>Color</string>
        </property>
@@ -176,12 +170,6 @@
      </item>
      <item>
       <widget class="FormWidget" name="labelBlendmode">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="label" stdset="0">
         <string>Blendmode</string>
        </property>
@@ -311,12 +299,6 @@
      </item>
      <item>
       <widget class="FormWidget" name="labelErase">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="label" stdset="0">
         <string>Erase Fill</string>
        </property>
@@ -405,12 +387,6 @@
    </item>
    <item row="0" column="0">
     <widget class="FormWidget" name="labelHasShadow">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
      <property name="label" stdset="0">
       <string/>
      </property>
@@ -474,14 +450,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>ColorButton</class>
    <extends>QToolButton</extends>
    <header>ui/widgets/color_button.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ScrSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header location="global">ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>ComboBlendMode</class>

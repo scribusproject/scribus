@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>314</width>
-    <height>233</height>
+    <width>315</width>
+    <height>235</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -57,12 +57,6 @@
      </property>
      <item>
       <widget class="FormWidget" name="lineColorLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="label" stdset="0">
         <string>Color</string>
        </property>
@@ -104,12 +98,6 @@
        </property>
        <item>
         <widget class="FormWidget" name="lineMaskLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="label" stdset="0">
           <string>Mask</string>
          </property>
@@ -143,12 +131,6 @@
        </item>
        <item>
         <widget class="FormWidget" name="lineBlendmodeLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="label" stdset="0">
           <string>Blendmode</string>
          </property>
@@ -180,12 +162,6 @@
      </item>
      <item>
       <widget class="FormWidget" name="lineMarkerLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="label" stdset="0">
         <string>Marker</string>
        </property>
@@ -274,12 +250,6 @@
      </property>
      <item>
       <widget class="FormWidget" name="lineWidthLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="label" stdset="0">
         <string>Width</string>
        </property>
@@ -325,12 +295,6 @@
      </item>
      <item>
       <widget class="FormWidget" name="lineTypeLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="label" stdset="0">
         <string>Type</string>
        </property>
@@ -393,12 +357,6 @@
      </property>
      <item>
       <widget class="FormWidget" name="lineEndLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="label" stdset="0">
         <string>Caps</string>
        </property>
@@ -461,12 +419,6 @@
      </item>
      <item>
       <widget class="FormWidget" name="lineJoinLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="label" stdset="0">
         <string>Joins</string>
        </property>
@@ -549,14 +501,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>ColorButton</class>
    <extends>QToolButton</extends>
    <header>ui/widgets/color_button.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ScrSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header location="global">ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>LineCombo</class>

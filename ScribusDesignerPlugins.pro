@@ -19,7 +19,7 @@ INSTALLS += target
 
 DEFINES += "EXCLUDE_FOR_DESIGNER_PLUGIN=1"
 
-QT      += widgets uitools #designer
+QT      += widgets designer #uitools
 
 HEADERS += \
     scribus/designer/formwidget_plugin.h \

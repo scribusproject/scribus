@@ -92,7 +92,7 @@ QString FormWidgetPlugin::domXml() const
 <ui language="c++" displayname="Form Widget">
 	<widget class="FormWidget" name="formWidget">
 		<property name="sizePolicy">
-		 <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+		 <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
 		  <horstretch>0</horstretch>
 		  <verstretch>0</verstretch>
 		 </sizepolicy>
