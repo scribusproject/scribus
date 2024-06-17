@@ -1010,15 +1010,15 @@ void ActionManager::initHelpMenuActions()
 	name = "helpManual";
 	scrActions->insert(name, new ScrAction("16/help-browser.png", QString(), "", defaultKey(name), mainWindow));
 	name = "helpOnlineWWW";
-	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QString(), QString(), "", defaultKey(name), mainWindow, "http://www.scribus.net"));
+	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QString(), QString(), "", defaultKey(name), mainWindow, "https://www.scribus.net"));
 	name = "helpOnlineDocs";
-	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QString(), QString(), "", defaultKey(name), mainWindow, "http://docs.scribus.net"));
+	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QString(), QString(), "", defaultKey(name), mainWindow, "https://docs.scribus.net"));
 	name = "helpOnlineWiki";
-	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QString(), QString(), "", defaultKey(name), mainWindow, "http://wiki.scribus.net"));
+	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QString(), QString(), "", defaultKey(name), mainWindow, "https://wiki.scribus.net"));
 	name = "helpOnlineTutorial1";
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QString(), QString(), "", defaultKey(name), mainWindow, ""));
 	name = "helpChat";
-	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QString(), QString(), "", defaultKey(name), mainWindow, "http://web.libera.chat/?channels=scribus"));
+	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QString(), QString(), "", defaultKey(name), mainWindow, "https://web.libera.chat/?channels=scribus"));
 	name = "helpCheckUpdates";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 

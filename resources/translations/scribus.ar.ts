@@ -4046,11 +4046,11 @@ Click to link to existing text frame or auto-create new linked text frame</sourc
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>فشل التحليل!
 
 الرجاء رفع ملفك (إن أمكن) لــ
-مشروع تحرير مستند http://www.documentliberation.org</translation>
+مشروع تحرير مستند https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -7632,11 +7632,11 @@ a range of pages or a single page number</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>فشل التحليل!
 
 الرجاء رفع ملفك (إن أمكن) لــ
-مشروع تحرير مستند http://www.documentliberation.org</translation>
+مشروع تحرير مستند https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -8536,9 +8536,9 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="768"/>
-        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;https://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation>&lt;h2&gt;&lt;p&gt;عذرًا، لم يُنزّل أي دليل&lt;/p&gt;&lt;p&gt;انظر هنا رجاءً:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
+        <translation>&lt;h2&gt;&lt;p&gt;عذرًا، لم يُنزّل أي دليل&lt;/p&gt;&lt;p&gt;انظر هنا رجاءً:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;https://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
 </context>
 <context>
@@ -8920,11 +8920,11 @@ Ignore List</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>فشل التحليل!
 
 الرجاء رفع ملفك (إن أمكن) لــ
-مشروع تحرير مستند http://www.documentliberation.org</translation>
+مشروع تحرير مستند https://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="58"/>
@@ -14274,11 +14274,11 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>فشل التحليل!
 
 الرجاء رفع ملفك (إن أمكن) لــ
-مشروع تحرير مستند http://www.documentliberation.org</translation>
+مشروع تحرير مستند https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -16374,11 +16374,11 @@ Please choose another one.</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>فشل التحليل!
 
 الرجاء رفع ملفك (إن أمكن) لــ
-مشروع تحرير مستند http://www.documentliberation.org</translation>
+مشروع تحرير مستند https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -23987,11 +23987,11 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>فشل التحليل!
 
 الرجاء رفع ملفك (إن أمكن) لــ
-مشروع تحرير مستند http://www.documentliberation.org</translation>
+مشروع تحرير مستند https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -30870,11 +30870,11 @@ Please choose another.</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>فشل التحليل!
 
 الرجاء رفع ملفك (إن أمكن) لــ
-مشروع تحرير مستند http://www.documentliberation.org</translation>
+مشروع تحرير مستند https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -39930,11 +39930,11 @@ Would you like to start the system&apos;s default browser instead?</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>فشل التحليل!
 
 الرجاء رفع ملفك (إن أمكن) لــ
-مشروع تحرير مستند http://www.documentliberation.org</translation>
+مشروع تحرير مستند https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40196,11 +40196,11 @@ Document Liberation Project http://www.documentliberation.org</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>فشل التحليل!
 
 الرجاء رفع ملفك (إن أمكن) لــ
-مشروع تحرير مستند http://www.documentliberation.org</translation>
+مشروع تحرير مستند https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40820,8 +40820,8 @@ please choose another one.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="178"/>
-        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>يمكن الحصول على قوالب المستندات على الموقع http://www.scribus.net/ في قسم التنزيلات. </translation>
+        <source>Document templates can be found at https://www.scribus.net/ in the Downloads section.</source>
+        <translation>يمكن الحصول على قوالب المستندات على الموقع https://www.scribus.net/ في قسم التنزيلات. </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="182"/>

@@ -4048,11 +4048,11 @@ Klikañ da eren ur sterniad testenn ez eus anezhañ pe grouiñ emgefreek ur ster
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>C&apos;hwitadenn war an dezrannañ !
 
 Mar plij, kasit ho restr (mar bez tro) da
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -7633,11 +7633,11 @@ an ergorennoù o c&apos;hallout bezañ * evit an holl bajennadoù,
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>C&apos;hwitadenn war an dezrannañ !
 
 Mar plij, kasit ho restr (mar bez tro) da
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -8540,9 +8540,9 @@ HE GWRIZIOÙ D&apos;UR VLEUNIENN WENN;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="768"/>
-        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;https://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation>&lt;h2&gt;&lt;p&gt;Dornlevr ebet, digarezit.&lt;/p&gt;&lt;p&gt;Kit war al lec&apos;hienn : http://docs.scribus.net evit un teuliadur hizivaet&lt;/li&gt;&lt;li&gt;www.scribus.net evit pellgargañ.&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
+        <translation>&lt;h2&gt;&lt;p&gt;Dornlevr ebet, digarezit.&lt;/p&gt;&lt;p&gt;Kit war al lec&apos;hienn : https://docs.scribus.net evit un teuliadur hizivaet&lt;/li&gt;&lt;li&gt;www.scribus.net evit pellgargañ.&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
 </context>
 <context>
@@ -8924,11 +8924,11 @@ roll ar re laosket a-gostez</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>C&apos;hwitadenn war an dezrannañ !
 
 Mar plij, kasit ho restr (mar bez tro) da
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="58"/>
@@ -14277,11 +14277,11 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>C&apos;hwitadenn war an dezrannañ !
 
 Mar plij, kasit ho restr (mar bez tro) da
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -16378,11 +16378,11 @@ Mar plij, dibabit unan all.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>C&apos;hwitadenn war an dezrannañ !
 
 Mar plij, kasit ho restr (mar bez tro) da
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -23998,11 +23998,11 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>C&apos;hwitadenn war an dezrannañ !
 
 Mar plij, kasit ho restr (mar bez tro) da
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -30874,11 +30874,11 @@ Dibabit unan all mar plij.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>C&apos;hwitadenn war an dezrannañ !
 
 Mar plij, kasit ho restr (mar bez tro) da
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -39927,11 +39927,11 @@ Ha fellout a ra deoc&apos;h loc&apos;hañ  merdeer dre ziouer ar reizhiad en e l
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>C&apos;hwitadenn war an dezrannañ !
 
 Mar plij, kasit ho restr (mar bez tro) da
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40193,11 +40193,11 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>C&apos;hwitadenn war an dezrannañ !
 
 Mar plij, kasit ho restr (mar bez tro) da
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40818,8 +40818,8 @@ dibabit unan all, mar plij.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="178"/>
-        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>Patromoù zo hegerz war al lec&apos;hienn http://www.scribus.net/ er reollin « Downloads ».</translation>
+        <source>Document templates can be found at https://www.scribus.net/ in the Downloads section.</source>
+        <translation>Patromoù zo hegerz war al lec&apos;hienn https://www.scribus.net/ er reollin « Downloads ».</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="182"/>

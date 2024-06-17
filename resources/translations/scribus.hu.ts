@@ -4046,11 +4046,11 @@ Ide, majd egy meglévő szövegkeretre kattintva, össze lehet kapcsolni ezeket,
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Értelmezési hiba!
 
 A további fejlesztések érdekében az állomány elküldhető a 
-Document Liberation Project számára: http://www.documentliberation.org</translation>
+Document Liberation Project számára: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -7624,11 +7624,11 @@ a range of pages or a single page number</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Értelmezési hiba!
 
 A további fejlesztések érdekében az állomány elküldhető a 
-Document Liberation Project számára: http://www.documentliberation.org</translation>
+Document Liberation Project számára: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -8530,9 +8530,9 @@ Wesselényinél mázol Quitóban</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="768"/>
-        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;https://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation>&lt;h2&gt;&lt;p&gt;Elnézést, a kézikönyv nincs telepítve!&lt;/p&gt;&lt;p&gt;További információk:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net (frissített dokumentáció)&lt;/li&gt;&lt;li&gt;http://www.scribus.net (letöltések)&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
+        <translation>&lt;h2&gt;&lt;p&gt;Elnézést, a kézikönyv nincs telepítve!&lt;/p&gt;&lt;p&gt;További információk:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net (frissített dokumentáció)&lt;/li&gt;&lt;li&gt;https://www.scribus.net (letöltések)&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
 </context>
 <context>
@@ -8912,11 +8912,11 @@ Ignore List</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Értelmezési hiba!
 
 A további fejlesztések érdekében az állomány elküldhető a 
-Document Liberation Project számára: http://www.documentliberation.org</translation>
+Document Liberation Project számára: https://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="58"/>
@@ -14265,11 +14265,11 @@ Gyakran csak arra használatos, hogy az oldalak a teljes rajzvásznat elfoglalj�
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Értelmezési hiba!
 
 A további fejlesztések érdekében az állomány elküldhető a 
-Document Liberation Project számára: http://www.documentliberation.org</translation>
+Document Liberation Project számára: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -16364,11 +16364,11 @@ Adjon meg egy másikat.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Értelmezési hiba!
 
 A további fejlesztések érdekében az állomány elküldhető a 
-Document Liberation Project számára: http://www.documentliberation.org</translation>
+Document Liberation Project számára: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -23978,11 +23978,11 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Értelmezési hiba!
 
 A további fejlesztések érdekében az állomány elküldhető a 
-Document Liberation Project számára: http://www.documentliberation.org</translation>
+Document Liberation Project számára: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -30859,11 +30859,11 @@ Kérem, válasszon másikat.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Értelmezési hiba!
 
 A további fejlesztések érdekében az állomány elküldhető a 
-Document Liberation Project számára: http://www.documentliberation.org</translation>
+Document Liberation Project számára: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -39913,11 +39913,11 @@ Elindítsuk a rendszer alapértelmezett böngészőjét?</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Értelmezési hiba!
 
 A további fejlesztések érdekében az állomány elküldhető a 
-Document Liberation Project számára: http://www.documentliberation.org</translation>
+Document Liberation Project számára: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40179,11 +40179,11 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Értelmezési hiba!
 
 A további fejlesztések érdekében az állomány elküldhető a 
-Document Liberation Project számára: http://www.documentliberation.org</translation>
+Document Liberation Project számára: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40802,8 +40802,8 @@ please choose another one.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="178"/>
-        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>Dokumentumsablonok a http://www.scribus.net/ honlapon, a Letöltések részben találhatók.</translation>
+        <source>Document templates can be found at https://www.scribus.net/ in the Downloads section.</source>
+        <translation>Dokumentumsablonok a https://www.scribus.net/ honlapon, a Letöltések részben találhatók.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="182"/>

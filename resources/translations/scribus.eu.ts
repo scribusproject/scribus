@@ -4047,11 +4047,11 @@ Klik lehendik dagoen testu-markoarekin estekatzeko edo estekatutako testu-marko 
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analisiak huts egin du!
 
 Mesedez bidali zure fitxategia (posible bada)
-Document Liberation Project-era http://www.documentliberation.org</translation>
+Document Liberation Project-era https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -7635,11 +7635,11 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analisiak huts egin du!
 
 Mesedez bidali zure fitxategia (posible bada)
-Document Liberation Project-era http://www.documentliberation.org</translation>
+Document Liberation Project-era https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -8539,9 +8539,9 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="768"/>
-        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;https://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation>&lt;h2&gt;&lt;p&gt;Barkatu, ez da eskulibururik instalatu!&lt;/p&gt;&lt;p&gt;Begiratu:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net dokumentazio eguneratua jasotzeko&lt;/li&gt;&lt;li&gt;http://www.scribus.net deskargetarako&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
+        <translation>&lt;h2&gt;&lt;p&gt;Barkatu, ez da eskulibururik instalatu!&lt;/p&gt;&lt;p&gt;Begiratu:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net dokumentazio eguneratua jasotzeko&lt;/li&gt;&lt;li&gt;https://www.scribus.net deskargetarako&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
 </context>
 <context>
@@ -8923,11 +8923,11 @@ ezikusien zerrendara</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analisiak huts egin du!
 
 Mesedez bidali zure fitxategia (posible bada)
-Document Liberation Project-era http://www.documentliberation.org</translation>
+Document Liberation Project-era https://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="58"/>
@@ -14283,11 +14283,11 @@ Desgaitu PDF eta PS kapsulatze esperimentala eta saiatu berriro.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analisiak huts egin du!
 
 Mesedez bidali zure fitxategia (posible bada)
-Document Liberation Project-era http://www.documentliberation.org</translation>
+Document Liberation Project-era https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -16384,11 +16384,11 @@ Hautatu beste bat.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analisiak huts egin du!
 
 Mesedez bidali zure fitxategia (posible bada)
-Document Liberation Project-era http://www.documentliberation.org</translation>
+Document Liberation Project-era https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -24006,11 +24006,11 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analisiak huts egin du!
 
 Mesedez bidali zure fitxategia (posible bada)
-Document Liberation Project-era http://www.documentliberation.org</translation>
+Document Liberation Project-era https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -30894,11 +30894,11 @@ Hautatu beste bat.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analisiak huts egin du!
 
 Mesedez bidali zure fitxategia (posible bada)
-Document Liberation Project-era http://www.documentliberation.org</translation>
+Document Liberation Project-era https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -39954,11 +39954,11 @@ Sistemaren nabigatzaile lehenetsia ireki nahi duzu?</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analisiak huts egin du!
 
 Mesedez bidali zure fitxategia (posible bada)
-Document Liberation Project-era http://www.documentliberation.org</translation>
+Document Liberation Project-era https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40220,11 +40220,11 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analisiak huts egin du!
 
 Mesedez bidali zure fitxategia (posible bada)
-Document Liberation Project-era http://www.documentliberation.org</translation>
+Document Liberation Project-era https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40844,8 +40844,8 @@ hautatu beste izen bat.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="178"/>
-        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>Dokumentu-txantiloiak http://www.scribus.net/ webgunean daude, deskargen atalean.</translation>
+        <source>Document templates can be found at https://www.scribus.net/ in the Downloads section.</source>
+        <translation>Dokumentu-txantiloiak https://www.scribus.net/ webgunean daude, deskargen atalean.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="182"/>

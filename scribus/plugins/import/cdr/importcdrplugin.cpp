@@ -165,7 +165,7 @@ bool ImportCdrPlugin::import(QString fileName, int flags)
 		{
 			if (flags & LoadSavePlugin::lfCreateDoc)
 			{
-				ScMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project http://www.documentliberation.org"));
+				ScMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project https://www.documentliberation.org"));
 			}
 			return false;
 		}
