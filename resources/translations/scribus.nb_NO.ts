@@ -4026,7 +4026,7 @@ Click to link to existing text frame or auto-create new linked text frame</sourc
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7623,7 +7623,7 @@ a range of pages or a single page number</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8524,9 +8524,9 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="765"/>
-        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;https://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation>&lt;h2&gt;&lt;p&gt;Beklager, ingen håndbok er tilgjengelig.&lt;/p&gt; &lt;p&gt;Ta en titt på&lt;/p&gt;&lt;ul&gt;&lt;li&gt; http://docs.scribus.net for oppdaterte håndbøker&lt;/li&gt;, 
+        <translation>&lt;h2&gt;&lt;p&gt;Beklager, ingen håndbok er tilgjengelig.&lt;/p&gt; &lt;p&gt;Ta en titt på&lt;/p&gt;&lt;ul&gt;&lt;li&gt; https://docs.scribus.net for oppdaterte håndbøker&lt;/li&gt;, 
 &lt;li&gt;og www.scribus.net for nye versjoner av Scribus.&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
 </context>
@@ -8909,7 +8909,7 @@ lista over ord som skal overses</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -14314,7 +14314,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16398,7 +16398,7 @@ Please choose another one.</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24228,7 +24228,7 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -31433,7 +31433,7 @@ Please choose another.</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -40507,7 +40507,7 @@ Would you like to start the system&apos;s default browser instead?</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -40770,7 +40770,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -41207,8 +41207,8 @@ denne filendelsen, og ikke spør om dette senere.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="173"/>
-        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>Dokumentmaler finnes på http://www.scribus.net, se under Downloads.</translation>
+        <source>Document templates can be found at https://www.scribus.net/ in the Downloads section.</source>
+        <translation>Dokumentmaler finnes på https://www.scribus.net, se under Downloads.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="177"/>

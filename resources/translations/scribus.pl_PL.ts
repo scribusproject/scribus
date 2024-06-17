@@ -4032,11 +4032,11 @@ Kliknij, aby dołączyć do istniejącej ramki tekstowej lub utwórz automatyczn
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Błąd przetwarzania!
 
 Prosimy o przesłanie Twojego pliku (jeśli to możliwe) do
-Projektu Wyzwolenia Dokumentów: http://www.documentliberation.org</translation>
+Projektu Wyzwolenia Dokumentów: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -7642,11 +7642,11 @@ a pojedynczy numer oznacza numer strony.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Błąd przetwarzania!
 
 Prosimy o przesłanie Twojego pliku (jeśli to możliwe) do
-Projektu Wyzwolenia Dokumentów: http://www.documentliberation.org</translation>
+Projektu Wyzwolenia Dokumentów: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -8546,9 +8546,9 @@ Projektu Wyzwolenia Dokumentów: http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="765"/>
-        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;https://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation>&lt;h2&gt;&lt;p&gt;Przepraszamy, nie zainstalowano podręcznika!&lt;/p&gt;&lt;p&gt;Przejdź na stronę:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net po najnowszą wersję podręcznika&lt;/li&gt;&lt;li&gt;http://www.scribus.net, aby pobrać pliki&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
+        <translation>&lt;h2&gt;&lt;p&gt;Przepraszamy, nie zainstalowano podręcznika!&lt;/p&gt;&lt;p&gt;Przejdź na stronę:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net po najnowszą wersję podręcznika&lt;/li&gt;&lt;li&gt;https://www.scribus.net, aby pobrać pliki&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
 </context>
 <context>
@@ -8930,11 +8930,11 @@ listy ignorowanych</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Błąd przetwarzania!
 
 Prosimy o przesłanie Twojego pliku (jeśli to możliwe) do
-Projektu Wyzwolenia Dokumentów: http://www.documentliberation.org</translation>
+Projektu Wyzwolenia Dokumentów: https://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="58"/>
@@ -14348,11 +14348,11 @@ Prosimy wyłączyć eksperymentalne osadzanie PDF i PS i spróbować ponownie.</
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Błąd przetwarzania!
 
 Prosimy o przesłanie Twojego pliku (jeśli to możliwe) do
-Projektu Wyzwolenia Dokumentów: http://www.documentliberation.org</translation>
+Projektu Wyzwolenia Dokumentów: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -16448,11 +16448,11 @@ Proszę wybrać inny.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Błąd przetwarzania!
 
 Prosimy o przesłanie Twojego pliku (jeśli to możliwe) do
-Projektu Wyzwolenia Dokumentów: http://www.documentliberation.org</translation>
+Projektu Wyzwolenia Dokumentów: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -24293,11 +24293,11 @@ Wartość 0 oznacza brak ograniczeń.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Błąd przetwarzania!
 
 Prosimy o przesłanie Twojego pliku (jeśli to możliwe) do
-Projektu Wyzwolenia Dokumentów: http://www.documentliberation.org</translation>
+Projektu Wyzwolenia Dokumentów: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -31511,11 +31511,11 @@ Prosimy wybrać inną.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Błąd przetwarzania!
 
 Prosimy o przesłanie Twojego pliku (jeśli to możliwe) do
-Projektu Wyzwolenia Dokumentów: http://www.documentliberation.org</translation>
+Projektu Wyzwolenia Dokumentów: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40595,11 +40595,11 @@ Czy chcesz zamiast tego wystartować domyślną przeglądarkę internetową?</tr
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Błąd przetwarzania!
 
 Prosimy o przesłanie Twojego pliku (jeśli to możliwe) do
-Projektu Wyzwolenia Dokumentów: http://www.documentliberation.org</translation>
+Projektu Wyzwolenia Dokumentów: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40861,11 +40861,11 @@ Projektu Wyzwolenia Dokumentów: http://www.documentliberation.org</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Błąd przetwarzania!
 
 Prosimy o przesłanie Twojego pliku (jeśli to możliwe) do
-Projektu Wyzwolenia Dokumentów: http://www.documentliberation.org</translation>
+Projektu Wyzwolenia Dokumentów: https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -41302,8 +41302,8 @@ Prosimy wybrać inną nazwę.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="173"/>
-        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>Szablony dokumentów można znaleźć na stronie http://www.scribus.net/ w sekcji Downloads.</translation>
+        <source>Document templates can be found at https://www.scribus.net/ in the Downloads section.</source>
+        <translation>Szablony dokumentów można znaleźć na stronie https://www.scribus.net/ w sekcji Downloads.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="177"/>

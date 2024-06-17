@@ -4032,11 +4032,11 @@ Klik om aan bestaand tekstkader te koppelen of creëer automatisch een nieuw gek
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analyse mislukt!
 
 Verstuur uw bestand (indien mogelijk) naar het
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -7638,11 +7638,11 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analyse mislukt!
 
 Verstuur uw bestand (indien mogelijk) naar het
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -8542,9 +8542,9 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="765"/>
-        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;https://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation>&lt;h2&gt;&lt;p&gt;Sorry, er is geen handleiding geïnstalleerd!&lt;/p&gt;&lt;p&gt;Kijk voor meer informatie op&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net voor up to date documentatie of op&lt;/li&gt;&lt;li&gt;http://www.scribus.net voor downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
+        <translation>&lt;h2&gt;&lt;p&gt;Sorry, er is geen handleiding geïnstalleerd!&lt;/p&gt;&lt;p&gt;Kijk voor meer informatie op&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net voor up to date documentatie of op&lt;/li&gt;&lt;li&gt;https://www.scribus.net voor downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
 </context>
 <context>
@@ -8926,11 +8926,11 @@ de negeerlijst</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analyse mislukt!
 
 Verstuur uw bestand (indien mogelijk) naar het
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="58"/>
@@ -14337,11 +14337,11 @@ Schakel experimentele insluiting van PDF en EPS uit en probeer het opnieuw.</tra
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analyse mislukt!
 
 Verstuur uw bestand (indien mogelijk) naar het
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -16438,11 +16438,11 @@ Kies aub. een andere map.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analyse mislukt!
 
 Verstuur uw bestand (indien mogelijk) naar het
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -24268,11 +24268,11 @@ De waarde 0 betekent onbeperkt afbreken.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Verwerking mislukt!
 
 Verstuur uw bestand (indien mogelijk) naar het
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -31514,11 +31514,11 @@ Kies een andere naam.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analyse mislukt!
 
 Verstuur uw bestand (indien mogelijk) naar het
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40597,11 +40597,11 @@ Wilt u in plaats daarvan de standaardbrowser van het systeem starten?</translati
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Analyse mislukt!
 
 Verstuur uw bestand (indien mogelijk) naar het
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40863,11 +40863,11 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation>Verwerking mislukt!
 
 Verstuur uw bestand (indien mogelijk) naar het
-Document Liberation Project http://www.documentliberation.org</translation>
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -41304,8 +41304,8 @@ kies een andere.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="173"/>
-        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>U kunt documentsjablonen vinden op http://www.scribus.net/ in de Downloads-sectie.</translation>
+        <source>Document templates can be found at https://www.scribus.net/ in the Downloads section.</source>
+        <translation>U kunt documentsjablonen vinden op https://www.scribus.net/ in de Downloads-sectie.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="177"/>

@@ -171,7 +171,7 @@ void nftwidget::setupAbout()
 	text += tr("Downloading Templates");
 	text += "</b><br>";
 	text += tr("Document templates can be found at "
-	           "http://www.scribus.net/ in the Downloads section.");
+	           "https://www.scribus.net/ in the Downloads section.");
 	text += "<br><br>";
 	text += "<b>";
 	text +=  tr("Installing Templates");

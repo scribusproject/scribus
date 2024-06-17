@@ -4027,7 +4027,7 @@ Feu clic per enllaçar-ho amb un marc de text existent o amb la creació automà
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7626,7 +7626,7 @@ a range of pages or a single page number</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8527,9 +8527,9 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="765"/>
-        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;https://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation>&lt;h2&gt;&lt;p&gt;El manual no està instal·lat&lt;/p&gt;&lt;p&gt;Consulteu:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net per documentació actualitzada&lt;/li&gt;&lt;li&gt;http://www.scribus.net per descàrregues&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
+        <translation>&lt;h2&gt;&lt;p&gt;El manual no està instal·lat&lt;/p&gt;&lt;p&gt;Consulteu:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net per documentació actualitzada&lt;/li&gt;&lt;li&gt;https://www.scribus.net per descàrregues&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
 </context>
 <context>
@@ -8911,7 +8911,7 @@ d&apos;ignorats</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -14317,7 +14317,7 @@ Inhabiliteu la incrustació PDF i PS experimental i torneu-ho a intentar.</trans
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16404,7 +16404,7 @@ Trieu-ne un altre.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24229,7 +24229,7 @@ Un valor de 0 significa particions il·limitades.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -31471,7 +31471,7 @@ Trieu-ne un altre.</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -40546,7 +40546,7 @@ Voleu iniciar el navegador predeterminat del sistema en lloc seu?</translation>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -40809,7 +40809,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
-Document Liberation Project http://www.documentliberation.org</source>
+Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -41245,8 +41245,8 @@ please choose another one.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="173"/>
-        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>Les plantilles de document es poden trobar a http://www.scribus.net/ a la secció de baixades.</translation>
+        <source>Document templates can be found at https://www.scribus.net/ in the Downloads section.</source>
+        <translation>Les plantilles de document es poden trobar a https://www.scribus.net/ a la secció de baixades.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="177"/>

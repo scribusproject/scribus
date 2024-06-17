@@ -384,7 +384,7 @@ bool PagesPlug::convert(QString fn)
 		{
 			ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			QMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project http://www.documentliberation.org"), 1, 0, 0);
+			QMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project https://www.documentliberation.org"), 1, 0, 0);
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 		}
 		return false;
