@@ -144,12 +144,12 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="683"/>
         <source>cairo: %1</source>
-        <translation>Harfbuzz : %1</translation>
+        <translation>cairo : %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="685"/>
         <source>Harfbuzz: %1</source>
-        <translation>cairo : %1</translation>
+        <translation>Harfbuzz : %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="687"/>
