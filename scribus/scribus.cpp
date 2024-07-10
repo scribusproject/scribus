@@ -305,18 +305,19 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	CDockManager::setConfigFlag(CDockManager::ShowTabTextOnlyForActiveTab, m_prefsManager.appPrefs.uiPrefs.hideLabelsOfInactiveTabs);
 
 	// Documentation: https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System/blob/master/doc/user-guide.md#auto-hide-configuration-flags
-//	CDockManager::setAutoHideConfigFlags(CDockManager::DefaultAutoHideConfig);
+	CDockManager::setAutoHideConfigFlags(CDockManager::DefaultAutoHideConfig);
 //	CDockManager::setAutoHideConfigFlag(CDockManager::AutoHideShowOnMouseOver, false);
 //	CDockManager::setAutoHideConfigFlag(CDockManager::AutoHideCloseButtonCollapsesDock, true);
 //	CDockManager::setAutoHideConfigFlag(CDockManager::AutoHideButtonTogglesArea, true);
-//	CDockManager::setAutoHideConfigFlag(CDockManager::DockAreaHasAutoHideButton, true);
+	CDockManager::setAutoHideConfigFlag(CDockManager::DockAreaHasAutoHideButton, true);
 
 	IconManager &iconmanager = IconManager::instance();
 	CDockManager::iconProvider().registerCustomIcon(TabCloseIcon, iconmanager.loadIcon("close", 12));
 	CDockManager::iconProvider().registerCustomIcon(DockAreaCloseIcon, iconmanager.loadIcon("close", 12));
-	CDockManager::iconProvider().registerCustomIcon(DockAreaMenuIcon, iconmanager.loadIcon("menu-down", 12));
-	CDockManager::iconProvider().registerCustomIcon(DockAreaUndockIcon, iconmanager.loadIcon("dock-float", 12));
-//	CDockManager::iconProvider().registerCustomIcon(AutoHideIcon, iconmanager.loadIcon("dock-auto-hide", 12));
+	CDockManager::iconProvider().registerCustomIcon(DockAreaMenuIcon, iconmanager.loadIcon("menu-down", 16));
+	CDockManager::iconProvider().registerCustomIcon(DockAreaUndockIcon, iconmanager.loadIcon("dock-float", 16));
+	CDockManager::iconProvider().registerCustomIcon(AutoHideIcon, iconmanager.loadIcon("dock-auto-hide", 16));
+	CDockManager::iconProvider().registerCustomIcon(DockAreaMinimizeIcon, iconmanager.loadIcon("dock-minimize", 16));
 
 	int retVal=0;
 	//qsrand(1234);
@@ -560,11 +561,11 @@ ScribusMainWindow::~ScribusMainWindow()
 	delete m_tocGenerator;
 }
 
-void ScribusMainWindow::addScToolBar(ScToolBar *tb, const QString & name)
+void ScribusMainWindow::addScToolBar(ScToolBar *tb, const QString & name, Qt::ToolBarArea area)
 {
 	if (!scrToolBars.contains(name))
 		scrToolBars.insert(name, tb);
-	addToolBar(tb);
+	addToolBar(area, tb);
 }
 
 void ScribusMainWindow::initToolBars()
@@ -579,7 +580,7 @@ void ScribusMainWindow::initToolBars()
 
 	addScToolBar(fileToolBar, fileToolBar->objectName());
 	addScToolBar(editToolBar, editToolBar->objectName());
-	addScToolBar(modeToolBar, modeToolBar->objectName());
+	addScToolBar(modeToolBar, modeToolBar->objectName(), Qt::ToolBarArea::LeftToolBarArea);
 	addScToolBar(pdfToolBar, pdfToolBar->objectName());
 	addScToolBar(viewToolBar, viewToolBar->objectName());
 	connect(modeToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setChecked(bool)));

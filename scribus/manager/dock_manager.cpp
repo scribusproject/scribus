@@ -214,9 +214,10 @@ void DockManager::updateIcon(CDockWidget *dockWidget)
 	IconManager &iconManager = IconManager::instance();
 
 	dockWidget->dockAreaWidget()->titleBarButton(ads::TitleBarButtonClose)->setIcon(iconManager.loadIcon("close", 12));
-	dockWidget->dockAreaWidget()->titleBarButton(ads::TitleBarButtonUndock)->setIcon(iconManager.loadIcon("dock-float", 12));
-	dockWidget->dockAreaWidget()->titleBarButton(ads::TitleBarButtonTabsMenu)->setIcon(iconManager.loadIcon("menu-down", 12));
-	//	dock->dockAreaWidget()->titleBarButton(ads::TitleBarButtonAutoHide)->setIcon(iconManager.loadIcon("dock-auto-hide", 12));
+	dockWidget->dockAreaWidget()->titleBarButton(ads::TitleBarButtonUndock)->setIcon(iconManager.loadIcon("dock-float", 16));
+	dockWidget->dockAreaWidget()->titleBarButton(ads::TitleBarButtonTabsMenu)->setIcon(iconManager.loadIcon("menu-down", 16));
+	dockWidget->dockAreaWidget()->titleBarButton(ads::TitleBarButtonAutoHide)->setIcon(iconManager.loadIcon("dock-auto-hide", 16));
+	dockWidget->dockAreaWidget()->titleBarButton(ads::TitleBarButtonMinimize)->setIcon(iconManager.loadIcon("dock-minimize", 16));
 
 	for (auto tabCloseButton : dockWidget->dockAreaWidget()->findChildren<QAbstractButton*>("tabCloseButton"))
 		tabCloseButton->setIcon(iconManager.loadIcon("close", 12));
@@ -245,11 +246,11 @@ void DockManager::createDefaultWorkspace()
 	 *        290px     290px           *             290px
 	 *     |---------|---------|-------------------|---------|
 	 *     |  Left   |  Center |      Center       |  Right  |
-	 * 2/3 |         |  Left   |                   |         |
+	 * 3/4 |         |  Left   |                   |         |
 	 *     |         |         |                   |         |
 	 *     |         |         |                   |         |
 	 *     |---------|         |                   |         |
-	 * 1/3 | Bottom  |         |                   |         |
+	 * 1/4 | Bottom  |         |                   |         |
 	 *     | Left    |         |                   |         |
 	 *     |---------|---------|-------------------|---------|
 	 *
@@ -284,7 +285,7 @@ void DockManager::createDefaultWorkspace()
 
 	// Resizing area height of left and bottom-left
 	int heightL = areaLeft->height();
-	setSplitterSizes(areaLeft, {heightL * 2 / 3, heightL * 1 / 3});
+	setSplitterSizes(areaLeft, {heightL * 3 / 4, heightL * 1 / 4});
 
 	// Resizing area width of left, center-left, center and right
 	int widthCL = areaCenter->width();

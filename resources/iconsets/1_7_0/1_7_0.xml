@@ -574,6 +574,8 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="close" file="16/action-close.svg" />
 		<icon id="dock-float" file="16/action-window-float.svg" />
 		<icon id="menu-down" file="16/action-menu-down.svg" />
+		<icon id="dock-auto-hide" file="16/action-pin.svg" />
+		<icon id="dock-minimize" file="16/action-minimize.svg" />
 
 		<!-- Panels -->
 		<icon id="panel-action-history" file="16/panel-action-history.svg" />
