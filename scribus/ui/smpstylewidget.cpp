@@ -185,7 +185,6 @@ void SMPStyleWidget::fillColorCombo(ColorList &colors)
 {
 	backColor_->clear();
 	backColor_->setColors(colors, true);
-	backColor_->view()->setMinimumWidth(backColor_->view()->maximumViewportSize().width()+24);
 }
 
 void SMPStyleWidget::fillBulletStrEditCombo()

@@ -15,14 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 // #include "qdebug.h"
 
-ColorCombo::ColorCombo(QWidget* parent) : QComboBox(parent)
-{
-	setEditable(false);
-	ColorListBox* lb = new ColorListBox(this);
-	setModel( lb->model() );
-	setItemDelegate( lb->itemDelegate() );
-	setView( lb );
-}
+ColorCombo::ColorCombo(QWidget* parent) : ColorCombo(false, parent) {}
 
 ColorCombo::ColorCombo(ColorCombo::PixmapType type, QWidget* parent) : QComboBox(parent)
 {
@@ -36,6 +29,7 @@ ColorCombo::ColorCombo(ColorCombo::PixmapType type, QWidget* parent) : QComboBox
 	setModel( lb->model() );
 	setItemDelegate( lb->itemDelegate() );
 	setView( lb );
+	view()->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
 }
 
 ColorCombo::ColorCombo(bool rw, QWidget* parent) : QComboBox(parent)
@@ -45,6 +39,7 @@ ColorCombo::ColorCombo(bool rw, QWidget* parent) : QComboBox(parent)
 	setModel( lb->model() );
 	setItemDelegate( lb->itemDelegate() );
 	setView( lb );
+	view()->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
 }
 
 

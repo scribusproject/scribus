@@ -167,9 +167,6 @@ void SMCStyleWidget::fillColorCombo(ColorList &colors)
 	fillColor_->setColors(colors, true);
 	strokeColor_->setColors(colors, true);
 	backColor_->setColors(colors, true);
-	fillColor_->view()->setMinimumWidth(fillColor_->view()->maximumViewportSize().width()+24);
-	strokeColor_->view()->setMinimumWidth(strokeColor_->view()->maximumViewportSize().width()+24);
-	backColor_->view()->setMinimumWidth(backColor_->view()->maximumViewportSize().width()+24);
 }
 
 void SMCStyleWidget::handleUpdateRequest(int updateFlags)
