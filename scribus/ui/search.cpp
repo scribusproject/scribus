@@ -147,7 +147,6 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* item, 
 	searchStrokeValue->setEditable(false);
 	searchStrokeValue->setPixmapType(ColorCombo::fancyPixmaps);
 	searchStrokeValue->setColors(doc->PageColors, true);
-	searchStrokeValue->view()->setMinimumWidth(searchStrokeValue->view()->maximumViewportSize().width() + 24);
 	setCurrentComboItem(searchStrokeValue, doc->currentStyle.charStyle().strokeColor());
 	searchStrokeValue->setEnabled(false);
 	SearchLayout->addWidget( searchStrokeValue, 8, 1 );
@@ -233,7 +232,6 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* item, 
 	replaceFillValue->setEditable(false);
 	replaceFillValue->setPixmapType(ColorCombo::fancyPixmaps);
 	replaceFillValue->setColors(doc->PageColors, true);
-	replaceFillValue->view()->setMinimumWidth(replaceFillValue->view()->maximumViewportSize().width() + 24);
 	setCurrentComboItem(replaceFillValue, doc->currentStyle.charStyle().fillColor());
 	replaceFillValue->setEnabled(false);
 	ReplaceLayout->addWidget( replaceFillValue, 6, 1 );
@@ -244,7 +242,6 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* item, 
 	replaceStrokeValue->setEditable(false);
 	replaceStrokeValue->setPixmapType(ColorCombo::fancyPixmaps);
 	replaceStrokeValue->setColors(doc->PageColors, true);
-	replaceStrokeValue->view()->setMinimumWidth(replaceStrokeValue->view()->maximumViewportSize().width() + 24);
 	setCurrentComboItem(replaceStrokeValue, doc->currentStyle.charStyle().strokeColor());
 	replaceStrokeValue->setEnabled(false);
 	ReplaceLayout->addWidget( replaceStrokeValue, 8, 1 );

@@ -196,9 +196,6 @@ void PropertyWidget_TextColor::updateColorList()
 	fillColor->setColors(m_doc->PageColors, true);
 	strokeColor->setColors(m_doc->PageColors, false);
 	backColor->setColors(m_doc->PageColors, true);
-	fillColor->view()->setMinimumWidth(fillColor->view()->maximumViewportSize().width() + 24);
-	strokeColor->view()->setMinimumWidth(strokeColor->view()->maximumViewportSize().width() + 24);
-	backColor->view()->setMinimumWidth(backColor->view()->maximumViewportSize().width() + 24);
 
 	if (m_item)
 		setCurrentItem(m_item);

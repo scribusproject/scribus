@@ -173,5 +173,4 @@ void SMCellStyleWidget::fillFillColorCombo(const ColorList &colors)
 	fillColor->clear();
 
 	fillColor->setColors(colors, true);
-	fillColor->view()->setMinimumWidth(fillColor->view()->maximumViewportSize().width()+24);
 }

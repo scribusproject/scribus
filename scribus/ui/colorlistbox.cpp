@@ -175,21 +175,7 @@ void ColorFancyItemDelegate::iconSetChange()
 int ColorListBox::initialized;
 int ColorListBox::sortRule;
 
-ColorListBox::ColorListBox(QWidget * parent)
-	: QListView(parent)
-{
-	if (initialized != 12345)
-		sortRule = 0;
-	initialized = 12345;
-	QListView::setModel(new ColorListModel(this));
-	setPixmapType(ColorListBox::widePixmap);
-
-	connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(emitItemClicked(QModelIndex)));
-	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(emitItemDoubleClicked(QModelIndex)));
-	connect(this->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(emitCurrentChanged(QModelIndex,QModelIndex)));
-	connect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SIGNAL(itemSelectionChanged()));
-	connect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
-}
+ColorListBox::ColorListBox(QWidget * parent) : ColorListBox(ColorListBox::widePixmap, parent) {}
 
 ColorListBox::ColorListBox(ColorListBox::PixmapType type, QWidget * parent)
 	: QListView(parent)
