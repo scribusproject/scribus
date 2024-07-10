@@ -73,15 +73,14 @@ void drawPointerHandle(QPainter *painter, QPointF pointer, qreal width, QColor b
 
 void drawSelectionHandle(QPainter *painter, QPointF point, QPen pen, qreal scaleFactor, bool isActive)
 {
-	QRectF handleRect(0, 0, 5 / scaleFactor, 5 / scaleFactor);
+	QRectF handleRect(0, 0, 6 / scaleFactor, 6 / scaleFactor);
 	handleRect.moveCenter(point);
 
 	QBrush b = QBrush( (isActive) ? pen.color() : Qt::white );
-	QPen p(Qt::white, 3, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	p.setCosmetic(true);
 
-	painter->setPen(p);
-	painter->drawRect(handleRect);
+	if (isActive)
+		pen.setColor(Qt::white);
+
 	painter->setPen(pen);
 	painter->setBrush(b);
 	painter->drawRect(handleRect);
@@ -96,16 +95,14 @@ void drawNodeControl(QPainter *painter, QPointF point, QPen pen, qreal scaleFact
 {
 	bool aa = painter->testRenderHint(QPainter::Antialiasing);
 
-	QRectF handleRect(0, 0, 6 / scaleFactor, 6 / scaleFactor);
+	QRectF handleRect(0, 0, 7 / scaleFactor, 7 / scaleFactor);
 	handleRect.moveCenter(point);
 
 	QBrush b = QBrush( (isActive) ? pen.color() : Qt::white );
-	QPen p(Qt::white, 3, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	p.setCosmetic(true);
+	if (isActive)
+		pen.setColor(Qt::white);
 
 	painter->setRenderHint(QPainter::Antialiasing, true);
-	painter->setPen(p);
-	painter->drawEllipse(handleRect);
 	painter->setPen(pen);
 	painter->setBrush(b);
 	painter->drawEllipse(handleRect);

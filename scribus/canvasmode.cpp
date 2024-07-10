@@ -1733,35 +1733,42 @@ void CanvasMode::setStyle()
 	Text Control Characters = prefsData->displayPrefs.controlCharColor; // brown
 	*/
 
-	m_color["frame-selection"]	= QColor(229, 85, 69);//PrefsManager::instance().appPrefs.displayPrefs.frameColor;
+	m_color["frame-selection"]	= QColor(230, 71, 51);//PrefsManager::instance().appPrefs.displayPrefs.frameColor;
 	m_color["frame-group"]		= PrefsManager::instance().appPrefs.displayPrefs.frameGroupColor;
 	m_color["frame"]			= PrefsManager::instance().appPrefs.displayPrefs.frameNormColor;
 	m_color["frame-move"]		= Qt::gray;
 	m_color["weld"]				= QColor(214, 146, 43);
-	m_color["node"]				= QColor(51, 132, 204);
-	m_color["node-handle"]		= QColor(229, 85, 69);
+	m_color["node"]				= QColor(0, 136, 255);
+	m_color["node-handle"]		= QColor(255, 51, 187);
 	m_color["test"]				= Qt::magenta;
 	QColor selectionAlpha		= m_color["frame-selection"];
 	selectionAlpha.setAlphaF(.05f);
+
+//CB for now 1.0 looks ok for Mac
+//#ifdef Q_OS_MAC
+//	double stroke = 2.0;
+//#else
+	double stroke = 1.0;
+//#endif
 
 	m_pen["frame-move"]				= QPen(m_color["frame-move"], 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["frame-move"].setCosmetic(true);
 	m_pen["frame-preview"]			= QPen(Qt::black, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["frame-preview"].setCosmetic(true);
-	m_pen["selection"]				= QPen(m_color["frame-selection"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection"]				= QPen(m_color["frame-selection"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection"].setCosmetic(true);
-	m_pen["selection-handle"]		= QPen(m_color["frame-selection"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection-handle"]		= QPen(m_color["frame-selection"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-handle"].setCosmetic(true);
 	m_pen["selection-group"]		= m_pen["selection"];
 	m_pen["selection-group-inside"] = QPen(m_color["frame-group"], 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-group-inside"].setCosmetic(true);
-	m_pen["vector"]					= QPen(m_color["node"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["vector"]					= QPen(m_color["node"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["vector"].setCosmetic(true);
-	m_pen["node"]					= QPen(m_color["node"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["node"]					= QPen(m_color["node"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["node"].setCosmetic(true);
-	m_pen["node-handle"]			= QPen(m_color["node-handle"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["node-handle"]			= QPen(m_color["node-handle"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["node-handle"].setCosmetic(true);
-	m_pen["node-dash"]				= QPen(m_color["node-handle"], 1.0, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["node-dash"]				= QPen(m_color["node-handle"], stroke, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["node-dash"].setCosmetic(true);
 
 	m_brush["frame-move"]				= Qt::NoBrush;
