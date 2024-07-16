@@ -10,10 +10,10 @@
   <!-- Import Qt6 -->
   <PropertyGroup Label="UserMacros">
 	<!-- Qt6 -->
-	<QT6_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt\6.7.1\msvc2019</QT6_DIR>
-	<QT6_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt\6.7.1\msvc2019_64</QT6_DIR>
-	<QT6_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt\6.7.1\msvc2019</QT6_DIR>
-	<QT6_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt\6.7.1\msvc2019_64</QT6_DIR>
+	<QT6_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt\6.7.2\msvc2019</QT6_DIR>
+	<QT6_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt\6.7.2\msvc2019_64</QT6_DIR>
+	<QT6_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt\6.7.2\msvc2019</QT6_DIR>
+	<QT6_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v143'"   >F:\Libraries\Qt\6.7.2\msvc2019_64</QT6_DIR>
 	<QT6CORE_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Cored.lib</QT6CORE_LIB>
 	<QT6CORE_LIB Condition="'$(Configuration)' == 'Release'">Qt6Core.lib</QT6CORE_LIB>
 	<QT6CORE5COMPAT_LIB Condition="'$(Configuration)' == 'Debug'">Qt6Core5Compatd.lib</QT6CORE5COMPAT_LIB>
