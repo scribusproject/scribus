@@ -156,12 +156,11 @@ void PropertiesPalette_Text::setMainWindow(ScribusMainWindow* mw)
 	pathTextWidgets->setMainWindow(mw);
 
 	connect(m_ScMW, SIGNAL(UpdateRequest(int))     , this  , SLOT(handleUpdateRequest(int)));
-
 }
 
 void PropertiesPalette_Text::setDoc(ScribusDoc *d)
 {
-	if((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
+	if ((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
 		return;
 
 	if (m_doc)
@@ -414,9 +413,9 @@ void PropertiesPalette_Text::showLanguage(const QString& w)
 
 void PropertiesPalette_Text::showFirstLinePolicy( FirstLineOffsetPolicy f )
 {
-	if(f == FLOPFontAscent)
+	if (f == FLOPFontAscent)
 		flopBox->flopFontAscent->setChecked(true);
-	else if(f == FLOPLineSpacing)
+	else if (f == FLOPLineSpacing)
 		flopBox->flopLineSpacing->setChecked(true);
 	else if (f == FLOPRealGlyphHeight)
 		flopBox->flopRealHeight->setChecked(true); //It’s historical behaviour.
@@ -526,13 +525,13 @@ void PropertiesPalette_Text::handleFirstLinePolicy(int radioFlop)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
 		return;
-	if( radioFlop == PropertyWidget_Flop::RealHeightID)
+	if (radioFlop == PropertyWidget_Flop::RealHeightID)
 		m_item->setFirstLineOffset(FLOPRealGlyphHeight);
-	else if( radioFlop == PropertyWidget_Flop::FontAscentID)
+	else if (radioFlop == PropertyWidget_Flop::FontAscentID)
 		m_item->setFirstLineOffset(FLOPFontAscent);
-	else if( radioFlop == PropertyWidget_Flop::LineSpacingID)
+	else if (radioFlop == PropertyWidget_Flop::LineSpacingID)
 		m_item->setFirstLineOffset(FLOPLineSpacing);
-	else if( radioFlop == PropertyWidget_Flop::BaselineGridID)
+	else if (radioFlop == PropertyWidget_Flop::BaselineGridID)
 		m_item->setFirstLineOffset(FLOPBaselineGrid);
 	m_item->update();
 	if (m_doc->appMode == modeEditTable)

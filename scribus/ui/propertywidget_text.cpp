@@ -61,7 +61,7 @@ void PropertyWidget_Text::setMainWindow(ScribusMainWindow* mw)
 
 void PropertyWidget_Text::setDoc(ScribusDoc *d)
 {
-	if((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
+	if ((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
 		return;
 
 	if (m_doc)

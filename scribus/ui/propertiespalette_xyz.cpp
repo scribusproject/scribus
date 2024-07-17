@@ -111,7 +111,7 @@ void PropertiesPalette_XYZ::setMainWindow(ScribusMainWindow* mw)
 
 void PropertiesPalette_XYZ::setDoc(ScribusDoc *d)
 {
-	if((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
+	if ((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
 		return;
 
 	if (m_doc)
@@ -651,9 +651,8 @@ void PropertiesPalette_XYZ::showXY(double x, double y)
 		break;
 	}
 
-	if(useLineMode){
+	if (useLineMode)
 		n = FPoint(0.0, 0.0);
-	}
 
 //	if (bp == AnchorPoint::TopLeft || useLineMode)
 //		n = FPoint(0.0, 0.0);
@@ -1472,7 +1471,7 @@ void PropertiesPalette_XYZ::updateSpinBoxConstants()
 {
 	if (!m_haveDoc)
 		return;
-	if(m_doc->m_Selection->count()==0)
+	if (m_doc->m_Selection->count()==0)
 		return;
 	widthSpin->setConstants(&m_doc->constants());
 	heightSpin->setConstants(&m_doc->constants());

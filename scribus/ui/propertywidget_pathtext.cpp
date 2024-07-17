@@ -41,7 +41,7 @@ void PropertyWidget_PathText::setMainWindow(ScribusMainWindow* mw)
 
 void PropertyWidget_PathText::setDoc(ScribusDoc *d)
 {
-	if(d == (ScribusDoc*) m_doc)
+	if (d == (ScribusDoc*) m_doc)
 		return;
 
 	if (m_doc)

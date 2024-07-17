@@ -55,7 +55,7 @@ void PropertiesPalette_Fill::setMainWindow(ScribusMainWindow* mw)
 
 void PropertiesPalette_Fill::setDoc(ScribusDoc *d)
 {
-	if((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
+	if ((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
 		return;
 
 	if (m_doc)
@@ -379,7 +379,7 @@ void PropertiesPalette_Fill::handleFillColor()
 		break;
 	case Mode::Gradient:
 	{
-		if(buttonFillColor->gradientData().Name.isEmpty())
+		if (buttonFillColor->gradientData().Name.isEmpty())
 		{
 			m_item->setGradient("");
 			m_doc->itemSelection_SetFillGradient(buttonFillColor->gradientData().Gradient);
@@ -583,7 +583,7 @@ void PropertiesPalette_Fill::handleFillMask()
 		break;
 	case Mode::Gradient:
 
-		if(buttonFillMask->gradientData().Name.isEmpty())
+		if (buttonFillMask->gradientData().Name.isEmpty())
 		{
 			m_item->setGradientMask("");
 			m_doc->itemSelection_SetMaskGradient(buttonFillMask->gradient());
@@ -729,7 +729,7 @@ void PropertiesPalette_Fill::iconSetChange()
 	evenOdd->setIcon(im.loadIcon("fill-rule-even-odd.png"));
 	nonZero->setIcon(im.loadIcon("fill-rule-nonzero.png"));
 
-	if(labelFillMask->labelVisibility())
+	if (labelFillMask->labelVisibility())
 		buttonFillMask->setIcon(QIcon());
 	else
 		buttonFillMask->setIcon(im.loadIcon("mask", 8));

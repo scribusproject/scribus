@@ -120,7 +120,7 @@ void PropertiesPalette_Line::setMainWindow(ScribusMainWindow *mw)
 
 void PropertiesPalette_Line::setDoc(ScribusDoc *d)
 {
-	if((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
+	if ((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
 		return;
 
 	if (m_doc)
@@ -721,7 +721,7 @@ void PropertiesPalette_Line::handleLineColor()
 
 		m_doc->itemSelection_SetItemStrokePattern(""); // reset pattern
 
-		if(buttonLineColor->gradientData().Name.isEmpty())
+		if (buttonLineColor->gradientData().Name.isEmpty())
 		{
 			m_item->setStrokeGradient("");
 			m_doc->itemSelection_SetLineGradient(buttonLineColor->gradientData().Gradient);
@@ -841,7 +841,7 @@ void PropertiesPalette_Line::iconSetChange()
 
 	buttonSwapMarker->setIcon(im.loadIcon("swap"));
 
-	if(lineMaskLabel->labelVisibility())
+	if (lineMaskLabel->labelVisibility())
 		buttonLineMask->setIcon(QIcon());
 	else
 		buttonLineMask->setIcon(im.loadIcon("mask", 8));

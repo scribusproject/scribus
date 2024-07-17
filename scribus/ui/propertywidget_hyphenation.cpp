@@ -83,7 +83,7 @@ void PropertyWidget_Hyphenation::handleHyphenChar(const QString& hyphenText)
 
 void PropertyWidget_Hyphenation::setDoc(ScribusDoc *d)
 {
-	if((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
+	if ((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
 		return;
 
 	if (m_doc)

@@ -34,19 +34,19 @@ void ColorButton::setHasDot(bool enabled)
 	update();
 }
 
-bool ColorButton::hasDot()
+bool ColorButton::hasDot() const
 {
 	return m_hasDot;
 }
 
-QSize ColorButton::backgroundDotSize()
+QSize ColorButton::backgroundDotSize() const
 {
 	int smallestSize = qMin(height(), width());
 
 	return QSize(smallestSize, smallestSize);
 }
 
-QSize ColorButton::foregroundDotSize()
+QSize ColorButton::foregroundDotSize() const
 {
 	int smallestSize = 12;
 
@@ -99,7 +99,7 @@ void ColorButton::setBackground(QBrush background)
 	update();
 }
 
-QBrush ColorButton::background()
+QBrush ColorButton::background() const
 {
 	if (isEnabled())
 		return m_background;
@@ -115,7 +115,7 @@ void ColorButton::setForeground(QBrush foreground)
 		update();
 }
 
-QBrush ColorButton::foreground()
+QBrush ColorButton::foreground() const
 {
 	if (isEnabled())
 		return m_foreground;
@@ -131,16 +131,6 @@ void ColorButton::setGeneral(int overprint)
 	setGeneralData(i);
 }
 
-void ColorButton::setGeneralData(CPGeneralData data)
-{
-	m_itemData = data;
-}
-
-CPGeneralData ColorButton::generalData()
-{
-	return m_itemData;
-}
-
 void ColorButton::setColor(QString colorName, double shade, double opacity)
 {
 	CPColorData c;
@@ -152,32 +142,20 @@ void ColorButton::setColor(QString colorName, double shade, double opacity)
 
 }
 
-void ColorButton::setColorData(CPColorData data)
-{
-	m_colorData = data;
-}
-
-CPColorData ColorButton::colorData() const
-{
-	return m_colorData;
-}
-
 QColor ColorButton::color() const
 {
 	if (!m_doc || colorName() == CommonStrings::tr_NoneColor || colorName() == CommonStrings::None)
 		return QColor();
-	else
-	{
-		ScColor sColor(0, 0, 0);
 
-		if (m_doc->PageColors.contains(colorName()))
-			sColor = m_doc->PageColors.value(colorName());
+	ScColor sColor(0, 0, 0);
 
-		QColor qColor = ScColorEngine::getDisplayColor(sColor, m_doc, colorData().Shade);
-		qColor.setAlphaF(1 - colorData().Opacity);
+	if (m_doc->PageColors.contains(colorName()))
+		sColor = m_doc->PageColors.value(colorName());
 
-		return qColor;
-	}
+	QColor qColor = ScColorEngine::getDisplayColor(sColor, m_doc, colorData().Shade);
+	qColor.setAlphaF(1 - colorData().Opacity);
+
+	return qColor;
 }
 
 QString ColorButton::colorName() const
@@ -185,7 +163,7 @@ QString ColorButton::colorName() const
 	return colorData().Name;
 }
 
-void ColorButton::setGradient(QString gradientName, VGradient gradient, VGradient::VGradientRepeatMethod repeatMethod,
+void ColorButton::setGradient(QString gradientName, const VGradient& gradient, VGradient::VGradientRepeatMethod repeatMethod,
 							  QString color1, QString color2, QString color3, QString color4,
 							  double color1Shade, double color2Shade, double color3Shade, double color4Shade,
 							  double color1Alpha, double color2Alpha, double color3Alpha, double color4Alpha
@@ -210,17 +188,6 @@ void ColorButton::setGradient(QString gradientName, VGradient gradient, VGradien
 	g.Color4Alpha = color4Alpha;
 
 	setGradientData(g);
-
-}
-
-void ColorButton::setGradientData(CPGradientData data)
-{
-	m_gradientData = data;
-}
-
-CPGradientData ColorButton::gradientData() const
-{
-	return m_gradientData;
 }
 
 VGradient ColorButton::gradient() const
@@ -241,16 +208,6 @@ void ColorButton::setGradientMesh(QString colorName, double shade, double opacit
 	c.Opacity = opacity;
 
 	setGradientMeshData(c);
-}
-
-void ColorButton::setGradientMeshData(CPColorData data)
-{
-	m_meshColorData = data;
-}
-
-CPColorData ColorButton::gradientMeshData() const
-{
-	return m_meshColorData;
 }
 
 void ColorButton::setGradientVector(double StartX, double StartY, double EndX, double EndY, double FocalX, double FocalY, double Scale, double Skew,
@@ -279,16 +236,6 @@ void ColorButton::setGradientVector(double StartX, double StartY, double EndX, d
 	setGradientVectorData(gvd);
 }
 
-void ColorButton::setGradientVectorData(CPGradientVectorData data)
-{
-	m_gradientVectorData = data;
-}
-
-CPGradientVectorData ColorButton::gradientVectorData()
-{
-	return m_gradientVectorData;
-}
-
 void ColorButton::setPattern(QString patternName, double offsetX, double offsetY, double scaleX, double scaleY, double skewX, double skewY,
 							 double angle, double spacing, bool mirrorX, bool mirrorY, bool onPath
 							 )
@@ -308,22 +255,11 @@ void ColorButton::setPattern(QString patternName, double offsetX, double offsetY
 	p.OnPath = onPath;
 
 	setPatternData(p);
-
-}
-
-void ColorButton::setPatternData(CPPatternData data)
-{
-	m_patternData = data;
-}
-
-CPPatternData ColorButton::patternData() const
-{
-	return m_patternData;
 }
 
 ScPattern ColorButton::pattern() const
 {
-	if(!m_doc)
+	if (!m_doc)
 		return ScPattern();
 
 	return m_doc->docPatterns.find(patternData().Name).value();
@@ -346,16 +282,6 @@ void ColorButton::setHatch(int type, double distance, double angle, bool hasBack
 
 	setHatchData(h);
 
-}
-
-void ColorButton::setHatchData(CPHatchData data)
-{
-	m_hatchData = data;
-}
-
-CPHatchData ColorButton::hatchData() const
-{
-	return m_hatchData;
 }
 
 void ColorButton::setModeByType(int type)
@@ -407,26 +333,26 @@ void ColorButton::setModeByType(int type)
 	}
 }
 
-QColor ColorButton::colorFromName(QString colorName, double shade)
+QColor ColorButton::colorFromName(QString colorName, double shade) const
 {
 	ScColor sColor(0, 0, 0);
 	shade = qBound(0.0, shade, 100.0);
 
-	if(m_doc->PageColors.contains(colorName))
+	if (m_doc->PageColors.contains(colorName))
 		sColor = m_doc->PageColors.value(colorName);
 
 	return ScColorEngine::getDisplayColor(sColor, m_doc, shade);
 }
 
-QBrush ColorButton::colorBrush(QSize size, QString colorName, double shade, double opacity)
+QBrush ColorButton::colorBrush(QSize size, QString colorName, double shade, double opacity) const
 {
 	if (!m_doc || colorName == CommonStrings::tr_NoneColor || colorName == CommonStrings::None)
 		return renderEmptyPattern(size);
-	else
-		return renderColor(size, colorFromName(colorName, 100.0), colorFromName(colorName, shade), opacity);
+
+	return renderColor(size, colorFromName(colorName, 100.0), colorFromName(colorName, shade), opacity);
 }
 
-Context ColorButton::context()
+Context ColorButton::context() const
 {
 	return m_context;
 }
@@ -436,7 +362,7 @@ void ColorButton::setContext(Context config)
 	m_context = config;
 }
 
-QBrush ColorButton::renderBrush()
+QBrush ColorButton::renderBrush() const
 {
 	switch(m_mode)
 	{
@@ -458,38 +384,36 @@ QBrush ColorButton::renderBrush()
 	return QBrush();
 }
 
-bool ColorButton::isMask()
+bool ColorButton::isMask() const
 {
 	return (m_context == Context::FillMask || m_context == Context::LineMask) ? true : false;
 }
 
-QBrush ColorButton::brushSolid()
+QBrush ColorButton::brushSolid() const
 {
 	if (!m_doc || m_colorData.Name == CommonStrings::tr_NoneColor || m_colorData.Name == CommonStrings::None)
 		return renderEmptyPattern(this->size());
+
+	ScColor sColor(0, 0, 0);
+
+	if (m_doc->PageColors.contains(m_colorData.Name))
+		sColor = m_doc->PageColors.value(m_colorData.Name);
+
+	// simulate grey tone for mask color
+	if (isMask())
+	{
+		QColor qColor = ScColorEngine::getDisplayColor(sColor, m_doc, m_colorData.Opacity * 100.0);
+		return renderColor(this->size(), qColor, qColor, 1);
+	}
 	else
 	{
-		ScColor sColor(0, 0, 0);
-
-		if(m_doc->PageColors.contains(m_colorData.Name))
-			sColor = m_doc->PageColors.value(m_colorData.Name);
-
-		// simulate grey tone for mask color
-		if(isMask())
-		{
-			QColor qColor = ScColorEngine::getDisplayColor(sColor, m_doc, m_colorData.Opacity * 100.0);
-			return renderColor(this->size(), qColor, qColor, 1);
-		}
-		else
-		{
-			QColor qColorShade = ScColorEngine::getDisplayColor(sColor, m_doc, m_colorData.Shade);
-			QColor qColor = ScColorEngine::getDisplayColor(sColor, m_doc, 100.0);
-			return renderColor(this->size(), qColor, qColorShade, 1 - m_colorData.Opacity);
-		}
+		QColor qColorShade = ScColorEngine::getDisplayColor(sColor, m_doc, m_colorData.Shade);
+		QColor qColor = ScColorEngine::getDisplayColor(sColor, m_doc, 100.0);
+		return renderColor(this->size(), qColor, qColorShade, 1 - m_colorData.Opacity);
 	}
 }
 
-QBrush ColorButton::brushGradient()
+QBrush ColorButton::brushGradient() const
 {
 	if (isMask())
 	{
@@ -580,9 +504,9 @@ QBrush ColorButton::brushGradient()
 	return QBrush();
 }
 
-QBrush ColorButton::brushHatch()
+QBrush ColorButton::brushHatch() const
 {
-	if(!m_doc)
+	if (!m_doc)
 		return QBrush();
 
 	QColor fg;
@@ -604,7 +528,7 @@ QBrush ColorButton::brushHatch()
 					   );
 }
 
-QBrush ColorButton::brushPattern()
+QBrush ColorButton::brushPattern() const
 {
 	if (!m_doc || m_patternData.Name.isEmpty())
 		return QBrush();

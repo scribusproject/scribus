@@ -27,7 +27,7 @@ PropertyWidget_Flop::PropertyWidget_Flop(QWidget* parent) : QFrame(parent)
 
 void PropertyWidget_Flop::setDoc(ScribusDoc *d)
 {
-	if(d == (ScribusDoc*) m_doc)
+	if (d == (ScribusDoc*) m_doc)
 		return;
 
 	m_doc  = d;

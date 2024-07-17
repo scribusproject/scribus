@@ -36,74 +36,74 @@ public:
 	 * \param enabled
 	 */
 	void setHasDot(bool enabled);
-	bool hasDot();
+	bool hasDot() const;
 
-	QSize backgroundDotSize();
-	QSize foregroundDotSize();
+	QSize backgroundDotSize() const;
+	QSize foregroundDotSize() const;
 
 	/*!
 	 * \brief Set type of context to show on click event, e.g. floating or list.
 	 * \param type
 	 */
 	void setMenuContextType(MenuContextType type);
-	MenuContextType menuContextType() { return m_contextType; };
+	MenuContextType menuContextType() const { return m_contextType; };
 
 	// General Data
 	void setGeneral(int overprint);
-	void setGeneralData(CPGeneralData data);
-	CPGeneralData generalData();
+	void setGeneralData(const CPGeneralData& data) { m_itemData = data; }
+	const CPGeneralData& generalData() const { return m_itemData; }
 
 	// Color
 	void setColor(QString colorName, double shade = 100.0, double opacity = 0.0);
-	void setColorData(CPColorData data);
-	CPColorData colorData() const;
+	void setColorData(const CPColorData& data) { m_colorData = data; }
+	CPColorData colorData() const { return m_colorData; }
 	QColor color() const;
 	QString colorName() const;
 
 	// Gradient
-	void setGradient(QString gradientName, VGradient gradient, VGradient::VGradientRepeatMethod repeatMethod = VGradient::pad,
+	void setGradient(QString gradientName, const VGradient& gradient, VGradient::VGradientRepeatMethod repeatMethod = VGradient::pad,
 					 QString color1 = QString(), QString color2 = QString(), QString color3 = QString(), QString color4 = QString(),
 					 double color1Shade = 0.0, double color2Shade = 0.0, double color3Shade = 0.0, double color4Shade = 0.0,
 					 double color1Alpha = 1.0, double color2Alpha = 1.0, double color3Alpha = 1.0, double color4Alpha = 1.0);
-	void setGradientData(CPGradientData data);
-	CPGradientData gradientData() const;
+	void setGradientData(CPGradientData data) { m_gradientData = data; }
+	const CPGradientData& gradientData() const { return m_gradientData; }
 	VGradient gradient() const;
 	QString gradientName() const;
 
 	// Gradient Mesh
 	void setGradientMesh(QString colorName, double shade = 100.0, double opacity = 0.0);
-	void setGradientMeshData(CPColorData data);
-	CPColorData gradientMeshData() const;
+	void setGradientMeshData(const CPColorData& data) { m_meshColorData = data; }
+	const CPColorData& gradientMeshData() const { return m_meshColorData; }
 
 	// Gradient Vector
 	void setGradientVector(double StartX, double StartY, double EndX, double EndY, double FocalX, double FocalY, double Scale, double Skew,
 						   double C1X = 0.0, double C1Y = 0.0, double C2X = 0.0, double C2Y = 0.0, double C3X = 0.0, double C3Y = 0.0, double C4X = 0.0, double C4Y = 0.0, double C5X = 0.0, double C5Y = 0.0);
-	void setGradientVectorData(CPGradientVectorData data);
-	CPGradientVectorData gradientVectorData();
+	void setGradientVectorData(const CPGradientVectorData& data) { m_gradientVectorData = data; }
+	const CPGradientVectorData& gradientVectorData() const { return m_gradientVectorData; }
 
 	// Pattern
 	void setPattern(QString patternName, double offsetX, double offsetY, double scaleX, double scaleY, double skewX, double skewY, double angle, double spacing, bool mirrorX, bool mirrorY, bool onPath);
-	void setPatternData(CPPatternData data);
-	CPPatternData patternData() const;
+	void setPatternData(const CPPatternData& data) { m_patternData = data; }
+	const CPPatternData& patternData() const { return m_patternData; }
 	ScPattern pattern() const;
 	QString patternName() const;
 
 	// Hatch
 	void setHatch(int type, double distance, double angle, bool hasBackground, QString backgroundColor, QString foregroundColor);
-	void setHatchData(CPHatchData data);
-	CPHatchData hatchData() const;
+	void setHatchData(const CPHatchData& data) { m_hatchData = data; }
+	const CPHatchData& hatchData() const { return m_hatchData; }
 
 	/*!
 	 * \brief Set context of color button, e.g. fill or line. A context set the right configuration on color picker widget.
 	 * \param config
 	 */
 	void setContext(Context config);
-	Context context();	
+	Context context() const;	
 
-	Mode mode() { return m_mode; };
+	Mode mode() const { return m_mode; };
 
 	void setType(int type);
-	int type() { return m_type; };
+	int type() const { return m_type; };
 
 	void updatePreview();
 	void unsetDoc();
@@ -155,18 +155,18 @@ private:
 	int m_type {0};
 	bool m_ignoreItemType {true};
 
-	QBrush background();
-	QBrush foreground();
-	QBrush renderBrush();
-	bool isMask();
+	QBrush background() const;
+	QBrush foreground() const;
+	QBrush renderBrush() const;
+	bool isMask() const;
 	void setModeByType(int type);
-	QColor colorFromName(QString colorName, double shade);
-	QBrush colorBrush(QSize size, QString colorName, double shade = 100.0, double opacity = 1.0);
+	QColor colorFromName(QString colorName, double shade) const;
+	QBrush colorBrush(QSize size, QString colorName, double shade = 100.0, double opacity = 1.0) const;
 
-	QBrush brushSolid();
-	QBrush brushGradient();
-	QBrush brushHatch();
-	QBrush brushPattern();
+	QBrush brushSolid() const;
+	QBrush brushGradient() const;
+	QBrush brushHatch() const;
+	QBrush brushPattern() const;
 
 protected:
 

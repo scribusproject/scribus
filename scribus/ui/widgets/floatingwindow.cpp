@@ -90,7 +90,6 @@ bool FloatingWindow::eventFilter(QObject *obj, QEvent *event)
 	}
 
 	return QObject::eventFilter(obj, event);
-
 }
 
 void FloatingWindow::keyPressEvent(QKeyEvent *event)
@@ -104,12 +103,12 @@ void FloatingWindow::hideEvent(QHideEvent *event)
 	emit closed();
 }
 
-QSize FloatingWindow::screenSize()
+QSize FloatingWindow::screenSize() const
 {
 	QList<QScreen*> screens = QGuiApplication::screens();
 	QRect bounds;
 
-	foreach (auto screen, screens)
+	for (auto* screen : screens)
 		bounds = bounds.united(screen->geometry());
 
 	return bounds.size();

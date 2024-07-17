@@ -109,7 +109,7 @@ void PropertiesPalette_Image::updateSpinBoxConstants()
 {
 	if (!m_haveDoc)
 		return;
-	if(m_doc->m_Selection->count()==0)
+	if (m_doc->m_Selection->count() == 0)
 		return;
 	imageXOffsetSpinBox->setConstants(&m_doc->constants());
 	imageYOffsetSpinBox->setConstants(&m_doc->constants());
@@ -134,7 +134,7 @@ void PropertiesPalette_Image::setMainWindow(ScribusMainWindow* mw)
 
 void PropertiesPalette_Image::setDoc(ScribusDoc *d)
 {
-	if((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
+	if ((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
 		return;
 
 	if (m_doc)
@@ -443,7 +443,7 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 	if (m_item->isImageFrame())
 	{
 		imagePageNumber->blockSignals(true);
-		if(m_item->imageIsAvailable)
+		if (m_item->imageIsAvailable)
 		{
 			imagePageNumber->setMaximum(m_item->pixm.imgInfo.numberOfPages);
 			imagePageNumber->setEnabled(true);
@@ -739,7 +739,7 @@ void PropertiesPalette_Image::handleImagePageNumber()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	bool reallynew = (m_item->pixm.imgInfo.actualPageNumber != imagePageNumber->value());
-	if(UndoManager::undoEnabled())
+	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::PageNmbr.arg(static_cast<int>(imagePageNumber->value())),"",Um::IImageFrame);
 		ss->set("IMAGE_NBR");

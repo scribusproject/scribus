@@ -260,7 +260,7 @@ void PropertyWidget_FontFeatures::handleFontFeatures()
 
 void PropertyWidget_FontFeatures::setDoc(ScribusDoc *d)
 {
-	if((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
+	if ((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
 		return;
 
 	if (m_doc)

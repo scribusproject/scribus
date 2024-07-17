@@ -8,8 +8,8 @@
 class FloatingWindow : public QWidget
 {
 	Q_OBJECT
-public:
 
+public:
 	explicit FloatingWindow(QWidget * child, QWidget *reference, QWidget *parent = nullptr);
 
 	QWidget *child();
@@ -19,24 +19,24 @@ public slots:
 	void iconSetChange();
 
 protected:
-	bool eventFilter(QObject *obj, QEvent *event);
-	void keyPressEvent(QKeyEvent *event);
-	void hideEvent(QHideEvent *event);
+	bool eventFilter(QObject *obj, QEvent *event) override;
+	void keyPressEvent(QKeyEvent *event) override;
+	void hideEvent(QHideEvent *event) override;
 
 private:
+	QWidget * m_child { nullptr };
+	QWidget * m_reference { nullptr };
+	QWidget * m_handle { nullptr };
+	QVBoxLayout * m_layout { nullptr };
+	QToolButton* buttonClose { nullptr };
 
-	QWidget * m_child;
-	QWidget * m_reference;
-	QWidget * m_handle;
-	QVBoxLayout * m_layout;
 	QPoint m_mousePos;
-	QToolButton *buttonClose;
 
 	/*!
 	 * \brief Screen size of all screens
 	 * \return
 	 */
-	QSize screenSize();
+	QSize screenSize() const;
 
 	/*!
 	 * \brief Calculate screen position relative to reference() widget.
@@ -49,7 +49,6 @@ signals:
 public slots:
 	void show(QWidget *reference = nullptr);
 	void updateSize();
-
 };
 
 #endif // STICKYPOPUP_H

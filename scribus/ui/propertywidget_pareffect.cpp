@@ -55,7 +55,7 @@ void PropertyWidget_ParEffect::setMainWindow(ScribusMainWindow* mw)
 
 void PropertyWidget_ParEffect::setDoc(ScribusDoc *doc)
 {
-	if(doc == (ScribusDoc*) m_doc)
+	if (doc == (ScribusDoc*) m_doc)
 		return;
 
 	if (m_doc)

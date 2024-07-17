@@ -61,7 +61,7 @@ void PropertyWidget_Distance::setMainWindow(ScribusMainWindow* mw)
 
 void PropertyWidget_Distance::setDoc(ScribusDoc *d)
 {
-	if(d == (ScribusDoc*) m_doc)
+	if (d == (ScribusDoc*) m_doc)
 		return;
 
 	if (m_doc)

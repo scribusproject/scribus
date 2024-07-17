@@ -79,7 +79,7 @@ void PropertiesPalette_Shadow::setMainWindow(ScribusMainWindow* mw)
 
 void PropertiesPalette_Shadow::setDoc(ScribusDoc *d)
 {
-	if((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
+	if ((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
 		return;
 
 	if (m_doc)
@@ -367,6 +367,6 @@ void PropertiesPalette_Shadow::updateSpinBoxConstants()
 {
 	if (!m_haveDoc)
 		return;
-	if(m_doc->m_Selection->count()==0)
+	if (m_doc->m_Selection->count() == 0)
 		return;
 }
