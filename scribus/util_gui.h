@@ -26,7 +26,7 @@ QPixmap SCRIBUS_API renderGradientDiamond(QSize size, const VGradient& gradient)
 QPixmap SCRIBUS_API renderGradientMesh(QSize size);
 QPixmap SCRIBUS_API renderGradientPatchMesh(QSize size);
 QPixmap SCRIBUS_API renderHatch(QSize size, int type, double distance, double angle, bool hasBackground, QColor backgroundColor, QColor foregroundColor);
-QPixmap SCRIBUS_API renderPattern(QSize size, ScPattern pattern);
+QPixmap SCRIBUS_API renderPattern(QSize size, const ScPattern& pattern);
 
 // Helper
 VColorStop SCRIBUS_API computeInBetweenStop(const VColorStop* last, const VColorStop* actual, double t);

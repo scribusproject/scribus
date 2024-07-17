@@ -369,12 +369,12 @@ QPixmap renderHatch(QSize size, int type, double distance, double angle, bool ha
 	return QPixmap::fromImage(pixm);
 }
 
-QPixmap renderPattern(QSize size, ScPattern pattern)
+QPixmap renderPattern(QSize size, const ScPattern& pattern)
 {
 	int w = size.width();
 	int h = size.height();
-	int pW = pattern.getPattern()->width();
-	int pH = pattern.getPattern()->height();
+	int pW = pattern.getPattern().width();
+	int pH = pattern.getPattern().height();
 
 	QImage pixm(w, h, QImage::Format_ARGB32_Premultiplied);
 	pixm.fill(Qt::transparent);
@@ -387,9 +387,9 @@ QPixmap renderPattern(QSize size, ScPattern pattern)
 
 	QImage img;
 	if (pW >= pH)
-		img = pattern.getPattern()->scaledToWidth(w, tm);
+		img = pattern.getPattern().scaledToWidth(w, tm);
 	else
-		img = pattern.getPattern()->scaledToHeight(h, tm);
+		img = pattern.getPattern().scaledToHeight(h, tm);
 
 	QPainter *qp = new QPainter(&pixm);
 	qp->setPen(Qt::NoPen);

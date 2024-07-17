@@ -313,7 +313,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 						qmatrix.scale(-1, 1);
 					if (mirrorY)
 						qmatrix.scale(1, -1);
-					QImage pat = *doc->docPatterns[currItem->pattern()].getPattern();
+					QImage pat = doc->docPatterns[currItem->pattern()].getPattern();
 					QBrush brush(pat);
 					brush.setTransform(qmatrix);
 					pItem->setBrush(brush);
@@ -345,7 +345,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 					qmatrix.scale(-1, 1);
 				if (mirrorY)
 					qmatrix.scale(1, -1);
-				QImage pat = *doc->docPatterns[currItem->strokePattern()].getPattern();
+				QImage pat = doc->docPatterns[currItem->strokePattern()].getPattern();
 				QBrush brush(pat);
 				brush.setTransform(qmatrix);
 				pItem->setPen(QPen(brush, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));

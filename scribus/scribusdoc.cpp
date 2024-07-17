@@ -3721,7 +3721,7 @@ ScPattern* ScribusDoc::checkedPattern(const QString &name)
 	ScPattern* pattern = &docPatterns[name];
 	if (pattern->width <= 0 || pattern->height <= 0)
 		return nullptr;
-	if (pattern->getPattern()->isNull())
+	if (pattern->getPattern().isNull())
 		return nullptr;
 	return pattern;
 }

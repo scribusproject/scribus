@@ -536,7 +536,7 @@ QBrush ColorButton::brushPattern() const
 	if (!m_doc->docPatterns.contains(m_patternData.Name))
 		return QBrush();
 
-	return QBrush(*pattern().getPattern());
+	return QBrush(pattern().getPattern());
 }
 
 void ColorButton::setType(int type)
