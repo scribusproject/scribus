@@ -296,10 +296,10 @@ void SymbolPalette::updateSymbolList()
 		const QString& patternName = patK.at(i);
 		ScPattern sp = m_doc->docPatterns.value(patternName);
 		QPixmap pm;
-		if (sp.getPattern()->width() >= sp.getPattern()->height())
-			pm = QPixmap::fromImage(sp.getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
+		if (sp.getPattern().width() >= sp.getPattern().height())
+			pm = QPixmap::fromImage(sp.getPattern().scaledToWidth(48, Qt::SmoothTransformation));
 		else
-			pm = QPixmap::fromImage(sp.getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
+			pm = QPixmap::fromImage(sp.getPattern().scaledToHeight(48, Qt::SmoothTransformation));
 		QPixmap pm2(48, 48);
 		pm2.fill(palette().color(QPalette::Base));
 		QPainter p;

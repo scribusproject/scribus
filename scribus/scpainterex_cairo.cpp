@@ -608,7 +608,7 @@ cairo_pattern_t* ScPainterEx_Cairo::getMaskPattern()
 			m_imageQ = m_maskPattern->pattern.copy();
 			if (m_maskMode == 6)
 				m_imageQ.invertPixels(QImage::InvertRgba);
-			m_imageMask = cairo_image_surface_create_for_data(m_imageQ.bits(), CAIRO_FORMAT_ARGB32, m_maskPattern->getPattern()->width(), m_maskPattern->getPattern()->height(), m_maskPattern->getPattern()->width() * 4);
+			m_imageMask = cairo_image_surface_create_for_data(m_imageQ.bits(), CAIRO_FORMAT_ARGB32, m_maskPattern->getPattern().width(), m_maskPattern->getPattern().height(), m_maskPattern->getPattern().width() * 4);
 		}
 		pat = cairo_pattern_create_for_surface(m_imageMask);
 		cairo_pattern_set_extend(pat, CAIRO_EXTEND_REPEAT);
@@ -619,7 +619,7 @@ cairo_pattern_t* ScPainterEx_Cairo::getMaskPattern()
 		qmatrix.rotate(m_maskPatternTrans.rotation);
 		qmatrix.shear(-m_maskPatternTrans.skewX, m_maskPatternTrans.skewY);
 		qmatrix.scale(m_maskPatternTrans.scaleX, m_maskPatternTrans.scaleY);
-		qmatrix.scale(m_maskPattern->width / static_cast<double>(m_maskPattern->getPattern()->width()), m_maskPattern->height / static_cast<double>(m_maskPattern->getPattern()->height()));
+		qmatrix.scale(m_maskPattern->width / static_cast<double>(m_maskPattern->getPattern().width()), m_maskPattern->height / static_cast<double>(m_maskPattern->getPattern().height()));
 		if (m_maskPatternMirrorX)
 			qmatrix.scale(-1, 1);
 		if (m_maskPatternMirrorY)

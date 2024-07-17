@@ -49,9 +49,14 @@ void ScPattern::setDoc(ScribusDoc *theDoc)
 	doc = theDoc;
 }
 
-QImage* ScPattern::getPattern()
+QImage& ScPattern::getPattern()
 {
-	return &pattern;
+	return pattern;
+}
+
+const QImage& ScPattern::getPattern() const
+{
+	return pattern;
 }
 
 void ScPattern::setPattern(const QString& filename)

@@ -40,7 +40,9 @@ public:
 	ScPattern(ScribusDoc* theDoc);
 	~ScPattern();
 
-	QImage* getPattern();
+	QImage& getPattern();
+	const QImage& getPattern() const;
+
 	void setDoc(ScribusDoc *theDoc);
 	void setPattern(const QString& filename);
 	void createPreview();
