@@ -50,7 +50,7 @@ void ColorPickerHatch::disconnectSlots()
  *
  * ********************************************************************************* */
 
-Context ColorPickerHatch::context()
+Context ColorPickerHatch::context() const
 {
     return m_context;
 }
@@ -70,7 +70,7 @@ void ColorPickerHatch::setColorList(const ColorList &list)
 	listBackgroundSwatches->setColors(colList, true);
 }
 
-CPHatchData ColorPickerHatch::hatchData()
+const CPHatchData& ColorPickerHatch::hatchData() const
 {
 	return m_hatch;
 }
@@ -86,7 +86,7 @@ void ColorPickerHatch::setDoc(ScribusDoc *doc)
 	unitChange();
 }
 
-void ColorPickerHatch::setHatchData(CPHatchData hatch)
+void ColorPickerHatch::setHatchData(const CPHatchData& hatch)
 {
 	m_hatch = hatch;
 
@@ -131,7 +131,6 @@ void ColorPickerHatch::languageChange()
 	retranslateUi(this);
 
 	hatchType->setCurrentIndex(oldHatchTypeIndex);
-
 }
 
 void ColorPickerHatch::unitChange()
@@ -181,7 +180,7 @@ void ColorPickerHatch::updateHatch()
 	emit hatchChanged();
 }
 
-QColor ColorPickerHatch::colorFromName(QString colorName, double shade)
+QColor ColorPickerHatch::colorFromName(QString colorName, double shade) const
 {
 	if (!m_doc)
 		return QColor();
@@ -195,12 +194,12 @@ QColor ColorPickerHatch::colorFromName(QString colorName, double shade)
 	return ScColorEngine::getDisplayColor(sColor, m_doc, shade);
 }
 
-QBrush ColorPickerHatch::colorBrush(QSize size, QString colorName, double shade, double opacity)
+QBrush ColorPickerHatch::colorBrush(QSize size, QString colorName, double shade, double opacity) const
 {
 	if (!m_doc || colorName == CommonStrings::tr_NoneColor || colorName == CommonStrings::None)
 		return renderEmptyPattern(size);
-	else
-		return renderColor(size, colorFromName(colorName, 100.0), colorFromName(colorName, shade), opacity);
+
+	return renderColor(size, colorFromName(colorName, 100.0), colorFromName(colorName, shade), opacity);
 }
 
 

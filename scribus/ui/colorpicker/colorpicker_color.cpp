@@ -50,18 +50,13 @@ void ColorPickerColor::disconnectSlots()
  *
  * ********************************************************************************* */
 
-CPColorData ColorPickerColor::colorData() const
-{
-	return m_color;
-}
-
 void ColorPickerColor::setColorList(const ColorList &list, bool insertNone)
 {
 	QSignalBlocker sigSwatches(swatches);
 	swatches->setColors(list, insertNone);
 }
 
-Context ColorPickerColor::context()
+Context ColorPickerColor::context() const
 {
 	return m_context;
 }
@@ -71,7 +66,7 @@ void ColorPickerColor::setContext(Context config)
 	m_context = config;
 	isMask = false;
 
-	switch(m_context)
+	switch (m_context)
 	{
 	default:
 	case Context::Simple:
@@ -121,15 +116,13 @@ QString ColorPickerColor::toolTipText() const
 	int op = 100 - m_color.Opacity * 100.0;
 	int sh = m_color.Shade;
 
-	if(isMask)
+	if (isMask)
 		return QString( tr("Opacity: %1 %").arg(op) );
-	else
-	{
-		QString name = m_color.Name.isEmpty() ? CommonStrings::tr_None : m_color.Name;
-		QString shade = sh < 100 ? QString(", Shade: %1 %").arg(sh) : "";
-		QString opacity = op < 100 ? QString(", Opacity: %1 %").arg(op) : "";
-		return QString( tr("Color: %1%2%3").arg(name).arg(shade).arg(opacity) );
-	}
+
+	QString name = m_color.Name.isEmpty() ? CommonStrings::tr_None : m_color.Name;
+	QString shade = sh < 100 ? QString(", Shade: %1 %").arg(sh) : "";
+	QString opacity = op < 100 ? QString(", Opacity: %1 %").arg(op) : "";
+	return QString( tr("Color: %1%2%3").arg(name).arg(shade).arg(opacity) );
 }
 
 /* ********************************************************************************* *
@@ -143,7 +136,7 @@ void ColorPickerColor::setDoc(ScribusDoc *doc)
 	m_doc = doc;
 }
 
-void ColorPickerColor::setColorData(CPColorData color)
+void ColorPickerColor::setColorData(const CPColorData& color)
 {
 	m_color = color;
 

@@ -17,19 +17,20 @@ public:
 	explicit ColorPickerHatch(QWidget *parent = nullptr);
 	~ColorPickerHatch() {};
 
-	Context context();
+	Context context() const;
 	void setContext(Context config);
 
+	void setDoc(ScribusDoc* doc);
 	void setColorList(const ColorList& list);
 
-	CPHatchData hatchData();
-	int type() { return Gradient_Hatch; };
+	const CPHatchData& hatchData() const;
+	void setHatchData(const CPHatchData& hatch);
+
+	int type() const { return Gradient_Hatch; }
 
 	QString toolTipText() const;
 
 public slots:
-	void setDoc(ScribusDoc *doc);
-	void setHatchData(CPHatchData hatch);
 	void languageChange();
 	void unitChange();
 
@@ -38,17 +39,18 @@ private slots:
 	void updateHatch();
 
 private:
-	ScribusDoc *m_doc {nullptr};
+	ScribusDoc *m_doc { nullptr };
 	QBrush m_background;
-	Context m_context {Context::Simple};
+	Context m_context { Context::Simple };
 	CPHatchData m_hatch;
 	int currentUnit {0};
 	ColorList colList;
-	ColorListBox *listForegroundSwatches;
-	ColorListBox *listBackgroundSwatches;
 
-	QColor colorFromName(QString colorName, double shade);
-	QBrush colorBrush(QSize size, QString colorName, double shade = 100.0, double opacity = 1.0);
+	ColorListBox* listForegroundSwatches { nullptr };
+	ColorListBox *listBackgroundSwatches { nullptr };
+
+	QColor colorFromName(QString colorName, double shade) const;
+	QBrush colorBrush(QSize size, QString colorName, double shade = 100.0, double opacity = 1.0) const;
 
 	void connectSlots();
 	void disconnectSlots();
@@ -56,7 +58,6 @@ private:
 signals:
 	void hatchChanged();
 	void sizeChanged();
-
 };
 
 #endif // COLORPICKER_HATCH_H

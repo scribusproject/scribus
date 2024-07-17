@@ -28,19 +28,19 @@ public:
 	explicit ColorPickerColor(QWidget *parent = nullptr);
 	~ColorPickerColor() {};
 
-    CPColorData colorData() const;
+	const CPColorData& colorData() const { return m_color; }
     void setColorList(const ColorList& list, bool insertNone = true);
 
-	Context context();
+	Context context() const;
 	void setContext(Context config);
 
-	int type() { return Gradient_None; };
+	int type() const { return Gradient_None; };
 
 	QString toolTipText() const;
 
 public slots:
 	void setDoc(ScribusDoc *doc);
-	void setColorData(CPColorData color);
+	void setColorData(const CPColorData& color);
 	void languageChange();
 
 private slots:
@@ -62,7 +62,6 @@ private:
 signals:
 	void colorChanged();
 	void sizeChanged();
-
 };
 
 #endif // COLORPICKER_COLOR_H

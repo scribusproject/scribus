@@ -155,7 +155,7 @@ void ColorPickerGradient::setColorList(const ColorList &list)
 	listColorMesh->setColors(colList, true);
 }
 
-Context ColorPickerGradient::context()
+Context ColorPickerGradient::context() const
 {
 	return m_context;
 }
@@ -169,7 +169,8 @@ void ColorPickerGradient::setContext(Context config)
 	// reset controls
 	gradientSelector->clear();
 
-	switch(m_context){
+	switch (m_context)
+	{
 	case Context::Line:
 		gradientSelector->addItem(tr("Linear"),        Gradient_Linear);
 		gradientSelector->addItem(tr("Radial"),        Gradient_Radial);
@@ -213,7 +214,7 @@ void ColorPickerGradient::setSelector(QComboBox *selector)
 	connect(gradientSelector, &QComboBox::currentIndexChanged, this, &ColorPickerGradient::updateGradientTypeFromSelector);
 }
 
-void ColorPickerGradient::setGradientData(CPGradientData gradient)
+void ColorPickerGradient::setGradientData(const CPGradientData& gradient)
 {
 	m_gradient = gradient;
 
@@ -230,52 +231,50 @@ void ColorPickerGradient::setGradientData(CPGradientData gradient)
 
 }
 
-
-CPGradientData ColorPickerGradient::gradientData()
+const CPGradientData& ColorPickerGradient::gradientData() const
 {
 	return m_gradient;
 }
 
-void ColorPickerGradient::setGradientVectorData(CPGradientVectorData data)
+void ColorPickerGradient::setGradientVectorData(const CPGradientVectorData& data)
 {
 	QSignalBlocker sig(properties);
 	properties->setGradientVectorData(data);
 	//	properties->setConfig(type(), isMask());
-
 }
 
-CPGradientVectorData ColorPickerGradient::gradientVectorData()
+const CPGradientVectorData& ColorPickerGradient::gradientVectorData() const
 {
 	return properties->gradientVectorData();
 }
 
-void ColorPickerGradient::setGradientMeshData(CPColorData data)
+void ColorPickerGradient::setGradientMeshData(const CPColorData& data)
 {
 	m_gradientMesh = data;
 	setCurrentMeshPoint(m_gradientMesh.Name, m_gradientMesh.Shade, m_gradientMesh.Opacity);
 }
 
-CPColorData ColorPickerGradient::gradientMeshData()
+const CPColorData& ColorPickerGradient::gradientMeshData() const
 {
 	return m_gradientMesh;
 }
 
-int ColorPickerGradient::type()
+int ColorPickerGradient::type() const
 {
 	int index = qvariant_cast<int>(gradientSelector->currentData().toInt());
 
 	if (isMask())
 	{
-		switch(index)
+		switch (index)
 		{
 		case Gradient_Linear:
-			if(checkboxLumAlpha->isChecked())
+			if (checkboxLumAlpha->isChecked())
 				index = GradMask_LinearLumAlpha;
 			else
 				index = GradMask_Linear;
 			break;
 		case Gradient_Radial:
-			if(checkboxLumAlpha->isChecked())
+			if (checkboxLumAlpha->isChecked())
 				index = GradMask_RadialLumAlpha;
 			else
 				index = GradMask_Radial;
@@ -286,14 +285,14 @@ int ColorPickerGradient::type()
 	return index;
 }
 
-GradientEdit ColorPickerGradient::gradientEditMode()
+GradientEdit ColorPickerGradient::gradientEditMode() const
 {
 	int etype = type();
 	GradientEdit m_gradType;
 
 	if (isMask())
 	{
-		switch(etype)
+		switch (etype)
 		{
 		default:
 		case GradMask_Linear:
@@ -308,7 +307,7 @@ GradientEdit ColorPickerGradient::gradientEditMode()
 		m_gradType = GradientEdit::Gradient_Stroke;
 	else
 	{
-		switch(etype)
+		switch (etype)
 		{
 		default:
 		case Gradient_Linear:
@@ -347,7 +346,7 @@ void ColorPickerGradient::setGradientEditPropertiesEnabled(bool enabled)
 	updateSize();
 }
 
-bool ColorPickerGradient::gradientEditPropertiesEnabled()
+bool ColorPickerGradient::gradientEditPropertiesEnabled() const
 {
 	return !sectionVector->isCollapsed();
 }
@@ -402,7 +401,7 @@ void ColorPickerGradient::unitChange()
 void ColorPickerGradient::updateGradientFromSwatches(QString name, VGradient gradient)
 {
 	// use local gradient if gradient name is "custom"
-	if(name.isEmpty())
+	if (name.isEmpty())
 		gradient = this->gradientData().Gradient;
 
 	gradientEditor->setGradientEditable(name.isEmpty());
@@ -423,7 +422,7 @@ void ColorPickerGradient::updateGradientTypeFromSelector()
 {
 	VGradient::VGradientType gradType = VGradient::linear;
 
-	switch(type())
+	switch (type())
 	{
 	default:
 	case Gradient_Linear:
@@ -585,7 +584,7 @@ void ColorPickerGradient::setCurrentGradientType(int type)
 	{
 		QSignalBlocker sigLumAlpha(checkboxLumAlpha);
 
-		switch(type)
+		switch (type)
 		{
 		default:
 		case GradMask_Linear:
@@ -627,7 +626,7 @@ void ColorPickerGradient::setCurrentGradientName(QString name)
 	swatches->setCurrentGradient(name);
 }
 
-void ColorPickerGradient::setCurrentGradient(VGradient gradient)
+void ColorPickerGradient::setCurrentGradient(const VGradient& gradient)
 {
 	QSignalBlocker sigGradientEditor(gradientEditor);
 	gradientEditor->setGradient(gradient);
@@ -715,25 +714,23 @@ void ColorPickerGradient::setCurrentRepeatMethod(VGradient::VGradientRepeatMetho
 	gradientEditor->setRepeatMethod(method);
 }
 
-QBrush ColorPickerGradient::colorBrush(QSize size, QString colorName, double shade, double opacity)
+QBrush ColorPickerGradient::colorBrush(QSize size, QString colorName, double shade, double opacity) const
 {
 	if (!m_doc || colorName == CommonStrings::tr_NoneColor || colorName == CommonStrings::None)
 		return renderEmptyPattern(size);
-	else
-	{
-		ScColor sColor(0, 0, 0);
 
-		shade = qBound(0.0, shade, 100.0);
-		opacity = qBound(0.0, opacity, 1.0);
+	ScColor sColor(0, 0, 0);
 
-		if(m_doc->PageColors.contains(colorName))
-			sColor = m_doc->PageColors.value(colorName);
+	shade = qBound(0.0, shade, 100.0);
+	opacity = qBound(0.0, opacity, 1.0);
 
-		QColor qColorShade = ScColorEngine::getDisplayColor(sColor, m_doc, shade);
-		QColor qColor = ScColorEngine::getDisplayColor(sColor, m_doc, 100.0);
+	if (m_doc->PageColors.contains(colorName))
+		sColor = m_doc->PageColors.value(colorName);
 
-		return renderColor(size, qColor, qColorShade, opacity);
-	}
+	QColor qColorShade = ScColorEngine::getDisplayColor(sColor, m_doc, shade);
+	QColor qColor = ScColorEngine::getDisplayColor(sColor, m_doc, 100.0);
+
+	return renderColor(size, qColor, qColorShade, opacity);
 }
 
 void ColorPickerGradient::updateGradient()
@@ -755,7 +752,7 @@ void ColorPickerGradient::updateUI()
 
 	properties->setConfig(gtype, isMask());
 
-	switch(gtype)
+	switch (gtype)
 	{
 	default:
 	case Gradient_Conical:
@@ -787,7 +784,7 @@ void ColorPickerGradient::enableMeshColor(bool enable)
 	numberColorMeshAlpha->setEnabled(enable);
 }
 
-bool ColorPickerGradient::isMask()
+bool ColorPickerGradient::isMask() const
 {
 	return (m_context == Context::FillMask || m_context == Context::LineMask);
 }

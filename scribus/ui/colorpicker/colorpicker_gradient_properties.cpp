@@ -118,11 +118,6 @@ void ColorPickerGradientProperties::selectPatchMesh()
 	m_gradientEditType = GradientEdit::PatchMesh_Point;
 }
 
-CPGradientVectorData ColorPickerGradientProperties::gradientVectorData()
-{
-	return m_data;
-}
-
 void ColorPickerGradientProperties::setConfig(int type, bool isMask)
 {
 	int t = type;
@@ -180,10 +175,9 @@ void ColorPickerGradientProperties::setConfig(int type, bool isMask)
 		selectPatchMesh();
 		break;
 	}
-
 }
 
-GradientEdit ColorPickerGradientProperties::gradientEditType()
+GradientEdit ColorPickerGradientProperties::gradientEditType() const
 {
 	return m_gradientEditType;
 }
@@ -274,7 +268,7 @@ void ColorPickerGradientProperties::changebuttonRemovePatch(bool val)
 	buttonRemovePatch->setEnabled(val);
 }
 
-void ColorPickerGradientProperties::setGradientVectorData(CPGradientVectorData data)
+void ColorPickerGradientProperties::setGradientVectorData(const CPGradientVectorData& data)
 {
 	disconnectSlots();
 

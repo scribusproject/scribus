@@ -29,41 +29,42 @@ public:
 	explicit ColorPickerGradient(QWidget *parent = nullptr);
 	~ColorPickerGradient() {};
 
+	void setDoc(ScribusDoc* doc);
+
 	void setGradientList(const GradientList& list);
 	void setColorList(const ColorList& list);
 
-	Context context();
+	Context context() const;
 	void setContext(Context config);
 
 	void setSelector(QComboBox *selector);
 
-	void setGradientData(CPGradientData gradient);
-	CPGradientData gradientData();
+	const CPGradientData& gradientData() const;
+	void setGradientData(const CPGradientData& gradient);
 
-	void setGradientVectorData(CPGradientVectorData data);
-	CPGradientVectorData gradientVectorData();
+	const CPGradientVectorData& gradientVectorData() const;
+	void setGradientVectorData(const CPGradientVectorData& data);
 
-	void setGradientMeshData(CPColorData data);
-	CPColorData gradientMeshData();
+	const CPColorData& gradientMeshData() const;
+	void setGradientMeshData(const CPColorData& data);
 
-	int type();
+	int type() const;
 
-	GradientEdit gradientEditMode();
+	GradientEdit gradientEditMode() const;
 	void setGradientEditMode(GradientEdit mode);
 
+	bool gradientEditPropertiesEnabled() const;
 	void setGradientEditPropertiesEnabled(bool enabled);
-	bool gradientEditPropertiesEnabled();
 
 	QString toolTipText() const;
 
-	ColorPickerGradientProperties *Properties() { return properties; };
-	ColorPickerGradientSwatches * Swatches() { return swatches; };
+	ColorPickerGradientProperties *Properties() { return properties; }
+	ColorPickerGradientSwatches * Swatches() { return swatches; }
 
 	void disableGradientEditProperties();
 	void enableMeshColor(bool enable);
 
 public slots:
-	void setDoc(ScribusDoc *doc);	
 	void languageChange();
 	void unitChange();
 
@@ -83,36 +84,37 @@ private:
 	void updateGradientMesh();
 	void updateUI();
 
-	ScribusDoc *m_doc {nullptr};
+	ColorListBox* listColor1Swatches { nullptr };
+	ColorListBox* listColor2Swatches { nullptr };
+	ColorListBox* listColor3Swatches { nullptr };
+	ColorListBox* listColor4Swatches { nullptr };
+	ColorListBox* listColorMesh { nullptr };
+	QComboBox* gradientSelector { nullptr };
+
+	ScribusDoc *m_doc { nullptr };
 	CPGradientData m_gradient;
 	CPColorData m_gradientMesh;
-	Context m_context {Context::Simple};
-	ColorListBox *listColor1Swatches;
-	ColorListBox *listColor2Swatches;
-	ColorListBox *listColor3Swatches;
-	ColorListBox *listColor4Swatches;
-	ColorListBox *listColorMesh;
+	Context m_context { Context::Simple };
 	int currentUnit {0};
 //	int m_uiState {-1};
 	ColorList colList;
-	QComboBox *gradientSelector;
 	GradientEdit m_gradientMeshEdit;
 
-	bool isMask();
+	bool isMask() const;
 
 	void connectSlots();
 	void disconnectSlots();
 
 	void setCurrentGradientType(int type);
 	void setCurrentGradientName(QString name);
-	void setCurrentGradient(VGradient gradient);
+	void setCurrentGradient(const VGradient& gradient);
 	void setCurrentFourColors(QString color1, QString color2, QString color3, QString color4,
 							  double color1Shade, double color2Shade, double color3Shade, double color4Shade,
 							  double color1Alpha, double color2Alpha, double color3Alpha, double color4Alpha
 							  );
 	void setCurrentMeshPoint(QString colorName, double shade, double alpha);
 	void setCurrentRepeatMethod(VGradient::VGradientRepeatMethod method);
-	QBrush colorBrush(QSize size, QString colorName, double shade, double opacity);
+	QBrush colorBrush(QSize size, QString colorName, double shade, double opacity) const;
 
 signals:
 	void gradientChanged();
@@ -120,7 +122,6 @@ signals:
 	void gradientMeshChanged();
 	void gradientVectorEditMode();
 	void sizeChanged();
-
 };
 
 #endif // COLORPICKER_GRADIENT_H

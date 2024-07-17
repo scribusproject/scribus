@@ -96,12 +96,12 @@ void ColorPicker::setGeneralData(CPGeneralData data)
 	comboOverprint->setCurrentIndex(m_generalData.overprint ? 1 : 0);
 }
 
-CPGeneralData ColorPicker::generalData()
+const CPGeneralData& ColorPicker::generalData() const
 {
 	return m_generalData;
 }
 
-void ColorPicker::setColorData(CPColorData data)
+void ColorPicker::setColorData(const CPColorData& data)
 {
 	QSignalBlocker sig(colorEdit);
 	colorEdit->setColorData(data);
@@ -112,11 +112,10 @@ CPColorData ColorPicker::colorData() const
 	return colorEdit->colorData();
 }
 
-void ColorPicker::setGradientData(CPGradientData data)
+void ColorPicker::setGradientData(const CPGradientData& data)
 {
 	QSignalBlocker sig(gradientEdit);
 	gradientEdit->setGradientData(data);
-
 }
 
 CPGradientData ColorPicker::gradientData() const
@@ -124,46 +123,46 @@ CPGradientData ColorPicker::gradientData() const
 	return gradientEdit->gradientData();
 }
 
-void ColorPicker::setGradientVectorData(CPGradientVectorData data)
+void ColorPicker::setGradientVectorData(const CPGradientVectorData& data)
 {
 	QSignalBlocker sig(gradientEdit);
 	gradientEdit->setGradientVectorData(data);
 }
 
-CPGradientVectorData ColorPicker::gradientVectorData() const
+const CPGradientVectorData& ColorPicker::gradientVectorData() const
 {
 	return gradientEdit->gradientVectorData();
 }
 
-void ColorPicker::setGradientMeshData(CPColorData data)
+void ColorPicker::setGradientMeshData(const CPColorData&  data)
 {
 	QSignalBlocker sig(gradientEdit);
 	gradientEdit->setGradientMeshData(data);
 }
 
-CPColorData ColorPicker::gradientMeshData()
+const CPColorData& ColorPicker::gradientMeshData() const
 {
 	return gradientEdit->gradientMeshData();
 }
 
-void ColorPicker::setPatternData(CPPatternData data)
+void ColorPicker::setPatternData(const CPPatternData& data)
 {
 	QSignalBlocker sig(patternEdit);
 	patternEdit->setPatternData(data);
 }
 
-CPPatternData ColorPicker::patternData() const
+const CPPatternData& ColorPicker::patternData() const
 {
 	return patternEdit->patternData();
 }
 
-void ColorPicker::setHatchData(CPHatchData data)
+void ColorPicker::setHatchData(const CPHatchData& data)
 {
 	QSignalBlocker sig(hatchEdit);
 	hatchEdit->setHatchData(data);
 }
 
-CPHatchData ColorPicker::hatchData() const
+const CPHatchData& ColorPicker::hatchData() const
 {
 	return hatchEdit->hatchData();
 }
@@ -186,7 +185,7 @@ ColorButton *ColorPicker::colorButton()
 
 QString ColorPicker::toolTipText() const
 {
-	switch(m_mode)
+	switch (m_mode)
 	{
 	default:
 	case Mode::Solid:
@@ -239,13 +238,13 @@ PageItem *ColorPicker::currentItemFromSelection()
 
 bool ColorPicker::eventFilter(QObject *object, QEvent *event)
 {
-	ColorButton *colButton = qobject_cast<ColorButton*>(object);
+	const ColorButton *colButton = qobject_cast<ColorButton*>(object);
 	if (!colButton)
 		return false;
 
 	if (colButton == m_colorButton)
 	{
-		switch(event->type())
+		switch (event->type())
 		{
 		case QEvent::EnabledChange:
 		case QEvent::Hide:
@@ -277,7 +276,7 @@ void ColorPicker::initContextMenu()
 	buttonMenu->setPopupMode(QToolButton::InstantPopup);	
 }
 
-Context ColorPicker::context()
+Context ColorPicker::context() const
 {
 	return m_context;
 }
@@ -296,7 +295,7 @@ void ColorPicker::setContext(Context config)
 	hatchEdit->setContext(m_context);
 	patternEdit->setContext(m_context);
 
-	switch(m_context)
+	switch (m_context)
 	{
 	default:
 	case Context::Simple:
@@ -357,7 +356,7 @@ void ColorPicker::setContext(Context config)
 	updateSize();
 }
 
-Mode ColorPicker::mode()
+Mode ColorPicker::mode() const
 {
 	return m_mode;
 }
@@ -377,7 +376,7 @@ GradientEdit ColorPicker::gradientEditMode()
 	return gradientEdit->gradientEditMode();
 }
 
-int ColorPicker::type()
+int ColorPicker::type() const
 {
 	return m_type;
 }
@@ -408,7 +407,6 @@ void ColorPicker::loadLists()
 
 	// patterns
 	setPatternList(&m_doc->docPatterns);
-
 }
 
 
@@ -430,7 +428,7 @@ void ColorPicker::updateUiByMode(Mode mode)
 
 	m_mode = mode;
 
-	switch(m_mode)
+	switch (m_mode)
 	{
 	case Mode::Solid:
 		buttonSolid->setChecked(true);
@@ -467,7 +465,7 @@ void ColorPicker::updateUiByType(int type)
 	// set UI mode
 	if (m_context == Context::FillMask)
 	{
-		switch(type)
+		switch (type)
 		{
 		case GradMask_None:
 			updateUiByMode(Mode::Solid);
@@ -488,7 +486,7 @@ void ColorPicker::updateUiByType(int type)
 	}
 	else
 	{
-		switch(type)
+		switch (type)
 		{
 		case Gradient_None:
 			updateUiByMode(Mode::Solid);
@@ -547,7 +545,6 @@ void ColorPicker::enablePatterns()
 void ColorPicker::closeParent()
 {
 	QWidget *widget = static_cast<QWidget*>(parent());
-
 	if (widget)
 		widget->close();
 }
@@ -586,7 +583,6 @@ void ColorPicker::setDoc(ScribusDoc *doc)
 			connect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
 			connect(m_doc->scMW()     , SIGNAL(UpdateRequest(int)), this, SLOT(handleUpdateRequest(int)));
 		}
-
 	}
 }
 
@@ -605,7 +601,6 @@ void ColorPicker::languageChange()
 	comboOverprint->setCurrentIndex(oldOverPrintComboIndex);
 
 	checkboxUsedColors->setText( tr("Display only used colors") );
-
 }
 
 void ColorPicker::iconSetChange()
@@ -728,7 +723,7 @@ void ColorPicker::changedTab()
 	Mode fillMode = static_cast<Mode>(buttonGroup->checkedId());
 	updateUiByMode(fillMode);
 
-	switch(fillMode)
+	switch (fillMode)
 	{
 	case Mode::Solid:
 		updateColor();

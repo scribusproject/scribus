@@ -20,38 +20,46 @@ public:
 	explicit ColorPicker(Context context = Context::Simple, QWidget *parent = nullptr);
 	~ColorPicker() {};
 
+	void setDoc(ScribusDoc* doc);
+
 	void setGeneralData(CPGeneralData data);
-	CPGeneralData generalData();
-	void setColorData(CPColorData data);
+	const CPGeneralData& generalData() const;
+
+	void setColorData(const CPColorData& data);
 	CPColorData colorData() const;
-	void setGradientData(CPGradientData data);
+
 	CPGradientData gradientData() const;
-	void setGradientVectorData(CPGradientVectorData data);
-	CPGradientVectorData gradientVectorData() const;
-	void setGradientMeshData(CPColorData data);
-	CPColorData gradientMeshData();
-	void setPatternData(CPPatternData data);
-	CPPatternData patternData() const;
-	void setHatchData(CPHatchData data);
-	CPHatchData hatchData() const;
+	void setGradientData(const CPGradientData& data);
+
+	const CPGradientVectorData& gradientVectorData() const;
+	void setGradientVectorData(const CPGradientVectorData& data);
+
+	const CPColorData& gradientMeshData() const;
+	void setGradientMeshData(const CPColorData& data);
+
+	const CPPatternData& patternData() const;
+	void setPatternData(const CPPatternData& data);
+
+	const CPHatchData& hatchData() const;
+	void setHatchData(const CPHatchData& data);
 
 	void setColorButton(ColorButton *button);
 	ColorButton *colorButton();
 
 	QString toolTipText() const;
 
-	Context context();
+	Context context() const;
 	void setContext(Context config);
 
 	void setColorList(const ColorList& list);
 
-	Mode mode();
+	Mode mode() const;
 
 	bool gradientEditPropertiesEnabled();
 	void setGradientEditPropertiesEnabled(bool enabled);
 	GradientEdit gradientEditMode();
 
-	int type();
+	int type() const;
 
 	void updateUiByType(int type);
 	void updatePreview();
@@ -62,8 +70,6 @@ public:
 	void unsetDoc();
 
 public slots:
-
-	void setDoc(ScribusDoc *doc);
 	void languageChange();
 	void iconSetChange();
 	void unitChange();
@@ -90,15 +96,16 @@ private slots:
 	void handleUpdateRequest(int updateFlags);
 
 private:
-	ColorButton * m_colorButton;
+	ColorButton* m_colorButton { nullptr };
+	QButtonGroup* buttonGroup { nullptr };
+	QComboBox* comboOverprint { nullptr };
+	QCheckBox* checkboxUsedColors { nullptr };
+	PopupMenu* contextMenu { nullptr };
+
 	QPointer<ScribusDoc> m_doc;
-	Context m_context {Context::Simple};
-	Mode m_mode {Mode::Solid};
-	QButtonGroup *buttonGroup;
+	Context m_context { Context::Simple };
+	Mode m_mode { Mode::Solid };
 	int m_type;
-	QComboBox *comboOverprint;
-	QCheckBox *checkboxUsedColors;
-	PopupMenu *contextMenu;
 	ColorList colorList;
 	CPGeneralData m_generalData;
 
@@ -137,7 +144,6 @@ signals:
 	void resetAllControl();
 	void removePatch();
 	void snapToMGrid(bool);
-
 };
 
 #endif // COLORPICKER_H

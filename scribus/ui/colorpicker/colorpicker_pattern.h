@@ -14,22 +14,22 @@ public:
 	explicit ColorPickerPattern(QWidget *parent = nullptr);
 	~ColorPickerPattern(){};
 
+	void setDoc(ScribusDoc* doc);
     void setPatternList(QHash<QString, ScPattern> *docPatterns);
 
-	CPPatternData patternData();
+	const CPPatternData& patternData() const;
+	void setPatternData(const CPPatternData& pattern);
 
-	Context context();
+	Context context() const;
 	void setContext(Context config);
 
 	void hideEditedPatterns(QStringList names);
 
-	int type();
+	int type() const;
 
 	QString toolTipText() const;
 
 public slots:
-	void setDoc(ScribusDoc *doc);
-	void setPatternData(CPPatternData pattern);
 	void languageChange();	
 	void iconSetChange();
 	void unitChange();
@@ -43,9 +43,9 @@ private slots:
 	void toggleScaleRatio();
 
 private:
-	ScribusDoc *m_doc {nullptr};
+	ScribusDoc* m_doc { nullptr };
 	QBrush m_background;
-	Context m_context {Context::Simple};
+	Context m_context { Context::Simple };
 	CPPatternData m_pattern;
 	int currentUnit {0};
 
@@ -55,7 +55,6 @@ private:
 signals:
 	void patternChanged();
 	void sizeChanged();
-
 };
 
 #endif // COLORPICKER_PATTERN_H

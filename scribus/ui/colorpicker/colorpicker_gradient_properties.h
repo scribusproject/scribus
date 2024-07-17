@@ -41,11 +41,11 @@ public:
 	void selectMesh();
 	void selectPatchMesh();
 
-	void setGradientVectorData(CPGradientVectorData data);
-	CPGradientVectorData gradientVectorData();
+	const CPGradientVectorData& gradientVectorData() const { return m_data; }
+	void setGradientVectorData(const CPGradientVectorData& data);
 
 	void setConfig(int type, bool isMask);
-	GradientEdit gradientEditType();
+	GradientEdit gradientEditType() const;
 
 public slots:
 	void languageChange();
@@ -66,17 +66,17 @@ public slots:
 	void unitChange(int unitIndex);
 
 protected:
-	double m_unitRatio;
-	GradientEdit m_gradientEditType {GradientEdit::Gradient};
-	int m_type = -1;
+	double m_unitRatio { 1.0 };
+	GradientEdit m_gradientEditType { GradientEdit::Gradient };
+	int m_type { -1 };
 	CPGradientVectorData m_data;
+
 	void connectSlots();
 	void disconnectSlots();
 
 	void changeEvent(QEvent *e) override;
 
 signals:
-
 	// Gradient Vector
 	void gradientVectorChanged();
 
@@ -89,7 +89,6 @@ signals:
 	void resetAllControl();
 	void removePatch();
 	void snapToMGrid(bool);	
-
 };
 
 #endif // COLORPICKER_GRADIENT_PROPERTIES_H

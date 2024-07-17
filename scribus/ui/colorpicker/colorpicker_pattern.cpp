@@ -121,12 +121,12 @@ void ColorPickerPattern::setPatternList(QHash<QString, ScPattern> *docPatterns)
 	listPattern->clearSelection();
 }
 
-CPPatternData ColorPickerPattern::patternData()
+const CPPatternData& ColorPickerPattern::patternData() const
 {
 	return m_pattern;
 }
 
-Context ColorPickerPattern::context()
+Context ColorPickerPattern::context() const
 {
     return m_context;
 }
@@ -135,7 +135,7 @@ void ColorPickerPattern::setContext(Context config)
 {
     m_context = config;
 
-	switch(m_context)
+	switch (m_context)
 	{
 	case Context::Line:
 		checkboxLumAlpha->setVisible(false);
@@ -155,8 +155,8 @@ void ColorPickerPattern::setContext(Context config)
 		checkboxFollowsPath->setVisible(false);
 		labelSpacing->setVisible(false);
 		break;
-	default:
 	case Context::Simple:
+	default:
 		break;
 	}
 
@@ -173,9 +173,10 @@ void ColorPickerPattern::hideEditedPatterns(QStringList names)
 	}
 }
 
-int ColorPickerPattern::type()
+int ColorPickerPattern::type() const
 {
-	switch(m_context){
+	switch (m_context)
+	{
 	case Context::FillMask:
 		if (checkboxLumAlpha->isChecked())
 		{
@@ -209,7 +210,7 @@ void ColorPickerPattern::setDoc(ScribusDoc *doc)
 	unitChange();
 }
 
-void ColorPickerPattern::setPatternData(CPPatternData pattern)
+void ColorPickerPattern::setPatternData(const CPPatternData& pattern)
 {
 	m_pattern = pattern;
 
