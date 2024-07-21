@@ -295,7 +295,6 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				if (!m_doc->Items->contains(currItem))
 					continue;
 				psx->save();
-				double lineAdjust(psx->pen().width() / m_canvas->scale());
 				double x, y, w, h;
 				w = currItem->visualWidth() ;
 				h = currItem->visualHeight() ;
@@ -304,14 +303,14 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					psx->setRenderHint(QPainter::Antialiasing);
 					psx->translate(currItem->xPos(), currItem->yPos());
 					psx->rotate(currItem->rotation());
-					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
-					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
+					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos());
+					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos());
 				}
 				else
 				{
 					psx->translate(currItem->visualXPos(), currItem->visualYPos());
-					x = currItem->asLine() ? 0 : -lineAdjust;
-					y = currItem->asLine() ? 0 : -lineAdjust;
+					x = 0;
+					y = 0;
 				}
 				psx->setBrush(Qt::NoBrush);
 				psx->setPen(ba);
@@ -324,13 +323,12 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		}
 		psx->save();
 		psx->setPen(m_pen["selection-group"]);
-		double lineAdjust(psx->pen().width() / m_canvas->scale());
 		double x, y, w, h;
 		m_doc->m_Selection->getVisualGroupRect(&x, &y, &w, &h);
 
 		psx->translate(x,y);
-		x = -lineAdjust;
-		y = -lineAdjust;
+		x = 0;
+		y = 0;
 
 		psx->setBrush(Qt::NoBrush);
 		psx->setPen(ba);
@@ -354,7 +352,6 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			psx->save();
 			psx->setPen(m_pen["selection"]);
 			psx->setBrush(m_brush["selection"]);
-			double lineAdjust(psx->pen().width() / m_canvas->scale());
 			double x, y, w, h;
 			if (currItem->isGroupChild())
 			{
@@ -399,14 +396,14 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					psx->setRenderHint(QPainter::Antialiasing);
 					psx->translate(currItem->xPos(), currItem->yPos());
 					psx->rotate(currItem->rotation());
-					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
-					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
+					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos());
+					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos());
 				}
 				else
 				{
 					psx->translate(currItem->visualXPos(), currItem->visualYPos());
-					x = currItem->asLine() ? 0 : -lineAdjust;
-					y = currItem->asLine() ? 0 : -lineAdjust;
+					x = 0;
+					y = 0;
 				}
 				psx->setBrush(Qt::NoBrush);
 				if (m_doc->drawAsPreview && !m_doc->editOnPreview)
