@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPalette>
 #include <QPixmap>
 #include <QRegularExpression>
+#include <QStyleHints>
 
 #include "scconfig.h"
 
@@ -58,8 +59,27 @@ void ScSplashScreen::drawContents(QPainter* painter)
 	QFont f(font());
 	QRect messageRect = m_messageRect.isEmpty() ? rect() : m_messageRect;
 	QRect rM = messageRect.adjusted(0, 0, -15, -5);
+
+	// Unfortunately on Windows the palette information
+	// does not match Light/Dark theme immediately, so we
+	// force text color according to current colorScheme
+#if defined(Q_OS_WINDOWS)
+	QColor textColor;
+	switch (QApplication::styleHints()->colorScheme())
+	{
+	case Qt::ColorScheme::Dark:
+		textColor.setRgb(255, 255, 255);
+		break;
+	default:
+		textColor.setRgb(0, 0, 0);
+		break;
+	}
+#else
+	QColor textColor = palette().windowText().color();
+#endif
+
 	painter->setFont(f);
-	painter->setPen(palette().windowText().color());
+	painter->setPen(textColor);
 	painter->drawText(rM, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, message());
 	QRect r = messageRect.adjusted(0, 0, -15, -60);
 
