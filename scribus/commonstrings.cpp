@@ -503,7 +503,7 @@ void CommonStrings::languageChange()
 #endif
 #ifdef Q_OS_WIN32
 	CommonStrings::controlModifier = tr("Ctrl");
-	CommonStrings::metaModifier = tr("Windows" "Windows key on keyboard");
+	CommonStrings::metaModifier = tr("Windows", "Windows key on keyboard");
 #endif
 #if !defined(Q_OS_WIN32) && !defined(Q_OS_MACOS)
 	CommonStrings::controlModifier = tr("Ctrl");
