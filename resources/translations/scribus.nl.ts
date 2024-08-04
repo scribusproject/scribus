@@ -79,12 +79,12 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="257"/>
         <source>Mac OS&amp;#174; X Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mac OS&amp;#174; X-versie:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="267"/>
         <source>Contributions from, and Previous Developers:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bijdragen van, en voorgaande ontwikkelaars:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="269"/>
@@ -125,11 +125,6 @@
         <location filename="../../scribus/ui/about.cpp" line="323"/>
         <source>Mailing List</source>
         <translation>Mailinglijst</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/about.cpp" line="325"/>
-        <source>Forums</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="661"/>
@@ -220,6 +215,11 @@
         <location filename="../../scribus/ui/about.cpp" line="317"/>
         <source>Wiki</source>
         <translation>Wiki</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="325"/>
+        <source>Forums</source>
+        <translation>Forums</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="652"/>
@@ -4048,7 +4048,10 @@ Klik om aan bestaand tekstkader te koppelen of creëer automatisch een nieuw gek
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwerking mislukt!
+
+Biedt het bestand (indien mogelijk) aan bij het
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -5439,11 +5442,6 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
         <translation>December</translation>
     </message>
     <message>
-        <location filename="../../scribus/commonstrings.cpp" line="506"/>
-        <source>WindowsWindows key on keyboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/commonstrings.cpp" line="313"/>
         <source>Yes</source>
         <translation>Ja</translation>
@@ -5912,6 +5910,12 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
         <location filename="../../scribus/commonstrings.cpp" line="509"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/commonstrings.cpp" line="506"/>
+        <source>Windows</source>
+        <comment>Windows key on keyboard</comment>
+        <translation type="unfinished">Vensters</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="510"/>
@@ -7631,7 +7635,10 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwerking mislukt!
+
+Biedt het bestand (indien mogelijk) aan bij het
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -7975,12 +7982,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="219"/>
         <source>None</source>
-        <translation type="unfinished">Geen</translation>
+        <translation>Geen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="220"/>
         <source>Pad</source>
-        <translation type="unfinished">Pad</translation>
+        <translation>Pad</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="229"/>
@@ -7993,7 +8000,7 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="58"/>
         <source>Opacity</source>
-        <translation type="unfinished">Ondoorzichtigheid</translation>
+        <translation>Dekking</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="81"/>
@@ -8005,22 +8012,22 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="109"/>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Positie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="167"/>
         <source>Color</source>
-        <translation type="unfinished">Kleur</translation>
+        <translation>Kleur</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="206"/>
         <source>Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Schakering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="257"/>
         <source>Extend</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitbreiden</translation>
     </message>
 </context>
 <context>
@@ -8308,7 +8315,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="770"/>
         <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;&lt;p&gt;Helaas is er geen handleiding geïnstalleerd!&lt;/p&gt;&lt;p&gt;Ga naar:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net voor de nieuwste documentatie&lt;/li&gt;&lt;li&gt;https://www.scribus.net voor downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="77"/>
@@ -8781,7 +8788,10 @@ de negeerlijst</translation>
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwerking mislukt!
+
+Biedt het bestand (indien mogelijk) aan bij het
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="58"/>
@@ -10925,7 +10935,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mark2item.cpp" line="19"/>
         <source>Reference To Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijzing naar item</translation>
     </message>
 </context>
 <context>
@@ -10971,7 +10981,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mark2mark.cpp" line="75"/>
         <source>Reference to Mark</source>
-        <translation type="unfinished">Verwijst naar markering</translation>
+        <translation>Verwijzing naar markering</translation>
     </message>
 </context>
 <context>
@@ -11058,7 +11068,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="22"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="35"/>
         <source>Mark With Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Met variabele tekst markeren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
@@ -11071,7 +11081,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="20"/>
         <source>Add New Mark for Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe markering voor variabele tekst toevoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="40"/>
@@ -14126,17 +14136,20 @@ Schakel experimentele insluiting van PDF en EPS uit en probeer het opnieuw.</tra
         <translation>Analyseer bestand:</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="807"/>
+        <source>Generating Items</source>
+        <translation>Verwerk items</translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="385"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="807"/>
-        <source>Generating Items</source>
-        <translation>Verwerk items</translation>
+        <translation>Verwerking mislukt!
+
+Biedt het bestand (indien mogelijk) aan bij het
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -14806,12 +14819,12 @@ Controleer dit en probeer het opnieuw.</translation>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="43"/>
         <source>PDF/X-1a:2001</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X-1a:2001</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="45"/>
         <source>PDF/X-3:2002</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X-3:2002</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="47"/>
@@ -16234,7 +16247,10 @@ Kies aub. een andere map.</translation>
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwerking mislukt!
+
+Biedt het bestand (indien mogelijk) aan bij het
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -20077,7 +20093,7 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="254"/>
         <source>Check for partially filled image frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Controleer op gedeeltelijk gevulde afbeeldingskaders</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="261"/>
@@ -20597,57 +20613,57 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="121"/>
         <source>Source of Table of Contents:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bron van de inhoudsopgave:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="128"/>
         <source>Whether the Table of Contents will be generated from Paragraph Styles or Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Of de inhoudsopgave wordt gegenereerd op basis van alineastijlen of itemkenmerken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="152"/>
         <source>Include frames that are set to not print</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg kaders toe die zijn ingesteld om niet af te drukken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="203"/>
         <source>Styles included in Table of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Stijlen opgenomen in de inhoudsopgave</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="263"/>
         <source>Document Styles:</source>
-        <translation type="unfinished"></translation>
+        <translation>Documentstijlen:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="297"/>
         <source>Add</source>
-        <translation type="unfinished">Toevoegen</translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="304"/>
         <source>Delete</source>
-        <translation type="unfinished">Verwijderen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="343"/>
         <source>Table of Contents Entry Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschappen van inhoudsopgave-items</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="352"/>
         <source>Style for TOC Entry:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stijl voor inhoudsopgave-item:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="388"/>
         <source>Remove line breaks from text in the heading</source>
-        <translation type="unfinished"></translation>
+        <translation>Regeleinden uit tekst in de kop verwijderen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="391"/>
         <source>Remove Line Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>Regeleinden verwijderen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="468"/>
@@ -20719,12 +20735,12 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="118"/>
         <source>Style</source>
-        <translation type="unfinished">Stijl</translation>
+        <translation>Stijl</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="120"/>
         <source>Attribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschap</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="349"/>
@@ -20917,7 +20933,7 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="140"/>
         <source>Hide Labels of Inactive Palette Tabs</source>
-        <translation type="unfinished"></translation>
+        <translation>Labels van inactieve palettabbladen verbergen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="170"/>
@@ -21038,12 +21054,12 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="75"/>
         <source>Hides informational labels on palettes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbergt informatieve labels op paletten.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="76"/>
         <source>Hides labels of inactive palette tabs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbergt labels van inactieve palettabbladen.</translation>
     </message>
     <message>
         <source></source>
@@ -21733,7 +21749,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="500"/>
         <source>&amp;Drop Shadow</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Slagschaduw</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="501"/>
@@ -21748,17 +21764,17 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="503"/>
         <source>&amp;Fill</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vulling</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="504"/>
         <source>&amp;Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eigenschappen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="559"/>
         <source>Create Mesh</source>
-        <translation type="unfinished">Maasnetwerk aanmaken</translation>
+        <translation>Maasnetwerk aanmaken</translation>
     </message>
 </context>
 <context>
@@ -22133,22 +22149,22 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="895"/>
         <source>Marker style for start of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Markeerstijl voor begin van lijn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="896"/>
         <source>Marker style for end of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Markeerstijl voor einde lijn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="897"/>
         <source>Swap start and end markers</source>
-        <translation type="unfinished"></translation>
+        <translation>Begin- en eindmarkeringen verwisselen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="898"/>
         <source>Blendmode of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Mengmodus van lijn</translation>
     </message>
 </context>
 <context>
@@ -22156,12 +22172,12 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="61"/>
         <source>Color</source>
-        <translation type="unfinished">Kleur</translation>
+        <translation>Kleur</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="102"/>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Masker</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="254"/>
@@ -23862,7 +23878,10 @@ De waarde 0 betekent onbeperkt afbreken.</translation>
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwerking mislukt!
+
+Biedt het bestand (indien mogelijk) aan bij het
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -27616,7 +27635,7 @@ Externe koppelingen
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="138"/>
         <source>Stop index out of bounds, must be 0 &lt;= index &lt;= stopsCount.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Stop-index buiten bereik, moet zijn 0 &lt;= index &lt;= stopsCount.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="403"/>
@@ -27984,7 +28003,7 @@ Externe koppelingen
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1143"/>
         <source>Cannot get text selection for non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan gen tekstselectie verkrijgen van een niet-tekstkader.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1162"/>
@@ -30584,7 +30603,7 @@ Mogelijk is daarom het beeld niet correct.</translation>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="87"/>
         <source>Scribus 1.5.x-1.6.x Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus 1.5.x-1.6.x-ondersteuning</translation>
     </message>
 </context>
 <context>
@@ -30747,7 +30766,10 @@ Kies een andere naam.</translation>
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwerking mislukt!
+
+Biedt het bestand (indien mogelijk) aan bij het
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -32798,7 +32820,7 @@ Let op: dit vergroot bestandsgrootte!</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="733"/>
         <source>Auto Text Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Autom. tekstgrootte</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="771"/>
@@ -33935,17 +33957,17 @@ Als u het in deze versie opslaat, zal het niet langer leesbaar zijn voor oudere 
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="81"/>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="115"/>
         <source>Scribus 1.5.x-1.6.x Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus 1.5.x-1.6.x-document</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="97"/>
         <source>Scribus 1.5.x-1.6.x File Format Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus 1.5.x-1.6.x-bestandsondersteuning</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="98"/>
         <source>Allows Scribus to read Scribus 1.5.x-1.6.x formatted files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Stelt Scribus in staat om bestanden van versie 1.5.x-1.6.x te lezen.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7298"/>
@@ -34726,7 +34748,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9513"/>
         <source>Insert New </source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuw invoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9749"/>
@@ -39069,7 +39091,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="679"/>
         <source>Change mask gradient values</source>
-        <translation type="unfinished"></translation>
+        <translation>Maskeringsverloopwaarden wijzigen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="680"/>
@@ -39811,7 +39833,10 @@ Wilt u in plaats daarvan de standaardbrowser van het systeem starten?</translati
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwerking mislukt!
+
+Biedt het bestand (indien mogelijk) aan bij het
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40074,7 +40099,10 @@ Document Liberation Project https://www.documentliberation.org</source>
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwerking mislukt!
+
+Biedt het bestand (indien mogelijk) aan bij het
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -40483,7 +40511,7 @@ kies een andere.</translation>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="178"/>
         <source>Document templates can be found at https://www.scribus.net/ in the Downloads section.</source>
-        <translation type="unfinished"></translation>
+        <translation>Documentsjablonen zijn beschikbaar op https://www.scribus.net/ in de sectie Downloads.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="182"/>

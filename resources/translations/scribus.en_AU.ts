@@ -127,11 +127,6 @@
         <translation>Mailing List</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="325"/>
-        <source>Forums</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/about.cpp" line="661"/>
         <source>SVN Revision: %1</source>
         <translation>SVN Revision: %1</translation>
@@ -220,6 +215,11 @@
         <location filename="../../scribus/ui/about.cpp" line="317"/>
         <source>Wiki</source>
         <translation>Wiki</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="325"/>
+        <source>Forums</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="652"/>
@@ -5439,11 +5439,6 @@ See the Edit Colours section of the documentation for more details.</translation
         <translation>December</translation>
     </message>
     <message>
-        <location filename="../../scribus/commonstrings.cpp" line="506"/>
-        <source>WindowsWindows key on keyboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/commonstrings.cpp" line="313"/>
         <source>Yes</source>
         <translation>Yes</translation>
@@ -5912,6 +5907,12 @@ See the Edit Colours section of the documentation for more details.</translation
         <location filename="../../scribus/commonstrings.cpp" line="509"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/commonstrings.cpp" line="506"/>
+        <source>Windows</source>
+        <comment>Windows key on keyboard</comment>
+        <translation type="unfinished">Windows</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="510"/>
@@ -7975,12 +7976,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="219"/>
         <source>None</source>
-        <translation type="unfinished">None</translation>
+        <translation>None</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="220"/>
         <source>Pad</source>
-        <translation type="unfinished">Pad</translation>
+        <translation>Pad</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="229"/>
@@ -7993,7 +7994,7 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="58"/>
         <source>Opacity</source>
-        <translation type="unfinished">Opacity</translation>
+        <translation>Opacity</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="81"/>
@@ -8010,12 +8011,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="167"/>
         <source>Color</source>
-        <translation type="unfinished">Colour</translation>
+        <translation>Colour</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="206"/>
         <source>Shade</source>
-        <translation type="unfinished">Shade</translation>
+        <translation>Shade</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="257"/>
@@ -10972,7 +10973,7 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <location filename="../../scribus/ui/mark2mark.cpp" line="75"/>
         <source>Reference to Mark</source>
-        <translation type="unfinished">Reference to Mark</translation>
+        <translation>Reference to Mark</translation>
     </message>
 </context>
 <context>
@@ -14127,17 +14128,17 @@ Please disable experimental PDF and PS embedding and try again.</translation>
         <translation>Analysing File:</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="807"/>
+        <source>Generating Items</source>
+        <translation>Generating Items</translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="385"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="807"/>
-        <source>Generating Items</source>
-        <translation>Generating Items</translation>
     </message>
 </context>
 <context>
@@ -20623,12 +20624,12 @@ Do you want to use this?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="297"/>
         <source>Add</source>
-        <translation type="unfinished">Add</translation>
+        <translation>Add</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="304"/>
         <source>Delete</source>
-        <translation type="unfinished">Delete</translation>
+        <translation>Delete</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="343"/>
@@ -20720,7 +20721,7 @@ Do you want to use this?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="118"/>
         <source>Style</source>
-        <translation type="unfinished">Style</translation>
+        <translation>Style</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="120"/>
@@ -21759,7 +21760,7 @@ a range of pages or a single page number</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="559"/>
         <source>Create Mesh</source>
-        <translation type="unfinished">Create Mesh</translation>
+        <translation>Create Mesh</translation>
     </message>
 </context>
 <context>
@@ -22157,7 +22158,7 @@ a range of pages or a single page number</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="61"/>
         <source>Color</source>
-        <translation type="unfinished">Colour</translation>
+        <translation>Colour</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="102"/>

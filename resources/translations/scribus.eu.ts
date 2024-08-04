@@ -127,11 +127,6 @@
         <translation>Posta-zerrenda</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="325"/>
-        <source>Forums</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/about.cpp" line="661"/>
         <source>SVN Revision: %1</source>
         <translation>SVN berrikuzpena: %1</translation>
@@ -220,6 +215,11 @@
         <location filename="../../scribus/ui/about.cpp" line="317"/>
         <source>Wiki</source>
         <translation>Wiki-a</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="325"/>
+        <source>Forums</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="652"/>
@@ -5439,11 +5439,6 @@ Ikusi dokumentazioaren &apos;Editatu koloreak&apos; atala xehetasun gehiagorako.
         <translation>Abendua</translation>
     </message>
     <message>
-        <location filename="../../scribus/commonstrings.cpp" line="506"/>
-        <source>WindowsWindows key on keyboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/commonstrings.cpp" line="313"/>
         <source>Yes</source>
         <translation>Bai</translation>
@@ -5912,6 +5907,12 @@ Ikusi dokumentazioaren &apos;Editatu koloreak&apos; atala xehetasun gehiagorako.
         <location filename="../../scribus/commonstrings.cpp" line="509"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/commonstrings.cpp" line="506"/>
+        <source>Windows</source>
+        <comment>Windows key on keyboard</comment>
+        <translation type="unfinished">Leihoak</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="510"/>
@@ -7977,12 +7978,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="219"/>
         <source>None</source>
-        <translation type="unfinished">Bat ere ez</translation>
+        <translation>Bat ere ez</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="220"/>
         <source>Pad</source>
-        <translation type="unfinished">Betegarria</translation>
+        <translation>Betegarria</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="229"/>
@@ -7995,7 +7996,7 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="58"/>
         <source>Opacity</source>
-        <translation type="unfinished">Opakutasuna</translation>
+        <translation>Opakutasuna</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="81"/>
@@ -8012,12 +8013,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="167"/>
         <source>Color</source>
-        <translation type="unfinished">Kolorea</translation>
+        <translation>Kolorea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="206"/>
         <source>Shade</source>
-        <translation type="unfinished">Itzaldura</translation>
+        <translation>Itzaldura</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="257"/>
@@ -10974,7 +10975,7 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     <message>
         <location filename="../../scribus/ui/mark2mark.cpp" line="75"/>
         <source>Reference to Mark</source>
-        <translation type="unfinished">Erreferentzia markari</translation>
+        <translation>Erreferentzia markari</translation>
     </message>
 </context>
 <context>
@@ -14134,17 +14135,17 @@ Desgaitu PDF eta PS kapsulatze esperimentala eta saiatu berriro.</translation>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="807"/>
+        <source>Generating Items</source>
+        <translation>Elementuak sortzen</translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="385"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="807"/>
-        <source>Generating Items</source>
-        <translation>Elementuak sortzen</translation>
     </message>
 </context>
 <context>
@@ -20634,12 +20635,12 @@ PostScript 1. edo 2. maila ezartzen bada, fitxategi handiak sortu daitezke.</tra
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="297"/>
         <source>Add</source>
-        <translation type="unfinished">Gehitu</translation>
+        <translation>Gehitu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="304"/>
         <source>Delete</source>
-        <translation type="unfinished">Ezabatu</translation>
+        <translation>Ezabatu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="343"/>
@@ -20731,7 +20732,7 @@ PostScript 1. edo 2. maila ezartzen bada, fitxategi handiak sortu daitezke.</tra
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="118"/>
         <source>Style</source>
-        <translation type="unfinished">Formatua</translation>
+        <translation>Formatua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="120"/>
@@ -21773,7 +21774,7 @@ berriagoa behar da.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="559"/>
         <source>Create Mesh</source>
-        <translation type="unfinished">Sortu sarea</translation>
+        <translation>Sortu sarea</translation>
     </message>
 </context>
 <context>
@@ -22171,7 +22172,7 @@ berriagoa behar da.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="61"/>
         <source>Color</source>
-        <translation type="unfinished">Kolorea</translation>
+        <translation>Kolorea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="102"/>

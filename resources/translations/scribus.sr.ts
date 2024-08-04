@@ -127,11 +127,6 @@
         <translation>Дописна листа</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="325"/>
-        <source>Forums</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/about.cpp" line="661"/>
         <source>SVN Revision: %1</source>
         <translation>СВН ревизија: %1</translation>
@@ -220,6 +215,11 @@
         <location filename="../../scribus/ui/about.cpp" line="317"/>
         <source>Wiki</source>
         <translation>Вики</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="325"/>
+        <source>Forums</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="652"/>
@@ -5438,11 +5438,6 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation>Децембар</translation>
     </message>
     <message>
-        <location filename="../../scribus/commonstrings.cpp" line="506"/>
-        <source>WindowsWindows key on keyboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/commonstrings.cpp" line="313"/>
         <source>Yes</source>
         <translation>Да</translation>
@@ -5911,6 +5906,12 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/commonstrings.cpp" line="509"/>
         <source>Ctrl</source>
         <translation>Ктрл</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/commonstrings.cpp" line="506"/>
+        <source>Windows</source>
+        <comment>Windows key on keyboard</comment>
+        <translation type="unfinished">Прозори</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="510"/>
@@ -7974,7 +7975,7 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="219"/>
         <source>None</source>
-        <translation type="unfinished">Ништа</translation>
+        <translation>Ништа</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="220"/>
@@ -8009,12 +8010,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="167"/>
         <source>Color</source>
-        <translation type="unfinished">Боја</translation>
+        <translation>Боја</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="206"/>
         <source>Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Сенка</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="257"/>
@@ -10970,7 +10971,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mark2mark.cpp" line="75"/>
         <source>Reference to Mark</source>
-        <translation type="unfinished">Упута на ознаку</translation>
+        <translation>Упута на ознаку</translation>
     </message>
 </context>
 <context>
@@ -14124,17 +14125,17 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Анализирам датотеку:</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="807"/>
+        <source>Generating Items</source>
+        <translation>Правим ставке</translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="385"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="807"/>
-        <source>Generating Items</source>
-        <translation>Правим ставке</translation>
     </message>
 </context>
 <context>
@@ -20614,12 +20615,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="297"/>
         <source>Add</source>
-        <translation type="unfinished">Додај</translation>
+        <translation>Додај</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="304"/>
         <source>Delete</source>
-        <translation type="unfinished">Обриши</translation>
+        <translation>Обриши</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="343"/>
@@ -20711,7 +20712,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="118"/>
         <source>Style</source>
-        <translation type="unfinished">Стил</translation>
+        <translation>Стил</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="120"/>
@@ -21750,7 +21751,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="559"/>
         <source>Create Mesh</source>
-        <translation type="unfinished">Направите мрежицу</translation>
+        <translation>Направите мрежицу</translation>
     </message>
 </context>
 <context>
@@ -22148,7 +22149,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="61"/>
         <source>Color</source>
-        <translation type="unfinished">Боја</translation>
+        <translation>Боја</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="102"/>

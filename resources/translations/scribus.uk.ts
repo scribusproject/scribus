@@ -127,11 +127,6 @@
         <translation>Список листування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="325"/>
-        <source>Forums</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/about.cpp" line="661"/>
         <source>SVN Revision: %1</source>
         <translation>Ревізія SVN: %1</translation>
@@ -220,6 +215,11 @@
         <location filename="../../scribus/ui/about.cpp" line="317"/>
         <source>Wiki</source>
         <translation>Вікі</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="325"/>
+        <source>Forums</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="652"/>
@@ -5439,11 +5439,6 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation>Грудень</translation>
     </message>
     <message>
-        <location filename="../../scribus/commonstrings.cpp" line="506"/>
-        <source>WindowsWindows key on keyboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/commonstrings.cpp" line="313"/>
         <source>Yes</source>
         <translation>Так</translation>
@@ -5912,6 +5907,12 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/commonstrings.cpp" line="509"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/commonstrings.cpp" line="506"/>
+        <source>Windows</source>
+        <comment>Windows key on keyboard</comment>
+        <translation type="unfinished">Вікна</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="510"/>
@@ -7975,12 +7976,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="219"/>
         <source>None</source>
-        <translation type="unfinished">Немає</translation>
+        <translation>Немає</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="220"/>
         <source>Pad</source>
-        <translation type="unfinished">Заповнення</translation>
+        <translation>Заповнення</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="229"/>
@@ -8010,12 +8011,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="167"/>
         <source>Color</source>
-        <translation type="unfinished">Колір</translation>
+        <translation>Колір</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="206"/>
         <source>Shade</source>
-        <translation type="unfinished">Затінити</translation>
+        <translation>Затінити</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="257"/>
@@ -10971,7 +10972,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mark2mark.cpp" line="75"/>
         <source>Reference to Mark</source>
-        <translation type="unfinished">Посилання на позначку</translation>
+        <translation>Посилання на позначку</translation>
     </message>
 </context>
 <context>
@@ -14126,17 +14127,17 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Аналізувати файл:</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="807"/>
+        <source>Generating Items</source>
+        <translation>Генерування елементів</translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="385"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="807"/>
-        <source>Generating Items</source>
-        <translation>Генерування елементів</translation>
     </message>
 </context>
 <context>
@@ -20619,12 +20620,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="297"/>
         <source>Add</source>
-        <translation type="unfinished">Додати</translation>
+        <translation>Додати</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="304"/>
         <source>Delete</source>
-        <translation type="unfinished">Видалити</translation>
+        <translation>Видалити</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="343"/>
@@ -20716,7 +20717,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="118"/>
         <source>Style</source>
-        <translation type="unfinished">Стиль</translation>
+        <translation>Стиль</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="120"/>
@@ -21755,7 +21756,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="559"/>
         <source>Create Mesh</source>
-        <translation type="unfinished">Створити сітку</translation>
+        <translation>Створити сітку</translation>
     </message>
 </context>
 <context>
@@ -22153,7 +22154,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="61"/>
         <source>Color</source>
-        <translation type="unfinished">Колір</translation>
+        <translation>Колір</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="102"/>

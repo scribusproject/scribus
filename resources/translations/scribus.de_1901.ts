@@ -5564,8 +5564,9 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="506"/>
-        <source>WindowsWindows key on keyboard</source>
-        <translation type="unfinished"></translation>
+        <source>Windows</source>
+        <comment>Windows key on keyboard</comment>
+        <translation type="unfinished">Fenster</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="510"/>

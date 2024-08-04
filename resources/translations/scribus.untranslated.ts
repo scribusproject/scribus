@@ -5893,7 +5893,8 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="506"/>
-        <source>WindowsWindows key on keyboard</source>
+        <source>Windows</source>
+        <comment>Windows key on keyboard</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -5442,11 +5442,6 @@ See the Edit Colors section of the documentation for more details.</translation>
         <translation>December</translation>
     </message>
     <message>
-        <location filename="../../scribus/commonstrings.cpp" line="506"/>
-        <source>WindowsWindows key on keyboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/commonstrings.cpp" line="313"/>
         <source>Yes</source>
         <translation>Yes</translation>
@@ -5915,6 +5910,12 @@ See the Edit Colors section of the documentation for more details.</translation>
         <location filename="../../scribus/commonstrings.cpp" line="509"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/commonstrings.cpp" line="506"/>
+        <source>Windows</source>
+        <comment>Windows key on keyboard</comment>
+        <translation type="unfinished">Windows</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="510"/>
