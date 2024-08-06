@@ -160,14 +160,11 @@ static PyObject *ImageExport_save(ImageExport *self)
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
 	im.setDotsPerMeterX(dpi);
-	if (!im.save(PyString_AsString(self->name), PyString_AsString(self->type)))
+	if (!im.save(PyString_AsString(self->name), PyString_AsString(self->type), self->quality))
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-// 	Py_INCREF(Py_True); // return True not None for backward compat
- //	return Py_True;
-//	Py_RETURN_TRUE;
 	return PyBool_FromLong(static_cast<long>(true));
 }
 
@@ -194,14 +191,11 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
 	im.setDotsPerMeterX(dpi);
-	if (!im.save(value, PyString_AsString(self->type)))
+	if (!im.save(value, PyString_AsString(self->type), self->quality))
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-// 	Py_INCREF(Py_True); // return True not None for backward compat
- //	return Py_True;
-//	Py_RETURN_TRUE;
 	return PyBool_FromLong(static_cast<long>(true));
 }
 
