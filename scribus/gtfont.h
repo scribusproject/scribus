@@ -95,7 +95,7 @@ public:
 	gtFont(const gtFont& f);
 	~gtFont();
 
-	typedef enum
+	enum wasSetFlags
 	{
 		familyWasSet = 1,
 		weightWasSet = 2,
@@ -109,7 +109,7 @@ public:
 		strokeShadeWasSet = 512,
 		hscaleWasSet = 1024,
 		kerningWasSet = 2048
-	} wasSetFlags;
+	};
 
 	static const QString fontWeights[];
 	static const QString fontSlants[];

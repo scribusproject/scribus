@@ -54,12 +54,12 @@ protected:
 	int             m_profileComponents {0};
 	eColorFormat    m_pixelFormat {Format_Undefined};
 
-	typedef enum
+	enum MsgType
 	{
 		noMsg = 0,
 		warningMsg = 1,
 		errorMsg = 2
-	} MsgType;
+	};
 	MsgType m_msgType {noMsg};
 	QString m_message;
 

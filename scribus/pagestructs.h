@@ -25,7 +25,7 @@ struct ObjectAttribute
 
 typedef QList<ObjectAttribute> ObjAttrVector;
 
-typedef enum {Beginning, End, NotShown} TOCPageLocation;
+enum TOCPageLocation { Beginning, End, NotShown };
 
 
 struct ToCSetupEntryStyleData
@@ -118,20 +118,20 @@ struct DocumentSection
 
 typedef QMap<uint, DocumentSection> DocumentSectionMap;
 
-typedef enum
+enum PageLayout
 {
 	singlePage,
 	doublePage,
 	triplePage,
 	quadroPage
-} PageLayout;
+};
 
-typedef enum
+enum PageLocation
 {
 	LeftPage,
 	MiddlePage,
 	RightPage
-} PageLocation;
+};
 
 
 #endif

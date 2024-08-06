@@ -27,11 +27,11 @@ class SCRIBUS_API About : public QDialog
 
 public:
 
-	typedef enum
+	enum AboutMode
 	{
 		Default = 0,
 		CheckUpdates = 1
-	} AboutMode;
+	};
 
 	About( QWidget* parent, AboutMode mode = About::Default );
 	~About() {}

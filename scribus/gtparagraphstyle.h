@@ -56,7 +56,7 @@ public:
 	gtParagraphStyle(const gtStyle& s);
 	~gtParagraphStyle() {};
 
-	typedef enum
+	enum wasSetFlags
 	{
 		lineSpacingWasSet = 1,
 		alignmentWasSet = 2,
@@ -72,7 +72,7 @@ public:
 		autoLineSpacingWasSet  = 2048,
 		bulletWasSet = 4096,
 		numWasSet = 8192
-	} wasSetFlags;
+	};
 
 	gtStyle& asGtStyle() { return dynamic_cast<gtStyle&>(*this); }
 	const gtStyle& asGtStyle() const { return dynamic_cast<const gtStyle&>(*this); }

@@ -1067,8 +1067,8 @@ public:
 	void removePageFromAnnotLinks(int pageIndex);
 
 	//! @brief Some internal align tools
-	typedef enum {alignFirst, alignLast, alignPage, alignMargins, alignGuide, alignSelection } AlignTo;
-	typedef enum {alignByMoving, alignByResizing } AlignMethod;
+	enum AlignTo {alignFirst, alignLast, alignPage, alignMargins, alignGuide, alignSelection } ;
+	enum AlignMethod { alignByMoving, alignByResizing };
 	void buildAlignItemList(Selection* customSelection = nullptr);
 	bool startAlign(uint minObjects = 1);
 	void endAlign();

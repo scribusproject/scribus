@@ -52,7 +52,7 @@ position  4 bytes  currently viewed position in the document
 sizes  2*records bytes  record size array
 78 bytes total
 */
-typedef struct
+struct pdb_header
 {
 	char	name[ dmDBNameLength ];
 	Word	attributes;
@@ -68,7 +68,7 @@ typedef struct
 	DWord	id_seed;
 	DWord	nextRecordList;
 	Word	numRecords;
-} pdb_header;
+};
 
 /*! \brief Some compilers pad structures out to DWord boundaries so using
 sizeof() doesn't give the intended result.
@@ -78,21 +78,23 @@ sizeof() doesn't give the intended result.
 
 /*! \brief PDB Document record.
 16 bytes total. */
-typedef struct {
+struct doc_record0
+{
 	Word    version; /* 1 = plain text, 2 = compressed */
 	Word    reserved1;
 	DWord   doc_size; /* in bytes, when uncompressed */
 	Word    numRecords; /* text rec's only; = pdb_header.numRecords-1 */
 	Word    rec_size; /* usually RECORD_SIZE_MAX */
 	DWord   reserved2;
-} doc_record0;
+};
 
 /*! \brief Binary buffer */
-typedef struct {
+struct buffer
+{
 	Byte buf[BUFFER_SIZE];
 	size_t   len;
 	size_t   position;
-} buffer;
+};
 
 #define GET_Word(f,n)   { size_t result = fread( &n, 2, 1, f ); if (result == 1) n = swap_Word ( n ); }
 #define GET_DWord(f,n)  { size_t result = fread( &n, 4, 1, f ); if (result == 1) n = swap_DWord( n ); }

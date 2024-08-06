@@ -59,14 +59,14 @@ class CanvasMode_EditMeshGradient :  public CanvasMode
 
 	private:
 
-		typedef enum
+		enum eMGradientPoint
 		{
 			noPointDefined,
 			useControlT,
 			useControlB,
 			useControlL,
 			useControlR
-		} eMGradientPoint;
+		};
 
 		inline bool GetItem(PageItem** pi);
 
