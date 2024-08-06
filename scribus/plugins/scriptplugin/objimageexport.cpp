@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 
-typedef struct
+struct ImageExport
 {
 	PyObject_HEAD
 	PyObject *name; // string - filename
@@ -28,7 +28,7 @@ typedef struct
 	int scale; // how is bitmap scaled 100 = 100%
 	int quality; // quality/compression <1; 100>
 	int transparentBkgnd; // background transparency
-} ImageExport;
+};
 
 static void ImageExport_dealloc(ImageExport* self)
 {
@@ -63,11 +63,11 @@ static int ImageExport_init(ImageExport * /*self*/, PyObject * /*args*/, PyObjec
 }
 
 static PyMemberDef ImageExport_members[] = {
-	{const_cast<char*>("dpi"), T_INT, offsetof(ImageExport, dpi), 0, imgexp_dpi__doc__},
-	{const_cast<char*>("scale"), T_INT, offsetof(ImageExport, scale), 0, imgexp_scale__doc__},
-	{const_cast<char*>("quality"), T_INT, offsetof(ImageExport, quality), 0, imgexp_quality__doc__},
-	{const_cast<char*>("transparentBkgnd"), T_INT, offsetof(ImageExport, transparentBkgnd), 0, imgexp_transparentBkgnd__doc__},
-	{nullptr, 0, 0, 0, nullptr} // sentinel
+	{ "dpi", T_INT, offsetof(ImageExport, dpi), 0, imgexp_dpi__doc__ },
+	{ "scale", T_INT, offsetof(ImageExport, scale), 0, imgexp_scale__doc__ },
+	{ "quality", T_INT, offsetof(ImageExport, quality), 0, imgexp_quality__doc__ },
+	{ "transparentBkgnd", T_INT, offsetof(ImageExport, transparentBkgnd), 0, imgexp_transparentBkgnd__doc__ },
+	{ nullptr, 0, 0, 0, nullptr } // sentinel
 };
 
 static PyObject *ImageExport_getName(ImageExport *self, void * /*closure*/)
@@ -136,10 +136,10 @@ static int ImageExport_setAllTypes(ImageExport * /*self*/, PyObject * /*value*/,
 }
 
 static PyGetSetDef ImageExport_getseters [] = {
-	{const_cast<char*>("name"), (getter)ImageExport_getName, (setter)ImageExport_setName, imgexp_filename__doc__, nullptr},
-	{const_cast<char*>("type"), (getter)ImageExport_getType, (setter)ImageExport_setType, imgexp_type__doc__, nullptr},
-	{const_cast<char*>("allTypes"), (getter)ImageExport_getAllTypes, (setter)ImageExport_setAllTypes, imgexp_alltypes__doc__, nullptr},
-	{nullptr, nullptr, nullptr, nullptr, nullptr}  // sentinel
+	{ "name", (getter)ImageExport_getName, (setter)ImageExport_setName, imgexp_filename__doc__, nullptr },
+	{ "type", (getter)ImageExport_getType, (setter)ImageExport_setType, imgexp_type__doc__, nullptr },
+	{ "allTypes", (getter)ImageExport_getAllTypes, (setter)ImageExport_setAllTypes, imgexp_alltypes__doc__, nullptr },
+	{ nullptr, nullptr, nullptr, nullptr, nullptr }  // sentinel
 };
 
 static PyObject *ImageExport_save(ImageExport *self)
@@ -176,7 +176,7 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	PyESString value;
 	if (!checkHaveDocument())
 		return nullptr;
-	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), "utf-8", value.ptr()))
+	if (!PyArg_ParseTuple(args, "es", "utf-8", value.ptr()))
 		return nullptr;
 
 	ScribusDoc*  doc = ScCore->primaryMainWindow()->doc;
@@ -205,14 +205,14 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 }
 
 static PyMethodDef ImageExport_methods[] = {
-	{const_cast<char*>("save"), (PyCFunction)ImageExport_save, METH_NOARGS, imgexp_save__doc__},
-	{const_cast<char*>("saveAs"), (PyCFunction)ImageExport_saveAs, METH_VARARGS, imgexp_saveas__doc__},
-	{nullptr, (PyCFunction)(nullptr), 0, nullptr} // sentinel
+	{ "save", (PyCFunction) ImageExport_save, METH_NOARGS, imgexp_save__doc__ },
+	{ "saveAs", (PyCFunction) ImageExport_saveAs, METH_VARARGS, imgexp_saveas__doc__ },
+	{ nullptr, (PyCFunction)(nullptr), 0, nullptr } // sentinel
 };
 
 PyTypeObject ImageExport_Type = {
 	PyVarObject_HEAD_INIT(nullptr, 0)   // PyObject_VAR_HEAD
-	const_cast<char*>("scribus.ImageExport"), // char *tp_name; /* For printing, in format "<module>.<name>" */
+	"scribus.ImageExport", // const char *tp_name; /* For printing, in format "<module>.<name>" */
 	sizeof(ImageExport),   // int tp_basicsize, /* For allocation */
 	0,  // int tp_itemsize; /* For allocation */
 
@@ -299,7 +299,7 @@ PyTypeObject ImageExport_Type = {
 	nullptr, // deprecated tp_print
 #endif
 #if PY_VERSION_HEX >= 0x03120000
-	0, // char tp_watched
+	0, // unsigned char tp_watched
 #endif
 
 #if defined(COUNT_ALLOCS) && PY_VERSION_HEX < 0x03090000
