@@ -136,9 +136,9 @@ static int ImageExport_setAllTypes(ImageExport * /*self*/, PyObject * /*value*/,
 }
 
 static PyGetSetDef ImageExport_getseters [] = {
-	{ "name", (getter)ImageExport_getName, (setter)ImageExport_setName, imgexp_filename__doc__, nullptr },
-	{ "type", (getter)ImageExport_getType, (setter)ImageExport_setType, imgexp_type__doc__, nullptr },
-	{ "allTypes", (getter)ImageExport_getAllTypes, (setter)ImageExport_setAllTypes, imgexp_alltypes__doc__, nullptr },
+	{ "name", (getter) ImageExport_getName, (setter) ImageExport_setName, imgexp_filename__doc__, nullptr },
+	{ "type", (getter) ImageExport_getType, (setter) ImageExport_setType, imgexp_type__doc__, nullptr },
+	{ "allTypes", (getter) ImageExport_getAllTypes, (setter) ImageExport_setAllTypes, imgexp_alltypes__doc__, nullptr },
 	{ nullptr, nullptr, nullptr, nullptr, nullptr }  // sentinel
 };
 
