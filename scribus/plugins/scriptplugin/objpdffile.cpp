@@ -43,7 +43,7 @@ static double minmaxd(double val, double min, double max)
 	return val;
 }
 
-typedef struct
+struct PDFfile
 {
 	PyObject_HEAD
 	PyObject *file; // string - file to save into
@@ -113,8 +113,7 @@ typedef struct
 	int hideMenuBar;
 	int fitWindow;
 	PyObject *openAction;
-
-} PDFfile;
+};
 
 static void PDFfile_dealloc(PDFfile *self)
 {
@@ -731,66 +730,66 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 }
 
 static PyMemberDef PDFfile_members[] = {
-	{const_cast<char*>("thumbnails"), T_INT, offsetof(PDFfile, thumbnails), 0, const_cast<char*>("Generate thumbnails. Bool value.")},
-	{const_cast<char*>("cropMarks"), T_INT, offsetof(PDFfile, cropMarks), 0, const_cast<char*>("Create crop marks in the PDF indicating where the paper should be cut or trimmed after printing.")},
-	{const_cast<char*>("bleedMarks"), T_INT, offsetof(PDFfile, bleedMarks), 0, const_cast<char*>("Create marks delimiting the bleed area.")},
-	{const_cast<char*>("registrationMarks"), T_INT, offsetof(PDFfile, registrationMarks), 0, const_cast<char*>("Add registration marks to each separation.")},
-	{const_cast<char*>("colorMarks"), T_INT, offsetof(PDFfile, colorMarks), 0, const_cast<char*>("Add color calibration bars.")},
-	{const_cast<char*>("docInfoMarks"), T_INT, offsetof(PDFfile, docInfoMarks), 0, const_cast<char*>("Add document information which includes the document title and page numbers.")},
-	{const_cast<char*>("markOffset"), T_DOUBLE, offsetof(PDFfile, markOffset), 0, const_cast<char*>("Indicate the distance offset between mark and page area.")},
-	{const_cast<char*>("markLength"), T_DOUBLE, offsetof(PDFfile, markLength), 0, const_cast<char*>("Indicate the length of crop and bleed marks.")},
-	{const_cast<char*>("compress"), T_INT, offsetof(PDFfile, compress), 0, const_cast<char*>("Compression switch. Bool value.")},
-	{const_cast<char*>("compressmtd"), T_INT, offsetof(PDFfile, compressmtd), 0, const_cast<char*>("Compression method.\n\t0 - Automatic\n\t1 - JPEG\n\t2 - zip\n\t3 - None.")},
-	{const_cast<char*>("quality"), T_INT, offsetof(PDFfile, quality), 0, const_cast<char*>("Image quality\n\t0 - Maximum\n\t1 - High\n\t2 - Medium\n\t3 - Low\n\t4 - Minimum")},
-	{const_cast<char*>("bookmarks"), T_INT, offsetof(PDFfile, bookmarks), 0, const_cast<char*>("Embed the bookmarks you created in your document.\nThese are useful for navigating long PDF documents.\nBool value")},
-	{const_cast<char*>("binding"), T_INT, offsetof(PDFfile, binding), 0, const_cast<char*>("Choose binding.\n\t0 - Left binding\n\t1 - Right binding")},
-	{const_cast<char*>("presentation"), T_INT, offsetof(PDFfile, presentation), 0, const_cast<char*>("Enable Presentation Effects.Bool value")},
-	{const_cast<char*>("article"), T_INT, offsetof(PDFfile, article), 0, const_cast<char*>("Save Linked Text Frames as PDF Articles\n\tBool value")},
-	{const_cast<char*>("encrypt"), T_INT, offsetof(PDFfile, encrypt), 0, const_cast<char*>("Use Encription. Bool value")},
-	{const_cast<char*>("uselpi"), T_INT, offsetof(PDFfile, uselpi), 0, const_cast<char*>("Use Custom Rendering Settings. Bool value")},
-	{const_cast<char*>("usespot"), T_INT, offsetof(PDFfile, usespot), 0, const_cast<char*>("Use Spot Colors. Bool value")},
-	{const_cast<char*>("domulti"), T_INT, offsetof(PDFfile, domulti), 0, const_cast<char*>("Produce a PDF File for every Page. Bool value")},
-	{const_cast<char*>("allowPrinting"), T_INT, offsetof(PDFfile, allowPrinting), 0, const_cast<char*>("Allow Printing the Document. Bool value")},
-	{const_cast<char*>("allowChange"), T_INT, offsetof(PDFfile, allowChange), 0, const_cast<char*>("Allow Changing the Document. Bool value")},
-	{const_cast<char*>("allowCopy"), T_INT, offsetof(PDFfile, allowCopy), 0, const_cast<char*>("Allow Copying Text and Graphics. Bool value")},
-	{const_cast<char*>("allowAnnots"), T_INT, offsetof(PDFfile, allowAnnots), 0, const_cast<char*>("Allow Adding Annotations and Fields. Bool value")},
-	{const_cast<char*>("version"), T_INT, offsetof(PDFfile, version), 0, const_cast<char*>("Choose PDF version to use:\n\t10 = PDF/X4\n\t11 = PDF/X1a\n\t12 = PDF/X-3\n\t13 = PDF 1.3 (Acrobat 4)\n\t14 = PDF 1.4 (Acrobat 5)\n\t15 = PDF 1.5 (Acrobat 6)")},
-	{const_cast<char*>("outdst"), T_INT, offsetof(PDFfile, outdst), 0, const_cast<char*>("Output destination.\n\t0 - screen\n\t1 - printer")},
-	{const_cast<char*>("profiles"), T_INT, offsetof(PDFfile, profiles), 0, const_cast<char*>("Embed a color profile for solid colors. Bool value.")},
-	{const_cast<char*>("profilei"), T_INT, offsetof(PDFfile, profilei), 0, const_cast<char*>("Embed a color profile for images. Bool value.")},
-	{const_cast<char*>("intents"), T_INT, offsetof(PDFfile, intents), 0, const_cast<char*>("Rendering intent for solid colors\n\t0 - Perceptual\n\t1 - Relative Colorimetric\n\t2 - Saturation\n\t3 - Absolute Colorimetric")},
-	{const_cast<char*>("intenti"), T_INT, offsetof(PDFfile, intenti), 0, const_cast<char*>("Rendering intent for images\n\t0 - Perceptual\n\t1 - Relative Colorimetric\n\t2 - Saturation\n\t3 - Absolute Colorimetric")},
-	{const_cast<char*>("noembicc"), T_INT, offsetof(PDFfile, noembicc), 0, const_cast<char*>("Don't use embedded ICC profiles. Bool value")},
-	{const_cast<char*>("bleedt"), T_DOUBLE, offsetof(PDFfile, bleedt), 0, const_cast<char*>("Bleed Top\n""Distance for bleed from the top of the physical page")},
-	{const_cast<char*>("bleedl"), T_DOUBLE, offsetof(PDFfile, bleedl), 0, const_cast<char*>("Bleed Left\n""Distance for bleed from the left of the physical page")},
-	{const_cast<char*>("bleedr"), T_DOUBLE, offsetof(PDFfile, bleedr), 0, const_cast<char*>("Bleed Right\n""Distance for bleed from the right of the physical page")},
-	{const_cast<char*>("bleedb"), T_DOUBLE, offsetof(PDFfile, bleedb), 0, const_cast<char*>("Bleed Bottom\n""Distance for bleed from the bottom of the physical page")},
-	{const_cast<char*>("useDocBleeds"), T_INT, offsetof(PDFfile, useDocBleeds), 0, const_cast<char*>("Use the existing bleed settings from the document preferences. Bool value")},
-	{const_cast<char*>("useLayers"), T_INT, offsetof(PDFfile, useLayers), 0, const_cast<char*>("Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.")},
-	{const_cast<char*>("embedPDF"), T_INT, offsetof(PDFfile, embedPDF), 0, const_cast<char*>("Export EPS and PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to 'true'.")},
-	{const_cast<char*>("mirrorH"), T_INT, offsetof(PDFfile, mirrorH), 0, const_cast<char*>("Mirror Page(s) horizontally")},
-	{const_cast<char*>("mirrorV"), T_INT, offsetof(PDFfile, mirrorV), 0, const_cast<char*>("Mirror Page(s) vertically")},
-	{const_cast<char*>("doClip"), T_INT, offsetof(PDFfile, doClip), 0, const_cast<char*>("Do not show objects outside the margins in the exported file")},
-	{const_cast<char*>("isGrayscale"), T_INT, offsetof(PDFfile, isGrayscale), 0, const_cast<char*>("Export PDF in grayscale")},
-	{const_cast<char*>("pageLayout"), T_INT, offsetof(PDFfile, pageLayout), 0, const_cast<char*>("Document layout in PDF viewer:\n"
+	{ "thumbnails", T_INT, offsetof(PDFfile, thumbnails), 0, "Generate thumbnails. Bool value." },
+	{ "cropMarks", T_INT, offsetof(PDFfile, cropMarks), 0, "Create crop marks in the PDF indicating where the paper should be cut or trimmed after printing." },
+	{ "bleedMarks", T_INT, offsetof(PDFfile, bleedMarks), 0, "Create marks delimiting the bleed area." },
+	{ "registrationMarks", T_INT, offsetof(PDFfile, registrationMarks), 0, "Add registration marks to each separation." },
+	{ "colorMarks", T_INT, offsetof(PDFfile, colorMarks), 0, "Add color calibration bars." },
+	{ "docInfoMarks", T_INT, offsetof(PDFfile, docInfoMarks), 0, "Add document information which includes the document title and page numbers." },
+	{ "markOffset", T_DOUBLE, offsetof(PDFfile, markOffset), 0, "Indicate the distance offset between mark and page area." },
+	{ "markLength", T_DOUBLE, offsetof(PDFfile, markLength), 0, "Indicate the length of crop and bleed marks." },
+	{ "compress", T_INT, offsetof(PDFfile, compress), 0, "Compression switch. Bool value." },
+	{ "compressmtd", T_INT, offsetof(PDFfile, compressmtd), 0, "Compression method.\n\t0 - Automatic\n\t1 - JPEG\n\t2 - zip\n\t3 - None." },
+	{ "quality", T_INT, offsetof(PDFfile, quality), 0, "Image quality\n\t0 - Maximum\n\t1 - High\n\t2 - Medium\n\t3 - Low\n\t4 - Minimum" },
+	{ "bookmarks", T_INT, offsetof(PDFfile, bookmarks), 0, "Embed the bookmarks you created in your document.\nThese are useful for navigating long PDF documents.\nBool value" },
+	{ "binding", T_INT, offsetof(PDFfile, binding), 0, "Choose binding.\n\t0 - Left binding\n\t1 - Right binding" },
+	{ "presentation", T_INT, offsetof(PDFfile, presentation), 0, "Enable Presentation Effects.Bool value" },
+	{ "article", T_INT, offsetof(PDFfile, article), 0, "Save Linked Text Frames as PDF Articles\n\tBool value" },
+	{ "encrypt", T_INT, offsetof(PDFfile, encrypt), 0, "Use Encription. Bool value" },
+	{ "uselpi", T_INT, offsetof(PDFfile, uselpi), 0, "Use Custom Rendering Settings. Bool value" },
+	{ "usespot", T_INT, offsetof(PDFfile, usespot), 0, "Use Spot Colors. Bool value" },
+	{ "domulti", T_INT, offsetof(PDFfile, domulti), 0, "Produce a PDF File for every Page. Bool value" },
+	{ "allowPrinting", T_INT, offsetof(PDFfile, allowPrinting), 0, "Allow Printing the Document. Bool value" },
+	{ "allowChange", T_INT, offsetof(PDFfile, allowChange), 0, "Allow Changing the Document. Bool value" },
+	{ "allowCopy", T_INT, offsetof(PDFfile, allowCopy), 0, "Allow Copying Text and Graphics. Bool value" },
+	{ "allowAnnots", T_INT, offsetof(PDFfile, allowAnnots), 0, "Allow Adding Annotations and Fields. Bool value" },
+	{ "version", T_INT, offsetof(PDFfile, version), 0, "Choose PDF version to use:\n\t10 = PDF/X4\n\t11 = PDF/X1a\n\t12 = PDF/X-3\n\t13 = PDF 1.3 (Acrobat 4)\n\t14 = PDF 1.4 (Acrobat 5)\n\t15 = PDF 1.5 (Acrobat 6)" },
+	{ "outdst", T_INT, offsetof(PDFfile, outdst), 0, "Output destination.\n\t0 - screen\n\t1 - printer" },
+	{ "profiles", T_INT, offsetof(PDFfile, profiles), 0, "Embed a color profile for solid colors. Bool value." },
+	{ "profilei", T_INT, offsetof(PDFfile, profilei), 0, "Embed a color profile for images. Bool value." },
+	{ "intents", T_INT, offsetof(PDFfile, intents), 0, "Rendering intent for solid colors\n\t0 - Perceptual\n\t1 - Relative Colorimetric\n\t2 - Saturation\n\t3 - Absolute Colorimetric" },
+	{ "intenti", T_INT, offsetof(PDFfile, intenti), 0, "Rendering intent for images\n\t0 - Perceptual\n\t1 - Relative Colorimetric\n\t2 - Saturation\n\t3 - Absolute Colorimetric" },
+	{ "noembicc", T_INT, offsetof(PDFfile, noembicc), 0, "Don't use embedded ICC profiles. Bool value" },
+	{ "bleedt", T_DOUBLE, offsetof(PDFfile, bleedt), 0, "Bleed Top\n""Distance for bleed from the top of the physical page" },
+	{ "bleedl", T_DOUBLE, offsetof(PDFfile, bleedl), 0, "Bleed Left\n""Distance for bleed from the left of the physical page" },
+	{ "bleedr", T_DOUBLE, offsetof(PDFfile, bleedr), 0, "Bleed Right\n""Distance for bleed from the right of the physical page" },
+	{ "bleedb", T_DOUBLE, offsetof(PDFfile, bleedb), 0, "Bleed Bottom\n""Distance for bleed from the bottom of the physical page" },
+	{ "useDocBleeds", T_INT, offsetof(PDFfile, useDocBleeds), 0, "Use the existing bleed settings from the document preferences. Bool value" },
+	{ "useLayers", T_INT, offsetof(PDFfile, useLayers), 0, "Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen." },
+	{ "embedPDF", T_INT, offsetof(PDFfile, embedPDF), 0, "Export EPS and PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to 'true'." },
+	{ "mirrorH", T_INT, offsetof(PDFfile, mirrorH), 0, "Mirror Page(s) horizontally" },
+	{ "mirrorV", T_INT, offsetof(PDFfile, mirrorV), 0, "Mirror Page(s) vertically" },
+	{ "doClip", T_INT, offsetof(PDFfile, doClip), 0, "Do not show objects outside the margins in the exported file" },
+	{ "isGrayscale", T_INT, offsetof(PDFfile, isGrayscale), 0, "Export PDF in grayscale" },
+	{ "pageLayout", T_INT, offsetof(PDFfile, pageLayout), 0, "Document layout in PDF viewer:\n"
 												     "\t0 - Show the document in single page mode\n"
 												     "\t1 - Show the document in single page mode with the pages displayed continuously end to end like a scroll\n"
 												     "\t2 - Show the document with facing pages, starting with the first page displayed on the left\n"
 												     "\t3 - Show the document with facing pages, starting with the first page displayed on the right"
-												     )},
-	{const_cast<char*>("displayBookmarks"), T_INT, offsetof(PDFfile, displayBookmarks), 0, const_cast<char*>("Display the bookmarks upon opening")},
-	{const_cast<char*>("displayThumbs"), T_INT, offsetof(PDFfile, displayThumbs), 0, const_cast<char*>("Display the page thumbnails upon opening")},
-	{const_cast<char*>("displayLayers"), T_INT, offsetof(PDFfile, displayLayers), 0, const_cast<char*>("Display the layer list upon opening. Useful only for PDF 1.5+.")},
-	{const_cast<char*>("displayFullscreen"), T_INT, offsetof(PDFfile, displayFullscreen), 0, const_cast<char*>("Display the document in full screen mode upon opening.")},
-	{const_cast<char*>("hideToolBar"), T_INT, offsetof(PDFfile, hideToolBar), 0, const_cast<char*>("Hide the viewer toolbar. The toolbar has usually selection and other editing capabilities.")},
-	{const_cast<char*>("hideMenuBar"), T_INT, offsetof(PDFfile, hideMenuBar), 0, const_cast<char*>("Hide the viewer menu bar, the PDF will display in a plain window.")},
-	{const_cast<char*>("fitWindow"), T_INT, offsetof(PDFfile, fitWindow), 0, const_cast<char*>("Fit the document page or pages to the available space in the viewer window.")},
+												     },
+	{ "displayBookmarks", T_INT, offsetof(PDFfile, displayBookmarks), 0, "Display the bookmarks upon opening" },
+	{ "displayThumbs", T_INT, offsetof(PDFfile, displayThumbs), 0, "Display the page thumbnails upon opening" },
+	{ "displayLayers", T_INT, offsetof(PDFfile, displayLayers), 0, "Display the layer list upon opening. Useful only for PDF 1.5+." },
+	{ "displayFullscreen", T_INT, offsetof(PDFfile, displayFullscreen), 0, "Display the document in full screen mode upon opening." },
+	{ "hideToolBar", T_INT, offsetof(PDFfile, hideToolBar), 0, "Hide the viewer toolbar. The toolbar has usually selection and other editing capabilities." },
+	{ "hideMenuBar", T_INT, offsetof(PDFfile, hideMenuBar), 0, "Hide the viewer menu bar, the PDF will display in a plain window." },
+	{ "fitWindow", T_INT, offsetof(PDFfile, fitWindow), 0, "Fit the document page or pages to the available space in the viewer window." },
 	/** Deprecated members */
-	{const_cast<char*>("aprint"), T_INT, offsetof(PDFfile, allowPrinting), 0, const_cast<char*>("Deprecated. Use 'allowPrinting' instead.")},
-	{const_cast<char*>("achange"), T_INT, offsetof(PDFfile, allowChange), 0, const_cast<char*>("Deprecated. Use 'allowChange' instead.")},
-	{const_cast<char*>("acopy"), T_INT, offsetof(PDFfile, allowCopy), 0, const_cast<char*>("Deprecated. Use 'allowCopy' instead.")},
-	{const_cast<char*>("aanot"), T_INT, offsetof(PDFfile, allowAnnots), 0, const_cast<char*>("Deprecated. Use 'allowAnnots' instead.")},
-	{nullptr, 0, 0, 0, nullptr} // sentinel
+	{ "aprint", T_INT, offsetof(PDFfile, allowPrinting), 0, "Deprecated. Use 'allowPrinting' instead." },
+	{ "achange", T_INT, offsetof(PDFfile, allowChange), 0, "Deprecated. Use 'allowChange' instead." },
+	{ "acopy", T_INT, offsetof(PDFfile, allowCopy), 0, "Deprecated. Use 'allowCopy' instead." },
+	{ "aanot", T_INT, offsetof(PDFfile, allowAnnots), 0, "Deprecated. Use 'allowAnnots' instead." },
+	{ nullptr, 0, 0, 0, nullptr } // sentinel
 };
 
 
@@ -1345,24 +1344,24 @@ static char *lpival_doc = const_cast<char*>(
 "Be careful when supplying these values as they\nare not checked for validity.");
 
 static PyGetSetDef PDFfile_getseters [] = {
-	{const_cast<char*>("file"), (getter)PDFfile_getfile, (setter)PDFfile_setfile, const_cast<char*>("Name of file to save into"), nullptr},
-	{const_cast<char*>("fontEmbedding"), (getter)PDFfile_getFontEmbeddingMode, (setter)PDFfile_setFontEmbeddingMode, const_cast<char*>("Font embedding mode.\n\tValue must be one of integers: 0 (Embed), 1 (Outline), 2 (No embedding)."), nullptr},
-	{const_cast<char*>("fonts"), (getter)PDFfile_getfonts, (setter)PDFfile_setfonts, const_cast<char*>("List of fonts to embed."), nullptr},
-	{const_cast<char*>("subsetList"), (getter)PDFfile_getSubsetList, (setter)PDFfile_setSubsetList, const_cast<char*>("List of fonts to subsetted."), nullptr},
-	{const_cast<char*>("pages"), (getter)PDFfile_getpages, (setter)PDFfile_setpages, const_cast<char*>("List of pages to print"), nullptr},
-	{const_cast<char*>("resolution"), (getter)PDFfile_getresolution, (setter)PDFfile_setresolution, const_cast<char*>("Resolution of output file. Values from 35 to 4000."), nullptr},
-	{const_cast<char*>("downsample"), (getter)PDFfile_getdownsample, (setter)PDFfile_setdownsample, const_cast<char*>("Downsample image resolusion to this value. Values from 35 to 4000\nSet 0 for not to downsample"), nullptr},
-	{const_cast<char*>("effval"), (getter)PDFfile_geteffval, (setter)PDFfile_seteffval, effval_doc, nullptr},
-	{const_cast<char*>("lpival"), (getter)PDFfile_getlpival, (setter)PDFfile_setlpival, lpival_doc, nullptr},
-	{const_cast<char*>("owner"), (getter)PDFfile_getowner, (setter)PDFfile_setowner, const_cast<char*>("Owner's password"), nullptr},
-	{const_cast<char*>("user"), (getter)PDFfile_getuser, (setter)PDFfile_setuser, const_cast<char*>("User's password"), nullptr},
-	{const_cast<char*>("solidpr"), (getter)PDFfile_getsolidpr, (setter)PDFfile_setsolidpr, const_cast<char*>("Color profile for solid colors"), nullptr},
-	{const_cast<char*>("imagepr"), (getter)PDFfile_getimagepr, (setter)PDFfile_setimagepr, const_cast<char*>("Color profile for images"), nullptr},
-	{const_cast<char*>("printprofc"), (getter)PDFfile_getprintprofc, (setter)PDFfile_setprintprofc, const_cast<char*>("Output profile for printing. If possible, get some guidance from your printer on profile selection."), nullptr},
-	{const_cast<char*>("info"), (getter)PDFfile_getinfo, (setter)PDFfile_setinfo, const_cast<char*>("Mandatory string for PDF/X or the PDF will fail\nPDF/X conformance. We recommend you use the title of the document."), nullptr},
-	{const_cast<char*>("rotateDeg"), (getter)PDFfile_getRotateDeg, (setter)PDFfile_setRotateDeg, const_cast<char*>("Automatically rotate the exported pages\n\tValue must be one of integers: 0, 90, 180 or 270"), nullptr},
-	{const_cast<char*>("openAction"), (getter)PDFfile_getopenAction, (setter)PDFfile_setopenAction, const_cast<char*>("Javascript to be executed when PDF document is opened."), nullptr},
-	{nullptr, nullptr, nullptr, nullptr, nullptr}  // sentinel
+	{ "file", (getter) PDFfile_getfile, (setter) PDFfile_setfile, "Name of file to save into", nullptr},
+	{ "fontEmbedding", (getter) PDFfile_getFontEmbeddingMode, (setter) PDFfile_setFontEmbeddingMode, "Font embedding mode.\n\tValue must be one of integers: 0 (Embed), 1 (Outline), 2 (No embedding).", nullptr},
+	{ "fonts", (getter) PDFfile_getfonts, (setter) PDFfile_setfonts, "List of fonts to embed.", nullptr},
+	{ "subsetList", (getter) PDFfile_getSubsetList, (setter) PDFfile_setSubsetList, "List of fonts to subsetted.", nullptr},
+	{ "pages", (getter) PDFfile_getpages, (setter) PDFfile_setpages, "List of pages to print", nullptr},
+	{ "resolution", (getter) PDFfile_getresolution, (setter) PDFfile_setresolution, "Resolution of output file. Values from 35 to 4000.", nullptr},
+	{ "downsample", (getter) PDFfile_getdownsample, (setter) PDFfile_setdownsample, "Downsample image resolusion to this value. Values from 35 to 4000\nSet 0 for not to downsample", nullptr},
+	{ "effval", (getter) PDFfile_geteffval, (setter) PDFfile_seteffval, effval_doc, nullptr},
+	{ "lpival", (getter) PDFfile_getlpival, (setter) PDFfile_setlpival, lpival_doc, nullptr},
+	{ "owner", (getter) PDFfile_getowner, (setter) PDFfile_setowner, "Owner's password", nullptr},
+	{ "user", (getter) PDFfile_getuser, (setter) PDFfile_setuser, "User's password", nullptr},
+	{ "solidpr", (getter) PDFfile_getsolidpr, (setter) PDFfile_setsolidpr, "Color profile for solid colors", nullptr},
+	{ "imagepr", (getter) PDFfile_getimagepr, (setter) PDFfile_setimagepr, "Color profile for images", nullptr},
+	{ "printprofc", (getter) PDFfile_getprintprofc, (setter) PDFfile_setprintprofc, "Output profile for printing. If possible, get some guidance from your printer on profile selection.", nullptr},
+	{ "info", (getter) PDFfile_getinfo, (setter) PDFfile_setinfo, "Mandatory string for PDF/X or the PDF will fail\nPDF/X conformance. We recommend you use the title of the document.", nullptr},
+	{ "rotateDeg", (getter) PDFfile_getRotateDeg, (setter) PDFfile_setRotateDeg, "Automatically rotate the exported pages\n\tValue must be one of integers: 0, 90, 180 or 270", nullptr},
+	{ "openAction", (getter) PDFfile_getopenAction, (setter) PDFfile_setopenAction, "Javascript to be executed when PDF document is opened.", nullptr},
+	{ nullptr, nullptr, nullptr, nullptr, nullptr }  // sentinel
 };
 
 static PyObject *PDFfile_save(PDFfile *self)
@@ -1668,13 +1667,13 @@ static PyObject *PDFfile_save(PDFfile *self)
 }
 
 static PyMethodDef PDFfile_methods[] = {
-	{const_cast<char*>("save"), (PyCFunction)PDFfile_save, METH_NOARGS, pdffile_save__doc__},
-	{nullptr, (PyCFunction)(nullptr), 0, nullptr} // sentinel
+	{ "save", (PyCFunction)PDFfile_save, METH_NOARGS, pdffile_save__doc__ },
+	{ nullptr, (PyCFunction)(nullptr), 0, nullptr } // sentinel
 };
 
 PyTypeObject PDFfile_Type = {
 	PyVarObject_HEAD_INIT(nullptr, 0) // PyObject_VAR_HEAD	      //
-	const_cast<char*>("scribus.PDFfile"), // char *tp_name; /* For printing, in format "<module>.<name>" */
+	"scribus.PDFfile", // const char *tp_name; /* For printing, in format "<module>.<name>" */
 	sizeof(PDFfile),     // int tp_basicsize, /* For allocation */
 	0,		    // int tp_itemsize; /* For allocation */
 
@@ -1761,7 +1760,7 @@ PyTypeObject PDFfile_Type = {
 	nullptr, //deprecated tp_print
 #endif
 #if PY_VERSION_HEX >= 0x03120000
-	0, // char tp_watched
+	0, // unsigned char tp_watched
 #endif
 
 #if defined(COUNT_ALLOCS) && PY_VERSION_HEX < 0x03090000

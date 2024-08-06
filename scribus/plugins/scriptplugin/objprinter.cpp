@@ -223,15 +223,15 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 }
 
 static PyMemberDef Printer_members[] = {
-	{const_cast<char*>("copies"), T_INT, offsetof(Printer, copies), 0, const_cast<char*>("Number of copies")},
-	{const_cast<char*>("color"), T_INT, offsetof(Printer, color), 0, const_cast<char*>("Print in color.\n\t True - color  --  Default\n\t False - greyscale")},
-	{const_cast<char*>("useICC"), T_INT, offsetof(Printer, useICC), 0, const_cast<char*>("Use ICC Profile\n\tTrue\n\tFalse  --  Default")},
-	{const_cast<char*>("pslevel"), T_INT, offsetof(Printer, prnLang), 0, const_cast<char*>("Deprecated, use prnLanguage instead.")}, // Deprecated
-	{const_cast<char*>("prnLanguage"), T_INT, offsetof(Printer, prnLang), 0, const_cast<char*>("Print Language\nOne of PRNLANG_* constants  -- Default is PRNLANG_POSTSCRIPT3.")},
-	{const_cast<char*>("mph"), T_INT, offsetof(Printer, mph), 0, const_cast<char*>("Mirror Pages Horizontal\n\tTrue\n\tFalse  --  Default")},
-	{const_cast<char*>("mpv"), T_INT, offsetof(Printer, mpv), 0, const_cast<char*>("Mirror Pages Vertical\n\t True\n\tFalse  --  Default")},
-	{const_cast<char*>("ucr"), T_INT, offsetof(Printer, ucr), 0, const_cast<char*>("Apply Under Color Removal\n\tTrue  --  Default\n\tFalse")},
-	{nullptr, 0, 0, 0, nullptr} // sentinel
+	{ "copies", T_INT, offsetof(Printer, copies), 0, "Number of copies" },
+	{ "color", T_INT, offsetof(Printer, color), 0, "Print in color.\n\t True - color  --  Default\n\t False - greyscale" },
+	{ "useICC", T_INT, offsetof(Printer, useICC), 0, "Use ICC Profile\n\tTrue\n\tFalse  --  Default" },
+	{ "pslevel", T_INT, offsetof(Printer, prnLang), 0, "Deprecated, use prnLanguage instead." }, // Deprecated
+	{ "prnLanguage", T_INT, offsetof(Printer, prnLang), 0, "Print Language\nOne of PRNLANG_* constants  -- Default is PRNLANG_POSTSCRIPT3." },
+	{ "mph", T_INT, offsetof(Printer, mph), 0, "Mirror Pages Horizontal\n\tTrue\n\tFalse  --  Default" },
+	{ "mpv", T_INT, offsetof(Printer, mpv), 0, "Mirror Pages Vertical\n\t True\n\tFalse  --  Default" },
+	{ "ucr", T_INT, offsetof(Printer, ucr), 0, "Apply Under Color Removal\n\tTrue  --  Default\n\tFalse" },
+	{ nullptr, 0, 0, 0, nullptr } // sentinel
 };
 
 /* Here begins Getter & Setter functions */
@@ -266,7 +266,7 @@ static int Printer_setprinter(Printer *self, PyObject *value, void * /*closure*/
 	}
 
 	int n = PyList_Size(self->allPrinters);
-	bool same = 0;
+	bool same = false;
 	for (int i = 0; i < n; i++) {
 		if (PyObject_RichCompareBool(value, PyList_GetItem(self->allPrinters, i), Py_EQ) == 1) {
 			same = true;
@@ -386,13 +386,13 @@ static int Printer_setseparation(Printer *self, PyObject *value, void * /*closur
 
 
 static PyGetSetDef Printer_getseters [] = {
-	{const_cast<char*>("allPrinters"), (getter)Printer_getallPrinters, (setter)Printer_setallPrinters, const_cast<char*>("List of installed printers  --  read only"), nullptr},
-	{const_cast<char*>("printer"), (getter)Printer_getprinter, (setter)Printer_setprinter, const_cast<char*>("Name of printer to use.\nDefault is 'File' for printing into file"), nullptr},
-	{const_cast<char*>("file"), (getter)Printer_getfile, (setter)Printer_setfile, const_cast<char*>("Name of file to print into"), nullptr},
-	{const_cast<char*>("cmd"), (getter)Printer_getcmd, (setter)Printer_setcmd, const_cast<char*>("Alternative Printer Command"), nullptr},
-	{const_cast<char*>("pages"), (getter)Printer_getpages, (setter)Printer_setpages, const_cast<char*>("List of pages to be printed"), nullptr},
-	{const_cast<char*>("separation"), (getter)Printer_getseparation, (setter)Printer_setseparation, const_cast<char*>("Print separationl\n\t 'No'  -- Default\n\t 'All'\n\t 'Cyan'\n\t 'Magenta'\n\t 'Yellow'\n\t 'Black'\nBeware of misspelling because check is not performed"), nullptr},
-	{nullptr, nullptr, nullptr, nullptr, nullptr}  // sentinel
+	{ "allPrinters", (getter) Printer_getallPrinters, (setter) Printer_setallPrinters, "List of installed printers  --  read only", nullptr},
+	{ "printer", (getter) Printer_getprinter, (setter) Printer_setprinter, "Name of printer to use.\nDefault is 'File' for printing into file", nullptr},
+	{ "file", (getter) Printer_getfile, (setter) Printer_setfile, "Name of file to print into", nullptr},
+	{ "cmd", (getter) Printer_getcmd, (setter) Printer_setcmd, "Alternative Printer Command", nullptr},
+	{ "pages", (getter) Printer_getpages, (setter) Printer_setpages, "List of pages to be printed", nullptr},
+	{ "separation", (getter) Printer_getseparation, (setter) Printer_setseparation, "Print separationl\n\t 'No'  -- Default\n\t 'All'\n\t 'Cyan'\n\t 'Magenta'\n\t 'Yellow'\n\t 'Black'\nBeware of misspelling because check is not performed", nullptr},
+	{ nullptr, nullptr, nullptr, nullptr, nullptr }  // sentinel
 };
 
 // Here we actually print
@@ -486,13 +486,13 @@ static PyObject *Printer_print(Printer *self)
 }
 
 static PyMethodDef Printer_methods[] = {
-	{const_cast<char*>("printNow"), (PyCFunction)Printer_print, METH_NOARGS, printer_printnow__doc__},
-	{nullptr, (PyCFunction)(nullptr), 0, nullptr} // sentinel
+	{ "printNow", (PyCFunction)Printer_print, METH_NOARGS, printer_printnow__doc__ },
+	{ nullptr, (PyCFunction)(nullptr), 0, nullptr } // sentinel
 };
 
 PyTypeObject Printer_Type = {
 	PyVarObject_HEAD_INIT(nullptr, 0)   // PyObject_VAR_HEAD	 //
-	const_cast<char*>("scribus.Printer"), // char *tp_name; /* For printing, in format "<module>.<name>" */
+	"scribus.Printer", // const char *tp_name; /* For printing, in format "<module>.<name>" */
 	sizeof(Printer),   // int tp_basicsize, /* For allocation */
 	0,		       // int tp_itemsize; /* For allocation */
 
@@ -579,7 +579,7 @@ PyTypeObject Printer_Type = {
 	nullptr, //deprecated tp_print
 #endif
 #if PY_VERSION_HEX >= 0x03120000
-	0, // char tp_watched
+	0, // unsigned char tp_watched
 #endif
 
 #if defined(COUNT_ALLOCS) && PY_VERSION_HEX < 0x03090000
