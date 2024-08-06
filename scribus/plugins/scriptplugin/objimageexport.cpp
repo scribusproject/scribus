@@ -163,14 +163,11 @@ static PyObject *ImageExport_save(ImageExport *self)
 	im.setDotsPerMeterX(dpi);
 
 	QString imgFileName = PyUnicode_asQString(self->name);
-	if (!im.save(imgFileName, PyUnicode_AsUTF8(self->type)))
+	if (!im.save(imgFileName, PyUnicode_AsUTF8(self->type), self->quality))
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-// 	Py_INCREF(Py_True); // return True not None for backward compat
- //	return Py_True;
-//	Py_RETURN_TRUE;
 	return PyBool_FromLong(static_cast<long>(true));
 }
 
@@ -199,20 +196,17 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	im.setDotsPerMeterX(dpi);
 
 	QString outputFileName = QString::fromUtf8(value.c_str());
-	if (!im.save(outputFileName, PyUnicode_AsUTF8(self->type)))
+	if (!im.save(outputFileName, PyUnicode_AsUTF8(self->type), self->quality))
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-// 	Py_INCREF(Py_True); // return True not None for backward compat
- //	return Py_True;
-//	Py_RETURN_TRUE;
 	return PyBool_FromLong(static_cast<long>(true));
 }
 
 static PyMethodDef ImageExport_methods[] = {
-	{const_cast<char*>("save"), (PyCFunction)ImageExport_save, METH_NOARGS, imgexp_save__doc__},
-	{const_cast<char*>("saveAs"), (PyCFunction)ImageExport_saveAs, METH_VARARGS, imgexp_saveas__doc__},
+	{const_cast<char*>("save"), (PyCFunction) ImageExport_save, METH_NOARGS, imgexp_save__doc__},
+	{const_cast<char*>("saveAs"), (PyCFunction) ImageExport_saveAs, METH_VARARGS, imgexp_saveas__doc__},
 	{nullptr, (PyCFunction)(nullptr), 0, nullptr} // sentinel
 };
 
