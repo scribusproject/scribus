@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 void SCRIBUS_API ReOrderText(ScribusDoc *doc, ScribusView *view);
 // end of utils.cpp
 
-typedef struct
+struct Printer
 {
 	PyObject_HEAD
 	PyObject *allPrinters; // list of strings - names of installed printers
@@ -50,7 +50,7 @@ typedef struct
 	int mph; // bool - mirror pages horizontally
 	int mpv; // bool - mirror pages vertically
 	int ucr; // bool - Under Color Removal
-} Printer;
+};
 
 
 static void Printer_dealloc(Printer* self)
@@ -559,7 +559,7 @@ PyTypeObject Printer_Type = {
 	nullptr, //     descrgetfunc tp_descr_get;
 	nullptr, //     descrsetfunc tp_descr_set;
 	0, //     long tp_dictoffset;
-	(initproc)Printer_init, //     initproc tp_init;
+	(initproc) Printer_init, //     initproc tp_init;
 	nullptr, //     allocfunc tp_alloc;
 	Printer_new, //     newfunc tp_new;
 	nullptr, //     freefunc tp_free; /* Low-level free-memory routine */
@@ -578,8 +578,11 @@ PyTypeObject Printer_Type = {
 #if PY_VERSION_HEX >= 0x03080000 && PY_VERSION_HEX < 0x03090000
 	nullptr, //deprecated tp_print
 #endif
-#if PY_VERSION_HEX >= 0x03120000
+#if PY_VERSION_HEX >= 0x030C0000 // Python 3.12
 	0, // unsigned char tp_watched
+#endif
+#if PY_VERSION_HEX >= 0x030D0000 // Python 3.13
+	0, // uint16_t tp_versions_used
 #endif
 
 #if defined(COUNT_ALLOCS) && PY_VERSION_HEX < 0x03090000
