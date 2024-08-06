@@ -58,7 +58,7 @@ struct CheckerPrefs
 	bool checkEmptyTextFrames;
 };
 
-typedef QMap<QString, CheckerPrefs> CheckerPrefsList;
+using CheckerPrefsList = QMap<QString, CheckerPrefs>;
 
 struct VerifierPrefs
 {

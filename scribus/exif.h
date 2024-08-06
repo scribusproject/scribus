@@ -38,7 +38,7 @@ typedef struct
 }
 Section_t;
 */
-typedef unsigned char uchar;
+using uchar = unsigned char;
 
 class TagTable
 {
@@ -57,29 +57,29 @@ class ExifData
 		ExifData() = default;
 
 		bool scan ( const QString & );
-		QString getCameraMake() { return CameraMake; }
-		QString getCameraModel() { return CameraModel; }
-		QString getDateTime() { return DateTime; }
-		int getOrientation() { return Orientation; }
-		int getHeight() { return Height; }
-		int getWidth() { return Width; }
-		int getIsColor() { return IsColor; }
-		int getProcess() { return Process; }
-		int getFlashUsed() { return FlashUsed; }
-		float getFocalLength() { return FocalLength; }
-		float getExposureTime() { return ExposureTime; }
-		float getApertureFNumber() { return ApertureFNumber; }
-		float getDistance() { return Distance; }
-		int getWhitebalance() { return Whitebalance; }
-		int getMeteringMode() { return MeteringMode; }
-		float getCCDWidth() { return CCDWidth; }
-		float getExposureBias() { return ExposureBias; }
-		int getExposureProgram() { return ExposureProgram; }
-		int getISOequivalent() { return ISOequivalent; }
-		int getCompressionLevel() { return CompressionLevel; }
-		QString getUserComment() { return UserComment; }
-		QString getComment() { return Comment; }
-		QImage getThumbnail();
+		QString getCameraMake() const { return CameraMake; }
+		QString getCameraModel() const { return CameraModel; }
+		QString getDateTime() const { return DateTime; }
+		int getOrientation() const { return Orientation; }
+		int getHeight() const { return Height; }
+		int getWidth() const { return Width; }
+		int getIsColor() const { return IsColor; }
+		int getProcess() const { return Process; }
+		int getFlashUsed() const { return FlashUsed; }
+		float getFocalLength() const { return FocalLength; }
+		float getExposureTime() const { return ExposureTime; }
+		float getApertureFNumber() const { return ApertureFNumber; }
+		float getDistance() const { return Distance; }
+		int getWhitebalance() const { return Whitebalance; }
+		int getMeteringMode() const { return MeteringMode; }
+		float getCCDWidth() const { return CCDWidth; }
+		float getExposureBias() const { return ExposureBias; }
+		int getExposureProgram() const { return ExposureProgram; }
+		int getISOequivalent() const { return ISOequivalent; }
+		int getCompressionLevel() const { return CompressionLevel; }
+		QString getUserComment() const { return UserComment; }
+		QString getComment() const { return Comment; }
+		QImage getThumbnail() const;
 		bool isThumbnailSane();
 		bool isNullThumbnail() { return !isThumbnailSane(); }
 

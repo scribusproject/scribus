@@ -206,7 +206,7 @@ protected:
 	PrefsContext* prefs { nullptr };
 
 	/*! \brief Mapping of plugin names to plugin info structures. */
-	typedef QMap<QString,PluginData> PluginMap;
+	using PluginMap = QMap<QString, PluginData>;
 
 	/*! \brief Plugin mapping.
 	 * Each plugin has its record key() -> PluginData

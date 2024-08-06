@@ -928,7 +928,7 @@ bool ExifData::isThumbnailSane()
 // return a thumbnail that respects the orientation flag
 // only if it seems sane
 //--------------------------------------------------------------------------
-QImage ExifData::getThumbnail()
+QImage ExifData::getThumbnail() const
 {
 	if ( Thumbnail.isNull() )
 		return QImage(); // Qt4 NULL->QImage() is it sane?

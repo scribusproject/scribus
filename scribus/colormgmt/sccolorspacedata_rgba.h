@@ -72,11 +72,11 @@ void ScColorSpaceDataTempl_RGBA<T, COLORFORMAT>::flattenAlpha(void* dataIn, uint
 	};
 };
 
-typedef ScColorSpaceDataTempl_RGBA<unsigned char , Format_RGBA_8>  ScColorSpaceData_RGBA8;
-typedef ScColorSpaceDataTempl_RGBA<unsigned short, Format_RGBA_16> ScColorSpaceData_RGBA16;
-typedef ScColorSpaceDataTempl_RGBA<unsigned char , Format_ARGB_8>  ScColorSpaceData_ARGB8;
-typedef ScColorSpaceDataTempl_RGBA<unsigned short, Format_ARGB_16> ScColorSpaceData_ARGB16;
-typedef ScColorSpaceDataTempl_RGBA<unsigned char , Format_BGRA_8>  ScColorSpaceData_BGRA8;
-typedef ScColorSpaceDataTempl_RGBA<unsigned short, Format_BGRA_16> ScColorSpaceData_BGRA16;
+using ScColorSpaceData_RGBA8	= ScColorSpaceDataTempl_RGBA<unsigned char, Format_RGBA_8>;
+using ScColorSpaceData_RGBA16	= ScColorSpaceDataTempl_RGBA<unsigned short, Format_RGBA_16>;
+using ScColorSpaceData_ARGB8	= ScColorSpaceDataTempl_RGBA<unsigned char, Format_ARGB_8>;
+using ScColorSpaceData_ARGB16	= ScColorSpaceDataTempl_RGBA<unsigned short, Format_ARGB_16>;
+using ScColorSpaceData_BGRA8	= ScColorSpaceDataTempl_RGBA<unsigned char, Format_BGRA_8>;
+using ScColorSpaceData_BGRA16	= ScColorSpaceDataTempl_RGBA<unsigned short, Format_BGRA_16>;
 
 #endif

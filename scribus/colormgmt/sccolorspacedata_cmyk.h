@@ -52,9 +52,9 @@ ScColorSpaceDataTempl_CMYK<T, COLORFORMAT>::ScColorSpaceDataTempl_CMYK(ScColorPr
 	}
 };
 
-typedef ScColorSpaceDataTempl_CMYK<unsigned char , Format_CMYK_8>  ScColorSpaceData_CMYK8;
-typedef ScColorSpaceDataTempl_CMYK<unsigned short, Format_CMYK_16> ScColorSpaceData_CMYK16;
-typedef ScColorSpaceDataTempl_CMYK<unsigned char , Format_YMCK_8>  ScColorSpaceData_YMCK8;
-typedef ScColorSpaceDataTempl_CMYK<unsigned short, Format_YMCK_16> ScColorSpaceData_YMCK16;
+using ScColorSpaceData_CMYK8	= ScColorSpaceDataTempl_CMYK<unsigned char, Format_CMYK_8>;
+using ScColorSpaceData_CMYK16	= ScColorSpaceDataTempl_CMYK<unsigned short, Format_CMYK_16>;
+using ScColorSpaceData_YMCK8	= ScColorSpaceDataTempl_CMYK<unsigned char, Format_YMCK_8>;
+using ScColorSpaceData_YMCK16	= ScColorSpaceDataTempl_CMYK<unsigned short, Format_YMCK_16>;
 
 #endif

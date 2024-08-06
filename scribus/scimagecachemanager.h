@@ -41,7 +41,7 @@ class SCRIBUS_API ScImageCacheManager : public QObject
 	Q_OBJECT
 
 public:
-	typedef ScImageCacheDir::AccessCounter AccessCounter;
+	using AccessCounter = ScImageCacheDir::AccessCounter;
 
 	/**
 	* @brief Get image cache manager instance
@@ -157,7 +157,7 @@ private:
 		int count() const { return m_fa.size(); }
 
 	private:
-		typedef QList<ScImageCacheFile *> FAL;
+		using FAL = QList<ScImageCacheFile *> ;
 		FAL m_fa;
 
 		static bool ageLessThan(const ScImageCacheFile *a, const ScImageCacheFile *b);

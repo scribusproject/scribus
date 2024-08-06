@@ -45,8 +45,8 @@ public:
 	bool commit();
 
 private:
-	typedef ScImageCacheDir::AccessCounter AccessCounter;
-	typedef QHash<QString, ScLockedFile *> FileMap;
+	using AccessCounter = ScImageCacheDir::AccessCounter;
+	using FileMap = QHash<QString, ScLockedFile *>;
 	QStringList m_files;
 	FileMap m_access;
 	bool m_locked;

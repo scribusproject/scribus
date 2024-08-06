@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "scribusapi.h"
 
-typedef QList< QPointer<PageItem> > SelectionList;
+using SelectionList = QList< QPointer<PageItem> >;
 
 class SCRIBUS_API Selection : public QObject
 {

@@ -24,8 +24,8 @@
 #include <QString>
 #include <QMap>
 
-typedef QString Xml_string;
-typedef QMap<Xml_string, Xml_string> Xml_attr;
+using Xml_string = QString;
+using Xml_attr = QMap<Xml_string, Xml_string>;
 
 inline Xml_string Xml_key(Xml_attr::iterator& it) { return it.key(); }
 inline Xml_string Xml_data(Xml_attr::iterator& it) { return it.value(); }
@@ -38,8 +38,8 @@ inline Xml_string fromSTLString(const std::string& s) { return QString::fromUtf8
 #include <utility>
 #include <map>
 
-typedef std::string Xml_string;
-typedef std::map<Xml_string, Xml_string> Xml_attr;
+using Xml_string = std::string;
+using Xml_attr = std::map<Xml_string, Xml_string>;
 
 inline Xml_string Xml_key(Xml_attr::iterator& it) { return it->first; }
 inline Xml_string Xml_data(Xml_attr::iterator& it) { return it->second; }

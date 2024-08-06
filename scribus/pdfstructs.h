@@ -17,10 +17,10 @@
 
 class PageItem;
 
-typedef uint PdfId;
+using PdfId = uint;
 
 namespace Pdf {
-	typedef QMap<QByteArray, PdfId> ResourceMap;
+	using ResourceMap = QMap<QByteArray, PdfId>;
 	
 	struct Resource
 	{

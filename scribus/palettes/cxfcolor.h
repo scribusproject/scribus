@@ -34,11 +34,11 @@ public:
 	virtual void reset();
 	
 protected:
-	CxfDocument* m_cxfDoc;
-	const CxfColorSpecification* m_colorSpec;
+	CxfDocument* m_cxfDoc { nullptr };
+	const CxfColorSpecification* m_colorSpec { nullptr };
 };
 
-typedef QSharedPointer<CxfColor> CxfColorShPtr;
+using CxfColorShPtr = QSharedPointer<CxfColor>;
 
 class CxfColorRGB : public CxfColor
 {
@@ -51,10 +51,10 @@ public:
 	double  green() const { return m_values[1]; }
 	double  blue() const  { return m_values[2]; }
 	
-	virtual CxfColorType type() const { return cxfColorRGB; }
+	CxfColorType type() const override { return cxfColorRGB; }
 
-	virtual bool parse(QDomElement& colorElem);
-	virtual void reset();
+	bool parse(QDomElement& colorElem) override;
+	void reset() override;
 	
 protected:
 	double m_maxRange;
@@ -66,7 +66,7 @@ class CxfColorSRGB : public CxfColorRGB
 public:
 	CxfColorSRGB(CxfDocument* cxfDoc);
 
-	virtual CxfColorType type() const { return cxfColorSRGB; }
+	CxfColorType type() const override { return cxfColorSRGB; }
 };
 
 class CxfColorAdobeRGB : public CxfColorRGB
@@ -74,7 +74,7 @@ class CxfColorAdobeRGB : public CxfColorRGB
 public:
 	CxfColorAdobeRGB(CxfDocument* cxfDoc);
 
-	virtual CxfColorType type() const { return cxfColorAdobeRGB; }
+	CxfColorType type() const override { return cxfColorAdobeRGB; }
 };
 
 class CxfColorHTML : public CxfColorRGB
@@ -82,8 +82,8 @@ class CxfColorHTML : public CxfColorRGB
 public:
 	CxfColorHTML(CxfDocument* cxfDoc);
 
-	virtual CxfColorType type() const { return cxfColorHTML; }
-	virtual bool parse(QDomElement& colorElem);
+	CxfColorType type() const override { return cxfColorHTML; }
+	bool parse(QDomElement& colorElem) override;
 };
 
 class CxfColorCMYK : public CxfColor
@@ -96,10 +96,10 @@ public:
 	double  yellow() const  { return m_values[2]; }
 	double  black() const   { return m_values[3]; }
 
-	virtual CxfColorType type() const { return cxfColorCMYK; }
+	CxfColorType type() const override { return cxfColorCMYK; }
 
-	virtual bool parse(QDomElement& colorElem);
-	virtual void reset();
+	bool parse(QDomElement& colorElem) override;
+	void reset() override;
 
 protected:
 	double m_values[4];
@@ -114,10 +114,10 @@ public:
 	double  a() const { return m_values[1]; }
 	double  b() const { return m_values[2]; }
 
-	virtual CxfColorType type() const { return cxfColorCIELab; }
+	CxfColorType type() const override { return cxfColorCIELab; }
 
-	virtual bool parse(QDomElement& colorElem);
-	virtual void reset();
+	bool parse(QDomElement& colorElem) override;
+	void reset() override;
 
 protected:
 	double m_values[3];
@@ -134,10 +134,10 @@ public:
 
 	ScLab lab() const;
 
-	virtual CxfColorType type() const { return cxfColorCIELCh; }
+	CxfColorType type() const override { return cxfColorCIELCh; }
 
-	virtual bool parse(QDomElement& colorElem);
-	virtual void reset();
+	bool parse(QDomElement& colorElem) override;
+	void reset() override;
 
 protected:
 	double m_values[3];
@@ -154,10 +154,10 @@ public:
 
 	ScLab lab() const;
 
-	virtual CxfColorType type() const { return cxfColorCIELCh; }
+	CxfColorType type() const override { return cxfColorCIELCh; }
 
-	virtual bool parse(QDomElement& colorElem);
-	virtual void reset();
+	bool parse(QDomElement& colorElem) override;
+	void reset() override;
 
 protected:
 	double m_values[3];
@@ -169,10 +169,10 @@ public:
 	CxfReflectanceSpectrum(CxfDocument* cxfDoc);
 
 	const QVector<double>& values() const { return m_values; }
-	virtual CxfColorType type() const { return cxfReflectanceSpectrum; }
+	CxfColorType type() const override { return cxfReflectanceSpectrum; }
 
-	virtual bool parse(QDomElement& colorElem);
-	virtual void reset();
+	bool parse(QDomElement& colorElem) override;
+	void reset() override;
 
 	int wavelengthStart() const;
 	int wavelengthIncrement() const;

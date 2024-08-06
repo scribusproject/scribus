@@ -43,7 +43,7 @@ ScColorSpaceDataTempl_RGB<T, COLORFORMAT>::ScColorSpaceDataTempl_RGB(ScColorProf
 	}
 };
 
-typedef ScColorSpaceDataTempl_RGB<unsigned char , Format_RGB_8>  ScColorSpaceData_RGB8;
-typedef ScColorSpaceDataTempl_RGB<unsigned short, Format_RGB_16> ScColorSpaceData_RGB16;
+using ScColorSpaceData_RGB8		= ScColorSpaceDataTempl_RGB<unsigned char, Format_RGB_8>;
+using ScColorSpaceData_RGB16	= ScColorSpaceDataTempl_RGB<unsigned short, Format_RGB_16>;
 
 #endif

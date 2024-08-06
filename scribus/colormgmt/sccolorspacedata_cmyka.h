@@ -60,7 +60,7 @@ void ScColorSpaceDataTempl_CMYKA<T, COLORFORMAT>::flattenAlpha(void* dataIn, uin
 	};
 };
 
-typedef ScColorSpaceDataTempl_CMYKA<unsigned char , Format_CMYKA_8>  ScColorSpaceData_CMYKA8;
-typedef ScColorSpaceDataTempl_CMYKA<unsigned short, Format_CMYKA_16> ScColorSpaceData_CMYKA16;
+using ScColorSpaceData_CMYKA8	= ScColorSpaceDataTempl_CMYKA<unsigned char, Format_CMYKA_8>;
+using ScColorSpaceData_CMYKA16	= ScColorSpaceDataTempl_CMYKA<unsigned short, Format_CMYKA_16>;
 
 #endif

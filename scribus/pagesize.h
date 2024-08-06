@@ -35,7 +35,7 @@ struct PageSizeInfo
 	int pageUnitIndex;
 };
 
-typedef QMap<QString, PageSizeInfo> PageSizeInfoMap;
+using PageSizeInfoMap = QMap<QString, PageSizeInfo>;
 
 class SCRIBUS_API PageSize
 {

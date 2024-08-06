@@ -40,7 +40,7 @@ class ScImageCacheDir : public QObject
 	Q_OBJECT
 
 public:
-	typedef unsigned int AccessCounter;
+	using AccessCounter = unsigned int;
 
 	ScImageCacheDir(const QString& dir, ScImageCacheDir* parent = nullptr, bool scanFiles = false, const QStringList & suffixList = QStringList());
 	~ScImageCacheDir();
@@ -64,8 +64,8 @@ signals:
 	void fileRemoved(ScImageCacheFile * file);
 
 private:
-	typedef QHash<QString, ScImageCacheDir *> DirMap;
-	typedef QHash<QString, ScImageCacheFile *> FileMap;
+	using DirMap = QHash<QString, ScImageCacheDir*>;
+	using FileMap = QHash<QString, ScImageCacheFile*>;
 
 	void scan();
 	bool addDir(ScImageCacheDir *dir);

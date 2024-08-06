@@ -23,7 +23,7 @@ struct ObjectAttribute
 	QString autoaddto;
 };
 
-typedef QList<ObjectAttribute> ObjAttrVector;
+using ObjAttrVector = QList<ObjectAttribute>;
 
 enum TOCPageLocation { Beginning, End, NotShown };
 
@@ -39,7 +39,7 @@ struct ToCSetup
 	//QString pageNumberParaStyle; //Paragraph style for page numbers
 };
 
-typedef QList<ToCSetup> ToCSetupVector;
+using ToCSetupVector = QList<ToCSetup>;
 
 struct DocumentSection
 {
@@ -85,7 +85,7 @@ struct DocumentSection
 	}
 };
 
-typedef QMap<uint, DocumentSection> DocumentSectionMap;
+using DocumentSectionMap = QMap<uint, DocumentSection>;
 
 enum PageLayout
 {
