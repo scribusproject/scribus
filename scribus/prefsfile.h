@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "prefscontext.h"
 
-typedef QMap<QString, PrefsContext*> ContextMap;
+using ContextMap = QMap<QString, PrefsContext *>;
 
 class SCRIBUS_API PrefsFile
 {

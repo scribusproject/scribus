@@ -24,7 +24,7 @@ public:
 	FA_base(const std::set<STATE>& states, const std::set<INPUT>& inputs, STATE start, STATE deflt);
 	virtual ~FA_base();
 
-	typedef std::map<INPUT, OUTPUT> Transitions;
+	using Transitions = std::map<INPUT, OUTPUT>;
 
 	const std::set<STATE>& states() const;
 	const std::set<INPUT>& inputs() const;

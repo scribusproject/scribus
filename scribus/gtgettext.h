@@ -68,6 +68,21 @@ struct ImportSetup
 */
 class SCRIBUS_API gtGetText
 {
+public:
+	gtGetText(ScribusDoc* doc);		 // Constructor
+
+	QStringList getSupportedTypes(); // get all Fileextensions we support
+	ImportSetup run(); // Creates the dialog for the user to import a file based on the supported file formats.
+	void launchImporter(int importer,
+		const QString& filename,
+		bool textOnly,
+		const QString& encoding,
+		bool append,
+		bool prefix,
+		PageItem* target = nullptr);
+	// Look at the results of the file selection dialog and figure out if you need to use an importer.
+	// Prompt the user if the importer to use isn't obvious.
+
 private:
 	std::vector<ImporterData> m_importers; // Vector of the loaded importers
 	QMap<QString, ImporterData *>
@@ -86,23 +101,10 @@ private:
 	// Loads the "DLL", validates the importer is good, populates the passed parameters with
 	// the plugin information.
 	void createMap();			// Create the importer Qmap.
-	gtDialogs *m_dias {nullptr}; // File Selection Dialog pointer.
-	QStringList m_ilist;		// List of supported importers, used with dialogs
-	ScribusDoc *m_Doc;			// Which document are we working with.
-public:
-	gtGetText(ScribusDoc *doc);		 // Constructor
-	~gtGetText();					 // Destructor
-	QStringList getSupportedTypes(); // get all Fileextensions we support
-	ImportSetup run(); // Creates the dialog for the user to import a file based on the supported file formats.
-	void launchImporter(int importer,
-						const QString &filename,
-						bool textOnly,
-						const QString &encoding,
-						bool append,
-						bool prefix,
-						PageItem *target = nullptr);
-	// Look at the results of the file selection dialog and figure out if you need to use an importer.
-	// Prompt the user if the importer to use isn't obvious.
+
+	gtDialogs *m_dias {nullptr};	// File Selection Dialog pointer.
+	QStringList m_ilist;			// List of supported importers, used with dialogs
+	ScribusDoc *m_Doc { nullptr };	// Which document are we working with.
 };
 
 #endif

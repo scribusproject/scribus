@@ -43,6 +43,6 @@ ScColorSpaceDataTempl_LabDbl<T, COLORFORMAT>::ScColorSpaceDataTempl_LabDbl(ScCol
 	}
 };
 
-typedef ScColorSpaceDataTempl_LabDbl<char, Format_Lab_Dbl>  ScColorSpaceData_LabD;
+using ScColorSpaceData_LabD = ScColorSpaceDataTempl_LabDbl<char, Format_Lab_Dbl>;
 
 #endif

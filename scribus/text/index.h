@@ -15,7 +15,7 @@
 #include <vector>
 #include <QList>
 
-typedef unsigned int uint;
+using uint = unsigned int;
 
 /**
  * Holds track of an ordered set of integers, e.g. positions of inline frames within a text.

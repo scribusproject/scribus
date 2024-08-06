@@ -24,8 +24,8 @@
 
 namespace cff {
 	
-	typedef quint16 sid_type;
-	typedef uint operator_type;
+	using sid_type = quint16;
+	using operator_type = uint;
 	
 	enum sid_range {
 		sid_min = 0,

@@ -51,7 +51,7 @@ class gtParagraphStyle;
 class gtFont;
 class gtFrameStyle;
 
-typedef QMap<QString, QString> FontFamilyMap;
+using FontFamilyMap = QMap<QString, QString>;
 
 class SCRIBUS_API gtAction
 {

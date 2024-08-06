@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 class QAction;
 
 
-typedef std::pair<nfttemplate*, QListWidgetItem*> ListItem;
+using ListItem = std::pair<nfttemplate*, QListWidgetItem*>;
 
 
 class nftwidget: public QWidget, public Ui::nftwidget

@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScribusDoc;
 
-typedef QMap<QString,QString> ProfilesL;
+using ProfilesL = QMap<QString, QString>;
 
 class SCRIBUS_API Prefs_ColorManagement : public Prefs_Pane, Ui::Prefs_ColorManagement
 {

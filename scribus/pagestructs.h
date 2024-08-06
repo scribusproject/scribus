@@ -23,7 +23,7 @@ struct ObjectAttribute
 	QString autoaddto;
 };
 
-typedef QList<ObjectAttribute> ObjAttrVector;
+using ObjAttrVector = QList<ObjectAttribute>;
 
 enum TOCPageLocation { Beginning, End, NotShown };
 
@@ -51,7 +51,7 @@ struct ToCSetup
 	QList<ToCSetupEntryStyleData> entryData;
 };
 
-typedef QList<ToCSetup> ToCSetupVector;
+using ToCSetupVector = QList<ToCSetup>;
 
 struct IndexSetup
 {
@@ -70,7 +70,7 @@ struct IndexSetup
 
 };
 
-typedef QList<IndexSetup> IndexSetupVector;
+using IndexSetupVector = QList<IndexSetup>;
 
 struct DocumentSection
 {
@@ -116,7 +116,7 @@ struct DocumentSection
 	}
 };
 
-typedef QMap<uint, DocumentSection> DocumentSectionMap;
+using DocumentSectionMap = QMap<uint, DocumentSection>;
 
 enum PageLayout
 {

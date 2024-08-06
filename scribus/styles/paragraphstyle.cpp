@@ -350,7 +350,7 @@ ParagraphStyle::LineSpacingMode parse<ParagraphStyle::LineSpacingMode>(const Xml
 }
 
 
-typedef QList<ParagraphStyle::TabRecord> Tablist;
+using Tablist = QList<ParagraphStyle::TabRecord>;
 
 template<>
 Tablist parse<Tablist>(const Xml_string& str)
@@ -365,7 +365,7 @@ const Xml_string ParagraphStyle::saxxDefaultElem("style");
 
 void ParagraphStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, const Xml_string& elemtag)
 {
-	typedef ParagraphStyle::TabRecord TabRecord;
+	using TabRecord = ParagraphStyle::TabRecord;
 		
 	Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
 	ruleset.addRule(stylePrefix, Factory<ParagraphStyle>());

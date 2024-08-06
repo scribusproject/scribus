@@ -29,7 +29,7 @@ ScColorSpaceDataTempl_Gray<T, COLORFORMAT>::ScColorSpaceDataTempl_Gray(ScColorPr
 	}
 };
 
-typedef ScColorSpaceDataTempl_Gray<unsigned char , Format_GRAY_8>  ScColorSpaceData_GRAY8;
-typedef ScColorSpaceDataTempl_Gray<unsigned short, Format_GRAY_16> ScColorSpaceData_GRAY16;
+using ScColorSpaceData_GRAY8	= ScColorSpaceDataTempl_Gray<unsigned char, Format_GRAY_8>;
+using ScColorSpaceData_GRAY16	= ScColorSpaceDataTempl_Gray<unsigned short, Format_GRAY_16>;
 
 #endif

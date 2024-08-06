@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "langdef.h"
 #include "scribusapi.h"
 
-typedef std::pair<QString, QString> langPair;
+using langPair = std::pair<QString, QString>;
 
 class SCRIBUS_API LanguageManager
 {

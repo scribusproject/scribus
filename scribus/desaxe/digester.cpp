@@ -21,13 +21,13 @@
 
 namespace desaxe {
 
-typedef std::pair<Xml_string, Action> rule_t;
+using rule_t = std::pair<Xml_string, Action>;
 
-typedef unsigned short token_t;
-typedef std::vector<token_t> path_t;
+using token_t = unsigned short;
+using path_t = std::vector<token_t>;
 enum special_token { EMPTY = 0, START = 1, ANY = 2, REPEAT = 3 } ;
 
-typedef unsigned short nfa_state_t;
+using nfa_state_t = unsigned short;
 
 struct DFA_State
 {
@@ -37,7 +37,7 @@ struct DFA_State
 	DFA_State() : ID(0) {}
 };
 
-typedef DFA_State* dfa_state_t;
+using dfa_state_t = DFA_State*;
 
 
 /**

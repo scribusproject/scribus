@@ -84,16 +84,16 @@ public:
 		// handled by freetype:	PFB_MAC, DFONT, HQX, MACBIN,
 		SFNT, TTCF, UNKNOWN_FORMAT };
 
-	typedef uint cid_type;
-	typedef uint gid_type;
-	typedef uint ucs4_type;
+	using cid_type = uint;
+	using gid_type = uint;
+	using ucs4_type = uint;
 	struct GlyphEncoding
 	{
 		ucs4_type charcode {0};
 		QString glyphName;
 		QString toUnicode {"0000"};
 	};
-	typedef QMap<gid_type, GlyphEncoding> FaceEncoding;
+	using FaceEncoding = QMap<gid_type, GlyphEncoding>;
 
 	static const gid_type CONTROL_GLYPHS = 2000000000; // 2 billion
 

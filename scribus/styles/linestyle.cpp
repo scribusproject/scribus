@@ -184,7 +184,7 @@ bool LineStyle::inheritsAll() const
 }
 */
 
-typedef QList<LineStyle> Sublist;
+using Sublist = QList<LineStyle>;
 
 static QString toXMLString(const Sublist & )
 {

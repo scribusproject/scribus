@@ -58,6 +58,6 @@ void ScColorSpaceDataTempl_LabA<T, COLORFORMAT>::flattenAlpha(void* dataIn, uint
 	};
 };
 
-typedef ScColorSpaceDataTempl_LabA<char, Format_LabA_8>  ScColorSpaceData_LabA8;
+using ScColorSpaceData_LabA8 = ScColorSpaceDataTempl_LabA<char, Format_LabA_8>;
 
 #endif

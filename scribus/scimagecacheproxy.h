@@ -137,7 +137,7 @@ public:
 
 private:
 	// Don't turn this into a QHash, element order is important
-	typedef QMap<QString, QString> MetaMap;
+	using MetaMap = QMap<QString, QString>;
 
 	const QString m_filename;
 	const bool m_isEnabled;

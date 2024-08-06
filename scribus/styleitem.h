@@ -19,11 +19,11 @@ class QTabWidget;
 
 /** RemoveItem.first will be the style to remove and RemoveItem.second
  *  will be the one used in place of the deleted style */
-typedef QPair<QString, QString> RemoveItem;
+using RemoveItem = QPair<QString, QString>;
 
 /** StyleName.first is the name of the style and StyleName.second is the
  *  name of the parent style or QString() if there's no parent for this style */
-typedef QPair<QString, QString> StyleName;
+using StyleName = QPair<QString, QString>;
 
 /**
  * @brief Represents a style type that can be added to the Style Manager
