@@ -54,7 +54,7 @@ class CanvasMode_EditGradient :  public CanvasMode
 
 	private:
 
-		typedef enum
+		enum eGradientPoint
 		{
 			noPointDefined,
 			useGradientStart,
@@ -66,7 +66,7 @@ class CanvasMode_EditGradient :  public CanvasMode
 			useControl3,
 			useControl4,
 			useControl5
-		} eGradientPoint;
+		};
 
 		inline bool GetItem(PageItem** pi);
 

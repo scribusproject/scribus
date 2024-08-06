@@ -61,14 +61,14 @@ public:
 
 private:
 
-	typedef enum 
+	enum ePolygonPoint
 	{
 		noPointDefined,
 		useControlOuter,
 		useControlInner,
 		useControlInnerCurve,
 		useControlOuterCurve
-	} ePolygonPoint;
+	};
 
 	inline bool GetItem(PageItem** pi);
 	double GetZeroFactor();

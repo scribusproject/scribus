@@ -199,11 +199,11 @@ class ColorWheel : public QLabel
 		\retval int index in the colorMap */
 		int valueFromPoint(const QPoint & p) const;
 
-		typedef struct
+		struct PaintPoint
 		{
 			int angle;
 			bool base;
-		} PaintPoint;
+		};
 		QList<PaintPoint> pointList;
 };
 

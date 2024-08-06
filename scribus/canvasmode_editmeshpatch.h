@@ -61,16 +61,17 @@ class CanvasMode_EditMeshPatch :  public CanvasMode
 
 	private:
 		void snapToOtherPatch(double &x, double &y);
-		typedef enum
+
+		enum eMPatchPoint
 		{
 			noPointDefined,
 			useTL,
 			useTR,
 			useBR,
 			useBL
-		} eMPatchPoint;
+		};
 
-		typedef enum
+		enum eMGradientPoint
 		{
 			noControlPointDefined,
 			useControlT,
@@ -78,7 +79,7 @@ class CanvasMode_EditMeshPatch :  public CanvasMode
 			useControlL,
 			useControlR,
 			useControlC
-		} eMGradientPoint;
+		};
 
 		inline bool GetItem(PageItem** pi);
 

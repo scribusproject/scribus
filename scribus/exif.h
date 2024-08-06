@@ -20,12 +20,12 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 #include <QImage>
 
-typedef enum
+enum ReadMode_t
 {
 	READ_EXIF = 1,
 	READ_IMAGE = 2,
 	READ_ALL = 3
-} ReadMode_t;
+};
 
 //--------------------------------------------------------------------------
 // This structure is used to store jpeg file sections in memory.

@@ -61,14 +61,14 @@ public:
 
 private:
 
-	typedef enum 
+	enum eArcPoint
 	{
 		noPointDefined,
 		useControlStart,
 		useControlSweep,
 		useControlHeight,
 		useControlWidth
-	} eArcPoint;
+	};
 
 	inline bool GetItem(PageItem** pi);
 

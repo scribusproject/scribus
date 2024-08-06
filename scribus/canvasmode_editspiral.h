@@ -61,12 +61,12 @@ public:
 
 private:
 
-	typedef enum 
+	enum eSpiralPoint
 	{
 		noPointDefined,
 		useControlStart,
 		useControlEnd,
-	} eSpiralPoint;
+	};
 
 	inline bool GetItem(PageItem** pi);
 	QPointF getSegment(double angle);

@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API ScPaths
 {
 public:
-	typedef enum {Hyph, Spell} DictType;
+	enum DictType { Hyph, Spell } ;
 
 	/**
 	 * @brief Get a reference to the ScPaths instance
