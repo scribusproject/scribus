@@ -279,7 +279,7 @@ PyTypeObject ImageExport_Type = {
 	nullptr, //	 descrgetfunc tp_descr_get;
 	nullptr, //	 descrsetfunc tp_descr_set;
 	0, //	 long tp_dictoffset;
-	(initproc)ImageExport_init, //	 initproc tp_init;
+	(initproc) ImageExport_init, //	 initproc tp_init;
 	nullptr, //	 allocfunc tp_alloc;
 	ImageExport_new, //	 newfunc tp_new;
 	nullptr, //	 freefunc tp_free; /* Low-level free-memory routine */
@@ -298,8 +298,11 @@ PyTypeObject ImageExport_Type = {
 #if PY_VERSION_HEX >= 0x03080000 && PY_VERSION_HEX < 0x03090000
 	nullptr, // deprecated tp_print
 #endif
-#if PY_VERSION_HEX >= 0x03120000
+#if PY_VERSION_HEX >= 0x030C0000 // Python 3.12
 	0, // unsigned char tp_watched
+#endif
+#if PY_VERSION_HEX >= 0x030D0000 // Python 3.13
+	0, // uint16_t tp_versions_used
 #endif
 
 #if defined(COUNT_ALLOCS) && PY_VERSION_HEX < 0x03090000
