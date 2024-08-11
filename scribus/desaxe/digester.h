@@ -57,16 +57,15 @@ namespace PRIVATE {
 	void chkcell(const VarPtr& cell, std::vector<VarPtr>* stack = nullptr)
 	{
 		ObjType* dummy = nullptr;
-		if( cell.type != typeid(dummy).name() )
+		if (cell.type != typeid(dummy).name())
 		{
 			std::cerr << "requested type '" << typeid(dummy).name() << "' doesn't match cell type '" << cell.type << "'\n";
 			if (stack)
 			{
-				int i=0;
-				std::vector<VarPtr>::iterator it;
-				for (it = stack->begin(); it != stack->end(); ++it)
+				int i = 0;
+				for (auto it = stack->begin(); it != stack->end(); ++it)
 				{
-					std::cerr << i++ << "\t" << (*it).type << "\t" << (*it).ptr << "\n";
+					std::cerr << i++ << "\t" << it->type << "\t" << it->ptr << "\n";
 				}
 			}
 			assert (false);
@@ -82,7 +81,7 @@ public:
 	Patch* next { nullptr };
 	Patch(Patch* nxt) : next(nxt) {}
 
-	virtual void run(VarPtr lnk) = 0;
+	virtual void run(const VarPtr& lnk) = 0;
 	virtual ~Patch() {}
 };
 
@@ -102,7 +101,8 @@ class Digester : public SaxHandler {
 public:
 	Digester();
 	Digester& operator=(const Digester& other);
-	virtual ~Digester();
+	~Digester() override;
+
 	void reset();
 	void addRule(const Xml_string& pattern, Action action);
 
@@ -116,11 +116,11 @@ public:
 	const Xml_string &getError(int i) const;
 
 // called by SAX parser:
-	void beginDoc();
-	void endDoc();
-	void begin(const Xml_string& tag, Xml_attr attr);
-	void end(const Xml_string& tag);
-	void chars(const Xml_string& text);
+	void beginDoc() override;
+	void endDoc() override;
+	void begin(const Xml_string& tag, Xml_attr attr) override;
+	void end(const Xml_string& tag) override;
+	void chars(const Xml_string& text) override;
 
 // used by actions:
 	void fail();
@@ -157,23 +157,17 @@ public:
 	static Xml_string concat(const Xml_string& pattern1, const Xml_string& pattern2);
 
 private:
-	RuleState* 
-		m_state;
+	RuleState* m_state { nullptr };
 
-	std::vector<PRIVATE::VarPtr> 
-		m_objects;
+	std::vector<PRIVATE::VarPtr> m_objects;
 
-	std::map<Xml_string, PRIVATE::VarPtr> 
-		m_storage;
+	std::map<Xml_string, PRIVATE::VarPtr> m_storage;
 
-	std::map<Xml_string, PRIVATE::Patch*>
-		m_patches;
+	std::map<Xml_string, PRIVATE::Patch*> m_patches;
 
-	PRIVATE::VarPtr 
-		m_result_;
+	PRIVATE::VarPtr m_result_;
 
-	std::vector<Xml_string> 
-		m_errors;
+	std::vector<Xml_string> m_errors;
 };
 
 
@@ -245,7 +239,7 @@ void Digester::pop()
 inline
 void Digester::popn(unsigned int number)
 {
-	unsigned int count = (unsigned int) m_objects.size();
+	auto count = (unsigned int) m_objects.size();
 	assert (number <= count);
 	m_objects.resize(count - number);
 }
@@ -269,12 +263,12 @@ namespace PRIVATE {
 	template <class LinkType>
 	struct Patch1 : public Patch
 	{
-		typedef void (*FunType1)(LinkType*);
+		using FunType1 = void (*)(LinkType*);
 		FunType1 fun;
 
 		Patch1(FunType1 fn, Patch* nxt = nullptr) : Patch(nxt), fun(fn) {}
 
-		void run(VarPtr link) 
+		void run(const VarPtr& link) override 
 		{ 
 			fun( static_cast<LinkType*>(link.ptr) ); 
 		}
@@ -284,13 +278,13 @@ namespace PRIVATE {
 	template <class ObjType, class LinkType>
 		struct Patch2 : public Patch
 	{
-		typedef void (ObjType::*FunType2)(LinkType*);
+		using FunType2 = void (ObjType::*)(LinkType *);
 		ObjType* obj { nullptr };
 		FunType2 fun;
 		
 		Patch2(ObjType* ob, FunType2 fn, Patch* nxt = nullptr) : Patch(nxt), obj(ob), fun(fn) {}
 
-		void run(VarPtr link)
+		void run(const VarPtr& link) override
 		{
 			(obj->*fun)( static_cast<LinkType*>(link.ptr) ); 
 		}
@@ -298,7 +292,7 @@ namespace PRIVATE {
 
 
 	inline
-	void runPatches(Patch*& list, VarPtr link)
+	void runPatches(Patch*& list, const VarPtr& link)
 	{
 		while (list)
 		{
@@ -312,8 +306,7 @@ namespace PRIVATE {
 	inline
 	void deletePatches(std::map<Xml_string, Patch*>& patches)
 	{
-		std::map<Xml_string, Patch*>::iterator it;
-		for (it = patches.begin(); it != patches.end(); ++it)
+		for (auto it = patches.begin(); it != patches.end(); ++it)
 		{
 			Patch* list = it->second;
 			while (list)

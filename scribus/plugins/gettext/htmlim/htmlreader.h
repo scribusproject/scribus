@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <gtparagraphstyle.h>
 #include <gtwriter.h>
 
-typedef QMap<QString, QString> HTMLAttributesMap;
+using HTMLAttributesMap = QMap<QString, QString>;
 
 /*! \brief Parse and import a HTML file.
 Supported tags: P, CENTER, BR, A, UL, OL, LI, H1, H2, H3, H4,

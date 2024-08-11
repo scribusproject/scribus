@@ -46,7 +46,7 @@ class BarcodeType
 
 
 //! \brief Type for BC name/BC type mapping.
-typedef QMap<QString, BarcodeType> BarcodeMap;
+using BarcodeMap = QMap<QString, BarcodeType>;
 
 
 /*! \brief Active tasts for BC GUI.
