@@ -35,6 +35,7 @@ public:
 	void setLocked(bool isLocked);
 	void setSizeLocked(bool isLocked);
 	void setRoundRectEnabled(bool enabled);
+	void showFillRule(bool fillRule);
 	void showTextFlowMode(PageItem::TextFlowMode mode);
 
 protected:

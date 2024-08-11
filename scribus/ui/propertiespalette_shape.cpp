@@ -351,7 +351,7 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 	{
 		nonZero->setEnabled(true);
 		evenOdd->setEnabled(true);
-		nonZero->setChecked(!m_item->fillRule);
+		showFillRule(m_item->fillRule);
 	}
 	setLocked(m_item->locked());
 	setSizeLocked(m_item->sizeLocked());
@@ -496,6 +496,14 @@ void PropertiesPalette_Shape::handleNewShape(int f, int c, qreal *vals)
 		m_doc->invalidateAll();
 		m_doc->regionsChanged()->update(QRect());
 	}
+}
+
+void PropertiesPalette_Shape::showFillRule(bool fillRule)
+{
+	if (fillRule)
+		evenOdd->setChecked(fillRule);
+	else
+		nonZero->setChecked(!fillRule);
 }
 
 void PropertiesPalette_Shape::showTextFlowMode(PageItem::TextFlowMode mode)
