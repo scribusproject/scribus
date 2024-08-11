@@ -11,38 +11,38 @@ for which a new license (GPL+exception) is in place.
 #ifndef wmfstruct_h
 #define wmfstruct_h
 
-typedef qint16 WORD16;
-typedef qint32 WORD32;
-typedef qint32 LONG32;
-typedef void* _HANDLE;
+using WORD16 = qint16;
+using WORD32 = qint32;
+using LONG32 = qint32;
+using _HANDLE = void*;
 
-typedef struct _RECT16
+struct RECT16
 {
     WORD16 left;
     WORD16 top;
     WORD16 right;
     WORD16 bottom;
-} RECT16;
+};
 
-typedef struct _RECT32
+struct RECT32
 {
     LONG32 left;
     LONG32 top;
     LONG32 right;
     LONG32 bottom;
-} RECT32;
+};
 
-typedef struct _SIZE16
+struct SIZE16
 {
     WORD16 width;
     WORD16 height;
-} SIZE16;
+};
 
-typedef struct _SIZE32
+struct SIZE32
 {
     LONG32 width;
     LONG32 height;
-} SIZE32;
+};
 
 
 struct WmfEnhMetaHeader

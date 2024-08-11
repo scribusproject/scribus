@@ -81,11 +81,10 @@ AddAttributes::AddAttributes(SaxHandler* delegate, Xml_attr add)
 
 void AddAttributes::begin(const Xml_string& tag, Xml_attr attr)
 {
-	if ( !m_oneshot )
+	if (!m_oneshot)
 	{
 		m_oneshot = true;
-		Xml_attr::iterator it;
-		for (it = attr.begin(); it != attr.end(); ++it)
+		for (auto it = attr.begin(); it != attr.end(); ++it)
 			m_attributes[Xml_key(it)] = Xml_data(it);
 		SaxFilter::begin(tag, m_attributes);
 	}

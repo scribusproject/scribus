@@ -7,17 +7,18 @@
  *
  */
 
-#include <iostream>
-#include <vector>
-#include <map>
-#include <utility>
+#include <cstdint>
 #include <deque>
 #include <functional>
+#include <iostream>
+#include <map>
 #include <set>
+#include <utility>
+#include <vector>
 
-#include "digester.h"
-#include "automata.h"
 #include "actions.h"
+#include "automata.h"
+#include "digester.h"
 
 namespace desaxe {
 
@@ -31,10 +32,10 @@ using nfa_state_t = unsigned short;
 
 struct DFA_State
 {
-	unsigned int ID;
+	unsigned int ID { 0 };
 	std::vector<rule_t> rules;
 
-	DFA_State() : ID(0) {}
+	DFA_State() = default;
 };
 
 using dfa_state_t = DFA_State*;
@@ -74,7 +75,7 @@ private:
 	/// lists the accepting (NFA) states for each rule (same sequence as rules)
 	std::vector<nfa_state_t> accepting;
 	/// the dfa corresponding to the rule patterns
-	automata::DFA<dfa_state_t, token_t> *dfa;
+	automata::DFA<dfa_state_t, token_t> *dfa { nullptr };
 	/// stack of dfa states
 	std::vector<dfa_state_t> stateStack;
 
@@ -88,7 +89,7 @@ private:
 	/// uses rules and createNFA() to create the DFA and assigns rules to states
 	void compileDFA();
 	/// is true after compileDFA has run
-	bool valid;
+	bool valid { false };
 };
 
 
@@ -100,7 +101,8 @@ Digester::Digester()
 }
 
 
-Digester::~Digester() {
+Digester::~Digester()
+{
 	delete m_state;
 	deletePatches(m_patches);
 }
@@ -162,8 +164,7 @@ void Digester::begin(const Xml_string& tag, Xml_attr attr)
 {
 	m_state->open(tag);
 	const std::vector<rule_t>& rules (m_state->rulesForCurrentState());
-	std::vector<rule_t>::const_iterator it;
-	for (it = rules.begin(); it != rules.end(); ++it)
+	for (auto it = rules.begin(); it != rules.end(); ++it)
 	{
 #ifdef DESAXE_DEBUG
 		std::cerr << "B " << it->first.toStdString() << " " << typeid(it->second).name() << "\n";
@@ -175,8 +176,7 @@ void Digester::begin(const Xml_string& tag, Xml_attr attr)
 void Digester::end(const Xml_string& tag)
 {
 	const std::vector<rule_t>& rules (m_state->rulesForCurrentState());
-	std::vector<rule_t>::const_reverse_iterator it;
-	for (it = rules.rbegin(); it != rules.rend(); ++it)
+	for (auto it = rules.rbegin(); it != rules.rend(); ++it)
 	{
 #ifdef DESAXE_DEBUG
 		std::cerr << "E " << it->first.toStdString() << " " << typeid(it->second).name() << "\n";
@@ -189,8 +189,7 @@ void Digester::end(const Xml_string& tag)
 void Digester::chars(const Xml_string& text)
 {
 	const std::vector<rule_t>& rules (m_state->rulesForCurrentState());
-	std::vector<rule_t>::const_iterator it;
-	for (it = rules.begin(); it != rules.end(); ++it)
+	for (auto it = rules.begin(); it != rules.end(); ++it)
 	{
 #ifdef DESAXE_DEBUG
 		std::cerr << "C " << it->first.toStdString() << " " << typeid(it->second).name() << "\n";
@@ -216,10 +215,10 @@ Xml_string Digester::concat(const Xml_string& pattern1, const Xml_string& patter
 }
 
 
-RuleState::RuleState() : dfa(nullptr), valid(false)
+RuleState::RuleState()
 {}
 
-RuleState::RuleState(const RuleState& other) : rules(other.rules), dfa(nullptr), valid(false)
+RuleState::RuleState(const RuleState& other) : rules(other.rules)
 {}
 
 RuleState::~RuleState()
@@ -235,7 +234,7 @@ RuleState::~RuleState()
 
 void RuleState::addRule(const Xml_string& pattern, Action action)
 {
-	rules.push_back(std::pair<Xml_string, Action>(pattern,action));
+	rules.emplace_back(pattern, action);
 	valid = false;
 }
 
@@ -243,8 +242,7 @@ void RuleState::addRule(const Xml_string& pattern, Action action)
 inline
 void RuleState::reset()
 {
-	std::vector<rule_t>::iterator it;
-	for (it = rules.begin(); it != rules.end(); ++it)
+	for (auto it = rules.begin(); it != rules.end(); ++it)
 		it->second.reset();
 	stateStack.clear();
 	if (!valid)
@@ -259,20 +257,20 @@ void RuleState::dump()
 		std::cout << r << ":\t\"" << rules[r].first.toStdString() << "\" accepted in  (" << accepting[r] << ")\n";
 	}
 	std::cout << "\nTokens:\n";
-	for (std::map<Xml_string, token_t>::iterator it = tokens.begin(); it != tokens.end(); ++it) {
+	for (auto it = tokens.begin(); it != tokens.end(); ++it) {
 		std::cout << it->first.toStdString() << ":\t--> " << it->second << "\n";
 	}
 	std::cout << "\nAutomaton:\n";
 	const std::set<dfa_state_t>& states(dfa->states());
 	const std::set<token_t>& inputs(dfa->inputs());
 	std::cout << "STATE";
-	for (std::set<token_t>::const_iterator i = inputs.begin(); i != inputs.end(); ++i) {
+	for (auto i = inputs.begin(); i != inputs.end(); ++i) {
 		std::cout << "\t" << *i;
 	}
 	std::cout << "\tRULES\n\n";
-	for (std::set<dfa_state_t>::const_iterator s = states.begin(); s != states.end(); ++s) {
+	for (auto s = states.begin(); s != states.end(); ++s) {
 		std::cout << (*s)->ID;
-		for (std::set<token_t>::const_iterator i = inputs.begin(); i != inputs.end(); ++i) {
+		for (auto i = inputs.begin(); i != inputs.end(); ++i) {
 			dfa_state_t nstate = dfa->next(*s, *i);
 			std::cout << "\t";
 			if (nstate)
@@ -280,7 +278,7 @@ void RuleState::dump()
 			else
 				std::cout << "--";
 		}
-		for (std::vector<rule_t>::iterator rs=(*s)->rules.begin(); rs!=(*s)->rules.end(); ++rs)
+		for (auto rs = (*s)->rules.begin(); rs != (*s)->rules.end(); ++rs)
 			std::cout << "\t\"" << rs->first.toStdString() << "\"";
 		std::cout << "\n";
 	}
@@ -356,17 +354,17 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 	std::set<nfa_state_t> deflt;
 	deflt.insert(EMPTY);
 
-	NFA<nfa_state_t, token_t> *nfa = new NFA<nfa_state_t, token_t>(START, deflt);
+	auto *nfa = new NFA<nfa_state_t, token_t>(START, deflt);
 
 	nfa->addState(EMPTY);
 	nfa->addInput(ANY);
 	nfa->addTransition(EMPTY, ANY, EMPTY);
 
-	for (unsigned int i = 0; i < rules.size(); ++i)
+	for (const auto& rule : rules)
 	{
-		const std::string currPattern(fromXMLString(rules[i].first));
-		const unsigned int len = currPattern.length();
-		int pos;
+		const std::string currPattern(fromXMLString(rule.first));
+		const size_t len = currPattern.length();
+		std::ptrdiff_t pos;
 		nfa_state_t lastState;
 
 		// determine if this is a start pattern
@@ -424,22 +422,22 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 
 		// copy all transition from EMPTY to all other states
 		const NFA<nfa_state_t, token_t>::Transitions& transFromEmpty(nfa->transitions(EMPTY));
-		std::set<nfa_state_t>::const_iterator it, st;
-		NFA<nfa_state_t, token_t>::Transitions::const_iterator tr;
-		for (it = nfa->states().begin(); it != nfa->states().end(); ++it) {
+		for (auto it = nfa->states().begin(); it != nfa->states().end(); ++it)
+		{
 			if (*it == EMPTY)
 				continue;
-			for (tr = transFromEmpty.begin(); tr != transFromEmpty.end(); ++tr)
-				for (st = tr->second.begin(); st != tr->second.end(); ++st)
+			for (auto tr = transFromEmpty.begin(); tr != transFromEmpty.end(); ++tr)
+				for (auto st = tr->second.begin(); st != tr->second.end(); ++st)
 					nfa->addTransition(*it, tr->first, *st);
 		}
 
 		// ANY transitions
 		const std::set<token_t>& inputs(nfa->inputs());
 		std::set<token_t>::const_iterator tok;
-		for (it = nfa->states().begin(); it != nfa->states().end(); ++it) {
+		for (auto it = nfa->states().begin(); it != nfa->states().end(); ++it)
+		{
 			const std::set<nfa_state_t>& anyStates(nfa->next(*it, ANY));
-			for (st = anyStates.begin(); st != anyStates.end(); ++st)
+			for (auto st = anyStates.begin(); st != anyStates.end(); ++st)
 				for (tok = inputs.begin(); tok != inputs.end(); ++tok)
 					if (*tok != ANY)
 						nfa->addTransition(*it, *tok, *st);
@@ -456,10 +454,10 @@ struct CreateDFAState
 
 	dfa_state_t operator()(const std::set<nfa_state_t>& combination)
 	{
-		dfa_state_t result = new DFA_State();
+		auto* result = new DFA_State();
 		result->ID = n++;
 		result->rules.clear();
-		for (unsigned int i=0; i < rules_.size(); ++i)
+		for (unsigned int i = 0; i < rules_.size(); ++i)
 			if (combination.find(accepting_[i]) != combination.end())
 				result->rules.push_back(rules_[i]);
 		return result;

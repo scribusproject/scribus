@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 class ScribusDoc;
 
 /*! \brief Mapping angle - color in the color wheel */
-typedef QMap<int,ScColor> ColorMap;
+using ColorMap = QMap<int, ScColor>;
 
 /**
 \brief Widget ColorWheel graphically shows a color wheel for color theory.

@@ -22,14 +22,14 @@ extern "C" PLUGIN_API QString FileFormatName();
 extern "C" PLUGIN_API QStringList FileExtensions();
 
 /*! \brief Abiword's internal data types */
-typedef unsigned int UT_uint32;
-typedef unsigned short UT_uint16;
+using UT_uint32 = unsigned int;
+using UT_uint16 = unsigned short;
 
 /*! \brief Define integral type Byte, Word, and DWord to match those on the
 Pilot being 8, 16, and 32 bits, respectively. Max  8-bit unsigned */
-typedef unsigned char Byte;
-typedef UT_uint16 Word;
-typedef UT_uint32 DWord;
+using Byte = unsigned char;
+using Word = UT_uint16;
+using DWord = UT_uint32;
 
 /*! \brief Pilots have a fixed 4K record size */
 #define RECORD_SIZE_MAX	4096

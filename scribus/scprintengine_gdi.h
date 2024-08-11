@@ -61,7 +61,7 @@ protected:
 
 	void resetData(void);
 
-	typedef bool (ScPrintEngine_GDI::*PrintPageFunc) (ScPage* page, const PrintOptions& options, HDC printerDC, cairo_t* context);
+	using PrintPageFunc = bool (ScPrintEngine_GDI::*)(ScPage *, const PrintOptions &, HDC, cairo_t *);
 
 	/*! \brief Print selected pages to a printer or a file
 	\param doc the document whose pages are to be printer

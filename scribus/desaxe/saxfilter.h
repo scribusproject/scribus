@@ -22,13 +22,14 @@ public:
 	SaxFilter(SaxHandler* delegate)        : m_delegate(delegate)  {}
 	void setDelegate(SaxHandler* delegate) { m_delegate = delegate; }
 	SaxHandler* delegate()                 { return m_delegate; }
-	virtual void beginDoc();
-	virtual void endDoc();
-	virtual void begin(const Xml_string& tag, Xml_attr attr);
-	virtual void end(const Xml_string& tag);
-	virtual void chars(const Xml_string& text);
+	void beginDoc() override;
+	void endDoc() override;
+	void begin(const Xml_string& tag, Xml_attr attr) override;
+	void end(const Xml_string& tag) override;
+	void chars(const Xml_string& text) override;
+
 private:
-	SaxHandler* m_delegate;
+	SaxHandler* m_delegate { nullptr };
 };
 
 
@@ -41,14 +42,16 @@ private:
  *     more_output (myhandler);
  *     myhandler.end(keepOpenhandler.opentag());
  */
-class KeepOpen : public SaxFilter {
+class KeepOpen : public SaxFilter
+{
 public:
 	KeepOpen(SaxHandler* delegate);
-	virtual void begin(const Xml_string& tag, Xml_attr attr);
-	virtual void end(const Xml_string& tag);
+	void begin(const Xml_string& tag, Xml_attr attr) override;
+	void end(const Xml_string& tag) override;
 	Xml_string openTag();
+
 private:
-int m_level {0};
+	int m_level {0};
 	Xml_string m_tag;
 };
 
@@ -57,14 +60,16 @@ int m_level {0};
  *  Renames the next opening(and corresponding closing) tag.
  *  If oldname is not empty, it will also rename all inner tags with name oldname
  */
-class RenameElem : public SaxFilter {
+class RenameElem : public SaxFilter
+{
 public:
 	RenameElem(SaxHandler* delegate, const Xml_string& oldname, const Xml_string& newname);
 	RenameElem(SaxHandler* delegate, const Xml_string& newname);
-	virtual void begin(const Xml_string& tag, Xml_attr attr);
-	virtual void end(const Xml_string& tag);
+	void begin(const Xml_string& tag, Xml_attr attr) override;
+	void end(const Xml_string& tag) override;
+
 private:
-int m_level {0};
+	int m_level {0};
 	Xml_string m_old;
 	Xml_string m_new;
 };
@@ -76,9 +81,10 @@ int m_level {0};
 class AddAttributes : public SaxFilter {
 public:
 	AddAttributes(SaxHandler* delegate, Xml_attr add);
-	virtual void begin(const Xml_string& tag, Xml_attr attr);
+	void begin(const Xml_string& tag, Xml_attr attr) override;
+
 private:
-bool m_oneshot {false};
+	bool m_oneshot {false};
 	Xml_attr m_attributes;
 };
 
@@ -92,11 +98,11 @@ bool m_oneshot {false};
 class SaxHandlerNull : public SaxHandler {
 public:
 	SaxHandlerNull() {}
-	virtual void beginDoc() {}
-	virtual void endDoc() {}
-	virtual void begin(const Xml_string& tag, Xml_attr attr) {}
-	virtual void end(const Xml_string& tag) {}
-	virtual void chars(const Xml_string& text) {}
+	void beginDoc() override {}
+	void endDoc() override {}
+	void begin(const Xml_string& tag, Xml_attr attr) override {}
+	void end(const Xml_string& tag) override {}
+	void chars(const Xml_string& text) override {}
 };
 
 
