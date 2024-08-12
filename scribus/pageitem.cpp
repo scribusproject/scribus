@@ -724,7 +724,7 @@ bool PageItem::isTableCell() const
 	return (dynamic_cast<PageItem_Table*>(Parent) != nullptr);
 }
 
-void PageItem::setXPos(const double newXPos, bool drawingOnly)
+void PageItem::setXPos(double newXPos, bool drawingOnly)
 {
 	m_xPos = newXPos;
 	if (drawingOnly || m_Doc->isLoading())
@@ -732,7 +732,7 @@ void PageItem::setXPos(const double newXPos, bool drawingOnly)
 	checkChanges();
 }
 
-void PageItem::setYPos(const double newYPos, bool drawingOnly)
+void PageItem::setYPos(double newYPos, bool drawingOnly)
 {
 	m_yPos = newYPos;
 	if (drawingOnly || m_Doc->isLoading())
@@ -740,7 +740,7 @@ void PageItem::setYPos(const double newYPos, bool drawingOnly)
 	checkChanges();
 }
 
-void PageItem::setXYPos(const double newXPos, const double newYPos, bool drawingOnly)
+void PageItem::setXYPos(double newXPos, double newYPos, bool drawingOnly)
 {
 	m_xPos = newXPos;
 	m_yPos = newYPos;
@@ -760,7 +760,7 @@ int PageItem::level() const
 	return (items->indexOf(thisItem) + 1);
 }
 
-void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
+void PageItem::moveBy(double dX, double dY, bool drawingOnly)
 {
 	//qDebug() << "pageitem::moveby" << dX << dY;
 	if (dX == 0.0 && dY == 0.0)
@@ -812,7 +812,7 @@ void PageItem::setWidthHeight(double newWidth, double newHeight, bool drawingOnl
 	checkChanges();
 }
 
-void PageItem::setWidthHeight(const double newWidth, const double newHeight)
+void PageItem::setWidthHeight(double newWidth, double newHeight)
 {
 	m_width = newWidth;
 	m_height = newHeight;
@@ -822,7 +822,7 @@ void PageItem::setWidthHeight(const double newWidth, const double newHeight)
 	checkChanges();
 }
 
-void PageItem::resizeBy(const double dH, const double dW)
+void PageItem::resizeBy(double dH, double dW)
 {
 	if (dH == 0.0 && dW == 0.0)
 		return;
@@ -836,7 +836,7 @@ void PageItem::resizeBy(const double dH, const double dW)
 	checkChanges();
 }
 
-void PageItem::setRotation(const double newRotation, bool drawingOnly)
+void PageItem::setRotation(double newRotation, bool drawingOnly)
 {
 	double dR = newRotation - m_rotation;
 	double oldRot = m_rotation;
@@ -851,7 +851,7 @@ void PageItem::setRotation(const double newRotation, bool drawingOnly)
 	checkChanges();
 }
 
-void PageItem::rotateBy(const double dR)
+void PageItem::rotateBy(double dR)
 {
 	if (dR==0.0)
 		return;
@@ -865,12 +865,12 @@ void PageItem::rotateBy(const double dR)
 	checkChanges();
 }
 
-void PageItem::setSelected(const bool toSelect)
+void PageItem::setSelected(bool toSelect)
 {
 	m_isSelected = toSelect;
 }
 
-void PageItem::setImageXScale(const double newImageXScale)
+void PageItem::setImageXScale(double newImageXScale)
 {
 	m_imageXScale = newImageXScale;
 	if (m_Doc->isLoading())
@@ -881,7 +881,7 @@ void PageItem::setImageXScale(const double newImageXScale)
 	checkChanges();
 }
 
-void PageItem::setImageYScale(const double newImageYScale)
+void PageItem::setImageYScale(double newImageYScale)
 {
 	m_imageYScale = newImageYScale;
 	if (m_Doc->isLoading())
@@ -892,7 +892,7 @@ void PageItem::setImageYScale(const double newImageYScale)
 	checkChanges();
 }
 
-void PageItem::setImageXYScale(const double newImageXScale, const double newImageYScale)
+void PageItem::setImageXYScale(double newImageXScale, double newImageYScale)
 {
 	m_imageXScale = newImageXScale;
 	m_imageYScale = newImageYScale;
@@ -905,7 +905,7 @@ void PageItem::setImageXYScale(const double newImageXScale, const double newImag
 	checkChanges();
 }
 
-void PageItem::setImageXOffset(const double newImageXOffset)
+void PageItem::setImageXOffset(double newImageXOffset)
 {
 	m_imageXOffset = newImageXOffset;
 	if (m_Doc->isLoading())
@@ -916,7 +916,7 @@ void PageItem::setImageXOffset(const double newImageXOffset)
 	checkChanges();
 }
 
-void PageItem::setImageYOffset(const double newImageYOffset)
+void PageItem::setImageYOffset(double newImageYOffset)
 {
 	m_imageYOffset = newImageYOffset;
 	if (m_Doc->isLoading())
@@ -927,7 +927,7 @@ void PageItem::setImageYOffset(const double newImageYOffset)
 	checkChanges();
 }
 
-void PageItem::setImageXYOffset(const double newImageXOffset, const double newImageYOffset)
+void PageItem::setImageXYOffset(double newImageXOffset, double newImageYOffset)
 {
 	m_imageXOffset = newImageXOffset;
 	m_imageYOffset = newImageYOffset;
@@ -940,7 +940,7 @@ void PageItem::setImageXYOffset(const double newImageXOffset, const double newIm
 	checkChanges();
 }
 
-void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
+void PageItem::moveImageXYOffsetBy(double dX, double dY)
 {
 	if (dX==0.0 && dY==0.0)
 		return;
@@ -953,7 +953,7 @@ void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
 	checkChanges();
 }
 
-void PageItem::setImageRotation(const double newRotation)
+void PageItem::setImageRotation(double newRotation)
 {
 	if (m_imageRotation == newRotation)
 		return;
