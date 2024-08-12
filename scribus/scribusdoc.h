@@ -131,7 +131,7 @@ public:
 	
 	void invalidateAll();
 	void invalidateLayer(int layerID);
-	void invalidateRegion(QRectF region);
+	void invalidateRegion(const QRectF& region);
 
 	MarginStruct* scratch() { return &m_docPrefsData.displayPrefs.scratch; }
 	MarginStruct* bleeds() { return &m_docPrefsData.docSetupPrefs.bleeds; }
@@ -227,7 +227,7 @@ public:
 	void setDocumentInfo(DocumentInformation di) { m_docPrefsData.docInfo = di; }
 	DocumentSectionMap& sections() { return m_docPrefsData.docSectionMap; }
 	void setSections(DocumentSectionMap dsm) { m_docPrefsData.docSectionMap = std::move(dsm); }
-	const QMap<QString, int> & usedFonts() { return UsedFonts; }
+	const QMap<QString, int> & usedFonts() const { return UsedFonts; }
 
 	const ApplicationPrefs& prefsData() { return m_docPrefsData; }
 	void setNewPrefs(const ApplicationPrefs& prefsData, const ApplicationPrefs& oldPrefsData, bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins);
@@ -689,8 +689,8 @@ public:
 	/*!
 	 * @brief Returns a qmap of the fonts and  their glyphs used within the document
 	 */
-	void getUsedFonts(QMap<QString,QMap<uint, QString> > &Really);
-	void checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, QString> > & Really, uint lc);
+	void getUsedFonts(QMap<QString, QMap<uint, QString> > &Really);
+	void checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, QString> > &Really);
 
 	/*!
 	 * @brief Replace line style colors
@@ -1009,12 +1009,12 @@ public:
 	 * @brief Gets the page number to be printed based on the section it is in.
 	 * Returns QString() on failure to find the pageIndex
 	 */
-	const QString getSectionPageNumberForPageIndex(uint) const;
+	QString getSectionPageNumberForPageIndex(uint) const;
 	/**
 	 * @brief Gets the page number fill character to be printed based on the section it is in.
 	 * Returns QString() on failure to find the pageIndex
 	 */
-	const QChar getSectionPageNumberFillCharForPageIndex(uint) const;
+	QChar getSectionPageNumberFillCharForPageIndex(uint) const;
 	/**
 	 * @brief Gets the page number fill character to be printed based on the section it is in.
 	 * Returns QString() on failure to find the pageIndex
@@ -1282,7 +1282,7 @@ public:
 	void removeInlineFrame(int fIndex);
 	void checkItemForFrames(PageItem *it, int fIndex);
 	bool hasPreflightErrors();
-	QFileDevice::Permissions filePermissions() { return m_docFilePermissions; }
+	QFileDevice::Permissions filePermissions() const { return m_docFilePermissions; }
 	void saveFilePermissions(QFileDevice::Permissions p) { m_docFilePermissions = p; }
 
 protected:
@@ -1780,7 +1780,7 @@ public:
 	QList<PageItem_NoteFrame*> listNotesFrames(NotesStyle* NS);
 
 	//flags used for indicating needs of updates
-	bool notesChanged() { return m_flag_notesChanged; }
+	bool notesChanged() const { return m_flag_notesChanged; }
 	void setNotesChanged(bool on) { m_flag_notesChanged = on; }
 	bool flag_restartMarksRenumbering {false};
 	bool flag_updateMarksLabels {false};
