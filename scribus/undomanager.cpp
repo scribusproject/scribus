@@ -611,6 +611,7 @@ void UndoManager::languageChange()
 	UndoManager::ItemsInvolved2     = tr("More than 20 items involved");
 	UndoManager::Cancel             = tr("Cancel");
 	UndoManager::SetFill            = tr("Set fill color");
+	UndoManager::SetFillRule        = tr("Set fill rule");
 	UndoManager::ColorFromTo        = tr("Color1: %1, Color2: %2");
 	UndoManager::SetShade           = tr("Set fill color shade");
 	UndoManager::SetLineColor       = tr("Set line color");
@@ -967,6 +968,7 @@ int     UndoManager::ItemsInvolvedLimit = 20;
 QString UndoManager::Cancel             = "";
 QString UndoManager::TextFrameDist      = "";
 QString UndoManager::SetFill            = "";
+QString UndoManager::SetFillRule        = "";
 QString UndoManager::ColorFromTo        = "";
 QString UndoManager::SetShade           = "";
 QString UndoManager::SetLineColor       = "";

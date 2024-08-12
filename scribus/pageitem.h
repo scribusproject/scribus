@@ -729,7 +729,7 @@ public: // Start public functions
 	void maskFlip(bool &flipX, bool &flipY) const;
 	//
 	bool fillEvenOdd() const { return fillRule; }
-	void setFillEvenOdd(bool val) { fillRule = val; }
+	void setFillEvenOdd(bool evenOdd);
 	//
 	bool overprint() const { return doOverprint; }
 	void setOverprint(bool val);
@@ -1570,6 +1570,7 @@ protected: // Start protected functions
 	void restoreFillPatternFlip(SimpleState *state, bool isUndo);
 	void restoreFillPatternTransform(SimpleState *state, bool isUndo);
 	void restoreFillTransparency(SimpleState *state, bool isUndo);
+	void restoreFillRule(SimpleState* state, bool isUndo);
 	void restoreFirstLineOffset(SimpleState *state, bool isUndo);
 	void restoreGetImage(UndoState *state, bool isUndo);
 	void restoreGradPos(SimpleState *state,bool isUndo);

@@ -396,6 +396,7 @@ public:
 	static int     ItemsInvolvedLimit;
 	static QString Cancel;
 	static QString SetFill;
+	static QString SetFillRule;
 	static QString ColorFromTo;
 	static QString SetShade;
 	static QString SetLineColor;

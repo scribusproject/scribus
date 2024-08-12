@@ -4176,6 +4176,20 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 	update();
 }
 
+void PageItem::setFillEvenOdd(bool evenOdd)
+{
+	if (fillRule == evenOdd)
+		return;
+
+	if (UndoManager::undoEnabled())
+	{
+		auto* ss = new SimpleState(Um::SetFillRule, nullptr, Um::IGroup);
+		ss->set("FILL_RULE", fillRule);
+		undoManager->action(this, ss);
+	}
+	fillRule = evenOdd;
+}
+
 void PageItem::setOverprint(bool val)
 {
 	if (doOverprint == val)
@@ -4855,6 +4869,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreMove(ss, isUndo);
 		else if (ss->contains("FILL"))
 			restoreFill(ss, isUndo);
+		else if (ss->contains("FILL_RULE"))
+			restoreFillRule(ss, isUndo);
 		else if (ss->contains("SHADE"))
 			restoreShade(ss, isUndo);
 		else if (ss->contains("LINE_COLOR"))
@@ -7283,6 +7299,16 @@ void PageItem::restoreFillTransparency(SimpleState *state, bool isUndo)
 	Selection tempSelection(nullptr, false);
 	tempSelection.addItem(this);
 	m_Doc->itemSelection_SetItemFillTransparency(tp, &tempSelection);
+}
+
+void PageItem::restoreFillRule(SimpleState* state, bool isUndo)
+{
+	bool oldFillRule = state->getBool("FILL_RULE");
+	if (isUndo)
+		fillRule = oldFillRule;
+	else
+		fillRule = !oldFillRule;
+	update();
 }
 
 void PageItem::restoreLineTP(SimpleState *state, bool isUndo)
