@@ -787,8 +787,8 @@ public:
 	/**
 	 * @brief Undo function for level
 	 */
-	void restoreLevelDown(SimpleState* ss, bool isUndo);
-	void restoreLevelBottom(SimpleState* ss, bool isUndo);
+	void restoreLevelUpOrDown(SimpleState* ss, bool isUndo);
+	void restoreLevelTopOrBottom(SimpleState* ss, bool isUndo);
 	void restoreGuideLock(SimpleState* ss, bool isUndo);
 
 	/**

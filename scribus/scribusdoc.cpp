@@ -1719,13 +1719,13 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 	else if (ss->contains("PAGE_SWAP"))
 		restoreSwapPage(ss, isUndo);
 	else if (ss->contains("LEVEL_DOWN"))
-		restoreLevelDown(ss, isUndo);
+		restoreLevelUpOrDown(ss, isUndo);
 	else if (ss->contains("LEVEL_UP"))
-		restoreLevelDown(ss, !isUndo);
+		restoreLevelUpOrDown(ss, !isUndo);
 	else if (ss->contains("LEVEL_BOTTOM"))
-		restoreLevelBottom(ss, isUndo);
+		restoreLevelTopOrBottom(ss, isUndo);
 	else if (ss->contains("LEVEL_TOP"))
-		restoreLevelBottom(ss, !isUndo);
+		restoreLevelTopOrBottom(ss, !isUndo);
 	else if (ss->contains("PAGE_CHANGEPROPS"))
 		restoreChangePageProperties(ss, isUndo);
 	else if (ss->contains("DELETE_FRAMETEXT"))
@@ -1773,32 +1773,42 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 	}
 }
 
-void ScribusDoc::restoreLevelDown(SimpleState* ss, bool isUndo)
+void ScribusDoc::restoreLevelUpOrDown(SimpleState* ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QList<QPointer<PageItem> > > *>(ss);
 	if (!is)
 		return;
-
 	QList<QPointer<PageItem> > listItem = is->getItem();
+
 	m_Selection->clear();
-	for (int i = 0; i < listItem.size(); i++)
-		m_Selection->addItem(listItem.at(i));
+	for (const QPointer<PageItem>& pItem : listItem)
+	{
+		if (pItem.isNull())
+			continue;
+		m_Selection->addItem(pItem);
+	}
+
 	if (isUndo)
 		itemSelection_RaiseItem();
 	else
 		itemSelection_LowerItem();
 }
 
-void ScribusDoc::restoreLevelBottom(SimpleState* ss, bool isUndo)
+void ScribusDoc::restoreLevelTopOrBottom(SimpleState* ss, bool isUndo)
 {
 	const auto *is = dynamic_cast<ScItemState<QList<QPointer<PageItem> > > *>(ss);
 	if (!is)
 		return;
-
 	QList<QPointer<PageItem> > listItem = is->getItem();
+
 	m_Selection->clear();
-	for (int i = 0; i < listItem.size(); i++)
-		m_Selection->addItem(listItem.at(i));
+	for (const QPointer<PageItem>& pItem : listItem)
+	{
+		if (pItem.isNull())
+			continue;
+		m_Selection->addItem(pItem);
+	}
+
 	if (isUndo)
 		bringItemSelectionToFront();
 	else
