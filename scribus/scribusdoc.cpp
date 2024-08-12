@@ -8612,31 +8612,32 @@ void ScribusDoc::itemSelection_InsertTableRows()
 	if (!table)
 		return;
 
-	QScopedPointer<InsertTableRowsDialog> dialog(new InsertTableRowsDialog(appMode, m_ScMW));
-	if (dialog->exec() == QDialog::Accepted)
-	{
-		QScopedValueRollback<bool> dontResizeRb(dontResize, true);
-		/*
-		 * In table edit mode we insert either before or after the active
-		 * cell, otherwise we insert at beginning or end of table.
-		 */
-		int index = 0;
-		const TableCell cell = table->activeCell();
-		if (dialog->position() == InsertTableRowsDialog::Before)
-			index = appMode == modeEditTable ? cell.row() : 0;
-		else
-			index = appMode == modeEditTable ? cell.row() + cell.rowSpan() : table->rows();
+	using InsertTableRowsDialogDeleter = QScopedPointerObjectDeleteLater<InsertTableRowsDialog>;
+	QScopedPointer<InsertTableRowsDialog, InsertTableRowsDialogDeleter> dialog(new InsertTableRowsDialog(appMode, m_ScMW));
+	if (dialog->exec() != QDialog::Accepted)
+		return;
 
-		// Insert the rows.
-		table->insertRows(index, dialog->numberOfRows());
-		table->clearSelection();
-		table->adjustTable();
-		table->update();
+	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
+	/*
+	 * In table edit mode we insert either before or after the active
+	 * cell, otherwise we insert at beginning or end of table.
+	 */
+	int index = 0;
+	const TableCell cell = table->activeCell();
+	if (dialog->position() == InsertTableRowsDialog::Before)
+		index = appMode == modeEditTable ? cell.row() : 0;
+	else
+		index = appMode == modeEditTable ? cell.row() + cell.rowSpan() : table->rows();
 
-		m_ScMW->updateTableMenuActions();
-		changed();
-		changedPagePreview();
-	}
+	// Insert the rows.
+	table->insertRows(index, dialog->numberOfRows());
+	table->clearSelection();
+	table->adjustTable();
+	table->update();
+
+	m_ScMW->updateTableMenuActions();
+	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_InsertTableColumns()
@@ -8649,33 +8650,32 @@ void ScribusDoc::itemSelection_InsertTableColumns()
 	if (!table)
 		return;
 
-	QPointer<InsertTableColumnsDialog> dialog = new InsertTableColumnsDialog(appMode, m_ScMW);
-	if (dialog->exec() == QDialog::Accepted)
-	{
-		QScopedValueRollback<bool> dontResizeRb(dontResize, true);
-		/*
-		 * In table edit mode we insert either before or after the active
-		 * cell, otherwise we insert at beginning or end of table.
-		 */
-		int index = 0;
-		const TableCell cell = table->activeCell();
-		if (dialog->position() == InsertTableColumnsDialog::Before)
-			index = appMode == modeEditTable ? cell.column() : 0;
-		else
-			index = appMode == modeEditTable ? cell.column() + cell.columnSpan() : table->columns();
+	using InsertTableColumnsDialogDeleter = QScopedPointerObjectDeleteLater<InsertTableColumnsDialog>;
+	QScopedPointer<InsertTableColumnsDialog, InsertTableColumnsDialogDeleter> dialog(new InsertTableColumnsDialog(appMode, m_ScMW));
+	if (dialog->exec() != QDialog::Accepted)
+		return;
 
-		// Insert the columns.
-		table->insertColumns(index, dialog->numberOfColumns());
-		table->clearSelection();
-		table->adjustTable();
-		table->update();
+	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
+	/*
+	 * In table edit mode we insert either before or after the active
+	 * cell, otherwise we insert at beginning or end of table.
+	 */
+	int index = 0;
+	const TableCell cell = table->activeCell();
+	if (dialog->position() == InsertTableColumnsDialog::Before)
+		index = appMode == modeEditTable ? cell.column() : 0;
+	else
+		index = appMode == modeEditTable ? cell.column() + cell.columnSpan() : table->columns();
 
-		m_ScMW->updateTableMenuActions();
-		changed();
-		changedPagePreview();
-	}
+	// Insert the columns.
+	table->insertColumns(index, dialog->numberOfColumns());
+	table->clearSelection();
+	table->adjustTable();
+	table->update();
 
-	delete dialog;
+	m_ScMW->updateTableMenuActions();
+	changed();
+	changedPagePreview();
 }
 
 void ScribusDoc::itemSelection_DeleteTableRows()
@@ -8842,8 +8842,9 @@ void ScribusDoc::itemSelection_SetTableRowHeights()
 	if (!table)
 		return;
 
-	QPointer<TableRowHeightsDialog> dialog = new TableRowHeightsDialog(this, m_ScMW);
-	if (dialog->exec() == QDialog::Rejected)
+	using TableRowHeightsDialogDeleter = QScopedPointerObjectDeleteLater<TableRowHeightsDialog>;
+	QScopedPointer<TableRowHeightsDialog, TableRowHeightsDialogDeleter> dialog(new TableRowHeightsDialog(this, m_ScMW));
+	if (dialog->exec() != QDialog::Accepted)
 		return;
 
 	const qreal rowHeight = dialog->rowHeight();
@@ -8877,7 +8878,6 @@ void ScribusDoc::itemSelection_SetTableRowHeights()
 		for (int row = 0; row < table->rows(); ++row)
 			table->resizeRow(row, rowHeight / unitRatio());
 	}
-	delete dialog;
 	table->adjustTable();
 	table->update();
 	if (activeTransaction)
@@ -8897,8 +8897,9 @@ void ScribusDoc::itemSelection_SetTableColumnWidths()
 	if (!table)
 		return;
 
-	QPointer<TableColumnWidthsDialog> dialog = new TableColumnWidthsDialog(this, m_ScMW);
-	if (dialog->exec() == QDialog::Rejected)
+	using TableColumnWidthsDialogDeleter = QScopedPointerObjectDeleteLater<TableColumnWidthsDialog>;
+	QScopedPointer<TableColumnWidthsDialog, TableColumnWidthsDialogDeleter> dialog(new TableColumnWidthsDialog(this, m_ScMW));
+	if (dialog->exec() != QDialog::Accepted)
 		return;
 
 	const qreal columnWidth = dialog->columnWidth();
@@ -8933,8 +8934,6 @@ void ScribusDoc::itemSelection_SetTableColumnWidths()
 		for (int column = 0; column < table->columns(); ++column)
 			table->resizeColumn(column, columnWidth / unitRatio());
 	}
-
-	delete dialog;
 
 	table->adjustTable();
 	table->update();
