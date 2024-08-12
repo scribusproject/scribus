@@ -472,7 +472,7 @@ void PropertiesPalette_Shape::handleFillRule()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_item->fillRule = evenOdd->isChecked();
+	m_item->setFillEvenOdd(evenOdd->isChecked());
 	m_item->update();
 }
 
