@@ -490,15 +490,15 @@ using errorCodes = QMap<PreflightError, int>;
 
 struct AlignObjs
 {
-	int ObjNr;
-	int Group;
-	double x1;
-	double y1;
-	double x2;
-	double y2;
-	double width;
-	double height;
-	PageItem* Object;
+	int ObjNr { 0 };
+	int Group { 0 };
+	double x1 { 0.0 };
+	double y1 { 0.0 };
+	double x2 { 0.0 };
+	double y2 { 0.0 };
+	double width { 0.0 };
+	double height { 0.0 };
+	PageItem* Object { nullptr };
 };
 
 /*! \brief Human readable orientations */
