@@ -12636,14 +12636,14 @@ void ScribusDoc::itemSelection_DistributeLeft()
 	if (!startAlign(2))
 		return;
 	int alignObjectsCount = AObjects.count();
-	QMap<double, uint> Xsorted;
+	QMap<double, uint> xSorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!Xsorted.contains(AObjects[i].x1))
-			Xsorted.insert(AObjects[i].x1, i);
+		if (!xSorted.contains(AObjects[i].x1))
+			xSorted.insert(AObjects[i].x1, i);
 	}
-	QMap<double, uint>::Iterator it = Xsorted.begin();
-	QMap<double, uint>::Iterator itend = Xsorted.end();
+	QMap<double, uint>::Iterator it = xSorted.begin();
+	QMap<double, uint>::Iterator itend = xSorted.end();
 	double minX = it.key();
 	double maxX = it.key();
 	while ( it != itend)
@@ -12657,7 +12657,7 @@ void ScribusDoc::itemSelection_DistributeLeft()
 		
 	double separation = (maxX - minX) / static_cast<double>(alignObjectsCount - 1);
 	int i = 0;
-	for (auto it = Xsorted.begin(); it != Xsorted.end(); ++it)
+	for (auto it = xSorted.begin(); it != xSorted.end(); ++it)
 	{
 		double diff = minX + i * separation - AObjects[it.value()].x1;
 		if (!AObjects[it.value()].Object->locked())
@@ -12673,14 +12673,14 @@ void ScribusDoc::itemSelection_DistributeCenterH()
 	if (!startAlign(2))
 		return;
 	int alignObjectsCount = AObjects.count();
-	QMap<double, uint> Xsorted;
+	QMap<double, uint> xSorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!Xsorted.contains(AObjects[i].x1 + (AObjects[i].width) / 2))
-			Xsorted.insert(AObjects[i].x1 + (AObjects[i].width) / 2, i);
+		if (!xSorted.contains(AObjects[i].x1 + (AObjects[i].width) / 2))
+			xSorted.insert(AObjects[i].x1 + (AObjects[i].width) / 2, i);
 	}
-	QMap<double, uint>::Iterator it = Xsorted.begin();
-	QMap<double, uint>::Iterator itend = Xsorted.end();
+	QMap<double, uint>::Iterator it = xSorted.begin();
+	QMap<double, uint>::Iterator itend = xSorted.end();
 	double minX = it.key();
 	double maxX = it.key();
 	while ( it != itend)
@@ -12694,7 +12694,7 @@ void ScribusDoc::itemSelection_DistributeCenterH()
 		
 	double separation = (maxX - minX) / static_cast<double>(alignObjectsCount - 1);
 	int i = 0;
-	for (auto it = Xsorted.begin(); it != Xsorted.end(); ++it)
+	for (auto it = xSorted.begin(); it != xSorted.end(); ++it)
 	{
 		double diff = minX + i * separation - AObjects[it.value()].x1 - (AObjects[it.value()].width) / 2;
 		if (!AObjects[it.value()].Object->locked())
@@ -12710,14 +12710,14 @@ void ScribusDoc::itemSelection_DistributeRight()
 	if (!startAlign(2))
 		return;
 	int alignObjectsCount = AObjects.count();
-	QMap<double, uint> Xsorted;
+	QMap<double, uint> xSorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!Xsorted.contains(AObjects[i].x2))
-			Xsorted.insert(AObjects[i].x2, i);
+		if (!xSorted.contains(AObjects[i].x2))
+			xSorted.insert(AObjects[i].x2, i);
 	}
-	QMap<double, uint>::Iterator it = Xsorted.begin();
-	QMap<double, uint>::Iterator itend = Xsorted.end();
+	QMap<double, uint>::Iterator it = xSorted.begin();
+	QMap<double, uint>::Iterator itend = xSorted.end();
 	double minX = it.key();
 	double maxX = it.key();
 	while ( it != itend)
@@ -12731,7 +12731,7 @@ void ScribusDoc::itemSelection_DistributeRight()
 	
 	double separation = (maxX - minX) / static_cast<double>(alignObjectsCount - 1);
 	int i = 0;
-	for (auto it = Xsorted.begin(); it != Xsorted.end(); ++it)
+	for (auto it = xSorted.begin(); it != xSorted.end(); ++it)
 	{
 		double diff = minX + i * separation - AObjects[it.value()].x2;
 		if (!AObjects[it.value()].Object->locked())
@@ -12828,14 +12828,14 @@ void ScribusDoc::itemSelection_DistributeBottom()
 	if (!startAlign(2))
 		return;
 	int alignObjectsCount = AObjects.count();
-	QMap<double, uint> Ysorted;
+	QMap<double, uint> ySorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!Ysorted.contains(AObjects[i].y2))
-			Ysorted.insert(AObjects[i].y2, i);
+		if (!ySorted.contains(AObjects[i].y2))
+			ySorted.insert(AObjects[i].y2, i);
 	}
-	QMap<double, uint>::Iterator it = Ysorted.begin();
-	QMap<double, uint>::Iterator itend = Ysorted.end();
+	QMap<double, uint>::Iterator it = ySorted.begin();
+	QMap<double, uint>::Iterator itend = ySorted.end();
 	double minY = it.key();
 	double maxY = it.key();
 	while ( it != itend)
@@ -12849,7 +12849,7 @@ void ScribusDoc::itemSelection_DistributeBottom()
 		
 	double separation = (maxY - minY) / static_cast<double>(alignObjectsCount - 1);
 	int i = 0;
-	for (auto it = Ysorted.begin(); it != Ysorted.end(); ++it)
+	for (auto it = ySorted.begin(); it != ySorted.end(); ++it)
 	{
 		double diff = minY + i * separation - AObjects[it.value()].y2;
 		if (!AObjects[it.value()].Object->locked())
@@ -12865,14 +12865,14 @@ void ScribusDoc::itemSelection_DistributeCenterV()
 	if (!startAlign(2))
 		return;
 	int alignObjectsCount = AObjects.count();
-	QMap<double, uint> Ysorted;
+	QMap<double, uint> ySorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!Ysorted.contains(AObjects[i].y1 + (AObjects[i].height) / 2))
-			Ysorted.insert(AObjects[i].y1 + (AObjects[i].height) / 2, i);
+		if (!ySorted.contains(AObjects[i].y1 + (AObjects[i].height) / 2))
+			ySorted.insert(AObjects[i].y1 + (AObjects[i].height) / 2, i);
 	}
-	QMap<double, uint>::Iterator it = Ysorted.begin();
-	QMap<double, uint>::Iterator itend = Ysorted.end();
+	QMap<double, uint>::Iterator it = ySorted.begin();
+	QMap<double, uint>::Iterator itend = ySorted.end();
 	double minY = it.key();
 	double maxY = it.key();
 	while ( it != itend)
@@ -12886,7 +12886,7 @@ void ScribusDoc::itemSelection_DistributeCenterV()
 		
 	double separation = (maxY - minY) / static_cast<double>(alignObjectsCount - 1);
 	int i = 0;
-	for (auto it = Ysorted.begin(); it != Ysorted.end(); ++it)
+	for (auto it = ySorted.begin(); it != ySorted.end(); ++it)
 	{
 		double diff = minY + i * separation - AObjects[it.value()].y1 - AObjects[it.value()].height / 2;
 		if (!AObjects[it.value()].Object->locked())
@@ -12902,14 +12902,14 @@ void ScribusDoc::itemSelection_DistributeTop()
 	if (!startAlign(2))
 		return;
 	int alignObjectsCount = AObjects.count();
-	QMap<double, uint> Ysorted;
+	QMap<double, uint> ySorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!Ysorted.contains(AObjects[i].y1))
-			Ysorted.insert(AObjects[i].y1, i);
+		if (!ySorted.contains(AObjects[i].y1))
+			ySorted.insert(AObjects[i].y1, i);
 	}
-	QMap<double, uint>::Iterator it = Ysorted.begin();
-	QMap<double, uint>::Iterator itend = Ysorted.end();
+	QMap<double, uint>::Iterator it = ySorted.begin();
+	QMap<double, uint>::Iterator itend = ySorted.end();
 	double minY = it.key();
 	double maxY = it.key();
 	while ( it != itend)
@@ -12923,7 +12923,7 @@ void ScribusDoc::itemSelection_DistributeTop()
 		
 	double separation = (maxY - minY) / static_cast<double>(alignObjectsCount - 1);
 	int i = 0;
-	for (auto it = Ysorted.begin(); it != Ysorted.end(); ++it)
+	for (auto it = ySorted.begin(); it != ySorted.end(); ++it)
 	{
 		double diff = minY + i * separation - AObjects[it.value()].y1;
 		if (!AObjects[it.value()].Object->locked())
@@ -13130,14 +13130,14 @@ void ScribusDoc::itemSelection_SwapLeft()
 	QList<int> circleList;
 	int circleListCounter = 0;
 	//X
-	QMap<double, uint> Xsorted;
+	QMap<double, uint> xSorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!Xsorted.contains(AObjects[i].x1))
-			Xsorted.insert(AObjects[i].x1, i);
+		if (!xSorted.contains(AObjects[i].x1))
+			xSorted.insert(AObjects[i].x1, i);
 	}
-	QMap<double, uint>::Iterator itX = Xsorted.begin();
-	QMap<double, uint>::Iterator itXend = Xsorted.end();
+	QMap<double, uint>::Iterator itX = xSorted.begin();
+	QMap<double, uint>::Iterator itXend = xSorted.end();
 	double minX = itX.key();
 	double maxX = itX.key();
 	while (itX != itXend)
@@ -13149,14 +13149,14 @@ void ScribusDoc::itemSelection_SwapLeft()
 		++itX;
 	}
 	//Y
-	QMap<double, uint> Ysorted;
+	QMap<double, uint> ySorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!Ysorted.contains(AObjects[i].y1))
-			Ysorted.insert(AObjects[i].y1, i);
+		if (!ySorted.contains(AObjects[i].y1))
+			ySorted.insert(AObjects[i].y1, i);
 	}
-	QMap<double, uint>::Iterator itY = Ysorted.begin();
-	QMap<double, uint>::Iterator itYend = Ysorted.end();
+	QMap<double, uint>::Iterator itY = ySorted.begin();
+	QMap<double, uint>::Iterator itYend = ySorted.end();
 	double minY = itY.key();
 	double maxY = itY.key();
 	while (itY != itYend)
@@ -13168,7 +13168,7 @@ void ScribusDoc::itemSelection_SwapLeft()
 		++itY;
 	}
 
-	itX = Xsorted.begin(); //first item is left most
+	itX = xSorted.begin(); //first item is left most
 	int itemIndex = itX.value(); //get our first item's index in the AObjects array
 //	bool found = false;
 //	double itXX = itX.key();
@@ -13179,10 +13179,10 @@ void ScribusDoc::itemSelection_SwapLeft()
 	++circleListCounter;
 	// find the next X item with the minimum Y
 
-	QMap<double, uint>::Iterator itX2_1 = Xsorted.begin();
-	QMap<double, uint>::Iterator itLast = Xsorted.begin();
+	QMap<double, uint>::Iterator itX2_1 = xSorted.begin();
+	QMap<double, uint>::Iterator itLast = xSorted.begin();
 	double xBeginYValue = AObjects[itX2_1.value()].y1;
-	while (itX2_1 != Xsorted.end())
+	while (itX2_1 != xSorted.end())
 	{
 		if (AObjects[itX2_1.value()].y1 < xBeginYValue)
 		{
@@ -13197,7 +13197,7 @@ void ScribusDoc::itemSelection_SwapLeft()
 	if (circleListCounter != alignObjectsCount) //need to reverse back now
 	{
 		QMap<double, uint>::Iterator itX2_2 = itLast;
-		while (itX2_2 != Xsorted.begin())
+		while (itX2_2 != xSorted.begin())
 		{
 			if (AObjects[itX2_2.value()].y1 >= xBeginYValue)
 			{
@@ -13239,14 +13239,14 @@ void ScribusDoc::itemSelection_SwapRight()
 	QList<int> circleList;
 	int circleListCounter = 0;
 	//X
-	QMap<double, uint> Xsorted;
+	QMap<double, uint> xSorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!Xsorted.contains(AObjects[i].x1))
-			Xsorted.insert(AObjects[i].x1, i);
+		if (!xSorted.contains(AObjects[i].x1))
+			xSorted.insert(AObjects[i].x1, i);
 	}
-	QMap<double, uint>::Iterator itX = Xsorted.begin();
-	QMap<double, uint>::Iterator itXend = Xsorted.end();
+	QMap<double, uint>::Iterator itX = xSorted.begin();
+	QMap<double, uint>::Iterator itXend = xSorted.end();
 	double minX = itX.key();
 	double maxX = itX.key();
 	while (itX != itXend)
@@ -13258,14 +13258,14 @@ void ScribusDoc::itemSelection_SwapRight()
 		++itX;
 	}
 	//Y
-	QMap<double, uint> Ysorted;
+	QMap<double, uint> ySorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
-		if (!Ysorted.contains(AObjects[i].y1))
-			Ysorted.insert(AObjects[i].y1, i);
+		if (!ySorted.contains(AObjects[i].y1))
+			ySorted.insert(AObjects[i].y1, i);
 	}
-	QMap<double, uint>::Iterator itY = Ysorted.begin();
-	QMap<double, uint>::Iterator itYend = Ysorted.end();
+	QMap<double, uint>::Iterator itY = ySorted.begin();
+	QMap<double, uint>::Iterator itYend = ySorted.end();
 	double minY = itY.key();
 	double maxY = itY.key();
 	while (itY != itYend)
@@ -13277,7 +13277,7 @@ void ScribusDoc::itemSelection_SwapRight()
 		++itY;
 	}
 
-	itX = Xsorted.begin(); //first item is left most
+	itX = xSorted.begin(); //first item is left most
 	int itemIndex = itX.value(); //get our first item's index in the AObjects array
 //	bool found = false;
 //	double itXX = itX.key();
@@ -13288,10 +13288,10 @@ void ScribusDoc::itemSelection_SwapRight()
 	++circleListCounter;
 	// find the next X item with the minimum Y
 
-	QMap<double, uint>::Iterator itX2_1 = Xsorted.begin();
-	QMap<double, uint>::Iterator itLast = Xsorted.begin();
+	QMap<double, uint>::Iterator itX2_1 = xSorted.begin();
+	QMap<double, uint>::Iterator itLast = xSorted.begin();
 	double xBeginYValue = AObjects[itX2_1.value()].y1;
-	while (itX2_1 != Xsorted.end())
+	while (itX2_1 != xSorted.end())
 	{
 		if (AObjects[itX2_1.value()].y1 < xBeginYValue)
 		{
@@ -13306,7 +13306,7 @@ void ScribusDoc::itemSelection_SwapRight()
 	if (circleListCounter != alignObjectsCount) //need to reverse back now
 	{
 		QMap<double, uint>::Iterator itX2_2 = itLast;
-		while (itX2_2 != Xsorted.begin())
+		while (itX2_2 != xSorted.begin())
 		{
 			if (AObjects[itX2_2.value()].y1 >= xBeginYValue)
 			{
