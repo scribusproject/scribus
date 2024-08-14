@@ -19,6 +19,8 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 
+#include <array>
+
 #include "actionmanager.h"
 
 #include "appmodes.h"
@@ -297,12 +299,11 @@ void ActionManager::initStyleMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QString(), QString(), "", defaultKey(name), scrActionGroups->value("fontSize"), -1));
 	connect( (*scrActions)["fontSizeOther"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemFontSize(int)));
 
-	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
-	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
-	for (uint s = 0; s < f_size; ++s)
+	std::array<int, 12> font_sizes = { 7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72 };
+	for (auto fontSize : font_sizes)
 	{
-		QString fontSizeName = QString("fontSize%1").arg(font_sizes[s]);
-		scrActions->insert(fontSizeName, new ScrAction(ScrAction::DataInt, QString(), QString(), "", defaultKey(name), scrActionGroups->value("fontSize"), font_sizes[s]));
+		QString fontSizeName = QString("fontSize%1").arg(fontSize);
+		scrActions->insert(fontSizeName, new ScrAction(ScrAction::DataInt, QString(), QString(), "", defaultKey(name), scrActionGroups->value("fontSize"), fontSize));
 		(*scrActions)[fontSizeName]->setToggleAction(true);
 		connect( (*scrActions)[fontSizeName], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemFontSize(int)));
 	}
@@ -1543,12 +1544,11 @@ void ActionManager::languageChange()
 	(*scrActions)["editMasterPages"]->setTexts( tr("&Master Pages..."));
 	(*scrActions)["editJavascripts"]->setTexts( tr("&JavaScripts..."));
 
-	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
-	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
-	for (uint s = 0; s < f_size; ++s)
+	std::array<int, 12> font_sizes = { 7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72 };
+	for (auto fontSize : font_sizes)
 	{
-		QString fontSizeName = QString("fontSize%1").arg(font_sizes[s]);
-		(*scrActions)[fontSizeName]->setTexts( tr("%1 pt").arg(font_sizes[s]));
+		QString fontSizeName = QString("fontSize%1").arg(fontSize);
+		(*scrActions)[fontSizeName]->setTexts( tr("%1 pt").arg(fontSize));
 	}
 	(*scrActions)["fontSizeOther"]->setTexts( tr("&Other..."));
 	(*scrActions)["alignLeft"]->setTexts( tr("&Left"));
@@ -2124,10 +2124,9 @@ void ActionManager::createDefaultMenus()
 		<< "editJavascripts";
 	//Style
 	++itmenu;
-	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
-	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
-	for (uint s = 0; s < f_size; ++s)
-		itmenu->second << QString("fontSize%1").arg(font_sizes[s]);
+	std::array<int, 12> font_sizes = { 7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72 };
+	for (auto fontSize : font_sizes)
+		itmenu->second << QString("fontSize%1").arg(fontSize);
 	itmenu->second
 		<< "fontSizeOther"
 		<< "alignLeft" 
