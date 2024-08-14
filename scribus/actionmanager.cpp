@@ -20,8 +20,9 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "actionmanager.h"
-#include "appmodes.h"
 
+#include "appmodes.h"
+#include "iconmanager.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -29,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/storytext.h"
 #include "undomanager.h"
 #include "urllauncher.h"
-#include "iconmanager.h"
+#include "util_keyboard.h"
 
 QMap<QString, QKeySequence> ActionManager::defKeys;
 QVector< QPair<QString, QStringList> > ActionManager::defMenuNames;
@@ -1907,53 +1908,53 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.clear();
 
 	defKeys.insert("fileNew", QKeySequence::New);
-	defKeys.insert("fileNewFromTemplate", Qt::CTRL+Qt::ALT+Qt::Key_N);
+	defKeys.insert("fileNewFromTemplate", Qt::CTRL + Qt::ALT + Qt::Key_N);
 	defKeys.insert("fileOpen", QKeySequence::Open);
 	defKeys.insert("fileClose", QKeySequence::Close);
 	defKeys.insert("fileSave", QKeySequence::Save);
-	defKeys.insert("fileSaveAs", Qt::CTRL+Qt::SHIFT+Qt::Key_S);
-	defKeys.insert("fileImportText", Qt::CTRL+Qt::Key_I);
-	defKeys.insert("fileImportImage", Qt::CTRL+Qt::Key_I);
+	defKeys.insert("fileSaveAs", Qt::CTRL + Qt::SHIFT + Qt::Key_S);
+	defKeys.insert("fileImportText", Qt::CTRL + Qt::Key_I);
+	defKeys.insert("fileImportImage", Qt::CTRL + Qt::Key_I);
 	defKeys.insert("filePrint", QKeySequence::Print);
-	defKeys.insert("fileExportAsPDF", Qt::CTRL+Qt::SHIFT+Qt::Key_P);
-	defKeys.insert("fileQuit", Qt::CTRL+Qt::Key_Q);
+	defKeys.insert("fileExportAsPDF", Qt::CTRL + Qt::SHIFT + Qt::Key_P);
+	defKeys.insert("fileQuit", Qt::CTRL + Qt::Key_Q);
 	//Edit Menu
 	defKeys.insert("editUndoAction", QKeySequence::Undo);
 	defKeys.insert("editRedoAction", QKeySequence::Redo);
 	defKeys.insert("editCut", QKeySequence::Cut);
 	defKeys.insert("editCopy", QKeySequence::Copy);
 	defKeys.insert("editPaste", QKeySequence::Paste);
-	defKeys.insert("editClearContents", Qt::CTRL+Qt::SHIFT+Qt::Key_Delete);
-	defKeys.insert("editCopyContents", Qt::CTRL+Qt::SHIFT+Qt::Key_C);
-	defKeys.insert("editPasteContents", Qt::CTRL+Qt::SHIFT+Qt::Key_V);
-	defKeys.insert("editPasteContentsAbs", Qt::CTRL+Qt::ALT+Qt::SHIFT+Qt::Key_V);
-	defKeys.insert("editSelectAll", Qt::CTRL+Qt::Key_A);
-	defKeys.insert("editSelectAllOnLayer", Qt::CTRL+Qt::ALT+Qt::Key_A);
-	defKeys.insert("editDeselectAll", Qt::CTRL+Qt::SHIFT+Qt::Key_A);
-	defKeys.insert("editSearchReplace", Qt::CTRL+Qt::Key_F);
+	defKeys.insert("editClearContents", Qt::CTRL + Qt::SHIFT + Qt::Key_Delete);
+	defKeys.insert("editCopyContents", Qt::CTRL + Qt::SHIFT + Qt::Key_C);
+	defKeys.insert("editPasteContents", Qt::CTRL + Qt::SHIFT + Qt::Key_V);
+	defKeys.insert("editPasteContentsAbs", Qt::CTRL + Qt::ALT + Qt::SHIFT + Qt::Key_V);
+	defKeys.insert("editSelectAll", Qt::CTRL + Qt::Key_A);
+	defKeys.insert("editSelectAllOnLayer", Qt::CTRL + Qt::ALT + Qt::Key_A);
+	defKeys.insert("editDeselectAll", Qt::CTRL + Qt::SHIFT + Qt::Key_A);
+	defKeys.insert("editSearchReplace", Qt::CTRL + Qt::Key_F);
 	defKeys.insert("editStyles", QKeySequence(Qt::Key_F4));
-	defKeys.insert("styleImageEffects", Qt::CTRL+Qt::Key_E);
+	defKeys.insert("styleImageEffects", Qt::CTRL + Qt::Key_E);
 
 	//Item Menu
-	defKeys.insert("itemDuplicate", Qt::CTRL+Qt::Key_D);
-	defKeys.insert("itemMulDuplicate", Qt::CTRL+Qt::SHIFT+Qt::Key_D);
+	defKeys.insert("itemDuplicate", Qt::CTRL + Qt::Key_D);
+	defKeys.insert("itemMulDuplicate", Qt::CTRL + Qt::SHIFT + Qt::Key_D);
 	defKeys.insert("itemDelete", QKeySequence::Delete);
-	defKeys.insert("itemGroup", Qt::CTRL+Qt::Key_G);
-	defKeys.insert("itemUngroup", Qt::CTRL+Qt::SHIFT+Qt::Key_G);
-	defKeys.insert("itemLock", Qt::CTRL+Qt::Key_L);
-	defKeys.insert("itemLockSize", Qt::CTRL+Qt::SHIFT+Qt::Key_L);
+	defKeys.insert("itemGroup", Qt::CTRL + Qt::Key_G);
+	defKeys.insert("itemUngroup", Qt::CTRL + Qt::SHIFT + Qt::Key_G);
+	defKeys.insert("itemLock", Qt::CTRL + Qt::Key_L);
+	defKeys.insert("itemLockSize", Qt::CTRL + Qt::SHIFT + Qt::Key_L);
 	defKeys.insert("itemLowerToBottom", Qt::Key_End);
 	defKeys.insert("itemRaiseToTop", Qt::Key_Home);
-	defKeys.insert("itemLower", Qt::CTRL+Qt::Key_End);
-	defKeys.insert("itemRaise", Qt::CTRL+Qt::Key_Home);
+	defKeys.insert("itemLower", Qt::CTRL + Qt::Key_End);
+	defKeys.insert("itemRaise", Qt::CTRL + Qt::Key_Home);
 
 	//Insert Menu
 	//Page menu
 	//View Menu
-	defKeys.insert("viewFitInWindow", Qt::CTRL+Qt::Key_0);
-	defKeys.insert("viewFit100", Qt::CTRL+Qt::Key_1);
-	defKeys.insert("viewPreviewMode", Qt::CTRL+Qt::ALT+Qt::Key_P);
-	defKeys.insert("viewShowRulers", Qt::CTRL+Qt::SHIFT+Qt::Key_R);
+	defKeys.insert("viewFitInWindow", Qt::CTRL + Qt::Key_0);
+	defKeys.insert("viewFit100", Qt::CTRL + Qt::Key_1);
+	defKeys.insert("viewPreviewMode", Qt::CTRL + Qt::ALT + Qt::Key_P);
+	defKeys.insert("viewShowRulers", Qt::CTRL + Qt::SHIFT + Qt::Key_R);
 	defKeys.insert("viewShowContextMenu", Qt::Key_Menu); //Context menu key on Windows. Do we have one to use on Linux/OSX? Super_L ?
 
 	//Tool menu
@@ -1975,10 +1976,10 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("toolsInsertRenderFrame", Qt::Key_D); //TODO: First free key. Select a meaningful
 	defKeys.insert("toolsRotate", Qt::Key_R);
 	defKeys.insert("toolsZoom", Qt::Key_Z);
-	defKeys.insert("toolsZoomIn", Qt::CTRL+Qt::Key_Plus);
-	defKeys.insert("toolsZoomOut", Qt::CTRL+Qt::Key_Minus);
+	defKeys.insert("toolsZoomIn", Qt::CTRL + Qt::Key_Plus);
+	defKeys.insert("toolsZoomOut", Qt::CTRL + Qt::Key_Minus);
 	defKeys.insert("toolsEditContents", Qt::Key_E);
-	defKeys.insert("toolsEditWithStoryEditor", Qt::CTRL+Qt::Key_T);
+	defKeys.insert("toolsEditWithStoryEditor", Qt::CTRL + Qt::Key_T);
 	defKeys.insert("toolsLinkTextFrame", Qt::Key_N);
 	defKeys.insert("toolsUnlinkTextFrame", Qt::Key_U);
 	defKeys.insert("toolsEyeDropper", Qt::Key_Y);
@@ -1987,29 +1988,29 @@ void ActionManager::createDefaultShortcuts()
 	//Extras Menu
 	//Windows Menu
 	//Help Menu
-	defKeys.insert("helpActionSearch", Qt::CTRL+Qt::Key_Slash);
+	defKeys.insert("helpActionSearch", Qt::CTRL + Qt::Key_Slash);
 	defKeys.insert("helpManual", Qt::Key_F1);
 
 	//GUI and specials
 	defKeys.insert("specialToggleAllPalettes", Qt::Key_F12);
 	defKeys.insert("specialToggleAllGuides", Qt::Key_F11);
-	defKeys.insert("specialUnicodeSequenceBegin", Qt::CTRL+Qt::SHIFT+Qt::Key_U);
+	defKeys.insert("specialUnicodeSequenceBegin", Qt::CTRL + Qt::SHIFT + Qt::Key_U);
 
 	//typography
-	defKeys.insert("unicodeFrameBreak", Qt::CTRL+Qt::Key_Return);
-	defKeys.insert("unicodeColumnBreak", Qt::CTRL+Qt::SHIFT+Qt::Key_Return);
+	defKeys.insert("unicodeFrameBreak", Qt::CTRL + Qt::Key_Return);
+	defKeys.insert("unicodeColumnBreak", Qt::CTRL + Qt::SHIFT + Qt::Key_Return);
 
-	defKeys.insert("unicodeSoftHyphen", Qt::CTRL+Qt::SHIFT+Qt::Key_Minus);
-	defKeys.insert("unicodeNonBreakingHyphen", Qt::CTRL+Qt::ALT+Qt::Key_Minus);
-	defKeys.insert("unicodeNonBreakingSpace", Qt::CTRL+Qt::Key_Space);
-	defKeys.insert("unicodeNarrowNoBreakSpace", Qt::CTRL+Qt::ALT+Qt::Key_Space);
-	defKeys.insert("unicodePageNumber", Qt::CTRL+Qt::SHIFT+Qt::ALT+Qt::Key_P);
-	defKeys.insert("unicodeNewLine", Qt::SHIFT+Qt::Key_Return);
+	defKeys.insert("unicodeSoftHyphen", Qt::CTRL + Qt::SHIFT + Qt::Key_Minus);
+	defKeys.insert("unicodeNonBreakingHyphen", Qt::CTRL + Qt::ALT + Qt::Key_Minus);
+	defKeys.insert("unicodeNonBreakingSpace", Qt::CTRL + Qt::Key_Space);
+	defKeys.insert("unicodeNarrowNoBreakSpace", Qt::CTRL + Qt::ALT + Qt::Key_Space);
+	defKeys.insert("unicodePageNumber", Qt::CTRL + Qt::SHIFT + Qt::ALT + Qt::Key_P);
+	defKeys.insert("unicodeNewLine", Qt::SHIFT + Qt::Key_Return);
 
 	//Plugins
-	defKeys.insert("ExportAsImage", Qt::CTRL+Qt::SHIFT+Qt::Key_E);
-	defKeys.insert("NewFromDocumentTemplate", Qt::CTRL+Qt::ALT+Qt::Key_N);
-	defKeys.insert("SaveAsDocumentTemplate", Qt::CTRL+Qt::ALT+Qt::Key_S);
+	defKeys.insert("ExportAsImage", Qt::CTRL + Qt::SHIFT + Qt::Key_E);
+	defKeys.insert("NewFromDocumentTemplate", Qt::CTRL + Qt::ALT + Qt::Key_N);
+	defKeys.insert("SaveAsDocumentTemplate", Qt::CTRL + Qt::ALT + Qt::Key_S);
 }
 
 void ActionManager::createDefaultMenuNames()
