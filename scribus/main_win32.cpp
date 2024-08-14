@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <io.h>
 
 #include <QApplication>
+#include <QImageReader>
 #include <QMessageBox>
 #include <exception>
 
@@ -100,6 +101,7 @@ int main(int argc, char *argv[])
 
 	ScribusQApp::setAttribute(Qt::AA_EnableHighDpiScaling);
 	ScribusQApp::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+	QImageReader::setAllocationLimit(1024);
 
 	ScribusQApp app(argc, argv);
 	setPythonEnvironment(ScribusQApp::applicationDirPath());

@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <csignal>
 
 #include <QApplication>
+#include <QImageReader>
 #include <QMessageBox>
 
 #include "scribusapp.h"
@@ -68,6 +69,8 @@ int mainApp(int argc, char **argv)
 #if !defined(Q_OS_MACOS)
 	qputenv("QT_QPA_PLATFORM", "xcb");
 #endif
+
+	QImageReader::setAllocationLimit(1024);
 
 	ScribusQApp app(argc, argv);
 	initCrashHandler();
