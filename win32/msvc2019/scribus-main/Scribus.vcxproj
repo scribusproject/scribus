@@ -825,6 +825,7 @@
     <ClInclude Include="..\..\..\scribus\util_formats.h" />
     <ClInclude Include="..\..\..\scribus\util_ghostscript.h" />
     <ClInclude Include="..\..\..\scribus\util_image.h" />
+    <ClInclude Include="..\..\..\scribus\util_keyboard.h" />
     <ClInclude Include="..\..\..\scribus\util_layer.h" />
     <ClInclude Include="..\..\..\scribus\util_math.h" />
     <ClInclude Include="..\..\..\scribus\util_printer.h" />
