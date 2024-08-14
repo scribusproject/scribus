@@ -181,12 +181,11 @@ public:
 		it->invalidateLayout();
 		if (doLayout)
 			it->layout();
-		double x, y, w, h;
 		QTransform t = it->getTransform();
-		w = it->visualWidth();
-		h = it->visualHeight();
-		x = -it->visualLineWidth() / 2.0;
-		y = -it->visualLineWidth() / 2.0;
+		double w = it->visualWidth();
+		double h = it->visualHeight();
+		double x = -it->visualLineWidth() / 2.0;
+		double y = -it->visualLineWidth() / 2.0;
 		QRectF upRect = t.mapRect(QRectF(x, y, w, h));
 		doc->regionsChanged()->update(upRect);
 		if (m_updateEnabled <= 0)
@@ -658,7 +657,7 @@ bool ScribusDoc::inASpecialEditMode() const
 			appMode == modeEditWeldPoint;
 }
 
-QList<PageItem*> ScribusDoc::getAllItems(QList<PageItem*> &items) const
+QList<PageItem*> ScribusDoc::getAllItems(const QList<PageItem*> &items) const
 {
 	QList<PageItem*> ret;
 	for (int em = 0; em < items.count(); ++em)
@@ -1030,7 +1029,7 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 	}
 	for (QHash<int, PageItem*>::const_iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
-		PageItem *currItem = itf.value();
+		const PageItem *currItem = itf.value();
 		if (currItem)
 			currItem->getNamedResources(lists);
 	}
@@ -1209,10 +1208,10 @@ void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
 void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 {
 	// replace names in items
-	QList<PageItem*> * itemlist = & MasterItems;
+	const QList<PageItem*> * itemlist = & MasterItems;
 	while (itemlist != nullptr)
 	{
-		for (int i=0; i < itemlist->count(); ++i)
+		for (int i = 0; i < itemlist->count(); ++i)
 		{
 			PageItem * currItem = itemlist->at(i);
 			if (currItem)
@@ -2561,7 +2560,7 @@ bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& new
 	MasterPages.at(number)->setPageName(newPageName);
 	//Update any pages that were linking to our old name
 	ScPage* docPage = nullptr;
-	for (int i=0; i < DocPages.count(); ++i )
+	for (int i = 0; i < DocPages.count(); ++i)
 	{
 		docPage = DocPages[i];
 		if (docPage->masterPageName() == oldPageName)
@@ -2785,7 +2784,7 @@ int ScribusDoc::addAutomaticTextFrame(int pageNumber)
 {
 	if (!m_automaticTextFrames)
 		return -1;
-	ScPage* addToPage = DocPages.at(pageNumber);
+	const ScPage* addToPage = DocPages.at(pageNumber);
 	if ((!masterPageMode()) && (usesAutomaticTextFrames()))// && (!isLoading()))
 	{
 		int z = itemAdd(PageItem::TextFrame, PageItem::Unspecified,
@@ -3684,13 +3683,12 @@ void ScribusDoc::setGradients(const QHash<QString, VGradient> &gradients)
 	docGradients = gradients;
 }
 
-bool ScribusDoc::addPattern(QString &name, ScPattern& pattern)
+bool ScribusDoc::addPattern(QString &name, const ScPattern& pattern)
 {
-	QString tmp;
 	if (docPatterns.contains(name))
-		name += "("+tmp.setNum(docPatterns.count())+")";
-//		name = tr("Copy_of_")+name;
+		name = getUniquePatternName(name);
 	docPatterns.insert(name, pattern);
+
 	QList<PageItem*> allItems = getAllItems(pattern.items);
 	for (int i = 0; i < allItems.count(); i++)
 	{
@@ -3775,7 +3773,7 @@ QStringList ScribusDoc::getUsedPatterns() const
 
 	for (PageItemIterator it(this, PageItemIterator::IterateInDocNoPatterns); *it; ++it)
 	{
-		PageItem* currItem = *it;
+		const PageItem* currItem = *it;
 		if ((!results.contains(currItem->pattern())) && ((currItem->GrType == Gradient_Pattern) || (currItem->itemType() == PageItem::Symbol)))
 			results.append(currItem->pattern());
 		if (!currItem->strokePattern().isEmpty())
@@ -3888,7 +3886,7 @@ QStringList ScribusDoc::getUsedPatternsHelper(const QString& pattern, QStringLis
 			allItems.append(pat.items.at(i));
 		for (int j = 0; j < allItems.count(); j++)
 		{
-			PageItem *currItem = allItems.at(j);
+			const PageItem *currItem = allItems.at(j);
 			if ((currItem->GrType == Gradient_Pattern) || (currItem->itemType() == PageItem::Symbol))
 			{
 				const QString& patName = currItem->pattern();
@@ -3961,7 +3959,7 @@ QStringList ScribusDoc::getUsedSymbols() const
 
 	for (PageItemIterator it(this, PageItemIterator::IterateInDocDefaults); *it; ++it)
 	{
-		PageItem* currItem = *it;
+		const PageItem* currItem = *it;
 		if (currItem->isGroup())
 			continue;
 		if ((!results.contains(currItem->pattern())) && (currItem->itemType() == PageItem::Symbol) && (!currItem->pattern().isEmpty()))
@@ -4521,7 +4519,7 @@ bool ScribusDoc::useImageEffects() const
 		const auto& itemList = *(itemLists[i]);
 		for (it.begin(itemList); *it; ++it)
 		{
-			PageItem *currItem = *it;
+			const PageItem *currItem = *it;
 			if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
 				continue;
 			if (currItem->effectsInUse.count() > 0)
@@ -4535,7 +4533,7 @@ bool ScribusDoc::useImageEffects() const
 		const ScPattern& pa = patIter.value();
 		for (it.begin(pa.items); *it; ++it)
 		{
-			PageItem *currItem = *it;
+			const PageItem *currItem = *it;
 			if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
 				continue;
 			if (currItem->effectsInUse.count() > 0)
@@ -4557,7 +4555,7 @@ bool ScribusDoc::useImageColorEffects() const
 		const auto& itemList = *(itemLists[i]);
 		for (it.begin(itemList); *it; ++it)
 		{
-			PageItem *currItem = *it;
+			const PageItem *currItem = *it;
 			if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
 				continue;
 			if (currItem->effectsInUse.useColorEffect())
@@ -4571,7 +4569,7 @@ bool ScribusDoc::useImageColorEffects() const
 		const ScPattern& pa = patIter.value();
 		for (it.begin(pa.items); *it; ++it)
 		{
-			PageItem *currItem = *it;
+			const PageItem *currItem = *it;
 			if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
 				continue;
 			if (currItem->effectsInUse.useColorEffect())
@@ -4618,7 +4616,7 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, int pageNumber)
 	ScPage* Ap = DocPages.at(pageNumber);
 	Ap->setMasterPageName(pageName);
 	const int MpNr = MasterNames[pageName];
-	ScPage* Mp = MasterPages.at(MpNr);
+	const ScPage* Mp = MasterPages.at(MpNr);
 	PageItem *currItem;
 	Ap->FromMaster.clear();
 	for (int itn = 0; itn < MasterItems.count(); ++itn)
@@ -4831,7 +4829,7 @@ bool ScribusDoc::changePageProperties(double initialTop, double initialBottom, d
 	return true;
 }
 
-void ScribusDoc::recalculateColorsList(QList<PageItem*> *itemList)
+void ScribusDoc::recalculateColorsList(const QList<PageItem*> *itemList)
 {
 	QList<PageItem*> allItems;
 	for (int c = 0; c < itemList->count(); ++c)
@@ -5611,7 +5609,9 @@ PageItem* ScribusDoc::getItemFromName(const QString& name) const
 void ScribusDoc::rebuildItemLists()
 {
 	// #5826 Rebuild items list in case layer order as been changed
-	QList<PageItem*> newDocItems, newMasterItems;
+	QList<PageItem*> newDocItems;
+	QList<PageItem*> newMasterItems;
+
 	Layers.sort();
 	int layerCount = this->layerCount();
 	for (int la = 0; la < layerCount; ++la)
@@ -5693,9 +5693,9 @@ bool ScribusDoc::loadPict(const QString& fn, PageItem *pageItem, bool reload, bo
 }
 
 
-void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
+void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint) const
 {
-	PageItem *currItem;
+	const PageItem *currItem;
 	double minx =  std::numeric_limits<double>::max();
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
@@ -5736,12 +5736,11 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 	}
 	else
 	{
-		ScPage* page;
 		MarginStruct pageBleeds;
 		int docPageCount = Pages->count();
 		for (int i = 0; i < docPageCount; ++i)
 		{
-			page = Pages->at(i);
+			const ScPage* page = Pages->at(i);
 			getBleeds(page, pageBleeds);
 			minx = qMin(minx, page->xOffset() - pageBleeds.left());
 			miny = qMin(miny, page->yOffset() - pageBleeds.top());
@@ -5755,13 +5754,13 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 	maxPoint.setY(maxy);
 }
 
-QRectF ScribusDoc::canvasOptimalRect()
+QRectF ScribusDoc::canvasOptimalRect() const
 {
 	double x, y, width, height;
 	QRectF canvasRect;
 	MarginStruct pageBleeds;
-	PageItem *currItem;
-	ScPage* page;
+	const PageItem *currItem;
+	const ScPage* page;
 
 	int pageCount = Pages->count();
 	for (int i = 0; i < pageCount; ++i)
@@ -5790,7 +5789,7 @@ QRectF ScribusDoc::canvasOptimalRect()
 }
 
 
-int ScribusDoc::OnPage(double x2, double  y2)
+int ScribusDoc::OnPage(double x2, double  y2) const
 {
 	int retw = -1;
 	if (masterPageMode())
@@ -5826,7 +5825,7 @@ int ScribusDoc::OnPage(double x2, double  y2)
 }
 
 
-int ScribusDoc::OnPage(PageItem *currItem)
+int ScribusDoc::OnPage(PageItem *currItem) const
 {
 	int retw = -1;
 
@@ -5905,7 +5904,6 @@ void ScribusDoc::GroupOnPage(PageItem* currItem)
 void  ScribusDoc::fixItemPageOwner()
 {
 	int pageNr;
-	ScPage* page;
 	PageItem* currItem;
 	MarginStruct pageBleeds;
 
@@ -5922,7 +5920,7 @@ void  ScribusDoc::fixItemPageOwner()
 		// specified page effectively contain the item
 		if (pageNr >= 0 && pageNr < Pages->count())
 		{
-			page = Pages->at(pageNr);
+			const ScPage* page = Pages->at(pageNr);
 			getBleeds(page, pageBleeds);
 			double x1 = page->xOffset() - pageBleeds.left();
 			double y1 = page->yOffset() - pageBleeds.top();
@@ -6459,7 +6457,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	return newItem;
 }
 
-int ScribusDoc::currentPageNumber()
+int ScribusDoc::currentPageNumber() const
 {
 	return m_currentPage->pageNr();
 }
@@ -6482,9 +6480,9 @@ bool ScribusDoc::itemNameExists(const QString& checkItemName) const
 	// Process groups
 	while (!groups.empty())
 	{
-		PageItem* item = groups.back();
+		const PageItem* backItem = groups.back();
 		groups.pop_back();
-		for (PageItem* item: item->groupItemList)
+		for (PageItem* item: backItem->groupItemList)
 		{
 			if (item->itemName() == checkItemName)
 				return true;
@@ -6948,7 +6946,8 @@ void ScribusDoc::updateSectionPageNumbersToPages()
 
 void ScribusDoc::addPageToSection(uint otherPageIndex, uint location, uint count)
 {
-	uint fromIndex, toIndex;
+	uint fromIndex;
+	uint toIndex;
 	uint searchedIndex = (otherPageIndex > 0) ? (otherPageIndex - 1) : 0;
 	if ((location == 0) && (searchedIndex > 0))
 		--searchedIndex;
@@ -7317,7 +7316,7 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *
 	}
 }
 
-void ScribusDoc::RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
+void ScribusDoc::RecalcPictures(const QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
 {
 	if (items->isEmpty())
 		return;
@@ -7328,7 +7327,7 @@ void ScribusDoc::RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, Profiles
 		counter = dia->value();
 	PageItem* it;
 	int docItemCount = items->count();
-	for (int i=0; i < docItemCount; ++i)
+	for (int i = 0; i < docItemCount; ++i)
 	{
 		it = items->at(i);
 		if (it->isGroup())
@@ -7394,7 +7393,7 @@ void ScribusDoc::sendItemSelectionToBack()
 	}
 	if (docSelectionCount > 1)
 	{
-		PageItem *firstItem = m_Selection->itemAt(0);
+		const PageItem *firstItem = m_Selection->itemAt(0);
 		for (int a = 1; a < docSelectionCount; ++a)
 		{
 			if (m_Selection->itemAt(a)->Parent != firstItem->Parent)
@@ -7461,7 +7460,7 @@ void ScribusDoc::bringItemSelectionToFront()
 	}
 	if (docSelectionCount > 1)
 	{
-		PageItem *firstItem = m_Selection->itemAt(0);
+		const PageItem *firstItem = m_Selection->itemAt(0);
 		for (int a = 1; a < docSelectionCount; ++a)
 		{
 			if (m_Selection->itemAt(a)->Parent != firstItem->Parent)
@@ -7528,7 +7527,7 @@ void ScribusDoc::itemSelection_LowerItem()
 	}
 	if (docSelectionCount > 1)
 	{
-		PageItem *firstItem = m_Selection->itemAt(0);
+		const PageItem *firstItem = m_Selection->itemAt(0);
 		for (int a = 1; a < docSelectionCount; ++a)
 		{
 			if (m_Selection->itemAt(a)->Parent != firstItem->Parent)
@@ -7600,7 +7599,7 @@ void ScribusDoc::itemSelection_RaiseItem()
 	}
 	if (docSelectionCount > 1)
 	{
-		PageItem *firstItem = m_Selection->itemAt(0);
+		const PageItem *firstItem = m_Selection->itemAt(0);
 		for (int a = 1; a < docSelectionCount; ++a)
 		{
 			if (m_Selection->itemAt(a)->Parent != firstItem->Parent)
@@ -7824,7 +7823,7 @@ void ScribusDoc::itemSelection_SetFont(const QString& font, Selection* customSel
 	{
 		if (!AddFont(font))
 		{
-			PageItem *currItem = itemSelection->itemAt(0);
+			const PageItem *currItem = itemSelection->itemAt(0);
 			newFont = currItem->currentCharStyle().font().scName();
 		}
 	}
@@ -9321,7 +9320,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
 	{
-		PageItem* currItem = itemSelection->itemAt(0);
+		const PageItem* currItem = itemSelection->itemAt(0);
 		QString  targetName = (selectedItemCount > 1) ? Um::SelectionGroup : currItem->getUName();
 		QPixmap* targetPixmap = (selectedItemCount > 1) ? Um::IGroup : currItem->getUPixmap();
 		activeTransaction = m_undoManager->beginTransaction(targetName, targetPixmap, Um::ApplyTextStyle, newStyle.displayName(), Um::IFont);
@@ -9411,7 +9410,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
 	{
-		PageItem* currItem = itemSelection->itemAt(0);
+		const PageItem* currItem = itemSelection->itemAt(0);
 		QString  targetName = (selectedItemCount > 1) ? Um::SelectionGroup : currItem->getUName();
 		QPixmap* targetPixmap = (selectedItemCount > 1) ? Um::IGroup : currItem->getUPixmap();
 		activeTransaction = m_undoManager->beginTransaction(targetName, targetPixmap, Um::ApplyTextStyle, newStyle.asString(), Um::IFont);
@@ -10093,19 +10092,19 @@ void ScribusDoc::recalcPicturesRes(int recalcFlags)
 
 	for (itemIt.begin(DocItems); *itemIt; ++itemIt)
 	{
-		PageItem *currItem = *itemIt;
+		const PageItem *currItem = *itemIt;
 		if (currItem->imageIsAvailable)
 			imageCount++;
 	}
 	for (itemIt.begin(MasterItems); *itemIt; ++itemIt)
 	{
-		PageItem *currItem = *itemIt;
+		const PageItem *currItem = *itemIt;
 		if (currItem->imageIsAvailable)
 			imageCount++;
 	}
 	for (itemIt.begin(frameItemList); *itemIt; ++itemIt)
 	{
-		PageItem *currItem = *itemIt;
+		const PageItem *currItem = *itemIt;
 		if (currItem->imageIsAvailable)
 			imageCount++;
 	}
@@ -10115,7 +10114,7 @@ void ScribusDoc::recalcPicturesRes(int recalcFlags)
 		const ScPattern& pa = patIt.value();
 		for (itemIt.begin(pa.items); *itemIt; ++itemIt)
 		{
-			PageItem *currItem = *itemIt;
+			const PageItem *currItem = *itemIt;
 			if (currItem->imageIsAvailable)
 				imageCount++;
 		}
@@ -10593,7 +10592,7 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 	if (nrOfCopies == 0)
 	{
 		double gx, gy, gh, gw;
-		PageItem *currItem = m_Selection->itemAt(0);
+		const PageItem *currItem = m_Selection->itemAt(0);
 		if (m_Selection->count() == 1)
 		{
 			gx = currItem->xPos();
@@ -11137,10 +11136,10 @@ void ScribusDoc::allItems_ChangePreviewResolution(int id)
 	changed();
 }
 
-void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, double* points)
+void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, const double* points)
 {
 	if ((item->itemType() == PageItem::PolyLine) || (item->itemType() == PageItem::PathText))
-			return;
+		return;
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
 		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IImageFrame, Um::ChangeShapeType, QString(), Um::IBorder);
@@ -11164,7 +11163,7 @@ void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, do
 		for (int i = 0; i < count/2; ++i)
 		{
 			double x = item->width()  * points[ix] / 100.0;
-			double y = item->height() * points[ix+1] / 100.0;
+			double y = item->height() * points[ix + 1] / 100.0;
 			newShape.addPoint(x, y);
 			ix += 2;
 		}
@@ -12747,7 +12746,8 @@ void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distan
 	if (!startAlign(2))
 		return;
 	int alignObjectsCount = AObjects.count();
-	QMap<double, int> x1Sorted, x2Sorted;
+	QMap<double, int> x1Sorted;
+	QMap<double, int> x2Sorted;
 	for (int i = 0; i < alignObjectsCount; ++i)
 	{
 		if (!x1Sorted.contains(AObjects[i].x1))
@@ -13535,8 +13535,10 @@ QRectF ScribusDoc::ApplyGridF(const QRectF& in)
 	bool   onPage = false;
 	double dX = m_docPrefsData.guidesPrefs.minorGridSpacing;
 	double dY = m_docPrefsData.guidesPrefs.minorGridSpacing;
-	double newX = in.x(), newY = in.y();
-	double pageX, pageY;
+	double newX = in.x();
+	double newY = in.y();
+	double pageX;
+	double pageY;
 
 	FPoint fp1(in.x(), in.y());
 	FPoint fp2(in.x(), in.y() + in.height());
@@ -13671,7 +13673,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::MultipleDuplicate, "", Um::IMultipleDuplicate);
 		else
 		{
-			PageItem* item = itemSelection->itemAt(0);
+			const PageItem* item = itemSelection->itemAt(0);
 			activeTransaction = m_undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::MultipleDuplicate, "", Um::IMultipleDuplicate);
 		}
 	}
@@ -13807,8 +13809,9 @@ void ScribusDoc::multipleDuplicateByPage(const ItemMultipleDuplicateData& dialog
 
 	if (!m_Selection->itemsAreOnSamePage())
 	{
-		int firstPage = Pages->count(), lastPage = 0;
-		for (auto item: selection.items())
+		int firstPage = Pages->count();
+		int lastPage = 0;
+		for (auto item : selection.items())
 		{
 			if ((item->OwnPage >= 0) && (item->OwnPage < firstPage))
 				firstPage = item->OwnPage;
@@ -13905,7 +13908,7 @@ void ScribusDoc::multipleDuplicateByPage(const ItemMultipleDuplicateData& dialog
 }
 
 
-void ScribusDoc::itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection)
+void ScribusDoc::itemSelection_ApplyImageEffects(const ScImageEffectList& newEffectList, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
 	assert(itemSelection != nullptr);
@@ -14102,11 +14105,11 @@ void ScribusDoc::createNewDocPages(int pageCount)
 }
 
 
-void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *yout, ScPage* refPage)
+void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *yout, const ScPage* refPage)
 {
 	int gxM = -1;
 	int gyM = -1;
-	ScPage* page = (refPage == nullptr) ? currentPage() : refPage;
+	const ScPage* page = (refPage == nullptr) ? currentPage() : refPage;
 	QMap<double, uint> tmpGuidesSel;
 	Guides tmpGuides = page->guides.horizontals(GuideManagerCore::Standard);
 	Guides::iterator it;
@@ -14180,7 +14183,7 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 	*yout = yin;
 
 	QList<PageItem*> items = getAllItems(*Items);
-	PageItem *parentI = nullptr;
+	const PageItem *parentI = nullptr;
 	if (m_Selection->count() > 0)
 		parentI = m_Selection->itemAt(0)->Parent;
 
@@ -14242,9 +14245,9 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 	}
 }
 
-void ScribusDoc::getClosestPageBoundaries(double xin, double yin, double &xout, double &yout, ScPage* refPage)
+void ScribusDoc::getClosestPageBoundaries(double xin, double yin, double &xout, double &yout, const ScPage* refPage)
 {
-	ScPage* page = (refPage == nullptr) ? currentPage() : refPage;
+	const ScPage* page = (refPage == nullptr) ? currentPage() : refPage;
 
 	MarginStruct bleedValues;
 	getBleeds(page, m_docPrefsData.docSetupPrefs.bleeds, bleedValues);
@@ -14301,7 +14304,8 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 	if (pg == -1)
 		return;
 
-	double xout, yout;
+	double xout;
+	double yout;
 
 	getClosestGuides(0, currItem->yPos(), &xout, &yout);
 	if (currItem->yPos() != yout)
@@ -14351,7 +14355,7 @@ bool ScribusDoc::ApplyGuides(double *x, double *y, bool elementSnap)
 	int pg = OnPage(*x, *y);
 	if (pg == -1)
 		return ret;
-	ScPage* page = Pages->at(pg);
+	const ScPage* page = Pages->at(pg);
 
 	//	if ((SnapGuides) && (m_SnapCounter > 1))
 	if ((SnapGuides && !elementSnap) || (SnapElement && elementSnap))
@@ -14903,17 +14907,16 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		double dscw = 1.0;
 		if (item->isArc())
 		{
-			PageItem_Arc* arcItem = item->asArc();
+			const PageItem_Arc* arcItem = item->asArc();
 			if (arcItem->height() != 0.0)
 				dsch = arcItem->arcHeight / arcItem->height();
 			if (arcItem->width() != 0.0)
 				dscw = arcItem->arcWidth / arcItem->width();
 		}
 		item->Sizing = false;
-		double oldRot, oldLocalX, oldLocalY;
-		oldRot = item->rotation();
-		oldLocalX = item->imageXOffset();
-		oldLocalY = item->imageYOffset();
+		double oldRot = item->rotation();
+		double oldLocalX = item->imageXOffset();
+		double oldLocalY = item->imageYOffset();
 		FPointArray gr;
 		gr.addPoint(item->GrStartX, item->GrStartY);
 		gr.addPoint(item->GrEndX, item->GrEndY);
@@ -15129,7 +15132,7 @@ PageItem* ScribusDoc::groupObjectsSelection(Selection* customSelection)
 	double maxy = -std::numeric_limits<double>::max();
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem* currItem = itemSelection->itemAt(i);
+		const PageItem* currItem = itemSelection->itemAt(i);
 		double x1, x2, y1, y2;
 		currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 		minx = qMin(minx, x1);
@@ -15339,7 +15342,7 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	double maxy = -std::numeric_limits<double>::max();
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem* currItem = selectedItems.at(i);
+		const PageItem* currItem = selectedItems.at(i);
 		double x1, x2, y1, y2;
 		currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 		minx = qMin(minx, x1);
@@ -15970,7 +15973,7 @@ void ScribusDoc::itemSelection_convertItemsToSymbol(QString& patternName)
 	QStringList results;
 	for (int i = 0; i < allItems.count(); i++)
 	{
-		PageItem *item = allItems.at(i);
+		const PageItem *item = allItems.at(i);
 		if ((!results.contains(item->pattern())) && ((item->GrType == Gradient_Pattern) || (item->itemType() == PageItem::Symbol)))
 			results.append(item->pattern());
 		if (!item->strokePattern().isEmpty())
@@ -16330,7 +16333,7 @@ void ScribusDoc::itemSelection_SetCompressionQuality(int cqIndex, Selection * cu
 	}
 }
 
-QHash<PageItem*, QString> ScribusDoc::getDocItemNames(PageItem::ItemType itemType)
+QHash<PageItem*, QString> ScribusDoc::getDocItemNames(PageItem::ItemType itemType) const
 {
 	QHash<PageItem*, QString> namesMap;
 	QList<PageItem*> allItems;
@@ -16379,7 +16382,7 @@ bool ScribusDoc::textCanvasPosition(PageItem* item, int textPos, QPointF& canvas
 	if (!item->isTextFrame() && !item->isPathText() && !item->isNoteFrame())
 		return false;
 
-	PageItem *charFrame = item->frameOfChar(textPos);
+	const PageItem *charFrame = item->frameOfChar(textPos);
 	if (!charFrame)
 		return false;
 
@@ -16708,7 +16711,7 @@ void ScribusDoc::checkItemForFrames(PageItem *it, int fIndex)
 	it->invalid = true;
 }
 
-bool ScribusDoc::hasPreflightErrors()
+bool ScribusDoc::hasPreflightErrors() const
 {
 	return (
 			(pageErrors.count() != 0) ||
@@ -16724,7 +16727,7 @@ void ScribusDoc::itemResizeToMargin(PageItem* item, int direction)
 	if (item->rotation() != 0)
 		return;
 	Canvas::FrameHandle fh = (Canvas::FrameHandle) direction;
-	ScPage *currPage = Pages->at(item->OwnPage);
+	const ScPage *currPage = Pages->at(item->OwnPage);
 	QTransform transform;
 	transform.translate(item->xPos(), item->yPos());
 	double inX = transform.dx() - m_currentPage->xOffset();
@@ -16815,7 +16818,7 @@ void ScribusDoc::setupNumerations()
 	NumStruct * numS = nullptr;
 	for (int i = 0; i < m_docParagraphStyles.count(); ++i)
 	{
-		ParagraphStyle &style = m_docParagraphStyles[i];
+		const ParagraphStyle &style = m_docParagraphStyles[i];
 		if (!style.hasNum())
 			continue;
 
@@ -17161,12 +17164,12 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 	flag_Renumber = false;
 }
 
-QStringList ScribusDoc::marksLabelsList(MarkType type)
+QStringList ScribusDoc::marksLabelsList(MarkType type) const
 {
 	QStringList nameList;
 	for (int i = 0; i < m_docMarksList.count(); ++i)
 	{
-		Mark* m = m_docMarksList.at(i);
+		const Mark* m = m_docMarksList.at(i);
 		if (m == nullptr)
 			continue;
 		if ((m != nullptr) && m->isType(type))
@@ -17185,7 +17188,7 @@ Mark* ScribusDoc::getMark(const QString& l, MarkType t)
 	return nullptr;
 }
 
-Mark *ScribusDoc::newMark(Mark* mrk)
+Mark *ScribusDoc::newMark(const Mark* mrk)
 {
 	Mark* newMark = new Mark();
 	if (mrk != nullptr)
@@ -17360,7 +17363,7 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 	return found;
 }
 
-void ScribusDoc::setUndoDelMark(Mark *mrk)
+void ScribusDoc::setUndoDelMark(const Mark *mrk)
 {
 	//used by MarksManager
 	if (UndoManager::undoEnabled())
@@ -17411,7 +17414,7 @@ void ScribusDoc::setUndoDelMark(Mark *mrk)
 	}
 }
 
-bool ScribusDoc::invalidateVariableTextFrames(Mark* mrk, bool forceUpdate)
+bool ScribusDoc::invalidateVariableTextFrames(const Mark* mrk, bool forceUpdate)
 {
 	if (!mrk->isType(MARKVariableTextType))
 		return false;
@@ -17479,8 +17482,8 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 			}
 			else if (mrk->isUnique())
 			{
-				PageItem* mItem = findFirstMarkItem(mrk);
-				mrk->OwnPage =(mItem != nullptr) ? mItem->OwnPage : -1;
+				const PageItem* mItem = findFirstMarkItem(mrk);
+				mrk->OwnPage = (mItem != nullptr) ? mItem->OwnPage : -1;
 				mrk->setItemName((mItem != nullptr) ? mItem->itemName() : QString(""));
 			}
 		}
@@ -17537,7 +17540,7 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 			Mark* destMark = getMark(l, t);
 			if (destMark != nullptr)
 			{
-				PageItem* dItem = findFirstMarkItem(destMark);
+				const PageItem* dItem = findFirstMarkItem(destMark);
 				if (dItem != nullptr)
 				{
 					destMark->OwnPage = dItem->OwnPage;
@@ -17654,7 +17657,7 @@ void ScribusDoc::deleteNotesStyle(const QString& nsName)
 	delete noteStyle;
 }
 
-void ScribusDoc::undoSetNotesStyle(SimpleState* ss, NotesStyle *noteStyle)
+void ScribusDoc::undoSetNotesStyle(SimpleState* ss, const NotesStyle *noteStyle)
 {
 	ss->set("name", noteStyle->name());
 	ss->set("start", noteStyle->start());
@@ -17933,7 +17936,7 @@ bool ScribusDoc::updateEndNotesNums()
 	return docWasChanged;
 }
 
-void ScribusDoc::updateNotesFramesStyles(NotesStyle *nStyle)
+void ScribusDoc::updateNotesFramesStyles(const NotesStyle *nStyle)
 {
 	for (int i = 0; i < Items->count(); ++i)
 	{
@@ -17990,7 +17993,7 @@ void ScribusDoc::updateItemNotesFramesStyles(PageItem* item, const ParagraphStyl
 	}
 }
 
-QList<PageItem_NoteFrame *> ScribusDoc::listNotesFrames(NotesStyle *noteStyle)
+QList<PageItem_NoteFrame *> ScribusDoc::listNotesFrames(const NotesStyle *noteStyle)
 {
 	QList<PageItem_NoteFrame *> list;
 	for (PageItem* item : qAsConst(DocItems))
@@ -18001,9 +18004,9 @@ QList<PageItem_NoteFrame *> ScribusDoc::listNotesFrames(NotesStyle *noteStyle)
 	return list;
 }
 
-const ScPage *ScribusDoc::page4EndNotes(NotesStyle *noteStyle, PageItem* item)
+const ScPage *ScribusDoc::page4EndNotes(const NotesStyle *noteStyle, PageItem* item)
 {
-	ScPage* scP = nullptr;
+	const ScPage* scP = nullptr;
 	if (noteStyle->range() == NSRdocument)
 		scP = DocPages.last();
 	else if (item != nullptr)
@@ -18082,7 +18085,7 @@ bool ScribusDoc::notesFramesUpdate()
 	return docWasChanged;
 }
 
-void ScribusDoc::updateNotesFramesSettings(NotesStyle *noteStyle)
+void ScribusDoc::updateNotesFramesSettings(const NotesStyle *noteStyle)
 {
 	QList<PageItem_NoteFrame*> noteFramesList = listNotesFrames(noteStyle);
 	for (PageItem_NoteFrame* nF : qAsConst(noteFramesList))
@@ -18107,14 +18110,14 @@ void ScribusDoc::updateNotesFramesSettings(NotesStyle *noteStyle)
 	}
 }
 
-void ScribusDoc::updateEndnotesFrames(NotesStyle* nStyle, bool invalidate)
+void ScribusDoc::updateEndnotesFrames(const NotesStyle* nStyle, bool invalidate)
 {
 	if (m_docEndNotesFramesMap.isEmpty())
 		return;
 	if (nStyle == nullptr)
 	{
 		int nsCount = m_docNotesStylesList.count();
-		for (int i=0; i < nsCount; ++i)
+		for (int i = 0; i < nsCount; ++i)
 			updateEndnotesFrames(m_docNotesStylesList.at(i));
 	}
 	else if (nStyle->isEndNotes())
@@ -18127,7 +18130,7 @@ void ScribusDoc::updateEndnotesFrames(NotesStyle* nStyle, bool invalidate)
 }
 
 //for sorting purpose
-bool ascendingSort(TextNote* nt1, TextNote* nt2) { return nt1->num() < nt2->num(); }
+bool ascendingSort(const TextNote* nt1, const TextNote* nt2) { return nt1->num() < nt2->num(); }
 
 void ScribusDoc::updateEndNotesFrameContent(PageItem_NoteFrame *nF, bool invalidate)
 {
@@ -18155,7 +18158,7 @@ void ScribusDoc::updateEndNotesFrameContent(PageItem_NoteFrame *nF, bool invalid
 	}
 	else
 	{
-		NotesStyle* currNS = nF->notesStyle();
+		const NotesStyle* currNS = nF->notesStyle();
 		if (currNS->isAutoNotesHeight() || currNS->isAutoNotesWidth())
 			nF->invalidateLayout(false);
 		std::sort(nList.begin(), nList.end(), ascendingSort);
@@ -18166,7 +18169,7 @@ void ScribusDoc::updateEndNotesFrameContent(PageItem_NoteFrame *nF, bool invalid
 		nF->invalid = true;
 		nF->layout();
 		//layout all endnotes frames with same range
-		for (NotesStyle* noteStyle : qAsConst(m_docNotesStylesList))
+		for (const NotesStyle* noteStyle : qAsConst(m_docNotesStylesList))
 		{
 			if ((noteStyle != currNS) && (noteStyle->isEndNotes() && noteStyle->range() == currNS->range()))
 			{
@@ -18297,7 +18300,7 @@ bool ScribusDoc::validateNSet(const NotesStyle& noteStyle, QString newName)
 {
 	//check if chosen numbering type is available with chosen range, prefix and suffix
 	QString errStr;
-	for (NotesStyle* NS2 : qAsConst(m_docNotesStylesList))
+	for (const NotesStyle* NS2 : qAsConst(m_docNotesStylesList))
 	{
 		if (newName.isEmpty())
 			//hack for validate nset while its name will change
@@ -18319,14 +18322,14 @@ bool ScribusDoc::validateNSet(const NotesStyle& noteStyle, QString newName)
 	return true;
 }
 
-void ScribusDoc::invalidateNoteFrames(NotesStyle *nStyle)
+void ScribusDoc::invalidateNoteFrames(const NotesStyle *nStyle)
 {
 	auto noteFrameList = listNotesFrames(nStyle);
 	for (PageItem_NoteFrame* noteFrame : qAsConst(noteFrameList))
 		noteFrame->invalid = true;
 }
 
-void ScribusDoc::invalidateMasterFrames(NotesStyle *nStyle)
+void ScribusDoc::invalidateMasterFrames(const NotesStyle *nStyle)
 {
 	QList<PageItem*> toInvalidate;
 	for (TextNote* note : qAsConst(m_docNotesList))
@@ -18338,7 +18341,7 @@ void ScribusDoc::invalidateMasterFrames(NotesStyle *nStyle)
 		toInvalidate.takeFirst()->invalid = true;
 }
 
-PageItem_NoteFrame *ScribusDoc::endNoteFrame(NotesStyle *nStyle, PageItem_TextFrame *master)
+PageItem_NoteFrame *ScribusDoc::endNoteFrame(const NotesStyle *nStyle, PageItem_TextFrame *master)
 {
 	if (nStyle->range() == NSRdocument)
 		return endNoteFrame(nStyle);
@@ -18347,7 +18350,7 @@ PageItem_NoteFrame *ScribusDoc::endNoteFrame(NotesStyle *nStyle, PageItem_TextFr
 	return nullptr;
 }
 
-PageItem_NoteFrame* ScribusDoc::endNoteFrame(NotesStyle *nStyle, void* item)
+PageItem_NoteFrame* ScribusDoc::endNoteFrame(const NotesStyle *nStyle, void* item)
 {
 	if (m_docEndNotesFramesMap.isEmpty())
 		return nullptr;

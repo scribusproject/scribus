@@ -100,7 +100,7 @@ public:
 	void init();
 	bool inAnEditMode() const;
 	bool inASpecialEditMode() const;
-	QList<PageItem*> getAllItems(QList<PageItem*> &items) const;
+	QList<PageItem*> getAllItems(const QList<PageItem*> &items) const;
 	QList<PageItem*> *parentGroup(PageItem* item, QList<PageItem*> *list);
 	void setup(int, int, int, int, int, const QString&, const QString&);
 	void setLoading(bool);
@@ -716,7 +716,7 @@ public:
 	/*!
 	* @brief Set the patterns for a document
 	*/
-	bool addPattern(QString &name, ScPattern& pattern);
+	bool addPattern(QString &name, const ScPattern& pattern);
 	void removePattern(const QString& name);
 	void setPatterns(const QHash<QString, ScPattern> &patterns);
 	/*!
@@ -809,7 +809,7 @@ public:
 	/**
 	 * @brief Recalculate the colors after CMS settings change. Update the items in the doc accordingly.
 	 */
-	void recalculateColorsList(QList<PageItem *> *itemList);
+	void recalculateColorsList(const QList<PageItem *> *itemList);
 	static void recalculateColorItem(PageItem *item);
 	void recalculateColors();
 	/**
@@ -911,20 +911,20 @@ public:
 	 * @param PrCMYK cmyk profile
 	 * @param dia optional progress widget
 	 */
-	void RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = nullptr);
+	void RecalcPictures(const QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = nullptr);
 
 	/**
 	 * @brief Find the minX,MinY and maxX,maxY for the canvas required for the doc
 	 */
-	void canvasMinMax(FPoint&, FPoint&);
+	void canvasMinMax(FPoint&, FPoint&) const;
 
 	/**
 	 * @brief Find the optimal area for canvas
 	 */
-	QRectF canvasOptimalRect();
+	QRectF canvasOptimalRect() const;
 	
-	int  OnPage(double x2, double  y2);
-	int  OnPage(PageItem *currItem);
+	int  OnPage(double x2, double  y2) const;
+	int  OnPage(PageItem *currItem) const;
 	void GroupOnPage(PageItem *currItem);
 
 	void reformPages(bool moveObjects = true);
@@ -959,7 +959,7 @@ public:
 	/**
 	 * @brief The page number of the current page
 	 */
-	int currentPageNumber();
+	int currentPageNumber() const;
 	
 	/**
 	 * @brief Return true iff the passed name is not used by any existing PageItem
@@ -1238,11 +1238,11 @@ public:
 	};
 
 	//! \brief Get the closest guide to the given point
-	void getClosestGuides(double xin, double yin, double *xout, double *yout, ScPage* refPage = nullptr);
+	void getClosestGuides(double xin, double yin, double *xout, double *yout, const ScPage* refPage = nullptr);
 	//! \brief Get the closest border of another element to the given point
 	void getClosestElementBorder(double xin, double yin, double *xout, double *yout, SelectionSkipBehavior behavior = IncludeSelection);
 	//! \brief Get the closest page margin or bleed
-	void getClosestPageBoundaries(double xin, double yin, double &xout, double &yout, ScPage* refPage);
+	void getClosestPageBoundaries(double xin, double yin, double &xout, double &yout, const ScPage* refPage);
 	//! \brief Snap an item to the guides
 	void SnapToGuides(PageItem *currItem);
 	bool ApplyGuides(double *x, double *y, bool elementSnap = false);
@@ -1259,7 +1259,7 @@ public:
 	void rotateGroup(double angle, const FPoint& RCenter, Selection* customSelection = nullptr);
 	void scaleGroup(double scx, double scy, bool scaleText = true, Selection* customSelection = nullptr, bool scaleLine = false);
 	//! \brief Get a list of frames of certain type
-	QHash<PageItem*, QString> getDocItemNames(PageItem::ItemType itemType);
+	QHash<PageItem*, QString> getDocItemNames(PageItem::ItemType itemType) const;
 	//! \brief Returns a serializer for this document
 	Serializer *serializer();
 	//! \brief Returns a text serializer for this document, used to paste text chunks
@@ -1281,7 +1281,7 @@ public:
 	int addToInlineFrames(PageItem *item);
 	void removeInlineFrame(int fIndex);
 	void checkItemForFrames(PageItem *it, int fIndex);
-	bool hasPreflightErrors();
+	bool hasPreflightErrors() const;
 	QFileDevice::Permissions filePermissions() const { return m_docFilePermissions; }
 	void saveFilePermissions(QFileDevice::Permissions p) { m_docFilePermissions = p; }
 
@@ -1520,7 +1520,7 @@ public slots:
 	void allItems_ChangePreviewResolution(int id);
 
 	//FIXME : change to process a selection
-	void item_setFrameShape(PageItem* item, int frameType, int count, double* points); 
+	void item_setFrameShape(PageItem* item, int frameType, int count, const double* points);
 
 	void itemSelection_ClearItem(Selection* customSelection = nullptr, bool useWarning = false);
 	void itemSelection_TruncateItem(Selection* customSelection = nullptr);
@@ -1542,7 +1542,7 @@ public slots:
 	void itemSelection_SetMaskGradient(const VGradient& newGradient, Selection* customSelection = nullptr);
 	void itemSelection_SetMaskGradientName(const QString& gradientName, Selection* customSelection = nullptr);
 	void itemSelection_SetOverprint(bool overprint, Selection* customSelection = nullptr);
-	void itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection = nullptr);
+	void itemSelection_ApplyImageEffects(const ScImageEffectList& newEffectList, Selection* customSelection = nullptr);
 	void itemSelection_FlipH(Selection* customSelection = nullptr);
 	void itemSelection_FlipV(Selection* customSelection = nullptr);
 	void itemSelection_Rotate(double angle, Selection* customSelection = nullptr);
@@ -1769,7 +1769,7 @@ public:
 	bool usesMarksAndNotes() const { return m_docUsesMarksAndNotes; }
 	void setUsesMarksAndNotes(bool b) { m_docUsesMarksAndNotes = b; }
 	//return page where endnotesframe should be located depending of notes style range and location of master mark
-	const ScPage* page4EndNotes(NotesStyle* NS, PageItem* item);
+	const ScPage* page4EndNotes(const NotesStyle* NS, PageItem* item);
 	const QList<Mark*>& marksList() { return m_docMarksList; }
 	const QList<TextNote*>& notesList() { return m_docNotesList; }
 	QList<NotesStyle*> m_docNotesStylesList;
@@ -1777,7 +1777,7 @@ public:
 	QList<NotesStyle*> ns2Update; //list of notes styles to update
 
 	//returns list of notesframes for given Notes Style
-	QList<PageItem_NoteFrame*> listNotesFrames(NotesStyle* NS);
+	QList<PageItem_NoteFrame*> listNotesFrames(const NotesStyle* NS);
 
 	//flags used for indicating needs of updates
 	bool notesChanged() const { return m_flag_notesChanged; }
@@ -1788,11 +1788,11 @@ public:
 	bool flag_layoutNotesFrames {true};
 
 	//returns list of marks labels for given mark type
-	QStringList marksLabelsList(MarkType type);
+	QStringList marksLabelsList(MarkType type) const;
 
 	//return mark with given label and given type
 	Mark* getMark(const QString& label, MarkType type); //returns mark with label and type (labels are unique only for same type marks)
-	Mark* newMark(Mark* mrk = nullptr);
+	Mark* newMark(const Mark* mrk = nullptr);
 	TextNote* newNote(NotesStyle* NS);
 	
 	bool isMarkUsed(const Mark* mrk, bool visible = false) const;
@@ -1800,18 +1800,18 @@ public:
 	void setCursor2MarkPos(const Mark* mark);
 	//return false if mark was not found
 	bool eraseMark(Mark* mrk, bool fromText = false, PageItem* item = nullptr, bool force = false); //force is used only for deleting non-unique marks by MarksManager
-	void setUndoDelMark(Mark* mrk);
+	void setUndoDelMark(const Mark* mrk);
 	//invalidate all text frames where given mark will found
 	//useful spacially for variable text marks after changing its text definition
 	//if forceUpdate then found master frames are relayouted
-	bool invalidateVariableTextFrames(Mark* mrk, bool forceUpdate = false); //returns if any text was changed
+	bool invalidateVariableTextFrames(const Mark* mrk, bool forceUpdate = false); //returns if any text was changed
 
 	//for foot/endnotes
 	NotesStyle* newNotesStyle(const NotesStyle& NS);
 	void renameNotesStyle(NotesStyle* NS, const QString& newName);
 	//delete whole notes style with its notesframes and notes
 	void deleteNotesStyle(const QString& nsName);
-	void undoSetNotesStyle(SimpleState* ss, NotesStyle* ns);
+	void undoSetNotesStyle(SimpleState* ss, const NotesStyle* ns);
 	NotesStyle* getNotesStyle(const QString& nsName);
 	//delete note, if fromText than marks for given note will be removed
 	void deleteNote(TextNote* note);
@@ -1824,21 +1824,21 @@ public:
 	//return true if doc needs update after changing numbers of notes
 	bool updateNotesNums(NotesStyle* nStyle);
 	//set new text styles for notes marks
-	void updateNotesFramesStyles(NotesStyle* nStyle);
+	void updateNotesFramesStyles(const NotesStyle* nStyle);
 	//check conflicts between notes styles
 	bool validateNSet(const NotesStyle& NS, QString newName = "");
 	//update layout remove empty notesframes
 	bool notesFramesUpdate();
 	//update notesframes after changing automatic features of notes style
-	void updateNotesFramesSettings(NotesStyle* NS);
+	void updateNotesFramesSettings(const NotesStyle* NS);
 
 	//search for endnotesframe for given notes style and item holding master mark
-	PageItem_NoteFrame* endNoteFrame(NotesStyle* nStyle, PageItem_TextFrame* master);
+	PageItem_NoteFrame* endNoteFrame(const NotesStyle* nStyle, PageItem_TextFrame* master);
 	//
 	void setEndNoteFrame(PageItem_NoteFrame* nF, void* ptr)   { rangeItem rI={ptr}; m_docEndNotesFramesMap.insert(nF,rI); }
 	void setEndNoteFrame(PageItem_NoteFrame* nF, int section)   { rangeItem rI; rI.sectionIndex = section; m_docEndNotesFramesMap.insert(nF, rI); }
 	//update all endnotesframes content for given notes style
-	void updateEndnotesFrames(NotesStyle* nStyle = nullptr, bool invalidate = false);
+	void updateEndnotesFrames(const NotesStyle* nStyle = nullptr, bool invalidate = false);
 	//update endnotesframe content
 	void updateEndNotesFrameContent(PageItem_NoteFrame* nF, bool invalidate = false);
 	//insert noteframe into list of changed
@@ -1862,7 +1862,7 @@ private:
 	PageItem* findFirstMarkItem(const Mark* mrk) const { PageItem* tmp = nullptr; return findMarkItem(mrk, tmp); }
 
 	//search for endnotesframe for given notes style and item holding master mark or section number
-	PageItem_NoteFrame* endNoteFrame(NotesStyle* nStyle, void* item = nullptr);
+	PageItem_NoteFrame* endNoteFrame(const NotesStyle* nStyle, void* item = nullptr);
 	//clear list of notes for given notesframe
 	void clearNotesInFrameList(PageItem_NoteFrame* nF) { m_docNotesInFrameMap.insert(nF, QList<TextNote*>()); }
 	//renumber notes with given notes style for given frame starting from number num
@@ -1872,8 +1872,8 @@ private:
 	
 	//not used?
 	bool updateEndNotesNums(); //return true if doc needs update
-	void invalidateNoteFrames(NotesStyle* nStyle);
-	void invalidateMasterFrames(NotesStyle* nStyle);
+	void invalidateNoteFrames(const NotesStyle* nStyle);
+	void invalidateMasterFrames(const NotesStyle* nStyle);
 
 public slots:
 	//update strings (page numbers) for marks
