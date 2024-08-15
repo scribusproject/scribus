@@ -35,13 +35,11 @@ bool ScText::hasObject(const ScribusDoc *doc) const
 
 bool ScText::hasMark(const Mark* mrk) const
 {
-	if (this->ch == SpecialChars::OBJECT)
-	{
-		if (mrk == nullptr)
-			return mark != nullptr;
-		return mark == mrk;
-	}
-	return false;
+	if (this->ch != SpecialChars::OBJECT)
+		return false;
+	if (mrk == nullptr)
+		return mark != nullptr;
+	return mark == mrk;
 }
 
 QList<PageItem*> ScText::getGroupedItems(const ScribusDoc *doc) const
