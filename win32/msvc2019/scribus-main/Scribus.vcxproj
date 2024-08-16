@@ -494,6 +494,7 @@
     <moc Include="..\..\..\scribus\ui\mark2item.h" />
     <moc Include="..\..\..\scribus\ui\mark2mark.h" />
     <moc Include="..\..\..\scribus\ui\markanchor.h" />
+    <moc Include="..\..\..\scribus\ui\markindex.h" />
     <moc Include="..\..\..\scribus\ui\markinsert.h" />
     <moc Include="..\..\..\scribus\ui\marknote.h" />
     <ClInclude Include="..\..\..\scribus\marks.h" />
@@ -1229,6 +1230,7 @@
     <ClCompile Include="..\..\..\scribus\ui\mark2item.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\mark2mark.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\markanchor.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\markindex.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\marknote.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\marksmanager.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\markvariabletext.cpp" />
@@ -1669,6 +1671,7 @@
     <uic Include="..\..\..\scribus\ui\mark2item.ui" />
     <uic Include="..\..\..\scribus\ui\mark2mark.ui" />
     <uic Include="..\..\..\scribus\ui\markanchor.ui" />
+    <uic Include="..\..\..\scribus\ui\markindex.ui" />
     <uic Include="..\..\..\scribus\ui\marknote.ui" />
     <uic Include="..\..\..\scribus\ui\marksmanager.ui" />
     <uic Include="..\..\..\scribus\ui\markvariabletext.ui" />
