@@ -1807,6 +1807,7 @@ void AppModeHelper::enableTextActions(bool enabled, const QString& fontName)
 		(*a_scrActions)["insertMarkItem"]->setEnabled(false);
 		(*a_scrActions)["insertMark2Mark"]->setEnabled(false);
 		(*a_scrActions)["insertMarkNote"]->setEnabled(false);
+		(*a_scrActions)["insertMarkIndex"]->setEnabled(false);
 		(*a_scrActions)["editMark"]->setEnabled(false);
 	}
 }
@@ -1889,6 +1890,7 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["insertMarkItem"]->setEnabled(false);
 	(*a_scrActions)["insertMark2Mark"]->setEnabled(false);
 	(*a_scrActions)["insertMarkNote"]->setEnabled(false);
+	(*a_scrActions)["insertMarkIndex"]->setEnabled(false);
 	(*a_scrActions)["toolsPreflightVerifier"]->setEnabled(false);
 	(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
 	(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
@@ -2017,6 +2019,7 @@ void AppModeHelper::enableExperimentalActions(const ScribusDoc *doc)
 	(*a_scrActions)["insertMarkItem"]->setEnabled(setter);
 	(*a_scrActions)["insertMark2Mark"]->setEnabled(setter);
 	(*a_scrActions)["insertMarkVariableText"]->setEnabled(setter);
+	(*a_scrActions)["insertMarkIndex"]->setEnabled(setter);
 	ScribusMainWindow *scMW = ScCore->primaryMainWindow();
 	scMW->scrMenuMgr->setMenuEnabled("Marks", setter);
 	scMW->scrMenuMgr->setMenuEnabled("InsertMark", setter);

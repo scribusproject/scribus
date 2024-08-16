@@ -32,6 +32,7 @@ Prefs_Indexes::Prefs_Indexes(QWidget* parent, ScribusDoc* doc)
 
 	connect(itemDestFrameComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(itemFrameSelected(QString)));
 	connect(listNonPrintingCheckBox, SIGNAL(toggled(bool)), this, SLOT(listNonPrintingChecked(bool)));
+	connect(combinePageNumbersCheckBox, SIGNAL(toggled(bool)), this, SLOT(combinePageNumbersChecked(bool)));
 	connect(combineIdenticalEntriesCheckBox, SIGNAL(toggled(bool)), this, SLOT(combineIdenticalEntriesChecked(bool)));
 	connect(caseSensitiveCombinationCheckBox, SIGNAL(toggled(bool)), this, SLOT(caseSenstiveChecked(bool)));
 	connect(autoCapitalizeEntriesCheckBox, SIGNAL(toggled(bool)), this, SLOT(autoCapitalizeEntriesChecked(bool)));
@@ -68,8 +69,10 @@ void Prefs_Indexes::restoreDefaults(struct ApplicationPrefs *prefsData)
 		selectIndex(0);
 	}
 	else
+	{
 		indexListBox->clear();
-	enableGUIWidgets();
+		enableGUIWidgets();
+	}
 	connect( indexListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectIndex(int) ) );
 	connect( indexListBox, SIGNAL( itemChanged(QListWidgetItem*) ), this, SLOT( indexListWidgetItemEdited(QListWidgetItem*)));
 
@@ -90,10 +93,10 @@ void Prefs_Indexes::enableGUIWidgets()
 	bool indexExists = (localIndexSetupVector.count() > 0);
 	indexListBox->setEnabled(indexExists);
 	bool haveIndexSelected = (indexExists && (indexListBox->currentRow() >= 0));
-
 	indexDeleteButton->setEnabled(haveIndexSelected);
 	itemDestFrameComboBox->setEnabled(haveIndexSelected);
 	listNonPrintingCheckBox->setEnabled(haveIndexSelected);
+	combinePageNumbersCheckBox->setEnabled(haveIndexSelected);
 	combineIdenticalEntriesCheckBox->setEnabled(haveIndexSelected);
 	bool caseSensitiveTest = false;
 	if (numSelected > 0 && numSelected < localIndexSetupVector.count())
@@ -221,6 +224,7 @@ void Prefs_Indexes::selectIndex(int numberSelected)
 		setCurrentComboItem(itemDestFrameComboBox, localIndexSetupVector[numSelected].frameName);
 
 	listNonPrintingCheckBox->setChecked(localIndexSetupVector[numSelected].listNonPrintingFrames);
+	combinePageNumbersCheckBox->setChecked(localIndexSetupVector[numSelected].combinePageNumbers);
 	combineIdenticalEntriesCheckBox->setChecked(localIndexSetupVector[numSelected].combineIdenticalEntries);
 	caseSensitiveCombinationCheckBox->setEnabled(localIndexSetupVector[numSelected].combineIdenticalEntries);
 	caseSensitiveCombinationCheckBox->setChecked(localIndexSetupVector[numSelected].caseSensitiveCombination);
@@ -308,6 +312,13 @@ void Prefs_Indexes::listNonPrintingChecked(bool b)
 	if (numSelected < 0 || numSelected >= localIndexSetupVector.count())
 		return;
 	localIndexSetupVector[numSelected].listNonPrintingFrames = b;
+}
+
+void Prefs_Indexes::combinePageNumbersChecked(bool b)
+{
+	if (numSelected < 0 || numSelected >= localIndexSetupVector.count())
+		return;
+	localIndexSetupVector[numSelected].combinePageNumbers = b;
 }
 
 void Prefs_Indexes::combineIdenticalEntriesChecked(bool b)

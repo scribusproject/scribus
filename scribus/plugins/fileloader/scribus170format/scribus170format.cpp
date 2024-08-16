@@ -3946,8 +3946,9 @@ bool Scribus170Format::readMarks(ScribusDoc* doc, ScXmlStreamReader& reader)
 				Mark* mark = doc->newMark();
 				mark->label = attrs.valueAsString("label");
 				mark->setType(type);
-				if (type == MARKVariableTextType && attrs.hasAttribute("str"))
+				if ((type == MARKVariableTextType || type == MARKIndexType) && attrs.hasAttribute("str"))
 					mark->setString(attrs.valueAsString("str"));
+
 				if (type == MARK2ItemType && attrs.hasAttribute("ItemID"))
 				{
 					//QString itemName = attrs.valueAsString("itemName");
@@ -5048,34 +5049,35 @@ bool Scribus170Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 
 		if (tName == QLatin1String("MARK"))
 		{
-			QString l = tAtt.valueAsString("label");
-			MarkType t = (MarkType) tAtt.valueAsInt("type");
+			QString label = tAtt.valueAsString("label");
+			MarkType type = (MarkType) tAtt.valueAsInt("type");
 			Mark* mark = nullptr;
 			if (m_Doc->isLoading())
 			{
-				mark = m_Doc->getMark(l, t);
+				mark = m_Doc->getMark(label, type);
+				// qDebug()<<"doc loading"<<label<<type<<item->OwnPage<<item->itemName();
 			}
 			else
 			{	//doc is not loading so it is copy/paste task
-				if (t == MARKVariableTextType)
-					mark = m_Doc->getMark(l, t);
+				if (type == MARKVariableTextType)
+					mark = m_Doc->getMark(label, type);
 				else
 				{
 					//create copy of mark
-					Mark* oldMark = m_Doc->getMark(l, t);
+					Mark* oldMark = m_Doc->getMark(label, type);
 					if (oldMark == nullptr)
 					{
 						qWarning() << "wrong copy of oldMark";
 						mark = m_Doc->newMark();
-						mark->setType(t);
+						mark->setType(type);
 					}
 					else
 					{
 						mark = m_Doc->newMark(oldMark);
-						getUniqueName(l, doc->marksLabelsList(t), "_");
+						getUniqueName(label, doc->marksLabelsList(type), "_");
 					}
-					mark->label = l;
-					if (t == MARKNoteMasterType)
+					mark->label = label;
+					if (type == MARKNoteMasterType)
 					{  //create copy of note
 						TextNote* old = mark->getNotePtr();
 						TextNote* note = m_Doc->newNote(old->notesStyle());
@@ -5087,12 +5089,12 @@ bool Scribus170Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 				}
 			}
 			if (mark == nullptr)
-				qDebug() << "Undefined mark label ["<< l << "] type " << t;
+				qDebug() << "Undefined mark label ["<< label << "] type " << type;
 			else
 			{
 				//set pointer to item holds mark in his text
 				CharStyle newStyle;
-				if (t == MARKAnchorType)
+				if (type == MARKAnchorType)
 					mark->setItemPtr(item);
 				mark->OwnPage = item->OwnPage;
 				story.insertMark(mark, story.length());

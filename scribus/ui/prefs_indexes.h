@@ -46,6 +46,7 @@ class SCRIBUS_API Prefs_Indexes : public Prefs_Pane, Ui::Prefs_Indexes
 		void indexListWidgetItemEdited(QListWidgetItem *qlwi);
 		void itemFrameSelected(const QString &frameName);
 		void listNonPrintingChecked(bool b);
+		void combinePageNumbersChecked(bool b);
 		void combineIdenticalEntriesChecked(bool b);
 		void caseSenstiveChecked(bool b);
 		void autoCapitalizeEntriesChecked(bool b);

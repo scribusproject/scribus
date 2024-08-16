@@ -1511,6 +1511,7 @@ void Scribus170Format::writeMarks(ScXmlStreamWriter & docu)
 		docu.writeEmptyElement("Mark");
 		docu.writeAttribute("label", mrk->label);
 		docu.writeAttribute("type", mrk->getType());
+
 		if (mrk->isType(MARK2ItemType) && mrk->hasItemPtr())
 		{
 			const PageItem* item = mrk->getItemPtr();
@@ -1518,7 +1519,7 @@ void Scribus170Format::writeMarks(ScXmlStreamWriter & docu)
 			docu.writeAttribute("ItemID", qHash(item) & 0x7FFFFFFF);
 			//docu.writeAttribute("itemName", item->itemName());
 		}
-		else if (mrk->isType(MARKVariableTextType) && mrk->hasString())
+		else if ((mrk->isType(MARKVariableTextType) || mrk->isType(MARKIndexType)) && mrk->hasString())
 			docu.writeAttribute("str", mrk->getString());
 		else if (mrk->isType(MARK2MarkType) && mrk->hasMark())
 		{

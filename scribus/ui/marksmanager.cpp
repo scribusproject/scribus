@@ -46,7 +46,10 @@ void MarksManager::addListItem(MarkType typeMrk, const QString& typeStr, const Q
 		if (marks[i]->isType(typeMrk))
 		{
 			QTreeWidgetItem *listItem2 = new QTreeWidgetItem(listItem);
-			listItem2->setText(0, marks[i]->label);
+			if (marks[i]->isType(MARKIndexType))
+				listItem2->setText(0, marks[i]->getString());
+			else
+				listItem2->setText(0, marks[i]->label);
 			listItem2->setData(1, Qt::UserRole, QVariant::fromValue<void*>(marks[i]));
 			index++;
 			noSuchMarks = false;
@@ -103,7 +106,7 @@ void MarksManager::updateListView()
 		addListItem(MARK2ItemType, tr("Marks to Items"), m_Doc->marksList(), index);
 		addListItem(MARK2MarkType, tr("Marks to Anchors"), m_Doc->marksList(), index);
 		addListItem(MARKNoteMasterType, tr("Notes marks"), m_Doc->marksList(), index);
-	//	addListItem(MARKIndexType, tr("Index entries");, marks, index);
+		addListItem(MARKIndexType, tr("Index Entries"), m_Doc->marksList(), index);
 		listView->sortByColumn(0, Qt::AscendingOrder);
 	}
 	restoreColaption();
@@ -253,8 +256,10 @@ void MarksManager::on_DeleteButton_clicked()
 void MarksManager::on_listView_doubleClicked(const QModelIndex &index)
 {
 	Mark* mrk = getMarkFromListView();
-	if (mrk != nullptr)
-		m_Doc->setCursor2MarkPos(mrk);
+	if (mrk == nullptr)
+		return;
+	// qDebug() << "double click" << mrk->label << mrk->getString() << mrk->OwnPage;
+	m_Doc->setCursor2MarkPos(mrk);
 }
 
 void MarksManager::on_listView_itemSelectionChanged()

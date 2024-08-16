@@ -181,11 +181,15 @@ public:
 	void setIndexSetups(IndexSetupVector& isv) { m_docPrefsData.indexPrefs.defaultIndexSetup = isv; }
 	void clearIndexSetups() { m_docPrefsData.indexPrefs.defaultIndexSetup.clear(); }
 	void appendToIndexSetups(const IndexSetup& is) { m_docPrefsData.indexPrefs.defaultIndexSetup.append(is); }
+	bool hasIndexSetup() { return !m_docPrefsData.indexPrefs.defaultIndexSetup.empty(); }
+
 
 	ToCSetupVector& tocSetups() { return m_docPrefsData.tocPrefs.defaultToCSetups; }
 	void setTocSetups(ToCSetupVector& tsv) { m_docPrefsData.tocPrefs.defaultToCSetups = tsv; }
 	void clearTocSetups() { m_docPrefsData.tocPrefs.defaultToCSetups.clear(); }
 	void appendToTocSetups(const ToCSetup& ts) { m_docPrefsData.tocPrefs.defaultToCSetups.append(ts); }
+	/*! \brief Does this doc have any TOC setups and potentially a TOC to generate */
+	bool hasTOCSetup() { return !m_docPrefsData.tocPrefs.defaultToCSetups.empty(); }
 
 	void setArrowStyles(QList<ArrowDesc>& as) { m_docPrefsData.arrowStyles = as; }
 	QList<ArrowDesc>& arrowStyles() { return m_docPrefsData.arrowStyles; }
@@ -1234,8 +1238,7 @@ public:
 	FPoint ApplyGridF(const FPoint& in);
 	/*! \brief Apply grid to an QRectF, from ScribusView */
 	QRectF ApplyGridF(const QRectF& in);
-	/*! \brief Does this doc have any TOC setups and potentially a TOC to generate */
-	bool hasTOCSetup() { return !m_docPrefsData.tocPrefs.defaultToCSetups.empty(); }
+
 
 	enum SelectionSkipBehavior
 	{
@@ -1862,12 +1865,12 @@ public:
 
 	//finds item which holds given mark, start searching from next to lastItem index in DocItems
 	PageItem* findMarkItem(const Mark* mrk, PageItem* &lastItem) const;
-	
+	PageItem* findFirstMarkItem(const Mark* mrk) const { PageItem* tmp = nullptr; return findMarkItem(mrk, tmp); }
+
 private:
 	//QMap<PageItem_NoteFrame*, QList<TextNote *> > map of notesframes and its list of notes
 	NotesInFrameMap m_docNotesInFrameMap;
 
-	PageItem* findFirstMarkItem(const Mark* mrk) const { PageItem* tmp = nullptr; return findMarkItem(mrk, tmp); }
 
 	//search for endnotesframe for given notes style and item holding master mark or section number
 	PageItem_NoteFrame* endNoteFrame(const NotesStyle* nStyle, void* item = nullptr);

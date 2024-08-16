@@ -226,7 +226,7 @@ void ContextMenu::createMenuItems_Selection()
 				if (!currItem->isNoteFrame())
 				{
 					menuMark->addAction(m_ScMW->scrActions["insertMarkNote"]);
-				//	menuMark->addAction(m_AP->scrActions["insertMarkIndex"]);
+					menuMark->addAction(m_ScMW->scrActions["insertMarkIndex"]);
 				}
 				menuMark->addAction(m_ScMW->scrActions["insertMarkItem"]);
 				menuMark->addAction(m_ScMW->scrActions["insertMark2Mark"]);

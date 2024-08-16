@@ -1188,8 +1188,9 @@ void PageItem_TextFrame::layout()
 {
 //	qDebug() << "==Layout==" << itemName() ;
 // 	printBacktrace(24);
-	if (m_backBox != nullptr) {
-//		qDebug("textframe: len=%d, going back", itemText.length());
+	if (m_backBox != nullptr)
+	{
+		//		qDebug("textframe: len=%d, going back", itemText.length());
 		PageItem_TextFrame* firstInvalid = nullptr;
 		PageItem_TextFrame* prevInChain  = dynamic_cast<PageItem_TextFrame*>(m_backBox);
 		while (prevInChain)
@@ -1207,9 +1208,9 @@ void PageItem_TextFrame::layout()
 		// #9592 : warning, BackBox->layout() may not layout BackBox next box
 		if (!invalid)
 			return;
-	}
-	else if (!invalid && OnMasterPage.isEmpty()) {
-//		qDebug() << QString("textframe: len=%1, invalid=%2 OnMasterPage=%3: no relayout").arg(itemText.length()).arg(invalid).arg(OnMasterPage);
+	} else if (!invalid && OnMasterPage.isEmpty())
+	{
+		//		qDebug() << QString("textframe: len=%1, invalid=%2 OnMasterPage=%3: no relayout").arg(itemText.length()).arg(invalid).arg(OnMasterPage);
 		return;
 	}
 	if (invalid && m_backBox == nullptr)
@@ -4740,9 +4741,12 @@ void PageItem_TextFrame::updateBulletsNum()
 		Mark* mark = itemText.mark(index);
 		if ((mark != nullptr) && (itemText.hasMark(index)))
 		{
-			mark->OwnPage = this->OwnPage;
+			if (!mark->isType(MARKIndexType))
+			{
+				mark->OwnPage = this->OwnPage;
+			}
 			//itemPtr and itemName set to this frame only if mark type is different than MARK2ItemType
-			if (!mark->isType(MARK2ItemType))
+			if (!mark->isType(MARK2ItemType) && !mark->isType(MARKIndexType))
 			{
 				mark->setItemPtr(this);
 				mark->setItemName(itemName());
@@ -5035,7 +5039,7 @@ void PageItem_TextFrame::toggleEditModeActions()
 	m_Doc->scMW()->scrActions["insertMarkItem"]->setEnabled(editMode && !masterMode && notesEnabled);
 	m_Doc->scMW()->scrActions["insertMark2Mark"]->setEnabled(editMode && !masterMode && notesEnabled);
 	m_Doc->scMW()->scrActions["insertMarkNote"]->setEnabled(editMode && !masterMode && notesEnabled && !isNoteFrame());
-	//	scrActions["insertMarkIndex"]->setEnabled(editMode && !masterMode);
+	m_Doc->scMW()->scrActions["insertMarkIndex"]->setEnabled(editMode && !masterMode && notesEnabled);
 	bool enableEditMark = false;
 	if (editMode && notesEnabled && (itemText.cursorPosition() < itemText.length()))
 	{

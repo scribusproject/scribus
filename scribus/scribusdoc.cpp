@@ -17470,10 +17470,14 @@ PageItem* ScribusDoc::findMarkItem(const Mark* mrk, PageItem* &lastItem) const
 			continue;
 		if (item->prevInChain() != nullptr)
 			continue;
-		if (item->itemText.findMark(mrk) >= 0)
+		int markTextPos = item->itemText.findMark(mrk);
+		if (markTextPos>=0)
 		{
+			// qDebug()<<"Found mark at text pos"<<markTextPos;
+			// qDebug()<<"Found mark in text chain starting on page:"<<item->OwnPage;
+			// qDebug()<<"Frame of char at"<<markTextPos<<"is on page"<<item->frameOfChar(markTextPos)->OwnPage;
 			lastItem = item;
-			return item;
+			return item->frameOfChar(markTextPos);
 		}
 	}
 	lastItem = nullptr;
@@ -17532,6 +17536,7 @@ void ScribusDoc::setCursor2MarkPos(const Mark *mark)
 {
 	if (mark == nullptr)
 		return;
+
 	PageItem* item = nullptr;
 	if (mark->isType(MARKNoteFrameType) || mark->isType(MARKNoteMasterType))
 		item = mark->getItemPtr();
@@ -17762,16 +17767,27 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 		}
 		docWasChanged = notesFramesUpdate();
 	}
-
+	// qDebug()<<"Fixing Marks";
 	//for all marks
 	for (Mark* mrk : std::as_const(m_docMarksList))
 	{
+		// qDebug()<<"Fixing Mark:"<<mrk->label<<mrk->getString()<<mrk->OwnPage;
 		//set mark page number
 		PageItem* mItem = findFirstMarkItem(mrk);
 		if (mItem != nullptr)
+		{
 			mrk->OwnPage = mItem->OwnPage;
+		}
 		else
+		{
 			mrk->OwnPage = -1;
+		}
+		if (mrk->isType(MARKIndexType))
+		{
+			mrk->setItemName(mItem->itemName());
+			mrk->setItemPtr(mItem);
+		}
+		// qDebug()<<"new page"<<mrk->OwnPage<<mrk->getItemName();
 		if (mrk->isType(MARK2ItemType))
 		{
 			if (mrk->getItemPtr() != nullptr)
@@ -17788,9 +17804,9 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 		}
 		else if (mrk->isType(MARK2MarkType))
 		{
-			QString l = mrk->getDestMarkName();
-			MarkType t = mrk->getDestMarkType();
-			Mark* destMark = getMark(l, t);
+			QString label = mrk->getDestMarkName();
+			MarkType type = mrk->getDestMarkType();
+			Mark* destMark = getMark(label, type);
 			if (destMark != nullptr)
 			{
 				const PageItem* dItem = findFirstMarkItem(destMark);

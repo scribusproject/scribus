@@ -120,7 +120,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	if (doc)
 	{
 		//Commented out for now until some more Index code is added.
-		//addWidget(prefs_Indexes);
+		addWidget(prefs_Indexes);
 		addWidget(prefs_TableOfContents);
 	}
 

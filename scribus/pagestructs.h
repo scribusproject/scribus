@@ -58,9 +58,10 @@ struct IndexSetup
 	QString name; //Name of Index
 	QString frameName; //Destination frame
 	bool listNonPrintingFrames{false}; //List non printing frames in the index
-	bool combineIdenticalEntries{false};
+	bool combineIdenticalEntries{true};
+	bool combinePageNumbers{true};
 	bool caseSensitiveCombination{false};
-	bool autoCapitalizeEntries{false};
+	bool autoCapitalizeEntries{true};
 	bool addAlphaSeparators{false};
 	QString headingStyle;
 	QString separatorStyle;

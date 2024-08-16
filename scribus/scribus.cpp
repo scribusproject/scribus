@@ -187,6 +187,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/mark2item.h"
 #include "ui/mark2mark.h"
 #include "ui/markanchor.h"
+#include "ui/markindex.h"
 #include "ui/markinsert.h"
 #include "ui/marknote.h"
 #include "ui/marksmanager.h"
@@ -1207,6 +1208,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("insertMarkItem", "InsertMark");
 	scrMenuMgr->addMenuItemString("insertMark2Mark", "InsertMark");
 	scrMenuMgr->addMenuItemString("insertMarkVariableText", "InsertMark");
+	scrMenuMgr->addMenuItemString("insertMarkIndex", "InsertMark");
 
 	//Page menu
 	scrMenuMgr->createMenu("Page", ActionManager::defaultMenuNameEntryTranslated("Page"));
@@ -2515,7 +2517,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	scrActions["viewShowTextControls"]->setChecked(doc->guidesPrefs().showControls);
 	scrActions["viewShowRulers"]->setChecked(doc->guidesPrefs().rulersShown);
 	scrActions["viewRulerMode"]->setChecked(doc->guidesPrefs().rulerMode);
-	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
+	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup() || doc->hasIndexSetup());
 	scrActions["extrasUpdateDocument"]->setEnabled(true);
 	if (!doc->masterPageMode())
 		pagePalette->rebuild();
@@ -8526,6 +8528,7 @@ void ScribusMainWindow::generateTableOfContents()
 
 	m_tocGenerator->generateByAttribute();
 	m_tocGenerator->generateByStyle();
+	m_tocGenerator->generateIndex();
 }
 
 void ScribusMainWindow::updateDocument()
@@ -9341,15 +9344,57 @@ void ScribusMainWindow::insertMark(MarkType mType)
 	PageItem* currItem = doc->m_Selection->itemAt(0);
 	if (!currItem->isTextFrame())
 		return;
+	QString initialText;
+	int startOfWord = -1;
+	if (mType == MARKIndexType)
+	{
+		int startOfSelection = 0;
+		// int endOfSelection = 0;
+		if (currItem->itemText.hasSelection())
+		{
+			startOfSelection = currItem->itemText.startOfSelection();
+			// endOfSelection = currItem->itemText.endOfSelection();
+		}
+		// qDebug()<<"start of selection:"<<startOfSelection<<currItem->itemText.text(startOfSelection);
+		int cp = currItem->itemText.cursorPosition();
+		// qDebug()<<"Cursor Position:"<<cp<<currItem->itemText.text(cp);
+		if (SpecialChars::isBreakingSpace(currItem->itemText.text(cp)) || currItem->itemText.text(cp).isSpace())
+		{
+			// qDebug()<<"Found a space";
+		}
+		if (currItem->itemText.text(cp) == SpecialChars::OBJECT)
+		{
+			// qDebug()<<"Found an object";
+			//detect when there is already a Mark
+			if (currItem->itemText.hasMark(cp))
+			{
+				++cp;
+				// qDebug()<<"Found a Mark";
+			}
+		}
+		startOfWord = qMax(0, qMin(startOfSelection, cp));
+		// qDebug()<<"minStartPos:"<<startOfWord<<currItem->itemText.text(startOfWord);
+
+		// startOfWord = currItem->itemText.prevWord(cp);
+		int endOfWord = currItem->itemText.endOfWord(cp);
+
+		// qDebug()<<"startOfWord:"<<cp<<currItem->itemText.text(startOfWord)<<"end word"<<endOfWord;
+		initialText = currItem->itemText.text(startOfWord, endOfWord - startOfWord);
+		// qDebug()<<"Word for Index"<<initialText;
+	}
 
 	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
 		trans = m_undoManager->beginTransaction();
 
 	ScItemsState* is = nullptr;
-	if (insertMarkDialog(currItem->asTextFrame(), mType, is))
+	if (insertMarkDialog(currItem->asTextFrame(), mType, is, initialText, startOfWord))
 	{
-		Mark* mrk = currItem->itemText.mark(currItem->itemText.cursorPosition() -1);
+		Mark* mrk = nullptr;
+		if (mType == MARKIndexType)
+			mrk = currItem->itemText.mark(startOfWord);
+		else
+			mrk = currItem->itemText.mark(currItem->itemText.cursorPosition() - 1);
 		view->updatesOn(false);
 		currItem->invalidateLayout();
 		currItem->layout();
@@ -9474,48 +9519,56 @@ void ScribusMainWindow::slotInsertMarkNote()
 		insertMark(MARKNoteMasterType);
 }
 
-bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType mrkType, ScItemsState* &is)
+bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType mrkType, ScItemsState* &is, const QString &initialText, int markInsertPosition)
 {
+	//avoid inserting in master pages other marks than Variable Text
 	if (doc->masterPageMode() && (mrkType != MARKVariableTextType))
-		//avoid inserting in master pages other marks than Variable Text
 		return false;
-	
+	QString index;
 	QScopedPointer<MarkInsert> insertMDialog;
 	switch (mrkType)
 	{
-	case MARKAnchorType:
-		insertMDialog.reset((MarkInsert*) new MarkAnchor(this));
-		break;
-	case MARKVariableTextType:
-		insertMDialog.reset((MarkInsert*) new MarkVariableText(doc->marksList(), this));
-		break;
-	case MARK2ItemType:
-		insertMDialog.reset((MarkInsert*) new Mark2Item(this));
-		break;
-	case MARK2MarkType:
-		insertMDialog.reset((MarkInsert*) new Mark2Mark(doc->marksList(), nullptr, this));
-		break;
-	case MARKNoteMasterType:
-		insertMDialog.reset((MarkInsert*) new MarkNote(doc->m_docNotesStylesList, this));
-		break;
-	case MARKIndexType:
-		break;
-	default:
-		break;
+		case MARKAnchorType:
+			insertMDialog.reset((MarkInsert*) new MarkAnchor(this));
+			break;
+		case MARKVariableTextType:
+			insertMDialog.reset((MarkInsert*) new MarkVariableText(doc->marksList(), this));
+			break;
+		case MARK2ItemType:
+			insertMDialog.reset((MarkInsert*) new Mark2Item(this));
+			break;
+		case MARK2MarkType:
+			insertMDialog.reset((MarkInsert*) new Mark2Mark(doc->marksList(), nullptr, this));
+			break;
+		case MARKNoteMasterType:
+			insertMDialog.reset((MarkInsert*) new MarkNote(doc->m_docNotesStylesList, this));
+			break;
+		case MARKIndexType:
+			{
+				QStringList indexList;
+				const IndexSetupVector& indexSetups = doc->indexSetups();
+				//TODO: maybe if indexSetups's empty, error out instead of opening the entry creation dialog?
+				for (auto indexSetupIt = indexSetups.begin(); indexSetupIt != indexSetups.end(); ++indexSetupIt)
+					indexList.append(indexSetupIt->name);
+				insertMDialog.reset((MarkInsert*) new MarkIndex(initialText, index, indexList, this));
+			}
+			break;
+		default:
+			break;
 	}
+
 	if (insertMDialog.isNull())
 	{
-		qDebug() << "Dialog not implemented for such marks type " << mrkType;
+		qDebug() << "Dialog not implemented for marks of type " << mrkType;
 		return false;
 	}
 	bool docWasChanged = false;
-	
+
 	insertMDialog->setWindowTitle(tr("Insert New ") + insertMDialog->windowTitle());
 	if (insertMDialog->exec() != QDialog::Accepted)
 		return false;
-
 	UndoTransaction trans;
-	if (currItem->HasSel)
+	if (currItem->HasSel && mrkType != MARKIndexType)
 	{
 		if (UndoManager::undoEnabled())
 			trans = m_undoManager->beginTransaction(Um::Selection, Um::IDelete, Um::Delete, QString(), Um::IDelete);
@@ -9533,73 +9586,98 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 	bool insertExistedMark = false;
 	switch (mrkType)
 	{
-	case MARKAnchorType:
-		//only gets label for new mark
-		insertMDialog->values(label);
-		if (label.isEmpty())
-			label = tr("Anchor mark");
-		markData.itemPtr = currItem;
-		break;
-	case MARKVariableTextType:
-		mrk = insertMDialog->values(label, text);
-		if ((mrk == nullptr) && (text.isEmpty()))
-			return false; //FIX ME here user should be warned that inserting of mark fails and why
-		if (label.isEmpty())
-			label = tr("Mark with <%1> variable text").arg(text);
-		markData.text = text;
-		break;
-	case MARK2ItemType:
-		insertMDialog->values(label, markData.itemPtr);
-		if (markData.itemPtr == nullptr)
-			return false; //FIX ME here user should be warned that inserting of mark fails and why
-		if (label.isEmpty())
-			label = tr("Mark to %1 item").arg(markData.itemPtr->itemName());
-		markData.text = QString::number(markData.itemPtr->OwnPage +1);
-		break;
-	case MARK2MarkType:
-		//gets pointer to referenced mark
-		Mark* markPtr;
-		insertMDialog->values(label, markPtr);
-		if (markPtr == nullptr)
-			return false; //FIX ME here user should be warned that inserting of mark fails and why
-		if (label.isEmpty())
-			label = tr("Mark to %1 mark").arg(markPtr->label);
-		markData.text = QString::number(markPtr->OwnPage + 1);
-		markData.destMarkName = markPtr->label;
-		markData.destMarkType = markPtr->getType();
-		break;
-	case MARKNoteMasterType:
-		//gets pointer to chosen notes style
-		NStyle = insertMDialog->values();
-		if (NStyle == nullptr)
-			return false;
+		case MARKAnchorType:
+			//only gets label for new mark
+			insertMDialog->values(label);
+			if (label.isEmpty())
+				label = tr("Anchor mark");
+			markData.itemPtr = currItem;
+			break;
+		case MARKVariableTextType:
+			mrk = insertMDialog->values(label, text);
+			if ((mrk == nullptr) && (text.isEmpty()))
+				return false; //FIX ME here user should be warned that inserting of mark fails and why
+			if (label.isEmpty())
+				label = tr("Mark with <%1> variable text").arg(text);
+			markData.text = text;
+			break;
+		case MARK2ItemType:
+			insertMDialog->values(label, markData.itemPtr);
+			if (markData.itemPtr == nullptr)
+				return false; //FIX ME here user should be warned that inserting of mark fails and why
+			if (label.isEmpty())
+				label = tr("Mark to %1 item").arg(markData.itemPtr->itemName());
+			markData.text = QString::number(markData.itemPtr->OwnPage +1);
+			break;
+		case MARK2MarkType:
+			//gets pointer to referenced mark
+			Mark* markPtr;
+			insertMDialog->values(label, markPtr);
+			if (markPtr == nullptr)
+				return false; //FIX ME here user should be warned that inserting of mark fails and why
+			if (label.isEmpty())
+				label = tr("Mark to %1 mark").arg(markPtr->label);
+			markData.text = QString::number(markPtr->OwnPage + 1);
+			markData.destMarkName = markPtr->label;
+			markData.destMarkType = markPtr->getType();
+			break;
+		case MARKNoteMasterType:
+			//gets pointer to chosen notes style
+			NStyle = insertMDialog->values();
+			if (NStyle == nullptr)
+				return false;
 
-		markData.notePtr = doc->newNote(NStyle);
-		label = "NoteMark_" + NStyle->name();
-		if (NStyle->range() == NSRstory)
-			label += " in " + currItem->firstInChain()->itemName();
-		break;
-	case MARKIndexType:
-		return false;
-		break;
-	default:
-		return false;
-		break;
+			markData.notePtr = doc->newNote(NStyle);
+			label = "NoteMark_" + NStyle->name();
+			if (NStyle->range() == NSRstory)
+				label += " in " + currItem->firstInChain()->itemName();
+			break;
+		case MARKIndexType:
+			{
+				//Get the dialog pointer from the QScopedPointer
+				MarkIndex* pMarkIndex = dynamic_cast<MarkIndex*>(insertMDialog.get());
+				//Get the label data from the dialog widgets
+				pMarkIndex->indexValues(label, index);
+				if (label.isEmpty())
+					label = tr("Index mark");
+				markData.itemPtr = currItem;
+				markData.text = label;
+			}
+			break;
+		default:
+			return false;
+			break;
 	}
 
+	//We create a new mark entry if one exists by the same name.
 	if (mrk == nullptr)
 	{
 		//check if label for new mark can be used as is
-		if (mrkType == MARKNoteMasterType)
+		switch (mrkType)
 		{
-			if (doc->getMark(label + "_1", mrkType) != nullptr)
-				getUniqueName(label, doc->marksLabelsList(mrkType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
-			else
-				label = label + "_1";
+			case MARKNoteMasterType:
+				{
+					if (doc->getMark(label + "_1", mrkType) != nullptr)
+						getUniqueName(label, doc->marksLabelsList(mrkType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+					else
+						label = label + "_1";
+				}
+				break;
+			case MARKIndexType:
+				{
+					Mark* foundMark = doc->getMark(label, mrkType);
+					if (foundMark != nullptr)
+						qDebug()<<"An existing Index Mark exists with label"<<label;
+					//We'll just use the same code for now and add our label suffix
+					getUniqueName(label, doc->marksLabelsList(mrkType), "_");
+				}
+				break;
+			default:
+				getUniqueName(label, doc->marksLabelsList(mrkType), "_");
+				break;
 		}
-		else
-			getUniqueName(label, doc->marksLabelsList(mrkType), "_");
 		mrk = doc->newMark();
+		// qDebug()<<"New Mark:"<<label<<"on page"<<currItem->OwnPage;
 		mrk->setValues(label, currItem->OwnPage, mrkType, markData);
 	}
 	else
@@ -9607,12 +9685,15 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 		oldMark = *mrk;
 		mrk->setString(markData.text);
 		mrk->label = label;
+		mrk->OwnPage = currItem->OwnPage;
 		insertExistedMark = true;
 		doc->flag_updateMarksLabels = true;
 	}
 
-	currItem->itemText.insertMark(mrk);
-	mrk->OwnPage = currItem->OwnPage;
+	if (mrkType == MARKIndexType)
+		currItem->itemText.insertMark(mrk, markInsertPosition);
+	else
+		currItem->itemText.insertMark(mrk);
 
 	if (mrkType == MARKNoteMasterType)
 	{
@@ -9736,7 +9817,15 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 			}
 			break;
 		case MARKIndexType:
-			return false;
+			{
+				QString index;
+				QStringList indexList;
+				const IndexSetupVector& indexSetups = doc->indexSetups();
+				//TODO: maybe if indexSetups's empty, error out instead of opening the entry creation dialog?
+				for (auto indexSetupIt = indexSetups.begin(); indexSetupIt != indexSetups.end(); ++indexSetupIt)
+					indexList.append(indexSetupIt->name);
+				editMDialog = (MarkInsert*) new MarkIndex(mrk->label, index, indexList, this);
+			}
 			break;
 		default:
 			break;
@@ -9858,6 +9947,16 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 			case MARKNoteMasterType:
 				break;
 			case MARKIndexType:
+				//only gets label for new mark
+				editMDialog->values(label);
+				if (label.isEmpty())
+					label = tr("Index mark");
+				if (mrk->label != label)
+				{
+					getUniqueName(label, doc->marksLabelsList(mrk->getType()), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+					mrk->label = label;
+					emit UpdateRequest(reqMarksUpdate);
+				}
 				break;
 			default:
 				break;

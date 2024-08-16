@@ -662,7 +662,7 @@ private:
 	QString m_osgFilterString;
 
 	void insertMark(MarkType);
-	bool insertMarkDialog(PageItem_TextFrame* item, MarkType mT, ScItemsState* &is);
+	bool insertMarkDialog(PageItem_TextFrame* item, MarkType mT, ScItemsState* &is, const QString &text, int markInsertPosition);
 	int m_marksCount { 0 }; //remember marks count from last call
 	bool m_WasAutoSave { false };
 	bool m_pagePalVisible { false };

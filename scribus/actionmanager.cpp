@@ -567,9 +567,9 @@ void ActionManager::initInsertMenuActions()
 	name = "insertMarkNote";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	(*scrActions)[name]->setEnabled(true);
-//	name = "insertMarkIndex";
-//	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-//	(*scrActions)[name]->setEnabled(true);
+	name = "insertMarkIndex";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	(*scrActions)[name]->setEnabled(true);
 	name = "editMark";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	(*scrActions)[name]->setEnabled(false);
@@ -587,7 +587,7 @@ void ActionManager::initInsertMenuActions()
 	connect( (*scrActions)["insertMarkItem"], SIGNAL(triggered()), mainWindow, SLOT(slotInsertMarkItem()) );
 	connect( (*scrActions)["insertMark2Mark"], SIGNAL(triggered()), mainWindow, SLOT(slotInsertMark2Mark()) );
 	connect( (*scrActions)["insertMarkNote"], SIGNAL(triggered()), mainWindow, SLOT(slotInsertMarkNote()) );
-//	connect( (*scrActions)["insertMarkIndex"], SIGNAL(triggered()), mainWindow, SLOT(slotInsertMarkIndex()) );
+	connect( (*scrActions)["insertMarkIndex"], SIGNAL(triggered()), mainWindow, SLOT(slotInsertMarkIndex()) );
 	connect( (*scrActions)["editMark"], SIGNAL(triggered()), mainWindow, SLOT(slotEditMark()) );
 	connect( (*scrActions)["itemUpdateMarks"], SIGNAL(triggered()), mainWindow, SLOT(slotUpdateMarks()) );
 }
@@ -1641,7 +1641,7 @@ void ActionManager::languageChange()
 	(*scrActions)["insertMarkItem"]->setTexts( tr("Reference to Item"));
 	(*scrActions)["insertMark2Mark"]->setTexts( tr("Reference to Mark"));
 	(*scrActions)["insertMarkNote"]->setTexts( tr("Foot/Endnote"));
-//	(*scrActions)["insertMarkIndex"]->setTexts( tr("Index entry"));
+	(*scrActions)["insertMarkIndex"]->setTexts( tr("Index Entry"));
 	(*scrActions)["editMark"]->setTexts( tr("Edit Mark"));
 	(*scrActions)["itemUpdateMarks"]->setTexts( tr("Update Marks"));
 
@@ -1749,7 +1749,7 @@ void ActionManager::languageChange()
 	(*scrActions)["extrasManageImages"]->setTexts( tr("&Manage Images..."));
 	(*scrActions)["extrasHyphenateText"]->setTexts( tr("&Hyphenate Text"));
 	(*scrActions)["extrasDeHyphenateText"]->setTexts( tr("Dehyphenate Text"));
-	(*scrActions)["extrasGenerateTableOfContents"]->setTexts( tr("&Generate Table Of Contents"));
+	(*scrActions)["extrasGenerateTableOfContents"]->setTexts( tr("&Generate Table Of Contents and Indexes"));
 	(*scrActions)["extrasUpdateDocument"]->setTexts( tr("&Update Document"));
 	//(*scrActions)["extrasTestQTQuick2_1"]->setTexts( tr("Test Qt Quick"));
 	//Windows Menu
@@ -2222,7 +2222,7 @@ void ActionManager::createDefaultMenus()
 		<< "insertMarkItem"
 		<< "insertMark2Mark"
 		<< "insertMarkNote"
-//		<< "insertMarkIndex"
+		<< "insertMarkIndex"
 		<< "editMark"
 		<< "itemUpdateMarks";
 

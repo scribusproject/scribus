@@ -357,6 +357,7 @@ set(SCRIBUS_SOURCES
 	ui/mark2item.cpp
 	ui/mark2mark.cpp
 	ui/markanchor.cpp
+	ui/markindex.cpp
 	ui/markinsert.cpp
 	ui/marknote.cpp
 	ui/marksmanager.cpp
@@ -569,10 +570,10 @@ set(SCRIBUS_SOURCES
 )
 
 #if(WANT_QTADS)
-	set(SCRIBUS_SOURCES
-	${SCRIBUS_SOURCES}
-	scribusindigomainwindow.cpp
-	)
+#	set(SCRIBUS_SOURCES
+#	${SCRIBUS_SOURCES}
+#	scribusindigomainwindow.cpp
+#	)
 #endif()
 
 if(NOT HAVE_HYPHEN)

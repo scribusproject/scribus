@@ -41,6 +41,7 @@ class SCRIBUS_API TOCGenerator : public QObject
 	public slots:
 		void generateByAttribute();
 		void generateByStyle();
+		void generateIndex();
 
 	private:
 		PageItem* findTargetFrame(const QString &targetFrameName);

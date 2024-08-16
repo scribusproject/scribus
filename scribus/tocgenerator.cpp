@@ -337,3 +337,149 @@ void TOCGenerator::generateByStyle()
 		}
 	}
 }
+
+void TOCGenerator::generateIndex()
+{
+	if (m_doc == nullptr)
+		return;
+	Q_ASSERT(!m_doc->masterPageMode());
+
+	struct IndexEntryData
+	{
+		QString entryText;
+		QString entryLabel;
+		QString pageID;
+		QString sectionID;
+		QString tocID;
+		TOCPageLocation entryPageLocation;
+	};
+
+	IndexSetupVector &indexSetups = m_doc->indexSetups();
+	for (auto indexSetupIt = indexSetups.begin(); indexSetupIt != indexSetups.end(); ++indexSetupIt)
+	{
+		PageItem *indexFrame = findTargetFrame(indexSetupIt->frameName);
+		if (indexFrame == nullptr)
+			continue;
+		indexFrame->clearContents();
+		QMap<QString, IndexEntryData> indexMap;
+		QMultiMap<QString, IndexEntryData> indexMultiMap;
+		auto pageCounter = std::vector<int>(m_doc->DocPages.count(), 0);
+
+		int pageNumberWidth = QString("%1").arg(m_doc->DocPages.count()).length();
+
+		const QList<Mark *> &marks = m_doc->marksList();
+		for (int i = 0; i < marks.size(); ++i)
+		{
+			if (marks[i]->isType(MARKIndexType))
+			{
+				QString pageID = QString("%1").arg(marks[i]->OwnPage + m_doc->FirstPnum, pageNumberWidth);
+				QString sectionID = m_doc->getSectionPageNumberForPageIndex(marks[i]->OwnPage);
+				QString tocID = QString("%1").arg(pageCounter.at(marks[i]->OwnPage)++, 3, 10, QChar('0'));
+				QString key = QString("%1,%2,%3,%4").arg(marks[i]->label, pageID, tocID, sectionID);
+				QString multikey = QString("%1,%2,%3,%4").arg(marks[i]->getString(), pageID, tocID, sectionID);
+
+				IndexEntryData ied;
+				ied.entryLabel = marks[i]->label;
+				ied.entryText = marks[i]->getString();
+				ied.pageID = pageID;
+				ied.sectionID = sectionID;
+				ied.tocID = tocID;
+				ied.entryPageLocation = End;
+				indexMap.insert(key, ied);
+				if (!indexSetupIt->caseSensitiveCombination)
+					indexMultiMap.insert(marks[i]->getString().toUpper(), ied);
+				else
+					indexMultiMap.insert(marks[i]->getString(), ied);
+			}
+		}
+
+		//Set up the gtWriter instance with the selected paragraph style
+		gtWriter writer(false, indexFrame);
+		writer.setUpdateParagraphStyles(false);
+		writer.setOverridePStyleFont(false);
+		const gtFrameStyle *fstyle = writer.getDefaultStyle();
+		gtParagraphStyle *pstyle = new gtParagraphStyle(*fstyle);
+		pstyle->setName(indexSetupIt->headingStyle); //temp heading style uisage
+		writer.setParagraphStyle(pstyle);
+		QStringList skippedKeys;
+		QString oldIndexPage;
+		QString firstAlpha;
+		bool firstAlphaAdded = false;
+		for (auto indexIt = indexMultiMap.begin(); indexIt != indexMultiMap.end(); ++indexIt)
+		{
+			QString indexPage;
+			QString indexLine;
+			QStringList pages;
+			//Combining entries across the document into one index entry
+			if (indexSetupIt->combineIdenticalEntries)
+			{
+				//Use upper case version of the displayed text if we're case insensitive
+				QString tmpKey = indexSetupIt->caseSensitiveCombination ? indexIt.key() : indexIt.key().toUpper();
+				//To avoid repeating, add the keys to a list
+				if (skippedKeys.contains(tmpKey))
+					continue;
+				skippedKeys.append(tmpKey);
+
+				auto [i, end] = indexMultiMap.equal_range(tmpKey);
+				while (i != end)
+				{
+					// If we're combining page number entries don't add the page number to the page number list.
+					if (!indexSetupIt->combinePageNumbers || (!pages.contains(i.value().pageID)))
+						pages.append(i.value().pageID);
+					i++;
+				}
+				//Sort the page list and join back by comma (should probably use QLocale::createSeparatedList based on the para style language)
+				pages.sort();
+				indexPage = pages.join(",");
+			} else
+				indexPage = indexIt->pageID;
+
+			QString tmpEntryText(indexIt->entryText);
+			//Capitalise our text if requested
+			if (indexSetupIt->autoCapitalizeEntries)
+			{
+				QStringList words = tmpEntryText.split(" ", Qt::SkipEmptyParts);
+				for (QString &word : words)
+					word.front() = word.front().toUpper();
+				tmpEntryText = words.join(" ");
+			}
+			//If we're adding separators based on the first character of the entries
+			if (indexSetupIt->addAlphaSeparators)
+			{
+				if (firstAlpha.isEmpty() || firstAlpha.front() != tmpEntryText.front())
+				{
+					firstAlpha = QString("%1\n").arg(tmpEntryText.front());
+					firstAlphaAdded = false;
+				}
+				if (!firstAlphaAdded)
+				{
+					const gtFrameStyle *fstyle = writer.getDefaultStyle();
+					gtParagraphStyle *pstyle = new gtParagraphStyle(*fstyle);
+					pstyle->setName(indexSetupIt->separatorStyle);
+					writer.setParagraphStyle(pstyle);
+					writer.append(firstAlpha);
+					firstAlphaAdded = true;
+				}
+			}
+			//Write the index entry text, starting with text or numbers
+			TOCPageLocation tpl = indexIt->entryPageLocation;
+			if (tpl == End || tpl == NotShown)
+				indexLine = tmpEntryText;
+			if (tpl == Beginning && oldIndexPage != indexPage)
+				indexLine = indexPage;
+			//Add in the tab for the leaders
+			indexLine += "\t";
+			//End with text or numbers
+			if (tpl == Beginning)
+				indexLine += tmpEntryText;
+			if (tpl == End && oldIndexPage != indexPage)
+				indexLine += indexPage;
+			indexLine += "\n";
+			const gtFrameStyle *fstyle = writer.getDefaultStyle();
+			gtParagraphStyle *pstyle = new gtParagraphStyle(*fstyle);
+			pstyle->setName(indexSetupIt->level1Style);
+			writer.setParagraphStyle(pstyle);
+			writer.append(indexLine);
+		}
+	}
+}
