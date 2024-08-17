@@ -238,10 +238,6 @@ void ScribusQApp::parseCommandLine()
 		{
 			useGUI = false;
 		}
-		else if (arg == ARG_INDIGO_UI || arg == ARG_INDIGO_UI_SHORT)
-		{
-			m_use_indigo_ui = true;
-		}
 		else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT)
 		{
 			m_showFontInfo = true;
@@ -357,7 +353,7 @@ int ScribusQApp::init()
 		return EXIT_FAILURE;
 	ScCore = m_ScCore;
 	processEvents(QEventLoop::ExcludeUserInputEvents|QEventLoop::ExcludeSocketNotifiers, 1000);
-	ScCore->init(useGUI, m_use_indigo_ui, m_filesToLoad);
+	ScCore->init(useGUI, m_filesToLoad);
 	processEvents();
 	/* TODO:
 	 * When Scribus is truly able to run without GUI

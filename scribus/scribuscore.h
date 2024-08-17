@@ -64,7 +64,7 @@ public:
 	int exportToSVG() {return 0;}
 	int runScript() {return 0;}
 	*/
-	int init(bool useGUI, bool use_indigo_ui, const QList<QString>& filesToUse);
+	int init(bool useGUI, const QList<QString>& filesToUse);
 	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage);
 	bool initialized() const {return m_scribusInitialized;}
 	const QString& getGuiLanguage() const;
@@ -140,7 +140,6 @@ protected:
 	bool m_haveTiffSep {false};
 	bool m_scribusInitialized {false};
 	bool m_useGUI {false};
-	bool m_use_indigo_ui {false};
 	int m_currScMW {0};
 };
 
