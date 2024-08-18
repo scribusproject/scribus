@@ -28,7 +28,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 {
 	setupUi(this);
 	setObjectName(QString::fromLocal8Bit("PreferencesDialog"));
-	setupListWidget();
+	preferencesTypeList->clear();
 	while (prefsStackWidget->currentWidget() != nullptr)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
 
@@ -233,24 +233,6 @@ void PreferencesDialog::accept()
 	// QDialog::accept() will emit it by itself
 	// emit accepted();
 	QDialog::accept();
-}
-
-void PreferencesDialog::setupListWidget()
-{
-	preferencesTypeList->setDragEnabled(false);
-	preferencesTypeList->setViewMode(QListView::ListMode);
-	preferencesTypeList->setFlow(QListView::TopToBottom);
-	preferencesTypeList->setIconSize(QSize(32,32));
-	preferencesTypeList->setSortingEnabled(false);
-	preferencesTypeList->setWrapping(false);
-	preferencesTypeList->setWordWrap(true);
-	preferencesTypeList->setAcceptDrops(false);
-	preferencesTypeList->setDropIndicatorShown(false);
-	preferencesTypeList->setDragDropMode(QAbstractItemView::NoDragDrop);
-	//preferencesTypeList->setResizeMode(QListView::Adjust);
-	preferencesTypeList->setSelectionMode(QAbstractItemView::SingleSelection);
-	preferencesTypeList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	preferencesTypeList->clear();
 }
 
 void PreferencesDialog::addWidget(Prefs_Pane* tab)
