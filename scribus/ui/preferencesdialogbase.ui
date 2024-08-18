@@ -46,13 +46,13 @@
         </size>
        </property>
        <property name="editTriggers">
-        <set>QAbstractItemView::NoEditTriggers</set>
+        <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
        </property>
        <property name="showDropIndicator" stdset="0">
         <bool>false</bool>
        </property>
        <property name="dragDropMode">
-        <enum>QAbstractItemView::DragDrop</enum>
+        <enum>QAbstractItemView::DragDropMode::DragDrop</enum>
        </property>
        <property name="alternatingRowColors">
         <bool>true</bool>
@@ -61,13 +61,10 @@
         <number>1</number>
        </property>
        <property name="viewMode">
-        <enum>QListView::IconMode</enum>
+        <enum>QListView::ViewMode::IconMode</enum>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
-       </property>
-       <property name="itemAlignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
        </property>
       </widget>
      </item>
@@ -112,7 +109,7 @@
          <item>
           <spacer name="buttonHorizontalSpacer">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -125,7 +122,7 @@
          <item>
           <widget class="QDialogButtonBox" name="buttonBox">
            <property name="standardButtons">
-            <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+            <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
            </property>
           </widget>
          </item>
