@@ -115,25 +115,6 @@ void SeList::keyPressEvent(QKeyEvent * e)
 }
 
 
-
-
-/* ********************************************************************************* *
- *
- *
- * Page Cell
- *
- *
- * ********************************************************************************* */
-PageCell::PageCell(const QString& text, uint nr, const QPixmap& pix, double pageSize, const QColor color) :
-	m_pageNumber(nr),
-	m_pagePreview(pix),
-	m_pageName(text),
-	m_masterPageColor(color),
-	m_pageRatio(pageSize)
-{
-
-}
-
 /* ********************************************************************************* *
  *
  *
@@ -152,7 +133,7 @@ PageViewer::PageViewer(QWidget *parent) : QWidget(parent)
 	m_scroll->setWidgetResizable(true);
 	m_scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 	m_scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-	m_scroll->setFrameShape(QFrame::NoFrame);
+	//m_scroll->setFrameShape(QFrame::Box);
 
 	QVBoxLayout* layout = new QVBoxLayout;
 	layout->addWidget(m_scroll);
@@ -233,22 +214,8 @@ PageGrid::PageGrid(QWidget *parent)
 	: QWidget{parent}
 {
 	pageList = QList<PageCell*>();
-	m_rowHeight = 96;
-	m_cellGap = 1;
-	m_groupSpace = 16;
-	m_rowSpace = 12;
-	m_fontSize = 7; // font size of number label and masterpage label
-	m_labelGap = 8; // gap between page and number label
 	m_colorSelection = PrefsManager::instance().appPrefs.displayPrefs.pageBorderColor;
-	m_pageOffset = 0;
-	m_pageLayout = PageLayout::singlePage;
-	m_cellsInGroup = 1; // single page
-	m_selectedPage = -1;
-	m_hoveredPage = -1;
-	m_rectInsert = QRect();
-	m_rectSelection = QRect();
 	m_documentPageSize = QSize(m_rowHeight, m_rowHeight);
-	m_enableSelection = false;
 	m_contextMenu = new QMenu(this);
 
 
@@ -286,11 +253,6 @@ void PageGrid::setRowHeight(int size)
 	update();
 }
 
-int PageGrid::rowHeight()
-{
-	return m_rowHeight;
-}
-
 void PageGrid::setFontSize(int size)
 {
 	m_fontSize = size;
@@ -298,20 +260,10 @@ void PageGrid::setFontSize(int size)
 	update();
 }
 
-int PageGrid::fontSize()
-{
-	return m_fontSize;
-}
-
 void PageGrid::setSelectionColor(QColor color)
 {
 	m_colorSelection = color;
 	update();
-}
-
-QColor PageGrid::selectionColor()
-{
-	return m_colorSelection;
 }
 
 void PageGrid::setPageLayout(PageLayout layout)
@@ -338,21 +290,11 @@ void PageGrid::setPageLayout(PageLayout layout)
 	update();
 }
 
-PageLayout PageGrid::pageLayout()
-{
-	return m_pageLayout;
-}
-
 void PageGrid::setPageOffset(int pageCount)
 {
 	m_pageOffset = pageCount;
 	calculateSize();
 	update();
-}
-
-int PageGrid::pageOffset()
-{
-	return m_pageOffset;
 }
 
 //void PageGrid::setPageList(const QList<PageCell *> list)
@@ -397,7 +339,6 @@ PageCell *PageGrid::getPageItem(int pageIndex)
 
 }
 
-
 int PageGrid::pageCount()
 {
 	return pageList.count();
@@ -408,17 +349,10 @@ int PageGrid::pageHeight()
 	return m_rowHeight - m_fontSize - m_labelGap;
 }
 
-
 void PageGrid::setSelectedPage(int pageID)
 {
 	m_selectedPage = clampPageId(pageID);
 	update();
-}
-
-
-int PageGrid::selectedPage()
-{
-	return m_selectedPage;
 }
 
 void PageGrid::deleteSelectedPage()
@@ -597,7 +531,7 @@ QPoint PageGrid::mapPosToCell(QPoint pos, Mode &mode)
 	int row = rowAt(pos);
 
 	// return if there is no row or column
-	if(col == -1 || row == -1)
+	if (col == -1 || row == -1)
 	{
 		mode = Mode::Invalid;
 		return QPoint();
@@ -609,21 +543,17 @@ QPoint PageGrid::mapPosToCell(QPoint pos, Mode &mode)
 	int y = cellRect.y();
 
 	// cell doesn't have a page
-	if(id < 0 || id >= pageCount()){
+	if (id < 0 || id >= pageCount()){
 		mode = Mode::Add;
 	}
 	else
 	{
 		// check if mouse is on "insert area"
 		QRect insertArea(x, y, 8, rowHeight());
-		if(insertArea.contains(pos))
-		{
+		if (insertArea.contains(pos))
 			mode = Mode::Insert;
-		}
 		else
-		{
 			mode = Mode::Hover;
-		}
 	}
 
 	return QPoint(x,y);
@@ -631,7 +561,7 @@ QPoint PageGrid::mapPosToCell(QPoint pos, Mode &mode)
 
 QPoint PageGrid::pagePosition(int pageId)
 {
-	if(pageId < 0 || pageId >= pageCount()) return QPoint();
+	if (pageId < 0 || pageId >= pageCount()) return QPoint();
 
 	int row = qCeil( (pageId + m_pageOffset) / m_cellsInGroup );
 	int col = 0;
@@ -642,7 +572,7 @@ QPoint PageGrid::pagePosition(int pageId)
 int PageGrid::clampPageId(int pageID, bool allowPlusOne)
 {
 	// Always returns 0 if there is no page in the page list
-	if(pageCount() == 0) return 0;
+	if (pageCount() == 0) return 0;
 
 	int max = (allowPlusOne) ? pageCount() : pageCount() -1;
 	return qBound( 0, pageID, max);
@@ -662,12 +592,12 @@ void PageGrid::updateSelectedPage(QPoint pos)
 	int id = pageId(row, col);
 
 	// check if page id is in range of an existing cell
-	if(id > -1 && id < pageCount() )
+	if (id > -1 && id < pageCount() )
 	{
 		int newSelectedPage = clampPageId( id );
 
 		// repaint only if there is a change
-		if(newSelectedPage != m_selectedPage)
+		if (newSelectedPage != m_selectedPage)
 		{
 			m_selectedPage = newSelectedPage;
 			update();
@@ -682,7 +612,7 @@ void PageGrid::updateModeMarker(QPoint pos)
 	QPoint mapPos = mapPosToCell(pos, mode);
 
 	// check if mouse is on "insert area"
-	switch(mode)
+	switch (mode)
 	{
 	case Mode::Add:
 		m_rectInsert = QRect();
@@ -743,10 +673,11 @@ void PageGrid::clearUi()
 	update();
 }
 
-void PageGrid::drawTile(QPainter &painter, QPoint cellPosition, PageCell *tile, bool selected, bool hovered)
+void PageGrid::drawTile(QPainter &painter, QPoint cellPosition, PageCell *tile, bool selected, bool hovered, QColor labelColor)
 {
 
-	if(tile == nullptr) return;
+	if (tile == nullptr)
+		return;
 
 	QFont font(this->font().family(), m_fontSize, QFont::Normal);
 	QRect rectPage(cellPosition.x(), cellPosition.y(), tile->pageWidthByHeight(pageHeight()), pageHeight());
@@ -758,7 +689,7 @@ void PageGrid::drawTile(QPainter &painter, QPoint cellPosition, PageCell *tile, 
 	// Draw Page
 	painter.setBrush(Qt::NoBrush);
 	//	painter.setPen( QPen(Qt::black, 1) );
-	painter.drawPixmap(rectPage, tile->pagePreview(), tile->pagePreview().rect());
+	painter.drawPixmap(rectPage, tile->pagePreview, tile->pagePreview.rect());
 	//	painter.drawRect(rectPage);
 
 	// Setup painter for text drawing
@@ -767,14 +698,14 @@ void PageGrid::drawTile(QPainter &painter, QPoint cellPosition, PageCell *tile, 
 
 	// Draw Page Number
 	//painter.setPen(QPen(palette().windowText().color()));
-	painter.setPen(QPen( Qt::white ));
-	painter.drawText(rectCell, Qt::AlignHCenter|Qt::AlignBottom | Qt::TextWordWrap, QString::number(tile->pageNumber() + 1));
+	painter.setPen(QPen( labelColor ));
+	painter.drawText(rectCell, Qt::AlignHCenter|Qt::AlignBottom | Qt::TextWordWrap, QString::number(tile->pageNumber + 1));
 
 	// Draw Page Name
 	painter.setBackgroundMode(Qt::OpaqueMode);
 	painter.setBackground(QColor(0,0,0,128));
 	painter.setPen(QPen(Qt::white));
-	painter.drawText(rectPage.adjusted(2,2,-2,-2), Qt::AlignTop | Qt::AlignLeft |Qt::TextWordWrap, tile->pageName());
+	painter.drawText(rectPage.adjusted(2,2,-2,-2), Qt::AlignTop | Qt::AlignLeft |Qt::TextWordWrap, tile->pageName);
 
 	// Draw Master Page Color
 	//	painter.setPen(Qt::NoPen);
@@ -790,7 +721,7 @@ void PageGrid::drawTile(QPainter &painter, QPoint cellPosition, PageCell *tile, 
 	//	}
 
 	// Draw hover
-	if(hovered)
+	if (hovered)
 	{
 		QColor colHover = palette().highlight().color();
 		colHover.setAlphaF(0.5);
@@ -855,46 +786,45 @@ void PageGrid::paintEvent(QPaintEvent *event)
 	int y = m_rowSpace;
 	int offset = 0;
 	QRect selectedPageRect;
+	QColor foregroundColor( PrefsManager::instance().appPrefs.displayPrefs.scratchColor.lightness() <= 128 ? Qt::white : Qt::black);
 
 	QPainter painter(this);
 
 	// Draw background
-	painter.fillRect(rect(), palette().dark());
-	//painter.fillRect(rect(), QColor(128,128,128));
+	painter.fillRect(rect(), PrefsManager::instance().appPrefs.displayPrefs.scratchColor);
 
-	if(pageCount() == 0) return;
+	if (pageCount() == 0) return;
 
 //	QElapsedTimer timer;
 //	timer.start();
 
 	// Draw pages
-	for(int r = 0; r < rows(); r++)
+	for (int r = 0; r < rows(); r++)
 	{
 		int groupStart = m_groupSpace;
 		int groupWidth = 0;
 		bool drawGroupRect = false;
 
-		for(int c = 0; c < columns(); c++)
+		for (int c = 0; c < columns(); c++)
 		{
 
 			// cell is after last page cell
-			if(count >= pageCount() + m_pageOffset)
+			if (count >= pageCount() + m_pageOffset)
 				break;
 
 			// cell is a page cell
-			if(count >= m_pageOffset && count < pageCount() + m_pageOffset)
+			if (count >= m_pageOffset && count < pageCount() + m_pageOffset)
 			{
 				int id = count - m_pageOffset;
 				PageCell * cell = getPageItem(id);
-				if(id == m_selectedPage) selectedPageRect = QRect(x, y, cell->pageWidthByHeight(pageHeight()), pageHeight() );
+				if (id == m_selectedPage)
+					selectedPageRect = QRect(x, y, cell->pageWidthByHeight(pageHeight()), pageHeight() );
 				QPoint pos(x,y);
-				drawTile(painter, pos, cell, (id == m_selectedPage) ? true : false, (id == m_hoveredPage) ? true : false);
+				drawTile(painter, pos, cell, (id == m_selectedPage) ? true : false, (id == m_hoveredPage) ? true : false, foregroundColor);
 
 				// add space only between pages
-				if((c + 1) % m_cellsInGroup == 0 || count == pageCount() + m_pageOffset -1)
-				{
+				if ((c + 1) % m_cellsInGroup == 0 || count == pageCount() + m_pageOffset -1)
 					offset = 0;
-				}
 				else
 					offset = m_cellGap;
 
@@ -928,7 +858,7 @@ void PageGrid::paintEvent(QPaintEvent *event)
 	}
 
 	// Draw selected page
-	if(!selectedPageRect.isEmpty())
+	if (!selectedPageRect.isEmpty())
 	{
 		QColor colorSelection = (this->isEnabled()) ? m_colorSelection : disabledColor(m_colorSelection);
 		painter.setPen( QPen(colorSelection, 2) );
@@ -937,27 +867,24 @@ void PageGrid::paintEvent(QPaintEvent *event)
 	}
 
 	// Draw insert marker
-	if(!m_rectInsert.isEmpty())
-	{
+	if (!m_rectInsert.isEmpty())
 		painter.fillRect(m_rectInsert, palette().highlight());
-	}
 
 	// Draw add page marker
-	if(!m_rectAdd.isEmpty())
+	if (!m_rectAdd.isEmpty())
 	{
-		QColor colAdd = Qt::white;
-		colAdd.setAlphaF(0.5);
+		QColor colAdd = foregroundColor;
+		colAdd.setAlphaF(0.2);
 		painter.setBackgroundMode(Qt::TransparentMode);
 		painter.fillRect(m_rectAdd, colAdd);
 		painter.setBrush(Qt::NoBrush);
-		colAdd = Qt::black;
-		colAdd.setAlphaF(0.5);
+		colAdd.setAlphaF(1);
 		painter.setPen( QPen(colAdd, 1, Qt::DashLine) );
 		painter.drawRect(m_rectAdd.adjusted(0, 0, -1, -1));
 	}
 
 	// Draw selection frame
-	if(!m_rectSelection.isEmpty())
+	if (!m_rectSelection.isEmpty())
 	{
 		QColor colorSelection = palette().highlight().color();
 		painter.setPen( QPen(colorSelection) );
@@ -977,9 +904,7 @@ void PageGrid::paintEvent(QPaintEvent *event)
 void PageGrid::resizeEvent(QResizeEvent *event)
 {
 	if (event->oldSize() != event->size())
-	{
 		calculateSize();
-	}
 
 	QWidget::resizeEvent(event);
 }
@@ -1013,7 +938,7 @@ void PageGrid::dropEvent(QDropEvent *event)
 		Mode mode;
 		mapPosToCell(dropEventPos, mode);
 
-		switch(mode)
+		switch (mode)
 		{
 		case Mode::Add:
 		case Mode::Insert:
@@ -1048,7 +973,7 @@ void PageGrid::dropEvent(QDropEvent *event)
 		Mode mode;
 		mapPosToCell(dropEventPos, mode);
 
-		switch(mode)
+		switch (mode)
 		{
 		case Mode::Add:
 		case Mode::Insert:
@@ -1098,7 +1023,7 @@ void PageGrid::mouseReleaseEvent(QMouseEvent *event)
 
 	QPoint mouseEventPos = event->position().toPoint();
 
-	switch(m_state)
+	switch (m_state)
 	{
 	case State::StartDrag:
 		if(pageCount() > 0)
@@ -1109,10 +1034,8 @@ void PageGrid::mouseReleaseEvent(QMouseEvent *event)
 			int col = columnAt(mouseEventPos);
 			int pageID = pageId(row, col);
 
-			if(pageID > -1 && pageID < pageCount() )
-			{
+			if (pageID > -1 && pageID < pageCount() )
 				emit click(m_selectedPage, event->button());
-			}
 		}
 		break;
 
@@ -1129,9 +1052,7 @@ void PageGrid::mouseReleaseEvent(QMouseEvent *event)
 
 	// Context Menu
 	if (event->button() == Qt::RightButton)
-	{
 		m_contextMenu->exec( QCursor::pos() );
-	}
 
 	QWidget::mouseReleaseEvent(event);
 }
@@ -1143,18 +1064,14 @@ void PageGrid::mousePressEvent(QMouseEvent *event)
 
 	m_state = State::None;
 
-	if(event->button() == Qt::LeftButton)
+	if (event->button() == Qt::LeftButton)
 	{
 		int id = pageId(m_mousePos, false);
 
-		if(id == -1 && m_enableSelection == true)
-		{
+		if (id == -1 && m_enableSelection == true)
 			m_state = State::StartSelection;
-		}
 		else if (id > -1)
-		{
 			m_state = State::StartDrag;
-		}
 	}
 
 	QWidget::mousePressEvent(event);
@@ -1167,7 +1084,7 @@ void PageGrid::mouseMoveEvent(QMouseEvent *event)
 
 	if ((m_mousePos - mouseEventPos).manhattanLength() > 4)
 	{
-		switch(m_state)
+		switch (m_state)
 		{
 		// Drag
 		case State::StartDrag:
@@ -1182,9 +1099,9 @@ void PageGrid::mouseMoveEvent(QMouseEvent *event)
 				if (ite != nullptr)
 				{
 
-					QString str(ite->pageName());
+					QString str(ite->pageName);
 
-					int p = ite->pageNumber();
+					int p = ite->pageNumber;
 					QString tmp;
 					QMimeData *mimeData = new QMimeData;
 					mimeData->setData(MIMETYPE, "2 " + tmp.setNum(p).toLocal8Bit() + " " + str.toLocal8Bit());
@@ -1192,7 +1109,7 @@ void PageGrid::mouseMoveEvent(QMouseEvent *event)
 					QDrag *dr = new QDrag(this);
 					dr->setMimeData(mimeData);
 					//const QPixmap& pm = IconManager::instance().loadPixmap("doc.png");
-					const QPixmap& pm = ite->pagePreview();
+					const QPixmap& pm = ite->pagePreview;
 					dr->setPixmap(pm);
 					dr->exec(Qt::CopyAction | Qt::MoveAction);
 
@@ -1277,7 +1194,7 @@ void TrashBin::dropEvent(QDropEvent * e)
 
 void TrashBin::iconSetChange()
 {
-	normal = IconManager::instance().loadPixmap("trashcan.png");
-	open = IconManager::instance().loadPixmap("trashcan2.png");
+	normal = IconManager::instance().loadPixmap("trashcan.png", 24);
+	open = IconManager::instance().loadPixmap("trashcan2.png", 24);
 	setPixmap(normal);
 }

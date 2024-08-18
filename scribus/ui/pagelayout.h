@@ -11,66 +11,65 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidget>
 #include <QList>
 
-class QComboBox;
+class QToolButton;
 class QLabel;
-class QListWidgetItem;
-class QVBoxLayout;
+class QHBoxLayout;
+class FormWidget;
+class QMenu;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
 
-/*! \brief A widget containing pages layout schema */
-class SCRIBUS_API PageListWidget : public QListWidget
-{
-	Q_OBJECT
-
-public:
-	PageListWidget(QWidget* parent);
-	~PageListWidget() {};
-	void arrangeIcons();
-};
-
-
 /*! \brief A widget for changing pages layout.
 User can change layouts on-the-fly changing widget's
 comboboxes. */
-class SCRIBUS_API PageLayouts : public QGroupBox
+class SCRIBUS_API PageLayouts : public QWidget
 {
 	Q_OBJECT
 
 public:
 	PageLayouts(QWidget* parent);
-	PageLayouts(QWidget* parent, const QList<PageSet>& pSets, bool mode = true);
 	~PageLayouts() {};
 
-	void updateLayoutSelector(const ScribusDoc* doc);
-	void selectFirstP(int nr);
-	void selectItem(uint nr);
-	PageListWidget* layoutsView;
-	QComboBox* layoutsCombo;
-	QLabel* layoutLabel1;
-	QComboBox* firstPage;
-	QList<PageSet> pageSets;
-	int docPagePositioning {0};
+	void updateSchemeSelector(const ScribusDoc* doc);
+	void selectFirstPage(int nr);
+	void selectScheme(int nr);
+
+	void setHideLabelsPermanently(bool hide);
+	bool hideLabelsPermanently() { return m_hideLabels; };
 
 public slots:
-	void itemSelected(QListWidgetItem* ic);
-	void itemSelected(int ic);
+	void schemeSelected(int ic);
+	void toggleLabelVisibility(bool visibility);
 
 signals:
-	void selectedLayout(int);
+	void selectedScheme(int);
 	void selectedFirstPage(int);
 
 private:
-	void itemSelectedPost(int chosen);
-	bool modus;
 
-protected:
-	QVBoxLayout* layoutGroupLayout;
+	int m_scheme {0};
+	int m_firstPage {0};
+	bool m_hideLabels {false};
+	int docPagePositioning {0};
+
+	FormWidget* labelScheme;
+	FormWidget* labelPages;
+	QList<PageSet> pageSets;
+	QToolButton* buttonScheme;
+	QToolButton* buttonFirstPage;
+	QMenu* menuScheme;
+	QMenu* menuFirstPage;
+	QHBoxLayout* layoutGroupLayout;
+
+	void reloadScheme();
+	void reloadFirstPage(int scheme);
 
 protected slots:
 	void languageChange();
+	void schemeChanged(QAction* action);
+	void firstPageChanged(QAction* action);
 
 };
 

@@ -15,18 +15,10 @@ for which a new license (GPL+exception) is in place.
 #include <QVBoxLayout>
 
 #include "ui_pagepalette_pagesbase.h"
-
 #include "scribusapi.h"
-#include "scdockpalette.h"
 
-class PageLayouts;
 class ScribusView;
 class ScribusMainWindow;
-class SeItem;
-class SeList;
-class SeView;
-class PageViewer;
-class PageCell;
 
 class SCRIBUS_API PagePalette_Pages : public QWidget, Ui::PagePalette_PagesBase
 {

@@ -45,8 +45,10 @@ PagePalette_Pages::PagePalette_Pages(QWidget *parent)
 	masterPageList->m_thumb = true;
 	masterPageList->setIconSize(QSize(60, 60));
 
-	trash->setMinimumSize(QSize(32, 32));
-	trash->setMaximumSize(QSize(32, 32));
+	pageLayout->setHideLabelsPermanently(true);
+
+	trash->setMinimumSize(QSize(24, 24));
+	trash->setMaximumSize(QSize(24, 24));
 
 	PageGrid *pageGrid = pageViewWidget->pageGrid();
 
@@ -60,7 +62,7 @@ PagePalette_Pages::PagePalette_Pages(QWidget *parent)
 	connect(masterPageList, SIGNAL(thumbnailChanged()), this, SLOT(rebuildMasters()));
 	connect(masterPageList, SIGNAL(delMasterRequest(QString)), this, SLOT(deleteMasterPage(QString)));
 
-	connect(pageLayout, SIGNAL(selectedLayout(int)), this, SLOT(handlePageLayout(int)));
+	connect(pageLayout, SIGNAL(selectedScheme(int)), this, SLOT(handlePageLayout(int)));
 	connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
 
 	connect(pageGrid, SIGNAL(click(int, int)), this, SLOT(pageView_gotoPage(int, int)));
@@ -135,8 +137,8 @@ void PagePalette_Pages::pageView_applyMasterPage(const QString &masterpageName, 
 	double pageRatio = page.width() / page.height();
 
 	PageCell *pc = pageViewWidget->pageGrid()->getPageItem(pageIndex);
-	pc->setPageName(masterpageName);
-	pc->setPageRatio(pageRatio);
+	pc->pageName = masterpageName;
+	pc->pageRatio = pageRatio;
 
 }
 
@@ -203,8 +205,8 @@ void PagePalette_Pages::pageView_updatePagePreview()
 			QPixmap pix = ( previews.contains(i) ) ? QPixmap::fromImage( previews.value(i) ) : QPixmap();
 
 			PageCell *pc = pageViewWidget->pageGrid()->pageList.at(i);
-			pc->setPagePreview( pix );
-			pc->setPageRatio( pageRatio );
+			pc->pagePreview = pix;
+			pc->pageRatio = pageRatio;
 		}
 	}
 
@@ -241,7 +243,6 @@ void PagePalette_Pages::updatePagePreview()
 		});
 	}
 }
-
 
 void PagePalette_Pages::newPage()
 {
@@ -282,7 +283,7 @@ void PagePalette_Pages::enablePalette(const bool enabled)
 
 void PagePalette_Pages::handlePageLayout(int layout)
 {
-	pageLayout->selectFirstP(currView->m_doc->pageSets()[layout].FirstPage);
+	pageLayout->selectFirstPage(currView->m_doc->pageSets()[layout].FirstPage);
 	currView->m_doc->setPagePositioning(layout);
 	currView->reformPages();
 	currView->DrawNew();
@@ -332,21 +333,21 @@ void PagePalette_Pages::rebuildPages()
 	if (m_scMW->scriptIsRunning())
 		return;
 
-	disconnect(pageLayout, SIGNAL(selectedLayout(int)), this, SLOT(handlePageLayout(int)));
+	disconnect(pageLayout, SIGNAL(selectedScheme(int)), this, SLOT(handlePageLayout(int)));
 	disconnect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
 
 	pageViewWidget->pageGrid()->clear();
 	if (currView == nullptr)
 	{
-		connect(pageLayout, SIGNAL(selectedLayout(int)), this, SLOT(handlePageLayout(int)));
+		connect(pageLayout, SIGNAL(selectedScheme(int)), this, SLOT(handlePageLayout(int)));
 		connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
 		return;
 	}
 
 	const PageSet &currentPageSet = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()];
-	pageLayout->updateLayoutSelector(currView->m_doc);
-	pageLayout->selectItem(currView->m_doc->pagePositioning());
-	pageLayout->firstPage->setCurrentIndex(currentPageSet.FirstPage);
+	pageLayout->updateSchemeSelector(currView->m_doc);
+	pageLayout->selectScheme(currView->m_doc->pagePositioning());
+	pageLayout->selectFirstPage(currentPageSet.FirstPage);
 
 	int counter = currentPageSet.FirstPage;
 	int cols = currentPageSet.Columns;
@@ -390,7 +391,7 @@ void PagePalette_Pages::rebuildPages()
 	{
 		markPage(currView->m_doc->currentPageNumber());
 	}
-	connect(pageLayout, SIGNAL(selectedLayout(int)), this, SLOT(handlePageLayout(int)));
+	connect(pageLayout, SIGNAL(selectedScheme(int)), this, SLOT(handlePageLayout(int)));
 	connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
 }
 

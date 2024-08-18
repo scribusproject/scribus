@@ -78,40 +78,19 @@ protected:
 
 };
 
-/* ********************************************************************************* *
- *
- * Page Cell
- *
- * ********************************************************************************* */
-
-class SCRIBUS_API PageCell
+struct SCRIBUS_API PageCell
 {
-	friend class PanelPages;
-	friend class PageGrid;
+	QString pageName;
+	uint pageNumber;
+	QPixmap pagePreview;
+	QColor masterPageColor;
+	double pageRatio;
 
-public:
-	PageCell(const QString& text, uint pgnr, const QPixmap& pix, double pageRatio, const QColor color = Qt::black);
-	// ~PageCell() {};
+	PageCell(const QString& text, uint nr, const QPixmap& pix, double pageRatio, const QColor color = Qt::black) :
+		pageName(text), pageNumber(nr), pagePreview(pix), masterPageColor(color), pageRatio(pageRatio) {}
 
-	const QString& pageName() {return m_pageName;}
-	QPixmap pagePreview() {return m_pagePreview;}
-	uint pageNumber() {return m_pageNumber;}
-	QColor masterPageColor() {return m_masterPageColor;}
-	int pageWidthByHeight(int height) {return qCeil(height * m_pageRatio);}
-	double pageRatio() {return m_pageRatio;}
+	int pageWidthByHeight(int height) { return qCeil(height * pageRatio); }
 
-	void setPageName(const QString& name ) {m_pageName = name;}
-	void setPagePreview(QPixmap preview ) {m_pagePreview = preview;}
-	void setPageNumber(uint number ) {m_pageNumber = number;}
-	void setMasterPageColor(QColor color ) {m_masterPageColor = color;}
-	void setPageRatio(double pageRatio){m_pageRatio = pageRatio;}
-
-private:
-	uint m_pageNumber;
-	QPixmap m_pagePreview;
-	QString m_pageName;
-	QColor m_masterPageColor;
-	double m_pageRatio;
 };
 
 /* ********************************************************************************* *
@@ -134,19 +113,19 @@ public:
 	void setDocumentPageSize(QSizeF pageSize);
 
 	void setRowHeight(int size);
-	int rowHeight();
+	int rowHeight() { return m_rowHeight; };
 
 	void setFontSize(int size);
-	int fontSize();
+	int fontSize() { return m_fontSize; };
 
 	void setSelectionColor(QColor color);
-	QColor selectionColor();
+	QColor selectionColor() { return m_colorSelection; };
 
 	void setPageLayout(PageLayout layout);
-	PageLayout pageLayout();
+	PageLayout pageLayout() { return m_pageLayout; };
 
 	void setPageOffset(int pageCount);
-	int pageOffset();
+	int pageOffset() { return m_pageOffset; };
 
 	QList<PageCell*> pageList;
 
@@ -159,7 +138,7 @@ public:
 	int pageHeight();
 
 	void setSelectedPage(int pageID);
-	int selectedPage();
+	int selectedPage() { return m_selectedPage; };
 
 	void deleteSelectedPage();
 	void clear();
@@ -182,24 +161,24 @@ private:
 
 	QSize m_pageSize;
 	QSizeF m_documentPageSize;
-	int m_rowHeight;
-	int m_cellGap;
-	int m_groupSpace;
-	int m_rowSpace;
-	int m_fontSize;
-	int m_labelGap;
-	QRect m_rectInsert;
-	QRect m_rectSelection;
-	QRect m_rectAdd;
+	int m_rowHeight {96};
+	int m_cellGap {1};
+	int m_groupSpace {16};
+	int m_rowSpace {12};
+	int m_fontSize {8}; // font size of number label and masterpage label
+	int m_labelGap {8}; // gap between page and number label
+	QRect m_rectInsert {QRect()};
+	QRect m_rectSelection {QRect()};
+	QRect m_rectAdd {QRect()};
 	QColor m_colorSelection;
-	int m_selectedPage;
-	int m_hoveredPage;
-	bool m_enableSelection;
+	int m_selectedPage {-1};
+	int m_hoveredPage {-1};
+	bool m_enableSelection {false};
 	QPoint m_mousePos;
 	State m_state {State::None};
-	PageLayout m_pageLayout;
-	int m_cellsInGroup;
-	int m_pageOffset;
+	PageLayout m_pageLayout {PageLayout::singlePage};
+	int m_cellsInGroup {1}; // 1 for single page
+	int m_pageOffset {0};
 	QMenu *m_contextMenu;
 
 	int columns();
@@ -220,7 +199,7 @@ private:
 	void updateSelectedPage(QPoint pos);
 	void updateModeMarker(QPoint pos);
 	void clearUi();
-	void drawTile(QPainter &painter, QPoint cellPosition, PageCell * tile, bool selected, bool hovered);
+	void drawTile(QPainter &painter, QPoint cellPosition, PageCell * tile, bool selected, bool hovered, QColor labelColor);
 	void initContextMenu();
 
 private slots:

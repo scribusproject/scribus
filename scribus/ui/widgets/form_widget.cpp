@@ -3,6 +3,9 @@
 #include <QHBoxLayout>
 #include <QEvent>
 #include <QShortcutEvent>
+#include <QFontDatabase>
+#include <QApplication>
+
 
 #include "form_widget.h"
 
@@ -11,6 +14,7 @@ FormWidget::FormWidget(QWidget *parent)
 {
 	QSizePolicy policy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 	m_font = this->font();
+	m_devicePixelRatio = qApp->devicePixelRatio();
 
 	setSizePolicy(policy);
 	calculateFrame();
@@ -43,7 +47,7 @@ void FormWidget::calculateFrame()
 	int w, h;
 	labelSize(w,h);
 
-	switch(m_position)
+	switch (m_position)
 	{
 		case Left:
 			setContentsMargins(w, 0, 0, 0);
@@ -67,7 +71,7 @@ void FormWidget::updateShortcut()
 	m_shortcutId = 0;
 	m_hasShortcut = false;
 
-	if(hasPixmap() || m_label.isEmpty() || m_labelVisibility == false)
+	if (hasPixmap() || m_label.isEmpty() || m_labelVisibility == false)
 		return;
 
 	if (!m_label.contains(QLatin1Char('&')))
@@ -89,7 +93,7 @@ void FormWidget::paintEvent(QPaintEvent *e)
 {
 	QWidget::paintEvent(e);
 
-	if(!labelVisibility()) return;
+	if (!labelVisibility()) return;
 
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing, true);
@@ -99,22 +103,27 @@ void FormWidget::paintEvent(QPaintEvent *e)
 	opt.initFrom(this);
 	int align = QStyle::visualAlignment(this->layoutDirection(), Qt::AlignCenter);
 
+	QFont tmpFont(m_font);
+	if (m_useSmallFont)
+		tmpFont.setPointSize(smallFontSize());
+
 	QPen pen(QPalette::Text);
 	painter.setPen(pen);
-	painter.setFont(m_font);
-
+	painter.setFont(tmpFont);
 
 	QRect r = rect();
 	QPixmap pix = m_pixmap;
-	if(hasPixmap()) pix = pix.scaled(m_pixmapSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+	if (hasPixmap() && pix.size() != m_pixmapSize)
+		pix = pix.scaled(m_pixmapSize * m_devicePixelRatio, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
 	if (!isEnabled())
 		pix = style->generatedIconPixmap(QIcon::Disabled, pix, &opt);
 
 
-	switch(m_position){
+	switch (m_position){
 	case Left:
-		if(hasPixmap())
+		if (hasPixmap())
 		{
 			r= QRect (0, (height() - m_pixmap.height()) / 2, m_pixmap.width(), m_pixmap.height());
 			style->drawItemPixmap(&painter, r, align, pix);
@@ -125,7 +134,7 @@ void FormWidget::paintEvent(QPaintEvent *e)
 
 		break;
 	case Right:
-		if(hasPixmap())
+		if (hasPixmap())
 		{
 			r= QRect (width() - m_pixmap.width(), (height() - m_pixmap.height()) / 2, m_pixmap.width(), m_pixmap.height());
 			style->drawItemPixmap(&painter, r, align, pix);
@@ -135,7 +144,7 @@ void FormWidget::paintEvent(QPaintEvent *e)
 
 		break;
 	case Top:
-		if(hasPixmap())
+		if (hasPixmap())
 		{
 			r= QRect ((width() - m_pixmap.width()) / 2, 0, m_pixmap.width(), m_pixmap.height());
 			style->drawItemPixmap(&painter, r, align, pix);
@@ -145,7 +154,7 @@ void FormWidget::paintEvent(QPaintEvent *e)
 
 		break;
 	case Bottom:
-		if(hasPixmap())
+		if (hasPixmap())
 		{
 			r= QRect ((width() - m_pixmap.width()) / 2, height() - m_pixmap.height(), m_pixmap.width(), m_pixmap.height());
 			style->drawItemPixmap(&painter, r, align, pix);
@@ -177,42 +186,42 @@ bool FormWidget::event(QEvent *e)
 				QLayoutItem * li = this->layout()->itemAt(i);
 				QWidget *child = li->widget();
 
-				if(!child)
+				if (!child)
 					continue;
 
-				if(child->hasFocus())
+				if (child->hasFocus())
 				{
 					focus = i;
 					continue;
 				}
 
-				if(child->focusPolicy() != Qt::NoFocus)
+				if (child->focusPolicy() != Qt::NoFocus)
 					widgets.append(i);
 			}
 
 			// Get new focus ID
-			foreach( int i, widgets )
+			foreach ( int i, widgets )
 			{
-				if( focus == -1 || i > focus)
+				if ( focus == -1 || i > focus)
 				{
 					newFocus = i;
 					break;
 				}
 
-				if(i == widgets.last())
+				if (i == widgets.last())
 				{
 					newFocus = widgets.first();
 					break;
 				}
 			}
 
-			if( newFocus < 0 || newFocus > this->layout()->count())
+			if ( newFocus < 0 || newFocus > this->layout()->count())
 				return QWidget::event(e);
 
 			// Set focus on new item
 			QWidget * wdgFocus = this->layout()->itemAt(newFocus)->widget();
 
-			if(wdgFocus)
+			if (wdgFocus)
 			{
 				wdgFocus->setFocus(Qt::ShortcutFocusReason);
 				window()->setAttribute(Qt::WA_KeyboardFocusChange);
@@ -239,22 +248,26 @@ void FormWidget::labelSize(int &w, int &h) const
 	w = 0;
 	h = 0;
 
-	if(hasPixmap())
+	if (hasPixmap())
 	{
-		w = m_pixmapSize.width() + m_space;
-		h = m_pixmapSize.height() + m_space;
+        	w = m_pixmapSize.width() * m_devicePixelRatio + m_space;
+        	h = m_pixmapSize.height() * m_devicePixelRatio + m_space;
 	}
 	else
 	{
 
-		if((m_label.isEmpty() && m_preserveLabelSpace == false) || m_labelVisibility == false)
+		if ((m_label.isEmpty() && m_preserveLabelSpace == false) || m_labelVisibility == false)
 		{
 			w = 0;
 			h = 0;
 		}
 		else
 		{
-			QFontMetrics metrics(m_font);
+			QFont tmpFont(m_font);
+			if (m_useSmallFont)
+				tmpFont.setPointSize(smallFontSize());
+
+			QFontMetrics metrics(tmpFont);
 			QString label = m_label;
 
 			// calculate width without hidden "&"
@@ -265,7 +278,7 @@ void FormWidget::labelSize(int &w, int &h) const
 				{
 					int index = label.indexOf(QLatin1String("&"), pos);
 
-					if(pos == index)
+					if (pos == index)
 						label = label.replace(index, 1, "");
 
 					pos++;
@@ -279,10 +292,23 @@ void FormWidget::labelSize(int &w, int &h) const
 	}
 }
 
+int FormWidget::smallFontSize() const
+{
+	// uncommend to compare the different font size calculations
+	// qDebug() << Q_FUNC_INFO << QFont().pointSize() << qRound(QFont().pointSize() * .75) << QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont).pointSize();
+
+#ifdef Q_OS_MACOS
+	return QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont).pointSize();
+#else
+	return qRound(QFont().pointSize() * .75);
+#endif
+
+}
+
 
 void FormWidget::setText(const QString &text)
 {
-	if(m_label != text)
+	if (m_label != text)
 	{
 		m_label = text;
 		updateShortcut();
@@ -290,24 +316,14 @@ void FormWidget::setText(const QString &text)
 	}
 }
 
-QString FormWidget::text()
-{
-	return m_label;
-}
-
 void FormWidget::setLabelVisibility(bool visible)
 {
-	if(m_labelVisibility != visible)
+	if (m_labelVisibility != visible)
 	{
 		m_labelVisibility = visible;
 		updateShortcut();
 		calculateFrame();
 	}
-}
-
-bool FormWidget::labelVisibility()
-{
-	return m_labelVisibility;
 }
 
 void FormWidget::setPreserveLabelSpace(bool preserveSpace)
@@ -316,20 +332,10 @@ void FormWidget::setPreserveLabelSpace(bool preserveSpace)
 	calculateFrame();
 }
 
-bool FormWidget::preserveLabelSpace()
-{
-	return m_preserveLabelSpace;
-}
-
 void FormWidget::setDirection(LabelPosition direction)
 {
 	m_position = direction;
 	calculateFrame();
-}
-
-FormWidget::LabelPosition FormWidget::direction()
-{
-	return m_position;
 }
 
 void FormWidget::setFont(QFont font)
@@ -338,20 +344,16 @@ void FormWidget::setFont(QFont font)
 	calculateFrame();
 }
 
-QFont FormWidget::font()
+void FormWidget::setUseSmallFont(bool smallFont)
 {
-	return m_font;
+	m_useSmallFont = smallFont;
+	calculateFrame();
 }
 
 void FormWidget::setSpace(int space)
 {
 	m_space = space;
 	calculateFrame();
-}
-
-int FormWidget::space()
-{
-	return m_space;
 }
 
 void FormWidget::setPixmap(QPixmap icon)
@@ -362,23 +364,24 @@ void FormWidget::setPixmap(QPixmap icon)
 
 }
 
-QPixmap FormWidget::pixmap()
-{
-	return m_pixmap;
-}
-
 void FormWidget::setPixmapSize(QSize size)
 {
 	m_pixmapSize = size;
 	calculateFrame();
 }
 
-QSize FormWidget::pixmapSize()
+void FormWidget::addWidget(QWidget* widget)
 {
-	return m_pixmapSize;
-}
+	if (layout() != nullptr)
+		layout()->addWidget(widget);
+	else
+	{
+		QHBoxLayout* lay = new QHBoxLayout();
+		lay->setContentsMargins(0, 0, 0, 0);
+		lay->setSpacing(4);
+		lay->addWidget(widget);
+		setLayout(lay);
+	}
 
-bool FormWidget::hasPixmap() const
-{
-	return !m_pixmap.isNull();
+	calculateFrame();
 }
