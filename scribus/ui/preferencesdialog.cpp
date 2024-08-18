@@ -28,7 +28,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 {
 	setupUi(this);
 	setObjectName(QString::fromLocal8Bit("PreferencesDialog"));
-	setupListWidget();
+	preferencesTypeList->clear();
 	while (prefsStackWidget->currentWidget() != nullptr)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
 	exportButton->hide();
@@ -241,11 +241,6 @@ void PreferencesDialog::accept()
 	// QDialog::accept() will emit it by itself
 	// emit accepted();
 	QDialog::accept();
-}
-
-void PreferencesDialog::setupListWidget()
-{
-	preferencesTypeList->clear();
 }
 
 void PreferencesDialog::addWidget(Prefs_Pane* tab)

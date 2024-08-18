@@ -79,7 +79,6 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 
 	protected:
 		void addWidget(Prefs_Pane* tab);
-		void setupListWidget();
 		void arrangeIcons();
 		void initPreferenceValues();
 		/*! \brief Scans plugins for those that want to add a prefs widget and
