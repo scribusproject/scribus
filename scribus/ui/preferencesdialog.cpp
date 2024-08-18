@@ -245,19 +245,6 @@ void PreferencesDialog::accept()
 
 void PreferencesDialog::setupListWidget()
 {
-	preferencesTypeList->setDragEnabled(false);
-	preferencesTypeList->setViewMode(QListView::ListMode);
-	preferencesTypeList->setFlow(QListView::TopToBottom);
-	preferencesTypeList->setIconSize(QSize(16,16));
-	preferencesTypeList->setSortingEnabled(false);
-	preferencesTypeList->setWrapping(false);
-	preferencesTypeList->setWordWrap(true);
-	preferencesTypeList->setAcceptDrops(false);
-	preferencesTypeList->setDropIndicatorShown(false);
-	preferencesTypeList->setDragDropMode(QAbstractItemView::NoDragDrop);
-	//preferencesTypeList->setResizeMode(QListView::Adjust);
-	preferencesTypeList->setSelectionMode(QAbstractItemView::SingleSelection);
-	preferencesTypeList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	preferencesTypeList->clear();
 }
 
