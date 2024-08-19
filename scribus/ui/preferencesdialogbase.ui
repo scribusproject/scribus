@@ -46,16 +46,16 @@
         </size>
        </property>
        <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="editTriggers">
-        <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+        <set>QAbstractItemView::NoEditTriggers</set>
        </property>
        <property name="showDropIndicator" stdset="0">
         <bool>false</bool>
        </property>
        <property name="dragDropMode">
-        <enum>QAbstractItemView::DragDropMode::NoDragDrop</enum>
+        <enum>QAbstractItemView::NoDragDrop</enum>
        </property>
        <property name="alternatingRowColors">
         <bool>true</bool>
@@ -67,13 +67,13 @@
         </size>
        </property>
        <property name="resizeMode">
-        <enum>QListView::ResizeMode::Adjust</enum>
+        <enum>QListView::Adjust</enum>
        </property>
        <property name="spacing">
         <number>1</number>
        </property>
        <property name="viewMode">
-        <enum>QListView::ViewMode::ListMode</enum>
+        <enum>QListView::ListMode</enum>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -121,7 +121,7 @@
          <item>
           <spacer name="buttonHorizontalSpacer">
            <property name="orientation">
-            <enum>Qt::Orientation::Horizontal</enum>
+            <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -134,7 +134,7 @@
          <item>
           <widget class="QDialogButtonBox" name="buttonBox">
            <property name="standardButtons">
-            <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
+            <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
            </property>
           </widget>
          </item>
