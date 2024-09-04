@@ -156,6 +156,15 @@ void PrefsManager::initDefaults()
 	appPrefs.uiPrefs.mouseMoveTimeout = 150;
 	appPrefs.uiPrefs.wheelJump = 40;
 	appPrefs.uiPrefs.style = "";
+	// On Windows, use the Fusion theme by default when possible,
+	// the old Windows and windowsvista style do not support dark theme
+#if defined Q_OS_WINDOWS
+	QStringList availableThemes = QStyleFactory::keys();
+	QString currentTheme = QApplication::style() ? QApplication::style()->objectName() : QString();
+	bool currrentThemeSupportsDarkMode = (currentTheme == "Fusion" || currentTheme == "windows11");
+	if (availableThemes.contains("Fusion") && !currrentThemeSupportsDarkMode)
+		appPrefs.uiPrefs.style = "Fusion";
+#endif
 	/** Set Default window position and size to sane default values which should work on every screen */
 	const QScreen* s = QGuiApplication::primaryScreen();
 	appPrefs.uiPrefs.mainWinSettings.width = s->availableGeometry().width() * (4.0 / 5.0);
@@ -2729,8 +2738,6 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.experimentalFeaturePrefs.notesEnabled = static_cast<bool>(dc.attribute("NotesEnabled", "0").toInt());
 		}
 
-
-		//
 		DOC = DOC.nextSibling();
 	}
 	// Some sanity checks
@@ -2739,22 +2746,9 @@ bool PrefsManager::readPref(const QString& filePath)
 		appPrefs.docSetupPrefs.pagePositioning = 0;
 	if ((appPrefs.docSetupPrefs.docUnitIndex < UNITMIN) || (appPrefs.docSetupPrefs.docUnitIndex > UNITMAX))
 		appPrefs.docSetupPrefs.docUnitIndex = int(SC_POINTS);
-	// Configure GUI
+
 	appPrefs.ui_SystemTheme = QApplication::style()->objectName();
-	if (appPrefs.uiPrefs.style.length() > 0)
-	{
-		QStyle* qtStyle = nullptr;
-		QStringList availableStyles = QStyleFactory::keys();
-		if (availableStyles.contains(appPrefs.uiPrefs.style))
-			qtStyle = QStyleFactory::create(appPrefs.uiPrefs.style);
-		if (qtStyle)
-			QApplication::setStyle(qtStyle);
-		else
-			appPrefs.uiPrefs.style.clear();
-	}
-	QFont apf = QApplication::font();
-	apf.setPointSize(appPrefs.uiPrefs.applicationFontSize);
-	QApplication::setFont(apf);
+
 	return true;
 }
 
