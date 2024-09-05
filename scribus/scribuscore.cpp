@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QGlobalStatic>
 #include <QMessageBox>
 #include <QScreen>
+#include <QStyleFactory>
 
 #include "colormgmt/sccolormgmtenginefactory.h"
 #include "commonstrings.h"
@@ -171,6 +172,24 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	m_prefsManager.initDefaultActionKeys();
 	setSplashStatus( tr("Reading Preferences") );
 	m_prefsManager.readPrefs();
+
+	// Configure GUI
+	const QString& prefsUiStyle = m_prefsManager.appPrefs.uiPrefs.style;
+	if (prefsUiStyle.length() > 0)
+	{
+		QStyle* qtStyle = nullptr;
+		QStringList availableStyles = QStyleFactory::keys();
+		if (availableStyles.contains(prefsUiStyle))
+			qtStyle = QStyleFactory::create(prefsUiStyle);
+		if (qtStyle)
+			QApplication::setStyle(qtStyle);
+		else
+			m_prefsManager.appPrefs.uiPrefs.style.clear();
+	}
+	QFont apf = QApplication::font();
+	apf.setPointSize(m_prefsManager.appPrefs.uiPrefs.applicationFontSize);
+	QApplication::setFont(apf);
+
 	LocaleManager::instance().setUserPreferredLocale(m_prefsManager.appPrefs.uiPrefs.userPreferredLocale);
 	m_prefsManager.appPrefs.uiPrefs.showSplashOnStartup = showSplash;
 	if (!m_iconManager.setActiveFromPrefs(m_prefsManager.appPrefs.uiPrefs.iconSet))

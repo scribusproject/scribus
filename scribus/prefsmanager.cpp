@@ -2775,7 +2775,6 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.experimentalFeaturePrefs.notesEnabled = static_cast<bool>(dc.attribute("NotesEnabled", "0").toInt());
 		}
 
-		//
 		DOC = DOC.nextSibling();
 	}
 	// Some sanity checks
@@ -2784,22 +2783,9 @@ bool PrefsManager::readPref(const QString& filePath)
 		appPrefs.docSetupPrefs.pagePositioning = 0;
 	if ((appPrefs.docSetupPrefs.docUnitIndex < UNITMIN) || (appPrefs.docSetupPrefs.docUnitIndex > UNITMAX))
 		appPrefs.docSetupPrefs.docUnitIndex = int(SC_POINTS);
-	// Configure GUI
+
 	appPrefs.ui_SystemTheme = QApplication::style()->objectName();
-	if (appPrefs.uiPrefs.style.length() > 0)
-	{
-		QStyle* qtStyle = nullptr;
-		QStringList availableStyles = QStyleFactory::keys();
-		if (availableStyles.contains(appPrefs.uiPrefs.style))
-			qtStyle = QStyleFactory::create(appPrefs.uiPrefs.style);
-		if (qtStyle)
-			QApplication::setStyle(qtStyle);
-		else
-			appPrefs.uiPrefs.style.clear();
-	}
-	QFont apf = QApplication::font();
-	apf.setPointSize(appPrefs.uiPrefs.applicationFontSize);
-	QApplication::setFont(apf);
+
 	return true;
 }
 
