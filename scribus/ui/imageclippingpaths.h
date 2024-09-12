@@ -8,13 +8,14 @@ for which a new license (GPL+exception) is in place.
 #define IMAGECLIPPINGPATHS_H
 
 #include <QWidget>
-#include "ui_imageclippingpaths.h"
-#include "scribusapi.h"
-#include "fpointarray.h"
 
+#include "fpointarray.h"
+#include "scribusapi.h"
+#include "ui_imageclippingpaths.h"
+
+class PageItem;
 class QWidget;
 class ScribusView;
-class PageItem;
 
 class SCRIBUS_API ImageClippingPaths : public QWidget, Ui::ImageClippingPaths
 {
@@ -22,21 +23,18 @@ class SCRIBUS_API ImageClippingPaths : public QWidget, Ui::ImageClippingPaths
 
 public:
 	explicit ImageClippingPaths(QWidget *parent = nullptr);
-	~ImageClippingPaths() {};
-	void setCurrentItem(PageItem *item, ScribusView *view );
+
+	void setCurrentItem(PageItem *item, ScribusView *view);
 
 private slots:
-
 	void selectPath(QListWidgetItem *c);
 	void noPath();
 
 protected:
-
-	ScribusView *m_view;
-	PageItem *m_item;
+	ScribusView *m_view { nullptr };
+	PageItem *m_item { nullptr };
 
 	void updatePreview();
-
 };
 
 #endif // IMAGECLIPPINGPATHS_H

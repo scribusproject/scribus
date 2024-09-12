@@ -17,31 +17,32 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGESIZESELECTOR_H
 #define PAGESIZESELECTOR_H
 
-#include <QWidget>
 #include <QComboBox>
+#include <QWidget>
 
 #include "pagesize.h"
 
 class PageSizeSelector : public QWidget
 {
 	Q_OBJECT
+
 public:
 	explicit PageSizeSelector(QWidget *parent = nullptr);
 
 	void setPageSize(QString name);
 	void setHasFormatSelector(bool isVisble );
 	void setHasCustom(bool hasCustom);
-	bool hasCustom() { return m_hasCustom; };
-	bool hasFormatSelector() { return m_hasFormatSelector; };
+	bool hasCustom() const { return m_hasCustom; };
+	bool hasFormatSelector() const { return m_hasFormatSelector; };
 	void setCurrentCategory(PageSizeInfo::Category category);
 
-	PageSizeInfo::Category category() { return m_sizeCategory; };
-	QString pageSize() { return m_sizeName; };
-	QString pageSizeTR() { return m_trSizeName; };
+	PageSizeInfo::Category category() const { return m_sizeCategory; };
+	QString pageSize() const { return m_sizeName; };
+	QString pageSizeTR() const { return m_trSizeName; };
 
 private:
-	QComboBox* comboCategory;
-	QComboBox* comboFormat;
+	QComboBox* comboCategory { nullptr };
+	QComboBox* comboFormat { nullptr };
 
 	QString m_sizeName;
 	QString m_trSizeName;

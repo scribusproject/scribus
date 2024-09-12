@@ -8,14 +8,14 @@ for which a new license (GPL+exception) is in place.
 #define PAGELAYOUT_H
 
 #include <QGroupBox>
-#include <QListWidget>
 #include <QList>
+#include <QListWidget>
 
-class QToolButton;
-class QLabel;
-class QHBoxLayout;
 class FormWidget;
+class QHBoxLayout;
+class QLabel;
 class QMenu;
+class QToolButton;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -34,12 +34,12 @@ public:
 
 	void updateSchemeSelector(QList<PageSet> pageSets, int pagePositioning);
 	void setFirstPage(int nr);
-	int firstPage() { return m_firstPage; };
+	int firstPage() const { return m_firstPage; };
 	void setScheme(int nr);
-	int scheme() { return m_scheme; };
+	int scheme() const { return m_scheme; };
 
 	void setHideLabelsPermanently(bool hide);
-	bool hideLabelsPermanently() { return m_hideLabels; };
+	bool hideLabelsPermanently() const { return m_hideLabels; };
 
 public slots:
 	void toggleLabelVisibility(bool visibility);
@@ -49,20 +49,19 @@ signals:
 	void firstPageChanged(int);
 
 private:
-
 	int m_scheme {0};
 	int m_firstPage {0};
 	bool m_hideLabels {false};
 	int docPagePositioning {0};
-
-	FormWidget* labelScheme;
-	FormWidget* labelPages;
 	QList<PageSet> m_pageSets;
-	QToolButton* buttonScheme;
-	QToolButton* buttonFirstPage;
-	QMenu* menuScheme;
-	QMenu* menuFirstPage;
-	QHBoxLayout* layoutGroupLayout;
+
+	FormWidget* labelScheme { nullptr };
+	FormWidget* labelPages { nullptr };
+	QToolButton* buttonScheme { nullptr };
+	QToolButton* buttonFirstPage { nullptr };
+	QMenu* menuScheme { nullptr };
+	QMenu* menuFirstPage { nullptr };
+	QHBoxLayout* layoutGroupLayout { nullptr };
 
 	void reloadScheme();
 	void reloadFirstPage(int scheme);

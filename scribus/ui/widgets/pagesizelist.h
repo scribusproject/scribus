@@ -10,8 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include <QListView>
 #include <QScrollBar>
 #include <QStandardItemModel>
-#include "scribusapi.h"
+
 #include "pagesize.h"
+#include "scribusapi.h"
 
 class SCRIBUS_API PageSizeList : public QListView
 {
@@ -59,7 +60,7 @@ private:
 	int m_orientation {0};
 	PageSizeInfo::Category m_category {PageSizeInfo::Preferred};
 	SortMode m_sortMode {SortMode::NameAsc};
-	QStandardItemModel* m_model;
+	QStandardItemModel* m_model { nullptr };
 
 	QIcon sizePreview(QSize iconSize, QSize pageSize);
 	void loadPageSizes(QString name, int orientation, PageSizeInfo::Category category);

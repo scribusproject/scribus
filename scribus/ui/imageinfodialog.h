@@ -9,15 +9,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDialog>
 
+#include "scribusapi.h"
+#include "scimage.h"
+
 class QHBoxLayout;
 class QVBoxLayout;
 class QGridLayout;
 class QGroupBox;
 class QLabel;
 class QPushButton;
-
-#include "scribusapi.h"
-#include "scimage.h"
 
 class SCRIBUS_API ImageInfoDialog : public QDialog
 {

@@ -7,15 +7,16 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMAGELAYERS_H
 #define IMAGELAYERS_H
 
-#include <QWidget>
 #include <QList>
-#include "ui_imagelayers.h"
-#include "scribusapi.h"
-#include "scimagestructs.h"
+#include <QWidget>
 
+#include "scimagestructs.h"
+#include "scribusapi.h"
+#include "ui_imagelayers.h"
+
+class PageItem;
 class QCheckBox;
 class ScribusView;
-class PageItem;
 
 class SCRIBUS_API ImageLayers : public QWidget, Ui::ImageLayers
 {
@@ -23,7 +24,6 @@ class SCRIBUS_API ImageLayers : public QWidget, Ui::ImageLayers
 
 public:
 	explicit ImageLayers(QWidget *parent = nullptr);
-	~ImageLayers() {};
 
 	void setCurrentItem(PageItem *item, ScribusView *view );
 

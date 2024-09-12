@@ -10,27 +10,26 @@ for which a new license (GPL+exception) is in place.
 #include <QDialog>
 #include <QList>
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QTabWidget;
-class QWidget;
-class QLabel;
-class QComboBox;
+#include "scimage.h"
+#include "scribusapi.h"
+#include "ui_extimageprops.h"
+
 class QCheckBox;
-class ScrSpinBox;
+class QComboBox;
+class QHBoxLayout;
+class QLabel;
 class QListWidget;
 class QListWidgetItem;
 class QPushButton;
 class QTableWidget;
+class QTabWidget;
 class QTimer;
+class QVBoxLayout;
+class QWidget;
 
-class ScribusView;
 class PageItem;
-
-#include "ui_extimageprops.h"
-#include "scribusapi.h"
-#include "scimage.h"
-
+class ScribusView;
+class ScrSpinBox;
 
 class SCRIBUS_API ExtImageProps : public QDialog, Ui::ExtImageProps
 {
@@ -45,9 +44,8 @@ public slots:
 	void reject() override;
 
 protected:
-
-	ScribusView *m_view;
-	PageItem *m_item;
+	ScribusView *m_view { nullptr };
+	PageItem *m_item { nullptr };
 
 	ImageInfoRecord originalInfo;
 	FPointArray originalImageClip;
