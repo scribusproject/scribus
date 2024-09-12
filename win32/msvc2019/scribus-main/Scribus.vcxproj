@@ -490,7 +490,6 @@
     <moc Include="..\..\..\scribus\ui\loremipsum.h" />
     <moc Include="..\..\..\scribus\ui\marginpresetlayout.h" />
     <ClInclude Include="..\..\..\scribus\margins.h" />
-    <moc Include="..\..\..\scribus\ui\marginwidget.h" />
     <moc Include="..\..\..\scribus\ui\mark2item.h" />
     <moc Include="..\..\..\scribus\ui\mark2mark.h" />
     <moc Include="..\..\..\scribus\ui\markanchor.h" />
@@ -541,7 +540,6 @@
     <moc Include="..\..\..\scribus\pageitem_textframe.h" />
     <moc Include="..\..\..\scribus\ui\pageitemattributes.h" />
     <moc Include="..\..\..\scribus\pageitempointer.h" />
-    <moc Include="..\..\..\scribus\ui\pagelayout.h" />
     <moc Include="..\..\..\scribus\ui\pagepalette.h" />
     <moc Include="..\..\..\scribus\ui\pagepalette_masterpages.h" />
     <moc Include="..\..\..\scribus\ui\pagepalette_pages.h" />
@@ -651,6 +649,8 @@
     <moc Include="..\..\..\scribus\ui\propertiespalette_attributes.h" />
     <moc Include="..\..\..\scribus\ui\propertiespalette_fill.h" />
     <moc Include="..\..\..\scribus\ui\prefs_indexes.h" />
+    <moc Include="..\..\..\scribus\ui\imageclippingpaths.h" />
+    <moc Include="..\..\..\scribus\ui\imagelayers.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -680,6 +680,10 @@
     <ClInclude Include="..\..\..\scribus\ui\widgets\combo_linestyle.h" />
     <moc Include="..\..\..\scribus\ui\widgets\floatingwindow.h" />
     <moc Include="..\..\..\scribus\ui\widgets\gradientlistbox.h" />
+    <moc Include="..\..\..\scribus\ui\widgets\pagelayout.h" />
+    <moc Include="..\..\..\scribus\ui\widgets\pagesizelist.h" />
+    <moc Include="..\..\..\scribus\ui\widgets\pagesizepreview.h" />
+    <moc Include="..\..\..\scribus\ui\widgets\pagesizeselector.h" />
     <ClInclude Include="..\..\..\scribus\ui\widgets\popup_menu.h" />
     <moc Include="..\..\..\scribus\ui\widgets\section_container.h" />
     <moc Include="..\..\..\scribus\ui\widgets\switch.h" />
@@ -1176,7 +1180,9 @@
       </ForcedIncludeFiles>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\hyphenator.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\imageclippingpaths.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\imageinfodialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\imagelayers.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\inlinepalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\insertaframe.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\insertTable.cpp" />
@@ -1226,7 +1232,6 @@
     <ClCompile Include="..\..\..\scribus\ui\loremipsum.cpp" />
     <ClCompile Include="..\..\..\scribus\main_win32.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\marginpresetlayout.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\marginwidget.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\mark2item.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\mark2mark.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\markanchor.cpp" />
@@ -1279,7 +1284,6 @@
     <ClCompile Include="..\..\..\scribus\ui\outputpreview_ps.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pageitemattributes.cpp" />
     <ClCompile Include="..\..\..\scribus\pageitempointer.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\pagelayout.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pagepalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pagepalette_masterpages.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pagepalette_pages.cpp" />
@@ -1481,6 +1485,10 @@
     <ClCompile Include="..\..\..\scribus\ui\widgets\floatingwindow.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\form_widget.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\gradientlistbox.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\pagelayout.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\pagesizelist.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\pagesizepreview.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\pagesizeselector.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\popup_menu.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\section_container.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\stacked_container.cpp" />
@@ -1656,12 +1664,15 @@
     <uic Include="..\..\..\scribus\ui\createrange.ui" />
     <uic Include="..\..\..\scribus\ui\cxfimportdialogbase.ui" />
     <uic Include="..\..\..\scribus\ui\downloadspalettebase.ui" />
+    <uic Include="..\..\..\scribus\ui\extimageprops.ui" />
     <uic Include="..\..\..\scribus\ui\gradientaddedit.ui" />
     <uic Include="..\..\..\scribus\ui\gradienteditor.ui" />
     <uic Include="..\..\..\scribus\ui\gtfiledialog.ui" />
     <uic Include="..\..\..\scribus\ui\guidemanager.ui" />
     <uic Include="..\..\..\scribus\ui\helpbrowser.ui" />
     <uic Include="..\..\..\scribus\ui\helpbrowsernavigation.ui" />
+    <uic Include="..\..\..\scribus\ui\imageclippingpaths.ui" />
+    <uic Include="..\..\..\scribus\ui\imagelayers.ui" />
     <uic Include="..\..\..\scribus\ui\insertaframe.ui" />
     <uic Include="..\..\..\scribus\ui\inserttablecolumnsdialog.ui" />
     <uic Include="..\..\..\scribus\ui\inserttablerowsdialog.ui" />
@@ -1678,6 +1689,7 @@
     <uic Include="..\..\..\scribus\ui\measurementsbase.ui" />
     <uic Include="..\..\..\scribus\ui\multipleduplicate.ui" />
     <uic Include="..\..\..\scribus\ui\multiprogressdialog.ui" />
+    <uic Include="..\..\..\scribus\ui\newdocdialog.ui" />
     <uic Include="..\..\..\scribus\ui\newmarginwidgetbase.ui" />
     <uic Include="..\..\..\scribus\ui\nftdialog.ui" />
     <uic Include="..\..\..\scribus\ui\nftwidget.ui" />
