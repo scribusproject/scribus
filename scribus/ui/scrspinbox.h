@@ -54,7 +54,7 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 	
 	protected:
 		uint m_unitIndex { 0 };
-		int wheelDeltaRemainder;
+		int wheelDeltaRemainder { 0 };
 		const QMap<QString, double>* m_constants { nullptr };
 
 		void setParameters(int s);
