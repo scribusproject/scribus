@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
- *   Craig Bradney, cbradney@zip.com.au                                    *
+ *   Craig Bradney, cbradney@scribus.info                                  *
  ***************************************************************************/
 
 #ifndef SCRSPINBOX
@@ -54,6 +54,7 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 	
 	protected:
 		uint m_unitIndex { 0 };
+		int wheelDeltaRemainder { 0 };
 		const QMap<QString, double>* m_constants;
 
 		void setParameters(int s);

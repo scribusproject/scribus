@@ -224,6 +224,7 @@ double ScrSpinBox::valueFromText(const QString & text) const
 	ts.replace("%", "");
 	ts.replace("°", "");
 	ts.replace(FinishTag, "");
+	ts.replace(suffix(), ""); // We have to remove custom suffix to get a valid input
 	ts = ts.trimmed();
 
 	if (ts.endsWith(su))
@@ -327,8 +328,7 @@ void ScrSpinBox::textChanged()
 
 bool ScrSpinBox::eventFilter(QObject* watched, QEvent* event)
 {
-	bool retval = false;
-/* Adding this to be sure that the IM* events are processed correctly i.e not intercepted by our KeyPress/Release handlers */
+	/* Adding this to be sure that the IM* events are processed correctly i.e not intercepted by our KeyPress/Release handlers */
  	if (event->type() == QEvent::InputMethod)
  		return QDoubleSpinBox::eventFilter(watched, event);
 
@@ -338,29 +338,36 @@ bool ScrSpinBox::eventFilter(QObject* watched, QEvent* event)
 		if (isReadOnly())
 			return false;
 		auto* wheelEvent = dynamic_cast<QWheelEvent*>(event);
+		int oldStep = singleStep(); // remember old single steps
 		bool shiftB = wheelEvent->modifiers() & Qt::ShiftModifier;
-		bool altB = wheelEvent->modifiers() & Qt::AltModifier;
-		if (shiftB && !altB)
-		{
+		bool ctrlB = wheelEvent->modifiers() & Qt::ControlModifier; // for macOS it is CMD button
+
+		if (shiftB && !ctrlB)
 			setSingleStep((m_unitIndex == SC_INCHES) ? 0.0625 : 0.1);
-			retval = QAbstractSpinBox::event(event);
-		}
-		else if (!shiftB && altB)
-		{
+		else if (!shiftB && ctrlB)
 			setSingleStep((m_unitIndex == SC_INCHES) ? 1.0 : 10.0);
-			retval = QAbstractSpinBox::event(event);
-		}
-		else if (shiftB && altB)
-		{
+		else if (shiftB && ctrlB)
 			setSingleStep((m_unitIndex == SC_INCHES) ? 0.03125 : 0.01);
-			retval = QAbstractSpinBox::event(event);
-		}
 		else
-		{
 			setSingleStep((m_unitIndex == SC_INCHES) ? 0.125 : 1.0);
-			retval = QAbstractSpinBox::event(event);
-		}
-		return retval;
+
+		// Reimplement MouseWheel behavior without CTRL modifier behavior of QAbstractSpinBox
+#ifdef Q_OS_MACOS
+		if ((wheelEvent->modifiers() & Qt::ShiftModifier) && wheelEvent->source() == Qt::MouseEventNotSynthesized)
+			wheelDeltaRemainder += wheelEvent->angleDelta().x();
+		else
+			wheelDeltaRemainder += wheelEvent->angleDelta().y();
+#else
+		wheelDeltaRemainder += wheelEvent->angleDelta().y();
+#endif
+		const int steps = wheelDeltaRemainder / 120;
+		wheelDeltaRemainder -= steps * 120;
+		if (stepEnabled() & (steps > 0 ? StepUpEnabled : StepDownEnabled))
+			stepBy(steps);
+
+		setSingleStep(oldStep);
+
+		return true;
 	}
 
 	if (event->type() == QEvent::LocaleChange)
