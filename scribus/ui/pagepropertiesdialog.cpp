@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "iconmanager.h"
-#include "marginwidget.h"
+#include "newmarginwidget.h"
 #include "pagepropertiesdialog.h"
 #include "pagesize.h"
 #include "pagestructs.h"
@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scrspinbox.h"
 #include "units.h"
+#include "widgets/pagesizeselector.h"
 
 PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc )
                     : QDialog( parent),
@@ -35,36 +36,34 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc )
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	dialogLayout = new QVBoxLayout(this);
 	dialogLayout->setContentsMargins(9, 9, 9, 9);
-	dialogLayout->setSpacing(6);
+	dialogLayout->setSpacing(4);
 	
+	PageSize ps(doc->currentPage()->size());
+
+	// try to find coresponding page size by dimensions
+	if (ps.name() == CommonStrings::customPageSize)
+	{
+		PageSizeInfoMap pages = ps.sizesByDimensions(QSize(doc->currentPage()->width(), doc->currentPage()->height()));
+		if (pages.count() > 0)
+			prefsPageSizeName = pages.firstKey();
+	}
+	else
+		prefsPageSizeName = ps.name();
+
 	dsGroupBox7 = new QGroupBox(this);
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7Layout = new QGridLayout(dsGroupBox7);
 	dsGroupBox7Layout->setAlignment( Qt::AlignTop );
-	dsGroupBox7Layout->setSpacing(6);
+	dsGroupBox7Layout->setSpacing(4);
 	dsGroupBox7Layout->setContentsMargins(9, 9, 9, 9);
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7 );
-	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0, 1, 2 );
-
-	PageSize ps(doc->currentPage()->size());
-	prefsPageSizeName = ps.name();
-	sizeQComboBox = new QComboBox(dsGroupBox7);
-	QStringList insertList(ps.activeSizeTRList());
-	if (insertList.indexOf(prefsPageSizeName) == -1 && prefsPageSizeName != CommonStrings::customPageSize)
-		insertList << prefsPageSizeName;
-	insertList.sort();
-	insertList << CommonStrings::trCustomPageSize;
-	sizeQComboBox->addItems(insertList);
-	int sizeIndex = insertList.indexOf(ps.nameTR());
-	if (sizeIndex != -1)
-		sizeQComboBox->setCurrentIndex(sizeIndex);
-	else
-		sizeQComboBox->setCurrentIndex(sizeQComboBox->count()-1);
-
-	TextLabel1->setBuddy(sizeQComboBox);
-	dsGroupBox7Layout->addWidget(sizeQComboBox, 0, 2, 1, 2);
+	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0, Qt::AlignTop | Qt::AlignRight);
+	pageSizeSelector = new PageSizeSelector(dsGroupBox7);
+	pageSizeSelector->setPageSize(doc->currentPage()->size());
+	TextLabel1->setBuddy(pageSizeSelector);
+	dsGroupBox7Layout->addWidget(pageSizeSelector, 0, 1);
 	TextLabel2 = new QLabel( tr( "Orie&ntation:" ), dsGroupBox7 );
-	dsGroupBox7Layout->addWidget( TextLabel2, 1, 0, 1, 2 );
+	dsGroupBox7Layout->addWidget( TextLabel2, 1, 0, Qt::AlignRight);
 	orientationQComboBox = new QComboBox( dsGroupBox7 );
 	orientationQComboBox->addItem( tr( "Portrait" ) );
 	orientationQComboBox->addItem( tr( "Landscape" ) );
@@ -72,28 +71,28 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc )
 	orientationQComboBox->setCurrentIndex(doc->currentPage()->orientation() );
 	oldOri = doc->currentPage()->orientation();
 	TextLabel2->setBuddy(orientationQComboBox);
-	dsGroupBox7Layout->addWidget( orientationQComboBox, 1, 2, 1, 2 );
+	dsGroupBox7Layout->addWidget( orientationQComboBox, 1, 1 );
 	widthSpinBox = new ScrSpinBox(pts2value(1.0, doc->unitIndex()), 16777215, dsGroupBox7, doc->unitIndex());
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7 );
 	widthSpinBox->setValue(doc->currentPage()->width() * doc->unitRatio());
 	widthQLabel->setBuddy(widthSpinBox);
-	dsGroupBox7Layout->addWidget( widthQLabel, 2, 0 );
+	dsGroupBox7Layout->addWidget( widthQLabel, 2, 0, Qt::AlignRight);
 	dsGroupBox7Layout->addWidget( widthSpinBox, 2, 1 );
 	heightSpinBox = new ScrSpinBox(pts2value(1.0, doc->unitIndex()), 16777215, dsGroupBox7, doc->unitIndex());
 	heightSpinBox->setValue(doc->currentPage()->height() * doc->unitRatio());
 	heightQLabel = new QLabel( tr( "&Height:" ), dsGroupBox7 );
 	heightQLabel->setBuddy(heightSpinBox);
-	dsGroupBox7Layout->addWidget( heightQLabel, 2, 2 );
-	dsGroupBox7Layout->addWidget( heightSpinBox, 2, 3 );
+	dsGroupBox7Layout->addWidget( heightQLabel, 3, 0, Qt::AlignRight );
+	dsGroupBox7Layout->addWidget( heightSpinBox, 3, 1 );
 	moveObjects = new QCheckBox( dsGroupBox7 );
 	moveObjects->setText( tr( "Move Objects with their Page" ) );
 	moveObjects->setChecked( true );
-	dsGroupBox7Layout->addWidget( moveObjects, 3, 0, 1, 4 );
+	dsGroupBox7Layout->addWidget( moveObjects, 4, 0, 1, 2 );
 	Links = nullptr;
 	if ((doc->pagePositioning() != singlePage) && (doc->masterPageMode()))
 	{
 		TextLabel3 = new QLabel( tr( "Type:" ), dsGroupBox7 );
-		dsGroupBox7Layout->addWidget( TextLabel3, 4, 0, 1, 2 );
+		dsGroupBox7Layout->addWidget( TextLabel3, 5, 0, Qt::AlignRight);
 		Links = new QComboBox( dsGroupBox7 );
 		QList<PageSet> pageSet(doc->pageSets());
 		const QStringList& pageNames = pageSet.at(doc->pagePositioning()).pageNames;
@@ -102,7 +101,7 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc )
 			Links->addItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
 		Links->setEditable(false);
-		dsGroupBox7Layout->addWidget( Links, 4, 2, 1, 2 );
+		dsGroupBox7Layout->addWidget( Links, 5, 1);
 		if (doc->currentPage()->LeftPg == 0)
 			Links->setCurrentIndex(Links->count()-1);
 		else if (doc->currentPage()->LeftPg == 1)
@@ -112,17 +111,20 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc )
 	}
 	dialogLayout->addWidget( dsGroupBox7 );
 	
-	marginWidget = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage()->initialMargins, doc->unitIndex(), false, false);
-	marginWidget->setPageWidthHeight(doc->currentPage()->width(), doc->currentPage()->height());
+//	marginWidget = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage()->initialMargins, doc->unitIndex(), false, false);
+	marginWidget = new NewMarginWidget();
+	marginWidget->setup(doc->currentPage()->initialMargins, doc->currentPage()->marginPreset, doc->unitIndex(), NewMarginWidget::MarginWidgetFlags );
+	marginWidget->setPageHeight(doc->currentPage()->height());
+	marginWidget->setPageWidth(doc->currentPage()->width());
 	marginWidget->setFacingPages(!(doc->pagePositioning() == singlePage), doc->locationOfPage(doc->currentPage()->pageNr()));
-	marginWidget->setMarginPreset(doc->currentPage()->marginPreset);
+//	marginWidget->setMarginPreset(doc->currentPage()->marginPreset);
 	dialogLayout->addWidget( marginWidget );
 
 	groupMaster = new QGroupBox( this );
 	groupMaster->setTitle( tr( "Other Settings" ) );
 	masterLayout = new QHBoxLayout( groupMaster );
-	masterLayout->setSpacing(6);
-	masterLayout->setContentsMargins(9, 9, 9, 9);
+	masterLayout->setSpacing(4);
+	masterLayout->setContentsMargins(8, 8, 8, 8);
 	masterPageLabel = new QLabel( groupMaster );
 	masterLayout->addWidget( masterPageLabel );
 	if (!doc->masterPageMode())
@@ -163,19 +165,19 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc )
 	m_pageWidth = widthSpinBox->value() / m_unitRatio;
 	m_pageHeight = heightSpinBox->value() / m_unitRatio;
 
-	bool isCustom = (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize);
+	bool isCustom = (pageSizeSelector->pageSizeTR() == CommonStrings::trCustomPageSize);
 	heightSpinBox->setEnabled(isCustom);
 	widthSpinBox->setEnabled(isCustom);
 	// signals and slots connections
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrientation(int)));
-	connect(sizeQComboBox, SIGNAL(textActivated(QString)), this, SLOT(setPageSize()));
+	connect(pageSizeSelector, SIGNAL(pageSizeChanged(QString)), this, SLOT(setPageSize()));
 	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	
 	//tooltips
-	sizeQComboBox->setToolTip( tr( "Size of the inserted pages, either a standard or custom size" ) );
+	pageSizeSelector->setToolTip( tr( "Size of the inserted pages, either a standard or custom size" ) );
 	orientationQComboBox->setToolTip( tr( "Orientation of the page(s) to be inserted" ) );
 	widthSpinBox->setToolTip( tr( "Width of the page(s) to be inserted" ) );
 	heightSpinBox->setToolTip( tr( "Height of the page(s) to be inserted" ) );
@@ -217,7 +219,7 @@ void PagePropertiesDialog::setPageHeight(double)
 
 void PagePropertiesDialog::setPageSize()
 {
-	if (sizeQComboBox->currentText() != CommonStrings::trCustomPageSize)
+	if (pageSizeSelector->pageSizeTR() != CommonStrings::trCustomPageSize)
 		oldOri++;
 	setOrientation(orientationQComboBox->currentIndex());
 }
@@ -254,10 +256,10 @@ void PagePropertiesDialog::setSize(const QString & gr)
 
 void PagePropertiesDialog::setOrientation(int ori)
 {
-	setSize(sizeQComboBox->currentText());
+	setSize(pageSizeSelector->pageSizeTR());
 	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
-	if ((sizeQComboBox->currentText() == CommonStrings::trCustomPageSize) && (ori != oldOri))
+	if ((pageSizeSelector->pageSizeTR() == CommonStrings::trCustomPageSize) && (ori != oldOri))
 	{
 		double w = widthSpinBox->value(), h = heightSpinBox->value();
 		widthSpinBox->setValue((ori == portraitPage) ? qMin(w, h) : qMax(w, h));
@@ -320,22 +322,22 @@ bool PagePropertiesDialog::getMoveObjects() const
 
 double PagePropertiesDialog::top() const
 {
-	return marginWidget->top();
+	return marginWidget->margins().top();
 }
 
 double PagePropertiesDialog::bottom() const
 {
-	return marginWidget->bottom();
+	return marginWidget->margins().bottom();
 }
 
 double PagePropertiesDialog::left() const
 {
-	return marginWidget->left();
+	return marginWidget->margins().left();
 }
 
 double PagePropertiesDialog::right() const
 {
-	return marginWidget->right();
+	return marginWidget->margins().right();
 }
 
 QString PagePropertiesDialog::masterPage() const
@@ -347,5 +349,5 @@ QString PagePropertiesDialog::masterPage() const
 
 int PagePropertiesDialog::getMarginPreset() const
 {
-	return marginWidget->getMarginPreset();
+	return marginWidget->marginPreset();
 }

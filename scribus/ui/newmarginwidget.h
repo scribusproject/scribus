@@ -41,10 +41,12 @@ class SCRIBUS_API NewMarginWidget : public QWidget, Ui::NewMarginWidget
 		void setNewValues(const MarginStruct& margs);
 		/*! \brief Setup the presetCombo without changing the margin values, only used by tabdocument */
 		void setMarginPreset(int p);
+		int marginPreset() { return m_savedPresetItem; };
 		const MarginStruct & margins() const { return m_marginData; };
 
 	public slots:
 		void languageChange();
+		void iconSetChange();
 		void setTop();
 		void setBottom();
 		void setLeft();
@@ -69,6 +71,9 @@ class SCRIBUS_API NewMarginWidget : public QWidget, Ui::NewMarginWidget
 		int    m_pageType {0};
 		int    m_savedPresetItem {PresetLayout::none};
 		int    m_unitIndex {0};
+
+signals:
+		void marginChanged(MarginStruct);
 };
 
 #endif // NEWMARGINWIDGET_H

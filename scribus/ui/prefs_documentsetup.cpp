@@ -68,7 +68,7 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 	pageHeightSpinBox->setMaximum(16777215);
 	languageChange();
 
-	connect(pageSizeComboBox, SIGNAL(activated(int)), this, SLOT(setPageSize()));
+	connect(pageSizeSelector, SIGNAL(pageSizeChanged(QString)), this, SLOT(setPageSize()));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setPageOrientation(int)));
 	connect(pageWidthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	connect(pageHeightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
@@ -121,7 +121,7 @@ void Prefs_DocumentSetup::languageChange()
 
 	pageWidthSpinBox->setToolTip( "<qt>" + tr( "Width of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
 	pageHeightSpinBox->setToolTip( "<qt>" + tr( "Height of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
-	pageSizeComboBox->setToolTip( "<qt>" + tr( "Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences." ) + "</qt>" );
+	pageSizeSelector->setToolTip( "<qt>" + tr( "Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences." ) + "</qt>" );
 	pageSizeLinkToolButton->setToolTip( "<qt>" + tr( "Enable or disable more page sizes by jumping to Page Size preferences" ) + "</qt>" );
 	pageOrientationComboBox->setToolTip( "<qt>" + tr( "Default orientation of document pages" ) + "</qt>" );
 	pageUnitsComboBox->setToolTip( "<qt>" + tr( "Default unit of measurement for document editing" ) + "</qt>" );
@@ -138,7 +138,7 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	pageWidthSpinBox->blockSignals(true);
 	pageHeightSpinBox->blockSignals(true);
 	pageOrientationComboBox->blockSignals(true);
-	pageSizeComboBox->blockSignals(true);
+	pageSizeSelector->blockSignals(true);
 
 	setCurrentComboItem(languageComboBox, LanguageManager::instance()->getLangFromAbbrev(prefsData->docSetupPrefs.language, true));
 
@@ -179,7 +179,7 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	pageWidthSpinBox->blockSignals(false);
 	pageHeightSpinBox->blockSignals(false);
 	pageOrientationComboBox->blockSignals(false);
-	pageSizeComboBox->blockSignals(false);
+	pageSizeSelector->blockSignals(false);
 
 	marginsWidget->setup(prefsData->docSetupPrefs.margins, prefsData->docSetupPrefs.pagePositioning, prefsData->docSetupPrefs.docUnitIndex, NewMarginWidget::MarginWidgetFlags);
 	marginsWidget->setPageWidth(prefsData->docSetupPrefs.pageWidth);
@@ -271,42 +271,19 @@ void Prefs_DocumentSetup::setupPageSets()
 
 void Prefs_DocumentSetup::setupPageSizes(struct ApplicationPrefs *prefsData)
 {
-	PageSize ps(prefsData->docSetupPrefs.pageSize);
-	QStringList insertList(ps.activeSizeList());
-	QStringList insertTrList(ps.activeSizeTRList());
-
 	prefsPageSizeName = prefsData->docSetupPrefs.pageSize;
-	if (prefsPageSizeName == CommonStrings::trCustomPageSize)
-		prefsPageSizeName = CommonStrings::customPageSize;
-	if ((prefsPageSizeName != CommonStrings::customPageSize) &&
-		(prefsPageSizeName != CommonStrings::trCustomPageSize) &&
-		(insertList.indexOf(prefsPageSizeName) == -1))
+
+	PageSize ps(prefsPageSizeName);
+
+	// try to find coresponding page size by dimensions
+	if (ps.name() == CommonStrings::customPageSize)
 	{
-		insertList << prefsPageSizeName;
-		insertTrList << prefsPageSizeName;
+		PageSizeInfoMap pages = ps.sizesByDimensions(QSize(prefsData->docSetupPrefs.pageWidth, prefsData->docSetupPrefs.pageHeight));
+		if (pages.count() > 0)
+			prefsPageSizeName = pages.firstKey();
 	}
 
-	QMap<QString, QString> insertMap;
-	for (int i = 0; i < insertTrList.count(); ++i)
-	{
-		const QString& key = insertTrList.at(i);
-		insertMap[key] = insertList.at(i);
-	}
-	insertTrList.sort();
-
-	pageSizeComboBox->clear();
-	for (int i = 0; i < insertList.count(); ++i)
-	{
-		const QString& key = insertTrList.at(i);
-		pageSizeComboBox->addItem(key, insertMap[key]);
-	}
-	pageSizeComboBox->addItem(CommonStrings::trCustomPageSize, CommonStrings::customPageSize);
-
-	QString pageSizeName = CommonStrings::trCustomPageSize;
-	int index = pageSizeComboBox->findData(prefsPageSizeName);
-	if (index >= 0)
-		pageSizeName = pageSizeComboBox->itemText(index);
-	setCurrentComboItem(pageSizeComboBox, pageSizeName);
+	pageSizeSelector->setPageSize(prefsPageSizeName);
 	marginsWidget->setPageSize(prefsPageSizeName);
 	bleedsWidget->setPageSize(prefsPageSizeName);
 }
@@ -322,9 +299,9 @@ void Prefs_DocumentSetup::setPageWidth(double w)
 {
 	pageW = pageWidthSpinBox->value() / unitRatio;
 	marginsWidget->setPageWidth(pageW);
-	QString psText = pageSizeComboBox->currentText();
+	QString psText = pageSizeSelector->pageSizeTR();
 	if (psText != CommonStrings::trCustomPageSize && psText != CommonStrings::customPageSize)
-		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count() - 1);
+		pageSizeSelector->setPageSize(CommonStrings::customPageSize);
 	int newOrientation = (pageWidthSpinBox->value() > pageHeightSpinBox->value()) ? landscapePage : portraitPage;
 	if (newOrientation != pageOrientationComboBox->currentIndex())
 	{
@@ -338,9 +315,9 @@ void Prefs_DocumentSetup::setPageHeight(double h)
 {
 	pageH = pageHeightSpinBox->value() / unitRatio;
 	marginsWidget->setPageHeight(pageH);
-	QString psText = pageSizeComboBox->currentText();
+	QString psText = pageSizeSelector->pageSizeTR();
 	if (psText != CommonStrings::trCustomPageSize && psText != CommonStrings::customPageSize)
-		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count() - 1);
+		pageSizeSelector->setPageSize(CommonStrings::customPageSize);
 	int newOrientation = (pageWidthSpinBox->value() > pageHeightSpinBox->value()) ? landscapePage : portraitPage;
 	if (newOrientation != pageOrientationComboBox->currentIndex())
 	{
@@ -352,10 +329,10 @@ void Prefs_DocumentSetup::setPageHeight(double h)
 
 void Prefs_DocumentSetup::setPageOrientation(int orientation)
 {
-	setSize(pageSizeComboBox->currentText());
+	setSize(pageSizeSelector->pageSize());
 	pageWidthSpinBox->blockSignals(true);
 	pageHeightSpinBox->blockSignals(true);
-	if ((orientation==0 && pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize) || orientation!=0)
+	if ((orientation==0 && pageSizeSelector->pageSizeTR() == CommonStrings::trCustomPageSize) || orientation!=0)
 	{
 		double w = pageWidthSpinBox->value(), h = pageHeightSpinBox->value();
 		pageWidthSpinBox->setValue((orientation == portraitPage) ? qMin(w, h) : qMax(w, h));
@@ -379,7 +356,7 @@ void Prefs_DocumentSetup::setSize(const QString &newSize)
 
 	PageSize ps2(newSize);
 	prefsPageSizeName = ps2.name();
-	if (newSize != CommonStrings::trCustomPageSize)
+	if (newSize != CommonStrings::customPageSize && newSize != CommonStrings::trCustomPageSize)
 	{
 		pageW = ps2.width();
 		pageH = ps2.height();

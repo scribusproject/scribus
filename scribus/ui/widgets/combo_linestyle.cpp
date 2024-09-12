@@ -3,7 +3,6 @@
 #include <QStylePainter>
 
 #include "sccolorengine.h"
-#include "ui/delegates/sclistitemdelegate.h"
 #include "util.h"
 #include "ui/propertiespalette_utils.h"
 #include "util_gui.h"
@@ -18,7 +17,6 @@ ComboLineStyle::ComboLineStyle(QWidget *parent) : QComboBox(parent)
 {
 	m_list = new QListWidget();
 	m_list->setViewMode(QListWidget::ListMode);
-	m_list->setItemDelegate(new ScListItemDelegate(QListWidget::ListMode, m_size, ScListItemDelegate::Right, ScListItemDelegate::Simple));
 
 	this->setModel(m_list->model());
 	this->setView(m_list);

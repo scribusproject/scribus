@@ -481,8 +481,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/linecombo.h \
            scribus/ui/linkbutton.h \
            scribus/ui/loremipsum.h \
-           scribus/ui/marginpresetlayout.h \
-           scribus/ui/marginwidget.h \
+	   scribus/ui/marginpresetlayout.h \
            scribus/ui/mark2item.h \
            scribus/ui/mark2mark.h \
            scribus/ui/markanchor.h \
@@ -1083,6 +1082,7 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/measurementsbase.ui \
          scribus/ui/multipleduplicate.ui \
          scribus/ui/multiprogressdialog.ui \
+	 scribus/ui/newdocdialog.ui \
          scribus/ui/newmarginwidgetbase.ui \
          scribus/ui/nftdialog.ui \
          scribus/ui/nftwidget.ui \
@@ -1627,8 +1627,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/linecombo.cpp \
            scribus/ui/linkbutton.cpp \
            scribus/ui/loremipsum.cpp \
-           scribus/ui/marginpresetlayout.cpp \
-           scribus/ui/marginwidget.cpp \
+	   scribus/ui/marginpresetlayout.cpp \
            scribus/ui/mark2item.cpp \
            scribus/ui/mark2mark.cpp \
            scribus/ui/markanchor.cpp \

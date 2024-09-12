@@ -28,7 +28,6 @@
      <property name="font">
       <font>
        <pointsize>14</pointsize>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -40,7 +39,7 @@
    <item>
     <widget class="Line" name="line">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
    </item>
@@ -56,16 +55,15 @@
         </widget>
        </item>
        <item>
-        <widget class="QListWidget" name="availableSizesListWidget">
-         <property name="alternatingRowColors">
-          <bool>false</bool>
-         </property>
+        <widget class="QTreeWidget" name="treeAvailableSizes">
          <property name="selectionMode">
-          <enum>QAbstractItemView::ExtendedSelection</enum>
+          <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
          </property>
-         <property name="sortingEnabled">
-          <bool>true</bool>
-         </property>
+         <column>
+          <property name="text">
+           <string notr="true">1</string>
+          </property>
+         </column>
         </widget>
        </item>
       </layout>
@@ -75,7 +73,7 @@
        <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -102,7 +100,7 @@
        <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -119,18 +117,20 @@
        <item>
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Active Sizes</string>
+          <string>Preferred Sizes</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QListWidget" name="activeSizesListWidget">
+        <widget class="QTreeWidget" name="treeActiveSizes">
          <property name="selectionMode">
-          <enum>QAbstractItemView::ExtendedSelection</enum>
+          <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
          </property>
-         <property name="sortingEnabled">
-          <bool>true</bool>
-         </property>
+         <column>
+          <property name="text">
+           <string notr="true">1</string>
+          </property>
+         </column>
         </widget>
        </item>
       </layout>

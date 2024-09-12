@@ -22,7 +22,7 @@
  */
 
 SectionContainer::SectionContainer(QWidget *parent)
-	: SectionContainer("Title", "", true, parent) {}
+	: SectionContainer("Title", "", true, true, parent) {}
 
 SectionContainer::SectionContainer(QString title, QString objectName, bool isCollapsible, bool isExpanded,
 								   QWidget *parent)
@@ -36,11 +36,12 @@ SectionContainer::SectionContainer(QString title, QString objectName, bool isCol
 	m_isCollapsed = !isExpanded;
 
 	// Main Layout
-	mainLayout = new QVBoxLayout(this);
+	mainLayout = new QVBoxLayout();
 	mainLayout->setSpacing(0);
 	mainLayout->setContentsMargins(0, 0, 0, 0);
 	mainLayout->addWidget(header);
 	mainLayout->addWidget(body);
+	QWidget::setLayout(mainLayout);
 
 	// Size Policy
 	QSizePolicy sizePol(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
@@ -241,7 +242,7 @@ QSize SectionContainer::minimumSizeHint() const
 
 QSize SectionContainer::calculateSize()
 {
-	QSize s = minimumSizeHint();
+	QSize s = SectionContainer::minimumSizeHint();
 	s.setWidth(this->width());
 
 	return s;
@@ -435,7 +436,7 @@ void SectionContainer::restorePreferences()
 SectionContainerHeader::SectionContainerHeader(QWidget *parent)
 	: SectionContainerHeader("Title", parent) {}
 
-SectionContainerHeader::SectionContainerHeader(QString title, QWidget *parent)
+SectionContainerHeader::SectionContainerHeader(QString title, QWidget *parent) : QWidget(parent)
 {
 	int padding = 6;
 	m_hasStyle = true;
@@ -490,6 +491,8 @@ SectionContainerHeader::SectionContainerHeader(QString title, QWidget *parent)
 
 void SectionContainerHeader::paintEvent(QPaintEvent *event)
 {
+	Q_UNUSED(event)
+
 	if (!m_hasStyle)
 		return;
 

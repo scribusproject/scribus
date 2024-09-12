@@ -33,26 +33,14 @@ class QSpinBox;
 #include "ui/customfdialog.h"
 #include "ui/nftwidget.h"
 
+#include "ui_newdocdialog.h"
+
 class PrefsManager;
-class MarginWidget;
+class NewMarginWidget;
 class ScrSpinBox;
 class QFileDialog;
 
-class SCRIBUS_API PageLayoutsWidget : public QListWidget
-{
-	Q_OBJECT
-
-public:
-	PageLayoutsWidget(QWidget* parent);
-	~PageLayoutsWidget() = default;
-	void arrangeIcons();
-	QSize minimumSizeHint() const override;
-	int maxX {0};
-	int maxY {0};
-};
-
-
-class SCRIBUS_API NewDocDialog : public QDialog
+class SCRIBUS_API NewDocDialog : public QDialog, public Ui::newDocDialog
 {
 	Q_OBJECT
 
@@ -70,48 +58,12 @@ public:
 	~NewDocDialog() = default;
 
 	void createNewDocPage();
-	void createNewFromTempPage();
 	void createOpenDocPage();
 	void createRecentDocPage();
 	void setSize(const QString& gr);
+	QString pageSizeName() { return m_pageSize; };
 
-	QTabWidget* tabWidget {nullptr};
-	QFrame* newDocFrame {nullptr};
-	PageLayoutsWidget* layoutsView {nullptr};
-	QLabel* layoutLabel1 {nullptr};
-	QComboBox* firstPage {nullptr};
-	QGroupBox* pageSizeGroupBox {nullptr};
-	MarginWidget* marginGroup {nullptr};
-	QGroupBox* optionsGroupBox {nullptr};
-	QLabel* TextLabel1 {nullptr};
-	QLabel* TextLabel2 {nullptr};
-	QLabel* TextLabel3 {nullptr};
-	QLabel* TextLabel4 {nullptr};
-	QLabel* TextLabel1_2 {nullptr};
-	QLabel* TextLabel1_3 {nullptr};
-	QLabel* pageCountLabel {nullptr};
-	QLabel* TextLabel2_2 {nullptr};
-	QLabel* unitOfMeasureLabel {nullptr};
-	QComboBox* pageSizeComboBox {nullptr};
-	QComboBox* pageOrientationComboBox {nullptr};
-	QComboBox* unitOfMeasureComboBox {nullptr};
-	QCheckBox* startUpDialog {nullptr};
-	QCheckBox* autoTextFrame {nullptr};
-	QCheckBox* startDocSetup {nullptr};
-	ScrSpinBox* Distance {nullptr};
-	QSpinBox* numberOfCols {nullptr};
-	QSpinBox* pageCountSpinBox {nullptr};
-	ScrSpinBox* widthSpinBox {nullptr};
-	ScrSpinBox* heightSpinBox {nullptr};
-	QFrame* openDocFrame {nullptr};
 	QFileDialog *fileDialog {nullptr};
-	QFrame* newFromTempFrame {nullptr};
-	nftwidget *nftGui {nullptr};
-	QFrame* recentDocFrame {nullptr};
-	QListWidget* recentDocListBox {nullptr};
-	QDialogButtonBox* buttonBox {nullptr};
-	QPushButton* okButton {nullptr};
-	QPushButton* cancelButton {nullptr};
 
 	bool onStartup() const { return m_onStartup;}
 	int tabSelected() const { return m_tabSelected;}
@@ -134,8 +86,7 @@ public:
 public slots:
 	void setHeight(double v);
 	void setWidth(double v);
-	void selectItem(uint nr);
-	void itemSelected(QListWidgetItem* ic);
+	void selectItem(uint nr);	
 	void handleAutoFrame();
 	void setDistance(double v);
 	void setUnit(int u);
@@ -156,17 +107,19 @@ public slots:
 	void gotoHomeDirectory();
 	void openFileDialogFileClicked(const QString &path);
 
+private slots:
+	void changeMargin(MarginStruct margin);
+	void changeBleed(MarginStruct bleed);
+	void changeFirstPage(int firstPage);
+	void changeCategory(PageSizeInfo::Category category);
+	void changePageSize(const QModelIndex &ic);
+	void changeScheme(int ic);
+	void changeSortMode(int ic);
+
 protected:
-	QVBoxLayout* TabbedNewDocLayout {nullptr};
-	QHBoxLayout* Layout1 {nullptr};
-	QGridLayout* NewDocLayout {nullptr};
-	QGridLayout* pageSizeGroupBoxLayout {nullptr};
-	QGridLayout* optionsGroupBoxLayout {nullptr};
-	QVBoxLayout* openDocLayout {nullptr};
-	QVBoxLayout* recentDocLayout {nullptr};
-	QVBoxLayout *verticalLayout {nullptr};
 	PrefsManager& prefsManager;
 	QStringList recentDocList;
+	QButtonGroup* pageOrientationButtons;
 
 	double m_unitRatio { 1.0 };
 	int m_orientation { 0 };
@@ -176,6 +129,7 @@ protected:
 	double m_distance { 11.0 };
 	QString m_unitSuffix;
 	QString m_selectedFile;
+	QString m_pageSize;
 	int m_unitIndex { 0 };
 	int m_tabSelected { 0 };
 	bool m_onStartup { false };

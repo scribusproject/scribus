@@ -34,11 +34,11 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 
 	dialogLayout = new QVBoxLayout(this);
-	dialogLayout->setSpacing(6);
-	dialogLayout->setContentsMargins(9, 9, 9, 9);
+	dialogLayout->setSpacing(4);
+	dialogLayout->setContentsMargins(8, 8, 8, 8);
 
 	whereLayout = new QGridLayout();
-	whereLayout->setSpacing(6);
+	whereLayout->setSpacing(4);
 	whereLayout->setContentsMargins(0, 0, 0, 0);
 
 	insCountData = new QSpinBox(this);
@@ -75,8 +75,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	masterPageGroup->setTitle( tr( "Master Pages" ) );
 	masterPageLayout = new QGridLayout( masterPageGroup );
 	masterPageLayout->setAlignment(Qt::AlignTop);
-	masterPageLayout->setSpacing(6);
-	masterPageLayout->setContentsMargins(9, 9, 9, 9);
+	masterPageLayout->setSpacing(4);
+	masterPageLayout->setContentsMargins(8, 8, 8, 8);
 	if (m_doc->pagePositioning() == 0)
 	{
 		QComboBox* pageData = new QComboBox(masterPageGroup);
@@ -224,67 +224,65 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 			masterPageCombos.append(pageData);
 		}
 	}
+
+	QScopedPointer<PageSize> ps(new PageSize(m_doc->pageSize()));
+
+	// try to find coresponding page size by dimensions
+	if (ps->name() == CommonStrings::customPageSize)
+	{
+		PageSizeInfoMap pages = ps->sizesByDimensions(QSize(m_doc->pageWidth(), m_doc->pageHeight()));
+		if (pages.count() > 0)
+			prefsPageSizeName = pages.firstKey();
+	}
+	else
+		prefsPageSizeName = ps->name();
+
 	dialogLayout->addWidget(masterPageGroup);
 	overrideMPSizingCheckBox = new QCheckBox( tr("Override Master Page Sizing"));
 	dialogLayout->addWidget(overrideMPSizingCheckBox);
 	dsGroupBox7 = new QGroupBox( this );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7Layout = new QGridLayout(dsGroupBox7);
-	dsGroupBox7Layout->setSpacing(6);
-	dsGroupBox7Layout->setContentsMargins(9, 9, 9, 9);
+	dsGroupBox7Layout->setSpacing(4);
+	dsGroupBox7Layout->setContentsMargins(8, 8, 8, 8);
 	textLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7);
-	dsGroupBox7Layout->addWidget(textLabel1, 0, 0);
-
-	QScopedPointer<PageSize> ps(new PageSize(m_doc->pageSize()));
-	prefsPageSizeName = ps->name();
-	sizeQComboBox = new QComboBox(dsGroupBox7);
-	QStringList insertList(ps->activeSizeTRList());
-	if (insertList.indexOf(prefsPageSizeName) == -1)
-		insertList << prefsPageSizeName;
-	insertList.sort();
-	insertList << CommonStrings::trCustomPageSize;
-	sizeQComboBox->addItems(insertList);
-	int sizeIndex = insertList.indexOf(ps->nameTR());
-	if (sizeIndex != -1)
-		sizeQComboBox->setCurrentIndex(sizeIndex);
-	else
-		sizeQComboBox->setCurrentIndex(sizeQComboBox->count() - 1);
-
-	textLabel1->setBuddy(sizeQComboBox);
-	dsGroupBox7Layout->addWidget(sizeQComboBox, 0, 1, 1, 3);
-
+	dsGroupBox7Layout->addWidget(textLabel1, 0, 0, Qt::AlignTop | Qt::AlignRight);
+	pageSizeSelector = new PageSizeSelector(dsGroupBox7);
+	pageSizeSelector->setPageSize(m_doc->pageSize());
+	textLabel1->setBuddy(pageSizeSelector);
+	dsGroupBox7Layout->addWidget(pageSizeSelector, 0, 1);
 	textLabel2 = new QLabel( tr( "Orie&ntation:" ), dsGroupBox7);
-	dsGroupBox7Layout->addWidget(textLabel2, 1, 0);
+	dsGroupBox7Layout->addWidget(textLabel2, 1, 0, Qt::AlignRight);
 
 	orientationQComboBox = new QComboBox(dsGroupBox7);
 	orientationQComboBox->addItem( tr( "Portrait" ) );
 	orientationQComboBox->addItem( tr( "Landscape" ) );
 	orientationQComboBox->setCurrentIndex(m_doc->pageOrientation() );
 	textLabel2->setBuddy(orientationQComboBox);
-	dsGroupBox7Layout->addWidget(orientationQComboBox, 1, 1, 1, 3);
+	dsGroupBox7Layout->addWidget(orientationQComboBox, 1, 1);
 
 	widthSpinBox = new ScrSpinBox(1, 10000, dsGroupBox7, m_doc->unitIndex());
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7);
 	widthSpinBox->setValue(m_doc->pageWidth() * m_doc->unitRatio());
 	widthQLabel->setBuddy(widthSpinBox);
-	dsGroupBox7Layout->addWidget(widthQLabel, 2, 0);
+	dsGroupBox7Layout->addWidget(widthQLabel, 2, 0, Qt::AlignRight);
 	dsGroupBox7Layout->addWidget(widthSpinBox, 2, 1);
 
 	heightSpinBox = new ScrSpinBox(1, 10000, dsGroupBox7, m_doc->unitIndex());
 	heightSpinBox->setValue(m_doc->pageHeight() * m_doc->unitRatio());
 	heightQLabel = new QLabel( tr( "&Height:" ), dsGroupBox7);
 	heightQLabel->setBuddy(heightSpinBox);
-	dsGroupBox7Layout->addWidget(heightQLabel, 3, 0);
+	dsGroupBox7Layout->addWidget(heightQLabel, 3, 0, Qt::AlignRight);
 	dsGroupBox7Layout->addWidget(heightSpinBox, 3, 1);
 
 	moveObjectsCheckBox = new QCheckBox( dsGroupBox7);
 	moveObjectsCheckBox->setText( tr( "Move Objects with their Page" ) );
 	moveObjectsCheckBox->setChecked(true);
-	dsGroupBox7Layout->addWidget(moveObjectsCheckBox, 4, 0, 1, 4);
+	dsGroupBox7Layout->addWidget(moveObjectsCheckBox, 4, 0, 1, 2);
 	dialogLayout->addWidget(dsGroupBox7);
 
 	dsGroupBox7->setEnabled(false);
-	bool b = (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize);
+	bool b = (pageSizeSelector->pageSizeTR() == CommonStrings::trCustomPageSize);
 	heightSpinBox->setEnabled(b);
 	widthSpinBox->setEnabled(b);
 
@@ -298,7 +296,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrientation(int)));
-	connect(sizeQComboBox, SIGNAL(textActivated(QString)), this, SLOT(setSize(QString)));
+	connect(pageSizeSelector, SIGNAL(pageSizeChanged(QString)), this, SLOT(setSize(QString)));
 	connect(overrideMPSizingCheckBox, SIGNAL(stateChanged(int)), this, SLOT(enableSizingControls(int)));
 }
 
@@ -325,10 +323,10 @@ void InsPage::setSize(const QString & gr)
 void InsPage::setOrientation(int ori)
 {
 	double br;
-	setSize(sizeQComboBox->currentText());
+	setSize(pageSizeSelector->pageSizeTR());
 	if (ori == 0)
 	{
-		if (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize)
+		if (pageSizeSelector->pageSizeTR() == CommonStrings::trCustomPageSize)
 		{
 			br = widthSpinBox->value();
 			widthSpinBox->setValue(heightSpinBox->value());

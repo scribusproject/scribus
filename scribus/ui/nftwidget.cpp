@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "ui/delegates/sclistitemdelegate.h"
 
-int ICONSIZE = 64;
+int ICONSIZE = 80;
 
 nftwidget::nftwidget(QWidget* parent) : QWidget(parent)
 {
@@ -40,9 +40,9 @@ void nftwidget::setupSettings(const QString& lang)
 	toolBox->setItemIcon(1, IconManager::instance().loadIcon("16/image-x-generic.png"));
 	toolBox->setItemIcon(2, IconManager::instance().loadIcon("16/help-browser.png"));
 	tnailGrid->setIconSize(QSize(ICONSIZE, ICONSIZE));
-	tnailGrid->setGridSize(QSize(220, 80));
+	tnailGrid->setGridSize(QSize(160, 160));
 	tnailGrid->setResizeMode(QListView::Adjust);
-	tnailGrid->setItemDelegate(new ScListItemDelegate(QListWidget::IconMode, QSize(ICONSIZE,ICONSIZE), ScListItemDelegate::Right));
+	tnailGrid->setItemDelegate(new ScListItemDelegate(QListWidget::IconMode, QSize(ICONSIZE,ICONSIZE), ScListItemDelegate::Bottom));
 	// Signals and Slots Connections
 	connect(categoryList, SIGNAL(itemSelectionChanged()), this, SLOT(setThumbnails()));
 	connect(tnailGrid, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SIGNAL(leaveOK()));

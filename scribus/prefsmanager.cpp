@@ -530,7 +530,7 @@ void PrefsManager::initDefaults()
 	appPrefs.imageCachePrefs.maxCacheEntries = 1000;
 	appPrefs.imageCachePrefs.compressionLevel = 1;
 	appPrefs.activePageSizes.clear();
-	appPrefs.activePageSizes << "A3" << "A4" << "A5" << "A6" << "Letter";
+	appPrefs.activePageSizes = defaultPageSize.defaultSizesList();
 
 	//Attribute setup
 	appPrefs.itemAttrPrefs.defaultItemAttributes.clear();
@@ -1912,7 +1912,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	elem.appendChild(icElem);
 	// active page sizes
 	QDomElement apsElem = docu.createElement("ActivePageSizes");
-	apsElem.setAttribute("Names", appPrefs.activePageSizes.join(","));
+	apsElem.setAttribute("Names", appPrefs.activePageSizes.join(";"));
 	elem.appendChild(apsElem);
 
 	// experimental features
@@ -2017,7 +2017,8 @@ bool PrefsManager::readPref(const QString& filePath)
 			if (appPrefs.docSetupPrefs.language.isEmpty())
 				appPrefs.docSetupPrefs.language = "en_GB";
 			appPrefs.docSetupPrefs.docUnitIndex = dc.attribute("UnitIndex", "0").toInt();
-			appPrefs.docSetupPrefs.pageSize = dc.attribute("PageSize", "A4");
+			PageSize ps( dc.attribute("PageSize", PageSize::defaultSizesList().at(1)) );
+			appPrefs.docSetupPrefs.pageSize = (ps.name() == CommonStrings::customPageSize ) ? PageSize::defaultSizesList().at(1) : ps.name();
 			appPrefs.docSetupPrefs.pageOrientation = dc.attribute("PageOrientation", "0").toInt();
 			appPrefs.docSetupPrefs.pageWidth   = ScCLocale::toDoubleC(dc.attribute("PageWidth"), 595.0);
 			appPrefs.docSetupPrefs.pageHeight  = ScCLocale::toDoubleC(dc.attribute("PageHeight"), 842.0);
@@ -2730,7 +2731,20 @@ bool PrefsManager::readPref(const QString& filePath)
 		// active page sizes
 		if (dc.tagName() == "ActivePageSizes")
 		{
-			appPrefs.activePageSizes = QString(dc.attribute("Names", "")).split(",");
+			QStringList checkedPageSizes;
+			QString separator = dc.attribute("Names", "").contains(";") ? ";" : ",";
+			appPrefs.activePageSizes = QString(dc.attribute("Names", "")).split(separator);
+
+			// check if page sizes existing
+			foreach (auto item, appPrefs.activePageSizes)
+			{
+				PageSize ps(item);
+				if (ps.name() != CommonStrings::customPageSize)
+					checkedPageSizes.append(ps.name());
+			}
+
+			appPrefs.activePageSizes = (checkedPageSizes.count() == 0) ? PageSize::defaultSizesList() : checkedPageSizes;
+
 		}
 		// experimental features
 		if (dc.tagName() == "ExperimentalFeatures")

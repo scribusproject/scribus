@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "ui/marginpresetlayout.h"
 #include "ui/useprintermarginsdialog.h"
+#include "scribusapp.h"
 
 NewMarginWidget::NewMarginWidget(QWidget* parent)
 	: QWidget(parent)
@@ -39,22 +40,22 @@ void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitI
 		presetLayoutLabel->resize(0,0);
 		presetLayoutComboBox->hide();
 		presetLayoutLabel->hide();
-		gridLayout->removeWidget(presetLayoutComboBox);
-		gridLayout->removeWidget(presetLayoutLabel);
+		horizontalLayout->removeWidget(presetLayoutComboBox);
+		horizontalLayout->removeWidget(presetLayoutLabel);
 	}
 	if ((m_flags & ShowPrinterMargins) == 0)
 	{
 		printerMarginsPushButton->blockSignals(true);
 		printerMarginsPushButton->resize(0,0);
 		printerMarginsPushButton->hide();
-		gridLayout->removeWidget(printerMarginsPushButton);
+		horizontalLayout->removeWidget(printerMarginsPushButton);
 	}
 	setFacingPages(!(layoutType == singlePage));
 
-	gridLayout->invalidate();
-
 	languageChange();
+	iconSetChange();
 
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(topMarginSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
 	connect(bottomMarginSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	connect(leftMarginSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
@@ -83,6 +84,13 @@ void NewMarginWidget::languageChange()
 		marginLinkButton->setToolTip( "<qt>" + tr( "Ensure all bleeds have the same value" ) + "</qt>");
 	}
 	printerMarginsPushButton->setToolTip( "<qt>" + tr( "Import the margins for the selected page size from the available printers" ) + "</qt>");
+
+	leftMarginLabel->setText( m_facingPages ? tr("Inside") : tr("Left"));
+	rightMarginLabel->setText( m_facingPages ? tr("Outside") : tr("Right"));
+}
+
+void NewMarginWidget::iconSetChange()
+{
 }
 
 void NewMarginWidget::setNewValues(const MarginStruct& margs)
@@ -234,6 +242,8 @@ void NewMarginWidget::setPreset()
 	topMarginSpinBox->blockSignals(false);
 	bottomMarginSpinBox->blockSignals(false);
 	m_savedPresetItem = item;
+
+	emit marginChanged(m_marginData);
 }
 
 void NewMarginWidget::setPageSize(const QString& pageSize)
@@ -274,6 +284,8 @@ void NewMarginWidget::slotLinkMargins()
 		rightMarginSpinBox->setValue(leftMarginSpinBox->value());
 		double newVal = leftMarginSpinBox->value() / m_unitRatio;
 		m_marginData.set(newVal, newVal, newVal, newVal);
+
+		emit marginChanged(m_marginData);
 	}
 
 	leftMarginSpinBox->blockSignals(leftBlocked);
@@ -324,8 +336,10 @@ void NewMarginWidget::setFacingPages(bool facing, int pageType)
 {
 	m_facingPages = facing;
 	m_pageType = pageType;
-	leftMarginLabel->setText(facing ? tr( "&Inside:" ) : tr( "&Left:" ));
-	rightMarginLabel->setText(facing ? tr( "O&utside:" ) : tr( "&Right:" ));
+
+	leftMarginLabel->setText( m_facingPages ? tr("Inside") : tr("Left"));
+	rightMarginLabel->setText( m_facingPages ? tr("Outside") : tr("Right"));
+
 	setPreset();
 }
 

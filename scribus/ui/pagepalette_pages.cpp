@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "iconmanager.h"
-#include "pagelayout.h"
+#include "ui/widgets/pagelayout.h"
 #include "pagepalette_pages.h"
 #include "pagepalette_widgets.h"
 #include "qobjectdefs.h"
@@ -62,8 +62,8 @@ PagePalette_Pages::PagePalette_Pages(QWidget *parent)
 	connect(masterPageList, SIGNAL(thumbnailChanged()), this, SLOT(rebuildMasters()));
 	connect(masterPageList, SIGNAL(delMasterRequest(QString)), this, SLOT(deleteMasterPage(QString)));
 
-	connect(pageLayout, SIGNAL(selectedScheme(int)), this, SLOT(handlePageLayout(int)));
-	connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
+	connect(pageLayout, SIGNAL(schemeChanged(int)), this, SLOT(handlePageLayout(int)));
+	connect(pageLayout, SIGNAL(firstPageChanged(int)), this, SLOT(handleFirstPage(int)));
 
 	connect(pageGrid, SIGNAL(click(int, int)), this, SLOT(pageView_gotoPage(int, int)));
 	connect(pageGrid, SIGNAL(movePage(int, int)), this, SLOT(pageView_movePage(int, int)));
@@ -283,7 +283,7 @@ void PagePalette_Pages::enablePalette(const bool enabled)
 
 void PagePalette_Pages::handlePageLayout(int layout)
 {
-	pageLayout->selectFirstPage(currView->m_doc->pageSets()[layout].FirstPage);
+	pageLayout->setFirstPage(currView->m_doc->pageSets()[layout].FirstPage);
 	currView->m_doc->setPagePositioning(layout);
 	currView->reformPages();
 	currView->DrawNew();
@@ -333,21 +333,21 @@ void PagePalette_Pages::rebuildPages()
 	if (m_scMW->scriptIsRunning())
 		return;
 
-	disconnect(pageLayout, SIGNAL(selectedScheme(int)), this, SLOT(handlePageLayout(int)));
-	disconnect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
+	disconnect(pageLayout, SIGNAL(schemeChanged(int)), this, SLOT(handlePageLayout(int)));
+	disconnect(pageLayout, SIGNAL(firstPageChanged(int)), this, SLOT(handleFirstPage(int)));
 
 	pageViewWidget->pageGrid()->clear();
 	if (currView == nullptr)
 	{
-		connect(pageLayout, SIGNAL(selectedScheme(int)), this, SLOT(handlePageLayout(int)));
-		connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
+		connect(pageLayout, SIGNAL(schemeChanged(int)), this, SLOT(handlePageLayout(int)));
+		connect(pageLayout, SIGNAL(firstPageChanged(int)), this, SLOT(handleFirstPage(int)));
 		return;
 	}
 
 	const PageSet &currentPageSet = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()];
-	pageLayout->updateSchemeSelector(currView->m_doc);
-	pageLayout->selectScheme(currView->m_doc->pagePositioning());
-	pageLayout->selectFirstPage(currentPageSet.FirstPage);
+	pageLayout->updateSchemeSelector(currView->m_doc->pageSets(), currView->m_doc->pagePositioning());
+	pageLayout->setScheme(currView->m_doc->pagePositioning());
+	pageLayout->setFirstPage(currentPageSet.FirstPage);
 
 	int counter = currentPageSet.FirstPage;
 	int cols = currentPageSet.Columns;
@@ -391,8 +391,8 @@ void PagePalette_Pages::rebuildPages()
 	{
 		markPage(currView->m_doc->currentPageNumber());
 	}
-	connect(pageLayout, SIGNAL(selectedScheme(int)), this, SLOT(handlePageLayout(int)));
-	connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
+	connect(pageLayout, SIGNAL(schemeChanged(int)), this, SLOT(handlePageLayout(int)));
+	connect(pageLayout, SIGNAL(firstPageChanged(int)), this, SLOT(handleFirstPage(int)));
 }
 
 void PagePalette_Pages::rebuild()

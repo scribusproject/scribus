@@ -183,7 +183,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/javadocs.h"
 #include "ui/layers.h"
 #include "ui/loremipsum.h"
-#include "ui/marginwidget.h"
 #include "ui/mark2item.h"
 #include "ui/mark2mark.h"
 #include "ui/markanchor.h"
@@ -2016,12 +2015,12 @@ void ScribusMainWindow::startUpDialog()
 		if (dia->tabSelected() == NewDocDialog::NewDocumentTab)
 		{
 			int facingPages = dia->choosenLayout();
-			int firstPage = dia->firstPage->currentIndex();
+			int firstPage = dia->pageLayouts->firstPage();//firstPage->currentIndex();
 			docSet = dia->startDocSetup->isChecked();
-			double topMargin = dia->marginGroup->top();
-			double bottomMargin = dia->marginGroup->bottom();
-			double leftMargin = dia->marginGroup->left();
-			double rightMargin = dia->marginGroup->right();
+			double topMargin = dia->marginGroup->margins().top();
+			double bottomMargin = dia->marginGroup->margins().bottom();
+			double leftMargin = dia->marginGroup->margins().left();
+			double rightMargin = dia->marginGroup->margins().right();
 			double columnDistance = dia->distance();
 			double pageWidth = dia->pageWidth();
 			double pageHeight = dia->pageHeight();
@@ -2029,15 +2028,8 @@ void ScribusMainWindow::startUpDialog()
 			bool autoframes = dia->autoTextFrame->isChecked();
 			int orientation = dia->orientation();
 			int pageCount = dia->pageCountSpinBox->value();
-			QString pagesize;
-			if (dia->pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
-				pagesize = CommonStrings::customPageSize;
-			else
-			{
-				PageSize ps2(dia->pageSizeComboBox->currentText());
-				pagesize = ps2.name();
-			}
-			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount, true, dia->marginGroup->getMarginPreset());
+			QString pagesize = dia->pageSizeName();
+			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount, true, dia->marginGroup->marginPreset());
 			doc->setPageSetFirstPage(facingPages, firstPage);
 			doc->bleeds()->set(dia->bleedTop(), dia->bleedLeft(), dia->bleedBottom(), dia->bleedRight());
 			HaveNewDoc();
@@ -2099,12 +2091,12 @@ bool ScribusMainWindow::slotFileNew()
 		return false;
 
 	int facingPages = dia->choosenLayout();
-	int firstPage = dia->firstPage->currentIndex();
+	int firstPage = dia->pageLayouts->firstPage();
 	bool docSet = dia->startDocSetup->isChecked();
-	double topMargin = dia->marginGroup->top();
-	double bottomMargin = dia->marginGroup->bottom();
-	double leftMargin = dia->marginGroup->left();
-	double rightMargin = dia->marginGroup->right();
+	double topMargin = dia->marginGroup->margins().top();
+	double bottomMargin = dia->marginGroup->margins().bottom();
+	double leftMargin = dia->marginGroup->margins().left();
+	double rightMargin = dia->marginGroup->margins().right();
 	double columnDistance = dia->distance();
 	double pageWidth = dia->pageWidth();
 	double pageHeight = dia->pageHeight();
@@ -2112,15 +2104,9 @@ bool ScribusMainWindow::slotFileNew()
 	bool autoframes = dia->autoTextFrame->isChecked();
 	int orientation = dia->orientation();
 	int pageCount = dia->pageCountSpinBox->value();
-	QString pagesize;
-	if (dia->pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
-		pagesize = CommonStrings::customPageSize;
-	else
-	{
-		PageSize ps2(dia->pageSizeComboBox->currentText());
-		pagesize = ps2.name();
-	}
-	if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount, true, dia->marginGroup->getMarginPreset()))
+	QString pagesize = dia->pageSizeName();
+
+	if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentIndex(), firstPage, orientation, 1, pagesize, true, pageCount, true, dia->marginGroup->marginPreset()))
 	{
 		doc->setPageSetFirstPage(facingPages, firstPage);
 		doc->bleeds()->set(dia->bleedTop(), dia->bleedLeft(), dia->bleedBottom(), dia->bleedRight());

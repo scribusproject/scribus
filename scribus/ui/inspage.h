@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define INSPAGE_H
 
 #include "scribusapi.h"
+#include "widgets/pagesizeselector.h"
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QList>
@@ -71,7 +72,8 @@ private:
 	QLabel*	    heightQLabel { nullptr };
 	QLabel*     textLabel1 { nullptr };
 	QLabel*     textLabel2 { nullptr };
-	QComboBox*  sizeQComboBox { nullptr };
+	PageSizeSelector* pageSizeSelector { nullptr };
+//	QComboBox*  sizeQComboBox { nullptr };
 	QComboBox*  orientationQComboBox { nullptr };
 	QCheckBox*  moveObjectsCheckBox { nullptr };
 	QCheckBox*  overrideMPSizingCheckBox { nullptr };

@@ -92,30 +92,25 @@ QString FormWidgetPlugin::domXml() const
 <ui language="c++" displayname="Form Widget">
 	<widget class="FormWidget" name="formWidget">
 		<property name="sizePolicy">
-		 <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-		  <horstretch>0</horstretch>
-		  <verstretch>0</verstretch>
-		 </sizepolicy>
+			<sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+				<horstretch>0</horstretch>
+				<verstretch>0</verstretch>
+			</sizepolicy>
 		</property>
-		<property name="font">
-		 <font>
-		  <pointsize>8</pointsize>
-		 </font>
-		</property>
-			<layout class="QHBoxLayout" name="horizontalLayout">
-			  <property name="leftMargin">
-			   <number>0</number>
-			  </property>
-			  <property name="topMargin">
-			   <number>0</number>
-			  </property>
-			  <property name="rightMargin">
-			   <number>0</number>
-			  </property>
-			  <property name="bottomMargin">
-			   <number>0</number>
-			  </property>
-			</layout>
+		<layout class="QHBoxLayout" name="horizontalLayout">
+			<property name="leftMargin">
+				<number>0</number>
+			</property>
+			<property name="topMargin">
+				<number>0</number>
+			</property>
+			<property name="rightMargin">
+				<number>0</number>
+			</property>
+			<property name="bottomMargin">
+				<number>0</number>
+			</property>
+		</layout>
 	</widget>
 	<customwidgets>
 		<customwidget>

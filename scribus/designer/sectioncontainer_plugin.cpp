@@ -100,9 +100,9 @@ QString SectionContainerPlugin::domXml() const
 	return QLatin1String(R"(
 <ui language="c++" displayname="Section Container">
 	<widget class="SectionContainer" name="sectionContainer">
-	 <widget class="QWidget" name="page">
-	  <layout class="QVBoxLayout" name="verticalLayout"/>
-	 </widget>
+		<widget class="QWidget" name="page">
+			<layout class="QVBoxLayout" name="verticalLayout"/>
+		</widget>
 	</widget>
 	<customwidgets>
 		<customwidget>

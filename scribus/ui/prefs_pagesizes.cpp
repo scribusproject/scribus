@@ -19,10 +19,14 @@ Prefs_PageSizes::Prefs_PageSizes(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
-	languageChange();
 
 	m_caption = tr("Page Sizes");
 	m_icon = "16/page-simple.png";
+
+	treeAvailableSizes->setColumnCount(2);
+	treeActiveSizes->setColumnCount(2);
+
+	languageChange();
 
 	toActiveButton->setIcon(IconManager::instance().loadIcon("22/go-next.png"));
 	fromActiveButton->setIcon(IconManager::instance().loadIcon("22/go-previous.png"));
@@ -34,67 +38,160 @@ Prefs_PageSizes::~Prefs_PageSizes() = default;
 
 void Prefs_PageSizes::languageChange()
 {
-	// No need to do anything here, the UI language cannot change while prefs dialog is opened
+	QString textSize = tr("Page Format");
+	QString textDimension = tr("Dimension");
+
+	if(QTreeWidgetItem* header = treeAvailableSizes->headerItem()) {
+		header->setText(0, textSize);
+
+		if (header->columnCount() > 1)
+			header->setText(1, textDimension);
+	}
+	else
+		treeAvailableSizes->setHeaderLabel( textSize );
+
+
+	if(QTreeWidgetItem* header = treeActiveSizes->headerItem()) {
+		header->setText(0, textSize);
+		if (header->columnCount() > 1)
+			header->setText(1, textDimension);
+	}
+	else
+		treeActiveSizes->setHeaderLabel( textSize );
+
 }
 
 void Prefs_PageSizes::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	PageSize ps(prefsData->docSetupPrefs.pageSize);
-	QStringList sizeList(ps.sizeList());
-	QStringList activeSizeList(ps.activeSizeList());
-	activeSizesListWidget->clear();
-	availableSizesListWidget->clear();
 
-	for (int i = 0; i < activeSizeList.count(); ++i)
-	{
-		QListWidgetItem* lwi = new QListWidgetItem();
-		PageSize ps2(activeSizeList.at(i));
-		lwi->setText(ps2.nameTR());
-		lwi->setToolTip(QString("%1 x %2 %3").arg(ps2.originalWidth()).arg(ps2.originalHeight()).arg(ps2.originalUnit()));
-		activeSizesListWidget->addItem(lwi);
-	}
+	treeAvailableSizes->clear();
+	treeActiveSizes->clear();
 
-	for (int i = 0; i < sizeList.count(); ++i)
+	auto cats = ps.categories();
+
+	// Available Page Sizes
+	for (auto it = cats.begin(); it != cats.end(); ++it)
 	{
-		if (!activeSizeList.contains(sizeList.at(i)))
+		QTreeWidgetItem* tlItem = new QTreeWidgetItem();
+		tlItem->setText(0, it.value());
+		tlItem->setData(0, Qt::UserRole, it.key());
+
+		treeAvailableSizes->addTopLevelItem(tlItem);
+
+		PageSizeInfoMap sizes = ps.sizesByCategory(it.key());
+
+		for (auto s = sizes.begin(); s != sizes.end(); ++s)
 		{
-			QListWidgetItem* lwi = new QListWidgetItem();
-			PageSize ps2(sizeList.at(i));
-			lwi->setText(ps2.nameTR());
-			lwi->setToolTip(QString("%1 x %2 %3").arg(ps2.originalWidth()).arg(ps2.originalHeight()).arg(ps2.originalUnit()));
-			availableSizesListWidget->addItem(lwi);
+			if (!ps.activePageSizes().contains(s.key()))
+			{
+				QTreeWidgetItem* sItem = new QTreeWidgetItem();
+				sItem->setText(0, s.value().trSizeName);
+				sItem->setText(1, s.value().sizeLabel);
+				sItem->setData(0, Qt::UserRole, s.key());
+
+				tlItem->addChild(sItem);
+			}
 		}
 	}
+
+	// Active page Sizes
+	for (auto it = cats.begin(); it != cats.end(); ++it)
+	{
+		PageSizeInfo::Category cat = it.key();
+
+		QTreeWidgetItem* tlItem = new QTreeWidgetItem();
+		tlItem->setText(0, it.value());
+		tlItem->setData(0, Qt::UserRole, cat);
+
+		treeActiveSizes->addTopLevelItem(tlItem);
+
+		PageSizeInfoMap sizes = ps.activePageSizes();
+
+		for (auto s = sizes.begin(); s != sizes.end(); ++s)
+		{
+			if (s.value().category == cat)
+			{
+				QTreeWidgetItem* sItem = new QTreeWidgetItem();
+				sItem->setText(0, s.value().trSizeName);
+				sItem->setText(1, s.value().sizeLabel);
+				sItem->setData(0, Qt::UserRole, s.key());
+
+				tlItem->addChild(sItem);
+			}
+
+		}
+	}
+
 }
 
 void Prefs_PageSizes::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
 	QStringList newActivePageSizes;
-	for (int i = 0; i < activeSizesListWidget->count(); ++i)
-		newActivePageSizes << activeSizesListWidget->item(i)->text();
-	PageSize ps(prefsData->docSetupPrefs.pageSize);
-	prefsData->activePageSizes = ps.untransPageSizeList(newActivePageSizes);
+
+	for (int i = 0; i < treeActiveSizes->topLevelItemCount(); ++i)
+	{
+		QTreeWidgetItem* item = treeActiveSizes->takeTopLevelItem(i);
+
+		for (int j = 0; j < item->childCount(); ++j)
+			newActivePageSizes << item->child(j)->data(0, Qt::UserRole).toString();
+	}
+
+	prefsData->activePageSizes = newActivePageSizes;
+
 }
 
 void Prefs_PageSizes::moveToActive()
 {
-	QList<QListWidgetItem *> si(availableSizesListWidget->selectedItems());
-	for (int i = 0; i < si.count(); ++i)
-	{
-		QListWidgetItem* it = availableSizesListWidget->takeItem(availableSizesListWidget->row(si.at(i)));
-		activeSizesListWidget->addItem(it);
-	}
+	moveItems(treeAvailableSizes, treeActiveSizes);
 }
 
 void Prefs_PageSizes::moveFromActive()
 {
-	QList<QListWidgetItem *> si(activeSizesListWidget->selectedItems());
+	int childrenCount = 0;
+
+	for (int i = 0; i < treeActiveSizes->topLevelItemCount(); ++i)
+		childrenCount += treeActiveSizes->topLevelItem(i)->childCount();
+
+	if (childrenCount > 1)
+		moveItems(treeActiveSizes, treeAvailableSizes);
+}
+
+void Prefs_PageSizes::moveItems(QTreeWidget *fromList, QTreeWidget *toList)
+{
+	QList<QTreeWidgetItem *> si(fromList->selectedItems());
+
+	if (si.count() != 1)
+		return;
+
 	for (int i = 0; i < si.count(); ++i)
 	{
-		if (activeSizesListWidget->count()>1)
+		QTreeWidgetItem* currentItem = si.at(i);
+		QTreeWidgetItem* currentParent = currentItem->parent();
+
+		if (currentParent)
 		{
-			QListWidgetItem* it = activeSizesListWidget->takeItem(activeSizesListWidget->row(si.at(i)));
-			availableSizesListWidget->addItem(it);
+			int index = fromList->indexOfTopLevelItem(currentParent);
+
+			QTreeWidgetItem* exItem = currentParent->takeChild(currentParent->indexOfChild(currentItem));
+			if (exItem)
+			{
+				QTreeWidgetItem* newParentItem = toList->topLevelItem(index);
+				newParentItem->addChild(exItem);
+				newParentItem->sortChildren(0, Qt::AscendingOrder);
+			}
+		}
+		else
+		{
+			int index = fromList->indexOfTopLevelItem(currentItem);
+
+			QList<QTreeWidgetItem*> exItems = currentItem->takeChildren();
+			if (exItems.count() > 0)
+			{
+				QTreeWidgetItem* newParentItem = toList->topLevelItem(index);
+				newParentItem->addChildren(exItems);
+				newParentItem->sortChildren(0, Qt::AscendingOrder);
+			}
 		}
 	}
 }

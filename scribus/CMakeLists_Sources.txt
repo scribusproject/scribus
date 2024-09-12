@@ -363,7 +363,6 @@ set(SCRIBUS_SOURCES
 	ui/marksmanager.cpp
 	ui/markvariabletext.cpp
 	ui/marginpresetlayout.cpp
-	ui/marginwidget.cpp
 	ui/newmarginwidget.cpp
 	ui/mergedoc.cpp
 	ui/missing.cpp
@@ -383,7 +382,6 @@ set(SCRIBUS_SOURCES
 	ui/outputpreview_ps.cpp
 	ui/outputpreviewbase.cpp
 	ui/pageitemattributes.cpp
-	ui/pagelayout.cpp
 	ui/pagepalette.cpp
 	ui/pagepalette_pages.cpp
 	ui/pagepalette_masterpages.cpp
@@ -560,6 +558,10 @@ set(SCRIBUS_SOURCES
 	ui/widgets/floatingwindow.cpp
 	ui/widgets/form_widget.cpp
 	ui/widgets/gradientlistbox.cpp
+	ui/widgets/pagelayout.cpp
+	ui/widgets/pagesizelist.cpp
+	ui/widgets/pagesizepreview.cpp
+	ui/widgets/pagesizeselector.cpp
 	ui/widgets/popup_menu.cpp
 	ui/widgets/section_container.cpp
 	ui/widgets/stacked_container.cpp

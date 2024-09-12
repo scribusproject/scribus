@@ -28,7 +28,6 @@
      <property name="font">
       <font>
        <pointsize>14</pointsize>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -40,7 +39,7 @@
    <item>
     <widget class="Line" name="line">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
    </item>
@@ -69,7 +68,7 @@
          <item>
           <spacer name="horizontalSpacer_3">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -84,10 +83,10 @@
        <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
+          <enum>QSizePolicy::Policy::Fixed</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -101,7 +100,6 @@
         <widget class="QLabel" name="pageSizeTitleLabel">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -113,7 +111,7 @@
        <item>
         <widget class="Line" name="line_2">
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -124,20 +122,17 @@
            <property name="text">
             <string>Size:</string>
            </property>
-           <property name="buddy">
-            <cstring>pageSizeComboBox</cstring>
-           </property>
           </widget>
          </item>
          <item row="0" column="1">
           <layout class="QHBoxLayout" name="pageSizeLayout">
            <item>
-            <widget class="QComboBox" name="pageSizeComboBox"/>
+            <widget class="PageSizeSelector" name="pageSizeSelector" native="true"/>
            </item>
            <item>
             <widget class="QToolButton" name="pageSizeLinkToolButton">
              <property name="arrowType">
-              <enum>Qt::NoArrow</enum>
+              <enum>Qt::ArrowType::NoArrow</enum>
              </property>
             </widget>
            </item>
@@ -214,7 +209,7 @@
        <item>
         <spacer name="verticalSpacer_5">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -235,7 +230,6 @@
         <widget class="QLabel" name="pageLayoutTitleLabel">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -247,7 +241,7 @@
        <item>
         <widget class="Line" name="line_3">
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -266,7 +260,7 @@
          <item row="4" column="1">
           <widget class="QComboBox" name="layoutFirstPageIsComboBox">
            <property name="sizeAdjustPolicy">
-            <enum>QComboBox::AdjustToContents</enum>
+            <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
            </property>
           </widget>
          </item>
@@ -318,7 +312,7 @@
        <item>
         <spacer name="verticalSpacer_8">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -350,10 +344,10 @@
        <item>
         <widget class="QScrollArea" name="scrollArea">
          <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
+          <enum>QFrame::Shape::NoFrame</enum>
          </property>
          <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
+          <enum>QFrame::Shadow::Plain</enum>
          </property>
          <property name="lineWidth">
           <number>0</number>
@@ -366,8 +360,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>458</width>
-            <height>540</height>
+            <width>494</width>
+            <height>575</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -375,7 +369,6 @@
             <widget class="QLabel" name="marginsTitleLabel">
              <property name="font">
               <font>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -387,7 +380,7 @@
            <item>
             <widget class="Line" name="line_5">
              <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+              <enum>Qt::Orientation::Horizontal</enum>
              </property>
             </widget>
            </item>
@@ -411,7 +404,7 @@
              <item>
               <spacer name="horizontalSpacer_6">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
@@ -440,10 +433,10 @@
            <item>
             <spacer name="verticalSpacer_3">
              <property name="orientation">
-              <enum>Qt::Vertical</enum>
+              <enum>Qt::Orientation::Vertical</enum>
              </property>
              <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
+              <enum>QSizePolicy::Policy::Fixed</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -457,7 +450,6 @@
             <widget class="QLabel" name="bleedsTitleLabel">
              <property name="font">
               <font>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -469,7 +461,7 @@
            <item>
             <widget class="Line" name="line_4">
              <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+              <enum>Qt::Orientation::Horizontal</enum>
              </property>
             </widget>
            </item>
@@ -493,7 +485,7 @@
              <item>
               <spacer name="horizontalSpacer_7">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
@@ -508,7 +500,7 @@
            <item>
             <spacer name="verticalSpacer_4">
              <property name="orientation">
-              <enum>Qt::Vertical</enum>
+              <enum>Qt::Orientation::Vertical</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -546,10 +538,10 @@
        <item>
         <spacer name="verticalSpacer_6">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
+          <enum>QSizePolicy::Policy::Fixed</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -563,7 +555,6 @@
         <widget class="QLabel" name="autosaveTitleLable">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -575,7 +566,7 @@
        <item>
         <widget class="Line" name="line_6">
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -626,7 +617,7 @@
          <item>
           <spacer name="horizontalSpacer_2">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -689,10 +680,10 @@
        <item>
         <spacer name="verticalSpacer_7">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Maximum</enum>
+          <enum>QSizePolicy::Policy::Maximum</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -706,7 +697,6 @@
         <widget class="QLabel" name="undoRedoTitleLabel">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -718,7 +708,7 @@
        <item>
         <widget class="Line" name="line_7">
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -744,7 +734,7 @@
          <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -759,7 +749,7 @@
        <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -787,11 +777,16 @@
    <header location="global">ui/newmarginwidget.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>PageSizeSelector</class>
+   <extends>QWidget</extends>
+   <header>ui/widgets/pagesizeselector.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>tabWidget</tabstop>
   <tabstop>languageComboBox</tabstop>
-  <tabstop>pageSizeComboBox</tabstop>
   <tabstop>pageSizeLinkToolButton</tabstop>
   <tabstop>pageOrientationComboBox</tabstop>
   <tabstop>pageUnitsComboBox</tabstop>

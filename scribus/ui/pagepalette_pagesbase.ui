@@ -246,7 +246,7 @@
   <customwidget>
    <class>PageLayouts</class>
    <extends>QWidget</extends>
-   <header>ui/pagelayout.h</header>
+   <header location="global">ui/widgets/pagelayout.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

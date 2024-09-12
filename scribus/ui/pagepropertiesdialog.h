@@ -10,6 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include <QDialog>
 
+#include "widgets/pagesizeselector.h"
+
 class QGroupBox;
 class QLabel;
 class QPushbutton;
@@ -20,7 +22,7 @@ class QGridLayout;
 class QHBoxLayout;
 class QVBoxLayout;
 class ScrSpinBox;
-class MarginWidget;
+class NewMarginWidget;
 class ScribusDoc;
 
 /*! \brief A dialog to setup the existing document margins.
@@ -90,7 +92,7 @@ public slots:
 	void setPageHeight(double v);
 
 private:
-	MarginWidget* marginWidget { nullptr };
+	NewMarginWidget* marginWidget { nullptr };
 	QGroupBox* dsGroupBox7 { nullptr };
 	QGroupBox* groupMaster { nullptr };
 	QLabel* masterPageLabel { nullptr };
@@ -101,7 +103,7 @@ private:
 	QLabel* heightQLabel { nullptr };
 	QLabel* TextLabel1 { nullptr };
 	QLabel* TextLabel2 { nullptr };
-	QComboBox* sizeQComboBox { nullptr };
+	PageSizeSelector* pageSizeSelector { nullptr };
 	QComboBox* orientationQComboBox { nullptr };
 	QComboBox* Links { nullptr };
 	QLabel* TextLabel3 { nullptr };

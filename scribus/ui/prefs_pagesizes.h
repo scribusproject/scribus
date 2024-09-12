@@ -31,6 +31,9 @@ class SCRIBUS_API Prefs_PageSizes : public Prefs_Pane, Ui::Prefs_PageSizes
 	protected slots:
 		void moveToActive();
 		void moveFromActive();
+
+private:
+		void moveItems(QTreeWidget* fromList, QTreeWidget* toList);
 };
 
 #endif // PREFS_PAGESIZES_H
