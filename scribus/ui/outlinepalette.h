@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 class QEvent;
 
 #include "scribusapi.h"
-#include "scdockpalette.h"
+//#include "scdockpalette.h"
 #include "docks/dock_panelbase.h"
 
 class ScribusMainWindow;
@@ -96,6 +96,7 @@ protected slots:
 	void slotMultiSelect();
 	void slotSelect(QTreeWidgetItem* ite, int col);
 	void slotDoubleClick(QTreeWidgetItem* ite, int col);
+	void rebuildTree();
 
 protected:
 	void changeEvent(QEvent *e) override;

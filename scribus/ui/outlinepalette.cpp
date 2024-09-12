@@ -481,6 +481,9 @@ OutlinePalette::OutlinePalette( QWidget* parent) : DockPanelBase("Tree", "panel-
 	connect(filterEdit, SIGNAL(textChanged(QString)), this, SLOT(filterTree(QString)));
 //	connect(filterShortcut, SIGNAL(activated()), filterEdit, SLOT(setFocus()));
 	connect(reportDisplay, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotDoubleClick(QTreeWidgetItem*,int)));
+	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(rebuildTree()));
+
+
 }
 
 void OutlinePalette::setMainWindow(ScribusMainWindow *mw)
@@ -509,7 +512,13 @@ void OutlinePalette::unsetDoc()
 void OutlinePalette::toggleView(bool visible)
 {
 	DockPanelBase::toggleView(visible);
-	if (visible && (currDoc != nullptr))
+	rebuildTree();
+}
+
+
+void OutlinePalette::rebuildTree()
+{
+	if (this->isVisible() && (currDoc != nullptr))
 		BuildTree();
 }
 
