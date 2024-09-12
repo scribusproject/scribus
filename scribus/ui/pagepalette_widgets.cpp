@@ -874,11 +874,11 @@ void PageGrid::paintEvent(QPaintEvent *event)
 	if (!m_rectAdd.isEmpty())
 	{
 		QColor colAdd = foregroundColor;
-		colAdd.setAlphaF(0.2);
+		colAdd.setAlphaF(0.2f);
 		painter.setBackgroundMode(Qt::TransparentMode);
 		painter.fillRect(m_rectAdd, colAdd);
 		painter.setBrush(Qt::NoBrush);
-		colAdd.setAlphaF(1);
+		colAdd.setAlphaF(1.0f);
 		painter.setPen( QPen(colAdd, 1, Qt::DashLine) );
 		painter.drawRect(m_rectAdd.adjusted(0, 0, -1, -1));
 	}
