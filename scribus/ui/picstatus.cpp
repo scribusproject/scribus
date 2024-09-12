@@ -526,7 +526,7 @@ void PicStatus::doImageExtProp()
 	if (currItem == nullptr)
 		return;
 
-	ExtImageProps dia(this, &currItem->pixm.imgInfo, currItem, m_Doc->view());
+	ExtImageProps dia(this, currItem, m_Doc->view());
 	if (dia.exec())
 	{
 		loadPict(currItem, currItem->Pfile);

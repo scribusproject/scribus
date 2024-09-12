@@ -10,9 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui_propertiespalette_imagebase.h"
 
 #include "scribusapi.h"
-#include "scrpalettebase.h"
 #include "scrspinbox.h"
-#include "sclistboxpixmap.h"
 #include "scguardedptr.h"
 #include "units.h"
 
@@ -73,6 +71,7 @@ public slots:
 	void languageChange();
 	void unitChange();
 	void localeChange();
+	void toggleLabelVisibility(bool v);
 
 protected slots:
 	void spinboxStartUserAction();
@@ -91,8 +90,7 @@ private slots:
 	void handleYScale();
 	void handleDpiX();
 	void handleDpiY();
-	void handleImageDPIRatio();
-	void handleImageWHRatio();
+	void handleImageAspectRatio();
 
 	void handleImagePageNumber();
 
@@ -102,7 +100,6 @@ private slots:
 	void handleCompressionQuality();
 
 	void handleImageEffects();
-	void handleExtImgProperties();
 
 signals:
 	void UpdtGui(int);

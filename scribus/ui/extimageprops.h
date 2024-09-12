@@ -27,62 +27,30 @@ class QTimer;
 class ScribusView;
 class PageItem;
 
+#include "ui_extimageprops.h"
 #include "scribusapi.h"
 #include "scimage.h"
 
-class SCRIBUS_API ExtImageProps : public QDialog
+
+class SCRIBUS_API ExtImageProps : public QDialog, Ui::ExtImageProps
 {
 	Q_OBJECT
 
 public:
-	ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view );
+	ExtImageProps( QWidget* parent, PageItem *item, ScribusView *view );
 	~ExtImageProps() {}
 
 public slots:
-	void leaveOK();
-	void leaveCancel();
-	void changePreview();
-	void changedLayer();
-	void delayedLayerChange();
-	void selLayer();
-	void selPath(QListWidgetItem *c);
-	void noPath();
+	void accept() override;
+	void reject() override;
 
 protected:
-	QTabWidget* propsTab;
-	QWidget* tab;
-	QLabel* textLabel1;
-	QComboBox* blendMode;
-	QLabel* textLabel2;
-	ScrSpinBox* opacitySpinBox;
-	QTableWidget* layerTable;
-	QWidget* tab_2;
-	QListWidget* pathList;
-	QPushButton* resetPath;
-	QCheckBox* livePreview;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
-	QList<QCheckBox*> FlagsSicht;
-	QList<QCheckBox*> FlagsMask;
 
-	QVBoxLayout* ExtImagePropsLayout;
-	QVBoxLayout* tabLayout;
-	QVBoxLayout* tabLayout_2;
-	QHBoxLayout* layout1;
-	QHBoxLayout* layoutBottom;
-
-	QTimer* m_timer;
 	ScribusView *m_view;
 	PageItem *m_item;
 
-	int currentLayer;
-	bool doPreview;
 	ImageInfoRecord originalInfo;
 	FPointArray originalImageClip;
-	QMap<QString, QString> blendModes;
-	QMap<QString, QString> blendModesRev;
-
-	void updateLayerInfo();
 };
 
 #endif // EXTIMAGEPROPS_H

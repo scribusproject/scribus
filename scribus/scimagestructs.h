@@ -23,9 +23,9 @@ struct ImageLoadRequest
 	bool useMask;
 	ushort opacity;
 	QString blend;
-	bool operator==(const ImageLoadRequest &rhs) const
+	bool operator==(const ImageLoadRequest &other) const
 	{
-		return visible == rhs.visible && useMask == rhs.useMask && opacity == rhs.opacity && blend == rhs.blend;
+		return visible == other.visible && useMask == other.useMask && opacity == other.opacity && blend == other.blend;
 	}
 };
 
@@ -116,6 +116,14 @@ struct PSDLayer
 	QString blend;
 	QImage thumb;
 	QImage thumb_mask;
+
+	bool operator == (const PSDLayer &other) const
+	{
+		return channelLen == other.channelLen && channelType == other.channelType && xpos == other.xpos && ypos == other.ypos && width == other.width && height == other.height
+				&& opacity == other.opacity && clipping == other.clipping && flags == other.flags && maskXpos == other.maskXpos && maskYpos == other.maskYpos
+				&& maskWidth == other.maskWidth && maskHeight == other.maskHeight && layerName == other.layerName && blend == other.blend && thumb == other.thumb
+				&& thumb_mask == other.thumb_mask;
+	}
 };
 
 struct PSDDuotone_Color

@@ -142,11 +142,12 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	firstLineOffsetComboBox->setCurrentIndex((int) prefsData->itemToolPrefs.firstLineOffset);
 
 	//Image Tool
-	imageFreeScalingRadioButton->setChecked( prefsData->itemToolPrefs.imageScaleType );
-	imageFrameScalingRadioButton->setChecked( !prefsData->itemToolPrefs.imageScaleType );
+	checkBoxAutoFit->setChecked(!prefsData->itemToolPrefs.imageScaleType);
+	// imageFreeScalingRadioButton->setChecked( prefsData->itemToolPrefs.imageScaleType );
+	// imageFrameScalingRadioButton->setChecked( !prefsData->itemToolPrefs.imageScaleType );
 	imageHorizontalScalingSpinBox->setValue(qRound(prefsData->itemToolPrefs.imageScaleX * 100));
 	imageVerticalScalingSpinBox->setValue(qRound(prefsData->itemToolPrefs.imageScaleY * 100));
-	imageKeepAspectRatioCheckBox->setChecked(prefsData->itemToolPrefs.imageAspectRatio);
+//	imageKeepAspectRatioCheckBox->setChecked(prefsData->itemToolPrefs.imageAspectRatio);
 	scalingLockToolButton->setChecked(prefsData->itemToolPrefs.imageAspectRatio);
 	imageFrameFillColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.imageFillColor);
 	imageFrameFillShadingSpinBox->setValue(prefsData->itemToolPrefs.imageFillColorShade );
@@ -275,8 +276,10 @@ void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->itemToolPrefs.imageStrokeColorShade = imageFrameFillShadingSpinBox->value();
 	prefsData->itemToolPrefs.imageScaleX = static_cast<double>(imageHorizontalScalingSpinBox->value()) / 100.0;
 	prefsData->itemToolPrefs.imageScaleY = static_cast<double>(imageVerticalScalingSpinBox->value()) / 100.0;
-	prefsData->itemToolPrefs.imageScaleType = imageFreeScalingRadioButton->isChecked();
-	prefsData->itemToolPrefs.imageAspectRatio = imageKeepAspectRatioCheckBox->isChecked();
+	// prefsData->itemToolPrefs.imageScaleType = imageFreeScalingRadioButton->isChecked();
+	prefsData->itemToolPrefs.imageScaleType = !checkBoxAutoFit->isChecked();
+	//prefsData->itemToolPrefs.imageAspectRatio = imageKeepAspectRatioCheckBox->isChecked();
+	prefsData->itemToolPrefs.imageAspectRatio = scalingLockToolButton->isChecked();
 	prefsData->itemToolPrefs.imageUseEmbeddedPath = imageUseEmbeddedClippingPathCheckBox->isChecked();
 	int haRes = 0;
 	if (onscreenResolutionFullRadioButton->isChecked())
@@ -346,10 +349,11 @@ void Prefs_ItemTools::enableSignals(bool on)
 		connect(textColorShadingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFontPreview()));
 		connect(scalingLockToolButton, SIGNAL(clicked()), this, SLOT(toggleImagesScalingChain()));
 		connect(imageHorizontalScalingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(imageHorizontalScalingChange()));
-		connect(imageKeepAspectRatioCheckBox, SIGNAL(toggled(bool)), scalingLockToolButton, SLOT(setChecked(bool)));
+		//connect(imageKeepAspectRatioCheckBox, SIGNAL(toggled(bool)), scalingLockToolButton, SLOT(setChecked(bool)));
 		connect(imageVerticalScalingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(imageVerticalScalingChange()));
-		connect(imageFreeScalingRadioButton, SIGNAL(clicked(bool)), this, SLOT(imageScalingTypeChange()));
-		connect(imageFrameScalingRadioButton, SIGNAL(clicked(bool)), this, SLOT(imageScalingTypeChange()));
+		connect(checkBoxAutoFit, SIGNAL(toggled(bool)), this, SLOT(imageScalingTypeChange()));
+		// connect(imageFreeScalingRadioButton, SIGNAL(clicked(bool)), this, SLOT(imageScalingTypeChange()));
+		// connect(imageFrameScalingRadioButton, SIGNAL(clicked(bool)), this, SLOT(imageScalingTypeChange()));
 	}
 	else
 	{
@@ -420,7 +424,7 @@ void Prefs_ItemTools::updateFontPreview()
 void Prefs_ItemTools::toggleImagesScalingChain()
 {
 	imageHorizontalScalingChange();
-	imageKeepAspectRatioCheckBox->setChecked(scalingLockToolButton->isChecked());
+	//imageKeepAspectRatioCheckBox->setChecked(scalingLockToolButton->isChecked());
 }
 
 void Prefs_ItemTools::imageHorizontalScalingChange()
@@ -437,11 +441,11 @@ void Prefs_ItemTools::imageVerticalScalingChange()
 
 void Prefs_ItemTools::imageScalingTypeChange()
 {
-	bool b = imageFreeScalingRadioButton->isChecked();
-	imageKeepAspectRatioCheckBox->setEnabled(!b);
+	bool b = !checkBoxAutoFit->isChecked();
+//	imageKeepAspectRatioCheckBox->setEnabled(!b);
 	imageHorizontalScalingSpinBox->setEnabled(b);
 	imageVerticalScalingSpinBox->setEnabled(b);
-	scalingLockToolButton->setEnabled(b);
+//	scalingLockToolButton->setEnabled(b);
 }
 
 

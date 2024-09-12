@@ -15,9 +15,11 @@ for which a new license (GPL+exception) is in place.
 #include <QLocale>
 #include <QSignalBlocker>
 
+#include "extimageprops.h"
 #include "localemgr.h"
 #include "pageitem.h"
 #include "propertiespalette_utils.h"
+#include "propertiespalette.h"
 #include "scribuscore.h"
 #include "scribusapp.h"
 #include "scribusview.h"
@@ -32,53 +34,48 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	connect(userActionSniffer, SIGNAL(actionEnd()), this, SLOT(spinboxFinishUserAction()));
 
 	setupUi(this);
-	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
 	imagePageNumber->setMinimum(0);
 	imagePageNumber->setSpecialValueText( tr( "Auto" ));
 	imagePageNumber->setDecimals(0);
 	imagePageNumber->setSuffix("");
-	imagePageNumberLabel->setBuddy(imagePageNumber);
 	installSniffer(imagePageNumber);
-	
-//	freeScale = new QRadioButton( "&Free Scaling", this );
-//	freeScale->setChecked( true );
-//	pageLayout_4->addWidget( freeScale );
-
-	xposImgLabel->setBuddy(imageXOffsetSpinBox);
-	yposImgLabel->setBuddy(imageYOffsetSpinBox);
 	
 	imageRotation->setWrapping( true );
 	imageRotation->setNewUnit(6);
 	installSniffer(imageRotation);
-	imageRotationLabel->setBuddy(imageRotation);
 
-	freeScale->setChecked( true );
-	
 	installSniffer(imageXScaleSpinBox);
-	xscaleLabel->setBuddy(imageXScaleSpinBox);
 	installSniffer(imageYScaleSpinBox);
-	yscaleLabel->setBuddy(imageYScaleSpinBox);
+	installSniffer(imgDpiX);
+	installSniffer(imgDpiY);
 
 	keepImageWHRatioButton->setCheckable( true );
 	keepImageWHRatioButton->setAutoRaise( true );
 
-	imgDpiX->setSuffix("");
-	installSniffer(imgDpiX);
-	imgDPIXLabel->setBuddy(imgDpiX);
+	sectionImageDimensions->expand();
+	sectionImageDimensions->setCanSaveState(true);
+	sectionImageDimensions->restorePreferences();
 
-	imgDpiY->setSuffix("");
-	installSniffer(imgDpiY);
-	imgDPIYLabel->setBuddy(imgDpiY);
+	sectionImageEffects->collapse();
+	sectionImageEffects->setCanSaveState(true);
+	sectionImageEffects->restorePreferences();
 
-	keepImageDPIRatioButton->setCheckable( true );
-	keepImageDPIRatioButton->setAutoRaise( true );
+	sectionImageColorManagement->collapse();
+	sectionImageColorManagement->setCanSaveState(true);
+	sectionImageColorManagement->restorePreferences();
 
-	frameScale->setText( tr("&To Frame Size"));
+	sectionImagePDF->collapse();
+	sectionImagePDF->setCanSaveState(true);
+	sectionImagePDF->restorePreferences();
 
-	cbProportional->setEnabled( false );
-	cbProportional->setText( "P&roportional" );
-	cbProportional->setChecked( true );
+	sectionImageLayers->collapse();
+	sectionImageLayers->setCanSaveState(true);
+	sectionImageLayers->restorePreferences();
+
+	sectionImageClippingPaths->collapse();
+	sectionImageClippingPaths->setCanSaveState(true);
+	sectionImageClippingPaths->restorePreferences();
 
 	languageChange();
 
@@ -90,18 +87,16 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	connect(imageRotation      , SIGNAL(valueChanged(double)), this, SLOT(handleLocalRotation()));
 	connect(imgDpiX            , SIGNAL(valueChanged(double)), this, SLOT(handleDpiX()));
 	connect(imgDpiY            , SIGNAL(valueChanged(double)), this, SLOT(handleDpiY()));
-	connect(keepImageWHRatioButton , SIGNAL(clicked())       , this, SLOT(handleImageWHRatio()));
-	connect(keepImageDPIRatioButton, SIGNAL(clicked())       , this, SLOT(handleImageDPIRatio()));
-	connect(freeScale          , SIGNAL(clicked())           , this, SLOT(handleScaling()));
-	connect(frameScale         , SIGNAL(clicked())           , this, SLOT(handleScaling()));
-	connect(cbProportional     , SIGNAL(stateChanged(int))   , this, SLOT(handleScaling()));
+	connect(keepImageWHRatioButton , SIGNAL(clicked())       , this, SLOT(handleImageAspectRatio()));
+	connect(checkBoxAutoFit    , SIGNAL(toggled(bool))		 , this, SLOT(handleScaling()));
+	connect(keepImageWHRatioButton, SIGNAL(toggled(bool))	 , this, SLOT(handleScaling()));
 	connect(imgEffectsButton   , SIGNAL(clicked())           , this, SLOT(handleImageEffects()));
-	connect(imgExtProperties   , SIGNAL(clicked())           , this, SLOT(handleExtImgProperties()));
 	connect(inputProfiles      , SIGNAL(textActivated(QString)), this, SLOT(handleProfile(QString)));
 	connect(renderIntent       , SIGNAL(activated(int))      , this, SLOT(handleIntent()));
 	connect(compressionMethod  , SIGNAL(activated(int))      , this, SLOT(handleCompressionMethod()));
 	connect(compressionQuality , SIGNAL(activated(int))      , this, SLOT(handleCompressionQuality()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 
 }
 
@@ -247,10 +242,10 @@ void PropertiesPalette_Image::updateProfileList()
 	if (m_haveDoc)
 	{
 		if (ScCore->haveCMS() && m_doc->cmsSettings().CMSinUse)
-			colorMgmtGroup->show();
+			sectionImageColorManagement->show();
 		else
 		{
-			colorMgmtGroup->hide();
+			sectionImageColorManagement->hide();
 			return;
 		}
 
@@ -315,7 +310,7 @@ void PropertiesPalette_Image::showCMSOptions()
 	if (m_haveItem)
 		updateProfileList();
 	else if (m_doc)
-		colorMgmtGroup->setVisible(ScCore->haveCMS() && m_doc->cmsSettings().CMSinUse);
+		sectionImageColorManagement->setVisible(ScCore->haveCMS() && m_doc->cmsSettings().CMSinUse);
 }
 
 void PropertiesPalette_Image::showImageRotation(double rot)
@@ -332,13 +327,7 @@ void PropertiesPalette_Image::showScaleAndOffset(double scx, double scy, double 
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	bool whRatioBlocked = keepImageWHRatioButton->blockSignals(true);
-	bool dpiRatioBlocked = keepImageDPIRatioButton->blockSignals(true);
-	if (fabs(scx - scy) > 0.0002)
-	{
-		keepImageWHRatioButton->setChecked(false);
-		keepImageDPIRatioButton->setChecked(false);
-	}
+
 	if (m_haveItem)
 	{
 		imageXOffsetSpinBox->showValue(x * m_unitRatio * m_item->imageXScale());
@@ -357,8 +346,7 @@ void PropertiesPalette_Image::showScaleAndOffset(double scx, double scy, double 
 		imgDpiX->showValue(72);
 		imgDpiY->showValue(72);
 	}
-	keepImageWHRatioButton->blockSignals(whRatioBlocked);
-	keepImageDPIRatioButton->blockSignals(dpiRatioBlocked);
+
 }
 
 void PropertiesPalette_Image::handleSelectionChanged()
@@ -440,38 +428,52 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 	m_haveItem = false;
 	m_item = item;
 
+	imageLayers->setCurrentItem(m_item, m_ScMW->view);
+	clippingPaths->setCurrentItem(m_item, m_ScMW->view);
+
 	if (m_item->isImageFrame())
 	{
+		ImageInfoRecord *info = &m_item->pixm.imgInfo;
+
 		imagePageNumber->blockSignals(true);
 		if (m_item->imageIsAvailable)
-		{
-			imagePageNumber->setMaximum(m_item->pixm.imgInfo.numberOfPages);
-			imagePageNumber->setEnabled(true);
-		}
-		else
-			imagePageNumber->setEnabled(false);
-		imagePageNumber->setValue(m_item->pixm.imgInfo.actualPageNumber);
+			imagePageNumber->setMaximum(info->numberOfPages);
+		imagePageNumber->setValue(info->actualPageNumber);
+		imagePageNumberLabel->setVisible(info->numberOfPages > 1);
+		imagePageNumber->blockSignals(false);
 
 		compressionMethod->setCurrentIndex(m_item->OverrideCompressionMethod ? m_item->CompressionMethodIndex + 1 : 0);
 		compressionQuality->setCurrentIndex(m_item->OverrideCompressionQuality ? m_item->CompressionQualityIndex + 1 : 0);
-		imagePageNumber->blockSignals(false);
 
 		imageXScaleSpinBox->blockSignals(true);
 		imageYScaleSpinBox->blockSignals(true);
 		imageXOffsetSpinBox->blockSignals(true);
 		imageYOffsetSpinBox->blockSignals(true);
+		imgDpiX->blockSignals(true);
+		imgDpiY->blockSignals(true);
+		keepImageWHRatioButton->blockSignals(true);
+		checkBoxAutoFit->blockSignals(true);
 		imageRotation->blockSignals(true);
 
-		imgEffectsButton->setVisible(m_item->imageIsAvailable && m_item->isRaster);
-		imgExtProperties->setVisible(m_item->imageIsAvailable && m_item->pixm.imgInfo.valid);
+		sectionImageEffects->setVisible(m_item->imageIsAvailable && m_item->isRaster);
+
+		if (m_item->imageIsAvailable && info->valid)
+		{
+			sectionImageLayers->setVisible(info->layerInfo.count() != 0);
+			sectionImageClippingPaths->setVisible(info->PDSpathData.count() != 0);
+		}
+		else
+		{
+			sectionImageLayers->setVisible(false);
+			sectionImageClippingPaths->setVisible(false);
+		}
+
 		bool setter = m_item->ScaleType;
-		freeScale->setChecked(setter);
-		frameScale->setChecked(!setter);
+		checkBoxAutoFit->setChecked(!setter);
+
 		if ((m_item->isLatexFrame()) || (m_item->isOSGFrame()))
 		{
-			freeScale->setEnabled(false);
-			frameScale->setEnabled(false);
-			cbProportional->setEnabled(false);
+			checkBoxAutoFit->setEnabled(false);
 			imageXScaleSpinBox->setEnabled(false);
 			imageYScaleSpinBox->setEnabled(false);
 			imgDpiX->setEnabled(false);
@@ -483,35 +485,24 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 			imageYScaleSpinBox->setEnabled(setter);
 			imgDpiX->setEnabled(setter);
 			imgDpiY->setEnabled(setter);
-			cbProportional->setEnabled(!setter);
-			cbProportional->setChecked(m_item->AspectRatio);
-			freeScale->setEnabled(true);
-			frameScale->setEnabled(true);
-			//Necessary for undo action
-			keepImageWHRatioButton->setEnabled(setter);
-			keepImageDPIRatioButton->setEnabled(setter);
+			checkBoxAutoFit->setEnabled(true);
 			keepImageWHRatioButton->setChecked(m_item->AspectRatio);
-			keepImageDPIRatioButton->setChecked(m_item->AspectRatio);
 		}
-//CB Why do we need this? Setting it too much here
-// 		if (setter == true)
-// 		{
-// 			keepImageWHRatioButton->setChecked(setter);
-// 			keepImageDPIRatioButton->setChecked(setter);
-// 		}
-		//imageXOffsetSpinBox->setEnabled(setter);
-		//imageYOffsetSpinBox->setEnabled(setter);
-		//imageRotation->setEnabled(setter);
 
 		imageXScaleSpinBox->blockSignals(false);
 		imageYScaleSpinBox->blockSignals(false);
 		imageXOffsetSpinBox->blockSignals(false);
 		imageYOffsetSpinBox->blockSignals(false);
+		imgDpiX->blockSignals(false);
+		imgDpiY->blockSignals(false);
+		keepImageWHRatioButton->blockSignals(false);
+		checkBoxAutoFit->blockSignals(false);
 		imageRotation->blockSignals(false);
 	}
 	m_haveItem = true;
 
 	showScaleAndOffset(m_item->imageXScale(), m_item->imageYScale(), m_item->imageXOffset(), m_item->imageYOffset());
+
 	double rrR = m_item->imageRotation();
 	if (m_item->imageRotation() > 0)
 		rrR = 360 - rrR;
@@ -521,11 +512,7 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 	{
 		updateProfileList();
 	}
-	if (m_item->isOSGFrame())
-	{
-		setEnabled(false);
-	}
-	if (m_item->isSymbol())
+	if (m_item->isOSGFrame() || m_item->isSymbol())
 	{
 		setEnabled(false);
 	}
@@ -560,7 +547,6 @@ void PropertiesPalette_Image::handleLocalDpi()
 	{
 		//CB Don't pass in the scale to the offset change as its taken from the new scale
 		m_doc->itemSelection_SetImageScaleAndOffset(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value(), imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio);
-		
 		imageXScaleSpinBox->showValue(m_item->imageXScale() * 100 / 72.0 * m_item->pixm.imgInfo.xres);
 		imageYScaleSpinBox->showValue(m_item->imageYScale() * 100 / 72.0 * m_item->pixm.imgInfo.yres);
 	}
@@ -573,7 +559,7 @@ void PropertiesPalette_Image::handleLocalRotation()
 	if (m_haveDoc && m_haveItem)
 	{
 		m_doc->itemSelection_SetImageRotation(360 - imageRotation->value());
-		if (frameScale->isChecked())
+		if (checkBoxAutoFit->isChecked())
 		{
 			m_item->adjustPictScale();
 			m_item->update();
@@ -586,40 +572,17 @@ void PropertiesPalette_Image::handleScaling()
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	if (freeScale == sender())
+	if (checkBoxAutoFit == sender())
 	{
-		frameScale->setChecked(false);
-		freeScale->setChecked(true);
-		cbProportional->setEnabled(false);
-//		imageXOffsetSpinBox->setEnabled(true);
-//		imageYOffsetSpinBox->setEnabled(true);
-		imageXScaleSpinBox->setEnabled(true);
-		imageYScaleSpinBox->setEnabled(true);
-		imgDpiX->setEnabled(true);
-		imgDpiY->setEnabled(true);
-//		imageRotation->setEnabled(true);
-		keepImageWHRatioButton->setEnabled(true);
-		keepImageDPIRatioButton->setEnabled(true);
-	}
-	if (frameScale == sender())
-	{
-		frameScale->setChecked(true);
-		freeScale->setChecked(false);
-		cbProportional->setEnabled(true);
-//		imageXOffsetSpinBox->setEnabled(false);
-//		imageYOffsetSpinBox->setEnabled(false);
-		imageXScaleSpinBox->setEnabled(false);
-		imageYScaleSpinBox->setEnabled(false);
-		imgDpiX->setEnabled(false);
-		imgDpiY->setEnabled(false);
-//		imageRotation->setEnabled(false);
-		keepImageWHRatioButton->setEnabled(false);
-		keepImageDPIRatioButton->setEnabled(false);
+		imageXScaleSpinBox->setEnabled(!checkBoxAutoFit->isChecked());
+		imageYScaleSpinBox->setEnabled(!checkBoxAutoFit->isChecked());
+		imgDpiX->setEnabled(!checkBoxAutoFit->isChecked());
+		imgDpiY->setEnabled(!checkBoxAutoFit->isChecked());
 	}
 
 	if (m_haveDoc && m_haveItem)
 	{
-		m_item->setImageScalingMode(freeScale->isChecked(), cbProportional->isChecked());
+		m_item->setImageScalingMode(!checkBoxAutoFit->isChecked(), keepImageWHRatioButton->isChecked());
 		m_doc->changed();
 		m_doc->changedPagePreview();
 		emit UpdtGui(PageItem::ImageFrame);
@@ -652,7 +615,7 @@ void PropertiesPalette_Image::handleDpiX()
 {
 	bool dpiXBlocked = imgDpiX->blockSignals(true);
 	bool dpiYBlocked = imgDpiY->blockSignals(true);
-	if (keepImageDPIRatioButton->isChecked())
+	if (keepImageWHRatioButton->isChecked())
 		imgDpiY->setValue(imgDpiX->value());
 	handleLocalDpi();
 	imgDpiX->blockSignals(dpiXBlocked);
@@ -663,59 +626,38 @@ void PropertiesPalette_Image::handleDpiY()
 {
 	bool dpiXBlocked = imgDpiX->blockSignals(true);
 	bool dpiYBlocked = imgDpiY->blockSignals(true);
-	if (keepImageDPIRatioButton->isChecked())
+	if (keepImageWHRatioButton->isChecked())
 		imgDpiX->setValue(imgDpiY->value());
 	handleLocalDpi();
 	imgDpiX->blockSignals(dpiXBlocked);
 	imgDpiY->blockSignals(dpiYBlocked);
 }
 
-void PropertiesPalette_Image::handleImageDPIRatio()
+void PropertiesPalette_Image::handleImageAspectRatio()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	bool dpiXBlocked = imgDpiX->blockSignals(true);
-	bool dpiYBlocked = imgDpiY->blockSignals(true);
-	if (keepImageDPIRatioButton->isChecked())
-	{
-		double minXY = qMin(imgDpiX->value(), imgDpiY->value());
-		imgDpiX->setValue(minXY);
-		imgDpiY->setValue(minXY);
-		handleLocalDpi();
-		keepImageWHRatioButton->setChecked(true);
-		cbProportional->setChecked(true);
-	}
-	else
-	{
-		keepImageWHRatioButton->setChecked(false);
-		cbProportional->setChecked(false);
-	}
-	imgDpiX->blockSignals(dpiXBlocked);
-	imgDpiY->blockSignals(dpiYBlocked);
-}
 
-void PropertiesPalette_Image::handleImageWHRatio()
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
 	bool xscaleBlocked = imageXScaleSpinBox->blockSignals(true);
 	bool yscaleBlocked = imageYScaleSpinBox->blockSignals(true);
+	bool dpiXBlocked = imgDpiX->blockSignals(true);
+	bool dpiYBlocked = imgDpiY->blockSignals(true);
 	if (keepImageWHRatioButton->isChecked())
 	{
 		double maxXY = qMax(imageXScaleSpinBox->value(), imageYScaleSpinBox->value());
 		imageXScaleSpinBox->setValue(maxXY);
 		imageYScaleSpinBox->setValue(maxXY);
 		handleLocalScale();
-		keepImageDPIRatioButton->setChecked(true);
-		cbProportional->setChecked(true);
-	}
-	else
-	{
-		keepImageDPIRatioButton->setChecked(false);
-		cbProportional->setChecked(false);
+
+		double minXY = qMin(imgDpiX->value(), imgDpiY->value());
+		imgDpiX->setValue(minXY);
+		imgDpiY->setValue(minXY);
+		handleLocalDpi();
 	}
 	imageXScaleSpinBox->blockSignals(xscaleBlocked);
 	imageYScaleSpinBox->blockSignals(yscaleBlocked);
+	imgDpiX->blockSignals(dpiXBlocked);
+	imgDpiY->blockSignals(dpiYBlocked);
 }
 
 void PropertiesPalette_Image::handleImageEffects()
@@ -723,15 +665,6 @@ void PropertiesPalette_Image::handleImageEffects()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_ScMW->ImageEffects();
-}
-
-void PropertiesPalette_Image::handleExtImgProperties()
-{
-	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	m_ScMW->view->editExtendedImageProperties();
-	m_doc->changed();
-	m_doc->changedPagePreview();
 }
 
 void PropertiesPalette_Image::handleImagePageNumber()
@@ -823,9 +756,12 @@ void PropertiesPalette_Image::languageChange()
 
 	QString ptSuffix = tr(" pt");
 	QString suffix   = (m_haveDoc) ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
-
 	imageXOffsetSpinBox->setSuffix(suffix);
 	imageYOffsetSpinBox->setSuffix(suffix);
+
+	QString dpiSuffix = tr(" dpi");
+	imgDpiX->setSuffix(dpiSuffix);
+	imgDpiY->setSuffix(dpiSuffix);
 }
 
 void PropertiesPalette_Image::unitChange()
@@ -854,6 +790,12 @@ void PropertiesPalette_Image::localeChange()
 	imageRotation->setLocale(l);
 	imgDpiX->setLocale(l);
 	imgDpiY->setLocale(l);
+}
+
+void PropertiesPalette_Image::toggleLabelVisibility(bool v)
+{
+	imagePageNumberLabel->setLabelVisibility(v);
+	imageRotationLabel->setLabelVisibility(v);
 }
 
 bool PropertiesPalette_Image::userActionOn()

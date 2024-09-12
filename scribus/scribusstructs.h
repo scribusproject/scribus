@@ -659,5 +659,26 @@ enum AnchorPoint
 	BottomRight = 9
 };
 
+// Based on Cairo
+enum class BlendMode
+{
+	Normal = 0,
+	Darken = 1,
+	Lighten = 2,
+	Multiply = 3,
+	Screen = 4,
+	Overlay = 5,
+	HardLight = 6,
+	Softlight = 7,
+	Difference = 8,
+	Exclusion = 9,
+	ColorDodge = 10,
+	ColorBurn = 11,
+	Hue = 12,
+	Saturation = 13,
+	Color = 14,
+	Luminosity = 15
+};
+
 #endif
 

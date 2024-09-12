@@ -2726,9 +2726,8 @@ void ScribusView::editExtendedImageProperties()
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	if (!currItem->pixm.imgInfo.valid)
 		return;
-	QScopedPointer<ExtImageProps> dia(new ExtImageProps(this, &currItem->pixm.imgInfo, currItem, this));
+	QScopedPointer<ExtImageProps> dia(new ExtImageProps(this, currItem, this));
 	static_cast<void>(dia->exec());
-	m_ScMW->propertiesPalette->setTextFlowMode(currItem->textFlowMode());
 }
 
 void ScribusView::ToPicFrame()

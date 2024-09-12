@@ -339,6 +339,8 @@ set(SCRIBUS_SOURCES
 	ui/helpbrowser.cpp
 	ui/hruler.cpp
 	ui/hyask.cpp
+	ui/imageclippingpaths.cpp
+	ui/imagelayers.cpp
 	ui/imageinfodialog.cpp
 	ui/inlinepalette.cpp
 	ui/insertTable.cpp

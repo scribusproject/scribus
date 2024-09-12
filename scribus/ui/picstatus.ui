@@ -3,14 +3,14 @@
  <class>PicStatus</class>
  <widget class="QDialog" name="PicStatus">
   <property name="windowModality">
-   <enum>Qt::WindowModal</enum>
+   <enum>Qt::WindowModality::WindowModal</enum>
   </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
+    <width>726</width>
     <height>464</height>
-    <width>720</width>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,25 +38,25 @@
       </size>
      </property>
      <property name="dragDropMode">
-      <enum>QAbstractItemView::NoDragDrop</enum>
+      <enum>QAbstractItemView::DragDropMode::NoDragDrop</enum>
      </property>
      <property name="movement">
-      <enum>QListView::Static</enum>
+      <enum>QListView::Movement::Static</enum>
      </property>
      <property name="flow">
-      <enum>QListView::LeftToRight</enum>
+      <enum>QListView::Flow::LeftToRight</enum>
      </property>
      <property name="isWrapping" stdset="0">
       <bool>true</bool>
      </property>
      <property name="resizeMode">
-      <enum>QListView::Adjust</enum>
+      <enum>QListView::ResizeMode::Adjust</enum>
      </property>
      <property name="spacing">
       <number>6</number>
      </property>
      <property name="viewMode">
-      <enum>QListView::IconMode</enum>
+      <enum>QListView::ViewMode::IconMode</enum>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -129,7 +129,7 @@
               <string/>
              </property>
              <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
              </property>
              <property name="wordWrap">
               <bool>false</bool>
@@ -179,7 +179,7 @@
               <string/>
              </property>
              <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
              </property>
              <property name="wordWrap">
               <bool>false</bool>
@@ -236,7 +236,7 @@
                <string>Format:</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
               </property>
               <property name="wordWrap">
                <bool>false</bool>
@@ -271,7 +271,7 @@
                <string>Colorspace:</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
               </property>
               <property name="wordWrap">
                <bool>false</bool>
@@ -303,7 +303,7 @@
                <string>DPI:</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
               </property>
               <property name="wordWrap">
                <bool>false</bool>
@@ -506,7 +506,7 @@
                  <string>Effective DPI:</string>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
                 </property>
                 <property name="wordWrap">
                  <bool>false</bool>
@@ -638,10 +638,10 @@
        <item row="2" column="1">
         <spacer>
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Expanding</enum>
+          <enum>QSizePolicy::Policy::Expanding</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -660,10 +660,10 @@
      <item>
       <spacer>
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Expanding</enum>
+        <enum>QSizePolicy::Policy::Expanding</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -687,6 +687,20 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>imageViewArea</tabstop>
+  <tabstop>workTab</tabstop>
+  <tabstop>searchButton</tabstop>
+  <tabstop>fileManagerButton</tabstop>
+  <tabstop>goPageButton</tabstop>
+  <tabstop>selectButton</tabstop>
+  <tabstop>isPrinting</tabstop>
+  <tabstop>isVisibleCheck</tabstop>
+  <tabstop>buttonEdit</tabstop>
+  <tabstop>effectsButton</tabstop>
+  <tabstop>buttonLayers</tabstop>
+  <tabstop>closeButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
