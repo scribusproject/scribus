@@ -210,8 +210,25 @@ void NewDocDialog::createNewDocPage()
 	startDocSetup->setText( tr( "Show Document Settings After Creation" ) );
 	startDocSetup->setChecked(false);
 
+	sectionPreview->collapse();
+	sectionPreview->setCanSaveState(true);
+	sectionPreview->restorePreferences();
+
+	sectionDocument->expand();
+	sectionDocument->setCanSaveState(true);
+	sectionDocument->restorePreferences();
+
+	sectionMargins->expand();
+	sectionMargins->setCanSaveState(true);
+	sectionMargins->restorePreferences();
+
 	sectionBleeds->collapse();
+	sectionBleeds->setCanSaveState(true);
+	sectionBleeds->restorePreferences();
+
 	sectionTextFrame->collapse();
+	sectionTextFrame->setCanSaveState(true);
+	sectionTextFrame->restorePreferences();
 
 	// We have to calculate the width of the properties panel manually,
 	// because QSizePolicy::Minimum doesn't work as expected

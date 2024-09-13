@@ -28,7 +28,11 @@ PageSizeList::PageSizeList(QWidget* parent) :
 	setFocusPolicy(Qt::NoFocus);
 	setIconSize(QSize(80, 80));
 	setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+#ifdef Q_OS_MACOS
+	setGridSize(QSize(150, 150));
+#else
 	setGridSize(QSize(160, 160));
+#endif
 	setItemDelegate(new ScListItemDelegate(QListWidget::IconMode, iconSize()));
 	setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 }
