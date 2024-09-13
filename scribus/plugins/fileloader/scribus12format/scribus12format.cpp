@@ -733,7 +733,6 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	struct CopyPasteBuffer OB;
 	ParagraphStyle vg;
 	struct ScribusDoc::BookMa bok;
-	int counter;
 	bool newVersion = false;
 	QString tmp, tmpf, pageName, Defont;
 	QMap<int,int> TableID;
@@ -902,7 +901,6 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 		m_Doc->itemToolPrefs().lineEndArrow = 0;
 		m_Doc->LastAuto = nullptr;
 		QDomNode pageNode = docNode.firstChild();
-		counter = 0;
 		while (!pageNode.isNull())
 		{
 			ObCount++;
@@ -1115,7 +1113,6 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 						TableItems.append(newItem);
 						TableID.insert(obj.attribute("OwnLINK", "0").toInt(), last);
 					}
-					counter++;
 					objNode = objNode.nextSibling();
 				}
 				if (TableItems.count() != 0)

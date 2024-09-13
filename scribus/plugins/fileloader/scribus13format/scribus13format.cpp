@@ -179,7 +179,6 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	newReplacement = false;
 	ParagraphStyle vg;
 	struct ScribusDoc::BookMa bok;
-	int counter;//, Pgc;
 	QString tmp, pageName, Defont;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
@@ -456,7 +455,6 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		}
 		m_Doc->LastAuto = nullptr;
 		QDomNode pageNode = docNode.firstChild();
-		counter = 0;
 		while (!pageNode.isNull())
 		{
 			ObCount++;
@@ -976,7 +974,6 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					}
 				}
 				m_Doc->setMasterPageMode(false);
-				counter++;
 			}
 			pageNode = pageNode.nextSibling();
 		}
@@ -2042,7 +2039,6 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	newReplacement = false;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
-	int a, counter;
 	double pageX = 0, pageY = 0;
 	bool VorLFound = false;
 	QMap<int,int> layerTrans;
@@ -2082,7 +2078,6 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
 	QDomNode docNode = elem.firstChild();
-	counter = m_Doc->Items->count();
 	while (!docNode.isNull())
 	{
 		QDomElement dc = docNode.toElement();
@@ -2183,8 +2178,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			}
 			if (((pg.tagName() == "PAGE") || (pg.tagName() == "MASTERPAGE")) && (pg.attribute("NUM").toInt() == pageNumber))
 			{
-				a = m_Doc->currentPage()->pageNr();
-				Apage = m_Doc->Pages->at(a);
+				Apage = m_Doc->Pages->at(m_Doc->currentPage()->pageNr());
 				if ((pg.tagName() != "MASTERPAGE") && Mpage)
 				{
 					pageNode = pageNode.nextSibling();
@@ -2354,7 +2348,6 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						newItem->setLayer(m_Doc->firstLayerID());
 					}
 				}
-				counter++;
 			}
 			pageNode = pageNode.nextSibling();
 		}

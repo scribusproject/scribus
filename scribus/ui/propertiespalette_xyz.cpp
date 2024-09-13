@@ -588,15 +588,15 @@ void PropertiesPalette_XYZ::showXY(double x, double y)
 	bool sigBlocked2 = yposSpin->blockSignals(true);
 	bool useLineMode = false;
 	bool tmp = m_haveItem;
-	double inX, inY, b, h, r, dummy1, dummy2;
+	double b = 0.0, h = 0.0, r = 0.0;
 	QTransform ma;
 	FPoint n;
 	if (m_haveItem)
 	{
 		if (m_doc->m_Selection->isMultipleSelection())
 		{
+			double dummy1, dummy2;
 			m_doc->m_Selection->getGroupRect(&dummy1, &dummy2, &b, &h);
-			r = 0.0;
 			ma.translate(dummy1, dummy2);
 		}
 		else
@@ -609,46 +609,42 @@ void PropertiesPalette_XYZ::showXY(double x, double y)
 		}
 	}
 	else
-	{
-		b = 0.0;
-		h = 0.0;
-		r = 0.0;
 		ma.translate(x, y);
-	}
 	m_haveItem = false;
 	ma.rotate(r);
 //	AnchorPoint bp = basePointWidget->selectedAnchor();
 	// #8890 : basepoint is meaningless when lines use "end points" mode
 
-	switch(basePointWidget->selectedAnchor()){
-	case AnchorPoint::None:
-	case AnchorPoint::TopLeft:
-		n = FPoint(0.0, 0.0);
-		break;
-	case AnchorPoint::Top:
-		n = FPoint(b / 2.0, 0.0);
-		break;
-	case AnchorPoint::TopRight:
-		n = FPoint(b, 0.0);
-		break;
-	case AnchorPoint::Left:
-		n = FPoint(0.0, h / 2.0);
-		break;
-	case AnchorPoint::Center:
-		n = FPoint(b / 2.0, h / 2.0);
-		break;
-	case AnchorPoint::Right:
-		n = FPoint(b, h / 2.0);
-		break;
-	case AnchorPoint::BottomLeft:
-		n = FPoint(0.0, h);
-		break;
-	case AnchorPoint::Bottom:
-		n = FPoint(b / 2.0, h);
-		break;
-	case AnchorPoint::BottomRight:
-		n = FPoint(b, h);
-		break;
+	switch (basePointWidget->selectedAnchor())
+	{
+		case AnchorPoint::None:
+		case AnchorPoint::TopLeft:
+			n = FPoint(0.0, 0.0);
+			break;
+		case AnchorPoint::Top:
+			n = FPoint(b / 2.0, 0.0);
+			break;
+		case AnchorPoint::TopRight:
+			n = FPoint(b, 0.0);
+			break;
+		case AnchorPoint::Left:
+			n = FPoint(0.0, h / 2.0);
+			break;
+		case AnchorPoint::Center:
+			n = FPoint(b / 2.0, h / 2.0);
+			break;
+		case AnchorPoint::Right:
+			n = FPoint(b, h / 2.0);
+			break;
+		case AnchorPoint::BottomLeft:
+			n = FPoint(0.0, h);
+			break;
+		case AnchorPoint::Bottom:
+			n = FPoint(b / 2.0, h);
+			break;
+		case AnchorPoint::BottomRight:
+			n = FPoint(b, h);
+			break;
 	}
 
 	if (useLineMode)
@@ -665,8 +661,8 @@ void PropertiesPalette_XYZ::showXY(double x, double y)
 //	else if (bp == AnchorPoint::BottomRight)
 //		n = FPoint(b, h);
 
-	inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-	inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+	double inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+	double inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 	if (tmp)
 	{
 		inX -= m_doc->rulerXoffset;
