@@ -30,7 +30,7 @@ PageSize::PageSize(const QString& sizeName)
 	init(sizeName);
 }
 
-PageSize::PageSize(const double w, const double h)
+PageSize::PageSize(double w, double h)
         : m_width(w),
           m_height(h)
 {
@@ -101,7 +101,7 @@ QStringList PageSize::defaultSizesList()
 	return { "IsoA_A03", "IsoA_A04", "IsoA_A05", "IsoA_A06", "US_Letter" };
 }
 
-PageSizeCategoriesMap PageSize::categories()
+PageSizeCategoriesMap PageSize::categories() const
 {
 	PageSizeCategoriesMap map;
 
@@ -111,7 +111,7 @@ PageSizeCategoriesMap PageSize::categories()
 	return map;
 }
 
-PageSizeInfoMap PageSize::sizesByCategory(PageSizeInfo::Category category)
+PageSizeInfoMap PageSize::sizesByCategory(PageSizeInfo::Category category) const
 {
 	PageSizeInfoMap map;
 
@@ -124,7 +124,7 @@ PageSizeInfoMap PageSize::sizesByCategory(PageSizeInfo::Category category)
 	return map;
 }
 
-PageSizeInfoMap PageSize::sizesByDimensions(QSize sizePt)
+PageSizeInfoMap PageSize::sizesByDimensions(QSize sizePt) const
 {
 	PageSizeInfoMap map;
 
@@ -137,7 +137,7 @@ PageSizeInfoMap PageSize::sizesByDimensions(QSize sizePt)
 	return map;
 }
 
-PageSizeInfoMap PageSize::activePageSizes()
+PageSizeInfoMap PageSize::activePageSizes() const
 {
 	PageSizeInfoMap map;
 	if (PrefsManager::instance().appPrefs.activePageSizes.count() == 0)
@@ -196,7 +196,6 @@ void PageSize::addPageSize(const QString id, const QString name, double width, d
 	info.category = category;
 	info.sizeLabel = QString("%1 x %2 %3").arg(width).arg(height).arg(unit);
 	m_pageSizeList.insert(info.sizeName, info);
-
 }
 
 void PageSize::addPageSize(const QString id, double width, double height, int unitIndex, PageSizeInfo::Category category)
@@ -740,7 +739,6 @@ void PageSize::generateSizeList()
 	addPageSize(prefix + "Vinyl LP", QObject::tr("Vinyl LP"), 314.3, 314.3, SC_MM, catOther);
 	addPageSize(prefix + "DVD Cover Normal", QObject::tr("DVD Cover Normal"), 183.0, 273.0, SC_MM, catOther);
 	addPageSize(prefix + "DVD Cover Slim", QObject::tr("DVD Cover Slim"), 183.0, 266.0, SC_MM, catOther);
-
 }
 
 void PageSize::printSizeList() const

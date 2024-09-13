@@ -76,27 +76,27 @@ using PageSizeCategoriesMap = QMap<PageSizeInfo::Category, QString>;
 class SCRIBUS_API PageSize
 {
 public:
-
 	PageSize(const QString&);
-	PageSize(const double, const double);
+	PageSize(double, double);
 	PageSize& operator=(const PageSize& other);
+
 	void init(const QString&);
-	QString name() const { return m_pageSizeName; }
-	QString nameTR() const { return m_trPageSizeName; }
-	PageSizeInfo::Category category() { return m_category; };
+	const QString& name() const { return m_pageSizeName; }
+	const QString& nameTR() const { return m_trPageSizeName; }
+	PageSizeInfo::Category category() const { return m_category; };
+	QString categoryToString(PageSizeInfo::Category category) const;
 	double width() const { return m_width; }
 	double height() const { return m_height; }
 	double originalWidth() const { return m_width * unitGetRatioFromIndex(m_pageUnitIndex); }
 	double originalHeight() const { return m_height * unitGetRatioFromIndex(m_pageUnitIndex); }
 	QString originalUnit() const { return unitGetSuffixFromIndex(m_pageUnitIndex); }
 	static QStringList defaultSizesList();
-	PageSizeCategoriesMap categories();
-	PageSizeInfoMap sizesByCategory(PageSizeInfo::Category category);
-	PageSizeInfoMap sizesByDimensions(QSize sizePt);
-	PageSizeInfoMap activePageSizes();
-	PageSizeInfoMap pageSizes() const { return m_pageSizeList; };
+	PageSizeCategoriesMap categories() const;
+	PageSizeInfoMap sizesByCategory(PageSizeInfo::Category category) const;
+	PageSizeInfoMap sizesByDimensions(QSize sizePt) const;
+	PageSizeInfoMap activePageSizes() const;
+	const PageSizeInfoMap& pageSizes() const { return m_pageSizeList; };
 	void printSizeList() const;
-	QString categoryToString(PageSizeInfo::Category category) const;
 
 private:
 	PageSizeInfoMap m_pageSizeList;
@@ -110,7 +110,6 @@ private:
 	void generateSizeList();
 	void addPageSize(const QString id, double width, double height, int unitIndex, PageSizeInfo::Category category);
 	void addPageSize(const QString id, const QString name, double width, double height, int unitIndex, PageSizeInfo::Category category);
-
 };
 
 #endif

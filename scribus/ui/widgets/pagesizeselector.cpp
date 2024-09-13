@@ -125,7 +125,8 @@ void PageSizeSelector::setFormat(PageSizeInfo::Category category, QString name)
 		comboFormat->setEnabled(true);
 	}
 
-	foreach (auto item, ps.pageSizes()) {
+	for (auto item : ps.pageSizes())
+	{
 		if (item.category == category || (category == PageSizeInfo::Preferred && ps.activePageSizes().contains(item.sizeName)))
 		{
 			comboFormat->addItem(item.trSizeName, item.sizeName);
@@ -139,9 +140,8 @@ void PageSizeSelector::setFormat(PageSizeInfo::Category category, QString name)
 
 	comboFormat->setCurrentIndex(index);
 
-	m_sizeName = static_cast<QString>(comboFormat->currentData().toString());
+	m_sizeName = comboFormat->currentData().toString();
 	m_trSizeName = comboFormat->currentText();
-
 }
 
 void PageSizeSelector::categorySelected(int index)
@@ -155,7 +155,7 @@ void PageSizeSelector::categorySelected(int index)
 
 void PageSizeSelector::formatSelected(int index)
 {
-	m_sizeName = static_cast<QString>(comboFormat->itemData(index).toString());
+	m_sizeName = comboFormat->itemData(index).toString();
 	m_trSizeName = comboFormat->itemText(index);
 
 	emit pageSizeChanged(m_trSizeName);

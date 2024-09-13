@@ -31,7 +31,6 @@ PageSizeList::PageSizeList(QWidget* parent) :
 	setGridSize(QSize(160, 160));
 	setItemDelegate(new ScListItemDelegate(QListWidget::IconMode, iconSize()));
 	setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-
 }
 
 void PageSizeList::setFormat(QString format)
@@ -80,7 +79,6 @@ void PageSizeList::setSortMode(SortMode sortMode)
 		m_model->sort(0, Qt::DescendingOrder);
 		break;
 	}
-
 }
 
 void PageSizeList::setValues(QString format, int orientation, PageSizeInfo::Category category, SortMode sortMode)
@@ -110,11 +108,11 @@ void PageSizeList::loadPageSizes(QString name, int orientation, PageSizeInfo::Ca
 
 	m_model->clear();
 
-	foreach (auto item, ps.pageSizes()) {
-
+	foreach (auto item, ps.pageSizes())
+	{
 		QSize size;
-		size.setWidth( orientation == 0 ? item.width : item.height);
-		size.setHeight( orientation == 0 ? item.height : item.width);
+		size.setWidth(orientation == 0 ? item.width : item.height);
+		size.setHeight(orientation == 0 ? item.height : item.width);
 
 		// Add items of selected category or all preferred and defaults
 		if (item.category == category ||
@@ -138,7 +136,6 @@ void PageSizeList::loadPageSizes(QString name, int orientation, PageSizeInfo::Ca
 
 	if (sel > -1)
 		this->selectionModel()->setCurrentIndex(m_model->item(sel)->index(), QItemSelectionModel::Select );
-
 }
 
 void PageSizeList::updateGeometries()
@@ -147,7 +144,7 @@ void PageSizeList::updateGeometries()
 	verticalScrollBar()->setSingleStep(10);
 }
 
-QIcon PageSizeList::sizePreview(QSize iconSize, QSize pageSize)
+QIcon PageSizeList::sizePreview(QSize iconSize, QSize pageSize) const
 {
 	double devicePixelRatio = qApp->devicePixelRatio();
 	double max = mm2pts(500 * devicePixelRatio); // reference for scale: large side of B3
@@ -165,7 +162,7 @@ QIcon PageSizeList::sizePreview(QSize iconSize, QSize pageSize)
 	double ratio = pW / pH;
 	int height = iH * mod;
 	int width = height * ratio;
-	int x = iW / 2 - width / 2;
+	int x = (iW - width) / 2;
 	int y = iH - height;
 
 	// horizontal
@@ -175,7 +172,7 @@ QIcon PageSizeList::sizePreview(QSize iconSize, QSize pageSize)
 		ratio = pH / pW;
 		width = iW * mod;
 		height = width * ratio;
-		x = iW / 2 - width / 2;
+		x = (iW - width) / 2;
 		y = iH - height;
 	}
 
@@ -192,5 +189,4 @@ QIcon PageSizeList::sizePreview(QSize iconSize, QSize pageSize)
 	painter.end();
 
 	return QIcon(pix);
-
 }

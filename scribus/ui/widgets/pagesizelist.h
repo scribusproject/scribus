@@ -39,32 +39,30 @@ public:
 	~PageSizeList() = default;
 
 	void setFormat(QString format);
-	QString format() { return m_name; };
+	const QString& format() const { return m_name; };
 
 	void setOrientation(int orientation);
-	int orientation() { return m_orientation; };
+	int orientation() const { return m_orientation; };
 
 	void setCategory(PageSizeInfo::Category category);
-	PageSizeInfo::Category category() { return m_category; };
+	PageSizeInfo::Category category() const { return m_category; };
 
 	void setSortMode(SortMode sortMode);
-	SortMode sortMode() { return m_sortMode; };
+	SortMode sortMode() const { return m_sortMode; };
 
 	void setValues(QString format, int orientation, PageSizeInfo::Category category, SortMode sortMode);
 
 	void updateGeometries() override;
 
 private:
-
 	QString m_name {PageSize::defaultSizesList().at(1)};
 	int m_orientation {0};
 	PageSizeInfo::Category m_category {PageSizeInfo::Preferred};
 	SortMode m_sortMode {SortMode::NameAsc};
 	QStandardItemModel* m_model { nullptr };
 
-	QIcon sizePreview(QSize iconSize, QSize pageSize);
+	QIcon sizePreview(QSize iconSize, QSize pageSize) const;
 	void loadPageSizes(QString name, int orientation, PageSizeInfo::Category category);
-
 };
 
 

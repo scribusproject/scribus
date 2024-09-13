@@ -15,8 +15,7 @@ void PageSizePreview::paintEvent(QPaintEvent *event)
 	QColor colMargin(Qt::blue);
 	QColor colFrame(Qt::black);
 	QColor colLabel(Qt::white);
-	QColor colLabelBackground(QColor(0, 0, 0, 128));
-
+	QColor colLabelBackground(0, 0, 0, 128);
 
 	int count = m_layout + 1;
 	int space = 8;
@@ -75,5 +74,4 @@ void PageSizePreview::paintEvent(QPaintEvent *event)
 	painter.setBackground(colLabelBackground);
 	painter.setPen(QPen(colLabel));
 	painter.drawText(saveArea, Qt::AlignLeft | Qt::AlignBottom |Qt::TextWordWrap, " " + m_name + " ");
-
 }

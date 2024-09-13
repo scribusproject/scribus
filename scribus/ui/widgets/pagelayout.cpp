@@ -79,19 +79,19 @@ void PageLayouts::updateSchemeSelector(QList<PageSet> pageSets, int pagePosition
 
 void PageLayouts::setFirstPage(int nr)
 {
-	if (menuFirstPage->actions().count() == 0)
+	if (menuFirstPage->actions().isEmpty())
 		return;
 
-	m_firstPage = qBound(0, nr, menuFirstPage->actions().count());
+	m_firstPage = qBound(0, nr, static_cast<int>(menuFirstPage->actions().count()));
 	buttonFirstPage->setIcon(menuFirstPage->actions().at(m_firstPage)->icon());
 }
 
 void PageLayouts::setScheme(int nr)
 {
-	if (menuScheme->actions().count() == 0)
+	if (menuScheme->actions().isEmpty())
 		return;
 
-	m_scheme = qBound(0, nr, menuScheme->actions().count());
+	m_scheme = qBound(0, nr, static_cast<int>(menuScheme->actions().count()));
 	buttonScheme->setIcon(menuScheme->actions().at(m_scheme)->icon());
 
 	reloadFirstPage(m_scheme);
@@ -130,8 +130,6 @@ void PageLayouts::reloadScheme()
 	}
 
 	connect(menuScheme, &QMenu::triggered, this, &PageLayouts::changeScheme);
-
-
 }
 
 void PageLayouts::reloadFirstPage(int scheme)
@@ -160,8 +158,6 @@ void PageLayouts::reloadFirstPage(int scheme)
 	}
 
 	connect(menuFirstPage, &QMenu::triggered, this, &PageLayouts::changeFirstPage);
-
-
 }
 
 void PageLayouts::toggleLabelVisibility(bool visibility)
@@ -191,7 +187,6 @@ void PageLayouts::changeScheme(QAction *action)
 {
 	buttonScheme->setIcon(action->icon());
 	int ic = action->data().toInt();
-//	setScheme(ic);
 	reloadFirstPage(ic);
 	labelPages->setVisible( ic > 0 );
 	emit schemeChanged(ic);
