@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>257</width>
-    <height>699</height>
+    <height>732</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -47,6 +47,12 @@
        </property>
        <item>
         <layout class="QGridLayout" name="gridLayout">
+         <property name="horizontalSpacing">
+          <number>4</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>8</number>
+         </property>
          <item row="1" column="1">
           <widget class="ScrSpinBox" name="imageYOffsetSpinBox">
            <property name="sizePolicy">
@@ -77,6 +83,9 @@
           <widget class="QLabel" name="yposImgLabel">
            <property name="text">
             <string>Y:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
            </property>
           </widget>
          </item>
@@ -183,6 +192,9 @@
            <property name="text">
             <string>X:</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+           </property>
           </widget>
          </item>
          <item row="2" column="3">
@@ -198,6 +210,22 @@
            </property>
           </spacer>
          </item>
+         <item row="2" column="0">
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>24</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
        </item>
        <item>
@@ -208,95 +236,153 @@
         </widget>
        </item>
        <item>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="1" column="2">
-          <widget class="ScrSpinBox" name="imgDpiY">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="spacing">
+          <number>4</number>
+         </property>
+         <item>
+          <widget class="FormWidget" name="imageScaleLabel">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="toolTip">
-            <string>Effective vertical DPI of the image after scaling</string>
+           <property name="label" stdset="0">
+            <string>Image &amp;Scale</string>
            </property>
+           <layout class="QGridLayout" name="gridLayout_4">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <property name="horizontalSpacing">
+             <number>4</number>
+            </property>
+            <property name="verticalSpacing">
+             <number>8</number>
+            </property>
+            <item row="1" column="0">
+             <widget class="QLabel" name="yscaleLabel">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="ScrSpinBox" name="imageYScaleSpinBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Resize the image vertically</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="xscaleLabel">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="ScrSpinBox" name="imgDpiY">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Effective vertical DPI of the image after scaling</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3" rowspan="2">
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <item>
+               <widget class="LinkButton" name="keepImageWHRatioButton">
+                <property name="toolTip">
+                 <string>Keep the X and Y scaling the same</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <property name="autoRaise">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="1">
+             <widget class="ScrSpinBox" name="imageXScaleSpinBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Resize the image horizontally</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="ScrSpinBox" name="imgDpiX">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Effective horizontal DPI of the image after scaling</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <spacer name="horizontalSpacer_11">
+              <property name="orientation">
+               <enum>Qt::Orientation::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Policy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>24</width>
+                <height>0</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="xscaleLabel">
-           <property name="text">
-            <string>X:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="ScrSpinBox" name="imageYScaleSpinBox">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip">
-            <string>Resize the image vertically</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="ScrSpinBox" name="imageXScaleSpinBox">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip">
-            <string>Resize the image horizontally</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3" rowspan="2">
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="LinkButton" name="keepImageWHRatioButton">
-             <property name="toolTip">
-              <string>Keep the X and Y scaling the same</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-             <property name="autoRaise">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item row="0" column="2">
-          <widget class="ScrSpinBox" name="imgDpiX">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip">
-            <string>Effective horizontal DPI of the image after scaling</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="yscaleLabel">
-           <property name="text">
-            <string>Y:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="4">
-          <spacer name="horizontalSpacer_3">
+         <item>
+          <spacer name="horizontalSpacer_10">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
            </property>
@@ -648,7 +734,7 @@
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>ui/scrspinbox.h</header>
+   <header location="global">ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>LinkButton</class>

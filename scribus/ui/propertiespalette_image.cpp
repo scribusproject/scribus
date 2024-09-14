@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSignalBlocker>
 
 #include "extimageprops.h"
+#include "iconmanager.h"
 #include "localemgr.h"
 #include "pageitem.h"
 #include "propertiespalette_utils.h"
@@ -77,6 +78,7 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	sectionImageClippingPaths->setCanSaveState(true);
 	sectionImageClippingPaths->restorePreferences();
 
+	iconSetChange();
 	languageChange();
 
 	connect(imagePageNumber    , SIGNAL(valueChanged(double)), this, SLOT(handleImagePageNumber()));
@@ -95,6 +97,7 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	connect(renderIntent       , SIGNAL(activated(int))      , this, SLOT(handleIntent()));
 	connect(compressionMethod  , SIGNAL(activated(int))      , this, SLOT(handleCompressionMethod()));
 	connect(compressionQuality , SIGNAL(activated(int))      , this, SLOT(handleCompressionQuality()));
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 
@@ -714,6 +717,15 @@ void PropertiesPalette_Image::handleCompressionQuality()
 	m_doc->itemSelection_SetCompressionQuality(compressionQuality->currentIndex() - 1);
 }
 
+
+void PropertiesPalette_Image::iconSetChange()
+{
+	IconManager& im = IconManager::instance();
+
+	xscaleLabel->setPixmap(im.loadPixmap("scale-width"));
+	yscaleLabel->setPixmap(im.loadPixmap("scale-height"));
+}
+
 void PropertiesPalette_Image::languageChange()
 {
 	retranslateUi(this);
@@ -796,6 +808,7 @@ void PropertiesPalette_Image::toggleLabelVisibility(bool v)
 {
 	imagePageNumberLabel->setLabelVisibility(v);
 	imageRotationLabel->setLabelVisibility(v);
+	imageScaleLabel->setLabelVisibility(v);
 }
 
 bool PropertiesPalette_Image::userActionOn()

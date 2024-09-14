@@ -68,6 +68,7 @@ public slots:
 	void showImageRotation(double rot);
 	void showScaleAndOffset(double scx, double scy, double x, double y);
 
+	void iconSetChange();
 	void languageChange();
 	void unitChange();
 	void localeChange();

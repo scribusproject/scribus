@@ -148,6 +148,8 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="swap" file="16/action-swap.svg" />
 		<icon id="toggle-object-coordination" file="16/object-xycoordination.svg" />
 		<icon id="context-menu" file="16/action-menu.svg" />
+		<icon id="scale-width" file="16/action-scale-width.svg" />
+		<icon id="scale-height" file="16/action-scale-height.svg" />
 			
 		<!-- Alerts -->
 		<icon onLight="#E54545" onDark="#FF6666" id="22/dialog-error.png" file="16/alert-error.svg" />
