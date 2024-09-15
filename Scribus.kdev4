@@ -1,0 +1,5 @@
+[Project]
+Name=Scribus
+CreatedFrom=scribus.kdevprj
+Manager=KDevCMakeManager
+VersionControl=kdevsubversion
