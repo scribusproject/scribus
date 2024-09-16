@@ -6,15 +6,14 @@
 	<name>Scribus</name>
 	<project_license>GPL-2.0+</project_license>
 	<summary>Open Source Page Layout and Desktop Publishing (DTP)</summary>
-	<url type="homepage">http://www.scribus.net/</url>
+	<url type="homepage">https://www.scribus.net/</url>
 	<url type="bugtracker">https://bugs.scribus.net/</url>
 	<url type="vcs-browser">https://wiki.scribus.net/canvas/Checking_out_SVN</url>
 	<description>
 		<p>Scribus is a open source page layout program which
 produces commercial grade output in PDF and Postscript, primarily,
 though not exclusively, for Linux.</p>
-		<p>
-While the goals of the program are ease of use and simple
+		<p>While the goals of the program are ease of use and simple
 easy-to-understand tools, Scribus support for professional
 publishing features, such as CMYK and spot colors, easy PDF creation,
 Encapsulated Postscript import and export and creation of color
