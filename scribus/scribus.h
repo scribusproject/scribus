@@ -665,7 +665,7 @@ private:
 	bool insertMarkDialog(PageItem_TextFrame* item, MarkType mT, ScItemsState* &is, const QString &text, int markInsertPosition);
 	int m_marksCount { 0 }; //remember marks count from last call
 	bool m_WasAutoSave { false };
-	bool m_pagePalVisible { false };
+	bool m_pagePaletteWasClosed { true };
 };
 
 #endif

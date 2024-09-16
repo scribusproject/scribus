@@ -244,6 +244,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_file.h"
 #include "util_formats.h"
+#include "third_party/Qt-Advanced-Docking-System/src/DockAreaWidget.h"
 #include "third_party/Qt-Advanced-Docking-System/src/IconProvider.h"
 
 #ifdef HAVE_SVNVERSION
@@ -7576,7 +7577,7 @@ void ScribusMainWindow::editMasterPagesStart(const QString& temp)
 {
 	if (!HaveDoc)
 		return;
-	m_pagePalVisible = pagePalette->isVisible();
+	m_pagePaletteWasClosed = pagePalette->isClosed();
 	QString mpName;
 	if (temp.isEmpty())
 		mpName = doc->currentPage()->masterPageName();
@@ -7604,10 +7605,12 @@ void ScribusMainWindow::editMasterPagesStart(const QString& temp)
 	view->saveViewState();
 
 	pagePalette->startMasterPageMode(mpName);
-	if (!pagePalette->isVisible())
+	if (pagePalette->isClosed())
 	{
-		pagePalette->show();
+		auto* area = pagePalette->dockAreaWidget();
+		auto* dockWidget = area->currentDockWidget();
 		scrActions["toolsPages"]->setChecked(true);
+		area->setCurrentDockWidget(dockWidget);
 	}
 	appModeHelper->setMasterPageEditMode(true, doc);
 }
@@ -7627,10 +7630,9 @@ void ScribusMainWindow::editMasterPagesEnd()
 		Apply_MasterPage(doc->DocPages.at(i)->masterPageName(), i, false);
 
 	pagePalette->endMasterPageMode();
-	if (pagePalette->isFloating())
+	if (m_pagePaletteWasClosed && pagePalette->isFloating())
 	{
-		pagePalette->setVisible(m_pagePalVisible);
-		scrActions["toolsPages"]->setChecked(m_pagePalVisible);
+		scrActions["toolsPages"]->setChecked(false);
 	}
 
 	ScribusView::ViewState viewState = view->topViewState();
