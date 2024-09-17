@@ -83,7 +83,7 @@ void GradientEditor::setGradTrans(double val)
 	stopOpacity->setValue(qRound(val * 100));
 }
 
-void GradientEditor::slotDisplayStop(const VColorStop* stop)
+void GradientEditor::slotDisplayStop(VColorStop* stop)
 {
 	setPos(stop->rampPoint);
 	slotColor(stop->name, stop->shade);
