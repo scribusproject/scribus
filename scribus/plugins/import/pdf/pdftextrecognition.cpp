@@ -41,6 +41,8 @@ void PdfTextRecognition::addPdfTextRegion()
 */
 void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
 {
+	if (!u || uLen == 0)
+		return;
 
 	switch (this->m_addCharMode)
 	{
@@ -91,11 +93,18 @@ PdfGlyph PdfTextRecognition::AddCharCommon(GfxState* state, double x, double y, 
 	newGlyph.dy = charDelta.y();
 
 	// Convert the character to UTF-16 since that's our SVG document's encoding
-
 	if (uLen > 1)
 		qDebug() << "FIXME: AddBasicChar() '" << u << " : " << uLen;
-	newGlyph.code = static_cast<char16_t>(u[uLen - 1]);
-	newGlyph.rise = state->getRise();
+	if (u && uLen > 0)
+	{
+		newGlyph.code = static_cast<char16_t>(u[uLen - 1]);
+		newGlyph.rise = state->getRise();
+	}
+	else
+	{
+		newGlyph.code = static_cast<char16_t>(0);
+		newGlyph.rise = 0.0;
+	}
 	return newGlyph;
 }
 
