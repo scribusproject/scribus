@@ -40,15 +40,18 @@ class SCRIBUS_API gradientEditDialog : public QDialog, Ui::gradientAddEditDialog
 	public:
 		gradientEditDialog(QWidget* parent, const QString& name, const VGradient& gradient, ColorList doco, ScribusDoc *doc, QHash<QString, VGradient> *gradients, bool newFlag);
 		~gradientEditDialog() {};
-		QString name();
-		VGradient gradient();
+
+		QString name() const;
+		const VGradient& gradient() const;
+
 	private slots:
 		void quitDialog();
+
 	protected:
-		ScribusDoc* m_doc;
-		bool isNew;
+		ScribusDoc* m_doc { nullptr };
+		bool isNew { false };
 		QString m_name;
-		QHash<QString, VGradient> *m_gradients;
+		QHash<QString, VGradient> *m_gradients { nullptr };
 };
 
 #endif

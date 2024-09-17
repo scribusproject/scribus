@@ -48,7 +48,7 @@ int VGradientEx::compareItems(const VColorStopEx* item1, const VColorStopEx* ite
 void VGradientEx::inSort(VColorStopEx* d)
 {
 	int index = 0;
-	VColorStopEx *n = m_colorStops.value(index);
+	const VColorStopEx *n = m_colorStops.value(index);
 	while (n && compareItems(n,d) <= 0)
 	{
 		n = m_colorStops.value(index);
@@ -165,7 +165,7 @@ void VGradientEx::addStop(const ScColor &color, double rampPoint, double midPoin
 
 void VGradientEx::removeStop(VColorStopEx& colorstop)
 {
-	int n = m_colorStops.indexOf(&colorstop);
+	qsizetype n = m_colorStops.indexOf(&colorstop);
 	if (n >= 0)
 		delete m_colorStops.takeAt(n);
 }

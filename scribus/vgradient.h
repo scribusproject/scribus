@@ -118,7 +118,7 @@ public:
 	VGradientRepeatMethod repeatMethod() const { return m_repeatMethod; }
 	void setRepeatMethod(VGradientRepeatMethod repeatMethod) { m_repeatMethod = repeatMethod; }
 
-	const QList<VColorStop*>& colorStops() const;
+	const QList<VColorStop*>& colorStops() const { return m_colorStops; }
 	QList<QGradientStop> toQGradientStops() const;
 	void addStop(const VColorStop& colorStop);
 	void addStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = QString(), int shade = 100);
@@ -126,6 +126,7 @@ public:
 	void removeStop(VColorStop& colorStop);
 	void removeStop(int n);
 	void clearStops();
+	bool isEmpty() const { return m_colorStops.isEmpty(); }
 	int  stops() const { return m_colorStops.count(); }
 
 	// This function let only one stop with offset value equal to 0 and 1.0
@@ -142,7 +143,6 @@ public:
 	void setVector(const FPoint &vector) { m_vector = vector; }
 
 	void transform(const QTransform& m);
-
 
 protected:
 	QList<VColorStop*> m_colorStops;

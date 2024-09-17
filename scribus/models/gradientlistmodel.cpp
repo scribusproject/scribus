@@ -23,7 +23,7 @@ GradientPixmapValue::GradientPixmapValue(const VGradient& gradient, ScribusDoc* 
 				: m_gradient(gradient),
 				  m_name(gradientName)
 {
-	m_doc = (doc) ? doc->guardedPtr() : nullptr;
+	m_doc = doc ? doc->guardedPtr() : nullptr;
 }
 
 GradientListModel::GradientListModel(QObject *parent)
@@ -194,8 +194,7 @@ void GradientListModel::setGradientList(const GradientList& gradientList, bool s
 	if (m_isNoneColorShown)
 		m_gradients.append(GradientPixmapValue(VGradient(), nullptr, CommonStrings::trCustom));
 
-	GradientList::const_iterator iter;
-	for (iter = gradientList.begin(); iter != gradientList.end(); ++iter)
+	for (auto iter = gradientList.begin(); iter != gradientList.end(); ++iter)
 	{
 		const QString& colorName = iter.key();
 		const VGradient& gradient = iter.value();

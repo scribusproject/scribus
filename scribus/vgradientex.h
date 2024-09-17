@@ -39,7 +39,7 @@ class VGradient;
 class SCRIBUS_API VColorStopEx
 {
 public:
-	VColorStopEx(double r, double m, ScColor c, double o, QString n, int s)
+	VColorStopEx(double r, double m, const ScColor& c, double o, QString n, int s)
 	{
 		rampPoint = r;
 		midPoint = m; 

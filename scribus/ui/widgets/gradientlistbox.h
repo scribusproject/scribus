@@ -82,7 +82,7 @@ class SCRIBUS_API GradientListBox : public QListView
 		void removeItem(int i);
 
 		/*! Find row index for specified colorname */
-		int row(const QString& gradientName);
+		int row(const QString& gradientName) const;
 
 		/*! \brief Fill the list box with values taken from list.
 		The list is cleared itself. Then is rendered an icon with

@@ -74,7 +74,7 @@ void GradientPreview::setup()
  *
  * ********************************************************************************* */
 
-int GradientPreview::stopAtPosition(QPoint position)
+int GradientPreview::stopAtPosition(QPoint position) const
 {
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
 	for (int i = 0; i < cstops.count(); ++i)
@@ -87,19 +87,19 @@ int GradientPreview::stopAtPosition(QPoint position)
 	return -1;
 }
 
-double GradientPreview::percentFromPosition(QPointF position)
+double GradientPreview::percentFromPosition(QPointF position) const
 {
-	double t = static_cast<double>((position.x() - RADIUS)) / static_cast<double>(saveAreaRect().width());
+	double t = (position.x() - RADIUS) / static_cast<double>(saveAreaRect().width());
 	return qBound(0., t, 1.);
 }
 
-int GradientPreview::percentToPosition(double t)
+int GradientPreview::percentToPosition(double t) const
 {
 	return qRound(t * saveAreaRect().width() + RADIUS );
 }
 
 
-int GradientPreview::mapPositionToGrid(qreal pos)
+int GradientPreview::mapPositionToGrid(qreal pos) const
 {
 	return static_cast<int>(pos * 100 * ratio() + .5);
 }
@@ -211,10 +211,10 @@ void GradientPreview::updateTmpStop(double t)
 		cstops.at(m_activeStop)->rampPoint = t;
 
 		std::stable_sort(cstops.begin(), cstops.end(), compareStops);
-		for(int i = 0; i < cstops.count(); i++)
+		for (int i = 0; i < cstops.count(); i++)
 		{
-			VColorStop *stop = cstops.at(i);
-			if(stop->rampPoint == t)
+			const VColorStop *stop = cstops.at(i);
+			if (stop->rampPoint == t)
 				m_tmpStop = i;
 		}
 
@@ -245,7 +245,6 @@ void GradientPreview::sortStops()
 
 void GradientPreview::paintEvent(QPaintEvent *e)
 {
-
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
 	std::stable_sort(cstops.begin(), cstops.end(), compareStops);
 
@@ -308,61 +307,59 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	pw.end();
 
 	QWidget::paintEvent(e);
-
 }
 
 void GradientPreview::keyPressEvent(QKeyEvent *e)
 {
-	if (isEditable())
-		if(e->key() == Qt::Key_Delete || e->key() == Qt::Key_Backspace)
-			removeStop();
+	if (!isEditable())
+		return;
+
+	if (e->key() == Qt::Key_Delete || e->key() == Qt::Key_Backspace)
+		removeStop();
 }
 
 void GradientPreview::mousePressEvent(QMouseEvent *m)
 {
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 
-	if (isEditable()){
+	if (!isEditable())
+	{
+		m_activeStop = m_tmpStop = -1;
+		return;
+	}
 
-		if (m->button() == Qt::LeftButton)
+	if (m->button() == Qt::LeftButton)
+	{
+		m_activeStop = stopAtPosition(m->pos());
+		m_tmpStop = m_activeStop;
+
+		if (m_activeStop == -1)
+			addStop(m->pos());
+		else
 		{
-			m_activeStop = stopAtPosition(m->pos());
-			m_tmpStop = m_activeStop;
-
-			if (m_activeStop == -1)
-				addStop(m->pos());
-			else
-			{
-				repaint();
-				emitStop();
-			}
-
+			repaint();
+			emitStop();
 		}
 	}
-	else
-		m_activeStop = m_tmpStop = -1;
-
 }
 
 void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 {
-
 	QApplication::restoreOverrideCursor();
 
-	if (isEditable())
-	{		
-		if (m->button() == Qt::LeftButton)
-		{
-			if (isMouseOutside(m->pos()))
-				removeStop();
-			else
-			{
-				sortStops();
-				m_activeStop = m_tmpStop;
-				repaint();
-				emitStop();
-			}
+	if (!isEditable())
+		return;
 
+	if (m->button() == Qt::LeftButton)
+	{
+		if (isMouseOutside(m->pos()))
+			removeStop();
+		else
+		{
+			sortStops();
+			m_activeStop = m_tmpStop;
+			repaint();
+			emitStop();
 		}
 	}
 }
@@ -371,36 +368,32 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 {
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 
-	if (isEditable())
+	if (!isEditable())
+		return;
+
+	m_mousePos = m->position();
+
+	// Set Hover Cursor
+	if (saveAreaRect().contains(m_mousePos.toPoint()) )
 	{
-
-		m_mousePos = m->position();
-
-		// Set Hover Cursor
-		if (saveAreaRect().contains(m_mousePos.toPoint()) )
-		{
-			if (stopAtPosition(m_mousePos.toPoint()) > -1)
-				setCursor(QCursor(Qt::SizeHorCursor));
-			else
-				setCursor(IconManager::instance().loadCursor("AddPoint.png", 1, 1));
-		}
-
-		// Press Left Mouse
-		if (m->buttons() & Qt::LeftButton)
-		{
-			double newPos = percentFromPosition(m_mousePos);
-			updateTmpStop(newPos);
-			emitStopPosition();
-
-			QList<VColorStop*> cstops = fill_gradient.colorStops();
-			// Set "remove" cursor if gradient has more than 2 stops
-			if (isMouseOutside(m->pos()) && cstops.count() > 2)
-				QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
-
-		}
+		if (stopAtPosition(m_mousePos.toPoint()) > -1)
+			setCursor(QCursor(Qt::SizeHorCursor));
+		else
+			setCursor(IconManager::instance().loadCursor("AddPoint.png", 1, 1));
 	}
 
+	// Press Left Mouse
+	if (m->buttons() & Qt::LeftButton)
+	{
+		double newPos = percentFromPosition(m_mousePos);
+		updateTmpStop(newPos);
+		emitStopPosition();
 
+		QList<VColorStop*> cstops = fill_gradient.colorStops();
+		// Set "remove" cursor if gradient has more than 2 stops
+		if (isMouseOutside(m->pos()) && cstops.count() > 2)
+			QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+	}
 }
 
 
@@ -422,7 +415,7 @@ void GradientPreview::setActiveStopColor(const QColor &c, const QString &n, int 
 	repaint();
 }
 
-QColor GradientPreview::activeStopColor()
+QColor GradientPreview::activeStopColor() const
 {
 	if (m_activeStop == -1)
 		return QColor();
@@ -447,7 +440,7 @@ void GradientPreview::setIsEditable(bool isEditable)
 	repaint();
 }
 
-bool GradientPreview::isEditable()
+bool GradientPreview::isEditable() const
 {
 	return m_isEditable;
 }
@@ -459,8 +452,8 @@ void GradientPreview::setGradient(const VGradient &gradient)
 		int diffStops = 0;
 		for (int i = 0; i < fill_gradient.colorStops().count(); ++i)
 		{
-			VColorStop* stop1 = gradient.colorStops().at(i);
-			VColorStop* stop2 = fill_gradient.colorStops().at(i);
+			const VColorStop* stop1 = gradient.colorStops().at(i);
+			const VColorStop* stop2 = fill_gradient.colorStops().at(i);
 			if ((stop1->color != stop2->color) || (stop1->midPoint != stop2->midPoint) ||
 					(stop1->name  != stop2->name)  || (stop1->opacity != stop2->opacity)   ||
 					(stop1->rampPoint != stop2->rampPoint) || (stop1->shade != stop2->shade))
@@ -472,7 +465,7 @@ void GradientPreview::setGradient(const VGradient &gradient)
 			m_activeStop = 0;
 	}
 
-	if ((m_activeStop < 0) && (gradient.colorStops().count() > 0))
+	if ((m_activeStop < 0) && !gradient.isEmpty())
 		m_activeStop = 0;
 
 	if (m_activeStop >= gradient.colorStops().count())
@@ -483,19 +476,8 @@ void GradientPreview::setGradient(const VGradient &gradient)
 	repaint();
 }
 
-const VGradient &GradientPreview::gradient()
+const VGradient &GradientPreview::gradient() const
 {
-
-	//    QList<VColorStop*> cstops = fill_gradient.colorStops();
-	//    std::stable_sort(cstops.begin(), cstops.end(), compareStops);
-
-	//    VGradient &grad(fill_gradient);
-	//    grad.clearStops();
-
-	//    foreach(VColorStop *stop, cstops){
-	//        grad.addStop(*stop);
-	//    }
-
 	return fill_gradient;
 }
 
@@ -513,41 +495,41 @@ void GradientPreview::updateDisplay()
  *
  * ********************************************************************************* */
 
-QRect GradientPreview::saveAreaRect()
+QRect GradientPreview::saveAreaRect() const
 {
 	return QRect(RADIUS, 0, width() - RADIUS * 2 - 2, height() - 4);
 }
 
-QRect GradientPreview::canvasRect()
+QRect GradientPreview::canvasRect() const
 {
 	return QRect(RADIUS, scaleRect().bottom(), width() - RADIUS * 2 - 2, GRADIENT_HEIGHT);
 }
 
-QRect GradientPreview::scaleRect()
+QRect GradientPreview::scaleRect() const
 {
 	return QRect(RADIUS, 0, width() - RADIUS * 2 - 2, 6);
 }
 
-QRect GradientPreview::handleRect(int center)
+QRect GradientPreview::handleRect(int center) const
 {
 	return QRect(center - RADIUS, canvasRect().bottom(), RADIUS * 2, saveAreaRect().bottom());
 }
 
-QRect GradientPreview::stopRect(int center)
+QRect GradientPreview::stopRect(int center) const
 {
-	return QRect(center - RADIUS, saveAreaRect().top(), RADIUS * 2, saveAreaRect().bottom());
+	QRect areaRect = saveAreaRect();
+	return QRect(center - RADIUS, areaRect.top(), RADIUS * 2, areaRect.bottom());
 }
 
-qreal GradientPreview::ratio()
+qreal GradientPreview::ratio() const
 {
 	return saveAreaRect().width() / 100.0;
 }
 
-bool GradientPreview::isMouseOutside(QPoint mouse)
+bool GradientPreview::isMouseOutside(QPoint mouse) const
 {
 	return (mouse.y() <= rect().top() || mouse.y() >= rect().bottom());
 }
-
 
 VColorStop *GradientPreview::activeStop(int offset) const
 {

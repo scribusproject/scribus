@@ -24,9 +24,10 @@ for which a new license (GPL+exception) is in place.
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
 ***************************************************************************/
 
+#include <QMessageBox>
+
 #include "gradientaddedit.h"
 #include "ui/scmessagebox.h"
-#include <QMessageBox>
 
 gradientEditDialog::gradientEditDialog(QWidget* parent, const QString& name, const VGradient& gradient, ColorList doco, ScribusDoc *doc, QHash<QString, VGradient> *gradients, bool newFlag) : QDialog(parent)
 {
@@ -42,12 +43,12 @@ gradientEditDialog::gradientEditDialog(QWidget* parent, const QString& name, con
 	connect(buttonBox, SIGNAL(accepted()), this, SLOT(quitDialog()));
 }
 
-QString gradientEditDialog::name()
+QString gradientEditDialog::name() const
 {
 	return gradientName->text();
 }
 
-VGradient gradientEditDialog::gradient()
+const VGradient& gradientEditDialog::gradient() const
 {
 	return editor->gradient();
 }
@@ -61,7 +62,7 @@ void gradientEditDialog::quitDialog()
 		gradientName->selectAll();
 		return;
 	}
-	if ((m_name != gradientName->text()) || (isNew))
+	if ((m_name != gradientName->text()) || isNew)
 	{
 		if (m_gradients->contains(gradientName->text()))
 		{

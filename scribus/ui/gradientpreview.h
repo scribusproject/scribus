@@ -97,44 +97,46 @@ class SCRIBUS_API GradientPreview : public QWidget
 public:
 	explicit GradientPreview(QWidget *parent = nullptr);
 	~GradientPreview() {};
-	void paintEvent(QPaintEvent *e);
-	void keyPressEvent(QKeyEvent *e);
-	void mousePressEvent(QMouseEvent *m);
-	void mouseReleaseEvent(QMouseEvent *m);
-	void mouseMoveEvent(QMouseEvent *m);
 
 	void setActiveStopColor(const QColor& c, const QString& n, int s, double a);
-	QColor activeStopColor();
+	QColor activeStopColor() const;
 
 	void setActiveStopPosition(double t);
 
 	void setIsEditable(bool isEditable);
-	bool isEditable();
+	bool isEditable() const;
 
 	void setGradient(const VGradient& gradient);
-	const VGradient& gradient();
+	const VGradient& gradient() const;
 
 	void updateDisplay();
+
+protected:
+	void paintEvent(QPaintEvent* e);
+	void keyPressEvent(QKeyEvent* e);
+	void mousePressEvent(QMouseEvent* m);
+	void mouseReleaseEvent(QMouseEvent* m);
+	void mouseMoveEvent(QMouseEvent* m);
 
 private:
 	VGradient fill_gradient;
 	QPointF m_mousePos;
-	bool m_isEditable;
-	int m_activeStop;
-	int m_tmpStop;
+	bool m_isEditable { true };
+	int m_activeStop { 0 };
+	int m_tmpStop { 0 };
 
-	QRect saveAreaRect();
-	QRect canvasRect();
-	QRect scaleRect();
-	QRect handleRect(int center);
-	QRect stopRect(int center);
-	qreal ratio();
-	bool isMouseOutside(QPoint mouse);
-	int mapPositionToGrid(qreal pos);
-	int stopAtPosition(QPoint position);
+	QRect saveAreaRect() const;
+	QRect canvasRect() const;
+	QRect scaleRect() const;
+	QRect handleRect(int center) const;
+	QRect stopRect(int center) const;
+	qreal ratio() const;
+	bool isMouseOutside(QPoint mouse) const;
+	int mapPositionToGrid(qreal pos) const;
+	int stopAtPosition(QPoint position) const;
 	VColorStop *activeStop(int offset = 0) const;
-	double percentFromPosition(QPointF position);
-	int percentToPosition(double t);
+	double percentFromPosition(QPointF position) const;
+	int percentToPosition(double t) const;
 
 	void setup();
 	void addStop(QPoint mousePosition);

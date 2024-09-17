@@ -48,12 +48,12 @@ public:
 	~GradientEditor() {};
 
 	void setGradient(const VGradient& grad);
-	const VGradient &gradient();
+	const VGradient &gradient() const;
 	void setColors(ColorList &colorList);
 	QColor setColor(const QString& colorName, int shad);
 	void setGradientEditable(bool val);
 
-	VGradient::VGradientRepeatMethod repeatMethod();
+	VGradient::VGradientRepeatMethod repeatMethod() const;
 	void setRepeatMethod(VGradient::VGradientRepeatMethod method);
 
 	void setExtendVisible(bool visible);
@@ -62,7 +62,7 @@ public slots:
 	void setPos(double);
 	void changePos(double);
 	void slotColor(const QString& name, int shade);
-	void slotDisplayStop(VColorStop* stop);
+	void slotDisplayStop(const VColorStop* stop);
 	void setGradTrans(double val);
 	void setStopColor();
 //	void setStopTrans(double val);

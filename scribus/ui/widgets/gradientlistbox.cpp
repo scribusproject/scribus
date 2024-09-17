@@ -24,7 +24,7 @@ class SCRIBUS_API GradientWideItemDelegate : public ScListBoxPixmap<48, 16>
 {
 public:
 	GradientWideItemDelegate(): ScListBoxPixmap<48, 16>() {};
-	~GradientWideItemDelegate() = default;
+	~GradientWideItemDelegate() override = default;
 
 	void redraw(const QVariant&) const override;
 	QString text(const QVariant&) const override;
@@ -182,7 +182,7 @@ QString GradientListBox::currentGradientName() const
 {
 	if (currentRow() >= 0)
 	{
-		QAbstractItemModel* itemModel = model();
+		const QAbstractItemModel* itemModel = model();
 		return itemModel->data(currentIndex(), Qt::DisplayRole).toString();
 	}
 	return CommonStrings::tr_NoneColor;
@@ -192,7 +192,7 @@ VGradient GradientListBox::currentGradient() const
 {
 	if (currentRow() >= 0)
 	{
-		QAbstractItemModel* itemModel = model();
+		const QAbstractItemModel* itemModel = model();
 		GradientPixmapValue gpv = qvariant_cast<GradientPixmapValue>(itemModel->data(currentIndex(), Qt::UserRole));
 		return gpv.m_gradient;
 	}
@@ -214,7 +214,7 @@ QVariant GradientListBox::data(int row, int role) const
 QStringList GradientListBox::findGradients(const QString &name, Qt::MatchFlags flags) const
 {
 	QStringList foundGradients;
-	QAbstractItemModel* currentModel = model();
+	const QAbstractItemModel* currentModel = model();
 
 	QModelIndex firstIndex = currentModel->index(0, 0, QModelIndex());
 	QModelIndexList indexes = currentModel->match(firstIndex, Qt::DisplayRole, name, -1, flags);
@@ -249,7 +249,7 @@ void GradientListBox::insertItem(int row, const VGradient& gradient, const QStri
 
 bool GradientListBox::isNoneColorShown() const
 {
-	GradientListModel* gradientListModel = qobject_cast<GradientListModel*>(model());
+	const GradientListModel* gradientListModel = qobject_cast<GradientListModel*>(model());
 	if (gradientListModel)
 		return gradientListModel->isNoneColorShown();
 	return false;
@@ -264,9 +264,9 @@ void GradientListBox::removeItem(int i)
 	model()->removeRow(i);
 }
 
-int GradientListBox::row(const QString& gradientName)
+int GradientListBox::row(const QString& gradientName) const
 {
-	QAbstractItemModel* currentModel = model();
+	const QAbstractItemModel* currentModel = model();
 
 	QModelIndex firstIndex = currentModel->index(0, 0, QModelIndex());
 	QModelIndexList indexes = currentModel->match(firstIndex, Qt::DisplayRole, gradientName, -1, Qt::MatchExactly);
@@ -310,7 +310,7 @@ void GradientListBox::setPixmapType(GradientListBox::PixmapType type)
 	if (type == GradientListBox::widePixmap)
 	{
 		QAbstractItemDelegate* oldDelegate = itemDelegate();
-		GradientWideItemDelegate* gradientDelegate = dynamic_cast<GradientWideItemDelegate*>(oldDelegate);
+		const auto* gradientDelegate = dynamic_cast<GradientWideItemDelegate*>(oldDelegate);
 		if (!gradientDelegate)
 		{
 			setItemDelegate(new GradientWideItemDelegate());
@@ -367,7 +367,7 @@ void GradientListBox::updateBox(GradientList &list)
 	clear();
 	reset();
 
-	GradientListModel* gradientModel = qobject_cast<GradientListModel*>(this->model());
+	const GradientListModel* gradientModel = qobject_cast<GradientListModel*>(this->model());
 	if (gradientModel)
 		showNoneColor = gradientModel->isNoneColorShown();
 	setGradients(list, showNoneColor);
@@ -379,13 +379,13 @@ bool GradientListBox::viewportEvent(QEvent *event)
 	{
 		if (event->type() == QEvent::MouseButtonPress)
 		{
-			QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+			const auto *mouseEvent = static_cast<QMouseEvent *>(event);
 			if (mouseEvent->button() == Qt::RightButton)
 				return true;
 		}
 		else if (event->type() == QEvent::MouseButtonRelease)
 		{
-			QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+			const auto *mouseEvent = static_cast<QMouseEvent *>(event);
 			if (mouseEvent->button() == Qt::RightButton)
 			{
 				emit contextMenuRequested();
