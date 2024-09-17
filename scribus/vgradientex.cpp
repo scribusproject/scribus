@@ -48,7 +48,7 @@ int VGradientEx::compareItems(const VColorStopEx* item1, const VColorStopEx* ite
 void VGradientEx::inSort(VColorStopEx* d)
 {
 	int index = 0;
-	VColorStopEx *n = m_colorStops.value(index);
+	const VColorStopEx *n = m_colorStops.value(index);
 	while (n && compareItems(n,d) <= 0)
 	{
 		n = m_colorStops.value(index);
@@ -133,11 +133,6 @@ VGradientEx& VGradientEx::operator=(const VGradientEx& gradient)
 VGradientEx::~VGradientEx()
 {
 	clearStops();
-}
-
-const QList<VColorStopEx*>& VGradientEx::colorStops() const
-{
-	return m_colorStops;
 }
 
 void VGradientEx::clearStops()

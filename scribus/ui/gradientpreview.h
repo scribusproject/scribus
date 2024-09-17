@@ -52,7 +52,7 @@ public:
 	void setGradient(const VGradient& gradient);
 	void setGradientEditable(bool val);
 
-	const VGradient& gradient() { return fill_gradient; }
+	const VGradient& gradient() const { return fill_gradient; }
 	
 	QList<int> StopM;
 	bool Mpressed { false };

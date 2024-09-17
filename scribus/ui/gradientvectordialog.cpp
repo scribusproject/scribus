@@ -27,15 +27,15 @@ for which a new license (GPL+exception) is in place.
 
 GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase(parent, "GradientVectorPalette", false, Qt::WindowFlags())
 {
-	m_unitRatio = 1.0;
-
 	setupUi(this);
+
 	gSk->setNewUnit(6);
 	gSk->setValues(-89, 89, 2, 0);
 	gSk_2->setNewUnit(6);
 	gSk->setValues(-89, 89, 2, 0);
 	gSc->setSuffix(" %");
 	gSc->setValue( 100 );
+
 	connect(gX1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
 	connect(gX2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
 	connect(gY1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
@@ -81,7 +81,8 @@ GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase(par
 	connect(resetPControlPoint, SIGNAL(clicked()), this, SIGNAL(reset1Control()));
 	connect(resetAllPControlPoints, SIGNAL(clicked()), this, SIGNAL(resetAllControl()));
 	connect(snapToGrid, SIGNAL(clicked()), this, SLOT(handleSnapToGridBox()));
-	QSize iconSize = QSize(22, 22);
+
+	QSize iconSize(22, 22);
 	IconManager& im = IconManager::instance();
 	editPoints->setIcon(im.loadIcon("MoveNode.png"));
 	editPoints->setIconSize(iconSize);
@@ -99,6 +100,7 @@ GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase(par
 	resetPControlPoint->setIconSize(iconSize);
 	resetAllPControlPoints->setIcon(im.loadIcon("ResetNode.png"));
 	resetAllPControlPoints->setIconSize(iconSize);
+
 	languageChange();
 	selectLinear();
 }

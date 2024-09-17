@@ -39,7 +39,7 @@ class VGradient;
 class SCRIBUS_API VColorStopEx
 {
 public:
-	VColorStopEx(double r, double m, ScColor c, double o, QString n, int s)
+	VColorStopEx(double r, double m, const ScColor& c, double o, QString n, int s)
 	{
 		rampPoint = r;
 		midPoint = m; 
@@ -116,12 +116,13 @@ public:
 	VGradientEx::RepeatMethod repeatMethod() const { return m_repeatMethod; }
 	void setRepeatMethod(VGradientEx::RepeatMethod repeatMethod) { m_repeatMethod = repeatMethod; }
 
-	const QList<VColorStopEx*>& colorStops() const;
+	const QList<VColorStopEx*>& colorStops() const { return m_colorStops; }
 	void addStop(const VColorStopEx& colorStop);
 	void addStop(const ScColor &color, double rampPoint, double midPoint, double opa, const QString& name = QString(), int shade = 100);
 	void removeStop(VColorStopEx& colorStop);
 	void removeStop(int n);
 	void clearStops();
+	bool isEmpty() const { return m_colorStops.isEmpty(); }
 	int stops() const { return m_colorStops.count(); }
 
 	FPoint origin() const { return m_origin; }

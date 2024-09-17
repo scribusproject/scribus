@@ -54,7 +54,7 @@ void GradientEditor::setGradient(const VGradient& grad)
 	Preview->updateDisplay();
 }
 
-const VGradient& GradientEditor::gradient()
+const VGradient& GradientEditor::gradient() const
 {
 	return Preview->gradient();
 }
@@ -79,7 +79,7 @@ void GradientEditor::setGradTrans(double val)
 	stopOpacity->blockSignals(false);
 }
 
-void GradientEditor::slotDisplayStop(VColorStop* stop)
+void GradientEditor::slotDisplayStop(const VColorStop* stop)
 {
 	setPos(stop->rampPoint);
 	slotColor(stop->name, stop->shade);
@@ -179,8 +179,8 @@ bool GradientEditor::event(QEvent * event)
 {
 	if (event->type() == QEvent::ToolTip) 
 	{
-		QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-		QToolTip::showText(helpEvent->globalPos(), tr( "Add, change or remove color stops here" ), Preview, QRect(10,43, Preview->width()-20, 13));
+		const auto *helpEvent = static_cast<QHelpEvent *>(event);
+		QToolTip::showText(helpEvent->globalPos(), tr("Add, change or remove color stops here"), Preview, QRect(10, 43, Preview->width() - 20, 13));
 	}
 	return QWidget::event(event);
 }

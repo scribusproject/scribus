@@ -42,12 +42,12 @@ gradientEditDialog::gradientEditDialog(QWidget* parent, const QString& name, con
 	connect(buttonBox, SIGNAL(accepted()), this, SLOT(quitDialog()));
 }
 
-QString gradientEditDialog::name()
+QString gradientEditDialog::name() const
 {
 	return gradientName->text();
 }
 
-VGradient gradientEditDialog::gradient()
+const VGradient& gradientEditDialog::gradient() const
 {
 	return editor->gradient();
 }
@@ -61,7 +61,7 @@ void gradientEditDialog::quitDialog()
 		gradientName->selectAll();
 		return;
 	}
-	if ((m_name != gradientName->text()) || (isNew))
+	if ((m_name != gradientName->text()) || isNew)
 	{
 		if (m_gradients->contains(gradientName->text()))
 		{

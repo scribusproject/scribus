@@ -71,7 +71,7 @@ public slots:
 	void unitChange(int unitIndex);
 
 protected:
-	double m_unitRatio;
+	double m_unitRatio { 1.0 };
 
 	void changeEvent(QEvent *e) override;
 

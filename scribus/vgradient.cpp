@@ -36,7 +36,7 @@ bool compareStops(const VColorStop* item1, const VColorStop* item2 )
 	return (r1 < r2);
 }
 
-int VGradient::compareItems(const VColorStop* item1, const VColorStop* item2 ) const
+int VGradient::compareItems(const VColorStop* item1, const VColorStop* item2) const
 {
 	double r1 = item1->rampPoint;
 	double r2 = item2->rampPoint;
@@ -47,7 +47,7 @@ int VGradient::compareItems(const VColorStop* item1, const VColorStop* item2 ) c
 void VGradient::inSort(VColorStop* d)
 {
 	int index = 0;
-	VColorStop *n = m_colorStops.value(index);
+	const VColorStop *n = m_colorStops.value(index);
 	while (n && compareItems(n,d) <= 0)
 	{
 		++index;
@@ -146,11 +146,6 @@ bool VGradient::operator==(const VGradient &gradient) const
 	return retVal;
 }
 
-const QList<VColorStop*>& VGradient::colorStops() const
-{
-	return m_colorStops;
-}
-
 void VGradient::clearStops()
 {
 	while (!m_colorStops.isEmpty())
@@ -201,30 +196,30 @@ void VGradient::removeStop(int n)
 
 void VGradient::filterStops()
 {
-	VColorStop* colorStop = nullptr;
+	const VColorStop* colorStop = nullptr;
 	bool zeroFound = false;
-	QMutableListIterator<VColorStop*> i(m_colorStops);
-	i.toBack();
-	while (i.hasPrevious())
+	QMutableListIterator<VColorStop*> it(m_colorStops);
+	it.toBack();
+	while (it.hasPrevious())
 	{
-		colorStop = i.previous();
+		colorStop = it.previous();
 		if (colorStop->rampPoint == 0.0 && zeroFound)
 		{
-			delete i.value();
-			i.remove();
+			delete it.value();
+			it.remove();
 		}
 		else if (colorStop->rampPoint == 0.0)
 			zeroFound = true;
 	}
 	bool oneFound = false;
-	i.toFront();
-	while (i.hasNext())
+	it.toFront();
+	while (it.hasNext())
 	{
-		colorStop = i.next();
+		colorStop = it.next();
 		if (colorStop->rampPoint == 1.0 && oneFound)
 		{
-			delete i.value();
-			i.remove();
+			delete it.value();
+			it.remove();
 		}
 		else if (colorStop->rampPoint == 1.0)
 			oneFound = true;
@@ -233,9 +228,8 @@ void VGradient::filterStops()
 
 void VGradient::transform( const QTransform &m )
 {
-	double mx, my;
-	mx = m.m11() * m_origin.x() + m.m21() * m_origin.y() + m.dx();
-	my = m.m22() * m_origin.y() + m.m12() * m_origin.x() + m.dy();
+	double mx = m.m11() * m_origin.x() + m.m21() * m_origin.y() + m.dx();
+	double my = m.m22() * m_origin.y() + m.m12() * m_origin.x() + m.dy();
 	m_origin = FPoint(mx, my);
 	mx = m.m11() * m_focalPoint.x() + m.m21() * m_focalPoint.y() + m.dx();
 	my = m.m22() * m_focalPoint.y() + m.m12() * m_focalPoint.x() + m.dy();
