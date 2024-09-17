@@ -117,9 +117,9 @@ bool ScImageCacheWriteAction::commit()
 		return false;
 	}
 	ScImageCacheManager & scm = ScImageCacheManager::instance();
-	foreach (QString file, m_files)
+	for (const QString& file : m_files)
 		scm.updateFile(file);
-	for (FileMap::iterator i = m_access.begin(); i != m_access.end(); i++)
+	for (auto i = m_access.begin(); i != m_access.end(); i++)
 	{
 		ScLockedFile *p = *i;
 		AccessCounter from, to;

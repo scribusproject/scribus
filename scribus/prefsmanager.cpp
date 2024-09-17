@@ -1059,7 +1059,7 @@ bool PrefsManager::renderFrameConfigured()
 	if (appPrefs.extToolPrefs.latexCommands.isEmpty())
 		return false;
 	bool foundAny = false;
-	foreach (QString cmd, appPrefs.extToolPrefs.latexCommands)
+	for (const QString& cmd : appPrefs.extToolPrefs.latexCommands)
 	{
 		QStringList args = QProcess::splitCommand(cmd);
 		if (args.isEmpty())
@@ -2736,7 +2736,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.activePageSizes = QString(dc.attribute("Names", "")).split(separator);
 
 			// check if page sizes existing
-			foreach (auto item, appPrefs.activePageSizes)
+			for (const auto& item : appPrefs.activePageSizes)
 			{
 				PageSize ps(item);
 				if (ps.name() != CommonStrings::customPageSize)

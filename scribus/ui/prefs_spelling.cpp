@@ -75,31 +75,31 @@ void Prefs_Spelling::downloadSpellDicts()
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(true);
 	dlLabel->setVisible(true);
-	int i=0;
+	int i = 0;
 	QString userDictDir(ScPaths::userDictDir(ScPaths::Spell, true));
-	foreach(DownloadItem d, dictList)
+	for (const DownloadItem& d : dictList)
 	{
 		if (dlLangs.contains(d.lang))
 		{
-			if (d.filetype=="zip")
+			if (d.filetype == "zip")
 			{
 				ScQApp->dlManager()->addURL(d.url, true, downloadLocation, userDictDir);
 				++i;
 			}
-			if (d.filetype=="plain")
+			if (d.filetype == "plain")
 			{
 				//qDebug()<<d.url<<d.files;
 				const QStringList plainURLs(d.files.split(";", Qt::SkipEmptyParts));
 				for (const QString& s : plainURLs)
 				{
-					ScQApp->dlManager()->addURL(d.url+"/"+s, true, downloadLocation, userDictDir);
+					ScQApp->dlManager()->addURL(d.url + "/" + s, true, downloadLocation, userDictDir);
 					++i;
 				}
 				downloadList.append(d);
 			}
 		}
 	}
-	if (i>0)
+	if (i > 0)
 	{
 		downloadProgressBar->setRange(0, i);
 		connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadSpellDictsFinished()));
@@ -239,9 +239,9 @@ void Prefs_Spelling::setAvailDictsXMLFile(const QString& availDictsXMLDataFile)
 	availDictTableWidget->setRowCount(dictList.count());
 	availDictTableWidget->setColumnCount(4);
 	int row = 0;
-	foreach(DownloadItem d, dictList)
+	for (const DownloadItem& d : dictList)
 	{
-		int column=0;
+		int column = 0;
 		//qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;
 		QTableWidgetItem *newItem1 = new QTableWidgetItem(d.desc);
 		newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable);
