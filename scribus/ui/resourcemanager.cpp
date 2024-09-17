@@ -128,9 +128,9 @@ void ResourceManager::readAvailableFonts()
 	{
 //		qDebug()<<errorMsg<<eline<<ecol;
 		if (data.contains("404 not found", Qt::CaseInsensitive))
-			qDebug()<<"File not found on server";
+			qDebug() << "File not found on server";
 		else
-			qDebug()<<"Could not open file"<<dataFile.fileName();
+			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
 	m_availableList.clear();
@@ -162,7 +162,7 @@ void ResourceManager::readAvailableFonts()
 		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
 			m_availableList.append(d);
 //		else
-//			qDebug()<<"rm : availFonts : invalid URL"<<d.url;
+//			qDebug() << "rm : availFonts : invalid URL" << d.url;
 	}
 }
 
@@ -185,9 +185,9 @@ void ResourceManager::readAvailableHelp()
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
 	{
 		if (data.contains("404 not found", Qt::CaseInsensitive))
-			qDebug()<<"File not found on server";
+			qDebug() << "File not found on server";
 		else
-			qDebug()<<"Could not open file"<<dataFile.fileName();
+			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
 	m_availableList.clear();
@@ -241,9 +241,9 @@ void ResourceManager::readAvailablePalettes()
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
 	{
 		if (data.contains("404 not found", Qt::CaseInsensitive))
-			qDebug()<<"File not found on server";
+			qDebug() << "File not found on server";
 		else
-			qDebug()<<"Could not open file"<<dataFile.fileName();
+			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
 	m_availableList.clear();
@@ -527,7 +527,7 @@ void ResourceManager::updateAvailableFonts()
 	availableTableWidget->setSortingEnabled(false);
 
 	int row = 0;
-	for (const DownloadItem& d :  qAsConst(m_availableList))
+	for (const DownloadItem& d : qAsConst(m_availableList))
 	{
 		int column = 0;
 //		qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;
@@ -576,9 +576,9 @@ void ResourceManager::updateAvailableHyph()
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
 	{
 		if (data.contains("404 not found", Qt::CaseInsensitive))
-			qDebug()<<"File not found on server";
+			qDebug() << "File not found on server";
 		else
-			qDebug()<<"Could not open file"<<dataFile.fileName();
+			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
 	m_availableList.clear();
@@ -611,7 +611,7 @@ void ResourceManager::updateAvailableHyph()
 		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
 			m_availableList.append(d);
 		//else
-		//	qDebug()<<"hysettings : availDicts : invalid URL"<<d.url;
+		//	qDebug() << "hysettings : availDicts : invalid URL" << d.url;
 	}
 	availableTableWidget->clear();
 	if (m_availableList.isEmpty())
@@ -676,9 +676,9 @@ void ResourceManager::updateAvailableSpell()
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
 	{
 		if (data.contains("404 not found", Qt::CaseInsensitive))
-			qDebug()<<"File not found on server";
+			qDebug() << "File not found on server";
 		else
-			qDebug()<<"Could not open file"<<dataFile.fileName();
+			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
 	m_availableList.clear();
@@ -711,7 +711,7 @@ void ResourceManager::updateAvailableSpell()
 		if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
 			m_availableList.append(d);
 		//else
-		//	qDebug()<<"hysettings : availDicts : invalid URL"<<d.url;
+		//	qDebug() << "hysettings : availDicts : invalid URL" << d.url;
 	}
 	availableTableWidget->clear();
 	if (m_availableList.isEmpty())
@@ -775,7 +775,7 @@ void ResourceManager::updateAvailableHelp()
 	availableTableWidget->setSortingEnabled(false);
 
 	int row = 0;
-	for (const DownloadItem& d :  qAsConst(m_availableList))
+	for (const DownloadItem& d : qAsConst(m_availableList))
 	{
 		int column = 0;
 		QTableWidgetItem *newItem1 = new QTableWidgetItem(d.desc);
@@ -980,19 +980,19 @@ void ResourceManager::downloadListFinished()
 			if (fileOk)
 				updateAvailableHelp();
 			else
-				qDebug()<<"Help Failure :(";
+				qDebug() << "Help Failure :(";
 			break;
 		case RM_PALETTES:
 			if (fileOk)
 				updateAvailablePalettes();
 			else
-				qDebug()<<"Palette Failure :(";
+				qDebug() << "Palette Failure :(";
 			break;
 		case RM_TEST:
 			if (fileOk)
-				qDebug()<<"Success!!!";
+				qDebug() << "Success!!!";
 			else
-				qDebug()<<"Failure :(";
+				qDebug() << "Failure :(";
 			break;
 	}
 	updateAvailableButton->setEnabled(true);
@@ -1020,23 +1020,22 @@ void ResourceManager::downloadFilesFinished()
 		case RM_FONTS:
 			for (const DownloadItem& d : qAsConst(m_downloadList))
 			{
-				if (d.filetype=="zip")
+				if (d.filetype == "zip")
 				{
-					QString fn(ScPaths::userFontDir(true)+d.files);
+					QString fn(ScPaths::userFontDir(true) + d.files);
 					QFile dledFile(fn);
 					QFileInfo fi(dledFile);
 					if (!dledFile.exists())
-						qDebug()<<"File doesn\'t exist"<<fn;
+						qDebug() << "File doesn\'t exist" << fn;
 					else
 					{
 						ScZipHandler* fun = new ScZipHandler();
 						if (!fun->open(fn))
-							qDebug()<<"Zip file doesn\'t open"<<fn;
+							qDebug() << "Zip file doesn\'t open" << fn;
 						else
 						{
 							const QStringList zipFileContents(fun->files());
-							QStringList extractFiles(d.extractfiles.split(";", Qt::SkipEmptyParts));
-							QString toDir(ScPaths::userFontDir(false)+fi.baseName()+"/");
+							QString toDir(ScPaths::userFontDir(false) + fi.baseName() + "/");
 							QDir dir(ScPaths::userFontDir(false));
 							if (!dir.exists(fi.baseName()))
 								dir.mkdir(fi.baseName());
@@ -1048,7 +1047,7 @@ void ResourceManager::downloadFilesFinished()
 						delete fun;
 					}
 				}
-				if (d.filetype=="plain")
+				if (d.filetype == "plain")
 				{
 					//do nothing as the file is already in place from dl mgr
 				}
@@ -1060,16 +1059,16 @@ void ResourceManager::downloadFilesFinished()
 				int fileType = category == RM_HYPH ? ScPaths::Hyph : ScPaths::Spell;
 				for (const DownloadItem& d : qAsConst(m_downloadList))
 				{
-					if (d.filetype=="zip")
+					if (d.filetype == "zip")
 					{
-						QString fn(ScPaths::userDictDir(static_cast<ScPaths::DictType>(fileType), true)+d.files);
+						QString fn(ScPaths::userDictDir(static_cast<ScPaths::DictType>(fileType), true) + d.files);
 						if (!QFileInfo::exists(fn))
-							qDebug()<<"File doesn\'t exist"<<fn;
+							qDebug() << "File doesn\'t exist" << fn;
 						else
 						{
 							ScZipHandler* fun = new ScZipHandler();
 							if (!fun->open(fn))
-								qDebug()<<"Zip file doesn\'t open"<<fn;
+								qDebug() << "Zip file doesn\'t open" << fn;
 							else
 							{
 								const QStringList zipContents(fun->files());
@@ -1088,7 +1087,7 @@ void ResourceManager::downloadFilesFinished()
 							delete fun;
 						}
 					}
-					if (d.filetype=="plain")
+					if (d.filetype == "plain")
 					{
 						//do nothing as the file is already in place from dl mgr
 					}
@@ -1105,7 +1104,7 @@ void ResourceManager::downloadFilesFinished()
 					//qDebug() << fn;
 					QFile dledFile(fn);
 					QFileInfo fi(dledFile);
-					QFile dledFileSHA256(fn+".sha256");
+					QFile dledFileSHA256(fn + ".sha256");
 					QFileInfo fiSHA256(dledFileSHA256);
 					if (!dledFile.exists() || !dledFileSHA256.exists())
 						qDebug() << "File doesn\'t exist" << fn << fn + ".sha256";
