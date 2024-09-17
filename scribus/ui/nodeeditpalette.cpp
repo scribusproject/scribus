@@ -21,9 +21,9 @@ for which a new license (GPL+exception) is in place.
 
 NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette", false, Qt::WindowFlags())
 {
-	QSize iconSize = QSize(22, 22);
-	QSize buttonSize = QSize(24, 24);
-	QSize maxButtonSize = QSize(16777215, buttonSize.height());
+	QSize iconSize(22, 22);
+	QSize buttonSize(24, 24);
+	QSize maxButtonSize(16777215, buttonSize.height());
 	QSizePolicy::Policy buttonSizePolicy = static_cast<QSizePolicy::Policy>(QSizePolicy::GrowFlag | QSizePolicy::ExpandFlag);
 
 	vboxLayout = new QVBoxLayout(this);
