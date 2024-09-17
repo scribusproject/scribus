@@ -147,12 +147,12 @@ PDFColorSpace PDFAnalyzer::getCSType(PdfObject* cs)
 					PdfObject* pBase = &base;
 					if (base.IsReference())
 					{
-#if (PODOFO_VERSION < PODOFO_MAKE_VERSION(0, 10, 0))
-						pBase = cs->GetOwner()->GetObject(base.GetReference());
-#else
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
 						PdfDocument* pdfdoc = cs->GetDocument();
 						PdfIndirectObjectList& pdf_iol = pdfdoc->GetObjects();
 						pBase = pdf_iol.GetObject(base.GetReference());
+#else
+						pBase = cs->GetOwner()->GetObject(base.GetReference());
 #endif
 					}
 #if (PODOFO_VERSION < PODOFO_MAKE_VERSION(0, 9, 7))
