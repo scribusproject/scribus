@@ -137,11 +137,11 @@ private:
 	bool PDF_IsPDFX() const;
 	bool PDF_IsPDFX(const PDFVersion& ver) const;
 
-	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& DocFonts, BookmarkView* vi);
+	bool PDF_Begin_Doc(const QString& fn, BookmarkView* vi);
 	void PDF_Begin_Catalog();
 	void PDF_Begin_MetadataAndEncrypt();
-	QMap<QString, QMap<uint, QString> > PDF_Begin_FindUsedFonts(const QMap<QString, QMap<uint, QString> >& DocFonts);
-	void PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& usedFonts);
+	QMap<QString, QMap<uint, QString> > PDF_Begin_FindUsedFonts();
+	void PDF_Begin_WriteUsedFonts(const QMap<QString, QMap<uint, QString> >& usedFonts);
 	void PDF_WriteStandardFonts();
 	PdfFont PDF_WriteType3Font(const QByteArray& name, ScFace& face, const QMap<uint, QString>& usedGlyphs);
 	PdfFont PDF_WriteGlyphsAsXForms(const QByteArray& fontName, const ScFace& face, const QMap<uint, QString>& usedGlyphs);
