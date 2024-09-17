@@ -56,7 +56,7 @@ public slots:
 	void setPos(double);
 	void changePos(double);
 	void slotColor(const QString& name, int shade);
-	void slotDisplayStop(const VColorStop* stop);
+	void slotDisplayStop(VColorStop* stop);
 	void setGradTrans(double val);
 	void setStopColor(const QString &);
 	void setStopTrans(double val);
