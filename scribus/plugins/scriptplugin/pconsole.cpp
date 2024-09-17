@@ -290,7 +290,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *textEdit) : QSyntaxHighlighter(t
 	numberFormat.setForeground(colors.numberColor);
 	operatorFormat.setForeground(colors.signColor);
 
-	foreach (const QString& kw, keywords)
+	for (const QString& kw : keywords)
 	{
 		rule.pattern = QRegExp("\\b" + kw + "\\b", Qt::CaseInsensitive);
 		rule.format = keywordFormat;
@@ -327,7 +327,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 	// Apply default text color
 	setFormat(0, text.length(), colors.textColor);
 
-	foreach (HighlightingRule rule, highlightingRules)
+	for (const HighlightingRule& rule : highlightingRules)
 	{
 		QRegExp expression(rule.pattern);
 		int index = expression.indexIn(text);

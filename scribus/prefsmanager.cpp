@@ -1103,7 +1103,7 @@ bool PrefsManager::renderFrameConfigured()
 	if (appPrefs.extToolPrefs.latexCommands.isEmpty())
 		return false;
 	bool foundAny = false;
-	foreach (QString cmd, appPrefs.extToolPrefs.latexCommands)
+	for (const QString& cmd : appPrefs.extToolPrefs.latexCommands)
 	{
 		QStringList args = splitCommandLineArgs(cmd);
 		if (args.isEmpty())
