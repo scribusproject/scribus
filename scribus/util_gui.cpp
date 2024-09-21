@@ -31,6 +31,15 @@ void drawCircularHandle(QPainter *painter, QPointF center, qreal width, QBrush b
 	painter->restore();
 }
 
+void drawColorBox(QPainter *painter, QRect rect, QColor color, bool isEnabled)
+{
+	painter->save();
+	painter->setBrush(color);
+	painter->setPen(QPen(ScQApp->palette().color(isEnabled ? QPalette::Active : QPalette::Disabled, QPalette::WindowText), 1));
+	painter->drawRect(rect.adjusted(0, 0, -1, -1));
+	painter->restore();
+}
+
 void drawPointerHandle(QPainter *painter, QPointF pointer, qreal width, QColor background, bool isEnabled, bool isEmpty)
 {
 	qreal height = width *1.5;
@@ -150,6 +159,7 @@ QPixmap renderColor(QSize size, QColor color, QColor colorShade, double alpha)
 {
 	alpha = qBound(0., alpha, 1.);
 
+	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 	double mid = 0.5;
@@ -174,7 +184,8 @@ QPixmap renderColor(QSize size, QColor color, QColor colorShade, double alpha)
 		shadeAlpha = shadeSolid;
 	}
 
-	QPixmap pixmap(w, h);
+	QPixmap pixmap(w * scale, h * scale);
+	pixmap.setDevicePixelRatio(scale);
 	pixmap.fill(Qt::transparent);
 
 	QPainter p(&pixmap);
@@ -194,13 +205,18 @@ QPixmap renderColor(QSize size, QColor color, QColor colorShade, double alpha)
 
 QPixmap renderEmptyPattern(QSize size)
 {
-	QPixmap pixmap(size.width(), size.height());
+	double scale = qApp->devicePixelRatio();
+	int w = size.width();
+	int h = size.height();
+
+	QPixmap pixmap(w * scale, h * scale);
+	pixmap.setDevicePixelRatio(scale);
 	pixmap.fill(Qt::white);
 
 	QPainter p(&pixmap);
 	p.setRenderHint(QPainter::Antialiasing, true);
 	p.setPen(QPen(QBrush(Qt::red), 2));
-	p.drawLine(QPoint(0, size.height()), QPoint(size.width(), 0));
+	p.drawLine(QPoint(0, h), QPoint(w, 0));
 	p.end();
 
 	return pixmap;
@@ -208,13 +224,15 @@ QPixmap renderEmptyPattern(QSize size)
 
 QPixmap renderGradientLinear(QSize size, const VGradient& gradient)
 {
+	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 
-	QImage pixm(w, h, QImage::Format_ARGB32_Premultiplied);
+	QImage pixm(w * scale, h * scale, QImage::Format_ARGB32_Premultiplied);
+	pixm.setDevicePixelRatio(scale);
 	pixm.fill(Qt::transparent);
 
-	ScPainter *p = new ScPainter(&pixm, w, h);
+	ScPainter *p = new ScPainter(&pixm, w * scale, h * scale);
 	p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setFillMode(ScPainter::Gradient);
 	p->fill_gradient = gradient;
@@ -228,15 +246,17 @@ QPixmap renderGradientLinear(QSize size, const VGradient& gradient)
 
 QPixmap renderGradientRadial(QSize size, const VGradient& gradient)
 {
+	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 	qreal wHalf = w / 2;
 	qreal hHalf = h / 2;
 
-	QImage pixm(w, h, QImage::Format_ARGB32_Premultiplied);
+	QImage pixm(w * scale, h * scale, QImage::Format_ARGB32_Premultiplied);
+	pixm.setDevicePixelRatio(scale);
 	pixm.fill(Qt::transparent);
 
-	ScPainter *p = new ScPainter(&pixm, w, h);
+	ScPainter *p = new ScPainter(&pixm, w * scale, h * scale);
 	p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setFillMode(ScPainter::Gradient);
 	p->fill_gradient = gradient;
@@ -250,6 +270,7 @@ QPixmap renderGradientRadial(QSize size, const VGradient& gradient)
 
 QPixmap renderGradientConical(QSize size, const VGradient& gradient)
 {
+	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 	qreal wHalf = w / 2;
@@ -258,7 +279,8 @@ QPixmap renderGradientConical(QSize size, const VGradient& gradient)
 	QConicalGradient grad(wHalf, hHalf, 0);
 	grad.setStops(gradient.toQGradientStops());
 
-	QImage pixm(w, h, QImage::Format_ARGB32_Premultiplied);
+	QImage pixm(w * scale, h * scale, QImage::Format_ARGB32_Premultiplied);
+	pixm.setDevicePixelRatio(scale);
 	pixm.fill(Qt::transparent);
 
 	QPainter p(&pixm);
@@ -274,13 +296,15 @@ QPixmap renderGradientConical(QSize size, const VGradient& gradient)
 
 QPixmap renderGradient4Colors(QSize size, QColor col1, QColor col2, QColor col3, QColor col4)
 {
+	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 
-	QImage pixm(w, h, QImage::Format_ARGB32_Premultiplied);
+	QImage pixm(w * scale, h * scale, QImage::Format_ARGB32_Premultiplied);
+	pixm.setDevicePixelRatio(scale);
 	pixm.fill(Qt::transparent);
 
-	ScPainter *p = new ScPainter(&pixm, w, h);
+	ScPainter *p = new ScPainter(&pixm, w * scale, h * scale);
 	p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setFillMode(ScPainter::Gradient);
 	p->fill_gradient = VGradient();
@@ -295,13 +319,15 @@ QPixmap renderGradient4Colors(QSize size, QColor col1, QColor col2, QColor col3,
 
 QPixmap renderGradientDiamond(QSize size, const VGradient& gradient)
 {
+	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 
-	QImage pixm(w, h, QImage::Format_ARGB32_Premultiplied);
+	QImage pixm(w * scale, h * scale, QImage::Format_ARGB32_Premultiplied);
+	pixm.setDevicePixelRatio(scale);
 	pixm.fill(Qt::transparent);
 
-	ScPainter *p = new ScPainter(&pixm, w, h);
+	ScPainter *p = new ScPainter(&pixm, w * scale, h * scale);
 	p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setFillMode(ScPainter::Gradient);
 	p->fill_gradient = gradient;
@@ -315,6 +341,7 @@ QPixmap renderGradientDiamond(QSize size, const VGradient& gradient)
 
 QPixmap renderGradientMesh(QSize size)
 {
+	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int w25 = w * .25;
 	int w50 = w * .5;
@@ -324,7 +351,8 @@ QPixmap renderGradientMesh(QSize size)
 	int h50 = h * .5;
 	int h75 = h * .75;
 
-	QImage pixm(w, h, QImage::Format_ARGB32_Premultiplied);
+	QImage pixm(w * scale, h * scale, QImage::Format_ARGB32_Premultiplied);
+	pixm.setDevicePixelRatio(scale);
 	pixm.fill(Qt::transparent);
 
 	QPainter p(&pixm);
@@ -352,13 +380,15 @@ QPixmap renderGradientPatchMesh(QSize size)
 
 QPixmap renderHatch(QSize size, int type, double distance, double angle, bool hasBackground, QColor backgroundColor, QColor foregroundColor)
 {
+	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 
-	QImage pixm(w, h, QImage::Format_ARGB32_Premultiplied);
+	QImage pixm(w * scale, h * scale, QImage::Format_ARGB32_Premultiplied);
+	pixm.setDevicePixelRatio(scale);
 	pixm.fill(Qt::transparent);
 
-	ScPainter *p = new ScPainter(&pixm, w, h);
+	ScPainter *p = new ScPainter(&pixm, w * scale, h * scale);
 	p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setFillMode(ScPainter::Hatch);
 	p->setHatchParameters(type, distance, angle, hasBackground, backgroundColor, foregroundColor, w, h);
@@ -371,12 +401,14 @@ QPixmap renderHatch(QSize size, int type, double distance, double angle, bool ha
 
 QPixmap renderPattern(QSize size, const ScPattern& pattern)
 {
+	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 	int pW = pattern.getPattern().width();
 	int pH = pattern.getPattern().height();
 
-	QImage pixm(w, h, QImage::Format_ARGB32_Premultiplied);
+	QImage pixm(w * scale, h * scale, QImage::Format_ARGB32_Premultiplied);
+	pixm.setDevicePixelRatio(scale);
 	pixm.fill(Qt::transparent);
 
 	Qt::TransformationMode tm = Qt::FastTransformation;
@@ -391,11 +423,43 @@ QPixmap renderPattern(QSize size, const ScPattern& pattern)
 	else
 		img = pattern.getPattern().scaledToHeight(h, tm);
 
-	QPainter *qp = new QPainter(&pixm);
-	qp->setPen(Qt::NoPen);
-	qp->drawImage(w / 2 - img.width() / 2, h / 2 - img.height() / 2, img);
-	qp->end();
-	delete qp;
+	QPainter qp(&pixm);
+	qp.setPen(Qt::NoPen);
+	qp.drawImage(w / 2 - img.width() / 2, h / 2 - img.height() / 2, img);
+	qp.end();
+
+	return QPixmap::fromImage(pixm);
+}
+
+QPixmap combinePixmaps(const QPixmap &background, const QPixmap &foreground, bool tintForeground, bool isDarkColor)
+{
+	double scale = qApp->devicePixelRatio();
+	int w = qMax(background.deviceIndependentSize().width(), foreground.deviceIndependentSize().width());
+	int h = qMax(background.deviceIndependentSize().height(), foreground.deviceIndependentSize().height());
+
+	QImage pixm(w * scale, h * scale, QImage::Format_ARGB32_Premultiplied);
+	pixm.setDevicePixelRatio(scale);
+	pixm.fill(Qt::transparent);
+
+	QRect frame(0, 0, w, h);
+
+	QRect rB(0, 0, background.deviceIndependentSize().width(), background.deviceIndependentSize().height());
+	rB.moveCenter(frame.center());
+
+	QRect rF(0, 0, foreground.deviceIndependentSize().width(), foreground.deviceIndependentSize().height());
+	rF.moveCenter(frame.center());
+
+	QPainter p;
+	p.begin(&pixm);
+	p.drawPixmap(rF, foreground);
+	p.setCompositionMode( tintForeground ? QPainter::CompositionMode_SourceIn : QPainter::CompositionMode_SourceOut);
+	p.drawPixmap(rB, background);
+	p.end();
+
+	p.begin(&pixm);
+	p.setCompositionMode(QPainter::CompositionMode_DestinationAtop);
+	p.fillRect(frame, isDarkColor? Qt::white : Qt::black);
+	p.end();
 
 	return QPixmap::fromImage(pixm);
 }
@@ -444,4 +508,10 @@ QColor colorByRole(QPalette::ColorRole cr, double opacity, bool active)
 	}
 
 	return blendColor(opacity, fg, bg);
+}
+
+bool isDarkColor(QColor color) {
+	// sRGB luminance(Y) values
+	double lum = 0.2126 * color.redF() + 0.7152 * color.greenF() + 0.0722 * color.blueF();
+	return color.alphaF() > 0 && lum <= 0.65; // It is a dark color if the luminance is below 65%
 }
