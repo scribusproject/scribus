@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "iconmanager.h"
 #include "pagepalette_widgets.h"
+#include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scribusapp.h"
 #include "util_gui.h"
@@ -224,6 +225,10 @@ PageGrid::PageGrid(QWidget *parent)
 	calculateSize();
 	initContextMenu();
 
+	PrefsContext *prefTileSize = PrefsManager::instance().prefsFile->getContext("PagePalette");
+	int size = prefTileSize->getInt("pagePreviewSize", m_rowHeight);
+	setRowHeight(size);
+
 //	connect(this, &PageGrid::customContextMenuRequested, this, &PageGrid::showContextMenu);
 
 }
@@ -244,19 +249,24 @@ void PageGrid::setDocumentPageSize(QSizeF pageSize)
 	m_documentPageSize = pageSize;
 }
 
-void PageGrid::setRowHeight(int size)
+void PageGrid::setRowHeight(int height)
 {
-	// clamp size from 48 to 256)
-	m_rowHeight = qBound(48, size, 256);
+	// clamp sizes
+	m_rowHeight = qBound(64, height, 128);
+	m_rowSpace = qBound(8, height / 8, 16);
+
 	//	updateTileSize();
 	calculateSize();
 	update();
+
+	PrefsContext *prefTileSize = PrefsManager::instance().prefsFile->getContext("PagePalette");
+	prefTileSize->set("pagePreviewSize", height);
+	PrefsManager::instance().prefsFile->write();
 }
 
 void PageGrid::setFontSize(int size)
 {
 	m_fontSize = size;
-	//	updateTileSize();
 	update();
 }
 
@@ -296,18 +306,6 @@ void PageGrid::setPageOffset(int pageCount)
 	calculateSize();
 	update();
 }
-
-//void PageGrid::setPageList(const QList<PageCell *> list)
-//{
-//	m_pageList = list;
-//	calculateSize();
-//	//	update();
-//}
-
-//QList<PageCell *> PageGrid::pageList() const
-//{
-//	return m_pageList;
-//}
 
 int PageGrid::pageId(int r, int c, bool clampId)
 {
@@ -673,43 +671,59 @@ void PageGrid::clearUi()
 	update();
 }
 
-void PageGrid::drawTile(QPainter &painter, QPoint cellPosition, PageCell *tile, bool selected, bool hovered, QColor labelColor)
+void PageGrid::drawTile(QPainter &painter, QPoint cellPosition, PageCell *tile, bool selected, bool hovered, QColor labelColor, bool isRight)
 {
 
 	if (tile == nullptr)
 		return;
 
 	QFont font(this->font().family(), m_fontSize, QFont::Normal);
+	QFont fontName(this->font().family(), m_fontSize * 0.8, QFont::Normal);
 	QRect rectPage(cellPosition.x(), cellPosition.y(), tile->pageWidthByHeight(pageHeight()), pageHeight());
 	QRect rectCell(cellPosition.x(), cellPosition.y(), tile->pageWidthByHeight(pageHeight()), m_rowHeight);
-	//	QRect rectMasterPageMarker(cellPosition.x(), cellPosition.y() + rectPage.height(), rectPage.width(), 4);
+
+	QString pageName = tile->pageName;
+	int pageNameHyphen = tile->pageName.indexOf("-");
+	// Fail fast if no hyphen or nothing to the left of it
+	if (pageNameHyphen > 0)
+	{
+		// Trim whitespace and ensure at least 1-4 chars or ignore it
+		QString tmp = tile->pageName.left(pageNameHyphen).trimmed();
+		if (tmp.length() > 0 && tmp.length() < 5)
+			pageName = tmp;
+	}
 
 	painter.save();
 
 	// Draw Page
-	painter.setBrush(Qt::NoBrush);
-	//	painter.setPen( QPen(Qt::black, 1) );
-	painter.drawPixmap(rectPage, tile->pagePreview, tile->pagePreview.rect());
-	//	painter.drawRect(rectPage);
+	if (m_rowHeight == TileSize::Small)
+		painter.fillRect(rectPage, QBrush(Qt::white));
+	else
+		painter.drawPixmap(rectPage, tile->pagePreview, tile->pagePreview.rect());
 
 	// Setup painter for text drawing
+	painter.setBrush(Qt::NoBrush);
 	painter.setRenderHint(QPainter::TextAntialiasing, true);
 	painter.setFont(font);
 
 	// Draw Page Number
-	//painter.setPen(QPen(palette().windowText().color()));
 	painter.setPen(QPen( labelColor ));
 	painter.drawText(rectCell, Qt::AlignHCenter|Qt::AlignBottom | Qt::TextWordWrap, QString::number(tile->pageNumber + 1));
 
-	// Draw Page Name
-	painter.setBackgroundMode(Qt::OpaqueMode);
-	painter.setBackground(QColor(0,0,0,128));
-	painter.setPen(QPen(Qt::white));
-	painter.drawText(rectPage.adjusted(2,2,-2,-2), Qt::AlignTop | Qt::AlignLeft |Qt::TextWordWrap, tile->pageName);
-
-	// Draw Master Page Color
-	//	painter.setPen(Qt::NoPen);
-	//	painter.fillRect(rectMasterPageMarker, tile->masterPageColor());
+	// Draw Page Name	
+	painter.setFont((pageNameHyphen > 0) ? font : fontName);
+	if (m_rowHeight == TileSize::Small)
+	{
+		painter.setPen(Qt::black);
+		painter.drawText(rectPage.adjusted(1, 1, 0, 0), Qt::AlignVCenter | Qt::AlignCenter |Qt::TextWordWrap, pageName);
+	}
+	else
+	{
+		painter.setBackgroundMode(Qt::OpaqueMode);
+		painter.setBackground(QColor(102, 102, 102));
+		painter.setPen(Qt::white);
+		painter.drawText(rectPage.adjusted(1, 1, 0, 0), Qt::AlignTop | ((isRight) ? Qt::AlignRight : Qt::AlignLeft) |Qt::TextWordWrap, pageName);
+	}
 
 
 	// Draw selection
@@ -731,11 +745,6 @@ void PageGrid::drawTile(QPainter &painter, QPoint cellPosition, PageCell *tile, 
 		painter.drawRect(rectPage);
 	}
 
-	// tmp border
-	//	painter.setPen( Qt::magenta );
-	//	painter.setBrush(Qt::NoBrush);
-	//	painter.drawRect(rectCell);
-
 	painter.restore();
 
 }
@@ -745,25 +754,17 @@ void PageGrid::initContextMenu()
 	m_contextMenu->clear();
 
 	m_contextMenu->addAction(tr("&Small Preview"), [this]() {
-		m_rowSpace = 8;
-		setRowHeight(64);
+		setRowHeight(QVariant(TileSize::Small).toInt());
 		emit previewSizeChanged();
 	});
 	m_contextMenu->addAction(tr("&Medium Preview"), [this]() {
-		m_rowSpace = 12;
-		setRowHeight(96);
+		setRowHeight(QVariant(TileSize::Medium).toInt());
 		emit previewSizeChanged();
 	});
 	m_contextMenu->addAction(tr("&Large Preview"), [this]() {
-		m_rowSpace = 16;
-		setRowHeight(128);
+		setRowHeight(QVariant(TileSize::Large).toInt());
 		emit previewSizeChanged();
 	});
-//	m_contextMenu->addAction(tr("&Extra Large Preview"), [this]() {
-//		m_rowSpace = 20;
-//		setRowHeight(196);
-//		emit previewSizeChanged();
-//	});
 }
 
 void PageGrid::showContextMenu(QPoint pos)
@@ -820,7 +821,8 @@ void PageGrid::paintEvent(QPaintEvent *event)
 				if (id == m_selectedPage)
 					selectedPageRect = QRect(x, y, cell->pageWidthByHeight(pageHeight()), pageHeight() );
 				QPoint pos(x,y);
-				drawTile(painter, pos, cell, (id == m_selectedPage) ? true : false, (id == m_hoveredPage) ? true : false, foregroundColor);
+				bool isRightPage = (m_cellsInGroup == c + 1 && m_cellsInGroup > 1);
+				drawTile(painter, pos, cell, (id == m_selectedPage) ? true : false, (id == m_hoveredPage) ? true : false, foregroundColor, isRightPage);
 
 				// add space only between pages
 				if ((c + 1) % m_cellsInGroup == 0 || count == pageCount() + m_pageOffset -1)

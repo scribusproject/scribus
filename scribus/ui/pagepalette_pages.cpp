@@ -191,22 +191,39 @@ void PagePalette_Pages::pageView_updatePagePreview()
 		return;
 	}
 
-//	qDebug() << Q_FUNC_INFO << "- start page preview update";
-
-	PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground | Pixmap_DontReloadImages | Pixmap_NoCanvasModeChange;
-	QMap<int, QImage> previews = currView->PagesToPixmap(pageViewWidget->pageGrid()->pageHeight(), -1, flags);
-
-	for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)
+	if (pageViewWidget->pageGrid()->rowHeight() == PageGrid::Small)
 	{
-		if (previews.contains(i) && i < pageViewWidget->pageGrid()->pageList.count())
+		for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)
 		{
-			ScPage page = *currView->m_doc->DocPages.at(i);
-			double pageRatio = page.width() / page.height();
-			QPixmap pix = ( previews.contains(i) ) ? QPixmap::fromImage( previews.value(i) ) : QPixmap();
+			if (i < pageViewWidget->pageGrid()->pageList.count())
+			{
+				ScPage page = *currView->m_doc->DocPages.at(i);
+				double pageRatio = page.width() / page.height();
 
-			PageCell *pc = pageViewWidget->pageGrid()->pageList.at(i);
-			pc->pagePreview = pix;
-			pc->pageRatio = pageRatio;
+				PageCell *pc = pageViewWidget->pageGrid()->pageList.at(i);
+				pc->pagePreview = QPixmap();
+				pc->pageRatio = pageRatio;
+			}
+		}
+	}
+	else
+	{
+		PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground | Pixmap_DontReloadImages | Pixmap_NoCanvasModeChange;
+		QMap<int, QImage> previews = currView->PagesToPixmap(pageViewWidget->pageGrid()->pageHeight() * qApp->devicePixelRatio(), -1, flags);
+
+		for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)
+		{
+			if (previews.contains(i) && i < pageViewWidget->pageGrid()->pageList.count())
+			{
+				ScPage page = *currView->m_doc->DocPages.at(i);
+				double pageRatio = page.width() / page.height();
+				QPixmap pix = ( previews.contains(i) ) ? QPixmap::fromImage( previews.value(i) ) : QPixmap();
+				pix.setDevicePixelRatio(qApp->devicePixelRatio());
+
+				PageCell *pc = pageViewWidget->pageGrid()->pageList.at(i);
+				pc->pagePreview = pix;
+				pc->pageRatio = pageRatio;
+			}
 		}
 	}
 

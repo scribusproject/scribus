@@ -72,7 +72,7 @@ protected:
 	virtual void keyPressEvent(QKeyEvent* e);
 
 	QListWidgetItem *m_currItem {nullptr};
-	QPoint m_mousePos;
+	QPoint m_mousePos {QPoint()};
 	bool m_mousePressed {false};
 	bool m_thumb {false};
 
@@ -80,11 +80,11 @@ protected:
 
 struct SCRIBUS_API PageCell
 {
-	QString pageName;
-	uint pageNumber;
-	QPixmap pagePreview;
-	QColor masterPageColor;
-	double pageRatio;
+	QString pageName {QString()};
+	uint pageNumber {1};
+	QPixmap pagePreview {QPixmap()};
+	QColor masterPageColor {QColor()};
+	double pageRatio {1.4142}; // IsoA
 
 	PageCell(const QString& text, uint nr, const QPixmap& pix, double pageRatio, const QColor color = Qt::black) :
 		pageName(text), pageNumber(nr), pagePreview(pix), masterPageColor(color), pageRatio(pageRatio) {}
@@ -106,13 +106,20 @@ class SCRIBUS_API PageGrid : public QWidget
 	friend class PageViewer;
 
 public:
+
+	enum TileSize {
+		Small = 64,
+		Medium = 96,
+		Large = 128
+	};
+
 	explicit PageGrid(QWidget *parent = nullptr);
 
 	void setPageInGroup(int amount);
 
 	void setDocumentPageSize(QSizeF pageSize);
 
-	void setRowHeight(int size);
+	void setRowHeight(int height);
 	int rowHeight() { return m_rowHeight; };
 
 	void setFontSize(int size);
@@ -127,7 +134,7 @@ public:
 	void setPageOffset(int pageCount);
 	int pageOffset() { return m_pageOffset; };
 
-	QList<PageCell*> pageList;
+	QList<PageCell*> pageList {QList<PageCell*>()};
 
 	int pageId(int r, int c, bool clampId = true);
 	int pageId(QPoint pos, bool clampId = true);
@@ -159,13 +166,13 @@ private:
 		Hover = 3
 	};
 
-	QSize m_pageSize;
-	QSizeF m_documentPageSize;
-	int m_rowHeight {96};
+	QSize m_pageSize {QSize()};
+	QSizeF m_documentPageSize {QSizeF()};
+	int m_rowHeight {QVariant(TileSize::Medium).toInt()};
 	int m_cellGap {1};
 	int m_groupSpace {16};
 	int m_rowSpace {12};
-	int m_fontSize {8}; // font size of number label and masterpage label
+	int m_fontSize {QFont().pointSize()}; // font size of number label and masterpage label
 	int m_labelGap {8}; // gap between page and number label
 	QRect m_rectInsert {QRect()};
 	QRect m_rectSelection {QRect()};
@@ -174,12 +181,12 @@ private:
 	int m_selectedPage {-1};
 	int m_hoveredPage {-1};
 	bool m_enableSelection {false};
-	QPoint m_mousePos;
+	QPoint m_mousePos {QPoint()};
 	State m_state {State::None};
 	PageLayout m_pageLayout {PageLayout::singlePage};
 	int m_cellsInGroup {1}; // 1 for single page
 	int m_pageOffset {0};
-	QMenu *m_contextMenu;
+	QMenu *m_contextMenu {nullptr};
 
 	int columns();
 	int rows();
@@ -199,7 +206,7 @@ private:
 	void updateSelectedPage(QPoint pos);
 	void updateModeMarker(QPoint pos);
 	void clearUi();
-	void drawTile(QPainter &painter, QPoint cellPosition, PageCell * tile, bool selected, bool hovered, QColor labelColor);
+	void drawTile(QPainter &painter, QPoint cellPosition, PageCell * tile, bool selected, bool hovered, QColor labelColor, bool isRight);
 	void initContextMenu();
 
 private slots:
@@ -245,8 +252,8 @@ public:
 
 
 protected:
-	PageGrid *m_pageGrid;
-	QScrollArea* m_scroll;
+	PageGrid *m_pageGrid {nullptr};
+	QScrollArea* m_scroll {nullptr};
 
 	virtual void keyPressEvent(QKeyEvent* event);
 
@@ -271,8 +278,8 @@ public:
 	void dropEvent( QDropEvent * e );
 
 protected:
-	QPixmap normal;
-	QPixmap open;
+	QPixmap normal {QPixmap()};
+	QPixmap open {QPixmap()};
 
 protected slots:
 	void iconSetChange();
