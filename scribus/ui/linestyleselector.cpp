@@ -84,7 +84,7 @@ void LineStyleSelector::updateLineStyles()
 
 		lineStyles->sortItems();
 		lineStyles->insertItem( 0, tr("No Style"));
-		lineStyles->item(0)->setIcon(QIcon(renderEmptyPattern(m_size)));
+		lineStyles->item(0)->setIcon(QIcon(renderEmptyPattern(m_size, devicePixelRatio())));
 
 		if (lineStyles->currentItem())
 			lineStyles->currentItem()->setSelected(false);

@@ -197,7 +197,7 @@ void GradientEditor::updateColorButton()
 	QBrush brush;
 
 	if (colorName == CommonStrings::tr_NoneColor || colorName == CommonStrings::None)
-		brush = renderEmptyPattern(buttonColor->backgroundDotSize());
+		brush = renderEmptyPattern(buttonColor->circleSize(), devicePixelRatio());
 	else
 	{
 		const ScColor& color = m_colorList[colorName];
@@ -205,10 +205,10 @@ void GradientEditor::updateColorButton()
 		QColor qColorShade = ScColorEngine::getDisplayColor(color, m_colorList.document(), stopShade->value());
 		QColor qColor = ScColorEngine::getDisplayColor(color, m_colorList.document(), 100.0);
 
-		brush = QBrush(renderColor(buttonColor->backgroundDotSize(), qColor, qColorShade, stopOpacity->value() / 100.0));
+		brush = QBrush(renderColor(buttonColor->circleSize(), devicePixelRatio(), qColor, qColorShade, stopOpacity->value() / 100.0));
 	}
 
-	buttonColor->setBackground(brush);
+	buttonColor->setBrush(brush);
 }
 
 void GradientEditor::initExtend()

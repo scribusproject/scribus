@@ -433,13 +433,8 @@ QPixmap *IconManager::pixmapFromFile(const QString filePath, QColor color, int w
 
 		QSvgRenderer svgRenderer(document.toByteArray());
 
-		QSize size = svgRenderer.defaultSize();
+		QSize size = (width > -1) ? QSize(width, width) : svgRenderer.defaultSize();
 		QPixmap *iconPixmap = new QPixmap(size * m_devicePixelRatio);
-		if (width > -1)
-		{
-			iconPixmap = new QPixmap(iconPixmap->scaledToWidth(width * m_devicePixelRatio, Qt::SmoothTransformation));
-			size = iconPixmap->size() / m_devicePixelRatio;
-		}
 		iconPixmap->setDevicePixelRatio(m_devicePixelRatio);
 		iconPixmap->fill(Qt::transparent);
 

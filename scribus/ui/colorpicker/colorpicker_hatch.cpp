@@ -107,9 +107,9 @@ void ColorPickerHatch::setHatchData(const CPHatchData& hatch)
 	else
 		listBackgroundSwatches->setCurrentColor(CommonStrings::None);
 
-	buttonLineColor->setBackground( colorBrush(buttonLineColor->backgroundDotSize(), m_hatch.ColorForeground) );
+	buttonLineColor->setBrush( colorBrush(buttonLineColor->circleSize(), m_hatch.ColorForeground) );
 	buttonLineColor->setToolTip(m_hatch.ColorForeground);
-	buttonBackgroundColor->setBackground( colorBrush(buttonBackgroundColor->backgroundDotSize(), m_hatch.ColorBackground) );
+	buttonBackgroundColor->setBrush( colorBrush(buttonBackgroundColor->circleSize(), m_hatch.ColorBackground) );
 	buttonBackgroundColor->setToolTip(m_hatch.ColorBackground);
 
 	connectSlots();
@@ -172,9 +172,9 @@ void ColorPickerHatch::updateHatch()
 	m_hatch.Distance = hatchDist->value() / unitGetRatioFromIndex(currentUnit);
 	m_hatch.Type = hatchType->currentIndex();
 
-	buttonLineColor->setBackground( colorBrush(buttonLineColor->backgroundDotSize(), m_hatch.ColorForeground) );
+	buttonLineColor->setBrush( colorBrush(buttonLineColor->circleSize(), m_hatch.ColorForeground) );
 	buttonLineColor->setToolTip(m_hatch.ColorForeground);
-	buttonBackgroundColor->setBackground( colorBrush(buttonBackgroundColor->backgroundDotSize(), m_hatch.ColorBackground) );
+	buttonBackgroundColor->setBrush( colorBrush(buttonBackgroundColor->circleSize(), m_hatch.ColorBackground) );
 	buttonBackgroundColor->setToolTip(m_hatch.ColorBackground);
 
 	emit hatchChanged();
@@ -197,9 +197,9 @@ QColor ColorPickerHatch::colorFromName(QString colorName, double shade) const
 QBrush ColorPickerHatch::colorBrush(QSize size, QString colorName, double shade, double opacity) const
 {
 	if (!m_doc || colorName == CommonStrings::tr_NoneColor || colorName == CommonStrings::None)
-		return renderEmptyPattern(size);
+		return renderEmptyPattern(size, devicePixelRatio());
 
-	return renderColor(size, colorFromName(colorName, 100.0), colorFromName(colorName, shade), opacity);
+	return renderColor(size, devicePixelRatio(), colorFromName(colorName, 100.0), colorFromName(colorName, shade), opacity);
 }
 
 

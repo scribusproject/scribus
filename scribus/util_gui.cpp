@@ -67,9 +67,9 @@ void drawPointerHandle(QPainter *painter, QPointF pointer, qreal width, QColor b
 
 	// Draw color
 	if(isEmpty)
-		painter->drawPixmap(rect, renderEmptyPattern(rect.size()) );
+		painter->drawPixmap(rect, renderEmptyPattern(rect.size(), painter->device()->devicePixelRatio()) );
 	else
-		painter->drawPixmap(rect, renderColor(rect.size(), background, background, 1) );
+		painter->drawPixmap(rect, renderColor(rect.size(), painter->device()->devicePixelRatio(), background, background, 1) );
 
 	// Draw light border
 	painter->setBrush(Qt::NoBrush);
@@ -155,11 +155,10 @@ void renderCheckerPattern(QPainter *painter, QRectF rect)
 	painter->drawImage(rect, pattern);
 }
 
-QPixmap renderColor(QSize size, QColor color, QColor colorShade, double alpha)
+QPixmap renderColor(QSize size, double scale, QColor color, QColor colorShade, double alpha)
 {
 	alpha = qBound(0., alpha, 1.);
 
-	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 	double mid = 0.5;
@@ -203,9 +202,8 @@ QPixmap renderColor(QSize size, QColor color, QColor colorShade, double alpha)
 	return pixmap;
 }
 
-QPixmap renderEmptyPattern(QSize size)
+QPixmap renderEmptyPattern(QSize size, double scale)
 {
-	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 
@@ -222,9 +220,8 @@ QPixmap renderEmptyPattern(QSize size)
 	return pixmap;
 }
 
-QPixmap renderGradientLinear(QSize size, const VGradient& gradient)
+QPixmap renderGradientLinear(QSize size, double scale, const VGradient& gradient)
 {
-	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 
@@ -244,9 +241,8 @@ QPixmap renderGradientLinear(QSize size, const VGradient& gradient)
 	return QPixmap::fromImage(pixm);
 }
 
-QPixmap renderGradientRadial(QSize size, const VGradient& gradient)
+QPixmap renderGradientRadial(QSize size, double scale, const VGradient& gradient)
 {
-	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 	qreal wHalf = w / 2;
@@ -268,9 +264,8 @@ QPixmap renderGradientRadial(QSize size, const VGradient& gradient)
 	return QPixmap::fromImage(pixm);
 }
 
-QPixmap renderGradientConical(QSize size, const VGradient& gradient)
+QPixmap renderGradientConical(QSize size, double scale, const VGradient& gradient)
 {
-	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 	qreal wHalf = w / 2;
@@ -294,9 +289,8 @@ QPixmap renderGradientConical(QSize size, const VGradient& gradient)
 	return QPixmap::fromImage(pixm);
 }
 
-QPixmap renderGradient4Colors(QSize size, QColor col1, QColor col2, QColor col3, QColor col4)
+QPixmap renderGradient4Colors(QSize size, double scale, QColor col1, QColor col2, QColor col3, QColor col4)
 {
-	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 
@@ -317,9 +311,8 @@ QPixmap renderGradient4Colors(QSize size, QColor col1, QColor col2, QColor col3,
 	return QPixmap::fromImage(pixm);
 }
 
-QPixmap renderGradientDiamond(QSize size, const VGradient& gradient)
+QPixmap renderGradientDiamond(QSize size, double scale, const VGradient& gradient)
 {
-	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 
@@ -339,9 +332,8 @@ QPixmap renderGradientDiamond(QSize size, const VGradient& gradient)
 	return QPixmap::fromImage(pixm);
 }
 
-QPixmap renderGradientMesh(QSize size)
+QPixmap renderGradientMesh(QSize size, double scale)
 {
-	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int w25 = w * .25;
 	int w50 = w * .5;
@@ -373,14 +365,13 @@ QPixmap renderGradientMesh(QSize size)
 	return QPixmap::fromImage(pixm);
 }
 
-QPixmap renderGradientPatchMesh(QSize size)
+QPixmap renderGradientPatchMesh(QSize size, double scale)
 {
-	return renderGradientMesh(size);
+	return renderGradientMesh(size, scale);
 }
 
-QPixmap renderHatch(QSize size, int type, double distance, double angle, bool hasBackground, QColor backgroundColor, QColor foregroundColor)
+QPixmap renderHatch(QSize size, double scale, int type, double distance, double angle, bool hasBackground, QColor backgroundColor, QColor foregroundColor)
 {
-	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 
@@ -399,9 +390,8 @@ QPixmap renderHatch(QSize size, int type, double distance, double angle, bool ha
 	return QPixmap::fromImage(pixm);
 }
 
-QPixmap renderPattern(QSize size, const ScPattern& pattern)
+QPixmap renderPattern(QSize size, double scale, const ScPattern& pattern)
 {
-	double scale = qApp->devicePixelRatio();
 	int w = size.width();
 	int h = size.height();
 	int pW = pattern.getPattern().width();
@@ -431,9 +421,8 @@ QPixmap renderPattern(QSize size, const ScPattern& pattern)
 	return QPixmap::fromImage(pixm);
 }
 
-QPixmap combinePixmaps(const QPixmap &background, const QPixmap &foreground, bool tintForeground, bool isDarkColor)
+QPixmap combinePixmaps(const QPixmap &background, const QPixmap &foreground, double scale, bool tintForeground, bool isDarkColor)
 {
-	double scale = qApp->devicePixelRatio();
 	int w = qMax(background.deviceIndependentSize().width(), foreground.deviceIndependentSize().width());
 	int h = qMax(background.deviceIndependentSize().height(), foreground.deviceIndependentSize().height());
 

@@ -119,10 +119,50 @@ QString ColorPickerColor::toolTipText() const
 	if (isMask)
 		return QString( tr("Opacity: %1 %").arg(op) );
 
-	QString name = m_color.Name.isEmpty() ? CommonStrings::tr_None : m_color.Name;
-	QString shade = sh < 100 ? QString(", Shade: %1 %").arg(sh) : "";
-	QString opacity = op < 100 ? QString(", Opacity: %1 %").arg(op) : "";
-	return QString( tr("Color: %1%2%3").arg(name).arg(shade).arg(opacity) );
+	QString name = CommonStrings::tr_None;
+	QString shade = sh < 100 ? QString( tr("<br> Shade: %1 %")).arg(sh) : "";
+	QString opacity = op < 100 ? QString( tr("<br> Opacity: %1 %")).arg(op) : "";
+
+	if (!m_color.Name.isEmpty())
+	{
+		QString colorValues;
+
+		if (m_doc->PageColors.contains(m_color.Name))
+		{
+			ScColor color = m_doc->PageColors.value(m_color.Name);
+
+			switch (color.getColorModel())
+			{
+			case colorModelRGB:
+			{
+				int r, g, b;
+				color.getRawRGBColor(&r, &g, &b);
+				colorValues = tr("R: %1 G: %2 B: %3").arg(r).arg(g).arg(b);
+			}
+				break;
+			case colorModelCMYK:
+			{
+				double c, m, y, k;
+				color.getCMYK(&c, &m, &y, &k);
+				colorValues = tr("C: %1% M: %2% Y: %3% K: %4%").arg(c * 100, 0, 'f', 2).arg(m * 100, 0, 'f', 2).arg(y * 100, 0, 'f', 2).arg(k * 100, 0, 'f', 2);
+			}
+				break;
+			case colorModelLab:
+			{
+				double L, a, b;
+				color.getLab(&L, &a, &b);
+				colorValues = tr("L: %1 a: %2 b: %3").arg(L, 0, 'f', 2).arg(a, 0, 'f', 2).arg(b, 0, 'f', 2);
+			}
+				break;
+			}
+		}
+		else
+			colorValues = CommonStrings::tr_None;
+
+		name = QString( tr("Color: %1 (%2)")).arg(m_color.Name, colorValues);
+	}
+
+	return QString("%1%2%3").arg(name, shade, opacity);
 }
 
 /* ********************************************************************************* *

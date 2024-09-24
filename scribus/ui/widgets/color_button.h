@@ -38,8 +38,8 @@ public:
 	void setHasDot(bool enabled);
 	bool hasDot() const;
 
-	QSize backgroundDotSize() const;
-	QSize foregroundDotSize() const;
+	QSize circleSize() const;
+	QSize dotSize() const;
 
 	/*!
 	 * \brief Set type of context to show on click event, e.g. floating or list.
@@ -105,6 +105,17 @@ public:
 	void setType(int type);
 	int type() const { return m_type; };
 
+	void setPersistentToolTip(const QString& tooltip);
+	QString persistentToolTip() const { return m_persistenToolTip; };
+
+	void setIcon(const QIcon &icon);
+
+	void setDotIcon(const QIcon &icon);
+	QIcon dotIcon() const { return m_dotIcon; };
+
+	void setApplyColorOnIcon(bool onIcon);
+	bool applyColorOnIcon() { return m_onIcon; };
+
 	void updatePreview();
 	void unsetDoc();
 
@@ -118,8 +129,8 @@ public:
 public slots:
 	void setDoc(ScribusDoc *doc);
 
-	void setBackground(QBrush background);
-	void setForeground(QBrush foreground);
+	void setBrush(const QBrush& brush);
+	void setDotBrush(const QBrush& brush);
 
 	void toggleFloatingContext();
 	void updateFloatingContext();
@@ -134,8 +145,8 @@ private slots:
 	void updateColorPicker(ColorPicker *colorPicker);
 
 private:
-	QBrush m_background {Qt::NoBrush};
-	QBrush m_foreground {Qt::NoBrush};
+	QBrush m_brush {Qt::NoBrush};
+	QBrush m_dotBrush {Qt::NoBrush};
 	bool m_hasDot {false};
 	QWidget *stickyWidget {nullptr};
 	FloatingWindow *floatingWidget {nullptr};
@@ -154,14 +165,17 @@ private:
 	bool m_isMask {false};
 	int m_type {0};
 	bool m_ignoreItemType {true};
+	bool m_onIcon {false};
+	QString m_persistenToolTip;
+	QString m_dynamicToolTip;
+	QIcon m_dotIcon;
 
-	QBrush background() const;
-	QBrush foreground() const;
+	QBrush brush() const;
+	QBrush dotBrush() const;
 	QBrush renderBrush() const;
 	bool isMask() const;
 	void setModeByType(int type);
 	QColor colorFromName(QString colorName, double shade) const;
-	QBrush colorBrush(QSize size, QString colorName, double shade = 100.0, double opacity = 1.0) const;
 
 	QBrush brushSolid() const;
 	QBrush brushGradient() const;
@@ -169,8 +183,8 @@ private:
 	QBrush brushPattern() const;
 
 protected:
-
 	void paintEvent(QPaintEvent *e);
+	void buildToolTip();
 
 signals:
 	void changed();

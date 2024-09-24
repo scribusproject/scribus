@@ -840,11 +840,7 @@ void PropertiesPalette_Line::iconSetChange()
 	buttonCapSquare->setIcon(im.loadIcon("16/stroke-cap-square.png"));
 
 	buttonSwapMarker->setIcon(im.loadIcon("swap"));
-
-	if (lineMaskLabel->labelVisibility())
-		buttonLineMask->setIcon(QIcon());
-	else
-		buttonLineMask->setIcon(im.loadIcon("mask", 8));
+	buttonLineMask->setDotIcon(im.loadIcon("mask", 8));
 
 }
 
@@ -927,6 +923,5 @@ void PropertiesPalette_Line::toggleLabelVisibility(bool v)
 	lineMarkerLabel->setLabelVisibility(v);
 	lineMaskLabel->setLabelVisibility(v);
 	lineBlendmodeLabel->setLabelVisibility(v);
-
-	iconSetChange();
+	buttonLineMask->setHasDot(!v);
 }

@@ -115,7 +115,7 @@ void ColorPickerPattern::setPatternList(QHash<QString, ScPattern> *docPatterns)
 	for (int a = 0; a < patK.count(); a++)
 	{
 		ScPattern sp = docPatterns->value(patK[a]);
-		QListWidgetItem *item = new QListWidgetItem(renderPattern(listPattern->iconSize(), sp), patK[a], listPattern);
+		QListWidgetItem *item = new QListWidgetItem(renderPattern(listPattern->iconSize(), devicePixelRatio(), sp), patK[a], listPattern);
 		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	}
 	listPattern->clearSelection();

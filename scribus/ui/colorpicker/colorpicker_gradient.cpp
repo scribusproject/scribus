@@ -487,13 +487,13 @@ void ColorPickerGradient::updateFourColors()
 	m_gradient.Color4Shade = numberColor4Shade->value();
 
 	// render color buttons
-	buttonColor1->setBackground(colorBrush(buttonColor1->backgroundDotSize(), m_gradient.Color1Name, m_gradient.Color1Shade, m_gradient.Color1Alpha));
+	buttonColor1->setBrush(colorBrush(buttonColor1->circleSize(), m_gradient.Color1Name, m_gradient.Color1Shade, m_gradient.Color1Alpha));
 	buttonColor1->setToolTip(m_gradient.Color1Name);
-	buttonColor2->setBackground(colorBrush(buttonColor2->backgroundDotSize(), m_gradient.Color2Name, m_gradient.Color2Shade, m_gradient.Color2Alpha));
+	buttonColor2->setBrush(colorBrush(buttonColor2->circleSize(), m_gradient.Color2Name, m_gradient.Color2Shade, m_gradient.Color2Alpha));
 	buttonColor2->setToolTip(m_gradient.Color2Name);
-	buttonColor3->setBackground(colorBrush(buttonColor3->backgroundDotSize(), m_gradient.Color3Name, m_gradient.Color3Shade, m_gradient.Color3Alpha));
+	buttonColor3->setBrush(colorBrush(buttonColor3->circleSize(), m_gradient.Color3Name, m_gradient.Color3Shade, m_gradient.Color3Alpha));
 	buttonColor3->setToolTip(m_gradient.Color3Name);
-	buttonColor4->setBackground(colorBrush(buttonColor4->backgroundDotSize(), m_gradient.Color4Name, m_gradient.Color4Shade, m_gradient.Color4Alpha));
+	buttonColor4->setBrush(colorBrush(buttonColor4->circleSize(), m_gradient.Color4Name, m_gradient.Color4Shade, m_gradient.Color4Alpha));
 	buttonColor4->setToolTip(m_gradient.Color4Name);
 
 	updateGradient();
@@ -510,7 +510,7 @@ void ColorPickerGradient::updateMeshColor()
 	m_gradientMesh.Opacity = numberColorMeshAlpha->value() / 100.0;
 
 	// render color button
-	buttonColorMesh->setBackground(colorBrush(buttonColorMesh->backgroundDotSize(), m_gradientMesh.Name, m_gradientMesh.Shade, m_gradientMesh.Opacity));
+	buttonColorMesh->setBrush(colorBrush(buttonColorMesh->circleSize(), m_gradientMesh.Name, m_gradientMesh.Shade, m_gradientMesh.Opacity));
 	buttonColorMesh->setToolTip(m_gradientMesh.Name);
 
 	if (gradientEditPropertiesEnabled() && (type() == Gradient_PatchMesh || type() == Gradient_Mesh))
@@ -678,13 +678,13 @@ void ColorPickerGradient::setCurrentFourColors(QString color1, QString color2, Q
 	QSignalBlocker sigButtonColor2(buttonColor2);
 	QSignalBlocker sigButtonColor3(buttonColor3);
 	QSignalBlocker sigButtonColor4(buttonColor4);
-	buttonColor1->setBackground(colorBrush(buttonColor1->backgroundDotSize(), color1, m_gradient.Color1Shade, m_gradient.Color1Alpha));
+	buttonColor1->setBrush(colorBrush(buttonColor1->circleSize(), color1, m_gradient.Color1Shade, m_gradient.Color1Alpha));
 	buttonColor1->setToolTip(color1);
-	buttonColor2->setBackground(colorBrush(buttonColor2->backgroundDotSize(), color2, m_gradient.Color2Shade, m_gradient.Color2Alpha));
+	buttonColor2->setBrush(colorBrush(buttonColor2->circleSize(), color2, m_gradient.Color2Shade, m_gradient.Color2Alpha));
 	buttonColor2->setToolTip(color2);
-	buttonColor3->setBackground(colorBrush(buttonColor3->backgroundDotSize(), color3, m_gradient.Color3Shade, m_gradient.Color3Alpha));
+	buttonColor3->setBrush(colorBrush(buttonColor3->circleSize(), color3, m_gradient.Color3Shade, m_gradient.Color3Alpha));
 	buttonColor3->setToolTip(color3);
-	buttonColor4->setBackground(colorBrush(buttonColor4->backgroundDotSize(), color4, m_gradient.Color4Shade, m_gradient.Color4Alpha));
+	buttonColor4->setBrush(colorBrush(buttonColor4->circleSize(), color4, m_gradient.Color4Shade, m_gradient.Color4Alpha));
 	buttonColor4->setToolTip(color4);
 
 }
@@ -705,7 +705,7 @@ void ColorPickerGradient::setCurrentMeshPoint(QString colorName, double shade, d
 	m_gradientMesh.Opacity = alpha;
 
 	QSignalBlocker sigMeshColor(buttonColorMesh);
-	buttonColorMesh->setBackground(colorBrush(buttonColorMesh->backgroundDotSize(), m_gradientMesh.Name, m_gradientMesh.Shade, m_gradientMesh.Opacity));
+	buttonColorMesh->setBrush(colorBrush(buttonColorMesh->circleSize(), m_gradientMesh.Name, m_gradientMesh.Shade, m_gradientMesh.Opacity));
 	buttonColorMesh->setToolTip(m_gradientMesh.Name);
 }
 
@@ -717,7 +717,7 @@ void ColorPickerGradient::setCurrentRepeatMethod(VGradient::VGradientRepeatMetho
 QBrush ColorPickerGradient::colorBrush(QSize size, QString colorName, double shade, double opacity) const
 {
 	if (!m_doc || colorName == CommonStrings::tr_NoneColor || colorName == CommonStrings::None)
-		return renderEmptyPattern(size);
+		return renderEmptyPattern(size, devicePixelRatio());
 
 	ScColor sColor(0, 0, 0);
 
@@ -730,7 +730,7 @@ QBrush ColorPickerGradient::colorBrush(QSize size, QString colorName, double sha
 	QColor qColorShade = ScColorEngine::getDisplayColor(sColor, m_doc, shade);
 	QColor qColor = ScColorEngine::getDisplayColor(sColor, m_doc, 100.0);
 
-	return renderColor(size, qColor, qColorShade, opacity);
+	return renderColor(size, devicePixelRatio(), qColor, qColorShade, opacity);
 }
 
 void ColorPickerGradient::updateGradient()

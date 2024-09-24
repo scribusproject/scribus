@@ -17,18 +17,18 @@ void SCRIBUS_API drawNodeHandle(QPainter *painter, QPointF point, QPen pen, qrea
 void SCRIBUS_API drawNodeControl(QPainter *painter, QPointF point, QPen pen, qreal scaleFactor, bool isActive = false);
 void SCRIBUS_API drawWeldMarker(QPainter *painter, QPointF point, QColor color, qreal scaleFactor);
 void SCRIBUS_API drawColorBox(QPainter * painter, QRect rect, QColor color, bool isEnabled = true);
-QPixmap SCRIBUS_API renderEmptyPattern(QSize size);
-QPixmap SCRIBUS_API renderColor(QSize size, QColor color, QColor colorShade, double alpha = 1.0);
-QPixmap SCRIBUS_API renderGradientLinear(QSize size, const VGradient& gradient);
-QPixmap SCRIBUS_API renderGradientRadial(QSize size, const VGradient& gradient);
-QPixmap SCRIBUS_API renderGradientConical(QSize size, const VGradient& gradient);
-QPixmap SCRIBUS_API renderGradient4Colors(QSize size, QColor col1, QColor col2, QColor col3, QColor col4);
-QPixmap SCRIBUS_API renderGradientDiamond(QSize size, const VGradient& gradient);
-QPixmap SCRIBUS_API renderGradientMesh(QSize size);
-QPixmap SCRIBUS_API renderGradientPatchMesh(QSize size);
-QPixmap SCRIBUS_API renderHatch(QSize size, int type, double distance, double angle, bool hasBackground, QColor backgroundColor, QColor foregroundColor);
-QPixmap SCRIBUS_API renderPattern(QSize size, const ScPattern& pattern);
-QPixmap SCRIBUS_API combinePixmaps(const QPixmap& background, const QPixmap& foreground, bool tintForeground, bool isDarkColor);
+QPixmap SCRIBUS_API renderEmptyPattern(QSize size, double scale);
+QPixmap SCRIBUS_API renderColor(QSize size, double scale, QColor color, QColor colorShade, double alpha = 1.0);
+QPixmap SCRIBUS_API renderGradientLinear(QSize size, double scale, const VGradient& gradient);
+QPixmap SCRIBUS_API renderGradientRadial(QSize size, double scale, const VGradient& gradient);
+QPixmap SCRIBUS_API renderGradientConical(QSize size, double scale, const VGradient& gradient);
+QPixmap SCRIBUS_API renderGradient4Colors(QSize size, double scale, QColor col1, QColor col2, QColor col3, QColor col4);
+QPixmap SCRIBUS_API renderGradientDiamond(QSize size, double scale, const VGradient& gradient);
+QPixmap SCRIBUS_API renderGradientMesh(QSize size, double scale);
+QPixmap SCRIBUS_API renderGradientPatchMesh(QSize size, double scale);
+QPixmap SCRIBUS_API renderHatch(QSize size, double scale, int type, double distance, double angle, bool hasBackground, QColor backgroundColor, QColor foregroundColor);
+QPixmap SCRIBUS_API renderPattern(QSize size, double scale, const ScPattern& pattern);
+QPixmap SCRIBUS_API combinePixmaps(const QPixmap& background, const QPixmap& foreground, double scale, bool tintForeground, bool isDarkColor);
 bool SCRIBUS_API isDarkColor(QColor color);
 
 // Helper

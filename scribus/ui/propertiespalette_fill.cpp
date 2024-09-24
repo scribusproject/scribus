@@ -729,10 +729,8 @@ void PropertiesPalette_Fill::iconSetChange()
 	evenOdd->setIcon(im.loadIcon("fill-rule-even-odd.png"));
 	nonZero->setIcon(im.loadIcon("fill-rule-nonzero.png"));
 
-	if (labelFillMask->labelVisibility())
-		buttonFillMask->setIcon(QIcon());
-	else
-		buttonFillMask->setIcon(im.loadIcon("mask", 8));
+	buttonFillMask->setDotIcon(im.loadIcon("mask", 8));
+
 }
 
 void PropertiesPalette_Fill::languageChange()
@@ -753,8 +751,8 @@ void PropertiesPalette_Fill::toggleLabelVisibility(bool v)
 	labelFillMask->setLabelVisibility(v);
 	labelFillRule->setLabelVisibility(v);
 	labelBlendmode->setLabelVisibility(v);
+	buttonFillMask->setHasDot(!v);
 
-	iconSetChange();
 }
 
 

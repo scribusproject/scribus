@@ -39,14 +39,14 @@ bool ColorButton::hasDot() const
 	return m_hasDot;
 }
 
-QSize ColorButton::backgroundDotSize() const
+QSize ColorButton::circleSize() const
 {
 	int smallestSize = qMin(height(), width());
 
 	return QSize(smallestSize, smallestSize);
 }
 
-QSize ColorButton::foregroundDotSize() const
+QSize ColorButton::dotSize() const
 {
 	int smallestSize = 12;
 
@@ -93,32 +93,32 @@ QWidget *ColorButton::contextWidget()
 		return nullptr;
 }
 
-void ColorButton::setBackground(QBrush background)
+void ColorButton::setBrush(const QBrush& brush)
 {
-	m_background = background;
+	m_brush = brush;
 	update();
 }
 
-QBrush ColorButton::background() const
+QBrush ColorButton::brush() const
 {
 	if (isEnabled())
-		return m_background;
+		return m_brush;
 	else
 		return QBrush(palette().color(QPalette::Window));
 }
 
 
-void ColorButton::setForeground(QBrush foreground)
+void ColorButton::setDotBrush(const QBrush& brush)
 {
-	m_foreground = foreground;
+	m_dotBrush = brush;
 	if (m_hasDot)
 		update();
 }
 
-QBrush ColorButton::foreground() const
+QBrush ColorButton::dotBrush() const
 {
 	if (isEnabled())
-		return m_foreground;
+		return m_dotBrush;
 	else
 		return QBrush(palette().color(QPalette::Window));
 }
@@ -344,14 +344,6 @@ QColor ColorButton::colorFromName(QString colorName, double shade) const
 	return ScColorEngine::getDisplayColor(sColor, m_doc, shade);
 }
 
-QBrush ColorButton::colorBrush(QSize size, QString colorName, double shade, double opacity) const
-{
-	if (!m_doc || colorName == CommonStrings::tr_NoneColor || colorName == CommonStrings::None)
-		return renderEmptyPattern(size);
-
-	return renderColor(size, colorFromName(colorName, 100.0), colorFromName(colorName, shade), opacity);
-}
-
 Context ColorButton::context() const
 {
 	return m_context;
@@ -392,25 +384,35 @@ bool ColorButton::isMask() const
 QBrush ColorButton::brushSolid() const
 {
 	if (!m_doc || m_colorData.Name == CommonStrings::tr_NoneColor || m_colorData.Name == CommonStrings::None)
-		return renderEmptyPattern(this->size());
+	{
+		if (icon().isNull())
+			return renderEmptyPattern(this->size(), devicePixelRatio());
+		else
+			return combinePixmaps(renderEmptyPattern(this->size(), devicePixelRatio()), icon().pixmap(iconSize()), devicePixelRatio(), m_onIcon, false);
+	}
 
 	ScColor sColor(0, 0, 0);
 
 	if (m_doc->PageColors.contains(m_colorData.Name))
 		sColor = m_doc->PageColors.value(m_colorData.Name);
 
+	QColor qColorShade = ScColorEngine::getDisplayColor(sColor, m_doc, m_colorData.Shade);
+	QColor qColor = ScColorEngine::getDisplayColor(sColor, m_doc, 100.0);
+	QPixmap pBackground(renderColor(this->size(), devicePixelRatio(), qColor, qColorShade, 1 - m_colorData.Opacity));
+
 	// simulate grey tone for mask color
 	if (isMask())
 	{
-		QColor qColor = ScColorEngine::getDisplayColor(sColor, m_doc, m_colorData.Opacity * 100.0);
-		return renderColor(this->size(), qColor, qColor, 1);
+		qColor = ScColorEngine::getDisplayColor(sColor, m_doc, m_colorData.Opacity * 100.0);
+		qColorShade = qColor;
+		pBackground = renderColor(this->size(), devicePixelRatio(), qColor, qColor, 1);
 	}
+
+	if (icon().isNull())
+		return pBackground;
 	else
-	{
-		QColor qColorShade = ScColorEngine::getDisplayColor(sColor, m_doc, m_colorData.Shade);
-		QColor qColor = ScColorEngine::getDisplayColor(sColor, m_doc, 100.0);
-		return renderColor(this->size(), qColor, qColorShade, 1 - m_colorData.Opacity);
-	}
+		return combinePixmaps(pBackground, icon().pixmap(iconSize()), devicePixelRatio(), m_onIcon, isDarkColor(qColor));
+
 }
 
 QBrush ColorButton::brushGradient() const
@@ -422,11 +424,11 @@ QBrush ColorButton::brushGradient() const
 		default:
 		case GradMask_Linear:
 		case GradMask_LinearLumAlpha:
-			return QBrush(renderGradientLinear(this->size(), gradientData().Gradient));
+			return QBrush(renderGradientLinear(this->size(), devicePixelRatio(), gradientData().Gradient));
 			break;
 		case GradMask_Radial:
 		case GradMask_RadialLumAlpha:
-			return QBrush(renderGradientRadial(this->size(), gradientData().Gradient));
+			return QBrush(renderGradientRadial(this->size(), devicePixelRatio(), gradientData().Gradient));
 			break;
 		}
 	}
@@ -435,16 +437,16 @@ QBrush ColorButton::brushGradient() const
 		switch(type())
 		{
 		case Gradient_Linear:
-			return QBrush(renderGradientLinear(this->size(), gradientData().Gradient));
+			return QBrush(renderGradientLinear(this->size(), devicePixelRatio(), gradientData().Gradient));
 			break;
 		case Gradient_Radial:
-			return QBrush(renderGradientRadial(this->size(), gradientData().Gradient));
+			return QBrush(renderGradientRadial(this->size(), devicePixelRatio(), gradientData().Gradient));
 			break;
 		case Gradient_Diamond:
-			return QBrush(renderGradientDiamond(this->size(), gradientData().Gradient));
+			return QBrush(renderGradientDiamond(this->size(), devicePixelRatio(), gradientData().Gradient));
 			break;
 		case Gradient_Conical:
-			return QBrush(renderGradientConical(this->size(), gradientData().Gradient));
+			return QBrush(renderGradientConical(this->size(), devicePixelRatio(), gradientData().Gradient));
 			break;
 		case Gradient_4Colors:
 		{
@@ -489,14 +491,14 @@ QBrush ColorButton::brushGradient() const
 				}
 			}
 
-			return QBrush(renderGradient4Colors(this->size(), color1, color2, color3, color4));
+			return QBrush(renderGradient4Colors(this->size(), devicePixelRatio(), color1, color2, color3, color4));
 		}
 			break;
 		case Gradient_Mesh:
-			return QBrush(renderGradientMesh(this->size()));
+			return QBrush(renderGradientMesh(this->size(), devicePixelRatio()));
 			break;
 		case Gradient_PatchMesh:
-			return QBrush(renderGradientPatchMesh(this->size()));
+			return QBrush(renderGradientPatchMesh(this->size(), devicePixelRatio()));
 			break;
 		}
 	}
@@ -518,7 +520,7 @@ QBrush ColorButton::brushHatch() const
 	if (m_hatchData.ColorBackground != CommonStrings::None)
 		bg = colorFromName(m_hatchData.ColorBackground, 100.0);
 
-	return renderHatch(this->size(),
+	return renderHatch(this->size(), devicePixelRatio(),
 					   m_hatchData.Type,
 					   m_hatchData.Distance,
 					   m_hatchData.Angle,
@@ -536,13 +538,40 @@ QBrush ColorButton::brushPattern() const
 	if (!m_doc->docPatterns.contains(m_patternData.Name))
 		return QBrush();
 
-	return QBrush(pattern().getPattern());
+	QImage img = pattern().getPattern();
+	img.setDevicePixelRatio(qApp->devicePixelRatio());
+
+	return QBrush(img);
 }
 
 void ColorButton::setType(int type)
 {
 	m_type = type;
 	setModeByType(type);
+}
+
+void ColorButton::setPersistentToolTip(const QString &tooltip)
+{
+	m_persistenToolTip = tooltip;
+	buildToolTip();
+}
+
+void ColorButton::setIcon(const QIcon &icon)
+{
+	QToolButton::setIcon(icon);
+	updatePreview();
+}
+
+void ColorButton::setDotIcon(const QIcon &icon)
+{
+	m_dotIcon = icon;
+	update();
+}
+
+void ColorButton::setApplyColorOnIcon(bool onIcon)
+{
+	m_onIcon = onIcon;
+	updatePreview();
 }
 
 void ColorButton::setDoc(ScribusDoc *doc)
@@ -558,7 +587,7 @@ void ColorButton::setDoc(ScribusDoc *doc)
 
 void ColorButton::updatePreview()
 {
-	setBackground(renderBrush());
+	setBrush(renderBrush());
 }
 
 void ColorButton::updateFloatingContext()
@@ -614,7 +643,8 @@ void ColorButton::updateColor()
 			setType(colorPicker->type());
 			setGeneralData(colorPicker->generalData());
 			setColorData(colorPicker->colorData());
-			setToolTip(colorPicker->toolTipText());
+			m_dynamicToolTip = colorPicker->toolTipText();
+			buildToolTip();
 			updatePreview();
 			emit changed();
 			emit colorChanged();
@@ -631,7 +661,8 @@ void ColorButton::updateGradient()
 			setType(colorPicker->type());
 			setGeneralData(colorPicker->generalData());
 			setGradientData(colorPicker->gradientData());
-			setToolTip(colorPicker->toolTipText());
+			m_dynamicToolTip = colorPicker->toolTipText();
+			buildToolTip();
 			updatePreview();
 			emit changed();
 			emit gradientChanged();
@@ -674,7 +705,8 @@ void ColorButton::updateHatch()
 			setType(colorPicker->type());
 			setGeneralData(colorPicker->generalData());
 			setHatchData(colorPicker->hatchData());
-			setToolTip(colorPicker->toolTipText());
+			m_dynamicToolTip = colorPicker->toolTipText();
+			buildToolTip();
 			updatePreview();
 			emit changed();
 			emit hatchChanged();
@@ -691,7 +723,8 @@ void ColorButton::updatePattern()
 			setType(colorPicker->type());
 			setGeneralData(colorPicker->generalData());
 			setPatternData(colorPicker->patternData());
-			setToolTip(colorPicker->toolTipText());
+			m_dynamicToolTip = colorPicker->toolTipText();
+			buildToolTip();
 			updatePreview();
 			emit changed();
 			emit patternChanged();
@@ -717,6 +750,12 @@ void ColorButton::updateColorPicker(ColorPicker *colorPicker)
 
 }
 
+void ColorButton::buildToolTip()
+{
+	QString sb = (m_persistenToolTip.isEmpty() || m_dynamicToolTip.isEmpty()) ? "" : "<br/>";
+	QString tt = "<html><head/><body><p>" + m_persistenToolTip + sb + m_dynamicToolTip + "</p></body></html>";
+	setToolTip(tt);
+}
 
 /* ********************************************************************************* *
  *
@@ -731,8 +770,8 @@ void ColorButton::paintEvent(QPaintEvent *e)
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing, true);
 
-	QSize bSize = backgroundDotSize();
-	QSize fSize = foregroundDotSize();
+	QSize bSize = circleSize();
+	QSize fSize = dotSize();
 	QPainterPath mask;
 
 	int inset = 1;
@@ -744,10 +783,10 @@ void ColorButton::paintEvent(QPaintEvent *e)
 	renderCheckerPattern(&painter, mask.boundingRect());
 	painter.setClipping(false);
 
-	drawCircularHandle(&painter, bDot.center(), bSize.width() - inset, background(), isEnabled());
+	drawCircularHandle(&painter, bDot.center(), bSize.width() - inset, brush(), isEnabled());
 
 	// Draw Foreground Dot
-	if (m_hasDot && icon().isNull())
+	if (m_hasDot && dotIcon().isNull())
 	{
 		mask.clear();
 		QRectF fDot(rect().right() - fSize.width() + 0.5, rect().bottom() - fSize.height() + 0.5, fSize.width(), fSize.height()); // bottom right corner
@@ -756,17 +795,17 @@ void ColorButton::paintEvent(QPaintEvent *e)
 		renderCheckerPattern(&painter, mask.boundingRect());
 		painter.setClipping(false);
 
-		drawCircularHandle(&painter, fDot.center(), fDot.width(), foreground(), isEnabled());
+		drawCircularHandle(&painter, fDot.center(), fDot.width(), dotBrush(), isEnabled());
 	}
 
 	// Draw Icon
-	if (!icon().isNull())
+	if (m_hasDot && !dotIcon().isNull())
 	{
 		QIcon::Mode iMode = isEnabled() ? QIcon::Normal : QIcon::Disabled;
 
 		int w = 8;
 		int h = 8;
-		QPixmap pix = icon().pixmap(QSize(w, h), iMode);
+		QPixmap pix = dotIcon().pixmap(QSize(w, h), iMode);
 		QRectF fDot(rect().right() - fSize.width() + 0.5, rect().bottom() - fSize.height() + 0.5, fSize.width(), fSize.height()); // bottom right corner
 		painter.setPen(QPen(palette().color(QPalette::WindowText)));
 		painter.setBrush(palette().color(QPalette::Base));
@@ -776,3 +815,4 @@ void ColorButton::paintEvent(QPaintEvent *e)
 
 	painter.end();
 }
+

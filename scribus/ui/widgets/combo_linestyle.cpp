@@ -73,7 +73,7 @@ void ComboLineStyle::updateLineStyles()
 
 	m_list->sortItems();
 	m_list->insertItem( 0, tr("No Style"));
-	m_list->item(0)->setIcon(QIcon(renderEmptyPattern(m_size)));
+	m_list->item(0)->setIcon(QIcon(renderEmptyPattern(m_size, devicePixelRatio())));
 
 	index = (m_list->count() >= 0 && index < m_list->count()) ? index : 0;
 	this->setCurrentIndex(index);
