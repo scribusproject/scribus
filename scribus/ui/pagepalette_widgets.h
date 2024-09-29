@@ -81,13 +81,14 @@ protected:
 struct SCRIBUS_API PageCell
 {
 	QString pageName {QString()};
+	QString pageNumberDisplay;
 	uint pageNumber {1};
 	QPixmap pagePreview {QPixmap()};
 	QColor masterPageColor {QColor()};
 	double pageRatio {1.4142}; // IsoA
 
-	PageCell(const QString& text, uint nr, const QPixmap& pix, double pageRatio, const QColor color = Qt::black) :
-		pageName(text), pageNumber(nr), pagePreview(pix), masterPageColor(color), pageRatio(pageRatio) {}
+	PageCell(const QString& text, uint nr, const QString &nrDisplay, const QPixmap& pix, double pageRatio, const QColor color = Qt::black) :
+		pageName(text), pageNumberDisplay(nrDisplay), pageNumber(nr), pagePreview(pix), masterPageColor(color), pageRatio(pageRatio) {}
 
 	int pageWidthByHeight(int height) { return qCeil(height * pageRatio); }
 

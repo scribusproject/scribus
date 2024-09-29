@@ -708,7 +708,7 @@ void PageGrid::drawTile(QPainter &painter, QPoint cellPosition, PageCell *tile, 
 
 	// Draw Page Number
 	painter.setPen(QPen( labelColor ));
-	painter.drawText(rectCell, Qt::AlignHCenter|Qt::AlignBottom | Qt::TextWordWrap, QString::number(tile->pageNumber + 1));
+	painter.drawText(rectCell, Qt::AlignHCenter|Qt::AlignBottom | Qt::TextWordWrap, tile->pageNumberDisplay);
 
 	// Draw Page Name	
 	painter.setFont((pageNameHyphen > 0) ? font : fontName);

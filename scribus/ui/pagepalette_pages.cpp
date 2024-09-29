@@ -209,7 +209,7 @@ void PagePalette_Pages::pageView_updatePagePreview()
 	else
 	{
 		PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground | Pixmap_DontReloadImages | Pixmap_NoCanvasModeChange;
-		QMap<int, QImage> previews = currView->PagesToPixmap(pageViewWidget->pageGrid()->pageHeight() * qApp->devicePixelRatio(), -1, flags);
+		QMap<int, QImage> previews = currView->PagesToPixmap(pageViewWidget->pageGrid()->pageHeight() * devicePixelRatio(), -1, flags);
 
 		for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)
 		{
@@ -218,7 +218,7 @@ void PagePalette_Pages::pageView_updatePagePreview()
 				ScPage page = *currView->m_doc->DocPages.at(i);
 				double pageRatio = page.width() / page.height();
 				QPixmap pix = ( previews.contains(i) ) ? QPixmap::fromImage( previews.value(i) ) : QPixmap();
-				pix.setDevicePixelRatio(qApp->devicePixelRatio());
+				pix.setDevicePixelRatio(devicePixelRatio());
 
 				PageCell *pc = pageViewWidget->pageGrid()->pageList.at(i);
 				pc->pagePreview = pix;
@@ -385,15 +385,16 @@ void PagePalette_Pages::rebuildPages()
 	for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)
 	{
 		ScPage page = *currView->m_doc->DocPages.at(i);
+		QString sectionNumber(currView->m_doc->getSectionPageNumberForPageIndex(i));
+		if (sectionNumber.isEmpty())
+			sectionNumber = sectionNumber.setNum(i + 1);
 
-		QString str = page.masterPageName();
-		double pageRatio = page.width() / page.height();
-		QPixmap pix = (previews.contains(i)) ? QPixmap::fromImage(previews.value(i)) : QPixmap();
-
-		// empty page
-		PageCell *pc = new PageCell(str, i,
-									pix,// QPixmap can replace with real page preview
-									pageRatio);
+		PageCell *pc = new PageCell(
+			page.masterPageName(),
+			i, sectionNumber,
+			(previews.contains(i)) ? QPixmap::fromImage(previews.value(i)) : QPixmap(),
+			page.width() / page.height()
+		);
 		pageViewWidget->pageGrid()->pageList.append(pc);
 	}
 
