@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribusdoc.h"
 #include "util_color.h"
+#include "util_gui.h"
 
 class SCRIBUS_API ColorSmallItemDelegate : public ScListBoxPixmap<15, 15>
 {
@@ -79,12 +80,8 @@ void ColorSmallItemDelegate::redraw(const QVariant& data) const
 	{
 		ColorPixmapValue item(data.value<ColorPixmapValue>());
 		QColor rgb = ScColorEngine::getDisplayColor(item.m_color, item.m_doc);
-		pPixmap->fill(rgb);
 		QPainter painter(pPixmap);
-		painter.setBrush(Qt::NoBrush);
-		QPen b(Qt::black, 1);
-		painter.setPen(b);
-		painter.drawRect(0, 0, 15, 15);
+		drawColorBox(&painter, QRect(0, 0, pPixmap->width(), pPixmap->height()), rgb);
 		painter.end();
 	}
 }
@@ -97,7 +94,9 @@ void ColorWideItemDelegate::redraw(const QVariant& data) const
 	{
 		ColorPixmapValue item(data.value<ColorPixmapValue>());
 		QColor rgb = ScColorEngine::getDisplayColor(item.m_color, item.m_doc);
-		pPixmap->fill(rgb);
+		QPainter painter(pPixmap);
+		drawColorBox(&painter, QRect(0, 0, pPixmap->width(), pPixmap->height()), rgb);
+		painter.end();
 	}
 }
 
@@ -110,15 +109,10 @@ void ColorFancyItemDelegate::redraw(const QVariant& data) const
 
 	if (data.canConvert<ColorPixmapValue>())
 	{
-		ColorPixmapValue item(data.value<ColorPixmapValue>());
-		
+		ColorPixmapValue item(data.value<ColorPixmapValue>());		
 		QColor rgb = ScColorEngine::getDisplayColor(item.m_color, item.m_doc);
-		smallPix.fill(rgb);
 		QPainter painter(&smallPix);
-		painter.setBrush(Qt::NoBrush);
-		QPen b(Qt::black, 1);
-		painter.setPen(b);
-		painter.drawRect(0, 0, 15, 15);
+		drawColorBox(&painter, QRect(0, 0, smallPix.width(), smallPix.height()), rgb);
 		painter.end();
 		
 		paintAlert(smallPix, *pPixmap, 0, 0);

@@ -23,6 +23,20 @@ class SectionContainerHeader : public QWidget
 	friend class SectionContainer;
 
 public:
+
+	enum HeaderType {
+		Header = 1,
+		Subheader = 2
+	};
+	Q_ENUM(HeaderType)
+
+	enum HeaderSize {
+		Normal = 0,
+		Large = 1,
+		Condensed = 2
+	};
+	Q_ENUM(HeaderSize)
+
 	SectionContainerHeader(QWidget *parent = nullptr);
 	SectionContainerHeader(QString title, QWidget *parent = nullptr);
 
@@ -35,6 +49,8 @@ private:
 
 	QLabel* labelTitle { nullptr };
 
+	HeaderType m_headerType = {HeaderType::Subheader};
+	HeaderSize m_headerSize = {HeaderSize::Normal};
 	bool m_hasStyle { true };
 
 protected:
@@ -55,12 +71,13 @@ signals:
 class SectionContainer : public QWidget
 {
 	Q_OBJECT
-	Q_CLASSINFO("Version", "1.0.0")
+	Q_CLASSINFO("Version", "1.1.0")
 
 	Q_PROPERTY(QString title READ text WRITE setText)
 	Q_PROPERTY(bool isCollapsible READ isCollapsible WRITE setIsCollapsible)
 	Q_PROPERTY(bool isCollapsed READ isCollapsed WRITE setIsCollapsed)
 	Q_PROPERTY(bool hasStyle READ hasStyle WRITE setHasStyle)
+	Q_PROPERTY(SectionContainerHeader::HeaderType headerType READ headerType WRITE setHeaderType)
 
 
 public:
@@ -75,6 +92,12 @@ public:
 
 	void setHasStyle(bool hasStyle);
 	bool hasStyle() const;
+
+	void setHeaderType(SectionContainerHeader::HeaderType type);
+	SectionContainerHeader::HeaderType headerType() const;
+
+	void setHeaderSize(SectionContainerHeader::HeaderSize size);
+	SectionContainerHeader::HeaderSize headerSize() const;
 
 	void setCanSaveState(bool saveState);
 	bool canSaveState();

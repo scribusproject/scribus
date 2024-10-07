@@ -52,7 +52,9 @@ public:
 
 	QCursor loadCursor(const QString& name, int hotX = -1, int hotY = -1, int width = -1);
 	QIcon loadIcon(const QString& name, int width = -1);
+	QIcon loadIcon(const QString& name, QSize size);
 	QPixmap loadPixmap(const QString& name, int width = -1);
+	QPixmap loadPixmap(const QString& name, QSize size);
 
 	void addIconFromPainterPath(const QString & name, QPainterPath path);
 
@@ -100,7 +102,7 @@ private:
 	bool createLookupTable();
 	bool readXMLFile(QString filePath, QDomDocument &document, QString fileExtension);
 
-	QPixmap *pixmapFromFile(const QString filePath, QColor color, int width = -1);
+	QPixmap *pixmapFromFile(const QString filePath, QColor color, QSize size);
 	QPixmap *pixmapFromPainterPath(QPainterPath path);
 
 	QString buildName(const QString &name, const QString &prefix = "", const QString &suffix = "") const;

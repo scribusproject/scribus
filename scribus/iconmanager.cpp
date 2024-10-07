@@ -81,9 +81,19 @@ QIcon IconManager::loadIcon(const QString& name, int width)
 	return QIcon(loadPixmap(name, width));
 }
 
+QIcon IconManager::loadIcon(const QString &name, QSize size)
+{
+	return QIcon(loadPixmap(name, size));
+}
+
 QPixmap IconManager::loadPixmap(const QString &name, int width)
 {
-	QString cName = buildName(name, "icon_", QString::number(width));
+	return loadPixmap(name, QSize(width, width));
+}
+
+QPixmap IconManager::loadPixmap(const QString &name, QSize size)
+{
+	QString cName = buildName(name, "icon_", QString::number(size.width()) + "_" + QString::number(size.height()));
 
 	// Use icon from icon cache
 	if (m_pxCache.contains(cName))
@@ -93,7 +103,7 @@ QPixmap IconManager::loadPixmap(const QString &name, int width)
 	if (m_lookupTable.contains(name))
 	{
 		Item item = m_lookupTable[name];
-		m_pxCache.insert(cName, pixmapFromFile(item.filePath, item.color, width));
+		m_pxCache.insert(cName, pixmapFromFile(item.filePath, item.color, size));
 		return *m_pxCache[cName];
 	}
 
@@ -422,7 +432,7 @@ void IconManager::changeColorScheme(Qt::ColorScheme colorScheme)
 }
 #endif
 
-QPixmap *IconManager::pixmapFromFile(const QString filePath, QColor color, int width)
+QPixmap *IconManager::pixmapFromFile(const QString filePath, QColor color, QSize size)
 {
 	QDomDocument document;
 	// Load SVG file
@@ -433,13 +443,37 @@ QPixmap *IconManager::pixmapFromFile(const QString filePath, QColor color, int w
 
 		QSvgRenderer svgRenderer(document.toByteArray());
 
-		QSize size = (width > -1) ? QSize(width, width) : svgRenderer.defaultSize();
-		QPixmap *iconPixmap = new QPixmap(size * m_devicePixelRatio);
+		double svgWidth = svgRenderer.defaultSize().width();
+		double svgHeight = svgRenderer.defaultSize().height();
+		double width = (size.width() > 0) ?  size.width() : svgWidth;
+		double height = (size.height() > 0) ?  size.height() : svgHeight;
+
+		QSize newSize(QSize(width, height));
+
+		// invalid width
+		if (size.width() < 1)
+		{
+			double scaleFactor = (svgHeight > height) ? svgHeight / height : height / svgHeight;
+			newSize.setWidth(svgWidth * scaleFactor);
+		}
+
+		// invalid height
+		if (size.height() < 1)
+		{
+			double scaleFactor = (svgWidth > width) ? svgWidth / width : width / svgWidth;
+			newSize.setHeight(svgHeight * scaleFactor);
+		}
+
+		// something goes wrong and we fallback to original SVG size
+		if (!newSize.isValid())
+			newSize = svgRenderer.defaultSize();
+
+		QPixmap *iconPixmap = new QPixmap(newSize * m_devicePixelRatio);
 		iconPixmap->setDevicePixelRatio(m_devicePixelRatio);
 		iconPixmap->fill(Qt::transparent);
 
 		QPainter painter(iconPixmap);
-		svgRenderer.render(&painter, QRect(QPoint(0, 0), size));
+		svgRenderer.render(&painter, QRect(QPoint(0, 0), newSize));
 		painter.end();
 
 		return iconPixmap;
@@ -452,8 +486,9 @@ QPixmap *IconManager::pixmapFromFile(const QString filePath, QColor color, int w
 
 QPixmap *IconManager::pixmapFromPainterPath(QPainterPath path)
 {
-	QSize size(path.boundingRect().width(), path.boundingRect().height());
-	QPixmap pixmap(size);
+	QSize size(path.boundingRect().size().toSize());
+	QPixmap pixmap(size * m_devicePixelRatio);
+	pixmap.setDevicePixelRatio(m_devicePixelRatio);
 	pixmap.fill(Qt::transparent);
 	QPainter painter(&pixmap);
 	painter.setRenderHint(QPainter::Antialiasing, true);

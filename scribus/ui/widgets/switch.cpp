@@ -64,16 +64,14 @@ void Switch::paintEvent(QPaintEvent *event)
 
 void Switch::animate(bool toggled)
 {
-	if (toggled)
-	{
-		m_anim->setStartValue(m_margin + m_radius);
-		m_anim->setEndValue(width() - m_radius - m_margin);
-	}
-	else
-	{
-		m_anim->setStartValue(position());
-		m_anim->setEndValue(m_margin + m_radius);
-	}
+	m_anim->stop();
 	m_anim->setDuration(120);
+	m_anim->setStartValue(position());
+
+	if (toggled)
+		m_anim->setEndValue(width() - m_radius - m_margin);
+	else
+		m_anim->setEndValue(m_margin + m_radius);
+
 	m_anim->start();
 }

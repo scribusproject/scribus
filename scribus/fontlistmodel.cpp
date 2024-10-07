@@ -198,6 +198,8 @@ QVariant FontListModel::data(const QModelIndex & index,
 			case FontListModel::FontFile:
 				return font.fontPath();
 			case FontListModel::SortIndex:
+				if (font.scName().isEmpty())
+					return font.scName();
 				if (font.scName().at(0) == QChar('.'))
 					return font.scName().mid(1).toLower();
 				return font.scName().toLower();

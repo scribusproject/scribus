@@ -12,11 +12,9 @@
 FormWidget::FormWidget(QWidget *parent)
 	: QWidget(parent)
 {
-	QSizePolicy policy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 	m_font = this->font();
-	m_devicePixelRatio = qApp->devicePixelRatio();
 
-	setSizePolicy(policy);
+	setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 	calculateFrame();
 
 }
@@ -29,8 +27,13 @@ FormWidget::FormWidget(QWidget *parent)
 
 QSize FormWidget::minimumSizeHint() const
 {
-	int w = 0, h = 0;
-	labelSize(w,h);
+	int l = 0;
+	int t = 0;
+	int r = 0;
+	int b = 0;
+	int w = 0;
+	int h = 0;
+	labelSize(l, t, r, b, w, h);
 
 	return QSize(w, h).expandedTo(QWidget::minimumSizeHint());
 }
@@ -43,25 +46,14 @@ QSize FormWidget::minimumSizeHint() const
 
 void FormWidget::calculateFrame()
 {
-
-	int w, h;
-	labelSize(w,h);
-
-	switch (m_position)
-	{
-		case Left:
-			setContentsMargins(w, 0, 0, 0);
-			break;
-		case Right:
-			setContentsMargins(0, 0, w, 0);
-			break;
-		case Top:
-			setContentsMargins(0, h, 0, 0);
-			break;
-		case Bottom:
-			setContentsMargins(0, 0, 0, h);
-			break;
-	}
+	int l = 0;
+	int t = 0;
+	int r = 0;
+	int b = 0;
+	int w = 0;
+	int h = 0;
+	labelSize(l, t, r, b, w, h);
+	setContentsMargins(l, t, r, b);
 
 	update();
 }
@@ -71,7 +63,7 @@ void FormWidget::updateShortcut()
 	m_shortcutId = 0;
 	m_hasShortcut = false;
 
-	if (hasPixmap() || m_label.isEmpty() || m_labelVisibility == false)
+	if (m_label.isEmpty() || m_labelVisibility == false)
 		return;
 
 	if (!m_label.contains(QLatin1Char('&')))
@@ -93,7 +85,7 @@ void FormWidget::paintEvent(QPaintEvent *e)
 {
 	QWidget::paintEvent(e);
 
-	if (!labelVisibility()) return;
+	if (!labelVisibility() && !iconVisibility()) return;
 
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing, true);
@@ -111,67 +103,85 @@ void FormWidget::paintEvent(QPaintEvent *e)
 	painter.setPen(pen);
 	painter.setFont(tmpFont);
 
-	QRect r = rect();
+	QRect rLabel = rect();
+	QRect rIcon = rect();
 	QPixmap pix = m_pixmap;
+	pix.setDevicePixelRatio(devicePixelRatio());
+	QRect rWidgets = contentsRect();
 
-	if (hasPixmap() && pix.size() != m_pixmapSize)
-		pix = pix.scaled(m_pixmapSize * m_devicePixelRatio, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+	// painter.setBrush(Qt::NoBrush);
+	// painter.setPen(Qt::magenta);
+	// painter.drawRect(rect());
+	// painter.setPen(Qt::blue);
+	// painter.drawRect(rWidgets);
+
+	if (canUsePixmap() && pix.size() != m_pixmapSize)
+		pix = pix.scaled(m_pixmapSize * devicePixelRatio(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
 	if (!isEnabled())
 		pix = style->generatedIconPixmap(QIcon::Disabled, pix, &opt);
 
+	if (canUsePixmap())
+	{
+		rIcon = QRect(0, 0, m_pixmap.deviceIndependentSize().width(), m_pixmap.deviceIndependentSize().height());
+		rIcon.moveCenter(rWidgets.center());
 
-	switch (m_position){
-	case Left:
-		if (hasPixmap())
-		{
-			r= QRect (0, (height() - m_pixmap.height()) / 2, m_pixmap.width(), m_pixmap.height());
-			style->drawItemPixmap(&painter, r, align, pix);
-
+		switch (m_iconPosition){
+		default:
+		case Left:
+			rIcon.moveLeft(0);
+			rLabel = rLabel.adjusted(rIcon.width() + m_space, 0, 0, 0);
+			break;
+		case Right:
+			rIcon.moveRight(width());
+			rLabel = rLabel.adjusted(0, 0, -rIcon.width() - m_space, 0);
+			break;
+		case Top:
+			rIcon.moveTop(0);
+			rLabel = rLabel.adjusted(0, rIcon.height() + m_space, 0, 0);
+			break;
+		case Bottom:
+			rIcon.moveBottom(height());
+			rLabel = rLabel.adjusted(0, 0, 0, -rIcon.height() - m_space);
+			break;
 		}
-		else
-			style->drawItemText(&painter, r, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextShowMnemonic, opt.palette, isEnabled(), m_label, foregroundRole());
 
-		break;
-	case Right:
-		if (hasPixmap())
-		{
-			r= QRect (width() - m_pixmap.width(), (height() - m_pixmap.height()) / 2, m_pixmap.width(), m_pixmap.height());
-			style->drawItemPixmap(&painter, r, align, pix);
+		style->drawItemPixmap(&painter, rIcon, align, pix);
+
+		// painter.setBrush(Qt::NoBrush);
+		// painter.setPen(Qt::red);
+		// painter.drawRect(rIcon);
+	}
+
+	if (canUseLabel())
+	{
+		switch (m_position){
+		case Left:
+			style->drawItemText(&painter, rLabel, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextShowMnemonic, opt.palette, isEnabled(), m_label, foregroundRole());
+			break;
+		case Right:
+			style->drawItemText(&painter, rLabel, Qt::AlignRight | Qt::AlignVCenter | Qt::TextShowMnemonic, opt.palette, isEnabled(), m_label, foregroundRole());
+			break;
+		case Top:
+			style->drawItemText(&painter, rLabel, Qt::AlignHCenter | Qt::AlignTop | Qt::TextShowMnemonic, opt.palette, isEnabled(), m_label, foregroundRole());
+			break;
+		case Bottom:
+			style->drawItemText(&painter, rLabel, Qt::AlignHCenter | Qt::AlignBottom | Qt::TextShowMnemonic, opt.palette, isEnabled(), m_label, foregroundRole());
+			break;
 		}
-		else
-			style->drawItemText(&painter, r, Qt::AlignRight | Qt::AlignVCenter | Qt::TextShowMnemonic, opt.palette, isEnabled(), m_label, foregroundRole());
 
-		break;
-	case Top:
-		if (hasPixmap())
-		{
-			r= QRect ((width() - m_pixmap.width()) / 2, 0, m_pixmap.width(), m_pixmap.height());
-			style->drawItemPixmap(&painter, r, align, pix);
-		}
-		else
-			style->drawItemText(&painter, r, Qt::AlignHCenter | Qt::AlignTop | Qt::TextShowMnemonic, opt.palette, isEnabled(), m_label, foregroundRole());
-
-		break;
-	case Bottom:
-		if (hasPixmap())
-		{
-			r= QRect ((width() - m_pixmap.width()) / 2, height() - m_pixmap.height(), m_pixmap.width(), m_pixmap.height());
-			style->drawItemPixmap(&painter, r, align, pix);
-		}
-		else
-			style->drawItemText(&painter, r, Qt::AlignHCenter | Qt::AlignBottom | Qt::TextShowMnemonic, opt.palette, isEnabled(), m_label, foregroundRole());
-
-		break;
+		// painter.setBrush(Qt::NoBrush);
+		// painter.setPen(Qt::green);
+		// painter.drawRect(rLabel);
 	}
 
 }
 
 bool FormWidget::event(QEvent *e)
-{
-	QEvent::Type type = e->type();
+{	
 
 #ifndef EXCLUDE_FOR_DESIGNER_PLUGIN
+	QEvent::Type type = e->type();
 	if (type == QEvent::Shortcut && this->layout()->count() > 0) {
 		QShortcutEvent *se = static_cast<QShortcutEvent *>(e);
 		if (se->shortcutId() == m_shortcutId) {
@@ -243,53 +253,89 @@ bool FormWidget::event(QEvent *e)
  * ********************************************************************************* */
 
 
-void FormWidget::labelSize(int &w, int &h) const
+void FormWidget::labelSize(int &l, int &t, int &r, int &b, int &w, int &h) const
 {   
+	l = 0;
+	t = 0;
+	r = 0;
+	b = 0;
 	w = 0;
 	h = 0;
 
-	if (hasPixmap())
+	if (canUsePixmap())
 	{
-        	w = m_pixmapSize.width() * m_devicePixelRatio + m_space;
-        	h = m_pixmapSize.height() * m_devicePixelRatio + m_space;
-	}
-	else
-	{
+		int iconWidth = m_pixmapSize.width() + m_space;
+		int iconHeight = m_pixmapSize.height() + m_space;
 
-		if ((m_label.isEmpty() && m_preserveLabelSpace == false) || m_labelVisibility == false)
+		w += iconWidth;
+		h += iconHeight;
+
+		switch (m_iconPosition)
 		{
-			w = 0;
-			h = 0;
+		case Left:
+			l += iconWidth;
+			break;
+		case Right:
+			r += iconWidth;
+			break;
+		case Top:
+			t += iconHeight;
+			break;
+		case Bottom:
+			b += iconHeight;
+			break;
 		}
-		else
+
+	}
+
+	if (canUseLabel())
+	{
+		QFont tmpFont(m_font);
+		if (m_useSmallFont)
+			tmpFont.setPointSize(smallFontSize());
+
+		QFontMetrics metrics(tmpFont);
+		QString label = m_label;
+
+		// calculate width without hidden "&"
+		if (m_hasShortcut)
 		{
-			QFont tmpFont(m_font);
-			if (m_useSmallFont)
-				tmpFont.setPointSize(smallFontSize());
-
-			QFontMetrics metrics(tmpFont);
-			QString label = m_label;
-
-			// calculate width without hidden "&"
-			if (m_hasShortcut)
+			int pos = 0;
+			while ( pos < m_label.size())
 			{
-				int pos = 0;
-				while ( pos < m_label.size())
-				{
-					int index = label.indexOf(QLatin1String("&"), pos);
+				int index = label.indexOf(QLatin1String("&"), pos);
 
-					if (pos == index)
-						label = label.replace(index, 1, "");
+				if (pos == index)
+					label = label.replace(index, 1, "");
 
-					pos++;
-				}
+				pos++;
 			}
-
-			w = metrics.horizontalAdvance(label) + metrics.horizontalAdvance(QLatin1Char(' ')) + m_space;
-			h = metrics.height() + m_space;
-
 		}
+
+		int labelWidth = metrics.horizontalAdvance(label) + metrics.horizontalAdvance(QLatin1Char(' ')) + m_space;
+		int labelHeight = metrics.height() + m_space;
+
+		w += labelWidth;
+		h += labelHeight;
+
+		switch (m_position)
+		{
+			case Left:
+				l += labelWidth;
+				break;
+			case Right:
+				r += labelWidth;
+				break;
+			case Top:				
+				t += labelHeight;
+				break;
+			case Bottom:				
+				b += labelHeight;
+				break;
+		}
+
 	}
+
 }
 
 int FormWidget::smallFontSize() const
@@ -338,6 +384,12 @@ void FormWidget::setDirection(LabelPosition direction)
 	calculateFrame();
 }
 
+void FormWidget::setIconDirection(LabelPosition direction)
+{
+	m_iconPosition = direction;
+	calculateFrame();
+}
+
 void FormWidget::setFont(QFont font)
 {
 	m_font = font;
@@ -359,7 +411,6 @@ void FormWidget::setSpace(int space)
 void FormWidget::setPixmap(QPixmap icon)
 {
 	m_pixmap = icon;
-	updateShortcut();
 	calculateFrame();
 
 }
@@ -367,6 +418,12 @@ void FormWidget::setPixmap(QPixmap icon)
 void FormWidget::setPixmapSize(QSize size)
 {
 	m_pixmapSize = size;
+	calculateFrame();
+}
+
+void FormWidget::setIconVisibility(bool visible)
+{
+	m_iconVisibility = visible;
 	calculateFrame();
 }
 

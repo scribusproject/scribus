@@ -109,6 +109,56 @@ bool SectionContainer::hasStyle() const
 	return m_hasStyle;
 }
 
+void SectionContainer::setHeaderType(SectionContainerHeader::HeaderType type)
+{
+	header->m_headerType = type;
+
+	QFont fnt = font();
+
+	if (type == SectionContainerHeader::Header)
+		fnt.setBold(true);
+
+	header->labelTitle->setFont(fnt);
+
+	update();
+}
+
+SectionContainerHeader::HeaderType SectionContainer::headerType() const
+{
+	return header->m_headerType;
+}
+
+void SectionContainer::setHeaderSize(SectionContainerHeader::HeaderSize size)
+{
+	int pt = 4;
+	int pb = 4;
+
+	switch (size)
+	{
+		case SectionContainerHeader::Large:
+			pt = 8;
+			pb = 4;
+			break;
+		case SectionContainerHeader::Condensed:
+			pt = 2;
+			pb = 2;
+			break;
+		default:
+		case SectionContainerHeader::Normal:
+			break;
+	}
+
+	header->m_headerSize = size;
+	header->layoutHeader->setContentsMargins(4, pt, 4, pb);
+	header->setFixedHeight(header->buttonCollapse->height() + pt + pb);
+
+}
+
+SectionContainerHeader::HeaderSize SectionContainer::headerSize() const
+{
+	return header->m_headerSize;
+}
+
 void SectionContainer::setCanSaveState(bool saveState)
 {
 	m_canSaveState = saveState;
@@ -375,13 +425,13 @@ void SectionContainer::paintEvent(QPaintEvent *event)
 		return;
 
 	int lineWidth = 1;
-	QColor bottomLineColor(palette().color(QPalette::Dark));
+	QColor bottomLineColor(palette().color(QPalette::Mid));
 
 	QPainter painter(this);
 
 	// Bottom Line
 	painter.setPen(QPen(bottomLineColor, lineWidth));
-	painter.drawLine(8, this->height() - lineWidth, this->width() - 8,
+	painter.drawLine(0, this->height() - lineWidth, this->width(),
 					 this->height() - lineWidth);
 }
 
@@ -439,7 +489,6 @@ SectionContainerHeader::SectionContainerHeader(QWidget *parent)
 SectionContainerHeader::SectionContainerHeader(QString title, QWidget *parent) : QWidget(parent)
 {
 	int padding = 6;
-	m_hasStyle = true;
 
 	layoutHeader = new QHBoxLayout;
 	layoutHeaderPrefix = new QHBoxLayout;
@@ -493,39 +542,41 @@ void SectionContainerHeader::paintEvent(QPaintEvent *event)
 {
 	Q_UNUSED(event)
 
-	if (!m_hasStyle)
-		return;
-
 	int lineWidth = 1;
-	//	QColor topLineColor( palette().color(QPalette::Mid) );
-	QColor bottomLineColor(palette().color(QPalette::Dark));
-
-#ifndef EXCLUDE_FOR_DESIGNER_PLUGIN
-	QColor bgColor = colorByRole(QPalette::WindowText, 0.07, isEnabled());
-#else
-	QColor bgColor(palette().color(QPalette::WindowText));
-	bgColor.setAlphaF(0.07f);
-#endif
-
 	int headerHeight = this->height();
+	QColor bottomLineColor(palette().color(QPalette::Mid));
 	QRect headerRect(0, 0, this->width(), headerHeight - lineWidth);
 
 	QPainter painter(this);
-
 	painter.setPen(Qt::NoPen);
-	painter.setBrush(bgColor);
-	painter.drawRect(headerRect);
+
+	if (m_hasStyle)
+	{
+
+#ifndef EXCLUDE_FOR_DESIGNER_PLUGIN
+		QColor bgColor = colorByRole(QPalette::WindowText, 0.16, isEnabled());
+
+		if (m_headerType == SectionContainerHeader::Subheader)
+			bgColor = colorByRole(QPalette::WindowText, 0.08, isEnabled());
+#else
+		QColor bgColor(palette().color(QPalette::WindowText));
+		bgColor.setAlphaF(0.16f);
+
+		if (m_headerType == SectionContainerHeader::Subheader)
+			bgColor.setAlphaF(0.08f);
+#endif
+
+		painter.setBrush(bgColor);
+		painter.drawRect(headerRect);
+	}
 
 	painter.setBrush(Qt::NoBrush);
-
-	// Top Line
-	//	painter.setPen( QPen(topLineColor, lineWidth) );
-	//	painter.drawLine( 0, 0,this->width(), 0 );
 
 	// Bottom Line
 	painter.setPen(QPen(bottomLineColor, lineWidth));
 	painter.drawLine(0, headerHeight - lineWidth, this->width(),
 					 headerHeight - lineWidth);
+	painter.end();
 }
 
 void SectionContainerHeader::mousePressEvent(QMouseEvent *mouseEvent)
