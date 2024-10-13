@@ -572,9 +572,9 @@ void GlyphBox::drawSelection(ScreenPainter *p, ITextContext *ctx) const
 			qreal firstX = positionToPoint(selectionFirst, item->itemText).x1();
 			qreal lastX = positionToPoint(selectionLast + 1, item->itemText).x1();
 			if (m_glyphRun.hasFlag(ScLayout_RightToLeft))
-				rect = QRectF(lastX, y(), firstX - lastX, height());
+				rect = QRectF(lastX, -ascent(), firstX - lastX, height());
 			else
-				rect = QRectF(firstX, y(), lastX - firstX, height());
+				rect = QRectF(firstX, -ascent(), lastX - firstX, height());
 			p->drawRect(rect);
 		}
 	}
