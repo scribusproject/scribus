@@ -1977,18 +1977,20 @@ bool PrefsManager::readPref(const QString& filePath)
 	m_firstTimeIgnoreOldPrefs = !prefs150FileFound;
 	if (!prefs150FileFound)
 		return false;
+
 	appPrefs.colorPrefs.DColors.clear();
 	ColorSetManager csm;
 	csm.initialiseDefaultPrefs(appPrefs);
 	csm.findPaletteLocations();
 	csm.findPalettes();
 	csm.findUserPalettes();
-	QDomNode DOC = elem.firstChild();
-	if (!DOC.namedItem("CheckProfile").isNull())
+
+	QDomNode domNode = elem.firstChild();
+	if (!domNode.namedItem("CheckProfile").isNull())
 		appPrefs.verifierPrefs.checkerPrefsList.clear();
-	while (!DOC.isNull())
+	while (!domNode.isNull())
 	{
-		ScDomElement dc = DOC.toElement();
+		ScDomElement dc = domNode.toElement();
 
 		if (dc.tagName() == "UI")
 		{
@@ -2039,7 +2041,6 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.docSetupPrefs.bleeds.setLeft(ScCLocale::toDoubleC(dc.attribute("BleedLeft"), 0.0));
 			appPrefs.docSetupPrefs.bleeds.setRight(ScCLocale::toDoubleC(dc.attribute("BleedRight"), 0.0));
 			appPrefs.docSetupPrefs.bleeds.setBottom(ScCLocale::toDoubleC(dc.attribute("BleedBottom"), 0.0));
-
 		}
 
 		if (dc.tagName() == "Miscellaneous")
@@ -2338,7 +2339,7 @@ bool PrefsManager::readPref(const QString& filePath)
 		if (dc.tagName() == "PageSets")
 		{
 			QList<PageSet> newPageSets;
-			for (QDomNode pgs = DOC.firstChild(); !pgs.isNull(); pgs = pgs.nextSibling())
+			for (QDomNode pgs = domNode.firstChild(); !pgs.isNull(); pgs = pgs.nextSibling())
 			{
 				QDomElement pgsAttr = pgs.toElement();
 				if (pgsAttr.tagName() != "Set")
@@ -2651,7 +2652,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.pdfPrefs.openAfterExport = static_cast<bool>(dc.attribute("openAfterExport", "0").toInt());
 			appPrefs.pdfPrefs.PageLayout = dc.attribute("PageLayout", "0").toInt();
 			appPrefs.pdfPrefs.openAction = dc.attribute("OpenAction", "");
-			QDomNode pfoNode = DOC.firstChild();
+			QDomNode pfoNode = domNode.firstChild();
 			appPrefs.pdfPrefs.LPISettings.clear();
 			while (!pfoNode.isNull())
 			{
@@ -2669,7 +2670,7 @@ bool PrefsManager::readPref(const QString& filePath)
 		}
 		if (dc.tagName() == "DefaultItemAttributes")
 		{
-			QDomNode diaNode = DOC.firstChild();
+			QDomNode diaNode = domNode.firstChild();
 			appPrefs.itemAttrPrefs.defaultItemAttributes.clear();
 			while (!diaNode.isNull())
 			{
@@ -2691,7 +2692,7 @@ bool PrefsManager::readPref(const QString& filePath)
 		}
 		if (dc.tagName() == "TablesOfContents")
 		{
-			QDomNode tocNode = DOC.firstChild();
+			QDomNode tocNode = domNode.firstChild();
 			appPrefs.tocPrefs.defaultToCSetups.clear();
 			while (!tocNode.isNull())
 			{
@@ -2752,7 +2753,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.experimentalFeaturePrefs.notesEnabled = static_cast<bool>(dc.attribute("NotesEnabled", "0").toInt());
 		}
 
-		DOC = DOC.nextSibling();
+		domNode = domNode.nextSibling();
 	}
 	// Some sanity checks
 	appPrefs.colorPrefs.DColors.ensureDefaultColors();
