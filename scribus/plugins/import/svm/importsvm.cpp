@@ -1876,6 +1876,15 @@ void SvmPlug::handleSmallText(QDataStream &ds)
 			aTxt += char(ch);
 		}
 	}
+	else if (currentDC.fontEnc == 0x4C) // UTF-8
+	{
+		quint16 numChar;
+		ds >> numChar;
+		QByteArray utf8Data(numChar, 0);
+		qint64 numCharRead = ds.readRawData(utf8Data.data(), numChar);
+		if (numChar == numCharRead)
+			aTxt = QString::fromUtf8(utf8Data);
+	}
 	else
 	{
 		quint16 length;
@@ -1946,6 +1955,15 @@ void SvmPlug::handleText(QDataStream &ds, quint16 version)
 			ds >> ch;
 			aTxt += char(ch);
 		}
+	}
+	else if (currentDC.fontEnc == 0x4C) // UTF-8
+	{
+		quint16 numChar;
+		ds >> numChar;
+		QByteArray utf8Data(numChar, 0);
+		qint64 numCharRead = ds.readRawData(utf8Data.data(), numChar);
+		if (numChar == numCharRead)
+			aTxt = QString::fromUtf8(utf8Data);
 	}
 	else
 	{
