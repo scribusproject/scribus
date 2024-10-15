@@ -53,8 +53,10 @@ for which a new license (GPL+exception) is in place.
 #include <poppler/splash/SplashGlyphBitmap.h>
 
 //------------------------------------------------------------------------
-// LinkSubmitData
+// LinkSubmitForm
 //------------------------------------------------------------------------
+
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(24, 10, 0)
 
 class LinkSubmitForm: public LinkAction
 {
@@ -75,6 +77,8 @@ private:
 	GooString *fileName {nullptr};		// file name
 	int m_flags {0};
 };
+
+#endif
 
 //------------------------------------------------------------------------
 // LinkImportData
