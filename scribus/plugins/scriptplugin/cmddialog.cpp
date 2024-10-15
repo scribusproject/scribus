@@ -58,7 +58,8 @@ PyObject *scribus_filedialog(PyObject* /* self */, PyObject* args, PyObject* kw)
 		optionFlags |= fdExistingFiles;
 	if (isdir)
 		optionFlags |= fdDirectoriesOnly;
-	QString fName = ScCore->primaryMainWindow()->CFileDialog(".",
+	QPair<QString, uint> fileNameVersion;
+	fileNameVersion = ScCore->primaryMainWindow()->CFileDialog(".",
 										 QString::fromUtf8(caption.c_str()),
 										 QString::fromUtf8(filter.c_str()),
 										 QString::fromUtf8(defName.c_str()),
@@ -69,7 +70,7 @@ PyObject *scribus_filedialog(PyObject* /* self */, PyObject* args, PyObject* kw)
 										);
 //	QApplication::restoreOverrideCursor();
 	// FIXME: filename return unicode OK?
-	return PyUnicode_FromString(fName.toUtf8());
+	return PyUnicode_FromString(fileNameVersion.first.toUtf8());
 }
 
 PyObject *scribus_messagebox(PyObject* /* self */, PyObject* args, PyObject* kw)

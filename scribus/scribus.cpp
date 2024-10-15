@@ -125,8 +125,6 @@ for which a new license (GPL+exception) is in place.
 #include "pdflib.h"
 #include "pdfoptions.h"
 #include "pluginmanager.h"
-#include "plugins/formatidlist.h"
-#include "plugins/formatidlist.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -3139,19 +3137,20 @@ void ScribusMainWindow::updateColorLists()
 bool ScribusMainWindow::slotFileOpen()
 {
 	PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
-	QString docDir(".");
+	QString docDir;
 	QString prefsDocDir(m_prefsManager.documentDir());
 	if (!prefsDocDir.isEmpty())
 		docDir = docContext->get("docsopen", prefsDocDir);
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats(FileLoader::getLoadFilterString());
-	QString fileName(CFileDialog( docDir, tr("Open"), formats, "", fdDisableOk));
-	if (fileName.isEmpty()) // User cancelled
+	QPair<QString, uint> fileNameVersion;
+	fileNameVersion = CFileDialog( docDir, tr("Open"), formats, "", fdDisableOk);
+	if (fileNameVersion.first.isEmpty()) // User cancelled
 		return false;
-	QFileInfo fi(fileName);
+	QFileInfo fi(fileNameVersion.first);
 	docContext->set("docsopen", fi.absolutePath());
-	return loadDoc(fileName);
+	return loadDoc(fileNameVersion.first);
 }
 
 bool ScribusMainWindow::slotPageImport()
@@ -3962,7 +3961,9 @@ void ScribusMainWindow::toogleInlineState()
 				wdir = docContext->get("place_as", ".");
 			wdir = QDir::fromNativeSeparators( wdir );
 		}
-		QString fileName = CFileDialog(wdir, tr("Filename and Path for Image"), tr("All Files (*)"), fiB.fileName(), fdHidePreviewCheckBox);
+		QPair<QString, uint> fileNameVersion;
+		fileNameVersion = CFileDialog(wdir, tr("Filename and Path for Image"), tr("All Files (*)"), fiB.fileName(), fdHidePreviewCheckBox);
+		QString fileName(fileNameVersion.first);
 		if (!fileName.isEmpty())
 		{
 			if (ScCore->fileWatcher->isWatching(currItem->Pfile))
@@ -4075,7 +4076,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 	bool ret = false;
 	QString filename;
 	PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
-	QString wdir = ".";
+	QString wdir;
 	if (doc->hasName)
 	{
 		QFileInfo fi(doc->documentFileName());
@@ -4094,31 +4095,31 @@ bool ScribusMainWindow::slotFileSaveAs()
 			wdir = docContext->get("save_as", prefsDocDir);
 		else
 			wdir = docContext->get("save_as", ".");
-		wdir = QDir::fromNativeSeparators( wdir );
+		filename = QDir::fromNativeSeparators( wdir );
 		if (wdir.right(1) != "/")
-			filename = wdir + "/";
-		else
-			filename = wdir;
+			filename += "/";
 		filename += doc->documentFileName() + ".sla";
 	}
 	bool saveCompressed = m_prefsManager.appPrefs.docSetupPrefs.saveCompressed;
 	if (saveCompressed)
 		filename.append(".gz");
 
-	QString fileSpec = tr("Documents (*.sla *.sla.gz);;All Files (*)");
+	//QString formats = tr("Documents (*.sla *.sla.gz);;All Files (*)");
+	QString formats(FileLoader::getSaveAsFilterString());
 	int optionFlags = fdCompressFile | fdHidePreviewCheckBox;
-	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, filename, optionFlags, &saveCompressed);
+	QPair<QString, uint> fileNameVersion {filename, FORMATID_CURRENTEXPORT};
+	fileNameVersion = CFileDialog( wdir, tr("Save As"), formats, filename, optionFlags, &saveCompressed);
+	QString fn(fileNameVersion.first);
 	if (!fn.isEmpty())
 	{
 		docContext->set("save_as", fn.left(fn.lastIndexOf("/")));
-		if ((fn.endsWith(".sla")) || (fn.endsWith(".sla.gz")))
-			filename = fn;
-		else
+		filename = fn;
+		if (!((fn.endsWith(".sla")) || (fn.endsWith(".sla.gz"))))
 			filename = fn+".sla";
 		if (overwrite(this, filename))
 		{
 			QString savedFileName;
-			ret = DoFileSave(filename, &savedFileName);
+			ret = DoFileSave(filename, &savedFileName, fileNameVersion.second);
 			if (!ret && !savedFileName.isEmpty())
 				ScMessageBox::warning(this, CommonStrings::trWarning, tr("Your document was saved to a temporary file and could not be moved: \n%1").arg( QDir::toNativeSeparators(savedFileName) ));
 			else if (!ret)
@@ -4131,14 +4132,14 @@ bool ScribusMainWindow::slotFileSaveAs()
 	return ret;
 }
 
-bool ScribusMainWindow::DoFileSave(const QString& fileName, QString* savedFileName)
+bool ScribusMainWindow::DoFileSave(const QString& fileName, QString* savedFileName,  uint formatID)
 {
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
 	doc->reorganiseFonts();
 	m_mainWindowStatusLabel->setText( tr("Saving..."));
 	mainWindowProgressBar->reset();
-	bool ret = doc->save(fileName, savedFileName);
+	bool ret = doc->save(fileName, savedFileName, formatID);
 	QApplication::processEvents();
 	if (ret)
 	{
@@ -7026,10 +7027,11 @@ void ScribusMainWindow::reallySaveAsEps()
 	PrefsContext* dirsContext = m_prefsManager.prefsFile->getContext("dirs");
 	QString prefsDocDir = m_prefsManager.documentDir();
 	QString workingDir = dirsContext->get("eps", prefsDocDir.isEmpty() ? "." : prefsDocDir);
-	QString fn = CFileDialog(workingDir, tr("Save As"), tr("%1;;All Files (*)").arg(m_formatsManager->extensionsForFormat(FormatsManager::EPS)), filename, fdHidePreviewCheckBox | fdNone);
-	if (fn.isEmpty())
+	QPair<QString, uint> fileNameVersion;
+	fileNameVersion =  CFileDialog(workingDir, tr("Save As"), tr("%1;;All Files (*)").arg(m_formatsManager->extensionsForFormat(FormatsManager::EPS)), filename, fdHidePreviewCheckBox | fdNone);
+	if (fileNameVersion.first.isEmpty())
 		return;
-
+	QString fn (fileNameVersion.first);
 	m_prefsManager.prefsFile->getContext("dirs")->set("eps", fn.left(fn.lastIndexOf("/")));
 	if (!overwrite(this, fn))
 		return;
@@ -7957,7 +7959,7 @@ void ScribusMainWindow::StatusPic()
 	delete dia;
 }
 
-QString ScribusMainWindow::CFileDialog(const QString& workingDirectory, const QString& dialogCaption, const QString& fileFilter, const QString& defaultFilename, int optionFlags, bool *useCompression, bool *useFonts, bool *useProfiles)
+QPair<QString, uint> ScribusMainWindow::CFileDialog(const QString& workingDirectory, const QString& dialogCaption, const QString& fileFilter, const QString& defaultFilename, int optionFlags, bool *useCompression, bool *useFonts, bool *useProfiles)
 {
 	// changed from "this" to qApp->activeWindow() to be sure it will be opened
 	// with the current active window as parent. E.g. it won't hide StoryEditor etc. -- PV
@@ -7983,13 +7985,13 @@ QString ScribusMainWindow::CFileDialog(const QString& workingDirectory, const QS
 		if (useProfiles != nullptr)
 			dia->setIncludeProfiles(*useProfiles);
 	}
-	QString retVal;
+	QString returnName;
+	QPair<QString, uint> fileNameVersion;
+	fileNameVersion.second = FORMATID_CURRENTEXPORT;
 	if (dia->exec() == QDialog::Accepted)
 	{
-		LoadEnc.clear();
 		if (!(optionFlags & fdDirectoriesOnly))
 		{
-			LoadEnc = (optionFlags & fdShowCodecs) ? dia->textCodec() : QString();
 			if (optionFlags & fdCompressFile)
 			{
 				if (dia->saveZipFile())
@@ -8006,11 +8008,16 @@ QString ScribusMainWindow::CFileDialog(const QString& workingDirectory, const QS
 				*useProfiles = dia->includeProfiles();
 		}
 		this->repaint();
-		retVal = dia->selectedFile();
+		fileNameVersion.first = dia->selectedFile();
+		fileNameVersion.second=FileLoader::findFormatIDFromDescription(dia->selectedNameFilter());
+
+		qDebug()<<dia->selectedNameFilter();
+		qDebug()<<fileNameVersion.first;
+		qDebug()<<fileNameVersion.second;
 		QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
 	delete dia;
-	return retVal;
+	return fileNameVersion;
 }
 
 

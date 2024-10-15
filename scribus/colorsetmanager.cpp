@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 #include "fileloader.h"
 #include "loadsaveplugin.h"
-#include "plugins/formatidlist.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include <QDomElement>

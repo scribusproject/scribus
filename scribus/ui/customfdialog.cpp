@@ -277,10 +277,10 @@ void FDialogPreview::genPreview(const QString& name)
 	}
 }
 
-CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString& caption, const QString& filter, int flags)
-			: QDialog(parent),
-	          m_optionFlags(flags),
-	          m_previewIsShown(true)
+CustomFDialog::CustomFDialog(QWidget *parent, const QString &wDir, const QString &caption, const QString &filter, int flags)
+	: QDialog(parent),
+	m_optionFlags(flags),
+	m_previewIsShown(true)
 {
 	m_fileDialogPrefs = PrefsManager::instance().prefsFile->getContext("customfdialog", false);
 
@@ -593,6 +593,11 @@ QStringList CustomFDialog::selectedFiles() const
 void CustomFDialog::addWidgets(QWidget *widgets)
 {
 	vboxLayout->addWidget(widgets);
+}
+
+QString CustomFDialog::selectedNameFilter()
+{
+	return fileDialog->selectedNameFilter();
 }
 
 void CustomFDialog::handleCompress()

@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 
 #include "scribusapi.h"
+#include "plugins/formatidlist.h"
 #include "styles/styleset.h"
 #include "styles/paragraphstyle.h"
 #include "styles/charstyle.h"
@@ -39,7 +40,7 @@ public:
 
 	bool loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, const QString& renamedPageName = QString());
 	bool loadFile(ScribusDoc* currDoc);
-	bool saveFile(const QString& fileName, ScribusDoc *doc, QString *savedFile = nullptr);
+	bool saveFile(const QString& fileName, ScribusDoc *doc, QString *savedFile = nullptr, uint formatID = FORMATID_CURRENTEXPORT);
 	bool readStyles(ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
 	bool readCharStyles(ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
 	bool readPageCount(int *num1, int *num2, QStringList & masterPageNames);
@@ -56,12 +57,15 @@ public:
 	const FileFormat * const formatSLA170;
 
 	static const QString getLoadFilterString();
+	static const QString getSaveAsFilterString();
+	static uint findFormatIDFromDescription(const QString &fileType);
 
 private:
 	QMap<QString, QString> m_ReplacedFonts;
 	bool m_newReplacement;
 	void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
 	bool findFormat(uint formatId, QList<FileFormat>::const_iterator &it);
+
 	PrefsManager& m_prefsManager;
 
 	QString m_fileName;

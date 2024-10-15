@@ -57,7 +57,6 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "fileloader.h"
 #include "loadsaveplugin.h"
-#include "plugins/formatidlist.h"
 
 using namespace std;
 

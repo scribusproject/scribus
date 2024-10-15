@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "fileloader.h"
 #include "loadsaveplugin.h"
-#include "plugins/formatidlist.h"
 #include "prefsmanager.h"
 #include "resourcecollection.h"
 #include "scclocale.h"
@@ -66,8 +65,6 @@ FileLoader::FileLoader(const QString & fileName) :
 	m_newReplacement = false;
 }
 
-// FIXME: This static method is here as a temporary transitional
-// measure during the process of converting to file loader plugins.
 const QString FileLoader::getLoadFilterString()
 {
 //	return LoadSavePlugin::fileDialogLoadFilter().join(";;");
@@ -93,6 +90,13 @@ const QString FileLoader::getLoadFilterString()
 	if (ind != -1)
 		fmts.removeAt(ind);
 	fmtString += fmts.join(";;");
+	return fmtString.simplified();
+}
+
+const QString FileLoader::getSaveAsFilterString()
+{
+	QStringList fmts = LoadSavePlugin::fileDialogSaveFilter();
+	QString fmtString = fmts.join(";;");
 	return fmtString.simplified();
 }
 
@@ -265,11 +269,11 @@ bool FileLoader::loadFile(ScribusDoc* currDoc)
 	return ret;
 }
 
-bool FileLoader::saveFile(const QString& fileName, ScribusDoc *doc, QString *savedFile)
+bool FileLoader::saveFile(const QString& fileName, ScribusDoc *doc, QString *savedFile, uint formatID)
 {
 	bool ret = false;
 	QList<FileFormat>::const_iterator it;
-	if (findFormat(FORMATID_SLA170EXPORT, it))
+	if (findFormat(formatID, it))
 	{
 		it->setupTargets(doc, doc->view(), doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 		ret = it->saveFile(fileName);
@@ -470,4 +474,17 @@ bool FileLoader::findFormat(uint formatId, QList<FileFormat>::const_iterator &it
 			return true;
 	}
 	return false;
+}
+
+uint FileLoader::findFormatIDFromDescription(const QString &fileType)
+{
+	QList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
+	auto it = fileFormats.constBegin();
+	auto itEnd(fileFormats.constEnd());
+	for (; it != itEnd; ++it)
+	{
+		if (it->trName == fileType)
+			return it->formatId;
+	}
+	return -1;
 }

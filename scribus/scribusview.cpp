@@ -82,7 +82,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_polyline.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
-#include "plugins/formatidlist.h"
 #include "prefsmanager.h"
 #include "scmimedata.h"
 #include "scpage.h"

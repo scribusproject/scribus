@@ -160,13 +160,11 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		else
 		{
 			//qDebug() << "Spelling language to match style language IS installed (" << wordLang << ")";
-			int i = 0;
 			auto it = dictionaryMap.cbegin();
 			while (it != dictionaryMap.cend())
 			{
 				if (it.key() == wordLang)
 					break;
-				++i;
 				++it;
 			}
 		}

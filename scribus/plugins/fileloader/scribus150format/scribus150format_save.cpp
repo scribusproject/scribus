@@ -67,7 +67,7 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 	writer.writeAttribute("W", wp);
 	writer.writeAttribute("H", hp);
 	writer.writeAttribute("COUNT",   selection->count());
-	writer.writeAttribute("Version", ScribusAPI::getVersion());
+	writer.writeAttribute("Version", saveOldVersion);
 	writer.writeAttribute("previewData", QString(prevData));
 	writeColors(writer, true);
 	writeGradients(writer, true);
@@ -175,7 +175,7 @@ bool Scribus150Format::saveStory(StoryText& story, PageItem* item, QByteArray& d
 	writer.setAutoFormatting(true);
 //	writer.writeStartDocument();
 	writer.writeStartElement("ScribusStory");
-	writer.writeAttribute("Version", ScribusAPI::getVersion());
+	writer.writeAttribute("Version", saveOldVersion);
 
 	writeColors(writer, lists.colorNames());
 	writeGradients(writer, lists.gradientNames());
@@ -320,7 +320,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.setDevice(outputFile.data());
 	docu.writeStartDocument();
 	docu.writeStartElement("SCRIBUSUTF8NEW");
-	docu.writeAttribute("Version", ScribusAPI::getVersion());
+	docu.writeAttribute("Version", saveOldVersion);
 
 	docu.writeStartElement("DOCUMENT");
 	docu.writeAttribute("ANZPAGES"    , m_Doc->DocPages.count());

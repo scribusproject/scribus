@@ -59,12 +59,12 @@ FileFormat* LoadSavePlugin::getFormatByExt(const QString& ext)
 
 QStringList LoadSavePlugin::fileDialogLoadFilter()
 {
-	return getDialogFilter(true);
+	return getDialogFilter(true, false);
 }
 
 QStringList LoadSavePlugin::fileDialogSaveFilter()
 {
-	return getDialogFilter(false);
+	return getDialogFilter(false, true);
 }
 
 QStringList LoadSavePlugin::getExtensionsForColors(const int id)
@@ -175,7 +175,7 @@ QStringList LoadSavePlugin::getExtensionsForPreview(const int id)
 	return filterList;
 }
 
-const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
+const QStringList LoadSavePlugin::getDialogFilter(bool forLoad, bool scribusOnly)
 {
 	QList<FileFormat>::const_iterator it(formats.constBegin());
 	QList<FileFormat>::const_iterator itEnd(formats.constEnd());
@@ -209,6 +209,8 @@ const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 	}
 	filterList.sort(Qt::CaseInsensitive);
 	filterList.append( tr("All Files (*)"));
+	if (scribusOnly)
+		return scribusList;
 	return scribusList+filterList;
 }
 

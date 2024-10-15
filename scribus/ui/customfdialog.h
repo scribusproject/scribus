@@ -144,6 +144,8 @@ public:
 
 	void addWidgets(QWidget *widgets);
 
+	QString selectedNameFilter();
+
 private slots:
 	//! \brief Go to the document home dir.
 	void fileClicked(const QString &path);

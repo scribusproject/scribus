@@ -529,12 +529,13 @@ void ScripterCore::savePlugPrefs()
 
 void ScripterCore::aboutScript()
 {
-	QString fname = ScCore->primaryMainWindow()->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py *.PY);;All Files (*)"), "", fdNone);
-	if (fname.isNull())
+	QPair<QString, uint> fileNameVersion;
+	fileNameVersion = ScCore->primaryMainWindow()->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py *.PY);;All Files (*)"), "", fdNone);
+	if (fileNameVersion.first.isNull())
 		return;
 	QString html("<html><body>");
-	QFileInfo fi = QFileInfo(fname);
-	QFile input(fname);
+	QFileInfo fi = QFileInfo(fileNameVersion.first);
+	QFile input(fileNameVersion.first);
 	if (!input.open(QIODevice::ReadOnly))
 		return;
 	QTextStream intputstream(&input);

@@ -154,7 +154,7 @@ public:
 
 	ScribusDoc* doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount = 1, bool showView = true, int marginPreset = 0);
 	ScribusDoc* newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount = 1, bool showView = true, int marginPreset = 0);
-	bool DoFileSave(const QString& fileName, QString* savedFileName = nullptr);
+	bool DoFileSave(const QString& fileName, QString* savedFileName = nullptr, uint formatID = FORMATID_CURRENTEXPORT);
 
 	void changeEvent(QEvent *e) override;
 	void closeEvent(QCloseEvent *ce) override;
@@ -171,7 +171,7 @@ public:
 	void doPasteRecent(const QString& data);
 	bool getPDFDriver(const QString & filename, const std::vector<int> & pageNumbers, const QMap<int, QImage> & thumbs, QString& error, bool* cancelled = nullptr);
 	bool DoSaveAsEps(const QString& fn, QString& error);
-	QString CFileDialog(const QString& workingDirectory = ".", const QString& dialogCaption = "", const QString& fileFilter = "", const QString& defNa = "",
+	QPair<QString, uint> CFileDialog(const QString& workingDirectory = ".", const QString& dialogCaption = "", const QString& fileFilter = "", const QString& defNa = "",
 						int optionFlags = fdExistingFiles, bool *useCompression = 0, bool *useFonts = 0, bool *useProfiles = 0);
 	/*! \brief Recalculate the colors after changing CMS settings.
 	Call the appropriate document function and then update the GUI elements.
@@ -265,7 +265,6 @@ public:
 	QMdiArea *mdiArea {nullptr};
 	ScribusWin* ActWin {nullptr};
 	QClipboard *ClipB {nullptr};
-	QString LoadEnc;
 	AppModeHelper *appModeHelper {nullptr};
 
 	QMap<QString, QPointer<ScrAction> > scrActions;

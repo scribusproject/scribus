@@ -182,7 +182,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		static void printFormatList();
 
 		// Base implementation for fileDialogLoadFilter and fileDialogSaveFilter
-		static const QStringList getDialogFilter(bool forLoad);
+		static const QStringList getDialogFilter(bool forLoad, bool scribusOnly);
 };
 
 

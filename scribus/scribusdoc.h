@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #ifndef SCRIBUSDOC_H
 #define SCRIBUSDOC_H
+#include "plugins/formatidlist.h"
 #ifdef HAVE_CONFIG_H
 #include "scconfig.h"
 #endif
@@ -810,7 +811,7 @@ public:
 	/**
 	 * @brief Save function
 	 */
-	bool save(const QString& fileName, QString* savedFile = nullptr);
+	bool save(const QString& fileName, QString* savedFile = nullptr, uint formatID = FORMATID_CURRENTEXPORT);
 	/**
 	 * @brief Set the page margins. Current code uses current page only, also provide a (currently, TODO) option for this.
 	 */

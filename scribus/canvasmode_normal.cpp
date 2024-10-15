@@ -41,7 +41,6 @@
 #include "iconmanager.h"
 #include "loadsaveplugin.h"
 #include "pageitem_line.h"
-#include "plugins/formatidlist.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"

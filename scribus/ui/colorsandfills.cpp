@@ -48,7 +48,6 @@ for which a new license (GPL+exception) is in place.
 #include "gradientaddedit.h"
 #include "iconmanager.h"
 #include "loadsaveplugin.h"
-#include "plugins/formatidlist.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "query.h"
