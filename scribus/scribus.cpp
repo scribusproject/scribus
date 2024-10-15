@@ -8010,10 +8010,6 @@ QPair<QString, uint> ScribusMainWindow::CFileDialog(const QString& workingDirect
 		this->repaint();
 		fileNameVersion.first = dia->selectedFile();
 		fileNameVersion.second=FileLoader::findFormatIDFromDescription(dia->selectedNameFilter());
-
-		qDebug()<<dia->selectedNameFilter();
-		qDebug()<<fileNameVersion.first;
-		qDebug()<<fileNameVersion.second;
 		QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
 	delete dia;
