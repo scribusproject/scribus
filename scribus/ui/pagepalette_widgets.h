@@ -72,7 +72,7 @@ protected:
 	virtual void keyPressEvent(QKeyEvent* e);
 
 	QListWidgetItem *m_currItem {nullptr};
-	QPoint m_mousePos {QPoint()};
+	QPoint m_mousePos;
 	bool m_mousePressed {false};
 	bool m_thumb {false};
 
@@ -80,11 +80,11 @@ protected:
 
 struct SCRIBUS_API PageCell
 {
-	QString pageName {QString()};
+	QString pageName;
 	QString pageNumberDisplay;
 	uint pageNumber {1};
-	QPixmap pagePreview {QPixmap()};
-	QColor masterPageColor {QColor()};
+	QPixmap pagePreview;
+	QColor masterPageColor;
 	double pageRatio {1.4142}; // IsoA
 
 	PageCell(const QString& text, uint nr, const QString &nrDisplay, const QPixmap& pix, double pageRatio, const QColor color = Qt::black) :
@@ -167,22 +167,22 @@ private:
 		Hover = 3
 	};
 
-	QSize m_pageSize {QSize()};
-	QSizeF m_documentPageSize {QSizeF()};
+	QSize m_pageSize;
+	QSizeF m_documentPageSize;
 	int m_rowHeight {QVariant(TileSize::Medium).toInt()};
 	int m_cellGap {1};
 	int m_groupSpace {16};
 	int m_rowSpace {12};
 	int m_fontSize {QFont().pointSize()}; // font size of number label and masterpage label
 	int m_labelGap {8}; // gap between page and number label
-	QRect m_rectInsert {QRect()};
-	QRect m_rectSelection {QRect()};
-	QRect m_rectAdd {QRect()};
+	QRect m_rectInsert;
+	QRect m_rectSelection;
+	QRect m_rectAdd;
 	QColor m_colorSelection;
 	int m_selectedPage {-1};
 	int m_hoveredPage {-1};
 	bool m_enableSelection {false};
-	QPoint m_mousePos {QPoint()};
+	QPoint m_mousePos;
 	State m_state {State::None};
 	PageLayout m_pageLayout {PageLayout::singlePage};
 	int m_cellsInGroup {1}; // 1 for single page
@@ -279,8 +279,8 @@ public:
 	void dropEvent( QDropEvent * e );
 
 protected:
-	QPixmap normal {QPixmap()};
-	QPixmap open {QPixmap()};
+	QPixmap normal;
+	QPixmap open;
 
 protected slots:
 	void iconSetChange();
