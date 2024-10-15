@@ -70,14 +70,14 @@ public:
 	virtual ~LinkSubmitForm();
 
 	// Was the LinkImportData created successfully?
-	GBool isOk() POPPLER_CONST override { return fileName != nullptr; }
+	GBool isOk() POPPLER_CONST override { return m_url != nullptr; }
 	// Accessors.
 	LinkActionKind getKind() POPPLER_CONST override { return actionUnknown; }
-	GooString *getFileName() { return fileName; }
+	GooString *getUrl() { return m_url; }
 	int getFlags() { return m_flags; }
 
 private:
-	GooString *fileName {nullptr};		// file name
+	GooString *m_url {nullptr};		// URL
 	int m_flags {0};
 };
 

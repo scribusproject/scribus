@@ -99,7 +99,7 @@ LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 			{
 				Object obj2 = obj1.dictLookup("F");
 				if (!obj2.isNull())
-					fileName = obj2.getString()->copy();
+					m_url = obj2.getString()->copy();
 			}
 		}
 	}
@@ -110,7 +110,7 @@ LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 
 LinkSubmitForm::~LinkSubmitForm()
 {
-	delete fileName;
+	delete m_url;
 }
 
 #endif
@@ -1136,11 +1136,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 						if (impo->isOk())
 						{
 							ite->annotation().setActionType(3);
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 10, 0)
 							ite->annotation().setAction(UnicodeParsedString(impo->getUrl()));
-#else
-							ite->annotation().setAction(UnicodeParsedString(impo->getFileName()));
-#endif
 							int fl = impo->getFlags();
 							if (fl == 0)
 								ite->annotation().setHTML(0);
