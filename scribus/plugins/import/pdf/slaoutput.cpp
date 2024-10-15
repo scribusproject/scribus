@@ -81,6 +81,8 @@ namespace
 	}
 }
 
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(24, 10, 0)
+
 LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 {
 	if (!actionObj->isDict())
@@ -110,6 +112,8 @@ LinkSubmitForm::~LinkSubmitForm()
 {
 	delete fileName;
 }
+
+#endif
 
 LinkImportData::LinkImportData(Object *actionObj)
 {
@@ -1078,6 +1082,32 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 				}
 			}
 		}
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 89, 0)
+		else if (Lact->getKind() == actionResetForm)
+		{
+			ite->annotation().setActionType(4);
+		}
+#endif
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 10, 0)
+		else if (Lact->getKind() == actionSubmitForm)
+		{
+			const auto* impo = (LinkSubmitForm*) Lact;
+			if (impo->isOk())
+			{
+				ite->annotation().setActionType(3);
+				ite->annotation().setAction(UnicodeParsedString(impo->getUrl()));
+				int fl = impo->getFlags();
+				if (fl == 0)
+					ite->annotation().setHTML(0);
+				else if (fl == 4)
+					ite->annotation().setHTML(1);
+				else if (fl == 64)
+					ite->annotation().setHTML(2);
+				else if (fl == 512)
+					ite->annotation().setHTML(3);
+			}
+		}
+#endif
 		else if (Lact->getKind() == actionUnknown)
 		{
 			auto *uno = (LinkUnknown*) Lact;
@@ -1106,7 +1136,11 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 						if (impo->isOk())
 						{
 							ite->annotation().setActionType(3);
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 10, 0)
+							ite->annotation().setAction(UnicodeParsedString(impo->getUrl()));
+#else
 							ite->annotation().setAction(UnicodeParsedString(impo->getFileName()));
+#endif
 							int fl = impo->getFlags();
 							if (fl == 0)
 								ite->annotation().setHTML(0);
