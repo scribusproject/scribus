@@ -81,6 +81,11 @@ public:
 	/// The current width for line strokes.
 	virtual double strokeWidth() const;
 
+	/// Sets the current render mode for glyph boxes only.
+	virtual void setGlyphBoxRendering(bool r);
+	/// The current render mode for glyph boxes only.
+	virtual bool glyphBoxRendering();
+
 	/// Moves the current x and y positions by the specified amount.
 	virtual void translate(double x, double y);
 	/// The current x positions.
@@ -159,6 +164,7 @@ private:
 	};
 
 	std::stack<State> m_stack;
+	bool m_glyphBoxRendering {false};
 };
 
 #endif // TEXTLAYOUTPAINTER_H

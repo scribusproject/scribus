@@ -252,6 +252,7 @@ public slots: // Public slots
 	void toggleCMS(bool cmsOn);
 	void switchPreviewVisual(int vis);
 	void togglePreviewEdit(bool edit);
+	void toggleWhiteSpaceMode(bool inReview);
 	void togglePreview(bool inPreview);
 	void unitChange();
 	void setRulersShown(bool isShown);

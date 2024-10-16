@@ -52,6 +52,7 @@ ViewToolBar::ViewToolBar(ScribusMainWindow* parent) : ScToolBar( tr("View Tools"
 	addAction(parent->scrActions["viewToggleCMS"]);
 	addAction(parent->scrActions["viewPreviewMode"]);
 	addAction(parent->scrActions["viewEditInPreview"]);
+	addAction(parent->scrActions["viewToggleWhiteSpaceMode"]);
 	addWidget(visualMenu);
 
 	languageChange();

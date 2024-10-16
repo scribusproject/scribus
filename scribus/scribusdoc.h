@@ -1462,7 +1462,8 @@ public:
 	QWidget* WinHan {nullptr};
 	bool DoDrawing {true};
 	bool drawAsPreview {false};
-	bool viewAsPreview {false};
+	bool viewAsPreview {false};	
+	bool toggleWhiteSpaceMode {false};
 	bool editOnPreview {false};
 	int previewVisual {0};
 	struct OpenNodesList

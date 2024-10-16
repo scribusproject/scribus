@@ -1239,6 +1239,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->createMenu("ViewPreview", tr("Preview"), "View");
 	scrMenuMgr->addMenuItemString("ViewPreview", "View");
 	scrMenuMgr->addMenuItemString("viewPreviewMode", "ViewPreview");
+	scrMenuMgr->addMenuItemString("viewToggleWhiteSpaceMode", "ViewPreview");
 	scrMenuMgr->createMenu("ViewMeasuring", tr("Measurement"), "View");
 	scrMenuMgr->addMenuItemString("ViewMeasuring", "View");
 	scrMenuMgr->addMenuItemString("viewShowRulers", "ViewMeasuring");
@@ -2456,6 +2457,9 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		scrActions["viewToggleCMS"]->blockSignals(true);
 		scrActions["viewToggleCMS"]->setChecked(doc->HasCMS);
 		scrActions["viewToggleCMS"]->blockSignals(false);
+		scrActions["viewToggleWhiteSpaceMode"]->blockSignals(true);
+		scrActions["viewToggleWhiteSpaceMode"]->setChecked(doc->toggleWhiteSpaceMode);
+		scrActions["viewToggleWhiteSpaceMode"]->blockSignals(false);
 		viewToolBar->previewQualitySwitcher->setCurrentIndex(doc->previewQuality());
 		connect(viewToolBar->previewQualitySwitcher, SIGNAL(activated(int)), this, SLOT(changePreviewQuality(int)));
 		viewToolBar->visualMenu->setCurrentIndex(doc->previewVisual);
@@ -3703,6 +3707,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		emit UpdateRequest(reqNumUpdate);
 		doc->setCurrentPage(doc->DocPages.at(0));
 		scrActions["viewToggleCMS"]->setChecked(doc->HasCMS);
+		scrActions["viewToggleWhiteSpaceMode"]->setChecked(doc->toggleWhiteSpaceMode);
 		view->zoom();
 		view->GotoPage(0);
 		connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(newActWin(QMdiSubWindow*)));
@@ -4252,6 +4257,7 @@ bool ScribusMainWindow::DoFileClose()
 	mainWindowYPosDataLabel->clear();
 	//not running view's togglePreview as we don't want to affect the doc settings.
 	scrActions["viewPreviewMode"]->setChecked(false);
+	scrActions["viewToggleWhiteSpaceMode"]->setChecked(false);
 	appModeHelper->setPreviewMode(false);
 	return true;
 }
@@ -6647,6 +6653,7 @@ void ScribusMainWindow::slotDocSetup()
 	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
 	scrActions["extrasUpdateDocument"]->setEnabled(true);
 	scrActions["viewToggleCMS"]->setChecked(doc->HasCMS);
+	scrActions["viewToggleWhiteSpaceMode"]->setChecked(doc->toggleWhiteSpaceMode);
 	view->setRulersShown(doc->guidesPrefs().rulersShown);
 	//doc emits changed() via this
 	doc->setMasterPageMode(true);
@@ -7590,6 +7597,11 @@ void ScribusMainWindow::editMasterPagesStart(const QString& temp)
 	{
 		view->togglePreview(false);
 		scrActions["viewPreviewMode"]->setChecked(false);
+	}
+	if (doc->toggleWhiteSpaceMode)
+	{
+		view->toggleWhiteSpaceMode(false);
+		scrActions["viewToggleWhiteSpaceMode"]->setChecked(false);
 	}
 	m_WasAutoSave = doc->autoSave();
 	if (m_WasAutoSave)

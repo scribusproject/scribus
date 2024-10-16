@@ -66,6 +66,16 @@ double TextLayoutPainter::strokeWidth() const
 	return m_stack.top().strokeWidth;
 }
 
+void TextLayoutPainter::setGlyphBoxRendering(bool r)
+{
+	m_glyphBoxRendering = r;
+}
+
+bool TextLayoutPainter::glyphBoxRendering()
+{
+	return m_glyphBoxRendering;
+}
+
 void TextLayoutPainter::translate(double x, double y)
 {
 	m_stack.top().x += x;

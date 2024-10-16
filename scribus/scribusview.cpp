@@ -271,6 +271,12 @@ void ScribusView::togglePreviewEdit(bool edit)
 	DrawNew();
 }
 
+void ScribusView::toggleWhiteSpaceMode(bool inReview)
+{
+	m_doc->toggleWhiteSpaceMode = inReview;
+	DrawNew();
+}
+
 void ScribusView::togglePreview(bool inPreview)
 {
 	this->requestMode(modeNormal);

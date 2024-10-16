@@ -3550,7 +3550,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, const QRectF& cullingArea)
 		p->setFillMode(ScPainter::Solid);
 		p->setStrokeMode(ScPainter::Solid);
 		ScreenPainter painter(p, this);
-		textLayout.renderBackground(&painter);
+		painter.setGlyphBoxRendering(m_Doc->toggleWhiteSpaceMode);
+		if (!m_Doc->toggleWhiteSpaceMode)
+			textLayout.renderBackground(&painter);
 		textLayout.render(&painter, this);
 		p->setFillMode(fm);
 		p->setStrokeMode(sm);

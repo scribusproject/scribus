@@ -679,6 +679,8 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert(name, new ScrAction("16/editdoc.png", "16/editdoc.png", "", defaultKey(name), mainWindow));
 	name = "viewToggleCMS";
 	scrActions->insert(name, new ScrAction("cmsOn.png", "cmsOn.png", "", defaultKey(name), mainWindow));
+	name = "viewToggleWhiteSpaceMode";
+	scrActions->insert(name, new ScrAction("whitespace-review-mode", "whitespace-review-mode", "", defaultKey(name), mainWindow));
 	name = "viewShowMargins";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "viewShowBleeds";
@@ -729,6 +731,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewPreviewMode"]->setToggleAction(true);
 	(*scrActions)["viewEditInPreview"]->setToggleAction(true);
 	(*scrActions)["viewToggleCMS"]->setToggleAction(true);
+	(*scrActions)["viewToggleWhiteSpaceMode"]->setToggleAction(true);
 	(*scrActions)["viewShowMargins"]->setToggleAction(true);
 	(*scrActions)["viewShowBleeds"]->setToggleAction(true);
 	(*scrActions)["viewShowFrames"]->setToggleAction(true);
@@ -749,6 +752,7 @@ void ActionManager::initViewMenuActions()
 
 	(*scrActions)["viewPreviewMode"]->setChecked(false);
 	(*scrActions)["viewEditInPreview"]->setChecked(false);
+	(*scrActions)["viewToggleWhiteSpaceMode"]->setChecked(false);
 	(*scrActions)["viewToggleCMS"]->setChecked(false);
 	(*scrActions)["viewShowMargins"]->setChecked(true);
 	(*scrActions)["viewShowBleeds"]->setChecked(true);
@@ -1305,6 +1309,7 @@ void ActionManager::disconnectNewViewActions()
 	//qDebug()<<"disconnectNewViewActions"<<mainWindow->doc->DocName;
 	(*scrActions)["viewPreviewMode"]->disconnect();
 	(*scrActions)["viewEditInPreview"]->disconnect();
+	(*scrActions)["viewToggleWhiteSpaceMode"]->disconnect();
 	(*scrActions)["viewToggleCMS"]->disconnect();
 	(*scrActions)["toolsZoomIn"]->disconnect();
 	(*scrActions)["toolsZoomOut"]->disconnect();
@@ -1329,6 +1334,7 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 	//qDebug()<<"connectNewViewActions"<<currView->Doc->DocName;
 	connect( (*scrActions)["viewPreviewMode"], SIGNAL(toggled(bool)), currView, SLOT(togglePreview(bool)) );
 	connect( (*scrActions)["viewEditInPreview"], SIGNAL(toggled(bool)), currView, SLOT(togglePreviewEdit(bool)) );
+	connect( (*scrActions)["viewToggleWhiteSpaceMode"], SIGNAL(toggled(bool)), currView, SLOT(toggleWhiteSpaceMode(bool)) );
 	connect( (*scrActions)["viewToggleCMS"], SIGNAL(toggled(bool)), currView, SLOT(toggleCMS(bool)));
 	connect( (*scrActions)["toolsZoomIn"], SIGNAL(triggered()) , currView, SLOT(slotZoomIn()) );
 	connect( (*scrActions)["toolsZoomOut"], SIGNAL(triggered()) , currView, SLOT(slotZoomOut()) );
@@ -1666,6 +1672,7 @@ void ActionManager::languageChange()
 	(*scrActions)["viewFit400"]->setTexts( tr("&400%"));
 	(*scrActions)["viewPreviewMode"]->setTexts( tr("Preview Mode"));
 	(*scrActions)["viewEditInPreview"]->setTexts( tr("Edit in Preview Mode") );
+	(*scrActions)["viewToggleWhiteSpaceMode"]->setTexts( tr("Toggle White Space Review Mode") );
 	(*scrActions)["viewToggleCMS"]->setTexts( tr("Toggle Color Management System"));
 	(*scrActions)["viewShowMargins"]->setTexts( tr("Show &Margins"));
 	(*scrActions)["viewShowBleeds"]->setTexts( tr("Show Bleeds"));
@@ -1822,6 +1829,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsZoom"]->setStatusTextAndShortcut( tr("Zoom in or out"));
 	(*scrActions)["viewPreviewMode"]->setStatusTextAndShortcut( tr("Enable preview mode"));
 	(*scrActions)["viewEditInPreview"]->setStatusTextAndShortcut( tr("Enable editing in preview mode"));
+	(*scrActions)["viewToggleWhiteSpaceMode"]->setStatusTextAndShortcut( tr("Toggle white space review mode"));
 	(*scrActions)["viewToggleCMS"]->setStatusTextAndShortcut( tr("Toggle color management system"));
 #ifdef HAVE_OSG
 	(*scrActions)["toolsPDFAnnot3D"]->setStatusTextAndShortcut( tr("Insert 3D annotation"));
@@ -2327,6 +2335,7 @@ void ActionManager::createDefaultMenus()
 		<< "viewPreviewMode"
 		<< "viewEditInPreview"
 		<< "viewToggleCMS"
+		<< "viewToggleWhiteSpaceMode"
 		<< "viewShowMargins"
 		<< "viewShowBleeds"
 		<< "viewShowFrames"

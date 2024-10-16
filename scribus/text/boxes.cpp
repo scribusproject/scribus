@@ -209,7 +209,8 @@ void LineBox::render(TextLayoutPainter *p) const
 {
 	p->translate(x(), y());
 
-	drawBackGround(p);
+	if (!p->glyphBoxRendering())
+		drawBackGround(p);
 
 	p->translate(0, ascent());
 	for (const Box *box : boxes())
@@ -224,7 +225,8 @@ void LineBox::render(ScreenPainter *p, ITextContext *ctx) const
 {
 	p->translate(x(), y());
 
-	drawBackGround(p);
+	if (!p->glyphBoxRendering())
+		drawBackGround(p);
 	drawSelection(p, ctx);
 
 	p->translate(0, ascent());
@@ -597,6 +599,19 @@ void GlyphBox::render(TextLayoutPainter *p) const
 
 	p->setFont(font);
 	p->setFontSize(fontSize);
+
+	if (p->glyphBoxRendering())
+	{
+		if (this->m_glyphRun.getText() != " " || !this->m_glyphRun.isSpace())
+		{
+			p->setFillColor(TextLayoutColor("Black", 100.0));
+			p->setStrokeColor(TextLayoutColor(CommonStrings::None, 0));
+			QRectF rect(x(), -ascent(), width(), height());
+			p->drawRect(rect);
+		}
+		p->restore();
+		return;
+	}
 
 	p->translate(x() + m_glyphRun.xoffset, y() + m_glyphRun.yoffset);
 
