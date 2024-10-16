@@ -2458,7 +2458,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		scrActions["viewToggleCMS"]->setChecked(doc->HasCMS);
 		scrActions["viewToggleCMS"]->blockSignals(false);
 		scrActions["viewToggleWhiteSpaceMode"]->blockSignals(true);
-		scrActions["viewToggleWhiteSpaceMode"]->setChecked(doc->toggleWhiteSpaceMode);
+		scrActions["viewToggleWhiteSpaceMode"]->setChecked(doc->whiteSpaceModeEnabled);
 		scrActions["viewToggleWhiteSpaceMode"]->blockSignals(false);
 		viewToolBar->previewQualitySwitcher->setCurrentIndex(doc->previewQuality());
 		connect(viewToolBar->previewQualitySwitcher, SIGNAL(activated(int)), this, SLOT(changePreviewQuality(int)));
@@ -3707,7 +3707,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		emit UpdateRequest(reqNumUpdate);
 		doc->setCurrentPage(doc->DocPages.at(0));
 		scrActions["viewToggleCMS"]->setChecked(doc->HasCMS);
-		scrActions["viewToggleWhiteSpaceMode"]->setChecked(doc->toggleWhiteSpaceMode);
+		scrActions["viewToggleWhiteSpaceMode"]->setChecked(doc->whiteSpaceModeEnabled);
 		view->zoom();
 		view->GotoPage(0);
 		connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), this, SLOT(newActWin(QMdiSubWindow*)));
@@ -6653,7 +6653,7 @@ void ScribusMainWindow::slotDocSetup()
 	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
 	scrActions["extrasUpdateDocument"]->setEnabled(true);
 	scrActions["viewToggleCMS"]->setChecked(doc->HasCMS);
-	scrActions["viewToggleWhiteSpaceMode"]->setChecked(doc->toggleWhiteSpaceMode);
+	scrActions["viewToggleWhiteSpaceMode"]->setChecked(doc->whiteSpaceModeEnabled);
 	view->setRulersShown(doc->guidesPrefs().rulersShown);
 	//doc emits changed() via this
 	doc->setMasterPageMode(true);
@@ -7598,7 +7598,7 @@ void ScribusMainWindow::editMasterPagesStart(const QString& temp)
 		view->togglePreview(false);
 		scrActions["viewPreviewMode"]->setChecked(false);
 	}
-	if (doc->toggleWhiteSpaceMode)
+	if (doc->whiteSpaceModeEnabled)
 	{
 		view->toggleWhiteSpaceMode(false);
 		scrActions["viewToggleWhiteSpaceMode"]->setChecked(false);
