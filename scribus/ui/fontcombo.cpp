@@ -111,40 +111,43 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 		QWidget(parent),
 		prefsManager(PrefsManager::instance()),
 		showLabels(labels)
-{
-	ttfFont = IconManager::instance().loadPixmap("font_truetype16.png");
-	otfFont = IconManager::instance().loadPixmap("font_otf16.png");
-	psFont = IconManager::instance().loadPixmap("font_type1_16.png");
-	substFont = IconManager::instance().loadPixmap("font_subst16.png");
-	fontComboLayout = new QGridLayout(this);
-	fontComboLayout->setContentsMargins(0, 0, 0, 0);
-	if (showLabels)
-		fontComboLayout->setSpacing(6);
-	else
-		fontComboLayout->setSpacing(3);
-	int col = 0;
-	if (showLabels)
-	{
-		fontFaceLabel = new QLabel(this);
-		fontStyleLabel = new QLabel(this);
-		fontComboLayout->addWidget(fontFaceLabel, 0, 0);
-		fontComboLayout->addWidget(fontStyleLabel, 1, 0);
-		fontComboLayout->setColumnStretch(1, 10);
-		col = 1;
-	}
+{	
 	fontFamily = new QComboBox(this);
 	fontFamily->setEditable(true);
 	fontFamily->setValidator(new FontComboValidator(fontFamily));
 	fontFamily->setInsertPolicy(QComboBox::NoInsert);
 	fontFamily->setItemDelegate(new FontFamilyDelegate(this));
-	fontComboLayout->addWidget(fontFamily, 0, col);
+
+	fontFaceLabel = new FormWidget(this);
+	fontFaceLabel->setLabelVisibility(false);
+	fontFaceLabel->addWidget(fontFamily);
+
 	fontStyle = new QComboBox(this);
-	fontComboLayout->addWidget(fontStyle, 1, col);
+	fontStyle->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+
+	fontStyleLabel = new FormWidget(this);
+	fontStyleLabel->addWidget(fontStyle);
+
+	fontComboLayout = new QGridLayout(this);
+	fontComboLayout->setContentsMargins(0, 0, 0, 0);
+	fontComboLayout->setSpacing(8);
+	fontComboLayout->addWidget(fontFaceLabel, 0, 0, 1, 4);
+	fontComboLayout->addWidget(fontStyleLabel, 1, 0);
+	fontComboLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding), 1, 1);
+	fontComboLayout->addWidget(new QWidget(), 1, 2);
+	fontComboLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 1, 3);
+
 	isForAnnotation = true;  // this is merely to ensure that the list is rebuilt
+
+	iconSetChange();
+	languageChange();
 	rebuildList(nullptr);
+
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
-	languageChange();
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	//connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
+
 }
 
 void FontComboH::changeEvent(QEvent *e)
@@ -157,13 +160,28 @@ void FontComboH::changeEvent(QEvent *e)
 
 void FontComboH::languageChange()
 {
-	if (showLabels)
-	{
-		fontFaceLabel->setText( tr("Family:"));
-		fontStyleLabel->setText( tr("Style:"));
-	}
+	fontFaceLabel->setText( tr("Family"));
+	fontStyleLabel->setText( tr("Style"));
 	fontFamily->setToolTip( tr("Font Family of Selected Text or Text Frame"));
 	fontStyle->setToolTip( tr("Font Style of Selected Text or Text Frame"));
+}
+
+void FontComboH::iconSetChange()
+{
+	IconManager &im = IconManager::instance();
+
+	ttfFont = im.loadPixmap("font_truetype16.png");
+	otfFont = im.loadPixmap("font_otf16.png");
+	psFont = im.loadPixmap("font_type1_16.png");
+	substFont = im.loadPixmap("font_subst16.png");
+
+	fontFaceLabel->setPixmap(im.loadPixmap("font-face"));
+	fontStyleLabel->setPixmap(im.loadPixmap("font-style"));
+}
+
+void FontComboH::toggleLabelVisibility(bool v)
+{
+	fontStyleLabel->setLabelVisibility(v);
 }
 
 void FontComboH::familySelected(int id)
@@ -330,6 +348,19 @@ void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 		fontStyle->addItems(slist);
 	fontFamily->blockSignals(familySigBlocked);
 	fontStyle->blockSignals(styleSigBlocked);
+}
+
+void FontComboH::setGuestWidget(QWidget *widget)
+{
+	fontComboLayout->addWidget(widget, 1, 2);
+}
+
+QWidget *FontComboH::guestWidget()
+{
+	if (fontComboLayout->itemAtPosition(1, 2)->widget() == nullptr)
+		return new QWidget();
+
+	return fontComboLayout->itemAtPosition(1, 2)->widget();
 }
 
 // This code borrowed from Qt project qfontcombobox.cpp

@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QValidator>
 
 #include "scribusapi.h"
+#include "ui/widgets/form_widget.h"
 
 class QEvent;
 class QFont;
@@ -76,9 +77,14 @@ public:
 	QString currentFont() const;
 	void rebuildList(ScribusDoc *currentDoc, bool forAnnotation = false, bool forSubstitute = false);
 
+	void setGuestWidget( QWidget * widget);
+	QWidget* guestWidget();
+
 public slots:
 	void setCurrentFont(const QString& f);
 	void languageChange();
+	void iconSetChange();
+	void toggleLabelVisibility(bool v);
 
 signals:
 	void fontSelected(QString);
@@ -90,8 +96,8 @@ protected slots:
 protected:
 	QComboBox* fontFamily { nullptr };
 	QComboBox* fontStyle { nullptr };
-	QLabel *fontFaceLabel { nullptr };
-	QLabel *fontStyleLabel { nullptr };
+	FormWidget *fontFaceLabel { nullptr };
+	FormWidget *fontStyleLabel { nullptr };
 	QGridLayout* fontComboLayout { nullptr };
 	PrefsManager& prefsManager;
 	ScribusDoc *currDoc { nullptr };

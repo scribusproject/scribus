@@ -31,6 +31,13 @@ public:
 	void addStyle(StyleItem *item);
 	void updateColorList();
 
+	void showAsNewParagraphStyle();
+	void showAsNewCharacterStyle();
+	void showAsNewLineStyle();
+	void showAsEditParagraphStyle(const QString& name);
+	void showAsEditCharacterStyle(const QString& name);
+	void showAsEditLineStyle(const QString& name);
+
 	QMap<QString,Keys> keyMap();
 
 public slots:
@@ -104,6 +111,8 @@ private:
 	/* QPair.first = type name and QPair.second = style name */
 	void setSelection(const QList<QPair<QString, QString> > &selected);
 	void setOkButtonText();
+
+	void editStyleByName(int rcType, const QString &name);
 
 	template<class ItemType> ItemType* item();
 

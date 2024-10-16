@@ -45,9 +45,11 @@ public slots:
 	void handleSelectionChanged();
 	void handleUpdateRequest(int);
 
+	void iconSetChange();
 	void languageChange();
 	void unitChange();
 	void localeChange();
+	void toggleLabelVisibility(bool v);
 
 private slots:
 	void handlePathType();

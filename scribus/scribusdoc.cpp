@@ -9055,15 +9055,6 @@ void ScribusDoc::itemSelection_SetOpticalMargins(int i, Selection* customSelecti
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 
-
-void ScribusDoc::itemSelection_resetOpticalMargins(Selection* customSelection)
-{
-	//TODO
-//	ParagraphStyle newStyle;
-//	newStyle.setOpticalMargins(i);
-//	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
-}
-
 void ScribusDoc::itemSelection_SetTracking(int kern, Selection* customSelection)
 {
 	CharStyle newStyle;

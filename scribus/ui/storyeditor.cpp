@@ -1289,7 +1289,7 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 
 	trackingLabel = new QLabel( this );
 	trackingLabel->setText("");
-	trackingLabel->setPixmap(IconManager::instance().loadPixmap("textkern.png"));
+	trackingLabel->setPixmap(IconManager::instance().loadPixmap("character-letter-tracking"));
 	trackingLabelAction = addWidget(trackingLabel);
 	trackingLabelAction->setVisible(true);
 
@@ -1327,7 +1327,7 @@ void SToolBStyle::changeEvent(QEvent *e)
 void SToolBStyle::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
-	trackingLabel->setPixmap(iconManager.loadPixmap("textkern.png"));
+	trackingLabel->setPixmap(iconManager.loadPixmap("character-letter-tracking"));
 }
 
 void SToolBStyle::languageChange()
@@ -1482,7 +1482,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	sizeAction->setVisible(true);
 
 	lblScaleTxtH = new QLabel(this);
-	lblScaleTxtH->setPixmap(IconManager::instance().loadPixmap("textscaleh.png"));
+	lblScaleTxtH->setPixmap(IconManager::instance().loadPixmap("character-scale-height"));
 	scaleTxtHAction = addWidget(lblScaleTxtH);
 	scaleTxtHAction->setVisible(true);
 
@@ -1494,7 +1494,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	chScaleHAction->setVisible(true);
 
 	lblScaleTxtV = new QLabel(this);
-	lblScaleTxtV->setPixmap(IconManager::instance().loadPixmap("textscalev.png"));
+	lblScaleTxtV->setPixmap(IconManager::instance().loadPixmap("character-scale-width"));
 
 	scaleTxtVAction = addWidget(lblScaleTxtV);
 	scaleTxtVAction->setVisible(true);
@@ -1527,8 +1527,8 @@ void SToolBFont::changeEvent(QEvent *e)
 void SToolBFont::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
-	lblScaleTxtH->setPixmap(iconManager.loadPixmap("textscaleh.png"));
-	lblScaleTxtV->setPixmap(iconManager.loadPixmap("textscalev.png"));
+	lblScaleTxtH->setPixmap(iconManager.loadPixmap("character-scale-height"));
+	lblScaleTxtV->setPixmap(iconManager.loadPixmap("character-scale-width"));
 }
 
 void SToolBFont::languageChange()

@@ -93,6 +93,8 @@ public:
 	void setHatchData(const CPHatchData& data) { m_hatchData = data; }
 	const CPHatchData& hatchData() const { return m_hatchData; }
 
+	QColor colorFromName(QString colorName, double shade) const;
+
 	/*!
 	 * \brief Set context of color button, e.g. fill or line. A context set the right configuration on color picker widget.
 	 * \param config
@@ -175,7 +177,6 @@ private:
 	QBrush renderBrush() const;
 	bool isMask() const;
 	void setModeByType(int type);
-	QColor colorFromName(QString colorName, double shade) const;
 
 	QBrush brushSolid() const;
 	QBrush brushGradient() const;

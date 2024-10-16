@@ -13,132 +13,120 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include <cmath>
 #include <QSignalBlocker>
+#include <QStackedLayout>
 
 #include "appmodes.h"
 #include "commonstrings.h"
 #include "fontcombo.h"
 #include "iconmanager.h"
-#include "localemgr.h"
 #include "pageitem.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "propertywidget_advanced.h"
+#include "propertywidget_alignment.h"
 #include "propertywidget_distance.h"
-#include "propertywidget_flop.h"
 #include "propertywidget_fontfeatures.h"
 #include "propertywidget_hyphenation.h"
-#include "propertywidget_optmargins.h"
 #include "propertywidget_orphans.h"
+#include "propertywidget_paragraphstyle.h"
 #include "propertywidget_pareffect.h"
 #include "propertywidget_pathtext.h"
 #include "propertywidget_text.h"
-#include "propertywidget_textcolor.h"
 #include "scribus.h"
 #include "scribusapp.h"
 #include "selection.h"
 #include "stylecombos.h"
 #include "undomanager.h"
-#include "langmgr.h"
 #include "widgets/section_container.h"
 
 //using namespace std;
 
 PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(parent)
 {
-
-	advancedWidgets = new PropertyWidget_Advanced(this);
-	scAdvanced = new SectionContainer(tr("Advanced Settings"), "SectionTXAdvanced", true, false);
-	scAdvanced->setCanSaveState(true);
-	scAdvanced->setWidget(advancedWidgets);	
-	scAdvanced->restorePreferences();
-
-	distanceWidgets = new PropertyWidget_Distance(this);
-	scDistance = new SectionContainer(tr("Columns && Text Distances"), "SectionTXColDist", true, false);
-	scDistance->setCanSaveState(true);
-	scDistance->setWidget(distanceWidgets);
-	scDistance->restorePreferences();
-
-	flopBox = new PropertyWidget_Flop(this);
-	scFlop = new SectionContainer(tr("First Line Offset"), "SectionTXLineOffset", true, false);
-	scFlop->setCanSaveState(true);
-	scFlop->setWidget(flopBox);
-	scFlop->restorePreferences();
-
-	fontfeaturesWidget = new PropertyWidget_FontFeatures(this);
-	scFontFeatures = new SectionContainer(tr("Font Features"), "SectionTXFontFeatures", true, false);
-	scFontFeatures->setCanSaveState(true);
-	scFontFeatures->setWidget(fontfeaturesWidget);
-	scFontFeatures->restorePreferences();
-
-	hyphenationWidget = new PropertyWidget_Hyphenation(this);
-	scHyphenation = new SectionContainer(tr("Hyphenation"), "SectionTXHyphenation", true, false);
-	scHyphenation->setCanSaveState(true);
-	scHyphenation->setWidget(hyphenationWidget);
-	scHyphenation->restorePreferences();
-
-	optMargins = new PropertyWidget_OptMargins(this);
-	scOptMargins = new SectionContainer(tr("Optical Margins"), "SectionTXMargins", true, false);
-	scOptMargins->setCanSaveState(true);
-	scOptMargins->setWidget(optMargins);
-	scOptMargins->restorePreferences();
-
-	orphanBox = new PropertyWidget_Orphans(this);
-	scOrphans = new SectionContainer(tr("Orphans and Widows"), "SectionTXOrphansWidow", true, false);
-	scOrphans->setCanSaveState(true);
-	scOrphans->setWidget(orphanBox);
-	scOrphans->restorePreferences();
-
-	parEffectWidgets = new PropertyWidget_ParEffect(this);
-	scParEffect = new SectionContainer(tr("Paragraph Effects"), "SectionTXEffects", true, false);
-	scParEffect->setCanSaveState(true);
-	scParEffect->setWidget(parEffectWidgets);
-	scParEffect->restorePreferences();
-
-	pathTextWidgets = new PropertyWidget_PathText(this);
-	scPathText = new SectionContainer(tr("Path Text Properties"), "SectionTXPathText", true, false);
-	scPathText->setCanSaveState(true);
-	scPathText->setWidget(pathTextWidgets);
-	scPathText->restorePreferences();
+	styleWidgets = new PropertyWidget_ParagraphStyle(this);
+	scStyles = new SectionContainer(tr("Styles"), "SectionTPStyles", true, true);
+	scStyles->setCanSaveState(true);
+	scStyles->setWidget(styleWidgets);
+	scStyles->restorePreferences();
 
 	textWidgets = new PropertyWidget_Text(this);
-	scText = new SectionContainer(tr("Text"), "SectionTXText", true, true);
+	scText = new SectionContainer(tr("Font"), "SectionTPFont", true, true);
 	scText->setCanSaveState(true);
 	scText->setWidget(textWidgets);
 	scText->restorePreferences();
 
-	colorWidgets = new PropertyWidget_TextColor(this);
-	scTextColor = new SectionContainer(tr("Color && Effects"), "SectionTXColorEffects", true, false);
-	scTextColor->setCanSaveState(true);
-	scTextColor->setWidget(colorWidgets);
-	scTextColor->restorePreferences();
+	alignmentWidgets = new PropertyWidget_Alignment(this);
+	scAlignment = new SectionContainer(tr("Alignment && Tabs"), "SectionTPAlignment", true, true);
+	scAlignment->setCanSaveState(true);
+	scAlignment->setWidget(alignmentWidgets);
+	scAlignment->restorePreferences();
+
+	distanceWidgets = new PropertyWidget_Distance(this);
+	scDistance = new SectionContainer(tr("Columns && Margins"), "SectionTPColumnsMargins", true, false);
+	scDistance->setCanSaveState(true);
+	scDistance->setWidget(distanceWidgets);
+	scDistance->restorePreferences();
+
+	advancedWidgets = new PropertyWidget_Advanced(this);
+	scAdvanced = new SectionContainer(tr("Typography"), "SectionTPTypography", true, false);
+	scAdvanced->setCanSaveState(true);
+	scAdvanced->setWidget(advancedWidgets);
+	scAdvanced->restorePreferences();
+
+	parEffectWidgets = new PropertyWidget_ParEffect(this);
+	scParEffect = new SectionContainer(tr("Lists && Drop Caps"), "SectionTPLists", true, false);
+	scParEffect->setCanSaveState(true);
+	scParEffect->setWidget(parEffectWidgets);
+	scParEffect->restorePreferences();
+
+	hyphenationWidget = new PropertyWidget_Hyphenation(this);
+	scHyphenation = new SectionContainer(tr("Hyphenation && Language"), "SectionTPHyphenation", true, false);
+	scHyphenation->setCanSaveState(true);
+	scHyphenation->setWidget(hyphenationWidget);
+	scHyphenation->restorePreferences();
+
+	orphanBox = new PropertyWidget_Orphans(this);
+	scOrphans = new SectionContainer(tr("Orphans && Widows"), "SectionTPOrphansWidows", true, false);
+	scOrphans->setCanSaveState(true);
+	scOrphans->setWidget(orphanBox);
+	scOrphans->restorePreferences();
+
+	fontfeaturesWidget = new PropertyWidget_FontFeatures(this);
+	scFontFeatures = new SectionContainer(tr("OpenType Features"), "SectionTPOpenTypeFeatures", true, false);
+	scFontFeatures->setCanSaveState(true);
+	scFontFeatures->setWidget(fontfeaturesWidget);
+	scFontFeatures->restorePreferences();
+
+	pathTextWidgets = new PropertyWidget_PathText(this);
+	scPathText = new SectionContainer(tr("Text on Path"), "SectionTPTextOnPath", true, false);
+	scPathText->setCanSaveState(true);
+	scPathText->setWidget(pathTextWidgets);
+	scPathText->restorePreferences();
 
 	// Layout stack
 	QVBoxLayout * lyt = new QVBoxLayout();
 	lyt->setContentsMargins(0, 0, 0, 0);
 	lyt->setSpacing(0);
+	lyt->addWidget(scStyles);
 	lyt->addWidget(scText);
-	lyt->addWidget(scTextColor);
-	lyt->addWidget(scFlop);
-	lyt->addWidget(scOrphans);
-	lyt->addWidget(scParEffect);
+	lyt->addWidget(scAlignment);
 	lyt->addWidget(scDistance);
-	lyt->addWidget(scOptMargins);
+	lyt->addWidget(scAdvanced);	
+	lyt->addWidget(scParEffect);
 	lyt->addWidget(scHyphenation);
-	lyt->addWidget(scAdvanced);
+	lyt->addWidget(scOrphans);
 	lyt->addWidget(scFontFeatures);
 	lyt->addWidget(scPathText);
 	lyt->addStretch(1);
-	setLayout(lyt);
 
+	setLayout(lyt);
+	setEnabled(false);
 	iconSetChange();
 	languageChange();
-
-	connect(flopBox->flopGroup, SIGNAL(idClicked(int)), this, SLOT(handleFirstLinePolicy(int)));
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 
-	setEnabled(false);
 }
 
 void PropertiesPalette_Text::setMainWindow(ScribusMainWindow* mw)
@@ -147,12 +135,12 @@ void PropertiesPalette_Text::setMainWindow(ScribusMainWindow* mw)
 
 	textWidgets->setMainWindow(mw);
 	advancedWidgets->setMainWindow(mw);
+	alignmentWidgets->setMainWindow(mw);
 	fontfeaturesWidget->setMainWindow(mw);
-	colorWidgets->setMainWindow(mw);
 	distanceWidgets->setMainWindow(mw);
 	hyphenationWidget->setMainWindow(mw);
+	styleWidgets->setMainWindow(mw);
 	parEffectWidgets->setMainWindow(mw);
-	optMargins->setMainWindow(mw);
 	pathTextWidgets->setMainWindow(mw);
 
 	connect(m_ScMW, SIGNAL(UpdateRequest(int))     , this  , SLOT(handleUpdateRequest(int)));
@@ -180,13 +168,12 @@ void PropertiesPalette_Text::setDoc(ScribusDoc *d)
 
 	textWidgets->setDoc(m_doc);
 	advancedWidgets->setDoc(m_doc);
+	alignmentWidgets->setDoc(m_doc);
 	fontfeaturesWidget->setDoc(m_doc);
-	colorWidgets->setDoc(m_doc);
 	distanceWidgets->setDoc(m_doc);
 	parEffectWidgets->setDoc(m_doc);
-	flopBox->setDoc(m_doc);
 	hyphenationWidget->setDoc(m_doc);
-	optMargins->setDoc(m_doc);
+	styleWidgets->setDoc(m_doc);
 	orphanBox->setDoc(m_doc);
 	pathTextWidgets->setDoc(m_doc);
 
@@ -209,12 +196,11 @@ void PropertiesPalette_Text::unsetDoc()
 
 	textWidgets->setDoc(nullptr);
 	advancedWidgets->setDoc(nullptr);
+	alignmentWidgets->setDoc(nullptr);
 	fontfeaturesWidget->setDoc(nullptr);
-	colorWidgets->setDoc(nullptr);
 	distanceWidgets->setDoc(nullptr);
-	flopBox->setDoc(nullptr);
 	hyphenationWidget->setDoc(nullptr);
-	optMargins->setDoc(nullptr);
+	styleWidgets->setDoc(nullptr);
 	orphanBox->setDoc(nullptr);
 	parEffectWidgets->setDoc(nullptr);
 	pathTextWidgets->setDoc(nullptr);
@@ -226,7 +212,6 @@ void PropertiesPalette_Text::unsetItem()
 {
 	m_haveItem = false;
 	m_item     = nullptr;
-	colorWidgets->setCurrentItem(m_item);
 	handleSelectionChanged();
 }
 
@@ -256,7 +241,6 @@ void PropertiesPalette_Text::handleSelectionChanged()
 	if (m_doc->m_Selection->count() > 1)
 	{
 		setEnabled(false);
-		flopBox->flopRealHeight->setChecked(true);
 	}
 	else
 	{
@@ -291,29 +275,10 @@ void PropertiesPalette_Text::handleSelectionChanged()
 
 void PropertiesPalette_Text::handleUpdateRequest(int updateFlags)
 {
-	// ColorWidget will handle its update itself
-	/*if (updateFlags & reqColorsUpdate)
-		updateColorList();*/
-
 	textWidgets->handleUpdateRequest(updateFlags);
+	styleWidgets->handleUpdateRequest(updateFlags);
+	parEffectWidgets->handleUpdateRequest(updateFlags);
 
-	if (updateFlags & reqCharStylesUpdate)
-	{
-//		charStyleCombo->updateStyleList();
-		parEffectWidgets->updateCharStyles();
-	}
-//	if (updateFlags & reqParaStylesUpdate)
-//		paraStyleCombo->updateStyleList();
-//	if (updateFlags & reqDefFontListUpdate)
-//		fonts->rebuildList(nullptr);
-//	if (updateFlags & reqDocFontListUpdate)
-//		fonts->rebuildList(m_haveDoc ? m_doc : nullptr);
-	if (updateFlags & reqStyleComboDocUpdate)
-	{
-//		paraStyleCombo->setDoc(m_haveDoc ? m_doc : nullptr);
-//		charStyleCombo->setDoc(m_haveDoc ? m_doc : nullptr);
-		parEffectWidgets->setDoc(m_haveDoc ? m_doc : nullptr);
-	}
 }
 
 void PropertiesPalette_Text::setCurrentItem(PageItem *item)
@@ -333,8 +298,6 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *item)
 	m_haveItem = false;
 	m_item = item;
 
-	showFirstLinePolicy(m_item->firstLineOffset());
-
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 	{
 		setEnabled(false);
@@ -344,7 +307,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *item)
 
 	if (!sender())
 	{
-		colorWidgets->handleSelectionChanged();
+		alignmentWidgets->handleSelectionChanged();
 		distanceWidgets->handleSelectionChanged();
 		parEffectWidgets->handleSelectionChanged();
 	}
@@ -354,7 +317,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *item)
 		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
 		if (m_doc->appMode == modeEdit || m_doc->appMode == modeEditTable)
 			m_item->currentTextProps(parStyle);
-		updateStyle(parStyle);
+		updateParagraphStyle(parStyle);
 	}
 	if (m_item->isOSGFrame())
 	{
@@ -368,7 +331,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *item)
 
 void PropertiesPalette_Text::iconSetChange()
 {
-	textWidgets->iconSetChange();
+	// no local icons to change
 }
 
 void PropertiesPalette_Text::unitChange()
@@ -379,11 +342,9 @@ void PropertiesPalette_Text::unitChange()
 	m_haveItem = false;
 
 	advancedWidgets->unitChange();
+	alignmentWidgets->unitChange();
 	fontfeaturesWidget->unitChange();
-	colorWidgets->unitChange();
 	distanceWidgets->unitChange();
-	flopBox->unitChange();
-	optMargins->unitChange();
 	pathTextWidgets->unitChange();
 	parEffectWidgets->unitChange();
 	textWidgets->unitChange();
@@ -393,12 +354,7 @@ void PropertiesPalette_Text::unitChange()
 
 void PropertiesPalette_Text::localeChange()
 {
-	textWidgets->localeChange();
-	advancedWidgets->localeChange();
-	colorWidgets->localeChange();
-	distanceWidgets->localeChange();
-	parEffectWidgets->localeChange();
-	pathTextWidgets->localeChange();
+	// Nothing to do here!
 }
 
 void PropertiesPalette_Text::showFontSize(double s)
@@ -408,19 +364,7 @@ void PropertiesPalette_Text::showFontSize(double s)
 
 void PropertiesPalette_Text::showLanguage(const QString& w)
 {
-	textWidgets->showLanguage(w);
-}
-
-void PropertiesPalette_Text::showFirstLinePolicy( FirstLineOffsetPolicy f )
-{
-	if (f == FLOPFontAscent)
-		flopBox->flopFontAscent->setChecked(true);
-	else if (f == FLOPLineSpacing)
-		flopBox->flopLineSpacing->setChecked(true);
-	else if (f == FLOPRealGlyphHeight)
-		flopBox->flopRealHeight->setChecked(true); //It’s historical behaviour.
-	else // if (f == FLOPBaseline)
-		flopBox->flopBaselineGrid->setChecked(true);
+	hyphenationWidget->showLanguage(w);
 }
 
 void PropertiesPalette_Text::updateCharStyle(const CharStyle& charStyle)
@@ -430,59 +374,39 @@ void PropertiesPalette_Text::updateCharStyle(const CharStyle& charStyle)
 
 	advancedWidgets->updateCharStyle(charStyle);
 	fontfeaturesWidget->updateCharStyle(charStyle);
-	colorWidgets->updateCharStyle(charStyle);
 	hyphenationWidget->updateCharStyle(charStyle);
 	textWidgets->updateCharStyle(charStyle);
 }
 
-void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
+void PropertiesPalette_Text::updateParagraphStyle(const ParagraphStyle& newCurrent)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
 	advancedWidgets->updateStyle(newCurrent);
 	fontfeaturesWidget->updateStyle(newCurrent);
-	colorWidgets->updateStyle(newCurrent);
-	optMargins->updateStyle(newCurrent);
-	orphanBox->updateStyle (newCurrent);
+	orphanBox->updateStyle(newCurrent);
 	parEffectWidgets->updateStyle(newCurrent);
 	hyphenationWidget->updateStyle(newCurrent);
 	textWidgets->updateStyle(newCurrent);
-}
-
-void PropertiesPalette_Text::updateCharStyles()
-{
-	textWidgets->updateCharStyles();
-	parEffectWidgets->updateCharStyles();
-}
-
-void PropertiesPalette_Text::updateParagraphStyles()
-{
-	textWidgets->updateParagraphStyles();
-	parEffectWidgets->updateCharStyles();
+	styleWidgets->updateStyle(newCurrent);
+	alignmentWidgets->updateStyle(newCurrent);
 }
 
 void PropertiesPalette_Text::updateTextStyles()
 {
-	textWidgets->updateTextStyles();
+	styleWidgets->updateTextStyles();
+	parEffectWidgets->updateTextStyles();
 }
 
 void PropertiesPalette_Text::showAlignment(int e)
 {
-	textWidgets->showAlignment(e);
+	alignmentWidgets->showAlignment(e);
 }
 
 void PropertiesPalette_Text::showDirection(int e)
 {
-	textWidgets->showDirection(e);
-}
-
-void PropertiesPalette_Text::updateColorList()
-{
-	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-
-	colorWidgets->updateColorList();
+	alignmentWidgets->showDirection(e);
 }
 
 void PropertiesPalette_Text::changeEvent(QEvent *e)
@@ -497,46 +421,23 @@ void PropertiesPalette_Text::changeEvent(QEvent *e)
 
 void PropertiesPalette_Text::languageChange()
 {
-	scAdvanced->setText(tr("Advanced Settings"));
-	scDistance->setText(tr("Columns && Text Distances"));
-	scFlop->setText(tr("First Line Offset"));
-	scFontFeatures->setText(tr("Font Features"));
-	scHyphenation->setText(tr("Hyphenation"));
-	scOptMargins->setText(tr("Optical Margins"));
-	scOrphans->setText(tr("Orphans and Widows"));
-	scParEffect->setText(tr("Paragraph Effects"));
-	scPathText->setText(tr("Path Text Properties"));
-	scText->setText(tr("Text"));
-	scTextColor->setText(tr("Color && Effects"));
+	scAdvanced->setText(tr("Typography"));
+	scAlignment->setText(tr("Alignment && Tabs"));
+	scDistance->setText(tr("Columns && Margins"));
+	scFontFeatures->setText(tr("OpenType Features"));
+	scHyphenation->setText(tr("Hyphenation && Language"));
+	scOrphans->setText(tr("Orphans && Widows"));
+	scParEffect->setText(tr("Lists && Drop Caps"));
+	scPathText->setText(tr("Text on Path"));
+	scText->setText(tr("Font"));
 
-	colorWidgets->languageChange();
-	flopBox->languageChange();
 	orphanBox->languageChange();
 	distanceWidgets->languageChange();
-	optMargins->languageChange();
 	advancedWidgets->languageChange();
+	alignmentWidgets->languageChange();
 	pathTextWidgets->languageChange();
 	fontfeaturesWidget->languageChange();
 	hyphenationWidget->languageChange();
 	textWidgets->languageChange();
-}
-
-void PropertiesPalette_Text::handleFirstLinePolicy(int radioFlop)
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
-		return;
-	if (radioFlop == PropertyWidget_Flop::RealHeightID)
-		m_item->setFirstLineOffset(FLOPRealGlyphHeight);
-	else if (radioFlop == PropertyWidget_Flop::FontAscentID)
-		m_item->setFirstLineOffset(FLOPFontAscent);
-	else if (radioFlop == PropertyWidget_Flop::LineSpacingID)
-		m_item->setFirstLineOffset(FLOPLineSpacing);
-	else if (radioFlop == PropertyWidget_Flop::BaselineGridID)
-		m_item->setFirstLineOffset(FLOPBaselineGrid);
-	m_item->update();
-	if (m_doc->appMode == modeEditTable)
-		m_item->parentTable()->update();
-	else
-		m_item->update();
-	m_doc->regionsChanged()->update(QRect());
+	styleWidgets->languageChange();
 }

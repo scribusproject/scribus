@@ -8,9 +8,9 @@ for which a new license (GPL+exception) is in place.
 #define CONTENTPALETTE_H
 
 #include "scribusapi.h"
-#include "scdockpalette.h"
 #include "docks/dock_panelbase.h"
 #include "scguardedptr.h"
+#include "widgets/stacked_container.h"
 
 class QStackedWidget;
 
@@ -75,7 +75,7 @@ class SCRIBUS_API ContentPalette : public DockPanelBase
 		double m_unitRatio {1.0};
 		int m_unitIndex {0};
 
-		QStackedWidget* stackedWidget {nullptr};
+		StackedContainer* stackedWidget {nullptr};
 		ContentPalette_Default* defaultPal {nullptr};
 		PropertiesPalette_Group* groupPal {nullptr};
 		PropertiesPalette_Image* imagePal {nullptr};

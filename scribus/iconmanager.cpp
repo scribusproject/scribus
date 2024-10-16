@@ -448,7 +448,7 @@ QPixmap *IconManager::pixmapFromFile(const QString filePath, QColor color, QSize
 		double width = (size.width() > 0) ?  size.width() : svgWidth;
 		double height = (size.height() > 0) ?  size.height() : svgHeight;
 
-		QSize newSize(QSize(width, height));
+		QSize newSize(width, height);
 
 		// invalid width
 		if (size.width() < 1)

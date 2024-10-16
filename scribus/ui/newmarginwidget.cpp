@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "newmarginwidget.h"
+#include "iconmanager.h"
 #include "scrspinbox.h"
 #include "units.h"
 #include "ui/marginpresetlayout.h"
@@ -54,8 +55,10 @@ void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitI
 
 	languageChange();
 	iconSetChange();
+	toggleLabelVisibility(true);
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+//	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 	connect(topMarginSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
 	connect(bottomMarginSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	connect(leftMarginSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
@@ -75,13 +78,21 @@ void NewMarginWidget::languageChange()
 		rightMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
 		marginLinkButton->setToolTip( "<qt>" + tr( "Ensure all margins have the same value" ) + "</qt>");
 	}
-	else
+	else if (m_flags & BleedWidgetFlags)
 	{
 		topMarginSpinBox->setToolTip( "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
 		bottomMarginSpinBox->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
 		leftMarginSpinBox->setToolTip( "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
 		rightMarginSpinBox->setToolTip( "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
 		marginLinkButton->setToolTip( "<qt>" + tr( "Ensure all bleeds have the same value" ) + "</qt>");
+	}
+	else
+	{
+		topMarginSpinBox->setToolTip( "<qt>" + tr( "Distance from the top" ) + "</qt>" );
+		bottomMarginSpinBox->setToolTip( "<qt>" + tr( "Distance from the bottom" ) + "</qt>" );
+		leftMarginSpinBox->setToolTip( "<qt>" + tr( "Distance from the left" ) + "</qt>" );
+		rightMarginSpinBox->setToolTip( "<qt>" + tr( "Distance from the right" )  + "</qt>");
+		marginLinkButton->setToolTip( "<qt>" + tr( "Ensure all distances have the same value" ) + "</qt>");
 	}
 	printerMarginsPushButton->setToolTip( "<qt>" + tr( "Import the margins for the selected page size from the available printers" ) + "</qt>");
 
@@ -91,6 +102,27 @@ void NewMarginWidget::languageChange()
 
 void NewMarginWidget::iconSetChange()
 {
+	IconManager &im = IconManager::instance();
+
+	leftMarginLabel->setPixmap(im.loadPixmap(m_facingPages ? "border-inside" : "border-left"));
+	rightMarginLabel->setPixmap(im.loadPixmap(m_facingPages ? "border-outside" : "border-right"));
+	topMarginLabel->setPixmap(im.loadPixmap("border-top"));
+	bottomMarginLabel->setPixmap(im.loadPixmap("border-bottom"));
+}
+
+void NewMarginWidget::toggleLabelVisibility(bool v)
+{
+	formWidget->setLabelVisibility(v);
+	leftMarginLabel->setLabelVisibility(v);
+	rightMarginLabel->setLabelVisibility(v);
+	topMarginLabel->setLabelVisibility(v);
+	bottomMarginLabel->setLabelVisibility(v);
+
+	leftMarginLabel->setIconVisibility(!v);
+	rightMarginLabel->setIconVisibility(!v);
+	topMarginLabel->setIconVisibility(!v);
+	bottomMarginLabel->setIconVisibility(!v);
+
 }
 
 void NewMarginWidget::setNewValues(const MarginStruct& margs)
@@ -101,24 +133,35 @@ void NewMarginWidget::setNewValues(const MarginStruct& margs)
 
 void NewMarginWidget::setPageWidth(double newWidth)
 {
-	leftMarginSpinBox->setMaximum(qMax(0.0, newWidth * m_unitRatio - rightMarginSpinBox->value()));
-	rightMarginSpinBox->setMaximum(qMax(0.0, newWidth * m_unitRatio - leftMarginSpinBox->value()));
+	// if ((m_flags & MarginWidgetFlags) == 0 || (m_flags & BleedWidgetFlags) == 0)
+	// {
+		leftMarginSpinBox->setMaximum(qMax(0.0, newWidth * m_unitRatio - rightMarginSpinBox->value()));
+		rightMarginSpinBox->setMaximum(qMax(0.0, newWidth * m_unitRatio - leftMarginSpinBox->value()));
+//	}
 	m_pageWidth = newWidth;
 	setPreset();
+	emit valuesChanged(m_marginData);
+
 }
 
 void NewMarginWidget::setPageHeight(double newHeight)
 {
-	topMarginSpinBox->setMaximum(qMax(0.0, newHeight * m_unitRatio - bottomMarginSpinBox->value()));
-	bottomMarginSpinBox->setMaximum(qMax(0.0,newHeight * m_unitRatio - topMarginSpinBox->value()));
+	// if ((m_flags & MarginWidgetFlags) == 0 || (m_flags & BleedWidgetFlags) == 0)
+	// {
+		topMarginSpinBox->setMaximum(qMax(0.0, newHeight * m_unitRatio - bottomMarginSpinBox->value()));
+		bottomMarginSpinBox->setMaximum(qMax(0.0,newHeight * m_unitRatio - topMarginSpinBox->value()));
+//	}
 	m_pageHeight = newHeight;
 	setPreset();
+	emit valuesChanged(m_marginData);
+
 }
 
 void NewMarginWidget::setTop()
 {
 	double newVal = topMarginSpinBox->value() / m_unitRatio;
-	bottomMarginSpinBox->setMaximum(qMax(0.0, m_pageHeight * m_unitRatio - topMarginSpinBox->value()));
+//	if ((m_flags & MarginWidgetFlags) == 0 || (m_flags & BleedWidgetFlags) == 0)
+		bottomMarginSpinBox->setMaximum(qMax(0.0, m_pageHeight * m_unitRatio - topMarginSpinBox->value()));
 	if (marginLinkButton->isChecked() && m_savedPresetItem == PresetLayout::none)
 	{
 		m_marginData.set(newVal, newVal, newVal, newVal);
@@ -127,12 +170,15 @@ void NewMarginWidget::setTop()
 	else
 		m_marginData.setTop(newVal);
 	setPreset();
+	emit valuesChanged(m_marginData);
+
 }
 
 void NewMarginWidget::setBottom()
 {
 	double newVal = bottomMarginSpinBox->value() / m_unitRatio;
-	topMarginSpinBox->setMaximum(qMax(0.0, m_pageHeight * m_unitRatio - bottomMarginSpinBox->value()));
+//	if ((m_flags & MarginWidgetFlags) == 0 || (m_flags & BleedWidgetFlags) == 0)
+		topMarginSpinBox->setMaximum(qMax(0.0, m_pageHeight * m_unitRatio - bottomMarginSpinBox->value()));
 	if (marginLinkButton->isChecked() && m_savedPresetItem == PresetLayout::none)
 	{
 		m_marginData.set(newVal, newVal, newVal, newVal);
@@ -141,12 +187,15 @@ void NewMarginWidget::setBottom()
 	else
 		m_marginData.setBottom(newVal);
 	setPreset();
+	emit valuesChanged(m_marginData);
+
 }
 
 void NewMarginWidget::setLeft()
 {
 	double newVal = leftMarginSpinBox->value() / m_unitRatio;
-	rightMarginSpinBox->setMaximum(qMax(0.0, m_pageWidth * m_unitRatio - leftMarginSpinBox->value()));
+//	if ((m_flags & MarginWidgetFlags) == 0 || (m_flags & BleedWidgetFlags) == 0)
+		rightMarginSpinBox->setMaximum(qMax(0.0, m_pageWidth * m_unitRatio - leftMarginSpinBox->value()));
 	if (marginLinkButton->isChecked() && m_savedPresetItem == PresetLayout::none)
 	{
 		m_marginData.set(newVal, newVal, newVal, newVal);
@@ -155,12 +204,15 @@ void NewMarginWidget::setLeft()
 	else
 		m_marginData.setLeft(newVal);
 	setPreset();
+	emit valuesChanged(m_marginData);
+
 }
 
 void NewMarginWidget::setRight()
 {
 	double newVal = rightMarginSpinBox->value() / m_unitRatio;
-	leftMarginSpinBox->setMaximum(qMax(0.0, m_pageWidth * m_unitRatio - rightMarginSpinBox->value()));
+//	if ((m_flags & MarginWidgetFlags) == 0 || (m_flags & BleedWidgetFlags) == 0)
+		leftMarginSpinBox->setMaximum(qMax(0.0, m_pageWidth * m_unitRatio - rightMarginSpinBox->value()));
 	if (marginLinkButton->isChecked() && m_savedPresetItem == PresetLayout::none)
 	{
 		m_marginData.set(newVal, newVal, newVal, newVal);
@@ -169,6 +221,8 @@ void NewMarginWidget::setRight()
 	else
 		m_marginData.setRight(newVal);
 	setPreset();
+	emit valuesChanged(m_marginData);
+
 }
 
 void NewMarginWidget::setNewUnit(int newUnitIndex)

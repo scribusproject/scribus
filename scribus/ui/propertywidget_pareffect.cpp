@@ -25,24 +25,30 @@ PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(par
 {
 	setupUi(this);
 
-	layout()->setAlignment(Qt::AlignTop);
-
 	languageChange();
 	dropCapLines->setValue(2);
 
 	if (m_doc)
 		peCharStyleCombo->updateStyleList();
 	fillBulletStrEditCombo();
-	enableParEffect(false);
-	bulletCharTableButton->setIcon(IconManager::instance().loadIcon("22/insert-table.png"));
+
 	numStart->setMinimum(1);
 	numStart->setMaximum(9999);
 	numLevelSpin->setMinimum(1);
 	numLevelSpin->setMaximum(3);
+	numPrefix->setMaxLength(5);
+	numPrefix->setMaximumWidth(QFontMetrics(numPrefix->font()).averageCharWidth() * 7);
+	numSuffix->setMaxLength(5);
+	numSuffix->setMaximumWidth(QFontMetrics(numSuffix->font()).averageCharWidth() * 7);
 	dropCapLines->setMinimum(2);
 	dropCapLines->setMaximum(99);
+	peCombo->setCurrentIndex(0);
+	setType(peCombo->currentData().toInt());
+
+	iconSetChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 }
 
 void PropertyWidget_ParEffect::setMainWindow(ScribusMainWindow* mw)
@@ -110,6 +116,9 @@ void PropertyWidget_ParEffect::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
 	bulletCharTableButton->setIcon(iconManager.loadIcon("22/insert-table.png"));
+	peCharStyleLabel->setPixmap(iconManager.loadPixmap("character-style"));
+	peOffsetLabel->setPixmap(iconManager.loadPixmap("paragraph-list-offset"));
+	peLabel->setPixmap(iconManager.loadPixmap("paragraph-effects-style"));
 }
 
 void PropertyWidget_ParEffect::unitChange()
@@ -150,7 +159,7 @@ void PropertyWidget_ParEffect::fillNumerationsCombo()
 	numComboBox->insertItems(0, numNames);
 }
 
-void PropertyWidget_ParEffect::updateCharStyles()
+void PropertyWidget_ParEffect::updateTextStyles()
 {
 	peCharStyleCombo->updateStyleList();
 }
@@ -162,57 +171,19 @@ void PropertyWidget_ParEffect::showCharStyle(const QString& name)
 	peCharStyleCombo->blockSignals(blocked);
 }
 
-void PropertyWidget_ParEffect::enableDropCap(bool enable)
+void PropertyWidget_ParEffect::setType(int id)
 {
-//	dropCapRadio_->setChecked(enable);
-	dropCapLines->setEnabled(enable);
-	if (enable)
+	if (id == -1) // No effect
 	{
-		dropCapsGroup->show();
-		enableBullet(false);
-		enableNum(false);
+		stackedWidget->setVisible(false);
+		peGroup->setVisible(false);
+		peCombo->setCurrentIndex(0);
 	}
 	else
-		dropCapsGroup->hide();
-}
-void PropertyWidget_ParEffect::enableBullet(bool enable)
-{
-	bulletStrEdit->setVisible(enable);
-	bulletCharTableButton->setVisible(enable);
-	bullGroup->setVisible(enable);
-	if (enable)
 	{
-		enableDropCap(false);
-		enableNum(false);
-	}
-}
-void PropertyWidget_ParEffect::enableNum(bool enable)
-{
-	numComboBox->setVisible(enable);
-	numLevelSpin->setVisible(enable);
-	numStart->setVisible(enable);
-	numPrefix->setVisible(enable);
-	numSuffix->setVisible(enable);
-	numFormatCombo->setVisible(enable);
-	numGroup->setVisible(enable);
-	if (enable)
-	{
-		enableBullet(false);
-		enableDropCap(false);
-	}
-}
-void PropertyWidget_ParEffect::enableParEffect(bool enable)
-{
-	peOffset->setVisible(enable);
-	peCharStyleCombo->setVisible(enable);
-	peIndent->setVisible(enable);
-	peGroup->setVisible(enable);
-	if (!enable)
-	{
-		enableBullet(false);
-		enableDropCap(false);
-		enableNum(false);
-		peCombo->setCurrentIndex(0);
+		stackedWidget->setCurrentIndex(id);
+		stackedWidget->setVisible(true);
+		peGroup->setVisible(true);
 	}
 }
 
@@ -232,10 +203,10 @@ void PropertyWidget_ParEffect::fillPECombo()
 	QSignalBlocker sb(peCombo);
 	int currIndex = peCombo->currentIndex();
 	peCombo->clear();
-	peCombo->addItem(tr("No Paragraph Effects"));
-	peCombo->addItem(tr("Drop Caps"));
-	peCombo->addItem(tr("Bulleted List"));
-	peCombo->addItem(tr("Numbered List"));
+	peCombo->addItem(tr("No Paragraph Effects"), -1);
+	peCombo->addItem(tr("Drop Caps"), 0);
+	peCombo->addItem(tr("Bulleted List"), 1);
+	peCombo->addItem(tr("Numbered List"), 2);
 	peCombo->setCurrentIndex(currIndex);
 }
 
@@ -245,7 +216,7 @@ void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 
 	if (peCombo->currentIndex() && !newPStyle.hasBullet() && !newPStyle.hasDropCap() && !newPStyle.hasNum())
 	{
-		enableParEffect(false);
+		setType(-1);
 		return;
 	}
 
@@ -262,24 +233,22 @@ void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 	QSignalBlocker blockerB(peIndent);
 	QSignalBlocker blockerC(peCharStyleCombo);
 
-	bool enablePE = true;
 	if (newPStyle.hasDropCap())
 	{
 		peCombo->setCurrentIndex(1);
-		enableDropCap(true);
 	}
 	else if (newPStyle.hasBullet())
 	{
 		peCombo->setCurrentIndex(2);
-		enableBullet(true);
 	}
 	else if (newPStyle.hasNum())
 	{
 		peCombo->setCurrentIndex(3);
-		enableNum(true);
 	}
 	else
-		enablePE = false;
+		peCombo->setCurrentIndex(0);
+
+	setType(peCombo->currentData().toInt());
 
 	QString numName = numComboBox->currentText();
 	dropCapLines->setValue(newPStyle.dropCapLines());
@@ -302,8 +271,6 @@ void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 	peOffset->setValue(newPStyle.parEffectOffset() * m_unitRatio);
 	peIndent->setChecked(newPStyle.parEffectIndent());
 	showCharStyle(newPStyle.peCharStyleName());
-
-	enableParEffect(enablePE);
 
 	if (oldPeComboIndex != peCombo->currentIndex())
 		emit needsRelayout();
@@ -349,7 +316,7 @@ void PropertyWidget_ParEffect::configureWidgets()
 		PageItem_TextFrame *textItem = m_item->asTextFrame();
 		if (m_doc->appMode == modeEditTable)
 			textItem = m_item->asTable()->activeCell().textFrame();
-		if (textItem || m_item->isPathText())
+		if (textItem)// || m_item->isPathText())
 			enabled = true;
 	}
 	setEnabled(enabled);
@@ -376,7 +343,7 @@ void PropertyWidget_ParEffect::handleSelectionChanged()
 void PropertyWidget_ParEffect::handleUpdateRequest(int updateFlags)
 {
 	if (updateFlags & reqCharStylesUpdate)
-		updateCharStyles();
+		updateTextStyles();
 	if (updateFlags & reqStyleComboDocUpdate)
 		setDoc(m_doc ? m_doc : nullptr);
 	if (updateFlags & reqNumUpdate)
@@ -389,10 +356,9 @@ void PropertyWidget_ParEffect::handleParEffectUse()
 		return;
 
 	ParagraphStyle newStyle;
-	enableParEffect(peCombo->currentIndex() != 0);
+
 	if (peCombo->currentIndex() == 1)
 	{
-		enableDropCap(true);
 		newStyle.setDropCapLines(dropCapLines->value());
 		newStyle.setHasDropCap(true);
 		newStyle.setHasBullet(false);
@@ -400,7 +366,6 @@ void PropertyWidget_ParEffect::handleParEffectUse()
 	}
 	else if (peCombo->currentIndex() == 2)
 	{
-		enableBullet(true);
 		newStyle.setHasBullet(true);
 		QString bStr = bulletStrEdit->currentText();
 		if (bStr.isEmpty())
@@ -411,7 +376,6 @@ void PropertyWidget_ParEffect::handleParEffectUse()
 	}
 	else if (peCombo->currentIndex() == 3)
 	{
-		enableNum(true);
 		newStyle.setHasDropCap(false);
 		newStyle.setHasBullet(false);
 		newStyle.setHasNum(true);
@@ -435,6 +399,9 @@ void PropertyWidget_ParEffect::handleParEffectUse()
 	}
 	newStyle.setParEffectOffset(peOffset->value() / m_unitRatio);
 	newStyle.setParEffectIndent(peIndent->isChecked());
+
+	setType(peCombo->currentData().toInt());
+
 	handleChanges(m_item, newStyle);
 
 	emit needsRelayout();

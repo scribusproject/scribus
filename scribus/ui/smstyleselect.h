@@ -31,6 +31,9 @@ private:
 
 	void setFont(bool wantBold);
 
+public slots:
+	void iconSetChange();
+
 private slots:
 	void styleChanged();
 	void pbPressed();

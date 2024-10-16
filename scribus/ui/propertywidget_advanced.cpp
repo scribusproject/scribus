@@ -27,17 +27,12 @@ PropertyWidget_Advanced::PropertyWidget_Advanced(QWidget* parent) : QFrame(paren
 	scaleH->setValues(10, 400, 2, 100);
 	scaleV->setValues(10, 400, 2, 100);
 
-	minWordTrackingLabel->setBuddy(minWordTrackingSpinBox);
-	normWordTrackingLabel->setBuddy(normWordTrackingSpinBox);
-
-	minGlyphExtensionLabel->setBuddy(minGlyphExtSpinBox);
-	maxGlyphExtensionLabel->setBuddy(maxGlyphExtSpinBox);
-
 	iconSetChange();
 	languageChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 }
 
 void PropertyWidget_Advanced::setMainWindow(ScribusMainWindow *mw)
@@ -120,6 +115,15 @@ void PropertyWidget_Advanced::connectSignals()
 	connect(normWordTrackingSpinBox, SIGNAL(valueChanged(double)), this, SLOT(handleNormWordTracking()) );
 	connect(minGlyphExtSpinBox     , SIGNAL(valueChanged(double)), this, SLOT(handleMinGlyphExtension()) );
 	connect(maxGlyphExtSpinBox     , SIGNAL(valueChanged(double)), this, SLOT(handleMaxGlyphExtension()) );
+
+	connect(textEffects, SIGNAL(State(int))		, this, SLOT(handleTypeStyle(int)), Qt::UniqueConnection);
+	connect(textEffects->ShadowVal->Xoffset		, SIGNAL(valueChanged(double)), this, SLOT(handleShadowOffs()), Qt::UniqueConnection);
+	connect(textEffects->ShadowVal->Yoffset		, SIGNAL(valueChanged(double)), this, SLOT(handleShadowOffs()), Qt::UniqueConnection);
+	connect(textEffects->OutlineVal->LWidth		, SIGNAL(valueChanged(double)), this, SLOT(handleOutlineWidth()), Qt::UniqueConnection);
+	connect(textEffects->UnderlineVal->LPos		, SIGNAL(valueChanged(double)), this, SLOT(handleUnderline()) , Qt::UniqueConnection);
+	connect(textEffects->UnderlineVal->LWidth	, SIGNAL(valueChanged(double)), this, SLOT(handleUnderline()) , Qt::UniqueConnection);
+	connect(textEffects->StrikeVal->LPos		, SIGNAL(valueChanged(double)), this, SLOT(handleStrikeThru()), Qt::UniqueConnection);
+	connect(textEffects->StrikeVal->LWidth		, SIGNAL(valueChanged(double)), this, SLOT(handleStrikeThru()), Qt::UniqueConnection);
 }
 
 void PropertyWidget_Advanced::disconnectSignals()
@@ -132,6 +136,15 @@ void PropertyWidget_Advanced::disconnectSignals()
 	disconnect(normWordTrackingSpinBox, SIGNAL(valueChanged(double)), this, SLOT(handleNormWordTracking()) );
 	disconnect(minGlyphExtSpinBox     , SIGNAL(valueChanged(double)), this, SLOT(handleMinGlyphExtension()) );
 	disconnect(maxGlyphExtSpinBox     , SIGNAL(valueChanged(double)), this, SLOT(handleMaxGlyphExtension()) );
+
+	disconnect(textEffects, SIGNAL(State(int))	, this, SLOT(handleTypeStyle(int)));
+	disconnect(textEffects->ShadowVal->Xoffset  , SIGNAL(valueChanged(double)), this, SLOT(handleShadowOffs()));
+	disconnect(textEffects->ShadowVal->Yoffset  , SIGNAL(valueChanged(double)), this, SLOT(handleShadowOffs()));
+	disconnect(textEffects->OutlineVal->LWidth  , SIGNAL(valueChanged(double)), this, SLOT(handleOutlineWidth()));
+	disconnect(textEffects->UnderlineVal->LPos  , SIGNAL(valueChanged(double)), this, SLOT(handleUnderline()));
+	disconnect(textEffects->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(handleUnderline()));
+	disconnect(textEffects->StrikeVal->LPos     , SIGNAL(valueChanged(double)), this, SLOT(handleStrikeThru()));
+	disconnect(textEffects->StrikeVal->LWidth   , SIGNAL(valueChanged(double)), this, SLOT(handleStrikeThru()));
 }
 
 void PropertyWidget_Advanced::configureWidgets()
@@ -187,6 +200,45 @@ void PropertyWidget_Advanced::showTracking(double e)
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	tracking->showValue(e / 10.0);
+}
+
+void PropertyWidget_Advanced::showOutlineW(double x)
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	textEffects->OutlineVal->LWidth->showValue(x / 10.0);
+}
+
+void PropertyWidget_Advanced::showShadowOffset(double x, double y)
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	textEffects->ShadowVal->Xoffset->showValue(x / 10.0);
+	textEffects->ShadowVal->Yoffset->showValue(y / 10.0);
+}
+
+void PropertyWidget_Advanced::showStrikeThru(double p, double w)
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	textEffects->StrikeVal->LPos->showValue(p / 10.0);
+	textEffects->StrikeVal->LWidth->showValue(w / 10.0);
+}
+
+void PropertyWidget_Advanced::showTextEffects(int s)
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	textEffects->setStyle(s);
+}
+
+void PropertyWidget_Advanced::showUnderline(double p, double w)
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	textEffects->UnderlineVal->LPos->showValue(p / 10.0);
+	textEffects->UnderlineVal->LWidth->showValue(w / 10.0);
 }
 
 void PropertyWidget_Advanced::handleBaselineOffset()
@@ -317,6 +369,90 @@ void PropertyWidget_Advanced::handleTracking()
 	}
 }
 
+void PropertyWidget_Advanced::handleUnderline()
+{
+	if ((m_doc) && (m_item))
+	{
+		int x = qRound(textEffects->UnderlineVal->LPos->value() * 10.0);
+		int y = qRound(textEffects->UnderlineVal->LWidth->value() * 10.0);
+		PageItem *i2 = m_item;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		if (i2 != nullptr)
+		{
+			Selection tempSelection(this, false);
+			tempSelection.addItem(i2, true);
+			m_doc->itemSelection_SetUnderline(x, y, &tempSelection);
+		}
+	}
+}
+
+void PropertyWidget_Advanced::handleOutlineWidth()
+{
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	int x = qRound(textEffects->OutlineVal->LWidth->value() * 10.0);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != nullptr)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetOutlineWidth(x, &tempSelection);
+	}
+}
+
+void PropertyWidget_Advanced::handleShadowOffs()
+{
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	int x = qRound(textEffects->ShadowVal->Xoffset->value() * 10.0);
+	int y = qRound(textEffects->ShadowVal->Yoffset->value() * 10.0);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != nullptr)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetShadowOffsets(x, y, &tempSelection);
+	}
+}
+
+void PropertyWidget_Advanced::handleTypeStyle(int s)
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != nullptr)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetEffects(s, &tempSelection);
+		m_ScMW->setStyleEffects(s);
+	}
+}
+
+void PropertyWidget_Advanced::handleStrikeThru()
+{
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	int x = qRound(textEffects->StrikeVal->LPos->value() * 10.0);
+	int y = qRound(textEffects->StrikeVal->LWidth->value() * 10.0);
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != nullptr)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetStrikethru(x, y, &tempSelection);
+	}
+}
+
 void PropertyWidget_Advanced::updateCharStyle(const CharStyle& charStyle)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
@@ -326,6 +462,11 @@ void PropertyWidget_Advanced::updateCharStyle(const CharStyle& charStyle)
 	showTextScaleV(charStyle.scaleV());
 	showTracking(charStyle.tracking());
 	showBaseLineOffset(charStyle.baselineOffset());
+	showOutlineW(charStyle.outlineWidth());
+	showShadowOffset(charStyle.shadowXOffset(), charStyle.shadowYOffset());
+	showTextEffects(charStyle.effects());
+	showStrikeThru(charStyle.strikethruOffset(), charStyle.strikethruWidth());
+	showUnderline(charStyle.underlineOffset(), charStyle.underlineWidth());
 
 	normWordTrackingSpinBox->showValue(charStyle.wordTracking() * 100.0);
 }
@@ -341,6 +482,11 @@ void PropertyWidget_Advanced::updateStyle(const ParagraphStyle& newCurrent)
 	showTextScaleV(charStyle.scaleV());
 	showTracking(charStyle.tracking());
 	showBaseLineOffset(charStyle.baselineOffset());
+	showOutlineW(charStyle.outlineWidth());
+	showShadowOffset(charStyle.shadowXOffset(), charStyle.shadowYOffset());
+	showTextEffects(charStyle.effects());
+	showStrikeThru(charStyle.strikethruOffset(), charStyle.strikethruWidth());
+	showUnderline(charStyle.underlineOffset(), charStyle.underlineWidth());
 
 	minWordTrackingSpinBox->showValue(newCurrent.minWordTracking() * 100.0);
 	normWordTrackingSpinBox->showValue(newCurrent.charStyle().wordTracking() * 100.0);
@@ -360,16 +506,27 @@ void PropertyWidget_Advanced::changeEvent(QEvent *e)
 
 void PropertyWidget_Advanced::iconSetChange()
 {
-	textBaseLabel->setPixmap(IconManager::instance().loadPixmap("textbase.png"));
-	trackingLabel->setPixmap(IconManager::instance().loadPixmap("textkern.png"));
+	IconManager &im = IconManager::instance();
 
-	scaleHLabel->setPixmap(IconManager::instance().loadPixmap("textscaleh.png"));
-	scaleVLabel->setPixmap(IconManager::instance().loadPixmap("textscalev.png"));
+	textBaseLabel->setPixmap(im.loadPixmap("character-offset-baseline"));
+	trackingLabel->setPixmap(im.loadPixmap("character-letter-tracking"));
+
+	scaleHLabel->setPixmap(im.loadPixmap("character-scale-width"));
+	scaleVLabel->setPixmap(im.loadPixmap("character-scale-height"));
+
+	minWordTrackingLabel->setPixmap(im.loadPixmap("character-space-width-min"));
+	normWordTrackingLabel->setPixmap(im.loadPixmap("character-space-width"));
+
+	minGlyphExtensionLabel->setPixmap(im.loadPixmap("character-scale-width-min"));
+	maxGlyphExtensionLabel->setPixmap(im.loadPixmap("character-scale-width-max"));
+
 }
 
 void PropertyWidget_Advanced::languageChange()
 {
 	retranslateUi(this);
+
+	textEffects->languageChange();
 }
 
 void PropertyWidget_Advanced::localeChange()
@@ -383,4 +540,23 @@ void PropertyWidget_Advanced::localeChange()
 	normWordTrackingSpinBox->setLocale(l);
 	minGlyphExtSpinBox->setLocale(l);
 	maxGlyphExtSpinBox->setLocale(l);
+
+	textEffects->ShadowVal->Xoffset->setLocale(l);
+	textEffects->ShadowVal->Yoffset->setLocale(l);
+	textEffects->OutlineVal->LWidth->setLocale(l);
+	textEffects->UnderlineVal->LPos->setLocale(l);
+	textEffects->UnderlineVal->LWidth->setLocale(l);
+	textEffects->StrikeVal->LPos->setLocale(l);
+	textEffects->StrikeVal->LWidth->setLocale(l);
+}
+
+void PropertyWidget_Advanced::toggleLabelVisibility(bool v)
+{	
+	minWordTrackingLabel->setLabelVisibility(v);
+	normWordTrackingLabel->setLabelVisibility(v);
+	minGlyphExtensionLabel->setLabelVisibility(v);
+	maxGlyphExtensionLabel->setLabelVisibility(v);
+	glyphLabel->setLabelVisibility(v);
+	spaceLabel->setLabelVisibility(v);
+
 }

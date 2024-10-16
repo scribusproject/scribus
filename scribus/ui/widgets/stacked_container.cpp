@@ -10,19 +10,16 @@ StackedContainer::StackedContainer(QWidget *parent)
 
 QSize StackedContainer::minimumSizeHint() const
 {
-	QSize s(widget(currentIndex())->sizeHint());
-	s.setWidth(this->width());
-	return s;
+	return widget(currentIndex())->minimumSizeHint();
 }
 
 QSize StackedContainer::sizeHint() const
 {
-	return minimumSizeHint();
+	return widget(currentIndex())->sizeHint();
 }
 
 void StackedContainer::updateSize()
 {
-	//resize(this->width(), sizeHint().height());
 	adjustSize();
 }
 

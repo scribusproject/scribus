@@ -14,8 +14,8 @@ for which a new license (GPL+exception) is in place.
 StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout( this );
-	group1Layout->setSpacing(3);
-	group1Layout->setContentsMargins(3, 3, 3, 3);
+	group1Layout->setSpacing(4);
+	group1Layout->setContentsMargins(8, 8, 8, 8);
 	group1Layout->setAlignment( Qt::AlignTop );
 	LPos = new ScrSpinBox( -0.1, 100, this, 0 );
 	LPos->setValue( -0.1 );
@@ -47,8 +47,8 @@ void StrikeValues::languageChange()
 UnderlineValues::UnderlineValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout(this);
-	group1Layout->setSpacing(3);
-	group1Layout->setContentsMargins(3, 3, 3, 3);
+	group1Layout->setSpacing(4);
+	group1Layout->setContentsMargins(8, 8, 8, 8);
 	group1Layout->setAlignment( Qt::AlignTop );
 	LPos = new ScrSpinBox( -0.1, 100, this, 0 );
 	LPos->setValue( -0.1 );
@@ -80,8 +80,8 @@ void UnderlineValues::languageChange()
 OutlineValues::OutlineValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout( this );
-	group1Layout->setSpacing(3);
-	group1Layout->setContentsMargins(3, 3, 3, 3);
+	group1Layout->setSpacing(4);
+	group1Layout->setContentsMargins(8, 8, 8, 8);
 	group1Layout->setAlignment( Qt::AlignTop );
 	LWidth = new ScrSpinBox( 0, 100, this, 0 );
 	LWidth->setValue( 1 );
@@ -101,8 +101,8 @@ void OutlineValues::languageChange()
 ShadowValues::ShadowValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout( this );
-	group1Layout->setSpacing(3);
-	group1Layout->setContentsMargins(3, 3, 3, 3);
+	group1Layout->setSpacing(4);
+	group1Layout->setContentsMargins(8, 8, 8, 8);
 	group1Layout->setAlignment( Qt::AlignTop );
 	Xoffset = new ScrSpinBox( -100, 100, this, 0 );
 	Xoffset->setValue( 5 );
@@ -131,7 +131,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 {
 	IconManager& im = IconManager::instance();
 	ssLayout = new QHBoxLayout(this);
-	ssLayout->setSpacing(3);
+	ssLayout->setSpacing(4);
 	ssLayout->setContentsMargins(0, 0, 0, 0);
 
 	UnderlineVal = new UnderlineValues( nullptr );
@@ -141,42 +141,16 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	UnderlinePop->addAction(UnderlineValAct);
 	underlineButton = new QToolButton( this );
 	underlineButton->setText( "" );
-	underlineButton->setIcon(im.loadIcon("unter.png"));
 	underlineButton->setCheckable( true );
 	underlineButton->setMenu(UnderlinePop);
 	underlineButton->setPopupMode(QToolButton::DelayedPopup);
 	ssLayout->addWidget( underlineButton );
 	underlineWordButton = new QToolButton( this );
 	underlineWordButton->setText( "" );
-	underlineWordButton->setIcon(im.loadIcon("wordsOnly.png"));
 	underlineWordButton->setCheckable( true );
 	underlineWordButton->setMenu(UnderlinePop);
 	underlineWordButton->setPopupMode(QToolButton::DelayedPopup);
-	ssLayout->addWidget( underlineWordButton );
-
-	subscriptButton = new QToolButton( this );
-	subscriptButton->setText( "" );
-	subscriptButton->setIcon(im.loadIcon("tief.png"));
-	subscriptButton->setCheckable( true );
-	ssLayout->addWidget( subscriptButton );
-	superscriptButton = new QToolButton( this );
-	superscriptButton->setText( "" );
-	superscriptButton->setIcon(im.loadIcon("hoch.png"));
-	superscriptButton->setCheckable( true );
-	ssLayout->addWidget( superscriptButton );
-
-	allcapsButton = new QToolButton( this );
-	allcapsButton->setMaximumSize( QSize( 22, 22 ) );
-	allcapsButton->setText("");
-	allcapsButton->setIcon(im.loadIcon("AllCaps.png"));
-	allcapsButton->setCheckable( true );
-	ssLayout->addWidget( allcapsButton );
-	smallcapsButton = new QToolButton( this );
-	smallcapsButton->setText("");
-	smallcapsButton->setIcon(im.loadIcon("kapital.png"));
-	smallcapsButton->setCheckable( true );
-	ssLayout->addWidget( smallcapsButton );
-
+	ssLayout->addWidget( underlineWordButton );	
 	StrikeVal = new StrikeValues( nullptr );
 	StrikePop = new QMenu();
 	StrikeValAct = new QWidgetAction(this);
@@ -184,11 +158,34 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	StrikePop->addAction(StrikeValAct);
 	strikeoutButton = new QToolButton( this );
 	strikeoutButton->setText( "" );
-	strikeoutButton->setIcon(im.loadIcon("strike.png"));
 	strikeoutButton->setCheckable( true );
 	strikeoutButton->setMenu(StrikePop);
 	strikeoutButton->setPopupMode(QToolButton::DelayedPopup);
 	ssLayout->addWidget( strikeoutButton );
+
+	ssLayout->addSpacing(12);
+
+	subscriptButton = new QToolButton( this );
+	subscriptButton->setText( "" );
+	subscriptButton->setCheckable( true );
+	ssLayout->addWidget( subscriptButton );
+	superscriptButton = new QToolButton( this );
+	superscriptButton->setText( "" );
+	superscriptButton->setCheckable( true );
+	ssLayout->addWidget( superscriptButton );
+
+	ssLayout->addSpacing(12);
+
+	allcapsButton = new QToolButton( this );
+	allcapsButton->setText("");
+	allcapsButton->setCheckable( true );
+	ssLayout->addWidget( allcapsButton );
+	smallcapsButton = new QToolButton( this );
+	smallcapsButton->setText("");
+	smallcapsButton->setCheckable( true );
+	ssLayout->addWidget( smallcapsButton );
+
+	ssLayout->addSpacing(12);
 
 	OutlineVal = new OutlineValues( nullptr );
 	OutlinePop = new QMenu();
@@ -197,7 +194,6 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	OutlinePop->addAction(OutlineValAct);
 	outlineButton = new QToolButton( this );
 	outlineButton->setText( "" );
-	outlineButton->setIcon(im.loadIcon("outlined.png"));
 	outlineButton->setCheckable( true );
 	outlineButton->setMenu(OutlinePop);
 	outlineButton->setPopupMode(QToolButton::DelayedPopup);
@@ -210,33 +206,13 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	ShadowPop->addAction(ShadowValAct);
 	shadowButton = new QToolButton( this );
 	shadowButton->setText( "" );
-	shadowButton->setIcon(im.loadIcon("shadow.png"));
 	shadowButton->setCheckable( true );
 	shadowButton->setMenu(ShadowPop);
 	shadowButton->setPopupMode(QToolButton::DelayedPopup);
 	ssLayout->addWidget( shadowButton );
-	
-	QSize s(24,24);
-	underlineButton->setMinimumSize(s);
-	underlineWordButton->setMinimumSize(s);
-	subscriptButton->setMinimumSize(s);
-	superscriptButton->setMinimumSize(s);
-	smallcapsButton->setMinimumSize(s);
-	allcapsButton->setMinimumSize(s);
-	strikeoutButton->setMinimumSize(s);
-	outlineButton->setMinimumSize(s);
-	shadowButton->setMinimumSize(s);
-	underlineButton->setMaximumSize(s);
-	underlineWordButton->setMaximumSize(s);
-	subscriptButton->setMaximumSize(s);
-	superscriptButton->setMaximumSize(s);
-	smallcapsButton->setMaximumSize(s);
-	allcapsButton->setMaximumSize(s);
-	strikeoutButton->setMaximumSize(s);
-	outlineButton->setMaximumSize(s);
-	shadowButton->setMaximumSize(s);
 
 	languageChange();
+	iconSetChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
@@ -267,35 +243,16 @@ void StyleSelect::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
 	
-	underlineButton->setIcon(im.loadIcon("unter.png"));
-	underlineWordButton->setIcon(im.loadIcon("wordsOnly.png"));
-	subscriptButton->setIcon(im.loadIcon("tief.png"));
-	superscriptButton->setIcon(im.loadIcon("hoch.png"));
-	allcapsButton->setIcon(im.loadIcon("AllCaps.png"));
-	smallcapsButton->setIcon(im.loadIcon("kapital.png"));
-	strikeoutButton->setIcon(im.loadIcon("strike.png"));
-	outlineButton->setIcon(im.loadIcon("outlined.png"));
-	shadowButton->setIcon(im.loadIcon("shadow.png"));
-	
-	QSize s(24,24);
-	underlineButton->setMinimumSize(s);
-	underlineWordButton->setMinimumSize(s);
-	subscriptButton->setMinimumSize(s);
-	superscriptButton->setMinimumSize(s);
-	smallcapsButton->setMinimumSize(s);
-	allcapsButton->setMinimumSize(s);
-	strikeoutButton->setMinimumSize(s);
-	outlineButton->setMinimumSize(s);
-	shadowButton->setMinimumSize(s);
-	underlineButton->setMaximumSize(s);
-	underlineWordButton->setMaximumSize(s);
-	subscriptButton->setMaximumSize(s);
-	superscriptButton->setMaximumSize(s);
-	smallcapsButton->setMaximumSize(s);
-	allcapsButton->setMaximumSize(s);
-	strikeoutButton->setMaximumSize(s);
-	outlineButton->setMaximumSize(s);
-	shadowButton->setMaximumSize(s);
+	underlineButton->setIcon(im.loadIcon("character-underline"));
+	underlineWordButton->setIcon(im.loadIcon("character-underline-word"));
+	subscriptButton->setIcon(im.loadIcon("character-subscript"));
+	superscriptButton->setIcon(im.loadIcon("character-superscript"));
+	allcapsButton->setIcon(im.loadIcon("character-capitals-all"));
+	smallcapsButton->setIcon(im.loadIcon("character-capitals-small"));
+	strikeoutButton->setIcon(im.loadIcon("character-strikethrough"));
+	outlineButton->setIcon(im.loadIcon("character-outline"));
+	shadowButton->setIcon(im.loadIcon("character-shadow"));
+
 }
 
 void StyleSelect::languageChange()
@@ -305,22 +262,12 @@ void StyleSelect::languageChange()
 	UnderlineVal->languageChange();
 	StrikeVal->languageChange();
 
-	underlineButton->setToolTip("");
-	underlineWordButton->setToolTip("");
-	allcapsButton->setToolTip("");
-	smallcapsButton->setToolTip("");
-	subscriptButton->setToolTip("");
-	superscriptButton->setToolTip("");
-	strikeoutButton->setToolTip("");
-	outlineButton->setToolTip("");
-	shadowButton->setToolTip("");
-
-	underlineButton->setToolTip(  "<qt>" + tr("Underline Text. Hold down the button momentarily to set line width and displacement options."));
+	underlineButton->setToolTip(  "<qt>" + tr("Underline Text. Hold down the button momentarily to set line width and displacement options.") + "</qt>");
 	underlineWordButton->setToolTip(  "<qt>" + tr("Underline Words Only. Hold down the button momentarily to set line width and displacement options.") + "</qt>" );
-	allcapsButton->setToolTip( tr("All Caps"));
-	smallcapsButton->setToolTip( tr("Small Caps"));
-	subscriptButton->setToolTip( tr("Subscript"));
-	superscriptButton->setToolTip( tr("Superscript"));
+	allcapsButton->setToolTip( "<qt>" + tr("All Caps") + "</qt>");
+	smallcapsButton->setToolTip( "<qt>" + tr("Fake Small Caps") + "</qt>");
+	subscriptButton->setToolTip( "<qt>" + tr("Subscript") + "</qt>");
+	superscriptButton->setToolTip( "<qt>" + tr("Superscript") + "</qt>");
 	strikeoutButton->setToolTip( "<qt>" + tr("Strike Out. Hold down the button momentarily to set line width and displacement options.") + "</qt>" );
 	outlineButton->setToolTip( "<qt>" + tr("Outline. Hold down the button momentarily to change the outline stroke width.") + "</qt>" );
 	shadowButton->setToolTip(  "<qt>" + tr("Shadowed Text. Hold down the button momentarily to change the shadow offset values.") + "</qt>" );

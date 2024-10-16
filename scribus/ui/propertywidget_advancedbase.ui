@@ -6,293 +6,539 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>278</width>
-    <height>161</height>
+    <width>314</width>
+    <height>220</height>
    </rect>
   </property>
-  <property name="frameShape">
-   <enum>QFrame::StyledPanel</enum>
-  </property>
-  <property name="frameShadow">
-   <enum>QFrame::Raised</enum>
-  </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0">
    <property name="leftMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
    <property name="topMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
    <property name="rightMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
    <property name="bottomMargin">
-    <number>3</number>
+    <number>8</number>
    </property>
-   <property name="spacing">
-    <number>3</number>
+   <property name="horizontalSpacing">
+    <number>16</number>
    </property>
-   <item row="0" column="0">
-    <widget class="QLabel" name="textBaseLabel">
-     <property name="minimumSize">
-      <size>
-       <width>20</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>22</height>
-      </size>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
+   <property name="verticalSpacing">
+    <number>4</number>
+   </property>
+   <item row="0" column="0" colspan="4">
+    <layout class="QHBoxLayout" name="horizontalLayout_10">
+     <item>
+      <widget class="StyleSelect" name="textEffects" native="true"/>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_7">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
    </item>
-   <item row="0" column="1">
-    <widget class="ScrSpinBox" name="textBase">
-     <property name="toolTip">
-      <string>Offset to baseline of characters</string>
+   <item row="4" column="2">
+    <widget class="FormWidget" name="normWordTrackingLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <property name="suffix">
-      <string> %</string>
+     <property name="label" stdset="0">
+      <string>Normal</string>
      </property>
-     <property name="minimum">
-      <double>-100.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>100.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2">
-    <widget class="QLabel" name="trackingLabel">
-     <property name="minimumSize">
-      <size>
-       <width>20</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>22</height>
-      </size>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="3">
-    <widget class="ScrSpinBox" name="tracking">
-     <property name="toolTip">
-      <string>Manual Tracking</string>
-     </property>
-     <property name="suffix">
-      <string> %</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="scaleHLabel">
-     <property name="minimumSize">
-      <size>
-       <width>20</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>22</height>
-      </size>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="ScrSpinBox" name="scaleH">
-     <property name="toolTip">
-      <string>Scaling width of characters</string>
-     </property>
-     <property name="suffix">
-      <string> %</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <widget class="QLabel" name="scaleVLabel">
-     <property name="minimumSize">
-      <size>
-       <width>20</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>22</height>
-      </size>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="3">
-    <widget class="ScrSpinBox" name="scaleV">
-     <property name="toolTip">
-      <string>Scaling height of characters</string>
-     </property>
-     <property name="suffix">
-      <string> %</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QLabel" name="wordTrackingLabel">
-     <property name="text">
-      <string>Word Tracking</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="minWordTrackingLabel">
-     <property name="text">
-      <string>Min:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="ScrSpinBox" name="minWordTrackingSpinBox">
-     <property name="toolTip">
-      <string>Minimal width of spaces between words</string>
-     </property>
-     <property name="suffix">
-      <string> %</string>
-     </property>
-     <property name="minimum">
-      <double>1.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>200.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>100.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="3">
-    <widget class="ScrSpinBox" name="normWordTrackingSpinBox">
-     <property name="toolTip">
-      <string>Normal width of spaces between words</string>
-     </property>
-     <property name="suffix">
-      <string> %</string>
-     </property>
-     <property name="minimum">
-      <double>1.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>2000.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>100.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="2">
-    <widget class="QLabel" name="normWordTrackingLabel">
-     <property name="text">
-      <string>Norm:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0" colspan="2">
-    <widget class="QLabel" name="glyphExtensionLabel">
-     <property name="text">
-      <string>Glyph Extension</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="minGlyphExtensionLabel">
-     <property name="text">
-      <string>Min:</string>
-     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="ScrSpinBox" name="normWordTrackingSpinBox">
+        <property name="toolTip">
+         <string>Normal width of spaces between words</string>
+        </property>
+        <property name="suffix">
+         <string> %</string>
+        </property>
+        <property name="minimum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>2000.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item row="5" column="1">
-    <widget class="ScrSpinBox" name="minGlyphExtSpinBox">
-     <property name="toolTip">
-      <string>Minimal shrinkage of glyphs for justification</string>
+    <widget class="FormWidget" name="minGlyphExtensionLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <property name="suffix">
-      <string> %</string>
+     <property name="label" stdset="0">
+      <string>Minimum</string>
      </property>
-     <property name="minimum">
-      <double>90.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>110.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>100.000000000000000</double>
-     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="ScrSpinBox" name="minGlyphExtSpinBox">
+        <property name="toolTip">
+         <string>Minimal shrinkage of glyphs for justification</string>
+        </property>
+        <property name="suffix">
+         <string> %</string>
+        </property>
+        <property name="minimum">
+         <double>90.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>110.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="5" column="3">
-    <widget class="ScrSpinBox" name="maxGlyphExtSpinBox">
-     <property name="toolTip">
-      <string>Maximal extension of glyphs for justification</string>
+   <item row="2" column="2">
+    <widget class="FormWidget" name="trackingLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <property name="suffix">
-      <string> %</string>
+     <property name="label" stdset="0">
+      <string/>
      </property>
-     <property name="minimum">
-      <double>90.000000000000000</double>
+     <property name="direction">
+      <enum>FormWidget::LabelPosition::Left</enum>
      </property>
-     <property name="maximum">
-      <double>110.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>100.000000000000000</double>
-     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="ScrSpinBox" name="tracking">
+        <property name="toolTip">
+         <string>Manual Tracking</string>
+        </property>
+        <property name="suffix">
+         <string> %</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item row="5" column="2">
-    <widget class="QLabel" name="maxGlyphExtensionLabel">
-     <property name="text">
-      <string>Max:</string>
+    <widget class="FormWidget" name="maxGlyphExtensionLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
+     <property name="label" stdset="0">
+      <string>Maximum</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="ScrSpinBox" name="maxGlyphExtSpinBox">
+        <property name="toolTip">
+         <string>Maximal extension of glyphs for justification</string>
+        </property>
+        <property name="suffix">
+         <string> %</string>
+        </property>
+        <property name="minimum">
+         <double>90.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>110.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="FormWidget" name="scaleHLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="label" stdset="0">
+      <string/>
+     </property>
+     <property name="direction">
+      <enum>FormWidget::LabelPosition::Left</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="ScrSpinBox" name="scaleH">
+        <property name="toolTip">
+         <string>Scaling width of characters</string>
+        </property>
+        <property name="suffix">
+         <string> %</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="FormWidget" name="minWordTrackingLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="label" stdset="0">
+      <string>Minimum</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="ScrSpinBox" name="minWordTrackingSpinBox">
+        <property name="toolTip">
+         <string>Minimal width of spaces between words</string>
+        </property>
+        <property name="suffix">
+         <string> %</string>
+        </property>
+        <property name="minimum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>200.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="FormWidget" name="glyphLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="label" stdset="0">
+      <string/>
+     </property>
+     <property name="preserveLabelSpace">
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_11">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Glyph:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="FormWidget" name="spaceLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="label" stdset="0">
+      <string/>
+     </property>
+     <property name="preserveLabelSpace">
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_9">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Space:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="FormWidget" name="textBaseLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="label" stdset="0">
+      <string/>
+     </property>
+     <property name="direction">
+      <enum>FormWidget::LabelPosition::Left</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="ScrSpinBox" name="textBase">
+        <property name="toolTip">
+         <string>Offset to baseline of characters</string>
+        </property>
+        <property name="suffix">
+         <string> %</string>
+        </property>
+        <property name="minimum">
+         <double>-100.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="FormWidget" name="scaleVLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="label" stdset="0">
+      <string/>
+     </property>
+     <property name="direction">
+      <enum>FormWidget::LabelPosition::Left</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="ScrSpinBox" name="scaleV">
+        <property name="toolTip">
+         <string>Scaling height of characters</string>
+        </property>
+        <property name="suffix">
+         <string> %</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="1">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Policy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>8</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>FormWidget</class>
+   <extends>QWidget</extends>
+   <header>ui/widgets/form_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>ui/scrspinbox.h</header>
+   <header location="global">ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>StyleSelect</class>
+   <extends>QWidget</extends>
+   <header>ui/styleselect.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>textBase</tabstop>
+  <tabstop>tracking</tabstop>
+  <tabstop>scaleH</tabstop>
+  <tabstop>scaleV</tabstop>
+  <tabstop>minWordTrackingSpinBox</tabstop>
+  <tabstop>normWordTrackingSpinBox</tabstop>
+  <tabstop>minGlyphExtSpinBox</tabstop>
+  <tabstop>maxGlyphExtSpinBox</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

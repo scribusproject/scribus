@@ -39,15 +39,21 @@ public slots:
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *d);
 	void handleSelectionChanged();
+	void toggleLabelVisibility(bool v);
+	void iconSetChange();
 	void languageChange();
 	void unitChange() {};
 	void updateCharStyle(const CharStyle& charStyle);
 	void updateStyle(const ParagraphStyle& paraStyle);
+	void showLanguage(const QString& w);
+	void changeLang(int id);
 
 private slots:
 	void handleWordMin(int minWord);
 	void handleConsecutiveLines(int consecutiveLines);
 	void handleHyphenChar(const QString& hyphenText);
+	void handleHyphenate();
+	void handleDehyphenate();
 };
 
 #endif // PROPERTYWIDGET_HYPHENATION_H

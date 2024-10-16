@@ -48,7 +48,6 @@ private:
 	ParagraphStyle* m_currPStyle = nullptr;
 	StyleSet<CharStyle> *m_cstyles = nullptr;
 
-	void fillColorCombo(ColorList &colors);
 	void fillBulletStrEditCombo();
 	void fillNumerationsCombo();
 	void fillNumRestartCombo();
@@ -69,7 +68,6 @@ private:
 	void showTabs(const QList<ParagraphStyle*> &pstyles, int unitIndex);
 	void showCStyle(const QList<ParagraphStyle*> &pstyles, const QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
 	void showParent(const QList<ParagraphStyle*> &pstyles);
-	void setOpticalMargins(int o, bool inhO = false, const ParagraphStyle* parent = nullptr);
 
 	void openEnhanced();
 	void closeEnhanced(bool show = false);
@@ -86,15 +84,11 @@ private slots:
 	void insertSpecialChars(const QVector<uint> &charCodes);
 	void slotNumbering(bool isOn);
 	void slotParentParEffects();
-	void slotDefaultOpticalMargins();
-	void slotParentOpticalMargins();
-//	void slotUpdateOpticalMarginsFromCheckBoxes(int);
 	void on_bulletCharTableButton_toggled(bool checked);
 	void handleUpdateRequest(int);
 
 signals:
 	void useParentParaEffects();
-	void useParentOptMargins();
 };
 
 #endif

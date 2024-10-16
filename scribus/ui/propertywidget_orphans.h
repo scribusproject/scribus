@@ -27,6 +27,7 @@ protected:
 	void changeEvent(QEvent *e) override;
 
 public slots:
+	void iconSetChange();
 	void languageChange();
 	void handleKeepLinesStart();
 	void handleKeepLinesEnd();

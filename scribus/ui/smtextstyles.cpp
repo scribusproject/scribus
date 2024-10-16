@@ -498,11 +498,7 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->direction->LTR, SIGNAL(clicked()), this, SLOT(slotDirection()));
 	connect(m_pwidget->direction->parentButton, SIGNAL(clicked()), this, SLOT(slotDirection()));
 //	connect(m_pwidget->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
-	connect(m_pwidget->optMarginRadioNone, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	connect(m_pwidget->optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	connect(m_pwidget->optMarginRadioRight, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	connect(m_pwidget->optMarginRadioBoth, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	connect(m_pwidget, SIGNAL(useParentOptMargins()), this, SLOT(slotParentOpticalMargin()));
+	connect(m_pwidget->optMarginWidget, SIGNAL(opticalMarginChanged()), this, SLOT(slotOpticalMarginSelector()));
 	
 	connect(m_pwidget->minSpaceSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinSpace()));
 	connect(m_pwidget->minGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinGlyphExt()));
@@ -544,8 +540,8 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->tabList->firstLineSpin, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
 
 	connect(m_pwidget->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotParentChanged(QString)));
-	connect(m_pwidget->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackPColor()));
-	connect(m_pwidget->backShade_, SIGNAL(clicked()), this, SLOT(slotBackPShade()));
+	connect(m_pwidget->backgroundColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotBackPColor()));
+	connect(m_pwidget->backgroundColor->parentButton, SIGNAL(clicked()), this, SLOT(slotBackPColor()));
 
 	// character attributes
 	connect(m_pwidget->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
@@ -557,10 +553,10 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	connect(m_pwidget->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	connect(m_pwidget->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	connect(m_pwidget->cpage->fillColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
-	connect(m_pwidget->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	connect(m_pwidget->cpage->strokeColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotStrokeColor()));
-	connect(m_pwidget->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
+	// connect(m_pwidget->cpage->fillColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
+	// connect(m_pwidget->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	// connect(m_pwidget->cpage->strokeColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotStrokeColor()));
+	// connect(m_pwidget->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	connect(m_pwidget->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	connect(m_pwidget->cpage->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
 	connect(m_pwidget->cpage->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
@@ -569,8 +565,16 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	connect(m_pwidget->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	connect(m_pwidget->cpage->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotCharParentChanged(QString)));
-	connect(m_pwidget->cpage->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackColor()));
-	connect(m_pwidget->cpage->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
+	// connect(m_pwidget->cpage->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackColor()));
+	// connect(m_pwidget->cpage->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
+
+	connect(m_pwidget->cpage->textColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotFillColor()));
+	connect(m_pwidget->cpage->textColor->parentButton, SIGNAL(clicked()), this, SLOT(slotFillColor()));
+	connect(m_pwidget->cpage->backgroundColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotBackColor()));
+	connect(m_pwidget->cpage->backgroundColor->parentButton, SIGNAL(clicked()), this, SLOT(slotBackColor()));
+	connect(m_pwidget->cpage->strokeColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotStrokeColor()));
+	connect(m_pwidget->cpage->strokeColor->parentButton, SIGNAL(clicked()), this, SLOT(slotStrokeColor()));
+
 	connect(m_pwidget->cpage->fontfeaturesSetting,SIGNAL(changed()), this, SLOT(slotFontFeatures()));
 	connect(m_pwidget->cpage->hyphenCharLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotHyphenChar()));
 	connect(m_pwidget->cpage->smallestWordSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotWordMin()));
@@ -598,10 +602,7 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->direction->LTR, SIGNAL(clicked()), this, SLOT(slotDirection()));
 	disconnect(m_pwidget->direction->parentButton, SIGNAL(clicked()), this, SLOT(slotDirection()));
 //	disconnect(m_pwidget->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
-	disconnect(m_pwidget->optMarginRadioNone, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	disconnect(m_pwidget->optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	disconnect(m_pwidget->optMarginRadioRight, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	disconnect(m_pwidget->optMarginRadioBoth, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	disconnect(m_pwidget->optMarginWidget, SIGNAL(opticalMarginChanged()), this, SLOT(slotOpticalMarginSelector()));
 	
 	disconnect(m_pwidget->minSpaceSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinSpace()));
 	disconnect(m_pwidget->minGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinGlyphExt()));
@@ -642,8 +643,8 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->tabList->leftIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
 	disconnect(m_pwidget->tabList->rightIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
 	disconnect(m_pwidget->tabList->firstLineSpin, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
-	disconnect(m_pwidget->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackPColor()));
-	disconnect(m_pwidget->backShade_, SIGNAL(clicked()), this, SLOT(slotBackPShade()));
+	disconnect(m_pwidget->backgroundColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotBackPColor()));
+	disconnect(m_pwidget->backgroundColor->parentButton, SIGNAL(clicked()), this, SLOT(slotBackPColor()));
 
 	disconnect(m_pwidget->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(m_pwidget->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
@@ -654,10 +655,10 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	disconnect(m_pwidget->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	disconnect(m_pwidget->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	disconnect(m_pwidget->cpage->fillColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
-	disconnect(m_pwidget->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	disconnect(m_pwidget->cpage->strokeColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotStrokeColor()));
-	disconnect(m_pwidget->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
+	// disconnect(m_pwidget->cpage->fillColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
+	// disconnect(m_pwidget->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	// disconnect(m_pwidget->cpage->strokeColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotStrokeColor()));
+	// disconnect(m_pwidget->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	disconnect(m_pwidget->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	disconnect(m_pwidget->cpage->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
 	disconnect(m_pwidget->cpage->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
@@ -666,8 +667,16 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	disconnect(m_pwidget->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	disconnect(m_pwidget->cpage->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotCharParentChanged(QString)));
-	disconnect(m_pwidget->cpage->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackColor()));
-	disconnect(m_pwidget->cpage->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
+	// disconnect(m_pwidget->cpage->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackColor()));
+	// disconnect(m_pwidget->cpage->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
+
+	disconnect(m_pwidget->cpage->textColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotFillColor()));
+	disconnect(m_pwidget->cpage->textColor->parentButton, SIGNAL(clicked()), this, SLOT(slotFillColor()));
+	disconnect(m_pwidget->cpage->backgroundColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotBackColor()));
+	disconnect(m_pwidget->cpage->backgroundColor->parentButton, SIGNAL(clicked()), this, SLOT(slotBackColor()));
+	disconnect(m_pwidget->cpage->strokeColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotStrokeColor()));
+	disconnect(m_pwidget->cpage->strokeColor->parentButton, SIGNAL(clicked()), this, SLOT(slotStrokeColor()));
+
 	disconnect(m_pwidget->cpage->fontfeaturesSetting, SIGNAL(changed()), this, SLOT(slotFontFeatures()));
 	disconnect(m_pwidget->cpage->hyphenCharLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotHyphenChar()));
 	disconnect(m_pwidget->cpage->smallestWordSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotWordMin()));
@@ -784,16 +793,16 @@ void SMParagraphStyle::slotOpticalMargin(int i)
 
 void SMParagraphStyle::slotOpticalMarginSelector()
 {
-	int omt(ParagraphStyle::OM_None);
-
-	if (m_pwidget->optMarginRadioRight->isChecked()) omt = ParagraphStyle::OM_RightHangingPunct;
-	else if (m_pwidget->optMarginRadioLeft->isChecked()) omt = ParagraphStyle::OM_LeftHangingPunct;
-	else if (m_pwidget->optMarginRadioBoth->isChecked()) omt = ParagraphStyle::OM_Default;
-
-	for (int i = 0; i < m_selection.count(); ++i)
-		m_selection[i]->setOpticalMargins(omt);
+	ParagraphStyle::OpticalMarginType omt( static_cast<ParagraphStyle::OpticalMarginType>(m_pwidget->optMarginWidget->opticalMargin()));
+	if (m_pwidget->optMarginWidget->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetOpticalMargins();
+	else
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setOpticalMargins(omt);
 
 	slotSelectionDirty();
+
 }
 
 void SMParagraphStyle::slotParentOpticalMargin()
@@ -1424,35 +1433,25 @@ void SMParagraphStyle::slotEffectProperties()
 
 void SMParagraphStyle::slotFillColor()
 {
-	if (m_pwidget->cpage->fillColor_->useParentValue())
+	if (m_pwidget->cpage->textColor->useParentValue())
 	{
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->charStyle().resetFillColor();
+			m_selection[i]->charStyle().resetFillShade();
+		}
 	}
 	else
 	{
-		QString col( m_pwidget->cpage->fillColor_->currentText());
+		QString col( m_pwidget->cpage->textColor->colorButton->colorName());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
+		int fs = m_pwidget->cpage->textColor->colorButton->colorData().Shade;
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->charStyle().setFillColor(col);
-	}
-	
-	slotSelectionDirty();
-}
-
-void SMParagraphStyle::slotFillShade()
-{
-	if (m_pwidget->cpage->fillShade_->useParentValue())
-	{
-		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->charStyle().resetFillShade();
-	}
-	else
-	{
-		int fs = m_pwidget->cpage->fillShade_->getValue();
-		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().setFillShade(fs);
+		}
 	}
 	
 	slotSelectionDirty();
@@ -1460,35 +1459,25 @@ void SMParagraphStyle::slotFillShade()
 
 void SMParagraphStyle::slotBackPColor()
 {
-	if (m_pwidget->backColor_->useParentValue())
+	if (m_pwidget->backgroundColor->useParentValue())
 	{
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->resetBackgroundColor();
+			m_selection[i]->resetBackgroundShade();
+		}
 	}
 	else
 	{
-		QString col( m_pwidget->backColor_->currentText());
+		QString col( m_pwidget->backgroundColor->colorButton->colorName());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
+		int fs = m_pwidget->backgroundColor->colorButton->colorData().Shade;
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->setBackgroundColor(col);
-	}
-
-	slotSelectionDirty();
-}
-
-void SMParagraphStyle::slotBackPShade()
-{
-	if (m_pwidget->backShade_->useParentValue())
-	{
-		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->resetBackgroundShade();
-	}
-	else
-	{
-		int fs = m_pwidget->backShade_->getValue();
-		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setBackgroundShade(fs);
+		}
 	}
 
 	slotSelectionDirty();
@@ -1496,35 +1485,25 @@ void SMParagraphStyle::slotBackPShade()
 
 void SMParagraphStyle::slotBackColor()
 {
-	if (m_pwidget->cpage->backColor_->useParentValue())
+	if (m_pwidget->cpage->backgroundColor->useParentValue())
 	{
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->charStyle().resetBackColor();
+			m_selection[i]->charStyle().resetBackShade();
+		}
 	}
 	else
 	{
-		QString col( m_pwidget->cpage->backColor_->currentText());
+		QString col( m_pwidget->cpage->backgroundColor->colorButton->colorName());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
+		int fs = m_pwidget->cpage->backgroundColor->colorButton->colorData().Shade;
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->charStyle().setBackColor(col);
-	}
-
-	slotSelectionDirty();
-}
-
-void SMParagraphStyle::slotBackShade()
-{
-	if (m_pwidget->cpage->backShade_->useParentValue())
-	{
-		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->charStyle().resetBackShade();
-	}
-	else
-	{
-		int fs = m_pwidget->cpage->backShade_->getValue();
-		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().setBackShade(fs);
+		}
 	}
 
 	slotSelectionDirty();
@@ -1532,37 +1511,27 @@ void SMParagraphStyle::slotBackShade()
 
 void SMParagraphStyle::slotStrokeColor()
 {
-	if (m_pwidget->cpage->strokeColor_->useParentValue())
+	if (m_pwidget->cpage->strokeColor->useParentValue())
 	{
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->charStyle().resetStrokeColor();
+			m_selection[i]->charStyle().resetStrokeShade();
+		}
 	}
 	else
 	{
-		QString col(m_pwidget->cpage->strokeColor_->currentText());
+		QString col( m_pwidget->cpage->strokeColor->colorButton->colorName());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
+		int fs = m_pwidget->cpage->strokeColor->colorButton->colorData().Shade;
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->charStyle().setStrokeColor(col);
+			m_selection[i]->charStyle().setStrokeShade(fs);
+		}
 	}
-	
-	slotSelectionDirty();
-}
 
-void SMParagraphStyle::slotStrokeShade()
-{
-	if (m_pwidget->cpage->strokeShade_->useParentValue())
-	{
-		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->charStyle().resetStrokeShade();
-	}
-	else 
-	{
-		int ss = m_pwidget->cpage->strokeShade_->getValue();
-		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->charStyle().setStrokeShade(ss);
-	}
-	
 	slotSelectionDirty();
 }
 
@@ -2282,10 +2251,7 @@ void SMCharacterStyle::setupConnections()
 	connect(m_page->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	connect(m_page->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	connect(m_page->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	connect(m_page->fillColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
-	connect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	connect(m_page->strokeColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotStrokeColor()));
-	connect(m_page->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
+
 	connect(m_page->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	connect(m_page->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
 	connect(m_page->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
@@ -2294,8 +2260,14 @@ void SMCharacterStyle::setupConnections()
 	connect(m_page->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	connect(m_page->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	connect(m_page->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotParentChanged(QString)));
-	connect(m_page->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackColor()));
-	connect(m_page->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
+
+	connect(m_page->textColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotFillColor()));
+	connect(m_page->textColor->parentButton, SIGNAL(clicked()), this, SLOT(slotFillColor()));
+	connect(m_page->backgroundColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotBackColor()));
+	connect(m_page->backgroundColor->parentButton, SIGNAL(clicked()), this, SLOT(slotBackColor()));
+	connect(m_page->strokeColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotStrokeColor()));
+	connect(m_page->strokeColor->parentButton, SIGNAL(clicked()), this, SLOT(slotStrokeColor()));
+
 	connect(m_page->fontfeaturesSetting, SIGNAL(changed()), this, SLOT(slotFontFeatures()));
 	connect(m_page->smallestWordSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotSmallestWord()));
 	connect(m_page->hyphenCharLineEdit, SIGNAL(textChanged(QString)),this, SLOT(slotHyphenChar()));
@@ -2315,10 +2287,7 @@ void SMCharacterStyle::removeConnections()
 	disconnect(m_page->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	disconnect(m_page->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	disconnect(m_page->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	disconnect(m_page->fillColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
-	disconnect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	disconnect(m_page->strokeColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotStrokeColor()));
-	disconnect(m_page->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
+
 	disconnect(m_page->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	disconnect(m_page->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
 	disconnect(m_page->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
@@ -2327,8 +2296,14 @@ void SMCharacterStyle::removeConnections()
 	disconnect(m_page->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	disconnect(m_page->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	disconnect(m_page->parentCombo, SIGNAL(currentTextChanged(QString)),  this, SLOT(slotParentChanged(QString)));
-	disconnect(m_page->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackColor()));
-	disconnect(m_page->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
+
+	disconnect(m_page->textColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotFillColor()));
+	disconnect(m_page->textColor->parentButton, SIGNAL(clicked()), this, SLOT(slotFillColor()));
+	disconnect(m_page->backgroundColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotBackColor()));
+	disconnect(m_page->backgroundColor->parentButton, SIGNAL(clicked()), this, SLOT(slotBackColor()));
+	disconnect(m_page->strokeColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotStrokeColor()));
+	disconnect(m_page->strokeColor->parentButton, SIGNAL(clicked()), this, SLOT(slotStrokeColor()));
+
 	disconnect(m_page->fontfeaturesSetting, SIGNAL(changed()), this, SLOT(slotFontFeatures()));
 	disconnect(m_page->smallestWordSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotSmallestWord()));
 	disconnect(m_page->hyphenCharLineEdit, SIGNAL(textChanged(QString)),this, SLOT(slotHyphenChar()));
@@ -2452,61 +2427,45 @@ void SMCharacterStyle::slotEffectProperties()
 
 void SMCharacterStyle::slotFillColor()
 {
-	if (m_page->fillColor_->useParentValue())
+	if (m_page->textColor->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->resetFillColor();
+			m_selection[i]->resetFillShade();
+		}
 	else {		
-		QString col(m_page->fillColor_->currentText());
+		QString col(m_page->textColor->colorButton->colorName());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
+		int fs = m_page->textColor->colorButton->colorData().Shade;
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->setFillColor(col);
-	}
-	
-	slotSelectionDirty();
-}
-
-void SMCharacterStyle::slotFillShade()
-{
-	if (m_page->fillShade_->useParentValue())
-		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->resetFillShade();
-	else {
-		int fs = m_page->fillShade_->getValue();
-
-		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setFillShade(fs);
+		}
 	}
 	
 	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotBackColor()
-{
-	if (m_page->backColor_->useParentValue())
+{		
+	if (m_page->backgroundColor->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->resetBackColor();
+			m_selection[i]->resetBackShade();
+		}
 	else {
-		QString col(m_page->backColor_->currentText());
+		QString col(m_page->backgroundColor->colorButton->colorName());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
+		int fs = m_page->backgroundColor->colorButton->colorData().Shade;
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->setBackColor(col);
-	}
-
-	slotSelectionDirty();
-}
-
-void SMCharacterStyle::slotBackShade()
-{
-	if (m_page->backShade_->useParentValue())
-		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->resetBackShade();
-	else {
-		int fs = m_page->backShade_->getValue();
-
-		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setBackShade(fs);
+		}
 	}
 
 	slotSelectionDirty();
@@ -2514,30 +2473,22 @@ void SMCharacterStyle::slotBackShade()
 
 void SMCharacterStyle::slotStrokeColor()
 {
-	if (m_page->strokeColor_->useParentValue())
+	if (m_page->strokeColor->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->resetStrokeColor();
+			m_selection[i]->resetStrokeShade();
+		}
 	else {
-		QString col(m_page->strokeColor_->currentText());
+		QString col(m_page->strokeColor->colorButton->colorName());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
+		int fs = m_page->strokeColor->colorButton->colorData().Shade;
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->setStrokeColor(col);
-	}
-	
-	slotSelectionDirty();
-}
-
-void SMCharacterStyle::slotStrokeShade()
-{
-	if (m_page->strokeShade_->useParentValue())
-		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->resetStrokeShade();
-	else {
-		int ss = m_page->strokeShade_->getValue();
-		
-		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->setStrokeShade(ss);
+			m_selection[i]->setStrokeShade(fs);
+		}
 	}
 	
 	slotSelectionDirty();

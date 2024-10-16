@@ -6,18 +6,23 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smstyleselect.h"
+#include "iconmanager.h"
+#include "scribusapp.h"
 
 SMStyleSelect::SMStyleSelect(QWidget *parent)
 	: StyleSelect(parent)
 {
 	parentButton = new QToolButton(this);
-	parentButton->setMaximumSize(QSize(22, 22));
-	parentButton->setMinimumSize(QSize(22, 22));
-	parentButton->setText( tr("P", "P as in Parent"));
+	parentButton->setText( "");
 	parentButton->setToolTip( tr("Use parent style's effects instead of overriding them"));
+	ssLayout->addSpacerItem(new QSpacerItem(8, 0, QSizePolicy::Fixed));
 	ssLayout->addWidget(parentButton);
 	resize(minimumSizeHint());
 	parentButton->hide();
+
+	iconSetChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 void SMStyleSelect::setStyle(int i)
@@ -113,4 +118,10 @@ void SMStyleSelect::pbPressed()
 {
 	m_useParentStyle = true;
 	emit State(getStyle());
+}
+
+void SMStyleSelect::iconSetChange()
+{
+	IconManager &im = IconManager::instance();
+	parentButton->setIcon(im.loadIcon("reset-style-changes"));
 }

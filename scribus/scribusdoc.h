@@ -1157,7 +1157,6 @@ public:
 	void itemSelection_SetStrikethru(int pos, int wid, Selection* customSelection = nullptr);
 	void itemSelection_SetEffects(int s, Selection* customSelection = nullptr);
 	void itemSelection_SetOpticalMargins(int i, Selection* customSelection = nullptr);
-	void itemSelection_resetOpticalMargins(Selection* customSelection = nullptr);
 	void itemSelection_SetColorProfile(const QString& profileName, Selection* customSelection = nullptr);
 	void itemSelection_SetRenderIntent(int intentIndex, Selection* customSelection = nullptr);
 	void itemSelection_SetCompressionMethod(int cmIndex, Selection* customSelection = nullptr);

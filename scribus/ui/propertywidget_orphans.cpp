@@ -7,7 +7,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "propertywidget_orphans.h"
 
-
+#include "iconmanager.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 
 PropertyWidget_Orphans::PropertyWidget_Orphans(QWidget* parent) : QFrame(parent)
@@ -18,23 +19,26 @@ PropertyWidget_Orphans::PropertyWidget_Orphans(QWidget* parent) : QFrame(parent)
 	keepLinesStart->setDecimals(0);
 	keepLinesEnd->setDecimals(0);
 
+	iconSetChange();
 	languageChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 void PropertyWidget_Orphans::connectSignals()
 {
 	connect(keepLinesStart, SIGNAL(valueChanged(double)), this, SLOT(handleKeepLinesStart()));
 	connect(keepLinesEnd, SIGNAL(valueChanged(double)), this, SLOT(handleKeepLinesEnd()));
-	connect(keepTogether, SIGNAL(stateChanged(int)), this, SLOT(handleKeepTogether()));
-	connect(keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
+	connect(keepTogether, SIGNAL(toggled(bool)), this, SLOT(handleKeepTogether()));
+	connect(keepWithNext, SIGNAL(toggled(bool)), this, SLOT(handleKeepWithNext()));
 }
 
 void PropertyWidget_Orphans::disconnectSignals()
 {
 	disconnect(keepLinesStart, SIGNAL(valueChanged(double)), this, SLOT(handleKeepLinesStart()));
 	disconnect(keepLinesEnd, SIGNAL(valueChanged(double)), this, SLOT(handleKeepLinesEnd()));
-	disconnect(keepTogether, SIGNAL(stateChanged(int)), this, SLOT(handleKeepTogether()));
-	disconnect(keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
+	disconnect(keepTogether, SIGNAL(toggled(bool)), this, SLOT(handleKeepTogether()));
+	disconnect(keepWithNext, SIGNAL(toggled(bool)), this, SLOT(handleKeepWithNext()));
 }
 
 void PropertyWidget_Orphans::handleKeepLinesStart()
@@ -87,6 +91,14 @@ void PropertyWidget_Orphans::changeEvent(QEvent *e)
 		return;
 	}
 	QWidget::changeEvent(e);
+}
+
+void PropertyWidget_Orphans::iconSetChange()
+{
+	IconManager &im = IconManager::instance();
+
+	keepLabelStart->setPixmap(im.loadPixmap("paragraph-orphan"));
+	keepLabelEnd->setPixmap(im.loadPixmap("paragraph-widow"));
 }
 
 void PropertyWidget_Orphans::languageChange()

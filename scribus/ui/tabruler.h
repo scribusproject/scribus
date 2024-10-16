@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "sctextstruct.h"
+#include "ui/widgets/form_widget.h"
 
 class QComboBox;
 class QPushButton;
@@ -145,14 +146,14 @@ protected:
 	QHBoxLayout* indentLayout { nullptr };
 	QComboBox* typeCombo { nullptr };
 	QComboBox* tabFillCombo { nullptr };
-	QLabel* tabFillComboT { nullptr };
+	FormWidget* tabFillComboT { nullptr };
 	RulerT* ruler { nullptr };
 	QToolButton* rulerScrollL { nullptr };
 	QToolButton* rulerScrollR { nullptr };
-	QLabel* positionLabel { nullptr };
-	QLabel* firstLineLabel { nullptr };
-	QLabel* leftIndentLabel { nullptr };
-	QLabel* rightIndentLabel { nullptr };
+	FormWidget* positionLabel { nullptr };
+	FormWidget* firstLineLabel { nullptr };
+	FormWidget* leftIndentLabel { nullptr };
+	FormWidget* rightIndentLabel { nullptr };
 	ScrSpinBox* tabData { nullptr };
 	ScrSpinBox* firstLineData { nullptr };
 	ScrSpinBox* leftIndentData { nullptr };

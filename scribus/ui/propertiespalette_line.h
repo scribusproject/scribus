@@ -85,6 +85,8 @@ private slots:
 	void handleLineWidth();
 	void handleLineType();
 	void handleLineStyle(int c);
+	void handleLineStyleNew();
+	void handleLineStyleEdit();
 	void handleLineJoin();
 	void handleLineEnd();
 	void handleDashChange();

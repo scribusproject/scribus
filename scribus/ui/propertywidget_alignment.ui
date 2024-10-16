@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PropertyWidget_Alignment</class>
+ <widget class="QWidget" name="PropertyWidget_Alignment">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>239</width>
+    <height>106</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>8</number>
+   </property>
+   <property name="leftMargin">
+    <number>8</number>
+   </property>
+   <property name="topMargin">
+    <number>8</number>
+   </property>
+   <property name="rightMargin">
+    <number>8</number>
+   </property>
+   <property name="bottomMargin">
+    <number>8</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <property name="spacing">
+      <number>16</number>
+     </property>
+     <item>
+      <widget class="AlignSelect" name="textAlignment" native="true"/>
+     </item>
+     <item>
+      <widget class="AlignVerticalSelect" name="textVerticalAlignment" native="true"/>
+     </item>
+     <item>
+      <widget class="DirectionSelect" name="textDirection" native="true"/>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0,1">
+     <property name="spacing">
+      <number>16</number>
+     </property>
+     <item>
+      <widget class="FlopWidget" name="flopWidget" native="true"/>
+     </item>
+     <item>
+      <widget class="OpticalMarginsWidget" name="opticalMarginsWidget" native="true"/>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_5">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,1">
+     <property name="spacing">
+      <number>4</number>
+     </property>
+     <item>
+      <widget class="QToolButton" name="tabsButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Edit tab settings of text frame...</string>
+       </property>
+       <property name="text">
+        <string>T&amp;abulators...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FlopWidget</class>
+   <extends>QWidget</extends>
+   <header>ui/flopwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>OpticalMarginsWidget</class>
+   <extends>QWidget</extends>
+   <header>ui/opticalmarginswidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AlignSelect</class>
+   <extends>QWidget</extends>
+   <header>ui/alignselect.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>DirectionSelect</class>
+   <extends>QWidget</extends>
+   <header>ui/directionselect.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AlignVerticalSelect</class>
+   <extends>QWidget</extends>
+   <header>ui/alignverticalselect.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

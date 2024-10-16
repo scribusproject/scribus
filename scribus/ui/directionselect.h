@@ -16,8 +16,9 @@ for which a new license (GPL+exception) is in place.
 class QEvent;
 
 #include "scribusapi.h"
+#include "ui/widgets/form_widget.h"
 
-class SCRIBUS_API DirectionSelect : public QWidget
+class SCRIBUS_API DirectionSelect : public FormWidget
 {
 	Q_OBJECT
 
@@ -38,8 +39,6 @@ class SCRIBUS_API DirectionSelect : public QWidget
 		void languageChange();
 
 	protected:
-		QHBoxLayout* groupSelectLayout { nullptr };
-
 		int m_selected { 0 };
 
 		void changeEvent(QEvent *e) override;

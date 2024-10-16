@@ -88,7 +88,7 @@ ColorPicker::ColorPicker(Context context, QWidget *parent) : QWidget(parent)
  *
  * ********************************************************************************* */
 
-void ColorPicker::setGeneralData(CPGeneralData data)
+void ColorPicker::setGeneralData(const CPGeneralData& data)
 {
 	m_generalData = data;
 
@@ -107,7 +107,7 @@ void ColorPicker::setColorData(const CPColorData& data)
 	colorEdit->setColorData(data);
 }
 
-CPColorData ColorPicker::colorData() const
+const CPColorData& ColorPicker::colorData() const
 {
 	return colorEdit->colorData();
 }
@@ -118,7 +118,7 @@ void ColorPicker::setGradientData(const CPGradientData& data)
 	gradientEdit->setGradientData(data);
 }
 
-CPGradientData ColorPicker::gradientData() const
+const CPGradientData& ColorPicker::gradientData() const
 {
 	return gradientEdit->gradientData();
 }
@@ -300,6 +300,9 @@ void ColorPicker::setContext(Context config)
 	default:
 	case Context::Simple:
 	case Context::LineMask:
+	case Context::Text:
+	case Context::TextBackground:
+	case Context::TextOutline:
 		buttonSolid->setVisible(false);
 		buttonGradient->setVisible(false);
 		buttonHatch->setVisible(false);
@@ -577,7 +580,8 @@ void ColorPicker::setDoc(ScribusDoc *doc)
 		enablePatterns();
 
 		// Connect automatic selection handling only if the context handles the items within the color picker
-		if ( (context() == Context::Fill) || (context() == Context::FillMask) || (context() == Context::Line) || (context() == Context::LineMask))
+		if ( (context() == Context::Fill) || (context() == Context::FillMask) || (context() == Context::Line) || (context() == Context::LineMask
+			|| context() == Context::Text || context() == Context::TextBackground || context() == Context::TextOutline))
 		{
 			connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
 			connect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));

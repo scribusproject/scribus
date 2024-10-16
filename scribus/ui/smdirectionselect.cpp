@@ -1,22 +1,26 @@
 #include "smdirectionselect.h"
+#include "iconmanager.h"
+#include "scribusapp.h"
 
 SMDirectionSelect::SMDirectionSelect(QWidget *parent)
 : DirectionSelect(parent)
 {
 	parentButton = new QToolButton(this);
-	parentButton->setCheckable( true );
-	parentButton->setText( tr("P", "P as in Parent"));
+	parentButton->setText( "" );
 	parentButton->setToolTip( tr("Use parent style's direction instead of overriding it"));
-	groupSelectLayout->addWidget( parentButton );
+	addWidget( parentButton );
 	resize(minimumSizeHint());
 	parentButton->hide();
+
+	iconSetChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 void SMDirectionSelect::setStyle(int i)
 {
 	disconnect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
 	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
-	setFont(false);
 	m_hasParent = false;
 	m_pStyle = 0;
 	parentButton->hide();
@@ -29,7 +33,6 @@ void SMDirectionSelect::setStyle(int i, bool isParentValue)
 	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
 	m_hasParent = true;
 	m_pStyle = i;
-	setFont(!isParentValue);
 	if (isParentValue)
 		parentButton->hide();
 	else
@@ -56,23 +59,19 @@ bool SMDirectionSelect::useParentValue()
 	return ret;
 }
 
-void SMDirectionSelect::setFont(bool wantBold)
-{
-	QFont f(font());
-	f.setBold(wantBold);
-	parentButton->setFont(f);
-}
-
 void SMDirectionSelect::styleChanged()
 {
 	if (m_hasParent)
-	{
-		setFont(true);
 		parentButton->show();
-	}
 }
 
 void SMDirectionSelect::pbPressed()
 {
 	m_useParentStyle = true;
+}
+
+void SMDirectionSelect::iconSetChange()
+{
+	IconManager &im = IconManager::instance();
+	parentButton->setIcon(im.loadIcon("reset-style-changes"));
 }

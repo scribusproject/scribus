@@ -13,29 +13,25 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "scribusapp.h"
 
-DirectionSelect::DirectionSelect(QWidget* parent) : QWidget(parent)
+DirectionSelect::DirectionSelect(QWidget* parent) : FormWidget(parent)
 {
 	buttonGroup = new QButtonGroup(this);
 
-	groupSelectLayout = new QHBoxLayout( this );
-	groupSelectLayout->setSpacing(3);
-	groupSelectLayout->setContentsMargins(6, 0, 6, 0);
-	groupSelectLayout->setAlignment(Qt::AlignRight);
-
 	LTR = new QToolButton( this );
-	LTR->setIcon(IconManager::instance().loadIcon("16/text-direction-ltr.png"));
 	LTR->setCheckable( true );
 	LTR->setChecked( true );
-	groupSelectLayout->addWidget( LTR );
+	addWidget( LTR );
 	buttonGroup->addButton(LTR, 0);
 
 	RTL = new QToolButton( this );
-	RTL->setIcon(IconManager::instance().loadIcon("16/text-direction-rtl.png"));
 	RTL->setCheckable( true );
-	groupSelectLayout->addWidget( RTL );
+	addWidget( RTL );
 	buttonGroup->addButton(RTL, 1);
 
 	resize(minimumSizeHint());
+
+	iconSetChange();
+	languageChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(buttonGroup, SIGNAL(idClicked(int)), this, SLOT(setTypeStyle(int)));
@@ -89,5 +85,6 @@ void DirectionSelect::languageChange()
 {
 	LTR->setToolTip( tr("Left to right paragraph"));
 	RTL->setToolTip( tr("Right to left paragraph"));
+	setText( tr("&Direction"));
 }
 

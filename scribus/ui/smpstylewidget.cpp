@@ -36,14 +36,14 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) :
 // 	optMarginCheckLeftProtruding->setVisible(false);
 
 	iconSetChange();
-	
-	backColor_->setPixmapType(ColorCombo::fancyPixmaps);
-	backColor_->clear();
-	backColor_->addItem(CommonStrings::tr_NoneColor);
 
-	lineSpacingMode->addItem( tr("Fixed Linespacing"));
-	lineSpacingMode->addItem( tr("Automatic Linespacing"));
-	lineSpacingMode->addItem( tr("Align to Baseline Grid"));
+	backgroundColor->colorButton->setContext(Context::TextBackground);
+	backgroundColor->setColor(CommonStrings::tr_NoneColor);
+	backgroundColor->setText(tr("Background"));
+
+	lineSpacingMode->addItem( tr("Fixed"));
+	lineSpacingMode->addItem( tr("Automatic"));
+	lineSpacingMode->addItem( tr("Baseline"));
 	connect(lineSpacingMode, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingModeChanged(int)));
 
 	lineSpacing->setSuffix(unitGetSuffixFromIndex(0));
@@ -65,6 +65,10 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) :
 	numStartSpin->setMaximum(9999);
 	numLevelSpin->setMinimum(1);
 	numLevelSpin->setMaximum(1);
+	numPrefix->setMaxLength(5);
+	numPrefix->setMaximumWidth(QFontMetrics(numPrefix->font()).averageCharWidth() * 7);
+	numSuffix->setMaxLength(5);
+	numSuffix->setMaximumWidth(QFontMetrics(numSuffix->font()).averageCharWidth() * 7);
 	fillNumRestartCombo();
 	dropCapLines->setMinimum(2);
 	dropCapLines->setMaximum(99);
@@ -75,7 +79,6 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) :
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
-	connect(optMarginDefaultButton, SIGNAL(clicked()), this, SLOT(slotDefaultOpticalMargins()));
 	if (m_Doc)
 		connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
 	m_enhanced = nullptr;
@@ -100,15 +103,19 @@ void SMPStyleWidget::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
 
-	lineSpacingLabel->setPixmap(iconManager.loadPixmap("linespacing2.png"));
-	spaceAboveLabel->setPixmap(iconManager.loadPixmap("above.png") );
-	spaceBelowLabel->setPixmap(iconManager.loadPixmap("below.png") );
-	keepLabelStart->setPixmap(iconManager.loadPixmap("22/orphan.png") );
-	keepLabelEnd->setPixmap(iconManager.loadPixmap("22/widow.png") );
-	backIcon->setPixmap(iconManager.loadPixmap("16/color-fill.png"));
-	backShadeLabel->setPixmap(iconManager.loadPixmap("shade.png"));
+	lineSpacingLabel->setPixmap(iconManager.loadPixmap("paragraph-line-height"));
+	spaceAboveLabel->setPixmap(iconManager.loadPixmap("paragraph-space-above") );
+	spaceBelowLabel->setPixmap(iconManager.loadPixmap("paragraph-space-below") );
+	keepLabelStart->setPixmap(iconManager.loadPixmap("paragraph-orphan") );
+	keepLabelEnd->setPixmap(iconManager.loadPixmap("paragraph-widow") );
+	minSpaceLabel->setPixmap(iconManager.loadPixmap("character-space-width-min"));
+	minGlyphExtLabel->setPixmap(iconManager.loadPixmap("character-scale-width-min"));
+	maxGlyphExtLabel->setPixmap(iconManager.loadPixmap("character-scale-width-max"));
+	consecutiveHyphenLabel->setPixmap(iconManager.loadPixmap("hyphen-consecutive"));
 
 	bulletCharTableButton->setIcon(IconManager::instance().loadPixmap("22/insert-table.png"));
+	distFromTextLabel->setPixmap(iconManager.loadPixmap("paragraph-list-offset"));
+	parEffectCharStyleComboLabel->setPixmap(iconManager.loadPixmap("character-style"));
 }
 
 void SMPStyleWidget::languageChange()
@@ -122,9 +129,9 @@ void SMPStyleWidget::languageChange()
 	int  oldLineSpacingModeIndex = lineSpacingMode->currentIndex();
 	bool lineSpacingModeBlocked = lineSpacingMode->blockSignals(true);
 	lineSpacingMode->clear();
-	lineSpacingMode->addItem( tr("Fixed Linespacing"));
-	lineSpacingMode->addItem( tr("Automatic Linespacing"));
-	lineSpacingMode->addItem( tr("Align to Baseline Grid"));
+	lineSpacingMode->addItem( tr("Fixed"));
+	lineSpacingMode->addItem( tr("Automatic"));
+	lineSpacingMode->addItem( tr("Baseline"));
 	lineSpacingMode->setCurrentIndex(oldLineSpacingModeIndex);
 	lineSpacingMode->blockSignals(lineSpacingModeBlocked);
 
@@ -151,12 +158,8 @@ void SMPStyleWidget::languageChange()
 	(bulletStrEdit->lineEdit())->setFont(font1);
 */
 
-	if (backColor_->count() > 0)
-	{
-		bool sigBlocked = backColor_->blockSignals(true);
-		backColor_->setItemText(0, CommonStrings::tr_NoneColor);
-		backColor_->blockSignals(sigBlocked);
-	}
+	backgroundColor->colorButton->setPersistentToolTip( tr("Background color of selected text"));
+	backgroundColor->setText(tr("Background"));
 }
 
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
@@ -174,17 +177,11 @@ void SMPStyleWidget::setDoc(ScribusDoc *doc)
 	if (m_Doc)
 	{
 		connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
-		fillColorCombo(m_Doc->PageColors);
 		fillNumerationsCombo();
 	}
 
 	cpage->setDoc(m_Doc);
-}
-
-void SMPStyleWidget::fillColorCombo(ColorList &colors)
-{
-	backColor_->clear();
-	backColor_->setColors(colors, true);
+	backgroundColor->colorButton->setDoc(m_Doc);
 }
 
 void SMPStyleWidget::fillBulletStrEditCombo()
@@ -241,9 +238,9 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	m_hasParent = pstyle->hasParent() && parent != nullptr && parent->hasName() && pstyle->parent() != "";
 
 	lineSpacingMode->clear();
-	lineSpacingMode->addItem( tr("Fixed Linespacing"));
-	lineSpacingMode->addItem( tr("Automatic Linespacing"));
-	lineSpacingMode->addItem( tr("Align to Baseline Grid"));
+	lineSpacingMode->addItem( tr("Fixed"));
+	lineSpacingMode->addItem( tr("Automatic"));
+	lineSpacingMode->addItem( tr("Baseline"));
 	
 //	optMarginCombo->clear();
 //	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
@@ -271,8 +268,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		
 //		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins(),  pstyle->isInhOpticalMargins() );
 //		optMarginCombo->setParentItem(optMarginCombo->getItemIndexForData( parent->opticalMargins()));
-		setOpticalMargins(pstyle->opticalMargins(), pstyle->isInhOpticalMargins(), parent);
-		connect(optMarginParentButton, SIGNAL(clicked()), this, SLOT(slotParentOpticalMargins()));
+		optMarginWidget->setOpticalMargins(pstyle->opticalMargins(), parent->opticalMargins(), pstyle->isInhOpticalMargins());
 		
 		minSpaceSpin->setValue(pstyle->minWordTracking() * 100.0,  pstyle->isInhMinWordTracking());
 		minSpaceSpin->setParentValue(parent->minWordTracking());
@@ -392,11 +388,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		numRestartOtherBox->setParentValue(parent->numOther());
 		numRestartHigherBox->setChecked(pstyle->numHigher(), pstyle->isInhNumHigher());
 		numRestartHigherBox->setParentValue(parent->numHigher());
-
-		backColor_->setCurrentText(pstyle->backgroundColor(), pstyle->isInhBackgroundColor());
-		backColor_->setParentText(parent->backgroundColor());
-		backShade_->setValue(qRound(pstyle->backgroundShade()), pstyle->isInhBackgroundShade());
-		backShade_->setParentValue(qRound(parent->backgroundShade()));
+		backgroundColor->setColor(pstyle->backgroundColor(), qRound(pstyle->backgroundShade()), parent->backgroundColor(), qRound(pstyle->backgroundShade()), pstyle->isInhBackgroundColor());
 	}
 	else
 	{
@@ -405,8 +397,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		spaceAbove->setValue(pstyle->gapBefore());
 		spaceBelow->setValue(pstyle->gapAfter());
 //		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins() );
-		setOpticalMargins(pstyle->opticalMargins());
-		optMarginParentButton->hide();
+		optMarginWidget->setOpticalMargins(pstyle->opticalMargins());
 		minSpaceSpin->setValue(pstyle->minWordTracking() * 100.0);
 		minGlyphExtSpin->setValue(pstyle->minGlyphExtension() * 100.0);
 		maxGlyphExtSpin->setValue(pstyle->maxGlyphExtension() * 100.0);
@@ -458,8 +449,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		keepLinesEnd->setValue (pstyle->keepLinesEnd());
 		keepTogether->setChecked (pstyle->keepTogether());
 		keepWithNext->setChecked (pstyle->keepWithNext());
-		backColor_->setCurrentText(pstyle->backgroundColor());
-		backShade_->setValue(qRound(pstyle->backgroundShade()));
+		backgroundColor->setColor(pstyle->backgroundColor(), qRound(pstyle->backgroundShade()));
+
 	}
 
 	lineSpacing->setEnabled(pstyle->lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
@@ -543,13 +534,13 @@ void SMPStyleWidget::showColors(const QList<ParagraphStyle*> &cstyles)
 		}
 		d = cstyles[i]->backgroundShade();
 	}
-	if (d == -30000)
-	{
-		backShade_->setValue(21);
-		backShade_->setText( tr("Shade"));
-	}
-	else
-		backShade_->setValue(qRound(d));
+	// if (d == -30000)
+	// {
+	// 	backShade_->setValue(21);
+	// 	backShade_->setText( tr("Shade"));
+	// }
+	// else
+	// 	backShade_->setValue(qRound(d));
 
 	QString s;
 	for (int i = 0; i < cstyles.count(); ++i)
@@ -561,22 +552,25 @@ void SMPStyleWidget::showColors(const QList<ParagraphStyle*> &cstyles)
 		}
 		s = cstyles[i]->backgroundColor();
 	}
-	if (s.isEmpty())
-	{
-		if (backColor_->itemText(backColor_->count() - 1) != "")
-			backColor_->addItem("");
-		backColor_->setCurrentIndex(backColor_->count() - 1);
-	}
-	else
-		backColor_->setCurrentText(s);
+	// if (s.isEmpty())
+	// {
+	// 	if (backColor_->itemText(backColor_->count() - 1) != "")
+	// 		backColor_->addItem("");
+	// 	backColor_->setCurrentIndex(backColor_->count() - 1);
+	// }
+	// else
+	// 	backColor_->setCurrentText(s);
+
+
+	backgroundColor->setColor(s, qRound(d));
 }
 
 void SMPStyleWidget::showLineSpacing(const QList<ParagraphStyle*> &pstyles)
 {
 	lineSpacingMode->clear();
-	lineSpacingMode->addItem( tr("Fixed Linespacing"));
-	lineSpacingMode->addItem( tr("Automatic Linespacing"));
-	lineSpacingMode->addItem( tr("Align to Baseline Grid"));
+	lineSpacingMode->addItem( tr("Fixed"));
+	lineSpacingMode->addItem( tr("Automatic"));
+	lineSpacingMode->addItem( tr("Baseline"));
 
 	int tmpLP = -1;
 	for (int i = 0; i < pstyles.count(); ++i)
@@ -823,7 +817,7 @@ void SMPStyleWidget::showOpticalMargin(const QList< ParagraphStyle * > & pstyles
 //		}
 //	}
 //	optMarginCombo->setCurrentItemByData(o);
-	setOpticalMargins(pstyles[0]->opticalMargins());
+	optMarginWidget->setOpticalMargins(pstyles[0]->opticalMargins());
 }
 
 void SMPStyleWidget::showMinSpace(const QList< ParagraphStyle * > & pstyles)
@@ -1019,60 +1013,6 @@ void SMPStyleWidget::showParent(const QList<ParagraphStyle*> &pstyles)
 // 		parentCombo->setCurrentItem(0);
 }
 
-void SMPStyleWidget::setOpticalMargins(int o, bool inhO, const ParagraphStyle *parent)
-{
-	ParagraphStyle::OpticalMarginType om( static_cast<ParagraphStyle::OpticalMarginType>(o) );
-
-	if (parent == nullptr)
-	{
-		if (om == ParagraphStyle::OM_Default)
-			optMarginRadioBoth->setChecked(true);
-		else if (om == ParagraphStyle::OM_LeftHangingPunct)
-			optMarginRadioLeft->setChecked(true);
-		else if (om == ParagraphStyle::OM_RightHangingPunct)
-			optMarginRadioRight->setChecked(true);
-		else
-			optMarginRadioNone->setChecked(true);
-	}
-	else
-	{
-		optMarginParentButton->setVisible(!inhO);
-
-		if (om == ParagraphStyle::OM_Default)
-			optMarginRadioBoth->setChecked(true,
-				(parent->opticalMargins() == ParagraphStyle::OM_Default));
-		else if (om == ParagraphStyle::OM_LeftHangingPunct)
-			optMarginRadioLeft->setChecked(true,
-				(parent->opticalMargins() == ParagraphStyle::OM_LeftHangingPunct));
-		else if (om == ParagraphStyle::OM_RightHangingPunct)
-			optMarginRadioRight->setChecked(true,
-				(parent->opticalMargins() == ParagraphStyle::OM_RightHangingPunct));
-		else
-			optMarginRadioNone->setChecked(true,
-				(parent->opticalMargins() == ParagraphStyle::OM_None));
-		
-		optMarginRadioBoth->setParentValue(parent->opticalMargins() ==  ParagraphStyle::OM_Default);
-		optMarginRadioLeft->setParentValue(parent->opticalMargins() ==  ParagraphStyle::OM_LeftHangingPunct);
-		optMarginRadioRight->setParentValue(parent->opticalMargins() ==  ParagraphStyle::OM_RightHangingPunct);
-		optMarginRadioNone->setParentValue(parent->opticalMargins() ==  ParagraphStyle::OM_None);
-	}
-}
-
-
-void SMPStyleWidget::slotDefaultOpticalMargins()
-{
-	optMarginRadioNone->setChecked(true);
-	if (m_hasParent)
-		optMarginParentButton->show();
-}
-
-void SMPStyleWidget::slotParentOpticalMargins()
-{
-	disconnect(optMarginParentButton, SIGNAL(clicked()), this, SLOT(slotParentOpticalMargins()));
-	optMarginParentButton->hide();
-	emit useParentOptMargins();
-	connect(optMarginParentButton, SIGNAL(clicked()), this, SLOT(slotParentOpticalMargins()));
-}
 
 void SMPStyleWidget::clearAll()
 {
@@ -1248,8 +1188,6 @@ void SMPStyleWidget::handleUpdateRequest(int updateFlags)
 {
 	if (!m_Doc)
 		return;
-	if (updateFlags & reqColorsUpdate)
-		fillColorCombo(m_Doc->PageColors);
 	if (updateFlags & reqNumUpdate)
 		fillNumerationsCombo();
 }

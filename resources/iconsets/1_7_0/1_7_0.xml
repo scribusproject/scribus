@@ -31,7 +31,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 	<license>Apache 2.0</license>
 	<path default="yes">1_7_0</path>
 	<activeversion>1.7.0</activeversion>
-	<splashscreen left="0" top="0" width="476" height="410" imageDark="scribus_splash_dark.png" imageLight="scribus_splash_light.png"></splashscreen>
+	<splashscreen left="0" top="0" width="476" height="410" imageDark="images/scribus_splash_dark.png" imageLight="images/scribus_splash_light.png"></splashscreen>
 <!--	<variant>Dark</variant>-->
 	<nametext lang="en_US">Scribus 1.7.0</nametext>
 	<nametext lang="fr">Scribus 1.7.0</nametext>
@@ -60,7 +60,6 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="16/edit-clear.png" file="16/action-delete.svg" />
 		<icon id="16/edit-copy.png" file="16/action-copy.svg" />
 		<icon id="16/edit-cut.png" file="16/action-cut.svg" />
-		<icon id="16/edit-delete-all.png" file="16/action-delete.svg" />
 		<icon id="16/edit-delete.png" file="16/action-delete.svg" />
 		<icon id="16/edit-find-replace.png" file="16/action-file-search.svg" />
 		<icon id="16/edit-paste.png" file="16/action-paste.svg" />
@@ -139,12 +138,18 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="u_group.png" file="16/object-group.svg" /><!-- Outliner -->
 		<icon id="u_undo16.png" file="16/action-undo.svg" /><!-- Barcode -->
 		<icon id="ungroup.png" file="16/object-ungroup.svg" />
-		<icon id="expand" file="16/action-chevron-down.svg" />
 		<icon id="collapse" file="16/action-chevron-right.svg" />
-		<icon id="inherit-opacity-on" file="16/action-inherit-opacity-on.svg" />
-		<icon id="inherit-opacity-off" file="16/action-inherit-opacity-off.svg" />
-		<icon id="erase-shadow-on" file="16/action-shadow-erase-on.svg" />
+		<icon id="context-menu" file="16/action-menu.svg" />
+		<icon id="delete-selected" file="16/action-delete-selected.svg" />
 		<icon id="erase-shadow-off" file="16/action-shadow-erase-off.svg" />
+		<icon id="erase-shadow-on" file="16/action-shadow-erase-on.svg" />
+		<icon id="expand" file="16/action-chevron-down.svg" />
+		<icon id="inherit-opacity-off" file="16/action-inherit-opacity-off.svg" />
+		<icon id="inherit-opacity-on" file="16/action-inherit-opacity-on.svg" />
+		<icon id="reset" file="16/action-reload.svg" />
+		<icon id="reset-style-changes" file="16/action-reload.svg" /> <!-- 16/action-revert-changes.svg -->
+		<icon id="scale-height" file="16/action-scale-height.svg" />
+		<icon id="scale-width" file="16/action-scale-width.svg" />
 		<icon id="swap" file="16/action-swap.svg" />
 		<icon id="toggle-object-coordination" file="16/object-xycoordination.svg" />
 		<icon id="context-menu" file="16/action-menu.svg" />
@@ -226,6 +231,9 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="colorpicker-pattern" file="16/colorpicker-pattern.svg" />
 		<icon id="colorpicker-solid" file="16/colorpicker-solid.svg" />
 		<icon id="mask" file="16/color-mask.svg" />
+		<icon id="text-color" file="16/text.svg" />
+		<icon id="text-background-color" file="16/paragraph-align-horizontal-center.svg" />
+		<icon id="text-outline-color" file="16/character-outline.svg" />
 		
 		<!-- Cursor -->
 		<icon id="LinkTextFrame.png" file="32/cursor-link-text-frame.svg" />
@@ -359,10 +367,6 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="16/page-4fold.png" file="16/page-type-fourfold.svg" />
 		<icon id="16/page-doublesided.png" file="16/page-type-facing.svg" />
 		<icon id="16/page-simple.png" file="16/page-type-single.svg" />
-		<icon id="32/page-3fold.png" file="32/page-3fold.svg" />
-		<icon id="32/page-4fold.png" file="32/page-4fold.svg" />
-		<icon id="32/page-doublesided.png" file="32/page-double.svg" />
-		<icon id="32/page-simple.png" file="32/page-simple.svg" />
 		<icon id="16/go-bottom.png" file="16/object-level-background.svg" />
 		<icon id="16/go-down.png" file="16/action-chevron-down.svg" />
 		<icon id="16/go-top.png" file="16/object-level-foreground.svg" />
@@ -382,16 +386,23 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="/16/list-remove.png" file="16/action-remove.svg" />
 		<icon id="16/list-remove.png" file="16/action-remove.svg" />
 		<icon id="22/list-remove.png" file="16/action-remove.svg" />
-		<icon id="page-move" file="16/page-move.svg" />
-		<icon id="page-insert" file="16/page-insert.svg" />
-		<icon id="page-duplicate" file="16/page-duplicate.svg" />
-		<icon id="page-import" file="16/page-import.svg" />
+		<icon id="border-bottom" file="16/border-bottom.svg" />
+		<icon id="border-inside" file="16/border-inside.svg" />
+		<icon id="border-left" file="16/border-left.svg" />
+		<icon id="border-outside" file="16/border-outside.svg" />
+		<icon id="border-right" file="16/border-right.svg" />
+		<icon id="border-top" file="16/border-top.svg" />
 		<icon id="layer-move-down" file="16/object-level-down.svg" />
 		<icon id="layer-move-up" file="16/object-level-up.svg" />
+		<icon id="page-duplicate" file="16/page-duplicate.svg" />
 		<icon id="page-first-left" file="16/page-first-left.svg" />
 		<icon id="page-first-right" file="16/page-first-right.svg" />
+		<icon id="page-import" file="16/page-import.svg" />
+		<icon id="page-insert" file="16/page-insert.svg" />
+		<icon id="page-move" file="16/page-move.svg" />
 		<icon id="page-orientation-horizontal" file="16/page-orientation-horizontal.svg" />
 		<icon id="page-orientation-vertical" file="16/page-orientation-vertical.svg" />
+		
     
 		<!-- PDF Tools -->
 		<icon id="16/insert-button.png" file="16/pdf-button.svg" />
@@ -449,6 +460,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="plugins_16.png" file="16/properties-plugins.svg" />
 		<icon id="shortwords_16.png" file="16/properties-shortwords.svg" />
 		<icon id="python_16.png" file="16/properties-scripter.svg" />
+		<icon id="section" file="16/properties-section.svg" />
 	
 		<!-- Shape -->
 		<icon id="flow-bounding.png" file="16/text-wrap-boundingbox.svg" />
@@ -471,6 +483,9 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="BevelJoin.png" file="16/stroke-join-bevel.svg" />
 		<icon id="penciladd.png" file="16/stroke-add.svg" />
 		<icon id="pencilsub.png" file="16/stroke-remove.svg" />
+		<icon id="stroke-style" file="16/stroke-style.svg" />
+		<icon id="stroke-style-edit" file="16/action-edit.svg" />
+		<icon id="stroke-style-new" file="16/action-add.svg" />
 		
 		<!-- Table -->
 		<icon id="16/delete-table-columns.png" file="16/table-column-remove.svg" />
@@ -487,46 +502,89 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="22/split-table-cells.png" file="16/table-split-cell.svg" />
 		
 		<!-- Text & Font-->
-		<icon id="above.png" file="16/paragraph-space-above.svg" />
-		<icon id="below.png" file="16/paragraph-space-below.svg" />
-		<icon id="22/text-align.png" file="16/no-icon.svg" />
 		<icon id="16/format-justify-center.png" file="16/paragraph-align-horizontal-center.svg" />
 		<icon id="16/format-justify-fill-block-right.png" file="16/paragraph-align-justify-rtl.svg" />
 		<icon id="16/format-justify-fill-block.png" file="16/paragraph-align-justify-ltr.svg" />
 		<icon id="16/format-justify-fill.png" file="16/paragraph-align-justify.svg" />
 		<icon id="16/format-justify-left.png" file="16/paragraph-align-left.svg" />
 		<icon id="16/format-justify-right.png" file="16/paragraph-align-right.svg" />
-		<icon id="textbase.png" file="16/character-offset-baseline.svg" />
-		<icon id="textkern.png" file="16/character-letter-spacing.svg" />
-		<icon id="textscaleh.png" file="16/character-scale-width.svg" />
-		<icon id="textscalev.png" file="16/character-scale-height.svg" />
-		<icon id="tief.png" file="16/character-subscript.svg" />
-		<icon id="hoch.png" file="16/character-superscript.svg" />
-		<icon id="kapital.png" file="16/character-capitals-small.svg" />
-		<icon id="AllCaps.png" file="16/character-capitals-all.svg" />
-		<icon id="shadow.png" file="16/character-shadow.svg" />
-		<icon id="outlined.png" file="16/character-outline.svg" />
-		<icon id="unter.png" file="16/character-underline.svg" />
-		<icon id="wordsOnly.png" file="16/character-underline-word.svg" />
-		<icon id="strike.png" file="16/character-strikethrough.svg" />
 		<icon id="16/text-direction-ltr.png" file="16/paragraph-direction-ltr.svg" />
 		<icon id="16/text-direction-rtl.png" file="16/paragraph-direction-rtl.svg" />
-		<icon id="spacewidth.png" file="16/character-space-width.svg" />
 		<icon id="font_otf16.png" file="16/font-otf.svg" />
 		<icon id="font_subst16.png" file="16/font-substitute.svg" />
 		<icon id="font_truetype16.png" file="16/font-truetype.svg" />
 		<icon id="font_type1_16.png" file="16/font-postscript.svg" />
-		<icon id="22/language.png" file="16/paragraph-language.svg" />
-		<icon id="22/character-style.png" file="16/character-style.svg" />
-		<icon id="22/paragraph-style.png" file="16/paragraph-style.svg" />
-		<icon id="linespacing2.png" file="16/font-lineheight.svg" />
-		<icon id="zeichen.png" file="16/font-size.svg" />
-		<icon id="firstline.png" file="16/paragraph-firstline.svg" />
-		<icon id="leftindent.png" file="16/paragraph-indent-left.svg" />		
-		<icon id="rightindent.png" file="16/paragraph-indent-right.svg" />
-		<icon id="22/orphan.png" file="16/paragraph-orphan.svg" />
-		<icon id="22/widow.png" file="16/paragraph-widow.svg" />
-		
+		<icon id="character-capitals-all" file="16/character-capitals-all.svg" />
+		<icon id="character-capitals-small" file="16/character-capitals-small.svg" />
+		<icon id="character-letter-tracking" file="16/character-letter-spacing.svg" />
+		<icon id="character-offset-baseline" file="16/character-offset-baseline.svg" />
+		<icon id="character-outline" file="16/character-outline.svg" />
+		<icon id="character-scale-height" file="16/character-scale-height.svg" />
+		<icon id="character-scale-width" file="16/character-scale-width.svg" />
+		<icon id="character-scale-width-max" file="16/character-scale-width-max.svg" />
+		<icon id="character-scale-width-min" file="16/character-scale-width-min.svg" />
+		<icon id="character-shadow" file="16/character-shadow.svg" />
+		<icon id="character-space-width" file="16/character-space-width.svg" />
+		<icon id="character-space-width-min" file="16/character-space-width-min.svg" />
+		<icon id="character-strikethrough" file="16/character-strikethrough.svg" />
+		<icon id="character-style" file="16/character-style.svg" />
+		<icon id="character-style-edit" file="16/action-edit.svg" />
+		<icon id="character-style-new" file="16/action-add.svg" />
+		<icon id="character-subscript" file="16/character-subscript.svg" />
+		<icon id="character-superscript" file="16/character-superscript.svg" />
+		<icon id="character-underline" file="16/character-underline.svg" />
+		<icon id="character-underline-word" file="16/character-underline-word.svg" />
+		<icon id="ff-afrc" file="16/ff-afrc.svg" />
+		<icon id="ff-c2sc" file="16/ff-c2sc.svg" />
+		<icon id="ff-c2sc-smcp" file="16/ff-c2sc-smcp.svg" />
+		<icon id="ff-frac" file="16/ff-frac.svg" />
+		<icon id="ff-lnum" file="16/ff-lnum.svg" />
+		<icon id="ff-onum" file="16/ff-onum.svg" />
+		<icon id="ff-ordn" file="16/ff-ordn.svg" />
+		<icon id="ff-p2pc" file="16/ff-p2pc.svg" />
+		<icon id="ff-p2pc-pcap" file="16/ff-p2pc-pcap.svg" />
+		<icon id="ff-pcap" file="16/ff-pcap.svg" />
+		<icon id="ff-pnum" file="16/ff-pnum.svg" />
+		<icon id="ff-smcp" file="16/ff-smcp.svg" />
+		<icon id="ff-subs" file="16/character-subscript.svg" />
+		<icon id="ff-sups" file="16/character-superscript.svg" />
+		<icon id="ff-titl" file="16/ff-titl.svg" />
+		<icon id="ff-tnum" file="16/ff-tnum.svg" />
+		<icon id="ff-unic" file="16/ff-unic.svg" />
+		<icon id="flop-baseline" file="16/paragraph-offset-baseline.svg" />
+		<icon id="flop-font" file="16/paragraph-offset-font.svg" />
+		<icon id="flop-linespace" file="16/paragraph-offset-linespace.svg" />
+		<icon id="flop-max" file="16/paragraph-offset-max.svg" />
+		<icon id="font-face" file="16/properties-fonts.svg" />
+		<icon id="font-size" file="16/font-size.svg" />
+		<icon id="font-style" file="16/font-style.svg" />
+		<icon id="hyphen-character" file="16/hyphenation-character.svg" />
+		<icon id="hyphen-consecutive" file="16/hyphenation-consecutive.svg" />
+		<icon id="hyphen-smallest-word" file="16/hyphenation-smallest-word.svg" />
+		<icon id="paragraph-align-bottom" file="16/paragraph-align-bottom.svg" />
+		<icon id="paragraph-align-top" file="16/paragraph-align-top.svg" />
+		<icon id="paragraph-align-vertical-center" file="16/paragraph-align-vertical-center.svg" />
+		<icon id="paragraph-columns" file="16/paragraph-columns.svg" />
+		<icon id="paragraph-effects-style" file="16/paragraph-effects-style.svg" />
+		<icon id="paragraph-indent-firstline" file="16/paragraph-firstline.svg" />
+		<icon id="paragraph-indent-left" file="16/paragraph-indent-left.svg" />	
+		<icon id="paragraph-indent-right" file="16/paragraph-indent-right.svg" />
+		<icon id="paragraph-language" file="16/paragraph-language.svg" />
+		<icon id="paragraph-line-height" file="16/font-lineheight.svg" />
+		<icon id="paragraph-list-offset" file="16/paragraph-list-indent-left.svg" />
+		<icon id="paragraph-optical-margin-left" file="16/paragraph-optical-margin-left.svg" />
+		<icon id="paragraph-optical-margin-right" file="16/paragraph-optical-margin-right.svg" />
+		<icon id="paragraph-orphan" file="16/paragraph-orphan.svg" />
+		<icon id="paragraph-space-above" file="16/paragraph-space-above.svg" />
+		<icon id="paragraph-space-below" file="16/paragraph-space-below.svg" />
+		<icon id="paragraph-style" file="16/paragraph-style.svg" />
+		<icon id="paragraph-style-edit" file="16/action-edit.svg" />
+		<icon id="paragraph-style-new" file="16/action-add.svg" />
+		<icon id="paragraph-widow" file="16/paragraph-widow.svg" />
+		<icon id="text-on-path-distance" file="16/text-on-path-distance.svg" />
+		<icon id="text-on-path-flip" file="16/object-flip-vertical.svg" />
+		<icon id="text-on-path-offset" file="16/text-on-path-offset.svg" />
+				
 		<!-- Tools -->
 		<icon id="22/transform-crop-and-resize.png" file="16/tool-crop.svg" />
 		<icon id="16/pointer.png" file="16/tool-select.svg" />
@@ -579,10 +637,10 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 
 		<!-- Windows -->
 		<icon id="close" file="16/action-close.svg" />
-		<icon id="dock-float" file="16/action-window-float.svg" />
-		<icon id="menu-down" file="16/action-menu-down.svg" />
 		<icon id="dock-auto-hide" file="16/action-pin.svg" />
+		<icon id="dock-float" file="16/action-window-float.svg" />
 		<icon id="dock-minimize" file="16/action-minimize.svg" />
+		<icon id="menu-down" file="16/action-menu-down.svg" />
 
 		<!-- Panels -->
 		<icon id="panel-action-history" file="16/panel-action-history.svg" />
@@ -597,6 +655,29 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="panel-page" file="16/panel-page.svg" />
 		<icon id="panel-scrapbook" file="16/panel-scrapbook.svg" />
 		<icon id="panel-symbols" file="16/panel-symbols.svg" />
+		
+		<!-- Open Type Font Feature Preview -->
+		<icon id="ff-preview-afrc" file="images/ff-afrc.svg" />
+		<icon id="ff-preview-c2sc" file="images/ff-c2sc.svg" />
+		<icon id="ff-preview-c2sc-smcp" file="images/ff-c2sc-smcp.svg" />
+		<icon id="ff-preview-clig" file="images/ff-clig.svg" />
+		<icon id="ff-preview-dlig" file="images/ff-dlig.svg" />
+		<icon id="ff-preview-frac" file="images/ff-frac.svg" />
+		<icon id="ff-preview-hlig" file="images/ff-hlig.svg" />
+		<icon id="ff-preview-liga" file="images/ff-liga.svg" />
+		<icon id="ff-preview-lnum" file="images/ff-lnum.svg" />
+		<icon id="ff-preview-onum" file="images/ff-onum.svg" />
+		<icon id="ff-preview-ordn" file="images/ff-ordn.svg" />
+		<icon id="ff-preview-p2pc" file="images/ff-p2pc.svg" />
+		<icon id="ff-preview-p2pc-pcap" file="images/ff-p2pc-pcap.svg" />
+		<icon id="ff-preview-pcap" file="images/ff-pcap.svg" />
+		<icon id="ff-preview-pnum" file="images/ff-pnum.svg" />
+		<icon id="ff-preview-smcp" file="images/ff-smcp.svg" />
+		<icon id="ff-preview-subs" file="images/ff-subs.svg" />
+		<icon id="ff-preview-sups" file="images/ff-sups.svg" />
+		<icon id="ff-preview-tnum" file="images/ff-tnum.svg" />
+		<icon id="ff-preview-unic" file="images/ff-unic.svg" />
+		<icon id="ff-preview-zero" file="images/ff-zero.svg" />
 
 	</icons>
 </iconset>

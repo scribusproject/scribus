@@ -479,6 +479,7 @@ void RulerT::moveLeftIndent(double t)
 
 Tabruler::Tabruler( QWidget* parent, bool haveFirst, int unit, const QList<ParagraphStyle::TabRecord>& tabs, double wid ): QWidget( parent )
 {
+	m_haveFirst = haveFirst;
 	m_docUnitRatio = unitGetRatioFromIndex(unit);
 	double ww = (wid < 0) ? 4000 : wid;
 	tabrulerLayout = new QVBoxLayout( this );
@@ -502,70 +503,67 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int unit, const QList<Parag
 
 	layout1 = new QHBoxLayout;
 	layout1->setContentsMargins(0, 0, 0, 0);
-	layout1->setSpacing(6);
+	layout1->setSpacing(16);
 	layout1->setAlignment( Qt::AlignTop );
 	typeCombo = new QComboBox(this);
 	typeCombo->setEditable(false);
-	typeCombo->clear();
-	typeCombo->addItem( tr( "Left" ) );
-	typeCombo->addItem( tr( "Right" ) );
-	typeCombo->addItem( tr( "Period" ) );
-	typeCombo->addItem( tr( "Comma" ) );
-	typeCombo->addItem( tr( "Center" ) );
 	layout1->addWidget( typeCombo );
+
 	tabData = new ScrSpinBox( 0, ww / m_docUnitRatio, this, unit );
 	tabData->setValue(0);
-	positionLabel = new QLabel( tr("&Position:"), this );
-	positionLabel->setBuddy(tabData);
+	positionLabel = new FormWidget();
+	positionLabel->setDirection(FormWidget::Left);
+	positionLabel->setUseSmallFont(false);
+	positionLabel->addWidget(tabData);
 	layout1->addWidget( positionLabel );
-	layout1->addWidget( tabData );
+
 	tabFillCombo = new QComboBox(this);
 	tabFillCombo->setEditable(false);
-	tabFillCombo->addItem( tr("None", "tab fill"));
-	tabFillCombo->addItem( tr("Dot"));
-	tabFillCombo->addItem( tr("Hyphen"));
-	tabFillCombo->addItem( tr("Underscore"));
-	tabFillCombo->addItem( tr("Custom"));
-	tabFillComboT = new QLabel( tr( "Fill Char:" ), this );
-	tabFillComboT->setBuddy(tabFillCombo);
+	tabFillComboT = new FormWidget();
+	tabFillComboT->setDirection(FormWidget::Left);
+	tabFillComboT->setUseSmallFont(false);
+	tabFillComboT->addWidget(tabFillCombo);
 	layout1->addWidget( tabFillComboT );
-	layout1->addWidget( tabFillCombo );
+
 	clearOneButton = new QToolButton( this );
-	clearOneButton->setIcon(IconManager::instance().loadIcon("16/edit-delete.png"));
-	layout1->addSpacing(12);
-	layout1->addWidget(clearOneButton);
+
 	clearButton = new QToolButton( this );
-	clearButton->setIcon(IconManager::instance().loadIcon("16/edit-delete-all.png"));
-	layout1->addWidget(clearButton);
+
+	FormWidget *clearLayout = new FormWidget();
+	clearLayout->setSpace(4);
+	clearLayout->setLabelVisibility(false);
+	clearLayout->addWidget(clearOneButton);
+	clearLayout->addWidget(clearButton);
+	layout1->addWidget(clearLayout);
 
 	indentLayout = new QHBoxLayout;
 	indentLayout->setContentsMargins(0, 0, 0, 0);
-	indentLayout->setSpacing(6);
-	if (haveFirst)
+	indentLayout->setSpacing(16);
+	if (m_haveFirst)
 	{
 		firstLineData = new ScrSpinBox( -3000, ww / m_docUnitRatio, this, unit);
 		firstLineData->setValue(0);
-		firstLineLabel = new QLabel(this);
+		firstLineLabel = new FormWidget(this);
 		firstLineLabel->setText("");
-		firstLineLabel->setPixmap(IconManager::instance().loadPixmap("firstline.png"));
+		firstLineLabel->addWidget(firstLineData);
 		indentLayout->addWidget( firstLineLabel );
-		indentLayout->addWidget( firstLineData );
+
 		leftIndentData = new ScrSpinBox( 0, ww / m_docUnitRatio, this, unit);
 		leftIndentData->setValue(0);
-		leftIndentLabel = new QLabel(this);
+		leftIndentLabel = new FormWidget(this);
 		leftIndentLabel->setText("");
-		leftIndentLabel->setPixmap(IconManager::instance().loadPixmap("leftindent.png"));
+		leftIndentLabel->addWidget(leftIndentData);
 		indentLayout->addWidget(leftIndentLabel);
-		indentLayout->addWidget(leftIndentData);
-		rightIndentLabel = new QLabel(this);
-		rightIndentLabel->setText("");
-		rightIndentLabel->setPixmap(IconManager::instance().loadPixmap("rightindent.png"));
+
 		rightIndentData = new ScrSpinBox(0, ww / m_docUnitRatio, this, unit);
 		rightIndentData->setValue(0);
+		rightIndentLabel = new FormWidget(this);
+		rightIndentLabel->setText("");
+		rightIndentLabel->addWidget(rightIndentData);
 		indentLayout->addWidget(rightIndentLabel);
-		indentLayout->addWidget(rightIndentData);
+
 	}
-	if (!haveFirst)
+	if (!m_haveFirst)
 	{
 		auto* spacer = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 		layout1->addItem(spacer);
@@ -585,6 +583,9 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int unit, const QList<Parag
 	clearOneButton->setEnabled(false);
 	resize( minimumSizeHint() );
 
+	iconSetChange();
+	languageChange();
+
 	connect(rulerScrollL, SIGNAL(clicked()), ruler, SLOT(decreaseOffset()));
 	connect(rulerScrollR, SIGNAL(clicked()), ruler, SLOT(increaseOffset()));
 	connect(rulerScrollL, SIGNAL(released()), this, SLOT(resetOFfL()));
@@ -602,11 +603,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int unit, const QList<Parag
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearAll()));
 	connect(clearOneButton, SIGNAL(clicked()), this, SLOT(clearOne()));
 
-	tabFillCombo->setToolTip( tr( "Fill Character of Tab" ) );
-	typeCombo->setToolTip( tr( "Type/Orientation of Tab" ) );
-	tabData->setToolTip( tr( "Position of Tab" ) );
-
-	if (haveFirst)
+	if (m_haveFirst)
 	{
 		connect(ruler, SIGNAL(firstLineMoved(double)) , this, SLOT(setFirstLineData(double)));
 		connect(ruler, SIGNAL(leftIndentMoved(double)) , this, SLOT(setLeftIndentData(double)));
@@ -615,19 +612,11 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int unit, const QList<Parag
 		connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(setFirstLine()));
 		connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(setLeftIndent()));
 		connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(setRightIndent()));
-		firstLineData->setToolTip( tr( "Indentation for first line of the paragraph" ) );
-		leftIndentData->setToolTip( tr( "Indentation from the left for the whole paragraph" ) );
-		rightIndentData->setToolTip( tr( "Indentation from the right for the whole paragraph" ) );
-		firstLineLabel->setToolTip(firstLineData->toolTip());
-		leftIndentLabel->setToolTip(leftIndentData->toolTip());
-		rightIndentLabel->setToolTip(rightIndentData->toolTip());
 	}
-	clearButton->setToolTip( tr( "Delete all Tabulators" ) );
-	clearOneButton->setToolTip( tr("Delete selected Tabulator"));
 
 	if (unit == SC_INCHES)
 	{
-		if (haveFirst)
+		if (m_haveFirst)
 		{
 			firstLineData->setDecimals(4);
 			leftIndentData->setDecimals(4);
@@ -635,7 +624,6 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int unit, const QList<Parag
 		}
 		tabData->setDecimals(4);
 	}
-	m_haveFirst = haveFirst;
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
@@ -655,16 +643,16 @@ void Tabruler::iconSetChange()
 	IconManager& iconManager = IconManager::instance();
 
 	if (firstLineLabel)
-		firstLineLabel->setPixmap(iconManager.loadPixmap("firstline.png"));
+		firstLineLabel->setPixmap(iconManager.loadPixmap("paragraph-indent-firstline"));
 
 	if (leftIndentLabel)
-		leftIndentLabel->setPixmap(iconManager.loadPixmap("leftindent.png"));
+		leftIndentLabel->setPixmap(iconManager.loadPixmap("paragraph-indent-left"));
 
 	if (rightIndentLabel)
-		rightIndentLabel->setPixmap(iconManager.loadPixmap("rightindent.png"));
+		rightIndentLabel->setPixmap(iconManager.loadPixmap("paragraph-indent-right"));
 
-	clearOneButton->setIcon(iconManager.loadIcon("16/edit-delete.png"));
-	clearButton->setIcon(iconManager.loadIcon("16/edit-delete-all.png"));
+	clearOneButton->setIcon(iconManager.loadIcon("delete-selected"));
+	clearButton->setIcon(iconManager.loadIcon("16/edit-delete.png"));
 }
 
 void Tabruler::languageChange()
@@ -695,8 +683,8 @@ void Tabruler::languageChange()
 
 	tabFillComboT->setText( tr( "Fill Char:" ));
 
-	clearButton->setText( tr( "Delete All" ) );
-	clearOneButton->setText( tr( "Delete Selected" ) );
+	clearButton->setToolTip( tr( "Delete all Tabulators" ) );
+	clearOneButton->setToolTip( tr("Delete selected Tabulator"));
 
 	tabFillCombo->setToolTip( tr( "Fill Character of Tab" ) );
 	typeCombo->setToolTip( tr( "Type/Orientation of Tab" ) );
@@ -711,8 +699,6 @@ void Tabruler::languageChange()
 		leftIndentLabel->setToolTip(leftIndentData->toolTip());
 		rightIndentLabel->setToolTip(rightIndentData->toolTip());
 	}
-	clearButton->setToolTip( tr( "Delete all Tabulators" ) );
-	clearOneButton->setToolTip( tr("Delete selected Tabulator"));
 
 	QString unitSuffix = unitGetSuffixFromIndex(tabData->unitIndex());
 	if (m_haveFirst)

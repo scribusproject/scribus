@@ -284,6 +284,7 @@ set(SCRIBUS_SOURCES
 	ui/actionsearchdialog.cpp
 	ui/aligndistribute.cpp
 	ui/alignselect.cpp
+	ui/alignverticalselect.cpp
 	ui/directionselect.cpp
 	ui/annot.cpp
 	ui/annota.cpp
@@ -325,6 +326,7 @@ set(SCRIBUS_SOURCES
 	ui/effectsdialog.cpp
 	ui/extimageprops.cpp
 	ui/filedialogeventcatcher.cpp
+	ui/flopwidget.cpp
 	ui/fontcombo.cpp
 	ui/fontembeddingcombo.cpp
 	ui/fontembeddingmodel.cpp
@@ -379,6 +381,7 @@ set(SCRIBUS_SOURCES
 	ui/nodeeditpalette.cpp
 	ui/notesstyleseditor.cpp
 	ui/numformatcombo.cpp
+	ui/opticalmarginswidget.cpp
 	ui/outlinepalette.cpp
 	ui/outputpreview_pdf.cpp
 	ui/outputpreview_ps.cpp
@@ -445,15 +448,14 @@ set(SCRIBUS_SOURCES
 	ui/propertiespalette_utils.cpp
 	ui/propertiespalette_xyz.cpp
 	ui/propertywidget_advanced.cpp
+	ui/propertywidget_alignment.cpp
 	ui/propertywidget_distance.cpp
+	ui/propertywidget_paragraphstyle.cpp
 	ui/propertywidget_pareffect.cpp
-	ui/propertywidget_flop.cpp
 	ui/propertywidget_hyphenation.cpp
-	ui/propertywidget_optmargins.cpp
 	ui/propertywidget_orphans.cpp
 	ui/propertywidget_pathtext.cpp
 	ui/propertywidget_text.cpp
-	ui/propertywidget_textcolor.cpp
 	ui/propertywidget_fontfeatures.cpp
 	ui/propertywidgetbase.cpp
 	ui/proptree.cpp
@@ -490,6 +492,7 @@ set(SCRIBUS_SOURCES
 	ui/smcellstylewidget.cpp
 	ui/smcellstyle.cpp
 	ui/smcheckbox.cpp
+	ui/smcolorbutton.cpp
 	ui/smcolorcombo.cpp
 	ui/smcstylewidget.cpp
 	ui/smdirectionselect.cpp
@@ -498,6 +501,7 @@ set(SCRIBUS_SOURCES
 	ui/smlinestyle.cpp
 	ui/smlinestylewidget.cpp
 	ui/smnumformatcombo.cpp
+	ui/smopticalmarginswidget.cpp
 	ui/smpstylewidget.cpp
 	ui/smradiobutton.cpp
 	ui/smreplacedia.cpp

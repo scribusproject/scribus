@@ -789,13 +789,21 @@ void ColorButton::paintEvent(QPaintEvent *e)
 	if (m_hasDot && dotIcon().isNull())
 	{
 		mask.clear();
-		QRectF fDot(rect().right() - fSize.width() + 0.5, rect().bottom() - fSize.height() + 0.5, fSize.width(), fSize.height()); // bottom right corner
+		QRectF fDot(0, 0, fSize.width(), fSize.height());
+		fDot.moveBottom(this->height() - .5);
+		fDot.moveRight(this->width() - .5);
 		mask.addEllipse(fDot.center(), fDot.width() / 2., fDot.height() / 2.);
 		painter.setClipPath(mask);
 		renderCheckerPattern(&painter, mask.boundingRect());
 		painter.setClipping(false);
 
-		drawCircularHandle(&painter, fDot.center(), fDot.width(), dotBrush(), isEnabled());
+		QTransform t = dotBrush().transform();
+		t.translate(fDot.x(), fDot.y());
+
+		QBrush br = dotBrush();
+		br.setTransform(t);
+
+		drawCircularHandle(&painter, fDot.center(), fDot.width(), br, isEnabled());
 	}
 
 	// Draw Icon

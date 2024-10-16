@@ -32,6 +32,7 @@ protected:
 
 	double m_unitRatio {1.0};
 	int m_unitIndex {SC_PT};
+	bool m_blockUpdate {false};
 	PageItem *m_item {nullptr};
 	ScribusMainWindow* m_ScMW {nullptr};
 
@@ -50,11 +51,18 @@ public slots:
 	void languageChange();
 	void unitChange() {};
 	void localeChange();
+	void toggleLabelVisibility(bool v);
 
 	void showBaseLineOffset(double e);
 	void showTextScaleH(double e);
 	void showTextScaleV(double e);
 	void showTracking(double e);
+
+	void showOutlineW(double x);
+	void showShadowOffset(double x, double y);
+	void showStrikeThru(double p, double w);
+	void showTextEffects(int s);
+	void showUnderline(double p, double w);
 
 	void updateCharStyle(const CharStyle& charStyle);
 	void updateStyle(const ParagraphStyle& newCurrent);
@@ -68,6 +76,12 @@ private slots:
 	void handleTextScaleH();
 	void handleTextScaleV();
 	void handleTracking();
+
+	void handleOutlineWidth();
+	void handleShadowOffs();
+	void handleStrikeThru();
+	void handleTypeStyle(int s);
+	void handleUnderline();
 
 };
 

@@ -46,19 +46,19 @@ public slots:
 	void handleSelectionChanged();
 	void handleUpdateRequest(int);
 
+	void iconSetChange();
 	void languageChange();
 	void unitChange();
 	void localeChange();
+	void toggleLabelVisibility(bool v);
 
 	void showColumns(int r, double g);
-	void showTextDistances(double left, double top, double bottom, double right);
 
 private slots:
 	void handleColumns();
 	void handleColumnGap();
 	void handleGapSwitch();
 	void handleTabs();
-	void handleVAlign();
 	void handleTextDistances();
 };
 

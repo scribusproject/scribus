@@ -187,8 +187,9 @@ void FloatingWindow::calculatePosition()
 void FloatingWindow::show(QWidget *reference)
 {
 	m_reference = reference;
-	calculatePosition();
+	calculatePosition();	
 	QWidget::show();
+	QWidget::activateWindow();
 }
 
 void FloatingWindow::updateSize()

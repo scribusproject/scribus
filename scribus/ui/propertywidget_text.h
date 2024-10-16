@@ -5,10 +5,6 @@
 #include "propertywidgetbase.h"
 #include <QFrame>
 
-//namespace Ui {
-//class PropertyWidget_Text;
-//}
-
 class CharStyle;
 class ParagraphStyle;
 class ScribusDoc;
@@ -37,6 +33,7 @@ protected:
 
 	bool m_haveDoc {false};
 	bool m_haveItem {false};
+	bool m_blockUpdate {false};
 	PageItem* m_item { nullptr };
 	ScribusMainWindow* m_ScMW { nullptr };
 
@@ -49,41 +46,31 @@ public slots:
 	void iconSetChange();
 	void languageChange();
 	void localeChange();
-	void changeLang(int id);
 	void unitChange() {};
+	void toggleLabelVisibility(bool v);
 
-	void showAlignment(int e);
-	void showDirection(int e);
-	void showCharStyle(const QString& name);
 	void showFontFace(const QString&);
 	void showFontSize(double s);
-	void showLanguage(const QString& w);
-	void showLineSpacing(double r);
-	void showParStyle(const QString& name);
+	void showLineSpacing(const ParagraphStyle &newCurrent);
+	void showTextColors(const QString& fillCol, const QString& backCol, const QString& strokeCol, double fillShd, double backShd, double strokeShd);
 
 	void setupLineSpacingSpinbox(int mode, double value);
 
 	void updateCharStyle(const CharStyle& charStyle);
 	void updateStyle(const ParagraphStyle& newCurrent);
 
-	void updateCharStyles();
-	void updateParagraphStyles();
-	void updateTextStyles();
-
 	void handleLineSpacingMode(int id);
 	void handleTextFont(const QString&);
 
+
 private slots:
-	void handleAlignment(int a);
-	void handleDirection(int d);
+
 	void handleFontSize();
 	void handleLineSpacing();
+	void handleTextFill();
+	void handleTextBackground();
+	void handleTextStroke();
 
-	void doClearCStyle();
-	void doClearPStyle();
-
-signals:
-	void alignmentHandled();
 };
 
 #endif // PROPERTYWIDGET_TEXT_H

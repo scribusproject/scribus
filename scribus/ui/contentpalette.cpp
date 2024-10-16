@@ -34,7 +34,7 @@ ContentPalette::ContentPalette(QWidget *parent) :
 	f.setPointSize(f.pointSize()-1);
 	setFont(f);
 
-	stackedWidget = new QStackedWidget(this);
+	stackedWidget = new StackedContainer(this);
 
 	defaultPal = new ContentPalette_Default(this);
 	stackedWidget->addWidget(defaultPal);
@@ -303,7 +303,6 @@ void ContentPalette::updateColorList()
 		return;
 
 	tablePal->updateColorList();
-	textPal->updateColorList();
 
 	assert (m_doc->PageColors.document());
 }
@@ -365,7 +364,7 @@ void ContentPalette::update(PageItem_ImageFrame* image)
 
 void ContentPalette::update(const ParagraphStyle& style)
 {
-	textPal->updateStyle(style);
+	textPal->updateParagraphStyle(style);
 }
 
 void ContentPalette::update(const CharStyle& style)
@@ -379,7 +378,7 @@ void ContentPalette::update(PageItem_TextFrame* /*text*/)
 
 void ContentPalette::updateTextStyles()
 {
-	textPal->updateParagraphStyles();
+	textPal->updateTextStyles();
 }
 
 void ContentPalette::updateTextAlignment(int i)

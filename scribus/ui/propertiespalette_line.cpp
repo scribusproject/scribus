@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribusdoc.h"
 #include "selection.h"
+#include "stylemanager.h"
 #include "ui/colorpicker/colorpicker_enum.h"
 #include "ui/widgets/popup_menu.h"
 #include "units.h"
@@ -84,6 +85,8 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	connect(buttonSwapMarker, SIGNAL(clicked(bool)), this, SLOT(swapLineMarker()));
 	connect(comboBlendmode, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLineBlendmode(int)));
 	connect(comboLineStyle, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLineStyle(int)));
+	connect(buttonLineStyleNew, SIGNAL(clicked(bool)), this, SLOT(handleLineStyleNew()));
+	connect(buttonLineStyleEdit, SIGNAL(clicked(bool)), this, SLOT(handleLineStyleEdit()));
 	connect(buttonLineColor, SIGNAL(changed()), this, SLOT(handleLineColor()));
 	connect(buttonLineColor, SIGNAL(gradientVectorChanged()), this, SLOT(handleLineColorVector()));
 	connect(buttonLineMask, SIGNAL(changed()), this, SLOT(handleLineOpacity()));
@@ -303,6 +306,8 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 		hasStyle = true;
 		comboLineStyle->setCurrentText(m_item->NamedLStyle);
 	}
+
+	buttonLineStyleEdit->setEnabled(comboLineStyle->currentIndex() != 0);
 
 	lineTypeLabel->setVisible(!hasStyle);
 	lineWidthLabel->setVisible(!hasStyle);
@@ -669,6 +674,25 @@ void PropertiesPalette_Line::handleLineStyle(int c)
 		return;
 	bool setter = (c == 0);
 	m_doc->itemSelection_SetNamedLineStyle(setter ? QString("") : comboLineStyle->currentText());
+
+	buttonLineStyleEdit->setEnabled(comboLineStyle->currentIndex() != 0);
+}
+
+void PropertiesPalette_Line::handleLineStyleNew()
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	m_ScMW->styleMgr()->showAsNewLineStyle();
+}
+
+void PropertiesPalette_Line::handleLineStyleEdit()
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	if (comboLineStyle->currentIndex() != 0)
+		m_ScMW->styleMgr()->showAsEditLineStyle(comboLineStyle->currentText());
 }
 
 void PropertiesPalette_Line::handleLineOpacity(/*double opacity*/)
@@ -841,6 +865,10 @@ void PropertiesPalette_Line::iconSetChange()
 
 	buttonSwapMarker->setIcon(im.loadIcon("swap"));
 	buttonLineMask->setDotIcon(im.loadIcon("mask", 8));
+
+	lineStyleLabel->setPixmap(im.loadPixmap("stroke-style"));
+	buttonLineStyleNew->setIcon(im.loadIcon("stroke-style-new"));
+	buttonLineStyleEdit->setIcon(im.loadIcon("stroke-style-edit"));
 
 }
 

@@ -7,26 +7,23 @@ for which a new license (GPL+exception) is in place.
 #ifndef PROPERTIESPALETTE_TEXT_H
 #define PROPERTIESPALETTE_TEXT_H
 
+#include <QWidget>
 #include "scribusapi.h"
-#include "scrpalettebase.h"
-#include "scrspinbox.h"
-
 #include "scguardedptr.h"
 #include "sctextstruct.h"
 #include "units.h"
 
 class PageItem;
 class PropertyWidget_Advanced;
+class PropertyWidget_Alignment;
 class PropertyWidget_Distance;
+class PropertyWidget_ParagraphStyle;
 class PropertyWidget_ParEffect;
-class PropertyWidget_Flop;
 class PropertyWidget_FontFeatures;
 class PropertyWidget_Hyphenation;
-class PropertyWidget_OptMargins;
 class PropertyWidget_Orphans;
 class PropertyWidget_PathText;
 class PropertyWidget_Text;
-class PropertyWidget_TextColor;
 class SectionContainer;
 class ScribusDoc;
 class ScribusMainWindow;
@@ -40,7 +37,7 @@ public:
 	PropertiesPalette_Text(QWidget* parent);
 	~PropertiesPalette_Text() {}
 	
-	void updateColorList();
+	//void updateColorList();
 
 	/** @brief Returns true if there is a user action going on at the moment of call. */
 	bool userActionOn(); // not yet implemented!!! This is needed badly.
@@ -81,38 +78,30 @@ public slots:
 	void showDirection(int e);
 	void showFontSize(double s);
 	void showLanguage(const QString& w);
-	void showFirstLinePolicy(FirstLineOffsetPolicy);
 
 	/// update TB values:
 	void updateCharStyle(const CharStyle& charStyle);
-	void updateStyle(const ParagraphStyle& newCurrent);	
-	void updateCharStyles();
-	void updateParagraphStyles();
+	void updateParagraphStyle(const ParagraphStyle& newCurrent);
 	void updateTextStyles();	
-
-private slots:
-
-	void handleFirstLinePolicy(int);
 
 protected:
 	PropertyWidget_Advanced* advancedWidgets;
+	PropertyWidget_Alignment* alignmentWidgets;
 	PropertyWidget_Distance* distanceWidgets;
-	PropertyWidget_Flop* flopBox;
 	PropertyWidget_FontFeatures* fontfeaturesWidget;
 	PropertyWidget_Hyphenation* hyphenationWidget;
-	PropertyWidget_OptMargins* optMargins;
 	PropertyWidget_Orphans* orphanBox;
+	PropertyWidget_ParagraphStyle* styleWidgets;
 	PropertyWidget_ParEffect* parEffectWidgets;
 	PropertyWidget_PathText* pathTextWidgets;
 	PropertyWidget_Text* textWidgets;
-	PropertyWidget_TextColor* colorWidgets;
 
+	SectionContainer * scStyles= {nullptr};
 	SectionContainer * scAdvanced = {nullptr};
+	SectionContainer * scAlignment = {nullptr};
 	SectionContainer * scDistance = {nullptr};
-	SectionContainer * scFlop = {nullptr};
 	SectionContainer * scFontFeatures = {nullptr};
 	SectionContainer * scHyphenation = {nullptr};
-	SectionContainer * scOptMargins = {nullptr};
 	SectionContainer * scOrphans = {nullptr};
 	SectionContainer * scParEffect = {nullptr};
 	SectionContainer * scPathText = {nullptr};

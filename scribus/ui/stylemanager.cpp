@@ -201,6 +201,44 @@ void StyleManager::setOkButtonText()
 		okButton->setText(CommonStrings::tr_OK);
 }
 
+void StyleManager::editStyleByName(int rcType, const QString &name)
+{
+	m_rcStyle = name;
+	int i = 0;
+
+	// nitramr:
+	// We need a better way to find rcType than by ID of top level items. If the order of the root style changes it will break.
+	// It is better to store an unchangable identifier in StyleViewItem::data(int column, int role).
+	// https://doc.qt.io/qt-6/qtreewidgetitem.html#data
+
+	QTreeWidgetItemIterator it(styleView);
+	while (*it)
+	{
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
+		if (item)
+		{
+			// find rcType by ID
+			if (item->isRoot())
+			{
+				if (i == rcType)
+					m_rcType = item->text(0);
+				++i;
+			}
+
+			// double click item with matching style name in right root style
+			if (item->rootName() == m_rcType && item->text(0) == m_rcStyle)
+			{
+				slotDoubleClick(item, 0);
+				break;
+			}
+
+		}
+		++it;
+	}
+	m_rcStyle.clear();
+	m_rcType.clear();
+}
+
 void StyleManager::setDoc(ScribusDoc *doc)
 {
 	ScribusDoc* oldDoc = m_doc;
@@ -242,6 +280,58 @@ void StyleManager::updateColorList()
 		m_items.at(i)->setCurrentDoc(m_doc);
 		m_items.at(i)->reload();
 	}
+}
+
+void StyleManager::showAsNewParagraphStyle()
+{
+	setPaletteShown(true);
+	slotNewPopup(m_newPopup->actions().at(0));
+}
+
+void StyleManager::showAsNewCharacterStyle()
+{
+	setPaletteShown(true);
+	slotNewPopup(m_newPopup->actions().at(1));
+}
+
+void StyleManager::showAsNewLineStyle()
+{
+	setPaletteShown(true);
+	slotNewPopup(m_newPopup->actions().at(4));
+}
+
+void StyleManager::showAsEditCharacterStyle(const QString &name)
+{
+	if (name.isEmpty())
+		return;
+
+	setPaletteShown(true);
+
+	// 1 = top level id of character style in viewStyles list
+	editStyleByName(1, name);
+}
+
+void StyleManager::showAsEditLineStyle(const QString &name)
+{
+	if (name.isEmpty())
+		return;
+
+	setPaletteShown(true);
+
+	// 4 = top level id of line style in viewStyles list
+	editStyleByName(4, name);
+}
+
+void StyleManager::showAsEditParagraphStyle(const QString &name)
+{
+	if (name.isEmpty())
+		return;
+
+	setPaletteShown(true);
+
+	// 0 = top level id of paragraph style in viewStyles list
+	editStyleByName(0, name);
+
 }
 
 void StyleManager::addStyle(StyleItem *item)

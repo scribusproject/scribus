@@ -6,25 +6,28 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QToolTip>
 #include "smalignselect.h"
-
+#include "iconmanager.h"
+#include "scribusapp.h"
 
 SMAlignSelect::SMAlignSelect(QWidget *parent)
 	: AlignSelect(parent)
 {
 	parentButton = new QToolButton(this);
-	parentButton->setCheckable( true );
-	parentButton->setText( tr("P", "P as in Parent"));
+	parentButton->setText( "");
 	parentButton->setToolTip( tr("Use parent style's alignment instead of overriding it"));
-	GroupAlignLayout->addWidget( parentButton );
+	addWidget( parentButton );
 	resize(minimumSizeHint());
 	parentButton->hide();
+
+	iconSetChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 void SMAlignSelect::setStyle(int a, int d)
 {
 	disconnect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
 	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
-	setFont(false);
 	m_hasParent = false;
 	m_pStyle = 0;
 	m_pDirection = 0;
@@ -39,7 +42,6 @@ void SMAlignSelect::setStyle(int a, int d, bool isParentValue)
 	m_hasParent = true;
 	m_pStyle = a;
 	m_pDirection = d;
-	setFont(!isParentValue);
 	if (isParentValue)
 		parentButton->hide();
 	else
@@ -67,23 +69,19 @@ bool SMAlignSelect::useParentValue()
 	return ret;
 }
 
-void SMAlignSelect::setFont(bool wantBold)
-{
-	QFont f(font());
-	f.setBold(wantBold);
-	parentButton->setFont(f);
-}
-
 void SMAlignSelect::styleChanged()
 {
 	if (m_hasParent)
-	{
-		setFont(true);
 		parentButton->show();
-	}
 }
 
 void SMAlignSelect::pbPressed()
 {
 	m_useParentStyle = true;
+}
+
+void SMAlignSelect::iconSetChange()
+{
+	IconManager &im = IconManager::instance();
+	parentButton->setIcon(im.loadIcon("reset-style-changes"));
 }

@@ -14,8 +14,9 @@ for which a new license (GPL+exception) is in place.
 class QEvent;
 
 #include "scribusapi.h"
+#include "ui/widgets/form_widget.h"
 
-class SCRIBUS_API AlignSelect : public QWidget
+class SCRIBUS_API AlignSelect : public FormWidget
 {
 
 Q_OBJECT
@@ -42,8 +43,6 @@ public slots:
 	void setTypeStyle(int a);
 
 protected:
-	QHBoxLayout* GroupAlignLayout { nullptr };
-
 	void changeEvent(QEvent *e) override;
 
 signals:

@@ -3,7 +3,7 @@
 
 #include <QVector>
 
-#include "numeration.h"
+//#include "numeration.h"
 #include "propertywidgetbase.h"
 #include "ui/charselectenhanced.h"
 #include "ui_propertywidget_pareffectbase.h"
@@ -22,7 +22,7 @@ public:
 	~PropertyWidget_ParEffect() {}
 
 	void updateStyle(const ParagraphStyle& newPStyle);
-	void updateCharStyles();
+	void updateTextStyles();
 
 	void showCharStyle(const QString& name);
 	void connectSignals();
@@ -76,12 +76,8 @@ private slots:
 private:
 	void openEnhanced();
 	void closeEnhanced(bool show = false);
-	void enableDropCap(bool);
-	void enableBullet(bool);
-	void enableNum(bool);
-	void enableParEffect(bool);
+	void setType(int id);
 	void fillBulletStrEditCombo();
-
 	void fillPECombo();
 
 signals:

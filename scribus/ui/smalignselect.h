@@ -31,11 +31,10 @@ private:
 	int    m_pStyle = 0;
 	int    m_pDirection = 0;
 
-	void setFont(bool wantBold);
-
 private slots:
 	void styleChanged();
 	void pbPressed();
+	void iconSetChange();
 };
 
 #endif

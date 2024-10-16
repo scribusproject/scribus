@@ -22,10 +22,11 @@ class SCRIBUS_API NewMarginWidget : public QWidget, Ui::NewMarginWidget
 
 		enum SetupFlags
 		{
-			ShowPreset         = 1,
-			ShowPrinterMargins = 2,
-			MarginWidgetFlags  = 3,
-			BleedWidgetFlags   = 4,
+			DistanceWidgetFlags	= 0,
+			ShowPreset			= 1,
+			ShowPrinterMargins	= 2,
+			MarginWidgetFlags	= 3,
+			BleedWidgetFlags	= 4
 		};
 
 		void setup(const MarginStruct& margs, int layoutType, int unitIndex, int flags = MarginWidgetFlags);
@@ -47,6 +48,7 @@ class SCRIBUS_API NewMarginWidget : public QWidget, Ui::NewMarginWidget
 	public slots:
 		void languageChange();
 		void iconSetChange();
+		void toggleLabelVisibility(bool v);
 		void setTop();
 		void setBottom();
 		void setLeft();
@@ -74,6 +76,7 @@ class SCRIBUS_API NewMarginWidget : public QWidget, Ui::NewMarginWidget
 
 signals:
 		void marginChanged(MarginStruct);
+		void valuesChanged(MarginStruct);
 };
 
 #endif // NEWMARGINWIDGET_H

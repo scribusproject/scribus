@@ -4,14 +4,21 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <QButtonGroup>
+
 #include "propertywidget_fontfeatures.h"
+#include "iconmanager.h"
+#include "localemgr.h"
 #include "appmodes.h"
 #include "pageitem_table.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "selection.h"
 
 #include "fonts/fontfeatures.h"
+
 
 PropertyWidget_FontFeatures::PropertyWidget_FontFeatures(QWidget* parent) : QFrame(parent)
 {
@@ -20,7 +27,13 @@ PropertyWidget_FontFeatures::PropertyWidget_FontFeatures(QWidget* parent) : QFra
 	layout()->setAlignment(Qt::AlignTop);
 
 	initWidgets();
+	iconSetChange();
 	languageChange();
+	localeChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 }
 
 void PropertyWidget_FontFeatures::setMainWindow(ScribusMainWindow *mw)
@@ -38,9 +51,65 @@ void PropertyWidget_FontFeatures::changeEvent(QEvent *e)
 	QWidget::changeEvent(e);
 }
 
+bool PropertyWidget_FontFeatures::eventFilter(QObject *obj, QEvent *e)
+{
+	if (e->type() == QEvent::Enter)
+	{
+		handleFontPreview(obj);
+		return true;
+	}
+	if (e->type() == QEvent::Leave)
+	{
+		fontPreview->setPixmap(QPixmap());
+		return true;
+	}
+
+	return QWidget::eventFilter(obj, e);
+}
+
+
+void PropertyWidget_FontFeatures::iconSetChange()
+{
+	IconManager& im = IconManager::instance();
+
+	// Literal Cases
+	SmallRadio->setIcon(im.loadIcon("ff-smcp"));
+	SmallFromCRadio->setIcon(im.loadIcon("ff-c2sc"));
+	AllSmallCapsRadio->setIcon(im.loadIcon("ff-c2sc-smcp"));
+	PetiteRadio->setIcon(im.loadIcon("ff-pcap"));
+	PetiteCapRadio->setIcon(im.loadIcon("ff-p2pc"));
+	AllPetiteCapsRadio->setIcon(im.loadIcon("ff-p2pc-pcap"));
+	UnicaseRadio->setIcon(im.loadIcon("ff-unic"));
+	TitlingRadio->setIcon(im.loadIcon("ff-titl"));
+	// Number Style
+	LiningRadio->setIcon(im.loadIcon("ff-lnum"));
+	OldStyleRadio->setIcon(im.loadIcon("ff-onum"));
+	// Number Width
+	ProportionalRadio->setIcon(im.loadIcon("ff-pnum"));
+	TabularRadio->setIcon(im.loadIcon("ff-tnum"));
+	// Number Fractions
+	DiagonalRadio->setIcon(im.loadIcon("ff-frac"));
+	StackedRadio->setIcon(im.loadIcon("ff-afrc"));
+	// Number Position
+	SubscriptRadio->setIcon(im.loadIcon("ff-subs"));
+	SuperscriptRadio->setIcon(im.loadIcon("ff-sups"));
+	OrdinalCheck->setIcon(im.loadIcon("ff-ordn"));
+
+}
+
 void PropertyWidget_FontFeatures::languageChange()
 {
 	retranslateUi(this);
+}
+
+void PropertyWidget_FontFeatures::localeChange()
+{
+	//const QLocale& l(LocaleManager::instance().userPreferredLocale());
+}
+
+void PropertyWidget_FontFeatures::toggleLabelVisibility(bool v)
+{
+	// Nothing to do!
 }
 
 void PropertyWidget_FontFeatures::showFontFeatures(const QString& s, const QStringList& availableFeatures)
@@ -81,7 +150,7 @@ void PropertyWidget_FontFeatures::showFontFeatures(const QString& s, const QStri
 	if (featureFlags & FontFeatures::UnicaseCaps)
 		UnicaseRadio->setChecked(true);
 	if (featureFlags & FontFeatures::TiltingCaps)
-		TiltingRadio->setChecked(true);
+		TitlingRadio->setChecked(true);
 
 	if (featureFlags & FontFeatures::LiningNumerals)
 		LiningRadio->setChecked(true);
@@ -183,7 +252,7 @@ void PropertyWidget_FontFeatures::handleFontFeatures()
 		font_feature << "+c2pc";
 	if (UnicaseRadio->isChecked())
 		font_feature << "+unic";
-	if (TiltingRadio->isChecked())
+	if (TitlingRadio->isChecked())
 		font_feature << "+titl";
 
 	//Numeric
@@ -199,6 +268,8 @@ void PropertyWidget_FontFeatures::handleFontFeatures()
 		font_feature << "+frac";
 	if (StackedRadio->isChecked())
 		font_feature <<"+afrc";
+	if (SlashedZeroCheck->isChecked())
+		font_feature << "+zero";
 
 	//Position
 	if (SubscriptRadio->isChecked())
@@ -207,9 +278,6 @@ void PropertyWidget_FontFeatures::handleFontFeatures()
 		font_feature << "+sups";
 	if (OrdinalCheck->isChecked())
 		font_feature << "+ordn";
-
-	if (SlashedZeroCheck->isChecked())
-		font_feature << "+zero";
 
 	// Stylistic sets
 	if (StyleSet01->isChecked())
@@ -258,6 +326,59 @@ void PropertyWidget_FontFeatures::handleFontFeatures()
 	m_doc->itemSelection_SetFontFeatures(font_feature.join(","), &tempSelection);
 }
 
+void PropertyWidget_FontFeatures::handleFontPreview(QObject *obj)
+{
+	IconManager& im = IconManager::instance();
+	int h = 48;
+
+	if (obj == (QObject*)CommonCheck)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-liga", QSize(-1, h)));
+	else if (obj == (QObject*)ContextualCheck)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-clig", QSize(-1, h)));
+	else if (obj == (QObject*)DiscretionaryCheck)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-dlig", QSize(-1, h)));
+	else if (obj == (QObject*)HistoricalCheck)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-hlig", QSize(-1, h)));
+	else if (obj == (QObject*)AllSmallCapsRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-c2sc-smcp", QSize(-1, h)));
+	else if (obj == (QObject*)SmallRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-smcp", QSize(-1, h)));
+	else if (obj == (QObject*)SmallFromCRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-c2sc", QSize(-1, h)));
+	else if (obj == (QObject*)AllPetiteCapsRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-p2pc-pcap", QSize(-1, h)));
+	else if (obj == (QObject*)PetiteRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-pcap", QSize(-1, h)));
+	else if (obj == (QObject*)PetiteCapRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-p2pc", QSize(-1, h)));
+	else if (obj == (QObject*)UnicaseRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-unic", QSize(-1, h)));
+	// else if (obj == (QObject*)TitlingRadio)
+	// 	fontPreview->setPixmap(im.loadPixmap("", QSize(-1, h)));
+	else if (obj == (QObject*)LiningRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-lnum", QSize(-1, h)));
+	else if (obj == (QObject*)OldStyleRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-onum", QSize(-1, h)));
+	else if (obj == (QObject*)ProportionalRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-pnum", QSize(-1, h)));
+	else if (obj == (QObject*)TabularRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-tnum", QSize(-1, h)));
+	else if (obj == (QObject*)DiagonalRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-frac", QSize(-1, h)));
+	else if (obj == (QObject*)StackedRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-afrc", QSize(-1, h)));
+	else if (obj == (QObject*)SubscriptRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-subs", QSize(-1, h)));
+	else if (obj == (QObject*)SuperscriptRadio)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-sups", QSize(-1, h)));
+	else if (obj == (QObject*)OrdinalCheck)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-ordn", QSize(-1, h)));
+	else if (obj == (QObject*)SlashedZeroCheck)
+		fontPreview->setPixmap(im.loadPixmap("ff-preview-zero", QSize(-1, h)));
+	else
+		fontPreview->setPixmap(QPixmap());
+}
+
 void PropertyWidget_FontFeatures::setDoc(ScribusDoc *d)
 {
 	if ((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
@@ -297,6 +418,7 @@ void PropertyWidget_FontFeatures::updateCharStyle(const CharStyle& charStyle)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+
 	showFontFeatures(charStyle.fontFeatures(), charStyle.font().fontFeatures());
 }
 
@@ -324,7 +446,7 @@ void PropertyWidget_FontFeatures::connectSignals()
 	connect(PetiteCapRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
 	connect(AllPetiteCapsRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
 	connect(UnicaseRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
-	connect(TiltingRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
+	connect(TitlingRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
 
 	connect(DefaultStyleRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
 	connect(LiningRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()), Qt::UniqueConnection);
@@ -382,7 +504,7 @@ void PropertyWidget_FontFeatures::disconnectSignals()
 	disconnect(PetiteCapRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
 	disconnect(AllPetiteCapsRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
 	disconnect(UnicaseRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
-	disconnect(TiltingRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
+	disconnect(TitlingRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
 
 	disconnect(DefaultStyleRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
 	disconnect(LiningRadio, SIGNAL(clicked()), this, SLOT(handleFontFeatures()));
@@ -468,11 +590,19 @@ void PropertyWidget_FontFeatures::enableFeatures(const QStringList& fontFeatures
 
 	disableAllFeatures();
 
+	// Ligatures
 	CommonCheck->setVisible(newFlags & FontFeatures::CommonLigatures);
+	labelCommonLigatures->setVisible(newFlags & FontFeatures::CommonLigatures);
 	ContextualCheck->setVisible(newFlags & FontFeatures::ContextualLigatures);
+	labelContextualLigatures->setVisible(newFlags & FontFeatures::ContextualLigatures);
 	DiscretionaryCheck->setVisible(newFlags & FontFeatures::DiscretionaryLigatures);
+	labelDiscretionaryLigatures->setVisible(newFlags & FontFeatures::DiscretionaryLigatures);
 	HistoricalCheck->setVisible(newFlags & FontFeatures::HistoricalLigatures);
+	labelHistoricalLigatures->setVisible(newFlags & FontFeatures::HistoricalLigatures);
 
+	// Capitals
+	NormalCapRadio->setVisible(newFlags & FontFeatures::CapsMask);
+	labelCapitals->setVisible(newFlags & FontFeatures::CapsMask);
 	SmallRadio->setVisible(newFlags & FontFeatures::SmallCaps);
 	SmallFromCRadio->setVisible(newFlags & FontFeatures::SmallCapsFromCaps);
 	AllSmallCapsRadio->setVisible((newFlags & FontFeatures::AllSmallCapsMask) == FontFeatures::AllSmallCapsMask);
@@ -480,23 +610,38 @@ void PropertyWidget_FontFeatures::enableFeatures(const QStringList& fontFeatures
 	PetiteCapRadio->setVisible(newFlags & FontFeatures::PetiteCapsFromCaps);
 	AllPetiteCapsRadio->setVisible((newFlags & FontFeatures::AllPetiteCapsMask) == FontFeatures::AllPetiteCapsMask);
 	UnicaseRadio->setVisible(newFlags & FontFeatures::UnicaseCaps);
-	TiltingRadio->setVisible(newFlags & FontFeatures::TiltingCaps);
+	TitlingRadio->setVisible(newFlags & FontFeatures::TiltingCaps);
 
+	// Numeral Style
+	DefaultStyleRadio->setVisible(newFlags & FontFeatures::NumeralStyleMask);
+	labelNumeralStyle->setVisible(newFlags & FontFeatures::NumeralStyleMask);
 	LiningRadio->setVisible(newFlags & FontFeatures::LiningNumerals);
 	OldStyleRadio->setVisible(newFlags & FontFeatures::OldStyleNumerals);
 
+	// Numeral Width
+	DefaultWidthRadio->setVisible(newFlags & FontFeatures::NumeralWidthMask);
+	labelNumeralWidth->setVisible(newFlags & FontFeatures::NumeralWidthMask);
 	ProportionalRadio->setVisible(newFlags & FontFeatures::ProportionalNumeralWidth);
 	TabularRadio->setVisible(newFlags & FontFeatures::TabularNumeralWidth);
 
+	// Numeral Fractions
+	DefaultFractionsRadio->setVisible(newFlags & FontFeatures::NumeralFractionsMask);
+	labelFraction->setVisible(newFlags & FontFeatures::NumeralFractionsMask);
 	DiagonalRadio->setVisible(newFlags & FontFeatures::DiagonalFractions);
 	StackedRadio->setVisible(newFlags & FontFeatures::StackedFractions);
 
+	// Numeral Positions
+	DefaultPosRadio->setVisible(newFlags & FontFeatures::GlyphPositionMask);
+	LabelNumeralPosition->setVisible(newFlags & FontFeatures::GlyphPositionMask);
 	SubscriptRadio->setVisible(newFlags & FontFeatures::Subscript);
 	SuperscriptRadio->setVisible(newFlags & FontFeatures::Superscript);
 	OrdinalCheck->setVisible(newFlags & FontFeatures::Ordinals);
 
+	// Numeral Slash Zero
 	SlashedZeroCheck->setVisible(newFlags & FontFeatures::SlashedZero);
+	labelSlashedZero->setVisible(newFlags & FontFeatures::SlashedZero);
 
+	// Stylistic Sets
 	StyleSet01->setVisible(newFlags & FontFeatures::StyleSet01);
 	StyleSet02->setVisible(newFlags & FontFeatures::StyleSet02);
 	StyleSet03->setVisible(newFlags & FontFeatures::StyleSet03);
@@ -520,22 +665,28 @@ void PropertyWidget_FontFeatures::enableFeatures(const QStringList& fontFeatures
 
 	groupBox_7->setVisible(newFlags & FontFeatures::StyleSetsMask);
 
-	// Hide Default features when their relative ones aren't found in the font.
-	NormalCapRadio->setVisible(newFlags & FontFeatures::CapsMask);
-	DefaultStyleRadio->setVisible(newFlags & FontFeatures::NumeralStyleMask);
-	DefaultWidthRadio->setVisible(newFlags & FontFeatures::NumeralWidthMask);
-	DefaultFractionsRadio->setVisible(newFlags & FontFeatures::NumeralFractionsMask);
-	DefaultPosRadio->setVisible(newFlags & FontFeatures::GlyphPositionMask);
-
-	// Hide Lines
-	line->setVisible(newFlags & FontFeatures::LigaturesMask);
-
-	line_2->setVisible(newFlags & FontFeatures::CapsMask);
-	line_3->setVisible(newFlags & FontFeatures::NumeralStyleMask);
-	line_4->setVisible(newFlags & FontFeatures::NumeralWidthMask);
-	line_5->setVisible(newFlags & FontFeatures::NumeralFractionsMask);
-	line_6->setVisible(newFlags & FontFeatures::GlyphPositionMask);
-	line_7->setVisible(SlashedZeroCheck->isVisible());
+	// Hide Headers
+	labelLigatures->setVisible(newFlags & FontFeatures::LigaturesMask);
+	labelLettercase->setVisible(
+		(newFlags & FontFeatures::CapsMask) ||
+		(newFlags & FontFeatures::GlyphPositionMask)
+	);
+	LabelNumbers->setVisible(
+		(newFlags & FontFeatures::NumeralStyleMask) ||
+		(newFlags & FontFeatures::NumeralWidthMask) ||
+		(newFlags & FontFeatures::NumeralFractionsMask) ||
+		(newFlags & FontFeatures::SlashedZero)
+	);
+	fontPreview->setVisible(
+		(newFlags & FontFeatures::LigaturesMask) ||
+		(newFlags & FontFeatures::CapsMask) ||
+		(newFlags & FontFeatures::NumeralStyleMask) ||
+		(newFlags & FontFeatures::NumeralWidthMask) ||
+		(newFlags & FontFeatures::NumeralFractionsMask) ||
+		(newFlags & FontFeatures::GlyphPositionMask) ||
+		(newFlags & FontFeatures::SlashedZero) ||
+		(newFlags & FontFeatures::StyleSetsMask)
+	);
 
 	// Do not trigger item relayout unnecessarily,
 	// that can hurt text typing speed
@@ -566,7 +717,7 @@ quint64 PropertyWidget_FontFeatures::featureFlags() const
 		flags |= FontFeatures::PetiteCapsFromCaps;
 	if (UnicaseRadio->isVisible())
 		flags |= FontFeatures::UnicaseCaps;
-	if (TiltingRadio->isVisible())
+	if (TitlingRadio->isVisible())
 		flags |= FontFeatures::TiltingCaps;
 
 	if (LiningRadio->isVisible())
@@ -657,37 +808,93 @@ void PropertyWidget_FontFeatures::configureWidgets()
 
 void PropertyWidget_FontFeatures::initWidgets()
 {
+	fontPreview->setFixedHeight(50);
+
+	CommonCheck->installEventFilter(this);
+	ContextualCheck->installEventFilter(this);
+	DiscretionaryCheck->installEventFilter(this);
+	HistoricalCheck->installEventFilter(this);
+	AllSmallCapsRadio->installEventFilter(this);
+	SmallRadio->installEventFilter(this);
+	SmallFromCRadio->installEventFilter(this);
+	AllPetiteCapsRadio->installEventFilter(this);
+	PetiteRadio->installEventFilter(this);
+	PetiteCapRadio->installEventFilter(this);
+	UnicaseRadio->installEventFilter(this);
+	TitlingRadio->installEventFilter(this);
+	LiningRadio->installEventFilter(this);
+	OldStyleRadio->installEventFilter(this);
+	ProportionalRadio->installEventFilter(this);
+	TabularRadio->installEventFilter(this);
+	DiagonalRadio->installEventFilter(this);
+	StackedRadio->installEventFilter(this);
+	SubscriptRadio->installEventFilter(this);
+	SuperscriptRadio->installEventFilter(this);
+	OrdinalCheck->installEventFilter(this);
+	SlashedZeroCheck->installEventFilter(this);
+
+	QButtonGroup * groupCapitals = new QButtonGroup();
+	groupCapitals->setExclusive(true);
+	groupCapitals->addButton(NormalCapRadio);
+	groupCapitals->addButton(SmallRadio);
+	groupCapitals->addButton(SmallFromCRadio);
+	groupCapitals->addButton(AllSmallCapsRadio);
+	groupCapitals->addButton(PetiteRadio);
+	groupCapitals->addButton(PetiteCapRadio);
+	groupCapitals->addButton(AllPetiteCapsRadio);
+	groupCapitals->addButton(UnicaseRadio);
+	groupCapitals->addButton(TitlingRadio);
+
+	QButtonGroup * groupFractions = new QButtonGroup();
+	groupFractions->setExclusive(true);
+	groupFractions->addButton(DefaultFractionsRadio);
+	groupFractions->addButton(DiagonalRadio);
+	groupFractions->addButton(StackedRadio);
+
+	QButtonGroup * groupNumeralStyle = new QButtonGroup();
+	groupNumeralStyle->setExclusive(true);
+	groupNumeralStyle->addButton(DefaultStyleRadio);
+	groupNumeralStyle->addButton(LiningRadio);
+	groupNumeralStyle->addButton(OldStyleRadio);
+
+	QButtonGroup * groupNumeralWidth = new QButtonGroup();
+	groupNumeralWidth->setExclusive(true);
+	groupNumeralWidth->addButton(DefaultWidthRadio);
+	groupNumeralWidth->addButton(ProportionalRadio);
+	groupNumeralWidth->addButton(TabularRadio);
+
+
 	CommonCheck->setChecked(true);
 	ContextualCheck->setChecked(true);
 	DiscretionaryCheck->setChecked(false);
 	HistoricalCheck->setChecked(false);
 	
 	NormalCapRadio->setChecked(true);
-	SmallRadio->setChecked(false);
-	SmallFromCRadio->setChecked(false);
-	AllSmallCapsRadio->setChecked(false);
-	PetiteRadio->setChecked(false);
-	PetiteCapRadio->setChecked(false);
-	AllPetiteCapsRadio->setChecked(false);
-	UnicaseRadio->setChecked(false);
-	TiltingRadio->setChecked(false);
+	// SmallRadio->setChecked(false);
+	// SmallFromCRadio->setChecked(false);
+	// AllSmallCapsRadio->setChecked(false);
+	// PetiteRadio->setChecked(false);
+	// PetiteCapRadio->setChecked(false);
+	// AllPetiteCapsRadio->setChecked(false);
+	// UnicaseRadio->setChecked(false);
+	// TitlingRadio->setChecked(false);
 
 	DefaultStyleRadio->setChecked(true);
-	LiningRadio->setChecked(false);
-	OldStyleRadio->setChecked(false);
+	// LiningRadio->setChecked(false);
+	// OldStyleRadio->setChecked(false);
 
 	DefaultWidthRadio->setChecked(true);
-	ProportionalRadio->setChecked(false);
-	TabularRadio->setChecked(false);
+	// ProportionalRadio->setChecked(false);
+	// TabularRadio->setChecked(false);
 	
 	DefaultFractionsRadio->setChecked(true);
-	DiagonalRadio->setChecked(false);
-	StackedRadio->setChecked(false);
+	// DiagonalRadio->setChecked(false);
+	// StackedRadio->setChecked(false);
 
 	DefaultPosRadio->setChecked(true);
-	SubscriptRadio->setChecked(false);
-	SuperscriptRadio->setChecked(false);
-	OrdinalCheck->setChecked(false);
+	// SubscriptRadio->setChecked(false);
+	// SuperscriptRadio->setChecked(false);
+	// OrdinalCheck->setChecked(false);
 
 	SlashedZeroCheck->setChecked(false);
 

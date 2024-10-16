@@ -5,7 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "propertywidget_text.h"
-#include "ui_propertywidget_textbase.h"
 
 #include "appmodes.h"
 #include "commonstrings.h"
@@ -20,8 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "stylecombos.h"
 #include "undomanager.h"
-#include "langmgr.h"
-
 
 PropertyWidget_Text::PropertyWidget_Text( QWidget* parent) : QFrame(parent)
 {
@@ -29,22 +26,35 @@ PropertyWidget_Text::PropertyWidget_Text( QWidget* parent) : QFrame(parent)
 
 	fontSize->setPrefix("");
 
+	buttonTextColor->setContext(Context::Text);
+	buttonTextColor->setMenuContextType(ColorButton::Floating);
+	buttonTextColor->setColor( CommonStrings::tr_NoneColor);
+	buttonTextColor->setIconSize(QSize(20, 20));
+	buttonTextColor->setApplyColorOnIcon(true);
+
+	buttonBackgroundColor->setContext(Context::TextBackground);
+	buttonBackgroundColor->setMenuContextType(ColorButton::Floating);
+	buttonBackgroundColor->setColor(CommonStrings::tr_NoneColor);
+//	buttonBackgroundColor->setIconSize(QSize(16, 16));
+
+	buttonStrokeColor->setContext(Context::TextOutline);
+	buttonStrokeColor->setMenuContextType(ColorButton::Floating);
+	buttonStrokeColor->setColor(CommonStrings::tr_NoneColor);
+	buttonStrokeColor->setIconSize(QSize(20, 20));
+
+	labelFontSize->setLabelVisibility(false);
+	labelLineSpacing->setLabelVisibility(false);
+	labelLineHeight->setLabelVisibility(false);
+
+	fonts->toggleLabelVisibility(false);
+	fonts->setGuestWidget(labelFontSize);
+
 	iconSetChange();
 	languageChange();
 
-	connect(lineSpacing   , SIGNAL(valueChanged(double)), this, SLOT(handleLineSpacing()));
-	connect(fonts         , SIGNAL(fontSelected(QString)), this, SLOT(handleTextFont(QString)));
-	connect(fontSize      , SIGNAL(valueChanged(double)), this, SLOT(handleFontSize()));
-	connect(textAlignment , SIGNAL(State(int))   , this, SLOT(handleAlignment(int)));
-	connect(textDirection , SIGNAL(State(int))   , this, SLOT(handleDirection(int)));
-	connect(charStyleClear, SIGNAL(clicked()), this, SLOT(doClearCStyle()));
-	connect(paraStyleClear, SIGNAL(clicked()), this, SLOT(doClearPStyle()));
-
-	connect(lineSpacingModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLineSpacingMode(int)));
-	connect(langCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeLang(int)));
-
-//	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
-//	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 
 	setEnabled(false);
 }
@@ -53,10 +63,7 @@ void PropertyWidget_Text::setMainWindow(ScribusMainWindow* mw)
 {
 	m_ScMW = mw;
 
-//	connect(m_ScMW, SIGNAL(UpdateRequest(int))     , this  , SLOT(handleUpdateRequest(int)));
-
-	connect(paraStyleCombo, SIGNAL(newStyle(QString)), m_ScMW, SLOT(setNewParStyle(QString)), Qt::UniqueConnection);
-	connect(charStyleCombo, SIGNAL(newStyle(QString)), m_ScMW, SLOT(setNewCharStyle(QString)), Qt::UniqueConnection);
+	connect(m_ScMW, SIGNAL(UpdateRequest(int))     , this  , SLOT(handleUpdateRequest(int)));
 }
 
 void PropertyWidget_Text::setDoc(ScribusDoc *d)
@@ -79,11 +86,13 @@ void PropertyWidget_Text::setDoc(ScribusDoc *d)
 	lineSpacing->setValues(1, 2048, 2, 1);
 
 	fonts->rebuildList(m_doc);
-	paraStyleCombo->setDoc(m_doc);
-	charStyleCombo->setDoc(m_doc);
+	buttonTextColor->setDoc(m_doc);
+	buttonBackgroundColor->setDoc(m_doc);
+	buttonStrokeColor->setDoc(m_doc);
 
 	if (m_doc.isNull())
 	{
+		disconnectSignals();
 		return;
 	}
 
@@ -101,11 +110,34 @@ PageItem* PropertyWidget_Text::currentItemFromSelection()
 			currentItem = m_doc->m_Selection->itemAt(0);
 		else if (m_doc->m_Selection->count() == 1)
 			currentItem = m_doc->m_Selection->itemAt(0);
+
 		if (currentItem  && currentItem->isTable() && m_doc->appMode == modeEditTable)
 			currentItem = currentItem->asTable()->activeCell().textFrame();
 	}
 
 	return currentItem;
+}
+
+void PropertyWidget_Text::connectSignals()
+{
+	connect(lineSpacing   , SIGNAL(valueChanged(double)), this, SLOT(handleLineSpacing()));
+	connect(fonts         , SIGNAL(fontSelected(QString)), this, SLOT(handleTextFont(QString)));
+	connect(fontSize      , SIGNAL(valueChanged(double)), this, SLOT(handleFontSize()));
+	connect(lineSpacingModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLineSpacingMode(int)));
+	connect(buttonTextColor			, SIGNAL(changed()), this, SLOT(handleTextFill()));
+	connect(buttonBackgroundColor	, SIGNAL(changed()), this, SLOT(handleTextBackground()));
+	connect(buttonStrokeColor, SIGNAL(changed()), this, SLOT(handleTextStroke()));
+}
+
+void PropertyWidget_Text::disconnectSignals()
+{
+	disconnect(lineSpacing   , SIGNAL(valueChanged(double)), this, SLOT(handleLineSpacing()));
+	disconnect(fonts         , SIGNAL(fontSelected(QString)), this, SLOT(handleTextFont(QString)));
+	disconnect(fontSize      , SIGNAL(valueChanged(double)), this, SLOT(handleFontSize()));
+	disconnect(lineSpacingModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLineSpacingMode(int)));
+	disconnect(buttonTextColor			, SIGNAL(changed()), this, SLOT(handleTextFill()));
+	disconnect(buttonBackgroundColor	, SIGNAL(changed()), this, SLOT(handleTextBackground()));
+	disconnect(buttonStrokeColor, SIGNAL(changed()), this, SLOT(handleTextStroke()));
 }
 
 void PropertyWidget_Text::handleSelectionChanged()
@@ -151,24 +183,11 @@ void PropertyWidget_Text::handleSelectionChanged()
 
 void PropertyWidget_Text::handleUpdateRequest(int updateFlags)
 {
-	// ColorWidget will handle its update itself
-	/*if (updateFlags & reqColorsUpdate)
-		updateColorList();*/
-	if (updateFlags & reqCharStylesUpdate)
-	{
-		charStyleCombo->updateStyleList();
-	}
-	if (updateFlags & reqParaStylesUpdate)
-		paraStyleCombo->updateStyleList();
 	if (updateFlags & reqDefFontListUpdate)
 		fonts->rebuildList(nullptr);
+
 	if (updateFlags & reqDocFontListUpdate)
 		fonts->rebuildList(m_haveDoc ? m_doc : nullptr);
-	if (updateFlags & reqStyleComboDocUpdate)
-	{
-		paraStyleCombo->setDoc(m_haveDoc ? m_doc : nullptr);
-		charStyleCombo->setDoc(m_haveDoc ? m_doc : nullptr);
-	}
 }
 
 void PropertyWidget_Text::setCurrentItem(PageItem *item)
@@ -182,26 +201,29 @@ void PropertyWidget_Text::setCurrentItem(PageItem *item)
 	//if (m_item == i)
 	//	return;
 
+	disconnectSignals();
+
 	if (!m_doc)
 		setDoc(item->doc());
 
 	m_haveItem = false;
 	m_item = item;
+	m_haveItem = true;
 
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 	{
 		setEnabled(false);
 	}
 
-	m_haveItem = true;
-
-
 	if (m_item->isTextFrame() || m_item->isPathText() || m_item->isTable())
 	{
 		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
 		if (m_doc->appMode == modeEdit || m_doc->appMode == modeEditTable)
 			m_item->currentTextProps(parStyle);
+
 		updateStyle(parStyle);
+		setEnabled(true);
+
 	}
 	if (m_item->isOSGFrame())
 	{
@@ -211,21 +233,26 @@ void PropertyWidget_Text::setCurrentItem(PageItem *item)
 	{
 		setEnabled(false);
 	}
+
+	connectSignals();
 }
 
 void PropertyWidget_Text::iconSetChange()
 {
-	IconManager& iconManager = IconManager::instance();
+	IconManager& im = IconManager::instance();
 
-	fontSizeLabel->setPixmap(iconManager.loadPixmap("zeichen.png"));
-	lineSpacingLabel->setPixmap(iconManager.loadPixmap("linespacing2.png"));
-	textAlignmentLabel->setPixmap(iconManager.loadPixmap("22/text-align.png"));
-	langLabel->setPixmap(iconManager.loadPixmap("22/language.png"));
-	paraStyleLabel->setPixmap(iconManager.loadPixmap("22/paragraph-style.png"));
-	charStyleLabel->setPixmap(iconManager.loadPixmap("22/character-style.png"));
+	labelFontSize->setPixmap(im.loadPixmap("font-size"));
+	labelLineSpacing->setPixmap(im.loadPixmap("paragraph-line-height"));
+	buttonTextColor->setIcon(im.loadIcon("text-color", buttonTextColor->iconSize()));
+	buttonStrokeColor->setIcon(im.loadIcon("text-outline-color", buttonStrokeColor->iconSize()));
+}
 
-	paraStyleClear->setIcon(iconManager.loadPixmap("16/edit-clear.png"));
-	charStyleClear->setIcon(iconManager.loadPixmap("16/edit-clear.png"));
+
+void PropertyWidget_Text::toggleLabelVisibility(bool v)
+{
+	labelTextColor->setLabelVisibility(v);
+	labelBackgroundColor->setLabelVisibility(v);
+	labelStrokeColor->setLabelVisibility(v);
 }
 
 
@@ -245,33 +272,30 @@ void PropertyWidget_Text::handleLineSpacingMode(int id)
 	m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
 	updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? m_item->currentStyle() : m_item->itemText.defaultStyle());
 	m_doc->regionsChanged()->update(QRect());
+
 }
 
-void PropertyWidget_Text::changeLang(int id)
+void PropertyWidget_Text::showLineSpacing(const ParagraphStyle& newCurrent)
 {
-	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
+	if (!m_ScMW || !m_item || m_ScMW->scriptIsRunning())
 		return;
-	QStringList languageList;
-	LanguageManager::instance()->fillInstalledStringList(&languageList);
-	QString abrv = LanguageManager::instance()->getAbbrevFromLang(languageList.value(id),false);
-	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
-	m_doc->itemSelection_SetLanguage(abrv, &tempSelection);
-}
 
-void PropertyWidget_Text::showLineSpacing(double r)
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	bool inEditMode = (m_doc->appMode == modeEdit || m_doc->appMode == modeEditTable);
 	bool tmp = m_haveItem;
+	double r = newCurrent.lineSpacing();
 	m_haveItem = false;
-	lineSpacing->showValue(r);
-	const ParagraphStyle& curStyle(m_haveItem && inEditMode ? m_item->currentStyle() : m_item->itemText.defaultStyle());
+
 	if (tmp)
 	{
-		setupLineSpacingSpinbox(curStyle.lineSpacingMode(), r);
-		lineSpacingModeCombo->setCurrentIndex(curStyle.lineSpacingMode());
+		if (newCurrent.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
+		{
+			double autoLS = static_cast<double>(m_item->doc()->typographicPrefs().autoLineSpacing) / 100.0;
+			r = newCurrent.charStyle().font().height(newCurrent.charStyle().fontSize() / 10.0) * autoLS;
+		}
+		else if (newCurrent.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+			r = m_item->doc()->guidesPrefs().valueBaselineGrid;
+
+		setupLineSpacingSpinbox(newCurrent.lineSpacingMode(), r);
+		lineSpacingModeCombo->setCurrentIndex(newCurrent.lineSpacingMode());
 	}
 	m_haveItem = tmp;
 }
@@ -295,39 +319,11 @@ void PropertyWidget_Text::showFontSize(double s)
 	fontSize->showValue(s / 10.0);
 }
 
-void PropertyWidget_Text::showLanguage(const QString& w)
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	QStringList lang;
-	LanguageManager::instance()->fillInstalledStringList(&lang);
-	QString langName = LanguageManager::instance()->getLangFromAbbrev(w, true);
-
-	bool sigBlocked  = langCombo->blockSignals(true);
-	langCombo->setCurrentIndex(lang.indexOf(langName));
-	langCombo->blockSignals(sigBlocked);
-}
-
 void PropertyWidget_Text::setupLineSpacingSpinbox(int mode, double value)
 {
 	bool blocked = lineSpacing->blockSignals(true);
-	if (mode > 0)
-	{
-		if (mode == 1)
-			lineSpacing->setSpecialValueText( tr( "Auto" ) );
-		if (mode == 2)
-			lineSpacing->setSpecialValueText( tr( "Baseline" ) );
-		lineSpacing->setMinimum(0);
-		lineSpacing->setValue(0);
-		lineSpacing->setEnabled(false);
-	}
-	else
-	{
-		lineSpacing->setSpecialValueText("");
-		lineSpacing->setMinimum(1);
-		lineSpacing->setValue(value);
-		lineSpacing->setEnabled(true);
-	}
+	lineSpacing->setValue(value);
+	lineSpacing->setEnabled((mode == 0));
 	lineSpacing->blockSignals(blocked);
 }
 
@@ -338,7 +334,8 @@ void PropertyWidget_Text::updateCharStyle(const CharStyle& charStyle)
 
 	showFontFace(charStyle.font().scName());
 	showFontSize(charStyle.fontSize());
-	showLanguage(charStyle.language());
+	showTextColors(charStyle.fillColor(), charStyle.backColor(), charStyle.strokeColor(), charStyle.fillShade(), charStyle.backShade(), charStyle.strokeShade());
+	labelStrokeColor->setEnabled( (charStyle.effects() & 4) || (charStyle.effects() & 256) );
 }
 
 void PropertyWidget_Text::updateStyle(const ParagraphStyle& newCurrent)
@@ -347,105 +344,8 @@ void PropertyWidget_Text::updateStyle(const ParagraphStyle& newCurrent)
 		return;
 
 	const CharStyle& charStyle = newCurrent.charStyle();
-
-	showFontFace(charStyle.font().scName());
-	showFontSize(charStyle.fontSize());
-	showLanguage(charStyle.language());
-
-	if (m_item)
-	{
-		QString defaultParStyle = m_item->itemText.defaultStyle().parent();
-		if (defaultParStyle.isEmpty())
-			defaultParStyle = CommonStrings::DefaultParagraphStyle;
-		paraStyleCombo->setDefaultStyle(defaultParStyle);
-	}
-	showParStyle(newCurrent.parent());
-
-	if (m_item)
-	{
-		QString defaultCharStyle;
-		if (!newCurrent.parent().isEmpty())
-		{
-			const ParagraphStyle* paraStyle = m_doc->paragraphStyles().getPointer(newCurrent.parent());
-			if (paraStyle)
-				defaultCharStyle = paraStyle->charStyle().parent();
-			if (defaultCharStyle.isEmpty())
-				defaultCharStyle = CommonStrings::DefaultCharacterStyle;
-		}
-		if (defaultCharStyle.isEmpty())
-			defaultCharStyle = m_item->itemText.defaultStyle().charStyle().parent();
-		if (defaultCharStyle.isEmpty())
-			defaultCharStyle = CommonStrings::DefaultCharacterStyle;
-		charStyleCombo->setDefaultStyle(defaultCharStyle);
-	}
-	showCharStyle(charStyle.parent());
-
-	bool tmp = m_haveItem;
-	m_haveItem = false;
-
-	setupLineSpacingSpinbox(newCurrent.lineSpacingMode(), newCurrent.lineSpacing());
-	lineSpacingModeCombo->setCurrentIndex(newCurrent.lineSpacingMode());
-	textAlignment->setStyle(newCurrent.alignment(), newCurrent.direction());
-	textDirection->setStyle(newCurrent.direction());
-
-	m_haveItem = tmp;
-}
-
-void PropertyWidget_Text::updateCharStyles()
-{
-	charStyleCombo->updateStyleList();
-}
-
-void PropertyWidget_Text::updateParagraphStyles()
-{
-	paraStyleCombo->updateStyleList();
-	charStyleCombo->updateStyleList();
-}
-
-void PropertyWidget_Text::updateTextStyles()
-{
-	paraStyleCombo->updateStyleList();
-	charStyleCombo->updateStyleList();
-}
-
-void PropertyWidget_Text::showAlignment(int e)
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	bool tmp = m_haveItem;
-	m_haveItem = false;
-	textAlignment->setEnabled(true);
-	textAlignment->setStyle(e, textDirection->getStyle());
-	m_haveItem = tmp;
-}
-
-void PropertyWidget_Text::showDirection(int e)
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	bool tmp = m_haveItem;
-	m_haveItem = false;
-	textDirection->setEnabled(true);
-	textDirection->setStyle(e);
-	m_haveItem = tmp;
-}
-
-void PropertyWidget_Text::showCharStyle(const QString& name)
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	bool blocked = charStyleCombo->blockSignals(true);
-	charStyleCombo->setStyle(name);
-	charStyleCombo->blockSignals(blocked);
-}
-
-void PropertyWidget_Text::showParStyle(const QString& name)
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	bool blocked = paraStyleCombo->blockSignals(true);
-	paraStyleCombo->setStyle(name);
-	paraStyleCombo->blockSignals(blocked);
+	updateCharStyle(charStyle);
+	showLineSpacing(newCurrent);
 }
 
 void PropertyWidget_Text::handleLineSpacing()
@@ -466,40 +366,6 @@ void PropertyWidget_Text::handleFontSize()
 	m_doc->itemSelection_SetFontSize(qRound(fontSize->value()*10.0), &tempSelection);
 }
 
-void PropertyWidget_Text::handleAlignment(int a)
-{
-	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
-	m_doc->itemSelection_SetAlignment(a, &tempSelection);
-
-	emit alignmentHandled();
-
-//	if (m_item->isPathText())
-//		pathTextWidgets->handleSelectionChanged();
-}
-
-void PropertyWidget_Text::handleDirection(int d)
-{
-	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
-	m_doc->itemSelection_SetDirection(d, &tempSelection);
-	// If current text alignment is left or right, change it to match direction
-	if (d == ParagraphStyle::RTL && textAlignment->selectedId() == ParagraphStyle::LeftAligned)
-	{
-		m_doc->itemSelection_SetAlignment(ParagraphStyle::RightAligned, &tempSelection);
-		textAlignment->setTypeStyle(ParagraphStyle::RightAligned);
-	}
-	else if (d == ParagraphStyle::LTR && textAlignment->selectedId() == ParagraphStyle::RightAligned)
-	{
-		m_doc->itemSelection_SetAlignment(ParagraphStyle::LeftAligned, &tempSelection);
-		textAlignment->setTypeStyle(ParagraphStyle::LeftAligned);
-	}
-}
-
 void PropertyWidget_Text::handleTextFont(const QString& font)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
@@ -507,36 +373,6 @@ void PropertyWidget_Text::handleTextFont(const QString& font)
 	Selection tempSelection(this, false);
 	tempSelection.addItem(m_item, true);
 	m_doc->itemSelection_SetFont(font, &tempSelection);
-}
-
-void PropertyWidget_Text::doClearCStyle()
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
-		return;
-	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
-	m_doc->itemSelection_EraseCharStyle(&tempSelection);
-}
-
-
-void PropertyWidget_Text::doClearPStyle()
-{
-	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
-		return;
-
-	UndoTransaction activeTransaction;
-	if (UndoManager::undoEnabled())
-		activeTransaction = UndoManager::instance()->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::RemoveTextStyle, tr( "remove direct paragraph formatting" ), Um::IFont);
-
-	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
-	m_doc->itemSelection_ClearBulNumStrings(&tempSelection);
-	m_doc->itemSelection_EraseParagraphStyle(&tempSelection);
-	CharStyle emptyCStyle;
-	m_doc->itemSelection_SetCharStyle(emptyCStyle, &tempSelection);
-
-	if (activeTransaction)
-		activeTransaction.commit();
 }
 
 void PropertyWidget_Text::changeEvent(QEvent *e)
@@ -556,19 +392,91 @@ void PropertyWidget_Text::languageChange()
 	QSignalBlocker lineSpacingModeBlocker(lineSpacingModeCombo);
 	int oldLineSpacingMode = lineSpacingModeCombo->currentIndex();
 	lineSpacingModeCombo->clear();
-	lineSpacingModeCombo->addItem( tr("Fixed Linespacing"));
-	lineSpacingModeCombo->addItem( tr("Automatic Linespacing"));
-	lineSpacingModeCombo->addItem( tr("Align to Baseline Grid"));
+	lineSpacingModeCombo->addItem( tr("Fixed"));
+	lineSpacingModeCombo->addItem( tr("Automatic"));
+	lineSpacingModeCombo->addItem( tr("Baseline"));
 	lineSpacingModeCombo->setCurrentIndex(oldLineSpacingMode);
 
-	QSignalBlocker langComboBlocker(langCombo);
-	QStringList languageList;
-	LanguageManager::instance()->fillInstalledStringList(&languageList);
-	int oldLang = langCombo->currentIndex();
-	langCombo->clear();
-	langCombo->addItems(languageList);
-	langCombo->setCurrentIndex(oldLang);
+	buttonTextColor->setPersistentToolTip( tr("Color of selected text"));
+	buttonBackgroundColor->setPersistentToolTip( tr("Background color of selected text"));
+	buttonStrokeColor->setPersistentToolTip( tr("Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color."));
 
-	textAlignment->languageChange();
-	textDirection->languageChange();
+}
+
+void PropertyWidget_Text::handleTextFill()
+{
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != nullptr)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_blockUpdate = true;
+		m_doc->itemSelection_SetFillColor(buttonTextColor->colorName(), &tempSelection);
+		m_doc->itemSelection_SetFillShade(buttonTextColor->colorData().Shade, &tempSelection);
+		m_blockUpdate = false;
+
+	}
+}
+
+void PropertyWidget_Text::handleTextBackground()
+{
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != nullptr)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_blockUpdate = true;
+		m_doc->itemSelection_SetBackgroundColor(buttonBackgroundColor->colorName(), &tempSelection);
+		m_doc->itemSelection_SetBackgroundShade(buttonBackgroundColor->colorData().Shade, &tempSelection);
+		m_blockUpdate = false;
+	}
+}
+
+void PropertyWidget_Text::handleTextStroke()
+{
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != nullptr)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_blockUpdate = true;
+		m_doc->itemSelection_SetStrokeColor(buttonStrokeColor->colorName(), &tempSelection);
+		m_doc->itemSelection_SetStrokeShade(buttonStrokeColor->colorData().Shade, &tempSelection);
+		m_blockUpdate = false;
+	}
+}
+
+void PropertyWidget_Text::showTextColors(const QString& fillCol, const QString& backCol, const QString& strokeCol, double fillShd, double backShd, double strokeShd)
+{
+
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning() || m_blockUpdate)
+		return;
+
+	buttonTextColor->setColor(fillCol, qRound(fillShd));
+	buttonTextColor->updatePreview();
+	buttonTextColor->updateFloatingContext();
+
+	buttonBackgroundColor->setColor(backCol, qRound(backShd));
+	buttonBackgroundColor->updatePreview();
+	buttonBackgroundColor->updateFloatingContext();
+
+	buttonStrokeColor->setColor(strokeCol, qRound(strokeShd));
+	buttonStrokeColor->updatePreview();
+	buttonStrokeColor->updateFloatingContext();
+
 }

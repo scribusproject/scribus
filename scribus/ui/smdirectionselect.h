@@ -23,11 +23,10 @@ private:
 	bool   m_useParentStyle = false;
 	int    m_pStyle = 0;
 
-	void setFont(bool wantBold);
-
 private slots:
 	void styleChanged();
 	void pbPressed();
+	void iconSetChange();
 };
 
 #endif // SMDIRECTIONSELECT_H

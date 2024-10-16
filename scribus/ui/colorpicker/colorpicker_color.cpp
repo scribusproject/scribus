@@ -76,6 +76,15 @@ void ColorPickerColor::setContext(Context config)
 		numberAlpha->setVisible(false);
 		labelAlpha->setVisible(false);
 		break;
+	case Context::Text:
+	case Context::TextBackground:
+	case Context::TextOutline:
+		sectionSwatches->setVisible(true);
+		numberShade->setVisible(true);
+		labelShade->setVisible(true);
+		numberAlpha->setVisible(false);
+		labelAlpha->setVisible(false);
+		break;
 	case Context::Fill:
 		sectionSwatches->setVisible(true);
 		numberShade->setVisible(true);

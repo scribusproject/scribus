@@ -22,13 +22,13 @@ public:
 
 	void setDoc(ScribusDoc* doc);
 
-	void setGeneralData(CPGeneralData data);
+	void setGeneralData(const CPGeneralData &data);
 	const CPGeneralData& generalData() const;
 
 	void setColorData(const CPColorData& data);
-	CPColorData colorData() const;
+	const CPColorData& colorData() const;
 
-	CPGradientData gradientData() const;
+	const CPGradientData& gradientData() const;
 	void setGradientData(const CPGradientData& data);
 
 	const CPGradientVectorData& gradientVectorData() const;

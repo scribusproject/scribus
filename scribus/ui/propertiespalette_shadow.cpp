@@ -282,21 +282,6 @@ void PropertiesPalette_Shadow::toggleLabelVisibility(bool v)
 	labelErase->setLabelVisibility(v);
 }
 
-//void PropertiesPalette_Shadow::updateColorList()
-//{
-//	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
-//		return;
-//	disconnectSlots();
-
-////	colorPicker->loadLists();
-
-////	QString color = colorPicker->colorName();
-////	colorPicker->setColors(m_doc->PageColors);
-////	colorPicker->setColor(color);
-
-//	connectSlots();
-//}
-
 void PropertiesPalette_Shadow::handleNewValues()
 {
 	if (!m_haveItem || !m_haveDoc)

@@ -119,7 +119,7 @@
             <x>0</x>
             <y>0</y>
             <width>304</width>
-            <height>638</height>
+            <height>624</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -181,6 +181,21 @@
              </property>
              <widget class="QWidget" name="page">
               <layout class="QVBoxLayout" name="verticalLayout_6">
+               <property name="spacing">
+                <number>4</number>
+               </property>
+               <property name="leftMargin">
+                <number>8</number>
+               </property>
+               <property name="topMargin">
+                <number>8</number>
+               </property>
+               <property name="rightMargin">
+                <number>8</number>
+               </property>
+               <property name="bottomMargin">
+                <number>8</number>
+               </property>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_10">
                  <item>
@@ -483,6 +498,21 @@
              </property>
              <widget class="QWidget" name="page_2">
               <layout class="QVBoxLayout" name="verticalLayout_8">
+               <property name="spacing">
+                <number>4</number>
+               </property>
+               <property name="leftMargin">
+                <number>8</number>
+               </property>
+               <property name="topMargin">
+                <number>8</number>
+               </property>
+               <property name="rightMargin">
+                <number>8</number>
+               </property>
+               <property name="bottomMargin">
+                <number>8</number>
+               </property>
                <item>
                 <widget class="NewMarginWidget" name="marginGroup" native="true"/>
                </item>
@@ -497,6 +527,21 @@
              </property>
              <widget class="QWidget" name="page_3">
               <layout class="QVBoxLayout" name="verticalLayout_9">
+               <property name="spacing">
+                <number>4</number>
+               </property>
+               <property name="leftMargin">
+                <number>8</number>
+               </property>
+               <property name="topMargin">
+                <number>8</number>
+               </property>
+               <property name="rightMargin">
+                <number>8</number>
+               </property>
+               <property name="bottomMargin">
+                <number>8</number>
+               </property>
                <item>
                 <widget class="NewMarginWidget" name="bleedGroup" native="true"/>
                </item>
@@ -514,6 +559,21 @@
              </property>
              <widget class="QWidget" name="page_4">
               <layout class="QVBoxLayout" name="verticalLayout_10">
+               <property name="spacing">
+                <number>4</number>
+               </property>
+               <property name="leftMargin">
+                <number>8</number>
+               </property>
+               <property name="topMargin">
+                <number>8</number>
+               </property>
+               <property name="rightMargin">
+                <number>8</number>
+               </property>
+               <property name="bottomMargin">
+                <number>8</number>
+               </property>
                <item>
                 <widget class="QCheckBox" name="autoTextFrame">
                  <property name="text">
@@ -752,7 +812,7 @@
   <customwidget>
    <class>NewMarginWidget</class>
    <extends>QWidget</extends>
-   <header location="global">ui/newmarginwidget.h</header>
+   <header>ui/newmarginwidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

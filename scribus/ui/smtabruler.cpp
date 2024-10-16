@@ -31,20 +31,23 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin, const QList<Pa
 	rightIndentSpin = new SMScrSpinBox(0, 4000, this, dEin);
 	Q_CHECK_PTR(rightIndentSpin);
 
-	indentLayout->removeWidget(firstLineData);
+//	indentLayout->rightIndentLabel->removeWidget(firstLineData);
 	firstLineData->hide();
-	indentLayout->insertWidget(1, firstLineSpin);
-	firstLineSpin->show();
+	firstLineLabel->addWidget(firstLineSpin);
+	// indentLayout->insertWidget(1, firstLineSpin);
+	// firstLineSpin->show();
 
-	indentLayout->removeWidget(leftIndentData);
+//	indentLayout->removeWidget(leftIndentData);
 	leftIndentData->hide();
-	indentLayout->insertWidget(3, leftIndentSpin);
-	leftIndentSpin->show();
+	leftIndentLabel->addWidget(leftIndentSpin);
+//	indentLayout->insertWidget(3, leftIndentSpin);
+//	leftIndentSpin->show();
 
-	indentLayout->removeWidget(rightIndentData);
+//	indentLayout->removeWidget(rightIndentData);
 	rightIndentData->hide();
-	indentLayout->insertWidget(5, rightIndentSpin);
-	rightIndentSpin->show();
+	rightIndentLabel->addWidget(rightIndentSpin);
+//	indentLayout->insertWidget(5, rightIndentSpin);
+//	rightIndentSpin->show();
 
 	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
 	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));

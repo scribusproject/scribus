@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QSignalBlocker>
 
+#include "iconmanager.h"
 #include "localemgr.h"
 #include "scribus.h"
 #include "scribusapp.h"
@@ -27,9 +28,12 @@ PropertyWidget_PathText::PropertyWidget_PathText(QWidget* parent) : QFrame(paren
 	distFromCurve->setValues(-300, 300, 2, 0);
 	distFromCurve->setSingleStep(10);
 
-	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
-
 	languageChange();
+	iconSetChange();
+
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 }
 
 void PropertyWidget_PathText::setMainWindow(ScribusMainWindow* mw)
@@ -118,7 +122,7 @@ void PropertyWidget_PathText::connectSignals()
 {
 	connect(showCurveCheckBox, SIGNAL(clicked())     , this, SLOT(handlePathLine()));
 	connect(pathTextType     , SIGNAL(activated(int)), this, SLOT(handlePathType()));
-	connect(flippedPathText  , SIGNAL(clicked())     , this, SLOT(handlePathFlip()));
+	connect(flippedPathText  , SIGNAL(toggled(bool))     , this, SLOT(handlePathFlip()));
 	connect(startOffset      , SIGNAL(valueChanged(double)), this, SLOT(handlePathDist()));
 	connect(distFromCurve    , SIGNAL(valueChanged(double)), this, SLOT(handlePathOffs()));
 }
@@ -127,7 +131,7 @@ void PropertyWidget_PathText::disconnectSignals()
 {
 	disconnect(showCurveCheckBox, SIGNAL(clicked())     , this, SLOT(handlePathLine()));
 	disconnect(pathTextType     , SIGNAL(activated(int)), this, SLOT(handlePathType()));
-	disconnect(flippedPathText  , SIGNAL(clicked())     , this, SLOT(handlePathFlip()));
+	disconnect(flippedPathText  , SIGNAL(toggled(bool))     , this, SLOT(handlePathFlip()));
 	disconnect(startOffset      , SIGNAL(valueChanged(double)), this, SLOT(handlePathDist()));
 	disconnect(distFromCurve    , SIGNAL(valueChanged(double)), this, SLOT(handlePathOffs()));
 }
@@ -217,6 +221,16 @@ void PropertyWidget_PathText::changeEvent(QEvent *e)
 	QWidget::changeEvent(e);
 }
 
+
+void PropertyWidget_PathText::iconSetChange()
+{
+	IconManager &im = IconManager::instance();
+
+	startOffsetLabel->setPixmap(im.loadPixmap("text-on-path-offset"));
+	distFromCurveLabel->setPixmap(im.loadPixmap("text-on-path-distance"));
+	flippedPathText->setIcon(im.loadIcon("text-on-path-flip"));
+}
+
 void PropertyWidget_PathText::languageChange()
 {
 	QSignalBlocker pathTextTypeBlocker(pathTextType);
@@ -227,11 +241,10 @@ void PropertyWidget_PathText::languageChange()
 	pathTextType->addItem( tr("Skew"));
 	pathTextType->setCurrentIndex(oldPathType);
 	
-	flippedPathText->setText( tr("Flip Text"));
 	showCurveCheckBox->setText( tr("Show Curve"));
-	pathTextTypeLabel->setText( tr("Type:"));
-	startOffsetLabel->setText( tr("Start Offset:"));
-	distFromCurveLabel->setText( tr("Distance from Curve:"));
+	pathTextTypeLabel->setText( tr("Type"));
+	startOffsetLabel->setText( tr("Start Offset"));
+	distFromCurveLabel->setText( tr("Distance"));
 	
 	QString ptSuffix = tr(" pt");
 	QString unitSuffix = m_doc ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
@@ -259,4 +272,13 @@ void PropertyWidget_PathText::localeChange()
 	const QLocale& l(LocaleManager::instance().userPreferredLocale());
 	startOffset->setLocale(l);
 	distFromCurve->setLocale(l);
+}
+
+void PropertyWidget_PathText::toggleLabelVisibility(bool v)
+{
+	distFromCurveLabel->setLabelVisibility(v);
+	startOffsetLabel->setLabelVisibility(v);
+	pathTextTypeLabel->setLabelVisibility(v);
+	curveLabel->setLabelVisibility(v);
+	flipLabel->setLabelVisibility(v);
 }

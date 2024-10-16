@@ -115,6 +115,10 @@ install(FILES ${SCRIBUS_ICONS_1_7_0_16} DESTINATION ${ICONDIR}/1_7_0/16)
 file( GLOB SCRIBUS_ICONS_1_7_0_32 1_7_0/32/*.svg)
 install(FILES ${SCRIBUS_ICONS_1_7_0_32} DESTINATION ${ICONDIR}/1_7_0/32)
 
+#Install our images
+file( GLOB SCRIBUS_ICONS_1_7_0_IMAGES 1_7_0/images/*.svg 1_7_0/images/*.png )
+install(FILES ${SCRIBUS_ICONS_1_7_0_IMAGES} DESTINATION ${ICONDIR}/1_7_0/images)
+
 #Install our stylesheet icons
 file( GLOB SCRIBUS_ICONS_1_7_0_STYLE 1_7_0/stylesheet/*.png )
 install(FILES ${SCRIBUS_ICONS_1_7_0_STYLE} DESTINATION ${ICONDIR}/1_7_0/stylesheet)
@@ -123,8 +127,5 @@ install(FILES ${SCRIBUS_ICONS_1_7_0_STYLE} DESTINATION ${ICONDIR}/1_7_0/styleshe
 file( GLOB SCRIBUS_XML_1_7_0 1_7_0/*.xml )
 install(FILES ${SCRIBUS_XML_1_7_0} DESTINATION ${ICONDIR})
 
-#Install our tools icons
-file( GLOB SCRIBUS_ICONS_1_7_0_TOOLS 1_7_0/tools/*.svg )
-install(FILES ${SCRIBUS_ICONS_1_7_0_TOOLS} DESTINATION ${ICONDIR}/1_7_0/tools)
 
 ##################
