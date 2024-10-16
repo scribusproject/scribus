@@ -1786,6 +1786,9 @@
     <ClCompile Include="..\..\..\scribus\ui\alignselect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\alignverticalselect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\annot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1954,6 +1957,9 @@
     <ClCompile Include="..\..\..\scribus\ui\filetoolbar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\flopwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\fontcombo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2117,6 +2123,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\numformatcombo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\opticalmarginswidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\outlinepalette.cpp">
@@ -2320,10 +2329,10 @@
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_advanced.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\propertywidget_distance.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_alignment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\propertywidget_flop.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_distance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_fontfeatures.cpp">
@@ -2332,10 +2341,10 @@
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_hyphenation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\propertywidget_optmargins.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_orphans.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\propertywidget_orphans.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_paragraphstyle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_pareffect.cpp">
@@ -2345,9 +2354,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_text.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\propertywidget_textcolor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\propertywidgetbase.cpp">
@@ -2455,6 +2461,9 @@
     <ClCompile Include="..\..\..\scribus\ui\smcheckbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smcolorbutton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\smcolorcombo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2480,6 +2489,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\smnumformatcombo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smopticalmarginswidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\smpstylewidget.cpp">
@@ -2567,9 +2579,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\tabruler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\textpalette.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\transformdialog.cpp">
@@ -3040,10 +3049,10 @@
     <uic Include="..\..\..\scribus\ui\propertywidget_advancedbase.ui">
       <Filter>Form Files</Filter>
     </uic>
-    <uic Include="..\..\..\scribus\ui\propertywidget_distancebase.ui">
+    <uic Include="..\..\..\scribus\ui\propertywidget_alignment.ui">
       <Filter>Form Files</Filter>
     </uic>
-    <uic Include="..\..\..\scribus\ui\propertywidget_flopbase.ui">
+    <uic Include="..\..\..\scribus\ui\propertywidget_distancebase.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\propertywidget_fontfeaturesbase.ui">
@@ -3052,10 +3061,10 @@
     <uic Include="..\..\..\scribus\ui\propertywidget_hyphenationbase.ui">
       <Filter>Form Files</Filter>
     </uic>
-    <uic Include="..\..\..\scribus\ui\propertywidget_optmarginsbase.ui">
+    <uic Include="..\..\..\scribus\ui\propertywidget_orphansbase.ui">
       <Filter>Form Files</Filter>
     </uic>
-    <uic Include="..\..\..\scribus\ui\propertywidget_orphansbase.ui">
+    <uic Include="..\..\..\scribus\ui\propertywidget_paragraphstyle.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\propertywidget_pareffectbase.ui">
@@ -3065,9 +3074,6 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\propertywidget_textbase.ui">
-      <Filter>Form Files</Filter>
-    </uic>
-    <uic Include="..\..\..\scribus\ui\propertywidget_textcolorbase.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\recoverdialog.ui">
@@ -3659,6 +3665,9 @@
     <moc Include="..\..\..\scribus\ui\alignselect.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\ui\alignverticalselect.h">
+      <Filter>Header Files</Filter>
+    </moc>
     <moc Include="..\..\..\scribus\ui\annot.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -3822,6 +3831,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\filetoolbar.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\flopwidget.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\fontcombo.h">
@@ -3990,6 +4002,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\numformatcombo.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\opticalmarginswidget.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\outlinepalette.h">
@@ -4193,10 +4208,10 @@
     <moc Include="..\..\..\scribus\ui\propertywidget_advanced.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\propertywidget_distance.h">
+    <moc Include="..\..\..\scribus\ui\propertywidget_alignment.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\propertywidget_flop.h">
+    <moc Include="..\..\..\scribus\ui\propertywidget_distance.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\propertywidget_fontfeatures.h">
@@ -4205,10 +4220,10 @@
     <moc Include="..\..\..\scribus\ui\propertywidget_hyphenation.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\propertywidget_optmargins.h">
+    <moc Include="..\..\..\scribus\ui\propertywidget_orphans.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\propertywidget_orphans.h">
+    <moc Include="..\..\..\scribus\ui\propertywidget_paragraphstyle.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\propertywidget_pareffect.h">
@@ -4218,9 +4233,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\propertywidget_text.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\ui\propertywidget_textcolor.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\proptree.h">
@@ -4322,6 +4334,9 @@
     <moc Include="..\..\..\scribus\ui\smcheckbox.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\ui\smcolorbutton.h">
+      <Filter>Header Files</Filter>
+    </moc>
     <moc Include="..\..\..\scribus\ui\smcolorcombo.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -4347,6 +4362,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\smnumformatcombo.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smopticalmarginswidget.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\smpstylewidget.h">
@@ -4434,9 +4452,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\tabruler.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\ui\textpalette.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\transformdialog.h">
