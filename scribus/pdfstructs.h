@@ -87,7 +87,7 @@ struct PdfPageData
 };
 
 
-struct PdfOutlines
+struct PdfOutlinesIds
 {
 	PdfId First;
 	PdfId Last;

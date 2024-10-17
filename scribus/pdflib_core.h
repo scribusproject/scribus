@@ -286,7 +286,7 @@ private:
 	PdfCatalog Catalog;
 	PdfPageData pageData;
 	PdfPageTree PageTree;
-	PdfOutlines Outlines;
+	PdfOutlinesIds Outlines;
 	Pdf::Writer writer;
 	QString baseDir;
 	

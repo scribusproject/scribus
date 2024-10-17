@@ -602,19 +602,19 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 					num = 99999;
 				QString name = "AIPrivateData%1";
 				QString Key = name.arg(1);
-				PoDoFo::PdfObject *data = privDict ? privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data())) : nullptr;
+				PoDoFo::PdfObject *data = privDict ? privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().constData())) : nullptr;
 				if (data == nullptr)
 				{
 					name = "AIPDFPrivateData%1";
 					Key = name.arg(1);
-					data = privDict ? privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data())) : nullptr;
+					data = privDict ? privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().constData())) : nullptr;
 				}
 				if (data != nullptr)
 				{
 					if (num == 2)
 					{
 						Key = name.arg(1);
-						data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
+						data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().constData()));
 						PoDoFo::PdfObjectStream const* stream = data->GetStream();
 						PoDoFo::charbuff strBuffer = stream->GetCopy(false);
 						qint64 bLen = strBuffer.size();
@@ -626,7 +626,7 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 						for (int a = 2; a < num; a++)
 						{
 							Key = name.arg(a);
-							data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().data()));
+							data = privDict->FindKey(PoDoFo::PdfName(Key.toUtf8().constData()));
 							if (data == nullptr)
 								break;
 							PoDoFo::PdfObjectStream const* stream = data->GetStream();

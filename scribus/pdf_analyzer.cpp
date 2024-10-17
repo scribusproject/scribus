@@ -25,10 +25,31 @@ for which a new license (GPL+exception) is in place.
 #include <QtDebug>
 #include <QHash>
 #include <QStack>
+
 #include "pdf_analyzer.h"
 
 #ifdef HAVE_PODOFO
+
 using namespace PoDoFo;
+
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(1, 0, 0))
+#include <string_view>
+#include <utility>
+
+namespace std
+{
+	template<>
+	struct less<PoDoFo::PdfName>
+	{
+		bool operator()(const PoDoFo::PdfName& n1, const PoDoFo::PdfName& n2) const
+		{
+			std::string_view s1 = n1.GetRawData();
+			std::string_view s2 = n2.GetRawData();
+			return s1 < s2;
+		}
+	};
+}
+#endif
 
 static QHash<QString, PDFContentStreamKeyword> kwNameMap;
 
