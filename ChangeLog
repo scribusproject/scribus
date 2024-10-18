@@ -1,3 +1,23 @@
+Scribus - 1.6.3 (Released 2024-xx-xx)
+=========================================
+
+0017294: [Scripter] Incorrect page size used by ImageExport() -> save() (jghali)
+0017288: [Graphics / Image Frames] "Update Image" does not work when the image is not available. (jghali)
+0017291: [Build System] 1.6.2 fails to build against poppler >= 24.10.0 (jghali)
+0017287: [Import / Export] Special characters are not converted properly when pasting tables from Calc (jghali)
+0017272: [General] Crash when opening PDF and selecting import text as text (jghali)
+0017270: [PDF] Corrupt PDF generated (jghali)
+0017237: [Translation] Outdated trolltech url (jghali)
+0017238: [Translation] Non https urls in language files (jghali)
+0012892: [Usability] Color Management: Color Menu width increases with each use of Color Management feature (nitramr)
+0017251: [Scripter] Scripter's ImageExporter ignores actual quality setting (jghali)
+0017255: [Undo/Redo] Properties > Shape: The fill rule cannot be undone (jghali)
+0017256: [General] In 1.6.2, the "fill rule" selection does not change when selecting a different item (jghali)
+0017258: [User Interface] In menus (e.g. preferences or document setup) selecting empty field next to an entry doesn't activate dialog (cbradney)
+0017264: [User Interface] ScrSpinBox: Alt key modifier doesn't work on Linux (nitramr)
+0017267: [OS-MacOSX] New MacOS app and document icons (nitramr)
+0016804: [Scripter] Improved autotypo script for french typographic rules (JLuc)
+
 Scribus - 1.6.2 (Released 2024-06-15)
 =========================================
 0017167: [Typography] Non-breaking spaces not respected before punctuation mark (jghali)
