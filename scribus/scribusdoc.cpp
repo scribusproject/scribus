@@ -10463,7 +10463,7 @@ void ScribusDoc::updatePic()
 		}
 		else if ((currItem->isImageFrame()) || (currItem->isOSGFrame()))
 		{
-			if (currItem->imageIsAvailable)
+			if (!currItem->Pfile.isEmpty())
 			{
 				int fho = currItem->imageFlippedH();
 				int fvo = currItem->imageFlippedV();
