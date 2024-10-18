@@ -5,22 +5,23 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <zlib.h>
+
 #include <QApplication>
+#include <QCheckBox>
+#include <QCursor>
+#include <QDir>
 #include <QDomElement>
 #include <QFile>
 #include <QFileInfo>
-#include <QtAlgorithms>
-#include <QCursor>
-#include <QDir>
-#include <QTextCodec>
-#include <QCheckBox>
+#include <QList>
 #include <QMessageBox>
 #include <QProgressBar>
-
-#include <QList>
-#include <cstdlib>
-#include <cmath>
+#include <QTextCodec>
 #include <QTextStream>
+#include <QtAlgorithms>
+#include <cmath>
+#include <cstdlib>
 
 #include "commonstrings.h"
 #include "fileloader.h"
@@ -33,13 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/fontreplacedialog.h"
 #include "util.h"
 
-// We need to include the headers for the plugins we support until we start
-// using LoadSavePlugin to pick them for us. We only use these headers to
-// get the format IDs, NOTHING ELSE.
-// #include "plugins/svgimplugin/svgplugin.h"
-// #include "plugins/psimport/importpsplugin.h"
-// #include "plugins/fileloader/oodraw/oodrawimp.h"
-#include <zlib.h>
 
 /*!
  \author Franz Schmid
