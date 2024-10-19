@@ -27,7 +27,6 @@ public:
 	void show(const QList<CharStyle*> &cstyles, const QList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex);
 	//void fillLangCombo(QMap<QString,QString> langMap);
 	void fillLangComboFromList(const QStringList& langList);
-//	void fillColorCombo(ColorList &colors);
 	void languageChange();
 	void clearAll();
 

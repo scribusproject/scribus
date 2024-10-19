@@ -132,7 +132,7 @@ QString ColorPickerColor::toolTipText() const
 	QString shade = sh < 100 ? QString( tr("<br> Shade: %1 %")).arg(sh) : "";
 	QString opacity = op < 100 ? QString( tr("<br> Opacity: %1 %")).arg(op) : "";
 
-	if (!m_color.Name.isEmpty())
+	if (!m_color.Name.isEmpty() && m_doc)
 	{
 		QString colorValues;
 

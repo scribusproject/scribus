@@ -31,23 +31,12 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin, const QList<Pa
 	rightIndentSpin = new SMScrSpinBox(0, 4000, this, dEin);
 	Q_CHECK_PTR(rightIndentSpin);
 
-//	indentLayout->rightIndentLabel->removeWidget(firstLineData);
 	firstLineData->hide();
 	firstLineLabel->addWidget(firstLineSpin);
-	// indentLayout->insertWidget(1, firstLineSpin);
-	// firstLineSpin->show();
-
-//	indentLayout->removeWidget(leftIndentData);
 	leftIndentData->hide();
 	leftIndentLabel->addWidget(leftIndentSpin);
-//	indentLayout->insertWidget(3, leftIndentSpin);
-//	leftIndentSpin->show();
-
-//	indentLayout->removeWidget(rightIndentData);
 	rightIndentData->hide();
 	rightIndentLabel->addWidget(rightIndentSpin);
-//	indentLayout->insertWidget(5, rightIndentSpin);
-//	rightIndentSpin->show();
 
 	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
 	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
@@ -338,10 +327,6 @@ void SMTabruler::firstDataChanged()
 
 void SMTabruler::firstValueChanged()
 {
-//	QSignalBlocker firstLineDataBlocker(firstLineData);
-//	QSignalBlocker rightIndentDataBlocker(rightIndentData);
-//	QSignalBlocker leftIndentDataBlocker(leftIndentData);
-
 	double a, b, value;
 	int c;
 	firstLineSpin->getValues(&a, &b, &c, &value);
@@ -354,8 +339,6 @@ void SMTabruler::firstValueChanged()
 
 void SMTabruler::leftValueChanged()
 {
-//	QSignalBlocker firstLineDataBlocker(firstLineData);
-//	QSignalBlocker rightIndentDataBlocker(rightIndentData);
 	QSignalBlocker leftIndentDataBlocker(leftIndentData);
 
 	double a, b, value;
@@ -363,7 +346,6 @@ void SMTabruler::leftValueChanged()
 	leftIndentSpin->getValues(&a, &b, &c, &value);
 	setLeftIndentData(value / m_docUnitRatio);
 	setLeftIndent();
-//	setFirstLine();
 	setRightIndent();
 	m_isSetupLeft = true;
 }

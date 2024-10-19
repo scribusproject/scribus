@@ -110,8 +110,8 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	lyt->addWidget(scStyles);
 	lyt->addWidget(scText);
 	lyt->addWidget(scAlignment);
+	lyt->addWidget(scAdvanced);
 	lyt->addWidget(scDistance);
-	lyt->addWidget(scAdvanced);	
 	lyt->addWidget(scParEffect);
 	lyt->addWidget(scHyphenation);
 	lyt->addWidget(scOrphans);

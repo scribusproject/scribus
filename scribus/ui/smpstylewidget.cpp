@@ -73,6 +73,10 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) :
 	dropCapLines->setMinimum(2);
 	dropCapLines->setMaximum(99);
 
+	fillPECombo();
+	connect(peCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(handleParEffectUse(int)));
+	connect(parentParEffectsButton, SIGNAL(clicked()), this, SLOT(slotParentParEffects()));
+
 	minSpaceSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
 	minGlyphExtSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
 	maxGlyphExtSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
@@ -113,9 +117,11 @@ void SMPStyleWidget::iconSetChange()
 	maxGlyphExtLabel->setPixmap(iconManager.loadPixmap("character-scale-width-max"));
 	consecutiveHyphenLabel->setPixmap(iconManager.loadPixmap("hyphen-consecutive"));
 
-	bulletCharTableButton->setIcon(IconManager::instance().loadPixmap("22/insert-table.png"));
+	bulletCharTableButton->setIcon(iconManager.loadIcon("22/insert-table.png"));
 	distFromTextLabel->setPixmap(iconManager.loadPixmap("paragraph-list-offset"));
 	parEffectCharStyleComboLabel->setPixmap(iconManager.loadPixmap("character-style"));
+	peLabel->setPixmap(iconManager.loadPixmap("paragraph-effects-style"));
+	parentParEffectsButton->setIcon(iconManager.loadIcon("reset-style-changes"));
 }
 
 void SMPStyleWidget::languageChange()
@@ -147,6 +153,8 @@ void SMPStyleWidget::languageChange()
 	fillNumRestartCombo();
 	numRestartCombo->setCurrentIndex(oldNumRestartIndex);
 	numRestartCombo->blockSignals(numRestartComboBlocked);
+
+	fillPECombo();
 
 /* #13455 stop making the font 2ce as big
 	QFont font1;
@@ -182,51 +190,6 @@ void SMPStyleWidget::setDoc(ScribusDoc *doc)
 
 	cpage->setDoc(m_Doc);
 	backgroundColor->colorButton->setDoc(m_Doc);
-}
-
-void SMPStyleWidget::fillBulletStrEditCombo()
-{
-	bulletStrEdit->clear();
-	bulletStrEdit->addItem(QChar(0x2022));
-	bulletStrEdit->addItem("*");
-	bulletStrEdit->addItem(QChar(0x2013));
-	bulletStrEdit->setMinimumWidth(50);
-	if (bulletStrEdit->currentText().isEmpty())
-		bulletStrEdit->setEditText(QChar(0x2022));
-}
-
-void SMPStyleWidget::fillNumerationsCombo()
-{
-	QStringList numNames;
-	const auto numerationKeys = m_Doc->numerations.keys();
-	for (const QString& numName : numerationKeys)
-	{
-		if (numName.isEmpty())
-			continue;
-		numNames.append(numName);
-	}
-	numNames.sort();
-	numComboBox->clear();
-	numComboBox->insertItems(0, numNames);
-	numComboBox->setCurrentItem(0);
-}
-
-void SMPStyleWidget::fillNumRestartCombo()
-{
-	numRestartCombo->clear();
-	numRestartCombo->addItem(tr("Document"), static_cast<int>(NSRdocument));
-	numRestartCombo->addItem(tr("Story") , static_cast<int>(NSRstory));
-}
-
-void SMPStyleWidget::checkParEffectState()
-{
-	bool enable = false;
-	if (dropCapsBox->isChecked() || bulletBox->isChecked() || numBox->isChecked())
-		enable = true;
-
-	parEffectCharStyleCombo->setEnabled(enable);
-	parEffectOffset->setEnabled(enable);
-	parEffectIndentBox->setEnabled(enable);
 }
 
 void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
@@ -336,28 +299,18 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		else
 		{
 			parentParEffectsButton->show();
-			QFont f(font());
-			f.setBold(true);
-			parentParEffectsButton->setFont(f);
 		}
 		connect(parentParEffectsButton, SIGNAL(clicked()), this, SLOT(slotParentParEffects()));
-
-		dropCapsBox->setChecked(pstyle->hasDropCap());
-		setWidgetBoldFont(dropCapsBox, !pstyle->isInhHasDropCap());
-		dropCapLines->setValue(pstyle->dropCapLines(), pstyle->isInhDropCapLines());
-		dropCapLines->setParentValue(parent->dropCapLines());
 
 		parEffectOffset->setValue(pstyle->parEffectOffset() * unitRatio, pstyle->isInhParEffectOffset());
 		parEffectOffset->setParentValue(parent->parEffectOffset() * unitRatio);
 		parEffectIndentBox->setChecked(pstyle->parEffectIndent(),pstyle->isInhParEffectIndent());
 		parEffectIndentBox->setParentValue(parent->parEffectIndent());
-
-		bulletBox->setChecked(pstyle->hasBullet());
-		setWidgetBoldFont(bulletBox, !pstyle->isInhHasBullet());
+		dropCapLines->setValue(pstyle->dropCapLines(), pstyle->isInhDropCapLines());
+		dropCapLines->setParentValue(parent->dropCapLines());
 		bulletStrEdit->setEditText(pstyle->bulletStr());
 		setWidgetBoldFont(bulletCharLabel, !pstyle->isInhBulletStr());
-		numBox->setChecked(pstyle->hasNum());
-		setWidgetBoldFont(numBox, !pstyle->isInhHasNum());
+
 		QString numName = pstyle->numName();
 		if (numName.isEmpty())
 			numName = "default";
@@ -406,15 +359,10 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		parEffectIndentBox->setChecked(pstyle->parEffectIndent());
 		parentParEffectsButton->hide();
 		disconnect(parentParEffectsButton, SIGNAL(clicked()), this, SLOT(slotParentParEffects()));
-		dropCapsBox->setChecked(pstyle->hasDropCap());
-		setWidgetBoldFont(dropCapsBox, false);
+
 		dropCapLines->setValue(pstyle->dropCapLines());
-		bulletBox->setChecked(pstyle->hasBullet());
-		setWidgetBoldFont(bulletBox, false);
 		bulletStrEdit->setEditText(pstyle->bulletStr());
 		setWidgetBoldFont(bulletCharLabel, false);
-		numBox->setChecked(pstyle->hasNum());
-		setWidgetBoldFont(numBox, false);
 		QString numName = pstyle->numName();
 		if (numName.isEmpty())
 			numName = "default";
@@ -454,9 +402,16 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	}
 
 	lineSpacing->setEnabled(pstyle->lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
-	dropCapLines->setEnabled(pstyle->hasDropCap());
 
-	checkParEffectState();
+	if (pstyle->hasDropCap())
+		setParagraphEffect(1);
+	else if (pstyle->hasBullet())
+		setParagraphEffect(2);
+	else if (pstyle->hasNum())
+		setParagraphEffect(3);
+	else
+		setParagraphEffect(0);
+
 	parEffectCharStyleCombo->clear();
 	parEffectCharStyleCombo->addItem(tr("No Style"));
 	for (int i =0; i < cstyles.count(); i++)
@@ -490,9 +445,6 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		parentCombo->setCurrentIndex(index);
 	}
 
-	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
-	connect(bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullets(bool)));
-	connect(numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumbering(bool)));
 }
 
 void SMPStyleWidget::show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle> &pstylesAll, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
@@ -517,7 +469,8 @@ void SMPStyleWidget::show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle>
 		showTabs(pstyles, unitIndex);
 		showCStyle(pstyles, cstyles, defLang, unitIndex);
 		showParent(pstyles);
-		checkParEffectState();
+		//checkParEffectState();
+		setParagraphEffect(0);
 		showColors(pstyles);
 	}
 }
@@ -534,13 +487,6 @@ void SMPStyleWidget::showColors(const QList<ParagraphStyle*> &cstyles)
 		}
 		d = cstyles[i]->backgroundShade();
 	}
-	// if (d == -30000)
-	// {
-	// 	backShade_->setValue(21);
-	// 	backShade_->setText( tr("Shade"));
-	// }
-	// else
-	// 	backShade_->setValue(qRound(d));
 
 	QString s;
 	for (int i = 0; i < cstyles.count(); ++i)
@@ -552,15 +498,6 @@ void SMPStyleWidget::showColors(const QList<ParagraphStyle*> &cstyles)
 		}
 		s = cstyles[i]->backgroundColor();
 	}
-	// if (s.isEmpty())
-	// {
-	// 	if (backColor_->itemText(backColor_->count() - 1) != "")
-	// 		backColor_->addItem("");
-	// 	backColor_->setCurrentIndex(backColor_->count() - 1);
-	// }
-	// else
-	// 	backColor_->setCurrentText(s);
-
 
 	backgroundColor->setColor(s, qRound(d));
 }
@@ -644,103 +581,7 @@ void SMPStyleWidget::showSpaceAB(const QList<ParagraphStyle*> &pstyles, int unit
 		spaceBelow->setValue(tmpA);
 }
 
-void SMPStyleWidget::showDropCap(const QList<ParagraphStyle*> &pstyles, const QList<CharStyle> &cstyles, int unitIndex)
-{
-	disconnectPESignals();
-	bool dc = pstyles[0]->hasDropCap();
-	for (int i = 0; i < pstyles.count(); ++i)
-	{
-		if (dc != pstyles[i]->hasDropCap())
-		{
-			dc = false;
-			break;
-		}
-	}
-	dropCapsBox->setChecked(dc);
 
-	int lines = -1;
-	for (int i = 0; i < pstyles.count(); ++i)
-	{
-		if (lines > -1 && pstyles[i]->dropCapLines() != lines)
-		{
-			lines = -1;
-			break;
-		}
-		lines = pstyles[i]->dropCapLines();
-	}
-	if (lines == -1)
-		dropCapLines->clear();
-	else
-		dropCapLines->setValue(lines);
-
-	dropCapsBox->setEnabled(true);
-	dropCapLines->setEnabled(true);
-	connectPESignals();
-}
-
-void SMPStyleWidget::showBullet(const QList<ParagraphStyle *> &pstyles, const QList<CharStyle> &cstyles, int unitIndex)
-{
-//	double unitRatio = unitGetRatioFromIndex(unitIndex);
-
-	disconnectPESignals();
-	bool hb = pstyles[0]->hasBullet();
-	for (int i = 0; i < pstyles.count(); ++i)
-	{
-		if (hb != pstyles[i]->hasBullet())
-		{
-			hb = false;
-			break;
-		}
-	}
-	bulletBox->setChecked(hb);
-
-	QString chStr = pstyles[0]->bulletStr();
-	for (int i = 0; i < pstyles.count(); ++i)
-	{
-		if (chStr != pstyles[i]->bulletStr())
-		{
-			chStr.clear();
-			break;
-		}
-		chStr = pstyles[i]->bulletStr();
-	}
-	bulletStrEdit->setEditText(chStr);
-
-	connectPESignals();
-	bulletCharTableButton->setEnabled(true);
-}
-
-void SMPStyleWidget::showNumeration(const QList<ParagraphStyle *> &pstyles, const QList<CharStyle> &cstyles, int unitIndex)
-{
-	disconnectPESignals();
-	QString prefix = pstyles[0]->numPrefix();
-	for (int i = 0; i < pstyles.count(); ++i)
-	{
-		if (prefix != pstyles[i]->numPrefix())
-		{
-			prefix.clear();
-			break;
-		}
-		prefix = pstyles[i]->numPrefix();
-	}
-	numPrefix->setText(prefix);
-	
-	QString suffix = pstyles[0]->numSuffix();
-	for (int i = 0; i < pstyles.count(); ++i)
-	{
-		if (suffix != pstyles[i]->numSuffix())
-		{
-			suffix.clear();
-			break;
-		}
-		suffix = pstyles[i]->numSuffix();
-	}
-	numSuffix->setText(suffix);
-
-	numFormatCombo->setEnabled(true);
-	numLevelSpin->setEnabled(true);
-	connectPESignals();
-}
 
 void SMPStyleWidget::showAlignment(const QList<ParagraphStyle*> &pstyles)
 {
@@ -1019,62 +860,9 @@ void SMPStyleWidget::clearAll()
 
 }
 
-void SMPStyleWidget::slotDropCap(bool isOn)
-{
-	disconnectPESignals();
-	if (isOn)
-	{
-		dropCapLines->setEnabled(true);
-
-		bulletBox->setChecked(false);
-		bulletStrEdit->setEnabled(false);
-		bulletCharTableButton->setEnabled(false);
-
-		numBox->setChecked(false);
-		numFormatCombo->setEnabled(false);
-		numLevelSpin->setEnabled(false);
-		numComboBox->setEnabled(false);
-		numRestartCombo->setEnabled(false);
-		numNewLineEdit->setEnabled(false);
-	}
-	else
-		dropCapLines->setEnabled(false);
-	if (m_hasParent)
-		parentParEffectsButton->show();
-	checkParEffectState();
-	connectPESignals();
-}
-
-void SMPStyleWidget::slotBullets(bool isOn)
-{
-	disconnectPESignals();
-	if (isOn)
-	{
-		bulletStrEdit->setEnabled(true);
-		if (bulletStrEdit->currentText().isEmpty())
-			bulletStrEdit->setEditText(bulletStrEdit->itemText(0));
-		bulletCharTableButton->setEnabled(true);
-
-		numBox->setChecked(false);
-		numFormatCombo->setEnabled(false);
-		numLevelSpin->setEnabled(false);
-		numComboBox->setEnabled(false);
-		numRestartCombo->setEnabled(false);
-		numNewLineEdit->setEnabled(false);
-
-		dropCapsBox->setChecked(false);
-		dropCapLines->setEnabled(false);
-	}
-	else
-	{
-		bulletStrEdit->setEnabled(false);
-		bulletCharTableButton->setEnabled(false);
-	}
-	if (m_hasParent)
-		parentParEffectsButton->show();
-	checkParEffectState();
-	connectPESignals();
-}
+/*********************************************************************
+ *						Paragraph Effects
+ * *******************************************************************/
 
 void SMPStyleWidget::insertSpecialChars(const QVector<uint> &charCodes)
 {
@@ -1082,46 +870,21 @@ void SMPStyleWidget::insertSpecialChars(const QVector<uint> &charCodes)
 	bulletStrEdit->lineEdit()->setText(chars);
 }
 
-void SMPStyleWidget::slotNumbering(bool isOn)
-{
-	disconnectPESignals();
-	if (isOn)
-	{
-		numFormatCombo->setEnabled(true);
-		numLevelSpin->setEnabled(true);
-		numComboBox->setEnabled(true);
-		if (numComboBox->currentIndex() < 0)
-			numComboBox->setCurrentIndex(0);
-		numRestartCombo->setEnabled(true);
-		numNewLineEdit->setEnabled(true);
-
-		bulletBox->setChecked(false);
-		bulletStrEdit->setEnabled(false);
-		bulletCharTableButton->setEnabled(false);
-
-		dropCapsBox->setChecked(false);
-		dropCapLines->setEnabled(false);
-	}
-	else
-	{
-		numFormatCombo->setEnabled(false);
-		numLevelSpin->setEnabled(false);
-	}
-	if (m_hasParent)
-		parentParEffectsButton->show();
-	checkParEffectState();
-	connectPESignals();
-}
-
 void SMPStyleWidget::slotParentParEffects()
 {
-	disconnectPESignals();
 	parentParEffectsButton->hide();
-	dropCapsBox->setChecked(m_parentDC);
-	bulletBox->setChecked(m_parentBul);
-	numBox->setChecked(m_parentNum);
+
+	if (m_parentDC)
+		setParagraphEffect(1);
+	else if (m_parentBul)
+		setParagraphEffect(2);
+	else if (m_parentNum)
+		setParagraphEffect(3);
+	else
+		setParagraphEffect(0);
+
 	emit useParentParaEffects();
-	connectPESignals();
+
 }
 
 void SMPStyleWidget::openEnhanced()
@@ -1160,22 +923,6 @@ void SMPStyleWidget::closeEnhanced(bool show)
 	m_enhanced = nullptr;
 }
 
-void SMPStyleWidget::connectPESignals()
-{
-	connect(parentParEffectsButton, SIGNAL(clicked()), this, SLOT(slotParentParEffects()));
-	connect(bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullets(bool)));
-	connect(numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumbering(bool)));
-	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
-}
-
-void SMPStyleWidget::disconnectPESignals()
-{
-	disconnect(parentParEffectsButton, SIGNAL(clicked()), this, SLOT(slotParentParEffects()));
-	disconnect(bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullets(bool)));
-	disconnect(numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumbering(bool)));
-	disconnect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
-}
-
 void SMPStyleWidget::on_bulletCharTableButton_toggled(bool checked)
 {
 	if (m_enhanced && !checked)
@@ -1190,4 +937,179 @@ void SMPStyleWidget::handleUpdateRequest(int updateFlags)
 		return;
 	if (updateFlags & reqNumUpdate)
 		fillNumerationsCombo();
+}
+
+void SMPStyleWidget::fillBulletStrEditCombo()
+{
+	bulletStrEdit->clear();
+	bulletStrEdit->addItem(QChar(0x2022));
+	bulletStrEdit->addItem("*");
+	bulletStrEdit->addItem(QChar(0x2013));
+	bulletStrEdit->setMinimumWidth(50);
+	if (bulletStrEdit->currentText().isEmpty())
+		bulletStrEdit->setEditText(QChar(0x2022));
+}
+
+void SMPStyleWidget::fillNumerationsCombo()
+{
+	QStringList numNames;
+	const auto numerationKeys = m_Doc->numerations.keys();
+	for (const QString& numName : numerationKeys)
+	{
+		if (numName.isEmpty())
+			continue;
+		numNames.append(numName);
+	}
+	numNames.sort();
+	numComboBox->clear();
+	numComboBox->insertItems(0, numNames);
+	numComboBox->setCurrentItem(0);
+}
+
+void SMPStyleWidget::fillNumRestartCombo()
+{
+	numRestartCombo->clear();
+	numRestartCombo->addItem(tr("Document"), static_cast<int>(NSRdocument));
+	numRestartCombo->addItem(tr("Story") , static_cast<int>(NSRstory));
+}
+
+void SMPStyleWidget::fillPECombo()
+{
+	QSignalBlocker sb(peCombo);
+	int currIndex = peCombo->currentIndex();
+	peCombo->clear();
+	peCombo->addItem(tr("No Paragraph Effects"), -1);
+	peCombo->addItem(tr("Drop Caps"), 0);
+	peCombo->addItem(tr("Bulleted List"), 1);
+	peCombo->addItem(tr("Numbered List"), 2);
+	peCombo->setCurrentIndex(currIndex);
+}
+
+void SMPStyleWidget::setParagraphEffect(int index)
+{
+	QSignalBlocker sigPECombo(peCombo);
+
+	peCombo->setCurrentIndex(index);
+	int id = peCombo->currentIndex();
+
+	if (id == 1 || id == 2 || id == 3)
+	{
+		stackedWidget->setCurrentIndex(id - 1);
+		stackedWidget->setVisible(true);
+		peGroup->setVisible(true);
+
+		if (id == 2) // Bullet List
+		{
+			if (bulletStrEdit->currentText().isEmpty())
+				bulletStrEdit->setEditText(bulletStrEdit->itemText(0));
+		}
+		else if (id == 3) // Numbered List
+		{
+			if (numComboBox->currentIndex() < 0)
+				numComboBox->setCurrentIndex(0);
+		}
+	}
+	else // No effect
+	{
+		stackedWidget->setVisible(false);
+		peGroup->setVisible(false);
+		peCombo->setCurrentIndex(0);
+	}
+}
+
+void SMPStyleWidget::showDropCap(const QList<ParagraphStyle*> &pstyles, const QList<CharStyle> &cstyles, int unitIndex)
+{
+	bool dc = pstyles[0]->hasDropCap();
+	for (int i = 0; i < pstyles.count(); ++i)
+	{
+		if (dc != pstyles[i]->hasDropCap())
+		{
+			dc = false;
+			break;
+		}
+	}
+
+	if (dc)
+		setParagraphEffect(1);
+
+	int lines = -1;
+	for (int i = 0; i < pstyles.count(); ++i)
+	{
+		if (lines > -1 && pstyles[i]->dropCapLines() != lines)
+		{
+			lines = -1;
+			break;
+		}
+		lines = pstyles[i]->dropCapLines();
+	}
+	if (lines == -1)
+		dropCapLines->clear();
+	else
+		dropCapLines->setValue(lines);
+}
+
+void SMPStyleWidget::showBullet(const QList<ParagraphStyle *> &pstyles, const QList<CharStyle> &cstyles, int unitIndex)
+{
+//	double unitRatio = unitGetRatioFromIndex(unitIndex);
+
+	bool hb = pstyles[0]->hasBullet();
+	for (int i = 0; i < pstyles.count(); ++i)
+	{
+		if (hb != pstyles[i]->hasBullet())
+		{
+			hb = false;
+			break;
+		}
+	}
+
+	if (hb)
+		setParagraphEffect(2);
+
+	QString chStr = pstyles[0]->bulletStr();
+	for (int i = 0; i < pstyles.count(); ++i)
+	{
+		if (chStr != pstyles[i]->bulletStr())
+		{
+			chStr.clear();
+			break;
+		}
+		chStr = pstyles[i]->bulletStr();
+	}
+	bulletStrEdit->setEditText(chStr);
+}
+
+void SMPStyleWidget::showNumeration(const QList<ParagraphStyle *> &pstyles, const QList<CharStyle> &cstyles, int unitIndex)
+{
+
+	QString prefix = pstyles[0]->numPrefix();
+	for (int i = 0; i < pstyles.count(); ++i)
+	{
+		if (prefix != pstyles[i]->numPrefix())
+		{
+			prefix.clear();
+			break;
+		}
+		prefix = pstyles[i]->numPrefix();
+	}
+	numPrefix->setText(prefix);
+
+	QString suffix = pstyles[0]->numSuffix();
+	for (int i = 0; i < pstyles.count(); ++i)
+	{
+		if (suffix != pstyles[i]->numSuffix())
+		{
+			suffix.clear();
+			break;
+		}
+		suffix = pstyles[i]->numSuffix();
+	}
+	numSuffix->setText(suffix);
+}
+
+void SMPStyleWidget::handleParEffectUse(int index)
+{
+	if (m_hasParent)
+		parentParEffectsButton->show();
+
+	setParagraphEffect(index);
 }

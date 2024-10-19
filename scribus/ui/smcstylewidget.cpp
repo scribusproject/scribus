@@ -23,21 +23,9 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent)
 {
 	setupUi(this);
 
-	iconSetChange();
-
-	// fillColor_->setPixmapType(ColorCombo::fancyPixmaps);
-	// fillColor_->clear();
-	// fillColor_->addItem(CommonStrings::tr_NoneColor);
-
-	// strokeColor_->setPixmapType(ColorCombo::fancyPixmaps);
-	// strokeColor_->clear();
-	// strokeColor_->addItem(CommonStrings::tr_NoneColor);
-
-	// backColor_->setPixmapType(ColorCombo::fancyPixmaps);
-	// backColor_->clear();
-	// backColor_->addItem(CommonStrings::tr_NoneColor);
-
 	textColor->colorButton->setContext(Context::Text);
+	textColor->colorButton->setIconSize(QSize(20, 20));
+	textColor->colorButton->setApplyColorOnIcon(true);
 	textColor->setColor(CommonStrings::tr_NoneColor);
 	textColor->setText(tr("Color"));
 
@@ -46,18 +34,18 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent)
 	backgroundColor->setText(tr("Background"));
 
 	strokeColor->colorButton->setContext(Context::TextOutline);
+	strokeColor->colorButton->setIconSize(QSize(20, 20));
 	strokeColor->setColor(CommonStrings::tr_NoneColor);
 	strokeColor->setText(tr("Stroke"));
 	strokeColor->setEnabled(false);
 
-	// StrokeIcon->setEnabled(false);
-	// strokeShade_->setEnabled(false);
-	// strokeColor_->setEnabled(false);
 	fontfeaturesSetting->resetFontFeatures();
 
 	hyphenCharLineEdit->setMaxLength(1);
 
 	fontFace_->setGuestWidget(fontSizeLabel_);
+
+	iconSetChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
@@ -85,15 +73,11 @@ void SMCStyleWidget::iconSetChange()
 	baselineOffsetLabel_->setPixmap(im.loadPixmap("character-offset-baseline"));
 	hscaleLabel_->setPixmap(im.loadPixmap("character-scale-width"));
 	vscaleLabel_->setPixmap(im.loadPixmap("character-scale-height"));
-	// FillIcon->setPixmap(im.loadPixmap("16/color-fill.png"));
-	// fillShadeLabel->setPixmap(im.loadPixmap("shade.png"));
-	// StrokeIcon->setPixmap(im.loadPixmap("16/color-stroke.png"));
-	// strokeShadeLabel->setPixmap(im.loadPixmap("shade.png"));
-	// backIcon->setPixmap(im.loadPixmap("16/color-fill.png"));
-	// backShadeLabel->setPixmap(im.loadPixmap("shade.png"));
 	languageLabel_->setPixmap(im.loadPixmap("paragraph-language"));
 	hyphenationCharacterLabel->setPixmap(im.loadPixmap("hyphen-character"));
 	smallestWordLabel->setPixmap(im.loadPixmap("hyphen-smallest-word"));
+	textColor->colorButton->setIcon(im.loadIcon("text-color", textColor->colorButton->iconSize()));
+	strokeColor->colorButton->setIcon(im.loadIcon("text-outline-color", strokeColor->colorButton->iconSize()));
 }
 
 void SMCStyleWidget::languageChange()
@@ -101,27 +85,6 @@ void SMCStyleWidget::languageChange()
 	QStringList languageList;
 	LanguageManager::instance()->fillInstalledStringList(&languageList);
 	fillLangComboFromList(languageList);
-
-	// if (fillColor_->count() > 0)
-	// {
-	// 	bool sigBlocked = fillColor_->blockSignals(true);
-	// 	fillColor_->setItemText(0, CommonStrings::tr_NoneColor);
-	// 	fillColor_->blockSignals(sigBlocked);
-	// }
-
-	// if (strokeColor_->count() > 0)
-	// {
-	// 	bool sigBlocked = strokeColor_->blockSignals(true);
-	// 	strokeColor_->setItemText(0, CommonStrings::tr_NoneColor);
-	// 	strokeColor_->blockSignals(sigBlocked);
-	// }
-
-	// if (backColor_->count() > 0)
-	// {
-	// 	bool sigBlocked = backColor_->blockSignals(true);
-	// 	backColor_->setItemText(0, CommonStrings::tr_NoneColor);
-	// 	backColor_->blockSignals(sigBlocked);
-	// }
 
 	retranslateUi(this);
 
@@ -131,12 +94,6 @@ void SMCStyleWidget::languageChange()
 	baselineOffsetLabel_->setToolTip(baselineOffset_->toolTip());
 	hscaleLabel_->setToolTip(fontHScale_->toolTip());
 	vscaleLabel_->setToolTip(fontVScale_->toolTip());
-	// FillIcon->setToolTip(fillColor_->toolTip());
-	// fillShadeLabel->setToolTip(fillShade_->toolTip());
-	// StrokeIcon->setToolTip(strokeColor_->toolTip());
-	// strokeShadeLabel->setToolTip(strokeShade_->toolTip());
-	// backIcon->setToolTip(backColor_->toolTip());
-	// backShadeLabel->setToolTip(backShade_->toolTip());
 
 	textColor->colorButton->setPersistentToolTip( tr("Text color of selected text"));
 	textColor->setText(tr("Color"));
@@ -186,23 +143,11 @@ void SMCStyleWidget::fillLangComboFromList(const QStringList& langList)
 		tmpView->setMinimumWidth(tmpWidth + 24);
 }
 
-// void SMCStyleWidget::fillColorCombo(ColorList &colors)
-// {
-// 	fillColor_->clear();
-// 	strokeColor_->clear();
-// 	backColor_->clear();
-
-// 	fillColor_->setColors(colors, true);
-// 	strokeColor_->setColors(colors, true);
-// 	backColor_->setColors(colors, true);
-// }
-
 void SMCStyleWidget::handleUpdateRequest(int updateFlags)
 {
 	if (!m_Doc)
 		return;
-	// if (updateFlags & reqColorsUpdate)
-	// 	fillColorCombo(m_Doc->PageColors);
+
 }
 
 void SMCStyleWidget::slotEnableFontFeatures(const QString& s)
@@ -223,7 +168,6 @@ void SMCStyleWidget::setDoc(ScribusDoc *doc)
 	QStringList languageList;
 	LanguageManager::instance()->fillInstalledStringList(&languageList);
 	fillLangComboFromList(languageList);
-//	fillColorCombo(m_Doc->PageColors);
 	fontFace_->rebuildList(m_Doc);
 
 	textColor->colorButton->setDoc(m_Doc);
@@ -262,24 +206,6 @@ void SMCStyleWidget::show(const CharStyle *cstyle, const QList<CharStyle> &cstyl
 		effects_->setStyle(static_cast<int>(cstyle->effects()), cstyle->isInhFeatures());
 		effects_->setParentItem(static_cast<int>(parent->effects())); // FIXME
 
-		// fillShade_->setValue(qRound(cstyle->fillShade()), cstyle->isInhFillShade());
-		// fillShade_->setParentValue(qRound(parent->fillShade()));
-
-		// strokeShade_->setValue(qRound(cstyle->strokeShade()), cstyle->isInhStrokeShade());
-		// strokeShade_->setParentValue(qRound(parent->strokeShade()));
-
-		// fillColor_->setCurrentText(cstyle->fillColor(), cstyle->isInhFillColor());
-		// fillColor_->setParentText(parent->fillColor());
-
-		// strokeColor_->setCurrentText(cstyle->strokeColor(), cstyle->isInhStrokeColor());
-		// strokeColor_->setParentText(parent->strokeColor());
-
-		// backColor_->setCurrentText(cstyle->backColor(), cstyle->isInhBackColor());
-		// backColor_->setParentText(parent->backColor());
-
-		// backShade_->setValue(qRound(cstyle->backShade()), cstyle->isInhBackShade());
-		// backShade_->setParentValue(qRound(parent->backShade()));
-
 		textColor->setColor(cstyle->fillColor(), qRound(cstyle->fillShade()), parent->fillColor(), qRound(cstyle->fillShade()), cstyle->isInhFillColor());
 		backgroundColor->setColor(cstyle->backColor(), qRound(cstyle->backShade()), parent->backColor(), qRound(cstyle->backShade()), cstyle->isInhBackColor());
 		strokeColor->setColor(cstyle->strokeColor(), qRound(cstyle->strokeShade()), parent->strokeColor(), qRound(cstyle->strokeShade()), cstyle->isInhStrokeColor());
@@ -314,12 +240,6 @@ void SMCStyleWidget::show(const CharStyle *cstyle, const QList<CharStyle> &cstyl
 		tracking_->setValue(cstyle->tracking() / 10.0);
 		widthSpaceSpin->setValue(cstyle->wordTracking() * 100.0);
 		effects_->setStyle(static_cast<int>(cstyle->effects()));
-		// fillShade_->setValue(qRound(cstyle->fillShade()));
-		// strokeShade_->setValue(qRound(cstyle->strokeShade()));
-		// fillColor_->setCurrentText(cstyle->fillColor());
-		// strokeColor_->setCurrentText(cstyle->strokeColor());
-		// backColor_->setCurrentText(cstyle->backColor());
-		// backShade_->setValue(qRound(cstyle->backShade()));
 
 		textColor->setColor(cstyle->fillColor(), qRound(cstyle->fillShade()));
 		backgroundColor->setColor(cstyle->backColor(), qRound(cstyle->backShade()));
@@ -550,8 +470,6 @@ void SMCStyleWidget::showEffects(const QList<CharStyle*> &cstyles)
 
 void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 {
-	// strokeShade_->setEnabled(true);
-	// strokeColor_->setEnabled(true);
 	strokeColor->setEnabled(true);
 
 	double d = -30000;
@@ -564,10 +482,6 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 		}
 		d = cstyles[i]->fillShade();
 	}
-	// if (d == -30000)
-	// 	fillShade_->setText( tr("Shade"));
-	// else
-	// 	fillShade_->setValue(qRound(d));
 
 	QString s;
 	for (int i = 0; i < cstyles.count(); ++i)
@@ -579,14 +493,6 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 		}
 		s = cstyles[i]->fillColor();
 	}
-	// if (s.isEmpty())
-	// {
-	// 	if (fillColor_->itemText(fillColor_->count() - 1) != "")
-	// 		fillColor_->addItem("");
-	// 	fillColor_->setCurrentIndex(fillColor_->count() - 1);
-	// }
-	// else
-	// 	fillColor_->setCurrentText(s);
 
 	textColor->setColor(s, qRound(d));
 
@@ -601,13 +507,6 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 		}
 		d = cstyles[i]->strokeShade();
 	}
-	// if (d == -30000)
-	// {
-	// 	strokeShade_->setValue(21);
-	// 	strokeShade_->setText( tr("Shade"));
-	// }
-	// else
-	// 	strokeShade_->setValue(qRound(d));
 
 	s.clear();
 	for (int i = 0; i < cstyles.count(); ++i)
@@ -619,14 +518,6 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 		}
 		s = cstyles[i]->strokeColor();
 	}
-	// if (s.isEmpty())
-	// {
-	// 	if (strokeColor_->itemText(strokeColor_->count() - 1) != "")
-	// 		strokeColor_->addItem("");
-	// 	strokeColor_->setCurrentIndex(strokeColor_->count() - 1);
-	// }
-	// else
-	// 	strokeColor_->setCurrentText(s);
 
 	strokeColor->setColor(s, qRound(d));
 
@@ -641,13 +532,6 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 		}
 		d = cstyles[i]->backShade();
 	}
-	// if (d == -30000)
-	// {
-	// 	backShade_->setValue(21);
-	// 	backShade_->setText( tr("Shade"));
-	// }
-	// else
-	// 	backShade_->setValue(qRound(d));
 
 	s.clear();
 	for (int i = 0; i < cstyles.count(); ++i)
@@ -659,14 +543,6 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 		}
 		s = cstyles[i]->backColor();
 	}
-	// if (s.isEmpty())
-	// {
-	// 	if (backColor_->itemText(backColor_->count() - 1) != "")
-	// 		backColor_->addItem("");
-	// 	backColor_->setCurrentIndex(backColor_->count() - 1);
-	// }
-	// else
-	// 	backColor_->setCurrentText(s);
 
 	backgroundColor->setColor(s, qRound(d));
 
@@ -764,9 +640,6 @@ void SMCStyleWidget::slotColorChange()
 {
 	int s = effects_->getStyle();
 	bool enabled= (s & 4) || (s & 256);
-	// StrokeIcon->setEnabled(enabled);
-	// strokeShade_->setEnabled(enabled);
-	// strokeColor_->setEnabled(enabled);
 
 	strokeColor->setEnabled(enabled);
 }

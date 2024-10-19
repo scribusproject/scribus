@@ -51,7 +51,8 @@ private:
 	void fillBulletStrEditCombo();
 	void fillNumerationsCombo();
 	void fillNumRestartCombo();
-	void checkParEffectState();
+	void fillPECombo();
+	void setParagraphEffect(int);
 	void showColors(const QList<ParagraphStyle*> &cstyles);
 	void showLineSpacing(const QList<ParagraphStyle*> &pstyles);
 	void showSpaceAB(const QList<ParagraphStyle*> &pstyles, int unitIndex);
@@ -71,19 +72,15 @@ private:
 
 	void openEnhanced();
 	void closeEnhanced(bool show = false);
-	void connectPESignals();
-	void disconnectPESignals();
 
 	friend class SMParagraphStyle;
 
 private slots:
 	void iconSetChange();
 	void slotLineSpacingModeChanged(int);
-	void slotDropCap(bool isOn);
-	void slotBullets(bool isOn);
 	void insertSpecialChars(const QVector<uint> &charCodes);
-	void slotNumbering(bool isOn);
 	void slotParentParEffects();
+	void handleParEffectUse(int);
 	void on_bulletCharTableButton_toggled(bool checked);
 	void handleUpdateRequest(int);
 

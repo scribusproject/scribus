@@ -798,7 +798,7 @@ void ColorButton::paintEvent(QPaintEvent *e)
 		painter.setClipping(false);
 
 		QTransform t = dotBrush().transform();
-		t.translate(fDot.x(), fDot.y());
+		t.translate(fDot.x() * devicePixelRatio(), fDot.y() * devicePixelRatio());
 
 		QBrush br = dotBrush();
 		br.setTransform(t);

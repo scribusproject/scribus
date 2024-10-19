@@ -6,17 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>567</width>
-    <height>505</height>
+    <width>531</width>
+    <height>421</height>
    </rect>
   </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <property name="spacing">
+    <number>8</number>
+   </property>
    <property name="leftMargin">
     <number>8</number>
    </property>
@@ -31,12 +28,6 @@
    </property>
    <item>
     <widget class="QTabWidget" name="tabwidget">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -50,7 +41,22 @@
       <attribute name="title">
        <string>Properties</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout">
+      <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,1">
+       <property name="leftMargin">
+        <number>8</number>
+       </property>
+       <property name="topMargin">
+        <number>8</number>
+       </property>
+       <property name="rightMargin">
+        <number>8</number>
+       </property>
+       <property name="bottomMargin">
+        <number>8</number>
+       </property>
+       <property name="spacing">
+        <number>8</number>
+       </property>
        <item row="1" column="1">
         <widget class="QGroupBox" name="smColorGroup">
          <property name="title">
@@ -714,7 +720,7 @@
            <number>8</number>
           </property>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,0,1">
             <item>
              <widget class="SMFontComboH" name="fontFace_" native="true">
               <property name="sizePolicy">
@@ -819,16 +825,26 @@
          </item>
          <item>
           <widget class="QComboBox" name="parentCombo">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>5</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
            <property name="toolTip">
             <string>Parent Style</string>
            </property>
+           <property name="sizeAdjustPolicy">
+            <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
+           </property>
           </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>0</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </item>
@@ -889,6 +905,11 @@
    <header>ui/smspinbox.h</header>
   </customwidget>
   <customwidget>
+   <class>SMColorButton</class>
+   <extends>QToolButton</extends>
+   <header>ui/smcolorbutton.h</header>
+  </customwidget>
+  <customwidget>
    <class>SMFontComboH</class>
    <extends>QWidget</extends>
    <header>ui/smfontcomboh.h</header>
@@ -910,11 +931,6 @@
    <class>SMLineEdit</class>
    <extends>QLineEdit</extends>
    <header>ui/smlineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>SMColorButton</class>
-   <extends>QToolButton</extends>
-   <header>ui/smcolorbutton.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

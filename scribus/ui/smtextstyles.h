@@ -74,14 +74,12 @@ private slots:
 	void slotLineSpacingMode(int mode);
 	void slotLineSpacing();
 	void slotParentParaEffects();
-	void slotDropCap(bool isOn);
+	void slotPargraphEffects(int index);
 	void slotDropCapLines(int lines);
 	void slotParEffectOffset();
 	void slotParEffectIndent(bool);
 	void slotParEffectCharStyle(int);
-	void slotBullet(bool isOn);
 	void slotBulletStr(const QString &str);
-	void slotNumeration(bool isOn);
 	void slotNumName(const QString &str);
 	void slotNumNew();
 	void slotSelectionDirty();

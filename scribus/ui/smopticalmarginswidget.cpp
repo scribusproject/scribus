@@ -9,7 +9,6 @@ SMOpticalMarginsWidget::SMOpticalMarginsWidget(QWidget *parent)
 {
 	parentButton->setText( "");
 	parentButton->setToolTip( tr("Use parent style's optical margins instead of overriding it"));
-	parentButton->setCheckable(false);
 
 	resize(minimumSizeHint());
 	iconSetChange();

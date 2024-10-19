@@ -41,7 +41,6 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 	styleView->hideColumn(SHORTCUT_COL);
 	styleView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	uniqueLabel->hide();
-	rightFrame->hide();
 
 	applyButton->setEnabled(false);
 	resetButton->setEnabled(false);
@@ -894,7 +893,6 @@ void StyleManager::slotOk()
 		editFrame->hide();
 		applyButton->hide();
 		resetButton->hide();
-		rightFrame->hide();
 		m_isEditMode = false;
 		for (int i = 0; i < m_items.count(); ++i)
 		{
@@ -939,7 +937,6 @@ void StyleManager::slotOk()
 		editFrame->show();
 		applyButton->show();
 		resetButton->show();
-		rightFrame->show();
 		m_isEditMode = true;
 		for (int i = 0; i < m_items.count(); ++i)
 			m_items.at(i)->editMode(true);

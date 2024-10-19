@@ -318,8 +318,6 @@ void TextPalette::updateColorList()
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	textPal->updateColorList();
-
 	assert (m_doc->PageColors.document());
 }
 

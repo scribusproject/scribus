@@ -507,15 +507,15 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->maxConsecutiveCountSpinBox, SIGNAL(valueChanged(int)),this,SLOT(slotConsecutiveLines()));
 
 	connect(m_pwidget, SIGNAL(useParentParaEffects()), this, SLOT(slotParentParaEffects()));
-	connect(m_pwidget->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
+	connect(m_pwidget->peCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPargraphEffects(int)));
+//	connect(m_pwidget->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	connect(m_pwidget->dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
 	connect(m_pwidget->parEffectOffset, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
 	connect(m_pwidget->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
 	connect(m_pwidget->parEffectCharStyleCombo, SIGNAL(activated(int)), this, SLOT(slotParEffectCharStyle(int)));
-
-	connect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
+//	connect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
 	connect(m_pwidget->bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
-	connect(m_pwidget->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
+//	connect(m_pwidget->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
 	connect(m_pwidget->numComboBox, SIGNAL(textActivated(QString)), this, SLOT(slotNumName(QString)));
 	connect(m_pwidget->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
 	connect(m_pwidget->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
@@ -611,15 +611,15 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->maxConsecutiveCountSpinBox, SIGNAL(valueChanged(int)),this,SLOT(slotConsecutiveLines()));
 
 	disconnect(m_pwidget, SIGNAL(useParentParaEffects()), this, SLOT(slotParentParaEffects()));
-	disconnect(m_pwidget->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
+	disconnect(m_pwidget->peCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPargraphEffects(int)));
+//	disconnect(m_pwidget->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	disconnect(m_pwidget->dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
 	disconnect(m_pwidget->parEffectOffset, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
 	disconnect(m_pwidget->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
 	disconnect(m_pwidget->parEffectCharStyleCombo, SIGNAL(activated(int)), this, SLOT(slotParEffectCharStyle(int)));
-
-	disconnect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
+//	disconnect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
 	disconnect(m_pwidget->bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
-	disconnect(m_pwidget->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
+//	disconnect(m_pwidget->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
 	disconnect(m_pwidget->numComboBox, SIGNAL(textActivated(QString)), this, SLOT(slotNumName(QString)));
 	disconnect(m_pwidget->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
 	disconnect(m_pwidget->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
@@ -873,30 +873,65 @@ void SMParagraphStyle::slotConsecutiveLines()
 	slotSelectionDirty();
 }
 
-void SMParagraphStyle::slotDropCap(bool isOn)
+// void SMParagraphStyle::slotDropCap(bool isOn)
+// {
+// 	for (int i = 0; i < m_selection.count(); ++i)
+// 	{
+// 		m_selection[i]->setHasDropCap(isOn);
+// 		if (isOn)
+// 		{
+// 			m_selection[i]->setHasBullet(false);
+// 			m_selection[i]->setHasNum(false);
+// 		}
+// 	}
+	
+// 	slotSelectionDirty();
+// }
+
+void SMParagraphStyle::slotParentParaEffects()
 {
-	for (int i = 0; i < m_selection.count(); ++i)
-	{
-		m_selection[i]->setHasDropCap(isOn);
-		if (isOn)
-		{
-			m_selection[i]->setHasBullet(false);
-			m_selection[i]->setHasNum(false);
-		}
-	}
+	// for (int i = 0; i < m_selection.count(); ++i)
+	// {
+	// 	m_selection[i]->resetHasDropCap();
+	// 	m_selection[i]->resetHasBullet();
+	// 	m_selection[i]->resetHasNum();
+	// }
+	slotPargraphEffects(0); // No effect
 	
 	slotSelectionDirty();
 }
 
-void SMParagraphStyle::slotParentParaEffects()
+void SMParagraphStyle::slotPargraphEffects(int index)
 {
 	for (int i = 0; i < m_selection.count(); ++i)
 	{
-		m_selection[i]->resetHasDropCap();
-		m_selection[i]->resetHasBullet();
-		m_selection[i]->resetHasNum();
+		if (index == 1) // Drop Caps
+		{
+			m_selection[i]->setHasDropCap(true);
+			m_selection[i]->setHasBullet(false);
+			m_selection[i]->setHasNum(false);
+		}
+		else if (index == 2) // Bullet List
+		{
+			m_selection[i]->setHasDropCap(false);
+			m_selection[i]->setHasBullet(true);
+			m_selection[i]->setHasNum(false);
+			m_selection[i]->setBulletStr(m_pwidget->bulletStrEdit->currentText());
+		}
+		else if (index == 3) // Numbered List
+		{
+			m_selection[i]->setHasDropCap(false);
+			m_selection[i]->setHasBullet(false);
+			m_selection[i]->setHasNum(true);
+		}
+		else // No effect
+		{
+			m_selection[i]->resetHasDropCap();
+			m_selection[i]->resetHasBullet();
+			m_selection[i]->resetHasNum();
+		}
 	}
-	
+
 	slotSelectionDirty();
 }
 
@@ -962,21 +997,21 @@ void SMParagraphStyle::slotParEffectCharStyle(int index)
 	slotSelectionDirty();
 }
 
-void SMParagraphStyle::slotBullet(bool isOn)
-{
-	for (int i = 0; i < m_selection.count(); ++i)
-	{
-		m_selection[i]->setHasBullet(isOn);
-		if (isOn)
-		{
-			m_selection[i]->setBulletStr(m_pwidget->bulletStrEdit->currentText());
-			m_selection[i]->setHasDropCap(false);
-			m_selection[i]->setHasNum(false);
-		}
-	}
+// void SMParagraphStyle::slotBullet(bool isOn)
+// {
+// 	for (int i = 0; i < m_selection.count(); ++i)
+// 	{
+// 		m_selection[i]->setHasBullet(isOn);
+// 		if (isOn)
+// 		{
+// 			m_selection[i]->setBulletStr(m_pwidget->bulletStrEdit->currentText());
+// 			m_selection[i]->setHasDropCap(false);
+// 			m_selection[i]->setHasNum(false);
+// 		}
+// 	}
 	
-	slotSelectionDirty();
-}
+// 	slotSelectionDirty();
+// }
 
 void SMParagraphStyle::slotBulletStr(const QString &str)
 {
@@ -992,20 +1027,20 @@ void SMParagraphStyle::slotBulletStr(const QString &str)
 	slotSelectionDirty();
 }
 
-void SMParagraphStyle::slotNumeration(bool isOn)
-{
-	for (int i = 0; i < m_selection.count(); ++i)
-	{
-		m_selection[i]->setHasNum(isOn);
-		if (isOn)
-		{
-			m_selection[i]->setHasDropCap(false);
-			m_selection[i]->setHasBullet(false);
-		}
-	}
+// void SMParagraphStyle::slotNumeration(bool isOn)
+// {
+// 	for (int i = 0; i < m_selection.count(); ++i)
+// 	{
+// 		m_selection[i]->setHasNum(isOn);
+// 		if (isOn)
+// 		{
+// 			m_selection[i]->setHasDropCap(false);
+// 			m_selection[i]->setHasBullet(false);
+// 		}
+// 	}
 	
-	slotSelectionDirty();
-}
+// 	slotSelectionDirty();
+// }
 
 void SMParagraphStyle::slotNumName(const QString &str)
 {
