@@ -34,21 +34,24 @@ ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 
 #ifdef Q_OS_MACOS
 	QList<QUrl> urls;
-	QUrl computer(QUrl::fromLocalFile(QLatin1String("")));
-	if (!urls.contains(computer))
-		urls << computer;
-	QUrl volumes(QUrl::fromLocalFile("/Volumes"));
-	if (!urls.contains(volumes))
-		urls << volumes;
-	QUrl home(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)));
-	if (!urls.contains(home))
-		urls << home;
-	QUrl documents(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)));
-	if (!urls.contains(documents))
-		urls << documents;
-	QUrl dt(QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation)));
-	if (!urls.contains(dt))
-		urls << dt;
+	QUrl macOSUrl(QUrl::fromLocalFile(QLatin1String("")));
+	if (!urls.contains(macOSUrl))
+		urls << macOSUrl;
+	macOSUrl=QUrl::fromLocalFile("/Volumes");
+	if (!urls.contains(macOSUrl))
+		urls << macOSUrl;
+	macOSUrl=QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
+	if (!urls.contains(macOSUrl))
+		urls << macOSUrl;
+	macOSUrl=QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
+	if (!urls.contains(macOSUrl))
+		urls << macOSUrl;
+	macOSUrl=QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+	if (!urls.contains(macOSUrl))
+		urls << macOSUrl;
+	macOSUrl=QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DownloadLocation));
+	if (!urls.contains(macOSUrl))
+		urls << macOSUrl;
 	setSidebarUrls(urls);
 #endif
 
