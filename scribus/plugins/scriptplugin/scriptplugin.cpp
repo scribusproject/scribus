@@ -334,6 +334,7 @@ PyMethodDef scribus_methods[] = {
 	{ "getAllObjects", (PyCFunction) scribus_getallobjects, METH_VARARGS|METH_KEYWORDS, tr(scribus_getallobjects__doc__)},
 	{ "getAllStyles", (PyCFunction) scribus_getparagraphstyles, METH_NOARGS, tr(scribus_getallstyles__doc__)}, //Deprecated
 	{ "getAllText", scribus_getalltext, METH_VARARGS, tr(scribus_getalltext__doc__)},
+	{ "getBaseLine", (PyCFunction) scribus_getbaseline, METH_NOARGS, tr(scribus_getbaseline__doc__)},
 	{ "getCellColumnSpan", scribus_getcellcolumnspan, METH_VARARGS, tr(scribus_getcellcolumnspan__doc__)},
 	{ "getCellFillColor", scribus_getcellfillcolor, METH_VARARGS, tr(scribus_getcellfillcolor__doc__)},
 	{ "getCellRowSpan", scribus_getcellrowspan, METH_VARARGS, tr(scribus_getcellrowspan__doc__)},

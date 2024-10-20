@@ -171,6 +171,17 @@ PyObject *scribus_setbaseline(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_getbaseline(PyObject* /* self */)
+{
+    if (!checkHaveDocument())
+        return nullptr;
+
+    const GuidesPrefs& guides = ScCore->primaryMainWindow()->doc->guidesPrefs();
+
+    return Py_BuildValue("(dd)",
+                         PointToValue(guides.valueBaselineGrid),
+                         PointToValue(guides.offsetBaselineGrid));
+}
 
 PyObject *scribus_closedoc(PyObject* /* self */)
 {
@@ -498,7 +509,8 @@ void cmddocdocwarnings()
 	  << scribus_closemasterpage__doc__
 	  << scribus_createmasterpage__doc__
 	  << scribus_deletemasterpage__doc__
-	  << scribus_editmasterpage__doc__ 
+	  << scribus_editmasterpage__doc__
+	  << scribus_getbaseline__doc__ 
 	  << scribus_getdocname__doc__
 	  << scribus_getinfo__doc__
 	  << scribus_getmasterpage__doc__

@@ -227,6 +227,17 @@ constants.\n\
 PyObject *scribus_setbaseline(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getbaseline__doc__,
+QT_TR_NOOP("getBaseLine() -> (grid, offset)\n\
+\n\
+Gets the base line settings of the document, grid spacing(grid), grid offset(offset).\n\
+Values are given in the measurement units of the document - see UNIT_<type>\n\
+constants.\n\
+"));
+/** Sets document baseline settings - grid and offset. */
+PyObject *scribus_getbaseline(PyObject * /*self*/);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setunit__doc__,
 QT_TR_NOOP("setUnit(type)\n\
 \n\
