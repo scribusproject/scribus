@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <cmath>
+#include <cstdlib>
 #include <zlib.h>
 
 #include <QApplication>
@@ -20,8 +22,6 @@ for which a new license (GPL+exception) is in place.
 #include <QTextCodec>
 #include <QTextStream>
 #include <QtAlgorithms>
-#include <cmath>
-#include <cstdlib>
 
 #include "commonstrings.h"
 #include "fileloader.h"
@@ -33,7 +33,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "ui/fontreplacedialog.h"
 #include "util.h"
-
 
 /*!
  \author Franz Schmid
