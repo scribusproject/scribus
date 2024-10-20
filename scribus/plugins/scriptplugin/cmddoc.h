@@ -194,6 +194,17 @@ strings.\n\
 PyObject *scribus_getinfo(PyObject * /*self*/);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getbleeds__doc__,
+QT_TR_NOOP("getBleeds() -> (lr, rr, tr, br)\n\
+\n\
+Gets the bleeds of the document. Left(lr), Right(rr), Top(tr) and Bottom(br)\n\
+bleeds are given in the measurement units of the document - see UNIT_<type>\n\
+constants.\n\
+"));
+/** Sets document bleeds - left, right, top and bottom. */
+PyObject *scribus_getbleeds(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setbleeds__doc__,
 QT_TR_NOOP("setBleeds(lr, rr, tr, br)\n\
 \n\
@@ -203,6 +214,17 @@ constants.\n\
 "));
 /** Sets document bleeds - left, right, top and bottom. */
 PyObject *scribus_setbleeds(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getmargins__doc__,
+QT_TR_NOOP("getMargins() -> (lr, rr, tr, br)\n\
+\n\
+Gets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)\n\
+margins are given in the measurement units of the document - see UNIT_<type>\n\
+constants.\n\
+"));
+/** Sets document margins - left, right, top and bottom. */
+PyObject *scribus_getmargins(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setmargins__doc__,
@@ -216,6 +238,17 @@ constants.\n\
 PyObject *scribus_setmargins(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getbaseline__doc__,
+    QT_TR_NOOP("getBaseLine() -> (grid, offset)\n\
+\n\
+Gets the base line settings of the document, grid spacing(grid), grid offset(offset).\n\
+Values are given in the measurement units of the document - see UNIT_<type>\n\
+constants.\n\
+"));
+/** Sets document baseline settings - grid and offset. */
+PyObject* scribus_getbaseline(PyObject* /*self*/);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setbaseline__doc__,
 QT_TR_NOOP("setBaseLine(grid, offset)\n\
 \n\
@@ -225,17 +258,6 @@ constants.\n\
 "));
 /** Sets document baseline settings - grid and offset. */
 PyObject *scribus_setbaseline(PyObject * /*self*/, PyObject* args);
-
-/*! docstring */
-PyDoc_STRVAR(scribus_getbaseline__doc__,
-QT_TR_NOOP("getBaseLine() -> (grid, offset)\n\
-\n\
-Gets the base line settings of the document, grid spacing(grid), grid offset(offset).\n\
-Values are given in the measurement units of the document - see UNIT_<type>\n\
-constants.\n\
-"));
-/** Sets document baseline settings - grid and offset. */
-PyObject *scribus_getbaseline(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setunit__doc__,

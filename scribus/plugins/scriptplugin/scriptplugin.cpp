@@ -337,6 +337,7 @@ PyMethodDef scribus_methods[] = {
 	{ "getAllStyles", (PyCFunction) scribus_getparagraphstyles, METH_NOARGS, tr(scribus_getallstyles__doc__)}, //Deprecated
 	{ "getAllText", scribus_getalltext, METH_VARARGS, tr(scribus_getalltext__doc__)},
 	{ "getBaseLine", (PyCFunction) scribus_getbaseline, METH_NOARGS, tr(scribus_getbaseline__doc__)},
+	{ "getBleeds", scribus_getbleeds, METH_NOARGS, tr(scribus_getbleeds__doc__)},
 	{ "getCellColumnSpan", scribus_getcellcolumnspan, METH_VARARGS, tr(scribus_getcellcolumnspan__doc__)},
 	{ "getCellFillColor", scribus_getcellfillcolor, METH_VARARGS, tr(scribus_getcellfillcolor__doc__)},
 	{ "getCellRowSpan", scribus_getcellrowspan, METH_VARARGS, tr(scribus_getcellrowspan__doc__)},
@@ -392,6 +393,7 @@ PyMethodDef scribus_methods[] = {
 	{ "getLineStyles", (PyCFunction) scribus_getlinestyles, METH_VARARGS, tr(scribus_getlinestyles__doc__)},
 	{ "getLineTransparency", scribus_getlinetransparency, METH_VARARGS, tr(scribus_getlinetransparency__doc__)},
 	{ "getLineWidth", scribus_getlinewidth, METH_VARARGS, tr(scribus_getlinewidth__doc__)},
+	{ "getMargins", scribus_getmargins, METH_NOARGS, tr(scribus_getmargins__doc__) },
 	{ "getMasterPage", scribus_getmasterpage, METH_VARARGS, tr(scribus_getmasterpage__doc__)},
 	{ "getNextLinkedFrame", scribus_getnextlinkedframe, METH_VARARGS, tr(scribus_getnextlinkedframe__doc__)},
 	{ "getObjectAttributes", scribus_getobjectattributes, METH_VARARGS, tr(scribus_getobjectattributes__doc__)},
