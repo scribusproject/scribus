@@ -382,20 +382,11 @@ void NewDocDialog::changeSortMode(int ic)
 
 void NewDocDialog::handleAutoFrame()
 {
-	if (autoTextFrame->isChecked())
-	{
-		labelColumns->setEnabled(true);
-		labelGap->setEnabled(true);
-		Distance->setEnabled(true);
-		numberOfCols->setEnabled(true);
-	}
-	else
-	{
-		labelColumns->setEnabled(false);
-		labelGap->setEnabled(false);
-		Distance->setEnabled(false);
-		numberOfCols->setEnabled(false);
-	}
+	bool setter = autoTextFrame->isChecked();
+	labelColumns->setEnabled(setter);
+	labelGap->setEnabled(setter);
+	Distance->setEnabled(setter);
+	numberOfCols->setEnabled(setter);
 }
 
 void NewDocDialog::setDistance(double)
@@ -604,7 +595,7 @@ void NewDocDialog::gotoParentDirectory()
 void NewDocDialog::gotoSelectedDirectory()
 {
 	QStringList s(fileDialog->selectedFiles());
-	if (s.count() <= 0)
+	if (s.isEmpty())
 		return;
 	QFileInfo fi(s.first());
 	if (fi.isDir())

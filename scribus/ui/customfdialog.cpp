@@ -277,7 +277,7 @@ void FDialogPreview::genPreview(const QString& name)
 	}
 }
 
-CustomFDialog::CustomFDialog(QWidget *parent, const QString &wDir, const QString &caption, const QString &filter, int flags)
+CustomFDialog::CustomFDialog(QWidget *parent, const QString &wDir, const QString &caption, const QString &filter, int flags, fwContextFlags contextFlags)
 	: QDialog(parent),
 	m_optionFlags(flags),
 	m_previewIsShown(true)
@@ -293,7 +293,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString &wDir, const QString
 	hboxLayout = new QHBoxLayout;
 	hboxLayout->setSpacing(6);
 	hboxLayout->setContentsMargins(0, 0, 0, 0);
-	fileDialog = new ScFileWidget(this);
+	fileDialog = new ScFileWidget(this, contextFlags);
 	fileDialog->setIconProvider(new ImIconProvider());
 	fileDialog->setNameFilter(filter);
 	fileDialog->selectNameFilter(filter);
@@ -602,23 +602,23 @@ QString CustomFDialog::selectedNameFilter()
 
 void CustomFDialog::handleCompress()
 {
-	QString   fileName;
+	QString fileName;
 	QFileInfo tmp(selectedFile());
-	QString   fn(tmp.fileName());
+	QString fn(tmp.fileName());
 	QStringList fc = fn.split(".", Qt::KeepEmptyParts);
-	if (fc.count() > 0)
+	if (!fc.isEmpty())
 		fileName = fc.at(0);
-	for (int a = 1; a < fc.count(); a++)
+	for (int i = 1; i < fc.count(); i++)
 	{
-		if (fc.at(a).compare("sla", Qt::CaseInsensitive) == 0)
+		if (fc.at(i).compare("sla", Qt::CaseInsensitive) == 0)
 			continue;
-		if (fc.at(a).compare("gz", Qt::CaseInsensitive) == 0)
+		if (fc.at(i).compare("gz", Qt::CaseInsensitive) == 0)
 			continue;
-		if (fc.at(a).compare(m_ext, Qt::CaseInsensitive) == 0)
+		if (fc.at(i).compare(m_ext, Qt::CaseInsensitive) == 0)
 			continue;
-		if (fc.at(a).compare(m_extZip, Qt::CaseInsensitive) == 0)
+		if (fc.at(i).compare(m_extZip, Qt::CaseInsensitive) == 0)
 			continue;
-		fileName += "." + fc[a];
+		fileName += "." + fc[i];
 	}
 	if (saveZip->isChecked())
 		tmp.setFile(fileName + "." + m_extZip);

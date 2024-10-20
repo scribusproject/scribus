@@ -3775,7 +3775,7 @@ void ScribusMainWindow::slotGetContent()
 		QString docDir = dirsContext->get("images", prefsDocDir.isEmpty() ? "." : prefsDocDir);
 
 		QStringList fileNames;
-		CustomFDialog *dia = new CustomFDialog(QApplication::activeWindow(), docDir, tr("Open"), formatD, fdShowPreview | fdExistingFilesI | fdDisableOk);
+		CustomFDialog *dia = new CustomFDialog(QApplication::activeWindow(), docDir, tr("Open"), formatD, fdShowPreview | fdExistingFilesI | fdDisableOk, contextImages);
 		if (dia->exec() == QDialog::Accepted)
 			fileNames = dia->selectedFiles();
 		delete dia;
@@ -4058,7 +4058,8 @@ bool ScribusMainWindow::slotFileSave()
 		if (doc->is12doc && !warningVersion(this))
 			return false;
 
-		QString fn(doc->documentFileName()), savedFileName;
+		QString fn(doc->documentFileName());
+		QString savedFileName;
 		ret = DoFileSave(fn, &savedFileName);
 		if (!ret && !savedFileName.isEmpty())
 			ScMessageBox::warning(this, CommonStrings::trWarning, tr("Your document was saved to a temporary file and could not be moved: \n%1").arg( QDir::toNativeSeparators(savedFileName) ));
@@ -7997,7 +7998,7 @@ QPair<QString, uint> ScribusMainWindow::CFileDialog(const QString& workingDirect
 		if (useProfiles != nullptr)
 			dia->setIncludeProfiles(*useProfiles);
 	}
-	QString returnName;
+
 	QPair<QString, uint> fileNameVersion;
 	fileNameVersion.second = FORMATID_CURRENTEXPORT;
 	if (dia->exec() == QDialog::Accepted)

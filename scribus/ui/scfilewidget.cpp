@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "scfilewidget.h"
 
 
-ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
+ScFileWidget::ScFileWidget(QWidget * parent, fwContextFlags contextFlags) : QFileDialog(parent, Qt::Widget)
 {
 	setOption(QFileDialog::DontUseNativeDialog);
 	setSizeGripEnabled(false);
@@ -52,6 +52,12 @@ ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 	macOSUrl=QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DownloadLocation));
 	if (!urls.contains(macOSUrl))
 		urls << macOSUrl;
+	if (contextFlags & contextImages)
+	{
+		macOSUrl=QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
+		if (!urls.contains(macOSUrl))
+			urls << macOSUrl;
+	}
 	setSidebarUrls(urls);
 #endif
 

@@ -22,12 +22,18 @@ user e.g. doubleclicks the "open" file (in the parent (new) dialog):
 connect(fileWidget, SIGNAL(accepted()), this, SLOT(accept()));
 \author Petr Vanek <petr@scribus.info>
 */
+
+enum fwContextFlags {
+	contextNone = 0,
+	contextDocuments = 1, // include documents location
+	contextImages = 2 // include image location
+};
+
 class SCRIBUS_API ScFileWidget : public QFileDialog
 {
 	Q_OBJECT
-
 public:
-	ScFileWidget(QWidget * parent);
+	ScFileWidget(QWidget * parent, fwContextFlags contextFlags = contextNone);
 
 	QString selectedFile();
 	void forceDoubleClickActivation(bool force);

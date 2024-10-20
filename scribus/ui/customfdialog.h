@@ -37,9 +37,9 @@ class QVBoxLayout;
 class QFrame;
 
 class PrefsContext;
-class ScFileWidget;
 
 #include "scribusapi.h"
+#include "scfilewidget.h"
 
 /**
   *@author Franz Schmid
@@ -86,6 +86,7 @@ enum fdFlags
 	fdDisableOk = 256 // Disable Ok button, used for file open, import etc
 };
 
+
 /*! \brief A Scribus own file dialog.
 Used almost everywhere. You can see extension handling
 in e.g. bool SVGExportPlugin::run(QString filename).
@@ -101,7 +102,7 @@ public:
 	\param filter a mask/filter. E.g.: *.txt
 	\param flags combination of fdFlags, default to fdExistingFiles
 	*/
-	CustomFDialog(QWidget *parent, const QString& wDir, const QString& caption = "",  const QString& filter = "", int flags = fdExistingFiles);
+	CustomFDialog(QWidget *parent, const QString& wDir, const QString& caption = "",  const QString& filter = "", int flags = fdExistingFiles, fwContextFlags contextFlags = contextNone);
 	~CustomFDialog() = default;
 
 	void setSelection(const QString& fileName);
