@@ -113,6 +113,20 @@ PyObject *scribus_newdoc(PyObject* /* self */, PyObject* args)
 	return PyLong_FromLong(static_cast<long>(ret));
 }
 
+PyObject *scribus_getbleeds(PyObject */* self */, PyObject* /*args*/)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	const MarginStruct& bleeds = ScCore->primaryMainWindow()->doc->bleedsVal();
+
+	return Py_BuildValue("(dddd)",
+		PointToValue(bleeds.left()),
+		PointToValue(bleeds.right()),
+		PointToValue(bleeds.top()),
+		PointToValue(bleeds.bottom()));
+}
+
 PyObject *scribus_setbleeds(PyObject */* self */, PyObject *args)
 {
 	double lr, tpr, btr, rr;
@@ -129,6 +143,20 @@ PyObject *scribus_setbleeds(PyObject */* self */, PyObject *args)
 	currentDoc->setModified(true);
 	currentView->DrawNew();
 	Py_RETURN_NONE;
+}
+
+PyObject* scribus_getmargins(PyObject*/* self */, PyObject* /*args*/)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	const MarginStruct& margins = ScCore->primaryMainWindow()->doc->marginsVal();
+
+	return Py_BuildValue("(dddd)",
+		PointToValue(margins.left()),
+		PointToValue(margins.right()),
+		PointToValue(margins.top()),
+		PointToValue(margins.bottom()));
 }
 
 PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
@@ -151,6 +179,18 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject* scribus_getbaseline(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	const GuidesPrefs& guides = ScCore->primaryMainWindow()->doc->guidesPrefs();
+
+	return Py_BuildValue("(dd)",
+		PointToValue(guides.valueBaselineGrid),
+		PointToValue(guides.offsetBaselineGrid));
+}
+
 PyObject *scribus_setbaseline(PyObject* /* self */, PyObject* args)
 {
 	double grid, offset;
@@ -169,18 +209,6 @@ PyObject *scribus_setbaseline(PyObject* /* self */, PyObject* args)
 	currentView->DrawNew();
 
 	Py_RETURN_NONE;
-}
-
-PyObject *scribus_getbaseline(PyObject* /* self */)
-{
-    if (!checkHaveDocument())
-        return nullptr;
-
-    const GuidesPrefs& guides = ScCore->primaryMainWindow()->doc->guidesPrefs();
-
-    return Py_BuildValue("(dd)",
-                         PointToValue(guides.valueBaselineGrid),
-                         PointToValue(guides.offsetBaselineGrid));
 }
 
 PyObject *scribus_closedoc(PyObject* /* self */)
@@ -511,8 +539,10 @@ void cmddocdocwarnings()
 	  << scribus_deletemasterpage__doc__
 	  << scribus_editmasterpage__doc__
 	  << scribus_getbaseline__doc__ 
+	  << scribus_getbleeds__doc__ 
 	  << scribus_getdocname__doc__
 	  << scribus_getinfo__doc__
+	  << scribus_getmargins__doc__
 	  << scribus_getmasterpage__doc__
 	  << scribus_getunit__doc__ 
 	  << scribus_havedoc__doc__
