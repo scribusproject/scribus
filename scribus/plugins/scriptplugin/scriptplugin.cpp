@@ -1073,5 +1073,16 @@ PV */
 void scriptplugindocwarnings()
 {
 	QStringList s;
-	s <<printer__doc__<<pdffile__doc__<<imgexp__doc__<<imgexp_dpi__doc__<<imgexp_scale__doc__ << imgexp_transparentBkgnd__doc__ <<imgexp_quality__doc__<<imgexp_filename__doc__<<imgexp_type__doc__<<imgexp_alltypes__doc__ << imgexp_save__doc__ << imgexp_saveas__doc__;
+	s << imgexp__doc__
+	  << imgexp_alltypes__doc__
+	  << imgexp_dpi__doc__
+	  << imgexp_filename__doc__
+	  << imgexp_quality__doc__
+	  << imgexp_save__doc__
+	  << imgexp_saveas__doc__
+	  << imgexp_scale__doc__
+	  << imgexp_transparentBkgnd__doc__
+	  << imgexp_type__doc__
+	  << pdffile__doc__
+	  << printer__doc__;
 }
