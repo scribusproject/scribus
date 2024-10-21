@@ -75,6 +75,8 @@ protected:
 	QPoint m_mousePos;
 	bool m_mousePressed {false};
 	bool m_thumb {false};
+	QString m_prefsContext = "PagePalette";
+	QString m_prefsName = "showMasterThumbnails";
 
 };
 

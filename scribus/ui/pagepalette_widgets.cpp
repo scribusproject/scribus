@@ -40,6 +40,10 @@ const QString MIMETYPE = "page/magic";
 SeList::SeList(QWidget* parent) : QListWidget(parent)
 {
 	setAcceptDrops(true);
+
+	// Read prefs
+	PrefsContext *prefCollapse = PrefsManager::instance().prefsFile->getContext(m_prefsContext);
+	m_thumb = prefCollapse->getBool(m_prefsName, m_thumb);
 }
 
 void SeList::mouseReleaseEvent(QMouseEvent *m)
@@ -62,6 +66,12 @@ void SeList::mouseReleaseEvent(QMouseEvent *m)
 void SeList::toggleThumbnail()
 {
 	m_thumb = !m_thumb;
+
+	// write prefs
+	PrefsContext *prefCollapse = PrefsManager::instance().prefsFile->getContext(m_prefsContext);
+	prefCollapse->set(m_prefsName, m_thumb);
+	PrefsManager::instance().prefsFile->write();
+
 	emit thumbnailChanged();
 }
 

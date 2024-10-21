@@ -42,8 +42,7 @@ PagePalette_Pages::PagePalette_Pages(QWidget *parent)
 	setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
 
 	masterPageList->setMinimumSize(QSize(200, 40));
-	masterPageList->m_thumb = true;
-	masterPageList->setIconSize(QSize(60, 60));
+	masterPageList->setIconSize(QSize(64, 64));
 
 	pageLayout->setHideLabelsPermanently(true);
 
@@ -336,7 +335,14 @@ void PagePalette_Pages::rebuildMasters()
 				: pageName;
 		if (masterPageList->m_thumb)
 		{
-			pm = QPixmap::fromImage(currView->MPageToPixmap(pageName, 60));
+			pm = QPixmap::fromImage(currView->MPageToPixmap(pageName, masterPageList->iconSize().height()));
+
+			QPainter p(&pm);
+			p.setBrush(Qt::NoBrush);
+			p.setPen(Qt::black);
+			p.drawRect(pm.rect().adjusted(0, 0, -1, -1));
+			p.end();
+
 			item = new QListWidgetItem(QIcon(pm), pageLabel, masterPageList);
 		} else
 			item = new QListWidgetItem(pageLabel, masterPageList);
