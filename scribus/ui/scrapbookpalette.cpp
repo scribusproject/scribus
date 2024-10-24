@@ -1198,11 +1198,11 @@ void Biblio::handleMouse(QPoint p)
 			connect(delAct, SIGNAL(triggered()), this, SLOT(deleteObj()));
 		}
 		QSignalMapper *signalMapper = new QSignalMapper(this);
-		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(copyObj(int)));
+		connect(signalMapper, SIGNAL(mappedInt(int)), this, SLOT(copyObj(int)));
 		QMenu *pmenu2 = new QMenu( tr("Copy To:"));
 		QMenu *pmenu3 = new QMenu( tr("Move To:"));
 		QSignalMapper *signalMapper2 = new QSignalMapper(this);
-		connect(signalMapper2, SIGNAL(mapped(int)), this, SLOT(moveObj(int)));
+		connect(signalMapper2, SIGNAL(mappedInt(int)), this, SLOT(moveObj(int)));
 		for (int i = 0; i < Frame3->count(); i++)
 		{
 			const BibView* bv = (BibView*) Frame3->widget(i);

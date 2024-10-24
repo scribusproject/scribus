@@ -564,7 +564,7 @@ void OutlinePalette::slotRightClick(QPoint point)
 			actActive->setChecked(false);
 			signalMapper->setMapping(actActive, item->LayerID);
 			connect(actActive, SIGNAL(triggered()), signalMapper, SLOT(map()));
-			connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(setActiveLayer(int)));
+			connect(signalMapper, SIGNAL(mappedInt(int)), this, SLOT(setActiveLayer(int)));
 		}
 		QSignalMapper *signalMapper2 = new QSignalMapper(this);
 		actVis = pmenu->addAction( tr("Visible"));
@@ -572,7 +572,7 @@ void OutlinePalette::slotRightClick(QPoint point)
 		actVis->setChecked(item->DocObject->layerVisible(item->LayerID));
 		signalMapper2->setMapping(actVis, item->LayerID);
 		connect(actVis, SIGNAL(triggered()), signalMapper2, SLOT(map()));
-		connect(signalMapper2, SIGNAL(mapped(int)), this, SLOT(setLayerVisible(int)));
+		connect(signalMapper2, SIGNAL(mappedInt(int)), this, SLOT(setLayerVisible(int)));
 
 		QSignalMapper *signalMapper3 = new QSignalMapper(this);
 		actPrint = pmenu->addAction( tr("Printing"));
@@ -580,7 +580,7 @@ void OutlinePalette::slotRightClick(QPoint point)
 		actPrint->setChecked(item->DocObject->layerPrintable(item->LayerID));
 		signalMapper3->setMapping(actPrint, item->LayerID);
 		connect(actPrint, SIGNAL(triggered()), signalMapper3, SLOT(map()));
-		connect(signalMapper3, SIGNAL(mapped(int)), this, SLOT(setLayerPrintable(int)));
+		connect(signalMapper3, SIGNAL(mappedInt(int)), this, SLOT(setLayerPrintable(int)));
 
 		QSignalMapper *signalMapper4 = new QSignalMapper(this);
 		actLock = pmenu->addAction( tr("Locked"));
@@ -588,7 +588,7 @@ void OutlinePalette::slotRightClick(QPoint point)
 		actLock->setChecked(item->DocObject->layerLocked(item->LayerID));
 		signalMapper4->setMapping(actLock, item->LayerID);
 		connect(actLock, SIGNAL(triggered()), signalMapper4, SLOT(map()));
-		connect(signalMapper4, SIGNAL(mapped(int)), this, SLOT(setLayerLocked(int)));
+		connect(signalMapper4, SIGNAL(mappedInt(int)), this, SLOT(setLayerLocked(int)));
 //		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		pmenu->exec(QCursor::pos());
 		delete pmenu;
