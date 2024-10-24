@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidget>
 #include <QVBoxLayout>
 
+class QButtonGroup;
 class QFileDialog;
 class QFrame;
 class QGridLayout;
@@ -35,8 +36,8 @@ class QSpinBox;
 
 #include "ui_newdocdialog.h"
 
-class PrefsManager;
 class NewMarginWidget;
+class PrefsManager;
 class ScrSpinBox;
 
 class SCRIBUS_API NewDocDialog : public QDialog, public Ui::newDocDialog
