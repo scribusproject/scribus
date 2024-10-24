@@ -7,21 +7,22 @@ for which a new license (GPL+exception) is in place.
 #ifndef NEWDOCDIALOG_H
 #define NEWDOCDIALOG_H
 
+#include <QCheckBox>
+#include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
-#include <QDropEvent>
 #include <QDragEnterEvent>
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
+#include <QDropEvent>
 #include <QListWidget>
-#include <QCheckBox>
-#include <QComboBox>
 #include <QVBoxLayout>
 
-class QGridLayout;
-class QHBoxLayout;
+class QFileDialog;
 class QFrame;
+class QGridLayout;
 class QGroupBox;
+class QHBoxLayout;
 class QLabel;
 class QListWidgetItem;
 class QPushButton;
@@ -29,7 +30,6 @@ class QSpinBox;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-
 #include "ui/customfdialog.h"
 #include "ui/nftwidget.h"
 
@@ -38,7 +38,6 @@ class QSpinBox;
 class PrefsManager;
 class NewMarginWidget;
 class ScrSpinBox;
-class QFileDialog;
 
 class SCRIBUS_API NewDocDialog : public QDialog, public Ui::newDocDialog
 {
