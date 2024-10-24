@@ -9,34 +9,33 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDialog>
 #include <QDialogButtonBox>
-#include <QDropEvent>
 #include <QDragEnterEvent>
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
+#include <QDropEvent>
 #include <QListWidget>
 
 class QCheckBox;
 class QComboBox;
-class QGridLayout;
-class QHBoxLayout;
-class QVBoxLayout;
+class QFileDialog;
 class QFrame;
+class QGridLayout;
 class QGroupBox;
+class QHBoxLayout;
 class QLabel;
 class QListWidgetItem;
 class QPushButton;
 class QSpinBox;
+class QVBoxLayout;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-
 #include "ui/customfdialog.h"
 #include "ui/nftwidget.h"
 
-class PrefsManager;
 class MarginWidget;
+class PrefsManager;
 class ScrSpinBox;
-class QFileDialog;
 
 class SCRIBUS_API PageLayoutsWidget : public QListWidget
 {
@@ -45,8 +44,10 @@ class SCRIBUS_API PageLayoutsWidget : public QListWidget
 public:
 	PageLayoutsWidget(QWidget* parent);
 	~PageLayoutsWidget() = default;
+
 	void arrangeIcons();
 	QSize minimumSizeHint() const override;
+
 	int maxX {0};
 	int maxY {0};
 };
