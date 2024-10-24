@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>900</width>
-    <height>680</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,7 +41,7 @@
       <attribute name="title">
        <string>New Document</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,0">
        <property name="spacing">
         <number>4</number>
        </property>
@@ -95,12 +95,6 @@
        </item>
        <item>
         <widget class="QScrollArea" name="scrollArea">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="frameShape">
           <enum>QFrame::Shape::NoFrame</enum>
          </property>
@@ -118,8 +112,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>304</width>
-            <height>624</height>
+            <width>320</width>
+            <height>626</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -679,11 +673,21 @@
             </spacer>
            </item>
            <item>
-            <widget class="QCheckBox" name="startDocSetup">
-             <property name="text">
-              <string>Show Document Settings After Creation</string>
+            <layout class="QHBoxLayout" name="horizontalLayout_15">
+             <property name="leftMargin">
+              <number>8</number>
              </property>
-            </widget>
+             <property name="rightMargin">
+              <number>8</number>
+             </property>
+             <item>
+              <widget class="QCheckBox" name="startDocSetup">
+               <property name="text">
+                <string>Show Document Settings After Creation</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
             <spacer name="spacerBottom">

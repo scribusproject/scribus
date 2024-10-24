@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTabWidget>
 #include <QToolTip>
 #include <QVBoxLayout>
+#include <QWindow>
 
 #include "commonstrings.h"
 #include "filedialogeventcatcher.h"
@@ -52,6 +53,8 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 {
 	setupUi(this);
 
+	windowFitInScreen();
+
 	setObjectName(QString::fromLocal8Bit("NewDocumentWindow"));
 	setModal(true);
 
@@ -67,6 +70,7 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 
 	buttonVertical->setIcon(iconManager.loadIcon("page-orientation-vertical"));
 	buttonHorizontal->setIcon(iconManager.loadIcon("page-orientation-horizontal"));
+	labelColumns->setPixmap(iconManager.loadPixmap("paragraph-columns"));
 
 	createNewDocPage();
 	if (startUp)
@@ -153,11 +157,13 @@ void NewDocDialog::createNewDocPage()
 	widthSpinBox->setMaximum(16777215);
 	widthSpinBox->setNewUnit(m_unitIndex);
 	widthSpinBox->setSuffix(m_unitSuffix);
+	widthSpinBox->setValue(pageWidth * m_unitRatio);
 
 	heightSpinBox->setMinimum(pts2value(1.0, m_unitIndex));
 	heightSpinBox->setMaximum(16777215);
 	heightSpinBox->setNewUnit(m_unitIndex);
 	heightSpinBox->setSuffix(m_unitSuffix);
+	heightSpinBox->setValue(pageHeight * m_unitRatio);
 
 	unitOfMeasureComboBox->addItems(unitGetTextUnitList());
 	unitOfMeasureComboBox->setCurrentIndex(m_unitIndex);
@@ -165,22 +171,20 @@ void NewDocDialog::createNewDocPage()
 
 	MarginStruct marg(prefsManager.appPrefs.docSetupPrefs.margins);
 	marginGroup->setup(marg, !(pagePositioning == singlePage), m_unitIndex, NewMarginWidget::MarginWidgetFlags);
+	marginGroup->toggleLabelVisibility(false);
 	marginGroup->setPageHeight(pageHeight);
 	marginGroup->setPageWidth(pageWidth);
 	marginGroup->setFacingPages(!(pagePositioning == singlePage));
+	marginGroup->setPageSize(pageSize);
+	marginGroup->setMarginPreset(prefsManager.appPrefs.docSetupPrefs.marginPreset);
 
 	MarginStruct bleed;
 	bleed.resetToZero();
-
 	bleedGroup->setup(bleed, !(pagePositioning == singlePage), m_unitIndex, NewMarginWidget::BleedWidgetFlags);
+	bleedGroup->toggleLabelVisibility(false);
 	bleedGroup->setPageHeight(pageHeight);
 	bleedGroup->setPageWidth(pageWidth);
 	bleedGroup->setFacingPages(!(pagePositioning == singlePage));
-	widthSpinBox->setValue(pageWidth * m_unitRatio);
-	heightSpinBox->setValue(pageHeight * m_unitRatio);
-
-	marginGroup->setPageSize(pageSize);
-	marginGroup->setMarginPreset(prefsManager.appPrefs.docSetupPrefs.marginPreset);
 	bleedGroup->setPageSize(pageSize);
 	bleedGroup->setMarginPreset(prefsManager.appPrefs.docSetupPrefs.marginPreset);
 
@@ -233,7 +237,7 @@ void NewDocDialog::createNewDocPage()
 	// We have to calculate the width of the properties panel manually,
 	// because QSizePolicy::Minimum doesn't work as expected
 	scrollAreaWidgetContents->adjustSize();
-	scrollAreaWidgetContents->setFixedWidth(scrollAreaWidgetContents->width());
+	//scrollAreaWidgetContents->setFixedWidth(scrollAreaWidgetContents->width());
 	scrollArea->setWidgetResizable(true);
 	scrollArea->setFixedWidth(scrollAreaWidgetContents->width() + qApp->style()->pixelMetric(QStyle::PM_ScrollBarExtent));
 
@@ -378,6 +382,27 @@ void NewDocDialog::changeSortMode(int ic)
 {
 	Q_UNUSED(ic);
 	listPageFormats->setSortMode(static_cast<PageSizeList::SortMode>(comboSortSizes->currentData().toInt()));
+}
+
+void NewDocDialog::windowFitInScreen()
+{
+	QScreen* activeScreen = nullptr;
+	QWidget* widget = this;
+
+	while (widget)
+	{
+		activeScreen = widget->screen();
+		if (activeScreen != nullptr)
+			break;
+		widget = widget->parentWidget();
+	}
+
+	if (activeScreen)
+	{
+		int w = qMin(width(), activeScreen->availableSize().width());
+		int h = qMin(height(), activeScreen->availableSize().height());
+		resize(w, h);
+	}
 }
 
 void NewDocDialog::handleAutoFrame()

@@ -137,6 +137,8 @@ protected:
 	double m_bleedTop { 0.0 };
 	double m_bleedLeft { 0.0 };
 	double m_bleedRight { 0.0 };
+
+	void windowFitInScreen();
 };
 
 #endif // NEWDOC_H
