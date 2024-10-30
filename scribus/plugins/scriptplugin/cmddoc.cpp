@@ -350,6 +350,43 @@ PyObject *scribus_getunit(PyObject* /* self */)
 	return PyLong_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->unitIndex()));
 }
 
+PyObject *scribus_pointstodocunit(PyObject* /* self */, PyObject *args)
+{
+    double points;
+    if (!PyArg_ParseTuple(args, "d", &points))
+        return nullptr;
+    if (!checkHaveDocument())
+        return nullptr;
+
+    return Py_BuildValue("d", PointToValue(points));
+}
+
+PyObject *scribus_docunittopoints(PyObject* /* self */, PyObject *args)
+{
+    double value;
+    if (!PyArg_ParseTuple(args, "d", &value))
+        return nullptr;
+    if (!checkHaveDocument())
+        return nullptr;
+
+    return Py_BuildValue("d", ValueToPoint(value));
+}
+
+PyObject *scribus_stringvaluetopoints(PyObject* /* self */, PyObject *args)
+{
+    PyESString strValue;
+    if (!PyArg_ParseTuple(args, "es", "utf-8", strValue.ptr()))
+        return nullptr;
+
+    QString qv = QString::fromUtf8(strValue.c_str());
+
+    int uIdx = unitIndexFromString(qv);
+    double value = unitValueFromString(qv);
+    double points = value / unitGetRatioFromIndex(uIdx);
+
+    return Py_BuildValue("d", points);
+}
+
 PyObject *scribus_loadstylesfromfile(PyObject* /* self */, PyObject *args)
 {
 	PyESString fileName;

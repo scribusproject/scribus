@@ -268,7 +268,7 @@ defined as constants UNIT_<type>.\n\
 \n\
 May raise ValueError if an invalid unit is passed.\n\
 "));
-/** Changes unit scale. */
+/** Changes the document unit. */
 PyObject *scribus_setunit(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
@@ -279,8 +279,35 @@ Returns the measurement units of the document. The returned value will be one\n\
 of the UNIT_* constants:\n\
 UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.\n\
 "));
-/** Returns actual unit scale. */
+/** Returns actual document unit. */
 PyObject *scribus_getunit(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_pointstodocunit__doc__,
+QT_TR_NOOP("pointsToDocUnit(points) -> value\n\
+\n\
+Returns a value in the measurement units of the document converted from points.\n\
+"));
+/** Converts from points to the document unit. */
+PyObject *scribus_pointstodocunit(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_docunittopoints__doc__,
+QT_TR_NOOP("docUnitToPoints(value) -> points\n\
+\n\
+Returns a value in points converted from the measurement units of the document.\n\
+"));
+/** Converts from the document unit to points. */
+PyObject *scribus_docunittopoints(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_stringvaluetopoints__doc__,
+QT_TR_NOOP("stringValueToPoints(\"10mm\") -> points\n\
+\n\
+Returns a value in points converted from a string value (\"5mm\", \"2in\" et.c.).\n\
+"));
+/** Converts a string value ("5mm", "2in" et.c.) to points. */
+PyObject *scribus_stringvaluetopoints(PyObject * /*self*/, PyObject *args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_loadstylesfromfile__doc__,
