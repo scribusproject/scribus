@@ -203,6 +203,13 @@ public:
 	void restoreDeletePage(SimpleState *state, bool isUndo);
 	void setPreviewToolbar();
 	void updateFromDrop();
+
+
+	//! \brief allow SE to get the SM for edit styles
+	StyleManager *styleMgr() const {return m_styleManager;}
+
+
+
 	struct CopyContentsBuffer contentsBuffer;
 	bool internalCopy { false };
 	QString internalCopyBuffer;
@@ -558,8 +565,6 @@ public slots:
 	void slotItemTransform();
 	//! \brief manages paints
 	void manageColorsAndFills();
-	//! \brief allow SE to get the SM for edit styles
-	StyleManager *styleMgr() const {return m_styleManager;};
 	//! \brief drawnew, call palettes to update for new page layout
 	void updateGUIAfterPagesChanged();
 	/**

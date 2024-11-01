@@ -4756,7 +4756,6 @@ void ScribusDoc::restoreCopyPage(SimpleState* ss, bool isUndo)
 }
 
 
-//TODO: Handle saving to versions of SLA, and other formats
 bool ScribusDoc::save(const QString& fileName, QString* savedFile, uint formatID)
 {
 	QProgressBar* mainWindowProgressBar = nullptr;
@@ -4767,14 +4766,13 @@ bool ScribusDoc::save(const QString& fileName, QString* savedFile, uint formatID
 	}
 	FileLoader fl(fileName);
 	bool ret = fl.saveFile(fileName, this, savedFile, formatID);
-	if (ret)
-	{
-		setDocumentFileName(fileName);
-		setModified(false);
-		hasName = true;
-		isConverted = false;
-	}
-	return ret;
+	if (!ret)
+		return false;
+	setDocumentFileName(fileName);
+	setModified(false);
+	hasName = true;
+	isConverted = false;
+	return true;
 }
 
 

@@ -556,7 +556,6 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	else
 		writeSucceed = true;
 	outputFile->close();
-
 	if (writeSucceed)
 	{
 		if (QFile::exists(fileName))

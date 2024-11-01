@@ -125,6 +125,7 @@ for which a new license (GPL+exception) is in place.
 #include "pdflib.h"
 #include "pdfoptions.h"
 #include "pluginmanager.h"
+#include "plugins/formatidlist.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -4080,7 +4081,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 	//Turn off the warnings once the docs is saved.
 	doc->is12doc = false;
 	bool ret = false;
-	QString filename;
+	QString fileName;
 	PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
 	QString wdir;
 	if (doc->hasName)
@@ -4092,7 +4093,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 		else if (completeBaseName.endsWith(".gz", Qt::CaseInsensitive))
 			completeBaseName.chop(3);
 		wdir = QDir::fromNativeSeparators( fi.path() );
-		filename  = QDir::fromNativeSeparators( fi.path()+"/"+completeBaseName+".sla" );
+		fileName  = QDir::fromNativeSeparators( fi.path()+"/"+completeBaseName+".sla" );
 	}
 	else
 	{
@@ -4101,31 +4102,31 @@ bool ScribusMainWindow::slotFileSaveAs()
 			wdir = docContext->get("save_as", prefsDocDir);
 		else
 			wdir = docContext->get("save_as", ".");
-		filename = QDir::fromNativeSeparators( wdir );
+		fileName = QDir::fromNativeSeparators( wdir );
 		if (wdir.right(1) != "/")
-			filename += "/";
-		filename += doc->documentFileName() + ".sla";
+			fileName += "/";
+		fileName += doc->documentFileName() + ".sla";
 	}
 	bool saveCompressed = m_prefsManager.appPrefs.docSetupPrefs.saveCompressed;
 	if (saveCompressed)
-		filename.append(".gz");
+		fileName.append(".gz");
 
 	//QString formats = tr("Documents (*.sla *.sla.gz);;All Files (*)");
 	QString formats(FileLoader::getSaveAsFilterString());
 	int optionFlags = fdCompressFile | fdHidePreviewCheckBox;
-	QPair<QString, uint> fileNameVersion {filename, FORMATID_CURRENTEXPORT};
-	fileNameVersion = CFileDialog( wdir, tr("Save As"), formats, filename, optionFlags, &saveCompressed);
+	QPair<QString, uint> fileNameVersion { fileName, FORMATID_CURRENTEXPORT };
+	fileNameVersion = CFileDialog( wdir, tr("Save As"), formats, fileName, optionFlags, &saveCompressed);
 	QString fn(fileNameVersion.first);
 	if (!fn.isEmpty())
 	{
 		docContext->set("save_as", fn.left(fn.lastIndexOf("/")));
-		filename = fn;
+		fileName = fn;
 		if (!((fn.endsWith(".sla")) || (fn.endsWith(".sla.gz"))))
-			filename = fn+".sla";
-		if (overwrite(this, filename))
+			fileName = fn+".sla";
+		if (overwrite(this, fileName))
 		{
 			QString savedFileName;
-			ret = DoFileSave(filename, &savedFileName, fileNameVersion.second);
+			ret = DoFileSave(fileName, &savedFileName, fileNameVersion.second);
 			if (!ret && !savedFileName.isEmpty())
 				ScMessageBox::warning(this, CommonStrings::trWarning, tr("Your document was saved to a temporary file and could not be moved: \n%1").arg( QDir::toNativeSeparators(savedFileName) ));
 			else if (!ret)
@@ -4138,7 +4139,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 	return ret;
 }
 
-bool ScribusMainWindow::DoFileSave(const QString& fileName, QString* savedFileName,  uint formatID)
+bool ScribusMainWindow::DoFileSave(const QString& fileName, QString* savedFileName, uint formatID)
 {
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
@@ -8022,7 +8023,13 @@ QPair<QString, uint> ScribusMainWindow::CFileDialog(const QString& workingDirect
 		}
 		this->repaint();
 		fileNameVersion.first = dia->selectedFile();
-		fileNameVersion.second=FileLoader::findFormatIDFromDescription(dia->selectedNameFilter());
+		//Qt 6.8 changes what selectedNameFilter returns.. now includes the file extension list. Remove it.
+		QString formatName(dia->selectedNameFilter());
+		int location = formatName.indexOf("(");
+		if (location > 0)
+			formatName.truncate(location);
+		formatName = formatName.trimmed();
+		fileNameVersion.second=FileLoader::findFormatIDFromDescription(formatName);
 		QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
 	delete dia;
