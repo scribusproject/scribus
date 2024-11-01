@@ -137,7 +137,7 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	firstPage = true;
 	pagecount = 1;
 	mpagecount = 0;
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;
@@ -158,14 +158,14 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	/* Set default Page to size defined in Preferences */
 	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
@@ -193,12 +193,12 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 			baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 		}
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -214,7 +214,7 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
@@ -226,8 +226,8 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if ((Elements.count() > 0) && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -279,7 +279,7 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
-				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				auto* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = nullptr;
@@ -302,7 +302,7 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		m_Doc->scMW()->setScriptRunning(false);
 		if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		success = false;
 	}
 	if (interactive)
@@ -310,10 +310,10 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	return success;
 }
 
@@ -335,10 +335,10 @@ bool OdgPlug::convert(const QString& fn)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	QString ext = fi.suffix().toLower();
 	if ((ext == "fodg") || (ext == "fodp"))
 	{
@@ -947,7 +947,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 					while (!allResOK)
 					{
 						allResOK = true;
-						QMap<QString, QString>::iterator itf = formulaMap.begin();
+						auto itf = formulaMap.begin();
 						while (itf != formulaMap.end())
 						{
 							double erg = 0;
@@ -1226,7 +1226,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if (tmpOStyle.measureDist == 0)
 		tmpOStyle.measureDist = tmpOStyle.fontSize;
-	QLineF refLine = QLineF(x1, y1, x2, y2);
+	QLineF refLine(x1, y1, x2, y2);
 	QLineF normRef = refLine.normalVector();
 	normRef.setLength(tmpOStyle.measureDist);
 	double dx = normRef.p2().x() - refLine.p1().x();
@@ -1253,7 +1253,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 		m_Doc->Items->removeLast();
 		GElements.append(retObj);
 	}
-	QLineF refLine2 = QLineF(x2, y2, x1, y1);
+	QLineF refLine2(x2, y2, x1, y1);
 	QLineF normRef2 = refLine2.normalVector();
 	normRef2.setAngle(normRef2.angle() + 180);
 	normRef2.setLength(tmpOStyle.measureDist + tmpOStyle.fontSize / 2.0);
@@ -1273,7 +1273,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 		GElements.append(retObj);
 	}
 	normRef2.setLength(tmpOStyle.measureDist + tmpOStyle.fontSize * 1.2);
-	QLineF textLine = QLineF(normRef.p2(), normRef2.p2());
+	QLineF textLine(normRef.p2(), normRef2.p2());
 	if (textLine.length() != 0)
 	{
 		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+normRef.p2().x(), baseY+normRef.p2().y(), textLine.length(), tmpOStyle.fontSize * 1.2, tmpOStyle.LineW, tmpOStyle.currColorFill, tmpOStyle.currColorStroke);
@@ -1543,7 +1543,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 					if (uz->read(imagePath, f))
 					{
 						QFileInfo fi(imagePath);
-						QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
+						auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
 						tempFile->setAutoRemove(false);
 						if (tempFile->open())
 						{
@@ -1633,7 +1633,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 								if (e.hasAttribute("draw:transform"))
 									retObj->setRotation(r, true);
 								finishItem(retObj, tmpOStyle);
-								QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
+								auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
 								tempFile->setAutoRemove(false);
 								if (tempFile->open())
 								{
@@ -1890,7 +1890,7 @@ void OdgPlug::applyCharacterStyle(CharStyle &tmpCStyle, ObjStyle &oStyle)
 	tmpCStyle.setFeatures(styleEffects.featureList());
 }
 
-void OdgPlug::applyParagraphStyle(ParagraphStyle &tmpStyle, ObjStyle &oStyle)
+void OdgPlug::applyParagraphStyle(ParagraphStyle &tmpStyle, ObjStyle &oStyle) const
 {
 	tmpStyle.setAlignment(oStyle.textAlign);
 	tmpStyle.setLeftMargin(oStyle.margin_left);
@@ -1900,7 +1900,7 @@ void OdgPlug::applyParagraphStyle(ParagraphStyle &tmpStyle, ObjStyle &oStyle)
 	tmpStyle.setGapBefore(oStyle.margin_top);
 }
 
-void OdgPlug::parseTransform(const QString &transform, double *rotation, double *transX, double *transY)
+void OdgPlug::parseTransform(const QString &transform, double *rotation, double *transX, double *transY) const
 {
 	double dx, dy;
 	QStringList subtransforms = transform.split(')', Qt::SkipEmptyParts);
@@ -1937,7 +1937,7 @@ void OdgPlug::parseTransform(const QString &transform, double *rotation, double 
 	}
 }
 
-void OdgPlug::parseTransform(FPointArray *composite, const QString &transform)
+void OdgPlug::parseTransform(FPointArray *composite, const QString &transform) const
 {
 	double dx, dy;
 	QTransform result;
@@ -1990,7 +1990,7 @@ void OdgPlug::parseTransform(FPointArray *composite, const QString &transform)
 	}
 }
 
-void OdgPlug::parseViewBox( const QDomElement& object, double *x, double *y, double *w, double *h )
+void OdgPlug::parseViewBox(const QDomElement& object, double *x, double *y, double *w, double *h) const
 {
 	if (!object.attribute( "svg:viewBox" ).isEmpty())
 	{
@@ -2019,7 +2019,7 @@ void OdgPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 	QStringList ptList = object.attribute( "draw:points" ).split( ' ', Qt::SkipEmptyParts );
 	FPoint point, firstP;
 	bool bFirst = true;
-	for ( QStringList::Iterator it = ptList.begin(); it != ptList.end(); ++it)
+	for (auto it = ptList.begin(); it != ptList.end(); ++it)
 	{
 		point = FPoint(ScCLocale::toDoubleC((*it).section( ',', 0, 0 )), ScCLocale::toDoubleC((*it).section( ',', 1, 1 )));
 		if (bFirst)
@@ -2252,7 +2252,7 @@ void OdgPlug::parseStyles(QDomElement &sp)
 	}
 }
 
-QString OdgPlug::getStyleName(QDomElement &e)
+QString OdgPlug::getStyleName(QDomElement &e) const
 {
 	QString styleName = "standard";
 	if (e.hasAttribute("draw:style-name"))
@@ -2280,167 +2280,166 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, const QString& pAttrs)
 				break;
 		}
 		parents.append(pAttrs);
-		if (!parents.isEmpty())
+
+		for (int p = 0; p < parents.count(); p++)
 		{
-			for (int p = 0; p < parents.count(); p++)
-			{
-				currStyle = m_Styles[parents[p]];
-				if (currStyle.markerViewBox.valid)
-					actStyle.markerViewBox = AttributeValue(currStyle.markerViewBox.value);
-				if (currStyle.markerPath.valid)
-					actStyle.markerPath = AttributeValue(currStyle.markerPath.value);
-				if (currStyle.startMarkerName.valid)
-					actStyle.startMarkerName = AttributeValue(currStyle.startMarkerName.value);
-				if (currStyle.startMarkerWidth.valid)
-					actStyle.startMarkerWidth = AttributeValue(currStyle.startMarkerWidth.value);
-				if (currStyle.startMarkerCentered.valid)
-					actStyle.startMarkerCentered = AttributeValue(currStyle.startMarkerCentered.value);
-				if (currStyle.endMarkerName.valid)
-					actStyle.endMarkerName = AttributeValue(currStyle.endMarkerName.value);
-				if (currStyle.endMarkerWidth.valid)
-					actStyle.endMarkerWidth = AttributeValue(currStyle.endMarkerWidth.value);
-				if (currStyle.endMarkerCentered.valid)
-					actStyle.endMarkerCentered = AttributeValue(currStyle.endMarkerCentered.value);
-				if (currStyle.stroke_dash_distance.valid)
-					actStyle.stroke_dash_distance = AttributeValue(currStyle.stroke_dash_distance.value);
-				if (currStyle.stroke_dash_dots1.valid)
-					actStyle.stroke_dash_dots1 = AttributeValue(currStyle.stroke_dash_dots1.value);
-				if (currStyle.stroke_dash_dots1_length.valid)
-					actStyle.stroke_dash_dots1_length = AttributeValue(currStyle.stroke_dash_dots1_length.value);
-				if (currStyle.stroke_dash_dots2.valid)
-					actStyle.stroke_dash_dots2 = AttributeValue(currStyle.stroke_dash_dots2.value);
-				if (currStyle.stroke_dash_dots2_length.valid)
-					actStyle.stroke_dash_dots2_length = AttributeValue(currStyle.stroke_dash_dots2_length.value);
-				if (currStyle.stroke_dash_style.valid)
-					actStyle.stroke_dash_style = AttributeValue(currStyle.stroke_dash_style.value);
-				if (currStyle.fillMode.valid)
-					actStyle.fillMode = AttributeValue(currStyle.fillMode.value);
-				if (currStyle.currColorFill.valid)
-					actStyle.currColorFill = AttributeValue(currStyle.currColorFill.value);
-				if (currStyle.strokeMode.valid)
-					actStyle.strokeMode = AttributeValue(currStyle.strokeMode.value);
-				if (currStyle.currColorStroke.valid)
-					actStyle.currColorStroke = AttributeValue(currStyle.currColorStroke.value);
-				if (currStyle.currColorShadow.valid)
-					actStyle.currColorShadow = AttributeValue(currStyle.currColorShadow.value);
-				if (currStyle.hasShadow.valid)
-					actStyle.hasShadow = AttributeValue(currStyle.hasShadow.value);
-				if (currStyle.shadowX.valid)
-					actStyle.shadowX = AttributeValue(currStyle.shadowX.value);
-				if (currStyle.shadowY.valid)
-					actStyle.shadowY = AttributeValue(currStyle.shadowY.value);
-				if (currStyle.shadowTrans.valid)
-					actStyle.shadowTrans = AttributeValue(currStyle.shadowTrans.value);
-				if (currStyle.fillOpacity.valid)
-					actStyle.fillOpacity = AttributeValue(currStyle.fillOpacity.value);
-				if (currStyle.strokeOpacity.valid)
-					actStyle.strokeOpacity = AttributeValue(currStyle.strokeOpacity.value);
-				if (currStyle.LineW.valid)
-					actStyle.LineW = AttributeValue(currStyle.LineW.value);
-				if (currStyle.fontName.valid)
-					actStyle.fontName = AttributeValue(currStyle.fontName.value);
-				if (currStyle.fontSize.valid)
-					actStyle.fontSize = AttributeValue(currStyle.fontSize.value);
-				if (currStyle.margin_top.valid)
-					actStyle.margin_top = AttributeValue(currStyle.margin_top.value);
-				if (currStyle.margin_bottom.valid)
-					actStyle.margin_bottom = AttributeValue(currStyle.margin_bottom.value);
-				if (currStyle.margin_left.valid)
-					actStyle.margin_left = AttributeValue(currStyle.margin_left.value);
-				if (currStyle.margin_right.valid)
-					actStyle.margin_right = AttributeValue(currStyle.margin_right.value);
-				if (currStyle.page_width.valid)
-					actStyle.page_width = AttributeValue(currStyle.page_width.value);
-				if (currStyle.page_height.valid)
-					actStyle.page_height = AttributeValue(currStyle.page_height.value);
-				if (currStyle.page_layout_name.valid)
-					actStyle.page_layout_name = AttributeValue(currStyle.page_layout_name.value);
-				if (currStyle.textIndent.valid)
-					actStyle.textIndent = AttributeValue(currStyle.textIndent.value);
-				if (currStyle.textAlign.valid)
-					actStyle.textAlign = AttributeValue(currStyle.textAlign.value);
-				if (currStyle.textPos.valid)
-					actStyle.textPos = AttributeValue(currStyle.textPos.value);
-				if (currStyle.textOutline.valid)
-					actStyle.textOutline = AttributeValue(currStyle.textOutline.value);
-				if (currStyle.textUnderline.valid)
-					actStyle.textUnderline = AttributeValue(currStyle.textUnderline.value);
-				if (currStyle.textUnderlineWords.valid)
-					actStyle.textUnderlineWords = AttributeValue(currStyle.textUnderlineWords.value);
-				if (currStyle.textUnderlineColor.valid)
-					actStyle.textUnderlineColor = AttributeValue(currStyle.textUnderlineColor.value);
-				if (currStyle.textStrikeThrough.valid)
-					actStyle.textStrikeThrough = AttributeValue(currStyle.textStrikeThrough.value);
-				if (currStyle.textShadow.valid)
-					actStyle.textShadow = AttributeValue(currStyle.textShadow.value);
-				if (currStyle.lineHeight.valid)
-					actStyle.lineHeight = AttributeValue(currStyle.lineHeight.value);
-				if (currStyle.fontColor.valid)
-					actStyle.fontColor = AttributeValue(currStyle.fontColor.value);
-				if (currStyle.textBackgroundColor.valid)
-					actStyle.textBackgroundColor = AttributeValue(currStyle.textBackgroundColor.value);
-				if (currStyle.gradientAngle.valid)
-					actStyle.gradientAngle = AttributeValue(currStyle.gradientAngle.value);
-				if (currStyle.gradientBorder.valid)
-					actStyle.gradientBorder = AttributeValue(currStyle.gradientBorder.value);
-				if (currStyle.gradientEndColor.valid)
-					actStyle.gradientEndColor = AttributeValue(currStyle.gradientEndColor.value);
-				if (currStyle.gradientEndShade.valid)
-					actStyle.gradientEndShade = AttributeValue(currStyle.gradientEndShade.value);
-				if (currStyle.gradientStartColor.valid)
-					actStyle.gradientStartColor = AttributeValue(currStyle.gradientStartColor.value);
-				if (currStyle.gradientStartShade.valid)
-					actStyle.gradientStartShade = AttributeValue(currStyle.gradientStartShade.value);
-				if (currStyle.gradientCenterX.valid)
-					actStyle.gradientCenterX = AttributeValue(currStyle.gradientCenterX.value);
-				if (currStyle.gradientCenterY.valid)
-					actStyle.gradientCenterY = AttributeValue(currStyle.gradientCenterY.value);
-				if (currStyle.gradientType.valid)
-					actStyle.gradientType = AttributeValue(currStyle.gradientType.value);
-				if (currStyle.gradientName.valid)
-					actStyle.gradientName = AttributeValue(currStyle.gradientName.value);
-				if (currStyle.dashName.valid)
-					actStyle.dashName = AttributeValue(currStyle.dashName.value);
-				if (currStyle.measureDist.valid)
-					actStyle.measureDist = AttributeValue(currStyle.measureDist.value);
-				if (currStyle.patternName.valid)
-					actStyle.patternName = AttributeValue(currStyle.patternName.value);
-				if (currStyle.patternPath.valid)
-					actStyle.patternPath = AttributeValue(currStyle.patternPath.value);
-				if (currStyle.patternData.valid)
-					actStyle.patternData = AttributeValue(currStyle.patternData.value);
-				if (currStyle.patternWidth.valid)
-					actStyle.patternWidth = AttributeValue(currStyle.patternWidth.value);
-				if (currStyle.patternHeight.valid)
-					actStyle.patternHeight = AttributeValue(currStyle.patternHeight.value);
-				if (currStyle.patternX.valid)
-					actStyle.patternX = AttributeValue(currStyle.patternX.value);
-				if (currStyle.patternY.valid)
-					actStyle.patternY = AttributeValue(currStyle.patternY.value);
-				if (currStyle.patternStretch.valid)
-					actStyle.patternStretch = AttributeValue(currStyle.patternStretch.value);
-				if (currStyle.hatchName.valid)
-					actStyle.hatchName = AttributeValue(currStyle.hatchName.value);
-				if (currStyle.hatchColor.valid)
-					actStyle.hatchColor = AttributeValue(currStyle.hatchColor.value);
-				if (currStyle.hatchDistance.valid)
-					actStyle.hatchDistance = AttributeValue(currStyle.hatchDistance.value);
-				if (currStyle.hatchRotation.valid)
-					actStyle.hatchRotation = AttributeValue(currStyle.hatchRotation.value);
-				if (currStyle.hatchStyle.valid)
-					actStyle.hatchStyle = AttributeValue(currStyle.hatchStyle.value);
-				if (currStyle.hatchSolidFill.valid)
-					actStyle.hatchSolidFill = AttributeValue(currStyle.hatchSolidFill.value);
-				if (currStyle.opacityName.valid)
-					actStyle.opacityName = AttributeValue(currStyle.opacityName.value);
-				if (currStyle.opacityEnd.valid)
-					actStyle.opacityEnd = AttributeValue(currStyle.opacityEnd.value);
-				if (currStyle.opacityStart.valid)
-					actStyle.opacityStart = AttributeValue(currStyle.opacityStart.value);
-				if (currStyle.verticalAlignment.valid)
-					actStyle.verticalAlignment = AttributeValue(currStyle.verticalAlignment.value);
-			}
+			currStyle = m_Styles[parents[p]];
+			if (currStyle.markerViewBox.valid)
+				actStyle.markerViewBox = AttributeValue(currStyle.markerViewBox.value);
+			if (currStyle.markerPath.valid)
+				actStyle.markerPath = AttributeValue(currStyle.markerPath.value);
+			if (currStyle.startMarkerName.valid)
+				actStyle.startMarkerName = AttributeValue(currStyle.startMarkerName.value);
+			if (currStyle.startMarkerWidth.valid)
+				actStyle.startMarkerWidth = AttributeValue(currStyle.startMarkerWidth.value);
+			if (currStyle.startMarkerCentered.valid)
+				actStyle.startMarkerCentered = AttributeValue(currStyle.startMarkerCentered.value);
+			if (currStyle.endMarkerName.valid)
+				actStyle.endMarkerName = AttributeValue(currStyle.endMarkerName.value);
+			if (currStyle.endMarkerWidth.valid)
+				actStyle.endMarkerWidth = AttributeValue(currStyle.endMarkerWidth.value);
+			if (currStyle.endMarkerCentered.valid)
+				actStyle.endMarkerCentered = AttributeValue(currStyle.endMarkerCentered.value);
+			if (currStyle.stroke_dash_distance.valid)
+				actStyle.stroke_dash_distance = AttributeValue(currStyle.stroke_dash_distance.value);
+			if (currStyle.stroke_dash_dots1.valid)
+				actStyle.stroke_dash_dots1 = AttributeValue(currStyle.stroke_dash_dots1.value);
+			if (currStyle.stroke_dash_dots1_length.valid)
+				actStyle.stroke_dash_dots1_length = AttributeValue(currStyle.stroke_dash_dots1_length.value);
+			if (currStyle.stroke_dash_dots2.valid)
+				actStyle.stroke_dash_dots2 = AttributeValue(currStyle.stroke_dash_dots2.value);
+			if (currStyle.stroke_dash_dots2_length.valid)
+				actStyle.stroke_dash_dots2_length = AttributeValue(currStyle.stroke_dash_dots2_length.value);
+			if (currStyle.stroke_dash_style.valid)
+				actStyle.stroke_dash_style = AttributeValue(currStyle.stroke_dash_style.value);
+			if (currStyle.fillMode.valid)
+				actStyle.fillMode = AttributeValue(currStyle.fillMode.value);
+			if (currStyle.currColorFill.valid)
+				actStyle.currColorFill = AttributeValue(currStyle.currColorFill.value);
+			if (currStyle.strokeMode.valid)
+				actStyle.strokeMode = AttributeValue(currStyle.strokeMode.value);
+			if (currStyle.currColorStroke.valid)
+				actStyle.currColorStroke = AttributeValue(currStyle.currColorStroke.value);
+			if (currStyle.currColorShadow.valid)
+				actStyle.currColorShadow = AttributeValue(currStyle.currColorShadow.value);
+			if (currStyle.hasShadow.valid)
+				actStyle.hasShadow = AttributeValue(currStyle.hasShadow.value);
+			if (currStyle.shadowX.valid)
+				actStyle.shadowX = AttributeValue(currStyle.shadowX.value);
+			if (currStyle.shadowY.valid)
+				actStyle.shadowY = AttributeValue(currStyle.shadowY.value);
+			if (currStyle.shadowTrans.valid)
+				actStyle.shadowTrans = AttributeValue(currStyle.shadowTrans.value);
+			if (currStyle.fillOpacity.valid)
+				actStyle.fillOpacity = AttributeValue(currStyle.fillOpacity.value);
+			if (currStyle.strokeOpacity.valid)
+				actStyle.strokeOpacity = AttributeValue(currStyle.strokeOpacity.value);
+			if (currStyle.LineW.valid)
+				actStyle.LineW = AttributeValue(currStyle.LineW.value);
+			if (currStyle.fontName.valid)
+				actStyle.fontName = AttributeValue(currStyle.fontName.value);
+			if (currStyle.fontSize.valid)
+				actStyle.fontSize = AttributeValue(currStyle.fontSize.value);
+			if (currStyle.margin_top.valid)
+				actStyle.margin_top = AttributeValue(currStyle.margin_top.value);
+			if (currStyle.margin_bottom.valid)
+				actStyle.margin_bottom = AttributeValue(currStyle.margin_bottom.value);
+			if (currStyle.margin_left.valid)
+				actStyle.margin_left = AttributeValue(currStyle.margin_left.value);
+			if (currStyle.margin_right.valid)
+				actStyle.margin_right = AttributeValue(currStyle.margin_right.value);
+			if (currStyle.page_width.valid)
+				actStyle.page_width = AttributeValue(currStyle.page_width.value);
+			if (currStyle.page_height.valid)
+				actStyle.page_height = AttributeValue(currStyle.page_height.value);
+			if (currStyle.page_layout_name.valid)
+				actStyle.page_layout_name = AttributeValue(currStyle.page_layout_name.value);
+			if (currStyle.textIndent.valid)
+				actStyle.textIndent = AttributeValue(currStyle.textIndent.value);
+			if (currStyle.textAlign.valid)
+				actStyle.textAlign = AttributeValue(currStyle.textAlign.value);
+			if (currStyle.textPos.valid)
+				actStyle.textPos = AttributeValue(currStyle.textPos.value);
+			if (currStyle.textOutline.valid)
+				actStyle.textOutline = AttributeValue(currStyle.textOutline.value);
+			if (currStyle.textUnderline.valid)
+				actStyle.textUnderline = AttributeValue(currStyle.textUnderline.value);
+			if (currStyle.textUnderlineWords.valid)
+				actStyle.textUnderlineWords = AttributeValue(currStyle.textUnderlineWords.value);
+			if (currStyle.textUnderlineColor.valid)
+				actStyle.textUnderlineColor = AttributeValue(currStyle.textUnderlineColor.value);
+			if (currStyle.textStrikeThrough.valid)
+				actStyle.textStrikeThrough = AttributeValue(currStyle.textStrikeThrough.value);
+			if (currStyle.textShadow.valid)
+				actStyle.textShadow = AttributeValue(currStyle.textShadow.value);
+			if (currStyle.lineHeight.valid)
+				actStyle.lineHeight = AttributeValue(currStyle.lineHeight.value);
+			if (currStyle.fontColor.valid)
+				actStyle.fontColor = AttributeValue(currStyle.fontColor.value);
+			if (currStyle.textBackgroundColor.valid)
+				actStyle.textBackgroundColor = AttributeValue(currStyle.textBackgroundColor.value);
+			if (currStyle.gradientAngle.valid)
+				actStyle.gradientAngle = AttributeValue(currStyle.gradientAngle.value);
+			if (currStyle.gradientBorder.valid)
+				actStyle.gradientBorder = AttributeValue(currStyle.gradientBorder.value);
+			if (currStyle.gradientEndColor.valid)
+				actStyle.gradientEndColor = AttributeValue(currStyle.gradientEndColor.value);
+			if (currStyle.gradientEndShade.valid)
+				actStyle.gradientEndShade = AttributeValue(currStyle.gradientEndShade.value);
+			if (currStyle.gradientStartColor.valid)
+				actStyle.gradientStartColor = AttributeValue(currStyle.gradientStartColor.value);
+			if (currStyle.gradientStartShade.valid)
+				actStyle.gradientStartShade = AttributeValue(currStyle.gradientStartShade.value);
+			if (currStyle.gradientCenterX.valid)
+				actStyle.gradientCenterX = AttributeValue(currStyle.gradientCenterX.value);
+			if (currStyle.gradientCenterY.valid)
+				actStyle.gradientCenterY = AttributeValue(currStyle.gradientCenterY.value);
+			if (currStyle.gradientType.valid)
+				actStyle.gradientType = AttributeValue(currStyle.gradientType.value);
+			if (currStyle.gradientName.valid)
+				actStyle.gradientName = AttributeValue(currStyle.gradientName.value);
+			if (currStyle.dashName.valid)
+				actStyle.dashName = AttributeValue(currStyle.dashName.value);
+			if (currStyle.measureDist.valid)
+				actStyle.measureDist = AttributeValue(currStyle.measureDist.value);
+			if (currStyle.patternName.valid)
+				actStyle.patternName = AttributeValue(currStyle.patternName.value);
+			if (currStyle.patternPath.valid)
+				actStyle.patternPath = AttributeValue(currStyle.patternPath.value);
+			if (currStyle.patternData.valid)
+				actStyle.patternData = AttributeValue(currStyle.patternData.value);
+			if (currStyle.patternWidth.valid)
+				actStyle.patternWidth = AttributeValue(currStyle.patternWidth.value);
+			if (currStyle.patternHeight.valid)
+				actStyle.patternHeight = AttributeValue(currStyle.patternHeight.value);
+			if (currStyle.patternX.valid)
+				actStyle.patternX = AttributeValue(currStyle.patternX.value);
+			if (currStyle.patternY.valid)
+				actStyle.patternY = AttributeValue(currStyle.patternY.value);
+			if (currStyle.patternStretch.valid)
+				actStyle.patternStretch = AttributeValue(currStyle.patternStretch.value);
+			if (currStyle.hatchName.valid)
+				actStyle.hatchName = AttributeValue(currStyle.hatchName.value);
+			if (currStyle.hatchColor.valid)
+				actStyle.hatchColor = AttributeValue(currStyle.hatchColor.value);
+			if (currStyle.hatchDistance.valid)
+				actStyle.hatchDistance = AttributeValue(currStyle.hatchDistance.value);
+			if (currStyle.hatchRotation.valid)
+				actStyle.hatchRotation = AttributeValue(currStyle.hatchRotation.value);
+			if (currStyle.hatchStyle.valid)
+				actStyle.hatchStyle = AttributeValue(currStyle.hatchStyle.value);
+			if (currStyle.hatchSolidFill.valid)
+				actStyle.hatchSolidFill = AttributeValue(currStyle.hatchSolidFill.value);
+			if (currStyle.opacityName.valid)
+				actStyle.opacityName = AttributeValue(currStyle.opacityName.value);
+			if (currStyle.opacityEnd.valid)
+				actStyle.opacityEnd = AttributeValue(currStyle.opacityEnd.value);
+			if (currStyle.opacityStart.valid)
+				actStyle.opacityStart = AttributeValue(currStyle.opacityStart.value);
+			if (currStyle.verticalAlignment.valid)
+				actStyle.verticalAlignment = AttributeValue(currStyle.verticalAlignment.value);
 		}
+
 		tmpOStyle.stroke_dash_distance = -1;
 		tmpOStyle.stroke_dash_dots1_length = -1;
 		tmpOStyle.stroke_dash_dots2_length = -1;
@@ -2754,7 +2753,7 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, const QString& pAttrs)
 	}
 }
 
-double OdgPlug::parseUnit(const QString &unit)
+double OdgPlug::parseUnit(const QString &unit) const
 {
 	QString unitval = unit;
 	if (unit.isEmpty())
@@ -2787,7 +2786,7 @@ double OdgPlug::parseUnit(const QString &unit)
 	return value;
 }
 
-const char * OdgPlug::getCoord( const char *ptr, double &number )
+const char * OdgPlug::getCoord( const char *ptr, double &number ) const
 {
 	int integer, exponent;
 	double decimal, frac;
@@ -3047,7 +3046,7 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 	return ret;
 }
 
-double OdgPlug::angleFromPoint(const QPointF &point)
+double OdgPlug::angleFromPoint(const QPointF &point) const
 {
 	double angle = atan2(point.y(), point.x());
 	if (angle < 0.0)
@@ -3055,7 +3054,7 @@ double OdgPlug::angleFromPoint(const QPointF &point)
 	return 2*M_PI - angle;
 }
 
-double OdgPlug::radSweepAngle(double start, double stop, bool clockwise)
+double OdgPlug::radSweepAngle(double start, double stop, bool clockwise) const
 {
 	double sweepAngle = stop - start;
 	if (fabs(sweepAngle) < 0.1) {
@@ -3074,7 +3073,7 @@ double OdgPlug::radSweepAngle(double start, double stop, bool clockwise)
    return sweepAngle;
 }
 
-double OdgPlug::degSweepAngle(double start, double stop, bool clockwise)
+double OdgPlug::degSweepAngle(double start, double stop, bool clockwise) const
 {
 	double sweepAngle = stop - start;
 	if (fabs(sweepAngle) < 0.1) {
@@ -3092,7 +3091,7 @@ double OdgPlug::degSweepAngle(double start, double stop, bool clockwise)
    return sweepAngle;
 }
 
-void OdgPlug::arcTo(QPainterPath &path, QPointF startpoint, double rx, double ry, double startAngle, double sweepAngle)
+void OdgPlug::arcTo(QPainterPath &path, QPointF startpoint, double rx, double ry, double startAngle, double sweepAngle) const
 {
 	QPointF curvePoints[12];
 	int pointCnt = arcToCurve(rx, ry, startAngle, sweepAngle, startpoint, curvePoints);
@@ -3102,7 +3101,7 @@ void OdgPlug::arcTo(QPainterPath &path, QPointF startpoint, double rx, double ry
 	}
 }
 
-int OdgPlug::arcToCurve(double rx, double ry, double startAngle, double sweepAngle, const QPointF & offset, QPointF * curvePoints)
+int OdgPlug::arcToCurve(double rx, double ry, double startAngle, double sweepAngle, const QPointF & offset, QPointF * curvePoints) const
 {
 	int pointCnt = 0;
 
@@ -3226,23 +3225,23 @@ QString OdgPlug::parseColor( const QString &s )
 	{
 		QString parse = s.trimmed();
 		QStringList colors = parse.split( ',', Qt::SkipEmptyParts );
-		QString r = colors[0].right( ( colors[0].length() - 4 ) );
+		QString r = colors[0].right( colors[0].length() - 4 );
 		QString g = colors[1];
-		QString b = colors[2].left( ( colors[2].length() - 1 ) );
+		QString b = colors[2].left( colors[2].length() - 1 );
 		if (r.contains( "%" ))
 		{
 			r.chop(1);
-			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
+			r = QString::number( static_cast<int>(2.55 * ScCLocale::toDoubleC(r)) );
 		}
 		if (g.contains( "%" ))
 		{
 			g.chop(1);
-			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
+			g = QString::number( static_cast<int>(2.55 * ScCLocale::toDoubleC(g)) );
 		}
 		if (b.contains( "%" ))
 		{
 			b.chop(1);
-			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
+			b = QString::number( static_cast<int>(2.55 * ScCLocale::toDoubleC(b)) );
 		}
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
@@ -3312,12 +3311,12 @@ QString OdgPlug::constructFontName(const QString& fontBaseName, const QString& f
 				family += " " + fontStyle;
 			if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(family))
 			{
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
+				QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				auto *dia = new MissingFont(nullptr, family, m_Doc);
 				dia->exec();
 				fontName = dia->getReplacementFont();
 				delete dia;
-				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+				QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 				PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
 			}
 			else
@@ -3327,7 +3326,7 @@ QString OdgPlug::constructFontName(const QString& fontBaseName, const QString& f
 	return fontName;
 }
 
-QPointF OdgPlug::intersectBoundingRect(PageItem *item, QLineF gradientVector)
+QPointF OdgPlug::intersectBoundingRect(PageItem *item, QLineF gradientVector) const
 {
 	QPointF interPoint;
 	QPointF gradEnd;
@@ -3624,7 +3623,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 				item->GrEndX = item->width() / 2.0;
 				item->GrEndY = item->height();
 			}
-			QLineF gradientVectorE = QLineF(item->GrStartX, item->GrStartY, item->GrEndX, item->GrEndY);
+			QLineF gradientVectorE(item->GrStartX, item->GrStartY, item->GrEndX, item->GrEndY);
 			gradientVectorE.setAngle(gStyle.gradientAngle);
 			item->GrEndX = gradientVectorE.p2().x();
 			item->GrEndY = gradientVectorE.p2().y();
@@ -3641,15 +3640,15 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0 - gStyle.gradientBorder, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
 			if (gStyle.gradientBorder != 0)
 				item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
-			FPoint cp = FPoint(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
+			FPoint cp(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
 			double gLen = qMin(item->width(), item->height()) / 2.0;
-			QLineF p1 = QLineF(cp.x(), cp.y(), cp.x() - gLen, cp.y() - gLen);
+			QLineF p1(cp.x(), cp.y(), cp.x() - gLen, cp.y() - gLen);
 			p1.setAngle(p1.angle() + gStyle.gradientAngle);
-			QLineF p2 = QLineF(cp.x(), cp.y(), cp.x() + gLen, cp.y() - gLen);
+			QLineF p2(cp.x(), cp.y(), cp.x() + gLen, cp.y() - gLen);
 			p2.setAngle(p2.angle() + gStyle.gradientAngle);
-			QLineF p3 = QLineF(cp.x(), cp.y(), cp.x() + gLen, cp.y() + gLen);
+			QLineF p3(cp.x(), cp.y(), cp.x() + gLen, cp.y() + gLen);
 			p3.setAngle(p3.angle() + gStyle.gradientAngle);
-			QLineF p4 = QLineF(cp.x(), cp.y(), cp.x() - gLen, cp.y() + gLen);
+			QLineF p4(cp.x(), cp.y(), cp.x() - gLen, cp.y() + gLen);
 			p4.setAngle(p4.angle() + gStyle.gradientAngle);
 			item->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
 			item->GrType = Gradient_Diamond;
@@ -3667,20 +3666,20 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->fill_gradient.addStop(gradColor2, 1.0 - gStyle.gradientBorder, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
 			if (gStyle.gradientBorder != 0)
 				item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
-			FPoint cp = FPoint(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
+			FPoint cp(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
 			double gLenW = item->width() / 2.0;
 			double gLenH = item->height() / 2.0;
 
-			QPointF P1 = QPointF(0.0, 0.0);
-			QPointF P2 = QPointF(item->width(), 0.0);
-			QPointF P3 = QPointF(item->width(), item->height());
-			QPointF P4 = QPointF(0.0, item->height());
-			QLineF L1 = QLineF(0.0, 0.0, item->width(), 0.0);
+			QPointF P1(0.0, 0.0);
+			QPointF P2(item->width(), 0.0);
+			QPointF P3(item->width(), item->height());
+			QPointF P4(0.0, item->height());
+			QLineF L1(0.0, 0.0, item->width(), 0.0);
 			L1.setAngle(-45);
-			QLineF LCW = QLineF(0.0, item->height() / 2.0, item->width(), item->height() / 2.0);
+			QLineF LCW (0.0, item->height() / 2.0, item->width(), item->height() / 2.0);
 			QPointF P5;
 			LCW.intersects(L1, &P5);
-			QPointF P6 = QPointF(item->width() - P5.x(), P5.y());
+			QPointF P6(item->width() - P5.x(), P5.y());
 			QPolygonF pPoints;
 			pPoints << P1 << P2 << P3 << P4 << P5 << P6;
 			QTransform mat;
@@ -3766,13 +3765,13 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->GrType = Gradient_PatchMesh;
 */
 
-			QLineF p1 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() - gLenH);
+			QLineF p1(cp.x(), cp.y(), cp.x() - gLenW, cp.y() - gLenH);
 			p1.setAngle(p1.angle() + gStyle.gradientAngle);
-			QLineF p2 = QLineF(cp.x(), cp.y(), cp.x() + gLenW, cp.y() - gLenH);
+			QLineF p2(cp.x(), cp.y(), cp.x() + gLenW, cp.y() - gLenH);
 			p2.setAngle(p2.angle() + gStyle.gradientAngle);
-			QLineF p3 = QLineF(cp.x(), cp.y(), cp.x() + gLenW, cp.y() + gLenH);
+			QLineF p3(cp.x(), cp.y(), cp.x() + gLenW, cp.y() + gLenH);
 			p3.setAngle(p3.angle() + gStyle.gradientAngle);
-			QLineF p4 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() + gLenH);
+			QLineF p4(cp.x(), cp.y(), cp.x() - gLenW, cp.y() + gLenH);
 			p4.setAngle(p4.angle() + gStyle.gradientAngle);
 			item->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
 			item->GrType = Gradient_Diamond;
@@ -3828,7 +3827,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 				if (uz->read(gStyle.patternPath, f))
 				{
 					QFileInfo fi(gStyle.patternPath);
-					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
+					auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
 					tempFile->setAutoRemove(false);
 					if (tempFile->open())
 					{
@@ -3923,7 +3922,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 					ext = "svm";
 				if (!ext.isEmpty())
 				{
-					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
+					auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
 					tempFile->setAutoRemove(false);
 					if (tempFile->open())
 					{
@@ -4105,7 +4104,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 				GrEndX = item->width() / 2.0;
 				GrEndY = item->height();
 			}
-			QLineF gradientVectorE = QLineF(GrStartX, GrStartY, GrEndX, GrEndY);
+			QLineF gradientVectorE(GrStartX, GrStartY, GrEndX, GrEndY);
 			gradientVectorE.setAngle(gStyle.gradientAngle);
 			GrEndX = gradientVectorE.p2().x();
 			GrEndY = gradientVectorE.p2().y();
