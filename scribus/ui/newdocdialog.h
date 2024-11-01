@@ -61,7 +61,7 @@ public:
 	void createOpenDocPage();
 	void createRecentDocPage();
 	void setSize(const QString& gr);
-	QString pageSizeName() { return m_pageSize; };
+	QString pageSizeName() const { return m_pageSize; };
 
 	QFileDialog *fileDialog {nullptr};
 
