@@ -127,6 +127,7 @@ void PageSizeList::loadPageSizes(QString name, int orientation, PageSizeInfo::Ca
 		{
 			QStandardItem* itemA = new QStandardItem();
 			itemA->setText(item.trSizeName);
+			itemA->setEditable(false);
 			itemA->setIcon(sizePreview(this->iconSize(), size));
 			itemA->setData(QVariant(item.sizeLabel), ItemData::SizeLabel);
 			itemA->setData(QVariant(item.pageUnitIndex), ItemData::Unit);
