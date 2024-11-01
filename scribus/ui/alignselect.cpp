@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 
 AlignSelect::AlignSelect(QWidget* parent) : FormWidget(parent)
 {
-	IconManager& im = IconManager::instance();
 	buttonGroup = new QButtonGroup(this);
 
 	TextL = new QToolButton( this );
