@@ -739,9 +739,11 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	QList<PageItem*> TableItems;
 	int x, a;
 	PageItem *newItem;
+
 	groupRemap.clear();
 	itemRemap.clear();
 	itemNext.clear();
+
 	QDomDocument docu("scridoc");
 	QFile fi(fileName);
 	// Load the document text
@@ -751,7 +753,16 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 		setFileReadError();
 		return false;
 	}
+
 	// Build the DOM from it
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = docu.setContent(f);
+	if (!parseResult)
+	{
+		setDomParsingError(parseResult.errorMessage, parseResult.errorLine, parseResult.errorColumn);
+		return false;
+	}
+#else
 	QString errorMsg;
 	int errorLine, errorColumn;
 	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
@@ -759,6 +770,8 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 		setDomParsingError(errorMsg, errorLine, errorColumn);
 		return false;
 	}
+#endif
+
 	// Get file directory
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	// and begin loading the doc
@@ -1855,6 +1868,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	DoVorl[3] = "";
 	DoVorl[4] = "";
 	VorlC = 5;
+
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -1862,6 +1876,15 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		setFileReadError();
 		return false;
 	}
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = docu.setContent(f);
+	if (!parseResult)
+	{
+		setDomParsingError(parseResult.errorMessage, parseResult.errorLine, parseResult.errorColumn);
+		return false;
+	}
+#else
 	QString errorMsg;
 	int errorLine, errorColumn;
 	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
@@ -1869,6 +1892,8 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		setDomParsingError(errorMsg, errorLine, errorColumn);
 		return false;
 	}
+#endif
+
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	ScColor lf;
 	QDomElement elem = docu.documentElement();

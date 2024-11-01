@@ -183,15 +183,29 @@ void Prefs_Spelling::setAvailDictsXMLFile(const QString& availDictsXMLDataFile)
 		return;
 	if (!dataFile.open(QIODevice::ReadOnly))
 		return;
+
 	QTextStream ts(&dataFile);
 	ts.setEncoding(QStringConverter::Utf8);
-	QString errorMsg;
-	int eline;
-	int ecol;
+
 	QDomDocument doc( "scribus_spell_dicts" );
 	QString data(ts.readAll());
 	dataFile.close();
-	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = doc.setContent(data);
+	if (!parseResult)
+	{
+		if (data.contains("404 not found", Qt::CaseInsensitive))
+			qDebug() << "File not found on server";
+		else
+			qDebug() << "Could not open file" << availDictsXMLDataFile;
+		return;
+	}
+#else
+	QString errorMsg;
+	int eline;
+	int ecol;
+	if (!doc.setContent(data, &errorMsg, &eline, &ecol))
 	{
 		if (data.contains("404 not found", Qt::CaseInsensitive))
 			qDebug()<<"File not found on server";
@@ -199,6 +213,8 @@ void Prefs_Spelling::setAvailDictsXMLFile(const QString& availDictsXMLDataFile)
 			qDebug()<<"Could not open file"<<availDictsXMLDataFile;
 		return;
 	}
+#endif
+
 	dictList.clear();
 	QDomElement docElem = doc.documentElement();
 	for (QDomNode n = docElem.firstChild(); !n.isNull(); n = n.nextSibling())

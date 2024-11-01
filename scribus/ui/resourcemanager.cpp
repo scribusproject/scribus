@@ -119,13 +119,27 @@ void ResourceManager::readAvailableFonts()
 
 	QTextStream ts(&dataFile);
 	ts.setEncoding(QStringConverter::Utf8);
-	QString errorMsg;
-	int eline;
-	int ecol;
+
 	QDomDocument doc( m_dataFiles[RM_FONTS] );
 	QString data(ts.readAll());
 	dataFile.close();
-	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = doc.setContent(data);
+	if (!parseResult)
+	{
+//		qDebug() << parseResult.errorMessage << parseResult.errorLine << parseResult.errorColumn;
+		if (data.contains("404 not found", Qt::CaseInsensitive))
+			qDebug() << "File not found on server";
+		else
+			qDebug() << "Could not open file" << dataFile.fileName();
+		return;
+	}
+#else
+	QString errorMsg;
+	int eline;
+	int ecol;
+	if (!doc.setContent( data, &errorMsg, &eline, &ecol))
 	{
 //		qDebug()<<errorMsg<<eline<<ecol;
 		if (data.contains("404 not found", Qt::CaseInsensitive))
@@ -134,6 +148,7 @@ void ResourceManager::readAvailableFonts()
 			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
+#endif
 	m_availableList.clear();
 
 	QDomElement docElem = doc.documentElement();
@@ -176,13 +191,14 @@ void ResourceManager::readAvailableHelp()
 
 	QTextStream ts(&dataFile);
 	ts.setEncoding(QStringConverter::Utf8);
-	QString errorMsg;
-	int eline;
-	int ecol;
+
 	QDomDocument doc( QString(m_dataFiles[RM_HELP]).remove(".xml") );
 	QString data(ts.readAll());
 	dataFile.close();
-	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = doc.setContent(data);
+	if (!parseResult)
 	{
 		if (data.contains("404 not found", Qt::CaseInsensitive))
 			qDebug() << "File not found on server";
@@ -190,6 +206,19 @@ void ResourceManager::readAvailableHelp()
 			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
+#else
+	QString errorMsg;
+	int eline;
+	int ecol;
+	if (!doc.setContent( data, &errorMsg, &eline, &ecol))
+	{
+		if (data.contains("404 not found", Qt::CaseInsensitive))
+			qDebug() << "File not found on server";
+		else
+			qDebug() << "Could not open file" << dataFile.fileName();
+		return;
+	}
+#endif
 	m_availableList.clear();
 
 	QDomElement docElem = doc.documentElement();
@@ -230,13 +259,14 @@ void ResourceManager::readAvailablePalettes()
 
 	QTextStream ts(&dataFile);
 	ts.setEncoding(QStringConverter::Utf8);
-	QString errorMsg;
-	int eline;
-	int ecol;
+
 	QDomDocument doc( QString(m_dataFiles[RM_PALETTES]).remove(".xml") );
 	QString data(ts.readAll());
 	dataFile.close();
-	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = doc.setContent(data);
+	if (!parseResult)
 	{
 		if (data.contains("404 not found", Qt::CaseInsensitive))
 			qDebug() << "File not found on server";
@@ -244,6 +274,19 @@ void ResourceManager::readAvailablePalettes()
 			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
+#else
+	QString errorMsg;
+	int eline;
+	int ecol;
+	if (!doc.setContent(data, &errorMsg, &eline, &ecol))
+	{
+		if (data.contains("404 not found", Qt::CaseInsensitive))
+			qDebug() << "File not found on server";
+		else
+			qDebug() << "Could not open file" << dataFile.fileName();
+		return;
+	}
+#endif
 	m_availableList.clear();
 
 	QDomElement docElem = doc.documentElement();
@@ -563,13 +606,14 @@ void ResourceManager::updateAvailableHyph()
 
 	QTextStream ts(&dataFile);
 	ts.setEncoding(QStringConverter::Utf8);
-	QString errorMsg;
-	int eline;
-	int ecol;
+
 	QDomDocument doc( QString(m_dataFiles[RM_HYPH]).remove(".xml") );
 	QString data(ts.readAll());
 	dataFile.close();
-	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = doc.setContent(data);
+	if (!parseResult)
 	{
 		if (data.contains("404 not found", Qt::CaseInsensitive))
 			qDebug() << "File not found on server";
@@ -577,6 +621,19 @@ void ResourceManager::updateAvailableHyph()
 			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
+#else
+	QString errorMsg;
+	int eline;
+	int ecol;
+	if (!doc.setContent(data, &errorMsg, &eline, &ecol))
+	{
+		if (data.contains("404 not found", Qt::CaseInsensitive))
+			qDebug() << "File not found on server";
+		else
+			qDebug() << "Could not open file" << dataFile.fileName();
+		return;
+	}
+#endif
 	m_availableList.clear();
 
 	QDomElement docElem = doc.documentElement();
@@ -662,13 +719,14 @@ void ResourceManager::updateAvailableSpell()
 
 	QTextStream ts(&dataFile);
 	ts.setEncoding(QStringConverter::Utf8);
-	QString errorMsg;
-	int eline;
-	int ecol;
+
 	QDomDocument doc( QString(m_dataFiles[RM_SPELL]).remove(".xml") );
 	QString data(ts.readAll());
 	dataFile.close();
-	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = doc.setContent(data);
+	if (!parseResult)
 	{
 		if (data.contains("404 not found", Qt::CaseInsensitive))
 			qDebug() << "File not found on server";
@@ -676,6 +734,19 @@ void ResourceManager::updateAvailableSpell()
 			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
+#else
+	QString errorMsg;
+	int eline;
+	int ecol;
+	if (!doc.setContent(data, &errorMsg, &eline, &ecol))
+	{
+		if (data.contains("404 not found", Qt::CaseInsensitive))
+			qDebug() << "File not found on server";
+		else
+			qDebug() << "Could not open file" << dataFile.fileName();
+		return;
+	}
+#endif
 	m_availableList.clear();
 
 	QDomElement docElem = doc.documentElement();

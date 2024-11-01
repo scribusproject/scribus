@@ -834,6 +834,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 	QDomDocument designMapDom;
 	if (!uz->read(designMap, f))
 		return false;
+
 	if (compressed)
 	{
 		QTemporaryFile *tmpFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_zip_XXXXXX.dat");
@@ -856,6 +857,15 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 		}
 		delete tmpFile;
 	}
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = designMapDom.setContent(f);
+	if (!parseResult)
+	{
+		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
+		return false;
+	}
+#else
 	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
@@ -864,6 +874,8 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return false;
 	}
+#endif
+
 	papersize = "Custom";
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())

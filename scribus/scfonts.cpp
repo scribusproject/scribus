@@ -1219,13 +1219,24 @@ void SCFonts::readFontCache(const QString& pf)
 		fr.remove();
 	m_checkedFonts.clear();
 	struct testCache foCache;
+
 	QDomDocument docu("fontcacherc");
 	QFile f(pf + "/checkfonts170.xml");
 	if (!f.open(QIODevice::ReadOnly))
 		return;
 	ScCore->setSplashStatus( QObject::tr("Reading Font Cache") );
+
 	QTextStream ts(&f);
 	ts.setEncoding(QStringConverter::Utf8);
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = docu.setContent(ts.readAll());
+	if (!parseResult)
+	{
+		f.close();
+		return;
+	}
+#else
 	QString errorMsg;
 	int errorLine = 0, errorColumn = 0;
 	if ( !docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
@@ -1233,10 +1244,13 @@ void SCFonts::readFontCache(const QString& pf)
 		f.close();
 		return;
 	}
+#endif
 	f.close();
+
 	QDomElement elem = docu.documentElement();
 	if (elem.tagName() != "CachedFonts")
 		return;
+
 	QDomNode DOC = elem.firstChild();
 	while (!DOC.isNull())
 	{

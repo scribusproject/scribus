@@ -1951,8 +1951,19 @@ bool PrefsManager::readPref(const QString& filePath)
 		m_lastError = tr("Failed to open prefs file \"%1\": %2").arg(filePath, QApplication::translate("QFile",f.errorString().toLatin1().constData()) );
 		return false;
 	}
+
 	QTextStream ts(&f);
 	ts.setEncoding(QStringConverter::Utf8);
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = docu.setContent(ts.readAll());
+	if (!parseResult)
+	{
+		m_lastError = tr("Failed to read prefs XML from \"%1\": %2 at line %3, col %4").arg(filePath, parseResult.errorMessage).arg(parseResult.errorLine).arg(parseResult.errorColumn);
+		f.close();
+		return false;
+	}
+#else
 	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
@@ -1962,6 +1973,7 @@ bool PrefsManager::readPref(const QString& filePath)
 		f.close();
 		return false;
 	}
+#endif
 	f.close();
 
 	ScDomElement elem = docu.documentElement();

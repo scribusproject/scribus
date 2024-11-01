@@ -189,6 +189,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	int a;
 	PageItem *newItem;
 	ScPage* Apage;
+
 	FrameItems.clear();
 	itemRemap.clear();
 	itemNext.clear();
@@ -200,6 +201,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	DoVorl[3] = "";
 	DoVorl[4] = "";
 	VorlC = 5;
+
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -208,8 +210,17 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		return false;
 	}
 	QString fileDir = QFileInfo(fileName).absolutePath();
+
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
 	FIXME: I've add test on containing tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = docu.setContent(f);
+	if (!parseResult)
+	{
+		setDomParsingError(parseResult.errorMessage, parseResult.errorLine, parseResult.errorColumn);
+		return false;
+	}
+#else
 	QString errorMsg;
 	int errorLine, errorColumn;
 	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
@@ -217,6 +228,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		setDomParsingError(errorMsg, errorLine, errorColumn);
 		return false;
 	}
+#endif
+
 	m_Doc->PageColors.clear();
 	m_Doc->Layers.clear();
 	int layerToSetActive=0;
@@ -2041,6 +2054,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	QList<PageItem*> TableItems;
 	double pageX = 0, pageY = 0;
 	bool VorLFound = false;
+
 	QMap<int,int> layerTrans;
 	int maxLayer = 0;
 	int maxLevel = 0;
@@ -2051,6 +2065,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		maxLayer = qMax(m_Doc->Layers[la2].ID, maxLayer);
 		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
+
 	DoVorl.clear();
 	DoVorl[0] = "";
 	DoVorl[1] = "";
@@ -2058,6 +2073,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	DoVorl[3] = "";
 	DoVorl[4] = "";
 	VorlC = 5;
+
 	QDomDocument docu("scridoc");
  	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -2065,6 +2081,15 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		setFileReadError();
 		return false;
 	}
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = docu.setContent(f);
+	if (!parseResult)
+	{
+		setDomParsingError(parseResult.errorMessage, parseResult.errorLine, parseResult.errorColumn);
+		return false;
+	}
+#else
 	QString errorMsg;
 	int errorLine, errorColumn;
 	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
@@ -2072,6 +2097,8 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		setDomParsingError(errorMsg, errorLine, errorColumn);
 		return false;
 	}
+#endif
+
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	ScColor lf;
 	QDomElement elem = docu.documentElement();

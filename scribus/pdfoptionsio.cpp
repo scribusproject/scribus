@@ -307,6 +307,17 @@ bool PDFOptionsIO::readFrom(QIODevice& inDevice)
 {
 	if (!inDevice.isReadable())
 		return false;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = m_doc.setContent(&inDevice);
+	if (!parseResult)
+	{
+		m_error = QObject::tr("Unable to read settings XML: %1")
+			.arg(QObject::tr("%1 (line %2 col %3)", "Load PDF settings")
+				.arg(parseResult.errorMessage).arg(parseResult.errorLine).arg(parseResult.errorColumn)
+			);
+		return false;
+	}
+#else
 	QString domError;
 	int errorLine, errorColumn;
 	if (!m_doc.setContent(&inDevice, &domError, &errorLine, &errorColumn))
@@ -317,6 +328,7 @@ bool PDFOptionsIO::readFrom(QIODevice& inDevice)
 			);
 		return false;
 	}
+#endif
 	if (!readSettings())
 		// m_error should already be set
 		return false;

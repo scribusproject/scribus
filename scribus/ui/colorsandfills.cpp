@@ -1745,6 +1745,15 @@ void ColorsAndFillsDialog::loadScribusFormat(const QString& fileName)
 	QDomDocument docu("scridoc");
 	QTextStream ts(&f);
 	ts.setEncoding(QStringConverter::Utf8);
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = docu.setContent(ts.readAll());
+	if (!parseResult)
+	{
+		f.close();
+		return;
+	}
+#else
 	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
@@ -1753,6 +1762,7 @@ void ColorsAndFillsDialog::loadScribusFormat(const QString& fileName)
 		f.close();
 		return;
 	}
+#endif
 	f.close();
 
 	QDomElement elem = docu.documentElement();
