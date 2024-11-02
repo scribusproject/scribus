@@ -8,11 +8,12 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 #include <QDebug>
-#include <QStandardPaths>
 #include <QLayout>
 #include <QLineEdit>
 #include <QListView>
 #include <QPushButton>
+#include <QStandardPaths>
+#include <QStorageInfo>
 #include <QStringList>
 #include <QUrl>
 
@@ -52,6 +53,18 @@ ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 	macOSUrl=QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DownloadLocation));
 	if (!urls.contains(macOSUrl))
 		urls << macOSUrl;
+	setSidebarUrls(urls);
+#endif
+
+#ifdef Q_OS_LINUX
+	QList<QUrl> urls(sidebarUrls());
+	QUrl linuxOSUrl;
+	foreach (const QStorageInfo &storage, QStorageInfo::mountedVolumes())
+	{
+		linuxOSUrl=QUrl::fromLocalFile(storage.rootPath());
+		if (storage.rootPath().startsWith("/media") && !urls.contains(linuxOSUrl))
+			urls << linuxOSUrl;
+	}
 	setSidebarUrls(urls);
 #endif
 
