@@ -131,15 +131,16 @@ void SCFonts::addScalableFonts(const QString &path, const QString& DocName)
 	//QString()+/ is / of course.
 	if (path.isEmpty())
 		return;
-	FT_Library library = nullptr;
 	QString pathfile, fullpath;
-//	bool error;
-//	error =
+
+	FT_Library library = nullptr;
 	FT_Init_FreeType( &library );
+
 	QString pathname(path);
-	if ( !pathname.endsWith("/") )
+	if (!pathname.endsWith("/"))
 		pathname += "/";
 	pathname = QDir::toNativeSeparators(pathname);
+
 	QDir d(pathname, "*", QDir::Name, QDir::Dirs | QDir::Files | QDir::Readable);
 	if ((d.exists()) && (d.count() != 0))
 	{
@@ -315,7 +316,7 @@ void getSubFontType(FT_Face face, ScFace::FontType & type)
 } 
 
 // sort name records so the preferred ones come first
-static bool nameComp(const FT_SfntName a, const FT_SfntName b)
+static bool nameComp(const FT_SfntName& a, const FT_SfntName& b)
 {
 	// sort preferred family first
 	if (a.name_id != b.name_id)
@@ -373,7 +374,7 @@ static bool nameComp(const FT_SfntName a, const FT_SfntName b)
 	return false;
 }
 
-static QString decodeNameRecord(FT_SfntName name)
+static QString decodeNameRecord(const FT_SfntName& name)
 {
 	if (!name.string || name.string_len == 0)
 		return QString();
@@ -509,19 +510,21 @@ ScFace SCFonts::loadScalableFont(const QString &filename)
 	ScFace t;
 	if (filename.isEmpty())
 		return t;
+
 	FT_Library library = nullptr;
-	bool error;
-	error = FT_Init_FreeType( &library );
+	FT_Init_FreeType( &library );
+
 	QFileInfo fi(filename);
 	if (!fi.exists())
 		return t;
+
 	bool Subset = false;
 	char buf[128];
-	QString glyName = "";
+	QString glyName;
 	ScFace::FontFormat format;
 	ScFace::FontType   type;
 	FT_Face         face = nullptr;
-	error = FT_New_Face(library, QFile::encodeName(filename), 0, &face);
+	bool error = FT_New_Face(library, QFile::encodeName(filename), 0, &face);
 	if (error || (face == nullptr))
 	{
 		if (face != nullptr)
@@ -650,7 +653,7 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 	static bool firstRun;
 	bool Subset = false;
 	char buf[128];
-	QString glyName = "";
+	QString glyName;
 	ScFace::FontFormat format;
 	ScFace::FontType   type;
 	FT_Face         face = nullptr;
@@ -1068,7 +1071,7 @@ void SCFonts::addRegistryFonts()
 	FT_Library library = nullptr;
 	FT_Init_FreeType( &library );
 
-	for (const auto key : keys)
+	for (const auto& key : keys)
 	{
 		const QSettings fontRegistry(key, QSettings::NativeFormat);
 		const QStringList allKeys = fontRegistry.allKeys();
@@ -1087,7 +1090,7 @@ void SCFonts::addRegistryFonts()
 			QString fontPath = fontInfo.absoluteFilePath();
 			QString pathName = fontInfo.absolutePath();
 
-			qApp->processEvents();
+			QApplication::processEvents();
 			
 			bool isSymlink = fontInfo.isSymLink();
 			if (isSymlink)
@@ -1133,7 +1136,7 @@ void SCFonts::addType1RegistryFonts()
 	FT_Library library = nullptr;
 	FT_Init_FreeType( &library );
 
-	for (const auto key : keys)
+	for (const auto& key : keys)
 	{
 		const QSettings fontRegistry(key, QSettings::NativeFormat);
 		const QStringList allKeys = fontRegistry.allKeys();
@@ -1165,7 +1168,7 @@ void SCFonts::addType1RegistryFonts()
 				QString fontPath = fontInfo.absoluteFilePath();
 				QString pathName = fontInfo.absolutePath();
 
-				qApp->processEvents();
+				QApplication::processEvents();
 			
 				bool isSymlink = fontInfo.isSymLink();
 				if (isSymlink)
@@ -1253,13 +1256,13 @@ void SCFonts::readFontCache(const QString& pf)
 	}
 }
 
-void SCFonts::writeFontCache()
+void SCFonts::writeFontCache() const
 {
 	QString prefsLocation = PrefsManager::instance().preferencesLocation();
 	writeFontCache(prefsLocation);
 }
 
-void SCFonts::writeFontCache(const QString& pf)
+void SCFonts::writeFontCache(const QString& pf) const
 {
 	QDomDocument docu("fontcacherc");
 	QString st="<CachedFonts></CachedFonts>";

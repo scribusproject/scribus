@@ -55,7 +55,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		void setSubstitutions(const QMap<QString,QString>& substitutes, ScribusDoc* doc = nullptr);
 		void removeFont(const QString& name);
 		/// Write checked fonts file
-		void writeFontCache();
+		void writeFontCache() const;
 
 		/// maps family name to face variants
 		QMap<QString, QStringList> fontMap;
@@ -63,7 +63,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 
 	private:
 		void readFontCache(const QString& pf);
-		void writeFontCache(const QString& pf);
+		void writeFontCache(const QString& pf) const;
 		void addPath(QString p);
 		bool addScalableFont(const QString& filename, FT_Library &library, const QString& DocName);
 		void addRejectedFont(const QString& fontPath, const QString& message);
