@@ -38,24 +38,24 @@ ScFileWidget::ScFileWidget(QWidget * parent, fwContextFlags contextFlags) : QFil
 	QUrl macOSUrl(QUrl::fromLocalFile(QLatin1String("")));
 	if (!urls.contains(macOSUrl))
 		urls << macOSUrl;
-	macOSUrl=QUrl::fromLocalFile("/Volumes");
+	macOSUrl = QUrl::fromLocalFile("/Volumes");
 	if (!urls.contains(macOSUrl))
 		urls << macOSUrl;
-	macOSUrl=QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
+	macOSUrl = QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
 	if (!urls.contains(macOSUrl))
 		urls << macOSUrl;
-	macOSUrl=QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
+	macOSUrl = QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
 	if (!urls.contains(macOSUrl))
 		urls << macOSUrl;
-	macOSUrl=QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+	macOSUrl = QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
 	if (!urls.contains(macOSUrl))
 		urls << macOSUrl;
-	macOSUrl=QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DownloadLocation));
+	macOSUrl = QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::DownloadLocation));
 	if (!urls.contains(macOSUrl))
 		urls << macOSUrl;
 	if (contextFlags & contextImages)
 	{
-		macOSUrl=QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
+		macOSUrl = QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
 		if (!urls.contains(macOSUrl))
 			urls << macOSUrl;
 	}
@@ -67,13 +67,12 @@ ScFileWidget::ScFileWidget(QWidget * parent, fwContextFlags contextFlags) : QFil
 	QUrl linuxOSUrl;
 	foreach (const QStorageInfo &storage, QStorageInfo::mountedVolumes())
 	{
-		linuxOSUrl=QUrl::fromLocalFile(storage.rootPath());
+		linuxOSUrl = QUrl::fromLocalFile(storage.rootPath());
 		if (storage.rootPath().startsWith("/media") && !urls.contains(linuxOSUrl))
 			urls << linuxOSUrl;
 	}
 	setSidebarUrls(urls);
 #endif
-
 
 	FileDialogEventCatcher* keyCatcher = new FileDialogEventCatcher(this);
 	QList<QListView *> childListViews = findChildren<QListView *>();
