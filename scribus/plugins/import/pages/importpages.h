@@ -13,99 +13,26 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTPAGES_H
 #define IMPORTPAGES_H
 
-#if 0
-
-#include <QObject>
-#include <QString>
-
-#include "pluginapi.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "fpointarray.h"
-#include "vgradient.h"
-#include <QList>
-#include <QTransform>
-#include <QMultiMap>
-#include <QVector>
-
-class MultiProgressDialog;
-class ScribusDoc;
-class Selection;
-class TransactionSettings;
-
-//! \brief FH importer plugin
-class PagesPlug : public QObject
-{
-	Q_OBJECT
-
-public:
-	/*!
-	\author Franz Schmid
-	\date
-	\brief Create the Fh importer window.
-	\param fName QString
-	\param flags combination of loadFlags
-	\param showProgress if progress must be displayed
-	\retval EPSPlug plugin
-	*/
-	PagesPlug( ScribusDoc* doc, int flags );
-	~PagesPlug();
-
-	/*!
-	\author Franz Schmid
-	\date
-	\brief Perform import.
-	\param fn QString
-	\param trSettings undo transaction settings
-	\param flags combination of loadFlags
-	\param showProgress if progress must be displayed
-	\retval bool true if import was ok
-	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
-	QImage readThumbnail(QString fn);
-
-private:
-	bool convert(QString fn);
-
-	QList<PageItem*> Elements;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-
-	QStringList importedColors;
-	QStringList importedPatterns;
-
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
-
-public slots:
-	void cancelRequested() { cancel = true; }
-};
-#else
-
-#include "pluginapi.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "fpointarray.h"
-#include "scribusstructs.h"
-#include <QList>
-#include <QTransform>
-#include <QMultiMap>
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
 #include <QDomDocument>
 #include <QDomElement>
+#include <QList>
+#include <QMultiMap>
+#include <QObject>
+#include <QString>
+#include <QtGlobal>
+#include <QTransform>
+
+#include "fpointarray.h"
+#include "pageitem.h"
+#include "pluginapi.h"
+#include "sccolor.h"
+#include "scribusstructs.h"
 
 class MultiProgressDialog;
 class ScribusDoc;
+class ScZipHandler;
 class Selection;
 class TransactionSettings;
-class ScZipHandler;
 
 class PagesPlug : public QObject
 {
@@ -239,40 +166,41 @@ private:
 	void applyParagraphAttrs(ParagraphStyle &newStyle, CharStyle &tmpCStyle, const QString& pAttrs);
 	void applyCharAttrs(CharStyle &tmpCStyle, const QString& pAttrs);
 	void finishItem(PageItem* item, ObjState &obState);
+
+	PageItem* addClip(PageItem* retObj, ObjState& obState);
+
 	QList<PageItem*> Elements;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	bool interactive;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docWidth { 0.0 };
+	double docHeight { 0.0 };
+	bool interactive { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
+	int importerFlags { 0 };
+	MultiProgressDialog * progressDialog { nullptr };
+	bool cancel { false };
 	QStringList importedColors;
 	QStringList importedPatterns;
-	bool firstPage;
-	int pagecount;
-	int mpagecount;
-	double topMargin;
-	double leftMargin;
-	double rightMargin;
-	double bottomMargin;
-	double pgCols;
-	double pgGap;
+	bool firstPage { false };
+	int pagecount { 0 };
+	int mpagecount { 0 };
+	double topMargin { 0.0 };
+	double leftMargin { 0.0 };
+	double rightMargin { 0.0 };
+	double bottomMargin { 0.0 };
+	double pgCols { 0.0 };
+	double pgGap { 0.0 };
 	QString papersize;
 	QHash<int, QString> imageResources;
 	QHash<QString, StyleSheet> m_StyleSheets;
 	QString m_currentStyleSheet;
 
-	PageItem* addClip(PageItem* retObj, ObjState &obState);
-
 	FPointArray Coords;
 	QHash<QString, QPainterPath> pathResources;
-	ScZipHandler *uz;
+	ScZipHandler *uz { nullptr };
 
 public slots:
 	void cancelRequested() { cancel = true; }
 };
-#endif
 #endif
