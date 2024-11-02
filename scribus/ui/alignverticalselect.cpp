@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 
 AlignVerticalSelect::AlignVerticalSelect(QWidget* parent) : FormWidget(parent)
 {
-	IconManager& im = IconManager::instance();
 	buttonGroup = new QButtonGroup(this);
 	buttonGroup->setExclusive(true);
 
@@ -50,7 +49,6 @@ void AlignVerticalSelect::setStyle(int s)
 {
 	if ((s >= 0) && (s < 3))
 		buttonGroup->button(s)->setChecked(true);
-
 }
 
 int AlignVerticalSelect::getStyle() const
