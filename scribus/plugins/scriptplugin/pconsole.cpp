@@ -401,7 +401,7 @@ void SyntaxColors::saveToPrefs()
 	prefs->set("syntaxtext", qcolor2named(textColor));
 }
 
-QString SyntaxColors::qcolor2named(const QColor& color)
+QString SyntaxColors::qcolor2named(const QColor& color) const
 {
 	int r;
 	int g;
