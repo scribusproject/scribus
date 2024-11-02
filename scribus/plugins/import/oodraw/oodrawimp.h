@@ -129,8 +129,8 @@ protected:
 	void calculateArc(FPointArray *pts, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
 	void svgClosePath(FPointArray * pts) const;
 	void svgMoveTo(double x1, double y1);
-	void svgLineTo(FPointArray *i, double x1, double y1);
-	void svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
+	void svgLineTo(FPointArray *pts, double x1, double y1);
+	void svgCurveToCubic(FPointArray *pts, double x1, double y1, double x2, double y2, double x3, double y3);
 
 	QDomDocument inpContents;
 	QDomDocument inpStyles;

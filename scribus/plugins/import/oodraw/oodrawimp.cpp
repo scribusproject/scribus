@@ -1901,30 +1901,30 @@ void OODPlug::svgMoveTo(double x1, double y1)
 	PathLen = 0;
 }
 
-void OODPlug::svgLineTo(FPointArray *i, double x1, double y1)
+void OODPlug::svgLineTo(FPointArray *pts, double x1, double y1)
 {
 	if (!FirstM && WasM)
 	{
-		i->setMarker();
+		pts->setMarker();
 		PathLen += 4;
 	}
 	FirstM = false;
 	WasM = false;
-	if (i->size() > 3)
+	if (pts->size() > 3)
 	{
-		const FPoint& b1 = i->point(i->size()-4);
-		const FPoint& b2 = i->point(i->size()-3);
-		const FPoint& b3 = i->point(i->size()-2);
-		const FPoint& b4 = i->point(i->size()-1);
+		const FPoint& b1 = pts->point(pts->size() - 4);
+		const FPoint& b2 = pts->point(pts->size() - 3);
+		const FPoint& b3 = pts->point(pts->size() - 2);
+		const FPoint& b4 = pts->point(pts->size() - 1);
 		FPoint n1(CurrX, CurrY);
 		FPoint n2(x1, y1);
 		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
 			return;
 	}
-	i->addPoint(FPoint(CurrX, CurrY));
-	i->addPoint(FPoint(CurrX, CurrY));
-	i->addPoint(FPoint(x1, y1));
-	i->addPoint(FPoint(x1, y1));
+	pts->addPoint(FPoint(CurrX, CurrY));
+	pts->addPoint(FPoint(CurrX, CurrY));
+	pts->addPoint(FPoint(x1, y1));
+	pts->addPoint(FPoint(x1, y1));
 	CurrX = x1;
 	CurrY = y1;
 	PathLen += 4;
