@@ -61,14 +61,14 @@ int oodrawimp_getPluginAPIVersion()
 
 ScPlugin* oodrawimp_getPlugin()
 {
-	OODrawImportPlugin* plug = new OODrawImportPlugin();
+	auto* plug = new OODrawImportPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
 
 void oodrawimp_freePlugin(ScPlugin* plugin)
 {
-	OODrawImportPlugin* plug = qobject_cast<OODrawImportPlugin*>(plugin);
+	auto* plug = qobject_cast<OODrawImportPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
@@ -106,7 +106,7 @@ QString OODrawImportPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* OODrawImportPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports OpenOffice.org Draw Files");
 	about->description = tr("Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.");
@@ -216,7 +216,7 @@ QImage OODrawImportPlugin::readThumbnail(const QString& fileName)
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	OODPlug *dia = new OODPlug(m_Doc);
+	auto *dia = new OODPlug(m_Doc);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
@@ -254,7 +254,6 @@ QImage OODPlug::readThumbnail(const QString& fileName)
 	QByteArray f3;
 	if (pZip->contains("meta.xml"))
 		pZip->read("meta.xml", f3);
-
 	pZip.reset();
 
 	HaveMeta = inpMeta.setContent(f3);
@@ -329,7 +328,7 @@ QImage OODPlug::readThumbnail(const QString& fileName)
 	for (int ec = 0; ec < el.count(); ++ec)
 		Elements.append(el.at(ec));
 	tmpSel->clear();
-	QImage tmpImage = QImage();
+	QImage tmpImage;
 	if (Elements.count() > 0)
 	{
 		if (Elements.count() > 1)
@@ -382,7 +381,6 @@ bool OODPlug::import(const QString& fileName, const TransactionSettings& trSetti
 	QByteArray f3;
 	if (pZip->contains("meta.xml"))
 		pZip->read("meta.xml", f3);
-	
 	pZip.reset();
 
 	HaveMeta = inpMeta.setContent(f3);
@@ -461,7 +459,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			ret = true;
 		}
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (width > height)
 			m_Doc->setPageOrientation(1);
@@ -492,13 +490,13 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		mpg = mp.namedItem( "meta:keywords" );
 		if (!mpg.isNull())
 		{
-			QString Keys = "";
+			QString keys;
 			for (QDomNode n = mpg.firstChild(); !n.isNull(); n = n.nextSibling())
 			{
-				Keys += n.toElement().text()+", ";
+				keys += n.toElement().text()+", ";
 			}
-			if (Keys.length() > 2)
-				m_Doc->documentInfo().setKeywords(Keys.left(Keys.length()-2));
+			if (keys.length() > 2)
+				m_Doc->documentInfo().setKeywords(keys.left(keys.length() - 2));
 		}
 	}
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
@@ -509,7 +507,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	for (QDomNode drawPag = drawPagePNode.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
@@ -526,7 +524,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		QList<PageItem*> el = parseGroup( dpg );
 		for (int ec = 0; ec < el.count(); ++ec)
 			Elements.append(el.at(ec));
-		if ((interactive) && (PageCounter == 1))
+		if (interactive && (PageCounter == 1))
 			break;
 	}
 	tmpSel->clear();
@@ -548,8 +546,8 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	m_Doc->scMW()->setScriptRunning(false);
 	if (interactive)
 		m_Doc->setLoading(false);
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	if ((Elements.count() > 0) && (!ret) && (interactive))
+	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	if ((Elements.count() > 0) && !ret && interactive)
 	{
 		if (flags & LoadSavePlugin::lfScripted)
 		{
@@ -587,7 +585,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->m_Selection->delaySignalsOff();
 			// We must copy the TransationSettings object as it is owned
 			// by handleObjectImport method afterwards
-			TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+			auto* transacSettings = new TransactionSettings(trSettings);
 			m_Doc->view()->handleObjectImport(md, transacSettings);
 			m_Doc->DragP = false;
 			m_Doc->DraggedElem = nullptr;
@@ -604,7 +602,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->view()->updatesOn(true);
 		m_Doc->setLoading(loadF);
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	return true;
 }
 
@@ -613,13 +611,8 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 	OODrawStyle oostyle;
 	FPointArray ImgClip;
 	QList<PageItem*> elements, cElements;
-//	double BaseX = m_Doc->currentPage()->xOffset();
-//	double BaseY = m_Doc->currentPage()->yOffset();
 	storeObjectStyles(e);
 	parseStyle(oostyle, e);
-//	QString drawID = e.attribute("draw:name");
-//	int zn = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-//	PageItem *neu = m_Doc->Items->at(zn);
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement b = n.toElement();
@@ -1026,9 +1019,8 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 						oostyle.gradientPointY = 0.5;
 					oostyle.gradientType = 2;
 				}
-				QString c, c2;
-				c = parseColor( draw->attribute( "draw:start-color" ) );
-				c2 = parseColor( draw->attribute( "draw:end-color" ) );
+				QString c = parseColor( draw->attribute( "draw:start-color" ) );
+				QString c2 = parseColor( draw->attribute( "draw:end-color" ) );
 				const ScColor& col1 = m_Doc->PageColors[c];
 				const ScColor& col2 = m_Doc->PageColors[c2];
 				if (((oostyle.gradientAngle > 90) && (oostyle.gradientAngle < 271)) || (oostyle.gradientType == 2))
@@ -1048,7 +1040,7 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 	}
 }
 
-void OODPlug::parseCharStyle(CharStyle& style, const QDomElement &e)
+void OODPlug::parseCharStyle(CharStyle& style, const QDomElement &e) const
 {
 	if (m_styleStack.hasAttribute("fo:font-size"))
 	{
@@ -1058,7 +1050,7 @@ void OODPlug::parseCharStyle(CharStyle& style, const QDomElement &e)
 	}
 }
 
-void OODPlug::parseParagraphStyle(ParagraphStyle& style, const QDomElement &e)
+void OODPlug::parseParagraphStyle(ParagraphStyle& style, const QDomElement &e) const
 {
 	if (m_styleStack.hasAttribute("fo:text-align"))
 	{
@@ -1079,7 +1071,7 @@ void OODPlug::parseParagraphStyle(ParagraphStyle& style, const QDomElement &e)
 	}
 }
 
-PageItem* OODPlug::parseTextP (const QDomElement& elm, PageItem* item)
+PageItem* OODPlug::parseTextP(const QDomElement& elm, PageItem* item)
 {
 	for ( QDomNode n = elm.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
@@ -1373,23 +1365,23 @@ QString OODPlug::parseColor( const QString &s )
 	{
 		QString parse = s.trimmed();
 		QStringList colors = parse.split( ',', Qt::SkipEmptyParts );
-		QString r = colors[0].right( ( colors[0].length() - 4 ) );
+		QString r = colors[0].right(colors[0].length() - 4);
 		QString g = colors[1];
-		QString b = colors[2].left( ( colors[2].length() - 1 ) );
+		QString b = colors[2].left(colors[2].length() - 1);
 		if (r.contains( "%" ))
 		{
 			r.chop(1);
-			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
+			r = QString::number( static_cast<int>(2.55 * ScCLocale::toDoubleC(r)) );
 		}
 		if (g.contains( "%" ))
 		{
 			g.chop(1);
-			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
+			g = QString::number( static_cast<int>(2.55 * ScCLocale::toDoubleC(g)) );
 		}
 		if (b.contains( "%" ) )
 		{
 			b.chop(1);
-			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
+			b = QString::number( static_cast<int>(2.55 * ScCLocale::toDoubleC(b)) );
 		}
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
@@ -1407,7 +1399,7 @@ QString OODPlug::parseColor( const QString &s )
 	return ret;
 }
 
-void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
+void OODPlug::parseTransform(FPointArray *composite, const QString &transform) const
 {
 	double dx, dy;
 	QTransform result;
@@ -1460,7 +1452,7 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 	}
 }
 
-void OODPlug::parseViewBox(const QDomElement& object, double *x, double *y, double *w, double *h)
+void OODPlug::parseViewBox(const QDomElement& object, double *x, double *y, double *w, double *h) const
 {
 	if (!object.attribute( "svg:viewBox" ).isEmpty())
 	{
@@ -1473,7 +1465,7 @@ void OODPlug::parseViewBox(const QDomElement& object, double *x, double *y, doub
 	}
 }
 
-void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bool closePath)
+void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bool closePath) const
 {
 	double x = parseUnit(object.attribute("svg:x"));
 	double y = parseUnit(object.attribute("svg:y")) ;
@@ -1489,7 +1481,7 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 	QStringList ptList = object.attribute( "draw:points" ).split( ' ', Qt::SkipEmptyParts );
 	FPoint point, firstP;
 	bool bFirst = true;
-	for (QStringList::Iterator it = ptList.begin(); it != ptList.end(); ++it)
+	for (auto it = ptList.begin(); it != ptList.end(); ++it)
 	{
 		point = FPoint(ScCLocale::toDoubleC((*it).section( ',', 0, 0 )), ScCLocale::toDoubleC((*it).section( ',', 1, 1 )));
 		if (bFirst)
@@ -1518,18 +1510,14 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 	composite->map(mat);
 }
 
-const char * OODPlug::getCoord( const char *ptr, double &number )
+const char * OODPlug::getCoord(const char *ptr, double &number) const
 {
-	int integer, exponent;
-	double decimal, frac;
-	int sign, expsign;
-
-	exponent = 0;
-	integer = 0;
-	frac = 1.0;
-	decimal = 0;
-	sign = 1;
-	expsign = 1;
+	int exponent = 0;
+	int integer = 0;
+	int sign = 1;
+	int expsign = 1;
+	double frac = 1.0;
+	double decimal = 0;
 
 	// read the sign
 	if (*ptr == '+')
@@ -1581,233 +1569,232 @@ const char * OODPlug::getCoord( const char *ptr, double &number )
 	return ptr;
 }
 
-bool OODPlug::parseSVG(const QString &s, FPointArray *ite)
+bool OODPlug::parseSVG(const QString &s, FPointArray *pts)
 {
 	QString d = s;
 	d = d.replace( QRegExp( "," ), " ");
+	if (d.isEmpty())
+		return false;
 	bool ret = false;
-	if (!d.isEmpty())
-	{
-		d = d.simplified();
-		QByteArray data = d.toLatin1();
-		const char *ptr = data.constData();
-		const char *end = data.constData() + data.length() + 1;
-		double contrlx, contrly, curx, cury, tox, toy, x1, y1, x2, y2, xc, yc;
-		double px1, py1, px2, py2, px3, py3;
-		bool relative;
-		FirstM = true;
-		char command = *(ptr++), lastCommand = ' ';
-		curx = cury = contrlx = contrly = 0.0;
-		while (ptr < end)
-		{
-			if (*ptr == ' ')
-				ptr++;
-			relative = false;
-			switch (command)
-			{
-			case 'm':
-				relative = true;
-			case 'M':
-				{
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					WasM = true;
-					curx = relative ? curx + tox : tox;
-					cury = relative ? cury + toy : toy;
-					svgMoveTo(curx, cury );
-					break;
-				}
-			case 'l':
-				relative = true;
-			case 'L':
-				{
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					curx = relative ? curx + tox : tox;
-					cury = relative ? cury + toy : toy;
-					svgLineTo(ite, curx, cury );
-					break;
-				}
-			case 'h':
-				{
-					ptr = getCoord( ptr, tox );
-					curx = curx + tox;
-					svgLineTo(ite, curx, cury );
-					break;
-				}
-			case 'H':
-				{
-					ptr = getCoord( ptr, tox );
-					curx = tox;
-					svgLineTo(ite, curx, cury );
-					break;
-				}
-			case 'v':
-				{
-					ptr = getCoord( ptr, toy );
-					cury = cury + toy;
-					svgLineTo(ite, curx, cury );
-					break;
-				}
-			case 'V':
-				{
-					ptr = getCoord( ptr, toy );
-					cury = toy;
-					svgLineTo(ite,  curx, cury );
-					break;
-				}
-			case 'z':
-			case 'Z':
-				{
-					svgClosePath(ite);
-					break;
-				}
-			case 'c':
-				relative = true;
-			case 'C':
-				{
-					ptr = getCoord( ptr, x1 );
-					ptr = getCoord( ptr, y1 );
-					ptr = getCoord( ptr, x2 );
-					ptr = getCoord( ptr, y2 );
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					px1 = relative ? curx + x1 : x1;
-					py1 = relative ? cury + y1 : y1;
-					px2 = relative ? curx + x2 : x2;
-					py2 = relative ? cury + y2 : y2;
-					px3 = relative ? curx + tox : tox;
-					py3 = relative ? cury + toy : toy;
-					svgCurveToCubic(ite, px1, py1, px2, py2, px3, py3 );
-					contrlx = relative ? curx + x2 : x2;
-					contrly = relative ? cury + y2 : y2;
-					curx = relative ? curx + tox : tox;
-					cury = relative ? cury + toy : toy;
-					break;
-				}
-			case 's':
-				relative = true;
-			case 'S':
-				{
-					ptr = getCoord( ptr, x2 );
-					ptr = getCoord( ptr, y2 );
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					px1 = 2 * curx - contrlx;
-					py1 = 2 * cury - contrly;
-					px2 = relative ? curx + x2 : x2;
-					py2 = relative ? cury + y2 : y2;
-					px3 = relative ? curx + tox : tox;
-					py3 = relative ? cury + toy : toy;
-					svgCurveToCubic(ite, px1, py1, px2, py2, px3, py3 );
-					contrlx = relative ? curx + x2 : x2;
-					contrly = relative ? cury + y2 : y2;
-					curx = relative ? curx + tox : tox;
-					cury = relative ? cury + toy : toy;
-					break;
-				}
-			case 'q':
-				relative = true;
-			case 'Q':
-				{
-					ptr = getCoord( ptr, x1 );
-					ptr = getCoord( ptr, y1 );
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					px1 = relative ? (curx + 2 * (x1 + curx)) * (1.0 / 3.0) : (curx + 2 * x1) * (1.0 / 3.0);
-					py1 = relative ? (cury + 2 * (y1 + cury)) * (1.0 / 3.0) : (cury + 2 * y1) * (1.0 / 3.0);
-					px2 = relative ? ((curx + tox) + 2 * (x1 + curx)) * (1.0 / 3.0) : (tox + 2 * x1) * (1.0 / 3.0);
-					py2 = relative ? ((cury + toy) + 2 * (y1 + cury)) * (1.0 / 3.0) : (toy + 2 * y1) * (1.0 / 3.0);
-					px3 = relative ? curx + tox : tox;
-					py3 = relative ? cury + toy : toy;
-					svgCurveToCubic(ite, px1, py1, px2, py2, px3, py3 );
-					contrlx = relative ? curx + x1 : (tox + 2 * x1) * (1.0 / 3.0);
-					contrly = relative ? cury + y1 : (toy + 2 * y1) * (1.0 / 3.0);
-					curx = relative ? curx + tox : tox;
-					cury = relative ? cury + toy : toy;
-					break;
-				}
-			case 't':
-				relative = true;
-			case 'T':
-				{
-					ptr = getCoord(ptr, tox);
-					ptr = getCoord(ptr, toy);
-					xc = 2 * curx - contrlx;
-					yc = 2 * cury - contrly;
-					px1 = relative ? (curx + 2 * xc) * (1.0 / 3.0) : (curx + 2 * xc) * (1.0 / 3.0);
-					py1 = relative ? (cury + 2 * yc) * (1.0 / 3.0) : (cury + 2 * yc) * (1.0 / 3.0);
-					px2 = relative ? ((curx + tox) + 2 * xc) * (1.0 / 3.0) : (tox + 2 * xc) * (1.0 / 3.0);
-					py2 = relative ? ((cury + toy) + 2 * yc) * (1.0 / 3.0) : (toy + 2 * yc) * (1.0 / 3.0);
-					px3 = relative ? curx + tox : tox;
-					py3 = relative ? cury + toy : toy;
-					svgCurveToCubic(ite, px1, py1, px2, py2, px3, py3 );
-					contrlx = xc;
-					contrly = yc;
-					curx = relative ? curx + tox : tox;
-					cury = relative ? cury + toy : toy;
-					break;
-				}
-			case 'a':
-				relative = true;
-			case 'A':
-				{
-					bool largeArc, sweep;
-					double angle, rx, ry;
-					ptr = getCoord( ptr, rx );
-					ptr = getCoord( ptr, ry );
-					ptr = getCoord( ptr, angle );
-					ptr = getCoord( ptr, tox );
-					largeArc = tox == 1;
-					ptr = getCoord( ptr, tox );
-					sweep = tox == 1;
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					calculateArc(ite, relative, curx, cury, angle, tox, toy, rx, ry, largeArc, sweep );
-				}
-			}
-			lastCommand = command;
-			if (*ptr == '+' || *ptr == '-' || (*ptr >= '0' && *ptr <= '9'))
-			{
-				// there are still coords in this command
-				if (command == 'M')
-					command = 'L';
-				else if (command == 'm')
-					command = 'l';
-			}
-			else
-				command = *(ptr++);
 
-			if (lastCommand != 'C' && lastCommand != 'c' &&
-			        lastCommand != 'S' && lastCommand != 's' &&
-			        lastCommand != 'Q' && lastCommand != 'q' &&
-			        lastCommand != 'T' && lastCommand != 't')
+	d = d.simplified();
+	QByteArray data = d.toLatin1();
+	const char *ptr = data.constData();
+	const char *end = data.constData() + data.length() + 1;
+	double contrlx, contrly, curx, cury, tox, toy, x1, y1, x2, y2, xc, yc;
+	double px1, py1, px2, py2, px3, py3;
+	bool relative;
+	char command = *(ptr++);
+	char lastCommand = ' ';
+
+	FirstM = true;
+	curx = cury = contrlx = contrly = 0.0;
+	while (ptr < end)
+	{
+		if (*ptr == ' ')
+			ptr++;
+		relative = false;
+		switch (command)
+		{
+		case 'm':
+			relative = true;
+		case 'M':
 			{
-				contrlx = curx;
-				contrly = cury;
+				ptr = getCoord( ptr, tox );
+				ptr = getCoord( ptr, toy );
+				WasM = true;
+				curx = relative ? curx + tox : tox;
+				cury = relative ? cury + toy : toy;
+				svgMoveTo(curx, cury );
+				break;
+			}
+		case 'l':
+			relative = true;
+		case 'L':
+			{
+				ptr = getCoord( ptr, tox );
+				ptr = getCoord( ptr, toy );
+				curx = relative ? curx + tox : tox;
+				cury = relative ? cury + toy : toy;
+				svgLineTo(pts, curx, cury );
+				break;
+			}
+		case 'h':
+			{
+				ptr = getCoord( ptr, tox );
+				curx = curx + tox;
+				svgLineTo(pts, curx, cury );
+				break;
+			}
+		case 'H':
+			{
+				ptr = getCoord( ptr, tox );
+				curx = tox;
+				svgLineTo(pts, curx, cury );
+				break;
+			}
+		case 'v':
+			{
+				ptr = getCoord( ptr, toy );
+				cury = cury + toy;
+				svgLineTo(pts, curx, cury );
+				break;
+			}
+		case 'V':
+			{
+				ptr = getCoord( ptr, toy );
+				cury = toy;
+				svgLineTo(pts,  curx, cury );
+				break;
+			}
+		case 'z':
+		case 'Z':
+			{
+				svgClosePath(pts);
+				break;
+			}
+		case 'c':
+			relative = true;
+		case 'C':
+			{
+				ptr = getCoord( ptr, x1 );
+				ptr = getCoord( ptr, y1 );
+				ptr = getCoord( ptr, x2 );
+				ptr = getCoord( ptr, y2 );
+				ptr = getCoord( ptr, tox );
+				ptr = getCoord( ptr, toy );
+				px1 = relative ? curx + x1 : x1;
+				py1 = relative ? cury + y1 : y1;
+				px2 = relative ? curx + x2 : x2;
+				py2 = relative ? cury + y2 : y2;
+				px3 = relative ? curx + tox : tox;
+				py3 = relative ? cury + toy : toy;
+				svgCurveToCubic(pts, px1, py1, px2, py2, px3, py3 );
+				contrlx = relative ? curx + x2 : x2;
+				contrly = relative ? cury + y2 : y2;
+				curx = relative ? curx + tox : tox;
+				cury = relative ? cury + toy : toy;
+				break;
+			}
+		case 's':
+			relative = true;
+		case 'S':
+			{
+				ptr = getCoord( ptr, x2 );
+				ptr = getCoord( ptr, y2 );
+				ptr = getCoord( ptr, tox );
+				ptr = getCoord( ptr, toy );
+				px1 = 2 * curx - contrlx;
+				py1 = 2 * cury - contrly;
+				px2 = relative ? curx + x2 : x2;
+				py2 = relative ? cury + y2 : y2;
+				px3 = relative ? curx + tox : tox;
+				py3 = relative ? cury + toy : toy;
+				svgCurveToCubic(pts, px1, py1, px2, py2, px3, py3 );
+				contrlx = relative ? curx + x2 : x2;
+				contrly = relative ? cury + y2 : y2;
+				curx = relative ? curx + tox : tox;
+				cury = relative ? cury + toy : toy;
+				break;
+			}
+		case 'q':
+			relative = true;
+		case 'Q':
+			{
+				ptr = getCoord( ptr, x1 );
+				ptr = getCoord( ptr, y1 );
+				ptr = getCoord( ptr, tox );
+				ptr = getCoord( ptr, toy );
+				px1 = relative ? (curx + 2 * (x1 + curx)) * (1.0 / 3.0) : (curx + 2 * x1) * (1.0 / 3.0);
+				py1 = relative ? (cury + 2 * (y1 + cury)) * (1.0 / 3.0) : (cury + 2 * y1) * (1.0 / 3.0);
+				px2 = relative ? ((curx + tox) + 2 * (x1 + curx)) * (1.0 / 3.0) : (tox + 2 * x1) * (1.0 / 3.0);
+				py2 = relative ? ((cury + toy) + 2 * (y1 + cury)) * (1.0 / 3.0) : (toy + 2 * y1) * (1.0 / 3.0);
+				px3 = relative ? curx + tox : tox;
+				py3 = relative ? cury + toy : toy;
+				svgCurveToCubic(pts, px1, py1, px2, py2, px3, py3 );
+				contrlx = relative ? curx + x1 : (tox + 2 * x1) * (1.0 / 3.0);
+				contrly = relative ? cury + y1 : (toy + 2 * y1) * (1.0 / 3.0);
+				curx = relative ? curx + tox : tox;
+				cury = relative ? cury + toy : toy;
+				break;
+			}
+		case 't':
+			relative = true;
+		case 'T':
+			{
+				ptr = getCoord(ptr, tox);
+				ptr = getCoord(ptr, toy);
+				xc = 2 * curx - contrlx;
+				yc = 2 * cury - contrly;
+				px1 = (curx + 2 * xc) * (1.0 / 3.0);
+				py1 = (cury + 2 * yc) * (1.0 / 3.0);
+				px2 = relative ? ((curx + tox) + 2 * xc) * (1.0 / 3.0) : (tox + 2 * xc) * (1.0 / 3.0);
+				py2 = relative ? ((cury + toy) + 2 * yc) * (1.0 / 3.0) : (toy + 2 * yc) * (1.0 / 3.0);
+				px3 = relative ? curx + tox : tox;
+				py3 = relative ? cury + toy : toy;
+				svgCurveToCubic(pts, px1, py1, px2, py2, px3, py3 );
+				contrlx = xc;
+				contrly = yc;
+				curx = relative ? curx + tox : tox;
+				cury = relative ? cury + toy : toy;
+				break;
+			}
+		case 'a':
+			relative = true;
+		case 'A':
+			{
+				bool largeArc, sweep;
+				double angle, rx, ry;
+				ptr = getCoord( ptr, rx );
+				ptr = getCoord( ptr, ry );
+				ptr = getCoord( ptr, angle );
+				ptr = getCoord( ptr, tox );
+				largeArc = tox == 1;
+				ptr = getCoord( ptr, tox );
+				sweep = tox == 1;
+				ptr = getCoord( ptr, tox );
+				ptr = getCoord( ptr, toy );
+				calculateArc(pts, relative, curx, cury, angle, tox, toy, rx, ry, largeArc, sweep );
 			}
 		}
-		if ((lastCommand != 'z') && (lastCommand != 'Z'))
-			ret = true;
-		if (ite->size() > 2)
+		lastCommand = command;
+		if (*ptr == '+' || *ptr == '-' || (*ptr >= '0' && *ptr <= '9'))
 		{
-			if ((ite->point(0).x() == ite->point(ite->size()-2).x()) && (ite->point(0).y() == ite->point(ite->size()-2).y()))
-				ret = false;
+			// there are still coords in this command
+			if (command == 'M')
+				command = 'L';
+			else if (command == 'm')
+				command = 'l';
+		}
+		else
+			command = *(ptr++);
+
+		if (lastCommand != 'C' && lastCommand != 'c' &&
+			    lastCommand != 'S' && lastCommand != 's' &&
+			    lastCommand != 'Q' && lastCommand != 'q' &&
+			    lastCommand != 'T' && lastCommand != 't')
+		{
+			contrlx = curx;
+			contrly = cury;
 		}
 	}
+	if ((lastCommand != 'z') && (lastCommand != 'Z'))
+		ret = true;
+	if (pts->size() > 2)
+	{
+		if ((pts->point(0).x() == pts->point(pts->size()-2).x()) && (pts->point(0).y() == pts->point(pts->size()-2).y()))
+			ret = false;
+	}
+
 	return ret;
 }
 
-void OODPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag)
+void OODPlug::calculateArc(FPointArray *pts, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag)
 {
-	double sin_th, cos_th;
-	double a00, a01, a10, a11;
-	double x0, y0, x1, y1, xc, yc;
-	double d, sfactor, sfactor_sq;
-	double th0, th1, th_arc;
-	int i, n_segs;
-	sin_th = sin(angle * (M_PI / 180.0));
-	cos_th = cos(angle * (M_PI / 180.0));
+	double x1, y1;
+	double sin_th = sin(angle * (M_PI / 180.0));
+	double cos_th = cos(angle * (M_PI / 180.0));
+
 	double dx;
 	if (!relative)
 		dx = (curx - x) / 2.0;
@@ -1818,6 +1805,7 @@ void OODPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 		dy = (cury - y) / 2.0;
 	else
 		dy = -y / 2.0;
+
 	double _x1 =  cos_th * dx + sin_th * dy;
 	double _y1 = -sin_th * dx + cos_th * dy;
 	double Pr1 = r1 * r1;
@@ -1830,12 +1818,13 @@ void OODPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 		r1 = r1 * sqrt(check);
 		r2 = r2 * sqrt(check);
 	}
-	a00 = cos_th / r1;
-	a01 = sin_th / r1;
-	a10 = -sin_th / r2;
-	a11 = cos_th / r2;
-	x0 = a00 * curx + a01 * cury;
-	y0 = a10 * curx + a11 * cury;
+
+	double a00 = cos_th / r1;
+	double a01 = sin_th / r1;
+	double a10 = -sin_th / r2;
+	double a11 = cos_th / r2;
+	double x0 = a00 * curx + a01 * cury;
+	double y0 = a10 * curx + a11 * cury;
 	if (!relative)
 		x1 = a00 * x + a01 * y;
 	else
@@ -1844,51 +1833,53 @@ void OODPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 		y1 = a10 * x + a11 * y;
 	else
 		y1 = a10 * (curx + x) + a11 * (cury + y);
-	d = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0);
-	sfactor_sq = 1.0 / d - 0.25;
+	double d = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0);
+
+	double sfactor_sq = 1.0 / d - 0.25;
 	if (sfactor_sq < 0)
 		sfactor_sq = 0;
-	sfactor = sqrt(sfactor_sq);
+	double sfactor = sqrt(sfactor_sq);
 	if (sweepFlag == largeArcFlag)
 		sfactor = -sfactor;
-	xc = 0.5 * (x0 + x1) - sfactor * (y1 - y0);
-	yc = 0.5 * (y0 + y1) + sfactor * (x1 - x0);
 
-	th0 = atan2(y0 - yc, x0 - xc);
-	th1 = atan2(y1 - yc, x1 - xc);
-	th_arc = th1 - th0;
+	double xc = 0.5 * (x0 + x1) - sfactor * (y1 - y0);
+	double yc = 0.5 * (y0 + y1) + sfactor * (x1 - x0);
+
+	double th0 = atan2(y0 - yc, x0 - xc);
+	double th1 = atan2(y1 - yc, x1 - xc);
+	double th_arc = th1 - th0;
 	if (th_arc < 0 && sweepFlag)
 		th_arc += 2 * M_PI;
 	else if (th_arc > 0 && !sweepFlag)
 		th_arc -= 2 * M_PI;
-	n_segs = static_cast<int>(ceil(fabs(th_arc / (M_PI * 0.5 + 0.001))));
-	for (i = 0; i < n_segs; i++)
+
+	int n_segs = static_cast<int>(ceil(fabs(th_arc / (M_PI * 0.5 + 0.001))));
+	for (int i = 0; i < n_segs; i++)
 	{
-		{
-			double sin_th, cos_th;
-			double a00, a01, a10, a11;
-			double x1, y1, x2, y2, x3, y3;
-			double t;
-			double th_half;
-			double _th0 = th0 + i * th_arc / n_segs;
-			double _th1 = th0 + (i + 1) * th_arc / n_segs;
-			sin_th = sin(angle * (M_PI / 180.0));
-			cos_th = cos(angle * (M_PI / 180.0));
-			a00 = cos_th * r1;
-			a01 = -sin_th * r2;
-			a10 = sin_th * r1;
-			a11 = cos_th * r2;
-			th_half = 0.5 * (_th1 - _th0);
-			t = (8.0 / 3.0) * sin(th_half * 0.5) * sin(th_half * 0.5) / sin(th_half);
-			x1 = xc + cos(_th0) - t * sin(_th0);
-			y1 = yc + sin(_th0) + t * cos(_th0);
-			x3 = xc + cos(_th1);
-			y3 = yc + sin(_th1);
-			x2 = x3 + t * sin(_th1);
-			y2 = y3 - t * cos(_th1);
-			svgCurveToCubic(ite, a00 * x1 + a01 * y1, a10 * x1 + a11 * y1, a00 * x2 + a01 * y2, a10 * x2 + a11 * y2, a00 * x3 + a01 * y3, a10 * x3 + a11 * y3 );
-		}
+		double sin_th, cos_th;
+		double a00, a01, a10, a11;
+		double x1, y1, x2, y2, x3, y3;
+		double t;
+		double th_half;
+		double _th0 = th0 + i * th_arc / n_segs;
+		double _th1 = th0 + (i + 1) * th_arc / n_segs;
+		sin_th = sin(angle * (M_PI / 180.0));
+		cos_th = cos(angle * (M_PI / 180.0));
+		a00 = cos_th * r1;
+		a01 = -sin_th * r2;
+		a10 = sin_th * r1;
+		a11 = cos_th * r2;
+		th_half = 0.5 * (_th1 - _th0);
+		t = (8.0 / 3.0) * sin(th_half * 0.5) * sin(th_half * 0.5) / sin(th_half);
+		x1 = xc + cos(_th0) - t * sin(_th0);
+		y1 = yc + sin(_th0) + t * cos(_th0);
+		x3 = xc + cos(_th1);
+		y3 = yc + sin(_th1);
+		x2 = x3 + t * sin(_th1);
+		y2 = y3 - t * cos(_th1);
+		svgCurveToCubic(pts, a00 * x1 + a01 * y1, a10 * x1 + a11 * y1, a00 * x2 + a01 * y2, a10 * x2 + a11 * y2, a00 * x3 + a01 * y3, a10 * x3 + a11 * y3 );
 	}
+
 	if (!relative)
 		curx = x;
 	else
@@ -1910,7 +1901,7 @@ void OODPlug::svgMoveTo(double x1, double y1)
 
 void OODPlug::svgLineTo(FPointArray *i, double x1, double y1)
 {
-	if ((!FirstM) && (WasM))
+	if (!FirstM && WasM)
 	{
 		i->setMarker();
 		PathLen += 4;
@@ -1923,8 +1914,8 @@ void OODPlug::svgLineTo(FPointArray *i, double x1, double y1)
 		const FPoint& b2 = i->point(i->size()-3);
 		const FPoint& b3 = i->point(i->size()-2);
 		const FPoint& b4 = i->point(i->size()-1);
-		FPoint n1 = FPoint(CurrX, CurrY);
-		FPoint n2 = FPoint(x1, y1);
+		FPoint n1(CurrX, CurrY);
+		FPoint n2(x1, y1);
 		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
 			return;
 	}
@@ -1937,47 +1928,47 @@ void OODPlug::svgLineTo(FPointArray *i, double x1, double y1)
 	PathLen += 4;
 }
 
-void OODPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3)
+void OODPlug::svgCurveToCubic(FPointArray *pts, double x1, double y1, double x2, double y2, double x3, double y3)
 {
-	if ((!FirstM) && (WasM))
+	if (!FirstM && WasM)
 	{
-		i->setMarker();
+		pts->setMarker();
 		PathLen += 4;
 	}
 	FirstM = false;
 	WasM = false;
 	if (PathLen > 3)
 	{
-		const FPoint& b1 = i->point(i->size()-4);
-		const FPoint& b2 = i->point(i->size()-3);
-		const FPoint& b3 = i->point(i->size()-2);
-		const FPoint& b4 = i->point(i->size()-1);
-		FPoint n1 = FPoint(CurrX, CurrY);
-		FPoint n2 = FPoint(x1, y1);
-		FPoint n3 = FPoint(x3, y3);
-		FPoint n4 = FPoint(x2, y2);
+		const FPoint& b1 = pts->point(pts->size() - 4);
+		const FPoint& b2 = pts->point(pts->size() - 3);
+		const FPoint& b3 = pts->point(pts->size() - 2);
+		const FPoint& b4 = pts->point(pts->size() - 1);
+		FPoint n1(CurrX, CurrY);
+		FPoint n2(x1, y1);
+		FPoint n3(x3, y3);
+		FPoint n4(x2, y2);
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return;
 	}
-	i->addPoint(FPoint(CurrX, CurrY));
-	i->addPoint(FPoint(x1, y1));
-	i->addPoint(FPoint(x3, y3));
-	i->addPoint(FPoint(x2, y2));
+	pts->addPoint(FPoint(CurrX, CurrY));
+	pts->addPoint(FPoint(x1, y1));
+	pts->addPoint(FPoint(x3, y3));
+	pts->addPoint(FPoint(x2, y2));
 	CurrX = x3;
 	CurrY = y3;
 	PathLen += 4;
 }
 
-void OODPlug::svgClosePath(FPointArray *i)
+void OODPlug::svgClosePath(FPointArray *pts) const
 {
 	if (PathLen > 2)
 	{
-		if ((PathLen == 4) || (i->point(i->size()-2).x() != StartX) || (i->point(i->size()-2).y() != StartY))
+		if ((PathLen == 4) || (pts->point(pts->size() - 2).x() != StartX) || (pts->point(pts->size() - 2).y() != StartY))
 		{
-			i->addPoint(i->point(i->size()-2));
-			i->addPoint(i->point(i->size()-3));
-			i->addPoint(FPoint(StartX, StartY));
-			i->addPoint(FPoint(StartX, StartY));
+			pts->addPoint(pts->point(pts->size() - 2));
+			pts->addPoint(pts->point(pts->size() - 3));
+			pts->addPoint(FPoint(StartX, StartY));
+			pts->addPoint(FPoint(StartX, StartY));
 		}
 	}
 }
