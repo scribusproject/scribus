@@ -21,6 +21,7 @@ the Free Software Foundation; either version 2 of the License, or
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scribuscore.h"
+#include "util_keyboard.h"
 
 
 PythonConsole::PythonConsole( QWidget* parent)
