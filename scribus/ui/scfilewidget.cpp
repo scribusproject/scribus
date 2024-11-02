@@ -8,11 +8,12 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 #include <QDebug>
-#include <QStandardPaths>
 #include <QLayout>
 #include <QLineEdit>
 #include <QListView>
 #include <QPushButton>
+#include <QStandardPaths>
+#include <QStorageInfo>
 #include <QStringList>
 #include <QUrl>
 
@@ -60,6 +61,19 @@ ScFileWidget::ScFileWidget(QWidget * parent, fwContextFlags contextFlags) : QFil
 	}
 	setSidebarUrls(urls);
 #endif
+
+#ifdef Q_OS_LINUX
+	QList<QUrl> urls(sidebarUrls());
+	QUrl linuxOSUrl;
+	foreach (const QStorageInfo &storage, QStorageInfo::mountedVolumes())
+	{
+		linuxOSUrl=QUrl::fromLocalFile(storage.rootPath());
+		if (storage.rootPath().startsWith("/media") && !urls.contains(linuxOSUrl))
+			urls << linuxOSUrl;
+	}
+	setSidebarUrls(urls);
+#endif
+
 
 	FileDialogEventCatcher* keyCatcher = new FileDialogEventCatcher(this);
 	QList<QListView *> childListViews = findChildren<QListView *>();
