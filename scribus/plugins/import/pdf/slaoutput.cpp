@@ -3352,11 +3352,19 @@ void SlaOutputDev::updateFont(GfxState *state)
 				delete ff;
 #endif
 			}
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
+			if (!(fontFile = m_fontEngine->loadTrueTypeFont(std::move(id), fontsrc, codeToGID, n, faceIndex)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+				goto err2;
+			}
+#else
 			if (!(fontFile = m_fontEngine->loadTrueTypeFont(id, fontsrc, codeToGID, n, faceIndex)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
 				goto err2;
 			}
+#endif
 			break;
 		default:
 			// this shouldn't happen
