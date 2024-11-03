@@ -5,7 +5,7 @@ include_directories(
 
 install(FILES
 	transform-crop-and-resize.png
-	DESTINATION ${ICONDIR}/1_5_1/
+	DESTINATION ${ICONDIR}/1_7_0/
 )
 
 set(PATHCUT_PLUGIN_SOURCES

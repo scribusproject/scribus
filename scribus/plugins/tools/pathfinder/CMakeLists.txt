@@ -9,7 +9,7 @@ install(FILES
 	pathparts.png
 	pathsubtraction.png
 	pathunite.png
-	DESTINATION ${ICONDIR}/1_5_1/
+	DESTINATION ${ICONDIR}/1_7_0/
 )
 
 set(PATHFINDER_PLUGIN_SOURCES
