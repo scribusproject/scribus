@@ -123,7 +123,7 @@ int System(const QString& exename, const QStringList & args, const QString& file
 	{
 		while (!proc.waitForFinished(15000))
 		{
-			qApp->processEvents();
+			QApplication::processEvents();
 			if (cancel && (*cancel))
 			{
 				proc.kill();
@@ -136,7 +136,7 @@ int System(const QString& exename, const QStringList & args, const QString& file
 	return proc.exitCode();
 }
 
-// On Windows, return short path name, else return longPath;
+// On Windows, return short path name, else return longPath
 QString getShortPathName(const QString & longPath)
 {
 	QString shortPath(longPath);
@@ -156,7 +156,7 @@ QString getShortPathName(const QString & longPath)
 	return shortPath;
 }
 
-// On Windows, return short path name, else return longPath;
+// On Windows, return short path name, else return longPath
 QString getLongPathName(const QString & shortPath)
 {
 	QString longPath(shortPath);
@@ -194,17 +194,6 @@ bool loadText(const QString& filename, QString *buffer)
 	f.close();
 	for (int i = 0; i < bb.size(); ++i)
 		*buffer += QChar(bb[i]);
-	/*
-		int len = bb.size();
-		int oldLen = Buffer->length();
-		Buffer->setLength( oldLen + len + 1);
-		// digged into Qt 3.3 sources to find that. Might break in Qt 4 -- AV
-		unsigned short * ucsString = const_cast<unsigned short *>(Buffer->ucs2()) + oldLen;
-		char * data = bb.data();
-		for (uint posi = 0; posi < len; ++posi)
-		*ucsString++ = *data++;
-		*ucsString = 0;
-		*/
 	return true;
 }
 
@@ -294,9 +283,9 @@ QString CompressStr(QString *in)
 		}
 		uLong exlen = (uLong)(bb.size() * 0.001 + 16) + bb.size();
 		QByteArray bc(exlen, ' ');
-		if( bc.size() == static_cast<qint32>(exlen) )
+		if (bc.size() == static_cast<qint32>(exlen))
 		{
-			int errcode = compress2((Byte *)bc.data(), &exlen, (Byte *)bb.data(), uLong(bb.size()), 9);
+			int errcode = compress2((Byte*) bc.data(), &exlen, (const Byte*) bb.data(), uLong(bb.size()), 9);
 			if (errcode != Z_OK)
 			{
 				qDebug("compress2 failed with code %i", errcode);
@@ -327,7 +316,7 @@ QByteArray CompressArray(const QByteArray& in)
 	QByteArray out;
 	uLong exlen = uint(in.size() * 0.001 + 16) + in.size();
 	QByteArray temp(exlen, ' ');
-	int errcode = compress2((Byte *)temp.data(), &exlen, (Byte *)in.data(), uLong(in.size()), 9);
+	int errcode = compress2((Byte*) temp.data(), &exlen, (const Byte*) in.data(), uLong(in.size()), 9);
 	if (errcode == Z_OK)
 	{
 		temp.resize(exlen);
@@ -348,7 +337,7 @@ char *toAscii85( quint32 value, bool& allZero )
 		digit = value % 85;
 		if (digit != 0)
 			allZero = false;
-		asciiVal[4-i] = digit + 33;
+		asciiVal[4 - i] = digit + 33;
 		value = (value - digit) / 85;
 	}
 	asciiVal[5] = 0;
@@ -363,9 +352,9 @@ char *toHex( uchar u )
 	{
 		ushort hex = (u & 0x000f);
 		if ( hex < 0x0a )
-			hexVal[i] = '0'+hex;
+			hexVal[i] = '0' + hex;
 		else
-			hexVal[i] = 'A'+(hex-0x0a);
+			hexVal[i] = 'A' + (hex - 0x0a);
 		u = u >> 4;
 		i--;
 	}
@@ -382,7 +371,7 @@ QString String2Hex(QString *in, bool lang)
 		// Qt4 .cell() added ???
 		out += toHex(QChar(in->at(j)).cell());
 		++i;
-		if ((i > 40) && (lang))
+		if ((i > 40) && lang)
 		{
 			out += '\n';
 			i=0;
@@ -442,7 +431,7 @@ bool overwrite(QWidget *parent, const QString& filename)
 
 void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 {
-	QChar Dat = QChar(32);
+	QChar Dat(32);
 	int para = 0;
 	int ww = 0;
 	int cc = 0;
@@ -518,7 +507,7 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 	view->setScale(1.0);
 	currentDoc->RePos = true;
 	QImage pgPix(10, 10, QImage::Format_ARGB32_Premultiplied);
-	QRect rd; // = QRect(0,0,9,9);
+	QRect rd;
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 	for (auto it = currentDoc->MasterItems.begin(); it != currentDoc->MasterItems.end(); ++it)
 	{
@@ -544,7 +533,7 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 \param s2 second string
 \retval bool t/f related s1>s2
  */
-bool compareQStrings(const QString& s1, const QString& s2)
+static bool compareQStrings(const QString& s1, const QString& s2)
 {
 	return QString::localeAwareCompare(s1, s2) < 0;
 }
@@ -662,7 +651,7 @@ QString numberToLetterSequence(const QString& letters, uint num)
 	if (column > 4058115285U)
 		return  QString("@");
 
-	for (unsigned limit = 28; column >= limit+offset; limit *= letters.length(), digits++)
+	for (unsigned limit = 28; column >= limit + offset; limit *= letters.length(), digits++)
 		offset += limit;
 
 	for (unsigned c = column - offset; digits; --digits, c /= letters.length())
@@ -901,7 +890,7 @@ QString readAdobeUniCodeString(QDataStream &s)
 	quint32 len;
 	s >> len;
 
-	quint32 bytesLen = 2 * len;
+	int bytesLen = 2 * len;
 	QByteArray strData(bytesLen, 0);
 	if (strData.size() != bytesLen)
 		return QString();
@@ -1147,9 +1136,9 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 	currItem->OwnPage = gItem->OwnPage;
 	currItem->OnMasterPage = gItem->OnMasterPage;
 
-	currItem->insertRows(0, rowHeights.count()-1);
+	currItem->insertRows(0, rowHeights.count() - 1);
 	m_Doc->dontResize = true;
-	currItem->insertColumns(0, colWidths.count()-1);
+	currItem->insertColumns(0, colWidths.count() - 1);
 	m_Doc->dontResize = true;
 	for (int i = 0; i < rowHeights.count(); i++)
 	{
