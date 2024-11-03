@@ -33,7 +33,7 @@ PyObject *scribus_placevec(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	QStringList allFormatsV = LoadSavePlugin::getExtensionsForImport(FORMATID_FIRSTUSER);
 	QString fName = QString::fromUtf8(image.c_str());
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi(fName);
 	QString ext = fi.suffix().toLower();
 	if (!allFormatsV.contains(ext))
 	{

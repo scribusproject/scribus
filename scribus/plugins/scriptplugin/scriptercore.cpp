@@ -203,9 +203,8 @@ void ScripterCore::runScriptDialog()
 void ScripterCore::StdScript(const QString& baseFilename)
 {
 	QString pfad = ScPaths::instance().scriptDir();
-	QString pfad2;
-	pfad2 = QDir::toNativeSeparators(pfad);
-	QString fn = pfad2+baseFilename+".py";
+	QString pfad2 = QDir::toNativeSeparators(pfad);
+	QString fn = pfad2 + baseFilename + ".py";
 	QFileInfo fd(fn);
 	if (!fd.exists())
 		return;
@@ -250,7 +249,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 		ScCore->primaryMainWindow()->contentPalette->unsetDoc();
 		ScCore->primaryMainWindow()->pagePalette->setView(nullptr);
 		ScCore->primaryMainWindow()->setScriptRunning(true);
-		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		// Create the sub-interpreter
 		// FIXME: This calls abort() in a Python debug build. We're doing something wrong.
 		//stateo = PyEval_SaveThread();
@@ -279,7 +278,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 	delete[] comm;
 	
 	// call python script
-	PyObject* m = PyImport_AddModule((char*)"__main__");
+	PyObject* m = PyImport_AddModule("__main__");
 	if (m == nullptr)
 		qDebug("Failed to get __main__ - aborting script");
 	else
@@ -334,7 +333,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 		// other return value (most likely None anyway) and can ignore it.
 		if (result == nullptr)
 		{
-			PyObject* errorMsgPyStr = PyMapping_GetItemString(globals, (char*)"_errorMsg");
+			PyObject* errorMsgPyStr = PyMapping_GetItemString(globals, "_errorMsg");
 			if (errorMsgPyStr == nullptr)
 			{
 				// It's rather unlikely that this will ever be reached - to get here
@@ -350,7 +349,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 				QClipboard *cp = QApplication::clipboard();
 				cp->setText(errorMsg);
 				ScCore->closeSplash();
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				ScMessageBox::warning(ScCore->primaryMainWindow(),
 									tr("Script error"),
 									"<qt><p>"
@@ -370,7 +369,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 		Py_EndInterpreter(state);
 		PyThreadState_Swap(global_state);
 		//PyEval_RestoreThread(stateo);
-		qApp->restoreOverrideCursor();
+		QApplication::restoreOverrideCursor();
 		ScCore->primaryMainWindow()->setScriptRunning(false);
 	}
 
@@ -439,7 +438,7 @@ void ScripterCore::slotRunScript(const QString& Script)
 	comm[0] = const_cast<char*>("scribus");
 	PySys_SetArgv(1, comm); */
 	// then run the code
-	PyObject* m = PyImport_AddModule((char*)"__main__");
+	PyObject* m = PyImport_AddModule("__main__");
 	if (m == nullptr)
 		qDebug("Failed to get __main__ - aborting script");
 	else
@@ -539,7 +538,7 @@ void ScripterCore::aboutScript()
 	if (fname.isNull())
 		return;
 	QString html("<html><body>");
-	QFileInfo fi = QFileInfo(fname);
+	QFileInfo fi(fname);
 	QFile input(fname);
 	if (!input.open(QIODevice::ReadOnly))
 		return;
@@ -570,7 +569,7 @@ void ScripterCore::initExtensionScripts()
 
 void ScripterCore::runStartupScript()
 {
-	if ((m_enableExtPython) && (!m_startupScript.isEmpty()))
+	if (m_enableExtPython && !m_startupScript.isEmpty())
 	{
 		if (QFile::exists(this->m_startupScript))
 		{

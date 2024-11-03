@@ -56,7 +56,7 @@ PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
@@ -68,10 +68,10 @@ PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 	{
 		for (int i = 0; i < item->itemText.length(); i++)
 			if (item->itemText.selected(i))
-				return PyFloat_FromDouble(static_cast<double>(item->itemText.charStyle(i).fontSize() / 10.0));
+				return PyFloat_FromDouble(item->itemText.charStyle(i).fontSize() / 10.0);
 		return nullptr;
 	}
-	return PyFloat_FromDouble(static_cast<double>(item->currentCharStyle().fontSize() / 10.0));
+	return PyFloat_FromDouble(item->currentCharStyle().fontSize() / 10.0);
 }
 
 PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
@@ -81,7 +81,7 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
@@ -106,7 +106,7 @@ PyObject *scribus_gettextcolor(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
     if (!(item->isTextFrame()) && !(item->isPathText()))
@@ -133,7 +133,7 @@ PyObject *scribus_gettextshade(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
@@ -160,7 +160,7 @@ PyObject *scribus_gettextlength(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
@@ -178,7 +178,7 @@ PyObject *scribus_gettextlines(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
@@ -196,7 +196,7 @@ PyObject *scribus_gettextverticalalignment(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isTextFrame())
@@ -214,7 +214,7 @@ PyObject *scribus_getcolumns(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isTextFrame())
@@ -232,7 +232,7 @@ PyObject *scribus_getcolumngap(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isTextFrame())
@@ -240,7 +240,7 @@ PyObject *scribus_getcolumngap(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column gap of non-text frame.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyFloat_FromDouble(PointToValue(static_cast<double>(item->m_columnGap)));
+	return PyFloat_FromDouble(PointToValue(item->m_columnGap));
 }
 
 PyObject *scribus_getfontfeatures(PyObject* /* self */, PyObject* args)
@@ -250,7 +250,7 @@ PyObject *scribus_getfontfeatures(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
@@ -357,7 +357,7 @@ PyObject *scribus_getfirstlineoffset(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isTextFrame())
@@ -375,7 +375,7 @@ PyObject *scribus_getlinespacing(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isTextFrame())
@@ -383,7 +383,7 @@ PyObject *scribus_getlinespacing(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get line space of non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyFloat_FromDouble(static_cast<double>(item->currentStyle().lineSpacing()));
+	return PyFloat_FromDouble(item->currentStyle().lineSpacing());
 }
 
 PyObject *scribus_getlinespacingmode(PyObject* /* self */, PyObject* args)
@@ -393,7 +393,7 @@ PyObject *scribus_getlinespacingmode(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isTextFrame())
@@ -411,7 +411,7 @@ PyObject *scribus_gettextdistances(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isTextFrame())
@@ -433,7 +433,7 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
@@ -467,7 +467,7 @@ PyObject *scribus_getalltext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
@@ -543,7 +543,7 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 	textData.replace("\r\n", SpecialChars::PARSEP);
 	textData.replace(QChar('\n') , SpecialChars::PARSEP);
 	text.free();
-	if ((pos < -1) || (pos > static_cast<int>(item->itemText.length())))
+	if ((pos < -1) || (pos > item->itemText.length()))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Insert index out of bounds.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -1081,7 +1081,7 @@ PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 			selcount = 0;
 	}
 	// cr 2005-01-18 fixed off-by-one with end bound that made selecting the last char impossible
-	if ((start < 0) || ((start + selcount) > static_cast<int>(item->itemText.length())))
+	if ((start < 0) || ((start + selcount) > item->itemText.length()))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Selection index out of bounds", "python error").toLocal8Bit().constData());
 		return nullptr;
@@ -1117,7 +1117,7 @@ PyObject *scribus_getselectedtextrange(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isTextFrame())
@@ -1135,7 +1135,7 @@ PyObject *scribus_getframeselectedtextrange(PyObject* /* self */, PyObject* args
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isTextFrame())
@@ -1567,7 +1567,7 @@ PyObject *scribus_ispdfbookmark(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isTextFrame())

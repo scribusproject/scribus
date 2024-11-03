@@ -17,7 +17,7 @@ RunScriptDialog::RunScriptDialog(QWidget* parent, bool extEnable) :
 	setupUi(this);
 
 	m_extEnable = extEnable;
-	PrefsManager& prefsManager = PrefsManager::instance();
+	const PrefsManager& prefsManager = PrefsManager::instance();
 	QString scriptDir(prefsManager.appPrefs.pathPrefs.scripts);
 	if (!m_lastScriptDir.isEmpty() && QDir(m_lastScriptDir).exists())
 		fileWidget->setDirectory(m_lastScriptDir);
@@ -37,23 +37,19 @@ RunScriptDialog::RunScriptDialog(QWidget* parent, bool extEnable) :
 	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
-RunScriptDialog::~RunScriptDialog()
-{
-}
-
-bool RunScriptDialog::extensionRequested()
+bool RunScriptDialog::extensionRequested() const
 {
 	if (m_extEnable)
 		return extChk->isChecked();
 	return false;
 }
 
-QString RunScriptDialog::selectedFile()
+QString RunScriptDialog::selectedFile() const
 {
 	return fileWidget->selectedFile();
 }
 
-void RunScriptDialog:: accept()
+void RunScriptDialog::accept()
 {
 	m_lastScriptDir = fileWidget->directory().path();
 	QDialog::accept();

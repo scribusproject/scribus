@@ -339,7 +339,6 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 
 static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 {
-	int i;
 	if (!checkHaveDocument())
 		return -1;
 
@@ -452,7 +451,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'pages' attribute");
 		return -1;
 	}
-	for (i = 0; i < num; ++i)
+	for (int i = 0; i < num; ++i)
 	{
 		PyObject *tmp = PyLong_FromLong((long) i + 1L);
 		if (tmp)
@@ -528,7 +527,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'effval' attribute");
 		return -1;
 	}
-	for (i = 0; i < num; ++i)
+	for (int i = 0; i < num; ++i)
 	{
 		PyObject *tmp;
 		PDFPresentationData t = currentDoc->Pages->at(i)->PresentVals;
@@ -867,8 +866,8 @@ static int PDFfile_setfonts(PDFfile *self, PyObject *value, void * /*closure*/)
 		PyErr_SetString(PyExc_TypeError, "The 'fonts' attribute value must be list of strings.");
 		return -1;
 	}
-	int n = PyList_Size(value);
-	for (int i = 0; i < n; ++i)
+	Py_ssize_t n = PyList_Size(value);
+	for (Py_ssize_t i = 0; i < n; ++i)
 	{
 		if (!PyUnicode_Check(PyList_GetItem(value, i)))
 		{
@@ -904,8 +903,8 @@ static int PDFfile_setSubsetList(PDFfile *self, PyObject *value, void * /*closur
 		PyErr_SetString(PyExc_TypeError, "The 'subsetList' attribute value must be list of strings.");
 		return -1;
 	}
-	int n = PyList_Size(value);
-	for (int i = 0; i < n; ++i)
+	Py_ssize_t n = PyList_Size(value);
+	for (Py_ssize_t i = 0; i < n; ++i)
 	{
 		if (!PyUnicode_Check(PyList_GetItem(value, i)))
 		{
@@ -938,8 +937,8 @@ static int PDFfile_setpages(PDFfile *self, PyObject *value, void * /*closure*/)
 		PyErr_SetString(PyExc_TypeError, "'pages' attribute value must be list of integers.");
 		return -1;
 	}
-	int len = PyList_Size(value);
-	for (int i = 0; i < len; i++)
+	Py_ssize_t len = PyList_Size(value);
+	for (Py_ssize_t i = 0; i < len; i++)
 	{
 		PyObject *tmp = PyList_GetItem(value, i);
 		// I did not check if tmp is nullptr
@@ -1041,8 +1040,8 @@ static int PDFfile_seteffval(PDFfile *self, PyObject *value, void * /*closure*/)
 		PyErr_SetString(PyExc_TypeError, "'effval' must be list.");
 		return -1;
 	}
-	int n = PyList_Size(value);
-	for (int i = 0; i < n; ++i)
+	Py_ssize_t n = PyList_Size(value);
+	for (Py_ssize_t i = 0; i < n; ++i)
 	{
 		PyObject *tmp = PyList_GetItem(value, i);
 		if (!PyList_Check(tmp))
@@ -1050,7 +1049,7 @@ static int PDFfile_seteffval(PDFfile *self, PyObject *value, void * /*closure*/)
 			PyErr_SetString(PyExc_TypeError, "elements of 'effval' must be list of five integers.");
 			return -1;
 		}
-		int j = PyList_Size(tmp);
+		Py_ssize_t j = PyList_Size(tmp);
 		if (j != 6)
 		{
 			PyErr_SetString(PyExc_TypeError, "elements of 'effval' must have exactly six integers.");
@@ -1090,8 +1089,8 @@ static int PDFfile_setlpival(PDFfile *self, PyObject *value, void * /*closure*/)
 		return -1;
 	}
 	// Do I need Py_INCREF or Py_DECREF here?
-	int n = PyList_Size(value);
-	for (int i = 0; i < n; ++i)
+	Py_ssize_t n = PyList_Size(value);
+	for (Py_ssize_t i = 0; i < n; ++i)
 	{
 		PyObject *tmp = PyList_GetItem(value, i);
 		if (!PyList_Check(tmp))
@@ -1099,7 +1098,7 @@ static int PDFfile_setlpival(PDFfile *self, PyObject *value, void * /*closure*/)
 			PyErr_SetString(PyExc_TypeError, "elements of 'lpival' must be list of five integers.");
 			return -1;
 		}
-		int j = PyList_Size(tmp);
+		Py_ssize_t j = PyList_Size(tmp);
 		if (j != 4)
 		{
 			PyErr_SetString(PyExc_TypeError, "elements of 'lpival' must have exactly four members.");
@@ -1323,7 +1322,7 @@ static int PDFfile_setopenAction(PDFfile *self, PyObject *value, void * /*closur
 	return 0;
 }
 
-static char *effval_doc = const_cast<char*>(
+static const char *effval_doc =
 "List of effection values for each saved page.\n"
 "It is a list of list of six integers. Those int have the following meaning:\n\t"
 "- Length of time the page is shown before the presentation\n\tstarts on the selected page. (1-3600)\n\t"
@@ -1331,9 +1330,9 @@ static char *effval_doc = const_cast<char*>(
 "- Type of the display effect\n\t\t0 - No Effect\n\t\t1 - Blinds\n\t\t2 - Box\n\t\t3 - Dissolve\n\t\t4 - Glitter\n\t\t5 - Split\n\t\t6 - Wipe\n\t"
 "- Direction of the effect of moving lines\n\tfor the split and blind effects.\n\t\t0 - Horizontal\n\t\t1 - Vertical\n\t"
 "- Starting position for the box and split effects.\n\t\t0 - Inside\n\t\t1 - Outside\n\t"
-"- Direction of the glitter or wipe effects.\n\t\t0 - Left to Right\n\t\t1 - Top to Bottom\n\t\t2 - Bottom to Top\n\t\t3 - Right to Left\n\t\t4 - Top-left to Bottom-Right");
+"- Direction of the glitter or wipe effects.\n\t\t0 - Left to Right\n\t\t1 - Top to Bottom\n\t\t2 - Bottom to Top\n\t\t3 - Right to Left\n\t\t4 - Top-left to Bottom-Right";
 
-static char *lpival_doc = const_cast<char*>(
+static const char *lpival_doc =
 "Rendering Settings for individual colors.\n\n"
 "This is a list of values for each color\n"
 "Color values have structure [siii] which stand for:\n\t"
@@ -1341,7 +1340,7 @@ static char *lpival_doc = const_cast<char*>(
 "i - Frequency (10 to 1000)\n\t"
 "i - Angle (-180 to 180)\n\t"
 "i - Spot Function\n\t\t0 - Simple Dot\n\t\t1 - Line\n\t\t2 - Round\n\t\t3 - Ellipse\n"
-"Be careful when supplying these values as they\nare not checked for validity.");
+"Be careful when supplying these values as they\nare not checked for validity.";
 
 static PyGetSetDef PDFfile_getseters [] = {
 	{ "file", (getter) PDFfile_getfile, (setter) PDFfile_setfile, "Name of file to save into", nullptr},
@@ -1414,7 +1413,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 	// Apply fonts attribute
 	pdfOptions.EmbedList.clear();
 	n = PyList_Size(self->fonts);
-	for (int i = 0; i < n; ++i)
+	for (Py_ssize_t i = 0; i < n; ++i)
 	{
 		QString tmpFon = PyUnicode_asQString(PyList_GetItem(self->fonts, i));
 		if (pdfOptions.SubsetList.contains(tmpFon))
@@ -1461,8 +1460,8 @@ static PyObject *PDFfile_save(PDFfile *self)
 	pdfOptions.fileName = fn;
 	// Apply pages attribute
 	std::vector<int> pageNs;
-	int nn = PyList_Size(self->pages);
-	for (int i = 0; i < nn; ++i) {
+	Py_ssize_t nn = PyList_Size(self->pages);
+	for (Py_ssize_t i = 0; i < nn; ++i) {
 		pageNs.push_back((int) PyLong_AsLong(PyList_GetItem(self->pages, i)));
 	}
 	// Apply thumbnails attribute
@@ -1503,8 +1502,8 @@ static PyObject *PDFfile_save(PDFfile *self)
 	// Apply presentation attribute
 	pdfOptions.PresentMode = self->presentation;
 
-	int tmpnum = PyList_Size(self->effval);
-	for (int i = 0; i < tmpnum; ++i) 
+	Py_ssize_t tmpnum = PyList_Size(self->effval);
+	for (Py_ssize_t i = 0; i < tmpnum; ++i)
 	{
 		PDFPresentationData t;
 		PyObject *ti = PyList_GetItem(self->effval, i);
@@ -1522,8 +1521,8 @@ static PyObject *PDFfile_save(PDFfile *self)
 //	pdfOptions.PresentVals = PresentVals;
 
 	// Apply lpival
-	int n2 = PyList_Size(self->lpival);
-	for (int i = 0; i < n2; ++i)
+	Py_ssize_t n2 = PyList_Size(self->lpival);
+	for (Py_ssize_t i = 0; i < n2; ++i)
 	{
 		LPIData lpi;
 		PyObject *t = PyList_GetItem(self->lpival, i);
@@ -1672,86 +1671,86 @@ static PyMethodDef PDFfile_methods[] = {
 
 PyTypeObject PDFfile_Type = {
 	PyVarObject_HEAD_INIT(nullptr, 0) // PyObject_VAR_HEAD	      //
-	"scribus.PDFfile", // const char *tp_name; /* For printing, in format "<module>.<name>" */
-	sizeof(PDFfile),     // int tp_basicsize, /* For allocation */
-	0,		    // int tp_itemsize; /* For allocation */
+	"scribus.PDFfile", // const char *tp_name /* For printing, in format "<module>.<name>" */
+	sizeof(PDFfile),     // int tp_basicsize /* For allocation */
+	0,		    // int tp_itemsize /* For allocation */
 
 	/* Methods to implement standard operations */
 
-	(destructor) PDFfile_dealloc, //     destructor tp_dealloc;
+	(destructor) PDFfile_dealloc, //     destructor tp_dealloc
 #if PY_VERSION_HEX >= 0x03080000
 	0,       //     Py_ssize_t tp_vectorcall_offset
 #else
 	nullptr, //     printfunc tp_print;
 #endif
-	nullptr, //     getattrfunc tp_getattr;
-	nullptr, //     setattrfunc tp_setattr;
-	nullptr, //     cmpfunc tp_as_async;
-	nullptr, //     reprfunc tp_repr;
+	nullptr, //     getattrfunc tp_getattr
+	nullptr, //     setattrfunc tp_setattr
+	nullptr, //     cmpfunc tp_as_async
+	nullptr, //     reprfunc tp_repr
 
 	/* Method suites for standard classes */
 
-	nullptr, //     PyNumberMethods *tp_as_number;
-	nullptr, //     PySequenceMethods *tp_as_sequence;
-	nullptr, //     PyMappingMethods *tp_as_mapping;
+	nullptr, //     PyNumberMethods *tp_as_number
+	nullptr, //     PySequenceMethods *tp_as_sequence
+	nullptr, //     PyMappingMethods *tp_as_mapping
 
 	/* More standard operations (here for binary compatibility) */
 
-	nullptr, //     hashfunc tp_hash;
-	nullptr, //     ternaryfunc tp_call;
-	nullptr, //     reprfunc tp_str;
-	nullptr, //     getattrofunc tp_getattro;
-	nullptr, //     setattrofunc tp_setattro;
+	nullptr, //     hashfunc tp_hash
+	nullptr, //     ternaryfunc tp_call
+	nullptr, //     reprfunc tp_str
+	nullptr, //     getattrofunc tp_getattro
+	nullptr, //     setattrofunc tp_setattro
 
 	/* Functions to access object as input/output buffer */
-	nullptr, //     PyBufferProcs *tp_as_buffer;
+	nullptr, //     PyBufferProcs *tp_as_buffer
 
 	/* Flags to define presence of optional/expanded features */
-	Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,    // long tp_flags;
+	Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,    // long tp_flags
 
-	pdffile__doc__,      // char *tp_doc; /* Documentation string */
+	pdffile__doc__,      // char *tp_doc /* Documentation string */
 
 	/* Assigned meaning in release 2.0 */
 	/* call function for all accessible objects */
-	nullptr, //     traverseproc tp_traverse;
+	nullptr, //     traverseproc tp_traverse
 
 	/* delete references to contained objects */
-	nullptr, //     inquiry tp_clear;
+	nullptr, //     inquiry tp_clear
 
 	/* Assigned meaning in release 2.1 */
 	/* rich comparisons */
-	nullptr, //     richcmpfunc tp_richcompare;
+	nullptr, //     richcmpfunc tp_richcompare
 
 	/* weak reference enabler */
-	0, //     long tp_weaklistoffset;
+	0, //     long tp_weaklistoffset
 
 	/* Added in release 2.2 */
 	/* Iterators */
-	nullptr, //     getiterfunc tp_iter;
-	nullptr, //     iternextfunc tp_iternext;
+	nullptr, //     getiterfunc tp_iter
+	nullptr, //     iternextfunc tp_iternext
 
 	/* Attribute descriptor and subclassing stuff */
-	PDFfile_methods, //     struct PyMethodDef *tp_methods;
-	PDFfile_members, //     struct PyMemberDef *tp_members;
-	PDFfile_getseters, //     struct PyGetSetDef *tp_getset;
-	nullptr, //     struct _typeobject *tp_base;
-	nullptr, //     PyObject *tp_dict;
-	nullptr, //     descrgetfunc tp_descr_get;
-	nullptr, //     descrsetfunc tp_descr_set;
-	0, //     long tp_dictoffset;
-	(initproc) PDFfile_init, //     initproc tp_init;
-	nullptr, //     allocfunc tp_alloc;
-	PDFfile_new, //     newfunc tp_new;
-	nullptr, //     freefunc tp_free; /* Low-level free-memory routine */
-	nullptr, //     inquiry tp_is_gc; /* For PyObject_IS_GC */
-	nullptr, //     PyObject *tp_bases;
-	nullptr, //     PyObject *tp_mro; /* method resolution order */
-	nullptr, //     PyObject *tp_cache;
-	nullptr, //     PyObject *tp_subclasses;
-	nullptr, //     PyObject *tp_weaklist;
-	nullptr, //     destructor tp_del;
-	0, //	 unsigned int tp_version_tag;
-	nullptr, //	 destructor tp_finalize;
+	PDFfile_methods, //     struct PyMethodDef *tp_methods
+	PDFfile_members, //     struct PyMemberDef *tp_members
+	PDFfile_getseters, //     struct PyGetSetDef *tp_getset
+	nullptr, //     struct _typeobject *tp_base
+	nullptr, //     PyObject *tp_dict
+	nullptr, //     descrgetfunc tp_descr_get
+	nullptr, //     descrsetfunc tp_descr_set
+	0, //     long tp_dictoffset
+	(initproc) PDFfile_init, //     initproc tp_init
+	nullptr, //     allocfunc tp_alloc
+	PDFfile_new, //     newfunc tp_new
+	nullptr, //     freefunc tp_free /* Low-level free-memory routine */
+	nullptr, //     inquiry tp_is_gc /* For PyObject_IS_GC */
+	nullptr, //     PyObject *tp_bases
+	nullptr, //     PyObject *tp_mro /* method resolution order */
+	nullptr, //     PyObject *tp_cache
+	nullptr, //     PyObject *tp_subclasses
+	nullptr, //     PyObject *tp_weaklist
+	nullptr, //     destructor tp_del
+	0, //	 unsigned int tp_version_tag
+	nullptr, //	 destructor tp_finalize
 #if PY_VERSION_HEX >= 0x03080000
 	nullptr, // tp_vectorcall
 #endif

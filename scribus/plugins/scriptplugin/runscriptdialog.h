@@ -22,16 +22,15 @@ class RunScriptDialog : public QDialog, public Ui::RunScriptDialog
 
 	public:
 		RunScriptDialog(QWidget* parent, bool extEnable = false);
-		~RunScriptDialog();
 
 		//! \brief Check if the user wanted the script run as an extension script
-		bool extensionRequested();
+		bool extensionRequested() const;
 		//! \brief Return chosen filename
-		QString selectedFile();
+		QString selectedFile() const;
 
 	protected:
 		// true id there is "scripter extensions" feature enabled
-		bool m_extEnable;
+		bool m_extEnable { false };
 
 		static QString m_lastScriptDir;
 

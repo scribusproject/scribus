@@ -27,7 +27,7 @@ PyObject *scribus_statusmessage(PyObject* /* self */, PyObject* args)
 PyObject *scribus_progressreset(PyObject* /* self */)
 {
 	ScCore->primaryMainWindow()->mainWindowProgressBar->reset();
-	qApp->processEvents();
+	QApplication::processEvents();
 	Py_RETURN_NONE;
 }
 
@@ -38,7 +38,7 @@ PyObject *scribus_progresssettotalsteps(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	ScCore->primaryMainWindow()->mainWindowProgressBar->setMaximum(steps);
 	ScCore->primaryMainWindow()->mainWindowProgressBar->setValue(0);
-	qApp->processEvents();
+	QApplication::processEvents();
 	Py_RETURN_NONE;
 }
 
@@ -53,7 +53,7 @@ PyObject *scribus_progresssetprogress(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	ScCore->primaryMainWindow()->mainWindowProgressBar->setValue(position);
-	qApp->processEvents();
+	QApplication::processEvents();
 	Py_RETURN_NONE;
 }
 
@@ -65,9 +65,9 @@ PyObject *scribus_setcursor(PyObject* /* self */, PyObject* args)
 	if (!PyArg_ParseTuple(args, "es", "ascii", aCursor.ptr()))
 		return nullptr;
 	if (strcmp(aCursor.c_str(), "wait") == 0)
-		qApp->changeOverrideCursor(Qt::WaitCursor);
+		QApplication::changeOverrideCursor(Qt::WaitCursor);
 //	else
-//		qApp->restoreOverrideCursor();
+//		QApplication::restoreOverrideCursor();
 	Py_RETURN_NONE;
 }
 

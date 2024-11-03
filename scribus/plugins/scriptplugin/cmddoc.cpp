@@ -22,7 +22,6 @@ PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
 {
 	double topMargin, bottomMargin, leftMargin, rightMargin;
 	double pageWidth, pageHeight;
-//	int orientation, firstPageNr, unit, pagesType, facingPages, firstPageOrder, numPages;
 	int orientation, firstPageNr, unit, pagesType, firstPageOrder, numPages;
 
 	PyObject *p, *m;
@@ -217,7 +216,7 @@ PyObject *scribus_closedoc(PyObject* /* self */)
 		return nullptr;
 	ScCore->primaryMainWindow()->doc->setModified(false);
 	bool ret = ScCore->primaryMainWindow()->slotFileClose();
-	qApp->processEvents();
+	QApplication::processEvents();
 	return PyLong_FromLong(static_cast<long>(ret));
 }
 
@@ -319,7 +318,7 @@ PyObject *scribus_getinfo(PyObject* /* self */)
 		return PyUnicode_FromString("");
 	}
 
-	DocumentInformation& docInfo = ScCore->primaryMainWindow()->doc->documentInfo();
+	const DocumentInformation& docInfo = ScCore->primaryMainWindow()->doc->documentInfo();
 	return Py_BuildValue("(sss)",
 				docInfo.author().toUtf8().data(),
 				docInfo.title().toUtf8().data(),
@@ -434,7 +433,7 @@ PyObject *scribus_masterpagenames(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
-	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 
 	PyObject* names = PyList_New(currentDoc->MasterPages.count());
 	QMap<QString,int>::const_iterator it(currentDoc->MasterNames.constBegin());
@@ -524,8 +523,8 @@ PyObject *scribus_getmasterpage(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	e--;
 
-	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
-	if ((e < 0) || (e > static_cast<int>(currentDoc->Pages->count())-1))
+	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	if ((e < 0) || (e > currentDoc->Pages->count() - 1))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range: '%1'.","python error").arg(e+1).toLocal8Bit().constData());
 		return nullptr;
@@ -549,7 +548,7 @@ PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Master page does not exist: '%1'","python error").arg(masterPageName).toLocal8Bit().constData());
 		return nullptr;
 	}
-	if ((page < 1) || (page > static_cast<int>(currentDoc->Pages->count())))
+	if ((page < 1) || (page > currentDoc->Pages->count()))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range: %1.","python error").arg(page).toLocal8Bit().constData());
 		return nullptr;
