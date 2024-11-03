@@ -230,7 +230,7 @@ PyObject *scribus_createpolyline(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	int len = PyList_Size(il);
+	Py_ssize_t len = PyList_Size(il);
 	if (len < 4)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least two points (four values).","python error").toLocal8Bit().constData());
@@ -247,10 +247,10 @@ PyObject *scribus_createpolyline(PyObject* /* self */, PyObject* args)
 //		return nullptr;
 //	}
 	double x, y, w, h;
-	int i = 0;
-	x = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	Py_ssize_t i = 0;
+	x = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, i)));
 	i++;
-	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	y = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, i)));
 	i++;
 	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(ic);
@@ -260,21 +260,21 @@ PyObject *scribus_createpolyline(PyObject* /* self */, PyObject* args)
 	int pp = 6;
 	for (i = 2; i < len - 2; i += 2)
 	{
-		w = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
-		h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+1))));
+		w = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, i)));
+		h = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, i + 1)));
 		it->PoLine.resize(pp);
-		it->PoLine.setPoint(pp-4, w-x, h-y);
-		it->PoLine.setPoint(pp-3, w-x, h-y);
-		it->PoLine.setPoint(pp-2, w-x, h-y);
-		it->PoLine.setPoint(pp-1, w-x, h-y);
+		it->PoLine.setPoint(pp - 4, w - x, h - y);
+		it->PoLine.setPoint(pp - 3, w - x, h - y);
+		it->PoLine.setPoint(pp - 2, w - x, h - y);
+		it->PoLine.setPoint(pp - 1, w - x, h - y);
 		pp += 4;
 	}
 	pp -= 2;
-	w = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-2))));
-	h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-1))));
+	w = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, len - 2)));
+	h = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, len - 1)));
 	it->PoLine.resize(pp);
-	it->PoLine.setPoint(pp-2, w-x, h-y);
-	it->PoLine.setPoint(pp-1, w-x, h-y);
+	it->PoLine.setPoint(pp - 2, w - x, h - y);
+	it->PoLine.setPoint(pp - 1, w - x, h - y);
 	FPoint np2 = getMinClipF(&it->PoLine);
 	if (np2.x() < 0)
 	{
@@ -307,7 +307,7 @@ PyObject *scribus_createpolygon(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	int len = PyList_Size(il);
+	Py_ssize_t len = PyList_Size(il);
 	if (len < 6)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least three points (six values).","python error").toLocal8Bit().constData());
@@ -324,10 +324,10 @@ PyObject *scribus_createpolygon(PyObject* /* self */, PyObject* args)
 //		return nullptr;
 //	}
 	double x, y, w, h;
-	int i = 0;
-	x = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	Py_ssize_t i = 0;
+	x = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, i)));
 	i++;
-	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	y = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, i)));
 	i++;
 	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(ic);
@@ -337,26 +337,26 @@ PyObject *scribus_createpolygon(PyObject* /* self */, PyObject* args)
 	int pp = 6;
 	for (i = 2; i < len - 2; i += 2)
 	{
-		w = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
-		h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+1))));
+		w = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, i)));
+		h = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, i + 1)));
 		it->PoLine.resize(pp);
-		it->PoLine.setPoint(pp-4, w-x, h-y);
-		it->PoLine.setPoint(pp-3, w-x, h-y);
-		it->PoLine.setPoint(pp-2, w-x, h-y);
-		it->PoLine.setPoint(pp-1, w-x, h-y);
+		it->PoLine.setPoint(pp - 4, w - x, h - y);
+		it->PoLine.setPoint(pp - 3, w - x, h - y);
+		it->PoLine.setPoint(pp - 2, w - x, h - y);
+		it->PoLine.setPoint(pp - 1, w - x, h - y);
 		pp += 4;
 	}
-	w = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-2))));
-	h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-1))));
+	w = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, len - 2)));
+	h = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, len - 1)));
 	it->PoLine.resize(pp);
-	it->PoLine.setPoint(pp-4, w-x, h-y);
-	it->PoLine.setPoint(pp-3, w-x, h-y);
-	it->PoLine.setPoint(pp-2, w-x, h-y);
-	it->PoLine.setPoint(pp-1, w-x, h-y);
+	it->PoLine.setPoint(pp - 4, w - x, h - y);
+	it->PoLine.setPoint(pp - 3, w - x, h - y);
+	it->PoLine.setPoint(pp - 2, w - x, h - y);
+	it->PoLine.setPoint(pp - 1, w - x, h - y);
 	pp += 2;
 	it->PoLine.resize(pp);
-	it->PoLine.setPoint(pp-2, 0, 0);
-	it->PoLine.setPoint(pp-1, 0, 0);
+	it->PoLine.setPoint(pp - 2, 0, 0);
+	it->PoLine.setPoint(pp - 1, 0, 0);
 	FPoint np2 = getMinClipF(&it->PoLine);
 	if (np2.x() < 0)
 	{
@@ -388,7 +388,7 @@ PyObject *scribus_createbezierline(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	int len = PyList_Size(il);
+	Py_ssize_t len = PyList_Size(il);
 	if (len < 8)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least four points (eight values).","python error").toLocal8Bit().constData());
@@ -405,49 +405,49 @@ PyObject *scribus_createbezierline(PyObject* /* self */, PyObject* args)
 //		return nullptr;
 //	}
 	double x, y, w, h, kx, ky, kx2, ky2;
-	int i = 0;
-	x = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	Py_ssize_t i = 0;
+	x = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, i)));
 	i++;
-	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	y = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, i)));
 	i++;
-	kx = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	kx = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, i)));
 	i++;
-	ky = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	ky = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, i)));
 	i++;
-	kx2 = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	kx2 = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, i)));
 	i++;
-	ky2 = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	ky2 = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, i)));
 	i++;
 	//int ic = ScCore->primaryMainWindow()->view->PaintPolyLine(x, y, 1, 1,	ScCore->primaryMainWindow()->doc->toolSettings.dWidth, ScCore->primaryMainWindow()->doc->toolSettings.dBrush, ScCore->primaryMainWindow()->doc->toolSettings.dPen);
 	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
-	it->PoLine.setPoint(1, kx-x, ky-y);
+	it->PoLine.setPoint(1, kx - x, ky - y);
 	int pp = 6;
 	for (i = 6; i < len - 6; i += 6)
 	{
-		w = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
-		h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+1))));
-		kx = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+2))));
-		ky = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+3))));
-		kx2 = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+4))));
-		ky2 = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+5))));
+		w = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, i)));
+		h = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, i + 1)));
+		kx = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, i + 2)));
+		ky = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, i + 3)));
+		kx2 = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, i + 4)));
+		ky2 = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, i + 5)));
 		it->PoLine.resize(pp);
-		it->PoLine.setPoint(pp-4, w-x, h-y);
-		it->PoLine.setPoint(pp-3, kx-x, ky-y);
-		it->PoLine.setPoint(pp-2, it->PoLine.point(pp-4));
-		it->PoLine.setPoint(pp-1, kx2-x, ky2-y);
+		it->PoLine.setPoint(pp - 4, w - x, h - y);
+		it->PoLine.setPoint(pp - 3, kx - x, ky - y);
+		it->PoLine.setPoint(pp - 2, it->PoLine.point(pp - 4));
+		it->PoLine.setPoint(pp - 1, kx2 - x, ky2 - y);
 		pp += 4;
 	}
 	pp -= 2;
-	w = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-6))));
-	h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-5))));
-	kx = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-4))));
-	ky = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-3))));
+	w = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, len - 6)));
+	h = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, len - 5)));
+	kx = pageUnitXToDocX(PyFloat_AsDouble(PyList_GetItem(il, len - 4)));
+	ky = pageUnitYToDocY(PyFloat_AsDouble(PyList_GetItem(il, len - 3)));
 	it->PoLine.resize(pp);
-	it->PoLine.setPoint(pp-2, w-x, h-y);
-	it->PoLine.setPoint(pp-1, kx-x, ky-y);
+	it->PoLine.setPoint(pp - 2, w - x, h - y);
+	it->PoLine.setPoint(pp - 1, kx - x, ky - y);
 	FPoint np2 = getMinClipF(&it->PoLine);
 	if (np2.x() < 0)
 	{
@@ -538,7 +538,7 @@ PyObject *scribus_gettextflowmode(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 
@@ -600,7 +600,7 @@ PyObject *scribus_getcharacterstyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
@@ -609,8 +609,8 @@ PyObject *scribus_getcharacterstyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 
-	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
-	StoryText&  itemText = item->itemText;
+	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	const StoryText&  itemText = item->itemText;
 
 	int selectionLength = itemText.selectionLength();	
 	if ((selectionLength > 0) || (currentDoc->appMode == modeEdit))
@@ -640,7 +640,7 @@ PyObject *scribus_getparagraphstyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
@@ -649,8 +649,8 @@ PyObject *scribus_getparagraphstyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 
-	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
-	StoryText&  itemText = item->itemText;
+	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	const StoryText&  itemText = item->itemText;
 
 	int selectionLength = itemText.selectionLength();	
 	if ((selectionLength > 0) || (currentDoc->appMode == modeEdit))
@@ -878,8 +878,8 @@ PyObject *scribus_duplicateobjects(PyObject * /* self */, PyObject *args)
 	}
 	else if ((pyObject != nullptr) && PyList_Check(pyObject))
 	{
-		int len = PyList_Size(pyObject);
-		for (int i = 0; i < len; ++i)
+		Py_ssize_t len = PyList_Size(pyObject);
+		for (Py_ssize_t i = 0; i < len; ++i)
 		{
 			PyObject* pyItem = PyList_GetItem(pyObject, i);
 			if (!PyUnicode_Check(pyItem))
@@ -926,7 +926,7 @@ PyObject *scribus_duplicateobjects(PyObject * /* self */, PyObject *args)
 	PyObject* pyList = PyList_New(currentDoc->m_Selection->count());
 	for (int i = 0; i < currentDoc->m_Selection->count(); ++i)
 	{
-		PageItem* item = currentDoc->m_Selection->itemAt(i);
+		const PageItem* item = currentDoc->m_Selection->itemAt(i);
 		PyList_SetItem(pyList, i, PyUnicode_FromString(item->itemName().toUtf8()));
 	}
 	return pyList;
@@ -986,8 +986,8 @@ PyObject *scribus_copyobjects(PyObject * /* self */, PyObject *args)
 	}
 	else if ((pyObject != nullptr) && PyList_Check(pyObject))
 	{
-		int len = PyList_Size(pyObject);
-		for (int i = 0; i < len; i++)
+		Py_ssize_t len = PyList_Size(pyObject);
+		for (Py_ssize_t i = 0; i < len; i++)
 		{
 			PyObject* pyItem = PyList_GetItem(pyObject, i);
 			if (!PyUnicode_Check(pyItem))
@@ -1064,7 +1064,7 @@ PyObject *scribus_pasteobjects(PyObject * /* self */, PyObject * /*args*/)
 	PyObject* pyList = PyList_New(currentDoc->m_Selection->count());
 	for (int i = 0; i < currentDoc->m_Selection->count(); ++i)
 	{
-		PageItem* item = currentDoc->m_Selection->itemAt(i);
+		const PageItem* item = currentDoc->m_Selection->itemAt(i);
 		PyList_SetItem(pyList, i, PyUnicode_FromString(item->itemName().toUtf8()));
 	}
 	return pyList;
@@ -1079,10 +1079,10 @@ PyObject *scribus_getitempagenumber(PyObject *, PyObject *args)
 	if (!checkHaveDocument())
 		return nullptr;
 
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
-	if (i == nullptr)
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
 		return nullptr;
-	return PyLong_FromLong(i->OwnPage);
+	return PyLong_FromLong(item->OwnPage);
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings

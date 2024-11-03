@@ -80,7 +80,7 @@ PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw
 	objArg = nullptr; // no need to decref, it's borrowed
 
 	// Look up the property and retrieve its type information
-	const char* type = getpropertytype( (QObject*) obj, propertyname.c_str(), includesuper);
+	const char* type = getpropertytype(obj, propertyname.c_str(), includesuper);
 	if (type == nullptr)
 	{
 		PyErr_SetString(PyExc_KeyError, QObject::tr("Property not found").toLocal8Bit().constData());
@@ -95,7 +95,7 @@ PyObject* convert_QStringList_to_PyListObject(QStringList& origlist)
 	if (!resultList)
 		return nullptr;
 
-	for ( QStringList::Iterator it = origlist.begin(); it != origlist.end(); ++it )
+	for (auto it = origlist.begin(); it != origlist.end(); ++it)
 		if (PyList_Append(resultList, PyUnicode_FromString((*it).toUtf8().data())) == -1)
 			return nullptr;
 
@@ -123,7 +123,7 @@ PyObject* convert_QObjectList_to_PyListObject(QObjectList* origlist)
 			return nullptr;
 		}
 		// and add it to the list
-		if (PyList_Append(resultList, (PyObject*)objPtr) == -1)
+		if (PyList_Append(resultList, objPtr) == -1)
 			return nullptr;
 	}
 	return resultList;
@@ -214,7 +214,7 @@ PyObject* scribus_getpropertynames(PyObject* /*self*/, PyObject* args, PyObject*
 		return nullptr;
 
 	// Get the QObject* the object argument refers to
-	QObject* obj = getQObjectFromPyArg(objArg);
+	const QObject* obj = getQObjectFromPyArg(objArg);
 	if (!obj)
 		return nullptr;
 	objArg = nullptr; // no need to decref, it's borrowed
@@ -246,7 +246,7 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		return nullptr;
 
 	// Get the QObject* the object argument refers to
-	QObject* obj = getQObjectFromPyArg(objArg);
+	const QObject* obj = getQObjectFromPyArg(objArg);
 	if (!obj)
 		return nullptr;
 	objArg = nullptr; // no need to decref, it's borrowed

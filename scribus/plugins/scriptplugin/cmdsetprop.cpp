@@ -461,8 +461,8 @@ PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
 	}
 
 	ObjAttrVector attributes;
-	int n = PyList_Size(attr);
-	for (int i = 0; i < n; ++i)
+	Py_ssize_t n = PyList_Size(attr);
+	for (Py_ssize_t i = 0; i < n; ++i)
 	{
 		PyObject *tmp = PyList_GetItem(attr, i);
 		if (!PyDict_Check(tmp))

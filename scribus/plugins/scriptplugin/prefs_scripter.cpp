@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 // include the python header first because on OSX that uses the name "slots"
 #include "cmdvar.h"
 
+#include <memory>
 #include <QColorDialog>
 #include <QFileDialog>
 #include <QPalette>
@@ -122,7 +123,8 @@ void Prefs_Scripter::setColor()
 
 void Prefs_Scripter::setupSyntaxColors()
 {
-	SyntaxColors* syntax = new SyntaxColors();
+	auto syntax = std::make_unique<SyntaxColors>();
+
 	textColor = syntax->textColor;
 	commentColor = syntax->commentColor;
 	keywordColor = syntax->keywordColor;
@@ -146,8 +148,6 @@ void Prefs_Scripter::setupSyntaxColors()
 	stringButton->setIcon(pm);
 	pm.fill(numberColor);
 	numberButton->setIcon(pm);
-
-	delete(syntax);
 }
 
 void Prefs_Scripter::changeStartupScript()

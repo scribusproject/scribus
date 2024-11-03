@@ -15,13 +15,10 @@ for which a new license (GPL+exception) is in place.
 
 PyObject *scribus_getcolornames(PyObject* /* self */)
 {
-	ColorList edc;
-	PyObject *l;
 	int cc = 0;
-	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
-	ColorList::Iterator it;
-	l = PyList_New(edc.count());
-	for (it = edc.begin(); it != edc.end(); ++it)
+	ColorList edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
+	PyObject* l = PyList_New(edc.count());
+	for (auto it = edc.begin(); it != edc.end(); ++it)
 	{
 		PyList_SetItem(l, cc, PyUnicode_FromString(it.key().toUtf8()));
 		cc++;
@@ -42,7 +39,7 @@ PyObject *scribus_getcolor(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
-	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
+	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
 	QString col = QString::fromUtf8(name.c_str());
 	if (!edc.contains(col))
 	{
@@ -68,7 +65,7 @@ PyObject *scribus_getcolorfloat(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
-	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
+	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
 	QString col = QString::fromUtf8(name.c_str());
 	if (!edc.contains(col))
 	{
@@ -93,7 +90,7 @@ PyObject *scribus_getcolorasrgb(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
-	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
+	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
 	QString col = QString::fromUtf8(name.c_str());
 	if (!edc.contains(col))
 	{
@@ -117,7 +114,7 @@ PyObject *scribus_getcolorasrgbfloat(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance().colorSet();
-	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
+	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : nullptr;
 	QString col = QString::fromUtf8(name.c_str());
 	if (!edc.contains(col))
 	{

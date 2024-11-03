@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 PyObject *scribus_getobjecttype(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
-	PageItem *item = nullptr;
 	QString result;
 
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
@@ -26,7 +25,7 @@ PyObject *scribus_getobjecttype(PyObject* /* self */, PyObject* args)
 	if (!checkHaveDocument())
 		return nullptr;
 
-	item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem* item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 
@@ -74,7 +73,7 @@ PyObject *scribus_getfillcolor(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyUnicode_FromString(item->fillColor().toUtf8());
@@ -87,7 +86,7 @@ PyObject *scribus_getfillshade(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyLong_FromLong(static_cast<long>(item->fillShade()));
@@ -100,10 +99,10 @@ PyObject *scribus_getfilltransparency(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
-	return PyFloat_FromDouble(static_cast<double>(1.0 - item->fillTransparency()));
+	return PyFloat_FromDouble(1.0 - item->fillTransparency());
 }
 
 PyObject *scribus_getfillblendmode(PyObject* /* self */, PyObject* args)
@@ -113,7 +112,7 @@ PyObject *scribus_getfillblendmode(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyLong_FromLong(static_cast<long>(item->fillBlendmode()));
@@ -127,7 +126,7 @@ PyObject* scribus_getgradstop(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem* item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem* item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 
@@ -139,7 +138,7 @@ PyObject* scribus_getgradstop(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 
-	VColorStop* stop = item->fill_gradient.colorStops()[stopIndex];
+	const VColorStop* stop = item->fill_gradient.colorStops()[stopIndex];
 	QByteArray stopName = stop->name.toUtf8();
 
 	return Py_BuildValue("(sdi)", stopName.constData(), stop->opacity, stop->shade);
@@ -152,7 +151,7 @@ PyObject* scribus_getgradstopscount(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem* item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem* item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyLong_FromLong(static_cast<long>(item->fill_gradient.stops()));
@@ -165,7 +164,7 @@ PyObject* scribus_getgradvector(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem* item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem* item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return Py_BuildValue("(ffff)", PointToValue(item->GrStartX), PointToValue(item->GrStartY), PointToValue(item->GrEndX), PointToValue(item->GrEndY));
@@ -178,7 +177,7 @@ PyObject *scribus_getcustomlinestyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyUnicode_FromString(item->customLineStyle().toUtf8());
@@ -191,7 +190,7 @@ PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyUnicode_FromString(item->lineColor().toUtf8());
@@ -204,10 +203,10 @@ PyObject *scribus_getlinetransparency(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
-	return PyFloat_FromDouble(static_cast<double>(1.0 - item->lineTransparency()));
+	return PyFloat_FromDouble(1.0 - item->lineTransparency());
 }
 
 PyObject *scribus_getlineblendmode(PyObject* /* self */, PyObject* args)
@@ -217,7 +216,7 @@ PyObject *scribus_getlineblendmode(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyLong_FromLong(static_cast<long>(item->lineBlendmode()));
@@ -230,10 +229,10 @@ PyObject *scribus_getlinewidth(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
-	return PyFloat_FromDouble(static_cast<double>(item->lineWidth()));
+	return PyFloat_FromDouble(item->lineWidth());
 }
 
 PyObject *scribus_getlineshade(PyObject* /* self */, PyObject* args)
@@ -243,7 +242,7 @@ PyObject *scribus_getlineshade(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyLong_FromLong(static_cast<long>(item->lineShade()));
@@ -256,7 +255,7 @@ PyObject *scribus_getlinejoin(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyLong_FromLong(static_cast<long>(item->PLineJoin));
@@ -269,7 +268,7 @@ PyObject *scribus_getlinecap(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyLong_FromLong(static_cast<long>(item->PLineEnd));
@@ -282,7 +281,7 @@ PyObject *scribus_getlinestyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyLong_FromLong(static_cast<long>(item->PLineArt));
@@ -295,7 +294,7 @@ PyObject *scribus_getcornerradius(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyLong_FromLong(static_cast<long>(item->cornerRadius()));
@@ -308,7 +307,7 @@ PyObject *scribus_getimageoffset(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return Py_BuildValue("(ff)", item->imageXOffset() * item->imageXScale(), item->imageYOffset() * item->imageYScale());
@@ -321,7 +320,7 @@ PyObject *scribus_getimagescale(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return Py_BuildValue("(ff)", item->imageXScale() / 72.0 * item->pixm.imgInfo.xres, item->imageYScale() / 72.0 * item->pixm.imgInfo.yres);
@@ -334,7 +333,7 @@ PyObject *scribus_getimagefile(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyUnicode_FromString(item->Pfile.toUtf8());
@@ -347,7 +346,7 @@ PyObject *scribus_getposition(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return Py_BuildValue("(ff)", docUnitXToPageX(item->xPos()),
@@ -361,7 +360,7 @@ PyObject *scribus_getsize(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return Py_BuildValue("(ff)", PointToValue(item->width()), PointToValue(item->height()));
@@ -374,10 +373,10 @@ PyObject *scribus_getrotation(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
-	return PyFloat_FromDouble(static_cast<double>(item->rotation() * -1));
+	return PyFloat_FromDouble(item->rotation() * -1.0);
 }
 
 PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *keywds)
@@ -458,7 +457,7 @@ PyObject *scribus_getobjectattributes(PyObject* /* self */, PyObject* args)
 	if (!lst)
 		return nullptr;
 	int n = 0;
-	for (ObjAttrVector::Iterator objAttrIt = attributes->begin() ; objAttrIt != attributes->end(); ++objAttrIt)
+	for (auto objAttrIt = attributes->begin() ; objAttrIt != attributes->end(); ++objAttrIt)
 	{
 		PyObject *tmp;
 		tmp = Py_BuildValue("{ssssssssssssss}",
@@ -488,7 +487,7 @@ PyObject *scribus_getimagecolorspace(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (item->itemType() != PageItem::ImageFrame)

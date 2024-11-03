@@ -25,7 +25,7 @@ PyObject *scribus_getcelltext(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell text on a non-table item.","python error").toLocal8Bit().constData());
@@ -37,7 +37,7 @@ PyObject *scribus_getcelltext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 
-	PageItem* textFrame = table->cellAt(row, column).textFrame();
+	const PageItem* textFrame = table->cellAt(row, column).textFrame();
 	const StoryText& story = textFrame->itemText;
 	QString text;
 	text.reserve(story.hasSelection() ? story.selectionLength() : story.length());
@@ -68,7 +68,7 @@ PyObject *scribus_setcelltext(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell text on a non-table item.","python error").toLocal8Bit().constData());
@@ -94,7 +94,7 @@ PyObject *scribus_getcellstyle(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell style on a non-table item.","python error").toLocal8Bit().constData());
@@ -120,7 +120,7 @@ PyObject *scribus_setcellstyle(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell style on a non-table item.","python error").toLocal8Bit().constData());
@@ -146,7 +146,7 @@ PyObject *scribus_getcellrowspan(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell row span from non-table item.","python error").toLocal8Bit().constData());
@@ -166,7 +166,7 @@ PyObject *scribus_getcellcolumnspan(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell column span from non-table item.","python error").toLocal8Bit().constData());
@@ -186,7 +186,7 @@ PyObject *scribus_getcellfillcolor(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell fill color on a non-table item.","python error").toLocal8Bit().constData());
@@ -212,7 +212,7 @@ PyObject *scribus_setcellfillcolor(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell fill color on a non-table item.","python error").toLocal8Bit().constData());
@@ -239,7 +239,7 @@ PyObject *scribus_setcellleftborder(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell left border on a non-table item.","python error").toLocal8Bit().constData());
@@ -273,7 +273,7 @@ PyObject *scribus_setcellrightborder(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell right border on a non-table item.","python error").toLocal8Bit().constData());
@@ -307,7 +307,7 @@ PyObject *scribus_setcelltopborder(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell top border on a non-table item.","python error").toLocal8Bit().constData());
@@ -341,7 +341,7 @@ PyObject *scribus_setcellbottomborder(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell bottom border on a non-table item.","python error").toLocal8Bit().constData());
@@ -375,7 +375,7 @@ PyObject *scribus_setcellleftpadding(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell left padding on a non-table item.","python error").toLocal8Bit().constData());
@@ -408,7 +408,7 @@ PyObject *scribus_setcellrightpadding(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell right padding on a non-table item.","python error").toLocal8Bit().constData());
@@ -441,7 +441,7 @@ PyObject *scribus_setcelltoppadding(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell top padding on a non-table item.","python error").toLocal8Bit().constData());
@@ -474,7 +474,7 @@ PyObject *scribus_setcellbottompadding(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell bottom padding on a non-table item.","python error").toLocal8Bit().constData());

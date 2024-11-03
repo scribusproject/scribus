@@ -67,45 +67,51 @@ static void Printer_dealloc(Printer* self)
 static PyObject * Printer_new(PyTypeObject *type, PyObject * /*args*/, PyObject * /*kwds*/)
 {
 // do not create new object if there is no opened document
-	if (!checkHaveDocument()) {
+	if (!checkHaveDocument())
 		return nullptr;
-	}
 
 	Printer *self = (Printer *)type->tp_alloc(type, 0);
-	if (self != nullptr) {
+	if (self != nullptr)
+	{
 // set allPrinters attribute
 		self->allPrinters = PyList_New(0);
-		if (self->allPrinters == nullptr) {
+		if (self->allPrinters == nullptr)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
 // set printer attribute
 		self->printer = PyUnicode_FromString("");
-		if (self->printer == nullptr) {
+		if (self->printer == nullptr)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
 // set file attribute
 		self->file = PyUnicode_FromString("");
-		if (self->file == nullptr) {
+		if (self->file == nullptr)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
 // set cmd attribute
 		self->cmd = PyUnicode_FromString("");
-		if (self->cmd == nullptr) {
+		if (self->cmd == nullptr)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
 // set pages attribute
 		self->pages = PyList_New(0);
-		if (self->pages == nullptr) {
+		if (self->pages == nullptr)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
 // set separation attribute
 		self->separation = PyUnicode_FromString("No");
-		if (self->separation == nullptr) {
+		if (self->separation == nullptr)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
@@ -129,13 +135,14 @@ static PyObject * Printer_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 
 static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 {
-	if (!checkHaveDocument()) {
+	if (!checkHaveDocument())
 		return -1;
-	}
+
 // pool system for installed printers
 // most code is stolen and little adopted from druck.cpp
 	PyObject *allPrinters = PyList_New(0);
-	if (allPrinters) {
+	if (allPrinters)
+	{
 		Py_DECREF(self->allPrinters);
 		self->allPrinters = allPrinters;
 	}
@@ -146,7 +153,8 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		if (prn.isEmpty())
 			continue;
 		PyObject *tmppr = PyUnicode_FromString(prn.toUtf8().constData());
-		if (tmppr) {
+		if (tmppr)
+		{
 			PyList_Append(self->allPrinters, tmppr);
 			Py_DECREF(tmppr);
 		}
@@ -157,29 +165,35 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 // as default set to print into file
 	PyObject *printer = nullptr;
 	printer = PyUnicode_FromString("File");
-	if (printer) {
+	if (printer)
+	{
 		Py_DECREF(self->printer);
 		self->printer = printer;
 	}
 // set default name of file to print into
 	QString tf(ScCore->primaryMainWindow()->doc->pdfOptions().fileName);
-	if (tf.isEmpty()) {
-		QFileInfo fi = QFileInfo(ScCore->primaryMainWindow()->doc->documentFileName());
+	if (tf.isEmpty())
+	{
+		QFileInfo fi(ScCore->primaryMainWindow()->doc->documentFileName());
 		tf = fi.path() + "/" + fi.baseName() + ".pdf";
 	}
 	PyObject *file = nullptr;
 	file = PyUnicode_FromString(tf.toUtf8());
-	if (file) {
+	if (file)
+	{
 		Py_DECREF(self->file);
 		self->file = file;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'file' attribute");
 		return -1;
 	}
 // alternative printer commands default to ""
 	PyObject *cmd = nullptr;
 	cmd = PyUnicode_FromString("");
-	if (cmd) {
+	if (cmd)
+	{
 		Py_DECREF(self->cmd);
 		self->cmd = cmd;
 	}
@@ -188,20 +202,23 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	PyObject *pages = nullptr;
 	int num = ScCore->primaryMainWindow()->doc->Pages->count();
 	pages = PyList_New(num);
-	if (pages) {
+	if (pages)
+	{
 		Py_DECREF(self->pages);
 		self->pages = pages;
 	}
-	for (int i = 0; i < num; i++) {
+	for (int i = 0; i < num; i++)
+	{
 		PyObject *tmp = nullptr;
-		tmp = PyLong_FromLong((long)i+1L); // instead of 1 put here first page number
+		tmp = PyLong_FromLong((long) i + 1L); // instead of 1 put here first page number
 		if (tmp)
 			PyList_SetItem(self->pages, i, tmp);
 	}
 // do not print separation
 	PyObject *separation = nullptr;
 	separation = PyUnicode_FromString("No");
-	if (separation) {
+	if (separation)
+	{
 		Py_DECREF(self->separation);
 		self->separation = separation;
 	}
@@ -256,24 +273,29 @@ static PyObject *Printer_getprinter(Printer *self, void * /*closure*/)
 
 static int Printer_setprinter(Printer *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'printer' attribute.");
 		return -1;
 	}
-	if (!PyUnicode_Check(value)) {
+	if (!PyUnicode_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "The 'printer' attribute value must be string.");
 		return -1;
 	}
 
-	int n = PyList_Size(self->allPrinters);
+	Py_ssize_t n = PyList_Size(self->allPrinters);
 	bool same = false;
-	for (int i = 0; i < n; i++) {
-		if (PyObject_RichCompareBool(value, PyList_GetItem(self->allPrinters, i), Py_EQ) == 1) {
+	for (Py_ssize_t i = 0; i < n; i++)
+	{
+		if (PyObject_RichCompareBool(value, PyList_GetItem(self->allPrinters, i), Py_EQ) == 1)
+		{
 			same = true;
 			break;
 		}
 	}
-	if (!same) {
+	if (!same)
+	{
 		PyErr_SetString(PyExc_ValueError, "'printer' value can be only one of string in 'allPrinters' attribute ");
 		return -1;
 	}
@@ -292,11 +314,13 @@ static PyObject *Printer_getfile(Printer *self, void * /*closure*/)
 
 static int Printer_setfile(Printer *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'file' attribute.");
 		return -1;
 	}
-	if (!PyUnicode_Check(value)) {
+	if (!PyUnicode_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "The 'file' attribute value must be string.");
 		return -1;
 	}
@@ -314,11 +338,13 @@ static PyObject *Printer_getcmd(Printer *self, void * /*closure*/)
 
 static int Printer_setcmd(Printer *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'cmd' attribute.");
 		return -1;
 	}
-	if (!PyUnicode_Check(value)) {
+	if (!PyUnicode_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "The 'cmd' attribute value must be string.");
 		return -1;
 	}
@@ -336,18 +362,22 @@ static PyObject *Printer_getpages(Printer *self, void * /*closure*/)
 
 static int Printer_setpages(Printer *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'pages' attribute.");
 		return -1;
 	}
-	if (!PyList_Check(value)) {
+	if (!PyList_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "'pages' attribute value must be list of integers.");
 		return -1;
 	}
-	int len = PyList_Size(value);
-	for (int i = 0; i < len; i++) {
+	Py_ssize_t len = PyList_Size(value);
+	for (Py_ssize_t i = 0; i < len; i++)
+	{
 		PyObject *tmp = PyList_GetItem(value, i);
-		if (!PyLong_Check(tmp)) {
+		if (!PyLong_Check(tmp))
+		{
 			PyErr_SetString(PyExc_TypeError, "'pages' attribute must be list containing only integers.");
 			return -1;
 		}
@@ -370,11 +400,13 @@ static PyObject *Printer_getseparation(Printer *self, void * /*closure*/)
 
 static int Printer_setseparation(Printer *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'separation' attribute.");
 		return -1;
 	}
-	if (!PyUnicode_Check(value)) {
+	if (!PyUnicode_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "The 'separation' attribute value must be string.");
 		return -1;
 	}
@@ -398,9 +430,8 @@ static PyGetSetDef Printer_getseters [] = {
 // Here we actually print
 static PyObject *Printer_print(Printer *self)
 {
-	if (!checkHaveDocument()) {
+	if (!checkHaveDocument())
 		return nullptr;
-	}
 
 //	ReOrderText(ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow()->view);
 	QString prn = PyUnicode_asQString(self->printer);
@@ -409,7 +440,8 @@ static PyObject *Printer_print(Printer *self)
 	QString sepName = PyUnicode_asQString(self->separation);
 	
 	PrintOptions options;
-	for (int i = 0; i < PyList_Size(self->pages); ++i) {
+	for (Py_ssize_t i = 0; i < PyList_Size(self->pages); ++i)
+	{
 		options.pageNumbers.push_back((int) PyLong_AsLong(PyList_GetItem(self->pages, i)));
 	}
 	options.printer   = prn;
@@ -502,76 +534,76 @@ PyTypeObject Printer_Type = {
 #if PY_VERSION_HEX >= 0x03080000
 	0,       //     Py_ssize_t tp_vectorcall_offset
 #else
-	nullptr, //     printfunc tp_print;
+	nullptr, //     printfunc tp_print
 #endif
-	nullptr, //     getattrfunc tp_getattr;
-	nullptr, //     setattrfunc tp_setattr;
-	nullptr, //     cmpfunc tp_as_async;
-	nullptr, //     reprfunc tp_repr;
+	nullptr, //     getattrfunc tp_getattr
+	nullptr, //     setattrfunc tp_setattr
+	nullptr, //     cmpfunc tp_as_async
+	nullptr, //     reprfunc tp_repr
 
 	/* Method suites for standard classes */
 
-	nullptr, //     PyNumberMethods *tp_as_number;
-	nullptr, //     PySequenceMethods *tp_as_sequence;
-	nullptr, //     PyMappingMethods *tp_as_mapping;
+	nullptr, //     PyNumberMethods *tp_as_number
+	nullptr, //     PySequenceMethods *tp_as_sequence
+	nullptr, //     PyMappingMethods *tp_as_mapping
 
 	/* More standard operations (here for binary compatibility) */
 
-	nullptr, //     hashfunc tp_hash;
-	nullptr, //     ternaryfunc tp_call;
-	nullptr, //     reprfunc tp_str;
-	nullptr, //     getattrofunc tp_getattro;
-	nullptr, //     setattrofunc tp_setattro;
+	nullptr, //     hashfunc tp_hash
+	nullptr, //     ternaryfunc tp_call
+	nullptr, //     reprfunc tp_str
+	nullptr, //     getattrofunc tp_getattro
+	nullptr, //     setattrofunc tp_setattro
 
 	/* Functions to access object as input/output buffer */
-	nullptr, //     PyBufferProcs *tp_as_buffer;
+	nullptr, //     PyBufferProcs *tp_as_buffer
 
 	/* Flags to define presence of optional/expanded features */
-	Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,    // long tp_flags;
+	Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,    // long tp_flags
 
 	printer__doc__,      // char *tp_doc; /* Documentation string */
 
 	/* Assigned meaning in release 2.0 */
 	/* call function for all accessible objects */
-	nullptr, //     traverseproc tp_traverse;
+	nullptr, //     traverseproc tp_traverse
 
 	/* delete references to contained objects */
-	nullptr, //     inquiry tp_clear;
+	nullptr, //     inquiry tp_clear
 
 	/* Assigned meaning in release 2.1 */
 	/* rich comparisons */
-	nullptr, //     richcmpfunc tp_richcompare;
+	nullptr, //     richcmpfunc tp_richcompare
 
 	/* weak reference enabler */
-	0, //     long tp_weaklistoffset;
+	0, //     long tp_weaklistoffset
 
 	/* Added in release 2.2 */
 	/* Iterators */
-	nullptr, //     getiterfunc tp_iter;
-	nullptr, //     iternextfunc tp_iternext;
+	nullptr, //     getiterfunc tp_iter
+	nullptr, //     iternextfunc tp_iternext
 
 	/* Attribute descriptor and subclassing stuff */
-	Printer_methods, //     struct PyMethodDef *tp_methods;
-	Printer_members, //     struct PyMemberDef *tp_members;
-	Printer_getseters, //     struct PyGetSetDef *tp_getset;
-	nullptr, //     struct _typeobject *tp_base;
-	nullptr, //     PyObject *tp_dict;
-	nullptr, //     descrgetfunc tp_descr_get;
-	nullptr, //     descrsetfunc tp_descr_set;
-	0, //     long tp_dictoffset;
-	(initproc) Printer_init, //     initproc tp_init;
-	nullptr, //     allocfunc tp_alloc;
-	Printer_new, //     newfunc tp_new;
+	Printer_methods, //     struct PyMethodDef *tp_methods
+	Printer_members, //     struct PyMemberDef *tp_members
+	Printer_getseters, //     struct PyGetSetDef *tp_getset
+	nullptr, //     struct _typeobject *tp_base
+	nullptr, //     PyObject *tp_dict
+	nullptr, //     descrgetfunc tp_descr_get
+	nullptr, //     descrsetfunc tp_descr_set
+	0, //     long tp_dictoffset
+	(initproc) Printer_init, //     initproc tp_init
+	nullptr, //     allocfunc tp_alloc
+	Printer_new, //     newfunc tp_new
 	nullptr, //     freefunc tp_free; /* Low-level free-memory routine */
 	nullptr, //     inquiry tp_is_gc; /* For PyObject_IS_GC */
-	nullptr, //     PyObject *tp_bases;
+	nullptr, //     PyObject *tp_bases
 	nullptr, //     PyObject *tp_mro; /* method resolution order */
-	nullptr, //     PyObject *tp_cache;
-	nullptr, //     PyObject *tp_subclasses;
-	nullptr, //     PyObject *tp_weaklist;
-	nullptr, //     destructor tp_del;
-	0, //	 unsigned int tp_version_tag;
-	nullptr, //	 destructor tp_finalize;
+	nullptr, //     PyObject *tp_cache
+	nullptr, //     PyObject *tp_subclasses
+	nullptr, //     PyObject *tp_weaklist
+	nullptr, //     destructor tp_del
+	0, //	 unsigned int tp_version_tag
+	nullptr, //	 destructor tp_finalize
 #if PY_VERSION_HEX >= 0x03080000
 	nullptr, // tp_vectorcall
 #endif

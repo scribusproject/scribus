@@ -115,11 +115,11 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 
 	if (tabDefinitions != nullptr)
 	{
-		int n = PyList_Size(tabDefinitions);
-		for (int i = 0; i < n; i++)
+		Py_ssize_t n = PyList_Size(tabDefinitions);
+		for (Py_ssize_t i = 0; i < n; i++)
 		{
 			PyObject* tabDefinition = PyList_GetItem(tabDefinitions, i);
-			int size = PyTuple_Check(tabDefinition) ? PyTuple_Size(tabDefinition) : 1;
+			Py_ssize_t size = PyTuple_Check(tabDefinition) ? PyTuple_Size(tabDefinition) : 1;
 			PyObject* tabPositionDefinition = PyTuple_Check(tabDefinition) ? PyTuple_GetItem(tabDefinition, 0) : tabDefinition;
 
 			float tabPosition = 0.0;
@@ -192,7 +192,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	if (!checkHaveDocument())
 		return nullptr;
 
-	const double dbl_min = -std::numeric_limits<double>::max();
+	constexpr double dbl_min = -std::numeric_limits<double>::max();
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	const StyleSet<CharStyle>& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
@@ -227,7 +227,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		return nullptr;
 	}
 
-	QString realFont = QString(font.c_str());
+	QString realFont(font.c_str());
 	if (!realFont.isEmpty())
 	{
 		if (!currentDoc->AllFonts->contains(realFont))
@@ -238,8 +238,8 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	}
 
 	const ColorList& docColors = currentDoc->PageColors;
-	QString qFillColor = QString(fillColor.c_str());
-	QString qStrokeColor = QString(strokeColor.defaulted("Black"));
+	QString qFillColor(fillColor.c_str());
+	QString qStrokeColor(strokeColor.defaulted("Black"));
 	if (!qFillColor.isEmpty())
 	{
 		if ((qFillColor != CommonStrings::None) && (!docColors.contains(qFillColor)))
@@ -263,7 +263,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		strokeShade = qMax(0.0, qMin(strokeShade, 1.0));
 	QStringList featuresList = QString(features.defaulted("inherit")).split(',', Qt::SkipEmptyParts);
 	QString qFontFeatures = QString::fromUtf8(fontFeatures.c_str());
-	QString qLanguage = QString(language.c_str());
+	QString qLanguage(language.c_str());
 
 	CharStyle tmpCharStyle;
 	tmpCharStyle.setName(name.c_str());
@@ -340,7 +340,7 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 	MultiLine ml;
 	const ColorList& docColors = currentDoc->PageColors;
 
-	for (int i = 0; i < PyList_Size(obj); i++)
+	for (Py_ssize_t i = 0; i < PyList_Size(obj); i++)
 	{
 		PyObject *line = PyList_GetItem(obj, i);
 		if (!PyDict_Check(line))

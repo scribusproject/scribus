@@ -23,7 +23,7 @@ PyObject *scribus_gettablerows(PyObject* /* self */, PyObject* args)
 	if (i == nullptr)
 		return nullptr;
 
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table row count of non-table item.","python error").toLocal8Bit().constData());
@@ -43,7 +43,7 @@ PyObject *scribus_gettablecolumns(PyObject* /* self */, PyObject* args)
 	if (i == nullptr)
 		return nullptr;
 
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table column count of non-table item.","python error").toLocal8Bit().constData());
@@ -130,13 +130,13 @@ PyObject *scribus_gettablerowheight(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get row height from non-table item.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyFloat_FromDouble(static_cast<double>(table->rowHeight(row)));
+	return PyFloat_FromDouble(table->rowHeight(row));
 }
 
 PyObject *scribus_resizetablerow(PyObject* /* self */, PyObject* args)
@@ -249,13 +249,13 @@ PyObject *scribus_gettablecolumnwidth(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column width from non-table item.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	return PyFloat_FromDouble(static_cast<double>(table->columnWidth(column)));
+	return PyFloat_FromDouble(table->columnWidth(column));
 }
 
 PyObject *scribus_resizetablecolumn(PyObject* /* self */, PyObject* args)
@@ -333,7 +333,7 @@ PyObject *scribus_gettablestyle(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table style on a non-table item.","python error").toLocal8Bit().constData());
@@ -373,7 +373,7 @@ PyObject *scribus_gettablefillcolor(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
-	PageItem_Table *table = i->asTable();
+	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table fill color on a non-table item.","python error").toLocal8Bit().constData());

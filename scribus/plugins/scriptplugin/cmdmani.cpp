@@ -389,9 +389,9 @@ PyObject *scribus_groupobjects(PyObject* /* self */, PyObject* args)
 	// If we were passed a list of items to group...
 	if (il != nullptr)
 	{
-		int len = PyList_Size(il);
+		Py_ssize_t len = PyList_Size(il);
 		tempSelection = new Selection(ScCore->primaryMainWindow(), false);
-		for (int i = 0; i < len; i++)
+		for (Py_ssize_t i = 0; i < len; i++)
 		{
 			// FIXME: We might need to explicitly get this string as utf8
 			// but as sysdefaultencoding is utf8 it should be a no-op to do
