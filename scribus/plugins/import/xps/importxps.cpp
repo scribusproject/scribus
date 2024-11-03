@@ -1835,7 +1835,7 @@ QString XpsPlug::handleColor(QString rgbColor, double &opacity)
 		}
 		else
 			opacity = 0;
-		c.setNamedColor(rgbColor);
+		c = QColor::fromString(rgbColor);
 		ScColor tmp;
 		tmp.fromQColor(c);
 		tmp.setSpotColor(false);

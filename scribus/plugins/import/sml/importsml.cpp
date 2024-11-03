@@ -509,7 +509,7 @@ QString SmlPlug::processColor(QDomElement &elem)
 {
 	QString colnam = elem.attribute("color","#ffffff");
 	QColor stroke;
-	stroke.setNamedColor("#"+colnam.right(6));
+	stroke = QColor::fromString("#"+colnam.right(6));
 	ScColor tmp;
 	tmp.fromQColor(stroke);
 	tmp.setSpotColor(false);

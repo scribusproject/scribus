@@ -367,23 +367,23 @@ SyntaxColors::SyntaxColors()
 	PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("scriptplugin");
 	if (prefs)
 	{
-		errorColor.setNamedColor(prefs->get("syntaxerror", "#aa0000"));
-		commentColor.setNamedColor(prefs->get("syntaxcomment", "#A0A0A0"));
-		keywordColor.setNamedColor(prefs->get("syntaxkeyword", "#00007f"));
-		signColor.setNamedColor(prefs->get("syntaxsign", "#aa00ff"));
-		numberColor.setNamedColor(prefs->get("syntaxnumber", "#ffaa00"));
-		stringColor.setNamedColor(prefs->get("syntaxstring", "#005500"));
-		textColor.setNamedColor(prefs->get("syntaxtext", "#000000"));
+		errorColor = QColor::fromString(prefs->get("syntaxerror", "#aa0000"));
+		commentColor = QColor::fromString(prefs->get("syntaxcomment", "#A0A0A0"));
+		keywordColor = QColor::fromString(prefs->get("syntaxkeyword", "#00007f"));
+		signColor = QColor::fromString(prefs->get("syntaxsign", "#aa00ff"));
+		numberColor = QColor::fromString(prefs->get("syntaxnumber", "#ffaa00"));
+		stringColor = QColor::fromString(prefs->get("syntaxstring", "#005500"));
+		textColor = QColor::fromString(prefs->get("syntaxtext", "#000000"));
 	}
 	else
 	{
-		errorColor.setNamedColor("#aa0000");
-		commentColor.setNamedColor("#A0A0A0");
-		keywordColor.setNamedColor("#00007f");
-		signColor.setNamedColor("#aa00ff");
-		numberColor.setNamedColor("#ffaa00");
-		stringColor.setNamedColor("#005500");
-		textColor.setNamedColor("#000000");
+		errorColor = QColor::fromString("#aa0000");
+		commentColor = QColor::fromString("#A0A0A0");
+		keywordColor = QColor::fromString("#00007f");
+		signColor = QColor::fromString("#aa00ff");
+		numberColor = QColor::fromString("#ffaa00");
+		stringColor = QColor::fromString("#005500");
+		textColor = QColor::fromString("#000000");
 	}
 }
 

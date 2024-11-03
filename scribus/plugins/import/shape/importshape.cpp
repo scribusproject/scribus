@@ -21,32 +21,32 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "loadsaveplugin.h"
-#include "pagesize.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
+// #include "pagesize.h"
+// #include "prefscontext.h"
+// #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "prefstable.h"
-#include "rawimage.h"
+// #include "prefstable.h"
+// #include "rawimage.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
-#include "sclimits.h"
+// #include "sclimits.h"
 #include "scmimedata.h"
-#include "scpaths.h"
+// #include "scpaths.h"
 #include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "sctextstream.h"
+// #include "sctextstream.h"
 #include "selection.h"
-#include "ui/customfdialog.h"
+// #include "ui/customfdialog.h"
 #include "ui/missing.h"
 #include "ui/multiprogressdialog.h"
 #include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
-#include "util_formats.h"
+// #include "util_formats.h"
 #include "util_math.h"
 
 ShapePlug::ShapePlug(ScribusDoc* doc, int flags)
@@ -443,7 +443,7 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 						FillCol = CommonStrings::None;
 					else
 					{
-						fill.setNamedColor( params );
+						fill = QColor::fromString( params );
 						FillCol = "FromDia"+fill.name();
 						ScColor tmp;
 						tmp.fromQColor(fill);
@@ -460,7 +460,7 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 			{
 				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default")) || (params == "inverse"))
 				{
-					stroke.setNamedColor( params );
+					stroke = QColor::fromString( params );
 					StrokeCol = "FromDia"+stroke.name();
 					ScColor tmp;
 					tmp.fromQColor(stroke);

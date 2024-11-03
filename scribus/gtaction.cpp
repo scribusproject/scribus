@@ -812,7 +812,7 @@ QString gtAction::parseColor(const QString &s)
 			c = QColor(r.toInt(), g.toInt(), b.toInt());
 		}
 		else
-			c.setNamedColor(s.trimmed());
+			c = QColor::fromString(s.trimmed());
 		found = false;
 		for (it = m_textFrame->doc()->PageColors.begin(); it != m_textFrame->doc()->PageColors.end(); ++it)
 		{

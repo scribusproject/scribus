@@ -456,7 +456,7 @@ void DocXIm::parseParaProps(QDomElement &props, ParagraphStyle &pStyle)
 			{
 				QString color = spt.attribute("w:fill");
 				QColor colour;
-				colour.setNamedColor("#" + color);
+				colour = QColor::fromString("#" + color);
 				ScColor tmp;
 				tmp.fromQColor(colour);
 				tmp.setSpotColor(false);
@@ -582,7 +582,7 @@ void DocXIm::parseCharProps(QDomElement &props, ParagraphStyle &pStyle)
 			{
 				QString color = spc.attribute("w:val");
 				QColor colour;
-				colour.setNamedColor("#" + color);
+				colour = QColor::fromString("#" + color);
 				ScColor tmp;
 				tmp.fromQColor(colour);
 				tmp.setSpotColor(false);
@@ -597,7 +597,7 @@ void DocXIm::parseCharProps(QDomElement &props, ParagraphStyle &pStyle)
 			{
 				QString color = spc.attribute("w:fill");
 				QColor colour;
-				colour.setNamedColor("#" + color);
+				colour = QColor::fromString("#" + color);
 				ScColor tmp;
 				tmp.fromQColor(colour);
 				tmp.setSpotColor(false);

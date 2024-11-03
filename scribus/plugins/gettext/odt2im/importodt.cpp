@@ -1413,7 +1413,7 @@ QString ODTIm::parseColor( const QString &s )
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
 	else
-		c.setNamedColor( s.trimmed() );
+		c = QColor::fromString( s.trimmed() );
 	ScColor tmp;
 	tmp.fromQColor(c);
 	tmp.setSpotColor(false);
