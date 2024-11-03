@@ -115,10 +115,17 @@ public:
 	SlaOutFontFileID(const Ref *rA) { r = *rA; }
 	~SlaOutFontFileID() {}
 
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
+	bool matches(const SplashFontFileID& id) const override
+	{
+		return ((const SlaOutFontFileID&) id).r.num == r.num && ((const SlaOutFontFileID&) id).r.gen == r.gen;
+	}
+#else
 	GBool matches(SplashFontFileID *id) override
 	{
 		return ((SlaOutFontFileID*) id)->r.num == r.num && ((SlaOutFontFileID *) id)->r.gen == r.gen;
 	}
+#endif
 
 private:
 	Ref r;
