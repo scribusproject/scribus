@@ -2020,7 +2020,10 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.uiPrefs.useTabs = static_cast<bool>(dc.attribute("UseDocumentTabs", "0").toInt());
 			appPrefs.uiPrefs.stickyTools = static_cast<bool>(dc.attribute("StickyTools", "0").toInt());
 			appPrefs.uiPrefs.grayscaleIcons = static_cast<bool>(dc.attribute("UseGrayscaleIcons",nullptr).toInt());
-			appPrefs.uiPrefs.iconSet = dc.attribute("IconSet", "1_7_0");
+			appPrefs.uiPrefs.iconSet = dc.attribute("IconSet", "Scribus 1.7.0");
+			//Override importing prefs and default iconset for 1.7.0
+			if (appPrefs.uiPrefs.iconSet.startsWith("Scribus 1.5"))
+				appPrefs.uiPrefs.iconSet = "Scribus 1.7.0";
 			appPrefs.uiPrefs.userPreferredLocale = dc.attribute("UserPreferredLocale", "System");
 		}
 
