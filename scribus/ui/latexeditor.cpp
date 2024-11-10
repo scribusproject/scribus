@@ -157,7 +157,7 @@ void LatexEditor::extEditorClicked()
 	externalEditorPushButton->setEnabled(false);
 	externalEditorPushButton->setText(tr("Editor running!"));
 	
-	extEditor->start(full_command);
+	extEditor->startCommand(full_command);
 }
 
 void LatexEditor::writeExternalEditorFile()
