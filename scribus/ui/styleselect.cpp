@@ -129,7 +129,6 @@ void ShadowValues::languageChange()
 
 StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 {
-	IconManager& im = IconManager::instance();
 	ssLayout = new QHBoxLayout(this);
 	ssLayout->setSpacing(4);
 	ssLayout->setContentsMargins(0, 0, 0, 0);
