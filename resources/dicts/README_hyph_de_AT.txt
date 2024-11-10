@@ -1,7 +1,7 @@
-Hyphenation dictionary "hyph_de_CH.dic"
+Hyphenation dictionary "hyph_de_AT.dic"
 ---------------------------------------
 
-Language: German (de CH)
+Language: German (de AT)
 		  according to the reform of 2006-08-01	(i.e. reformed or new spelling)
 
 Version:  2017-01-12
