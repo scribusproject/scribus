@@ -11920,6 +11920,35 @@ void ScribusDoc::itemSelection_SetMaskGradientName(const QString& newGradient, S
 	changed();
 }
 
+void ScribusDoc::itemSelection_SetFillRule(bool evenOdd, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	assert(itemSelection != nullptr);
+	int selectedItemCount = itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	m_updateManager.setUpdatesDisabled();
+
+	UndoTransaction activeTransaction;
+	if (UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction();
+
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem* currItem = itemSelection->itemAt(i);
+		if (currItem->isPathText() || currItem->isTextFrame() || currItem->isImageFrame())
+			continue;
+		currItem->setFillEvenOdd(evenOdd);
+		currItem->update();
+	}
+
+	if (activeTransaction)
+		activeTransaction.commit(Um::Selection, Um::IGroup, Um::SetFillRule, "", Um::IGroup);
+
+	m_updateManager.setUpdatesEnabled();
+	changed();
+}
 
 void ScribusDoc::itemSelection_SetOverprint(bool overprint, Selection* customSelection)
 {

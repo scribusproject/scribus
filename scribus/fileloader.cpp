@@ -476,8 +476,11 @@ uint FileLoader::findFormatIDFromDescription(const QString &fileType)
 	auto itEnd(fileFormats.constEnd());
 	for (; it != itEnd; ++it)
 	{
-		if (it->trName == fileType)
+		if (it->trName == fileType ||
+			it->filter == fileType)
+		{
 			return it->formatId;
+		}
 	}
 	return -1;
 }
