@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "scstreamfilter.h"
 #include "selection.h"
 #include "util.h"
+#include "util_os.h"
 
 bool copyData(QIODevice& src, QIODevice& dest)
 {
@@ -239,9 +240,10 @@ bool fileInPath(const QString& filename)
 	//Get $PATH
 	QString path;
 	const QStringList env = QProcess::systemEnvironment();
+	Qt::CaseSensitivity pathCaseSensitivity = os_is_win() ? Qt::CaseInsensitive : Qt::CaseSensitive;
 	for (const QString& line : env)
 	{
-		if (line.indexOf("PATH") == 0)
+		if (line.startsWith("PATH=", pathCaseSensitivity))
 		{
 			path = line.mid(5); //Strip "PATH="
 			break;
