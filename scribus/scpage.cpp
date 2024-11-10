@@ -409,6 +409,8 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 			oldItem->Parent->asGroupFrame()->groupItemList.insert(id, oldItem);
 		else
 			m_Doc->Items->insert(id, oldItem);
+		if (oldItem->isBookmark)
+			m_Doc->scMW()->AddBookMark(oldItem);
 		m_Doc->m_Selection->addItems(itemList);
 	}
 	else
