@@ -2159,7 +2159,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			if (dc.hasAttribute("FontColorBackground"))
 			{
 				QString colorName = dc.attribute("FontColorBackground");
-				if (QColor::isValidColor(colorName))
+				if (QColor::isValidColorName(colorName))
 					appPrefs.storyEditorPrefs.guiFontColorBackground  = QColor(colorName);
 			}
 			appPrefs.storyEditorPrefs.smartTextSelection = static_cast<bool>(dc.attribute("SmartTextSelection", "0").toInt());

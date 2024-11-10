@@ -18,19 +18,20 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 
-#include <QCryptographicHash>
-#include <QXmlStreamWriter>
-#include <QXmlStreamReader>
 #include <QByteArray>
+#include <QByteArrayView>
+#include <QCryptographicHash>
 #include <QDateTime>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
-#include "sclockedfile.h"
-#include "scimagecacheproxy.h"
 #include "scimagecachemanager.h"
+#include "scimagecacheproxy.h"
 #include "scimagecachewriteaction.h"
+#include "sclockedfile.h"
 #include "scpaths.h"
 #include "util_file.h"
 
@@ -310,7 +311,10 @@ QString ScImageCacheProxy::imageBaseName(const QImage & image) const
 	}
 	QCryptographicHash hash(HASH_ALGORITHM);
 	for (int i = 0; i < image.height(); i++)
-		hash.addData(reinterpret_cast<const char *>(image.scanLine(i)), image.bytesPerLine());
+	{
+		QByteArrayView baView(image.scanLine(i), image.bytesPerLine());
+		hash.addData(baView);
+	}
 	return addDirLevels(hash.result().toHex()) + "-" + m_metadata["size"];
 }
 
